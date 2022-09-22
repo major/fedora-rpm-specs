@@ -1,0 +1,347 @@
+Name:          enchant2
+Version:       2.3.3
+Release:       2%{?snap}%{?dist}
+Summary:       An Enchanting Spell Checking Library
+
+License:       LGPLv2+
+URL:           https://github.com/AbiWord/enchant
+Source0:       https://github.com/AbiWord/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
+
+# Look for aspell using pkg-config, instead of AC_CHECK_LIB which adds -laspell
+# to the global LIBS and over-links libenchant (#1574893)
+Patch0:        enchant_aspell.patch
+
+BuildRequires: automake autoconf libtool
+
+BuildRequires: gcc-c++
+BuildRequires: make
+BuildRequires: glib2-devel
+BuildRequires: aspell-devel
+BuildRequires: hunspell-devel
+BuildRequires: libvoikko-devel
+%if !0%{?rhel}
+BuildRequires: nuspell-devel
+%endif
+
+BuildRequires: mingw32-filesystem >= 131
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw32-glib2
+BuildRequires: mingw32-hunspell
+%if !0%{?rhel}
+BuildRequires: mingw32-nuspell
+%endif
+
+
+BuildRequires: mingw64-filesystem >= 131
+BuildRequires: mingw64-gcc-c++
+BuildRequires: mingw64-glib2
+BuildRequires: mingw64-hunspell
+%if !0%{?rhel}
+BuildRequires: mingw64-nuspell
+%endif
+
+Provides:      bundled(gnulib)
+
+
+%description
+A library that wraps other spell checking backends.
+
+
+%package aspell
+Summary:       Integration with aspell for libenchant
+Requires:      enchant2%{?_isa} = %{version}-%{release}
+Supplements:   (enchant2 and aspell)
+
+%description aspell
+Libraries necessary to integrate applications using libenchant with aspell.
+
+%if !0%{?rhel}
+%package nuspell
+Summary:       Integration with Nuspell for libenchant
+Requires:      enchant2%{?_isa} = %{version}-%{release}
+Supplements:   (enchant2 and nuspell)
+
+%description nuspell
+Libraries necessary to integrate applications using libenchant with Nuspell.
+%endif
+
+%package voikko
+Summary:       Integration with voikko for libenchant
+Requires:      enchant2%{?_isa} = %{version}-%{release}
+Supplements:   (enchant2 and langpacks-fi)
+
+%description voikko
+Libraries necessary to integrate applications using libenchant with voikko.
+
+
+%package devel
+Summary:       Development files for %{name}
+Requires:      enchant2%{?_isa} = %{version}-%{release}
+Requires:      glib2-devel
+
+%description devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%package -n mingw32-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+
+%description -n mingw32-%{name}
+MinGW Windows %{pkgname} library.
+
+
+%package -n mingw64-%{name}
+Summary:       MinGW Windows %{name} library
+BuildArch:     noarch
+
+%description -n mingw64-%{name}
+MinGW Windows %{name} library.
+
+
+%{?mingw_debug_package}
+
+
+%prep
+%autosetup -p1 -n enchant-%{version}
+
+# Needed for Patch0
+autoreconf -ifv
+
+
+%build
+# Native build
+mkdir build_native
+pushd build_native
+%define _configure ../configure
+%configure \
+    --with-aspell \
+    --with-hunspell-dir=%{_datadir}/hunspell \
+%if !0%{?rhel}
+    --with-nuspell \
+%endif
+    --without-hspell \
+    --disable-static
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g;
+        s|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+%make_build pkgdatadir=%{_datadir}/enchant-2
+popd
+
+# MinGW build
+MINGW32_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw32_datadir}/hunspell" \
+MINGW64_CONFIGURE_ARGS="--with-hunspell-dir=%{mingw64_datadir}/hunspell" \
+%mingw_configure --disable-static --without-hspell --enable-relocatable
+
+MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
+MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
+%mingw_make_build
+
+
+%install
+# Native build
+%make_install -C build_native pkgdatadir=%{_datadir}/enchant-2
+
+# MinGW build
+MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
+MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
+%mingw_make_install
+rm -rf %{buildroot}%{mingw32_datadir}/man
+rm -rf %{buildroot}%{mingw64_datadir}/man
+
+find %{buildroot} -name '*.la' -delete
+
+
+%mingw_debug_install_post
+
+
+%files
+%doc AUTHORS NEWS README
+%license COPYING.LIB
+%{_bindir}/enchant-2
+%{_bindir}/enchant-lsmod-2
+%{_libdir}/libenchant-2.so.*
+%dir %{_libdir}/enchant-2
+%{_libdir}/enchant-2/enchant_hunspell.so
+%{_mandir}/man1/*
+%{_datadir}/enchant-2
+
+%files aspell
+%{_libdir}/enchant-2/enchant_aspell.so*
+
+%if !0%{?rhel}
+%files nuspell
+%{_libdir}/enchant-2/enchant_nuspell.so*
+%endif
+
+%files voikko
+%{_libdir}/enchant-2/enchant_voikko.so*
+
+%files devel
+%{_libdir}/libenchant-2.so
+%{_libdir}/pkgconfig/enchant-2.pc
+%{_includedir}/enchant-2
+
+%files -n mingw32-%{name}
+%license COPYING.LIB
+%{mingw32_bindir}/enchant-lsmod-2.exe
+%{mingw32_bindir}/enchant-2.exe
+%{mingw32_bindir}/libenchant-2.dll
+%{mingw32_includedir}/enchant-2/
+%dir %{mingw32_libdir}/enchant-2/
+%{mingw32_libdir}/enchant-2/enchant_hunspell.dll
+%{mingw32_libdir}/enchant-2/enchant_hunspell.dll.a
+%{mingw32_libdir}/enchant-2/enchant_nuspell.dll
+%{mingw32_libdir}/enchant-2/enchant_nuspell.dll.a
+%{mingw32_libdir}/libenchant-2.dll.a
+%{mingw32_libdir}/pkgconfig/enchant-2.pc
+%{mingw32_datadir}/enchant-2/
+
+%files -n mingw64-%{name}
+%license COPYING.LIB
+%{mingw64_bindir}/enchant-lsmod-2.exe
+%{mingw64_bindir}/enchant-2.exe
+%{mingw64_bindir}/libenchant-2.dll
+%{mingw64_includedir}/enchant-2/
+%dir %{mingw64_libdir}/enchant-2/
+%{mingw64_libdir}/enchant-2/enchant_hunspell.dll
+%{mingw64_libdir}/enchant-2/enchant_hunspell.dll.a
+%{mingw64_libdir}/enchant-2/enchant_nuspell.dll
+%{mingw64_libdir}/enchant-2/enchant_nuspell.dll.a
+%{mingw64_libdir}/libenchant-2.dll.a
+%{mingw64_libdir}/pkgconfig/enchant-2.pc
+%{mingw64_datadir}/enchant-2/
+
+
+%changelog
+* Sat Aug 06 2022 Sandro Mani <manisandro@gmail.com> - 2.3.3-2
+- Rebuild (mingw-icu)
+
+* Mon Aug 01 2022 Sandro Mani <manisandro@gmail.com> - 2.3.3-1
+- Update to 2.3.3
+
+* Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.3.2-8
+- Rebuilt for ICU 71.1
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 2.3.2-6
+- Rebuild with mingw-gcc-12
+
+* Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 2.3.2-5
+- Make mingw subpackages noarch
+
+* Thu Feb 24 2022 Sandro Mani <manisandro@gmail.com> - 2.3.2-4
+- Add mingw subpackages
+
+* Tue Jan 25 2022 Parag Nemade <pnemade AT redhat DOT com> - 2.3.2-3
+- Update hunspell-dir path
+  F36 Change https://fedoraproject.org/wiki/Changes/Hunspell_dictionary_dir_change
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Sun Dec 05 2021 Sandro Mani <manisandro@gmail.com> - 2.3.2-1
+- Update to 2.3.2
+
+* Wed Aug 11 2021 Sandro Mani <manisandro@gmail.com> - 2.3.1-1
+- Update to 2.3.1
+
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jun 15 2021 Sandro Mani <manisandro@gmail.com> - 2.3.0-1
+- Update to 2.3.0
+
+* Wed May 19 2021 Pete Walter <pwalter@fedoraproject.org> - 2.2.15-7
+- Rebuild for ICU 69
+
+* Wed May 19 2021 Pete Walter <pwalter@fedoraproject.org> - 2.2.15-6
+- Rebuild for ICU 69
+
+* Sat Mar 06 2021 Peter Oliver <rpm@mavit.org.uk> - 2.2.15-5
+- Recommend enchant2-aspell if enchant2 and aspell are both installed.
+
+* Mon Feb 08 2021 Kalev Lember <klember@redhat.com> - 2.2.15-4
+- Disable nuspell support for RHEL (#1925839)
+
+* Tue Feb  2 2021 Peter Oliver <rpm@mavit.org.uk> - 2.2.15-3
+- Include support for Nuspell.
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Dec 23 2020 Sandro Mani <manisandro@gmail.com> - 2.2.15-1
+- Update to 2.2.15
+
+* Mon Dec 14 2020 Sandro Mani <manisandro@gmail.com> - 2.2.14-1
+- Update to 2.2.14
+
+* Tue Nov 03 2020 Sandro Mani <manisandro@gmail.com> - 2.2.13-1
+- Update to 2.2.13
+
+* Sat Oct 17 2020 Sandro Mani <manisandro@gmail.com> - 2.2.12-1
+- Update to 2.2.12
+
+* Tue Sep 08 2020 Sandro Mani <manisandro@gmail.com> - 2.2.11-1
+- Update to 2.2.11
+
+* Wed Sep 02 2020 Sandro Mani <manisandro@gmail.com> - 2.2.10-1
+- Update to 2.2.10
+
+* Mon Aug 24 2020 Sandro Mani <manisandro@gmail.com> - 2.2.9-1
+- Update to 2.2.9
+
+* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Mar 02 2020 Sandro Mani <manisandro@gmail.com> - 2.2.8-1
+- Update to 2.2.8
+
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Sun Sep 15 2019 Sandro Mani <manisandro@gmail.com> - 2.2.7-1
+- Update to 2.2.7
+
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Mon Jul 01 2019 Sandro Mani <manisandro@gmail.com> - 2.2.5-1
+- Update to 2.2.5
+
+* Fri Jun 28 2019 Sandro Mani <manisandro@gmail.com> - 2.2.4-2
+- Add patch to fix memory leaks (#1718084)
+- Pass --without-hspell
+
+* Tue Jun 18 2019 Sandro Mani <manisandro@gmail.com> - 2.2.4-1
+- Update to 2.2.4
+
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Jun 15 2018 Sandro Mani <manisandro@gmail.com> - 2.2.3-4
+- Add patch to avoid unnecessary linking of libenchant against libaspell (#1574893)
+
+* Wed May 16 2018 Parag Nemade <pnemade AT redhat DOT com> - 2.2.3-3
+- Make enchant2-voikko installed by langpacks-fi package (#1578352)
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Mon Feb 05 2018 Sandro Mani <manisandro@gmail.com> - 2.2.3-1
+- Update to 2.2.3
+
+* Wed Jan 03 2018 Sandro Mani <manisandro@gmail.com> - 2.2.1-1
+- Update to 2.2.1
+
+* Thu Dec 14 2017 Sandro Mani <manisandro@gmail.com> - 2.2.0-2
+- Add patch to fix FSF addresses
+- Kill rpath
+
+* Wed Dec 13 2017 Sandro Mani <manisandro@gmail.com> - 2.2.0-1
+- Initial package

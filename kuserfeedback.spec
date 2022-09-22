@@ -1,0 +1,158 @@
+Name:    kuserfeedback
+Summary: Framework for collecting user feedback for apps via telemetry and surveys
+Version: 1.2.0
+Release: 5%{?dist}
+
+License: MIT
+URL:     https://invent.kde.org/libraries/%{name}
+Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+
+## upstream patches
+
+BuildRequires: cmake
+BuildRequires: gcc-c++
+
+BuildRequires: kf5-rpm-macros
+BuildRequires: libappstream-glib
+BuildRequires: desktop-file-utils
+BuildRequires: extra-cmake-modules
+
+BuildRequires: cmake(Qt5Qml)
+BuildRequires: cmake(Qt5Svg)
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5Test)
+BuildRequires: cmake(Qt5Charts)
+BuildRequires: cmake(Qt5Network)
+BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(Qt5PrintSupport)
+
+BuildRequires: bison
+BuildRequires: flex
+
+%description
+%{summary}.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cmake(Qt5Network)
+Requires:       cmake(Qt5Widgets)
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+%package        console
+Summary:        Analytics and administration tool for UserFeedback servers
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+## uses qt5-qtcharts private api's these help track that
+## (unfortunately, there is no qt5-qtcharts-private-devel)
+BuildRequires: qt5-qtbase-private-devel
+Requires: qt5-qtcharts%{?_isa} = %{_qt5_version}
+
+%description    console
+Analytics and administration tool for UserFeedback servers.
+
+
+%prep
+%autosetup -p1
+
+
+%build
+%cmake_kf5 \
+   -DENABLE_DOCS:BOOL=OFF
+
+%cmake_build
+
+
+%install
+%cmake_install
+
+%find_lang userfeedbackconsole5 --with-qt
+%find_lang userfeedbackprovider5 --with-qt
+
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback-console.desktop
+
+
+%files -f userfeedbackprovider5.lang
+%doc README.md
+%license COPYING.LIB
+%{_bindir}/userfeedbackctl
+%{_libdir}/libKUserFeedbackCore.so.1*
+%{_libdir}/libKUserFeedbackWidgets.so.1*
+%{_kf5_qmldir}/org/kde/userfeedback/
+%{_kf5_datadir}/qlogging-categories5/org_kde_UserFeedback.categories
+
+
+%files devel
+%{_includedir}/KUserFeedback/
+%{_libdir}/libKUserFeedbackCore.so
+%{_libdir}/libKUserFeedbackWidgets.so
+%{_kf5_libdir}/cmake/KUserFeedback/
+%{_kf5_archdatadir}/mkspecs/modules/qt_KUserFeedback*.pri
+
+
+%files console -f userfeedbackconsole5.lang
+%{_bindir}/UserFeedbackConsole
+%{_datadir}/applications/org.kde.kuserfeedback-console.desktop
+%{_kf5_metainfodir}/org.kde.kuserfeedback-console.appdata.xml
+
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jul 14 2022 Jan Grulich <jgrulich@redhat.com> - 1.2.0-4
+- Rebuild (qt5)
+
+* Tue May 17 2022 Jan Grulich <jgrulich@redhat.com> - 1.2.0-3
+- Rebuild (qt5)
+
+* Tue Mar 08 2022 Jan Grulich <jgrulich@redhat.com> - 1.2.0-2
+- Rebuild (qt5)
+
+* Fri Feb 04 2022 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.2.0-1
+- update to 1.2.0
+
+* Fri Feb 04 2022 Rex Dieter <rdieter@fedoraproject.org> - 1.0.0-11
+- -console: uses qt5-qtcharts private api
+- -devel: use cmake-style deps instead of hard-coding qt5-qtbase
+
+* Thu Feb 03 2022 Rex Dieter <rdieter@fedoraproject.org> - 1.0.0-10
+- backport crash fix recommended by upstream
+- cleanup macros
+- simplify %%files
+- BR: bison flex (enables Survey targeting expressions support)
+- drop BR: qt5-qtbase-private-devel (no private api use detected)
+- drop non-autodetected runtime deps
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jan 12 21:50:41 MSK 2021 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.0.0-6
+- track Qt private api usage
+
+* Tue Nov 24 13:19:14 MSK 2020 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.0.0-5
+- rebuild due to new Qt version
+
+* Sun Sep 20 2020 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.0.0-4
+- one more rebuild
+
+* Sat Sep 19 2020 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.0.0-3
+- rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Sat Jun 06 2020 Yaroslav Sidlovsky <zawertun@gmail.com> - 1.0.0-1
+- first spec for version 1.0.0
+

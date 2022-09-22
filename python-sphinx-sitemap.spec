@@ -1,0 +1,59 @@
+Name:           python-sphinx-sitemap
+Version:        2.2.0
+Release:        4%{?dist}
+Summary:        Sitemap generator for Sphinx
+
+License:        MIT
+URL:            https://github.com/jdillard/sphinx-sitemap
+Source0:        %{url}/archive/v%{version}/sphinx-sitemap-%{version}.tar.gz
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist six}
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist wheel}
+
+%global _description %{expand:
+This package contains a Sphinx extension to generate multiversion and
+multilanguage sitemaps.org-compliant sitemaps for the HTML version of
+your Sphinx documentation.}
+
+%description %_description
+
+%package     -n python3-sphinx-sitemap
+Summary:        Sitemap generator for Sphinx
+
+%description -n python3-sphinx-sitemap %_description
+
+%prep
+%autosetup -n sphinx-sitemap-%{version}
+
+%build
+%pyproject_wheel
+rst2html --no-datestamp README.rst README.html
+
+%install
+%pyproject_install
+%pyproject_save_files sphinx_sitemap
+
+%check
+%pyproject_check_import
+
+%files -n python3-sphinx-sitemap -f %{pyproject_files}
+%doc CHANGELOG.md README.html
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.2.0-3
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Sat Oct  2 2021 Jerry James <loganjerry@gmail.com> - 2.2.0-1
+- Initial RPM

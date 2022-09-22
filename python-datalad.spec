@@ -1,0 +1,123 @@
+# require network, and nose, so disabled by default
+# to run on mock, use --enable-network
+# only a couple of tests fail
+%bcond_with tests
+
+%global forgeurl https://github.com/datalad/datalad
+
+Name:           python-datalad
+Version:        0.15.6
+%global tag     %{version}
+%forgemeta
+Release:        %autorelease
+Summary:        Keep code, data, containers under control with git and git-annex
+
+License:        MIT
+URL:            %{forgeurl}
+Source0:        %{forgesource}
+
+BuildArch:      noarch
+
+%global _description %{expand:
+DataLad makes data management and data distribution more accessible. To do
+that, it stands on the shoulders of Git and Git-annex to deliver a
+decentralized system for data exchange. This includes automated ingestion of
+data from online portals and exposing it in readily usable form as Git(-annex)
+repositories, so-called datasets. The actual data storage and permission
+management, however, remains with the original data providers.
+
+The full documentation is available at https://docs.datalad.org and
+https://handbook.datalad.org provides a hands-on crash-course on DataLad
+
+Extensions:
+
+A number of extensions are available that provide additional functionality for
+DataLad. Extensions are separate packages that are to be installed in addition
+to DataLad. In order to install DataLad customized for a particular domain, one
+can simply install an extension directly, and DataLad itself will be
+automatically installed with it. An annotated list of extensions is available
+in the DataLad handbook.
+
+Support:
+
+The documentation for this project is found here: https://docs.datalad.org
+
+If you have a problem or would like to ask a question about how to use DataLad,
+please submit a question to NeuroStars.org with a datalad tag. NeuroStars.org
+is a platform similar to StackOverflow but dedicated to neuroinformatics.
+
+All previous DataLad questions are available here:
+https://neurostars.org/tags/datalad/}
+
+%description %_description
+
+%package -n python3-datalad
+Summary:        %{summary}
+BuildRequires:  python3-devel
+%if %{with tests}
+BuildRequires:  git-annex
+# for 7za
+BuildRequires:  p7zip
+%endif
+# Not added automatically
+Requires:       git-annex
+Provides:       datalad = %{version}-%{release}
+
+%description -n python3-datalad %_description
+
+%prep
+%forgesetup
+
+# Do not read deps from tox.ini, just use setup.py
+# tox.ini calls requirements.txt which doesn't work
+rm -f tox.ini
+
+# Correct shebangs in tools
+find . -type f -exec sed -i "s|#!/usr/bin/env.*python$|#!%{python3}|" '{}' ';'
+
+# remove shebangs
+find datalad/resources/procedures/ -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
+
+
+%if %{with tests}
+# Tests wants a git repo
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
+git init .
+git add .
+git commit -m "Dummy commit"
+
+# correct function argument auto_spec -> autospec
+sed -i 's/auto_spec/autospec/' datalad/support/tests/test_annexrepo.py
+%endif
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-x tests}
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files datalad
+
+%check
+%if %{with tests}
+# Uses nose, unfortunately and it seems to be too hard to switch to pytest so
+# it's just nose for the moment
+# https://github.com/datalad/datalad/issues/4090
+# https://github.com/datalad/datalad/pull/4232
+export PATH="${PATH}:%{buildroot}/%{_bindir}"
+export PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}:%{python3_sitearch}"
+nosetests-%{python3_version}
+%endif
+
+%files -n python3-datalad -f %{pyproject_files}
+%doc README.md CONTRIBUTORS CONTRIBUTING.md CHANGELOG.md CODE_OF_CONDUCT.md
+%{_bindir}/datalad
+%{_bindir}/git-annex-remote-datalad
+%{_bindir}/git-annex-remote-datalad-archives
+%{_bindir}/git-annex-remote-ora
+
+%changelog
+%autochangelog

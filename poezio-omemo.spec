@@ -1,0 +1,87 @@
+# set upstream name variable
+%global srcname poezio_omemo
+
+
+Name:           poezio-omemo
+Version:        0.6.0
+Release:        3%{?dist}
+Summary:        OMEMO plugin for the Poezio XMPP client
+
+License:        GPLv3
+URL:            https://lab.louiz.org/poezio/poezio-omemo
+Source0:        https://lab.louiz.org/poezio/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+#BuildRequires:  python3-pytest
+
+%description
+This plugin provides OMEMO support for Poezio client.
+
+OMEMO is an extension of the XMPP protocol defined as XEP-0384. It
+provides multi-end to multi-end encryption, allowing messages to be
+synchronized securely across multiple clients, even if some of them
+are offline.
+
+
+
+%prep
+%autosetup -n %{name}-v%{version}
+# Remove shebang in 2 non-executable files
+find ./%{srcname}/ -type f '(' -name __init__.py -o -name version.py ')' -ls -exec sed -i 's@#!/usr/bin/env python3@@' '{}' \;
+
+
+%build
+%py3_build
+
+
+%install
+%py3_install
+
+
+%check
+# no tests to run with pytest
+
+
+
+%files
+%license LICENSE
+%doc README.rst ChangeLog CONTRIBUTING.rst
+# For noarch packages: sitelib
+%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
+
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.6.0-2
+- Rebuilt for Python 3.11
+
+* Tue Apr 26 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.6.0-1
+- Update to 0.6.0
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Jul 18 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.4.1-1
+- Update to 0.4.1
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.4.0-2
+- Rebuilt for Python 3.10
+
+* Thu May 20 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.4.0-1
+- Update to 0.4.0
+
+* Wed Apr 28 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.3.0-2
+- Package Review RHBZ#1942312:
+  - Remove shebang in non-executable scripts in %%prep section
+
+* Tue Mar 23 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.3.0-1
+- Initial package

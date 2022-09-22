@@ -1,0 +1,51 @@
+Name:           build-constraints-rpm-macros
+Version:        1
+Release:        3%{?dist}
+Summary:        RPM macros for build constraints
+
+License:        MIT
+URL:            https://src.fedoraproject.org/rpms/%{name}
+Source0:        macros.build-constraints
+
+# license text
+Source200:      LICENSE
+
+BuildArch:      noarch
+
+Requires:       gawk
+
+%description
+This package contains macros to constraint resource use during the build
+process.
+
+
+%prep
+%autosetup -c -T
+cp -a %{sources} .
+
+
+%build
+
+
+%install
+%if 0%{?el7}
+# install -Dt does not precreate target directory
+mkdir -p %{buildroot}%{rpmmacrodir}
+%endif
+install -Dpm 644 -t %{buildroot}%{rpmmacrodir} macros.*
+
+
+%files
+%license LICENSE
+%{rpmmacrodir}/macros.build-constraints
+
+
+%changelog
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Jul 21 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1-1
+- Initial package

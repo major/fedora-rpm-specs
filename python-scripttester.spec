@@ -1,0 +1,114 @@
+Name:           python-scripttester
+Version:        0.1
+Release:        16%{?dist}
+Summary:        Utility for testing command line scripts
+
+License:        BSD
+URL:            https://pypi.org/project/scripttester/
+Source0:        https://github.com/matthew-brett/scripttester/archive/%{version}/scripttester-%{version}.tar.gz
+# Update version to fix FTBFS with python 3.11
+# https://github.com/matthew-brett/scripttester/issues/1
+Patch0:         %{name}-versioneer.patch
+
+BuildArch:      noarch
+
+BuildRequires:  make
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist docutils}
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist wheel}
+
+%global desc %{expand:
+Provides a class to be instantiated in tests that checks that scripts
+can be run and give correct output.  The class tries to find your
+scripts whether you have installed them or not.  If you have not
+installed them, the scripts will not be on your system PATH, and we have
+to find them.  The heuristic is to look (by default) in the directory
+containing mymodule; if there is a setup.py file there, and a scripts
+subdirectory, assume that directory contains the scripts.
+
+Note there is no way of using this not-installed mechanism to find
+entrypoint scripts, that have not been installed.  To find these, we
+would have to run the setup.py file.}
+
+%description %{desc}
+
+%package     -n python3-scripttester
+Summary:        Utility for testing command line scripts
+
+%description -n python3-scripttester %{desc}
+
+%prep
+%autosetup -n scripttester-%{version} -p1
+
+%build
+%pyproject_wheel
+rst2html --no-datestamp README.rst README.html
+
+# Documentation build
+sed -i 's/python -msphinx/sphinx-build/' doc/Makefile
+make -C doc html
+rm -f doc/_build/html/.{buildinfo,nojekyll}
+
+%install
+%pyproject_install
+%pyproject_save_files scripttester
+
+%check
+%pytest
+
+%files -n python3-scripttester -f %{pyproject_files}
+%doc README.html doc/_build/html
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1-15
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Nov 29 2021 Jerry James <loganjerry@gmail.com> - 0.1-13
+- Update versioneer.py to fix FTBFS with python 3.11 (bz 2025594)
+- Use latest python macros
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1-11
+- Rebuilt for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.1-8
+- Rebuilt for Python 3.9
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.1-6
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.1-5
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Thu Nov 22 2018 Jerry James <loganjerry@gmail.com> - 0.1-2
+- Drop python2 subpackage (bz 1651179)
+
+* Wed Sep  5 2018 Jerry James <loganjerry@gmail.com> - 0.1-1
+- Initial RPM

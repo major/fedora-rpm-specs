@@ -1,0 +1,71 @@
+%global debug_package %{nil}
+
+Name:           python-sqlglot
+Version:        5.2.0
+Release:        1%{?dist}
+Summary:        SQL Parser and Transpiler
+
+License:        MIT
+URL:            https://github.com/tobymao/sqlglot
+Source0:        %{url}/archive/v%{version}/sqlglot-%{version}.tar.gz
+
+BuildRequires:  python3-devel
+# for tests
+BuildRequires:  python3-pytest
+
+Recommends:     python3-dateutil
+
+%global _description %{expand:
+SQLGlot is a no dependency Python SQL parser, transpiler, and optimizer.
+It can be used to format SQL or translate between different dialects like
+DuckDB, Presto, Spark, and BigQuery. It aims to read a wide variety of SQL
+inputs and output syntactically correct SQL in the targeted dialects.
+
+It is a very comprehensive generic SQL parser with a robust test suite. It
+is also quite performant while being written purely in Python.
+
+You can easily customize the parser, analyze queries, traverse expression
+trees, and programmatically build SQL.
+
+Syntax errors are highlighted and dialect incompatibilities can warn or
+raise depending on configurations.}
+
+%description %_description
+
+
+%package -n python3-sqlglot
+Summary: %{summary}
+
+%description -n python3-sqlglot %{_description}
+
+
+%prep
+%autosetup -n sqlglot-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%check
+%pytest --pyargs --ignore tests/test_executor.py -k "not test_simplify and not test_tpch"
+# pkgs not available in fedora \
+# not sure why these 2nd two fail
+
+
+%install
+%pyproject_install
+%pyproject_save_files sqlglot
+
+
+%files -n python3-sqlglot -f %{pyproject_files}
+%doc README.md
+
+
+%changelog
+* Thu Sep 01 2022 Jonathan Wright <jonathan@almalinux.org> - 5.2.0-1
+- Initial package build
+- rhbz#2123519

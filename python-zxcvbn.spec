@@ -1,0 +1,72 @@
+%global srcname zxcvbn-python
+
+Name: python-zxcvbn
+Summary: Realistic password strength estimator python module
+Version: 4.4.28
+Release: 7%{?dist}
+License: MIT
+URL: https://github.com/dwolfhub/zxcvbn-python
+Source: https://github.com/dwolfhub/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+BuildArch: noarch
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
+BuildRequires: pytest
+
+%global _description %{expand:
+A realistic password strength estimator.
+
+This is a Python implementation of the library created by the team at Dropbox.
+The original library was written for JavaScript.
+
+Accepts user data to be added to the dictionaries that are tested against
+(name, birthdate, etc).  Gives a score to the password, from 0 (terrible)
+to 4 (great). It provides feedback on the password and ways to improve it
+and returns time estimates on how long it would take to guess the password
+in different situations.}
+%description %_description
+
+%package -n python3-zxcvbn
+Summary: Realistic password strength estimator python3 module
+
+%description -n python3-zxcvbn %_description
+
+%prep
+%autosetup -n %{srcname}-%{version}
+
+%build
+%py3_build
+
+%check
+%pytest
+
+%install
+%py3_install
+
+%files -n python3-zxcvbn
+%license LICENSE.txt
+%doc README.rst
+%{_bindir}/zxcvbn
+%{python3_sitelib}/zxcvbn-*.egg-info/
+%{python3_sitelib}/zxcvbn
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.28-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 4.4.28-6
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.28-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.28-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 4.4.28-3
+- Rebuilt for Python 3.10
+
+* Sun May 30 2021 Paul Wouters <paul.wouters@aiven.io> - 4.4.28-2
+- Resolves: rhbz#1965144 Package review issues
+
+* Thu May 27 2021 Paul Wouters <paul.wouters@aiven.io> - 4.4.28-1
+- Initial package

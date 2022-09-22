@@ -1,0 +1,112 @@
+# The project contains a version number, but a release has never been tagged.
+# The project is normally used as a git submodule and referred to by commit
+# hash.
+%global commit 3b5bafa198ba8c628cf599d0b955a1bf8a8b6ff2
+%global snapdate 20220819
+
+Name:           c4fs
+Summary:        C++ file system utilities
+Version:        0.0.1^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+# This is the same as the version number. To prevent undetected soversion
+# bumps, we nevertheless express it separately.
+%global so_version 0.0.1
+Release:        %autorelease
+
+# SPDX
+License:        MIT
+URL:            https://github.com/biojppm/c4fs
+Source0:        %{url}/archive/%{commit}/c4fs-%{commit}.tar.gz
+
+# Upstream always wants to build with c4core as a git submodule, but we want to
+# unbundle it and build with an external library. We therefore maintain this
+# patch without sending it upstream.
+Patch:          c4fs-1abba00-external-c4core.patch
+
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  c4project
+# Our choice; the default make backend should work just as well
+BuildRequires:  ninja-build
+
+BuildRequires:  cmake(c4core)
+
+# For each header-only library, the guidelines require us to BR the -static
+# package for tracking.
+BuildRequires:  doctest-devel
+BuildRequires:  doctest-static
+
+%description
+%{summary}.
+
+
+%package devel
+Summary:        Development files for c4fs
+
+Requires:       c4fs%{?_isa} = %{version}-%{release}
+Requires:       c4core-devel%{?_isa}
+Requires:       cmake-filesystem
+
+%description devel
+The c4fs-devel package contains libraries and header files for developing
+applications that use c4fs.
+
+
+%prep
+%autosetup -n c4fs-%{commit} -p1
+
+# Remove/unbundle additional dependencies
+
+# c4project (CMake build scripts)
+find ext
+cp -rp '%{_datadir}/cmake/c4project' ext/c4core/cmake
+
+# Do not try to link against a nonexistent doctest library (doctest is
+# header-only, and we do not have the complete CMake project for doctest that
+# would provide a target that knows this):
+sed -r -i \
+    -e 's/(LIBS.*)\bdoctest\b/\1/' \
+    -e 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
+    test/CMakeLists.txt
+
+
+%build
+# We can stop the CMake scripts from downloading doctest by setting
+# C4FS_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
+%cmake -GNinja \
+  -DC4FS_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
+  -DC4FS_BUILD_TESTS=ON
+%cmake_build
+
+
+%install
+%cmake_install
+# Fix wrong installation paths for multilib; it would be nontrivial to patch
+# the source to get this right in the first place.
+if [ '%{_libdir}' != '%{_prefix}/lib' ]
+then
+  mkdir -p '%{buildroot}%{_libdir}'
+  mv -v %{buildroot}%{_prefix}/lib/libc4fs.so* '%{buildroot}%{_libdir}/'
+  mkdir -p '%{buildroot}%{_libdir}/cmake'
+  mv -v %{buildroot}%{_prefix}/lib/cmake/c4fs '%{buildroot}%{_libdir}/cmake/'
+fi
+
+
+%check
+%cmake_build --target c4fs-test-run-verbose
+
+
+%files
+%license LICENSE.txt
+%doc README.md
+%{_libdir}/libc4fs.so.%{so_version}
+
+
+%files devel
+# %%{_includedir}/c4 is owned by c4core-devel
+%{_includedir}/c4/fs
+%{_libdir}/libc4fs.so
+%{_libdir}/cmake/c4fs
+
+
+%changelog
+%autochangelog

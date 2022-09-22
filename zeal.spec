@@ -1,0 +1,160 @@
+%global commit 00d4b9ca5bf4588629939cca9d602a3dbd6a8525
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global debug_package %{nil}
+
+Name:           zeal
+Version:        0.6.1
+Release:        13.20220826.%{shortcommit}%{?dist}
+Summary:        Offline documentation browser inspired by Dash
+
+License:        GPLv3+
+URL:            https://zealdocs.org/
+Source0:        https://github.com/zealdocs/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+ExclusiveArch: %{qt5_qtwebengine_arches}
+
+BuildRequires:  cmake3
+BuildRequires:  cmake(Qt5)
+BuildRequires:  cmake(Qt5WebKit)
+BuildRequires:  cmake(Qt5X11Extras)
+BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
+BuildRequires:  kf5-rpm-macros
+BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
+BuildRequires:  libarchive-devel
+BuildRequires:  sqlite-devel
+BuildRequires:  xcb-util-keysyms-devel
+BuildRequires:  qt5-qtwebengine-devel
+Requires:       hicolor-icon-theme
+
+%description
+Zeal is a simple offline documentation browser inspired by Dash.
+
+
+%prep
+%autosetup -p1 -n %{name}-%{commit}
+
+# Disable ads on the welcome page
+# Ads will be removed in 0.7.x
+sed -i 's/("disable_ad"), false/("disable_ad"), true/' src/libs/core/settings.cpp
+
+%build
+# turn off shared libs building:
+# - it's only used from Zeal itself
+# - build scripts not configured to install the lib
+%cmake_kf5 \
+  -DBUILD_SHARED_LIBS:BOOL=OFF \
+  %{nil}
+%cmake3_build
+
+
+%install
+%cmake3_install
+
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.zealdocs.zeal.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.zeal.appdata.xml
+
+
+%files
+%license COPYING
+%doc README.md
+%{_bindir}/%{name}
+%{_datadir}/applications/org.zealdocs.zeal.desktop
+%{_metainfodir}/org.zealdocs.zeal.appdata.xml
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+
+
+%changelog
+* Fri Aug 26 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-13.20220826.00d4b9c
+- Update to commit 00d4b9c
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-12.20200821.dbb8eb2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11.20200821.dbb8eb2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Sat Aug 21 2021 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-10.20210821.dbb8eb2
+- Package the latest version from master branch to fix segfaults
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Feb 02 2021 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-8
+- Fix build on rawhide
+Resolves: rhbz#1923599
+
+* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Tue Aug 20 2019 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-4
+- Disable ads on the welcome page by default
+
+* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Thu May 30 2019 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-2
+- Specfile improved
+
+* Wed Nov  7 2018 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.6.1-1
+- Update to 0.6.1
+
+* Fri Aug 24 2018 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.6.0-1
+- Update to 0.6.0
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Sun Jan 21 2018 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.5.0-3
+- Fix missing dependency on libCore.so - don't build Zeal with shared libs flag
+
+* Thu Jan 18 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 0.5.0-2
+- Remove obsolete scriptlets
+
+* Tue Jan 16 2018 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.5.0-1
+- Update to 0.5.0
+- Switch to cmake; upstream is deprecating qmake
+- and its rule for detecting Qt >= 5.5.1 breaks on F28's Qt 5.10
+
+* Mon Sep  4 2017 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.4.0-1
+- Update to 0.4.0
+
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Wed Oct 12 2016 Michel Alexandre Salim <michel@dellxps.localdomain> - 0.3.1-1
+- Update to 0.3.1
+
+* Sat Sep 24 2016 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0
+
+* Mon Feb 22 2016 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.2.1-1
+- Update to 0.2.1
+
+* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Wed Oct 14 2015 Michel Salim <salimma@fedoraproject.org> - 0.1.1-2
+- Update license info, add bundled lib metadata
+
+* Thu Sep 24 2015 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.1.1-1
+- Initial package

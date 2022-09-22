@@ -1,0 +1,70 @@
+Name: libnetconf2
+Version: 2.1.18
+Release: 1%{?dist}
+Summary: NETCONF protocol library
+Url: https://github.com/CESNET/libnetconf2
+Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+License: BSD
+
+BuildRequires:  cmake
+BuildRequires:  gcc
+BuildRequires:  libssh-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pam-devel
+BuildRequires:  pkgconfig(libyang) >= 2
+
+%package devel
+Summary:    Headers of libnetconf2 library
+Conflicts:  libnetconf-devel
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   pkgconfig
+
+%description devel
+Headers of libnetconf library.
+
+%description
+libnetconf2 is a NETCONF library in C intended for building NETCONF clients and
+servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
+
+
+%prep
+%autosetup -p1
+
+%build
+%cmake -DCMAKE_BUILD_TYPE=RELWITHDEBINFO
+%cmake_build
+
+%install
+%cmake_install
+
+
+%files
+%license LICENSE
+%doc README.md FAQ.md
+%{_libdir}/libnetconf2.so.*
+
+%files devel
+%doc CODINGSTYLE.md
+%{_libdir}/libnetconf2.so
+%{_libdir}/pkgconfig/libnetconf2.pc
+%{_includedir}/*.h
+%{_includedir}/libnetconf2/*.h
+%dir %{_includedir}/libnetconf2/
+
+
+%changelog
+* Fri Jul 29 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.18-1
+- New upstream version
+- New dependency pam-devel
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon May 09 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.11-1
+- New upstream version
+
+* Thu Apr 21 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.7-1
+- New upstream version
+
+* Mon Nov 15 2021 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.0.24-1
+- Initial Packaging

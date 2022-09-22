@@ -1,0 +1,74 @@
+Name:           py-spidev
+Version:        3.4
+Release:        12%{?dist}
+Summary:        A python library for manipulating SPI via spidev
+License:        MIT
+URL:            https://github.com/doceme/py-spidev/
+Source0:        https://github.com/doceme/py-spidev/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  gcc
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+
+%description
+A python module for interfacing with SPI devices from user 
+space via the spidev linux kernel driver.
+
+%package -n python3-spidev
+Summary:  A python library for manipulating SPI
+%{?python_provide:%python_provide python3-spidev}
+
+%description -n python3-spidev
+A python module for interfacing with SPI devices from user 
+space via the spidev linux kernel driver.
+
+
+%prep
+%autosetup
+
+%build
+%py3_build
+
+%install
+%py3_install
+
+%files -n python3-spidev
+%license LICENSE
+%{python3_sitearch}/spidev*
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.4-11
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.4-8
+- Rebuilt for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 3.4-5
+- Rebuilt for Python 3.9
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 3.4-3
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Apr 30 2019 Peter Robinson <pbrobinson@fedoraproject.org> 3.4-1
+- Initial package

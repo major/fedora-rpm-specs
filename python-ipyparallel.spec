@@ -1,0 +1,289 @@
+Name:		python-ipyparallel
+Version:	8.4.1
+Release:	2%{?dist}
+Summary:	Interactive Parallel Computing with IPython
+
+License:	BSD
+URL:		https://github.com/ipython/ipyparallel
+Source0:	https://github.com/ipython/ipyparallel/archive/%{version}/%{name}-%{version}.tar.gz
+#		Jupyter labextension
+Source1:	%{name}-labextension.tar.gz
+#		https://github.com/ipython/ipyparallel/pull/729
+Patch0:		0001-More-backward-compatibility.patch
+#		https://github.com/ipython/ipyparallel/pull/730
+Patch1:		0001-Fix-warning-test.patch
+
+BuildArch:	noarch
+BuildRequires:	make
+BuildRequires:	python3-devel
+BuildRequires:	python3-pip
+BuildRequires:	python3-hatchling >= 0.25
+BuildRequires:	python3-entrypoints
+BuildRequires:	python3-decorator
+BuildRequires:	python3-zmq >= 18
+BuildRequires:	python3-traitlets >= 4.3
+BuildRequires:	python3-ipython >= 4
+BuildRequires:	python3-jupyter-client
+BuildRequires:	python3-ipykernel >= 4.4
+BuildRequires:	python3-tornado >= 5.1
+BuildRequires:	python3-psutil
+BuildRequires:	python3-dateutil >= 2.1
+BuildRequires:	python3-tqdm
+#		For testing:
+BuildRequires:	python3-pytest
+BuildRequires:	python3-pytest-asyncio
+BuildRequires:	python3-zmq-tests
+#		IPython.testing.decorators uses numpy's decorators
+BuildRequires:	python3-numpy
+#		For documentation
+BuildRequires:	python3-sphinx
+BuildRequires:	python3-ipython-sphinx
+BuildRequires:	python3-matplotlib
+BuildRequires:	python3-myst-parser
+BuildRequires:	python3-nbsphinx
+BuildRequires:	python3-pydata-sphinx-theme
+BuildRequires:	pandoc
+
+%description
+IPython Parallel (ipyparallel) is a Python package and collection of
+CLI scripts for controlling clusters of IPython processes, built on
+the Jupyter protocol.
+
+%package -n python3-ipyparallel
+Summary:	Interactive Parallel Computing with IPython
+%{?python_provide:%python_provide python3-ipyparallel}
+Requires:	python3-entrypoints
+Requires:	python3-decorator
+Requires:	python3-zmq >= 18
+Requires:	python3-traitlets >= 4.3
+Requires:	python3-ipython >= 4
+Requires:	python3-jupyter-client
+Requires:	python3-ipykernel >= 4.4
+Requires:	python3-tornado >= 5.1
+Requires:	python3-psutil
+Requires:	python3-dateutil >= 2.1
+Requires:	python3-tqdm
+Requires:	python-jupyter-filesystem >= 4.7.0-5
+
+%description -n python3-ipyparallel
+IPython Parallel (ipyparallel) is a Python package and collection of
+CLI scripts for controlling clusters of IPython processes, built on
+the Jupyter protocol.
+
+%package -n python3-ipyparallel-tests
+Summary:	Tests for python3-ipyparallel
+%{?python_provide:%python_provide python3-ipyparallel-tests}
+Requires:	python3-ipyparallel = %{version}-%{release}
+Requires:	python3-pytest
+Requires:	python3-pytest-asyncio
+Requires:	python3-zmq-tests
+Requires:	python3-numpy
+
+%description -n python3-ipyparallel-tests
+This package contains the tests of python3-ipyparallel.
+
+%package doc
+Summary:	Documentation for python-ipyparallel
+
+%description doc
+This package contains the documentation of python-ipyparallel.
+
+%prep
+%setup -q -n ipyparallel-%{version} -a 1
+%patch0 -p1
+%patch1 -p1
+
+%build
+%pyproject_wheel
+
+pushd docs
+PYTHONPATH=${PWD}/.. make html
+rm -f build/html/.buildinfo
+popd
+
+%install
+%pyproject_install
+
+for f in apps/iploggerapp.py cluster/app.py controller/app.py \
+	 controller/heartmonitor.py engine/app.py ; do
+  sed '/\/usr\/bin\/env/d' -i %{buildroot}%{python3_sitelib}/ipyparallel/${f}
+done
+
+# Fix wrong install directory for configuraton files
+mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
+
+%check
+%if %{fedora} >= 36
+%pytest -v --color=no
+%else
+%pytest -v --color=no -k 'not test_px_pylab and not test_px_blocking and not test_px_nonblocking and not test_cellpx_error_stream and not test_cellpx_keyboard_interrupt_'
+%endif
+
+%files -n python3-ipyparallel
+%license COPYING.md
+%doc README.md
+%{python3_sitelib}/ipyparallel-*.*-info
+%dir %{python3_sitelib}/ipyparallel
+%{python3_sitelib}/ipyparallel/*.py
+%{python3_sitelib}/ipyparallel/__pycache__
+%{python3_sitelib}/ipyparallel/apps
+%{python3_sitelib}/ipyparallel/client
+%{python3_sitelib}/ipyparallel/cluster
+%{python3_sitelib}/ipyparallel/controller
+%{python3_sitelib}/ipyparallel/engine
+%{python3_sitelib}/ipyparallel/labextension
+%{python3_sitelib}/ipyparallel/nbextension
+%{python3_sitelib}/ipyparallel/serialize
+%{_bindir}/ipcluster
+%{_bindir}/ipcontroller
+%{_bindir}/ipengine
+%{_datadir}/jupyter/labextensions/ipyparallel-labextension
+%{_datadir}/jupyter/nbextensions/ipyparallel
+%config(noreplace) %{_sysconfdir}/jupyter/jupyter_notebook_config.d/ipyparallel.json
+%config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/ipyparallel.json
+%config(noreplace) %{_sysconfdir}/jupyter/nbconfig/tree.d/ipyparallel.json
+
+%files -n python3-ipyparallel-tests
+%{python3_sitelib}/ipyparallel/tests
+
+%files doc
+%license COPYING.md
+%doc docs/build/html
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Jun 26 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.4.1-1
+- Update to 8.4.1
+- Drop python 3.11 patch (accepted upstream)
+- Use the pyproject rpm macros
+
+* Thu Jun 23 2022 Miro Hrončok <mhroncok@redhat.com> - 8.2.1-3
+- Build with pydata-sphinx-theme again
+
+* Mon Jun 20 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 8.2.1-2
+- Add patch for Python 3.11 compatibility
+
+* Tue Apr 05 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.2.1-1
+- Update to 8.2.1
+
+* Mon Feb 07 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.2.0-1
+- Update to 8.2.0
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Dec 23 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.1.0-1
+- Update to 8.1.0
+
+* Mon Nov 15 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.0.0-1
+- Update to 8.0.0
+
+* Sun Oct 03 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.0-1
+- Update to 7.1.0
+
+* Tue Sep 14 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.0.1-1
+- Update to 7.0.1
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 6.3.0-7
+- Rebuilt for Python 3.10
+
+* Thu May 06 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.3.0-6
+- Ignore deprecation warnings
+
+* Tue Apr 13 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.3.0-5
+- Disable the test_px_blocking and test_px_nonblocking tests on Fedora 35+
+- Remove obsolete scriptlet for removing old style config
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 6.3.0-2
+- Rebuilt for Python 3.9
+
+* Wed May 06 2020 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.3.0-1
+- Update to 6.3.0
+- Drop patches (accepted upstream, or previously backported)
+
+* Mon Apr 20 2020 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.5-1
+- Update to 6.2.5
+- Remove Python 2 parts from the spec file (Fedora 29 is EOL)
+- Drop patches (accepted upstream, or previously backported)
+- Prevent KeyError when handling heart failures of already shut down engines
+- Print more helpful errors from pytest.warns(None)
+- Fix client test for python 3.8
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Tue Oct 01 2019 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.4-4
+- Compatibility with ipykernel 5.1.2 (backport from upstream)
+
+* Mon Aug 12 2019 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.4-3
+- Compatibility fixes for Python 3.7, 3.8 (backport from upstream)
+- Use unittest.mock if available
+- Adapt to Python 3.8 with PEP 570
+- Disable the test_abort test (occasional random failures)
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Mon May 13 2019 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.4-1
+- Update to 6.2.4
+- Avoid python3-mock dependency
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Tue Nov 13 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.3-2
+- Don't build Python 2 packages for Fedora >= 30
+
+* Mon Oct 22 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.3-1
+- Update to 6.2.3
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Mon Jul 02 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.2-1
+- Update to 6.2.2
+
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 6.2.1-2
+- Rebuilt for Python 3.7
+
+* Mon Jun 11 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.1-1
+- Update to 6.2.1
+- This version uses the possibility to split the configuration files into
+  smaller files in .d directories introduced in Jupyter notebook 5.3.0
+- Drop scriptlets for handling the old configuration
+- Add scriptlet to remove old configuration when updating from earlier versions
+- Enable the test_wait_for_send test again (the test suite now tries it three
+  times before failing)
+
+* Mon Jun 11 2018 Miro Hrončok <mhroncok@redhat.com> - 6.1.1-2
+- Don't own /usr/share/jupyter/nbextensions,
+  require python-jupyter-filesystem instead (#1589420)
+
+* Wed Feb 07 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.1.1-1
+- Update to 6.1.1
+
+* Tue Feb 06 2018 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.1.0-1
+- Update to 6.1.0
+- Drop patch python-ipyparallel-pr254.patch (previously backported)
+- Only provide one documentation package
+- Disable the test_wait_for_send test (occasional random failures)
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Thu May 18 2017 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.0.2-2
+- Put tests in a separate subpackage
+
+* Sun Apr 30 2017 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.0.2-1
+- Initial packaging

@@ -1,0 +1,57 @@
+%global pypi_name pysodium
+
+Name:           python-%{pypi_name}
+Version:        0.7.12
+Release:        3%{?dist}
+Summary:        A Python libsodium wrapper
+
+License:        BSD
+URL:            https://github.com/stef/pysodium
+Source0:        %{pypi_source}
+BuildArch:      noarch
+
+BuildRequires:  pkgconfig(libsodium)
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pytest)
+
+%global _description %{expand:
+This is a very simple wrapper around libsodium masquerading as nacl.}
+
+%description
+%{_description}
+
+%package -n     python3-%{pypi_name}
+Summary:        %{summary}
+Requires:       libsodium
+
+%description -n python3-%{pypi_name}
+%{_description}
+
+%prep
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%build
+%py3_build
+
+%install
+%py3_install
+
+%check
+%pytest
+
+%files -n python3-%{pypi_name}
+%doc AUTHORS README.md
+%license LICENSE.txt
+%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
+%{python3_sitelib}/%{pypi_name}
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.7.12-2
+- Rebuilt for Python 3.11
+
+* Tue Jun 07 2022 Andreas Schneider <asn@redhat.com> - 0.7.12-1
+- rhbz#2086472 - Initial package

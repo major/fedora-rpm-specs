@@ -1,0 +1,95 @@
+Name:               python-iniconfig
+Version:            1.1.1
+Release:            9%{?dist}
+Summary:            Brain-dead simple parsing of ini files
+License:            MIT
+URL:                http://github.com/RonnyPfannschmidt/iniconfig
+BuildArch:          noarch
+BuildRequires:      python3-devel
+BuildRequires:      pyproject-rpm-macros
+
+Source0:            %{pypi_source iniconfig}
+
+# pytest 6+ needs this and this uses pytest for tests
+%bcond_without tests
+
+%global _description %{expand:
+iniconfig is a small and simple INI-file parser module
+having a unique set of features:
+
+* tested against Python2.4 across to Python3.2, Jython, PyPy
+* maintains order of sections and entries
+* supports multi-line values with or without line-continuations
+* supports "#" comments everywhere
+* raises errors with proper line-numbers
+* no bells and whistles like automatic substitutions
+* iniconfig raises an Error if two sections have the same name.}
+%description %_description
+
+
+%package -n python3-iniconfig
+Summary:            %{summary}
+%description -n python3-iniconfig %_description
+
+
+%prep
+%autosetup -n iniconfig-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-t}
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files iniconfig
+
+
+%if %{with tests}
+%check
+%tox
+%endif
+
+
+%files -n python3-iniconfig -f %{pyproject_files}
+%doc README.txt
+%license LICENSE
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.1-8
+- Rebuilt for Python 3.11
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.1-7
+- Bootstrap for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.1-4
+- Rebuilt for Python 3.10
+
+* Wed Jun 02 2021 Python Maint <python-maint@redhat.com> - 1.1.1-3
+- Bootstrap for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Oct 15 2020 Tomas Hrnciar <thrnciar@redhat.com> - 1.1.1-1
+- Update to 1.1.1 (#1888157)
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Jul 13 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.0-1
+- Initial package (#1856421)

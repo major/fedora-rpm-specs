@@ -1,0 +1,105 @@
+Name:    haruna
+Version: 0.9.1
+Release: 1%{?dist}
+Summary: Open source video player built with Qt/QML and libmpv
+
+License: BSD and CC-BY and CC-BY-SA and GPLv2+ and LGPLv2+ and GPLv3+
+URL:     https://invent.kde.org/multimedia/%{name}/
+Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source1: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
+Source2: gpgkey-4E421C6554B89766DF9B7A37E12AB207C8755905.gpg
+
+BuildRequires: cmake
+BuildRequires: gnupg2
+BuildRequires: gcc-c++
+BuildRequires: gettext
+BuildRequires: kf5-rpm-macros
+BuildRequires: extra-cmake-modules
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Gui)
+BuildRequires: cmake(Qt5Qml)
+BuildRequires: cmake(Qt5Quick)
+BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: qt5-qtbase-private-devel
+
+BuildRequires: cmake(KF5Config)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5DocTools)
+BuildRequires: cmake(KF5FileMetaData)
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5IconThemes)
+BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5Kirigami2)
+BuildRequires: cmake(KF5ConfigWidgets)
+
+BuildRequires: cmake(Breeze)
+
+BuildRequires: pkgconfig(mpv)
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavdevice)
+BuildRequires: pkgconfig(libavfilter)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libavutil)
+BuildRequires: pkgconfig(libpostproc)
+BuildRequires: pkgconfig(libswresample)
+BuildRequires: pkgconfig(libswscale)
+
+Requires:      kde-filesystem
+Requires:      hicolor-icon-theme
+Recommends:    yt-dlp
+
+%description
+%{summary}.
+
+Features:
+ + play online videos, through youtube-dl;
+ + supports youtube playlists;
+ + toggle playlist with mouse-over, playlist overlays the video;
+ + auto skip chapter containing certain words;
+ + configurable shortcuts and mouse buttons;
+ + quick jump to next chapter by middle click on progress bar.
+
+
+%prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
+
+
+%build
+%cmake_kf5
+%cmake_build
+
+
+%install
+%cmake_install
+# Cleaning icons with non-standard resolution
+for i in 44 150 310; do
+  rm -rf %{buildroot}%{_kf5_datadir}/icons/hicolor/"${i}x${i}"
+done
+%find_lang %{name}
+
+
+%check
+desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+
+
+%files -f %{name}.lang
+%doc README.md
+%license LICENSES/*.txt
+%{_kf5_bindir}/haruna
+%{_kf5_datadir}/doc/HTML/en/%{name}
+%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_datadir}/icons/hicolor/*/apps/haruna.{svg,png}
+%{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
+
+
+%changelog
+* Mon Sep 05 2022 Yaroslav Sidlovsky <zawertun@gmail.com> - 0.9.1-1
+- first spec for version 0.9.1
+

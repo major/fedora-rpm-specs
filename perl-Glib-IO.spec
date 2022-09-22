@@ -1,0 +1,98 @@
+Name:           perl-Glib-IO
+Version:        0.002
+Release:        5%{?dist}
+Summary:        Perl bindings to the GIO library
+License:        LGPLv2+
+URL:            http://metacpan.org/release/Glib-IO
+Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-IO-%{version}.tar.gz
+BuildArch:      noarch
+BuildRequires:  coreutils
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run time
+BuildRequires:  perl(Glib::Object::Introspection) >= 0.014
+# Tests:
+BuildRequires:  perl(Test::More)
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+Requires:       perl(Glib::Object::Introspection) >= 0.014
+
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Glib::Object::Introspection\\)$
+
+%description
+The Glib::IO module allows a Perl developer to access the GIO library, the
+high level I/O and platform library of the GNOME development platform.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+# prove
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+%prep
+%setup -q -n Glib-IO-%{version}
+# Help generators to recognize a Perl code
+for F in t/*; do
+    perl -i -MConfig -pe 'print qq{$Config{startperl}\n} if $. == 1 && !s{\A#!.*\bperl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
+%build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
+
+%install
+%{make_install}
+%{_fixperms} %{buildroot}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
+%check
+make test
+
+%files
+%license LICENSE
+%doc NEWS perl-glib-io.doap README
+%{perl_vendorlib}/*
+%{_mandir}/man3/*
+
+%files tests
+%{_libexecdir}/%{name}
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jun 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.002-4
+- Perl 5.36 rebuild
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 25 2021 Michal Josef Spacek <mspacek@redhat.com> - 0.002-1
+- Bump 0.002 version
+- Package tests
+
+* Sun May 23 2021 Jitka Plesnikova <jplesnik@redhat.com> - 0.001-2
+- Perl 5.34 rebuild
+
+* Wed Mar 24 2021 Michal Josef Spacek <mspacek@redhat.com> 0.001-1
+- Version 0.001.

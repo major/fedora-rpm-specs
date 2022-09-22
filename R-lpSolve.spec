@@ -1,0 +1,91 @@
+%global packname lpSolve
+%global packver  5.6.15
+%global rlibdir  %{_libdir}/R/library
+
+Name:             R-%{packname}
+Version:          5.6.16
+Release:          1%{?dist}
+Summary:          Interface to Lp_solve to Solve Linear/Integer Programs
+
+License:          LGPL-2.0-or-later
+URL:              https://CRAN.R-project.org/package=%{packname}
+Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
+# https://github.com/gaborcsardi/lpSolve/pull/5
+Patch0001:        0001-Use-R-provided-BLAS-routines.patch
+
+# Here's the R view of the dependencies world:
+# Depends:
+# Imports:
+# Suggests:
+# LinkingTo:
+# Enhances:
+
+BuildRequires:    R-devel
+BuildRequires:    tex(latex)
+
+%description
+Lp_solve is freely available (under LGPL 2) software for solving linear,
+integer and mixed integer programs. In this implementation we supply a
+"wrapper" function in C and some R functions that solve general
+linear/integer problems, assignment problems, and transportation problems.
+This version calls lp_solve version 5.5.
+
+
+%prep
+%setup -q -c -n %{packname}
+
+pushd %{packname}
+%patch0001 -p1
+popd
+
+%build
+
+
+%install
+mkdir -p %{buildroot}%{rlibdir}
+%{_bindir}/R CMD INSTALL -l %{buildroot}%{rlibdir} %{packname}
+test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
+rm -f %{buildroot}%{rlibdir}/R.css
+
+
+%check
+%{_bindir}/R CMD check %{packname}
+
+
+%files
+%dir %{rlibdir}/%{packname}
+%doc %{rlibdir}/%{packname}/html
+%{rlibdir}/%{packname}/DESCRIPTION
+%{rlibdir}/%{packname}/INDEX
+%{rlibdir}/%{packname}/NAMESPACE
+%{rlibdir}/%{packname}/Meta
+%{rlibdir}/%{packname}/R
+%{rlibdir}/%{packname}/help
+%dir %{rlibdir}/%{packname}/libs
+%{rlibdir}/%{packname}/libs/%{packname}.so
+
+
+%changelog
+* Fri Sep 09 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 5.6.16-1
+- Update to 5.6.16 (RHBZ #2124096)
+
+* Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 5.6.15-7
+- rebuild for R 4.2.1
+
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.15-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jun 14 2021 Tom Callaway <spot@fedoraproject.org> - 5.6.15-3
+- Rebuilt for R 4.1.0
+
+* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Sun Sep 27 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 5.6.15-1
+- initial package for Fedora

@@ -1,0 +1,76 @@
+%global debug_package %{nil}
+
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
+Name:           gsettings-desktop-schemas
+Version:        43.0
+Release:        %autorelease
+Summary:        A collection of GSettings schemas
+
+License:        LGPLv2+
+# no homepage exists for this component
+URL:            https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
+Source0:        https://download.gnome.org/sources/%{name}/43.alpha/%{name}-%{tarball_version}.tar.xz
+
+BuildRequires:  gettext
+BuildRequires:  glib2-devel >= 2.31.0
+BuildRequires:  gobject-introspection-devel
+BuildRequires:  meson
+
+Requires: glib2 >= 2.31.0
+
+# Recommend the default fonts set in the schemas
+Recommends: font(cantarell)
+Recommends: font(sourcecodepro)
+
+%description
+gsettings-desktop-schemas contains a collection of GSettings schemas for
+settings shared by various components of a desktop.
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries
+and header files for developing applications that use %{name}.
+
+
+%prep
+%autosetup -p1 -n %{name}-%{tarball_version}
+
+
+%build
+%meson
+%meson_build
+
+
+%install
+%meson_install
+
+%find_lang %{name} --with-gnome
+
+
+%check
+# Test that the schemas compile
+glib-compile-schemas --dry-run --strict %{buildroot}%{_datadir}/glib-2.0/schemas
+
+
+%files -f %{name}.lang
+%doc AUTHORS MAINTAINERS NEWS README
+%license COPYING
+%{_datadir}/glib-2.0/schemas/*
+%{_datadir}/GConf/gsettings/gsettings-desktop-schemas.convert
+%{_datadir}/GConf/gsettings/wm-schemas.convert
+%{_libdir}/girepository-1.0/GDesktopEnums-3.0.typelib
+
+%files devel
+%doc HACKING
+%{_includedir}/*
+%{_datadir}/pkgconfig/*
+%{_datadir}/gir-1.0/GDesktopEnums-3.0.gir
+
+
+%changelog
+%autochangelog

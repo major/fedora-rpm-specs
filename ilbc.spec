@@ -1,0 +1,92 @@
+Name:       ilbc
+Summary:    Internet Low Bitrate Codec
+Version:    3.0.4
+Release:    3%{?dist}
+License:    BSD
+URL:        https://github.com/TimothyGu/libilbc
+
+Source0:    %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:     %{name}-flags.patch
+Patch1:     %{name}-s390.patch
+
+BuildRequires:  abseil-cpp-devel
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+
+%description
+iLBC (internet Low Bitrate Codec) is a FREE speech codec suitable for robust
+voice communication over IP. The codec is designed for narrow band speech and
+results in a payload bit rate of 13.33 kbit/s with an encoding frame length of
+30 ms and 15.20 kbps with an encoding length of 20 ms. The iLBC codec enables
+graceful speech quality degradation in the case of lost frames, which occurs in
+connection with lost or delayed IP packets.
+
+%package    devel
+Summary:    development files for %{name}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Additional header files for development with %{name}.
+
+%prep
+%autosetup -p1 -n libilbc-%{version}
+
+%build
+%cmake -DBUILD_SHARED_LIBS=ON
+%cmake_build
+
+%install
+%cmake_install
+
+# Let RPM pick up the docs in the files section
+rm -fr %{buildroot}%{_docdir}/libilbc
+
+%files
+%doc README.md NEWS.md
+%license COPYING
+%{_libdir}/lib%{name}.so.3
+%{_libdir}/lib%{name}.so.%{version}
+
+%files devel
+%{_bindir}/%{name}_test
+%{_includedir}/%{name}.h
+%{_includedir}/%{name}_export.h
+%{_libdir}/pkgconfig/lib%{name}.pc
+%{_libdir}/lib%{name}.so
+
+%changelog
+* Mon Aug 22 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.0.4-3
+- Rebuilt for abseil-cpp 20220623.0
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed May 25 2022 Simone Caronni <negativo17@gmail.com> - 3.0.4-1
+- Update to 3.0.4.
+- Drop 2012 compatibility hacks.
+- Trim changelog.
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Feb 19 2019 Neal Gompa <ngompa13@gmail.com> - 1.1.1-16
+- Modernize spec
+- Drop EL5 specific stuff
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild

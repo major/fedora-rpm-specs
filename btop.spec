@@ -1,0 +1,76 @@
+Name:           btop
+Version:        1.2.9
+Release:        1%{?dist}
+Summary:        Modern and colorful command line resource monitor that shows usage and stats
+
+# The entire source code is ASL 2.0 except:
+# include/robin_hood.h - MIT
+# include/widechar_width.hpp - Public Domain
+License:        ASL 2.0 and MIT and Public Domain
+URL:            https://github.com/aristocratos/btop
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  make
+%if 0%{?el8}
+BuildRequires:  gcc-toolset-11-gcc-c++
+BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-11-binutils
+%endif
+
+Requires:       hicolor-icon-theme
+
+# Bundling was chosen for robin-hood-hashing as it is semi-abandoned
+# by its developer and other packages are unlikely to need it.
+# Bundling was chosen for widecharwidth as it is not versioned upstream
+# and doesn't appear to be a widely-used lib.
+Provides:       bundled(widecharwidth)
+Provides:       bundled(robin-hood-hashing) = 3.11.5
+
+%description
+Resource monitor that shows usage and stats for processor,
+memory, disks, network and processes.
+
+C++ version and continuation of bashtop and bpytop.
+
+%prep
+%autosetup
+
+
+%build
+%{?el8:. /opt/rh/gcc-toolset-11/enable}
+%if 0%{?rhel} || 0%{?fedora} < 36
+%set_build_flags
+%endif
+
+%make_build
+
+
+%install
+%make_install PREFIX=%{_prefix}
+rm -f %{buildroot}%{_datadir}/btop/README.md
+desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
+
+
+%files
+%license LICENSE
+%doc README.md CHANGELOG.md
+%{_bindir}/%{name}
+%{_datadir}/applications/btop.desktop
+%{_datadir}/btop
+%{_datadir}/icons/hicolor/*/apps/btop.*
+
+%changelog
+* Mon Aug 29 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.9-1
+- update to 1.2.9
+- rhbz#2122053
+
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jul 19 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.8-2
+- Update spec file to build on epel8
+
+* Thu Jul 14 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.8-1
+- Initial version of package

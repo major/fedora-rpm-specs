@@ -1,0 +1,60 @@
+Name:           python-retry
+Version:        0.9.2
+Release:        2%{?dist}
+Summary:        Easy to use retry decorator
+
+License:        Apache-2.0
+URL:            https://github.com/invl/retry
+Source:         %{url}/archive/%{version}/retry-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+# https://github.com/invl/retry/pull/56
+Patch:          fix_test_deps.patch
+
+%global _description %{expand:
+Easy to use retry decorator}
+
+%description %_description
+
+%package -n python3-retry
+Summary:        %{summary}
+
+%description -n python3-retry %_description
+
+
+%prep
+%autosetup -n retry-%{version}
+
+%generate_buildrequires
+export PBR_VERSION="%{version}"
+%pyproject_buildrequires -t
+
+
+%build
+export PBR_VERSION="%{version}"
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files retry
+
+
+%check
+%tox
+
+
+%files -n python3-retry -f %{pyproject_files}
+%doc README.* ChangeLog AUTHORS
+%license LICENSE
+
+
+%changelog
+* Tue Aug 23 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.2-2
+- Add patch to build properly on EPEL9
+
+* Sun Aug 07 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.2-1
+- Initial package build
+- rhbz#2116246

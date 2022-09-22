@@ -1,0 +1,172 @@
+Name:           primecount
+Version:        7.4
+Release:        2%{?dist}
+Summary:        Fast prime counting function implementation
+
+License:        BSD
+URL:            https://github.com/kimwalisch/%{name}/
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  asciidoc
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  libdivide-static
+%ifarch %{ix86} x86_64 ia64 ppc64le
+BuildRequires:  libquadmath-devel
+%endif
+BuildRequires:  make
+BuildRequires:  primesieve-devel
+
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description
+Primecount is a command-line program and C++ library that counts the
+primes below an integer x<=10**31 using highly optimized implementations
+of the combinatorial prime counting algorithms.
+
+Primecount includes implementations of all important combinatorial prime
+counting algorithms known up to this date all of which have been
+parallelized using OpenMP.  Primecount contains the first ever open
+source implementations of the Deleglise-Rivat algorithm and Xavier
+Gourdon's algorithm (that works).  Primecount also features a novel load
+balancer that is shared amongst all implementations and that scales up
+to hundreds of CPU cores.  Primecount has already been used to compute
+several world records e.g. pi(10**27)
+(http://www.mersenneforum.org/showthread.php?t=20473) and
+nth_prime(10**24) (https://oeis.org/A006988).
+
+%package        libs
+Summary:        C++ library for fast prime counting
+
+%description    libs
+This package contains a C++ library for counting primes below an
+integer.  See the primecount package for a command line interface.
+
+%package        devel
+Summary:        Headers and library links for libprimecount
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    devel
+This package contains files necessary to develop applications that use
+libprimecount.
+
+%prep
+%autosetup -p1
+
+# Unbundle libdivide
+rm -f include/libdivide.h
+ln -s %{_includedir}/libdivide.h include/libdivide.h
+
+%build
+# WITH_FLOAT128 should be ON only for architectures:
+# - with a __float128 type that is different from long double
+# - with libquadmath
+# As of GCC 12:
+# - All x86/x86_64 CPUs have __float128; it is different from long double
+# - ppc64le has __float128; it is the same as long double
+# - No other architecture has libquadmath
+%ifarch %{ix86} x86_64
+export CFLAGS="%{optflags} -DLIBDIVIDE_SSE2"
+export CXXFLAGS="$CFLAGS"
+%endif
+%cmake -DBUILD_LIBPRIMESIEVE=OFF \
+       -DBUILD_MANPAGE=ON \
+       -DBUILD_SHARED_LIBS=ON \
+       -DBUILD_STATIC_LIBS=OFF \
+       -DBUILD_TESTS=ON \
+%ifarch %{ix86} x86_64
+       -DWITH_FLOAT128=ON \
+%endif
+       -DWITH_POPCNT=OFF
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+%ctest
+
+%files
+%doc README.md
+%{_bindir}/primecount
+%{_mandir}/man1/primecount.1*
+
+%files          libs
+%license COPYING
+%{_libdir}/libprimecount.so.7*
+
+%files          devel
+%doc ChangeLog doc/*.pdf doc/*.md
+%{_includedir}/primecount.h
+%{_includedir}/primecount.hpp
+%{_libdir}/libprimecount.so
+%{_libdir}/pkgconfig/primecount.pc
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jul  8 2022 Jerry James <loganjerry@gmail.com> - 7.4-1
+- Version 7.4
+
+* Tue May  3 2022 Jerry James <loganjerry@gmail.com> - 7.3-1
+- Version 7.3
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Sat Dec 11 2021 Jerry James <loganjerry@gmail.com> - 7.2-1
+- Version 7.2
+
+* Thu Aug 19 2021 Jerry James <loganjerry@gmail.com> - 7.1-1
+- Version 7.1
+- Enable LTO on ppc64le
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Thu Jun 17 2021 Jerry James <loganjerry@gmail.com> - 7.0-1
+- Version 7.0
+
+* Sat Mar 20 2021 Jerry James <loganjerry@gmail.com> - 6.4-1
+- Version 6.4
+
+* Fri Mar  5 2021 Jerry James <loganjerry@gmail.com> - 6.3-1
+- Version 6.3
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Fri Jan  8 2021 Jerry James <loganjerry@gmail.com> - 6.2-1
+- Version 6.2
+
+* Wed Sep 30 2020 Jerry James <loganjerry@gmail.com> - 6.1-1
+- Version 6.1
+
+* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-3
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Sun Mar 22 2020 Jerry James <loganjerry@gmail.com> - 6.0-1
+- Version 6.0
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Jan 20 2020 Jerry James <loganjerry@gmail.com> - 5.3-1
+- Version 5.3
+
+* Mon Nov 18 2019 Jerry James <loganjerry@gmail.com> - 5.2-1
+- Version 5.2
+- Drop all patches
+- Building man page now needs asciidoc instead of help2man
+
+* Fri Sep 20 2019 Jerry James <loganjerry@gmail.com> - 5.1-2
+- Add justifications in the patch files
+- Generate a man page with help2man
+
+* Thu Sep 19 2019 Jerry James <loganjerry@gmail.com> - 5.1-1
+- Initial RPM

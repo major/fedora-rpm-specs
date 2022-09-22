@@ -1,0 +1,79 @@
+%undefine _package_note_flags
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-version
+Version:        3.5.0
+Release:        2%{?dist}
+Summary:        Manipulate, parse and generate OCaml compiler version strings
+
+License:        ISC
+URL:            https://ocurrent.github.io/ocaml-version/
+Source0:        https://github.com/ocurrent/%{name}/releases/download/v%{version}/%{name}-%{version}.tbz
+
+BuildRequires:  ocaml >= 4.07.0
+BuildRequires:  ocaml-alcotest-devel
+BuildRequires:  ocaml-dune >= 1.0
+
+%description
+This library provides facilities to parse version numbers of the OCaml
+compiler, and enumerates the various official OCaml releases and
+configuration variants.
+
+OCaml version numbers are of the form `major.minor.patch+extra`, where
+the `patch` and `extra` fields are optional.  This library offers the
+following functionality:
+
+- Functions to parse and serialize OCaml compiler version numbers
+- Enumeration of official OCaml compiler version releases
+- Test compiler versions for a particular feature (e.g. the `bytes`
+  type)
+- opam compiler switch enumeration
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup
+
+%build
+%dune_build
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jul  8 2022 Jerry James <loganjerry@gmail.com> - 3.5.0-1
+- Version 3.5.0
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 3.4.0-4
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 3.4.0-3
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Dec 10 2021 Jerry James <loganjerry@gmail.com> - 3.4.0-1
+- Initial RPM

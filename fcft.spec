@@ -1,0 +1,148 @@
+%global abi_ver 4
+
+Name:           fcft
+Version:        3.1.5
+Release:        1%{?dist}
+Summary:        Simple library for font loading and glyph rasterization
+
+# main source:  MIT
+# unicode/*:    Unicode
+# nanosvg:      zlib
+License:        MIT and Unicode and zlib
+URL:            https://codeberg.org/dnkl/%{name}
+Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+BuildRequires:  gcc
+BuildRequires:  meson >= 0.58.0
+
+BuildRequires:  pkgconfig(check)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(libutf8proc)
+BuildRequires:  pkgconfig(pixman-1)
+BuildRequires:  pkgconfig(scdoc)
+BuildRequires:  pkgconfig(tllist)
+# require *-static for header-only library
+BuildRequires:  tllist-static
+# test dependencies: 'Serif' and 'emoji' fonts
+BuildRequires:  font(dejavuserif)
+BuildRequires:  font(notocoloremoji)
+
+Provides:       bundled(nanosvg) = 0^20220429g03042a6
+
+%description
+fcft is a small font loading and glyph rasterization library built
+on top of FontConfig, FreeType2 and pixman.
+It can load and cache fonts from a fontconfig-formatted name string,
+e.g. Monospace:size=12, optionally with user configured fallback fonts.
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%autosetup -n %{name}
+cp unicode/LICENSE LICENSE.Unicode
+
+
+%build
+%meson \
+    -Dtest-text-shaping=true
+%meson_build
+
+
+%install
+%meson_install
+# license will be installed to the correct location with rpm macros
+rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
+
+
+%check
+%meson_test
+
+
+%files
+%license LICENSE LICENSE.Unicode
+%{_libdir}/lib%{name}.so.%{abi_ver}*
+%dir %{_docdir}/%{name}
+%{_docdir}/%{name}/CHANGELOG.md
+%{_docdir}/%{name}/README.md
+
+%files devel
+%{_includedir}/%{name}/
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
+%{_mandir}/man3/%{name}*.3*
+
+
+%changelog
+* Tue Sep 20 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.5-1
+- Update to 3.1.5 (#2128499)
+
+* Tue Sep 06 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.4-1
+- Update to 3.1.4 (#2124656)
+
+* Wed Aug 24 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.3-1
+- Update to 3.1.3 (#2120308)
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri May 20 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.2-1
+- Update to 3.1.2 (#2088509)
+
+* Sun May 01 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.1.1-1
+- Update to 3.1.1 (#2080746)
+
+* Sat Feb 05 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.1-1
+- Update to 3.0.1 (#2050997)
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Dec 08 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.5.1-1
+- Update to 2.5.1 (#2030410)
+
+* Sat Nov 13 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.5.0-1
+- Update to 2.5.0 (#2022959)
+- Enable text shaping tests
+
+* Sun Oct 24 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.6-1
+- Update to 2.4.6 (#2016766)
+
+* Sun Aug 15 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.5-1
+- Update to 2.4.5
+
+* Wed Jul 28 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.4-1
+- Update to 2.4.4
+
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Jul 18 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.3-1
+- Update to 2.4.3
+
+* Thu Jul 08 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.2-1
+- Update to 2.4.2
+
+* Fri Jun 25 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.4.1-1
+- Update to 2.4.1
+
+* Wed Apr 14 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.3.3-1
+- Update to 2.3.3
+
+* Mon Mar 08 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.3.2-3
+- Rebuild for tllist 1.0.5
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Sat Jan 23 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.3.2-1
+- Initial import (#1912855)

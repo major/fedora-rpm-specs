@@ -1,0 +1,70 @@
+Name:           python-mergedeep
+Version:        1.3.4
+Release:        7%{?dist}
+Summary:        A deep merge function for python
+BuildArch:      noarch
+
+License:        MIT
+URL:            https://github.com/clarketm/mergedeep
+Source0:        https://github.com/clarketm/mergedeep/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  python3-devel
+
+%description
+A deep merge function for python.
+
+
+%package -n python3-mergedeep
+Summary:        %{summary}
+
+%description -n python3-mergedeep
+A deep merge function for python.
+
+
+%prep
+%autosetup -p1 -n mergedeep-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files mergedeep
+
+
+%check
+%tox
+
+
+%files -n python3-mergedeep -f %{pyproject_files}
+%doc README.md
+%license LICENSE
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.4-6
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Sep 08 2021 Sandro Mani <manisandro@gmail.com> - 1.3.4-4
+- Use %%pyproject_buildrequires -t
+
+* Fri Sep 03 2021 Sandro Mani <manisandro@gmail.com> - 1.3.4-3
+- Run %%tox in %%check
+
+* Thu Sep 02 2021 Sandro Mani <manisandro@gmail.com> - 1.3.4-2
+- Port to new Python guidelines
+
+* Wed Sep 01 2021 Sandro Mani <manisandro@gmail.com> - 1.3.4-1
+- Initial package

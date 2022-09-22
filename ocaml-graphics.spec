@@ -1,0 +1,104 @@
+%undefine _package_note_flags
+
+Name:           ocaml-graphics
+Version:        5.1.2
+Release:        7%{?dist}
+Summary:        Portable drawing primitives for OCaml
+
+License:        LGPLv2 with exceptions
+URL:            https://github.com/ocaml/graphics
+Source0:        %{url}/releases/download/%{version}/graphics-%{version}.tbz
+
+BuildRequires:  ocaml >= 4.09.0
+BuildRequires:  ocaml-dune >= 2.1
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  pkgconfig(x11)
+
+%description
+The graphics library provides a set of portable drawing primitives.
+Drawing takes place in a separate window that is created when
+Graphics.open_graph is called.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libX11-devel%{?_isa}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%package        doc
+Summary:        Documentation for %{name}
+BuildArch:      noarch
+
+%description    doc
+The %{name}-doc package contains developer documentation for
+%{name}.
+
+%prep
+%autosetup -n graphics-%{version}
+
+%build
+%dune_build
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE
+
+%files devel -f .ofiles-devel
+
+%files doc
+%license LICENSE
+%doc examples
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 5.1.2-6
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 5.1.2-6
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 5.1.2-5
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Feb  3 2022 Jerry James <loganjerry@gmail.com> - 5.1.2-4
+- Conditionally build docs to avoid circular dependency on odoc
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Oct 04 2021 Richard W.M. Jones <rjones@redhat.com> - 5.1.2-3
+- OCaml 4.13.1 build
+- Add build dependency on ocaml-result.
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jul 19 2021 Jerry James <loganjerry@gmail.com> - 5.1.2-1
+- There is no circular dependency, so always builds docs
+
+* Tue May 25 2021 Jerry James <loganjerry@gmail.com> - 5.1.2-1
+- Version 5.1.2
+
+* Mon Mar  1 17:17:56 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 5.1.1-2
+- OCaml 4.12.0 build
+- Make ocaml-odoc build dependency conditional.
+
+* Tue Feb  2 2021 Jerry James <loganjerry@gmail.com> - 5.1.1-1
+- Version 5.1.1
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Jan  4 2021 Jerry James <loganjerry@gmail.com> - 5.1.0-1
+- Initial RPM

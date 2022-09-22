@@ -1,0 +1,137 @@
+Name:           libstrophe
+Version:        0.12.2
+Release:        1%{?dist}
+Summary:        An XMPP library for C
+
+License:        MIT and GPLv3
+URL:            https://strophe.im/%{name}/
+Source0:        https://github.com/strophe/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+BuildRequires:  gcc
+BuildRequires:  automake
+BuildRequires:  autoconf
+BuildRequires:  libtool
+# expat or libxml, but no need for both
+BuildRequires:  expat-devel
+#BuildRequires:  libxml2-devel
+BuildRequires:  openssl-devel
+# For docs
+BuildRequires:  doxygen
+
+%description
+libstrophe is a minimal XMPP library written in C. It has almost no
+external dependencies, only an XML parsing library (expat or libxml
+are both supported). It is designed for both POSIX and Windows
+systems.
+
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+
+%package        doc
+Summary:        Documentation for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+
+%description    doc
+The %{name}-doc package contains HTML documentation for developing
+applications that use %{name}.
+
+
+
+%prep
+%autosetup
+
+
+%build
+autoreconf -i -W all
+# expat is the default; use --with-libxml2 to switch
+%configure --disable-static
+%make_build
+# Build HTML documentation
+doxygen
+
+
+%install
+%make_install
+# Removing libstrophe.la generated
+rm -f %{buildroot}%{_libdir}/libstrophe.la
+
+# Install examples/ dir shipping binary files generated
+mkdir -p %{buildroot}%{_libdir}/%{name}/
+cp -a examples/ %{buildroot}%{_libdir}/%{name}/
+mv %{buildroot}%{_libdir}/%{name}/examples/.libs %{buildroot}%{_libdir}/%{name}/examples/libs
+mv %{buildroot}%{_libdir}/%{name}/examples/.deps %{buildroot}%{_libdir}/%{name}/examples/deps
+rm -f %{buildroot}%{_libdir}/%{name}/examples/.dirstamp
+rm -f %{buildroot}%{_libdir}/%{name}/examples/deps/.dirstamp
+
+# Install tests/ for testing the lib after install
+cp -a tests/ %{buildroot}%{_libdir}/%{name}/
+
+# Install HTML documentation for the doc subpackage
+mkdir -p %{buildroot}%{_pkgdocdir}/
+cp -a docs/html/ %{buildroot}%{_pkgdocdir}/
+
+
+%check
+# error on buildtime: Disabling.
+# /usr/bin/ld: DWARF error: invalid abstract instance DIE ref
+##make check
+
+
+
+%files
+%license LICENSE.txt GPL-LICENSE.txt MIT-LICENSE.txt
+%doc README AUTHORS ChangeLog 
+%{_libdir}/%{name}.so.*
+
+
+%files devel
+%doc examples/README.md
+%{_includedir}/strophe.h
+%{_libdir}/%{name}.so
+%{_libdir}/%{name}/
+%{_libdir}/pkgconfig/%{name}.pc
+
+
+%files doc
+%{_pkgdocdir}/
+
+
+
+%changelog
+* Fri Aug 26 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.12.2-1
+- Update to 0.12.2 version
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 0.10.1-5
+- Rebuilt with OpenSSL 3.0.0
+
+* Wed Aug 25 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.10.1-4
+- Package Review RHBZ#1994501:
+  - Remove useless ldconfig scriptlets
+  - Fix Requires tag of the doc subpackage
+
+* Thu Aug 19 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.10.1-3
+- Package Review RHBZ#1994501:
+  - Use more %%{name} macro in %%files section
+
+* Tue Aug 17 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.10.1-2
+- Package Review RHBZ#1994501:
+  - Fix Requires tag of the doc subpackage
+
+* Tue Aug 17 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.10.1-1
+- Initial packaging

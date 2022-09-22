@@ -1,0 +1,69 @@
+%global debug_package %{nil}
+# header only lib
+
+Name:           cpp-jwt
+Version:        1.4
+Release:        1%{?dist}
+Summary:        JSON Web Token library for C++
+
+License:        MIT
+URL:            https://github.com/arun11299/cpp-jwt
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  json-devel
+BuildRequires:  openssl-devel
+BuildRequires:  gtest-devel
+
+%global _description %{expand:
+JSON Web Token(JWT) is a JSON based standard (RFC-
+7519) for creating assertions or access tokens that consists of some
+claims (encoded within the assertion). This assertion can be used in some
+kind of bearer authentication mechanism that the server will provide to
+clients, and the clients can make use of the provided assertion for
+accessing resources.}
+
+%description %{_description}
+
+%package devel
+Summary: %{summary}
+Provides: cpp-jwt-static
+
+%description devel
+%{_description}
+
+
+%prep
+%autosetup
+
+
+%build
+%cmake # -DCPP_JWT_BUILD_EXAMPLES=OFF
+%cmake_build
+
+
+%check
+%ctest
+
+
+%install
+%cmake_install
+
+
+%files devel
+%license LICENSE
+%doc README.md
+%{_includedir}/jwt/
+# empty dir
+%exclude %{_includedir}/jwt/test
+# not needed
+%exclude %{_includedir}/jwt/json/test_json.cc
+# not needed
+%exclude %{_libdir}/cmake/%{name}
+
+
+%changelog
+* Sat Aug 20 2022 Jonathan Wright <jonathan@almalinux.org> - 1.4-1
+- Initial package build
+- rhbz#2120012

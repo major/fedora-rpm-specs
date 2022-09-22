@@ -1,0 +1,117 @@
+Name:           nv-codec-headers
+Version:        11.1.5.1
+Release:        3%{?dist}
+Summary:        FFmpeg version of Nvidia Codec SDK headers
+License:        MIT
+URL:            https://github.com/FFmpeg/nv-codec-headers
+Source0:        %url/archive/n%{version}/%{name}-n%{version}.tar.gz
+
+BuildArch:      noarch
+       
+BuildRequires:  make
+
+%description
+FFmpeg version of headers required to interface with Nvidias codec APIs.
+
+
+%prep
+%autosetup -n %{name}-n%{version}
+sed -i -e 's@/include@/include/ffnvcodec@g' ffnvcodec.pc.in
+
+# Extract license
+sed -n '4,25p' include/ffnvcodec/nvEncodeAPI.h > LICENSE
+sed -i '1,22s/^.\{,3\}//' LICENSE
+
+%build
+%make_build PREFIX=%{_prefix} LIBDIR=/share
+
+
+%install
+%make_install PREFIX=%{_prefix} LIBDIR=/share
+
+
+%files
+%doc README
+%license LICENSE
+%{_includedir}/ffnvcodec/
+%{_datadir}/pkgconfig/ffnvcodec.pc
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Jan 12 2022 Leigh Scott <leigh123linux@gmail.com> - 11.1.5.1-1
+- Update to 11.1.5.1
+
+* Wed Dec 08 2021 Leigh Scott <leigh123linux@gmail.com> - 11.1.5.0-1
+- Update to 11.1.5.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Wed Apr 21 2021 Leigh Scott <leigh123linux@gmail.com> - 11.0.10.1-1
+- Update to 11.0.10.1
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Oct 15 2020 Leigh Scott <leigh123linux@gmail.com> - 11.0.10.0-1
+- Update to 11.0.10.0
+
+* Tue Oct  6 2020 Leigh Scott <leigh123linux@gmail.com> - 10.0.26.1-1
+- Update to 10.0.26.1
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.26.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Thu Jul 02 2020 Leigh Scott <leigh123linux@gmail.com> - 10.0.26.0-1
+- Update to 10.0.26.0
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.23.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Dec 16 2019 Leigh Scott <leigh123linux@gmail.com> - 9.1.23.1-1
+- Update to 9.1.23.1
+
+* Tue Sep 24 2019 Leigh Scott <leigh123linux@googlemail.com> - 9.1.23.0-1
+- Update to 9.1.23.0
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.18.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue May 21 2019 Leigh Scott <leigh123linux@googlemail.com> - 9.0.18.1-2
+- Use correct path for pkg-config file
+
+* Sat May 11 2019 Leigh Scott <leigh123linux@googlemail.com> - 9.0.18.1-1
+- Update to 9.0.18.1
+
+* Fri Mar 01 2019 Leigh Scott <leigh123linux@googlemail.com> - 9.0.18.0-1
+- Update to 9.0.18.0
+
+* Sun Feb 03 2019 Leigh Scott <leigh123linux@googlemail.com> - 8.2.15.7-1
+- Update to 8.2.15.7
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.15.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sat Jan 05 2019 Leigh Scott <leigh123linux@googlemail.com> - 8.2.15.6-1
+- Update to 8.2.15.6
+
+* Tue Nov 06 2018 Leigh Scott <leigh123linux@googlemail.com> - 8.2.15.5-1
+- Update to 8.2.15.5
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.24.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Wed Jun 13 2018 Leigh Scott <leigh123linux@googlemail.com> - 8.1.24.2-1
+- Update to 8.1.24.2
+
+* Sun Apr 15 2018 Leigh Scott <leigh123linux@googlemail.com> - 8.1.24.1-1
+- Update to 8.1.24.1
+
+* Tue Feb 27 2018 Leigh Scott <leigh123linux@googlemail.com> - 8.0.14.1-1
+- First build

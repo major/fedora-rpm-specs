@@ -1,0 +1,181 @@
+%define srcname nmstate
+%define libname libnmstate
+
+Name:           nmstate
+Version:        2.1.4
+Release:        1%{?dist}
+Summary:        Declarative network manager API
+License:        LGPLv2+
+URL:            https://github.com/%{srcname}/%{srcname}
+Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
+Source2:        https://nmstate.io/nmstate.gpg
+BuildRequires:  patchelf
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  gnupg2
+BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  rust-packaging
+BuildRequires:  (crate(ipnet/default) >= 2.5 with crate(ipnet/default) < 3.0)
+BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
+BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
+BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
+BuildRequires:  (crate(serde_yaml/default) >= 0.8 with crate(serde_yaml/default) < 0.9)
+BuildRequires:  (crate(uuid/v4) >= 1.1 with crate(uuid/v4) < 2.0)
+BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
+BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
+BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
+BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
+BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
+BuildRequires:  (crate(clap/default) >= 3.1 with crate(clap/default) < 4.0)
+BuildRequires:  (crate(clap/cargo) >= 3.1 with crate(clap/cargo) < 4.0)
+BuildRequires:  (crate(ctrlc/default) >= 3.2 with crate(ctrlc/default) < 4.0)
+BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 1.0)
+BuildRequires:  (crate(nispor/default) >= 1.2.7 with crate(nispor/default) < 2.0)
+
+%description
+Nmstate is a library with an accompanying command line tool that manages host
+networking settings in a declarative manner and aimed to satisfy enterprise
+needs to manage host networking through a northbound declarative API and multi
+provider support on the southbound.
+
+
+%package libs
+Summary:        C binding of nmstate
+# Use Recommends for NetworkManager because only access to NM DBus is required,
+# but NM could be running on a different host
+Recommends:     NetworkManager
+# Avoid automatically generated profiles
+Recommends:     NetworkManager-config-server
+License:        ASL 2.0
+
+%description libs
+C binding of nmstate.
+
+%package devel
+Summary:        Development files for nmstate
+Group:          Development/Libraries
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+License:        ASL 2.0
+
+%description devel
+Development files of nmstate C binding.
+
+%package static
+Summary:        Static development files for nmstate
+Group:          Development/Libraries
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description static
+Static C library bindings for nmstate.
+
+%package -n python3-%{libname}
+Summary:        nmstate Python 3 API library
+# Use Recommends for NetworkManager because only access to NM DBus is required,
+# but NM could be running on a different host
+Recommends:     NetworkManager
+# Avoid automatically generated profiles
+Recommends:     NetworkManager-config-server
+Recommends:     (nmstate-plugin-ovsdb if openvswitch)
+# Use Suggests for NetworkManager-ovs and NetworkManager-team since it is only
+# required for OVS and team support
+Suggests:       NetworkManager-ovs
+Suggests:       NetworkManager-team
+Provides:       nmstate-plugin-ovsdb = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Obsoletes:      nmstate-plugin-ovsdb < 2.0-1
+
+%description -n python3-%{libname}
+This package contains the Python 3 library for Nmstate.
+
+%package -n rust-%{name}-devel
+Summary:        Rust crate of nmstate
+BuildArch:      noarch
+
+%description -n rust-%{name}-devel
+This package contains library source intended for building other packages
+which use "%{name}" crate.
+
+%package -n rust-%{name}+default-devel
+Summary:        Rust crate of nmstate with default feature
+BuildArch:      noarch
+
+%description -n rust-%{name}+default-devel
+This package contains library source intended for building other packages
+which use "%{name}" crate with default feature.
+
+%prep
+gpg2 --import --import-options import-export,import-minimal \
+    %{SOURCE2} > ./gpgkey-mantainers.gpg
+gpgv2 --keyring ./gpgkey-mantainers.gpg %{SOURCE1} %{SOURCE0}
+%autosetup -p1
+
+pushd rust
+rm .cargo/config.toml
+%cargo_prep
+popd
+
+%build
+pushd rust
+%cargo_build
+popd
+
+pushd rust/src/python
+%py3_build
+popd
+
+%install
+env SKIP_PYTHON_INSTALL=1 \
+    PREFIX=%{_prefix} \
+    LIBDIR=%{_libdir} \
+    SYSCONFDIR=%{_sysconfdir} \
+    %make_install
+patchelf --set-soname libnmstate.so.2 \
+    %{buildroot}/%{_libdir}/libnmstate.so.%{version}
+
+pushd rust/src/python
+%py3_install
+popd
+
+pushd rust/src/lib
+%cargo_install
+popd
+
+%files
+%doc README.md
+%doc examples/
+%{_mandir}/man8/nmstatectl.8*
+%{_mandir}/man8/nmstate-autoconf.8*
+%{_mandir}/man8/nmstate.service.8*
+%{_bindir}/nmstatectl
+%{_bindir}/nmstate-autoconf
+%{_unitdir}/nmstate.service
+%dir %{_sysconfdir}/%{name}
+%{_sysconfdir}/%{name}/README
+
+%files libs
+%{_libdir}/libnmstate.so.*
+
+%files devel
+%{_libdir}/libnmstate.so
+%{_includedir}/nmstate.h
+%{_libdir}/pkgconfig/nmstate.pc
+
+%files -n python3-%{libname}
+%license LICENSE
+%{python3_sitelib}/%{libname}
+%{python3_sitelib}/%{srcname}-*.egg-info/
+
+%files static
+%{_libdir}/libnmstate.a
+
+%files -n rust-%{name}-devel
+%license LICENSE
+%{cargo_registry}/%{name}-%{version}/
+
+%files -n rust-%{name}+default-devel
+%ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
+
+%changelog
+%autochangelog

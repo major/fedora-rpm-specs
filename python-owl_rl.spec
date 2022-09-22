@@ -1,0 +1,65 @@
+%global _description %{expand:
+A simple implementation of the OWL2 RL Profile, as well as a basic RDFS
+inference, on top of RDFLib. Based mechanical forward chaining. The
+distribution contains:
+
+* scripts/RDFConvertService: can be used as a CGI script to invoke the
+library. It may have to be adapted to the local server setup.
+* scripts/owlrl: script that can be run locally on to transform a file into RDF
+(on the standard output). Run the script with -h to get the available flags.}
+
+Name:           python-owl_rl
+Version:        6.0.2
+Release:        %autorelease
+Summary:        OWL-RL and RDFS based RDF Closure inferencing for Python
+
+License:        W3C
+URL:            https://github.com/RDFLib/OWL-RL
+Source0:        %{pypi_source owlrl}
+
+BuildArch:      noarch
+
+%description %_description
+
+%package -n python3-owl_rl
+Summary:        %{summary}
+BuildRequires:  python3-devel
+
+BuildRequires:  %{py3_dist pytest}
+
+%py_provides python3-owl_rl
+Obsoletes:      python3-owlrl <= 5.2.1-3
+
+
+%description -n python3-owl_rl %_description
+
+%prep
+%autosetup -n owlrl-%{version}
+
+# works with rdflib 5.0.0+, so loosen requirement
+sed -i -e 's/rdflib.*/rdflib/' requirements.txt
+# Remove when rdflib is updated to 6.0.0+, which includes rdflib_jsonld
+echo "rdflib_jsonld" >> requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files owlrl
+
+%check
+# test_version_converter needs an internet connection, therefore disabled
+%pytest -k 'not cls_maxqc1' \
+    --deselect test/test_version_converter.py
+
+%files -n python3-owl_rl -f %{pyproject_files}
+%doc README.rst
+%{_bindir}/owlrl
+%{_bindir}/RDFConvertService
+
+%changelog
+%autochangelog

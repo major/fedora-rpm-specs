@@ -1,0 +1,91 @@
+Name:           python-shellingham
+Version:        1.4.0
+Release:        2%{?dist}
+Summary:        Tool to detect surrounding Shell
+License:        ISC
+URL:            https://github.com/sarugaku/shellingham
+Source0:        %{url}/archive/%{version}/shellingham-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+
+%description
+Shellingham detects what shell the current Python executable is running in.
+
+%package -n     python3-shellingham
+Summary:        %{summary}
+
+%description -n python3-shellingham
+Shellingham detects what shell the current Python executable is running in.
+
+
+%prep
+%autosetup -n shellingham-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files shellingham
+
+%check
+%pytest -v
+
+%files -n python3-shellingham -f %{pyproject_files}
+%doc README.rst CHANGELOG.rst
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jul 11 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.4.0-1
+- Update to 1.4.0
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.2-6
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Jul 20 2021 Miro Hrončok <mhroncok@redhat.com> - 1.3.2-4
+- Fix build with new pip and pyproject-rpm-macros
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.3.2-3
+- Rebuilt for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Aug 04 2020 Tomas Orsava <torsava@redhat.com> - 1.3.2-1
+- Update to 1.3.2 (rhbz#1802130)
+- Switch spec file to pyproject-rpm-macros
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon May 25 2020 Miro Hrončok <mhroncok@redhat.com> - 1.2.7-7
+- Rebuilt for Python 3.9
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.7-5
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.2.7-4
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sun Nov 25 2018 Miro Hrončok <mhroncok@redhat.com> - 1.2.7-1
+- Initial package

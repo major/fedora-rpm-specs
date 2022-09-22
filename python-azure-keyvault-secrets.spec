@@ -1,0 +1,75 @@
+%global         srcname     azure-keyvault-secrets
+
+Name:           python-%{srcname}
+Version:        4.3.0
+Release:        7%{?dist}
+Summary:        Microsoft Azure Key Vault Secrets Client Library for Python
+License:        MIT
+URL:            https://pypi.org/project/%{srcname}/
+Source0:        %{pypi_source %{srcname} %{version} zip}
+
+BuildArch:      noarch
+
+Obsoletes:      python3-azure-sdk < 5.0.1
+
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  pyproject-rpm-macros
+
+
+%global _description %{expand:
+Microsoft Azure Key Vault Secrets Client Library for Python}
+
+%description %{_description}
+
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+Obsoletes:      python3-azure-sdk < 5.0.1
+%description -n python3-%{srcname} %{_description}
+
+
+%prep
+%autosetup -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files azure
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.md
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 4.3.0-6
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Sep 08 2021 Major Hayden <major@mhtx.net> - 4.3.0-4
+- Move obsoletes into subpackage
+
+* Wed Sep 08 2021 Major Hayden <major@mhtx.net> - 4.3.0-3
+- Move obsoletes into subpackage
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jul 12 2021 Major Hayden <major@mhtx.net> - 4.3.0-1
+- Update to 4.3.0.
+
+* Tue Jun 01 2021 Major Hayden <major@mhtx.net> - 4.2.0-1
+- First package.

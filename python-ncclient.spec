@@ -1,0 +1,116 @@
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
+
+Name:           python-ncclient
+Version:        0.6.13
+Release:        %autorelease
+Summary:        Python library for the NETCONF protocol
+
+License:        ASL 2.0
+URL:            https://github.com/ncclient/ncclient
+Source0:        %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+%global common_description %{expand:
+ncclient is a Python library that facilitates client-side scripting and
+application development around the NETCONF protocol. ncclient was developed by
+Shikar Bhushan.net). It is now maintained by Leonidas Poulopoulos (@leopoul)
+and Einar Nilsen-Nygaard (@einarnn).
+
+Docs: http://ncclient.readthedocs.org
+
+PyPI: https://pypi.python.org/pypi/ncclient}
+
+%description %{common_description}
+
+
+%package -n python3-ncclient
+Summary:        %{summary}
+
+%description -n python3-ncclient %{common_description}
+
+
+%package doc
+Summary:        Documentation and examples for python-ncclient
+
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
+
+%description doc
+The python-ncclient-doc package contains detailed documentation and examples
+for python-ncclient.
+
+
+%prep
+%autosetup -n ncclient-%{version}
+%py3_shebang_fix examples
+
+# Keep a dependency on deprecated python3dist(nose) from being generated.
+# Upstream still prefers to use nose, but the tests have been adjusted so that
+# it is no longer required.
+sed -r -i '/^nose\b/d' test-requirements.txt
+# Don’t generate dependencies on unnecessary linting and test coverage
+# dependencies, either.
+sed -r -i '/^(flake8|pytest-cov)\b/d' test-requirements.txt
+
+# Loosen exact-version doc dependencies
+sed -r -i 's/==/>=/' docs/requirements.txt
+# Drop intersphinx mappings, since we can’t download remote inventories and
+# can’t easily produce working hyperlinks from inventories in local
+# documentation packages.
+echo 'intersphinx_mapping.clear()' >> docs/conf.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t %{?with_doc_pdf:docs/requirements.txt}
+
+
+%build
+%pyproject_wheel
+
+%if %{with doc_pdf}
+%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+# There is an escaping problem we haven’t traced to its root cause. In the list
+# of authors, “\and” is emitted, and then “\a” is interpreted as the backslash
+# escape for the ASCII BEL (bell) character. This then breaks the LaTeX build.
+# Find it and fix it after generating the LaTeX source and before building it.
+sed -r -i 's/\x07nd/and/g' docs/build/latex/ncclient.tex
+%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
+%endif
+
+
+%install
+%pyproject_install
+%pyproject_save_files ncclient
+
+
+%check
+%tox
+
+ 
+%files -n python3-ncclient -f %{pyproject_files}
+
+
+%files doc
+%license LICENSE
+%doc Changelog
+%doc NOTICE
+%doc README.md
+%doc README.rst
+%if %{with doc_pdf}
+%doc docs/build/latex/ncclient.pdf
+%endif
+%doc examples
+
+
+%changelog
+%autochangelog

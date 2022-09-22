@@ -1,0 +1,113 @@
+%global nm_version 1.2
+%global nma_version 1.0
+%global glib_required_version 2.63.1
+%global gtk_required_version 4.6
+%global geoclue_version 2.3.1
+
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
+Name:           gnome-initial-setup
+Version:        43.0
+Release:        %autorelease
+Summary:        Bootstrapping your OS
+
+License:        GPLv2+
+URL:            https://wiki.gnome.org/Design/OS/InitialSetup
+Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source1:        vendor.conf
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/160
+# https://bugzilla.redhat.com/show_bug.cgi?id=2123494
+Patch0:         160.patch
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  pkgconfig(accountsservice)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(gdm)
+BuildRequires:  pkgconfig(geocode-glib-2.0)
+BuildRequires:  pkgconfig(gio-2.0) >= %{glib_required_version}
+BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib_required_version}
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib_required_version}
+BuildRequires:  pkgconfig(gnome-desktop-4)
+BuildRequires:  pkgconfig(goa-1.0)
+BuildRequires:  pkgconfig(goa-backend-1.0)
+BuildRequires:  pkgconfig(gsettings-desktop-schemas)
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gtk4) >= %{gtk_required_version}
+BuildRequires:  pkgconfig(gweather4)
+BuildRequires:  pkgconfig(ibus-1.0)
+BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(krb5)
+BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libgeoclue-2.0) >= %{geoclue_version}
+BuildRequires:  pkgconfig(libnma-gtk4) >= %{nma_version}
+BuildRequires:  pkgconfig(libnm) >= %{nm_version}
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(packagekit-glib2)
+BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(polkit-gobject-1)
+BuildRequires:  pkgconfig(pwquality)
+BuildRequires:  pkgconfig(rest-1.0)
+BuildRequires:  pkgconfig(webkit2gtk-5.0)
+
+# gnome-initial-setup is being run by gdm
+Requires: gdm
+Requires: geoclue2-libs%{?_isa} >= %{geoclue_version}
+Requires: glib2%{?_isa} >= %{glib_required_version}
+# we install a rules file
+Requires: polkit-js-engine
+Requires: /usr/bin/gkbd-keyboard-display
+
+Requires(pre): shadow-utils
+
+Provides: user(%name)
+
+%description
+GNOME Initial Setup is an alternative to firstboot, providing
+a good setup experience to welcome you to your system, and walks
+you through configuring it. It is integrated with gdm.
+
+%prep
+%autosetup -p1 -n %{name}-%{tarball_version}
+
+%build
+%meson -Dparental_controls=disabled
+%meson_build
+
+%install
+%meson_install
+
+desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/gnome-initial-setup.desktop
+
+mkdir -p %{buildroot}%{_datadir}/gnome-initial-setup
+cp %{SOURCE1} %{buildroot}%{_datadir}/gnome-initial-setup/
+
+%find_lang %{name}
+
+%pre
+useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null || :
+
+%files -f %{name}.lang
+%license COPYING
+%doc NEWS README.md
+%{_libexecdir}/gnome-initial-setup
+%{_libexecdir}/gnome-initial-setup-copy-worker
+%{_libexecdir}/gnome-initial-setup-goa-helper
+%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
+%{_sysconfdir}/xdg/autostart/gnome-initial-setup-first-login.desktop
+%{_datadir}/applications/gnome-initial-setup.desktop
+%{_datadir}/gnome-session/sessions/gnome-initial-setup.session
+%{_datadir}/gnome-shell/modes/initial-setup.json
+%{_datadir}/polkit-1/rules.d/20-gnome-initial-setup.rules
+%{_sysusersdir}/gnome-initial-setup.conf
+%{_userunitdir}/*
+
+%dir %{_datadir}/gnome-initial-setup
+%{_datadir}/gnome-initial-setup/vendor.conf
+
+%changelog
+%autochangelog

@@ -1,0 +1,67 @@
+%global pkg_name user-agents
+
+Name:           python-%{pkg_name}
+Version:        2.2.0
+Release:        4%{?dist}
+Summary:        A library to identify devices
+
+License:        MIT
+URL:            https://github.com/selwin/python-user-agents
+Source0:        %{pypi_source user-agents}
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+
+%description
+A library to identify devices (phones, tablets) and their capabilities by
+parsing browser user agent strings.
+
+
+%package -n python3-%{pkg_name}
+Summary:        A library to identify devices
+
+
+%description -n python3-%{pkg_name}
+A library to identify devices (phones, tablets) and their capabilities by
+parsing browser user agent strings.
+
+
+%prep
+%autosetup -p1 -n %{pkg_name}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files user_agents
+
+
+%check
+%py3_check_import user_agents
+
+
+%files -n python3-%{pkg_name}  -f %{pyproject_files}
+%license LICENSE.txt
+%doc README.md
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.2.0-3
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Dec 08 2021 Sandro Mani <manisandro@gmail.com> - 2.2.0-1
+- Initial package

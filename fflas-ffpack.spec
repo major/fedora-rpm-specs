@@ -1,0 +1,183 @@
+# Doxygen HTML help is not suitable for packaging due to a minified JavaScript
+# bundle inserted by Doxygen itself. See discussion at
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
+#
+# We can enable the Doxygen PDF documentation as a substitute.
+%bcond_without doc_pdf
+
+# This package is arch-specific, because it computes properties of the system
+# (such as endianness) and stores them in generated header files. Hence, the
+# files DO vary by platform. However, there is no actual compiled code, so turn
+# off debuginfo generation.
+%global debug_package %{nil}
+
+Name:           fflas-ffpack
+Version:        2.4.3
+Release:        %autorelease
+Summary:        Finite field linear algebra subroutines
+
+# The entire source is LGPL-2.1-or-later, except:
+#   - fflas-ffpack/fflas-ffpack-config.h is LGPL-2.0-or-later
+#
+# Certain build system files that do not contribute to the license of the
+# binary RPMs are also distributed under other licenses:
+#   - INSTALL and macros/ax_cxx_compile_stdcxx_11.m4 are FSFAP
+#   - aclocal.m4 and macros/libtool.m4 are (FSFULLR AND GPL-2.0-or-later)
+#   - configure is FSFUL, or, more likely (FSFUL AND LGPL-2.1-or-later)
+#   - build-aux/compile, build-aux/depcomp, build-aux/ltmain.sh,
+#     build-aux/missing, and build-aux/test-driver are GPL-2.0-or-later
+#   - macros/instr_set.m4 is CECILL-B
+#   - macros/ltoptions.m4, macros/ltsugar.m4, macros/ltversion.m4, and
+#     macros/lt~obsolete.m4 are FSFULLR
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
+URL:            https://linbox-team.github.io/fflas-ffpack/
+Source0:        https://github.com/linbox-team/fflas-ffpack/releases/download/%{version}/fflas_ffpack-%{version}.tar.bz2
+# Man page written for Fedora in groff_man(7) format based on --help output
+Source1:        fflas-ffpack-config.1
+
+# Fix memory leaks
+# https://github.com/linbox-team/fflas-ffpack/pull/276
+Patch0:         fflas-ffpack-mem-leak.patch
+
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
+
+BuildRequires:  make
+BuildRequires:  gcc-c++
+
+BuildRequires:  pkgconfig(flexiblas)
+BuildRequires:  pkgconfig(givaro)
+BuildRequires:  gmp-devel
+
+%if %{with doc_pdf}
+BuildRequires:  doxygen
+BuildRequires:  doxygen-latex
+BuildRequires:  make
+BuildRequires:  tex(stmaryrd.sty)
+# Default font for graphviz/dot
+BuildRequires:  font(freesans)
+%endif
+
+# Although there are references to linbox-devel files in this package,
+# linbox-devel Requires fflas-ffpack-devel, not the other way around.
+
+%description
+The FFLAS-FFPACK library provides functionality for dense linear algebra
+over word size prime finite fields.
+
+
+%package devel
+Summary:        Header files for developing with fflas-ffpack
+
+Requires:       givaro-devel%{?_isa}
+Requires:       gmp-devel%{?_isa}
+Requires:       flexiblas-devel%{?_isa}
+
+Provides:       fflas-ffpack-static = %{version}-%{release}
+
+%description devel
+The FFLAS-FFPACK library provides functionality for dense linear algebra
+over word size prime finite fields.  This package provides the header
+files for developing applications that use FFLAS-FFPACK.
+
+
+%package doc
+Summary:        API documentation for fflas-ffpack
+
+BuildArch:      noarch
+
+%description doc
+API documentation for fflas-ffpack.
+
+
+%prep
+%autosetup -p0 -n fflas_ffpack-%{version}
+# Skip test-echelon for now due to failures.
+# See https://github.com/linbox-team/fflas-ffpack/issues/282
+sed -i '/^[[:blank:]]*test-echelon/d' tests/Makefile.am
+
+# Do not use env
+sed -i 's,%{_bindir}/env bash,%{_bindir}/bash,' fflas-ffpack-config.in
+
+# Remove parts of the configure script that select non-default architectures
+# and ABIs. On x86_64, we could rely on up to SSE2, but there are no explicit
+# SIMD routines below SSE4.1 in the library, so it is not worth worrying about.
+sed -i '/INSTR_SET/,/fabi-version/d' configure.ac
+
+%if %{with doc_pdf}
+# We enable the Doxygen PDF documentation as a substitute. We must enable
+# GENERATE_LATEX and LATEX_BATCHMODE; the rest are precautionary and should
+# already be set as we like them. We also disable GENERATE_HTML, since we will
+# not use it.
+sed -r -i \
+    -e "s/^([[:blank:]]*(GENERATE_LATEX|LATEX_BATCHMODE|USE_PDFLATEX|\
+PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
+    -e "s/^([[:blank:]]*(LATEX_TIMESTAMP|GENERATE_HTML)\
+[[:blank:]]*=[[:blank:]]*)YES[[:blank:]]*/\1NO/" \
+    doc/Doxyfile doc/DoxyfileDev
+%endif
+
+
+%build
+# Regenerate configure after monkeying with configure.ac
+autoreconf --force --install --verbose
+
+%configure \
+  %{?with_doc_pdf:--enable-doc --docdir='%{_docdir}/fflas-ffpack'} \
+  --disable-static \
+  --enable-openmp \
+  --disable-simd \
+  --with-blas-cflags="$(pkgconf --cflags flexiblas)" \
+  --with-blas-libs="$(pkgconf --libs flexiblas)"
+chmod -v a+x fflas-ffpack-config
+%make_build
+
+%if %{with doc_pdf}
+%make_build -C doc/latex
+mv -v doc/latex/refman.pdf doc/fflas-ffpack.pdf
+# Build the developer documentation, too.
+rm -rf doc/latex
+%make_build -C doc docs_dev
+%make_build -C doc/latex
+mv -v doc/latex/refman.pdf doc/fflas-ffpack-dev.pdf
+%endif
+
+
+%install
+%make_install
+rm -vrf '%{buildroot}%{_prefix}/docs'
+install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p '%{SOURCE1}'
+
+
+%check
+export FLEXIBLAS=netlib
+%make_build check
+
+
+%files devel
+%license COPYING COPYING.LESSER
+%doc README.md
+
+%{_bindir}/fflas-ffpack-config
+%{_mandir}/man1/fflas-ffpack-config.1*
+
+%{_includedir}/fflas-ffpack/
+
+%{_libdir}/pkgconfig/fflas-ffpack.pc
+
+
+%files doc
+%license COPYING COPYING.LESSER
+%doc AUTHORS
+%doc ChangeLog
+%doc README.md
+%doc TODO
+%if %{with doc_pdf}
+%doc doc/fflas-ffpack.pdf
+%doc doc/fflas-ffpack-dev.pdf
+%endif
+
+
+%changelog
+%autochangelog

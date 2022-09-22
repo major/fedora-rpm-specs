@@ -1,0 +1,217 @@
+%global with_tag 1
+
+Name:                  wmbusmeters
+%global forgeurl       https://github.com/weetmuts/%{name}
+
+%if %{with_tag}
+%global tag            1.9.0
+Version:               %{tag}
+%else
+%global date           20210813
+%global commit         8dd3e87c44ecb2e3fc46f7bc6df9ea6195c8b988
+Version:               1.4.0
+%endif
+
+%forgemeta
+
+Release:               1%{?dist}
+Summary:               Read the wireless mbus protocol to acquire utility meter readings
+License:               GPLv3+
+Url:                   %{forgeurl}
+Source0:               %{forgesource}
+# Default configuration file
+# Stores all logs in journald
+Source1:               file://%{name}.conf
+# Systemd service file
+Source2:               file://%{name}.service
+
+BuildRequires:         /usr/bin/git
+BuildRequires:         /usr/bin/make
+BuildRequires:         gcc-c++
+BuildRequires:         systemd-rpm-macros
+BuildRequires:         ncurses-devel
+BuildRequires:         rtl-sdr-devel
+BuildRequires:         libusbx-devel
+
+Requires:              /usr/bin/rtl_wmbus
+
+
+%description
+The program receives and decodes C1,T1 or S1 telegrams
+(using the wireless mbus protocol) to acquire utility meter readings.
+The readings can then be published using MQTT, curled to a REST api,
+inserted into a database or stored in a log file.
+
+
+%prep
+%forgeautosetup -S git
+
+
+%build
+%set_build_flags
+%{make_build} STRIP=true COMMIT_HASH="" TAG=%{version} COMMIT=%{version} \
+    TAG_COMMIT=%{version}%{distprefix} CHANGES=""
+
+
+%install
+%set_build_flags
+%{make_install} STRIP=true COMMIT_HASH="" TAG=%{version} COMMIT=%{version} \
+    TAG_COMMIT=%{version} CHANGES="" \
+    DESTDIR=%{buildroot} EXTRA_INSTALL_OPTIONS="--no-adduser"
+
+# We are using journald
+rm -rf %{buildroot}%{_sysconfdir}/logrotate.d/
+
+# Create directory for storing pid files.
+install -m 0755 -d %{buildroot}/%{_rundir}/%{name}/
+
+# Fix systemd unit dir location
+mv %{buildroot}/lib %{buildroot}/%{_prefix}
+
+# We are installing template version
+rm -f %{buildroot}%{_unitdir}/%{name}.service
+
+# Install default configuration file
+install -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/%{name}.conf
+
+# Install systemd service file
+install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
+
+
+%files
+%license LICENSE
+%doc README.md CHANGES HowToAddaNewMeter.txt
+%dir %{_sysconfdir}/%{name}.d/
+%config(noreplace) %{_sysconfdir}/%{name}.conf
+%{_sbindir}/wmbusmetersd
+%{_bindir}/%{name}
+%{_bindir}/%{name}-admin
+%{_unitdir}/%{name}.service
+%{_mandir}/man1/%{name}*
+%ghost %{_rundir}/%{name}/
+
+
+%post
+%systemd_post %{name}.service
+ 
+%preun
+%systemd_preun %{name}.service
+ 
+%postun
+%systemd_postun_with_restart %{name}.service
+
+
+%changelog
+* Wed Sep 14 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.9.0-1
+- Update to 1.9.0 (rhbz#2124324)
+- Drop patch merged upstream
+
+* Tue Jul 26 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.8.0-4
+- Fix FTBFS on F37
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 27 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.8.0-2
+- Update to 1.8.0 (rhbz#2101195)
+- Update change log
+
+* Mon Jun 27 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.8.0-1
+- Update to 1.7.0 (rhbz#2101195)
+
+* Wed Apr 06 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.7.0-1
+- Update to 1.7.0 (rhbz#2069461)
+
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Jan 04 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.6.0-1
+- Update to 1.6.0 (rhbz#2020903)
+
+* Tue Nov 09 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.5.0-1
+- Update to 1.5.0 (rhbz#2020903)
+
+* Tue Aug 31 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.4.1-1
+- Update to 1.4.1
+
+* Fri Aug 13 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.4.0-2
+- Update to the latest snapshot (fixes compilation errors)
+
+* Thu Aug 12 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.4.0-1
+- Update to 1.4.0 (#1991762)
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon May 31 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.3.0-1
+- Update to 1.3.0 (#1936290)
+
+* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.0-6
+- Rebuilt for updated systemd-rpm-macros
+  See https://pagure.io/fesco/issue/2583.
+
+* Mon Feb 22 2021 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.1.0-5
+- Update to 1.1.0 (#1922583),
+- Remove duplicate BR for make.
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Dec 22 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.0.4-2
+- Switch (as per upstream) to non template unit file
+
+* Mon Dec 07 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.0.4-1
+- Update to the latest available version
+
+* Sat Oct 31 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.36-2
+- Allows to build non-released versions
+
+* Tue Sep 08 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.36-1
+- Update to the latest available version
+
+* Mon Aug 31 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.35-1
+- Update to the latest available version
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jul 01 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.32-1
+- Update to the latest available version
+
+* Mon May 25 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.31-2
+- Add missing ncurses-devel BR
+
+* Mon May 25 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.31-1
+- Update to the latest available version
+
+* Thu Apr 23 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.30-1
+- Update to the latest available version
+
+* Fri Apr 03 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.29-1
+- Update to the latest available version
+
+* Tue Mar 24 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.28-1
+- Update to the latest available version
+- Drop patches upstream merged
+
+* Mon Mar 23 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-6
+- Remove -v from the forgemeta
+- Remove instead of exclude logrotate.d directory
+- Use %%{_prefix} instead of /usr
+- Add %%systemd_{*} scriplets
+
+* Wed Mar 04 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-5
+- Add creation of /run/wmbusmeters dir. to the service file.
+
+* Tue Mar 03 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-4
+- Use %%set_build_flags
+
+* Tue Mar 03 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-3
+- Fix wmbusmeters.d accessability
+- Store all logs in journald
+
+* Mon Mar 02 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-2
+- Add upstream reference to pathces.
+
+* Fri Feb 28 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 0.9.27-1
+- Initial RPM release.

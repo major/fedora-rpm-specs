@@ -1,0 +1,160 @@
+%global altname nicotine
+%global appdata_id org.nicotine_plus.Nicotine
+
+Name:           nicotine+
+Version:        3.2.5
+Release:        1%{?dist}
+Summary:        A graphical client for Soulseek
+
+# - IP2Location Country Database (pynicotine/geoip/ipcountrydb.bin) is CC-BY-SA
+#   (see pynicotine/geoip/README.md)
+# - some icons are GPLv3+ and MIT (see files/icons/themes/original/CREDITS.md)
+License:        GPLv3+ and CC-BY-SA and MIT
+URL:            https://nicotine-plus.github.io/nicotine-plus/
+Source0:        https://github.com/nicotine-plus/nicotine-plus/archive/%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  desktop-file-utils
+BuildRequires:  gettext
+BuildRequires:  libappstream-glib
+BuildRequires:  python3-devel
+# Needed for tests
+BuildRequires:  gtk3
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-xvfb}
+# Runtime dependencies are not declared in setup.py (except pygobject) but are
+# actually required (see doc/DEPENDENCIES.md)
+Requires:       gdbm
+Requires:       gspell
+Requires:       gtk3
+Requires:       hicolor-icon-theme
+Requires:       libappindicator-gtk3
+BuildArch:      noarch
+
+%description
+Nicotine+ is a graphical client for the Soulseek peer-to-peer file sharing
+network. It is an attempt to keep Nicotine working with the latest libraries,
+kill bugs, keep current with the Soulseek protocol, and add some new features
+that users want and/or need.
+
+
+%prep
+%autosetup -n nicotine-plus-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files pynicotine
+
+%find_lang %{altname}
+
+
+%check
+# Tests requiring an Internet connection are disabled
+%pytest --deselect=test/unit/test_version.py
+
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{appdata_id}.desktop
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_id}.appdata.xml
+
+
+%files -f %{pyproject_files} -f %{altname}.lang
+%doc AUTHORS.md NEWS.md README.md TRANSLATORS.md
+%license COPYING
+%{_bindir}/%{altname}
+%{_datadir}/applications/%{appdata_id}.desktop
+%{_datadir}/icons/hicolor/*/*/*.png
+%{_datadir}/icons/hicolor/*/*/*.svg
+%{_metainfodir}/%{appdata_id}.appdata.xml
+%{_mandir}/man1/%{altname}.1.*
+
+
+%changelog
+* Sat Sep 03 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.5-1
+- Update to 3.2.5
+
+* Tue Aug 09 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.4-1
+- Update to 3.2.4
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.2.2-2
+- Rebuilt for Python 3.11
+
+* Sun Mar 20 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.2-1
+- Update to 3.2.2
+
+* Fri Feb 18 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.1-1
+- Update to 3.2.1
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Dec 20 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.0-1
+- Update to 3.2.0
+
+* Mon Aug 02 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.1.1-1
+- Update to 3.1.1
+
+* Sun Jul 25 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.1.0-1
+- Update to 3.1.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.0.6-2
+- Rebuilt for Python 3.10
+
+* Thu Jun 03 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.6-1
+- Update to 3.0.6
+
+* Mon Apr 12 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.4-1
+- Update to 3.0.4
+
+* Thu Apr 01 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.3-1
+- Update to 3.0.3
+
+* Mon Mar 01 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.2-1
+- Update to 3.0.2
+
+* Sun Feb 28 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.1-1
+- Update to 3.0.1
+
+* Mon Feb 15 2021 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.0-1
+- Update to 3.0.0
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Dec 15 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2.2-1
+- Update to 2.2.2
+
+* Sat Dec  5 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2.0-2
+- Remove useless dependency on xdg-utils
+
+* Sat Dec  5 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.2.0-1
+- Update to 2.2.0
+- Update License tag
+
+* Tue Oct 13 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.1.2-1
+- Update to 2.1.2
+
+* Sun Sep 27 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1
+- Update License tag
+
+* Sat Sep 12 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Jul 20 2020 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.0.1-1
+- Initial RPM release

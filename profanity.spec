@@ -1,0 +1,173 @@
+Name:           profanity
+Version:        0.13.0
+Release:        1%{?dist}
+Summary:        A console based XMPP client
+
+License:        GPLv3
+URL:            https://profanity-im.github.io/
+Source0:        https://profanity-im.github.io/tarballs/%{name}-%{version}.tar.gz
+
+BuildRequires:  gcc
+BuildRequires:  automake
+BuildRequires:  autoconf-archive
+BuildRequires:  libtool
+# Base:
+BuildRequires:  libstrophe-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  glib2-devel
+BuildRequires:  libcurl-devel
+BuildRequires:  readline-devel
+BuildRequires:  sqlite-devel
+BuildRequires:  python-unversioned-command
+# Optional dependancies for support:
+# Desktop notification support
+BuildRequires:  libnotify-devel
+# OTR support
+BuildRequires:  libotr-devel
+# PGP support
+BuildRequires:  gpgme-devel
+# OMEMO support
+BuildRequires:  libsignal-protocol-c-devel
+# OMEMO support (>= 1.7)
+BuildRequires:  libgcrypt-devel
+# Python plugin support
+##BuildRequires:  python3-devel
+# For tests:
+BuildRequires:  libcmocka-devel
+# For docs:
+BuildRequires:  doxygen
+BuildRequires:  python3-sphinx
+
+%description
+Profanity is a console based XMPP client written in C using ncurses
+and libstrophe, inspired by Irssi.
+
+
+
+%package libs
+Summary:       The shared libraries required for plugins of Profanity
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description libs
+The %{name}-libs package provides the essential shared libraries for any
+plugin of Profanity written in C.
+
+See: https://profanity-im.github.io/plugins.html
+
+
+
+%package        devel
+Summary:        Development files for libraries used by plugins of Profanity
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing plugins written in C for Profanity.
+
+
+
+%package        doc
+Summary:        Documentation for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
+
+%description    doc
+The %{name}-doc package contains HTML documentation for developing
+applications that use %{name}.
+
+
+
+%prep
+%autosetup
+
+
+%build
+autoreconf -i -W all
+%configure
+%make_build
+
+# Build HTML documentation
+pushd apidocs/c/
+doxygen c-prof.conf  # results are in apidocs/c/html/
+popd
+pushd apidocs/python/
+sphinx-apidoc -f -o . src
+make html  # results are in apidocs/python/_build/html
+popd
+# Remove ReST files from html doc and remove hidden file generated
+rm -rf apidocs/python/_build/html/_sources/
+rm -f apidocs/python/_build/html/.buildinfo
+
+
+%install
+%make_install
+# Remove libprofanity.la generated
+rm -f %{buildroot}%{_libdir}/libprofanity.la
+
+# Install HTML documentation for the doc subpackage
+mkdir -p %{buildroot}%{_pkgdocdir}/c/
+mkdir -p %{buildroot}%{_pkgdocdir}/python/
+cp -a apidocs/c/html/ %{buildroot}%{_pkgdocdir}/c/
+cp -a apidocs/python/_build/html/ %{buildroot}%{_pkgdocdir}/python/
+
+# Install example config file
+cp -a profrc.example %{buildroot}%{_datadir}/%{name}/
+
+
+%check
+make check
+
+
+
+%files
+%license COPYING LICENSE.txt
+%doc CHANGELOG README.md
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.*
+%{_mandir}/man1/%{name}-*
+%{_datadir}/%{name}/
+
+
+%files libs
+%{_libdir}/libprofanity.so.*
+
+
+%files devel
+%{_libdir}/libprofanity.so
+%{_includedir}/profapi.h
+
+
+%files doc
+%{_pkgdocdir}/
+
+
+
+%changelog
+* Wed Sep 14 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-1
+- Update to 0.13.0
+- Update SourceURL in spec file
+- Remove python plugin support
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.11.1-3
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Oct 12 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.11.1-1
+- Update to 0.11.1
+
+* Wed Aug 25 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.11.0-2
+- Package Review RHBZ#1995497:
+  - Remove useless ldconfig scriptlets
+  - Fix Requires tag of the doc subpackage
+  - Fix summary and description of lib and devel subpackages
+  - Reverse requirements between main package and libs subpackage
+  - Move docfiles from libs subpackage to main package
+
+* Mon Aug 09 2021 Matthieu Saulnier <fantom@fedoraproject.org> - 0.11.0-1
+- Package Review RHBZ#1995497:
+  - Initial packaging

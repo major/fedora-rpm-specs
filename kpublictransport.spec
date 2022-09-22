@@ -1,0 +1,69 @@
+Name:           kpublictransport
+Version:        22.04.3
+Release:        2%{?dist}
+License:        BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
+Summary:        Library to assist with accessing public transport timetables and other data
+Url:            https://invent.kde.org/libraries/kpublictransport
+Source:         https://download.kde.org/stable/release-service/%{version}/src/kpublictransport-%{version}.tar.xz
+
+BuildRequires: extra-cmake-modules
+BuildRequires: gcc-c++
+BuildRequires: kf5-rpm-macros
+BuildRequires: zlib-devel
+
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5Quick)
+
+%description
+%{summary}.
+
+%prep
+%autosetup
+
+%build
+%cmake_kf5
+%cmake_build
+
+%install
+%cmake_install
+
+%files
+%{_kf5_datadir}/qlogging-categories5/org_kde_kpublictransport.categories
+
+%{_kf5_libdir}/libKPublicTransport.so.1
+%{_kf5_libdir}/libKPublicTransport.so.%{version}
+
+%{_kf5_qmldir}/org/kde/kpublictransport/*
+
+%package devel
+Summary: Development files for %{name}
+License: BSD and CC0-1.0 and LGPLv2+ and MIT and ODbL-1.0
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+%{summary}.
+
+%files devel
+%{_includedir}/*
+
+%{_kf5_libdir}/cmake/*
+%{_kf5_libdir}/*.so
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jul 18 2022 Than Ngo <than@redhat.com> - 22.04.3-1
+- 22.04.3
+
+* Mon May 16 2022 Justin Zobel <justin@1707.io> - 22.04.1-1
+- Update to 22.04.1
+
+* Thu Apr 21 2022 Justin Zobel <justin@1707.io> - 21.12.3-1
+- Update to 21.12.3
+
+* Wed Feb 09 2022 Justin Zobel <justin@1707.io> - 21.12.2-1
+- Update to 21.12.2
+
+* Wed Dec 22 2021 Justin Zobel <justin@1707.io> - 21.12-1
+- Initial version of package

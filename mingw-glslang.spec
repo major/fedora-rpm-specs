@@ -1,0 +1,191 @@
+%{?mingw_package_header}
+
+%global pkgname glslang
+
+%global sdkver 1.3.224.1
+
+Name:          mingw-%{pkgname}
+Version:       11.9.0
+Release:       6%{?commit:.git%{shortcommit}}%{?dist}
+Summary:       MinGW Windows %{pkgname} library
+
+License:       BSD and GPLv3+ and ASL 2.0
+BuildArch:     noarch
+URL:           https://github.com/KhronosGroup/%{pkgname}
+Source0:       %url/archive/sdk-%{sdkver}.tar.gz#/%{pkgname}-sdk-%{sdkver}.tar.gz
+# Remove debug suffix for mingw builds
+Patch0:        glslang_debug-suffix.patch
+
+BuildRequires: make
+BuildRequires: cmake
+
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw32-winpthreads-static
+
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+BuildRequires: mingw64-winpthreads-static
+
+
+%description
+MinGW Windows %{pkgname} library.
+
+
+%package -n mingw32-%{pkgname}
+Summary:       MinGW Windows %{pkgname} library
+
+%description -n mingw32-%{pkgname}
+MinGW Windows %{pkgname} library.
+
+
+%package -n mingw64-%{pkgname}
+Summary:       MinGW Windows %{pkgname} library
+
+%description -n mingw64-%{pkgname}
+MinGW Windows %{pkgname} library.
+
+
+%{?mingw_debug_package}
+
+
+%prep
+%autosetup -p1 -n %{pkgname}-sdk-%{sdkver}
+
+
+%build
+%mingw_cmake -DBUILD_SHARED_LIBS=OFF
+%mingw_make_build
+
+
+%install
+%mingw_make_install
+
+# We don't want them in here
+rm -rf %{buildroot}%{mingw32_includedir}/SPIRV
+rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
+
+
+%files -n mingw32-%{pkgname}
+%{mingw32_bindir}/glslangValidator.exe
+%{mingw32_bindir}/spirv-remap.exe
+%{mingw32_includedir}/glslang/
+%{mingw32_libdir}/libGenericCodeGen.a
+%{mingw32_libdir}/libHLSL.a
+%{mingw32_libdir}/libMachineIndependent.a
+%{mingw32_libdir}/libOGLCompiler.a
+%{mingw32_libdir}/libOSDependent.a
+%{mingw32_libdir}/libSPIRV.a
+%{mingw32_libdir}/libSPVRemapper.a
+%{mingw32_libdir}/libglslang.a
+%{mingw32_libdir}/libglslang-default-resource-limits.a
+%{mingw32_libdir}/cmake/*
+%{mingw32_datadir}/%{pkgname}/
+
+%files -n mingw64-%{pkgname}
+%{mingw64_bindir}/glslangValidator.exe
+%{mingw64_bindir}/spirv-remap.exe
+%{mingw64_includedir}/glslang/
+%{mingw64_libdir}/libGenericCodeGen.a
+%{mingw64_libdir}/libHLSL.a
+%{mingw64_libdir}/libMachineIndependent.a
+%{mingw64_libdir}/libOGLCompiler.a
+%{mingw64_libdir}/libOSDependent.a
+%{mingw64_libdir}/libSPIRV.a
+%{mingw64_libdir}/libSPVRemapper.a
+%{mingw64_libdir}/libglslang.a
+%{mingw64_libdir}/libglslang-default-resource-limits.a
+%{mingw64_libdir}/cmake/*
+%{mingw64_datadir}/%{pkgname}/
+
+
+%changelog
+* Thu Sep 15 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-6
+- Rebase to vulkan SDK 1.3.224.1
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jun 28 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-4
+- Update to glslang for 1.3.216 sdk
+
+* Wed Apr 27 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-3.git9bb8cff
+- Update to git 9bb8cff
+
+* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-2.git2742e95
+- Rebuild with mingw-gcc-12
+
+* Fri Feb 18 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-1.git2742e95
+- Update to git 2742e95
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.7.0-2.gitc9706bd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Nov 23 2021 Sandro Mani <manisandro@gmail.com> - 11.7.0-1.gitc9706bd
+- Update to git c9706bd
+
+* Tue Sep 07 2021 Sandro Mani <manisandro@gmail.com> - 11.6.0-1.git2fb89a0
+- Update to git 2fb89a0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-2.gitae2a562
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Thu Jul 08 2021 Sandro Mani <manisandro@gmail.com> - 11.5.0-1.gitae2a562
+- Update to git ae2a562
+
+* Wed May 19 2021 Sandro Mani <manisandro@gmail.com> - 11.4.0-1.git18eef33
+- Update to git 18eef33
+
+* Thu Feb 04 2021 Sandro Mani <manisandro@gmail.com> - 11.0.0-3.gitc594de2
+- Update to git c594de2
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-2.git5743eed
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Aug 10 2020 Sandro Mani <manisandro@gmail.com> - 11.0.0-1
+- Update to 11.0.0
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.3559-2.gitc9b28b9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Apr 22 2020 Sandro Mani <manisandro@gmail.com> - 8.13.3559-2.gitc9b28b9
+- Update to git c9b28b9
+
+* Sun Feb 02 2020 Sandro Mani <manisandro@gmail.com> - 8.13.3559-1
+- Update to 8.13.3559
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.3496-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Wed Nov 13 2019 Sandro Mani <manisandro@gmail.com> - 7.13.3496-1
+- Update to 7.13.3496
+
+* Thu Aug 22 2019 Sandro Mani <manisandro@gmail.com> - 7.12.3352-1
+- Update to 7.12.3352
+
+* Wed Jul 31 2019 Sandro Mani <manisandro@gmail.com> - 7.11.3214.3.giteea3400
+- Update to git eea3400
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.11.3214-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Fri Jun 28 2019 Sandro Mani <manisandro@gmail.com> - 7.11.3214-1
+- Update to 7.11.3214
+
+* Tue Apr 02 2019 Sandro Mani <manisandro@gmail.com> - 3.1-0.6.gite0d59bb
+- Update to git e0d59bb
+
+* Mon Feb 25 2019 Sandro Mani <manisandro@gmail.com> - 3.1-0.5.git05d12a9
+- Update to git 05d12a9
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-0.4.gite0bc65b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Tue Aug 07 2018 Sandro Mani <manisandro@gmail.com> - 3.1.0-0.3.gite0bc65b
+- Update to git e0bc65b
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-0.2.git3bb4c48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Jun 08 2018 Sandro Mani <manisandro@gmail.com> - 3.1-0.1.git3bb4c48
+- Initial package

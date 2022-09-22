@@ -1,0 +1,146 @@
+# Run optional test
+%bcond_without perl_BibTeX_Parser_enables_optional_test
+
+Name:           perl-BibTeX-Parser
+Version:        1.03
+Release:        6%{?dist}
+Summary:        Pure Perl BibTeX parser
+License:        GPL+ or Artistic
+URL:            https://metacpan.org/release/BibTeX-Parser
+Source0:        https://cpan.metacpan.org/authors/id/B/BO/BORISV/BibTeX-Parser-%{version}.tar.gz
+# Remove a strayed debugging output, CPAN RT#134350, proposed to the upstream
+Patch0:         BibTeX-Parser-1.03-Remove-a-debugging-output-from-BibTeX-Parser-Entry-t.patch
+BuildArch:      noarch
+BuildRequires:  coreutils
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time:
+BuildRequires:  perl(LaTeX::ToUnicode) >= 0.11
+BuildRequires:  perl(overload)
+# Tests:
+BuildRequires:  perl(constant)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::String)
+BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(utf8)
+%if %{with perl_BibTeX_Parser_enables_optional_test}
+# Optional tests:
+BuildRequires:  perl(Pod::Coverage) >= 0.18
+# Pod::Coverage::TrustPod not used
+BuildRequires:  perl(Test::Pod) >= 1.22
+BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
+%endif
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+Requires:       perl(LaTeX::ToUnicode) >= 0.11
+
+# Filter under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(LaTeX::ToUnicode\\)$
+
+%description
+This is a BibTeX parser written in Perl.
+
+%prep
+%setup -q -n BibTeX-Parser-%{version}
+%patch0 -p1
+%if %{with perl_BibTeX_Parser_enables_optional_test}
+rm t/*pod*;
+perl -i -ne 'print $_ unless m{^t/.*pod.*}' MANIFEST
+%endif
+
+%build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
+
+%install
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
+
+%check
+unset RELEASE_TESTING
+make test
+
+%files
+%license LICENSE
+%doc Changes README
+%{perl_vendorlib}/*
+%{_mandir}/man3/*
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue May 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.03-5
+- Perl 5.36 rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri May 21 2021 Jitka Plesnikova <jplesnik@redhat.com> - 1.03-2
+- Perl 5.34 rebuild
+
+* Tue Feb 09 2021 Petr Pisar <ppisar@redhat.com> - 1.03-1
+- 1.03 bump
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Dec 21 2020 Petr Pisar <ppisar@redhat.com> - 1.02-10
+- Adjust a test to LaTeX-ToUnicode-0.11 (CPAN RT#133929)
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue Jun 23 2020 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-8
+- Perl 5.32 rebuild
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Fri May 31 2019 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-5
+- Perl 5.30 rebuild
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-2
+- Perl 5.28 rebuild
+
+* Thu May 03 2018 Petr Pisar <ppisar@redhat.com> - 1.02-1
+- 1.02 bump
+
+* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Dec 07 2017 Petr Pisar <ppisar@redhat.com> - 1.01-1
+- 1.01 bump
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Sun Jun 04 2017 Jitka Plesnikova <jplesnik@redhat.com> - 1.00-2
+- Perl 5.26 rebuild
+
+* Mon Mar 20 2017 Petr Pisar <ppisar@redhat.com> - 1.00-1
+- 1.00 bump
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Wed Nov 23 2016 Petr Pisar <ppisar@redhat.com> - 0.70-1
+- 0.70 bump
+
+* Mon Oct 03 2016 Petr Pisar <ppisar@redhat.com> 0.69-1
+- Specfile autogenerated by cpanspec 1.78.

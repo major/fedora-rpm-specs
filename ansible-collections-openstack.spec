@@ -1,0 +1,77 @@
+%{?python_enable_dependency_generator}
+%{!?upstream_version: %global upstream_version %{commit}}
+%global commit 938abd0d84baa6591e09d8a83d91432c50397bba
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# DO NOT REMOVE ALPHATAG
+%global alphatag .%{shortcommit}git
+
+%global collection_namespace openstack
+%global collection_name cloud
+
+%{?dlrn: %global tarsources ansible-collections-openstack.cloud}
+%{!?dlrn: %global tarsources ansible-collections-openstack}
+
+Name:           ansible-collections-openstack
+Version:        1.7.1
+Release:        4%{?alphatag}%{?dist}
+Summary:        Openstack Ansible collections
+License:        GPLv3+
+URL:            %{ansible_collection_url}
+Source0:        https://github.com/openstack/%{name}/archive/%{upstream_version}.tar.gz#/%{collection_namespace}-%{collection_name}-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  ansible-packaging
+%if %{lua:print(rpm.vercmp(rpm.expand("%{version}"), '2.0.0'));} >= 0
+Requires:       python3-openstacksdk
+%else
+Requires:       python3-openstacksdk < 0.99.0
+%endif
+
+%description
+Openstack Ansible collections
+
+%prep
+%autosetup -n %{tarsources}-%{upstream_version}
+sed -i -e 's/version:.*/version: %{version}/' galaxy.yml
+rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .zuul.yaml setup.py docs bindep.txt
+
+%build
+%ansible_collection_build
+
+%install
+%ansible_collection_install
+
+%files
+%doc README.md
+%license COPYING
+%{ansible_collection_files}
+
+%changelog
+* Tue Aug 02 2022 Joel Capitao <jcapitao@redhat.com> - 1.7.1-4.938abd0git
+- Take advantage of ansible-packaging
+
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3.938abd0git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.7.1-2.938abd0git
+- Rebuilt for Python 3.11
+
+* Thu May 19 2022 Joel Capitao <jcapitao@redhat.com> 1.7.1-1.938abd0git
+- Update to upstream version 1.7.1
+
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.3.0-3
+- Rebuilt for Python 3.10
+
+* Thu Apr 08 2021 Sagi Shnaidman <sshnaidm@redhat.com> 1.3.0-2
+- RPM package fixes
+
+* Mon Apr 05 2021 Sagi Shnaidman <sshnaidm@redhat.com> 1.3.0-1
+- Initial package
+
+

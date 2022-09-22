@@ -1,0 +1,61 @@
+%global srcname parse_type
+
+Name:           python-%{srcname}
+Version:        0.5.2
+Release:        %autorelease
+Summary:        Simplifies to build parse types based on the parse module
+
+License:        BSD
+URL:            http://pypi.python.org/pypi/parse_type
+Source0:        %pypi_source
+
+BuildArch:      noarch
+
+%{?python_enable_dependency_generator}
+
+%global _description \
+"parse_type" extends the "parse" module (opposite of\
+"string.format()") with the following features:\
+* build type converters for common use cases (enum/mapping, choice)\
+* build a type converter with a cardinality constraint (0..1,\
+  0..*, 1..*) from the type converter with cardinality=1.\
+* compose a type converter from other type converters\
+* an extended parser that supports the CardinalityField naming\
+  schema and creates missing type variants (0..1, 0..*, 1..*) from\
+  the primary type converter
+
+%description %{_description}
+
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires:  python3-devel
+
+%description -n python3-%{srcname} %{_description}
+
+Python 3 version.
+
+%prep
+%autosetup -n %{srcname}-%{version}
+sed -i -e '/use_2to3/s/\S.*/pass/' setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files %{srcname}
+
+%check
+%tox
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE
+%doc README.rst
+
+%changelog
+%autochangelog

@@ -1,0 +1,787 @@
+# TESTING NOTE: The testsuite requires numerous packages, many of which are
+# built with dune.  Furthermore, the testsuite assumes it is running in a git
+# checkout, and has access to the Internet.  We cannot satisfy any of these
+# conditions on a koji builder, so we do not run the test suite.
+
+%undefine _package_note_flags
+
+# One of the dune libraries now depends on lwt.  We do not currently need that
+# library in Fedora, so don't build it.
+%bcond_with lwt
+
+Name:           ocaml-dune
+Version:        3.4.0
+Release:        2%{?dist}
+Summary:        Composable build system for OCaml and Reason
+
+# Dune itself is MIT.  Some bundled libraries have a different license:
+# ISC:
+# - vendor/cmdliner
+# LGPLv2:
+# - vendor/incremental-cycles
+# LGPLv2 with exceptions:
+# - vendor/ocaml-inotify
+# - vendor/opam-file-format
+# - vendor/re
+# MIT:
+# - vendor/build_path_prefix_map
+# - vendor/spawn
+License:        MIT and LGPLv2 and LGPLv2 with exceptions and ISC
+
+URL:            https://dune.build
+Source0:        https://github.com/ocaml/dune/archive/%{version}/dune-%{version}.tar.gz
+# When building without lwt, remove libraries that need it
+Patch0:         %{name}-no-lwt.patch
+
+BuildRequires:  emacs-nox
+BuildRequires:  make
+BuildRequires:  ocaml >= 4.08
+BuildRequires:  ocaml-csexp-devel >= 1.5.0
+BuildRequires:  ocaml-pp-devel >= 1.1.0
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+
+%if %{with lwt}
+BuildRequires:  ocaml-lwt-devel
+%endif
+
+# Dune has vendored deps to avoid dependency cycles.  Upstream deliberately
+# does not support unbundling these dependencies.
+# See https://github.com/ocaml/dune/issues/220
+Provides:       bundled(ocaml-build-path-prefix-map) = 0.2
+Provides:       bundled(ocaml-cmdliner) = 1.0.4
+Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
+Provides:       bundled(ocaml-inotify) = 2.3
+Provides:       bundled(ocaml-opam-file-format) = 2.0.0
+Provides:       bundled(ocaml-re) = 1.9.0
+Provides:       bundled(ocaml-spawn) = 0.15.1
+
+Provides:       dune = %{version}-%{release}
+
+# This is needed for the dune-related RPM macros
+Requires:       python3
+
+# Both packages install a binary named dune and an associated man page
+Conflicts:      wdune
+
+# Install documentation in the main package doc directory
+%global _docdir_fmt %{name}
+
+%description
+Dune is a build system designed for OCaml/Reason projects only. It focuses
+on providing the user with a consistent experience and takes care of most of
+the low-level details of OCaml compilation. All you have to do is provide a
+description of your project and Dune will do the rest.
+
+The scheme it implements is inspired from the one used inside Jane Street and
+adapted to the open source world. It has matured over a long time and is used
+daily by hundred of developers, which means that it is highly tested and
+productive.
+
+%package        doc
+Summary:        HTML documentation for %{name}
+BuildArch:      noarch
+
+%description    doc
+HTML documentation for dune, a composable build system for OCaml.
+
+%package        emacs
+Summary:        Emacs support for %{name}
+License:        ISC
+Requires:       %{name} = %{version}-%{release}
+Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
+
+BuildArch:      noarch
+
+%description    emacs
+The %{name}-devel package contains Emacs integration with the dune build
+system, a mode to edit dune files, and flymake support for dune files.
+
+## Dune libraries
+
+%package        action-plugin
+Summary:        API for writing dynamic dune actions
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-glob%{?_isa} = %{version}-%{release}
+
+%description    action-plugin
+This experimental library provides an API for writing dynamic Dune
+actions.  Dynamic dune actions do not need to declare their dependencies
+upfront; they are instead discovered automatically during the execution
+of the action.
+
+%package        action-plugin-devel
+Summary:        Development files for %{name}-action-plugin
+Requires:       %{name}-action-plugin%{?_isa} = %{version}-%{release}
+Requires:       %{name}-glob-devel%{?_isa} = %{version}-%{release}
+
+%description    action-plugin-devel
+The ocaml-dune-action-plugin-devel package contains libraries and
+signature files for developing applications that use
+ocaml-dune-action-plugin.
+
+%package        build-info
+Summary:        Embed build information in an executable
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    build-info
+The build-info library allows access to information about how an
+executable was built, such as the version of the project at which it was
+built or the list of statically linked libraries with their versions.
+It supports reporting the version from a version control system during
+development to get a precise reference of when the executable was built.
+
+%package        build-info-devel
+Summary:        Development files for %{name}-build-info
+Requires:       %{name}-build-info%{?_isa} = %{version}-%{release}
+
+%description    build-info-devel
+The ocaml-dune-build-info-devel package contains libraries and signature
+files for developing applications that use ocaml-dune-build-info.
+
+%package        configurator
+Summary:        Helper library for gathering system configuration
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+
+%description    configurator
+Dune-configurator is a small library that helps write OCaml scripts that
+test features available on the system, in order to generate config.h
+files for instance.  Among other things, dune-configurator allows one
+to:
+
+- test if a C program compiles
+- query pkg-config
+- import a #define from OCaml header files
+- generate a config.h file
+
+%package        configurator-devel
+Summary:        Development files for %{name}-configurator
+Requires:       %{name}-configurator%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
+
+# This can be removed when F40 reaches EOL
+Obsoletes:      %{name}-devel < 2.9.1-4
+Provides:       %{name}-devel = %{version}-%{release}
+
+%description    configurator-devel
+The ocaml-dune-configurator-devel package contains libraries and
+signature files for developing applications that use
+ocaml-dune-configurator.
+
+%package        glob
+Summary:        Parser and interpreter for dune language globs
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-private-libs%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+
+%description    glob
+Dune-glob provides a parser and interpreter for globs as understood by
+the dune language.
+
+%package        glob-devel
+Summary:        Development files for %{name}-glob
+Requires:       %{name}-glob%{?_isa} = %{version}-%{release}
+Requires:       %{name}-private-libs-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
+
+%description    glob-devel
+The ocaml-dune-glob-devel package contains libraries and signature files
+for developing applications that use ocaml-dune-glob.
+
+%package        private-libs
+Summary:        Private dune libraries
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+
+%description    private-libs
+This package contains code that is shared between various dune-xxx
+packages.  However, it is not meant for public consumption and provides
+no stability guarantee.
+
+%package        private-libs-devel
+Summary:        Development files for %{name}-private-libs
+Requires:       %{name}-private-libs%{?_isa} = %{version}-%{release}
+Requires:       ocaml-dyn-devel%{?_isa} = %{version}-%{release}
+
+%description    private-libs-devel
+The ocaml-dune-private-libs-devel package contains libraries and
+signature files for other dune packages.  Do not use.
+
+%package        rpc
+Summary:        Communicate with dune using rpc
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+Requires:       ocaml-xdg%{?_isa} = %{version}-%{release}
+
+%description    rpc
+This package contains a library used to communicate with dune over rpc.
+
+%package        rpc-devel
+Summary:        Development files for %{name}-rpc
+Requires:       %{name}-rpc%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-xdg-devel%{?_isa} = %{version}-%{release}
+
+%description    rpc-devel
+The ocaml-dune-rpc-devel package contains libraries and signature files
+for developing applications that use ocaml-rpc.
+
+%if %{with lwt}
+%package        rpc-lwt
+Summary:        Communicate with dune using rpc and Lwt
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-rpc%{?_isa} = %{version}-%{release}
+
+%description    rpc-lwt
+This package contains a library used to communicate with dune over rpc
+using Lwt.
+
+%package        rpc-lwt-devel
+Summary:        Development files for %{name}-rpc-lwt
+Requires:       %{name}-rpc-lwt%{?_isa} = %{version}-%{release}
+Requires:       %{name}-rpc-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-csexp-devel%{?_isa}
+Requires:       ocaml-lwt-devel%{?_isa}
+Requires:       ocaml-result-devel%{?_isa}
+
+%description    rpc-lwt-devel
+The ocaml-dune-rpc-lwt-devel package contains libraries and signature
+files for developing applications that use ocaml-rpc-lwt.
+%endif
+
+%package        site
+Summary:        Embed location information inside executables and libraries
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-private-libs%{?_isa} = %{version}-%{release}
+
+%description    site
+This library enables embedding location information inside executables
+and libraries.
+
+%package        site-devel
+Summary:        Development files for %{name}-site
+Requires:       %{name}-site%{?_isa} = %{version}-%{release}
+Requires:       %{name}-private-libs-devel%{?_isa} = %{version}-%{release}
+
+%description    site-devel
+The ocaml-dune-site-devel package contains libraries and signature files
+for developing applications that use ocaml-dune-site.
+
+%package     -n ocaml-chrome-trace
+Summary:        Chrome trace event generation library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-chrome-trace
+Library to output trace data to a file in Chrome's trace_event format.
+This format is compatible with chrome trace viewer (chrome://tracing).
+The trace viewer is part of the catapult project.
+
+%package     -n ocaml-chrome-trace-devel
+Summary:        Development files for ocaml-chrome-trace
+Requires:       ocaml-chrome-trace%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-chrome-trace-devel
+The ocaml-dyn-devel package contains libraries and signature files for
+developing applications that use ocaml-dyn.
+
+%package     -n ocaml-dyn
+Summary:        Dynamic types
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-ordering%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-dyn
+This library supports dynamic types in OCaml.
+
+%package     -n ocaml-dyn-devel
+Summary:        Development files for ocaml-dyn
+Requires:       ocaml-dyn%{?_isa} = %{version}-%{release}
+Requires:       ocaml-ordering-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-pp-devel%{?_isa}
+
+%description -n ocaml-dyn-devel
+The ocaml-dyn-devel package contains libraries and signature files for
+developing applications that use ocaml-dyn.
+
+%package     -n ocaml-fiber
+Summary:        Structured concurrency library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-fiber
+A structured concurrency library for OCaml.
+
+%package     -n ocaml-fiber-devel
+Summary:        Development files for ocaml-fiber
+Requires:       ocaml-fiber%{?_isa} = %{version}-%{release}
+Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-fiber-devel
+The ocaml-fiber-devel package contains libraries and signature files for
+developing applications that use ocaml-fiber.
+
+%package     -n ocaml-ocamlc-loc
+Summary:        Parse OCaml compiler output into structured form
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-dyn%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-ocamlc-loc
+Parse OCaml compiler output into structured form.
+
+%package     -n ocaml-ocamlc-loc-devel
+Summary:        Development files for ocaml-ocamlc-loc
+Requires:       ocaml-ocamlc-loc%{?_isa} = %{version}-%{release}
+Requires:       ocaml-dyn-devel%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-ocamlc-loc-devel
+The ocaml-ordering-devel package contains libraries and signature files
+for developing applications that use ocaml-ocamlc-loc.
+
+%package     -n ocaml-ordering
+Summary:        Element ordering
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-ordering
+Element ordering in OCaml.
+
+%package     -n ocaml-ordering-devel
+Summary:        Development files for ocaml-ordering
+Requires:       ocaml-ordering%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-ordering-devel
+The ocaml-ordering-devel package contains libraries and signature files
+for developing applications that use ocaml-ordering.
+
+%package     -n ocaml-stdune
+Summary:        Dune's unstable standard library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-dyn%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-stdune
+This package contains Dune's unstable standard library.
+
+%package     -n ocaml-stdune-devel
+Summary:        Development files for ocaml-stdune
+Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
+Requires:       ocaml-dyn-devel%{?_isa} = %{version}-%{release}
+Requires:       ocaml-csexp-devel%{?_isa}
+
+%description -n ocaml-stdune-devel
+The ocaml-stdune-devel package contains libraries and signature files
+for developing applications that use ocaml-stdune.
+
+%package     -n ocaml-xdg
+Summary:        XDG Base Directory Specification
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-xdg
+This package contains the XDG Base Directory Specification.
+
+%package     -n ocaml-xdg-devel
+Summary:        Development files for ocaml-xdg
+Requires:       ocaml-xdg%{?_isa} = %{version}-%{release}
+
+%description -n ocaml-xdg-devel
+The ocaml-xdg-devel package contains libraries and signature files for
+developing applications that use ocaml-xdg.
+
+%prep
+%autosetup -N -n dune-%{version}
+%if %{without lwt}
+%patch0 -p1
+rm -fr otherlibs/dune-rpc-lwt dune-rpc-lwt.opam
+%endif
+
+%build
+./configure \
+  --bindir %{_bindir} \
+  --datadir %{_datadir} \
+  --docdir %{_prefix}/doc \
+  --etcdir %{_sysconfdir} \
+  --libdir %{ocamldir} \
+  --libexecdir %{ocamldir} \
+  --mandir %{_mandir} \
+  --sbindir %{_sbindir}
+
+%make_build release
+%make_build doc
+
+# We also want the libraries
+# Do not use the bundled csexp and pp when building them
+rm -fr vendor/{csexp,pp}
+./dune.exe build %{?_smp_mflags} --verbose --release @install
+
+%install
+%make_install
+
+# Install the libraries
+./dune.exe install --destdir=%{buildroot}
+
+# We use %%doc below
+rm -fr %{buildroot}%{_prefix}/doc
+
+# Byte compile the Emacs files
+cd %{buildroot}%{_emacs_sitelispdir}
+%_emacs_bytecompile *.el
+cd -
+
+# Generate %%files lists
+%ocaml_files -s
+
+%files
+%license LICENSE.md
+%doc CHANGES.md README.md
+%{_bindir}/dune
+%{_mandir}/man*/dune*
+
+%files doc
+%doc doc/_build/*
+
+%files emacs
+%{_emacs_sitelispdir}/dune*
+
+%files action-plugin -f .ofiles-dune-action-plugin
+
+%files action-plugin-devel -f .ofiles-dune-action-plugin-devel
+
+%files build-info -f .ofiles-dune-build-info
+
+%files build-info-devel -f .ofiles-dune-build-info-devel
+
+%files configurator -f .ofiles-dune-configurator
+%dir %{ocamldir}/dune/
+%{ocamldir}/dune/META
+
+%files configurator-devel -f .ofiles-dune-configurator-devel
+%{ocamldir}/dune/dune-package
+%{ocamldir}/dune/opam
+
+%files glob -f .ofiles-dune-glob
+
+%files glob-devel -f .ofiles-dune-glob-devel
+
+%files private-libs -f .ofiles-dune-private-libs
+
+%files private-libs-devel -f .ofiles-dune-private-libs-devel
+
+%files rpc -f .ofiles-dune-rpc
+
+%files rpc-devel -f .ofiles-dune-rpc-devel
+
+%if %{with lwt}
+%files rpc-lwt -f .ofiles-dune-rpc-lwt
+
+%files rpc-lwt-devel -f .ofiles-dune-rpc-lwt-devel
+%endif
+
+%files site -f .ofiles-dune-site
+
+%files site-devel -f .ofiles-dune-site-devel
+
+%files -n ocaml-chrome-trace -f .ofiles-chrome-trace
+
+%files -n ocaml-chrome-trace-devel -f .ofiles-chrome-trace-devel
+
+%files -n ocaml-dyn -f .ofiles-dyn
+
+%files -n ocaml-dyn-devel -f .ofiles-dyn-devel
+
+%files -n ocaml-fiber -f .ofiles-fiber
+
+%files -n ocaml-fiber-devel -f .ofiles-fiber-devel
+
+%files -n ocaml-ocamlc-loc -f .ofiles-ocamlc-loc
+
+%files -n ocaml-ocamlc-loc-devel -f .ofiles-ocamlc-loc-devel
+
+%files -n ocaml-ordering -f .ofiles-ordering
+
+%files -n ocaml-ordering-devel -f .ofiles-ordering-devel
+
+%files -n ocaml-stdune -f .ofiles-stdune
+
+%files -n ocaml-stdune-devel -f .ofiles-stdune-devel
+
+%files -n ocaml-xdg -f .ofiles-xdg
+
+%files -n ocaml-xdg-devel -f .ofiles-xdg-devel
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 3.4.0-1
+- Version 3.4.0
+
+* Tue Jul  5 2022 Jerry James <loganjerry@gmail.com> - 3.3.1-1
+- Version 3.3.1
+- Expose the libraries individually
+- Explain why we do not run the test suite
+- Use new OCaml macros
+- Various spec file cleanups
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 2.9.3-3
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 2.9.3-2
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Feb  3 2022 Jerry James <loganjerry@gmail.com> - 2.9.3-1
+- Version 2.9.3
+- Note the bundling of ocaml-incremental-cycles
+
+* Wed Jan 26 2022 Richard W.M. Jones <rjones@redhat.com> - 2.9.1-5
+- Rebuild to pick up new ocaml dependency
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Oct 04 2021 Richard W.M. Jones <rjones@redhat.com> - 2.9.1-3
+- OCaml 4.13.1 build
+
+* Wed Sep  8 2021 Jerry James <loganjerry@gmail.com> - 2.9.1-1
+- Version 2.9.1
+
+* Tue Jul 27 2021 Richard W.M. Jones <rjones@redhat.com> - 2.9.0-3
+- Rebuild for changed ocamlx(Dynlink)
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sat Jul 17 2021 Jerry James <loganjerry@gmail.com> - 2.9.0-1
+- Version 2.9.0
+
+* Tue Mar 30 2021 Richard W.M. Jones <rjones@redhat.com> - 2.8.5-2
+- Bump and rebuild for ELN.
+
+* Mon Mar 29 2021 Jerry James <loganjerry@gmail.com> - 2.8.5-1
+- Version 2.8.5
+
+* Mon Mar  8 2021 Jerry James <loganjerry@gmail.com> - 2.8.4-1
+- Version 2.8.4
+
+* Mon Mar  8 2021 Jerry James <loganjerry@gmail.com> - 2.8.3-1
+- Version 2.8.3
+
+* Mon Mar  1 10:09:48 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 2.8.2-4
+- OCaml 4.12.0 build
+
+* Mon Feb  1 2021 Richard W.M. Jones <rjones@redhat.com> - 2.8.2-3
+- Bump and rebuild for updated ocaml Dynlink dependency.
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Jan 21 2021 Jerry James <loganjerry@gmail.com> - 2.8.2-1
+- Version 2.8.2
+
+* Thu Jan 14 2021 Jerry James <loganjerry@gmail.com> - 2.8.1-1
+- Version 2.8.1
+
+* Wed Jan 13 2021 Jerry James <loganjerry@gmail.com> - 2.8.0-1
+- Version 2.8.0
+- Drop upstreamed patch from pull request 3757
+
+* Fri Sep 18 2020 Jerry James <loganjerry@gmail.com> - 2.7.1-2
+- Add ocaml-csexp-devel R to the -devel subpackage
+
+* Mon Sep 14 2020 Jerry James <loganjerry@gmail.com> - 2.7.1-1
+- Version 2.7.1
+- Csexp is no longer vendored in
+- Drop upstreamed patches for issue 3736 and pull request 3739
+- Fix configuration with patch from pull request 3757
+
+* Tue Sep 01 2020 Richard W.M. Jones <rjones@redhat.com> - 2.7.0-6
+- OCaml 4.11.1 rebuild
+
+* Mon Aug 24 2020 Richard W.M. Jones <rjones@redhat.com> - 2.7.0-5
+- Add fix for https://github.com/ocaml/dune/issues/3736
+
+* Fri Aug 21 2020 Richard W.M. Jones <rjones@redhat.com> - 2.7.0-2
+- OCaml 4.11.0 rebuild
+
+* Fri Aug 14 2020 Jerry James <loganjerry@gmail.com> - 2.7.0-1
+- Version 2.7.0
+- Drop upstreamed patch for issue 3671
+
+* Tue Aug  4 2020 Richard W.M. Jones <rjones@redhat.com> - 2.6.2-2
+- Pass -g option when compiling ppx extensions.
+  https://github.com/ocaml/dune/pull/3671
+
+* Mon Aug  3 2020 Jerry James <loganjerry@gmail.com> - 2.6.2-1
+- New version 2.6.2
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Thu Jul  2 2020 Jerry James <loganjerry@gmail.com> - 2.6.1-1
+- New version 2.6.1
+
+* Sat Jun  6 2020 Jerry James <loganjerry@gmail.com> - 2.6.0-1
+- New version 2.6.0
+
+* Mon May 04 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.1-4
+- OCaml 4.11.0+dev2-2020-04-22 rebuild
+
+* Tue Apr 21 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.1-3
+- OCaml 4.11.0 pre-release attempt 2
+- Rename cond "bootstrap" as "menhir".
+
+* Sun Apr 19 2020 Jerry James <loganjerry@gmail.com> - 2.5.1-1
+- New version 2.5.1
+
+* Sat Apr 18 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.0-5
+- Bump release and rebuild.
+
+* Sat Apr 18 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.0-4
+- Bump release and rebuild.
+
+* Fri Apr 17 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.0-3
+- Bump release and rebuild.
+
+* Fri Apr 17 2020 Richard W.M. Jones <rjones@redhat.com> - 2.5.0-2
+- OCaml 4.11.0 pre-release
+
+* Fri Apr 10 2020 Jerry James <loganjerry@gmail.com> - 2.5.0-1
+- Version 2.5.0
+
+* Thu Apr 02 2020 Richard W.M. Jones <rjones@redhat.com> - 2.4.0-2
+- Update all OCaml dependencies for RPM 4.16.
+
+* Fri Mar  6 2020 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- New version 2.4.0
+- Add bootstrap conditional for builds without ocaml-menhir
+
+* Wed Feb 26 2020 Richard W.M. Jones <rjones@redhat.com> - 2.3.1-2
+- OCaml 4.10.0 final.
+
+* Thu Feb 20 2020 Jerry James <loganjerry@gmail.com> - 2.3.1-1
+- New version 2.3.1 (bz 1805578)
+
+* Tue Feb 18 2020 Jerry James <loganjerry@gmail.com> - 2.3.0-1
+- New version 2.3.0 (bz 1803374)
+
+* Fri Feb  7 2020 Jerry James <loganjerry@gmail.com> - 2.2.0-1
+- New version 2.2.0 (bz 1742638)
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Sun Jan 19 2020 Richard W.M. Jones <rjones@redhat.com> - 2.1.2-2
+- OCaml 4.10.0+beta1 rebuild.
+
+* Fri Jan 10 2020 Ben Rosser <rosser.bjr@gmail.com> - 2.1.2-1
+- Update to latest upstream release, 2.1.2.
+- Remove doc patches (as they were accepted upstream).
+
+* Sat Jan  4 2020 Jerry James <loganjerry@gmail.com> - 2.1.0-1
+- New version 2.1.0 (bz 1742638)
+- Invoke the configure script (bz 1740196)
+- Add LGPLv2 to License due to incremental-cycles
+- Add -emacs subpackage and byte compile the Emacs Lisp files
+- Drop upstreamed 15c04b09a8c06871635d5fd98c3a37089bbde6d9.patch
+- Add -doc-emphasis and -doc-scheme patches
+- Run the unit tests in %%check
+
+* Fri Dec 06 2019 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-4
+- OCaml 4.09.0 (final) rebuild.
+
+* Fri Aug 16 2019 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-3
+- OCaml 4.08.1 (final) rebuild.
+
+* Fri Aug 09 2019 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-2
+- Work around nodynlink issue on armv7.
+  https://github.com/ocaml/dune/issues/2527
+
+* Thu Aug 08 2019 Richard W.M. Jones <rjones@redhat.com> - 1.11.0-1
+- New version 1.11.0 (also required for camomile 1.0.2).
+
+* Tue Aug 06 2019 Ben Rosser <rosser.bjr@gmail.com> - 1.10.0-5
+- Install dune libraries. Add new ocaml-dune subpackage (rhbz#1737414).
+
+* Wed Jul 31 2019 Richard W.M. Jones <rjones@redhat.com> - 1.10.0-4
+- OCaml 4.08.1 (rc2) rebuild.
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Thu Jun 27 2019 Richard W.M. Jones <rjones@redhat.com> - 1.10.0-2
+- OCaml 4.08.0 (final) rebuild.
+
+* Sun Jun 16 2019 Andy Li <andy@onthewings.net> - 1.10.0-1
+- Updated to latest upstream release (#1715394).
+
+* Thu May 16 2019 Andy Li <andy@onthewings.net> - 1.9.3-1
+- Updated to latest upstream release (#1705660).
+
+* Tue Apr 30 2019 Richard W.M. Jones <rjones@redhat.com> - 1.9.1-2
+- OCaml 4.08.0 (beta 3) rebuild.
+
+* Thu Apr 11 2019 Andy Li <andy@onthewings.net> - 1.9.1-1
+- Updated to latest upstream release (#1698732).
+
+* Wed Apr 10 2019 Andy Li <andy@onthewings.net> - 1.9.0-1
+- Updated to latest upstream release (#1698022).
+
+* Wed Mar 13 2019 Andy Li <andy@onthewings.net> - 1.8.2-1
+- Updated to latest upstream release (#1686836).
+- Add missing dependency on sphinx_rtd_theme.
+
+* Fri Mar 08 2019 Andy Li <andy@onthewings.net> - 1.8.0-1
+- Updated to latest upstream release (#1686466).
+
+* Fri Mar 01 2019 Andy Li <andy@onthewings.net> - 1.7.3-1
+- Renamed source package from jbuilder to ocaml-dune.
+- Updated URLs and license according to upstream changes.
+- Updated to latest upstream release (#1600105).
+- Removed 1113.patch which has been applied upstream in eariler version.
+- Removed rpm check section since the upstream tests depend on opam.
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Tue Aug 07 2018 Ben Rosser <rosser.bjr@gmail.com> - 1.0.1-1
+- Updated to latest upstream release.
+- Manpages have been renamed to 'dune'. A 'dune' binary is now provided as well.
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.12.beta20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Wed May 02 2018 Ben Rosser <rosser.bjr@gmail.com> - 1.0-0.11.beta20
+- Updated to latest upstream release (#1537836).
+
+* Tue Mar 06 2018 Ben Rosser <rosser.bjr@gmail.com> - 1.0-0.10.beta18
+- Updated to latest upstream release (#1537836).
+
+* Mon Feb 12 2018 Ben Rosser <rosser.bjr@gmail.com> - 1.0-0.9.beta17
+- Update to upstream re-release of beta 17.
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.8.beta17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Tue Jan 30 2018 Ben Rosser <rosser.bjr@gmail.com> - 1.0-0.7.beta18
+- Fix build failure on ppc64 by always using bytecode ocaml compiler to bootstrap.
+
+* Wed Jan 24 2018 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.6.beta17
+- Update to latest upstream release, beta17 (#1537836).
+- Remove unit tests that require external deps (that themselves require jbuilder).
+
+* Tue Nov 14 2017 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.5.beta16
+- Update to latest upstream release, beta16 (#1509749).
+- Add pre_tag version suffix to source flie name to avoid confusion.
+
+* Mon Oct 23 2017 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.4.beta14
+- Update to latest upstream release, beta14 (#1504414).
+
+* Mon Aug 28 2017 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.3.beta12
+- Update to latest upstream release, beta12.
+- Fix typo in description.
+- Use simpler github source URL.
+- Use make_build macros when compiling.
+
+* Tue Aug 15 2017 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.2.beta11
+- Update to a git snapshot so opam can be built against.
+- Modernize ocaml packaging.
+
+* Tue Aug  1 2017 Ben Rosser <rosser.bjr@gmail.com> 1.0-0.1.beta11
+- Initial package.

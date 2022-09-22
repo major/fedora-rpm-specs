@@ -1,0 +1,74 @@
+Name:           nativefiledialog-extended
+Version:        1.0.0
+Release:        1%{?dist}
+Summary:        Native file dialog library with C and C++ bindings
+
+License:        Zlib
+URL:            https://github.com/btzy/nativefiledialog-extended
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
+BuildRequires:  git
+BuildRequires:  gtk3-devel
+
+# https://github.com/btzy/nativefiledialog-extended/pull/76
+Patch:          generate_shared_lib.patch
+
+%global _description %{expand:
+A small C library with that portably invokes native file open, folder
+select and file save dialogs. Write dialog code once and have it pop up
+native dialogs on all supported platforms. Avoid linking large
+dependencies like wxWidgets and Qt.
+
+This library is based on Michael Labbe's Native File Dialog (
+mlabbe/nativefiledialog).}
+
+
+%description
+%{_description}
+
+
+%package devel
+Summary: Development files for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+
+%description devel
+%{_description}
+
+
+%prep
+%autosetup -p1 -S git
+
+
+%build
+%cmake \
+  -D NFD_BUILD_TESTS=OFF \
+  -D BUILD_SHARED_LIBRARY=ON
+%cmake_build
+
+
+%check
+# all tests will fail because they require a display
+
+
+%install
+%cmake_install
+
+
+%files
+%license LICENSE
+%doc README.md
+%{_libdir}/libnfd.so.*
+
+
+%files devel
+%license LICENSE
+%{_includedir}/nfd.h*
+%{_libdir}/libnfd.so
+
+
+%changelog
+* Sat Aug 13 2022 Jonathan Wright <jonathan@almalinux.org> - 1.0.0-1
+- Initial package build

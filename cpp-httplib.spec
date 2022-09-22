@@ -1,0 +1,105 @@
+%global forgeurl0 https://github.com/yhirose/cpp-httplib
+%undefine __cmake_in_source_build
+
+%bcond_without tests
+# Compiled version in shared library.
+# Does not have any so-version, therefore not default
+%bcond_with compile
+
+%if %{without compile}
+%undefine __cmake_in_source_build
+%global debug_package %{nil}
+%endif
+
+Name:           cpp-httplib
+Version:        0.9.3
+%forgemeta
+Release:        %autorelease
+
+Summary:        A C++11 single-file header-only cross platform HTTP/HTTPS library
+License:        MIT
+URL:            https://github.com/yhirose/cpp-httplib
+Source0:        %forgesource
+
+BuildRequires:  redhat-rpm-config
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  openssl-devel
+BuildRequires:  zlib-devel
+BuildRequires:  brotli-devel
+%if %{with tests}
+BuildRequires:  make openssl
+BuildRequires:  gtest-devel
+%endif
+
+%description
+A C++11 single-file header-only cross platform HTTP/HTTPS library.
+
+It's extremely easy to setup. Just include the httplib.h file in your code!
+
+%package devel
+Summary:        A C++11 single-file header-only cross platform HTTP/HTTPS library
+Recommends:     cmake
+%if %{with compile}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%else
+Provides:       %{name}-static = %{version}-%{release}
+%endif
+
+%description devel
+A C++11 single-file header-only cross platform HTTP/HTTPS library.
+
+It's extremely easy to setup. Just include the httplib.h file in your code!
+
+NOTE: This is a multi-threaded 'blocking' HTTP library.
+If you are looking for a 'non-blocking' library, this is not the one that you want.
+
+Development files only.
+
+%prep
+%forgeautosetup -p1
+
+
+%build
+%cmake \
+%if %{with compile}
+    -DBUILD_SHARED_LIBS=ON -DHTTPLIB_COMPILE=ON \
+%endif
+#
+%cmake_build
+
+
+%install
+%cmake_install
+
+
+%check
+%if %{with tests}
+pushd test
+%make_build test
+# Mock does not provide internet connectivity.
+# Skip online tests to avoid failures
+./test --gtest_filter='-*.*_Online'
+popd
+%endif
+
+
+%if %{with compile}
+%files
+%license LICENSE
+%doc README.md
+# TODO: should use so-versioned library here, but upstream
+# prefers header-only mode.
+%{_libdir}/libhttplib.so
+%endif
+
+%files devel
+%if %{without compile}
+%license LICENSE
+%doc README.md
+%endif
+%{_includedir}/httplib.h
+%{_libdir}/cmake/httplib
+
+%changelog
+%autochangelog

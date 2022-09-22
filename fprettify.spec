@@ -1,0 +1,70 @@
+Name:           fprettify
+Version:        0.3.7
+Release:        4%{?dist}
+Summary:        Auto-formatter for modern Fortran source code
+License:        GPLv3
+URL:            https://github.com/pseewald/fprettify
+Source0:        https://github.com/pseewald/fprettify/archive/refs/tags/v%{version}/fprettify-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(configargparse)
+BuildRequires:  python3dist(setuptools)
+
+Requires:       python3-fprettify = %{version}-%{release}
+
+# Patch out use of /usr/bin/env python
+Patch0:         fprettify-0.3.7-pyenv.patch
+
+%description
+fprettify is an auto-formatter written in Python to impose strict
+whitespace formatting for modern Fortran code.
+
+%package -n     python3-fprettify
+Summary:        Python library for fprettify
+
+Requires:       python3dist(configargparse)
+Requires:       python3dist(setuptools)
+
+%description -n python3-fprettify
+fprettify is an auto-formatter written in Python to impose strict
+whitespace formatting for modern Fortran code.
+
+This package contains the Python library.
+
+%prep
+%setup -q -n fprettify-%{version}
+%patch0 -p1 -b .pyenv
+# Remove bundled egg-info
+rm -rf %{name}.egg-info
+
+%build
+%py3_build
+
+%install
+%py3_install
+
+%check
+%{__python3} setup.py test
+
+%files
+%{_bindir}/fprettify
+
+%files -n python3-fprettify
+%license LICENSE
+%doc README.md
+%{python3_sitelib}/fprettify/
+%{python3_sitelib}/fprettify-%{version}-py%{python3_version}.egg-info
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.3.7-3
+- Rebuilt for Python 3.11
+
+* Wed May 25 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.7-2
+- Patch out use of /usr/bin/env python.
+
+* Fri Feb 04 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.3.7-1
+- Initial package.

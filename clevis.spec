@@ -1,0 +1,195 @@
+Name:           clevis
+Version:        18
+Release:        %autorelease
+Summary:        Automated decryption framework
+
+License:        GPLv3+
+URL:            https://github.com/latchset/%{name}
+Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Source1:        clevis.sysusers
+
+Patch0001: 0001-sss-use-BN_set_word-x-0-instead-of-BN_zero.patch
+Patch0002: 0002-systemd-account-for-unlocking-failures-in-clevis-luk.patch
+Patch0003: 0003-feat-rename-the-test-pin-to-null-pin.patch
+
+BuildRequires:  git-core
+BuildRequires:  gcc
+BuildRequires:  meson
+BuildRequires:  asciidoc
+BuildRequires:  ninja-build
+BuildRequires:  bash-completion
+
+BuildRequires:  libjose-devel >= 8
+BuildRequires:  libluksmeta-devel >= 8
+BuildRequires:  audit-libs-devel
+BuildRequires:  libudisks2-devel
+BuildRequires:  openssl-devel
+
+BuildRequires:  tpm2-tools >= 4.0.0
+BuildRequires:  desktop-file-utils
+BuildRequires:  pkgconfig
+BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  dracut
+BuildRequires:  tang >= 6
+BuildRequires:  curl
+BuildRequires:  cracklib-dicts
+BuildRequires:  luksmeta
+BuildRequires:  openssl
+BuildRequires:  diffutils
+BuildRequires:  cryptsetup
+BuildRequires:  jq
+
+Requires:       tpm2-tools >= 4.0.0
+Requires:       coreutils
+Requires:       jose >= 8
+Requires:       curl
+Requires:       jq
+Requires(pre):  shadow-utils
+Requires(post): systemd
+Recommends:     cracklib-dicts
+Recommends:     clevis-pin-tpm2
+
+%description
+Clevis is a framework for automated decryption. It allows you to encrypt
+data using sophisticated unlocking policies which enable decryption to
+occur automatically.
+
+The clevis package provides basic encryption/decryption policy support.
+Users can use this directly; but most commonly, it will be used as a
+building block for other packages. For example, see the clevis-luks
+and clevis-dracut packages for automatic root volume unlocking of LUKSv1
+volumes during early boot.
+
+%package luks
+Summary:        LUKS integration for clevis
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       cryptsetup
+Requires:       luksmeta >= 8
+
+%description luks
+LUKS integration for clevis. This package allows you to bind a LUKS
+volume to a clevis unlocking policy. For automated unlocking, an unlocker
+will also be required. See, for example, clevis-dracut and clevis-udisks2.
+
+%package systemd
+Summary:        systemd integration for clevis
+Requires:       %{name}-luks%{?_isa} = %{version}-%{release}
+%if 0%{?fedora} > 27
+Requires:       systemd%{?_isa} >= 235-3
+%else
+%if 0%{?fedora} == 27
+Requires:       systemd%{?_isa} >= 234-9
+%else
+%if 0%{?fedora} == 26
+Requires:       systemd%{?_isa} >= 233-7
+%else
+Requires:       systemd%{?_isa} >= 236
+%endif
+%endif
+%endif
+
+%description systemd
+Automatically unlocks LUKS _netdev block devices from /etc/crypttab.
+
+%package dracut
+Summary:        Dracut integration for clevis
+Requires:       %{name}-systemd%{?_isa} = %{version}-%{release}
+Requires:       dracut-network
+
+%description dracut
+Automatically unlocks LUKS block devices in early boot.
+
+%package udisks2
+Summary:        UDisks2/Storaged integration for clevis
+Requires:       %{name}-luks%{?_isa} = %{version}-%{release}
+
+%description udisks2
+Automatically unlocks LUKS block devices in desktop environments that
+use UDisks2 or storaged (like GNOME).
+
+%prep
+%autosetup -S git
+
+%build
+%meson -Duser=clevis -Dgroup=clevis
+%meson_build
+
+%install
+%meson_install
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/clevis.conf
+
+%check
+desktop-file-validate \
+  %{buildroot}/%{_sysconfdir}/xdg/autostart/%{name}-luks-udisks2.desktop
+%meson_test
+
+%pre
+%sysusers_create_compat %{SOURCE1}
+# Add clevis user to tss group.
+if getent group tss >/dev/null && ! groups %{name} | grep -q "\btss\b"; then
+    usermod -a -G tss %{name} &>/dev/null
+fi
+exit 0
+
+%files
+%license COPYING
+%{_datadir}/bash-completion/
+%{_bindir}/%{name}-decrypt-tang
+%{_bindir}/%{name}-decrypt-tpm2
+%{_bindir}/%{name}-decrypt-sss
+%{_bindir}/%{name}-decrypt-null
+%{_bindir}/%{name}-decrypt
+%{_bindir}/%{name}-encrypt-tang
+%{_bindir}/%{name}-encrypt-tpm2
+%{_bindir}/%{name}-encrypt-sss
+%{_bindir}/%{name}-encrypt-null
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}-encrypt-tang.1*
+%{_mandir}/man1/%{name}-encrypt-tpm2.1*
+%{_mandir}/man1/%{name}-encrypt-sss.1*
+%{_mandir}/man1/%{name}-decrypt.1*
+%{_mandir}/man1/%{name}.1*
+%{_sysusersdir}/clevis.conf
+
+%files luks
+%{_mandir}/man7/%{name}-luks-unlockers.7*
+%{_mandir}/man1/%{name}-luks-unlock.1*
+%{_mandir}/man1/%{name}-luks-unbind.1*
+%{_mandir}/man1/%{name}-luks-bind.1*
+%{_mandir}/man1/%{name}-luks-list.1.*
+%{_mandir}/man1/%{name}-luks-edit.1.*
+%{_mandir}/man1/%{name}-luks-regen.1.*
+%{_mandir}/man1/%{name}-luks-report.1.*
+%{_mandir}/man1/%{name}-luks-pass.1.*
+%{_bindir}/%{name}-luks-unlock
+%{_bindir}/%{name}-luks-unbind
+%{_bindir}/%{name}-luks-bind
+%{_bindir}/%{name}-luks-common-functions
+%{_bindir}/%{name}-luks-list
+%{_bindir}/%{name}-luks-edit
+%{_bindir}/%{name}-luks-regen
+%{_bindir}/%{name}-luks-report
+%{_bindir}/%{name}-luks-pass
+
+%files systemd
+%{_libexecdir}/%{name}-luks-askpass
+%{_unitdir}/%{name}-luks-askpass.path
+%{_unitdir}/%{name}-luks-askpass.service
+
+%files dracut
+%{_prefix}/lib/dracut/modules.d/60%{name}
+%{_prefix}/lib/dracut/modules.d/60%{name}-pin-null/module-setup.sh
+%{_prefix}/lib/dracut/modules.d/60%{name}-pin-sss/module-setup.sh
+%{_prefix}/lib/dracut/modules.d/60%{name}-pin-tang/module-setup.sh
+%{_prefix}/lib/dracut/modules.d/60%{name}-pin-tpm2/module-setup.sh
+
+%files udisks2
+%{_sysconfdir}/xdg/autostart/%{name}-luks-udisks2.desktop
+%attr(4755, root, root) %{_libexecdir}/%{name}-luks-udisks2
+
+%post systemd
+systemctl preset %{name}-luks-askpass.path >/dev/null 2>&1 || :
+
+%changelog
+%autochangelog

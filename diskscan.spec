@@ -1,0 +1,51 @@
+Summary: Scan disk for bad or near failure sectors, performs disk diagnostics
+Name: diskscan
+Version: 0.20
+Release: 3%{?dist}
+URL: https://github.com/baruch/diskscan
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0: %{name}-0.20-version.patch
+# hdrhistogram: CC0 or BSD (2-clause)
+# libscsicmd: ASL 2.0
+# progressbar: BSD (3-clause, no advertising)
+# the rest: GPLv3+
+License: ASL 2.0 and BSD and (BSD or CC0) and GPLv3+
+BuildRequires: gcc-c++
+BuildRequires: cmake
+BuildRequires: ncurses-devel
+BuildRequires: ninja-build
+BuildRequires: zlib-devel
+
+%description
+DiskScan is a Unix/Linux tool to scan a block device and check if there are
+unreadable sectors, in addition it uses read latency times as an assessment for
+a near failure as sectors that are problematic to read usually entail many
+retries. This can be used to assess the state of the disk and maybe decide on a
+replacement in advance to its imminent failure. The disk self test may or may
+not pick up on such clues depending on the disk vendor decision making logic.
+
+%prep
+%autosetup -p1
+
+%build
+%cmake -GNinja
+%cmake_build
+
+%install
+%cmake_install
+
+%files
+%license COPYING
+%doc README.md
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Mar 29 2022 Dominik Mierzejewski <dominik@greysector.net> 0.20-2
+- add a break-down of all licenses
+
+* Fri Mar 18 2022 Dominik Mierzejewski <dominik@greysector.net> 0.20-1
+- initial build

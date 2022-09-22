@@ -1,0 +1,233 @@
+# This specfile is almost identical with Mlichvars
+# specfile for guile 2.2, in ideal world, we would
+# just rebase guile 2.2 to guile 3.0 but we do not
+# live in ideal world and we need to maintain both
+# guile 2.2 and guile 3 in Fedora. Thus this note
+# is giving credit to Mlichvar for all the delicate
+# mechanisms in this package.
+
+# Guile produces ELF images that are just containers for guile and don't
+# include build-ids. https://wingolog.org/archives/2014/01/19/elf-in-guile
+%undefine _missing_build_ids_terminate_build
+
+%global mver 3.0
+
+Name: guile30
+Version: 3.0.7
+Release: 6%{?dist}
+Summary: A GNU implementation of Scheme for application extensibility
+License: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+
+Source: https://ftp.gnu.org/gnu/guile/guile-%{version}.tar.gz
+URL: https://www.gnu.org/software/guile/
+
+BuildRequires: libtool libtool-ltdl-devel pkgconfig(gmp) pkgconfig(readline)
+BuildRequires: gettext-devel libunistring-devel pkgconfig(libffi) pkgconfig(bdw-gc)
+BuildRequires: make gcc
+BuildRequires: autoconf 
+BuildRequires: pkgconfig
+Requires: coreutils
+Requires(post): info
+Requires(preun): info
+
+# Guile ships a patched version of localcharset from gnulib
+# its version is v0.1-1157-gb03f418
+Provides: bundled(gnulib)
+
+# Our glibc is not compatible with expectations of guiles upstream
+# some macros are undefined and that results in inability to compile.
+# This patch forces guile to use bundled header with all neccessary macros.
+Patch0: guile-3.0.7-headers.patch
+
+# Out of memory test is not stable, so disable it.
+Patch1: guile-3.0.7-disable-oom-test.patch
+
+# add chdir call before chroot to make it more secure
+Patch2: guile-3.0.7-chroot.patch
+
+# replace deprecated autoconf macro
+Patch3: guile-3.0.7-configure.patch
+
+# Disable unstable stack overflow test
+Patch4: guile-3.0.7-disable-stackoverflow-test.patch
+
+%description
+GUILE (GNU's Ubiquitous Intelligent Language for Extension) is a library
+implementation of the Scheme programming language, written in C.  GUILE
+provides a machine-independent execution platform that can be linked in
+as a library during the building of extensible programs.
+
+Install the guile package if you'd like to add extensibility to programs
+that you are developing.
+
+%package devel
+Summary: Libraries and header files for the GUILE extensibility library
+Requires: guile30%{?_isa} = %{version}-%{release} pkgconfig(gmp) pkgconfig(bdw-gc)
+Requires: pkgconfig
+
+%description devel
+The guile-devel package includes the libraries, header files, etc.,
+that you'll need to develop applications that are linked with the
+GUILE extensibility library.
+
+You need to install the guile-devel package if you want to develop
+applications that will be linked to GUILE.  You'll also need to
+install the guile package.
+
+%prep
+%autosetup -p1 -n guile-%version
+
+%build
+autoreconf -iv
+%configure --disable-static --disable-error-on-warning --program-suffix=%{mver}
+
+%make_build
+
+%install
+%make_install
+mkdir -p %{buildroot}%{_datadir}/guile/site/%{mver}
+
+rm -f %{buildroot}%{_libdir}/libguile*.la
+rm -f %{buildroot}%{_infodir}/dir
+
+for i in $(seq 1 11); do
+  mv %{buildroot}%{_infodir}/guile{,-%{mver}}.info-$i
+  sed -i -e 's/guile\.info/guile-%{mver}.info/' %{buildroot}%{_infodir}/guile-%{mver}.info-$i
+  sed -i -e 's/\* Guile Reference: (guile)/* Guile %{mver} Reference: (guile-%{mver})/' %{buildroot}%{_infodir}/guile-%{mver}.info-$i
+done
+mv %{buildroot}%{_infodir}/guile{,-%{mver}}.info
+sed -i -e 's/guile\.info/guile-%{mver}.info/' %{buildroot}%{_infodir}/guile-%{mver}.info
+sed -i -e 's/\* Guile Reference: (guile)/* Guile %{mver} Reference: (guile-%{mver})/' %{buildroot}%{_infodir}/guile-%{mver}.info
+mv %{buildroot}%{_infodir}/r5rs{,-%{mver}}.info
+mv %{buildroot}%{_datadir}/aclocal/guile{,-%{mver}}.m4
+
+# Our gdb doesn't support guile yet
+rm -f %{buildroot}%{_libdir}/libguile*gdb.scm
+
+for i in %{buildroot}%{_infodir}/goops.info; do
+    iconv -f iso8859-1 -t utf-8 < $i > $i.utf8 && mv -f ${i}{.utf8,}
+done
+
+touch %{buildroot}%{_datadir}/guile/site/%{mver}/slibcat
+
+# Adjust mtimes so they are all identical on all architectures.
+# When guile.x86_64 and guile.i686 are installed at the same time on an x86_64 system,
+# the *.scm files' timestamps change, as they normally reside in /usr/share/guile/.
+# Their corresponding compiled *.go file go to /usr/lib64/, or /usr/lib/, depending on the arch.
+# The mismatch in timestamps between *.scm and *.go files makes guile to compile itself
+# everytime it's run. The following code adjusts the files so that their timestamps are the same
+# for every file, but unique between builds.
+# See https://bugzilla.redhat.com/show_bug.cgi?id=1208760.
+find %{buildroot}%{_datadir} -name '*.scm' -exec touch -r "%{_specdir}/guile3.spec" '{}' \;
+find %{buildroot}%{_libdir} -name '*.go' -exec touch -r "%{_specdir}/guile3.spec" '{}' \;
+
+# Remove Libtool archive
+rm %{buildroot}%{_libdir}/guile/%{mver}/extensions/guile-readline.la
+
+%check
+make %{?_smp_mflags} check || true
+
+%post
+install-info %{_infodir}/guile-3.0.info.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-1.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-2.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-3.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-4.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-5.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-6.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-7.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-8.gz %{_infodir}/dir
+install-info %{_infodir}/guile-3.0.info-9.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-10.gz %{_infodir}/dir 
+install-info %{_infodir}/guile-3.0.info-11.gz %{_infodir}/dir 
+install-info %{_infodir}/r5rs-3.0.info.gz %{_infodir}/dir 
+
+%preun
+install-info --delete %{_infodir}/guile-3.0.info.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-1.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-2.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-3.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-4.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-5.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-6.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-7.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-8.gz %{_infodir}/dir
+install-info --delete %{_infodir}/guile-3.0.info-9.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-10.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/guile-3.0.info-11.gz %{_infodir}/dir 
+install-info --delete %{_infodir}/r5rs-3.0.info.gz %{_infodir}/dir 
+
+%triggerin -- slib >= 3b4-1
+rm -f %{_datadir}/guile/site/%{mver}/slibcat
+export SCHEME_LIBRARY_PATH=%{_datadir}/slib/
+
+# Build SLIB catalog
+%{_bindir}/guile%{mver} --fresh-auto-compile --no-auto-compile -c \
+    "(use-modules (ice-9 slib)) (require 'new-catalog)" &> /dev/null || \
+    rm -f %{_datadir}/guile/site/%{mver}/slibcat
+:
+
+
+%triggerun -- slib >= 3b4-1
+if [ "$2" = 0 ]; then
+    rm -f %{_datadir}/guile/site/%{mver}/slibcat
+fi
+
+%files
+%license COPYING COPYING.LESSER LICENSE
+%doc AUTHORS HACKING README THANKS
+%{_bindir}/guild%{mver}
+%{_bindir}/guile%{mver}
+%{_bindir}/guile-tools%{mver}
+%{_libdir}/libguile-%{mver}.so.1*
+%{_libdir}/guile
+%dir %{_datadir}/guile
+%dir %{_datadir}/guile/site
+%dir %{_datadir}/guile/%{mver}
+%dir %{_datadir}/guile/site/%{mver}
+%{_datadir}/guile/%{mver}/ice-9
+%{_datadir}/guile/%{mver}/language
+%{_datadir}/guile/%{mver}/oop
+%{_datadir}/guile/%{mver}/rnrs
+%{_datadir}/guile/%{mver}/scripts
+%{_datadir}/guile/%{mver}/srfi
+%{_datadir}/guile/%{mver}/sxml
+%{_datadir}/guile/%{mver}/system
+%{_datadir}/guile/%{mver}/texinfo
+%{_datadir}/guile/%{mver}/web
+%{_datadir}/guile/%{mver}/guile-procedures.txt
+%{_datadir}/guile/%{mver}/*.scm
+%{_datadir}/guile/%{mver}/scheme/*.scm
+%dir %{_datadir}/guile/%{mver}/scheme
+%ghost %{_datadir}/guile/site/%{mver}/slibcat
+%{_infodir}/*
+%{_mandir}/man1/guile%{?mver}*
+
+%files devel
+%{_bindir}/guile-config%{?mver}
+%{_bindir}/guile-snarf%{?mver}
+%{_datadir}/aclocal/*
+%{_libdir}/libguile-%{mver}.so
+%{_libdir}/pkgconfig/*.pc
+%{_includedir}/guile
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jan 14 2022 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-4
+- Fix license field
+- Resolves: rhbz#2036203
+
+* Sat Jan 08 2022 Miro Hrončok <mhroncok@redhat.com> - 3.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Changes/LIBFFI34
+
+* Mon Aug 02 2021 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-2
+- Fix requires for devel package
+- Resolves: rhbz#1989011
+
+* Mon Jul 19 2021 Tomas Korbar <tkorbar@redhat.com> - 3.0.7-1
+- Initial package
+

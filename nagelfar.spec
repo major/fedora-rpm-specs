@@ -1,0 +1,102 @@
+%global versionnodot 132
+
+Name:           nagelfar
+Version:        1.3.2
+Release:        2%{?dist}
+Summary:        Syntax checker for Tcl
+
+License:        GPLv2+
+URL:            http://nagelfar.sourceforge.net/
+Source0:        http://downloads.sourceforge.net/nagelfar/%{name}%{versionnodot}.tar.gz
+
+# Get auxiliary files from software-specific datadir
+Patch0:         use-datadir-to-store-aux-files.patch
+# Set tclsh as shebang for nagelfar.tcl script
+Patch1:         tclsh-as-shebang.patch
+# Add script to test Nagelfar installation
+Patch2:         script-to-test-install.patch
+# Fix project URL reported on GUI
+# https://sourceforge.net/p/nagelfar/code/merge-requests/9/
+Patch3:         fix-project-url-link.patch
+# Fix GPLv2 copying file and headers to point to correct FSF address
+# https://sourceforge.net/p/nagelfar/code/merge-requests/10/
+Patch4:         fix-GPLv2-copying-file-and-headers.patch
+
+BuildArch:      noarch
+
+# tclsh needed for check step
+BuildRequires:  tcl
+
+Requires:       tcl
+Requires:       tk
+
+%description
+Nagelfar is a Tcl application to read a Tcl program and provide static syntax
+analysis - information regarding Tcl syntax errors like missing braces,
+incomplete commands, etc. It is, moreover, extensible, with a customizable
+exposed syntax database and plugins. Nagelfar has also support for doing
+simple code coverage analysis.
+
+
+%prep
+%setup -q -n %{name}%{versionnodot}
+%patch0
+%patch1
+%patch2
+chmod +x test_nagelfar.sh
+%patch3
+%patch4
+
+%build
+
+
+%install
+mkdir -p %{buildroot}%{_datadir}/%{name}/
+mv nagelfar.syntax %{buildroot}%{_datadir}/%{name}/
+mv packagedb %{buildroot}%{_datadir}/%{name}/
+mv syntaxbuild.tcl %{buildroot}%{_datadir}/%{name}/
+mv syntaxdb8*.tcl %{buildroot}%{_datadir}/%{name}/
+# default syntaxdb points to current Tcl version (8.6)
+ln -s syntaxdb86.tcl %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl
+
+mkdir -p %{buildroot}%{_bindir}
+mv nagelfar.tcl %{buildroot}%{_bindir}/
+
+mv {doc/,}call-by-name.txt
+mv {doc/,}codecoverage.txt
+mv {doc/,}inlinecomments.txt
+mv {doc/,}messages.txt
+mv {doc/,}oo.txt
+mv {doc/,}plugins.txt
+mv {doc/,}README.txt
+mv {doc/,}syntaxdatabases.txt
+mv {doc/,}syntaxtokens.txt
+
+
+%check
+./test_nagelfar.sh %{buildroot}%{_bindir}/nagelfar.tcl\
+    %{buildroot}%{_datadir}/%{name}/syntaxdb.tcl\
+    misctests/test.tcl
+
+
+%files
+%license COPYING
+%doc call-by-name.txt codecoverage.txt inlinecomments.txt messages.txt oo.txt plugins.txt README.txt syntaxdatabases.txt syntaxtokens.txt
+%{_bindir}/nagelfar.tcl
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/nagelfar.syntax
+%{_datadir}/%{name}/syntaxbuild.tcl
+%{_datadir}/%{name}/syntaxdb85.tcl
+%{_datadir}/%{name}/syntaxdb86.tcl
+%{_datadir}/%{name}/syntaxdb87.tcl
+%{_datadir}/%{name}/syntaxdb.tcl
+%dir %{_datadir}/%{name}/packagedb
+%{_datadir}/%{name}/packagedb/*
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Jul 10 2022 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.2-1
+- Initial package for version 1.3.2

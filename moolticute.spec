@@ -1,0 +1,134 @@
+%bcond_without  tests
+# LTO causes builds to fail occasionally, so disable it.
+%global _lto_cflags %nil
+
+Name:           moolticute
+Version:        0.55.0
+Release:        2%{?dist}
+Summary:        Companion GUI application for Mooltipass password manager devices
+
+# The entire source code is GPLv3+ except: 
+# src/AnsiEscapeCodeHandler.[cpp|h] which is GPLv3,
+# src/QtAwesome/QtAwesome/ src/http-parser/ and src/qtcsv which are MIT,
+# src/QtAwesome/QtAwesome/fonts/ which is CC-BY,
+# src/CyoEncode/ src/SimpleCrypt/ and src/zxcvbn-c/ which are BSD.
+License:        GPLv3
+URL:            https://github.com/mooltipass/moolticute
+Source0:        https://github.com/mooltipass/%{name}/archive/refs/tags/v%{version}.tar.gz
+Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/master/udev/69-mooltipass.rules
+
+# QSimpleUpdater is licensed under DBAD, which isn't approved. The updater isn't used anyway, so this patch removes it
+# until it is fixed upstream: https://github.com/alex-spataru/QSimpleUpdater/issues/28
+Patch0:         moolticute-0.55.0-remove-updater.patch
+
+Requires:       systemd
+Requires:       udev
+Requires:       hicolor-icon-theme
+
+BuildRequires:  gcc-c++
+BuildRequires:  make
+BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtwebsockets-devel
+BuildRequires:  qt5-qttools-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+
+
+%description
+Moolticute is an easy to use companion app to your Mooltipass device and extends
+the power of the device to more platform/tools. It allows you to manage your
+Mooltipass with a cross-platform app and daemon service that handles all USB
+communication with the device.
+
+Moolticute comes with a daemon that runs in the background, and a user interface
+app to control your Mooltipass. Other clients can also connect and talk to the
+daemon (it uses a WebSocket connection and simple JSON messages).
+
+%prep
+%autosetup -p1
+# Patch /lib to $(PREFIX)/lib
+sed -i 's|$(DESTDIR)/lib|$(DESTDIR)$(PREFIX)/lib|g' Makefile
+
+# Change the version from git to the specific release version.
+# Also set the APP_TYPE to deb to disable the update checker. This isn't
+# used anywhere else, so doesn't really matter.
+cat <<EOF > ./src/version.h
+#ifndef VERSION__H
+#define VERSION__H
+#define APP_VERSION "v%{version}"
+#define APP_TYPE "deb"
+#endif
+EOF
+
+
+%build
+mkdir -p build
+cd build
+%{qmake_qt5} ../Moolticute.pro
+%make_build
+
+%install
+# Install udev rules (source 1)
+install -pm 0644 %{SOURCE1} .
+%make_install
+install -Dpm 0644 systemd/moolticuted.service %{buildroot}%{_unitdir}/moolticuted.service
+
+
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/moolticute.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+%if %{with tests}
+%make_build test
+%endif
+
+
+%post
+%udev_rules_update
+%systemd_post moolticuted.service
+
+%preun
+%systemd_preun moolticuted.service
+
+%postun
+%udev_rules_update
+%systemd_postun_with_restart moolticuted.service
+
+%files
+%license LICENSE
+%doc README.md
+%{_bindir}/moolticute
+%{_bindir}/moolticuted
+%{_metainfodir}/*.metainfo.xml
+%{_datadir}/applications/moolticute.desktop
+%{_datadir}/icons/hicolor/scalable/apps/moolticute.svg
+%{_datadir}/icons/hicolor/32x32/apps/moolticute.png
+%{_datadir}/icons/hicolor/128x128/apps/moolticute.png
+%_udevrulesdir/69-mooltipass.rules
+%{_unitdir}/moolticuted.service
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.55.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Mar 27 2022 Arthur Bols <arthur@bols.dev> - 0.55.0-1
+- Upstream release 0.55.0
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.53.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Dec 06 2021 Arthur Bols <arthur@bols.dev> - 0.53.2-1
+- Upstream release 0.53.2
+
+* Fri Dec 03 2021 Arthur Bols <arthur@bols.dev> - 0.53.0-1
+- Upstream release 0.53.0
+
+* Tue Sep 14 2021 Arthur Bols <arthur@bols.dev> - 0.52.0-1
+- Upstream release 0.52.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.50.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Jul 04 2021 Arthur Bols <arthur@bols.dev> - 0.50.1-1
+- Initial package

@@ -1,0 +1,87 @@
+%global pkg_name ua-parser
+%global uap_core_version bbd43aed9a623486191a33c3af9e463e89c85f7a
+%global run_unittests 0
+
+Name:           python-%{pkg_name}
+Version:        0.16.1
+Release:        1%{?dist}
+Summary:        Python port of Browserscope's user agent parser
+
+License:        ASL 2.0
+URL:            https://github.com/ua-parser/uap-python
+BuildArch:      noarch
+Source0:        %{pypi_source ua-parser}
+%if 0%{?run_unittests}
+Source1:        https://github.com/ua-parser/uap-core/archive/%{uap_core_version}/uap-core-%{uap_core_version}.tar.gz
+%endif
+# Don't install test
+Patch0:         ua-parser_no-test-install.patch
+
+BuildRequires:  python3-devel
+
+
+%description
+Python port of Browserscope's user agent parser.
+
+
+%package -n python3-%{pkg_name}
+Summary:        Python port of Browserscope's user agent parser
+
+
+%description -n python3-%{pkg_name}
+Python port of Browserscope's user agent parser.
+
+
+%prep
+%autosetup -p1 -n %{pkg_name}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files ua_parser
+
+
+%check
+%pyproject_check_import
+%if 0%{?run_unittests}
+tar xf %{SOURCE1} --transform 's|uap-core-%{uap_core_version}|uap-core|'
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} ua_parser/user_agent_parser_test.py
+%endif
+
+
+%files -n python3-%{pkg_name}  -f %{pyproject_files}
+%license  ua_parser/LICENSE
+%doc README.rst
+
+
+%changelog
+* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 0.16.1-1
+- Update to 0.16.1
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jun 28 2022 Sandro Mani <manisandro@gmail.com> - 0.15.0-1
+- Update to 0.15.0
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.10.0-4
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Dec 20 2021 Sandro Mani <manisandro@gmail.com> - 0.10.0-2
+- Fix license
+- Add possibility to run unittest
+- Don't install unittest
+
+* Wed Dec 08 2021 Sandro Mani <manisandro@gmail.com> - 0.10.0-1
+- Initial package

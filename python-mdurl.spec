@@ -1,0 +1,67 @@
+Name:           python-mdurl
+Version:        0.1.1
+Release:        3%{?dist}
+Summary:        Markdown URL utilities
+
+License:        MIT
+URL:            https://github.com/hukkin/mdurl
+Source0:        %{url}/archive/%{version}/mdurl-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+
+%global _description %{expand:
+URL utilities for markdown-it parser.}
+
+
+%description %_description
+
+%package -n     python3-mdurl
+Summary:        %{summary}
+
+%description -n python3-mdurl %_description
+
+
+%prep
+%autosetup -p1 -n mdurl-%{version}
+
+# Remove coverage from the test requirements
+sed -i "s/pytest-cov//" tests/requirements.txt
+
+
+%generate_buildrequires
+%pyproject_buildrequires tests/requirements.txt
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files mdurl
+
+
+%check
+%pytest
+
+
+%files -n python3-mdurl -f %{pyproject_files}
+%doc README.md
+%license LICENSE
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 0.1.1-2
+- Rebuilt for Python 3.11
+
+* Tue Apr 19 2022 Lumír Balhar <lbalhar@redhat.com> - 0.1.1-1
+- Update to 0.1.1
+Resolves: rhbz#2074703
+
+* Mon Jan 31 2022 Karolina Surma <ksurma@redhat.com> - 0.1.0-1
+- Initial package

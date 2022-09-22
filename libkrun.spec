@@ -1,0 +1,176 @@
+# libkrun tests require access to "/dev/kvm", which is usually not be available
+# on build sandboxes.
+%bcond_with check
+
+Name:           libkrun
+Version:        1.4.2
+Release:        2%{?dist}
+Summary:        Dynamic library providing Virtualization-based process isolation capabilities
+
+# Upstream license specification: Apache-2.0 AND BSD-3-Clause
+License:        ASL 2.0
+URL:            https://github.com/containers/libkrun
+Source:         https://github.com/containers/libkrun/archive/refs/tags/v%{version}.tar.gz
+# Remove references to unused deps so we don't need to install them for
+# building this package
+Patch0:         libkrun-remove-unused-deps.diff
+# For aarch64, remove references to SEV deps which are only available on x86_64
+Patch1:         libkrun-remove-sev-deps.diff
+# Relax rust-sev dep
+Patch2:         libkrun-sev-relax.diff
+
+# libkrun only supports x86_64 and aarch64
+ExclusiveArch:  x86_64 aarch64
+
+# While this project is composed mostly of Rust code, this is not a
+# conventional Rust crate. The root of the project is a workspace, there's a C
+# file that also needs to be compiled, and the resulting binary a dynamic
+# library providing a C-compatible ABI.
+#
+# As a result, we can't fully rely on rust-packaging for managing this package.
+# Instead, we use some of its tasks (cargo_prep and cargo_test) and combine
+# them with using the Makefile provided by the project. We also need to manage
+# BuildRequires manually, as rust-packaging gets confused trying to generate
+# them dynamically.
+BuildRequires:  rust-packaging >= 21
+BuildRequires:  glibc-static
+BuildRequires:  patchelf
+BuildRequires:  binutils
+BuildRequires:  libkrunfw-devel >= 3.6.3
+%ifarch x86_64
+BuildRequires:  libkrunfw-sev-devel >= 3.6.3
+%endif
+%ifarch aarch64
+BuildRequires:  libfdt-devel
+%endif
+
+BuildRequires:  crate(libc/default) >= 0.2.39
+BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.8.0 with crate(vm-memory/backend-mmap) < 0.9.0~)
+BuildRequires:  (crate(vm-memory/default) >= 0.8.0 with crate(vm-memory/default) < 0.9.0~)
+BuildRequires:  crate(kvm-bindings/default) >= 0.2.0
+BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.2.0
+BuildRequires:  crate(kvm-ioctls/default) >= 0.4.0
+BuildRequires:  crate(vmm-sys-util/default) >= 0.7.0
+BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
+BuildRequires:  (crate(env_logger/default) >= 0.9.0 with crate(env_logger/default) < 0.10.0~)
+BuildRequires:  (crate(log/default) >= 0.4.0 with crate(log/default) < 0.5.0~)
+BuildRequires:  (crate(nix/default) >= 0.24.1 with crate(nix/default) < 0.25.0~)
+BuildRequires:  (crate(rand/default) >= 0.8.5 with crate(rand/default) < 0.9.0~)
+BuildRequires:  (crate(once_cell/default) >= 1.4.1 with crate(once_cell/default) < 2.0.0~)
+
+%ifarch x86_64
+# SEV variant dependencies
+BuildRequires:  (crate(codicon/default) >= 3.0.0 with crate(codicon/default) < 4.0.0~)
+BuildRequires:  (crate(curl/default) >= 0.4.0 with crate(curl/default) < 0.5.0~)
+BuildRequires:  (crate(procfs/default) >= 0.12.0 with crate(procfs/default) < 0.13.0~)
+BuildRequires:  (crate(sev/default) >= 0.2.0 with crate(sev/default) < 1.0.0~)
+BuildRequires:  (crate(sev/openssl) >= 0.2.0 with crate(sev/openssl) < 1.0.0~)
+BuildRequires:  (crate(serde/default) >= 1.0.0 with crate(serde/default) < 2.0.0~)
+BuildRequires:  (crate(serde/derive) >= 1.0.0 with crate(serde/derive) < 2.0.0~)
+BuildRequires:  (crate(serde_json/default) >= 1.0.0 with crate(serde_json/default) < 2.0.0~)
+%endif
+
+%description
+%{summary}.
+
+%package devel
+Summary: Header files and libraries for libkrun development
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+The libkrun-devel package containes the libraries and headers needed to
+develop programs that use libkrun Virtualization-based process isolation
+capabilities.
+
+# SEV is a feature provided by AMD EPYC processors, so only it's only
+# available on x86_64.
+%ifarch x86_64
+%package sev
+Summary: Dynamic library providing Virtualization-based process isolation capabilities (SEV variant)
+BuildRequires:  libkrunfw-sev-devel >= 3.6.0
+
+%description sev
+Dynamic library providing Virtualization-based process isolation
+capabilities, with the ability to use AMD SEV to create a microVM-based
+Trusted Execution Environment (TEE).
+
+%package sev-devel
+Summary: Header files and libraries for libkrun development
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-sev%{?_isa} = %{version}-%{release}
+
+%description sev-devel
+The libkrun-sev-devel package containes the libraries and headers needed to
+develop programs that use libkrun-sev Virtualization-based process isolation
+capabilities.
+%endif
+
+%prep
+%setup -q -n %{name}-%{version_no_tilde} 
+%patch0 -p1
+%ifnarch x86_64
+%patch1 -p1
+%else
+%patch2 -p1
+%endif
+%cargo_prep
+
+%build
+%make_build init/init
+%cargo_build
+patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version} target/release/libkrun.so
+%ifarch x86_64
+    rm init/init
+    %make_build SEV=1 init/init
+    %cargo_build -f amd-sev
+    mv target/release/libkrun.so target/release/libkrun-sev.so
+    patchelf --set-soname libkrun-sev.so.1 --output target/release/libkrun-sev.so.%{version} target/release/libkrun-sev.so
+%endif
+
+%install
+%make_install PREFIX=%{_prefix}
+%ifarch x86_64
+    %make_install SEV=1 PREFIX=%{_prefix}
+%endif
+
+%files
+%license LICENSE
+%doc README.md
+%{_libdir}/libkrun.so.%{version}
+%{_libdir}/libkrun.so.1
+
+%files devel
+%{_libdir}/libkrun.so
+%{_includedir}/libkrun.h
+
+%ifarch x86_64
+%files sev
+%license LICENSE
+%doc README.md
+%{_libdir}/libkrun-sev.so.%{version}
+%{_libdir}/libkrun-sev.so.1
+
+%files sev-devel
+%{_libdir}/libkrun-sev.so
+%endif
+
+%if %{with check}
+%check
+%cargo_test
+%endif
+
+%changelog
+* Fri Aug 26 2022 Cole Robinson <crobinso@redhat.com> - 1.4.2-2
+- Allow building with rust-sev-0.3.0
+
+* Wed Aug 17 2022 Sergio Lopez <slp@redhat.com> - 1.4.2-1
+- Update to upstream version 1.4.2
+- Add the libkrun-sev and libkrun-sev-devel subpackages with the SEV variant of
+  the library.
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jun 21 2022 Sergio Lopez <slp@redhat.com> - 1.2.2-1
+- Initial package
+

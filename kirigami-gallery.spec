@@ -1,0 +1,145 @@
+Name:    kirigami-gallery
+Version: 22.08.1
+Release: 1%{?dist}
+Summary: Gallery application built using Kirigami
+License: LGPLv2+
+URL:     https://apps.kde.org/en/kirigami2.gallery
+
+%global majmin %(echo %{version} | cut -d. -f1-2)
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
+
+Source:  https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires: desktop-file-utils
+BuildRequires: appstream
+BuildRequires: libappstream-glib
+BuildRequires: gcc-c++
+BuildRequires: extra-cmake-modules
+BuildRequires: kf5-rpm-macros
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5Gui)
+BuildRequires: cmake(Qt5LinguistTools)
+BuildRequires: cmake(Qt5Quick)
+BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5Svg)
+
+BuildRequires: cmake(KF5Kirigami2)
+BuildRequires: cmake(KF5ItemModels)
+BuildRequires: cmake(KF5Package)
+
+Requires:   kf5-kirigami2%{?_isa}
+Requires:   kf5-kitemmodels%{?_isa}
+Requires:   qt5-qtquickcontrols2%{?_isa}
+Requires:   qt5-qtgraphicaleffects%{?_isa}
+Requires:   breeze-icon-theme
+
+%description
+Example application which uses all features from kirigami,
+including links to the source code, tips on how to use the
+components and links to the corresponding HIG pages and
+code examples on invent.
+
+
+%prep
+%autosetup -p1
+
+
+%build
+%cmake_kf5
+
+%cmake_build
+
+
+%install
+%cmake_install
+
+%find_lang kirigamigallery --with-qt
+
+
+%check
+# https://github.com/hughsie/appstream-glib/issues/360
+appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kirigami2.gallery.appdata.xml ||:
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.kirigami2.gallery.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gallery.desktop
+
+
+%files -f kirigamigallery.lang
+%doc README.md
+%license LICENSE.LGPL-2
+%{_kf5_metainfodir}/org.kde.kirigami2.gallery.appdata.xml
+%{_kf5_datadir}/applications/org.kde.kirigami2.gallery.desktop
+%{_kf5_bindir}/kirigami2gallery
+
+
+%changelog
+* Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
+- 22.08.1
+
+* Fri Aug 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.0-1
+- 22.08.0
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu May 12 2022 Justin Zobel <justin@1707.io> - 22.04.1-1
+- Update to 22.04.1
+
+* Mon May 09 2022 Justin Zobel <justin@1707.io> - 22.04.0-1
+- Update to 22.04.0
+
+* Wed Mar 02 2022 Marc Deop <marcdeop@fedoraproject.org> - 21.12.3-1
+- 21.12.3
+
+* Fri Feb 04 2022 Rex Dieter <rdieter@fedoraproject.org> - 21.12.2-1
+- 21.12.2
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jan 06 2022 Rex Dieter <rdieter@fedoraproject.org> - 21.12.1-1
+- 21.12.1
+
+* Mon Dec 27 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.12.0-1
+- 21.12.0
+
+* Tue Nov 02 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.08.3-1
+- 21.08.3
+
+* Thu Oct 21 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.08.2-1
+- 21.08.2
+- update BR's
+- make runtime deps archful
+- use %%cmake_kf5
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 21.04.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sun Jul 11 2021 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 21.04.3-1
+- 21.04.3
+
+* Thu Jun 10 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.04.2-1
+- 21.04.2
+
+* Tue May 11 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.04.1-1
+- 21.04.1
+
+* Wed Apr 28 2021 Rex Dieter <rdieter@fedoraproject.org> - 21.04.0-1
+- 21.04.0
+
+* Mon Apr 12 2021 Onuralp SEZER <thunderbirdtr@fedoraproject.org>  21.03.90-3
+- requirement : breeze-icon-theme added.
+
+* Mon Apr 12 2021 Onuralp SEZER <thunderbirdtr@fedoraproject.org>  21.03.90-2
+- F35FailsToInstall fix (#1948402)
+
+* Sat Apr 10 2021 Onuralp SEZER <thunderbirdtr@fedoraproject.org>  21.03.90-1
+- 21.03.90 (#1943793)
+
+* Thu Mar 25 2021 Onuralp SEZER <thunderbirdtr@fedoraproject.org>  20.12.3-1
+- Initial version of the package
+

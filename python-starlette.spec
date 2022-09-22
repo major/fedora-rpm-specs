@@ -1,0 +1,99 @@
+Name:           python-starlette
+Version:        0.20.4
+Release:        %autorelease
+Summary:        The little ASGI library that shines
+
+License:        BSD
+URL:            https://www.starlette.io/
+Source0:        https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+Obsoletes:      python-starlette-doc < 0.16.0-10
+
+%global common_description %{expand:
+Starlette is a lightweight ASGI framework/toolkit, which is ideal for building
+async web services in Python.
+
+It is production-ready, and gives you the following:
+
+  • A lightweight, low-complexity HTTP web framework.
+  • WebSocket support.
+  • In-process background tasks.
+  • Startup and shutdown events.
+  • Test client built on requests.
+  • CORS, GZip, Static Files, Streaming responses.
+  • Session and Cookie support.
+  • 100%% test coverage.
+  • 100%% type annotated codebase.
+  • Few hard dependencies.
+  • Compatible with asyncio and trio backends.
+  • Great overall performance against independant benchmarks.}
+
+%description %{common_description}
+
+
+%pyproject_extras_subpkg -n python3-starlette full
+
+
+%package -n     python3-starlette
+Summary:        %{summary}
+
+%description -n python3-starlette %{common_description}
+
+
+%prep
+%autosetup -n starlette-%{version}
+
+# Remove Gitter chat app from documentation; it relies on pre-compiled/minified
+# JavaScript, which is not acceptable in Fedora. Since we are not building
+# documentation, we do this very bluntly:
+rm -vrf docs/js
+
+# Produce a filtered version of requirements.txt, which contains testing
+# dependencies.
+#
+# We do not need the “Optionals”, which correspond to the “full” extra we are
+# already BR’ing; those for “Packaging”, which are for uploading to PyPI; or
+# those for “Documentation”, so long as we are not able to build and package
+# it; but we do need those for “Testing”, except linters, formatters, coverage
+# analysis, and mypy-related dependencies.
+#
+# Loosen exact-version dependencies.
+awk '
+!NF { next }
+$1 == "#" {
+  o = $2 !~ /^(Optionals|Documentation|Packaging)$/
+  next
+}
+o {
+  if ($1 ~ /^(black|coverage|(auto)?flake8?|isort|mypy|types-)/) { next }
+  print $0
+}
+' requirements.txt | sed -r 's/==/>=/' | tee requirements-filtered.txt
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x full requirements-filtered.txt
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files starlette
+
+
+%check
+%pytest
+
+
+%files -n python3-starlette -f %{pyproject_files}
+%doc README.md
+
+
+%changelog
+%autochangelog

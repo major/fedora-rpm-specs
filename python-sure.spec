@@ -1,0 +1,121 @@
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
+
+Name:           python-sure
+Version:        2.0.0
+Release:        %autorelease
+Summary:        Idiomatic assertion toolkit with human-friendly failure messages
+
+License:        GPLv3+
+URL:            https://github.com/gabrielfalcao/sure
+Source0:        %{url}/archive/%{version}/sure-%{version}.tar.gz
+
+# Trivial downstream man page for (nearly pointless) executable
+Source1:        sure.1
+
+# Python 3.10 workaround
+# In test_context_is_not_optional(), only check the exception type
+# https://github.com/gabrielfalcao/sure/issues/169
+Patch:          python3.10-workaround.patch
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+# TODO: remove mock dependency from install_requires
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
+# https://github.com/gabrielfalcao/sure/pull/161
+
+# Test dependencies
+# development.txt: pytest==6.2.4
+BuildRequires:  python3dist(pytest)
+
+# Documentation dependencies
+%if %{with doc_pdf}
+BuildRequires:  make
+# development.txt: Sphinx==2.3.1
+BuildRequires:  python3dist(sphinx)
+# development.txt: sphinx-rtd-theme==0.4.3
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
+
+%global common_description %{expand:
+An idiomatic testing library for python with powerful and flexible assertions
+created by Gabriel Falcão. Sure’s developer experience is inspired and modeled
+after RSpec Expectations and should.js.}
+
+%description %{common_description}
+
+
+%package -n python3-sure
+Summary:        %{summary}
+
+%description -n python3-sure %{common_description}
+
+
+%package doc
+Summary:        Documentation for Sure
+
+%description doc %{common_description}
+
+
+%prep
+%autosetup -p1 -n sure-%{version}
+
+# Drop intersphinx mappings, since we can’t download remote inventories and
+# can’t easily produce working hyperlinks from inventories in local
+# documentation packages.
+echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
+
+# Do not generate a coverage report; this obviates the BR on pytest-cov
+sed -r -i 's/[[:blank:]]--cov=[^[:blank:]]+//' setup.cfg
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
+%endif
+
+
+%install
+%pyproject_install
+%pyproject_save_files sure
+
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+
+
+%check
+# The old_api tests use python3dist(nose), which is deprecated and which we
+# have removed from the BuildRequires:
+# https://fedoraproject.org/wiki/Changes/DeprecateNose
+%pytest --ignore=tests/test_old_api.py
+
+
+%files -n python3-sure -f %{pyproject_files}
+%{_bindir}/sure
+%{_mandir}/man1/sure.1*
+
+
+%files doc
+%license COPYING
+%doc CHANGELOG.md
+%doc README.rst
+%doc TODO.rst
+%if %{with doc_pdf}
+%doc docs/build/latex/Sure.pdf
+%endif
+
+
+%changelog
+%autochangelog

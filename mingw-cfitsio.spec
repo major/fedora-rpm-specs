@@ -1,0 +1,171 @@
+%{?mingw_package_header}
+
+%global pkgname cfitsio
+
+Name:          mingw-%{pkgname}
+Version:       4.1.0
+Release:       1%{?dist}
+Summary:       MinGW Windows CFITSIO library
+
+License:       MIT
+BuildArch:     noarch
+URL:           http://heasarc.gsfc.nasa.gov/fitsio/
+Source0:       http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
+
+# CMakeLists fixes, unbundle zlib, fix pkgconfig file
+Patch0:        cfitsio_build.patch
+
+BuildRequires: make
+BuildRequires: cmake
+
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw32-zlib
+
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+BuildRequires: mingw64-zlib
+
+
+%description
+MinGW Windows CFITSIO library.
+
+
+%package -n mingw32-%{pkgname}
+Summary:       MinGW Windows CFITSIO library
+
+%description -n mingw32-%{pkgname}
+MinGW Windows CFITSIO library.
+
+
+%package -n mingw32-%{pkgname}-tools
+Summary:       MinGW Windows CFITSIO library
+
+%description -n mingw32-%{pkgname}-tools
+MinGW Windows CFITSIO library.
+
+
+%package -n mingw64-%{pkgname}
+Summary:       MinGW Windows CFITSIO library
+
+%description -n mingw64-%{pkgname}
+MinGW Windows CFITSIO library.
+
+
+%package -n mingw64-%{pkgname}-tools
+Summary:       MinGW Windows CFITSIO library
+
+%description -n mingw64-%{pkgname}-tools
+MinGW Windows CFITSIO library.
+
+
+%{?mingw_debug_package}
+
+
+%prep
+%autosetup -p1 -n %{pkgname}-%{version}
+
+
+%build
+# Disable curl support, otherwise a collision between #define TBYTE in fitsio.h and typedef TBYTE in tchar.h occurs
+%mingw_cmake -DUSE_CURL=OFF -DUTILS=ON
+%mingw_make_build
+
+
+%install
+%mingw_make_install
+
+
+%files -n mingw32-%{pkgname}
+%license License.txt
+%{mingw32_bindir}/libcfitsio-4.dll
+%{mingw32_libdir}/libcfitsio.dll.a
+%{mingw32_libdir}/pkgconfig/cfitsio.pc
+%{mingw32_includedir}/cfitsio/
+
+%files -n mingw32-%{pkgname}-tools
+%{mingw32_bindir}/Fitscopy.exe
+%{mingw32_bindir}/FPack.exe
+%{mingw32_bindir}/Funpack.exe
+
+%files -n mingw64-%{pkgname}
+%license License.txt
+%{mingw64_bindir}/libcfitsio-4.dll
+%{mingw64_libdir}/libcfitsio.dll.a
+%{mingw64_libdir}/pkgconfig/cfitsio.pc
+%{mingw64_includedir}/cfitsio/
+
+%files -n mingw64-%{pkgname}-tools
+%{mingw64_bindir}/Fitscopy.exe
+%{mingw64_bindir}/FPack.exe
+%{mingw64_bindir}/Funpack.exe
+
+%changelog
+* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
+- Update to 4.1.0
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 4.0.0-4
+- Rebuild with mingw-gcc-12
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Dec 07 2021 Sandro Mani <manisandro@gmail.com> - 4.0.0-2
+- Fix pkg-config file
+
+* Sun Dec 05 2021 Sandro Mani <manisandro@gmail.com> - 4.0.0-1
+- Update to 4.0.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.490-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Feb 01 2021 Sandro Mani <manisandro@gmail.com> - 3.490-1
+- Update to 3.490
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.470-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.470-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.470-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Tue Oct 08 2019 Sandro Mani <manisandro@gmail.com> - 3.470-3
+- Rebuild (Changes/Mingw32GccDwarf2)
+
+* Mon Sep 16 2019 Sandro Mani <manisandro@gmail.com> - 3.470-2
+- Fix broken pkgconfig file
+
+* Fri Aug 02 2019 Sandro Mani <manisandro@gmail.com> - 3.470-1
+- Update to 3.470
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.450-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.450-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.450-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Mon May 28 2018 Sandro Mani <manisandro@gmail.com> - 3.450-1
+- Updateto 3.450
+
+* Mon Mar 12 2018 Sandro Mani <manisandro@gmail.com> - 3.430-1
+- Update to 3.430
+
+* Fri Feb 23 2018 Sandro Mani <manisandro@gmail.com> - 3.420-1
+- Update to 3.420
+
+* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.410-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Apr 20 2017 Sandro Mani <manisandro@gmail.com> - 3.410-1
+- Update to 3.410
+
+* Thu Apr 23 2015 Sandro Mani <manisandro@gmail.com> - 3.370-1
+- Initial package

@@ -1,0 +1,133 @@
+%global desc \
+FSLeyes, the FSL image viewer
+
+# PyPi tar does not include tests
+# Upstream says the tests, since they use xvfb etc., may not always pass on all
+# platforms.
+%bcond_with xvfb_tests
+
+%global forgeurl https://github.com/pauldmccarthy/fsleyes
+
+Name:           python-fsleyes
+Version:        1.4.1
+Release:        %autorelease
+Summary:        FSLeyes, the FSL image viewer
+
+%global tag %{version}
+%forgemeta
+
+License:        ASL 2.0
+URL:            %forgeurl
+Source0:        %forgesource
+
+BuildArch:      noarch
+
+%description
+%{desc}
+
+%package -n python3-fsleyes
+Summary:        %{summary}
+BuildRequires:  python3-devel
+BuildRequires:  /usr/bin/desktop-file-install
+BuildRequires:  /usr/bin/appstream-util
+Requires:       hicolor-icon-theme
+# from requirements-dev.txt
+
+%if %{with xvfb_tests}
+BuildRequires:  graphviz
+BuildRequires:  %{py3_dist mock}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-cov}
+BuildRequires:  %{py3_dist wxpython}
+BuildRequires:  freeglut-devel
+BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  python3-matplotlib-wx
+%endif
+
+Requires:       dcm2niix
+Requires:       python3-matplotlib-wx
+
+Provides:       fsleyes = %{version}-%{release}
+
+%description -n python3-fsleyes
+%{desc}
+
+%prep
+%forgesetup
+
+# remove jinja version fix
+# https://github.com/pauldmccarthy/fsleyes/issues/82
+sed -i 's/jinja2.*/jinja2/' requirements.txt
+# relax required pyparsing version
+sed -i 's/pyparsing==2.\*/pyparsing/' requirements.txt
+# extras: not yet packaged in Fedora
+sed -i '/file-tree/ d' requirements-extra.txt
+# Add extra requirements for autogenerator
+cat requirements-extra.txt >> requirements.txt
+cat requirements-notebook.txt >> requirements.txt
+
+# Remove unnecessary upper limit on Pillow:
+# https://github.com/pauldmccarthy/fsleyes/issues/7
+# sed -i 's/\(Pillow>=3.2.0\),.*/\1/' requirements.txt
+
+# remove unneeded shebangs
+find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
+
+%generate_buildrequires
+%pyproject_buildrequires -r requirements.txt requirements-dev.txt
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files fsleyes
+
+# install desktop file in correct location
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications fsleyes/assets/linux/uk.ac.ox.fmrib.FSLeyes.desktop
+rm -f %{python3_sitelib}/fsleyes/assets/linux/uk.ac.ox.fmrib.FSLeyes.desktop
+
+# install appdata file
+install -p -m 0644 -D -t %{buildroot}%{_metainfodir} fsleyes/assets/linux/uk.ac.ox.fmrib.FSLeyes.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*FSLeyes*xml
+
+rm -f %{python3_sitelib}/fsleyes/assets/linux/uk.ac.ox.fmrib.FSLeyes.appdata.xml
+
+# install icons to the right place
+pushd fsleyes/assets/icons/app_icon/fsleyes.iconset/
+for size in 16 32 128 256 512
+do
+install -p -m 0755 -D -T "icon_${size}x${size}.png" %{buildroot}%{_datadir}/icons/hicolor/"${size}x${size}"/apps/fsleyes.png
+done
+# do these manually
+install -p -m 0755 -D -T icon_32x32@2x.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/fsleyes.png
+install -p -m 0755 -D -T icon_512x512@2x.png %{buildroot}%{_datadir}/icons/hicolor/1024x1024/apps/fsleyes.png
+popd
+# 48x58 is in a different place than the others
+install -p -m 0755 -D -t %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/ fsleyes/assets/linux/hicolor/48x48/apps/fsleyes.png
+
+
+%check
+export MPLBACKEND=wxagg
+%if %{with xvfb_tests}
+# https://github.com/pauldmccarthy/fsleyes/blob/master/.ci/test_template.sh
+export FSLEYES_TEST_GL=2.1
+xvfb-run -s "-screen 0 640x480x24" pytest-%{python3_version}
+sleep 10
+# test overlay types for GL14 as well
+export FSLEYES_TEST_GL=1.4
+xvfb-run -s "-screen 0 640x480x24" pytest-%{python3_version}
+%endif
+
+%files -n python3-fsleyes  -f %{pyproject_files}
+%doc README.rst
+%{_bindir}/fsleyes
+%{_bindir}/render
+%{_bindir}/fsleyes_unfiltered
+%{_metainfodir}/uk.ac.ox.fmrib.FSLeyes.appdata.xml
+%{_datadir}/icons/hicolor/*/apps/fsleyes.png
+%{_datadir}/applications/uk.ac.ox.fmrib.FSLeyes.desktop
+
+%changelog
+%autochangelog

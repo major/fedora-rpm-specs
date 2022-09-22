@@ -1,0 +1,64 @@
+Name:           python-pyyaml-env-tag
+Version:        0.1
+Release:        5%{?dist}
+Summary:        A custom YAML tag for referencing environment variables in YAML files
+BuildArch:      noarch
+
+License:        MIT
+URL:            https://github.com/waylan/pyyaml-env-tag
+Source0:        %{pypi_source pyyaml_env_tag}
+
+BuildRequires:  python3-devel
+
+%description
+A custom YAML tag for referencing environment variables in YAML files.
+
+
+%package -n python3-pyyaml-env-tag
+Summary:        %{summary}
+
+%description -n python3-pyyaml-env-tag
+A custom YAML tag for referencing environment variables in YAML files.
+
+
+%prep
+%autosetup -p1 -n pyyaml_env_tag-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files yaml_env_tag
+
+
+%check
+%{python3} test_yaml_env_tag.py
+
+
+%files -n python3-pyyaml-env-tag -f %{pyproject_files}
+%doc README.md
+%license LICENSE
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1-4
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Sep 02 2021 Sandro Mani <manisandro@gmail.com> - 0.1-2
+- Port to new Python guidelines
+
+* Wed Sep 01 2021 Sandro Mani <manisandro@gmail.com> - 0.1-1
+- Initial package

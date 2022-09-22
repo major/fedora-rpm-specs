@@ -1,0 +1,88 @@
+%undefine _package_note_flags
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-rresult
+Version:        0.7.0
+Release:        5%{?dist}
+Summary:        Result value combinators for OCaml
+
+License:        ISC
+URL:            https://erratique.ch/software/rresult
+Source0:        %{url}/releases/rresult-%{version}.tbz
+
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-ocamlbuild
+BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  python3
+
+%description
+Rresult is an OCaml module for handling computation results and errors
+in an explicit and declarative manner without resorting to exceptions.
+It defines combinators to operate on the values of the result type
+available from OCaml 4.03 in the standard library.
+
+OCaml 4.08 provides the Stdlib.Result module which you should prefer to
+Rresult.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup -n rresult-%{version}
+
+%build
+ocaml pkg/pkg.ml build --dev-pkg false --tests true
+
+# Relink with Fedora linker flags
+cd _build
+ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -I src \
+  src/rresult.cmxa -o src/rresult.cmxs
+ocamlfind ocamlopt -shared -linkall -cclib '%{build_ldflags}' -g -package \
+  compiler-libs.toplevel -I src src/rresult_top.cmxa -o src/rresult_top.cmxs
+cd -
+
+%install
+mkdir -p %{buildroot}%{ocamldir}/rresult
+cp -p _build/src/*.{a,cma,cmi,cmt,cmti,cmx,cmxa,cmxs,mli} _build/pkg/META \
+   _build/opam %{buildroot}%{ocamldir}/rresult
+%ocaml_files
+
+%check
+ocaml pkg/pkg.ml test
+
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
+%if %{with docs}
+%doc _build/default/_doc/*
+%endif
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-4
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-4
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-3
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Dec 10 2021 Jerry James <loganjerry@gmail.com> - 0.7.0-1
+- Initial RPM

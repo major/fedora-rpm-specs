@@ -1,0 +1,81 @@
+# Created by pyp2rpm-3.3.8
+%global pypi_name qpageview
+%global pypi_version 0.6.2
+
+Name:           python-%{pypi_name}
+Version:        %{pypi_version}
+Release:        2%{?dist}
+Summary:        Widget to display page-based documents for Qt5/PyQt5
+
+License:        GPL-3.0-or-later AND GPL-2.0-or-later
+URL:            https://github.com/frescobaldi/qpageview
+Source0:        %{pypi_source %pypi_name}
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-qt5
+BuildRequires:  python3dist(pip)
+BuildRequires:  python3dist(wheel)
+BuildRequires:  python3-docs
+
+%description
+The qpageview module *qpageview* provides a page based document viewer widget
+for Qt5/PyQt5.It has a flexible architecture potentionally supporting many
+formats. Currently, it supports SVG documents, images, and, using the Poppler-
+Qt5 binding, PDF documents.:: import qpageview from PyQt5.Qt import * a
+QApplication([]) v qpageview.View() v.show() v.loadPdf("path/to/afile.pdf")
+Homepage < •...
+
+%package -n     python3-%{pypi_name}
+Summary:        %{summary}
+
+%description -n python3-%{pypi_name}
+The qpageview module *qpageview* provides a page based document viewer widget
+for Qt5/PyQt5.It has a flexible architecture potentionally supporting many
+formats. Currently, it supports SVG documents, images, and, using the Poppler-
+Qt5 binding, PDF documents.:: import qpageview from PyQt5.Qt import * a
+QApplication([]) v qpageview.View() v.show() v.loadPdf("path/to/afile.pdf")
+Homepage < •...
+
+%package doc
+Summary:        Documentation for qpageview
+%description doc
+Documentation for qpageview
+
+%prep
+%autosetup -n %{pypi_name}-%{pypi_version}
+
+# Use local objects.inv for intersphinx
+sed -e "s|\('https://docs\.python\.org/3', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
+  -i docs/source/conf.py
+
+%build
+%pyproject_wheel
+# generate html docs
+PYTHONPATH=${PWD} sphinx-build-3 docs/source html
+# remove the sphinx-build leftovers
+rm -rf html/.{doctrees,buildinfo}
+
+%install
+%pyproject_install
+%pyproject_save_files qpageview
+
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%license LICENSE docs/source/license.rst
+%doc README.rst
+
+%files doc
+%doc html
+%license LICENSE docs/source/license.rst
+
+%changelog
+* Tue Aug 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.6.2-2
+- Review fixes.
+
+* Thu May 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.6.2-1
+- Initial package.

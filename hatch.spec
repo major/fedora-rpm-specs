@@ -1,0 +1,190 @@
+%bcond_without tests
+
+# Use this to package a pre-release
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate yyyymmdd
+
+Name:           hatch
+Version:        1.5.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Release:        %autorelease
+Summary:        A modern project, package, and virtual env manager
+
+%global tag hatch-v%{version}
+%global ref %{?commit:%{commit}}%{?!commit:%{tag}}
+%global archivename hatch-%{ref}
+
+# The entire source is (SPDX) MIT. Apache-2.0 license text in the tests is used
+# as a sample license text, not as a license for the source.
+License:        MIT
+URL:            https://github.com/pypa/hatch
+Source0:        %{url}/archive/%{ref}/%{archivename}.tar.gz
+# For now, we need a helper script to access environments defined with
+# hatch/hatchling (https://hatch.pypa.io/latest/config/environment/).
+Source1:        extract-hatchling-environments
+
+# Written for Fedora in groff_man(7) format based on --help output
+Source100:      hatch.1
+Source200:      hatch-build.1
+Source300:      hatch-clean.1
+Source400:      hatch-config.1
+Source401:      hatch-config-explore.1
+Source402:      hatch-config-find.1
+Source403:      hatch-config-restore.1
+Source404:      hatch-config-set.1
+Source405:      hatch-config-show.1
+Source406:      hatch-config-update.1
+Source500:      hatch-dep.1
+Source501:      hatch-dep-hash.1
+Source510:      hatch-dep-show.1
+Source511:      hatch-dep-show-table.1
+Source600:      hatch-env.1
+Source700:      hatch-new.1
+Source800:      hatch-publish.1
+Source900:      hatch-run.1
+Source1000:     hatch-shell.1
+Source1100:     hatch-status.1
+Source1200:     hatch-version.1
+
+# Backport (without changelogs) commits from hatchling 1.9.0 that affect the
+# “backend” tests. None of these affects source files installed as part of the
+# binary RPMs for hatch, only the tests and the sources that are packaged
+# separately as part of python-hatchling (the “backend”). Remove these patches
+# once a version of hatch newer than hatchling 1.9.0 is released.
+
+# Allow valid non-SPDX license values (#451)
+# https://github.com/pypa/hatch/commit/eb6759415fed6f1a6c9ce647dc95256eff16e2a4
+Patch:          0001-Allow-valid-non-SPDX-license-values-451.patch
+# Improve error messages for SPDX license errors (#461)
+# https://github.com/pypa/hatch/commit/802062430698a550eaa646408b71b297d8a2588b
+Patch:          0002-Improve-error-messages-for-SPDX-license-errors-461.patch
+# Retroactively support License-File core metadata (#463)
+# https://github.com/pypa/hatch/commit/f6c069a2aefb9a1e82cd3e457cdc1258459862ba
+Patch:          0003-Retroactively-support-License-File-core-metadata-463.patch
+# File pattern matching now more closely resembles Git's behavior (#465)
+# https://github.com/pypa/hatch/commit/dac8659d060c6880ffce6b9ca10f916316954d1a
+Patch:          0004-File-pattern-matching-now-more-closely-resembles-Git.patch
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+# RHBZ#1985340, RHBZ#2076994
+BuildRequires:  pyproject-rpm-macros >= 1.2.0
+BuildRequires:  git-core
+
+# For script in %%generate_buildrequires:
+BuildRequires:  python3dist(tomli)
+
+Requires:  git-core
+
+%description
+Hatch is a modern, extensible Python project manager.
+
+Features:
+
+  • Standardized build system with reproducible builds by default
+  • Robust environment management with support for custom scripts
+  • Easy publishing to PyPI or other sources
+  • Version management
+  • Configurable project generation with sane defaults
+  • Responsive CLI, ~2-3x faster than equivalent tools
+
+
+%prep
+%autosetup -n %{archivename} -p1
+# Loosen the minimum supported version of virtualenv. Upstream wants 20.16.2,
+# but, as of this writing, Fedora hasn’t updated past 20.15.1 because the
+# changes in subsequent releases would not had any effect on the RPM package:
+#
+#   python-virtualenv-20.16.0 is available
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2110822
+#   “The new version has new versions of embedded wheels and no longer supports
+#   Python 2. Neither is a reason for the upgrade.”
+#
+#   python-virtualenv-20.16.1 is available
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2111286
+#   “Features - 20.16.1↵Update Nushell activation scripts to version 0.67↵but
+#   we don't have nushell in Fedora.”
+#
+#   python-virtualenv-20.16.2 is available
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2111703
+#   “The latest version updates only the embedded pip, nothing else.”
+#
+#   python-virtualenv-20.16.3 is available
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2115427
+#   “Only embedded wheels have been updated.”
+sed -r -i 's/(virtualenv>=20\.)(16\.2)/\115\.1/' pyproject.toml
+
+
+%generate_buildrequires
+'%{SOURCE1}' -v
+%pyproject_buildrequires %{?with_tests:_req/env.test.txt}
+
+
+%build
+%pyproject_wheel
+
+# The Markdown documentation is meant to be built with mkdocs. The HTML result
+# is unsuitable for packaging due to various bundled and pre-minified
+# JavaScript and CSS. See https://bugzilla.redhat.com/show_bug.cgi?id=2006555
+# for discussion of similar problems with Sphinx and Doxygen. We therefore do
+# not build or install the documentation.
+
+
+%install
+%pyproject_install
+%pyproject_save_files hatch
+
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    '%{SOURCE100}' \
+    '%{SOURCE200}' \
+    '%{SOURCE300}' \
+    '%{SOURCE400}' '%{SOURCE401}' '%{SOURCE402}' '%{SOURCE403}' \
+      '%{SOURCE404}' '%{SOURCE405}' '%{SOURCE406}' \
+    '%{SOURCE500}' '%{SOURCE501}' '%{SOURCE510}' '%{SOURCE511}' \
+    '%{SOURCE600}' \
+    '%{SOURCE700}' \
+    '%{SOURCE800}' \
+    '%{SOURCE900}' \
+    '%{SOURCE1000}' \
+    '%{SOURCE1100}' \
+    '%{SOURCE1200}'
+
+
+%check
+%if %{with tests}
+# There is no need to deselect mark “requires_internet” manually because it
+# happens automagically via a runtime connectivity check.
+
+# TODO: What is  happening here?
+# >           assert zip_info.date_time == (2020, 2, 2, 0, 0, 0)
+# E           assert (2022, 5, 18, 0, 0, 0) == (2020, 2, 2, 0, 0, 0)
+# E             At index 0 diff: 2022 != 2020
+# E             Full diff:
+# E             - (2020, 2, 2, 0, 0, 0)
+# E             + (2022, 5, 18, 0, 0, 0)
+k="${k-}${k+ and }not (TestBuildStandard and test_editable_pth)"
+k="${k-}${k+ and }not (TestBuildStandard and test_editable_exact)"
+k="${k-}${k+ and }not (TestBuildStandard and test_editable_default)"
+k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
+k="${k-}${k+ and }not test_explicit_path"
+k="${k-}${k+ and }not test_default"
+
+# Fails with hatchling 1.10.0 because hatch and hatchling are very closely
+# coupled. Remove the skip when a new version of hatch is released.
+k="${k-}${k+ and }not (TestFileSelectionDefaults and test_global_exclude)"
+
+%pytest -k "${k-}" -vv
+%else
+%pyproject_check_import
+%endif
+
+
+%files -f %{pyproject_files}
+%license LICENSE.txt
+%{_bindir}/hatch
+%{_mandir}/man1/hatch.1*
+%{_mandir}/man1/hatch-*.1*
+
+
+%changelog
+%autochangelog

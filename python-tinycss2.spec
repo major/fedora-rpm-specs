@@ -1,0 +1,152 @@
+
+%global srcname tinycss2
+
+
+%global py3_prefix python%{python3_pkgversion}
+
+
+Name:           python-%{srcname}
+Version:        1.1.1
+Release:        4%{?dist}
+Summary:        Low-level CSS parser for Python
+
+License:        BSD
+URL:            https://pypi.python.org/pypi/%{srcname}/
+Source0:        %pypi_source
+# Fedora does not ship pytest's flake8/isort modules
+Patch0:         %{name}-disable-flake8-isort-for-pytest.patch
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
+# used as "build-backend" in pyproject.toml but not detected by Fedora's
+# macros to generate build requirements
+BuildRequires:  python3-flit
+
+
+%description
+tinycss2 is a modern, low-level CSS parser for Python. tinycss2 is a rewrite of
+tinycss with a simpler API, based on the more recent CSS Syntax Level 3
+specification.
+
+
+%package     -n %{py3_prefix}-%{srcname}
+Summary:        Low-level CSS parser for Python 3
+Requires:       %{py3_prefix}-webencodings >= 0.4
+%{?python_provide:%python_provide %{py3_prefix}-%{srcname}}
+
+%description -n %{py3_prefix}-%{srcname}
+tinycss2 is a modern, low-level CSS parser for Python. tinycss2 is a rewrite of
+tinycss with a simpler API, based on the more recent CSS Syntax Level 3
+specification.
+
+
+%prep
+%autosetup -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -r -x test
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+
+
+%check
+%{pytest}
+# remove files which are only required for unit tests (including test.pyc/.pyo)
+rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/css-parsing-tests
+rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/test.py
+rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
+
+
+%files -n %{py3_prefix}-%{srcname}
+%license LICENSE
+%doc README.rst
+%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/%{srcname}-%{version}.dist-info/
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.1-3
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Nov 22 2021 Felix Schwarz <fschwarz@fedoraproject.org> - 1.1.1-1
+- update to 1.1.1
+
+* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.0-3
+- Rebuilt for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Sat Nov 07 2020 Felix Schwarz <fschwarz@fedoraproject.org> - 1.1.0-1
+- update to 1.1.0
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Thu Jun 25 2020 Felix Schwarz <fschwarz@fedoraproject.org> - 1.0.2-7
+- add python3-setuptools to BuildRequires
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-6
+- Rebuilt for Python 3.9
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-4
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.2-3
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Mon Apr 29 2019 Felix Schwarz <fschwarz@fedoraproject.org> 1.0.2-1
+- update to new upstream version 1.0.2
+
+* Thu Mar 07 2019 Felix Schwarz <fschwarz@fedoraproject.org> 1.0.1-1
+- update to new upstream version
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Oct 12 2018 Felix Schwarz <fschwarz@fedoraproject.org> - 0.6.1-7
+- remove even more Python 2 leftovers
+
+* Fri Oct 12 2018 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.1-6
+- Python2 binary package has been removed
+  See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-4
+- Rebuilt for Python 3.7
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Sat Dec 16 2017 Felix Schwarz <fschwarz@fedoraproject.org> 0.6.1-2
+- remove also generated bytecode for test.py in Python 3
+- more specific files specification
+
+* Tue Dec 12 2017 Felix Schwarz <fschwarz@fedoraproject.org> 0.6.1-1
+- initial package
+

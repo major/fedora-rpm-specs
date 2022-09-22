@@ -1,0 +1,95 @@
+# F35: Do not update past 2.8.0 because Fedora 35's protobuf is too old.
+
+# Enable tests by default.
+%bcond_without  tests
+
+%global         srcname         google-api-core
+%global         forgeurl        https://github.com/googleapis/python-api-core
+Version:        2.8.2
+%global         tag             v%{version}
+%forgemeta
+
+Name:           python-%{srcname}
+Release:        %autorelease
+Summary:        Core Library for Google Client Libraries
+
+License:        ASL 2.0
+URL:            %forgeurl
+Source0:        %forgesource
+Patch0:         use-unittest-mock-builtin.patch
+
+BuildRequires:  python3-devel
+
+
+%if %{with tests}
+BuildRequires:  python3dist(google-auth)
+BuildRequires:  python3dist(googleapis-common-protos)
+BuildRequires:  python3dist(grpcio)
+BuildRequires:  python3dist(grpcio-gcp)
+BuildRequires:  python3dist(protobuf)
+BuildRequires:  python3dist(proto-plus)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytz)
+BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(six)
+%endif
+
+BuildArch:      noarch
+
+%global _description %{expand:This library is not meant to stand-alone.
+Instead it defines common helpers used by all Google API clients.}
+
+%description
+%{_description}
+
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+# Extras
+Requires:       python3dist(grpcio)
+Requires:       python3dist(grpcio-status)
+
+%description -n python3-%{srcname}
+%{_description}
+
+%pyproject_extras_subpkg -n python3-%{srcname} grpc
+
+
+%prep
+%forgeautosetup -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files google
+
+
+%check
+%if %{with tests}
+# Work around an unusual pytest/PEP 420 issue where pytest can't import the
+# installed module. Thanks to mhroncok for the help!
+mv google{,_}
+%pytest tests/unit \
+    -k "not test_wrap_unary_errors \
+        and not test_wrap_stream_errors_invocation \
+        and not test_wrap_stream_errors_iterator_initialization \
+        and not test_wrap_stream_errors_during_iteration"
+mv google{_,}
+%endif
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.rst CHANGELOG.md SECURITY.md
+%{python3_sitelib}/google_api_core-%{version}-py%{python3_version}-nspkg.pth
+
+
+%changelog
+%autochangelog

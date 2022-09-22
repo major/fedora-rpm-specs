@@ -1,0 +1,260 @@
+# We have source files with intentional syntax errors, in order to test.
+# Do not fail the build just because some file is not valid python.
+%undefine _python_bytecompile_errors_terminate_build
+
+%global _docdir_fmt python3-zope-testrunner
+
+Name:           python-zope-testrunner
+Version:        5.5.1
+Release:        1%{?dist}
+Summary:        Zope testrunner script
+
+License:        ZPL-2.1
+URL:            https://pypi.python.org/pypi/zope.testrunner
+Source0:        https://github.com/zopefoundation/zope.testrunner/archive/%{version}/zope.testrunner-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildRequires:  help2man
+BuildRequires:  python3-devel
+BuildRequires:  python3-docs
+BuildRequires:  %{py3_dist docutils}
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist python-subunit}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist six}
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinxcontrib-programoutput}
+BuildRequires:  %{py3_dist testtools}
+BuildRequires:  %{py3_dist wheel}
+BuildRequires:  %{py3_dist zope.exceptions}
+BuildRequires:  %{py3_dist zope.interface}
+BuildRequires:  %{py3_dist zope.testing}
+
+%description
+This package provides a flexible test runner with layer support.
+
+%package     -n python3-zope-testrunner
+Summary:        Zope testrunner script
+
+%description -n python3-zope-testrunner
+This package provides a flexible test runner with layer support.
+
+%package        doc
+# The content is ZPL-2.1.  Files added by Sphinx have the following licences:
+# searchindex.js: BSD-2-Clause
+# _static/*: BSD-2-Clause, except for the following:
+# _static/jquery*.js: MIT
+# _static/underscore*.js: MIT
+License:        ZPL-2.1 AND BSD-2-Clause AND MIT
+Summary:        Documentation for zope.testrunner
+
+%description    doc
+Documentation for zope.testrunner.
+
+%prep
+%autosetup -n zope.testrunner-%{version}
+
+# Update the sphinx HTML theme name
+sed -i "s/'default'/'classic'/" docs/conf.py
+
+# Fix the way python is invoked
+sed -i 's/python -m/python3 -m/' docs/cli.rst
+
+# Use local objects.inv for intersphinx
+sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
+
+# Replace a deprecated directive
+sed -i "s/autodoc_default_flags.*/autodoc_default_options = {'members': True, 'show-inheritance': True}/" docs/conf.py
+
+%build
+%pyproject_wheel
+
+rst2html --no-datestamp CHANGES.rst CHANGES.html
+rst2html --no-datestamp README.rst README.html
+
+# Not really RST: https://github.com/zopefoundation/zope.testrunner/issues/100
+cp -p COPYRIGHT.rst COPYRIGHT
+
+%install
+%pyproject_install
+mkdir -p %{buildroot}%{_mandir}/man1
+PYTHONPATH=%{buildroot}%{python3_sitelib} \
+help2man -s 1 -o %{buildroot}%{_mandir}/man1/zope-testrunner.1 \
+  -N -n "Zope testrunner script" %{buildroot}%{_bindir}/zope-testrunner
+
+# The Sphinx documentation cannot be built with an uninstalled zope.testrunner
+# because python finds the installed zope package, which doesn't contain
+# testrunner.  We fake out python by copying the entire installed tree to a
+# local directory and adding this package inside the zope directory.
+mkdir lib
+cp -a %{_prefix}/lib/python%{python3_version} lib
+if [ -d %{_prefix}/lib64/python%{python3_version} ]; then
+  mkdir lib64
+  cp -a %{_prefix}/lib64/python%{python3_version} lib64
+fi
+mkdir include
+cp -a %{_includedir}/python%{python3_version}* include
+cp -a %{buildroot}%{python3_sitelib}/zope* \
+      lib/python%{python3_version}/site-packages
+export PYTHONHOME=$PWD:$PWD
+sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
+rm -fr include lib lib64
+rm -f docs/_build/html/.buildinfo
+unset PYTHONHOME
+
+%check
+# We have to run tests installed together with the package
+# https://github.com/zopefoundation/zope.interface/issues/196
+pushd %{buildroot}%{python3_sitelib}
+PURE_PYTHON=1 python3 -m unittest discover -s zope/testrunner -t .
+popd
+
+%files -n python3-zope-testrunner
+%doc CHANGES.html README.html
+%license COPYRIGHT LICENSE.md
+%{_bindir}/zope-testrunner
+%{_mandir}/man1/zope-testrunner.1*
+%{python3_sitelib}/zope.testrunner*
+%{python3_sitelib}/zope/testrunner/
+%exclude %{python3_sitelib}/zope/testrunner/tests
+
+%files doc
+%doc docs/_build/html
+
+%changelog
+* Wed Sep  7 2022 Jerry James <loganjerry@gmail.com> - 5.5.1-1
+- Version 5.5.1
+- Convert License tag to SPDX
+- Add -doc subpackage
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jun 24 2022 Jerry James <loganjerry@gmail.com> - 5.5-1
+- Version 5.5
+
+* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 5.4.0-3
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Nov 19 2021 Jerry James <loganjerry@gmail.com> - 5.4.0-1
+- Version 5.4.0
+- Drop upstreamed -whitespace and -syntax patches
+
+* Mon Oct 11 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-5
+- Use the latest python macros
+- Simplify %%check
+
+* Tue Jul 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 5.3.0-3
+- Rebuilt for Python 3.10
+
+* Mon May 10 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-2
+- Add -syntax patch for python 3.10
+
+* Wed Mar 17 2021 Jerry James <loganjerry@gmail.com> - 5.3.0-1
+- Version 5.3.0
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Jun 29 2020 Jerry James <loganjerry@gmail.com> - 5.2-1
+- Version 5.2
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 5.1-4
+- Rebuilt for Python 3.9
+
+* Sun Mar  1 2020 Jerry James <loganjerry@gmail.com> - 5.1-3
+- Add -whitespace patch
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Oct 21 2019 Jerry James <loganjerry@gmail.com> - 5.1-1
+- New upstream version
+- Fix cross-reference links in the documentation
+
+* Mon Sep 16 2019 Jerry James <loganjerry@gmail.com> - 5.0-4
+- Drop the python2 subpackage (bz 1752151)
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 5.0-3
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Tue Mar 19 2019 Jerry James <loganjerry@gmail.com> - 5.0-1
+- New upstream version
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Mon Nov 26 2018 Jerry James <loganjerry@gmail.com> - 4.9.2-1
+- New upstream version
+
+* Mon Nov 26 2018 Lumír Balhar <lbalhar@redhat.com> - 4.9-2
+- Fix issue with automatic dependencies and executables' names
+
+* Sat Nov 17 2018 Jerry James <loganjerry@gmail.com> - 4.9-1
+- New upstream version
+- Do not ship the tests
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 4.8.1-3
+- Rebuilt for Python 3.7
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Sun Nov 12 2017 Jerry James <loganjerry@gmail.com> - 4.8.1-1
+- New upstream version
+
+* Sat Nov 11 2017 Jerry James <loganjerry@gmail.com> - 4.8.0-1
+- New upstream version
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Tue May 30 2017 Jerry James <loganjerry@gmail.com> - 4.7.0-1
+- New upstream version
+- subunit is no longer a dependency
+- Enable python 3 tests
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Wed Dec 28 2016 Jerry James <loganjerry@gmail.com> - 4.6.0-1
+- New upstream version
+- Drop upstreamed test patch
+
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 4.5.1-4
+- Rebuild for Python 3.6
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.5.1-3
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Tue Jun 21 2016 Jerry James <loganjerry@gmail.com> - 4.5.1-2
+- Fix spurious build failures due to use of _libdir in a noarch package
+
+* Mon Jun 20 2016 Jerry James <loganjerry@gmail.com> - 4.5.1-1
+- New upstream version
+
+* Wed Jun  8 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-3
+- Do not test with detox; it downloads files at build time
+
+* Wed Jun  1 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-2
+- Fix directory ownership
+- Add man page
+
+* Wed Jun  1 2016 Jerry James <loganjerry@gmail.com> - 4.5.0-1
+- Initial RPM

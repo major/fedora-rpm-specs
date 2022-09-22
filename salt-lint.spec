@@ -1,0 +1,68 @@
+Name:           salt-lint
+Version:        0.8.0
+Release:        4%{?dist}
+Summary:        Salt State file (SLS) lint tool
+
+License:        MIT
+URL:            https://github.com/warpnet/salt-lint
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# This is a downstream only patch persuant to
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch0:         00-remove-linter-deps.patch
+
+BuildRequires:  python3-devel
+BuildArch:      noarch
+
+%description
+salt-lint checks Salt State files (SLS) for best practices and behavior that
+could potentially be improved.
+
+
+%prep
+%autosetup
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files saltlint
+install -Dpm 0644 docs/man/salt-lint.1 %{buildroot}%{_mandir}/man1/salt-lint.1
+
+
+
+%check
+%tox
+
+
+%files -f %{pyproject_files}
+%license LICENSE*
+%doc README.*
+%{_bindir}/%{name}
+%{_mandir}/man1/salt-lint.1*
+
+
+%changelog
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.8.0-3
+- Rebuilt for Python 3.11
+
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Nov 10 2021 Robby Callicotte <rcallicotte@mailbox.org> - 0.8.0-1
+- Version bump
+
+* Mon Nov 01 2021 Robby Callicotte <rcallicotte@mailbox.org> - 0.7.0-1
+- Version bump
+
+* Sat Oct  9 2021 Robby Callicotte <rcallicotte@mailbox.org> - 0.6.1-1
+- Initial build

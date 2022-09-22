@@ -1,0 +1,54 @@
+# Module Magic Number
+%{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2> /dev/null || echo 0-0)}
+
+Summary:        Module for the Apache web server to query MaxMind DB files
+Name:           mod_maxminddb
+Version:        1.2.0
+Release:        2%{?dist}
+License:        ASL 2.0
+URL:            https://maxmind.github.io/mod_maxminddb/
+Source0:        https://github.com/maxmind/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        10-maxminddb.conf
+Source2:        maxminddb.conf
+BuildRequires:  gcc
+BuildRequires:  httpd-devel >= 2.2.0
+BuildRequires:  libmaxminddb-devel
+Requires:       httpd-mmn = %{_httpd_mmn}
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} > 7)
+Recommends:     geolite2-country
+Recommends:     geolite2-city
+%else
+Requires:       geolite2-country
+Requires:       geolite2-city
+%endif
+
+%description
+The mod_maxminddb allows to query MaxMind DB files from the Apache web
+server using the libmaxminddb library. The MaxMind DB files are provided
+as free GeoLite2 databases as well as commercial GeoIP2 databases.
+
+%prep
+%setup -q
+
+%build
+%{_httpd_apxs} -lmaxminddb -c src/%{name}.c  # Avoid faulty upstream Makefile
+
+%install
+install -D -p -m 0755 src/.libs/%{name}.so $RPM_BUILD_ROOT%{_httpd_moddir}/%{name}.so
+install -D -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_httpd_modconfdir}/10-maxminddb.conf
+install -D -p -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_httpd_confdir}/maxminddb.conf
+
+%files
+%license LICENSE
+%doc Changes.md README.md
+%config(noreplace) %{_httpd_modconfdir}/10-maxminddb.conf
+%config(noreplace) %{_httpd_confdir}/maxminddb.conf
+%{_httpd_moddir}/%{name}.so
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Nov 28 2021 Robert Scheck <robert@fedoraproject.or> 1.2.0-1
+- Upgrade to 1.2.0 (#2027078)
+- Initial spec file for Fedora and Red Hat Enterprise Linux

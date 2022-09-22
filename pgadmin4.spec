@@ -1,0 +1,347 @@
+%ifnarch %{qt5_qtwebengine_arches}
+# No useful debug package unless qt frontend is built (see %%package qt below)
+%global debug_package %{nil}
+%endif
+
+%define tag_ver %(echo %{version} | awk -F. '{print $1"_"$2}')
+
+Name:           pgadmin4
+# NOTE: Also regenerate requires as indicated below when updating!
+# Verify Patch4 on next update
+Version:        6.13
+Release:        4%{?dist}
+Summary:        Administration tool for PostgreSQL
+
+# i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
+# s390x: wasm aborts with RuntimeError: memory access out of bounds when attempting to build webfonts-loader
+# ppc64le: wasm aborts with RuntimeError: float unrepresentable in integer range
+ExcludeArch:    i686 armv7hl s390x ppc64le
+
+# PostgreSQL ist the main license, rest the bundled JS code (see %%{name}-%%{version}-vendor-licenses.txt)
+License:        PostgreSQL and MIT and ISC and BSD and ASL 2.0 and CC-BY and CC0 and WTFPL and zlib and GPLv2 and GPLv3+ and Python
+URL:            https://www.pgadmin.org/
+Source0:        https://github.com/postgres/pgadmin4/archive/REL-%{tag_ver}/%{name}-%{version}.tar.gz
+
+# ./prepare_vendor.sh
+Source1:        %{name}-%{version}-vendor.tar.xz
+Source2:        %{name}-%{version}-vendor-licenses.txt
+
+# Unofficial qt runtime
+Source3:        pgadmin4-qt.cpp
+Source4:        org.postgresql.pgadmin4.metainfo.xml
+Source5:        pgadmin4-qt.svg
+
+# Apache/WSGI config
+Source6:        pgadmin4.conf
+
+# Patch requirements for Fedora compat
+Patch0:         pgadmin4_requirements.patch
+# Don't error out on sphinx warnings
+Patch1:         pgadmin4_sphinx_werror.patch
+# Pass allow_unsafe_werkzeug=True to socketio.run
+Patch2:         pgadmin4-socketio.patch
+# Flask 2.2 compatibility
+Patch3:         pgadmin4_flask22.patch
+# ??? Fix crash on None username, retest with 6.14
+Patch4:         pgadmin4_username.patch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3-sphinx
+BuildRequires:  yarnpkg
+
+# For node dependencies
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libpng-devel
+BuildRequires:  libtool
+BuildRequires:  yasm
+
+# cd pgadmin4-<ver>
+# patch -p1 < pgadmin4_requirements.patch
+# python3 /usr/lib/rpm/redhat/pyproject_buildrequires.py -N requirements.txt 2>/dev/null | awk '{print "Requires: "$0}'
+Requires: python3dist(flask) >= 2.1
+Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
+Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
+Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
+Requires: (python3dist(flask-migrate) >= 3 with python3dist(flask-migrate) < 4)
+Requires: (python3dist(flask-sqlalchemy) >= 2.5 with python3dist(flask-sqlalchemy) < 2.6)
+Requires: (python3dist(flask-wtf) >= 1 with python3dist(flask-wtf) < 2)
+Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
+Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
+Requires: (python3dist(flask-babel) >= 2 with python3dist(flask-babel) < 3)
+Requires: (python3dist(flask-security-too) >= 4.1 with python3dist(flask-security-too) < 4.2)
+Requires: python3dist(flask-socketio)
+Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 4)
+Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
+Requires: python3dist(pytz) >= 2021
+Requires: (python3dist(simplejson) >= 3 with python3dist(simplejson) < 4)
+Requires: (python3dist(six) >= 1 with python3dist(six) < 2)
+Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
+Requires: (python3dist(psutil) >= 5 with python3dist(psutil) < 6)
+Requires: (python3dist(psycopg2) >= 2.9 with python3dist(psycopg2) < 2.10)
+Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
+Requires: (python3dist(sqlalchemy) >= 1.4 with python3dist(sqlalchemy) < 1.5)
+Requires: (python3dist(bcrypt) >= 3 with python3dist(bcrypt) < 4)
+Requires: python3dist(cryptography) >= 3
+Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
+Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
+Requires: (python3dist(gssapi) >= 1.7 with python3dist(gssapi) < 1.8)
+Requires: (python3dist(eventlet) >= 0.33 with python3dist(eventlet) < 0.34)
+Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
+Requires: python3dist(user-agents) = 2.2
+Requires: python3dist(authlib) >= 0.15
+Requires: python3dist(requests) >= 2.25
+Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
+Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
+Requires: (python3dist(pillow) >= 9 with python3dist(pillow) < 10)
+Requires: python3dist(boto3) >= 1.20
+Requires: python3dist(botocore) >= 1.23
+Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
+Requires: python3dist(werkzeug) >= 2.1.2
+Requires: python3dist(azure-mgmt-rdbms) >= 10.1
+Requires: python3dist(azure-mgmt-resource) >= 21
+Requires: python3dist(azure-mgmt-subscription) >= 3
+Requires: python3dist(azure-identity) >= 1.9
+Requires: python3dist(ua-parser) >= 0.15
+
+Obsoletes: pgadmin3 < 1.23.0b-8
+Provides:  pgadmin3 = %{version}-%{release}
+
+%description
+pgAdmin is the most popular and feature rich Open Source administration and development
+platform for PostgreSQL, the most advanced Open Source database in the world.
+
+
+%ifarch %{qt5_qtwebengine_arches}
+%package qt
+Summary:        Unofficial Qt runtime for pgadmin4
+Requires:       %{name} = %{version}-%{release}
+BuildRequires:  libappstream-glib
+BuildRequires:  gcc-c++
+BuildRequires:  desktop-file-utils
+BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtwebengine-devel
+
+%description qt
+This package contains an unofficial Qt runtime for pgadmin4.
+%endif
+
+
+%package httpd
+Summary:        Apache/WSGI configuration for pgadmin4
+Requires:       python3-mod_wsgi
+Requires:       %{name} = %{version}-%{release}
+
+%description httpd
+This package contains the Apache/WSGI configuration for serving pgadmin4 from Apache.
+
+
+%define lang_subpkg() \
+%package langpack-%{1}\
+Summary:       %{2} language data for %{name}\
+BuildArch:     noarch\
+Requires:      %{name} = %{version}-%{release}\
+Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
+\
+%description langpack-%{1}\
+%{2} language data for %{name}.\
+\
+%files langpack-%{1}\
+%{_prefix}/lib/%{name}/pgadmin/translations/%{1}/
+
+%lang_subpkg cs Czech
+%lang_subpkg de German
+%lang_subpkg es Spanish
+%lang_subpkg fr French
+%lang_subpkg it Italian
+%lang_subpkg ja Japanese
+%lang_subpkg ko Korean
+%lang_subpkg pl Polish
+%lang_subpkg ru Russian
+%lang_subpkg zh Chinese
+
+
+%generate_buildrequires
+%pyproject_buildrequires -N requirements.txt
+
+
+%prep
+%autosetup -p1 -n %{name}-REL-%{tag_ver} -a1
+
+sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
+cp -a %{SOURCE2} .
+
+
+%build
+(
+cd web
+YARN_CACHE_FOLDER="$PWD/../.package-cache" yarn install --offline
+yarn run bundle
+rm -rf node_modules
+)
+
+%ifarch %{qt5_qtwebengine_arches}
+g++ -o %{name}-qt %{SOURCE3} %{optflags} $(pkg-config --cflags --libs Qt5Core Qt5Widgets Qt5Network Qt5WebEngineWidgets)
+%endif
+make docs
+
+
+%install
+mkdir -p %{buildroot}%{_prefix}/lib/
+cp -a web %{buildroot}%{_prefix}/lib/%{name}
+
+# Local config
+cat > %{buildroot}%{_prefix}/lib/%{name}/config_local.py <<EOF
+from config import *
+HELP_PATH = '%{_defaultdocdir}/%{name}/html/'
+EOF
+
+%ifarch %{qt5_qtwebengine_arches}
+for size in 16 32 48 64 128; do
+    install -Dpm 0644 pkg/linux/%{name}-${size}x${size}.png %{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps/%{name}.png
+done
+install -Dpm 0755 %{name}-qt %{buildroot}%{_bindir}/%{name}-qt
+install -Dpm 0644 pkg/linux/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
+install -Dpm 0644 %{SOURCE5} %{buildroot}%{_datadir}/pgadmin4-qt/pgadmin4-qt.svg
+%endif
+
+# Apache/WSGI config
+mkdir -p %{buildroot}%{_localstatedir}/lib/pgadmin
+mkdir -p %{buildroot}%{_localstatedir}/var/log/pgadmin
+install -Dpm 0644 %{SOURCE6} %{buildroot}%{_sysconfdir}/httpd/conf.d/pgadmin4.conf
+
+
+
+%check
+%ifarch %{qt5_qtwebengine_arches}
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+%endif
+
+
+%files
+%license LICENSE %{name}-%{version}-vendor-licenses.txt
+%doc docs/en_US/_build/html README.md
+%{_prefix}/lib/%{name}
+# Packaged by separate langpack subpackages
+%exclude %{_prefix}/lib/%{name}/pgadmin/translations/*
+
+%ifarch %{qt5_qtwebengine_arches}
+%files qt
+%{_bindir}/%{name}-qt
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/pgadmin4-qt/
+%{_metainfodir}/org.postgresql.pgadmin4.metainfo.xml
+%endif
+
+%files httpd
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/pgadmin4.conf
+%attr(0700,apache,apache) %dir %{_localstatedir}/lib/pgadmin
+%attr(0700,apache,apache) %dir %{_localstatedir}/var/log/pgadmin
+
+
+%changelog
+* Tue Sep 06 2022 Sandro Mani <manisandro@gmail.com> - 6.13-4
+- Add pgadmin4_username.patch
+
+* Mon Sep 05 2022 Sandro Mani <manisandro@gmail.com> - 6.13-3
+- Re-add pgadmin4_flask22.patch
+
+* Sun Sep 04 2022 Sandro Mani <manisandro@gmail.com> - 6.13-2
+- Relax werkzeug requires
+
+* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 6.13-1
+- Update to 6.13
+
+* Sat Aug 06 2022 Sandro Mani <manisandro@gmail.com> - 6.12-4
+- Add patch for Flask 2.2+ compatibility
+
+* Thu Aug 04 2022 Sandro Mani <manisandro@gmail.com> - 6.12-3
+- Relax werkzeug requires
+
+* Mon Aug 01 2022 Sandro Mani <manisandro@gmail.com> - 6.12-2
+- Rebuild (python-werkzeug)
+
+* Fri Jul 29 2022 Sandro Mani <manisandro@gmail.com> - 6.12-1
+- Update to 6.12
+
+* Wed Jul 27 2022 Sandro Mani <manisandro@gmail.com> - 6.11-1
+- Update to 6.11
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jun 08 2022 Sandro Mani <manisandro@gmail.com> - 6.9-4
+- Grant clipboard access to pgadmin4-qt
+
+* Mon May 30 2022 Sandro Mani <manisandro@gmail.com> - 6.9-3
+- Add httpd subpackage
+
+* Mon May 30 2022 Sandro Mani <manisandro@gmail.com> - 6.9-2
+- Relax eventlet requires
+
+* Fri May 20 2022 Sandro Mani <manisandro@gmail.com> - 6.9-1
+- Update to 6.9
+
+* Sat Apr 16 2022 Sandro Mani <manisandro@gmail.com> - 6.8-3
+- Regenerate requires
+
+* Fri Apr 15 2022 Sandro Mani <manisandro@gmail.com> - 6.8-2
+- Relax authlib requires
+
+* Thu Apr 07 2022 Sandro Mani <manisandro@gmail.com> - 6.8-1
+- Update to 6.8
+
+* Tue Mar 22 2022 Sandro Mani <manisandro@gmail.com> - 6.7-3
+- Relax pytz requirement
+
+* Tue Mar 15 2022 Sandro Mani <manisandro@gmail.com> - 6.7-2
+- Fix requires
+
+* Mon Mar 14 2022 Sandro Mani <manisandro@gmail.com> - 6.7-1
+- Update to 6.7
+
+* Sat Feb 12 2022 Sandro Mani <manisandro@gmail.com> - 6.5-1
+- Update to 6.5
+
+* Wed Feb 09 2022 Sandro Mani <manisandro@gmail.com> - 6.4-9
+- ExcludeArch i686 and armv7hl rather than building without terser optimization
+- Ship config_local.py rather than patching original config
+- Rename pgadmin4 runtime binary to pgadmin4-qt
+- Use system pngquant / optipng
+
+* Tue Feb 08 2022 Sandro Mani <manisandro@gmail.com> - 6.4-8
+- Add info dialog regarding unofficial qt runtime
+
+* Tue Feb 01 2022 Sandro Mani <manisandro@gmail.com> - 6.4-7
+- Split off unofficial qt runtime in separate subpackage
+
+* Tue Feb 01 2022 Sandro Mani <manisandro@gmail.com> - 6.4-6
+- Don't override SERVER_MODE globally, but set in pgadmin wrapper, and also set
+  key in wrapper
+
+* Tue Feb 01 2022 Sandro Mani <manisandro@gmail.com> - 6.4-5
+- Remove SECRET_KEY hunk from pgadmin4.patch
+
+* Tue Feb 01 2022 Sandro Mani <manisandro@gmail.com> - 6.4-4
+- Add obsoletes/provides for pgadmin3
+
+* Tue Jan 25 2022 Sandro Mani <manisandro@gmail.com> - 6.4-3
+- Generate and add %%{name}-%%{version}-vendor-licenses.txt
+
+* Tue Jan 25 2022 Sandro Mani <manisandro@gmail.com> - 6.4-2
+- Add splash screen
+
+* Thu Jan 13 2022 Sandro Mani <manisandro@gmail.com> - 6.4-1
+- Update to 6.4
+
+* Fri Dec 24 2021 Sandro Mani <manisandro@gmail.com> - 6.3-2
+- Update pgadmin4.cpp
+
+* Fri Dec 17 2021 Sandro Mani <manisandro@gmail.com> - 6.3-1
+- Update to 6.3
+
+* Thu Nov 11 2021 Sandro Mani <manisandro@gmail.com> - 6.3-0.1.git3a87e05
+- Initial package

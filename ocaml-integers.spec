@@ -1,0 +1,100 @@
+%undefine _package_note_flags
+
+Name:           ocaml-integers
+Version:        0.7.0
+Release:        3%{?dist}
+Summary:        Various signed and unsigned integer types for OCaml
+
+License:        MIT
+URL:            https://github.com/ocamllabs/ocaml-integers
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fedora does not need stdlib-shims, which is for older OCaml systems
+Patch0:         %{name}-stdlib-shims.patch
+
+BuildRequires:  ocaml >= 4.02
+BuildRequires:  ocaml-dune
+
+%description
+The ocaml-integers library provides a number of 8-, 16-, 32- and 64-bit
+signed and unsigned integer types, together with aliases such as `long`
+and `size_t` whose sizes depend on the host platform.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup -p1
+
+%build
+%dune_build
+
+# Relink the stublib with Fedora flags
+cd _build/default/src
+ocamlmklib -g -ldopt "%{build_ldflags}" -o integers_stubs \
+  $(ar t libintegers_stubs.a)
+cd -
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%license LICENSE.md
+%doc CHANGES.md README.md
+
+%files devel -f .ofiles-devel
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jun 25 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-2
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-2
+- OCaml 4.14.0 rebuild
+
+* Thu Mar 24 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-1
+- Version 0.7.0
+
+* Mon Feb 28 2022 Jerry James <loganjerry@gmail.com> - 0.6.0-1
+- Version 0.6.0
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 0.5.1-5
+- Bump release and rebuild.
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 0.5.1-4
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Oct 04 2021 Richard W.M. Jones <rjones@redhat.com> - 0.5.1-2
+- OCaml 4.13.1 build
+
+* Fri Aug 13 2021 Jerry James <loganjerry@gmail.com> - 0.5.1-1
+- Version 0.5.1
+
+* Fri Aug  6 2021 Jerry James <loganjerry@gmail.com> - 0.5.0-1
+- Version 0.5.0
+- Reenable debuginfo
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Mar  1 11:02:39 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-4
+- Disable the debuginfo subpackages.
+- Make the -doc subpackage conditional.
+
+* Mon Mar  1 11:02:39 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-2
+- OCaml 4.12.0 build
+
+* Tue Feb 09 2021 Jerry James <loganjerry@gmail.com> - 0.4.0-1
+- Initial package

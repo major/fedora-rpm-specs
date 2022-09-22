@@ -1,0 +1,1668 @@
+# NOTE: Even though ansible-core is in 8.6, it is only available
+# at *runtime*, not at *buildtime* - so we can't have
+# ansible-core as a build_dep on RHEL8
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%bcond_without ansible
+%global ansible_build_dep ansible-core >= 2.11.0
+%else
+%if 0%{?rhel} && ! 0%{?epel}
+%bcond_with ansible
+%else
+%bcond_without ansible
+%global ansible_build_dep ansible >= 2.9.10
+%endif
+%endif
+
+%bcond_with collection_artifact
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%bcond_without html
+%else
+# pandoc is not supported in rhel 7 and older,
+# which is needed for converting .md to .html.
+%bcond_with html
+%endif
+
+%if 0%{?rhel}
+Name: rhel-system-roles
+%else
+Name: linux-system-roles
+%endif
+Url: https://github.com/linux-system-roles
+Summary: Set of interfaces for unified system management
+Version: 1.21.1
+Release: 2%{?dist}
+
+#Group: Development/Libraries
+License: GPLv3+ and MIT and BSD and Python
+%global installbase %{_datadir}/linux-system-roles
+%global _pkglicensedir %{_licensedir}/%{name}
+%global rolealtprefix linux-system-roles.
+%global roleprefix %{name}.
+%global roleinstprefix %{nil}
+%global rolealtrelpath ../../linux-system-roles/
+%if 0%{?rhel}
+%global roleinstprefix %{roleprefix}
+%global installbase %{_datadir}/ansible/roles
+%global rolealtrelpath %{nil}
+%endif
+
+%if 0%{?rhel}
+%global collection_namespace redhat
+%global collection_name rhel_system_roles
+%else
+%global collection_namespace fedora
+%global collection_name linux_system_roles
+%endif
+
+%global collection_version %{version}
+
+# Helper macros originally from macros.ansible by Igor Raits <ignatenkobrain>
+# Not available on RHEL, so we must define those macros locally here without using ansible-galaxy
+
+# Not used (yet). Could be made to point to AH in RHEL - but what about CentOS Stream?
+#%%{!?ansible_collection_url:%%define ansible_collection_url() https://galaxy.ansible.com/%%{collection_namespace}/%%{collection_name}}
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%{!?ansible_collection_files:%define ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/}
+%else
+# Define undefined macro using "!?ansible_collection_files:..." does not work for rhel-7
+%if %{?ansible_collection_files:0}%{!?ansible_collection_files:1}
+%define ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
+%endif
+%endif
+
+# ansible-core is in rhel 8.6 and later - default to ansible-core, but allow
+# the use of ansible if present - we may revisit this if the automatic dependency
+# generator is added to ansible-core in RHEL
+# Fedora - the automatic generator will add this - no need to explicit declare
+# it in the spec file
+# EL7 - no dependency on ansible because there is no ansible in el7 - user is
+# responsible for knowing they have to install ansible
+%if 0%{?rhel} >= 8
+Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
+%endif
+
+%if %{with ansible}
+BuildRequires: %{ansible_build_dep}
+%endif
+
+%if %{without ansible}
+# We don't have ansible-galaxy.
+# Simply copy everything instead of galaxy-installing the built artifact.
+%define ansible_collection_build_install() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .; mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
+%else
+%define ansible_collection_build_install() ansible-galaxy collection build; ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%endif
+
+# For each role, call either defcommit() or deftag(). The other macros
+# (%%id and %%shortid) can be then used in the same way in both cases.
+# This way  the rest of the spec file des not need to know whether we are
+# dealing with a tag or a commit.
+%global archiveext tar.gz
+# list of role names
+%global rolenames %nil
+# list of assignments that can be used to populate a bash associative array variable
+%global rolestodir %nil
+%define getarchivedir() %(p=%{basename:%{S:%{1}}}; echo ${p%%.%{archiveext}})
+
+%define defcommit() %{expand:%%global ref%{1} %{2}
+%%global shortcommit%{1} %%(c=%%{ref%{1}}; echo ${c:0:7})
+%%global extractdir%{1} %%{expand:%%getarchivedir %{1}}
+%%{!?repo%{1}:%%global repo%{1} %%{rolename%{1}}}
+%%global archiveurl%{1} %%{?forgeorg%{1}}%%{!?forgeorg%{1}:%%{url}}/%%{repo%{1}}/archive/%%{ref%{1}}/%%{repo%{1}}-%%{ref%{1}}.tar.gz
+%%global rolenames %%{?rolenames} %%{rolename%{1}}
+%%global roletodir%{1} [%{rolename%{1}}]="%{extractdir%{1}}"
+%%global rolestodir %%{?rolestodir} %{roletodir%{1}}
+}
+
+%define deftag() %{expand:%%global ref%{1} %{2}
+%%global extractdir%{1} %%{expand:%%getarchivedir %{1}}
+%%{!?repo%{1}:%%global repo%{1} %%{rolename%{1}}}
+%%global archiveurl%{1} %%{?forgeorg%{1}}%%{!?forgeorg%{1}:%%{url}}/%%{repo%{1}}/archive/%%{ref%{1}}/%%{repo%{1}}-%%{ref%{1}}.tar.gz
+%%global rolenames %%{?rolenames} %%{rolename%{1}}
+%%global roletodir%{1} [%{rolename%{1}}]="%{extractdir%{1}}"
+%%global rolestodir %%{?rolestodir} %%{roletodir%{1}}
+}
+
+#%%defcommit 1 14314822b529520ac12964e0d2938c4bb18ab895
+%global rolename1 postfix
+%deftag 1 1.2.4
+
+#%%defcommit 2 9fe6eb36772e83b53dcfb8ceb73608fd4f72eeda
+%global rolename2 selinux
+%deftag 2 1.4.0
+
+#%%defcommit 3 cbe4bf262bffae3bf53e531662237741954c4182
+%global rolename3 timesync
+%deftag 3 1.6.9
+
+#%%defcommit 4 02fc72b482e165472624b2f68eecd2ddce1d93b1
+%global rolename4 kdump
+%deftag 4 1.2.5
+
+#%%defcommit 5 a74092634adfe45f76cf761138abab1811692b4b
+%global rolename5 network
+%deftag 5 1.9.1
+
+#%%defcommit 6 50d2b8ccc98a8f4cb9d1d550d21adc227181e9fa
+%global rolename6 storage
+%deftag 6 1.9.1
+
+#%%defcommit 7 d57caa8ca506d8cbc7ca0f96f7cb62b7e965f163
+%global rolename7 metrics
+%deftag 7 1.7.3
+
+#%%defcommit 8 2b9e53233ee3a68bdb532e62f289733e436a6106
+%global rolename8 tlog
+%deftag 8 1.2.9
+
+#%%defcommit 9 9373303b98e09ef38df7afc8d06e5e55812096c7
+%global rolename9 kernel_settings
+%deftag 9 1.1.10
+
+#%%defcommit 10 20dd3e5520ca06dcccaa9b3f1fb428d055e0c23f
+%global rolename10 logging
+%deftag 10 1.10.0
+
+#%%defcommit 11 c57d0b1f3384c525738fa26ba4bdca485e162567
+%global rolename11 nbde_server
+%deftag 11 1.1.5
+
+#%%defcommit 12 bef2fad5e365712d1f40e53662490ba2550a253f
+%global rolename12 nbde_client
+%deftag 12 1.2.6
+
+#%%defcommit 13 310fc53db04e8d3134524afb7a89b0477a2ffb83
+%global rolename13 certificate
+%deftag 13 1.1.6
+
+#%%defcommit 14 b2a9857ac661fa32e66666e444b73bfdb34cdf95
+%global rolename14 crypto_policies
+%deftag 14 1.2.6
+
+%global forgeorg15 https://github.com/willshersystems
+%global repo15 ansible-sshd
+%global rolename15 sshd
+%defcommit 15 9766d9097a87a130d4c8abde2247aaad5c925ecf
+#%%deftag 15 v0.15.1
+
+#%%defcommit 16 59b9fd7b25607d8bd33bdb082748955f2652846a
+%global rolename16 ssh
+%deftag 16 1.1.9
+
+#%%defcommit 17 f901239cb91878719c9e7461760ef8d4789d626d
+%global rolename17 ha_cluster
+%deftag 17 1.7.4
+
+#%%defcommit 18 5f6cb73e6753fbdbb219b7d3079f0378b2d3bdb3
+%global rolename18 vpn
+%deftag 18 1.3.5
+
+%global rolename19 firewall
+%deftag 19 1.4.0
+
+%global rolename20 cockpit
+%deftag 20 1.3.0
+
+%global mainid c22eff88d40972158cd5c413b7468b4e904cc76c
+Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
+Source1: %{archiveurl1}
+Source2: %{archiveurl2}
+Source3: %{archiveurl3}
+Source4: %{archiveurl4}
+Source5: %{archiveurl5}
+Source6: %{archiveurl6}
+Source7: %{archiveurl7}
+Source8: %{archiveurl8}
+Source9: %{archiveurl9}
+Source10: %{archiveurl10}
+Source11: %{archiveurl11}
+Source12: %{archiveurl12}
+Source13: %{archiveurl13}
+Source14: %{archiveurl14}
+Source15: %{archiveurl15}
+Source16: %{archiveurl16}
+Source17: %{archiveurl17}
+Source18: %{archiveurl18}
+Source19: %{archiveurl19}
+Source20: %{archiveurl20}
+
+%if 0%{?rhel}
+# Collection tarballs from Automation Hub
+# Not used on Fedora.
+Source801: ansible-posix-1.4.0.tar.gz
+
+# Collection tarballs from Galaxy
+# Not used on Fedora.
+Source901: community-general-5.5.0.tar.gz
+
+# changelog is auto generated on Fedora
+Source996: CHANGELOG.md
+%endif
+
+# Script to convert spec %changelog into collection CHANGELOG.md
+# only used on Fedora
+Source997: spec-to-changelog-md.sh
+
+# Script to convert the collection README to Automation Hub.
+# Not used on Fedora.
+Source998: collection_readme.sh
+
+Patch51: network-disable-bondtests.diff
+
+BuildArch: noarch
+
+%if %{with html}
+# Requirements for md2html.sh to build the documentation
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: rubygem-kramdown-parser-gfm
+%else
+BuildRequires: pandoc
+BuildRequires: asciidoc
+BuildRequires: highlight
+%endif
+%endif
+
+# Requirements for galaxy_transform.py
+BuildRequires: python3
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires: %{py3_dist ruamel.yaml}
+%else
+BuildRequires: python3-ruamel-yaml
+%endif
+
+Obsoletes: rhel-system-roles-techpreview < 1.0-3
+
+%if %{undefined __ansible_provides}
+Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
+%endif
+# be compatible with the usual Fedora Provides:
+Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{version}-%{release}
+
+# We need to put %%description within the if block to avoid empty
+# lines showing up.
+%if 0%{?rhel}
+%description
+Collection of Ansible roles and modules that provide a stable and
+consistent configuration interface for managing multiple versions
+of Red Hat Enterprise Linux.
+%else
+%description
+Collection of Ansible roles and modules that provide a stable and
+consistent configuration interface for managing multiple versions
+of Fedora, Red Hat Enterprise Linux & CentOS.
+%endif
+
+%if %{with collection_artifact}
+%package collection-artifact
+Summary: Collection artifact to import to Automation Hub / Ansible Galaxy
+
+%description collection-artifact
+Collection artifact for %{name}. This package contains %{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%endif
+
+%prep
+%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -n %{getarchivedir 0}
+
+for file in %_sourcedir/*.tar.gz; do
+    if [[ "$file" =~ %_sourcedir/([^-]+)-([^-]+)-(.+).tar.gz ]]; then
+        ns=${BASH_REMATCH[1]}
+        name=${BASH_REMATCH[2]}
+        ver=${BASH_REMATCH[3]}
+        mkdir -p .external/$ns/$name
+        pushd .external/$ns/$name > /dev/null
+        tar xfz "$file"
+        popd > /dev/null
+    fi
+done
+
+declare -A ROLESTODIR=(%{rolestodir})
+for rolename in %{rolenames}; do
+    dir_from_archive="${ROLESTODIR[${rolename}]}"
+    if [ ! -d "$dir_from_archive" ]; then
+        # ansible-sshd uses tags like vX.Y.Z
+        # using the github archive/ link with a tag like this strips
+        # the leading v from the tag used to construct the directory
+        # name in the archive
+        if [[ "$dir_from_archive" =~ %{repo15}-v([0-9]+[.][0-9]+.*) ]]; then
+            dir_from_archive="%{repo15}-${BASH_REMATCH[1]}"
+        fi
+    fi
+    mv "$dir_from_archive" ${rolename}
+done
+
+cd %{rolename2}/tests
+# this test causes avcs we want to ignore
+sed -r -i -e '/hosts: all/a\
+  tags:\
+    - tests::avc' tests_selinux_disabled.yml
+cd ../..
+
+cd %{rolename5}
+%patch51 -p1
+cd ..
+cd %{rolename15}
+find -P tests examples -name \*.yml | while read file; do
+  sed -r -i -e "s/ansible-sshd/linux-system-roles.sshd/" \
+     -e "s/ willshersystems.sshd/ linux-system-roles.sshd/" "$file"
+done
+sed -r -i -e "s/ willshersystems.sshd/ linux-system-roles.sshd/" README.md
+sed -r -i -e "s/min_ansible_version: 2.8/min_ansible_version: 2.9/" meta/main.yml
+cd ..
+
+cd %{rolename7}
+# metrics roles dir is a symlink to the vendored dir.
+# rpm upgrade doesn't like the symlink.  Replace the
+# symlink with the real dir
+rolesdir=$(pwd)/roles
+realrolesdir=$(realpath "$rolesdir")
+if [ "$rolesdir" != "$realrolesdir" ]; then
+    rm -rf roles
+    mv "$realrolesdir" .
+    rm -rf vendor
+fi
+cd ..
+
+%if 0%{?rhel}
+# Unpack tar.gz to retrieve to be vendored modules and place them in the roles library.
+# ansible.posix:
+#   - library:
+#     - Module selinux and seboolean for the selinux role
+#     - Module mount for the storage role
+declare -A module_map=( ["selinux.py"]="selinux" ["seboolean.py"]="selinux"  ["mount.py"]="storage" )
+for module in "${!module_map[@]}"; do
+  role="${module_map[${module}]}"
+  if [ ! -d $role/library ]; then
+    mkdir $role/library
+  fi
+  cp -pL .external/ansible/posix/plugins/modules/$module $role/library/$module
+  sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' -e "s/ansible_collections.ansible.posix.plugins.module_utils/ansible.module_utils.${role}_lsr/" $role/library/$module
+done
+
+# ansible.posix:
+#   - module_utils:
+#     - Module_util mount for the storage role
+module_map=( ["mount.py"]="storage" )
+for module in "${!module_map[@]}"; do
+  role="${module_map[${module}]}"
+  if [ ! -d $role/module_utils/${role}_lsr ]; then
+    mkdir -p $role/module_utils/${role}_lsr
+  fi
+  cp -pL .external/ansible/posix/plugins/module_utils/$module $role/module_utils/${role}_lsr/$module
+  sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
+done
+
+# community.general:
+#   - library:
+#     - Module seport, sefcontext and selogin for the selinux role rolename2
+#     - Module ini_file for role tlog
+module_map=( ["seport.py"]="selinux" ["sefcontext.py"]="selinux"  ["selogin.py"]="selinux" ["ini_file.py"]="tlog" )
+for module in "${!module_map[@]}"; do
+  role="${module_map[${module}]}"
+  if [ ! -d $role/library ]; then
+    mkdir $role/library
+  fi
+  # version 5.x seems to be broken?
+  moduledir=.external/community/general/plugins/modules
+  if [ ! -f $moduledir/$module ]; then
+    moduledir=.external/community/general/plugins/modules/system
+  fi
+  if [ ! -f $moduledir/$module ]; then
+    moduledir=.external/community/general/plugins/modules/files
+  fi
+  cp -pL $moduledir/$module $role/library/$module
+  ls -alrtF $role/library/$module
+  sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
+done
+%endif
+
+# Replacing "linux-system-roles.rolename" with "rhel-system-roles.rolename" in each role
+%if "%{roleprefix}" != "linux-system-roles."
+for rolename in %{rolenames}; do
+    find $rolename -type f -exec \
+         sed "s/linux-system-roles[.]${rolename}\\>/%{roleprefix}${rolename}/g" -i {} \;
+done
+%endif
+
+# Removing symlinks in tests/roles
+for rolename in %{rolenames}; do
+    if [ -d ${rolename}/tests/roles ]; then
+        find ${rolename}/tests/roles -type l -exec rm {} \;
+        if [ -d ${rolename}/tests/roles/linux-system-roles.${rolename} ]; then
+            rm -r ${rolename}/tests/roles/linux-system-roles.${rolename}
+        fi
+    fi
+done
+rm %{rolename5}/tests/modules
+rm %{rolename5}/tests/module_utils
+rm %{rolename5}/tests/playbooks/roles
+# Drop network/{scripts/print_all_options.py,tests/ensure_provider_tests.py}
+# from rpm. These 2 files fail in brp-python-bytecompile due to f-strings
+# when python2 is default python.
+rm %{rolename5}/scripts/print_all_options.py
+rm %{rolename5}/tests/ensure_provider_tests.py
+# Drop storage tests/scripts
+rm -rf %{rolename6}/tests/scripts
+
+# transform ambiguous #!/usr/bin/env python shebangs to python3 to stop brp-mangle-shebangs complaining
+find -type f -executable -name '*.py' -exec \
+     sed -i -r -e '1s@^(#! */usr/bin/env python)(\s|$)@#\13\2@' '{}' +
+
+%build
+%if %{with html}
+readmes=""
+for role in %{rolenames}; do
+    readmes="${readmes} $role/README.md"
+done
+sh md2html.sh $readmes
+%endif
+
+mkdir .collections
+%if 0%{?rhel}
+# Convert the upstream collection readme to the downstream one
+%{SOURCE998} lsr_role2collection/collection_readme.md
+./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
+                      "Red Hat Enterprise Linux System Roles Ansible Collection" \
+                      "https://linux-system-roles.github.io" \
+                      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel" \
+                      "https://access.redhat.com/articles/3050101" \
+                      "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=rhel-system-roles" \
+                      > galaxy.yml.tmp
+# we vendor-in all of the dependencies on rhel, so remove them
+rm -f lsr_role2collection/collection_requirements.txt
+# but leave bindep.txt
+%else
+./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{collection_version}" \
+                      "Linux System Roles Ansible Collection" \
+                      > galaxy.yml.tmp
+%endif
+mv galaxy.yml.tmp galaxy.yml
+
+includes=""
+for role in %{rolenames}; do
+    includes="$includes --include $role"
+%if 0%{?rhel}
+    # we vendor-in all of the dependencies on rhel, so remove them
+    rm -f "$role/meta/requirements.yml" "$role/meta/collection-requirements.yml"
+%endif
+done
+
+LANG=en_US.utf-8 LC_ALL=en_US.utf-8 python3 release_collection.py --galaxy-yml galaxy.yml \
+    --src-path $(pwd) --dest-path $(pwd)/.collections $includes --force --no-update \
+	--src-owner %{name} --skip-git --skip-check --debug
+
+# Remove table of contents from logging README.md
+# It is not needed for html and AH/Galaxy
+sed -i -e 's/^\(## Table of Contents\)/## Background\n\1/' \
+  .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/logging/README.md
+sed -i -e '/^## Table of Contents/,/^## Background/d' \
+  .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/logging/README.md
+
+# Remove internal links from readme files
+# They are not rendered properly on AH.
+for role in %{rolenames}; do
+    sed -r -i -e 's/\[([^[]+)\]\(#[^)]+\)/\1/g' \
+    .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/$role/README.md
+done
+
+%if 0%{?rhel}
+cp %{SOURCE996} \
+    .collections/ansible_collections/%{collection_namespace}/%{collection_name}/docs/CHANGELOG.md
+%else
+# Build the collection CHANGELOG.md
+%{SOURCE997} %{_specdir}/%{name}.spec \
+    .collections/ansible_collections/%{collection_namespace}/%{collection_name}/docs/CHANGELOG.md
+%endif
+
+%install
+mkdir -p $RPM_BUILD_ROOT%{installbase}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
+
+for role in %{rolenames}; do
+    cp -pR "$role" "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role"
+done
+
+%if 0%{?rolealtprefix:1}
+for role in %{rolenames}; do
+    ln -s    "%{rolealtrelpath}%{roleinstprefix}$role"   "$RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{rolealtprefix}$role"
+done
+%endif
+
+mkdir -p $RPM_BUILD_ROOT%{_pkglicensedir}
+rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}network/examples/roles
+for role in %{rolenames}; do
+    mkdir -p "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/CHANGELOG.md" \
+       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/README.md" \
+       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+%if %{with html}
+    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/README.html" \
+       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+%endif
+    if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/COPYING" ]; then
+        cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/COPYING" \
+           "$RPM_BUILD_ROOT%{_pkglicensedir}/$role.COPYING"
+    fi
+    if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/LICENSE" ]; then
+        cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/LICENSE" \
+           "$RPM_BUILD_ROOT%{_pkglicensedir}/$role.LICENSE"
+    fi
+    if [ -d "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples" ]; then
+        for file in "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/"*.yml ; do
+            basename=$(basename "$file" .yml)
+            newname="$basename"
+            if [[ "$newname" != example-* ]]; then
+                newname="example-$newname"
+            fi
+            if [[ "$newname" != *-playbook ]]; then
+                newname="${newname}-playbook"
+            fi
+            cp "$file" "$RPM_BUILD_ROOT%{_pkgdocdir}/$role/${newname}.yml"
+            rm "$file"
+        done
+        if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory" ]; then
+            cp "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory" \
+               "$RPM_BUILD_ROOT%{_pkgdocdir}/$role/example-inventory"
+            rm "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory"
+        fi
+        # special case for network
+        # this will error if the directory is unexpectedly empty
+        rmdir "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples"
+    fi
+done
+
+rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/semaphore
+rm -r $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/molecule
+
+rm -r $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/.[A-Za-z]*
+rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/tests/.git*
+
+# NOTE: sshd/examples/example-root-login.yml is
+# referenced in the configuring-openssh-servers-using-the-sshd-system-role documentation module
+# must be updated if changing the file path
+
+pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
+%ansible_collection_build_install
+popd
+
+mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection
+mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles
+
+cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
+   $RPM_BUILD_ROOT%{_pkgdocdir}/collection
+
+for rolename in %{rolenames}; do
+  for file in CHANGELOG.md README.md; do
+    if [ -f %{buildroot}%{ansible_collection_files}%{collection_name}/roles/${rolename}/$file ]; then
+      if [ ! -d $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename} ]; then
+        mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename}
+      fi
+      cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/roles/${rolename}/$file \
+        $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename}
+    fi
+  done
+done
+
+%if %{with html}
+# converting README.md to README.html for collection in $RPM_BUILD_ROOT%{_pkgdocdir}/collection
+readmes="$RPM_BUILD_ROOT%{_pkgdocdir}/collection/README.md"
+for role in %{rolenames}; do
+    readmes="${readmes} $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${role}/README.md"
+done
+sh md2html.sh $readmes
+%endif
+
+%if %{with collection_artifact}
+# Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
+pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
+if [ -f %{collection_namespace}-%{collection_name}-%{version}.tar.gz ]; then
+    mv %{collection_namespace}-%{collection_name}-%{version}.tar.gz \
+       $RPM_BUILD_ROOT%{_datadir}/ansible/collections/
+fi
+popd
+%endif
+
+# generate the %files section in the file files_section.txt
+format_item_for_files() {
+    # $1 is directory or file name in buildroot
+    # $2 - if true, and item is a directory, use %dir
+    local item
+    local files_item
+    item="$1"
+    files_item=${item##"%{buildroot}"}
+    if [ -L "$item" ]; then
+        echo "$files_item"
+    elif [ -d "$item" ]; then
+        if [[ "$item" == */doc* ]]; then
+            echo "%doc $files_item"
+        elif [ "${2:-false}" = true ]; then
+            echo "%dir $files_item"
+        else
+            echo "$files_item"
+        fi
+    elif [[ "$item" == */README.md ]] || [[ "$item" == */README.html ]] || [[ "$item" == */CHANGELOG.md ]]; then
+        if [[ "$item" == */private_* ]]; then
+            # mark as regular file, not %doc
+            echo "$files_item"
+        else
+            echo "%doc $files_item"
+        fi
+    elif [[ "$item" != */COPYING* ]] && [[ "$item" != */LICENSE* ]]; then
+        # Avoid dynamically using the license macro since the license macro
+        # is replaced with the value of License directive in the older rpmbuild.
+        echo "$files_item"
+    fi
+}
+
+files_section=files_section.txt
+rm -f $files_section
+touch $files_section
+%if %{without ansible}
+echo '%dir %{_datadir}/ansible' >> $files_section
+echo '%dir %{_datadir}/ansible/roles' >> $files_section
+%endif
+%if "%{installbase}" != "%{_datadir}/ansible/roles"
+echo '%dir %{installbase}' >> $files_section
+%endif
+echo '%dir %{ansible_collection_files}' >> $files_section
+echo '%dir %{ansible_collection_files}%{collection_name}' >> $files_section
+find %{buildroot}%{ansible_collection_files}%{collection_name} -mindepth 1 -maxdepth 1 | \
+    while read item; do
+        if [[ "$item" == */roles ]]; then
+            format_item_for_files "$item" true >> $files_section
+            find "$item" -mindepth 1 -maxdepth 1 | while read roles_dir; do
+                format_item_for_files "$roles_dir" true >> $files_section
+                find "$roles_dir" -mindepth 1 -maxdepth 1 | while read roles_item; do
+                    format_item_for_files "$roles_item" >> $files_section
+                done
+            done
+        else
+            format_item_for_files "$item" >> $files_section
+        fi
+    done
+
+find %{buildroot}%{installbase} -mindepth 1 -maxdepth 1 | \
+    while read item; do
+        if [ -d "$item" ]; then
+            format_item_for_files "$item" true >> $files_section
+            find "$item" -mindepth 1 -maxdepth 1 | while read roles_item; do
+                format_item_for_files "$roles_item" >> $files_section
+            done
+        else
+            format_item_for_files "$item" >> $files_section
+        fi
+    done
+if [ "%{installbase}" != "%{_datadir}/ansible/roles" ]; then
+    find %{buildroot}%{_datadir}/ansible/roles -mindepth 1 -maxdepth 1 | \
+        while read item; do
+            if [ -d "$item" ]; then
+                format_item_for_files "$item" true >> $files_section
+                find "$item" -mindepth 1 -maxdepth 1 | while read roles_item; do
+                    format_item_for_files "$roles_item" >> $files_section
+                done
+            else
+                format_item_for_files "$item" >> $files_section
+            fi
+        done
+fi
+# cat files_section.txt
+# done with files_section.txt generation
+
+
+%files -f files_section.txt
+%{_pkgdocdir}/*/CHANGELOG.md
+%{_pkgdocdir}/*/README.md
+%if %{with html}
+%{_pkgdocdir}/*/README.html
+%endif
+%{_pkgdocdir}/*/example-*
+%{_pkgdocdir}/collection/roles/*/CHANGELOG.md
+%{_pkgdocdir}/collection/roles/*/README.md
+%if %{with html}
+%{_pkgdocdir}/collection/roles/*/README.html
+%endif
+%license %{_pkglicensedir}/*
+%license %{installbase}/*/COPYING*
+%license %{installbase}/*/LICENSE*
+%license %{ansible_collection_files}/%{collection_name}/COPYING*
+%license %{ansible_collection_files}/%{collection_name}/LICENSE*
+%if 0%{?rhel} < 8
+# Needs to list excluded files in this hardcoded style since when
+# format_item_for_files is executed, brp-python-bytecompile is not
+# executed yet.
+%exclude %{installbase}/*/*.py?
+%exclude %{installbase}/*/*/*.py?
+%exclude %{installbase}/*/*/*/*.py?
+%exclude %{installbase}/*/*/*/*/*.py?
+%exclude %{ansible_collection_files}/%{collection_name}/*/*/*.py?
+%exclude %{ansible_collection_files}/%{collection_name}/*/*/*/*.py?
+%exclude %{ansible_collection_files}/%{collection_name}/*/*/*/*/*.py?
+%endif
+
+%if %{with collection_artifact}
+%files collection-artifact
+%{_datadir}/ansible/collections/%{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%endif
+
+%changelog
+* Thu Sep 01 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-2
+- Update community.general
+
+* Fri Aug 05 2022 Rich Megginson <rmeggins@redhat.com> - 1.21.1-1
+- ensure CHANGELOG.md files are marked as doc
+- network - network_state: improve state comparison for achieving idempotency
+- network - argument_validator: fix IPRouteUtils.get_route_tables_mapping() for whitespace
+
+* Thu Jul 28 2022 Rich Megginson <rmeggins@redhat.com> - 1.21.0-1
+- cockpit - Add customization of port
+- firewall - add/delete/update services
+- firewall - port_forward can be string or dict
+- firewall - support for firewall_config - gather firewall facts
+- firewall - add/remove interfaces by PCI ID
+- kernel_settings - Set the kernel_settings_reboot_required when reboot needed
+- logging - Support startmsg.regex and endmsg.regex in the files inputs
+- metrics - docs - make minimum redis and grafana versions more clear
+- metrics - restart the pmie, pmlogger services if the configuration tasks made any changes
+- nbde_client - Sets proper spacing for parameter rd.neednet=1 so that it is correctly
+  appended to kernel cmdline, changes = to += for adding rd.neednet parameter
+- network - support nmstate configuration - network_state parameter
+- selinux - Added setting of seuser and selevel for completeness
+- sshd, ssh - add support for RSAMinSize config parameter
+- storage - Add support for managing pool members - for LVM pools
+- storage - Add support for attaching LVM cache to existing LVs
+- storage - remove warning 'storage_test_pool' is already in use
+- storage - LVM thin provisioning support
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jul 15 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.20.2-3
+- Update community.general
+
+* Fri Jul 01 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.20.2-2
+- Update community.general
+
+* Wed Jun 15 2022 Rich Megginson <rmeggins@redhat.com> - 1.20.2-1
+- sshd supports ansible 2.9
+
+* Wed Jun 15 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.20.1-2
+- Update community.general
+
+* Mon Jun 13 2022 Rich Megginson <rmeggins@redhat.com> - 1.20.1-1
+- storage - fix coverity scan issue in blivet.py
+  Resolves: rhbz#2066876 (8.7.0)
+  Resolves: rhbz#2072745 (9.1.0)
+
+- logging - fix gather_facts/set_vars issue
+  Resolves: rhbz#2079008 (8.7.0)
+  Resolves: rhbz#2078989 (9.1.0)
+
+- ha_cluster - Move tasks that set up CI environment to roles tasks/ dir
+  Resolves: rhbz#2093500 (8.7.0)
+  Resolves: rhbz#2093438 (9.1.0)
+
+- sshd - fix tests issue with rhel9 hosts
+
+* Mon Jun 06 2022 Rich Megginson <rmeggins@redhat.com> - 1.20.0-1
+- storage - support for creating and managing LVM thin pools/LVs
+  Resolves: rhbz#2066876 (8.7.0)
+  Resolves: rhbz#2072745 (9.1.0)
+
+- firewall - Update Ansible syntax in Firewall system role README.md file examples
+  Resolves: rhbz#2081839 (8.7.0)
+  Resolves: rhbz#2094096 (9.1.0)
+
+- storage role raid_level "striped" is not supported
+  Resolves: rhbz#2083426 (8.7.0)
+  Resolves: rhbz#2083410 (9.1.0)
+
+- network: the controller device is not completely cleaned up in the bond tests.
+  Resolves: rhbz#2089868 (8.7.0)
+  Resolves: rhbz#2089872 (9.1.0)
+
+- firewall - state no longer required for masquerade and ICMP block inversion
+  Resolves: rhbz#2093437 (8.7.0)
+  Resolves: rhbz#2093423 (9.1.0)
+
+- ha_cluster - Move tasks that set up CI environment to roles tasks/ dir
+  Resolves: rhbz#2093500 (8.7.0)
+  Resolves: rhbz#2093438 (9.1.0)
+
+* Wed Jun 01 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.19.0-2
+- Update ansible.posix, community.general
+
+* Wed May 25 2022 Rich Megginson <rmeggins@redhat.com> - 1.19.0-1
+- network - Rework the infiniband support
+  Resolves: rhbz#2086869 (8.7.0)
+  Resolves: rhbz#2086965 (9.1.0)
+
+* Wed May 18 2022 Rich Megginson <rmeggins@redhat.com> - 1.18.1-2
+- sshd - recurse into tests and examples sub-directories when replacing string in files
+  the sshd role latest version added sub-directories under tests that need
+  role name replacement - so just use find
+
+* Mon May 16 2022 Rich Megginson <rmeggins@redhat.com> - 1.18.1-1
+- sshd - sshd system role should not assume that RHEL 9 /etc/ssh/sshd_config has "Include > /etc/ssh/sshd_config.d/*.conf"
+  Resolves: rhbz#2086934 (8.7.0)
+  Resolves: rhbz#2052081 (9.1.0)
+
+- sshd - sshd system role should be able to optionally manage /etc/ssh/sshd_config on RHEL 9
+  Resolves: rhbz#2086935 (8.7.0)
+  Resolves: rhbz#2052086 (9.1.0)
+
+- storage - storage role cannot set mount_options for volumes
+  Resolves: rhbz#2083378 (8.7.0)
+  Resolves: rhbz#2083376 (9.1.0)
+
+* Mon May 02 2022 Rich Megginson <rmeggins@redhat.com> - 1.18.0-1
+- metrics - [RFE] add an option to the metrics role to enable postfix metric collection
+  Resolves: rhbz#2043009 (8.7.0)
+  Resolves: rhbz#2043010 (9.1.0)
+
+- firewall - [Improvement] Allow System Role to reset to default Firewalld Settings
+  Resolves: rhbz#2043009 (8.7.0)
+  Resolves: rhbz#2061511 (9.1.0)
+
+* Mon Apr 25 2022 Rich Megginson <rmeggins@redhat.com> - 1.17.0-1
+- All roles should support running with gather_facts: false
+  Resolves: rhbz#2079008 (8.7.0)
+  Resolves: rhbz#2078989 (9.1.0)
+
+- firewall - Firewall system role Ansible deprecation warning related to "include"
+  Resolves: rhbz#2078650 (8.7.0)
+  Resolves: rhbz#2061511 (9.1.0)
+
+- ha_cluster - ha_cluster - support advanced corosync configuration
+  Resolves: rhbz#2065339 (8.7.0)
+  Resolves: rhbz#2065337 (9.1.0)
+
+- ha_cluster - ha_cluster - support SBD fencing
+  Resolves: rhbz#2066868 (8.7.0)
+  Resolves: rhbz#2079626 (9.1.0)
+
+- ha_cluster - ha_cluster - add support for configuring bundle resources
+  Resolves: rhbz#2073518 (8.7.0)
+  Resolves: rhbz#2073519 (9.1.0)
+
+- kernel_settings - kernel_settings error configobj not found on RHEL 8.6 managed hosts
+  Resolves: rhbz#2060378 (8.7.0)
+  Resolves: rhbz#2060525 (9.1.0)
+
+- logging - logging tests fail during cleanup if no cloud-init on system
+  Resolves: rhbz#2058807 (8.7.0)
+  Resolves: rhbz#2058799 (9.1.0)
+
+- logging - Logging - RFE - support template, severity and facility options
+  Resolves: rhbz#2075116 (8.7.0)
+  Resolves: rhbz#2075119 (9.1.0)
+
+- metrics - Metrics role, with "metrics_from_mssql" option does not configure /var/lib/pcp/pmdas/mssql/mssql.conf on first run
+  Resolves: rhbz#2060377 (8.7.0)
+  Resolves: rhbz#2060523 (9.1.0)
+
+- metrics - metrics - consistently use ansible_managed in configuration files managed by role
+  Resolves: rhbz#2065215 (8.7.0)
+  Resolves: rhbz#2065392 (9.1.0)
+
+- metrics - [RFE] add an option to the metrics role to enable postfix metric collection
+  Resolves: rhbz#2079114 (8.7.0)
+  Resolves: rhbz#2051737 (9.1.0)
+
+- nbde_client - NBDE client system role does not support servers with static IP addresses
+  Resolves: rhbz#2071011 (8.7.0)
+  Resolves: rhbz#2070462 (9.1.0)
+
+- network - [RFE] Extend rhel-system-roles.network feature set to support routing rules
+  Resolves: rhbz#1996731 (8.7.0)
+  Resolves: rhbz#2079622 (9.1.0)
+
+- network - bond: fix typo in supporting the infiniband ports in active-backup mode
+  Resolves: rhbz#2064067 (8.7.0)
+  Resolves: rhbz#2065394 (9.1.0)
+
+- network - pytest failed when running with nm providers in the rhel-8.5 beaker machine
+  Resolves: rhbz#2065217 (8.7.0)
+  Resolves: rhbz#2066911 (9.1.0)
+
+- network - network - consistently use ansible_managed in configuration files managed by role
+  Resolves: rhbz#2065670 (8.7.0)
+  Resolves: rhbz#2065382 (9.1.0)
+
+- postfix - postfix - consistently use ansible_managed in configuration files managed by role
+  Resolves: rhbz#2065216 (8.7.0)
+  Resolves: rhbz#2065393 (9.1.0)
+
+- postfix - Postfix RHEL System Role should provide the ability to replace config and reset configuration back to default
+  Resolves: rhbz#2065218 (8.7.0)
+  Resolves: rhbz#2065383 (9.1.0)
+
+- sshd - FIPS mode detection in SSHD role is wrong
+  Resolves: rhbz#2075338 (8.7.0)
+  Resolves: rhbz#2073605 (9.1.0)
+
+- storage - RFE storage Less verbosity by default
+  Resolves: rhbz#2056480 (8.7.0)
+  Resolves: rhbz#2079627 (9.1.0)
+
+- timesync - timesync: basic-smoke test failure in timesync/tests_ntp.yml
+  Resolves: rhbz#2060379 (8.7.0)
+  Resolves: rhbz#2060524 (9.1.0)
+
+- tlog - Tlog role - Enabling session recording configuration does not work due to RHEL9 SSSD files provider default
+  Resolves: rhbz#2072749 (8.7.0)
+  Resolves: rhbz#2071804 (9.1.0)
+
+* Thu Apr 07 2022 Rich Megginson <rmeggins@redhat.com> - 1.16.3-1
+- tlog - Enabling session recording configuration does not work due to RHEL9 SSSD files provider default
+  Resolves rhbz#2072749 (EL8)
+  Resolves rhbz#2071804 (EL9)
+
+* Wed Apr 06 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.16.2-2
+- Update community.general
+
+* Thu Mar 31 2022 Rich Megginson <rmeggins@redhat.com> - 1.16.2-1
+- nbde_client - NBDE client system role does not support servers with static IP addresses
+  previous fix did not handle some other cases
+  Resolves rhbz#1985022 (EL8)
+  Resolves rhbz#2031555 (EL9)
+
+* Tue Mar 29 2022 Rich Megginson <rmeggins@redhat.com> - 1.16.1-1
+- nbde_client - NBDE client system role does not support servers with static IP addresses
+  previous fix did not handle some cases
+  Resolves rhbz#1985022 (EL8)
+  Resolves rhbz#2031555 (EL9)
+
+* Tue Mar 22 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.16.0-2
+- Update community.general
+
+* Tue Mar 15 2022 Rich Megginson <rmeggins@redhat.com> - 1.16.0-1
+- network - pytest failed when running with nm providers in the rhel-8.5 beaker machine
+  Resolves rhbz#2064396 (EL8)
+  Resolves rhbz#2064401 (EL9)
+- network - bond: fix typo in supporting the infiniband ports in active-backup modekernel_settings error configobj not found on RHEL 8.6 managed hosts
+  Resolves rhbz#2064388 (EL8)
+  Resolves rhbz#2064391 (EL9)
+- network - consistently use ansible_managed in configuration files managed by role
+  Resolves rhbz#2057656 (EL8)
+  Resolves rhbz#2057657 (EL9)
+- metrics - consistently use ansible_managed in configuration files managed by role
+  Resolves rhbz#2057645 (EL8)
+  Resolves rhbz#2057647 (EL9)
+- postfix - consistently use ansible_managed in configuration files managed by role
+  Resolves rhbz#2057661 (EL8)
+  Resolves rhbz#2057662 (EL9)
+- postfix - provide the ability to replace config and reset configuration back to default
+  Resolves rhbz#2044657 (EL8)
+  Resolves rhbz#2058780 (EL9)
+- new tags required in galaxy.yml for Automation Hub
+  
+* Mon Feb 28 2022 Rich Megginson <rmeggins@redhat.com> - 1.15.1-1
+- kernel_settings error configobj not found on RHEL 8.6 managed hosts
+  Resolves rhbz#2058772 (EL8)
+  Resolves rhbz#2058756 (EL9)
+- timesync: basic-smoke test failure in timesync/tests_ntp.yml
+  Resolves rhbz#2059293 (EL8)
+  Resolves rhbz#2058645 (EL9)
+- Metrics role, with "metrics_from_mssql" option does not configure /var/lib/pcp/pmdas/mssql/mssql.conf on first run
+  Resolves rhbz#2058655 (EL8)
+  Resolves rhbz#2058777 (EL9)
+
+* Tue Feb 22 2022 Rich Megginson <rmeggins@redhat.com> - 1.15.0-1
+- firewall - ensure target changes take effect immediately
+  Resolves rhbz#2057172 (EL8)
+  Resolves rhbz#2057164 (EL9)
+- firewall - Firewall RHEL System Role should be able to set default zone
+  Resolves rhbz#2022458 (EL8)
+  Resolves rhbz#2022461 (EL9)
+- network - tests_802_1x_nm, tests_802_1x_updated_nm fails because of missing hostapd in EPEL
+  Resolves rhbz#2053862 (EL8)
+  Resolves rhbz#2053861 (EL9)
+
+* Mon Feb 14 2022 Rich Megginson <rmeggins@redhat.com> - 1.14.0-1
+- ha_cluster - set permissions for haclient group
+  Resolves rhbz#2049747 (EL8)
+  Resolves rhbz#2049754 (EL9)
+- network - Add more bonding options to rhel-system-roles.network
+  Resolves rhbz#2008931 (EL8)
+  Resolves rhbz#2054435 (EL9)
+- certificate - should consistently use ansible_managed in hook scripts
+  Resolves rhbz#2054364 (EL8)
+  Resolves rhbz#2054368 (EL9)
+- tlog - consistently use ansible_managed in configuration files managed by role
+  Resolves rhbz#2054363 (EL8)
+  Resolves rhbz#2054367 (EL9)
+- vpn - consistently use ansible_managed in configuration files managed by role
+  Resolves rhbz#2054365 (EL8)
+  Resolves rhbz#2054369 (EL9)
+
+* Tue Feb 8 2022 Rich Megginson <rmeggins@redhat.com> - 1.13.1-1
+- vpn - template error while templating string: no filter named 'vpn_ipaddr'
+  Resolves rhbz#2052103 (EL8)
+  Resolves rhbz#2050341 (EL9)
+- kdump - Unable to start service kdump: Job for kdump.service failed because the control process exited with error code.
+  Resolves rhbz#2052105 (EL8)
+  Resolves rhbz#2050419 (EL9)
+- remove collection dependencies on rhel because we vendor them in
+
+* Tue Feb 1 2022 Rich Megginson <rmeggins@redhat.com> - 1.13.0-1
+- storage - RFE: Add support for RAID volumes (lvm-only)
+  Resolves rhbz#2016514 (EL8)
+  Resolves rhbz#2016518 (EL9)
+- storage - RFE: Add support for cached volumes (lvm-only)
+  Resolves rhbz#2016511 (EL8)
+  Resolves rhbz#2016517 (EL9)
+- metrics - metrics role can't be re-run if the Grafana admin password has been changed
+  Resolves rhbz#1967321 (EL8)
+  Resolves rhbz#2041632 (EL9)
+- nbde_client - NBDE client system role does not support servers with static IP addresses
+  Resolves rhbz#1985022 (EL8)
+  Resolves rhbz#2031555 (EL9)
+- ha_cluster - [RFE] ha_cluster - Support for creating resource constraints (Location, Ordering, etc.)
+  Resolves rhbz#2041635 (EL8)
+  Resolves rhbz#2041634 (EL9)
+- firewall - ensure zone exists and can be used in subsequent operations
+  Resolves rhbz#2042541 (EL8)
+  Resolves rhbz#2024775 (EL9)
+- network - RFE: Support Routing Tables in static routes in Network Role
+  Resolves rhbz#2031521 (EL8)
+  Resolves rhbz#2049798 (EL9)
+- network - Failure to activate connection: nm-manager-error-quark: No suitable device found for this connection
+  Resolves rhbz#2034908 (EL8)
+  Resolves rhbz#2038957 (EL9)
+- network - Set DNS search setting only for enabled IP protocols
+  Resolves rhbz#2041627 (EL8)
+  Resolves rhbz#2004899 (EL9)
+
+* Thu Jan 27 2022 Rich Megginson <rmeggins@redhat.com> - 1.12.0-1
+- vpn - use custom vpn_ipaddr filter to make role work on RHEL 8.6 with ansible-core
+  this is covered by "make roles work with ansible-core on all platforms" BZ
+- logging - Logging role "logging_purge_confs" option not properly working
+  Resolves rhbz#2040812 (EL8)
+  Resolves rhbz#2039106 (EL9)
+- kernel_settings role should use ansible_managed in its configuration file
+  Resolves rhbz#2047504 (EL8)
+  Resolves rhbz#2047506 (EL9)
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Dec 14 2021 Rich Megginson <rmeggins@redhat.com> - 1.11.0-2
+- RHEL8.6, 9 - add "Requires: ansible-core or ansible"
+
+* Thu Dec 2 2021 Rich Megginson <rmeggins@redhat.com> - 1.11.0-1
+- timesync - fix ansible 2.12 issues, service_facts issues
+  Resolves rhbz#2012316 (EL8)
+  Resolves rhbz#2012298 (EL9)
+- timesync - Failure related to missing ntp/ntpd package/service on RHEL-9 host
+  Resolves rhbz#2029463 (EL9)
+- logging - add test case for immark quoting issue
+  Resolves rhbz#2021678 (EL8)
+  Resolves rhbz#2021676 (EL9)
+- cockpit - use existing cert - cockpit_cert, cockpit_private_key
+  Resolves rhbz#2021661 (EL8)
+  Resolves rhbz#2021028 (EL9)
+- storage - fix ansible 2.12 issues, service_facts issues; workaround lvm, udev issues in tests
+  Resolves rhbz#2012316 (EL8)
+  Resolves rhbz#2012298 (EL9)
+- ssh - tests_all_options.yml: "assertion": "'StdinNull yes' in config.content | b64decode ", failure
+  Resolves rhbz#2029614 (EL8)
+  Resolves rhbz#2029427 (EL9)
+- kdump - support reboot required and reboot ok
+  Resolves rhbz#2029605 (EL8)
+  Resolves rhbz#2029602 (EL9)
+- metrics - sync with latest ansible-pcp
+  Resolves rhbz#2012316 (EL8)
+  Resolves rhbz#2012298 (EL9)
+- sshd - should detect FIPS mode and handle tasks correctly in FIPS mode
+  Resolves rhbz#1979714 (EL8)
+  Resolves rhbz#2029634 (EL9)
+
+* Mon Nov 8 2021 Rich Megginson <rmeggins@redhat.com> - 1.10.0-1
+- add cockpit role
+  Resolves rhbz#2021661 (EL8)
+  Resolves rhbz#2021028 (EL9)
+- add firewall role
+  Resolves rhbz#1854988 (EL8)
+  Resolves rhbz#2021665 (EL9)
+- firewall - add ability to add-source
+  Resolves rhbz#1932678 (EL8)
+  Resolves rhbz#2021667 (EL9)
+- firewall - allow user defined zones
+  Resolves rhbz#1850768 (EL8)
+  Resolves rhbz#2021669 (EL9)
+- firewall - allow specifying the zone
+  Resolves rhbz#1850753 (EL8)
+  Resolves rhbz#2021670 (EL9)
+- updates for ansible 2.12 support
+  Resolves rhbz#2012316 (EL8)
+  Resolves rhbz#2012298 (EL9)
+- update community.general to 4.0.1
+  Resolves rhbz#2006081 (EL8)
+  Resolves rhbz#2006076 (EL9)
+- network - Allow to specify PCI address to configure profiles
+  Resolves rhbz#1695634 (EL8)
+  Resolves rhbz#1999162 (EL9)
+- network - support wifi Enhanced Open (OWE)
+  Resolves rhbz#1993379 (EL8)
+  Resolves rhbz#1993377 (EL9)
+- network - support WPA3 Simultaneous Authentication of Equals(SAE)
+  Resolves rhbz#1993311 (EL8)
+  Resolves rhbz#1993304 (EL9)
+- network - RFE: Support ignoring default gateway retrieved by DHCP/IPv6-RA
+  Resolves rhbz#1897565 (EL8)
+  Resolves rhbz#1978773 (EL9)
+- network - Update network system role to reflect that network teaming is deprecated in RHEL 9
+  Resolves rhbz#1897565 (EL8)
+  Resolves rhbz#1999770 (EL9)
+- selinux - fails linit rules role-name and unnamed-task
+  Resolves rhbz#1974000 (EL8)
+  Resolves rhbz#2021675 (EL9)
+- kernel_settings - ansible_managed | comment BZs:
+  Resolves rhbz#2006230 (EL9)
+  Resolves rhbz#2006231 (EL8)
+  Resolves rhbz#2006233 (EL7)
+- logging - logging role missing quotes for immark module interval value
+  Resolves rhbz#2021678 (EL8)
+  Resolves rhbz#2021676 (EL9)
+- logging - Add user and password
+  Resolves rhbz#2010327 (EL8)
+  Resolves rhbz#1990490 (EL9)
+- logging - Performance improvement
+  Resolves rhbz#2005727 (EL8)
+  Resolves rhbz#2004303 (EL9)
+- nbde_client - add regenerate-all to the dracut command
+  Resolves rhbz#2021682 (EL8)
+  Resolves rhbz#2021681 (EL9)
+- certificate - Fix certificate permissions with "group" option
+  Resolves rhbz#2021683 (EL8)
+  Resolves rhbz#2021025 (EL9)
+
+* Tue Oct 26 2021 Sergei Petrosian <spetrosi@redhat.com> - 1.9.0-3
+- Change the PFSL license to Python because this is how PFSL is reffered to in
+  rpminspect-data packages in Fedora, CentOS, and RHEL
+
+* Tue Oct 19 2021 Rich Megginson <rmeggins@redhat.com> - 1.9.0-2
+- customize galaxy.yml for Red Hat
+  Resolves rhbz#2011808 (EL8)
+  Resolves rhbz#2012342 (EL9)
+- use release_collection.py to assemble the collection - replaces lsr_role2collection.py
+  Resolves rhbz#2012298 (EL9)
+  Resolves rhbz#2012316 (EL8)
+
+* Wed Oct 6 2021 Sergei Petrosian <spetrosi@redhat.com> - 1.9.0-1
+- Support ansible-core and improve roles:
+  - selinux: Add support for Rocky Linux 8, fix ansible_distribution_major_version
+  - timesync: Support ansible-core, use ansible_managed | comment
+  - kdump: Support ansible-core, use ansible_managed | comment
+  - network: Support ansible-core; deprecate RHEL 9 in readme; validate that ipv6_disabled is conflicting with other settings; specify PCI address to configure profile - adds match and path settings)
+  - storage: Support ansible-core, add skip checks feature to speed up the tests
+  - logging: Support ansible-core, add the `uid` option for elasticsearch, improve performance, use ansible_manged | comment
+    Resolves rhbz#1990490
+  - ssh: Use ansible_manged | comment
+  - sshd: Use ansible_managed | comment
+  - ha_cluster: Support ansible-core, fix password_hash salt length
+  - vpn: Support ansible-core, use wait_for_connection instead of wait_for with ssh
+  - ansible_managed | comment BZs:
+    Resolves rhbz#2006230 (EL9)
+    Resolves rhbz#2006231 (EL8)
+    Resolves rhbz#2006233 (EL7)
+  - Support ansible-core BZs:
+    Resolves rhbz#2012298 (EL9)
+    Resolves rhbz#2012316 (EL8)
+
+* Wed Sep 22 2021 Rich Megginson <rmeggins@redhat.com> - 1.8.2-3
+- untar the collection tarballs and copy the files
+
+* Wed Sep 22 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.8.2-2
+- Add vendoring code for rhel / centos
+  - selinux: selinux, seboolean, seport, selogin, sefcontext
+  - storage: mount
+  - vpn: ipaddr
+  Resolves rhbz#2006076 (EL9)
+  Resolves rhbz#2006081 (EL8)
+
+* Thu Aug 26 2021 Rich Megginson <rmeggins@redhat.com> - 1.8.2-1
+- logging - Update the certificates copy tasks
+  Resolves rhbz#1996777 (EL9)
+  Resolves rhbz#1994580 (EL8)
+- storage - revert the dm-vdo workaround fix for vdo testing
+  Resolves rhbz#1978488 (EL9)
+  Resolves rhbz#1991141 (EL8)
+
+* Fri Aug 20 2021 Rich Megginson <rmeggins@redhat.com> - 1.8.1-2
+- selinux - tag tests_selinux_disabled.yml with tests::avc
+  Resolves rhbz#1996315 (EL9)
+  Resolves rhbz#1996317 (EL8)
+
+* Mon Aug 16 2021 Rich Megginson <rmeggins@redhat.com> - 1.8.1-1
+- metrics - the bpftrace role does not properly configure bpftrace agent
+  Resolves rhbz#1994180 (EL9)
+  Resolves rhbz#1993240 (EL8)
+
+* Thu Aug 12 2021 Rich Megginson <rmeggins@redhat.com> - 1.8.0-1
+- drop support for Ansible 2.8 - min_ansible_version is now 2.9
+  Resolves rhbz#1989197 (EL9)
+  Resolves rhbz#1989199 (EL8)
+- sshd - fix rhel6 support - failed to validate: error:Missing Match criteria for all Bad Match condition
+  Resolves rhbz#1991598 (EL9)
+  Resolves rhbz#1990947 (EL8)
+
+* Fri Aug 06 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.5-1
+- storage - tests_create_lvmvdo_then_remove fails - Module dm-vdo not found
+  Resolves rhbz#1991141 (EL8)
+  Resolves rhbz#1991062 (EL9)
+- storage - Get syntax errors in tests_lvm_errors.yml
+  Resolves rhbz#1990793 (EL8)
+  Resolves rhbz#1991142 (EL9)
+
+* Fri Aug 06 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.4-1
+- logging, certificate - Instead of the archive module, use "tar" command for backup.
+  Resolves rhbz#1984182 (EL9)
+  Resolves rhbz#1987096 (EL8)
+- logging - Add a support for list value to server_host in the elasticsearch output
+  Resolves rhbz#1986460 (EL9)
+  Resolves rhbz#1986463 (EL8)
+- logging - tests_relp.yml; Can't detect any of the required Python libraries cryptography (>= 1.2.3) or PyOpenSSL (>= 0.6)
+  Resolves rhbz#1989962 (EL9)
+  Resolves rhbz#1990142 (EL8)
+
+* Tue Aug 03 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.3-1
+- storage - tag tests that use NVME and SCSI
+  Resolves rhbz#1989211 (EL9)
+  Resolves rhbz#1989638 (EL8)
+
+* Tue Aug 03 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.2-1
+- sshd - support for rhel9 managed hosts
+  Resolves rhbz#1989221 (EL9)
+  Resolves rhbz#1989638 (EL8)
+
+* Thu Jul 29 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.1-1
+- network - tests_provider_nm.yml fails with an error: Failure in test 'I can manage a veth interface with NM after I managed it with initscripts.
+  Resolves rhbz#1935919
+- network - _initscripts tests fail because "No package network-scripts available."
+  Resolves rhbz#1935916
+- network - Test tests_bond_initscripts.yml failed to create interface
+  Resolves rhbz#1980870
+- storage - covscan error - DEADCODE - vdopool if create_vdo else parent
+  Resolves rhbz#1985571 (EL9)
+  Resolves rhbz#1985572 (EL8)
+- network - network: tests_bond_initscripts.yml leaves behind unusable resolv.conf in CI
+  Resolves rhbz#1915017
+
+* Wed Jul 28 2021 Rich Megginson <rmeggins@redhat.com> - 1.7.0-1
+- network - Skip tests on RHEL9 that use hostapd
+  Resolves rhbz#1945348
+- network - Fix the bond test on DHCP
+  Resolves rhbz#1918252
+- certificate, logging - Use 'tar' command instead of archive module
+  Resolves rhbz#1984182 (EL9)
+  Resolves rhbz#1987096 (EL8)
+- kernel_settings - Disable bootloader testing on EL9
+  Resolves rhbz#1944599
+- logging - Add a support for list value to server_host in the elasticsearch output
+  Resolves rhbz#1986460 (EL9)
+  Resolves rhbz#1986463 (EL8)
+- storage - Add support for percentage-based volume sizes
+  Resolves rhbz#1984583 (EL9)
+  Resolves rhbz#1894642 (EL8)
+- storage -storage_test_actual_size != storage_test_requested_size observed with tests_lvm_auto_size_cap.yml
+  Resolves rhbz#1986284 (EL8)
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-1
+- Error: device becoming unmanaged and pytest not reproducible in tests_integration_pytest.yml
+  Resolves rhbz#1985382 (EL9)
+  Resolves rhbz#1932699 (EL8)
+- EPEL yum repository configuration for tests
+  Rebasing to latest picks up this fix - see rhel7 bz1980439
+- connections: workaround DeprecationWarning for NM.SettingEthtool.set_feature()
+  Rebasing to latest picks up this fix
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jul 20 2021 Rich Megginson <rmeggins@redhat.com> - 1.6.1-1
+- metrics - Grafana dashboard not working after metrics role run unless services manually restarted
+  Resolves rhbz#1984150 (EL9)
+  Resolves rhbz#1978357 (EL8)
+
+* Thu Jul 15 2021 Rich Megginson <rmeggins@redhat.com> - 1.6.0-1
+- ha_cluster - add pacemaker cluster properties configuration
+  Resolves rhbz#1982913 (EL8)
+  Resolves rhbz#1982906 (EL9)
+
+* Thu Jul 15 2021 Rich Megginson <rmeggins@redhat.com> - 1.5.0-1
+- crypto_policies - rename 'policy modules' to 'subpolicies'
+  Resolves rhbz#1982896 (EL9)
+  Resolves rhbz#1982897 (EL8)
+
+* Thu Jul 15 2021 Rich Megginson <rmeggins@redhat.com> - 1.4.2-1
+- storage - relabel doesn't support - Fixed volume relabeling
+  Resolves rhbz#1876315 (EL8)
+  Resolves rhbz#1982841 (EL9)
+
+* Fri Jul  9 2021 Rich Megginson <rmeggins@redhat.com> - 1.4.1-1
+- network - Re-running the network system role results in "changed: true" when nothing has actually changed
+  Resolves rhbz#1943384
+- network - Test tests_bond_initscripts.yml failed to create interface
+  Resolves rhbz#1918210
+
+* Thu Jul  8 2021 Rich Megginson <rmeggins@redhat.com> - 1.4.0-1
+- storage - LVMVDO support
+  Resolves rhbz#1882475
+  Resolves rhbz#1978488
+
+* Wed Jun 23 2021 Rich Megginson <rmeggins@redhat.com> - 1.3.0-1
+- ha_cluster - add pacemaker resources configuration
+  Resolves rhbz#1963283
+- ha_cluster - code cleanup
+  Resolves rhbz#1970666
+- Postfix RHEL system role README.md missing variables under the "Role Variables" section
+  Resolves rhbz#1961858
+- logging README.html examples are rendered incorrectly
+  Resolves rhbz#1962374
+- make postfix role idempotent - round 2
+  Resolves rhbz#1960375
+- selinux task for semanage says Fedora in name but also runs on RHEL/CentOS 8
+  Resolves rhbz#1966681
+- metrics role task to enable logging for targeted hosts not working
+  Resolves rhbz#1967335
+- network - Add 'auto_gateway' option
+  Resolves rhbz#1897565
+- network - Only show stderr_lines by default
+  Resolves rhbz#1970666
+- storage - LVMVDO support
+  Resolves rhbz#1882475
+- storage - fix several linter issues
+  Resolves rhbz#1970666
+- ssh - Fix variable precedence when invoked through roles
+  Resolves rhbz#1966711
+- ssh - Update configuration options list for OpenSSH 8.6
+  Resolves rhbz#1970666
+- sshd - Fix variable precedence when invoked through roles
+  Resolves rhbz#1966711
+- sshd - Update configuration options list for OpenSSH 8.6
+  Resolves rhbz#1970666
+- sshd - support for appending a snippet to configuration file
+  Resolves rhbz#1970642
+- timesync - add NTS support
+  Resolves rhbz#1970664
+- timesync - rebase to latest
+  Resolves rhbz#1970666
+- nbde_client - rebase to latest
+  Resolves rhbz#1970666
+
+* Thu Jun 17 2021 Sergei Petrosian <spetrosi@redhat.com> - 1.2.3-3
+- Make the ansible_collection_files macro defined in Fedora automatically and
+  in RHEL manually consistent - having slash at the end to clean double-slashes
+
+* Wed Jun 16 2021 Sergei Petrosian <spetrosi@redhat.com> - 1.2.3-2
+- Remove slash (/) from the end of URLs to improve code readability
+
+* Wed Jun 16 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.2.3-1
+- Add EL 9 support for timesync and network
+  Resolves rhbz#1952887
+
+* Tue Jun 15 2021 Rich Megginson <rmeggins@redhat.com> - 1.2.2-3
+- Fix HTML rendering of internal links when using pandoc/asciidoc
+- Uses pandoc gfm instead of markdown_github
+  Resolves rhbz#1962976
+
+* Fri Jun 11 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.2.2-2
+- Make spec file available for older versions of OSes.
+- Drop python3-six dependency which was used by lsr_role2collection.py.
+- Drop html files from rpm if the version has no markdown parser.
+- Drop unnecessary python scripts which include python3 only code, e.g.,
+  f-strings.
+  Resolves rhbz#1970165
+
+* Wed Jun  9 2021 Rich Megginson <rmeggins@redhat.com> - 1.2.2-1
+- fix kdump tests_ssh for basic smoke test
+  Resolves rhbz#1957876
+
+* Fri May 21 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.2.1-1
+- fix logging README.html examples' rendering problems
+  Resolves rhbz#1962374
+- fix broken internal links in README.md files
+  Resolves rhbz#1962976
+
+* Fri May 21 2021 Sergei Petrosian <spetrosi@redhat.com> - 1.2.0-2
+- Add BuildRequires: rubygem-kramdown for Fedora and RHEL >= 9
+
+* Fri May 14 2021 Rich Megginson <rmeggins@redhat.com> - 1.2.0-1
+- rebase roles to latest upstream
+  Resolves rhbz#1957876
+- make postfix role idempotent
+  Resolves rhbz#1960375
+- use FQRN in postfix README
+  Resolves rhbz#1958963
+- use relayhost in postfix README
+  Resolves rhbz#1866544
+- use lazy unmount to fix umount: target is busy
+  Resolves rhbz#1945359
+- network - Add support for ETHTOOL Ring option
+  Resolves rhbz#1959649
+- storage: calltrace observed when set type: partition for storage_pools
+  Resolves rhbz#1854187
+- ha_cluster - cannot read preshared key in binary format
+  Resolves rhbz#1952620
+
+* Thu May 13 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.1.0-2
+- Dependencies in the collection packaging
+  Resolves rhbz#1954747
+
+* Wed Apr 14 2021 Rich Megginson <rmeggins@redhat.com> - 1.1.0-1
+- rebase timesync role to latest upstream
+  Resolves rhbz#1937938
+- timesync - add timesync_chrony_custom_settings variable for free-form
+  local configs
+  Resolves rhbz#1938023
+- do not use ignore_errors in timesync role
+  Resolves rhbz#1938014
+- support for timesync_max_distance to configure maxdistance/maxdist parameter
+  Resolves rhbz#1938016
+- support for ntp xleave, filter, and hw timestamping
+  Resolves rhbz#1938020
+- rebase selinux role to latest upstream
+  Resolves rhbz#1937938
+- should not reload the SELinux policy if its not changed
+  Resolves rhbz#1757869
+- Ability to install custom SELinux module via Ansible
+  Resolves rhbz#1848683
+- rebase storage role to latest upstream
+  Resolves rhbz#1937938
+- rebase network role to latest upstream
+  Resolves rhbz#1937938
+- support for ipv6_disabled to disable ipv6 for address
+  Resolves rhbz#1939711
+- rebase postfix role to latest upstream
+  Resolves rhbz#1937938
+- rebase metrics role to latest upstream
+  Resolves rhbz#1937938
+- rebase sshd role to latest upstream
+  Resolves rhbz#1937938
+- rebase remaining roles to latest upstream
+  Resolves rhbz#1937938
+- Generate %%files dynamically
+- add vpn role
+  Resolves rhbz#1943679
+
+* Tue Apr 13 2021 Noriko Hosoi <nhosoi@redhat.com> - 1.0.1-2
+- Adding the -collection-artifact subpackage, enabled using
+  "--with collection_artifact". It is used for importing to
+  ansible galaxy/automation hub.
+- README.html files (main README for the collection and README
+  for each role) are not located in /usr/share/ansible/collections,
+  but just put in /usr/share/doc/linux-system-roles/collection in rpm.
+- The README.html files are not included in the collection artifact.
+- Fixing "sshd role README.md examples use incorrect role name".
+
+* Tue Apr  6 2021 Pavel Cahyna <pcahyna@redhat.com> - 1.0.1-1
+- Sync with RHEL version 1.0.1-1.el8
+  Fix description field in galaxy.yml
+  Remove "Technology Preview" from Collection README
+  Merging individual ignore file and add it to the package
+  Add a note to each module Doc to indicate it is private
+  Add patches for network and storage role ansible-test fixes
+  Simplify doc tags in %%files, corrects a forgotten doc tag for ha_cluster
+  Suppress one ansible-lint warning in ha_cluster
+  Add patch for the inclusive language leftover on network-role README.md
+
+* Mon Feb 22 2021 Pavel Cahyna <pcahyna@redhat.com> - 1.0.0-16
+- Sync with RHEL version 1.0.0-31
+  Rebase certificate role to pick up a test fix
+  Rebase logging role to fix default private key path,
+  upstream PR #218
+  Update collection doc transformation to match a modified text
+  and include the Tech Preview note again (for RHEL)
+
+* Fri Feb 19 2021 Pavel Cahyna <pcahyna@redhat.com> - 1.0.0-15
+- Sync with RHEL version 1.0.0-29
+  Added roles: ssh, ha_cluster
+  Updated roles: certificate, kernel_settings, nbde_client,
+  logging, network
+  Improvements to collection build and metadata
+- Two further improvements from RHEL:
+  Corrected merge botch in files list - make ssh README a docfile
+  Dynamically update galaxy.yml with our metadata even on Fedora,
+  we can't rely on correct version number in auto-maintenance
+
+* Tue Feb  9 2021 Pavel Cahyna <pcahyna@redhat.com> - 1.0.0-14
+- Synchronize with RHEL, new roles added:
+  storage, metrics, tlog, kernel_settings, logging, nbde_server,
+  nbde_client, certificate, crypto_policies, sshd, and the
+  fedora.linux_system_roles collection.
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Wed Dec 05 2018 Till Maas <opensource@till.name> - 1.0-8
+- Install roles at /usr/share/linux-system-roles, use symlinks in
+  /usr/share/ansible/roles/ to allow using alternatives
+
+* Wed Nov 14 2018 Mike DePaulo <mikedep333@gmail.com> - 1.0-7
+- spec file improvement: Remove unnecessary %%doc for files under _pkgdocdor
+- Install license files under /usr/share/licenses instead of /usr/share/doc
+
+* Tue Nov 06 2018 Mike DePaulo <mikedep333@gmail.com> - 1.0-7
+- Fix rpm build for added example timesync example playbooks
+- Misc spec file comments fixes
+- Fix rpmlint error by escaping a previous changelog entry with a macro
+- Comply with Fedora guidelines by always using "cp -p" in %%install
+- Update %%description to be different for Fedora.
+
+* Wed Oct 24 2018 Pavel Cahyna <pcahyna@redhat.com> - 1.0-7
+- Update to latest versions of selinux, kdump and timesync.
+- Update to the latest revision of postfix, fixes README markup
+- Add Obsoletes for the -techpreview subpackage introduced mistakenly in 1.0-1
+- spec file improvement: Unify the source macros with deftag() and defcommit()
+
+* Tue Oct 23 2018 Till Maas <opensource@till.name> - 1.0-6
+- Update Network system role to latest commit to include Fedora 29 fixes
+- Update example timesync example playbooks
+- Add comments about upstream status
+
+* Tue Aug 14 2018 Pavel Cahyna <pcahyna@redhat.com> - 1.0-4
+- Format the READMEs as html, by vdolezal, with changes to use highlight
+  (source-highlight does not understand YAML)
+
+* Thu Aug  9 2018 Pavel Cahyna <pcahyna@redhat.com> - 1.0-3
+- Rebase the network role to the last revision (d866422).
+  Many improvements to tests, introduces autodetection of the current provider
+  and defaults to using profile name as interface name.
+- Rebase the selinux, timesync and kdump roles to their 1.0rc1 versions.
+  Many changes to the role interfaces to make them more consistent
+  and conforming to Ansible best practices.
+- Update the description.
+
+* Fri May 11 2018 Pavel Cahyna <pcahyna@redhat.com> - 0.6-4
+- Fix complaints about /usr/bin/python during RPM build by making the affected scripts non-exec
+- Fix merge botch
+
+* Mon Mar 19 2018 Troy Dawson <tdawson@redhat.com> - 0.6-3.1
+- Use -a (after cd) instead of -b (before cd) in %%setup
+
+* Wed Mar 14 2018 Pavel Cahyna <pcahyna@redhat.com> - 0.6-3
+- Minor corrections of the previous change by Till Maas.
+
+* Fri Mar  9 2018 Pavel Cahyna <pcahyna@redhat.com> - 0.6-2
+- Document network role options: static routes, ethernet, dns
+  Upstream PR#36, bz1550128, documents bz1487747 and bz1478576
+
+* Tue Jan 30 2018 Pavel Cahyna <pcahyna@redhat.com> - 0.6-1
+- Drop hard dependency on ansible (#1525655), patch from Yaakov Selkowitz
+- Update the network role to version 0.4, solves bz#1487747, bz#1478576
+
+* Tue Dec 19 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.5-3
+- kdump: fix the wrong conditional for ssh checking and improve test (PR#10)
+
+* Tue Nov 07 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.5-2
+- kdump: add ssh support. upstream PR#9, rhbz1478707
+
+* Tue Oct 03 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.5-1
+- SELinux: fix policy reload when SELinux is disabled on CentOS/RHEL 6
+  (bz#1493574)
+- network: update to b856c7481bf5274d419f71fb62029ea0044b3ec1 :
+  makes the network role idempotent (bz#1476053) and fixes manual
+  network provider selection (bz#1485074).
+
+* Mon Aug 28 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.4-1
+- network: update to b9b6f0a7969e400d8d6ba0ac97f69593aa1e8fa5:
+  ensure that state:absent followed by state:up works (bz#1478910), and change
+  the example IP adresses to the IANA-assigned ones.
+- SELinux: fix the case when SELinux is disabled (bz#1479546).
+
+* Tue Aug 8 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.3-2
+- We can't change directories to symlinks (rpm bug #447156) so keep the old
+  names and create the new names as symlinks.
+
+* Tue Aug 8 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.3-1
+- Change the prefix to linux-system-roles., keeping compatibility
+  symlinks.
+- Update the network role to dace7654feb7b5629ded0734c598e087c2713265:
+  adds InfiniBand support and other fixes.
+- Drop a patch included upstream.
+
+* Mon Jun 26 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.2-2
+- Leave a copy of README and COPYING in every role's directory, as suggested by T. Bowling.
+- Move the network example inventory to the documentation directory together.
+  with the example playbooks and delete the now empty "examples" directory.
+- Use proper reserved (by RFC 7042) MAC addresses in the network examples.
+
+* Tue Jun 6 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.2-1
+- Update the networking role to version 0.2 (#1459203)
+- Version every role and the package separately. They live in separate repos
+  and upstream release tags are not coordinated.
+
+* Mon May 22 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.1-2
+- Prefix the roles in examples and documentation with rhel-system-roles.
+
+* Thu May 18 2017 Pavel Cahyna <pcahyna@redhat.com> - 0.1-1
+- Update to 0.1 (first upstream release).
+- Remove the tuned role, it is not ready yet.
+- Move the example playbooks to /usr/share/doc/rhel-system-roles/$SUBSYSTEM
+  directly to get rid of an extra directory.
+- Depend on ansible.
+
+* Thu May 4 2017  Pavel Cahyna <pcahyna@redhat.com> - 0-0.1.20170504
+- Initial release.
+- kdump r. fe8bb81966b60fa8979f3816a12b0c7120d71140
+- postfix r. 43eec5668425d295dce3801216c19b1916df1f9b
+- selinux r. 1e4a21f929455e5e76dda0b12867abaa63795ae7
+- timesync r. 33a1a8c349de10d6281ed83d4c791e9177d7a141
+- tuned r. 2e8bb068b9815bc84287e9b6dc6177295ffdf38b
+- network r. 03ff040df78a14409a0d89eba1235b8f3e50a750
+

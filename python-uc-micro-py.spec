@@ -1,0 +1,47 @@
+Name:           python-uc-micro-py
+Version:        1.0.1
+Release:        1%{?dist}
+Summary:        Micro subset of Unicode data files for linkify-it.py projects
+
+License:        MIT
+URL:            https://github.com/tsutsu3/uc.micro-py
+Source0:        %{url}/archive/v%{version}/uc.micro-py-%{version}.tar.gz
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist wheel}
+
+%global _description %{expand:
+Micro subset of Unicode data files for linkify-it.py projects.  This is
+a Python port of uc.micro (https://github.com/markdown-it/uc.micro).}
+
+%description %_description
+
+%package     -n python3-uc-micro-py
+Summary:        Micro subset of Unicode data files for linkify-it.py projects
+
+%description -n python3-uc-micro-py %_description
+
+%prep
+%autosetup -n uc.micro-py-%{version}
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files uc_micro
+
+%check
+%pytest
+
+%files -n python3-uc-micro-py -f %{pyproject_files}
+%doc CHANGELOG.md README.md
+
+%changelog
+* Thu Aug 25 2022 Jerry James <loganjerry@gmail.com> - 1.0.1-1
+- Initial RPM

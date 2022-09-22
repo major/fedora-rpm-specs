@@ -1,0 +1,141 @@
+%global fontname levien-inconsolata
+%global fontconf 75-%{fontname}.conf
+
+Name:           %{fontname}-fonts
+Version:        3.000
+Release:        7%{?dist}
+Summary:        Inconsolata fonts
+
+License:        OFL
+URL:            http://www.levien.com/type/myfonts/inconsolata.html
+Source0:        https://github.com/googlefonts/Inconsolata/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:        %{name}-fontconfig.conf
+Source2:        %{fontname}.metainfo.xml
+
+BuildArch:      noarch
+BuildRequires:  fontpackages-devel
+BuildRequires:  fontforge
+BuildRequires:  git-core
+Requires:       fontpackages-filesystem
+
+%description
+A monospace font, designed for code listings and the like, in print.
+
+
+%prep
+%autosetup -n Inconsolata-%{version} -p1 -S git
+
+
+%install
+install -m 0755 -d %{buildroot}%{_fontdir}
+install -m 0644 -p fonts/ttf/*.ttf %{buildroot}%{_fontdir}
+
+install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
+                   %{buildroot}%{_fontconfig_confdir}
+
+install -m 0644 -p %{SOURCE1} \
+        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
+ln -s %{_fontconfig_templatedir}/%{fontconf} \
+      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
+
+# Add AppStream metadata
+install -Dm 0644 -p %{SOURCE2} \
+        %{buildroot}%{_datadir}/metainfo/%{fontname}.metainfo.xml
+
+        
+%_font_pkg -f %{fontconf} *.ttf
+%doc documentation/*.pdf
+%{_datadir}/metainfo/%{fontname}.metainfo.xml
+
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Thu Dec 12 2019 Kevin Fenzi <kevin@scrye.com> - 3.000-1
+- Update to 3.000
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.012-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Mon Apr 08 2019 Todd Zullinger <tmz@pobox.com> - 2.012-4
+- Revert ligatures added in 2.012 pre-release (#1679218)
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.012-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.012-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Tue Jun 05 2018 Robert-André Mauchin <zebob.m@gmail.com> - 2.012-1
+- Upstream release 2.012
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Fri Oct 17 2014 Parag Nemade <pnemade AT redhat DOT com> - 1.01-11
+- Add metainfo file to show this font in gnome-software
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.01-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
+* Sun Mar 15 2009 Nicolas Mailhot <nicolas.mailhot at laposte.net> - 1.01-3
+— Make sure F11 font packages have been built with F11 fontforge
+
+* Tue Feb 24 2009 Kevin Fenzi <kevin@tummy.com> - 1.01-2
+- Add fontconfig file
+- Don't bother to provide old name
+- use global instead of define
+
+* Wed Feb 18 2009 Kevin Fenzi <kevin@tummy.com> - 1.01-1
+- Re-named from old inconsolata-fonts package
+- Updated to new spec template/rules. 
+- Updated to new upstream release. 
+
+* Sat Feb 02 2008 Kevin Fenzi <kevin@tummy.com> - 1.009-1
+- Initial package for fedora

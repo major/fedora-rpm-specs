@@ -1,0 +1,83 @@
+%undefine _package_note_flags
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-octavius
+Version:        1.2.2
+Release:        11%{?dist}
+Summary:        Ocamldoc comment syntax parser
+
+License:        ISC
+URL:            https://ocaml-doc.github.io/octavius/
+Source0:        https://github.com/ocaml-doc/octavius/archive/v%{version}/octavius-%{version}.tar.gz
+
+BuildRequires:  ocaml >= 4.03.0
+BuildRequires:  ocaml-dune >= 1.11
+
+%description
+Octavius is an OCaml library to parse the ocamldoc comment syntax.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup -n octavius-%{version}
+
+%build
+%dune_build
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jun 25 2022 Jerry James <loganjerry@gmail.com> - 1.2.2-10
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-10
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-9
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Oct 05 2021 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-7
+- OCaml 4.13.1 build
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Mar  1 17:30:43 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-5
+- OCaml 4.12.0 build
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Sep 01 2020 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-3
+- OCaml 4.11.1 rebuild
+
+* Fri Aug 21 2020 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-2
+- OCaml 4.11.0 rebuild
+
+* Sat Jun 20 2020 Jerry James <loganjerry@gmail.com> - 1.2.2-1
+- Initial RPM

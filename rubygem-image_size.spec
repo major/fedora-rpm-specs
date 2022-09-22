@@ -1,0 +1,105 @@
+%global	gem_name	image_size
+
+Name:		rubygem-%{gem_name}
+Version:	3.1.0
+Release:	1%{?dist}
+
+Summary:	Measure image size using pure Ruby
+License:	Ruby or GPLv2
+URL:		https://github.com/toy/image_size
+
+Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+BuildRequires:	ruby(release)
+BuildRequires:	rubygems-devel
+BuildRequires:	ruby
+#%%check
+BuildRequires:	rubygem(rspec)
+BuildRequires:	rubygem(webrick)
+BuildArch:		noarch
+
+%description
+Measure following file dimensions: apng, bmp, cur, gif, ico, j2c, jp2, jpeg,
+jpx, mng, pam, pbm, pcx, pgm, png, ppm, psd, svg, swf, tiff, webp, xbm, xpm.
+
+
+%package	doc
+Summary:	Documentation for %{name}
+Requires:	%{name} = %{version}-%{release}
+
+%description	doc
+Documentation for %{name}.
+
+%prep
+%autosetup -n %{gem_name}-%{version} -p1
+mv ../%{gem_name}-%{version}.gemspec .
+
+%build
+gem build ./%{gem_name}-%{version}.gemspec
+%gem_install
+
+%install
+mkdir -p %{buildroot}%{gem_dir}
+cp -a .%{gem_dir}/* \
+	%{buildroot}%{gem_dir}/
+
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.github \
+	.gitignore \
+	.rubocop* \
+	Gemfile \
+	%{gem_name}.gemspec \
+	spec \
+	%{nil}
+
+popd
+
+%check
+pushd .%{gem_instdir}
+rspec spec
+popd
+
+%files
+%dir	%{gem_instdir}
+%license	%{gem_instdir}/GPL
+%license	%{gem_instdir}/LICENSE.txt
+%doc	%{gem_instdir}/README.markdown
+%{gem_libdir}
+%{gem_spec}
+
+%files doc
+%doc	%{gem_docdir}
+%doc	%{gem_instdir}/CHANGELOG.markdown
+
+%changelog
+* Sun Sep 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-1
+- 3.1.0
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jun  1 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-1
+- 3.0.2
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Oct 22 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.1-1
+- 3.0.1
+
+* Mon Oct 18 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-1
+- 3.0.0
+
+* Tue Aug 24 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.2-1
+- 2.1.2
+
+* Fri Aug 20 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.1-3
+- Fix pcx format reading on big endian system (e.g. s390x)
+
+* Wed Aug 18 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.1-2
+- Remove unneeded environment setting
+- Disable failing test on s390x
+
+* Thu Aug 12 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.1-1
+- Initial package

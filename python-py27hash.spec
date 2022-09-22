@@ -1,0 +1,74 @@
+# Run slow tests? In this case, “slow” is just a few minutes.
+%bcond_without slow_tests
+
+Name:           python-py27hash
+Version:        1.1.0
+Release:        %autorelease
+Summary:        Python 2.7 hashing and iteration in Python 3+
+
+License:        MIT
+URL:            https://github.com/neuml/py27hash
+# The GitHub tarball contains tests; the PyPI sdist does not.
+Source0:        %{url}/archive/v%{version}/py27hash-%{version}.tar.gz
+
+# Since the package previously had an arch-dependent failure, we build on all
+# platforms (the base package is not noarch) to flush out any similar issues.
+# However, we produce only a noarch binary package. Since there is no compiled
+# code, there is no debug package.
+%global debug_package %{nil}
+
+BuildRequires:  python3-devel
+
+%global common_description %{expand:
+This package helps ease the migration from Python 2 to 3 for applications that
+depend on the old hash/iteration order of sets/dicts. Even when setting
+PYTHONHASHSEED=0, the hash (and default iteration order) will still be
+different as the hashing algorithm changed in Python 3. This package allows
+Python 2.7 hashing and set/dict iteration.}
+
+%description %{common_description}
+
+
+%package -n python3-py27hash
+Summary:        %{summary}
+
+BuildArch:      noarch
+
+%description -n python3-py27hash %{common_description}
+
+
+%prep
+%autosetup -n py27hash-%{version} -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files py27hash
+
+
+%check
+# See scripts/tests.sh, which we have here slightly modified for our purposes:
+SRC_DIR='%{buildroot}%{python3_sitelib}'
+TEST_DIR="${PWD}/test/python"
+
+export PYTHONPATH="${SRC_DIR}:${TEST_DIR}"
+export PATH="${TEST_DIR}:${PATH}"
+export SKIPSLOW='%{?!with_slow_tests:skipslow}'
+%{python3} -m unittest discover -v -s "${TEST_DIR}"
+
+
+%files -n python3-py27hash -f %{pyproject_files}
+# pyproject-rpm-macros takes care of LICENSE; verify with “rpm -qL -p …”
+%doc README.md
+
+
+%changelog
+%autochangelog

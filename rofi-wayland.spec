@@ -1,0 +1,146 @@
+# Use themes from the main rofi package by default
+# Leave bcond for the case when things go wrong and we'll need rofi-wayland-themes
+%bcond_with themes
+
+Name:    rofi-wayland
+%global  base_ver 1.7.5
+Version: %{base_ver}+wayland1
+Release: 1%{?dist}
+Summary: Fork of rofi with Wayland support
+
+# lexer/theme-parser.[ch]:
+# These files are generated from lexer/theme-parser.y and licensed with GPLv3+
+# with Bison exception.
+# As the source file is licensed with MIT, according to the Bison exception,
+# the shipped files are considered to be MIT-licensed.
+# See also
+# https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/C4VVT54Z4WFGJPPD5X54ILKRF6X2IFLZ/
+#
+# protocols/wlr-layer-shell-unstable-v1.xml:
+# The file is licensed under HPND-sell-variant; it is processed to C-compilable
+# files by the `wayland-scanner` binary during build and doesn't alter the main
+# license of the binaries.
+License: MIT
+URL:     https://github.com/lbonn/rofi
+Source:  %{URL}/releases/download/%{version}/rofi-%{version}.tar.xz
+
+BuildRequires: gcc
+BuildRequires: bison
+BuildRequires: desktop-file-utils
+BuildRequires: flex
+BuildRequires: meson
+BuildRequires: pkgconfig
+BuildRequires: pkgconfig(cairo)
+BuildRequires: pkgconfig(cairo-xcb)
+BuildRequires: pkgconfig(check) >= 0.11.0
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gdk-pixbuf-2.0)
+BuildRequires: pkgconfig(libstartup-notification-1.0)
+BuildRequires: pkgconfig(pango)
+BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(wayland-client)
+BuildRequires: pkgconfig(wayland-protocols)
+BuildRequires: pkgconfig(wayland-scanner)
+BuildRequires: pkgconfig(xcb)
+BuildRequires: pkgconfig(xcb-aux)
+BuildRequires: pkgconfig(xcb-cursor)
+BuildRequires: pkgconfig(xcb-ewmh)
+BuildRequires: pkgconfig(xcb-icccm)
+BuildRequires: pkgconfig(xcb-randr)
+BuildRequires: pkgconfig(xcb-xinerama)
+BuildRequires: pkgconfig(xcb-xkb)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: pkgconfig(xkbcommon-x11)
+
+# https://github.com/sardemff7/libgwater
+Provides:      bundled(libgwater)
+# https://github.com/sardemff7/libnkutils
+Provides:      bundled(libnkutils)
+# Satisfy dependency on rofi
+Provides:      rofi = %{base_ver}
+# `rofi` package contains the same binaries
+Conflicts:     rofi
+
+%if %{with themes}
+Requires:      %{name}-themes = %{version}-%{release}
+%else
+# Allow slight mismatch of the theme package version
+Requires:      (rofi-themes >= %{base_ver} with rofi-themes < 1.8)
+# Upgrade path for copr users
+Obsoletes:     %{name}-themes < 1.7.5+wayland1-0.2
+%endif
+Requires:      hicolor-icon-theme
+
+
+%description
+Rofi is a dmenu replacement. Rofi, like dmenu, will provide the user with a
+textual list of options where one or more can be selected. This can either be,
+running an application, selecting a window or options provided by an external
+script.
+
+This is a fork of Rofi with added support for Wayland via the layer shell
+protocol, expected to work with wlroots-based compositors (Sway).
+
+%if %{with themes}
+%package        themes
+Summary:        Themes for %{name}
+BuildArch:      noarch
+# `rofi-themes` and `rofi-wayland-themes` built from the same release will
+# contain identical files, allowing parallel installation.
+# Forbid that explicitly.
+Conflicts:      rofi-themes
+
+%description    themes
+The %{name}-themes package contains themes for %{name}.
+%endif
+
+%prep
+%autosetup -p1 -n rofi-%{version}
+
+
+%build
+%meson
+%meson_build
+
+
+%install
+%meson_install
+# Drop -devel files: rofi-devel should be used to build the plugins.
+# The plugin api is quite stable and the headache from having two providers
+# of pkgconfig(rofi) is not worth it.
+rm -rf %{buildroot}%{_includedir}
+rm -rf %{buildroot}%{_libdir}/pkgconfig
+
+%if %{without themes}
+rm -rf %{buildroot}%{_datadir}/rofi
+%endif
+
+
+%check
+# disable failing test; rofi does not use libnkutils:format-string feature
+%meson_test --no-suite 'libnkutils:format-string'
+desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
+
+
+%files
+%doc README.md
+%license COPYING
+%{_bindir}/rofi
+%{_bindir}/rofi-sensible-terminal
+%{_bindir}/rofi-theme-selector
+%{_datadir}/applications/rofi.desktop
+%{_datadir}/applications/rofi-theme-selector.desktop
+%{_datadir}/icons/hicolor/scalable/apps/rofi.svg
+%{_mandir}/man1/rofi*
+%{_mandir}/man5/rofi*
+
+%if %{with themes}
+%files themes
+%license COPYING
+%{_datarootdir}/rofi
+%endif
+
+
+%changelog
+* Sat Aug 27 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7.5+wayland1-1
+- Initial import (#2121653)

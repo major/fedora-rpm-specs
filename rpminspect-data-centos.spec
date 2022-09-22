@@ -1,0 +1,73 @@
+Name:           rpminspect-data-centos
+Version:        1.1
+Release:        3%{?dist}
+Epoch:          1
+Summary:        Build deviation compliance tool data files for CentOS
+Group:          Development/Tools
+License:        CC-BY-SA
+URL:            https://gitlab.com/redhat/centos-stream/ci-cd/rpminspect-data-centos
+Source0:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz
+Source1:        https://dcantrell.fedorapeople.org/rpminspect-data-centos/%{name}-%{version}.tar.xz.asc
+Source2:        gpgkey-62977BB9C841B965.gpg
+
+BuildArch:      noarch
+
+BuildRequires:  meson
+BuildRequires:  ninja-build
+BuildRequires:  gnupg2
+
+Requires:       rpminspect >= 1.7
+
+# Used by inspections enabled in the configuration file
+Requires:       xhtml1-dtds
+Requires:       html401-dtds
+Requires:       dash
+Requires:       ksh
+Requires:       zsh
+Requires:       tcsh
+Requires:       rc
+Requires:       bash
+Requires:       annobin-annocheck >= 9.71
+Requires:       libabigail
+
+%description
+CentOS and CentOS Stream specific configuration file for rpminspect
+and data files used by the inspections provided by librpminspect.
+
+
+%prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
+
+
+%build
+%meson
+%meson_build
+
+
+%install
+%meson_install
+
+
+%files
+%license CC-BY-SA-4.0.txt
+%doc AUTHORS README
+%{_datadir}/rpminspect
+%{_bindir}/rpminspect-centos
+
+
+%changelog
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Nov 12 2021 David Cantrell <dcantrell@redhat.com> - 1.1-1
+- Upgrade to rpminspect-data-centos-1.1
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Thu Jun 24 2021 David Cantrell <dcantrell@redhat.com> - 1.0-1
+- Upgrade to rpminspect-data-centos-1.0

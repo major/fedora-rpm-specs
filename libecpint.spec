@@ -1,0 +1,102 @@
+Name:           libecpint
+Version:        1.0.7
+Release:        5%{?dist}
+Summary:        Efficient evaluation of integrals over ab initio effective core potentials
+License:        MIT
+Url:            https://github.com/robashaw/libecpint
+Source0:        https://github.com/robashaw/libecpint/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+BuildRequires:  gcc-c++
+BuildRequires:  cmake >= 3.12
+BuildRequires:  pugixml-devel
+BuildRequires:  gtest-devel
+BuildRequires:  libcerf-devel >= 1.17
+BuildRequires:  python3
+BuildRequires:  doxygen
+BuildRequires:  sphinx
+Requires:       %{name}-common = %{version}-%{release}
+
+%description
+Libecpint is a C++ library for the efficient evaluation of integrals over ab
+initio effective core potentials, using a mixture of generated, recursive
+code and Gauss-Chebyshev quadrature. It is designed to be standalone and
+generic.
+
+%package common
+Summary:        Architecture independent data files for libecpint
+BuildArch:      noarch
+
+%description common
+This package contains architecture independent data files for libecpint
+
+%package devel
+Summary:        Devel package for libecpint
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libcerf-devel >= 1.17
+
+%description devel
+This package contains development headers and libraries for libecpint.
+
+%prep
+%setup -q
+
+%build
+%cmake -DLIBECPINT_USE_CERF=ON
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+%ctest %{?testargs}
+
+%files
+%doc README.md CITATION
+%{_libdir}/lib*.so.*
+
+%files common
+%{_datadir}/%{name}
+%license LICENSE
+
+%files devel
+%{_includedir}/libecpint/
+%{_includedir}/libecpint.hpp
+%{_libdir}/cmake/ecpint
+%{_libdir}/lib*.so
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Apr 10 2022 Christoph Junghans <junghans@votca.org> - 1.0.7-4
+- Rebuild for libcerf-2.1
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Dec 13 2021 Christoph Junghans <junghans@votca.org> - 1.0.7-2
+- fix devel deps
+
+* Mon Dec 06 2021 Christoph Junghans <junghans@votca.org> - 1.0.7-1
+- Version bump to v1.0.7 (bug #2029226)
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sat Apr 17 2021 Christoph Junghans <junghans@votca.org> - 1.0.6-1
+- Version bump to v1.0.6 (bug #1950217)
+
+* Fri Feb 05 2021 Christoph Junghans <junghans@votca.org> - 1.0.5-1
+- Version bump to v1.0.5 (bug #1925367)
+
+* Wed Jan 27 2021 Christoph Junghans <junghans@votca.org> - 1.0.4-3
+- Add patch to fix memory leak
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jan 12 11:21:34 MST 2021 Christoph Junghans <junghans@lanl.gov> - 1.0.4-1
+- Version bump to v1.0.4 (bug #19154510)
+
+* Tue Oct 06 2020 Christoph Junghans <junghans@votca.org> - 1.0.2-1
+- Initial add for packaging

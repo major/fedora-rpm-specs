@@ -1,0 +1,161 @@
+# remirepo/fedora spec file for php-brick-math
+#
+# Copyright (c) 2020-2021 Remi Collet
+# License: CC-BY-SA
+# http://creativecommons.org/licenses/by-sa/4.0/
+#
+# Please, preserve the changelog entries
+#
+
+%bcond_without tests
+
+# Github
+%global gh_commit    459f2781e1a08d52ee56b0b1444086e038561e3f
+%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
+%global gh_owner     brick
+%global gh_project   math
+# Packagist
+%global pk_vendor    %{gh_owner}
+%global pk_name      %{gh_project}
+# Namespace
+%global ns_vendor    Brick
+%global ns_project   Math
+
+Name:           php-%{pk_vendor}-%{pk_name}
+Version:        0.10.2
+Release:        1%{?dist}
+Summary:        Arbitrary-precision arithmetic library
+
+License:        MIT
+URL:            https://github.com/%{gh_owner}/%{gh_project}
+Source0:        %{name}-%{version}-%{gh_short}.tgz
+# Create git snapshot as tests are excluded from official tarball
+Source1:        makesrc.sh
+
+BuildArch:      noarch
+
+BuildRequires:  php(language) >= 7.4
+BuildRequires:  php-json
+BuildRequires:  php-pcre
+BuildRequires:  php-spl
+BuildRequires:  php-bcmath
+BuildRequires:  php-gmp
+# From composer.json, "require-dev": {
+#        "phpunit/phpunit": "^9.0",
+#        "php-coveralls/php-coveralls": "^2.2",
+#        "vimeo/psalm": "^4.25.0"
+%if %{with tests}
+BuildRequires:  phpunit9
+%global phpunit %{_bindir}/phpunit9
+%endif
+# Autoloader
+BuildRequires:  php-fedora-autoloader-devel
+
+# From composer.json, "require": {
+#        "php": "^7.4 || ^8.0",
+#        "ext-json": "*"
+Requires:       php(language) >= 7.1
+Requires:       php-json
+# From phpcompatifo report for 0.9.1
+Requires:       php-pcre
+Requires:       php-spl
+# See Brick\Math\Internal\Calculator::detect()
+Requires:      (php-gmp or php-bcmath)
+
+# Autoloader
+Requires:       php-composer(fedora/autoloader)
+
+Provides:       php-composer(%{pk_vendor}/%{pk_name}) = %{version}
+
+
+%description
+A PHP library to work with arbitrary precision numbers.
+
+Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
+
+
+%prep
+%setup -q -n %{gh_project}-%{gh_commit}
+
+
+%build
+: Create classmap autoloader
+phpab \
+  --template fedora \
+  --output src/autoload.php \
+  src
+
+
+%install
+mkdir -p   %{buildroot}%{_datadir}/php/%{ns_vendor}
+cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
+
+
+%check
+%if %{with tests}
+: Generate a simple autoloader
+mkdir vendor
+cat << 'EOF' | tee vendor/autoload.php
+<?php
+// Installed library
+require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php';
+\Fedora\Autoloader\Autoload::addPsr4('Brick\\Math\\Tests\\', dirname(__DIR__) . '/tests');
+EOF
+
+: Run upstream test suite
+ret=0
+# don't test Native with is terribly slow, as bcmath/gmp are set as mandatory
+for calc in GMP BCMath; do
+  export CALCULATOR=$calc
+  for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+    if which $cmdarg; then
+      set $cmdarg
+      $1 ${2:-%{_bindir}/phpunit9} \
+        --no-coverage --verbose || ret=1
+    fi
+  done
+done
+exit $ret
+%else
+: Test suite disabled
+%endif
+
+%files
+%license LICENSE
+%doc *.md
+%doc composer.json
+%{_datadir}/php/%{ns_vendor}
+
+
+%changelog
+* Thu Aug 11 2022 Remi Collet <remi@remirepo.net> - 0.10.2-1
+- update to 0.10.2
+
+* Wed Aug  3 2022 Remi Collet <remi@remirepo.net> - 0.10.1-1
+- update to 0.10.1
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 20 2022 Remi Collet <remi@remirepo.net> - 0.10.0-1
+- update to 0.10.0
+- raise dependency on PHP 7.4
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Sep  2 2021 Remi Collet <remi@remirepo.net> - 0.9.3-1
+- update to 0.9.3
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Jan 21 2021 Remi Collet <remi@remirepo.net> - 0.9.2-1
+- update to 0.9.2
+- switch to phpunit9
+
+* Thu Oct  1 2020 Remi Collet <remi@remirepo.net> - 0.9.1-1
+- initial package

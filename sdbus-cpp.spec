@@ -1,0 +1,139 @@
+%undefine __cmake_in_source_build
+
+%global version_major 1
+%global version_minor 2
+%global version_micro 0
+
+Name:           sdbus-cpp
+Version:        %{version_major}.%{version_minor}.%{version_micro}
+Release:        1%{?dist}
+Summary:        High-level C++ D-Bus library
+
+License:        LGPLv2
+URL:            https://github.com/Kistler-Group/sdbus-cpp
+Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+BuildRequires:  cmake >= 3.12
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(libsystemd) >= 236
+
+%description
+High-level C++ D-Bus library for Linux designed to provide easy-to-use
+yet powerful API in modern C++
+
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Development files for %{name}.
+
+%package devel-doc
+Summary:        Developer documentation for %{name}
+BuildArch:      noarch
+BuildRequires:  doxygen
+
+%description devel-doc
+Developer documentation for %{name}
+
+%package tools
+Summary:        Stub code generator for sdbus-c++
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+BuildRequires:  pkgconfig(expat)
+Obsoletes:      %{name}-xml2cpp < %{version}-%{release}
+
+%description tools
+The stub code generator for generating the adapter and proxy interfaces
+out of the D-Bus IDL XML description.
+
+
+%prep
+%autosetup -p1 -n %{name}-%{version}
+
+
+%build
+%cmake . \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_CODE_GEN=ON \
+    -DBUILD_DOXYGEN_DOC=ON
+%cmake_build
+%cmake_build --target doc
+
+%install
+%cmake_install
+
+%files
+%license %{_docdir}/sdbus-c++/COPYING
+%dir %{_docdir}/sdbus-c++
+%doc %{_docdir}/sdbus-c++/AUTHORS
+%doc %{_docdir}/sdbus-c++/ChangeLog
+%doc %{_docdir}/sdbus-c++/NEWS
+%doc %{_docdir}/sdbus-c++/README
+%{_libdir}/libsdbus-c++.so.%{version_major}
+%{_libdir}/libsdbus-c++.so.%{version}
+%dir %{_libdir}/cmake/sdbus-c++
+%{_libdir}/cmake/sdbus-c++/*.cmake
+
+%files devel
+%{_libdir}/pkgconfig/sdbus-c++.pc
+%{_libdir}/pkgconfig/sdbus-c++-tools.pc
+%{_libdir}/libsdbus-c++.so
+%{_includedir}/*
+
+%files devel-doc
+%dir %{_docdir}/sdbus-c++
+%doc %{_docdir}/sdbus-c++/*
+
+%files tools
+%{_bindir}/sdbus-c++-xml2cpp
+%dir %{_libdir}/cmake/sdbus-c++-tools
+%{_libdir}/cmake/sdbus-c++-tools/*.cmake
+
+
+%changelog
+* Wed Aug 10 2022 Marek Blaha <mblaha@redhat.com> - 1.2.0-1
+- Update to release 1.2.0
+
+* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Jan 04 2022 Marek Blaha <mblaha@redhat.com> - 1.1.0-1
+- Update to release 1.1.0
+
+* Tue Oct 26 2021 Marek Blaha <mblaha@redhat.com> - 1.0.0-1
+- Update to release 1.0.0
+- Change source tarball name to <name>-<version>.tar.gz
+
+* Tue Oct 19 2021 Marek Blaha <mblaha@redhat.com> - 0.9.0-1
+- Update to release 0.9.0
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Dec 17 2020 Marek Blaha <mblaha@redhat.com> - 0.8.3-1
+- Update to release 0.8.3
+
+* Tue Oct 06 2020 Marek Blaha <mblaha@redhat.com> - 0.8.1-5
+- Switch from make_build to cmake_build
+
+* Tue Sep 22 2020 Jeff Law <law@redhat.com> - 0.8.1-4
+- Use cmake_in_source_build to fix FTBFS due to recent cmake macro changes
+
+* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Fri Feb 7 2020 Marek Blaha <mblaha@redhat.com> - 0.8.1-1
+- Update to release 0.8.1
+
+* Fri Jan 24 2020 Marek Blaha <mblaha@redhat.com> - 0.7.8-1
+- Initial release 0.7.8

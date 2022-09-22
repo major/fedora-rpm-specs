@@ -1,0 +1,75 @@
+%global srcname sphinx-markdown-tables
+
+Name:           python-%{srcname}
+Version:        0.0.17
+Release:        1%{?dist}
+Summary:        Sphinx extension for rendering markdown tables
+License:        GPLv3
+
+URL:            https://github.com/ryanfox/%{srcname}
+Source0:        %{pypi_source %srcname}
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+
+%description
+A Sphinx extension for rendering tables written in markdown.
+
+
+%package -n python3-%{srcname}
+Summary:        Sphinx extension for rendering markdown tables
+
+%description -n python3-%{srcname}
+A Sphinx extension for rendering tables written in markdown.
+
+
+%prep
+%autosetup -p1 -n %{srcname}-%{version}
+# Fix exec perms on LICENSE
+chmod -x LICENSE
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files sphinx_markdown_tables
+
+# Drop incorrectly installed LICENSE
+rm -f %{buildroot}%{_prefix}/LICENSE
+
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE
+%doc README.md
+
+
+%changelog
+* Sun Aug 14 2022 Sandro Mani <manisandro@gmail.com> - 0.0.17-1
+- Update to 0.0.17
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.0.15-4
+- Rebuilt for Python 3.11
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Nov 16 2021 Sandro Mani <manisandro@gmail.com> - 0.0.15-2
+- Use pyproject_check_import
+
+* Sun Nov 14 2021 Sandro Mani <manisandro@gmail.com> - 0.0.15-1
+- Initial package

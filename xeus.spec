@@ -1,0 +1,73 @@
+Name:           xeus
+Version:        2.0.0
+Release:        %autorelease
+Summary:        C++ implementation of the Jupyter kernel protocol
+
+License:        BSD
+URL:            https://github.com/jupyter-xeus/xeus
+Source0:        https://github.com/jupyter-xeus/xeus/archive/%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  cmake >= 3.8
+BuildRequires:  cmake(cppzmq) >= 4.3.0
+BuildRequires:  cmake(nlohmann_json) >= 3.2.0
+BuildRequires:  cmake(xtl) >= 0.7
+BuildRequires:  doxygen
+BuildRequires:  gcc-c++
+BuildRequires:  gtest-devel
+BuildRequires:  libuuid-devel
+BuildRequires:  make
+BuildRequires:  openssl-devel >= 1.0.1
+BuildRequires:  pkgconfig(libzmq) >= 4.2.5
+BuildRequires:  python3dist(breathe)
+BuildRequires:  python3dist(jupyter-kernel-test)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+
+%description
+xeus is a library meant to facilitate the implementation of kernels for
+Jupyter. It takes the burden of implementing the Jupyter Kernel protocol so
+developers can focus on implementing the interpreter part of the kernel.
+
+
+%package devel
+Summary:        %{summary}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+Development files for %{name} library.
+
+
+%prep
+%autosetup -p1
+
+
+%build
+%cmake -DXEUS_BUILD_STATIC_LIBS=OFF -DXEUS_DISABLE_ARCH_NATIVE=ON -DXEUS_BUILD_TESTS=ON
+%cmake_build
+
+make -C docs SPHINXBUILD=sphinx-build-3 html
+rm docs/build/html/.buildinfo
+
+
+%install
+%cmake_install
+
+
+%check
+%ctest
+
+
+%files
+%doc README.md docs/build/html
+%license LICENSE
+%{_libdir}/libxeus.so.5*
+
+%files devel
+%{_includedir}/xeus/
+%{_libdir}/cmake/xeus/
+%{_libdir}/libxeus.so
+
+
+%changelog
+%autochangelog

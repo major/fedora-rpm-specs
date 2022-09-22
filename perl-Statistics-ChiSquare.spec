@@ -1,0 +1,78 @@
+Name:		perl-Statistics-ChiSquare
+Version:	1.0000
+Release:	6%{?dist}
+Summary:	How well-distributed is your data?
+License:	(GPLv2 or Artistic) and CC-BY-SA
+URL:		https://metacpan.org/release/Statistics-ChiSquare
+Source0:	https://cpan.metacpan.org/modules/by-module/Statistics/Statistics-ChiSquare-%{version}.tar.gz
+BuildArch:	noarch
+# Build
+BuildRequires:	coreutils
+BuildRequires:	findutils
+BuildRequires:	make
+BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(ExtUtils::MakeMaker)
+# Module
+BuildRequires:	perl(Exporter)
+BuildRequires:	perl(strict)
+BuildRequires:	perl(vars)
+# Test Suite
+BuildRequires:	perl(Test::More) >= 0.88
+BuildRequires:	perl(warnings)
+# Optional Tests
+BuildRequires:	perl(Test::Pod) >= 1.00
+BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
+# Runtime
+Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+
+%description
+Suppose you flip a coin 100 times, and it turns up heads 70 times. Is the coin
+fair? Suppose you roll a die 100 times, and it shows 30 sixes. Is the die
+loaded?
+
+In statistics, the chi-square test calculates how well a series of numbers fits
+a distribution. In this module, we only test for whether results fit an even
+distribution. It doesn't simply say "yes" or "no". Instead, it gives you a
+confidence interval, which sets upper and lower bounds on the likelihood that
+the variation in your data is due to chance.
+
+%prep
+%setup -q -n Statistics-ChiSquare-%{version}
+
+%build
+perl Makefile.PL INSTALLDIRS=vendor
+make %{?_smp_mflags}
+
+%install
+make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
+
+%check
+make test
+
+%files
+%license ARTISTIC.txt GPL2.txt
+%doc CHANGELOG README
+%{perl_vendorlib}/Statistics/
+%{_mandir}/man3/Statistics::ChiSquare.3*
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0000-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue May 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.0000-5
+- Perl 5.36 rebuild
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0000-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 11 2021 Paul Howarth <paul@city-fan.org> - 1.0000-2
+- Fix license tag to account for CC-BY-SA data table (#1967876)
+
+* Fri Jun  4 2021 Paul Howarth <paul@city-fan.org> - 1.0000-1
+- Initial RPM version

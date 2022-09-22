@@ -1,0 +1,92 @@
+%global soversion 1
+
+Name:           mopac
+Version:        22.0.4
+Release:        1%{?dist}
+Summary:        A semiempirical quantum chemistry program
+License:        LGPLv3+
+URL:            http://openmopac.net
+Source0:        https://github.com/openmopac/mopac/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  flexiblas-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-numpy
+BuildRequires:  gcc-gfortran
+BuildRequires:  cmake
+BuildRequires:  make
+
+# Turn off rpath
+Patch1:         mopac-22.0.1-rpath.patch
+
+# For license file
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description
+The modern open-source version of the Molecular Orbital PACkage
+(MOPAC), a semiempirical quantum chemistry program based on Dewar and
+Thiel's NDDO approximation.
+
+%package libs
+Summary:        MOPAC runtime libraries
+
+%description libs
+This package contains MOPAC's runtime libraries.
+
+%package devel
+Summary:        MOPAC development library
+Requires:       %{name}-libs%{_isa} = %{version}-%{release}
+
+%description devel
+This package contains MOPAC's development library.
+
+%prep
+%setup -q
+%patch1 -p1 -b .rpath
+
+%build
+%cmake -DENABLE_MKL=OFF -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
+%cmake_build
+
+%install
+%cmake_install
+
+%check
+# Turn off use of OpenMP parallel BLAS since CTest runs in parallel
+export OMP_NUM_THREADS=1
+%ctest
+
+%files
+%{_bindir}/mopac
+%{_bindir}/mopac-makpol
+%{_bindir}/mopac-param
+
+%files libs
+%license COPYING COPYING.lesser
+%doc README.md AUTHORS.rst
+%{_libdir}/libmopac.so.%{soversion}*
+
+%files devel
+%{_libdir}/libmopac.so
+
+%changelog
+* Thu Jul 28 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.4-1
+- Update to 22.0.4.
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jun 25 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.3-1
+- Update to 22.0.3.
+
+* Tue Jun 21 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.2-1
+- Update to 22.0.2.
+
+* Thu Jun 09 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.1-2
+- Fix build in mock.
+
+* Tue May 17 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.1-1
+- Update to 22.0.1.
+
+* Mon May 02 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.0-1
+- First release.
+

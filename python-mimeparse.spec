@@ -1,0 +1,169 @@
+%global srcname python-mimeparse
+%global common_description %{expand:
+This module provides basic functions for parsing mime-type names
+and matching them against a list of media-ranges.}
+
+
+Name:           python-mimeparse
+Version:        1.6.0
+Release:        22%{?dist}
+Summary:        Python module for parsing mime-type names
+License:        MIT
+URL:            https://github.com/dbtsai/python-mimeparse
+Source0:        %pypi_source
+BuildArch:      noarch
+
+
+%description %{common_description}
+
+
+%package -n python3-mimeparse
+Summary:        %{summary}
+BuildRequires:  python3-devel
+
+
+%description -n python3-mimeparse %{common_description}
+
+
+%prep
+%autosetup -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files mimeparse
+
+
+%check
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} mimeparse_test.py --verbose
+
+
+%files -n python3-mimeparse -f %{pyproject_files}
+%doc README.rst
+
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.6.0-21
+- Rebuilt for Python 3.11
+
+* Fri Apr 08 2022 Carl George <carl@george.computer> - 1.6.0-20
+- Convert to pyproject macros
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Wed Jun 02 2021 Python Maint <python-maint@redhat.com> - 1.6.0-17
+- Rebuilt for Python 3.10
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Fri May 22 2020 Miro Hrončok <mhroncok@redhat.com> - 1.6.0-14
+- Rebuilt for Python 3.9
+
+* Fri Apr 10 2020 Carl George <carl@george.computer> - 1.6.0-13
+- Run tests with files from buildroot instead of builddir
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Sat Oct 05 2019 Carl George <carl@george.computer> - 1.6.0-11
+- Disable python2 subpackage on F32+ and EL8+ rhbz#1757447
+
+* Wed Aug 14 2019 Miro Hrončok <mhroncok@redhat.com> - 1.6.0-10
+- Rebuilt for Python 3.8
+
+* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Thu Jun 14 2018 Miro Hrončok <mhroncok@redhat.com> - 1.6.0-6
+- Rebuilt for Python 3.7
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Sep 07 2017 Carl George <carl@george.computer> - 1.6.0-4
+- Enable python34 subpackage for EPEL
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Thu May 04 2017 Carl George <carl.george@rackspace.com> - 1.6.0-2
+- Spec file clean up
+
+* Tue Feb 28 2017 Carl George <carl.george@rackspace.com> - 1.6.0-1
+- New upstream https://github.com/dbtsai/python-mimeparse
+- Modernize spec file per Python Packaging Guidelines
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Fri Dec 09 2016 Charalampos Stratakis <cstratak@redhat.com> - 0.1.4-10
+- Rebuild for Python 3.6
+
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.4-9
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
+
+* Wed Sep 02 2015 Jan Kaluza <jkaluza@redhat.com> - 0.1.4-6
+- provide python2-mimeparse (#1241680)
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Wed May 14 2014 Bohuslav Kabrda <bkabrda@redhat.com> - 0.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Python_3.4
+
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Sat May 18 2013 Pádraig Brady <P@draigBrady.com> - 0.1.4-1
+- Update to release 0.1.4
+
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
+* Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
+* Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+* Tue Nov 22 2011 Jan Kaluza <jkaluza@redhat.com> - 0.1.3-2
+- python3 support disabled
+- removed useless spec file directives
+- run upstream test
+
+* Wed Nov 02 2011 Jan Kaluza <jkaluza@redhat.com> - 0.1.3-1
+- Initial version

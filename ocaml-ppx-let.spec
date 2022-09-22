@@ -1,0 +1,102 @@
+%undefine _package_note_flags
+
+%ifnarch %{ocaml_native_compiler}
+%global debug_package %{nil}
+%endif
+
+Name:           ocaml-ppx-let
+Version:        0.15.0
+Release:        7%{?dist}
+Summary:        Monadic let-bindings for OCaml
+
+License:        MIT
+URL:            https://github.com/janestreet/ppx_let
+Source0:        %{url}/archive/v%{version}/ppx_let-%{version}.tar.gz
+
+BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml-base-devel >= 0.15
+BuildRequires:  ocaml-dune >= 2.0.0
+BuildRequires:  ocaml-ppx-here-devel >= 0.15
+BuildRequires:  ocaml-ppxlib-devel >= 0.23.0
+
+%description
+Ppx_let is a ppx rewriter for monadic and applicative let bindings,
+match expressions, and if expressions.
+
+The aim of this rewriter is to make monadic and applicative code look
+nicer by writing custom binders the same way that we normally bind
+variables.  In OCaml, the common way to bind the result of a computation
+to a variable is:
+
+  let VAR = EXPR in BODY
+
+ppx_let simply adds two new binders: let%%bind and let%%map.  These are
+rewritten into calls to the bind and map functions respectively.  These
+functions are expected to have
+
+  val map  : 'a t -> f:('a -> 'b)   -> 'b t
+  val bind : 'a t -> f:('a -> 'b t) -> 'b t
+
+for some type t, as one might expect.
+
+These functions are to be provided by the user, and are generally
+expected to be part of the signatures of monads and applicatives
+modules.  This is the case for all monads and applicatives defined by
+the Jane Street's Core suite of libraries.
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ocaml-base-devel%{?_isa}
+Requires:       ocaml-ppx-here-devel%{?_isa}
+Requires:       ocaml-ppxlib-devel%{?_isa}
+
+%description    devel
+The %{name}-devel package contains libraries and signature
+files for developing applications that use %{name}.
+
+%prep
+%autosetup -n ppx_let-%{version}
+
+%build
+%dune_build
+
+%install
+%dune_install
+
+%check
+%dune_check
+
+%files -f .ofiles
+%doc CHANGES.md README.md
+%license LICENSE.md
+
+%files devel -f .ofiles-devel
+
+%changelog
+* Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-7
+- Rebuild for ocaml-ppxlib 0.27.0
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-5
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-5
+- OCaml 4.14.0 rebuild
+
+* Mon Feb 28 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-4
+- Version 0.15.0 rerelease
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-3
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Feb  3 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-2
+- Conditionally build docs to avoid circular dependency on odoc
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Dec 31 2021 Jerry James <loganjerry@gmail.com> - 0.15.0-1
+- Initial RPM

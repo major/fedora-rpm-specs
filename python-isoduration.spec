@@ -1,0 +1,54 @@
+%global pypi_name isoduration
+
+Name:           python-%{pypi_name}
+Version:        20.11.0
+Release:        2%{?dist}
+Summary:        Operations with ISO 8601 durations
+
+License:        ISC
+URL:            https://github.com/bolsote/isoduration
+Source0:        %{url}/releases/download/%{version}/%{pypi_name}-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+%description
+ISO 8601 is most commonly known as a way to exchange datetimes in textual
+format. A lesser known aspect of the standard is the representation of
+durations. They have a shape similar to this: P3Y6M4DT12H30M5S
+
+%package -n     python3-%{pypi_name}
+Summary:        %{summary}
+
+%description -n python3-%{pypi_name}
+ISO 8601 is most commonly known as a way to exchange datetimes in textual
+format. A lesser known aspect of the standard is the representation of
+durations. They have a shape similar to this: P3Y6M4DT12H30M5S
+
+%prep
+%autosetup -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
+
+%check
+# upstream does not bundle any tests in released tarball
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%license LICENSE
+%doc README.md
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Tue Jun 28 2022 Parag Nemade <pnemade@fedoraproject.org> - 20.11.0-1
+- Initial package.

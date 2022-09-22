@@ -1,0 +1,119 @@
+Name: liboauth2
+Version: 1.4.4
+Release: 2%{?dist}
+Summary: Generic library to build OAuth 2.x and OpenID Connect servers and clients in C
+License: AGPLv3
+URL: https://github.com/zmartzone/liboauth2
+Source0: https://github.com/zmartzone/liboauth2/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires: automake
+BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: httpd-devel
+BuildRequires: libtool
+BuildRequires: make
+BuildRequires: check
+BuildRequires: pkgconfig(check)
+BuildRequires: pkgconfig(cjose)
+BuildRequires: pkgconfig(jansson)
+BuildRequires: pkgconfig(libcurl)
+BuildRequires: pkgconfig(openssl)
+BuildRequires: gdb-minimal
+
+%description
+liboauth2 library provides primitives to create OAuth 2.x and OpenID Connect
+servers and clients
+
+%package devel
+Summary: Library to build OAuth 2.x and OpenID Connect servers and clients in C
+License: AGPLv3
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+liboauth2 library provides primitives to create OAuth 2.x and OpenID Connect
+servers and clients.
+
+%package apache
+Summary: OAuth 2.x and OpenID Connect library integration to Apache
+License: AGPLv3
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description apache
+OAuth 2.x and OpenID Connect library integration to Apache web server
+
+%package apache-devel
+Summary: Development components to build Apache module with liboauth2 library
+License: AGPLv3
+Requires: %{name}-apache%{?_isa} = %{version}-%{release}
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description apache-devel
+Development components to build Apache module with liboauth2 library
+
+%prep
+%autosetup -p1 -n liboauth2-%{version}
+
+%build
+autoreconf -ivf
+%configure --with-apache --without-redis --without-memcache
+%make_build
+
+%check
+%make_build check
+
+%install
+%make_install
+# Don't install static libraries and .la files
+rm -vf %{buildroot}%{_libdir}/*.la %{buildroot}%{_libdir}/*.a
+find %{buildroot}%{_includedir}/oauth2 -name '*.h' | grep -v apache | sed 's@%{buildroot}@@g' > file.headers
+
+%files devel -f file.headers
+%dir %{_includedir}/oauth2
+%{_libdir}/pkgconfig/liboauth2.pc
+%{_libdir}/liboauth2.so
+
+%files
+%{_libdir}/liboauth2.so.0
+%{_libdir}/liboauth2.so.0.0.0
+%license LICENSE
+%doc README.md
+
+%files apache
+%{_libdir}/liboauth2_apache.so.0
+%{_libdir}/liboauth2_apache.so.0.0.0
+
+%files apache-devel
+%{_includedir}/oauth2/apache.h
+%{_libdir}/pkgconfig/liboauth2_apache.pc
+%{_libdir}/liboauth2_apache.so
+
+
+%changelog
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Jan 28 2022 Alexander Bokovoy <abokovoy@redhat.com> - 1.4.4-1
+- New upstream release 1.4.4
+- allow build against OpenSSL 3.0.0
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 1.4.2-4
+- Rebuilt with OpenSSL 3.0.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Wed May 26 2021 Alexander Bokovoy <abokovoy@redhat.com> 1.4.2-2
+- Re-enable tests on ARMv7
+
+* Tue May 25 2021 Alexander Bokovoy <abokovoy@redhat.com> 1.4.2-1
+- New upstream release 1.4.2
+- Fix unaligned memory access on ARMv7
+
+* Mon Apr 19 2021 Alexander Bokovoy <abokovoy@redhat.com> 1.4.1-2
+- Fedora packaging review updates
+
+* Sat Apr 17 2021 Alexander Bokovoy <abokovoy@redhat.com> 1.4.1-1
+- Initial package

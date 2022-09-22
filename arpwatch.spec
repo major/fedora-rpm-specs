@@ -1,0 +1,242 @@
+Name:           arpwatch
+Epoch:          14
+Version:        3.3
+Release:        %autorelease
+Summary:        Network monitoring tools for tracking IP addresses on a network
+
+# SPDX matching with BSD-3-Clause confirmed at
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/49
+#
+# Any files under different licenses are part of the build system and do not
+# contribute to the license of the binary RPM:
+#   - config.guess and config.sub are GPL-3.0-or-later
+#   - configure is FSFULL
+#   - install-sh is X11
+#   - mkdep is ??? (NTP-like)
+License:        BSD-3-Clause
+URL:            https://ee.lbl.gov/
+
+Requires(pre):  shadow-utils
+
+Requires:       /usr/sbin/sendmail
+Requires:       python3
+
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  /usr/sbin/sendmail
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  python3-devel
+BuildRequires:  libpcap-devel
+
+# Note that https://ee.lbl.gov/ may not link to the latest version; the
+# directory listing at https://ee.lbl.gov/downloads/arpwatch/ shows all
+# available versions.
+Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
+# This file comes from https://standards-oui.ieee.org/oui/oui.csv; it is used
+# to generate ethercodes.dat. Because it is unversioned (and frequently
+# updated), we store the file directly in the repository with the spec file;
+# see the update-oui-csv script.
+#
+# File oui.csv last fetched 2022-08-03T18:59:17+00:00.
+Source1:        oui.csv
+Source2:        arpwatch.service
+Source3:        arpwatch.sysconfig
+Source4:        arp2ethers.8
+Source5:        massagevendor.8
+
+# Latest version of patches 1–9 sent upstream by email 2021-04-24.
+
+# Fix section numbers in man page cross-references. With minor changes, this
+# patch dates all the way back to arpwatch-2.1a4-man.patch, from RHBZ #15442.
+Patch1:         arpwatch-3.1-man-references.patch
+# Add, and document, a -u argument to change to a specified unprivileged user
+# after establishing sockets. This combines and improves multiple previous
+# patches; see patch header and changelog for notes.
+Patch2:         arpwatch-3.2-change-user.patch
+# Fix nonstandard sort flags in arp2ethers script.
+Patch3:         arpwatch-3.1-arp2ethers-sort-invocation.patch
+# Fix stray rm (of an undefined variable) in example arpfetch script.
+Patch4:         arpwatch-3.1-arpfetch-stray-rm.patch
+# Do not add /usr/local/bin or /usr/local/sbin to the PATH in any scripts
+Patch5:         arpwatch-3.2-no-usr-local-path.patch
+# Do not attempt to search for local libpcap libraries lying around in the
+# parent of the build directory, or anywhere else random. This is not expected
+# to succeed anyway, but it is better to be sure.
+Patch6:         arpwatch-3.1-configure-no-local-pcap.patch
+# RHBZ #244606: Correctly handle -n 0/32 to allow the user to disable reporting
+# bogons from 0.0.0.0.
+Patch7:         arpwatch-3.1-all-zero-bogon.patch
+# When arpwatch is terminated cleanly by a signal (INT/TERM/HUP) handler, the
+# exit code should be zero for success instead of nonzero for failure.
+Patch8:         arpwatch-3.1-exitcode.patch
+# When -i is not given, do not just try the first device found, but keep
+# checking devices until a usable one is found, if any is available.
+# Additionally, handle the case where a device provides both supported and
+# unsupported datalink types.
+Patch9:         arpwatch-3.1-devlookup.patch
+
+%global pkgstatedir %{_sharedstatedir}/arpwatch
+%global service_user arpwatch
+%global service_group arpwatch
+# Soft static UID and GID; see
+# https://fedoraproject.org/wiki/Packaging:UsersAndGroups#Soft_static_allocation
+# for information, and the uidgid file in the setup package
+# (https://pagure.io/setup/blob/master/f/uidgid) for the list of allocations,
+# including the one for arpwatch.
+%global service_uid 77
+%global service_gid 77
+
+%description
+The arpwatch package contains arpwatch and arpsnmp. Arpwatch and arpsnmp are
+both network monitoring tools. Both utilities monitor Ethernet or FDDI network
+traffic and build databases of Ethernet/IP address pairs, and can report
+certain changes via email.
+
+Install the arpwatch package if you need networking monitoring devices which
+will automatically keep track of the IP addresses on your network.
+
+
+%prep
+%autosetup -p1
+
+# Substitute absolute paths to awk scripts in shell scripts
+sed -r -i 's|(-f *)([^[:blank:]+]\.awk)|\1%{_datadir}/arpwatch/\2|' arp2ethers
+
+# Fix default directory in man pages to match ARPDIR in build section. This was
+# formerly done by arpwatch-dir-man.patch. For thoroughness, do the same
+# replacement in update-ethercodes.sh.in and bihourly.sh, even though they are
+# not installed.
+sed -r -i 's|/usr/local/arpwatch|%{pkgstatedir}|g' *.8.in *.sh.in *.sh
+
+# Fix Python interpreter path (but note that this script is not installed)
+sed -r -i 's|/usr/local/bin/python|%{python3}|g' update-ethercodes.sh.in
+
+# Emailed upstream requesting a separate LICENSE/COPYING file 2022-07-30.
+# For now, we extract it from the main source file’s “header” comment.
+awk '/^ \* / { print substr($0, 4); } /^ \*\// { exit }' arpwatch.c |
+  tee LICENSE
+
+
+%build
+%configure --with-sendmail=/usr/sbin/sendmail PYTHON=%{python3}
+%make_build ARPDIR=%{pkgstatedir}
+
+
+%install
+# The upstream Makefile does not create the directories it requires, so we must
+# do it manually. Additionally, it attempts to comment out the installation of
+# the init script on non-FreeBSD platforms, but this does not quite work as
+# intended. We just let it install the file, then remove it afterwards.
+install -d %{buildroot}%{_mandir}/man8 \
+    %{buildroot}%{_sbindir} \
+    %{buildroot}%{_datadir}/arpwatch \
+    %{buildroot}%{pkgstatedir} \
+    %{buildroot}%{_unitdir} \
+    %{buildroot}%{_prefix}/etc/rc.d
+
+%make_install
+
+install -p -t %{buildroot}%{_datadir}/arpwatch -m 0644 *.awk
+install -p -t %{buildroot}%{_sbindir} arp2ethers
+install -p massagevendor.py %{buildroot}%{_sbindir}/massagevendor
+
+install -p -t %{buildroot}%{pkgstatedir} -m 0644 *.dat
+touch %{buildroot}%{pkgstatedir}/arp.dat- \
+    %{buildroot}%{pkgstatedir}/arp.dat.new
+
+install -p -t %{buildroot}%{_unitdir} -m 0644 %{SOURCE2}
+%{python3} massagevendor.py < %{SOURCE1} \
+    > %{buildroot}%{pkgstatedir}/ethercodes.dat
+touch -r %{SOURCE1} ethercodes.dat
+
+# Add an environment/sysconfig file:
+install -d %{buildroot}%{_sysconfdir}/sysconfig
+install -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/arpwatch
+
+# Add extra man pages not provided upstream:
+install -p -t %{buildroot}%{_mandir}/man8 -m 0644 %{SOURCE4} %{SOURCE5}
+
+# Remove legacy init scripts:
+rm -rvf %{buildroot}%{_prefix}/etc/rc.d
+
+
+%check
+# Verify the sed script in the prep section did not miss fixing the ARPDIR
+# anywhere
+if grep -FrnI '/usr/local/arpwatch' .
+then
+  echo 'Missed fixing ARPDIR in at least one file' 1>&2
+  exit 1
+fi
+
+# Verify we did not miss any PATH alterations in
+# arpwatch-no-usr-local-path.patch.
+if grep -ErnI --exclude=mkdep --exclude='config.*' '^[^#].*/usr/local/s?bin' .
+then
+  echo 'Probably missed an uncommented PATH alteration with /usr/local' 1>&2
+  exit 1
+fi
+
+
+%post
+%systemd_post arpwatch.service
+
+
+%pre
+getent group %{service_group} >/dev/null ||
+  groupadd -f -g %{service_gid} -r %{service_group}
+if ! getent passwd %{service_user} >/dev/null
+then
+  if ! getent passwd %{service_uid} >/dev/null
+  then
+    useradd -r -u %{service_uid} -g %{service_group} \
+        -d %{pkgstatedir} -s /sbin/nologin \
+        -c "Service user for arpwatch" %{service_user}
+  else
+    useradd -r -g %{service_group} \
+        -d %{pkgstatedir} -s /sbin/nologin \
+        -c "Service user for arpwatch" %{service_user}
+  fi
+fi
+exit 0
+
+
+%postun
+%systemd_postun_with_restart arpwatch.service
+
+
+%preun
+%systemd_preun arpwatch.service
+
+
+%files
+%license LICENSE
+%doc README
+%doc CHANGES
+%doc arpfetch
+
+# make install uses mode 0555, which is unconventional
+%attr(0755,-,-) %{_sbindir}/arpwatch
+%attr(0755,-,-) %{_sbindir}/arpsnmp
+# manually-installed scripts
+%{_sbindir}/arp2ethers
+%{_sbindir}/massagevendor
+
+%dir %{_datadir}/arpwatch
+%{_datadir}/arpwatch/*.awk
+
+# make install uses mode 0444, which is unconventional
+%attr(0644,-,-) %{_mandir}/man8/*.8*
+
+%{_unitdir}/arpwatch.service
+%config(noreplace) %{_sysconfdir}/sysconfig/arpwatch
+
+%attr(1775,-,%{service_group}) %dir %{pkgstatedir}
+%attr(0644,%{service_user},%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat
+%attr(0644,%{service_user},%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/arp.dat-
+%attr(0600,%{service_user},%{service_group}) %verify(not md5 size mtime) %ghost %{pkgstatedir}/arp.dat.new
+%attr(0644,-,%{service_group}) %verify(not md5 size mtime) %config(noreplace) %{pkgstatedir}/ethercodes.dat
+
+
+%changelog
+%autochangelog

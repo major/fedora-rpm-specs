@@ -1,0 +1,180 @@
+%global collection_namespace community
+%global collection_name docker
+%global forgeurl https://github.com/ansible-collections/%{collection_namespace}.%{collection_name}
+# This package does not include any ELF binaries, and we don't want this file
+# in the built collection artifact.
+%undefine _package_note_file
+
+# ansible-core in RHEL 8.6 is built against python38. In c8s and the next RHEL
+# 8 minor release, it will be built against python39. The testing dependencies
+# are not yet packaged for either python version in EPEL 8.
+#
+# ansible-test in RHEL 9.0 still needs python3-mock, but this
+# requirement has been removed in c9s.
+# The conditional should be replaced with the line below once RHEL 9.1 is
+# released.
+# %%if (%%{defined fedora} || 0%%{?rhel} >= 9)
+#
+%if %{defined fedora}
+%bcond_without tests
+%else
+%bcond_with tests
+%endif
+
+
+Name:           ansible-collection-%{collection_namespace}-%{collection_name}
+Version:        3.1.0
+%global tag %{version}
+%forgemeta
+Release:        1%{?dist}
+Summary:        Ansible modules and plugins for working with Docker
+
+# All files are GPL-3.0-or-later, except the following files, which are originally
+# from the Docker Python SDK.
+# rg --pcre2 -g '!tests/sanity/extra/licenses.py' 'SPDX-License-Identifier: (?!GPL-3\.0-or-later)' | sort | sed 's|^|# |'
+#
+# plugins/module_utils/_api/api/client.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/api/daemon.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/auth.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/constants.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/credentials/constants.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/credentials/errors.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/credentials/store.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/credentials/utils.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/errors.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/_import_helper.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/tls.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/basehttpadapter.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/npipeconn.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/npipesocket.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/sshconn.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/ssladapter.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/transport/unixconn.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/types/daemon.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/build.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/config.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/decorators.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/fnmatch.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/json_stream.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/ports.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/proxy.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/socket.py:# SPDX-License-Identifier: Apache-2.0
+# plugins/module_utils/_api/utils/utils.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/api/test_client.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/fake_api.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/fake_stat.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/test_auth.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/test_errors.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/transport/test_sshconn.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/transport/test_ssladapter.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_build.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_config.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/testdata/certs/ca.pem:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/testdata/certs/cert.pem:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/testdata/certs/key.pem:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_decorators.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_json_stream.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_ports.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_proxy.py:# SPDX-License-Identifier: Apache-2.0
+# tests/unit/plugins/module_utils/_api/utils/test_utils.py:# SPDX-License-Identifier: Apache-2.0
+License:        GPL-3.0-or-later AND Apache-2.0
+URL:            %{ansible_collection_url}
+Source0:        %{forgesource}
+Patch0:         build_ignore-unnecessary-files.patch
+
+BuildArch:      noarch
+
+# Needed for %%py3_shebang_fix.
+Buildrequires:  python3-devel
+
+BuildRequires:  ansible-packaging
+%if %{with tests}
+BuildRequires:  ansible-packaging-tests
+BuildRequires:  %{py3_dist requests}
+%endif
+
+# This collection contains vendored code from the Docker Python SDK.
+Provides:       bundled(python3dist(docker))
+
+
+%description
+%{name} provides the %{collection_namespace}.%{collection_name}
+Ansible collection. The collection includes Ansible modules and plugins for
+working with Docker.
+
+
+%prep
+%forgeautosetup -p1
+find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
+
+
+%build
+%ansible_collection_build
+
+
+%install
+%ansible_collection_install
+
+
+%check
+%if %{with tests}
+%ansible_test_unit
+%endif
+
+
+%files
+%license COPYING LICENSES
+%doc README.md CHANGELOG.rst
+%{ansible_collection_files}
+
+
+%changelog
+* Thu Sep 08 2022 Maxwell G <gotmax@e.email> - 3.1.0-1
+- Update to 3.1.0. Fixes rhbz#2125151.
+
+* Tue Aug 16 2022 Maxwell G <gotmax@e.email> - 3.0.2-1
+- Update to 3.0.2.
+
+* Tue Aug 16 2022 Maxwell G <gotmax@e.email> - 3.0.1-1
+- Update to 3.0.1.
+
+* Fri Aug 12 2022 Maxwell G <gotmax@e.email> - 3.0.0-1
+- Update to 3.0.0 (rhbz#2105298).
+- Follow Fedora's new licensing guidelines
+
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sat Jul 02 2022 Maxwell G <gotmax@e.email> - 2.7.0-1
+- Update to 2.7.0. Fixes rhbz#2103337.
+- Fix shebangs
+
+* Wed May 25 2022 Maxwell G <gotmax@e.email> - 2.6.0-1
+- Update to 2.6.0. Fixes rhbz#2089991.
+
+* Mon May 16 2022 Maxwell G <gotmax@e.email> - 2.5.1-1
+- Update to 2.5.1. Fixes rhbz#2086832.
+- Change license from `GPLv3+` > `GPLv3+ and Python`
+
+* Sat May 14 2022 Maxwell G <gotmax@e.email> - 2.5.0-1
+- Update to 2.5.0. Fixes rhbz#2086185.
+- Run unit tests.
+- Rebuild for new ansible-packaging.
+
+* Mon Apr 25 2022 Maxwell G <gotmax@e.email> - 2.4.0-1
+- Update to 2.4.0.
+
+* Wed Apr 06 2022 Maxwell G <gotmax@e.email> - 2.3.0-1
+- Preform initial import (rhbz#2028702).
+
+* Fri Apr 01 2022 Maxwell G <gotmax@e.email> - 2.3.0-0
+- Update to 2.3.0.
+
+* Mon Feb 21 2022 Maxwell G <gotmax@e.email> - 2.2.0-1
+- Update to 2.2.0. Fix shebangs. Switch to ansible-packaging.
+
+* Thu Dec 16 2021 Maxwell G <gotmax@e.email> - 2.0.2-1
+- Update to 2.0.2.
+
+* Thu Dec 02 2021 Maxwell G <gotmax@e.email> - 2.0.1-1
+- Initial package

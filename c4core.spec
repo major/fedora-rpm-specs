@@ -1,0 +1,177 @@
+#global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#global snapdate YYYYMMDD
+
+Name:           c4core
+Summary:        C++ core utilities
+Version:        0.1.10%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+# This is the same as the version number. To prevent undetected soversion
+# bumps, we nevertheless express it separately.
+%global so_version 0.1.10
+Release:        %autorelease
+
+URL:            https://github.com/biojppm/c4core
+# The entire source is MIT, except:
+#
+# Boost:
+#   - src/c4/ext/sg14/inplace_function.h
+License:        MIT AND BSL-1.0
+
+%{?!commit:%global tag v%{version}}
+%{?!commit:%global extractdir c4core-%{version}}
+%{?commit:%global tag %{commit}}
+%{?commit:%global extractdir c4core-%{commit}}
+Source0:        %{url}/archive/%{tag}/%{extractdir}.tar.gz
+
+BuildRequires:  gcc-c++
+BuildRequires:  cmake
+BuildRequires:  c4project
+# Our choice; the default make backend should work just as well
+BuildRequires:  ninja-build
+
+# For each header-only library, the guidelines require us to BR the -static
+# package for tracking.
+BuildRequires:  debugbreak-devel
+BuildRequires:  debugbreak-static
+BuildRequires:  fast_float-devel >= 3.0.0
+BuildRequires:  fast_float-static
+BuildRequires:  doctest-devel
+BuildRequires:  doctest-static
+
+%global common_description %{expand:
+c4core is a library of low-level C++ utilities, written with low-latency
+projects in mind.
+
+Some of the utilities provided by c4core have already equivalent functionality
+in the C++ standard, but they are provided as the existing C++ equivalent may
+be insufficient (eg, std::string_view), inefficient (eg, std::string), heavy
+(eg streams), or plainly unusable on some platforms/projects, (eg exceptions);
+some other utilities have equivalent under consideration for C++
+standardization; and yet some other utilities have (to my knowledge) no
+equivalent under consideration.}
+
+%description %{common_description}
+
+
+%package devel
+Summary:        %{summary}
+
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+# Each of these header-only libraries is made available under c4/ext/… in the
+# API of this package. Dependent packages that use them should really have
+# BuildRequires on the corresponding -static packages for header-only package
+# tracking.
+Requires:       debugbreak-devel
+Requires:       fast_float-devel
+
+# The bundled copy was forked from the original header-only library published
+# as a gist at
+# https://gist.github.com/Leandros/6dc334c22db135b033b57e9ee0311553 (see also
+# the blog post at https://arvid.io/2018/07/02/better-cxx-prng/). The original
+# was never versioned, but only one revision was ever published, so we can
+# infer the commit hash (6dc334c22db135b033b57e9ee0311553) from which the
+# bundled copy was forked and assign a snapshot version.
+Provides:       bundled(ag-random) = 0^20180702git6dc334c
+# One header is bundled from https://github.com/WG21-SG14/SG14/ (commit
+# 3aeb80676ff3e7a974678bd3fd826ffe55a0c4ab), which has never been versioned and
+# is not currently suitable to be packaged in its entirety—if nothing else, due
+# to unresolved licensing in some of its other source files that are not
+# bundled here, https://github.com/WG21-SG14/SG14/issues/163.
+Provides:       bundled(SG14) = 0^20190524git3a3b806
+
+%description devel %{common_description}
+
+
+%prep
+%autosetup -n %{extractdir}
+
+# Remove/unbundle additional dependencies
+
+# c4project (CMake build scripts)
+rm -rvf cmake
+ln -s '%{_datadir}/cmake/c4project' cmake
+
+# Do not try to link against a nonexistent doctest library (doctest is
+# header-only, and we do not have the complete CMake project for doctest that
+# would provide a target that knows this):
+sed -r -i \
+    -e 's/(LIBS.*)\bdoctest\b/\1/' \
+    -e 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
+    test/CMakeLists.txt
+
+# debugbreak
+rm -rvf src/c4/ext/debugbreak
+mkdir src/c4/ext/debugbreak
+ln -sv %{_includedir}/debugbreak.h src/c4/ext/debugbreak/
+
+# fast_float
+#
+# The build system expects to produce an amalgamated header, fast_float_all.h,
+# from the bundled fast_float. We therefore use a symbolic link to preserve the
+# original bundled header path. The amalgamated header will be produced from
+# the *system* fast_float headers. Once the amalgamated header is produced, we
+# again replace it with a symbolic link to the main system fast_float header,
+# thereby fully unbundling fast_float.
+rm -rvf src/c4/ext/fast_float
+mkdir -p src/c4/ext/fast_float/include
+ln -sv %{_includedir}/fast_float src/c4/ext/fast_float/include/
+
+
+%build
+# We can stop the CMake scripts from downloading doctest by setting
+# C4CORE_CACHE_DOWNLOAD_DOCTEST to any directory that exists.
+%cmake -GNinja \
+  -DC4CORE_CACHE_DOWNLOAD_DOCTEST:PATH=/ \
+  -DC4CORE_BUILD_TESTS=ON
+%cmake_build
+
+
+%install
+%cmake_install
+# Fix wrong installation paths for multilib; it would be nontrivial to patch
+# the source to get this right in the first place.
+if [ '%{_libdir}' != '%{_prefix}/lib' ]
+then
+  mkdir -p '%{buildroot}%{_libdir}'
+  mv -v %{buildroot}%{_prefix}/lib/libc4core.so* '%{buildroot}%{_libdir}/'
+  mkdir -p '%{buildroot}%{_libdir}/cmake'
+  mv -v %{buildroot}%{_prefix}/lib/cmake/c4core '%{buildroot}%{_libdir}/cmake/'
+fi
+
+# Some unbundled header-only libraries that appear in the API may have had
+# their symlinks dereferenced during installation. Make sure they aren’t
+# “re-bundled” as a result.
+
+# debugbreak
+ln -svf '%{_includedir}/debugbreak.h' \
+    '%{buildroot}%{_includedir}/c4/ext/debugbreak/'
+
+# fast_float
+# Replace amalgamated single-file header produced by build system with one that
+# trivially includes the main system fast_float header.
+# link to main system fast_float header.
+cat > '%{buildroot}%{_includedir}/c4/ext/fast_float_all.h' <<EOF
+#include <fast_float/fast_float.h>
+EOF
+
+
+%check
+%cmake_build --target c4core-test-run-verbose
+
+
+%files
+%license LICENSE.txt LICENSE-BOOST.txt
+%doc README.md
+%doc ROADMAP.md
+%doc changelog/
+%{_libdir}/libc4core.so.%{so_version}
+
+
+%files devel
+%{_includedir}/c4
+%{_libdir}/libc4core.so
+%{_libdir}/cmake/c4core
+
+
+%changelog
+%autochangelog

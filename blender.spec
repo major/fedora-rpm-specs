@@ -1,0 +1,330 @@
+%global blender_api 3.3
+%global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
+
+#/usr/bin/ld.gold: error: /builddir/build/BUILD/blender-3.0.0/.package_note-blender-3.0.0-3.fc36.x86_64.ld:42:8: syntax error, unexpected STRING
+#/usr/bin/ld.gold: fatal error: unable to parse script file /builddir/build/BUILD/blender-3.0.0/.package_note-blender-3.0.0-3.fc36.x86_64.ld
+#collect2: error: ld returned 1 exit status
+%undefine _package_note_flags
+
+%bcond_with     clang
+%bcond_without  ffmpeg
+# Needed to enable osl support for cycles rendering
+%bcond_without  llvm
+%bcond_without  openshading
+%bcond_with     sdl
+%bcond_without  system_eigen3
+%bcond_without  wayland
+
+%ifarch x86_64 || aarch64 || ppc64le
+%global cyclesflag ON
+# Only available on x86_64 and aarch64
+%ifarch x86_64 || aarch64
+%bcond_without  embree
+%bcond_without  hidapi
+%ifarch x86_64
+%bcond_without  oidn
+%endif
+%bcond_without  usd
+%else
+%bcond_with     embree
+%bcond_with     hidapi
+%bcond_with     oidn
+%bcond_with     usd
+%endif
+%else
+%global cyclesflag OFF
+%endif
+
+Name:           blender
+Epoch:          1
+Version:        3.3.0
+Release:        %autorelease -b 2
+
+
+Summary:        3D modeling, animation, rendering and post-production
+License:        GPLv2
+URL:            https://www.blender.org
+
+Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
+Source1:        macros.%{name}
+
+# Include missing pyconfig header for 3.10
+Patch:          %{name}-usd-pythonlibs-fix.diff
+
+# Development stuff
+BuildRequires:  boost-devel
+%if %{with clang}
+BuildRequires:  clang
+%endif
+%if %{with llvm}
+BuildRequires:  llvm-devel
+%endif
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  git-core
+BuildRequires:  libharu-devel
+BuildRequires:  libtool
+
+BuildRequires:  pkgconfig(blosc)
+%if %{with system_eigen3}
+BuildRequires:  pkgconfig(eigen3)
+%endif
+BuildRequires:  pkgconfig(expat)
+BuildRequires:  pkgconfig(gmp)
+%if %{with hidapi}
+BuildRequires:  pkgconfig(hidapi-hidraw)
+%endif
+BuildRequires:  pkgconfig(jemalloc)
+BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(pugixml)
+BuildRequires:  pkgconfig(python3) >= 3.7
+%if %{with wayland}
+BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
+BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(xkbcommon)
+%endif
+BuildRequires:  pkgconfig(xxf86vm)
+BuildRequires:  python3dist(idna)
+BuildRequires:  python3dist(numpy)
+BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  subversion-devel
+
+# Compression stuff
+BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(lzo2)
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(libzstd)
+
+# 3D modeling stuff
+BuildRequires:  cmake(ceres)
+%if %{with embree}
+BuildRequires:  cmake(embree)
+%endif
+BuildRequires:  opensubdiv-devel
+%if %{with openshading}
+# Use oslc compiler
+BuildRequires:  openshadinglanguage-common-headers
+BuildRequires:  pkgconfig(oslcomp)
+%endif
+%if %{with oidn}
+BuildRequires:  cmake(OpenImageDenoise)
+%endif
+BuildRequires:  openCOLLADA-devel >= svn825
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(ftgl)
+BuildRequires:  pkgconfig(glew)
+BuildRequires:  pkgconfig(glut)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(glu)
+BuildRequires:  openxr-libs
+BuildRequires:  pkgconfig(openxr)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xrender)
+BuildRequires:  pkgconfig(ode)
+BuildRequires:  pkgconfig(sdl2)
+%if %{with usd}
+BuildRequires:  usd-devel
+%endif
+BuildRequires:  pkgconfig(xproto)
+
+# Picture/Video stuff
+BuildRequires:  cmake(Alembic)
+%if %{with ffmpeg}
+BuildRequires:  ffmpeg-free-devel
+BuildRequires:  libavdevice-free-devel
+BuildRequires:	libavformat-free-devel
+%endif
+BuildRequires:  lame-devel
+BuildRequires:  libspnav-devel
+BuildRequires:  openvdb-devel
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(theora)
+BuildRequires:  pkgconfig(libtiff-4)
+BuildRequires:  pkgconfig(vpx)
+BuildRequires:  pkgconfig(libwebp)
+# OpenColorIO 2 and up required
+BuildRequires:  pkgconfig(OpenColorIO) > 1
+BuildRequires:  cmake(Imath)
+BuildRequires:  cmake(OpenEXR)
+BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  pkgconfig(libopenjp2)
+BuildRequires:  pkgconfig(tbb)
+BuildRequires:  potrace-devel
+
+# Audio stuff
+BuildRequires:  pkgconfig(ao)
+BuildRequires:  pkgconfig(flac)
+BuildRequires:  pkgconfig(freealut)
+BuildRequires:  pkgconfig(jack)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(ogg)
+BuildRequires:  pkgconfig(opus)
+BuildRequires:  pkgconfig(samplerate)
+BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(vorbis)
+
+# Typography stuff
+BuildRequires:  fontpackages-devel
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(tinyxml)
+# Appstream stuff
+BuildRequires:  libappstream-glib
+
+Requires:       google-droid-sans-fonts
+Requires:       hicolor-icon-theme
+Requires:       python3dist(requests)
+Requires:       python3dist(numpy)
+Requires:       shared-mime-info
+Provides:       blender(ABI) = %{blender_api}
+
+# Obsolete the standalone Blender player retired by upstream
+Obsoletes:      blenderplayer < 1:2.80-1
+Provides:       blenderplayer = 1:2.80-1
+
+# Obsoletes separate Blender Fonts - rhbz#1889049
+Obsoletes:      blender-fonts <  1:2.91.0-5
+
+# Starting from 2.90, Blender support only 64-bits architectures
+ExclusiveArch:  x86_64 aarch64 ppc64le s390x
+
+%description
+Blender is the essential software solution you need for 3D, from modeling,
+animation, rendering and post-production to interactive creation and playback.
+
+Professionals and novices can easily and inexpensively publish stand-alone,
+secure, multi-platform content to the web, CD-ROMs, and other media.
+
+%package rpm-macros
+Summary:        RPM macros to build third-party blender addons packages
+BuildArch:      noarch
+
+%description rpm-macros
+This package provides rpm macros to support the creation of third-party addon
+packages to extend Blender.
+
+%prep
+%autosetup -p1
+
+# Delete the bundled FindOpenJPEG to make find_package use the system version
+# instead (the local version hardcodes the openjpeg version so it is not update
+# proof)
+rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
+
+# Fix all Python shebangs recursively in .
+%py3_shebang_fix .
+
+# Workaround for eigen3 trying to enforce power10 when fedora only supports power8.
+# https://bugzilla.redhat.com/show_bug.cgi?id=1996330
+%ifarch ppc64 ppc64le
+%global optflags_orig %optflags
+%global optflags %optflags_orig -DEIGEN_ALTIVEC_DISABLE_MMA
+%endif
+
+# Work around CMake boost module needing the python version to find the library
+sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
+    build_files/cmake/platform/platform_unix.cmake
+
+
+%build
+%cmake \
+%if %{with ffmpeg}
+    -DWITH_CODEC_FFMPEG=ON \
+    -D_ffmpeg_INCLUDE_DIR=%{_includedir}/ffmpeg \
+%else
+    -DWITH_CODEC_FFMPEG=OFF \
+%endif
+%if %{with openshading}
+    -D_osl_LIBRARIES=%{_libdir} \
+    -DOSL_INCLUDE_DIR=%{_includedir} \
+    -DOSL_COMPILER=%{_bindir}/oslc \
+%endif
+    -DBOOST_ROOT=%{_prefix} \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_FLAGS="%{optflags} -Wl,--as-needed" \
+    -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
+    -DCMAKE_CXX_STANDARD=17 \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DOpenGL_GL_PREFERENCE=GLVND \
+    -DPYTHON_VERSION=%{python3_version} \
+    -DWITH_CYCLES=%{cyclesflag} \
+%ifnarch x86_64
+    -DWITH_CYCLES_EMBREE=OFF \
+%endif
+    -DWITH_DOC_MANPAGE=ON \
+%if %{with wayland}
+    -DWITH_GHOST_WAYLAND=ON \
+    -DWITH_GL_EGL=ON \
+    -DWITH_GHOST_WAYLAND_LIBDECOR=ON \
+%endif
+    -DWITH_INSTALL_PORTABLE=OFF \
+    -DWITH_PYTHON_INSTALL=OFF \
+    -DWITH_PYTHON_INSTALL_REQUESTS=OFF \
+%if %{with sdl}
+    -DWITH_GHOST_SDL=ON \
+%endif
+%if %{with system_eigen3}
+    -DWITH_SYSTEM_EIGEN3=ON \
+%endif
+    -DWITH_SYSTEM_GLEW=ON \
+%if %{with usd}
+    -DWITH_USD=ON \
+    -DUSD_LIBRARY=%{_libdir}/libusd_usd_ms.so \
+%else
+    -DWITH_USD=OFF \
+%endif
+    -DXR_OPENXR_SDK_LOADER_LIBRARY=%{_libdir}/libopenxr_loader.so.1
+
+%cmake_build
+
+%install
+%cmake_install
+
+# Deal with docs in the files section
+rm -rf %{buildroot}%{_docdir}/%{name}/*
+
+# rpm macros
+mkdir -p %{buildroot}%{macrosdir}
+sed -e 's/@VERSION@/%{blender_api}/g' %{SOURCE1} > %{buildroot}%{macrosdir}/macros.%{name}
+
+# AppData
+install -p -m 644 -D release/freedesktop/org.%{name}.Blender.appdata.xml \
+          %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+
+# Localization
+%find_lang %{name}
+
+# rpmlint fixes
+find %{buildroot}%{_datadir}/%{name}/%{blender_api}/scripts -name "*.py" -exec chmod 755 {} \;
+
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+
+%files -f %{name}.lang
+%license COPYING
+%license doc/license/*-license.txt
+%license release/text/copyright.txt
+%doc release/text/readme.html
+%{_bindir}/%{name}
+%{_bindir}/%{name}-thumbnailer
+%{_datadir}/applications/%{name}.desktop
+%exclude %{_datadir}/%{name}/%{blender_api}/datafiles/locale/
+%{_datadir}/%{name}/
+%{_datadir}/icons/hicolor/*/apps/%{name}*.*
+%{_mandir}/man1/%{name}.*
+%{_metainfodir}/%{name}.appdata.xml
+
+%files rpm-macros
+%{macrosdir}/macros.%{name}
+
+%changelog
+%autochangelog

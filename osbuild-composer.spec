@@ -1,0 +1,1873 @@
+# Do not build with tests by default
+# Pass --with tests to rpmbuild to override
+%bcond_with tests
+
+# When --with relax_requires is specified osbuild-composer-tests
+# will require osbuild-composer only by name, excluding version/release
+# This is used internally during nightly pipeline testing!
+%bcond_with relax_requires
+
+%global goipath         github.com/osbuild/osbuild-composer
+
+Version:        64
+
+%gometa
+
+%global common_description %{expand:
+A service for building customized OS artifacts, such as VM images and OSTree
+commits, that uses osbuild under the hood. Besides building images for local
+usage, it can also upload images directly to cloud.
+
+It is compatible with composer-cli and cockpit-composer clients.
+}
+
+Name:           osbuild-composer
+Release:        1%{?dist}
+Summary:        An image building service based on osbuild
+
+# osbuild-composer doesn't have support for building i686 and armv7hl images
+ExcludeArch:    i686 armv7hl
+
+# Upstream license specification: Apache-2.0
+License:        ASL 2.0
+URL:            %{gourl}
+Source0:        %{gosource}
+
+
+BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires:  systemd
+BuildRequires:  krb5-devel
+BuildRequires:  python3-docutils
+BuildRequires:  make
+# Build requirements of 'theproglottis/gpgme' package
+BuildRequires:  gpgme-devel
+BuildRequires:  libassuan-devel
+%if 0%{?fedora}
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  git
+# DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
+# BUNDLE_START
+Provides: bundled(golang(cloud.google.com/go)) = v0.102.1
+Provides: bundled(golang(cloud.google.com/go/cloudbuild)) = v1.2.0
+Provides: bundled(golang(cloud.google.com/go/compute)) = v1.9.0
+Provides: bundled(golang(cloud.google.com/go/iam)) = v0.3.0
+Provides: bundled(golang(cloud.google.com/go/storage)) = v1.26.0
+Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
+Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.93
+Provides: bundled(golang(github.com/aymerick/douceur)) = v0.2.0
+Provides: bundled(golang(github.com/Azure/azure_pipeline_go)) = v0.2.3
+Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v66.0.0+incompatible
+Provides: bundled(golang(github.com/Azure/azure_storage_blob_go)) = v0.13.0
+Provides: bundled(golang(github.com/Azure/go_autorest)) = v14.2.0+incompatible
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest)) = v0.11.28
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/adal)) = v0.9.18
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/azure/auth)) = v0.5.11
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/azure/cli)) = v0.4.5
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/date)) = v0.3.0
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/to)) = v0.4.0
+Provides: bundled(golang(github.com/Azure/go_autorest/autorest/validation)) = v0.3.1
+Provides: bundled(golang(github.com/Azure/go_autorest/logger)) = v0.2.1
+Provides: bundled(golang(github.com/Azure/go_autorest/tracing)) = v0.6.0
+Provides: bundled(golang(github.com/beorn7/perks)) = v1.0.1
+Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.2.0
+Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = v4.1.3
+Provides: bundled(golang(github.com/cespare/xxhash/v2)) = v2.1.2
+Provides: bundled(golang(github.com/containers/common)) = v0.49.1
+Provides: bundled(golang(github.com/containers/image/v5)) = v5.22.0
+Provides: bundled(golang(github.com/containers/libtrust)) = v0.0.0_20200511145503_9c3a6c22cd9a
+Provides: bundled(golang(github.com/containers/ocicrypt)) = v1.1.5
+Provides: bundled(golang(github.com/containers/storage)) = v1.42.0
+Provides: bundled(golang(github.com/coreos/go_semver)) = v0.3.0
+Provides: bundled(golang(github.com/coreos/go_systemd)) = v0.0.0_20190719114852_fd7a80b32e1f
+Provides: bundled(golang(github.com/davecgh/go_spew)) = v1.1.1
+Provides: bundled(golang(github.com/deepmap/oapi_codegen)) = v1.8.2
+Provides: bundled(golang(github.com/dimchansky/utfbom)) = v1.1.1
+Provides: bundled(golang(github.com/docker/distribution)) = v2.8.1+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v20.10.17+incompatible
+Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.6.4
+Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.0
+Provides: bundled(golang(github.com/docker/go_metrics)) = v0.0.1
+Provides: bundled(golang(github.com/docker/go_units)) = v0.4.0
+Provides: bundled(golang(github.com/dougm/pretty)) = v0.0.0_20171025230240_2ee9d7453c02
+Provides: bundled(golang(github.com/getkin/kin_openapi)) = v0.93.0
+Provides: bundled(golang(github.com/ghodss/yaml)) = v1.0.0
+Provides: bundled(golang(github.com/go_openapi/jsonpointer)) = v0.19.5
+Provides: bundled(golang(github.com/go_openapi/swag)) = v0.21.1
+Provides: bundled(golang(github.com/gobwas/glob)) = v0.2.3
+Provides: bundled(golang(github.com/golang_jwt/jwt)) = v3.2.2+incompatible
+Provides: bundled(golang(github.com/golang_jwt/jwt/v4)) = v4.4.2
+Provides: bundled(golang(github.com/golang/glog)) = v1.0.0
+Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_41bb18bfe9da
+Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.2
+Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.8
+Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.10.0
+Provides: bundled(golang(github.com/google/uuid)) = v1.3.0
+Provides: bundled(golang(github.com/googleapis/enterprise_certificate_proxy)) = v0.1.0
+Provides: bundled(golang(github.com/googleapis/gax_go/v2)) = v2.4.0
+Provides: bundled(golang(github.com/gophercloud/gophercloud)) = v1.0.0
+Provides: bundled(golang(github.com/gorilla/css)) = v1.0.0
+Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
+Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
+Provides: bundled(golang(github.com/hashicorp/go_cleanhttp)) = v0.5.2
+Provides: bundled(golang(github.com/hashicorp/go_multierror)) = v1.1.1
+Provides: bundled(golang(github.com/hashicorp/go_retryablehttp)) = v0.7.1
+Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = v1.0.0
+Provides: bundled(golang(github.com/jackc/chunkreader/v2)) = v2.0.1
+Provides: bundled(golang(github.com/jackc/pgconn)) = v1.13.0
+Provides: bundled(golang(github.com/jackc/pgio)) = v1.0.0
+Provides: bundled(golang(github.com/jackc/pgpassfile)) = v1.0.0
+Provides: bundled(golang(github.com/jackc/pgproto3/v2)) = v2.3.1
+Provides: bundled(golang(github.com/jackc/pgservicefile)) = v0.0.0_20200714003250_2b9c44734f2b
+Provides: bundled(golang(github.com/jackc/pgtype)) = v1.12.0
+Provides: bundled(golang(github.com/jackc/pgx/v4)) = v4.17.2
+Provides: bundled(golang(github.com/jackc/puddle)) = v1.3.0
+Provides: bundled(golang(github.com/jmespath/go_jmespath)) = v0.4.0
+Provides: bundled(golang(github.com/josharian/intern)) = v1.0.0
+Provides: bundled(golang(github.com/json_iterator/go)) = v1.1.12
+Provides: bundled(golang(github.com/julienschmidt/httprouter)) = v1.3.0
+Provides: bundled(golang(github.com/klauspost/compress)) = v1.15.9
+Provides: bundled(golang(github.com/klauspost/pgzip)) = v1.2.5
+Provides: bundled(golang(github.com/kolo/xmlrpc)) = v0.0.0_20201022064351_38db28db192b
+Provides: bundled(golang(github.com/kr/text)) = v0.2.0
+Provides: bundled(golang(github.com/labstack/echo/v4)) = v4.9.0
+Provides: bundled(golang(github.com/labstack/gommon)) = v0.3.1
+Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20220331220046_b23ab962616e
+Provides: bundled(golang(github.com/mailru/easyjson)) = v0.7.6
+Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.12
+Provides: bundled(golang(github.com/mattn/go_ieproxy)) = v0.0.1
+Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.14
+Provides: bundled(golang(github.com/mattn/go_runewidth)) = v0.0.13
+Provides: bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = v1.0.2_0.20181231171920_c182affec369
+Provides: bundled(golang(github.com/microcosm_cc/bluemonday)) = v1.0.18
+Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.5.2
+Provides: bundled(golang(github.com/miekg/pkcs11)) = v1.1.1
+Provides: bundled(golang(github.com/mitchellh/go_homedir)) = v1.1.0
+Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.6.2
+Provides: bundled(golang(github.com/modern_go/concurrent)) = v0.0.0_20180306012644_bacd9c7ef1dd
+Provides: bundled(golang(github.com/modern_go/reflect2)) = v1.0.2
+Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
+Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.0.3_0.20220114050600_8b9d41f48198
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.3
+Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20210326190908_1c3f411f0417
+Provides: bundled(golang(github.com/openshift_online/ocm_sdk_go)) = v0.1.287
+Provides: bundled(golang(github.com/oracle/oci_go_sdk/v54)) = v54.0.0
+Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
+Provides: bundled(golang(github.com/pmezard/go_difflib)) = v1.0.0
+Provides: bundled(golang(github.com/proglottis/gpgme)) = v0.1.3
+Provides: bundled(golang(github.com/prometheus/client_golang)) = v1.13.0
+Provides: bundled(golang(github.com/prometheus/client_model)) = v0.2.0
+Provides: bundled(golang(github.com/prometheus/common)) = v0.37.0
+Provides: bundled(golang(github.com/prometheus/procfs)) = v0.8.0
+Provides: bundled(golang(github.com/rivo/uniseg)) = v0.2.0
+Provides: bundled(golang(github.com/segmentio/ksuid)) = v1.0.4
+Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.3.1_0.20220629021053_b95fc0d626c1
+Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.0
+Provides: bundled(golang(github.com/sony/gobreaker)) = v0.4.2_0.20210216022020_dd874f9dd33b
+Provides: bundled(golang(github.com/spf13/cobra)) = v1.5.0
+Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
+Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
+Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.0
+Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
+Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.3.1
+Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
+Provides: bundled(golang(github.com/ubccr/kerby)) = v0.0.0_20170626144437_201a958fc453
+Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.10
+Provides: bundled(golang(github.com/valyala/bytebufferpool)) = v1.0.0
+Provides: bundled(golang(github.com/valyala/fasttemplate)) = v1.2.1
+Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.2
+Provides: bundled(golang(github.com/vbauerster/mpb/v7)) = v7.4.2
+Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
+Provides: bundled(golang(github.com/vmware/govmomi)) = v0.29.0
+Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.6
+Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20200128120323_432b2356ecb1
+Provides: bundled(golang(go.opencensus.io)) = v0.23.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.0.0_20220722155217_630584e8d5aa
+Provides: bundled(golang(golang.org/x/mod)) = v0.6.0_dev.0.20220106191415_9b9b3d81d5e3
+Provides: bundled(golang(golang.org/x/net)) = v0.0.0_20220909164309_bea034e7d591
+Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220822191816_0ebed06d0094
+Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220601150217_0de741cfad7f
+Provides: bundled(golang(golang.org/x/sys)) = v0.0.0_20220728004956_3c1f35247d10
+Provides: bundled(golang(golang.org/x/term)) = v0.0.0_20210927222741_03fcf44c2211
+Provides: bundled(golang(golang.org/x/text)) = v0.3.7
+Provides: bundled(golang(golang.org/x/time)) = v0.0.0_20211116232009_f0f3c7e86c11
+Provides: bundled(golang(golang.org/x/tools)) = v0.1.10
+Provides: bundled(golang(golang.org/x/xerrors)) = v0.0.0_20220609144429_65e65417b02f
+Provides: bundled(golang(google.golang.org/api)) = v0.96.0
+Provides: bundled(golang(google.golang.org/appengine)) = v1.6.7
+Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20220810155839_1856144b1d9c
+Provides: bundled(golang(google.golang.org/grpc)) = v1.48.0
+Provides: bundled(golang(google.golang.org/protobuf)) = v1.28.1
+Provides: bundled(golang(gopkg.in/ini.v1)) = v1.67.0
+Provides: bundled(golang(gopkg.in/square/go_jose.v2)) = v2.6.0
+Provides: bundled(golang(gopkg.in/yaml.v2)) = v2.4.0
+Provides: bundled(golang(gopkg.in/yaml.v3)) = v3.0.1
+# BUNDLE_END
+%endif
+
+Requires: %{name}-core = %{version}-%{release}
+Requires: %{name}-worker = %{version}-%{release}
+Requires: systemd
+
+Provides: weldr
+
+%if 0%{?rhel}
+Obsoletes: lorax-composer <= 29
+Conflicts: lorax-composer
+%endif
+
+# Remove when we stop releasing into Fedora 35
+%if 0%{?fedora} >= 34
+# lorax 34.3 is the first one without the composer subpackage
+Obsoletes: lorax-composer < 34.3
+%endif
+
+%description
+%{common_description}
+
+%prep
+%if 0%{?rhel}
+%forgeautosetup -p1
+%else
+%goprep -k
+%endif
+
+%build
+export GOFLAGS="-buildmode=pie"
+%if 0%{?rhel}
+GO_BUILD_PATH=$PWD/_build
+install -m 0755 -vd $(dirname $GO_BUILD_PATH/src/%{goipath})
+ln -fs $PWD $GO_BUILD_PATH/src/%{goipath}
+cd $GO_BUILD_PATH/src/%{goipath}
+install -m 0755 -vd _bin
+export PATH=$PWD/_bin${PATH:+:$PATH}
+export GOPATH=$GO_BUILD_PATH:%{gopath}
+export GOFLAGS+=" -mod=vendor"
+%endif
+
+# Set the commit hash so that composer can report what source version
+# was used to build it. This has to be set explicitly when calling rpmbuild,
+# this script will not attempt to automatically discover it.
+%if %{?commit:1}0
+export LDFLAGS="${LDFLAGS} -X 'github.com/osbuild/osbuild-composer/internal/common.GitRev=%{commit}'"
+%endif
+export LDFLAGS="${LDFLAGS} -X 'github.com/osbuild/osbuild-composer/internal/common.RpmVersion=%{name}-%{?epoch:%epoch:}%{version}-%{release}.%{_arch}'"
+
+%gobuild -o _bin/osbuild-composer %{goipath}/cmd/osbuild-composer
+%gobuild -o _bin/osbuild-worker %{goipath}/cmd/osbuild-worker
+
+make man
+
+%if %{with tests} || 0%{?rhel}
+
+# Build test binaries with `go test -c`, so that they can take advantage of
+# golang's testing package. The golang rpm macros don't support building them
+# directly. Thus, do it manually, taking care to also include a build id.
+#
+# On Fedora, also turn off go modules and set the path to the one into which
+# the golang-* packages install source code.
+%if 0%{?fedora}
+export GO111MODULE=off
+export GOPATH=%{gobuilddir}:%{gopath}
+%endif
+
+TEST_LDFLAGS="${LDFLAGS:-} -B 0x$(od -N 20 -An -tx1 -w100 /dev/urandom | tr -d ' ')"
+
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-composer-cli-tests %{goipath}/cmd/osbuild-composer-cli-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-dnf-json-tests %{goipath}/cmd/osbuild-dnf-json-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-weldr-tests %{goipath}/internal/client/
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-image-tests %{goipath}/cmd/osbuild-image-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-auth-tests %{goipath}/cmd/osbuild-auth-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-koji-tests %{goipath}/cmd/osbuild-koji-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-composer-dbjobqueue-tests %{goipath}/cmd/osbuild-composer-dbjobqueue-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-composer-manifest-tests %{goipath}/cmd/osbuild-composer-manifest-tests
+go test -c -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-service-maintenance-tests %{goipath}/cmd/osbuild-service-maintenance
+go build -tags=integration -ldflags="${TEST_LDFLAGS}" -o _bin/osbuild-mock-openid-provider %{goipath}/cmd/osbuild-mock-openid-provider
+
+%endif
+
+%install
+install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/osbuild-composer
+install -m 0755 -vp _bin/osbuild-composer                          %{buildroot}%{_libexecdir}/osbuild-composer/
+install -m 0755 -vp _bin/osbuild-worker                            %{buildroot}%{_libexecdir}/osbuild-composer/
+install -m 0755 -vp dnf-json                                       %{buildroot}%{_libexecdir}/osbuild-composer/
+
+# Only include repositories for the distribution and release
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/osbuild-composer/repositories
+# CentOS also defines rhel so we check for centos first
+%if 0%{?centos}
+
+# CentOS 9 supports building for CentOS 8 and later
+%if 0%{?centos} >= 9
+install -m 0644 -vp repositories/centos-*                          %{buildroot}%{_datadir}/osbuild-composer/repositories/
+%else
+# CentOS 8 only supports building for CentOS 8
+install -m 0644 -vp repositories/centos-%{centos}*                 %{buildroot}%{_datadir}/osbuild-composer/repositories/
+install -m 0644 -vp repositories/centos-stream-%{centos}*          %{buildroot}%{_datadir}/osbuild-composer/repositories/
+
+%endif
+%else
+%if 0%{?rhel}
+# RHEL 9 supports building for RHEL 8 and later
+%if 0%{?rhel} >= 9
+install -m 0644 -vp repositories/rhel-*                            %{buildroot}%{_datadir}/osbuild-composer/repositories/
+
+%else
+# RHEL 8 only supports building for 8
+install -m 0644 -vp repositories/rhel-%{rhel}*                     %{buildroot}%{_datadir}/osbuild-composer/repositories/
+
+%endif
+%endif
+%endif
+
+# Fedora can build for all included fedora releases
+%if 0%{?fedora}
+install -m 0644 -vp repositories/fedora-*                          %{buildroot}%{_datadir}/osbuild-composer/repositories/
+%endif
+
+install -m 0755 -vd                                                %{buildroot}%{_unitdir}
+install -m 0644 -vp distribution/*.{service,socket}                %{buildroot}%{_unitdir}/
+
+install -m 0755 -vd                                                %{buildroot}%{_sysusersdir}
+install -m 0644 -vp distribution/osbuild-composer.conf             %{buildroot}%{_sysusersdir}/
+
+install -m 0755 -vd                                                %{buildroot}%{_localstatedir}/cache/osbuild-composer/dnf-cache
+
+install -m 0755 -vd                                                %{buildroot}%{_mandir}/man7
+install -m 0644 -vp docs/*.7                                       %{buildroot}%{_mandir}/man7/
+
+%if %{with tests} || 0%{?rhel}
+
+install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/osbuild-composer-test
+install -m 0755 -vp _bin/osbuild-composer-cli-tests                %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-weldr-tests                       %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-dnf-json-tests                    %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-image-tests                       %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-auth-tests                        %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-koji-tests                        %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-composer-dbjobqueue-tests         %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-composer-manifest-tests           %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-service-maintenance-tests         %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp _bin/osbuild-mock-openid-provider              %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/define-compose-url.sh                    %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/provision.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/gen-certs.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/gen-ssh.sh                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/image-info                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/run-koji-container.sh                    %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/koji-compose.py                          %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/libvirt_test.sh                          %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/s3_test.sh                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/generic_s3_test.sh                       %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/generic_s3_https_test.sh                 %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/run-mock-auth-servers.sh                 %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/set-env-variables.sh                     %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/test-case-generators/generate-test-cases %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/tests/osbuild-composer
+install -m 0755 -vp test/cases/*.sh                                %{buildroot}%{_libexecdir}/tests/osbuild-composer/
+
+install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/tests/osbuild-composer/api
+install -m 0755 -vp test/cases/api/*.sh                            %{buildroot}%{_libexecdir}/tests/osbuild-composer/api/
+
+install -m 0755 -vd                                                %{buildroot}%{_libexecdir}/tests/osbuild-composer/api/common
+install -m 0755 -vp test/cases/api/common/*.sh                     %{buildroot}%{_libexecdir}/tests/osbuild-composer/api/common/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/ansible
+install -m 0644 -vp test/data/ansible/*                            %{buildroot}%{_datadir}/tests/osbuild-composer/ansible/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/azure
+install -m 0644 -vp test/data/azure/*                              %{buildroot}%{_datadir}/tests/osbuild-composer/azure/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/manifests
+install -m 0644 -vp test/data/manifests/*                          %{buildroot}%{_datadir}/tests/osbuild-composer/manifests/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/cloud-init
+install -m 0644 -vp test/data/cloud-init/*                         %{buildroot}%{_datadir}/tests/osbuild-composer/cloud-init/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/composer
+install -m 0644 -vp test/data/composer/*                           %{buildroot}%{_datadir}/tests/osbuild-composer/composer/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/worker
+install -m 0644 -vp test/data/worker/*                             %{buildroot}%{_datadir}/tests/osbuild-composer/worker/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/repositories
+install -m 0644 -vp test/data/repositories/*                       %{buildroot}%{_datadir}/tests/osbuild-composer/repositories/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/kerberos
+install -m 0644 -vp test/data/kerberos/*                           %{buildroot}%{_datadir}/tests/osbuild-composer/kerberos/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/keyring
+install -m 0644 -vp test/data/keyring/id_rsa.pub                   %{buildroot}%{_datadir}/tests/osbuild-composer/keyring/
+install -m 0600 -vp test/data/keyring/id_rsa                       %{buildroot}%{_datadir}/tests/osbuild-composer/keyring/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/koji
+install -m 0644 -vp test/data/koji/*                               %{buildroot}%{_datadir}/tests/osbuild-composer/koji/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/x509
+install -m 0644 -vp test/data/x509/*                               %{buildroot}%{_datadir}/tests/osbuild-composer/x509/
+
+install -m 0755 -vd                                                %{buildroot}%{_datadir}/tests/osbuild-composer/schemas
+install -m 0644 -vp pkg/jobqueue/dbjobqueue/schemas/*              %{buildroot}%{_datadir}/tests/osbuild-composer/schemas/
+
+install -m 0755 -vd                                               %{buildroot}%{_datadir}/tests/osbuild-composer/upgrade8to9
+install -m 0644 -vp test/data/upgrade8to9/*                       %{buildroot}%{_datadir}/tests/osbuild-composer/upgrade8to9/
+
+%endif
+
+%check
+export GOFLAGS="-buildmode=pie"
+%if 0%{?rhel}
+export GOFLAGS+=" -mod=vendor"
+export GOPATH=$PWD/_build:%{gopath}
+# cd inside GOPATH, otherwise go with GO111MODULE=off ignores vendor directory
+cd $PWD/_build/src/%{goipath}
+%gotest ./...
+%else
+%gocheck
+%endif
+
+%post
+%systemd_post osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+
+%preun
+%systemd_preun osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+
+%postun
+%systemd_postun_with_restart osbuild-composer.service osbuild-composer.socket osbuild-composer-api.socket osbuild-remote-worker.socket
+
+%files
+%license LICENSE
+%doc README.md
+%{_mandir}/man7/%{name}.7*
+%{_unitdir}/osbuild-composer.service
+%{_unitdir}/osbuild-composer.socket
+%{_unitdir}/osbuild-composer-api.socket
+%{_unitdir}/osbuild-local-worker.socket
+%{_unitdir}/osbuild-remote-worker.socket
+%{_sysusersdir}/osbuild-composer.conf
+
+%package core
+Summary:    The core osbuild-composer binary
+Requires:   %{name}-dnf-json = %{version}-%{release}
+
+%description core
+The core osbuild-composer binary. This is suitable both for spawning in containers and by systemd.
+
+%files core
+%{_libexecdir}/osbuild-composer/osbuild-composer
+%{_datadir}/osbuild-composer/
+
+%package worker
+Summary:    The worker for osbuild-composer
+Requires:   systemd
+Requires:   qemu-img
+Requires:   osbuild >= 64
+Requires:   osbuild-ostree >= 63
+Requires:   osbuild-lvm2 >= 63
+Requires:   osbuild-luks2 >= 63
+Requires:   %{name}-dnf-json = %{version}-%{release}
+
+%description worker
+The worker for osbuild-composer
+
+%files worker
+%{_libexecdir}/osbuild-composer/osbuild-worker
+%{_unitdir}/osbuild-worker@.service
+%{_unitdir}/osbuild-remote-worker@.service
+
+%post worker
+%systemd_post osbuild-worker@.service osbuild-remote-worker@.service
+
+%preun worker
+# systemd_preun uses systemctl disable --now which doesn't work well with template services.
+# See https://github.com/systemd/systemd/issues/15620
+# The following lines mimicks its behaviour by running two commands:
+if [ -d /run/systemd/system ]; then
+    # disable and stop all the worker services
+    systemctl --no-reload disable osbuild-worker@.service osbuild-remote-worker@.service
+    systemctl stop "osbuild-worker@*.service" "osbuild-remote-worker@*.service"
+fi
+
+%postun worker
+# restart all the worker services
+%systemd_postun_with_restart "osbuild-worker@*.service" "osbuild-remote-worker@*.service"
+
+%package dnf-json
+Summary: The dnf-json binary used by osbuild-composer and the workers
+
+# Conflicts with older versions of composer that provide the same files
+# this can be removed when RHEL 8 and Fedora 35 reach EOL
+Conflicts: osbuild-composer <= 35
+
+%description dnf-json
+The dnf-json binary used by osbuild-composer and the workers.
+
+%files dnf-json
+%{_libexecdir}/osbuild-composer/dnf-json
+
+%if %{with tests} || 0%{?rhel}
+
+%package tests
+Summary:    Integration tests
+%if %{with relax_requires}
+Requires:   %{name}
+%else
+Requires:   %{name} = %{version}-%{release}
+%endif
+Requires:   composer-cli
+Requires:   createrepo_c
+Requires:   xorriso
+Requires:   qemu-kvm-core
+Requires:   systemd-container
+Requires:   jq
+Requires:   unzip
+Requires:   container-selinux
+Requires:   dnsmasq
+Requires:   krb5-workstation
+Requires:   podman
+Requires:   python3
+Requires:   sssd-krb5
+Requires:   libvirt-client libvirt-daemon
+Requires:   libvirt-daemon-config-network
+Requires:   libvirt-daemon-config-nwfilter
+Requires:   libvirt-daemon-driver-interface
+Requires:   libvirt-daemon-driver-network
+Requires:   libvirt-daemon-driver-nodedev
+Requires:   libvirt-daemon-driver-nwfilter
+Requires:   libvirt-daemon-driver-qemu
+Requires:   libvirt-daemon-driver-secret
+Requires:   libvirt-daemon-driver-storage
+Requires:   libvirt-daemon-driver-storage-disk
+Requires:   libvirt-daemon-kvm
+Requires:   qemu-img
+Requires:   qemu-kvm
+Requires:   rpmdevtools
+Requires:   virt-install
+Requires:   expect
+Requires:   python3-lxml
+Requires:   httpd
+Requires:   mod_ssl
+Requires:   openssl
+Requires:   firewalld
+Requires:   podman-plugins
+Requires:   dnf-plugins-core
+Requires:   skopeo
+Requires:   make
+Requires:   python3-pip
+%if 0%{?fedora}
+# koji and ansible are not in RHEL repositories. Depending on them breaks RHEL
+# gating (see OSCI-1541). The test script must enable EPEL and install those
+# packages manually.
+Requires:   koji
+Requires:   ansible
+%endif
+%ifarch %{arm}
+Requires:   edk2-aarch64
+%endif
+
+%description tests
+Integration tests to be run on a pristine-dedicated system to test the osbuild-composer package.
+
+%files tests
+%{_libexecdir}/osbuild-composer-test/
+%{_libexecdir}/tests/osbuild-composer/
+%{_datadir}/tests/osbuild-composer/
+
+%endif
+
+%changelog
+* Wed Sep 21 2022 Packit <hello@packit.dev> - 64-1
+Changes with 64
+----------------
+  * CI: Introduce x86_64 rules (#2975)
+  * Cache the results of dnf-json dump and search commands (#2918)
+  * Enable integration testing on aarch64 (#2895)
+  * Expose Fedora IoT types in Cloud API (#3001)
+  * Fix packer builds (#2969)
+  * Introduce logging adapter for jobqueue (#2811)
+  * New image type: Fedora IoT Raw Image (#2914)
+  * RHEL-8/9: base `vhd` image on `azure-rhui` pkg sets and configuration (#2971)
+  * Update snapshots to 20220906 (#2959)
+  * `test/api.sh`: cleanups (#2988)
+  * build(deps): bump cloud.google.com/go/compute from 1.7.0 to 1.9.0 (#2942)
+  * build(deps): bump github.com/labstack/echo/v4 from 4.8.0 to 4.9.0 (#2994)
+  * build(deps): bump github.com/openshift-online/ocm-sdk-go from 0.1.266 to 0.1.287 (#2985)
+  * build(deps): bump google.golang.org/api from 0.94.0 to 0.96.0 (#2996)
+  * build(deps): bump gopkg.in/ini.v1 from 1.66.6 to 1.67.0 (#2944)
+  * distro: use storage capacity multiple constants in partition tables (#2992)
+  * pkg/dbjobqueue: fix dequeue constraint error (#2963)
+  * s3 upload: add an option to upload images publicly (#2897)
+  * templates/dashboards: Worker tenant fixes and uncollapsed queue times (#2987)
+  * templates/packer: Append distro and architecture to the ami name (#2993)
+  * test: User in commit will not be supported after osbuild-composer 64 (#3000)
+  * test: change CIV tag (#2958)
+  * workflow: Update to golangci-lint v1.49.0 (#2973)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Diaa Sami, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Lukas Zapletal, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Tomáš Hozza, Xiaofeng Wang, dependabot[bot], schutzbot, yih
+
+— Somewhere on the Internet, 2022-09-21
+
+
+
+* Fri Sep 16 2022 Packit <hello@packit.dev> - 62.1-1
+v62.1
+
+
+* Fri Sep 16 2022 Packit <hello@packit.dev> - 63.1-1
+v63.1
+
+
+* Wed Sep 07 2022 Packit <hello@packit.dev> - 63-1
+Changes with 63
+----------------
+  * Add GCP guest agent config stage (#2884)
+  * CI: update test execution on nightly pipelines (#2930)
+  * Create multiple aws images from a single compose (#2809)
+  * No rhsm facts stage on rhel or for koji composes (#2919)
+  * appsre-ansible: support aarch64 machines (#2718)
+  * build(deps): bump cloud.google.com/go/storage from 1.22.1 to 1.26.0 (#2934)
+  * build(deps): bump github.com/Azure/go-autorest/autorest from 0.11.27 to 0.11.28 (#2937)
+  * build(deps): bump github.com/containers/common from 0.48.0 to 0.49.1 (#2933)
+  * build(deps): bump github.com/golang-jwt/jwt/v4 from 4.4.1 to 4.4.2 (#2938)
+  * build(deps): bump github.com/gophercloud/gophercloud from 0.24.0 to 1.0.0 (#2939)
+  * build(deps): bump github.com/jackc/pgx/v4 from 4.16.0 to 4.17.1 (#2926)
+  * build(deps): bump github.com/labstack/echo/v4 from 4.7.2 to 4.8.0 (#2940)
+  * build(deps): bump github.com/prometheus/client_golang from 1.12.1 to 1.13.0 (#2883)
+  * dbjobqueue: use background context when closing listener (#2721)
+  * distro/`ImageConfig`: use pointers to simple types and reflection in `InheritFrom()` (#2953)
+  * rhel9: explicitly add containernetworking-plugins to edge (#2951)
+  * schutzbot: Fast-forward release branch after green main run (#2922)
+  * templates/packer: Increase aws timeouts for rhel-8-aarch64 (#2955)
+  * test aws arm images via cloud API (#2905)
+  * test/gcp: Run cleanup function at the end (#2917)
+  * tests: add aarch64 rhel-9.0 runner to API tests (#2948)
+  * weldr: Preload metadata at startup (#2941)
+Contributions from: Achilleas Koutsou, Brian C. Lane, Diaa Sami, Jakub Rusz, Juan Abia, Lukas Zapletal, Sanne Raymaekers, Tomas Hozza, dependabot[bot], fkolwa
+— Somewhere on the Internet, 2022-09-07
+
+
+
+
+
+* Mon Aug 29 2022 Packit <hello@packit.dev> - 62-1
+Changes with 62
+----------------
+  * cloudapi/v2: Don't add rhsm facts (#2920)
+  * go.mod: update github.com/containers/image/v5 (#2925)
+Contributions from: Ondřej Budai, Sanne Raymaekers
+— Somewhere on the Internet, 2022-08-29
+
+
+
+
+
+* Mon Aug 29 2022 Packit <hello@packit.dev> - 62-1
+Changes with 62
+----------------
+  * cloudapi/v2: Don't add rhsm facts (#2920)
+  * go.mod: update github.com/containers/image/v5 (#2925)
+Contributions from: Ondřej Budai, Sanne Raymaekers
+— Somewhere on the Internet, 2022-08-29
+
+
+
+
+
+* Fri Aug 26 2022 Packit <hello@packit.dev> - 61-1
+Changes with 61
+----------------
+  * Add the `rhsm.facts` stage. (#2909)
+  * Disable skipped tests (#2885)
+  * Support hybrid boot for edge installers (#2912)
+  * worker/osbuild: use `os-release` to determine host OS (#2842)
+Contributions from: Achilleas Koutsou, Juan Abia, Simon de Vlieger, Tomas Hozza, Xiaofeng Wang
+— Somewhere on the Internet, 2022-08-26
+
+
+
+
+
+* Wed Aug 24 2022 Packit <hello@packit.dev> - 60-1
+Changes with 60
+----------------
+  * Add search command to dnf-json and use it for package searches (#2908)
+  * Modify repositories/rhel-xy.json file before testing nightly compose (#2894)
+  * Update terraform SHA with more aarch64 runner options (#2907)
+  * [GCE images] don't install SDK and turn off GPG check on el9 (#2900)
+  * distro/image-installer: remove nvmf dracut module for RHEL-9.1 (#2899)
+  * distro: add oscap packages to image (#2898)
+  * tests: Add comment to make it more obvious what's happening (#2888)
+  * tests: Remove useless JSON file overrides (#2881)
+  * update civ (#2796)
+Contributions from: Alexander Todorov, Brian C. Lane, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Tomas Hozza, Xiaofeng Wang
+— Somewhere on the Internet, 2022-08-24
+
+
+
+
+
+* Wed Aug 10 2022 Packit <hello@packit.dev> - 59-1
+Changes with 59
+----------------
+  * Allow for `/boot` to be customized (#2865)
+  * CI: use only medium runners on Openstack (#2866)
+  * Cloud API - support uploading to container registries (#2858)
+  * Cloud API: add support for container embedding (#2877)
+  * Exclude dracut-config-rescue in ec2 and qemu-guest-agent in ec2 and gce images (#2862)
+  * Fix Go 1.19 issues (stable `fstab` ordering and wrong `errors.As` usages) (#2860)
+  * Fix UEFI HTTP boot for RHEL 9 ISOs (#2854)
+  * Use JWT for Koji tests (#2853)
+  * clienterrors: Remove ellipsis operator (#2876)
+  * internal/container: delete leftover dead code (#2867)
+  * metrics: add `arch` label to prometheus metrics (#2845)
+  * osbuild-mock-openid-provider: support `client_credentials` grant type (#2880)
+  * osbuild-service-maintenance: Honor dry run config option (#2868)
+  * osbuild-service-maintenance: Run vacuum analyze after each delete (#2863)
+  * oscap: implement OpenSCAP build remediation (#2695)
+  * templates/dashboard: filter worker dashboard on `arch` (#2847)
+  * templates/dashboards: Add brew tenants (#2872)
+  * templates/dashboards: Drop arch from osbuild jobtype (#2871)
+  * test: Remove BIOS installation test because edge-installer supports UEFI only (#2870)
+  * tests: Workaround for mkksiso options coming from newer lorax RPM (#2875)
+  * worker: fix crash if no autoscale instance is defined (#2879)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Christian Kellner, Gianluca Zuccarelli, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Xiaofeng Wang, Ygal Blum
+— Somewhere on the Internet, 2022-08-10
+
+
+
+
+
+* Wed Jul 27 2022 Packit <hello@packit.dev> - 58-1
+Changes with 58
+----------------
+  * Add support for container embedding (#2814)
+  * CI: drop /tmp/artifacts upload to Gitlab (#2857)
+  * COMPOSER-1623: Enable Fedora 36 testing (#2782)
+  * Container embedding: support accessing protected resources (#2849)
+  * Embedding container in OSTree commits (#2848)
+  * Filesystems test update (#2843)
+  * Improvements for gen-manifests tool and Manifest-diff test (#2821)
+  * Koji cloud upload fixups (#2852)
+  * Regenerate fedora-35 manifests + switch RHOS-01 to non ssd (#2825)
+  * Remove centos-8 repos (#2827)
+  * Remove image info from all test manifests (#2855)
+  * Remove koji API and the osbuild-koji job (#2822)
+  * Remove osbuild1 package (#2823)
+  * Support cloud upload for Koji composes (#2844)
+  * Tests: Use unified diff format - easier to read (#2820)
+  * Update snapshots to 20220715 (#2835)
+  * blueprint: Hash all user passwords (#2834)
+  * build(deps): bump actions/setup-go from 2 to 3 (#2815)
+  * ci/tests: Change the way artifacts are collected (#2474)
+  * image: introduce an ImageKind abstraction (#2813)
+  * jobqueue: store an expiry date (#2816)
+  * tag created vmare VMs (#2819)
+  * templates: update dashboards to include tenant (#2756)
+  * test: Install package sssd in all edge images for BZ#2088459 (#2681)
+  * test: Update test for push container image to registry (#2831)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Chloe Kaubisch, Christian Kellner, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Ondřej Budai, Simon de Vlieger, Tom Gundersen, Tomas Hozza, Xiaofeng Wang, dependabot[bot], schutzbot
+— Somewhere on the Internet, 2022-07-27
+
+
+
+
+
+* Wed Jul 27 2022 Packit <hello@packit.dev> - 58-1
+Changes with 58
+----------------
+  * Add support for container embedding (#2814)
+  * CI: drop /tmp/artifacts upload to Gitlab (#2857)
+  * COMPOSER-1623: Enable Fedora 36 testing (#2782)
+  * Container embedding: support accessing protected resources (#2849)
+  * Embedding container in OSTree commits (#2848)
+  * Filesystems test update (#2843)
+  * Improvements for gen-manifests tool and Manifest-diff test (#2821)
+  * Koji cloud upload fixups (#2852)
+  * Regenerate fedora-35 manifests + switch RHOS-01 to non ssd (#2825)
+  * Remove centos-8 repos (#2827)
+  * Remove image info from all test manifests (#2855)
+  * Remove koji API and the osbuild-koji job (#2822)
+  * Remove osbuild1 package (#2823)
+  * Support cloud upload for Koji composes (#2844)
+  * Tests: Use unified diff format - easier to read (#2820)
+  * Update snapshots to 20220715 (#2835)
+  * blueprint: Hash all user passwords (#2834)
+  * build(deps): bump actions/setup-go from 2 to 3 (#2815)
+  * ci/tests: Change the way artifacts are collected (#2474)
+  * image: introduce an ImageKind abstraction (#2813)
+  * jobqueue: store an expiry date (#2816)
+  * tag created vmare VMs (#2819)
+  * templates: update dashboards to include tenant (#2756)
+  * test: Install package sssd in all edge images for BZ#2088459 (#2681)
+  * test: Update test for push container image to registry (#2831)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Chloe Kaubisch, Christian Kellner, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Ondřej Budai, Simon de Vlieger, Tom Gundersen, Tomas Hozza, Xiaofeng Wang, dependabot[bot], schutzbot
+— Somewhere on the Internet, 2022-07-27
+
+
+
+
+
+* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 57-2
+- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
+  golang
+
+* Wed Jul 13 2022 Packit <hello@packit.dev> - 57-1
+Changes with 57
+----------------
+  * Composer API - add support for service enable/disable (#2755)
+  * Dockerfile: bump the shutdown period to 15 seconds (#2808)
+  * Drop support for RHEL 8.3 (rhel8) and rename rhel86 to rhel8 (#2793)
+  * Enable Image Builder to build GCP-compatible RHEL 9.0 images (#2771)
+  * Ground work to enable cloud uploads for Koji composes (#2748)
+  * Merge RHEL 8.4 distro definition into distro/rhel8 package (#2805)
+  * Merge RHEL 8.5 distro definition into the distro/rhel86 package (#2787)
+  * Minor test fixes (#2792)
+  * build(deps): bump gopkg.in/ini.v1 from 1.66.4 to 1.66.6 (#2719)
+  * containers/osbuild-composer: Sleep before shutdown to mitigate connections being reset/terminated on shutdown (#2797)
+  * image-tests: skip azure-rhui test on rhel-86 (#2785)
+  * jobqueue: Move jobqueue out of internal packages (#2736)
+  * manifest+playground: improve developer experience (#2812)
+  * manifest/os: minor refactoring to make more arguments optional (#2799)
+  * manifest/os: move over bootloader packages (#2801)
+  * manifest: introduce `platform`, `environment` and `workload` abstractions (#2804)
+  * osbuild-image-tests: ignore LVM UUID (#2818)
+  * packer: use 8.6 as a base for RHEL images (#2790)
+  * packit: Enable Bodhi update feature (#2828)
+  * pipeline: add Manifest abstraction (#2776)
+  * set a job error when a heartbeat fails & fix koji-finalize job (#2784)
+  * tag azure resources with gitlab-ci-test (#2786)
+  * test/api: split into multiple files (#2789)
+Contributions from: Achilleas Koutsou, Christian Kellner, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Ondřej Budai, Sanne Raymaekers, Tom Gundersen, Tomas Hozza, Ygal Blum, dependabot[bot], fkolwa, imagebuilder-bot, schutzbot
+— Somewhere on the Internet, 2022-07-13
+
+
+
+
+
+* Wed Jun 29 2022 Packit <hello@packit.dev> - 56-1
+Changes with 56
+----------------
+  * CI: new test for checking if any manifests changed in a PR (#2749)
+  * Consolidate Koji target options values meaning (#2758)
+  * Fedora - Use vendor instead of rpm dependencies (#2762)
+  * Remove vhd image type from RHEL 7 (#2768)
+  * Support the insecure option in curl sources (#2752)
+  * Switch to latest RHEL versions for testing (#2678)
+  * [rhel7] add initial support (qcow2, vhd, azure-rhui) (#2705)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.44.4 to 1.44.43 (#2777)
+  * cloudapi: get specific error from openapi (#2666)
+  * cmd/osbuild-upload-gcp: fix typo in skip-import's help string (#2761)
+  * dnf-json: fix depsolve error handling (#2775)
+  * dnfjson: Load subscriptions when creating a new solver (#2751)
+  * docker-compose: fix osbuild-worker unable load libcrypt.so.1 (#2745)
+  * manifests: regenerate RHEL-8.6 qcow2 test cases (#2781)
+  * pipelines: introduce declarative pipeline abstractions (#2773)
+  * rpmbuild: add fedora-36 (#2770)
+  * upload: initial draft for container upload (#2462)
+  * worker: clean up the config and add tests (#2779)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Chloe Kaubisch, Christian Kellner, Jakub Rusz, Juan Abia, Ondřej Budai, Sanne Raymaekers, Tom Gundersen, Tomas Hozza, Ygal Blum, dependabot[bot], zwtop
+— Somewhere on the Internet, 2022-06-29
+
+
+
+
+
+* Wed Jun 29 2022 Packit <hello@packit.dev> - 56-1
+Changes with 56
+----------------
+  * CI: new test for checking if any manifests changed in a PR (#2749)
+  * Consolidate Koji target options values meaning (#2758)
+  * Fedora - Use vendor instead of rpm dependencies (#2762)
+  * Remove vhd image type from RHEL 7 (#2768)
+  * Support the insecure option in curl sources (#2752)
+  * Switch to latest RHEL versions for testing (#2678)
+  * [rhel7] add initial support (qcow2, vhd, azure-rhui) (#2705)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.44.4 to 1.44.43 (#2777)
+  * cloudapi: get specific error from openapi (#2666)
+  * cmd/osbuild-upload-gcp: fix typo in skip-import's help string (#2761)
+  * dnf-json: fix depsolve error handling (#2775)
+  * dnfjson: Load subscriptions when creating a new solver (#2751)
+  * docker-compose: fix osbuild-worker unable load libcrypt.so.1 (#2745)
+  * manifests: regenerate RHEL-8.6 qcow2 test cases (#2781)
+  * pipelines: introduce declarative pipeline abstractions (#2773)
+  * rpmbuild: add fedora-36 (#2770)
+  * upload: initial draft for container upload (#2462)
+  * worker: clean up the config and add tests (#2779)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Chloe Kaubisch, Christian Kellner, Jakub Rusz, Juan Abia, Ondřej Budai, Sanne Raymaekers, Tom Gundersen, Tomas Hozza, Ygal Blum, dependabot[bot], zwtop
+— Somewhere on the Internet, 2022-06-29
+
+
+
+
+
+* Wed Jun 15 2022 Packit <hello@packit.dev> - 55-1
+Changes with 55
+----------------
+  * Add an option to tag page blobs in Azure (#2644)
+  * Add support for uploading to generic S3 service using the Composer API (#2686)
+  * Blacklist amdgpu module on Azure images (#2717)
+  * CI: Integrate cloud image val (#2692)
+  * COMPOSER-1576: Start building rpms on 9.0 and 8.6 GA (#2716)
+  * Migrate scheduled cloud cleaner to separate repo (#2728)
+  * Remove UnmarshalJSON for Stage and StageOptions in osbuild packages (#2741)
+  * Service maintenance: Delete results from manifest and depsolve jobs (#2707)
+  * Size-based cleanup for dnf-json cache directories (#2733)
+  * ci: Adjust release schedule timer (#2744)
+  * cloudapi: standardize format of url strings (#2659)
+  * cloudapi: use `osbuild` jobs for Koji composes (#2636)
+  * dbjobqueue-tests: fix issue introduced by PR #2618 (#2730)
+  * distro/rhel90: remove skx_edac, intel_cstate from denylist again (#2708)
+  * dnfjson: add repository name and URL to repo-related error messages (#2734)
+  * osbuild-service-maintenance:  vacuum  analyze after update (#2727)
+  * osbuild-service-maintenance: Delete/update results in chunks (#2724)
+  * osbuild-worker: Correct cast of dnfjson error in depsolve job (#2731)
+  * packer: pin the vector version (#2725)
+  * prometheus: add tenant label (#2618)
+  * templates/composer: Map db secrets to maintenance container (#2722)
+  * worker/osbuild: fix forgotten return when koji upload fails (#2746)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Chloe Kaubisch, Christian Kellner, Juan Abia, Major Hayden, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Tomas Hozza, Ygal Blum
+— Somewhere on the Internet, 2022-06-15
+
+
+
+
+
+* Wed Jun 01 2022 Packit <hello@packit.dev> - 54-1
+Changes with 54
+----------------
+  * Add kube-linter check to github tests workflow (#2698)
+  * Compress Azure RHUI artefacts (#2693)
+  * Upload to HTTPS S3 - Support self signed certificate (#2655)
+  * [rhel86/rhel90] blacklist skx_edac,intel_cstate kernel modules and enable nm-cloud-setup on azure  (#2706)
+  * [rhel9] Fixes for grub2 config (ImageConfig) and azure-rhui (#2674)
+  * cloudapi: Drop bucket from composer config (#2697)
+  * dnf-json script and Go module rewrite (#2537)
+  * templates: add Fedora prod tenant to the ACL (#2699)
+  * terraform: bump to a version that does spot fleets (#2610)
+  * test/old-worker: change user and package verification check (#2689)
+  * test: add prominent message in test script cleanup functions (#2687)
+  * tests/gcp: pick machine type from those available in the zone (#2684)
+Contributions from: Achilleas Koutsou, Christian Kellner, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Ygal Blum
+— Somewhere on the Internet, 2022-06-01
+
+
+
+
+
+* Thu May 19 2022 Packit <hello@packit.dev> - 53-1
+Changes with 53
+----------------
+  * Old worker - New composer test: Use Cloud API (#2654)
+  * Post release version bump (#2670)
+  * distro/rhel90: add support for azure marketplace (#2665)
+  * go.mod: Update openshift-online/ocm-sdk-go (#2660)
+Contributions from: Achilleas Koutsou, Christian Kellner, Sanne Raymaekers, Simon Steinbeiss
+— Somewhere on the Internet, 2022-05-19
+
+
+
+
+
+* Wed May 04 2022 Packit <hello@packit.dev> - 51-1
+Changes with 51
+----------------
+  * Add 9.1 alias & 8.7 test repositories (#2602)
+  * Devcontainer update to Fedora 36.  (#2609)
+  * Don't support `gce-rhui` image type on CentOS Stream 8 (#2600)
+  * New functions for resizing partitions based on directory size requirements (#2588)
+  * RHEL-8.6/9.0 EC2 SAP image changes (#2574)
+  * Schutzfile: Pin osbuild version to use minimal required caps (#2597)
+  * Update GPG keys for all RHEL 8.x repos (#2563)
+  * Use array of objects to maintain order for RPM stage inputs (#2578)
+  * build(deps): bump cloud.google.com/go/cloudbuild from 1.0.0 to 1.2.0 (#2553)
+  * build(deps): bump cloud.google.com/go/compute from 1.6.0 to 1.6.1 (#2587)
+  * build(deps): bump github.com/Azure/azure-sdk-for-go from 63.1.0+incompatible to 63.4.0+incompatible (#2583)
+  * build(deps): bump github.com/Azure/go-autorest/autorest from 0.11.25 to 0.11.27 (#2579)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.43.42 to 1.44.4 (#2606)
+  * build(deps): bump github.com/google/go-cmp from 0.5.7 to 0.5.8 (#2607)
+  * build(deps): bump github.com/hashicorp/go-retryablehttp from 0.7.0 to 0.7.1 (#2571)
+  * build(deps): bump google.golang.org/api from 0.74.0 to 0.75.0 (#2585)
+  * cloudapi/v2: Generate valid GCP image name (#2586)
+  * disk: fix ensureLVM for partition tables without /boot (#2580)
+  * entrypoint - add parameters for socket bind address and port (#2605)
+  * image-info: dynamically detect the rpm database (#2594)
+  * rhel85: automatically convert to LVM on fs customizations (#2552)
+  * tools/generate-all-test-cases: add `manifests` command (#2593)
+  * worker: add proxy support to worker (#2576)
+  * 📦🔗📦  Introduce chain dependency solving (#2568)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Christian Kellner, Ondřej Budai, Sanne Raymaekers, Simon de Vlieger, Tomas Hozza, Ygal Blum, dependabot[bot]
+— Somewhere on the Internet, 2022-05-04
+
+
+
+
+
+* Thu Apr 28 2022 Packit <hello@packit.dev> - 46.3-1
+CHANGES WITH 46.3:
+----------------
+ * disk: fix ensureLVM for partition tables without /boot (#2580)
+Contributions from: Achilleas Koutsou, Christian Kellner
+— Liberec, 2022-04-28
+
+
+
+
+* Wed Apr 20 2022 Packit <hello@packit.dev> - 50-1
+Changes with 50
+----------------
+  * COMPOSER-1401: Add tests for blueprints without explicit definition for / (#2412)
+  * Empty manifest check for osbuild jobs (#2520)
+  * Generic S3 test - retry creating the alias in case the service is not yet up (#2543)
+  * Introduce Google GCE image type (RHEL, CentOS Stream) and support importing to GCP on premise (#2155)
+  * Pin fedora repositories in Schutzfile + override mock templates with rpmrepo snapshots (#2508)
+  * Support uploading to any S3 service via the WELDR API (#2471)
+  * Worker dependency errors (#2505)
+  * build(deps): bump cloud.google.com/go/storage from 1.18.2 to 1.22.0 (#2565)
+  * build(deps): bump github.com/Azure/azure-sdk-for-go from 57.4.0+incompatible to 63.1.0+incompatible (#2532)
+  * build(deps): bump github.com/Azure/go-autorest/autorest/azure/auth from 0.5.8 to 0.5.11 (#2534)
+  * build(deps): bump github.com/BurntSushi/toml from 0.4.1 to 1.1.0 (#2525)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.42.25 to 1.43.38 (#2548)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.43.38 to 1.43.42 (#2566)
+  * build(deps): bump github.com/google/go-cmp from 0.5.6 to 0.5.7 (#2526)
+  * build(deps): bump github.com/gophercloud/gophercloud from 0.22.0 to 0.24.0 (#2536)
+  * build(deps): bump github.com/jackc/pgtype from 1.8.1 to 1.10.0 (#2524)
+  * build(deps): bump github.com/jackc/pgx/v4 from 4.13.0 to 4.15.0 (#2530)
+  * build(deps): bump github.com/labstack/echo/v4 from 4.6.1 to 4.7.2 (#2531)
+  * build(deps): bump github.com/prometheus/client_golang from 1.12.0 to 1.12.1 (#2549)
+  * build(deps): bump github.com/spf13/cobra from 0.0.3 to 1.4.0 (#2560)
+  * build(deps): bump github.com/stretchr/testify from 1.7.0 to 1.7.1 (#2535)
+  * build(deps): bump github.com/vmware/govmomi from 0.26.1 to 0.27.4 (#2554)
+  * build(deps): bump gopkg.in/ini.v1 from 1.63.0 to 1.66.4 (#2292)
+  * cloudapi: specify min_size type (#2319)
+  * gitlab: fix nightly testing (#2569)
+  * lib: upgrade prometheus client to 1.12 (#2528)
+  * osbuild2: QEMU stage implementation enhancement and code de-duplication (#2521)
+  * templates/packer: Rely on instance metadata to set region (#2562)
+  * workflows/trigger-gitlab: run Gitlab CI in new image-builder project (#2547)
+Contributions from: Alexander Todorov, Chloe Kaubisch, Christian Kellner, Gianluca Zuccarelli, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Thomas Lavocat, Tomas Hozza, Ygal Blum, dependabot[bot]
+— Somewhere on the Internet, 2022-04-20
+
+
+
+
+
+* Wed Apr 06 2022 Packit <hello@packit.dev> - 49-1
+Changes with 49
+----------------
+  * Add Xiaofeng to notifications for nightly pipeline (#2486)
+  * Add `cloud-init` to VMDK image and test it in VSphere (#2459)
+  * Centos pinning + Schutzfile update (#2494)
+  * Create users at install time for image and edge installers (#2375)
+  * Dependency joberrors (#2477)
+  * Fix excessive logging and monitoring (#2497)
+  * Minor CI changes (#2468)
+  * RHEL (all): Create users at install time for image and edge installers (#2516)
+  * RHEL-90: use XBOOTLDR partition GUID for `/boot` (#2473)
+  * Regression tests split (#2498)
+  * `rhel{86,90}`: set default grub boot entry to `saved` (#2418)
+  * build(deps): bump actions/checkout from 2.4.0 to 3 (#2394)
+  * build(deps): bump actions/github-script from 5 to 6 (#2463)
+  * build(deps): bump actions/setup-go from 2.1.5 to 3 (#2395)
+  * build(deps): bump github.com/Azure/go-autorest/autorest from 0.11.21 to 0.11.25 (#2507)
+  * ci: re-enabled Installer test on centos-stream-9 (#2514)
+  * cloudapi: improve gpgkey handling & enable edge-commit on Fedora (#2479)
+  * cloudapi: prevent dangling goroutines after the server is terminated (#2518)
+  * cmd: add `osbuild-package-sets` for printing package sets of an image (#2484)
+  * container: fix liveness probe (#2482)
+  * gitlab: split integration tests (#2488)
+  * koji: fix retries when uploading chunks (#2466)
+  * osbuild2: honor GPG key setting for rpm inputs (#2432)
+  * repositories: update key for RHEL 9.0 (#2509)
+  * rhel8/9: fix path to fdo diun root certificates (#2434)
+  * templates/composer: Add prod service accounts owner (#2478)
+  * templates/composer: Drop unused variables (#2481)
+  * templates/composer: Remove unused acl claims (#2483)
+  * test/ostree-simplified-installer: destroy VM fixup (#2487)
+  * test: Add retries on ubi8 image and greenboot package downloading (#2493)
+  * test: Clean up and improve ostree-simplified-installer.sh (#2485)
+  * test: Enable CS9 test for ostree-rebase and ostree (#2515)
+  * test: use `T.TempDir` to create temporary test directory (#2417)
+  * tests: Run SonarQube analysis only on main branch (#2489)
+  * tools/define-compose-url: change url back to nightly (#2513)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio Murdaca, Christian Kellner, Diaa Sami, Eng Zer Jun, Gianluca Zuccarelli, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Xiaofeng Wang, dependabot[bot], yih
+— Somewhere on the Internet, 2022-04-06
+
+
+
+
+
+* Sat Apr 02 2022 Packit <hello@packit.dev> - 46.2-1
+CHANGES WITH 46.2:
+----------------
+ * repositories: update key for RHEL 9.0  (#2509)
+Contributions from: Ondřej Budai
+— Liberec, 2022-04-02
+
+
+
+
+* Fri Apr 01 2022 Packit <hello@packit.dev> - 46.1-1
+CHANGES WITH 46.1:
+----------------
+  * internal/distro/rhel{86,90}: drop console kargs from raw image deployment (#2377)
+  * RHEL-90: use XBOOTLDR partition GUID for /boot (#2473)
+  * Create users at install time for image and edge installers (#2375)
+  * rhel{86,90}: set default grub boot entry to saved (#2418)
+  * rhel8/9: fix path to fdo diun root certificates (#2434)
+  * nightly: update GPG key in prepare-rhel-internal & fix some tests (#2389)
+  * mockbuild: use public EPEL-9 (#2364)
+  * api.sh: encrypt the DB dump artifact (#2472)
+  * image tests: update GPG keys used for RHEL-9.0 repos (#2390)
+  * gitlab: split integration tests (#2488)
+  * test/cases/simpl installer: bump to use fdo 0.4.0 (#2380)
+  * test/ostree-simplified-installer: destroy VM fixup (#2487)
+  * test/image-tests: temporarily skip azure_rhui image testing (#2402)
+  * test: Clean up and improve ostree-simplified-installer.sh (#2485)
+  * test: Add retries on ubi8 image and greenboot package downloading (#2493)
+  * tests/upgrade: update gpg key (#2467)
+  * test: add tests purpose (#2346)
+  * test/api.sh cleanup (#2444)
+  * Centos pinning + Schutzfile update (#2494)
+  * Update snapshots to 20220301 (#2376)
+  * ci: run ci_details.sh in before_script (#2403)
+  * ci: Minor CI changes (#2468)
+  * ci: skip CI for draft and WIP PRs (#2286)
+  * ci: modify Gitlab CI trigger (#2416)
+  * ci: Fix Gitlab CI trigger + revert debug (#2457)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio Murdaca, Christian Kellner,
+                    Jakub Rusz, Juan Abia, Ondřej Budai, Tomas Hozza, Xiaofeng Wang
+— Vöcklabruck, 2022-04-01
+
+
+
+
+* Wed Mar 23 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 48-1
+CHANGES WITH 48:
+----------------
+  * create-tag: Fix bash typo (#2476)
+  * image tests: update GPG keys used for RHEL-9.0 repos (#2390)
+  * create-tag: Fix upstream release schedule (#2475)
+  * api.sh: encrypt the DB dump artifact (#2472)
+  * Enable scheduled upstream releases (#2458)
+  * dbjobqueue: fix race condition (#2456)
+  * container: graceful shutdown (#2447)
+  * tests/upgrade: update gpg key (#2467)
+  * deploy: work around a podman bug in CS8  (#2464)
+  * templates/composer: Add stage service accounts owner (#2465)
+  * workflows: Fix Gitlab CI trigger + revert debug (#2457)
+  * Client creds grant worker client (#2433)
+  * workflows: debug Gitlab CI trigger (#2441)
+  * osbuild-worker: Log unexpected dnf-json errors (#2454)
+  * packer: use unique name tag for Fedora workers (#2429)
+  * `test/api.sh` cleanup (#2444)
+  * internal/distro/rhel{86,90}: drop console kargs from raw image deploy… (#2377)
+  * Dashboards - Minor fixes (#2435)
+  * github workflows: modify Gitlab CI trigger (#2416)
+  * ci: run ci_details.sh in before_script (#2403)
+  * packer: fix the secret ID variable in get_koji_creds.sh (#2431)
+  * packer: make subscribing optional (#2430)
+  * packer: make all credentials optional and add support for koji credentials (#2426)
+  * dnf-json: use the default connection timeout (#2428)
+  * Pass repo name to `dnf-json` and use it in `dnf-json` (#2427)
+  * dbjobqueue: reduce the number of needed connections (#2393)
+  * cmd/osbuild-worker: dnf-json returns MarkingErrors (plural) (#2361)
+  * use app-sre packer image (#2409)
+  * packer: Build Fedora 35 x86_64 and aarch64 images (#2423)
+  * github: fix job names and IDs for the tests workflow (#2422)
+  * weldr: Run on unsupported distros (#2399)
+  * koji: reduce excessive logging by retryablehttp (#2397)
+  * test: add tests purpose (#2346)
+  * Packit: build SRPMs in Copr (#2414)
+  * mockbuild: use public EPEL-9 (#2364)
+  * cmd/osbuild-worker: Pass bucket config to job implementation (#2411)
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Diaa Sami, Feng Huang, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Laura Barcziova, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Tom Gundersen, Tomas Hozza, kingsleyzissou
+— Somewhere on the Internet, 2022-03-23
+
+
+
+
+
+* Wed Mar 09 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 47-1
+CHANGES WITH 47:
+----------------
+  * cloudapi/v2: add error object to ImageStatus (#2298)
+  * cmd/osbuild-worker: Configure s3 bucket on the worker itself (#2404)
+  * 🍏  Make CI green again (#2401)
+  * 🍏  test/image-tests: temporarily skip azure_rhui image testing (#2402)
+  * templates/composer: give access to Fedora org (#2405)
+  * dnf-json codestyle cleanup (#2391)
+  * cloudapi: add support for multi-tenancy (#2344)
+  * ci: skip CI for draft and WIP PRs  (#2286)
+  * nightly: update GPG key in prepare-rhel-internal & fix some tests (#2389)
+  * templates/packer: Remove -u flag from creds mapping script (#2396)
+  * Implement HTTP retries for koji jobs (#2352)
+  * `rhel86` various fixes for the `azure-rhui` image (#2387)
+  * Update snapshots to 20220301 (#2376)
+  * schutzbot: update terraform SHA (#2385)
+  * test/cases/simpl installer: bump to use fdo 0.4.0 (#2380)
+  * schutzbot: fix jrusz ssh key (#2384)
+  * schutzbot: add jrusz ssh-key (#2383)
+  * Small cloudapi cleanups (#2379)
+  * cmd/osbuild-service-maintenance: Log aws error (#2315)
+  * templates/composer: Parametrize bucket name (#2372)
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Christian Kellner, Diaa Sami, Gianluca Zuccarelli, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Xiaofeng Wang, ondrejbudai, schutzbot
+— Cork, 2022-03-09
+
+
+
+
+* Mon Feb 28 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 46-1
+CHANGES WITH 46:
+----------------
+  * Simplified installer: add support for encrypted raw images (#2295)
+  * rhel86: automatically convert to LVM on fs customizations (#2373)
+  * RHEL9.0: convert layout to LVM on filesystem customisations (#2354)
+  * Update snapshots to 20220227 (#2370)
+  * Add Azure Marketplace images (#2358)
+  * devcontainer: adapt to composer (#2306)
+  * Update snapshots to 20220226 (#2368)
+  * RHEL 8.6: Add lvm2 to build root (#2367)
+  * schutzbot: keep runners alive when users are logged on (#2328)
+  * Adjust filesystem tests (#2362)
+  * Set selinux to permissive mode for installers (#2359)
+  * RHEL-90: use C.UTF-8 for images that only have glibc-minimal-langpack (#2351)
+  * test: Add work around for bug bz#2057769 (#2366)
+  * templates: Add production worker account to acl (#2365)
+  * tests/libvirt: add some regression tests (#2294)
+  * test/manifest/image-installer: fix conflicting merge (#2360)
+  * rhel86/90: change isolevel of image-installer to 3 (#2325)
+  * Update snapshots to 20220222 (#2343)
+  * simplified installer (8/9): support FDO (#1884)
+  * Image installer on aarch64 (#2355)
+  * FS minimum size (#2353)
+  * templates/composer: Verify against mass sso and rh sso (#2349)
+  * RHEL 9.0: Fix customisation of Kernel command line options (#2342)
+  * internal/cloudapi: Allow bp.Customizations being nil (#2340)
+  * Support specifying OSTree Parent and URL for creating upgrade commits (#2201)
+  * COMPOSER-1343: Revert "tests: Conditionally enable osbuild-dnf-json-tests" (#2338)
+  * Update team_ssh_keys.txt (#2333)
+  * templates/worker: fix depsolve error rate (#2337)
+  * worker/osbuild-koji: fix double-reporting of osbuild-koji job status (#2327)
+  * Revert "mockbuild: temporarily pin RHEL 9 compose to an older one" (#2332)
+  * test: Remove "ansible-galaxy collection install" (#2334)
+  * Schutzfile: Pin centos-9's osbuild commit (#2339)
+  * LUKS & LVM support and file system refactoring (#2141)
+  * internal/cloudapi: Log error in manifest job (#2336)
+  * internal/cloud: Allow aws creds from defaults (#2291)
+  * worker: use default transport instead of "blank" one (#2316)
+  * cloudapi: expose filesystem customizations (#2285)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio Murdaca, Chloe Kaubisch, Christian Kellner, Djebran Lezzoum, Gianluca Zuccarelli, He Yi, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tom Gundersen, Tomas Hozza, Xiaofeng Wang
+— Vöcklabruck, 2022-03-01
+
+
+
+
+* Fri Feb 18 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 45-1
+CHANGES WITH 45:
+----------------
+  * mockbuild: temporarily pin RHEL 9 compose to an older one (#2321)
+  * Add CentOS Stream 9 support (#2142)
+  * Cancel waiting compose (#2237)
+  * tests: Use human readable size for mountpoint (#2304)
+  * worker: Properly log successful image builds (#2313)
+  * Deduplicate some code in distro definitions (#2314)
+  * tests/upgrade: gather more logs (#2299)
+  * packer: make the worker image smaller (#2311)
+  * ci/nightly: report composer NVR in slack (#2317)
+  * fsjobqueue: refactor to allow dequeuing by multiple criteria (#2307)
+  * github: fetch more PRs when triggering gitlab (#2312)
+  * Update greenboot packaging names (#2196)
+  * github: split checks into 3 jobs (#2308)
+  * cmd/osbuild-service-maintenance: GCP deletes by image name (#2293)
+  * Extend information gathered by `image-info` (#2303)
+  * Fix problem with undo creating empty blueprint (#2207)
+  * Support associating repositories to package sets (#2265)
+  * Use the latest RPMRepo snapshot for RHEL-9.0 image tests (#2279)
+  * tests: update IDs in Openstack image boot test (#2263)
+  * Pre-define an ostree remote for RFE raw images (including created via simplified installer) (#2284)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Christian Kellner, Jakub Rusz, Ondřej Budai, Peter Robinson, Sanne Raymaekers, Simon Steinbeiss, Thomas Lavocat, Tomas Hozza, Xiaofeng Wang
+— Liberec, 2022-02-18
+
+
+
+
+* Fri Feb 11 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 44-1
+CHANGES WITH 44:
+----------------
+  * Relax TCP timeouts for koji connections (#2282)
+  * cloudapi/v2: add support for aws-*-rhui image types (#2281)
+  * Add oracle-oci.md under image-types/rhel8 (#2283)
+  * Appsre packer 85 (#2274)
+  * Add missing F34 and F35 image test cases (#2276)
+  * templates/dashboard: worker metric queries (#2277)
+  * distro: add an alias for RHEL 8.7 (#2270)
+  * metrics: change job metrics namespace (#2272)
+  * Revert "templates: Add dnf-json template" (#2273)
+  * Sonarqube fix + Schutzfile repo rename (#2261)
+  * Drop F33 support and add F34/F35 image tests (#2264)
+  * github: fix gitlab trigger (#2271)
+  * Skip CI for draft PRs or WIP label (#2238)
+  * service-maintenance: Skip db cleanup (#2252)
+  * templates/dashboards: worker error metrics (#2267)
+  * build(deps): bump cloud.google.com/go/cloudbuild from 0.2.0 to 1.0.0 (#2153)
+  * update testing doc with cloud cleaner info (#2256)
+  * RHEL-90: Remove deprecated `crashkernel=auto` option (#2262)
+  * templates: Add dnf-json template (#2259)
+  * Worker error validation (#2260)
+  * Prepare CI to build -tests RPM for downstream testing from source (#2093)
+  * worker: fix error status codes (#2258)
+  * Workers error metrics (#2247)
+  * gitlab-ci: make every stage interruptible (#2248)
+  * internal/cloud/gcp: use `pkg.go.dev/cloud.google.com/go` for Compute Engine (#2162)
+  * EC2: Disable password based authentication (#2235)
+  * Dnf json (#2194)
+  * worker/api: align error handler with cloudapi (#2152)
+  * cloupapi/v2: add koji support (#2214)
+  * RHEL 9.0: Drop IA32 (#2219)
+  * jwt: support multiple key providers (#2239)
+  * Mock OpenID: add token type, expires in and scope fields (#2240)
+  * distro/rhel86: fix ec2 boot partition for arm64 (#2228)
+  * Extend scheduled cloud cleaner to vmware (#2200)
+  * Kojiapi: fix error check in koji job (#2236)
+  * osbuild-worker: change error handling for OCI upload (#2234)
+  * distro/rhel90: special case root user for ssh keys (#2220)
+  * OCI support (#2031)
+  * distro/rhel90: no uuids in dos partition table (#2233)
+  * Worker errors backwards compatibility (#2192)
+  * repo runner (#2216)
+  * test/koji: remove the koji-cli patch (#2223)
+  * packit: re-enable builds for s390x architecture (#2246)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio
+                    Murdaca, Christian Kellner, Diaa Sami, Gianluca
+                    Zuccarelli, Jakub Rusz, Juan Abia, Ondřej Budai,
+                    Pavel Raiskup, Roy Golan, Sanne Raymaekers,
+                    Tom Gundersen, Tomas Hozza, Thomas Lavocat
+— Grenoble, 2022-02-11
+
+
+
+
+* Wed Jan 26 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 43-1
+CHANGES WITH 43:
+----------------
+  * templates/dashboards: Fixed grafana uids (#2202)
+  * CI: Updates to ensure smoother running (#2198)
+  * templates/packer: Make cdn host check less sensitive (#2199)
+  * templates/packer: Correct priority for worker rpms (#2195)
+  * tools/appsre-ansible: Don't use /tmp for rpmbuilds (#2186)
+Contributions from: Alexander Todorov, Jakub Rusz, Thomas Lavocat,
+                    Sanne Raymaekers
+— Grenoble, 2022-01-26
+
+
+
+
+* Wed Jan 12 2022 Packit Service <user-cont-team+packit-service@redhat.com> - 42-1
+CHANGES WITH 42:
+----------------
+  * RHEL-86/90: refactoring of `osPipeline` and its variants (#2139)
+  * api/cloud: drop v1 API (#2163)
+  * weldr: return an error if host distro wasn't found in distro registry (#2158)
+  * dnf json cache cleaner (#2119)
+  * Update terraform SHA (#2157)
+  * build(deps): bump actions/setup-go from 2.1.4 to 2.1.5 (#2156)
+Contributions from: Achilleas Koutsou, Jakub Rusz, Juan Abia,
+                    Ondřej Budai, Thomas Lavocat, Tomas Hozza,
+                    Sanne Raymaekers
+— Grenoble, 2022-01-12
+
+
+
+
+* Wed Dec 22 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 41-1
+CHANGES WITH 41:
+----------------
+  * build(deps): bump actions/checkout from 2.3.4 to 2.4.0 (#2007)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.40.49 to 1.42.25 (#2150)
+  * osbuild2: fix typo in tar stage option value (#2151)
+  * osbuild2: support 'format' and 'root-node' Tar stage options (#2146)
+  * Tools: add 'no-image-info' option to image test case requests (#2143)
+  * generate-all-test-cases: use `make scratch` for building RPMs (#2138)
+  * osbuild-auth-tests: add a build constraint also to certificates.go (#2097)
+  * dbjobqueue: fix FinishJob not returning an error if already finished (#2133)
+  * osbuild2: Expand dnf_config stage (#2113)
+  * test: make test more resilient (#2132)
+  * worker: Treat a non echo.HTTPError like a regular error (#2140)
+  * osbuild2: ensure that empty sysconfig options members are omitted (#2134)
+  * Add support for new osbuild stages needed for GCE image (#2126)
+  * tools: use image_type_tags in repos used for image test cases (#2135)
+  * composer: Only set queue and artifact dir for fsqueue (#2095)
+  * cloudapi: improve logging for errors (#2088)
+  * Tracing: measure IO during each job (#2106)
+  * Tests: trim dependencies for test generation (#2128)
+  * metrics: add additional buckets (#2130)
+  * distro/depsolve/cloudapi: Add 3rd-party repository support. (#2101)
+  * templates: add worker dashboard (#2127)
+  * dnf json as a service (#2062)
+  * Extend scheduled cloud cleaner to GCP (#2115)
+  * openstack: use rhos-01 (#2120)
+  * RHEL-9.0: unify the default partitioning scheme used by all non-EDGE images (#2019)
+  * ci: CC QE in notification message (#2118)
+  * enable gosec tool (#2073)
+  * release-action: Send notification to our Slack channel (#2117)
+Contributions from: Alexander Todorov, Diaa Sami, Djebran Lezzoum, Gianluca Zuccarelli, Juan Abia, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Thomas Lavocat, Tomas Hozza, dependabot[bot]
+— Liberec, 2021-12-22
+
+
+
+
+* Thu Dec 09 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 40-1
+CHANGES WITH 40:
+----------------
+  * Regression test fixes (#2109)
+  * store: set RHSM when initialising SourceConfig with a repo (#2105)
+  * spec: build all binaries with PIE (#2102)
+  * Job metrics (#2080)
+  * tests: Fix several permission and koji failures (#2099)
+  * templates: Max concurrent requests is required for the maintenance job (#2107)
+  * templates: CronJob is part of the batch/v1 api (#2104)
+  * generate-all-test-cases: add `--build-rpms` option (#2098)
+  * templates: Add maintenance cronjob (#2100)
+  * Use PackIt for building RPMs in COPR for PRs and commits to `main` (#2094)
+  * Image Builder Composer - Grafana dashboard Updates (#2089)
+  * Cloud API: Support more image types as S3 objects (#2081)
+  * osbuild-service-maintenance: Clean up expired images (#2074)
+  * cloudapi/v2: No ObjectReference in request bodies (#2042)
+  * distro/rhel90: enable edge-simplified-installer image type (#2015)
+  * ci: Install gssapi/gssapi.h for Coverity Scan (#2087)
+  * 8.5 runners (#2079)
+  * RHEL-9.0: Install TuneD by default and stop using `@core` package group (#2084)
+  * Build a worker AMI using Schutzbot (#2068)
+  * osbuild2: update cloud-init stage with new options (#2051)
+  * tests: Small updates to docs (#2011)
+  * api/koji: fix /compose/log route (#2078)
+  * ci: make some jobs interruptible (#2061)
+  * tests/nightly: Re-enable satellite regression test on nightly composes (#2052)
+  * test: cloud cleaner aws s3 (#2005)
+  * rpmmd: Reload subscriptions (#2067)
+  * Two minor logging improvements (#2063)
+  * terraform: update to use the new instance type (#2065)
+  * spec: add epoch to nevra only if it's set (#2060)
+Contributions from: Achilleas Koutsou, Alex Njaastad, Alexander Todorov, Chloe Kaubisch, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Martin Sehnoutka, Ondřej Budai, Sanne Raymaekers, Tomas Hozza
+— Liberec, 2021-12-09
+
+
+
+
+* Wed Nov 24 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 39-1
+CHANGES WITH 39:
+----------------
+  * RHEL-9.0: install and enable TuneD by default on all EC2 images (#2050)
+  * Improve contributing.md (#2043)
+  * osbuild2: selinux stage - introduce force_autorelabel option (#2033)
+  * internal: cleanup dracut modules and default kargs (#2045)
+  * Namespaced composer metrics (#2037)
+  * cloudapi/v2: Add support for edge-container (#2035)
+  * template: bump postgres max conns to 20 (#2044)
+  * templates: bump max postgres connections to 10 (#2040)
+  * osbuild2: update rhsm stage (#2014)
+  * internal: mandate installation device for the simplified installer (#1755)
+  * distro/rhel86: use the new coreos-installer-dracut (#1752)
+  * Switch api tests to v2 & manifest job in api v2 (#2026)
+  * cloudapi/v1: Adapt metadata handler to osbuild2 results (#2028)
+  * osbuild: check if result objects are nil in Write() (#2022)
+  * distro/rhel90*: minor code cleanup (#2004)
+  * osbuild2: support 'install' command in the modprobe stage and rework data validation (#1983)
+  * Use RHUI-4 for RHEL-9 EC2 image test cases (#1977)
+  * Logging improvements (#1989)
+  * worker: Correct servers in openapi spec (#1988)
+  * job/osbuild: skip the job if manifest generation failed (#2018)
+  * spec: bump osbuild version to 41 (#2012)
+  * composer: Add metrics endpoint to auth excludes again (#2013)
+  * Use V2 results internally (#1754)
+  * worker: Introduce manifest-id-only job (#1999)
+  * jobqueue: add the ability to dequeue by ID (#1997)
+  * Multiple new stages (#2006)
+  * containers: mock oauth container (#2003)
+  * osbuild2: new stage sshd config (#1992)
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio Murdaca, Diaa Sami, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Martin Sehnoutka, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Tomas Hozza, Xiaofeng Wang, diaasami, sanne, yih
+— Berlin, 2021-11-24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Wed Nov 10 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 38-1
+- Revert "templates: Add prometheus scrape annotations to composer-api" (Sanne Raymaekers)
+- templates: Add prometheus scrape annotations to composer-api (sanne)
+- distroregistry: disable CentOS Stream 9 (Achilleas Koutsou)
+- test/cases: rm ostree-ng-og.sh (Achilleas Koutsou)
+- distro/rhel90: remove all mentions of obsolete firmware packages (Achilleas Koutsou)
+- test/data: update manifests for edge-container images (Achilleas Koutsou)
+- distro/rhel90: make nginx log and lib directories world writable (Achilleas Koutsou)
+- distro/rhel90: disable edge-simplified-installer image type (Achilleas Koutsou)
+- Schutzfile: remove osbuild version pin for RHEL 9.0 (Achilleas Koutsou)
+- tools: update distro-arch-imagetype-map for RHEL 9.0 types (Achilleas Koutsou)
+- tools: update RHEL 9.0 repos for test case generators (Achilleas Koutsou)
+- test/data: update RHEL 9.0 and beta manifests (Achilleas Koutsou)
+- test/ostree-simplified: variable string fixes (Achilleas Koutsou)
+- distro/rhel90: update unit tests (Achilleas Koutsou)
+- rhel90: drop -ga suffix and alias from beta (Achilleas Koutsou)
+- test/api: ssh key fixes for RHEL 9.0 (Achilleas Koutsou)
+- test/cases: support weldr-client output structure (Achilleas Koutsou)
+- CI: test new edge types on RHEL 9.0 (Achilleas Koutsou)
+- test/ostree: install python3 instead of specific version (Achilleas Koutsou)
+- mockbuild: change RHEL 9 template to use latest non-beta repos (Achilleas Koutsou)
+- test/cases: add RHEL 9.0 and CentOS 9 cases to test scripts (Achilleas Koutsou)
+- CI: enable tests for RHEL 9.0 (Achilleas Koutsou)
+- schutzbot: update terraform sha (Achilleas Koutsou)
+- test: update test manifests for rhel-90-ga (Achilleas Koutsou)
+- tools: add centos-9 to distro-arch-imagetype-map (Achilleas Koutsou)
+- tools: copy rhel-90 distro-arch-imagetype-map to -beta and -ga (Achilleas Koutsou)
+- distro/rhel90: update to match 8.6 and add centos-9 alias (Achilleas Koutsou)
+- distro/rhel86: remove genisoimage (Achilleas Koutsou)
+- distro/rhel86: single osbuild import (Achilleas Koutsou)
+- test/data: copy rhel-90 test manifests to -ga and -beta (Achilleas Koutsou)
+- test: add repositories for rhel-90-beta and -ga (Achilleas Koutsou)
+- distroregistry: add rhel-90-ga to registry (Achilleas Koutsou)
+- distro: copy rhel90beta to rhel90 (Achilleas Koutsou)
+- composer: Add worker openapi spec endpoint to auth excludes (sanne)
+- CI: Journal-log is accessible and encrypted (Thomas Lavocat)
+- spec: Only run worker preun if systemd is running (sanne)
+- gitlab-ci: Remove RHEL9.0-beta runners (Martin Sehnoutka)
+- schutzbot: double quote jq argument to prevent shellcheck failures (Martin Sehnoutka)
+- distribution: worker dnf-json & cache dir (Gianluca Zuccarelli)
+- cloudapi/v2: 5xx error metrics (Gianluca Zuccarelli)
+- internal/blueprint: allow filesystem size specified with units (Martin Sehnoutka)
+- internal/blueprint: introduce custom fs customization parser (Martin Sehnoutka)
+- internal/blueprint: introduce new test for parsing blueprints (Martin Sehnoutka)
+- internal/common: introduce function to convert data sizes (Martin Sehnoutka)
+- prepare_rhel_internal: configure s3cmd explicitly (Jakub Rusz)
+- templates: add latency metrics to dashboard (Gianluca Zuccarelli)
+- Let schutzbot do the post-release version bump (Simon Steinbeiss)
+- Post release version bump (Simon Steinbeiss)
+- cloudapi: record error metrics (Gianluca Zuccarelli)
+- prometheus: add middleware function (Gianluca Zuccarelli)
+- prometheus: compose latency metric (Gianluca Zuccarelli)
+- prometheus: update metrics (Chloe Kaubisch)
+- templates: fix liveness/readiness check url (Ondřej Budai)
+- templates: add s3 bucket name (Ondřej Budai)
+- templates: update dashboard config map (Gianluca Zuccarelli)
+- templates: add grafana dashboard (Gianluca Zuccarelli)
+- build(deps): bump github.com/openshift-online/ocm-sdk-go (dependabot[bot])
+- templates: hook up simple probes and default limits (Tom Gundersen)
+- templates: add service account (Tom Gundersen)
+
+* Wed Oct 27 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 37-1
+- Bump version numbers ahead of release (Simon Steinbeiss)
+- Switch to simple upstream releases (Simon Steinbeiss)
+- distro/rhel86: special case root user for ssh keys (Christian Kellner)
+- Revert "Revert "cloudapi/v1: Move depsolving to workers"" (Tom Gundersen)
+- templates: image-builder-ci access to composer (Tom Gundersen)
+- ci: remove 8.5 nightly testing (Ondřej Budai)
+- composer: add json log formatting (Diaa Sami)
+- test: timestamp messages in test scripts (Achilleas Koutsou)
+- Add news item for updated CentOS Stream 8 definitions (Achilleas Koutsou)
+- test/api: SSH_USER=ec2-user for centos on AWS (Achilleas Koutsou)
+- test/cases: add centos-8 as support to test scripts (Achilleas Koutsou)
+- test/ansible: install greenboot-failing-unit from public source (Achilleas Koutsou)
+- CI: enable OSTree tests on CentOS 8 (Achilleas Koutsou)
+- test/data: regenerate manifests for CentOS 8 (Achilleas Koutsou)
+- distro/rhel86: skip RHSM config stage for non-RHEL (Achilleas Koutsou)
+- distro/rhel86: distro private method isRHEL() (Achilleas Koutsou)
+- test/data/repositories: update cs8 rpmrepo snapshot (Achilleas Koutsou)
+- tools: add all supported image types for centos-8 (Achilleas Koutsou)
+- tools/test-case-generators: fix typo in imagetype-map (Achilleas Koutsou)
+- distro/rhel86: add distro specific package set (Achilleas Koutsou)
+- test: add RHEL 8.6 image installer test manifest (Achilleas Koutsou)
+- distro/rhel86: add CentOS Stream 8 as alias to RHEL 8.6 (Achilleas Koutsou)
+- distro/rhel86: remove redundant rhel-86 alias (Achilleas Koutsou)
+- spec: dnf-json conflicts with old composer (Achilleas Koutsou)
+- ostree: change the URL for OC client temporarily (Ondřej Budai)
+- test/aws: remove a no longer needed key from an instance (Ondřej Budai)
+- ci: pin a specific RHEL 9.0b compose (Ondřej Budai)
+- ci: rotate secret names (Ondřej Budai)
+- mockbuild: explicitly configure s3cmd (Ondřej Budai)
+- mockbuild: remove subscriptions (Ondřej Budai)
+- .gitlab-ci: Don't save the journal as an artifact (sanne)
+- jobqueue: Better logging (Diaa Sami)
+- templates: Claims based on user_ids (sanne)
+- worker: Configurable timeout for RequestJob (sanne)
+- build(deps): bump cloud.google.com/go/storage from 1.16.1 to 1.18.1 (dependabot[bot])
+- build(deps): bump github.com/labstack/echo/v4 from 4.5.0 to 4.6.1 (dependabot[bot])
+- build(deps): bump github.com/gophercloud/gophercloud (dependabot[bot])
+- worker: Separate goroutine for depsolve jobs (sanne)
+- cloudapi/v2: Plural path section when querying a collection (sanne)
+- cloudapi/v2: Do not require auth for /openapi or /errors (sanne)
+- worker: Configure AWS credentials in the worker (Thomas Lavocat)
+- cloudapi/v2: ensure only one image per a compose in the API spec (Ondřej Budai)
+- cloudapi/v2: clean up targets (Ondřej Budai)
+- cloudapi/v2: move multi-image compose check to the beginning (Ondřej Budai)
+
+* Wed Oct 13 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 36-1
+- 36 (Achilleas Koutsou)
+- Revert "cloudapi/v1: Move depsolving to workers" (Sanne Raymaekers)
+- worker: Prefix https always (sanne)
+- cloudapi/v1: Move depsolving to workers (sanne)
+- cloudapi/v2: fix newV2Server() call in test (Achilleas Koutsou)
+- templates: Name service ports (sanne)
+- SPEC: Exclude `armv7hl` architecture (Tomas Hozza)
+- distro/rhel90 -> distro/rhel90beta: rename package (Achilleas Koutsou)
+- distro/rhel90: rename to rhel-90-beta and alias base name (Achilleas Koutsou)
+- spec: Split dnf-json into a subpackage (sanne)
+- cloudapi/v2: Use worker to depsolve (Ondřej Budai)
+- worker: Add a depsolve job type (Tom Gundersen)
+- packit: Push downstream instead of creating PR (Simon Steinbeiss)
+- templates: Name services after endpoints (sanne)
+- worker: Make BasePath configurable (sanne)
+- cloudapi/v2: Listen on /api/image-builder-composer/v2 (sanne)
+- test/ostree: remove --ip-range from podman network (Achilleas Koutsou)
+- RHEL-8.6: add support for official EC2 SAP image (Tomas Hozza)
+- tools/provision: set up nightly repos for RHEL 8.6 (Achilleas Koutsou)
+- test/cases: add support for RHEL 8.6 to test scripts (Achilleas Koutsou)
+- schutzbot: pin osbuild to current main for 8.6 (Achilleas Koutsou)
+- schutzbot: update terraform sha (Achilleas Koutsou)
+- news: add entry about RHEL 8.6 (Achilleas Koutsou)
+- test: add RHEL 8.6 test manifests (Achilleas Koutsou)
+- test: add rpmrepo snapshots for RHEL 8.6 (Achilleas Koutsou)
+- ci: run all tests on RHEL 8.6 (Achilleas Koutsou)
+- test/data/repositories: add test repos for rhel-86 (Achilleas Koutsou)
+- distro/rhel85: remove rhel86 alias (Achilleas Koutsou)
+- distro/rhel86: copy all definitions from rhel85 (Achilleas Koutsou)
+- cloudapi/v2: Configurable aws bucket (sanne)
+- cloudapi/v2: Replace upload types with image types (sanne)
+- Tests/RHEL-9.0: add EC2 SAP image test (Tomas Hozza)
+- Tests/RHEL-9.0: add repos needed for EC2 SAP image tests (Tomas Hozza)
+- RHEL-9.0: add EC2 SAP image definition. (Tomas Hozza)
+- Tests/RHEL-9.0: add EC2 and EC2 HA image tests (Tomas Hozza)
+- Tests/RHEL-9.0: add repos needed for EC2 and EC2 HA image tests (Tomas Hozza)
+- Image tests: skip rpm-ostree-1-autovar.conf tmpfiles.d config on Fedora (Tomas Hozza)
+- composer: Don't dump sensitive fields from config (sanne)
+- tests: Update image_tests (Jakub Rusz)
+- templates: Duplicate value in composer config (sanne)
+- templates: Port names should be less than 15 characters (sanne)
+- templates: Make sure ports are unquoted (sanne)
+- cloudapi/v1: Return status created in compose handler (sanne)
+- worker: Use Recover middleware to handle panics (Diaa Sami)
+- worker: Improve logging (Diaa Sami)
+- Regenerate affected image test cases (Tomas Hozza)
+- generate-all-test-cases: allow specifying additional DNF repos (Tomas Hozza)
+- image-info: ensure that directory is analysed as read-only (Tomas Hozza)
+- tests: enable koji.sh test on RHEL-9 (Jakub Rusz)
+- tests/ci: enable vmware.sh and cross-distro.sh on rhel-9 (Jakub Rusz)
+- README: Add a link to our developer guide (Simon Steinbeiss)
+- templates: Composer OSD template (sanne)
+- internal/rpmmd: log repository files loaded during composer startup (Martin Sehnoutka)
+- dnf-json: expire metadata by default (Tom Gundersen)
+- schutzbot: Clean up non-default storage accounts (sanne)
+- main: IsNotExist() is no longer a valid check (Achilleas Koutsou)
+- config: update NonExisting test to check for default (Achilleas Koutsou)
+- config: don't fail LoadConfig if file doesn't exist (Achilleas Koutsou)
+- Test: regenerate all image test cases (Tomas Hozza)
+- Image tests: use RPMRepo with released RHEL-8.4 content (Tomas Hozza)
+- image-info: fix undefined variable in analyse_directory() (Tomas Hozza)
+- image-info: sort partitions list in the report. (Tomas Hozza)
+- image-info: use subprocess_check_output() in read_selinux_ctx_mismatch() (Tomas Hozza)
+- image-info: check not installed documentation (Tomas Hozza)
+- image-info: read content of /etc/resolv.conf (Tomas Hozza)
+- image-info: read sysctl.d config files from multiple paths (Tomas Hozza)
+- image-info: read security limits config files from multiple paths (Tomas Hozza)
+- image-info: read tmpfiles.d config files from multiple paths (Tomas Hozza)
+- image-info: read systemd service unit drop-ins from multiple paths (Tomas Hozza)
+- image-info: read cloud-init configs from multiple paths (Tomas Hozza)
+- image-info: read systemd-logind configs from multiple paths (Tomas Hozza)
+- image-info: read dracut configs from multiple paths (Tomas Hozza)
+- image-info: read modprobe configs from multiple paths (Tomas Hozza)
+- composer: More configuration of how composer is served (sanne)
+
+* Sat Oct 02 2021 Packit Service <user-cont-team+packit-service@redhat.com> - 35-1
+- 35 (Simon Steinbeiss)
+- gitleaks: add allow list for test passwords and keys (Achilleas Koutsou)
+- mockbuild: use download.devel of download.eng.bos (Ondřej Budai)
+- ci: install ansible-core instead of ansible for EL9 (Ondřej Budai)
+- dnf-json: disable zchunk (Ondřej Budai)
+- composer: improve logging (Diaa Sami)
+- cloudapi: Add extra logging & improve existing (Diaa Sami)
+- cloudapi: use Logrus as default logger in Echo (Diaa Sami)
+- logging: add logrus dependency (Diaa Sami)
+- ci: don't run nightly pipeline on ga releases (Jakub Rusz)
+- distro/rhel90: use qcow2 compat 1.1 for qcows (Ondřej Budai)
+- tools: Push ubi container to quay.io/app-sre/composer (sanne)
+- blueprints: change minsize from int to uint64 (Gianluca Zuccarelli)
+- test/regression: Adapt to new rhel-84-ga runners (sanne)
+- schutzbot: Also build container on branch pushes (sanne)
+- schutzbot: pin osbuild to >=37 on all distros (Ondřej Budai)
+- spec: bump osbuild depedendency to 37 (Ondřej Budai)
+- distro/rhel85: set bootloader to none for edge (Christian Kellner)
+- osbuild2: add bootloader option to ostree.config (Christian Kellner)
+- osbuild2: small doc fix for ostree.config (Christian Kellner)
+- build(deps): bump github.com/labstack/echo/v4 from 4.5.0 to 4.6.0 (dependabot[bot])
+- build(deps): bump github.com/aws/aws-sdk-go from 1.40.46 to 1.40.49 (dependabot[bot])
+- workers: Backwards compatible api.openshift.com spec compliance (sanne)
+- Disable regression-composer-works-behind-satellite.sh, Refs #1834 (Alexander Todorov)
+- test/ostree: use 8.4 when testing on 8.4 (Ondřej Budai)
+- ci: add workaround for missing redhat.repo in EC2 (Ondřej Budai)
+- schutzfile: remove rhel-8.3 (Ondřej Budai)
+- test/koji: always build the latest RHEL (Ondřej Budai)
+- mockbuild: use REPO_BUCKET when defining the base URL (Ondřej Budai)
+- test: use hyphen in DISTRO_CODE instead of underscore (Ondřej Budai)
+- test: move env variables into set-env-variables helper (Ondřej Budai)
+- test/koji: remove the workaround for rhel-8 (Ondřej Budai)
+- test/api: don't source os-release again (Ondřej Budai)
+- test: use cdn repos for 8.3 and 8.4 (Ondřej Budai)
+- mockbuild: reuse nightly repos from redhat.repo (Ondřej Budai)
+- ci: assume subscribed machines (Ondřej Budai)
+- terraform: update (Ondřej Budai)
+- build(deps): bump github.com/Azure/azure-sdk-for-go (dependabot[bot])
+- distribution: Use After=network.target instead of multi-user (Martin Sehnoutka)
+- internal/common: introduce git revision and rpm version (Martin Sehnoutka)
+- test/ostree: support weldr-client output structure (Achilleas Koutsou)
+- test/data: update test manifests for RHEL 9.0 edge (Achilleas Koutsou)
+- distro/rhel90: explicitly enable greenboot services for edge (Achilleas Koutsou)
+- distro/rhel90: add gnome-kiosk to installer package set (Achilleas Koutsou)
+- tools/provision: install community.general ansible collection (Achilleas Koutsou)
+- test/ostree: remove debug callback from ansible calls (Achilleas Koutsou)
+- test/ostree: install python3 instead of specific version (Achilleas Koutsou)
+- distro/rhel90: remove unavailable packages from edge-installer (Achilleas Koutsou)
+- ci: enable ostree tests on RHEL 9.0-beta (Achilleas Koutsou)
+- NEWS: Drop title line (Simon Steinbeiss)
+- cloudapi: use Recover middleware to handle panics (Diaa Sami)
+- HACKING: fix container command (Gianluca Zuccarelli)
+- containers: worker client base url protocol (Gianluca Zuccarelli)
+- containers: update composer log level flag (Gianluca Zuccarelli)
+- Regenerate relevant image test cases (Tomas Hozza)
+- distro/rhel90: re-include nss-altfiles for edge (Christian Kellner)
+- generate-test-cases: drop `--with-customizations` option (Tomas Hozza)
+- format-request-map.json: remove redundant overrides (Tomas Hozza)
+- generate-test-cases: don't leak "supported_arches" to compose request (Tomas Hozza)
+- tools: improve deploy-openstack script (Diaa Sami)
+- weldr: deleting an unknown source should return an error (Brian C. Lane)
+- Update distro-arch-imagetype-map.json (Tomas Hozza)
+- test: update image test case generation part of README (Tomas Hozza)
+- generate-all-test-cases: add option to keep created workdir on runner (Tomas Hozza)
+- generate-all-test-cases: report results when Runner finishes (Tomas Hozza)
+- generate-all-test-cases: support using existing remote hosts (Tomas Hozza)
+- generate-all-test-cases: remove '--keep-image-info' option (Tomas Hozza)
+- generate-all-test-cases: move current generator method to 'qemu' command (Tomas Hozza)
+- generate-all-test-cases: fix log level in multiprocessing processes (Tomas Hozza)
+- generate-all-test-cases: don't use virtfs to copy data from/to the VM (Tomas Hozza)
+- generate-all-test-cases: don't use paramiko for SSH (Tomas Hozza)
+- generate-all-test-cases: use SSH keys instead of password for VMs (Tomas Hozza)
+- generate-all-test-cases: don't use cloud-init to install RPMs (Tomas Hozza)
+- generate-all-test-cases: fix generating of cloud-init cdrom on MacOS (Tomas Hozza)
+- generate-all-test-cases: separate generic parts of BaseRunner (Tomas Hozza)
+- build(deps): bump github.com/aws/aws-sdk-go from 1.40.43 to 1.40.46 (dependabot[bot])
+- generate-test-cases: check `supported_arches` from format-request-map.json (Tomas Hozza)
+- schutzbot: Update terraform sha (sanne)
+- Drop RELEASING.md and point to dev guide (Simon Steinbeiss)
+- build(deps): bump github.com/Azure/go-autorest/autorest (dependabot[bot])
+- build(deps): bump github.com/aws/aws-sdk-go from 1.40.38 to 1.40.43 (dependabot[bot])
+- build(deps): bump github.com/openshift-online/ocm-sdk-go (dependabot[bot])
+
+* Wed Aug 11 2021 Ondřej Budai <ondrej@budai.cz> - 31-1
+- New upstream release
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jun 14 2021 Ondřej Budai <ondrej@budai.cz> - 30-1
+- New upstream release
+
+* Fri Mar 05 2021 Martin Sehnoutka <msehnout@redhat.com> - 29-1
+- New upstream release
+
+* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 28-2
+- Rebuilt for updated systemd-rpm-macros
+  See https://pagure.io/fesco/issue/2583.
+
+* Sat Feb 20 2021 Martin Sehnoutka <msehnout@redhat.com> - 28-1
+- New upstream release
+
+* Thu Feb 04 2021 Ondrej Budai <obudai@redhat.com> - 27-1
+- New upstream release
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 26-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Thu Dec 17 2020 Ondrej Budai <obudai@redhat.com> - 26-2
+- Fix the compatibility with a new golang-github-azure-storage-blob 0.12
+
+* Thu Dec 17 2020 Ondrej Budai <obudai@redhat.com> - 26-1
+- New upstream release
+
+* Thu Nov 19 2020 Ondrej Budai <obudai@redhat.com> - 25-1
+- New upstream release
+
+* Thu Nov 12 2020 Ondrej Budai <obudai@redhat.com> - 24-1
+- New upstream release
+
+* Fri Nov 06 2020 Ondrej Budai <obudai@redhat.com> - 23-1
+- New upstream release
+
+* Fri Oct 16 2020 Ondrej Budai <obudai@redhat.com> - 22-1
+- New upstream release
+
+* Sun Aug 23 2020 Tom Gundersen <teg@jklm.no> - 20-1
+- New upstream release
+
+* Tue Aug 11 2020 Tom Gundersen <teg@jklm.no> - 19-1
+- New upstream release
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Wed Jul 22 2020 Ondrej Budai <obudai@redhat.com> - 18-1
+- New upstream release
+
+* Wed Jul 08 2020 Ondrej Budai <obudai@redhat.com> - 17-1
+- New upstream release
+
+* Mon Jun 29 2020 Ondrej Budai <obudai@redhat.com> - 16-1
+- New upstream release
+
+* Fri Jun 12 2020 Ondrej Budai <obudai@redhat.com> - 15-1
+- New upstream release
+
+* Thu Jun 04 2020 Ondrej Budai <obudai@redhat.com> - 14-1
+- New upstream release
+
+* Fri May 29 2020 Ondrej Budai <obudai@redhat.com> - 13-2
+- Add missing osbuild-ostree dependency
+
+* Thu May 28 2020 Ondrej Budai <obudai@redhat.com> - 13-1
+- New upstream release
+
+* Thu May 14 2020 Ondrej Budai <obudai@redhat.com> - 12-1
+- New upstream release
+
+* Wed Apr 29 2020 Ondrej Budai <obudai@redhat.com> - 11-1
+- New upstream release
+
+* Wed Apr 15 2020 Ondrej Budai <obudai@redhat.com> - 10-1
+- New upstream release
+
+* Wed Apr 01 2020 Ondrej Budai <obudai@redhat.com> - 9-1
+- New upstream release
+
+* Mon Mar 23 2020 Ondrej Budai <obudai@redhat.com> - 8-1
+- Initial package (renamed from golang-github-osbuild-composer)

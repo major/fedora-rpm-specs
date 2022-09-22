@@ -1,0 +1,112 @@
+# downloads LARGE amounts of test data so must be run with network enabled in mock:
+# --with=tests --enable-network
+# Note: all tests pass, they just take a lot of bandwidth and time.
+# 5 tests do not pass because we do not have sonpy in the repos yet.
+%bcond_with tests
+
+%global _description %{expand:
+Neo is a package for representing electrophysiology data in Python, together
+with support for reading a wide range of neurophysiology file formats,
+including Spike2, NeuroExplorer, AlphaOmega, Axon, Blackrock, Plexon, Tdt, and
+support for writing to a subset of these formats plus non-proprietary formats
+including HDF5.
+
+The goal of Neo is to improve interoperability between Python tools for
+analyzing, visualizing and generating electrophysiology data (such as
+OpenElectrophy, NeuroTools, G-node, Helmholtz, PyNN) by providing a common,
+shared object model. In order to be as lightweight a dependency as possible,
+Neo is deliberately limited to represention of data, with no functions for data
+analysis or visualization.
+
+Neo implements a hierarchical data model well adapted to intracellular and
+extracellular electrophysiology and EEG data with support for multi-electrodes
+(for example tetrodes). Neos data objects build on the quantities_ package,
+which in turn builds on NumPy by adding support for physical dimensions. Thus
+neo objects behave just like normal NumPy arrays, but with additional metadata,
+checks for dimensional consistency and automatic unit conversion.
+
+Read the documentation at http://neo.readthedocs.io/}
+
+Name:       python-neo
+Version:    0.11.0
+Release:    %autorelease
+Summary:    Represent electrophysiology data in Python
+
+License:    BSD
+URL:        http://neuralensemble.org/neo/
+Source0:    https://github.com/neuralensemble/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# datalad clone of data obtained with these commands:
+# datalad clone https://gin.g-node.org/NeuralEnsemble/ephy_testing_data
+# tar -cvzf ephy_testing_data.tar.gz ephy_testing_data
+Source1:    ephy_testing_data.tar.gz
+
+
+BuildArch:  noarch
+
+# python-pyedflib does not support s390x
+# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
+ExcludeArch:  s390x
+
+%description %{_description}
+
+%package -n python3-neo
+Summary:        %{summary}
+BuildRequires:  python3-devel
+BuildRequires:  datalad
+# Basic requires picked up by autogenerator
+
+# Extra requires:
+# Not in fedora yet, to be updated as these are added
+# Recommends:  %%{py3_dist stfio}
+Recommends:  %{py3_dist nixio}
+Recommends:  %{py3_dist klusta}
+Recommends:  %{py3_dist scipy}
+Recommends:  %{py3_dist hypy}
+Recommends:  %{py3_dist igor}
+
+%description -n python3-neo %{_description}
+
+%prep
+%autosetup
+# stray backup file?
+rm -fv neo/io/nwbio_BACKUP_4246.py
+rm -rf neo.egg-info
+
+# remove pinned version
+# remove unpacked sonpy
+# remove coverage bits
+sed -i -e 's/datalad==.*/datalad/' -e 's/nixio==.*/nixio/' -e '/sonpy/ d' -e '/cov/ d' requirements_testing.txt
+
+%if %{with tests}
+# datalad needs to know who we are later when it tries to download the data sets
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+# Unpack test data tar in ~
+pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
+%endif
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r requirements_testing.txt
+
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files neo
+
+%check
+# do not export EPHY_TESTING_DATA_FOLDER, use ~
+%pyproject_check_import
+%if %{with tests}
+%pytest
+%endif
+
+%files -n python3-neo -f %{pyproject_files}
+%doc README.rst examples doc/source/authors.rst CODE_OF_CONDUCT.md CITATION.txt
+
+%changelog
+%autochangelog

@@ -1,0 +1,77 @@
+# F35: Do not update past 2.3.0. F35's protobuf is too old.
+
+# tests are enabled by default
+%bcond_without tests
+
+%global         srcname     google-cloud-core
+%global         forgeurl    https://github.com/googleapis/python-cloud-core
+Version:        2.3.2
+%global         tag         v%{version}
+%forgemeta
+
+Name:           python-%{srcname}
+Release:        %autorelease
+Summary:        Core Helpers for Google Cloud Python Client Library
+
+License:        ASL 2.0
+URL:            %forgeurl
+Source0:        %forgesource
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+%endif
+
+%global _description %{expand:
+This library is not meant to stand-alone. Instead it defines common helpers
+(e.g. base Client classes) used by all of the google-cloud-* packages.}
+
+%description %{_description}
+
+
+%package -n python3-%{srcname}
+Summary:        %{summary}
+%description -n python3-%{srcname} %{_description}
+
+
+# Build the grpc extras subpackage.
+%pyproject_extras_subpkg -n python3-%{srcname} grpc
+
+
+%prep
+%forgeautosetup -p0
+
+
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files google
+
+
+%if %{with tests}
+%check
+# Work around an usual pytest/PEP 420 issue where pytest can't import the
+# installed module. Thanks to mhroncok for the help!
+mv google{,_}
+%pytest --disable-warnings tests/unit
+mv google{_,}
+%endif
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc *.rst *.md
+%{python3_sitelib}/google_cloud_core-%{version}-py%{python3_version}-nspkg.pth
+
+
+%changelog
+%autochangelog

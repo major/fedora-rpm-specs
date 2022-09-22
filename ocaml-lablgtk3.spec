@@ -1,0 +1,245 @@
+%undefine _package_note_flags
+
+Name:           ocaml-lablgtk3
+Version:        3.1.2
+Release:        5%{?dist}
+Summary:        OCaml interface to gtk3
+
+License:        LGPLv2+ with exceptions
+URL:            https://garrigue.github.io/lablgtk/
+Source0:        https://github.com/garrigue/lablgtk/archive/%{version}/lablgtk3-%{version}.tar.gz
+# Fedora only patch: unbundle xml-light
+Patch0:         %{name}-xml-light.patch
+
+BuildRequires:  help2man
+BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml-cairo-devel >= 0.6
+BuildRequires:  ocaml-camlp5-devel
+BuildRequires:  ocaml-dune >= 1.8.0
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  ocaml-findlib
+BuildRequires:  ocaml-xml-light-devel
+BuildRequires:  pkgconfig(goocanvas-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(gtksourceview-3.0)
+BuildRequires:  pkgconfig(gtkspell3-3.0)
+
+# This can be removed when F40 reaches EOL
+Obsoletes:      ocaml-lablgtk3-doc < 3.1.2-5
+
+%global _description %{expand:
+LablGTK3 is an Objective Caml interface to gtk3.  It uses the rich
+type system of Objective Caml to provide a strongly typed, yet very
+comfortable, object-oriented interface to gtk3.}
+
+%description %_description
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       gtk3-devel%{?_isa}
+Requires:       ocaml-cairo-devel%{?_isa}
+
+%description    devel
+The %{name}-devel package contains libraries and signature files for
+developing applications that use %{name}.
+
+%package        goocanvas2
+Summary:        OCaml interface to GooCanvas
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       goocanvas2-devel%{?_isa}
+
+%description    goocanvas2 %_description
+
+This package contains OCaml bindings for the GTK3 GooCanvas library.
+
+%package        goocanvas2-devel
+Summary:        Development files for %{name}-goocanvas2
+Requires:       %{name}-goocanvas2%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    goocanvas2-devel
+The %{name}-goocanvas2-devel package contains libraries and signature
+files for developing applications that use %{name}-goocanvas2.
+
+%package        gtkspell3
+Summary:        OCaml interface to gtkspell3
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       gtkspell3-devel%{?_isa}
+
+%description    gtkspell3 %_description
+
+This package contains OCaml bindings for gtkspell3.
+
+%package        gtkspell3-devel
+Summary:        Development files for %{name}-gtkspell3
+Requires:       %{name}-gtkspell3%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    gtkspell3-devel
+The %{name}-gtkspell3-devel package contains libraries and signature
+files for developing applications that use %{name}-gtkspell3.
+
+%package        sourceview3
+Summary:        OCaml interface to gtksourceview3
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       gtksourceview3-devel%{?_isa}
+
+%description    sourceview3 %_description
+
+This package contains OCaml bindings for gtksourceview3.
+
+%package        sourceview3-devel
+Summary:        Development files for %{name}-sourceview3
+Requires:       %{name}-sourceview3%{?_isa} = %{version}-%{release}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description    sourceview3-devel
+The %{name}-sourceview3-devel package contains libraries and signature
+files for developing applications that use %{name}-sourceview3.
+
+%prep
+%autosetup -n lablgtk-%{version} -p1
+
+# This file is empty, so drop it before we make assemble the docs
+rm doc/FAQ.text
+
+# Make sure we do not use the bundled copy of xml-light
+rm -fr tools/instrospection/xml-light
+
+# This version number marker was removed in the 3.1.2 release, leading to no
+# version number in the META files
+sed -i '/(name lablgtk3)/a(version %{version})' dune-project
+
+%build
+export LABLGTK_EXTRA_FLAGS=-g
+%dune_build
+
+# Relink the stublibs with $RPM_LD_FLAGS.
+pushd _build/default/src
+ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtk+-3.0) \
+  -o lablgtk3_stubs $(ar t liblablgtk3_stubs.a)
+cd ../src-goocanvas2
+ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs goocanvas-2.0) \
+  -o lablgtk3_goocanvas2_stubs $(ar t liblablgtk3_goocanvas2_stubs.a)
+cd ../src-gtkspell3
+ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtkspell3-3.0) \
+  -o lablgtk3_gtkspell3_stubs $(ar t liblablgtk3_gtkspell3_stubs.a)
+cd ../src-sourceview3
+ocamlmklib -g -ldopt '%{build_ldflags}' $(pkgconf --libs gtksourceview-3.0) \
+  -o lablgtk3_sourceview3_stubs $(ar t liblablgtk3_sourceview3_stubs.a)
+popd
+
+# Make the man pages
+HELP2MAN="-N --version-string=%{version}"
+cd _build/install/default/bin
+help2man $HELP2MAN -o ../../../../gdk_pixbuf_mlsource3.1 ./gdk_pixbuf_mlsource3
+help2man $HELP2MAN -o ../../../../lablgladecc3.1 ./lablgladecc3
+cd -
+
+%install
+%dune_install -s
+
+# Install the man pages
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
+
+%check
+%dune_check
+
+%files -f .ofiles-lablgtk3
+%doc CHANGES.md CHANGELOG.API README.md doc
+%license LGPL LICENSE
+%{_mandir}/man1/gdk_pixbuf_mlsource3.1*
+%{_mandir}/man1/lablgladecc3.1*
+
+%files devel -f .ofiles-lablgtk3-devel
+
+%files goocanvas2 -f .ofiles-lablgtk3-goocanvas2
+
+%files goocanvas2-devel -f .ofiles-lablgtk3-goocanvas2-devel
+
+%files gtkspell3 -f .ofiles-lablgtk3-gtkspell3
+
+%files gtkspell3-devel -f .ofiles-lablgtk3-gtkspell3-devel
+
+%files sourceview3 -f .ofiles-lablgtk3-sourceview3
+
+%files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
+
+%changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Jerry James <loganjerry@gmail.com> - 3.1.2-4
+- Use new OCaml macros
+
+* Sat Jun 18 2022 Richard W.M. Jones <rjones@redhat.com> - 3.1.2-4
+- OCaml 4.14.0 rebuild
+
+* Fri Feb 04 2022 Richard W.M. Jones <rjones@redhat.com> - 3.1.2-3
+- OCaml 4.13.1 rebuild to remove package notes
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Mon Dec 27 2021 Jerry James <loganjerry@gmail.com> - 3.1.2-1
+- Version 3.1.2
+- Drop upstreamed -vadjustment patch
+- Add -goocanvas2 and -goocanvas2-devel subpackages
+
+* Tue Oct 05 2021 Richard W.M. Jones <rjones@redhat.com> - 3.1.1-9
+- OCaml 4.13.1 build
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Sat Jul 17 2021 Jerry James <loganjerry@gmail.com> - 3.1.1-7
+- Add ocaml-findlib BR to get ocamldoc META file
+- Build documentation with ocamldoc instead of odoc
+
+* Tue Jun 22 2021 Jerry James <loganjerry@gmail.com> - 3.1.1-6
+- Rebuild for ocaml-lablgtk without gnomeui
+- Add -vadjustment patch to fix layout issue
+
+* Mon Mar  1 15:56:21 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 3.1.1-5
+- OCaml 4.12.0 build
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Sep 01 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.1-3
+- OCaml 4.11.1 rebuild
+
+* Fri Aug 21 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.1-2
+- OCaml 4.11.0 rebuild
+
+* Wed Aug  5 2020 Jerry James <loganjerry@gmail.com> - 3.1.1-1
+- Version 3.1.1
+- Drop upstreamed -fno-common patch
+
+* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
+- Second attempt - Rebuilt for
+  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue May 05 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-6
+- OCaml 4.11.0+dev2-2020-04-22 rebuild
+
+* Wed Apr 22 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-5
+- OCaml 4.11.0 pre-release attempt 2
+
+* Sat Apr 04 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-4
+- Bump release and rebuild.
+
+* Sat Apr 04 2020 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-3
+- Update all OCaml dependencies for RPM 4.16.
+
+* Sat Mar  7 2020 Jerry James <loganjerry@gmail.com> - 3.1.0-2
+- Build documentation with odoc
+- Add _isa flags to Requires in the devel subpackage
+
+* Wed Jan 29 2020 Jerry James <loganjerry@gmail.com> - 3.1.0-1
+- Initial RPM

@@ -1,0 +1,79 @@
+%global srcname pgsql_perl5
+%global modname Pg
+
+Name:           perl-%{srcname}
+Version:        1.9.0
+Release:        %autorelease
+Summary:        %{modname} – Perl5 extension for PostgreSQL
+
+License:        GPL+ or Artistic
+URL:            https://metacpan.org/release/%{srcname}
+Source0:        https://cpan.metacpan.org/modules/by-module/%{modname}/%{srcname}-%{version}.tar.gz
+
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  perl-devel
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+
+# Tests: cannot run because we cannot run postgresql server as a normal user
+#BuildRequires:  perl(AutoLoader)
+#BuildRequires:  postgresql-server
+
+BuildRequires:  libpq-devel
+
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+
+%description
+The %{modname} module permits you to access all functions of the Libpq interface of
+PostgreSQL. Libpq is the programmer’s interface to PostgreSQL. For examples of
+how to use this module, look at the file test.pl.
+
+
+%prep
+%autosetup -n %{srcname}-%{version}
+
+# Fix shebangs and permissions on examples and tests
+sed -r -i 's|^#!/usr/local/bin/perl\b|#!%{_bindir}/perl|' eg/*.pl test.pl
+chmod -v a+x eg/*.pl test.pl
+
+
+%build
+export POSTGRES_INCLUDE='%{_includedir}'
+export POSTGRES_LIB='%{_libdir}'
+perl Makefile.PL \
+    INSTALLDIRS=vendor \
+    NO_PACKLIST=1 \
+    NO_PERLLOCAL=1 \
+    OPTIMIZE="${RPM_OPT_FLAGS}"
+%make_build
+
+
+%install
+# Based on %%make_install, but with pure_install as the target
+%{__make} pure_install DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
+
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+
+
+# Tests: cannot run because we cannot run postgresql server as a normal user
+# %%check
+# %%make_build test
+
+
+%files
+%doc Changes
+%doc README
+%doc eg/
+%doc test.pl
+%{perl_vendorarch}/auto/%{modname}
+%{perl_vendorarch}/%{modname}.pm
+%{_mandir}/man3/%{modname}.3pm*
+
+
+%changelog
+%autochangelog

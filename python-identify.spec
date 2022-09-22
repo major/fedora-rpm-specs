@@ -1,0 +1,279 @@
+%bcond_without check
+%global pypi_name identify
+
+Name:           python-%{pypi_name}
+Version:        2.5.5
+Release:        1%{?dist}
+Summary:        File identification library for Python
+
+License:        MIT
+URL:            https://github.com/chriskuehl/identify
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(ukkonen)
+%if %{with check}
+BuildRequires:  python3dist(editdistance-s)
+BuildRequires:  python3-pytest
+%endif
+
+%?python_enable_dependency_generator
+
+%description
+Given a file (or some information about a file), return a set of standardized
+tags identifying what the file is.
+
+
+%package -n     python3-%{pypi_name}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{pypi_name}}
+
+
+%description -n python3-%{pypi_name}
+%{summary}.
+
+
+%prep
+%autosetup -n %{pypi_name}-%{version}
+
+# Remove bundled egg-info
+rm -rf %{pypi_name}.egg-info
+
+
+%build
+%py3_build
+
+
+%install
+%py3_install
+
+
+%if %{with check}
+%check
+%{python3} -m pytest -v
+%endif
+
+
+%files -n python3-%{pypi_name}
+%license LICENSE
+%doc README.md
+%{_bindir}/%{pypi_name}-cli
+%{python3_sitelib}/%{pypi_name}/
+%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+
+
+%changelog
+* Wed Sep 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.5.5-1
+- 2.5.5
+
+* Thu Aug 04 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.5.3-1
+- 2.5.3
+
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Wed Jul 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.5.2-1
+- 2.5.2
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.5.1-2
+- Rebuilt for Python 3.11
+
+* Thu May 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.5.1-1
+- 2.5.1
+
+* Mon May 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.5.0-1
+- 2.5.0
+
+* Wed Mar 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.12-1
+- 2.4.12
+
+* Wed Feb 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.11-1
+- 2.4.11
+
+* Mon Feb 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.10-1
+- 2.4.10
+
+* Wed Feb 09 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.9-1
+- 2.4.9
+
+* Thu Feb 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.8-1
+- 2.4.8
+
+* Tue Feb 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.7-1
+- 2.4.7
+
+* Thu Jan 27 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.6-1
+- 2.4.6
+
+* Tue Jan 25 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.5-1
+- 2.4.5
+
+* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Fri Jan 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4-1
+- 2.4.4
+
+* Tue Jan 11 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.3-1
+- 2.4.3
+
+* Thu Jan 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.2-1
+- 2.4.2
+
+* Tue Dec 28 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.4.1-1
+- 2.4.1
+
+* Fri Nov 19 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.4.0-1
+- 2.4.0
+
+* Thu Nov 18 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.7-1
+- 2.3.7
+
+* Tue Nov 16 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.6-1
+- 2.3.6
+
+* Tue Nov 09 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.5-1
+- 2.3.5
+
+* Mon Nov 08 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.4-1
+- 2.3.4
+
+* Tue Nov 02 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.3-1
+- 2.3.3
+
+* Sun Oct 24 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.1-1
+- 2.3.1
+
+* Mon Oct 04 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.3.0-1
+- 2.3.0
+
+* Mon Sep 20 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.15-1
+- 2.2.15
+
+* Thu Sep 09 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.14-1
+- 2.2.14
+
+* Fri Aug 06 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.13-1
+- 2.2.13
+
+* Wed Aug 04 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.12-1
+- 2.2.12
+
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Jul 12 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.11-1
+- 2.2.11
+
+* Tue Jun 08 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.9-1
+- 2.2.9
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.2.8-2
+- Rebuilt for Python 3.10
+
+* Thu Jun 03 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.8-1
+- 2.2.8
+
+* Tue Jun 01 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.7-1
+- 2.2.7
+
+* Tue May 25 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.6-1
+- 2.2.6
+
+* Mon May 24 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.5-1
+- 2.2.5
+
+* Wed Apr 21 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.4-1
+- 2.2.4
+
+* Fri Apr 09 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.3-1
+- 2.2.3
+
+* Mon Mar 29 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.2.2-1
+- 2.2.1
+
+* Fri Mar 19 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.1.4-1
+- 2.1.4
+
+* Mon Mar 15 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.1.3-1
+- 2.1.3
+
+* Fri Mar 12 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.1.2-1
+- 2.1.2
+
+* Tue Mar 09 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.1.1-1
+- 2.1.1
+
+* Wed Mar 03 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.1.0-1
+- 2.1.0
+
+* Mon Mar 01 2021 Gwyn Ciesla <gwync@protonmail.com> - 2.0.0-1
+- 2.0.0
+
+* Sat Feb 20 2021 Gwyn Ciesla <gwync@protonmail.com> - 1.5.14-1
+- 1.5.14
+
+* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Tue Jan 19 2021 Gwyn Ciesla <gwync@protonmail.com> - 1.5.13-1
+- 1.5.13
+
+* Mon Jan 11 2021 Gwyn Ciesla <gwync@protonmail.com> - 1.5.12-1
+- 1.5.12
+
+* Thu Dec 31 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.5.11-1
+- 1.5.11
+
+* Mon Nov 23 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.10-1
+- build(update): 1.5.10
+
+* Tue Nov 03 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.5.9-1
+- 1.5.9
+
+* Tue Nov 03 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.5.8-1
+- 1.5.8
+
+* Mon Nov 02 2020 Gwyn Ciesla <gwync@protonmail.com> - 1.5.7-1
+- 1.5.7
+
+* Sat Oct 10 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.6-1
+- build(update): 1.5.6
+
+* Thu Sep 24 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.5-1
+- Update to 1.5.5
+
+* Sun Sep 13 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.2-1
+- Update to 1.5.2
+
+* Sun Sep  6 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.0-1
+- Update to 1.5.0
+
+* Thu Aug 27 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.29-1
+- Update to 1.4.29
+
+* Fri Aug 14 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.26-1
+- Update to 1.4.26
+
+* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Mon Jul 20 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.24-1
+- Update to 1.4.24
+
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.4.16-2
+- Rebuilt for Python 3.9
+
+* Thu May 21 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.16-1
+- Update to 1.4.16
+
+* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Tue Jan 21 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.10-1
+- Update to 1.4.10
+
+* Thu Oct 24 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.7-5
+- Initial package
