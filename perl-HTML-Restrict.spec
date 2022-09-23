@@ -5,9 +5,9 @@
 
 Summary:        Perl module to strip unwanted HTML tags and attributes
 Name:           perl-HTML-Restrict
-Version:        3.0.0
-Release:        11%{?dist}
-License:        GPL+ or Artistic
+Version:        3.0.1
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/O/OA/OALDERS/%{pkgname}-v%{version}.tar.gz
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -36,7 +36,7 @@ BuildRequires:  sed
 # Tests only
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Fatal)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Pod) >= 1.22 
 BuildArch:      noarch
 
@@ -50,10 +50,10 @@ behaviour may be altered by supplying own tag rules.
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
-%{make_build}
+%make_build
 
 %install
-%{make_install}
+%make_install
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 # Don't add dependencies for %%doc
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Sep 23 2022 Robert Scheck <robert@fedoraproject.org> 3.0.1-1
+- Upgrade to 3.0.1 (#2129210)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

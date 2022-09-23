@@ -19,8 +19,8 @@
 
 Name:           cairomm
 Summary:        C++ API for the cairo graphics library
-Version:        1.14.2
-Release:        %autorelease -b 3
+Version:        1.14.4
+Release:        %autorelease
 
 URL:            https://www.cairographics.org
 License:        LGPL-2.0-or-later
@@ -55,11 +55,9 @@ BuildRequires:  pkgconfig(cairo-xlib-xrender)
 
 %if %{with maintainer_mode}
 # mm-common-get
-BuildRequires:  mm-common
+BuildRequires:  mm-common >= 1.0.4
 %endif
 
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(Getopt::Long)
 BuildRequires:  doxygen
 # dot
 BuildRequires:  graphviz
@@ -128,6 +126,9 @@ rm -rf "${workdir}"
     --keyring='cairomm.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup
+# Fix stray executable bit:
+chmod -v a-x NEWS
+
 # We must remove the jQuery/jQueryUI bundle with precompiled/minified/bundled
 # JavaScript that is in untracked/docs/reference/html/jquery.js, since such
 # sources are banned in Fedora. (Note also that the bundled JavaScript had a
@@ -171,7 +172,7 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 %meson_install
 
 install -t %{buildroot}%{_docdir}/cairomm-%{apiver} -m 0644 -p \
-    AUTHORS ChangeLog MAINTAINERS NEWS README
+    AUTHORS ChangeLog MAINTAINERS NEWS README.md
 cp -rp examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
 
 # Strip out bundled and/or pre-minified JavaScript; this degrades the browser

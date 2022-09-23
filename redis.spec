@@ -15,15 +15,15 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit 7fa685ef79873fe362df7d6618664e37099023ca
+%global doc_commit e50ea1872e4efaf2a7174700050b7ce1c47dc2a8
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:              redis
-Version:           7.0.4
-Release:           2%{?dist}
+Version:           7.0.5
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, jemalloc, linenoise, lzf, hiredis are BSD
 # lua is MIT
@@ -55,6 +55,7 @@ BuildRequires:     tcl
 %endif
 BuildRequires:     pkgconfig(libsystemd)
 BuildRequires:     systemd-devel
+BuildRequires:     systemd-rpm-macros
 BuildRequires:     openssl-devel
 # redis-trib functionality migrated to redis-cli
 Obsoletes:         redis-trib < 5
@@ -305,6 +306,9 @@ fi
 
 
 %changelog
+* Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 7.0.5-1
+- Upstream 7.0.5 security release.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -10,6 +10,8 @@
 Name:       fedora-obsolete-packages
 # Please keep the version equal to the targeted Fedora release
 Version:    38
+# The dist number is the version here, it is intentionally not repeated in the release
+%global dist %nil
 Release:    %autorelease
 Summary:    A package to obsolete retired packages
 

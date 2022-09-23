@@ -1,5 +1,5 @@
 Name:           i3
-Version:        4.20.1
+Version:        4.21
 Release:        %autorelease
 Summary:        Improved tiling window manager
 License:        BSD
@@ -35,7 +35,7 @@ BuildRequires:  pkgconfig(xcb-xrm)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.4.0
 BuildRequires:  pkgconfig(xkbcommon-x11) >= 0.4.0
 BuildRequires:  pkgconfig(yajl) >= 2.0.1
-BuildRequires:  pkgconfig(libpcre) >= 8.10
+BuildRequires:  pkgconfig(libpcre2-8) >= 10
 BuildRequires:  pkgconfig(cairo) >= 1.14.4
 BuildRequires:  pkgconfig(pangocairo) >= 1.30.0
 BuildRequires:  pkgconfig(glib-2.0)

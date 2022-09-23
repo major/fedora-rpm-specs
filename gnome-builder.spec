@@ -15,8 +15,8 @@
 %global sysprof_version 3.46.0
 
 Name:           gnome-builder
-Version:        43~rc
-Release:        2%{?dist}
+Version:        43.0
+Release:        1%{?dist}
 Summary:        IDE for writing GNOME-based software
 
 # Note: Checked as of 3.20.2
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Thu Sep 22 2022 Kalev Lember <klember@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43~rc-2
 - Enable d-spy support
 

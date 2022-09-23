@@ -1,11 +1,9 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
-Version:	36.0.0
-Release:	3%{?dist}
+Version:	38.0.0
+Release:	1%{?dist}
 URL:		https://pagure.io/fedora-logos
-Source0:	https://releases.pagure.org/fedora-logos/fedora-logos-%{version}.tar.xz
-# Dark background logo. https://pagure.io/fedora-logos/pull-request/22
-Source1:    https://pagure.io/fork/duffy/fedora-logos/raw/7c7e0879fbc3163115008fbe17af4c0ae1ab86b8/f/fedora/fedora_darkbackground.svg
+Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	Licensed only for approved usage, see COPYING for details.
 Provides:	redhat-logos = %{version}-%{release}
 Provides:	gnome-logos = %{version}-%{release}
@@ -74,9 +72,6 @@ used as a drop-in replacement for fedora-logos.
 
 %prep
 %autosetup -p1
-# fail if the dark background logo exists already
-test -e fedora/fedora_darkbackground.svg && false
-cp %{SOURCE1} fedora/fedora_darkbackground.svg
 
 %build
 
@@ -395,6 +390,10 @@ hardlink -vv %{buildroot}/usr
 
 
 %changelog
+* Wed Sep 21 2022 Tom Callaway <spot@fedoraproject.org> - 38.0.0-1
+- update to 38.0.0, contains darkbackground image properly in tarball
+- source tarball comes from properly git tagged release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 36.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

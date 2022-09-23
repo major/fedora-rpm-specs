@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    863c66733740cd36ebf5e700f4258ef2c68a2a24
+%global gh_commit    360be5f16955dd1edbcce1cfaa98ed82a17f02ec
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-servicemanager
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.16.0
+Version:        3.17.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -44,7 +44,7 @@ BuildRequires:  php-json
 BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "composer/package-versions-deprecated": "^1.0",
-#        "laminas/laminas-coding-standard": "~2.3.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-container-config-test": "^0.6",
 #        "laminas/laminas-dependency-plugin": "^2.1.2",
 #        "mikey179/vfsstream": "^1.6.10@alpha",
@@ -195,6 +195,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 3.17.0-1
+- update to 3.17.0
+
 * Thu Jul 28 2022 Remi Collet <remi@remirepo.net> - 3.16.0-1
 - update to 3.16.0 (no change)
 

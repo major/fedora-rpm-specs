@@ -1,21 +1,12 @@
-%global pretty_name STEPS
-%global module_name steps
-
 # Switch them off if you want
 # Best to start with the serial version
 %bcond_without mpich
 %bcond_without openmpi
 
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-%global blaslib flexiblas
-%else
-%global blaslib openblas
-%endif
-
 # Do not currently use system sundials
 # https://bugzilla.redhat.com/show_bug.cgi?id=1820991
 # https://github.com/CNS-OIST/STEPS/issues/23
-%global system_sundials  0
+%bcond_with system_sundials
 
 %global _description %{expand:
 STEPS is a package for exact stochastic simulation of reaction-diffusion
@@ -44,52 +35,43 @@ STEPS 3.0.0 and above provide early parallel solution for stochastic spatial
 reaction-diffusion and electric field simulation.
 
 Documentation can be found here:
-http://steps.sourceforge.net/manual/manual_index.html
-}
+http://steps.sourceforge.net/manual/manual_index.html}
 
-Name:           python-%{module_name}
+Name:           python-steps
 Version:        3.6.0
-
 Release:        %autorelease
 Summary:        STochastic Engine for Pathway Simulation
 
 License:        GPLv2
 URL:            http://steps.sourceforge.net/
-Source0:        https://github.com/CNS-OIST/STEPS/archive/%{version}/%{pretty_name}-%{version}.tar.gz
+Source0:        https://github.com/CNS-OIST/STEPS/archive/%{version}/STEPS-%{version}.tar.gz
 
-# Header only library, needs cc file
-# https://raw.githubusercontent.com/amrayn/easyloggingpp/master/src/easylogging%2B%2B.cc
-Source1:        easylogging++.cc
-# https://raw.githubusercontent.com/amrayn/easyloggingpp/master/src/easylogging%2B%2B.h
-Source2:        easylogging++.h
+%if %{without system_sundials}
+# Version based on path: src/third_party/cvode-VERSION
+%global sundials_version 2.6.0
+%endif
 
 # Patches generated from: https://github.com/sanjayankur31/STEPS/tree/fedora-3.5.0
 # use system gtest
-Patch0:         0001-Unbundle-gtest.patch
+Patch:          0001-Unbundle-gtest.patch
 # Remove flags they set
-Patch1:         0003-Remove-flags-set-by-project.patch
+Patch:          0003-Remove-flags-set-by-project.patch
 # Remove pysteps flags
-Patch2:         0004-Remove-pysteps-flags.patch
+Patch:          0004-Remove-pysteps-flags.patch
 # We'll install manually, much easier and cleaner
-Patch3:         0005-Disable-pyinstall.patch
+Patch:          0005-Disable-pyinstall.patch
 # Use pytest instead of NOSE
 # Sent upstream: https://github.com/CNS-OIST/STEPS/pull/24
-Patch4:         0001-feat-replace-nose-invocations-with-pytest.patch
-# Try to make compatible with Sundials-5.7.0
-%if "%{system_sundials}" == "1"
-# Tweak cmake file to stop looking for SUNDIALS_DIR
-Patch5:         %{name}-sundials.5.7.0.patch
-%endif
+Patch:          0001-feat-replace-nose-invocations-with-pytest.patch
 # libstepsutil is not meant to be a separate shared object
-Patch6:         0002-Make-libstepsutil-static.patch
+Patch:          0002-Make-libstepsutil-static.patch
 # Add more template function to match
-Patch7:         0007-template-matching-collections_hpp.patch
+Patch:          0007-template-matching-collections_hpp.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  git-core
-BuildRequires:  gtest-devel
+BuildRequires:  pkgconfig(gtest_main)
 BuildRequires:  petsc-devel
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist Cython}
@@ -98,83 +80,114 @@ BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist scipy}
 BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{blaslib}-devel
+BuildRequires:  flexiblas-devel
 BuildRequires:  Random123-devel
+# The -static BR is required for tracking of header-only libraries
+BuildRequires:  pkgconfig(easyloggingpp)
+BuildRequires:  easyloggingpp-static
 
-%if "%{system_sundials}" == "1"
-BuildRequires:  sundials-devel
+%if %{with system_sundials}
+BuildRequires:  sundials2-devel
 %endif
-
 
 %description
 %{_description}
 
-%package -n python3-%{module_name}
-Summary:        STochastic Engine for Pathway Simulation
-Provides:       %{module_name} = %{version}-%{release}
 
-%description -n python3-%{module_name}
-%{_description}
+%package -n python3-steps
+Summary:        STochastic Engine for Pathway Simulation
+
+Provides:       steps = %{version}-%{release}
+%if %{without system_sundials}
+Provides:       bundled(sundials2) = %{sundials_version}
+%endif
+
+%description -n python3-steps %{_description}
 
 
 %if %{with openmpi}
-%package -n python3-%{module_name}-openmpi
-Summary:        %{module_name} built with openmpi
+%package -n python3-steps-openmpi
+Summary:        steps built with openmpi
+
 BuildRequires:  openmpi-devel
 BuildRequires:  petsc-openmpi-devel
 BuildRequires:  rpm-mpi-hooks
-%if "%{system_sundials}" == "1"
-BuildRequires:  sundials-openmpi-devel
+%if %{with system_sundials}
+BuildRequires:  sundials2-openmpi-devel
 %endif
+
 Requires:       openmpi
 
-%description -n python3-%{module_name}-openmpi
-%{_description}
+%if %{without system_sundials}
+Provides:       bundled(sundials2) = %{sundials_version}
 %endif
 
+%description -n python3-steps-openmpi %{_description}
+%endif
+
+
 %if %{with mpich}
-%package -n python3-%{module_name}-mpich
-Summary:        %{module_name} built with mpich
+%package -n python3-steps-mpich
+Summary:        steps built with mpich
+
 BuildRequires:  mpich-devel
 BuildRequires:  petsc-mpich-devel
 BuildRequires:  rpm-mpi-hooks
-%if "%{system_sundials}" == "1"
-BuildRequires:  sundials-mpich-devel
+%if %{with system_sundials}
+BuildRequires:  sundials2-mpich-devel
 %endif
+
 Requires:       mpich
 
-%description -n python3-%{module_name}-mpich
-%{_description}
-
+%if %{without system_sundials}
+Provides:       bundled(sundials2) = %{sundials_version}
 %endif
+
+%description -n python3-steps-mpich
+%{_description}
+%endif
+
 
 %prep
-%autosetup -n %{pretty_name}-%{version} -S git -N
-
-# use the copy that cmake ships instead of the older outdated copy that upstream bundles
+%autosetup -n STEPS-%{version} -N
+# use the copy that cmake ships instead of the older outdated copy that
+# upstream bundles
 rm -rf CMake/FindBLAS.cmake
+%autopatch -p1
 
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-%patch2 -p1 -b .backup
-%patch3 -p1 -b .backup
-%patch4 -p1 -b .backup
-%patch6 -p1 -b .backup
-%patch7 -p1 -b .backup
-
-# Easyloggingpp
-mkdir -pv src/third_party/easyloggingpp/src/
-cp %{SOURCE1} src/third_party/easyloggingpp/src/ -v
-cp %{SOURCE2} src/third_party/easyloggingpp/src/ -v
-
-
-# Correct for sundials2
-# sed -i.orig 's|^#include.*<cvode/|#include <sundials2/cvode/|g' src/steps/tetode/tetode.cpp
-%if "%{system_sundials}" == "1"
-%patch5 -p1 -b .backup
-rm -rf src/third_party/cvode-2.6.0
+%if %{with system_sundials}
+# We add %%{_includedir}/sundials2 to the CXXFLAGS in %%build; we must also
+# alter any includes that start with sundials/ in order to use the sundials2
+# compatibility package. The find-then-modify pattern preserves mtimes on
+# sources that did not need to be modified.
+find 'src' -type f \( -name '*.c*' -o -name '*.h*' \) -exec gawk \
+    '/^#include +[<"]sundials\// { print FILENAME; nextfile }' '{}' '+' |
+  xargs -r sed -r -i 's@^(#include +[<"])sundials/@\1@'
 %endif
 
+# Remove bundled dependencies that we have unbundled:
+rm -rvf \
+%if %{with system_sundials}
+    src/third_party/cvode* \
+%endif
+    src/third_party/easyloggingpp \
+    src/third_party/superlu* \
+    src/third_party/Random123*
+
+# Finding an unbundled easylogging++ via pkg_check_modules() doesn’t work quite
+# the way upstream intended. The CMake variable EASYLOGGINGPP_INCLUDE_DIRS is
+# not set, but upstream expects to use that to find the source file
+# easylogging++.cc, and defining it manually
+# (-DEASYLOGGINGPP_INCLUDE_DIRS:PATH=…) without a corresponding set() in a
+# CMakeLists.txt somewhere does not seem to work.
+#
+# We could patch in “set(EASYLOGGINGPP_INCLUDE_DIRS %%{_includedir})” to the
+# top-level CMakeLists.txt in the case where USE_BUNDLE_EASYLOGGINGPP is false,
+# but it’s easier just to symlink the system files to the expected bundled
+# location and let the build system think it is stil bundled.
+mkdir -p src/third_party/easyloggingpp/src
+ln -s %{_includedir}/easylogging++.h %{_includedir}/easylogging++.cc \
+    src/third_party/easyloggingpp/src/
 
 # Build directories
 mkdir build
@@ -186,55 +199,70 @@ mkdir build-openmpi
 mkdir build-mpich
 %endif
 
+
 %build
 # Best to use && so that if anything in the chain fails, the build also fails
 # straight away
 %global do_cmake_config %{expand: \
 echo
-echo "*** BUILDING %{module_name}-%{version}$MPI_COMPILE_TYPE ***"
+echo "*** BUILDING steps-%{version}$MPI_COMPILE_TYPE ***"
 echo
 %set_build_flags
-export CXXFLAGS="%{build_cxxflags} -lpthread -lgtest -lgtest_main"
-pushd build$MPI_COMPILE_TYPE  &&
-    cmake \\\
-        -DUSE_BUNDLE_EASYLOGGINGPP:BOOL="ON" \\\
-        -DUSE_BUNDLE_RANDOM123:BOOL="OFF" \\\
-%if "%{system_sundials}" == "1"
-        -DUSE_BUNDLE_SUNDIALS:BOOL="OFF" \\\
-%else
-        -DUSE_BUNDLE_SUNDIALS:BOOL="ON" \\\
-        -DSUNDIALS_DIR:PATH=../src/third_party/cvode-2.6.0 \\\
-        -DSUNDIALS_INCLUDE_DIR:PATH=../src/third_party/cvode-2.6.0/include \\\
+export CXXFLAGS="${CXXFLAGS-} $(pkgconf --cflags gtest_main) $(pkgconf --libs gtest_main)"
+%if %{with system_sundials}
+# Correct for sundials2
+export CXXFLAGS="${CXXFLAGS-} -I%{_includedir}/sundials2"
 %endif
-        -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
-        -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
-        -DCMAKE_Fortran_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
-        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \\\
-        -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \\\
-        -DLIB_INSTALL_DIR:PATH=%{_libdir} \\\
-        -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \\\
-        -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \\\
-        -DPYTHON_INSTALL_PREFIX:PATH=$MPI_PYTHON3_SITEARCH \\\
-        -DCMAKE_SKIP_RPATH:BOOL=ON \\\
-        -DUSE_MPI:BOOL=$MPI_YES \\\
-        -DUSE_PETSC:BOOL=False \\\
-        -DBLA_VENDOR:STRING=FlexiBLAS \\\
-        -DBLA_PREFER_PKGCONFIG:BOOL=True \\\
-        -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \\\
-        -DBUILD_SHARED_LIBS:BOOL=ON \\\
+pushd build$MPI_COMPILE_TYPE &&
+  cmake \\\
+      -DUSE_BUNDLE_EASYLOGGINGPP:BOOL="ON" \\\
+      -DUSE_BUNDLE_RANDOM123:BOOL="OFF" \\\
+%if %{with system_sundials}
+      -DUSE_BUNDLE_SUNDIALS:BOOL="OFF" \\\
+      -DSUNDIALS_DIR:PATH=%{_prefix} \\\
+      -DSUNDIALS_INCLUDE_DIR:PATH=%{_includedir} \\\
+      -DSUNDIALS_LIBRARY_DIR:PATH=%{_libdir} \\\
+%else
+      -DUSE_BUNDLE_SUNDIALS:BOOL="ON" \\\
+      -DSUNDIALS_DIR:PATH=../src/third_party/cvode-2.6.0 \\\
+      -DSUNDIALS_INCLUDE_DIR:PATH=../src/third_party/cvode-2.6.0/include \\\
+%endif
+      -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
+      -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
+      -DCMAKE_Fortran_FLAGS_RELEASE:STRING="-DNDEBUG" \\\
+      -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \\\
+      -DCMAKE_INSTALL_DO_STRIP:BOOL=OFF \\\
+      -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \\\
+      -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \\\
+      -DLIB_INSTALL_DIR:PATH=%{_libdir} \\\
+      -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \\\
+      -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \\\
+      -DPYTHON_INSTALL_PREFIX:PATH=$MPI_PYTHON3_SITEARCH \\\
+      -DCMAKE_SKIP_RPATH:BOOL=ON \\\
+      -DUSE_MPI:BOOL=$MPI_YES \\\
+      -DUSE_PETSC:BOOL="OFF" \\\
+      -DBLA_VENDOR:STRING=FlexiBLAS \\\
+      -DBLA_PREFER_PKGCONFIG:BOOL=True \\\
+      -DBUILD_SHARED_LIBS:BOOL="ON" \\\
 %if "%{_lib}" == "lib64"
-        -DLIB_SUFFIX=64 ../ &&
+      -DLIB_SUFFIX=64 ../ &&
 %else
-        -DLIB_SUFFIX=""  ../ &&
+      -DLIB_SUFFIX="" ../ &&
 %endif
-popd || exit -1;
+  popd || exit -1
 }
 
 %global do_make_build %{expand: \
-make %{?_smp_mflags} -C build$MPI_COMPILE_TYPE &&
-pushd pysteps &&
-    CFLAGS="%{optflags}" LDFLAGS="%{__global_ldflags}" %{__python3}  ../build$MPI_COMPILE_TYPE/pysteps/cmake_setup.py build --executable="/usr/bin/python3 -s" --build-base=../build$MPI_COMPILE_TYPE/pysteps/build/  &&
-popd || exit -1
+%make_build -C build$MPI_COMPILE_TYPE &&
+  pushd pysteps &&
+  CFLAGS="%{optflags}" \\\
+      LDFLAGS="%{__global_ldflags}" \\\
+      %{python3} \\\
+      "../build$MPI_COMPILE_TYPE/pysteps/cmake_setup.py" \\\
+      build \\\
+      --executable="%{python3} %{py3_shbang_opts}" \\\
+      --build-base="../build$MPI_COMPILE_TYPE/pysteps/build/" &&
+  popd || exit -1
 }
 
 # Build serial version, dummy arguments
@@ -248,8 +276,6 @@ export MPI_YES="False"
 %{do_cmake_config}
 %{do_make_build}
 
-
-
 # Build mpich version
 %if %{with mpich}
 %{_mpich_load}
@@ -261,7 +287,6 @@ export MPI_YES="True"
 export MPI_COMPILE_TYPE="-mpich"
 %{do_cmake_config}
 %{do_make_build}
-
 %{_mpich_unload}
 %endif
 
@@ -276,20 +301,31 @@ export MPI_YES="True"
 export MPI_COMPILE_TYPE="-openmpi"
 %{do_cmake_config}
 %{do_make_build}
-
 %{_openmpi_unload}
 %endif
+
 
 %install
 # Install everything
 %global do_install %{expand: \
 echo
-echo "*** INSTALLING %{module_name}-%{version}$MPI_COMPILE_TYPE ***"
+echo "*** INSTALLING steps-%{version}$MPI_COMPILE_TYPE ***"
 echo
-    make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" CPPROG="cp -p" -C build$MPI_COMPILE_TYPE || exit -1
-    pushd pysteps &&
-        CFLAGS="%{optflags}" LDFLAGS="%{__global_ldflags}" %{__python3}  ../build$MPI_COMPILE_TYPE/pysteps/cmake_setup.py build --executable="/usr/bin/python3 -s" --build-base=../build$MPI_COMPILE_TYPE/pysteps/build/ install --install-lib=$MPI_PYTHON3_SITEARCH -O1 --skip-build --root $RPM_BUILD_ROOT &&
-    popd || exit -1
+%make_install CPPROG="cp -p" -C build$MPI_COMPILE_TYPE || exit -1
+pushd pysteps &&
+  CFLAGS="%{optflags}" \\\
+      LDFLAGS="%{__global_ldflags}" \\\
+      %{python3} \\\
+      "../build$MPI_COMPILE_TYPE/pysteps/cmake_setup.py" \\\
+      build \\\
+      --executable="%{python3} %{py3_shbang_opts}" \\\
+      --build-base="../build$MPI_COMPILE_TYPE/pysteps/build/" \\\
+      install \\\
+      --install-lib=$MPI_PYTHON3_SITEARCH \\\
+      -O1 \\\
+      --skip-build \\\
+      --root $RPM_BUILD_ROOT &&
+  popd || exit -1
 }
 
 # install serial version
@@ -321,24 +357,27 @@ export MPI_COMPILE_TYPE="-openmpi"
 %endif
 
 
-%files -n python3-%{module_name}
+%files -n python3-steps
 %license LICENSE.md
-%{python3_sitearch}/%{module_name}
-%{python3_sitearch}/%{module_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/steps
+%{python3_sitearch}/steps-%{version}-py%{python3_version}.egg-info
+
 
 %if %{with mpich}
-%files -n python3-%{module_name}-mpich
+%files -n python3-steps-mpich
 %license LICENSE.md
-%{python3_sitearch}/mpich/%{module_name}
-%{python3_sitearch}/mpich/%{module_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/mpich/steps
+%{python3_sitearch}/mpich/steps-%{version}-py%{python3_version}.egg-info
 %endif
 
+
 %if %{with openmpi}
-%files -n python3-%{module_name}-openmpi
+%files -n python3-steps-openmpi
 %license LICENSE.md
-%{python3_sitearch}/openmpi/%{module_name}
-%{python3_sitearch}/openmpi/%{module_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/openmpi/steps
+%{python3_sitearch}/openmpi/steps-%{version}-py%{python3_version}.egg-info
 %endif
+
 
 %changelog
 %autochangelog

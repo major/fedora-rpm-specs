@@ -1,21 +1,23 @@
-%global commit 7d2ac3c1fa858f2c247c809fc6ef43f71f241098
+%global commit e4292c8f1bd2580a44d3cbf3570a4505bd3a74b6
 
 Summary:        GCJ-free toolkit for manipulating PDF documents
 Name:           pdftk-java
-Version:        3.3.2
-Release:        5%{?dist}
-# pdftk-java itself is GPLv2+ but uses other source codes, breakdown:
-# LGPLv2+: java/com/gitlab/pdftk_java/com/lowagie/
+Version:        3.3.3
+Release:        1%{?dist}
+# pdftk-java itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# LGPL-2.0-or-later: java/com/gitlab/pdftk_java/com/lowagie/
 # APAFML: java/com/gitlab/pdftk_java/com/lowagie/text/pdf/fonts/*.{afm,txt}
-# ASL 2.0: java/com/gitlab/pdftk_java/com/lowagie/text/pdf/TIFFLZWDecoder.java
-License:        GPLv2+ and LGPLv2+ and APAFML and ASL 2.0
+# Apache-2.0: java/com/gitlab/pdftk_java/com/lowagie/text/pdf/{IntHashtable,TIFFLZWDecoder}.java
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND APAFML AND Apache-2.0
 URL:            https://gitlab.com/pdftk-java/pdftk
 Source0:        https://gitlab.com/pdftk-java/pdftk/-/archive/v%{version}/pdftk-%{version}.tar.gz
 Patch0:         pdftk-java-3.3.1-classpath.patch
 Patch1:         pdftk-java-3.3.1-lang3-3.1.patch
 Patch2:         pdftk-java-3.3.2-bcprov-1.5x.patch
 BuildArch:      noarch
+%if 0%{?fedora} || 0%{?rhel} > 7
 ExclusiveArch:  %{java_arches} noarch
+%endif
 BuildRequires:  ant
 %if 0%{?fedora} || 0%{?rhel} > 8
 BuildRequires:  bouncycastle >= 1.63
@@ -96,6 +98,9 @@ set -euo pipefail
 %{_mandir}/man1/pdftk.1*
 
 %changelog
+* Fri Sep 23 2022 Robert Scheck <robert@fedoraproject.org> 3.3.3-1
+- Upgrade to 3.3.3 (#2129183)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

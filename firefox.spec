@@ -113,7 +113,7 @@
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.80
+%global nss_version 3.82
 %global nss_build_version %{nss_version}
 %endif
 
@@ -158,13 +158,13 @@
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        105.0
+Version:        105.0.1
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20220920.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20220922.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -213,6 +213,7 @@ Patch61:        firefox-glibc-dynstack.patch
 Patch62:        build-python.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch77:        build-python-3.11.patch
+Patch78:        firefox-i686-build.patch
 
 # Test patches
 # Generate without context by
@@ -471,6 +472,7 @@ This package contains results of tests executed during build.
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch77 -p1 -b .build-python-3.11
+%patch78 -p1 -b .firefox-i686
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -1082,6 +1084,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Sep 22 2022 Martin Stransky <stransky@redhat.com>- 105.0.1-1
+- Updated to 105.0.1
+
 * Tue Sep 20 2022 Martin Stransky <stransky@redhat.com>- 105.0-1
 - Updated to 105.0
 

@@ -35,21 +35,21 @@ Obsoletes:      libsbml-sharp < 0:5.18.0-20
 
 Name:           libsbml
 Version:        5.19.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Systems Biology Markup Language library
 License:        LGPLv2+
 URL:            http://sbml.org/Software/libSBML
-Source0:        https://sourceforge.net/projects/sbml/files/libsbml/%{version}/stable/libSBML-%{version}-core-plus-packages-src.tar.gz
-Source1:        https://sourceforge.net/projects/sbml/files/libsbml/%{version}/stable/libSBML-%{version}-render-src.zip
+Source0:        https://sourceforge.net/projects/sbml/files/%{name}/%{version}/stable/libSBML-%{version}-core-plus-packages-src.tar.gz
+Source1:        https://sourceforge.net/projects/sbml/files/%{name}/%{version}/stable/libSBML-%{version}-render-src.zip
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1632190
-Patch0:         libsbml-use-system-minizip-cmake.patch
-Patch1:         libsbml-fix_install_libpaths.patch
+Patch0:         %{name}-use-system-minizip-cmake.patch
+Patch1:         %{name}-fix_install_libpaths.patch
 Patch2:         time-clock.diff
-Patch3:         lisbml-fix-jsfile-globs.diff
+Patch3:         %{name}-fix-jsfile-globs.diff
 
 # formatter was dropped in python3.10. It appears the imported code was just a noop.
-Patch4:         libsbml-drop-formatter-import.diff
+Patch4:         %{name}-drop-formatter-import.diff
 # Do not use private unittest.TestCase.assert_() method
 # (fixes Python 3.11 compatibility, RHBZ#2019426)
 #
@@ -57,7 +57,9 @@ Patch4:         libsbml-drop-formatter-import.diff
 #
 # We need, and can use, only one of the three commits in that PR; the others
 # affect files in dev/ that are not present in the PyPI source distribution.
-Patch5:         https://github.com/sbmlteam/libsbml/pull/178/commits/b12b7f9372424f5271a838c95605d9946c7ea1fb.patch
+Patch5:         https://github.com/sbmlteam/%{name}/pull/178/commits/b12b7f9372424f5271a838c95605d9946c7ea1fb.patch
+
+Patch6:         %{name}-rhbz_2128592.patch
 
 BuildRequires:  cmake
 BuildRequires:  zlib-devel
@@ -418,6 +420,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 5.19.0-20
+- Patched for rhbz#2128592
+
 * Mon Sep 05 2022 Iñaki Úcar <iucar@fedoraproject.org> - 5.19.0-19
 - Rebuild for R 4.2.1
 

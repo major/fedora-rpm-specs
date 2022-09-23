@@ -1,7 +1,5 @@
-%bcond_without tests
-
 Name:		pepc
-Version:	1.3.17
+Version:	1.3.20
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -12,9 +10,7 @@ Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
-%if %{with tests}
 BuildRequires:	python3-pytest
-%endif
 Requires:	python3-pepc = %{version}-%{release}
 
 %description
@@ -33,7 +29,7 @@ Pepc Python libraries
 %autosetup -n %{name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -44,9 +40,7 @@ Pepc Python libraries
 install -pDm644 docs/man1/pepc.1 %{buildroot}/%{_mandir}/man1/pepc.1
 
 %check
-%if %{with tests}
 %pytest -v
-%endif
 
 %files
 %license LICENSE.md

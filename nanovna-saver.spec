@@ -1,6 +1,6 @@
 Name:		nanovna-saver
-Version:	0.4.0
-Release:	5%{?dist}
+Version:	0.5.3
+Release:	1%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
 URL:		https://github.com/mihtjel/%{name}
@@ -20,8 +20,8 @@ BuildRequires:	sed
 BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 # OS/distro specific
-Patch0:		nanovna-saver-0.3.9-fedora-icon.patch
-Patch1:		nanovna-saver-0.4.0-relax-deps.patch
+Patch0:		nanovna-saver-0.5.3-fedora-icon.patch
+Patch1:		nanovna-saver-0.5.3-relax-deps.patch
 
 %description
 A multiplatform tool to save Touchstone files from the NanoVNA, sweep
@@ -66,6 +66,10 @@ desktop-file-install --add-category="Utility" \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Sep 22 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.3-1
+- New version
+  Resolves: rhbz#2125428
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

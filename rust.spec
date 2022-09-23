@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.62.0
-%global bootstrap_channel 1.62.0
-%global bootstrap_date 2022-06-30
+%global bootstrap_version 1.63.0
+%global bootstrap_channel 1.63.0
+%global bootstrap_date 2022-08-11
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -46,7 +46,7 @@
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 12.0+.
 %global min_llvm_version 12.0.0
-%global bundled_llvm_version 14.0.5
+%global bundled_llvm_version 14.0.6
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.4, and not the next minor soname change.
@@ -83,7 +83,7 @@
 %endif
 
 Name:           rust
-Version:        1.63.0
+Version:        1.64.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
@@ -106,6 +106,9 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
 
+# https://github.com/rust-lang/rust/pull/102076
+Patch3:         0001-rustc_transmute-fix-big-endian-discriminants.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -120,7 +123,7 @@ Patch101:       rustc-1.63.0-disable-http2.patch
 
 # kernel rh1410097 causes too-small stacks for PIE.
 # (affects RHEL6 kernels when building for RHEL7)
-Patch102:       rustc-1.58.0-no-default-pie.patch
+Patch102:       rustc-1.64.0-no-default-pie.patch
 
 
 # Get the Rust triple for any arch.
@@ -486,7 +489,7 @@ A tool for formatting Rust code according to style guidelines.
 
 
 %package -n rls
-Summary:        Rust Language Server for IDE integration
+Summary:        Rust Language Server for IDE integration (deprecated)
 %if %with bundled_libgit2
 Provides:       bundled(libgit2) = %{bundled_libgit2_version}
 %endif
@@ -501,8 +504,17 @@ Provides:       rls-preview = %{version}-%{release}
 %description -n rls
 The Rust Language Server provides a server that runs in the background,
 providing IDEs, editors, and other tools with information about Rust programs.
-It supports functionality such as 'goto definition', symbol search,
-reformatting, and code completion, and enables renaming and refactorings.
+RLS is being deprecated in favor of rust-analyzer, and may be removed in the future.
+https://blog.rust-lang.org/2022/07/01/RLS-deprecation.html
+
+
+%package analyzer
+Summary:        Rust implementation of the Language Server Protocol
+
+%description analyzer
+rust-analyzer is an implementation of Language Server Protocol for the Rust
+programming language. It provides features like completion and goto definition
+for many code editors, including VS Code, Emacs and Vim.
 
 
 %package -n clippy
@@ -574,6 +586,7 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %if %with disabled_libssh2
 %patch100 -p1
@@ -736,7 +749,7 @@ end}
   %{enable_debuginfo} \
   --set rust.codegen-units-std=1 \
   --enable-extended \
-  --tools=analysis,cargo,clippy,rls,rustfmt,src \
+  --tools=analysis,cargo,clippy,rls,rust-analyzer,rustfmt,src \
   --enable-vendor \
   --enable-verbose-tests \
   --dist-compression-formats=gz \
@@ -776,15 +789,15 @@ find %{buildroot}%{_libdir} -maxdepth 1 -type f -name '*.so' \
 # The libdir libraries are identical to those under rustlib/.  It's easier on
 # library loading if we keep them in libdir, but we do need them in rustlib/
 # to support dynamic linking for compiler plugins, so we'll symlink.
-(cd "%{buildroot}%{rustlibdir}/%{rust_triple}/lib" &&
- find ../../../../%{_lib} -maxdepth 1 -name '*.so' |
- while read lib; do
-   if [ -f "${lib##*/}" ]; then
-     # make sure they're actually identical!
-     cmp "$lib" "${lib##*/}"
-     ln -v -f -s -t . "$lib"
-   fi
- done)
+find %{buildroot}%{rustlibdir}/%{rust_triple}/lib/ -maxdepth 1 -type f -name '*.so' |
+while read lib; do
+ lib2="%{buildroot}%{_libdir}/${lib##*/}"
+ if [ -f "$lib2" ]; then
+   # make sure they're actually identical!
+   cmp "$lib" "$lib2"
+   ln -v -f -r -s -T "$lib2" "$lib"
+ fi
+done
 
 # Remove installer artifacts (manifests, uninstall scripts, etc.)
 find %{buildroot}%{rustlibdir} -maxdepth 1 -type f -exec rm -v '{}' '+'
@@ -863,6 +876,8 @@ rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 env RLS_TEST_WAIT_FOR_AGES=1 \
 %{__python3} ./x.py test --no-fail-fast --stage 2 rls || :
 
+%{__python3} ./x.py test --no-fail-fast --stage 2 rust-analyzer || :
+
 %{__python3} ./x.py test --no-fail-fast --stage 2 rustfmt || :
 
 
@@ -875,6 +890,7 @@ env RLS_TEST_WAIT_FOR_AGES=1 \
 %{_bindir}/rustc
 %{_bindir}/rustdoc
 %{_libdir}/*.so
+%{_libexecdir}/rust-analyzer-proc-macro-srv
 %{_mandir}/man1/rustc.1*
 %{_mandir}/man1/rustdoc.1*
 %dir %{rustlibdir}
@@ -1009,6 +1025,12 @@ end}
 %license src/tools/rls/LICENSE-{APACHE,MIT}
 
 
+%files analyzer
+%{_bindir}/rust-analyzer
+%doc src/tools/rust-analyzer/README.md
+%license src/tools/rust-analyzer/LICENSE-{APACHE,MIT}
+
+
 %files -n clippy
 %{_bindir}/cargo-clippy
 %{_bindir}/clippy-driver
@@ -1032,6 +1054,10 @@ end}
 
 
 %changelog
+* Thu Sep 22 2022 Josh Stone <jistone@redhat.com> - 1.64.0-1
+- Update to 1.64.0.
+- Add rust-analyzer.
+
 * Thu Aug 11 2022 Josh Stone <jistone@redhat.com> - 1.63.0-1
 - Update to 1.63.0.
 

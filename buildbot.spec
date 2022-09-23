@@ -20,7 +20,7 @@
 %endif
 
 Name:           buildbot
-Version:        3.6.0
+Version:        3.6.1
 Release:        1%{?dist}
 
 Summary:        Build/test automation system
@@ -396,6 +396,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Thu Sep 22 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.6.1-1
+- 3.6.1
+
 * Thu Aug 25 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.6.0-1
 - 3.6.0
 

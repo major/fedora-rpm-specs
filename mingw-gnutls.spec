@@ -1,17 +1,17 @@
-%?mingw_package_header
+%{?mingw_package_header}
 
 Name:           mingw-gnutls
-Version:        3.7.1
-Release:        5%{?dist}
+Version:        3.7.7
+Release:        1%{?dist}
 Summary:        MinGW GnuTLS TLS/SSL encryption library
 
 # The libraries are LGPLv2.1+, utilities are GPLv3+
 License: GPLv3+ and LGPLv2+
 URL:            http://www.gnutls.org/
-Source0:        ftp://ftp.gnutls.org/gcrypt/gnutls/v3.7/gnutls-%{version}.tar.xz
-Source1:        ftp://ftp.gnutls.org/gcrypt/gnutls/v3.7/gnutls-%{version}.tar.xz.sig
-Source2:        gpgkey-462225C3B46F34879FC8496CD605848ED7E69871.gpg
-Patch0:         gnutls-3.7.1-aggressive-realloc-fixes.patch
+%define short_version %(echo %{version} | grep -m1 -o "[0-9]*\.[0-9]*" | head -1)
+Source0:        https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/gnutls-%{version}.tar.xz
+Source1:        https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/gnutls-%{version}.tar.xz.sig
+Source2:        gnutls-release-keyring.gpg
 
 BuildArch:      noarch
 
@@ -77,11 +77,11 @@ GnuTLS TLS/SSL encryption library.  This library is cross-compiled
 for MinGW.
 
 
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git -n gnutls-%{version}
 
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
@@ -165,6 +165,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/ncrypt.dll*
 
 
 %changelog
+* Wed Sep 21 2022 Sandro Mani <manisandro@gmail.com> - 3.7.7-1
+- Update to 3.7.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

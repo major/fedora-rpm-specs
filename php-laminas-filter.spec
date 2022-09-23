@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    06322d90fad3c18dc4646f26d92c8b5557ee195e
+%global gh_commit    fa2ef11911a5b99e4323ee24e9ed85703f14a983
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.19.0
+Version:        2.20.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -202,6 +202,9 @@ exit $ret
 
 
 %changelog
+* Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 2.20.0-1
+- update to 2.20.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
 - update to 2.19.0
 - raise dependency on laminas-stdlib 3.13.0

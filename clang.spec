@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -64,15 +64,17 @@ Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
 Patch4:     0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
 Patch5:     0010-PATCH-clang-Produce-DWARF4-by-default.patch
+Patch6:     0001-Take-into-account-Fedora-Specific-install-dir-for-li.patch
 
 # TODO: Can be dropped in LLVM 16: https://reviews.llvm.org/D133316
-Patch6:     0001-Mark-fopenmp-implicit-rpath-as-NoArgumentUnused.patch
+Patch7:     0001-Mark-fopenmp-implicit-rpath-as-NoArgumentUnused.patch
+
+# TODO: Can be dropped in LLVM 16: https://reviews.llvm.org/D134362
+Patch8:     0001-clang-Fix-interaction-between-asm-labels-and-inline-.patch
 
 # Backport of https://reviews.llvm.org/D133800 to the 15.0.0 release.
 # TODO: Drop once updating to 15.0.1 or newer.
-Patch7:     0001-Clang-15.0.1-Downgrade-implicit-int-and-implicit-fun.patch
-
-Patch8:     0001-Take-into-account-Fedora-Specific-install-dir-for-li.patch
+Patch9:     0001-Clang-15.0.1-Downgrade-implicit-int-and-implicit-fun.patch
 
 %if %{without compat_build}
 # Patches for clang-tools-extra
@@ -598,6 +600,9 @@ false
 
 %endif
 %changelog
+* Thu Sep 22 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
+- Add patch for inline builtins with asm label
+
 * Sat Sep 17 2022 sguelton@redhat.com - 15.0.0-3
 - Improve integration of llvm's libunwind
 

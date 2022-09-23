@@ -440,8 +440,8 @@ Source17:	GardinerModBug.ttf
 Source18:	GardinerModCat.ttf
 # RHEL 7|8 needs newer nodejs
 %if 0%{?rhel} && 0%{?rhel} <= 8
-Source19:	https://nodejs.org/dist/latest-v12.x/node-v12.22.6-linux-x64.tar.xz
-Source21:	https://nodejs.org/dist/latest-v12.x/node-v12.22.6-linux-arm64.tar.xz
+Source19:	https://nodejs.org/dist/latest-v16.x/node-v16.17.0-linux-x64.tar.xz
+Source21:	https://nodejs.org/dist/latest-v16.x/node-v16.17.0-linux-arm64.tar.xz
 %endif
 # Bring xcb-proto with us (might need more than python on EPEL?)
 Source20:	https://www.x.org/releases/individual/proto/xcb-proto-1.14.tar.xz

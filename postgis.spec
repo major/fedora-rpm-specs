@@ -4,19 +4,18 @@
 %{!?upgrade:%global upgrade 1}
 %{!?runselftest:%global runselftest 1}
 
-# Re-enable upgrade packages on next major version bump!
-%global        majorversion 3.2
+%global        majorversion 3.3
 %global        soversion 3
 %global        prevmajorversion 2.5
 %global        prevversion %{prevmajorversion}.5
-%global        so_files postgis postgis_topology rtpostgis address_standardizer
+%global        so_files postgis postgis_topology rtpostgis
 %global        configure_opts --disable-rpath --enable-raster
 
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgis
-Version:       %majorversion.2
-Release:       1%{?commit:.git%shortcommit}%{?dist}
+Version:       3.3.1
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPLv2+
 
@@ -24,10 +23,6 @@ URL:           http://www.postgis.net
 Source0:       http://download.osgeo.org/%{name}/source/%{name}-%{version}.tar.gz
 Source2:       http://download.osgeo.org/%{name}/docs/%{name}-%{version}.pdf
 Source3:       http://download.osgeo.org/%{name}/source/%{name}-%{prevversion}.tar.gz
-
-# From debian
-# This should increase chances of tests passing even on busy or slow systems.
-Patch0:        relax-test-timing-constraints.patch
 
 # Add proj8 compatibility to postgis-2.x (needed for upgrade package)
 Patch1:        postgis2-proj8.patch
@@ -52,7 +47,7 @@ BuildRequires: libtool
 BuildRequires: libxml2-devel
 BuildRequires: libxslt
 BuildRequires: llvm
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: perl-generators
 BuildRequires: postgresql-server-devel
 BuildRequires: proj-devel >= 5.2.0
@@ -152,7 +147,6 @@ The client package provides shp2pgsql, raster2pgsql and pgsql2shp for PostGIS.
 
 %prep
 %setup -q -n %{name}-%{version} -a 3
-%patch0 -p1
 
 %if %upgrade
 (
@@ -346,6 +340,8 @@ fi
 %{_bindir}/pgsql2shp
 %{_bindir}/raster2pgsql
 %{_bindir}/shp2pgsql
+%{_bindir}/pgtopo_export
+%{_bindir}/pgtopo_import
 
 %files gui
 %{_bindir}/shp2pgsql-gui
@@ -393,12 +389,13 @@ fi
 %{_datadir}/%{name}/test_joinestimation.pl
 %{_datadir}/%{name}/create_extension_unpackage.pl
 %{_datadir}/%{name}/create_undef.pl
-%{_datadir}/%{name}/%{name}_proc_upgrade.pl
 %{_datadir}/%{name}/%{name}_restore.pl
 %{_datadir}/pgsql/contrib/postgis-%{majorversion}/postgis_restore.pl
 %{_datadir}/%{name}/read_scripts_version.pl
 %{_datadir}/%{name}/test_geography_estimation.pl
 %{_datadir}/%{name}/test_geography_joinestimation.pl
+%{_datadir}/%{name}/create_or_replace_to_create.pl
+%{_datadir}/%{name}/create_upgrade.pl
 %endif
 
 
@@ -407,6 +404,12 @@ fi
 
 
 %changelog
+* Sat Sep 10 2022 Sandro Mani <manisandro@gmail.com> - 3.3.1-1
+- Update to 3.3.1
+
+* Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 3.3.0-1
+- Update to 3.3.0
+
 * Sat Aug 06 2022 Sandro Mani <manisandro@gmail.com> - 3.2.2-1
 - Update to 3.2.2
 - Re-enable upgrade subpackages

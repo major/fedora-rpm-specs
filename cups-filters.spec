@@ -1,10 +1,17 @@
+# build braille subpackage on Fedora, don't do it on CentOS Stream 9 or older
+%if 0%{?fedora} || 0%{?rhel} > 9
+%bcond_without braille
+%else
+%bcond_with braille
+%endif
+
 # we build CUPS also with relro
 %global _hardened_build 1
 
 Summary: OpenPrinting CUPS filters and backends
 Name:    cups-filters
 Version: 1.28.16
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 # For a breakdown of the licensing, see COPYING file
 # GPLv2:   filters: commandto*, imagetoraster, pdftops, rasterto*,
@@ -23,6 +30,11 @@ Source0: http://www.openprinting.org/download/cups-filters/cups-filters-%{versio
 # backported from upstream
 Patch0001: browsed-updatenetif.patch
 
+%if %{with braille}
+# due moving texttobrf and textbrftoindexv3 to cups-filters-braille
+# remove after F38 goes EOL and CentOS Stream 10 is released
+Conflicts: cups-filters-braille < 1.28.16-3
+%endif
 
 # autogen.sh
 BuildRequires: autoconf
@@ -96,8 +108,11 @@ Recommends: nss-mdns
 Recommends: avahi
 # ippfind is used in driverless backend, not needed classic PPD based print queue
 Recommends: cups-ipptool
+
+%if %{with braille}
 # braille filters and backend
 Recommends: %{name}-braille%{?_isa} = %{version}-%{release}
+%endif
 
 # pstopdf
 Requires: bc grep sed which
@@ -133,19 +148,23 @@ Summary: OpenPrinting CUPS filters and backends - development environment
 License: LGPLv2 and MIT
 Requires: cups-filters-libs%{?_isa} = %{version}-%{release}
 
+%if %{with braille}
 %package braille
 Summary: OpenPrinting CUPS filters and backends - braille filters and backend
 License: GPLv2+ and MIT
 BuildRequires: liblouis-devel
-# remove after F36 goes EOL
-Conflicts: cups-filters < 1.28.11-1
+# due moving texttobrf and textbrftoindexv3 to cups-filters-braille
+# remove after F38 goes EOL and CentOS Stream 10 is released
+Conflicts: cups-filters < 1.28.16-3
 # we need classic pdftopdf and other filters as well
 Requires: cups-filters%{?_isa} = %{version}-%{release}
-# lou_translate and file2brl are needed for file conversions
+# one of lou_translate (from liblouis-utils package) and
+# file2brl (from liblouisutdml-utils package) is used for file conversions:
+# => prefer lou_translate from liblouis-utils because liblouis-utils are in
+# CentOS Stream
 # liblouis-utils for lou_translate
 Requires: liblouis-utils
-# liblouisutdml-utils for file2brl
-Requires: liblouisutdml-utils
+%endif
 
 %description
 Contains backends, filters, and other software that was
@@ -160,8 +179,10 @@ This package provides cupsfilters and fontembed libraries.
 %description devel
 This is the development package for OpenPrinting CUPS filters and backends.
 
+%if %{with braille}
 %description braille
 The package provides filters and cups-brf backend needed for braille printing.
+%endif
 
 %prep
 %autosetup -S git
@@ -199,6 +220,11 @@ The package provides filters and cups-brf backend needed for braille printing.
            --enable-pclm \
            --with-apple-raster-filter=rastertopdf \
            --with-remote-cups-local-queue-naming=RemoteName \
+%if %{with braille}
+           --enable-braille \
+%else
+           --disable-braille \
+%endif
            --disable-frequent-netif-update
 
 %make_build
@@ -294,8 +320,6 @@ done
 %attr(0755,root,root) %{_cups_serverbin}/filter/rastertopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/rastertops
 %attr(0755,root,root) %{_cups_serverbin}/filter/sys5ippprinter
-%attr(0755,root,root) %{_cups_serverbin}/filter/textbrftoindexv3
-%attr(0755,root,root) %{_cups_serverbin}/filter/texttobrf
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttops
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttotext
@@ -338,6 +362,7 @@ done
 %{_libdir}/pkgconfig/libcupsfilters.pc
 %{_libdir}/pkgconfig/libfontembed.pc
 
+%if %{with braille}
 %files braille
 # cups-brf needs to be run as root, otherwise it leaves error messages
 # in journal
@@ -348,6 +373,8 @@ done
 %attr(0755,root,root) %{_cups_serverbin}/filter/imageubrltoindexv3
 %attr(0755,root,root) %{_cups_serverbin}/filter/imageubrltoindexv4
 %attr(0755,root,root) %{_cups_serverbin}/filter/musicxmltobrf
+%attr(0755,root,root) %{_cups_serverbin}/filter/textbrftoindexv3
+%attr(0755,root,root) %{_cups_serverbin}/filter/texttobrf
 %attr(0755,root,root) %{_cups_serverbin}/filter/vectortobrf
 %attr(0755,root,root) %{_cups_serverbin}/filter/vectortopdf
 %{_cups_serverbin}/filter/cgmtopdf
@@ -376,8 +403,15 @@ done
 %{_datadir}/cups/ppdc/media-braille.defs
 %{_datadir}/cups/mime/braille.convs
 %{_datadir}/cups/mime/braille.types
+%endif
 
 %changelog
+* Thu Sep 22 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.28.16-4
+- rebuilt with qpdf-11.1.0
+
+* Thu Sep 22 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.28.16-3
+- build braille subpackage only on Fedora and CentOS Stream > 9
+
 * Wed Sep 21 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.28.16-2
 - disable frequent network interface data update, which slows down the queue creation
 

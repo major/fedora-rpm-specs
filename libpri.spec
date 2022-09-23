@@ -9,7 +9,15 @@ Summary:        An implementation of Primary Rate ISDN
 #   so long as the entirity of the derivative work (as defined within the GPL)
 #   is licensed either under the MPL of the OpenH323 license or the GPL of
 #   libpri.
-License:        GPLv2+
+# From source file headers:
+#   In addition, when this program is distributed with Asterisk in any form
+#   that would qualify as a 'combined work' or as a 'derivative work' (but not
+#   mere aggregation), you can redistribute and/or modify the combination under
+#   the terms of the license provided with that copy of Asterisk, instead of
+#   the license terms granted here.
+# The Makefile (only) is GPLv2+, but this does not affect the license of the
+# binary RPMs.
+License:        GPLv2 with exceptions
 URL:            https://www.asterisk.org/
 %global src_base https://downloads.asterisk.org/pub/telephony/libpri/releases
 Source0:        %{src_base}/libpri-%{version}.tar.gz

@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.5
-Release:        2%{?dist}
+Version:        5.15.6
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtLocation component
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -163,6 +163,9 @@ mkdir .git
 
 
 %changelog
+* Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-1
+- Update to 5.15.6
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:          libwebp
 Version:       1.2.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
@@ -21,6 +21,8 @@ Patch0:        libwebp-freeglut.patch
 Patch1:        libwebp-mingw-libsuffix.patch
 # Fix cmake module install location
 Patch2:        libwebp-cmakedir.patch
+# Honour libsuffix in libdir set in pkgconfig files
+Patch3:        libwebp_libsuffix.patch
 
 BuildRequires: cmake
 BuildRequires: freeglut-devel
@@ -255,6 +257,9 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 
 
 %changelog
+* Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 1.2.4-2
+- Add libwebp_libsuffix.patch
+
 * Sun Aug 07 2022 Sandro Mani <manisandro@gmail.com> - 1.2.4-1
 - Update to 1.2.4
 

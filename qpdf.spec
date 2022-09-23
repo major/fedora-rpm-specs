@@ -1,7 +1,7 @@
 Summary: Command-line tools and library for transforming PDF files
 Name:    qpdf
-Version: 10.6.3
-Release: 4%{?dist}
+Version: 11.1.0
+Release: 1%{?dist}
 # MIT: e.g. libqpdf/sha2.c
 # upstream uses ASL 2.0 now, but he allowed other to distribute qpdf under
 # old license (see README)
@@ -21,8 +21,8 @@ Patch2: qpdf-s390x-disable-streamtest.patch
 BuildRequires: gcc
 # gcc-c++ is need for everything except for qpdf-ctest
 BuildRequires: gcc-c++
-# uses make
-BuildRequires: make
+# uses cmake
+BuildRequires: cmake
 
 BuildRequires: zlib-devel
 BuildRequires: libjpeg-turbo-devel
@@ -40,6 +40,7 @@ BuildRequires: perl(Cwd)
 BuildRequires: perl(Digest::MD5)
 BuildRequires: perl(Digest::SHA)
 BuildRequires: perl(File::Basename)
+BuildRequires: perl(File::Compare)
 BuildRequires: perl(File::Copy)
 BuildRequires: perl(File::Find)
 BuildRequires: perl(File::Spec)
@@ -51,11 +52,6 @@ BuildRequires: perl(POSIX)
 BuildRequires: perl(strict)
 # perl(Term::ANSIColor) - not needed for tests
 # perl(Term::ReadKey) - not needed for tests
-
-# for autoreconf
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: libtool
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -104,29 +100,18 @@ unzip %{SOURCE1}
 
 
 %build
-# work-around check-rpaths errors
-autoreconf --verbose --force --install
-# automake files needed to be regenerated in 8.4.0 - check if this can be removed
-# in the next qpdf release
-./autogen.sh
+%cmake -DBUILD_STATIC_LIBS=0 -DREQUIRE_CRYPTO_GNUTLS=1 -DUSE_IMPLICIT_CRYPTO=0 -DSHOW_FAILED_TEST_OUTPUT=1 -DINSTALL_CMAKE_PACKAGE=0
 
-%configure --disable-static \
-           --enable-crypto-gnutls \
-           --disable-implicit-crypto \
-           --enable-show-failed-test-output
-
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 install -m 0644 %{name}-%{version}-doc/%{name}-manual.pdf %{buildroot}/%{_pkgdocdir}/%{name}-manual.pdf
 
-rm -f %{buildroot}%{_libdir}/libqpdf.la
-
 
 %check
-make check
+%ctest
 
 %ldconfig_scriptlets libs
 
@@ -139,8 +124,8 @@ make check
 %files libs
 %doc README.md TODO ChangeLog
 %license Artistic-2.0
-%{_libdir}/libqpdf.so.28
-%{_libdir}/libqpdf.so.28.6.3
+%{_libdir}/libqpdf.so.29
+%{_libdir}/libqpdf.so.29.1.0
 
 %files devel
 %doc examples/*.cc examples/*.c
@@ -153,6 +138,12 @@ make check
 
 
 %changelog
+* Thu Sep 22 2022 Zdenek Dohnal <zdohnal@redhat.com> - 11.1.0-1
+- 2125823 - qpdf-11.1.0 is available, move to cmake
+
+* Thu Sep 22 2022 Zdenek Dohnal <zdohnal@redhat.com> - 10.6.3-5
+- use `grep -E` in test suite (bz2127957)
+
 * Mon Jul 25 2022 Zdenek Dohnal <zdohnal@redhat.com> - 10.6.3-4
 - qpdf doesn't depend on pcre since 7.0b1
 

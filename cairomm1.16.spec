@@ -19,7 +19,7 @@
 
 Name:           cairomm%{apiver}
 Summary:        C++ API for the cairo graphics library
-Version:        1.16.1
+Version:        1.16.2
 Release:        %autorelease
 
 URL:            https://www.cairographics.org
@@ -55,11 +55,9 @@ BuildRequires:  pkgconfig(cairo-xlib-xrender)
 
 %if %{with maintainer_mode}
 # mm-common-get
-BuildRequires:  mm-common
+BuildRequires:  mm-common >= 1.0.4
 %endif
 
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(Getopt::Long)
 BuildRequires:  doxygen
 # dot
 BuildRequires:  graphviz

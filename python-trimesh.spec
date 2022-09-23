@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.15.1
+Version:        3.15.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -12,11 +12,10 @@ License:        MIT AND BSD-3-Clause AND Zlib
 URL:            https://trimsh.org
 Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{version}.tar.gz
 
-# The odd combination of an arched package with only noarch binary packages
-# makes it easier for us to detect with arch-dependent test failures, since the
-# tests will always be run on every platform, and easier for us to skip failing
-# tests if necessary, since we can be sure that %%ifarch macros work as
-# expected.
+# The combination of an arched package with only noarch binary packages makes
+# it easier for us to detect arch-dependent test failures, since the tests will
+# always be run on every platform, and easier for us to skip failing tests if
+# necessary, since we can be sure that %%ifarch macros work as expected.
 #
 # Since the package still contains no compiled machine code, we still have no
 # debuginfo.
@@ -219,7 +218,7 @@ PlyTest::test_vertex_attributes
 
 # E           TypeError: Cannot cast array data from dtype('int64') to
 #                        dtype('int32') according to the rule 'safe'
-%ifarch %{ix86} %{arm32}
+%if 0%{?__isa_bits} == 32
 BinvoxTest::test_load_save_invariance
 BoundsTest::test_bounding_egg
 ContainsTest::test_inside
@@ -246,7 +245,7 @@ VoxelGridTest::test_roundtrip
 %endif
 
 # Either MemoryError or numpy.core._exceptions._ArrayMemoryError:
-%ifarch %{ix86} %{arm32}
+%if 0%{?__isa_bits} == 32
 GLTFTest::test_basic
 GLTFTest::test_merge_buffers
 MutateTests::test_not_mutated_cube

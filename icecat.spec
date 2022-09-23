@@ -32,8 +32,8 @@ ExcludeArch: %{arm}
 # on other arches.
 %ifarch x86_64
 %if 0%{?release_build}
-%global build_with_pgo 1
-%global pgo_wayland    1
+%global build_with_pgo 0
+%global pgo_wayland    0
 %else
 %global build_with_pgo 0
 %endif

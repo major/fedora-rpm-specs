@@ -45,8 +45,8 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 22.06.0
-Release: 33%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 22.09.0
+Release: 4%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -60,11 +60,8 @@ Source: https://github.com/openvswitch/ovs/archive/%{commit0}.tar.gz#/openvswitc
 Source: https://www.openvswitch.org/releases/ovn-%{version}.tar.gz
 %endif
 
-# The OVN commit used for 2.12.0-4 is 0a51bb04f8d6194b2c706558d434b09a89196e26.
-# Update the above commit whenever the sources is updated.
-
-%define ovscommit d94cd0d3eec33e4290d7ca81918f5ac61444886e
-%define ovsshortcommit d94cd0d
+%define ovscommit 6f24c2bc769afde0a390ce344de1a7d9c592e5a6
+%define ovsshortcommit 6f24c2b
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -441,6 +438,9 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Thu Sep 22 2022 Numan Siddique <numans@ovn.org> - 22.09.0-4
+- Sync to upstream OVN release 22.09.
+
 * Wed Aug 10 2022 Numan Siddique <numans@ovn.org>  - 22.06.0-33
 - tests: Enable vif-plug tests and fix the vif-provider.
 [Upstream: c4803488bc58e3845b3155ec859359466f44b17e]

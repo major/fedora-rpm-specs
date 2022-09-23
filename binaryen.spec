@@ -2,11 +2,12 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       105
-Release:       3%{?dist}
+Version:       110
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
+Patch0:        %{name}-use-system-gtest.patch
 License:       ASL 2.0
 
 # tests fail on big-endian
@@ -15,6 +16,7 @@ ExcludeArch:   ppc64 s390x
 BuildRequires: cmake3
 BuildRequires: gcc-c++
 %if %{with check}
+BuildRequires: gtest-devel
 BuildRequires: nodejs
 BuildRequires: python3dist(filecheck)
 BuildRequires: python3dist(lit)
@@ -50,6 +52,7 @@ effective:
 
 %prep
 %setup -q -n %{name}-version_%{version}
+%patch0 -p1 -b .gtest
 
 %build
 %cmake3 \
@@ -62,15 +65,16 @@ effective:
 
 %install
 %cmake3_install
+rm -v %{buildroot}%{_bindir}/binaryen-unittests
 
 %if %{with check}
 %check
-install -pm755 %{__cmake_builddir}/bin/binaryen-lit %{buildroot}%{_bindir}
+install -pm755 %{__cmake_builddir}/bin/binaryen-{lit,unittests} %{buildroot}%{_bindir}
 ./check.py \
     --binaryen-bin %{buildroot}%{_bindir} \
     --binaryen-lib %{buildroot}%{_libdir}/%{name} \
 
-rm -v %{buildroot}%{_bindir}/binaryen-lit
+rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %endif
 
 %files
@@ -92,6 +96,10 @@ rm -v %{buildroot}%{_bindir}/binaryen-lit
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Wed Sep 21 2022 Dominik Mierzejewski <rpm@greysector.net> 110-1
+- update to 110 (#2081423)
+- fix building with external gtest
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 105-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

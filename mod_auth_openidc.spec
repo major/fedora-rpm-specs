@@ -15,7 +15,7 @@
 
 Name:		mod_auth_openidc
 Version:	2.4.11.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	ASL 2.0
@@ -28,7 +28,7 @@ BuildRequires:	httpd-devel
 BuildRequires:	openssl-devel
 BuildRequires:	curl-devel
 BuildRequires:	jansson-devel
-BuildRequires:	pcre-devel
+BuildRequires:	pcre2-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	cjose-devel
@@ -96,6 +96,9 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Thu Sep 22 2022 Tomas Halman <thalman@redhat.com> - 2.4.11.2-3
+- Resolves: rhbz#2128328 - Port pcre dependency to pcre2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

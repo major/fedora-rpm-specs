@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.5
-Release:        2%{?dist}
+Version:        5.15.6
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtQuickControls2 component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -200,6 +200,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{mingw64_libdir}/qt5/qml/QtQuick/Templates.2/libqtquicktemplates2plugin.a
 
 %changelog
+* Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-1
+- Update to 5.15.6
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

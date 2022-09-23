@@ -9,13 +9,15 @@ compress the static files for you. If you don't have that option
 Flask-Compress will solve the problem for you.}
 
 Name:           python-%{pypi_name}
-Version:        1.12
-Release:        3%{?dist}
+Version:        1.13
+Release:        1%{?dist}
 Summary:        Compress responses in your Flask app with gzip or brotli
 
 License:        MIT
 URL:            https://github.com/colour-science/flask-compress
-Source0:        %{pypi_source Flask-Compress}
+Source0:        %{pypi_source flask-compress}
+Patch0:         0001-Use-setuptools.patch
+
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -36,8 +38,11 @@ Requires:       python3dist(flask)
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n Flask-Compress-%{version}
+%autosetup -p1 -n flask-compress-%{version}
 rm -rf %{pypi_name}.egg-info
+
+# remove pyproject.toml
+rm pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -59,6 +64,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.md
 
 %changelog
+* Thu Sep 22 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.13-1
+- New upstream's release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

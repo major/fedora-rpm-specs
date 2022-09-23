@@ -4,16 +4,20 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
+%global clangver 15.0.0
+
 Name:           qt-creator
 Version:        8.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
 Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/8.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
-
 Source1:        qt-creator-Fedora-privlibs
+
+# Bundled clang for patched libClangFormat
+Source2:        https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clangver}/clang-%{clangver}.src.tar.xz
 
 # In Fedora, the ninja command is called ninja-build
 Patch0:         qt-creator_ninja-build.patch
@@ -21,6 +25,12 @@ Patch0:         qt-creator_ninja-build.patch
 Patch1:         qt-creator_desktop.patch
 # Limit qmake names to avoid the rpm macro wrapper qmake-qt5.sh getting picked up (#1644989)
 Patch2:         qt-creator_qmake-names.patch
+# QtCreator specific patch for libClangFormat
+# https://code.qt.io/cgit/clang/llvm-project.git/commit/?h=release_130-based&id=42879d1f355fde391ef46b96a659afeb4ad7814a
+Patch3:         clangFormat.patch
+Patch4:         qt-creator-clangformat.patch
+# Backport LLVM-15.x compatibility fix
+Patch5:         https://github.com/qt-creator/qt-creator/commit/a1bfcbf30d493e1e1fab94851fe50fed81cd3d6e.patch
 
 BuildRequires:  chrpath
 BuildRequires:  clang-devel
@@ -64,10 +74,11 @@ Requires:       qt5-qtquickcontrols%{?_isa}
 Requires:       qt5-qtbase-devel
 Requires:       gcc-c++
 Requires:       %{name}-data = %{version}-%{release}
-Requires:       clang-libs%{?_isa}
+Requires:       clang-libs%{?_isa} = %{clangver}
 Requires:       clang-resource-filesystem
 
 Provides:       qtcreator = %{version}-%{release}
+Provides:       bundled(libclangFormat) = %{clangver}
 
 # long list of private shared lib names to filter out
 %include %{SOURCE1}
@@ -111,7 +122,7 @@ User documentation for %{name}.
 
 
 %prep
-%autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}
+%autosetup -p1 -n qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease} -a2
 
 # Remove some bundled libraries to be sure
 rm -rf src/shared/qbs
@@ -121,10 +132,16 @@ rm -rf src/libs/3rdparty/yaml-cpp
 
 
 %build
+# Build libclangFormat
+pushd clang-%{clangver}.src
+%cmake -G Ninja -DBUILD_SHARED_LIBS=OFF
+%cmake_build -- clangFormat
+popd
+
 %cmake -G Ninja \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
-    -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
+    -DCLANG_FORMAT_LIB_PATH=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/libclangFormat.a \
     -DWITH_DOCS=ON \
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
@@ -187,6 +204,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-3
+- Bundle clang and build patched libClangFormat
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 8.0.1-2
 - Rebuild (clang)
 

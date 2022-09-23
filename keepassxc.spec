@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -109,11 +109,6 @@ information can be considered as quite safe.
 %autosetup -p1
 
 %build
-# This package fails to build with LTO due to undefined symbols.  LTO
-# was disabled in OpenSuSE as well, but with no real explanation why
-# beyond the undefined symbols.  It really shold be investigated further.
-# Disable LTO
-%define _lto_cflags %{nil}
 %if %{defined el8}
 . /opt/rh/gcc-toolset-11/enable
 %endif
@@ -122,7 +117,6 @@ information can be considered as quite safe.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1859390
 # https://bugzilla.redhat.com/show_bug.cgi?id=1820896
 %cmake \
-    -DWITH_TESTS=OFF \
     -DWITH_XC_ALL=ON \
     -DWITH_XC_KEESHARE_SECURE=ON \
     -DWITH_XC_UPDATECHECK=OFF \
@@ -157,7 +151,8 @@ install -D -m 644 -p x-keepassxc.desktop \
 %find_lang %{name} --with-qt
 
 %check
-%ctest
+# 'testcli' fails with "Subprocess aborted" in Koji and local mock
+%ctest --exclude-regex testcli
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.%{name}.KeePassXC.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{name}.KeePassXC.appdata.xml
 
@@ -179,6 +174,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Sep 22 2022  Otto Liljalaakso <otto.liljalaakso@iki.fi> - 2.7.1-13
+- Re-enable LTO (rhbz#2127754)
+- Enable most tests (rhbz#2127757)
+
 * Wed Sep 21 2022 Jan Grulich <jgrulich@redhat.com> - 2.7.1-12
 - Rebuild (qt5)
 

@@ -1,6 +1,6 @@
 Name:           qgnomeplatform
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
 License:        LGPLv2+
@@ -8,6 +8,7 @@ URL:            https://github.com/FedoraQt/QGnomePlatform
 Source0:        https://github.com/FedoraQt/QGnomePlatform/archive/%{version}/QGnomePlatform-%{version}.tar.gz
 
 # Upstream patches
+Patch0:         qgnomeplatform-fix-window-content-geometry-for-qt5-when-shadows-are-enabled.patch
 
 BuildRequires:  make
 BuildRequires:  pkgconfig(gio-2.0)
@@ -103,6 +104,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Thu Sep 22 2022 Jan Grulich <jgrulich@redhat.com> - 0.9.0-2
+- Fix window content geometry for Qt5 when shadows are enabled
+
 * Wed Sep 21 2022 Jan Grulich <jgrulich@redhat.com> - 0.9.0-1
 - 0.9.0
 

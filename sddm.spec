@@ -14,13 +14,13 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit e67307e4103a8606d57a0c2fd48a378e40fcef06
-%global commitdate 20220321
+%global commit 21e965aab8d93180966bbb19788bc42bdf2baee7
+%global commitdate 20220921
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
 Version:        0.19.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -47,10 +47,6 @@ Patch10:       sddm-0.20.0-allow-hiding-wayland-sessions.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2016310
 # Submmited: https://github.com/sddm/sddm/pull/1494
 Patch11:       0001-Delay-for-logind-and-fallback-to-seat0.patch
-
-# https://github.com/sddm/sddm/pull/1526
-# Try to get sddm to log to the journal more
-Patch13:        1526.patch
 
 ## downstream patches
 Patch101:       sddm-0.20.0-fedora_config.patch
@@ -303,6 +299,9 @@ fi
 
 
 %changelog
+* Thu Sep 22 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20220921.21e965a-1
+- Update to new snapshot
+
 * Thu Aug 18 2022 Timothée Ravier <tim@siosm.fr> - 0.19.0^git20220321.e67307e-4
 - Skip enabling Wayland by default on F37
 

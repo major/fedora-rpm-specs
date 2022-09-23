@@ -42,6 +42,11 @@
 %global have_dell 1
 %endif
 
+# Until we actually have seen it outside x86
+%ifarch i686 x86_64
+%global have_thunderbolt 1
+%endif
+
 # only available recently
 %if 0%{?fedora} >= 30
 %global have_modem_manager 1
@@ -49,11 +54,13 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.4
-Release:   2%{?dist}
+Version:   1.8.5
+Release:   1%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
+
+Patch0:    0001-Install-the-docs-in-the-correct-place.patch
 
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -263,12 +270,6 @@ or server machines.
 %install
 %meson_install
 
-# move the symlink out of the way
-rm -f $RPM_BUILD_ROOT%{_datadir}/doc/libfwupdplugin
-rm -f $RPM_BUILD_ROOT%{_datadir}/doc/libfwupd
-mv $RPM_BUILD_ROOT%{_datadir}/doc/fwupd/libfwupdplugin $RPM_BUILD_ROOT%{_datadir}/doc/
-mv $RPM_BUILD_ROOT%{_datadir}/doc/fwupd/libfwupd $RPM_BUILD_ROOT%{_datadir}/doc/
-
 mkdir -p --mode=0700 $RPM_BUILD_ROOT%{_localstatedir}/lib/fwupd/gnupg
 
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1757948
@@ -300,7 +301,9 @@ done
 %config(noreplace)%{_sysconfdir}/fwupd/uefi_capsule.conf
 %endif
 %config(noreplace)%{_sysconfdir}/fwupd/redfish.conf
+%if 0%{?have_thunderbolt}
 %config(noreplace)%{_sysconfdir}/fwupd/thunderbolt.conf
+%endif
 %dir %{_libexecdir}/fwupd
 %{_libexecdir}/fwupd/fwupd
 %ifarch i686 x86_64
@@ -391,6 +394,7 @@ done
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_acpi_phat.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_amt.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_analogix.so
+%{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_android_boot.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_ata.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_bcm57xx.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_cfu.so
@@ -419,6 +423,7 @@ done
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_gpio.so
 %endif
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_hailuck.so
+%{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_intel_usb4.so
 %ifarch i686 x86_64
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_iommu.so
 %endif
@@ -438,6 +443,7 @@ done
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_msr.so
 %endif
 %ifarch i686 x86_64
+%{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_amd_pmc.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_pci_psp.so
 %endif
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_mtd.so
@@ -468,7 +474,9 @@ done
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_invalid.so
 %endif
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_thelio_io.so
+%if 0%{?have_thunderbolt}
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_thunderbolt.so
+%endif
 %if 0%{?have_uefi}
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_tpm.so
 %{_libdir}/fwupd-plugins-%{fwupdplugin_version}/libfu_plugin_bios.so
@@ -506,6 +514,8 @@ done
 %files devel
 %{_datadir}/gir-1.0/Fwupd-2.0.gir
 %{_datadir}/gir-1.0/FwupdPlugin-1.0.gir
+%{_datadir}/doc/fwupd/libfwupdplugin
+%{_datadir}/doc/fwupd/libfwupd
 %{_datadir}/doc/libfwupdplugin
 %{_datadir}/doc/libfwupd
 %{_datadir}/vala/vapi
@@ -516,6 +526,7 @@ done
 
 %files tests
 %if 0%{?enable_tests}
+%{_datadir}/fwupd/host-emulate.d/*.json.gz
 %dir %{_datadir}/installed-tests/fwupd
 %{_datadir}/installed-tests/fwupd/tests/*
 %{_datadir}/installed-tests/fwupd/fwupd-tests.xml
@@ -526,13 +537,35 @@ done
 %{_datadir}/installed-tests/fwupd/efi
 %endif
 %{_datadir}/fwupd/device-tests/*.json
-%{_datadir}/fwupd/host-emulate.d/*.json.gz
 %{_libexecdir}/installed-tests/fwupd/*
 %dir %{_sysconfdir}/fwupd/remotes.d
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/fwupd-tests.conf
 %endif
 
 %changelog
+* Thu Sep 22 2022 Richard Hughes <richard@hughsie.com> 1.8.5-1
+- New upstream release
+- Add new plugin to display SMU firmware version on AMD APU/CPU
+- Add support for platform capability descriptors so devices can set quirks
+- Always check the BDP partitions when getting all the possible ESPs
+- Correctly update Wacom AES devices
+- Disable changing sleep mode on Ryzen 6000 systems
+- Do not show the 'may not be usable while updating' message for DBX updates
+- Fix a critical warning when issuing Secure Boot modem AT commands
+- Fix a fuzzing crash when parsing malicious FDT data
+- Fix a possible crash when dumping VBE firmware
+- Fix a possible critical warning when parsing cabinet archives
+- Fix a regression when parsing pixart-rf firmware
+- Fix a small memory leak when parsing UF2 files
+- Fix checking for invalid depth requirements
+- Fix parsing the coSWID firmware ID when encoded as a UUID
+- Fix parsing uSWID uncompressed metadata
+- Fix uploading to DFU-CSR devices
+- Load coSWID metadata from a uSWID MTD block device
+- Never save the Redfish auto-generated password to a user-readable file
+- Only create users using IPMI when we know it's going to work
+- Write all the CCGX metadata block as intended
+
 * Tue Aug 30 2022 Richard Hughes <richard@hughsie.com> 1.8.4-2
 - Fix fwupd-devel upgrade issue.
 

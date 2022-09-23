@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 11%{?dist}
+Release: 12%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -393,6 +393,12 @@ Patch170: 00170-gc-assertions.patch
 #
 # We keep them in /usr/share/python-wheels
 Patch189: 00189-use-rpm-wheels.patch
+# The following versions of setuptools/pip are bundled when this patch is not applied.
+# The versions are written in Lib/ensurepip/__init__.py, this patch removes them.
+# When the bundled setuptools/pip wheel is updated, the patch no longer applies cleanly.
+# In such cases, the patch needs to be amended and the versions updated here:
+%global pip_version 18.1
+%global setuptools_version 40.6.2
 
 # 00251 # 2eabd04356402d488060bc8fe316ad13fc8a3356
 # Change user install location
@@ -521,6 +527,20 @@ Patch378: 00378-support-expat-2-4-5.patch
 #
 # Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
 Patch382: 00382-cve-2015-20107.patch
+
+# 00386 # 0e4bced7d3cd0f94ebfbcc209e10dbf81607b073
+# CVE-2021-28861
+#
+# Fix an open redirection vulnerability in the `http.server` module when
+# an URI path starts with `//` that could produce a 301 Location header
+# with a misleading target.  Vulnerability discovered, and logic fix
+# proposed, by Hamza Avvan (@hamzaavvan).
+#
+# Test and comments authored by Gregory P. Smith [Google].
+#
+# Upstream: https://github.com/python/cpython/pull/93879
+# Tracking bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=2120642
+Patch386: 00386-cve-2021-28861.patch
 
 # (New patches go here ^^^)
 #
@@ -792,7 +812,7 @@ Requires: python-pip-wheel
 # Versions of bundled libs are based on:
 # https://github.com/pypa/pip/blob/18.1/src/pip/_vendor/vendor.txt and
 # https://github.com/pypa/setuptools/blob/v40.6.2/pkg_resources/_vendor/vendored.txt
-Provides: bundled(python3dist(pip)) = 18.1
+Provides: bundled(python3dist(pip)) = %{pip_version}
 Provides: bundled(python3dist(appdirs)) = 1.4.3
 Provides: bundled(python3dist(distlib)) = 0.2.7
 Provides: bundled(python3dist(distro)) = 1.3
@@ -817,7 +837,7 @@ Provides: bundled(python3dist(certifi)) = 2018.8.24
 Provides: bundled(python3dist(setuptools)) = 40.4.3
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 
-Provides: bundled(python3dist(setuptools)) = 40.6.2
+Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 Provides: bundled(python3dist(packaging)) = 16.8
 Provides: bundled(python3dist(pyparsing)) = 2.2.1
 Provides: bundled(python3dist(six)) = 1.10
@@ -1771,6 +1791,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Sep 14 2022 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-12
+- Fix for CVE-2021-28861
+Resolves: rhbz#2120785
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

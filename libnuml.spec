@@ -57,6 +57,7 @@ Obsoletes:     python2-libnuml < 0:1.1.4
 Obsoletes:     java-%{octpkg} < 0:1.1.4
 
 Patch0: %{name}-porting_to_python310.patch
+Patch1: %{name}-fix_for_swig.patch
 
 %description
 LibNuML is a library for reading/writing documents describing numerical
@@ -179,6 +180,7 @@ of libNUML libraries.
 %patch0 -p1 -b .porting_to_python310
 %endif
 %endif
+%patch1 -p1 -b .fix_for_swig
 
 %build
 mkdir -p libnuml/build
@@ -364,6 +366,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Thu Sep 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-7
+- Patched for Swig-4.1.0 (rhbz#2127978)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

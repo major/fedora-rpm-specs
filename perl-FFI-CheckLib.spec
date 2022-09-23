@@ -2,7 +2,7 @@
 %{bcond_without perl_FFI_Changes_enables_optional_test}
 
 Name:           perl-FFI-CheckLib
-Version:        0.29
+Version:        0.30
 Release:        1%{?dist}
 Summary:        Check that a library is available for FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 22 2022 Petr Pisar <ppisar@redhat.com> - 0.30-1
+- 0.30 bump
+
 * Mon Sep 12 2022 Petr Pisar <ppisar@redhat.com> - 0.29-1
 - 0.29 bump
 

@@ -1,7 +1,7 @@
 %global shortname flare
 Name:       flare-engine
 Version:    1.13.04
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A single player, 2D-isometric, action Role-Playing Engine
 License:    GPLv3+
 URL:        http://www.flarerpg.org
@@ -43,7 +43,7 @@ This package contains the engine only.
 
 
 %build
-%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBINDIR="bin" -DDATADIR="share/%{shortname}/" .
+%cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DBINDIR="bin" -DDATADIR="share/%{shortname}/"
 %cmake_build
 
 
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{shortname}.desktop
 
 
 %changelog
+* Thu Aug 25 2022 Sandro <gui1ty@penguinpee.nl> - 1.13.04-2
+- Fixed issues in spec file
+
 * Mon Aug 22 2022 Sandipan Roy <bytehackr@fedoraproject.org> - 1.13.04-1
 - Update to 1.13.04
 
@@ -95,9 +98,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{shortname}.desktop
 
 * Mon Jan 31 2022 Justin Jacobs <jajdorkster@gmail.com> - 1.13-1
 - Update to 1.13
-
-* Tue Oct 12 2021 Justin Jacobs <jajdorkster@gmail.com> - 1.12-1
-- Update to 1.12 and fix font symlinks
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

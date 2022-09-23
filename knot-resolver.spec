@@ -6,7 +6,7 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.5.2
+Version:        5.5.3
 Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
@@ -376,6 +376,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 22 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.5.3-1
+- update to upstream version 5.5.3
+
 * Wed Aug 24 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.5.2-1
 - update to upstream version 5.5.2
 - add BuildRequires: systemd-rpm-macros

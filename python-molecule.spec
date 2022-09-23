@@ -12,6 +12,11 @@ understood and maintained. Molecule uses Ansible playbooks to exercise the role
 and its associated tests. Molecule supports any provider that Ansible supports.
 }
 
+%global documentation_description %{expand:
+Documentation for python-molecule a tool designed to aid in the development and
+testing of Ansible roles.
+}
+
 %bcond_with doc
 %bcond_with tests
 
@@ -25,34 +30,39 @@ Source:         %{forgesource}
 Patch:          0001_remove_sphinx_version_pinning.patch
 BuildArch:      noarch
 
-# Most of the package is MIT licensed.
-#
-# There are two files in the archive that are licensed with ASL 2.0:
-# - molecule-2.7/molecule/interpolation.py
-# - molecule-2.7/test/unit/test_interpolation.py
+########################################################################
+# Most of the package is MIT licensed.                                 #
+#                                                                      #
+# There are two files in the archive that are licensed with ASL 2.0:   #
+# - molecule-2.7/molecule/interpolation.py                             #
+# - molecule-2.7/test/unit/test_interpolation.py                       #
+########################################################################
 License: MIT and ASL 2.0
 
 BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros
 
 %description %{common_description}
-
+########################################################################
+# Documentation package                                                #
+########################################################################
 %package -n python3-%{srcname}-doc
 Summary: %summary
-%description -n python3-%{srcname}-doc
-Documentation for python-molecule a tool designed to aid in the development and testing
-of Ansible roles
+%description -n python3-%{srcname}-doc %{documentation_description}
 
+########################################################################
+# Python package                                                       #
+########################################################################
 %package -n python3-%{srcname}
 Summary: %summary
+%description -n python3-%{srcname} %{common_description}
 
+Requires:   ansible-core
 Recommends: python-molecule-doc
 Recommends: python3dist(docker)
 Recommends: python3dist(docker)
 Recommends: python3dist(molecule-docker)
 Recommends: python3dist(molecule-podman)
-
-%description -n python3-%{srcname} %{common_description}
 
 %prep
 %forgeautosetup -p1
@@ -64,9 +74,7 @@ Recommends: python3dist(molecule-podman)
 %pyproject_wheel
 
 %if %{with doc}
-# generate html docs
 PYTHONPATH=src sphinx-build-3 docs html
-# remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 %endif
 
@@ -79,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 PYTHONPATH=src %{python3} -m pytest -vv src/molecule/test
 %endif
 
+########################################################################
+# Python package files                                                 #
+########################################################################
 %files -n python3-%{srcname}
 %{python3_sitelib}/*
 %{python3_sitelib}/%{srcname}-%{version}.dist-info
@@ -86,6 +97,9 @@ PYTHONPATH=src %{python3} -m pytest -vv src/molecule/test
 %license LICENSE
 %{_bindir}/%{srcname}
 
+########################################################################
+# Documentation package files                                          #
+########################################################################
 %if %{with doc}
 %files -n python3-%{srcname}-doc
 %license LICENSE

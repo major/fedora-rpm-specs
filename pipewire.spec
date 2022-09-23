@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -80,7 +80,7 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
-Patch0001:      0001-pulse-server-set-record-latency-as-fragsize-2.patch
+Patch0001:	0001-pulse-server-limit-capture-blocks-to-fragsize.patch
 
 ## upstreamable patches
 
@@ -625,6 +625,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Sep 22 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.58-3
+- Add patch to fix ffmpeg capture and other stutterings.
+
 * Mon Sep 19 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.58-2
 - Add patch to fix stuttering in Teamspeak.
 

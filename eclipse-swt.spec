@@ -1,14 +1,14 @@
 Epoch:                  1
 
-%global swtdir          eclipse-platform-sources-I20220607-0700
+%global swtdir          eclipse-platform-sources-I20220831-1800
 %global eclipse_rel     %{version}
-%global eclipse_tag     R-%{eclipse_rel}-202206070700
+%global eclipse_tag     R-%{eclipse_rel}-202208311800
 %global swtsrcdir       eclipse.platform.swt/bundles/org.eclipse.swt
 %global eclipse_arch    %{_arch}
 
 Name:           eclipse-swt
-Version:        4.24
-Release:        3%{?dist}
+Version:        4.25
+Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 
 License:        EPL-2.0
@@ -79,7 +79,7 @@ mv %{swtsrcdir}/Eclipse-SWT-PI %{swtsrcdir}/Eclipse\ SWT\ PI
   "<environment><os>linux</os><ws>gtk</ws><arch>s390x</arch></environment>" eclipse-platform-parent
 rm -rf eclipse.platform.swt.binaries/bundles/org.eclipse.swt.gtk.linux.s390x
 rm -rf rt.equinox.framework/bundles/org.eclipse.equinox.launcher.gtk.linux.s390x
-for dir in rt.equinox.binaries rt.equinox.framework/bundles eclipse.platform.swt.binaries/bundles ; do
+for dir in rt.equinox.binaries equinox/bundles eclipse.platform.swt.binaries/bundles ; do
   %{_sourcedir}/ensure_arch.sh "$dir" x86_64 s390x	
 done
 
@@ -134,6 +134,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Thu Sep 22 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.25-1
+- Bump to 4.25
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
