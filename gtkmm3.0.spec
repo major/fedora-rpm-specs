@@ -9,9 +9,9 @@
 %global gdk_pixbuf2_version 2.35.5
 %global atkmm_version 2.24.2
 
-Name:           gtkmm30
+Name:           gtkmm3.0
 Version:        3.24.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ interface for the GTK+ library
 
 License:        LGPLv2+
@@ -34,9 +34,14 @@ BuildRequires:  pkgconfig(pangomm-1.4) >= %{pangomm_version}
 Requires:       atkmm%{?_isa} >= %{atkmm_version}
 Requires:       cairomm%{?_isa} >= %{cairomm_version}
 Requires:       gdk-pixbuf2%{?_isa} >= %{gdk_pixbuf2_version}
-Requires:       glibmm24%{?_isa} >= %{glibmm24_version}
+Requires:       glibmm2.4%{?_isa} >= %{glibmm24_version}
 Requires:       gtk3%{?_isa} >= %{gtk3_version}
 Requires:       pangomm%{?_isa} >= %{pangomm_version}
+
+# Renamed in F37
+Obsoletes:      gtkmm30 < %{version}-%{release}
+Provides:       gtkmm30 = %{version}-%{release}
+Provides:       gtkmm30%{?_isa} = %{version}-%{release}
 
 %description
 gtkmm is the official C++ interface for the popular GUI library GTK+.
@@ -47,6 +52,10 @@ widgets that are easily extensible via inheritance.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Renamed in F37
+Obsoletes:      gtkmm30-devel < %{version}-%{release}
+Provides:       gtkmm30-devel = %{version}-%{release}
+Provides:       gtkmm30-devel%{?_isa} = %{version}-%{release}
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -57,7 +66,10 @@ developing applications that use %{name}.
 Summary:        API documentation for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       glibmm24-doc
+Requires:       glibmm2.4-doc
+# Renamed in F37
+Obsoletes:      gtkmm30-doc < %{version}-%{release}
+Provides:       gtkmm30-doc = %{version}-%{release}
 
 %description    doc
 This package contains the full API documentation for %{name}.
@@ -102,6 +114,9 @@ cp -a demos/ _docs/
 
 
 %changelog
+* Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 3.24.7-2
+- Rename from gtkmm30 to gtkmm3.0
+
 * Fri Sep 16 2022 Kalev Lember <klember@redhat.com> - 3.24.7-1
 - Update to 3.24.7
 

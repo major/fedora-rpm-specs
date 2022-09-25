@@ -1,10 +1,10 @@
 Name:           libfido2
 
-Version:        1.11.0
-Release:        3%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        FIDO2 library
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/Yubico/%{name}
 Source0:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
@@ -14,7 +14,6 @@ BuildRequires:  gnupg2
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  pkgconfig(hidapi-hidraw)
 BuildRequires:  pkgconfig(libcbor)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(openssl)
@@ -68,6 +67,10 @@ authentication device.
 find %{buildroot} -type f -name "*.a" -delete -print
 
 
+%check
+%ctest
+
+
 %files
 %doc NEWS README.adoc
 %license LICENSE
@@ -85,6 +88,12 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Fri Sep 23 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-1
+- 1.12.0 release (resolves: rhbz#2129268)
+- remove unneeded BR for hidapi-hidraw
+- change to SPDX license (BSD -> BSD-2-Clause)
+- add check section
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

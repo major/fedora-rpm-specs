@@ -1,5 +1,5 @@
 %global packname igraph
-%global packver  1.3.4
+%global packver  1.3.5
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((graph|igraphdata|rgl)\\)
@@ -29,7 +29,7 @@ Patch0005:        R-igraph-disable-i686-test.patch
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
-# Imports:   R-graphics, R-grDevices, R-magrittr, R-Matrix, R-pkgconfig >= 2.0.0, R-stats, R-utils
+# Imports:   R-graphics, R-grDevices, R-magrittr, R-Matrix, R-pkgconfig >= 2.0.0, R-rlang, R-stats, R-utils
 # Suggests:  R-ape, R-digest, R-graph, R-igraphdata, R-rgl, R-scales, R-stats4, R-tcltk, R-testthat, R-withr
 # LinkingTo:
 # Enhances:
@@ -143,6 +143,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Thu Sep 22 2022 Tom Callaway <spot@fedoraproject.org> - 1.3.5-1
+- update to 1.3.5
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 1.3.4-1
 - update to 1.3.4
 - rebuild for R 4.2.1

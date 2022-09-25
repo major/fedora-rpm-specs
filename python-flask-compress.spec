@@ -10,12 +10,14 @@ Flask-Compress will solve the problem for you.}
 
 Name:           python-%{pypi_name}
 Version:        1.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compress responses in your Flask app with gzip or brotli
 
 License:        MIT
 URL:            https://github.com/colour-science/flask-compress
 Source0:        %{pypi_source flask-compress}
+# Don't use setuptools_scm to attempt to detect version, as tarball is not a git checkout
+# Instead, manually write version to pyprojet.toml, see below
 Patch0:         0001-Use-setuptools.patch
 
 BuildArch:      noarch
@@ -41,8 +43,9 @@ Requires:       python3dist(flask)
 %autosetup -p1 -n flask-compress-%{version}
 rm -rf %{pypi_name}.egg-info
 
-# remove pyproject.toml
-rm pyproject.toml
+# Manually write version to pyproject.toml
+sed -i 's|{version}|%{version}|' pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -64,6 +67,9 @@ rm pyproject.toml
 %doc README.md
 
 %changelog
+* Fri Sep 23 2022 Sandro Mani <manisandro@gmail.com> - 1.13-2
+- Manually write version to pyproject.toml
+
 * Thu Sep 22 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.13-1
 - New upstream's release
 

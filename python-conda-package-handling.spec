@@ -3,8 +3,8 @@
 %global pkgname conda_package_handling
 
 Name:           python-%{srcname}
-Version:        1.8.1
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Create and extract conda packages of various formats
 
 License:        BSD
@@ -52,12 +52,15 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v tests -
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%doc AUTHORS.rst CHANGELOG.rst README.md
+%doc AUTHORS.md CHANGELOG.md README.md
 %{_bindir}/cph
 %{python3_sitearch}/%{pkgname}-*.egg-info/
 %{python3_sitearch}/%{pkgname}/
 
 %changelog
+* Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 1.9.0-1
+- Update to 1.9.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

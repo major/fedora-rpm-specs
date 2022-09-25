@@ -1,7 +1,7 @@
 %global srcname traitlets
 
 Name:           python-%{srcname}
-Version:        5.3.0
+Version:        5.4.0
 Release:        1%{?dist}
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
@@ -57,6 +57,9 @@ This package powers the config system of IPython and Jupyter.
 
 
 %changelog
+* Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 5.4.0-1
+- Update to 5.4.0
+
 * Mon Aug 22 2022 Lumír Balhar <lbalhar@redhat.com> - 5.3.0-1
 - Update to 5.3.0
 Resolves: rhbz#2092219

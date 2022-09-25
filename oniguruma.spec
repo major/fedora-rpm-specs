@@ -1,23 +1,44 @@
 %undefine	_changelog_trimtime
 
+%global git_snapshot 1
+
+%if 0%{?git_snapshot}
+%define apply_git_patch git am
+%else
+%define apply_git_patch patch -p1
+%endif
+
+%if 0%{?git_snapshot}
+%global         gitdate       20220919
+%global         gitcommit     b041f6dd9967531cf396a684194d67dc2e7480f7
+%global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
+
+%global         gitversion    D%{gitdate}git%{shortcommit}
+%endif
+
 %global	mainver	6.9.8
 #%%global	postver	1
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	fedorarel	1
+%global	fedorarel	2
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}
-Release:	%{?prerelease:0.}%{fedorarel}%{?betaver:.%betaver}%{?dist}.1
+Release:	%{?prerelease:0.}%{fedorarel}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}
 Summary:	Regular expressions library
 
 License:	BSD
 URL:		https://github.com/kkos/oniguruma/
-Source0:	https://github.com/kkos/oniguruma/releases/download/v%{mainver}%{?betaver:_%betaver}/onig-%{mainver}%{?postver:.%postver}%{?betaver:-%betaver}.tar.gz
+Source0:	https://github.com/kkos/oniguruma/releases/download/v%{mainver}%{?betaver:_%betaver}/onig-%{mainver}%{?postver:.%postver}%{?betaver:-%betaver}%{?gitversion:-%{?gitversion}}.tar.gz
+Source1:	create-tarball-from-git.sh
 
 BuildRequires:	make
 BuildRequires:	gcc
+%if 0%{?git_snapshot}
+BuildRequires:  automake
+BuildRequires:  libtool
+%endif
 
 %description
 Oniguruma is a regular expressions library.
@@ -36,7 +57,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q -n onig-%{mainver}
+%setup -q -n onig-%{mainver}%{?gitversion:-%{?gitversion}}
 %{__sed} -i.multilib -e 's|-L@libdir@||' onig-config.in
 
 
@@ -45,6 +66,10 @@ developing applications that use %{name}.
 # is that it ends up mixing and matching regexp bits between itself and glibc.
 # Disable LTO
 %define _lto_cflags %{nil}
+
+%if 0%{?git_snapshot}
+autoreconf -fi
+%endif
 
 %configure \
 	--enable-posix-api \
@@ -102,6 +127,11 @@ find $RPM_BUILD_ROOT -name '*.la' \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Sep 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.8-2.D20220919gitb041f6d
+- Update to the latest git, expecially:
+  - Update to Unicode 15.0 (upstream #272)
+  - [[:punct:]] behavoir change (upsteam #268)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

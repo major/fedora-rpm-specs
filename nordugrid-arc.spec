@@ -45,14 +45,12 @@
 %global _bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo %{_sysconfdir}/bash_completion.d)
 
 Name:		nordugrid-arc
-Version:	6.16.0
+Version:	6.16.1
 Release:	1%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-#		Increase timeout for RunTest
-Patch0:		%{name}-timeout.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -809,7 +807,6 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1767,6 +1764,9 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Fri Sep 09 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.16.1-1
+- Update to version 6.16.1
+
 * Sat Sep 03 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.16.0-1
 - Update to version 6.16.0
 - Drop patch adding missing include accepted upstream

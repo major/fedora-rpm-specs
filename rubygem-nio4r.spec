@@ -1,11 +1,11 @@
 # Generated from nio4r-1.2.1.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name nio4r
 
-%global libev_version 4.27
+%global libev_version 4.33
 
 Name: rubygem-%{gem_name}
-Version: 2.5.2
-Release: 9%{?dist}
+Version: 2.5.8
+Release: 1%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD or GPLv2+
 License: MIT and (BSD or GPLv2+)
@@ -49,11 +49,6 @@ Documentation for %{name}.
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
 
-# Update %%optflags used in %%gem_install to avoid strict-aliasing warnings.
-# https://github.com/socketry/nio4r/pull/130
-# http://pkgs.fedoraproject.org/cgit/rpms/rubygems.git/tree/macros.rubygems
-%global optflags %{?optflags} -fno-strict-aliasing
-
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
 %gem_install
@@ -77,12 +72,17 @@ EV_VERSION_MAJOR=$(grep EV_VERSION_MAJOR ext/libev/ev.h | cut -d ' ' -f3)
 EV_VERSION_MINOR=$(grep EV_VERSION_MINOR ext/libev/ev.h | cut -d ' ' -f3)
 [ "${EV_VERSION_MAJOR}.${EV_VERSION_MINOR}" = '%{libev_version}' ]
 
-# Ignore code coverage and bundler.
+# Ignore code coverage.
 sed -i '/require "coveralls"/ s/^/#/' spec/spec_helper.rb
 sed -i '/Coveralls.wear!/ s/^/#/' spec/spec_helper.rb
 
 # Load nio4r_ext.so.
-rspec -I$(dirs +1)%{gem_extdir_mri} spec
+# Explicitly require openssl, until this gets fixed.
+# https://github.com/socketry/nio4r/issues/283
+rspec -I$(dirs +1)%{gem_extdir_mri} -ropenssl spec
+
+# Test also pure Ruby implementation.
+NIO4R_PURE=true rspec -I$(dirs +1)%{gem_extdir_mri} -ropenssl spec
 popd
 
 %files
@@ -92,24 +92,26 @@ popd
 # License file was removed in favor of README.md
 # https://github.com/socketry/nio4r/issues/228
 %license %{gem_instdir}/README.md
-%exclude %{gem_instdir}/appveyor.yml
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/CHANGES.md
+%{gem_instdir}/Gemfile
 %{gem_instdir}/logo.png
 %{gem_instdir}/rakelib
-%{gem_instdir}/Guardfile
 %{gem_instdir}/Rakefile
 %{gem_instdir}/examples
 %{gem_instdir}/nio4r.gemspec
 %{gem_instdir}/spec
 
 %changelog
+* Fri Sep 23 2022 Vít Ondruch <vondruch@redhat.com> - 2.5.8-1
+- Update to nio4r 2.5.8.
+  Resolves: rhbz#1876406
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

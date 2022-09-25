@@ -2,6 +2,9 @@
 # when building locally to reduce build time.
 %global release_build     1
 
+# Excluded due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159
+ExcludeArch: i686
+
 # Run Mozilla test suite as a part of compile rpm section. Turn off when
 # building locally and don't want to spend 24 hours waiting for results.
 %global run_firefox_tests 0
@@ -1086,6 +1089,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Thu Sep 22 2022 Martin Stransky <stransky@redhat.com>- 105.0.1-1
 - Updated to 105.0.1
+- Excluded i686 due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159
 
 * Tue Sep 20 2022 Martin Stransky <stransky@redhat.com>- 105.0-1
 - Updated to 105.0

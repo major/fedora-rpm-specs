@@ -33,7 +33,11 @@ Recommends: fuse-overlayfs
 %if "%{_vendor}" != "debbuild"
 Requires: (container-selinux >= 2:2.162.1 if selinux-policy)
 %else
-Conflicts: golang-github-containers-common
+Obsoletes: golang-github-%{name} < %{epoch}:%{version}-%{release}
+Obsoletes: golang-github-containers-image < %{epoch}:%{version}-%{release}
+Provides: %{name} = %{epoch}:%{version}-%{release}
+Provides: golang-github-%{name} = %{epoch}:%{version}-%{release}
+Provides: golang-github-containers-image = %{epoch}:%{version}-%{release}
 %endif
 Requires: oci-runtime
 Requires: container-network-stack

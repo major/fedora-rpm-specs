@@ -3,13 +3,11 @@
 %global debug_package %{nil}
 %endif
 
-%define tag_ver %(echo %{version} | awk -F. '{print $1"_"$2}')
-
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.13
-Release:        4%{?dist}
+Version:        6.14
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -20,7 +18,7 @@ ExcludeArch:    i686 armv7hl s390x ppc64le
 # PostgreSQL ist the main license, rest the bundled JS code (see %%{name}-%%{version}-vendor-licenses.txt)
 License:        PostgreSQL and MIT and ISC and BSD and ASL 2.0 and CC-BY and CC0 and WTFPL and zlib and GPLv2 and GPLv3+ and Python
 URL:            https://www.pgadmin.org/
-Source0:        https://github.com/postgres/pgadmin4/archive/REL-%{tag_ver}/%{name}-%{version}.tar.gz
+Source0:        https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v%{version}/source/pgadmin4-%{version}.tar.gz
 
 # ./prepare_vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
@@ -42,8 +40,6 @@ Patch1:         pgadmin4_sphinx_werror.patch
 Patch2:         pgadmin4-socketio.patch
 # Flask 2.2 compatibility
 Patch3:         pgadmin4_flask22.patch
-# ??? Fix crash on None username, retest with 6.14
-Patch4:         pgadmin4_username.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
@@ -55,6 +51,7 @@ BuildRequires:  automake
 BuildRequires:  libpng-devel
 BuildRequires:  libtool
 BuildRequires:  yasm
+BuildRequires:  optipng
 
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
@@ -166,10 +163,14 @@ Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 
 %prep
-%autosetup -p1 -n %{name}-REL-%{tag_ver} -a1
+%autosetup -p1 -a1
 
 sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
 cp -a %{SOURCE2} .
+
+# Use system optipng, remove bundled source code
+find .package-cache -name optipng.tar.gz -delete
+ln -s %{_bindir}/optipng $(readlink -f .package-cache/v6/npm-optipng-bin-*/node_modules/optipng-bin/vendor)/optipng
 
 
 %build
@@ -243,6 +244,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Sep 23 2022 Sandro Mani <manisandro@gmail.com> - 6.14-1
+- Update to 6.14
+
 * Tue Sep 06 2022 Sandro Mani <manisandro@gmail.com> - 6.13-4
 - Add pgadmin4_username.patch
 

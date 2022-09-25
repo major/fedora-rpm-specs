@@ -5,7 +5,7 @@
 # https://github.com/cli/go-gh
 %global goipath         github.com/cli/go-gh
 Version:                0.1.0
-%global commit          3630ab390fe70a890975e62e0b88fed5af3d8898
+%global commit          802b578c27d9117fd04f2c84ceb5aebc032ea8cf
 
 %gometa -f
 

@@ -29,8 +29,8 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.16.2
-Release: 3%{?extra_version:.%{extra_version}}%{?dist}
+Version: 1.16.3
+Release: 1%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -471,6 +471,9 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Fri Sep 23 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-1
+- Update to 1.16.3 (#2128638)
+
 * Tue Aug 09 2022 Paul Wouters <pwouters@redhat.com> - 1.16.2-3
 - sync up to upstream unbound.conf
 - Enable Extended DNS Error codes (RFC8914)

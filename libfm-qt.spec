@@ -2,7 +2,7 @@
 
 Name: libfm-qt
 Version: 1.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Companion library for PCManFM
 License: GPLv2+
 URL: http://lxqt.org
@@ -13,7 +13,6 @@ BuildRequires: lxqt-build-tools >= 0.10.0
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: qt5-qtbase-private-devel
-%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(glib-2.0)
@@ -109,6 +108,9 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %dir %{_datadir}/libfm-qt/translations
 
 %changelog
+* Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 1.1.0-4
+- Drop hardcoded Qt version requirement
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

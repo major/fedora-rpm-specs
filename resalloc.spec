@@ -27,7 +27,7 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    4.7
+Version:    4.8
 Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc
@@ -292,6 +292,10 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Fri Sep 23 2022 Pavel Raiskup <praiskup@redhat.com> - 4.8-1
+- new upstream release:
+  https://github.com/praiskup/resalloc/releases/tag/v4.8
+
 * Tue Sep 20 2022 Pavel Raiskup <praiskup@redhat.com> - 4.7-1
 - new upstream release:
   https://github.com/praiskup/resalloc/releases/tag/v4.7

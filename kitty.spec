@@ -200,8 +200,10 @@ install -m0644 -Dp %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 install -m0644 -Dp %{SOURCE2} %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
 install -m0644 -Dp %{SOURCE3} %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
 
-sed "s|/usr/lib64/kitty|%{_libdir}/%{name}|" -i %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
-sed "s|/usr/lib64/kitty|%{_libdir}/%{name}|" -i %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
+sed 's|KITTY_INSTALLATION_DIR=.*|KITTY_INSTALLATION_DIR="%{_libdir}/%{name}"|' \
+ -i %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
+sed 's|set -l KITTY_INSTALLATION_DIR .*|set -l KITTY_INSTALLATION_DIR "%{_libdir}/%{name}"|' \
+ -i %{buildroot}%{_sysconfdir}/fish/conf.d/%{name}.fish
 
 # script-without-shebang '__init__.py'
 find %{buildroot} -type f -name "*.py*" ! -name askpass.py -exec chmod -x "{}"  \;

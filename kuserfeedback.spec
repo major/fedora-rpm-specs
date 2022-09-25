@@ -1,7 +1,7 @@
 Name:    kuserfeedback
 Summary: Framework for collecting user feedback for apps via telemetry and surveys
 Version: 1.2.0
-Release: 5%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 URL:     https://invent.kde.org/libraries/%{name}
@@ -45,10 +45,8 @@ developing applications that use %{name}.
 %package        console
 Summary:        Analytics and administration tool for UserFeedback servers
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-## uses qt5-qtcharts private api's these help track that
-## (unfortunately, there is no qt5-qtcharts-private-devel)
 BuildRequires: qt5-qtbase-private-devel
-Requires: qt5-qtcharts%{?_isa} = %{_qt5_version}
+Requires: qt5-qtcharts%{?_isa}
 
 %description    console
 Analytics and administration tool for UserFeedback servers.
@@ -102,6 +100,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kuserfeedback
 
 
 %changelog
+* Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 1.2.0-7
+- Bring back dependency on qt5-qtcharts
+
+* Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 1.2.0-6
+- Drop hardcoded Qt version requirement
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name elementpath
 Name:           python-%{pypi_name}
-Version:        2.3.2
-Release:        5%{?dist}
+Version:        3.0.2
+Release:        2%{?dist}
 Summary:        XPath 1.0/2.0 parsers and selectors for ElementTree and lxml
 
 License:        MIT
@@ -18,7 +18,7 @@ BuildRequires:  glibc-langpack-en
 %endif
 
 %global _description %{expand:
-The proposal of this package is to provide XPath 1.0 and 2.0 selectors for
+The proposal of this package is to provide XPath 1.0, 2.0 and 3.0 selectors for
 Python's ElementTree XML data structures, both for the standard ElementTree
 library and for the lxml.etree library.
 
@@ -68,6 +68,13 @@ export LANG=en_US.utf-8
 
 
 %changelog
+* Tue Aug 16 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.0.2-2
+-  Update to 3.0.2 - enable tests
+
+* Tue Aug 16 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.0.2-1
+- Update to 3.0.2
+- Fixes: rhbz#2021606
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

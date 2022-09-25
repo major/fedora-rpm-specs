@@ -4,17 +4,17 @@ Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 1.2.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 
 %global rolename mssql
-%global legacy_rolename sql-server
 %global collection_namespace microsoft
 %global collection_name sql
 %global collection_rolename server
+%global legacy_rolename %{collection_namespace}.sql-server
 
-%global installbase %{_datadir}/%{collection_namespace}
+%global installbase %{_datadir}/ansible/roles
 %global _pkglicensedir %{_licensedir}/%{name}
 
 Requires: linux-system-roles
@@ -56,17 +56,13 @@ Collection artifact for %{name}. This package contains
 
 mv %{rolename}-%{version} %{rolename}
 
-# Removing symlinks in tests/roles
+# Remove symlinks in tests/roles
 if [ -d %{rolename}/tests/roles ]; then
     find %{rolename}/tests/roles -type l -exec rm {} \;
     if [ -d %{rolename}/tests/roles/linux-system-roles.%{rolename} ]; then
         rm -r %{rolename}/tests/roles/linux-system-roles.%{rolename}
     fi
 fi
-
-# transform ambiguous #!/usr/bin/env python shebangs to python3 to stop brp-mangle-shebangs complaining
-find -type f -executable -name '*.py' -exec \
-     sed -i -r -e '1s@^(#! */usr/bin/env python)(\s|$)@#\13\2@' '{}' +
 
 %build
 # Convert README.md to README.html in the source roles
@@ -95,7 +91,7 @@ python3 lsr_role2collection.py --role "%{rolename}" \
     --new-role "%{collection_rolename}" \
     --meta-runtime lsr_role2collection/runtime.yml
 
-# removing dot files/dirs
+# Remove dot files/dirs
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/.[A-Za-z]*
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/tests/%{collection_rolename}/.[A-Za-z]*
 
@@ -106,21 +102,18 @@ cp -p galaxy.yml .collections/ansible_collections/%{collection_namespace}/%{coll
 mv .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/%{collection_rolename}/CHANGELOG.md \
     .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 
+# Build collection
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 %ansible_collection_build
 popd
 
 %install
 mkdir -p %{buildroot}%{installbase}
-mkdir -p %{buildroot}%{_datadir}/ansible/roles
 
-# Copy roles to the legacy_rolename directory within the microsoft directory and rename
+# Copy role in legacy format and rename rolename in tests
 cp -pR %{rolename} "%{buildroot}%{installbase}/%{legacy_rolename}"
-sed -i "s/linux-system-roles\.%{rolename}/%{collection_namespace}\.%{legacy_rolename}/g" \
+sed -i "s/linux-system-roles\.%{rolename}/%{legacy_rolename}/g" \
     %{buildroot}%{installbase}/%{legacy_rolename}/tests/*.yml
-
-# Generate symlinks for roles in /usr/share/ansible/roles
-ln -s "%{installbase}/%{legacy_rolename}" "%{buildroot}%{_datadir}/ansible/roles/%{collection_namespace}.%{legacy_rolename}"
 
 # Copy README, COPYING, and LICENSE files to the corresponding directories
 mkdir -p %{buildroot}%{_pkglicensedir}
@@ -145,17 +138,18 @@ rm -r %{buildroot}%{installbase}/%{legacy_rolename}/tests/.[A-Za-z]*
 # Remove the molecule directory
 rm -r %{buildroot}%{installbase}/*/molecule
 
+# Install collection
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 %ansible_collection_install
 popd
 
-mkdir -p %{buildroot}%{_pkgdocdir}/collection
 mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles
 
 # Copy the collection README files to the collection
 cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
    %{buildroot}%{_pkgdocdir}/collection
 
+# Copy role's readme to /usr/share/doc/
 if [ -f "%{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md" ]; then
     mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
     cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
@@ -180,7 +174,6 @@ popd
 %license %{_pkglicensedir}
 %{ansible_collection_files}
 %{installbase}/%{legacy_rolename}
-%{_datadir}/ansible/roles/%{collection_namespace}.%{legacy_rolename}
 
 %if %{with collection_artifact}
 %files collection-artifact
@@ -188,6 +181,13 @@ popd
 %endif
 
 %changelog
+* Thu Sep 22 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.2.4-3
+- Further simplify spec file
+  - Do not install roles to /usr/share/microsoft and then create symlinks
+    to /usr/share/ansible/roles/, instead install directly to
+    /usr/share/ansible/roles/
+  - Remove unused removal of ambiguous python shebangs
+
 * Tue Sep 20 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.2.4-2
 - Remove all code unrelated to Fedora to siplify the file
   - Remove bcond_with ansible because Fedora always have ansible

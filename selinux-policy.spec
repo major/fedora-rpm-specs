@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit e485345b572121f09778da9c146cf1bcd22ae0cf
+%global commit f60ed3b80468627c2d34be7d95084ae5c6ddb342
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 37.11
+Version: 37.12
 Release: 1%{?dist}
 License: GPLv2+
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -699,7 +699,7 @@ exit 0
 
 %posttrans minimum
 %checkConfigConsistency minimum
-%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm /etc/NetworkManager/dispatcher.d
+%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun minimum
 if [ $1 = 0 ]; then
@@ -773,7 +773,7 @@ exit 0
 
 %posttrans mls
 %checkConfigConsistency mls
-%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm /etc/NetworkManager/dispatcher.d
+%{_sbindir}/restorecon -Ri /usr/lib/sysimage/rpm /var/lib/rpm
 
 %postun mls
 if [ $1 = 0 ]; then
@@ -816,6 +816,21 @@ exit 0
 %endif
 
 %changelog
+* Thu Sep 22 2022 Zdenek Pytela <zpytela@redhat.com> - 37.12-1
+- nut-upsd: kernel_read_system_state, fs_getattr_cgroup
+- Add numad the ipc_owner capability
+- Allow gst-plugin-scanner read virtual memory sysctls
+- Allow init read/write inherited user fifo files
+- Update dnssec-trigger policy: setsched, module_request
+- added policy for systemd-socket-proxyd
+- Add the new 'cmd' permission to the 'io_uring' class
+- Allow winbind-rpcd read and write its key ring
+- Label /run/NetworkManager/no-stub-resolv.conf net_conf_t
+- blueman-mechanism can read ~/.local/lib/python*/site-packages directory
+- pidof executed by abrt can readlink /proc/*/exe
+- Fix typo in comment
+- Do not run restorecon /etc/NetworkManager/dispatcher.d in mls and minimum
+
 * Wed Sep 14 2022 Zdenek Pytela <zpytela@redhat.com> - 37.11-1
 - Allow tor get filesystem attributes
 - Allow utempter append to login_userdomain stream

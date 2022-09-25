@@ -1,3 +1,4 @@
+%global toolchain clang
 %global compiler_rt_version 15.0.0
 #global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -10,7 +11,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -19,10 +20,7 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compil
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}%{?rc_ver:-rc%{rc_ver}}/%{crt_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
-Patch0:		0001-Fix-for-compiler-rt-stand-alone-builds.patch
-
-BuildRequires:	gcc
-BuildRequires:	gcc-c++
+BuildRequires:	clang
 BuildRequires:	cmake
 BuildRequires:	ninja-build
 BuildRequires:	python3
@@ -113,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Fri Sep 23 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
+- Switch to building with clang
+
 * Tue Sep 13 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-2
 - Make sure asm files are built with -fcf-protection
 

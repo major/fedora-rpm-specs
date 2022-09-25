@@ -33,7 +33,7 @@
 %endif
 
 Name:           dnf-plugins-core
-Version:        4.3.0
+Version:        4.3.1
 Release:        1%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPLv2+
@@ -784,6 +784,10 @@ ln -sf %{_mandir}/man1/%{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/
 %endif
 
 %changelog
+* Fri Sep 23 2022 Jaroslav Rohel <jrohel@redhat.com> - 4.3.1-1
+- Update to 4.3.1
+- Update translations (fix RhBug:2127011)
+
 * Fri Sep 09 2022 Jaroslav Rohel <jrohel@redhat.com> - 4.3.0-1
 - Update to 4.3.0
 - [repomanage] Modules are used only when they belong to target repo (RhBug:2072441)

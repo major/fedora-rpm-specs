@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -120,7 +120,7 @@ BuildRequires:  itcl-devel, itk-devel
 BuildRequires:  iwidgets
 %endif
 BuildRequires:  python3-devel, python3-numpy
-BuildRequires:  perl(XML::DOM), lasi-devel, wxGTK3-devel
+BuildRequires:  perl(XML::DOM), lasi-devel, wxGTK-devel
 BuildRequires:  gnu-free-mono-fonts
 BuildRequires:  gnu-free-sans-fonts
 BuildRequires:  gnu-free-serif-fonts
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 5.15.0-45
+- Rebuild with wxWidgets 3.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

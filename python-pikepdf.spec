@@ -1,18 +1,16 @@
 %global srcname pikepdf
 
 Name:           python-%{srcname}
-Version:        5.5.0
+Version:        6.0.2
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
 License:        MPLv2.0
 URL:            https://github.com/pikepdf/pikepdf
 Source0:        %pypi_source
-# Drop when F36 is no longer supported.
-Patch:          0001-Unpin-setuptools-scm.patch
 
 BuildRequires:  gcc-c++
-BuildRequires:  qpdf-devel >= 10.6.2
+BuildRequires:  qpdf-devel >= 11.1.0
 BuildRequires:  python3-devel
 # Tests:
 BuildRequires:  poppler-utils

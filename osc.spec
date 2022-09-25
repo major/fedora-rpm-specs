@@ -13,14 +13,14 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 2
+%global baserelease 1
 
 # github fails to create a version including a ~
-%global gh_ver  1.0.0b1
+%global gh_ver  1.0.0b2
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0~b1
+Version:        1.0.0~b2
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{baserelease}%{?dist}
 License:        GPLv2+
@@ -38,6 +38,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pip
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-urllib3
+BuildRequires:  argparse-manpage
 Requires:       python3-distro
 Requires:       python3-rpm
 Requires:       python3-cryptography
@@ -68,22 +69,35 @@ introduction.
 %prep
 %autosetup -p1 -n %{name}-%{gh_ver}
 
-#fixup encoding
-iconv -f ISO8859-1 -t UTF-8 -o TODO.new TODO
-mv TODO.new TODO
-
 %build
 %py3_build
+# write rpm macros
+cat << EOF > macros.osc
+%%osc_plugin_dir %{osc_plugin_dir}
+EOF
+
+# build man page
+PYTHONPATH=. argparse-manpage \
+    --output=osc.1 \
+    --format=single-commands-section \
+    --module=osc.commandline \
+    --function=get_parser \
+    --project-name=osc \
+    --prog=osc \
+    --description="OpenSUSE Commander" \
+    --author="Contributors to the osc project. See the project's GIT history for the complete list." \
+    --url="https://github.com/openSUSE/osc/"
+
 
 %install
 %py3_install
 
-%__mkdir_p %{buildroot}%{_localstatedir}/lib/osc-plugins
-%__mkdir_p %{buildroot}%{_datadir}/bash-completion/completions/
-install -Dm0644 dist/complete.csh %{buildroot}%{_sysconfdir}/profile.d/osc.csh
-install -Dm0644 dist/complete.sh %{buildroot}%{_datadir}/bash-completion/completions/osc
-install -Dm0755 dist/osc.complete %{buildroot}%{_datadir}/osc/complete
-install -Dm0644 osc.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/osc.fish
+mkdir -p %{buildroot}%{_localstatedir}/lib/osc-plugins
+# mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
+install -Dm0644 contrib/complete.csh %{buildroot}%{_sysconfdir}/profile.d/osc.csh
+install -Dm0644 contrib/complete.sh %{buildroot}%{_datadir}/bash-completion/completions/osc
+install -Dm0755 contrib/osc.complete %{buildroot}%{_datadir}/osc/complete
+install -Dm0644 contrib/osc.fish %{buildroot}%{_datadir}/fish/vendor_completions.d/osc.fish
 
 mkdir -p %{buildroot}%{obs_srcsvc_dir}
 
@@ -91,17 +105,17 @@ mkdir -p %{buildroot}%{osc_plugin_dir}
 
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d/
 
-# osc rpm macros
-cat > %{buildroot}%{_rpmconfigdir}/macros.d/macros.osc <<EOM
-%%obs_srcsvc_dir %{obs_srcsvc_dir}
-%%osc_plugin_dir %{osc_plugin_dir}
-EOM
+# install rpm macros
+install -Dm0644 macros.osc %{buildroot}%{_rpmmacrodir}/macros.osc
+
+# install man page
+install -Dm0644 osc.1 %{buildroot}%{_mandir}/man1/osc.1
 
 %check
 python3 setup.py test
 
 %files
-%doc AUTHORS README.md TODO NEWS
+%doc AUTHORS README.md NEWS
 %license COPYING
 %{_bindir}/osc*
 %{python3_sitelib}/osc*
@@ -117,6 +131,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Fri Sep 23 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b2-1%{?dist}
+- New upstream release 1.0.0b2, fixes rhbz#2125807
+
 * Wed Aug 24 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b1-2
 - Recommend ssh-keygen for ssh MFA
 

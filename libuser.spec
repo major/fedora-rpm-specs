@@ -1,6 +1,6 @@
 Name: libuser
 Version: 0.63
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: LGPLv2+
 URL: https://pagure.io/libuser
 Source: https://releases.pagure.org/libuser/libuser-%{version}.tar.xz
@@ -31,6 +31,7 @@ Summary: A user and group account administration library
 Patch0: %{url}/pull-request/49.patch#/libuser-0.63-PR49_add_yescrypt.patch
 Patch1: libuser-0.63-downstream_test_xcrypt.patch
 Patch2: libuser-0.63-test-ldif-backend.patch
+Patch3: libuser-0.63-PR55_popt.patch
 
 %global __provides_exclude_from ^(%{_libdir}/%{name}|%{python3_sitearch})/.*$
 
@@ -121,6 +122,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Sep 23 2022 Correct popt memory handling
+- Resolves: rhbz#2125904 unable to change shells using sudo lchsh
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

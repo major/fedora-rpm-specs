@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        8.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -35,34 +35,37 @@ Patch5:         https://github.com/qt-creator/qt-creator/commit/a1bfcbf30d493e1e
 BuildRequires:  chrpath
 BuildRequires:  clang-devel
 BuildRequires:  cmake
-BuildRequires:  cmake(KF5SyntaxHighlighting)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Designer)
-BuildRequires:  cmake(Qt5Help)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5QmlModels)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5SerialPort)
-BuildRequires:  cmake(Qt5Sql)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5UiPlugin)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Xml)
+#BuildRequires:  cmake(KF5SyntaxHighlighting)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Designer)
+BuildRequires:  cmake(Qt6Help)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6QmlModels)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6SerialPort)
+BuildRequires:  cmake(Qt6ShaderTools)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6UiPlugin)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
 BuildRequires:  libappstream-glib
+BuildRequires:  libxkbcommon-devel
 BuildRequires:  llvm-devel
 BuildRequires:  litehtml-devel
 BuildRequires:  ninja-build
 BuildRequires:  python3
-# tight dep on qt5-qtbase used to build, uses some private apis
-BuildRequires:  qt5-qtbase-private-devel
+# tight dep on qt6-qtbase used to build, uses some private apis
+BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  systemd-devel
 BuildRequires:  yaml-cpp-devel
 
@@ -104,7 +107,7 @@ Application data for %{name}.
 %package translations
 Summary:        Translations for %{name}
 Requires:       %{name}-data = %{version}-%{release}
-Requires:       qt5-qttranslations
+Requires:       qt6-qttranslations
 BuildArch:      noarch
 
 %description translations
@@ -114,7 +117,7 @@ Translations for %{name}.
 %package doc
 Summary:        User documentation for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       qt5-qtdoc
+Requires:       qt6-qtdoc
 BuildArch:      noarch
 
 %description doc
@@ -127,7 +130,7 @@ User documentation for %{name}.
 # Remove some bundled libraries to be sure
 rm -rf src/shared/qbs
 rm -rf src/plugins/help/qlitehtml/litehtml
-rm -rf src/libs/3rdparty/syntax-highlighting/src
+#rm -rf src/libs/3rdparty/syntax-highlighting/src
 rm -rf src/libs/3rdparty/yaml-cpp
 
 
@@ -204,6 +207,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-4
+- Switch to qt6
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-3
 - Bundle clang and build patched libClangFormat
 

@@ -3,9 +3,9 @@
 %global tarname gtkmm
 %global api_ver 2.4
 
-Name:           gtkmm24
+Name:           gtkmm2.4
 Version:        2.24.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 Summary:        C++ interface for GTK2 (a GUI library for X)
 
@@ -13,14 +13,18 @@ License:        LGPLv2+
 URL:            http://www.gtkmm.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gtkmm/%{release_version}/gtkmm-%{version}.tar.xz
 
+BuildRequires:  atkmm-devel
+BuildRequires:  cairomm-devel
 BuildRequires:  gcc-c++
-BuildRequires:  glibmm24-devel >= 2.24
-BuildRequires:  atkmm-devel >= 2.22
-BuildRequires:  gtk2-devel >= 2.24
-BuildRequires:  cairomm-devel >= 1.2.2
-BuildRequires:  pangomm-devel >= 2.26
-BuildRequires: make
+BuildRequires:  glibmm2.4-devel
+BuildRequires:  gtk2-devel
+BuildRequires:  make
+BuildRequires:  pangomm-devel
 
+# Renamed in F37
+Obsoletes:      gtkmm24 < %{version}-%{release}
+Provides:       gtkmm24 = %{version}-%{release}
+Provides:       gtkmm24%{?_isa} = %{version}-%{release}
 
 %description
 gtkmm provides a C++ interface to the GTK+ GUI library. gtkmm2 wraps GTK+ 2.
@@ -30,27 +34,28 @@ quickly create complex user interfaces.
 
 
 %package        devel
-Summary:        Headers for developing programs that will use %{name}.
+Summary:        Development files for %{name}
 Requires:       %{name}%{_isa} = %{version}-%{release}
-Requires:       gtk2-devel
-Requires:       glibmm24-devel
-Requires:       atkmm-devel
-Requires:       pangomm-devel
-Requires:       cairomm-devel
+# Renamed in F37
+Obsoletes:      gtkmm24-devel < %{version}-%{release}
+Provides:       gtkmm24-devel = %{version}-%{release}
+Provides:       gtkmm24-devel%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
-%description devel
-This package contains the static libraries and header files needed for
-developing gtkmm applications.
-
-
-%package        docs
-Summary:        Documentation for %{name}, includes full API docs
+%package        doc
+Summary:        API documentation for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       glibmm24-doc
+Requires:       glibmm2.4-doc
+# Renamed in F37
+Obsoletes:      gtkmm24-docs < %{version}-%{release}
+Provides:       gtkmm24-docs = %{version}-%{release}
 
-%description    docs
+%description    doc
 This package contains the full API documentation for %{name}.
 
 
@@ -59,20 +64,17 @@ This package contains the full API documentation for %{name}.
 
 
 %build
-%configure %{!?_with_static: --disable-static} --enable-shared
+%configure --enable-shared
 # removing rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -80,23 +82,25 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %doc AUTHORS NEWS README
 %{_libdir}/*.so.*
 
-
 %files devel
 %doc PORTING demos/gtk-demo/
 %{_includedir}/gtkmm-2.4/
 %{_includedir}/gdkmm-2.4/
-%{?_with_static: %{_libdir}/*.a}
 %{_libdir}/*.so
 %{_libdir}/gtkmm-2.4/
 %{_libdir}/gdkmm-2.4/
 %{_libdir}/pkgconfig/*.pc
 
-
-%files docs
+%files doc
 %doc %{_docdir}/%{tarname}-%{api_ver}
 %doc %{_datadir}/devhelp/
 
+
 %changelog
+* Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 2.24.5-15
+- Rename from gtkmm24 to gtkmm2.4
+- Minor packaging cleanup
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

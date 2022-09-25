@@ -6,7 +6,7 @@
 %endif
 
 Name:           python-peewee
-Version:        3.15.2
+Version:        3.15.3
 Release:        1%{?dist}
 Summary:        A simple and small ORM
 
@@ -14,11 +14,6 @@ License:        MIT
 URL:            https://github.com/coleifer/peewee
 # PyPI tarball doesn't have tests
 Source:         %{url}/archive/%{version}/peewee-%{version}.tar.gz
-
-# https://github.com/coleifer/peewee/issues/2617
-Patch:          0001-Comment-out-invalid-as_rowcount-RETURNING-tests-for-.patch
-# https://github.com/coleifer/peewee/issues/2619
-Patch:          0002-Skip-test_murmur_hash-on-big-endian-architectures.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -112,6 +107,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Fri Sep 23 2022 Carl George <carl@george.computer> - 3.15.3-1
+- Latest upstream, resolves rhbz#2129202
+
 * Wed Sep 21 2022 Carl George <carl@george.computer> - 3.15.2-1
 - Latest upstream, resolves rhbz#2121865
 - Convert to pyproject macros

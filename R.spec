@@ -24,11 +24,6 @@
 %global _lto_cflags %nil
 %endif
 
-# %%java_arches is not available for EPEL 8
-%if 0%{?rhel} < 9
-%global java_arches aarch64 ppc64le s390x x86_64
-%endif
-
 %ifarch x86_64
 %global java_arch amd64
 %else
@@ -60,7 +55,7 @@ R CMD javareconf \\
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -387,7 +382,7 @@ sed -i '/"checking whether the BLAS is complete/i r_cv_complete_blas=yes' config
 ( %configure \
     --with-system-tre \
     --with-system-valgrind-headers \
-    --with-lapack \
+    --with-lapack=%{blaslib}%{blasvar} \
     --with-blas=%{blaslib}%{blasvar} \
     --with-tcl-config=%{_libdir}/tclConfig.sh \
     --with-tk-config=%{_libdir}/tkConfig.sh \
@@ -878,6 +873,10 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Sep 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.1-5
+- Add flexiblas to LAPACK_LIBS
+- Remove java_arches backport, already available in EPEL 8
+
 * Tue Aug 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.1-4
 - Remove ancient (RHEL 5/6) zlibhack
 - Remove conditional paths for ancient RHEL (< 8) and Fedora (< 32)

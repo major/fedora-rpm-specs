@@ -3,17 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        43~rc
-Release:        3%{?dist}
+Version:        43.0
+Release:        1%{?dist}
 Summary:        Contacts manager for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Contacts
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-contacts/-/merge_requests/211
-Patch:          211.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -71,8 +67,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.d
 %{_datadir}/metainfo/org.gnome.Contacts.appdata.xml
 %{_mandir}/man1/gnome-contacts.1*
 
-
 %changelog
+* Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Wed Sep 14 2022 Kalev Lember <klember@redhat.com> - 43~rc-3
 - Backport upstream fix for a crash when editing contacts
 

@@ -386,6 +386,11 @@ Source0:    README
 %obsolete ocaml-uuidm-devel 0.9.7-21
 %obsolete python3-fastcache 1.1.0-15
 
+# Remove in F39
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2126391
+%obsolete gnome-books 40.0-6
+
+
 # python26-2.6.9-22.fc32 blocks upgrades: python26-2.6.9-21.fc31.x86_64 requires libnsl.so.2()(64bit)
 %obsolete python26 2.6.9-23
 

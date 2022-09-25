@@ -2,7 +2,7 @@
 
 Name:          tesseract
 Version:       5.2.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Raw OCR Engine
 
 License:       ASL 2.0
@@ -14,6 +14,8 @@ Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?p
 # Honour TESSDATA_PREFIX
 # Build training libs statically
 Patch0:        tesseract_cmake.patch
+# Backport patch to restore equality between cmake and autotools generated pkgconfig file
+Patch1:        https://github.com/tesseract-ocr/tesseract/commit/aee19fcf8eb832.patch
 
 
 BuildRequires: cmake
@@ -224,6 +226,10 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Fri Sep 23 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-5
+- Backport patch to restore equality between cmake and autotools generated
+  pkgconfig file
+
 * Fri Aug 05 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-4
 - Rebuild (icu)
 

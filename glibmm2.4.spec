@@ -5,16 +5,16 @@
 %global glib2_version 2.61.2
 %global libsigc_version 2.9.1
 
-Name:           glibmm24
+Name:           glibmm2.4
 Version:        2.66.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ interface for the GLib library
 
 License:        LGPLv2+
 URL:            http://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/glibmm/%{release_version}/glibmm-%{version}.tar.xz
 
-Patch0:         %{name}-gcc11.patch
+Patch0:         glibmm24-gcc11.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -31,6 +31,11 @@ BuildRequires:  pkgconfig(sigc++-2.0) >= %{libsigc_version}
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       libsigc++20%{?_isa} >= %{libsigc_version}
 
+# Renamed in F37
+Obsoletes:      glibmm24 < %{version}-%{release}
+Provides:       glibmm24 = %{version}-%{release}
+Provides:       glibmm24%{?_isa} = %{version}-%{release}
+
 # Do not export private Perl modules
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((DocsParser|Enum|Function|FunctionBase|GtkDefs|Object|Output|Property|Util|WrapParser)\\)
@@ -41,20 +46,27 @@ library GLib. It provides non-UI API that is not available in standard
 C++ and makes it possible for gtkmm to wrap GObject-based APIs.
 
 
-%package devel
-Summary:        Headers for developing programs that will use %{name}
+%package        devel
+Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Renamed in F37
+Obsoletes:      glibmm24-devel < %{version}-%{release}
+Provides:       glibmm24-devel = %{version}-%{release}
+Provides:       glibmm24-devel%{?_isa} = %{version}-%{release}
 
-%description devel
-This package contains the static libraries and header files needed for
-developing glibmm applications.
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
 %package        doc
-Summary:        Documentation for %{name}, includes full API docs
+Summary:        API documentation for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       libsigc++20-doc
+# Renamed in F37
+Obsoletes:      glibmm24-doc < %{version}-%{release}
+Provides:       glibmm24-doc = %{version}-%{release}
 
 %description    doc
 This package contains the full API documentation for %{name}.
@@ -97,6 +109,9 @@ chmod +x $RPM_BUILD_ROOT%{_libdir}/glibmm-%{apiver}/proc/gmmproc
 
 
 %changelog
+* Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 2.66.5-2
+- Rename from glibmm24 to glibmm2.4
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 2.66.5-1
 - Update to 2.66.5
 

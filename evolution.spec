@@ -44,13 +44,15 @@
 
 Name: evolution
 Version: 3.46.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPLv2+ and GFDL
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh
 Source2: flatpak-evolution-wrapper.sh.in
+
+Patch01: 0001-I-2037-EHeaderBarButton-Avoid-busy-loop-on-toggle-ac.patch
 
 # Approximate version number
 Provides: bundled(libgnomecanvas) = 2.30.0
@@ -571,6 +573,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Sep 23 2022 Milan Crha <mcrha@redhat.com> - 3.46.0-2
+- Resolves: #2129068 (Busy loop when opening composer window)
+
 * Fri Sep 16 2022 Milan Crha <mcrha@redhat.com> - 3.46.0-1
 - Update to 3.46.0
 

@@ -4,7 +4,7 @@
 Name:          mscore
 Summary:       Music Composition & Notation Software
 Version:       %{shortver}.2
-Release:       10%{?dist}
+Release:       12%{?dist}
 # The MuseScore project itself is GPLv2.  Other licenses in play:
 # - rtf2html is LGPLv2+
 # - paper4.png and paper5.png are LGPLv3
@@ -177,9 +177,8 @@ Requires:      soundfont2-default
 Requires:      steinberg-bravura-fonts-all
 Requires:      steinberg-petaluma-fonts-all
 
-# For scripting
-%{?_qt5:Requires: qt5-qtquickcontrols%{?_isa} = %{_qt5_version}}
-%{?_qt5:Requires: qt5-qtquickcontrols2%{?_isa} = %{_qt5_version}}
+Requires:      qt5-qtquickcontrols%{?_isa}
+Requires:      qt5-qtquickcontrols2%{?_isa}
 
 Provides:      musescore = %{version}-%{release}
 Provides:      bundled(beatroot-vamp) = 1.0
@@ -451,6 +450,12 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_datadir}/fonts/mscore-leland-fonts/metadata.json
 
 %changelog
+* Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 3.6.2-12
+- Bring back dependencies on qtquickcontrols
+
+* Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 3.6.2-11
+- Drop hardcoded Qt version requirement
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

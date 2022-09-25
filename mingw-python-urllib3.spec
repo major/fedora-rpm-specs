@@ -5,8 +5,8 @@
 
 Name:          mingw-python-%{pkgname}
 Summary:       MinGW Windows Python %{pkgname}
-Version:       1.26.9
-Release:       2%{?dist}
+Version:       1.26.12
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -66,6 +66,9 @@ MinGW Windows Python3 %{pkgname}.
 
 
 %changelog
+* Fri Sep 23 2022 Sandro Mani <manisandro@gmail.com> - 1.26.12-1
+- Update to 1.26.12
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

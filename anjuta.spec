@@ -10,7 +10,7 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
 License:        GPLv2+
@@ -58,7 +58,7 @@ Requires:       autogen
 Requires:       gdb >= 7.0
 Requires:       git
 Requires:       hicolor-icon-theme
-Requires:       libgda-sqlite >= 5.1.0
+Requires:       libgda5-sqlite >= 5.1.0
 Requires:       automake
 Requires:       autoconf
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -185,6 +185,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Fri Sep 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-16
+- Fix libgda requires.
+
 * Thu Sep 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-15
 - Update webkit patch.
 

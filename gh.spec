@@ -4,7 +4,7 @@
 # https://github.com/cli/cli
 %global forgeurl        https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.15.0
+Version:                2.16.0
 
 %gometa -f
 

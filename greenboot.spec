@@ -2,7 +2,7 @@
 
 Name:               greenboot
 Version:            0.15.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPLv2+
 
@@ -12,6 +12,10 @@ License:            LGPLv2+
 
 URL:                https://github.com/%{repo_owner}/%{repo_name}
 Source0:            https://github.com/%{repo_owner}/%{repo_name}/archive/%{repo_tag}.tar.g#/%{name}-%{version}.tar.gz
+# https://github.com/fedora-iot/greenboot/pull/84
+# https://bugzilla.redhat.com/show_bug.cgi?id=2121944
+# Ensure /boot is mounted before greenboot-grub2-set-counter.service runs
+Patch0:             0001-greenboot-grub2-set-counter.service-ensure-boot-is-m.patch
 
 ExcludeArch: s390x
 BuildRequires:      systemd-rpm-macros
@@ -171,6 +175,9 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Fri Sep 23 2022 Adam Williamson <awilliam@redhat.com> - 0.15.2-2
+- Backport PR #84 to fix RHBZ #2121944
+
 * Thu Sep 08 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.15.2-1
 - Update to 0.15.2
 

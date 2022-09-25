@@ -2,13 +2,12 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	1.15.24
-Release:	3%{?dist}
+Version:	2.0.7
+Release:	1%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	ASL 2.0
 URL:		https://icing.github.io/mod_h2/
 Source0:	https://github.com/icing/mod_h2/releases/download/v%{version}/mod_http2-%{version}.tar.gz
-Patch1:         mod_http2-1.14.1-buildfix.patch
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig, httpd-devel >= 2.4.20, libnghttp2-devel >= 1.7.0, openssl-devel >= 1.0.2
@@ -22,7 +21,6 @@ top of libnghttp2 for httpd 2.4 servers.
 
 %prep
 %setup -q
-%patch1 -p1 -b .buildfix
 
 %build
 autoreconf -i
@@ -47,6 +45,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Fri Sep 23 2022 Joe Orton <jorton@redhat.com> - 2.0.7-1
+- update to 2.0.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

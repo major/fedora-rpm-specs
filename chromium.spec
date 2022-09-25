@@ -228,7 +228,7 @@ Name:		chromium%{chromium_channel}%{nsuffix}
 Name:		chromium%{chromium_channel}
 %endif
 Version:	%{majorversion}.0.5195.125
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if %{?freeworld}
 %if %{?shared}
 # chromium-libs-media-freeworld
@@ -338,6 +338,10 @@ Patch81:	chromium-98.0.4758.102-gcc-12-subzero-fix.patch
 # Disable tests on remoting build
 Patch82:	chromium-98.0.4758.102-remoting-no-tests.patch
 
+# Fix Wayland menu issue
+# https://bugs.chromium.org/p/chromium/issues/detail?id=13506
+# https://chromium-review.googlesource.com/c/chromium/src/+/3831855
+Patch83:	chromium-105.0.5195.125-fix-wayland-menu.patch
 
 # Add missing cmath header
 Patch84:	chromium-94.0.4606.71-remoting-missing-cmath-header.patch
@@ -1064,6 +1068,7 @@ udev.
 %patch80 -p1 -b .EnumTable-crash
 # %%patch81 -p1 -b .gcc12fix
 %patch82 -p1 -b .remoting-no-tests
+%patch83 -p1 -b .fix-wayland-menu
 %patch84 -p1 -b .remoting-missing-cmath-header
 %patch86 -p1 -b .clang-format-py3
 %if 0%{?fedora} >= 37
@@ -1283,11 +1288,11 @@ export CHROMIUM_HEADLESS_GN_DEFINES
 pushd third_party/node/linux
 %ifarch x86_64
 tar xf %{SOURCE19}
-mv node-v12.22.6-linux-x64 node-linux-x64
+mv node-v16.17.0-linux-x64 node-linux-x64
 %endif
 %ifarch aarch64
 tar xf %{SOURCE21}
-mv node-v12.22.6-linux-arm64 node-linux-arm64
+mv node-v16.17.0-linux-arm64 node-linux-arm64
 # This is weird, but whatever
 ln -s node-linux-arm64 node-linux-x64
 %endif
@@ -2212,6 +2217,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Fri Sep 23 2022 Tom Callaway <spot@fedoraproject.org> - 105.0.5195.125-2
+- apply upstream fix for wayland menu misplacement bug
+
 * Mon Sep 19 2022 Tom Callaway <spot@fedoraproject.org> - 105.0.5195.125-1
 - update to 105.0.5195.125
 
