@@ -1,8 +1,8 @@
 %global use_wayland 1
 
 Name:		enlightenment
-Version:	0.25.1
-Release:	3%{?dist}
+Version:	0.25.4
+Release:	1%{?dist}
 License:	BSD
 Summary:	Enlightenment window manager
 Url:		http://enlightenment.org
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/enlightenment
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 0.25.4-1
+- update to 0.25.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.25.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,7 +16,7 @@ Release:    %autorelease
 Summary:    A package to obsolete retired packages
 
 # This package has no actual content; there is nothing to license.
-License:    Public Domain
+License:    LicenseRef-Fedora-Public-Domain
 URL:        https://docs.fedoraproject.org/en-US/packaging-guidelines/#renaming-or-replacing-existing-packages
 BuildArch:  noarch
 

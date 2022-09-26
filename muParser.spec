@@ -2,15 +2,15 @@
 %global owner beltoforion
 Name:           muParser
 Summary:        A fast math parser library
-Version:        2.3.2
-Release:        5%{?dist}
+Version:        2.3.3
+Release:        1%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-URL:            http://beltoforion.de/article.php?a=muparser
 License:        MIT
+URL:            https://beltoforion.de/en/muparser/index.php#idStart
 Source0:        https://github.com/%{owner}/%{lcname}/archive/v%{version}/%{lcname}-%{version}.tar.gz
 
 
@@ -29,10 +29,10 @@ and precalculating constant parts of it.
 Development files and the documentation
 
 %prep
-%autosetup -n %{lcname}-%{version}
+%autosetup -n %{lcname}-%{version}-1
 
 %build
-%cmake .. -DENABLE_SAMPLES=ON -DENABLE_OPENMP=ON -DBUILD_SHARED_LIBS=ON
+%cmake .. -DENABLE_SAMPLES=ON -DENABLE_OPENMP=ON -DBUILD_SHARED_LIBS=ON -DENABLE_WIDE_CHAR=ON
 %cmake_build
 
 %install
@@ -40,16 +40,20 @@ Development files and the documentation
 %ldconfig_scriptlets
 
 %files
-%doc Changes.txt
-%doc License.txt
+%doc CHANGELOG README*
+%license LICENSE
 %{_libdir}/lib%{lcname}.so.*
 
 %files devel
 %{_includedir}/*
 %{_libdir}/lib%{lcname}.so
 %{_libdir}/pkgconfig/muparser.pc
+%{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Sat Sep 24 2022 Filipe Rosset <rosset.filipe@gmail.com> - 2.3.3-1
+- Update to 2.3.3 fixes rhbz#2043980
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname hunspell
-%global packver  3.0.1
+%global packver  3.0.2
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((janeaustenr|stopwords|wordcloud2)\\)
@@ -12,8 +12,8 @@
 %bcond_with network
 
 Name:             R-%{packname}
-Version:          3.0.1
-Release:          7%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          High-Performance Stemmer, Tokenizer, and Spell Checker
 
 License:          GPLv2 or LGPLv2 or MPLv1.1
@@ -113,6 +113,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 3.0.2-1
+- update to 3.0.2
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 3.0.1-7
 - rebuild for R 4.2.1
 

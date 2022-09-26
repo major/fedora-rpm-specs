@@ -4,20 +4,20 @@
 %global _firmwarepath  /usr/lib/firmware
 %global _xz_opts -9 --check=crc32
 
-%global sof_ver 2.1.1
+%global sof_ver 2.2.2
 #global sof_ver_pre rc1
 %global sof_ver_rel %{?sof_ver_pre:.%{sof_ver_pre}}
 %global sof_ver_pkg v%{sof_ver}%{?sof_ver_pre:-%{sof_ver_pre}}
 
-%global with_sof_addon 1
-%global sof_ver_addon 2.1.1a
+%global with_sof_addon 0
+%global sof_ver_addon 0
 
 %global tplg_version 1.2.4
 
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        2%{?sof_ver_rel}%{?dist}
+Release:        1%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
 License:        BSD
 URL:            https://github.com/thesofproject/sof-bin
@@ -130,6 +130,9 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Sat Sep 24 2022 Jaroslav Kysela <perex@perex.cz> - 2.2.2-1
+- Update to v2.2.2
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

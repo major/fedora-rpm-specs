@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-logs
-Version:        43~beta
+Version:        43.0
 Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
@@ -58,6 +58,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Sat Sep 24 2022 Kalev Lember <klember@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Tue Aug 09 2022 Kalev Lember <klember@redhat.com> - 43~beta-1
 - Update to 43.beta
 - Switch to gtk4

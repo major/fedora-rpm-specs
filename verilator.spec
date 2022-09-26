@@ -1,24 +1,30 @@
 Name:           verilator
-Version:        4.108
-Release:        5%{?dist}
+Version:        4.226
+Release:        1%{?dist}
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPLv3 or Artistic 2.0
-URL:            http://www.veripool.com/%{name}.html
-Source0:        http://www.veripool.org/ftp/%{name}-%{version}.tgz
+URL:            https://veripool.org/verilator/
+Source0:        https://github.com/verilator/verilator/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  flex
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-Buildrequires:  make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl-lib
+BuildRequires:  perl-version
 BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 BuildRequires:  python3-devel
 BuildRequires:  sed
@@ -32,13 +38,15 @@ especially well suited to create executable models of CPUs for
 embedded software design teams.
 
 %prep
-%setup -q
+%autosetup
 find . -name .gitignore -delete
 export VERILATOR_ROOT=%{_datadir}
+autoconf
 %{configure} \
     --disable-ccwarn \
     --enable-defenv \
     --disable-longtests
+
 # We cannot run autoreconf because upstream uses unqualifed stdlib identifiers
 # that are included by autoconf-generated header files.
 find -name Makefile_obj -exec sed -i \
@@ -49,10 +57,8 @@ find -name Makefile_obj -exec sed -i \
 %build
 %make_build
 
-# disable tests due lack of SystemC
-# Skip: vlt/t_a_first_sc: Test requires SystemC
-# %check
-# make test
+%check
+make test
 
 %install
 %make_install
@@ -74,18 +80,11 @@ mv %{buildroot}%{_datadir}/pkgconfig/verilator.pc %{buildroot}%{_libdir}/pkgconf
 %files
 %license Artistic LICENSE
 %doc Changes README*
-%doc verilator.pdf verilator.html
+%doc docs/
 %doc examples/
-
-%{_mandir}/man1/verilator.1.gz
-%{_mandir}/man1/verilator_coverage.1.gz
-%{_mandir}/man1/verilator_gantt.1.gz
-%{_mandir}/man1/verilator_profcfunc.1.gz
-
+%{_mandir}/man1/*.1.gz
 %{_datadir}/verilator
 %{_libdir}/pkgconfig/verilator.pc
-
-%defattr(755,root,root,-)
 %{_bindir}/verilator
 %{_bindir}/verilator_bin
 %{_bindir}/verilator_bin_dbg
@@ -96,6 +95,10 @@ mv %{buildroot}%{_datadir}/pkgconfig/verilator.pc %{buildroot}%{_libdir}/pkgconf
 
 
 %changelog
+* Sat Sep 24 2022 Filipe Rosset <rosset.filipe@gmail.com> - 4.226-1
+- Update to 4.226, enabled tests, spec cleanup and modernization
+- Fixes rhbz#1933296 rhbz#2047099 and rhbz#2026957
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.108-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -19,8 +19,7 @@ This package contains a reference implementation of JPEG XL (encoder and
 decoder).}
 
 Name:           jpegxl
-Version:        0.7.0rc
-%global tag     0.7rc
+Version:        0.7.0
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
 
@@ -31,18 +30,18 @@ Summary:        JPEG XL image format reference implementation
 License:        BSD and ASL 2.0 and zlib
 URL:            https://jpeg.org/jpegxl/
 VCS:            https://github.com/libjxl/libjxl
-Source0:        %vcs/archive/v%{tag}/%{name}-%{tag}.tar.gz
+Source0:        %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # git clone https://github.com/libjxl/libjxl
 # cd libjxl/
-# git checkout %%{shortcommit}
+# git checkout v%%{version}
 # git submodule init ; git submodule update
 # rm -r third_party/brotli/ third_party/googletest/
 # rm -r third_party/HEVCSoftware/ third_party/highway/
 # rm -r third_party/lcms/ third_party/libpng/
 # rm -r third_party/skcms/profiles/ third_party/zlib
-# tar -zcvf ../third_party-%%{tag}.tar.gz third_party/
-Source1:        third_party-0.7rc.tar.gz
+# tar -zcvf ../third_party-%%{version}.tar.gz third_party/
+Source1:        third_party-%{version}.tar.gz
 
 BuildRequires:  asciidoc
 BuildRequires:  cmake
@@ -141,9 +140,9 @@ This is a GIMP plugin for loading and saving JPEG-XL images.
 %endif
 
 %prep
-%autosetup -p1 -n libjxl-%{tag}
+%autosetup -p1 -n libjxl-%{version}
 rm -rf third_party/
-%setup -q -T -D -a 1 -n libjxl-%{tag}
+%setup -q -T -D -a 1 -n libjxl-%{version}
 
 %build
 %cmake  -DENABLE_CCACHE=1 \

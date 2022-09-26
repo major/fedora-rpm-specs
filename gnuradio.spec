@@ -25,8 +25,8 @@
 #%%global alphatag rc1
 
 Name:		gnuradio
-Version:	3.10.3.0
-Release:	5%{?alphatag:.%{alphatag}}%{?dist}
+Version:	3.10.4.0
+Release:	1%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -196,6 +196,10 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Sat Sep 24 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.4.0-1
+- New version
+  Resolves: rhbz#2127514
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.3.0-5
 - Rebuild for gsl-2.7.1
 

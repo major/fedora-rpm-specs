@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 %global packname rlang
-%global packver  1.0.5
+%global packver  1.0.6
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -19,7 +19,7 @@ Patch0001:        0001-Unbundle-libxxhash.patch
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-utils
-# Suggests:  R-cli, R-covr, R-crayon, R-glue, R-magrittr, R-methods, R-pak, R-pillar, R-rmarkdown, R-testthat >= 3.0.0, R-vctrs >= 0.2.3, R-withr
+# Suggests:  R-cli >= 3.1.0, R-covr, R-crayon, R-fs, R-glue, R-knitr, R-magrittr, R-methods, R-pillar, R-rmarkdown, R-stats, R-testthat >= 3.0.0, R-tibble, R-usethis, R-vctrs >= 0.2.3, R-withr
 # LinkingTo:
 # Enhances:
 
@@ -95,6 +95,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.6-1
+- update to 1.0.6
+
 * Sat Sep 17 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.5-1
 - Update to 1.0.5 (RHBZ #2015338)
 

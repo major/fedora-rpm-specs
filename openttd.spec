@@ -3,7 +3,7 @@
 
 Name:           openttd
 Version:        12.2
-Release:        3%{?prever:.%{prever}}%{?dist}
+Release:        4%{?prever:.%{prever}}%{?dist}
 Summary:        Transport system simulation game
 
 License:        GPLv2+
@@ -27,6 +27,7 @@ BuildRequires:  zlib-devel
 Requires:       hicolor-icon-theme
 
 Recommends:     openttd-opengfx => 0.5.0
+Recommends:     fluid-soundfont-gm
 
 %description
 OpenTTD is modeled after a popular transportation business simulation game
@@ -135,6 +136,9 @@ EOF
 
 
 %changelog
+* Sun Sep 25 2022 Felix Kaechele <felix@kaechele.ca> - 12.2-4
+- add weak dependency on fluid-soundfont-gm (rhbz#1588367)
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 12.2-3
 - Rebuilt for ICU 71.1
 

@@ -2,7 +2,7 @@
 
 Name:		rpmlint
 Version:	2.2.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tool for checking common errors in RPM packages
 License:	GPLv2
 URL:		https://github.com/rpm-software-management/rpmlint
@@ -70,6 +70,9 @@ cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysc
 %{python3_sitelib}/rpmlint*
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 2.2.0-7
+- update licenses.toml to reflect change in Fedora licensing identifiers
+
 * Mon Aug 08 2022 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-6
 - Require desktop-file-validate to avoid a fatal error when the RPM has .desktop files
 

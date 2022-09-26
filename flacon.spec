@@ -2,7 +2,7 @@
 %bcond_with tests
 
 Name:          flacon
-Version:       9.2.0
+Version:       9.3.0
 Release:       1%{?dist}
 Summary:       Audio File Encoder
 
@@ -94,6 +94,9 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Sep 24 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 9.2.0-1
+- Update to 9.3.0
+
 * Tue Aug 30 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 9.2.0-1
 - Update to 9.2.0
 

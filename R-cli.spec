@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global packname cli
-%global packver  3.4.0
+%global packver  3.4.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -98,6 +98,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 3.4.1-1
+- update to 3.4.1
+
 * Thu Sep  8 2022 Tom Callaway <spot@fedoraproject.org> - 3.4.0-1
 - update to 3.4.0
 

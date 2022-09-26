@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 
 Requires:       gtk4
 Requires:       hicolor-icon-theme
-Requires:       libadwaita
+Requires:       libadwaita >= 1.2.0
 Requires:       python3-xlib
 Requires:       yt-dlp
 

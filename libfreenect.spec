@@ -1,11 +1,8 @@
-%global commit 48a5c66d98505dd187e6352c2b9aca88985486c0
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 %global __provides_exclude %{python3_sitearch}/.*\.so$
 
 Name:           libfreenect
-Version:        0.6.2
-Release:        9%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as ASL 2.0 OR GPLv2
 # OpenNI driver is available as ASL 2.0
@@ -23,8 +20,6 @@ Patch3:         %{name}-0.4.2-libdir.patch
 Patch4:         secarch.patch
 # Fix the installation path for python libs
 Patch5:         %{name}-0.6.2-py3.patch
-# BZ: https://bugzilla.redhat.com/show_bug.cgi?id=2045802
-Patch6:         %{name}-0.6.2-cmake-gl-glut.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -45,7 +40,6 @@ Requires:       udev
 libfreenect is a free and open source library that provides access to the
 Kinect device.  Currently, the library supports the RGB webcam, the depth
 image, the LED, and the tilt motor.
-
 
 %package        devel
 Summary:        Development files for %{name}
@@ -107,8 +101,6 @@ rm -rf platform/windows
 %patch3 -p0 -b .libdir
 %patch4 -p1 -b .secarch
 %patch5 -p1 -b .py3
-%patch6 -p0 -b .cmake-gl-glut
-
 
 %build
 %cmake3 \
@@ -187,6 +179,10 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Sat Sep 24 2022 Phil Wyett <philip.wyett@kathenas.org> - 0.6.4-1
+- New upstream version 0.6.4
+- Remove old globals
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

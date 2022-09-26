@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/Caribou
@@ -16,6 +16,7 @@ Patch7:         xadapter.vala-Remove-XkbKeyTypesMask-and-f.patch
 Patch8:         drop_gir_patch.patch
 
 BuildRequires:  automake
+BuildRequires:  make
 BuildRequires:  gtk2-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  pygobject3-devel
@@ -34,7 +35,7 @@ BuildRequires:  at-spi2-core-devel
 # Changed in F23 to pull python3-caribou default
 Requires:       python3-%{name} = %{version}-%{release}
 Requires:       gobject-introspection
-Requires:       caribou-gtk2-module
+Recommends:     caribou-gtk2-module
 Requires:       caribou-gtk3-module
 
 #Following is needed as package moved from noarch to arch
@@ -60,7 +61,7 @@ developing applications that use %{name}.
 Summary:        Keyboard UI for %{name}
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
-BuildRequires: make
+
 Requires:       python3-gobject
 Requires:       python3-pyatspi
 Requires:       %{name} = %{version}-%{release}
@@ -153,6 +154,9 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Sat Sep 24 2022 Leigh Scott <leigh123linux@gmail.com> - 0.4.21-32
+- Only recommend gtk2-module
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

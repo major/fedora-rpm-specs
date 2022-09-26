@@ -2,12 +2,16 @@
 
 Name:           wike
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wikipedia Reader for the GNOME Desktop
 
 License:        GPLv3
 URL:            https://github.com/hugolabe/wike
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Fix _fill_menu bug
+# https://github.com/hugolabe/Wike/issues/89
+Patch0:         %{url}/pull/90.patch
 
 BuildArch:      noarch
 
@@ -32,7 +36,7 @@ content of this online encyclopedia in a native application, with a simpler and
 distraction-free view of articles.
 
 %prep
-%autosetup -n Wike-%{version}
+%autosetup -n Wike-%{version} -p1
 
 %build
 %meson
@@ -64,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/gnome-shell/search-providers/%{appid}.SearchProvider.ini
 
 %changelog
+* Sat Sep 24 2022 Gustavo Costa <xfgusta@gmail.com> - 1.8.1-2
+- Fix _fill_menu bug (rhbz#2128121)
+
 * Fri Sep 09 2022 Gustavo Costa <xfgusta@gmail.com> - 1.8.1-1
 - Update to 1.8.1 (rhbz#2125166)
 

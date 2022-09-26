@@ -1,9 +1,9 @@
 %global packname lpSolve
-%global packver  5.6.15
+%global packver  5.6.16
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          5.6.16
+Version:          %{packver}
 Release:          1%{?dist}
 Summary:          Interface to Lp_solve to Solve Linear/Integer Programs
 
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org>
+- use packver properly
+
 * Fri Sep 09 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 5.6.16-1
 - Update to 5.6.16 (RHBZ #2124096)
 

@@ -4,14 +4,14 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-%global commit eba1413869c7d7cdd8cb1a1aeabf911ba152980e
+%global commit 07128e130d1b76797835accadb0f116bf2db3eab
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global dxfrw_includedir %(pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
 
 Name:			librecad
 Version:		2.2.0
-Release:		0.14.rc3%{?dist}
+Release:		0.15.rc4%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPLv2 and GPLv2+
 URL:			http://librecad.org/
@@ -27,18 +27,12 @@ Patch4:			librecad-use-system-shapelib.patch
 Patch6:			librecad-gcc6.patch
 # need to use unique symbol names
 Patch8:			librecad-unique-symbol-names.patch
-# Bounds check to CDataList in JWW Parser
-# CVE-2021-45342
-Patch9:			https://github.com/LibreCAD/LibreCAD/commit/4edcbe72679f95cb60979c77a348c1522a20b0f4.patch
-# Bounds check to CDataMoji in JWW Parser
-# CVE-2021-45341
-Patch10:		https://github.com/LibreCAD/LibreCAD/commit/f3502963eaf379a429bc9da73c1224c5db649997.patch
+Patch9:         https://github.com/LibreCAD/LibreCAD/commit/6f74b427bec82b477a912385370901d085121dba.patch
 
-BuildRequires:          gcc-c++
-BuildRequires:		qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.0.1-1
-BuildRequires:		qt5-qtsvg-devel, qt5-linguist
-BuildRequires:		desktop-file-utils, boost-devel, shapelib-devel
-BuildRequires: make
+BuildRequires:	gcc-c++ make
+BuildRequires:	qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.0.1-1
+BuildRequires:	qt5-qtsvg-devel, qt5-linguist
+BuildRequires:	desktop-file-utils, boost-devel, shapelib-devel
 Requires:		%{name}-fonts = %{version}-%{release}
 Requires:		%{name}-langs = %{version}-%{release}
 Requires:		%{name}-parts = %{version}-%{release}
@@ -88,6 +82,7 @@ BuildArch:	noarch
 %description patterns
 Pattern files for LibreCAD.
 
+
 %prep
 %setup -qn LibreCAD-%{commit} -a 2 -a 3
 %patch0 -p1 -b .system
@@ -96,10 +91,12 @@ Pattern files for LibreCAD.
 %patch4 -p1 -b .system-shapelib
 %patch6 -p1 -b .gcc6
 # %%patch8 -p1 -b .unique
-%patch9 -p1 -b .CVE-2021-45342
-%patch10 -p1 -b .CVE-2021-45341
+%patch9 -p1
 sed -i 's|##LIBDIR##|%{_libdir}|g' librecad/src/lib/engine/rs_system.cpp
 sed -i 's|$${DXFRW_INCLUDEDIR}|%{dxfrw_includedir}|g' librecad/src/src.pro
+
+## Fix plugin search path
+#sed -i 's|"/../share/"|"/../%{_lib}/"|'  librecad/src/lib/engine/rs_system.cpp
 
 # Nuke bundled libraries
 # rm -rf libraries/libdxfrw
@@ -119,6 +116,7 @@ cp /usr/share/licenses/wqy-microhei-fonts/LICENSE_* .
 
 sed -i 's|LRELEASE="lrelease"|LRELEASE="lrelease-qt5"|g' scripts/postprocess-unix.sh
 
+
 %build
 %{qmake_qt5} librecad.pro 'CONFIG+=release' 'BOOST_DIR=/usr' 'BOOST_LIBDIR=%{_libdir}' 'MUPARSER_DIR=/usr' 'QMAKE_LFLAGS_RELEASE=' 'DISABLE_POSTSCRIPT=true'
 
@@ -126,6 +124,7 @@ make %{?_smp_mflags} MUPARSER_DIR=/usr
 rm -rf unix/resources/fonts/wqy-unicode.lff
 mkdir -p unix/resources/fonts
 ./unix/ttf2lff -L "ASL 2.0 or GPLv3 with exceptions" /usr/share/fonts/wqy-microhei/wqy-microhei.ttc unix/resources/fonts/wqy-unicode.lff 
+
 
 %install
 export BUILDDIR="%{buildroot}%{_datadir}/%{name}"
@@ -197,8 +196,10 @@ cp -a Electronic8-LCAD %{buildroot}%{_datadir}/%{name}/library/electronics
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
+
 %files
-%doc LICENSE README.md
+%license LICENSE
+%doc README.md
 %doc %{_mandir}/man1/%{name}.1*
 %doc %{_mandir}/man1/ttf2lff.1*
 %{_bindir}/%{name}
@@ -234,6 +235,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Sat Sep 24 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-0.15.rc4
+- Update to 2.2.0 RC4.
+- Apply patch from upstream to make sure plugins are found.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-0.14.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

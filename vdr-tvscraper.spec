@@ -9,7 +9,7 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.1.5
+Version:        1.1.6
 Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
@@ -23,7 +23,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  sqlite-devel
 BuildRequires:  libcurl-devel
-BuildRequires:  libxml2-devel
+# BuildRequires:  libxml2-devel
 BuildRequires:  jansson-devel
 BuildRequires:  vdr-devel >= %{vdr_version} 
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -63,7 +63,7 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 
 %files -f %{name}.lang
 %license COPYING
-%doc HISTORY README
+%doc HISTORY
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %dir %{vdr_configdir}/plugins/%{pname}
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/tvscraper.conf
@@ -71,6 +71,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Sat Sep 24 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.6-1
+- Update to 1.1.6-1
+
 * Sat Sep 03 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.5-1
 - Update to 1.1.5-1
 
