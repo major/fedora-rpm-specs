@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.4.6
-Release:        10%{?dist}
+Version:        4.4.7
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -45,7 +45,6 @@ Patch11: nagios-0011-remove-rpmbuild.patch
 Patch12: nagios-0012-fix-spool.patch
 Patch13: nagios-0013-fix-plugin.patch
 Patch14: nagios-0014-fix-uidgid.patch
-Patch15: %{name}-0015-Changelog.patch
 
 BuildRequires:  make
 BuildRequires:  doxygen
@@ -65,17 +64,13 @@ BuildRequires:  perl(Test::HTML::Lint)
 %endif
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
+BuildRequires:  openssl-devel
 
 # For up-to-date config.sub and config.guess
 BuildRequires:  libtool
 
 # For selinux tools
 BuildRequires: checkpolicy, selinux-policy-devel
-
-%if 0%{?rhel} > 6 || 0%{?fedora} > 20
-# For necessary macros
-BuildRequires:  systemd
-%endif
 
 Requires:       httpd
 Requires:       php
@@ -471,6 +466,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Sun Sep 25 2022 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.7-1
+- Update to 4.4.7
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

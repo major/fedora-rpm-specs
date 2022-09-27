@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.25.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -72,6 +72,10 @@ Source41:       spice-vdagent.conf
 # and example,
 # https://github.com/notmart/artwork-lnf-netrunner-core/blob/master/usr/share/plasma/look-and-feel/org.kde.netrunner-core.desktop/contents/defaults
 Patch105:       plasma-workspace-5.21.90-folderview_layout.patch
+# default to enable open terminal action
+Patch106:       plasma-workspace-5.25.90-enable-open-terminal-action.patch
+# default to enable the lock/logout actions
+Patch107:       plasma-workspace-5.25.90-enable-lock-logout-action.patch
 
 # udev
 BuildRequires:  zlib-devel
@@ -774,6 +778,11 @@ fi
 
 
 %changelog
+* Sun Sep 25 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.25.90-2
+- Add Fedora patches to change default desktop context menu configuration
+  + Enable "Open Terminal" action
+  + Enable "Lock" and "Logout" actions
+
 * Sat Sep 17 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.90-1
 - 5.25.90
 

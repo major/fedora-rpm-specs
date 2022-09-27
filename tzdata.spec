@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2022c
-%define tzdata_version 2022c
-%define tzcode_version 2022c
+Version: 2022d
+%define tzdata_version 2022d
+%define tzcode_version 2022d
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
@@ -153,6 +153,12 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Sun Sep 25 2022 Patsy Griffin <patsy@redhat.com> - 2022d-1
+- Rebase to tzdata-2022d
+  - Palestine DST transition will be on October 29, 2022, 
+    not October 28, 2022.
+  - Europe/Uzhgorod and Europe/Zaporozhye are moved to 'backzone'.
+
 * Mon Aug 22 2022 Patsy Griffin <patsy@redhat.com> - 2022c-1
 - Rebase to tzdata-2022c - supersedes tzdata-2022b
   - Add a work-around for an awk bug in FreeBSD, macOS, etc.

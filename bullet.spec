@@ -2,7 +2,7 @@
 
 Name: bullet
 Version: 3.08
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: 3D Collision Detection and Rigid Body Dynamics Library
 License: zlib and MIT and BSD and Boost
 URL: http://www.bulletphysics.com
@@ -191,6 +191,9 @@ doxygen Doxyfile
 %{_libdir}/libBulletXmlWorldImporter.so
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 3.08-5
+- Rebuild for tinyxml2-9.0.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

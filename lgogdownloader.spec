@@ -1,6 +1,6 @@
 Name:		lgogdownloader
 Version:	3.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GOG.com download client
 
 License:	WTFPL
@@ -47,6 +47,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 3.9-2
+- Rebuild for tinyxml2-9.0.0
+
 * Tue Sep 20 2022 Benjamin Lowry <ben@ben.gmbh> - 3.9-1
 - lgogdownloader 3.9
 

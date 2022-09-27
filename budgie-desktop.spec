@@ -8,14 +8,14 @@
 
 Name:           budgie-desktop
 Version:        10.6.4
-Release:        1%{?dist}
-Summary:     A feature-rich, modern desktop designed to keep out the way of the user
+Release:        2%{?dist}
+Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
-URL:               https://github.com/BuddiesOfBudgie/budgie-desktop
-Source0:       %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
-Source1:       %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
-Source2:       https://joshuastrobl.com/pubkey.gpg
+URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
+Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
+Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
+Source2:        https://joshuastrobl.com/pubkey.gpg
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -64,26 +64,32 @@ Suggests:       materia-gtk-theme
 Suggests:       papirus-icon-theme
 Suggests:       slick-greeter
 
-Requires: glib2%{?_isa} >= %{glib2_version}
-Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires:       glib2%{?_isa} >= %{glib2_version}
+Requires:       gtk3%{?_isa} >= %{gtk3_version}
+
+# Deal with fixing the gir file installation
+Conflicts:      %{name} < 10.6.4-2
+Conflicts:      %{name}-devel < 10.6.4-2
 
 %description
 A feature-rich, modern desktop designed to keep out the way of the user.
 
 %package devel
-License:        GPLv2 and LGPLv2
-Summary: Development package for budgie-desktop
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary:        Development package for budgie-desktop
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+# Deal with fixing the gir file installation
+Conflicts:      %{name} < 10.6.4-2
+Conflicts:      %{name}-devel < 10.6.4-2
 
 %description devel
 Header files, libraries, and other files for developing Budgie Desktop.
 
 %package docs
-License:        GPLv2 and LGPLv2
-Summary: Documentation for budgie-desktop
-BuildArch: noarch
-Requires: gtk-doc
-Requires: %{name} = %{version}-%{release}
+Summary:        Documentation for budgie-desktop
+BuildArch:      noarch
+Requires:       gtk-doc
+Requires:       %{name} = %{version}-%{release}
 
 %description docs
 Documentation for budgie-desktop
@@ -108,7 +114,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license LICENSE
 %dir %{_datadir}/backgrounds/budgie
 %dir %{_datadir}/budgie
-%dir %{_datadir}/gir-1.0
 %dir %{_datadir}/icons
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/scalable
@@ -122,7 +127,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/budgie-*
 %{_datadir}/backgrounds/budgie/default.jpg
 %{_datadir}/budgie/budgie-version.xml
-%{_datadir}/gir-1.0/Budgie-1.0.gir
 %{_datadir}/glib-2.0/schemas/20_solus-project.budgie.wm.gschema.override
 %{_datadir}/glib-2.0/schemas/com.solus-project.*.gschema.xml
 %{_datadir}/gnome-session/sessions/%{name}.session
@@ -130,6 +134,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/hicolor/scalable/status/*.svg
 %{_datadir}/xsessions/%{name}.desktop
+%{_libdir}/girepository-1.0/Budgie-1.0.typelib
 %{_libdir}/%{name}/libgvc.so
 %{_libdir}/%{name}/plugins/*/*.plugin
 %{_libdir}/%{name}/plugins/*/*.so*
@@ -145,13 +150,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %files devel
+%dir %{_datadir}/gir-1.0
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %dir %{_includedir}/%{name}
+%{_datadir}/gir-1.0/Budgie-1.0.gir
 %{_datadir}/vala/vapi/budgie-1.0.deps
 %{_datadir}/vala/vapi/budgie-1.0.vapi
 %{_includedir}/%{name}/*.h
-%{_libdir}/girepository-1.0/Budgie-1.0.typelib
 %{_libdir}/libbudgie-plugin.so
 %{_libdir}/libbudgie-private.so
 %{_libdir}/libbudgietheme.so
@@ -165,5 +171,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sat Sep 24 2022 Neal Gompa <ngompa@fedoraproject.org> - 10.6.4-2
+- Put the gobject-introspection files in the right place
+
 * Tue Aug 30 2022 Joshua Strobl <me@joshuastrobl.com> - 10.6.4-1
 - Initial inclusion of Budgie Desktop

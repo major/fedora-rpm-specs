@@ -1,9 +1,10 @@
 %global appname Komikku
 %global uuid    info.febvre.%{appname}
-%global libhandy_version    1.5.0
+%global gtk4_version        4.8.1
+%global libadwaita_version  1.2
 
 Name:           komikku
-Version:        0.40.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -15,15 +16,16 @@ Source0:        %{url}/-/archive/v%{version}/%{appname}-v%{version}.tar.gz
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
-BuildRequires:  meson >= 0.50.0
-BuildRequires:  python3-devel >= 3.6
+BuildRequires:  meson >= 0.59.0
+BuildRequires:  python3-devel >= 3.8
 
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.35.9
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.24.1
-BuildRequires:  pkgconfig(libhandy-1) >= %{libhandy_version}
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
+BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 
 Requires:       hicolor-icon-theme
-Requires:       libhandy >= %{libhandy_version}
+Requires:       gtk4 >= %{gtk4_version}
+Requires:       libadwaita >= %{libadwaita_version}
 Requires:       libnotify
 Requires:       python3-beautifulsoup4
 Requires:       python3-brotli
@@ -33,16 +35,12 @@ Requires:       python3-gobject
 Requires:       python3-keyring
 Requires:       python3-lxml
 Requires:       python3-natsort
-
 # The conflict between python-magic and python-file-magic should be brought to
 # FESCO.
 Requires:       python3dist(file-magic)
-
 Requires:       python3-pillow
 Requires:       python3-pure-protobuf
-Requires:       python3-requests
 Requires:       python3-unidecode
-Requires:       webkit2gtk3
 
 %description
 Komikku is a manga reader for GNOME. It focuses on providing a clean, intuitive

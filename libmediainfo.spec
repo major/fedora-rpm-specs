@@ -2,7 +2,7 @@
 
 Name:           libmediainfo
 Version:        22.06
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 Summary(ru):    Библиотека для предоставления полной информации о видео или аудио файле
 
@@ -133,6 +133,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 22.06-3
+- Rebuild for tinyxml2-9.0.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.06-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -75,6 +75,10 @@ Patch0006: 0004-Revert-nouveau-no-modifier-the-invalid-modifier.patch
 Patch0007: 0005-Revert-nouveau-Use-DRM_FORMAT_MOD_NVIDIA_BLOCK_LINEA.patch
 Patch0008: 0006-Revert-nouveau-Stash-supported-sector-layout-in-scre.patch
 
+# Patches from Karol Herbst to fix Nouveau multithreading:
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/10752
+Patch0009: nouveau-multithreading-fixes.patch
+
 BuildRequires:  meson >= 0.45
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -156,6 +160,7 @@ Obsoletes:      mesa-dri-filesystem < %{?epoch:%{epoch}:}%{version}-%{release}
 Summary:        Mesa libGL runtime libraries
 Requires:       %{name}-libglapi%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       libglvnd-glx%{?_isa} >= 1:1.3.2
+Recommends:     %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libGL
 %{summary}.
@@ -174,6 +179,7 @@ Recommends:     gl-manpages
 %package libEGL
 Summary:        Mesa libEGL runtime libraries
 Requires:       libglvnd-egl%{?_isa} >= 1:1.3.2
+Recommends:     %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libEGL
 %{summary}.
@@ -234,6 +240,7 @@ Requires:       %{name}-libOSMesa%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rele
 Summary:        Mesa gbm runtime library
 Provides:       libgbm
 Provides:       libgbm%{?_isa}
+Recommends:     %{name}-dri-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description libgbm
 %{summary}.

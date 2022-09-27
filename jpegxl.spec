@@ -19,6 +19,7 @@ This package contains a reference implementation of JPEG XL (encoder and
 decoder).}
 
 Name:           jpegxl
+Epoch:          1
 Version:        0.7.0
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
@@ -31,6 +32,10 @@ License:        BSD and ASL 2.0 and zlib
 URL:            https://jpeg.org/jpegxl/
 VCS:            https://github.com/libjxl/libjxl
 Source0:        %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
+# exr_to_pq
+Patch0:         https://github.com/libjxl/libjxl/commit/873890998bb151ba54a865cdbd61df22af29774c.patch
+# Ssimulacra 2
+Patch1:         https://github.com/libjxl/libjxl/commit/795b363120bbcfdbb2e2e4fa85146ac6d385137d.patch
 
 # git clone https://github.com/libjxl/libjxl
 # cd libjxl/
@@ -82,13 +87,24 @@ Provides:       bundled(skcms) = 0-0.1.20210522git6437475
 
 %package     -n libjxl-utils
 Summary:        Utilities for manipulating JPEG XL images
-Recommends:     jxl-pixbuf-loader = %{version}-%{release}
-Recommends:     gimp-jxl-plugin   = %{version}-%{release}
-Provides:       jpegxl-utils = %{version}-%{release}
+Recommends:     jxl-pixbuf-loader = %{epoch}:%{version}-%{release}
+Recommends:     gimp-jxl-plugin   = %{epoch}:%{version}-%{release}
+Provides:       jpegxl-utils = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-utils < 0.3.7-5
 
 %description -n libjxl-utils
 %{common_description}
+
+%package     -n libjxl-devtools
+Summary:        Development tools for JPEG-XL
+Requires:       libjxl%{?_isa} = %{epoch}:%{version}-%{release}
+
+%description -n libjxl-devtools
+%{common_description}
+
+Development tools for JPEG-XL
+
+
 
 %package        doc
 Summary:        Documentation for JPEG-XL
@@ -102,8 +118,8 @@ Documentation for JPEG-XL.
 %package     -n libjxl
 Summary:        Library files for JPEG-XL
 Requires:       shared-mime-info
-Recommends:     jxl-pixbuf-loader = %{version}-%{release}
-Provides:       jpegxl-libs = %{version}-%{release}
+Recommends:     jxl-pixbuf-loader = %{epoch}:%{version}-%{release}
+Provides:       jpegxl-libs = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-libs < 0.3.7-5
 
 %description -n libjxl
@@ -113,12 +129,14 @@ Library files for JPEG-XL.
 
 %package     -n libjxl-devel
 Summary:        Development files for JPEG-XL
-Requires:       libjxl%{?_isa} = %{version}-%{release}
-Provides:       jpegxl-devel = %{version}-%{release}
+Requires:       libjxl%{?_isa} = %{epoch}:%{version}-%{release}
+Provides:       jpegxl-devel = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-devel < 0.3.7-5
 
 %description -n libjxl-devel
 %{common_description}
+
+Development files for JPEG-XL.
 
 Development files for JPEG-XL.
 
@@ -156,7 +174,8 @@ rm -rf third_party/
         -DJPEGXL_WARNINGS_AS_ERRORS:BOOL=OFF \
         -DBUILD_SHARED_LIBS:BOOL=ON \
         -DBUNDLE_LIBPNG_DEFAULT:BOOL=OFF \
-        -DBUNDLE_GFLAGS_DEFAULT:BOOL=OFF
+        -DBUNDLE_GFLAGS_DEFAULT:BOOL=OFF \
+        -DJPEGXL_ENABLE_DEVTOOLS=ON
 %cmake_build -- all doc
 
 %install
@@ -177,6 +196,22 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_bindir}/jxlinfo
 %{_mandir}/man1/cjxl.1*
 %{_mandir}/man1/djxl.1*
+
+%files -n libjxl-devtools
+%{_bindir}/fuzzer_corpus
+%{_bindir}/butteraugli_main
+%{_bindir}/decode_and_encode
+%{_bindir}/display_to_hlg
+%{_bindir}/exr_to_pq
+%{_bindir}/pq_to_hlg
+%{_bindir}/render_hlg
+%{_bindir}/tone_map
+%{_bindir}/texture_to_cube
+%{_bindir}/generate_lut_template
+%{_bindir}/ssimulacra_main
+%{_bindir}/ssimulacra2
+%{_bindir}/xyb_range
+%{_bindir}/jxl_from_tree
 
 %files doc
 %doc doc/*.md

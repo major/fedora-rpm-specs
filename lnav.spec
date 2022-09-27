@@ -1,6 +1,6 @@
 Name:          lnav
-Version:       0.10.1
-Release:       4%{?dist}
+Version:       0.11.0
+Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 License:       BSD
 
@@ -20,8 +20,6 @@ BuildRequires: readline-devel
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
 
-Patch1: bz2046721_f36_ftbfs.patch
-
 %description
 %{name} is an enhanced log file viewer that takes advantage of any semantic
 information that can be gleaned from the files being viewed, such as
@@ -34,7 +32,6 @@ quickly and efficiently zero in on problems.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 %configure --disable-static --disable-silent-rules
@@ -52,6 +49,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Sun Sep 25 2022 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.0-1
+- resolves: #2118081
+  updated to 0.11.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

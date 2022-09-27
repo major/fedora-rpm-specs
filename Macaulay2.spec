@@ -54,7 +54,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2 or GPLv3
 URL:     https://macaulay2.com/
@@ -522,6 +522,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 1.20-2
+- Rebuild for tinyxml2-9.0.0
+
 * Thu Aug  4 2022 Jerry James <loganjerry@gmail.com> - 1.20-1
 - Version 1.20
 

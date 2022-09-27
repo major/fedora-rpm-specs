@@ -1,13 +1,15 @@
+%global soversion 9
+
 Name:           tinyxml2
-Version:        7.0.1
-Release:        9%{?dist}
+Version:        9.0.0
+Release:        1%{?dist}
 Summary:        Simple, small and efficient C++ XML parser
 
 License:        zlib
 URL:            https://github.com/leethomason/tinyxml2
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  cmake >= 2.6
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -38,28 +40,21 @@ for writing applications with the %{name} library.
 chmod -c -x *.cpp *.h
 
 %build
-%cmake . -B%{_vpath_builddir} -DBUILD_STATIC_LIBS=OFF
-%make_build -C %{_vpath_builddir}
+%cmake -DBUILD_STATIC_LIBS=OFF
+%cmake_build
 
 # Library tests were disabled in 3.0.0
-#%check
-#cd objdir
-#make test
-#export LD_LIBRARY_PATH=`pwd`
-#./test
-
 # and partially re-enabled in 6.0.0
 %check
-%make_build test -C %{_vpath_builddir}
+%ctest
 
 %install
-%make_install -C %{_vpath_builddir}
+%cmake_install
 
-%ldconfig_scriptlets
 
 %files
 %doc readme.md
-%{_libdir}/lib%{name}.so.7*
+%{_libdir}/lib%{name}.so.%{soversion}*
 
 %files devel
 %{_includedir}/%{name}.h
@@ -68,6 +63,9 @@ chmod -c -x *.cpp *.h
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 9.0.0-1
+- Update to release 9.0.0 (Resolves: 1742663)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

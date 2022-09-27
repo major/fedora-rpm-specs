@@ -1,8 +1,8 @@
-%global gittag rel_2_10_38
+%global gittag rel_2_12_2
 
 Name:           asdcplib
-Version:        2.10.38
-Release:        6%{?dist}
+Version:        2.12.2
+Release:        1%{?dist}
 Summary:        AS-DCP file access libraries
 License:        BSD
 URL:            http://www.cinecert.com/asdcplib/
@@ -97,6 +97,7 @@ rm -fr  %{buildroot}%{_prefix}/targets
 %{_bindir}/as-02-info
 %{_bindir}/as-02-unwrap
 %{_bindir}/as-02-wrap
+%{_bindir}/as-02-wrap-iab
 %{_bindir}/asdcp-info
 %{_bindir}/asdcp-test
 %{_bindir}/asdcp-unwrap
@@ -111,6 +112,9 @@ rm -fr  %{buildroot}%{_prefix}/targets
 %{_bindir}/wavesplit
 
 %changelog
+* Sun Sep 25 2022 Simone Caronni <negativo17@gmail.com> - 2.12.2-1
+- Update to 2.12.2.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.38-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

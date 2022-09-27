@@ -11,6 +11,7 @@ URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.gz
 
 
+BuildRequires: binutils-devel
 BuildRequires: gcc-c++
 BuildRequires: libtool
 BuildRequires: elfutils-devel
@@ -135,8 +136,8 @@ fi
 %{_bindir}/abilint
 %{_bindir}/abipkgdiff
 %{_bindir}/kmidiff
-%{_libdir}/libabigail.so.0
-%{_libdir}/libabigail.so.0.0.0
+%{_libdir}/libabigail.so.1
+%{_libdir}/libabigail.so.1.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -162,6 +163,9 @@ fi
 %changelog
 * Wed Sep 21 2022 Dodji Seketeli <dodji@redhat.com> - 2.1-1
 - Update to upstream 2.1
+- Add libabigail.so.1 and libabigail.so.1.0.0 to the package.
+- Enable CTF support when running the tests.
+- Add binutils-devel as BuildRequires, for CTF.
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

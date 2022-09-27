@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-116-gf278835f59
+%global glibcsrcdir glibc-2.36.9000-150-gc02e29a0ba
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2184,6 +2184,44 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Fri Sep 23 2022 Patsy Griffin <patsy@redhat.com> - 2.36.9000-8
+- Auto-sync with upstream branch master,
+  commit c02e29a0ba47d636281e1a026444a1a0a254aa12.
+- nss: Use shared prefix in IPv4 address in tst-reload1
+- nss: Enhance tst-reload1 coverage and logging
+- Use C11 atomics instead of atomic_decrement_and_test
+- Use C11 atomics instead of atomic_increment(_val)
+- Use C11 atomics instead of atomic_and/or
+- malloc: Print error when oldsize is not equal to the current size.
+- Use '%z' instead of '%Z' on printf functions
+- elf: Extract glibcelf constants from <elf.h>
+- scripts: Enhance glibcpp to do basic macro processing
+- scripts: Extract glibcpp.py from check-obsolete-constructs.py
+- riscv: Remove RV32 floating point functions
+- riscv: Consolidate the libm-test-ulps
+- hurd: Fix SIOCADD/DELRT ioctls
+- hurd: Drop struct rtentry and in6_rtmsg
+- hurd: Add _IOT_ifrtreq to <net/route.h>
+- elf: Use C11 atomics on _dl_mcount
+- hurd: Use IF_NAMESIZE rather than IFNAMSIZ
+- hurd: Add ifrtreq structure to net/route.h
+- hppa: undef __ASSUME_SET_ROBUST_LIST
+- linux: Use same type for MMAP2_PAGE_UNIT
+- m68k: Enforce 4-byte alignment on internal locks (BZ #29537)
+- nss: Fix tst-nss-files-hosts-long on single-stack hosts (bug 24816)
+- nss: Implement --no-addrconfig option for getent
+- gconv: Use 64-bit interfaces in gconv_parseconfdir (bug 29583)
+- elf: Implement force_first handling in _dl_sort_maps_dfs (bug 28937)
+- Linux: Do not skip d_ino == 0 entries in readdir, readdir64 (bug 12165)
+- hurd: Factorize at/non-at functions
+- tst-sprintf-errno: Update Hurd message length
+- RISC-V: Allow long jumps to __syscall_error
+- hurd: Make readlink* just reopen the file used for stat
+- hurd: Fix readlink() hanging on fifo
+- Fix BRE typos in check-safety.sh
+- Makerules: fix MAKEFLAGS assignment for upcoming make-4.4 [BZ# 29564]
+- Use relaxed atomics since there is no MO dependence
+
 * Wed Sep 14 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-7
 - Remove .annobin* symbols from ld.so (#2126477)
 

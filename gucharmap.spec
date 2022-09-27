@@ -3,8 +3,8 @@
 %define gtk3_version 3.15.9
 
 Name:           gucharmap
-Version:        14.0.3
-Release:        2%{?dist}
+Version:        15.0.0
+Release:        1%{?dist}
 Summary:        Unicode character picker and font browser
 
 # semver X, Y and Y+1
@@ -100,6 +100,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gucharmap.desktop
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Wed Sep 14 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.0-1
+- Update to 15.0.0 (#2126886)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

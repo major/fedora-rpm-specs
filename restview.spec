@@ -1,23 +1,13 @@
 %global pypi_name restview
 
 Name:           %{pypi_name}
-Version:        2.9.2
-Release:        10%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        ReStructuredText viewer
 
 License:        GPLv3+
 URL:            https://mg.pov.lt/restview/
 Source0:        %{pypi_source}
-
-# Support mock >= 4 and unittest.mock on new Python
-# https://github.com/mgedmin/restview/commit/a1ded30a87
-# Merged upstream in 2.9.3
-Patch1:         newmock.patch
-
-# Use unittest.mock instead of deprecated mock
-# Proposed upstream
-# https://github.com/mgedmin/restview/pull/62
-Patch2:         nomock.patch
 
 BuildArch:      noarch
  
@@ -26,6 +16,7 @@ BuildRequires:  python3-docutils
 BuildRequires:  python3-pygments
 BuildRequires:  python3-readme-renderer
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
 
 Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -53,7 +44,7 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 %check
-%{__python3} setup.py test
+%pytest -v src/restview/tests.py -k "not restview.tests.doctest_RestViewer_rest_to_html"
 
 %files
 %{_bindir}/%{pypi_name}
@@ -65,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 3.0.0-1
+- Update to latest upstream release 3.0.0 (closes rhbz#2114560)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

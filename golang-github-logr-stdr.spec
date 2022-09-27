@@ -2,23 +2,23 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/json-iterator/go
-%global goipath         github.com/json-iterator/go
-Version:                1.1.12
+# https://github.com/go-logr/stdr
+%global goipath         github.com/go-logr/stdr
+Version:                1.2.2
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
-A high-performance 100% compatible drop-in replacement of "encoding/json".}
+Logr implementation against the stdlib log package.}
 
 %global golicenses      LICENSE
-%global godocs          README.md fuzzy_mode_convert_table.md
+%global godocs          example README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        A high-performance 100% compatible drop-in replacement of "encoding/json"
+Summary:        Logr implementation against the stdlib log package
 
-License:        MIT
+License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 

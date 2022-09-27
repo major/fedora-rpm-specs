@@ -9,12 +9,18 @@
 
 Name: koji
 Version: 1.30.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
+
+# Proposed upstream
+## From: https://pagure.io/koji/pull-request/3496
+Patch1: 3496.patch
+## From: https://pagure.io/koji/pull-request/3498
+Patch2: 3498.patch
 
 # Not upstreamable
 Patch100: fedora-config.patch
@@ -347,6 +353,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Thu Sep 22 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.30.0-2
+- Backport fixes for kiwi-build command
+
 * Mon Aug 29 2022 Kevin Fenzi <kevin@scrye.com> - 1.30.0-1
 - Update to 1.30.0. Fixes rhbz#2122127
 

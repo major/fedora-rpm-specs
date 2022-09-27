@@ -1,5 +1,5 @@
 Name:           pdfarranger
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        PDF file merging, rearranging, and splitting
 
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %changelog
+* Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.1-1
+- Update to latest upstream release 1.9.1 (closes rhbz#2129599)
+
 * Sun Sep 18 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.0-1
 - Update to latest upstream release 1.9.0 (closes rhbz#2127657)
 

@@ -1,6 +1,6 @@
 Name:           molsketch
-Version:        0.7.2
-Release:        5%{?dist}
+Version:        0.7.3
+Release:        1%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPLv2+
 URL:            http://molsketch.sourceforge.net
@@ -62,8 +62,9 @@ applications that use %{name}.
 #%%setup -q -n Molsketch-%%{version}
 # Test buids:
 #%%setup -q -n Molsketch-latest (or Molsketch-master)
+# "-c" needed in v0.7.3 because of missing top-level dir
 %prep
-%setup -q -n Molsketch-%{version}
+%setup -q -c
 dos2unix -k doc/cs/molsketch.adp
 
 
@@ -104,6 +105,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sun Sep 25 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.7.3-1
+- Several bugfixes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

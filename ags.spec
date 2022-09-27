@@ -13,7 +13,7 @@ Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
 Version: 3.6.0.33
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 # unbundle freetype
 Patch2:  %{name}-use-system-freetype.patch
@@ -115,6 +115,9 @@ make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
 %{_bindir}/ags
 
 %changelog
+* Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 3.6.0.33-2
+- Rebuild for tinyxml2-9.0.0
+
 * Sun Aug 14 2022 Dominik Mierzejewski <rpm@greysector.net> - 3.6.0.33-1
 - update to 3.6.0.33 (#2108390)
 

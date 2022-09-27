@@ -1,53 +1,66 @@
-%global srcname pytest-relaxed
-%global desc  pytest-relaxed provides 'relaxed' test discovery for pytest. \
-It is the spiritual successor to https://pypi.python.org/pypi/spec, but \
-is built for pytest instead of nosetests, and rethinks some aspects of \
-the design (such as a decreased emphasis on the display side of things.)
+Name:           python-pytest-relaxed
+# Build from a fork for now for pytest 5+ support
+# https://github.com/bitprophet/pytest-relaxed/pull/22
+%global date    20220502
+%global commit  000bba0e55ffc726c398485a1cefad63e28c9d2b
+%global short   000bba0e
+Version:        1.1.5^%{date}git%{short}
+Release:        1%{?dist}
+Summary:        Relaxed test discovery/organization for pytest
+License:        BSD-2-Clause
+URL:            https://github.com/bitprophet/pytest-relaxed
+Source:         %{url}/archive/%{commit}/pytest-relaxed-%{short}.tar.gz
 
-Name: python-%{srcname}
-Version: 1.1.5
-Release: 13%{?dist}
-Summary: Relaxed test discovery for pytest
+BuildArch:      noarch
+BuildRequires:  python3-devel
 
-License: BSD
-URL: https://github.com/bitprophet/pytest-relaxed
-Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-BuildArch: noarch
+%global _description %{expand:
+This package provides relaxed test discovery for pytest.
 
-%description
-%{desc}
+It is the spiritual successor to python3-spec, but is built for pytest instead
+of nosetests, and rethinks some aspects of the design (such as increased
+ability to opt-in to various behaviors).}
 
-%package -n python3-%{srcname}
-Summary:       %{summary}
-BuildRequires: python3-devel 
-BuildRequires: %{py3_dist decorator}
-BuildRequires: %{py3_dist pytest} < 5
-BuildRequires: %{py3_dist setuptools}
-BuildRequires: %{py3_dist six}
-# No need to specify runtime dependencies because they'll be auto-generated
+%description %_description
 
-%description -n python3-%{srcname}
-%{desc}
+
+%package -n     python3-pytest-relaxed
+Summary:        %{summary}
+
+%description -n python3-pytest-relaxed %_description
+
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n pytest-relaxed-%{commit}
+sed -i 's/decorator>=4,<5/decorator>=4,<6/' setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pytest_relaxed
+
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
+%pyproject_check_import
+%pytest
 
-%files -n python3-%{srcname}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/pytest_relaxed-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/pytest_relaxed/
+
+%files -n python3-pytest-relaxed -f %{pyproject_files}
+
 
 %changelog
+* Mon May 02 2022 Miro Hrončok <mhroncok@redhat.com> - 1.1.5^20220502git000bba0e-1
+- Initial package from upstream pull request #22
+  https://github.com/bitprophet/pytest-relaxed/pull/22
+
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 

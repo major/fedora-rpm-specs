@@ -1,5 +1,5 @@
 Name:           gnome-console
-Version:        43~rc
+Version:        43.0
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 License:        GPLv3+

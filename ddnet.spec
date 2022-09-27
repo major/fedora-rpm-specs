@@ -2,7 +2,7 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        16.3.2
+Version:        16.4
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
@@ -172,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Sep 25 2022 Sérgio Basto <sergio@serjux.com> - 16.4-1
+- Update ddnet to 16.4 (#2127583)
+
 * Sun Sep 04 2022 Sérgio Basto <sergio@serjux.com> - 16.3.2-1
 - Update ddnet to 16.3.2 (#2124089)
 

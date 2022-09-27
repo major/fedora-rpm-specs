@@ -1,7 +1,7 @@
 %global srcname libtmux
 
 Name:           python-%{srcname}
-Version:        0.11.0
+Version:        0.15.7
 Release:        %autorelease
 Summary:        Scripting library for tmux
 
@@ -46,3 +46,4 @@ Requires:       tmux >= 1.8
 
 %changelog
 %autochangelog
+

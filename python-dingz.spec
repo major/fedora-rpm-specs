@@ -1,8 +1,8 @@
 %global pypi_name dingz
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
-Release:        7%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Python API client for interacting with dingz devices
 
 License:        ASL 2.0
@@ -45,12 +45,15 @@ CLI tool to interact with dingz devices.
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/python_%{pypi_name}*.egg-info/
+%{python3_sitelib}/%{pypi_name}*.egg-info/
 
 %files -n %{pypi_name}
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.5.0-1
+- Update to latest upstream release 0.5.0 (closes rhbz#2026631)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

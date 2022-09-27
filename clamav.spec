@@ -114,6 +114,7 @@ BuildRequires:  graphviz
 # nc required for tests
 BuildRequires:  nc
 %{?systemd_requires}
+BuildRequires:  systemd
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 #for milter
