@@ -13,10 +13,10 @@
 %endif
 
 Name:           perl-Future-AsyncAwait
-Version:        0.58
-Release:        4%{?dist}
+Version:        0.59
+Release:        1%{?dist}
 Summary:        Deferred subroutine syntax for futures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Future-AsyncAwait
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-AsyncAwait-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -67,6 +67,7 @@ BuildRequires:  perl(List::Util)
 %if %{with perl_Future_AsyncAwait_enables_role}
 BuildRequires:  perl(Role::Tiny::With)
 %endif
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::Future::Deferred)
 BuildRequires:  perl(Test::Refcount) >= 0.09
 %if %{optional_tests}
@@ -229,6 +230,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 0.59-1
+- 0.59 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

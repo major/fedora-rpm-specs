@@ -70,14 +70,6 @@ programs.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      libgda-java-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-ldap-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-mdb-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-mysql-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-postgres-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-sqlcipher-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-sqlite-devel < %{libgda4_obsoletes_version}
-Obsoletes:      libgda-web-devel < %{libgda4_obsoletes_version}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

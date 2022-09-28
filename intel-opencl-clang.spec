@@ -5,7 +5,7 @@
 
 Name: intel-opencl-clang
 Version: 15.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 
 License: NCSA
@@ -52,6 +52,9 @@ developing against %{name}
 %{_includedir}/cclang/common_clang.h
 
 %changelog
+* Mon Sep 26 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-2
+- Rebuild for spirv-llvm-translator against llvm 15
+
 * Fri Sep 16 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-1
 - Update to llvm 15
 

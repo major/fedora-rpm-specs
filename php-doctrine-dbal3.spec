@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.4.4
-%global github_commit    4cbbe6e4b9ef6c69d5f4c968c637476f47bb54f5
+%global github_version   3.4.5
+%global github_commit    a5a58773109c0abb13e658c8ccd92aeec8d07f9e
 %global major            3
 
 %global composer_vendor  doctrine
@@ -250,6 +250,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 3.4.5-1
+- update to 3.4.5
+
 * Fri Sep  9 2022 Remi Collet <remi@remirepo.net> - 3.4.4-1
 - update to 3.4.4
 

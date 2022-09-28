@@ -3,6 +3,7 @@
 %global release_build     1
 
 # Excluded due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159
+# https://bugzilla.redhat.com/show_bug.cgi?id=2129720
 ExcludeArch: i686
 
 # Run Mozilla test suite as a part of compile rpm section. Turn off when
@@ -1089,7 +1090,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Thu Sep 22 2022 Martin Stransky <stransky@redhat.com>- 105.0.1-1
 - Updated to 105.0.1
-- Excluded i686 due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159
+- Excluded i686 due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159,
+  https://bugzilla.redhat.com/show_bug.cgi?id=2129720
 
 * Tue Sep 20 2022 Martin Stransky <stransky@redhat.com>- 105.0-1
 - Updated to 105.0

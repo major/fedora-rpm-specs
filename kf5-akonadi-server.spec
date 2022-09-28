@@ -23,7 +23,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 22.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -83,7 +83,7 @@ BuildRequires:  kaccounts-integration-devel
 
 # ^^ sqlite3 driver plugin needs versioned qt5 dep
 BuildRequires: qt5-qtbase-private-devel
-
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 # backends, used at buildtime to query known locations of server binaries
 # FIXME/TODO: set these via cmake directives, avoids needless buildroot items
@@ -303,6 +303,9 @@ fi
 
 
 %changelog
+* Mon Sep 26 2022 Than Ngo <than@redhat.com> - 22.08.1-2
+- Fixed bz#2129725, konadi-server crash on startup, rebuild against qt-5.15.6
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 

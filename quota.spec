@@ -12,7 +12,7 @@
 
 Name:       quota
 Epoch:      1
-Version:    4.08
+Version:    4.09
 Release:    1%{?dist}
 Summary:    System administration tools for monitoring users' disk usage
 # quota_nld.c, quotaio_xfs.h:       GPLv2
@@ -59,7 +59,6 @@ Source4:    rpc-rquotad.sysconfig
 Patch0:     quota-4.06-warnquota-configuration-tunes.patch
 # Fix parsing a TCP port number
 Patch1:     quota-4.03-Validate-upper-bound-of-RPC-port.patch
-Patch2:     quota-4.08-quota-Don-t-duplicate-manpages-in-man_MANS.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -183,7 +182,6 @@ Linux/UNIX environment.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # Regenerate build scripts
 autoreconf -f -i
@@ -334,6 +332,9 @@ make check
 
 
 %changelog
+* Mon Sep 26 2022 Lukas Czerner <lczerner@redhat.com> - 1:4.09-1
+- New upstream release 4.09
+
 * Wed Sep 21 2022 Lukas Czerner <lczerner@redhat.com> - 1:4.08-1
 - New upstream release 4.08
 

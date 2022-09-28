@@ -9,6 +9,11 @@ License: LGPLv2
 URL:     https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/libsoup/3.2/libsoup-%{version}.tar.xz
 
+# Backported upstream MR to fix gnome-maps crashes
+# https://bugzilla.redhat.com/show_bug.cgi?id=2129914
+# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/310
+Patch0: 310.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: glib-networking
@@ -56,7 +61,7 @@ BuildArch: noarch
 This package contains developer documentation for %{name}.
 
 %prep
-%autosetup -p0 -n libsoup-%{version}
+%autosetup -p1 -n libsoup-%{version}
 
 %build
 %meson -Ddocs=enabled -Dtests=false -Dautobahn=disabled -Dpkcs11_tests=disabled

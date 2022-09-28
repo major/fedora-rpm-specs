@@ -1,5 +1,5 @@
 Name:           python-stack-data
-Version:        0.5.0
+Version:        0.5.1
 Release:        1%{?dist}
 Summary:        Extract data from python stack frames and tracebacks for informative displays
 
@@ -56,6 +56,10 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Mon Sep 26 2022 Lumír Balhar <lbalhar@redhat.com> - 0.5.1-1
+- Update to 0.5.1
+Resolves: rhbz#2129634
+
 * Sat Aug 27 2022 Lumír Balhar <lbalhar@redhat.com> - 0.5.0-1
 - Update to 0.5.0
 Resolves: rhbz#2121934

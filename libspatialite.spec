@@ -1,6 +1,12 @@
+%if 0%{?rhel} >= 9
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          libspatialite
 Version:       5.0.1
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPLv1.1 or GPLv2+ or LGPLv2+
@@ -28,6 +34,7 @@ BuildRequires: proj-devel >= 6.2.0
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-freexl
 BuildRequires: mingw32-gcc
@@ -51,6 +58,7 @@ BuildRequires: mingw64-minizip
 BuildRequires: mingw64-proj
 BuildRequires: mingw64-sqlite
 BuildRequires: mingw64-zlib
+%endif
 
 
 %description
@@ -69,6 +77,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows libspatialite library
 BuildArch:     noarch
@@ -86,6 +95,7 @@ MinGW Windows libspatialite library.
 
 
 %{?mingw_debug_package}
+%endif
 
 
 %prep
@@ -109,19 +119,25 @@ pushd build_native
 %make_build
 popd
 
+%if %{with mingw}
 # MinGW build
 %mingw_configure --disable-static
 %mingw_make_build
+%endif
 
 
 %install
 %make_install -C build_native
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 find %{buildroot} -type f -name "*.la" -delete
 
 
+%if %{with mingw}
 %mingw_debug_install_post
+%endif
 
 
 %check
@@ -144,6 +160,7 @@ make check  -C build_native %{?_smp_mflags} || :
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/spatialite.pc
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/libspatialite-4.dll
@@ -161,8 +178,12 @@ make check  -C build_native %{?_smp_mflags} || :
 %{mingw64_libdir}/libspatialite.dll.a
 %{mingw64_libdir}/mod_spatialite.dll*
 %{mingw64_libdir}/pkgconfig/spatialite.pc
+%endif
 
 %changelog
+* Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 5.0.1-17
+- Disable mingw for EL9
+
 * Sun Sep 04 2022 Sandro Mani <manisandro@gmail.com> - 5.0.1-16
 - Rebuild (proj)
 

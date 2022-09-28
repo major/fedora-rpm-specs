@@ -1,12 +1,12 @@
-#global snapshot 1
+#global snapshot 0
 %global commit 47a2ba4563dcb07acb21e92073a43b63efc8ea2f
 %global commitdate 20220612
-%global gittag v0.2.99
+%global gittag v0.2.100
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.99%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	3%{?dist}
+Version:	0.2.100%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -102,7 +102,7 @@ mv license.txt license-videos.txt
 	   --with-mad \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
-	   --with-unifontdir=/usr/share/fonts/unifont \
+	   --with-unifontdir-ttf=/usr/share/fonts/unifont \
 	   --without-unifont-csur-ttf \
 	   --with-dumptools \
 	   --docdir=%{_pkgdocdir} \
@@ -167,6 +167,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sun Sep 25 2022 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.100-1
+- update to 0.2.100
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.2.99-3
 - Rebuilt for flac 1.4.0
 

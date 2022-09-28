@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        43~beta
-Release:        2%{?dist}
+Version:        43~rc
+Release:        1%{?dist}
 Summary:        Note-taking application
 
 License:        GPLv3+
@@ -56,6 +56,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_libdir}/libgnote-*.so.*
 %{_datadir}/applications/org.gnome.Gnote.desktop
 %{_datadir}/gnote/
+%{_datadir}/icons/hicolor/*/apps/org.gnome.Gnote.png
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Gnote.svg
 %{_datadir}/dbus-1/services/org.gnome.Gnote.service
 %{_datadir}/glib-2.0/schemas/org.gnome.gnote.gschema.xml
@@ -66,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 43~rc-1
+- Update to 43.rc
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43~beta-2
 - Drop no longer needed pcre-devel buildrequires (#2128301)
 

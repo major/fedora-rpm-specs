@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for phpunit7
 #
-# Copyright (c) 2010-2021 Remi Collet
+# Copyright (c) 2010-2022 Remi Collet
 #
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
@@ -28,7 +28,7 @@
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD
@@ -39,6 +39,8 @@ Source0:        https://github.com/%{gh_vendor}/%{gh_project}/archive/%{gh_commi
 Patch0:         %{name}-rpm.patch
 # Minimal fix for PHP 8
 Patch1:         %{name}-php8.patch
+# Fix for new comparator
+Patch2:         %{name}-comp.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.1
@@ -155,8 +157,11 @@ Documentation: https://phpunit.readthedocs.io/
 %setup -q -n %{gh_project}-%{gh_commit}
 %patch0 -p1 -b .rpm
 %patch1 -p1 -b .php8
+%patch2 -p1 -b .comp
 
 find . -name \*.php8 -delete -print
+find . -name \*.comp -delete -print
+
 
 %build
 %{_bindir}/phpab \
@@ -244,6 +249,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 7.5.20-11
+- backport upstream fix for new sebastian/comparator
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

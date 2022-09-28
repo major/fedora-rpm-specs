@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       16.%{git_suffix}%{?dist}
+Release:       17.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -81,6 +81,10 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.38.2-17.20210210gitfbee239a
+- Rebuilt for new gnuradio
+  Resolves: rhbz#2129781
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-16.20210210gitfbee239a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

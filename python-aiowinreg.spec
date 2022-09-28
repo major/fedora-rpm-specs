@@ -1,8 +1,8 @@
 %global pypi_name aiowinreg
 
 Name:           python-%{pypi_name}
-Version:        0.0.4
-Release:        7%{?dist}
+Version:        0.0.7
+Release:        1%{?dist}
 Summary:        Windows registry file reader
 
 License:        MIT
@@ -38,10 +38,14 @@ cp -a %{SOURCE1} LICENSE
 %files -n python3-%{pypi_name}
 %doc README.md
 %license LICENSE
+%{_bindir}/awinreg
 %{python3_sitelib}/%{pypi_name}/
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Mon Sep 26 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.0.7-1
+- Update to latest upstream release 0.0.7 (closes rhbz#1969669)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

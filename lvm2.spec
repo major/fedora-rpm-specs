@@ -1,8 +1,6 @@
-%global device_mapper_version 1.02.175
+%global device_mapper_version 1.02.185
 
 %global enable_cache 1
-%global enable_cluster 1
-%global enable_cmirror 1
 %global enable_lvmdbusd 1
 %global enable_lvmlockd 1
 %global enable_lvmpolld 1
@@ -14,7 +12,7 @@
 %global enable_integrity 1
 
 %global system_release_version 23
-%global systemd_version 189-3
+%global systemd_version 247-1
 %global dracut_version 002-18
 %global util_linux_version 2.24
 %global bash_version 4.0
@@ -30,8 +28,6 @@
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
   %ifnarch i686 x86_64 ppc64le s390x
-    %global enable_cluster 0
-    %global enable_cmirror 0
     %global enable_lockd_dlm 0
   %endif
 
@@ -48,44 +44,18 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.11
-Release: 9%{?dist}
+Version: 2.03.16
+Release: 1%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-Patch0: lvm2-set-default-preferred_names.patch
-Patch3: lvm2-2_03_12-lvmlockd-sscanf-buffer-size-warnings.patch
-# BZ 1915497:
-Patch4: lvm2-2_03_12-alloc-enhance-estimation-of-sufficient_pes_free.patch
-Patch5: lvm2-2_03_12-tests-check-thin-pool-corner-case-allocs.patch
-Patch6: lvm2-2_03_12-tests-check-full-zeroing-of-thin-pool-metadata.patch
-# BZ 1915580:
-Patch7: lvm2-2_03_12-integrity-fix-segfault-on-error-path-when-replacing-.patch
-# BZ 1872695:
-Patch8: lvm2-2_03_12-devs-remove-invalid-path-name-aliases.patch
-Patch9: lvm2-2_03_12-make-generate.patch
-Patch10: lvm2-2_03_12-label_scan-fix-missing-free-of-filtered_devs.patch
-# BZ 1917920:
-Patch11: lvm2-2_03_12-pvck-fix-warning-and-exit-code-for-non-4k-mda1-offse.patch
-Patch12: lvm2-2_03_12-WHATS_NEW-update.patch
-# BZ 1921214:
-Patch13: lvm2-2_03_12-writecache-use-cleaner-message-instead-of-table-relo.patch
-# BZ 1909699:
-Patch14: lvm2-2_03_12-man-update-lvmthin.patch
-Patch15: lvm2-2_03_12-thin-improve-16g-support-for-thin-pool-metadata.patch
-Patch16: lvm2-2_03_12-pool-limit-pmspare-to-16GiB.patch
-Patch17: lvm2-2_03_12-cache-reuse-code-for-metadata-min_max.patch
-Patch18: lvm2-2_03_12-tests-check-16G-thin-pool-metadata-size.patch
-Patch19: lvm2-2_03_12-tests-update-thin-and-cache-checked-messages.patch
-# BZ 1914389:
-Patch20: lvm2-2_03_12-lvcreate-use-lv_passes_readonly_filter.patch
-Patch21: lvm2-2_03_12-test-check-read_only_volume_list-tagging-works.patch
-# BZ 1859659:
-Patch22: lvm2-2_03_12-filter-mpath-work-with-nvme-devices.patch
-# BZ 1925871:
-Patch23: lvm2-2_03_12-dev_get_primary_dev-fix-invalid-path-check.patch
-# Fix editline compilation:
-Patch24: lvm2-2_03_12-lvm-Fix-editline-compilation.patch
+Patch1: 0001-devices-file-move-clean-up-after-command-is-run.patch
+Patch2: 0002-devices-file-fail-if-devicesfile-filename-doesn-t-ex.patch
+Patch3: 0003-filter-mpath-handle-other-wwid-types-in-blacklist.patch
+Patch4: 0004-filter-mpath-get-wwids-from-sysfs-vpd_pg83.patch
+Patch5: 0005-pvdisplay-restore-reportformat-option.patch
+Patch6: 0006-exit-with-error-when-devicesfile-name-doesn-t-exist.patch
+Patch7: 0007-make-generate.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -97,10 +67,7 @@ BuildRequires: libblkid-devel >= %{util_linux_version}
 BuildRequires: ncurses-devel
 BuildRequires: libedit-devel
 BuildRequires: libaio-devel
-%if %{enable_cluster}
-BuildRequires: corosynclib-devel >= %{corosync_version}
-%endif
-%if %{enable_cluster} || %{enable_lockd_dlm}
+%if %{enable_lockd_dlm}
 BuildRequires: dlm-devel >= %{dlm_version}
 %endif
 BuildRequires: module-init-tools
@@ -142,29 +109,13 @@ or more physical volumes and creating one or more logical volumes
 
 %prep
 %setup -q -n LVM2.%{version}
-%patch0 -p1 -b .backup0
+%patch1 -p1 -b .backup1
+%patch2 -p1 -b .backup2
 %patch3 -p1 -b .backup3
 %patch4 -p1 -b .backup4
 %patch5 -p1 -b .backup5
 %patch6 -p1 -b .backup6
 %patch7 -p1 -b .backup7
-%patch8 -p1 -b .backup8
-%patch9 -p1 -b .backup9
-%patch10 -p1 -b .backup10
-%patch11 -p1 -b .backup11
-%patch12 -p1 -b .backup12
-%patch13 -p1 -b .backup13
-%patch14 -p1 -b .backup14
-%patch15 -p1 -b .backup15
-%patch16 -p1 -b .backup16
-%patch17 -p1 -b .backup17
-%patch18 -p1 -b .backup18
-%patch19 -p1 -b .backup19
-%patch20 -p1 -b .backup20
-%patch21 -p1 -b .backup21
-%patch22 -p1 -b .backup22
-%patch23 -p1 -b .backup23
-%patch24 -p1 -b .backup24
 
 %build
 %global _default_pid_dir /run
@@ -191,16 +142,6 @@ or more physical volumes and creating one or more logical volumes
   --enable-cmdlib \
   --enable-dmeventd \
   --enable-blkid_wiping \
-  --disable-readline \
-  --enable-editline \
-%if %{enable_cluster}
-  --with-cluster=internal \
-  %if %{enable_cmirror}
-  --enable-cmirrord \
-  %endif
-%else
-  --with-cluster=internal \
-%endif
   --with-udevdir=%{_udevdir} --enable-udev_sync \
 %if %{enable_thin}
   --with-thin=internal \
@@ -232,7 +173,11 @@ or more physical volumes and creating one or more logical volumes
 %if %{enable_integrity}
   --with-integrity=internal \
 %endif
-  --disable-silent-rules
+  --with-default-use-devices-file=1 \
+  --disable-silent-rules \
+  --enable-app-machineid \
+  --enable-editline \
+  --disable-readline
 
 %make_build
 
@@ -293,10 +238,12 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/fsadm
 %{_sbindir}/lvm
 %{_sbindir}/lvmconfig
+%{_sbindir}/lvmdevices
 %{_sbindir}/lvmdump
 %if %{enable_lvmpolld}
 %{_sbindir}/lvmpolld
 %endif
+%{_sbindir}/lvm_import_vdo
 
 # Other files
 %{_sbindir}/lvchange
@@ -333,6 +280,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgextend
 %{_sbindir}/vgimport
 %{_sbindir}/vgimportclone
+%{_sbindir}/vgimportdevices
 %{_sbindir}/vgmerge
 %{_sbindir}/vgmknodes
 %{_sbindir}/vgreduce
@@ -342,6 +290,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgscan
 %{_sbindir}/vgsplit
 %{_mandir}/man5/lvm.conf.5.gz
+%{_mandir}/man7/lvmautoactivation.7.gz
 %{_mandir}/man7/lvmcache.7.gz
 %{_mandir}/man7/lvmraid.7.gz
 %{_mandir}/man7/lvmreport.7.gz
@@ -355,9 +304,9 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_mandir}/man8/lvdisplay.8.gz
 %{_mandir}/man8/lvextend.8.gz
 %{_mandir}/man8/lvm.8.gz
-%{_mandir}/man8/lvm2-activation-generator.8.gz
 %{_mandir}/man8/lvm-config.8.gz
 %{_mandir}/man8/lvmconfig.8.gz
+%{_mandir}/man8/lvmdevices.8.gz
 %{_mandir}/man8/lvm-dumpconfig.8.gz
 %{_mandir}/man8/lvmdiskscan.8.gz
 %{_mandir}/man8/lvmdump.8.gz
@@ -379,6 +328,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_mandir}/man8/pvresize.8.gz
 %{_mandir}/man8/pvs.8.gz
 %{_mandir}/man8/pvscan.8.gz
+%{_mandir}/man8/lvm_import_vdo.8.gz
 %{_mandir}/man8/vgcfgbackup.8.gz
 %{_mandir}/man8/vgcfgrestore.8.gz
 %{_mandir}/man8/vgchange.8.gz
@@ -390,6 +340,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_mandir}/man8/vgextend.8.gz
 %{_mandir}/man8/vgimport.8.gz
 %{_mandir}/man8/vgimportclone.8.gz
+%{_mandir}/man8/vgimportdevices.8.gz
 %{_mandir}/man8/vgmerge.8.gz
 %{_mandir}/man8/vgmknodes.8.gz
 %{_mandir}/man8/vgreduce.8.gz
@@ -399,7 +350,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_mandir}/man8/vgscan.8.gz
 %{_mandir}/man8/vgsplit.8.gz
 %{_udevdir}/11-dm-lvm.rules
-%{_udevdir}/69-dm-lvm-metad.rules
+%{_udevdir}/69-dm-lvm.rules
 %if %{enable_lvmpolld}
 %{_mandir}/man8/lvmpolld.8.gz
 %{_mandir}/man8/lvm-lvpoll.8.gz
@@ -427,8 +378,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/blk-availability.service
 %{_unitdir}/lvm2-monitor.service
-%{_unitdir}/lvm2-pvscan@.service
-%{_prefix}/lib/systemd/system-generators/lvm2-activation-generator
+#%%{_unitdir}/lvm-vgchange@.service # vgchange is now part of udev rule
 %if %{enable_lvmpolld}
 %{_unitdir}/lvm2-lvmpolld.socket
 %{_unitdir}/lvm2-lvmpolld.service
@@ -522,55 +472,6 @@ LVM commands use lvmlockd to coordinate access to shared storage.
 %{_unitdir}/lvmlockd.service
 %{_unitdir}/lvmlocks.service
 
-%endif
-
-###############################################################################
-# Cluster mirror subpackage
-# The 'clvm' OCF script to manage cmirrord instance is part of resource-agents.
-###############################################################################
-%if %{enable_cluster}
-%if %{enable_cmirror}
-
-%package -n cmirror
-Summary: Daemon for device-mapper-based clustered mirrors
-Requires: corosync >= %{corosync_version}
-Requires: device-mapper = %{?epoch}:%{device_mapper_version}-%{release}
-Requires: resource-agents >= %{resource_agents_version}
-
-%description -n cmirror
-Daemon providing device-mapper-based mirrors in a shared-storage cluster.
-
-%files -n cmirror
-%{_sbindir}/cmirrord
-%{_mandir}/man8/cmirrord.8.gz
-
-##############################################################################
-# Cmirror-standalone subpackage
-##############################################################################
-%package -n cmirror-standalone
-Summary: Additional files to support device-mapper-based clustered mirrors in standalone mode
-License: GPLv2
-Requires: cmirror >= %{?epoch}:%{version}-%{release}
-
-%description -n cmirror-standalone
-
-Additional files needed to run daemon for device-mapper-based clustered
-mirrors in standalone mode as a service without cluster resource manager
-involvement (e.g. pacemaker).
-
-%post -n cmirror-standalone
-%systemd_post lvm2-cmirrord.service
-
-%preun -n cmirror-standalone
-%systemd_preun lvm2-cmirrord.service
-
-%postun -n cmirror-standalone
-%systemd_postun lvm2-cmirrord.service
-
-%files -n cmirror-standalone
-%{_unitdir}/lvm2-cmirrord.service
-
-%endif
 %endif
 
 ##############################################################################
@@ -766,6 +667,18 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Mon Sep 26 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.16-1
+- Update to upstream version 2.03.16.
+- Devices file feature - see lvmdevices(8).
+- Changes in udev support:
+  - obtain_device_list_from_udev defaults to 0.
+  - see devices/external_device_info_source,
+    devices/obtain_device_list_from_udev, and devices/multipath_wwids_file help
+    in lvm.conf
+- Remove service based autoactivation. global/event_activation = 0 is NOOP.
+  - see lvmautoactivation(7).
+- Many fixes and improvements, see WHATS_NEW and WHATS_NEW_DM for more.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.03.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

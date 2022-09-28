@@ -1,7 +1,7 @@
 %global pypi_name aiocurrencylayer
 
 Name:           python-%{pypi_name}
-Version:        1.0.3
+Version:        1.0.4
 Release:        1%{?dist}
 Summary:        Python wrapper for interacting with the currencylayer API
 
@@ -40,6 +40,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Sep 26 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.4-1
+- Update to latest upstream release 1.0.4 (closes rhbz#2129638)
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.0.3-1
 - Update to latest upstream release 1.0.3 (closes rhbz#2020960)
 

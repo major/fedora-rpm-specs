@@ -2,8 +2,8 @@
 %bcond_with mysqldb
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        MySQL/mariaDB database connector for Python
 
 License:        GPLv2
@@ -67,6 +67,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE
 
 %changelog
+* Mon Sep 26 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.1-1
+- Update to latest upstream release 2.1.1 (closes rhbz#2100010)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

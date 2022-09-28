@@ -13,8 +13,8 @@ used to maintain the Noto Fonts project, \
 including the google.com/get/noto website.
 
 Name:		nototools
-Version:	0.2.13
-Release:	7%{?dist}
+Version:	0.2.17
+Release:	1%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -23,8 +23,6 @@ Summary:	Noto fonts support tools and scripts plus web site generation
 License:	ASL 2.0
 URL:		https://github.com/googlei18n/nototools
 Source0:	%pypi_source
-
-Patch0: 	nototools-fixes-compile.patch
 
 BuildArch:	noarch
 %if %{with python2}
@@ -73,7 +71,6 @@ BuildRequires:	python2dist(fonttools)
 
 %prep
 %setup -c
-%patch0 -p0 -b .compile
 
 # remove unneeded files
 rm -rf %{srcname}-%{version}/third_party/{cldr,dspl,fontcrunch,ohchr,spiro,udhr,unicode}
@@ -178,6 +175,9 @@ popd
 
 
 %changelog
+* Mon Sep 26 2022 Peng Wu <pwu@redhat.com> - 0.2.17-1
+- Update to 0.2.17
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

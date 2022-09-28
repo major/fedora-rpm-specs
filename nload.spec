@@ -1,12 +1,12 @@
 Name:           nload
 Version:        0.7.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A tool can monitor network traffic and bandwidth usage in real time
 License:        GPLv2+
 URL:            http://www.roland-riegel.de/nload/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source:         https://github.com/rolandriegel/%{name}/archive/v%{name}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  ncurses-devel
 BuildRequires:  gcc
@@ -23,10 +23,10 @@ network usage.
 %build
 # --enable-debug do not strip debugging symbols, required for debug-info package
 %configure --enable-debug
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR="%{buildroot}" INSTALL="install -p"
+%make_install DESTDIR="%{buildroot}" INSTALL="install -p"
 
 %files
 %doc AUTHORS ChangeLog COPYING NEWS README
@@ -34,6 +34,11 @@ make install DESTDIR="%{buildroot}" INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 29 2022 Jonathan Wright <jonathan@almalinux.org> - 0.7.4-23
+- Tidy specfile a bit
+- Update source URL
+- Initial build for EPEL9
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 %global pango_version 1.49.4
 
 Name:           pangomm2.48
-Version:        2.50.0
+Version:        2.50.1
 Release:        %autorelease
 Summary:        C++ interface for Pango
 
@@ -74,7 +74,7 @@ documentation browser or through a web browser.
 
 %files
 %license COPYING
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS README.md
 %{_libdir}/libpangomm-%{apiver}.so.1*
 
 

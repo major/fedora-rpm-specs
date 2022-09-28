@@ -6,7 +6,7 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.0
+Version:        %{relnum}.0.1
 Release:        1%{?dist}
 Summary:        Fedora %{relnum} default desktop background
 
@@ -75,7 +75,7 @@ default theme.
 
 %if %{with_extras}
 %package        extras-base
-Summary:        Base images for  Extras Backrounds
+Summary:        Base images for  Extras Backgrounds
 License:        CC-BY and CC-BY-SA
 
 %description    extras-base
@@ -134,7 +134,7 @@ This package contains  supplemental wallpapers for XFCE
 %license COPYING Attribution
 %dir %{_datadir}/backgrounds/%{bgname}
 %dir %{_datadir}/backgrounds/%{bgname}/default
-%{_datadir}/backgrounds/%{bgname}/default/%{bgname}*.{png,xml}
+%{_datadir}/backgrounds/%{bgname}/default/%{bgname}*.{webp,xml}
 
 %files kde
 %{_kde4_datadir}/wallpapers/%{Bg_Name}/
@@ -151,7 +151,7 @@ This package contains  supplemental wallpapers for XFCE
 %dir %{_datadir}/mate-background-properties/
 
 %files xfce
-%{_datadir}/xfce4/backdrops/%{bgname}.png
+%{_datadir}/xfce4/backdrops/%{bgname}.webp
 %dir %{_datadir}/xfce4/
 %dir %{_datadir}/xfce4/backdrops/
 
@@ -174,5 +174,8 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
+* Sun Sep 25 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.1-1
+- New release using webp format by default
+
 * Sat Aug 6 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-1
 - Initial release

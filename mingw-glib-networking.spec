@@ -25,6 +25,7 @@ BuildRequires:  mingw64-glib2
 BuildRequires:  mingw32-gnutls >= 2.10
 BuildRequires:  mingw64-gnutls >= 2.10
 BuildRequires:  gcc
+BuildRequires:  glib2-devel
 BuildRequires:  pkgconfig
 BuildRequires:  intltool
 BuildRequires:  meson
@@ -73,10 +74,12 @@ rm -f %{buildroot}%{mingw64_libdir}/gio/modules/*.la
 %files -n mingw32-glib-networking -f mingw32-glib-networking.lang
 %license COPYING
 %{mingw32_libdir}/gio/modules/libgiognutls.dll
+%{mingw32_libdir}/gio/modules/libgioenvironmentproxy.dll
 
 %files -n mingw64-glib-networking -f mingw64-glib-networking.lang
 %license COPYING
 %{mingw64_libdir}/gio/modules/libgiognutls.dll
+%{mingw64_libdir}/gio/modules/libgioenvironmentproxy.dll
 
 
 %changelog

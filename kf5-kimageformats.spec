@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.98.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -24,7 +24,8 @@ BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  jasper-devel
 BuildRequires:  kf5-rpm-macros >= %{majmin}
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libavif)
 %endif
 
@@ -74,6 +75,9 @@ image formats.
 
 
 %changelog
+* Sun Sep 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 5.98.0-2
+- Support JPEG XL format on Fedora
+
 * Thu Sep 15 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.98.0-1
 - 5.98.0
 

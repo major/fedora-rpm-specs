@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    e8c563c47a9a303662955518ca532b022b337f4d
+%global gh_commit    4fd448df9affda65a5faa58f8b93087d415216ce
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.29
+%global upstream_version 8.5.30
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -52,10 +52,10 @@ BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 7.0.12    with php-c
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 2.0.4     with php-composer(phpunit/php-file-iterator) <  3)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 1.2.1     with php-composer(phpunit/php-text-template) <  2)
 BuildRequires:  (php-composer(phpunit/php-timer) >= 2.1.2             with php-composer(phpunit/php-timer) <  3)
-BuildRequires:  (php-composer(sebastian/comparator) >= 3.0.2          with php-composer(sebastian/comparator) <  4)
+BuildRequires:  (php-composer(sebastian/comparator) >= 3.0.5          with php-composer(sebastian/comparator) <  4)
 BuildRequires:  (php-composer(sebastian/diff) >= 3.0.2                with php-composer(sebastian/diff) <  4)
 BuildRequires:  (php-composer(sebastian/environment) >= 4.2.3         with php-composer(sebastian/environment) <  5)
-BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.2            with php-composer(sebastian/exporter) <  4)
+BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.5            with php-composer(sebastian/exporter) <  4)
 BuildRequires:  (php-composer(sebastian/global-state) >= 3.0.0        with php-composer(sebastian/global-state) <  4)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 3.0.3   with php-composer(sebastian/object-enumerator) <  4)
 BuildRequires:  (php-composer(sebastian/resource-operations) >= 2.0.1 with php-composer(sebastian/resource-operations) < 3)
@@ -87,10 +87,10 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-file-iterator": "^2.0.4",
 #        "phpunit/php-text-template": "^1.2.1",
 #        "phpunit/php-timer": "^2.1.2",
-#        "sebastian/comparator": "^3.0.2",
+#        "sebastian/comparator": "^3.0.5",
 #        "sebastian/diff": "^3.0.2",
 #        "sebastian/environment": "^4.2.3",
-#        "sebastian/exporter": "^3.1.2",
+#        "sebastian/exporter": "^3.1.5",
 #        "sebastian/global-state": "^3.0.0",
 #        "sebastian/object-enumerator": "^3.0.3",
 #        "sebastian/resource-operations": "^2.0.1",
@@ -113,10 +113,10 @@ Requires:       (php-composer(phpunit/php-code-coverage) >= 7.0.12    with php-c
 Requires:       (php-composer(phpunit/php-file-iterator) >= 2.0.4     with php-composer(phpunit/php-file-iterator) <  3)
 Requires:       (php-composer(phpunit/php-text-template) >= 1.2.1     with php-composer(phpunit/php-text-template) <  2)
 Requires:       (php-composer(phpunit/php-timer) >= 2.1.2             with php-composer(phpunit/php-timer) <  3)
-Requires:       (php-composer(sebastian/comparator) >= 3.0.2          with php-composer(sebastian/comparator) <  4)
+Requires:       (php-composer(sebastian/comparator) >= 3.0.5          with php-composer(sebastian/comparator) <  4)
 Requires:       (php-composer(sebastian/diff) >= 3.0.2                with php-composer(sebastian/diff) <  4)
 Requires:       (php-composer(sebastian/environment) >= 4.2.3         with php-composer(sebastian/environment) <  5)
-Requires:       (php-composer(sebastian/exporter) >= 3.1.2            with php-composer(sebastian/exporter) <  4)
+Requires:       (php-composer(sebastian/exporter) >= 3.1.5            with php-composer(sebastian/exporter) <  4)
 Requires:       (php-composer(sebastian/global-state) >= 3.0.0        with php-composer(sebastian/global-state) <  4)
 Requires:       (php-composer(sebastian/object-enumerator) >= 3.0.3   with php-composer(sebastian/object-enumerator) <  4)
 Requires:       (php-composer(sebastian/resource-operations) >= 2.0.1 with php-composer(sebastian/resource-operations) < 3)
@@ -232,6 +232,11 @@ exit $ret
 
 
 %changelog
+* Sun Sep 25 2022 Remi Collet <remi@remirepo.net> - 8.5.30-1
+- update to 8.5.30
+- raise dependency on sebastian/comparator 3.0.2
+- raise dependency on sebastian/exporter 3.1.5
+
 * Tue Aug 30 2022 Remi Collet <remi@remirepo.net> - 8.5.29-1
 - update to 8.5.29
 - keep dependency on phpspec/prophecy (optional)

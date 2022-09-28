@@ -2,14 +2,14 @@
 %global gem_name backports
 
 Name: rubygem-%{gem_name}
-Version: 3.20.1
-Release: 5%{?dist}
+Version: 3.23.0
+Release: 1%{?dist}
 Summary: Backports of Ruby features for older Ruby
 License: MIT
 URL: http://github.com/marcandre/backports
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/marcandre/backports.git && cd backports
-# git archive -v -o backports-3.20.1-tests.tar.gz v3.20.1 test/
+# git archive -v -o backports-3.23.0-tests.tar.gz v3.23.0 test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -72,6 +72,10 @@ popd
 %{gem_instdir}/backports.gemspec
 
 %changelog
+* Mon Sep 26 2022 Vít Ondruch <vondruch@redhat.com> - 3.23.0-1
+- Update to backports 3.23.0.
+  Resolves: rhbz#1920818
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

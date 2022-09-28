@@ -16,7 +16,6 @@ BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(kramdown-parser-gfm)
 BuildRequires: rubygem(cucumber-tag-expressions)
 BuildRequires: rubygem(cucumber-messages)
-BuildRequires: rubygem(backports)
 # BuildRequires: rubygem(unindent)
 BuildArch: noarch
 

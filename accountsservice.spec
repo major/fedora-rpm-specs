@@ -1,6 +1,6 @@
 Name:           accountsservice
 Version:        22.08.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPLv3+
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
@@ -109,6 +109,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 22.08.8-2
+- Rebuild
+
 * Sat Aug 27 2022 Leigh Scott <leigh123linux@gmail.com> - 22.08.8-1
 - Update to 22.08.8
 

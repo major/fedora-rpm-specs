@@ -3,16 +3,8 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-%global forgeurl        https://git.sr.ht/~rjarry/aerc
-Version:                0.10.0
-%global tag             0.10.0
-%global repo            aerc
-%global archivename     %{repo}-%{tag}
-%global archiveext      tar.gz
-%global archiveurl      %{forgeurl}/archive/%{tag}.%{archiveext}
-%global topdir          %{archivename}
-%global extractdir      %{archivename}
-%global scm             git
+Version:                0.12.0
+%global topdir          %{name}-%{version}
 
 %gometa
 
@@ -29,13 +21,15 @@ Summary:        Email client for your terminal
 
 License:        MIT
 URL:            %{gourl}
-Source0:        %{gosource}
-# Disable building of aerc that we handle manually in the SPEC
-Patch0:         aerc-fix-makefile.patch
+# The forge macros don't support Sourcehut.
+# https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/209
+Source:         %{gourl}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  scdoc
 BuildRequires:  desktop-file-utils
 BuildRequires:  gnupg
+BuildRequires:  notmuch-devel
+
 Requires:       notmuch
 
 %description
@@ -43,21 +37,32 @@ Requires:       notmuch
 
 %prep
 %goprep
-%patch0 -p1
+
+# Disable building of aerc that we handle manually in the SPEC and
+# preserve mtimes
+sed -e 's|install: $(DOCS) aerc|install: $(DOCS)|' \
+    -e 's|install -m|install -pm|' \
+    -i Makefile
+
+# From go.mod replace statements:
+# replace golang.org/x/crypto => github.com/ProtonMail/go-crypto v0.0.0-20200420072808-71bec3603bf3
+# replace github.com/zenhack/go.notmuch => github.com/brunnre8/go.notmuch v0.0.0-20201126061756-caa2daf7093c
+sed -i "s|golang.org/x/crypto|github.com/ProtonMail/go-crypto|" $(find . -name "*.go" -type f)
+sed -i "s|github.com/zenhack/go.notmuch|github.com/brunnre8/go.notmuch|" $(find . -name "*.go" -type f)
 
 %generate_buildrequires
 %go_generate_buildrequires
+echo 'golang(github.com/brunnre8/go.notmuch)'
 
 %build
-export GOFLAGS=-tags=notmuch
+export BUILDTAGS=notmuch
 export LDFLAGS="-X main.Prefix=%{_prefix} \
                 -X main.ShareDir=%{_datadir}/aerc \
+                -X git.sr.ht/~rjarry/aerc/config.shareDir=%{_datadir}
                 -X main.Version=%{version} "
-%gobuild -o %{gobuilddir}/bin/aerc %{goipath}
+%gobuild -o aerc %{goipath}
 
 %install
-install -m 0755 -vd                     %{buildroot}%{_bindir}
-install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 export PREFIX=%{_prefix}
 %make_install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/aerc.desktop
@@ -70,7 +75,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/aerc.desktop
 %files
 %license LICENSE
 %doc doc README.md
-%{_bindir}/*
+%{_bindir}/aerc
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-*.1.*
 %{_mandir}/man5/%{name}-*.5.*

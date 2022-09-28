@@ -147,14 +147,18 @@ Source0:    README
 %obsolete ipsilon-authfas 2.1.0-24
 %obsolete ipsilon-persona 2.1.0-24
 %obsolete magic-wormhole 0.12.0-8
+%obsolete mkdocs 1.2.3-3
 %obsolete mkdocs-alabaster 0.8.0-8
 %obsolete mkdocs-bootstrap 1.1-9
 %obsolete mkdocs-bootswatch 1.1-7
 %obsolete mkdocs-cinder 1.0.3-8
+%obsolete mkdocs-docs 1.2.3-3
+%obsolete mkdocs-markdownextradata-plugin 0.2.5-3
 %obsolete mkdocs-material 5.0.2-8
 %obsolete nmstate-plugin-ovsdb 2.0.0-2
 %obsolete noggin-tests 0.0.1^git20210323.3b487ed-4
 %obsolete nudepy 0.5.0-8
+%obsolete paternoster 3.3.0-8
 %obsolete percol 0.1.1-0.24
 %obsolete python-proteus 4.0.2-18
 %obsolete python3-ECPy 0.10.0-13
@@ -183,6 +187,9 @@ Source0:    README
 %obsolete python3-discord 1.7.3-2
 %obsolete python3-email_reply_parser 0.3.0-20140523git76e9481.MANUAL
 %obsolete python3-ezdxf+all5 0.17.2-2
+%obsolete python3-fastapi 0.78.0-3
+%obsolete python3-fastapi+all 0.78.0-3
+%obsolete python3-fastcache 1.1.0-13
 %obsolete python3-fastimport 0.9.13-3
 %obsolete python3-first 2.0.2-5
 %obsolete python3-google-api-core+grpcgcp 2.8.0-2
@@ -194,6 +201,7 @@ Source0:    README
 %obsolete python3-graphql-server+webob 3.0.0-7
 %obsolete python3-hkdf 0.0.3-13
 %obsolete python3-insteon 1.0.8-6
+%obsolete python3-jpype 1.3.0-3
 %obsolete python3-language-server 0.36.2-7
 %obsolete python3-libsoc 0.8.2-20
 %obsolete python3-libyang 1.0.225-5
@@ -202,6 +210,8 @@ Source0:    README
 %obsolete python3-magic-wormhole 0.12.0-8
 %obsolete python3-magic-wormhole-mailbox-server 0.4.1-9
 %obsolete python3-magic-wormhole-transit-relay 0.2.1-8
+%obsolete python3-mkdocs-redirects 1.0.3-5
+%obsolete python3-molten 1.0.1-5
 %obsolete python3-mox3 1.1.0-6
 %obsolete python3-netssh2 0.1.7-13
 %obsolete python3-nose-cover3 0.1.0-34
@@ -253,6 +263,7 @@ Source0:    README
 %obsolete python3-social-auth-core+saml 4.2.0-2
 %obsolete python3-sockjs-tornado 1.0.7-5
 %obsolete python3-spake2 0.8-13
+%obsolete python3-sphinx-panels 0.6.0-3
 %obsolete python3-sphinx-testing 1.0.1-13
 %obsolete python3-sqlobject 3.9.1-7
 %obsolete python3-ssh2-python 0.26.0-2
@@ -260,6 +271,7 @@ Source0:    README
 %obsolete python3-thingserver 0.2.1-6
 %obsolete python3-txtorcon 21.1.0-3
 %obsolete python3-typer-cli 0.0.12-11
+%obsolete python3-unicodecsv 0.14.1-27
 %obsolete python3-volvooncall 0.8.12-7
 %obsolete python3-wand 0.5.5-10
 %obsolete python3-whatever 0.6-8
@@ -384,7 +396,6 @@ Source0:    README
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2127275
 %obsolete ocaml-uuidm 0.9.7-21
 %obsolete ocaml-uuidm-devel 0.9.7-21
-%obsolete python3-fastcache 1.1.0-15
 
 # Remove in F39
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2126391

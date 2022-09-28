@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.6.0
-Release:	204%{?dist}
+Release:	205%{?dist}
 
 Summary:	LALR(1) parser generator
 License:	BSD
@@ -12,6 +12,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source10:	rubygem-%{gem_name}-%{version}-missing-files.tar.gz
 # Source10 is created by %%{SOURCE11} %%version
 Source11:	racc-create-tarball-missing-files.sh
+# https://github.com/ruby/racc/pull/191
+# https://docs.ruby-lang.org/ja/latest/method/Regexp/s/compile.html
+Patch1:	racc-fix_flag_to_regex_new.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel
@@ -34,6 +37,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -a 10
+%patch1 -p1
 
 mv ../%{gem_name}-%{version}.gemspec .
 
@@ -125,6 +129,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Mon Sep 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.0-205
+- Pull upstream #191 PR for Regexp.compile argument mistake
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-204
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,6 @@
 %global varnishver %(pkg-config --silence-errors --modversion varnishapi || echo 0)
-%global gittag 0.18.0
 
-%if 0%{?rhel} == 7 || 0%{?rhel} == 6
+%if 0%{?rhel} == 7
 %global docutils python34-docutils
 %global rst2man rst2man-3.4
 %else
@@ -10,8 +9,8 @@
 %endif
 
 Name:    varnish-modules
-Version: 0.20.0
-Release: 3%{?dist}
+Version: 0.21.0
+Release: 1%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
 License: BSD
@@ -49,7 +48,6 @@ bodyaccess, header, saintmode, tcp, var, vsthrottle, xkey
 
 
 %prep
-#autosetup -n #{name}-#{gittag}
 %autosetup
 
 
@@ -83,6 +81,11 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Mon Sep 26 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.21.0-1
+- New upstream release
+- Removed unused macros from specfile
+- Built for varnish-7.2.0
+
 * Mon Aug 15 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.20.0-3
 - Built for varnish-7.1.1
 

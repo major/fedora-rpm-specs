@@ -1,6 +1,6 @@
 Summary: An encoder/decoder for the Free Lossless Audio Codec
 Name: flac
-Version: 1.4.0
+Version: 1.4.1
 Release: 1%{?dist}
 License: BSD and GPLv2+ and GFDL
 Source0: https://downloads.xiph.org/releases/flac/flac-%{version}.tar.xz
@@ -93,6 +93,9 @@ make check
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Sep 26 2022 Miroslav Lichvar <mlichvar@redhat.com> 1.4.1-1
+- update to 1.4.1
+
 * Mon Sep 12 2022 Miroslav Lichvar <mlichvar@redhat.com> 1.4.0-1
 - update to 1.4.0
 

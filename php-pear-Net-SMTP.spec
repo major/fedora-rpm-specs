@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pear-Net-SMTP
 #
-# Copyright (c) 2006-2021 Remi Collet
+# Copyright (c) 2006-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,8 +10,8 @@
 %global pear_name Net_SMTP
 
 Name:           php-pear-Net-SMTP
-Version:        1.10.0
-Release:        4%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Provides an implementation of the SMTP protocol
 
 License:        BSD
@@ -102,6 +102,9 @@ fi
 
 
 %changelog
+* Mon Sep 26 2022 Remi Collet <remi@remirepo.net> 1.10.1-1
+- update to 1.10.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

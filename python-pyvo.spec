@@ -24,7 +24,7 @@ The pyvo module currently provides these main capabilities:              \
 * Get information about an object via its name                   
 
 Name:           python-%{srcname}
-Version:        1.3
+Version:        1.4
 Release:        1%{?dist}
 Summary:        %{sum}
 
@@ -92,6 +92,9 @@ sed -i -e 's|mimeparse|python-mimeparse|' setup.cfg
 
 
 %changelog
+* Mon Sep 26 2022 Christian Dersch <lupinix@fedoraproject.org> - 1.4-1
+- Update to version 1.4
+
 * Wed Sep 14 2022 Christian Dersch <lupinix@fedoraproject.org> - 1.3-1
 - Update to version 1.3
 

@@ -3,9 +3,15 @@
 
 %bcond_with java
 
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 Name:           libkml
 Version:        1.3.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
 License:        BSD
@@ -49,6 +55,7 @@ BuildRequires:  java-devel
 BuildRequires:  junit
 %endif
 
+%if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-boost
@@ -66,6 +73,7 @@ BuildRequires:  mingw64-expat
 BuildRequires:  mingw64-python3
 BuildRequires:  mingw64-uriparser
 BuildRequires:  mingw64-zlib
+%endif
 
 Provides:       bundled(minizip) = 1.3.0
 
@@ -108,7 +116,7 @@ Requires:       expat-devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:        MinGW Windows %{name} library
 Requires:       mingw32-boost
@@ -146,7 +154,7 @@ MinGW Windows Python 3 %{name} library.
 
 
 %{?mingw_debug_package}
-
+%endif
 
 %prep
 %autosetup -p1 -a1
@@ -160,10 +168,12 @@ pushd minizip
 %cmake_build
 )
 
+%if %{with mingw}
 (
 %mingw_cmake -DBUILD_SHARED_LIBS=OFF
 %mingw_make_build
 )
+%endif
 popd
 
 # Native build
@@ -181,6 +191,7 @@ popd
   -DBUILD_EXAMPLES=ON
 %cmake_build
 
+%if %{with mingw}
 export MINGW32_CMAKE_ARGS="\
   -DCMAKE_INSTALL_DIR=%{mingw32_libdir}/cmake/%{name} \
   -DINCLUDE_INSTALL_DIR=%{mingw32_includedir}/kml \
@@ -202,15 +213,15 @@ export MINGW64_CMAKE_ARGS="\
   -DBUILD_TESTING=OFF \
   -DBUILD_EXAMPLES=OFF
 %mingw_make_build
-
+%endif
 
 %install
 %cmake_install
+
+%if %{with mingw}
 %mingw_make_install
-
-
 %mingw_debug_install_post
-
+%endif
 
 %check
 %ctest
@@ -239,6 +250,9 @@ export MINGW64_CMAKE_ARGS="\
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/
 
+
+
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE
 %{mingw32_bindir}/%{name}*.dll
@@ -260,9 +274,12 @@ export MINGW64_CMAKE_ARGS="\
 
 %files -n mingw64-python3-%{name}
 %{mingw64_python3_sitearch}/*.py*
-
+%endif
 
 %changelog
+* Sat Sep 25 2022 Tom Rix <trix@redhat.com> - 1.3.0-41
+- Add mingw build conditional
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

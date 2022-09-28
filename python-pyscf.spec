@@ -15,7 +15,7 @@
 %endif
 
 Name:           python-pyscf
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Python module for quantum chemistry
 License:        ASL 2.0
@@ -125,6 +125,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Mon Sep 26 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1.
+
 * Sun Sep 04 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0.
 

@@ -12,6 +12,10 @@ Source0: https://download.gnome.org/sources/glib/2.72/glib-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
 
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/2921
+Patch1: 2921.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext

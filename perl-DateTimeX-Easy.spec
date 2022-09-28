@@ -2,15 +2,13 @@
 %bcond_without perl_DateTimeX_Easy_enables_Date_Manip
 # Add a support for ICal time format
 %bcond_without perl_DateTimeX_Easy_enables_ical
-# Perform optional tests
-%bcond_without perl_DateTimeX_Easy_enables_optional_test
 
 Name:       perl-DateTimeX-Easy
-Version:    0.090
+Version:    0.091
 Release:    1%{?dist}
 # lib/DateTimeX/Easy.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/DateTimeX/Easy/DateParse.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                          GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:                           GPL-1.0-or-later OR Artistic-1.0-Perl
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Parse a date/time string using the best method available
 Source:     https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/DateTimeX-Easy-%{version}.tar.gz
@@ -46,12 +44,6 @@ BuildRequires:  perl(DateTime::Format::ICal)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-%if %{with perl_DateTimeX_Easy_enables_optional_test}
-# Optional tests:
-BuildRequires:  perl(Pod::Coverage) >= 0.18
-BuildRequires:  perl(Test::Pod) >= 1.22
-BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-%endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_DateTimeX_Easy_enables_Date_Manip}
 Suggests:       perl(DateTime::Format::DateManip)
@@ -80,13 +72,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n DateTimeX-Easy-%{version}
-# Remove author tests
-rm -rf t/author-*
-perl -i -ne 'print $_ unless m{^t/author-}' MANIFEST
-%if !%{with perl_DateTimeX_Easy_enables_optional_test}
-rm -rf t/release/pod*
-perl -i -ne 'print $_ unless m{^t/release/pod}' MANIFEST
-%endif
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -103,12 +88,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-%if %{with perl_DateTimeX_Easy_enables_optional_test}
-rm %{buildroot}%{_libexecdir}/%{name}/t/release/pod*
-%endif
-# boilerplate.t works only on ./lib
-rm %{buildroot}%{_libexecdir}/%{name}/t/release/boilerplate.t
-rmdir %{buildroot}%{_libexecdir}/%{name}/t/release
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -121,7 +100,7 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README
+%doc Changes CONTRIBUTORS README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*.3*
 
@@ -129,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 0.091-1
+- 0.091 bump
+
 * Mon Aug 15 2022 Petr Pisar <ppisar@redhat.com> - 0.090-1
 - 0.090 bump
 

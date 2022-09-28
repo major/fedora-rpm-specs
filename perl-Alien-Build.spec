@@ -7,7 +7,7 @@
 %endif
 
 Name:           perl-Alien-Build
-Version:        2.68
+Version:        2.70
 Release:        1%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
@@ -373,7 +373,7 @@ pushd "$DIR"
 unset ACLOCAL_PATH ALIEN_BASE_WRAPPER_QUIET ALIEN_BUILD_LIVE_TEST \
     ALIEN_BUILD_LOG ALIEN_BUILD_PKG_CONFIG ALIEN_BUILD_POSTLOAD \
     ALIEN_BUILD_PRELOAD ALIEN_BUILD_RC ALIEN_BUILD_SITE_CONFIG \
-    ALIEN_DOWNLOAD_RULE ALIEN_FORCE \
+    ALIEN_CPU_COUNT ALIEN_DOWNLOAD_RULE ALIEN_FORCE \
     ALIEN_INSTALL_NETWORK ALIEN_INSTALL_TYPE CONFIG_SITE CURL DESTDIR \
     FOO1 FOO2 FOO3 TEST_ALIEN_ALIENS_MISSING TEST_ALIEN_ALWAYS_KEEP VERBOSE WGET
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -386,7 +386,7 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 unset ACLOCAL_PATH ALIEN_BASE_WRAPPER_QUIET ALIEN_BUILD_LIVE_TEST \
     ALIEN_BUILD_LOG ALIEN_BUILD_PKG_CONFIG ALIEN_BUILD_POSTLOAD \
     ALIEN_BUILD_PRELOAD ALIEN_BUILD_RC ALIEN_BUILD_SITE_CONFIG \
-    ALIEN_DOWNLOAD_RULE ALIEN_FORCE \
+    ALIEN_CPU_COUNT ALIEN_DOWNLOAD_RULE ALIEN_FORCE \
     ALIEN_INSTALL_NETWORK ALIEN_INSTALL_TYPE CONFIG_SITE CURL DESTDIR \
     FOO1 FOO2 FOO3 TEST_ALIEN_ALIENS_MISSING TEST_ALIEN_ALWAYS_KEEP VERBOSE WGET
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
@@ -436,6 +436,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 2.70-1
+- 2.70 bump
+
 * Tue Sep 06 2022 Petr Pisar <ppisar@redhat.com> - 2.68-1
 - 2.68 bump
 

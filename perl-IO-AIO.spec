@@ -1,5 +1,5 @@
 # work around upstream versioning being decimal rather than v-string
-%global upstream_version 4.78
+%global upstream_version 4.79
 %global extraversion %{nil}
 %if "%{upstream_version}%{extraversion}" != "%{upstream_version}"
 Provides:	perl(IO::AIO) = %{upstream_version}%{extraversion}
@@ -13,7 +13,6 @@ License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/IO-AIO
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-AIO-%{upstream_version}.tar.gz
 Patch0:		IO-AIO-4.4-shellbang.patch
-Patch1:		IO-AIO-4.77-format.patch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -75,9 +74,6 @@ If no paths are given, treescan will use the current directory.
 # Fix shellbang in treescan
 %patch0
 
-# Fix format string in AIO.xs
-%patch1
-
 %build
 PERL_CANARY_STABILITY_NOPROMPT=1 perl Makefile.PL \
 	INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
@@ -104,6 +100,12 @@ make test
 %{_mandir}/man1/treescan.1*
 
 %changelog
+* Mon Sep 26 2022 Paul Howarth <paul@city-fan.org> - 4.79-1
+- Update to 4.79
+  - The autoconf result of the mount check was not used, so it failed to
+    compile on most systems
+  - Fix format string usage for croak in extract_stringvec function
+
 * Tue Sep  6 2022 Paul Howarth <paul@city-fan.org> - 4.78-1
 - Update to 4.78
   - Add IO::AIO::mount and IO::AIO::umount

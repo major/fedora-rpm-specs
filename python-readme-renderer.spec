@@ -2,7 +2,7 @@
 %global pkg_name readme-renderer
 
 Name:           python-%{pkg_name}
-Version:        37.1
+Version:        37.2
 Release:        %autorelease
 Summary:        Library for rendering "readme" descriptions for Warehouse
 

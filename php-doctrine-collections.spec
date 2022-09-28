@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      collections
-%global github_version   1.7.2
-%global github_commit    3fe77330f5591108bbf1315da7377a7e704ed8a0
+%global github_version   1.7.3
+%global github_commit    09dde3eb237756190f2de738d3c97cff10a8407b
 
 %global composer_vendor  doctrine
 %global composer_project collections
@@ -133,6 +133,9 @@ exit $SCL_RETURN_CODE
 
 
 %changelog
+* Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 1.7.3-1
+- update to 1.7.3
+
 * Fri Sep  9 2022 Remi Collet <remi@remirepo.net> - 1.7.2-1
 - update to 1.7.2
 - switch to classmap autoloader

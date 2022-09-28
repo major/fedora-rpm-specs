@@ -1,6 +1,6 @@
 Name:		libzia
-Version:	4.36
-Release:	5%{?dist}
+Version:	4.37
+Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPLv2
 URL:		http://tucnak.nagano.cz/
@@ -22,11 +22,6 @@ BuildRequires:	gtk3-devel
 # They do not support linking between different versions of tucnak and
 # libzia, i.e. tucnak-4.18 needs to be linked to libzia-4.18.
 Patch0:		libzia-4.26-soname-fix.patch
-# Sent upstream
-Patch1:		libzia-4.36-ifa-addr-null-fix.patch
-# Sent upstream
-# https://bugzilla.redhat.com/show_bug.cgi?id=2086525
-Patch2:		libzia-4.36-bfd-no-pkgconfig.patch
 
 %description
 Platform abstraction layer for the tucnak package.
@@ -74,6 +69,10 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.37-1
+- New version
+  Related: rhbz#2128090
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.36-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

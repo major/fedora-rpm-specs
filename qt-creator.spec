@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        8.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -117,7 +117,6 @@ Translations for %{name}.
 %package doc
 Summary:        User documentation for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       qt6-qtdoc
 BuildArch:      noarch
 
 %description doc
@@ -207,6 +206,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Mon Sep 26 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-5
+- Drop Requires: qt6-qtdoc
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-4
 - Switch to qt6
 

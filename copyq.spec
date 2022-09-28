@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/hluk/CopyQ/
-%global commit 67cb8d24b01e444aa3291492c11f1c942575f094
+%global commit fbd79890273bae1216ee1cc7a604bf3968e22d2d
 
 Name:    copyq
-Version: 6.3.1
+Version: 6.3.2
 Release: 1%{?dist}
 Summary: Advanced clipboard manager
 License: GPLv3+
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/com.gi
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Mon Sep 26 2022 Gerald Cox <gbcox@member.fsf.org> - 6.3.2-1
+- Upstream release: rhbz#2129917
+
 * Sun Sep 25 2022 Gerald Cox <gbcox@member.fsf.org> - 6.3.1-1
 - Upstream release: rhbz#2129613
 

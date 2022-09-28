@@ -3,7 +3,7 @@
 
 Name:           patchelf
 Version:        0.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility for patching ELF binaries
 
 License:        GPLv3+
@@ -32,13 +32,13 @@ rm src/elf.h
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %check
-make check
+make check || (cat tests/*.log; exit 1)
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # the docs get put in a funny place, so delete and include in the
 # standard way in the docs section below
@@ -51,6 +51,10 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_mandir}/man1/patchelf.1*
 
 %changelog
+* Mon Sep 26 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 0.15.0-2
+- Show 'make check' failure logs
+- Use UseMakeBuildInstallMacro
+
 * Sat Jul 23 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 0.15.0-1
 - Update to 0.15.0 (#2107831)
 

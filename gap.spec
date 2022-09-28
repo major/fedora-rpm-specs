@@ -10,24 +10,28 @@
 %else
 %global gapcpu %{_build}
 %endif
-%global gaparch %{gapcpu}-%{gapbits}-kv7
+%global gaparch %{gapcpu}-%{gapbits}-kv8
+
+# Files installed in nearly every package by GAPDoc
+%global GAPDoc_files chooser.html lefttoc.css manual.css manual.js nocolorprompt.css ragged.css rainbow.js times.css toggless.css toggless.js
 
 # When bootstrapping a new architecture, there are no GAPDoc, gap-pkg-primgrp,
 # gap-pkg-smallgrp, or gap-pkg-transgrp packages yet, but the gap binary
 # refuses to run unless all four are present.  Therefore, build as follows:
 # 1. Build this package in bootstrap mode.
-# 2. Build GAPDoc.
+# 2. Build GAPDoc in bootstrap mode.
 # 3. Build gap-pkg-primgrp and gap-pkg-transgrp.
 # 4. Build gap-pkg-autodoc in bootstrap mode.
 # 5. Build gap-pkg-io
-# 6. Build gap-pkg-autodoc in non-bootstrap mode.
-# 7. Build gap-pkg-smallgrp.
-# 8. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+# 6. Build GAPDoc in non-bootstrap mode.
+# 7. Build gap-pkg-autodoc in non-bootstrap mode.
+# 8. Build gap-pkg-smallgrp.
+# 9. Build this package in non-bootstrap mode.
+%bcond_without bootstrap
 
 Name:           gap
-Version:        4.11.1
-Release:        5%{?dist}
+Version:        4.12.0
+Release:        1%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -44,23 +48,46 @@ Source6:        gap.1.in
 Source7:        gac.1.in
 Source8:        update-gap-workspace.1
 Source9:        gap.vim
+# ATLAS data used during the tests
+Source10:       gap-testdata.tar.xz
 # Patch applied in bootstrap mode to break circular dependencies.
 Patch0:         %{name}-bootstrap.patch
 # This patch applies a change from Debian to allow help files to be in gzip
 # compressed DVI files, and also adds support for viewing with xdg-open.
 Patch1:         %{name}-help.patch
-# Fix broken references in the reference manual's lab file
-Patch2:         %{name}-ref.patch
-# Fix paths in gac
-Patch3:         %{name}-gac.patch
-# On i386 only, and with recent versions of gcc only, various parts of the
-# compiled code disagree about the size of a BagHeader.  Some parts think it
-# is 12 bytes, and some parts think it is 16 bytes.  This leads to pointers
-# pointing 4 bytes off from the actual first byte of a BagHeader, leading to
-# weird failure modes.  This does not affect 32-bit ARM, so it is not purely
-# a 32-bit issue.  I do not yet know if this behavior is due to a GCC bug, or
-# if the GAP code is in fact wrong, but this patch works around the issue.
-Patch4:         %{name}-bagheader.patch
+# Avoid the popcount instruction on systems that do not support it
+Patch2:         %{name}-popcount.patch
+# Avoid unused definitions.  See https://github.com/gap-system/gap/pull/5027.
+Patch3:         %{name}-unused.patch
+# Fix __builtin_mul_overflow detection.
+Patch4:         %{name}-builtin-mul-overflow.patch
+
+# Post-4.12.0 release bug fixes
+
+# Fix tab completion on non-record component objects
+# https://github.com/gap-system/gap/commit/4b01ecdc9e7834d877c4d3829b47cb0d9a554fee
+Patch5:         %{name}-tab-completion.patch
+# Fix unexpected error in ConjugacyClassesSubgroups
+# https://github.com/gap-system/gap/commit/e2a206ed076ea1d4843daa7df4dc8a4d2d4bfcd5
+Patch6:         %{name}-conjugacy-classes.patch
+# Centre for pc groups gives the wrong result
+# https://github.com/gap-system/gap/commit/7a04992090ffff828bc0fba1eaa936429d41e4a8
+Patch7:         %{name}-centre-pc-groups.patch
+# Fix unexpected error in MinimalGeneratingSet for solvable non-pc groups
+# https://github.com/gap-system/gap/commit/d11ab9608d7c2320146537e8a4654e696108282d
+Patch8:         %{name}-minimal-generating-non-pc.patch
+# DirectSumMat builds field extensions if needed
+# https://github.com/gap-system/gap/commit/f13d1edcd61bcc03a1ad0a094173dfb812b4f964
+Patch9:         %{name}-directsummat-fix.patch
+# Fix SaveOnExitFile in restored workspaces
+# https://github.com/gap-system/gap/commit/c1009a20003c09dc05dbbe2d523c8f6f1c506347
+Patch10:        %{name}-saveonexitfile.patch
+# Add missing header to Centralizer entry
+# https://github.com/gap-system/gap/commit/b576deedba5bc5ead847329e266d1262bc8cd565
+Patch11:        %{name}-centralizer.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
@@ -194,21 +221,25 @@ Library containing core GAP logic
 %if %{with bootstrap}
 %patch0
 %endif
-%patch1
-%patch2
-%patch3
-%patch4
+%autopatch -p 0 -m 1
 
 # Get the README
 cp -p %{SOURCE1} README.fedora
+
+# Fix broken shebang
+sed -i 's,^#/,#!/,' tst/testspecial/run_gap.sh
+
+# Compile default package path into the executable
+sed 's,^GAP_CPPFLAGS =,& -DSYS_DEFAULT_PATHS="\\"%{gapdir}\\"",' \
+    -i Makefile.rules
 
 %build
 # -Wl,-z,now breaks use of RTLD_LAZY
 # Even though the GAP kernel is single-threaded, it must be linked with pthreads
 # or packages cannot successfully load and run multithreaded shared objects.
 export LDFLAGS="-lpthread -Wl,-z,relro -Wl,--as-needed"
-export CPPFLAGS='-DSYS_DEFAULT_PATHS="\"%{gapdir}\""'
 export STRIP=%{_bindir}/true
+export LC_ALL=C.UTF-8
 %configure
 
 # Get rid of undesirable hardcoded rpaths
@@ -224,8 +255,8 @@ make manuals
 
 # Build gapmacrodoc.pdf
 cd doc
-pdftex gapmacrodoc.tex
-pdftex gapmacrodoc.tex
+pdftex -interaction=batchmode gapmacrodoc.tex
+pdftex -interaction=batchmode gapmacrodoc.tex
 cd -
 
 # Remove build paths
@@ -239,49 +270,106 @@ sed -i "s|^\(GAP_EXE=\).*|\1%{_bindir}|;/  GAP_EXE=/d" bin/gap.sh
 
 # Create an RPM macro file for GAP packages
 cat > macros.%{name} << EOF
-%%_gap_version %{version}
-%%_gap_dir %{gapdir}
-%%_gap_arch %{gaparch}
+%%gap_version %{version}
+%%gap_dir %{gapdir}
+%%gap_arch %{gaparch}
+%%gap_arches aarch64 ppc64le s390x x86_64
+
+# Files installed by GAPDoc
+%%gapdoc_files %{GAPDoc_files}
+
+# Install documentation files of interest.  In particular, we do not install
+# intermediate files produced by (La)TeX as it runs.  GAPDoc style files are
+# linked instead of copied.
+# -d DIR: Copy files to directory DIR under the package directory (instead of
+#         "doc", which is the default)
+# -n NAME: name of the package, defaults to %%%%{pkgname}
+%%gap_copy_docs(d:n:) \\
+  subdir=%%{-d:%%{-d*}}%%{!-d:doc} \\
+  path=%%{buildroot}%%{gap_dir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+  for ext in bib css gif html jpeg jpg js lab pdf png six txt; do \\
+    cp -p \$subdir/*.\$ext \$path 2>/dev/null || : \\
+  done \\
+  for fil in %%{gapdoc_files}; do \\
+    if [ -e "\$path/\$fil" ]; then \\
+      rm \$path/\$fil \\
+      ln -s ../..\$(sed 's|/|/..|' <<< "\${subdir//[^\\\\/]}")/GAPDoc/styles/\$fil \$path/\$fil \\
+    fi \\
+  done
 EOF
 
 %install
-# Install the headers
-mkdir -p %{buildroot}%{_includedir}/gap/hpc
-cp -p src/*.h %{buildroot}%{_includedir}/gap
-cp -p src/hpc/*.h %{buildroot}%{_includedir}/gap/hpc
+## "make install" doesn't quite do what we want yet
 
-# Install libgap
-mkdir -p %{buildroot}%{_libdir}
-libtool --mode=install %{_bindir}/install -c libgap.la %{buildroot}%{_libdir}
-rm -f %{buildroot}%{_libdir}/*.la
-
+## See make install-bin
 # Install the binaries
 mkdir -p %{buildroot}%{_bindir}
 install -p -m755 gap %{buildroot}%{_bindir}
 install -p -m755 gac %{buildroot}%{_bindir}
 install -p -m755 %{SOURCE2} %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{gapdir}
+cp -a bin %{buildroot}%{gapdir}
 
-# Install the data
+# Fix symlinks to the binary and source directory
+pushd %{buildroot}%{gapdir}/bin/%{gaparch}
+rm -f gap gac src config.h
+ln -s %{_bindir}/gap gap
+ln -s %{_bindir}/gac gac
+ln -s %{_includedir}/gap src
+ln -s %{_includedir}/gap/config.h config.h
+cd ../..
+ln -s %{_bindir}/gap gap
+ln -s %{_bindir}/gac gac
+popd
+
+## See make install-doc
+# Install the documentation
+mkdir -p %{buildroot}%{gapdir}/doc
+cp -p doc/{gapmacro.tex,make_doc,manualindex,versiondata,*.{bib,lab,pdf,six,xml}} \
+      %{buildroot}%{gapdir}/doc
+for book in hpc ref tut; do
+    mkdir -p %{buildroot}%{gapdir}/doc/$book
+    cp -p doc/$book/*.{html,lab,pdf,six,txt} \
+          %{buildroot}%{gapdir}/doc/$book
+    rm %{buildroot}%{gapdir}/doc/$book/chooser.html
+    for fil in %{GAPDoc_files}; do
+        ln -s ../../pkg/GAPDoc/styles/$fil %{buildroot}%{gapdir}/doc/$book
+    done
+done
+
+## See make install-gaproot
+# Make an empty directory to hold the GAP packages
+mkdir -p %{buildroot}%{gapdir}/pkg
+
+# Install the library files
+mkdir -p %{buildroot}%{gapdir}/hpcgap
+cp -a hpcgap/lib %{buildroot}%{gapdir}/hpcgap
+cp -a grp lib %{buildroot}%{gapdir}
+
+# Install the CITATION file, since the docs say it is here
+cp -p CITATION %{buildroot}%{gapdir}
+
+# Install helpers for developers
 mkdir -p %{buildroot}%{gapdir}/etc
-cp -a grp lib tst %{buildroot}%{gapdir}
-cp -p etc/convert.pl %{buildroot}%{gapdir}/etc
-rm -f %{buildroot}%{gapdir}/tst/mockpkg/doc/.gitignore
+cp -p etc/{convert.pl,Makefile.gappkg} %{buildroot}%{gapdir}/etc
 
+# Install the VIM support
+mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/indent
+cp -p etc/vim/gap_indent.vim %{buildroot}%{_datadir}/vim/vimfiles/indent
+mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/syntax
+cp -p etc/vim/gap.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax
+mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
+cp -p %{SOURCE9} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
+
+## See make install-sysinfo
 # Install the arch-specific files
 cp -a sysinfo.gap* %{buildroot}%{gapdir}
 
-# Create the system workspace, initially empty
-mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
-touch %{buildroot}%{_localstatedir}/lib/%{name}/workspace.gz
-
-# Make a link to the headers so the GAP compiler can find them
-ln -s %{_includedir}/gap %{buildroot}%{gapdir}/src
-
-# Install config.h
-mkdir -p %{buildroot}%{gapdir}/gen
-cp -p gen/gap_version.c %{buildroot}%{gapdir}/gen
-cp -p gen/config.h %{buildroot}%{_includedir}/gap
-ln -s %{_includedir}/gap %{buildroot}%{gapdir}/gen/config.h
+## See make install-headers
+# Install the headers
+mkdir -p %{buildroot}%{_includedir}/gap/hpc
+cp -p src/*.h build/*.h %{buildroot}%{_includedir}/gap
+cp -p src/hpc/*.h %{buildroot}%{_includedir}/gap/hpc
 
 # Munge the header files
 for fil in %{buildroot}%{_includedir}/gap/{*.h,hpc/*.h}; do
@@ -290,28 +378,23 @@ for fil in %{buildroot}%{_includedir}/gap/{*.h,hpc/*.h}; do
   rm -f $fil.orig
 done
 
-# Install the binaries
-cp -a bin %{buildroot}%{gapdir}
+# Make a link to the headers so the GAP compiler can find them
+ln -s %{_includedir}/gap %{buildroot}%{gapdir}/src
 
-# Fix symlinks to the binary and source directory
-pushd %{buildroot}%{gapdir}/bin/%{gaparch}
-rm -f gap gac src
-ln -s %{_bindir}/gap gap
-ln -s %{_bindir}/gac gac
-ln -s %{_includedir}/gap src
-cd ../..
-ln -s %{_bindir}/gap gap
-ln -s %{_bindir}/gac gac
-popd
+## See make install-libgap
+# Install libgap
+mkdir -p %{buildroot}%{_libdir}
+./libtool --mode=install %{_bindir}/install libgap.la %{buildroot}%{_libdir}
+rm -f %{buildroot}%{_libdir}/*.la
 
-# Make an empty directory to hold the GAP packages
-mkdir -p %{buildroot}%{gapdir}/pkg
+## Nothing below here is installed by make install
+# Install the tests
+cp -a tst %{buildroot}%{gapdir}
+find %{buildroot}%{gapdir}/tst -name .gitignore -delete
 
-# Install the documentation
-cp -a doc %{buildroot}%{gapdir}
-rm -f %{buildroot}%{gapdir}/doc/*.in
-rm -f %{buildroot}%{gapdir}/doc/*/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
-chmod a+x %{buildroot}%{gapdir}/doc/manualindex
+# Create the system workspace, initially empty
+mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
+touch %{buildroot}%{_localstatedir}/lib/%{name}/workspace.gz
 
 # Install the icon; the original is 1024x1024
 bmptopnm cnf/cygwin/gapicon.bmp > gapicon.pnm
@@ -340,19 +423,16 @@ appstreamcli validate --no-net \
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
 cp -p macros.%{name} %{buildroot}%{_rpmconfigdir}/macros.d
 
-# Install the VIM support
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/indent
-cp -p etc/vim/gap_indent.vim %{buildroot}%{_datadir}/vim/vimfiles/indent
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/syntax
-cp -p etc/vim/gap.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
-cp -p %{SOURCE9} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
-
 # Install the man pages
 mkdir -p %{buildroot}%{_mandir}/man1
 sed "s|@VERSION@|%{version}|" %{SOURCE6} > %{buildroot}%{_mandir}/man1/gap.1
 sed "s|@VERSION@|%{version}|" %{SOURCE7} > %{buildroot}%{_mandir}/man1/gac.1
 cp -p %{SOURCE8} %{buildroot}%{_mandir}/man1
+
+# GAP 4.12 bug?  USE_GASMAN is not defined in any installed header file.
+# Check future versions to see if this is still the case.
+sed -i '/ifdef USE_GASMAN/i#ifndef USE_GASMAN\n#define USE_GASMAN 1\n#endif' \
+    %{buildroot}%{_includedir}/gap/common.h
 
 %preun
 if [ $1 -eq 0 ]; then
@@ -372,11 +452,15 @@ sed -e "s|GAP_DIR=.*|GAP_DIR=$PWD|" \
     -e "s|GAP_EXE=.*|GAP_EXE=$PWD|" \
     -i bin/gap.sh
 sed -i "s|80 -r|& -l $PWD|" Makefile.rules
+
+# Unpack the test data
+tar -C pkg -xf %{SOURCE10}
+
 make check
 %endif
 
 %files
-%doc README.fedora
+%doc README.md README.fedora
 %{_bindir}/gap
 %dir %{gapdir}/bin/
 %{gapdir}/bin/gap.sh
@@ -402,10 +486,13 @@ make check
 %{icondir}/512x512/apps/gap.png
 
 %files libs
-%license LICENSE
+%license COPYRIGHT LICENSE
 %dir %{gapdir}
+%{gapdir}/CITATION
 %{gapdir}/grp/
+%{gapdir}/hpcgap/
 %{gapdir}/lib/
+%{gapdir}/pkg/
 
 %files core
 %{_bindir}/update-gap-workspace
@@ -420,7 +507,6 @@ make check
 %{gapdir}/doc/
 
 %files devel
-%doc doc/gapmacrodoc.pdf
 %{_bindir}/gac
 %{gapdir}/bin/BuildPackages.sh
 %{gapdir}/bin/%{gaparch}/gac
@@ -428,7 +514,6 @@ make check
 %{gapdir}/bin/%{gaparch}/src
 %{gapdir}/etc/
 %{gapdir}/gac
-%{gapdir}/gen/
 %{gapdir}/src
 %{gapdir}/tst/
 %{_includedir}/gap/
@@ -442,11 +527,21 @@ make check
 %{_datadir}/vim/vimfiles/syntax/gap.vim
 
 %files -n libgap
-%{_libdir}/libgap.so.0
-%{_libdir}/libgap.so.0.*
+%{_libdir}/libgap.so.8
+%{_libdir}/libgap.so.8.*
 %{_libdir}/libgap.so
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-1
+- Version 4.12.0
+- Remove ix86 support
+- Drop obsolete -gac, -bagheader, and -ref patches
+- Add -popcount patch to avoid illegal CPU instruction errors
+- Add -unused patch to trim unused functions
+- Add upstream post-release bug fix patches
+- Add ATLAS data needed for the tests
+- Rearrange %%install to ease future transition to "make install"
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 4.11.1-5
 - Convert License tag to SPDX
 

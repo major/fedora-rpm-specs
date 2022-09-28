@@ -1,6 +1,6 @@
 Name:           rednotebook
-Version:        2.24
-Release:        4%{?dist}
+Version:        2.25
+Release:        1%{?dist}
 Summary:        Daily journal with calendar, templates and keyword searching
 
 License:        GPLv2+
@@ -17,7 +17,6 @@ Requires:       python3-chardet
 Requires:       python3-enchant
 Requires:       hicolor-icon-theme
 Requires:       gtksourceview3
-Requires:       gnome-icon-theme
 
 %description
 RedNotebook is a modern desktop journal. It lets you format, tag and
@@ -40,12 +39,6 @@ desktop-file-install                                    \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
 mkdir -p %{buildroot}/%{_datadir}/appdata/
 mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir}/appdata/
-# Heavily borrowed from /usr/lib/rpm/find-lang.sh
-#find %{buildroot} -type f -o -type l|sort|sed '
-#s:'"%{buildroot}"'::
-#s:\(.*/i18n/\)\([^/_]\+\)\(.*\.mo$\):%lang(\2) \1\2\3:
-#s:^\([^%].*\)::
-#/^$/d' > %{name}.lang
 %find_lang %{name}
 
 %files -f %{name}.lang
@@ -67,6 +60,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Thu Sep 22 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.25-1
+- New upstream version 2.25
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

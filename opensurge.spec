@@ -7,7 +7,7 @@ Summary: 2D retro platformer inspired by Sonic games
 # - src/core/whereami/whereami.h
 License: GPLv3 and WTFPL
 
-Version: 0.6.0.2
+Version: 0.6.0.3
 Release: 1%{?dist}
 
 URL: https://opensurge2d.org
@@ -63,12 +63,6 @@ Data files (graphics, music, sounds) required by Open Surge.
 
 %prep
 %setup -q
-
-# The appdata file has a duplicated line, which causes XML validation to fail.
-TEMPFILE="$(mktemp)"
-cp src/misc/opensurge.appdata.xml.in "${TEMPFILE}"
-uniq < "${TEMPFILE}" > src/misc/opensurge.appdata.xml.in
-rm "${TEMPFILE}"
 
 
 %build
@@ -126,6 +120,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Mon Sep 26 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0.3-1
+- Update to v0.6.0.3
+
 * Fri Sep 16 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.6.0.2-1
 - Update to v0.6.0.2
 

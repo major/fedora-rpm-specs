@@ -17,7 +17,7 @@
 
 Name:           gtk4
 Version:        4.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK graphical user interface library
 
 License:        LGPLv2+
@@ -239,6 +239,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gtk4-widget-factory.1*
 
 %changelog
+* Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 4.8.1-2
+- Rebuild
+
 * Fri Sep 16 2022 Kalev Lember <klember@redhat.com> - 4.8.1-1
 - Update to 4.8.1
 

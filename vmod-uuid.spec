@@ -1,4 +1,4 @@
-%if 0%{?rhel} == 7 || 0%{?rhel} == 6
+%if 0%{?rhel} == 7
 %global docutils python34-docutils
 %global rst2man rst2man-3.4
 %else
@@ -9,7 +9,7 @@
 Name: vmod-uuid
 Summary: UUID module for Varnish Cache
 Version: 1.10
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 URL: https://github.com/otto-de/libvmod-uuid
 Source0: https://github.com/otto-de/lib%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -75,6 +75,9 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
+* Mon Sep 26 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-10
+- Rebuilt for varnish-7.2.0
+
 * Mon Aug 15 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-9
 - Rebuilt for varnish-7.1.1
 

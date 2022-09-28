@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.3
-Release:       30.%{git_suffix}%{?dist}
+Release:       31.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -108,6 +108,10 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.3-31.20210217gita100eb02
+- Rebuilt for new gnuradio
+  Resolves: rhbz#2129782
+
 * Sat Jul 30 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.3-30.20210217gita100eb02
 - Rebuilt for new uhd
 

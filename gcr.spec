@@ -3,25 +3,25 @@
 %endif
 
 Name:           gcr
-Version:        3.90.0
-Release:        2%{?dist}
+Version:        3.92.0
+Release:        1%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 License:        LGPLv2+
-URL:            https://wiki.gnome.org/Projects/CryptoGlue
-Source0:        https://download.gnome.org/sources/%{name}/3.90/%{name}-%{version}.tar.xz
+URL:            https://gitlab.gnome.org/GNOME/gcr
+Source0:        https://download.gnome.org/sources/%{name}/3.92/%{name}-%{version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gi-docgen)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(p11-kit-1)
-BuildRequires:  libgcrypt-devel
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
 %if 0%{?has_valgrind}
@@ -32,7 +32,8 @@ BuildRequires:  /usr/bin/ssh-add
 BuildRequires:  /usr/bin/ssh-agent
 BuildRequires:  /usr/bin/xsltproc
 
-Requires: %{name}-base%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: /usr/bin/gpg2
 Requires: /usr/bin/ssh-add
 Requires: /usr/bin/ssh-agent
 
@@ -43,53 +44,29 @@ desktop.
 
 gck is a library for accessing PKCS#11 modules like smart cards.
 
-%package base
-Summary: Common library files for %{name}
-Conflicts: %{name} < 3.28.1-3
+%package        libs
+Summary:        gcr and gck libraries
+# Renamed in F37
+Obsoletes:      %{name}-base < 3.92.0-1
+Provides:       %{name}-base = %{version}-%{release}
+Provides:       %{name}-base%{?_isa} = %{version}-%{release}
+# Dropped in F37
+Obsoletes:      %{name}-gtk3 < 3.92.0-1
+Obsoletes:      %{name}-gtk4 < 3.92.0-1
 
-%description base
-The %{name}-base package includes the %{name} common library files used by both gtk3 and gtk4 versions.
+%description    libs
+The %{name}-libs package contains the gcr and gck shared libraries.
 
-%package gtk3
-Summary: Library files for %{name} using gtk3
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-base%{?_isa} = %{version}-%{release}
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# Dropped in F37
+Obsoletes:      %{name}-gtk3-devel < 3.92.0-1
+Obsoletes:      %{name}-gtk4-devel < 3.92.0-1
 
-%description gtk3
-The %{name}-gtk3 package includes the library files for the %{name} package using gtk3.
-
-%package gtk4
-Summary: Library files for %{name} using gtk4
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-base%{?_isa} = %{version}-%{release}
-
-%description gtk4
-The %{name}-gtk4 package includes the library files for the %{name} package using gtk4.
-
-%package devel
-Summary: Common development files for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-
-%description devel
-The %{name}-devel package includes the common header files for the %{name} library.
-
-%package gtk3-devel
-Summary: Development files for %{name} using gtk3
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-gtk3%{?_isa} = %{version}-%{release}
-Requires: %{name}-devel%{?_isa} = %{version}-%{release}
-
-%description gtk3-devel
-The %{name}-gtk3-devel package includes the header files for the %{name} library using gtk3.
-
-%package gtk4-devel
-Summary: Development files for %{name} using gtk4
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-gtk4%{?_isa} = %{version}-%{release}
-Requires: %{name}-devel%{?_isa} = %{version}-%{release}
-
-%description gtk4-devel
-The %{name}-gtk4-devel package includes the header files for the %{name} library using gtk4.
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 %prep
 %autosetup -p1
@@ -100,7 +77,7 @@ The %{name}-gtk4-devel package includes the header files for the %{name} library
 
 %install
 %meson_install
-%find_lang %{name}-4
+%find_lang gcr-4
 
 %post
 %systemd_user_post gcr-ssh-agent.service
@@ -111,68 +88,51 @@ The %{name}-gtk4-devel package includes the header files for the %{name} library
 %postun
 %systemd_user_postun_with_restart gcr-ssh-agent.service
 
-
-%files -f %{name}-4.lang
+%files
 %doc NEWS README.md
-%license COPYING
-%{_libdir}/girepository-1.0
+%{_bindir}/gcr-viewer-gtk4
 %{_libexecdir}/gcr-ssh-agent
 %{_libexecdir}/gcr4-ssh-askpass
 %{_userunitdir}/gcr-ssh-agent.service
 %{_userunitdir}/gcr-ssh-agent.socket
 
-%files base
-%{_libdir}/libgck-2.so.1.90.0
+%files libs -f gcr-4.lang
+%license COPYING
+%dir %{_libdir}/girepository-1.0
+%{_libdir}/girepository-1.0/Gck-2.typelib
+%{_libdir}/girepository-1.0/Gcr-4.typelib
 %{_libdir}/libgck-2.so.0.0.0
-%{_libdir}/libgcr-4.so.3.90.0
+%{_libdir}/libgck-2.so.1.92.0
 %{_libdir}/libgcr-4.so.0.0.0
-
-%files gtk3
-%{_libdir}/libgcr-4-gtk3.so.0.0.0
-%{_libdir}/libgcr-4-gtk3.so.3.90.0
-
-%files gtk4
-%{_libdir}/libgcr-4-gtk4.so.0.0.0
-%{_libdir}/libgcr-4-gtk4.so.3.90.0
+%{_libdir}/libgcr-4.so.3.92.0
 
 %files devel
-%{_includedir}/gck-2
-%{_includedir}/gcr-4/gcr
+%{_includedir}/gck-2/
+%{_includedir}/gcr-4/
 %{_libdir}/libgck-2.so
 %{_libdir}/libgcr-4.so
 %{_libdir}/pkgconfig/gck-2.pc
 %{_libdir}/pkgconfig/gcr-4.pc
+%dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Gck-2.gir
 %{_datadir}/gir-1.0/Gcr-4.gir
-%dir %{_datadir}/doc
-%{_datadir}/doc/gck-2
-%{_datadir}/doc/gcr-4
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/gck-2.deps
 %{_datadir}/vala/vapi/gck-2.vapi
 %{_datadir}/vala/vapi/gcr-4.deps
 %{_datadir}/vala/vapi/gcr-4.vapi
-
-%files gtk3-devel
-%{_bindir}/gcr-viewer-gtk3
-%{_datadir}/doc/gcr-4-gtk3
-%{_datadir}/gir-1.0/GcrGtk3-4.gir
-%{_datadir}/vala/vapi/gcr-4-gtk3.deps
-%{_datadir}/vala/vapi/gcr-4-gtk3.vapi
-%{_includedir}/gcr-4/gcr-gtk3
-%{_libdir}/libgcr-4-gtk3.so
-%{_libdir}/pkgconfig/gcr-4-gtk3.pc
-
-%files gtk4-devel
-%{_bindir}/gcr-viewer-gtk4
-%{_datadir}/doc/gcr-4-gtk4
-%{_datadir}/gir-1.0/GcrGtk4-4.gir
-%{_datadir}/vala/vapi/gcr-4-gtk4.deps
-%{_datadir}/vala/vapi/gcr-4-gtk4.vapi
-%{_includedir}/gcr-4/gcr-gtk4
-%{_libdir}/libgcr-4-gtk4.so
-%{_libdir}/pkgconfig/gcr-4-gtk4.pc
+%doc %{_datadir}/doc/gck-2/
+%doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 3.92.0-1
+- Update to 3.92.0
+- Remove gtk3 and gtk4 subpackages as the gcr gtk3 and gtk4 libraries are gone
+- Rename gcr-base to gcr-libs
+- Fix gir and vala directory ownership
+- Misc packaging cleanup
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.90.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

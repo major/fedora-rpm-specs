@@ -1,6 +1,6 @@
 Name:		soapy-uhd
 Version:	0.4.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Soapy SDR plugins for UHD supported SDR devices
 License:	GPLv3
 URL:		https://github.com/pothosware/SoapyUHD
@@ -35,6 +35,10 @@ Soapy SDR plugins for UHD supported SDR devices.
 %{_libdir}/uhd/modules/*.so
 
 %changelog
+* Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.1-9
+- Rebuilt for new uhd
+  Resolves: rhbz#2129788
+
 * Sat Jul 30 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.4.1-8
 - Rebuilt for new uhd
 

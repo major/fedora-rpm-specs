@@ -1,8 +1,8 @@
 Name: gnucash
 Summary: Finance management application
-Version: 4.11
+Version: 4.12
 URL: https://gnucash.org/
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -95,7 +95,6 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %{_libdir}/gnucash/
 %{_libdir}/guile/%{guilever}/site-ccache/gnucash/
 %{python3_sitearch}/gnucash/
-%exclude /usr/lib/debug
 %{_datadir}/glib-2.0/schemas/org.gnucash.GnuCash.*.xml
 %{_datadir}/gnucash
 %{_datadir}/guile/site/%{guilever}/gnucash
@@ -106,6 +105,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Sep 26 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.12-1
+- 4.12
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.11-4
 - Rebuilt for ICU 71.1
 

@@ -23,7 +23,7 @@
 
 Name:           GMT
 Version:        6.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generic Mapping Tools
 
 License:        LGPLv3+
@@ -48,7 +48,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  GraphicsMagick
 BuildRequires:  libXt-devel libXaw-devel libXmu-devel libXext-devel
 BuildRequires:  netcdf-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  dcw-gmt
 BuildRequires:  gshhg-gmt-nc4
 %if %with octave
@@ -223,6 +223,9 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 
 
 %changelog
+* Mon Sep 26 2022 Orion Poplawski <orion@nwra.com> - 6.4.0-3
+- Build with pcre2 (bz#2128300)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

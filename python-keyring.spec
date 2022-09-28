@@ -3,7 +3,7 @@
 %bcond_with xvfb_tests
 
 Name:           python-keyring
-Version:        23.9.1
+Version:        23.9.3
 Release:        1%{?dist}
 Summary:        Store and access your passwords safely
 
@@ -99,6 +99,9 @@ rm -vrf *.egg-info *.dist-info
 
 
 %changelog
+* Sat Sep 24 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.9.3-1
+- Update to 23.9.3 (close RHBZ#2127652)
+
 * Mon Sep 05 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.9.1-1
 - Update to 23.9.1 (close RHBZ#2123348)
 

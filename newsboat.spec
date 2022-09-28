@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:    newsboat
-Version: 2.28
+Version: 2.29
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -44,8 +44,6 @@ Newsboat is a fork of Newsbeuter, an RSS/Atom feed reader for the text console.
 # Note to self: do not use -S git_am for released builds, it messes up version string
 %autosetup -p1
 %cargo_prep
-# Remove executable bit from example scripts
-find contrib/ -type f -exec chmod -x '{}' +
 
 %generate_buildrequires
 INTERNAL_CRATES=$'libnewsboat\nlibnewsboat-ffi\nregex-rs\nstrprintf'
@@ -75,6 +73,8 @@ sh config.sh
 
 %install
 %make_install prefix="%{_prefix}"
+# Remove executable bit from example/contrib scripts
+find %{buildroot}%{_pkgdocdir}/ -type f -exec chmod -x '{}' +
 
 %find_lang %{name}
 
