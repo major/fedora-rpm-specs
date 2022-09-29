@@ -10,16 +10,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/
 Source0:        https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
-
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -38,9 +38,11 @@ BuildRequires:  tex(epic.sty)
 
 Requires:       gap-pkg-atlasrep
 
+Recommends:     gap-pkg-browse
 Recommends:     gap-pkg-primgrp
 Recommends:     gap-pkg-smallgrp
 Recommends:     gap-pkg-spinsym
+Recommends:     gap-pkg-tomlib
 Recommends:     gap-pkg-transgrp
 
 %description
@@ -64,19 +66,19 @@ This package contains documentation for gap-pkg-%{pkgname}.
 chmod a-x doc/utils.xml
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-smallgrpdir=$(ls -1d %{_gap_dir}/pkg/smallgrp*)
-cp -a %{_gap_dir}/doc ../../doc
-ln -s $smallgrpdir ..
+cp -a %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/pkg/smallgrp ..
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-ln -s $smallgrpdir ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
+gap -l "$PWD/..;" < makedocrel.g
 # The ctbltoc material requires a GAP package named "genus" to build.  We do
 # not have that package in Fedora, and I can find no trace of it online.  If
 # we do manage to locate and package it, uncomment the following:
 # mkdir -p ctbltoc/data ctbltoc/views
-# gap -l "$PWD/..;%%{_gap_dir}" << EOF
+# gap -l "$PWD/..;" << EOF
 # ReadPackage( "ctbllib", "ctbltoc/init.g" );
 # for nam in HTMLViewsGlobals.documents do
 #   HTMLCreateGroupInfoFile( nam );
@@ -85,7 +87,7 @@ gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
 #   HTMLCreateView.( name )();
 # od;
 # EOF
-rm -fr ../smallgrp* ../../doc ../pkg
+rm -fr ../smallgrp ../../doc ../pkg
 
 # Remove the build directory from the documentation
 sed -i "s,$PWD/doc/\.\./\.\./pkg,../..,g" doc/*.html
@@ -95,15 +97,14 @@ sed -i "s,$PWD/doc2/\.\./\.\./pkg,../..,g" doc2/*.html
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.tbl
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.package_note*,gap3,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/tst/*~
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc{,2}/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-# Remove this once we build the ctbltoc material.  See above.
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/ctbltoc
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc{,2}
+cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
+%gap_copy_docs -d doc2
 
 %check
+export LC_ALL=C.UTF-8
+
 # Tell ATLAS where to find downloaded files
 mkdir ~/.gap
 cat > ~/.gap/gap.ini << EOF
@@ -111,7 +112,7 @@ SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/"
 EOF
 
 # Basic installation test
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" << EOF
+gap -l "%{buildroot}%{gap_dir};" << EOF
 ReadPackage( "ctbllib", "tst/testinst.g" );
 EOF
 
@@ -121,23 +122,32 @@ EOF
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 sed -i '/BrowseCTblLibInfo();/d' gap4/ctbltocb.g tst/docxpl.tst{,~}
-gap -l "$PWD/..;%{_gap_dir}" < tst/testauto.g
+gap -l "$PWD/..;" tst/testauto.g
 rm -fr ../pkg
 %endif
 
+# Cleanup
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/*~
+
 %files
 %doc README.md
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc2/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc2/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc2/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.3.4-3
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.3.4-2
 - License change from GPLv2+ to GPL-3.0-or-later
 

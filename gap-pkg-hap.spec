@@ -12,17 +12,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/hap/
 Source0:        https://github.com/gap-packages/hap/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-
-# Polymake is no longer available on 32-bit platforms
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-BuildArch:      noarch
-ExclusiveArch:  noarch aarch64 ppc64le s390x x86_64
 
 BuildRequires:  asymptote
 BuildRequires:  gap-devel
@@ -48,7 +45,6 @@ BuildRequires:  xdg-utils
 Requires:       coreutils
 Requires:       gap-pkg-aclib
 Requires:       gap-pkg-crystcat
-Requires:       gap-pkg-edim
 Requires:       gap-pkg-fga
 Requires:       gap-pkg-nq
 Requires:       gap-pkg-polycyclic
@@ -56,6 +52,7 @@ Requires:       xdg-utils
 
 Recommends:     asymptote
 Recommends:     gap-pkg-congruence
+Recommends:     gap-pkg-edim
 Recommends:     gap-pkg-laguna
 Recommends:     gap-pkg-polymaking
 Recommends:     gap-pkg-singular
@@ -124,22 +121,25 @@ chmod a-x lib/Kelvin/{*.xml,kelvin.gd,*.gi,init.g,tutex/*.txt} \
           lib/Perturbations/Gcomplexes/*.gz \
           www/SideLinks/About/*.g
 
+# Fix a bad entity name
+sed -i.orig 's/gr;/gt;/' tutorial/tutex/14.20.txt
+fixtimestamp tutorial/tutex/14.20.txt
+
 %build
 # Build the documentation
 export LC_ALL=C.UTF-8
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.package_note*,.codecov.yml,.git*,compile*,README.md,uncompile*,updateAll.sh}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/.{idl.ilg,idl.ind,ind,tex}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/{clean,rd.sh}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/tutorial/clean
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/CompiledGAP
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g boolean date lib tst tutorial version www \
+   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+rm -f %{buildroot}%{gap_dir}/pkg/%{pkgname}/tutorial/clean
+rm -fr %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/CompiledGAP
+%gap_copy_docs
 
 %if %{without bootstrap}
 %check
@@ -149,22 +149,26 @@ export LC_ALL=C.UTF-8
 polymake --reconfigure - <<< exit;
 
 # Now we can run the actual test; the 2G default is not enough on s390x
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" -o 3G < tst/testall.g
+# Do not run the very slow tests
+gap -l "%{buildroot}%{gap_dir};" -o 3G tst/testquick.g
 %endif
 
 %files
 %doc README.md
 %license www/copyright/*.html
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/tutorial/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/tutorial/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/tutorial/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.47-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.47-1
 - Convert License tag to SPDX
 

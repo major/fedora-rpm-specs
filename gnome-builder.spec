@@ -5,8 +5,8 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%global glib2_version 2.74
-%global gtk4_version 4.8
+%global glib2_version 2.73.3
+%global gtk4_version 4.7.1
 %global json_glib_version 1.2.0
 %global jsonrpc_glib_version 3.42.0
 %global libpeas_version 1.34.0
@@ -15,7 +15,7 @@
 %global sysprof_version 3.46.0
 
 Name:           gnome-builder
-Version:        43.0
+Version:        43.1
 Release:        1%{?dist}
 Summary:        IDE for writing GNOME-based software
 
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 43.1-1
+- Update to 43.1
+
 * Thu Sep 22 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

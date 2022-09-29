@@ -1,24 +1,26 @@
 %global pkgname utils
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.75
+Version:        0.77
 Release:        1%{?dist}
 Summary:        Utility functions for GAP
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/utils/
 Source0:        https://github.com/gap-packages/utils/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
-# Fix a LaTeX warning
-# https://github.com/gap-packages/utils/pull/46
-Patch0:         %{name}-doc.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
+BuildRequires:  gap-pkg-curlinterface-doc
+BuildRequires:  gap-pkg-io-doc
 BuildRequires:  gap-pkg-polycyclic
 
 Requires:       gap-pkg-autodoc
 Requires:       gap-pkg-polycyclic
+
+Recommends:     gap-pkg-curlinterface
 
 %description
 The Utils package provides a collection of utility functions gleaned
@@ -27,7 +29,8 @@ from many packages.
 %package doc
 Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-online-help
+Requires:       gap-curlinterface-doc
+Requires:       gap-io-doc
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
@@ -37,35 +40,39 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-
-# Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg/%{pkgname}
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../../doc ../pkg
+gap -l "$PWD/..;" makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}/{CHANGES.md,LICENSE.txt,README.md,scripts,.*.yml,.package_note*,.releases}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+
+# The download test cannot be run on the koji builders, which provide no
+# network access during a package build.
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/download.tst
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+cp -p tst/download.tst %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE.txt
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.77-1
+- Version 0.77
+- Convert License tag to SPDX
+- Drop upstreamed -doc patch
+- Update for gap 4.12.0
+
 * Wed Aug  3 2022 Jerry James <loganjerry@gmail.com> - 0.75-1
 - Version 0.75
 

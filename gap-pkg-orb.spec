@@ -3,18 +3,16 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.8.5
+Version:        4.9.0
 Release:        1%{?dist}
 Summary:        Methods to enumerate orbits in GAP
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/orb/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
-# Indexes needed for the tests
-Source2:         https://www.math.rwth-aachen.de/~mfer/mfertoc.json
-Source3:         https://www.math.rwth-aachen.de/~Thomas.Breuer/ctblocks/ctblockstoc.json
 
 # The AtlasRep, Browse and CtblLib dependencies are needed for the tests only
 BuildRequires:  gap-devel
@@ -50,32 +48,22 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
 %autosetup -n %{pkgname}-%{version} -b 1
-cp -p %{SOURCE2} %{SOURCE3} ../atlasrep
 
 %build
 export LC_ALL=C.UTF-8
-export CFLAGS='%{build_cflags} -D_FILE_OFFSET_BITS=64'
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
-./configure --with-gaproot=%{_gap_dir}
+./configure --with-gaproot=%{gap_dir}
 %make_build V=1
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
-gap < makedoc.g
+ln -s %{gap_dir}/doc ../../doc
+gap makedoc.g
 rm -fr ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a bin doc examples gap tst *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/{clean,test}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-
-# Install the shared object without libtool artifacts
-pushd %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-rm orb.*
-mv .libs/orb.so .
-rm -fr .libs
-popd
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin examples gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %if %{without bootstrap}
 %check
@@ -84,37 +72,35 @@ export LC_ALL=C.UTF-8
 # Skip the speed test; this is for correctness only
 rm -f tst/orbitspeedtest.g
 
-# Find the ATLAS version number
-atlasdir=$(ls -1d %{_gap_dir}/pkg/atlasrep-*)
-
 # Tell ATLAS where to find downloaded files
 mkdir ~/.gap
 cat > ~/.gap/gap.ini << EOF
 SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/" );
-SetUserPreference( "AtlasRep", "AtlasRepTOCData", [
-  "core|$atlasdir/atlasprm.json",
-  "internal|$atlasdir/datapkg/toc.json",
-  "mfer|%{_builddir}/atlasrep/mfertoc.json" ,
-  "ctblocks|%{_builddir}/atlasrep/ctblockstoc.json" ] );
 EOF
 
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %endif
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.9.0-1
+- Version 4.9.0
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+- Move TOC data into the testdata tarball
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 4.8.5-1
 - Version 4.8.5
 

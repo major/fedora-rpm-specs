@@ -1,9 +1,12 @@
 Name:           xgap
 Version:        4.31
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GUI for GAP
 
-License:        GPLv2+
+# The project as a whole is GPL-2.0-or-later.
+# src.x11/selfile.{c,h} is HPND.
+License:        GPL-2.0-or-later AND HPND
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/xgap/
 Source0:        https://github.com/gap-packages/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Created by Jerry James <loganjerry@gmail.com>
@@ -15,9 +18,13 @@ Source2:        XGap
 Patch0:         %{name}-warning.patch
 # Fix computation of GAParch
 Patch1:         %{name}-gaparch.patch
+# Fix documentation references
+# See https://github.com/gap-packages/xgap/pull/20
+Patch2:         %{name}-ref.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gap-devel
+BuildRequires:  gap-pkg-smallgrp-doc
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig(xaw7)
@@ -34,7 +41,7 @@ A X Windows GUI for GAP.
 Summary:        XGap documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-online-help
+Requires:       gap-pkg-smallgrp-doc
 
 %description doc
 This package contains documentation for %{name}.
@@ -45,33 +52,29 @@ This package contains documentation for %{name}.
 # Autoloading this package interferes with SAGE (bz 819705).
 sed -i "/^Autoload/s/true/false/" PackageInfo.g 
 
-# Remove references to an obsolete GAP manual
-sed -i '/prg/d' doc/manual.tex
-
 %build
-export CFLAGS="%{build_cflags} -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE"
-%configure --with-gaproot=%{_gap_dir}
+export CFLAGS="%{build_cflags} -D_GNU_SOURCE"
+%configure --with-gaproot=%{gap_dir}
 %make_build
 
 # Fix a path in the shell wrapper
 sed -i "s,$PWD,\$GAP_DIR/pkg/%{name}-%{version}," bin/xgap.sh
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/etc ../../etc
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/pkg/smallgrp ..
 ln -s %{name}-%{version} ../%{name}
 make -C doc manual
-rm -f ../%{name} ../../{doc,etc}
+rm -f ../%{name} ../smallgrp ../../{doc,etc}
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}
-cp -a *.g bin doc examples htm lib %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}/doc/{buildman.*,Makefile,make_doc}
-mv %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}/bin/xgap.sh \
-   %{buildroot}%{_bindir}/xgap
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}-%{version}/bin/*/{Makefile,config*,*.o}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{name}/doc
+cp -a *.g bin examples htm lib %{buildroot}%{gap_dir}/pkg/%{name}
+mv %{buildroot}%{gap_dir}/pkg/%{name}/bin/xgap.sh %{buildroot}%{_bindir}/xgap
+rm %{buildroot}%{gap_dir}/pkg/%{name}/bin/*/{Makefile,config*,*.o}
+%gap_copy_docs -n %{name}
 
 # Install the desktop file
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -87,27 +90,32 @@ cp -p %{SOURCE2} %{buildroot}%{_datadir}/X11/app-defaults
 # to be invoked.
 #
 #%check
-#gap -l "%%{buildroot}%%{_gap_dir};%%{_gap_dir}" < tst/testall.g
+#gap -l "%%{buildroot}%%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/X11/app-defaults/XGap
-%{_gap_dir}/pkg/%{name}-%{version}/
-%exclude %{_gap_dir}/pkg/%{name}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{name}-%{version}/examples/
-%exclude %{_gap_dir}/pkg/%{name}-%{version}/htm/
+%{gap_dir}/pkg/%{name}/
+%exclude %{gap_dir}/pkg/%{name}/doc/
+%exclude %{gap_dir}/pkg/%{name}/examples/
+%exclude %{gap_dir}/pkg/%{name}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{name}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{name}-%{version}/examples/
-%docdir %{_gap_dir}/pkg/%{name}-%{version}/htm/
-%{_gap_dir}/pkg/%{name}-%{version}/doc/
-%{_gap_dir}/pkg/%{name}-%{version}/examples/
-%{_gap_dir}/pkg/%{name}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{name}/doc/
+%docdir %{gap_dir}/pkg/%{name}/examples/
+%docdir %{gap_dir}/pkg/%{name}/htm/
+%{gap_dir}/pkg/%{name}/doc/
+%{gap_dir}/pkg/%{name}/examples/
+%{gap_dir}/pkg/%{name}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.31-4
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+- Add -ref patch
+
 * Mon Jul 25 2022 Jerry James <loganjerry@gmail.com> - 4.31-3
 - Rebuild due to changed binary dir name on s390x
 

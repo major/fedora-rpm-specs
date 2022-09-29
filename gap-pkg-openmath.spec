@@ -1,5 +1,5 @@
 %global pkgname openmath
-%global PkgName OpenMath
+%global upname  OpenMath
 
 # When bootstrapping a new architecture, there is no gap-pkg-scscp package yet.
 # However, we only need that package to build documentation; it needs this
@@ -11,13 +11,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        11.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Import and export of OpenMath objects for GAP
 
-License:        GPLv2+
-URL:            https://gap-packages.github.io/openmath/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{PkgName}-%{version}.tar.gz
+License:        GPL-2.0-or-later
 BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+URL:            https://gap-packages.github.io/openmath/
+Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+
+%global _docdir_fmt %{name}
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -46,39 +49,42 @@ Requires:       gap-pkg-scscp-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{PkgName}-%{version}
+%autosetup -p0 -n %{upname}-%{version}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
-ln -s ../%{PkgName}-%{version} ../pkg
-%if %{without bootstrap}
-ln -s %{_gap_dir}/pkg/SCSCP-* ../pkg
-%endif
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+ln -s ../%{upname}-%{version} ../pkg
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{PkgName}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{PkgName}-%{version}/{.package_note*,CHANGES,COPYING,dev_notes.txt,examples,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{PkgName}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g cds gap hasse private tst %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
-%doc CHANGES dev_notes.txt examples README.md
+%doc CHANGES README.md
 %license COPYING
-%{_gap_dir}/pkg/%{PkgName}-%{version}/
-%exclude %{_gap_dir}/pkg/%{PkgName}-%{version}/doc/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{PkgName}-%{version}/doc/
-%{_gap_dir}/pkg/%{PkgName}-%{version}/doc/
+%doc examples
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
+- Update for gap 4.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

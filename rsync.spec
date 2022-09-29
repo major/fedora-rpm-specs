@@ -9,7 +9,7 @@
 Summary: A program for synchronizing files over a network
 Name: rsync
 Version: 3.2.6
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 URL: https://rsync.samba.org/
 
 Source0: https://download.samba.org/pub/rsync/src/rsync-%{version}%{?prerelease}.tar.gz
@@ -37,6 +37,8 @@ Provides: bundled(zlib) = 1.2.8
 License: GPLv3+
 
 Patch1: rsync-3.2.2-runtests.patch
+Patch2: rsync-3.2.6-filter-relative.patch
+Patch3: rsync-3.2.6-filter-remote.patch
 
 %description
 Rsync uses a reliable algorithm to bring remote and host files into
@@ -69,6 +71,8 @@ package provides the anonymous rsync service.
 
 #%patch0 -p1 -b .verify-hostname
 %patch1 -p1 -b .runtests
+%patch2 -p1 -b .filter-relative
+%patch3 -p1 -b .filter-remote
 
 %build
 %configure \
@@ -119,6 +123,9 @@ install -D -m644 %{SOURCE6} $RPM_BUILD_ROOT/%{_unitdir}/rsyncd@.service
 %systemd_postun_with_restart rsyncd.service
 
 %changelog
+* Tue Sep 27 2022 Michal Ruprich <mruprich@redhat.com> - 3.2.6-2
+- Resolves: #2128682 - rsync fail with "ERROR: rejecting unrequested file-list name..." depend of parameters order
+
 * Mon Sep 12 2022 Michal Ruprich <mruprich@redhat.com> - 3.2.6-1
 - New version 3.2.6
 

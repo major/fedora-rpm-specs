@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Group cohomology and Massey products
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -31,27 +32,23 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{CHANGES,COPYING,README}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
 
 # Do not run the batch.g test.  It never terminates.  The instructions indicate
 # it has to be interrupted manually.
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" << EOF
+gap -l "%{buildroot}%{gap_dir};" << EOF
 LoadPackage("crime");
 GAP_EXIT_CODE(Test("tst/test.tst", rec(compareFunction := "uptowhitespace")));
 EOF
@@ -59,14 +56,17 @@ EOF
 %files
 %doc CHANGES.md README.md
 %license COPYING
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6-3
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6-2
 - Convert License tag to SPDX
 

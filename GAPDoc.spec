@@ -1,20 +1,28 @@
 # When bootstrapping a new architecture, there is no gap-pkg-io package yet,
 # since it requires this package to build.  This package can be built without
 # gap-pkg-io, but  needs it for completeness.  Use the following procedure:
-# 1. Do a bootstrap build of this package.
-# 2. Build gap-pkg-io.
-# 3. Do a normal build of this packages, which includes running the tests.
+# 1. Do a bootstrap build of this package
+# 2. Build gap-pkg-autodoc in bootstrap mode
+# 3. Build gap-pkg-io
+# 4. Do a normal build of this packages, which builds the documentation
+# 5. Build gap-pkg-autodoc in non-bootstrap mode
 %bcond_with bootstrap
+
+# The tests require gap-pkg-browse, which is not available in the bootstrap
+# process until well after we build the non-bootstrap GAPDoc.  Use this to
+# enable the tests later.
+%bcond_with test
 
 Name:           GAPDoc
 Version:        1.6.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GAP documentation tool
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/%{name}/
 Source0:        https://www.math.rwth-aachen.de/~Frank.Luebeck/%{name}/%{name}-%{version}.tar.bz2
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  ghostscript
@@ -43,6 +51,10 @@ Requires:       libxml2
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-io-doc
 Requires:       gap-pkg-io
+%endif
+
+%if %{with test}
+BuildRequires:  gap-pkg-browse
 %endif
 
 Provides:       gap-pkg-gapdoc = %{version}-%{release}
@@ -131,43 +143,69 @@ This package contains documentation for GAPDoc.
 %autosetup
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
 ln -s ../GAPDoc-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
+gap -l "$PWD/..;" makedocrel.g
 rm -fr ../../doc ../pkg
 
 # Remove build paths
-sed -i "s|$PWD/..|%{_gap_dir}|g" doc/*.html example/*.html
+sed -i "s|$PWD/..|%{gap_dir}|g" doc/*.html example/*.html
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{name}-%{version} %{buildroot}%{_gap_dir}/pkg/%{name}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}/{3k+1,doc,example}/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}/{3k+1,doc,example}/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{name}/{CHANGES,GPL,README.md}
+mkdir -p %{buildroot}%{gap_dir}/pkg/GAPDoc/{3k+1,doc,example}
+cp -a *.{dtd,g} lib styles tst version %{buildroot}%{gap_dir}/pkg/GAPDoc
+%gap_copy_docs -n GAPDoc
+%gap_copy_docs -n GAPDoc -d 3k+1
+%gap_copy_docs -n GAPDoc -d example
+# Link, rather than copy, the style files
+for fil in %{gapdoc_files}; do
+  for dir in 3k+1 doc example; do
+    path=%{buildroot}%{gap_dir}/pkg/GAPDoc/$dir/$fil
+    rm -f $path
+    ln -s ../styles/$fil $path
+  done
+done
+
+%if %{with test}
+%check
+export LC_ALL=C.UTF-8
+mkdir ../pkg
+ln -s ../%{name}-%{version} ../pkg
+gap -l "$PWD/..;" << EOF
+LoadPackage( "Browse" );
+GAP_EXIT_CODE( Test( "tst/test.tst" ) );
+EOF
+rm -fr ../pkg
+%endif
 
 %files
 %doc CHANGES README.md
 %license GPL
-%{_gap_dir}/pkg/%{name}/
-%exclude %{_gap_dir}/pkg/%{name}/3k+1/
-%exclude %{_gap_dir}/pkg/%{name}/doc/
-%exclude %{_gap_dir}/pkg/%{name}/example/
+%{gap_dir}/pkg/%{name}/
+%exclude %{gap_dir}/pkg/%{name}/3k+1/
+%exclude %{gap_dir}/pkg/%{name}/doc/
+%exclude %{gap_dir}/pkg/%{name}/example/
 
 %files latex
 # This is a metapackage to pull in dependencies only
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{name}/3k+1/
-%docdir %{_gap_dir}/pkg/%{name}/doc/
-%docdir %{_gap_dir}/pkg/%{name}/example/
-%{_gap_dir}/pkg/%{name}/3k+1/
-%{_gap_dir}/pkg/%{name}/doc/
-%{_gap_dir}/pkg/%{name}/example/
+%docdir %{gap_dir}/pkg/%{name}/3k+1/
+%docdir %{gap_dir}/pkg/%{name}/doc/
+%docdir %{gap_dir}/pkg/%{name}/example/
+%{gap_dir}/pkg/%{name}/3k+1/
+%{gap_dir}/pkg/%{name}/doc/
+%{gap_dir}/pkg/%{name}/example/
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 1.6.6-3
+- Update for gap 4.12.0
+- Add conditionally-enabled %%check script
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.6-2
 - Convert License tag to SPDX
 - Drop license tags for no longer bundled mathml files

@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Free group algorithms for GAP
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://github.com/chsievers/fga
 Source0:        https://github.com/chsievers/fga/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  tth
@@ -40,37 +41,42 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}-%{version}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 pushd doc
-ln -s %{_gap_dir} GAPROOT
+ln -s %{gap_dir} GAPROOT
 ./make_doc
 popd
 rm -f ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/{doc/make_doc,.gitignore,COPYING,README}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README
 %license COPYING
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}/htm/
-%{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.0-12
+- Update for gap 4.12.0
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.0-11
 - Convert License tag to SPDX
 

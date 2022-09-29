@@ -7,7 +7,7 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        4.3.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
@@ -15,19 +15,19 @@ Summary:        Python library for extracting streams from various websites
 License:        BSD and ASL 2.0
 URL:            https://streamlink.github.io/
 Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# Drop development dependencies not available in Fedora
-Patch0:         %{name}-4.2.0-dev_dependencies.patch
+# Drop development dependencies not available in Fedora or not usefull for tests
+Patch0:         %{name}-5.0.1-dev_dependencies.patch
 # Use pycryptodomex library instead of pycryptodome
-Patch1:         %{name}-4.2.0-pycryptodomex.patch
-# - Use sphinx-rtd-theme to build documentation instead of furo (not available
-#   in Fedora, see also https://bugzilla.redhat.com/show_bug.cgi?id=1910798)
+Patch1:         %{name}-5.0.1-pycryptodomex.patch
 # - Drop intersphinx mappings (no network available during build)
-Patch2:         %{name}-4.2.0-doc.patch
+# - Fix dependency versions
+Patch2:         %{name}-5.0.1-doc.patch
 # Ensure python3 interpreter is called during build
 Patch3:         %{name}-3.0.0-python3.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  make
+Recommends:     /usr/bin/ffmpeg
 BuildArch:      noarch
 
 %description
@@ -106,6 +106,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Tue Sep 27 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.0.1-1
+- Update to 5.0.1
+
 * Tue Aug 16 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 4.3.0-1
 - Update to 4.3.0
 

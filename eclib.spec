@@ -2,7 +2,7 @@
 
 Name:           eclib
 Version:        20220621
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for Computations on Elliptic Curves
 License:        GPL-2.0-or-later
 URL:            https://homepages.warwick.ac.uk/~masgaj/mwrank/
@@ -103,6 +103,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 20220621-3
+- Rebuild for pari 2.15.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 20220621-2
 - Convert License tag to SPDX
 

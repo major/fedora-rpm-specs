@@ -1,4 +1,4 @@
-%global upver 0.0.12pl1
+%global upver 0.0.13
 
 Name:           gp2c
 Version:        %(sed s/pl/./ <<< %{upver})

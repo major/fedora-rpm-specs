@@ -2,15 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Compute radicals for roots of solvable rational polynomials
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/radiroot/
 Source0:        https://github.com/gap-packages/radiroot/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fix out of order lines in an example
 Patch0:         %{name}-example.patch
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -40,38 +41,43 @@ This package contains documentation for gap-pkg-%{pkgname}.
 sed -i 's,/doc/manual,&bib.xml,' doc/manual.tex
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/etc ../../etc
-ln -s %{_gap_dir}/doc ../../doc
-ln -s %{_gap_dir}/pkg/GAPDoc ../gapdoc
-pushd doc
+ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/pkg/GAPDoc ../gapdoc
+cd doc
 ./make_doc
-popd
+cd -
 rm -f ../../{doc,etc} ../gapdoc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{doc/make_doc,CHANGES,LICENSE,README}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.9-3
+- Update for gap 4.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

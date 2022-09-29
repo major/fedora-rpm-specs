@@ -2,12 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Standard data structures for GAP
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Remove an unused function
+Patch0:         %{name}-unused.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -40,45 +43,42 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -p1 -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
-./configure %{_gap_dir}
+./configure %{gap_dir}
 %make_build
 
 # Build the documentation
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-ln -s %{_gap_dir}/doc ../../doc
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg ../../doc
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -p bin/%{_gap_arch}/.libs/datastructures.so \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -a doc gap tst *.g  %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin gap tst  %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license COPYRIGHT.md LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.2.7-4
+- Update for gap 4.12.0
+- Add -unused patch to silence compiler warnings
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 0.2.7-3
 - Convert License tag to SPDX
 

@@ -8,11 +8,12 @@
 %bcond_with tests
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.2.3
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Simple web access for GAP
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/%{upname}/
 Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
@@ -39,41 +40,44 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p1 -n %{upname}-%{version}
+%autosetup -n %{upname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{_gap_dir} --disable-silent-rules
+%configure --with-gaproot=%{gap_dir} --disable-silent-rules
 
 # Build the binary interface
 %make_build
 
 # Build the documentation
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}
-cp -a bin doc gap tst *.g %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/bin/*/{.libs,*.la}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g bin gap tst %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %if %{with tests}
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %endif
 
 %files
 %doc CHANGES README.md
 %license GPL LICENSE
-%{_gap_dir}/pkg/%{upname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}-%{version}/doc/
-%{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
+- Version 2.3.1
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.2.3-1
 - Convert License tag to SPDX
 

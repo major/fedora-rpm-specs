@@ -2741,10 +2741,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
-- Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 7.1.0-3
+* Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 7.1.0-3
 - Unconditionally enable capstone-devel
 
-- Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 7.1.0-2
+* Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 7.1.0-2
 - Bump required meson version
 
 * Wed Aug 31 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.1.0-1

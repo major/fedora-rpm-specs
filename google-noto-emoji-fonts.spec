@@ -1,4 +1,4 @@
-%global commit0 9a5261d871451f9b5183c93483cbd68ed916b1e9
+%global commit0 e8073ab740292f8d5f19b5de144087ac58044d06
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global fontname google-noto-emoji
@@ -11,8 +11,8 @@
 
 
 Name:           %{fontname}-fonts
-Version:        20211102
-Release:        2%{?dist}
+Version:        20220916
+Release:        1%{?dist}
 Summary:        Google “Noto Emoji” Black-and-White emoji font
 
 # In noto-emoji-fonts source
@@ -28,6 +28,7 @@ URL:            https://github.com/googlei18n/noto-emoji
 Source0:        https://github.com/googlei18n/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
 Source2:        %{fontname}.metainfo.xml
 Source3:        %{fontname}-color.metainfo.xml
+Source4:        Noto_Emoji.zip
 
 Patch0:         noto-emoji-build-all-flags.patch
 Patch1:         noto-emoji-use-gm.patch
@@ -67,7 +68,7 @@ Provides:       google-noto-color-emoji-fonts = 20150617
 This package provides the Google “Noto Color Emoji” colored emoji font.
 
 %prep
-%setup -n noto-emoji-%{commit0}
+%setup -a 4 -n noto-emoji-%{commit0}
 %patch0 -p1 -b .noto-emoji-build-all-flags
 %patch1 -p1 -b .noto-emoji-use-gm.patch
 %patch2 -p1 -b .noto-emoji-use-system-pngquant
@@ -94,7 +95,7 @@ install -m 0644 -p fonts/NotoColorEmoji.ttf %{buildroot}%{_fontdir}
 %endif
 
 # Pre-built, and included with the source:
-install -m 0644 -p fonts/NotoEmoji-Regular.ttf %{buildroot}%{_fontdir}
+install -m 0644 -p static/NotoEmoji-Regular.ttf %{buildroot}%{_fontdir}
 
 mkdir -p %{buildroot}%{_datadir}/appdata
 install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/appdata
@@ -112,6 +113,9 @@ install -m 0644 -p %{SOURCE3} %{buildroot}%{_datadir}/appdata
 
 
 %changelog
+* Tue Sep 27 2022 Peng Wu <pwu@redhat.com> - 20220916-1
+- Update to v2.038
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20211102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

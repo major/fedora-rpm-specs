@@ -4,7 +4,7 @@
 
 Name:           gjs
 Version:        1.74.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -92,6 +92,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 1.74.0-3
+- Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
+
 * Thu Sep 22 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.74.0-2
 - Rebuild against mozjs102-102.3.0-1
 

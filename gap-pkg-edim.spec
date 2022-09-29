@@ -2,11 +2,12 @@
 %global upname EDIM
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.5
-Release:        10%{?dist}
+Version:        1.3.6
+Release:        1%{?dist}
 Summary:        Elementary divisors of integer matrices
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/%{upname}/
 Source0:        https://www.math.rwth-aachen.de/~Frank.Luebeck/%{upname}/%{upname}-%{version}.tar.bz2
 
@@ -39,12 +40,13 @@ Among the other functions of the package are:
   Majewski, Matthews, Sterling (using LLL- or modular techniques).
 
 %package doc
+# The content is GPL-2.0-or-later.
+# doc/mathml.css is MPL-1.1.
+License:        GPL-2.0-or-later AND MPL-1.1
 Summary:        EDIM documentation
-# doc/mathml.css is MPLv1.1; all other files are GPLv2+
-License:        GPLv2+ and MPLv1.1
+BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-BuildArch:      noarch
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
@@ -63,41 +65,41 @@ done
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do not use %%configure.
-./configure %{_gap_dir}
+./configure %{gap_dir}
 %make_build
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+sed -i.orig '/IsBound/ipathtoroot := "%{gap_dir}";' makedocrel.g
 mkdir ../pkg
 ln -s ../%{upname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
-rm -fr ../../doc ../pkg
+gap -l "$PWD/..;" makedocrel.g
+rm -fr ../pkg
+mv makedocrel.g.orig makedocrel.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/bin/%{_gap_arch}
-cp -p bin/%{_gap_arch}/.libs/ediv.so \
-   %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/bin/%{_gap_arch}
-cp -a doc lib tst VERSION *.g %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g bin lib tst VERSION %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -q -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/test.g 2>&1 | tee log
-! grep -Fq 'false' log
-rm -f log
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README TODO
 %license GPL
-%{_gap_dir}/pkg/%{upname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}-%{version}/doc/
-%{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.3.6-1
+- Version 1.3.6
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.3.5-10
 - Convert License tag to SPDX
 

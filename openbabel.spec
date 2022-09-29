@@ -3,9 +3,18 @@
 # we don't want to provide private Perl or Python extension libs
 %global __provides_exclude_from ^(%{perl_vendorarch}/auto|%{python3_sitearch})/.*\\.so$
 
+# Avoid LTO flags in these architectures
+# eigen3/Eigen/src/Core/arch/AltiVec/MatrixProduct.h:1199:26:
+# error: inlining failed in call to 'always_inline' 'Eigen::internal::bload<Eigen::internal::blas_data_mapper<double, long, 0, 0, 1>, double __vector(2), long, 2l, 0, 
+%if 0%{?rhel}
+%ifarch %{power64}
+%define _lto_cflags %{nil}
+%endif
+%endif
+
 Name: openbabel
 Version: 3.1.1
-Release: 12%{?dist}
+Release: 14%{?dist}
 Summary: Chemistry software file format converter
 License: GPLv2
 URL: https://openbabel.org/
@@ -58,9 +67,11 @@ BuildRequires: eigen3-devel
 BuildRequires: gcc-c++
 %if 0%{?fedora}
 BuildRequires: inchi-devel >= 1.0.3
+BuildRequires: wxGTK-devel
+%else
+BuildRequires: wxGTK3-devel
 %endif
 BuildRequires: libxml2-devel
-BuildRequires: wxGTK-devel
 BuildRequires: ImageMagick
 BuildRequires: rapidjson-devel
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
@@ -334,6 +345,12 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Tue Sep 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-14
+- Fix EPEL builds
+
+* Tue Sep 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-13
+- New rebuild
+
 * Sun Aug 07 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-12
 - Add profile file openbabel3.sh (rhbz#2112710)
 

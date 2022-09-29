@@ -1,18 +1,15 @@
-%global pkgname  francy
+%global pkgname francy
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.2.4
-Release:        8%{?dist}
+Version:        1.2.5
+Release:        1%{?dist}
 Summary:        Framework for interactive discrete mathematics
-BuildArch:      noarch
 
 License:        MIT
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# The string returned by DrawSplash() can differ based on the order of some
-# dict entries.  Only do a cursory check of the return value.
-# See https://github.com/gap-packages/francy/pull/76
-Patch0:         %{name}-test.patch
 
 BuildRequires:  elinks
 BuildRequires:  gap-devel
@@ -53,32 +50,36 @@ rm gap/canvas.gi.orig
 
 %build
 export LC_ALL=C.UTF-8
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g examples gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.2.5-1
+- Version 1.2.5
+- Drop upstreamed -test patch
+- Update for gap 4.12.0
+
 * Mon Jul 25 2022 Jerry James <loganjerry@gmail.com> - 1.2.4-8
 - Add -test patch to fix the tests
 - Invoke xdg-open instead of open

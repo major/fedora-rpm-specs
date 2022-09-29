@@ -1,11 +1,12 @@
 %global pkgname io
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.7.2
-Release:        4%{?dist}
+Version:        4.7.3
+Release:        1%{?dist}
 Summary:        Unix I/O functionality for GAP
 
 License:        GPL-3.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            http://gap-packages.github.io/io/
 Source0:        https://github.com/gap-packages/io/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 
@@ -50,8 +51,8 @@ standard builtin types of GAP like numbers, permutations, polynomials,
 lists, and records and can be extended to nearly arbitrary GAP objects.
 
 %package doc
-Summary:        Unix I/O for GAP documentation
 BuildArch:      noarch
+Summary:        Unix I/O for GAP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
@@ -59,30 +60,23 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
-export CFLAGS='%{build_cflags} -D_FILE_OFFSET_BITS=64'
-%configure --with-gaproot=%{_gap_dir}
+%configure --with-gaproot=%{gap_dir}
 %make_build
 make doc
 
 %install
-# Get the name of the arch-specific subdirectory
-source %{_gap_dir}/sysinfo.gap
-
-# Install, but not the libtool archive
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}/bin/$GAParch
-cp -p bin/$GAParch/io.so %{buildroot}%{_gap_dir}/pkg/%{pkgname}/bin/$GAParch
-cp -a *.g doc example gap tst %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin example gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 # Cannot run the HTTP test, as there is no network access on koji builders
 runtest() {
-  gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" $1 < /dev/null 2>&1 | tee log
+  gap -l "%{buildroot}%{gap_dir};" $1 < /dev/null 2>&1 | tee log
   ! grep -Fq 'gap> Error' log
   rm -f log
 }
@@ -102,17 +96,21 @@ popd
 %files
 %doc CHANGES README.md TODO
 %license GPL LICENSE
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}/example/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/example/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}/example/
-%{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/example/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/example/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/example/
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 4.7.3-1
+- Version 4.7.3
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 4.7.2-4
 - Convert License tag to SPDX
 

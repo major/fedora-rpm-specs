@@ -2,9 +2,12 @@
 # version of Theano in Fedora.  If aesara is ever packaged for Fedora, we can
 # use it instead.
 
+# We are archful (see below), but there are no ELF objects in the binary RPM.
+%global debug_package %{nil}
+
 Name:           sympy
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -15,9 +18,16 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{name}-%{version}.ta
 # Skip tests that require a display
 Patch0:         %{name}-circuitplot.patch
 
-BuildArch:      noarch
+# This package used to be noarch, and should still be noarch.  However, because
+# there is no JDK available on i686 anymore, the antlr4 package is also not
+# available on i686.  When we can stop building on i686 altogether, we can bring
+# this back.  In the meantime, we cannot claim to be noarch, because the i686
+# build is different from the other arches in lacking BuildRequires: antlr4.
+# BuildArch:      noarch
 
+%ifarch %{java_arches}
 BuildRequires:  antlr4
+%endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -74,7 +84,9 @@ Recommends:     tex(amsmath.sty)
 Recommends:     tex(euler.sty)
 Recommends:     tex(eulervm.sty)
 Recommends:     tex(standalone.cls)
+%ifarch %{java_arches}
 Recommends:     %{py3_dist antlr4-runtime}
+%endif
 Recommends:     %{py3_dist cython}
 Recommends:     %{py3_dist gmpy2}
 Recommends:     %{py3_dist matplotlib}
@@ -151,8 +163,10 @@ for fil in sympy/physics/mechanics/models.py \
 done
 
 %build
+%ifarch %{java_arches}
 # Regenerate the ANTLR files
 %{python3} setup.py antlr
+%endif
 
 # Build
 %pyproject_wheel
@@ -219,6 +233,10 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.11.1-2
+- Do not run antlr on i386 where it doesn't exist
+- Be archful so we don't BR a package that doesn't exist on i386
+
 * Tue Sep  6 2022 Jerry James <loganjerry@gmail.com> - 1.11.1-1
 - Version 1.11.1
 - Convert License tag to SPDX

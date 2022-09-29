@@ -2,14 +2,15 @@
 %global upname  MapClass
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.5
-Release:        2%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        Calculate mapping class group orbits for a finite group
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{upname}/
 Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -32,34 +33,39 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{upname}-%{version}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Build the documentation
 mkdir -p ../pkg
 ln -s ../%{upname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{upname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/scripts
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/{LICENSE,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{upname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}-%{version}/doc/
-%{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.6-1
+- Version 1.4.6
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,10 +4,10 @@
 # debuginfo doesn't work yet
 %global debug_package %{nil}
 
-%global built_tag_strip 1.1.0
+%global built_tag_strip 1.2.0
 
 Name: aardvark-dns
-Version: 1.1.0
+Version: 1.2.0
 %if "%{_vendor}" == "debbuild"
 Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
 License: ASL-2.0+

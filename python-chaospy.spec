@@ -5,7 +5,7 @@ Chaospy is a numerical tool for performing uncertainty quantification using
 polynomial.}
 
 Name:           python-chaospy
-Version:        4.3.7
+Version:        4.3.8
 Release:        %autorelease
 Summary:        Numerical tool for performing uncertainty quantification using polynomial
 License:        MIT

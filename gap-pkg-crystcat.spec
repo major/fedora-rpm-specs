@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Crystallographic groups catalog
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.math.uni-bielefeld.de/~gaehler/gap45/packages.php
 Source0:        https://www.math.uni-bielefeld.de/~gaehler/gap45/CrystCat/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-cryst-doc
@@ -43,10 +44,12 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/etc ../../etc
-ln -s %{_gap_dir}/doc ../../doc
-ln -s %{_gap_dir}/pkg/cryst ..
+ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/pkg/cryst ..
 pushd doc
 ./make_doc
 popd
@@ -56,30 +59,31 @@ rm -f ../../{doc,etc} ../cryst
 gzip --best grp/crystcat.grp
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/make_doc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/{Changelog,GPL,README}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g grp htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc Changelog README
 %license GPL
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}/htm/
-%{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.1.10-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.1.10-1
 - Convert License tag to SPDX
 

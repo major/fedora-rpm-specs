@@ -1,5 +1,5 @@
 Name:           fennel
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        A Lisp that compiles to Lua
 
@@ -10,7 +10,7 @@ Source0:        https://git.sr.ht/~technomancy/fennel/archive/%{version}.tar.gz#
 BuildArch:      noarch
 
 BuildRequires:  lua-devel >= 5.1
-BuildRequires: make
+BuildRequires:  make
 
 Provides:       lua-fennel = %{version}-%{release}
 %if 0%{?rhel} && 0%{?rhel} < 9

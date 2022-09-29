@@ -1,21 +1,16 @@
-%global git_commit 51acc5bd5378520e738a074789d90f2cd42d89c2
-%global git_date 20220127
+%global git_commit f3646d04c138dc3279528808dcf6f847887e4a4f
+%global git_date 20220804
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
 
 Name:           gr-rds
-Version:        1.1.0
-Release:        34.%{git_suffix}%{?dist}
+Version:        3.10
+Release:        1.%{git_suffix}%{?dist}
 Summary:        GNU Radio FM RDS Receiver
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/bastibl/gr-rds
-Source0:        https://github.com/bastibl/%{name}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
-# https://github.com/bastibl/gr-rds/pull/34
-#Patch0:         gr-rds-1.1.0-boost173.patch
-# https://github.com/bastibl/gr-rds/issues/41
-# https://github.com/bastibl/gr-rds/pull/42
-#Patch1:         gr-rds-1.1.0-gnuradio39.patch
+Source0:        %{url}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
 BuildRequires:  gnuradio-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  cmake
@@ -79,6 +74,12 @@ install -p -m 644 examples/* %{buildroot}%{_docdir}/%{name}/examples
 %doc %{_docdir}/%{name}/examples
 
 %changelog
+* Tue Sep 27 2022 Dan Horák <dan[at]danny.cz> - 3.10-1.20220804gitf3646d04
+- Update to recent snapshot with new versioning
+
+* Tue Sep 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-35.20220127git51acc5bd
+- Rebuild for new gnuradio
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-34.20220127git51acc5bd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

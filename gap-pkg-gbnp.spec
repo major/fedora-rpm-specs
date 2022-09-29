@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computing Gröbner bases of noncommutative polynomials
 
 License:        LGPL-2.1-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/gbnp/
 Source0:        https://github.com/gap-packages/gbnp/archive/v%{version}/GBNP-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -39,9 +40,9 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p0 -n %{pkgname}-%{version}
 
 # Help GAP find its files
-sed -i 's,\\\\\\\(.*\) ,"%{_gap_dir}\1",;s/eval //' etc/workspace
-sed -i 's,\\\\;,%{_gap_dir};,' etc/makedepend etc/workspace
-sed -i "s,-r,-l '%{_gap_dir};%{_builddir}/%{pkgname}-%{version}/build' &,;s/eval //" \
+sed -i 's,\\\\\\\(.*\) ,"%{gap_dir}\1",;s/eval //' etc/workspace
+sed -i 's,\\\\;,%{gap_dir};,' etc/makedepend etc/workspace
+sed -i "s,-r,-l '%{_builddir}/%{pkgname}-%{version}/build;' &,;s/eval //" \
     etc/gapscript
 
 %build
@@ -50,33 +51,31 @@ export LC_ALL=C.UTF-8
 
 %install
 # We install test files for use by GAP's internal test suite runner.
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.codecov.yml,.depend,.gitignore,.release,Changelog,COPYRIGHT,GNUmakefile,README*,TODO}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.github,build,etc}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/{,nmo/}*.{aux,bbl,blg,brf,idx,ilg,in,ind,log,new,out,pnr,tex}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/examples
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/TODO
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/examples/{head.txt,makedepend,GNUmakefile,TODO,txt2xml.sed}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/{gbnp-uses.sed,OPTIONS,STRUCTURE,TODO}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/tst/{.depend,GNUmakefile,nmo,txt2xml.sed}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+cp -a doc/{articles,examples,nmo} %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/{gbnp-uses.sed,OPTIONS,STRUCTURE,TODO}
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/{.depend,GNUmakefile,txt2xml.sed}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-make tests
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc Changelog README.md
 %license COPYRIGHT doc/LGPL
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-3
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-2
 - Convert License tag to SPDX
 

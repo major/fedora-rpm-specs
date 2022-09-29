@@ -11,7 +11,7 @@
 Name: gdm
 Epoch: 1
 Version: 43.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: The GNOME Display Manager
 
 License: GPLv2+
@@ -25,6 +25,7 @@ Source5: default.pa-for-gdm
 Source6: gdm.sysusers
 
 # Downstream patches
+Patch70001: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
 Patch80001: 0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch90001: 0001-data-add-system-dconf-databases-to-gdm-profile.patch
 
@@ -300,6 +301,17 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Tue Sep 27 2022 Ray Strode <rstrode@redhat.com> - 1:43.0-3
+- Keep F36 behavior for hybrid machines with vendor nvidia
+  driver, rather than defaulting to Xorg with wayland as
+  an option.
+  Resolves: #2128910
+
+* Tue Sep 27 2022 Ray Strode <rstrode@redhat.com> - 1:43.0-2
+- Allow users with hybrid machines with vendor nvidia driver to
+  elect to use the wayland session from the login screen menu.
+  Resolves: #2128910
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 1:43.0-1
 - Update to 43.0
 

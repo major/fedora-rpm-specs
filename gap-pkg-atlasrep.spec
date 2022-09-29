@@ -10,24 +10,26 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.1.4
+Version:        2.1.5
 Release:        1%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/
 Source0:        https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/%{pkgname}-%{version}.tar.gz
 Source1:        https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/%{pkgname}data.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source2:        %{name}-testdata.tar.xz
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
 BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-pkg-browse-doc
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-ctbllib-doc
+#BuildRequires:  gap-pkg-standardff-doc
 BuildRequires:  gap-pkg-tomlib
 %endif
 
@@ -55,13 +57,14 @@ Requires:       GAPDoc-doc
 Requires:       gap-pkg-browse-doc
 %if %{without bootstrap}
 Requires:       gap-pkg-ctbllib-doc
+#Requires:       gap-pkg-standardff-doc
 %endif
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
+%autosetup -n %{pkgname}-%{version}
 tar -x --strip-components=1 -f %{SOURCE1}
 rm {dataext,datagens,dataword}/dummy
 rm -fr dataword/{.cvsignore,CVS}
@@ -71,33 +74,29 @@ chmod a-x doc/*.xml
 
 %build
 # Link to main GAP documentation
-cp -a %{_gap_dir}/doc ../../doc
+cp -a %{gap_dir}/doc ../../doc
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-ln -s %{_gap_dir}/pkg/GAPDoc ../pkg
-ln -s %{_gap_dir}/pkg/Browse ../pkg
 %if %{with bootstrap}
 mkdir -p ../ctbllib/doc
 touch ../ctbllib/doc/manualbib.xml
 mkdir -p ../pkg/ctbllib/doc
 touch ../pkg/ctbllib/doc/manualbib.xml
 %else
-ctbllibdir=$(cd %{_gap_dir}/pkg && ls -1d ctbllib-*)
-cp -a %{_gap_dir}/pkg/${ctbllibdir} ..
-ln -s %{_gap_dir}/pkg/${ctbllibdir} ../pkg
-sed -i "s/ctbllib/${ctbllibdir}/" doc/main.xml
+cp -a %{gap_dir}/pkg/ctbllib ..
 %endif
-gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
-rm -fr ../../doc ../{ctbllib*,pkg}
+gap -l "$PWD/..;" makedocrel.g
+rm -fr ../../doc ../{ctbllib,pkg}
 
 # Remove the build directory from the documentation
 sed -i "s,$PWD/doc/\.\./\.\./pkg,../..,g" doc/*.html
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.package_note*,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+rm tst/*~
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g *.json bibl dataext datagens datapkg dataword gap tst \
+   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
@@ -112,19 +111,25 @@ SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "$PWD/" );
 EOF
 
 # Test
-# FIXME: a few tests fail, but succeed when a network is available.
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+mkdir -p ../pkg
+ln -s ../%{pkgname}-%{version} ../pkg
+gap -l "$PWD/..;" tst/testall.g
+rm -fr ../pkg
 
 %files
 %doc README.md
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.1.5-1
+- Version 2.1.5
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.1.4-1
 - Convert License tag to SPDX
 

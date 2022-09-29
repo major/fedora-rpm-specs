@@ -8,11 +8,12 @@
 %bcond_with bigtest
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.0.3
-Release:        3%{?dist}
+Version:        5.0.2
+Release:        1%{?dist}
 Summary:        GAP methods for semigroups
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://semigroups.github.io/Semigroups/
 Source0:        https://github.com/semigroups/Semigroups/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -90,7 +91,7 @@ sed -i 's/ -O3//' Makefile.in
 %build
 export LC_ALL=C.UTF-8
 export CPPFLAGS="-I%{_includedir}/eigen3"
-%configure --with-gaproot=%{_gap_dir} --disable-silent-rules \
+%configure --with-gaproot=%{gap_dir} --disable-silent-rules \
   --with-external-libsemigroups --without-march-native
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -103,33 +104,27 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_build
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-ln -s %{_gap_dir}/pkg/digraphs-* ../pkg
-ln -s %{_gap_dir}/pkg/io ../pkg
-ln -s %{_gap_dir}/pkg/smallsemi ../pkg
-gap -l "$PWD/..;%{_gap_dir}" makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 
-# Fix references to the build directory
-sed -i "s,$PWD,../..,g" doc/*.html
-
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a bin data doc gap *.g tst %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilx,ind,log,orig,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin data gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
 cd tst
-gap -l "%{_gap_dir};%{buildroot}%{_gap_dir}" << EOF
+gap -l "%{buildroot}%{gap_dir};" << EOF
 LoadPackage("semigroups");
 GAP_EXIT_CODE(Test("testinstall.tst", rec( compareFunction := "uptowhitespace" )));
 EOF
 
 %if %{with bigtest}
-gap -l "%{_gap_dir};%{buildroot}%{_gap_dir}" < teststandard.g
+gap -l "%{buildroot}%{gap_dir};" teststandard.g
 %endif
 
 cd -
@@ -137,14 +132,19 @@ cd -
 %files
 %doc CHANGELOG.md README.md VERSIONS
 %license GPL LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 5.0.2-1
+- Version 5.0.2
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 4.0.3-3
 - Rebuild due to changed binary dir name on s390x
 

@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Computing subgroups of finite soluble groups
 
 License:        BSD-2-Clause
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/crisp/
 Source0:        http://www.icm.tu-bs.de/~bhoeflin/crisp/%{pkgname}-%{version}.tar.bz2
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  tth
@@ -43,45 +44,50 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}-%{version}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 
 pushd doc
-pdftex manual
+pdftex -interaction=batchmode manual
 makeindex -s manual.mst manual
-pdftex manual
-pdftex manual
+pdftex -interaction=batchmode manual
+pdftex -interaction=batchmode manual
 popd
 
 rm -fr htm
 mkdir htm
-perl %{_gap_dir}/etc/convert.pl -n CRISP -c -i -t doc htm
+perl %{gap_dir}/etc/convert.pl -n CRISP -c -i -t doc htm
 
 rm ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE,README}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.5-8
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.5-7
 - Convert License tag to SPDX
 

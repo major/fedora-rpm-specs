@@ -1,19 +1,14 @@
 %global pkgname ace
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.5
+Version:        5.6.1
 Release:        1%{?dist}
 Summary:        Advanced Coset Enumerator
 
 License:        MIT
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/ace/
 Source0:        https://github.com/gap-packages/ace/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Add the noreturn attribute to more functions for better diagnostics
-Patch0:         %{name}-noreturn.patch
-# Initialize two variables that might be used uninitialized
-Patch1:         %{name}-uninit.patch
-# Make a call to the uname system call instead of invoking system()
-Patch2:         %{name}-utsname.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gcc
@@ -44,14 +39,19 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p1 -n %{pkgname}-%{version}
 
+# Do not force C90 mode
+sed -i 's/-pedantic -ansi/-pedantic/' src/Makefile
+
 %build
+export LC_ALL=C.UTF-8
+
 # This is NOT an autoconf-generated script.  Do not use %%configure.
-./configure %{_gap_dir}
-%make_build EXTRA_CFLAGS='%{build_cflags}' LDFLAGS='%{build_ldflags}'
+./configure %{gap_dir}
+%make_build
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
-ln -s %{_gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/etc ../../etc
 make doc
 rm -f ../../{doc,etc}
 
@@ -61,37 +61,42 @@ ps2pdf ace3001.ps ace3001.pdf
 popd
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.package_note*,CHANGES.md,configure,LICENSE,Makefile*,README.md,doc/make_doc,gap/CHANGES}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{doc/test,src,standalone-doc}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin examples gap htm res-examples tst VERSION \
+   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/gap/CHANGES
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/res-examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%exclude %{gap_dir}/pkg/%{pkgname}/res-examples/
 
 %files doc
 %doc standalone-doc/ace3001.pdf
-%license LICENSE
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/res-examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/res-examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/res-examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/res-examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-1
+- Version 5.6.1
+- Drop upstreamed patches
+- Update for gap 4.12.0
+
 * Tue Aug  2 2022 Jerry James <loganjerry@gmail.com> - 5.5-1
 - Version 5.5
 - Add -utsname patch to remove coreutils dependency

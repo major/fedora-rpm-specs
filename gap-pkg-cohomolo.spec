@@ -2,10 +2,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Add missing shebangs
@@ -48,46 +49,51 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p1 -n %{pkgname}-%{version}
 
 # Fix paths
-sed -i 's,\.\./\.\./\.\./,/usr/lib/gap/,' doc/make_doc
+sed -i 's,\.\./\.\./\.\./,%{gap_dir}/,' doc/make_doc
 
 %build
+export LC_ALL=C.UTF-8
+
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
-./configure %{_gap_dir}
+./configure %{gap_dir}
 
 # Build the binaries
-%make_build CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+%make_build
 
 # Build the documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/standalone
-cp -a bin doc gap htm testdata tst *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a standalone/{data.d,info.d} %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/standalone
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/make_doc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/{doc,standalone}
+cp -a bin gap htm testdata tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
+cp -a standalone/{data.d,info.d} %{buildroot}%{gap_dir}/pkg/%{pkgname}/standalone
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-4
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-3
 - Convert License tag to SPDX
 

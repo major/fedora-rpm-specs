@@ -1,18 +1,19 @@
 %global pkgname singular
 
 Name:           gap-pkg-%{pkgname}
-Version:        2020.12.18
-Release:        5%{?dist}
+Version:        2022.09.23
+Release:        1%{?dist}
 Summary:        GAP interface to Singular
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Adapt to changed output in Singular 4.2.x
 # https://github.com/gap-packages/singular/issues/7
 Patch0:         %{name}-test.patch
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-guava-doc
@@ -36,49 +37,39 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -p0 -n %{pkgname}-%{version}
 
-# The Fedora version of Singular needs the explicit quit command.  Without it,
-# we see this on stderr:
-#
-# fgets() failed with errno 5
-# Input/output error
-sed -i.orig 's/# WriteLine/WriteLine/' gap/singular.g
-touch -r gap/singular.g.orig gap/singular.g
-rm gap/singular.g.orig
-
-# Fix encoding
-iconv -f ISO8859-1 -t UTF-8 gap/todo > gap/todo.utf8
-touch -r gap/todo gap/todo.utf8
-mv -f gap/todo.utf8 gap/todo
-
 %build
 export LC_ALL=C.UTF-8
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/gap/todo
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{CHANGES.md,LICENSE,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g contrib gap lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/gap/todo
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
-%doc CHANGES.md README.md gap/todo
+%doc CHANGES.md README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/lib/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2022.09.23-1
+- Version 2022.09.23
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

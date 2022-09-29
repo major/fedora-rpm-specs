@@ -2,10 +2,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.5.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Nilpotent Quotients of finitely presented groups
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/nq/
 Source0:        https://github.com/gap-packages/nq/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -15,8 +16,7 @@ BuildRequires:  gap-pkg-polycyclic
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  pkgconfig(readline)
-BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(gmp)
 
 Requires:       gap-core%{?_isa}
 Requires:       gap-pkg-polycyclic
@@ -41,35 +41,37 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-export CFLAGS='%{build_cflags} -D_FILE_OFFSET_BITS=64'
-%configure --with-gaproot=%{_gap_dir} --disable-silent-rules
+%configure --with-gaproot=%{gap_dir} --disable-silent-rules
 %make_build
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a bin doc examples gap tst VERSION *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/test
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin examples gap tst VERSION %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.5.8-4
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Mon Jul 25 2022 Jerry James <loganjerry@gmail.com> - 2.5.8-3
 - Rebuild due to changed binary dir name on s390x
 

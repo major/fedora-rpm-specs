@@ -5,13 +5,13 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_36/src/
 # update the obsrel to match the upstream release number
-%global obsrel 393.9
+%global obsrel 398.1
 
 # Actual release
 %global baserelease 1
 
 Name:           obs-build
-Version:        20220812
+Version:        20220927
 Release:        %{obsrel}.%{baserelease}%{?dist}
 Summary:        A generic package build script
 
@@ -37,9 +37,27 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Date::Parse)
 BuildRequires:  perl(FindBin)
 BuildRequires:  (perl(YAML::PP) or perl(YAML::XS))
+BuildRequires:  perl(POSIX)
 Requires:       bash, perl-interpreter, binutils, tar
 Requires:       gzip, bzip2, xz, zstd
 Requires:       python3-websocket-client
+Recommends:     perl(Archive::Tar)
+Recommends:     /sbin/mkfs.ext3
+Recommends:     /usr/bin/qemu-kvm
+Recommends:     bsdtar
+Recommends:     qemu-linux-user
+Recommends:     zstd
+Recommends:     perl(Config::IniFiles)
+Recommends:     perl(Date::Language)
+Recommends:     perl(Date::Parse)
+Recommends:     perl(LWP::UserAgent)
+Recommends:     perl(Net::SSL)
+Recommends:     perl(Pod::Usage)
+Recommends:     perl(Time::Zone)
+Recommends:     perl(URI)
+Recommends:     perl(XML::Parser)
+Recommends:     perl(YAML::LibYAML)
+Requires:       perl(POSIX)
 
 Provides:       build = %{version}-%{release}
 Requires:       %{name}-mkbaselibs = %{version}-%{release}
@@ -124,6 +142,9 @@ sed -e "s|#!/usr/bin/python|#!%{__python3}|" \
 
 
 %changelog
+* Tue Sep 27 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220927-398.1.1
+- New upstream release 20220927, fixes rhbz#2130176
+
 * Tue Aug 16 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220812-393.9.1
 - New upstream release 20220812
 

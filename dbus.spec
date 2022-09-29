@@ -20,8 +20,8 @@
 
 Name:    dbus
 Epoch:   1
-Version: 1.14.0
-Release: 5%{?dist}
+Version: 1.14.2
+Release: 1%{?dist}
 Summary: D-BUS message bus
 
 # The effective license of the majority of the package, including the shared
@@ -447,6 +447,9 @@ fi
 
 
 %changelog
+* Tue Sep 27 2022 David King <amigadave@amigadave.com> - 1:1.14.2-1
+- Update to 1.14.2
+
 * Mon Aug 22 2022 Debarshi Ray <rishi@fedoraproject.org> - 1:1.14.0-5
 - Restore Requires(pre) through %%sysusers_requires_compat
 

@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       43.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -182,6 +182,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 43.0-3
+- Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
+
 * Thu Sep 22 2022 Kalev Lember <klember@redhat.com> - 43.0-2
 - Backport upstream MR2623 to fix night light controls
 - Backport upstream MR2624 to fix maximized windows appearing on all

@@ -5,9 +5,9 @@
 
 Name:		python-cypari2
 Version:	2.1.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A Python interface to the number theory library pari
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://github.com/sagemath/%{modname}
 Source0:	%{pypi_source cypari2}
 # Previously sagemath-pari.patch
@@ -17,6 +17,8 @@ Patch1:		%{name}-cython.patch
 # Adapt to python 3.10
 # https://github.com/sagemath/cypari2/pull/103
 Patch2:		%{name}-python310.patch
+# Update expected values for pari 2.15.0
+Patch3:		%{name}-test.patch
 
 BuildRequires:	gcc
 BuildRequires:	gmp-devel
@@ -101,6 +103,10 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.1.2-7
+- Rebuild for pari 2.15.0
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

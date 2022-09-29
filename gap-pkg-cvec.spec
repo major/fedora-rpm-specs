@@ -2,10 +2,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compact vectors over finite fields
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/cvec/
 Source0:        https://github.com/gap-packages/cvec/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
@@ -48,26 +49,19 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # This is NOT an autotools-generated configure script; do NOT use %%configure
-./configure --with-gaproot=%{_gap_dir}
+./configure --with-gaproot=%{gap_dir}
 %make_build V=1
 
 # Build the documentation
 make doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -p bin/%{_gap_arch}/.libs/cvec.so \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -a doc example gap local test tst *.g \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a bin example gap local test tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-
-# Find the ATLAS version number
-atlasdir=$(ls -1d %{_gap_dir}/pkg/atlasrep-*)
 
 # Tell ATLAS where to find downloaded files
 mkdir ~/.gap
@@ -75,22 +69,25 @@ cat > ~/.gap/gap.ini << EOF
 SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/" );
 EOF
 
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README.md TIMINGS TODO
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/example/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/example/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/example/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/example/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/example/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/example/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.7.6-1
 - Convert License tag to SPDX
 

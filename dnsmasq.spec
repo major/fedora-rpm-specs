@@ -19,8 +19,8 @@
 %bcond_with sourcegit
 
 Name:           dnsmasq
-Version:        2.86
-Release:        11%{?extraversion:.%{extraversion}}%{?dist}
+Version:        2.87
+Release:        1%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 License:        GPLv2 or GPLv3
@@ -35,8 +35,6 @@ Source4:        %{url}%{?extrapath}test-release-public-key
 %else
 Source4:        http://www.thekelleys.org.uk/srkgpg.txt
 %endif
-# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2022q2/016325.html
-Source5:        https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1495409
 Patch1:         dnsmasq-2.77-underflow.patch
@@ -44,36 +42,9 @@ Patch1:         dnsmasq-2.77-underflow.patch
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
 
-Patch10:         0001-Retry-on-interrupted-error-in-tftp.patch
-Patch11:         0002-Add-safety-checks-to-places-pointed-by-Coverity.patch
-Patch12:         0003-Small-safeguard-to-unexpected-data.patch
-Patch13:         0004-Fix-bunch-of-warnings-in-auth.c.patch
-Patch14:         0005-Fix-few-coverity-warnings-in-lease-tools.patch
-Patch15:         0006-Fix-coverity-formats-issues-in-blockdata.patch
-Patch16:         0007-Retry-dhcp6-ping-on-interrupts.patch
-Patch17:         0008-Fix-coverity-warnings-on-dbus.patch
-Patch18:         0009-Address-coverity-issues-detected-in-util.c.patch
-Patch19:         0010-Fix-coverity-detected-issues-in-option.c.patch
-Patch20:         0011-Fix-coverity-detected-issue-in-radv.c.patch
-Patch21:         0012-Fix-coverity-detected-issues-in-cache.c.patch
-Patch22:         0013-Fix-coverity-issues-detected-in-domain-match.c.patch
-Patch23:         0014-Fix-coverity-detected-issues-in-dnsmasq.c.patch
-Patch24:         0015-Fix-coverity-issues-in-dnssec.c.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006367
-Patch25:         dnsmasq-2.86-domain-match-local.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2009975
 # replaces/enhances http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=d290630d31f4517ab26392d00753d1397f9a4114
-Patch26:         dnsmasq-2.86-build_server_array.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2014019
-Patch28:         dnsmasq-2.87-tcp-strcasecmp.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2024166
-# http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=1f8f78a49b8fd6b2862a3882053b1c6e6e111e5c
-Patch29:         dnsmasq-2.87-root-log-writeable.patch
-# https://lists.thekelleys.org.uk/pipermail/dnsmasq-discuss/2022q1/016166.html
-# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=553c4c99cca173e9964d0edbd0676ed96c30f62b
-Patch30:         https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=patch;h=553c4c99cca173e9964d0edbd0676ed96c30f62b#/dnsmasq-2.87-resolv.conf-reread.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2061944
-Patch31:         dnsmasq-2.87-reuse-server.patch
+#Patch26:         dnsmasq-2.86-build_server_array.patch
 
 
 
@@ -133,8 +104,6 @@ git checkout -b rpmbuild
 %endif
 # Apply patches on top
 %autopatch -p1
-
-cp -p %{SOURCE5} COPYING
 
 # use /var/lib/dnsmasq instead of /var/lib/misc
 for file in dnsmasq.conf.example man/dnsmasq.8 man/es/dnsmasq.8 src/config.h; do
@@ -218,6 +187,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %{_mandir}/man1/dhcp_*
 
 %changelog
+* Tue Sep 27 2022 Petr Menšík <pemensik@redhat.com> - 2.87-1
+- Update to 2.87 (#2129658)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.86-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

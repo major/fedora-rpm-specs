@@ -1,7 +1,7 @@
 Summary: ne, the nice editor
 Name: ne
-Version: 3.3.1
-Release: 5%{?dist}
+Version: 3.3.2
+Release: 1%{?dist}
 License: GPLv3+
 Source0: https://ne.di.unimi.it/ne-%{version}.tar.gz
 URL: https://ne.di.unimi.it/
@@ -10,7 +10,7 @@ BuildRequires: gcc
 BuildRequires: ncurses-devel
 BuildRequires: make
 BuildRequires: bash
-BuildRequires: perl-interpreter
+BuildRequires: perl
 BuildRequires: texinfo
 BuildRequires: sed
 
@@ -67,16 +67,7 @@ Documentation for ne, the nice editor.
 %doc ./doc/default.*
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 10 2021 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.1-2
-- Replaced build dependency perl with perl-interpreter
+* Tue Sep 13 2022 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.2-1
+- First release
 * Tue May 18 2021 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.1-1
 - First release

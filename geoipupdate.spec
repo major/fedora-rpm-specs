@@ -2,15 +2,15 @@
 
 # https://github.com/maxmind/geoipupdate
 %global goipath	github.com/maxmind/geoipupdate
-Version:	4.9.0
+Version:	4.10.0
 
 %gometa
 
 Name:		geoipupdate
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
-License:	ASL 2.0 or MIT
+License:	Apache-2.0 OR MIT
 URL:		http://dev.maxmind.com/geoip/geoipupdate/
 Source0:	%{gosource}
 Source1:	geoipupdate.cron
@@ -106,6 +106,14 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Tue Sep 27 2022 Paul Howarth <paul@city-fan.org> - 4.10.0-1
+- Update to 4.10.0
+  - HTTPS proxies are now supported (GH#172)
+  - An HTTP request to get the filename for the edition ID has been removed;
+    this was previously required as the GeoIP Legacy edition IDs bore little
+    relation to the name of the database on disk
+- Use SPDX-format license tag
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

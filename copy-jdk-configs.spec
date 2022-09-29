@@ -7,8 +7,8 @@ Name:    copy-jdk-configs
 
 # hash relevant to version tag
 %global  htag 88d3ed89f30d8b0eb4877d860fa8d951f224f156
-Version: 4.0
-Release: 4%{?dist}
+Version: 4.1
+Release: 0%{?dist}
 Summary: JDKs configuration files copier
 
 License:  BSD
@@ -75,6 +75,9 @@ rm "%{rpm_state_dir}/%{file}" 2> /dev/null || :
 %license LICENSE
 
 %changelog
+* Wed Sep 28 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-0
+- update to attempt to solve bug which could delete empty dirs in /etc
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

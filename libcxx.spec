@@ -76,64 +76,39 @@ else
     LIBCXX_ABI_PATH=%{_includedir}/c++/v1
 fi
 
-common_cmake_flags="\
+%cmake  -GNinja \
+	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
+	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 %if 0%{?__isa_bits} == 64
 	-DLIBCXX_LIBDIR_SUFFIX:STRING=64 \
 %endif
 %if %{bootstrap} < 1
 	-DLIBCXX_CXX_ABI=system-libcxxabi \
 	-DLIBCXX_CXX_ABI_INCLUDE_PATHS=$LIBCXX_ABI_PATH \
+	-DLIBCXX_CXX_ABI_LIBRARY_PATH=%{_libdir} \
 	-DPython3_EXECUTABLE=%{_bindir}/python3 \
 %endif
 	-DLIBCXX_INCLUDE_BENCHMARKS=OFF \
-	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
-	-DCMAKE_BUILD_TYPE=RelWithDebInfo"
-
-# Build the static libc++.a.
-# We include the libc++abi symbols.
-%cmake  -GNinja \
-	$common_cmake_flags \
-	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=OFF \
-	-DLIBCXX_ENABLE_STATIC=ON \
-	-DLIBCXX_ENABLE_SHARED=OFF \
-	-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=ON \
 	-DLIBCXX_STATICALLY_LINK_ABI_IN_STATIC_LIBRARY=ON \
-	-DLIBCXX_CXX_ABI_LIBRARY_PATH=%{_libdir}
-
-%cmake_build
-
-# Manually link libc++.a against libc++abi.a, because the libcxx build system is currently
-# broken when system-libcxxabi is used.
-# Also place libc++.a into results-static so we can install it later.
-LIBCXX_A=`find $PWD -name libc++.a`
-mkdir results-static
-pushd results-static
-ar -M <<EOM
-CREATE libc++.a
-ADDLIB $LIBCXX_A
-ADDLIB %{_libdir}/libc++abi.a
-SAVE
-END
-EOM
-ranlib libc++.a
-popd
-
-%cmake  -GNinja \
-	$common_cmake_flags \
-	-DLIBCXX_STANDALONE_BUILD=ON \
-%if %{bootstrap} < 1
-	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON \
-%endif
-	-DLIBCXX_ENABLE_STATIC=OFF \
-	-DLIBCXX_ENABLE_SHARED=ON \
-	-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=OFF
+	-DLIBCXX_ENABLE_ABI_LINKER_SCRIPT=ON
 
 %cmake_build
 
 %install
 
 %cmake_install
-install results-static/libc++.a %{buildroot}/%{_libdir}
+
+# Manually link libc++.a against libc++abi.a, because the libcxx build system is currently
+# broken when system-libcxxabi is used.
+ar cqT tmp.a %{buildroot}%{_libdir}/libc++.a %{_libdir}/libc++abi.a
+# Convert thin archive into normal archive.
+ar -M <<EOM
+CREATE tmp.a
+ADDLIB tmp.a
+SAVE
+END
+EOM
+mv tmp.a %{buildroot}%{_libdir}/libc++.a
 
 %ldconfig_scriptlets
 
@@ -153,7 +128,8 @@ install -m 0644 src/include/*.h %{buildroot}%{_includedir}/libcxx-internal/
 
 %files static
 %license LICENSE.TXT
-%{_libdir}/libc++*.a
+%{_libdir}/libc++.a
+%{_libdir}/libc++experimental.a
 
 
 %changelog

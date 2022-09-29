@@ -1,14 +1,15 @@
 %global pkgname genss
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.7
+Version:        1.6.8
 Release:        1%{?dist}
 Summary:        Randomized Schreier-Sims algorithm
 
 License:        GPL-3.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/genss/
 Source0:        https://github.com/gap-packages/genss/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
-BuildArch:      noarch
 
 # The AtlasRep, TomLib, and CtblLib dependencies are needed for the tests only
 BuildRequires:  gap-devel
@@ -39,7 +40,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}-%{version}
 
 # Fix encodings
-for fil in init.g read.g doc/examples.xml doc/intro.xml; do
+for fil in init.g read.g; do
   iconv -f iso8859-1 -t utf-8 $fil > $fil.utf8
   touch -r $fil $fil.utf8
   mv -f $fil.utf8 $fil
@@ -47,39 +48,35 @@ done
 
 %build
 export LC_ALL=C.UTF-8
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-ln -s %{_gap_dir}/pkg/orb* ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
-
-# Fix references to the build directory
-sed -i "s,$PWD/\.\./pkg,../..,g" doc/*.html
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a doc examples gap test tst *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a examples gap test tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.8-1
+- Version 1.6.8
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.7-1
 - Convert License tag to SPDX
 

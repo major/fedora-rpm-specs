@@ -1,20 +1,15 @@
-# NOTE: We should really put the exam directory into the -doc subpackage, but
-# there are test functions embedded in the main part of the package that refer
-# to symbols defined in files in exam.  The result is that splitting exam out
-# into -doc causes GAP to issue errors about undefined global symbols when
-# loading polenta.
-
 %global pkgname polenta
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.3.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Polycyclic presentations for matrix groups
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/polenta/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-aclib
@@ -51,13 +46,12 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/{CHANGES,LICENSE,README.md,TODO}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g exam lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
@@ -67,19 +61,23 @@ export LC_ALL=C.UTF-8
 # with a minimum of 16 GB of RAM prior to updating to a new version.
 sed -i 's/"POLENTA\.tst"/#&/;/POLENTA2/s/Add/;#&/' tst/testall.g
 
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README.md TODO
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.3.10-3
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,9 +8,9 @@
 
 Name:		python-%{modname}
 Version:	1.11.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Interrupt and signal handling for Cython
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 URL:		https://github.com/sagemath/cysignals
 Source0:	%{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 BuildRequires:	gcc
@@ -124,6 +124,10 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.11.2-4
+- Rebuild for pari 2.15.0
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

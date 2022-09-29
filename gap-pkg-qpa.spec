@@ -2,14 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP package for quivers and path algebras
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://folk.ntnu.no/oyvinso/QPA/
 Source0:        https://github.com/gap-packages/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-pkg-gbnp
@@ -40,44 +41,47 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 cd doc/gap-days-lectures
-pdflatex lecture1
-pdflatex lecture1
-pdflatex lecture2
-pdflatex lecture2
-pdflatex lecture3
-pdflatex lecture3
-pdflatex lecture4a
-pdflatex lecture4a
+pdflatex -interaction=batchmode lecture1
+pdflatex -interaction=batchmode lecture1
+pdflatex -interaction=batchmode lecture2
+pdflatex -interaction=batchmode lecture2
+pdflatex -interaction=batchmode lecture3
+pdflatex -interaction=batchmode lecture3
+pdflatex -interaction=batchmode lecture4a
+pdflatex -interaction=batchmode lecture4a
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.*.yml,.github,.gitignore,.mailmap,.package_note*,CHANGES,CODE_OF_CONDUCT.md,CONTRIBUTING.md,create-release.sh,LICENSE,README}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/gap-days-lectures/*.{aux,log,nav,out,snm,toc,vrb}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g examples lib tst version %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
+%gap_copy_docs -d doc/gap-days-lectures
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.34-2
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Wed Aug  3 2022 Jerry James <loganjerry@gmail.com> - 1.34-1
 - Version 1.34
 

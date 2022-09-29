@@ -38,8 +38,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.13
-Release:        3%{?dist}
+Version:        2.53.14
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -59,18 +59,19 @@ Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
 Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
 Patch10:	seamonkey-2.53.7-mozilla-440908.patch
-Patch11:	seamonkey-2.53.10-mozilla-1434478.patch
+Patch11:	seamonkey-2.53.14-mozilla-1434478.patch
 Patch12:	seamonkey-2.53.10-mozilla-1449641.patch
 Patch13:	seamonkey-2.53.10-mozilla-1460295.patch
 Patch14:	seamonkey-2.53.11-adjacent-sibling.patch
 Patch15:	seamonkey-2.53.10-mozilla-1442861.patch
+Patch16:	seamonkey-2.53.14-fix-1485179.patch
 Patch17:	seamonkey-2.53.8-mozilla-1661070-1.patch
 Patch18:	seamonkey-2.53.8-mozilla-1661070-2.patch
 Patch19:	seamonkey-2.53.5-system-av1.patch
 Patch21:	seamonkey-2.53.12-media-document.patch
 Patch22:	seamonkey-2.53.6-client_mk.patch
 Patch23:	seamonkey-2.53.9-revert-1593550.patch
-Patch24:	seamonkey-2.53.13-install_man.patch
+Patch24:	seamonkey-2.53.14-install_man.patch
 Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
 Patch26:	seamonkey-2.53.13-userDisabled.patch
 Patch27:	seamonkey-2.53.8-ext-if-needed.patch
@@ -86,10 +87,13 @@ Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch41:	seamonkey-2.53.10-revert-1737436.patch
 Patch42:	seamonkey-2.53.10-postmessage.patch
+Patch44:	seamonkey-2.53.14-pre-regexp.patch
 Patch45:	seamonkey-2.53.13-regexp.patch
 Patch46:	seamonkey-2.53.10-regexp-imported.patch
 Patch47:	seamonkey-2.53.13-ffmpeg59-headers.patch
 Patch48:	seamonkey-2.53.13-ffmpeg59-1750760.patch
+Patch49:	seamonkey-2.53.14-mozilla-1193394.patch
+Patch50:	seamonkey-2.53.14-mozilla-1480236.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -97,6 +101,7 @@ Patch62:	seamonkey-2.53.11-compat-version.patch
 Patch63:	seamonkey-2.53.11-mozilla-1513677.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
 Patch67:	seamonkey-2.53.13-wasm-gc.patch
+Patch68:	seamonkey-2.53.14-cbindgen.patch
 
 %{?with_system_nspr:BuildRequires:      nspr-devel >= %{nspr_version}}
 %{?with_system_nss:BuildRequires:       nss-devel >= %{nss_version}}
@@ -199,6 +204,7 @@ cp %{SOURCE3} GNUmakefile
 %patch13 -p1 -b .1460295
 %patch14 -p1 -b .adjacent-sibling
 %patch15 -p1 -b .1442861
+%patch16 -p1 -b .1485179
 %patch17 -p1 -b .1661070-1
 %patch18 -p0 -b .1661070-2
 %patch19 -p1 -b .system_av1
@@ -225,10 +231,13 @@ cp %{SOURCE3} GNUmakefile
 
 #  just pre-remove to avoid huge patches...
 rm -rf js/src/{irregexp,new-regexp}
+%patch44 -p0
 %patch45 -p1
 %patch46 -p1
 %patch47 -p1
 %patch48 -p1 -b .1750760
+%patch49 -p1 -b .1193394
+%patch50 -p1 -b .1480236
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
@@ -236,6 +245,7 @@ rm -rf js/src/{irregexp,new-regexp}
 %patch63 -p1 -b .1513677
 %patch66 -p1 -b .startupcache1
 %patch67 -p1 -b .wasm-gc
+%patch68 -p1 -b .no-cbindgen
 
 %if %{without calendar}
 sed -i 's/MOZ_CALENDAR/UNDEF_MOZ_CALENDAR/' comm/suite/installer/package-manifest.in
@@ -513,6 +523,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Tue Sep 27 2022 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.14-1
+- update to 2.53.14
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.53.13-3
 - Rebuilt for ICU 71.1
 

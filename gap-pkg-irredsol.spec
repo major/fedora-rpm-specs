@@ -2,15 +2,16 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/%{pkgname}/
 Source0:        https://github.com/bh11/%{pkgname}/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
 # Fix references to the primgrp manual
 Patch0:         %{name}-ref.patch
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-crisp-doc
@@ -43,58 +44,49 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 # Link to main GAP documentation and CRISP documentation
-crispdir=$(basename $(ls -1d %{_gap_dir}/pkg/crisp*))
-primgrpdir=$(basename $(ls -1d %{_gap_dir}/pkg/primgrp*))
-ln -s %{_gap_dir}/etc ../../etc
-ln -s %{_gap_dir}/doc ../../doc
-ln -s %{_gap_dir}/pkg ../../pkg
-ln -s %{_gap_dir}/pkg/$crispdir ..
-ln -s %{_gap_dir}/pkg/$crispdir ../crisp
-ln -s %{_gap_dir}/pkg/$primgrpdir ..
+ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_dir}/pkg ../../pkg
+ln -s %{gap_dir}/pkg/crisp ..
+ln -s %{gap_dir}/pkg/primgrp ..
 pushd doc
-sed -e "/UseReferences/s/crisp/$crispdir/" \
-    -e "/UseReferences/s/primgrp/$primgrpdir/" \
-    -i manual.tex
-pdftex manual
+pdftex -interaction=batchmode manual
 makeindex manual
-pdftex manual
-pdftex manual
+pdftex -interaction=batchmode manual
+pdftex -interaction=batchmode manual
 rm -f ../htm/*
-perl %{_gap_dir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
+perl %{gap_dir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
 popd
 rm -f ../../{doc,etc,pkg} ../crisp
-
-# Fixup links
-sed -e "s,../crisp/,../$crispdir/," \
-    -e "s,../primgrp/,../$primgrpdir/," \
-    -i htm/CHAP*.htm
 
 # Compress large data files
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.grp fp/*.fp
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE,README}.txt
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,in,ind,log,new,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g data fp htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.txt
 %license LICENSE.txt
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-4
 - Convert License tag to SPDX
 

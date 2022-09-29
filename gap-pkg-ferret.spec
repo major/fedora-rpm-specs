@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Backtracking search in permutation groups
 
 # YAPB++/simple_graph/gason is MIT
 # YAPB++/source/library/fnv_hash.hpp is Public Domain
 # However, none of those files are part of the final binary.
 License:        MPL-2.0
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/ferret/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -62,37 +63,35 @@ sed -i 's/atlas/atlasrep/' tst/test_functions.g
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{_gap_dir}
+%configure --with-gaproot=%{gap_dir}
 %make_build
 
 # Build the documentation
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version}
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -p bin/%{_gap_arch}/.libs/ferret.so \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/%{_gap_arch}
-cp -a doc lib tst *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-4
+- Update for gap 4.12.0
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-3
 - Convert License tag to SPDX
 

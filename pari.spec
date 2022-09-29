@@ -1,8 +1,11 @@
 Name:           pari
-Version:        2.13.4
-Release:        2%{?dist}
+Version:        2.15.0
+Release:        1%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
-License:        GPLv2+
+
+%global majver %(cut -d. -f1-2 <<< %{version})
+
+License:        GPL-2.0-or-later
 URL:            http://pari.math.u-bordeaux.fr/
 Source0:        http://pari.math.u-bordeaux.fr/pub/pari/unix/%{name}-%{version}.tar.gz
 Source1:        http://pari.math.u-bordeaux.fr/pub/pari/unix/%{name}-%{version}.tar.gz.asc
@@ -13,14 +16,15 @@ Source4:        pari-gp.xpm
 Source5:        pari.abignore
 # Use xdg-open rather than xdvi to display DVI files (#530565)
 Patch0:         pari-2.13.0-xdgopen.patch
-# Use our optflags, not upstream's
-Patch1:         pari-2.13.0-optflags.patch
+# Fix misindented help text
+Patch1:         pari-2.15.0-ploth-doc.patch
 # Fix compiler warnings
 # http://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=1316
 Patch10:        pari-2.9.0-missing-field-init.patch
 Patch11:        pari-2.13.0-declaration-not-prototype.patch
 Patch12:        pari-2.13.0-clobbered.patch
 Patch13:        pari-2.13.0-signed-unsigned-comparison.patch
+
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
 BuildRequires:  findutils
@@ -33,6 +37,7 @@ BuildRequires:  perl-generators
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  sed
 BuildRequires:  tex(latex)
+
 # Test suite requirements
 BuildRequires:  pari-elldata
 BuildRequires:  pari-galdata
@@ -86,10 +91,6 @@ cp -p %{SOURCE5} .
 sed -i "s|runpathprefix='.*'|runpathprefix=''|" config/get_ld
 
 %build
-# Use our optflags, not upstream's.  This cannot be done in %%prep.  See
-# https://bugzilla.redhat.com/show_bug.cgi?id=2044028
-sed -i -e 's|@OPTFLAGS@|%{build_cxxflags} -Wextra -Wstrict-prototypes -Wno-implicit-fallthrough %{build_ldflags}|' config/get_cc
-
 # For as yet unknown reasons, 32-bit pari becomes extremely slow if built with
 # pthread support.  Enable it for 64-bit only until we can diagnose the issue.
 ./Configure \
@@ -147,12 +148,12 @@ make test-all
 %doc AUTHORS CHANGES* COMPAT NEW README
 %doc pari.abignore
 %{_libdir}/libpari-gmp-tls.so.%{version}
-%{_libdir}/libpari-gmp-tls.so.7
+%{_libdir}/libpari-gmp-tls.so.8
 %{_libdir}/pari/
 
 %files gp
 %{_bindir}/gp
-%{_bindir}/gp-2.13
+%{_bindir}/gp-%{majver}
 %{_bindir}/gphelp
 %{_bindir}/tex2mail
 %config(noreplace) %{_sysconfdir}/gprc
@@ -164,7 +165,7 @@ make test-all
 %{_datadir}/pari/pari.desc
 %{_datadir}/applications/gp.desktop
 %{_datadir}/pixmaps/pari-gp.xpm
-%{_mandir}/man1/gp-2.13.1*
+%{_mandir}/man1/gp-%{majver}.1*
 %{_mandir}/man1/gp.1*
 %{_mandir}/man1/gphelp.1*
 %{_mandir}/man1/pari.1*
@@ -175,6 +176,11 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 2.15.0-1
+- Version 2.15.0
+- Drop upstreamed optflags patch
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

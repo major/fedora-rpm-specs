@@ -6,7 +6,7 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.1
+Version:        %{relnum}.0.2
 Release:        1%{?dist}
 Summary:        Fedora %{relnum} default desktop background
 
@@ -174,6 +174,9 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
+* Tue Sep 27 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.2-1
+- New release with fixed time of day wallpaper
+
 * Sun Sep 25 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.1-1
 - New release using webp format by default
 

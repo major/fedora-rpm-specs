@@ -45,7 +45,8 @@ makes use of the kernel's fanotify interface to determine file access rights.
 Summary:        Fapolicyd selinux
 Group:          Applications/System
 Requires:       %{name} = %{version}-%{release}
-BuildRequires:  selinux-policy
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
 BuildRequires:  selinux-policy-devel
 BuildArch: noarch
 %{?selinux_requires}
@@ -192,7 +193,7 @@ fi
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
 %{_datadir}/selinux/devel/include/%{moduletype}/ipp-%{name}.if
 
 %post selinux

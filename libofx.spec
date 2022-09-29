@@ -1,15 +1,14 @@
 Summary: A library for supporting Open Financial Exchange (OFX)
 Name: libofx
-Version: 0.10.7
-Release: 2%{?dist}
+Version: 0.10.8
+Release: 1%{?dist}
 URL: http://libofx.sourceforge.net/
 License: GPLv2+
 Source: http://downloads.sourceforge.net/libofx/%{name}-%{version}.tar.gz
 Patch0: fix-ftbfs-gcc4.7.diff
 Patch1: downcast.patch
 Patch2: heap-buffer-overflow.patch
-Patch3: null-ptr-deref.patch
-Patch4: use-after-free.patch
+Patch3: use-after-free.patch
 BuildRequires: gcc-c++
 BuildRequires: opensp-devel
 BuildRequires: curl-devel
@@ -44,7 +43,6 @@ for building applications that use libofx.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 find . -name "*~" -delete
 chmod 644 ./doc/ofx_sample_files/*
@@ -79,6 +77,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/lib*.la $RPM_BUILD_ROOT%{_datadir}/doc
 %{_libdir}/libofx.so
 
 %changelog
+* Tue Sep 27 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.10.8-1
+- 0.10.8
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.10.8-1
 - Patches from BZ 2127755.
 

@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        6.0.7
-Release:        7%{?dist}
+Version:        6.0.8
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -224,6 +224,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Tue Sep 27 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-1
+- Update to 6.0.8
+
 * Thu Sep 08 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.7-7
 - Convert license to SPDX format
 

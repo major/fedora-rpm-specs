@@ -31,14 +31,14 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.1.0-rc.3
+%global package_version 1.1.0
 
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
 
 Summary: Application and environment virtualization
 Name: apptainer
-Version: 1.1.0~rc.3
+Version: 1.1.0
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -219,6 +219,9 @@ rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || tru
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Sep 27 2022 Dave Dykstra <dwd@fedoraproject.org> - 1.1.0
+- Update to upstream 1.1.0.  Uncomment the requiring of fuse2fs on el7.
+
 * Tue Sep 06 2022 Dave Dykstra <dwd@fedoraproject.org> - 1.1.0-rc.3
 - Update to upstream 1.1.0~rc.3.  Uncomment setting squashfuse_version and
   the requiring of fuse2fs on el7.

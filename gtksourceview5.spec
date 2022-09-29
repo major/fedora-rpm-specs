@@ -5,7 +5,7 @@
 
 Name:           gtksourceview5
 Version:        5.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -27,6 +27,7 @@ BuildRequires:  pkgconfig(gtk4) >= %{gtk_version}
 BuildRequires:  pkgconfig(libpcre2-8)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(pangoft2)
+BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  vala
 
 Requires: glib2%{?_isa} >= %{glib_version}
@@ -94,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 5.6.1-2
+- Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
+
 * Thu Sep 22 2022 Kalev Lember <klember@redhat.com> - 5.6.1-1
 - Update to 5.6.1
 

@@ -1,14 +1,20 @@
 %global srcname MonkeyType
 
 Name:           monkeytype
-Version:        21.5.0
+Version:        22.2.0
 Release:        %autorelease
 Summary:        Generating Python type annotations from sampled production types
 License:        BSD
 URL:            https://github.com/instagram/%{srcname}
 # PyPI source has no tests
-# Source0:        %%{pypi_source %%{srcname}}
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Source:        %%{pypi_source %%{srcname}}
+Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Fix for Python 3.11's changes to handling of Tuple[()]
+# based on https://github.com/Instagram/MonkeyType/pull/273.patch
+Patch:          fix-py311-emptytuple.diff
+# skip test_generator_trace
+# see https://github.com/Instagram/MonkeyType/issues/274
+Patch:          skip-test-generator-trace-py311.diff
 
 BuildArch:      noarch
 

@@ -1,5 +1,5 @@
 %global packname tinytex
-%global packver  0.41
+%global packver  0.42
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Sep 27 2022 Tom Callaway <spot@fedoraproject.org> - 0.42-1
+- update to 0.42
+
 * Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 0.41-1
 - update to 0.41
 - rebuild for R 4.2.1

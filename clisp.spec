@@ -22,7 +22,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	27%{?dist}
+Release:	28%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -34,7 +34,7 @@ Source3:	http://translationproject.org/latest/clisp/de.po
 Patch0:		%{name}-db.patch
 # https://sourceforge.net/p/clisp/patches/32/
 Patch1:		%{name}-format.patch
-# Adapt to changes in pari 2.11.0
+# Adapt to changes in pari 2.15.0
 Patch2:		%{name}-pari.patch
 # The combination of register and volatile is nonsensical
 Patch3:		%{name}-register-volatile.patch
@@ -123,15 +123,11 @@ Files necessary for linking CLISP programs.
 
 %prep
 %forgesetup
-%patch0 -p0
-%patch1 -p0
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
+%autopatch -M4 -p0
 %ifarch %{power64}
 %patch5 -p0
 %endif
-%patch6 -p0
+%autopatch -m6 -p0
 cp -p %{SOURCE1} emacs
 cp -p %{SOURCE2} %{SOURCE3} src/po
 
@@ -451,6 +447,9 @@ make -C build base-mod-check
 
 
 %changelog
+* Mon Sep 19 2022 Jerry James <loganjerry@gmail.com> - 2.49.93-28
+- Rebuild for pari 2.15.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 2.49.93-27
 - Rebuild for libsvm 3.3
 

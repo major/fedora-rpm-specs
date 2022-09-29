@@ -1,6 +1,6 @@
 # There have been no official releases yet, so we pull from git
-%global gitdate  20210519
-%global gittag   9d2172c4e154b742ecb6a411d9d93f291b8901ff
+%global gitdate  20220727
+%global gittag   34316a24d4f5904a513a6d55ad86085e337865cf
 %global shorttag %(cut -b -7 <<< %{gittag})
 %global user     gap-packages
 %global pkgname  nautytracesinterface
@@ -15,10 +15,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        23.%{gitdate}git%{shorttag}%{?dist}
+Release:        24.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://github.com/%{user}/NautyTracesInterface
 Source0:        https://github.com/%{user}/NautyTracesInterface/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
 # Fedora-only patch: use the system nauty library
@@ -60,33 +61,41 @@ autoreconf -fi
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{_gap_dir} --with-nauty=%{_includedir}/nauty \
+%configure --with-gaproot=%{gap_dir} --with-nauty=%{_includedir}/nauty \
   --disable-silent-rules
 %make_build
+%make_build doc
 
 %install
 # make install doesn't put ANYTHING where it is supposed to go, so...
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-cp -a bin examples gap tst *.g %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}/bin/*/{.libs,*.la}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a bin examples gap tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %if %{without bootstrap}
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %endif
 
 %files
 %doc README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/examples/
-%{_gap_dir}/pkg/%{pkgname}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.2-24.20220727git34316a2
+- Update to latest git snapshot for gap 4.12.0 support
+- Convert License tag to SPDX
+
 * Sun Jul 24 2022 Jerry James <loganjerry@gmail.com> - 0.2-23.20210519git9d2172c
 - Rebuild due to changed binary dir name on s390x
 

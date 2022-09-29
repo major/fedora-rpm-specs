@@ -41,11 +41,11 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy fdc231ae7b8fe1aec4cf0b8777274fa21b70d789
 
-%global built_tag_strip 4.2.1
+%global built_tag_strip 4.3.0-rc1
 
 Name: podman
 Epoch: 4
-Version: 4.2.1
+Version: 4.3.0~rc1
 %if "%{_vendor}" == "debbuild"
 Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
 License: ASL-2.0+ and BSD and ISC and MIT and MPLv2.0

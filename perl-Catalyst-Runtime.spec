@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Runtime
 Summary:        Catalyst Framework Runtime
 Version:        5.90129
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Runtime-%{version}.tar.gz
@@ -15,73 +15,140 @@ BuildRequires:  make
 BuildRequires:  perl-doc
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(attributes)
+BuildRequires:  perl(base)
+BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
 # CGI::Simple::Cookie >= 1.109 is required, the latest version is 1.15
 BuildRequires:  perl(CGI::Simple::Cookie) >= 1.11
 BuildRequires:  perl(CGI::Struct)
+BuildRequires:  perl(Class::Accessor)
+BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::C3::Adopt::NEXT) >= 0.07
 BuildRequires:  perl(Class::Load) >= 0.12
 BuildRequires:  perl(Class::MOP) >= 0.95
-BuildRequires:  perl(CPAN)
+BuildRequires:  perl(Class::MOP::Object)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dump)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Data::OptList)
+BuildRequires:  perl(Devel::Cycle)
+BuildRequires:  perl(Devel::InnerPackage)
+BuildRequires:  perl(Encode) >= 2.21
+BuildRequires:  perl(Errno)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.42
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Copy::Recursive)
+BuildRequires:  perl(File::Path)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Spec::Unix)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Hash::MultiValue)
 BuildRequires:  perl(HTML::Entities)
 BuildRequires:  perl(HTML::HeadParser)
 BuildRequires:  perl(HTTP::Body) >= 1.06
+BuildRequires:  perl(HTTP::Body::OctetStream)
 BuildRequires:  perl(HTTP::Headers) >= 1.64
+BuildRequires:  perl(HTTP::Headers::Util)
+BuildRequires:  perl(HTTP::Message::PSGI)
 BuildRequires:  perl(HTTP::Request) >= 5.814
-BuildRequires:  perl(HTTP::Request::AsCGI) >= 1.0
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(HTTP::Response) >= 5.813
+BuildRequires:  perl(HTTP::Status)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IO::Socket)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(JSON::MaybeXS)
-BuildRequires:  perl(List::MoreUtils)
-BuildRequires:  perl(LWP::UserAgent)
-BuildRequires:  perl(Module::Pluggable) >= 3.9
+BuildRequires:  perl(lib)
+BuildRequires:  perl(List::Util) >= 1.45
+# LWP::UserAgent not used at tests
+# Module::Pluggable::Object version from Module::Pluggable in META
+BuildRequires:  perl(Module::Pluggable::Object) >= 4.7
 BuildRequires:  perl(Moose) >= 1.03
+BuildRequires:  perl(Moose::Meta::Class)
+BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Moose::Util)
+BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(MooseX::Emulate::Class::Accessor::Fast) >= 0.00903
 BuildRequires:  perl(MooseX::Getopt) >= 0.30
-BuildRequires:  perl(MooseX::MethodAttributes::Inheritable) >= 0.24
-BuildRequires:  perl(MooseX::Role::WithOverloading) >= 0.09
+BuildRequires:  perl(MooseX::MethodAttributes)
+BuildRequires:  perl(MooseX::MethodAttributes::Role)
+BuildRequires:  perl(MooseX::MethodAttributes::Role::AttrContainer::Inheritable) >= 0.24
+BuildRequires:  perl(MooseX::Role::Parameterized)
+BuildRequires:  perl(mro)
 BuildRequires:  perl(MRO::Compat)
 BuildRequires:  perl(namespace::autoclean) >= 0.28
 BuildRequires:  perl(namespace::clean) >= 0.23
+BuildRequires:  perl(overload)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Path::Class) >= 0.09
-BuildRequires:  perl(Plack) >= 0.9991
+BuildRequires:  perl(Path::Class::Dir)
+BuildRequires:  perl(Path::Class::File)
+BuildRequires:  perl(PerlIO::utf8_strict)
+BuildRequires:  perl(Plack::App::File)
+BuildRequires:  perl(Plack::Builder)
+BuildRequires:  perl(Plack::Loader)
+BuildRequires:  perl(Plack::Middleware)
+BuildRequires:  perl(Plack::Middleware::Conditional)
+BuildRequires:  perl(Plack::Middleware::ContentLength)
 BuildRequires:  perl(Plack::Middleware::FixMissingBodyInRedirect) >= 0.09
-BuildRequires:  perl(Plack::Middleware::MethodOverride)
+BuildRequires:  perl(Plack::Middleware::Head)
+BuildRequires:  perl(Plack::Middleware::HTTPExceptions)
+BuildRequires:  perl(Plack::Middleware::IIS6ScriptNameFix)
+BuildRequires:  perl(Plack::Middleware::IIS7KeepAliveFix)
+BuildRequires:  perl(Plack::Middleware::LighttpdScriptNameFix)
+BuildRequires:  perl(Plack::Middleware::MethodOverride) >= 0.12
 BuildRequires:  perl(Plack::Middleware::RemoveRedundantBody) >= 0.03
 BuildRequires:  perl(Plack::Middleware::ReverseProxy) >= 0.04
+BuildRequires:  perl(Plack::Middleware::Static)
+# Plack::Request version from Plack in META
+BuildRequires:  perl(Plack::Request) >= 0.9991
+BuildRequires:  perl(Plack::Request::Upload)
+BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Plack::Test::ExternalServer)
+BuildRequires:  perl(Plack::Util)
+BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Safe::Isa)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Socket) >= 1.96
+BuildRequires:  perl(Stream::Buffered)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(String::RewritePrefix) >= 0.004
 BuildRequires:  perl(Sub::Exporter)
-BuildRequires:  perl(Task::Weaken)
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Text::Balanced)
 BuildRequires:  perl(Text::SimpleTable) >= 0.03
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(Tree::Simple) >= 1.15
 BuildRequires:  perl(Tree::Simple::Visitor::FindByPath)
 BuildRequires:  perl(Try::Tiny)
-BuildRequires:  perl(Type::Tiny)
+BuildRequires:  perl(Type::Library)
+BuildRequires:  perl(Type::Utils)
+BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(URI) >= 1.35
-BuildRequires:  perl(URI::ws)
+BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(URI::http)
+BuildRequires:  perl(URI::https)
+BuildRequires:  perl(URI::QueryParam)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(warnings)
 
-BuildRequires:  perl(Class::Accessor::Fast)
-BuildRequires:  perl(Class::C3)
-BuildRequires:  perl(Class::Inspector)
+# Optional tests:
+BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(FCGI)
-BuildRequires:  perl(File::Copy::Recursive)
-BuildRequires:  perl(File::Modified)
-BuildRequires:  perl(Proc::ProcessTable)
+BuildRequires:  perl(MooseX::Daemonize)
+BuildRequires:  perl(Plack::Handler::Starman)
+# Proc::ProcessTable not used without TEST_MEMLEAK=1
 BuildRequires:  perl(Test::Harness)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Spelling)
-BuildRequires:  perl(Test::Without::Module)
+BuildRequires:  perl(Type::Tiny) >= 1.000005
 
 
 Requires:       perl(B::Hooks::EndOfScope) >= 0.08
@@ -95,20 +162,23 @@ Requires:       perl(HTTP::Body) >= 1.06
 Requires:       perl(HTTP::Headers) >= 1.64
 Requires:       perl(HTTP::Request) >= 5.814
 Requires:       perl(HTTP::Response) >= 5.813
+Requires:       perl(List::Util) >= 1.45
 Requires:       perl(LWP::UserAgent)
-Requires:       perl(Module::Pluggable) >= 3.9
+Requires:       perl(Module::Pluggable::Object) >= 4.7
 Requires:       perl(Moose) >= 1.03
 Requires:       perl(MooseX::Emulate::Class::Accessor::Fast) >= 0.00903
 Requires:       perl(MooseX::Getopt) >= 0.30
-Requires:       perl(MooseX::MethodAttributes::Inheritable) >= 0.24
+Requires:       perl(MooseX::MethodAttributes::Role::AttrContainer::Inheritable) >= 0.24
 Requires:       perl(MooseX::Role::WithOverloading) >= 0.09
 Requires:       perl(namespace::clean) >= 0.23
 Requires:       perl(Path::Class) >= 0.09
-Requires:       perl(Plack) >= 0.9991
+Requires:       perl(Plack::Middleware::MethodOverride) >= 0.12
 Requires:       perl(Plack::Middleware::ReverseProxy) >= 0.04
+# Plack::Request version from Plack in META
+Requires:       perl(Plack::Request) >= 0.9991
 Requires:       perl(Plack::Test::ExternalServer)
+Requires:       perl(Socket) >= 1.96
 Requires:       perl(String::RewritePrefix) >= 0.004
-Requires:       perl(Task::Weaken)
 Requires:       perl(Text::SimpleTable) >= 0.03
 Requires:       perl(Tree::Simple) >= 1.15
 Requires:       perl(URI) >= 1.35
@@ -125,13 +195,20 @@ Obsoletes:      perl-Catalyst-Plugin-Unicode-Encoding <= 1.9
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Body\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Headers\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(HTTP::Request\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(List::Util\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Module::Pluggable::Object\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Moose\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(MooseX::Getopt\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(MooseX::MethodAttributes::Role::AttrContainer::Inheritable\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Path::Class\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Plack::Middleware::MethodOverride\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Plack::Middleware::ReverseProxy\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Plack::Request\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Socket\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(String::RewritePrefix\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Text::SimpleTable\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Tree::Simple\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(URI\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(namespace::autoclean\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(namespace::clean\\)$
 
@@ -142,6 +219,7 @@ the core of any runtime Catalyst instance.
 %package        scripts
 Summary:        Scripts for %{name}
 Requires:       %{name} = %{version}-%{release}
+Requires:       perl(Catalyst::Devel) >= 1.0
 
 %description    scripts
 
@@ -184,6 +262,7 @@ export TEST_HTTP=0
 export TEST_POD=1
 export TEST_STRESS=1
 
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 make clean
 
@@ -197,6 +276,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 27 2022 Petr Pisar <ppisar@redhat.com> - 5.90129-2
+- Specify all dependencies
+
 * Sun Jul 31 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 5.90129-1
 - Update to 5.90129
 

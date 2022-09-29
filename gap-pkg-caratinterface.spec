@@ -3,14 +3,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to CARAT
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.math.uni-bielefeld.de/~gaehler/gap/packages.php
 Source0:        https://www.math.uni-bielefeld.de/~gaehler/gap/%{upname}/%{upname}-%{version}.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  carat
 BuildRequires:  gap-devel
 BuildRequires:  tth
@@ -39,18 +40,19 @@ functionality of the package Cryst considerably.
 Summary:        CARAT documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-BuildArch:      noarch
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p1 -n %{upname}
+%autosetup -n %{upname}
 
 # Don't use the bundled version of CARAT
 rm -f carat*.tgz
 
 %build
+export LC_ALL=C.UTF-8
+
 # Look for the CARAT binaries where they exist in Fedora
 for f in read.g PackageInfo.g; do
   sed -i.orig 's,DirectoriesPackagePrograms( "%{upname}" ),Directory( "%{_libexecdir}/carat" ),' $f
@@ -59,38 +61,39 @@ for f in read.g PackageInfo.g; do
 done
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/etc ../../etc
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_dir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm -f ../../{doc,etc}
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{upname} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{upname}/{Changelog,configure,GPL,INSTALL,Makefile,README,src}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}/doc/make_doc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g gap htm tst %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc Changelog README
 %license GPL
-%{_gap_dir}/pkg/%{upname}/
-%exclude %{_gap_dir}/pkg/%{upname}/doc/
-%exclude %{_gap_dir}/pkg/%{upname}/htm/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
+%exclude %{gap_dir}/pkg/%{upname}/htm/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}/doc/
-%docdir %{_gap_dir}/pkg/%{upname}/htm/
-%{_gap_dir}/pkg/%{upname}/doc/
-%{_gap_dir}/pkg/%{upname}/htm/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/htm/
+%{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/htm/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-1
 - Convert License tag to SPDX
 

@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Nilpotent quotients of L-presented groups
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/lpres/
 Source0:        https://github.com/gap-packages/lpres/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-ace-doc
@@ -18,7 +19,6 @@ BuildRequires:  gap-pkg-fga
 BuildRequires:  gap-pkg-nq-doc
 BuildRequires:  gap-pkg-polycyclic-doc
 
-Requires:       gap-core
 Requires:       gap-pkg-fga
 Requires:       gap-pkg-polycyclic
 
@@ -50,38 +50,40 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-ln -s %{_gap_dir}/pkg/ace ../pkg
-ln -s %{_gap_dir}/pkg/nq-* ../pkg
-ln -s %{_gap_dir}/pkg/polycyclic-* ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
+gap -l "$PWD/..;" makedoc.g
 
-# Remove the build directory from the documentation
-sed -i "s,$PWD/\.\./pkg,../..,g" doc/*.html
+# A second BiBTeX run is needed to resolve \cite within a reference
+cd doc
+bibtex lpres
+pdflatex -interaction=batchmode lpres
+pdflatex -interaction=batchmode lpres
+mv lpres.pdf manual.pdf
+cd -
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{COPYING,README.md,scripts}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.md
 %license COPYING
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-3
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

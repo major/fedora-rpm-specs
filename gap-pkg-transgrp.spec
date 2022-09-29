@@ -2,11 +2,12 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Transitive groups library
-BuildArch:      noarch
 
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only OR GPL-3.0-only
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://www.gap-system.org/Packages/%{pkgname}.html
 Source0:        https://www.math.colostate.edu/~hulpke/%{pkgname}/%{pkgname}%{version}.tar.gz
 Source1:        https://www.math.colostate.edu/~hulpke/%{pkgname}/trans32.tgz
@@ -25,8 +26,8 @@ accessing the library.  The actual data is in the data and data32
 subpackages.
 
 %package data
-Summary:        Data files for groups of degree other than 32
-License:        Artistic 2.0
+Summary:        Data files for groups of degree other than 32 and 48
+License:        Artistic-2.0
 Requires:       %{name} = %{version}-%{release}
 
 %description data
@@ -43,7 +44,7 @@ https://zenodo.org/record/5935751 if you need it.
 
 %package data32
 Summary:        Library of transitive groups of degree 32
-License:        Artistic 2.0
+License:        Artistic-2.0
 Requires:       %{name} = %{version}-%{release}
 
 %description data32
@@ -61,52 +62,61 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname} -a 1
 
+# There is no ext manual anymore
+sed -i '/UseReferences.*ext/d' doc/manual.tex
+
 %build
+export LC_ALL=C.UTF-8
+
 # Compress large group files
 parallel %{?_smp_mflags} --no-notice gzip --best ::: dat32/*.grp data/*.grp
 
 # Build the documentation
 mkdir ../../doc
-ln -s %{_gap_dir}/doc/ref ../../doc
+ln -s %{gap_dir}/doc/ref ../../doc
 cd doc
-ln -s %{_gap_dir}/etc/convert.pl .
-ln -s %{_gap_dir}/doc/gapmacro.tex .
-ln -s %{_gap_dir}/doc/manualindex .
+ln -s %{gap_dir}/etc/convert.pl .
+ln -s %{gap_dir}/doc/gapmacro.tex .
+ln -s %{gap_dir}/doc/manualindex .
 ./make_doc
 cd -
 rm -fr ../../doc doc/{convert.pl,gapmacro.tex,manualindex}
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-cp -a *.g data dat32 doc htm lib tst %{buildroot}%{_gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/make_doc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/data/
-%exclude %{_gap_dir}/pkg/%{pkgname}/dat32/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/data/
+%exclude %{gap_dir}/pkg/%{pkgname}/dat32/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
 
 %files data
-%{_gap_dir}/pkg/%{pkgname}/data/
+%{gap_dir}/pkg/%{pkgname}/data/
 
 %files data32
-%{_gap_dir}/pkg/%{pkgname}/dat32/
+%{gap_dir}/pkg/%{pkgname}/dat32/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}/htm/
-%{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
+- Update for gap 4.12.0
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

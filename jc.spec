@@ -2,7 +2,7 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.21.2
+Version: 1.22.0
 Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
@@ -48,10 +48,9 @@ tools and file types into structured JSON, for easier further processing.
 install -m 755 -d %{buildroot}%{_mandir}/man1
 install -m 644 -p man/jc.1 %{buildroot}%{_mandir}/man1/
 
-install -m 755 -d %{buildroot}%{_datadir}/bash-completion/completions
-PYTHONPATH="%{buildroot}%{python3_sitelib}" \
-	%{buildroot}/%{_bindir}/%{name} --bash-comp \
-	> %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+COMPDIR="%{buildroot}%{_datadir}/bash-completion/completions"
+install -m 755 -d "${COMPDIR}"
+install -m 644 -p completions/jc_bash_completion.sh "${COMPDIR}/%{name}"
 
 
 %check
@@ -72,6 +71,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" \
 
 
 %changelog
+* Tue Sep 27 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.22.0-1
+- Update to v1.22.0
+
 * Mon Aug 29 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.21.2-1
 - Update to v1.21.2
 

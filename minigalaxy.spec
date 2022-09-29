@@ -1,7 +1,5 @@
-%global versuf flathub
-
 Name:           minigalaxy
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        GOG client for Linux that lets you download and play your GOG Linux games
 BuildArch:      noarch
@@ -9,7 +7,7 @@ BuildArch:      noarch
 # CC-BY:        Logo image (data/minigalaxy.png)
 License:        GPLv3+ and CC-BY
 URL:            https://github.com/sharkwouter/minigalaxy
-Source0:        %{url}/archive/%{version}-%{versuf}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -39,7 +37,7 @@ games.
 
 
 %prep
-%autosetup -n %{name}-%{version}-%{versuf}
+%autosetup
 
 
 %build

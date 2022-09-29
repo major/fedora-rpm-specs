@@ -2,14 +2,15 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.4.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computations with functionally recursive groups
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-fga
@@ -19,6 +20,8 @@ BuildRequires:  gap-pkg-lpres
 BuildRequires:  gap-pkg-nq
 BuildRequires:  gap-pkg-polycyclic
 
+# "cat" is invoked
+Requires:       coreutils
 Requires:       gap-pkg-fga
 Requires:       gap-pkg-io
 Requires:       gap-pkg-polycyclic
@@ -44,38 +47,36 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 # Build the documentation
 export LC_ALL=C.UTF-8
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/scripts
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.package_note*,BUGS,CHANGES,COPYING,README.md,TODO}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g gap guest tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc BUGS CHANGES README.md TODO
 %license COPYING
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.4.10-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.4.10-1
 - Convert License tag to SPDX
 

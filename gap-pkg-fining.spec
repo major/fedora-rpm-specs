@@ -1,18 +1,16 @@
 %global pkgname fining
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.1
-Release:        7%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Finite incidence geometry
 
 License:        GPL-2.0-or-later
-URL:            https://www.fining.org/
-Source0:        https://www.gap-system.org/pub/gap/gap4/tar.bz2/packages/%{pkgname}-%{version}.tar.bz2
-# https://bitbucket.org/jdebeule/fining/pull-requests/6/small-documentation-fixes/diff
-Patch0:         0001-Add-missing-comma-to-the-bibliography.patch
-Patch1:         0002-Remove-extraneous-escape-characters.patch
-
 BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+URL:            https://www.fining.org/
+Source0:        https://github.com/gap-packages/FinInG/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
 BuildRequires:  gap-pkg-autodoc
@@ -21,12 +19,14 @@ BuildRequires:  gap-pkg-design
 BuildRequires:  gap-pkg-forms
 BuildRequires:  gap-pkg-genss
 BuildRequires:  gap-pkg-grape
+BuildRequires:  gap-pkg-orb
 BuildRequires:  tex(makecell.sty)
 
 Requires:       gap-pkg-cvec
 Requires:       gap-pkg-forms
 Requires:       gap-pkg-genss
 Requires:       gap-pkg-grape
+Requires:       gap-pkg-orb
 
 Recommends:     gap-pkg-design
 
@@ -53,39 +53,41 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p1 -n %{pkgname}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
-mkdir -p ../pkg
-ln -s ../%{pkgname} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
-rm -fr ../pkg
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/{INSTALL,README,TODO}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g examples lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
-%doc README
-%{_gap_dir}/pkg/%{pkgname}/
-%exclude %{_gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}/examples/
+%doc README.md
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}/examples/
-%{_gap_dir}/pkg/%{pkgname}/doc/
-%{_gap_dir}/pkg/%{pkgname}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
+- Version 1.5.1
+- Drop upstreamed patches
+- New source URL
+- Add dependency on gap-pkg-orb
+- Update for gap 4.12.0
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-7
 - Convert License tag to SPDX
 

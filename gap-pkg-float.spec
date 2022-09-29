@@ -2,10 +2,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/float/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds
@@ -13,6 +14,8 @@ Patch0:         %{name}-atexit.patch
 # Fix infinitely recursive definitions to work as intended
 # https://github.com/gap-packages/float/pull/81
 Patch1:         %{name}-recursive.patch
+# Fix fplll detection
+Patch2:         %{name}-fplll.patch
 
 BuildRequires:  cxsc-devel
 BuildRequires:  gap-devel
@@ -33,9 +36,9 @@ and CXSC.
 
 %package doc
 Summary:        FLOAT documentation
+BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
-BuildArch:      noarch
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
@@ -47,50 +50,48 @@ This package contains documentation for gap-pkg-%{pkgname}.
 sed -i 's/-O3 -fomit-frame-pointer//;s/-O3/-O2/' configure
 
 %build
+export LC_ALL=C.UTF-8
 export CPPFLAGS="-I %{_includedir}/cxsc"
-%configure --with-gaproot=%{_gap_dir} --without-gcc-arch
+%configure --with-gaproot=%{gap_dir} --without-gcc-arch
 %make_build
 
 # Build the documentation
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 %install
 %make_install
 
-# Match upstream
-mv %{buildroot}%{_gap_dir}/pkg/%{pkgname} \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-
-# We do not want the libtool archive
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/bin/*/*.la
-
 # Install the GAP files; we install test files for use by GAP's internal test
 # suite runner.
-cp -a *.g lib tst %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{lib,tst}/Makefile*
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+rm -f %{buildroot}%{gap_dir}/pkg/%{pkgname}/{lib,tst}/Makefile*
 
 # Install the documentation
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc
-cp -p doc/*.{bib,css,html,js,lab,pdf,six,toc,txt,xml} \
-      %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+%gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README.md THANKS
 %license COPYING
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
+- Update for gap 4.12.0
+- Add -fplll patch to fix fplll detection
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-3
 - Convert License tag to SPDX
 

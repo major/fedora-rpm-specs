@@ -1,11 +1,12 @@
 %global pkgname guava
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.16
-Release:        3%{?dist}
+Version:        3.17
+Release:        1%{?dist}
 Summary:        Computing with error-correcting codes
 
 License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/guava/
 Source0:        https://github.com/gap-packages/guava/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 # Enable the optional Sonata code.  Upstream says to uncomment this code if
@@ -26,6 +27,8 @@ BuildRequires:  parallel
 
 Requires:       gap-core%{?_isa}
 Requires:       gap-pkg-sonata
+
+%global _docdir_fmt %{name}
 
 %description
 GUAVA is a package that implements coding theory algorithms in GAP.
@@ -53,8 +56,8 @@ The functions within GUAVA can be divided into four categories:
   For example, BoundsMinimumDistance.
 
 %package doc
-Summary:        GUAVA documentation
 License:        GFDL-1.2-no-invariants-or-later
+Summary:        GUAVA documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -69,35 +72,38 @@ This package contains documentation for gap-pkg-%{pkgname}.
 cp -p src/ctjhai/README README.ctjhai
 
 %build
+export LC_ALL=C.UTF-8
+
 # This is NOT an autoconf-generated script.  Do not use %%configure.
-./configure %{_gap_dir}
+./configure %{gap_dir}
 
 # Building with %%{?_smp_mflags} fails
-make CFLAGS="%{build_cflags} -DLONG_EXTERNAL_NAMES" LDFLAGS="%{build_ldflags}"
+make CFLAGS="%{build_cflags} -DLONG_EXTERNAL_NAMES"
 
 # Compress large tables
 parallel %{?_smp_mflags} --no-notice gzip --best ::: tbl/*.g
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg/%{pkgname}
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 pushd src/leon/doc
-pdftex manual.tex
+pdftex -interaction=batchmode manual.tex
 popd
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -a *.g bin doc lib tbl tst %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g bin lib tbl tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 # The documentation tests cannot be run, as they require breaking out of
 # infinite loops.  See comments about a user interrupt.
+export LC_ALL=C.UTF-8
 cd tst
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" << EOF
+gap -l "%{buildroot}%{gap_dir};" << EOF
 LoadPackage("guava");
 if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 if Test("decoding.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
@@ -106,17 +112,21 @@ if Test("external.tst", rec( compareFunction := "uptowhitespace" ) ) = false the
 EOF
 
 %files
-%doc CHANGES.guava HISTORY.guava README.guava README.md README.ctjhai
-%doc src/leon/doc/manual.pdf
-%license COPYING.guava
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%doc CHANGES HISTORY README.md README.ctjhai
+%license COPYING
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%doc src/leon/doc/manual.pdf
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
+- Version 3.17
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 3.16-3
 - Convert License tags to SPDX
 

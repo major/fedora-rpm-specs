@@ -1,27 +1,18 @@
-# The 1.3.2 release fails multiple tests with GAP 4.11.  Until a new version is
-# released, we build from git.
-%global commit      168ed6258502ed24a14e284d275b3f50b9f07de3
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate     20200127
-
 %global pkgname recog
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.2
-Release:        9.%{gitdate}.%{shortcommit}%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        Group recognition methods
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
-#Source0:        https://github.com/gap-packages/%%{pkgname}/releases/download/v%%{version}/%%{pkgname}-%%{version}.tar.bz2
-Source0:        https://github.com/gap-packages/%{pkgname}/archive/%{commit}/%{pkgname}-%{shortcommit}.tar.gz
+Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
-# Indexes needed for the tests
-Source2:         https://www.math.rwth-aachen.de/~mfer/mfertoc.json
-Source3:         https://www.math.rwth-aachen.de/~Thomas.Breuer/ctblocks/ctblockstoc.json
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
 BuildRequires:  gap-pkg-autodoc
@@ -50,54 +41,50 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{commit} -b 1
-cp -p %{SOURCE2} %{SOURCE3} ../atlasrep
+%autosetup -n %{pkgname}-%{version} -b 1
 
 %build
 export LC_ALL=C.UTF-8
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{commit} %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/misc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{.mailmap,CHANGES,LICENSE,Makefile,NOTES,README.md,TODO,WISHLIST}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g contrib examples gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-
-# Find the ATLAS version number
-atlasdir=$(ls -1d %{_gap_dir}/pkg/atlasrep-*)
 
 # Tell ATLAS where to find downloaded files
 mkdir ~/.gap
 cat > ~/.gap/gap.ini << EOF
 SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/" );
-SetUserPreference( "AtlasRep", "AtlasRepTOCData", [
-  "core|$atlasdir/atlasprm.json",
-  "internal|$atlasdir/datapkg/toc.json",
-  "mfer|%{_builddir}/atlasrep/mfertoc.json" ,
-  "ctblocks|%{_builddir}/atlasrep/ctblockstoc.json" ] );
 EOF
 
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+# Do not run the very slow tests
+gap -l "%{buildroot}%{gap_dir};" tst/testquick.g
+gap -l "%{buildroot}%{gap_dir};" tst/testslow.g
 
 %files
 %doc CHANGES NOTES README.md TODO WISHLIST
-%license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%license COPYRIGHT LICENSE
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
+- Version 1.4.2
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+- Move TOC data into the testdata tarball
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1.3.2-9.20200127.168ed62
 - Add TOC data to fix the tests with recent versions of atlasrep
 

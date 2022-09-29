@@ -1,13 +1,14 @@
 %global pkgname digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5.3
-Release:        3%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
 # The bundled copy of bliss is LGPL-3.0-only.
 License:        GPL-3.0-or-later AND LGPL-3.0-only
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://digraphs.github.io/Digraphs/
 Source0:        https://github.com/digraphs/Digraphs/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -56,14 +57,14 @@ rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{_gap_dir} --disable-silent-rules \
-  --with-external-planarity --without-intrinsics
+%configure --with-gaproot=%{gap_dir} --disable-silent-rules \
+  --with-external-planarity
 %make_build
 
 # Build the documentation
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 # Remove a useless empty directory
@@ -71,58 +72,34 @@ rmdir bin/lib
 
 %install
 # make install doesn't put ANYTHING where it is supposed to go, so...
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
 cp -a bin data gap notebooks tst VERSION* *.g \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}
-cp -p doc/*.{bib,css,html,js,lab,pdf,six,txt,xml} \
-   %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc
+   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
-# The 32-bit ARM builders frequently run out of memory while running tests
-%ifnarch %{arm}
 %check
+# The "extreme" tests take a long time, so just run the "standard" tests
 export LC_ALL=C.UTF-8
-cd tst
-
-# The digraph test erases all variables, so do this in two parts.
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" << EOF
-LoadPackage("digraphs");
-r1 := Test("testinstall.tst", rec( compareFunction := "uptowhitespace" ));
-r2 := Test("standard/attr.tst", rec( compareFunction := "uptowhitespace" ));
-r3 := Test("standard/cliques.tst", rec( compareFunction := "uptowhitespace" ));
-r4 := Test("standard/constructors.tst", rec( compareFunction := "uptowhitespace" ));
-r5 := Test("standard/display.tst", rec( compareFunction := "uptowhitespace" ));
-r6 := Test("standard/examples.tst", rec( compareFunction := "uptowhitespace" ));
-r7 := Test("standard/grahom.tst", rec( compareFunction := "uptowhitespace" ));
-r8 := Test("standard/grape.tst", rec( compareFunction := "uptowhitespace" ));
-r9 := Test("standard/io.tst", rec( compareFunction := "uptowhitespace" ));
-rA := Test("standard/isomorph.tst", rec( compareFunction := "uptowhitespace" ));
-rB := Test("standard/labels.tst", rec( compareFunction := "uptowhitespace" ));
-rC := Test("standard/oper.tst", rec( compareFunction := "uptowhitespace" ));
-rD := Test("standard/orbits.tst", rec( compareFunction := "uptowhitespace" ));
-rE := Test("standard/planar.tst", rec( compareFunction := "uptowhitespace" ));
-rF := Test("standard/prop.tst", rec( compareFunction := "uptowhitespace" ));
-GAP_EXIT_CODE(r1 and r2 and r3 and r4 and r5 and r6 and r7 and r8 and r9 and rA and rB and rC and rD and rE and rF);
-EOF
-
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" << EOF
-LoadPackage("digraphs");
-GAP_EXIT_CODE(Test("standard/digraph.tst", rec( compareFunction := "uptowhitespace" )));
-EOF
-
-find %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version} -size 0 -delete
-%endif
+mkdir ../pkg
+ln -s ../%{pkgname}-%{version} ../pkg
+gap -l "$PWD/..;" tst/teststandard.g
+rm -fr ../pkg
 
 %files
 %doc CHANGELOG.md README.md
 %license GPL LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
+- Version 1.6.0
+- Update for gap 4.12.0
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-3
 - Convert License tag to SPDX
 

@@ -8,7 +8,7 @@
 
 Name:           rust-%{crate}
 Version:        0.27.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Parsec interface library to communicate using the wire protocol
 
 License:        Apache-2.0
@@ -51,7 +51,7 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+arbitrary-devel
 Summary:        %{summary}
@@ -63,7 +63,7 @@ This package contains library source intended for building other packages which
 use the "arbitrary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arbitrary-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+fuzz-devel
 Summary:        %{summary}
@@ -75,7 +75,7 @@ This package contains library source intended for building other packages which
 use the "fuzz" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fuzz-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+prost-build-devel
 Summary:        %{summary}
@@ -87,7 +87,7 @@ This package contains library source intended for building other packages which
 use the "prost-build" feature of the "%{crate}" crate.
 
 %files       -n %{name}+prost-build-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+regenerate-protobuf-devel
 Summary:        %{summary}
@@ -99,7 +99,7 @@ This package contains library source intended for building other packages which
 use the "regenerate-protobuf" feature of the "%{crate}" crate.
 
 %files       -n %{name}+regenerate-protobuf-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+testing-devel
 Summary:        %{summary}
@@ -111,7 +111,7 @@ This package contains library source intended for building other packages which
 use the "testing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+testing-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1

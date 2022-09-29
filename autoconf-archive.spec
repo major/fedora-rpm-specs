@@ -1,6 +1,6 @@
 Name:           autoconf-archive
-Version:        2022.02.11
-Release:        3%{?dist}
+Version:        2022.09.03
+Release:        1%{?dist}
 Summary:        The Autoconf Macro Archive
 License:        GPLv3+ with exceptions
 URL:            https://www.gnu.org/software/autoconf-archive/
@@ -13,12 +13,6 @@ BuildArch:      noarch
 BuildRequires:  gnupg2
 BuildRequires:  make
 Requires:       autoconf
-
-# Add support for Python 3.10
-Patch0:         autoconf-archive-2021.02.19-python_310.patch
-
-# upstream: https://github.com/autoconf-archive/autoconf-archive/commit/c92672b9c59f9011e5d68220e99cfdd70c1b98df
-Patch1:         autoconf-archive-2022.02.11-m4-add-missing-to-end-of-case.patch
 
 %description
 The GNU Autoconf Archive is a collection of more than 450 macros for
@@ -47,6 +41,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Tue Sep 27 2022 Frederic Berat <fberat@redhat.com> - 2022.09.03-1
+- Update to 2022.09.03
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.02.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

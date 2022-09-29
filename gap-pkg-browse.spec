@@ -3,7 +3,7 @@
 # test for this package, so the maintainer should always run this before
 # pushing a new version:
 #
-# gap -l "%%{_gapdir};%%{buildroot}%%{_gapdir}" <<< 'Test("tst/test.tst");'
+# gap -l "%%{gap_dir};" <<< 'Test("tst/test.tst");'
 #
 # That test is more useful if the altasrep package is also installed.
 
@@ -16,38 +16,39 @@
 # following:
 # 1. Build this package in bootstrap mode.
 # 2. Build gap-pkg-atlasrep in bootstrap mode.
-# 3. Build gap-pkg-ctbllib.
-# 4. Build gap-pkg-tomlib.
+# 3. Build gap-pkg-tomlib.
+# 4. Build gap-pkg-ctbllib in bootstrap mode.
 # 5. Build gap-pkg-atlasrep in non-bootstrap mode.
 # 6. Build this package in non-bootstrap mode.
+# 7. Build gap-pkg-ctbllib in non-bootstrap mode.
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.14
-Release:        3%{?dist}
+Version:        1.8.15
+Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
-URL:            http://www.math.rwth-aachen.de/~Browse/
-Source0:        http://www.math.rwth-aachen.de/~Browse/%{upname}-%{version}.tar.bz2
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
+URL:            https://www.math.rwth-aachen.de/~Browse/
+Source0:        https://www.math.rwth-aachen.de/~Browse/%{upname}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
 BuildRequires:  GAPDoc-latex
-%if %{without bootstrap}
-BuildRequires:  gap-pkg-atlasrep-doc
-BuildRequires:  gap-pkg-ctbllib-doc
-%endif
 BuildRequires:  gap-pkg-io-doc
-%if %{without bootstrap}
-BuildRequires:  gap-pkg-tomlib
-%endif
 BuildRequires:  gcc
 BuildRequires:  ghostscript
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  netpbm-progs
 BuildRequires:  pkgconfig(ncurses)
+
+%if %{without bootstrap}
+BuildRequires:  gap-pkg-atlasrep-doc
+BuildRequires:  gap-pkg-ctbllib-doc
+BuildRequires:  gap-pkg-tomlib
+%endif
 
 Requires:       gap-core%{?_isa}
 
@@ -90,17 +91,18 @@ Summary:        Gap browser documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
+Requires:       gap-pkg-io-doc
+
 %if %{without bootstrap}
 Requires:       gap-pkg-atlasrep-doc
 Requires:       gap-pkg-ctbllib-doc
 %endif
-Requires:       gap-pkg-io-doc
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{upname}
+%autosetup -n %{upname}-%{version}
 
 # Give an executable script a shebang
 sed -i '1i#!/bin/sh' bibl/getnewestbibfile
@@ -108,49 +110,39 @@ sed -i '1i#!/bin/sh' bibl/getnewestbibfile
 %build
 export LC_ALL=C.UTF-8
 # This is NOT an autoconf-generated configure script
-./configure %{_gap_dir}
-%make_build LDFLAGS='%{build_ldflags}'
-
-# Relink with the right flags
-gcc %{build_cflags} -I%{_gap_dir}/gen -I%{_gap_dir}/src -I%{_gap_dir} \
-    -DHAVE_CONFIG_H -DSYS_DEFAULT_PATHS=%{_gap_dir} -fPIC -DPIC -shared \
-    src/ncurses.c %{build_ldflags} -lpanel -lncurses \
-    -Wl,-soname -Wl,ncurses.so -o bin/%{_gap_arch}/ncurses.so
+./configure %{gap_dir}
+%make_build
 
 # Link to main GAP documentation
 mkdir ../pkg
 ln -s ../%{upname} ../pkg
-ln -s %{_gap_dir}/pkg/GAPDoc-* ../pkg
-%if %{without bootstrap}
-ln -s %{_gap_dir}/pkg/atlasrep ../pkg
-ln -s %{_gap_dir}/pkg/ctbllib ../pkg
-%endif
-ln -s %{_gap_dir}/pkg/io ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedocrel.g
+gap -l "$PWD/..;" makedocrel.g
 rm -fr ../pkg
 
 # Fix links
 sed -i "s,$PWD/\.\./pkg,..,g" doc/*.html
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{upname}/bin/%{_gap_arch}
-cp -p bin/%{_gap_arch}/ncurses.so \
-   %{buildroot}%{_gap_dir}/pkg/%{upname}/bin/%{_gap_arch}
-cp -a app bibl doc lib tst version *.g %{buildroot}%{_gap_dir}/pkg/%{upname}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}/tst/*~
+rm tst/*~
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %files
 %doc CHANGES README
 %license doc/GPL
-%{_gap_dir}/pkg/%{upname}/
-%exclude %{_gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}/doc/
-%{_gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.8.15-1
+- Version 1.8.15
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.8.14-3
 - Convert License tag to SPDX
 

@@ -1,9 +1,9 @@
 Name:           python-pari-jupyter
 Version:        1.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jupyter kernel for PARI/GP
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/sagemath/pari-jupyter
 Source0:        %{url}/archive/%{version}/pari-jupyter-%{version}.tar.gz
 # Adapt to recent versions of pari
@@ -59,6 +59,10 @@ rm -fr %{buildroot}%{_prefix}%{_sysconfdir}
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-4
+- Rebuild for pari 2.15.0
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -28,7 +28,7 @@ BuildRequires:  pkgconfig(libburn-1) >= 0.4.0
 BuildRequires:  pkgconfig(libcanberra-gtk3)
 BuildRequires:  pkgconfig(libisofs-1) >= 0.6.4
 BuildRequires:  pkgconfig(libnotify) >= 0.7.0
-%if 0%{?fedora} < 37
+%if 0%{?fedora} < 37 && 0%{?rhel} < 10
 BuildRequires:  pkgconfig(libnautilus-extension) >= 2.22.2
 %endif
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.6.0
@@ -55,7 +55,7 @@ Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 %endif
 %{?with_cdrkit:Recommends: icedax}
 
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 ||  0%{?rhel} >= 10
 Obsoletes: %{name}-nautilus < %{version}-%{release}
 %endif
 
@@ -72,7 +72,7 @@ The %{name}-libs package contains the runtime shared libraries for
 %{name}.
 
 
-%if 0%{?fedora} < 37
+%if 0%{?fedora} < 37 && 0%{?rhel} < 10
 %package   nautilus
 Summary:   Nautilus extension for %{name}
 Requires:  %{name}%{?_isa} = %{version}-%{release}
@@ -157,7 +157,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/*.so.*
 %{_libdir}/girepository-1.0/*.typelib
 
-%if 0%{?fedora} < 37
+%if 0%{?fedora} < 37 && 0%{?rhel} < 10
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/*.so
 %{_datadir}/applications/brasero-nautilus.desktop

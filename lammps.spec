@@ -26,7 +26,7 @@ Version:        20220623
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -331,6 +331,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Tue Sep 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 20220623-3
+- Rebuild for kokkos 3.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220623-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

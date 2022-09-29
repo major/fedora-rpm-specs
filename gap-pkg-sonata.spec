@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GAP package for systems of nearrings
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  parallel
@@ -68,15 +69,16 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 # Use the main gap package's macro file
 rm -f doc/gapmacro.tex
-ln -s %{_gap_dir}/doc/gapmacro.tex doc/gapmacro.tex
+ln -s %{gap_dir}/doc/gapmacro.tex doc/gapmacro.tex
 
 # Fix the documentation build script
-sed -e 's,\.\./\.\./\.\./\.\./etc/convert\.pl,%{_gap_dir}/etc/convert.pl,' \
-    -e 's,\.\./\.\./\.\./\.\./doc/manualindex,%{_gap_dir}/doc/manualindex,' \
+sed -e 's,\.\./\.\./\.\./\.\./etc/convert\.pl,%{gap_dir}/etc/convert.pl,' \
+    -e 's,\.\./\.\./\.\./\.\./doc/manualindex,%{gap_dir}/doc/manualindex,' \
     -i doc/make_doc
 
 %build
 # Build the documentation
+export LC_ALL=C.UTF-8
 pushd doc
 ./make_doc
 popd
@@ -85,26 +87,31 @@ popd
 parallel %{?_smp_mflags} --no-notice gzip --best ::: nr/*.nr nri/*.nr
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE,README,.package_note*}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/{gapmacro.tex,make_doc}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/{ref,tut}/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc/{ref,tut}
+cp -a *.g grp lib nr nri tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs -d doc/ref
+%gap_copy_docs -d doc/tut
+cp -a doc/htm %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
 
 %check
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+export LC_ALL=C.UTF-8
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.9.4-3
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

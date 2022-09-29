@@ -1,16 +1,9 @@
-# EPEL will not have python-spec/python-nose, so skip the spec-based tests on EPEL 9.
-# This may improve with a PR: https://github.com/bitprophet/pytest-relaxed/pull/22
-%if 0%{?el9} || 0%{?centos} >= 9
-%bcond_with    tests
-%else
 %bcond_without tests
-%endif
-
 %global srcname lexicon
 
 Name:		python-lexicon
 Version:	2.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
 License:	BSD
 URL:		https://github.com/bitprophet/lexicon
@@ -22,7 +15,7 @@ BuildRequires:	python3-setuptools
 %if %{with tests}
 # For test suite
 BuildRequires:	python3-pytest
-BuildRequires:	python3-spec > 0.10.0
+BuildRequires:	python3-pytest-relaxed
 %endif
 
 %description
@@ -46,8 +39,7 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 
 %if %{with tests}
 %check
-# Using spec rather than pytest-relaxed because the former is available in Fedora and the latter is not
-PYTHONPATH=%{buildroot}%{python3_sitelib} spec
+%pytest
 %endif
 
 %files -n python3-lexicon
@@ -57,6 +49,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} spec
 %{python3_sitelib}/lexicon-%{version}-*.egg-info/
 
 %changelog
+* Fri Sep 02 2022 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-6
+- Use pytest-relaxed, to avoid a transitive dependency on deprecated nose
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

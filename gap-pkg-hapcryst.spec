@@ -2,21 +2,18 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.1.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Integral cohomology computations of Bieberbach groups
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/hapcryst/
 Source0:        https://github.com/gap-packages/hapcryst/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fix documentation bugs
 Patch0:         %{name}-doc.patch
 # Adapt to Carat -> CaratInterface name change
 Patch1:         %{name}-carat.patch
-
-# Polymake is no longer available on 32-bit platforms
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-BuildArch:      noarch
-ExclusiveArch:  noarch aarch64 ppc64le s390x x86_64
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-aclib
@@ -61,18 +58,19 @@ export LC_ALL=C.UTF-8
 # Build the documentation
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;%{_gap_dir}" < makedoc.g
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 # Fix up broken HTML links between the two books
 sed -i "s,\./lib,.&,g" doc/*.html
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{CHANGES,LICENSE,README,doc/clean}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/datatypes/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g examples lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+rm -fr %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc
+%gap_copy_docs
+%gap_copy_docs -d lib/datatypes/doc
 
 %check
 export LC_ALL=C.UTF-8
@@ -81,25 +79,28 @@ export LC_ALL=C.UTF-8
 polymake --reconfigure - <<< exit;
 
 # Run the actual tests
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/datatypes/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/examples/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/datatypes/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/examples/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/datatypes/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/examples/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.1.15-2
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 0.1.15-1
 - Convert License tag to SPDX
 

@@ -3,17 +3,18 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.9.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Computations with toric varieties in GAP
 
 License:        MIT
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/toric/
 Source0:        https://github.com/gap-packages/toric/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 # Fix a misplaced comma and other problems in a BibTeX entry
 # https://github.com/gap-packages/toric/pull/12
 Patch0:         0001-Fix-problems-with-the-Gua05-BibTeX-entry.patch
 
-BuildArch:      noarch
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 
@@ -43,26 +44,28 @@ export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{upname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/{CHANGES,LICENSE,README.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{upname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{upname}-%{version}/doc
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}-%{version}/doc/
-%{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
+- Update for gap 4.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

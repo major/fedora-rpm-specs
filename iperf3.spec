@@ -1,11 +1,13 @@
 Name:           iperf3
 Version:        3.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 License:        BSD
 URL:            https://github.com/esnet/iperf
 Source0:        https://github.com/esnet/iperf/archive/%{version}.tar.gz
+# PR#1278: Report number of reorder_seen (rhbz#2063959)
+Patch0:         https://github.com/esnet/iperf/pull/1278.patch
 BuildRequires:  libuuid-devel
 BuildRequires:  gcc
 BuildRequires:  lksctp-tools-devel
@@ -26,7 +28,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q -n iperf-%{version}
+%autosetup -n iperf-%{version} -p1
 
 %build
 %configure --disable-static
@@ -52,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Tue Sep 27 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 3.11-3
+- Backport PR#1278: Report number of reorder_seen. Fixes: rhbz#2063959
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:       mock-core-configs
-Version:    37.7
+Version:    37.8
 Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/rpm-software-management/mock/
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -18,7 +18,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.76
+Requires:   distribution-gpg-keys >= 1.77
 # specify minimal compatible version of mock
 Requires:   mock >= 2.5
 Requires:   mock-filesystem
@@ -140,6 +140,14 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Tue Sep 27 2022 Pavel Raiskup <praiskup@redhat.com> 37.8-1
+- openEuler 22.03 configs added (yikunkero@gmail.com)
+- openEuler 20.03 configs added (yikunkero@gmail.com)
+- Oracle Linux 9 configs added (a.samets@gmail.com)
+- change license to spdx (msuchy@redhat.com)
+- Update to AlmaLinux Quay.io repo (srbala@gmail.com)
+- EPEL Koji repo not exposed when we are on EPEL Next (miro@hroncok.cz)
+
 * Wed Aug 10 2022 Pavel Raiskup <praiskup@redhat.com> 37.7-1
 - depend on distribution-gpg-keys 1.76 (F38 key)
 

@@ -23,7 +23,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        The Swift programming language
 License:        Apache 2.0
 URL:            https://www.swift.org
@@ -67,6 +67,7 @@ Patch0:		temp-patches.patch
 Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
+Patch4:		unusedvars.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -89,12 +90,6 @@ BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
-%endif
-
-# Gotta do something special for EPEL8 apparently
-# (9/12/22)
-%if 0%{?rhel} && 0%{?rhel} == 8
-BuildRequires:	gcc-toolset-11
 %endif
 
 Requires:       glibc-devel
@@ -146,7 +141,6 @@ mv swift-driver-swift-%{swift_version} swift-driver
 mv swift-crypto-%{swift_crypto_version} swift-crypto
 mv CMake-%{cmake_version} cmake
 mv swift-atomics-%{swift_atomics_version} swift-atomics
-#mv swift-cmark-swift-%{swift_version}-gfm swift-cmark-gfm
 mv swift-docc-swift-%{swift_version} swift-docc
 mv swift-docc-render-artifact-swift-%{swift_version} swift-docc-render-artifact
 mv swift-docc-symbolkit-swift-%{swift_version} swift-docc-symbolkit
@@ -173,18 +167,15 @@ mv ninja-%{ninja_version} ninja
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
-# Temp patch for testing building
-#%patch0 -p0
-
-# Gold Linker issue with LLVM under Fedora 36
-#%patch1 -p0
-
 # Enable LZMA
 %patch2 -p0
 
 # Fix for glibc defining certain structs and enums twice that are flagged
 # as redefined when including linux/fs.h
 %patch3 -p0
+
+# Fix for variable that is initialized and not used
+%patch4 -p0
 
 
 %build
@@ -195,11 +186,6 @@ export VERBOSE=1
 mkdir $PWD/binforpython
 ln -s /usr/bin/python3 $PWD/binforpython/python
 export PATH=$PWD/binforpython:$PATH
-%endif
-
-%if 0%{?el8}
-# Enable GCC Toolset 11
-. /opt/rh/gcc-toolset-11/enable
 %endif
 
 # Here we go!
@@ -235,6 +221,11 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-3
+- Resolves: rhbz#2130233
+* Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-2
+- Added patch to handle an initialized variable but not
+  used
 * Tue Sep 13 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1
 - Updated to Swift 5.7-RELEASE
 * Thu May 05 2022 Ron Olson <tachoknight@gmail.com> - 5.7-1

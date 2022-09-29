@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.6.2
-Release: 1%{?dist}
+Release: 1.rc2%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -13,6 +13,8 @@ Source1: id_resolver.conf
 Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
+
+Patch001: nfs-utils.2.6.3-rc2.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch101: nfs-utils-1.2.1-exp-subtree-warn-off.patch
@@ -451,6 +453,9 @@ fi
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Tue Sep 27  2022 Steve Dickson <steved@redhat.com> 2.6.2-1.rc2
+- Updated to the latest RC release: nfs-utils-2-6-3-rc2 (bz 2126545)
+
 * Tue Aug 23 2022 Steve Dickson <steved@redhat.com> 2.6.2-1
 - Removed the nfsconvert scripts, no longer needed.
 

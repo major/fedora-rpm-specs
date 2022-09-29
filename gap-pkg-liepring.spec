@@ -2,13 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Database and algorithms for Lie p-rings
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/%{pkgname}/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -37,57 +38,60 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -n %{pkgname}-%{version}
 
 # Fix paths
-sed -i 's,\.\./\.\./\.\./,%{_gap_dir}/,' doc/make_doc
+sed -i 's,\.\./\.\./\.\./,%{gap_dir}/,' doc/make_doc
 
 %build
-ln -s %{_gap_dir}/doc ../../doc
+export LC_ALL=C.UTF-8
+ln -s %{gap_dir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE,README.md,.package_note*}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/make_doc
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g gap htm lib tst VERSION %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};%{gap_dir}" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/notes/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim6/notes/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/2gen/notes/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/3gen/notes/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/4gen/notes/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/5gen/notes/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/notes/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/dim6/notes/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/dim7/2gen/notes/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/dim7/3gen/notes/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/dim7/4gen/notes/
+%exclude %{gap_dir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/notes/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim6/notes/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/2gen/notes/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/3gen/notes/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/4gen/notes/
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/5gen/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/htm/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim6/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/2gen/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/3gen/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/4gen/notes/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/lib/dim7/5gen/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/dim6/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/dim7/2gen/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/dim7/3gen/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/dim7/4gen/notes/
+%docdir %{gap_dir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
+%{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_dir}/pkg/%{pkgname}/lib/notes/
+%{gap_dir}/pkg/%{pkgname}/lib/dim6/notes/
+%{gap_dir}/pkg/%{pkgname}/lib/dim7/2gen/notes/
+%{gap_dir}/pkg/%{pkgname}/lib/dim7/3gen/notes/
+%{gap_dir}/pkg/%{pkgname}/lib/dim7/4gen/notes/
+%{gap_dir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.7-2
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Sat Aug  6 2022 Jerry James <loganjerry@gmail.com> - 2.7-1
 - Version 2.7
 

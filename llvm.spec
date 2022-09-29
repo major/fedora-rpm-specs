@@ -72,7 +72,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -97,6 +97,9 @@ Patch2:		0003-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
 # Needed to export clang-tblgen during the clang build, needed by the flang docs build.
 # TODO: Can be dropped for LLVM 16, see https://reviews.llvm.org/D131282.
 Patch3:		0001-Install-clang-tblgen.patch
+
+# Export GetHostTriple.cmake for use by the runtimes build.
+Patch4:		0001-Export-GetHostTriple.cmake.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -565,6 +568,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 27 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-2
+- Export GetHostTriple.cmake
+
 * Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
 - Update to LLVM 15.0.0
 

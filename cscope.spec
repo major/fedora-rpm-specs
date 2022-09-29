@@ -1,7 +1,7 @@
 Summary: C source code tree search and browse tool
 Name: cscope
 Version: 15.9
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source0: https://downloads.sourceforge.net/project/%{name}/%{name}/v%{version}/%{name}-%{version}.tar.gz
 URL: http://cscope.sourceforge.net
 License: BSD and GPLv2+
@@ -21,11 +21,14 @@ Patch5: cscope-5-contrib-ocs-Fix-bashims-Closes-480591.patch
 Patch6: cscope-6-doc-cscope.1-Fix-hyphens.patch
 Patch7: cscope-7-fscanner-swallow-function-as-parameters.patch
 Patch8: cscope-8-emacs-plugin-fixup-GNU-Emacs-27.1-removes-function-p.patch
+Patch9: cscope-9-fix-access-beyond-end-of-string.patch
+Patch10: cscope-a-docs-typo-fixes-in-man-page-and-comments.patch
+
 # distrubution patches which were not upstreamed
-Patch9: dist-1-coverity-fixes.patch
-Patch10: dist-2-cscope-indexer-help.patch
-Patch11: dist-3-add-selftests.patch
-Patch12: dist-4-fix-printf.patch
+Patch11: dist-1-coverity-fixes.patch
+Patch12: dist-2-cscope-indexer-help.patch
+Patch13: dist-3-add-selftests.patch
+Patch14: dist-4-fix-printf.patch
 
 %define cscope_share_path %{_datadir}/cscope
 %if !0%{?rhel} && 0%{?fedora} < 36
@@ -106,6 +109,9 @@ rm -f %{emacs_lisp_path}/xcscope.el
 rm -f %{vim_plugin_path}/cctree.vim
 
 %changelog
+* Tue Sep 27 2022 Vladis Dronov <vdronov@redhat.com> - 15.9-17
+- Update to the upstream git @ 7f2369ac
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 15.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

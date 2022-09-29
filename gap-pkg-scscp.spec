@@ -1,22 +1,24 @@
 %global pkgname scscp
-%global PKGNAME SCSCP
+%global upname  SCSCP
 %global usrname gapd
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Symbolic Computation Software Composability Protocol in GAP
 
-License:        GPLv2+
-URL:            https://gap-packages.github.io/scscp/
+License:        GPL-2.0-or-later
 BuildArch:      noarch
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{PKGNAME}-%{version}.tar.gz
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+URL:            https://gap-packages.github.io/scscp/
+Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 Source1:        %{usrname}.sh
 Source2:        gap-scscp.service
 Source3:        %{usrname}.logrotate
 Source4:        %{usrname}.conf
 Source5:        %{usrname}.h2m
 Source6:        server.g
+Source7:        %{name}.sysusers
 
 # Fix a typo in makedoc.g.
 Patch0:         %{name}-makedoc.patch
@@ -28,9 +30,9 @@ BuildRequires:  gap-pkg-openmath-doc
 BuildRequires:  gap-pkg-smallgrp-doc
 BuildRequires:  help2man
 BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 
 %{?systemd_requires}
-Requires(pre):  shadow-utils
 Requires:       gap-pkg-openmath
 Requires:       logrotate
 
@@ -51,30 +53,34 @@ Requires:       gap-pkg-smallgrp-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{PKGNAME}-%{version}
+%autosetup -p0 -n %{upname}-%{version}
 
 %build
+export LC_ALL=C.UTF-8
+
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
+ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
-ln -s ../%{PKGNAME}-%{version} ../pkg/%{PKGNAME}
-ln -s %{_gap_dir}/pkg/io-* ../pkg
-ln -s %{_gap_dir}/pkg/OpenMath-* ../pkg
-ln -s %{_gap_dir}/pkg/SmallGrp-* ../pkg
-gap -l "$PWD/..;%{_gap_dir}" makedoc.g
+ln -s ../%{upname}-%{version} ../pkg/%{upname}
+gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{PKGNAME}-%{version} %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/{COPYING,README.md,todo.txt}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a *.g *.sh demo example lib par tracing tst \
+   %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
+cp -a doc/img %{buildroot}%{gap_dir}/pkg/%{upname}/doc
 
 # Replace upstream's launcher script with our own.
-install -p -m 0755 %{SOURCE1} %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}
+install -p -m 0755 %{SOURCE1} %{buildroot}%{gap_dir}/pkg/%{upname}
 
 # Make the daemon's home directory
 mkdir -p %{buildroot}%{_sharedstatedir}/%{usrname}
+
+# Install the sysusers file
+mkdir -p %{buildroot}%{_sysusersdir}
+cp -p %{SOURCE7} %{buildroot}%{_sysusersdir}/%{usrname}.conf
 
 # Install the systemd unit
 mkdir -p %{buildroot}%{_unitdir}
@@ -97,33 +103,29 @@ help2man -m "GAP SCSCP package" -S "GAP SCSCP (Fedora %{version}-%{release})" \
 # Move the config files to their new home
 mkdir -p %{buildroot}%{_sysconfdir}/scscp/gap
 install -p -m 0644 %{SOURCE6} %{buildroot}%{_sysconfdir}/scscp/gap
-mv %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/config.g \
-   %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/configpar.g \
+mv %{buildroot}%{gap_dir}/pkg/%{upname}/config.g \
+   %{buildroot}%{gap_dir}/pkg/%{upname}/configpar.g \
    %{buildroot}%{_sysconfdir}/scscp/gap
-
-# Tell the package where to look for its configuration
-sed -e 's,ReadPackage("scscp/\(config\.g\)"),Read("/etc/scscp/gap/\1"),' \
-    -e 's,ReadPackage("scscp/\(configpar\.g\)"),Read("/etc/scscp/gap/\1"),' \
-    -i %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/init.g
-touch -r init.g %{buildroot}%{_gap_dir}/pkg/%{PKGNAME}/init.g
+ln -s %{_sysconfdir}/scscp/gap/config.g %{buildroot}%{gap_dir}/pkg/%{upname}
+ln -s %{_sysconfdir}/scscp/gap/configpar.g %{buildroot}%{gap_dir}/pkg/%{upname}
 
 %check
+export LC_ALL=C.UTF-8
+
 # We only run the offline test as the others require network access and two
 # servers to be setup and running.
 mkdir ../pkg
-ln -s ../%{PKGNAME}-%{version} ../pkg/%{PKGNAME}
-pushd tst
-gap -l "$PWD/../..;%{_gap_dir}" << EOF
+ln -s ../%{upname}-%{version} ../pkg/%{upname}
+cd tst
+gap -l "$PWD/../..;" << EOF
 LoadPackage("scscp");
 GAP_EXIT_CODE(Test("offline.tst", rec(compareFunction := "uptowhitespace") ));
 EOF
-popd
+cd -
 rm -fr ../pkg
 
 %pre
-getent passwd %{usrname} >/dev/null || \
-  useradd -c "GAP SCSCP server daemon" -d %{_sharedstatedir}/%{usrname} \
-  -r -s /sbin/nologin -U %{usrname} || :
+%sysusers_create_package %{usrname} %{SOURCE7}
 
 %preun
 %systemd_preun gap-scscp.service
@@ -131,17 +133,15 @@ getent passwd %{usrname} >/dev/null || \
 %post
 %systemd_post gap-scscp.service
 
-%posttrans
-chown %{usrname}:%{usrname} %{_sharedstatedir}/%{usrname}
-
 %files
 %doc README.md todo.txt
 %license COPYING
-%{_gap_dir}/pkg/%{PKGNAME}/
-%exclude %{_gap_dir}/pkg/%{PKGNAME}/demo/
-%exclude %{_gap_dir}/pkg/%{PKGNAME}/doc/
-%exclude %{_gap_dir}/pkg/%{PKGNAME}/example/
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/demo/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
+%exclude %{gap_dir}/pkg/%{upname}/example/
 %{_mandir}/man8/%{usrname}.8*
+%{_sysusersdir}/%{usrname}.conf
 %{_unitdir}/gap-scscp.service
 %dir %{_sysconfdir}/scscp/
 %dir %{_sysconfdir}/scscp/gap/
@@ -153,14 +153,19 @@ chown %{usrname}:%{usrname} %{_sharedstatedir}/%{usrname}
 %attr(755,%{usrname},%{usrname}) %{_sharedstatedir}/%{usrname}/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{PKGNAME}/demo/
-%docdir %{_gap_dir}/pkg/%{PKGNAME}/doc/
-%docdir %{_gap_dir}/pkg/%{PKGNAME}/example/
-%{_gap_dir}/pkg/%{PKGNAME}/demo/
-%{_gap_dir}/pkg/%{PKGNAME}/doc/
-%{_gap_dir}/pkg/%{PKGNAME}/example/
+%docdir %{gap_dir}/pkg/%{upname}/demo/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/example/
+%{gap_dir}/pkg/%{upname}/demo/
+%{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/example/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+- Use systemd-sysusers to create the daemon user
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

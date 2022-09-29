@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libpanel
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        IDE paneling library for GTK
 

@@ -2,17 +2,17 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.8.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GAP interface to polymake
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/polymaking/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-
-# Polymake is no longer available on 32-bit platforms
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-BuildArch:      noarch
-ExclusiveArch:  noarch aarch64 ppc64le s390x x86_64
+# Update outdated information about the .gaprc file
+# https://github.com/gap-packages/polymaking/pull/15
+Patch0:         %{name}-doc.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -33,28 +33,23 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 # Fix an undefined LaTeX command in the BibTeX file
 sed -i 's/URL/url/' doc/polymaking.bib
-
-# Fix a reference to the main GAP manual
-sed -i 's/The \.gaprc file/The former .gaprc file/' doc/environment.xml
 
 %build
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{_gap_dir}/doc ../../doc
-gap < makedoc.g
-rm -fr ../../doc
+#ln -s %{gap_dir}/doc ../../doc
+gap makedoc.g
+#rm -fr ../../doc
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{CHANGES,README}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/LICENSE
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
@@ -63,19 +58,24 @@ export LC_ALL=C.UTF-8
 polymake --reconfigure - <<< exit;
 
 # Now we can run the actual test.
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.8.6-5
+- Update for gap 4.12.0
+- Add -doc patch
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

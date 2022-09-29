@@ -27,7 +27,7 @@
 # 7. Build gap-pkg-autodoc in non-bootstrap mode.
 # 8. Build gap-pkg-smallgrp.
 # 9. Build this package in non-bootstrap mode.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap
 Version:        4.12.0
@@ -85,6 +85,9 @@ Patch10:        %{name}-saveonexitfile.patch
 # Add missing header to Centralizer entry
 # https://github.com/gap-system/gap/commit/b576deedba5bc5ead847329e266d1262bc8cd565
 Patch11:        %{name}-centralizer.patch
+# Fix HASH_FLAGS on big endian architectures
+# https://github.com/gap-system/gap/commit/093cb0353c936d0af42f2e1d1995b6aa95bbf246
+Patch12:        %{name}-endian.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

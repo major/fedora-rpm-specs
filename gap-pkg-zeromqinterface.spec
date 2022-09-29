@@ -3,10 +3,11 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ZeroMQ bindings for GAP
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
+ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/%{upname}/
 Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
@@ -44,38 +45,40 @@ rm zgap.orig
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{_gap_dir}
+%configure --with-gaproot=%{gap_dir}
 %make_build
 
 # Build the documentation
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}
-cp -a bin doc gap tst *.g %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/bin/*/{.libs,*.la}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/clean
-rm -f %{buildroot}%{_gap_dir}/pkg/%{upname}-%{version}/doc/*.{aux,bbl,blg,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
+cp -a bin gap tst *.g %{buildroot}%{gap_dir}/pkg/%{upname}
+%gap_copy_docs -n %{upname}
 
-mkdir -p %{buildroot}%{_gap_dir}/bin
-cp -p zgap %{buildroot}%{_gap_dir}/bin
+mkdir -p %{buildroot}%{gap_dir}/bin
+cp -p zgap %{buildroot}%{gap_dir}/bin
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" < tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license COPYRIGHT.md LICENSE
-%{_gap_dir}/bin/zgap
-%{_gap_dir}/pkg/%{upname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%{gap_dir}/bin/zgap
+%{gap_dir}/pkg/%{upname}/
+%exclude %{gap_dir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{upname}-%{version}/doc/
-%{_gap_dir}/pkg/%{upname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{upname}/doc/
+%{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.14-2
+- Update for gap 4.12.0
+- Convert License tag to SPDX
+
 * Sat Jul 30 2022 Jerry James <loganjerry@gmail.com> - 0.14-1
 - Version 0.14
 

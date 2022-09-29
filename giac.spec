@@ -9,7 +9,7 @@
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       2%{?dist}
+Release:       3%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -38,6 +38,9 @@ Patch4:        %{name}-fix_graphe_file.patch
 
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2792
 Patch5:        %{name}-1.9.0-bug2792.patch
+
+# Adapt to pari 2.15.0
+Patch6:        %{name}-pari2.15.patch
 
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
@@ -166,6 +169,7 @@ with Giac computations.
 %ifarch s390x
 %patch5 -p1 -b .backup
 %endif
+%patch6 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -452,6 +456,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.9.0.19-3
+- Rebuild for pari 2.15.0
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.0.19-2
 - Rebuild for gsl-2.7.1
 
