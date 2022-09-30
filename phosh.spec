@@ -1,8 +1,8 @@
 %global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
-%global libcall_ui_commit f81f46045ac85e5c5c93d9b5be673c0f20991927
+%global libcall_ui_commit 7e2f9e2db6515fb9c4650010c2a9ecb9796957e3
 
 Name:		phosh
-Version:	0.21.0
+Version:	0.21.1
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -143,6 +143,9 @@ SH
 %license COPYING
 
 %changelog
+* Wed Sep 28 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.21.1-1
+- Update to 0.21.1
+
 * Thu Sep 01 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.21.0-1
 - Update to 0.21.0
 

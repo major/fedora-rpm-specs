@@ -24,7 +24,7 @@ URL: https://github.com/containers/%{pypi_name}-py
 Source0: %{url}/releases/download/v%{built_tag_strip}/%{pypi_name}-%{version}.tar.gz
 BuildArch: noarch
 
-%description 
+%description
 %desc
 
 %package -n python%{python3_pkgversion}-%{pypi_name}
@@ -52,8 +52,10 @@ Requires: python%{python3_pkgversion}-xdg
 BuildRequires: python%{python3_pkgversion}-pyxdg
 Requires: python%{python3_pkgversion}-pyxdg
 %endif
-%if 0%{?fedora} == 35
+%if 0%{?fedora} >= 35
+BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-toml
+Requires: python%{python3_pkgversion}-requests
 Requires: python%{python3_pkgversion}-toml
 %endif
 %endif

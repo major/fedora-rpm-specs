@@ -2,15 +2,12 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
-License:        GPLv2+
+License:        GPLv2+ and LGPLv2.1+ and CC-BY and GPLv3+
 Summary:        Clock app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/kclock
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
-
-# MR 75 Upstream Patch
-Patch0:         mr75.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -67,7 +64,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %install
 %cmake_install
 sed -i 's/GPL-2+/GPL-2.0-or-later/g' %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
-%find_lang %{name}
+%find_lang %{name} --all-name
 
 
 %check
@@ -76,7 +73,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 %files -f %{name}.lang
 %doc README.md
-%license LICENSE
+%license LICENSES/*
 %{_kf5_bindir}/%{name}
 %{_kf5_bindir}/%{name}d
 %{_kf5_datadir}/applications/%{orig_name}.desktop
@@ -97,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

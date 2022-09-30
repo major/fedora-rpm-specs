@@ -1,15 +1,13 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        42.1
-Release:        3%{?dist}
+Version:        43.0
+Release:        1%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD
 URL:            https://github.com/Keruspe/%{alt_name}/
 Source0:        https://www.imagination-land.org/files/%{name}/%{alt_name}-%{version}.tar.xz
-# Fix build with GNOME 43
-Patch0:         %{name}-42.1-gnome43.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -19,6 +17,7 @@ BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gdk-3.0)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gdk-x11-3.0)
+BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gjs-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -86,6 +85,28 @@ GPaste is a clipboard management system.
 This package provides the GNOME Shell extension for GPaste.
 
 
+
+%package bash-completion
+Summary:        Bash completion for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       bash-completion
+Supplements:    (%{name} and bash-completion)
+
+%description bash-completion
+Bash command line completion support for %{name}.
+
+
+
+%package zsh-completion
+Summary:        Zsh completion for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       zsh
+Supplements:    (%{name} and zsh)
+
+%description zsh-completion
+Zsh command line completion support for %{name}.
+
+
 %prep
 %autosetup -n %{alt_name}-%{version}
 
@@ -135,8 +156,6 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %{_libexecdir}/%{name}/gpaste-daemon
 %{_datadir}/dbus-1/services/org.gnome.GPaste.service
 %{_datadir}/glib-2.0/schemas/*.xml
-%{_datadir}/bash-completion/
-%{_datadir}/zsh/
 %{_userunitdir}/org.gnome.GPaste.service
 %{_mandir}/man1/*.1.*
 
@@ -171,7 +190,19 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %{_datadir}/gnome-shell/extensions/GPaste@gnome-shell-extensions.gnome.org/
 
 
+%files bash-completion
+%{_datadir}/bash-completion/completions/%{name}-client
+
+
+%files zsh-completion
+%{_datadir}/zsh/site-functions/_%{name}-client
+
+
 %changelog
+* Wed Sep 28 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 43.0-1
+- Update to 43.0
+- Split shell completion files into separate subpackages
+
 * Thu Aug 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 42.1-3
 - Fix build dependencies for GNOME 43
 

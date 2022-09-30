@@ -34,7 +34,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    0.103.7
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -99,7 +99,7 @@ BuildRequires:  libprelude-devel
 # libprelude-config --libs brings in gnutls, pcre
 # https://bugzilla.redhat.com/show_bug.cgi?id=1830473
 BuildRequires:  gnutls-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel
@@ -592,6 +592,10 @@ test -e %{freshclamlog} || {
 
 
 %changelog
+* Thu Sep 22 2022 Sérgio Basto <sergio@serjux.com> - 0.103.7-3
+- (#2128276) Please port your pcre dependency to pcre2
+- Explicit dependency on systemd since systemd-devel no longer has this dependency on F37+
+
 * Mon Aug 01 2022 Orion Poplawski <orion@nwra.com> - 0.103.7-2
 - Split out documentation into separate -doc sub-package
 

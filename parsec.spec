@@ -1,4 +1,4 @@
-#global candidate rc3
+%global candidate rc2
 %bcond_with check
 %global __cargo_skip_build 0
 %global __cargo_is_lib() false
@@ -10,8 +10,8 @@
 %global custom_cargo_test /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo test %{_smp_mflags} -Z avoid-dev-deps --release --no-fail-fast
 
 Name:          parsec
-Version:       1.0.0
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Version:       1.1.0
+Release:       0.1%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -101,6 +101,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Wed Sep 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.0-0.1.rc2
+- Update to 1.1.0 RC2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

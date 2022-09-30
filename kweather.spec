@@ -1,13 +1,11 @@
 Name:           kweather 
-Version:        22.06
-Release:        3%{?dist}
+Version:        22.09
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
 Url:            https://invent.kde.org/plasma-mobile/kweather
 Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
-Patch0:         appstream.diff
-      
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -75,6 +73,12 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Rebuild against kweathercore 0.7
+
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Tue Sep 20 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 22.06-3
 - Rebuild for kweathercore 0.6
 

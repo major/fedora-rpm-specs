@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.77
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility functions for GAP
 
 License:        GPL-2.0-or-later
@@ -29,8 +29,8 @@ from many packages.
 %package doc
 Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
-Requires:       gap-curlinterface-doc
-Requires:       gap-io-doc
+Requires:       gap-pkg-curlinterface-doc
+Requires:       gap-pkg-io-doc
 
 %description doc
 This package contains documentation for gap-pkg-%{pkgname}.
@@ -67,6 +67,9 @@ cp -p tst/download.tst %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Sep 28 2022 Jerry James <loganjerry@gmail.com> - 0.77-2
+- Fix -doc subpackage Requires (rhbz#2130679)
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.77-1
 - Version 0.77
 - Convert License tag to SPDX

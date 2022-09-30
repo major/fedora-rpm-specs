@@ -25,7 +25,7 @@
 
 # Versions numbers
 %global major        1
-%global minor        2
+%global minor        3
 %global patch        0
 %global fullversion  %{major}.%{minor}.%{patch}
 
@@ -39,7 +39,7 @@
 
 Summary:            IPsec cryptography library optimized for Intel Architecture
 Name:               %{githubname}
-Release:            3%{?dist}
+Release:            1%{?dist}
 Version:            %{fullversion}
 License:            BSD
 Group:              Development/Tools
@@ -109,6 +109,9 @@ ln -s libIPSec_MB.so.%{fullversion} libIPSec_MB.so
 %{_libdir}/libIPSec_MB.so
 
 %changelog
+* Wed Sep 28 2022 Marcel Cornu <marcel.d.cornu@intel.com> 1.3.0-1
+- Update for release package v1.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

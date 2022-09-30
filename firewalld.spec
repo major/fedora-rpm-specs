@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
 Version: 1.2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL:     http://www.firewalld.org
 License: GPLv2+
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.gz
@@ -148,6 +148,9 @@ rm -f %{buildroot}%{_datadir}/polkit-1/actions/org.fedoraproject.FirewallD1.poli
 
 # remove file mistakenly added to upstream dist tarball
 rm -f %{buildroot}%{_datadir}/man/man1/firewallctl.1
+
+# conflicts with kodi-firewalld package, bug #2129946
+rm -f %{buildroot}%{_prefix}/lib/firewalld/services/kodi-*.xml
 
 %find_lang %{name} --all-name
 
@@ -304,6 +307,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Wed Sep 28 2022 Petr Menšík <pemensik@redhat.com> - 1.2.0-4
+- Remove kodi services (#2129946)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

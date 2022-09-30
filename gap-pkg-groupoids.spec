@@ -1,14 +1,15 @@
 %global pkgname groupoids
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.69
-Release:        3%{?dist}
+Version:        1.71
+Release:        1%{?dist}
 Summary:        Groupoids, group graphs, and groupoid graphs
 
 License:        GPL-2.0-or-later
+BuildArch:      noarch
+ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/groupoids/
 Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-BuildArch:      noarch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -55,37 +56,40 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-gap < makedoc.g
+gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{_gap_dir}/pkg
-cp -a ../%{pkgname}-%{version} %{buildroot}%{_gap_dir}/pkg
-rm -fr %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/{LICENSE.txt,scripts,.*.yml,*.md}
-rm -f %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/*.{aux,bbl,blg,brf,idx,ilg,ind,log,out,pnr,tex}
+mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+%gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
 # Skip tests that tend to get OOM killed
 SKIP="manual/gpd.tst extra/rt-act.tst"
 for test in $SKIP; do
-  rm %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/tst/$test
+  rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/$test
 done
-gap -l "%{buildroot}%{_gap_dir};%{_gap_dir}" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};%{gap_dir}" tst/testall.g
 for test in $SKIP; do
-  cp -p tst/$test %{buildroot}%{_gap_dir}/pkg/%{pkgname}-%{version}/tst/$test
+  cp -p tst/$test %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/$test
 done
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE.txt
-%{_gap_dir}/pkg/%{pkgname}-%{version}/
-%exclude %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%{gap_dir}/pkg/%{pkgname}/
+%exclude %{gap_dir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
-%{_gap_dir}/pkg/%{pkgname}-%{version}/doc/
+%docdir %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Sep 13 2022 Jerry James <loganjerry@gmail.com> - 1.71-1
+- Version 1.71
+- Update for gap 4.12.0
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.69-3
 - Convert License tag to SPDX
 

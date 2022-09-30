@@ -1,15 +1,13 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        0.8.23
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 
 License:        GPLv2+
 URL:            http://www.nongnu.org/duplicity/
-Source0:        https://launchpad.net/duplicity/0.8-series/%{version}/+download/duplicity-%{version}.tar.gz
-
-Patch0:         mock.patch
+Source0:        https://launchpad.net/duplicity/1.0/%{version}/+download/duplicity-%{version}.tar.gz
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6

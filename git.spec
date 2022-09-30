@@ -70,14 +70,14 @@
 %endif
 
 # Define for release candidates
-%global rcrev   .rc1
+%global rcrev   .rc2
 
 # Set path to the package-notes linker script
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
 Version:        2.38.0
-Release:        0.1%{?rcrev}%{?dist}
+Release:        0.2%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        GPLv2
 URL:            https://git-scm.com/
@@ -1006,6 +1006,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Wed Sep 28 2022 Todd Zullinger <tmz@pobox.com> - 2.38.0-0.2.rc2
+- update to 2.38.0-rc2
+
 * Wed Sep 21 2022 Todd Zullinger <tmz@pobox.com> - 2.38.0-0.1.rc1
 - update to 2.38.0-rc1
 - git-subtree sub-package is noarch

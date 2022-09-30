@@ -1,14 +1,12 @@
 %global kf5_min_version 5.86.0
 
 Name:           audiotube
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
 Url:            https://apps.kde.org/audiotube/
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
-
-Patch0:         iostream-include.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -71,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.9.0
+Version:        1.9.9
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -39,8 +39,8 @@ Summary:        %{summary}
 
 
 # Dependencies for quart, sanic, beam, pyspark, and chalice extras are not yet in Fedora
-# Dependencies for falcon and fastapi are by some reason not yet rebuilt in Fedora 37
-%pyproject_extras_subpkg -n python3-sentry-sdk flask bottle django celery rq aiohttp tornado sqlalchemy pure_eval httpx starlette
+# Dependencies for fastapi are not built for Fedora >= 37
+%pyproject_extras_subpkg -n python3-sentry-sdk flask bottle falcon django celery rq aiohttp tornado sqlalchemy pure_eval httpx starlette
 
 
 %prep
@@ -85,6 +85,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Sep 28 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.9-1
+- Update to 1.9.9 (resolve rhbz#2115953)
+- Add falcon extra again
+
 * Fri Jul 29 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.0-1
 - Update to 1.9.0 (resolve rhbz#2111875)
 

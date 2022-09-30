@@ -3,21 +3,10 @@
 
 # https://git.sr.ht/~sircmpwn/getopt
 %global goipath         git.sr.ht/~sircmpwn/getopt
-%global forgeurl        https://git.sr.ht/~sircmpwn/getopt
-%global commit          23622cc906b37a74408b0bec01655be519a63554
-%global repo            getopt
-%global archivename     %{repo}-%{commit}
-%global archiveext      tar.gz
-%global archiveurl      %{forgeurl}/archive/%{commit}.%{archiveext}
-%global topdir          %{repo}-%{commit}
-%global extractdir      %{repo}-%{commit}
-%global scm             git
+Version:                1.0.0
+%global tag             v%{version}
 
 %gometa
-
-%global goname        golang-sr-sircmpwn-getopt
-%global godevelname   golang-sr-sircmpwn-getopt-devel
-
 
 %global common_description %{expand:
 A POSIX-compatible getopt implementation for Go, because POSIX getopt is The
@@ -27,12 +16,9 @@ Correct Way to interpret arguments to command line utilities.}
 %global godocs          README.md
 
 Name:           %{goname}
-Version:        0
-Release:        0.4%{?dist}
+Release:        1%{?dist}
 Summary:        POSIX-compatible getopt implementation for Go
-
-# Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

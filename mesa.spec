@@ -211,6 +211,15 @@ Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 %{summary}.
 %endif
 
+%if 0%{?with_vaapi}
+%package        vaapi-drivers
+Summary:        Mesa-based VAAPI drivers
+Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description vaapi-drivers
+%{summary}.
+%endif
+
 %if 0%{?with_vdpau}
 %package        vdpau-drivers
 Summary:        Mesa-based VDPAU drivers
@@ -532,13 +541,6 @@ popd
 %if 0%{?with_vmware}
 %{_libdir}/dri/vmwgfx_dri.so
 %endif
-%{_libdir}/dri/nouveau_drv_video.so
-%if 0%{?with_r600}
-%{_libdir}/dri/r600_drv_video.so
-%endif
-%if 0%{?with_radeonsi}
-%{_libdir}/dri/radeonsi_drv_video.so
-%endif
 %endif
 %if 0%{?with_opencl}
 %dir %{_libdir}/gallium-pipe
@@ -569,6 +571,18 @@ popd
 %files omx-drivers
 %{_libdir}/bellagio/libomx_mesa.so
 %endif
+
+%if 0%{?with_vaapi}
+%files vaapi-drivers
+%{_libdir}/dri/nouveau_drv_video.so
+%if 0%{?with_r600}
+%{_libdir}/dri/r600_drv_video.so
+%endif
+%if 0%{?with_radeonsi}
+%{_libdir}/dri/radeonsi_drv_video.so
+%endif
+%endif
+
 %if 0%{?with_vdpau}
 %files vdpau-drivers
 %{_libdir}/vdpau/libvdpau_nouveau.so.1*

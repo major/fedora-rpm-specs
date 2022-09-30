@@ -50,7 +50,7 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+spiffe-devel
 Summary:        %{summary}
@@ -62,7 +62,7 @@ This package contains library source intended for building other packages which
 use the "spiffe" feature of the "%{crate}" crate.
 
 %files       -n %{name}+spiffe-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+spiffe-auth-devel
 Summary:        %{summary}
@@ -74,7 +74,7 @@ This package contains library source intended for building other packages which
 use the "spiffe-auth" feature of the "%{crate}" crate.
 
 %files       -n %{name}+spiffe-auth-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+testing-devel
 Summary:        %{summary}
@@ -86,7 +86,7 @@ This package contains library source intended for building other packages which
 use the "testing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+testing-devel
-%ghost %{cargo_registry}/Cargo.toml
+%ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1

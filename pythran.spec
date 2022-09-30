@@ -1,6 +1,6 @@
 Name:           pythran
-Version:        0.11.0
-Release:        6%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -49,16 +49,6 @@ Requires:       gcc-c++
 Requires:       python3-devel
 Requires:       boost-devel
 Requires:       xsimd-devel >= 8
-
-# Upstream fixes for GCC 12
-Patch:          https://github.com/serge-sans-paille/pythran/pull/1976.patch
-Patch:          https://github.com/serge-sans-paille/pythran/pull/1979.patch
-Patch:          https://github.com/serge-sans-paille/pythran/commit/a0571440f5ba08ab3bbfb8aa01831904dfd96815.patch
-Patch:          https://github.com/serge-sans-paille/pythran/commit/8202edbb455be8afdfeb6f9e092c5d36b7aa5c63.patch
-
-# Upstream fixes for Python 3.11
-Patch:          https://github.com/serge-sans-paille/pythran/pull/1996.patch
-Patch:          https://github.com/serge-sans-paille/pythran/pull/1997.patch
 
 %description
 Pythran is an ahead of time compiler for a subset of the Python language, with
@@ -144,6 +134,10 @@ k="$k and not test_setup_bdist_install3"
 
 
 %changelog
+* Wed Sep 28 2022 Miro Hrončok <mhroncok@redhat.com> - 0.12.0-1
+- Update to 0.12.0
+- Fixes: rhbz#2130464
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

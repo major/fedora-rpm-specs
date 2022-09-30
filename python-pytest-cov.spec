@@ -23,7 +23,7 @@ pytest-cov’s command line options or through coverage’s config file.
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        4.0.0
 %forgemeta
 Release:        %autorelease
 Summary:        Coverage plugin for pytest
@@ -31,11 +31,6 @@ License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
 BuildArch:      noarch
-
-# This fix adjusts the coverage test strings to work with 6.2,
-# but they also work with older coverage versions as well.
-Patch:          pytest-cov-3.0.0-coverage-6.2.patch
-
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
@@ -43,7 +38,6 @@ BuildRequires:  pyproject-rpm-macros
 
 %package -n python3-%{srcname}
 Summary: %{summary}
-
 %description -n python3-%{srcname} %{common_description}
 
 %prep

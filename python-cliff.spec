@@ -16,7 +16,7 @@ http://readthedocs.org/docs/cliff/en/latest/
 
 Name:             python-%{modname}
 Version:          4.0.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Command Line Interface Formulation Framework
 
 Group:            Development/Libraries
@@ -25,6 +25,13 @@ URL:              https://pypi.io/pypi/cliff
 Source0:          https://pypi.io/packages/source/c/cliff/cliff-%{version}.tar.gz
 
 BuildArch:        noarch
+
+# Use importlib.metadata on Python 3.10+
+# https://review.opendev.org/c/openstack/cliff/+/859579/1
+#
+# curl https://review.opendev.org/changes/openstack%2Fcliff~859579/revisions/1/patch?download |
+#   base64 -d > 6af10b8.diff
+Patch:            6af10b8.diff
 
 %package -n python3-%{modname}
 Summary:          Command Line Interface Formulation Framework
@@ -65,7 +72,6 @@ BuildRequires:    python3-testscenarios
 BuildRequires:    python3-testrepository
 BuildRequires:    python3-docutils
 BuildRequires:    python3-PyYAML
-BuildRequires:    python3-importlib-metadata
 
 Requires:         python3-%{modname} = %{version}-%{release}
 Requires:         python3-mock
@@ -84,7 +90,7 @@ Requires:         python3-PyYAML
 %{common_desc}
 
 %prep
-%setup -q -n %{modname}-%{upstream_version}
+%autosetup -n %{modname}-%{upstream_version} -p1
 rm -rf {test-,}requirements.txt
 
 # Remove bundled egg info
@@ -110,6 +116,9 @@ PYTHON=python3 python3 setup.py test
 %{python3_sitelib}/%{modname}/tests
 
 %changelog
+* Wed Sep 28 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.0-2
+- Fix missing importlib_metadata runtime dependency
+
 * Sun Sep 18 2022 Kevin Fenzi <kevin@scrye.com> - 4.0.0-1
 - Update to 4.0.0. Fixes rhbz#2117683
 

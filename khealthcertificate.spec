@@ -1,5 +1,5 @@
 Name:           khealthcertificate
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        Apache2.0 and BSD and CC-BY-4.0 and CC0-1.0 and EUPL-1.2 and LGPL-2.0 and MIT and W3C-20120513
 Summary:        Handling of digital vaccination, test and recovery certificates.
@@ -14,6 +14,7 @@ BuildRequires: zlib-devel
 
 BuildRequires: cmake(KF5Archive)
 BuildRequires: cmake(KF5Codecs)
+BuildRequires: cmake(KF5I18n)
 
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Qml)
@@ -34,8 +35,7 @@ BuildRequires: cmake(Qt5Qml)
 %files
 %{_kf5_datadir}/qlogging-categories5/org_kde_khealthcertificate.categories
 
-%{_kf5_libdir}/*.so.1
-%{_kf5_libdir}/*.so.22.07.70
+%{_kf5_libdir}/*.so.*
 
 %{_kf5_qmldir}/org/kde/khealthcertificate/
 
@@ -55,6 +55,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/*.so
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

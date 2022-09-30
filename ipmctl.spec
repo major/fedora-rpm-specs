@@ -1,6 +1,6 @@
 Name:		ipmctl
-Version:	03.00.00.0453
-Release:	3%{?dist}
+Version:	03.00.00.0468
+Release:	1%{?dist}
 Summary:	Utility for managing Intel Optane DC persistent memory modules
 License:	BSD
 URL:		https://github.com/intel/ipmctl
@@ -107,6 +107,9 @@ API for development of Intel Optane DC persistent memory management utilities.
 %{_libdir}/pkgconfig/libipmctl.pc
 
 %changelog
+* Wed Sep 28 2022 Steven Pontsler <steven.pontsler@intel.com> - 03.00.00.0468-1
+- Release 03.00.00.0468
+
 * Thu Aug 25 2022 Steven Pontsler <steven.pontsler@intel.com> - 03.00.00.0453-3
 - Add patch to remove unused functions that have compilation issues
 

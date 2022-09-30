@@ -11,18 +11,18 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    07bb648c3b0e853bac78e8e4b946a3aafa0271ac
+%global gh_commit    041352673a390b3e0822fc4b0e295ac6267dffbf
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  6.4.1
+%global upstream_version  6.4.2
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 License:        BSD and MIT
@@ -57,60 +57,60 @@ Requires:       php-xmlreader
 # Bundled libraries
 # License BSD-3-Clause
 Provides: bundled(php-bartlett-php-compatinfo-db) = 4.3.0
-Provides: bundled(php-nikic-php-parser) = v4.13.2
+Provides: bundled(php-nikic-php-parser) = v4.15.1
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
 Provides: bundled(php-brick-math) = 0.9.3
 Provides: bundled(php-composer-semver) = 3.3.2
-Provides: bundled(php-doctrine-annotations) = 1.13.2
-Provides: bundled(php-doctrine-cache) = 2.1.1
-Provides: bundled(php-doctrine-collections) = 1.6.8
-Provides: bundled(php-doctrine-common) = 3.3.0
-Provides: bundled(php-doctrine-dbal) = 3.3.5
-Provides: bundled(php-doctrine-deprecations) = v0.5.3
-Provides: bundled(php-doctrine-event-manager) = 1.1.1
-Provides: bundled(php-doctrine-inflector) = 2.0.4
+Provides: bundled(php-doctrine-annotations) = 1.13.3
+Provides: bundled(php-doctrine-cache) = 2.2.0
+Provides: bundled(php-doctrine-collections) = 1.7.3
+Provides: bundled(php-doctrine-common) = 3.4.1
+Provides: bundled(php-doctrine-dbal) = 3.4.5
+Provides: bundled(php-doctrine-deprecations) = v1.0.0
+Provides: bundled(php-doctrine-event-manager) = 1.1.2
+Provides: bundled(php-doctrine-inflector) = 2.0.5
 Provides: bundled(php-doctrine-instantiator) = 1.4.1
 Provides: bundled(php-doctrine-lexer) = 1.2.3
-Provides: bundled(php-doctrine-orm) = 2.12.0
-Provides: bundled(php-doctrine-persistence) = 3.0.0
+Provides: bundled(php-doctrine-orm) = 2.13.2
+Provides: bundled(php-doctrine-persistence) = 3.0.3
 Provides: bundled(php-psr-cache) = 1.0.1
 Provides: bundled(php-psr-container) = 1.1.2
 Provides: bundled(php-psr-event-dispatcher) = 1.0.0
 Provides: bundled(php-psr-log) = 1.1.4
 Provides: bundled(php-ramsey-collection) = 1.2.2
 Provides: bundled(php-ramsey-uuid) = 4.2.3
-Provides: bundled(php-symfony-amqp-messenger) = v5.4.5
-Provides: bundled(php-symfony-cache) = v5.4.7
-Provides: bundled(php-symfony-cache-contracts) = v2.5.1
-Provides: bundled(php-symfony-config) = v5.4.7
-Provides: bundled(php-symfony-console) = v5.4.7
-Provides: bundled(php-symfony-dependency-injection) = v5.4.7
-Provides: bundled(php-symfony-deprecation-contracts) = v2.5.1
-Provides: bundled(php-symfony-doctrine-messenger) = v5.4.7
-Provides: bundled(php-symfony-event-dispatcher) = v5.4.3
-Provides: bundled(php-symfony-event-dispatcher-contracts) = v2.5.1
-Provides: bundled(php-symfony-filesystem) = v5.4.7
-Provides: bundled(php-symfony-finder) = v5.4.3
-Provides: bundled(php-symfony-http-client) = v5.4.7
-Provides: bundled(php-symfony-http-client-contracts) = v2.5.1
-Provides: bundled(php-symfony-messenger) = v5.4.3
-Provides: bundled(php-symfony-polyfill-ctype) = v1.25.0
-Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.25.0
-Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.25.0
-Provides: bundled(php-symfony-polyfill-mbstring) = v1.25.0
-Provides: bundled(php-symfony-polyfill-php72) = v1.25.0
-Provides: bundled(php-symfony-polyfill-php73) = v1.25.0
-Provides: bundled(php-symfony-polyfill-php80) = v1.25.0
-Provides: bundled(php-symfony-polyfill-php81) = v1.25.0
-Provides: bundled(php-symfony-process) = v5.4.7
+Provides: bundled(php-symfony-amqp-messenger) = v5.4.11
+Provides: bundled(php-symfony-cache) = v5.4.11
+Provides: bundled(php-symfony-cache-contracts) = v2.5.2
+Provides: bundled(php-symfony-config) = v5.4.11
+Provides: bundled(php-symfony-console) = v5.4.12
+Provides: bundled(php-symfony-dependency-injection) = v5.4.11
+Provides: bundled(php-symfony-deprecation-contracts) = v2.5.2
+Provides: bundled(php-symfony-doctrine-messenger) = v5.4.12
+Provides: bundled(php-symfony-event-dispatcher) = v5.4.9
+Provides: bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
+Provides: bundled(php-symfony-filesystem) = v5.4.12
+Provides: bundled(php-symfony-finder) = v5.4.11
+Provides: bundled(php-symfony-http-client) = v5.4.12
+Provides: bundled(php-symfony-http-client-contracts) = v2.5.2
+Provides: bundled(php-symfony-messenger) = v5.4.11
+Provides: bundled(php-symfony-polyfill-ctype) = v1.26.0
+Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.26.0
+Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.26.0
+Provides: bundled(php-symfony-polyfill-mbstring) = v1.26.0
+Provides: bundled(php-symfony-polyfill-php72) = v1.26.0
+Provides: bundled(php-symfony-polyfill-php73) = v1.26.0
+Provides: bundled(php-symfony-polyfill-php80) = v1.26.0
+Provides: bundled(php-symfony-polyfill-php81) = v1.26.0
+Provides: bundled(php-symfony-process) = v5.4.11
 Provides: bundled(php-symfony-redis-messenger) = v5.4.6
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
-Provides: bundled(php-symfony-serializer) = v5.4.7
-Provides: bundled(php-symfony-service-contracts) = v2.5.1
+Provides: bundled(php-symfony-serializer) = v5.4.12
+Provides: bundled(php-symfony-service-contracts) = v2.5.2
 Provides: bundled(php-symfony-stopwatch) = v5.4.5
-Provides: bundled(php-symfony-string) = v5.4.3
-Provides: bundled(php-symfony-var-exporter) = v5.4.7
+Provides: bundled(php-symfony-string) = v5.4.12
+Provides: bundled(php-symfony-var-exporter) = v5.4.10
 
 Provides: phpcompatinfo = %{version}
 Provides: php-composer(bartlett/php-compatinfo) = %{version}
@@ -196,6 +196,9 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Tue Sep 27 2022 Remi Collet <remi@remirepo.net> - 6.4.2-1
+- update to 6.4.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

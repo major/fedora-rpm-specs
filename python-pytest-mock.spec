@@ -2,8 +2,8 @@
 %global file_name pytest_mock
 
 Name:           python-%{pypi_name}
-Version:        3.8.2
-Release:        2%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -57,6 +57,9 @@ sed -i 's/\r$//' README.rst
 %{python3_sitelib}/%{file_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Sep 28 2022 Fabian Affolter <mail@fabian-affolter.ch> - 3.9.0-1
+- Update to latest upstream release 3.9.0 (closes rhbz#2130519)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

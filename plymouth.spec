@@ -1,7 +1,7 @@
 Summary: Graphical Boot Animation and Logger
 Name: plymouth
 Version: 22.02.122
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
 
@@ -13,6 +13,8 @@ Patch1:  0001-drm-Retry-setting-scanout-buffer-on-failure.patch
 Patch2:  0002-Add-support-for-CSI-sequences.patch
 Patch3:  0003-ply-utils-Reintroduce-ply_string_has_prefix-helper.patch
 Patch4:  0004-ply-device-manager-Treat-SimpleDRM-drm-devices-as-fb.patch
+Patch5:  0005-ply-device-manager-Move-verify_drm_device-higher-up-.patch
+Patch6:  0006-ply-device-manager-Also-ignore-SimpleDRM-devs-in-col.patch
 
 BuildRequires: make
 BuildRequires: gcc libtool git
@@ -26,6 +28,10 @@ BuildRequires: pango-devel >= 1.21.0
 BuildRequires: cairo-devel
 BuildRequires: gettext-devel
 BuildRequires: intltool
+# for /usr/bin/systemd-tty-ask-password-agent
+BuildRequires: systemd
+# for _unitdir macro
+BuildRequires: systemd-rpm-macros
 
 Requires: %{name}-core-libs = %{version}-%{release}
 Requires: %{name}-scripts = %{version}-%{release}
@@ -326,8 +332,8 @@ fi
 %{_datadir}/plymouth/plymouthd.defaults
 %{_localstatedir}/spool/plymouth
 %{_mandir}/man?/*
-%ghost %{_localstatedir}/lib/plymouth/boot-duration
-%{_prefix}/lib/systemd/system/
+%ghost %verify(not mode) %{_localstatedir}/lib/plymouth/boot-duration
+%{_unitdir}/
 
 %files devel
 %{_libdir}/libply.so
@@ -396,6 +402,10 @@ fi
 
 
 %changelog
+* Wed Sep 28 2022 Hans de Goede <hdegoede@redhat.com> - 22.02.122-3
+- Fix SimpleDRM sometimes not being ignored (rhbz#2127663)
+- Mark boot-duration file as %%verify(not mode (rhbz#2122896)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.02.122-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

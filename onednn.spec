@@ -1,5 +1,5 @@
 Name:           onednn
-Version:        2.6.1
+Version:        2.7
 Release:        1%{?dist}
 Summary:        Deep Neural Network Library
 
@@ -90,6 +90,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Wed Sep 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.7-1
+- Update to 2.7
+
 * Wed Aug 10 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.6.1-1
 - Update to 2.6.1
 

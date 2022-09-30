@@ -1,12 +1,12 @@
 %global kf5_min_version 5.88.0
 
 Name:           kasts
-Version:        22.06
+Version:        22.09.2
 Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
 Url:            https://apps.kde.org/%{name}
-Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/stable/plasma-mobile/22.09/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09.2-1
+- Update to 22.09.2
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

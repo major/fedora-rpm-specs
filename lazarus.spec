@@ -1,9 +1,9 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Freepascal
 
-Version:        2.2.2
+Version:        2.2.4
 
-%global baserelease 2
+%global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -168,6 +168,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Tue Sep 27 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.4-1
+- Update to v2.2.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

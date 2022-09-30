@@ -8,7 +8,7 @@
 
 Name:      icu
 Version:   71.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   International Components for Unicode
 
 License:   MIT and UCD and Public Domain
@@ -16,10 +16,10 @@ URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-src.tgz
 %if 0%{?use_tzdata_update}
 Source1:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-data.zip
-Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022a/44/metaZones.txt
-Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022a/44/timezoneTypes.txt
-Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022a/44/windowsZones.txt
-Source5:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022a/44/zoneinfo64.txt
+Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/metaZones.txt
+Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/timezoneTypes.txt
+Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/windowsZones.txt
+Source5:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/zoneinfo64.txt
 %endif
 Source10:   icu-config.sh
 
@@ -31,6 +31,7 @@ Requires: lib%{name}%{?_isa} = %{version}-%{release}
 
 Patch4: gennorm2-man.patch
 Patch5: icuinfo-man.patch
+Patch10: timezone-update-2022b.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -193,6 +194,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Sep 23 2022 Mike FABIAN <mfabian@redhat.com> - 71.1-2
+- Update timezone data to 2022b
+
 * Wed Jul 27 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 71.1-1
 - Update to 71.1
 

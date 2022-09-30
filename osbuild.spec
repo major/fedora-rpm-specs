@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        67
+Version:        68
 
 %forgemeta
 
@@ -100,7 +100,8 @@ to build OSTree based images.
 %package        selinux
 Summary:        SELinux policies
 Requires:       %{name} = %{version}-%{release}
-BuildRequires:  selinux-policy
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
 BuildRequires:  selinux-policy-devel
 %{?selinux_requires}
 
@@ -129,7 +130,7 @@ make man
 make -f /usr/share/selinux/devel/Makefile osbuild.pp
 bzip2 -9 osbuild.pp
 
-%pre
+%pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
 
 %install
@@ -173,6 +174,7 @@ install -p -m 0644 -t %{buildroot}%{_mandir}/man5/ docs/*.5
 # SELinux
 install -D -m 0644 -t %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype} %{name}.pp.bz2
 install -D -m 0644 -t %{buildroot}%{_mandir}/man8 selinux/%{name}_selinux.8
+install -D -p -m 0644 selinux/osbuild.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
 
 # Udev rules
 mkdir -p %{buildroot}%{_udevrulesdir}
@@ -230,7 +232,8 @@ exit 0
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
 %{_mandir}/man8/%{name}_selinux.8.*
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%{_datadir}/selinux/devel/include/distributed/%{name}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
 
 %post selinux
 %selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
@@ -248,6 +251,22 @@ fi
 
 
 %changelog
+* Wed Sep 28 2022 Packit <hello@packit.dev> - 68-1
+Changes with 68
+----------------
+  * manifest-db: propage the osbuild SHA on manifest-db (#1124)
+  * packit: Enable Bodhi updates for unstable Fedoras (#1128)
+  * packit: add epel-9 to copr_build (#1118)
+  * selinux: Update based on latest packaging guide (#1127)
+  * stages/greenboot: avoid new pylint suppressions (#1114)
+  * test/src: improve file enumeration (#1106)
+
+Contributions from: David Rheinsberg, Ondřej Budai, Simon Steinbeiss, Thomas Lavocat, Vit Mojzis
+
+— Somewhere on the Internet, 2022-09-28
+
+
+
 * Wed Sep 14 2022 Packit <hello@packit.dev> - 67-1
 Changes with 67
 ----------------
@@ -264,10 +283,10 @@ Changes with 67
   * rpmbuild: add fedora-37 (#1101)
   * test: run mypy in test-src not in GH actions (#1093)
   * tree: fix newer pylint warnings (#1107)
-
 Contributions from: Achilleas Koutsou, Alexander Larsson, David Rheinsberg, Simon Steinbeiss, Simon de Vlieger, Thomas Lavocat, Ygal Blum
-
 — Somewhere on the Internet, 2022-09-14
+
+
 
 
 

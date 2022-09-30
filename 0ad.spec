@@ -26,8 +26,8 @@
 %global __requires_exclude ^(libAtlasUI.*\.so|libCollada.*\.so|libmozjs78.*\.so)
 
 Name:		0ad
-Version:	0.0.25b
-Release:	6%{?dist}
+Version:	0.0.26
+Release:	1%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -133,10 +133,7 @@ Provides: bundled(mozjs) = 78
 # Only do fcollada debug build with enabling debug maintainer mode
 # It also prevents assumption there that it is building in x86
 Patch1:		%{name}-debug.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1141464
-Patch2:		%{name}-valgrind.patch
-# Based on similar patch for the system mozjs78
-Patch3:		Fixup-compatibility-of-mozbuild-with-Python-3.10.patch
+Patch2:		%{name}-check.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -159,7 +156,6 @@ hobbyist game developers, since 2001.
 %patch1 -p0
 %endif
 %patch2 -p0
-%patch3 -p0
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -265,6 +261,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Mon Sep 26 2022 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 0.0.26-1
+- Update to 0.0.26
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.0.25b-6
 - Rebuilt for ICU 71.1
 

@@ -21,7 +21,7 @@ Summary:	Noto fonts support tools and scripts plus web site generation
 ## nototools code is in ASL 2.0 license
 ### third_party ucd code is in Unicode license
 License:	ASL 2.0
-URL:		https://github.com/googlei18n/nototools
+URL:		https://github.com/googlefonts/nototools
 Source0:	%pypi_source
 
 BuildArch:	noarch

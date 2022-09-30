@@ -1,38 +1,29 @@
 # The lsb release used in the tarball name
 %global lsb 1lsb3.2
-# Not defined on el6
-%{!?_cups_serverbin: %global _cups_serverbin %(/usr/bin/cups-config --serverbin)}
 
 Name:           epson-inkjet-printer-escpr2
 Summary:        Drivers for Epson inkjet printers
-Version:        1.1.48
-Release:        2.%{lsb}%{?dist}
+Version:        1.1.49
+Release:        1.%{lsb}%{?dist}
 License:        GPLv2+
+# Search for something like ET-3700
 URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
 # Download address is garbled on web page, and only .src.rpm is offered.
-Source0:        https://download3.ebz.epson.net/dsc/f/03/00/13/52/26/977f2b2c13cc185981479fbd225b802c35c92beb/epson-inkjet-printer-escpr2-1.1.48-1lsb3.2.src.rpm
+Source0:        https://download3.ebz.epson.net/dsc/f/03/00/13/76/47/16f624dc1dfad10c3b4eb141c50c651a6360f69a/epson-inkjet-printer-escpr2-1.1.49-1lsb3.2.src.rpm
 BuildArch:      noarch
 
 # The escpr2 drivers are binary only blobs, but at least some of the PPD files work with the escpr driver
 Requires:       epson-inkjet-printer-escpr
 
-%if 0%{?fedora} >= 21
+%if 0%{?fedora} || 0%{?rhel} >= 8
 # For automatic detection of printer drivers
 BuildRequires:  python3-cups
-%endif
-%if 0%{?rhel} == 7
+%else
 # For automatic detection of printer drivers
 BuildRequires:  python-cups
 %endif
-%if 0%{?rhel} == 6
-# For dir ownership
-Requires:       cups
-%else
 # For dir ownership
 Requires:       cups-filesystem
-# So that automatic printer driver installation works
-BuildRequires:  python-cups
-%endif
 
 %description
 This package contains PPD files for newer Epson Inkjet printers which
@@ -78,6 +69,10 @@ done
 %{_datadir}/ppd/Epson/
 
 %changelog
+* Wed Sep 28 2022 Orion Poplawski <orion@nwra.com> - 1.1.49-1.1lsb3.2
+- Update to 1.1.49
+- Cleanup conditional
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.48-2.1lsb3.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 # fc-case/CaseFolding.txt is in the UCD
@@ -20,6 +20,7 @@ Source2:	fc-cache
 Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
+Patch6:		%{name}-fix-remap.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -187,6 +188,9 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Wed Sep 28 2022 Akira TAGOH <tagoh@redhat.com> - 2.14.0-3
+- Remap font paths to other place properly.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

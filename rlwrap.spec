@@ -5,7 +5,8 @@ Summary:        Wrapper for GNU readline
 
 License:        GPLv2+
 URL:            https://github.com/hanslub42/rlwrap
-Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Patch:          %{url}/pull/165.patch#/fix-version-parsing.diff
 
 BuildRequires:  gcc
 BuildRequires:  make

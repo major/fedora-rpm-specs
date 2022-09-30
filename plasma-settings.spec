@@ -1,5 +1,5 @@
 Name:           plasma-settings 
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.mobile.p
 %{_qt5_plugindir}/kcms/*.so
  
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

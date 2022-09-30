@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -94,7 +94,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: portmidi-devel
 BuildRequires: pugixml-devel >= 1.8
 # at the moment of build of darktable 3.8.0-3 there is a SDL problem that is being fixed
-#BuildRequires: cmake(SDL2)
+BuildRequires: cmake(SDL2)
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel >= 1.2.11
 
@@ -245,6 +245,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Wed Sep 28 2022 Germano Massullo <germano.massullo@gmail.com> - 4.0.1-2
+- re-enabled SDL library
+
 * Tue Sep 27 2022 Germano Massullo <germano.massullo@gmail.com> - 4.0.1-1
 - 4.0.1 release
 

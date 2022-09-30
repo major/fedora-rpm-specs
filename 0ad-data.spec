@@ -1,8 +1,8 @@
 # http://trac.wildfiregames.com/wiki/BuildInstructions#Linux
 
 Name:		0ad-data
-Version:	0.0.25b
-Release:	4%{?dist}
+Version:	0.0.26
+Release:	1%{?dist}
 Summary:	The Data Files for 0 AD
 License:	CC-BY-SA
 Url:		http://play0ad.com
@@ -48,6 +48,9 @@ popd
 %{_datadir}/0ad
 
 %changelog
+* Mon Sep 26 2022 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 0.0.26-1
+- Update to 0.0.26
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.25b-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

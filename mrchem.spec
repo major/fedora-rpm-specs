@@ -1,6 +1,6 @@
 Name:           mrchem
-Version:        1.0.2
-Release:        5%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPLv3+
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -11,7 +11,7 @@ Patch0:         mrchem-1.0.2-eigen3.patch
 # The Python module is installed in the system directory in Fedora
 Patch1:         mrchem-1.0.2-pythonpath.patch
 # Disable use of rpath
-Patch2:         mrchem-1.0.2-rpath.patch
+Patch2:         mrchem-1.1.0-rpath.patch
 
 # mrcpp doesn't build on s390x which is not supported by upstream (BZ#2035671)
 ExcludeArch:    s390x
@@ -114,6 +114,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Wed Sep 28 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

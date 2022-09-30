@@ -7,12 +7,12 @@
 %global libver 6
 
 Name:           kweathercore
-Version:        0.6
+Version:        0.7
 Release:        1%{?dist}
 License:        LGPLv2+
 Summary:        Library to facilitate retrieval of weather information
 Url:            https://invent.kde.org/libraries/kweathercore
-Source0:        https://invent.kde.org/libraries/kweathercore/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0:        https://download.kde.org/stable/kweathercore/%{version}/%{name}-%{version}.tar.xz
                 
 
 BuildRequires:  gcc-c++
@@ -49,7 +49,7 @@ BuildArch: noarch
 %{summary}.
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 %cmake_kf5 \
@@ -88,6 +88,9 @@ BuildArch: noarch
 %endif
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 0.7-1
+- Update to 0.7
+
 * Tue Sep 20 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.6-1
 - version bump 0.6
 

@@ -84,7 +84,7 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file
 # Additionally, every $files section has a comment with the license name
 # before files with that license
@@ -353,7 +353,6 @@ BuildRequires:	python3-pplpy-devel
 BuildRequires:	python3-tdlib-devel
 BuildRequires:	python3-tkinter
 BuildRequires:	pythran
-BuildRequires:	%{py3_dist argcomplete}
 BuildRequires:	%{py3_dist argon2-cffi}
 %if %{with bundled_ipython}
 BuildRequires:	%{py3_dist backcall}
@@ -561,7 +560,6 @@ Requires:	pari-gp
 Requires:	pari-nftables
 Requires:	pari-seadata
 Requires:	python3-tdlib
-Requires:	%{py3_dist argcomplete}
 %if %{with bundled_ipython}
 Requires:	%{py3_dist backcall}
 %endif
@@ -957,34 +955,11 @@ pushd build/pkgs/threejs
 popd
 %endif
 
-%patch0
-%patch1
-%patch2
-%patch3
-%patch4
-%patch5
-%patch6
-%patch7
-%patch8
-%patch9
-%patch10
-%patch11
-%patch12
-
+%autopatch -p0 -M12
 %if %{with fes}
 %patch13
 %endif
-
-%patch14
-%patch15
-%patch16
-%patch17
-%patch18
-%patch19
-%patch20
-%patch21
-%patch22
-%patch23
+%autopatch -p0 -m14
 
 sed -i 's|@@SAGE_LOCAL@@|%{SAGE_LOCAL}|' src/sage/env.py
 
@@ -2040,6 +2015,9 @@ end
 
 ########################################################################
 %changelog
+* Wed Sep 21 2022 Jerry James <loganjerry@gmail.com> - 9.6-6
+- Rebuild for gap 4.12.0 and pari 2.15.0
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 9.6-5
 - Rebuild for gsl-2.7.1
 

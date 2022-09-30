@@ -1,5 +1,5 @@
 Name:           vakzination
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        Apache2.0 and BSD and CC-PDDC and CC0-1.0 and FSFAP and GPLv2+
 Summary:        Vakzination manages your health certificates like vaccination, test, and recovery certificates.
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Fri Aug 26 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

@@ -1,25 +1,24 @@
 %global orig_name kirigami-addons
 
 Name:           kf5-kirigami2-addons
-Version:        21.05
-Release:        7%{?dist}
+Version:        0.4
+Release:        1%{?dist}
+Epoch:          1
 License:        LGPLv3
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/kirigami-addons
-Source:         https://invent.kde.org/libraries/%{orig_name}/-/archive/release/%{version}/%{orig_name}-release-%{version}.tar.gz
+Source:         https://invent.kde.org/libraries/%{orig_name}/-/archive/v%{version}/%{orig_name}-v%{version}.tar.gz
 
-
-BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
+BuildRequires: gcc-c++
 BuildRequires: kf5-rpm-macros
-
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick) 
-BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5Kirigami2)
 
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5QuickControls2)
 
 %description
 A set of "widgets" i.e visual end user components along with a
@@ -43,7 +42,7 @@ Requires:        %{name}%{?_isa} = %{version}-%{release}
 Tree view Kirigami addon, which is useful for listing files.
 
 %prep
-%autosetup -n %{orig_name}-release-%{version}
+%autosetup -n %{orig_name}-v%{version}
 
 %build
 %cmake
@@ -57,6 +56,8 @@ Tree view Kirigami addon, which is useful for listing files.
 %license LICENSES/
 %dir %{_kf5_qmldir}/org/kde
 %dir %{_kf5_qmldir}/org/kde/kirigamiaddons
+%{_kf5_libdir}/qt5/qml/org/kde/kirigamiaddons/*
+%{_kf5_libdir}/cmake/KF5KirigamiAddons/*
 
 
 %files dateandtime
@@ -66,6 +67,9 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf5_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 0.4-1
+- Update to 0.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.05-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

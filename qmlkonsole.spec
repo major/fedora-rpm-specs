@@ -1,12 +1,10 @@
 Name:           qmlkonsole
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Terminal app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/qmlkonsole
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
-
-Patch0:         appstream.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -47,17 +45,20 @@ Recommends:     dejavu-fonts-all
 %find_lang %{name}
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.mobile.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.mobile.%{name}.desktop
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.desktop
 
 %files -f %{name}.lang
 %license LICENSES/GPL-2.0-or-later.txt
 %{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.mobile.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.mobile.%{name}.appdata.xml
+%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/config.kcfg/terminalsettings.kcfg
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 25 2022 Justin Zobel <justin@1707.io> - 22.06-1
 - Update to 22.06
 

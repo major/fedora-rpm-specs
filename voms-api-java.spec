@@ -1,11 +1,21 @@
 Name:		voms-api-java
 Version:	3.3.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	ASL 2.0
 URL:		https://wiki.italiangrid.it/VOMS
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Disable failing tests
+# IllegalState object explicit - implicit expected.
+# https://github.com/italiangrid/voms-api-java/issues/29
+Patch0:		%{name}-disable-some-tests.patch
+# Disable failing multi-thread test
+Patch1:		%{name}-no-mt-test.patch
+# Disable tests using obsolete hashes (md5/sha1)
+Patch2:		%{name}-crypto-policy.patch
+
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
@@ -34,6 +44,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 # Remove unused dependency
 %pom_remove_dep net.jcip:jcip-annotations
@@ -57,12 +70,6 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 # Remove license plugin
 %pom_remove_plugin com.mycila.maven-license-plugin:maven-license-plugin
 
-# These tests fail due to changes to the ASN1TaggedObject class in
-# bouncycastle 1.70 - remove until fixed
-# https://github.com/italiangrid/voms-api-java/issues/28
-rm src/test/java/org/italiangrid/voms/test/ac/TestACGeneration.java
-rm src/test/java/org/italiangrid/voms/test/ac/TestFakeVOMSACService.java
-
 %build
 %mvn_build
 
@@ -78,6 +85,10 @@ rm src/test/java/org/italiangrid/voms/test/ac/TestFakeVOMSACService.java
 %license LICENSE
 
 %changelog
+* Wed Sep 28 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-9
+- Disable failing multi-thread test
+- Disable tests using obsolete hashes (md5/sha1)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

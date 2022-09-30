@@ -5,8 +5,8 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        3.5.1
-Release:        2%{?dist}
+Version:        3.5.2
+Release:        1%{?dist}
 Summary:        Functools like those found in stdlib
 
 License:        MIT
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Sep 28 2022 Dan Radez <dan@radez.net> - 3.5.2-1
+- update to 3.5.1 - rhbz#2130355
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -43,7 +43,6 @@ BuildRequires: systemd-devel
 BuildRequires: yajl-devel
 %if "%{krun_support}" == "enabled"
 BuildRequires: libkrun-devel
-Provides: krun
 %endif
 BuildRequires: libseccomp-devel
 BuildRequires: libselinux-devel
@@ -72,18 +71,28 @@ Provides: oci-runtime
 %install
 %make_install
 rm -rf %{buildroot}%{_prefix}/lib*
-
 %if "%{krun_support}" == "enabled"
-ln -s %{_bindir}/%{name} %{buildroot}%{_bindir}/krun
+ln -s ../bin/%{name} %{buildroot}%{_bindir}/krun
 %endif
 
 %files
 %license COPYING
 %{_bindir}/%{name}
-%if "%{krun_support}" == "enabled"
-%{_bindir}/krun
-%endif
 %{_mandir}/man1/*
+
+%if "%{krun_support}" == "enabled"
+%package krun
+Summary: OCI Runtime providing Virtualization-based process isolation capabilities.
+Provides: krun
+Requires: libkrun
+
+%description krun
+%{name}-krun OCI Runtime providing Virtualization-based process isolation capabilities.
+
+%files krun
+%{_bindir}/krun
+
+%endif
 
 %changelog
 %if "%{_vendor}" != "debbuild"

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.5.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Computing with simple Lie algebras
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Sep 28 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-8
+- Bump release and rebuild
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-7
 - Update for gap 4.12.0
 - Convert License tag to SPDX

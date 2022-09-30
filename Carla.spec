@@ -1,8 +1,8 @@
 %global pname   carla
 
 Name:           Carla
-Version:        2.4.4
-Release:        2%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -52,9 +52,8 @@ License:        GPLv2+ and BSD and Boost and ISC and MIT and zlib
 URL:            https://github.com/falkTX/Carla
 Source0:        https://github.com/falkTX/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://github.com/falkTX/Carla/issues/1444
-Patch0:         %{name}-libdir.patch
-Patch1:         %{name}-expression-error.patch
-Patch2:         %{name}-single-libs-path.patch
+Patch0:         %{name}-2.5-libdir.patch
+Patch1:         %{name}-single-libs-path.patch
 
 #ExcludeArch:    ppc64le
 
@@ -227,6 +226,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Wed Sep 28 2022 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.0-1
+- Update to 2.5.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

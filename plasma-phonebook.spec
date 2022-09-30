@@ -2,7 +2,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           plasma-phonebook
-Version:        22.06
+Version:        22.09
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
@@ -64,5 +64,8 @@ Contacts application which allows adding, modifying and removing contacts.
 %{_qt5_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
+- Update to 22.09
+
 * Wed Aug 31 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 22.06-1
 - Initial package

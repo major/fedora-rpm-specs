@@ -4,7 +4,7 @@
 
 Name:          libcec
 Version:       6.0.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPLv2+
 URL:           http://libcec.pulse-eight.com/
@@ -45,6 +45,7 @@ Files for development with %{name}.
 %package -n    python3-libcec
 Summary:       A Python 3 interface to libcec
 Requires:      %{name}%{?_isa} = %{version}-%{release}
+%py_provides   python3-cec
 
 %description -n python3-libcec
 Python 3 bindings for libcec
@@ -95,6 +96,9 @@ mv %{buildroot}/%{_bindir}/cecc-client-%{version} %{buildroot}/%{_bindir}/cecc-c
 %endif
 
 %changelog
+* Wed Sep 28 2022 Petr Menšík <pemensik@redhat.com> - 6.0.2-10
+- Provide also name matching imported python module
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
