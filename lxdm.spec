@@ -13,7 +13,7 @@
 
 Name:           lxdm
 Version:        0.5.3
-Release:        22%{?git_version:.%{?git_version}}%{?dist}
+Release:        23%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 License:        GPLv2+ and LGPLv2+
@@ -28,6 +28,9 @@ Source0:        http://downloads.sourceforge.net/sourceforge/lxdm/%{name}-%{vers
 # systemd service file and preset
 Source1:        lxdm.service
 Source2:        lxdm.preset
+
+# The default contents of /var/lib/lxdm/lxdm.conf (c.f. lxdm.c:lxdm_save_login)
+Source5:        lxdm_conf_login
 
 # Fedora pam setting
 Source10:		pam.lxdm
@@ -60,6 +63,8 @@ Requires:       pam
 Requires:       /sbin/shutdown
 Requires:       desktop-backgrounds-compat
 Requires:		%{_bindir}/ssh-agent
+# Loading webp format img requires the below
+Requires:       webp-pixbuf-loader%{?_isa}
 # needed for anaconda to boot into runlevel 5 after install
 Provides:       service(graphical-login) = lxdm
 
@@ -81,8 +86,14 @@ KDM in LXDE distros. It's still in very early stage of development.
 %patch50 -p1 -b .config
 %patch60 -p1 -b .ssh_agent
 
+# Reset X after logout (bug 1269917)
 sed -i.reset data/lxdm.conf.in \
 	-e '\@reset@s|^.*$|reset=1|' 
+# Fedora 37 changed default background file format
+%if 0%{?fedora} >= 37
+sed -i.f37 data/lxdm.conf.in \
+	-e '\@bg=@s|default.png|default.webp|'
+%endif
 
 install -cpm 644  %{SOURCE10} pam/lxdm
 
@@ -107,7 +118,7 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 touch %{buildroot}%{_sysconfdir}/%{name}/xinitrc
 mkdir -p %{buildroot}/run/%{name}
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
-touch %{buildroot}%{_localstatedir}/lib/%{name}.conf
+install -m644 -p %{SOURCE5} %{buildroot}%{_localstatedir}/lib/%{name}/%{name}.conf
 
 install -Dpm 644 tempfiles.lxdm.conf %{buildroot}%{_prefix}/lib/tmpfiles.d/lxdm.conf
 
@@ -142,7 +153,7 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreLogin
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreReboot
 %config(noreplace) %attr(755,root,root) %{_sysconfdir}/%{name}/PreShutdown
-%config %{_sysconfdir}/%{name}/lxdm.conf
+%config %attr(640,root,root) %{_sysconfdir}/%{name}/lxdm.conf
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %{_bindir}/%{name}-config
@@ -152,20 +163,31 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 %{_libexecdir}/lxdm-greeter-gdk
 %{_libexecdir}/lxdm-numlock
 %{_libexecdir}/lxdm-session
-%{_datadir}/%{name}/
 
-%config(noreplace) %{_prefix}/lib/tmpfiles.d/lxdm.conf
+%dir %{_datadir}/%{name}/
+%{_datadir}/%{name}/config.ui
+%{_datadir}/%{name}/lxdm.glade
+%{_datadir}/%{name}/themes/
+
+%{_tmpfilesdir}/lxdm.conf
+%dir /run/%{name}
 
 %{_unitdir}/lxdm.service
 %{_unitdir}-preset/83-fedora-lxdm.preset
 
-%ghost %dir /run/%{name}
-
 %dir %{_localstatedir}/lib/%{name}
-%ghost %{_localstatedir}/lib/%{name}.conf
+%config(noreplace) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/%{name}.conf
 
 
 %changelog
+* Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-23.D20220831git2d4ba970
+- Update for tmpfiles.d guideline - config file is not %%config
+- Fix up %%{_localstatedir}/lib/%%{name}/%%{name}.conf entry
+  and mark as %%config, not %%ghost, install default file
+- More verbose entry under %%{_datadir}/%%{name}/
+- F-37: update default background image
+- F-37: loading webp img requires webp-pixbuf-loader
+
 * Sun Sep 11 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-22.D20220831git2d4ba970
 - Update to the latest git (20220831)
 - Switch to GTK3

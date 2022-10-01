@@ -7,18 +7,18 @@ Name:           perl-XML-LibXML
 # https://bugzilla.redhat.com/show_bug.cgi?id=469480
 # it might not be needed anymore
 # this module is maintained, the other is not
-Version:        2.0207
-Release:        7%{?dist}
+Version:        2.0208
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Perl interface to the libxml2 library
-License:        (GPL+ or Artistic) and MIT
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MIT
 URL:            https://metacpan.org/release/XML-LibXML
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/XML-LibXML-%{version}.tar.gz 
 # Fix parsing ampersand entities in SAX interface, CPAN RT#131498,
 # posted to the upstream.
 Patch0:         XML-LibXML-2.0202-Parse-an-ampersand-entity-in-SAX-interface.patch
 # To reduce dependencies replace Alien::Libxml2 with pkg-config
-Patch1:         XML-LibXML-2.0206-Use-pkgconfig-instead-of-Alien-Libxml2.patch
+Patch1:         XML-LibXML-2.0208-Use-pkgconfig-instead-of-Alien-Libxml2.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  glibc-common
@@ -192,6 +192,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.0208-1
+- 2.0208 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0207-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: sysmontask
 Version: 1.3.9
-Release: 6%{?dist}
+Release: %autorelease
 Summary: Linux system monitor with the compactness and usefulness of WTM
 BuildArch: noarch
 
@@ -20,6 +20,7 @@ BuildRequires: python3-setuptools
 
 Requires: gtk3
 Requires: hicolor-icon-theme
+Requires: libwnck3
 
 # For Log Plot utility
 Recommends: python3-matplotlib
@@ -30,7 +31,7 @@ Manager to allow higher control and monitoring.
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{srcname}-%{version}
 
 
 %build
@@ -67,32 +68,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.3.9-5
-- Rebuilt for Python 3.11
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.3.9-2
-- Rebuilt for Python 3.10
-
-* Fri Apr 16 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.9-1
-- build(update): 1.3.9
-
-* Fri Apr 16 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.7-2
-- build: python3-matplotlib dep
-
-* Fri Apr 16 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.7-1
-- build(update): 1.3.7
-
-* Thu Mar 11 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.1.1-0.5.beta.b
-- build(update): 1.1.1-0.5.beta.b
-
-* Thu Mar 04 2021 Alessio <alessio AT fedoraproject DOT org> - 1.1.1-0beta
-- Initial RPM Release
+%autochangelog

@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    3e43405a9a8b578809426339cc3780e16fba0c52
+%global github_commit    ab402673db8746cb3a4c46f3869d6253699f614a
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -25,7 +25,7 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}2
-Version:       2.15.2
+Version:       2.15.3
 Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
@@ -164,6 +164,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 2.15.3-1
+- update to 2.15.3
+
 * Tue Aug 16 2022 Remi Collet <remi@remirepo.net> - 2.15.2-1
 - update to 2.15.2
 

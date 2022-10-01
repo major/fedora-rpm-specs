@@ -9,20 +9,20 @@
 %bcond_with webpacker
 
 Name: rubygem-%{gem_name}
-Version: 7.0.2.3
-Release: 3%{?dist}
+Version: 7.0.4
+Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: http://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Get the test suite:
 # git clone http://github.com/rails/rails.git
-# cd rails/railties && git archive -v -o railties-7.0.2.3-tests.txz v7.0.2.3 test/
+# cd rails/railties && git archive -v -o railties-7.0.4-tests.txz v7.0.4 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.2.3-tools.txz v7.0.2.3 tools/
+# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
@@ -290,6 +290,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Sep 15 2022 Pavel Valena <pvalena@redhat.com> - 7.0.4-1
+- Update to railties 7.0.4.
+
 * Wed Aug 03 2022 Vít Ondruch <vondruch@redhat.com> - 7.0.2.3-3
 - Fix Minitest 5.16+ compatibility.
 

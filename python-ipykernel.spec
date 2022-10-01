@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{modname}
-Version:        6.15.2
+Version:        6.16.0
 Release:        1%{?dist}
 Summary:        IPython Kernel for Jupyter
 License:        BSD
@@ -115,7 +115,7 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 %files -n python%{python3_pkgversion}-%{modname}
 %license COPYING.md
-%doc CONTRIBUTING.md MANIFEST.in README.md
+%doc CONTRIBUTING.md README.md
 %{python3_sitelib}/%{modname}
 %pycached %{python3_sitelib}/%{modname}_launcher.py
 %{python3_sitelib}/%{modname}*.dist-info/
@@ -126,6 +126,10 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %changelog
+* Tue Sep 27 2022 Charalampos Stratakis <cstratak@redhat.com> - 6.16.0-1
+- Update to 6.16.0
+Resolves: rhbz#2126544
+
 * Wed Aug 31 2022 Charalampos Stratakis <cstratak@redhat.com> - 6.15.2-1
 - Update to 6.15.2
 Resolves: rhbz#2122279

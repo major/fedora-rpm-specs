@@ -7,11 +7,6 @@ to nyx.\
 From a technical standpoint, Stem is a Python implementation of Tor's\
 directory and control specifications.
 
-%global commit 7cfd6f71ece17a38643f2634b28bd5b662193d57
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220701
-%global srcversion 1.8.0
-
 # Enable tests conditionally
 # https://bugzilla.redhat.com/show_bug.cgi?id=1797690
 # https://github.com/torproject/stem/issues/71
@@ -22,13 +17,13 @@ directory and control specifications.
 %endif
 
 Name: python-stem
-Version: %{srcversion}^%{date}git%{shortcommit}
-Release: 19%{?dist}
+Version: 1.8.1
+Release: 1%{?dist}
 Summary: Python controller library for Tor
 # All source code is LGPLv3 except stem/util/ordereddict.py which is MIT
 License: LGPLv3 and MIT
 URL: https://stem.torproject.org/
-Source0: https://files.pythonhosted.org/packages/source/s/%{srcname}/%{srcname}-%{srcversion}.tar.gz
+Source0: https://files.pythonhosted.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch0: stem-1.8.0-replace-all-usages-of-inspect.getargspec.patch
 BuildArch: noarch
 BuildRequires: make
@@ -59,7 +54,7 @@ Summary: %{summary}
 %description doc %_description
 
 %prep
-%autosetup -n %{srcname}-%{srcversion} -p 1
+%autosetup -n %{srcname}-%{version} -p 1
 
 %build
 %py3_build
@@ -92,6 +87,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Thu Sep 29 2022 Juan Orti Alcaine <jortialc@redhat.com> - 1.8.1-1
+- Version 1.8.1 (RHBZ#2130675)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0^20220701git7cfd6f7-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

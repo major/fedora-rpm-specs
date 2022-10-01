@@ -4,8 +4,8 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.2.3
-Release: 3%{?dist}
+Version: 7.0.4
+Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -13,16 +13,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The activesupport gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/activesupport && git archive -v -o activesupport-7.0.2.3-tests.txz v7.0.2.3 test/
+# cd rails/activesupport && git archive -v -o activesupport-7.0.4-tests.txz v7.0.4 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may get them like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.2.3-tools.txz v7.0.2.3 tools/
+# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
-# Defer loading XmlMini until it's needed
-# https://github.com/rails/rails/pull/44340
-Patch0: rubygem-activesupport-7.0.2-Defer-loading-XmlMini.patch
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
 Patch1: rubygem-activesupport-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
@@ -71,7 +68,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
 
-%patch0 -p2
 %patch1 -p2
 %patch3 -p2
 
@@ -136,6 +132,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Sep 15 2022 Pavel Valena <pvalena@redhat.com> - 1:7.0.4-1
+- Update to activesupport 7.0.4.
+
 * Tue Aug 02 2022 Vít Ondruch <vondruch@redhat.com> - 1:7.0.2.3-3
 - Fix Minitest 5.16+ compatibility.
 

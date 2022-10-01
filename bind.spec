@@ -61,9 +61,9 @@ Conflicts: %1 \
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
-License:  MPLv2.0
+License:  MPL-2.0
 Version:  9.18.7
-Release:  1%{?dist}
+Release:  3%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -106,6 +106,9 @@ Patch24: bind-9.18-pkcs11-engine-compat-api.patch
 Patch25: bind-9.18-pkcs11-engine-remove-deadcode.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2122010
 Patch26: bind-9.18-unittest-netmgr-unstable.patch
+# Fix building ARM docs in EPEL9
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/6815
+Patch27: bind-9.18-doc-arm-rhel9.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -954,6 +957,13 @@ fi;
 %endif
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 32:9.18.7-3
+- Update License to SPDX identifier
+- Enable automatic restart on crashes
+
+* Sat Sep 24 2022 Petr Menšík <pemensik@redhat.com> - 32:9.18.7-2
+- Build ARM documentation also with older sphinx on RHEL9
+
 * Wed Sep 21 2022 Petr Menšík <pemensik@redhat.com> - 32:9.18.7-1
 - Update to 9.18.7 (#2128609)
 

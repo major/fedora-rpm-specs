@@ -20,10 +20,10 @@
 
 Name:           dnsmasq
 Version:        2.87
-Release:        1%{?extraversion:.%{extraversion}}%{?dist}
+Release:        2%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only or GPL-3.0-only
 URL:            http://www.thekelleys.org.uk/dnsmasq/
 Source0:        %{url}%{?extrapath}%{name}-%{version}%{?extraversion}.tar.xz
 Source1:        %{name}.service
@@ -187,6 +187,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %{_mandir}/man1/dhcp_*
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 2.87-2
+- Update License tag to SPDX identifier
+
 * Tue Sep 27 2022 Petr Menšík <pemensik@redhat.com> - 2.87-1
 - Update to 2.87 (#2129658)
 

@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	2
+%global	fedorarel	3
 
 %global	gem_name	rspec-core
 
@@ -18,7 +18,7 @@
 Summary:	RSpec runner and formatters
 Name:		rubygem-%{gem_name}
 Version:	%{majorver}
-Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}.1
+Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}
 
 License:	MIT
 URL:		http://github.com/rspec/rspec-mocks
@@ -82,6 +82,11 @@ This package contains documentation for %{name}.
 %setup -q -T -n %{gem_name}-%{version} -b 1
 %patch0 -p1
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+
+# https://github.com/ruby/ruby/blob/28840d74c26189f4e730b906c2383e32ea6165fe/NEWS.md?plain=1#L232
+# https://github.com/rspec/rspec-core/commit/bf49c78d7a92e253d557924a3f85fd6991e32ca3
+# Ruby 3.2 removes Fixnum
+sed -i features/metadata/described_class.feature -e 's|Fixnum|Symbol|'
 
 %build
 gem build %{gem_name}.gemspec
@@ -175,6 +180,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.11.0-3
+- Backport upstream fix to eliminate Fixnum usage removed on Ruby 3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

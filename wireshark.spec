@@ -7,8 +7,8 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	3.6.7
-Release:	2%{?dist}
+Version:	3.6.8
+Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
 Url:		http://www.wireshark.org/
@@ -274,6 +274,10 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Sep 29 2022 Michal Ruprich <mruprich@redhat.com> - 1:3.6.8-2
+- New version 3.6.8
+- Fix for CVE-2022-3190
+
 * Mon Aug 01 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1:3.6.7-2
 - Drop gating for python3-devel dependency
 

@@ -5,8 +5,8 @@
 %bcond_with doc
 
 Name:           python-%{pkg_name}
-Version:        3.2.1
-Release:        8%{?dist}
+Version:        3.2.3
+Release:        1%{?dist}
 Summary:        Utility functions for Python class constructs
 
 License:        MIT
@@ -26,10 +26,6 @@ BuildConflicts: python3dist(pytest) = 3.7.3
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest) >= 3.4
 BuildRequires:  python3dist(more-itertools)
-
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm) >= 1.15
-
 %{?python_provide:%python_provide python3-%{pkg_name}}
 
 %description -n python3-%{pkg_name}
@@ -56,9 +52,12 @@ Documentation for jaraco-classes
 sed -i 's/ --flake8//' pytest.ini
 sed -i 's/ --black//' pytest.ini
 sed -i 's/ --cov//' pytest.ini
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 %if %{with docs}
 # generate html docs 
 PYTHONPATH=${PWD} sphinx-build-3 docs html
@@ -67,21 +66,17 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %install
-%py3_install
+%pyproject_install
 
 %check
-LANG=C.utf-8 %{__python3} -m pytest --ignore=build
+#LANG=C.utf-8 %{__python3} -m pytest --ignore=build
+%pytest
 
 %files -n python3-%{pkg_name}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/jaraco/classes
-%{python3_sitelib}/jaraco.classes-%{version}-py%{python3_version}.egg-info
-# These excludes are provided by python3-jaraco
-%exclude %{python3_sitelib}/jaraco/__init__*
-%exclude %{python3_sitelib}/jaraco/__pycache__/__init__*
-%exclude %dir %{python3_sitelib}/jaraco/__pycache__
-%exclude %dir %{python3_sitelib}/jaraco
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %if %{with docs}
 %files -n python-%{pkg_name}-doc
@@ -90,6 +85,11 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Wed Sep 28 2022 Dan Radez <dan@radez.net> - 3.2.3-1
+- update to 3.2.3 - rhbz#2130354
+- converting spec to use pyproject macros
+- removing excludes for files not in source anymore
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

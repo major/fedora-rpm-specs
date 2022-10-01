@@ -1,6 +1,6 @@
 Name:    dbus-python
-Version: 1.2.18
-Release: 5%{?dist}
+Version: 1.3.2
+Release: 1%{?dist}
 Summary: D-Bus Python Bindings
 
 License: MIT
@@ -34,6 +34,8 @@ Summary: D-Bus bindings for python3
 BuildRequires: python%{python3_pkgversion}-devel
 # for py3_build
 BuildRequires: python3dist(setuptools)
+BuildRequires: python3dist(setuptools-scm)
+BuildRequires: python3dist(wheel)
 BuildRequires: make
 
 %description -n python%{python3_pkgversion}-dbus
@@ -54,12 +56,14 @@ bindings.
 autoreconf -vif
 
 %build
+export DBUS_PYTHON_USE_AUTOTOOLS=1
 %set_build_flags
 %py3_build
 %configure PYTHON="%{__python3}"
 %make_build
 
 %install
+export DBUS_PYTHON_USE_AUTOTOOLS=1
 %py3_install
 %make_install
 
@@ -83,6 +87,9 @@ make check -k || (cat test-suite.log && false)
 %{_libdir}/pkgconfig/dbus-python.pc
 
 %changelog
+* Thu Sep 29 2022 Vojtech Trefny <vtrefny@redhat.com> - 1.3.2-1
+- Update to 1.3.2 (#2124688)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,19 +1,17 @@
-%global prerel a12
+%global prerel beta1
 
 # The documentation and tests need furo.  But to build furo at all, we need
 # this package.
 %bcond_with bootstrap
 
 Name:           python-sphinx-basic-ng
-Version:        0.0.1
+Version:        1.0.0
 Release:        0.1.%{prerel}%{?dist}
 Summary:        Modernized skeleton for Sphinx themes
 
 License:        MIT
 URL:            https://sphinx-basic-ng.readthedocs.io/
 Source0:        https://github.com/pradyunsg/sphinx-basic-ng/archive/%{version}.%{prerel}/sphinx-basic-ng-%{version}.%{prerel}.tar.gz
-# Fix a sphinx import error
-Patch0:         %{name}-sphinx.patch
 
 BuildArch:      noarch
 
@@ -68,7 +66,12 @@ Documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n sphinx-basic-ng-%{version}.%{prerel} -p1
+%autosetup -n sphinx-basic-ng-%{version}.%{prerel}
+
+# Use local objects.inv for intersphinx
+sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
+    -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
+    -i docs/conf.py
 
 %build
 %pyproject_wheel
@@ -97,5 +100,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1%{?dist}
+- Version 1.0.0.beta1
+- Drop upstreamed -sphinx patch
+
 * Thu Aug 25 2022 Jerry James <loganjerry@gmail.com> - 0.0.1-0.1.a12
 - Initial RPM

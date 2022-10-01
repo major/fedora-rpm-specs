@@ -30,8 +30,8 @@
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
 Version: 1.16.3
-Release: 1%{?extra_version:.%{extra_version}}%{?dist}
-License: BSD
+Release: 2%{?extra_version:.%{extra_version}}%{?dist}
+License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
 Source1: unbound.service
@@ -471,6 +471,9 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-2
+- Update License tag to SPDX identifier
+
 * Fri Sep 23 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-1
 - Update to 1.16.3 (#2128638)
 

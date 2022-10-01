@@ -6,7 +6,7 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    36f5dabb1325415a4b07a401113f8db2eb81eca1
+%global gh_commit    45f20faa0f0a24489740392c5b512ddcc36deccd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     JamesHeinrich
 %global gh_project   getID3
@@ -14,8 +14,8 @@
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.21
-Release:   3%{?dist}
+Version:   1.9.22
+Release:   1%{?dist}
 Epoch:     1
 License:   LGPLv3+
 Summary:   The PHP media file parser
@@ -97,6 +97,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Fri Sep 30 2022 Remi Collet <remi@remirepo.net> - 1.9.22-1
+- update to 1.9.22
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

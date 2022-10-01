@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-twig
 #
-# Copyright (c) 2014-2021 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2014-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -15,8 +15,8 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_version   1.44.6
-%global github_commit    ae39480f010ef88adc7938503c9b02d3baf2f3b3
+%global github_version   1.44.7
+%global github_commit    0887422319889e442458e48e2f3d9add1a172ad5
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 # Lib
@@ -31,7 +31,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?dist}
+Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 License:       BSD
@@ -158,7 +158,7 @@ sed -e '/listener/d' phpunit.xml.dist > phpunit.xml
 
 : Test suite without extension
 ret=0
-for SCL in "php %{phpunit}" php74 php80 php81; do
+for SCL in "php %{phpunit}" php74 php80 php81 php82; do
     if which $SCL; then
         set $SCL
         $1 ${2:-%{_bindir}/phpunit9} $SKIP \
@@ -179,6 +179,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 1.44.7-1
+- update to 1.44.7
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

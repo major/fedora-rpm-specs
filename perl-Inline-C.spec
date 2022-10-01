@@ -3,9 +3,9 @@
 
 Name:           perl-Inline-C
 Version:        0.82
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Write Perl subroutines in C
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-C
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETJ/Inline-C-%{version}.tar.gz
 # Fix tests to work from a read-only location, proposed to an upstream,
@@ -178,6 +178,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 29 2022 Petr Pisar <ppisar@redhat.com> - 0.82-4
+- Convert a License tag to an SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

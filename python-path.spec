@@ -1,8 +1,8 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        16.4.0
-Release:        3%{?dist}
+Version:        16.5.0
+Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -49,10 +49,13 @@ operations on files to be invoked on those path objects directly.
 %files -n python3-path
 %{python3_sitelib}/path
 %{python3_sitelib}/path-%{version}.dist-info/
-%exclude %{python3_sitelib}/test_path.py
 
 
 %changelog
+* Fri Sep 30 2022 Dan Radez <dradez@redhat.com> - 16.5.0-1
+- Update to 16.5.0 - rhbz#2130356
+- removing rpm spec exclude, file is not in the source anymore
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 16.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

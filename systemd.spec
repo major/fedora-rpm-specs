@@ -70,8 +70,7 @@ Source12:       systemd-user
 Source13:       libsystemd-shared.abignore
 
 Source14:       10-oomd-defaults.conf
-Source15:       10-oomd-root-slice-defaults.conf
-Source16:       10-oomd-user-service-defaults.conf
+Source15:       10-oomd-per-slice-defaults.conf
 
 Source21:       macros.sysusers
 Source22:       sysusers.attr
@@ -93,13 +92,12 @@ GIT_DIR=../../src/systemd/.git git diffab -M v233..master@{2017-06-15} -- hwdb/[
 # https://fedoraproject.org/wiki/Changes/Preset_All_Systemd_Units_on_First_Boot
 Patch0001:      https://github.com/systemd/systemd/commit/93651582ae.patch
 
+# PR https://github.com/systemd/systemd/pull/24639
+Patch0002:      0002-test-mountpoint-util-support-running-on-a-mount-name.patch
+
 # Those are downstream-only patches, but we don't want them in packit builds:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1738828
 Patch0490:      use-bfq-scheduler.patch
-
-# Other downstream-only patches (5000–9999)
-# https://github.com/systemd/systemd/pull/17050
-Patch0501:      https://github.com/systemd/systemd/pull/17050/commits/f58b96d3e8d1cb0dd3666bc74fa673918b586612.patch
 
 %ifarch %{ix86} x86_64 aarch64
 %global have_gnu_efi 1
@@ -282,6 +280,7 @@ for information how to use those macros.
 Summary:        Development headers for systemd
 License:        LGPLv2+ and MIT
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires(meta): (%{name}-rpm-macros = %{version}-%{release} if rpm-build)
 Provides:       libudev-devel = %{version}
 Provides:       libudev-devel%{_isa} = %{version}
 Obsoletes:      libudev-devel < 183
@@ -663,8 +662,9 @@ install -D -t %{buildroot}/usr/lib/systemd/ %{SOURCE3}
 
 # systemd-oomd default configuration
 install -Dm0644 -t %{buildroot}%{_prefix}/lib/systemd/oomd.conf.d/ %{SOURCE14}
-install -Dm0644 -t %{buildroot}%{system_unit_dir}/-.slice.d/ %{SOURCE15}
-install -Dm0644 -t %{buildroot}%{system_unit_dir}/user@.service.d/ %{SOURCE16}
+install -Dm0644 -t %{buildroot}%{system_unit_dir}/user-.slice.d/ %{SOURCE15}
+install -Dm0644 -t %{buildroot}%{system_unit_dir}/system.slice.d/ %{SOURCE15}
+install -Dm0644 -t %{buildroot}%{user_unit_dir}/slice.d/ %{SOURCE15}
 
 sed -i 's|#!/usr/bin/env python3|#!%{__python3}|' %{buildroot}/usr/lib/systemd/tests/run-unit-tests.py
 

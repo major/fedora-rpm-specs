@@ -2,7 +2,7 @@
 %{bcond_without perl_FFI_Changes_enables_optional_test}
 
 Name:           perl-FFI-CheckLib
-Version:        0.30
+Version:        0.31
 Release:        1%{?dist}
 Summary:        Check that a library is available for FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -22,13 +22,16 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DynaLoader)
+BuildRequires:  perl(Env)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
+# File::Which is used from private functions which are only called on Darwin.
 BuildRequires:  perl(List::Util) >= 1.33
 # Tests:
-# Env is a run-time dependency on Win32 only. The code is exhibited by a test,
+# File::Which is a run-time dependency on Darwin only. The code is exhibited by a test,
 # but never on Linux in production.
-BuildRequires:  perl(Env)
+BuildRequires:  perl(File::Which)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test2::API) >= 1.302015
 BuildRequires:  perl(Test2::Require::EnvVar) >= 0.000121
@@ -42,6 +45,7 @@ BuildRequires:  perl(Test2::Tools::Process)
 %endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DynaLoader)
+Requires:       perl(File::Basename)
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Test2::API|Test2::Require::EnvVar|Test2::Require::Module|Test2::V0)\\)$
@@ -62,6 +66,10 @@ into FFI::Platypus or FFI::Raw.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+# Tests:
+# File::Which is a run-time dependency on Darwin only. The code is exhibited by a test,
+# but never on Linux in production.
+Requires:       perl(File::Which)
 Requires:       perl(Test2::API) >= 1.302015
 Requires:       perl(Test2::Require::EnvVar) >= 0.000121
 Requires:       perl(Test2::Require::Module) >= 0.000121
@@ -95,12 +103,13 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a corpus t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+unset CIPSOMETHING FFI_CHECKLIB_PATH
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset CIPSOMETHING
+unset CIPSOMETHING FFI_CHECKLIB_PATH
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -114,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 30 2022 Petr Pisar <ppisar@redhat.com> - 0.31-1
+- 0.31 bump
+
 * Thu Sep 22 2022 Petr Pisar <ppisar@redhat.com> - 0.30-1
 - 0.30 bump
 

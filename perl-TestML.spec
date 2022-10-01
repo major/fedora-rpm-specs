@@ -1,18 +1,18 @@
 %global upstream_version 0.54_05
 Name:           perl-TestML
 Version:        %(echo '%{upstream_version}' | tr _ .)
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Generic software Testing Meta Language
-# src/perl5/pkg/doc/TestML.pod: GPL+ or Artistic
-# src/perl5/pkg/dist.ini:       GPL+ or Artistic
+# src/perl5/pkg/doc/TestML.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
+# src/perl5/pkg/dist.ini:       GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unused and not packaged
 # src/testml-compiler-coffee/pkg/package.json:              MIT
-# src/testml-compiler-perl5/pkg/doc/TestML/Compiler.pod:    GPL+ or Artistic
+# src/testml-compiler-perl5/pkg/doc/TestML/Compiler.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # src/python/pkg/setup.py:      MIT
 # src/python/pkg/LICENSE:       MIT text
 # src/python/pkg/ReadMe.md:     MIT
 # src/node/pkg/package.json:    MIT
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://github.com/testml-lang/testml/
 Source0:        %{url}archive/pkg-perl5-%{upstream_version}.tar.gz
 # Upstream build script requires checking out various git trees and
@@ -26,26 +26,43 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
-# No tests executed, no modules used at build time
-# base
-# Carp
-# Exporter
-# JSON::PP
-# List::Util
-# overload
-# Scalar::Util
-# strict
-# Test::Builder
-# Text::Diff
-# utf8
-# warnings
-# XXX
+BuildRequires:  perl(base)
+# Carp not used at tests
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(JSON::PP)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Test::Builder)
+# Text::Diff not used at tests
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(warnings)
+# XXX not used at tests
+# Tests:
+# bash for bin/getopt.sh
+BuildRequires:  bash
+# git in bin/getopt.sh not helpful
+BuildRequires:  grep
+# perl-Test-Harness for /usr/bin/prove
+BuildRequires:  perl-Test-Harness
+BuildRequires:  perl(constant)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Pegex::Base)
+BuildRequires:  perl(Pegex::Parser)
+BuildRequires:  perl(Tie::IxHash)
+BuildRequires:  which
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(List::Util)
 Requires:       perl(Text::Diff)
 Requires:       perl(warnings)
 Requires:       perl(XXX)
+
+# Remove private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(TestML::Compiler.*\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((TestML::Compiler.*|TestMLBridge)\\)
 
 %description
 TestML <http://www.testml.org/> is a generic, programming language agnostic,
@@ -68,6 +85,19 @@ implementation. The original, production-ready, implementation is available
 under TestML1 name in perl-TestML1 package.
 
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       grep
+Requires:       perl-Test-Harness
+Requires:       perl(warnings)
+Requires:       which
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n testml-pkg-perl5-%{upstream_version}
 cd src/perl5
@@ -84,18 +114,53 @@ perl Makefile.PL VERSION=%{upstream_version} INSTALLDIRS=vendor \
 %install
 cd src/perl5
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream/bin
+cp -a ../../bin/{getopt.sh,testml,testml-cli.sh,testml-compiler,testml-perl5-tap} %{buildroot}%{_libexecdir}/%{name}/upstream/bin
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream/test
+cp -a ../../test/runtime-tml %{buildroot}%{_libexecdir}/%{name}/upstream/test
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream/src/perl5
+cp -a test %{buildroot}%{_libexecdir}/%{name}/upstream/src/perl5
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream/src/perl5/bin
+cp -a bin/testml-perl5-tap %{buildroot}%{_libexecdir}/%{name}/upstream/src/perl5/bin
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream/src/testml-compiler-perl5
+cp -a ../testml-compiler-perl5/{bin,lib} %{buildroot}%{_libexecdir}/%{name}/upstream/src/testml-compiler-perl5
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# bin/testml writes tests compiled with TestML::Compiler into ./.testml.
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"/upstream/src/perl5
+unset TESTML_BRIDGE TESTML_DEVEL TESTML_FILEVAR
+export PATH=../../bin:$PATH TESTML_ROOT=../.. TESTML_RUN=perl5-tap
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)" test/*.tml
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 cd src/perl5
-make test
+unset TESTML_BRIDGE TESTML_DEVEL TESTML_FILEVAR
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
+PATH=../../bin:$PATH TESTML_ROOT=../.. TESTML_RUN=perl5-tap make test
 
 %files
 %doc src/perl5/Changes
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Sep 29 2022 Petr Pisar <ppisar@redhat.com> - 0.54.05-15
+- Convert a License tag to an SPDX format
+- Perform the tests
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.05-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

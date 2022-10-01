@@ -1,5 +1,5 @@
 Name:		mold
-Version:	1.4.2
+Version:	1.5.1
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -17,8 +17,11 @@ Patch0:		tbb-strip-werror.patch
 # Allow building against the system-provided `xxhash.h`
 Patch2:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
+# Fix unit test failing on ppc64
+Patch3:		0002-ELF-Fix-test-for-PPC64LE.patch
+
 # mold can currently produce native binaries for these architectures only
-ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 riscv64
+ExclusiveArch:	%{ix86} x86_64 %{arm32} aarch64 ppc64le %{riscv32} %{riscv64} sparc64 sparc64v
 
 BuildRequires:	cmake
 %if 0%{?el8}
@@ -27,9 +30,9 @@ BuildRequires:	gcc-toolset-10-toolchain
 BuildRequires:	gcc
 BuildRequires:	gcc-c++ >= 10
 %endif
+BuildRequires:	libzstd-devel
 BuildRequires:	mimalloc-devel
 BuildRequires:	openssl-devel
-BuildRequires:	python3
 BuildRequires:	xxhash-devel
 BuildRequires:	zlib-devel
 
@@ -45,7 +48,6 @@ BuildRequires:	libdwarf-tools
 %endif
 BuildRequires:	libstdc++-static
 BuildRequires:	llvm
-BuildRequires:	perl
 
 Requires(post): %{_sbindir}/alternatives
 Requires(preun): %{_sbindir}/alternatives
@@ -53,8 +55,6 @@ Requires(preun): %{_sbindir}/alternatives
 # API-incompatible with older tbb 2020.3 currently shipped by Fedora:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2036372
 Provides:	bundled(tbb) = 2021.5
-
-%define build_args PREFIX=%{_prefix} LIBDIR=%{_libdir} CFLAGS="%{build_cflags}" CXXFLAGS="%{build_cxxflags} -Wno-sign-compare" LDFLAGS="%{build_ldflags}" STRIP=echo SYSTEM_MIMALLOC=1
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.
@@ -64,17 +64,17 @@ build time, especially in rapid debug-edit-rebuild cycles.
 
 %prep
 %autosetup -p1
-rm -r third-party/{mimalloc,xxhash}
+rm -r third-party/{mimalloc,xxhash,zlib,zstd}
 
 %build
 %if 0%{?el8}
 . /opt/rh/gcc-toolset-10/enable
 %endif
-%make_build %{build_args}
+%cmake -DMOLD_USE_SYSTEM_MIMALLOC=ON
+%cmake_build
 
 %install
-%make_install %{build_args}
-chmod +x %{buildroot}%{_libdir}/mold/mold-wrapper.so
+%cmake_install
 
 %post
 if [ "$1" = 1 ]; then
@@ -90,7 +90,7 @@ fi
 %if 0%{?el8}
 . /opt/rh/gcc-toolset-10/enable
 %endif
-%make_build %{build_args} test
+%ctest
 
 %files
 %license %{_docdir}/mold/LICENSE
@@ -104,6 +104,13 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Thu Sep 29 2022 Christoph Erhardt <fedora@sicherha.de> - 1.5.1-1
+- Bump version to 1.5.1 (#2130132)
+- Switch to CMake build
+- Remove obsolete dependencies
+- Add new supported architectures
+- Refresh patch
+
 * Sun Sep 04 2022 Christoph Erhardt <fedora@sicherha.de> - 1.4.2-1
 - Bump version to 1.4.2
 - Refresh patch
@@ -111,7 +118,7 @@ fi
 * Thu Aug 18 2022 Christoph Erhardt <fedora@sicherha.de> - 1.4.1-1
 - Bump version to 1.4.1 (#2119324)
 - Refresh patch
-- Remove superfluous directory entries from `%files`
+- Remove superfluous directory entries from `%%files`
 
 * Sun Aug 07 2022 Christoph Erhardt <fedora@sicherha.de> - 1.4.0-1
 - Bump version to 1.4.0 (#2116004)

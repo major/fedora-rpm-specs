@@ -28,10 +28,10 @@
 # This will be used to fill booth_ver, booth_numcomm and booth_sha1.
 # It is important to keep abbrev to get full length sha1! When updating source use
 # `spectool -g booth.spec` to download source.
-%global git_describe_str v1.0-266-gf288d5949073986a29d0286caec16c721e8e632a
+%global git_describe_str v1.0-272-g7acb75787196c25e66a0f749f690888bad066bf4
 
 # Set this to 1 when rebasing (changing git_describe_str) and increase otherwise
-%global release 3
+%global release 1
 
 # Run shell script to parse git_describe str into version, numcomm and sha1 hash
 %global booth_ver %(s=%{git_describe_str}; vver=${s%%%%-*}; echo ${vver:1})
@@ -310,6 +310,12 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Fri Sep 30 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-272.1.7acb757.git
+- Rebase to newest upstream snapshot
+
+* Thu Sep 29 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-266.4.f288d59.git
+- Remove Alias directive from booth@.service unit file
+
 * Tue Aug 09 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-266.3.f288d59.git
 - Remove template unit from systemd_(post|preun|postun_with_restart) macro
 

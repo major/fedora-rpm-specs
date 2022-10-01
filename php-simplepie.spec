@@ -6,15 +6,15 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    2bdbc51ed1010941c9c5f2cddca433e79665bfe1
+%global gh_commit    9e9add3428ce86aede874bcf9a59c78e272f8dc1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     simplepie
 %global gh_project   simplepie
-%global gh_version   1.6.0
+%global gh_version   1.7.0
 %bcond_with       tests
 
 Name:       php-%{gh_project}
-Version:    %{gh_version}
+Version:    1.7.0
 Release:    1%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
+- 1.7.0
+
 * Mon Aug 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-1
 - 1.6.0
 

@@ -57,7 +57,7 @@ BuildRequires:  zopfli-devel
 # library, and because the implementation is modified, there is no possibility
 # of unbundling. Note that this was forked from the original 7-Zip, not from
 # p7zip.
-Provides:      bundled(7z)
+Provides:      bundled(7zip)
 
 %description
 AdvanceCOMP contains recompression utilities for your .zip archives,
@@ -120,6 +120,11 @@ export LDFLAGS="-lzopfli ${LDFLAGS-}"
 
 %install
 %make_install
+
+
+# We don’t run upstream tests (%%make_build check) because they are too
+# brittle, expecting recompressed outputs to be identical. Across platforms,
+# compilers, and unbundled library versions, this doesn’t hold up.
 
 
 %files

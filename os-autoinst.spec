@@ -30,22 +30,21 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   d3d433bda958b473ba7c60bb434760566c0d356b
+%global github_commit   436f134262416559c5b7248d4246cbfed67ae835
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20220620
+%global github_date     20220923
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
-# Fix endian conversion issues that broke tests on s390x:
-# https://progress.opensuse.org/issues/111608
-# https://github.com/os-autoinst/os-autoinst/pull/2096
-Patch0:         2096.patch
+# Refactor video device output handling for qemu
+# https://github.com/os-autoinst/os-autoinst/pull/2177
+Patch0:         0001-Consolidate-qemu-video-device-setting-deprecate-QEMU.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -64,7 +63,7 @@ Patch0:         2096.patch
 # which does not exist in Fedora - we have perl(base) in
 # main_requires_additional and the perl(:MODULE_COMPAT) require below
 # The following line is generated from dependencies.yaml (upstream)
-%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(File::Basename) perl(File::Find) perl(File::Path) perl(File::Temp) perl(File::Touch) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 8.42 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(Try::Tiny) perl(XML::LibXML) perl(XML::SemanticDiff) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings)
+%define main_requires %main_requires_additional git-core perl(B::Deparse) perl(Carp) perl(Carp::Always) perl(Config) perl(Cpanel::JSON::XS) perl(Crypt::DES) perl(Cwd) perl(Data::Dumper) perl(Digest::MD5) perl(DynaLoader) perl(English) perl(Errno) perl(Exception::Class) perl(Exporter) perl(ExtUtils::testlib) perl(Fcntl) perl(File::Basename) perl(File::Find) perl(File::Path) perl(File::Temp) perl(File::Touch) perl(File::Which) perl(File::chdir) perl(IO::Handle) perl(IO::Scalar) perl(IO::Select) perl(IO::Socket) perl(IO::Socket::INET) perl(IO::Socket::UNIX) perl(IPC::Open3) perl(IPC::Run::Debug) perl(IPC::System::Simple) perl(JSON::Validator) perl(List::MoreUtils) perl(List::Util) perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::JSON) perl(Mojo::Log) perl(Mojo::URL) perl(Mojo::UserAgent) perl(Mojolicious) >= 8.42 perl(Mojolicious::Lite) perl(Net::DBus) perl(Net::IP) perl(Net::SNMP) perl(Net::SSH2) perl(POSIX) perl(Scalar::Util) perl(Socket) perl(Socket::MsgHdr) perl(Term::ANSIColor) perl(Thread::Queue) perl(Time::HiRes) perl(Time::Moment) perl(Time::Seconds) perl(Try::Tiny) perl(XML::LibXML) perl(XML::SemanticDiff) perl(YAML::PP) perl(YAML::XS) perl(autodie) perl(base) perl(constant) perl(integer) perl(strict) perl(version) perl(warnings)
 # diff from SUSE: SUSE has python3-yamllint, Fedora has just yamllint
 # The following line is generated from dependencies.yaml (upstream)
 %define yamllint_requires yamllint
@@ -102,6 +101,8 @@ Recommends:     /usr/bin/qemu-img
 # Optional dependency for Python test API support
 Recommends:     perl(Inline::Python)
 BuildRequires:  %test_requires %test_version_only_requires
+# For unbuffered output of Perl testsuite
+BuildRequires:  expect
 Requires:       %main_requires
 Requires(pre):  %{_bindir}/getent
 Requires(pre):  %{_sbindir}/useradd
@@ -184,7 +185,7 @@ export CI=1
 export OPENQA_TEST_TIMEOUT_SCALE_CI=20
 # Enable verbose test output as we can not store test artifacts within package
 # build environments in case of needing to investigate failures
-export PROVE_ARGS="--timer -v"
+export PROVE_ARGS="--timer -v --nocolor"
 # 00-compile-check-all.t fails if this is present and Perl::Critic is
 # not installed
 rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
@@ -229,6 +230,12 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %{_prefix}/lib/os-autoinst/autotest.pm
 %{_prefix}/lib/os-autoinst/*.py
 %{_prefix}/lib/os-autoinst/check_qemu_oom
+%{_prefix}/lib/os-autoinst/dewebsockify
+%{_prefix}/lib/os-autoinst/vnctest
+
+%dir %{_prefix}/lib/os-autoinst/schema
+%{_prefix}/lib/os-autoinst/schema/Wheels-01.yaml
+
 %{_bindir}/isotovideo
 %{_bindir}/debugviewer
 %{_bindir}/snd2png
@@ -241,6 +248,13 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Fri Sep 23 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20220923git436f134-1
+- Update to latest git
+- Backport PR #2177 to clean up video device handling
+
+* Tue Aug 23 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20220822giteb3f483-1
+- Update to latest git
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6^20220620gitd3d433b-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

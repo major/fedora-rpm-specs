@@ -1,5 +1,5 @@
 Name:           python-furo
-Version:        2022.06.21
+Version:        2022.09.29
 Release:        1%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
@@ -92,9 +92,6 @@ cp -a %{_includedir}/node node-v%{nodejs_version}/include
 tar czf node-v%{nodejs_version}-headers.tar.gz node-v%{nodejs_version}
 npm config set tarball $PWD/node-v%{nodejs_version}-headers.tar.gz
 
-# sass-loader needs a sass implementation
-sed -i '/sass-loader/a\    "sass": "^1.54.5",' package.json
-
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
@@ -130,5 +127,8 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 2022.09.29-1
+- Version 2022.09.29
+
 * Thu Aug 25 2022 Jerry James <loganjerry@gmail.com> - 2022.06.21-1
 - Initial RPM

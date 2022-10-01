@@ -1,4 +1,4 @@
-%global candidate rc2
+#global candidate rc2
 %bcond_with check
 %global __cargo_skip_build 0
 %global __cargo_is_lib() false
@@ -11,7 +11,7 @@
 
 Name:          parsec
 Version:       1.1.0
-Release:       0.1%{?candidate:.%{candidate}}%{?dist}
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -101,6 +101,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Fri Sep 30 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0 GA
+
 * Wed Sep 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.0-0.1.rc2
 - Update to 1.1.0 RC2
 

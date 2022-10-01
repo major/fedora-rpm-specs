@@ -8,11 +8,8 @@
 
 %define py3verdist() python%{__default_python3_pkgversion}dist(%1)
 
-%if ! 0%{?rhel} || 0%{?rhel} >= 9
-%bcond_without tests
-%else
+# Disable tests for now
 %bcond_with tests
-%endif
 
 Name:           python-%{pypi_name}
 Version:        1.0.7
@@ -22,6 +19,7 @@ Summary:        An OpenAPI client for FASJSON
 License:        LGPLv3+
 URL:            https://github.com/fedora-infra/fasjson-client
 Source0:        %{pypi_source}
+Patch0:         fasjson-client-1.0.7-relax-pytest-cov-requirement.patch
 BuildArch:      noarch
 
 # Split off fasjson-client into subpackage
@@ -46,7 +44,7 @@ BuildRequires:  (%{py3verdist toml} >= 0.10.0 with %{py3verdist toml} < 0.11)
 %if %{with tests}
 BuildRequires:  (%{py3verdist coverage} >= 5.0.3 with %{py3verdist coverage} < 7)
 BuildRequires:  (%{py3verdist pytest} >= 4.6.11 with %{py3verdist pytest} < 8)
-BuildRequires:  (%{py3verdist pytest-cov} >= 2.8.1 with %{py3verdist pytest-cov} < 4)
+BuildRequires:  (%{py3verdist pytest-cov} >= 2.8.1)
 BuildRequires:  (%{py3verdist pytest-mock} >= 1.10.4 with %{py3verdist pytest-mock} < 4)
 BuildRequires:  (%{py3verdist requests-mock} >= 1.7 with %{py3verdist requests-mock} < 2)
 %endif

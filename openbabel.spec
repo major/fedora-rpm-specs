@@ -3,7 +3,7 @@
 # we don't want to provide private Perl or Python extension libs
 %global __provides_exclude_from ^(%{perl_vendorarch}/auto|%{python3_sitearch})/.*\\.so$
 
-# Avoid LTO flags in these architectures
+# Avoid LTO flags in these architectures:
 # eigen3/Eigen/src/Core/arch/AltiVec/MatrixProduct.h:1199:26:
 # error: inlining failed in call to 'always_inline' 'Eigen::internal::bload<Eigen::internal::blas_data_mapper<double, long, 0, 0, 1>, double __vector(2), long, 2l, 0, 
 %if 0%{?rhel}
@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Chemistry software file format converter
 License: GPLv2
 URL: https://openbabel.org/
@@ -25,7 +25,7 @@ Source2: openbabel-inchi-license-lgpl-2.1.txt
 # fix perl modules install path
 Patch0: %{name}-perl.patch
 
-# fix plugin directory location (#680292, patch by lg)
+# fix openbabel version + cmake config files
 Patch1: %{name}-plugindir.patch
 
 # fix SWIG_init even when not using swig (#772149)
@@ -225,6 +225,7 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
  -DRUBY_BINDINGS:BOOL=ON \
  -DWITH_MAEPARSER:BOOL=OFF \
  -DWITH_COORDGEN:BOOL=OFF \
+ -DOB_PLUGIN_INSTALL_DIR:PATH=%{_lib}/openbabel3 \
 %if 0%{?rhel}
  -DOPENBABEL_USE_SYSTEM_INCHI=false \
 %else
@@ -302,10 +303,10 @@ ctest3 -j1 --force-new-ctest-process
 %exclude %{_mandir}/man1/obgui.1*
 
 %files devel
-%{_includedir}/%{name}3
+%{_includedir}/%{name}3/
 %{_libdir}/libopenbabel.so
 %{_libdir}/libopenbabel.so.7
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/pkgconfig/openbabel-3.pc
 %{_libdir}/cmake/openbabel3/
 %if 0%{?rhel}
 %{_libdir}/libinchi.so
@@ -325,7 +326,7 @@ ctest3 -j1 --force-new-ctest-process
 %license COPYING
 %doc THANKS AUTHORS authors.txt README.md
 %{_datadir}/%{name}/
-%{_libdir}/%{name}/
+%{_libdir}/%{name}3/
 %{_libdir}/libopenbabel.so.7.0.0
 %if 0%{?rhel}
 %license inchi-license-lgpl-2.1.txt
@@ -345,6 +346,10 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Thu Sep 29 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-15
+- Fix openbabel version in CMakeLists.txt
+- Fix rhbz#2130870
+
 * Tue Sep 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-14
 - Fix EPEL builds
 

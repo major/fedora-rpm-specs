@@ -1,18 +1,18 @@
 Name:           gnome-epub-thumbnailer
-Version:        1.6
-Release:        8%{?dist}
+Version:        1.7
+Release:        1%{?dist}
 Summary:        Thumbnailers for EPub and MOBI books
 
 License:        GPLv2+
 URL:            https://git.gnome.org/browse/gnome-epub-thumbnailer
-Source0:        http://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
+Source0:        http://download.gnome.org/sources/%{name}/1.7/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 Buildrequires:  pkgconfig(libarchive)
-BuildRequires: make
+BuildRequires:  meson
 
 %description
 Thumbnailers for EPub and MOBI books
@@ -22,14 +22,12 @@ Thumbnailers for EPub and MOBI books
 %setup -q
 %autopatch
 
-
 %build
-%configure
-make %{?_smp_mflags}
-
+%meson
+%meson_build
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%meson_install
 
 
 %files
@@ -38,11 +36,14 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %dir %{_datadir}/thumbnailers
 %{_datadir}/thumbnailers/gnome-epub-thumbnailer.thumbnailer
 %{_datadir}/thumbnailers/gnome-mobi-thumbnailer.thumbnailer
-%doc AUTHORS COPYING NEWS README
+%doc COPYING NEWS README
 
 
 
 %changelog
+* Thu Sep 29 2022 Bastien Nocera <bnocera@redhat.com> - 1.7-1
+- Update to 1.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

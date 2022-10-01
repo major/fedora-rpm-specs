@@ -22,7 +22,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL
 URL:            https://github.com/googlefonts/noto-fonts/
@@ -31,6 +31,7 @@ Source0:	noto-fonts-%{snapver}.tar.xz
 Source1:	google-noto-sans-math-vf.conf
 Source2:	google-noto-sans-math.conf
 Source3:	google-noto-naskh-arabic-ex.conf
+Source4:	NotoSansSinhala-v2.006.zip
 
 BuildArch:      noarch
 BuildRequires:  fonts-rpm-macros
@@ -1007,6 +1008,8 @@ rpm.define("notobuild_metainfo " .. _metainfobuild .. "\n")
 
 %prep
 %setup -q -c -n noto-fonts-%{srcver}
+mkdir new-sinhala
+unzip %{SOURCE4} NotoSansSinhala/*
 
 
 %build
@@ -1023,6 +1026,12 @@ for f in unhinted/ttf/*/Noto*.ttf hinted/ttf/*/Noto*.ttf; do
 done
 install -m 0755 -d %{buildroot}%{_fontbasedir}/google-noto-vf
 install -m 0644 -p unhinted/slim-variable-ttf/Noto*.ttf %{buildroot}%{_fontbasedir}/google-noto-vf/
+
+# override updated sinhala fonts
+for f in NotoSansSinhala/hinted/ttf/*; do
+  install -m 0644 -p $f %{buildroot}%{_fontbasedir}/google-noto/
+done
+install -m 0644 -p NotoSansSinhala/unhinted/slim-variable-ttf/NotoSansSinhala\[wght\].ttf %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansSinhala-VF.ttf
 
 # fc-scan in script expects fonts are already installed
 %{notobuild_metainfo}
@@ -1057,6 +1066,10 @@ done
 
 
 %changelog
+* Fri Sep 30 2022 Akira TAGOH <tagoh@redhat.com> - 20201606-1.git0c78c8329-5
+- Update Noto Sinhala fonts to the latest to fix some rendering issue in Sinhala scripts.
+  Resolves: rhbz#2129619
+
 * Thu Sep 15 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-4
 - Add Provides lines for Obsoletes packages.
   Resolves: rhbz#2126575

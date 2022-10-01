@@ -12,13 +12,11 @@
 
 Summary: A dynamic OpenSSL engine for IBMCA
 Name: openssl-ibmca
-Version: 2.3.0
+Version: 2.3.1
 Release: 2%{?dist}
 License: ASL 2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# post GA fixes
-Patch0: %{name}-%{version}-fixes.patch
 Requires: libica >= 4.0.0
 BuildRequires: make
 BuildRequires: gcc
@@ -80,6 +78,9 @@ make check
 
 
 %changelog
+* Fri Sep 30 2022 Dan Horák <dan@danny.cz> - 2.3.1-1
+- updated to 2.3.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

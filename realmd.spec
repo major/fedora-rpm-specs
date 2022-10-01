@@ -1,25 +1,10 @@
 Name:    realmd
-Version: 0.17.0
-Release: 11%{?dist}
+Version: 0.17.1
+Release: 1%{?dist}
 Summary: Kerberos realm enrollment service
 License: LGPLv2+
 URL:     https://gitlab.freedesktop.org/realmd/realmd
-Source0: https://gitlab.freedesktop.org/sbose/realmd/uploads/b13a87292762bdad3ecbfe65bbb57211/realmd-%{version}.tar.gz
-
-Patch1: 0001-switch-to-authselect.patch
-Patch2: 0001-build-add-with-vendor-error-message-configure-option.patch
-Patch3: 0002-configure-update-some-macros-for-autoconf-2.71.patch
-Patch4: 0001-doc-add-computer-name-to-realm-man-page.patch
-
-# rhbz#1817869 - realmd operations hang with inaccessible IPv6
-Patch5: 0001-ldap-add-socket-timeout.patch
-
-# rhbz#2024248 - realmd logs are duplicated
-Patch6: 0001-syslog-avoid-duplicate-log-messages.patch
-
-# rhbz#2028530 - realm join needs to updated to use the command line options
-#                of Samba's net command
-Patch7: 0001-samba-use-new-Samba-4.15-command-line-options.patch
+Source0: https://gitlab.freedesktop.org/realmd/realmd/uploads/204d05bd487908ece2ce2705a01d2b26/realmd-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -106,6 +91,10 @@ make install DESTDIR=%{buildroot}
 %doc ChangeLog
 
 %changelog
+* Thu Sep 29 2022 Sumit Bose <sbose@redhat.com> - 0.17.1-1
+- Updated to upstream 0.17.1
+  Resolves: rhbz#1628302
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

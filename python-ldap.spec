@@ -5,7 +5,7 @@
 %global pypi_name python-ldap
 
 Name: python-ldap
-Version: 3.4.2
+Version: 3.4.3
 Release: %autorelease
 License: Python
 Summary: An object-oriented API to access LDAP directory servers

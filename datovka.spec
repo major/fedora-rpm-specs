@@ -1,6 +1,6 @@
 Name: datovka
-Version: 4.20.0
-Release: 2%{?dist}
+Version: 4.21.0
+Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPLv3+ with exceptions
@@ -11,6 +11,7 @@ BuildRequires: qt5-qttools-devel
 BuildRequires: openssl-devel
 BuildRequires: qt5-linguist
 BuildRequires: qt5-qtsvg-devel
+BuildRequires: qt5-qtwebsockets-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libdatovka-devel
 BuildRequires: make
@@ -54,6 +55,10 @@ make %{?_smp_mflags}
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Thu Sep 29 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.21.0-1
+- New version
+  Resolves: rhbz#2130187
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -45,8 +45,8 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %make_install
 
 %files
-%license doc/LICENSE
-%doc doc/README.md doc/CHANGELOG.md
+%license docs/LICENSE
+%doc docs/README.md docs/CHANGELOG.md
 %{_bindir}/tpm2
 %{_bindir}/tpm2_*
 %{_bindir}/tss2

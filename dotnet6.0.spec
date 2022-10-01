@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -90,6 +90,10 @@ Patch101:       runtime-mono-remove-ilstrip.patch
 Patch102:       runtime-66594-s390x-debuginfo.patch
 # https://github.com/dotnet/runtime/pull/74383
 Patch103:       runtime-fedora-38-rid.patch
+# https://github.com/dotnet/runtime/pull/73065
+Patch104:       runtime-clang15-support.patch
+# https://github.com/dotnet/runtime/pull/60675
+Patch105:       runtime-strerror.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -402,6 +406,8 @@ pushd src/runtime
 %patch101 -p1
 %patch102 -p1
 %patch103 -p1
+%patch104 -p1
+%patch105 -p1
 popd
 
 pushd src/fsharp
@@ -641,6 +647,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Thu Sep 29 2022 Michael Cronenworth <mike@cchtml.com> - 6.0.108-3
+- Clang 15 and s390x fixes with upstream patches
+
 * Mon Aug 22 2022 Omair Majid <omajid@redhat.com> - 6.0.108-2
 - Add an RID for Fedora 38
 

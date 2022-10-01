@@ -1,18 +1,9 @@
 # TESTING NOTE: An OpenCL device is needed to run the tests.  Since the koji
 # builders may or may not have a GPU, we use the CPU-only POCL implementation.
-# However:
-# - POCL is not available on ppc64le or s390x due to failing tests.
-# - Builds with POCL on 32-bit ARM fail with an undefined symbol error:
-#   __gnu_f2h_ieee.  This symbol is defined in libLLVM, but we are building
-#   with gcc/g++, not clang.  Since POCL is built with clang, this appears to
-#   be a POCL or clang bug.
-# - Builds with POCL on aarch64 fail one DAXPY test, not yet diagnosed.
-# - Builds with POCL on i686 often fail due to memory exhaustion.
-# That leaves x86_64 as the only platform that can run the tests.
 
 Name:           clblast
-Version:        1.5.2
-Release:        5%{?dist}
+Version:        1.5.3
+Release:        1%{?dist}
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -20,21 +11,15 @@ URL:            https://cnugteren.github.io/clblast/clblast.html
 Source0:        https://github.com/CNugteren/CLBlast/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix name clashes between macros in altivec.h and standard types on ppc64le
 Patch0:         %{name}-altivec.patch
-# Eliminate unnecessary copying with references
-# https://github.com/CNugteren/CLBlast/pull/410
-Patch1:         %{name}-reference.patch
 
 BuildRequires:  cmake
+BuildRequires:  compiler-rt
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  ocl-icd-devel
 BuildRequires:  pkgconfig(flexiblas)
-%ifarch %{ix86} x86_64
 BuildRequires:  pocl-devel
-# Work around bz 1734850
-BuildRequires:  compiler-rt
-%endif
 
 %description
 CLBlast is a modern, lightweight, performant and tunable OpenCL BLAS
@@ -95,13 +80,18 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %doc doc
 %{_includedir}/%{name}*.h
 %{_libdir}/lib{%name}.so
-%{_libdir}/cmake/CLBLast/
+%{_libdir}/cmake/CLBlast/
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files tuners
 %{_bindir}/*
 
 %changelog
+* Thu Sep 29 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-1
+- Version 1.5.3
+- Drop upstreamed -reference patch
+- Run tests on all arches
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-5
 - Convert License field to SPDX
 

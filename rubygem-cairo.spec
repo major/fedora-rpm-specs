@@ -5,7 +5,7 @@
 %global	gemver		1.17.8
 #%%global	gem_githash	af3e3fc059
 
-%global	need_test_bootstrap	0
+%global	need_test_bootstrap	1
 
 # Upstream GIT http://github.com/rcairo/
 
@@ -14,7 +14,7 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	%{gemver}
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2 or Ruby
 URL:		http://cairographics.org/rcairo/
 %if 1
@@ -181,6 +181,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-2
+- Once kill test suite dependency for now
+
 * Sun Sep  4 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-1
 - 1.17.8
 

@@ -2,20 +2,19 @@
 %global gem_name net-ldap
 
 Name: rubygem-%{gem_name}
-Version: 0.17.0
-Release: 4%{?dist}
+Version: 0.17.1
+Release: 1%{?dist}
 Summary: Net::LDAP for Ruby implements client access LDAP protocol
 License: MIT
 URL: http://github.com/ruby-ldap/ruby-net-ldap
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/ruby-ldap/ruby-net-ldap.git && cd ruby-net-ldap
+# git archive -v -o ruby-net-ldap-0.17.1-test.tar.gz v0.17.1 test/
+Source1: ruby-%{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(flexmock) 
-# Running rake rubotest requires rubygem-rubocop
-# BuildRequires: rubygem(rubocop)
 BuildRequires: rubygem(test-unit)
-BuildRequires: rubygem(rake)
-BuildRequires: rubygem(byebug)
 BuildArch: noarch
 
 %description
@@ -40,14 +39,10 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-
-%setup -q -D -T -n %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 %gem_install
 
@@ -58,8 +53,11 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-ruby -Ilib:test -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
-#rake test
+cp -a %{_builddir}/test .
+
+# Disable failing TestSSLBER test cases.
+# https://github.com/ruby-ldap/ruby-net-ldap/issues/409
+ruby -Itest -e 'Dir.glob "./test/**/test_*.rb", &method(:require)' - --ignore-testcase=/TestSSLBER/
 popd
 
 %files
@@ -77,6 +75,10 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Tue Sep 27 2022 Vít Ondruch <vondruch@redhat.com> - 0.17.1-1
+- Update to Net::LDAP 0.17.1.
+  Resolves: rhbz#2094146
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

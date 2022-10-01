@@ -1,7 +1,7 @@
 Summary:	Execution analysis and debugging tool-suite
 Name:		frysk
 Version:	0.4
-Release:	85%{?dist}
+Release:	86%{?dist}
 
 # Fedora 17+ is still waiting for vte et.al. bindings.
 %define enable_gnome %{fedora}0 < 170
@@ -70,6 +70,7 @@ Patch48:	frysk-0.4-jnixx-dont-emit-nested-classes.patch
 Patch49:	frysk-0.4-49-elf-newehdr-null.patch
 Patch50:	frysk-0.4-50-autoconf-2-70-fixes.patch
 Patch51:	frysk-0.4-51-debugedit-path.patch
+Patch52:	frysk-0.4-52-libunwind-tests.patch
 
 Patch100:	frysk-0.4-aclocaljavac.patch
 Patch101:	frysk-0.4-cxx-scope.patch
@@ -278,6 +279,7 @@ mv frysk-imports/libunwind/configure.{in,ac}
 %patch49 -p1 -z .49-elf-newehdr-null
 %patch50 -p1 -z .50-autoconf-2-70-fixes
 %patch51 -p1 -z .51-debugedit-path
+%patch52 -p1 -z .52-libunwind-tests.patch
 
 echo "%{version}-%{release}" > frysk-common/version.in
 
@@ -460,6 +462,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/funit-*-nodebug
 %endif
 
 %changelog
+* Thu Sep 29 2022 Andrew Cagney <cagney@fedoraproject.org> - 0.4-86
+- don't build libunwind tests; frysk-0.4-52-libunwind-tests.patch
+
 * Thu Jul 21 2022 Andrew Cagney <cagney@fedoraproject.org> - 0.4-85
 - ding dong the 32-bit Java is dead; #2104040
 

@@ -3,7 +3,7 @@
 
 %global         srcname     google-resumable-media
 %global         forgeurl    https://github.com/googleapis/google-resumable-media-python
-Version:        2.3.3
+Version:        2.4.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -14,10 +14,6 @@ Summary:        Utilities for Google media downloads and resumable uploads
 License:        ASL 2.0
 URL:            %forgeurl
 Source0:        %forgesource
-# Opened upstream PR to fix mock import:
-# https://github.com/googleapis/google-resumable-media-python/pull/329
-Patch0:         https://github.com/googleapis/google-resumable-media-python/pull/329.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

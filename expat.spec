@@ -1,9 +1,9 @@
-%global unversion 2_4_8
+%global unversion 2_4_9
 
 Summary: An XML parser library
 Name: expat
 Version: %(echo %{unversion} | sed 's/_/./g')
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source: https://github.com/libexpat/libexpat/archive/R_%{unversion}.tar.gz#/expat-%{version}.tar.gz
 URL: https://libexpat.github.io/
 License: MIT
@@ -59,20 +59,24 @@ make check
 %doc AUTHORS Changes
 %license COPYING
 %{_bindir}/*
-%{_libdir}/lib*.so.*
+%{_libdir}/libexpat.so.1
+%{_libdir}/libexpat.so.1.*
 %{_mandir}/*/*
 
 %files devel
 %doc doc/reference.html doc/*.css examples/*.c
-%{_libdir}/lib*.so
+%{_libdir}/libexpat.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/*.h
 %{_libdir}/cmake/expat-%{version}
 
 %files static
-%{_libdir}/lib*.a
+%{_libdir}/libexpat.a
 
 %changelog
+* Thu Sep 29 2022 Tomas Korbar <tkorbar@redhat.com> - 2.4.9-1
+- Rebase to 2.4.9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

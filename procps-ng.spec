@@ -4,7 +4,7 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 3.3.17
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+
 URL: https://sourceforge.net/projects/procps-ng/
 
@@ -18,6 +18,7 @@ Source2: README.top
 Patch1: pwait-to-pidwait.patch
 Patch2: covscan-findings.patch
 Patch3: sysctl-hyphen-param.patch
+Patch4: free-si-fix.patch
 
 
 BuildRequires: make
@@ -161,6 +162,10 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Mon Sep 19 2022 Jan Rybar <jrybar@redhat.com> - 3.3.17-7
+- free: backport 91e58792: fix --si option + cleanup
+- Resolves: bz#2083789
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.17-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

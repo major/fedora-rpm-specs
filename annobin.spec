@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.85
+Version: 10.86
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -488,6 +488,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Sep 30 2022 Serge Guelton  <sguelton@redhat.com> - 10.86-1
+- Libannocheck: Add libannocheck_reinit().
+
 * Thu Sep 22 2022 Serge Guelton  <sguelton@redhat.com> - 10.85-1
 - GCC Plugin: Record -ftrivial-auto-var-init and -fzero-call-used-regs.
 - Annocheck: Add future tests for  -ftrivial-auto-var-init and -fzero-call-used-regs.

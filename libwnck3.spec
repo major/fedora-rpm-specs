@@ -3,7 +3,7 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck3
 Version: 43.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/40/%{source_name}-%{version}.tar.xz
 License: LGPLv2+
@@ -16,6 +16,9 @@ Patch3:        libwnck_0002-icons-Use-cairo-surfaces-to-render-icons_43.patch
 Patch4:        libwnck_0003-xutils-Change-icons-to-being-cairo-surfaces_43.patch
 Patch5:        libwnck_0004-icons-Mark-GdkPixbuf-icons-as-deprecated_43.patch
 Patch6:        libwnck_0005-tasklist-Add-surface-loader-function_43.patch
+# fix https://gitlab.gnome.org/GNOME/libwnck/-/issues/154#note_1562760
+# https://gitlab.gnome.org/GNOME/libwnck/-/commit/07694559cc0c65ce1cca9ac33b165cef84c34d5e
+Patch:         libwnck_0001-Revert-xutils-Get-the-correct-PID-for-clients-inside.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -79,6 +82,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Sep 29 2022 Wolfgang Ulbrich <fedora@raveit.de> - 43.0-2
+- fix https://gitlab.gnome.org/GNOME/libwnck/-/issues/154
+
 * Mon Sep 19 2022 Wolfgang Ulbrich <fedora@raveit.de> - 43.0-1
 - update to 43.0
 

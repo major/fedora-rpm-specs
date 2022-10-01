@@ -39,9 +39,9 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.3
-Release: 1
+Release: 2
 
-License: BSD
+License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
 Source0: https://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}.tar.gz
 Source1: https://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}.tar.gz.asc
@@ -355,6 +355,9 @@ rm -rf doc/man
 %doc doc
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.8.3-2
+- Update License tag to SPDX identifier
+
 * Fri Aug 19 2022 Paul Wouters <pwouters@redhat.com> - 1.8.3-1
 - Update to 1.8.3
 - Remove --enable-rrtype-svcb-https, it is now enabled by default

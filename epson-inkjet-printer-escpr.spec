@@ -1,17 +1,16 @@
 # The lsb release used in the tarball name
 %global lsb 1lsb3.2
-# Not defined on el6
-%{!?_cups_serverbin: %global _cups_serverbin %(/usr/bin/cups-config --serverbin)}
 
 Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
 Epoch:          1
-Version:        1.7.18
-Release:        2.%{lsb}%{?dist}
+Version:        1.7.21
+Release:        1.%{lsb}%{?dist}
 License:        GPLv2+
+# Search for something like XP-7100
 URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
 # Download address is garbled on web page
-Source0:        https://download3.ebz.epson.net/dsc/f/03/00/13/43/81/cbdd80826424935cef20d16be8ee5851388977a7/epson-inkjet-printer-escpr-1.7.18-1lsb3.2.tar.gz
+Source0:        https://download3.ebz.epson.net/dsc/f/03/00/13/77/93/e85dc2dc266e96fdc242bd95758bd88d1a51963e/epson-inkjet-printer-escpr-1.7.21-1lsb3.2.tar.gz
 # Patch from Arch Linux
 # https://aur.archlinux.org/packages/epson-inkjet-printer-escpr/
 Patch1:         epson-inkjet-printer-escpr-filter.patch
@@ -25,28 +24,16 @@ BuildRequires:  cups-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  make
 
-# All current Fedoras
-%if 0%{?fedora} >= 21
+# All current Fedoras and modern RHEL
+%if 0%{?fedora} || 0%{?rhel} >= 8
 # For automatic detection of printer drivers
 BuildRequires:  python3-cups
-# For dir ownership
-Requires:       cups-filesystem
-%endif
-
-# Red Hat Enterprise 7
-%if 0%{?rhel} >= 7
+%else
 # For automatic detection of printer drivers
 BuildRequires:  python-cups
+%endif
 # For dir ownership
 Requires:       cups-filesystem
-%endif
-
-# Red Hat Enterprise 6
-%if 0%{?rhel} == 6
-# No automatic detection on RHEL6
-# For dir ownership
-Requires:       cups
-%endif
 
 %description
 This package contains drivers for Epson Inkjet printers that use 
@@ -97,6 +84,10 @@ rm %{buildroot}%{_libdir}/libescpr.so
 %{_libdir}/libescpr.so.*
 
 %changelog
+* Wed Sep 28 2022 Orion Poplawski <orion@nwra.com>  - 1:1.7.21-1.1lsb3.2
+- Update to 1.7.21
+- Update conditionals
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.7.18-2.1lsb3.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

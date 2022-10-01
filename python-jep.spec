@@ -27,6 +27,8 @@ License:        zlib
 URL:            https://github.com/ninia/%{srcname}
 Source0:        %{url}/archive/v%{version}.tar.gz
 
+ExclusiveArch:  %{java_arches}
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-numpy

@@ -59,7 +59,7 @@ Version:        4.6.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -143,7 +143,6 @@ BuildRequires:  python3-beautifulsoup4
 #for doc/doxygen/bib2xhtml.pl
 #BuildRequires:  perl-open
 BuildRequires:  gflags-devel
-BuildRequires:  libucil-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  libGL-devel
 BuildRequires:  libGLU-devel
@@ -303,7 +302,6 @@ install -pm 0644 %{SOURCE4} .cache/ade/
  -DOpenGL_GL_PREFERENCE=GLVND \
  -DWITH_GDAL=ON \
  -DWITH_OPENEXR=ON \
- -DWITH_UNICAP=ON \
  -DCMAKE_SKIP_RPATH=ON \
  -DWITH_CAROTENE=OFF \
 %ifarch x86_64 %{ix86}
@@ -497,6 +495,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Wed Sep 28 2022 Tom Rix <trix@redhat.com> - 4.6.0-7
+- Remove Unicap
+
 * Fri Jul 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.6.0-6
 - BR vte-java only on %%java_arches
 

@@ -4,10 +4,10 @@
 
 Name:		flamethrower
 Version:	0.11.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A DNS performance and functional testing utility
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/DNS-OARC/flamethrower
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -81,6 +81,9 @@ install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 0.11.0-13
+- Update License tag to SPDX identifier
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

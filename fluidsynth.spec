@@ -1,8 +1,8 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.2.9
-Release:      2%{?dist}
+Version:      2.3.0
+Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -35,6 +35,8 @@ BuildRequires: pkgconfig
 # -Denable-portaudio=on to cmake
 # BuildRequires: portaudio-devel
 BuildRequires: pulseaudio-libs-devel
+BuildRequires: pipewire-devel
+BuildRequires: libinstpatch-devel
 BuildRequires: readline-devel
 BuildRequires: /usr/bin/dot
 BuildRequires: systemd-devel
@@ -125,9 +127,13 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 %{_includedir}/fluidsynth/
 %{_libdir}/libfluidsynth.so
 %{_libdir}/pkgconfig/*
+%{_libdir}/cmake/fluidsynth/
 
 
 %changelog
+* Fri Sep 30 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.0-1
+- Update to 2.3.0
+
 * Wed Sep 14 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.2.9-2
 - Fix faulty user service file
 

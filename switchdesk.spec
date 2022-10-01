@@ -1,11 +1,12 @@
 Name: switchdesk
 Summary: A desktop environment switcher
 Version: 5.0.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Url: http://than.fedorapeople.org/
 Source: http://than.fedorapeople.org/%{name}/%{name}-%{version}.tar.xz
 Patch1: switchdesk-5.0.1-loadicon.patch
 Patch2: switchdesk-5.0.1-plasma.patch
+Patch3: switchdesk-5.0.1-hostname.patch
 License: GPLv2+
 BuildArch: noarch
 BuildRequires: make
@@ -67,6 +68,9 @@ install -p -m 644 %{name}.desktop %{buildroot}%{_datadir}/applications/
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Thu Sep 29 2022 Than Ngo <than@redhat.com> - 5.0.1-14
+- fixed bz#2130080, switchdesk crash
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

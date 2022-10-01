@@ -42,6 +42,11 @@ Requires:       octave
 %pyproject_save_files %{srcname_}
 
 %check
+# Turn off the *bracketed paste* mode
+# See e.g. https://github.com/pexpect/pexpect/issues/669
+echo "set enable-bracketed-paste off" > .inputrc
+export INPUTRC=$PWD/.inputrc
+
 PYTHONPATH="%{buildroot}%{python3_sitelib}" \
     JUPYTER_PATH="%{buildroot}%{_datadir}/jupyter" \
         xvfb-run -a -s "-screen 0 640x480x24" \

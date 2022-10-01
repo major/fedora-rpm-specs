@@ -1,7 +1,7 @@
 Summary: A firewall daemon with D-Bus interface providing a dynamic firewall
 Name: firewalld
-Version: 1.2.0
-Release: 4%{?dist}
+Version: 1.2.1
+Release: 1%{?dist}
 URL:     http://www.firewalld.org
 License: GPLv2+
 Source0: https://github.com/firewalld/firewalld/releases/download/v%{version}/firewalld-%{version}.tar.gz
@@ -307,6 +307,9 @@ fi
 %{_mandir}/man1/firewall-config*.1*
 
 %changelog
+* Thu Sep 29 2022 Eric Garver <eric@garver.life> - 1.2.1-1
+- rebase package to v1.2.1
+
 * Wed Sep 28 2022 Petr Menšík <pemensik@redhat.com> - 1.2.0-4
 - Remove kodi services (#2129946)
 

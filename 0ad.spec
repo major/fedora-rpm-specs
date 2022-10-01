@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	1%{?dist}
+Release:	2%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -72,6 +72,10 @@ Source1:	%{name}-licensecheck.txt
 # and disabled options were not added to the manual page.
 Source2:	%{name}.6
 
+# Patches to bundled mozjs for Python 3.11 and setuptools 60+ compatibility
+Source3:	0001-Bug-1654457-Update-virtualenv-to-20.0.31.-r-mhentges.patch
+Source4:	0001-Python-Build-Use-r-instead-of-rU-file-read-modes.patch
+
 Requires:	%{name}-data = %{version}
 Requires:	hicolor-icon-theme
 
@@ -115,6 +119,8 @@ BuildRequires:	readline-devel
 BuildRequires:	rustc
 BuildRequires:	cargo
 BuildRequires:	/usr/bin/zip
+# for patching bundled mozjs
+BuildRequires:	git-core
 %else
 BuildRequires:	pkgconfig(mozjs-78)
 %endif
@@ -134,6 +140,7 @@ Provides: bundled(mozjs) = 78
 # It also prevents assumption there that it is building in x86
 Patch1:		%{name}-debug.patch
 Patch2:		%{name}-check.patch
+Patch3:		%{name}-python311.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -156,6 +163,12 @@ hobbyist game developers, since 2001.
 %patch1 -p0
 %endif
 %patch2 -p0
+
+# Patch bundled mozjs for Python 3.11 and setuptools 60+ compatibility
+%patch3 -p1
+sed -e 's|__SOURCE3__|%{SOURCE3}|' \
+    -e 's|__SOURCE4__|%{SOURCE4}|' \
+    -i libraries/source/spidermonkey/patch.sh
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -261,6 +274,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Fri Sep 30 2022 Kalev Lember <klember@redhat.com> - 0.0.26-2
+- Fix FTBFS with Python 3.11 and setuptools 60+ in F37 (#2045149)
+
 * Mon Sep 26 2022 pcpa <paulo.cesar.pereira.de.andrade@gmail.com> - 0.0.26-1
 - Update to 0.0.26
 

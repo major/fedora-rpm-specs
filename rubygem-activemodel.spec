@@ -4,8 +4,8 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 7.0.2.3
-Release: 2%{?dist}
+Version: 7.0.4
+Release: 1%{?dist}
 Summary: A toolkit for building modeling frameworks (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -13,12 +13,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone https://github.com/rails/rails.git
-# cd rails/activemodel && git archive -v -o activemodel-7.0.2.3-tests.txz v7.0.2.3 test/
+# cd rails/activemodel && git archive -v -o activemodel-7.0.4-tests.txz v7.0.4 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.2.3-tools.txz v7.0.2.3 tools/
+# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 
 # Let's keep Requires and BuildRequires sorted alphabeticaly
@@ -87,6 +87,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Thu Sep 15 2022 Pavel Valena <pvalena@redhat.com> - 7.0.4-1
+- Update to activemodel 7.0.4.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

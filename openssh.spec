@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 4
+%global openssh_rel 5
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -717,6 +717,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Thu Sep 29 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-5
+- RSAMinSize => RequiredRSASize
+
 * Fri Sep 02 2022 Luca BRUNO <lucab@lucabruno.net> - 9.0p1-4
 - Move users/groups creation logic to sysusers.d fragments
 

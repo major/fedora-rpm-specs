@@ -1,6 +1,6 @@
 Summary:        Library for accessing USB devices
 Name:           libusb1
-Version:        1.0.25
+Version:        1.0.26
 Release:        %autorelease
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2
 License:        LGPLv2+
@@ -12,18 +12,6 @@ BuildRequires:  gcc
 # libusbx was removed in F34
 Provides:       libusbx = %{version}-%{release}
 Obsoletes:      libusbx < %{version}-%{release}
-
-# Fix a crash after libusb_exit API has been misused
-# https://bugzilla.redhat.com/show_bug.cgi?id=2050638
-Patch0001:      https://github.com/libusb/libusb/pull/1058.patch
-# Fix a crash if a transfer outlives closing the device
-Patch0002:      https://github.com/libusb/libusb/pull/1073.patch
-# Add umockdev based tests from https://github.com/libusb/libusb/pull/1078
-Patch0003:      0001-tests-Add-some-umockdev-based-tests.patch
-
-# Work around API misuse in gutenprint
-# https://bugzilla.redhat.com/show_bug.cgi?id=2056326
-Patch9999:      0001-core-Install-first-context-as-implicit-default.patch
 
 %description
 This package provides a way for applications to access USB devices.

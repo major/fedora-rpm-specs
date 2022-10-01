@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      collections
-%global github_version   1.7.3
-%global github_commit    09dde3eb237756190f2de738d3c97cff10a8407b
+%global github_version   1.8.0
+%global github_commit    2b44dd4cbca8b5744327de78bafef5945c7e7b5e
 
 %global composer_vendor  doctrine
 %global composer_project collections
@@ -133,6 +133,9 @@ exit $SCL_RETURN_CODE
 
 
 %changelog
+* Fri Sep 30 2022 Remi Collet <remi@remirepo.net> - 1.8.0-1
+- update to 1.8.0
+
 * Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 1.7.3-1
 - update to 1.7.3
 

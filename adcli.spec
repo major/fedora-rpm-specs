@@ -1,22 +1,10 @@
 Name:    adcli
-Version: 0.9.1
-Release: 11%{?dist}
+Version: 0.9.2
+Release: 1%{?dist}
 Summary: Active Directory enrollment
 License: LGPLv2+
 URL:     https://gitlab.freedesktop.org/realmd/adcli
-Source0: https://gitlab.freedesktop.org/sbose/adcli/uploads/30880d967e79cee789194435e70fbf30/adcli-%{version}.tar.gz
-
-Patch1: 0001-build-add-with-vendor-error-message-configure-option.patch
-Patch2: 0001-configure-update-some-macros-for-autoconf-2.71.patch
-Patch3: 0001-coverity-add-missing-NULL-checks.patch
-Patch4: 0002-Add-dont-expire-password-option.patch
-Patch5: 0001-Fix-for-dont-expire-password-option-and-join.patch
-Patch6: 0001-library-move-UAC-flags-to-a-more-common-header-file.patch
-Patch7: 0002-adcli_entry-add-entry_attrs-with-userAccountControl-.patch
-Patch8: 0003-entry-add-passwd-user-sub-command.patch
-Patch9: 0004-Add-setattr-option.patch
-Patch10: 0005-Add-delattr-option.patch
-Patch11: 0001-configure-check-for-ns_get16-and-ns_get32-as-well.patch
+Source0: https://gitlab.freedesktop.org/realmd/adcli/uploads/ea560656ac921b3fe0d455976aaae9be/adcli-%{version}.tar.gz
 
 
 BuildRequires: gcc
@@ -82,6 +70,9 @@ documentation.
 %doc %{_datadir}/doc/adcli/*
 
 %changelog
+* Thu Sep 29 2022 Sumit Bose <sbose@redhat.com> - 0.9.2-1
+- Update to upstream release 0.9.2
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

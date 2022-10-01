@@ -1,14 +1,14 @@
 %define service tar_scm
 
 Name:           obs-service-%{service}
-Version:        0.10.10
-Release:        9%{?dist}
+Version:        0.10.33
+Release:        1%{?dist}
 Summary:        An OBS source service: checkout or update a tarball from svn/git/hg
 License:        GPLv2+
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  glibc-langpack-en
 BuildRequires:  python3-mock
 BuildRequires:  python3-six
@@ -40,6 +40,8 @@ Requires:       python3-PyYAML
 Requires:       python3-dateutil
 Requires:       git-core
 Requires:       obs-service-download_files
+# Ensure that the interpreter is installed
+Requires:       /usr/bin/python3
 Recommends:     bzr
 Recommends:     mercurial
 Recommends:     subversion
@@ -106,8 +108,7 @@ make test3
 %{_prefix}/lib/obs/service/tar_scm.service
 
 %files -n obs-service-obs_scm-common
-# In lieu of a proper license file: https://github.com/openSUSE/obs-service-tar_scm/issues/257
-%license debian/copyright
+%license COPYING
 %doc README.md
 %dir %{_prefix}/lib/obs
 %dir %{_prefix}/lib/obs/service
@@ -132,6 +133,9 @@ make test3
 %{_prefix}/lib/obs/service/snapcraft*
 
 %changelog
+* Thu Sep 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.10.33-1
+- Rebase to 0.10.33
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

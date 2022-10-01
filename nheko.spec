@@ -1,6 +1,6 @@
 Name: nheko
-Version: 0.10.1
-Release: 2%{?dist}
+Version: 0.10.2
+Release: 1%{?dist}
 
 # Main source - GPLv3+
 # cpp-httplib - bundled - MIT
@@ -120,6 +120,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Sep 29 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.10.2-1
+- Updated to version 0.10.2.
+
 * Sat Sep 10 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.10.1-2
 - Rebuilt due to mtxclient update.
 

@@ -33,6 +33,7 @@ Source0:        %{gosource}
 %go_generate_buildrequires
 
 %build
+LDFLAGS="-X 'github.com/hetznercloud/cli/internal/version.Version=%{version}'"
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done

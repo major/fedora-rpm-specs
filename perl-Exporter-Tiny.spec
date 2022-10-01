@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Exporter-Tiny
-Version:	1.004002
+Version:	1.004003
 Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,6 +26,7 @@ BuildRequires:	perl(Carp)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test Suite
+BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.47
 BuildRequires:	perl(Test::Requires)
@@ -87,6 +88,15 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Fri Sep 30 2022 Paul Howarth <paul@city-fan.org> - 1.004003-1
+- Update to 1.004003
+  Bug Fixes
+  - If exporting non-CODE items that happen to have the same name as exported
+    CODE items, their export was quietly being blocked; these exports should
+    now work (GH#9)
+  - Using ! with a tag now works; it was previously documented as working but
+    not implemented (GH#8)
+
 * Tue Sep 20 2022 Paul Howarth <paul@city-fan.org> - 1.004002-1
 - Update to 1.004002
   - Fix for t/15nonhashvalue.t on old versions of Test::More that don't support

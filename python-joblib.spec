@@ -3,8 +3,8 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.1.0
-Release: 6%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
 License: BSD
@@ -76,6 +76,9 @@ rm joblib/externals/cloudpickle/ -rf
 %doc README.rst
 
 %changelog
+* Thu Sep 29 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 1.2.0-1
+- New upstream source 1.2.0. Fixes bz#2129824 CVE-2022-21797
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

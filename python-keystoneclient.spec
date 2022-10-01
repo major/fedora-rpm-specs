@@ -13,7 +13,7 @@ Identity API.
 Name:       python-keystoneclient
 Epoch:      1
 Version:    4.4.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Client library for OpenStack Identity API
 License:    ASL 2.0
 URL:        https://launchpad.net/python-keystoneclient
@@ -98,7 +98,7 @@ Requires:  python3-requests-mock
 Requires:  python3-lxml
 
 %description -n python3-%{sname}-tests
-{common_desc}
+%{common_desc}
 
 %if 0%{?with_doc}
 %package -n python-%{sname}-doc
@@ -109,7 +109,7 @@ BuildRequires: python3-sphinxcontrib-apidoc
 BuildRequires: python3-openstackdocstheme
 
 %description -n python-%{sname}-doc
-{common_desc}
+%{common_desc}
 %endif
 
 %prep
@@ -166,6 +166,9 @@ PYTHON=%{__python3} stestr --test-path=./keystoneclient/tests/unit run --exclude
 %{python3_sitelib}/%{sname}/tests
 
 %changelog
+* Wed Sep 28 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1:4.4.0-4
+- Fix broken descriptions
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

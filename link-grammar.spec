@@ -6,18 +6,17 @@
 
 Summary: A full-service natural language dependency parser
 Name: link-grammar
-Version: 5.10.2
-Release: 6%{?dist}
+Version: 5.11.0
+Release: 1%{?dist}
 License: LGPLv2+
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
-Patch0: py310.patch
 URL: http://abisource.com/projects/link-grammar/
 BuildRequires: hunspell-devel, libedit-devel, perl-devel, python3-devel
 %if %{JAVA}
 BuildRequires: java-devel, jpackage-utils, ant
 %endif
 BuildRequires: perl-generators, swig, minisat2-devel, gcc-c++
-BuildRequires: make
+BuildRequires: make, flex, pcre2-devel
 
 %description
 A full-service natural language dependency parser for
@@ -66,8 +65,6 @@ Python 3 libraries for liblink-grammar
 
 %prep
 %setup -q
-
-%patch0 -p0
 
 %build
 %if %{JAVA}
@@ -128,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Fri Sep 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.11.0-1
+- 5.11.0
+
 * Mon Aug 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.10.2-6
 - Only build Java packages on supported platforms.
 

@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 58
+%global microversion 59
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -80,7 +80,6 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
-Patch0001:	0001-pulse-server-limit-capture-blocks-to-fragsize.patch
 
 ## upstreamable patches
 
@@ -625,6 +624,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Sep 30 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.59-1
+- Update version to 0.3.59
+
 * Thu Sep 22 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.58-3
 - Add patch to fix ffmpeg capture and other stutterings.
 

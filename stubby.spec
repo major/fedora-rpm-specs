@@ -1,9 +1,9 @@
 Name:           stubby
 Version:        0.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Application that act as a local DNS Privacy stub resolver
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/getdnsapi/stubby
 Source0:        https://github.com/getdnsapi/stubby/archive/v%{version}/stubby-%{version}.tar.gz
 
@@ -64,6 +64,9 @@ fi
 
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 0.4.0-6
+- Update License tag to SPDX identifier
+
 * Tue Aug  2 2022 Joe Orton <jorton@redhat.com> - 0.4.0-5
 - fix build (#2113738)
 

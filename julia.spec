@@ -1,5 +1,5 @@
-%global uvcommit 3a63bf71de62c64097989254e4f03212e3bf5fc8
-%global uvversion 2.0.0
+%global uvcommit e6f0e4900e195c8352f821abe2b3cffc3089547b
+%global uvversion 1.44.2
 
 %global llvmversion 13.0.1-3
 %global llvmcommit julia-13.0.1-3
@@ -14,7 +14,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
 %global libunwindversion 1.5.0
 
-%global pkgcommit 63f4405d17e11decd2e5eb786cc491322b68c58c
+%global pkgcommit 0027cb18c39dfa2f0bf649fda654315e11be7bc3
 %global statisticscommit 61a021bcb330e6c52f2435f2abaffc77875ab6f2
 
 %global logocommit 168fb6c1164e341df360ed6ced519e1e0cb7de3a
@@ -26,7 +26,7 @@
 %global __requires_exclude ^(%{_privatelibs})$
 
 Name:           julia
-Version:        1.8.0
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
@@ -471,6 +471,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Thu Sep 29 2022 Milan Bouchet-Valat <nalimilan@club.fr> - 1.8.2-1
+- New upstream release.
+
 * Wed Aug 24 2022 Milan Bouchet-Valat <nalimilan@club.fr> - 1.8.0-1
 - New upstream release.
 - Update license information.

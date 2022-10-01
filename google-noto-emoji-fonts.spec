@@ -12,7 +12,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20220916
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Google “Noto Emoji” Black-and-White emoji font
 
 # In noto-emoji-fonts source
@@ -24,8 +24,8 @@ Summary:        Google “Noto Emoji” Black-and-White emoji font
 ## nototools code is in ASL 2.0 license
 ### third_party ucd code is in Unicode license
 License:        OFL and ASL 2.0
-URL:            https://github.com/googlei18n/noto-emoji
-Source0:        https://github.com/googlei18n/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
+URL:            https://github.com/googlefonts/noto-emoji
+Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
 Source2:        %{fontname}.metainfo.xml
 Source3:        %{fontname}-color.metainfo.xml
 Source4:        Noto_Emoji.zip
@@ -102,17 +102,20 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/appdata
 install -m 0644 -p %{SOURCE3} %{buildroot}%{_datadir}/appdata
 
 %_font_pkg NotoEmoji-Regular.ttf
-%license LICENSE
-%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md
+%license LICENSE OFL.txt
+%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
 %{_datadir}/appdata/google-noto-emoji.metainfo.xml
 
 %_font_pkg -n color NotoColorEmoji.ttf
-%license LICENSE
-%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md
+%license LICENSE OFL.txt
+%doc AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md README.txt
 %{_datadir}/appdata/google-noto-emoji-color.metainfo.xml
 
 
 %changelog
+* Wed Sep 28 2022 Peng Wu <pwu@redhat.com> - 20220916-2
+- Update Upstream URL
+
 * Tue Sep 27 2022 Peng Wu <pwu@redhat.com> - 20220916-1
 - Update to v2.038
 

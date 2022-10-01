@@ -2,7 +2,7 @@
 
 Summary: Library for accessing ICA hardware crypto on IBM z Systems
 Name: libica
-Version: 4.0.3
+Version: 4.1.0
 Release: 1%{?dist}
 License: CPL
 URL: https://github.com/opencryptoki/
@@ -11,9 +11,6 @@ Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{v
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630582
 # https://github.com/opencryptoki/libica/pull/24
 Patch0: %{name}-4.0.0-annotate.patch
-# FIPS openssl config is not needed on RHEL/Fedora
-# https://bugzilla.redhat.com/show_bug.cgi?id=2084097
-Patch1: %{name}-no-fips-config.patch
 BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: openssl
@@ -49,6 +46,10 @@ sh ./bootstrap.sh
 
 
 %build
+# FIPS openssl config is not needed on RHEL/Fedora
+# https://bugzilla.redhat.com/show_bug.cgi?id=2084097
+CPPFLAGS=-DNO_FIPS_CONFIG_LOAD
+export CPPFLAGS
 %configure --disable-static \
 %if %{with_fips}
     --enable-fips
@@ -106,6 +107,9 @@ fi
 
 
 %changelog
+* Fri Sep 30 2022 Dan Horák <dan[at]danny.cz> - 4.1.0-1
+- updated to 4.1.0
+
 * Tue Aug 16 2022 Dan Horák <dan[at]danny.cz> - 4.0.3-1
 - updated to 4.0.3
 

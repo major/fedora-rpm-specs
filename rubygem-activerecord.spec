@@ -3,8 +3,8 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.2.3
-Release: 3%{?dist}
+Version: 7.0.4
+Release: 1%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -12,12 +12,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git
-# cd rails/activerecord && git archive -v -o activerecord-7.0.2.3-tests.txz v7.0.2.3 test/
+# cd rails/activerecord && git archive -v -o activerecord-7.0.4-tests.txz v7.0.4 test/
 Source1: activerecord-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.2.3-tools.txz v7.0.2.3 tools/
+# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/43807
@@ -87,21 +87,37 @@ mv %{_builddir}/test .
 # Remove unnecessary dependency
 sed -i '/require .byebug./ s/^/#/g' test/cases/base_prevent_writes_test.rb
 
-# Tests require postgresql with :interval support
-# adapter_specific_registry.rb:36:in `lookup': Unknown type :interval
-mv test/cases/adapters/postgresql/datatype_test.rb{,.disable}
-mv test/cases/adapters/postgresql/geometric_test.rb{,.disable}
-
 # Build system is slower than expected
-sed -i '/assert_slower_by_at_most/ s/1\.4/1.7/' \
+sed -i '/assert_slower_by_at_most/ s/1\.4/2.5/' \
   test/cases/encryption/performance/envelope_encryption_performance_test.rb
 
-# Require of activerecord library is missing
-# https://github.com/rails/rails/pull/44639
-sed -i '/require .active_support\/core_ext\/enumerable/ i \
-require "active_support/core_ext/kernel/reporting"' test/cases/base_test.rb
+# Test adapters separately
+mv -v test/cases/adapters/ %{_builddir}/.
 
-ruby -Itest:lib -e 'Dir.glob("./test/cases/**/*_test.rb").sort.each{ |f| require f }'
+# Run without adapters
+ruby -Itest:lib -e '
+  Dir.glob("./test/cases/**/*_test.rb")
+    .sort
+    .reject { |f| f =~ %r|/encryption/performance/| }
+    .each { |f| require f }'
+
+# Return the adapters to test them
+mv -v %{_builddir}/adapters/ test/cases/.
+
+# Run tests for adapters only, but without postgresql
+ruby -Itest:lib -e '
+  Dir.glob("./test/cases/adapters/**/*_test.rb")
+    .sort
+    .reject {|x| x =~ %r|/postgresql/| }
+    .each { |f| require f }'
+
+# TODO: Run postgresql adapter tests, in isolation.
+# Adapter and database needs to be set up beforehand.
+#ruby -Itest:lib -e '
+#  Dir.glob("./test/cases/adapters/**/*_test.rb")
+#    .sort
+#    .select { |x| x =~ %r|/postgresql/| }
+#    .each { |f| fork { require f } }'
 popd
 
 %files
@@ -118,6 +134,9 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Thu Sep 15 2022 Pavel Valena <pvalena@redhat.com> - 1:7.0.4-1
+- Update to activerecord 7.0.4.
+
 * Tue Aug 02 2022 Vít Ondruch <vondruch@redhat.com> - 1:7.0.2.3-3
 - Fix Minitest 5.16+ compatibility.
   Resolves: rhbz#2113685

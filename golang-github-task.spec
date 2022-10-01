@@ -3,7 +3,7 @@
 
 # https://github.com/go-task/task
 %global goipath         github.com/go-task/task
-Version:                3.15.2
+Version:                3.16.0
 
 %gometa
 
@@ -14,7 +14,7 @@ A task runner / simpler Make alternative written in Go.}
 %global godocs          docs CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        A task runner / simpler Make alternative written in Go
 
 License:        MIT
@@ -71,29 +71,4 @@ install -m 0755 -vp %{gobuilddir}/bin/task %{buildroot}%{_bindir}/go-task
 %gopkgfiles
 
 %changelog
-* Mon Sep 05 2022 Mark E. Fuller <mark.e.fuller@gmx.de> - 3.15.0-1
-- Update to v3.15.0 (close rhbz#2124118)
-
-* Sat Aug 06 2022 Mark E. Fuller <mark.e.fuller@gmx.de> - 3.14.1-1
-- Update to v3.14.1 (close rhbz#2115368)
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 3.14.0-3
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jul 09 2022 Maxwell G <gotmax@e.email> - 3.14.0-2
-- Rebuild for CVE-2022-{24675,28327,29526 in golang}
-
-* Sat Jul 09 2022 Mark E. Fuller <mark.e.fuller@gmx.de> - 3.14.0-1
-- Update to v3.14.0 (close rhbz#2105612)
-- Reenable tests on recommendation of upstream
-
-* Wed Jun 15 2022 Mark E. Fuller <mark.e.fuller@gmx.de> - 3.13.0-1
-- Update to v3.13.0
-- Disable tests on recommendation of upstream
-
-* Fri Jun 03 2022 Mark E. Fuller <mark.e.fuller@gmx.de> - 3.12.1-1
-- Initial package
+%autochangelog

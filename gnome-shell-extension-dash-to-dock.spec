@@ -7,7 +7,7 @@
 #%%global commit_date 20220428
 
 Name:           gnome-shell-extension-dash-to-dock
-Version:        73
+Version:        74
 Release:        1%{?dist}
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
@@ -20,10 +20,12 @@ Source0:        %{giturl}/archive/%{commit}.tar.gz
 Source0:        %{giturl}/archive/extensions.gnome.org-v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 
+# https://github.com/micheleg/dash-to-dock/pull/1835
+Patch01:         1835.patch
 # Update show apps icon for GNOME 42 changes
 # https://github.com/micheleg/dash-to-dock/pull/1759
 # Reverted due to issues for now...
-#Patch01:        1759.patch
+#Patch02:        1759.patch
 
 BuildArch:      noarch
 
@@ -88,6 +90,9 @@ fi
 
 
 %changelog
+* Thu Sep 29 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 74-1
+- dash-to-dock 74
+
 * Tue Aug 30 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 73-1
 - dash-to-dock 73
 

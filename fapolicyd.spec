@@ -4,8 +4,8 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.1.4
-Release: 4%{?dist}
+Version: 1.1.5
+Release: 2%{?dist}
 License: GPLv3+
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -84,6 +84,7 @@ interpret=`readelf -e /usr/bin/bash \
 sed -i "s|%ld_so_path%|`realpath $interpret`|g" rules.d/*.rules
 
 %build
+cp INSTALL INSTALL.tmp
 ./autogen.sh
 %configure \
     --with-audit \
@@ -209,6 +210,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Thu Sep 29 2022 Radovan Sroka <rsroka@redhat.com> - 1.1.5.2
+- rebase to 1.1.5
+
 * Wed Aug 31 2022 Radovan Sroka <rsroka@redhat.com> - 1.1.4-4
 - fix bash completition definition in spec
 Resolves: rhbz#2123065

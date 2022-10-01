@@ -2,7 +2,7 @@
 
 Name:           lv2
 Version:        1.18.8
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Audio Plugin Standard
 
 # lv2specgen template.html is CC-AT-SA
@@ -97,6 +97,58 @@ sed -i '1s|^#!.*|#!%{__python3}|' lv2specgen/lv2specgen.py
 # Let RPM pick docs in the files section
 rm -fr %{buildroot}%{_docdir}/%{name}
 
+%pretrans devel -p <lua>
+-- Remove all symlinks existed in lv2-devel-1.18.2-2.fc36
+
+hdir = "%{_includedir}/%{name}"
+pdir = hdir .. "/lv2plug.in"
+
+-- List parent directories in reverse order
+-- inside lv2 specific directories
+parent_dirs = {}
+table.insert(parent_dirs, pdir .. "/ns/extensions")
+table.insert(parent_dirs, pdir .. "/ns/ext")
+table.insert(parent_dirs, pdir .. "/ns")
+table.insert(parent_dirs, hdir)
+
+for i = 1, #parent_dirs, 1 do -- not use ipairs here to guarantee order
+    parent = parent_dirs[i]
+
+    dir_entry = posix.dir(parent)
+    if not(dir_entry) then
+        goto skip_2
+    end
+    for j, path in pairs(dir_entry) do
+        exclude_list = {"." , ".."}
+        for k, ex in ipairs(exclude_list) do
+            if path == ex then
+                goto skip_1
+            end
+        end
+
+        fullpath = parent .. "/"
+        fullpath = fullpath .. path
+        st = posix.stat(fullpath)
+        if st and st.type == "link" then
+            os.remove(fullpath)
+        end
+
+        ::skip_1::
+    end
+    ::skip_2::
+end
+
+-- Remove extra symlinks
+pathlist = {}
+table.insert(pathlist, "%{_inclduedir}/lv2.h")
+for i = 1, #pathlist, 1 do
+    fullpath = pathlist[i]
+    st = posix.stat(fullpath)
+    if st and st.type == "link" then
+        os.remove(fullpath)
+    end
+end
+
 %files
 %license COPYING
 %doc NEWS README.md
@@ -148,6 +200,14 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %doc %{_vpath_builddir}/doc/*
 
 %changelog
+* Fri Sep 30 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.8-4
+- Fix pretrans lua script error for first installation (not upgrade)
+  (#2131236)
+
+* Fri Sep 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.8-3
+- Remove all symlinks in previous -devel subpackage in %%pre_trans
+  to ensure update transaction (#2123422)
+
 * Sat Sep 17 2022 Guido Aulisi <guido.aulisi@gmail.com> - 1.18.8-2
 - Readd old headers #2127286
 

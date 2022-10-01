@@ -1,6 +1,6 @@
 Name:               python-oauthlib
-Version:            3.2.0
-Release:            3%{?dist}
+Version:            3.2.1
+Release:            1%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
 License:            BSD
@@ -54,6 +54,10 @@ very little effort.
 %doc README.rst
 
 %changelog
+* Mon Sep 12 2022 Dariusz Smigiel <dsmigiel@redhat.com) - 3.2.1-1
+- Update spec file and sources for 3.2.1
+- Fixes CVE-2022-36087
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

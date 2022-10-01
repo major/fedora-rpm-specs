@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    fa2ef11911a5b99e4323ee24e9ed85703f14a983
+%global gh_commit    7835f3f3227b1892676cb7366fbed0e521cac845
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.20.0
+Version:        2.21.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -202,6 +202,9 @@ exit $ret
 
 
 %changelog
+* Fri Sep 30 2022 Remi Collet <remi@remirepo.net> - 2.21.0-1
+- update to 2.21.0
+
 * Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 2.20.0-1
 - update to 2.20.0
 

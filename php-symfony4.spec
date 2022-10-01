@@ -12,8 +12,8 @@
 
 %global github_owner     symfony
 %global github_name      symfony
-%global github_version   4.4.45
-%global github_commit    c296af8d155455e494955c212a91b45c3510ce19
+%global github_version   4.4.46
+%global github_commit    ba87d8e2af7b7a3e12c9abb5e87bfc05e3c85e8a
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  symfony
@@ -3314,6 +3314,9 @@ exit $RET
 # ##############################################################################
 
 %changelog
+* Fri Sep 30 2022 Remi Collet <remi@remirepo.net> - 4.4.46-1
+- update to 4.4.46
+
 * Thu Sep  8 2022 Remi Collet <remi@remirepo.net> - 4.4.45-1
 - update to 4.4.45
 

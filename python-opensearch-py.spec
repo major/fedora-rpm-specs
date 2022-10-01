@@ -1,9 +1,9 @@
 %global pypi_name opensearch-py
-%global pypi_version 1.0.0
+%global pypi_version 2.0.0
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Python low-level client for OpenSearch
 
 License:        ASL 2.0
@@ -47,13 +47,16 @@ For more information, see opensearch.org.
 %doc README.md
 
 %changelog
+* Fri Sep 30 2022 Steve Traylen <steve.traylen@cern.ch> - 2.0.0-1
+- Upgrade to version 2.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.0.0-4
 - Rebuilt for Python 3.11
 
-* Wed Feb 9 2022 Steve Traylen <steve.traylen@cern.ch> -1.0.0-3
+* Wed Feb 9 2022 Steve Traylen <steve.traylen@cern.ch> - 1.0.0-3
 - Migrate to pyproject macros
 
 * Thu Dec 9 2021 Steve Traylen <steve.traylen@cern.ch> - 1.0.0-2

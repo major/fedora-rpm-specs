@@ -2,7 +2,7 @@
 
 Name:           kf5-kirigami2-addons
 Version:        0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 License:        LGPLv3
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -29,7 +29,7 @@ or Plasma).
 
 %package dateandtime
 Summary:        Date and time add-on for the Kirigami framework
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description dateandtime
 Date and time Kirigami addons, which complements other
@@ -37,7 +37,7 @@ software like Kclock.
 
 %package treeview
 Summary:         Tree view add-on for the Kirigami framework
-Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 %description treeview
 Tree view Kirigami addon, which is useful for listing files.
 

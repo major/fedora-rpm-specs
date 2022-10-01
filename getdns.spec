@@ -9,8 +9,8 @@
 Summary: Modern asynchronous API to the DNS
 Name: getdns
 Version: 1.7.0
-Release: 6%{?extraver:.%{extraver}}%{?dist}
-License: BSD
+Release: 7%{?extraver:.%{extraver}}%{?dist}
+License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
 Source1: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz.asc
@@ -158,6 +158,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.7.0-7
+- Update License tag to SPDX identifier
+
 * Tue Aug 02 2022 Petr Menšík <pemensik@redhat.com> - 1.7.0-6
 - Build with libidn2 2.3.3 (#2113237)
 

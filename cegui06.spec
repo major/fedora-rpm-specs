@@ -1,6 +1,6 @@
 Name:           cegui06
 Version:        0.6.2
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        CEGUI library 0.6 for apps which need this specific version
 License:        MIT and LGPLv2+
 URL:            http://www.cegui.org.uk
@@ -15,7 +15,6 @@ URL:            http://www.cegui.org.uk
 # rm -r CEGUI-0.6.2/RendererModules/OpenGLGUIRenderer/GLEW
 # tar cvfz CEGUI-0.6.2b-clean.tar.gz
 Source0:        CEGUI-0.6.2b-clean.tar.gz
-Source1:        http://downloads.sourceforge.net/crayzedsgui/CEGUI-%{version}-DOCS.tar.gz
 # Both submitted upstream: http://www.cegui.org.uk/mantis/view.php?id=197
 Patch1:         cegui-0.6.0-release-as-so-ver.patch
 Patch2:         cegui-0.6.0-userverso.patch
@@ -23,16 +22,17 @@ Patch2:         cegui-0.6.0-userverso.patch
 Patch3:         cegui-0.6.2-new-DevIL.patch
 Patch4:         cegui-0.6.2-new-tinyxml.patch
 Patch5:         cegui-0.6.2-gcc46.patch
+Patch6:         cegui-0.6.2-pcre2.patch
 BuildRequires:  gcc-c++
 BuildRequires:  expat-devel
 BuildRequires:  freetype-devel > 2.0.0
 BuildRequires:  libICE-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libSM-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  glew-devel
 BuildRequires:  freeimage-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Crazy Eddie's GUI System is a free library providing windowing and widgets for
@@ -50,27 +50,11 @@ Requires:       libGLU-devel
 Development files for cegui06
 
 
-%package devel-doc
-Summary:        API documentation for cegui06
-Requires:       %{name}-devel = %{version}-%{release}
-
-%description devel-doc
-API and Falagard skinning documentation for cegui06
-
-
 %prep
-%setup -qb1 -qn CEGUI-%{version}
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%autosetup -p1 -n CEGUI-%{version}
 
 # Permission fixes for debuginfo RPM
 chmod -x include/falagard/*.h
-
-# Delete zero length file
-rm -f documentation/api_reference/keepme
 
 # Encoding fixes
 iconv -f iso8859-1 AUTHORS -t utf8 > AUTHORS.conv && mv -f AUTHORS.conv AUTHORS
@@ -87,6 +71,8 @@ touch RendererModules/OpenGLGUIRenderer/GLEW/GLEW-LICENSE
 
 
 %build
+# configure part of pcre2 change, easier/cleaner to do with sed
+sed -i 's|libpcre|libpcre2-8|g' configure
 %configure --disable-static --disable-samples --disable-lua-module \
     --disable-corona --disable-devil --disable-silly \
     --disable-irrlicht-renderer --disable-directfb-renderer \
@@ -139,11 +125,13 @@ done
 %{_includedir}/CEGUI-0.6
 %{_datadir}/CEGUI-0.6
 
-%files devel-doc
-%doc documentation/FalagardSkinning.pdf documentation/api_reference
-
 
 %changelog
+* Fri Sep 30 2022 Hans de Goede <hdegoede@redhat.com> - 0.6.2-40
+- Port to PCRE2 (rhbz#2128275)
+- CEGUI is no longer maintained upstream and should not be used for new
+  projects, drop the -devel-doc sub-package
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

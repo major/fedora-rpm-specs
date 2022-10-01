@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 139
+%global firmware_release 140
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20220815
+Version:	20220913
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -528,6 +528,21 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Thu Sep 29 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20220913-140
+- Update to upstream 20220913 release
+- amdgpu: update yellow carp DMCUB firmware
+- amdgpu: add firmware for VCN 3.1.2 IP block
+- amdgpu: add firmware for SDMA 5.2.6 IP block
+- amdgpu: add firmware for PSP 13.0.5 IP block
+- amdgpu: add firmware for GC 10.3.6 IP block
+- amdgpu: add firmware for DCN 3.1.5 IP block
+- qcom: rename Lenovo ThinkPad X13s firmware paths
+- rtw89: 8852c: update fw to v0.27.42.0
+- Mellanox: Add new mlxsw_spectrum firmware xx.2010.3146
+- amdgpu: update beige goby/dimgrey cavefish/navy flounder/sienna cichlid VCN firmware
+- rtl_bt: Update RTL8852C BT USB firmware to 0xDFB8_5A33
+- mediatek: reference the LICENCE file for MediaTek firmwares
+
 * Tue Sep 13 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20220815-139
 - Use requires for GPU firmware on < Fedora 37
 

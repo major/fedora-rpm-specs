@@ -3,7 +3,7 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        37.8
+Version:        38.0
 Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 
@@ -71,10 +71,6 @@ Requires:       openssh
 Requires:       s390utils >= 2.15.0-2
 %endif
 
-%ifarch %{arm}
-Requires:       uboot-tools
-%endif
-
 # Moved image-minimizer tool to lorax
 Provides:       appliance-tools-minimizer = %{version}-%{release}
 Obsoletes:      appliance-tools-minimizer < 007.7-3
@@ -99,7 +95,7 @@ Requires: lorax = %{version}-%{release}
 Requires: qemu
 
 # Fedora edk2 builds currently only support these arches
-%ifarch %{ix86} x86_64 %{arm} aarch64
+%ifarch x86_64 aarch64
 Requires: edk2-ovmf
 %endif
 Recommends: qemu-kvm
@@ -172,6 +168,17 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Fri Sep 30 2022 Brian C. Lane <bcl@redhat.com> 38.0-1
+- New lorax documentation - 38.0 (bcl@redhat.com)
+- tests: Update test_creator.py for new cmdline options (bcl@redhat.com)
+- livemedia-creator: Add release, variant, bugurl, and isfinal cmdline flags (cappy@cappuchino.xyz)
+- Drop 32-bit ARM and x86 support (awilliam@redhat.com)
+- Update anaconda's crash messages to watch (vslavik@redhat.com)
+- livemedia-creator: Add --product to cmdline args (bcl@redhat.com)
+- fedora-livemedia: Make sure GNOME Software service isn't started (bcl@redhat.com)
+- fonts packages syncup in template files (akira@tagoh.org)
+- tests: Add tzdata package to minimizer test setup (bcl@redhat.com)
+
 * Mon Jul 25 2022 Brian C. Lane <bcl@redhat.com> 37.8-1
 - mkksiso: Optionally support 3 arguments or --ks (bcl@redhat.com)
 - mkksiso: Add -U to xorriso on ppc64le (bcl@redhat.com)

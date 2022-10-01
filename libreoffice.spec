@@ -997,7 +997,7 @@ git commit -q -m 'add Red Hat colors to palette' extras/source/palettes/standard
 # apply patches
 %autopatch -M 99
 %if 0%{?rhel}
-%apply_patch -q %{PATCH500}
+%patch500 -p1
 %endif
 
 sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk # ppc64le

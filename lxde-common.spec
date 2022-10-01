@@ -21,7 +21,7 @@
 
 Name:           lxde-common
 Version:        0.99.2
-Release:        19%{?git_version:.%{?git_version}}%{?dist}
+Release:        20%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Default configuration files for LXDE
 
 License:        GPLv2+
@@ -98,6 +98,12 @@ Desktop Environment.
 sed -i 's|id=fedora-|id=|' lxpanel/panel.in
 %endif
 
+# Fedora 37 changed default background file format
+%if 0%{?fedora} >= 37
+sed -i.f37 pcmanfm/pcmanfm.conf.in \
+	-e '\@wallpaper=@s|default.png|default.webp|'
+%endif
+
 # Calling autotools must be done before executing
 # configure if needed
 autoreconf -fi
@@ -160,6 +166,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-20
+- F-37: update default background image
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
