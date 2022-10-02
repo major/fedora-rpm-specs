@@ -1,15 +1,19 @@
 %global srcname patatt
 
 Name:           python-%{srcname}
-Version:        0.4.9
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Add cryptographic attestation to patches sent via email
 License:        MIT-0
 URL:            https://git.kernel.org/pub/scm/utils/%{srcname}/%{srcname}.git
 Source0:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.xz
+Source1:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.sign
+# https://git.kernel.org/pub/scm/utils/patatt/patatt.git/plain/.keys/openpgp/linuxfoundation.org/konstantin/default
+Source2:        gpgkey-DE0E66E32F1FDD0902666B96E63EDCA9329DD07E.asc
 
 BuildArch:      noarch
 
+BuildRequires:  gnupg2
 BuildRequires:  python%{python3_pkgversion}-devel
 
 %global _description %{expand:
@@ -28,6 +32,7 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 
 
 %prep
+xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1 -n %{srcname}-%{version}
 
 

@@ -1,6 +1,6 @@
 Name:           ansible-packaging
 Version:        1
-Release:        7%{?dist}
+Release:        8.1%{?dist}
 Summary:        RPM packaging macros and generators for Ansible collections
 
 License:        GPL-3.0-or-later
@@ -9,7 +9,12 @@ Source0:        ansible-generator
 Source1:        ansible.attr
 Source2:        macros.ansible
 Source3:        macros.ansible-srpm
-Source4:        COPYING
+Source4:        ansible_collection.py
+
+Source100:      COPYING
+
+# Needed for ansible_collection.py
+Requires:       %{py3_dist pyyaml}
 
 # Require ansible-core for building. Collections still have a boolean runtime
 # dependency on either ansible 2.9 OR ansible-core.
@@ -67,9 +72,61 @@ cp -a %{sources} .
 
 %install
 install -Dpm0644 -t %{buildroot}%{_fileattrsdir} ansible.attr
-install -Dpm0644 -t %{buildroot}%{_rpmmacrodir} macros.ansible
-install -Dpm0644 -t %{buildroot}%{_rpmmacrodir} macros.ansible-srpm
+install -Dpm0644 -t %{buildroot}%{_rpmmacrodir}  macros.ansible
+install -Dpm0644 -t %{buildroot}%{_rpmmacrodir}  macros.ansible-srpm
 install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} ansible-generator
+install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} ansible_collection.py
+
+%check
+# TODO: Currently, this only tests %%{ansible_collection_url}.
+
+rpm_eval() {
+    default_macros_path="$(rpm --showrc | grep 'Macro path' | awk -F ': ' '{print $2}')"
+    rpm --macros="${default_macros_path}:%{buildroot}%{_rpmmacrodir}/macros.*" "$@"
+}
+
+errors() {
+    error="error: %%ansible_collection_url: You must pass the collection namespace as the first arg and the collection name as the second"
+    "$@" && exit 1
+    "$@" |& grep -q "${error}"
+}
+
+echo "Ensure macro fails when only collection_namespace macro is defined"
+errors rpm_eval -D 'collection_namespace cc' -E '%%ansible_collection_url'
+
+echo
+echo "Ensure macro fails when only collection_name macro is defined"
+errors rpm_eval -D 'collection_name cc' -E '%%ansible_collection_url'
+
+echo
+echo "Ensure macro fails when second argument is missing"
+errors rpm_eval -E '%%ansible_collection_url a'
+
+echo
+echo "Ensure macro fails when second argument is missing"
+errors rpm_eval -D 'collection_name b' -E '%%ansible_collection_url a'
+
+echo
+echo "Ensure macro fails when neither the control macros nor macro arguments are passed"
+errors rpm_eval -E '%%ansible_collection_url'
+
+
+echo
+echo
+echo "Ensure macro works when both arguments are passed and no control macros are set"
+[[ $(rpm_eval -E '%%ansible_collection_url community general') == \
+    "https://galaxy.ansible.com/community/general" ]]
+
+echo
+echo "Ensure macro works with the control macros"
+[[ $(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
+    -E '%%ansible_collection_url') == "https://galaxy.ansible.com/ansible/posix" ]]
+
+echo
+echo "Ensure macro prefers the collection namespace and name passed as an argument over the control macros"
+[[ $(rpm_eval -D 'collection_namespace ansible' -D 'collection_name posix' \
+    -E '%%ansible_collection_url community general') == "https://galaxy.ansible.com/community/general" ]]
+
 
 
 %files
@@ -77,6 +134,7 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} ansible-generator
 %{_fileattrsdir}/ansible.attr
 %{_rpmmacrodir}/macros.ansible
 %{_rpmconfigdir}/ansible-generator
+%{_rpmconfigdir}/ansible_collection.py
 
 
 %files -n ansible-srpm-macros
@@ -91,6 +149,17 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} ansible-generator
 
 
 %changelog
+* Sat Sep 24 2022 Maxwell G <gotmax@e.email> - 1-8.1
+- Refactor %%ansible_collection_url, %%ansible_collection_install,
+  %%ansible_test_unit.
+- Specfiles no longer need to define %%collection_namespace or %%collection_name
+  for the macros to work.
+- Add new %%ansible_collections_dir, %%ansible_roles_dir, and
+  %%ansible_collection_filelist macros.
+- Prepare to deprecate %%ansible_collection_files
+- Undefine %%_package_note_file to stop that file from leaking into collection
+  artifacts.
+
 * Mon Aug 01 2022 Maxwell G <gotmax@e.email> - 1-7
 - Implement %%ansible_test_unit and add ansible-packaging-tests metapackage.
 - Require ansible-core at buildtime

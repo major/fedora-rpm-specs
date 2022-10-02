@@ -18,13 +18,18 @@
 
 Name:           gnome-settings-daemon
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
 License:        GPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 Source1:        org.gnome.settings-daemon.plugins.power.gschema.override
+
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/309
+# https://bugzilla.redhat.com/show_bug.cgi?id=2128423
+Patch0:         309.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -201,6 +206,9 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %{_libdir}/pkgconfig/gnome-settings-daemon.pc
 
 %changelog
+* Fri Sep 30 2022 Kalev Lember <klember@redhat.com> - 43.0-2
+- Backport upstream patch to default to ibus for X11 clients (#2128423)
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

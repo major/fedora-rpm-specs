@@ -6,7 +6,7 @@
 %global goipath         github.com/osbuild/weldr-client/v2
 
 Name:      weldr-client
-Version:   35.7
+Version:   35.8
 Release:   1%{?dist}
 # Upstream license specification: Apache-2.0
 License:   ASL 2.0
@@ -126,12 +126,13 @@ composer-cli package.
 
 
 %changelog
-* Thu Sep 08 2022 Brian C. Lane <bcl@redhat.com> - 35.7-1
-- New release: 35.7 (bcl)
-- spec: Move %gometa macro above %gourl (bcl)
-- weldr: When starting a compose pass size as bytes, not MiB (bcl)
-- tests: Use correct size value in bytes for test (bcl)
-- workflow: Add Go 1.18 to text matrix (bcl)
-- Replace deprecated ioutil functions (bcl)
-- build(deps): bump github.com/BurntSushi/toml from 1.1.0 to 1.2.0 (49699333+dependabot[bot])
-- build(deps): bump github.com/stretchr/testify from 1.7.4 to 1.8.0 (49699333+dependabot[bot])
+* Fri Sep 30 2022 Brian C. Lane <bcl@redhat.com> - 35.8-1
+- New release: 35.8 (bcl)
+- completion: Remove providers from bash completion script (bcl)
+- completion: Filter out new headers from compose list (bcl)
+- docs: Remove unneeded Long descriptions (bcl)
+- docs: Use a custom help template (bcl)
+- docs: Add more command documentation (bcl)
+- cmdline: Add package glob support to modules list command (bcl)
+- workflow: Add govulncheck on go v1.18 (bcl)
+- tests: Update to use golangci-lint 1.49.0 (bcl)

@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		geary
-Version:	40.0
-Release:	9%{?dist}
+Version:	43.0
+Release:	1%{?dist}
 Summary:	A lightweight email program designed around conversations
 # Geary is under LGPLv2+.
 # SQLite3-unicodesn code is in the Public Domain.
@@ -15,14 +15,7 @@ Summary:	A lightweight email program designed around conversations
 # the whole binary, so we don't need to specify BSD and MIT separately.
 License:	LGPLv2+ and CC-BY and CC-BY-SA and Public Domain
 URL:		https://wiki.gnome.org/Apps/Geary
-Source0:	https://download.gnome.org/sources/geary/40/%{name}-%{tarball_version}.tar.xz
-# Fix accessibility issues with initializer of constants
-Patch0:		9bd4c829.patch
-# Workaround missing generic type argument
-Patch1:		0f75e7a8.patch
-# Build against libsoup 3
-Patch2:		1c1912d0.patch
-Patch3:		796845aa.patch
+Source0:	https://download.gnome.org/sources/geary/43/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:	meson >= 0.49
 BuildRequires:	vala >= 0.26.0
@@ -50,7 +43,7 @@ BuildRequires:	pkgconfig(gspell-1)
 BuildRequires:	pkgconfig(gthread-2.0) >= 2.54
 BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	pkgconfig(iso-codes)
-BuildRequires:	pkgconfig(javascriptcoregtk-4.0) >= 2.24
+BuildRequires:	pkgconfig(javascriptcoregtk-4.1)
 BuildRequires:	pkgconfig(json-glib-1.0) >= 1.0
 BuildRequires:	pkgconfig(libhandy-1) >= 1.2.1
 BuildRequires:	pkgconfig(libpeas-1.0)
@@ -60,7 +53,7 @@ BuildRequires:	pkgconfig(libunwind) >= 1.1
 BuildRequires:	pkgconfig(libunwind-generic) >= 1.1
 BuildRequires:	pkgconfig(libxml-2.0) >= 2.7.8
 BuildRequires:	pkgconfig(libytnef) >= 1.9.3
-BuildRequires:	pkgconfig(webkit2gtk-web-extension-4.0) >= 2.24
+BuildRequires:	pkgconfig(webkit2gtk-web-extension-4.1)
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
@@ -119,6 +112,9 @@ popd
 
 
 %changelog
+* Fri Sep 30 2022 Kalev Lember <klember@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Thu Aug 18 2022 Kalev Lember <klember@redhat.com> - 40.0-9
 - Build against libsoup 3 (rhbz#2119119)
 

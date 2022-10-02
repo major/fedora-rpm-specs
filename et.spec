@@ -26,7 +26,14 @@ BuildRequires:  cmake3
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc-c++
 BuildRequires:  catch-devel
+# -static BR required for tracking of header-only libraries
+BuildRequires:  cxxopts-devel
+BuildRequires:  cxxopts-static
+BuildRequires:  easyloggingpp-devel
+BuildRequires:  easyloggingpp-static
 BuildRequires:  gflags-devel
+BuildRequires:  json-devel
+BuildRequires:  json-static
 BuildRequires:  libatomic
 BuildRequires:  libcurl-devel
 BuildRequires:  libsodium-devel
@@ -46,14 +53,8 @@ Provides:       bundled(cotire) = 1.8.0
 # grep User-Agent external/cpp-httlib/httplib.h
 # cross-check with the git checkout for specific version
 Provides:       bundled(cpp-httplib) = 0.7.18
-# external/cxxopts/include/cxxopts.hpp
-Provides:       bundled(cxxopts) = 2.2.0
-# external/easylogingcpp/CMakeLists.txt
-Provides:       bundled(easyloggingpp) = 9.96.7
 # external/msgpack-c/include/msgpack/version_master.h
 Provides:       bundled(msgpack) = 3.3.0
-# external/json/CMakeLists.txt
-Provides:       bundled(nlohmann_json) = 3.9.1
 # external/PlatformFolders/CMakeLists.txt
 Provides:       bundled(PlatformFolders) = 4.0.0
 # sanitizers-cmake is only used when building
@@ -83,6 +84,24 @@ interrupting the session.
 # Remove bundled Catch2 test framework
 rm -rf external_imported/Catch2
 sed -r -i '/\$\{EXTERNAL_DIR\}\/Catch2\/single_include/d' CMakeLists.txt
+
+# Unbundle cxxopts
+rm -rf external_imported/cxxopts
+sed -r -i '/\$\{.*\}\/cxxopts\/include/d' CMakeLists.txt
+
+# Unbundle easyloggingpp
+rm -rf external_imported/easyloggingpp
+# The easylogging++.cc source file is treated as a strangely-named header; see
+# notes in the easyloggingpp spec file.
+sed -r -i \
+    -e 's@\$\{.*\}/easyloggingpp/src/(easylogging.*)@%{_includedir}/\1@' \
+    -e '/easyloggingpp\/src\/?$/d' \
+    CMakeLists.txt
+
+# Unbundle “JSON for Modern C++”
+rm -rf external_imported/json
+sed -r -i 's@\$\{.*\}/json/single_include/nlohmann@%{_includedir}/nlohmann@' \
+    CMakeLists.txt
 
 
 %build

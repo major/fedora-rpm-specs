@@ -1,11 +1,9 @@
 %global uuid argos@pew.worldwidemann.com
 
-# https://github.com/p-e-w/argos is unmaintained, temporarily use
-# mwilck's version which has the most comprehensive updates for GNOME 3.36+
-%global forgeurl https://github.com/mwilck/argos
-%global commit 028b2294f69b812adc2b3419daa5798237382aeb
+%global forgeurl https://github.com/p-e-w/argos
+%global commit 118056863633ccc1bf927079ed0ba131576232b9
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220711
+%global date 20220712
 
 Name:           gnome-shell-extension-argos
 Version:        3^%{date}git%{shortcommit}
@@ -15,6 +13,8 @@ Summary:        Create GNOME Shell extensions in seconds
 License:        GPLv3
 URL:            %{forgeurl}
 Source:         %{url}/archive/%{commit}/argos-%{commit}.tar.gz
+# add support for GNOME 43
+Patch:          %{url}/pull/141.patch#/argos-gnome-43.diff
 
 BuildArch:      noarch
 

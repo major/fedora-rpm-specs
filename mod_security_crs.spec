@@ -1,12 +1,12 @@
 Summary: ModSecurity Rules
 Name: mod_security_crs
-Version: 3.3.0
-Release: 6%{?dist}
+Version: 3.3.4
+Release: 1%{?dist}
 License: ASL 2.0
 URL: https://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
 BuildArch: noarch
-Requires: mod_security >= 2.8.0
+Requires: mod_security >= 2.9.6
 Obsoletes: mod_security_crs-extras < 3.0.0
 
 Patch0: mod_security_crs-early-blocking.patch
@@ -16,7 +16,7 @@ This package provides the base rules for mod_security.
 
 %prep
 %setup -q -n coreruleset-%{version}
-%patch0 -p1 -b.early_blocking
+#%patch0 -p1 -b.early_blocking
 
 %build
 
@@ -48,6 +48,9 @@ done
 %{_datarootdir}/mod_modsecurity_crs
 
 %changelog
+* Fri Sep 30 2022 Luboš Uhliarik <luhliari@redhat.com> - 3.3.4-1
+- new version 3.3.4
+
 * Wed Sep 07 2022 Luboš Uhliarik <luhliari@redhat.com> - 3.3.0-6
 - Fix application of early blocking patch
 

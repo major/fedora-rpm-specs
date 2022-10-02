@@ -7,12 +7,18 @@
 
 Name:           nautilus
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Nautilus
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+# https://gitlab.gnome.org/GNOME/nautilus/-/merge_requests/977
+# https://bugzilla.redhat.com/show_bug.cgi?id=2127618
+# https://gitlab.gnome.org/GNOME/nautilus/-/issues/2487
+# Revert high-resolution thumbnail generation as it cannot work
+# without fixes in glib
+Patch0:         977.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -138,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Fri Sep 30 2022 Adam Williamson <awilliam@redhat.com> - 43.0-2
+- Backport MR #977 to revert broken high-res thumbnails (#2127618)
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

@@ -1,8 +1,13 @@
 Summary:        Compact and feature-rich WordStar-compatible editor
 Name:           jupp
-Version:        40
-Release:        5%{?dist}
-License:        GPLv1
+Version:        41
+Release:        1%{?dist}
+# jupp itself is GPL-1.0-only but uses other source codes, breakdown:
+# BSD-3-Clause: popen.inc
+# ISC: strlfun.inc
+# MirOS: {compat,win32}.c and jupprc and strlfun.inc and types.h
+# Unicode-DFS-2016: i18n.c
+License:        GPL-1.0-only AND BSD-3-Clause AND ISC AND MirOS AND Unicode-DFS-2016
 URL:            https://www.mirbsd.org/jupp.htm
 Source0:        https://www.mirbsd.org/MirOS/dist/%{name}/joe-3.1%{name}%{version}.tgz
 BuildRequires:  gcc
@@ -50,6 +55,9 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/{joe,%{name}}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 41-1
+- Upgrade to 41 (#2131420)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 40-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

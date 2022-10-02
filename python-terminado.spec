@@ -3,8 +3,8 @@
 # python2-tornado package is too old on EPEL
 
 Name:           python-%{srcname}
-Version:        0.15.0
-Release:        3%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
 License:        BSD
@@ -60,6 +60,9 @@ export INPUTRC=$PWD/.inputrc
 
 
 %changelog
+* Sat Oct 01 2022 Orion Poplawski <orion@nwra.com> - 0.16.0-1
+- Update to 0.16.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
