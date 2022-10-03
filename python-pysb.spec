@@ -7,7 +7,7 @@
 %global forgeurl https://github.com/pysb/pysb
 
 Name:           python-pysb
-Version:        1.13.1
+Version:        1.14.0
 Release:        %autorelease
 Summary:        Rule-based modeling of biochemical systems as Python programs
 License:        BSD

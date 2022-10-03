@@ -5,8 +5,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-pangomm
-Version:        2.46.2
-Release:        4%{?dist}
+Version:        2.46.3
+Release:        1%{?dist}
 Summary:        MinGW Windows C++ interface for Pango
 
 License:        LGPLv2+
@@ -100,6 +100,9 @@ quickly create complex user interfaces.
 
 
 %changelog
+* Sat Oct 01 2022 Sandro Mani <manisandro@gmail.com> - 2.46.3-1
+- Update to 2.46.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.46.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -30,7 +30,7 @@
 Name:           systemd
 Url:            https://www.freedesktop.org/wiki/Software/systemd
 %if %{without inplace}
-Version:        251.4
+Version:        251.5
 %else
 # determine the build information from local checkout
 Version:        %(tools/meson-vcs-tag.sh . error | sed -r 's/-([0-9])/.^\1/; s/-g/_g/')
@@ -88,9 +88,6 @@ GIT_DIR=../../src/systemd/.git git diffab -M v233..master@{2017-06-15} -- hwdb/[
 # Any patches which are "in preparation" upstream should be listed here, rather
 # than in the next section. Packit CI will drop any patches in this range before
 # applying upstream pull requests.
-
-# https://fedoraproject.org/wiki/Changes/Preset_All_Systemd_Units_on_First_Boot
-Patch0001:      https://github.com/systemd/systemd/commit/93651582ae.patch
 
 # PR https://github.com/systemd/systemd/pull/24639
 Patch0002:      0002-test-mountpoint-util-support-running-on-a-mount-name.patch
@@ -680,7 +677,7 @@ install -m 0755 -D -t %{buildroot}%{_rpmconfigdir}/ %{SOURCE24}
 # here.
 python3 %{SOURCE2} %buildroot <<EOF
 %ghost %config(noreplace) /etc/crypttab
-%ghost /etc/udev/hwdb.bin
+%ghost %attr(0444,root,root) /etc/udev/hwdb.bin
 /etc/inittab
 /usr/lib/systemd/purge-nobody-user
 %ghost %config(noreplace) /etc/vconsole.conf
@@ -706,7 +703,7 @@ python3 %{SOURCE2} %buildroot <<EOF
 %ghost %dir /var/lib/systemd/coredump
 %ghost /var/lib/systemd/journal-upload
 %ghost %dir /var/lib/systemd/linger
-%ghost /var/lib/systemd/random-seed
+%ghost %attr(0600,root,root) /var/lib/systemd/random-seed
 %ghost %dir /var/lib/systemd/rfkill
 %ghost %dir %verify(not mode group) /var/log/journal
 %ghost %dir /var/log/journal/remote

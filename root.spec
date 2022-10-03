@@ -65,7 +65,7 @@
 Name:		root
 Version:	6.26.06
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -180,8 +180,9 @@ Patch33:	%{name}-fix-TMVA-tutorial-using-internally-python.patch
 Patch34:	%{name}-threadsh1-avoid-heap-use-after-free.patch
 Patch35:	%{name}-PyROOT-code.h-must-not-be-included-directly-in-3.11.patch
 Patch36:	%{name}-PyROOT-Prevent-cast-error-when-calling-PyTuple_SET_I.patch
-#		Backport additional python 3.11 fixes from CPyCppyy upstream
-Patch37:	%{name}-Python-3.11-support-backported-from-CPyCppyy.patch
+#		Fixes for garbage collection in Python 3.11
+#		https://github.com/root-project/root/pull/11457
+Patch37:	%{name}-Fixes-for-garbage-collection-in-Python-3.11.patch
 #		Backport
 Patch38:	%{name}-get-rid-of-lsb_release.patch
 Patch39:	%{name}-protect-against-empty-COMPILE_DEFINITIONS.patch
@@ -2946,33 +2947,22 @@ gtest-tree-tree-test-testTBranch|\
 test-stress\$\$|\
 test-stressgraphics"
 %endif
-%endif
 
-%if %{?fedora}%{!?fedora:0} >= 37
-# Fails during garbage collection with Python 3.11
-# See: https://github.com/root-project/root/issues/10799
+%if %{?fedora}%{!?fedora:0} >= 38
+# - pyunittests-pyroot-pyz-rdataframe-asnumpy
+# - pyunittests-pyroot-pyz-rdataframe-makenumpy
+# - tutorial-dataframe-df024_Display(-py)
+# - tutorial-dataframe-df026_AsNumpyArrays-py
+# - tutorial-dataframe-df032_MakeNumpyDataFrame-py
+# - tutorial-tmva-tmva002_RDataFrameAsTensor
 excluded="${excluded}|\
-pyunittests-dataframe-histograms|\
-pyunittests-distrdf-unit-backend-test-dist|\
-pyunittests-distrdf-unit-test-buildranges|\
-pyunittests-distrdf-unit-test-friendinfo|\
-pyunittests-distrdf-unit-test-headnode|\
-pyunittests-pyroot-pyz-tfile-attrsyntax-get-writeobject-open|\
-pyunittests-pyroot-pyz-ttree-branch|\
-pyunittests-pyroot-pyz-ttree-branch-attr|\
-pyunittests-pyroot-pyz-ttree-iterable|\
-pyunittests-pyroot-pyz-ttree-setbranchaddress|\
-tutorial-dataframe-df014_CSVDataSource-py|\
-tutorial-dataframe-df017_vecOpsHEP-py|\
-tutorial-pyroot-fit1-py|\
-tutorial-pyroot-h1ReadAndDraw-py|\
-tutorial-pyroot-hsimple-py|\
-tutorial-pyroot-hsum-py|\
-tutorial-pyroot-ntuple1-py|\
-tutorial-pyroot-staff-py|\
-tutorial-pyroot-tornado-py|\
-tutorial-roofit-rf503_wspaceread-py|\
-tutorial-roofit-rf512_wsfactory_oper-py"
+pyunittests-pyroot-pyz-rdataframe-asnumpy|\
+pyunittests-pyroot-pyz-rdataframe-makenumpy|\
+tutorial-dataframe-df024_Display|\
+tutorial-dataframe-df026_AsNumpyArrays-py|\
+tutorial-dataframe-df032_MakeNumpyDataFrame-py|\
+tutorial-tmva-tmva002_RDataFrameAsTensor"
+%endif
 %endif
 
 # Filter out parts of tests that require remote network access
@@ -4002,6 +3992,9 @@ fi
 %endif
 
 %changelog
+* Sat Oct 01 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.06-5
+- Use upstream's proposed change for the Python garbage collection issue
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.26.06-4
 - Rebuild for gsl-2.7.1
 

@@ -295,8 +295,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 # https://bugs.webkit.org/show_bug.cgi?id=140176
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/I6IVNA52TXTBRQLKW45CJ5K4RA4WNGMI/
 %ifarch %{ix86}
-%global debug_package %{nil}
-%global optflags %(echo %{optflags} | sed 's/-g /-g0 /')
+%global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-5.0

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	2%{?dist}
+Release:	3%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -248,12 +248,9 @@ export STRIP=/bin/true
 
 #-----------------------------------------------------------------------
 %check
-# XXX FIXME segfaults in one of the i686 tests
-%ifnarch %{ix86} aarch64 ppc64le
 # Depends on availablity of nvtt
 %if %{with nvtt}
 LD_LIBRARY_PATH=binaries/system binaries/system/test%{dbg} -libdir binaries/system
-%endif
 %endif
 
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/0ad.appdata.xml
@@ -274,6 +271,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Sat Oct 01 2022 Kalev Lember <klember@redhat.com> - 0.0.26-3
+- Fix a self test failure when building under systemd-nspawn based mock
+- Re-enable self tests for all arches
+
 * Fri Sep 30 2022 Kalev Lember <klember@redhat.com> - 0.0.26-2
 - Fix FTBFS with Python 3.11 and setuptools 60+ in F37 (#2045149)
 

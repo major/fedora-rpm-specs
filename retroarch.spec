@@ -19,13 +19,13 @@
 # Assets
 # * https://github.com/libretro/retroarch-assets
 # * https://github.com/libretro/retroarch-assets/issues/414
-%global commit1     f45dd1351e6bfb9f01e12bee8d358ad22a2bb8f9
-%global date        20220321
+%global commit1     ee33f8ef693b42a8e23ca3fd48f43f345e7cd087
+%global date        20220806
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.10.3
-Release:        3%{?dist}
+Version:        1.11.0
+Release:        2%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -176,6 +176,7 @@ Requires:       perl(X11::Protocol)
 Recommends:     %{name}-assets              = %{?epoch:%{epoch}:}%{version}-%{release}
 Recommends:     %{name}-database            = %{?epoch:%{epoch}:}%{version}-%{release}
 Recommends:     %{name}-filters%{?_isa}     = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     gamemode
 Recommends:     libretro-beetle-ngp
 Recommends:     libretro-beetle-pce-fast
 Recommends:     libretro-beetle-vb
@@ -204,7 +205,7 @@ Provides:       bundled(ibxm)
 # https://github.com/libretro/RetroArch/issues/8153
 Provides:       bundled(lua) = 5.3.5
 
-Provides:       bundled(rcheevos) = 10.2.0
+Provides:       bundled(rcheevos) = 10.4
 Provides:       bundled(SPIRV-Cross)
 Provides:       bundled(stb)
 
@@ -490,6 +491,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Sat Oct 01 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.11.0-2
+- build: Recommends: gamemode
+
+* Fri Sep 30 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.11.0-1
+- chore(update): 1.11.0
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.10.3-3
 - Rebuilt for flac 1.4.0
 

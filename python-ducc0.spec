@@ -1,7 +1,7 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.25.0
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
@@ -13,6 +13,10 @@ Source0:        %{pypi_source}
 Patch:          ducc0-0.24_pyproject.patch
 
 ExcludeArch:    %{ix86}
+# Tests started to fail from 0.25
+# Waiting for upstream to look at that, meanwhile stick to 0.24 on these arches
+# https://github.com/mreineck/ducc/issues/3
+ExcludeArch:    aarch64 s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -65,6 +69,8 @@ sed -i 's|extra_link_args=python_module_link_args|extra_link_args=\[\]|g' setup.
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE
+%doc README.md
 
 
 %changelog

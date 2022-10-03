@@ -1,22 +1,20 @@
 Name:           raft
-Version:        0.11.3
-Release:        4%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        C implementation of the Raft consensus protocol
 
 License:        LGPLv3 with exceptions
 URL:            https://github.com/canonical/raft
 Source0:        %{URL}/archive/v%{version}.tar.gz
-# https://github.com/canonical/raft/pull/259/
-Patch0:         0.11.3-test_compress-Respect-32bit-architectures.patch
-# https://github.com/canonical/raft/pull/261
-Patch1:         0.11.3-test-integration-uv-skip-init-oom-test-on-tmpfs.patch
 # https://github.com/canonical/raft/issues/263
-Patch2:         0.11.3-Revert-test-runner-Define-order-of-constructors.patch
+Patch0:         0.11.3-Revert-test-runner-Define-order-of-constructors.patch
 
 BuildRequires:  autoconf libtool
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(libuv)
+# Breaking so-library change
+Conflicts:      dqlite < 1.10.0
 
 %description
 Fully asynchronous C implementation of the Raft consensus protocol. It consists
@@ -48,8 +46,6 @@ This package contains the C-Raft documentation in HTML format.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 autoreconf -i
@@ -86,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/libraft.la
 %doc docs/_build/html/
 
 %changelog
+* Sat Oct 01 2022 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.15.0-1
+- Update to 0.15.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -51,7 +51,6 @@ Source1:        sysinit.vim
 Source2:        spec-template
 
 Patch1000:      neovim-lua-bit32.patch
-Patch1001:      neovim-cmake-lua-5.1.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -111,7 +110,6 @@ parts of Vim, without compromise, and more.
 
 %if %{without luajit}
 %patch1000 -p1
-%patch1001 -p1
 %endif
 
 %build

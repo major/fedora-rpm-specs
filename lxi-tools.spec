@@ -2,11 +2,11 @@ Summary:        Tools collection to control LXI enabled instruments
 Name:           lxi-tools
 Version:        2.1
 Release:        2%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://lxi-tools.github.io/
 Source0:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1
 Patch0:         https://github.com/lxi-tools/lxi-tools/commit/d55f9393388aff4b0c63b20f668c451e6c998465.patch#/lxi-tools-2.1-readline.patch
 Patch1:         https://github.com/lxi-tools/lxi-tools/commit/8319ca0f9af088acd4f7a784a37e31c99aeb47bd.patch#/lxi-tools-2.1-lua.patch
 BuildRequires:  gnupg2

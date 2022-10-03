@@ -1,13 +1,16 @@
-Summary:        Library for real-time audio and video processing
+Summary:        Audio and video processing media library
 Name:           librem
-Version:        2.7.0
+Version:        2.8.0
 Release:        1%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/baresip/rem
 Source0:        https://github.com/baresip/rem/archive/v%{version}/rem-%{version}.tar.gz
-BuildRequires:  make
+BuildRequires:  cmake
+%if 0%{?rhel} && 0%{?rhel} < 8
+BuildRequires:  cmake3
+%endif
 BuildRequires:  gcc
-BuildRequires:  libre-devel >= 2.7.0
+BuildRequires:  libre-devel >= 2.8.0
 %if 0%{?rhel} == 7
 # Atomic support in libre >= 2.1.0
 BuildRequires:  devtoolset-8-toolchain
@@ -21,8 +24,10 @@ Provides:       rem = %{version}-%{release}
 Provides:       rem%{?_isa} = %{version}-%{release}
 
 %description
-Librem is a portable and generic library for real-time audio and video
-processing.
+Librem is an audio and video processing media library. Features are an
+audio buffer, audio sample format conversion, audio file reader/writer,
+audio mixer, audio resampler, audio tone generator, audio codec (G.711),
+DTMF decoder, video mixer, video pixel converter and FIR filter.
 
 %package devel
 Summary:        Development files for the rem library
@@ -45,18 +50,23 @@ developing programs which use the rem C library.
 %setup -q -n rem-%{version}
 
 %build
-%if 0%{?rhel} == 7
+%if 0%{?rhel} && 0%{?rhel} < 8
+%global cmake %cmake3
+%global cmake_build %cmake3_build
+%global cmake_install %cmake3_install
+
 . /opt/rh/devtoolset-8/enable
 %endif
 
-%make_build \
-  SHELL='sh -x' \
-  RELEASE=1 \
-  EXTRA_CFLAGS="$RPM_OPT_FLAGS" \
-  EXTRA_LFLAGS="$RPM_LD_FLAGS"
+%cmake \
+%if 0%{?rhel} && 0%{?rhel} < 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
+%endif
+
+%cmake_build
 
 %install
-%make_install LIBDIR=%{_libdir}
+%cmake_install
 
 # Remove static library
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
@@ -64,8 +74,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %ldconfig_scriptlets
 
 %files
-%license docs/COPYING
-%doc docs/ChangeLog README.md
+%license LICENSE
+%doc CHANGELOG.md README.md
 %{_libdir}/%{name}.so.3*
 
 %files devel
@@ -74,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.0-1
+- Upgrade to 2.8.0 (#2131445)
+
 * Thu Sep 01 2022 Robert Scheck <robert@fedoraproject.org> 2.7.0-1
 - Upgrade to 2.7.0 (#2123484)
 

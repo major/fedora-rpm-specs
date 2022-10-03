@@ -24,7 +24,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.15
+Version:        1.8.16
 Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
@@ -139,6 +139,9 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_dir}/pkg/%{upname}
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Sat Oct  1 2022 Jerry James <loganjerry@gmail.com> - 1.8.16-1
+- Version 1.8.16
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.8.15-1
 - Version 1.8.15
 - Update for gap 4.12.0

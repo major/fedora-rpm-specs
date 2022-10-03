@@ -3,8 +3,8 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.8.1
-Release:        8%{?dist}
+Version:        3.8.3
+Release:        1%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        ASL 2.0
@@ -13,12 +13,6 @@ Source0:        %{pypi_source}
 
 # downstream only patch
 Patch:          0001-Unbundle-llhttp.patch
-# https://github.com/aio-libs/aiohttp/commit/936e682d1ab6c833b3e5f0cc3596882cb9cb2444
-Patch:          0002-Fix-pytest.warns-None-usage-deprecated-in-pytest-7-6.patch
-# https://github.com/aio-libs/aiohttp/pull/6734
-Patch:          0003-Stop-using-the-cgi-module-deprecated-in-Python-3.11.patch
-# https://github.com/aio-libs/aiohttp/commit/19d8c96aea383b7856e46cd285e52428a56a207b
-Patch:          0004-Set-the-global-event-loop-in-setupAsyncioRunner.patch
 
 BuildRequires:  gcc
 
@@ -93,11 +87,11 @@ cython -3 aiohttp/*.pyx -I aiohttp
 
 %if %{with tests}
 %check
+export PYTHONSAFEPATH=1
 # test_proxy_functional.py requires python3dist(proxy-py)
 # test_client_session_timeout_zero requires DNS
-# the 3 pyloop tests are still failing with 3.11, TODO report and investigate
 %pytest --ignore=tests/test_proxy_functional.py \
-    -k 'not test_client_session_timeout_zero and not (pyloop and ((test_timeout_on and _headers) or test_data_stream_exc_chain))'
+    -k 'not test_client_session_timeout_zero'
 %endif
 
 %files -n python3-%{srcname}
@@ -105,9 +99,11 @@ cython -3 aiohttp/*.pyx -I aiohttp
 %license LICENSE.txt
 %{python3_sitearch}/%{srcname}-*.egg-info/
 %{python3_sitearch}/%{srcname}/
-%exclude %{python3_sitearch}/examples/
 
 %changelog
+* Mon Sep 26 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.3-1
+- Update to 3.8.3
+
 * Thu Aug 18 2022 Stephen Gallagher <sgallagh@redhat.com> - 3.8.1-8
 - Rebuilt for llhttp soname bump
 

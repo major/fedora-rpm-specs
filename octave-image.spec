@@ -2,17 +2,13 @@
 
 Name:           octave-%{octpkg}
 Version:        2.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Image processing for Octave
 License:        GPLv2+
 URL:            http://octave.sourceforge.net/image/
 Source0:        http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  octave-devel >= 6:4.0.0
-%if 0%{?rhel} == 6
-# For EL6
-BuildRequires:  devtoolset-3-gcc-c++
-%endif
 
 Requires:       octave(api) = %{octave_api}
 Requires(post): octave
@@ -29,13 +25,9 @@ operations, linear filtering, and much more.
 %setup -qcT
 
 %build
-%if 0%{?rhel} == 6
-cat << EOF | scl enable devtoolset-3 -
-%endif
-CXXFLAGS="%{optflags}" %octave_pkg_build -T
-%if 0%{?rhel} == 6
-EOF
-%endif
+#export CXXFLAGS="%{optflags} -fPIC"
+export XTRA_CXXFLAGS="-fPIC"
+%octave_pkg_build -T
 
 %install
 %octave_pkg_install
@@ -66,6 +58,10 @@ EOF
 
 
 %changelog
+* Sat Oct 01 2022 Orion Poplawski <orion@nwra.com> - 2.14.0-4
+- Use XTRA_CXXFLAGS to set -fPIC
+- Drop EL6 conditional
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

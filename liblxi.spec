@@ -1,13 +1,13 @@
 Summary:        Library with simple API for communication with LXI devices
 Name:           liblxi
-Version:        1.16
-Release:        2%{?dist}
-# src/vxi11core* and src/include/vxi11core* are EPICS, rest is BSD
-License:        BSD and EPICS
+Version:        1.17
+Release:        1%{?dist}
+# src/vxi11core* and src/include/vxi11core* are EPICS, rest is BSD-3-Clause
+License:        BSD-3-Clause AND EPICS
 URL:            https://lxi-tools.github.io/
 Source0:        https://github.com/lxi/liblxi/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/lxi/liblxi/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53.2
@@ -44,9 +44,9 @@ developing applications that use %{name}.
 %ldconfig_scriptlets
 
 %files
-%license COPYING
-%doc AUTHORS ChangeLog README.md
-%{_libdir}/%{name}.so.*
+%license LICENSE
+%doc AUTHORS NEWS README.md
+%{_libdir}/%{name}.so.1*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 %{_mandir}/man3/lxi_*.3*
 
 %changelog
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 1.17-1
+- Upgrade to 1.17 (#2131162)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

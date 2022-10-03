@@ -1,11 +1,14 @@
-Summary:        Library for real-time communications and SIP stack
+Summary:        Generic library for real-time communications
 Name:           libre
-Version:        2.7.0
+Version:        2.8.0
 Release:        1%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
-BuildRequires:  make
+BuildRequires:  cmake
+%if 0%{?rhel} && 0%{?rhel} < 8
+BuildRequires:  cmake3
+%endif
 BuildRequires:  gcc
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel
@@ -24,9 +27,12 @@ Provides:       re = %{version}-%{release}
 Provides:       re%{?_isa} = %{version}-%{release}
 
 %description
-Libre is a portable and generic library for real-time communications with
-async IO support and a complete SIP stack with support for SDP, RTP/RTCP,
-STUN/TURN/ICE, BFCP and DNS client.
+Libre is a generic library for real-time communications with async I/O
+support. Features are a SIP stack (RFC 3261), SDP, RTP and RTCP, SRTP and
+SRTCP (Secure RTP), DNS client, STUN/TURN/ICE stack, BFCP, HTTP stack with
+client/server, Websockets, Jitter buffer, async I/O (poll, epoll, select,
+kqueue), UDP/TCP/TLS/DTLS transport, JSON parser and Real Time Messaging
+Protocol (RTMP).
 
 %package devel
 Summary:        Development files for the re library
@@ -54,20 +60,23 @@ developing programs which use the re C library.
 %setup -q -n re-%{version}
 
 %build
-%if 0%{?rhel} == 7
+%if 0%{?rhel} && 0%{?rhel} < 8
+%global cmake %cmake3
+%global cmake_build %cmake3_build
+%global cmake_install %cmake3_install
+
 . /opt/rh/devtoolset-8/enable
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags-only-I openssl11)"
-RPM_LD_FLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
 %endif
 
-%make_build \
-  SHELL='sh -x' \
-  RELEASE=1 \
-  EXTRA_CFLAGS="$RPM_OPT_FLAGS" \
-  EXTRA_LFLAGS="$RPM_LD_FLAGS"
+%cmake \
+%if 0%{?rhel} && 0%{?rhel} < 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
+%endif
+
+%cmake_build
 
 %install
-%make_install LIBDIR=%{_libdir}
+%cmake_install
 
 # Remove static library
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
@@ -77,15 +86,18 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.9*
+%{_libdir}/%{name}.so.10*
 
 %files devel
 %{_libdir}/%{name}.so
 %{_includedir}/re/
+%{_libdir}/cmake/re/
 %{_libdir}/pkgconfig/%{name}.pc
-%{_datadir}/re/
 
 %changelog
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.0-1
+- Upgrade to 2.8.0 (#2131446)
+
 * Thu Sep 01 2022 Robert Scheck <robert@fedoraproject.org> 2.7.0-1
 - Upgrade to 2.7.0
 

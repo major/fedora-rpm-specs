@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
-Version:        0.9.4
-Release:        4%{?dist}
+Version:        0.9.5
+Release:        1%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        ASL 2.0
@@ -32,6 +32,7 @@ a local or a remote Home Assistant instance directly from the command-line.
 
 %prep
 %autosetup -n %{name}-%{version}
+sed -i "/>=0.3.2,<0.4/d" setup.py
 
 %build
 %py3_build
@@ -51,6 +52,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Sat Oct 01 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.5-1
+- Update to latest upstream release 0.9.5 (closes rhbz#2058155)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

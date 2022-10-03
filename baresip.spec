@@ -1,8 +1,8 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.7.0
+Version:        2.8.1
 Release:        1%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        com.github.baresip.desktop
@@ -11,10 +11,14 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-BuildRequires:  make
+BuildRequires:  cmake
+%if 0%{?rhel} && 0%{?rhel} < 8
+BuildRequires:  cmake3
+%endif
 BuildRequires:  gcc
-BuildRequires:  libre-devel >= 2.7.0
-BuildRequires:  librem-devel >= 2.7.0
+BuildRequires:  gcc-c++
+BuildRequires:  libre-devel >= 2.8.0
+BuildRequires:  librem-devel >= 2.8.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -47,6 +51,14 @@ AV1, VP8 or VP9, video sources like Video4Linux, video outputs like SDL2
 or X11, NAT traversal via STUN, TURN, ICE, and NAT-PMP, media encryption
 via TLS, SRTP or DTLS-SRTP, management features like embedded web-server
 with HTTP interface, command-line console and interface, and MQTT.
+
+%package devel
+Summary:        Development files for the baresip library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description devel
+The baresip-devel package includes header files and libraries necessary
+for developing programs which use the baresip C library.
 
 %if 0%{?fedora}
 %package aac
@@ -340,25 +352,25 @@ This module provides the X11 video output driver.
 %setup -q
 
 %build
-%if 0%{?rhel} == 7
+%if 0%{?rhel} && 0%{?rhel} < 8
+%global cmake %cmake3
+%global cmake_build %cmake3_build
+%global cmake_install %cmake3_install
+
 . /opt/rh/devtoolset-8/enable
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags-only-I openssl11)"
-RPM_LD_FLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
 %endif
 
-%make_build \
-  SHELL='sh -x' \
-  RELEASE=1 \
-  PREFIX=%{_prefix} \
-  MOD_PATH=%{_libdir}/%{name}/modules \
-  EXTRA_CFLAGS="$RPM_OPT_FLAGS -DDEFAULT_CAFILE='\"%{_sysconfdir}/pki/tls/certs/ca-bundle.crt\"' -DDEFAULT_AUDIO_DEVICE='\"pulse\"'" \
-  EXTRA_LFLAGS="$RPM_LD_FLAGS"
+%cmake \
+  -DDEFAULT_CAFILE:PATH="%{_sysconfdir}/pki/tls/certs/ca-bundle.crt" \
+  -DDEFAULT_AUDIO_DEVICE:STRING="pulse" \
+%if 0%{?rhel} && 0%{?rhel} < 8
+  -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl11;%{_libdir}/openssl11"
+%endif
+
+%cmake_build
 
 %install
-%make_install LIBDIR=%{_libdir}
-
-# Correct module permissions to add executable bit
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/%{name}/modules/*.so
+%cmake_install
 
 # Install com.github.baresip.desktop file
 desktop-file-install --dir=$RPM_BUILD_ROOT%{_datadir}/applications/ %{SOURCE1}
@@ -379,16 +391,12 @@ gtk-encode-symbolic-svg %{SOURCE11} 16x16 -o $RPM_BUILD_ROOT%{_datadir}/icons/Ad
 install -p -m 0755 tools/fritzbox2%{name} $RPM_BUILD_ROOT%{_bindir}/fritzbox2%{name}
 
 %check
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-8/enable
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags-only-I openssl11)"
-RPM_LD_FLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
+%if !0%{?__cmake_in_source_build} && !0%{?__cmake3_in_source_build}
+cd %{_vpath_builddir}
 %endif
+./test/selftest
 
-make test \
-  SHELL='sh -x' \
-  EXTRA_CFLAGS="$RPM_OPT_FLAGS" \
-  EXTRA_LFLAGS="$RPM_LD_FLAGS"
+%ldconfig_scriptlets
 
 %if 0%{?rhel} == 7
 %post gtk
@@ -413,9 +421,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %endif
 
 %files
-%license docs/COPYING
-%doc docs/ChangeLog docs/THANKS docs/examples
+%license LICENSE
+%doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
+%{_libdir}/lib%{name}.so.1*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -445,6 +454,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/mwi.so
 %{_libdir}/%{name}/modules/natpmp.so
 %{_libdir}/%{name}/modules/netroam.so
+%{_libdir}/%{name}/modules/pcp.so
 %{_libdir}/%{name}/modules/presence.so
 %{_libdir}/%{name}/modules/rtcpsummary.so
 %{_libdir}/%{name}/modules/selfview.so
@@ -459,6 +469,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/vidinfo.so
 %{_libdir}/%{name}/modules/vumeter.so
 %{_datadir}/%{name}/
+
+%files devel
+%{_libdir}/lib%{name}.so
+%{_includedir}/%{name}.h
 
 %if 0%{?fedora}
 %files aac
@@ -545,6 +559,12 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.1-1
+- Upgrade to 2.8.1 (#2131453)
+
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.0-1
+- Upgrade to 2.8.0
+
 * Thu Sep 01 2022 Robert Scheck <robert@fedoraproject.org> 2.7.0-1
 - Upgrade to 2.7.0 (#2123475)
 

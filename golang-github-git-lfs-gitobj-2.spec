@@ -3,7 +3,7 @@
 
 # https://github.com/git-lfs/gitobj/v2
 %global goipath         github.com/git-lfs/gitobj
-Version:                2.1.0
+Version:                2.1.1
 
 %gometa
 

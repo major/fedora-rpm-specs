@@ -1,80 +1,172 @@
+Summary:        C library for reading MaxMind DB files
 Name:           libmaxminddb
-Summary:        C library for the MaxMind DB file format
-Version:        1.6.0
-Release:        %autorelease
-URL:            https://maxmind.github.io/libmaxminddb
-Source:         https://github.com/maxmind/libmaxminddb/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-# original libmaxminddb code is Apache Licence 2.0
-# src/maxminddb-compat-util.h is BSD
-License:        ASL 2.0 and BSD
-
-BuildRequires:  gcc
+Version:        1.7.1
+Release:        1%{?dist}
+# BSD-3-Clause (src/maxminddb-compat-util.h) and Apache-2.0 (the rest)
+License:        Apache-2.0 AND BSD-3-Clause
+URL:            https://maxmind.github.io/libmaxminddb/
+Source0:        https://github.com/maxmind/libmaxminddb/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        maxminddb_config.h
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
-BuildRequires:  perl-interpreter
-BuildRequires:  perl(FindBin)
+BuildRequires:  gcc
 BuildRequires:  make
+# Testsuite in %%check
+BuildRequires:  gcc-c++
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(IPC::Run3)
+BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::Output)
 
 %description
-The package contains libmaxminddb library.
+The libmaxminddb library provides a C library for reading MaxMind DB
+files, including the GeoIP2 databases from MaxMind. This is a custom
+binary format designed to facilitate fast lookups of IP addresses
+while allowing for great flexibility in the type of data associated
+with an address.
+
+The MaxMind DB format is an open file format. The specification is
+available at https://maxmind.github.io/MaxMind-DB/ and licensed under
+the Creative Commons Attribution-ShareAlike 3.0 Unported License.
 
 %package devel
-Summary:        Development header files for libmaxminddb
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-The package contains development header files for the libmaxminddb library
-and the mmdblookup utility which allows IP address lookup in a MaxMind DB file.
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 %prep
-%autosetup
-sed -i -e '/AM_CFLAGS=/d' common.mk
-sed -i -e '/CFLAGS=/d' configure.ac
+%setup -q
+autoreconf --force --install
 
 %build
-autoreconf -vfi
 %configure --disable-static
 %make_build
 
-%check
-# tests are linked dynamically, preload the library as we have removed RPATH
-LD_PRELOAD=%{buildroot}%{_libdir}/libmaxminddb.so make check
-
 %install
 %make_install
-rm -v %{buildroot}%{_libdir}/*.la
 
-#downstream fix for multilib install of devel pkg
-mv %{buildroot}%{_includedir}/maxminddb_config.h \
-   %{buildroot}%{_includedir}/maxminddb_config-%{__isa_bits}.h
-cat > %{buildroot}%{_includedir}/maxminddb_config.h << EOF
-#include <bits/wordsize.h>
+# Don't install any libtool .la files
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.la
 
-#if __WORDSIZE == 32
-#include <maxminddb_config-32.h>
-#elif __WORDSIZE == 64
-#include <maxminddb_config-64.h>
-#else
-#error "Unknown word size"
-#endif
-EOF
+# Avoid file conflicts in multilib installations of -devel subpackage
+mv -f $RPM_BUILD_ROOT%{_includedir}/maxminddb_config{,-%{__isa_bits}}.h
+install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_includedir}/maxminddb_config.h
+
+%check
+# Tests are linked dynamically, preload the library as RPATH is removed
+LD_PRELOAD=$RPM_BUILD_ROOT%{_libdir}/%{name}.so make check
 
 %files
 %license LICENSE
-%{_libdir}/libmaxminddb.so.0*
+%doc Changes.md README.md
 %{_bindir}/mmdblookup
-%{_mandir}/man1/*.1*
+%{_libdir}/%{name}.so.0*
+%{_mandir}/man1/mmdblookup.1*
 
 %files devel
-%license NOTICE
-%doc Changes.md
+%{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/maxminddb.h
-%{_includedir}/maxminddb_config*.h
-%{_libdir}/libmaxminddb.so
-%{_libdir}/pkgconfig/libmaxminddb.pc
-%{_mandir}/man3/*.3*
+%{_includedir}/maxminddb_config.h
+%{_includedir}/maxminddb_config-%{__isa_bits}.h
+%{_mandir}/man3/%{name}.3*
+%{_mandir}/man3/MMDB_*.3*
 
 %changelog
-%autochangelog
+* Sun Oct 02 2022 Robert Scheck <robert@fedoraproject.org> 1.7.1-1
+- Upgrade to 1.7.1 (#2131161 #c1)
+
+* Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 1.7.0-1
+- Upgrade to 1.7.0 (#2131161)
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Sun Nov 28 2021 Igor Raits <ignatenkobrain@fedoraproject.org> 1.6.0-1
+- Update to 1.6.0
+
+* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Mar 15 2021 Michal Ruprich <mruprich@redhat.com> - 1.5.2-1
+- Update to 1.5.2
+
+* Tue Jan 26 2021 Michal Ruprich <mruprich@redhat.com> - 1.5.0-1
+- Update to 1.5.0
+
+* Thu Dec 10 2020 Michal Ruprich <mruprich@redhat.com> - 1.4.3-1
+- Update to 1.4.3
+- Resolves: #1758843 - libmaxminddb-devel i686 can't be installed in parallel to x86_64
+- Fix for CVE-2020-28241
+
+* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
+* Tue Jun 02 2020 Michal Ruprich <michalruprich@gmail.com> - 1.4.2-2
+- Move manpage for mmdblookup from -devel to the main package
+
+* Tue May 12 2020 Igor Raits <ignatenkobrain@fedoraproject.org> - 1.4.2-1
+- Update to 1.4.2
+
+* Mon Mar 30 2020 Michal Ruprich <mruprich@redhat.com> - 1.3.2-3
+- Move mmdblookup binary from -devel to the main package
+
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Oct 21 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.3.2-1
+- Update to 1.3.2
+
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Sun Mar 27 2016 Jan Vcelak <jvcelak@fedoraproject.org> 1.2.0-1
+- rebase to new version
+
+* Mon Mar 21 2016 Jan Vcelak <jvcelak@fedoraproject.org> 1.1.5-1
+- rebase to new version
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Tue Sep 15 2015 Jan Vcelak <jvcelak@fedoraproject.org> 1.1.1-5
+- add pkg-config file from the upcoming upstream version
+
+* Mon Sep 14 2015 Jan Vcelak <jvcelak@fedoraproject.org> 1.1.1-4
+- remove utils subpackage and place mmdblookup into devel subpackage
+- remove Group from the spec file
+- move NOTICE and Changes.md to devel subpackage
+
+* Thu Sep 03 2015 Jan Vcelak <jvcelak@fedoraproject.org> 1.1.1-3
+- updated package licence
+- added --as-needed linker flag
+
+* Tue Sep 01 2015 Jan Vcelak <jvcelak@fedoraproject.org> 1.1.1-1
+- initial version of the package

@@ -1,6 +1,6 @@
 Summary:   GLib wrapper around libusb1
 Name:      libgusb
-Version:   0.4.0
+Version:   0.4.1
 Release:   1%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libgusb
@@ -9,7 +9,7 @@ Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.
 BuildRequires: glib2-devel >= 2.38.0
 BuildRequires: json-glib-devel
 BuildRequires: gobject-introspection-devel
-BuildRequires: gtk-doc
+BuildRequires: gi-docgen
 BuildRequires: libusb1-devel >= 1.0.19
 BuildRequires: umockdev-devel
 BuildRequires: meson
@@ -51,12 +51,18 @@ GLib headers and libraries for gusb.
 %{_bindir}/gusbcmd
 %{_libdir}/libgusb.so
 %{_libdir}/pkgconfig/gusb.pc
-%{_datadir}/gtk-doc/html/gusb
+%{_datadir}/doc/libgusb
 %{_datadir}/gir-1.0/GUsb-1.0.gir
 %{_datadir}/vala/vapi/gusb.deps
 %{_datadir}/vala/vapi/gusb.vapi
 
 %changelog
+* Sat Oct 01 2022 Richard Hughes <richard@hughsie.com> 0.4.1-1
+- New upstream version
+- Allow loading and saving only devices with specific tags
+- Include removed devices in the JSON dump
+- Port from gtkdoc to gi-docgen
+
 * Mon Sep 12 2022 Richard Hughes <richard@hughsie.com> 0.4.0-1
 - New upstream version
 - Add support for getting BOS descriptors

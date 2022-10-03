@@ -1,6 +1,6 @@
 Name:           openal-soft
 Version:        1.22.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPLv2+
@@ -113,6 +113,14 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alplay
 %{_bindir}/alreverb
 %{_bindir}/alstream
+%else
+%exclude %{_bindir}/alhrtf
+%exclude %{_bindir}/allatency
+%exclude %{_bindir}/alloopback
+%exclude %{_bindir}/almultireverb
+%exclude %{_bindir}/alplay
+%exclude %{_bindir}/alreverb
+%exclude %{_bindir}/alstream
 %endif
 %{_bindir}/alrecord
 %{_bindir}/altonegen
@@ -121,6 +129,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alsoft-config
 
 %changelog
+* Fri Sep 30 2022 Troy Dawson <tdawson@redhat.com> - 1.22.2-3
+- Fix ELN build failures
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

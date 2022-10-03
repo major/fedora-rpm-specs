@@ -156,6 +156,9 @@ BuildRequires:	gcc-c++ >= 7.1
 BuildRequires:	rust >= 1.58
 BuildRequires:	cargo
 
+# temporary to avoid python-3.11 issues
+BuildRequires:	python3.9
+
 Requires:       mozilla-filesystem
 Requires:       hicolor-icon-theme
 Requires:       p11-kit-trust
@@ -380,6 +383,9 @@ EOF
 %build
 
 cd mozilla
+
+# temporary to avoid python-3.11 issues
+export PYTHON3=%{_bindir}/python3.9
 
 %if %{with clang}
 export CC=clang

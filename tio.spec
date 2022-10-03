@@ -2,11 +2,11 @@ Summary:        Simple TTY terminal I/O application
 Name:           tio
 Version:        2.0
 Release:        1%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://tio.github.io/
 Source0:        https://github.com/tio/tio/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/tio/tio/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53.2

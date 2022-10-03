@@ -38,8 +38,8 @@
 %endif
 
 Name:           xpra
-Version:        4.3.4
-Release:        2%{?dist}
+Version:        4.4
+Release:        1%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
@@ -64,6 +64,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libvpx-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
+BuildRequires:  lz4-devel
 BuildRequires:  cups-devel, cups
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc
@@ -95,23 +96,23 @@ BuildRequires:  x264-devel
 BuildRequires:  ffmpeg-devel
 %endif
 
-Requires: python3-pillow%{?_isa}
-Requires: python3-cups%{?_isa}
-Requires: python3-pyopengl%{?_isa}
+Requires: python3-pillow
+Requires: python3-cups
+Requires: python3-pyopengl
 Requires: python3-gobject
 Requires: python3-inotify
-Requires: python3-lz4%{?_isa}
+Requires: python3-lz4
 Requires: python3-ldap3
-Requires: python3-rencode%{?_isa}
-Requires: python3-netifaces%{?_isa}
-Requires: python3-dbus%{?_isa}
-Requires: dbus-x11%{?_isa}
+Requires: python3-rencode
+Requires: python3-netifaces
+Requires: python3-dbus
+Requires: dbus-x11
 Requires: xmodmap
 Requires: xrandr
 Requires: xorg-x11-drv-dummy%{?_isa}
 Requires: xorg-x11-xauth%{?_isa}
 Requires: xorg-x11-server-Xorg%{?_isa}
-Requires: python3-numpy%{?_isa}
+Requires: python3-numpy
 Requires: gstreamer1%{?_isa}
 Requires: gstreamer1-plugins-base%{?_isa}
 Requires: gstreamer1-plugins-good%{?_isa}
@@ -129,7 +130,7 @@ Requires: js-jquery
 
 # python3-opencv is required for webcam forwarding support, client-side only.
 # Available on Fedora only.
-%{?fedora:Requires: python3-opencv%{?_isa}}
+%{?fedora:Requires: python3-opencv}
 
 # Needed to create the xpra group
 Requires(pre):  shadow-utils
@@ -185,7 +186,8 @@ export CFLAGS="%{build_cflags} -I%{_includedir}/cairo"
     %{?_with_debug} \
     --with-Xdummy \
     --with-Xdummy_wrapper \
-    --without-strict
+    --without-strict \
+    --without-enc_ffmpeg
 
 %install
 %py3_install
@@ -275,6 +277,7 @@ getent group xpra >/dev/null || groupadd -r xpra
 %config(noreplace) %{_sysconfdir}/sysconfig/xpra
 %config(noreplace) %{_sysconfdir}/pam.d/xpra
 %config(noreplace) %{_sysconfdir}/xpra/content-categories/10_default.conf
+%config(noreplace) %{_sysconfdir}/xpra/content-parent/10_default.conf
 %config(noreplace) %{_sysconfdir}/xpra/content-type/10_role.conf
 %config(noreplace) %{_sysconfdir}/xpra/content-type/30_title.conf
 %config(noreplace) %{_sysconfdir}/xpra/content-type/50_class.conf
@@ -283,7 +286,7 @@ getent group xpra >/dev/null || groupadd -r xpra
 %config(noreplace) %{_sysconfdir}/xpra/http-headers/10_content_security_policy.txt
 %{_libexecdir}/xpra/
 %{_bindir}/xpra
-%{_bindir}/xpra_*
+%{_bindir}/xpra_launcher
 %{_bindir}/run_scaled
 %{_sysusersdir}/*.conf
 %{python3_sitearch}/xpra/
@@ -304,10 +307,12 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_pkgdocdir}/
 
 %files udev
-%{_bindir}/xpra_udev_product_version
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Sat Oct 01 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4-1
+- Release 4.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

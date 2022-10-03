@@ -1,6 +1,8 @@
 %undefine __cmake_in_source_build
 %bcond_without  tests
 %bcond_without  extras
+# linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
+%bcond_without  linters
 %bcond_with     ffmpeg
 %bcond_without  gstreamer
 %bcond_with     eigen2
@@ -121,8 +123,10 @@ BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
+%{?with_linters:
 BuildRequires:  pylint
 BuildRequires:  python3-flake8
+}
 BuildRequires:  swig >= 1.3.24
 %{?with_ffmpeg:BuildRequires:  ffmpeg-devel >= 0.4.9}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -332,7 +336,10 @@ install -pm 0644 %{SOURCE4} .cache/ade/
  -DPYTHON3_EXECUTABLE=%{__python3} \
  -DPYTHON3_PACKAGES_PATH=%{python3_sitearch} \
  -DOPENCV_GENERATE_SETUPVARS=OFF \
- -DENABLE_PYLINT=ON \
+ %{!?with_linters: \
+ -DENABLE_PYLINT=OFF \
+ -DENABLE_FLAKE8=OFF \
+ } \
  -DBUILD_PROTOBUF=OFF \
  -DPROTOBUF_UPDATE_FILES=ON \
 %{?with_opencl: -DOPENCL_INCLUDE_DIR=%{_includedir}/CL } \

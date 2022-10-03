@@ -12,8 +12,8 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.6.1
-Release:        2%{?dist}
+Version:        4.6.3
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
 License:        GPLv3+
@@ -217,6 +217,9 @@ getent group ccache >/dev/null || groupadd -r ccache || :
 
 
 %changelog
+* Sat Oct 01 2022 Orion Poplawski <orion@nwra.com> - 4.6.3-1
+- Update to 4.6.3
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

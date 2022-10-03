@@ -4,13 +4,14 @@
 
 Name:    epix
 Summary: Utilities for mathematically accurate figures
-Version: 1.2.19
-Release: 7%{?dist}
+Version: 1.2.22
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://mathcs.holycross.edu/~ahwang/current/ePiX.html
 Source0: https://mathcs.holycross.edu/~ahwang/epix/epix-%{version}_withpdf.tar.bz2
 
 BuildRequires: gcc-c++, libtool, automake
+BuildRequires: make
 BuildRequires: ghostscript
 BuildRequires: texinfo
 BuildRequires: texlive
@@ -19,7 +20,6 @@ BuildRequires: texlive-eepic
 BuildRequires: texlive-kpathsea-bin
 BuildRequires: texlive-latex-bin-bin
 BuildRequires: texlive-pst-tools
-BuildRequires: fedora-obsolete-packages
 
 ## ePiX needs a static library to work; it's packaged in the -static subpackage
 Requires: %{name}-static = %{version}-%{release}
@@ -32,7 +32,6 @@ Requires: texlive-comment
 Requires: texlive-epstopdf-bin
 Requires: texlive-eepic
 Requires: texlive-pst-tools
-Requires: fedora-obsolete-packages
 
 %description
 ePiX (pronounced like "epic" with a soft "k", playing on "TeX"), a
@@ -70,7 +69,6 @@ Bash completion support for the %{name}'s utilities.
 Summary: Compiled elisp files to run %{name} under GNU Emacs
 BuildArch: noarch
 BuildRequires: emacs
-BuildRequires: make
 Requires: emacs(bin) >= %{_emacs_version}
 Obsoletes: %{name}-emacs < 1.2.14-8
 
@@ -176,6 +174,9 @@ rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}/config
 %{_emacs_sitestartdir}/*.el
 
 %changelog
+* Sat Oct 01 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.2.22-1
+- Release 1.2.22
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
