@@ -9,7 +9,7 @@
 Summary: An open source library and milter for providing ARC service
 Name: openarc
 Version: 1.0.0
-Release: %{?pre_rel:0.}14%{?pre_rel:.%pre_rel}%{?dist}
+Release: %{?pre_rel:0.}15%{?pre_rel:.%pre_rel}%{?dist}
 License: BSD and Sendmail
 URL: https://github.com/trusteddomainproject/OpenARC
 # actually https://github.com/trusteddomainproject/OpenARC/archive/rel-openarc-1-0-0-Beta3.tar.gz but our local tarball is misnamed
@@ -88,7 +88,7 @@ rm %{buildroot}/%{_libdir}/*.la
 
 cat > %{buildroot}%{_sysconfdir}/openarc.conf <<EOF
 ## See openarc.conf(5) or %{_docdir}/%{name}%{?rhel:-%{version}}/openarc.conf.sample for more
-PidFile %{_rundir}/%{name}/%{name}.pid
+#PidFile %{_rundir}/%{name}/%{name}.pid
 Syslog  yes
 UserID  openarc:openarc
 Socket  local:%{_rundir}/%{name}/%{name}.sock
@@ -138,7 +138,6 @@ User=%{name}
 Group=%{name}
 UMask=0007
 ProtectSystem=strict
-ReadWritePaths=%{_rundir}/%{name}
 ProtectHome=true
 
 [Install]
@@ -231,6 +230,10 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Oct  2 2022 Matt Domsch<mdomsch@fedoraproject.org> - 1.0.0-0.15.Beta3
+- Remove PidFile from config as systemd doesn't need it
+- Remove ReadWritePaths from systemd as it's not needed
+
 * Mon Sep  5 2022 Matt Domsch<mdomsch@fedoraproject.org> - 1.0.0-0.14.Beta3
 - Add Restart=on-failure to systemd service file
 - add postun to restart on upgrade

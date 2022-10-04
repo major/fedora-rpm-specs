@@ -2,11 +2,11 @@ Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
 Version:        1.9.1
 Release:        4%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
 Source0:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
-Source2:        gpgkey-210FA7FB28E45779777BAA1C5963D59C3D68633B.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/210FA7FB28E45779777BAA1C5963D59C3D68633B
 Source3:        %{name}.conf
 Source4:        %{name}.service
 Source5:        %{name}.logrotate

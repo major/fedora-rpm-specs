@@ -9,17 +9,12 @@
 
 Summary:        SAX XML parser based on the Expat library
 Name:           lua-expat
-Version:        1.3.0
-Release:        24%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 License:        MIT
-URL:            https://matthewwild.co.uk/projects/luaexpat/
-Source0:        https://matthewwild.co.uk/projects/luaexpat/luaexpat-%{version}.tar.gz
-Source1:        https://matthewwild.co.uk/projects/luaexpat/luaexpat-%{version}.tar.gz.asc
-Source2:        gpgkey-32A9EDDE3609931EB98CEAC315907E8E7BDD6BFE.gpg
-Patch0:         lua-expat-1.3.0-fix-luajit-compatibility-issue.patch
-Patch1:         lua-expat-1.3.0-improve-test.patch
+URL:            https://lunarmodules.github.io/luaexpat/
+Source0:        https://github.com/lunarmodules/luaexpat/archive/%{version}/luaexpat-%{version}.tar.gz
 Requires:       lua(abi) = %{lua_version}
-BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  lua >= %{lua_version}
@@ -44,10 +39,7 @@ LuaExpat is a SAX XML parser based on the Expat library for Lua %{lua_compat_ver
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n luaexpat-%{version}
-%patch0 -p1 -b .fix
-%patch1 -p1 -b .improve
 
 %if 0%{?fedora}
 rm -rf %{lua_compat_builddir}
@@ -59,8 +51,7 @@ cp -a . %{lua_compat_builddir}
   CFLAGS="$RPM_OPT_FLAGS -fPIC -std=c99" LDFLAGS="$RPM_LD_FLAGS" \
   LUA_V=%{lua_version} \
   LUA_CDIR=%{lua_libdir} LUA_LDIR=%{lua_pkgdir} \
-  LUA_INC=-I%{_includedir} \
-  EXPAT_INC=-I%{_includedir}
+  LUA_INC=-I%{_includedir}
 
 %if 0%{?fedora}
 pushd %{lua_compat_builddir}
@@ -68,19 +59,22 @@ pushd %{lua_compat_builddir}
   CFLAGS="$RPM_OPT_FLAGS -fPIC -std=c99" LDFLAGS="$RPM_LD_FLAGS" \
   LUA_V=%{lua_compat_version} \
   LUA_CDIR=%{lua_compat_libdir} LUA_LDIR=%{lua_compat_pkgdir} \
-  LUA_INC=-I%{_includedir}/lua-%{lua_compat_version} \
-  EXPAT_INC=-I%{_includedir}
+  LUA_INC=-I%{_includedir}/lua-%{lua_compat_version}
 popd
 %endif
 
 %install
 %make_install LUA_CDIR=%{lua_libdir} LUA_LDIR=%{lua_pkgdir}
-chmod 644 $RPM_BUILD_ROOT%{lua_pkgdir}/lxp/lom.lua
+
+# https://github.com/lunarmodules/luaexpat/pull/28
+chmod 0644 $RPM_BUILD_ROOT%{lua_pkgdir}/lxp/*.lua
 
 %if 0%{?fedora}
 pushd %{lua_compat_builddir}
 %make_install LUA_CDIR=%{lua_compat_libdir} LUA_LDIR=%{lua_compat_pkgdir}
-chmod 644 $RPM_BUILD_ROOT%{lua_compat_pkgdir}/lxp/lom.lua
+
+# https://github.com/lunarmodules/luaexpat/pull/28
+chmod 0644 $RPM_BUILD_ROOT%{lua_compat_pkgdir}/lxp/*.lua
 popd
 %endif
 
@@ -88,28 +82,33 @@ popd
 lua -e \
   'package.cpath="%{buildroot}%{lua_libdir}/?.so;"..package.cpath;
    package.path="%{buildroot}%{lua_pkgdir}/?.lua;"..package.path;
-   dofile("tests/test.lua"); dofile("tests/test-lom.lua");'
+   local lxp = require("lxp"); print("Hello from "..lxp._VERSION.."!");'
 
 %if 0%{?fedora}
 lua-%{lua_compat_version} -e \
   'package.cpath="%{buildroot}%{lua_compat_libdir}/?.so;"..package.cpath;
    package.path="%{buildroot}%{lua_compat_pkgdir}/?.lua;"..package.path;
-   dofile("tests/test.lua"); dofile("tests/test-lom.lua");'
+   local lxp = require("lxp"); print("Hello from "..lxp._VERSION.."!");'
 %endif
 
 %files
-%doc README doc/us/*
+%license LICENSE
+%doc README.md docs/*
 %{lua_libdir}/lxp.so
 %{lua_pkgdir}/lxp/
 
 %if 0%{?fedora}
+%license LICENSE
 %files -n lua%{lua_compat_version}-expat
-%doc README doc/us/*
+%doc README.md docs/*
 %{lua_compat_libdir}/lxp.so
 %{lua_compat_pkgdir}/lxp/
 %endif
 
 %changelog
+* Mon Oct 03 2022 Robert Scheck <robert@fedoraproject.org> 1.4.1-1
+- Upgrade to 1.4.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -217,4 +216,3 @@ lua-%{lua_compat_version} -e \
 
 * Wed Jun 04 2008 Tim Niemueller <tim@niemueller.de> - 1.1-1
 - Initial package
-

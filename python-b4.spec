@@ -14,14 +14,17 @@ Summary:        A helper tool to work with public-inbox and patch series
 License:        GPLv2
 URL:            https://git.kernel.org/pub/scm/utils/%{srcname}/%{srcname}.git
 Source0:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.xz
+Source1:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.sign
+# https://git.kernel.org/pub/scm/utils/b4/b4.git/plain/.keys/openpgp/linuxfoundation.org/konstantin/default
+Source2:        gpgkey-DE0E66E32F1FDD0902666B96E63EDCA9329DD07E.asc
 # Unpin version requirements since Fedora 35+'s is newer
 Patch0:         b4-unpin-dependencies.patch
-%if %{without attest}
+# Disable attestation (only applicable to EPEL)
 Patch1:         b4-no-attest.patch
-%endif
 
 BuildArch:      noarch
 
+BuildRequires:  gnupg2
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3dist(pytest)
 
@@ -41,7 +44,12 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+%setup -q -n %{srcname}-%{version}
+%patch0 -p1
+%if %{without attest}
+%patch1 -p1
+%endif
 
 
 %generate_buildrequires

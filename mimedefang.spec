@@ -6,7 +6,7 @@ License:        GPLv2+
 URL:            https://mimedefang.org/
 Source0:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz
 Source1:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz.asc
-Source2:        gpgkey-9F9B564003DFF9E4D904301E3B6DDB11E78FEBD2.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/9F9B564003DFF9E4D904301E3B6DDB11E78FEBD2
 Source3:        README.FEDORA
 Source4:        mimedefang.service
 Source5:        mimedefang-multiplexor.service

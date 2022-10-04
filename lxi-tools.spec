@@ -1,8 +1,9 @@
-Summary:        Tools collection to control LXI enabled instruments
+Summary:        Tools to manage network attached LXI compatible instruments
 Name:           lxi-tools
 Version:        2.1
-Release:        2%{?dist}
-License:        BSD-3-Clause
+Release:        3%{?dist}
+# src/language-specs/lua-lxi-gui.lang is LGPL-2.1-or-later, rest is BSD-3-Clause
+License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://lxi-tools.github.io/
 Source0:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -16,7 +17,7 @@ BuildRequires:  readline-devel
 BuildRequires:  liblxi-devel >= 1.13
 BuildRequires:  lua-devel >= 5.1
 BuildRequires:  bash-completion
-%if 0%{?gui}
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
 BuildRequires:  glib2-devel >= 2.70
 BuildRequires:  gtk4-devel >= 4.5.0
 BuildRequires:  gtksourceview5-devel >= 5.3.3
@@ -26,9 +27,13 @@ BuildRequires:  %{_bindir}/appstream-util
 %endif
 
 %description
-LXI tools are a collection of open source software tools for GNU/Linux
-systems that enable control of LXI enabled instruments such as modern
-oscilloscopes, power supplies, spectrum analyzers etc.
+LXI tools are open source software tools for managing network attached
+LXI (LAN eXtensions for Instrumentation) compatible test instruments
+such as modern oscilloscopes, power supplies, spectrum analyzers etc.
+
+Features include automatic discovery of test instruments, sending SCPI
+commands, grabbing screenshots from supported instruments, benchmarking
+SCPI message performance, and powerful scripting for test automation.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -37,11 +42,22 @@ oscilloscopes, power supplies, spectrum analyzers etc.
 %patch1 -p1 -b .lua
 
 %build
-%meson %{?gui:-Dgui=true}
+%meson \
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+  -Dgui=true
+%else
+  -Dgui=false
+%endif
 %meson_build
 
 %install
 %meson_install
+
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%check
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/io.github.%{name}.lxi-gui.desktop
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/io.github.%{name}.lxi-gui.appdata.xml
+%endif
 
 %files
 %license COPYING
@@ -51,8 +67,18 @@ oscilloscopes, power supplies, spectrum analyzers etc.
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/lxi*
 %{_mandir}/man1/lxi.1*
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%{_bindir}/lxi-gui
+%{_datadir}/applications/io.github.%{name}.lxi-gui.desktop
+%{_datadir}/glib-2.0/schemas/io.github.%{name}.lxi-gui.gschema.xml
+%{_datadir}/icons/hicolor/*/apps/io.github.%{name}.lxi-gui*.svg
+%{_metainfodir}/io.github.%{name}.lxi-gui.appdata.xml
+%endif
 
 %changelog
+* Sun Oct 02 2022 Robert Scheck <robert@fedoraproject.org> 2.1-3
+- Build the lxi-gui application for Fedora 36 (and later)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

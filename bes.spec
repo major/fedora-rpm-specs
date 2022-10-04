@@ -4,9 +4,11 @@
 %global besuser %{name}
 %global besgroup %{name}
 
+%global commit 20781c060611626c4fbf9788510fd8a5794a2dcc
+
 Name:           bes
-Version:        3.20.10
-Release:        6%{?dist}
+Version:        3.20.13
+Release:        1%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
@@ -15,8 +17,8 @@ Source0:        http://www.opendap.org/pub/source/bes-%{version}.tar.gz
 Source1:        bes.service
 # Fix link
 Patch1:         bes-link.patch
-# Include time.h
-Patch2:         bes-time.patch
+# Use int32 type
+Patch2:         bes-int32.patch
 # Fix configure test compromised by LTO
 Patch3:		bes-config.patch
 
@@ -24,7 +26,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 # For autoreconf
 BuildRequires:  libtool
-BuildRequires:  libdap-devel >= 3.19.0
+BuildRequires:  libdap-devel >= 3.20.10
 BuildRequires:  bzip2-devel
 BuildRequires:  libtirpc-devel
 BuildRequires:  libuuid-devel
@@ -103,9 +105,9 @@ Documentation of OPeNDAP BES.
 
 
 %prep
-%setup -q
+%setup -q -n bes-%{version}
 %patch1 -p1 -b .link
-%patch2 -p1 -b .time
+%patch2 -p1 -b .int32
 %patch3 -p1 -b .config
 
 # Fixes rpaths
@@ -113,7 +115,8 @@ autoreconf --install
 chmod a-x dispatch/BESStreamResponseHandler*
 
 %build
-%configure --disable-static --disable-dependency-tracking \
+# We need to enable static builds so it can link against libdap_module.a
+%configure --disable-dependency-tracking \
   --with-cfits-inc=%{_includedir} --with-cfits-libdir=%{_libdir} \
   CPPFLAGS="-I%{_includedir}/cfitsio -I%{_includedir}/tirpc" LDFLAGS=-L%{_libdir}/libdap LIBS=-ltirpc
 # This fails currently: --without-dap-modules
@@ -139,7 +142,7 @@ sed -i.dist -e 's:=/tmp:=%{bescachedir}:' \
 
 %install
 %make_install
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+find $RPM_BUILD_ROOT \( -name '*.la' -o -name '*.a' \) -exec rm -f {} ';'
 mkdir -p $RPM_BUILD_ROOT%{bescachedir}
 mkdir -p $RPM_BUILD_ROOT%{bespkidir}/{cacerts,public}
 mkdir -p $RPM_BUILD_ROOT%{beslogdir}
@@ -228,6 +231,9 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Sun Oct 02 2022 Orion Poplawski <orion@nwra.com> - 3.20.13-1
+- Update to 3.20.13
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.20.10-6
 - Rebuilt for ICU 71.1
 

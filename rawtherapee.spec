@@ -2,12 +2,12 @@
 %global development 1
 
 %if 0%{?development}
-%global commit 68ec1a5bb50b496e255a0b843c36345fbeff2468
+%global commit 4059ae5bcad8e18443bf8f37bcff84de1dcc0d03
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %endif
 
 Name:           rawtherapee
-Version:        5.9~20220525git%{shortcommit}
+Version:        5.9~20221002git%{shortcommit}
 Release:        %autorelease
 Summary:        Raw image processing software
 
@@ -15,8 +15,8 @@ License:        GPLv3 and MIT and IJG
 URL:            http://www.rawtherapee.com/
 
 %if 0%{?development}
-Source0:        https://github.com/Beep6581/RawTherapee/archive/RawTherapee-%{commit}.tar.gz
-# File created with ./create_ReleaseInfo.sh 5.9 68ec1a5 2022-05-25
+Source0:        https://github.com/Beep6581/RawTherapee/archive/%{commit}/RawTherapee-%{commit}.tar.gz
+# File created with ./create_ReleaseInfo.sh 5.9 4059ae5 2022-10-02
 Source1:        create_ReleaseInfo.sh
 Source2:        ReleaseInfo.cmake
 %else
@@ -71,9 +71,6 @@ cp -p %SOURCE2 .
 %autosetup -p1 -n %{name}-%{version}
 %endif
 
-# fix wrong line endings
-sed -i "s|\r||g" LICENSE.txt
-
 # remove bundled KLT, so we're sure to use system provided KLT
 rm -rf rtengine/klt/
 
@@ -111,7 +108,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/com.%{na
 
 
 %files
-%doc AUTHORS.txt LICENSE.txt RELEASE_NOTES.txt
+%doc AUTHORS.txt LICENSE RELEASE_NOTES.txt
 %{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 %{_bindir}/%{name}-cli

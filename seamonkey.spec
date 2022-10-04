@@ -39,7 +39,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.14
-Release:        1%{?dist}
+Release:        3%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -94,6 +94,8 @@ Patch47:	seamonkey-2.53.13-ffmpeg59-headers.patch
 Patch48:	seamonkey-2.53.13-ffmpeg59-1750760.patch
 Patch49:	seamonkey-2.53.14-mozilla-1193394.patch
 Patch50:	seamonkey-2.53.14-mozilla-1480236.patch
+Patch51:	seamonkey-2.53.14-mozilla-1443429.patch
+Patch52:	seamonkey-2.53.14-mozilla-1443746.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -241,6 +243,8 @@ rm -rf js/src/{irregexp,new-regexp}
 %patch48 -p1 -b .1750760
 %patch49 -p1 -b .1193394
 %patch50 -p1 -b .1480236
+%patch51 -p1 -b .1443429
+%patch52 -p1 -b .1443746
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
@@ -529,6 +533,13 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Mon Oct  3 2022 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.14-3
+- add fix for mozbz 1443429 and mozbz 1443746,
+  return no more broken patches
+
+* Sun Oct  2 2022 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.14-2
+- rebuild without potentially broken patches
+
 * Tue Sep 27 2022 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.14-1
 - update to 2.53.14
 

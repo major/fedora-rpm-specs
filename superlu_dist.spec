@@ -86,8 +86,8 @@ BuildRequires: metis-devel
 %endif
 
 Name: superlu_dist
-Version: 8.1.0
-Release: 2%{?dist}
+Version: 8.1.1
+Release: 1%{?dist}
 Epoch:   1
 
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
@@ -113,6 +113,7 @@ BuildRequires: cmake3
 %if %{with optimized_blas}
 BuildRequires: %{blaslib}-devel
 %endif
+BuildRequires: suitesparse-devel
 
 
 %global desc \
@@ -277,9 +278,10 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
  -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
 %endif
- -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_COLAMD=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:STRING=%{_libdir}/libcolamd.so \
+ -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
- -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
+ -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -lcolamd" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp" \
 %if 0%{?fedora} || 0%{?rhel} < 8
  -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
@@ -321,9 +323,10 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch"
  -DTPL_COMBBLAS_INCLUDE_DIRS:PATH="$MPI_INCLUDE/CombBLAS;$MPI_INCLUDE/CombBLAS/3DSpGEMM;$MPI_INCLUDE/CombBLAS/Applications;$MPI_INCLUDE/CombBLAS/BipartiteMatchings" \
  -DTPL_COMBBLAS_LIBRARIES:STRING=$MPI_LIB/libCombBLAS.so -DTPL_ENABLE_COMBBLASLIB:BOOL=ON \
 %endif
- -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_COLAMD:BOOL=ON -DTPL_COLAMD_INCLUDE_DIRS:PATH=%{_includedir}/suitesparse -DTPL_COLAMD_LIBRARIES:FILEPATH=%{_libdir}/libcolamd.so \
+ -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
- -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp" \
+ -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp -lcolamd" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %if 0%{?fedora} || 0%{?rhel} < 8
  -DTPL_PARMETIS_INCLUDE_DIRS:PATH=$MPI_INCLUDE \
@@ -481,6 +484,10 @@ popd
 
 
 %changelog
+* Sun Oct 02 2022 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.1-1
+- Release 8.1.1
+- Enable colamd support
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

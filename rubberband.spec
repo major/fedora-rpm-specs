@@ -1,7 +1,9 @@
+%bcond_without check
+
 %global so_version 2
 
 Name:           rubberband
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Audio time-stretching and pitch-shifting library
 
@@ -13,10 +15,13 @@ BuildRequires:  meson
 BuildRequires:  gcc-c++
 BuildRequires:  ladspa-devel
 BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(lv2)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(sndfile)
-BuildRequires:  pkgconfig(lv2)
 BuildRequires:  vamp-plugin-sdk-devel
+%if %{with check}
+BuildRequires:  boost-devel
+%endif
 
 Requires:       ladspa
 Requires:       lv2
@@ -53,9 +58,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
-# no tests yet
-# check
-# meson_test
+%if %{with check}
+%check
+%meson_test
+%endif
 
 
 %files

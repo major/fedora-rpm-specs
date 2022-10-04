@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        7.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -115,7 +115,10 @@ BuildRequires:  pcre-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  qhull-devel
 BuildRequires:  qrupdate-devel
+# EPEL9 is missing qscintilla-qt5-devel - https://bugzilla.redhat.com/show_bug.cgi?id=2092182
+%if 0%{?fedora} || 0%{?rhel} != 9
 BuildRequires:  qscintilla-qt5-devel
+%endif
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  readline-devel
@@ -124,7 +127,10 @@ BuildRequires:  suitesparse64-devel
 %else
 BuildRequires:  suitesparse-devel
 %endif
+# EPEL9 is missing sundials - https://bugzilla.redhat.com/show_bug.cgi?id=2063760
+%if 0%{?fedora} || 0%{?rhel} != 9
 BuildRequires:  sundials-devel
+%endif
 BuildRequires:  tex(dvips)
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
@@ -445,6 +451,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Sun Oct 02 2022 Orion Poplawski <orion@nwra.com> - 6:7.2.0-2
+- Disable qscintilla and sundials support on EPEL9 for now (bz#2122390)
+
 * Tue Aug 02 2022 Orion Poplawski <orion@nwra.com> - 6:7.2.0-1
 - Update to 7.2.0
 

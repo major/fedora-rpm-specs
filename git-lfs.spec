@@ -2,7 +2,7 @@
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.1.2
+Version:                3.2.0
 
 %gometa
 
@@ -23,6 +23,9 @@ Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}
 Source1:        https://github.com/git-lfs/git-lfs/releases/download/v%{version}/sha256sums.asc#/sha256sums-%{version}.asc
 Source2:        https://api.github.com/repos/git-lfs/git-lfs/tarball/core-gpg-keys#/core-gpg-keys.tar.gz
 Source3:        README.Fedora
+
+# Silence git warning about default branch.
+Patch: https://github.com/git-lfs/git-lfs/commit/11fe8dc62ed2eb158eaec28af90d2f509e7fd91f.patch
 
 BuildRequires:  gnupg2
 
@@ -116,9 +119,11 @@ sha256sum --check --ignore-missing %{SOURCE1}
 
 %goprep
 cp -p %SOURCE3 .
+%autopatch -p1
 
-# Modify Makefile so that it expects binaries where we build them.
+# Modify tests so that they expect binaries where we build them.
 sed -i -e 's!\.\./bin/!/%{gobuilddir}/bin/!g' t/Makefile
+sed -i -e 's!^BINPATH=.\+!BINPATH="%{gobuilddir}/bin"!g' t/testenv.sh
 
 
 %build

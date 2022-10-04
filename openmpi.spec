@@ -37,7 +37,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -205,6 +205,7 @@ OpenMPI support for Python 3.
 	--with-valgrind \
 	--enable-memchecker \
 	--with-hwloc=/usr \
+        --enable-ipv6 \
 %if !0%{?el7}
 	--with-libevent=external \
 	--with-pmix=external \
@@ -379,6 +380,9 @@ make check
 
 
 %changelog
+* Fri Aug 19 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 4.1.4-5
+- Enable IPv6 support (bz#2119845)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

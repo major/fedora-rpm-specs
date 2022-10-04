@@ -4,7 +4,7 @@
 A simple package with utils to check whether versions number match PEP 440.}
 
 Name:           python-pep440
-Version:        0.1.1
+Version:        0.1.2
 Release:        %{autorelease}
 Summary:        A simple package with utils to check whether versions number match Pep 440
 
@@ -42,12 +42,15 @@ BuildRequires:  python3-pytest
 
 %check
 %if %{with tests}
-%{pytest}
+# skip test_cli test as they depend on pytest-console-scripts, which
+# is not yet packaged to Fedora
+%{pytest} -svv -k "not test_cli"
 %endif
 
 
 %files -n python3-pep440 -f %{pyproject_files}
 %doc readme.md
+%{_bindir}/pep440
 %license LICENSE
 
 %changelog

@@ -2,7 +2,7 @@ Summary:        Postfix policyd to combine complex restrictions in a ruleset
 Name:           postfwd
 Version:        2.03
 Release:        5%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://postfwd.org/
 Source0:        https://github.com/postfwd/postfwd/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.service

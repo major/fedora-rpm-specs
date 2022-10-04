@@ -1,8 +1,8 @@
 %global appname YACReader
-%global versuf 2209046
+%global versuf 2210021
 
 Name:           yacreader
-Version:        9.9.1
+Version:        9.9.2
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 

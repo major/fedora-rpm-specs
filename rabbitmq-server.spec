@@ -6,7 +6,7 @@
 
 
 Name: rabbitmq-server
-Version: 3.10.7
+Version: 3.10.8
 Release: 1%{?dist}
 License: MPLv1.1
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -176,12 +176,16 @@ done
 %{_mandir}/man8/rabbitmq-plugins.8*
 %{_mandir}/man8/rabbitmq-server.8*
 %{_mandir}/man8/rabbitmq-service.8*
+%{_mandir}/man8/rabbitmq-streams.8*
 %{_mandir}/man8/rabbitmq-queues.8*
 %{_mandir}/man8/rabbitmq-upgrade.8*
 %{_mandir}/man8/rabbitmqctl.8*
 
 
 %changelog
+* Sun Oct  2 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.10.8-1
+- Ver. 3.10.8
+
 * Mon Aug  8 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.10.7-1
 - Ver. 3.10.7
 

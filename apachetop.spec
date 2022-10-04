@@ -2,11 +2,11 @@ Summary:        Top-like display of Apache logs
 Name:           apachetop
 Version:        0.19.7
 Release:        8%{?dist}
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/tessus/apachetop
 Source0:        https://github.com/tessus/apachetop/releases/download/%{version}/apachetop-%{version}.tar.gz
 Source1:        https://github.com/tessus/apachetop/releases/download/%{version}/apachetop-%{version}.tar.gz.asc
-Source2:        gpgkey-8A5570C1BD85D34EADBC386C172380A011EF4944.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/8A5570C1BD85D34EADBC386C172380A011EF4944
 BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
 BuildRequires:  ncurses-devel

@@ -7,8 +7,8 @@
 }
 
 Name:           debhelper
-Version:        13.7.1
-Release:        4%{?dist}
+Version:        13.9.1
+Release:        1%{?dist}
 Summary:        Helper programs for debian/rules
 
 License:        GPLv2+
@@ -119,6 +119,7 @@ as part of their build process.
 
 %prep
 #debug
+echo "debug:"
 dpkg-architecture -qDEB_BUILD_GNU_TYPE
 dpkg-architecture -qDEB_HOST_GNU_TYPE
 dpkg --print-architecture
@@ -168,6 +169,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Sun Oct 02 2022 Sérgio Basto <sergio@serjux.com> - 13.9.1-1
+- Update debhelper to 13.9.1 (#2103468)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 13.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

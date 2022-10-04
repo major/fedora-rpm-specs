@@ -5,12 +5,15 @@ Version: 7.2.1
 # - Older releases used year.month
 # - Newer releases use x.y.z
 Epoch: 1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: Qhull
 Source0: https://github.com/qhull/qhull/archive/v%{version}.tar.gz#/qhull-%{version}.tar.gz
 
 Patch1: 0001-Link-executables-against-shared-libs.patch
 Patch2: 0002-Install-docs-into-subdirs.patch
+# Compile libqhullcpp.a with -fPIC
+# https://github.com/qhull/qhull/pull/47
+Patch3: qhull-pic.patch
 
 URL: http://www.qhull.org
 
@@ -62,6 +65,7 @@ about a point.
 %setup -q
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 mkdir -p build
@@ -115,6 +119,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*
 
 
 %changelog
+* Sun Oct 02 2022 Orion Poplawski <orion@nwra.com> - 1:7.2.1-11
+- Compile libqhullcpp with -fPIC
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

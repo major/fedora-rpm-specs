@@ -3,11 +3,12 @@ Name:           ethtool
 Epoch:          2
 Version:        5.19
 Release:        1%{?dist}
-License:        GPLv2
+# {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
+License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
 Source0:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.sign
-Source2:        gpgkey-D2CB120AB45957B721CD9596F4554567B91DE934.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/D2CB120AB45957B721CD9596F4554567B91DE934
 BuildRequires:  gnupg2, xz
 BuildRequires:  gcc
 BuildRequires:  libmnl-devel

@@ -7,7 +7,7 @@ URL:		https://flashrom.org
 
 Source0:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2
 Source1:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2.asc
-Source2:	gpgkey-58A4868B25C7CFD662FB0132A3EB95B8D9780F68.gpg
+Source2:	https://keys.openpgp.org/vks/v1/by-fingerprint/58A4868B25C7CFD662FB0132A3EB95B8D9780F68
 
 # upstream already: https://review.coreboot.org/c/flashrom/+/38939
 Patch0:    0001-Install-the-man-file-when-using-meson-as-a-buildsyst.patch

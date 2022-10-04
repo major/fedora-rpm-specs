@@ -2,7 +2,7 @@
 
 Name:		libva
 Version:	2.15.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 License:	MIT
 URL:		https://github.com/intel/libva
@@ -29,6 +29,9 @@ BuildRequires:  pkgconfig(wayland-scanner) >= 1
 }
 # owns the %%{_libdir}/dri directory
 Requires:	mesa-filesystem%{_isa}
+%if 0%{?fedora} >= 37
+Recommends:	(mesa-va-drivers%{?_isa} if mesa-dri-drivers)
+%endif
 
 %description
 Libva is a library providing the VA API video acceleration API.
@@ -83,6 +86,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Sun Oct 02 2022 Pete Walter <pwalter@fedoraproject.org> - 2.15.0-3
+- Recommend split out mesa-va-drivers if mesa-dri-drivers is installed (#2123998)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

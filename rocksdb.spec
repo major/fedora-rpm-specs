@@ -3,8 +3,8 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 7.4.5
-Release: 2%{?dist}
+Version: 7.6.0
+Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
 License: GPLv2 or ASL 2.0 and BSD
@@ -44,12 +44,19 @@ Write-Amplification-Factor (WAF), Read-Amplification-Factor (RAF) and
 Space-Amplification-Factor (SAF). It has multi-threaded compaction, making it
 specially suitable for storing multiple terabytes of data in a single database.
 
+%package tools
+Summary: Utility tools for RocksDB
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description tools
+Utility tools for RocksDB.
+
 %package devel
-Summary: Development files for rocksdb
+Summary: Development files for RocksDB
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Development files for rocksdb.
+Development files for RocksDB.
 
 
 %prep
@@ -67,10 +74,14 @@ Development files for rocksdb.
   -DWITH_ZSTD=ON \
   -DWITH_ZLIB=ON \
 %endif
+  -DROCKSDB_BUILD_SHARED=ON \
+  -DWITH_BENCHMARK_TOOLS=ON \
+  -DWITH_CORE_TOOLS=ON \
+  -DWITH_TOOLS=ON \
   -DUSE_RTTI=ON \
   -DPORTABLE=ON \
   -DFAIL_ON_WARNINGS=OFF \
-  -DWITH_TESTS=OFF
+  -DWITH_TESTS=ON
 %cmake_build
 
 
@@ -87,7 +98,18 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.7
-%{_libdir}/librocksdb.so.7.4.5
+%{_libdir}/librocksdb.so.7.6.0
+
+
+%files tools
+%doc README.md
+%license COPYING
+%license LICENSE.Apache
+%license LICENSE.leveldb
+%{_bindir}/cache_bench
+%{_bindir}/db_bench
+%{_bindir}/ldb
+%{_bindir}/sst_dump
 
 
 %files devel
@@ -102,6 +124,12 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Sun Oct 02 2022 Jonny Heggheim <hegjon@gmail.com> - 7.6.0-1
+- Updated to version 7.6.0
+
+* Thu Aug 11 2022 Jonny Heggheim <hegjon@gmail.com> - 7.4.5-3
+- Added tools sub-package
+
 * Fri Aug 05 2022 Jonny Heggheim <hegjon@gmail.com> - 7.4.5-2
 - Use liburing
 

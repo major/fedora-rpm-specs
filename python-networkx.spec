@@ -1,6 +1,6 @@
 Name:           python-networkx
-Version:        2.8.6
-Release:        2%{?dist}
+Version:        2.8.7
+Release:        1%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
 URL:            https://networkx.org/
@@ -17,8 +17,6 @@ Patch0:         %{name}-doc.patch
 # Temporary workaround for a failing test.
 # See https://github.com/networkx/networkx/issues/5913
 Patch1:         %{name}-test.patch
-# Adapt an example to matplotlib 3.6.0
-Patch2:         %{name}-matplotlib.patch
 
 # There is a bootstrap loop between libpysal and networkx when tests/docs are enabled
 %bcond_with     bootstrap
@@ -161,6 +159,10 @@ done
 %endif
 
 %changelog
+* Sat Oct  1 2022 Jerry James <loganjerry@gmail.com> - 2.8.7-1
+- Version 2.8.7
+- Drop upstreamed matplotlib patch
+
 * Wed Aug 31 2022 Jerry James <loganjerry@gmail.com> - 2.8.6-2
 - Add patch to adapt an example to matplotlib 3.6.0
 

@@ -1,7 +1,7 @@
 %global uuid    im.srain.Srain
 
 Name:           srain
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Modern, beautiful IRC client written in GTK+ 3
 
@@ -16,11 +16,11 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
-BuildRequires:  meson
+BuildRequires:  meson >= 0.47
 BuildRequires:  python3-sphinx
 
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(libconfig)
+BuildRequires:  pkgconfig(gtk+-3.0) >= 3.22.15
+BuildRequires:  pkgconfig(libconfig) >= 1.5
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(openssl)
@@ -44,11 +44,12 @@ Documentation files for %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 
 %build
-%meson
+%meson \
+    -Ddoc_builders=html,man
 %meson_build
 
 
