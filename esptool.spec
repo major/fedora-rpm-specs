@@ -1,5 +1,5 @@
 Name:           esptool
-Version:        4.2.1
+Version:        4.3
 Release:        1%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
@@ -59,6 +59,10 @@ done
 
 
 %changelog
+* Wed Sep 21 2022 Karolina Surma <ksurma@redhat.com> - 4.3-1
+- Update to 4.3
+Resolves: rhbz#2126964
+
 * Wed Aug 10 2022 Karolina Surma <ksurma@redhat.com> - 4.2.1-1
 - Update to 4.2.1
 Resolves: rhbz#2114692

@@ -171,7 +171,7 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 %endif
 export CXXFLAGS="$CFLAGS -std=c++11"
 
-%if 0%{?fedora} >= 35
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 10
 %define __cmake_builddir %{_target_platform}
 
 mkdir -p %{%__cmake_builddir}

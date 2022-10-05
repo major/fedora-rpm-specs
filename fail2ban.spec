@@ -1,6 +1,6 @@
 Name: fail2ban
-Version: 0.11.2
-Release: 14%{?dist}
+Version: 1.0.1
+Release: 1%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -15,19 +15,8 @@ Source4: Makefile
 # https://bugzilla.redhat.com/show_bug.cgi?id=1379141
 # https://bugzilla.redhat.com/show_bug.cgi?id=1573185
 Patch0: fail2ban-partof.patch
-# Fixes century selector for tests
-# https://bugzilla.redhat.com/show_bug.cgi?id=1912472
-Patch1: https://github.com/fail2ban/fail2ban/commit/f259dac74721c00f0184bf45277137771fc747fe.patch
-# Python 3.10a5 compatibility
-# https://bugzilla.redhat.com/show_bug.cgi?id=1926201
-Patch2: https://github.com/fail2ban/fail2ban/compare/ea26509594a3220b012071604d73bb42d0ecae2c...py-3-10-alpha-5.patch
-# CVE-2021-32749 https://github.com/fail2ban/fail2ban/security/advisories/GHSA-m985-3f3v-cwmm
-Patch3: https://github.com/fail2ban/fail2ban/commit/410a6ce5c80dd981c22752da034f2529b5eee844.patch
-# https://github.com/fail2ban/fail2ban/issues/2882
-#Patch4: https://github.com/fail2ban/fail2ban/commit/ebf5784b8cd4b7c52d0f328b780833b8594f5567.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2034205
-Patch5: fail2ban-python311.patch
-Patch6: https://patch-diff.githubusercontent.com/raw/fail2ban/fail2ban/pull/3267.patch
+Patch1: fail2ban-python311.patch
 
 
 BuildArch: noarch
@@ -414,6 +403,9 @@ fi
 
 
 %changelog
+* Sun Oct 02 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-1
+- Update to 1.0.1.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

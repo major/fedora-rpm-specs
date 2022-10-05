@@ -2,11 +2,11 @@
 %global waves_version 0.1.2
 %global fedora_release_name f37
 %global gnome_default default
-%global picture_ext webp
+%global picture_ext png
 
 Name:           desktop-backgrounds
 Version:        37.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Desktop backgrounds
 
 License:        LGPLv2
@@ -148,30 +148,30 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
     %{buildroot}%{_datadir}/glib-2.0/schemas/10_org.gnome.desktop.screensaver.fedora.gschema.override
 #   for KDE, this is handled in kde-settings
 #   for XFCE, LXDE, etc.
-%if "x%{?picture_ext}" == "xwebp"
+%if "x%{?picture_ext}" == "xpng"
   (cd %{buildroot}%{_datadir}/backgrounds/images;
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.webp\
-      default.webp
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.webp \
-      default-5_4.webp
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.webp \
-      default-16_9.webp
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.webp \
-      default-16_10.webp
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+      default.png
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+      default-5_4.png
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+      default-16_9.png
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+      default-16_10.png
   cd ..
-  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}.webp \
-      default.webp
+  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}.png \
+      default.png
   )
 %else
   (cd %{buildroot}%{_datadir}/backgrounds/images;
-  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext}\
-        -alpha off default.webp
-  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext}\
-        -alpha off default-5_4.webp
-  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext}\
-        -alpha off default-16_9.webp
-  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext}\
-        -alpha off default-16_10.webp
+  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
+        -alpha off default.png
+  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
+        -alpha off default-5_4.png
+  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
+        -alpha off default-16_9.png
+  convert %{_datadir}/backgrounds/%{fedora_release_name}/default/%{fedora_release_name}.%{picture_ext} \
+        -alpha off default-16_10.png
   )
 %endif
 
@@ -212,10 +212,13 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 %files compat
 %dir %{_datadir}/backgrounds/images/
 %{_datadir}/backgrounds/images/default*
-%{_datadir}/backgrounds/default.webp
+%{_datadir}/backgrounds/default.png
 %{_datadir}/backgrounds/default.xml
 
 %changelog
+* Fri Sep 30 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-3
+- Revert changes for MATE, XFCE and LXDE
+
 * Sun Sep 25 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-2
 - Switch to webp format by default for Fedora backgrounds
 

@@ -1,5 +1,5 @@
-%global commit  d08a08154ce8ed8e9de80582c108f157e4c6b226
-%global date    20220410
+%global commit  19a1cb3105ca4a82139fb4994e7995fd956f6f8d
+%global date    20220726
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename gw
@@ -30,7 +30,7 @@ written to obfuscate the generated Lua source code as per MADrigal's request.
 
 
 %prep
-%autosetup -n %{corename}-libretro-%{commit} -p1
+%autosetup -n %{corename}-libretro-%{commit}
 
 
 %build

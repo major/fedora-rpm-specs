@@ -8,7 +8,7 @@
 %bcond_with tests
 
 Name:           lua-%{srcname}
-Version:        3.1
+Version:        3.2
 Release:        %autorelease
 Summary:        Lua interface to the readline and history libraries
 

@@ -1,7 +1,7 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 0
+%global released_kernel 1
 
 # define buildid .local
 
@@ -21,7 +21,7 @@
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%define base_sublevel -1
+%define base_sublevel 0
 
 ## If this is a released kernel ##
 %if 0%{?released_kernel}
@@ -40,7 +40,7 @@
 # The next upstream release sublevel (base_sublevel+1)
 %define upstream_sublevel %(echo $((%{base_sublevel} + 1)))
 # The rc snapshot level
-%global rcrev 7
+%global rcrev 0
 # The git snapshot level
 %define gitrev 0
 # Set rpm version accordingly
@@ -170,6 +170,9 @@ done
 %{_prefix}/*-linux-gnu/*
 
 %changelog
+* Mon Oct 03 2022 Justin M. Forbes <jforbes@fedoraproject.org>- 6.0.0-1
+- Linux v6.0
+
 * Mon Sep 26 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.0.0-0.rc7.git0.1
 - Linux v6.0-rc7.git0
 

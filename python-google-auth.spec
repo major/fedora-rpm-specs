@@ -9,7 +9,7 @@
 %endif
 
 Name:       python-%{library}
-Version:    2.11.1
+Version:    2.12.0
 Release:    1%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.pth
 
 %changelog
+* Fri Sep 30 2022 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.12.0-1
+- Update to 2.12.0 (#2128641)
+
 * Tue Sep 20 2022 Jason Montleon <jmontleo@redhat.com> - 1:2.11.1-1
 - Update to 2.11.1
 

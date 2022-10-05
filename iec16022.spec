@@ -5,11 +5,11 @@ Version:        0.3.1
 Release:        2%{?dist}
 Summary:        Generate ISO/IEC 16022 2D barcodes
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/rdoeffinger/iec16022
 Source0:        https://github.com/rdoeffinger/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/rdoeffinger/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-C61D16E59E2CD10C895838A40899A2B906D4D9C7.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/C61D16E59E2CD10C895838A40899A2B906D4D9C7
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc
@@ -67,8 +67,8 @@ make -C test check
 
 
 %files
-%{_bindir}/iec16022
-%{_mandir}/man1/iec16022.1*
+%{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 
 %files libs
 %license COPYING
@@ -76,7 +76,7 @@ make -C test check
 %{_libdir}/libiec16022.so.*
 
 %files devel
-%{_includedir}/iec16022/
+%{_includedir}/%{name}/
 %{_libdir}/libiec16022.so
 %{_libdir}/pkgconfig/libiec16022.pc
 

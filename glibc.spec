@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-150-gc02e29a0ba
+%global glibcsrcdir glibc-2.36.9000-165-g114e299ca6
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2184,6 +2184,25 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Oct 03 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-9
+- Auto-sync with upstream branch master,
+  commit 114e299ca66353fa7be1ee45bb4e1307d3de1fa2.
+- x86: Remove .tfloat usage
+- nptl: Convert tst-setuid2 to test-driver
+- support: Add xpthread_cond_signal wrapper
+- hppa: Fix initialization of dp register [BZ 29635]
+- Fix iseqsig for _FloatN and _FloatNx in C++ with GCC 13
+- malloc: Do not clobber errno on __getrandom_nocancel (BZ #29624)
+- stdlib: Fix __getrandom_nocancel type and arc4random usage (BZ #29638)
+- LoongArch: Add static PIE support
+- Benchtest: Add additional benchmarks for strlen and strnlen
+- x86: Fix wcsnlen-avx2 page cross length comparison [BZ #29591]
+- Update _FloatN header support for C++ in GCC 13
+- hurd: Fix typo
+- get_nscd_addresses: Fix subscript typos [BZ #29605]
+- hurd: Increase SOMAXCONN to 4096
+- Use atomic_exchange_release/acquire
+
 * Fri Sep 23 2022 Patsy Griffin <patsy@redhat.com> - 2.36.9000-8
 - Auto-sync with upstream branch master,
   commit c02e29a0ba47d636281e1a026444a1a0a254aa12.

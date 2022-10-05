@@ -1,10 +1,10 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
-Version:       0.9.7
-Release:       2%{?dist}
+Version:       0.9.8
+Release:       1%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
-License:       GPLv2+
+License:       GPL-2.0-or-later
 Requires:      hicolor-icon-theme
 Requires:      soundfont2-default
 
@@ -19,6 +19,7 @@ BuildRequires: gcc-c++
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtx11extras-devel
 BuildRequires: qt5-linguist
+BuildRequires: qt5-qtsvg-devel
 BuildRequires: libappstream-glib
 
 
@@ -70,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Mon Oct 03 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.8-1
+- Update to version 0.9.8
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

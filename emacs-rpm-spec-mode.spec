@@ -3,13 +3,15 @@
 
 Name:           emacs-%{pkg}
 Version:        0.16
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Major GNU Emacs mode for editing RPM spec files
 
 License:        GPLv2+
 URL:            https://github.com/bjorlykke/rpm-spec-mode/
 Source0:        https://raw.githubusercontent.com/bjorlykke/rpm-spec-mode/%{git_hash}/rpm-spec-mode.el
 Source1:        rpm-spec-mode-init.el
+# https://github.com/stigbjorlykke/rpm-spec-mode/pull/17
+Patch0:         fix-define-obsolete-variable-alias.patch
 
 BuildArch:      noarch
 BuildRequires:  emacs
@@ -21,6 +23,7 @@ Major GNU Emacs mode for editing RPM spec files.
 %prep
 %setup -q -n rpm-spec-mode-%{version} -T -c
 cp %SOURCE0 $RPM_BUILD_DIR/rpm-spec-mode-%{version}
+%patch0 -p1
 
 %build
 %_emacs_bytecompile rpm-spec-mode.el
@@ -39,6 +42,9 @@ install -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitelispdir}/rpm-spec-mode/rpm-spec-mode.elc
 
 %changelog
+* Mon Aug 08 2022 Bhavin Gandhi <bhavin192@fedoraproject.org> - 0.16-14
+- Fix compatibility with latest Emacs, fixes rhbz#2113202
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

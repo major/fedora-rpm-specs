@@ -2,15 +2,15 @@
 %global gem_name rack-cache
 
 Name: rubygem-%{gem_name}
-Version: 1.6.1
-Release: 13%{?dist}
+Version: 1.13.0
+Release: 1%{?dist}
 Summary: HTTP Caching for Rack
 License: MIT
 URL: https://github.com/rtomayko/rack-cache
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rtomayko/rack-cache.git && cd rack-cache
-# git checkout v1.6.1 && tar czvf rack-cache-1.6.1-tests.tgz ./test/
-Source1: %{gem_name}-%{version}-tests.tgz
+# git archive -v -o rack-cache-1.13.0-test.tar.gz v1.13.0 test/
+Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -31,14 +31,18 @@ Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
-Documentation for %{name}
-
+Documentation for %{name}.
 
 %prep
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
+# Create the gem as gem install only works on a gem file
+gem build ../%{gem_name}-%{version}.gemspec
+
+# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
+# by default, so that we can move it into the buildroot in %%install
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -47,12 +51,13 @@ cp -a .%{gem_dir}/* \
 
 %check
 pushd .%{gem_instdir}
-tar xf %{SOURCE1}
+ln -s %{_builddir}/test .
 
 # Get rid of Bundler.
 sed -i '/bundler/ s/^/#/' test/test_helper.rb
 
 # We don't have maxitest in Fedora, lets try Minitest.
+sed -i '/global_must/ s/^/#/' test/test_helper.rb
 sed -i 's/maxitest/minitest/' test/test_helper.rb
 mv test/meta_store_test.rb{,.disabled}
 
@@ -72,6 +77,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Sep 29 2022 Vít Ondruch <vondruch@redhat.com> - 1.13.0-1
+- Updated to rack-cache 1.13.0.
+  Resolves: rhbz#1489211
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

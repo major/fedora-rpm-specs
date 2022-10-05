@@ -1,12 +1,11 @@
 Name:           luarocks
-Version:        3.7.0
-Release:        4%{?dist}
+Version:        3.9.1
+Release:        1%{?dist}
 Summary:        A deployment and management system for Lua modules
 
 License:        MIT
 URL:            http://luarocks.org
 Source0:        http://luarocks.org/releases/luarocks-%{version}.tar.gz
-Patch0:         luarocks-3.5.0-dynamic_libdir.patch
 
 BuildArch:      noarch
 # this package was previously arched, and needs to be obsoleted
@@ -23,10 +22,13 @@ Requires:       lua(abi) = %{lua_version}
 %endif
 Requires:       unzip
 Requires:       zip
+Requires:       gcc
 
 %if 0%{?fedora}
 Recommends:     lua-sec
-Suggests:       lua-devel
+Recommends:     lua-devel
+Recommends:     make
+Recommends:     cmake
 %endif
 
 %description
@@ -73,6 +75,11 @@ mkdir -p %{buildroot}%{_prefix}/lib/luarocks/rocks-%{lua_version}
 
 
 %changelog
+* Wed Sep 14 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.9.1-1
+- New upstream release, drop upstreamed patch
+- Raise lua-devel from Suggests to Recommends, add new Requires: gcc
+  and Recommends: make and cmake (rhbz#2091484)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

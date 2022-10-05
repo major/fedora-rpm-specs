@@ -9,7 +9,7 @@
 Summary:	A Fast, Enjoyable HTML Parser for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.8.6
-Release:	37%{?dist}
+Release:	38%{?dist}
 # ext/fast_xs/FastXsService.java is licensed under ASL 2.0
 License:	MIT and ASL 2.0
 URL:		http://github.com/hpricot/hpricot
@@ -69,6 +69,9 @@ ln -sf /bin/true tmpbin/git
 rm -f ext/hpricot_scan/*.c
 rake ext/hpricot_scan/extconf.rb
 %endif
+
+# Ruby 3.2 completely removes Fixnum
+sed -i lib/hpricot/elements.rb -e 's|Fixnum|Integer|'
 
 pushd test
 # Kill tests related to BOINGBOING, licensed under CC-BY-NC
@@ -140,6 +143,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.6-38
+- Fix build with ruby3.2 (wrt removal of Fixnum)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

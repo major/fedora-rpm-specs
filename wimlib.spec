@@ -1,20 +1,22 @@
 Name:           wimlib
-Version:        1.13.5
-Release:        2%{?dist}
+Version:        1.13.6
+Release:        1%{?dist}
 Summary:        Open source Windows Imaging (WIM) library
 
 # wimlib is dual-licensed (GPLv3+/LGPLv3+) but is linked to libntfs-3g (GPLv3+),
-# utilities are GPLv3+, some internal headers are CC0
-License:        GPLv3+ and CC0
+# utilities are GPLv3+, some internal headers are MIT
+License:        GPLv3+ and MIT
 URL:            https://wimlib.net/
 Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(fuse)
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libntfs-3g)
 BuildRequires:  pkgconfig(libxml-2.0)
+# Needed for tests
+BuildRequires:  ntfsprogs
 
 %description
 wimlib is a C library for creating, modifying, extracting, and mounting files in
@@ -60,9 +62,13 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
+%check
+%make_build check
+
+
 %files
 %doc NEWS README
-%license COPYING COPYING.CC0 COPYING.GPLv3
+%license COPYING COPYING.GPLv3
 %{_libdir}/*.so.15*
 
 
@@ -78,6 +84,10 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Mon Oct 03 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.13.6-1
+- Update to 1.13.6
+- Update license tag (CC0 replaced by MIT)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

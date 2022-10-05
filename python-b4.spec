@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.8.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
 License:        GPLv2
@@ -17,16 +17,17 @@ Source0:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{
 Source1:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.sign
 # https://git.kernel.org/pub/scm/utils/b4/b4.git/plain/.keys/openpgp/linuxfoundation.org/konstantin/default
 Source2:        gpgkey-DE0E66E32F1FDD0902666B96E63EDCA9329DD07E.asc
-# Unpin version requirements since Fedora 35+'s is newer
-Patch0:         b4-unpin-dependencies.patch
-# Disable attestation (only applicable to EPEL)
-Patch1:         b4-no-attest.patch
 
 BuildArch:      noarch
 
 BuildRequires:  gnupg2
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3dist(pytest)
+
+# Require manually until it provides python3dist(git-filter-repo)
+# https://src.fedoraproject.org/rpms/git-filter-repo/pull-request/1
+BuildRequires:  git-filter-repo > 2.30
+Requires:       git-filter-repo > 2.30
 
 %global _description %{expand:
 B4 is a helper utility to work with patches made available via a public-inbox
@@ -45,12 +46,16 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 
 %prep
 xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
-%setup -q -n %{srcname}-%{version}
-%patch0 -p1
+%autosetup -p1 -n %{srcname}-%{version}
+
+# Disable attestation (only applicable to EPEL)
 %if %{without attest}
-%patch1 -p1
+sed -Ei -e '/^# These are optional, needed for attestation/d' \
+    -e "/^ *'?(dnspython|dkimpy|patatt)/d" requirements.txt setup.py
 %endif
 
+# Avoid python3dist(git-filter-repo) requirement
+sed -Ei "/^ *'?git-filter-repo/d" requirements.txt setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r requirements.txt

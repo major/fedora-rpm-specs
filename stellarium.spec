@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        0.22.2
-Release:        2%{?dist}
+Version:        1.0
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
@@ -28,6 +28,7 @@ BuildRequires:	qt5-qtscript-devel
 BuildRequires:	qt5-qtserialport-devel
 BuildRequires:	qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtcharts-devel
+BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:	gettext-devel
 BuildRequires:	boost-devel
 BuildRequires:	glib2-devel
@@ -46,7 +47,7 @@ constellations, planets, major satellites and nebulas.
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
-%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT5_LIBS=%{_libdir}/qt5
+%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT5_LIBS=%{_libdir}/qt5 -DENABLE_SHOWMYSKY=OFF
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -79,6 +80,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0-1
+- 1.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

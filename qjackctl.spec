@@ -1,10 +1,10 @@
 Summary:       Qt based JACK control application
 Name:          qjackctl
-Version:       0.9.7
-Release:       2%{?dist}
+Version:       0.9.8
+Release:       1%{?dist}
 URL:           http://qjackctl.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qjackctl/files/%{name}-%{version}.tar.gz
-License:       GPLv2+
+License:       GPL-2.0-or-later
 Requires:      hicolor-icon-theme
 
 # Set correct version in About dialog
@@ -18,6 +18,7 @@ BuildRequires: jack-audio-connection-kit-devel
 BuildRequires: portaudio-devel
 BuildRequires: qt5-qttools-devel
 BuildRequires: qt5-qtx11extras-devel
+BuildRequires: qt5-qtsvg-devel
 BuildRequires: libappstream-glib
 
 
@@ -69,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.rncbc
 
 
 %changelog
+* Mon Oct 03 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.9.8-1
+- Update to version 0.9.8
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           extractpdfmark
-Version:        1.1.0
-Release:        10%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Extract page mode and named destinations as PDFmark from PDF
 
 License:        GPLv3+
@@ -11,7 +11,7 @@ BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-devel
 BuildRequires:  poppler-cpp-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 When you create a PDF document using something like a TeX system you may include
@@ -68,6 +68,9 @@ make check
 
 
 %changelog
+* Mon Oct 3 2022 Federico Bruni <fede@inventati.org> - 1.1.1-1
+- Upgrade to version 1.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

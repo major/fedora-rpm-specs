@@ -1,12 +1,12 @@
-%global git_date 20220824
-%global git_commit 2187e9c327e39a96eecd188179b3ae38054ab38a
+%global git_date 20221003
+%global git_commit cb1ad32f5d0ecfa2b50e634dfd2fe4f1ec82a1e6
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPLv2+
@@ -36,7 +36,11 @@ BuildRequires: make
 Conflicts: openssl-libs < 3.0.2-2
 Conflicts: nss < 3.44.0
 Conflicts: libreswan < 3.28
-Conflicts: openssh < 8.8p1-4
+%if 0%{?fedora} == 37
+Conflicts: openssh < 8.7p1-24
+%else
+Conflicts: openssh < 9.0p1-5
+%endif
 Conflicts: gnutls < 3.7.3
 
 # Most users want this, the split is mostly for Fedora CoreOS
@@ -70,6 +74,9 @@ to enable or disable the system FIPS mode.
 %autopatch -p1
 
 %build
+sed -i "s/MIN_RSA_DEFAULT = .*/MIN_RSA_DEFAULT = 'RequiredRSASize'/" \
+    python/policygenerators/openssh.py
+grep "MIN_RSA_DEFAULT = 'RequiredRSASize'" python/policygenerators/openssh.py
 %make_build
 
 %install
@@ -105,7 +112,7 @@ done
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/crypto-policies/python
 
 %check
-BROKEN_PYLINT=1 make test %{?_smp_mflags}
+make test %{?_smp_mflags}
 
 %post -p <lua>
 if not posix.access("%{_sysconfdir}/crypto-policies/config") then
@@ -198,6 +205,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Mon Oct 03 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221003-1.gitcb1ad32
+- openssh: force RequiredRSASize option name
+
 * Wed Aug 24 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20220824-2.git2187e9c
 - revert premature Fedora 38 Rawhide SHA-1 "jump scare" until
   https://fedoraproject.org/wiki/Changes/StrongCryptoSettings3Forewarning2

@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -497,6 +497,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Sep 12 2022 Marcel Härry <mh+fedora@scrit.ch> - 4.96-3
+- Fix "tainted search query is not properly quoted" for greylisting
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.96-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

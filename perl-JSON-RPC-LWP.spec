@@ -1,6 +1,6 @@
 Name:           perl-JSON-RPC-LWP
 Version:        0.007
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        JSON RPC over any libwww supported protocol
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/JSON-RPC-LWP
@@ -30,6 +30,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+# used with Moose 'with' so not found by perl-generators
+Requires:       perl(MooseX::Deprecated)
 
 %description
 Use any version of JSON RPC over any libwww supported transport protocols.
@@ -56,6 +58,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct  3 2022 Yanko Kaneti <yaneti@declera.com> - 0.007-12
+- Explicitly require MooseX::Deprecated (#2131742)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

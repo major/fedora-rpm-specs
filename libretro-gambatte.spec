@@ -1,5 +1,5 @@
-%global commit  15536214cdce31894d374b2ffa2494543057082b
-%global date    20220325
+%global commit  7e02df60048db0898131ea365f387a026e4e648d
+%global date    20220822
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename gambatte
@@ -39,7 +39,7 @@ library API should in no way be considered stable).
 
 
 %prep
-%autosetup -n %{corename}-libretro-%{commit} -p1
+%autosetup -n %{corename}-libretro-%{commit}
 iconv -f iso8859-1 -t utf-8 README.md > README.md.conv && mv -f README.md.conv README.md
 
 

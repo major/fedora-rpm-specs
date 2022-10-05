@@ -1,39 +1,40 @@
 Name: metacity
-Version: 3.44.0
+Version: 3.46.0
 Release: 2%{?dist}
 Summary: Unobtrusive window manager
 URL: https://wiki.gnome.org/Projects/Metacity
-Source0: https://download.gnome.org/sources/metacity/3.44/metacity-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/metacity/3.46/metacity-%{version}.tar.xz
 
 License: GPLv2+
 
-BuildRequires: make
-BuildRequires: pkgconfig(gtk+-3.0) >= 3.24.6
-BuildRequires: pkgconfig(gio-2.0) >= 2.67.3
-BuildRequires: pkgconfig(gsettings-desktop-schemas)
-BuildRequires: pkgconfig(pango)
-BuildRequires: pkgconfig(libcanberra-gtk3)
-BuildRequires: pkgconfig(libstartup-notification-1.0)
-BuildRequires: pkgconfig(xcomposite)
-BuildRequires: pkgconfig(xfixes)
-BuildRequires: pkgconfig(xrender)
-BuildRequires: pkgconfig(xdamage)
-BuildRequires: pkgconfig(xrender)
-BuildRequires: pkgconfig(xcursor)
-BuildRequires: pkgconfig(xres)
-BuildRequires: pkgconfig(xpresent)
-BuildRequires: pkgconfig(libgtop-2.0)
-BuildRequires: libXinerama-devel
-BuildRequires: libSM-devel, libICE-devel, libX11-devel
-BuildRequires: vulkan-devel
-BuildRequires: desktop-file-utils
 BuildRequires: autoconf, automake, gettext-devel, libtool, gnome-common
+BuildRequires: desktop-file-utils
+BuildRequires: itstool
+BuildRequires: make
+BuildRequires: vulkan-devel
 BuildRequires: yelp-tools
 BuildRequires: zenity
-BuildRequires: itstool
 
-Requires: startup-notification 
+BuildRequires: pkgconfig(gio-2.0) >= 2.67.3
+BuildRequires: pkgconfig(gsettings-desktop-schemas)
+BuildRequires: pkgconfig(gtk+-3.0) >= 3.24.6
+BuildRequires: pkgconfig(libcanberra-gtk3)
+BuildRequires: pkgconfig(libgtop-2.0)
+BuildRequires: pkgconfig(libstartup-notification-1.0)
+BuildRequires: pkgconfig(pango)
+BuildRequires: pkgconfig(sm)
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xcomposite)
+BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(xdamage)
+BuildRequires: pkgconfig(xfixes)
+BuildRequires: pkgconfig(xinerama)
+BuildRequires: pkgconfig(xpresent)
+BuildRequires: pkgconfig(xrender)
+BuildRequires: pkgconfig(xres) >= 1.2
+
 Requires: gsettings-desktop-schemas
+Requires: startup-notification
 Requires: zenity
 
 # http://bugzilla.redhat.com/605675
@@ -44,25 +45,25 @@ Metacity is a window manager that integrates nicely with the GNOME desktop.
 It strives to be quiet, small, stable, get on with its job, and stay out of
 your attention.
 
+
 %package devel
 Summary: Development files for metacity
 Requires: %{name} = %{version}-%{release}
 
 %description devel
-This package contains the files needed for compiling programs using
-the metacity-private library. Note that you are not supposed to write
-programs using the metacity-private library, since it is a private
-API. This package exists purely for technical reasons.
+This package contains the files needed for compiling programs using the
+metacity-private library. Note that you are not supposed to write programs
+using the metacity-private library, since it is a private API. This package
+exists purely for technical reasons.
+
 
 %prep
 %autosetup -p1
 # force regeneration
-rm -f src/org.gnome.metacity.gschema.valid
+rm -f src/org.gnome.%{name}.gschema.valid
+
 
 %build
-CPPFLAGS="$CPPFLAGS -I$RPM_BUILD_ROOT%{_includedir}"
-export CPPFLAGS
-
 # Always rerun configure for now
 rm -f configure
 (if ! test -x configure; then autoreconf -i -f; fi;
@@ -81,41 +82,49 @@ for I in $SHOULD_HAVE_DEFINED; do
   fi
 done
 
-make CPPFLAGS="$CPPFLAGS" LIBS="$LIBS" %{?_smp_mflags}
+%make_build
+
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-# the desktop file is not valid, I've complained on metacity-devel-list
-#desktop-file-install --vendor "" --delete-original \
-#	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
-#	$RPM_BUILD_ROOT%{_datadir}/applications/metacity.desktop
+find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 %find_lang %{name} --all-name --with-gnome
 
-%ldconfig_scriptlets
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+
 
 %files -f %{name}.lang
-%doc README AUTHORS COPYING NEWS HACKING rationales.txt
-%{_bindir}/metacity
-%{_bindir}/metacity-message
+%license COPYING
+%doc README AUTHORS NEWS HACKING rationales.txt
+%{_bindir}/%{name}
+%{_bindir}/%{name}-message
 %{_datadir}/glib-2.0/schemas/*
 %{_datadir}/gnome-control-center/keybindings/*
 %{_libdir}/lib*.so.*
-%{_mandir}/man1/metacity.1.gz
-%{_mandir}/man1/metacity-message.1.gz
-%{_datadir}/applications/metacity.desktop
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-message.1*
+%{_datadir}/applications/%{name}.desktop
 
 %files devel
-%{_bindir}/metacity-theme-viewer
-%{_includedir}/*
+%{_bindir}/%{name}-theme-viewer
+%{_includedir}/%{name}/
 %{_libdir}/lib*.so
-%{_libdir}/pkgconfig/*
-%{_mandir}/man1/metacity-theme-viewer.1.gz
+%{_libdir}/pkgconfig/*.pc
+%{_mandir}/man1/%{name}-theme-viewer.1*
+
 
 %changelog
+* Tue Oct 04 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 3.46.0-2
+- build: Minor build update to conform current Fedora guidelines
+  Mostly cosmetic. It also fixes some warnings during build process.
+
+* Mon Oct 03 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 3.46.0-1
+- chore(update): 3.46.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -549,7 +558,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 - Drop random macros at top of file; spec files should be as amenable
   to static analysis as possible, easing our way into the bright future
   where our software build process isn't a horrible mismash of a
-  preprocessor on shell script, with manual editing required, 
+  preprocessor on shell script, with manual editing required,
   but something scriptable.
 - Update to SVN 3554, to which our patches were designed to apply
 - Readd patch metacity-2.21.13-dont-move-windows.patch, which makes
@@ -715,7 +724,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 * Thu Jun 1 2006 Soren Sandmann <sandmann@redhat.com> 2.15.5-1
 - Update metacity to a cvs snapshot, and libcm 0.0.22. (The standalone
-  libcm package is being put through the package review process). 
+  libcm package is being put through the package review process).
 
 * Tue May 30 2006 Kristian Høgsberg <krh@redhat.com> 2.15.3-4
 - Bump for rawhide build.
@@ -770,7 +779,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
   rebuild of metacity
 
 * Thu Feb 16 2006 Ray Strode <rstrode@redhat.com> - 2.13.89.0.2006.02.16-1
-- Update to cvs snapshot to add the ability to 
+- Update to cvs snapshot to add the ability to
   runtime enable compositor
 - change %%makeinstall to make install DESTDIR=..
 
@@ -1007,7 +1016,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 - update build requires
 
 * Mon Aug 12 2002 Havoc Pennington <hp@redhat.com>
-- upgrade to cvs snap 2.4.0.90 with pile of bugfixes from 
+- upgrade to cvs snap 2.4.0.90 with pile of bugfixes from
   this weekend
 - change default theme to bluecurve and require new redhat-artwork
 
@@ -1016,11 +1025,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 - themes are moved, require appropriate redhat-artwork
 
 * Thu Aug  1 2002 Havoc Pennington <hp@redhat.com>
-- munge the desktop file to be in toplevel menus and 
+- munge the desktop file to be in toplevel menus and
   not show in KDE
 
 * Tue Jul 23 2002 Havoc Pennington <hp@redhat.com>
-- don't use system font by default as metacity's 
+- don't use system font by default as metacity's
   font is now in the system font dialog
 
 * Tue Jul 23 2002 Havoc Pennington <hp@redhat.com>
@@ -1074,7 +1083,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 - 2.3.34
 
 * Fri Oct 13 2001 Havoc Pennington <hp@redhat.com>
-- 2.3.21 
+- 2.3.21
 
 * Mon Sep 17 2001 Havoc Pennington <hp@redhat.com>
 - 2.3.8

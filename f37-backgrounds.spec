@@ -6,7 +6,7 @@
 %global with_extras 1
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.2
+Version:        %{relnum}.0.3
 Release:        1%{?dist}
 Summary:        Fedora %{relnum} default desktop background
 
@@ -134,7 +134,7 @@ This package contains  supplemental wallpapers for XFCE
 %license COPYING Attribution
 %dir %{_datadir}/backgrounds/%{bgname}
 %dir %{_datadir}/backgrounds/%{bgname}/default
-%{_datadir}/backgrounds/%{bgname}/default/%{bgname}*.{webp,xml}
+%{_datadir}/backgrounds/%{bgname}/default/%{bgname}*.{png,webp,xml}
 
 %files kde
 %{_kde4_datadir}/wallpapers/%{Bg_Name}/
@@ -151,7 +151,7 @@ This package contains  supplemental wallpapers for XFCE
 %dir %{_datadir}/mate-background-properties/
 
 %files xfce
-%{_datadir}/xfce4/backdrops/%{bgname}.webp
+%{_datadir}/xfce4/backdrops/%{bgname}.png
 %dir %{_datadir}/xfce4/
 %dir %{_datadir}/xfce4/backdrops/
 
@@ -174,6 +174,9 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %changelog
+* Thu Sep 29 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.3-1
+- New release with fixes for XFCE and LDXE
+
 * Tue Sep 27 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.2-1
 - New release with fixed time of day wallpaper
 

@@ -1,8 +1,8 @@
 %global rdnn de.danielnoethen.butt
 
 Name:           butt
-Version:        0.1.34
-Release:        3%{?dist}
+Version:        0.1.36
+Release:        1%{?dist}
 Summary:        Broadcast using this tool
 License:        GPLv2+
 URL:            https://danielnoethen.de/butt/
@@ -26,6 +26,7 @@ BuildRequires:  fdk-aac-free-devel
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  openssl-devel
 BuildRequires:  libX11-devel
+BuildRequires:  libcurl-devel
 
 # for desktop-file-install command
 BuildRequires:  desktop-file-utils
@@ -97,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metain
 
 
 %changelog
+* Mon Oct 03 2022 Carl George <carl@george.computer> - 0.1.36-1
+- Latest upstream, resolves rhbz#2098461
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.1.34-3
 - Rebuilt for flac 1.4.0
 

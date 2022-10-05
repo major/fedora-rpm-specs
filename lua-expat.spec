@@ -9,7 +9,7 @@
 
 Summary:        SAX XML parser based on the Expat library
 Name:           lua-expat
-Version:        1.4.1
+Version:        1.5.1
 Release:        1%{?dist}
 License:        MIT
 URL:            https://lunarmodules.github.io/luaexpat/
@@ -19,7 +19,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  lua >= %{lua_version}
 BuildRequires:  lua-devel >= %{lua_version}
-BuildRequires:  expat-devel
+BuildRequires:  expat-devel >= 2.4.0
 
 %description
 LuaExpat is a SAX XML parser based on the Expat library.
@@ -66,15 +66,9 @@ popd
 %install
 %make_install LUA_CDIR=%{lua_libdir} LUA_LDIR=%{lua_pkgdir}
 
-# https://github.com/lunarmodules/luaexpat/pull/28
-chmod 0644 $RPM_BUILD_ROOT%{lua_pkgdir}/lxp/*.lua
-
 %if 0%{?fedora}
 pushd %{lua_compat_builddir}
 %make_install LUA_CDIR=%{lua_compat_libdir} LUA_LDIR=%{lua_compat_pkgdir}
-
-# https://github.com/lunarmodules/luaexpat/pull/28
-chmod 0644 $RPM_BUILD_ROOT%{lua_compat_pkgdir}/lxp/*.lua
 popd
 %endif
 
@@ -106,6 +100,12 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Mon Oct 03 2022 Robert Scheck <robert@fedoraproject.org> 1.5.1-1
+- Upgrade to 1.5.1
+
+* Mon Oct 03 2022 Robert Scheck <robert@fedoraproject.org> 1.5.0-1
+- Upgrade to 1.5.0
+
 * Mon Oct 03 2022 Robert Scheck <robert@fedoraproject.org> 1.4.1-1
 - Upgrade to 1.4.1
 

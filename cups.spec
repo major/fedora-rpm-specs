@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: ASL 2.0
 Url: https://openprinting.github.io/cups/
 # Apple stopped uploading the new versions into github, use OpenPrinting fork
@@ -68,6 +68,7 @@ Patch100: cups-lspp.patch
 
 #### UPSTREAM PATCHES (starts with 1000) ####
 Patch1001: 0001-scheduler-ipp.c-Allocate-device_uri-via-cupsdSetStri.patch
+Patch1002: cups-resolve-local.patch
 
 ##### Patches removed because IMHO they aren't no longer needed
 ##### but still I'll leave them in git in case their removal
@@ -272,6 +273,7 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 
 # UPSTREAM PATCHES
 %patch1001 -p1 -b .invalid-pointer-uri
+%patch1002 -p1 -b .localhost
 
 
 %if %{lspp}
@@ -664,6 +666,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Oct 03 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-5
+- 2066528 - use 'localhost' if the mDNS record shows your local hostname
+
 * Thu Aug 11 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-4
 - 2115002 - Reenable kerberos/gssapi support
 

@@ -30,7 +30,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -47,20 +47,6 @@ Source10: rpmdb-rebuild.service
 
 Source20: rpmdb-migrate.service
 Source21: rpmdb_migrate
-
-# Set rpmdb path to /usr/lib/sysimage/rpm
-Patch0: rpm-4.17.x-rpm_dbpath.patch
-# Disable autoconf config.site processing (#962837)
-Patch1: rpm-4.17.x-siteconfig.patch
-# In current Fedora, man-pages pkg owns all the localized man directories
-Patch3: rpm-4.9.90-no-man-dirs.patch
-
-# Patches already upstream:
-
-# These are not yet upstream
-Patch906: rpm-4.7.1-geode-i686.patch
-# Probably to be upstreamed in slightly different form
-Patch907: rpm-4.15.x-ldflags.patch
 
 # Partially GPL/LGPL dual-licensed and some bits with BSD
 # SourceLicense: (GPLv2+ and LGPLv2+ with exceptions) and BSD
@@ -110,9 +96,6 @@ BuildRequires: sqlite-devel
 # Couple of patches change makefiles so, require for now...
 BuildRequires: automake libtool
 
-# Temporary! Work around bugs in beta1 makefiles
-BuildRequires: pandoc
-
 %if %{with plugins}
 BuildRequires: libselinux-devel
 BuildRequires: dbus-devel
@@ -131,6 +114,22 @@ BuildRequires: fsverity-utils-devel
 Requires(pre): coreutils
 Requires(pre): findutils
 Requires(pre): sed
+
+%patchlist
+# Set rpmdb path to /usr/lib/sysimage/rpm
+rpm-4.17.x-rpm_dbpath.patch
+# Disable autoconf config.site processing (#962837)
+rpm-4.17.x-siteconfig.patch
+# In current Fedora, man-pages pkg owns all the localized man directories
+rpm-4.9.90-no-man-dirs.patch
+
+# Patches already upstream:
+# ...
+
+# These are not yet upstream
+rpm-4.7.1-geode-i686.patch
+# Probably to be upstreamed in slightly different form
+rpm-4.15.x-ldflags.patch
 
 %description
 The RPM Package Manager (RPM) is a powerful command line driven
@@ -610,6 +609,10 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Mon Oct 03 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-2
+- Drop the temporary build-dependency on pandoc before it grows a beard
+- Start utilizing %%patchlist, finally
+
 * Wed Sep 21 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-1
 - Rebase to rpm 4.18.0 (https://rpm.org/wiki/Releases/4.18.0)
 

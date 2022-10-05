@@ -1,5 +1,5 @@
-%global commit  d1fb3f399a2bc16b9ad0f2e8c8ba9f7051cd26bd
-%global date    20220409
+%global commit  16d96f64a32cbe1fa89c40b142298dbd007f2f4d
+%global date    20220618
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename beetle-wswan
@@ -25,7 +25,7 @@ Supplements:    retroarch
 
 
 %prep
-%autosetup -n %{corename}-libretro-%{commit} -p1
+%autosetup -n %{corename}-libretro-%{commit}
 
 
 %build

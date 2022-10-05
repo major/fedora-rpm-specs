@@ -1,5 +1,4 @@
 %global debug_package %{nil}
-%global __cmake_in_source_build 1
 
 %bcond_without doc
 
@@ -9,8 +8,8 @@
 %endif
 
 Name:    mmtf-cpp
-Version: 1.0.0
-Release: 11%{?dist}
+Version: 1.1.0
+Release: 1%{?dist}
 Summary: The Macromolecular Transmission Format (MMTF) header only files
 License: MIT
 URL:     https://github.com/rcsb/%{name}
@@ -46,13 +45,11 @@ HTML documentation files for mmtf-cpp.
 %autosetup -n %{name}-%{version}
 
 %build
-mkdir -p build && pushd build
 %if 0%{?el7}
 %{?dts:source /opt/rh/devtoolset-8/enable}
 %endif
-%cmake3 ..
-%make_build
-popd
+%cmake
+%cmake_build
 
 %if %{with doc}
 pushd docs
@@ -61,7 +58,7 @@ popd
 %endif
 
 %install
-%make_install -C build
+%cmake_install
 
 %files devel
 %doc *.md
@@ -76,6 +73,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 03 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-1
+- Release 1.1.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

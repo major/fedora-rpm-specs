@@ -6,7 +6,7 @@ Version:	0.61.0
 Release:	16%{?dist}
 License:	MIT
 URL:		http://ruby-opengl.rubyforge.org/
-Source0:	https://rubygems.org/gems/%%{gem_name}-%%{version}.gem
+Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)

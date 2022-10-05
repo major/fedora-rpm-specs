@@ -25,11 +25,11 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 1.9.2
+%global built_tag_strip 1.10.0
 
 Name: %{repo}
 Epoch: %{conditional_epoch}
-Version: 1.9.2
+Version: 1.10.0
 %if "%{_vendor}" == "debbuild"
 Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
 License: ASL-2.0+

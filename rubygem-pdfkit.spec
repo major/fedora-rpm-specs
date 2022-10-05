@@ -1,8 +1,8 @@
 %global	gem_name	pdfkit
 
 Name:		rubygem-%{gem_name}
-Version:	0.8.6
-Release:	2%{?dist}
+Version:	0.8.7
+Release:	1%{?dist}
 
 Summary:	HTML+CSS to PDF using wkhtmltopdf
 License:	MIT
@@ -79,8 +79,6 @@ disable_test() {
 }
 
 pushd .%{gem_instdir}
-# Once test all
-xvfb-run -n 99 rspec spec/ || true
 
 disable_test spec/configuration_spec.rb \
 	"detects the existance of bundler" \
@@ -108,6 +106,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.7-1
+- 0.8.7 (CVE-2022-25765, bug 2125608)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

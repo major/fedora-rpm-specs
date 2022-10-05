@@ -1,6 +1,6 @@
 Name:           perl-Alien-Libxml2
-Version:        0.17
-Release:        9%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        Install the C libxml2 library on your system
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-Libxml2/
@@ -15,6 +15,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(Alien::Build::MM) >= 2.37
+BuildRequires:  perl(Alien::Build::Plugin::Download::GitLab)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -26,7 +27,7 @@ BuildRequires:  perl(alienfile)
 BuildRequires:  perl(base)
 # Tests
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Test2::V0) >= 0.000060
+BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien)
 BuildRequires:  perl(Test::More)
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
@@ -40,8 +41,24 @@ Requires:       pkgconfig(libxml-2.0) = %(type -p pkgconf >/dev/null && pkgconf 
 %description
 This module provides libxml2 for other modules to use.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Alien-Libxml2-%{version}
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -49,7 +66,23 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t corpus %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -61,7 +94,14 @@ make test
 %{perl_vendorarch}/Alien*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Oct 03 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.19-1
+- 0.19 bump
+- Package tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

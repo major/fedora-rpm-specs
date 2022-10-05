@@ -39,7 +39,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?name_cross}%{?_with_debug:-debug}
 Version: 2.39
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -302,6 +302,10 @@ Patch20: binutils-gas-dwarf-skip-empty-functions.patch
 # Purpose:  Stop an infinite loop in the binutils DWARF decoder.  (CVE 2022-38128)
 # Lifetime: Fixed in 2.40
 Patch21: binutils-CVE-38128-dwarf-abbrev-parsing.patch
+
+# Purpose:  Stop readelf from incorrectly decoding ELF files with no sections.
+# Lifetime: Fixed in 2.40
+Patch22: binutils-readelf-no-sections.patch
 
 #----------------------------------------------------------------------------
 
@@ -959,6 +963,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Oct 03 2022 Nick Clifton  <nickc@redhat.com> - 2.39-4
+- Fix readelf's decoding of files with no sections.  (#2131609)
+
 * Wed Aug 31 2022 Nick Clifton  <nickc@redhat.com> - 2.39-3
 - Stop a potential infinite loop in the binutils DWARF parser.  (#2122675)
 

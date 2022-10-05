@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -105,6 +105,9 @@ grep -rl '#!.*/usr/bin' sample lib | \
 	xargs sed -i -e '\@#![ ]*/usr/bin@d'
 find sample/ -name \*.rb | xargs chmod 0644
 
+# rb_cData is deprecated, removed in ruby32
+grep -rl rb_cData . | xargs sed -i -e 's|rb_cData|rb_cObject|'
+
 %build
 gem build ./%{gem_name}-%{version}.gemspec
 export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
@@ -197,6 +200,9 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/test/
 
 %changelog
+* Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-9
+- Fix compilation with ruby 3.2
+
 * Sun Jul 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-8
 - Skip failing icon test for now
 

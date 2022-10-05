@@ -1,6 +1,6 @@
 Name:           touchcal
-Version:        1.00
-Release:        7%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        Calibration utility for touch screens
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 03 2022 Dan Horák <dan@danny.cz> - 1.10-1
+- update to upstream version 1.10 (#2131631)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
