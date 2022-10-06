@@ -2,7 +2,7 @@
 
 Name:           freeciv
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPLv2+
@@ -20,7 +20,7 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	libcurl-devel
 BuildRequires:  qt5-qtbase-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Freeciv is a turn-based, multi-player, X based strategy game. Freeciv
@@ -29,12 +29,33 @@ Civilization II(R) game by Microprose(R). In Freeciv, each player is
 the leader of a civilization, and is competing with the other players
 in order to become the leader of the greatest civilization.
 
+%package common
+Summary:  %{summary}
+
+%description common
+Freeciv common files
+
+%package gtk
+Summary:  %{summary}
+Requires:  %{name}-common = %{version}-%{release}
+Provides: freeciv = %{version}-%{release}
+Obsoletes: freeciv < 0:3.0.3-2
+
+%description gtk
+Freeciv gtk client
+
+%package qt
+Summary:  %{summary}
+Requires:  %{name}-common = %{version}-%{release}
+
+%description qt
+Freeciv qt client
 
 %prep
 %setup -q -n %{name}-%{version}
 
 %build
-%configure --enable-client=gtk3.22 --disable-static --enable-ruledit
+%configure --enable-client=gtk3.22,qt --disable-static --enable-ruledit
 make %{?_smp_mflags}
 
 %install
@@ -51,6 +72,10 @@ desktop-file-install --delete-original	\
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications	\
 	$RPM_BUILD_ROOT%{_datadir}/applications/org.%{name}.mp.gtk3.desktop
 
+desktop-file-install --delete-original	\
+	--dir $RPM_BUILD_ROOT%{_datadir}/applications	\
+	$RPM_BUILD_ROOT%{_datadir}/applications/org.%{name}.qt.desktop
+
 %if 0%{?rhel}
 # On RHEL 7, the doc macro puts docs in a versioned subdir
 rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/freeciv/
@@ -61,11 +86,11 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/freeciv/
 find $RPM_BUILD_ROOT -name '*.la' -delete
 find $RPM_BUILD_ROOT -name '*.a' -delete
 
-%files -f %{name}-core.lang -f %{name}-nations.lang -f %{name}-ruledit.lang
-%doc ABOUT-NLS AUTHORS ChangeLog COPYING INSTALL NEWS* doc doc/*
+%files common -f %{name}-core.lang -f %{name}-nations.lang -f %{name}-ruledit.lang
+%doc %{_docdir}/freeciv/*
+
+%license COPYING
 %{_bindir}/freeciv-server
-%{_bindir}/freeciv-gtk3.22
-%{_bindir}/freeciv-mp-gtk3
 %{_bindir}/freeciv-manual
 %{_bindir}/freeciv-ruledit
 %{_bindir}/freeciv-ruleup
@@ -77,7 +102,17 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_mandir}/man6/freeciv*6*
 %{_sysconfdir}/freeciv/database.lua
 
+%files gtk
+%{_bindir}/freeciv-gtk3.22
+%{_bindir}/freeciv-mp-gtk3
+
+%files qt
+%{_bindir}/freeciv-qt
+
 %changelog
+* Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.3-2
+- Enable qt client.
+
 * Fri Aug 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.3-1
 - 3.0.3
 

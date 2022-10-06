@@ -12,7 +12,7 @@
 %endif
 
 Name:       libindi
-Version:    1.9.7
+Version:    1.9.8
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 

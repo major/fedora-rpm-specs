@@ -2,12 +2,12 @@ Summary: An API for Run-time Code Generation
 License: LGPLv2+
 Name: dyninst
 Group: Development/Libraries
-Release: 4%{?dist}
+Release: 1%{?dist}
 URL: http://www.dyninst.org
-Version: 12.1.0
+Version: 12.2.0
 ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
 
-%define __testsuite_version 12.1.0
+%define __testsuite_version 12.2.0
 Source0: https://github.com/dyninst/dyninst/archive/v%{version}/dyninst-%{version}.tar.gz
 Source1: https://github.com/dyninst/testsuite/archive/%{__testsuite_version}/testsuite-%{__testsuite_version}.tar.gz
 
@@ -137,10 +137,6 @@ cd ../%{testsuite_base}
 cd %{dyninst_base}
 %cmake_install
 
-# It doesn't install docs the way we want, so remove them.
-# We'll just grab the pdfs later, directly from the build dir.
-rm -v %{buildroot}%{_docdir}/*-%{version}.pdf
-
 cd ../%{testsuite_base}
 %cmake_install
 
@@ -192,6 +188,9 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
 
 %changelog
+* Tue Oct 4 2022 William Cohen <wcohen@redhat.com> - 12.2.0-1
+- Update to 12.2.0
+
 * Wed Aug 03 2022 Stan Cox <scox@redhat.com> - 12.1.0-4
 - Explicitly include time.h as <string> no longer pulls it in
 

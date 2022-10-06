@@ -4,30 +4,24 @@
 
 %global debug_package %{nil}
 
-%global built_tag_strip 1.2.0
+%global built_tag v1.2.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: netavark
-Version: 1.2.0
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 Release: %autorelease
 License: ASL 2.0 and BSD and MIT
 ExclusiveArch: %{rust_arches}
-%endif
 Summary: OCI network stack
 URL: https://github.com/containers/%{name}
+# Tarballs fetched from upstream's release page
 Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
 Source1: %{url}/releases/download/v%{built_tag_strip}/%{name}-v%{built_tag_strip}-vendor.tar.gz
 BuildRequires: cargo
 BuildRequires: go-md2man
 Recommends: aardvark-dns >= 1.0.3
 Provides: container-network-stack = 2
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-%else
 BuildRequires: make
 BuildRequires: rust-srpm-macros
 BuildRequires: git-core
@@ -179,7 +173,6 @@ Provides: bundled(crate(zbus_macros)) = v2.3.2
 Provides: bundled(crate(zbus_names)) = v2.1.0
 Provides: bundled(crate(zvariant)) = v3.4.1
 Provides: bundled(crate(zvariant_derive)) = v3.4.1
-%endif
 
 %description
 %{summary}
@@ -230,6 +223,4 @@ go-md2man -in %{name}.1.md -out %{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

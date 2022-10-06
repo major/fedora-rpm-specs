@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.30.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
@@ -353,6 +353,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Mon Oct 03 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.30.0-3
+- Refresh kiwi-build patches to latest versions
+
 * Thu Sep 22 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.30.0-2
 - Backport fixes for kiwi-build command
 

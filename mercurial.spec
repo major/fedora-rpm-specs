@@ -9,7 +9,7 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.2.2
+Version: 6.2.3
 Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
@@ -273,6 +273,9 @@ pathfix.py -pni "%{python3}" %{buildroot}%{_bindir}/hg-ssh
 
 
 %changelog
+* Tue Oct 04 2022 Mads Kiilerich <mads@kiilerich.com> - 6.2.3-1
+- mercurial 6.2.3
+
 * Sun Sep 04 2022 Mads Kiilerich <mads@kiilerich.com> - 6.2.2-1
 - mercurial 6.2.2
 

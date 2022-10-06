@@ -50,7 +50,7 @@ libraries in the form of bit code. Specifically:
 %license LICENSE.TXT
 %doc README.md doc/*.md
 # No need to install this twice:
-%exclude %{_docdir}/ROCm-Device-Libs/rocm-device-libs/LICENSE.TXT
+%exclude %{_docdir}/ROCm-Device-Libs/LICENSE.TXT
 %{_libdir}/cmake/AMDDeviceLibs
 %{_libdir}/amdgcn
 

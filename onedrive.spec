@@ -2,8 +2,8 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.4.20
-Release:        3%{?dist}
+Version:        2.4.21
+Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 License:        GPLv3
 URL:            https://github.com/%{project}/%{repo}
@@ -55,6 +55,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Sat Aug 13 2022 Zamir SUN <sztsian@gmail.com> - 2.4.21-1
+- Update to 2.4.21
+
 * Sat Aug 13 2022 Zamir SUN <sztsian@gmail.com> - 2.4.20-1
 - Update to 2.4.20
 

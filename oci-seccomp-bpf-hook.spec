@@ -1,7 +1,3 @@
-%if "%{_vendor}" == "debbuild"
-%define gobuild(o:) GO111MODULE=off go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%endif
-
 %global with_debug 1
 
 %if 0%{?with_debug}
@@ -20,32 +16,22 @@
 %global git0 https://%{import_path}
 
 %global built_tag v1.2.6
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 # use the same arch definitions as present in the bcc package
 ExclusiveArch:  x86_64 %{power64} aarch64 s390x armv7hl
 
 Name: %{repo}
-Version: 1.2.6
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT
 Release: %autorelease
-%endif
 Summary: OCI Hook to generate seccomp json files based on EBF syscalls used by container
 URL: %{git0}
+# Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: golang
 BuildRequires: go-md2man
-%if "%{_vendor}" == "debbuild"
-BuildRequires: libbpfcc-dev
-BuildRequires: libglib2.0-dev
-BuildRequires: libgpgme-dev
-BuildRequires: libseccomp-dev
-Requires: libbpfcc
-%else
 BuildRequires: go-rpm-macros
 BuildRequires: glib2-devel
 BuildRequires: glibc-devel
@@ -65,7 +51,6 @@ Provides: bundled(golang(github.com/seccomp/containers_golang)) = v0.6.0
 Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.9.1
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.8.1
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.4.0
-%endif
 
 %description
 %{summary}
@@ -85,12 +70,11 @@ Requires: podman
 This package contains system tests for %{name}
 
 %prep
-%autosetup -Sgit
+%autosetup -Sgit -n %{name}-%{built_tag_strip}
 sed -i 's;HOOK_BIN_DIR;%{_libexecdir}/oci/hooks.d;' %{name}.json
 sed -i '/$(HOOK_DIR)\/%{name}.json/d' Makefile
 
 %build
-%if "%{_vendor}" == "debbuild"
 %set_build_flags
 export CGO_CFLAGS=$CFLAGS
 # These extra flags present in $CFLAGS have been skipped for now as they break the build
@@ -100,7 +84,6 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
-%endif
 %endif
 
 export GO111MODULE=off
@@ -161,6 +144,4 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_datadir}/%{name}/test
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

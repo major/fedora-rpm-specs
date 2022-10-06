@@ -1,5 +1,5 @@
 Version:        3.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 URL:            https://rsms.me/inter/
 
 %global foundry rsms
@@ -9,7 +9,7 @@ URL:            https://rsms.me/inter/
 
 %global fontfamily Inter
 %global fontsummary The Inter font family
-%global fonts "Inter Desktop"/*.otf
+%global fonts "Inter Hinted for Windows"/Desktop/*.ttf
 %global fontconfs %{SOURCE10}
 %global fontdescription %{expand:Inter is a typeface specially designed for user interfaces with focus on high
 legibility of small-to-medium sized text on computer screens.
@@ -46,6 +46,9 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %changelog
+* Tue Oct 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.19-5
+- Package hinted TrueType fonts instead of Type 1 OTF fonts (RHBZ #2122246)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

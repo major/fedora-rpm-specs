@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	LGPLv2+
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -20,12 +20,13 @@ Patch0:		%{name}-constraint-of-language.patch
 Patch1:		%{name}-disable-xim.patch
 ## Fedora specific: Enable xcompose for certain languages
 Patch2:		%{name}-xinput-xcompose.patch
-## Fedora specific: Force enable the IM management on imsettings for Cinnamon
-Patch3:		%{name}-force-enable-for-cinnamon.patch
 %if 0%{?rhel}
 Patch4:		%{name}-glib.patch
 %endif
 Patch5:		%{name}-fix-infinite-loop-of-restarting.patch
+Patch6:		%{name}-disable-gnome.patch
+## Fedora specific: Force enable the IM management on imsettings for Cinnamon
+Patch7:		%{name}-force-enable-for-cinnamon.patch
 
 Summary:	Delivery framework for general Input Method configuration
 Requires:	xorg-x11-xinit >= 1.0.2-22.fc8
@@ -77,6 +78,8 @@ Requires:	dconf
 Provides:	imsettings-desktop-module%{?_isa} = %{version}-%{release}
 Provides:	%{name}-gnome = %{version}-%{release}
 Obsoletes:	%{name}-gnome < 1.5.1-3
+Provides:	%{name}-systemd = %{version}-%{release}
+Obsoletes:	%{name}-systemd < 1.8.3-6
 
 %description	gsettings
 IMSettings is a framework that delivers Input Method
@@ -185,20 +188,6 @@ or the desktop.
 This package contains a module to get this working on Cinnamon.
 %endif
 
-%package	systemd
-Summary:	Generic support for imsettings by systemd
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	im-chooser
-Provides:	imsettings-desktop-module%{?_isa} = %{version}-%{release}
-
-%description	systemd
-IMSettings is a framework that delivers Input Method
-settings and applies the changes so they take effect
-immediately without any need to restart applications
-or the desktop.
-
-This package contains a module to support basic functionality for imsettings by systemd.
-
 %prep
 %autosetup -p1
 autoreconf -i
@@ -223,7 +212,7 @@ chmod 0755 $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinitrc.d/50-xinput.sh
 # clean up the unnecessary files
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{gconf,mateconf}.so
+rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{gconf,mateconf,systemd-gtk,systemd-qt}.so
 %if 0%{?rhel}
 rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/libimsettings-{lxde,xfce,xim,cinnamon-gsettings}.so
 %endif
@@ -326,13 +315,12 @@ fi
 %{_libdir}/imsettings/libimsettings-cinnamon-gsettings.so
 %endif
 
-%files systemd
-%license COPYING
-%doc AUTHORS ChangeLog NEWS README
-%{_libdir}/imsettings/libimsettings-systemd-gtk.so
-%{_libdir}/imsettings/libimsettings-systemd-qt.so
-
 %changelog
+* Mon Oct  3 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.3-6
+- Disable GNOME support except setting QT_IM_MODULE and XMODIFIERS in xinput.sh
+  Resolves: rhbz#2131673
+- Drop imsettings-systemd sub-package.
+
 * Tue Aug  9 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.3-5
 - Fix the infinite loop of the process restarting.
   Resolves: rhbz#2110111

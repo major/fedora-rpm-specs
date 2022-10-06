@@ -16,29 +16,15 @@
 Epoch: 4
 Name: containers-common
 Version: 1
-%if "%{_vendor}" == "debbuild"
-Release: 0%{?dist}
-License: ASL-2.0+
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-%else
 Release: %autorelease
 License: ASL 2.0
 BuildArch: noarch
-%endif
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man
 Provides: skopeo-containers = %{epoch}:%{version}-%{release}
 Requires: slirp4netns
 Recommends: fuse-overlayfs
-%if "%{_vendor}" != "debbuild"
 Requires: (container-selinux >= 2:2.162.1 if selinux-policy)
-%else
-Obsoletes: golang-github-%{name} < %{epoch}:%{version}-%{release}
-Obsoletes: golang-github-containers-image < %{epoch}:%{version}-%{release}
-Provides: %{name} = %{epoch}:%{version}-%{release}
-Provides: golang-github-%{name} = %{epoch}:%{version}-%{release}
-Provides: golang-github-containers-image = %{epoch}:%{version}-%{release}
-%endif
 Requires: oci-runtime
 Requires: container-network-stack
 Recommends: netavark
@@ -66,9 +52,7 @@ Source21: registry.access.redhat.com.yaml
 Source22: registry.redhat.io.yaml
 Source23: %{github_containers}/common/%{common_branch}/docs/Containerfile.5.md
 Source24: %{github_containers}/common/%{common_branch}/docs/containerignore.5.md
-%if "%{_vendor}" != "debbuild"
 Source25: %{github_containers}/common/%{common_branch}/docs/links/.containerignore.5
-%endif
 
 
 %description
@@ -104,9 +88,7 @@ cp %{SOURCE21} .
 cp %{SOURCE22} .
 cp %{SOURCE23} .
 cp %{SOURCE24} .
-%if "%{_vendor}" != "debbuild"
 cp %{SOURCE25} .
-%endif
 
 %if 0%{?rhel} <= 8
 sed -i 's/log_driver = "journald"/#log_driver = "journald"/' containers.conf
@@ -181,6 +163,4 @@ ln -s %{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/rhel/secret
 %{_datadir}/rhel/secrets/*
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

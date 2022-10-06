@@ -1,7 +1,7 @@
 Name:           perl-Net-GitHub
 Summary:        Perl interface for github.com
-Version:        1.03
-Release:        3%{?dist}
+Version:        1.05
+Release:        1%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/F/FA/FAYLAND/Net-GitHub-%{version}.tar.gz
 URL:            https://metacpan.org/release/Net-GitHub
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Oct 04 2022 Jan Pazdziora <jpazdziora@redhat.com> - 1.05-1
+- 2131644 - Rebase to upstream version 1.05.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

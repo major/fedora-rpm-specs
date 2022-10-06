@@ -4,7 +4,7 @@
 %global _vpath_builddir build
 
 Name:		scap-security-guide
-Version:	0.1.63
+Version:	0.1.64
 Release:	1%{?dist}
 Summary:	Security guidance and baselines in SCAP formats
 License:	BSD
@@ -99,6 +99,10 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %endif
 
 %changelog
+* Tue Oct 04 2022 Watson Sato <wsato@redhat.com> - 0.1.64-1
+- Update to latest upstream SCAP-Security-Guide-0.1.64 release:
+  https://github.com/ComplianceAsCode/content/releases/tag/v0.1.64
+
 * Mon Aug 01 2022 Watson Sato <wsato@redhat.com> - 0.1.63-1
 - Update to latest upstream SCAP-Security-Guide-0.1.63 release:
   https://github.com/ComplianceAsCode/content/releases/tag/v0.1.63

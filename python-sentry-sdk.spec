@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.9.9
+Version:        1.9.10
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -85,6 +85,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.10-1
+- Update to 1.9.10 (resolve rhbz#2131775)
+
 * Wed Sep 28 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.9-1
 - Update to 1.9.9 (resolve rhbz#2115953)
 - Add falcon extra again

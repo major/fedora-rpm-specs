@@ -1,5 +1,5 @@
 Name:           perl-Type-Tiny
-Version:        1.016010
+Version:        2.000001
 Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL+ or Artistic
@@ -31,8 +31,15 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
+%if "%{version}" >= "2.000001"
+BuildRequires:  perl(Exporter::Tiny) >= 1.004001
+%else
 BuildRequires:  perl(Exporter::Tiny) >= 0.040
+%endif
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
+%if "%{version}" >= "2.000001"
+BuildRequires:  perl(experimental)
+%endif
 BuildRequires:  perl(feature)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Math::BigFloat)
@@ -42,6 +49,9 @@ BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Tester) >= 0.109
+%if "%{version}" >= "2.000001"
+BuildRequires:  perl(Test::Deep)
+%endif
 BuildRequires:  perl(Text::Balanced)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
@@ -55,6 +65,9 @@ BuildRequires:  perl(warnings)
 # optional
 # N/A in Fedora: BuildRequires:  perl(Class::InsideOut)
 BuildRequires:  perl(Class::ISA)
+%if "%{version}" >= "2.000001"
+# N/A in Fedora: BuildRequires:  perl(Class::Plain)
+%endif
 BuildRequires:  perl(Data::Constraint)
 BuildRequires:  perl(Devel::Hide)
 BuildRequires:  perl(Devel::LexAlias) >= 0.05
@@ -115,7 +128,9 @@ BuildRequires:  perl(Sub::Quote)
 %{?with_reply_plugin:BuildRequires:  perl(Term::ANSIColor)}
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::Warnings)
+%if "%{version}" < "2.000001"
 BuildRequires:  perl(Type::Tie)
+%endif
 # N/A in Fedora: BuildRequires:  perl(Types::ReadOnly)
 # N/A in Fedora: BuildRequires:  perl(Type::Tiny::XS)
 %if !%{defined perl_bootstrap}
@@ -131,6 +146,12 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $versi
 Requires:       perl(B::Deparse)
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
+%if "%{version}" >= "2.000001"
+Obsoletes:  perl-Type-Tie < %{version}-%{release}
+%if 0%{fedora} < 37
+Provides: perl-Type-Tie = %{version}-%{release}
+%endif
+%endif
 
 %description
 Type::Tiny is a tiny class for creating Moose-like type constraint objects
@@ -173,6 +194,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Tue Oct 04 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-1
+- Update to 2.000001.
+
 * Mon Sep 12 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.016010-1
 - Update to 1.016010.
 

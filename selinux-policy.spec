@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit f60ed3b80468627c2d34be7d95084ae5c6ddb342
+%global commit 427ac6d895a8ae105c62901850916c57f830832f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 37.12
+Version: 37.13
 Release: 1%{?dist}
 License: GPLv2+
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -816,6 +816,19 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 03 2022 Zdenek Pytela <zpytela@redhat.com> - 37.13-1
+- Remove the ipa module
+- Allow sss daemons read/write unnamed pipes of cloud-init
+- Allow postfix_mailqueue create and use unix dgram sockets
+- Allow xdm watch user home directories
+- Allow nm-dispatcher ddclient plugin load a kernel module
+- Stop ignoring standalone interface files
+- Drop cockpit module
+- Allow init map its private tmp files
+- Allow xenstored change its hard resource limits
+- Allow system_mail-t read network sysctls
+- Add bgpd sys_chroot capability
+
 * Thu Sep 22 2022 Zdenek Pytela <zpytela@redhat.com> - 37.12-1
 - nut-upsd: kernel_read_system_state, fs_getattr_cgroup
 - Add numad the ipc_owner capability

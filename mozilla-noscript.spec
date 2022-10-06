@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit 1a222e51f8ea529e611ff6e51d5f135feebb54e3
+%global nscl_commit 3043536fb4d670c1616406866042fe54ef4b2d5d
 
 Name:           mozilla-noscript
-Version:        11.4.7
+Version:        11.4.11
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -72,12 +72,15 @@ install -Dpm644 %{SOURCE1} %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 
 %files
-%license COPYING LICENSE nscl.COPYING nscl.LICENSE.md src/nscl/lib/{browser-polyfill,punycode,sha256}.js.license
+%license LICENSE nscl.COPYING nscl.LICENSE.md src/nscl/lib/{browser-polyfill,punycode,sha256}.js.license
 %{_firefox_extdir}/%{extension_id}.xpi
 # GNOME Software Center metadata
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Tue Oct 04 2022 Dominik Mierzejewski <dominik@greysector.net> - 11.4.11-1
+- update to 11.4.11 (#2118040)
+
 * Wed Aug 10 2022 Dominik Mierzejewski <dominik@greysector.net> - 11.4.7-1
 - update to 11.4.7 (#2116118)
 

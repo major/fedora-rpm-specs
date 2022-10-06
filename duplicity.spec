@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           duplicity
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 

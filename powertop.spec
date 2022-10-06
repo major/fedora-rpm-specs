@@ -1,6 +1,6 @@
 Name:             powertop
-Version:          2.14
-Release:          5%{?dist}
+Version:          2.15
+Release:          1%{?dist}
 Summary:          Power consumption monitor
 
 License:          GPLv2
@@ -10,9 +10,6 @@ Source1:          powertop.service
 
 # Sent upstream
 Patch0:           powertop-2.7-always-create-params.patch
-# https://github.com/fenrus75/powertop/issues/84
-Patch1:           powertop-2.14-pthread.patch
-Patch2:           powertop-2.14-format-security-fix.patch
 BuildRequires:    make
 BuildRequires:    gettext-devel
 BuildRequires:    ncurses-devel
@@ -35,10 +32,7 @@ PowerTOP is a tool that finds the software component(s) that make your
 computer use more power than necessary while it is idle.
 
 %prep
-%setup -q
-%patch0 -p1 -b .always-create-params
-%patch1 -p1 -b .pthread
-%patch2 -p1 -b .format-security-fix
+%autosetup -p1
 
 echo "v%{version}" > version-long
 echo '"v%{version}"' > version-short
@@ -81,6 +75,10 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Tue Oct  4 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2.15-1
+- New version
+  Resolves: rhbz#2131251
+
 * Thu Aug  4 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14-5
 - Fixed FTBFS
   Resolves: rhbz#2113602

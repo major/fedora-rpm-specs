@@ -2,7 +2,7 @@
 
 Name: log4cplus
 Version: 2.0.8
-Release: 1%{?prever:.%{prever}}%{?dist}
+Release: 3%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
 License: ASL 2.0
@@ -27,6 +27,14 @@ BuildRequires: gnupg2
 This package contains headers and libraries needed to develop applications
 using log4cplus logging framework.
 
+%package static
+Summary: Static development files for log4cplus C++ logging framework
+Requires: %{name}-devel = %{version}-%{release}
+
+%description static
+This package contains static libraries needed to develop applications
+using log4cplus logging framework.
+
 %prep
 %if 0%{?fedora}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -34,14 +42,14 @@ using log4cplus logging framework.
 %setup -q %{?prever:-n %{name}-%{version}-%{prever}}
 
 %build
-%configure
+%configure --enable-static
 make %{?_smp_mflags}
 
 
 %install
 %make_install
 
-rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.{a,la}
+rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 %ldconfig_scriptlets
 
@@ -69,7 +77,17 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.{a,la}
 %{_includedir}/log4cplus/thread/impl/*.h*
 %{_libdir}/pkgconfig/log4cplus.pc
 
+%files static
+%{_libdir}/lib*.a
+
+
 %changelog
+* Tue Oct 04 2022 Martin Osvald <mosvald@redhat.com> - 2.0.8-3
+- Remove extra {} as it is no longer brace expansion
+
+* Fri Sep 23 2022 Federico Pellegrin <fede@evolware.org> - 2.0.8-2
+- Add generation of static package
+
 * Thu Jul 21 2022 Martin Osvald <mosvald@redhat.com> - 2.0.8-1
 - New version 2.0.8
 
@@ -89,7 +107,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.{a,la}
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Fri Nov 20 2020 Pavel Zhukov <pzhukov@redhat.com> - 2.0.5-11rc3:.%{prever}}%{?dist}
+* Fri Nov 20 2020 Pavel Zhukov <pzhukov@redhat.com> - 2.0.5-11
 - New version v2.0.5
 
 * Wed Aug 26 2020 Jeff Law <law@redhat.com> - 1.2.0-13

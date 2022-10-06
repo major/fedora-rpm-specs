@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           assertj-core
-Version:        3.19.0
-Release:        6%{?dist}
+Version:        3.23.1
+Release:        1%{?dist}
 Summary:        Library of assertions similar to fest-assert
 License:        ASL 2.0
 URL:            https://joel-costigliola.github.io/assertj/
@@ -33,33 +33,30 @@ Summary:        API documentation for %{name}
 This package provides API documentation for %{name}.
 
 %prep
-%setup -q -n assertj-core-assertj-core-%{version}
+%setup -q -n assertj-assertj-core-%{version}
 
 %pom_remove_parent
 %pom_xpath_inject "pom:project" "<groupId>org.assertj</groupId>"
-%pom_xpath_remove "pom:release"
 
 %pom_remove_plugin :maven-invoker-plugin
 %pom_remove_plugin :maven-javadoc-plugin
-%pom_remove_plugin :maven-shade-plugin
-%pom_remove_plugin :maven-dependency-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :jacoco-maven-plugin
 %pom_remove_plugin :yuicompressor-maven-plugin
 %pom_remove_plugin :bnd-maven-plugin
 %pom_remove_plugin :bnd-resolver-maven-plugin
-%pom_remove_plugin :maven-antrun-plugin
-%pom_remove_plugin :maven-jar-plugin
 %pom_remove_plugin :bnd-testing-maven-plugin
 
 # package org.mockito.internal.util.collections does not exist
 rm -rf ./src/test/java/org/assertj/core/error/ShouldContainString_create_Test.java
 
-%pom_remove_dep :memoryfilesystem
 rm -r src/test/java/org/assertj/core/internal/{Paths*.java,paths}
 
+# Missing module dependencies
+%pom_xpath_remove 'pom:plugin/pom:executions/pom:execution[pom:id="jdk9"]'
+
 %build
-%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8 -P \!java9+
+%mvn_build -f -- -Dproject.build.sourceEncoding=UTF-8
 
 %install
 %mvn_install
@@ -73,6 +70,9 @@ rm -r src/test/java/org/assertj/core/internal/{Paths*.java,paths}
 %license LICENSE.txt
 
 %changelog
+* Wed Sep 07 2022 Marian Koncek <mkoncek@redhat.com> - 3.23.1-1
+- Update to upstream version 3.23.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

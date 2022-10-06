@@ -1,5 +1,5 @@
-%global commit  a9e197f2583ef4f36e9e77d930a677e63a2c2f62
-%global date    20220410
+%global commit  a9ee6ca84f04990e209880fe47144e62b14253db
+%global date    20220823
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename nestopia
@@ -25,7 +25,7 @@ Supplements:    retroarch
 
 
 %prep
-%autosetup -n %{corename}-%{commit} -p1
+%autosetup -n %{corename}-%{commit}
 
 
 %build

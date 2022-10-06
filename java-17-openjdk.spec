@@ -368,7 +368,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        1
+%global buildver        7
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -2669,6 +2669,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Oct 04 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.5.0.7-0.1.ea
+- Update to jdk-17.0.5+7
+- Update release notes to 17.0.5+7
+
 * Mon Oct 03 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.5.0.1-0.1.ea
 - Update to jdk-17.0.5+1
 - Update release notes to 17.0.5+1

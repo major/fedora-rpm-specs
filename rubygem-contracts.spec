@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.17
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:	Contracts for Ruby
 License:	BSD
@@ -32,6 +32,10 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
+
+# Ruby3.2 removes Fixnum
+# https://github.com/egonSchiele/contracts.ruby/issues/300
+sed -i spec/fixtures/fixtures.rb -e 's|Fixnum|Integer|'
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -77,6 +81,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Tue Oct  4 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.17-5
+- Fix for ruby3.2 wrt Fixnum removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

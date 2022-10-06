@@ -28,7 +28,7 @@
 Name:  COPASI
 Summary: Biochemical network simulator
 Version: 4.36.%{buildid}
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -273,6 +273,7 @@ done
 %patch10 -p0 -b .find_sbw
 %patch12 -p1 -b .bug3117
 %patch13 -p1 -b .find_raptor
+%patch14 -p1 -b .swig410
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
@@ -490,6 +491,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Tue Oct 04 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.36.260-3
+- Applied the patch for rhbz#2128029
+
 * Fri Sep 23 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.36.260-2
 - Patched for rhbz#2128029
 

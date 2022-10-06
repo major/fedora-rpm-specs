@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        ASL 2.0 and BSD
@@ -22,11 +22,11 @@ Patch2:         0002-Use-local-schema.patch
 Patch3:         0003-Drop-support-for-JAXB.patch
 Patch4:         0004-Port-to-assertj-core-3.patch
 
+BuildRequires:  javapackages-extra
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  javapackages-extra
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -128,6 +128,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Tue Oct 04 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-2
+- Fix BuildRequires on javapackages-extra
+
 * Fri Sep 09 2022 Marian Koncek <mkoncek@redhat.com> - 2.9.0-1
 - Update to upstream version 2.9.0
 

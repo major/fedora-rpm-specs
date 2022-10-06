@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.6.2
-Release:        201%{?dist}
+Release:        202%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -52,14 +52,6 @@ gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 find . -name \*gem -exec chmod 0644 {} \;
-
-# compile again
-pushd .%{gem_instdir}
-find . -name extconf.rb | while read f
-do
-	make -C $(dirname $f) clean all install
-done
-popd
 
 # remove pure
 rm -fr .%{gem_instdir}/lib/json/pure*
@@ -131,6 +123,9 @@ popd
 
 
 %changelog
+* Wed Oct  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.2-202
+- Remove no longer needed recompilation
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

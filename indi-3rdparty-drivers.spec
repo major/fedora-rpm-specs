@@ -7,10 +7,10 @@
 %global sx_pkg indi-3rdparty-sx
 %global webcam_pkg indi-3rdparty-webcam
 
-%global indi_version 1.9.7
+%global indi_version 1.9.8
 
 Name:           indi-3rdparty-drivers
-Version:        1.9.7
+Version:        1.9.8
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
 License:        LGPLv2+

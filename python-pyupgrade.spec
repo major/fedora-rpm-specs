@@ -1,5 +1,5 @@
 Name:           python-pyupgrade
-Version:        2.38.0
+Version:        3.0.0
 Release:        1%{?dist}
 Summary:        A tool to upgrade syntax of Python code for newer versions of the language
 
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 3.0.0-1
+- Update to 3.0.0 (resolves rhbz#2129567)
+
 * Mon Sep 19 2022 Roman Inflianskas <rominf@aiven.io> - 2.38.0-1
 - Update to 2.38.0 (resolves rhbz#2127202)
 

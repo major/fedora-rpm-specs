@@ -5,11 +5,11 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit a971d3b616851b139f44de77f4d636afffa09ac5
+%global uAssets_commit 3cd137904ffe979f337f8e0099a46ca2d0c41e5f
 
 Name:           mozilla-ublock-origin
-Version:        1.43.0
-Release:        2%{?dist}
+Version:        1.44.4
+Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
 License:        GPLv3 and MIT and OFL and Unlicense
@@ -23,8 +23,6 @@ Source2:        uAssets-%{uAssets_commit}.tar.gz
 # generate a free one with the mktarball.sh script below
 Source10:       uAssets-mktarball.sh
 Patch0:         %{name}-nonfree.patch
-# use WebAssembly 1.0 function names (see https://github.com/WebAssembly/wabt/issues/1820)
-Patch1:         %{name}-wa1.0.patch
 
 Requires:       mozilla-filesystem
 BuildArch:      noarch
@@ -69,7 +67,6 @@ from hosts files.
 %setup -q -n uBlock-%{version}
 tar -xz -C submodules/uAssets --strip-components=1 -f %{SOURCE2}
 %patch0 -p1
-%patch1 -p1
 rm src/{js/wasm,lib/{lz4,publicsuffixlist/wasm}}/*.wasm
 mv src/css/fonts/Inter/LICENSE.txt LICENSE.Inter.txt
 mv src/img/fontawesome/LICENSE.txt LICENSE.fontawesome.txt
@@ -104,6 +101,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Oct 04 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.44.4-1
+- update to 1.44.4 (#2118741)
+- drop obsolete patch
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

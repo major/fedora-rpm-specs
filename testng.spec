@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
 Name:           testng
-Version:        7.4.0
-Release:        4%{?dist}
+Version:        7.6.1
+Release:        1%{?dist}
 Summary:        Java-based testing framework
 License:        ASL 2.0
 URL:            http://testng.org/
@@ -11,7 +11,7 @@ URL:            http://testng.org/
 Source0:        %{name}-%{version}.tar.gz
 
 # Allows building with maven instead of gradle
-Source1:        pom.xml
+Source1:        https://repo1.maven.org/maven2/org/testng/testng/%{version}/testng-%{version}.pom
 
 # Remove bundled binaries to make sure we don't ship anything forbidden
 Source2:        generate-tarball.sh
@@ -49,29 +49,27 @@ This package contains the API documentation for %{name}.
 %prep
 %setup -q -n %{name}-%(echo %{version} | tr '~' '-')
 
+cp %{SOURCE1} pom.xml
+
 %patch0 -p1
 %patch1 -p1
 
-sed 's/@VERSION@/%{version}/' %{SOURCE1} > pom.xml
+# Contains differently licensed sources
+rm -rf testng-test-osgi
+
+find . -mindepth 2 -name src -type d -exec cp -r -t . {} +
 
 # remove any bundled libs, but not test resources
 find ! -path "*/test/*" -name *.jar -print -delete
 find -name *.class -delete
 
-# these are unnecessary
-%pom_remove_plugin :maven-gpg-plugin
-%pom_remove_plugin :maven-source-plugin
-%pom_remove_plugin :maven-javadoc-plugin
+%pom_remove_dep org.webjars:jquery
 
 %pom_remove_dep org.yaml:snakeyaml
 rm src/main/java/org/testng/internal/Yaml*.java
 rm src/main/java/org/testng/Converter.java
 
-%pom_remove_dep :bsh
-
 %pom_xpath_inject "pom:dependency[pom:artifactId='guice']" "<classifier>no_aop</classifier>"
-
-sed -i -e 's/DEV-SNAPSHOT/%{version}/' src/main/java/org/testng/internal/Version.java
 
 cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 
@@ -80,7 +78,8 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %mvn_alias : :::jdk15:
 
 %build
-%mvn_build -f
+# Tests extend a class written in Kotlin
+%mvn_build -f -- -Dmaven.compiler.source=8 -Dmaven.compiler.target=8
 
 %install
 %mvn_install
@@ -93,6 +92,9 @@ cp -p ./src/main/java/*.dtd.html ./src/main/resources/.
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 09 2022 Marian Koncek <mkoncek@redhat.com> - 7.6.1-1
+- Update to upstream version 7.6.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

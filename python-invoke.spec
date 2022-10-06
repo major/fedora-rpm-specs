@@ -1,14 +1,14 @@
-%bcond_with tests
+%bcond_without tests
 
 Name:		python-invoke
 Version:	1.7.0
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	A Python task execution tool and library
-License:	BSD
+License:	BSD-2-Clause
 URL:		http://pyinvoke.org/
 Source0:	https://github.com/pyinvoke/invoke/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:		0001-Fallback-to-system-lib-if-vendorized-one-does-not-ex.patch
-Patch2:		invoke-1.5.0-pytest-too-recent.patch
+Patch1:		invoke-1.7.0-python3.patch
 BuildArch:	noarch
 BuildRequires:	python3-devel
 BuildRequires:	%{py3_dist setuptools}
@@ -19,6 +19,7 @@ BuildRequires:	%{py3_dist six}
 
 %if %{with tests}
 # For test suite
+BuildRequires:	expect
 BuildRequires:	%{py3_dist mock}
 BuildRequires:	%{py3_dist pytest}
 BuildRequires:	%{py3_dist pytest-relaxed}
@@ -46,11 +47,7 @@ various sources to arrive at a powerful and clean feature set.
 
 # Avoid need for bundled libs in test suite
 %patch0 -p1
-
-# Handing of stdin in more recent pytest versions breaks runner tests, similar to
-# https://github.com/pyinvoke/invoke/issues/530
-# Work around this by skipping all affected tests (most of them, unfortunately)
-%patch2
+%patch1 -p1
 
 # Remove bundled egg-info
 rm -fr invoke.egg-info/
@@ -70,9 +67,18 @@ ln -s invoke %{buildroot}%{_bindir}/invoke3
 
 %if %{with tests}
 %check
+# Everything looks good on a terminal, but tests are failing on building
+# machines. Even when mocked, some tests are mysteriously fall back to use real
+# ioctl calls causing `OSError: [Errno 25] Inappropriate ioctl for device`, so
+# lets make pytest think we are running in a terminal.
 PYTHONDONTWRITEBYTECODE=1 \
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
-pytest-3
+expect -c '
+    spawn pytest-3 -s
+    expect default
+    catch wait result
+    exit [lindex $result 3]
+'
 %endif
 
 %files -n python3-invoke
@@ -86,6 +92,14 @@ pytest-3
 %{python3_sitelib}/invoke-%{version}-*.egg-info/
 
 %changelog
+* Tue Oct 04 2022 Jiri Kucera <jkucera@redhat.com> - 1.7.0-5
+- Fix improperly placed comment
+- Make expect to propagate spawned process' exit code
+
+* Tue Sep 27 2022 Jiri Kucera <jkucera@redhat.com> - 1.7.0-4
+- Python 3.11 related fixes (#2102736)
+- Updated License field to use SPDX identifier
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

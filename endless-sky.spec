@@ -1,14 +1,14 @@
-%define		gittag0		v0.9.14
+%define		gittag0		v0.9.15
 
 Name:		endless-sky
-Version:	0.9.14
-Release:	5%{?dist}
+Version:	0.9.15
+Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
 URL:		https://%{name}.github.io
 Source0:	https://github.com/%{name}/%{name}/archive/%{gittag0}.tar.gz#/%{name}-%{version}.tar.gz
-Source1:        endless-sky-wrapper
+Source1:	endless-sky-wrapper
 # Replace /usr/games with /usr/bin and /usr/share/games with /usr/share per
 # https://fedoraproject.org/wiki/SIGs/Games/Packaging.
 # Patch not submitted upstream. Upstream conforms to Debian packaging
@@ -28,6 +28,7 @@ BuildRequires:	libjpeg-turbo-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	desktop-file-utils
 BuildRequires:	libmad-devel
+BuildRequires:	libuuid-devel
 
 %description
 Explore other star systems. Earn money by trading, carrying passengers, or
@@ -95,6 +96,7 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
 %{_mandir}/man6/%{name}.6.gz
 
 
@@ -104,6 +106,9 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Tue Oct 04 2022 Link Dupont <linkdupont@fedoraproject.org> - 0.9.15-1
+- 0.9.15
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

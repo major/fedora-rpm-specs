@@ -1,5 +1,5 @@
 Name:           python-stripe
-Version:        4.1.0
+Version:        4.2.0
 Release:        1%{?dist}
 Summary:        Python library for the Stripe API
 
@@ -64,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 4.2.0-1
+- Update to 4.2.0 (resolve rhbz#2130038)
+
 * Fri Sep 02 2022 Paul Wouters <paul.wouters@aiven.io - 4.1.0-1
 - Resolves rhbz#2120817 python-stripe-4.1.0 is available
 

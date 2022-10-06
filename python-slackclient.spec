@@ -1,7 +1,7 @@
 %global modname slackclient
 
 Name:               python-%{modname}
-Version:            3.18.4
+Version:            3.18.5
 Release:            1%{?dist}
 Summary:            Slack Developer Kit for Python
 
@@ -54,6 +54,9 @@ Python %{python3_pkgversion} version.
 %{python3_sitelib}/slack_sdk-*.egg-info/
 
 %changelog
+* Tue Oct 04 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.18.5-1
+- 3.18.5
+
 * Fri Sep 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.18.4-1
 - 3.18.4
 

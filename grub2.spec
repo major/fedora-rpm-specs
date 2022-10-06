@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	58%{?dist}
+Release:	59%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -530,6 +530,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Oct 04 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-59
+- Flush instruction cache before starting aa64 kernel
+
 * Fri Sep 09 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-58
 - Bump spec for grub.macros gettext changes from Jens
 

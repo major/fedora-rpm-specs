@@ -4,27 +4,21 @@
 # debuginfo doesn't work yet
 %global debug_package %{nil}
 
-%global built_tag_strip 1.2.0
+%global built_tag v1.2.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: aardvark-dns
-Version: 1.2.0
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0 and BSD and MIT
 Release: %autorelease
 ExclusiveArch: %{rust_arches}
-%endif
 Summary: Authoritative DNS server for A/AAAA container records
 URL: https://github.com/containers/%{name}
-Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
-Source1: %{url}/releases/download/v%{built_tag_strip}/%{name}-v%{built_tag_strip}-vendor.tar.gz
+# Tarballs fetched from upstream's release page
+Source0: %{url}/archive/%{built_tag}.tar.gz
+Source1: %{url}/releases/download/%{built_tag}/%{name}-%{built_tag}-vendor.tar.gz
 BuildRequires: cargo
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-%else
 BuildRequires: git-core
 BuildRequires: make
 BuildRequires: rust-srpm-macros
@@ -130,7 +124,6 @@ Provides: bundled(crate(unicode-normalization)) = v0.1.19
 Provides: bundled(crate(unicode-xid)) = v0.2.3
 Provides: bundled(crate(url)) = v2.2.2
 Provides: bundled(crate(version_check)) = v0.9.4
-%endif
 
 %description
 %{summary}
@@ -163,6 +156,4 @@ EOF
 %{_libexecdir}/podman/%{name}
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

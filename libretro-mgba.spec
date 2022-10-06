@@ -1,5 +1,5 @@
-%global commit  5d48e0744059ebf38a4e937b256ffd5df4e0d103
-%global date    20220211
+%global commit  db7ace387cdc87d9f2bd4f9f5211c26ce0b07867
+%global date    20220915
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global corename mgba
@@ -28,7 +28,7 @@ games.
 
 
 %prep
-%autosetup -n %{corename}-%{commit} -p1
+%autosetup -n %{corename}-%{commit}
 
 
 %build

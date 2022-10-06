@@ -1,5 +1,5 @@
 Name:           python-pytest-subprocess
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        A plugin to fake subprocess for pytest
 
@@ -9,10 +9,6 @@ Source0:        %{url}/archive/%{version}/pytest-subprocess-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-
-# Needed for tests:
-BuildRequires:  /usr/bin/python
-
 
 %global _description %{expand:
 The plugin adds the fake_subprocess fixture. It can be used it to register
@@ -31,6 +27,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n pytest-subprocess-%{version}
+# avoid unneeded test dependencies
+sed -Ei '/\bcoverage\b/d' setup.py
 
 
 %generate_buildrequires
@@ -55,6 +53,11 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Oct 04 2022 Miro Hrončok <mhroncok@redhat.com> - 1.4.2-1
+- Update to 1.4.2
+- Fixes: rhbz#2131525
+- Drop build-time dependency on python3-coverage
+
 * Mon Sep 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 1.4.1-1
 - Update to 1.4.1
 - Fixes: rhbz#2052392

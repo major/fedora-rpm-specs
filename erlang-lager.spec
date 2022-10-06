@@ -4,23 +4,25 @@
 
 Name:       erlang-%{realname}
 Version:    3.9.2
-Release:    5%{?dist}
+Release:    6%{?dist}
 BuildArch:  noarch
 Summary:    A logging framework for Erlang/OTP
 License:    ASL 2.0
 URL:        http://github.com/%{upstream}/%{realname}
 VCS:        scm:git:https://github.com/%{upstream}/%{realname}.git
 Source0:    https://github.com/%{upstream}/%{realname}/archive/%{version}/%{realname}-%{version}.tar.gz
-Patch1:		erlang-lager-0001-Disable-failing-test.patch
-Patch2:		erlang-lager-0002-Disable-async-test-fails-in-our-buildsystem.patch
 Patch3:		erlang-lager-0003-Allow-trace-filter-to-silence-log-output.patch
 Patch4:		erlang-lager-0004-Add-test-and-some-documentation.patch
 %if 0%{?fedora} >= 35
 Patch5:		erlang-lager-0005-Separate-line-and-col-metadata-on-OTP-24.patch
 Patch6:		erlang-lager-0006-Since-Erlang-24-stacktraces-include-BIF-and-NIF-func.patch
 %endif
+%if 0%{?fedora} >= 37
+Patch7:		erlang-lager-0007-Workaround-for-Erlang-25.patch
+Patch8:		erlang-lager-0008-Workaround-for-slow-builders-increase-timeout.patch
+%endif
 BuildRequires:  erlang-goldrush >= 0.1.9
-BuildRequires:  erlang-rebar
+BuildRequires:  erlang-rebar3
 
 
 %description
@@ -34,17 +36,17 @@ plays nicely with traditional UNIX logging tools like logrotate and syslog.
 
 
 %build
-%{erlang_compile}
+%{erlang3_compile}
 
 
 %install
-%{erlang_install}
+%{erlang3_install}
 
 
 %check
 # Sometimes the tests fail on Rawhide:
 # https://github.com/erlang-lager/lager/issues/463
-%{erlang_test}
+%{erlang3_test}
 
 
 %files
@@ -54,6 +56,9 @@ plays nicely with traditional UNIX logging tools like logrotate and syslog.
 
 
 %changelog
+* Sun Oct  2 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.9.2-6
+- Switch to Rebar3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

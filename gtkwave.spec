@@ -1,8 +1,8 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.111
-Release:	4%{?dist}
-License:	GPLv2+
+Version:	3.3.112
+Release:	1%{?dist}
+License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
 Patch0:		gtkwave-3.3.111-wayland.patch
@@ -193,6 +193,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Tue Oct  4 2022 Paul Howarth <paul@city-fan.org> - 3.3.112-1
+- Update to 3.3.112
+  - VCD reader fixes for unnamed Icarus begin blocks
+  - String data type crash fix in fst.c
+- Use SPDX-format license tag
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.111-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

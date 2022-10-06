@@ -61,11 +61,6 @@
 
 # Then the secondary host drivers, which run inside libvirtd
 %define with_storage_rbd      0%{!?_without_storage_rbd:1}
-%if 0%{?fedora}
-    %define with_storage_sheepdog 0%{!?_without_storage_sheepdog:1}
-%else
-    %define with_storage_sheepdog 0
-%endif
 
 %define with_storage_gluster 0%{!?_without_storage_gluster:1}
 %if 0%{?rhel}
@@ -234,8 +229,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 8.7.0
-Release: 2%{?dist}
+Version: 8.8.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL: https://libvirt.org/
 
@@ -339,9 +334,6 @@ BuildRequires: librbd-devel
 BuildRequires: glusterfs-api-devel >= 3.4.1
 BuildRequires: glusterfs-devel >= 3.4.1
 %endif
-%if %{with_storage_sheepdog}
-BuildRequires: sheepdog
-%endif
 %if %{with_numactl}
 # For QEMU/LXC numa info
 BuildRequires: numactl-devel
@@ -386,7 +378,7 @@ BuildRequires: wireshark-devel
 %endif
 
 %if %{with_libssh}
-BuildRequires: libssh-devel >= 0.7.0
+BuildRequires: libssh-devel >= 0.8.1
 %endif
 
 BuildRequires: rpcgen
@@ -483,6 +475,7 @@ Requires: gettext-runtime
 %else
 Requires: gettext
 %endif
+
 
 # Ensure smooth upgrades
 Obsoletes: libvirt-admin < 7.3.0
@@ -586,8 +579,9 @@ Requires: util-linux
 Requires: /usr/bin/qemu-img
 %endif
 %if !%{with_storage_rbd}
-Obsoletes: libvirt-daemon-driver-storage-rbd < %{version}-%{release}
+Obsoletes: libvirt-daemon-driver-storage-rbd < 5.2.0
 %endif
+Obsoletes: libvirt-daemon-driver-storage-sheepdog < 8.8.0
 
 %description daemon-driver-storage-core
 The storage driver plugin for the libvirtd daemon, providing
@@ -691,19 +685,6 @@ volumes using the ceph protocol.
 %endif
 
 
-%if %{with_storage_sheepdog}
-%package daemon-driver-storage-sheepdog
-Summary: Storage driver plugin for sheepdog
-Requires: libvirt-daemon-driver-storage-core = %{version}-%{release}
-Requires: libvirt-libs = %{version}-%{release}
-Requires: sheepdog
-
-%description daemon-driver-storage-sheepdog
-The storage driver backend adding implementation of the storage APIs for
-sheepdog volumes using.
-%endif
-
-
 %if %{with_storage_zfs}
 %package daemon-driver-storage-zfs
 Summary: Storage driver plugin for ZFS
@@ -735,9 +716,6 @@ Requires: libvirt-daemon-driver-storage-gluster = %{version}-%{release}
 %endif
 %if %{with_storage_rbd}
 Requires: libvirt-daemon-driver-storage-rbd = %{version}-%{release}
-%endif
-%if %{with_storage_sheepdog}
-Requires: libvirt-daemon-driver-storage-sheepdog = %{version}-%{release}
 %endif
 %if %{with_storage_zfs}
 Requires: libvirt-daemon-driver-storage-zfs = %{version}-%{release}
@@ -1078,12 +1056,6 @@ exit 1
     %define arg_storage_rbd -Dstorage_rbd=disabled
 %endif
 
-%if %{with_storage_sheepdog}
-    %define arg_storage_sheepdog -Dstorage_sheepdog=enabled
-%else
-    %define arg_storage_sheepdog -Dstorage_sheepdog=disabled
-%endif
-
 %if %{with_storage_gluster}
     %define arg_storage_gluster -Dstorage_gluster=enabled -Dglusterfs=enabled
 %else
@@ -1203,7 +1175,6 @@ export SOURCE_DATE_EPOCH=$(stat --printf='%Y' %{_specdir}/%{name}.spec)
            -Dstorage_disk=enabled \
            -Dstorage_mpath=enabled \
            %{?arg_storage_rbd} \
-           %{?arg_storage_sheepdog} \
            %{?arg_storage_gluster} \
            %{?arg_storage_zfs} \
            -Dstorage_vstorage=disabled \
@@ -1315,7 +1286,6 @@ export SOURCE_DATE_EPOCH=$(stat --printf='%Y' %{_specdir}/%{name}.spec)
   -Dstorage_mpath=disabled \
   -Dstorage_rbd=disabled \
   -Dstorage_scsi=disabled \
-  -Dstorage_sheepdog=disabled \
   -Dstorage_vstorage=disabled \
   -Dstorage_zfs=disabled \
   -Dsysctl_config=disabled \
@@ -2031,11 +2001,6 @@ exit 0
 %{_libdir}/%{name}/storage-backend/libvirt_storage_backend_rbd.so
 %endif
 
-%if %{with_storage_sheepdog}
-%files daemon-driver-storage-sheepdog
-%{_libdir}/%{name}/storage-backend/libvirt_storage_backend_sheepdog.so
-%endif
-
 %if %{with_storage_zfs}
 %files daemon-driver-storage-zfs
 %{_libdir}/%{name}/storage-backend/libvirt_storage_backend_zfs.so
@@ -2413,6 +2378,9 @@ exit 0
 
 
 %changelog
+* Tue Oct 04 2022 Cole Robinson <crobinso@redhat.com> - 8.8.0-1
+- Update to version 8.8.0
+
 * Fri Sep  9 2022 Jens Petersen <petersen@redhat.com> - 8.7.0-2
 - F37 libvirt-daemon: depend on gettext-runtime instead of gettext (#2117209)
 

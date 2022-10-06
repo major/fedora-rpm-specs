@@ -7,34 +7,21 @@
 %endif
 %endif
 
-%global built_tag_strip 1.6
+%global built_tag 1.6
+%global gen_version %(b=%{built_tag}; echo ${b/-/"~"})
 
 Summary: OCI runtime written in C
 Name: crun
-Version: 1.6
+Version: %{gen_version}
 URL: https://github.com/containers/%{name}
+# Fetched from upstream
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: GPL-2.0+
-Release: 0%{?dist}
-%else
 License: GPLv2+
 Release: %autorelease
-%endif
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: go-md2man
 BuildRequires: libtool
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-BuildRequires: libcap-dev
-BuildRequires: libseccomp-dev
-BuildRequires: libsystemd-dev
-BuildRequires: libyajl-dev
-BuildRequires: pkg-config
-Requires: criu
-%else
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: python3
@@ -54,7 +41,6 @@ BuildRequires: protobuf-c-devel
 BuildRequires: criu-devel >= 3.17.1-2
 %endif
 Requires: criu >= 3.17.1
-%endif
 Provides: oci-runtime
 
 %description
@@ -95,6 +81,4 @@ Requires: libkrun
 %endif
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

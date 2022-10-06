@@ -2,10 +2,10 @@
 # the VM's memory, so no useful debug info can be generated from it.
 %global debug_package %{nil}
 
-%global kernel linux-5.15.60
+%global kernel linux-5.15.71
 
 Name:           libkrunfw
-Version:        3.6.3
+Version:        3.7.0
 Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPLv2 and GPLv2
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Tue Oct 04 2022 Sergio Lopez <slp@redhat.com> - 3.7.0-1
+- Update to 3.7.0 which bundles a 5.15.71 kernel
+
 * Wed Aug 17 2022 Sergio Lopez <slp@redhat.com> - 3.6.3-1
 - Update to 3.6.3 which bundles a 5.15.60 kernel
 - Add the libkrunfw-sev and libkrunfw-sev-devel subpackages with the SEV

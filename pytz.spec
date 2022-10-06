@@ -11,7 +11,7 @@
 %bcond_with tests
 
 Name:           pytz
-Version:        2022.2
+Version:        2022.4
 Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
@@ -108,6 +108,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
 
 
 %changelog
+* Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.4-1
+- 2022.4
+
 * Fri Aug 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.2-1
 - 2022.2
 

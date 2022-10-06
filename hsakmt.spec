@@ -66,10 +66,12 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 
 %files devel
 %{_libdir}/libhsakmt.so
-%{_includedir}/hsakmt.h
-%{_includedir}/hsakmttypes.h
+%{_includedir}/hsakmt
 %{_libdir}/cmake/hsakmt/
 %{_datadir}/pkgconfig/libhsakmt.pc
+#These headers are deprecated and will be removed soon:
+%{_includedir}/hsakmt.h
+%{_includedir}/hsakmttypes.h
 
 %changelog
 * Mon Oct 03 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-26.rocm5.3.0

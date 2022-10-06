@@ -1,27 +1,17 @@
 %global upstreamname ROCm-CompilerSupport
-%global rocm_release 5.2
+%global rocm_release 5.3
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm-compilersupport
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
 License:        NCSA
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
-#https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/5495595234e8fb7b1715429cfa41fe6d9c0e710c
-Patch0:         0001-Detect-if-clang-is-static-or-shared.patch
-
-#LLVM 15 patches cherry-picked from upstream's amd-stg-open branch:
-#https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/47fe512bd69dfb43a701ab3747cd7475c30b78fc
-Patch1:         0001-Comgr-changes-needed-for-https-github.com-llvm-llvm-.patch
-#https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/d2318e14dd6f9172a392d40521d7e38c5e0de9e7
-Patch2:         0002-Cleanup-after-https-reviews.llvm.org-D120433.patch
-#https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/47ce7412513149525760fe30e0a6d8b2470cbbc9
-Patch3:         0003-Changes-required-for-the-following-llvm-commit.patch
 #https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/ec7df87560359d70559c214f102cce02358b7369
 Patch4:         0004-remove-references-to-GNU-for-compression-type-per-up.patch
 
@@ -89,17 +79,21 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %doc lib/comgr/README.md
 %{_libdir}/libamd_comgr.so.2{,.*}
 #Files already included:
-%exclude %{_docdir}/amd_comgr/comgr/LICENSE.txt
-%exclude %{_datadir}/amd_comgr/LICENSE.txt
-%exclude %{_datadir}/amd_comgr/NOTICES.txt
-%exclude %{_datadir}/amd_comgr/README.md
+%exclude %{_docdir}/amd_comgr/LICENSE.txt
+%exclude %{_docdir}/amd_comgr/NOTICES.txt
+%exclude %{_docdir}/amd_comgr/README.md
 
 %files -n rocm-comgr-devel
-%{_includedir}/amd_comgr.h
+%{_includedir}/amd_comgr/amd_comgr.h
 %{_libdir}/libamd_comgr.so
 %{_libdir}/cmake/amd_comgr
+#This header are deprecated and will be removed soon:
+%{_includedir}/amd_comgr.h
 
 %changelog
+* Tue Oct 04 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
+- Update to 5.3.0
+
 * Mon Sep 19 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.2.0-3
 - Rebuilt against LLVM 15
 

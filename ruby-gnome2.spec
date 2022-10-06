@@ -6,7 +6,7 @@
 # the new EVR won't be higher than the one of higher branch!!
 #
 # Until gem switch ends, we will use non-integer release
-%define         mainrel                9
+%define         mainrel                10
 # Note
 # Currently this spec file does not support libgda module.
 # libgda-2 is needed, API change for libgda-3 needs investigation
@@ -26,7 +26,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        %{mainrel}%{?dist}.10
+Release:        %{mainrel}%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -620,6 +620,9 @@ sed -i.ruby3 \
 	gtkglext/src/rbgtkglext.c \
 	-e 's|EXTERN|RUBY_EXTERN|'
 
+# ruby 3.2 build fix
+grep -rl rb_cData . | xargs sed -i.ruby32 -e 's|rb_cData|rb_cObject|'
+
 # cleanup
 # find . -type d -path '*/sample/*.svn' | sort -r | xargs rm -rf
 
@@ -837,6 +840,9 @@ done
 
 
 %changelog
+* Wed Oct  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-10
+- Fix build with ruby3.2 wrt rb_cData removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-9.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
