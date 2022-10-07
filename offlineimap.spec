@@ -1,4 +1,4 @@
-%global baserelease 5
+%global baserelease 6
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -21,6 +21,7 @@ Source3:        https://github.com/jazzband/imaplib2/archive/%{imaplib2_commit}/
 
 Patch0:         bundled_imaplib2.patch
 Patch1:         disable_rfc6555.patch
+Patch2:         https://github.com/OfflineIMAP/offlineimap3/pull/137.diff
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch
@@ -100,6 +101,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Wed Oct 05 2022 sguelton@redhat.com - 8.0.0-6
+- Update sqlite3 multi-threading check for Py3.11, see rhbz#2132253
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

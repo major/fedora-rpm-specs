@@ -28,7 +28,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD
@@ -252,6 +252,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 4.2.3-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 4.2.3-4
 - drop unneeded build dependency on pcre #2128351
 

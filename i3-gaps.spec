@@ -1,6 +1,6 @@
 Name:           i3-gaps
-Version:        4.20.1
-Release:        3%{?dist}
+Version:        4.21
+Release:        %autorelease
 Summary:        i3 with more features
 License:        BSD
 URL:            https://github.com/Airblader/i3
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(xcb-xrm)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.4.0
 BuildRequires:  pkgconfig(xkbcommon-x11) >= 0.4.0
 BuildRequires:  pkgconfig(yajl) >= 2.0.1
-BuildRequires:  pkgconfig(libpcre) >= 8.10
+BuildRequires:  pkgconfig(libpcre2-8) >= 10
 BuildRequires:  pkgconfig(cairo) >= 1.14.4
 BuildRequires:  pkgconfig(pangocairo) >= 1.30.0
 BuildRequires:  pkgconfig(glib-2.0)
@@ -76,17 +76,24 @@ BuildRequires:  xorg-x11-drv-dummy
 %endif
 
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
-%{!?rhel:Recommends:     rxvt-unicode}
 Requires:       xorg-x11-fonts-misc
+# packages autostarted by the config
+Recommends:     dex-autostart
+Recommends:     xss-lock
+Recommends:     network-manager-applet
 Recommends:     pulseaudio-utils
+Recommends:     dmenu
+
 # for i3-save-tree
 Requires:       perl(AnyEvent::I3) >= 0.12
+# require the config files from i3:
+Requires:       (i3-config or i3-config-fedora)
 
 Conflicts:      i3
 
-Recommends:     dmenu
 Recommends:     i3status
 Recommends:     i3lock
+Recommends:     i3-config
 
 %description
 Key features of i3 are correct implementation of XrandR, horizontal and vertical
@@ -129,6 +136,8 @@ install -Dpm0644 %{SOURCE1} \
 # drop development files (these are provided by i3 itself)
 rm -rf %{buildroot}%{_includedir}
 
+rm -rf %{buildroot}%{_sysconfdir}/i3/config{,.keycodes}
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
 
@@ -142,9 +151,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
 %doc RELEASE-NOTES-%{version}
 %license LICENSE
 %{_bindir}/i3*
-%dir %{_sysconfdir}/i3/
-%config(noreplace) %{_sysconfdir}/i3/config
-%config(noreplace) %{_sysconfdir}/i3/config.keycodes
 %{_datadir}/xsessions/i3.desktop
 %{_datadir}/xsessions/i3-with-shmlog.desktop
 %{_mandir}/man*/i3*
@@ -157,21 +163,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/i3.desktop
 %doc docs/*.{html,png}
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.20.1-2
-- Perl 5.36 rebuild
-
-* Wed Feb 09 2022 Jerzy Drożdż <jerzy.drozdz@jdsieci.pl> - 4.20.1-1
-- Update to 4.20.1
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun May 16 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 4.19.1-1
-- Initial version of i3-gaps (forked from i3 spec without -devel subpackages)
-- Fixes rhbz#1960963
+%autochangelog

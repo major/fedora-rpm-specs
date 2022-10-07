@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-krb5
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
@@ -17,7 +17,7 @@
 Summary:        Kerberos authentification extension
 Name:           php-pecl-%{pecl_name}
 Version:        1.1.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -169,6 +169,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.4-9
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

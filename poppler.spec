@@ -15,7 +15,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 22.08.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -25,6 +25,9 @@ Source1: %{name}-test-%{test_date}-%{test_sha}.tar.xz
 Patch1:  poppler-0.90.0-position-independent-code.patch
 
 Patch3:  poppler-21.01.0-glib-introspection.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2124527
+Patch4:  poppler-22.08.0-jbig-symbol-overflow.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -276,6 +279,11 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Wed Oct 05 2022 Marek Kasik <mkasik@redhat.com> - 22.08.0-3
+- Check for overflow when computing number of symbols
+- in JBIG2 text region
+- Resolves: #2124530
+
 * Tue Sep 6 2022 Amit Shah <amitshah@fedoraproject.org> - 22.08.0-2
 - Allow building without Qt
 

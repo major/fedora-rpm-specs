@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.0
+Version:    2.19.1
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPLv3+ and ASL 2.0
@@ -21,7 +21,7 @@ Recommends: gdouros-symbola-fonts
 # For better description of the dictionaries in the setup tool
 # makes it possible to search for full language and territory names
 # and not just locale codes:
-Recommends: langtable
+Recommends: python3-langtable
 # To play a sound on error:
 Recommends: python3-simpleaudio
 # Use better regexpressions if available:
@@ -248,6 +248,13 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Wed Oct 05 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.1-1
+- Update to 2.19.1
+- Update emoji annotations from CLDR
+- Make search for input methods which contain uppercase in their names work
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/387)
+- Translation update from Weblate (bn 73.8% complete)
+
 * Fri Sep 09 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.0-1
 - Update to 2.19.0
 - Save horizontal space to make the new Georgian translations fit better

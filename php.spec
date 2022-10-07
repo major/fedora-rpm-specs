@@ -7,8 +7,8 @@
 #
 
 # API/ABI check
-%global apiver      20210902
-%global zendver     20210902
+%global apiver      20220829
+%global zendver     20220829
 %global pdover      20170320
 
 # we don't want -z defs linker flag
@@ -18,7 +18,7 @@
 %global _hardened_build 1
 
 # version used for php embedded library soname
-%global embed_version 8.1
+%global embed_version 8.2
 
 %global mysql_sock %(mysql_config --socket 2>/dev/null || echo /var/lib/mysql/mysql.sock)
 
@@ -64,8 +64,8 @@
 %bcond_with      imap
 %bcond_without   lmdb
 
-%global upver        8.1.11
-#global rcver        RC1
+%global upver        8.2.0
+%global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
@@ -109,7 +109,7 @@ Patch8: php-8.1.0-libdb.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.1.0-parser.patch
+Patch41: php-8.2.0-parser.patch
 # use system tzdata
 Patch42: php-8.1.0-systzdata-v22.patch
 # See http://bugs.php.net/53436
@@ -236,6 +236,7 @@ The php-dbg package contains the interactive PHP debugger.
 Summary: PHP FastCGI Process Manager
 BuildRequires: libacl-devel
 BuildRequires: pkgconfig(libsystemd) >= 209
+BuildRequires: pkgconfig(libselinux)
 Requires: php-common%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
 # To ensure correct /var/lib/php/session ownership:
@@ -286,6 +287,7 @@ Provides: php-libxml, php-libxml%{?_isa}
 Provides: php-openssl, php-openssl%{?_isa}
 Provides: php-phar, php-phar%{?_isa}
 Provides: php-pcre, php-pcre%{?_isa}
+Provides: php-random, php-random%{?_isa}
 Provides: php-reflection, php-reflection%{?_isa}
 Provides: php-session, php-session%{?_isa}
 Provides: php-sockets, php-sockets%{?_isa}
@@ -318,7 +320,7 @@ Requires: zlib-devel%{?_isa}
 Provides: php-zts-devel = %{version}-%{release}
 Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
-Recommends: php-nikic-php-parser4 >= 4.13.0
+Recommends: php-nikic-php-parser4 >= 4.15.1
 
 
 %description devel
@@ -1015,6 +1017,7 @@ pushd build-fpm
 build --enable-fpm \
       --with-fpm-acl \
       --with-fpm-systemd \
+      --with-fpm-selinux \
       --libdir=%{_libdir}/php \
       --without-mysqli \
       --disable-pdo \
@@ -1540,6 +1543,12 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Sep 28 2022 Remi Collet <remi@remirepo.net> - 8.2.0~RC3-4
+- update to 8.2.0RC3
+- bump API/ABI
+- new random extension
+- add dependency on libselinux
+
 * Wed Sep 28 2022 Remi Collet <remi@remirepo.net> - 8.1.11-1
 - Update to 8.1.11 - http://www.php.net/releases/8_1_11.php
 

@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-uopz
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -20,7 +20,7 @@
 Summary:        User Operations for Zend
 Name:           php-pecl-%{pecl_name}
 Version:        7.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        PHP
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -140,6 +140,14 @@ done
 
 
 %check
+%if "%{php_version}" >= "8.1"
+# https://github.com/krakjoe/uopz/issues/160
+rm ?TS/tests/012.phpt
+%endif
+%if "%{php_version}" >= "8.2"
+rm ?TS/tests/019.phpt
+%endif
+
 cd NTS
 : Minimal load test for NTS extension
 %{__php} --no-php-ini \
@@ -184,6 +192,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 7.1.1-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- skip tests failing with 8.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

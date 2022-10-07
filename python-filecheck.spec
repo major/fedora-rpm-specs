@@ -1,6 +1,4 @@
-# tests cannot be run until invoke is fixed
-# https://bugzilla.redhat.com/show_bug.cgi?id=2102736
-%bcond_with check
+%bcond_without check
 %global pypi_name filecheck
 %global commit a630efd71cc5ad791162a6809334364b8a1c9e8f
 %global shortcommit %%(c=%{commit}; echo ${c:0:7})
@@ -9,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -17,6 +15,10 @@ Source0: https://github.com/mull-project/FileCheck.py/archive/v%{version}/%{pypi
 # upstream testsuite includes only x86_64 reference binaries and Fedora llvm9.0 package doesn't include FileCheck
 # https://bugzilla.redhat.com/show_bug.cgi?id=1939414
 Patch0: %{name}-tests-x86_64.patch
+# upstream testsuite measures code coverage
+# that is discouraged in the packaging guidelines
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+Patch1: %{name}-no-coverage.patch
 BuildArch: noarch
 
 %description
@@ -33,6 +35,7 @@ BuildRequires: sed
 BuildRequires: %{_bindir}/invoke
 BuildRequires: %{_bindir}/lit
 BuildRequires: %{_bindir}/python
+BuildRequires: python3-pytest
 BuildRequires: gcc
 %endif
 
@@ -40,8 +43,7 @@ BuildRequires: gcc
 %{desc}
 
 %prep
-%setup -q -n FileCheck.py-%{version}
-%patch0 -p1 -b .orig
+%autosetup -p1 -n FileCheck.py-%{version}
 sed -i -e '/#!.*python3/d' filecheck/filecheck.py
 
 %build
@@ -70,6 +72,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Tue Oct 04 2022 Miro Hrončok <mhroncok@redhat.com> - 0.0.22-2
+- Enable testsuite due to fixed rhbz#2102736
+
 * Thu Jul 28 2022 Dominik Mierzejewski <dominik@greysector.net> 0.0.22-1
 - update to 0.0.22
 - disable testsuite due to rhbz#2102736

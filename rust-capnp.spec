@@ -5,7 +5,7 @@
 %global crate capnp
 
 Name:           rust-capnp
-Version:        0.14.9
+Version:        0.14.10
 Release:        %autorelease
 Summary:        Runtime library for Cap'n Proto data encoding
 

@@ -1,4 +1,4 @@
-%global pypi_version 1.4
+%global pypi_version 1.5
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -35,6 +35,8 @@ to enroll secure boot certificates.
 %package -n     python3-virt-firmware-tests
 Summary:        %{summary} - test cases
 Requires:       python3-virt-firmware
+Requires:       python3dist(pytest)
+Requires:       edk2-ovmf
 %description -n python3-virt-firmware-tests
 test cases
 
@@ -72,6 +74,21 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
+* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.5-1
+- update to version 1.5
+
+* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-5
+- turn on gating
+
+* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-4
+- more test dependency tweaks
+
+* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-3
+- tweak test dependencies
+
+* Wed Oct 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-2
+- add tests
+
 * Tue Sep 27 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.4-1
 - update to version 1.4
 - add man-pages

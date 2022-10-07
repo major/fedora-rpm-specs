@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-zstd
 #
-# Copyright (c) 2018-2021 Remi Collet
+# Copyright (c) 2018-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -17,7 +17,7 @@
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
 Version:       0.11.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -195,6 +195,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.11.0-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

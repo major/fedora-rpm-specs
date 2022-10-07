@@ -1,11 +1,10 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.112
+Version:	3.3.113
 Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
-Patch0:		gtkwave-3.3.111-wayland.patch
 BuildRequires:	bzip2-devel
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
@@ -45,11 +44,6 @@ tools.
 
 %prep
 %setup -q -n gtkwave-gtk3-%{version}
-
-# Address excessive CPU usage under Wayland
-# https://github.com/gtkwave/gtkwave/issues/117
-# https://bugzilla.redhat.com/show_bug.cgi?id=2052437
-%patch0
 
 %build
 %configure \
@@ -193,6 +187,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Wed Oct  5 2022 Paul Howarth <paul@city-fan.org> - 3.3.113-1
+- Update to 3.3.113
+  - Fix high CPU utilization when nothing is happening (GH#117)
+
 * Tue Oct  4 2022 Paul Howarth <paul@city-fan.org> - 3.3.112-1
 - Update to 3.3.112
   - VCD reader fixes for unnamed Icarus begin blocks

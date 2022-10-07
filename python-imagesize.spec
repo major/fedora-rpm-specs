@@ -4,8 +4,8 @@
 %global sum  Python module for analyzing image file headers and returning image sizes
 
 Name:           python-%{pypi_name}
-Version:        1.2.0
-Release:        9%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -56,7 +56,8 @@ rm -rf %{pypi_name}.egg-info
 
 %if %{with tests}
 %check
-py.test-3
+# test_get_filelike requires internet connection, hence we disable it
+py.test-3 -k 'not test_get_filelike'
 %endif
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
@@ -65,6 +66,9 @@ py.test-3
 %{python3_sitelib}/*
 
 %changelog
+* Tue Oct 04 2022 Karolina Surma <ksurma@redhat.com> - 1.4.1-3
+- Update to the newest upstream version 1.4.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

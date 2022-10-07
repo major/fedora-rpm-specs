@@ -5,7 +5,7 @@
 %global crate image
 
 Name:           rust-image
-Version:        0.24.3
+Version:        0.24.4
 Release:        %autorelease
 Summary:        Imaging library written in Rust
 
@@ -250,7 +250,7 @@ use the "webp" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests with missing test files (not included in published crates)
-%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image
+%cargo_test -- -- --skip codecs::bmp::decoder::test::read_rect --skip codecs::png::tests::ensure_no_decoder_off_by_one --skip codecs::png::tests::underlying_error --skip dynimage::test::image_dimensions --skip dynimage::test::open_16bpc_png --skip imageops::sample::tests::resize_transparent_image --skip imageops::sample::tests::test_resize_same_size
 %endif
 
 %changelog

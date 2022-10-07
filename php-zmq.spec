@@ -1,6 +1,6 @@
 # spec file for php-zmq
 #
-# Copyright (c) 2013-2021 Remi Collet
+# Copyright (c) 2013-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -21,13 +21,14 @@
 Summary:        ZeroMQ messaging
 Name:           php-%{pecl_name}
 Version:        1.1.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 Patch0:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/216.patch
 Patch1:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/222.patch
+Patch2:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/228.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -61,6 +62,7 @@ mv %{pecl_name}-%{version} NTS
 cd NTS
 %patch0 -p1 -b .pr216
 %patch1 -p1 -b .pr222
+%patch2 -p1 -b .pr228
 cd ..
 
 %if %{with_zts}
@@ -166,6 +168,10 @@ export TEST_PHP_EXECUTABLE=%{_bindir}/zts-php
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.3-23
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add patch for PHP 8.2 from https://github.com/zeromq/php-zmq/pull/228
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

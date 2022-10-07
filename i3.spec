@@ -107,7 +107,7 @@ Please be aware that i3 is primarily targeted at advanced users and developers.
 %package        config
 Summary:        Upstream configuration for %{name}
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
+Requires:       (%{name} = %{version}-%{release} or %{name}-gaps)
 Recommends:     rxvt-unicode
 Conflicts:      %{name}-config-fedora
 
@@ -118,7 +118,7 @@ This is the upstream/vanilla configuration file of i3.
 RemovePathPostfixes: .fedora
 Summary:        Configuration of %{name} for the Fedora i3 Spin
 BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
+Requires:       (%{name} = %{version}-%{release} or %{name}-gaps)
 Recommends:     xfce4-terminal
 # the Fedora branded config file uses xdg-user-dirs-update indirectly via `dex-autostart --autostart`
 Recommends:     xdg-user-dirs

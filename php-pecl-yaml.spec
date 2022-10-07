@@ -6,12 +6,15 @@
 
 Name:           php-pecl-yaml
 Version:        2.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Support for YAML 1.1 serialization using the LibYAML library
 
 License:        MIT
 URL:            https://pecl.php.net/package/yaml
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
+
+Patch0:         %{pecl_name}-pr66.patch
+Patch1:         %{pecl_name}-upstream.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -42,6 +45,8 @@ sed -e 's/role="test"/role="src"/' \
     package.xml >%{pecl_name}-%{version}%{?prever}/package.xml
 
 cd %{pecl_name}-%{version}%{?prever}
+%patch0 -p1 -b .pr66
+%patch1 -p1 -b .up
 
 
 %build
@@ -105,6 +110,12 @@ done
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.2.2-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add upstream patch for test suite with PHP 8.2
+- fix gh#65 yaml_parse_url method not working using patch from
+  https://github.com/php/pecl-file_formats-yaml/pull/66
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

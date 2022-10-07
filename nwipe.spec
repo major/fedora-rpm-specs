@@ -1,6 +1,6 @@
 Name:           nwipe
-Version:        0.33
-Release:        2%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Securely erase disks using a variety of recognized methods
 
 
@@ -73,6 +73,9 @@ make install DESTDIR=%{buildroot} LDFLAGS="-lncurses -lpanel"
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Wed Oct 05 2022 Michal Ambroz <rebus at, seznam.cz> 0.34-1
+- bump to 0.34
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

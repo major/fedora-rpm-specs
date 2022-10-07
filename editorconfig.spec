@@ -70,7 +70,7 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 %{_bindir}/editorconfig
 %{_bindir}/editorconfig-%{version}
 
-%{_mandir}/man1/editorconfig.1.*
+%{_mandir}/man1/editorconfig.1*
 
 %files libs
 %doc README.md

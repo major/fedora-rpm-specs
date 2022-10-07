@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 12%{?dist}
+Release: 13%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -541,6 +541,53 @@ Patch382: 00382-cve-2015-20107.patch
 # Upstream: https://github.com/python/cpython/pull/93879
 # Tracking bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=2120642
 Patch386: 00386-cve-2021-28861.patch
+
+# 00387 # c687b2d407c9ec9ddf30a14f7151aa2064a8b0eb
+# CVE-2020-10735: Prevent DoS by very large int()
+#
+# gh-95778: CVE-2020-10735: Prevent DoS by very large int() (GH-96504)
+#
+# Converting between `int` and `str` in bases other than 2
+# (binary), 4, 8 (octal), 16 (hexadecimal), or 32 such as base 10 (decimal) now
+# raises a `ValueError` if the number of digits in string form is above a
+# limit to avoid potential denial of service attacks due to the algorithmic
+# complexity. This is a mitigation for CVE-2020-10735
+# (https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-10735).
+#
+# This new limit can be configured or disabled by environment variable, command
+# line flag, or :mod:`sys` APIs. See the `Integer String Conversion Length
+# Limitation` documentation.  The default limit is 4300
+# digits in string form.
+#
+# Patch by Gregory P. Smith [Google] and Christian Heimes [Red Hat] with feedback
+# from Victor Stinner, Thomas Wouters, Steve Dower, Ned Deily, and Mark Dickinson.
+#
+# Notes on the backport to Python 3.6:
+#
+# * Use "Python 3.6.15-13" version in the documentation, whereas this
+#   version will never be released
+# * Only add _Py_global_config_int_max_str_digits global variable:
+#   Python 3.6 doesn't have PyConfig API (PEP 597) nor _PyRuntime.
+# * sys.flags.int_max_str_digits cannot be -1 on Python 3.6: it is
+#   set to the default limit. Adapt test_int_max_str_digits() for that.
+# * Declare _PY_LONG_DEFAULT_MAX_STR_DIGITS and
+#   _PY_LONG_MAX_STR_DIGITS_THRESHOLD macros in longobject.h but only
+#   if the Py_BUILD_CORE macro is defined.
+# * Declare _Py_global_config_int_max_str_digits in pydebug.h.
+#
+#
+# gh-95778: Mention sys.set_int_max_str_digits() in error message (#96874)
+#
+# When ValueError is raised if an integer is larger than the limit,
+# mention sys.set_int_max_str_digits() in the error message.
+#
+#
+# gh-96848: Fix -X int_max_str_digits option parsing (#96988)
+#
+# Fix command line parsing: reject "-X int_max_str_digits" option with
+# no value (invalid) when the PYTHONINTMAXSTRDIGITS environment
+# variable is set to a valid limit.
+Patch387: 00387-cve-2020-10735-prevent-dos-by-very-large-int.patch
 
 # (New patches go here ^^^)
 #
@@ -1791,6 +1838,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Oct 05 2022 Victor Stinner <vstinner@python.org> - 3.6.15-13
+- Prevent denial of service (DoS) by very large integers.
+  Resolves: rhbz#1834423
+
 * Wed Sep 14 2022 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-12
 - Fix for CVE-2021-28861
 Resolves: rhbz#2120785

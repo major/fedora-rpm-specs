@@ -1,5 +1,5 @@
 Name:           micropipenv
-Version:        1.4.2
+Version:        1.4.3
 Release:        1%{?dist}
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 
@@ -10,13 +10,15 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-%{?python_provide:%python_provide python3-%{name}}
+%py_provides    python3-%{name}
 
-Requires:       python3dist(toml)
+Recommends:     micropipenv+toml
 
 %description
 A lightweight wrapper for pip to support Pipenv and Poetry lock files or
 converting them to pip-tools compatible output.
+
+%pyproject_extras_subpkg -n %{name} toml
 
 %prep
 %autosetup
@@ -24,7 +26,7 @@ converting them to pip-tools compatible output.
 sed -i '1{\@^#!/usr/bin/env python@d}' %{name}.py
 
 %generate_buildrequires
-%pyproject_buildrequires -r -t
+%pyproject_buildrequires -r -t -x toml
 
 %build
 %pyproject_wheel
@@ -42,6 +44,14 @@ sed -i '1{\@^#!/usr/bin/env python@d}' %{name}.py
 %{_bindir}/micropipenv
 
 %changelog
+* Wed Oct 05 2022 Lumír Balhar <lbalhar@redhat.com> - 1.4.3-1
+- Update to 1.4.3
+Resolves: rhbz#2131986
+
+* Mon Oct 03 2022 Miro Hrončok <mhroncok@redhat.com> - 1.4.2-2
+- Remove manual requirement of python3dist(toml),
+  package and Recommend the [toml] extra instead
+
 * Tue Aug 02 2022 Lumír Balhar <lbalhar@redhat.com> - 1.4.2-1
 - Update to 1.4.2
 Resolves: rhbz#2110900

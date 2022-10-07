@@ -20,7 +20,7 @@
 Summary:        Direct I/O functions
 Name:           php-pecl-%{pecl_name}
 Version:        0.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -168,6 +168,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.2.0-9
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

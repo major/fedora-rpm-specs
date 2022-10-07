@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-pq
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -23,15 +23,17 @@
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
 Version:        2.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
 
+Patch0:         %{pecl_name}-upstream.patch
+
 BuildRequires:  libpq-devel > 9
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  php-devel > 7
+BuildRequires:  php-devel >= 7.0
 BuildRequires:  php-pear
 BuildRequires:  php-json
 BuildRequires:  php-pecl-raphf-devel >= 1.1.0
@@ -73,6 +75,8 @@ sed -e '/role="test"/d' \
     -i package.xml
 
 cd NTS
+%patch0 -p1
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -221,6 +225,11 @@ exit $RET
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.2.0-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add upstream patch for 8.2 and from
+  https://github.com/m6w6/ext-pq/pull/44
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

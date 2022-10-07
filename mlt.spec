@@ -21,7 +21,7 @@
 
 Name:           mlt
 Version:        7.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -242,6 +242,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 7.8.0-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

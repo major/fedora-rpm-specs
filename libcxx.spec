@@ -1,36 +1,26 @@
-# If you need to bootstrap this, turn this on.
-# Otherwise, you have a loop with libcxxabi
 %global toolchain clang
-%global bootstrap 0
 
 %global libcxx_version 15.0.0
 #global rc_ver 3
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
+%global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name:		libcxx
 Version:	%{libcxx_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	5%{?dist}
 Summary:	C++ standard library targeting C++11
 License:	MIT or NCSA
 URL:		http://libcxx.llvm.org/
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxx_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxx_srcdir}.tar.xz.sig
-Source2:	release-keys.asc
+Source2:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxxabi_srcdir}.tar.xz
+Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx_version}%{?rc_ver:-rc%{rc_ver}}/%{libcxxabi_srcdir}.tar.xz.sig
+Source4:	release-keys.asc
+Source5:	CMakeLists.txt
 
-Patch0: 0001-Use-interface-library-for-libcxx-abi-shared.patch
-
-BuildRequires:	clang llvm-devel cmake llvm-static ninja-build
+BuildRequires:	clang llvm-devel cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:  python3-devel
-
-# The static libc++ links the static abi library in as well
-BuildRequires:	libcxxabi-static
-BuildRequires:	libcxxabi-devel
-
-%if %{bootstrap} < 1
-BuildRequires:	python3
-%endif
-
 
 # For origin certification
 BuildRequires:	gnupg2
@@ -42,15 +32,15 @@ BuildRequires:	gnupg2
 ExcludeArch:	ppc64 ppc64le
 %endif
 
+Requires: libcxxabi%{?_isa} = %{version}-%{release}
+
 %description
 libc++ is a new implementation of the C++ standard library, targeting C++11.
 
 %package devel
 Summary:	Headers and libraries for libcxx devel
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-%if %{bootstrap} < 1
 Requires:	libcxxabi-devel
-%endif
 
 %description devel
 %{summary}.
@@ -61,32 +51,47 @@ Summary:	Static libraries for libcxx
 %description static
 %{summary}.
 
-%prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{libcxx_srcdir} -p2
+%package -n libcxxabi
+Summary:	Low level support for a standard C++ library
 
-%py3_shebang_fix utils/
+%description -n libcxxabi
+libcxxabi provides low level support for a standard C++ library.
+
+%package -n libcxxabi-devel
+Summary:	Headers and libraries for libcxxabi devel
+Requires:	libcxxabi%{?_isa} = %{version}-%{release}
+
+%description -n libcxxabi-devel
+%{summary}.
+
+%package -n libcxxabi-static
+Summary:	Static libraries for libcxxabi
+
+%description -n libcxxabi-static
+%{summary}.
+
+%prep
+%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+
+%setup -T -q -b 0 -n %{libcxx_srcdir}
+%setup -T -q -b 2 -n %{libcxxabi_srcdir}
+%setup -T -c -n build
+
+cp %{SOURCE5} .
+mv ../%{libcxx_srcdir} libcxx
+mv ../%{libcxxabi_srcdir} libcxxabi
+
+%py3_shebang_fix libcxx/utils/
 
 %build
 
-# The location of this header changed.
-if [[ -f %{_includedir}/cxxabi.h ]]; then
-    LIBCXX_ABI_PATH=%{_includedir}
-else
-    LIBCXX_ABI_PATH=%{_includedir}/c++/v1
-fi
-
-%cmake  -GNinja \
-	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
+%cmake -GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+	-DCMAKE_MODULE_PATH=%{_libdir}/cmake/llvm \
 %if 0%{?__isa_bits} == 64
 	-DLIBCXX_LIBDIR_SUFFIX:STRING=64 \
-%endif
-%if %{bootstrap} < 1
-	-DLIBCXX_CXX_ABI=system-libcxxabi \
-	-DLIBCXX_CXX_ABI_INCLUDE_PATHS=$LIBCXX_ABI_PATH \
-	-DLIBCXX_CXX_ABI_LIBRARY_PATH=%{_libdir} \
-	-DPython3_EXECUTABLE=%{_bindir}/python3 \
+	-DLIBCXXABI_LIBDIR_SUFFIX:STRING=64 \
 %endif
 	-DLIBCXX_INCLUDE_BENCHMARKS=OFF \
 	-DLIBCXX_STATICALLY_LINK_ABI_IN_STATIC_LIBRARY=ON \
@@ -100,7 +105,7 @@ fi
 
 # Manually link libc++.a against libc++abi.a, because the libcxx build system is currently
 # broken when system-libcxxabi is used.
-ar cqT tmp.a %{buildroot}%{_libdir}/libc++.a %{_libdir}/libc++abi.a
+ar cqT tmp.a %{buildroot}%{_libdir}/libc++.a %{buildroot}%{_libdir}/libc++abi.a
 # Convert thin archive into normal archive.
 ar -M <<EOM
 CREATE tmp.a
@@ -112,27 +117,42 @@ mv tmp.a %{buildroot}%{_libdir}/libc++.a
 
 %ldconfig_scriptlets
 
-# Install header files that libcxxabi needs
-mkdir -p %{buildroot}%{_includedir}/libcxx-internal/
-install -m 0644 src/include/*.h %{buildroot}%{_includedir}/libcxx-internal/
-
 %files
-%license LICENSE.TXT
-%doc CREDITS.TXT TODO.TXT
+%license libcxx/LICENSE.TXT
+%doc libcxx/CREDITS.TXT libcxx/TODO.TXT
 %{_libdir}/libc++.so.*
 
 %files devel
-%{_includedir}/libcxx-internal/
 %{_includedir}/c++/
+%exclude %{_includedir}/c++/v1/cxxabi.h
+%exclude %{_includedir}/c++/v1/__cxxabi_config.h
 %{_libdir}/libc++.so
 
 %files static
-%license LICENSE.TXT
+%license libcxx/LICENSE.TXT
 %{_libdir}/libc++.a
 %{_libdir}/libc++experimental.a
 
+%files -n libcxxabi
+%license libcxxabi/LICENSE.TXT
+%doc libcxxabi/CREDITS.TXT
+%{_libdir}/libc++abi.so.*
+
+%files -n libcxxabi-devel
+%{_includedir}/c++/v1/cxxabi.h
+%{_includedir}/c++/v1/__cxxabi_config.h
+%{_libdir}/libc++abi.so
+
+%files -n libcxxabi-static
+%{_libdir}/libc++abi.a
 
 %changelog
+* Wed Oct 05 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-5
+- Fix libcxxabi dependencies
+
+* Wed Oct 05 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-4
+- Combine with libcxxabi build
+
 * Tue Sep 13 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
 - Rebuild
 

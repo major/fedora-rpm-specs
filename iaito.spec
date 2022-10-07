@@ -1,6 +1,6 @@
 Name:           iaito
 Summary:        GUI for radare2 reverse engineering framework
-Version:        5.7.2
+Version:        5.7.6
 %global         rel             1
 %global         upversion       %{version}-beta
 URL:            https://radare.org/n/iaito.html
@@ -16,12 +16,12 @@ VCS:            https://github.com/radareorg/iaito/
 %global         gituser         radareorg
 %global         gitname         iaito
 
-%global         gitdate         20220303
-%global         commit          b8a42d881110fe7c4d6ce7797fad0cd258621a72
+%global         gitdate         20220930
+%global         commit          2d78b571228c2a770bfccdbaa6c62d59ed4240c8
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-%global         iaito_translations_gitdate      20210421
-%global         iaito_translations_commit       93c0bb887c1a0de66d55fb84f3aa75e662a1dfd5
+%global         iaito_translations_gitdate      20220930
+%global         iaito_translations_commit       793ae9326330986ab9adfcc380be1561d09365a1
 
 %if %{with releasetag}
 Release:        %{rel}%{?dist}
@@ -39,6 +39,9 @@ License:        GPLv3 and CC-BY-SA and CC0
 Source1:        https://github.com/radareorg/iaito-translations/archive/%{iaito_translations_commit}.tar.gz#/iaito-translations-%{iaito_translations_commit}.tar.gz
 Patch0:         iaito-5.6.0-norpath.patch
 
+# removing duplicate StartupNotify=true
+# https://github.com/radareorg/iaito/pull/103
+Patch1:         iaito-5.7.6-desktop.patch
 
 BuildRequires:  radare2-devel >= 5.6.8
 # BuildRequires:  git
@@ -73,7 +76,7 @@ Provides:       r2cutter%{?_isa} = %{version}-%{release}
 
 # There used to be iaito-doc package
 Obsoletes:      iaito-doc < 5.6.0-0.3.20220303gitafaa7df
-# Provides:       iaito-doc = %{version}-%{release}
+# Provides:       iaito-doc = %%{version}-%%{release}
 
 # cmake files removed with 5.7.2
 Obsoletes:      iaito-devel < 5.6.0-0.6
@@ -127,8 +130,8 @@ sed -i Makefile -e '\@MAKE@s|-j4|%_smp_mflags|'
 
 # Honor Fedora compiler flags
 sed -i src/Iaito.pro \
-	-e 's|^QMAKE_CXXFLAGS +=.*$|QMAKE_CXXFLAGS += %build_cxxflags\nQMAKE_LFLAGS += %build_ldflags|' \
-	%{nil}
+    -e 's|^QMAKE_CXXFLAGS +=.*$|QMAKE_CXXFLAGS += %build_cxxflags\nQMAKE_LFLAGS += %build_ldflags|' \
+    %{nil}
 
 # Change prefix
 sed -i src/Iaito.pro -e 's|/usr/local|%_prefix|'
@@ -159,11 +162,6 @@ export PATH=$(pwd)/TMPBINDIR:$PATH
 %make_install STRIP=true
 
 # Move files manually
-pushd %{buildroot}
-mkdir -p ./%{_datadir}/icons/hicolor/scalable/apps/
-mv ./%{_datadir}/pixmaps/iaito-o.svg ./%{_datadir}/icons/hicolor/scalable/apps/
-popd
-
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p ./src/iaito.1 %{buildroot}%{_mandir}/man1/
 
@@ -187,6 +185,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Oct 04 2022 Michal Ambroz <rebus _AT seznam.cz> - 5.7.6-1
+- bump to 5.7.6
+
 * Mon Sep 19 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.7.2-1
 - 5.7.2
 - build system switched from cmake to configure / make

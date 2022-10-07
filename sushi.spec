@@ -19,7 +19,6 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-4)
-BuildRequires:  pkgconfig(libmusicbrainz5)
 BuildRequires:  pkgconfig(webkit2gtk-4.1)
 
 Obsoletes:      sushi-devel < 0.5.1

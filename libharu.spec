@@ -1,16 +1,13 @@
-%global gittag0 RELEASE_2_3_0RC3
-
+# NOTE - every version updates the soname and requires rebuilding all dependent packages
 Name:           libharu
-Version:        2.3.0
-Release:        16%{?dist}
+Version:        2.4.2
+Release:        1%{?dist}
 Summary:        C library for generating PDF files
 License:        zlib with acknowledgement
 URL:            http://libharu.org
-# not available. rebuilt from ZIP in this package
-Source0:        https://github.com/libharu/${name}/archive/%{gittag0}/%{name}-%{version}-rc3.tar.gz
-Patch0:         libharu-RELEASE_2_3_0_cmake.patch
-Patch1:         libharu-2.3.0-triangleshading.patch
-Patch2:         libharu-2.3.0-smallnumber.patch
+Source0:        https://github.com/libharu/libharu/archive/v%{version}/%{name}-%{version}.tar.gz
+# Set the soname to the version of the library because upstream does not maintain ABI
+Patch0:         libharu-soname.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -30,13 +27,8 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -qn %{name}-%{gittag0}
-# fix cmake build
-%patch0 -p1 -b .cmake
-# github #157 pull request
-%patch1 -p1 -b .triangleshading
-# github #187 pull request
-%patch2 -p1 -b .smallnumber
+%setup -qn %{name}-%{version}
+%patch0 -p1 -b .soname
 
 %build
 %cmake -DLIBHPDF_STATIC=NO
@@ -49,8 +41,9 @@ developing applications that use %{name}.
 %ldconfig_scriptlets
 
 %files
-%doc README
-%{_libdir}/libhpdf.so.*
+%license LICENSE
+%doc README.md
+%{_libdir}/libhpdf.so.%{version}
 %{_datadir}/%{name}
 
 %files devel
@@ -58,6 +51,9 @@ developing applications that use %{name}.
 %{_libdir}/libhpdf.so
 
 %changelog
+* Tue Oct 04 2022 Orion Poplawski <orion@nwra.com> - 2.4.2-1
+- Update to 2.4.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

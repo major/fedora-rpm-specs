@@ -59,7 +59,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: ASL 2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -77,6 +77,7 @@ Patch4: subversion-1.8.0-rubybind.patch
 Patch5: subversion-1.8.5-swigplWall.patch
 Patch6: subversion-1.14.1-testnomagic.patch
 Patch8: subversion-1.14.1-python-3.11-build.patch
+Patch9: subversion-1.14.2-swig-py-Fix-conditionals-by-SWIG-version-and-by-Pyth.patch
 
 BuildRequires: make
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
@@ -241,6 +242,7 @@ This package includes supplementary tools for use with Subversion.
 %patch5 -p1 -b .swigplWall
 %patch6 -p1 -b .testnomagic
 %patch8 -p1 -b .pythonbuild
+%patch9 -p1 -b .swigfix
 
 :
 : === Building:
@@ -581,6 +583,9 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Oct 05 2022 Richard Lescak <rlescak@redhat.com> - 1.14.2-8
+- fix segfault in Python swig test (#2128024)
+
 * Fri Jul 29 2022 Joe Orton <jorton@redhat.com> - 1.14.2-7
 - improve library versioning so filenames are unique across releases
 

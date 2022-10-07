@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-json-post
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -19,7 +19,7 @@
 Summary:        JSON POST handler
 Name:           php-pecl-json-post
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -171,6 +171,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.0-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

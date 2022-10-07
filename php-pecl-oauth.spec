@@ -9,7 +9,7 @@
 
 Name:		php-pecl-oauth	
 Version:	2.0.7
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	PHP OAuth consumer extension
 License:	BSD
 URL:		https://pecl.php.net/package/oauth
@@ -149,6 +149,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.0.7-9
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.0.7-8
 - drop unneeded build dependency on pcre #2128353
 - add patch for PHP 8.2 from

@@ -1,8 +1,27 @@
-# Provenpackagers are welcome to modify this package, but please don't obsolete
-# additional packages without a corresponding bugzilla ticket being filed.
+%global intro %{expand:
+This package exists only to obsolete other packages which need to be removed
+from the distribution. Packages are listed here when they become uninstallable
+and must be removed to allow upgrades to proceed cleanly, or when there is some
+other strong reason to uninstall the package from user systems. The package
+being retired (and potentially becoming unavailable in future releases of
+Fedora) is not a reason to include it here, as long as it doesn't cause upgrade
+problems.
 
-# Please remember to add all of the necessary information.  See below the
-# Source0: line for a description of the format.  It is important that
+Note that this package is not installable, but obsoletes other packages by being
+available in the repository.}
+
+# Provenpackagers are welcome to modify this package, but please don't
+# obsolete packages unless there's a good reason, as described above.
+# A bugzilla ticket or a link to package retirement commit should be
+# always included.
+
+# In particular, when a *subpackage* is removed, but not other
+# subpackages built from the same source, it is usually better to add
+# the Obsoletes to some other sibling subpackage built from the same
+# source package.
+
+# Please remember to add all of the necessary information. See below the
+# Source0: line for a description of the format. It is important that
 # everything be included; yanking packages from an end-user system is "serious
 # business" and should not be done lightly or without making everything as
 # clear as possible.
@@ -101,12 +120,13 @@ Source0:    README
 
 # ===============================================================================
 # Add calls to the obsolete_ticket and obsolete macros below, along with a note
-# indicating the Fedora version in which the entries can be removed.  This is
-# generally three releases beyond whatever release Rawhide is currently.  The
+# indicating the Fedora version in which the entries can be removed. This is
+# generally three releases beyond whatever release Rawhide is currently. The
 # macros make this easy, and will automatically update the package description.
 
-# The ticket information is important.  Please don't add things here without
-# having a filed ticket, preferably in bugzilla.
+# A link with information is important. Please don't add things here
+# without having a link to a ticket in bugzilla, a link to a package
+# retirement commit, or something similar.
 
 # All Obsoletes: entries MUST be versioned (including the release),
 # with the version being higher (!)
@@ -139,14 +159,18 @@ Source0:    README
 # Remove in F39
 # Removed packages with broken dependencies on Python 3.10
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2117256
-%obsolete ansible-test 2.9.27-4
+%obsolete ansible-test 2.9.27-5
 %obsolete bugzilla2fedmsg 1.0.0-8
 %obsolete chavier 0.7.0-23
+%obsolete commissaire-client 0.0.6-18
+%obsolete datanommer 0.2.0-25
 %obsolete expliot 0.9.6-6
 %obsolete fapolicyd-dnf-plugin 1.1.3-2
+%obsolete hyperkitty 1.3.5-2
 %obsolete ipsilon-authfas 2.1.0-24
 %obsolete ipsilon-persona 2.1.0-24
 %obsolete magic-wormhole 0.12.0-8
+%obsolete mailman3 3.3.4-7
 %obsolete mkdocs 1.2.3-3
 %obsolete mkdocs-alabaster 0.8.0-8
 %obsolete mkdocs-bootstrap 1.1-9
@@ -160,6 +184,7 @@ Source0:    README
 %obsolete nudepy 0.5.0-8
 %obsolete paternoster 3.3.0-8
 %obsolete percol 0.1.1-0.24
+%obsolete postorius 1.3.6-3
 %obsolete python-proteus 4.0.2-18
 %obsolete python3-ECPy 0.10.0-13
 %obsolete python3-PyPAM 0.5.0-51
@@ -170,6 +195,7 @@ Source0:    README
 %obsolete python3-angr 9.0.6885-6
 %obsolete python3-argh 0.26.1-23
 %obsolete python3-asyncio-dgram 1.1.1-6
+%obsolete python3-august 0.25.2-6
 %obsolete python3-autoclasstoc 1.3.0-2
 %obsolete python3-avocado-plugins-glib 82.0-6
 %obsolete python3-avocado-plugins-loader-yaml 82.0-6
@@ -179,13 +205,17 @@ Source0:    README
 %obsolete python3-bodhi 5.7.5-2
 %obsolete python3-brother 1.1.0-3
 %obsolete python3-cachez 0.1.2-20
+%obsolete python3-calligrabot 1.0.0-3
 %obsolete python3-cchardet 2.1.7-6
 %obsolete python3-clyent 1.2.2-19
 %obsolete python3-cmigemo 0.1.6-24
 %obsolete python3-concurrentloghandler 0.9.1-21
 %obsolete python3-contextlib2 0.6.0.post1-5
+%obsolete python3-cu2qu 1.6.7-7
 %obsolete python3-discord 1.7.3-2
+%obsolete python3-django-mailman3 1.3.7-3
 %obsolete python3-email_reply_parser 0.3.0-20140523git76e9481.MANUAL
+%obsolete python3-evic 0.1-0.28
 %obsolete python3-ezdxf+all5 0.17.2-2
 %obsolete python3-fastapi 0.78.0-3
 %obsolete python3-fastapi+all 0.78.0-3
@@ -194,6 +224,7 @@ Source0:    README
 %obsolete python3-first 2.0.2-5
 %obsolete python3-google-api-core+grpcgcp 2.8.0-2
 %obsolete python3-google-api-core+grpcio-gcp 2.8.0-2
+%obsolete python3-googletrans 4.0.0~rc1-8
 %obsolete python3-graphene-sqlalchemy 2.3.0-5
 %obsolete python3-graphql-server 3.0.0-7
 %obsolete python3-graphql-server+aiohttp 3.0.0-7
@@ -201,6 +232,8 @@ Source0:    README
 %obsolete python3-graphql-server+webob 3.0.0-7
 %obsolete python3-hkdf 0.0.3-13
 %obsolete python3-insteon 1.0.8-6
+%obsolete python3-javabridge 1.0.19-8
+%obsolete python3-jaydebeapi 1.2.3-7
 %obsolete python3-jpype 1.3.0-3
 %obsolete python3-language-server 0.36.2-7
 %obsolete python3-libsoc 0.8.2-20
@@ -253,6 +286,7 @@ Source0:    README
 %obsolete python3-productivity 0.6.0-2
 %obsolete python3-profilehooks 1.12.0-6
 %obsolete python3-py-gfm 0.1.4-8
+%obsolete python3-py4j 0.10.9-10
 %obsolete python3-pycha 0.7.0-23
 %obsolete python3-pyduofern 0.34.1-6
 %obsolete python3-pyls_black 0.4.7-4
@@ -260,6 +294,7 @@ Source0:    README
 %obsolete python3-pystalk 0.5.1-11
 %obsolete python3-readthedocs-sphinx-ext 2.1.4-5
 %obsolete python3-rpm-head-signing 1.7-3
+%obsolete python3-sendgrid 3.6.5-18
 %obsolete python3-social-auth-core+saml 4.2.0-2
 %obsolete python3-sockjs-tornado 1.0.7-5
 %obsolete python3-spake2 0.8-13
@@ -278,6 +313,8 @@ Source0:    README
 %obsolete python3-xmlrunner 1.7.7-18
 %obsolete python3-yarg 0.1.9-17
 %obsolete quasselgrep 0.1-0.15
+%obsolete renderdoc 1.17-3
+%obsolete renderdoc-devel 1.17-3
 %obsolete system-config-repo 0-31
 %obsolete tryton 5.4.0-9
 %obsolete trytond 4.0.4-20
@@ -408,9 +445,7 @@ Source0:    README
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 
-%description
-This package exists only to obsolete other packages which need to be removed
-from the distribution for some reason.
+%description %intro
 
 Currently obsoleted packages:
 

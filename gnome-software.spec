@@ -18,7 +18,7 @@
 
 Name:      gnome-software
 Version:   43.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPLv2+
@@ -27,6 +27,7 @@ Source0:   https://download.gnome.org/sources/gnome-software/43/%{name}-%{tarbal
 
 Patch01:   0001-crash-with-broken-theme.patch
 Patch02:   0002-install-rpm-file.patch
+Patch03:   0003-rpm-ostree-download-size.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
@@ -212,6 +213,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Wed Oct 05 2022 Milan Crha <mcrha@redhat.com> - 43.0-3
+- Resolves: #2132292 (rpm-ostree plugin refuses to update)
+
 * Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 43.0-2
 - Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
 

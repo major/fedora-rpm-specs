@@ -22,7 +22,7 @@
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       PHP
 URL:           https://pecl.php.net/package/event
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver}.tgz
@@ -194,6 +194,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 3.0.7-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -29,7 +29,7 @@
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
 Version:       1.11.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -264,6 +264,9 @@ exit $ret
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.11.0-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

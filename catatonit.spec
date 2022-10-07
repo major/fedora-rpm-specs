@@ -1,31 +1,24 @@
-%global built_tag_strip 0.1.7
+%global built_tag v0.1.7
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: catatonit
-Version: 0.1.7
+Version: %{gen_version}
 Summary: A signal-forwarding process manager for containers
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: GPL-3.0+
-Release: 0%{?dist}
-%else
 License: GPLv3+
 Release: %autorelease
-%endif
-URL: https://github.com/openSUSE/catatonit
-Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
+URL: https://github.com/openSUSE/%{name}
+# Tarball fetched from upstream
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: file
 BuildRequires: libtool
 Provides: podman-%{name} = %{version}-%{release}
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-%else
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: glibc-static
 BuildRequires: make
-%endif
 
 %description
 Catatonit is a %{_sbindir}/init program for use within containers. It
@@ -70,6 +63,4 @@ ln -s %{_libexecdir}/%{name}/%{name} %{buildroot}%{_libexecdir}/podman/%{name}
 %{_libexecdir}/podman/%{name}
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

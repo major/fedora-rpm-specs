@@ -1,7 +1,7 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
-Version: 1.19
-Release: 3%{?dist}
+Version: 1.21
+Release: 1%{?dist}
 License: GPLv2
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -88,11 +88,50 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %dir /var/lib/alternatives
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Wed Oct 05 2022 Jan Macku <jamacku@redhat.com> - 1.21-1
+- ci: Add CodeQL to replace LGTM
+- alternatives: replace master/slave with leader/follower
+- chkconfig: use correct cmp function
+- Bump redhat-plumbers-in-action/differential-shellcheck from 2 to 3
+- ci: Add Shell linter - Differential ShellCheck
+- ci: Use more inclusive terminology in workflows
+- ci: Update workflows, packit and dependabot
+- Translated using Weblate (Friulian)
+- Translated using Weblate (Swedish)
+- Translated using Weblate (Estonian)
+- Translated using Weblate (Georgian)
+- Translated using Weblate (Polish)
+- Translated using Weblate (Korean)
+- Translated using Weblate (Czech)
+- Translations update from Fedora Weblate (#77)
+- Translations update from Fedora Weblate (#75)
+- Translations update from Fedora Weblate (#74)
+- Translations update from Fedora Weblate (#73)
+- Translated using Weblate (Ukrainian)
+- Update translation files
+- Family mentioned for --set in both man and help
+- Translated using Weblate (French)
+- build-sys: Ensure `systemd-sysv-install` symlink does not have `//`
+- Translated using Weblate (German)
+- Add LGTM badges to README
+- Merge remote-tracking branch 'weblate/master'
+- Translated using Weblate (Indonesian)
+- Translated using Weblate (Finnish)
+- Translated using Weblate (Korean)
+- Translated using Weblate (Ukrainian)
+- Translated using Weblate (Turkish)
+- Translated using Weblate (Polish)
+- Translated using Weblate (Norwegian Nynorsk)
+- Update translation files
+- Translated using Weblate (Finnish)
+- Translated using Weblate (Czech)
+- Translated using Weblate (Swedish)
+- Translated using Weblate (Italian)
+- Translated using Weblate (Spanish)
+- Translated using Weblate (Chinese (Simplified))
 
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Wed Jul 28 2021 Jan Macku <jamacku@redhat.com> - 1.20-1
+- spec: Replace not working awk command with sed (#62)
 
 * Fri Jul 23 2021 Jan Macku <jamacku@redhat.com> - 1.19-1
 - spec: Add Provides /sbin/chkconfig in order to stay backwards compatible (#60)
@@ -113,12 +152,6 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 - CI: specify more closely when to run CI
 - Add basic CI and README
 - spec: sync specfile with Fedora
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
 * Thu Jan 21 2021 Jan Macku <jamacku@redhat.com> - 1.15-1
 - spec: sync specfile with Fedora

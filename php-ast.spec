@@ -21,7 +21,7 @@
 Summary:       Abstract Syntax Tree
 Name:          php-ast
 Version:       1.1.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD
 URL:           https://pecl.php.net/package/ast
 Source0:       httpd://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -155,6 +155,9 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_ztsex
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.0-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Wed Aug 10 2022 Remi Collet <remi@remirepo.net> - 1.1.0-1
 - update to 1.1.0
 - raise dependency on PHP 7.2

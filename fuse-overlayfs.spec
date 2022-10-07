@@ -1,40 +1,29 @@
 %global git0 https://github.com/containers/%{name}
 
-%global built_tag_strip 1.9
+%global built_tag v1.9
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 %{!?_modulesloaddir:%global _modulesloaddir %{_usr}/lib/modules-load.d}
 
 Name: fuse-overlayfs
-Version: 1.9
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: GPL-3.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 Release: %autorelease
 License: GPLv3+
-%endif
 Summary: FUSE overlay+shiftfs implementation for rootless containers
 URL: https://github.com/containers/%{name}
-Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
+# Tarball fetched from upstream
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: autoconf
 BuildRequires: automake
 Requires: fuse3
 Requires: kmod
-%if "%{_vendor}" == "debbuild"
-BuildRequires: autoconf-archive
-BuildRequires: git
-BuildRequires: libfuse3-dev
-BuildRequires: m4
-BuildRequires: pkg-config
-%else
 BuildRequires: fuse3-devel
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: make
 BuildRequires: systemd-rpm-macros
 Provides: bundled(gnulib) = cb634d40c7b9bbf33fa5198d2e27fdab4c0bf143
-%endif
 
 %description
 %{summary}.
@@ -79,6 +68,4 @@ modprobe fuse > /dev/null 2>&1 || :
 %{_modulesloaddir}/fuse-overlayfs.conf
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

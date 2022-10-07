@@ -3,8 +3,8 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 372
-Release: 2%{?dist}
+Version: 373
+Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
 BuildRequires: make
@@ -100,6 +100,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Wed Oct 05 2022 Tomas Korbar <tkorbar@redhat.com> - 373-1
+- Rebase to version 373
+- Resolves: rhbz#2129661
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 372-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

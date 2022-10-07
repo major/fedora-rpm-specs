@@ -1,6 +1,6 @@
 Name:           waylandpp
-Version:        0.2.9
-Release:        2%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Wayland C++ bindings
 
 # waylandpp includes part of Wayland under MIT, wayland-scanner++ is GPLv3+
@@ -11,12 +11,12 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-BuildRequires:  graphviz
 BuildRequires:  mesa-libEGL-devel
+BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pugixml-devel
+BuildRequires:  pkgconfig(wayland-server)
 
 %description
 Wayland is an object oriented display protocol, which features request and
@@ -90,6 +90,9 @@ rm -r $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}-doc/latex/
 
 
 %changelog
+* Wed Oct 05 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.0.0-1
+- Update to 1.0.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

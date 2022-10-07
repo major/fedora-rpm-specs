@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-ssdeep
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -17,7 +17,7 @@
 Summary:        Wrapper for libfuzzy library
 Name:           php-pecl-%{pecl_name}
 Version:        1.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -172,6 +172,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.0-15
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

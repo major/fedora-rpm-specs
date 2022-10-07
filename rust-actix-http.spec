@@ -6,7 +6,7 @@
 %global crate actix-http
 
 Name:           rust-actix-http
-Version:        3.2.1
+Version:        3.2.2
 Release:        %autorelease
 Summary:        HTTP primitives for the Actix ecosystem
 

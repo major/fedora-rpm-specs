@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.12.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD and GPLv2+
 URL: https://github.com/shadow-maint/shadow
@@ -45,6 +45,8 @@ Patch12: shadow-4.6-sysugid-min-limit.patch
 Patch13: shadow-4.8-ignore-login-prompt.patch
 # https://github.com/shadow-maint/shadow/commit/ebf9b232b012725d2be5e750876c7336cf1c37fd
 Patch14: shadow-4.12.3-useradd-stop-last-fail-log-reset.patch
+# https://github.com/shadow-maint/shadow/commit/e503fd574b7dbf6b21b1168e20938f0922807916
+Patch15: shadow-4.12.3-chage-print-date-regression.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -119,6 +121,7 @@ Development files for shadow-utils-subid.
 %patch12 -p1 -b .sysugid-min-limit
 %patch13 -p1 -b .login-prompt
 %patch14 -p1 -b .useradd-stop-last-fail-log-reset
+%patch15 -p1 -b .chage-print-date-regression
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -292,6 +295,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Oct  5 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.12.3-3
+- chage: Fix regression in print_date. Resolves: #2129336
+
 * Fri Sep  9 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.12.3-2
 - useradd: Do not reset non-existent data in {last,fail}log
 

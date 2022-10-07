@@ -26,6 +26,11 @@ License:        MIT
 URL:            %forgeurl
 Source0:        %forgesource
 
+# Patch the error from issue 23015.
+# Thanks to mdboom for the patch!
+# https://github.com/Azure/azure-cli/issues/23015#issuecomment-1268587028
+Patch0:         subparser-command-verb.patch
+
 BuildArch:      noarch
 
 %if 0%{?fedora}

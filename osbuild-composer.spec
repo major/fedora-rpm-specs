@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        64
+Version:        65
 
 %gometa
 
@@ -47,13 +47,13 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  git
 # DO NOT REMOVE the BUNDLE_START and BUNDLE_END markers as they are used by 'tools/rpm_spec_add_provides_bundle.sh' to generate the Provides: bundled list
 # BUNDLE_START
-Provides: bundled(golang(cloud.google.com/go)) = v0.102.1
+Provides: bundled(golang(cloud.google.com/go)) = v0.104.0
 Provides: bundled(golang(cloud.google.com/go/cloudbuild)) = v1.2.0
-Provides: bundled(golang(cloud.google.com/go/compute)) = v1.9.0
+Provides: bundled(golang(cloud.google.com/go/compute)) = v1.10.0
 Provides: bundled(golang(cloud.google.com/go/iam)) = v0.3.0
-Provides: bundled(golang(cloud.google.com/go/storage)) = v1.26.0
+Provides: bundled(golang(cloud.google.com/go/storage)) = v1.27.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
-Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.93
+Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.108
 Provides: bundled(golang(github.com/aymerick/douceur)) = v0.2.0
 Provides: bundled(golang(github.com/Azure/azure_pipeline_go)) = v0.2.3
 Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v66.0.0+incompatible
@@ -99,11 +99,11 @@ Provides: bundled(golang(github.com/golang_jwt/jwt/v4)) = v4.4.2
 Provides: bundled(golang(github.com/golang/glog)) = v1.0.0
 Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_41bb18bfe9da
 Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.2
-Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.8
+Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.9
 Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.10.0
 Provides: bundled(golang(github.com/google/uuid)) = v1.3.0
 Provides: bundled(golang(github.com/googleapis/enterprise_certificate_proxy)) = v0.1.0
-Provides: bundled(golang(github.com/googleapis/gax_go/v2)) = v2.4.0
+Provides: bundled(golang(github.com/googleapis/gax_go/v2)) = v2.5.1
 Provides: bundled(golang(github.com/gophercloud/gophercloud)) = v1.0.0
 Provides: bundled(golang(github.com/gorilla/css)) = v1.0.0
 Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
@@ -184,7 +184,7 @@ Provides: bundled(golang(go.opencensus.io)) = v0.23.0
 Provides: bundled(golang(golang.org/x/crypto)) = v0.0.0_20220722155217_630584e8d5aa
 Provides: bundled(golang(golang.org/x/mod)) = v0.6.0_dev.0.20220106191415_9b9b3d81d5e3
 Provides: bundled(golang(golang.org/x/net)) = v0.0.0_20220909164309_bea034e7d591
-Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220822191816_0ebed06d0094
+Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220909003341_f21342109be1
 Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220601150217_0de741cfad7f
 Provides: bundled(golang(golang.org/x/sys)) = v0.0.0_20220728004956_3c1f35247d10
 Provides: bundled(golang(golang.org/x/term)) = v0.0.0_20210927222741_03fcf44c2211
@@ -192,10 +192,10 @@ Provides: bundled(golang(golang.org/x/text)) = v0.3.7
 Provides: bundled(golang(golang.org/x/time)) = v0.0.0_20211116232009_f0f3c7e86c11
 Provides: bundled(golang(golang.org/x/tools)) = v0.1.10
 Provides: bundled(golang(golang.org/x/xerrors)) = v0.0.0_20220609144429_65e65417b02f
-Provides: bundled(golang(google.golang.org/api)) = v0.96.0
+Provides: bundled(golang(google.golang.org/api)) = v0.98.0
 Provides: bundled(golang(google.golang.org/appengine)) = v1.6.7
-Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20220810155839_1856144b1d9c
-Provides: bundled(golang(google.golang.org/grpc)) = v1.48.0
+Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0_20220920201722_2b89144ce006
+Provides: bundled(golang(google.golang.org/grpc)) = v1.49.0
 Provides: bundled(golang(google.golang.org/protobuf)) = v1.28.1
 Provides: bundled(golang(gopkg.in/ini.v1)) = v1.67.0
 Provides: bundled(golang(gopkg.in/square/go_jose.v2)) = v2.6.0
@@ -460,10 +460,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 64
-Requires:   osbuild-ostree >= 63
-Requires:   osbuild-lvm2 >= 63
-Requires:   osbuild-luks2 >= 63
+Requires:   osbuild >= 65
+Requires:   osbuild-ostree >= 65
+Requires:   osbuild-lvm2 >= 65
+Requires:   osbuild-luks2 >= 65
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -575,6 +575,37 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Oct 05 2022 Packit <hello@packit.dev> - 65-1
+Changes with 65
+----------------
+  * Appsre cleanups (#3024)
+  * Fix blueprint commit message (#3026)
+  * Update Fedora IoT Installer definition (#3020)
+  * [main] distro/rhel9: edge images default to LVM (#2861)
+  * app-sre: Update AMIs to rhel-9.0 (#3019)
+  * build(deps): bump cloud.google.com/go/compute from 1.9.0 to 1.10.0 (#2998)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.44.104 to 1.44.108 (#3034)
+  * build(deps): bump github.com/google/go-cmp from 0.5.8 to 0.5.9 (#3003)
+  * build(deps): bump google.golang.org/api from 0.96.0 to 0.97.0 (#3012)
+  * build(deps): bump google.golang.org/api from 0.97.0 to 0.98.0 (#3027)
+  * dbjobqueue: Backoff after listener error (#3036)
+  * packer: add fedora 36 (#3008)
+  * packer: remove Fedora 35 (#3035)
+  * packit: Enable Bodhi updates for unstable Fedoras (#3017)
+  * spec: bump osbuild dep to >= 65 (#3007)
+  * tagging a blueprint wasn't working correctly (#3031)
+  * templates/composer.yml: update splunk port for splunk cloud (#3009)
+  * templates/packer: Allow token url to be set by cloud-init vars (#3010)
+  * test: add CIV tool to azure.sh (#2923)
+  * test: get correct CIV tag in azure.sh (#3043)
+  * worker: log error details on job failure (#3025)
+
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Brian C. Lane, Diaa Sami, Irene Diez, Juan Abia, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Xiaofeng Wang, dependabot[bot]
+
+— Somewhere on the Internet, 2022-10-05
+
+
+
 * Wed Sep 21 2022 Packit <hello@packit.dev> - 64-1
 Changes with 64
 ----------------
@@ -601,10 +632,10 @@ Changes with 64
   * test: User in commit will not be supported after osbuild-composer 64 (#3000)
   * test: change CIV tag (#2958)
   * workflow: Update to golangci-lint v1.49.0 (#2973)
-
 Contributions from: Achilleas Koutsou, Alexander Todorov, Brian C. Lane, Diaa Sami, Gianluca Zuccarelli, Jakub Rusz, Juan Abia, Lukas Zapletal, Ondřej Budai, Sanne Raymaekers, Tomas Hozza, Tomáš Hozza, Xiaofeng Wang, dependabot[bot], schutzbot, yih
-
 — Somewhere on the Internet, 2022-09-21
+
+
 
 
 

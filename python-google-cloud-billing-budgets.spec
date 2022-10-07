@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-billing-budgets
 %global         forgeurl    https://github.com/googleapis/python-billingbudgets
-Version:        1.7.1
+Version:        1.7.2
 %global         tag         v%{version}
 %forgemeta
 
@@ -35,7 +35,6 @@ budget plan and the rules to execute as spend is tracked against that plan.}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-Obsoletes:      python3-azure-sdk < 5.0.1
 %description -n python3-%{srcname} %{_description}
 
 
@@ -46,6 +45,8 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 grep -rl "^[[:space:]]*import mock" tests | \
     xargs sed -i -E 's/^([[:space:]]*)import mock/\1from unittest import mock/'
 
+# Allow an older protobuf.
+sed -i 's/protobuf >= 3.20.2/protobuf >= 3.19.4/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r

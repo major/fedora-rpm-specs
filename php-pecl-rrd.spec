@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pecl-rrd
 #
-# Copyright (c) 2011-2021 Remi Collet
+# Copyright (c) 2011-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -17,7 +17,7 @@
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
 Version:      2.0.3
-Release:      5%{?dist}
+Release:      6%{?dist}
 License:      BSD
 URL:          https://pecl.php.net/package/rrd
 
@@ -159,6 +159,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.0.3-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

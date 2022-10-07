@@ -5,7 +5,7 @@
 %global crate ordered-float
 
 Name:           rust-ordered-float
-Version:        3.0.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Wrappers for total ordering on floats
 

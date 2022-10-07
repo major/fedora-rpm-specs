@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          9.56.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 
 License:          AGPLv3+
 
@@ -103,7 +103,8 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
-Patch: ghostscript-9.56-fix-PDFFitPage-with-square-MediaBox.patch
+Patch000: ghostscript-9.56-fix-PDFFitPage-with-square-MediaBox.patch
+Patch001: ghostscript-9.56.1-Fix-color-info-juggling-with-x11-devices.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -434,6 +435,9 @@ done
 # =============================================================================
 
 %changelog
+* Wed Oct 05 2022 Michael J Gruber <mjg@fedoraproject.org> - 9.56.1-3
+- fix segfaulting X11 devices (rhbz#2125654)
+
 * Tue Sep 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 9.56.1-2
 - fix FitPage with square media (rhbz#2123391)
 

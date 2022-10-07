@@ -5,7 +5,7 @@
 %global crate lock_api
 
 Name:           rust-lock_api
-Version:        0.4.8
+Version:        0.4.9
 Release:        %autorelease
 Summary:        Wrappers to create fully-featured Mutex and RwLock types
 

@@ -5,7 +5,7 @@
 %global crate mac_address
 
 Name:           rust-%{crate}
-Version:        1.1.3
+Version:        1.1.4
 Release:        %autorelease
 Summary:        Cross-platform retrieval of a network interface MAC address
 
@@ -14,7 +14,7 @@ License:        MIT or ASL 2.0
 URL:            https://crates.io/crates/mac_address
 Source:         %{crates_source}
 
-Patch001:       001-cargo-Pach-Cargo.toml-to-get-rid-of-windows-crates.patch
+Patch0001:      0001-cargo-Patch-Cargo.toml-to-get-rid-of-windows-crates.patch
 
 ExclusiveArch:  %{rust_arches}
 

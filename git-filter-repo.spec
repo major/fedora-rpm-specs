@@ -2,22 +2,26 @@
 
 Name:           git-filter-repo
 Version:        2.34.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
 License:        MIT
 Group:          Development/Tools/Version Control
 Url:            https://github.com/newren/git-filter-repo
 #
 Source0:        https://github.com/newren/git-filter-repo/releases/download/v%{version}/%{name}-%{version}.tar.xz
+Patch0:         https://github.com/newren/git-filter-repo/commit/838bdd1.patch#/0001-Update-expected-test-data-for-git-2.35.patch
 #
 BuildArch:      noarch
 #
-BuildRequires:  git >= 2.26.0
+BuildRequires:  git-core >= 2.26.0
 BuildRequires:  python3-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+# test deps
+BuildRequires:  perl-interpreter
+BuildRequires:  rsync
 #
-Requires:       git >= 2.26.0
+Requires:       git-core >= 2.26.0
 
 %description
 git filter-repo is a versatile tool for rewriting history, which includes
@@ -27,31 +31,61 @@ performance, with far more capabilities, and with a design that scales
 usability-wise beyond trivial rewriting cases.
 
 %prep
-%autosetup -p1
+%setup -q
+%if 0%{?fedora}
+%patch0 -p1
+%endif
+
+# Remove shebang from the python module to avoid rpmlint warnings
+# (this is a symlink, but sed -i will break it, conveniently for us)
+sed -i '1,2d' git_filter_repo.py
 
 # Change shebang in all relevant files in this directory and all subdirectories
 find -type f -exec sed -i '1s=^#!%{_bindir}/\(python\|env python\)[23]\?=#!%{_bindir}/python3=' {} +
 
+# Fix shebang print_my_version(); it affects the --version output
+sed -Ei "s=#!/usr/bin/env python3=#!%{_bindir}/python3=" %{name} git_filter_repo.py
+
+# Create setup.{cfg,py} to ensure we have egg-info for generating dependencies
+sed -e '/^setup_requires = setuptools_scm$/d' release/setup.cfg >setup.cfg
+
+cat <<'EOF' >setup.py
+from setuptools import setup
+setup(name="%{name}", version="%{version}",
+      entry_points={'console_scripts': ['%{name} = git_filter_repo:main']})
+EOF
+
+# Fix links to git docs since we don't install git-filter-repo.html into the
+# git htmldir
+sed -Ei 's,(a href=")(git),\1%{_docdir}/git/\2,g' Documentation/html/git-filter-repo.html
+
 %build
+%py3_build
 
 %install
-install -d -m 0755 %{buildroot}%{gitexecdir}
-install -m 0755 git-filter-repo %{buildroot}%{gitexecdir}/git-filter-repo
-
-install -d -m 0755 %{buildroot}%{python3_sitelib}
-ln -sf %{gitexecdir}/git-filter-repo %{buildroot}%{python3_sitelib}/git_filter_repo.py
+%py3_install -- --install-scripts %{gitexecdir}
 
 install -d -m 0755 %{buildroot}%{_mandir}/man1
 install -m 0644 Documentation/man1/git-filter-repo.1 %{buildroot}%{_mandir}/man1/git-filter-repo.1
 
+%check
+t/run_tests
+
 %files
 %license COPYING
-%doc README.md contrib/filter-repo-demos
+%doc README.md Documentation/*.md Documentation/html/*.html contrib/filter-repo-demos
 %{gitexecdir}/git-filter-repo
-%{python3_sitelib}/git_filter_repo.py
+%pycached %{python3_sitelib}/git_filter_repo.py
+%{python3_sitelib}/git_filter_repo-%{version}-*.egg-info/
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
+* Fri Sep 23 2022 Todd Zullinger <tmz@pobox.com> - 2.34.0-5
+- improve python provides
+- require git-core rather than git
+- include additional documentation
+- run the test suite
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

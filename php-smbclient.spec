@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-smbclient
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -21,7 +21,7 @@
 
 Name:           php-smbclient
 Version:        1.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PHP wrapper for libsmbclient
 
 License:        BSD
@@ -30,6 +30,8 @@ Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 %if %{with_tests}
 Source2:        %{pecl_name}-phpunit.xml
 %endif
+
+Patch0:         %{pecl_name}-stub.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -71,6 +73,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
+%patch0 -p1
+
 # Check extension version
 ver=$(sed -n '/define PHP_SMBCLIENT_VERSION/{s/.* "//;s/".*$//;p}' php_smbclient.h)
 if test "$ver" != "%{version}%{?prever}"; then
@@ -163,6 +167,10 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.0.6-7
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add fix from https://github.com/eduardok/libsmbclient-php/pull/94
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

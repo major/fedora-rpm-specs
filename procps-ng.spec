@@ -4,7 +4,7 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 3.3.17
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+
 URL: https://sourceforge.net/projects/procps-ng/
 
@@ -19,6 +19,7 @@ Patch1: pwait-to-pidwait.patch
 Patch2: covscan-findings.patch
 Patch3: sysctl-hyphen-param.patch
 Patch4: free-si-fix.patch
+Patch5: sysctl-print-dotted-keys-again.patch
 
 
 BuildRequires: make
@@ -162,6 +163,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Wed Oct 05 2022 Jan Rybar <jrybar@redhat.com> - 3.3.17-8
+- sysctl: bring back dotted keys after globs-support backport
+
 * Mon Sep 19 2022 Jan Rybar <jrybar@redhat.com> - 3.3.17-7
 - free: backport 91e58792: fix --si option + cleanup
 - Resolves: bz#2083789

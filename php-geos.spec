@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-geos
 #
-# Copyright (c) 2016-2018 Remi Collet
+# Copyright (c) 2016-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -21,7 +21,7 @@
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 
 Summary:        PHP module for GEOS
 
@@ -38,6 +38,8 @@ Patch2:         0003-add-all-arginfo-and-fix-build-with-PHP-8.patch
 Patch4:         0005-fix-for-8.0.0RC1.patch
 # https://git.osgeo.org/gitea/geos/php-geos/issues/25
 Patch3:         0004-fix-all-zend_parse_parameters-call-to-use-zend_long.patch
+# https://git.osgeo.org/gitea/geos/php-geos/issues/27
+Patch5:         0006-fix-__toString-with-8.2.patch
 
 BuildRequires:  php-devel
 BuildRequires:  php-pear
@@ -67,6 +69,7 @@ cd NTS
 %patch2 -p1 -b .arginfo
 %patch3 -p1 -b .zendlong
 %patch4 -p1 -b .arg
+%patch5 -p1 -b .php82
 
 sed -e '/PHP_GEOS_VERSION/s/"0.0"/"%{version}%{?prever}"/' -i php_geos.h
 
@@ -177,6 +180,11 @@ exit $ret
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.0.0-25
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add patch for PHP 8.2 from
+  https://git.osgeo.org/gitea/geos/php-geos/issues/27
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

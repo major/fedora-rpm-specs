@@ -1,41 +1,38 @@
-%bcond_with tests
+# pass --without tests to skip the test suite
+%bcond_without tests
 
-Name:		rpmlint
-Version:	2.2.0
-Release:	7%{?dist}
-Summary:	Tool for checking common errors in RPM packages
-License:	GPLv2
-URL:		https://github.com/rpm-software-management/rpmlint
-Source0:	%{url}/archive/%{version}/rpmlint-%{version}.tar.gz
+Name:           rpmlint
+Version:        2.4.0
+Release:        2%{?dist}
+Summary:        Tool for checking common errors in RPM packages
+License:        GPL-2.0-or-later
+URL:            https://github.com/rpm-software-management/rpmlint
+Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
-Source1:	fedora.toml
-Source2:	licenses.toml
-Source3:	scoring.toml
-Source4:	users-groups.toml
-Source5:	warn-on-functions.toml
+Source1:        fedora.toml
+Source3:        scoring.toml
+Source4:        users-groups.toml
+Source5:        warn-on-functions.toml
 
-BuildArch:	noarch
-BuildRequires:	python3-devel
-BuildRequires:	%{py3_dist setuptools}
-BuildRequires:	%{py3_dist pybeam}
-BuildRequires:	%{py3_dist pyxdg}
-BuildRequires:	%{py3_dist rpm}
-BuildRequires:	%{py3_dist toml}
-BuildRequires:	%{py3_dist zstd}
-Requires:	devscripts-checkbashisms, dash, rpm-build
-# Technically works without it, but results are better with it.
-Requires:	/usr/bin/appstream-util
-# E: fatal error while reading ...: [Errno 2] No such file or directory: 'desktop-file-validate'
-Requires:	/usr/bin/desktop-file-validate
-Requires:	%{py3_dist pyenchant}
+BuildArch:      noarch
+BuildRequires:  python3-devel
 # tests
-BuildRequires:	/usr/bin/appstream-util
-BuildRequires:	%{py3_dist pytest}
-BuildRequires:	%{py3_dist pytest-xdist}
-BuildRequires:	%{py3_dist pyenchant}
-BuildRequires:	%{py3_dist file-magic}
-BuildRequires:	devscripts-checkbashisms, dash, hunspell-cs, hunspell-en-US
-BuildRequires:	/usr/bin/desktop-file-validate
+%if %{with tests}
+BuildRequires:  dash
+BuildRequires:  devscripts-checkbashisms
+BuildRequires:  hunspell-cs
+BuildRequires:  hunspell-en-US
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
+BuildRequires:  /usr/bin/appstream-util
+BuildRequires:  /usr/bin/desktop-file-validate
+%endif
+Requires:       dash
+Requires:       devscripts-checkbashisms
+Requires:       rpm-build
+Requires:       /usr/bin/appstream-util
+Requires:       /usr/bin/desktop-file-validate
+Requires:       rpmlint-fedora-license-data
 
 %description
 rpmlint is a tool for checking common errors in RPM packages. Binary
@@ -44,32 +41,54 @@ and source packages as well as spec files can be checked.
 %prep
 %setup -q -n %{name}-%{version}
 
+# Replace python-magic dep with file-magic (rhbz#1899279)
+sed -i 's/python-magic/file-magic/g' setup.py
+
 # Don't lint the code or measure coverage in %%check
 sed -i -e 's/ --cov=rpmlint//' -e 's/ --flake8//' setup.cfg
 
+# Avoid warnings about pytest.mark.no_cover marker
+sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name}
 
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/rpmlint/
-cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg/rpmlint/
+cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg/rpmlint/
 
 %check
 %if %{with tests}
 %pytest
 %endif
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc README.md
+%dir %{_sysconfdir}/xdg/rpmlint
 %config(noreplace) %{_sysconfdir}/xdg/rpmlint/*.toml
 %{_bindir}/rpmdiff
 %{_bindir}/rpmlint
-%{python3_sitelib}/rpmlint*
 
 %changelog
+* Wed Oct 05 2022 Miro Hrončok <mhroncok@redhat.com> - 2.4.0-2
+- remove the license list, depend on rpmlint-fedora-license-data instead
+
+* Tue Oct 04 2022 Todd Zullinger <tmz@pobox.com> - 2.4.0-1
+- update to 2.4.0 (rhbz#2088759)
+- use python build-dependency generator
+- own %%{_sysconfdir}/xdg/rpmlint directory
+
+* Sat Sep 24 2022 Todd Zullinger <tmz@pobox.com> - 2.3.0-1
+- update to 2.3.0 (rhbz#2088759)
+- convert license to SPDX and correct to GPL-2.0-or-later
+- enable tests by default, avoid warnings about pytest.mark.no_cover marker
+
 * Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 2.2.0-7
 - update licenses.toml to reflect change in Fedora licensing identifiers
 

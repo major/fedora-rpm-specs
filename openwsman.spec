@@ -410,7 +410,7 @@ fi
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
 %{_datadir}/selinux/devel/include/distributed/%{modulename}.if
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %endif
 
 %changelog

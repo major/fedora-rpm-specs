@@ -1,6 +1,6 @@
 # spec file for php-pecl-fann
 #
-# Copyright (c) 2013-2021 Remi Collet
+# Copyright (c) 2013-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
@@ -21,7 +21,7 @@
 Summary:        Wrapper for FANN Library
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -169,6 +169,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.2.0~RC1-4
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0~RC1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

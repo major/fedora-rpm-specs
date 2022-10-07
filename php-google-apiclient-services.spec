@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-google-apiclient-services
 #
-# Copyright (c) 2017-2021 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2017-2022 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     googleapis
 %global github_name      google-api-php-client-services
-%global github_version   0.212.0
-%global github_commit    2c4bd512502ad9cdfec8ea711ea1592c79d345e5
+%global github_version   0.269.0
+%global github_commit    01431ddcc1d0fd418b3a0dc4b4d99d7c3b94082f
 
 %global composer_vendor  google
 %global composer_project apiclient-services
@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Google PHP API Client Services
 
 License:       ASL 2.0
@@ -128,7 +128,7 @@ rm -f tests/VendorTest.php
 : Upstream tests
 RETURN_CODE=0
 PHPUNIT=$(which phpunit8)
-for PHP_EXEC in "" %{?rhel:php70 php71 php72 php73 php74} php80 php81; do
+for PHP_EXEC in "" %{?rhel:php70 php71 php72 php73 php74} php80 php81 php82; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC $PHPUNIT --bootstrap bootstrap.php --verbose \
             -d memory_limit="512M" || RETURN_CODE=1
@@ -150,6 +150,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Oct 05 2022 Shawn Iwinski <shawn@iwin.ski> - 0.269.0-1
+- Update to 0.269.0 (RHBZ #2006141)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.212.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

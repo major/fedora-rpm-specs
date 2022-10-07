@@ -9,20 +9,20 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_without      tests
+%bcond_with        tests
 
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  9f4bbc4a299e2c34033b01e9cc8e6b78d927a5bd
+%global gh_commit  89bb81c5c8fd0a229f3dd593aedbe263abdb8efd
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.1.5
-#global upstream_prever  RC1
-#global upstream_lower   rc1
+%global upstream_version 3.2.0
+%global upstream_prever  alpha3
+%global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 
 # XDebug should be loaded after opcache
 %global ini_name  15-%{pecl_name}.ini
@@ -30,7 +30,7 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 # The Xdebug License, version 1.01
@@ -40,7 +40,7 @@ URL:            https://xdebug.org/
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  php-devel >= 7.2
+BuildRequires:  php-devel >= 8.0
 BuildRequires:  php-pear
 BuildRequires:  php-simplexml
 BuildRequires:  libtool
@@ -218,6 +218,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Oct  5 2022 Remi Collet <remi@remirepo.net> - 3.2.0~alpha2-1
+- update to 3.2.0alpha3
+- temporarily disable test suite
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

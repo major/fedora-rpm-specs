@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.21.0
+Version:        1.21.2
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -184,18 +184,6 @@ use the "num_cpus" feature of the "%{crate}" crate.
 %files       -n %{name}+num_cpus-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+once_cell-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+once_cell-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "once_cell" feature of the "%{crate}" crate.
-
-%files       -n %{name}+once_cell-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+parking_lot-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -266,6 +254,18 @@ This package contains library source intended for building other packages which
 use the "signal-hook-registry" feature of the "%{crate}" crate.
 
 %files       -n %{name}+signal-hook-registry-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+socket2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+socket2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "socket2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+socket2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+stats-devel

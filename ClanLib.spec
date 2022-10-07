@@ -1,7 +1,7 @@
 Summary:        Cross platform C++ game library
 Name:           ClanLib
 Version:        2.3.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 License:        zlib
 URL:            http://www.clanlib.org/
 Source0:        http://www.clanlib.org/download/releases-2.0/%{name}-%{version}.tgz
@@ -19,7 +19,7 @@ BuildRequires:  make gcc-c++
 BuildRequires:  libX11-devel libXi-devel libXmu-devel libGLU-devel libICE-devel
 BuildRequires:  libXext-devel libXxf86vm-devel libXt-devel xorg-x11-proto-devel
 BuildRequires:  libvorbis-devel mikmod-devel alsa-lib-devel
-BuildRequires:  libpng-devel libjpeg-devel fontconfig-devel pcre-devel
+BuildRequires:  libpng-devel libjpeg-devel fontconfig-devel
 BuildRequires:  libXrender-devel sqlite-devel libtool
 Provides:       clanlib = %{version}-%{release}
 
@@ -28,7 +28,7 @@ ClanLib is a cross platform C++ game library.
 
 
 %package devel
-Summary:        Development Libraries and Headers for ClanLib
+Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libGLU-devel xorg-x11-proto-devel libXrender-devel
 Requires:       fontconfig-devel libjpeg-devel libpng-devel libXxf86vm-devel
@@ -36,7 +36,8 @@ Requires:       mikmod-devel alsa-lib-devel sqlite-devel pcre-devel
 Provides:       clanlib-devel = %{version}-%{release}
 
 %description devel
-ClanLib development headers and libraries
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
 
 
 %prep
@@ -47,13 +48,13 @@ mv reference_doxygen html
 
 %build
 %configure --disable-dependency-tracking --disable-static --disable-docs \
+  --disable-clanRegExp   \
   --enable-clanDisplay   \
   --enable-clanGL        \
   --enable-clanGL1       \
   --enable-clanSound     \
   --enable-clanDatabase  \
   --enable-clanSqlite    \
-  --enable-clanRegExp    \
   --enable-clanNetwork   \
   --enable-clanGUI       \
   --enable-clanCSSLayout \
@@ -88,6 +89,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Wed Oct  5 2022 Hans de Goede <hdegoede@redhat.com> - 2.3.7-27
+- Stop building clanRegExp lib, pcre1 is no longer maintained (rhbz#2128277)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

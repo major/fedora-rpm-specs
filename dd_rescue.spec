@@ -1,8 +1,8 @@
 %define rhelp_version 0.3.0
 
 Name:           dd_rescue
-Version:        1.99.11
-Release:        4%{?dist}
+Version:        1.99.12
+Release:        1%{?dist}
 Summary:        Fault tolerant "dd" utility for rescuing data from bad media
 # No version specified
 License:        GPL+
@@ -68,6 +68,9 @@ install -D -m 755 dd_rhelp-%{rhelp_version}/dd_rhelp %{buildroot}%{_bindir}/dd_r
 
 
 %changelog
+* Wed Oct 05 2022 Michal Ambroz <rebus AT seznam dot cz> - 1.99.12-1
+- bump to 1.99.12
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

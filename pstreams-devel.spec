@@ -1,17 +1,20 @@
 Name:           pstreams-devel
 Version:        1.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        POSIX Process Control in C++
 
 License:        Boost
 URL:            http://pstreams.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/pstreams/pstreams-%{version}.tar.gz
+Patch0:         pstreams-make-check.patch
+Patch1:         pstreams-doxyfile.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
 BuildRequires:  perl
 BuildRequires:  gawk
+BuildRequires:  hostname
 BuildArch:      noarch
 
 %description
@@ -19,23 +22,40 @@ PStreams classes are like C++ wrappers for the POSIX.2 functions
 popen(3) and pclose(3), using C++ iostreams instead of C's stdio
 library.
 
+%package -n pstreams-doc
+Summary: Documentation for pstreams
+
+%description -n pstreams-doc
+API documentation for the pstreams-devel package, in HTML format.
+
 %prep
 %setup -q -n pstreams-%{version}
+%patch0 -p1
+%patch1 -p1
 
 %build
-make %{?_smp_mflags}
-make docs
+make %{?_smp_mflags} docs
+
+%check
+make %{?_smp_mflags} EXTRA_CXXFLAGS="$CXXFLAGS" check
 
 %install
 make install  DESTDIR=$RPM_BUILD_ROOT includedir=%{_includedir}
 
 %files
 %license LICENSE_1_0.txt
-%doc doc/html README AUTHORS ChangeLog
 %{_includedir}/pstreams
 
+%files -n pstreams-doc
+%doc doc/html README AUTHORS ChangeLog
 
 %changelog
+* Thu Sep 15 2022 Jonathan Wakely <jwakely@redhat.com> - 1.0.3-6
+- Fix build by passing build flags in the relevant make variable
+- Add pstreams-doc subpackage and separate check phase of build
+- Patch Makefile and Doxyfile to sync with upstream
+- Add BuildRequires:hostname to fix tests
+
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

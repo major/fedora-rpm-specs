@@ -5,11 +5,11 @@
 %global crate imgref
 
 Name:           rust-imgref
-Version:        1.9.3
+Version:        1.9.4
 Release:        %autorelease
 Summary:        Interchange of 2-dimensional pixel buffers with width, height & stride
 
-License:        CC0-1.0
+License:        CC0-1.0 OR Apache-2.0
 URL:            https://crates.io/crates/imgref
 Source:         %{crates_source}
 

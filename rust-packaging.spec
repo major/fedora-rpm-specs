@@ -15,6 +15,8 @@ Source:         %{url}/archive/v%{version}/rust2rpm-v%{version}.tar.gz
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/f0d04b0.patch
 # upstream patch to fix generation of specs without a manual patch
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/55998b3.patch
+# upstream patch to correctly recognize the "wasm64" target architecture
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/c026764.patch
 
 Patch:          0001-Adjust-build-flags-to-allow-the-new-implementation-u.patch
 

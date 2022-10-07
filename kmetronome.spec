@@ -2,7 +2,7 @@
 %global _appid net.sourceforge.kmetronome
 
 Name:           kmetronome
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 License:        GPLv2+
 Summary:        A MIDI metronome using the Drumstick library
@@ -48,7 +48,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{_appid}.desktop
 %{_datadir}/dbus-1/*/*
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1.*
-%{_datadir}/metainfo/%{_appid}.appdata.xml
+%{_datadir}/metainfo/%{_appid}.metainfo.xml
 
 %changelog
 %autochangelog

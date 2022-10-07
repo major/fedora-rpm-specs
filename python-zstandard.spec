@@ -13,8 +13,8 @@
 compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
-Version: 0.17.0
-Release: 3%{?dist}
+Version: 0.18.0
+Release: 1%{?dist}
 Summary: Zstandard bindings for Python
 License: BSD and GPLv2
 URL: https://github.com/indygreg/python-zstandard
@@ -36,7 +36,7 @@ BuildRequires: python3-pytest
 BuildRequires: python3-pytest-xdist
 %endif
 # https://github.com/indygreg/python-zstandard/issues/48
-Provides: bundled(zstd) = 1.5.1
+Provides: bundled(zstd) = 1.5.2
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -67,6 +67,9 @@ mv zstandard{.src,}
 %{python3_sitearch}/%{pypi_name}
 
 %changelog
+* Wed Oct 05 2022 Dominik Mierzejewski <dominik@greysector.net> 0.18.0-1
+- update to 0.18.0 (#2099853)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

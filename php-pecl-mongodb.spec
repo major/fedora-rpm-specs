@@ -27,7 +27,7 @@ Name:           php-pecl-%{pecl_name}
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -171,6 +171,9 @@ cd ../ZTS
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.14.1-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+
 * Fri Sep 16 2022 Remi Collet <remi@remirepo.net> - 1.14.1-1
 - update to 1.14.1
 

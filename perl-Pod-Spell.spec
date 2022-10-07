@@ -1,5 +1,5 @@
 Name:           perl-Pod-Spell
-Version:        1.23
+Version:        1.25
 Release:        1%{?dist}
 Summary:        A formatter for spell-checking POD
 License:        Artistic-2.0
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 05 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-1
+- 1.25 bump
+
 * Thu Sep 22 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-1
 - 1.23 bump
 - Package tests

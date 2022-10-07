@@ -30,7 +30,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -141,7 +141,7 @@ the package like its version, a description, etc.
 %package libs
 Summary:  Libraries for manipulating RPM packages
 License: GPLv2+ and LGPLv2+ with exceptions
-Requires: %{name} = %{version}-%{release}
+Requires(meta): %{name} = %{version}-%{release}
 
 %description libs
 This package contains the RPM shared libraries.
@@ -609,6 +609,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Wed Oct 05 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-3
+- Break ancient rpm <-> rpm-libs ordering loop
+
 * Mon Oct 03 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-2
 - Drop the temporary build-dependency on pandoc before it grows a beard
 - Start utilizing %%patchlist, finally

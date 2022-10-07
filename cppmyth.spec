@@ -3,8 +3,8 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           cppmyth
-Version:        2.14.1
-Release:        4%{?dist}
+Version:        2.14.7
+Release:        1%{?dist}
 Summary:        Client interface for the MythTV backend
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ applications that use %{name}.
 
 
 %changelog
+* Wed Oct 05 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.14.7-1
+- Update to 2.14.7
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

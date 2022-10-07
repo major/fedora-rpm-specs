@@ -14,7 +14,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.1.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+, docs are public domain
 # see LICENSE for details
@@ -289,7 +289,11 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %dir %{_sysconfdir}/sane.d
 %dir %{_sysconfdir}/sane.d/dll.d
 %exclude %config(noreplace) %{_sysconfdir}/sane.d/saned.conf
+%exclude %config(noreplace) %{_sysconfdir}/sane.d/epsonds.conf
 %config(noreplace) %{_sysconfdir}/sane.d/*.conf
+# 2130997 - epsonds.conf is modified during %post scriptlet to disable autodiscovery for
+# security reasons, so disable RPM verification of it for size, md5 and modification time
+%config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/sane.d/epsonds.conf
 %{_udevrulesdir}/65-sane-backends.rules
 %{_udevhwdbdir}/20-sane-backends.hwdb
 %{_datadir}/pixmaps/sane.png
@@ -448,6 +452,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Tue Oct 04 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-8
+- 2130997 - rpm -Va reports error on /etc/sane.d/epsonds.conf
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

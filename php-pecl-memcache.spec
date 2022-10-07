@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-memcache
 #
-# Copyright (c) 2007-2021 Remi Collet
+# Copyright (c) 2007-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
@@ -19,13 +19,14 @@
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcache
 Version:      8.0
-Release:      5%{?dist}
+Release:      6%{?dist}
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 License:      PHP
 Group:        Development/Languages
 URL:          https://pecl.php.net/package/%{pecl_name}
 
 Patch0:       %{pecl_name}-php81.patch
+Patch1:       %{pecl_name}-php82.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -67,6 +68,7 @@ sed -e 's/role="test"/role="src"/' \
 
 pushd NTS
 %patch0 -p1
+%patch1 -p1
 
 # Check version as upstream often forget to update this
 sed -e '/PHP_MEMCACHE_VERSION/s/4.0.5.2/%{version}/' -i src/php_memcache.h
@@ -190,6 +192,7 @@ cd NTS
 : ignore test with erratic results
 rm tests/040.phpt
 rm tests/056.phpt
+rm tests/100c.phpt
 
 : Configuration for tests
 sed -e "s:/var/run/memcached/memcached.sock:$PWD/memcached.sock:" \
@@ -232,6 +235,11 @@ exit $ret
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 8.0-6
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add patch for PHP 8.2 from
+  https://github.com/websupport-sk/pecl-memcache/pull/104
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

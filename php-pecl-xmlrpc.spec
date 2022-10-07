@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-xmlrpc
 #
-# Copyright (c) 2020-2021 Remi Collet
+# Copyright (c) 2020-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -26,13 +26,15 @@
 Summary:        Functions to write XML-RPC servers and clients
 Name:           php-pecl-%{pecl_name}
 Version:        %{upver}%{?lower:~%{lower}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # Extension is PHP
 # Library is BSD
 License:        PHP and BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upver}%{?rcver}.tgz
+
+Patch0:         %{pecl_name}-php82.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -74,6 +76,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
+%patch0 -p1 -b .up
+
 # Check version as upstream often forget to update this
 extver=$(sed -n '/#define PHP_XMLRPC_VERSION/{s/.* "//;s/".*$//;p}' php_xmlrpc.h)
 if test "x${extver}" != "x%{upver}%{?rcver}%{?gh_date:-dev}"; then
@@ -181,6 +185,10 @@ TEST_PHP_ARGS="-n -d extension=xml -d extension=%{buildroot}%{php_extdir}/%{pecl
 
 
 %changelog
+* Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.0.0~rc3-4
+- rebuild for https://fedoraproject.org/wiki/Changes/php82
+- add upstream patch for PHP 8.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~rc3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

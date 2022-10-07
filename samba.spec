@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.0
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -225,6 +225,8 @@ Source12:       smb.conf.example
 Source13:       pam_winbind.conf
 Source14:       samba.pamd
 Source15:       usershares.conf.vendor
+Source16:       samba-systemd-sysusers.conf
+Source17:       samba-usershares-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
@@ -311,6 +313,7 @@ BuildRequires: readline-devel
 BuildRequires: rpcgen
 BuildRequires: rpcsvc-proto-devel
 BuildRequires: sed
+BuildRequires: systemd-rpm-macros
 BuildRequires: libtasn1-devel
 # We need asn1Parser
 BuildRequires: libtasn1-tools
@@ -1347,6 +1350,10 @@ echo "d /run/samba  755 root root" > %{buildroot}%{_tmpfilesdir}/samba.conf
 echo "d /run/ctdb 755 root root" > %{buildroot}%{_tmpfilesdir}/ctdb.conf
 %endif
 
+install -d -m 0755 %{buildroot}%{_sysusersdir}
+install -m 0644 %{SOURCE16} %{buildroot}%{_sysusersdir}/samba.conf
+install -m 0644 %{SOURCE17} %{buildroot}%{_sysusersdir}/samba-usershares.conf
+
 install -d -m 0755 %{buildroot}%{_sysconfdir}/sysconfig
 install -m 0644 packaging/systemd/samba.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/samba
 %if %{with clustering}
@@ -1507,7 +1514,11 @@ export WINBINDD_DONT_LOG_STDOUT=1
 %systemd_postun_with_restart nmb.service
 
 %pre common
+%if 0%{?fedora} || 0%{?rhel} > 8
+%sysusers_create_compat %{SOURCE16}
+%else
 getent group printadmin >/dev/null || groupadd -r printadmin || :
+%endif
 
 %post common
 %{?ldconfig}
@@ -1616,7 +1627,11 @@ fi
 %ldconfig_scriptlets test
 
 %pre usershares
+%if 0%{?fedora} || 0%{?rhel} > 8
+%sysusers_create_compat %{SOURCE17}
+%else
 getent group usershares >/dev/null || groupadd -r usershares || :
+%endif
 
 %pre winbind
 /usr/sbin/groupadd -g 88 wbpriv >/dev/null 2>&1 || :
@@ -2010,6 +2025,7 @@ fi
 ### COMMON
 %files common
 %{_tmpfilesdir}/samba.conf
+%{_sysusersdir}/samba.conf
 %dir %{_sysconfdir}/logrotate.d/
 %config(noreplace) %{_sysconfdir}/logrotate.d/samba
 %attr(0700,root,root) %dir /var/log/samba
@@ -3322,6 +3338,7 @@ fi
 %files usershares
 %config(noreplace) %{_sysconfdir}/samba/usershares.conf
 %attr(1770,root,usershares) %dir /var/lib/samba/usershares
+%{_sysusersdir}/samba-usershares.conf
 
 ### WINBIND
 %files winbind
@@ -4288,6 +4305,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 05 2022 Andreas Schneider <asn@redhat.com> - 4.17.0-2
+- Move group creation logic to sysusers.d fragment
+
 * Tue Sep 13 2022 Andreas Schneider <asn@redhat.com> - 4.17.0-1
 - resolves: rhbz#2118818 - Update to version 4.17.0
 - resolves: rhbz#2121138 - Fix CVE-2022-32743

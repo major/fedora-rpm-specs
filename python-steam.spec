@@ -1,7 +1,7 @@
 %global pypi_name steam
 
 Name:       python-%{pypi_name}
-Version:    1.3.0
+Version:    1.4.0
 Release:    %autorelease
 Summary:    Python package for interacting with Steam
 BuildArch:  noarch
@@ -61,7 +61,7 @@ Summary:    %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version}
 
 
 %build

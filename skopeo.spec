@@ -25,34 +25,20 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 1.10.0
+%global built_tag v1.10.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{repo}
 Epoch: %{conditional_epoch}
-Version: 1.10.0
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT
 Release: %autorelease
-%endif
 Summary: Inspect container images and repositories on registries
 URL: %{git0}
-Source0: %{git0}/archive/v%{built_tag_strip}.tar.gz
+# Tarball fetched from upstream
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: go-md2man
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-BuildRequires: golang >= 1.18
-BuildRequires: libassuan-dev
-BuildRequires: libbtrfs-dev
-BuildRequires: libglib2.0-dev
-BuildRequires: libgpgme-dev
-BuildRequires: pkg-config
-BuildRequires: libdevmapper-dev
-Requires: containers-common >= 4:1
-%else
 ExclusiveArch: %{go_arches}
 BuildRequires: btrfs-progs-devel
 BuildRequires: git-core
@@ -83,7 +69,6 @@ Provides: bundled(golang(github.com/spf13/cobra)) = v1.3.0
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.7.0
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
-%endif
 
 %description
 Command line utility to inspect images and repositories directly on Docker
@@ -114,7 +99,6 @@ sed -i 's/completions: bin\/%{name}/completions:/' Makefile
 sed -i 's/install-docs: docs/install-docs:/' Makefile
 
 %build
-%if "%{_vendor}" != "debbuild"
 %set_build_flags
 # These extra flags present in $CFLAGS have been skipped for now as they break the build
 CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-flto=auto//g')
@@ -123,7 +107,6 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 
 %ifarch x86_64
 export CGO_CFLAGS="$CGO_CFLAGS -m64 -mtune=generic -fcf-protection=full"
-%endif
 %endif
 
 export GOPATH=$(pwd)/_build:$(pwd)
@@ -173,6 +156,4 @@ cp -pav systemtest/* %{buildroot}/%{_datadir}/%{name}/test/system/
 %{_datadir}/%{name}/test
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif
