@@ -1,13 +1,11 @@
-%global pypi_name license-expression
-
-Name:           python-%{pypi_name}
-Version:        1.0
-Release:        10%{?dist}
+Name:           python-license-expression
+Version:        30.0.0
+Release:        1%{?dist}
 Summary:        Library to parse, compare, simplify and normalize license expressions
 # `irc-notify.py` in the tarball is licensed under GPL, but not re-distributed
 License:        ASL 2.0
 URL:            https://github.com/nexB/license-expression/
-Source0:        %pypi_source
+Source0:        %{pypi_source license-expression}
 
 BuildArch:      noarch
 
@@ -23,40 +21,40 @@ containment, equivalence and can be normalized or simplified.
 
 %description %{_description}
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-license-expression
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist boolean.py}
+BuildRequires:  python3-devel
 
-%description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
-
-Python 3 version.
+%description -n python%{python3_pkgversion}-license-expression %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n license-expression-%{version}
 # Remove bundled egg-info
 rm -r src/*.egg-info/
 rm PKG-INFO
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files license-expression
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
+%pytest
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python%{python3_pkgversion}-license-expression
 %license apache-2.0.LICENSE NOTICE
 %doc README.rst
-%{python3_sitelib}/license_expression*.egg-info/
-%{python3_sitelib}/license_expression/
 
 %changelog
+* Thu Oct 06 2022 Carmen Bianca Bakker <carmenbianca@fedoraproject.org> - 30.0.0-1
+- new version
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

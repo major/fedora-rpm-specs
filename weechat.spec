@@ -1,7 +1,12 @@
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %ifnarch s390x
 %bcond_without check
 %else
 # some tests fail on s390x
+%bcond_with check
+%endif
+%else
+# no cpputest in EL7
 %bcond_with check
 %endif
 
@@ -139,17 +144,17 @@ sed -i 's/NAMES python3.7/NAMES python%{python3_version}m python%{python3_versio
   -DENABLE_JAVASCRIPT=OFF \
   -DCA_FILE=/etc/pki/tls/certs/ca-bundle.crt \
   %{nil}
-%cmake_build
+%cmake3_build
 
 
 %install
-%cmake_install
+%cmake3_install
 
 %find_lang %name
 
 
 %if %{with check}
-%ctest -- -V
+%ctest3 -- -V
 %endif
 
 

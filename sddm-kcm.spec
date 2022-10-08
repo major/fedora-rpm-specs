@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    sddm-kcm
-Version: 5.25.90
+Version: 5.26.0
 Release: 1%{?dist}
 Summary: SDDM KDE configuration module
 
@@ -76,6 +76,9 @@ SDDM Display Manager
 %{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Sat Sep 17 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.90-1
 - 5.25.90
 

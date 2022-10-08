@@ -14,11 +14,11 @@ https://hdmf.readthedocs.io}
 %global pypi_name hdmf
 
 Name:           python-hdmf
-Version:        3.4.5
+Version:        3.4.6
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
-License:        BSD
+License:        BSD-3-Clause-LBNL
 URL:            https://github.com/hdmf-dev/hdmf
 Source0:        %{url}/releases/download/%{version}/hdmf-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on help output

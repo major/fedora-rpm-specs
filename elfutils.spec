@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.187
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -67,8 +67,6 @@ BuildRequires: gettext-devel
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 %global with_sysusers           1
 %endif
-
-%bcond with_debuginfod_url 1
 
 # Patches
 
@@ -277,8 +275,11 @@ RPM_OPT_FLAGS="${RPM_OPT_FLAGS} -Wformat"
 
 
 trap 'cat config.log' EXIT
-%if %{with with_debuginfod_url}
-%configure CFLAGS="$RPM_OPT_FLAGS" --enable-debuginfod-urls=https://debuginfod.fedoraproject.org/
+# dist_debuginfod_url is defined in macros.dist. Fedora and CentOS have
+# URLs pointing to their respective servers.  RHEL and Amazon Linux do
+# not configure a default server.
+%if "%{?dist_debuginfod_url}"
+%configure CFLAGS="$RPM_OPT_FLAGS" --enable-debuginfod-urls=%{dist_debuginfod_url}
 %else
 %configure CFLAGS="$RPM_OPT_FLAGS"
 %endif
@@ -405,7 +406,7 @@ fi
 %{_mandir}/man1/debuginfod-find.1*
 %{_mandir}/man7/debuginfod*.7*
 %config(noreplace) %{_sysconfdir}/profile.d/*
-%if %{with with_debuginfod_url}
+%if "%{?dist_debuginfod_url}"
 %config(noreplace) %{_sysconfdir}/debuginfod/*
 %endif
 
@@ -446,6 +447,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Oct 5 2022 Amit Shah <amitshah@fedoraproject.org> - 0.187-9
+- Auto-configure debuginfod_url based on macros.dist
+
 * Wed Aug 24 2022 Debarshi Ray <rishi@fedoraproject.org> - 0.187-8
 - Use %%sysusers_requires_compat to match %%sysusers_create_compat
 

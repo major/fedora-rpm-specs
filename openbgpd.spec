@@ -8,12 +8,12 @@
 
 Summary:        OpenBGPD Routing Daemon
 Name:           openbgpd
-Version:        7.6
+Version:        7.7
 Release:        1%{?with_snapshot:.git%{gitdate}}%{?dist}
 # OpenBGPD itself is ISC but uses other source codes, breakdown:
 # BSD-2-Clause: include/sys/tree.h
 # BSD-3-Clause: compat/{fmt_scaled,setproctitle,sha2,vis}.c and include/{sha2_openbsd,util,vis,sys/queue}.h
-# LicenseRef-Fedora-Public-Domain: include/{{endian,sha2,stdlib,string,unistd},net/route,netinet/{in,ip_ipsp}}.h
+# LicenseRef-Fedora-Public-Domain: include/{{endian,sha2,stdlib,string,unistd},net/if,netinet/{in,ip_ipsp}}.h
 #                                  and include/sys/{_null,socket,time,types,wait}.h
 #                                  and compat/{{explicit_bzero,getrtable}.c,chacha_private.h}
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
@@ -75,12 +75,7 @@ mv -f %{name}-openbsd-%{openbsd_commit} openbsd
 touch -c -r bgpd.conf{.rpki-client,}
 
 %build
-%configure \
-  --with-privsep-user=bgpd \
-  --disable-bgplgd \
-%if 0%{?fedora} || 0%{?rhel} > 7
-  --enable-netlink
-%endif
+%configure --with-privsep-user=bgpd --disable-bgplgd
 # Workaround until autoconf generated './configure' supports '--runstatedir=/run/bgpd' option
 sed -e 's|^\(runstatedir =\).*|\1 %{_rundir}/bgpd|g' -i {.,compat,include,src/{bgpctl,bgpd,bgplgd}}/Makefile
 %make_build
@@ -122,6 +117,9 @@ install -D -p -m 0644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 %dir %attr(0711,root,root) %{_localstatedir}/empty/bgpd/
 
 %changelog
+* Thu Oct 06 2022 Robert Scheck <robert@fedoraproject.org> 7.7-1
+- Upgrade to 7.7 (#2132808)
+
 * Thu Sep 15 2022 Robert Scheck <robert@fedoraproject.org> 7.6-1
 - Upgrade to 7.6 (#2127225)
 

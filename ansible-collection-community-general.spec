@@ -1,59 +1,56 @@
-%global collection_namespace community
-%global collection_name general
-
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        5.6.0
+Name:           ansible-collection-community-general
+Version:        5.7.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
 # rg --pcre2 -g '!tests/sanity/extra/licenses.py' 'SPDX-License-Identifier: (?!GPL-3\.0-or-later)' | sed 's|^|# |'
 #
-# plugins/module_utils/online.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/module_helper.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/doc_fragments/lxca_common.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/saslprep.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/vexata.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/linode.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/univention_umc.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/pure.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/utm_utils.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/_mount.py:# SPDX-License-Identifier: PSF-2.0
 # plugins/module_utils/alicloud_ecs.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/storage/hpe3par/hpe3par.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/onepassword.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/storage/emc/emc_vnx.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/manageiq.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/database.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/gandi_livedns_api.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/heroku.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/hwc_utils.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/remote_management/lxca/common.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/mh/module_helper.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/mh/exceptions.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/ibm_sa_utils.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/mh/base.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/identity/keycloak/keycloak.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/redhat.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/mh/mixins/vars.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/influxdb.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/ipa.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/known_hosts.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/linode.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/lxd.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/manageiq.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/memset.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/mh/base.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/mh/deco.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/mh/mixins/state.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/mh/exceptions.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/mh/mixins/cmd.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/mh/mixins/deprecate_attrs.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/gandi_livedns_api.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/rax.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/mh/mixins/deps.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/heroku.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/known_hosts.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/memset.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/ipa.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/database.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/oneview.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/_mount.py:# SPDX-License-Identifier: PSF-2.0
-# plugins/module_utils/lxd.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/source_control/bitbucket.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/opennebula.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/mh/mixins/state.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/mh/mixins/vars.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/mh/module_helper.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/module_helper.py:# SPDX-License-Identifier: BSD-2-Clause
 # plugins/module_utils/oneandone.py:# SPDX-License-Identifier: BSD-2-Clause
-# plugins/module_utils/influxdb.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/onepassword.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/oneview.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/online.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/opennebula.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/pure.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/rax.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/redhat.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/remote_management/lxca/common.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/saslprep.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/source_control/bitbucket.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/storage/emc/emc_vnx.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/storage/hpe3par/hpe3par.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/univention_umc.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/utm_utils.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/vexata.py:# SPDX-License-Identifier: BSD-2-Clause
 # tests/unit/plugins/module_utils/test_utm_utils.py:# SPDX-License-Identifier: BSD-2-Clause
 # tests/unit/plugins/modules/packaging/language/test_gem.py:# SPDX-License-Identifier: MIT
 License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND PSF-2.0
-URL:            %{ansible_collection_url}
+URL:            %{ansible_collection_url community general}
 Source:         https://github.com/ansible-collections/community.general/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ansible-packaging
@@ -76,14 +73,16 @@ find -type f -name '.gitignore' -print -delete
 
 %install
 %ansible_collection_install
-rm -vr %{buildroot}%{ansible_collection_files}/%{collection_name}/tests
+rm -vr %{buildroot}%{ansible_collections_dir}/community/general/tests
 
-%files
+%files -f %{ansible_collection_filelist}
 %license COPYING LICENSES
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 %changelog
+* Wed Oct 05 2022 Maxwell G <gotmax@e.email> - 5.7.0-1
+- Update to 5.7.0. Fixes rhbz#2132125.
+
 * Tue Sep 13 2022 Maxwell G <gotmax@e.email> - 5.6.0-1
 - Update to 5.6.0.
 

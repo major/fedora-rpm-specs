@@ -1,7 +1,7 @@
 %global srcname shortuuid
 
 Name:           python-%{srcname}
-Version:        1.0.8
+Version:        1.0.9
 Release:        %autorelease
 Summary:        A generator library for concise, unambiguous and URL-safe UUIDs
 License:        BSD
@@ -51,6 +51,9 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files %{srcname}
+
+# this file is wrongly copied
+rm %{buildroot}%{python3_sitelib}/COPYING
 
 
 %check

@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
-%global sover 2.3
+%global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.3.19.0
+Version:        2.4.4.2
 Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
@@ -23,7 +23,6 @@ ExclusiveArch:  x86_64 ppc64le
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  txt2man
-BuildRequires:  /usr/bin/pathfix.py
 # Libraries
 BuildRequires:  boost-devel
 BuildRequires:  bzip2-devel
@@ -207,6 +206,12 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Oct 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.4.4.2-1
+- Update to 2.4.4.2.
+
+* Thu Oct 06 2022 Richard Shaw <hobbes1069@gmail.com> - 2.3.20.0-1
+- Update to 2.3.20.0.
+
 * Thu Sep 01 2022 Richard Shaw <hobbes1069@gmail.com> - 2.3.19.0-1
 - Update to 2.3.19.0.
 

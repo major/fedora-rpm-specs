@@ -187,7 +187,7 @@
 
 Name:           uwsgi
 Version:        2.0.20
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -219,6 +219,7 @@ Patch15:        uwsgi_fix_python_py_ssize_t.patch
 Patch16:        uwsgi_python311.patch
 # https://github.com/unbit/uwsgi/pull/2400
 Patch17:        uwsgi_fix_php81_filename_zend_string.patch
+Patch18:        uwsgi_fix_php82.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1244,6 +1245,7 @@ cp -p %{SOURCE5} README.Fedora
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
+%patch18 -p1
 
 %if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
 %{__python} -m lib2to3 --write --nobackups plugins/coroae/uwsgiplugin.py
@@ -1838,6 +1840,9 @@ exit 0
 
 
 %changelog
+* Thu Oct 06 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.20-10
+- Fix PHP 8.2 support
+
 * Tue Aug 09 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.20-9
 - Fix PHP 8.1 support
 

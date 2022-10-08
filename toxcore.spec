@@ -1,8 +1,12 @@
-%undefine __cmake_in_source_build
 %global sover   2
 
+%global common_description %{expand:
+Tox is a peer to peer (serverless) instant messenger aimed at making
+security and privacy easy to obtain for regular users. It uses NaCl
+for its encryption and authentication.}
+
 Name:           toxcore
-Version:        0.2.13
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Peer to peer instant messenger
 
@@ -11,10 +15,9 @@ Summary:        Peer to peer instant messenger
 # ISC: toxcore/crypto_core_mem.c
 License:        GPLv3+ and BSD and ISC
 URL:            https://github.com/TokTok/c-toxcore
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/TokTok/c-toxcore/issues/1144
-Patch0:         toxcore-0.2.12-install_libmisc.patch
+Source0:        %{url}/releases/download/v%{version}/c-%{name}-%{version}.tar.gz
+# fix: #1144 by forcing misc_tools to be a static lib
+Patch0:         https://github.com/Green-Sky/c-toxcore/commit/39f5c24e374226c83b4af46b43779882010c5d86.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
@@ -23,19 +26,14 @@ BuildRequires:  pkgconfig(libsodium)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(vpx)
 
-%description
-Tox is a peer to peer (serverless) instant messenger aimed at making
-security and privacy easy to obtain for regular users. It uses NaCl
-for its encryption and authentication.
+%description %{common_description}
 
 %package devel
 Summary:        Development files for Toxcore
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Tox is a peer to peer (serverless) instant messenger aimed at making
-security and privacy easy to obtain for regular users. It uses NaCl
-for its encryption and authentication.
+%{common_description}
 
 This package contains Toxcore development files.
 
@@ -57,7 +55,6 @@ rm -v %{buildroot}/%{_libdir}/*.a
 %doc README.md CHANGELOG.md
 %{_bindir}/DHT_bootstrap
 %{_libdir}/libtoxcore.so.%{sover}*
-%{_libdir}/libmisc_tools.so
 
 %files devel
 %{_includedir}/tox/

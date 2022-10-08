@@ -1,7 +1,7 @@
 #
 # Fedora spec file for psysh
 #
-# Copyright (c) 2016-2021 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2016-2022 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,33 +11,22 @@
 
 %global github_owner     bobthecow
 %global github_name      psysh
-%global github_version   0.10.8
-%global github_commit    e4573f47750dd6c92dca5aee543fa77513cbd8d3
+%global github_version   0.11.8
+%global github_commit    f455acf3645262ae389b10e9beba0c358aa6994e
 
 %global composer_vendor  psy
 %global composer_project psysh
 
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
-%global with_symfony2 0
-%else
-%global with_symfony2 1
-%endif
-
-# "php": "^8.0 || ^7.0 || ^5.5.9"
-%global php_min_ver 5.5.9
-# "nikic/php-parser": "~1.3|~2.0|~3.0|~4.0"
+# "php": "^8.0 || ^7.0.8"
+%global php_min_ver 7.0.8
+# "nikic/php-parser": "^4.0 || ^3.1"
 #     NOTE: Forcing minimum version 4
 %global php_parser_min_ver 4.0
 %global php_parser_max_ver 5.0
-# "symfony/console": "~5.0|~4.0|~3.0|^2.4.2|~2.3.10"
-# "symfony/var-dumper": "~5.0|~4.0|~3.0|~2.7"
-%if %{with_symfony2}
-#     NOTE: Min version not 2.7.0 because autoloader required
-%global symfony_min_ver 2.7.1
-%else
-%global symfony_min_ver 3.0
-%endif
-%global symfony_max_ver 6.0
+# "symfony/console": "^6.0 || ^5.0 || ^4.0 || ^3.4"
+# "symfony/var-dumper": "^6.0 || ^5.0 || ^4.0 || ^3.4"
+%global symfony_min_ver 3.4
+%global symfony_max_ver 7.0
 
 # Build using "--without tests" to disable tests
 %global with_tests 0%{!?_without_tests:1}
@@ -53,7 +42,7 @@
 
 Name:          psysh
 Version:       %{github_version}
-Release:       4%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A runtime developer console, interactive debugger and REPL for PHP
 
 License:       MIT
@@ -91,7 +80,7 @@ BuildRequires: php-pcntl
 BuildRequires: php-posix
 BuildRequires: php-readline
 BuildRequires: php-sqlite3
-## phpcompatinfo (computed from version 0.10.4)
+## phpcompatinfo (computed from version 0.11.8)
 BuildRequires: php-date
 BuildRequires: php-dom
 BuildRequires: php-pcre
@@ -122,7 +111,7 @@ Requires:      php-pcntl
 Requires:      php-posix
 Requires:      php-readline
 Requires:      php-sqlite3
-# phpcompatinfo (computed from version 0.10.4)
+# phpcompatinfo (computed from version 0.11.8)
 Requires:      php-date
 Requires:      php-pcre
 Requires:      php-pdo
@@ -166,12 +155,14 @@ require_once __DIR__.'/functions.php';
 \Fedora\Autoloader\Dependencies::required([
     '%{phpdir}/PhpParser4/autoload.php',
     [
+        '%{phpdir}/Symfony6/Component/Console/autoload.php',
         '%{phpdir}/Symfony5/Component/Console/autoload.php',
         '%{phpdir}/Symfony4/Component/Console/autoload.php',
         '%{phpdir}/Symfony3/Component/Console/autoload.php',
         '%{phpdir}/Symfony/Component/Console/autoload.php',
     ],
     [
+        '%{phpdir}/Symfony6/Component/VarDumper/autoload.php',
         '%{phpdir}/Symfony5/Component/VarDumper/autoload.php',
         '%{phpdir}/Symfony4/Component/VarDumper/autoload.php',
         '%{phpdir}/Symfony3/Component/VarDumper/autoload.php',
@@ -233,7 +224,7 @@ rm test/Readline/HoaConsoleTest.php
 : Upstream tests
 RETURN_CODE=0
 PHPUNIT=$(which phpunit9)
-for PHP_EXEC in "" php73 php74 php80; do
+for PHP_EXEC in "" php73 php74 php80 php81 php82; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC $PHPUNIT --verbose --bootstrap bootstrap.php \
             || RETURN_CODE=1
@@ -255,6 +246,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Oct 06 2022 Shawn Iwinski <shawn@iwin.ski> - 0.11.8-1
+- Update to 0.11.8 (RHBZ #2012727)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

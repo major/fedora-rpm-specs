@@ -1,7 +1,7 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            5.18.0
-Release:            2%{?dist}%{?buildid}
+Version:            6.0.0
+Release:            1%{?dist}%{?buildid}
 %if 0%{?rhel}
 Group:              Applications/System
 %endif
@@ -97,7 +97,7 @@ install -D -m644 lib/libnetlink.a %{buildroot}%{_libdir}/libnetlink.a
 rm -rf '%{buildroot}%{_docdir}'
 
 # append deprecated values to rt_dsfield for compatibility reasons
-%if ! 0%{?fedora}
+%if 0%{?rhel} && ! 0%{?eln}
 cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 %endif
 
@@ -140,6 +140,9 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 %{_includedir}/iproute2/bpf_elf.h
 
 %changelog
+* Thu Oct 06 2022 Andrea Claudi <aclaudi@redhat.com> - 6.0.0-1
+- New version 6.0.0 [2114514]
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -657,14 +660,14 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
 * Thu Apr 23 2009 Marcela Mašláňová <mmaslano@redhat.com> - 2.6.29-3
-- new iptables (xtables) bring problems to tc, when ipt is used. 
+- new iptables (xtables) bring problems to tc, when ipt is used.
   rhbz#497344 still broken. tc_modules.patch brings correct paths to
   xtables, but that doesn't fix whole issue.
-- 497355 ip should allow creation of an IPsec SA with 'proto any' 
+- 497355 ip should allow creation of an IPsec SA with 'proto any'
   and specified sport and dport as selectors
 
 * Tue Apr 14 2009 Marcela Mašláňová <mmaslano@redhat.com> - 2.6.29-2
-- c3651bf4763d7247e3edd4e20526a85de459041b ip6tunnel: Fix no default 
+- c3651bf4763d7247e3edd4e20526a85de459041b ip6tunnel: Fix no default
  display of ip4ip6 tunnels
 - e48f73d6a5e90d2f883e15ccedf4f53d26bb6e74 missing arpd directory
 
@@ -723,7 +726,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 
 * Wed Feb  6 2008 Marcela Maslanova <mmaslano@redhat.com> - 2.6.23-3
 - rebuild without tetex files. It isn't working in rawhide yet. Added
-  new source for ps files. 
+  new source for ps files.
 - #431179 backward compatibility for previous iproute versions
 
 * Mon Jan 21 2008 Marcela Maslanova <mmaslano@redhat.com> - 2.6.23-2
@@ -775,7 +778,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 - bug fix for xfrm monitor
 - alignment fixes for cris
 - documentation corrections
-        
+
 * Mon Oct  2 2006 Radek Vokal <rvokal@redhat.com> - 2.6.16-7
 - fix ip.8 man page, add initcwnd option
 
@@ -825,7 +828,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 - use tc manpages and cbq.init from source tarball (#172851)
 
 * Thu Nov 10 2005 Radek Vokal <rvokal@redhat.com> 2.6.14-8
-- new upstream source 
+- new upstream source
 
 * Mon Oct 31 2005 Radek Vokal <rvokal@redhat.com> 2.6.14-7
 - add warning to ip tunnel add command (#128107)
@@ -841,7 +844,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 - add RPM_OPT_FLAGS
 
 * Mon Sep 19 2005 Radek Vokal <rvokal@redhat.com> 2.6.14-3
-- forget to apply the patch :( 
+- forget to apply the patch :(
 
 * Mon Sep 19 2005 Radek Vokal <rvokal@redhat.com> 2.6.14-2
 - make ip help work again (#168449)
@@ -860,7 +863,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 
 * Tue May 24 2005 Radek Vokal <rvokal@redhat.com> 2.6.11-2
 - removed useless initvar patch (#150798)
-- new upstream source 
+- new upstream source
 
 * Tue Mar 15 2005 Radek Vokal <rvokal@redhat.com> 2.6.11-1
 - update to iproute-2.6.11
@@ -879,7 +882,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 
 * Tue Nov 16 2004 Radek Vokal <rvokal@redhat.com> 2.6.9-4
 - source file updated from snapshot version
-- endian patch adding <endian.h> 
+- endian patch adding <endian.h>
 
 * Sat Sep 18 2004 Joshua Blanton <jblanton@cs.ohiou.edu> 2.6.9-3
 - added installation of netem module for tc
@@ -905,7 +908,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 * Wed Apr 21 2004 Phil Knirsch <pknirsch@redhat.com> 2.4.7-14
 - Fixed -f option for ss (#118355).
 - Small description fix (#110997).
-- Added initialization of some vars (#74961). 
+- Added initialization of some vars (#74961).
 - Added patch to initialize "default" rule as well (#60693).
 
 * Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
@@ -958,7 +961,7 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 - fix build problem in beehive if kernel-sources is not installed
 
 * Fri May 25 2001 Helge Deller <hdeller@redhat.de>
-- updated to iproute2-2.2.4-now-ss001007.tar.gz 
+- updated to iproute2-2.2.4-now-ss001007.tar.gz
 - bzip2 source tar file
 - "License" replaces "Copyright"
 - added "BuildPrereq: tetex-latex tetex-dvips psutils"

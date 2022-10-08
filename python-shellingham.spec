@@ -1,6 +1,6 @@
 Name:           python-shellingham
-Version:        1.4.0
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Tool to detect surrounding Shell
 License:        ISC
 URL:            https://github.com/sarugaku/shellingham
@@ -41,6 +41,10 @@ Shellingham detects what shell the current Python executable is running in.
 %doc README.rst CHANGELOG.rst
 
 %changelog
+* Mon Oct 03 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.5.0-1
+- Update to 1.5.0
+- Fixes: rhbz#2115629
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

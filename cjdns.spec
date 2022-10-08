@@ -4,14 +4,9 @@
 # Option to enable SUBNODE mode (WIP)
 # Fedora generally runs on systems that easily support a full node
 %bcond_with subnode
-# Option to use the optimized libnacl embedded with cjdns
-# Required since v20 due to use of private cnacl APIs
-%bcond_with embedded
 # Option to enable CPU specific optimization
 # Default to generic for distro builds
 %bcond_without generic
-# Option to use libsodium instead of nacl (broken since v20, fixed v21)
-%bcond_without libsodium
 # Option to disable SECCOMP: confusing backward logic
 # Needed to run on openvz and other container systems
 %bcond_without seccomp
@@ -21,12 +16,6 @@
 # with python3 versions, and python2-cjdns has py2 library only.
 %bcond_with python2
 %bcond_without python3
-
-%if %{with embedded}
-%global use_embedded 1
-%else
-%global use_embedded 0
-%endif
 
 %if %{with libuv}
 %global use_libuv 1
@@ -38,18 +27,6 @@
 %global generic_build 1
 %else
 %global generic_build 0
-%endif
-
-%if %{with libsodium}
-%global use_libsodium 1
-%global nacl_name libsodium
-%global nacl_version 1.0.14
-%global nacl_lib %{_libdir}/libsodium.so
-%else
-%global use_libsodium 0
-%global nacl_name nacl
-%global nacl_version 20110221
-%global nacl_lib %{_libdir}/libnacl.so
 %endif
 
 %global use_systemd 1
@@ -71,11 +48,10 @@
 
 Name:           cjdns
 # major version is cjdns protocol version:
-Version:        21.1
-Release:        9%{?dist}
+Version:        21.2
+Release:        1%{?dist}
 Summary:        The privacy-friendly network without borders
 # cjdns is all GPLv3 except libuv which is MIT and BSD and ISC
-# cnacl is unused except when use_embedded is true
 License:        GPLv3 and MIT and BSD and ISC
 URL:            http://hyperboria.net/
 Source0: https://github.com/cjdelisle/cjdns/archive/%{name}-v%{version}.tar.gz
@@ -89,6 +65,8 @@ Source3: https://github.com/kapouer/marked-man/archive/0.7.0.tar.gz#/marked-man-
 Source4: python-cjdns-0.2.tar.gz
 # Add targeted selinux policy
 Patch0: cjdns.selinux.patch
+# Add --offline flag to cargo
+Patch1: cjdns.rust.patch
 # Patch warnings detected by gcc-11
 Patch2: cjdns.warnings.patch
 # Fix RLIMIT_NPROC - setuid() bug.   In its low priv process, cjdroute calls 
@@ -113,8 +91,6 @@ Patch6:  cjdns.dyn.patch
 Patch9:  cjdns.man.patch
 # Patch some bugs in nodejs tools
 Patch10: cjdns.tools.patch
-# Alternate dynamic library patch to use libsodium
-Patch11: cjdns.sodium.patch
 # Disable WIP subnode code when SUBNODE not enabled
 Patch12: cjdns.sign.patch
 # Recognize ppc64, ppc64le, and s390x arches
@@ -127,7 +103,6 @@ Patch12: cjdns.sign.patch
 #Patch15: cjdns.benc.patch
 # Specify python2 for systems that default to python3
 #Patch16: cjdns.python3.patch
-# s390x support for embedded cnacl library from Dan Horák <dan@danny.cz>
 # Included upstream since 20.3
 #Patch17: cjdns.s390x.patch
 # patch build to use system libuv
@@ -145,12 +120,15 @@ BuildRequires:  nodejs, pandoc, python3
 %endif
 
 # Automated package review hates explicit BR on make, but it *is* needed
-BuildRequires:  make gcc
+BuildRequires:  make gcc rust-packaging >= 21
+BuildRequires:  cargo
+BuildRequires:  libsodium-devel
+BuildRequires:  rust-sodiumoxide+default-devel
+BuildRequires:  rust-anyhow+default-devel
+BuildRequires:  rust-thiserror+default-devel
+BuildRequires:  rust-cbindgen+default-devel
+BuildRequires:  rust-bindgen+default-devel
 
-%if !0%{use_embedded}
-# x86_64 and ARM libnacl are not compiled with -fPIC before Fedora release 11.
-BuildRequires:  %{nacl_name}-devel >= %{nacl_version}
-%endif
 %if %{use_systemd}
 # systemd macros are not defined unless systemd is present
 BuildRequires: systemd
@@ -168,9 +146,6 @@ BuildRequires: gyp
 Provides: bundled(libuv) = 0.11.19
 %endif
 
-%if 0%{use_embedded}
-Provides: bundled(nacl) = 20110221
-%endif
 # build system requires nodejs, unfortunately
 ExclusiveArch: %{nodejs_arches}
 # Seccomp_test is too slow on koji for this arch
@@ -261,7 +236,7 @@ Python peer graph tools for cjdns.
 %prep
 %setup -qn cjdns-%{name}-v%{version}
 %patch0 -b .selinux
-
+%patch1 -b .rust
 %patch4 -b .genconf
 %patch5 -b .sbin
 
@@ -269,32 +244,6 @@ cp %{SOURCE2} contrib/systemd
 
 %if %{use_marked}
 tar xvfz %{SOURCE3}
-%endif
-
-%if 0%{use_embedded}
-# disable CPU opt
-%else
-# use system nacl library if provided.  
-if test -x %{nacl_lib}; then
-%if 0%{use_libsodium}
-%patch11 -b .sodium
-%else
-%patch6 -b .dyn
-%endif
-  rm -rf node_build/dependencies/cnacl
-# use static library if system nacl doesn't provide dynamic
-elif test -d %{_includedir}/nacl && test -r %{_libdir}/libnacl.a; then
-  cd node_build/dependencies
-  rm -rf cnacl
-  mkdir -p cnacl/jsbuild
-  ln -s %{_libdir}/libnacl.a cnacl/jsbuild
-  ln -s %{_includedir}/nacl cnacl/jsbuild/include
-  cd -
-fi
-%patch12 -b .sign
-cd crypto/sign
-sed -i -e'/^#include / s,[<>],",g' crypto*int*.h
-cd -
 %endif
 
 %patch9 -b .man
@@ -317,7 +266,7 @@ sed -i -e '/optimizeLevel:/ s/-O0/-O3/' node_build/make.js
 #patch19 -p1 -b .fuzz
 #patch20 -p1 -b .sysctl
 #patch22 -b .gcc10
-%patch2 -b .warn
+#patch2 -b .warn
 
 cp %{SOURCE1} README_Fedora.md
 
@@ -343,6 +292,8 @@ rm -rf contrib/nodejs   # GPLv3 and ASL 2.0
 %endif
 rm -rf contrib/http     # GPLv2 and MIT
 
+%cargo_prep
+
 cat >cjdns-up.sh <<'EOF'
 #!/bin/sh
 
@@ -350,6 +301,7 @@ cjdev="$(cjdns-online -i)" || exit 1
 
 for s in %{_sysconfdir}/cjdns/up.d/*.sh; do
   if test -x "$s"; then
+    echo "$s" up $cjdev
     "$s" up $cjdev
   fi
 done
@@ -410,7 +362,18 @@ export Seccomp_NO=1
 %if %{with subnode}
 export SUBNODE=1
 %endif
-NO_TEST=1 CJDNS_RELEASE_VERSION="%{name}-%{version}-%{release}" ./do
+export CJDNS_RELEASE_VERSION="%{name}-%{version}-%{release}"
+
+%cargo_build
+
+./target/release/testcjdroute all >/dev/null
+mv ./target/release/cjdroute ./
+mv ./target/release/makekeys ./
+mv ./target/release/mkpasswd ./
+mv ./target/release/privatetopublic ./
+mv ./target/release/publictoip6 ./
+mv ./target/release/randombytes ./
+mv ./target/release/sybilsim ./
 
 # FIXME: use system libuv on compatible systems
 # bundled libuv is 0.11.19 with changes:
@@ -720,14 +683,12 @@ fi
 %{_bindir}/graphStats
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Fri Mar 25 2022 Stuart D. Gathman <stuart@gathman.org> - 21.2-1
+- New upstream release
 
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 21.1-8
-- Rebuilt for Python 3.11
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Fri Mar 25 2022 Stuart D. Gathman <stuart@gathman.org> - 21.1-7
+- Log scripts run by cjdns-up 
+- Very helpful when one gets RTNETLINK answers: File exists running one ...
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 21.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild

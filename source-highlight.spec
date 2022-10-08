@@ -1,11 +1,14 @@
 Summary: Produces a document with syntax highlighting
 Name: source-highlight
 Version: 3.1.9
-Release: 14%{?dist}.1
+Release: 15%{?dist}
 License: GPLv3+
 Source0: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz.sig
 URL: http://www.gnu.org/software/src-highlite/
+# Taken from https://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=904949c9026cb772dc93fbe0947a252ef47127f4
+# and slightly adapted
+Patch0: 904949c9026cb772dc93fbe0947a252ef47127f4.patch
 BuildRequires: make
 BuildRequires: bison, flex, boost-devel
 BuildRequires: help2man, chrpath, pkgconfig(bash-completion)
@@ -87,6 +90,9 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 %{_includedir}/srchilite/*.h
 
 %changelog
+* Thu Oct 06 2022 Adrian Reber <adrian@lisas.de> - 3.1.9-15
+- Added upstream patch to fix #2131454
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-14.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,11 +16,12 @@ ExclusiveArch: %{rust_arches}
 Summary: OCI network stack
 URL: https://github.com/containers/%{name}
 # Tarballs fetched from upstream's release page
-Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
-Source1: %{url}/releases/download/v%{built_tag_strip}/%{name}-v%{built_tag_strip}-vendor.tar.gz
+Source0: %{url}/archive/%{built_tag}.tar.gz
+Source1: %{url}/releases/download/%{built_tag}/%{name}-%{built_tag}-vendor.tar.gz
 BuildRequires: cargo
 BuildRequires: go-md2man
-Recommends: aardvark-dns >= 1.0.3
+Recommends: aardvark-dns >= 1.2.0
+Requires: (aardvark-dns >= 1.2.0 if fedora-release-identity-server)
 Provides: container-network-stack = 2
 BuildRequires: make
 BuildRequires: rust-srpm-macros

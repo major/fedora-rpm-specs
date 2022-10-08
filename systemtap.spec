@@ -121,7 +121,7 @@ m     stapdev  stapdev
 
 
 Name: systemtap
-Version: 4.8~pre16594741g5bdc37b9
+Version: 4.8~pre16650659g6a096a7d
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -1286,6 +1286,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Thu Oct 06 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16650659g6a096a7d
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Tue Aug 02 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16594741g5bdc37b9
 - Automated weekly rawhide release
 - Applied spec changes from upstream git

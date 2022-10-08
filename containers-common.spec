@@ -22,12 +22,11 @@ BuildArch: noarch
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man
 Provides: skopeo-containers = %{epoch}:%{version}-%{release}
-Requires: slirp4netns
-Recommends: fuse-overlayfs
 Requires: (container-selinux >= 2:2.162.1 if selinux-policy)
-Requires: oci-runtime
-Requires: container-network-stack
-Recommends: netavark
+Recommends: fuse-overlayfs
+Requires: (fuse-overlayfs if fedora-release-identity-server)
+# SourceN files fetched from upstream
+# GPG key and registry configs taken from RH
 Source1: %{github_containers}/common/%{common_branch}/docs/containers.conf.5.md
 Source2: %{github_containers}/common/%{common_branch}/pkg/config/containers.conf
 Source3: %{github_containers}/common/%{common_branch}/pkg/seccomp/seccomp.json
@@ -54,7 +53,6 @@ Source23: %{github_containers}/common/%{common_branch}/docs/Containerfile.5.md
 Source24: %{github_containers}/common/%{common_branch}/docs/containerignore.5.md
 Source25: %{github_containers}/common/%{common_branch}/docs/links/.containerignore.5
 
-
 %description
 This package contains common configuration files and documentation for container
 tools ecosystem, such as Podman, Buildah and Skopeo.
@@ -62,6 +60,26 @@ tools ecosystem, such as Podman, Buildah and Skopeo.
 It is required because the most of configuration files and docs come from projects
 which are vendored into Podman, Buildah, Skopeo, etc. but they are not packaged
 separately.
+
+%package extra
+Summary: Extra dependencies for Podman and Buildah
+Requires: %{name} = %{epoch}:%{version}-%{release}
+Requires: container-network-stack
+Requires: oci-runtime
+Recommends: crun
+Requires: (crun if fedora-release-identity-server)
+Recommends: netavark
+Requires: (netavark if fedora-release-identity-server)
+Recommends: slirp4netns
+Requires: (slirp4netns if fedora-release-identity-server)
+Requires: iptables
+Requires: nftables
+Suggests: containernetworking-plugins >= 0.9.1-1
+Suggests: qemu-user-static
+
+%description extra
+This subpackage will handle dependencies common to Podman and Buildah which are
+not required by Skopeo.
 
 %prep
 cp %{SOURCE1} .
@@ -161,6 +179,8 @@ ln -s %{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/rhel/secret
 %{_datadir}/containers/seccomp.json
 %dir %{_datadir}/rhel/secrets
 %{_datadir}/rhel/secrets/*
+
+%files extra
 
 %changelog
 %autochangelog

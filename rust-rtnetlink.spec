@@ -5,7 +5,7 @@
 %global crate rtnetlink
 
 Name:           rust-%{crate}
-Version:        0.10.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Manipulate linux networking resources via netlink
 

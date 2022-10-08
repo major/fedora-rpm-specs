@@ -1,30 +1,28 @@
 %global gem_name pry
 
+%global slop_version 3.4.0
+
 Name: rubygem-%{gem_name}
-Version: 0.13.1
-Release: 8%{?dist}
+Version: 0.14.1
+Release: 1%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
-URL: http://pryrepl.org
+URL: http://pry.github.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/pry/pry.git && cd pry
-# git archive -v -o pry-0.13.1-spec.tar.gz v0.13.1 spec/
+# git archive -v -o pry-0.14.1-spec.tar.gz v0.14.1 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# Fix spec which were testing invalid syntax which become valid in Ruby 3.0.
-# https://github.com/pry/pry/pull/2170
-Patch0: pry-0.13.1-Fix-broken-spec.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(coderay) => 1.1.0
-BuildRequires: rubygem(irb)
 BuildRequires: rubygem(method_source) => 0.8.1
 BuildRequires: rubygem(rspec)
 # editor specs fail if no editor is available (soft requirement)
 BuildRequires: vi
 # https://github.com/pry/pry/pull/1498
-Provides: bundled(rubygem-slop) = 3.4.0
+Provides: bundled(rubygem-slop) = %{slop_version}
 BuildArch: noarch
 
 %description
@@ -43,11 +41,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-pushd %{_builddir}
-%patch0 -p1
-popd
-
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -71,6 +64,8 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %check
 pushd .%{gem_instdir}
+[ `ruby -Ilib -rpry/slop -e "puts Pry::Slop::VERSION"` == '%{slop_version}' ]
+
 ln -s %{_builddir}/spec spec
 
 # Rakefile is used by editor test.
@@ -80,8 +75,7 @@ touch Rakefile
 # https://github.com/pry/pry/blob/9d9ae4a0b0bd487bb41170c834b3fa417e161f23/spec/cli_spec.rb#L219
 sed -i '/pry\/foo/ s/pry/pry-%{version}/' spec/cli_spec.rb
 
-# The bundler is required just to make /spec/integration/bundler_spec.rb pass.
-RUBYOPT=-rbundler rspec -rspec_helper spec
+rspec -rspec_helper spec
 popd
 
 %files
@@ -99,6 +93,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Oct 06 2022 Vít Ondruch <vondruch@redhat.com> - 0.14.1-1
+- Update to Pry 0.14.1.
+  Resolves: rhbz#1926203
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%global tag_version release-42-alpha2
+%global tag_version release-42-beta3
 #%%global is_official 0%%(echo %%{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
 %global is_official 0%(echo %{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
 #%%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    42~alpha2
+Version:    42~beta3
 Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Thu Oct 06 2022 Takao Fujiwara <tfujiwar@gmail.com> - 1:42~beta3-1
+- Bump to release-42-beta3
+
 * Tue Aug 23 2022 Takao Fujiwara <tfujiwar@gmail.com> - 1:42~alpha2-1
 - Bump to release-42-alpha2
 

@@ -2,23 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-# https://github.com/projectdiscovery/stringsutil
-%global goipath         github.com/projectdiscovery/stringsutil
-Version:                0.0.1
+# https://github.com/google/renameio
+%global goipath         github.com/google/renameio/v2
+Version:                2.0.0
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
-Various helpers to interact with strings.}
+Package renameio provides a way to atomically create or replace a file or
+symbolic link.}
 
-%global golicenses      LICENSE.md
-%global godocs          README.md
+%global golicenses      LICENSE
+%global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
 Release:        %autorelease
-Summary:        Various helpers to interact with strings
+Summary:        Package renameio provides a way to atomically create or replace a file or symbolic link
 
-License:        MIT
+License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 
@@ -44,3 +45,4 @@ Source:         %{gosource}
 
 %changelog
 %autochangelog
+

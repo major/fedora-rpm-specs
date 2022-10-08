@@ -12,8 +12,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.25.90
-Release: 2%{?dist}
+Version: 5.26.0
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,8 +32,6 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
-# git format-patch v%%{version}
-Patch0: 08f0ab031e74d722fd2b569f89c98f1c61a00b35.diff
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)
@@ -308,6 +306,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Wed Sep 21 2022 Marc Deop marcdeop@fedoraproject.org - 5.25.90-2
 - Add patch to support systems without a Qt WebView
 

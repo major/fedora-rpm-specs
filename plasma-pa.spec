@@ -1,5 +1,5 @@
 Name:    plasma-pa
-Version: 5.25.5
+Version: 5.26.0
 Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
@@ -17,6 +17,7 @@ Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.
 BuildRequires:  extra-cmake-modules
 BuildRequires:  glib2-devel
 BuildRequires:  kde-filesystem
+BuildRequires:  kf5-kcmutils-devel
 BuildRequires:  kf5-kconfigwidgets-devel
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-kdeclarative-devel
@@ -81,15 +82,18 @@ rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
 %license LICENSES/*
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.volume/
 %{_kf5_qmldir}/org/kde/plasma/private/volume/
-%{_kf5_qtplugindir}/kcms/kcm_pulseaudio.so
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_pulseaudio.so
 %{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.volume.desktop
 %{_kf5_datadir}/kconf_update/*
 %{_kf5_datadir}/kpackage/kcms/kcm_pulseaudio
-%{_kf5_datadir}/kservices5/kcm_pulseaudio.desktop
+%{_kf5_datadir}/applications/kcm_pulseaudio.desktop
 %{_kf5_metainfodir}/org.kde.plasma.volume.appdata.xml
 
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Wed Sep 07 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.5-1
 - 5.25.5
 

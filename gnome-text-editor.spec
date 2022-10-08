@@ -7,12 +7,15 @@
 
 Name:		gnome-text-editor
 Version:	43.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
 Source0:	https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+
+# Backported from upstream
+Patch0:		0001-Merge-branch-appdata-releases-into-main.patch
 
 BuildRequires:	pkgconfig(editorconfig)
 BuildRequires:	pkgconfig(enchant-2) >= %{enchant_version}
@@ -74,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Thu Oct 06 2022 Kalev Lember <klember@redhat.com> - 43.1-2
+- Backport upstream patch to fix the release number in appdata
+
 * Tue Oct 04 2022 Kalev Lember <klember@redhat.com> - 43.1-1
 - Update to 43.1
 

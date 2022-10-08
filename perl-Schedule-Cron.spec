@@ -2,23 +2,18 @@
 
 Name:      perl-Schedule-Cron
 Summary:   Provides a simple but complete cron like scheduler
-Version:   1.01
-Release:   10%{?dist}
+Version:   1.03
+Release:   1%{?dist}
 License:   GPL+ or Artistic
 URL:       https://metacpan.org/release/Schedule-Cron
 BuildArch: noarch
 
-Source0:   https://cpan.metacpan.org/authors/id/R/RO/ROLAND/Schedule-Cron-%{version}.tar.gz
+Source0:   https://cpan.metacpan.org/authors/id/N/NH/NHUBBARD/Schedule-Cron-%{version}.tar.gz
 # The following license text is included due to the "perl" license assignment
 # shown in Makefile.PL
 Source1:        http://dev.perl.org/licenses/#/%{name}-Licensing.html
 
-# https://github.com/rhuss/schedule-cron/pull/8
-Patch0: perl-schedule-cron-fix-unescaped-left-brace.patch
-# Patch obtained from Debian libschedule-cron-perl source package
-Patch1: perl-schedule-cron-fix-spelling.patch
-
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -93,6 +88,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Thu Oct 06 2022 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.03-1
+- 1.03 release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global kf5_version 5.82.0
 
 Name:    powerdevil
-Version: 5.25.90
+Version: 5.26.0
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -127,6 +127,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Sat Sep 17 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.90-1
 - 5.25.90
 

@@ -1,7 +1,3 @@
-%if "%{_vendor}" == "debbuild"
-%define gobuild(o:) GO111MODULE=off go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%endif
-
 %global with_debug 1
 
 %if 0%{?with_debug}
@@ -19,36 +15,19 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 1.28.0
+%global built_tag v1.28.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{repo}
-Version: 1.28.0
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0 and BSD and MIT and MPLv2.0
 Release: %autorelease
-%endif
 Summary: A command line tool used for creating OCI Images
 URL: https://%{name}.io
-Source: %{git0}/archive/v%{built_tag_strip}.tar.gz
+# Tarball fetched from upstream
+Source: %{git0}/archive/%{built_tag}.tar.gz
 BuildRequires: go-md2man
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-BuildRequires: golang
-BuildRequires: libassuan-dev
-BuildRequires: libbtrfs-dev
-BuildRequires: libdevmapper-dev
-BuildRequires: libglib2.0-dev
-BuildRequires: libgpg-error-dev
-BuildRequires: libgpgme-dev
-BuildRequires: libseccomp-dev
-BuildRequires: libsystemd-dev
-BuildRequires: pkg-config
-Requires: containers-common >= 4:1
-%else
 BuildRequires: device-mapper-devel
 BuildRequires: git-core
 BuildRequires: golang >= 1.16.6
@@ -61,15 +40,18 @@ BuildRequires: make
 BuildRequires: ostree-devel
 BuildRequires: btrfs-progs-devel
 BuildRequires: shadow-utils-subid-devel
-Requires: containers-common >= 4:1-46
-Suggests: containernetworking-plugins >= 0.9.1-1
-Requires: netavark
-Requires: iptables
-Requires: nftables
+%if 0%{?fedora} > 37
+Requires: containers-common-extra >= 4:1-78
+%else
+%if 0%{?fedora} == 37
+Requires: containers-common-extra >= 4:1-73
+%else
+Requires: containers-common-extra >= 4:1-62
+%endif
+%endif
 BuildRequires: libseccomp-static
 Requires: libseccomp >= 2.4.1-0
 Suggests: cpp
-Suggests: qemu-user-static
 # awk '{print "Provides: bundled(golang("$1")) = "$2}' go.mod | sort | uniq | sed -e 's/-/_/g' -e '/bundled(golang())/d' -e '/bundled(golang(go\|module\|replace\|require))/d'
 Provides: bundled(golang(github.com/containerd/containerd)) = v1.5.9
 Provides: bundled(golang(github.com/containernetworking/cni)) = v1.0.1
@@ -103,7 +85,6 @@ Provides: bundled(golang(github.com/spf13/cobra)) = v1.3.0
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.7.0
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
-%endif
 
 %description
 The %{name} package provides a command line tool which can be used to
@@ -134,10 +115,9 @@ Requires: git-daemon
 This package contains system tests for %{name}
 
 %prep
-%autosetup -Sgit
+%autosetup -Sgit -n %{name}-%{built_tag_strip}
 
 %build
-%if "%{_vendor}" != "debbuild"
 %set_build_flags
 # These extra flags present in $CFLAGS have been skipped for now as they break the build
 CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-flto=auto//g')
@@ -146,7 +126,6 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
-%endif
 %endif
 
 export GOPATH=$(pwd)/_build:$(pwd)
@@ -164,9 +143,7 @@ export CNI_VERSION=`grep '^# github.com/containernetworking/cni ' src/modules.tx
 export LDFLAGS="-X main.buildInfo=`date +%s` -X main.cniVersion=${CNI_VERSION}"
 
 export BUILDTAGS='seccomp exclude_graphdriver_devicemapper'
-%if "%{_vendor}" != "debbuild"
 export BUILDTAGS+=' libsubid selinux'
-%endif
 %gobuild -o bin/%{name} %{import_path}/cmd/%{name}
 %gobuild -o bin/imgtype %{import_path}/tests/imgtype
 %gobuild -o bin/copy %{import_path}/tests/copy
@@ -175,16 +152,8 @@ GOMD2MAN=go-md2man %{__make} -C docs
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd)
-%if "%{_vendor}" != "debbuild"
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install install.completions
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} -C docs install
-%else
-install -D -m0755 bin/%{name} %{buildroot}%{_bindir}/%{name}
-install -m 644 -D contrib/completions/bash/%{name} %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -d %{buildroot}/%{_mandir}/man1
-install -m 0644 docs/%{name}*.1 %{buildroot}%{_mandir}/man1
-install -m 0644 docs/links/%{name}*.1 %{buildroot}%{_mandir}/man1
-%endif
 
 install -d -p %{buildroot}/%{_datadir}/%{name}/test/system
 cp -pav tests/. %{buildroot}/%{_datadir}/%{name}/test/system
@@ -212,6 +181,4 @@ cp bin/tutorial %{buildroot}/%{_bindir}/%{name}-tutorial
 %{_datadir}/%{name}/test
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

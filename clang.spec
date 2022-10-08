@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -225,6 +225,13 @@ Requires:	emacs-filesystem
 
 %description tools-extra
 A set of extra tools built using Clang's tooling API.
+
+%package tools-extra-devel
+Summary: Development header files for clang tools
+Requires: %{name}-tools-extra = %{version}-%{release}
+
+%description tools-extra-devel
+Development header files for clang tools.
 
 # Put git-clang-format in its own package, because it Requires git
 # and we don't want to force users to install all those dependenices if they
@@ -457,9 +464,6 @@ popd
 mkdir -p %{buildroot}%{pkg_libdir}/clang/%{version}/{include,lib,share}/
 
 
-# Remove clang-tidy headers.  We don't ship the libraries for these.
-rm -Rvf %{buildroot}%{_includedir}/clang-tidy/
-
 %if %{without compat_build}
 # Add a symlink in /usr/bin to clang-format-diff
 ln -s %{_datadir}/clang/clang-format-diff.py %{buildroot}%{_bindir}/clang-format-diff
@@ -591,6 +595,9 @@ false
 %{_datadir}/clang/run-find-all-symbols.py*
 %{_datadir}/clang/clang-rename.py*
 
+%files tools-extra-devel
+%{_includedir}/clang-tidy/
+
 %files -n git-clang-format
 %{_bindir}/git-clang-format
 
@@ -600,6 +607,9 @@ false
 
 %endif
 %changelog
+* Wed Oct 05 2022 sguelton@redhat.com - 15.0.0-4
+- Package clang-tidy headers in clang-tools-extra-devel, fix rhbz#2123479
+
 * Thu Sep 22 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
 - Add patch for inline builtins with asm label
 

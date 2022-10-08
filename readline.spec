@@ -1,22 +1,18 @@
 Summary: A library for editing typed command lines
 Name: readline
-Version: 8.1
-Release: 7%{?dist}
+Version: 8.2
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://tiswww.case.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
 
 # Official upstream patches
 # Patches are converted to apply with '-p1'
-Patch1: readline-8.1-patch-1.patch
-Patch2: readline-8.1-patch-2.patch
+Patch1: readline-8.2-patch-1.patch
 
 # Other patches
 # Remove RPATH, use CFLAGS
 Patch101: readline-8.0-shlib.patch
-# Remove this patch during next rebase
-# https://git.savannah.gnu.org/cgit/readline.git/commit/?h=devel&id=d5d497730cf7708b6dcb85479f8bdfc748d23ff8
-Patch102: 0001-Add-pkg-config-configurations-for-libhistory.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -87,6 +83,13 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Thu Oct 06 2022 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-2
+- Update to readline-8.2 patchlevel 1
+
+* Wed Oct 05 2022 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-1
+- Update to readline-8.2
+  Resolves: #2129926
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

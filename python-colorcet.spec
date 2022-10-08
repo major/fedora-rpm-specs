@@ -1,11 +1,12 @@
 # We should package a commit corresponding to a release tag unless there is a
-# compelling reason to do otherwise. Normally this would mean referencing
-# tag for the version as the source. However, packaging as a snapshot ensures
-# that we never forget to update the commit hash, which is used to build the
-# colorcet/.version file (imitating the upstream PyPI release process).
-%global pypi_version 3.0.0
-%global commit 39af94a51a8cbc9016b548b9d4a975c5402d7c8b
-%global snapdate 20211128
+# compelling reason to do otherwise. Normally this would mean referencing the
+# tag corresponding to the packaged version. However, packaging as a snapshot
+# ensures that we never forget to update the commit hash, which is used to
+# build the colorcet/.version file (imitating the upstream PyPI release
+# process).
+%global pypi_version 3.0.1
+%global commit 809e2919d86241948b743fea741501f31674805a
+%global snapdate 20221003
 
 %global shortcommit %(echo '%{commit}' | cut -b -7)
 
@@ -14,7 +15,7 @@ Version:        %{pypi_version}^%{snapdate}git%{shortcommit}
 Release:        %autorelease
 Summary:        Collection of perceptually uniform colormaps
 
-License:        CC-BY
+License:        CC-BY-4.0
 URL:            https://github.com/holoviz/colorcet
 # The PyPI archive lacks the Sphinx documentation sources, but since this
 # documentation requires nbsite (which is not packaged) and specifically
@@ -65,7 +66,7 @@ sed -r -i '/\bnbsmoke\b/d' setup.py
 # holoviews is not packaged, so we cannot run examples that use it
 sed -r -i '/\bholoviews\b/d' setup.py
 # Don’t pull in dependencies for linting, PyPI uploading, or coverage analysis.
-sed -r -i '/\b(flake8|pytest-cov|twine|rfc3986|keyring)\b/d' setup.py
+sed -r -i '/\b(flake8|pytest-cov)\b/d' setup.py
 
 # Imitate the PyPI release process.
 cat > colorcet/.version <<'EOF'

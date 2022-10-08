@@ -7,7 +7,7 @@
 
 Name:           mingw-filesystem
 Version:        141
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPLv2+
@@ -245,7 +245,7 @@ cat %{SOURCE101} | grep -v "^#" | grep -v "^$" | while read loc ; do
     fi
     # If the locale is not official and not special, skip it
     if [ -z "$special" ]; then
-        egrep -q "[[:space:]]${locale%%_*}[[:space:]]" %{buildroot}/iso_639.tab || continue
+        grep -Eq "[[:space:]]${locale%%_*}[[:space:]]" %{buildroot}/iso_639.tab || continue
     fi
     echo "%lang(${locale}) %{_prefix}/i686-w64-mingw32/sys-root/mingw/share/locale/${loc}" >> filelist_mingw32
     echo "%lang(${locale}) %{_prefix}/x86_64-w64-mingw32/sys-root/mingw/share/locale/${loc}" >> filelist_mingw64
@@ -363,6 +363,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Tue Sep 27 2022 Sandro Mani <manisandro@gmail.com> - 141-2
+- Replace egrep with grep -E
+
 * Sat Jul 30 2022 Sandro Mani <manisandro@gmail.com> - 141-1
 - Revert unsetting _PREFIX
 

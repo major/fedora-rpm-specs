@@ -1,8 +1,8 @@
 %global pypi_name boolean.py
 
 Name:           python-%{pypi_name}
-Version:        3.8
-Release:        8%{?dist}
+Version:        4.0
+Release:        1%{?dist}
 Summary:        Define boolean algebras, and create and parse boolean expressions
 
 License:        BSD
@@ -52,6 +52,9 @@ rm -rf html/.{doctrees,buildinfo}
 %{python3_sitelib}/boolean/
 
 %changelog
+* Thu Oct 06 2022 Carmen Bianca Bakker <carmenbianca@fedoraproject.org> - 4.0-1
+- new version
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

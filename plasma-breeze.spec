@@ -6,7 +6,7 @@
 %global         base_name   breeze
 
 Name:    plasma-breeze
-Version: 5.25.90
+Version: 5.26.0
 Release: 1%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
@@ -132,7 +132,6 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %dir %{_datadir}/QtCurve/
 %{_datadir}/QtCurve/Breeze.qtcurve
 %{_datadir}/wallpapers/Next/
-%{_datadir}/wallpapers/AnimatedWallpaperTest
 
 %files -n breeze-cursor-theme
 %doc cursors/Breeze/README
@@ -145,6 +144,9 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Sat Sep 17 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.90-1
 - 5.25.90
 

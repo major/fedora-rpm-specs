@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.25.90
-Release: 2%{?dist}
+Version: 5.26.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -778,6 +778,9 @@ fi
 
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Sun Sep 25 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.25.90-2
 - Add Fedora patches to change default desktop context menu configuration
   + Enable "Open Terminal" action

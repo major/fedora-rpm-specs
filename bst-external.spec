@@ -14,14 +14,14 @@ License:        LGPLv2+
 URL:            https://gitlab.com/BuildStream/bst-external
 Source0:        %{pypi_source}
 
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel >= 3.11
 
 BuildRequires:  python3dist(pytest-runner)
 BuildRequires:  python3dist(pytest) >= 3.1.0
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(setuptools-scm)
 BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(toml)
+BuildRequires:  python3dist(tomli)
 %if %{with check}
 # FIXME: Package was retired in Fedora
 # * https://bugzilla.redhat.com/show_bug.cgi?id=1839789

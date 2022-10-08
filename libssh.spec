@@ -1,6 +1,6 @@
 Name:           libssh
 Version:        0.10.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library implementing the SSH protocol
 License:        LGPLv2+
 URL:            http://www.libssh.org
@@ -26,6 +26,9 @@ BuildRequires:  uid_wrapper
 BuildRequires:  openssh-clients
 BuildRequires:  openssh-server
 BuildRequires:  nmap-ncat
+BuildRequires:  openssl-pkcs11
+BuildRequires:  softhsm
+BuildRequires:  gnutls-utils
 
 Requires:       %{name}-config = %{version}-%{release}
 
@@ -36,6 +39,8 @@ Provides: libssh_threads.so.4()(64bit)
 %else
 Provides: libssh_threads.so.4
 %endif
+
+Patch1: pkcs11_test_fix.patch
 
 %description
 The ssh library was designed to be used by programmers needing a working SSH
@@ -70,6 +75,7 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
     -DUNIT_TESTING=ON \
     -DCLIENT_TESTING=ON \
     -DSERVER_TESTING=ON \
+    -DWITH_PKCS11_URI=ON \
     -DGLOBAL_CLIENT_CONFIG="%{_sysconfdir}/libssh/libssh_client.config" \
     -DGLOBAL_BIND_CONFIG="%{_sysconfdir}/libssh/libssh_server.config"
 
@@ -127,6 +133,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Thu Oct 06 2022 Norbert Pocs <npocs@redhat.com> - 0.10.4-2
+- Enable pkcs11 support
+
 * Wed Sep 07 2022 Andreas Schneider <asn@redhat.com> - 0.10.4-1
 - Update to version 0.10.4
   https://git.libssh.org/projects/libssh.git/tag/?h=libssh-0.10.4

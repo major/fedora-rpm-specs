@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    plasma-workspace-wallpapers
-Version: 5.25.90
+Version: 5.26.0
 Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 License: LGPLv3
@@ -73,11 +73,15 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/PastelHills/
 %{_datadir}/wallpapers/Patak/
 %{_datadir}/wallpapers/Path/
+%{_datadir}/wallpapers/SafeLanding/
 %{_datadir}/wallpapers/Shell/
 %{_datadir}/wallpapers/summer_1am/
 %{_datadir}/wallpapers/Volna/
 
 %changelog
+* Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
+- 5.26.0
+
 * Sat Sep 17 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.25.90-1
 - 5.25.90
 

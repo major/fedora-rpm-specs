@@ -1,5 +1,5 @@
 Name:           xonsh
-Version:        0.13.1
+Version:        0.13.3
 Release:        1%{?dist}
 Summary:        A general purpose, Python-ish shell
 
@@ -121,6 +121,9 @@ fi
 %{python3_sitelib}/xonsh-%{version}*-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Oct 06 2022 Carmen Bianca Bakker <carmenbianca@fedoraproject.org> - 0.13.3-1
+- new version
+
 * Fri Aug 26 2022 Carmen Bianca Bakker <carmenbianca@fedoraproject.org> - 0.13.1-1
 - new version
 

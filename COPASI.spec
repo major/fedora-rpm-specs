@@ -1,4 +1,4 @@
-%global buildid    260
+%global buildid    264
 %global octpkg  COPASI
 
 %global with_python  1
@@ -27,8 +27,8 @@
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.36.%{buildid}
-Release: 3%{?dist}
+Version: 4.37.%{buildid}
+Release: 1%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -129,12 +129,7 @@ Patch10: %{name}-find_sbw.patch
 # rhbz#1896407
 Patch11: %{name}-porting_to_python310.patch
 
-Patch12: %{name}-bug3117.patch
-
-Patch13: %{name}-find_raptor.patch
-
-# rhbz#2128029
-Patch14: %{name}-fix_swig.patch
+Patch12: %{name}-find_raptor.patch
 
 %description
 COPASI is a software application for simulation and analysis of biochemical
@@ -271,9 +266,7 @@ done
 %patch8 -p1 -b .use_c++17
 %patch9 -p0 -b .find_libsedml
 %patch10 -p0 -b .find_sbw
-%patch12 -p1 -b .bug3117
-%patch13 -p1 -b .find_raptor
-%patch14 -p1 -b .swig410
+%patch12 -p1 -b .find_raptor
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39
@@ -491,6 +484,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Thu Oct 06 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.37.264-1
+- Release 4.37 build-264
+
 * Tue Oct 04 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.36.260-3
 - Applied the patch for rhbz#2128029
 

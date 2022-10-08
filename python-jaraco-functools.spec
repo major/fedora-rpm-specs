@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        3.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Functools like those found in stdlib
 
 License:        MIT
@@ -24,8 +24,6 @@ Summary:       %{summary}
 # it does not exists on PyPI and does not provide python3dist(jaraco)
 # DO NOT change this dependency to python3dist(jaraco) or similar
 Requires:      python3-jaraco
-
-Requires:  	python3dist(toml)
 
 BuildRequires:  python3-devel
 BuildConflicts: python3dist(pytest) = 3.7.3
@@ -86,6 +84,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Oct 05 2022 Miro Hrončok <mhroncok@redhat.com> - 3.5.2-2
+- Remove superfluous runtime dependency on python3-toml
+
 * Wed Sep 28 2022 Dan Radez <dan@radez.net> - 3.5.2-1
 - update to 3.5.1 - rhbz#2130355
 

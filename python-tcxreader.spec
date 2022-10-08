@@ -1,7 +1,7 @@
 %bcond_without tests
 
 %global pypi_name tcxreader
-%global fullversion 0.4.1
+%global fullversion 0.4.2
 
 %global _description %{expand:
 This is a simple TCX parser / reader which can read Garmin TCX file
@@ -58,6 +58,9 @@ BuildRequires:  python3-pytest-cov
 %doc examples/ example_data/
 
 %changelog
+* Thu Oct 6 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.2-1
+- New release
+
 * Tue Aug 9 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.4.1-1
 - New release
 

@@ -1,19 +1,19 @@
-Summary:        Real-time Audio I/O Library
 Name:           rtaudio
-Version:        5.0.0
-Release:        12%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
+Summary:        Real-time Audio I/O Library
+
 License:        MIT
 URL:            http://www.music.mcgill.ca/~gary/rtaudio/
-Source0:        https://github.com/thestk/rtaudio/archive/v%{version}/rtaudio-%{version}.tar.gz
-BuildRequires: make
+Source0:        https://www.music.mcgill.ca/~gary/%{name}/release/%{name}-%{version}.tar.gz
+
 BuildRequires:  alsa-lib-devel
+BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  jack-audio-connection-kit-devel
-BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  libtool
-BuildRequires:  doxygen
+BuildRequires:  make
+BuildRequires:  pulseaudio-libs-devel
 
 
 %description
@@ -51,8 +51,9 @@ designed with the following objectives:
   * automatic internal conversion for data format, channel number compensation,
     (de)interleaving, and byte-swapping
 
+
 %prep
-%setup -q
+%autosetup
 # Fix encoding issues
 for file in tests/teststops.cpp; do
    sed 's|\r||' $file > $file.tmp
@@ -61,30 +62,35 @@ for file in tests/teststops.cpp; do
    mv -f $file.tmp2 $file
 done
 
+
 %build
-autoreconf -fiv
 export CFLAGS="%optflags -fPIC"
 %configure --with-jack --with-alsa --with-pulse --enable-shared --disable-static --verbose
-make %{?_smp_mflags} V=1
+%make_build
+
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %ldconfig_scriptlets
 
+
 %files
 %license doc/doxygen/license.txt
-%doc readme doc/release.txt
+%doc README.md doc/release.txt
 %{_libdir}/lib%{name}.so.*
 
 %files devel
 %doc doc/html doc/images
 %{_includedir}/%{name}/*.h
 %{_libdir}/lib%{name}.so
-%exclude %{_libdir}/lib%{name}.la
 %{_libdir}/pkgconfig/%{name}.pc
 
+
 %changelog
+* Thu Oct 06 2022 Richard Shaw <hobbes1069@gmail.com> - 5.2.0-1
+- Update to 5.2.0.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

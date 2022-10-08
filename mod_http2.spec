@@ -2,7 +2,7 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	2.0.7
+Version:	2.0.9
 Release:	1%{?dist}
 Summary:	module implementing HTTP/2 for Apache 2
 License:	ASL 2.0
@@ -45,6 +45,9 @@ echo "LoadModule proxy_http2_module modules/mod_proxy_http2.so" > %{buildroot}%{
 %{_httpd_moddir}/mod_proxy_http2.so
 
 %changelog
+* Thu Oct  6 2022 Joe Orton <jorton@redhat.com> - 2.0.9-1
+- update to 2.0.9
+
 * Fri Sep 23 2022 Joe Orton <jorton@redhat.com> - 2.0.7-1
 - update to 2.0.7
 

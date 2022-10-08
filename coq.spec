@@ -12,9 +12,14 @@
 # Coq installs python files into nonstandard places
 %global _python_bytecompile_extra 0
 
+# The documentation package carries a non-free license.
+# Upstream is working on this: https://github.com/coq/coq/issues/8774.
+# Check future releases to see if the doc subpackage can be brought back.
+%bcond_with doc
+
 Name:           coq
 Version:        8.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -44,20 +49,21 @@ BuildRequires:  ocaml-lablgtk3-sourceview3-devel >= 3.0
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-ounit-devel
 BuildRequires:  ocaml-zarith-devel >= 1.11
+BuildRequires:  antlr4
 BuildRequires:  appstream
 BuildRequires:  csdp-tools
 BuildRequires:  desktop-file-utils
 BuildRequires:  libicns-utils
 BuildRequires:  make
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist antlr4-python3-runtime}
 BuildRequires:  rsync
 BuildRequires:  time
 
+%if %{with doc}
 # For documentation
-BuildRequires:  antlr4
 BuildRequires:  hevea
 BuildRequires:  latexmk
-BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist antlr4-python3-runtime}
 BuildRequires:  %{py3_dist beautifulsoup4}
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist sphinx}
@@ -89,6 +95,9 @@ BuildRequires:  tex-times
 BuildRequires:  tex-xindy
 BuildRequires:  tex-zapfchan
 BuildRequires:  tex-zapfding
+%else
+BuildRequires:  texlive-base
+%endif
 
 Requires:       %{name}-core%{_isa} = %{version}-%{release}
 Requires:       csdp-tools
@@ -96,6 +105,9 @@ Requires:       ocaml-findlib
 Requires:       texlive-base
 
 Recommends:     emacs-proofgeneral
+
+# This can be removed when F41 reaches EOL
+Obsoletes:      coq-doc < 8.16.0-2
 
 %global _desc %{expand:
 Coq is a formal proof management system.  It provides a formal language
@@ -141,6 +153,7 @@ Requires:       xdg-utils
 This package provides CoqIDE, a graphical user interface for the
 development of interactive proofs.
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for Coq proof management system
 # The documentation as a whole is OPUBL-1.0.
@@ -161,6 +174,7 @@ gives a more complete description of the whole system. Included are
 also HTML versions of both. Furthermore, there are two tutorials, the
 main one, and one specifically on recursive types. The example code
 for the latter is also included.
+%endif
 
 %prep
 %autosetup -p1
@@ -217,7 +231,11 @@ cd -
             -bytecode-compiler yes                   \
             %{opt_option}                            \
             -browser "xdg-open %s"                   \
+%if %{with doc}
             -with-doc yes
+%else
+            -with-doc no
+%endif
 
 # Build the binary artifacts
 export SPHINXWARNOPT="-w$PWD/sphinx-warn.log"
@@ -239,8 +257,13 @@ rm -fr %{buildroot}%{_datadir}/texmf
 # FIXME: dune ignores the configdir argument to configure
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/%{name}
 
+%if %{with doc}
 # Prepare the documentation for installation
 find doc/sphinx/_build/html -name .buildinfo -delete
+%else
+# Remove duplicated documentation files
+rm -fr %{buildroot}%{coqdocdir}
+%endif
 
 # Use links rather than copying binaries
 %ifarch %{ocaml_native_compiler}
@@ -373,11 +396,16 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %{_datadir}/mime/packages/coq.xml
 %{_sysconfdir}/xdg/coq/
 
+%if %{with doc}
 %files doc
 %license doc/LICENSE
 %{coqdocdir}
+%endif
 
 %changelog
+* Thu Oct  6 2022 Jerry James <loganjerry@gmail.com> - 8.16.0-2
+- Remove the manual, which has a non-free license (bz 2132567)
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 8.16.0-1
 - Version 8.16.0
 - Drop upstreamed patch for Sphinx 4.5 support

@@ -1,5 +1,4 @@
 %global with_debug 1
-%global with_check 0
 
 %if 0%{?with_debug}
 %global _find_debuginfo_dwz_opts %{nil}
@@ -8,31 +7,20 @@
 %global debug_package %{nil}
 %endif
 
-%global built_tag_strip 2.1.4
+%global built_tag v2.1.4
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: conmon
 Epoch: 2
-Version: 2.1.4
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0
 Release: %autorelease
-%endif
 Summary: OCI container runtime monitor
 URL: https://github.com/containers/%{name}
-Source0: %{url}/archive/v%{built_tag_strip}.tar.gz
+# Tarball fetched from upstream
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: go-md2man
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-BuildRequires: libglib2.0-dev
-BuildRequires: libseccomp-dev
-BuildRequires: libsystemd-dev
-Requires: libglib2.0-0
-Requires: libseccomp2
-%else
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: glib2-devel
@@ -43,7 +31,6 @@ BuildRequires: make
 Requires: glib2
 Requires: systemd-libs
 Requires: libseccomp
-%endif
 
 %description
 %{summary}.
@@ -73,6 +60,4 @@ sed -i 's/install.crio: bin\/conmon/install.crio:/' Makefile
 %{_mandir}/man8/%{name}.8.gz
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif
