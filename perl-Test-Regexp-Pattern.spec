@@ -1,6 +1,6 @@
 Name:           perl-Test-Regexp-Pattern
-Version:        0.009
-Release:        4%{?dist}
+Version:        0.010
+Release:        1%{?dist}
 Summary:        Test Regexp::Pattern patterns
 License:        GPL+ or Artistic
 
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Fri Oct 07 2022 Sandro Mani <manisandro@gmail.com> - 0.010-1
+- Update to 0.010
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

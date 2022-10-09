@@ -3,7 +3,7 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck3
 Version: 43.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://download.gnome.org/sources/%{source_name}/
 Source0: http://download.gnome.org/sources/%{source_name}/40/%{source_name}-%{version}.tar.xz
 License: LGPLv2+
@@ -18,7 +18,10 @@ Patch5:        libwnck_0004-icons-Mark-GdkPixbuf-icons-as-deprecated_43.patch
 Patch6:        libwnck_0005-tasklist-Add-surface-loader-function_43.patch
 # fix https://gitlab.gnome.org/GNOME/libwnck/-/issues/154#note_1562760
 # https://gitlab.gnome.org/GNOME/libwnck/-/commit/07694559cc0c65ce1cca9ac33b165cef84c34d5e
-Patch:         libwnck_0001-Revert-xutils-Get-the-correct-PID-for-clients-inside.patch
+Patch7:        libwnck_0001-Revert-xutils-Get-the-correct-PID-for-clients-inside.patch
+# https://bugs.launchpad.net/ubuntu/+source/libwnck3/+bug/1990263
+# https://gitlab.gnome.org/GNOME/libwnck/-/merge_requests/46
+Patch8:        libwnck3_handle_avoid_segfault_in_invalidate_icons.patch
 
 BuildRequires: gcc
 BuildRequires: meson
@@ -82,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Oct 07 2022 Wolfgang Ulbrich <fedora@raveit.de> - 43.0-3
+- fix https://bugs.launchpad.net/ubuntu/+source/libwnck3/+bug/1990263
+
 * Thu Sep 29 2022 Wolfgang Ulbrich <fedora@raveit.de> - 43.0-2
 - fix https://gitlab.gnome.org/GNOME/libwnck/-/issues/154
 

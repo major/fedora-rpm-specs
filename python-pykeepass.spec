@@ -2,7 +2,7 @@
 %global pypi_name pykeepass
 
 Name:           python-%{pypi_name}
-Version:        4.0.2
+Version:        4.0.3
 Release:        %autorelease
 Summary:        Python library to interact with keepass databases
 

@@ -42,12 +42,12 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.7.4
+Version: 2.8.0
 Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPLv3+
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.7.4/sssd-2.7.4.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.8.0/sssd-2.8.0.tar.gz
 
 ### Patches ###
 
@@ -1058,6 +1058,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Oct 7 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.0-1
+- Rebase to SSSD 2.8.0
+
 * Fri Aug 26 2022 Pavel Březina <pbrezina@redhat.com> - 2.7.4-1
 - Rebase to SSSD 2.7.4
 

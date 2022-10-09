@@ -1,9 +1,22 @@
-# This spec file has been automatically updated
+%define srpmhash() %{lua:
+local files = rpm.expand("%_specdir/gnutls.spec")
+for i, p in ipairs(patches) do
+   files = files.." "..p
+end
+for i, p in ipairs(sources) do
+   files = files.." "..p
+end
+local sha256sum = assert(io.popen("cat "..files.."| sha256sum"))
+local hash = sha256sum:read("*a")
+sha256sum:close()
+print(string.sub(hash, 0, 16))
+}
+
 Version: 3.7.7
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
-Patch1:	gnutls-3.6.7-no-now-guile.patch
-Patch2:	gnutls-3.2.7-rpath.patch
-Patch3: gnutls-3.7.7-fix-ktls.patch
+Patch: gnutls-3.6.7-no-now-guile.patch
+Patch: gnutls-3.2.7-rpath.patch
+Patch: gnutls-3.7.7-fix-ktls.patch
 
 %bcond_without bootstrap
 %bcond_without dane
@@ -15,14 +28,20 @@ Patch3: gnutls-3.7.7-fix-ktls.patch
 %bcond_without fips
 %endif
 %bcond_with tpm12
+%bcond_without tpm2
 %bcond_without gost
+%bcond_with certificate_compression
+%bcond_without tests
 
 Summary: A TLS protocol implementation
 Name: gnutls
 # The libraries are LGPLv2.1+, utilities are GPLv3+
 License: GPLv3+ and LGPLv2+
 BuildRequires: p11-kit-devel >= 0.21.3, gettext-devel
-BuildRequires: zlib-devel, readline-devel, libtasn1-devel >= 4.3
+BuildRequires: readline-devel, libtasn1-devel >= 4.3
+%if %{with certificate_compression}
+BuildRequires: zlib-devel, brotli-devel, libzstd-devel
+%endif
 %if %{with bootstrap}
 BuildRequires: automake, autoconf, gperf, libtool, texinfo
 %endif
@@ -30,10 +49,14 @@ BuildRequires: nettle-devel >= 3.5.1
 %if %{with tpm12}
 BuildRequires: trousers-devel >= 0.3.11.2
 %endif
+%if %{with tpm2}
+BuildRequires: tpm2-tss-devel >= 3.0.3
+%endif
 BuildRequires: libidn2-devel
 BuildRequires: libunistring-devel
 BuildRequires: net-tools, datefudge, softhsm, gcc, gcc-c++
 BuildRequires: gnupg2
+BuildRequires: git-core
 
 # for a sanity check on cert loading
 BuildRequires: p11-kit-trust, ca-certificates
@@ -149,11 +172,17 @@ This package contains Guile bindings for the library.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+# Workaround: to allow building the package under FIPS, do not treat
+# errors in the GPG check as fatal, where EdDSA signature verification
+# is not allowed:
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}' || :
 
-%autosetup -p1
+%autosetup -p1 -S git
+
+%build
+%define _lto_cflags %{nil}
+
 %if %{with bootstrap}
-rm -f src/libopts/*.c src/libopts/*.h src/libopts/compat/*.c src/libopts/compat/*.h
 autoreconf -fi
 %endif
 
@@ -161,12 +190,6 @@ sed -i -e 's|sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spe
 rm -f lib/minitasn1/*.c lib/minitasn1/*.h
 
 echo "SYSTEM=NORMAL" >> tests/system.prio
-
-# Note that we explicitly enable SHA1, as SHA1 deprecation is handled
-# via the crypto policies
-
-%build
-%define _lto_cflags %{nil}
 
 CCASFLAGS="$CCASFLAGS -Wa,--generate-missing-build-notes=yes"
 export CCASFLAGS
@@ -180,9 +203,16 @@ GUILD=%{_bindir}/guild2.2
 export GUILD
 %endif
 
+%if %{with fips}
+eval $(sed -n 's/^\(\(NAME\|VERSION_ID\)=.*\)/OS_\1/p' /etc/os-release)
+export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
+%endif
+
 %configure \
 %if %{with fips}
            --enable-fips140-mode \
+           --with-fips140-module-name="$FIPS_MODULE_NAME" \
+           --with-fips140-module-version=%{version}-%{srpmhash} \
 %endif
 %if %{with gost}
     	   --enable-gost \
@@ -200,6 +230,12 @@ export GUILD
 %else
            --without-tpm \
 %endif
+%if %{with tpm2}
+           --with-tpm2 \
+%else
+           --without-tpm2 \
+%endif
+           --enable-ktls \
            --htmldir=%{_docdir}/manual \
 %if %{with guile}
            --enable-guile \
@@ -213,9 +249,13 @@ export GUILD
 %else
            --disable-libdane \
 %endif
+%if %{with certificate_compression}
+	   --with-zlib --with-brotli --with-zstd \
+%else
+	   --without-zlib --without-brotli --without-zstd \
+%endif
            --disable-rpath \
-           --with-default-priority-string="@SYSTEM" \
-		   --enable-ktls
+           --with-default-priority-string="@SYSTEM"
 
 make %{?_smp_mflags} V=1
 
@@ -249,7 +289,9 @@ sed -i "s^$RPM_BUILD_ROOT/usr^^" $RPM_BUILD_ROOT%{_libdir}/.gnutls.hmac
 %find_lang gnutls
 
 %check
+%if %{with tests}
 make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null
+%endif
 
 %files -f gnutls.lang
 %{_libdir}/libgnutls.so.30*

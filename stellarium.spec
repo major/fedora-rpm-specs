@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
@@ -15,25 +15,29 @@ Source0:        https://github.com/Stellarium/stellarium/releases/download/v%{ve
 ExcludeArch:    armv7hl
 %endif
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  desktop-file-utils
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  ImageMagick
 BuildRequires:	cmake
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:	qt5-qtlocation-devel
-BuildRequires:	qt5-qttools-devel
-BuildRequires:	qt5-qtscript-devel
-BuildRequires:	qt5-qtserialport-devel
-BuildRequires:	qt5-qtmultimedia-devel
-BuildRequires:  qt5-qtcharts-devel
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:	qt6-qtlocation-devel
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	qt6-qtserialport-devel
+BuildRequires:	qt6-qtmultimedia-devel
+BuildRequires:  qt6-qtcharts-devel
+BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:	gettext-devel
 BuildRequires:	boost-devel
 BuildRequires:	glib2-devel
 BuildRequires:	perl-podlators
 BuildRequires:  libappstream-glib
+BuildRequires:  CalcMySky-devel
+BuildRequires:  libindi-devel
+BuildRequires:  QXlsx-devel
+BuildRequires:  libnova-devel
+BuildRequires:  libxkbcommon-devel
 
 %description
 Stellarium is a real-time 3D photo-realistic nightsky renderer. It can
@@ -47,7 +51,7 @@ constellations, planets, major satellites and nebulas.
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
-%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT5_LIBS=%{_libdir}/qt5 -DENABLE_SHOWMYSKY=OFF
+%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -80,6 +84,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0-2
+- Enable showmysky
+
 * Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0-1
 - 1.0
 

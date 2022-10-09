@@ -37,8 +37,8 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.3.0
-Release:        %autorelease -b 2
+Version:        3.3.1
+Release:        %autorelease
 
 
 Summary:        3D modeling, animation, rendering and post-production

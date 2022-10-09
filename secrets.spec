@@ -1,10 +1,10 @@
-%bcond_without tests
+%bcond_with tests
 
 %global sysname gsecrets
 %global oldname gnome-passwordsafe
 
 Name:           secrets
-Version:        6.5
+Version:        7.0
 Release:        %autorelease
 Summary:        Manage your passwords
 
@@ -20,16 +20,18 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.59
-BuildRequires:  python3-devel >= 3.7
+BuildRequires:  python3-devel >= 3.8
 
-BuildRequires:  python3dist(pykeepass)
+BuildRequires:  python3dist(pykeepass) >= 4.0.3
 BuildRequires:  python3dist(pyotp) >= 2.4.0
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(validators)
+BuildRequires:  python3dist(zxcvbn)
 
 BuildRequires:  pkgconfig(glib-2.0) >= 2.66
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66
 BuildRequires:  pkgconfig(gtk4) >= 4.6.2
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.0.0
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.1.99
 BuildRequires:  pkgconfig(pwquality) >= 1.4.0
 
 %if %{with tests}
@@ -38,11 +40,13 @@ BuildRequires:  python3dist(pytest)
 %endif
 
 Requires:       hicolor-icon-theme
-Requires:       libadwaita >= 1.0.0
+Requires:       libadwaita >= 1.1.99
 Requires:       python3-gobject
 Requires:       python3-pwquality >= 1.4.0
-Requires:       python3-pykeepass >= 4.0.1
+Requires:       python3-pykeepass >= 4.0.3
 Requires:       python3-pyotp >= 2.4.0
+Requires:       python3-validators
+Requires:       python3-zxcvbn
 
 Provides:       %{oldname} = %{version}-%{release}
 Obsoletes:      %{oldname} <= 5.1-6

@@ -1,11 +1,15 @@
 Name:           gnome-tetravex
 Version:        3.38.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNOME Tetravex game
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Tetravex
 Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
+
+# Fix the build with meson 0.61
+# https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/20
+Patch0:         20.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -15,9 +19,6 @@ BuildRequires:  itstool
 BuildRequires:  librsvg2-devel
 BuildRequires:  meson
 BuildRequires:  vala
-
-Obsoletes: gnome-games-extra < 1:3.7.92
-Obsoletes: gnome-games-gnotravex < 1:3.7.92
 
 %description
 A puzzle game where you have to match a grid of tiles together. The skill
@@ -55,6 +56,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tetravex
 
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 3.38.2-6
+- Fix the build with meson 0.61 (#2113255)
+- Drop old gnome-games obsoletes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

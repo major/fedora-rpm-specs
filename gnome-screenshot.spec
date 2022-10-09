@@ -2,12 +2,16 @@
 
 Name:           gnome-screenshot
 Version:        41.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A screenshot utility for GNOME
 
 License:        GPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gnome-screenshot
 Source0:        https://download.gnome.org/sources/gnome-screenshot/41/gnome-screenshot-%{tarball_version}.tar.xz
+
+# Fix the build with meson 0.60
+# https://gitlab.gnome.org/GNOME/gnome-screenshot/-/merge_requests/57
+Patch0:         57.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -57,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Screenshot.
 
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 41.0-4
+- Fix the build with meson 0.60 (#2113253)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

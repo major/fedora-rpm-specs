@@ -1,22 +1,23 @@
 %{?mingw_package_header}
 
 Name:           mingw-readline
-Version:        8.1
-Release:        6%{?dist}
+Version:        8.2
+Release:        1%{?dist}
 Summary:        MinGW port of readline for editing typed command lines
 
 License:        GPLv2+
-URL:            http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
-Source0:        ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
+URL:            https://tiswww.case.edu/php/chet/readline/rltop.html
+Source0:        https://git.savannah.gnu.org/cgit/readline.git/snapshot/readline-%{version}.tar.gz
 
 # Remove RPATH, use CFLAGS
 Patch1:         readline-8.0-shlib.patch
-# SIG_BLOCK is not available on MINGW, its use should have been guaded by HAVE_POSIX_SIGNALS
-Patch2:         readline-8.1-posix-signals.patch
+# Fix mingw build
+Patch2:         readline_mingw.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
+
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
@@ -119,6 +120,7 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 %{mingw32_docdir}/readline/README
 %{mingw32_libdir}/libreadline.dll.a
 %{mingw32_libdir}/libhistory.dll.a
+%{mingw32_libdir}/pkgconfig/history.pc
 %{mingw32_libdir}/pkgconfig/readline.pc
 %{mingw32_includedir}/readline/
 
@@ -136,6 +138,7 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 %{mingw64_docdir}/readline/README
 %{mingw64_libdir}/libreadline.dll.a
 %{mingw64_libdir}/libhistory.dll.a
+%{mingw64_libdir}/pkgconfig/history.pc
 %{mingw64_libdir}/pkgconfig/readline.pc
 %{mingw64_includedir}/readline/
 
@@ -145,6 +148,9 @@ rm -f %{buildroot}%{mingw64_datadir}/readline/*.c
 
 
 %changelog
+* Fri Oct 07 2022 Sandro Mani <manisandro@gmail.com> - 8.2-1
+- Update to 8.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

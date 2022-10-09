@@ -1,3 +1,11 @@
+%if 0%{?rhel} == 9
+# RHEL 9 is missing python-flexmock
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
+
+
 %global desc %{expand:
 Python library for parsing and manipulating RPM spec files.
 Main focus is on modifying existing spec files, any change should result
@@ -5,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.6.0
+Version:        0.7.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -38,7 +46,7 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires %{?with_tests: -x testing}
 
 
 %build
@@ -50,8 +58,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 %pyproject_save_files specfile
 
 
+%if 0%{?with_tests}
 %check
 %pytest
+%endif
 
 
 %files -n python%{python3_pkgversion}-specfile -f %{pyproject_files}
@@ -59,6 +69,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Fri Oct 07 2022 Packit <hello@packit.dev> - 0.7.0-1
+- It is now possible to filter changelog entries by specifying lower bound EVR, upper bound EVR or both. (#104)
+- Added support for filenames specified in source URL fragments, for example: `https://example.com/foo/1.0/download.cgi#/%{name}-%{version}.tar.gz` (#100)
+
 * Thu Aug 25 2022 Packit <hello@packit.dev> - 0.6.0-1
 - Switched to our own implementation of working with `%changelog` timestamps and removed dependency on arrow (#88)
 - Fixed requires of EPEL 8 rpm (#86)

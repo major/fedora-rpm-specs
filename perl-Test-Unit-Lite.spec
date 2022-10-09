@@ -1,17 +1,15 @@
 # Perl and RPM versioning don't work the same :-(
+%global baseversion 0.12
 %global extraversion 02
-
-# Provides/Requires filtering is different from rpm 4.9 onwards
-%global rpm49 %(rpm --version | perl -p -e 's/^.* (\\d+)\\.(\\d+).*/sprintf("%d.%03d",$1,$2) ge 4.009 ? 1 : 0/e' 2>/dev/null || echo 0)
 
 Name:		perl-Test-Unit-Lite
 Epoch:		1
-Version:	0.12
-Release:	45%{?dist}
+Version:	0.12%{?extraversion:.}%{?extraversion}
+Release:	1%{?dist}
 Summary:	Unit testing without external dependencies
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Unit-Lite
-Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Unit-Lite-%{version}%{?extraversion}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Unit-Lite-%{baseversion}%{?extraversion}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -50,14 +48,7 @@ Test::Unit. It doesn't implement all classes and methods at 100% and only
 those necessary to run tests are available.
 
 %prep
-%setup -q -n Test-Unit-Lite-%{version}%{?extraversion}
-
-# Filter unwanted provides and (prior to rpm 4.9)
-# Unwanted requires not actually detected prior to rpm 4.9
-%if ! %{rpm49}
-%global provfilt /bin/sh -c "%{__perl_provides} | grep -Evx 'perl\\(Test::Unit::(Debug|HarnessUnit|Result|TestCase|TestRunner|TestSuite)\\)'"
-%global __perl_provides %{provfilt}
-%endif
+%setup -q -n Test-Unit-Lite-%{baseversion}%{?extraversion}
 
 %build
 perl Build.PL --installdirs=vendor
@@ -71,16 +62,18 @@ perl Build.PL --installdirs=vendor
 ./Build test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::Unit::Lite.3*
 
 %changelog
+* Fri Oct  7 2022 Paul Howarth <paul@city-fan.org> - 1:0.12.02-1
+- Make rpm version reflect upstream version better (rhbz#2132720)
+- Assume build with rpm ≥ 4.9
+- Use SPDX-format license tag
+- Use %%license unconditionally
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.12-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

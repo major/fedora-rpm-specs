@@ -8,7 +8,7 @@ Source0: https://github.com/htop-dev/htop/archive/%{version}.tar.gz#/%{name}-%{v
 
 BuildRequires: desktop-file-utils
 BuildRequires: ncurses-devel
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
 BuildRequires: platform-python
 BuildRequires: /usr/bin/pathfix.py
 %else
@@ -25,7 +25,7 @@ top(1).
 %prep
 %autosetup -p1
 
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
 pathfix.py -pni "/usr/libexec/platform-python" scripts/
 %endif
 

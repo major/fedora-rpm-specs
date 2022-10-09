@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        43~rc
+Version:        43.0
 Release:        1%{?dist}
 Summary:        Binary editor for GNOME
 
@@ -79,17 +79,23 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 %files libs
 %license COPYING
 %{_libdir}/libgtkhex-4.so.1*
+%dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Hex-4.typelib
 %{_libdir}/gtkhex-4.0/
 
 %files devel
-%{_includedir}/gtkhex-4
+%{_includedir}/gtkhex-4/
 %{_libdir}/libgtkhex-4.so
 %{_libdir}/pkgconfig/gtkhex-4.pc
+%dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Hex-4.gir
 
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 43.0-1
+- Update to 43.0
+- Fix gir directory ownership
+
 * Wed Sep 21 2022 Kalev Lember <klember@redhat.com> - 43~rc-1
 - Update to 43.rc
 

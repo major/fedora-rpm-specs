@@ -1,13 +1,11 @@
 Name:           uriparser
-Version:        0.9.6
-Release:        6%{?dist}
+Version:        0.9.7
+Release:        1%{?dist}
 Summary:        URI parsing library - RFC 3986
 
 License:        BSD
 URL:            https://uriparser.github.io/
 Source0:        https://github.com/%{name}/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-# Don't add separate conflicting declaration for inet_ntop
-Patch0:         uriparser-inet-ntop.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -131,6 +129,9 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 
 
 %changelog
+* Fri Oct 07 2022 Sandro Mani <manisandro@gmail.com> - 0.9.7-1
+- Update to 0.9.7
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      orm
-%global github_version   2.13.2
-%global github_commit    a8b02fd70fa777ca8278b9604fdef75c15c6a12f
+%global github_version   2.13.3
+%global github_commit    e750360bd52b080c4cbaaee1b48b80f7dc873b36
 
 %global composer_vendor  doctrine
 %global composer_project orm
@@ -347,6 +347,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Oct  7 2022 Remi Collet <remi@remirepo.net> - 2.13.3-1
+- update to 2.13.3
+
 * Fri Sep 23 2022 Remi Collet <remi@remirepo.net> - 2.13.2-1
 - update to 2.13.2
 

@@ -1,3 +1,12 @@
+%if 0%{?fedora} >= 37
+%bcond_without doc
+%else
+# need Sphinx >= 3.5.0
+# c9s has 3.4.3
+# f36 has 3.4.0
+%bcond_with doc
+%endif
+
 Name:           python-django3
 %global         pkgname Django
 %global         ver 3.2.15
@@ -38,6 +47,7 @@ This package contains the Bash completion files form Django high-level
 Python Web framework.
 
 
+%if %{with doc}
 %package -n python3-django3-doc
 Summary:        Documentation for Django
 Suggests:       python3-django3 = %{version}-%{release}
@@ -48,6 +58,7 @@ BuildRequires:  python3-psycopg2
 %description -n python3-django3-doc
 This package contains the documentation for the Django high-level
 Python Web framework.
+%endif
 
 
 %package -n python3-django3
@@ -89,10 +100,11 @@ sed -i '/^tzdata$/d' tests/requirements/py3.txt
 %pyproject_install
 %pyproject_save_files django
 
-
+%if %{with doc}
 # build documentation
 (cd docs && mkdir djangohtml && mkdir -p _build/{doctrees,html} && make html)
 cp -ar docs ..
+%endif
 
 # install man pages (for the main executable only)
 mkdir -p %{buildroot}%{_mandir}/man1/
@@ -128,8 +140,10 @@ cd tests
 %files bash-completion
 %{_datadir}/bash-completion
 
+%if %{with doc}
 %files -n python3-django3-doc
 %doc docs/_build/html/*
+%endif
 
 %files -n python3-django3 -f %{pyproject_files}
 %doc AUTHORS README.rst

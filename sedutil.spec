@@ -4,7 +4,7 @@
 
 Name:		sedutil
 Version:	%{gittag0}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -69,7 +69,7 @@ autoreconf -iv
 %install
 %make_install
 mkdir -p %{buildroot}%{_libexecdir}/linuxpba
-ln -s %{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
+ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 %files
 %doc README.md Common/Copyright.txt Common/ReadMe.txt linux/PSIDRevert_LINUX.txt
@@ -81,7 +81,10 @@ ln -s %{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
-* Thu Aug 12 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.20.0-1
+* Thu Oct 06 2022 Filipe Brandenburger <filbranden@fedoraproject.org> - 1.20.0-2
+- Make linuxpba symlink in libexec relative
+
+* Fri Aug 12 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.20.0-1
 - Update to 1.20.0
 - Backport upstream PR for securemode and verifySIGPassword
 - Use standard macros for building and installing
@@ -94,6 +97,9 @@ ln -s %{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Mon Mar 22 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.15.1-6.1
+- Initial EPEL8 build
 
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild

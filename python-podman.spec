@@ -23,19 +23,7 @@ BuildArch: noarch
 %package -n python%{python3_pkgversion}-%{pypi_name}
 BuildRequires: git-core
 BuildRequires: python%{python3_pkgversion}-devel
-%if ! 0%{?fedora} && 0%{?rhel} <= 8
-BuildRequires: python%{python3_pkgversion}-pytoml
-BuildRequires: python%{python3_pkgversion}-requests
-BuildRequires: python%{python3_pkgversion}-setuptools
-Requires: python%{python3_pkgversion}-pytoml
-Requires: python%{python3_pkgversion}-requests
-%else
 BuildRequires: pyproject-rpm-macros
-%endif
-%if 0%{?centos} <= 8
-BuildRequires: python%{python3_pkgversion}-pyxdg
-Requires: python%{python3_pkgversion}-pyxdg
-%endif
 BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-toml
 Requires: python%{python3_pkgversion}-requests
@@ -54,39 +42,21 @@ Summary: %{summary}
 %prep
 %autosetup -Sgit -n %{pypi_name}-%{built_tag_strip}
 
-%if 0%{?fedora} || 0%{?rhel} >= 9
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}
-%endif
 
 %build
 export PBR_VERSION="0.0.0"
-%if 0%{?rhel} <= 8
-%py3_build
-%else
 %pyproject_wheel
-%endif
 
 %install
 export PBR_VERSION="0.0.0"
-%if 0%{?rhel} <= 8
-%py3_install
-%else
 %pyproject_install
 %pyproject_save_files %{pypi_name}
-%endif
 
-%if 0%{?rhel} <= 8
-%files -n python3-podman
-%license LICENSE
-%doc README.md
-%{python3_sitelib}/podman/*
-%{python3_sitelib}/podman-*/*
-%else
 %files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%endif
 
 %changelog
 %autochangelog

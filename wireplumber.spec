@@ -1,6 +1,6 @@
 Name:       wireplumber
-Version:    0.4.11
-Release:    4%{?dist}
+Version:    0.4.12
+Release:    1%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
 License:    MIT
@@ -8,10 +8,6 @@ URL:        https://pipewire.pages.freedesktop.org/wireplumber/
 Source0:    https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 ## upstream patches
-Patch0001:	0001-alsa-use-obj_type-as-a-variable-name-to-avoid-shadow.patch
-Patch0002:	0002-dbus-fix-crash-when-trying-to-reconnect.patch
-Patch0003:	0003-policy-node-fix-potential-rescan-loop.patch
-Patch0004:	0004-m-si-link-don-t-wait-for-establish-before-activation.patch
 
 ## upstreamable patches
 
@@ -119,6 +115,9 @@ fi
 %{_datadir}/gir-1.0/Wp-0.4.gir
 
 %changelog
+* Fri Oct 07 2022 Wim Taymans <wim.taymans@redhat.com> - 0.4.12-1
+- wireplumber 0.4.12
+
 * Thu Aug 04 2022 Ville-Pekka Vainio <vpvainio@iki.fi> - 0.4.11-4
 - Add two patches to fix a rescan loop with Bluetooth
 

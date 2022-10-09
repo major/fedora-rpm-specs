@@ -1,8 +1,8 @@
-%global apiver 10
+%global apiver 11
 
 Name:           weston
-Version:        %{apiver}.0.1
-Release:        3%{?dist}
+Version:        %{apiver}.0.0
+Release:        1%{?dist}
 Summary:        Reference compositor for Wayland
 
 License:        BSD and CC-BY-SA
@@ -64,6 +64,7 @@ BuildRequires:  poppler-glib-devel
 BuildRequires:  gstreamer1-devel
 BuildRequires:  gstreamer1-plugins-base-devel
 BuildRequires:  pipewire-devel
+BuildRequires:  libseat-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       mesa-dri-drivers
@@ -115,13 +116,10 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %doc README.md
 %{_bindir}/weston
 %{_bindir}/weston-debug
-%{_bindir}/weston-info
 %{_bindir}/weston-screenshooter
 %{_bindir}/weston-terminal
 %{_bindir}/wcap-decode
 %dir %{_libdir}/weston
-%{_libdir}/weston/cms-colord.so
-%{_libdir}/weston/cms-static.so
 %{_libdir}/weston/desktop-shell.so
 %{_libdir}/weston/fullscreen-shell.so
 %{_libdir}/weston/hmi-controller.so
@@ -153,7 +151,6 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_libdir}/libweston-%{apiver}/x11-backend.so
 %{_libdir}/libweston-%{apiver}/xwayland.so
 %{_libdir}/libweston-%{apiver}.so.0*
-%{_libdir}/libweston-desktop-%{apiver}.so.0*
 
 %files demo
 %license COPYING
@@ -192,11 +189,15 @@ export LDFLAGS="%{?build_ldflags} -Wl,-z,undefs"
 %{_libdir}/pkgconfig/libweston-desktop-%{apiver}.pc
 %{_libdir}/pkgconfig/weston.pc
 %{_libdir}/libweston-%{apiver}.so
-%{_libdir}/libweston-desktop-%{apiver}.so
 %{_datadir}/pkgconfig/libweston-%{apiver}-protocols.pc
 %{_datadir}/libweston-%{apiver}/protocols/
 
 %changelog
+* Fri Oct 07 2022 Erico Nunes <ernunes@redhat.com> - 11.0.0-1
+- Update to 11.0.0
+- Remove libweston-desktop following upstream.
+- Remove weston-info, cms-{colord,static}.so following upstream.
+
 * Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 10.0.1-3
 - Rebuild for updated FreeRDP.
 

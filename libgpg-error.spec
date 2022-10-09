@@ -1,6 +1,6 @@
 Name: libgpg-error
-Version: 1.45
-Release: 2%{?dist}
+Version: 1.46
+Release: 1%{?dist}
 Summary: Library for error values used by GnuPG components
 URL: https://www.gnupg.org/related_software/libgpg-error/
 License: LGPLv2+
@@ -46,7 +46,10 @@ sed -i -e '/--variable=host/d' src/gpg-error-config-test.sh.in
 sed -i -e 's|sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/lib /usr/lib %{_libdir}|g' configure
 
 %build
-%configure --disable-static --disable-rpath --disable-languages
+%configure --disable-static \
+	--disable-rpath \
+	--disable-languages \
+	--enable-install-gpg-error-config
 %make_build
 
 %install
@@ -79,9 +82,12 @@ make check
 %{_datadir}/aclocal/gpg-error.m4
 %{_datadir}/aclocal/gpgrt.m4
 %{_infodir}/gpgrt.info*
-%{_mandir}/man1/gpgrt-config.*
+%{_mandir}/man1/gpg-error-config.*
 
 %changelog
+* Fri Oct 07 2022 Jakub Jelen <jjelen@redhat.com> - 2.46-1
+- New upstream release (#2133005)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,6 +7,9 @@ License:        Apache-2.0
 URL:            https://github.com/intel/pf-bb-config
 Source0:        %{url}/archive/v%{version}/pf-bb-config-%{version}.tar.gz
 
+# Currently big endian is not supported due to a bug
+ExcludeArch:    s390x
+
 BuildRequires:  gcc
 BuildRequires:  make
 

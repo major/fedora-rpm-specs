@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 5
+%global openssh_rel 6
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -72,8 +72,9 @@ Source12: sshd-keygen@.service
 Source13: sshd-keygen
 Source15: sshd-keygen.target
 Source16: ssh-agent.service
-Source17: openssh-systemd-sysusers.conf
-Source18: openssh-server-systemd-sysusers.conf
+Source17: ssh-agent.socket
+Source18: openssh-systemd-sysusers.conf
+Source19: openssh-server-systemd-sysusers.conf
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch100: openssh-6.7p1-coverity.patch
@@ -577,12 +578,13 @@ install -m644 %{SOURCE12} $RPM_BUILD_ROOT/%{_unitdir}/sshd-keygen@.service
 install -m644 %{SOURCE15} $RPM_BUILD_ROOT/%{_unitdir}/sshd-keygen.target
 install -d -m755 $RPM_BUILD_ROOT/%{_userunitdir}
 install -m644 %{SOURCE16} $RPM_BUILD_ROOT/%{_userunitdir}/ssh-agent.service
+install -m644 %{SOURCE17} $RPM_BUILD_ROOT/%{_userunitdir}/ssh-agent.socket
 install -m744 %{SOURCE13} $RPM_BUILD_ROOT/%{_libexecdir}/openssh/sshd-keygen
 install -m755 contrib/ssh-copy-id $RPM_BUILD_ROOT%{_bindir}/
 install contrib/ssh-copy-id.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 install -d -m711 ${RPM_BUILD_ROOT}/%{_datadir}/empty.sshd
-install -p -D -m 0644 %{SOURCE17} %{buildroot}%{_sysusersdir}/openssh.conf
-install -p -D -m 0644 %{SOURCE18} %{buildroot}%{_sysusersdir}/openssh-server.conf
+install -p -D -m 0644 %{SOURCE18} %{buildroot}%{_sysusersdir}/openssh.conf
+install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/openssh-server.conf
 
 %if ! %{no_gnome_askpass}
 install contrib/gnome-ssh-askpass $RPM_BUILD_ROOT%{_libexecdir}/openssh/gnome-ssh-askpass
@@ -608,10 +610,10 @@ popd
 %endif
 
 %pre
-%sysusers_create_compat %{SOURCE17}
+%sysusers_create_compat %{SOURCE18}
 
 %pre server
-%sysusers_create_compat %{SOURCE18}
+%sysusers_create_compat %{SOURCE19}
 
 %post server
 %systemd_post sshd.service sshd.socket
@@ -635,9 +637,11 @@ test -f %{sysconfig_anaconda} && \
 
 %post clients
 %systemd_user_post ssh-agent.service
+%systemd_user_post ssh-agent.socket
 
 %preun clients
 %systemd_user_preun ssh-agent.service
+%systemd_user_preun ssh-agent.socket
 
 %files
 %license LICENCE
@@ -675,6 +679,7 @@ test -f %{sysconfig_anaconda} && \
 %attr(0644,root,root) %{_mandir}/man8/ssh-pkcs11-helper.8*
 %attr(0644,root,root) %{_mandir}/man8/ssh-sk-helper.8*
 %attr(0644,root,root) %{_userunitdir}/ssh-agent.service
+%attr(0644,root,root) %{_userunitdir}/ssh-agent.socket
 
 %files server
 %dir %attr(0711,root,root) %{_datadir}/empty.sshd
@@ -717,6 +722,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Fri Oct 5 2022 Anthony Rabbito <hello@anthonyrabbito.com> - 9.0p1-6
+- Add a socket unit to ssh-agent user unit (rhbz#2125576)
+
 * Thu Sep 29 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-5
 - RSAMinSize => RequiredRSASize
 

@@ -30,7 +30,7 @@
 
 %bcond_without python3
 # No complete java yet in EL8
-%if 0%{?rhel} >= 8
+%if 0%{?rhel} == 8
 %bcond_with java
 %else
 %ifarch %{java_arches}
@@ -40,12 +40,18 @@
 %endif
 %endif
 
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 #global pre rc1
 
 
 Name:          gdal
 Version:       3.5.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -116,6 +122,7 @@ BuildRequires: xerces-c-devel
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 102
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-cfitsio
@@ -171,6 +178,7 @@ BuildRequires: mingw64-sqlite
 BuildRequires: mingw64-xerces-c
 BuildRequires: mingw64-xz-libs
 BuildRequires: mingw64-zlib
+%endif
 
 # Python
 %if %{with python3}
@@ -180,6 +188,7 @@ BuildRequires: python3-setuptools
 BuildRequires: python3dist(pytest) >= 3.6
 BuildRequires: python3dist(lxml) >= 4.5.1
 
+%if %{with mingw}
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-numpy
 BuildRequires: mingw32-python3-setuptools
@@ -187,6 +196,7 @@ BuildRequires: mingw32-python3-setuptools
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-numpy
 BuildRequires: mingw64-python3-setuptools
+%endif
 %endif
 
 # Java
@@ -231,7 +241,7 @@ Provides:      bundled(degrib) = 2.14
 %description libs
 This package contains the GDAL file format library.
 
-
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows GDAL library
 # GDAL bundles a modified copy of g2clib and degrib
@@ -270,7 +280,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 MinGW Windows GDAL library tools.
-
+%endif
 
 # No complete java yet in EL8
 %if %{with java}
@@ -313,6 +323,7 @@ The GDAL Python package provides number of tools for programming and
 manipulating GDAL file format library
 
 
+%if %{with mingw}
 %package -n mingw32-python3-%{name}
 Summary:       MinGW Windows Python3 GDAL bindings
 
@@ -325,15 +336,16 @@ Summary:       MinGW Windows Python3 GDAL bindings
 
 %description -n mingw64-python3-%{name}
 MinGW Windows Python3 GDAL bindings.
-
+%endif
 
 # We don't want to provide private Python extension libs
 %global __provides_exclude_from ^%{python3_sitearch}/.*\.so$
 %endif
 
 
+%if %{with mingw}
 %{?mingw_debug_package}
-
+%endif
 
 %prep
 %autosetup -p1 -n %{name}-%{version}-fedora
@@ -364,15 +376,18 @@ cp -a %{SOURCE4} .
   -DGDAL_USE_JPEG12_INTERNAL=OFF
 %cmake_build
 
+%if %{with mingw}
 %mingw_cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
   -DGDAL_USE_JPEG12_INTERNAL=OFF
 %mingw_make_build
-
+%endif
 
 %install
 %cmake_install
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 # List of manpages for python scripts
 for file in %{buildroot}%{_bindir}/*.py; do
@@ -390,13 +405,14 @@ cp -a %{SOURCE2} %{buildroot}%{_includedir}/%{name}/cpl_config.h
 mv %{buildroot}%{_bindir}/%{name}-config %{buildroot}%{_bindir}/%{name}-config-%{cpuarch}
 cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
+%if %{with mingw}
 # Delete data from cross packages
 rm -r %{buildroot}%{mingw32_datadir}
 rm -r %{buildroot}%{mingw64_datadir}
 
 
 %mingw_debug_install_post
-
+%endif
 
 %if 0%{run_tests}
 %check
@@ -456,6 +472,7 @@ rm -r %{buildroot}%{mingw64_datadir}
 %{_libdir}/pkgconfig/%{name}.pc
 %{_mandir}/man1/gdal-config.1*
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
 %{mingw32_bindir}/libgdal-31.dll
@@ -481,6 +498,7 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+%endif
 
 %if %{with python3}
 %files -n python3-gdal
@@ -509,6 +527,7 @@ rm -r %{buildroot}%{mingw64_datadir}
 %{_bindir}/rgb2pct.py
 %{_datadir}/bash-completion/completions/*.py
 
+%if %{with mingw}
 %files -n mingw32-python3-%{name}
 %{mingw32_bindir}/*.py
 %{mingw32_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
@@ -520,6 +539,7 @@ rm -r %{buildroot}%{mingw64_datadir}
 %{mingw64_python3_sitearch}/GDAL-%{version}-py%{mingw32_python3_version}.egg-info/
 %{mingw64_python3_sitearch}/osgeo/
 %{mingw64_python3_sitearch}/osgeo_utils/
+%endif
 %endif
 
 %if %{with java}
@@ -535,6 +555,10 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Oct 7 2022 Tom Rix <trix@redhat.com> - 3.5.2-2
+- Add mingw build conditional
+- Reduce java build condition to rhel 8
+
 * Tue Sep 13 2022 Sandro Mani <manisandro@gmail.com> - 3.5.2-1
 - Update to 3.5.2
 

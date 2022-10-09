@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-msgpack
 #
-# Copyright (c) 2012-2021 Remi Collet
+# Copyright (c) 2012-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -11,8 +11,8 @@
 %undefine _strict_symbol_defs_build
 
 %global upstream_version 2.2.0
-%global upstream_prever  RC1
-%global upstream_lower   RC1
+%global upstream_prever  RC2
+%global upstream_lower   RC2
 
 %global pecl_name   msgpack
 %global with_zts    0%{?__ztsphp:1}
@@ -24,7 +24,7 @@
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       4%{?dist}
+Release:       1%{?dist}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:       BSD
 URL:           https://pecl.php.net/package/msgpack
@@ -158,16 +158,6 @@ rm */tests/034.phpt
 # too slow
 rm */tests/035.phpt
 %endif
-%if "%{php_version}" > "8.0"
-rm */tests/007.phpt
-rm */tests/008.phpt
-rm */tests/009a.phpt
-rm */tests/013.phpt
-rm */tests/014.phpt
-rm */tests/024.phpt
-rm */tests/033.phpt
-rm */tests/bug013.phpt
-%endif
 
 cd NTS
 : Minimal load test for NTS extension
@@ -218,6 +208,9 @@ TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}.so" \
 
 
 %changelog
+* Fri Oct  7 2022 Remi Collet <remi@remirepo.net> - 2.2.0~RC2-1
+- update to 2.2.0RC2
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.2.0~RC1-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

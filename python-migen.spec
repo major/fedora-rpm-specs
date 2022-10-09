@@ -1,13 +1,13 @@
-%global commit0 0fb91737090fe45fd764ea3f71257a4c53c7a4ae
+%global commit0 639e66f4f453438e83d86dc13491b9403bbd8ec6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20220705
+%global snapdate 20221006
 
 %global srcname migen
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        15.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        16.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 License:        BSD
@@ -65,6 +65,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Thu Oct 06 2022 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-16.20221006git639e66f
+- update to newer snapshot
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-15.20220705git0fb9173
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

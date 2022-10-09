@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 Summary:        A freely licensed alternative to the GLUT library
 Name:           freeglut
-Version:        3.2.2
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 URL:            http://freeglut.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # For the manpages
@@ -71,7 +71,7 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README.md
 # don't include contents of doc/ directory as it is mostly obsolete
 %{_libdir}/libglut.so.3*
 
@@ -84,6 +84,9 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 %{_libdir}/cmake/FreeGLUT/*
 
 %changelog
+* Fri Oct 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.4.0-1
+- 3.4.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

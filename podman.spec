@@ -1,15 +1,3 @@
-%if "%{_vendor}" == "debbuild"
-%global _unitdir %{_usr}/lib/systemd/system
-%global _userunitdir %{_usr}/lib/systemd/user
-%global _tmpfilesdir %{_usr}/lib/tmpfiles.d
-# Older distros don't work yet
-%if (0%{?debian} && 0%{?debian} <= 11) || (0%{?ubuntu} && 0%{?ubuntu} < 2204)
-%define gobuild(o:) GO111MODULE=off %{_prefix}/lib/go-1.16/bin/go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%else
-%define gobuild(o:) GO111MODULE=off go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%endif
-%endif
-
 %global with_debug 1
 
 %if 0%{?with_debug}
@@ -41,62 +29,32 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy fdc231ae7b8fe1aec4cf0b8777274fa21b70d789
 
-%global built_tag_strip 4.3.0-rc1
+%global built_tag v4.3.0-rc1
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: podman
 Epoch: 4
-Version: 4.3.0~rc1
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+ and BSD and ISC and MIT and MPLv2.0
-Release: 0%{?dist}
-%else
+Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT and MPLv2.0
 Release: %autorelease
 ExclusiveArch: %{golang_arches}
-%endif
 Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
-Source0: %{git0}/archive/v%{built_tag_strip}.tar.gz
+# All SourceN files fetched from upstream
+Source0: %{git0}/archive/%{built_tag}.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: go-md2man
-Requires: catatonit
-Requires: iptables
-Requires: nftables
-%if "%{_vendor}" == "debbuild"
-BuildRequires: git
-BuildRequires: libassuan-dev
-BuildRequires: libglib2.0-dev
-BuildRequires: libgpg-error-dev
-BuildRequires: libgpgme-dev
-BuildRequires: libseccomp-dev
-BuildRequires: libsystemd-dev
-BuildRequires: pkg-config
-%if (0%{?debian} && 0%{?debian} <= 11) || (0%{?ubuntu} && 0%{?ubuntu} < 2204)
-BuildRequires: golang-1.16
-BuildRequires: libc6 < 2.32
-%else
-BuildRequires: golang
-BuildRequires: libc6
-%endif
-Requires: conmon >= 2:2.0.30
-Requires: containers-common >= 4:1
-Requires: uidmap
-%else
-%if ! 0%{?centos}
 BuildRequires: btrfs-progs-devel
-%endif
 BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: glibc-devel
 BuildRequires: glibc-static
 BuildRequires: golang
 BuildRequires: git-core
-%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: go-rpm-macros
-%endif
 BuildRequires: gpgme-devel
 BuildRequires: libassuan-devel
 BuildRequires: libgpg-error-devel
@@ -108,72 +66,141 @@ BuildRequires: make
 BuildRequires: ostree-devel
 BuildRequires: systemd
 BuildRequires: systemd-devel
+Requires: catatonit
 Requires: conmon >= 2:2.0.30-2
-Requires: containers-common >= 4:1-46
-Requires: netavark >= 1.0.3-1
+%if 0%{?fedora} > 37
+Requires: containers-common-extra >= 4:1-78
+%else
+%if 0%{?fedora} == 37
+Requires: containers-common-extra >= 4:1-73
+%else
+Requires: containers-common-extra >= 4:1-62
+%endif
+%endif
 Recommends: %{name}-gvproxy = %{epoch}:%{version}-%{release}
-Suggests: containernetworking-plugins >= 0.9.1-1
-Suggests: qemu-user-static
 # vendored libraries
 # awk '{print "Provides: bundled(golang("$1")) = "$2}' go.mod | sort | uniq | sed -e 's/-/_/g' -e '/bundled(golang())/d' -e '/bundled(golang(go\|module\|replace\|require))/d'
-Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.1.0
+Provides: bundled(golang(github.com/Azure/go_ansiterm)) = v0.0.0_20210617225240_d185dfc1b5a1
+Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.2.0
+Provides: bundled(golang(github.com/Microsoft/go_winio)) = v0.5.2
+Provides: bundled(golang(github.com/Microsoft/hcsshim)) = v0.9.4
+Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
+Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
+Provides: bundled(golang(github.com/blang/semver)) = v3.5.1+incompatible
 Provides: bundled(golang(github.com/blang/semver/v4)) = v4.0.0
 Provides: bundled(golang(github.com/buger/goterm)) = v1.0.4
 Provides: bundled(golang(github.com/checkpoint_restore/checkpointctl)) = v0.0.0_20220321135231_33f4a66335f0
 Provides: bundled(golang(github.com/checkpoint_restore/go_criu/v5)) = v5.3.0
-Provides: bundled(golang(github.com/container_orchestrated_devices/container_device_interface)) = v0.4.0
-Provides: bundled(golang(github.com/containernetworking/cni)) = v1.1.1
+Provides: bundled(golang(github.com/chzyer/readline)) = v1.5.1
+Provides: bundled(golang(github.com/container_orchestrated_devices/container_device_interface)) = v0.5.1
+Provides: bundled(golang(github.com/containerd/cgroups)) = v1.0.4
+Provides: bundled(golang(github.com/containerd/containerd)) = v1.6.8
+Provides: bundled(golang(github.com/containerd/stargz_snapshotter/estargz)) = v0.12.0
+Provides: bundled(golang(github.com/containernetworking/cni)) = v1.1.2
 Provides: bundled(golang(github.com/containernetworking/plugins)) = v1.1.1
-Provides: bundled(golang(github.com/containers/buildah)) = v1.26.1_0.20220716095526_d31d27c357ab
-Provides: bundled(golang(github.com/containers/common)) = v0.48.1_0.20220718075257_ecddf87b3840
+Provides: bundled(golang(github.com/containers/buildah)) = v1.27.1_0.20220921131114_d3064796af36
+Provides: bundled(golang(github.com/containers/common)) = v0.49.2_0.20220920205255_8062f81c5497
 Provides: bundled(golang(github.com/containers/conmon)) = v2.0.20+incompatible
-Provides: bundled(golang(github.com/containers/image/v5)) = v5.21.2_0.20220721072459_bf19265865b7
+Provides: bundled(golang(github.com/containers/image/v5)) = v5.22.1_0.20220919112403_fe51f7ffca50
+Provides: bundled(golang(github.com/containers/libtrust)) = v0.0.0_20200511145503_9c3a6c22cd9a
 Provides: bundled(golang(github.com/containers/ocicrypt)) = v1.1.5
-Provides: bundled(golang(github.com/containers/psgo)) = v1.7.2
-Provides: bundled(golang(github.com/containers/storage)) = v1.41.1_0.20220714115232_fc9b0ff5272a
-Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.3.2
+Provides: bundled(golang(github.com/containers/psgo)) = v1.7.3
+Provides: bundled(golang(github.com/containers/storage)) = v1.42.1_0.20220919112236_8a581aac3bdf
+Provides: bundled(golang(github.com/coreos/go_systemd)) = v0.0.0_20190719114852_fd7a80b32e1f
+Provides: bundled(golang(github.com/coreos/go_systemd/v22)) = v22.4.0
 Provides: bundled(golang(github.com/coreos/stream_metadata_go)) = v0.0.0_20210225230131_70edb9eb47b3
 Provides: bundled(golang(github.com/cyphar/filepath_securejoin)) = v0.2.3
+Provides: bundled(golang(github.com/davecgh/go_spew)) = v1.1.1
+Provides: bundled(golang(github.com/digitalocean/go_libvirt)) = v0.0.0_20201209184759_e2a69bcd5bd1
 Provides: bundled(golang(github.com/digitalocean/go_qemu)) = v0.0.0_20210326154740_ac9e0b687001
+Provides: bundled(golang(github.com/disiqueira/gotree/v3)) = v3.0.2
 Provides: bundled(golang(github.com/docker/distribution)) = v2.8.1+incompatible
-Provides: bundled(golang(github.com/docker/docker)) = v20.10.17+incompatible
+Provides: bundled(golang(github.com/docker/docker)) = v20.10.18+incompatible
+Provides: bundled(golang(github.com/docker/docker_credential_helpers)) = v0.6.4
 Provides: bundled(golang(github.com/docker/go_connections)) = v0.4.1_0.20210727194412_58542c764a11
 Provides: bundled(golang(github.com/docker/go_plugins_helpers)) = v0.0.0_20211224144127_6eecb7beb651
-Provides: bundled(golang(github.com/docker/go_units)) = v0.4.0
-Provides: bundled(golang(github.com/dtylman/scp)) = v0.0.0_20181017070807_f3000a34aef4
+Provides: bundled(golang(github.com/docker/go_units)) = v0.5.0
+Provides: bundled(golang(github.com/felixge/httpsnoop)) = v1.0.3
 Provides: bundled(golang(github.com/fsnotify/fsnotify)) = v1.5.4
+Provides: bundled(golang(github.com/fsouza/go_dockerclient)) = v1.8.3
 Provides: bundled(golang(github.com/ghodss/yaml)) = v1.0.0
+Provides: bundled(golang(github.com/go_task/slim_sprig)) = v0.0.0_20210107165309_348f09dbbbc0
 Provides: bundled(golang(github.com/godbus/dbus/v5)) = v5.1.0
+Provides: bundled(golang(github.com/gogo/protobuf)) = v1.3.2
+Provides: bundled(golang(github.com/golang/groupcache)) = v0.0.0_20210331224755_41bb18bfe9da
+Provides: bundled(golang(github.com/golang/protobuf)) = v1.5.2
+Provides: bundled(golang(github.com/google/go_cmp)) = v0.5.9
+Provides: bundled(golang(github.com/google/go_containerregistry)) = v0.11.0
+Provides: bundled(golang(github.com/google/go_intervals)) = v0.0.2
 Provides: bundled(golang(github.com/google/gofuzz)) = v1.2.0
 Provides: bundled(golang(github.com/google/shlex)) = v0.0.0_20191202100458_e7afc7fbc510
 Provides: bundled(golang(github.com/google/uuid)) = v1.3.0
 Provides: bundled(golang(github.com/gorilla/handlers)) = v1.5.1
 Provides: bundled(golang(github.com/gorilla/mux)) = v1.8.0
 Provides: bundled(golang(github.com/gorilla/schema)) = v1.2.0
+Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
 Provides: bundled(golang(github.com/hashicorp/go_multierror)) = v1.1.1
+Provides: bundled(golang(github.com/imdario/mergo)) = v0.3.13
+Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = v1.0.0
+Provides: bundled(golang(github.com/jinzhu/copier)) = v0.3.5
 Provides: bundled(golang(github.com/json_iterator/go)) = v1.1.12
-Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.14
+Provides: bundled(golang(github.com/klauspost/compress)) = v1.15.10
+Provides: bundled(golang(github.com/klauspost/pgzip)) = v1.2.5
+Provides: bundled(golang(github.com/kr/fs)) = v0.1.0
+Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20220723181115_27de4befb95e
+Provides: bundled(golang(github.com/manifoldco/promptui)) = v0.9.0
+Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.16
+Provides: bundled(golang(github.com/mattn/go_runewidth)) = v0.0.13
+Provides: bundled(golang(github.com/mattn/go_shellwords)) = v1.0.12
+Provides: bundled(golang(github.com/miekg/pkcs11)) = v1.1.1
+Provides: bundled(golang(github.com/mistifyio/go_zfs/v3)) = v3.0.0
+Provides: bundled(golang(github.com/moby/sys/mount)) = v0.3.3
+Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.6.2
 Provides: bundled(golang(github.com/moby/term)) = v0.0.0_20210619224110_3f7ff695adc6
+Provides: bundled(golang(github.com/modern_go/concurrent)) = v0.0.0_20180306012644_bacd9c7ef1dd
+Provides: bundled(golang(github.com/modern_go/reflect2)) = v1.0.2
+Provides: bundled(golang(github.com/morikuni/aec)) = v1.0.0
 Provides: bundled(golang(github.com/nxadm/tail)) = v1.4.8
 Provides: bundled(golang(github.com/onsi/ginkgo)) = v1.16.5
-Provides: bundled(golang(github.com/onsi/gomega)) = v1.19.0
+Provides: bundled(golang(github.com/onsi/gomega)) = v1.20.2
 Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.0.3_0.20220114050600_8b9d41f48198
-Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.3
+Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.4
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20211214071223_8958f93039ab
 Provides: bundled(golang(github.com/opencontainers/runtime_tools)) = v0.9.1_0.20220714195903_17b3287fafb7
 Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.10.1
+Provides: bundled(golang(github.com/openshift/imagebuilder)) = v1.2.4_0.20220711175835_4151e43600df
+Provides: bundled(golang(github.com/ostreedev/ostree_go)) = v0.0.0_20210805093236_719684c64e4f
+Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
+Provides: bundled(golang(github.com/pkg/sftp)) = v1.13.5
+Provides: bundled(golang(github.com/pmezard/go_difflib)) = v1.0.0
+Provides: bundled(golang(github.com/proglottis/gpgme)) = v0.1.3
+Provides: bundled(golang(github.com/rivo/uniseg)) = v0.2.0
+Provides: bundled(golang(github.com/rogpeppe/go_internal)) = v1.8.0
 Provides: bundled(golang(github.com/rootless_containers/rootlesskit)) = v1.0.1
+Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.10.0
+Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.4.1
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.0
 Provides: bundled(golang(github.com/spf13/cobra)) = v1.5.0
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
+Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.0
+Provides: bundled(golang(github.com/sylabs/sif/v2)) = v2.7.2
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
+Provides: bundled(golang(github.com/tchap/go_patricia)) = v2.3.0+incompatible
+Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.5.0
+Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
 Provides: bundled(golang(github.com/uber/jaeger_client_go)) = v2.30.0+incompatible
 Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.10
-Provides: bundled(golang(github.com/vbauerster/mpb/v7)) = v7.4.2
+Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.2
+Provides: bundled(golang(github.com/vbauerster/mpb/v7)) = v7.5.3
 Provides: bundled(golang(github.com/vishvananda/netlink)) = v1.1.1_0.20220115184804_dd687eb2f2d4
-%endif
+Provides: bundled(golang(github.com/vishvananda/netns)) = v0.0.0_20210104183010_2eb08e3e575f
+Provides: bundled(golang(github.com/vmihailenco/msgpack/v5)) = v5.3.5
+Provides: bundled(golang(github.com/xeipuuv/gojsonpointer)) = v0.0.0_20190905194746_02993c407bfb
+Provides: bundled(golang(github.com/xeipuuv/gojsonreference)) = v0.0.0_20180127040603_bd5ef7bd5415
+Provides: bundled(golang(github.com/xeipuuv/gojsonschema)) = v1.2.0
+Provides: bundled(golang(sigs.k8s.io/yaml)) = v1.3.0
 
 %description
 %{name} (Pod Manager) is a fully featured container engine that is a simple
@@ -270,7 +297,6 @@ tar zxf %{SOURCE1}
 tar zxf %{SOURCE2}
 
 %build
-%if "%{_vendor}" != "debbuild"
 %set_build_flags
 export CGO_CFLAGS=$CFLAGS
 # These extra flags present in $CFLAGS have been skipped for now as they break the build
@@ -280,7 +306,6 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
-%endif
 %endif
 
 export GO111MODULE=off
@@ -428,6 +453,4 @@ rm -f %{buildroot}%{_datadir}/user-tmpfiles.d/%{name}-docker.conf
 %{_libexecdir}/%{name}/gvproxy
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

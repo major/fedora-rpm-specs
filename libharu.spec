@@ -1,15 +1,15 @@
 # NOTE - every version updates the soname and requires rebuilding all dependent packages
 Name:           libharu
 Version:        2.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C library for generating PDF files
 License:        zlib with acknowledgement
 URL:            http://libharu.org
 Source0:        https://github.com/libharu/libharu/archive/v%{version}/%{name}-%{version}.tar.gz
 # Set the soname to the version of the library because upstream does not maintain ABI
 Patch0:         libharu-soname.patch
-# Apstream removed include hpdf_version.h but some packages rely on it
-Patch1:         libharu-2.4.2-version.patch
+# Apstream restored include hpdf_version.h
+Patch1:         linharu-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -54,6 +54,9 @@ developing applications that use %{name}.
 %{_libdir}/libhpdf.so
 
 %changelog
+* Fri Oct 07 2022 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.4.2-3
+- Update version path (upstream PR: https://github.com/libharu/libharu/pull/241)
+
 * Thu Oct 06 2022 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.4.2-2
 - Add version patch.
 

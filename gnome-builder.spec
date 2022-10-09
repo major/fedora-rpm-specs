@@ -15,7 +15,7 @@
 %global sysprof_version 3.46.0
 
 Name:           gnome-builder
-Version:        43.1
+Version:        43.2
 Release:        1%{?dist}
 Summary:        IDE for writing GNOME-based software
 
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 43.2-1
+- Update to 43.2
+
 * Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 43.1-1
 - Update to 43.1
 

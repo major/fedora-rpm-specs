@@ -1,3 +1,5 @@
+# Enable Qt by default
+%bcond qt 1
 
 # Vala/Vapi support ( upstream disabled by default, probably explains why it the build breaks often )
 %global vala 1
@@ -12,8 +14,6 @@ License: GPLv2+ and LGPLv2+
 #URL:     http://www.freedesktop.org/wiki/Distributions/AppStream
 URL:     https://github.com/ximion/appstream
 Source0: http://www.freedesktop.org/software/appstream/releases/AppStream-%{version}.tar.xz
-
-%bcond qt 1
 
 ## upstream patches (lookaside cache)
 

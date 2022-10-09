@@ -6,7 +6,7 @@
 
 Name:           desktop-backgrounds
 Version:        37.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Desktop backgrounds
 
 License:        LGPLv2
@@ -16,7 +16,7 @@ Source3:        README.Propaganda
 Source5:        waves-%{waves_version}.tar.bz2
 Source6:        FedoraWaves-metadata.desktop
 BuildArch:      noarch
-%if "x%{?picture_ext}" != "xwebp"
+%if "x%{?picture_ext}" != "xpng"
 BuildRequires:   ImageMagick
 BuildRequires:   %{fedora_release_name}-backgrounds-base
 %endif
@@ -150,16 +150,16 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 #   for XFCE, LXDE, etc.
 %if "x%{?picture_ext}" == "xpng"
   (cd %{buildroot}%{_datadir}/backgrounds/images;
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
       default.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
       default-5_4.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
       default-16_9.png
-  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}.png \
+  ln -s ../%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
       default-16_10.png
   cd ..
-  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}.png \
+  ln -s ./%{fedora_release_name}/default/%{fedora_release_name}-01-day.png \
       default.png
   )
 %else
@@ -216,6 +216,10 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_datadir}/backgrounds/default.xml
 
 %changelog
+* Thu Oct 6 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-4
+- Revert build requirement change for compat subpackage
+- Fix default png file patth for compat subpackage
+
 * Fri Sep 30 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-3
 - Revert changes for MATE, XFCE and LXDE
 

@@ -6,7 +6,7 @@
 
 Name:           python-tomli
 Version:        2.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A little TOML parser for Python
 
 License:        MIT
@@ -17,10 +17,9 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %if %{without bootstrap}
-# Upstream test requirements are in tests/requirements.txt,
-# but they're mixed together with coverage ones. Tests only need:
+# The test suite uses the stdlib's unittest framework, but we use %%pytest
+# as the test runner.
 BuildRequires:  python3-pytest
-BuildRequires:  python3-dateutil
 %endif
 
 %global _description %{expand:
@@ -90,6 +89,9 @@ grep '^Requires-Dist:' %{buildroot}%{python3_sitelib}/tomli-%{version}.dist-info
 
 
 %changelog
+* Fri Oct 07 2022 Maxwell G <gotmax@e.email> - 2.0.1-5
+- Remove incorrect python3-dateutil test BuildRequires
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

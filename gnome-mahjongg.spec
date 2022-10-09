@@ -1,11 +1,15 @@
 Name:           gnome-mahjongg
 Version:        3.38.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNOME Mahjongg game
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Mahjongg
 Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
+
+# Fix the build with meson 0.61
+# https://gitlab.gnome.org/GNOME/gnome-mahjongg/-/merge_requests/26
+Patch0:         meson-0.61.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -17,17 +21,13 @@ BuildRequires:  librsvg2-devel
 BuildRequires:  meson
 BuildRequires:  vala
 
-Obsoletes: gnome-games-mahjongg < 1:3.7.4
-Obsoletes: gnome-games-extra < 1:3.7.4
-Obsoletes: gnome-games-extra-data < 3.2.0-6
-
 %description
 Mahjongg is a simple pattern recognition game. You score points by
 matching identical tiles.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -58,6 +58,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 3.38.3-6
+- Fix the build with meson 0.61 (#2113249)
+- Drop old obsoletes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

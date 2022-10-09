@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-firebase-php-jwt
 #
-# Copyright (c) 2017-2019 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2017-2022 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,14 +11,19 @@
 
 %global github_owner     firebase
 %global github_name      php-jwt
-%global github_version   5.0.0
-%global github_commit    9984a4d3a32ae7673d6971ea00bae9d0a1abba0e
+%global github_version   5.5.1
+%global github_commit    83b609028194aa042ea33b5af2d41a7427de80e6
 
 %global composer_vendor  firebase
 %global composer_project php-jwt
 
 # "php": ">= 5.3.0"
 %global php_min_ver 5.3.0
+
+# "phpunit/phpunit": ">=4.8 <=9"
+%global phpunit_require phpunit8
+%global phpunit_min_ver 8
+%global phpunit_exec    phpunit8
 
 # Build using "--without tests" to disable tests
 %global with_tests 0%{!?_without_tests:1}
@@ -27,7 +32,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       8%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A simple library to encode and decode JSON Web Tokens (JWT)
 
 License:       BSD
@@ -43,14 +48,15 @@ BuildArch:     noarch
 %if %{with_tests}
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
-BuildRequires: php-composer(phpunit/phpunit)
-## phpcompatinfo (computed from version 5.0.0)
+BuildRequires: %{phpunit_require} >= %{phpunit_min_ver}
+## phpcompatinfo (computed from version 5.5.1)
 BuildRequires: php-date
 BuildRequires: php-hash
 BuildRequires: php-json
 BuildRequires: php-mbstring
 BuildRequires: php-openssl
 BuildRequires: php-pcre
+BuildRequires: php-pecl(libsodium)
 BuildRequires: php-spl
 ## Autoloader
 BuildRequires: php-composer(fedora/autoloader)
@@ -58,13 +64,14 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # composer.json
 Requires:      php(language) >= %{php_min_ver}
-# phpcompatinfo (computed from version 5.0.0)
+# phpcompatinfo (computed from version 5.5.1)
 Requires:      php-date
 Requires:      php-hash
 Requires:      php-json
 Requires:      php-mbstring
 Requires:      php-openssl
 Requires:      php-pcre
+Requires:      php-pecl(libsodium)
 Requires:      php-spl
 # Autoloader
 Requires:      php-composer(fedora/autoloader)
@@ -110,9 +117,10 @@ BOOTSTRAP=%{buildroot}%{phpdir}/Firebase/JWT/autoload.php
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in php %{?rhel:php54 php55} php56 php70 php71 php72 php73 php74; do
+PHPUNIT=$(which %{phpunit_exec})
+for PHP_EXEC in php %{?rhel:php54 php55} php56 php70 php71 php72 php73 php74 php80 php81 php82; do
     if [ "php" == "$PHP_EXEC" ] || which $PHP_EXEC; then
-        $PHP_EXEC %{_bindir}/phpunit \
+        $PHP_EXEC $PHPUNIT \
             --bootstrap %{buildroot}%{phpdir}/Firebase/JWT/autoload.php \
             || RETURN_CODE=1
     fi
@@ -133,6 +141,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Oct 07 2022 Shawn Iwinski <shawn@iwin.ski> - 5.5.1-1
+- Update to 5.5.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

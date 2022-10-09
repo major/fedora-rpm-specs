@@ -1,11 +1,15 @@
 Name:           gnome-dictionary
 Version:        40.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A dictionary application for GNOME
 
 License:        GPLv3+ and LGPLv2+ and GFDL
 URL:            https://wiki.gnome.org/Apps/Dictionary
 Source0:        https://download.gnome.org/sources/%{name}/40/%{name}-%{version}.tar.xz
+
+# Fix the build with meson 0.61
+# https://gitlab.gnome.org/GNOME/gnome-dictionary/-/merge_requests/18
+Patch0:         meson-0.61.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
@@ -21,7 +25,7 @@ BuildRequires:  /usr/bin/xsltproc
 gnome-dictionary lets you look up words in dictionary sources.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson
@@ -50,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gnome-dictionary.1*
 
 %changelog
+* Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 40.0-5
+- Fix the build with meson 0.61 (#2113245)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

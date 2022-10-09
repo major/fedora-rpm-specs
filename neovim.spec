@@ -1886,6 +1886,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %changelog
 * Fri Sep 30 2022 Andreas Schneider <asn@redhat.com> - 0.8.0-1
 - Update to version 0.8.0
+  * https://github.com/neovim/neovim/releases/tag/v0.8.0
 
 * Wed Sep 21 2022 Andreas Schneider <asn@redhat.com> - 0.7.2-4
 - Build with libvterm 0.3

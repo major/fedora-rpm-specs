@@ -8,8 +8,8 @@
 %endif
 
 Name:           perl-URI
-Version:        5.12
-Release:        2%{?dist}
+Version:        5.13
+Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/URI
@@ -43,7 +43,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Storable)
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
 # Runtime
@@ -145,6 +144,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.13-1
+- 5.13 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

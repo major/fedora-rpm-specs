@@ -1,5 +1,4 @@
 %global srcname pysword
-%global commit 9a15ab595f24f934c4871e5989b3769ed8d4f9c2
 %global sum Open source python API wrapper for Sword Bible files
 %global desc %{expand: A native Python reader of the SWORD Project Bible Modules.
 Reads SWORD bible files (not commentaries etc.)
@@ -12,10 +11,10 @@ Supports both python 2 and 3 (tested with 2.7 and 3.5) }
 
 Summary: %{sum}
 Name: python-%{srcname}
-Version: 0.2.7
-Release: 10%{?dist}
+Version: 0.2.8
+Release: 1%{?dist}
 Source0: https://gitlab.com/tgc-dk/%{srcname}/repository/archive.tar.gz?ref=%{version}#/%{srcname}-%{version}.tar.gz
-Source1: testdata-0.2.7.tar.gz
+Source1: testdata-0.2.8.tar.gz
 License: GPLv2
 BuildArch: noarch
 
@@ -37,8 +36,8 @@ Obsoletes:      python-%{srcname} < 0.2.7-7
 %{desc}
 
 %prep
-%autosetup -n %{srcname}-%{version}-%{commit}
-%autosetup -N -T -D -a 1 -n %{srcname}-%{version}-%{commit}
+%autosetup -n %{srcname}-%{version}
+%autosetup -N -T -D -a 1 -n %{srcname}-%{version}
 
 %build
 %py3_build
@@ -56,11 +55,20 @@ Obsoletes:      python-%{srcname} < 0.2.7-7
 %{python3_sitelib}/pysword-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Oct 07 2022 Tim Bentley <Tim.Bentley@openlp.org> - 0.2.8-1
+- Resolve build issues and versions.
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.2.7-9
+- Rebuilt for Python 3.11
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.2.7-9
 - Rebuilt for Python 3.11
+
+* Sun May 29 2022 Tim Bentley <Tim.Bentley@openlp.org> - 0.2.7-0
+- Updated to match upstream release
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

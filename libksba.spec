@@ -1,6 +1,6 @@
 Summary: CMS and X.509 library
 Name:    libksba
-Version: 1.6.1
+Version: 1.6.2
 Release: 1%{?dist}
 
 # The library is licensed under LGPLv3+ or GPLv2+,
@@ -80,6 +80,9 @@ make check
 
 
 %changelog
+* Fri Oct 07 2022 Jakub Jelen <jjelen@redhat.com> - 1.6.2-1
+- New upstream release (#2132953)
+
 * Mon Sep 19 2022 Jakub Jelen <jjelen@redhat.com> - 1.6.1-1
 - New upstream release (#2127464)
 

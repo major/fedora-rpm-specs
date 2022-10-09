@@ -1,11 +1,11 @@
-%global commit f1349e114f3a16ccd002e8513339e18f5be4d31b
+%global commit 0d1ea9e6ed471ca09c5908e0b39ab46139603372
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20220912
+%global snapdate 20221006
 
 Name:		nextpnr
 Version:	1
-Release:	12.%{snapdate}git%{shortcommit}%{?dist}
+Release:	13.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -28,8 +28,8 @@ BuildRequires:	boost-python3-devel
 BuildRequires:	eigen3-devel
 BuildRequires:	pybind11-devel
 # NOTE: remember to update icestorm & trellis before rebuilding nextpnr!!!
-BuildRequires:	icestorm >= 0-0.22
-BuildRequires:	trellis-devel >= 1.2.1-10
+BuildRequires:	icestorm >= 0-0.24
+BuildRequires:	trellis-devel >= 1.2.1-11
 
 # License: ISC
 Provides:	bundled(qtimgui)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Thu Oct 06 2022 Gabriel Somlo <gsomlo@gmail.com> - 1-13.20221006git0d1ea9e
+- Update to newer snapshot
+
 * Mon Sep 12 2022 Gabriel Somlo <gsomlo@gmail.com> - 1-12.20220912gitf1349e1
 - Update to newer snapshot
 

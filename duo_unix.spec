@@ -1,0 +1,141 @@
+# Disable by default as the tests require root and write to /etc/pam.d
+%bcond_with tests
+
+Name:           duo_unix
+Version:        1.12.1
+Release:        3%{?dist}
+Summary:        Duo two-factor authentication for UNIX systems
+
+License:        GPLv2
+URL:            http://www.duosecurity.com/
+Source:         https://dl.duosecurity.com/%{name}-%{version}.tar.gz
+
+Suggests:       %{name}-doc = %{version}-%{release}
+
+BuildRequires:  gcc
+BuildRequires:  openssl-devel
+BuildRequires:  pam-devel
+BuildRequires:  pkgconfig
+
+%if %{with tests}
+BuildRequires:  python3
+%endif
+
+%description
+Duo provides simple two-factor authentication as a service via:
+
+    1.  Phone callback
+    2.  SMS-delivered one-time passcode
+    3.  Duo mobile app to generate one-time passcode
+    4.  Duo mobile app for smartphone push authentication
+    5.  Duo hardware token to generate one-time passcode
+
+This package allows an admin (or ordinary user) to quickly add Duo
+authentication to any UNIX login without setting up secondary user
+accounts, directory synchronization, servers, or hardware.
+
+%package        doc
+Summary:        Documentation and license files for %{name}
+BuildArch:      noarch
+
+%description    doc
+Documentation and license files for %{name}
+
+%package -n     pam_duo
+Summary:        A PAM module for duo authentication
+Suggests:       %{name}-doc = %{version}-%{release}
+
+%description -n pam_duo
+A PAM module for duo authentication
+
+%package        devel
+Summary:        Development files and documentation for duo_unix
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       pam_duo%{?_isa} = %{version}-%{release}
+
+%description    devel
+Development files and documentation for duo_unix
+
+%prep
+%setup -q
+
+%build
+%configure \
+  --with-pam=%{_libdir}/security \
+  --sysconfdir=%{_sysconfdir}/duo \
+  --includedir=%{_includedir}/duo
+%make_build
+
+%install
+%make_install
+
+rm %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
+%if 0%{?rhel} || 0%{?fc35}
+rm %{buildroot}%{_libdir}/security/pam_duo.la
+%endif
+
+%if %{with tests}
+%check
+make check
+%endif
+
+%files
+%license LICENSE
+%dir %{_sysconfdir}/duo
+# This generates a non-readable rpmlint error, but this permission set is
+# required for security. The Duo secrets are set in this file and allowing
+# broader access risks exposing the secrets to other users on the system.
+# sshd is the owner here since that user will run login_duo for SSH connections
+# (the typical case) and this allows read access if capabilities aren't
+# correctly set.
+%attr(0600, sshd, root) %config(noreplace) %{_sysconfdir}/duo/login_duo.conf
+%attr(0755, root, root) %caps(cap_dac_read_search=ep) %{_sbindir}/login_duo
+# This will generate no-manual-page-for-binary but Duo does not provide any
+# manual page. This is intended to be run when seeking support from Duo.
+%{_sbindir}/duo_unix_support.sh
+%{_mandir}/man8/login_duo.8*
+
+%files -n pam_duo
+%license LICENSE
+%dir %{_sysconfdir}/duo
+%dir %{_libdir}/security
+%{_libdir}/security/pam_duo.so
+# This generates a non-readable rpmlint error, but this permission set is
+# required for security. The Duo secrets are set in this file and allowing
+# broader access risks exposing the secrets to other users on the system.
+%config(noreplace) %attr(0600, root, root) %{_sysconfdir}/duo/pam_duo.conf
+%{_mandir}/man8/pam_duo.8*
+
+%files doc
+%license LICENSE
+%doc %{_defaultdocdir}/%{name}
+
+%files devel
+%exclude %{_includedir}/duo/unity.h
+%exclude %{_includedir}/duo/duo_private.h
+%exclude %{_includedir}/duo/common_ini_test.h
+%dir %{_includedir}/duo
+%{_includedir}/duo/duo.h
+%{_includedir}/duo/util.h
+%{_includedir}/duo/shell.h
+%{_libdir}/pkgconfig/libduo.pc
+%{_mandir}/man3/duo.3*
+
+%changelog
+* Fri Oct 07 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-3
+- Fix EPEL build
+
+* Fri Oct 07 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-2
+- Update openssl BR
+- Fix duplicate license file
+- Add check section and conditionally run tests
+
+* Tue Sep 06 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-1
+- Update to 1.12.1
+- Make doc subpackage noarch
+- Drop unnecessary Requires
+- Misc specfile fixes to comply with the latest guidelines
+- Fix changelog formatting
+
+* Thu May 05 2022 Joel Goguen <contact@jgoguen.ca> - 1.12.0-1
+- Initial Fedora package
