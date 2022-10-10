@@ -5,7 +5,7 @@
 %global crate crossbeam-utils
 
 Name:           rust-crossbeam-utils
-Version:        0.8.11
+Version:        0.8.12
 Release:        %autorelease
 Summary:        Utilities for concurrent programming
 
@@ -64,18 +64,6 @@ use the "nightly" feature of the "%{crate}" crate.
 %files       -n %{name}+nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+once_cell-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+once_cell-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "once_cell" feature of the "%{crate}" crate.
-
-%files       -n %{name}+once_cell-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -104,9 +92,9 @@ use the "std" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 %ifarch %{arm}
-# one of the doc tests fails on armv7hl
-# https://github.com/crossbeam-rs/crossbeam/issues/668
-%cargo_test -- --lib
+# * skip a test that fails only on armv7hl:
+#   https://github.com/crossbeam-rs/crossbeam/issues/918
+%cargo_test -- -- --skip is_lock_free
 %else
 %cargo_test
 %endif

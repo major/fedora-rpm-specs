@@ -5,7 +5,7 @@
 %global crate pest
 
 Name:           rust-pest
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Elegant Parser
 
@@ -50,6 +50,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bytecount-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bytecount-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bytecount" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bytecount-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+const_prec_climber-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -60,6 +72,30 @@ This package contains library source intended for building other packages which
 use the "const_prec_climber" feature of the "%{crate}" crate.
 
 %files       -n %{name}+const_prec_climber-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fast-line-col-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fast-line-col-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fast-line-col" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fast-line-col-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+memchr-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+memchr-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "memchr" feature of the "%{crate}" crate.
+
+%files       -n %{name}+memchr-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pretty-print-devel

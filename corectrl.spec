@@ -2,7 +2,7 @@
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Friendly hardware control
 
@@ -19,10 +19,10 @@ URL:            https://gitlab.com/corectrl/corectrl
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        README.fedora.md
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.3
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
-BuildRequires:  gcc-c++
+BuildRequires:  gcc-c++ >= 8
 BuildRequires:  libappstream-glib
 BuildRequires:  libdrm-devel
 BuildRequires:  ninja-build
@@ -30,7 +30,7 @@ BuildRequires:  ninja-build
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(Qt5Charts)
 BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Core) >= 5.9
 BuildRequires:  cmake(Qt5DBus)
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  cmake(Qt5Multimedia)
@@ -51,11 +51,11 @@ Requires:       qca-qt5-ossl%{?_isa}
 Requires:       qt5-qtquickcontrols2%{?_isa}
 
 # Used to gather more information
-# * For glxinfo
+#   * For glxinfo
 Recommends:     mesa-demos%{?_isa}
-# * For lscpu
+#   * For lscpu
 Recommends:     util-linux%{?_isa}
-# * For vulkaninfo
+#   * For vulkaninfo
 Recommends:     vulkan-tools%{?_isa}
 
 # https://gitlab.com/corectrl/corectrl/issues/13
@@ -81,8 +81,6 @@ to be flexible, comfortable and accessible to regular users.
 %prep
 %autosetup -n %{name}-v%{version}
 
-# 'lib64' path fix
-sed -e 's@DESTINATION lib@DESTINATION %{_lib}@g' -i src/CMakeLists.txt
 # lib soversion fix
 echo "set_property(TARGET corectrl_lib PROPERTY SOVERSION 0)" >> src/CMakeLists.txt
 
@@ -97,7 +95,7 @@ echo "set_property(TARGET corectrl_lib PROPERTY SOVERSION 0)" >> src/CMakeLists.
 
 %install
 %ninja_install -C %{_vpath_builddir}
-install -m0644 -Dp %{SOURCE1} %{buildroot}%{_docdir}/%{name}/README.fedora.md
+install -Dpm 0644 %{SOURCE1} %{buildroot}%{_docdir}/%{name}/README.fedora.md
 find README.md -type f -perm /111 -exec chmod 644 {} \;
 find %{buildroot}/%{_datadir}/. -type f -executable -exec chmod -x "{}" \;
 

@@ -5,7 +5,7 @@
 %global crate tracing
 
 Name:           rust-tracing
-Version:        0.1.36
+Version:        0.1.37
 Release:        %autorelease
 Summary:        Application-level tracing for Rust
 

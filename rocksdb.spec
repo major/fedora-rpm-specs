@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 7.6.0
+Version: 7.7.2
 Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
@@ -15,6 +15,10 @@ Patch0: armhfp-8609.patch
 
 # https://git.alpinelinux.org/aports/tree/community/rocksdb/11-shared-liburing.patch
 Patch1: shared-liburing.patch
+
+# Do not build tools with rpath These will be installed semi-manual to usr/bin
+# and will use system libraries.
+Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -63,6 +67,7 @@ Development files for RocksDB.
 %forgesetup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -87,6 +92,14 @@ Development files for RocksDB.
 
 %install
 %cmake_install
+
+# Missing steps in build script
+install -dD -m 755 %{buildroot}%{_bindir}
+install -m 755 %{__cmake_builddir}/cache_bench %{buildroot}%{_bindir}/cache_bench
+install -m 755 %{__cmake_builddir}/db_bench %{buildroot}%{_bindir}/db_bench
+install -m 755 %{__cmake_builddir}/tools/ldb %{buildroot}%{_bindir}/ldb
+install -m 755 %{__cmake_builddir}/tools/sst_dump %{buildroot}%{_bindir}/sst_dump
+
 rm %{buildroot}%{_libdir}/librocksdb.a
 
 
@@ -98,7 +111,7 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.7
-%{_libdir}/librocksdb.so.7.6.0
+%{_libdir}/librocksdb.so.7.7.2
 
 
 %files tools
@@ -124,6 +137,9 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Sat Oct 08 2022 Jonny Heggheim <hegjon@gmail.com> - 7.7.2-1
+- Updated to version 7.7.2
+
 * Sun Oct 02 2022 Jonny Heggheim <hegjon@gmail.com> - 7.6.0-1
 - Updated to version 7.6.0
 

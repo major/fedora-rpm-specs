@@ -5,7 +5,7 @@
 %global crate ouroboros
 
 Name:           rust-ouroboros
-Version:        0.15.4
+Version:        0.15.5
 Release:        %autorelease
 Summary:        Easy, safe self-referential struct generation
 

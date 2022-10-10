@@ -6,7 +6,7 @@
 %global crate zvariant_derive
 
 Name:           rust-zvariant_derive
-Version:        3.6.0
+Version:        3.7.1
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 

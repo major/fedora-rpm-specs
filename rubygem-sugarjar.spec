@@ -3,7 +3,7 @@
 
 %global app_root %{_datadir}/%{name}
 %global gem_name sugarjar
-%global version 0.0.10
+%global version 0.0.11
 
 %global common_description %{expand:
 Sugarjar is a utility to help making working with git
@@ -18,18 +18,16 @@ License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
 Source0: https://rubygems.org/downloads/%{gem_name}-%{version}.gem
 # git clone https://github.com/jaymzh/sugarjar.git
-# git checkout v0.0.10
-# tar -cf rubygem-sugarjar-0.0.10-specs.tar.gz spec/
+# git checkout v0.0.11
+# tar -cf rubygem-sugarjar-0.0.11-specs.tar.gz spec/
 Source1: %{name}-%{version}-specs.tar.gz
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(mixlib-shellout)
 %if %{with tests}
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(mixlib-log)
-BuildRequires: hub
+BuildRequires: (hub or gh)
 %endif
-Requires: hub
-Requires: git-core
 BuildArch: noarch
 
 %description
@@ -37,7 +35,9 @@ BuildArch: noarch
 
 %package -n sugarjar
 Summary: A git/github helper utility
-Requires: hub, git
+Requires: (hub or gh)
+Requires: git
+Requires: git-core
 %description -n sugarjar
 %{common_description}
 
@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Fri Oct 07 2022 Phil Dibowitz <phil@ipom.com> - 0.0.11-1
+- Update to upstream 0.0.11
+
 * Tue Aug 23 2022 Phil Dibowitz <phil@ipom.com> - 0.0.10-1
 - Update to upstream 0.0.10
 

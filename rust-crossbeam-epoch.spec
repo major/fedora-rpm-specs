@@ -5,7 +5,7 @@
 %global crate crossbeam-epoch
 
 Name:           rust-crossbeam-epoch
-Version:        0.9.10
+Version:        0.9.11
 Release:        %autorelease
 Summary:        Epoch-based garbage collection
 
@@ -74,18 +74,6 @@ This package contains library source intended for building other packages which
 use the "nightly" feature of the "%{crate}" crate.
 
 %files       -n %{name}+nightly-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+once_cell-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+once_cell-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "once_cell" feature of the "%{crate}" crate.
-
-%files       -n %{name}+once_cell-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

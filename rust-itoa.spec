@@ -5,7 +5,7 @@
 %global crate itoa
 
 Name:           rust-itoa
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Fast integer primitive to string conversion
 
@@ -47,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+no-panic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+no-panic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "no-panic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+no-panic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

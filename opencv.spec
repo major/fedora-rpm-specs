@@ -8,11 +8,15 @@
 %bcond_with     eigen2
 %bcond_without  eigen3
 %bcond_without  opencl
+%if 0%{?rhel} >= 8
+%bcond_with     openni
+%else
 %ifarch %{ix86} x86_64 %{arm}
 %bcond_without  openni
 %else
 # we dont have openni in other archs
 %bcond_with     openni
+%endif
 %endif
 %bcond_without  tbb
 %bcond_with     cuda
@@ -35,7 +39,11 @@
 %else
 %bcond_with     libmfx
 %endif
+%if 0%{?rhel} >= 8
+%bcond_with  clp
+%else
 %bcond_without  clp
+%endif
 %ifarch %{java_arches}
 %bcond_without  java
 %else
@@ -69,8 +77,8 @@ URL:            https://opencv.org
 # TO PREPARE TARBALLS FOR FEDORA
 # Edit opencv-clean.sh and set VERSION, save file and run opencv-clean.sh
 #
-# Need to remove copyrighted lena.jpg images from tarball (rhbz#1295173)
-# and SIFT/SURF from tarball, due to legal concerns.
+# Need to remove copyrighted lena.jpg images (rhbz#1295173)
+# and SIFT/SURF (module xfeatures2d) from tarball, due to legal concerns.
 #
 Source0:        %{name}-clean-%{version}.tar.gz
 Source1:        %{name}_contrib-clean-%{version}.tar.gz
@@ -152,6 +160,8 @@ BuildRequires:  libGL-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  openjpeg2-devel
+BuildRequires:  freetype-devel
+BuildRequires:  harfbuzz-devel
 # Module opencv_ovis disabled because of incompatible OGRE3D version < 1.10
 # BuildRequires:  ogre-devel
 %{?with_vtk:BuildRequires: vtk-devel}
@@ -164,7 +174,9 @@ BuildRequires:  vtk-java
 #ceres-solver-devel push eigen3-devel and tbb-devel
 %{?with_tbb:
   %{?with_eigen3:
-BuildRequires:  ceres-solver-devel
+# CERES support is disabled. Ceres Solver for reconstruction API is required.
+# seems that ceres-solver is only needed for SFM algorithms but SFM algorithms are disabled because needs xfeatures2d
+# BuildRequires:  ceres-solver-devel
   }
 }
 %{?with_openblas:

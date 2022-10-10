@@ -5,7 +5,7 @@
 %global crate ouroboros_macro
 
 Name:           rust-ouroboros_macro
-Version:        0.15.4
+Version:        0.15.5
 Release:        %autorelease
 Summary:        Proc macro for ouroboros crate
 

@@ -1,7 +1,7 @@
 %global pypi_name adafruit-platformdetect
 
 Name:           python-%{pypi_name}
-Version:        3.30.0
+Version:        3.31.0
 Release:        %autorelease
 
 Summary:        Platform detection module
@@ -63,3 +63,4 @@ rm -rf html/.{doctrees,buildinfo}
 
 %changelog
 %autochangelog
+

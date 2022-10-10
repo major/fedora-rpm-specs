@@ -5,7 +5,7 @@
 %global crate tracing-core
 
 Name:           rust-tracing-core
-Version:        0.1.29
+Version:        0.1.30
 Release:        %autorelease
 Summary:        Core primitives for application-level tracing
 

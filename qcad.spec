@@ -7,7 +7,7 @@
 #
 
 Name:    qcad
-Version: 3.27.7.0
+Version: 3.27.8.0
 Release: 1%{?dist}
 Summary: Powerful 2D CAD system
 
@@ -225,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Sat Oct 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.27.8.0-1
+- Release 3.27.8.0
+
 * Mon Oct 03 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.27.7.0-1
 - Release 3.27.7.0
 

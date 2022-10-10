@@ -7,7 +7,7 @@ Summary:	Small and fast replacement for ruby's huge and slow test/unit
 Name:		rubygem-%{gem_name}4
 # With 4.7.5, some test fails, so for now use 4.7.0
 Version:	4.7.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 License:	MIT
 URL:		https://github.com/seattlerb/minitest
@@ -44,15 +44,18 @@ This package contains documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
+# Fix for F-37
+sed -i test/minitest/test_minitest_mock.rb \
+	-e 's|assert_equal expected, e.message|assert_equal expected, e.message.lines(chomp: true)[0]|'
+# Ruby 3.2 removes already deprecated Fixnum
+sed -i test/minitest/test_minitest_mock.rb \
+	-e 's|Fixnum|Integer|'
+# Ruby 3.2 removes Object#=~
+sed -i test/minitest/test_minitest_unit.rb -e 's|\(test_refute_match_matcher_object\)|\1; skip|'
+
 %build
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
-
-# Fix for F-37
-pushd .%{gem_instdir}
-sed -i test/minitest/test_minitest_mock.rb \
-	-e 's|assert_equal expected, e.message|assert_equal expected, e.message.lines(chomp: true)[0]|'
-popd
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -95,6 +98,9 @@ done
 %doc	%{gem_docdir}/
 
 %changelog
+* Sat Oct  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.7.0-20
+- Fix test failure with ruby3.2 (wrt removal of Fixnum, Object#=~)
+
 * Sun Jul 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.7.0-19
 - Fix FTBFS on F-37
 

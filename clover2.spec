@@ -1,21 +1,22 @@
 %if 1
-%global	mainver	10.4.6
-%global	gitdate	20190613
-%global	gitcommit	6f483b4e3e1ca135a3119629274f0a748f18d259
+%global	mainver	11.0.0
+%global	gitdate	20211017
+%global	gitcommit	1e6a0256612c8f8b6b1d42bd75778b15c8c5ff67
 %else
 %endif
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20191231
-%global	tarballtime	1510
+%global	tarballdate	20221008
+%global	tarballtime	2308
 
-%undefine	_changelog_trimtime
+%global toolchain clang
 
 Name:			clover2
 
 # For Version, see README.md and so on
 Version:		%{mainver}
-Release:		10.D%{gitdate}git%{shortcommit}%{?dist}
+#Release:		10.D%{gitdate}git%{shortcommit}%{?dist}
+Release:		1%{?dist}
 Summary:		Yet another compiler language
 
 License:		GPLv2
@@ -23,8 +24,6 @@ URL:			https://github.com/ab25cq/clover2/wiki
 #Source0:		https://github.com/ab25cq/%{name}/archive/%{gitcommit}/%{name}-%{version}-git%{shortcommit}.tar.gz
 Source0:		%{name}-%{tarballdate}T%{tarballtime}.tar.gz
 Source1:		create-clover-git-bare-tarball.sh
-# parser.c: fix memset size
-Patch1:		clover2-10.4.6-0001-parser.c-fix-memset-size.patch
 
 # Upstream suggests to use clang
 BuildRequires:	clang
@@ -34,7 +33,7 @@ BuildRequires:	gc-devel
 
 BuildRequires:	git
 BuildRequires:	%{_bindir}/time
-BuildRequires: make
+BuildRequires:	make
 Requires:		%{name}-libs%{?_isa} = %{version}-%{release}
 
 # Currently test fails on s390x
@@ -69,9 +68,6 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-# Disable lfto, clang compiler option does not support these
-%define _lto_cflags -flto
-
 %setup -q -c -T -a 0
 git clone ./clover2.git
 cd clover2
@@ -83,26 +79,17 @@ git checkout -b %{version}-fedora %{gitcommit}
 
 cp -a [A-Z]* ..
 
-# Using clang, some compiler flags are not recognized
-%global	optflags_0	%optflags
-%global	optflags_1	%(echo "%optflags_0" | sed -e 's|-mcet||')
-%global	optflags_2	%(echo "%optflags_1" | sed -e 's|-fcf-protection||')
-%global	optflags_3	%(echo "%optflags_2" | sed -e 's|-fstack-clash-protection||')
-%global	optflags_4	%optflags_3 -fsanitize=address -fsanitize=undefined
-%global	optflags	%optflags_3
-
-# honor cflags
+# honor cflags, toolchain
 sed -i.cflags configure.in configure \
-	-e '\@CFLAGS=.*-DPREFIX=@s|-DPREFIX=|%optflags -DPREFIX=|' \
+	-e '\@CFLAGS=.*-DPREFIX=@s|-DPREFIX=|%build_cflags -DPREFIX=|' \
 	-e 's|-O3|-O2|' \
+	-e's|^CC=gcc|CC=%{toolchain}|' \
 	%{nil}
 # honor libdir
 sed -i.lib configure.in configure -e 's|/lib |/%{_lib} |'
 sed -i.lib Makefile.in -e 's|/lib$|/%{_lib}|'
 
 git commit -m "Apply Fedora specific configuration" -a
-
-cat %PATCH1 | git am
 
 %build
 cd clover2
@@ -111,9 +98,6 @@ cd clover2
 	--with-interpreter \
 	%{nil}
 	# --with-jit
-
-# Apply shebang
-sed -i.sh bclover2 -e '1i #!/bin/bash'
 
 # parallel make fails
 %make_build -j1
@@ -160,6 +144,9 @@ LANG=C.utf8 make -C clover2 test
 %{_includedir}/clover2/
 
 %changelog
+* Sat Oct  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 11.0.0-1
+- Update to 11.0.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.4.6-10.D20190613git6f483b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

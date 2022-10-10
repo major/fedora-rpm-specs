@@ -32,7 +32,6 @@ BuildRequires:  pkgconfig(glib-2.0) >= 2.66
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66
 BuildRequires:  pkgconfig(gtk4) >= 4.6.2
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.1.99
-BuildRequires:  pkgconfig(pwquality) >= 1.4.0
 
 %if %{with tests}
 BuildRequires:  python3-gobject
@@ -42,7 +41,6 @@ BuildRequires:  python3dist(pytest)
 Requires:       hicolor-icon-theme
 Requires:       libadwaita >= 1.1.99
 Requires:       python3-gobject
-Requires:       python3-pwquality >= 1.4.0
 Requires:       python3-pykeepass >= 4.0.3
 Requires:       python3-pyotp >= 2.4.0
 Requires:       python3-validators

@@ -1,5 +1,5 @@
 Name:    dosbox-staging
-Version: 0.78.1
+Version: 0.79.1
 Release: %autorelease
 Summary: DOS/x86 emulator focusing on ease of use
 URL:     https://dosbox-staging.github.io/
@@ -26,8 +26,9 @@ URL:     https://dosbox-staging.github.io/
 # xxhash.h:          BSD-2-Clause
 License: GPL-2.0-or-later AND Unlicense AND (MIT-0 OR Unlicense) AND MIT AND GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain AND Fair AND LGPL-2.1-or-later AND (MIT OR Unlicense) AND (MIT OR WTFPL) AND BSD-2-Clause
 
-Source0: https://github.com/dosbox-staging/dosbox-staging/archive/v%{version}/%{name}-%{version}.tar.gz
-
+Source: https://github.com/dosbox-staging/dosbox-staging/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/dosbox-staging/dosbox-staging/issues/1993
+Patch:  https://github.com/dosbox-staging/dosbox-staging/pull/1999.patch
 # This package is a drop-in replacement for dosbox
 Provides:  dosbox = %{version}-%{release}
 Obsoletes: dosbox < 0.74.4
@@ -40,6 +41,7 @@ BuildRequires: gcc-c++
 BuildRequires: git
 BuildRequires: gmock-devel
 BuildRequires: gtest-devel
+BuildRequires: iir1-devel
 BuildRequires: libappstream-glib
 BuildRequires: libatomic
 BuildRequires: libpng-devel
@@ -50,6 +52,7 @@ BuildRequires: mt32emu-devel
 BuildRequires: opusfile-devel
 BuildRequires: SDL2-devel >= 2.0.5
 BuildRequires: SDL2_net-devel
+BuildRequires: speexdsp-devel
 
 Requires: hicolor-icon-theme
 Requires: fluid-soundfont-gm

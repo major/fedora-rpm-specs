@@ -3,7 +3,7 @@
 
 # https://github.com/mattn/go-tty
 %global goipath         github.com/mattn/go-tty
-Version:                0.0.3
+Version:                0.0.4
 
 %gometa
 
@@ -14,7 +14,7 @@ Simple tty utility.}
 %global godocs          _example README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        Simple tty utility
 
 License:        MIT
@@ -23,7 +23,7 @@ Source0:        %{gosource}
 
 BuildRequires:  golang(github.com/mattn/go-colorable) >= 0.1.4
 BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.10
-BuildRequires:  golang(github.com/mattn/go-runewidth) >= 0.0.6
+BuildRequires:  golang(github.com/mattn/go-runewidth) >= 0.0.7
 BuildRequires:  golang(golang.org/x/sys/unix)
 
 %description
@@ -45,6 +45,9 @@ BuildRequires:  golang(golang.org/x/sys/unix)
 %gopkgfiles
 
 %changelog
+* Sat Oct 08 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.0.4-1
+- Update to latest version (#2043502)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

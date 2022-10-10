@@ -6,7 +6,7 @@
 %global crate serde_derive
 
 Name:           rust-serde_derive
-Version:        1.0.144
+Version:        1.0.145
 Release:        %autorelease
 Summary:        Macros 1.1 implementation of #[derive(Serialize, Deserialize)]
 

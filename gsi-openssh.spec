@@ -10,10 +10,6 @@
 
 %global _hardened_build 1
 
-# OpenSSH privilege separation requires a user & group ID
-%global sshd_uid    74
-%global sshd_gid    74
-
 # Build position-independent executables (requires toolchain support)?
 %global pie 1
 
@@ -28,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.0p1
-%global openssh_rel 1
+%global openssh_rel 2
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -48,6 +44,8 @@ Source11: gsisshd.service
 Source12: gsisshd-keygen@.service
 Source13: gsisshd-keygen
 Source15: gsisshd-keygen.target
+Source18: %{name}-systemd-sysusers.conf
+Source19: %{name}-server-systemd-sysusers.conf
 Source99: README.sshd-and-gsisshd
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
@@ -459,6 +457,8 @@ install -m644 %{SOURCE12} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen@.service
 install -m644 %{SOURCE15} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen.target
 install -m755 %{SOURCE13} $RPM_BUILD_ROOT/%{_libexecdir}/gsissh/sshd-keygen
 install -d -m711 ${RPM_BUILD_ROOT}/%{_datadir}/empty.sshd
+install -p -D -m 0644 %{SOURCE18} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
+install -p -D -m 0644 %{SOURCE19} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}-server.conf
 
 rm $RPM_BUILD_ROOT%{_bindir}/ssh-add
 rm $RPM_BUILD_ROOT%{_bindir}/ssh-agent
@@ -481,13 +481,10 @@ done
 perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
 
 %pre
-getent group ssh_keys >/dev/null || groupadd -r -g 101 ssh_keys || :
+%sysusers_create_compat %{SOURCE18}
 
 %pre server
-getent group sshd >/dev/null || groupadd -g %{sshd_uid} -r sshd || :
-getent passwd sshd >/dev/null || \
-  useradd -c "Privilege-separated SSH" -u %{sshd_uid} -g sshd \
-  -s /sbin/nologin -r -d /usr/share/empty.sshd sshd 2> /dev/null || :
+%sysusers_create_compat %{SOURCE19}
 
 %post server
 %systemd_post gsisshd.service gsisshd.socket
@@ -508,6 +505,7 @@ getent passwd sshd >/dev/null || \
 %attr(0755,root,root) %dir %{_libexecdir}/gsissh
 %attr(2755,root,ssh_keys) %{_libexecdir}/gsissh/ssh-keysign
 %attr(0644,root,root) %{_mandir}/man8/gsissh-keysign.8*
+%attr(0644,root,root) %{_sysusersdir}/%{name}.conf
 
 %files clients
 %attr(0755,root,root) %{_bindir}/gsissh
@@ -540,8 +538,12 @@ getent passwd sshd >/dev/null || \
 %attr(0644,root,root) %{_unitdir}/gsisshd.socket
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen@.service
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen.target
+%attr(0644,root,root) %{_sysusersdir}/%{name}-server.conf
 
 %changelog
+* Tue Oct 04 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-2
+- Based on openssh-9.0p1-5.fc38
+
 * Tue Aug 30 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-1
 - Based on openssh-9.0p1-3.fc38
 

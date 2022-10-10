@@ -1,16 +1,16 @@
 
 # Deprecated RHEL/Fedora support dropped, no need to track package versioning there
 
-%if 0%{?fedora} == 36
-%global sqlite_version 3.36.0
+%if 0%{?fedora} == 37
+%global sqlite_version 3.38.5
 %global uprel 1
 %global pkg_version %{sqlite_version}-r%{uprel}
 %endif
 
-%if 0%{?fedora} >= 37
-%global sqlite_version 3.38.5
-%global uprel 1
-%global pkg_version %{sqlite_version}-r%{uprel}
+%if 0%{?fedora} >= 38
+%global sqlite_version 3.39.3
+%global uprel 0
+%global pkg_version %{sqlite_version}.%{uprel}
 %endif
 
 %if 0%{?rhel} >= 9
@@ -23,7 +23,7 @@
 
 Name:               python-apsw
 Version:            %{real_version}
-Release:            3%{?dist}
+Release:            1%{?dist}
 Summary:            Another Python SQLite Wrapper
 License:            zlib
 URL:                https://github.com/rogerbinns/apsw
@@ -73,6 +73,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} setup.py test
 
 
 %changelog
+* Fri Oct 07 2022 Denis Fateyev <denis@fateyev.com> - 3.39.3.0-1
+- Bump upstream version to 3.39.3.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0.r1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

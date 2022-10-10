@@ -146,7 +146,7 @@ env OPENBLAS=%{_libdir} \
     FFTW=%{_libdir} BLAS=%{_libdir} \
     LAPACK=%{_libdir} CFLAGS="%{optflags}" \
     SETUPTOOLS_USE_DISTUTILS=stdlib
-    %{__python3} setup.py install --root %{buildroot}
+    %{__python3} setup.py install --root %{buildroot} --prefix=%{_prefix}
 pushd %{buildroot}%{_bindir} &> /dev/null
 ln -s f2py3 f2py.numpy
 popd &> /dev/null

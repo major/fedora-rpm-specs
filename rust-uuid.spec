@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.1.2
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/uuid
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          uuid-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax arbitrary dependency from =1.1.3 to ^1.1.3
+Patch:          uuid-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
 
@@ -66,6 +69,18 @@ use the "arbitrary" feature of the "%{crate}" crate.
 %files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+atomic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+atomic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "atomic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+atomic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+fast-rng-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -76,6 +91,30 @@ This package contains library source intended for building other packages which
 use the "fast-rng" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fast-rng-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+getrandom-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+getrandom-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "getrandom" feature of the "%{crate}" crate.
+
+%files       -n %{name}+getrandom-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+md-5-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+md-5-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "md-5" feature of the "%{crate}" crate.
+
+%files       -n %{name}+md-5-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+md5-devel
@@ -90,64 +129,16 @@ use the "md5" feature of the "%{crate}" crate.
 %files       -n %{name}+md5-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+private_atomic-devel
+%package     -n %{name}+rand-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+private_atomic-devel %{_description}
+%description -n %{name}+rand-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "private_atomic" feature of the "%{crate}" crate.
+use the "rand" feature of the "%{crate}" crate.
 
-%files       -n %{name}+private_atomic-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+private_getrandom-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+private_getrandom-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "private_getrandom" feature of the "%{crate}" crate.
-
-%files       -n %{name}+private_getrandom-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+private_md-5-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+private_md-5-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "private_md-5" feature of the "%{crate}" crate.
-
-%files       -n %{name}+private_md-5-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+private_rand-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+private_rand-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "private_rand" feature of the "%{crate}" crate.
-
-%files       -n %{name}+private_rand-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+private_sha1_smol-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+private_sha1_smol-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "private_sha1_smol" feature of the "%{crate}" crate.
-
-%files       -n %{name}+private_sha1_smol-devel
+%files       -n %{name}+rand-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rng-devel
@@ -184,6 +175,18 @@ This package contains library source intended for building other packages which
 use the "sha1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+sha1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+sha1_smol-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+sha1_smol-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "sha1_smol" feature of the "%{crate}" crate.
+
+%files       -n %{name}+sha1_smol-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+slog-devel
@@ -256,6 +259,54 @@ This package contains library source intended for building other packages which
 use the "v5" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v5-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v6-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v6-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v6" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v6-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v7-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v7-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v7" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v7-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v8-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wasm-bindgen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wasm-bindgen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wasm-bindgen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wasm-bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
