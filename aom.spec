@@ -1,6 +1,6 @@
 %global sover           3
 # git describe
-%global aom_version     v3.4.0
+%global aom_version     v3.5.0
 
 # Use commit with updated changelog for correct versioning
 %global commit          fc430c57c7b0307b4c5ffb686cd90b3c010d08d2
@@ -15,13 +15,13 @@
 %endif
 
 Name:       aom
-Version:    3.4.0
+Version:    3.5.0
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
 License:    BSD
 URL:        http://aomedia.org/
-Source0:    https://aomedia.googlesource.com/%{name}/+archive/%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
+Source0:    https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
@@ -74,7 +74,7 @@ Development files for aom, the royalty-free next-generation
 video format.
 
 %prep
-%autosetup -p1 -c %{name}-%{commit}
+%autosetup -p1 -c %{name}-%{version}
 # Set GIT revision in version
 sed -i 's@set(aom_version "")@set(aom_version "%{aom_version}")@' build/cmake/version.cmake
 # Disable PDF generation which is buggy

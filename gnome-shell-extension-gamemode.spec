@@ -1,5 +1,5 @@
 Name:           gnome-shell-extension-gamemode
-Version:        7
+Version:        8
 Release:        1%{?dist}
 Summary:        GameMode integration for GNOME Shell
 License:        LGPLv2
@@ -41,6 +41,9 @@ when the global GameMode status changes.
 
 
 %changelog
+* Sun Oct 09 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 8-1
+- Upstream release 8
+
 * Thu Sep 15 2022 Vladimir Ulrich <wedmer@gmail.com> - 7-1
 - Upstream release 7
 

@@ -1,8 +1,8 @@
 %global gem_name rouge
 
 Name:           rubygem-%{gem_name}
-Version:        3.26.1
-Release:        3%{?dist}
+Version:        4.0.0
+Release:        2%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 License:        MIT and BSD
 
@@ -61,7 +61,6 @@ rm -rf \
     %{nil}
 popd
 
-
 %files
 %dir %{gem_instdir}
 
@@ -81,6 +80,9 @@ popd
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Sun Oct  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.0-2
+- 4.0.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

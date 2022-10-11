@@ -1,4 +1,4 @@
-%global vergit 20220527
+%global vergit 20220627
 
 Name: flat-remix-theme
 Version: 0.0.%{vergit}

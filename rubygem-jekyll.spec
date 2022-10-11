@@ -131,6 +131,11 @@ popd && rm -r upstream
 # Upstream fix: https://github.com/jekyll/jekyll/commit/5c797ba136a4d162497e976a1a52946344e6c32f
 %gemspec_add_dep -g webrick "~> 1.7"
 
+# Relax rouge dependency
+# https://github.com/jekyll/jekyll/commit/1a3d85a8a550bcdbc6239e4f7d575dd1eab13c50
+sed -i ../%{gem_name}-%{version}.gemspec \
+	-e '\@rouge@s|"~> 3.0"|">= 3.0", "< 5.0"|'
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 

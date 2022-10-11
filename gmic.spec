@@ -10,7 +10,7 @@
 Summary: GREYC's Magic for Image Computing
 Name:    gmic
 Version: 3.1.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://gmic.eu/files/source/%{name}_%{version}.tar.gz
 # GIT archive snapshot of https://github.com/c-koi/zart
 Source1: zart-%{zart_version}.tar.gz
@@ -48,6 +48,8 @@ BuildRequires: desktop-file-utils
 BuildRequires: make
 BuildRequires: chrpath
 
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+
 # The C library binding was mistakenly put in a -static
 # package despite being a shared library
 Obsoletes:     gmic-static <= 2.1.8
@@ -66,12 +68,15 @@ generic image datasets, from 1d scalar signals to 3d+t sequences of
 multi-spectral volumetric images.
 
 %package devel
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Summary: Development files for G'MIC
 
 %package gimp
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary: G'MIC plugin for GIMP
+
+%package libs
+Summary: G'MIC shared libraries
 
 %description devel
 G'MIC is an open and full-featured framework for image processing, providing
@@ -88,6 +93,14 @@ generic image datasets, from 1d scalar signals to 3d+t sequences of
 multi-spectral volumetric images.
 
 Provides a plugin for using G'MIC from GIMP
+
+%description libs
+G'MIC is an open and full-featured framework for image processing, providing
+several different user interfaces to convert/manipulate/filter/visualize
+generic image datasets, from 1d scalar signals to 3d+t sequences of
+multi-spectral volumetric images.
+
+Provides G'MIC shared libraries
 
 %prep
 %setup -q -a 1 -a 2 -a 3
@@ -141,12 +154,6 @@ iconv -f iso8859-1 -t utf-8 COPYING-libcgmic > COPYING-libcgmic.conv && mv -f CO
 cd src
 make DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIB=%{_lib} install
 
-# Makefile creates too many intermediate symlinks for the library
-rm -f $RPM_BUILD_ROOT/%{_libdir}/libgmic.so.2
-rm -f $RPM_BUILD_ROOT/%{_libdir}/libcgmic.so.2
-ln -s libgmic.so.%{version} $RPM_BUILD_ROOT/%{_libdir}/libgmic.so.2
-ln -s libcgmic.so.%{version} $RPM_BUILD_ROOT/%{_libdir}/libcgmic.so.2
-
 desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/gmic_qt.desktop
 desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/zart.desktop
 
@@ -162,7 +169,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gmic
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcgmic.so.310
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgmic.so.310
 
-%ldconfig_scriptlets
+%ldconfig_scriptlets libs
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -183,8 +190,6 @@ fi
 %{_bindir}/gmic_qt
 %{_bindir}/zart
 %{_sysconfdir}/bash_completion.d/gmic
-%{_libdir}/libgmic.so.*
-%{_libdir}/libcgmic.so.*
 %{_mandir}/man1/%{name}.1.gz
 %{_mandir}/fr/man1/%{name}.1.gz
 %{_datadir}/applications/gmic_qt.desktop
@@ -205,7 +210,15 @@ fi
 %{gimpplugindir}/gmic_cluts.gmz
 %{gimpplugindir}/gmic_denoise_cnn.gmz
 
+%files libs
+%license COPYING COPYING-libcgmic
+%{_libdir}/libgmic.so.3*
+%{_libdir}/libcgmic.so.3*
+
 %changelog
+* Sun Oct 09 2022 Kalev Lember <klember@redhat.com> - 3.1.0-5
+- Split out gmic-libs to a subpackage
+
 * Wed Sep 07 2022 Kalev Lember <klember@redhat.com> - 3.1.0-4
 - Clean up multilib path install
 

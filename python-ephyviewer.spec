@@ -13,6 +13,10 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
+# python-pyedflib does not support s390x$
+# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec$
+ExcludeArch:    s390x
+
 
 %global _description %{expand:
 ephyviewer is a Python library based on pyqtgraph for building custom viewers

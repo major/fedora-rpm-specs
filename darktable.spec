@@ -52,7 +52,7 @@ BuildRequires: lcms2-devel
 BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 # libavif is not available in EPEL 8
-%if ((0%{?el} > 8) || (0%{?fedora} >= 33)) && !0%{?flatpak}
+%if (0%{?el} > 8) || (0%{?fedora} >= 33)
 BuildRequires: cmake(libavif) >= 0.8.2
 %endif
 BuildRequires: libcurl-devel >= 7.18.0

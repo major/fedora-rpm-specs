@@ -2,7 +2,7 @@
 
 %global forgeurl  https://github.com/BlueBrain/eFEL
 # Use github commit tar instead of pypi which does not include tests
-%global commit 33a97badf20f707db036dbf7f32c607e1b4db0d0
+%global commit 30f2517b2f32e79bc96dbc20bda57f3261449569
 
 %global desc %{expand: \
 The Electrophys Feature Extraction Library (eFEL) allows neuroscientists to
@@ -18,10 +18,14 @@ the moment we provide a way to automatically compile and install the library as
 a Python module.}
 
 Name:           python-efel
-Version:        4.0.42
+Version:        4.1.31
 Release:        %autorelease
 Summary:        Electrophys Feature Extraction Library
 %forgemeta
+
+# python-pyedflib does not support s390x$
+# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec$
+ExcludeArch:    s390x
 
 License:        LGPLv3
 URL:            http://efel.readthedocs.io/

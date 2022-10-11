@@ -1,7 +1,7 @@
 %global modname %(n=%{name}; echo ${n//-/_})
 
 Name:           git-archive-all
-Version:        1.23.0
+Version:        1.23.1
 Release:        1%{?dist}
 Summary:        Archive git repository with its submodules
 
@@ -38,6 +38,9 @@ BuildArch:      noarch
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Sun Oct 09 2022 Richard Shaw <hobbes1069@gmail.com> - 1.23.1-1
+- Update to 1.23.1.
+
 * Mon Sep 05 2022 Richard Shaw <hobbes1069@gmail.com> - 1.23.0-1
 - Update to 1.23.0.
 

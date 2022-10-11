@@ -1,6 +1,6 @@
 Name:           naev
-Version:        0.9.0
-Release:        7%{?dist}
+Version:        0.9.4
+Release:        1%{?dist}
 Summary:        2d action, RPG space game
 License:        GPLv3
 URL:            http://naev.org
@@ -75,9 +75,9 @@ done
 
 sed -i '/<icon/d' %{buildroot}/%{_metainfodir}/*.metainfo.xml
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.naev.naev.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.naev.Naev.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
-
+rm -f %{buildroot}%{_datadir}/doc/naev/LICENSE %{buildroot}%{_datadir}/doc/naev/gpl.txt
 
 %files
 %doc Readme.md
@@ -88,10 +88,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xm
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/naev
 %{_mandir}/man6/*
-%{_docdir}/naev
 
 
 %changelog
+* Sun Oct 09 2022 Jonathan Dieter <jdieter@gmail.com> - 0.9.4-1
+- Update to 0.9.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -18,7 +18,7 @@ Eickenberg, C. F. Gorgolewski, D. Bzdok, L. Esteve and B. Cipollini.
 Detailed documentation is available at http://nilearn.github.io/.}
 
 Name:           python-nilearn
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Python module for fast and easy statistical learning on NeuroImaging data
 

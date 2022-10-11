@@ -29,6 +29,9 @@ Requires:       xfwm4 >= %{xfceversion}
 Requires:       xfce4-panel >= %{xfceversion}
 Requires:       redhat-menus
 Requires:       desktop-backgrounds-compat
+%if 0%{fedora}>= 37
+Requires:       webp-pixbuf-loader%{?_isa}
+%endif
 
 %description
 This package includes a desktop manager for the Xfce Desktop Environment.
@@ -37,7 +40,11 @@ This package includes a desktop manager for the Xfce Desktop Environment.
 %setup -q
 
 # change default background for Fedora
+%if 0%{fedora} >= 37
+sed -i 's|/backgrounds/xfce/xfce-verticals.png|/backgrounds/images/default.webp|' common/xfdesktop-common.h
+%else
 sed -i 's|/backgrounds/xfce/xfce-verticals.png|/backgrounds/images/default.png|' common/xfdesktop-common.h
+%endif
 
 %build
 %configure

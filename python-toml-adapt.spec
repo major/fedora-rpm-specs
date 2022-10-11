@@ -14,9 +14,9 @@ very simple yet user-friendly command line interface was developed in
 order to make this process easier.}
 
 Name:           python-%{original_name}
-Version:        0.2.8
+Version:        0.2.9
 Release:        1%{?dist}
-Summary:        A very simple CLI for manipulating toml files
+Summary:        A simple command-line interface for manipulating toml files
 
 License:        MIT
 URL:            https://github.com/firefly-cpp/%{original_name}
@@ -74,6 +74,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{original_name}.1
 %{_mandir}/man1/%{original_name}.1*
  
 %changelog
+* Sun Oct 9 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.9-1
+- Update to the latest upstream's release
+
 * Sun Sep 11 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.8-1
 - Update to the latest upstream's release
 

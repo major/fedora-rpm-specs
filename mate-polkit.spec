@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:       mate-polkit
-Version:    %{branch}.0
+Version:    %{branch}.1
 %if 0%{?rel_build}
-Release:    4%{?dist}
+Release:    1%{?dist}
 %else
 Release:    0.15%{?git_rel}%{?dist}
 %endif
@@ -28,9 +28,6 @@ URL:        http://mate-desktop.org
 %{?rel_build:Source0:     http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz}
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
-
-# https://github.com/mate-desktop/mate-polkit/commit/9461e9b
-Patch1:        mate-polkit_0001-Fix-segfault-from-gdk_x11_get_server_time-if-not-on-.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -94,6 +91,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/polkit-mate-authe
 
 
 %changelog
+* Sun Oct 09 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

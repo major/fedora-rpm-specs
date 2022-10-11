@@ -15,8 +15,11 @@ Source0:        https://github.com/nextcloud/desktop/archive/v%{version}/desktop
 Source1:        com.nextcloud.desktopclient.nextcloud.metainfo.xml
 # Patch0: fixes GNOME quirks on Wayland sessions. Read
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/3BVLBS4B3XHJEXFVGD7RK2ZMXZG6JQZT/
-Patch0: xcb_%{version}.patch
+Patch0:         xcb_%{version}.patch
 
+# Nautilus 43 support
+# https://github.com/nextcloud/desktop/pull/5001
+Patch1:         nautilus_43.patch
 
 %if 0%{?rhel}
 BuildRequires:  rpmautospec-rpm-macros
@@ -155,7 +158,7 @@ The nextcloud desktop client dolphin extension.
 %prep
 %setup -n desktop-%{version}
 %patch0 -p1
-
+%patch1 -p1
 
 # change compiler flag
 sed -i 's/-fPIE/-fPIC/g' src/gui/CMakeLists.txt

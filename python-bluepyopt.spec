@@ -2,7 +2,7 @@
 
 # versioneer is used, so no tags for patch versions
 # use git tar since pypi does not include examples that are needed for tests.
-%global commit 7dfae69884564cba4a49fdb4e6494eedb4abc7bb
+%global commit 5a23f526d189ee04053d97c8e44f1d54c2b7217a
 
 %bcond_without tests
 
@@ -16,13 +16,16 @@ tasks into various reusable and flexible discrete elements according to
 established best-practices.}
 
 Name: python-bluepyopt
-Version: 1.11.15
+Version: 1.13.3
 Release: %autorelease
 Summary: Bluebrain Python Optimisation Library (bluepyopt)
 
 # This package is not noarch because it's tests are arch dependent but it does
 # not install any arch dependent files and so does not generate debuginfo
 %global debug_package %{nil}
+
+# pyedflib excludes s390x, so all deps also exclude it
+ExcludeArch:    s390x
 
 License: LGPLv3
 

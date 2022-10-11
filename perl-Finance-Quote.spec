@@ -1,8 +1,8 @@
 Name:           perl-Finance-Quote
-Version:        1.52
-Release:        2%{?dist}
+Version:        1.53
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
 Source0:        https://cpan.metacpan.org/modules/by-module/Finance/Finance-Quote-%{version}.tar.gz
 BuildArch:      noarch
@@ -17,6 +17,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Strptime)
 BuildRequires:  perl(Encode)
@@ -36,7 +37,7 @@ BuildRequires:  perl(IO::Uncompress::Unzip)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(LWP::Simple)
-BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(LWP::UserAgent) >= 6.48
 BuildRequires:  perl(Module::Load)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
@@ -139,14 +140,32 @@ make test
 %{_mandir}/man3/Finance::Quote::Tradeville.3*
 %{_mandir}/man3/Finance::Quote::TSP.3*
 %{_mandir}/man3/Finance::Quote::Tiaacref.3*
+%{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
 %{_mandir}/man3/Finance::Quote::Troweprice.3*
-%{_mandir}/man3/Finance::Quote::USFedBonds.3*
 %{_mandir}/man3/Finance::Quote::Union.3*
-%{_mandir}/man3/Finance::Quote::XETRA.3*
 %{_mandir}/man3/Finance::Quote::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Sun Oct  9 2022 Paul Howarth <paul@city-fan.org> - 1.53-1
+- Update to 1.53 (rhbz#2133215)
+  - Changed bug tracker to
+    https://github.com/finance-quote/finance-quote/issues
+  - DWS.pm - Set $info{$symbol, 'symbol'} to $symbol
+  - Union.pm - Reworked for a different CSV file (GH#231)
+  - CurrencyRates/AlphaVantage.pm - API CURRENCY_EXCHANGE_RATE no longer
+    accepts free API keys: changed to use FX_DAILY API (GH#229, GH#230)
+  - Set minimum version for LWP::UserAgent to honor redirects
+  - CurrencyRates/AlphaVantage.pm - Added logic to account for empty JSON
+    returned from currency exchange fetch
+  - Bourso.pm - Added Europe and France back as failover methods
+  - Tradeville.pm - Changed hostname in URL to tradeville.ro, and added logic
+    to better account for the symbol not being found
+  - YahooJSON.pm - Account for symbols with '&' (GH#202)
+  - Minor change to isoTime function in Quote.pm
+  - TSP.pm - Update URL and handling of dates (GH#227)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

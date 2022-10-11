@@ -3,7 +3,7 @@
 
 Name:           marker
 Version:        0.0.%{vergit}
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        GTK 3 markdown editor
 
 # The entire source code is GPLv3+ except:
@@ -64,8 +64,10 @@ Source0:        %{url}/releases/download/%{vergit}/%{name}.zip#/%{name}-%{versio
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  intltool
+BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
+
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-3.0)
 BuildRequires:  pkgconfig(gtkspell3-3.0)
@@ -145,39 +147,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2020.04.04-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2020.04.04-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2020.04.04-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2020.04.04-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Sep  2 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.2020.04.04-3
-- Remove old LTO macros
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2020.04.04-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Apr 04 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.0.2020.04.04-1
-- Update to 2020.04.04
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2019.11.06-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jan 04 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2019.11.06-5
-- Switch to release tarballs
-- Provides all bundled components
-
-* Tue Dec 10 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 2019.11.06-1.20191210git49a7e14
-- Update to 2019.11.06
-
-* Tue Apr 30 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 2018.07.03-1.20190430gitc0f8c7e
-- Update to latest snapshot
-
-* Fri Apr 05 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 2018.07.03-3.20190227gited56a04
-- Initial package
+%autochangelog

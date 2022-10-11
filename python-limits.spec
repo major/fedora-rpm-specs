@@ -5,8 +5,20 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
+%if 0%{?fc35}
+# python3dist(sphinx-autobuild), python3dist(sphinx-copybutton), and
+# python3dist(sphinx-inline-tabs) are missing or too old
+%bcond_with doc_pdf
+%else
 %bcond_without doc_pdf
+%endif
 
+%if 0%{?fc36} || 0%{?fc35}
+# python3dist(redis) is too old
+%bcond_with redis
+%else
+%bcond_without redis
+%endif
 # Missing python3dist(coredis), python3dist(coredis[hiredis])
 %bcond_with async_redis
 # Missing python3dist(emcache)
@@ -22,19 +34,14 @@ limiting with commonly used storage backends
 (Redis, Memcached & MongoDB).}
 
 Name:           python-%{pypi_name}
-Version:        2.6.3
-Release:        2%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Utilities to implement rate limiting using various strategies
 
+# SPDX
 License:        MIT
 URL:            https://github.com/alisaifee/%{pypi_name}
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Update documentation dependencies
-#
-# - Switch from sphinx_panels -> sphinx_inline_tabs
-# - Upgrade to sphinx 5
-Patch:          %{url}/commit/9e85aea3e6a01b7ee2630099cd5365f24d101fd6.patch
 
 BuildArch:      noarch
 
@@ -47,6 +54,7 @@ BuildRequires:  python3-devel
 
 %description -n python3-%{pypi_name} %_description
 
+%if ! 0%{?fc35}
 %package doc
 Summary:        %{summary}
 
@@ -58,8 +66,9 @@ BuildRequires:  latexmk
 
 %description doc
 Documentation for %{name}.
+%endif
 
-%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb}
+%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
 %pyproject_extras_subpkg -n python3-%{pypi_name} all
 %endif
 %if %{with async_redis}
@@ -71,10 +80,13 @@ Documentation for %{name}.
 %if %{with async_mongodb}
 %pyproject_extras_subpkg -n python3-%{pypi_name} async-mongodb
 %endif
-%pyproject_extras_subpkg -n python3-%{pypi_name} redis rediscluster memcached mongodb
+%if %{with redis}
+%pyproject_extras_subpkg -n python3-%{pypi_name} redis rediscluster
+%endif
+%pyproject_extras_subpkg -n python3-%{pypi_name} memcached mongodb
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version}
 rm -fv poetry.lock
 # We only need to generate the *additional* requirements for testing.  Also, we
 # should patch out linting and coverage dependencies
@@ -85,26 +97,29 @@ sed -r -i '/^[[:blank:]]*(--cov|-K)\b/d' pytest.ini
 %if %{without hiro}
 sed -r -i '/^[[:blank:]]*(hiro)/d' requirements/test-filtered.txt
 %endif
+%if %{without redis}
+# If we don’t have a new enough redis, we won’t need the extra fixtures for it:
+sed -r -i 's/^import redis/# &/' tests/conftest.py
+%endif
 # Allow newer versions of doc dependencies.
 #
-# Drop unused and possibly unpackageable
-# (https://bugzilla.redhat.com/show_bug.cgi?id=1910798) HTML theme.
+# Drop unused “furo” HTML theme.
 #
 # Missing dependencies (but we can build documentation anyway):
 # - python3dist(sphinx-paramlinks)
-#
-# For now, tolerate Sphinx 4 in addition to the Sphinx 5 desired by upstream;
-# the python-sphinx package will catch up shortly.
 sed -r -e 's/==/>=/' \
     -e '/^[[:blank:]]*(furo|sphinx-paramlinks)/d' \
-    -e 's/(Sphinx>=)5/\14/' \
     requirements/docs.txt | tee requirements/docs-filtered.txt
+%if 0%{?fc36} || 0%{?fc35}
+# Tolerate Sphinx 4 in addition to the Sphinx 5 desired by upstream.
+sed -r -i -e 's/(Sphinx>=)5/\14/' requirements/docs-filtered.txt
+%endif
 sed -r -i '/(paramlinks)/d' doc/source/conf.py
 # Cannot use remote intersphinx inventories in offline build:
 echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
 
 %generate_buildrequires
-%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb}
+%if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
 %pyproject_buildrequires -x all %{?with_tests:requirements/test-filtered.txt}
 %else
 %{pyproject_buildrequires \
@@ -113,8 +128,7 @@ echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
   %{?with_async_redis:-x async-redis} \
   %{?with_async_memcached:-x async-memcached} \
   %{?with_async_mongodb:-x async-mongodb} \
-  -x redis \
-  -x rediscluster \
+  %{?with_redis:-x redis -x rediscluster} \
   -x memcached \
   -x mongodb}
 %endif
@@ -137,6 +151,12 @@ echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
 ignore="${ignore-} --ignore=tests/storage/test_memory.py"
 ignore="${ignore-} --ignore=tests/aio/storage/test_memory.py"
 %endif
+%if %{without redis}
+# We cannot import these at all:
+ignore="${ignore-} --ignore=tests/storage/test_redis.py"
+ignore="${ignore-} --ignore=tests/storage/test_redis_cluster.py"
+ignore="${ignore-} --ignore=tests/storage/test_redis_sentinel.py"
+%endif
 # The deselected tests generally require various servers and/or Docker.
 m='not integration'
 m="${m-}${m+ and }not redis"
@@ -153,14 +173,21 @@ m="${m-}${m+ and }not memcached"
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 
+%if ! 0%{?fc35}
 %files doc
 %license LICENSE.txt
 %if %{with doc_pdf}
 %doc doc/build/latex/%{pypi_name}.pdf
 %endif
+%endif
 
 
 %changelog
+* Sun Oct 09 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
+- Support F36 and F35 (close RHBZ#2133279)
+- Don’t loosen Sphinx version bound on releases where we don’t have to do so
+- Update to 2.7.0 (close RHBZ#2107863)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

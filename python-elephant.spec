@@ -15,6 +15,10 @@ Source0:    %{pypi_source elephant}
 # https://github.com/sanjayankur31/elephant/tree/fedora-0.11.1
 Patch0:     0001-use-fedora-build-flags.patch
 
+# python-pyedflib does not support s390x, so the complete dep tree needs to also exclude it
+# https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
+ExcludeArch: s390x
+
 # Includes a modified copy of fim, so we cannot use the system copy of pyfim.
 # https://github.com/NeuralEnsemble/elephant/issues/471#issuecomment-1098908479
 

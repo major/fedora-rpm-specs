@@ -106,7 +106,9 @@ BuildRequires: suil-devel  >= 0.10.6
 Requires:      portaudio%{?_isa} >= 19-16
 
 # We force the GDK backend to be X11 in the launcher, so we need to ensure we have Xwayland available
+%if !0%{?flatpak}
 Requires:      xorg-x11-server-Xwayland
+%endif
 
 ExcludeArch: s390x
 

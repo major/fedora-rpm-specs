@@ -388,12 +388,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %check
-# Check fails since we don't support most video
-# read/write capability and we don't provide a display
-# ARGS=-V increases output verbosity
 #ifnarch ppc64
 %if %{with tests}
-    cp %SOURCE5 .
+    cp %SOURCE5 %{__cmake_builddir}
     if [ -x /usr/libexec/Xorg ]; then
        Xorg=/usr/libexec/Xorg
     else
@@ -401,7 +398,8 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
     fi
     $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
     export DISPLAY=:99
-    LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/build/lib:$LD_LIBARY_PATH %ctest || :
+    export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
+    %ctest || :
 %endif
 #endif
 
