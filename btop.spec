@@ -1,5 +1,5 @@
 Name:           btop
-Version:        1.2.9
+Version:        1.2.12
 Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Mon Oct 10 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.12-1
+- update to 1.2.12 (rhbz#2133121)
+
 * Mon Aug 29 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.9-1
 - update to 1.2.9
 - rhbz#2122053

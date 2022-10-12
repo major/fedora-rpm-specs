@@ -2,7 +2,7 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
 Version: 6.5.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/467/aqbanking-%{version}.tar.gz
 License: GPLv2 or GPLv3
@@ -19,6 +19,7 @@ BuildRequires: cmake
 # bug in xmlscec1
 BuildRequires: xmlsec1-gnutls, xmlsec1-gcrypt
 BuildRequires: make
+Requires: libchipcard
 Obsoletes: aqhbci <= 1.0.3
 Obsoletes: g2banking < 3.7.2-1 
 Obsoletes: qbanking < 5.0
@@ -117,6 +118,9 @@ make check ||:
 
 
 %changelog
+* Mon Oct 10 2022 Gwyn Ciesla <gwync@protonmail.com> - 6.5.3-2
+- Enable libchipcard.
+
 * Thu Aug 11 2022 Gwyn Ciesla <gwync@protonmail.com> - 6.5.3-1
 - 6.5.3
 

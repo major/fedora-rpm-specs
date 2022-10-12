@@ -23,7 +23,7 @@ Source2:        gpgkey-463293E4AE33871846F30227B321F203110FCAF3.gpg
 Patch0:         gscan2pdf-2.9.0-Do-not-warn-about-missing-pdftk.patch
 # Replace copies of gscan2pdf.svg with links, not upstreamable
 Patch1:         gscan2pdf-2.12.7-Symlink-gscan2pdf.svg-files.patch
-# Adapt tests to ffmpeg-5.1, proposed to the upstream,
+# Adapt tests to ffmpeg-5.1, in upstream after 2.12.8,
 # <https://sourceforge.net/p/gscan2pdf/bugs/404/>
 Patch2:         gscan2pdf-2.12.8-Ignore-unpaper-warnings-from-ffmpeg-5.1.patch
 BuildArch:      noarch

@@ -15,10 +15,12 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 0.27.0
+%global built_tag v0.27.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{repo}
-Version: 0.27.0
+Version: %{gen_version}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 Release: %autorelease
 %else
@@ -27,7 +29,10 @@ Release: 1%{?dist}
 Summary: Convert code into runnable images
 License: ASL 2.0 and BSD and ISC and MIT
 URL: %{git0}
-Source0: v%{built_tag_strip}-vendor.tar.gz
+## On the upstream repo, run:
+# git checkout %%{built_tag} && go mod vendor && git add vendor/* && \
+# git archive --prefix=%%{name}-%%{version}/ -o %%{built_tag}-vendor.tar.gz HEAD
+Source0: %{built_tag}-vendor.tar.gz
 BuildRequires: golang
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: go-rpm-macros
@@ -111,7 +116,7 @@ Provides: bundled(golang(github.com/xanzy/ssh_agent)) = v0.3.0
 for Cloud Native Buildpacks.
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit -n %{name}-%{built_tag_strip}
 
 %build
 export GOPATH=$(pwd)/_build:$(pwd)

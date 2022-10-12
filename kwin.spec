@@ -63,6 +63,8 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libxkbcommon-devel
+# Uncomment for > 5.27.0 release as it's a new dependency
+#BuildRequires:  libxkbcommon-x11-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libxcb-devel

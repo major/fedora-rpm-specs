@@ -1,33 +1,19 @@
 # Required for the plugin directory name, see https://github.com/OpenImageIO/oiio/issues/2583
 %global oiio_major_minor_ver %(rpm -q --queryformat='%%{version}' OpenImageIO-devel | cut -d . -f 1-2)
 #%%global prerelease -RC1
-%bcond_without	materialx
 %bcond_without  qt5
 
 Name:           openshadinglanguage
-Version:        1.11.17.0
+Version:        1.12.6.2
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD
-URL:            https://github.com/imageworks/OpenShadingLanguage
-Source0:        %{url}/archive/Release-%{version}%{?prerelease}.tar.gz
+URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
+Source:        %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 
-# Backport upstream commit 9cfca9397b974f00bcc0915a4661be19e2e6e820:
-#
-#   Support for LLVM 14 (#1492)
-#
-#   API changes we had to take into account:
-#   * TargetRegistry.h location
-#   * No more DisableTailCalls field in PassManagerBuilder.
-#
-#   Needed to update the ref image for render-microfacet test, some sparklies
-#   changed.  Looks like the new LLVM probably JITs to ever so slightly
-#   different math code, tickling some LSB differences that at 1 sample per
-#   pixel, results in some different sampling directions leading to fireflies.
-#   We decided to just commit a new ref image and move on.
-#
-#   Signed-off-by: Larry Gritz <lg@larrygritz.com>
-Patch:          0001-Support-for-LLVM-14-1492.patch
+# include the immintrin.h header only when needed
+# https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/pull/1605
+Patch:		0001-%{name}-nonsimd-arch.patch
 
 # Required for %%autosetup -S git, which in turn is required to use a patch
 # from git containing a binary diff.
@@ -42,23 +28,12 @@ BuildRequires:  gcc-c++ >= 6.1
 BuildRequires:  llvm-devel > 7
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
-%if 0%{?fedora} < 35
-BuildRequires:  pkgconfig(IlmBase) >= 2.0
-%else
 BuildRequires:  pkgconfig(Imath) >= 2.0
-%endif
 BuildRequires:  pkgconfig(OpenImageIO) >= 2.1
 BuildRequires:  pkgconfig(pugixml)
 
 # For osltoy
-%if %{with qt5}
-# Broken in Fedora 34
-# /usr/bin/ld: /usr/lib64/libLLVM-12.so: error adding symbols: DSO missing from command line
-# https://bugzilla.redhat.com/show_bug.cgi?id=2001177
-%if 0%{?fedora} != 34
 BuildRequires:  pkgconfig(Qt5) >= 5.6
-%endif
-%endif
 BuildRequires:  pkgconfig(zlib)
 
 # 64 bit only
@@ -80,22 +55,6 @@ Open Shading Language (OSL) is a language for programmable shading
 in advanced renderers and other applications, ideal for describing
 materials, lights, displacement, and pattern generation.
 This package contains documentation.
-
-%if %{with materialx}
-%package MaterialX-shaders-source
-Summary:        MaterialX shader nodes
-License:        BSD
-BuildArch:      noarch
-Requires:       %{name} = %{version}-%{release}
-Requires:       %{name}-common-headers
-
-%description MaterialX-shaders-source
-Open Shading Language (OSL) is a language for programmable shading
-in advanced renderers and other applications, ideal for describing
-materials, lights, displacement, and pattern generation.
-
-This package contains the code for the MaterialX shader nodes.
-%endif
 
 %package example-shaders-source
 Summary:        OSL shader examples
@@ -166,7 +125,7 @@ BuildRequires:  python3dist(numpy)
 %{description}
 
 %prep
-%autosetup -p1 -n OpenShadingLanguage-Release-%{version}%{?prerelease} -S git
+%autosetup -p1 -n OpenShadingLanguage-%{version}%{?prerelease} -S git
 # Use python3 binary instead of unversioned python
 sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
 
@@ -176,13 +135,11 @@ sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
    -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir}/%{name} \
    -DCMAKE_SKIP_RPATH=TRUE \
    -DCMAKE_SKIP_INSTALL_RPATH=YES \
-%if %{with materialx}
-   -DOSL_BUILD_MATERIALX:BOOL=ON \
-%endif
+   -DLLVM_STATIC=0 \
    -DOSL_SHADER_INSTALL_DIR:PATH=%{_datadir}/%{name}/shaders/ \
    -Dpartio_DIR=%{_prefix} \
    -DPARTIO_INCLUDE_DIR=%{_includedir} \
-   -DPARTIO_LIBRARIES=%{_libdir} \
+   -DPARTIO_LIBRARIES=%{_libdir}/libpartio.so \
    -DPYTHON_VERSION=%{python3_version} \
    -DSTOP_ON_WARNING=OFF 
 %cmake_build
@@ -200,9 +157,7 @@ mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oi
 %{_bindir}/oslc
 %{_bindir}/oslinfo
 %if %{with qt5}
-%if 0%{?fedora} != 34
 %{_bindir}/osltoy
-%endif
 %endif
 %{_bindir}/testrender
 %{_bindir}/testshade
@@ -210,11 +165,6 @@ mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oi
 
 %files doc
 %doc %{_docdir}/%{name}/
-
-%if %{with materialx}
-%files MaterialX-shaders-source
-%{_datadir}/%{name}/shaders/MaterialX
-%endif
 
 %files example-shaders-source
 %{_datadir}/%{name}/shaders/*.osl
@@ -233,9 +183,6 @@ mv %{buildroot}%{_libdir}/osl.imageio.so %{buildroot}%{_libdir}/OpenImageIO-%{oi
 %files libs
 %license LICENSE.md
 %{_libdir}/libosl*.so.1*
-%if 0%{?fedora} < 32
-%{_libdir}/osl*.so.1*
-%endif
 %{_libdir}/libtestshade.so.1*
 
 %files devel

@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Library and utilities for automated guest OS installs
 License: LGPLv2
 URL:     http://github.com/clalancette/oz
@@ -11,6 +11,9 @@ Source0: https://github.com/clalancette/%{name}/archive/v%{version}/%{name}-%{ve
 # https://bugzilla.redhat.com/show_bug.cgi?id=2057600
 # https://github.com/clalancette/oz/pull/297
 Patch0: 0001-Revert-Don-t-write-kickstart-so-initial-setup-won-t-.patch
+
+# Upstream patch to enable the usb controller for aarch64
+Patch1: 0001-Enable-USB-controller-and-keyboard-for-aarch64-for-a.patch
 
 BuildArch: noarch
 
@@ -89,6 +92,9 @@ fi
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Mon Oct 03 2022 Stephen Gallagher <sgallagh@redhat.com> - 0.18.1-5
+- Backport upstream patch to enable the USB controller on aarch64
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,15 +15,20 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 0.12.0
+%global built_tag v0.12.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{repo}
-Version: 0.12.0
+Version: %{gen_version}
 Release: %autorelease
 Summary: Fast container image distribution plugin with lazy pulling
 License: ASL 2.0 and BSD and ISC and MIT and MPLv2.0
 URL: %{git0}
-Source0: v%{built_tag_strip}-vendor.tar.gz
+## On the upstream repo, run:
+# git checkout %%{built_tag} && cd cmd/ && go mod vendor && git add vendor/* && \
+# cd .. && git archive --prefix=%%{name}-%%{version}/ -o %%{built_tag}-vendor.tar.gz HEAD
+Source0: %{built_tag}-vendor.tar.gz
 BuildRequires: golang
 BuildRequires: go-rpm-macros
 BuildRequires: git
@@ -57,7 +62,7 @@ Provides: bundled(golang(k8s.io/cri_api)) = v0.24.0_alpha.3
 %{summary}
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit -n %{name}-%{built_tag_strip}
 
 %build
 # FIXME: It would be ideal to set CGO_CFLAGS this way as it's much easier to maintain

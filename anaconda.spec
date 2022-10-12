@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.5
+Version: 38.6
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -41,7 +41,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.43-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.5.0-1
+%define pythonblivetver 1:3.6.0-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.26
@@ -98,7 +98,6 @@ Requires: python3-kickstart >= %{pykickstartver}
 Requires: python3-langtable >= %{langtablever}
 Requires: util-linux >= %{utillinuxver}
 Requires: python3-gobject-base
-Requires: python3-dbus
 Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-productmd
@@ -196,8 +195,6 @@ Requires: hfsplus-tools
 %ifnarch riscv64
 Requires: kexec-tools
 %endif
-# needed for proper driver disk support - if RPMs must be installed, a repo is needed
-Requires: createrepo_c
 # run's on TTY1 in install env
 Requires: tmux
 # install time crash handling
@@ -219,11 +216,6 @@ Requires: anaconda-install-env-deps = %{version}-%{release}
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
-%ifarch %{ix86} x86_64
-%if ! 0%{?rhel}
-Requires: hfsplus-tools
-%endif
-%endif
 # only WeakRequires elsewhere and not guaranteed to be present
 Requires: device-mapper-multipath
 %if ! 0%{?rhel}
@@ -231,6 +223,8 @@ Requires: zram-generator-defaults
 %else
 Requires: zram-generator
 %endif
+# needed for proper driver disk support - if RPMs must be installed, a repo is needed
+Requires: createrepo_c
 # Display stuff moved from lorax templates
 Requires: xorg-x11-drivers
 Requires: xorg-x11-server-Xorg
@@ -469,6 +463,34 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 10 2022 Packit <hello@packit.dev> - 38.6-1
+- Remove bogus dependency on python3-dbus (vslavik)
+- Fix a few typos in release document (rvykydal)
+- Make driver disk code run only on boot.iso (vslavik)
+- Call the Blivet.copy method (vponcova)
+- Web UI: Make context help reusable (ozobal)
+- Fix Web UI VM startup on F37 (mkolman)
+- Don't duplicate dependency on hfsplus-tools (vslavik)
+- Move createrepo_c to anaconda-img-deps (vslavik)
+- Use faulthandler instead of isys signal handlers (vslavik)
+- Fix duplicate alt-D accelerator on root account screen (jeremy.linton)
+- Add minimal_memory_needed to hw module (vslavik)
+- Use more specific imports in startup_utils (vslavik)
+- Use total_memory() from blivet.util instead of ours (vslavik)
+- Move storage constraints setting to a helper (vslavik)
+- Add tests for is_smt_enabled (vslavik)
+- Move some functions from util to hw (vslavik)
+- Move memory-related things from isys to new module (vslavik)
+- infra: bump pylint from 2.15.2 to 2.15.3 in /dockerfile (49699333+dependabot[bot])
+- infra: bump @patternfly/patternfly from 4.210.2 to 4.215.1 in /ui/webui (49699333+dependabot[bot])
+- Use existing locale in welcome spoke (vslavik)
+- Apply geolocation in main process (vslavik)
+- infra: bump astroid from 2.12.9 to 2.12.10 in /dockerfile (49699333+dependabot[bot])
+- infra: bump @patternfly/react-core from 4.224.1 to 4.239.0 in /ui/webui (49699333+dependabot[bot])
+- Add back waiting for geolocation (vslavik)
+- Add wait_for_task() to wait for a Task with timeout (vslavik)
+- dracut: handle compressed kernel modules (m.novosyolov)
+
 * Mon Sep 19 2022 Packit <hello@packit.dev> - 38.5-1
 - Do not require the anaconda-webui package (mkolman)
 - Document how to fix NPM cache issues in Cockpit CI (mkolman)

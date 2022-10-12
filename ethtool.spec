@@ -1,7 +1,7 @@
 Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
-Version:        5.19
+Version:        6.0
 Release:        1%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Oct 11 2022 Robert Scheck <robert@fedoraproject.org> - 2:6.0-1
+- Upgrade to 6.0 (#2133539)
+
 * Tue Aug 23 2022 Robert Scheck <robert@fedoraproject.org> - 2:5.19-1
 - Upgrade to 5.19 (#2120144)
 

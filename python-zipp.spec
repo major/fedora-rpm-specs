@@ -1,8 +1,8 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.8.1
-Release:        2%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
 License:        MIT
@@ -12,7 +12,10 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+# Not using test dependencies because the list
+# is full of linters and static code checkers
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(jaraco-functools)
 
 %description
 A pathlib-compatible Zipfile object wrapper. A backport of the Path object.
@@ -51,6 +54,10 @@ sed -i "/func_timeout/d" test_zipp.py
 %doc README.rst
 
 %changelog
+* Sun Oct 09 2022 Lumír Balhar <lbalhar@redhat.com> - 3.9.0-1
+- Update to 3.9.0
+Resolves: rhbz#2133213
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

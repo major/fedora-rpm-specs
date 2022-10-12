@@ -8,8 +8,8 @@ design matrices. It is closely inspired by and compatible with
 the 'formula' mini-language used in R and S.}
 
 Name: python-%{srcname}
-Version: 0.5.2
-Release: 5%{?dist}
+Version: 0.5.3
+Release: 1%{?dist}
 Summary: Describing statistical models in Python using symbolic formulas
 # All code is under BSD except patsy.compat that is under Python
 # See LICENSE.txt for details
@@ -25,12 +25,6 @@ Patch2: patsy-print-doc.patch
 # The contour routine emits a warning with numpy 1.9
 Patch4: patsy-warn-doc.patch
 Patch5: patsy-doc-conf.patch
-# Handle dropped future features
-# https://github.com/pydata/patsy/pull/187
-#   Fixes:
-# Importing patsy.eval fails on Python 3.11
-# https://github.com/pydata/patsy/issues/186
-Patch6: %{url}/pull/187.patch
 
 BuildArch: noarch
 BuildRequires: make
@@ -106,6 +100,9 @@ popd
 %license LICENSE.txt
 
 %changelog
+* Mon Oct 10 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.3-1
+- Update to 0.5.3 (close RHBZ#2133307)
+
 * Tue Aug 02 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.2-5
 - Fix RHBZ#2113642 by backporting upstream PR#187
 

@@ -2,7 +2,7 @@
 %global _lto_cflags %{nil}
 
 Name:           imhex
-Version:        1.23.2
+Version:        1.24.2
 Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
@@ -131,6 +131,15 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Mon Oct 10 2022 Jonathan Wright <jonathan@almalinux.org> - 1.24.2-1
+- update to 1.24.2
+
+* Mon Oct 10 2022 Jonathan Wright <jonathan@almalinux.org> - 1.24.1-1
+- update to 1.24.1
+
+* Mon Oct 10 2022 Jonathan Wright <jonathan@almalinux.org> - 1.24.0-1
+- Update to 1.24.0 rhbz#2133163
+
 * Sat Sep 17 2022 Jonathan Wright <jonathan@almalinux.org> - 1.23.2-1
 - Update to 1.23.2 rhbz#2127614
 

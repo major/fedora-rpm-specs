@@ -1,8 +1,8 @@
 Name:           perl-MCE
-Version:        1.879
-Release:        3%{?dist}
+Version:        1.880
+Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARIOROY/MCE-%{version}.tar.gz
 Patch0:         MCE-1.818-Fix-sharp-bang-line.patch
@@ -170,6 +170,14 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 1.880-1
+- Update to 1.880 (rhbz#2133410)
+  - Improved reliability on the Windows platform
+  - Improved MCE::Mutex::Channel::timedwait on the Windows platform
+  - Improved MCE::Mutex::Channel performance on UNIX platforms
+  - Resolved edge case in MCE::Child reaching deadlock
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.879-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

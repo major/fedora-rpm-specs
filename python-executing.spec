@@ -1,5 +1,5 @@
 Name:           python-executing
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
@@ -7,7 +7,6 @@ License:        MIT
 URL:            https://github.com/alexmojaki/executing
 # The package uses setuptools_scm, GitHub tarball will not work
 Source0:        %{pypi_source executing}
-Patch:          https://github.com/alexmojaki/executing/pull/54.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -51,6 +50,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Oct 09 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-1
+- Update to 1.1.1
+Resolves: rhbz#2133192
+
 * Mon Sep 26 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.0-1
 - Update to 1.1.0
 Resolves: rhbz#2110285

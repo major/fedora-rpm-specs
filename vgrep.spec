@@ -1,6 +1,6 @@
 # https://github.com/vrothberg/vgrep
 %global goipath         github.com/vrothberg/vgrep
-Version:                2.6.0
+Version:                2.6.1
 
 %gometa
 
@@ -23,6 +23,7 @@ License:        GPLv3
 URL:            %{gourl}
 Source0:        %{gosource}
 
+BuildRequires:  golang(github.com/google/shlex)
 BuildRequires:  golang(github.com/jessevdk/go-flags)
 BuildRequires:  golang(github.com/json-iterator/go)
 BuildRequires:  golang(github.com/mattn/go-shellwords)

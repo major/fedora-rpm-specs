@@ -1,7 +1,7 @@
 %global pypi_name steam
 
 Name:       python-%{pypi_name}
-Version:    1.4.1
+Version:    1.4.3
 Release:    %autorelease
 Summary:    Python package for interacting with Steam
 BuildArch:  noarch

@@ -9,13 +9,13 @@
 
 
 #global prever b1
-#global patchver P1
+%global patchver P1
 %global DHCPVERSION %{version}%{?prever}%{?patchver:-%{patchver}}
 
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  3%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  4%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
@@ -209,7 +209,7 @@ ISC DHCP configurations to Kea.
 %endif
 %setup -n dhcp-%{DHCPVERSION}
 pushd bind
-tar -xvf bind.tar.gz
+tar -xf bind.tar.gz
 ln -s bind-9* bind
 popd
 %autopatch -p1 
@@ -535,6 +535,11 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Wed Oct 05 2022 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-4.P1
+- New version 4.4.3-P1 (rhbz#2132240)
+- Fix for CVE-2022-2928 (rhbz#2132429)
+- Fix for CVE-2022-2929 (rhbz#2132430)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 12:4.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    skrooge
 Summary: Personal finances manager
-Version: 2.26.1
-Release: 7%{?dist}
+Version: 2.28.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://skrooge.org
@@ -45,12 +45,18 @@ BuildRequires: pkgconfig(Qt5Designer)
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Script)
 BuildRequires: pkgconfig(Qt5Svg)
-# Does support WebEngine, should consider enabling that soon -- rex
-BuildRequires: pkgconfig(Qt5WebKitWidgets)
+
+#if 0%{?qt5_qtwebengine_arches:1}
+#ifarch %{qt5_qtwebengine_arches}
+#global qtwebengine 1
+#uildRequires: pkgconfig(Qt5WebEngine)
+#else
+BuildRequires: pkgconfig(Qt5WebKit)
+#endif
+#endif
 
 # I think due to custom sqlcipher plugin -- rex
 BuildRequires: qt5-qtbase-private-devel
-
 
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(sqlcipher)
@@ -81,7 +87,9 @@ Requires: %{name} = %{version}-%{release}
 %build
 %cmake_kf5 \
   -Wno-dev \
-  -DCMAKE_BUILD_TYPE:STRING="Release"
+  -DCMAKE_BUILD_TYPE:STRING="Release" \
+  %{?qtwebengine:-DSKG_WEBENGINE:BOOL=ON -DSKG_WEBKIT:BOOL=OFF} \
+  %{!?qtwebengine: -DSKG_WEBENGINE:BOOL=OFF -DSKG_WEBKIT:BOOL=ON}
 
 %cmake_build
 
@@ -101,9 +109,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.skrooge.d
 
 
 %files -f %{name}.lang
-%doc AUTHORS CHANGELOG README
+%doc AUTHORS CHANGELOG README.md
 %license COPYING
-%{_kf5_sysconfdir}/xdg/skrooge_unit.knsrc
+%{_kf5_datadir}/knsrcfiles/skrooge_unit.knsrc
 %{_kf5_bindir}/skrooge*
 %{_kf5_metainfodir}/org.kde.skrooge.appdata.xml
 %{_kf5_datadir}/applications/org.kde.skrooge.desktop
@@ -137,6 +145,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.skrooge.d
 
 
 %changelog
+* Mon Oct 10 2022 Rex Dieter <rdieter@gmail.com> - 2.28.0-1
+- 2.28.0
+
 * Mon Aug 29 2022 Carl George <carl@george.computer> - 2.26.1-7
 - Rebuild for sqlcipher soname bump
 

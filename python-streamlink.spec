@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is ASL 2.0
@@ -27,7 +27,6 @@ Patch3:         %{name}-3.0.0-python3.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  make
-Recommends:     /usr/bin/ffmpeg
 BuildArch:      noarch
 
 %description
@@ -37,6 +36,7 @@ BuildArch:      noarch
 %package -n python3-%{srcname}
 Summary:        %{summary}
 Provides:       %{srcname} = %{version}-%{release}
+Recommends:     /usr/bin/ffmpeg
 
 %description -n python3-%{srcname}
 %{_description}
@@ -106,6 +106,9 @@ TZ=UTC %pytest
 
 
 %changelog
+* Mon Oct 10 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.0.1-2
+- Fix Recommends on ffmpeg
+
 * Tue Sep 27 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 5.0.1-1
 - Update to 5.0.1
 

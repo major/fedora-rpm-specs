@@ -1,9 +1,9 @@
 Name:		distribution-gpg-keys
-Version:	1.77
+Version:	1.78
 Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
-License:	CC0
+License:	CC0-1.0
 URL:		https://github.com/xsuchy/distribution-gpg-keys
 # Sources can be obtained by
 # git clone git://github.com/xsuchy/distribution-gpg-keys.git
@@ -53,6 +53,10 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
+* Mon Oct 10 2022 Miroslav Suchý <msuchy@redhat.com> 1.78-1
+- update copr keys
+- change license to spdx
+
 * Sun Aug 28 2022 Miroslav Suchý <msuchy@redhat.com> 1.77-1
 - Add openEuler GPG Key
 - update copr keys

@@ -1,19 +1,24 @@
-%global commit  995b108c894970306efcba1d8e70ded50e76f1d3
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20180501
 %global pname   skinenigmang
+# version we want build against
+%global vdr_version 2.4.0
+%if 0%{?fedora} >= 36
+%global vdr_version 2.6.1
+%endif
+%if 0%{?fedora} == 35
+%global vdr_version 2.4.7
+%endif
 
 Name:           vdr-%{pname}
-Version:        0.1.3
-Release:        23.%{gitdate}git%{shortcommit}%{?dist}
+Version:        0.1.4
+Release:        1%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL+
-URL:            http://andreas.vdr-developer.org/enigmang/
-Source0:        http://projects.vdr-developer.org/git/vdr-plugin-skinenigmang.git/snapshot/vdr-plugin-skinenigmang-%{commit}.tar.bz2
+URL:            https://github.com/vdr-projects/vdr-plugin-skinenigmang
+Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{pname}-%{version}.tar.gz
 Source1:        http://andreas.vdr-developer.org/enigmang/download/skinenigmang-logos-xpm-hi-20070702.tgz
 Source2:        %{name}.conf
-Patch0:         %{name}-0.1.3-config.patch
+Patch0:         %{name}-config.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -26,20 +31,19 @@ Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 VDR plugin: %{pname} - %{summary}
  
 %prep
-%setup -qn vdr-plugin-skinenigmang-%{commit} -a 1
+%autosetup -p1 -n vdr-plugin-skinenigmang-%{version} -a 1
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 mv skinenigmang/HISTORY HISTORY.logos
 mv skinenigmang/README README.logos
-%patch0 -p1
 
 %build
-%make_build LIBDIR=. LOCALEDIR=./locale VDRDIR=%{_libdir}/vdr \
-    HAVE_IMAGEMAGICK=GRAPHICS
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" \
+   HAVE_IMAGEMAGICK=GRAPHICS
 
 %install
 install -dm 755 $RPM_BUILD_ROOT%{vdr_plugindir}
-install -pm 755 libvdr-%{pname}.so.%{vdr_apiversion} \
-    $RPM_BUILD_ROOT%{vdr_plugindir}
+install -pm 755 libvdr-%{pname}.so \
+    $RPM_BUILD_ROOT%{vdr_plugindir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 # skinenigmang.conf
 install -Dpm 644 %{SOURCE2} \
@@ -53,12 +57,7 @@ install -pm 644 themes/*.theme $RPM_BUILD_ROOT%{vdr_vardir}/themes
 install -dm 755 $RPM_BUILD_ROOT%{vdr_resdir}
 cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 
-# Locale
-install -dm 755 $RPM_BUILD_ROOT%{_datadir}/locale
-cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
-%find_lang %{name}
-
-%files -f %{name}.lang
+%files
 %doc COPYING HISTORY* README*
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
@@ -67,6 +66,10 @@ cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 %{vdr_resdir}/icons
 
 %changelog
+* Mon Oct 10 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.1.4-1
+- Update to new URL
+- Update to 0.1.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-23.20180501git995b108
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,11 +1,31 @@
-%global snap 20210910
-%global dir_snap 20210910
+%global snap 20221009
+%global dir_snap 20221009
 
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	42.%{snap}cvs%{?dist}
-License:	BSD
+Release:	43.%{snap}cvs%{?dist}
+
+# The project as a whole is BSD-3-Clause.
+# These files are BSD-2-Clause:
+# - doc/editline.3.roff
+# - doc/editrc.5.roff
+# - src/chartype.{c,h}
+# - src/editline/readline.h
+# - src/eln.c
+# - src/filecomplete.{c,h}
+# - src/getline.c [not linked into final library]
+# - src/literal.{c,h}
+# - src/read.h
+# - src/readline.c
+# - src/reallocarr.c
+# This file is both BSD-3-Clause and BSD-2-Clause:
+# - src/vis.c
+# These files are ISC:
+# - doc/editline.7.roff
+# - src/strlcat.c
+# - src/strlcpy.c
+License:	BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:		https://www.thrysoee.dk/editline/
 Source0:	https://www.thrysoee.dk/editline/%{name}-%{snap}-%{version}.tar.gz
 # Version 20210419 changes internal symbols named libedit_strlcat and
@@ -72,6 +92,10 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 %{_includedir}/editline/readline.h
 
 %changelog
+* Mon Oct 10 2022 Jerry James <loganjerry@gmail.com> - 3.1-43.20221009cvs
+- New version (20221009-3.1)
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-42.20210910cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

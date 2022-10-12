@@ -1,6 +1,6 @@
 Name:           gstreamer1-vaapi
 Version:        1.20.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer plugins to use VA API video acceleration
 
 License:        LGPLv2+
@@ -33,6 +33,8 @@ BuildRequires:  pkgconfig(wayland-cursor)  >= 1.11.0
 BuildRequires:  pkgconfig(wayland-egl)     >= 1.11.0
 BuildRequires:  pkgconfig(wayland-server)  >= 1.11.0
 %endif
+
+Requires:        mesa-va-drivers
 
 # We can't provide encoders or decoders unless we know what VA-API drivers
 # are on the system. Just filter them out, so they're not suggested by
@@ -86,6 +88,10 @@ for the GStreamer VA API video acceleration plugins
 %endif
 
 %changelog
+* Mon Oct 10 2022 Ray Strode <rstrode@redhat.com> - 1.20.3-3
+- Add requires on mesa-va-drivers
+  Related: #2123998
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

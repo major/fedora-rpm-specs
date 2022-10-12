@@ -8,7 +8,9 @@ Summary:        Documentation for the Python 3 programming language
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
 Release:        1%{?dist}
-License:        Python
+# The documentation is licensed as Python itself: Python-2.0.1
+# Examples, recipes, and other code in the documentation are dual licensed under Python-2.0.1/0BSD
+License:        Python-2.0.1 AND (Python-2.0.1 OR 0BSD)
 URL:            https://www.python.org/
 Source0:        %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
 Source1:        %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz.asc

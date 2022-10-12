@@ -5,7 +5,7 @@ License:	GPLv2
 %global		releasenum 2022-07-31a
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -23,16 +23,14 @@ Requires:	php-composer(aziraphale/email-address-validator) >= 2.0.1
 # dokuwiki relies on a certain bugfix backported into geshi/geshi,
 # hence the requirement also includes the RPM release number
 Requires:	php-composer(geshi/geshi) >= 1.0.9.1-5
+Requires:	php-composer(kissifrot/php-ixr) >= 1.8.3
 Requires:	php-composer(marcusschwarz/lesserphp) >= 0.5.5
 Requires:	php-composer(openpsa/universalfeedcreator) >= 1.8.4.1
 Requires:	php-composer(phpseclib/phpseclib) >= 2.0.31
 Requires:	php-composer(simplepie/simplepie) >= 1.5.6
-
-# TODO: Unbundle these, duh
-Provides:	bundled(php-kissifrot-php-ixr) = 1.8.3
-Provides:	bundled(php-splitbrain-php-archive) = 1.2.1
-Provides:	bundled(php-splitbrain-php-cli) = 1.1.8
-Provides:	bundled(php-splitbrain-slika) = 1.0.5
+Requires:	php-composer(splitbrain/php-archive) >= 1.2.1
+Requires:	php-composer(splitbrain/php-cli) >= 1.1.8
+Requires:	php-composer(splitbrain/slika) >= 1.0.5
 
 
 %description
@@ -60,17 +58,31 @@ Configures DokuWiki to run in SELinux enabled environments.
 
 # Remove bundled code that's available as Fedora packages
 #  email-address-validator
-rm -r vendor/aziraphale
+rm -r vendor/aziraphale/email-address-validator
+rmdir vendor/aziraphale || true
 #  geshi
-rm -r vendor/geshi
+rm -r vendor/geshi/geshi
+rmdir vendor/geshi || true
+#  kissifrot/php-ixr
+rm -r vendor/kissifrot/php-ixr
+rmdir vendor/kissifrot || true
 #  lesserphp
-rm -r vendor/marcusschwarz
+rm -r vendor/marcusschwarz/lesserphp
+rmdir vendor/marcusschwarz || true
 #  universalfeedcreator
-rm -r vendor/openpsa
+rm -r vendor/openpsa/universalfeedcreator
+rmdir vendor/openpsa || true
 #  phpseclib
-rm -r vendor/phpseclib
+rm -r vendor/phpseclib/phpseclib
+rmdir vendor/phpseclib || true
 #  simplepie
-rm -r vendor/simplepie
+rm -r vendor/simplepie/simplepie
+rmdir vendor/simplepie || true
+#  splitbrain/php-archive, splitbrain/php-cli, splitbrain/slika
+rm -r vendor/splitbrain/php-archive
+rm -r vendor/splitbrain/php-cli
+rm -r vendor/splitbrain/slika
+rmdir vendor/splitbrain || true
 
 %patch1 -p1 -b .bundled
 
@@ -217,6 +229,12 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Mon Oct 10 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20220731a-2
+- Unbundle php-splitbrain-php-archive
+- Unbundle php-splitbrain-php-cli
+- Unbundle php-splitbrain-slika
+- Unbundle php-kissifrot-php-ixr
+
 * Thu Sep 15 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20220731a-1
 - Update to latest upstream release (2022-07-31a "Igor")
 - Add minimum versions for all dependencies

@@ -1,23 +1,25 @@
 # Generated from multipart-post-1.1.2.gem by gem2rpm -*- rpm-spec -*-
 %global gem_name multipart-post
 
-Summary: Creates a multipart form post accessory for Net::HTTP
 Name: rubygem-%{gem_name}
-Version: 2.0.0
-Release: 15%{?dist}
+Version: 2.2.3
+Release: 1%{?dist}
+Summary: A multipart form post accessory for Net::HTTP
 License: MIT
-URL: http://github.com/nicksieger/multipart-post
-Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
+URL: https://github.com/socketry/multipart-post
+Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/socketry/multipart-post.git && cd multipart-post
+# git archive -v -o multipart-post-2.2.3-spec.tar.gz v2.2.3 spec/
+Source1: %{gem_name}-%{version}-spec.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(minitest)
+BuildRequires: rubygem(rspec)
 BuildArch: noarch
 
 %description
-Use with Net::HTTP to do multipart form posts.  IO values that
-have #content_type, #original_filename, and #local_path will
-be posted as a binary file.
+Adds a streamy multipart form post capability to Net::HTTP. Also supports other
+methods besides POST.
 
 
 %package doc
@@ -26,14 +28,18 @@ Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
-Documentation for %{name}
-
+Documentation for %{name}.
 
 %prep
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
+# Create the gem as gem install only works on a gem file
+gem build ../%{gem_name}-%{version}.gemspec
+
+# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
+# by default, so that we can move it into the buildroot in %%install
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -41,31 +47,18 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd %{buildroot}%{gem_instdir}
-# To run the tests using minitest 5
-ruby -rminitest/autorun -Ilib - << \EOF
-  module Kernel
-    alias orig_require require
-    remove_method :require
+pushd .%{gem_instdir}
+ln -s %{_builddir}/spec spec
 
-    def require path
-      orig_require path unless path == 'test/unit'
-    end
+# Avoid Bundler.
+sed -i '/bundler\/setup/ s/^/#/' spec/spec_helper.rb
 
-  end
-
-  Test = Minitest
-
-  Dir.glob "./test/**/test_*.rb", &method(:require)
-EOF
+rspec -rspec_helper spec
 popd
 
 %files
-%doc %{gem_instdir}/README.md
-%exclude %{gem_instdir}/.gitignore
-%exclude %{gem_instdir}/.travis.yml
-%exclude %{gem_instdir}/Gemfile
-%exclude %{gem_instdir}/%{gem_name}.gemspec
+# TODO: LICENSE file request:
+# https://github.com/socketry/multipart-post/issues/97
 %dir %{gem_instdir}
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -73,13 +66,13 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/Manifest.txt
-%doc %{gem_instdir}/History.txt
-%{gem_instdir}/Rakefile
-%{gem_instdir}/test
 
 
 %changelog
+* Mon Oct 10 2022 Vít Ondruch <vondruch@redhat.com> - 2.2.3-1
+- Upgrade to Multipart::Post 2.2.3.
+  Resolves: rhbz#1707660
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

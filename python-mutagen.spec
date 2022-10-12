@@ -3,8 +3,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-%{modname}
-Version:        1.45.1
-Release:        8%{?dist}
+Version:        1.46.0
+Release:        1%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
 License:        GPLv2+
@@ -61,11 +61,6 @@ sphinx-build -b html -n docs docs/_build
 rm -rf docs/_build/{.buildinfo,.doctrees}
 
 %check
-# Testing code quality is helpful upstream, to keep maintainability.
-# But lint and code style issues don't mean there's antyhing wrong
-# with the code.
-rm -rv tests/quality/
-
 %{__python3} setup.py test
 
 
@@ -82,6 +77,9 @@ rm -rv tests/quality/
 %doc docs/_build/*
 
 %changelog
+* Sun Oct 09 2022 Michele Baldessari <michele@acksyn.org> - 1.46.0-1
+- New upstream
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.45.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

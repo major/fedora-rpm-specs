@@ -15,16 +15,16 @@
 %bcond_with bootstrap
 
 Name:           scala
-Version:        2.13.9
+Version:        2.13.10
 Release:        1%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Used to generate OSGi data
-%global date    20220913
-%global seqnum  140622
-%global commit  986dcc160aab85298f6cab0bf8dd0345497cdc01
+%global date    20221008
+%global seqnum  124105
+%global commit  4905801fc161300ba20bae4f7adf045b1698e831
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global osgiver %{version}.v%{date}-%{seqnum}-VFINAL-%{shortcommit}
 %global majver  %(cut -d. -f1-2 <<< %{version})
@@ -96,10 +96,6 @@ BuildRequires:  scala
 %endif
 
 Requires:       %{name}-reflect = %{version}-%{release}
-Requires:       font(lato)
-Requires:       font(materialicons)
-Requires:       font(opensans)
-Requires:       font(sourcecodepro)
 Requires:       javapackages-tools
 
 # scaladoc depends on a specific version of jquery, which may differ from the
@@ -449,6 +445,10 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Mon Oct 10 2022 Jerry James <loganjerry@gmail.com> - 2.13.10-1
+- Version 2.13.10
+- Remove font dependencies from main package
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 2.13.9-1
 - Version 2.13.9
 - Drop upstreamed -difflib patch

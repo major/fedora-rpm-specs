@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    a94fdebaea6bd17f51be0c2373ab80d3d681269b
+%global gh_commit    8b6386d7417526d1ea4da9edb70b8352f7543627
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.6.4
+Version:        6.6.5
 Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
@@ -91,7 +91,7 @@ Requires:       php-pcre
 #        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
 #        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
 #        "psr/log": "For optional PSR-3 debug logging",
-#        "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
+#        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication",
 #        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
 Suggests:       php-composer(psr/log)
@@ -206,6 +206,9 @@ exit $ret
 
 
 %changelog
+* Mon Oct 10 2022 Remi Collet <remi@remirepo.net> - 6.6.5-1
+- update to 6.6.5
+
 * Tue Aug 30 2022 Remi Collet <remi@remirepo.net> - 6.6.4-1
 - update to 6.6.4
 

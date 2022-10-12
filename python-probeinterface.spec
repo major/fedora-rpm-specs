@@ -5,10 +5,11 @@
 %bcond_without doc_pdf
 
 Name:           python-probeinterface
-Version:        0.2.11
+Version:        0.2.12
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
+# SPDX
 License:        MIT
 URL:            https://github.com/SpikeInterface/probeinterface
 # The GitHub tarball has documentation, examples, and tests; the PyPI one does
@@ -24,6 +25,15 @@ Source0:        %{url}/archive/%{version}/probeinterface-%{version}.tar.gz
 Source1:        %{probe_url}/neuronexus/A1x32-Poly3-10mm-50-177/A1x32-Poly3-10mm-50-177.json
 Source2:        %{probe_url}/cambridgeneurotech/ASSY-156-P-1/ASSY-156-P-1.json
 
+# Explicitly list packages for setuptools
+# https://github.com/SpikeInterface/probeinterface/pull/134
+#
+# Fixes:
+#
+# All top-level directories installed to site-packages
+# https://github.com/SpikeInterface/probeinterface/issues/133
+Patch:          %{url}/pull/134.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -31,7 +41,6 @@ BuildRequires:  python3-devel
 %if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
-# We don’t need python3dist(sphinx-rtd-theme) since we are not producing HTML
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
@@ -89,8 +98,8 @@ Summary:        Documentation for probeinterface
 %prep
 %autosetup -n probeinterface-%{version} -p1
 
-# Do not require exact dependency versions to build documentation:
-sed -r -i 's/==/>=/' requirements_rtd.txt
+# Do not require an exact matplotlib version to build documentation:
+sed -r -i 's/(matplotlib)==/\1>=/' pyproject.toml
 
 # Pre-populate the probe definition cache
 PROBE_CACHE="${HOME}/.config/probeinterface/library"
@@ -99,7 +108,7 @@ install -t "${PROBE_CACHE}/cambridgeneurotech" -p -m 0644 -D '%{SOURCE2}'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements_test.txt %{?with_doc_pdf:requirements_rtd.txt}
+%pyproject_buildrequires -x test%{?with_doc_pdf:,docs}
 
 
 %build

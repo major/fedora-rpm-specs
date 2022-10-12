@@ -1,8 +1,8 @@
 Name:           perl-JSON
 Summary:        Parse and convert to JSON (JavaScript Object Notation)
-Version:        4.09
+Version:        4.10
 Release:        1%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JSON
 Source0:        https://cpan.metacpan.org/modules/by-module/JSON/JSON-%{version}.tar.gz
 BuildArch:      noarch
@@ -120,6 +120,11 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 4.10-1
+- Update to 4.10
+  - Updated backportPP with JSON::PP 4.12
+- Use SPDX-format license tag
+
 * Mon Aug  1 2022 Paul Howarth <paul@city-fan.org> - 4.09-1
 - Update to 4.09
   - Updated backportPP with JSON::PP 4.11

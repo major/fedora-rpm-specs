@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.65
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -38,6 +38,8 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
 Patch4:         0004-fedpkg-local-does-not-show-rpmbuild-output.patch
+Patch5:         0005-Fixes-for-exploded-SRPM-layouts.patch
+Patch6:         0006-mockbuild-escape-rpm-command-under-mock.patch
 
 %description
 Python library for interacting with rpm+git
@@ -250,6 +252,10 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Mon Oct 10 2022 Ondřej Nosek <onosek@redhat.com> - 1.65-3
+- Patch: Fixes for exploded SRPM layouts
+- Patch: mockbuild: escape rpm command under mock
+
 * Wed Sep 7 2022 Ondřej Nosek <onosek@redhat.com> - 1.65-2
 - Patch: `fedpkg local` does not show rpmbuild output
 

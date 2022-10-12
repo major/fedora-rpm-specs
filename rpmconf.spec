@@ -6,8 +6,8 @@
 Name:           rpmconf
 Summary:        Tool to handle rpmnew and rpmsave files
 License:        GPLv3
-Version:        1.1.4
-Release:        6%{?dist}
+Version:        1.1.7
+Release:        1%{?dist}.1
 URL:            https://github.com/xsuchy/rpmconf
 # source is created by:
 # git clone https://github.com/xsuchy/rpmconf.git
@@ -119,20 +119,23 @@ pylint-3 rpmconf bin/rpmconf || :
 %dir %{_datadir}/rpmconf
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Mon Oct 10 2022 Miroslav Suchý <msuchy@redhat.com> 1.1.7-1.1
+- 133273] - avoid loops during clean action
 
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.1.4-5
-- Rebuilt for Python 3.11
+* Tue Oct 04 2022 msuchy <msuchy@redhat.com> - 1.1.6-2.1
+- rebuilt
 
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Tue Oct 04 2022 msuchy <msuchy@redhat.com> - 1.1.6-1.1
+- rebuilt
 
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+* Mon Aug 29 2022 Miroslav Suchý <msuchy@redhat.com> 1.1.6-1
+- Automatic commit of package [rpmconf] release [1.1.5-1].
+- Create codeql-analysis.yml
 
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.1.4-2
-- Rebuilt for Python 3.10
+* Thu Aug 25 2022 Miroslav Suchý <msuchy@redhat.com> 1.1.5-1
+- typo
+- add distribution buttons
+- master to main in releasers
 
 * Thu Mar 04 2021 Miroslav Suchý <msuchy@redhat.com> 1.1.4-1
 - 1934986 - update link

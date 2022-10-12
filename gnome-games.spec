@@ -4,7 +4,7 @@
 
 Name:       gnome-games
 Version:    40.0
-Release:    4%{?dist}
+Release:    %autorelease
 Summary:    Simple game launcher for GNOME
 
 License:    GPLv3+
@@ -15,11 +15,14 @@ Source0:    https://download.gnome.org/sources/%{name}/40/%{name}-%{tarball_vers
 # https://gitlab.gnome.org/GNOME/gnome-games/-/merge_requests/424
 Patch0:     tracker3.patch
 
+Patch1:     meson-0.60.patch
+
 BuildRequires: desktop-file-utils
 BuildRequires: intltool
 BuildRequires: libappstream-glib
 BuildRequires: meson >= 0.46.1
 BuildRequires: vala
+
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(glib-2.0) >= 2.38.0
 BuildRequires: pkgconfig(grilo-0.3)
@@ -98,66 +101,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sat Mar 20 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 40.0-1
-- Update to 40.0
-
-* Tue Mar 16 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 40~rc-1
-- Update to 40.rc
-
-* Tue Mar 16 2021 Kalev Lember <klember@redhat.com> - 40~beta-1
-- Update to 40.beta
-
-* Tue Mar 16 2021 Kalev Lember <klember@redhat.com> - 3.38.0-3
-- Switch to tracker 3
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Sep 12 17:08:14 EEST 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.38.0-1
-- Update to 3.38.0
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.1-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Mar 31 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.36.1-1
-- Update to 3.36.1
-
-* Fri Mar 06 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.36.0-1
-- Update to 3.36.0
-
-* Fri Feb 28 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.35.92-1
-- Update to 3.35.92
-
-* Wed Feb 12 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.35.90-1
-- Update to 3.35.90
-
-* Wed Feb 12 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 3.34.2-1
-- Update to 3.34.2
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Oct 06 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 3.34.1-1
-- Update to 3.34.1
-
-* Sat Sep 14 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 3.34.0-1
-- Update to 3.34.0
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Apr 15 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 3.32.1-2
-- Initial package
+%autochangelog

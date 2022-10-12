@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    58af67282db37d24e584a837a94ee55b9c7552be
+%global gh_commit    ee7a4c37bf3d0e8c03635d5bddb5bb3184ead490
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-escaper
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.10.0
-Release:        2%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -43,10 +43,10 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "infection/infection": "^0.26.6",
-#        "laminas/laminas-coding-standard": "~2.3.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "maglnet/composer-require-checker": "^3.8.0",
 #        "phpunit/phpunit": "^9.5.18",
-#        "psalm/plugin-phpunit": "^0.16.1",
+#        "psalm/plugin-phpunit": "^0.17.0",
 #        "vimeo/psalm": "^4.22.0"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5
@@ -55,7 +55,7 @@ BuildRequires:  php-fedora-autoloader-devel
 %endif
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-ctype": "*",
 #        "ext-mbstring": "*"
 Requires:       php(language) >= 7.4
@@ -129,7 +129,7 @@ EOF
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit8} --verbose || ret=1
@@ -157,6 +157,9 @@ exit $ret
 
 
 %changelog
+* Mon Oct 10 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

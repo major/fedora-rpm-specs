@@ -3,10 +3,10 @@
 
 Name:		perl-JSON-PP
 Epoch:		1
-Version:	4.11
+Version:	4.12
 Release:	1%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/JSON-PP
 Source0:	https://cpan.metacpan.org/modules/by-module/JSON/JSON-PP-%{version}.tar.gz
 BuildArch:	noarch
@@ -40,7 +40,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Tie::Array)
 BuildRequires:	perl(Tie::Hash)
 BuildRequires:	perl(vars)
-# Optional tests
+# Optional Tests
 %if %{with perl_JSON_PP_enables_optional_test}
 # Note: t/rt_122270_old_xs_boolean.t is testing for compatibility with old
 # versions of JSON:XS and Types::Serialiser that we no longer use, so we
@@ -90,6 +90,11 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 1:4.12-1
+- Update to 4.12
+  - Call unimport overload first to silence warnings (GH#76)
+- Use SPDX-format license tag
+
 * Sun Jul 31 2022 Paul Howarth <paul@city-fan.org> - 1:4.11-1
 - Update to 4.11
   - Restored core boolean support (GH#73, GH#74)

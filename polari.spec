@@ -1,15 +1,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          polari
-Version:       42.1
-Release:       2%{?dist}
+Version:       43.0
+Release:       1%{?dist}
 Summary:       Internet Relay Chat client for GNOME
 
 # The package contains a private helper library licensed LGPLv2+,
 # all program sources are GPLv2+
 License:       GPLv2+ and LGPLv2+
 URL:           https://wiki.gnome.org/Apps/Polari
-Source0:       http://download.gnome.org/sources/%{name}/41/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: pkgconfig(gtk4)
@@ -29,7 +29,7 @@ BuildRequires: itstool
 BuildRequires: gettext >= 0.19.6
 
 # GObject-introspection imports at runtime
-Requires: libsoup%{?_isa}
+Requires: libsoup3%{?_isa}
 Requires: libsecret%{?_isa}
 
 # DBus services
@@ -81,6 +81,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 %{_datadir}/telepathy/clients/Polari.client
 
 %changelog
+* Mon Oct 10 2022 Florian Müllner <fmuellner@redhat.com> - 43.0-1
+-  Update to 43.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

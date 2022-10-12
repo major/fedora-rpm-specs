@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    d1fdc0c3587a314bdd3aac4a1e1dcacadd91858e
+%global gh_commit    1f836740c88bac483f3b572a332eb8fd1cd04981
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   vobject
@@ -25,7 +25,7 @@
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.5.0
+Version:        4.5.1
 Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
@@ -162,6 +162,9 @@ exit $ret
 %endif
 
 %changelog
+* Mon Oct 10 2022 Remi Collet <remi@remirepo.net> - 4.5.1-1
+- update to 4.5.1
+
 * Thu Aug 18 2022 Remi Collet <remi@remirepo.net> - 4.5.0-1
 - update to 4.5.0
 

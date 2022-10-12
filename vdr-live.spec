@@ -12,7 +12,7 @@
 %endif
 
 Name:           vdr-live
-Version:        3.1.7
+Version:        3.1.8
 #Release:        0.4.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
@@ -89,6 +89,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Mon Oct 10 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.8-1
+- Updatae to 3.1.8
+
 * Thu Jul 28 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.7-1
 - Updatae to 3.1.7
 

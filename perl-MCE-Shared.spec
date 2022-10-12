@@ -1,8 +1,8 @@
 Name:		perl-MCE-Shared
-Version:	1.877
-Release:	3%{?dist}
+Version:	1.878
+Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MCE-Shared
 Source0:	https://cpan.metacpan.org/authors/id/M/MA/MARIOROY/MCE-Shared-%{version}.tar.gz
 BuildArch:	noarch
@@ -93,6 +93,12 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 1.878-1
+- Update to 1.878
+  - Improved reliability on the Windows platform
+  - Added deeply-shared demonstration to POD
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.877-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

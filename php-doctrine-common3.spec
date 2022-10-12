@@ -10,8 +10,8 @@
 
 %global github_owner     doctrine
 %global github_name      common
-%global github_version   3.4.2
-%global github_commit    609c3a7b6af49a7b4b13945ca2fdf4af801946af
+%global github_version   3.4.3
+%global github_commit    8b5e5650391f851ed58910b3e3d48a71062eeced
 %global major            3
 
 %global composer_vendor  doctrine
@@ -150,6 +150,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Oct 10 2022 Remi Collet <remi@remirepo.net> - 3.4.3-1
+- update to 3.4.3
+
 * Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 3.4.2-1
 - update to 3.4.2
 

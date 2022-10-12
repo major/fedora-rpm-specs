@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.5.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        1.6.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -27,42 +27,25 @@ Source100:      hatch.1
 Source200:      hatch-build.1
 Source300:      hatch-clean.1
 Source400:      hatch-config.1
-Source401:      hatch-config-explore.1
-Source402:      hatch-config-find.1
-Source403:      hatch-config-restore.1
-Source404:      hatch-config-set.1
-Source405:      hatch-config-show.1
-Source406:      hatch-config-update.1
+Source410:      hatch-config-explore.1
+Source420:      hatch-config-find.1
+Source430:      hatch-config-restore.1
+Source440:      hatch-config-set.1
+Source450:      hatch-config-show.1
+Source460:      hatch-config-update.1
 Source500:      hatch-dep.1
-Source501:      hatch-dep-hash.1
-Source510:      hatch-dep-show.1
-Source511:      hatch-dep-show-table.1
+Source510:      hatch-dep-hash.1
+Source520:      hatch-dep-show.1
+Source521:      hatch-dep-show-table.1
 Source600:      hatch-env.1
 Source700:      hatch-new.1
-Source800:      hatch-publish.1
-Source900:      hatch-run.1
-Source1000:     hatch-shell.1
-Source1100:     hatch-status.1
-Source1200:     hatch-version.1
-
-# Backport (without changelogs) commits from hatchling 1.9.0 that affect the
-# “backend” tests. None of these affects source files installed as part of the
-# binary RPMs for hatch, only the tests and the sources that are packaged
-# separately as part of python-hatchling (the “backend”). Remove these patches
-# once a version of hatch newer than hatchling 1.9.0 is released.
-
-# Allow valid non-SPDX license values (#451)
-# https://github.com/pypa/hatch/commit/eb6759415fed6f1a6c9ce647dc95256eff16e2a4
-Patch:          0001-Allow-valid-non-SPDX-license-values-451.patch
-# Improve error messages for SPDX license errors (#461)
-# https://github.com/pypa/hatch/commit/802062430698a550eaa646408b71b297d8a2588b
-Patch:          0002-Improve-error-messages-for-SPDX-license-errors-461.patch
-# Retroactively support License-File core metadata (#463)
-# https://github.com/pypa/hatch/commit/f6c069a2aefb9a1e82cd3e457cdc1258459862ba
-Patch:          0003-Retroactively-support-License-File-core-metadata-463.patch
-# File pattern matching now more closely resembles Git's behavior (#465)
-# https://github.com/pypa/hatch/commit/dac8659d060c6880ffce6b9ca10f916316954d1a
-Patch:          0004-File-pattern-matching-now-more-closely-resembles-Git.patch
+Source800:      hatch-project.1
+Source810:      hatch-project-metadata.1
+Source900:      hatch-publish.1
+Source1000:     hatch-run.1
+Source1100:     hatch-shell.1
+Source1200:     hatch-status.1
+Source1300:     hatch-version.1
 
 BuildArch:      noarch
 
@@ -90,7 +73,7 @@ Features:
 
 
 %prep
-%autosetup -n %{archivename} -p1
+%autosetup -n %{archivename}
 # Loosen the minimum supported version of virtualenv. Upstream wants 20.16.2,
 # but, as of this writing, Fedora hasn’t updated past 20.15.1 because the
 # changes in subsequent releases would not had any effect on the RPM package:
@@ -138,16 +121,17 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE100}' \
     '%{SOURCE200}' \
     '%{SOURCE300}' \
-    '%{SOURCE400}' '%{SOURCE401}' '%{SOURCE402}' '%{SOURCE403}' \
-      '%{SOURCE404}' '%{SOURCE405}' '%{SOURCE406}' \
-    '%{SOURCE500}' '%{SOURCE501}' '%{SOURCE510}' '%{SOURCE511}' \
+    '%{SOURCE400}' '%{SOURCE410}' '%{SOURCE420}' '%{SOURCE430}' \
+      '%{SOURCE440}' '%{SOURCE450}' '%{SOURCE460}' \
+    '%{SOURCE500}' '%{SOURCE510}' '%{SOURCE520}' '%{SOURCE521}' \
     '%{SOURCE600}' \
     '%{SOURCE700}' \
-    '%{SOURCE800}' \
+    '%{SOURCE800}' '%{SOURCE810}' \
     '%{SOURCE900}' \
     '%{SOURCE1000}' \
     '%{SOURCE1100}' \
-    '%{SOURCE1200}'
+    '%{SOURCE1200}' \
+    '%{SOURCE1300}'
 
 
 %check
@@ -168,10 +152,6 @@ k="${k-}${k+ and }not (TestBuildStandard and test_editable_default)"
 k="${k-}${k+ and }not (TestBuildStandard and test_default_auto_detection)"
 k="${k-}${k+ and }not test_explicit_path"
 k="${k-}${k+ and }not test_default"
-
-# Fails with hatchling 1.10.0 because hatch and hatchling are very closely
-# coupled. Remove the skip when a new version of hatch is released.
-k="${k-}${k+ and }not (TestFileSelectionDefaults and test_global_exclude)"
 
 %pytest -k "${k-}" -vv
 %else

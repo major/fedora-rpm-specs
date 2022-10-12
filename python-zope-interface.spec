@@ -4,8 +4,8 @@
 %global _docdir_fmt %{name}
 
 Name:		python-zope-interface
-Version:	5.4.0
-Release:	8%{?dist}
+Version:	5.5.0
+Release:	1%{?dist}
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
 URL:		https://pypi.io/project/zope.interface
@@ -93,6 +93,10 @@ popd
 %endif
 
 %changelog
+* Mon Oct 10 2022 Lumír Balhar <lbalhar@redhat.com> - 5.5.0-1
+- Update to 5.5.0
+Resolves: rhbz#2046687
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

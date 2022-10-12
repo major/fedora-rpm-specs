@@ -1,6 +1,6 @@
 Name:           unpaper
 Version:        7.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Post-processing of scanned and photocopied book pages
 # AUTHORS:      GPLv2
 # constants.h:  GPLv2
@@ -35,13 +35,21 @@ Summary:        Post-processing of scanned and photocopied book pages
 # .mergify.yml:     MIT
 # .pre-commit-config.yaml:  MIT
 License:        GPLv2 and 0BSD
-URL:            https://www.flameeyes.eu/projects/{%name}
+URL:            https://www.flameeyes.eu/projects/%{name}
 Source0:        https://www.flameeyes.eu/files/%{name}-%{version}.tar.xz
 # Missing a signature, requested by e-mail
 # <https://flameeyes.blog/2022/05/10/unpaper-7-0-0-release/>.
 #Source1:        https://www.flameeyes.eu/files/%%{name}-%%{version}.tar.xz.sig
 ## A key exported from keyserver <hkp://pgp.surfnet.nl> on 2022-02-25.
 #Source2:        gpgkey-BDAEF3008A1CC62079C2A16847664B94E36B629F.gpg
+# 1/2Set an update option to supress a warning with ffmpeg-5.1,
+# in upstream after 7.0.0,
+# <https://github.com/unpaper/unpaper/issues/113>
+Patch0:         unpaper-7.0.0-Use-avformat_alloc_output_context2-to-create-the-out.patch
+# 2/2 Set an update option to supress a warning with ffmpeg-5.1,
+# in upstream after 7.0.0,
+# <https://github.com/unpaper/unpaper/issues/113>
+Patch1:         unpaper-7.0.0-Set-the-update-option-to-suppress-the-ffmpeg-5.1-war.patch
 BuildRequires:  gcc
 #BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.57
@@ -86,7 +94,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-#%%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+#%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -122,6 +130,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 10 2022 Petr Pisar <ppisar@redhat.com> - 7.0.0-4
+- Set an update option to supress a warning with ffmpeg-5.1 (upstream #113)
+
 * Mon Aug 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 7.0.0-3
 - Rebuild for ffmpeg 5.1 (#2121070)
 

@@ -15,6 +15,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(wayfire)
+BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wf-config) >= 0.7.0
 BuildRequires:  pkgconfig(wf-shell) >= 0.7.0
 

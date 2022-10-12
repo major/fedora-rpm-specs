@@ -22,6 +22,9 @@ Patch2:         02-tests-integration-drop_test-disable-tests-broken-wit.patch
 # patch can be removed when updated to 5.0.0 in Fedora.
 # https://github.com/Shopify/liquid/commit/81149344a5ba53b30e8ab7d77d605dc484a0a3ff
 Patch3:         03-fix-parse-tree-visitor-test-for-ruby-3.patch
+# Patch for supporting ruby 3.2, ruby3.2 removes "tainted"ness completely
+# Partially backported from https://github.com/Shopify/liquid/commit/065ccbc4aa5b4955dae9743509907bd9ad0db0b9
+Patch4:         04-ruby32-remove-tainted.patch
 
 BuildArch:      noarch
 

@@ -35,9 +35,12 @@ BuildRequires:  motif-devel
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libssl)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(zlib)
 
 Requires:       %{name}-data = %{version}-%{release}
+Requires:       curl
+Requires:       gzip
 
 %description
 XEphem is a scientific-grade interactive astronomical ephemeris software.

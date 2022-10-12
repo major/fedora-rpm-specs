@@ -1,12 +1,4 @@
-%if "%{_vendor}" == "debbuild"
-%define gobuild(o:) GO111MODULE=off go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%endif
-
-%if 0%{?fedora}
 %global with_debug 1
-%else
-%global with_debug 0
-%endif
 
 %if 0%{?with_debug}
 %global _find_debuginfo_dwz_opts %{nil}
@@ -22,33 +14,23 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag_strip 1.1.1
+%global built_tag v1.1.1
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 Name: %{project}-%{repo}
 Version: 1.1.1
-%if "%{_vendor}" == "debbuild"
-Packager: Podman Debbuild Maintainers <https://github.com/orgs/containers/teams/podman-debbuild-maintainers>
-License: ASL-2.0+
-Release: 0%{?dist}
-%else
 Release: %autorelease
 License: ASL 2.0 and BSD and MIT
-%endif
 Summary: Libraries for writing CNI plugin
 URL: %{git0}
-Source0: %{git0}/archive/v%{built_tag_strip}.tar.gz
+# Tarball fetched from upstream
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: golang >= 1.16.6
-%if "%{_vendor}" == "debbuild"
-BuildRequires: libsystemd-dev
-%else
 BuildRequires: systemd-devel
-%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: go-rpm-macros
-%endif
-%endif
 BuildRequires: go-md2man
 Requires: systemd
-
 Obsoletes: %{project}-cni < 0.7.1-2
 Provides: %{project}-cni = %{version}-%{release}
 Provides: kubernetes-cni
@@ -137,6 +119,4 @@ install -p plugins/ipam/dhcp/systemd/cni-dhcp.socket %{buildroot}%{_unitdir}
 %{_unitdir}/cni-dhcp.socket
 
 %changelog
-%if "%{_vendor}" != "debbuild"
 %autochangelog
-%endif

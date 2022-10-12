@@ -3,7 +3,9 @@
 # container-selinux
 %global git0 https://github.com/containers/container-selinux
 
-%global built_tag_strip 2.190.0
+%global built_tag v2.190.0
+%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
+%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
 # container-selinux stuff (prefix with ds_ for version/release etc.)
 # Some bits borrowed from the openstack-selinux package
@@ -19,7 +21,7 @@
 # Hooked up to autobuilder, please check with @lsm5 before updating
 Name: container-selinux
 Epoch: 2
-Version: 2.190.0
+Version: %{gen_version}
 Release: %autorelease
 License: GPLv2
 URL: %{git0}
