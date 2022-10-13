@@ -4,8 +4,8 @@
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 
 Name: libtraceevent
-Version: 1.5.3
-Release: 3%{?dist}
+Version: 1.6.3
+Release: 1%{?dist}
 License: LGPLv2+ and GPLv2+
 Summary: Library to parse raw trace event formats
 
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{_libdir}/libtraceevent.a
 %{_libdir}/pkgconfig/libtraceevent.pc
 
 %changelog
+* Tue Oct 11 2022 Zamir SUN <sztsian@gmail.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

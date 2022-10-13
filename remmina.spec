@@ -5,7 +5,7 @@
 
 Name: remmina
 Version: 1.4.27
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
 URL: https://remmina.org
@@ -20,6 +20,7 @@ Source1: pluginBuild-CMakeLists.txt
 
 # Patches.
 Patch0: various_rdp_fixes_from_upstream.patch
+Patch1: libsoup_2_and_3_support.patch
 
 BuildRequires: cmake
 BuildRequires: cups-devel
@@ -337,6 +338,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1.*
 
 %changelog
+* Mon Oct 10 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.4.27-6
+- Add patch: libsoup_2_and_3_support.patch
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.27-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

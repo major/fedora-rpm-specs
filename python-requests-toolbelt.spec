@@ -2,8 +2,8 @@
 %global altname requests_toolbelt
 
 Name:           python-%{srcname}
-Version:        0.9.1
-Release:        19%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        ASL 2.0
@@ -67,6 +67,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py -k "not test_s
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Tue Oct 11 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.10.0-1
+- Update to 0.10.0 version (#2133011)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

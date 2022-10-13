@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-google-auth
 #
-# Copyright (c) 2017-2021 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2017-2022 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,19 +11,18 @@
 
 %global github_owner     google
 %global github_name      google-auth-library-php
-%global github_version   1.18.0
-%global github_commit    21dd478e77b0634ed9e3a68613f74ed250ca9347
+%global github_version   1.23.0
+%global github_commit    8da16102d2cd1bdc128d97f323553df465ee7701
 
 %global composer_vendor  google
 %global composer_project auth
 
-# "php": "^5.6|^7.0|^8.0"
-%global php_min_ver 5.6
-# "firebase/php-jwt": "~2.0|~3.0|~4.0|~5.0"
-%global firebase_jwt_min_ver 2.0
-%global firebase_jwt_max_ver 6.0
-# "guzzlehttp/guzzle": "^5.3.1|^6.2.1|^7.0"
-#     NOTE: Min version not 5.3.1 to force version 6+
+# "php": "^7.1||^8.0"
+%global php_min_ver 7.1
+# "firebase/php-jwt": "^5.5||^6.0"
+%global firebase_jwt_min_ver 5.5
+%global firebase_jwt_max_ver 7.0
+# "guzzlehttp/guzzle": "^6.2.1|^7.0"
 %global guzzle_min_ver 6.2.1
 %global guzzle_max_ver 8.0
 # "guzzlehttp/psr7": "^1.7|^2.0"
@@ -36,12 +35,17 @@
 # "phpseclib/phpseclib": "^2.0.31"
 %global phpseclib_min_ver 2.0.31
 %global phpseclib_max_ver 3.0
-# "psr/cache": "^1.0|^2.0"
+# "psr/cache": "^1.0|^2.0|^3.0"
 %global psr_cache_min_ver 1.0
-%global psr_cache_max_ver 3.0
+%global psr_cache_max_ver 4.0
 # "psr/http-message": "^1.0"
 %global psr_http_message_min_ver 1.0
 %global psr_http_message_max_ver 2.0
+
+# "phpunit/phpunit": "^7.5||^8.5"
+%global phpunit_require phpunit8
+%global phpunit_min_ver 8
+%global phpunit_exec    phpunit8
 
 # Build using "--without tests" to disable tests
 %bcond_without tests
@@ -64,7 +68,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Google Auth Library for PHP
 
 License:       ASL 2.0
@@ -80,7 +84,7 @@ BuildArch:     noarch
 %if %{with tests}
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
-BuildRequires: php-composer(phpunit/phpunit)
+BuildRequires: %{phpunit_require} >= %{phpunit_min_ver}
 %if %{with_range_dependencies}
 BuildRequires: (php-composer(firebase/php-jwt) >= %{firebase_jwt_min_ver} with php-composer(firebase/php-jwt) < %{firebase_jwt_max_ver})
 BuildRequires: (php-composer(guzzlehttp/guzzle) >= %{guzzle_min_ver} with php-composer(guzzlehttp/guzzle) < %{guzzle_max_ver})
@@ -182,13 +186,17 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('Google\\Auth\\', __DIR__);
 
 \Fedora\Autoloader\Dependencies::required([
-    '%{phpdir}/Firebase/JWT/autoload.php',
+    [
+        '%{phpdir}/Firebase/JWT6/autoload.php',
+        '%{phpdir}/Firebase/JWT/autoload.php',
+    ],
     '%{phpdir}/GuzzleHttp/Psr7/autoload.php',
     [
         '%{phpdir}/GuzzleHttp7/autoload.php',
         '%{phpdir}/GuzzleHttp6/autoload.php',
     ],
     [
+        '%{phpdir}/Psr/Cache3/autoload.php',
         '%{phpdir}/Psr/Cache2/autoload.php',
         '%{phpdir}/Psr/Cache/autoload.php',
     ],
@@ -231,8 +239,8 @@ sed 's/function testMakeHttpClient/function SKIP_testMakeHttpClient/'\
 
 : Upstream tests
 RETURN_CODE=0
-PHPUNIT=$(which phpunit)
-for PHP_EXEC in "" %{?rhel:php70 php71 php72 php73 php74} php80 php81; do
+PHPUNIT=$(which %{phpunit_exec})
+for PHP_EXEC in "" %{?rhel:php72 php73 php74} php80 php81 php82; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC $PHPUNIT --verbose || RETURN_CODE=1
     fi
@@ -253,6 +261,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Oct 11 2022 Shawn Iwinski <shawn@iwin.ski> - 1.23.0-1
+- Update to 1.23.0 (RHBZ #2068626)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

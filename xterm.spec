@@ -3,7 +3,7 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 373
+Version: 374
 Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
@@ -100,6 +100,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Tue Oct 11 2022 Tomas Korbar <tkorbar@redhat.com> - 374-1
+- Rebase to version 374
+- Resolves: rhbz#2133585
+
 * Wed Oct 05 2022 Tomas Korbar <tkorbar@redhat.com> - 373-1
 - Rebase to version 373
 - Resolves: rhbz#2129661

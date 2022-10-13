@@ -20,13 +20,9 @@
 %global install_libdir %{_libdir}
 %endif
 
-# Don't include unittests in automatic generation of provides or requires.
-%global __provides_exclude_from ^%{_libdir}/lld/.*$
-%global __requires_exclude ^libgtest.*$
-
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -34,10 +30,6 @@ URL:		http://llvm.org
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{lld_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
-%if %{without compat_build}
-Source3:	run-lit-tests
-Source4:	lit.lld-test.cfg.py
-%endif
 
 ExcludeArch:	s390x
 
@@ -93,18 +85,6 @@ Summary:	LLD shared libraries
 %description libs
 Shared libraries for LLD.
 
-%if %{without compat_build}
-%package test
-Summary: LLD regression tests
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	python3-lit
-Requires:	llvm-test(major) = %{maj_ver}
-Requires:	lld-libs = %{version}-%{release}
-
-%description test
-LLVM regression tests.
-%endif
-
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{lld_srcdir} -p2
@@ -148,41 +128,7 @@ sed 's/add_subdirectory(tools\/lld)//' -i CMakeLists.txt
 
 %cmake_build
 
-%if %{without compat_build}
-# Build the unittests so we can install them.
-%cmake_build --target lld-test-depends
-%endif
-
 %install
-
-%if %{without compat_build}
-%global lit_cfg test/%{_arch}.site.cfg.py
-%global lit_lld_test_cfg_install_path %{_datadir}/lld/lit.lld-test.cfg.py
-
-# Generate lit config files.  Strip off the last line that initiates the
-# test run, so we can customize the configuration.
-head -n -1 %{__cmake_builddir}/test/lit.site.cfg.py >> %{lit_cfg}
-
-# Patch lit config files to load custom config:
-echo "lit_config.load_config(config, '%{lit_lld_test_cfg_install_path}')" >> %{lit_cfg}
-
-# Install test files
-install -d %{buildroot}%{_datadir}/lld/src
-cp %{SOURCE4} %{buildroot}%{_datadir}/lld/
-
-# The various tar options are there to make sur the archive is the same on 32 and 64 bit arch, i.e.
-# the archive creation is reproducible. Move arch-specific content out of the tarball
-mv %{lit_cfg} %{buildroot}%{_datadir}/lld/src/%{_arch}.site.cfg.py
-tar --sort=name --mtime='UTC 2020-01-01' -c test/ | gzip -n > %{buildroot}%{_datadir}/lld/src/test.tar.gz
-
-install -d %{buildroot}%{_libexecdir}/tests/lld
-install -m 0755 %{SOURCE3} %{buildroot}%{_libexecdir}/tests/lld
-
-# Install unit test binaries
-install -d %{buildroot}%{_libdir}/lld/
-
-rm -rf `find %{buildroot}%{_libdir}/lld/ -iname '*make*'`
-%endif
 
 # Install libraries and binaries
 %cmake_install
@@ -207,11 +153,8 @@ fi
 %check
 
 %if %{without compat_build}
-# armv7lhl tests disabled because of arm issue, see https://koji.fedoraproject.org/koji/taskinfo?taskID=33660162
-%ifnarch %{arm}
 %if %{with check}
 %cmake_build --target check-lld
-%endif
 %endif
 
 %ldconfig_scriptlets libs
@@ -235,16 +178,10 @@ fi
 %files libs
 %{install_libdir}/liblld*.so.*
 
-%if %{without compat_build}
-%files test
-%{_libexecdir}/tests/lld/
-%{_libdir}/lld/
-%{_datadir}/lld/src/test.tar.gz
-%{_datadir}/lld/src/%{_arch}.site.cfg.py
-%{_datadir}/lld/lit.lld-test.cfg.py
-%endif
-
 %changelog
+* Tue Oct 11 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-2
+- Remove lld-test package
+
 * Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
 - Update to LLVM 15.0.0
 

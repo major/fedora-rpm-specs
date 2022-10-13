@@ -3,7 +3,7 @@
 
 Name:           cvc4
 Version:        1.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Automatic theorem prover for SMT problems
 
 %global jar_version %{version}.0
@@ -27,6 +27,10 @@ Patch2:         %{name}-dup-decl.patch
 # speeds. But it has aged, and has less features than ld.bfd. Let's
 # use ld.bfd so that package notes work without workarounds.
 Patch3:         %{name}-do-not-use-gold.diff
+# Use tomllib instead of the deprecated toml package
+Patch4:         %{name}-toml.patch
+# Turn off the bash patsub_replacement option, which breaks templating
+Patch5:         %{name}-bash-patsub-replacement.patch
 
 # ANTLR 3 is not available on i686.
 # See https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
@@ -55,7 +59,6 @@ BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist toml}
 BuildRequires:  swig
 BuildRequires:  symfpu-devel
 
@@ -250,6 +253,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{python3_sitearch}/pycvc4*
 
 %changelog
+* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 1.8-13
+- Add -bash-patsub-replacement patch to fix build with bash 5.2 (bz 2133760)
+- Add -toml patch and drop python3-toml BR
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1.8-12
 - Convert License tag to SPDX
 

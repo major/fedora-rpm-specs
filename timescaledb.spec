@@ -1,7 +1,7 @@
 %global core_name timescale
 
 Name:           %{core_name}db
-Version:        2.8.0
+Version:        2.8.1
 Release:        1%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 

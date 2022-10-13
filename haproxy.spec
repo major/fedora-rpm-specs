@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.6.0
-Release:        3%{?dist}
+Version:        2.6.6
+Release:        2%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPLv2+
@@ -48,14 +48,9 @@ availability environments. Indeed, it can:
 
 %prep
 %setup -q
-
 %build
-regparm_opts=
-%ifarch %ix86 x86_64
-regparm_opts="USE_REGPARM=1"
-%endif
 
-%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ${regparm_opts} ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
+%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
 
 %{__make} admin/halog/halog ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
 
@@ -133,6 +128,12 @@ exit 0
 %{_mandir}/man1/*
 
 %changelog
+* Tue Oct 11 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-2
+- Remove USE_REGPARM (#2097885)
+
+* Tue Oct 11 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-1
+- Update to 2.6.6 (#2099745)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

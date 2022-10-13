@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    360be5f16955dd1edbcce1cfaa98ed82a17f02ec
+%global gh_commit    ed160729bb8721127efdaac799f9a298963345b1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-servicemanager
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.17.0
+Version:        3.19.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.
+BuildRequires:  php(language) >= 8.0
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires: (php-composer(psr/container)                            >= 1.0   with php-composer(psr/container)                            < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)             >= 3.2.1 with php-autoloader(%{gh_owner}/laminas-stdlib)             < 4)
@@ -43,31 +43,29 @@ BuildRequires:  php-date
 BuildRequires:  php-json
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "composer/package-versions-deprecated": "^1.0",
+#        "composer/package-versions-deprecated": "^1.11.99.5",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-container-config-test": "^0.6",
-#        "laminas/laminas-dependency-plugin": "^2.1.2",
-#        "mikey179/vfsstream": "^1.6.10@alpha",
-#        "ocramius/proxy-manager": "^2.11",
-#        "phpbench/phpbench": "^1.1",
-#        "phpspec/prophecy-phpunit": "^2.0",
-#        "phpunit/phpunit": "^9.5.5",
+#        "laminas/laminas-dependency-plugin": "^2.2",
+#        "mikey179/vfsstream": "^1.6.11@alpha",
+#        "ocramius/proxy-manager": "^2.14.1",
+#        "phpbench/phpbench": "^1.2.6",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.16.1",
-#        "vimeo/psalm": "^4.8"
+#        "vimeo/psalm": "^4.28"
 BuildRequires: (php-composer(mikey179/vfsstream)                >= 1.6.10 with php-composer(mikey179/vfsstream)                < 2)
 # ignore minimal version
 BuildRequires: (php-composer(ocramius/proxy-manager)            >= 2.2.3 with php-composer(ocramius/proxy-manager)            < 3)
-BuildRequires: (php-composer(phpspec/prophecy-phpunit)          >= 2.0   with php-composer(phpspec/prophecy-phpunit)          < 3)
 BuildRequires:  phpunit9 >= 9.5.5
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "~7.4.0 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-stdlib": "^3.2.1",
 #        "psr/container": "^1.0"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)             >= 3.2.1 with php-autoloader(%{gh_owner}/laminas-stdlib)             < 4)
 Requires:      (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 Requires:      (php-composer(psr/container)                            >= 1.0   with php-composer(psr/container)                            < 2)
@@ -160,7 +158,6 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('%{namespace}Bench\\%{library}\\', dirname(__DIR__) . '/benchmarks');
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/org/bovigo/vfs/autoload.php',
-    '%{php_home}/Prophecy/PhpUnit/autoload.php',
 ]);
 EOF
 
@@ -168,7 +165,7 @@ EOF
 rm test/ContainerTest.php
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -195,6 +192,10 @@ exit $ret
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.19.0-1
+- update to 3.19.0
+- raise dependency on PHP 8.0
+
 * Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 3.17.0-1
 - update to 3.17.0
 

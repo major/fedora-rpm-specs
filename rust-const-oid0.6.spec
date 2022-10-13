@@ -2,15 +2,15 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate sha3
+%global crate const-oid
 
-Name:           rust-sha3
-Version:        0.10.5
+Name:           rust-const-oid0.6
+Version:        0.6.2
 Release:        %autorelease
-Summary:        SHA-3 (Keccak) hash function
+Summary:        Const-friendly implementation of the ISO/IEC Object Identifier (OID) standard
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/sha3
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/const-oid
 Source:         %{crates_source}
 
 ExclusiveArch:  %{rust_arches}
@@ -18,7 +18,9 @@ ExclusiveArch:  %{rust_arches}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-SHA-3 (Keccak) hash function.}
+Const-friendly implementation of the ISO/IEC Object Identifier (OID) standard
+as defined in ITU X.660, with support for BER/DER encoding/decoding as well as
+heapless no_std (i.e. embedded) support.}
 
 %description %{_description}
 
@@ -48,30 +50,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+oid-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+oid-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "oid" feature of the "%{crate}" crate.
-
-%files       -n %{name}+oid-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+reset-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+reset-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "reset" feature of the "%{crate}" crate.
-
-%files       -n %{name}+reset-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

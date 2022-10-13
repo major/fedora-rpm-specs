@@ -30,7 +30,7 @@
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
 Version: 1.16.3
-Release: 2%{?extra_version:.%{extra_version}}%{?dist}
+Release: 3%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -349,7 +349,7 @@ useradd -r -g unbound -d %{_sysconfdir}/unbound -s /sbin/nologin \
 %systemd_post unbound-keygen.service
 
 %post anchor
-%systemd_post unbound-anchor.timer
+%systemd_post unbound-anchor.service unbound-anchor.timer
 # start the timer only if installing the package to prevent starting it, if it was stopped on purpose
 if [ "$1" -eq 1 ]; then
     # the Unit is in presets, but would be started after reboot
@@ -361,14 +361,14 @@ fi
 %systemd_preun unbound-keygen.service
 
 %preun anchor
-%systemd_preun unbound-anchor.timer
+%systemd_preun unbound-anchor.service unbound-anchor.timer
 
 %postun
 %systemd_postun_with_restart unbound.service
 %systemd_postun unbound-keygen.service
 
-%postun libs
-%systemd_postun_with_restart unbound-anchor.timer
+%postun anchor
+%systemd_postun_with_restart unbound-anchor.service unbound-anchor.timer
 
 %check
 pushd %{dir_primary}
@@ -471,6 +471,9 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Wed Oct 05 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-3
+- Correct issues made by unbound-anchor package split (#2110858)
+
 * Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-2
 - Update License tag to SPDX identifier
 

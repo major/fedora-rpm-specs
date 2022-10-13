@@ -1,5 +1,5 @@
 Name:           cinfo
-Version:        0.4.9
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        Fast and minimal system information tool
 
@@ -34,6 +34,9 @@ BuildRequires:  make
 
 
 %changelog
+* Tue Oct 11 2022 Jonathan Wright <jonathan@almalinux.org> 0.5.0-1
+- update to 0.5.0 rhbz#2133897
+
 * Tue Aug 30 2022 Jonathan Wright <jonathan@almalinux.org> 0.4.9-1
 - update to 0.4.9
 - rhbz#2121986

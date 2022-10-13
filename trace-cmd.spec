@@ -2,11 +2,11 @@
 #%%global git_commit trace-cmd-v2.6.2
 #%%global git_commit 57371aaa2f469d0ba15fd85276deca7bfdd7ce36
 
-%global srcversion 3.0.3
+%global srcversion 3.1.4
 
 Name: trace-cmd
 Version: %{srcversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: GPLv2 and LGPLv2
 Summary: A user interface to Ftrace
 Requires: libtracecmd
@@ -37,8 +37,8 @@ BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel
 BuildRequires: freeglut-devel
 BuildRequires: json-c-devel
-BuildRequires: libtraceevent-devel >= 1.5.3
-BuildRequires: libtracefs-devel >= 1.3.1
+BuildRequires: libtraceevent-devel >= 1.6.3
+BuildRequires: libtracefs-devel >= 1.5.0
 BuildRequires: audit-libs-devel
 BuildRequires: chrpath
 BuildRequires: swig
@@ -110,6 +110,9 @@ rm -rf %{buildroot}/%{_mandir}/man3/*
 %{_libdir}/%{name}/python/
 
 %changelog
+* Tue Oct 11 2022 Zamir SUN <sztsian@gmail.com> - 3.1.4-1
+- Update to 3.1.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

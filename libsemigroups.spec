@@ -1,5 +1,5 @@
 Name:           libsemigroups
-Version:        2.2.3
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
@@ -138,8 +138,6 @@ autoreconf -fi .
 # Hpcombi is an x86-specific library that uses SSE and AVX instructions.
 # It is not currently available in Fedora, and we cannot assume the
 # availability of AVX in any case.
-export CFLAGS="%{build_cflags} -fwrapv"
-export CXXFLAGS="%{build_cxxflags} -fwrapv"
 %configure --disable-silent-rules --disable-static --disable-hpcombi \
   --enable-eigen --with-external-eigen --enable-fmt --with-external-fmt
 
@@ -192,6 +190,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
+- Version 2.3.1
+- Remove -fwrapv from the build flags
+
 * Fri Sep 23 2022 Jerry James <loganjerry@gmail.com> - 2.2.3-1
 - Version 2.2.3
 

@@ -61,7 +61,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -85,6 +85,9 @@ Source10: macros.qt5-qtbase
 
 # support multilib optflags
 Patch2: qtbase-multilib_optflags.patch
+
+# make mixing versions with private apis a warning instead of fatal error
+Patch3: qtbase-everywhere-src-5.15.6-private_api_warning.patch
 
 # upstreamable patches
 # namespace QT_VERSION_CHECK to workaround major/minor being pre-defined (#1396755)
@@ -389,6 +392,9 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
+
+## dowstream patches
+%patch3 -p1 -b .private_api_warning
 
 ## upstream fixes
 
@@ -1097,6 +1103,9 @@ fi
 
 
 %changelog
+* Tue Oct 11 2022 Rex Dieter <rdieter@gmail.com> - 5.15.6-2
+- make mixing verisons and private api usage a warning instead of fatal error
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

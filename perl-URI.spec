@@ -8,10 +8,10 @@
 %endif
 
 Name:           perl-URI
-Version:        5.13
+Version:        5.15
 Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI
 Source0:        https://cpan.metacpan.org/modules/by-module/URI/URI-%{version}.tar.gz
 BuildArch:      noarch
@@ -20,6 +20,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -38,13 +39,14 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Test Suite
-BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Storable)
+BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
+BuildRequires:  perl(Test::Warnings)
 # Runtime
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cwd)
@@ -90,11 +92,7 @@ with "%{_libexecdir}/%{name}/test".
 chmod -c 644 uri-test
 
 for F in t/*.t t/*.pl; do
-    if head -1 "$F" | grep -q -e '^#!.*perl\b' ; then
-        perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' "$F"
-    else
-        perl -i -MConfig -ple 'print $Config{startperl} if $. == 1' "$F"
-    fi
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
 
@@ -144,6 +142,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 11 2022 Paul Howarth <paul@city-fan.org> - 5.15-1
+- 5.15 bump
+
+* Tue Oct 11 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.14-1
+- 5.14 bump
+
 * Fri Oct 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.13-1
 - 5.13 bump
 

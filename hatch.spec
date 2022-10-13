@@ -36,8 +36,15 @@ Source460:      hatch-config-update.1
 Source500:      hatch-dep.1
 Source510:      hatch-dep-hash.1
 Source520:      hatch-dep-show.1
-Source521:      hatch-dep-show-table.1
+Source521:      hatch-dep-show-requirements.1
+Source522:      hatch-dep-show-table.1
 Source600:      hatch-env.1
+Source610:      hatch-env-create.1
+Source620:      hatch-env-find.1
+Source630:      hatch-env-prune.1
+Source640:      hatch-env-remove.1
+Source650:      hatch-env-run.1
+Source660:      hatch-env-show.1
 Source700:      hatch-new.1
 Source800:      hatch-project.1
 Source810:      hatch-project-metadata.1
@@ -124,7 +131,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
     '%{SOURCE400}' '%{SOURCE410}' '%{SOURCE420}' '%{SOURCE430}' \
       '%{SOURCE440}' '%{SOURCE450}' '%{SOURCE460}' \
     '%{SOURCE500}' '%{SOURCE510}' '%{SOURCE520}' '%{SOURCE521}' \
-    '%{SOURCE600}' \
+      '%{SOURCE522}' \
+    '%{SOURCE600}' '%{SOURCE610}' '%{SOURCE620}' '%{SOURCE630}' \
+      '%{SOURCE640}' '%{SOURCE650}' '%{SOURCE660}' \
     '%{SOURCE700}' \
     '%{SOURCE800}' '%{SOURCE810}' \
     '%{SOURCE900}' \

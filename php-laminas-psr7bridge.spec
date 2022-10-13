@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    7318e3762d25cf802fa0589aecf3d9b3eb411f3f
+%global gh_commit    6a653713d0b08b0b2e3fc89b61e0516ebe1966f5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-psr7bridge
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        1.7.0
+Version:        1.8.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-reflection
 BuildRequires:  php-intl
 BuildRequires:  php-pcre
@@ -45,20 +45,20 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 BuildRequires: (php-composer(psr/http-message)                           >= 1.0    with php-composer(psr/http-message)                           < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "phpunit/phpunit": "^9.5.10",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.11"
-BuildRequires:  phpunit9 >= 9.5.10
+#        "vimeo/psalm": "^4.28"
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "^~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-diactoros": "^2.0",
 #        "laminas/laminas-http": "^2.15",
 #        "psr/http-message": "^1.0"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-diactoros)            >= 2.0    with php-autoloader(%{gh_owner}/laminas-diactoros)            < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -138,7 +138,7 @@ exit (class_exists("\\Zend\\%{library}\\Psr7Response") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 || ret=1
   fi
@@ -158,6 +158,10 @@ exit $ret
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 1.8.0-1
+- update to 1.8.0 (no change)
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 1.7.0-1
 - update to 1.7.0
 - raise dependency on PHP 7.4

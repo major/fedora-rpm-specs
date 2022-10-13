@@ -1,6 +1,6 @@
 Name: libtracecmd
-Version: 1.1.3
-Release: 4%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 License: LGPLv2
 Summary: A library for reading tracing instances stored in a trace file
 
@@ -19,8 +19,8 @@ BuildRequires: libxml2-devel
 BuildRequires: gcc-c++
 BuildRequires: freeglut-devel
 BuildRequires: json-c-devel
-BuildRequires: libtraceevent-devel >= 1.5.3
-BuildRequires: libtracefs-devel >= 1.3.1
+BuildRequires: libtraceevent-devel >= 1.6.3
+BuildRequires: libtracefs-devel >= 1.5.0
 BuildRequires: chrpath
 BuildRequires: libzstd-devel
 
@@ -58,7 +58,7 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %license COPYING COPYING.LIB
 %doc README
 %{_libdir}/libtracecmd.so.1
-%{_libdir}/libtracecmd.so.1.1.3
+%{_libdir}/libtracecmd.so.1.2.0
 %{_docdir}/libtracecmd-doc
 %{_mandir}/man3/libtracecmd*
 %{_mandir}/man3/tracecmd*
@@ -69,6 +69,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libtracecmd.so*
 %{_includedir}/trace-cmd
 
 %changelog
+* Tue Oct 11 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Thu Sep 8 2022 Zamir SUN <sztsian@gmail.com> - 1.1.3-4
 - Add zstd support
 - Fixes: RHBZ#2121037

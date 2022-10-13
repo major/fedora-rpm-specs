@@ -1,16 +1,12 @@
-%global codate 20220727
-%global commit0 d464672e059ad9c2f14843360a01e4ddaac01221
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(AnyEvent|Digest::SHA1|JSON::XS\\)$
 
 Name:           perl-AnyEvent-HTTP-Server
-Version:        1.99995
-Release:        1.%{codate}git%{shortcommit0}%{?dist}
+Version:        1.99996
+Release:        1%{?dist}
 Summary:        AnyEvent HTTP/1.1 Server
 License:        GPL+ or Artistic
 URL:            https://github.com/Mons/AnyEvent-HTTP-Server-II
-Source0:        https://github.com/Mons/AnyEvent-HTTP-Server-II/archive/%{commit0}.tar.gz#/%{name}-%{version}-%{shortcommit0}.tar.gz
+Source0:        https://github.com/Mons/AnyEvent-HTTP-Server-II/archive/refs/tags/%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -58,7 +54,7 @@ perl. It has been tested in high load production environments and may be
 considered both fast and stable.
 
 %prep
-%setup -q -n AnyEvent-HTTP-Server-II-%{commit0}
+%setup -q -n AnyEvent-HTTP-Server-II-%{version}
 perl -MConfig -pi -e 's,#!.*perl,$Config{startperl},' ex/*.pl
 
 %build
@@ -83,6 +79,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Oct 11 2022 Yanko Kaneti <yaneti@declera.com> - 1.99996-1
+- Update to 1.99996
+
 * Mon Aug  8 2022 Yanko Kaneti <yaneti@declera.com> - 1.99995-1.20220727gitd464672
 - Recent snapshot
 

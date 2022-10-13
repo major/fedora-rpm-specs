@@ -15,8 +15,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.1.8
-Release:       2%{?dist}
+Version:       2.1.9
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPLv2+
@@ -314,6 +314,9 @@ make -C test-data/phony-guests fedora.img
 
 
 %changelog
+* Tue Oct 11 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.9-1
+- New upstream development version 2.1.9
+
 * Tue Aug 23 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.8-2
 - Add BR glibc-static for tests on x86_64.
 

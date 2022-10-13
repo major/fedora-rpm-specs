@@ -4,12 +4,14 @@
 
 Name:           gnome-contacts
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Contacts manager for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Contacts
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Patch0:         213.patch
+Patch1:         214.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -68,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.d
 %{_mandir}/man1/gnome-contacts.1*
 
 %changelog
+* Mon Oct 10 2022 Adam Williamson <awilliam@redhat.com> - 43.0-2
+- Backport MR #213 and MR #214 to fix contact editing issues (#2130657)
+
 * Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

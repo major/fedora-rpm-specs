@@ -9,7 +9,7 @@
 Summary:       Convert a physical machine to run on KVM
 Name:          virt-p2v
 Epoch:         1
-Version:       1.42.2
+Version:       1.42.3
 Release:       1%{?dist}
 License:       GPLv2+
 
@@ -119,6 +119,9 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/p2v-release-notes.1*
 
 
 %changelog
+* Tue Oct 11 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.42.3-1
+- New upstream release 1.42.3
+
 * Wed Aug 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.42.2-1
 - New upstream release 1.42.2
 - Uses PCRE2 instead of PCRE.

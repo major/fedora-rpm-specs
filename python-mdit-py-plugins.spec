@@ -1,8 +1,8 @@
 %global pypi_name mdit-py-plugins
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
-Release:        4%{?dist}
+Version:        0.3.1
+Release:        1%{?dist}
 Summary:        Collection of plugins for markdown-it-py
 
 # Both the package and its plugins are licensed under MIT
@@ -48,6 +48,10 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Mon Oct 03 2022 Karolina Surma <ksurma@redhat.com> - 0.3.1-1
+- Update to 0.3.1
+Resolves: rhbz#2130161
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

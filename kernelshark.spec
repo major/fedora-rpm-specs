@@ -1,6 +1,6 @@
 Name: kernelshark
-Version: 2.1.0
-Release: 2%{?dist}
+Version: 2.1.1
+Release: 1%{?dist}
 Epoch: 1
 
 # As of 1.1, only kernelshark.cpp, kshark-record.cpp and examples are GPL-2.0. The rest of kernel-shark is LGPL-2.1.
@@ -36,6 +36,9 @@ BuildRequires: make
 BuildRequires: chrpath
 BuildRequires: freeglut-devel
 BuildRequires: gnu-free-sans-fonts
+BuildRequires: docbook-style-xsl
+BuildRequires: texlive-epstopdf
+BuildRequires: ghostscript
 Requires: polkit
 
 
@@ -50,8 +53,8 @@ view of its data.
 
 %build
 cd build
-cmake ..  -DCMAKE_BUILD_TYPE=Package -D_INSTALL_PREFIX=%{_prefix} -D_LIBDIR=%{_libdir} -DCMAKE_C_FLAGS_PACKAGE="%{optflags}" -DCMAKE_EXE_LINKER_FLAGS="%{build_ldflags}"
-make 
+cmake ..  -DCMAKE_BUILD_TYPE=Package -D_INSTALL_PREFIX=%{_prefix} -D_LIBDIR=%{_libdir} -DCMAKE_C_FLAGS_PACKAGE="%{optflags}" -DCMAKE_EXE_LINKER_FLAGS="%{build_ldflags}" -D_DOXYGEN_DOC=1
+make V=1 all doc
 
 %install
 cd build
@@ -79,19 +82,22 @@ chrpath --delete %{buildroot}/%{_bindir}/kshark-record
 %{_datadir}/icons/kernelshark/*
 %{_datadir}/polkit-1/actions/org.freedesktop.kshark-record.policy
 %{_metainfodir}/%{name}.appdata.xml
-%{_libdir}/libkshark-gui.so.2.1.0
-%{_libdir}/libkshark-plot.so.2.1.0
+%{_libdir}/libkshark-gui.so.2.1.1
+%{_libdir}/libkshark-plot.so.2.1.1
 %{_libdir}/libkshark.so
 %{_libdir}/libkshark.so.2
-%{_libdir}/libkshark.so.2.1.0
+%{_libdir}/libkshark.so.2.1.1
 %{_libdir}/pkgconfig/libkshark.pc
 %{_includedir}/%{name}
 
 %changelog
+* Tue Oct 11 2022 Zamir SUN <sztsian@gmail.com> - 1:2.1.1-1
+- Update to 2.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Fri Apre 15 2022 Zamir SUN <sztsian@gmail.com> - 1:2.1.0-1
+* Fri Apr 15 2022 Zamir SUN <sztsian@gmail.com> - 1:2.1.0-1
 - Update to 2.1.0
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3-4

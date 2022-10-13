@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.8.1
+Version:        2.8.2
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -559,6 +559,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Tue Oct 11 2022 Robert Scheck <robert@fedoraproject.org> 2.8.2-1
+- Upgrade to 2.8.2 (#2133869)
+
 * Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.1-1
 - Upgrade to 2.8.1 (#2131453)
 

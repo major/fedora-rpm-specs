@@ -5,7 +5,7 @@
 %global crate md-5
 
 Name:           rust-md-5
-Version:        0.10.2
+Version:        0.10.5
 Release:        %autorelease
 Summary:        MD5 hash function
 
@@ -48,6 +48,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+oid-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+oid-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "oid" feature of the "%{crate}" crate.
+
+%files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

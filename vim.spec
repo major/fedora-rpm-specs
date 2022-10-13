@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 475
+%define patchlevel 720
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -158,6 +158,14 @@ Conflicts: %{name}-minimal < %{epoch}:8.2.3642-2
 # shared files between common and minimal
 Requires: %{name}-data = %{epoch}:%{version}-%{release}
 Requires: %{name}-filesystem
+# vim-toml was a separate package but the runtime files have been included
+# directly in vim since 8.2.3519.  The vim-toml package has been retired in
+# Fedora, obsolete it so it doesn't get left on users' systems.  Added in F38,
+# can be removed in F40.
+# https://github.com/cespare/vim-toml/commit/2c8983cc391287e5e26e015c3ab9c38de9f9b759
+# https://github.com/vim/vim/commit/2286304cdbba53ceb52b3ba2ba4a521b0a2f8d0f
+Provides: vim-toml = %{epoch}:%{version}-%{release}
+Obsoletes: vim-toml < 0^1.717bd87-4
 
 %description common
 VIM (VIsual editor iMproved) is an updated and improved version of the
@@ -964,6 +972,12 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Tue Oct 11 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.720-1
+- patchlevel 720
+
+* Wed Sep 28 2022 Carl George <carl@george.computer> - 2:9.0.475-2
+- Obsolete vim-toml since the runtime files are now part of vim-common
+
 * Fri Sep 16 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.475-1
 - patchlevel 475
 

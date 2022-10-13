@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.19.1
 %global prever %{nil}
-Release: 4%{?dist}
+Release: 5%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT and LGPLv2
 
@@ -62,6 +62,7 @@ BuildRequires: lz4-devel
 BuildRequires: libzstd-devel
 %if %{?rhel}0 == 0
 BuildRequires: libsodium-devel
+BuildRequires: lua-devel
 %endif
 BuildRequires: libicu-devel
 BuildRequires: libexttextcat-devel
@@ -179,6 +180,9 @@ autoreconf -I . -fiv #required for aarch64 support
     --with-zstd                  \
     --with-libcap                \
     --with-icu                   \
+%if %{?rhel}0 == 0
+    --with-lua=plugin            \
+%endif
     --with-lucene                \
     --with-ssl=openssl           \
     --with-ssldir=%{ssldir}      \
@@ -393,6 +397,9 @@ make check
 %{_libdir}/dovecot/auth/lib20_auth_var_expand_crypt.so
 %{_libdir}/dovecot/auth/libauthdb_imap.so
 %{_libdir}/dovecot/auth/libauthdb_ldap.so
+%if %{?rhel}0 == 0
+%{_libdir}/dovecot/auth/libauthdb_lua.so
+%endif
 %{_libdir}/dovecot/auth/libmech_gssapi.so
 %{_libdir}/dovecot/auth/libdriver_sqlite.so
 %{_libdir}/dovecot/dict/libdriver_sqlite.so
@@ -473,6 +480,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Oct 11 2022 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.19.1-5
+- build with lua support (#2132420)
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:2.3.19.1-4
 - Rebuilt for ICU 71.1
 

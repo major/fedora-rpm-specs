@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -13,6 +13,10 @@ Source1:        fedora.toml
 Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
+
+# https://bugzilla.redhat.com/2132936
+# https://github.com/rpm-software-management/rpmlint/pull/943
+Patch0:         https://github.com/rpm-software-management/rpmlint/commit/393cde4e.patch#/0001-fix-broken-regex-for-no-manual-page-for-binary-check.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -39,7 +43,7 @@ rpmlint is a tool for checking common errors in RPM packages. Binary
 and source packages as well as spec files can be checked.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
 
 # Replace python-magic dep with file-magic (rhbz#1899279)
 sed -i 's/python-magic/file-magic/g' setup.py
@@ -76,6 +80,11 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Fri Oct 07 2022 Todd Zullinger <tmz@pobox.com> - 2.4.0-3
+- disable various errors/warnings for debug/devel packages
+- fix broken regex for no-manual-page-for-binary check (rhbz#2132936)
+- ignore missing-hash-section error (rhbz#2132969)
+
 * Wed Oct 05 2022 Miro Hrončok <mhroncok@redhat.com> - 2.4.0-2
 - remove the license list, depend on rpmlint-fedora-license-data instead
 

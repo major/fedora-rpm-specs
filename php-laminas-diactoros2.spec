@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    5b32597aa46b83c8b85bb1cf9a6ed4fe7dd980c5
+%global gh_commit    b3c7e9262b4fbec801d8df2370cdebb4f5d3a0ae
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -37,7 +37,7 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.17.0
+Version:       2.19.0
 Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
@@ -59,7 +59,7 @@ BuildArch:     noarch
 # Tests
 %if %{with tests}
 ## composer.json
-BuildRequires: php(language) >= 7.4
+BuildRequires: php(language) >= 8.0
 BuildRequires: (php-composer(psr/http-message)                           >= 1.0 with php-composer(psr/http-message)                           < 2)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0 with php-composer(psr/http-factory)                           < 2)
 #    "require-dev": {
@@ -70,12 +70,12 @@ BuildRequires: (php-composer(psr/http-factory)                           >= 1.0 
 #        "http-interop/http-factory-tests": "^0.9.0",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "php-http/psr7-integration-tests": "^1.1.1",
-#        "phpunit/phpunit": "^9.5.23"
+#        "phpunit/phpunit": "^9.5.25"
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.24.0"
+#        "vimeo/psalm": "^4.28"
 #    },
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.23
+BuildRequires:  phpunit9 >= 9.5.25
 BuildRequires:  php-curl
 BuildRequires:  php-dom
 BuildRequires:  php-gd
@@ -94,10 +94,10 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # composer.json
 #    "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "psr/http-factory": "^1.0",
 #        "psr/http-message": "^1.0"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-composer(psr/http-message)                           >= 1.0 with php-composer(psr/http-message)                           < 2)
 Requires:      (php-composer(psr/http-factory)                           >= 1.0 with php-composer(psr/http-factory)                           < 2)
 # phpcompatinfo (computed from version 2.4.0)
@@ -180,7 +180,7 @@ sed -e 's:vendor/http-interop/http-factory-tests:factory:' \
 : Upstream tests
 # Skip tests requiring network access
 RETURN_CODE=0
-for CMDARG in "php %{phpunit}" php74 php80 php81 php82; do
+for CMDARG in "php %{phpunit}" php80 php81 php82; do
     if which $CMDARG; then
         set $CMDARG
         $1 ${2:-%{_bindir}/phpunit9} \
@@ -204,6 +204,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
+- update to 2.19.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.17.0-1
 - update to 2.17.0
 - raise dependency on PHP 7.4

@@ -20,7 +20,7 @@ Source1:        http://andreas.vdr-developer.org/enigmang/download/skinenigmang-
 Source2:        %{name}.conf
 Patch0:         %{name}-config.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel
 BuildRequires:  GraphicsMagick-c++-devel
@@ -58,7 +58,8 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_resdir}
 cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 
 %files
-%doc COPYING HISTORY* README*
+%doc HISTORY* README*
+%license COPYING
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_vardir}/themes/EnigmaNG-*.theme

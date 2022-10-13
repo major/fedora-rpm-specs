@@ -1,6 +1,6 @@
 # To break circular dependency on poetry, when bootstrapping
 # we don't BuildRequire runtime deps and we don't run tests.
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 Name:           python-poetry-plugin-export
 Version:        1.1.1

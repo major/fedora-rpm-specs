@@ -5,8 +5,8 @@
 
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
-Version:		3.18.0
-Release:		5%{?dist}
+Version:		3.19.0
+Release:		1%{?dist}
 License:		CPL
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -18,8 +18,6 @@ Patch1:		opencryptoki-3.11.0-lockdir.patch
 # add missing config file
 Patch2:		opencryptoki-3.18.0-p11sak.patch
 # upstream patches
-Patch100:		opencryptoki-3.18.0-fix-json-output.patch
-Patch101:		opencryptoki-3.18.0-returning_CKR_BUFFER_TOO_SMALL.patch
 
 Requires(pre):		coreutils
 Requires:		(selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -301,6 +299,7 @@ fi
 
 %files devel
 %{_includedir}/%{name}/
+%{_libdir}/pkgconfig/%{name}.pc
 
 %files swtok
 %{_libdir}/opencryptoki/stdll/libpkcs11_sw.*
@@ -333,6 +332,7 @@ fi
 
 %files ccatok
 %doc doc/README.cca_stdll
+%config(noreplace) %{_sysconfdir}/%{name}/ccatok.conf
 %{_sbindir}/pkcscca
 %{_mandir}/man1/pkcscca.1*
 %{_libdir}/opencryptoki/stdll/libpkcs11_cca.*
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Tue Oct 11 2022 Than Ngo <than@redhat.com> - 3.19.0-1
+- update to 3.19.0
+
 * Wed Sep 14 2022 Florian Weimer <fweimer@redhat.com> - 3.18.0-5
 - Add missing build dependency on systemd-rpm-macros
 

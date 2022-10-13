@@ -1,10 +1,14 @@
+# To break circular dependency on poetry-plugin-export, when bootstrapping
+# we don't BuildRequire runtime deps and we don't run tests.
+%bcond bootstrap 1
+
 %global common_description %{expand:
 Poetry helps you declare, manage and install dependencies of Python
 projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.1.14
+Version:        1.2.1
 Release:        1%{?dist}
 
 License:        MIT
@@ -40,7 +44,7 @@ Summary:        %{summary}
 %autosetup -p1
 
 # remove vendored dependencies
-rm -r poetry/_vendor
+rm -r src/poetry/_vendor
 
 # compatibility with more pytest-mock versions
 sed -i s/MockFixture/MockerFixture/ tests/repositories/test_installed_repository.py
@@ -51,7 +55,7 @@ sed -i s/MockFixture/MockerFixture/ tests/repositories/test_installed_repository
 # Upstream has already removed the default pytest dependency in 1.2.0a1+,
 # this sed should be removed once we update.
 %if v"%{python3_version}" >= v"3.10"
-    sed -i 's/5\.2/6\.2/' poetry/console/commands/new.py
+    sed -i 's/5\.2/6\.2/' src/poetry/console/commands/new.py
 %endif
 
 # Allow newer packaging version
@@ -59,7 +63,7 @@ sed -i s/MockFixture/MockerFixture/ tests/repositories/test_installed_repository
 sed -i 's/packaging = "^.*"/packaging = "*"/' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires %{?with_bootstrap: -R}
 
 
 %build
@@ -78,6 +82,7 @@ for i in bash,bash-completion/completions,poetry fish,fish/vendor_completions.d,
     %{buildroot}%{_bindir}/poetry completions $1 | sed 's|%{buildroot}||g' > %{buildroot}%{_datadir}/$2/$3
 done
 
+%if %{with bootstap}
 %check
 # don't use %%tox here because tox.ini runs "poetry install"
 # test_lock_no_update: attempts a network connection to pypi
@@ -89,6 +94,7 @@ done
 not export_exports_requirements_txt_file_locks_if_no_lock_file and \
 not executor and \
 not editable_builder"
+%endif
 
 
 %files
@@ -111,6 +117,10 @@ not editable_builder"
 
 
 %changelog
+* Fri Sep 30 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-1
+- Update to 1.2.1
+- Enable bootstrap bcond
+
 * Mon Jul 25 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.1.14-1
 - Update to 1.1.14
 

@@ -9,7 +9,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        5.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
@@ -140,6 +140,9 @@ cd -
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 5.0.2-2
+- Rebuild for libsemigroups 2.3.1
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 5.0.2-1
 - Version 5.0.2
 - Update for gap 4.12.0

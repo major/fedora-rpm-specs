@@ -3,8 +3,8 @@
 Name:           mingw-SDL2_ttf
 License:        zlib
 
-Version:        2.0.18
-Release:        4%{?dist}
+Version:        2.20.1
+Release:        1%{?dist}
 
 %global  pkg_summary  MinGW Windows port of the TrueType font handling library for SDL2
 Summary: %{pkg_summary}
@@ -14,18 +14,6 @@ Source0:        %{URL}release/SDL2_ttf-%{version}.tar.gz
 
 # By default, some example programs are also built - we want only the library.
 Patch0:         0000-disable-building-example-programs.patch
-
-# The configure script checks if harfbuzz was built with freetype support,
-# but Fedora's harfbuzz.dll uses delayed loading for freetype.dll,
-# which causes this check to fail. This patch removes the check entirely.
-Patch1:         0001-no-harfbuzz-check.patch
-
-# Fix for CVE-2022-27470
-# Backport of upstream commits:
-# - https://github.com/libsdl-org/SDL_ttf/commit/09a2294338d7907ae955b07affdac229546f9cc9
-# - https://github.com/libsdl-org/SDL_ttf/commit/db1b41ab8bde6723c24b866e466cad78c2fa0448
-# See: https://bugzilla.redhat.com/show_bug.cgi?id=2081599
-Patch2:		0002-CVE-2022-27470.patch
 
 BuildArch:      noarch
 
@@ -76,9 +64,7 @@ Summary: %{pkg_summary}
 
 %prep
 %setup -q -n SDL2_ttf-%{version}
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
+%patch0 -p1
 
 
 %build
@@ -88,6 +74,7 @@ Summary: %{pkg_summary}
 	--disable-dependency-tracking \
 	--enable-freetype-builtin=no \
 	--enable-harfbuzz-builtin=no \
+	--enable-harfbuzz=yes \
 
 %mingw_make_build
 
@@ -99,29 +86,36 @@ Summary: %{pkg_summary}
 find %{buildroot} -name "*.la" -delete
 
 # Convert CRLF line endings to LF
-sed -i 's/\r$//' README.txt CHANGES.txt COPYING.txt
+sed -i 's/\r$//' README.txt CHANGES.txt LICENSE.txt
 
 
 # Win32
 %files -n mingw32-SDL2_ttf
 %doc CHANGES.txt README.txt
-%license COPYING.txt
+%license LICENSE.txt
 %{mingw32_bindir}/SDL2_ttf.dll
 %{mingw32_libdir}/libSDL2_ttf.dll.a
+%{mingw32_libdir}/cmake/SDL2_ttf/
 %{mingw32_libdir}/pkgconfig/SDL2_ttf.pc
 %{mingw32_includedir}/SDL2
 
 # Win64
 %files -n mingw64-SDL2_ttf
 %doc CHANGES.txt README.txt
-%license COPYING.txt
+%license LICENSE.txt
 %{mingw64_bindir}/SDL2_ttf.dll
 %{mingw64_libdir}/libSDL2_ttf.dll.a
+%{mingw64_libdir}/cmake/SDL2_ttf/
 %{mingw64_libdir}/pkgconfig/SDL2_ttf.pc
 %{mingw64_includedir}/SDL2
 
 
 %changelog
+* Tue Oct 11 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.20.1-1
+- Update to v2.20.1
+- Drop Patch1 (fix faulty Harfbuzz check - no longer needed, issue fixed upstream)
+- Drop Patch2 (fix for CVE-2022-27470 - included in this release)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

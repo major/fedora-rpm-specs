@@ -1,5 +1,5 @@
 Name:           lilypond-doc
-Version:        2.23.13
+Version:        2.23.14
 Release:        1%{?dist}
 Summary:        HTML documentation for LilyPond
 
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Oct 10 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.23.14-1
+- 2.23.14
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.23.13-1
 - 2.23.13
 

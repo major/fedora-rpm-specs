@@ -23,8 +23,8 @@ BuildRequires: gnupg2
 %description 
 Libchipcard allows easy access to smart cards. It provides basic access
 to memory and processor cards and has special support for German medical
-cards, German "GeldKarte" and HBCI (homebanking) cards (both type 0 and
-type 1).
+cards, German "GeldKarte" and FinTS (homebanking, formerly known as HBCI) 
+cards (both type 0 and type 1).
 It accesses the readers via CTAPI or IFD interfaces and has successfully
 been tested with Towitoko, Kobil, SCM, Orga, Omnikey and Reiner-SCT readers.
 This package contains the chipcard-daemon needed to access card readers.

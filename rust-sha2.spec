@@ -5,7 +5,7 @@
 %global crate sha2
 
 Name:           rust-sha2
-Version:        0.10.3
+Version:        0.10.6
 Release:        %autorelease
 Summary:        Pure Rust implementation of the SHA-2 hash function family
 
@@ -73,6 +73,18 @@ This package contains library source intended for building other packages which
 use the "force-soft" feature of the "%{crate}" crate.
 
 %files       -n %{name}+force-soft-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+oid-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+oid-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "oid" feature of the "%{crate}" crate.
+
+%files       -n %{name}+oid-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

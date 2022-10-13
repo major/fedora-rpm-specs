@@ -8,7 +8,7 @@
 #
 # When buid without config, filter, validator an view
 %global bootstrap    0
-%global gh_commit    ba4c7a12e0ff63a033aa16d4aa061ea09bda7f98
+%global gh_commit    ebabca3a6398fc872127bc69a51bda5afc720d67
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-i18n
@@ -19,7 +19,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.18.0
+Version:        2.19.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -38,18 +38,18 @@ BuildRequires:  php-intl
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-cache": "^3.1.2",
-#        "laminas/laminas-cache-storage-adapter-memory": "^2.0.0",
-#        "laminas/laminas-cache-storage-deprecated-factory": "^1.0.0",
+#        "laminas/laminas-cache": "^3.6",
+#        "laminas/laminas-cache-storage-adapter-memory": "^2.1",
+#        "laminas/laminas-cache-storage-deprecated-factory": "^1.0.1",
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "laminas/laminas-config": "^3.4.0",
+#        "laminas/laminas-config": "^3.7",
 #        "laminas/laminas-eventmanager": "^3.5.0",
-#        "laminas/laminas-filter": "^2.16.0",
-#        "laminas/laminas-validator": "^2.17.0",
-#        "laminas/laminas-view": "^2.21.0",
-#        "phpunit/phpunit": "^9.5.21",
+#        "laminas/laminas-filter": "^2.21",
+#        "laminas/laminas-validator": "^2.25",
+#        "laminas/laminas-view": "^2.23",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.24.0"
+#        "vimeo/psalm": "^4.28"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.0   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # ignore version as cache v3 not available
@@ -57,19 +57,19 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-cache)                >= 2.6.
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-eventmanager)         >= 3.5   with php-autoloader(%{gh_owner}/laminas-eventmanager)         < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.14  with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 %if ! %{bootstrap}
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.4   with php-autoloader(%{gh_owner}/laminas-config)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.16  with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.17  with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-view)                 >= 2.21  with php-autoloader(%{gh_owner}/laminas-view)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7   with php-autoloader(%{gh_owner}/laminas-config)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.21  with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.25  with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-view)                 >= 2.23  with php-autoloader(%{gh_owner}/laminas-view)                 < 3)
 %endif
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.21
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-intl": "*",
 #        "laminas/laminas-servicemanager": "^3.14.0",
 #        "laminas/laminas-stdlib": "^2.7 || ^3.0"
@@ -218,6 +218,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
+- update to 2.19.0 (no change)
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.18.0-1
 - update to 2.18.0
 - raise dependency on PHP 8.0

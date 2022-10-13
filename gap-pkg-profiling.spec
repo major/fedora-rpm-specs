@@ -1,8 +1,8 @@
 %global pkgname  profiling
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.0
-Release:        4%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Line by line profiling and code coverage for GAP
 
 # The project as a whole is MIT.
@@ -106,6 +106,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
+- Version 2.5.1
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.5.0-4
 - Update for gap 4.12.0
 - Convert License tag to SPDX

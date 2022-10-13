@@ -1,7 +1,7 @@
 %global pkgname crypting
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.10.2
+Version:        0.10.3
 Release:        1%{?dist}
 Summary:        Hashes and Crypto in GAP
 
@@ -70,6 +70,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 0.10.3-1
+- Version 0.10.3
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.10.2-1
 - Version 0.10.2
 - Add -endian patch to fix s390x build

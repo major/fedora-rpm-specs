@@ -19,7 +19,7 @@
 
 Name:           netplan
 Version:        0.105
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network configuration tool using YAML
 License:        GPLv3
 URL:            http://netplan.io/
@@ -214,6 +214,9 @@ sed -e "s/-Werror//g" -i Makefile
 %install
 %make_install ROOTPREFIX=%{_prefix} LIBDIR=%{_libdir} LIBEXECDIR=%{_libexecdir}
 
+# Ensure that libnetplan gets picked up by the dependency generators in RHEL 8
+chmod +x %{buildroot}%{_libdir}/libnetplan.so.%{libsomajor}*
+
 # Pre-create the config directory
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 
@@ -237,6 +240,9 @@ make check
 
 
 %changelog
+* Tue Oct 11 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.105-3
+- Fix libnetplan.so permissions so dependency generation works
+
 * Wed Sep 14 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.105-2
 - Fix configuration snippet file ownership
 

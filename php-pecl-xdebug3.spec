@@ -9,19 +9,19 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_with        tests
+%bcond_without     tests
 
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  89bb81c5c8fd0a229f3dd593aedbe263abdb8efd
+%global gh_commit  ddee051e64322c1955ccc7350a6da48af3a27ee7
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.2.0
-%global upstream_prever  alpha3
+%global upstream_prever  RC1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 
 # XDebug should be loaded after opcache
@@ -218,6 +218,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.2.0~rc1-1
+- update to 3.2.0RC1
+
 * Wed Oct  5 2022 Remi Collet <remi@remirepo.net> - 3.2.0~alpha2-1
 - update to 3.2.0alpha3
 - temporarily disable test suite

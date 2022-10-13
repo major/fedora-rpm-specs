@@ -4,21 +4,20 @@
 %undefine _auto_set_build_flags
 
 Name:           mingw-wine-gecko
-Version:        2.47.2
-Release:        6%{?dist}
+Version:        2.47.3
+Release:        1%{?dist}
 Summary:        Gecko library required for Wine
 
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 URL:            http://wiki.winehq.org/Gecko
 Source0:        http://dl.winehq.org/wine/wine-gecko/%{version}/wine-gecko-%{version}-src.tar.xz
-Source1:        https://github.com/pypa/virtualenv/archive/refs/tags/16.7.11.tar.gz#/virtualenv-16.7.11.tar.gz
 # https://bugs.winehq.org/show_bug.cgi?id=52455
-Source2:        https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
-# https://bugs.winehq.org/show_bug.cgi?id=51918
-Patch0:       %{name}-python310-1.patch
-Patch1:       %{name}-python310-2.patch
+Source1:        https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
 # https://bugs.winehq.org/show_bug.cgi?id=52085
-Patch2:       %{name}-gcc11.patch
+Patch1:       %{name}-gcc11.patch
+#Patch2:       %%{name}-python311.patch
+# bad hack for mingw header issue
+Patch3:       %{name}-header.patch
 
 BuildArch:      noarch
 
@@ -50,7 +49,11 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  pkgconfig
+%if 0%{?fedora} > 36
+BuildRequires:  python3.10
+%else
 BuildRequires:  python3
+%endif
 BuildRequires:  perl-Getopt-Long
 BuildRequires:  yasm
 BuildRequires:  zip
@@ -76,17 +79,14 @@ Windows Gecko library required for Wine.
 
 %prep
 %setup -q -c -n wine-gecko-%{version}
-%patch0 -p0
-cd wine-gecko-%{version}/python/virtualenv/
-rm -rf ./*
-gzip -dc %{SOURCE1} | tar -xf - --strip-components=1
-cd ../..
+cd wine-gecko-%{version}/
 pushd js/src/ctypes/libffi
 rm -rf ./*
-gzip -dc %{SOURCE2} | tar -xf - --strip-components=1
+gzip -dc %{SOURCE1} | tar -xf - --strip-components=1
 popd
 %patch1 -p1
-%patch2 -p1
+#patch2 -p1
+%patch3 -p1
 
 # fix nsprpub cross compile detection
 sed -i 's,cross_compiling=.*$,cross_compiling=yes,' nsprpub/configure
@@ -106,11 +106,17 @@ echo "export CFLAGS=\"-DWINE_GECKO_SRC\"" >> wine/mozconfig-common
 cp wine/mozconfig-common wine/mozconfig-common.build
 
 # ... and build
+
+%if 0%{?fedora} > 36
+python3.10 -m venv env
+source env/bin/activate
+%endif
+
 # Make jobserver is broken under Python 3.10
-#TOOLCHAIN_PREFIX=i686-w64-mingw32- MAKEOPTS="%{_smp_mflags}" ./wine/make_package --msi-package -win32
+#TOOLCHAIN_PREFIX=i686-w64-mingw32- MAKEOPTS="%%{_smp_mflags}" ./wine/make_package --msi-package -win32
 TOOLCHAIN_PREFIX=i686-w64-mingw32- MAKEOPTS="-j1" ./wine/make_package --msi-package -win32
 
-#TOOLCHAIN_PREFIX=x86_64-w64-mingw32- MAKEOPTS="%{_smp_mflags}" ./wine/make_package --msi-package -win64
+#TOOLCHAIN_PREFIX=x86_64-w64-mingw32- MAKEOPTS="%%{_smp_mflags}" ./wine/make_package --msi-package -win64
 TOOLCHAIN_PREFIX=x86_64-w64-mingw32- MAKEOPTS="-j1" ./wine/make_package --msi-package -win64
 
 %install
@@ -133,6 +139,9 @@ install -p -m 0644 wine-gecko-%{version}-x86_64/dist/wine-gecko-%{version}-x86_6
 %{_datadir}/wine/gecko/wine-gecko-%{version}-x86_64.msi
 
 %changelog
+* Tue Oct 11 2022 Michael Cronenworth <mike@cchtml.com> - 2.47.3-1
+- version upgrade
+
 * Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 2.47.2-6
 - Rebuild with mingw-gcc-12
 

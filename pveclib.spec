@@ -1,6 +1,6 @@
 Name:    pveclib
-Version: 1.0.4.4
-Release: 9%{?dist}
+Version: 1.0.4.5
+Release: 11%{?dist}
 Summary: Library for simplified access to PowerISA vector operations
 License: ASL 2.0
 URL:     https://github.com/open-power-sdk/pveclib
@@ -33,12 +33,24 @@ Summary:  This package contains static libraries for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description static
 This package contains static libraries for pveclib.
-So far only constant vectors used in conversions.
+So far only constant vectors used in conversions and
+target specific version of the int512 runtime.
 
 %prep
 %autosetup
 
 %build
+%define __cflags_arch_ppc64le %{-O3 -g}
+# use project's compiler/linker flags for tests
+%undefine _auto_set_build_flags
+# disable LTO. Most operations are static inline and int512
+# runtime is specifically tuned to avoid register spill.
+%global _lto_cflags %nil
+# don't use distro -mcpu/-mtune flags, they conflict with the use of IFUNC
+%global __cflags_arch_ppc64le %nil
+# filter out -O2 as we want to use -O3
+%global optflags $(echo %optflags | sed -e 's/-O2//g')
+
 %{?el7:source /opt/rh/devtoolset-9/enable}
 %configure --docdir=%{_docdir}/%{name}
 %make_build
@@ -77,6 +89,12 @@ find %{buildroot} -type f -name "libpvecstatic.so.0.0.0*.debug" -delete
 %{_libdir}/libpvecstatic.a
 
 %changelog
+* Fri Sep 16 2022 Steven Munroe <munroesj52@gmail.com> - 1.0.4.5-11
+- Use update source from tag v1.0.4-5
+
+* Wed Aug 17 2022 Steven Munroe <munroesj52@gmail.com> - 1.0.4.4-10
+- Prevent -mcpu= overide for compiler tests and IFUNC dynamic library build
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

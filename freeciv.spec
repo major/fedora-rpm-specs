@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           freeciv
-Version:        3.0.3
-Release:        2%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPLv2+
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Mon Oct 10 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.4-1
+- 3.0.4
+
 * Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.3-2
 - Enable qt client.
 

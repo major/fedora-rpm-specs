@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    66a6d03c381f6c9f1dd988bf8244f9afb9380d76
+%global gh_commit    63b66bd4b696f024f42616b9d95cdb10e5109c27
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-stdlib
@@ -23,7 +23,7 @@
 %global library      Stdlib
 
 Name:           php-%{gh_project}
-Version:        3.13.0
+Version:        3.15.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -35,7 +35,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires:  php-iconv
 BuildRequires:  php-intl
@@ -44,21 +44,20 @@ BuildRequires:  php-pcre
 BuildRequires:  php-posix
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.3.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "phpbench/phpbench": "^1.2.6",
-#        "phpunit/phpunit": "^9.5.23",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.26",
-#        "phpstan/phpdoc-parser": "^0.5.4"
+#        "vimeo/psalm": "^4.28"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.23
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0"
-Requires:       php(language) >= 7.4
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+Requires:       php(language) >= 8.0
 # only require for compatibility layer
 Requires:      (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From phpcompatinfo report for version 3.2.1
@@ -131,7 +130,7 @@ EOF
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} $filter --verbose || ret=1
@@ -159,6 +158,10 @@ exit $ret
 
 
 %changelog
+* Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.15.0-1
+- update to 3.15.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 3.13.0-1
 - update to 3.13.0
 - raise dependency on PHP 7.4

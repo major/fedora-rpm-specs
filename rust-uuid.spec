@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -295,18 +295,6 @@ This package contains library source intended for building other packages which
 use the "v8" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v8-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+wasm-bindgen-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+wasm-bindgen-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "wasm-bindgen" feature of the "%{crate}" crate.
-
-%files       -n %{name}+wasm-bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

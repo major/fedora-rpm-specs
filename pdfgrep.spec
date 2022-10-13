@@ -3,13 +3,13 @@ Name:           pdfgrep
 Version:        2.1.2
 Release:        10%{?dist}
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pdfgrep.org/
 Source0:        https://pdfgrep.org/download/%{name}-%{version}.tar.gz
 Source1:        https://pdfgrep.org/download/%{name}-%{version}.tar.gz.asc
-Source2:        gpgkey-432FC753112F26D9EB48DDC1A17CF2CA697BEAF2.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/432FC753112F26D9EB48DDC1A17CF2CA697BEAF2
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gnupg2
 BuildRequires:  gcc-c++
 BuildRequires:  poppler-cpp-devel
