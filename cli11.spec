@@ -2,8 +2,8 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.2.0
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Command line parser for C++11
 
 License:        BSD-3-Clause
@@ -32,8 +32,13 @@ CLI11 is a command line parser for C++11 and beyond that provides a
 rich feature set with a simple and intuitive interface.
 
 %package        docs
-# Doxygen adds MIT-licensed files
-License:        BSD-3-Clause AND MIT
+# Doxygen adds files with licenses other than BSD-3-Clause.
+# GPL-1.0-or-later: bc_s*.png, bdwn.png, closed.png, doc.png, doxygen.css,
+#     doxygen.svg, folderclosed.png, folderopen.png, nav_*.png, open.png,
+#     search/close.svg, search/mag*.svg, search/search.css, splitbar*.png,
+#     sync_off.png, sync_on.png, tab_*.png, tabs.css
+# MIT: dynsections.js, jquery.js, menu.js, menudata.js, search/search.js
+License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
 Summary:        Documentation for CLI11
 
 %description    docs
@@ -76,6 +81,10 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %doc docs/CLI11.svg docs/CLI11_100.png
 
 %changelog
+* Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 2.3.0-1
+- Version 2.3.0
+- Further clarify license of the docs subpackage
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 2.2.0-2
 - Convert License field to SPDX
 

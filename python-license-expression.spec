@@ -21,17 +21,19 @@ containment, equivalence and can be normalized or simplified.
 
 %description %{_description}
 
-%package -n     python%{python3_pkgversion}-license-expression
+%package -n     python3-license-expression
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
-%description -n python%{python3_pkgversion}-license-expression %{_description}
+%description -n python3-license-expression %{_description}
 
 %prep
 %autosetup -n license-expression-%{version}
 # Remove bundled egg-info
 rm -r src/*.egg-info/
 rm PKG-INFO
+# Set fallback_version
+sed -i 's/^fallback_version.*/fallback_version = "%{version}"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -42,12 +44,12 @@ rm PKG-INFO
 %install
 %pyproject_install
 
-%pyproject_save_files license-expression
+%pyproject_save_files license_expression
 
 %check
 %pytest
 
-%files -n python%{python3_pkgversion}-license-expression
+%files -n python3-license-expression -f %{pyproject_files}
 %license apache-2.0.LICENSE NOTICE
 %doc README.rst
 

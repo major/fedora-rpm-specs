@@ -1,6 +1,6 @@
 Name:           krecorder 
 Version:        22.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3+
 Summary:        Convergent KDE audio recording application
 Url:            https://invent.kde.org/plasma-mobile/krecorder
@@ -31,6 +31,7 @@ BuildRequires:  cmake(KF5CoreAddons)
 Requires:       kf5-kirigami2
 Requires:       gstreamer1-plugins-good
 Requires:       hicolor-icon-theme
+Requires:       kf5-kirigami2-addons
 
 %description
 Audio recorder for Plasma Mobile and other platforms
@@ -63,6 +64,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Wed Oct 12 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 22.09-2
+- Adding Missing Runtime requries (kf5-kirigami2-addons) fix #2134145
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

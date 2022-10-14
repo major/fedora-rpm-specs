@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.8
-%global runtime_version 6.0.8
+%global host_version 6.0.9
+%global runtime_version 6.0.9
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.108
+%global sdk_version 6.0.109
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -647,6 +647,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Oct 12 2022 Omair Majid <omajid@redhat.com> - 6.0.109-1
+- Update to .NET SDK 6.0.109 and Runtime 6.0.9
+
 * Thu Sep 29 2022 Michael Cronenworth <mike@cchtml.com> - 6.0.108-3
 - Clang 15 and s390x fixes with upstream patches
 

@@ -1,6 +1,6 @@
 %global pypi_name py-algorand-sdk
 Name:           python-%{pypi_name}
-Version:        1.18.0
+Version:        1.19.0
 Release:        1%{?dist}
 Summary:        Algorand Python SDK
 License:        MIT
@@ -47,6 +47,9 @@ cp %{SOURCE1} .
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Wed Oct 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.19.0-1
+- 1.19.0
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.18.0-1
 - 1.18.0
 

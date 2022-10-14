@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\(.*\\)
 
 Name:		R-%{packname}
-Version:	0.3.15
-Release:	4%{?dist}
+Version:	0.3.16
+Release:	1%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
 License:	GPLv2+
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Wed Oct 12 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.16-1
+- New upstream release 0.3.16
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 0.3.15-4
 - rebuild for R 4.2.1
 

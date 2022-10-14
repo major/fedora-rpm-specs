@@ -13,8 +13,10 @@ BuildRequires:	python3-setuptools
 BuildRequires:	libcdio-devel
 BuildRequires:	swig
 
+%if 0%{?fedora}
 # For tests
 BuildRequires:	python3-nose
+%endif
 
 %description
 The pycdio (and libcdio) libraries encapsulate CD-ROM reading and
@@ -42,8 +44,10 @@ device-dependent properties of a CD-ROM can use this library.
 %py3_install
 chmod 755 %{buildroot}/%{python3_sitearch}/*.so
 
+%if 0%{?fedora}
 %check
 %python3 setup.py nosetests
+%endif
 
 %files -n python3-pycdio
 %license COPYING

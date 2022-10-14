@@ -7,7 +7,7 @@
 
 Name:           moodle
 Version:        4.0.4
-Release:       	1%{?dist}
+Release:       	2%{?dist}
 Summary:        A Course Management System
 
 License:        GPLv2+
@@ -29,7 +29,6 @@ Requires:       perl(HTML::Entities) perl(CGI)
 Requires:	php-adodb
 Requires:	gnu-free-sans-fonts
 Requires:	php-markdown
-Requires:       php-google-apiclient1
 Requires:       php-simplepie
 Requires:       php-soap
 Requires:	php-pear-OLE
@@ -92,11 +91,6 @@ ln -s /usr/share/php/adodb/ %{buildroot}%{moodlewebdir}/lib/adodb
 #Symlink to FreeSans, to save space.
 rm -f %{buildroot}%{moodlewebdir}/lib/default.ttf
 ln -s /usr/share/fonts/gnu-free/FreeSans.ttf %{buildroot}%{moodlewebdir}/lib/default.ttf
-
-#use system php-google-apiclient
-rm -rf %{buildroot}%{moodlewebdir}/lib/google/src/Google
-rm -f %{buildroot}%{moodlewebdir}/lib/google/autoload.php
-ln -s /usr/share/php/Google1/ %{buildroot}%{moodlewebdir}/lib/google/src/Google
 
 #use system markdown
 rm -rf %{buildroot}%{moodlewebdir}/lib/markdown.php
@@ -180,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Wed Oct 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.4-2
+- Rebundle google-apiclient
+
 * Mon Sep 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.4-1
 - 4.0.4
 

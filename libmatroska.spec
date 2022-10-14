@@ -2,15 +2,15 @@
 
 Summary:	Open audio/video container format library
 Name:		libmatroska
-Version:	1.6.3
-Release:	4%{?dist}
+Version:	1.7.1
+Release:	1%{?dist}
 License:	LGPLv2+
 URL:		https://www.matroska.org/
 Source0:	https://dl.matroska.org/downloads/%{name}/%{name}-%{version}.tar.xz
 BuildRequires:	cmake3
 BuildRequires:	gcc-c++
-BuildRequires:	libebml-devel >= 1.4.0
-Requires:	libebml%{_isa} >= 1.4.0
+BuildRequires:	libebml-devel >= 1.4.4
+Requires:	libebml%{_isa} >= 1.4.4
 
 %description
 Matroska is an extensible open standard Audio/Video container.  It
@@ -23,7 +23,7 @@ is usually found as .mkv files (matroska video) and .mka files
 Summary:	Matroska container format library development files
 Requires:	%{name}%{_isa} = %{version}-%{release}
 Requires:	%{_libdir}/cmake
-Requires:	libebml-devel >= 1.4.0
+Requires:	libebml-devel >= 1.4.4
 Requires:	pkgconfig
 
 %description	devel
@@ -54,7 +54,7 @@ will use the Matroska container format.
 
 %files
 %license LICENSE.LGPL
-%doc ChangeLog
+%doc NEWS.md README.md
 %{_libdir}/%{name}.so.7*
 
 %files devel
@@ -69,6 +69,10 @@ will use the Matroska container format.
 
 
 %changelog
+* Wed Oct 12 2022 Dominik Mierzejewski <rpm@greysector.net> - 1.7.1-1
+- update to 1.7.1 (#2131233)
+- bump minimum required libebml version to 1.4.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

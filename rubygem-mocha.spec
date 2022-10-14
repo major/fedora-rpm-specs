@@ -1,23 +1,27 @@
 %global gem_name mocha
 
-Summary:        Mocking and stubbing library
-Name:           rubygem-%{gem_name}
-Version:        1.9.0
-Release:        7%{?dist}
+Name: rubygem-%{gem_name}
+Version: 1.15.0
+Release: 1%{?dist}
+Summary: Mocking and stubbing library
 License:        MIT or Ruby or BSD
-URL:            https://mocha.jamesmead.org
-Source0:        http://rubygems.org/gems/%{gem_name}-%{version}.gem
-BuildRequires:  ruby(release)
-BuildRequires:  rubygems-devel
-BuildRequires:  ruby
-BuildRequires:  rubygem(metaclass)
-BuildRequires:  rubygem(introspection)
-BuildRequires:  rubygem(minitest)
-BuildArch:      noarch
+URL: https://mocha.jamesmead.org
+Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/freerange/mocha.git && cd mocha
+# git archive -v -o mocha-1.15.0-test.tar.gz v1.15.0 test/
+Source1: %{gem_name}-%{version}-test.tar.gz
+BuildRequires: ruby(release)
+BuildRequires: rubygems-devel
+BuildRequires: ruby
+#BuildRequires:  rubygem(metaclass)
+BuildRequires: rubygem(introspection)
+BuildRequires: rubygem(minitest)
+BuildArch: noarch
 
 %description
 Mocking and stubbing library with JMock/SchMock syntax, which allows mocking
 and stubbing of methods on real (non-mock) classes.
+
 
 %package doc
 Summary: Documentation for %{name}
@@ -25,11 +29,10 @@ Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
 %description doc
-This package contains documentation for %{name}.
-
+Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -37,11 +40,12 @@ gem build ../%{gem_name}-%{version}.gemspec
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
-cp -pa .%{gem_dir}/* \
+cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
 pushd .%{gem_instdir}
+ln -s %{_builddir}/test .
 # Each part of test suite must be run separately, otherwise the test suite fails.
 # https://github.com/freerange/mocha/issues/121
 for kind in unit acceptance integration; do
@@ -51,30 +55,30 @@ popd
 
 %files
 %exclude %{gem_instdir}/.*
-%exclude %{gem_instdir}/init.rb
-%doc %{gem_instdir}/COPYING.md
-%doc %{gem_instdir}/README.md
+%license %{gem_instdir}/COPYING.md
 %license %{gem_instdir}/MIT-LICENSE.md
-%doc %{gem_instdir}/RELEASE.md
-%dir %{gem_instdir}
-%{gem_instdir}/bin
+%exclude %{gem_instdir}/init.rb
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
-%{gem_instdir}/Gemfile*
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CONTRIBUTING.md
+%{gem_instdir}/Gemfile
+%doc %{gem_instdir}/README.md
+%doc %{gem_instdir}/RELEASE.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/mocha.gemspec
 %{gem_instdir}/gemfiles/
-%{gem_instdir}/test/
-%{gem_instdir}/docs/
 %{gem_instdir}/yard-templates/
 
 
 %changelog
+* Tue Oct 11 2022 Vít Ondruch <vondruch@redhat.com> - 1.15.0-1
+- Update to Mocha 1.1.0.
+  Resolves: rhbz#1778907
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  5.7
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -18,6 +18,7 @@ Source5:  squid.pam
 Source6:  squid.nm
 Source7:  squid.service
 Source8:  cache_swap.sh
+Source9:  squid.sysusers
 
 Source98: perl-requires-squid.sh
 
@@ -40,10 +41,7 @@ Patch205: squid-5.0.5-symlink-lang-err.patch
 Requires: bash gawk
 # for httpd conf file - cachemgr script alias
 Requires: httpd-filesystem
-Requires(pre): shadow-utils
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+
 # squid_ldap_auth and other LDAP helpers require OpenLDAP
 BuildRequires: make
 BuildRequires: openldap-devel
@@ -75,6 +73,8 @@ BuildRequires: systemd-rpm-macros
 # systemd notify
 BuildRequires: systemd-devel
 
+%{?systemd_requires}
+%{?sysusers_requires_compat}
 
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
@@ -224,6 +224,8 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/squid/squid.conf.documented
 # remove unpackaged files from the buildroot
 rm -f $RPM_BUILD_ROOT/squid.httpd.tmp
 
+# sysusers.d
+install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 
 %files
 %license COPYING 
@@ -265,15 +267,10 @@ rm -f $RPM_BUILD_ROOT/squid.httpd.tmp
 %{_libdir}/squid/*
 %{_datadir}/snmp/mibs/SQUID-MIB.txt
 %{_tmpfilesdir}/squid.conf
+%{_sysusersdir}/squid.conf
 
 %pre
-if ! getent group squid >/dev/null 2>&1; then
-  /usr/sbin/groupadd -g 23 squid
-fi
-
-if ! getent passwd squid >/dev/null 2>&1 ; then
-  /usr/sbin/useradd -g 23 -u 23 -d /var/spool/squid -r -s /sbin/nologin squid >/dev/null 2>&1 || exit 1 
-fi
+%sysusers_create_compat %{SOURCE9}
 
 for i in /var/log/squid /var/spool/squid ; do
         if [ -d $i ] ; then
@@ -316,8 +313,6 @@ do
   end
 end
 
-
-
 %post
 %systemd_post squid.service
 
@@ -336,6 +331,9 @@ fi
 
 
 %changelog
+* Wed Oct 12 2022 Luboš Uhliarik <luhliari@redhat.com> - 7:5.7-2
+- Provide a sysusers.d file to get user() and group() provides (#2134071)
+
 * Tue Sep 06 2022 Luboš Uhliarik <luhliari@redhat.com> - 7:5.7-1
 - new version 5.7
 

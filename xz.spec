@@ -3,7 +3,7 @@
 
 Summary:	LZMA compression utilities
 Name:		xz
-Version:	5.2.6
+Version:	5.2.7
 Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -161,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Tue Aug 30 2022 Matej Mužila <mmuzila@redhat.com> - 5.2.7-1
+- Rebase to version 5.2.7 (#2131313)
+
 * Tue Aug 30 2022 Matej Mužila <mmuzila@redhat.com> - 5.2.6-1
 - Rebase to version 5.2.6 (#2117931)
 

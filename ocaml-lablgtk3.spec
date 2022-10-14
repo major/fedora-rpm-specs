@@ -1,24 +1,20 @@
 %undefine _package_note_flags
 
 Name:           ocaml-lablgtk3
-Version:        3.1.2
-Release:        5%{?dist}
+Version:        3.1.3
+Release:        1%{?dist}
 Summary:        OCaml interface to gtk3
 
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://garrigue.github.io/lablgtk/
 Source0:        https://github.com/garrigue/lablgtk/archive/%{version}/lablgtk3-%{version}.tar.gz
-# Fedora only patch: unbundle xml-light
-Patch0:         %{name}-xml-light.patch
 
 BuildRequires:  help2man
-BuildRequires:  ocaml >= 4.05.0
+BuildRequires:  ocaml >= 4.09.0
 BuildRequires:  ocaml-cairo-devel >= 0.6
-BuildRequires:  ocaml-camlp5-devel
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-dune >= 1.8.0
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-xml-light-devel
 BuildRequires:  pkgconfig(goocanvas-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-3.0)
@@ -107,9 +103,8 @@ rm doc/FAQ.text
 # Make sure we do not use the bundled copy of xml-light
 rm -fr tools/instrospection/xml-light
 
-# This version number marker was removed in the 3.1.2 release, leading to no
-# version number in the META files
-sed -i '/(name lablgtk3)/a(version %{version})' dune-project
+# Fix the version number
+sed -i 's/3\.1\.2/%{version}/' dune-project
 
 %build
 export LABLGTK_EXTRA_FLAGS=-g
@@ -168,6 +163,11 @@ cp -p gdk_pixbuf_mlsource3.1 lablgladecc3.1 %{buildroot}%{_mandir}/man1
 %files sourceview3-devel -f .ofiles-lablgtk3-sourceview3-devel
 
 %changelog
+* Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 3.1.3-1
+- Version 3.1.3
+- Convert License tag to SPDX
+- Drop xml-light patch; that code is not built anyway
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

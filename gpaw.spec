@@ -20,8 +20,8 @@ ExcludeArch: ppc64
 %endif
 
 Name:			gpaw
-Version:		22.1.0
-Release:		3%{?dist}
+Version:		22.8.0
+Release:		2%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -249,9 +249,10 @@ export NPROC_PARALLEL=2 # test on 4 cores (scalapack test needs that)
 export TIMEOUT_OPTS='--preserve-status --kill-after 10 1800'
 
 # To avoid replicated code define a macro
+# https://gitlab.com/gpaw/gpaw/-/issues/612
 %global docheck() \
-GPAW_PLATFORM=$($PYTHON -c "from distutils import util, sysconfig; print(util.get_platform()+'-'+sysconfig.get_python_version())")&& \
-export PYTHONPATH=`pwd`/build$MPI_SUFFIX/lib.${GPAW_PLATFORM} \
+GPAW_PLATFORM_GLOB=$($PYTHON -c "from distutils import util, sysconfig; print(util.get_platform()+'-*')")&& \
+export PYTHONPATH=$(echo $(pwd)/build$MPI_SUFFIX/lib.${GPAW_PLATFORM_GLOB}) \
 PATH=`pwd`/tools:${PATH} \
 timeout ${TIMEOUT_OPTS} time $GPAW_EXECUTABLE -m ci -v 2>&1 | tee gpaw-test${NPROC}$MPI_SUFFIX.log || true
 
@@ -300,6 +301,12 @@ popd
 
 
 %changelog
+* Wed Oct 12 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-2
+- Glob for build/lib platform name https://gitlab.com/gpaw/gpaw/-/issues/612
+
+* Wed Oct 12 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-1
+- New upstream release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

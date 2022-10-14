@@ -1,5 +1,5 @@
 Name:           profanity
-Version:        0.13.0
+Version:        0.13.1
 Release:        1%{?dist}
 Summary:        A console based XMPP client
 
@@ -31,7 +31,7 @@ BuildRequires:  libsignal-protocol-c-devel
 # OMEMO support (>= 1.7)
 BuildRequires:  libgcrypt-devel
 # Python plugin support
-##BuildRequires:  python3-devel
+BuildRequires:  python3-devel
 # For tests:
 BuildRequires:  libcmocka-devel
 # For docs:
@@ -143,6 +143,10 @@ make check
 
 
 %changelog
+* Wed Oct 12 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.1-1
+- Update to 0.13.1
+- Enable python plugin support
+
 * Wed Sep 14 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.0-1
 - Update to 0.13.0
 - Update SourceURL in spec file

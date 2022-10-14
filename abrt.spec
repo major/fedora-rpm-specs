@@ -49,11 +49,13 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.15.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: 0001-Fix-for-rpm-4.18.patch
+Patch1: 0002-abrt-journal-call-sd_journal_get_fd-right-after-sd_j.patch
+Patch2: 0003-applet-Update-GLib-constant-name.patch
 
 BuildRequires: git-core
 BuildRequires: %{dbus_devel}
@@ -1008,6 +1010,10 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Wed Oct 12 2022 Michal Srb <michal@redhat.com> - 2.15.1-5
+- abrt-journal: call sd_journal_get_fd() right after sd_journal_open()
+- Resolves: rhbz#2128662
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

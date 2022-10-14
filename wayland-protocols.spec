@@ -1,11 +1,11 @@
 Name:           wayland-protocols
-Version:        1.26
-Release:        2%{?dist}
+Version:        1.27
+Release:        1%{?dist}
 Summary:        Wayland protocols that adds functionality not available in the core protocol
 
 License:        MIT
 URL:            https://wayland.freedesktop.org/
-Source0:        https://wayland.freedesktop.org/releases/%{name}-%{version}.tar.xz
+Source0:        https://gitlab.freedesktop.org/wayland/%{name}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
 
 BuildArch:      noarch
 
@@ -48,6 +48,9 @@ wayland-protocols.
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Oct 12 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.27-1
+- Update to 1.27
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

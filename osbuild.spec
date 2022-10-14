@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        68
+Version:        69
 
 %forgemeta
 
@@ -251,6 +251,19 @@ fi
 
 
 %changelog
+* Wed Oct 12 2022 Packit <hello@packit.dev> - 69-1
+Changes with 69
+----------------
+  * runners: auto detection based on best matching distro+version (#996)
+  * sources/ostree: pull from remote using rhsm mTLS certs (#1138)
+  * stages: fix ostree config stage (#1129)
+
+Contributions from: Antonio Murdaca, Christian Kellner, Sanne Raymaekers
+
+— Somewhere on the Internet, 2022-10-12
+
+
+
 * Wed Sep 28 2022 Packit <hello@packit.dev> - 68-1
 Changes with 68
 ----------------
@@ -260,10 +273,10 @@ Changes with 68
   * selinux: Update based on latest packaging guide (#1127)
   * stages/greenboot: avoid new pylint suppressions (#1114)
   * test/src: improve file enumeration (#1106)
-
 Contributions from: David Rheinsberg, Ondřej Budai, Simon Steinbeiss, Thomas Lavocat, Vit Mojzis
-
 — Somewhere on the Internet, 2022-09-28
+
+
 
 
 

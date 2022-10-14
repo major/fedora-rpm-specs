@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    69ea122cd53f7839e58cb250975932332e542524
+%global gh_commit    50ae82af3e2da96108490ceb474480e6df226993
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-view
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.23.0
+Version:        2.24.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -30,7 +30,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-reflection
 BuildRequires:  php-date
 BuildRequires:  php-dom
@@ -46,53 +46,49 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.10
 BuildRequires: (php-composer(psr/container)                              >= 1       with php-composer(psr/container)                              < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-authentication": "^2.5",
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "laminas/laminas-console": "^2.6",
-#        "laminas/laminas-feed": "^2.15",
-#        "laminas/laminas-filter": "^2.13.0",
-#        "laminas/laminas-http": "^2.15",
-#        "laminas/laminas-i18n": "^2.6",
-#        "laminas/laminas-modulemanager": "^2.7.1",
-#        "laminas/laminas-mvc": "^3.0",
-#        "laminas/laminas-mvc-i18n": "^1.1",
-#        "laminas/laminas-mvc-plugin-flashmessenger": "^1.5.0",
-#        "laminas/laminas-navigation": "^2.13.1",
-#        "laminas/laminas-paginator": "^2.11.0",
-#        "laminas/laminas-permissions-acl": "^2.6",
-#        "laminas/laminas-router": "^3.0.1",
-#        "laminas/laminas-uri": "^2.5",
-#        "phpspec/prophecy": "^1.12",
-#        "phpspec/prophecy-phpunit": "^2.0",
-#        "phpunit/phpunit": "^9.5.5",
+#        "laminas/laminas-authentication": "^2.12",
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-console": "^2.8",
+#        "laminas/laminas-feed": "^2.18.2",
+#        "laminas/laminas-filter": "^2.23",
+#        "laminas/laminas-http": "^2.16",
+#        "laminas/laminas-i18n": "^2.19",
+#        "laminas/laminas-modulemanager": "^2.12",
+#        "laminas/laminas-mvc": "^3.3.5",
+#        "laminas/laminas-mvc-i18n": "^1.4",
+#        "laminas/laminas-mvc-plugin-flashmessenger": "^1.8.1",
+#        "laminas/laminas-navigation": "^2.15",
+#        "laminas/laminas-paginator": "^2.13",
+#        "laminas/laminas-permissions-acl": "^2.10",
+#        "laminas/laminas-router": "^3.10",
+#        "laminas/laminas-uri": "^2.9.1",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.10"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.5     with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-console)              >= 2.6     with php-autoloader(%{gh_owner}/laminas-console)              < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-feed)                 >= 2.15    with php-autoloader(%{gh_owner}/laminas-feed)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.13.0  with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.6     with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-modulemanager)        >= 2.7.1   with php-autoloader(%{gh_owner}/laminas-modulemanager)        < 3)
+#        "vimeo/psalm": "^4.28"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.12    with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-console)              >= 2.8     with php-autoloader(%{gh_owner}/laminas-console)              < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-feed)                 >= 2.18.2  with php-autoloader(%{gh_owner}/laminas-feed)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.23    with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.19    with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-modulemanager)        >= 2.12    with php-autoloader(%{gh_owner}/laminas-modulemanager)        < 3)
 %if ! %{bootstrap}
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.0     with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-i18n)             >= 1.1     with php-autoloader(%{gh_owner}/laminas-mvc-i18n)             < 2)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) >= 1.5 with php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) < 2)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-navigation)           >= 2.13.1  with php-autoloader(%{gh_owner}/laminas-navigation)           < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-paginator)            >= 2.11.0  with php-autoloader(%{gh_owner}/laminas-paginator)            < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-permissions-acl)      >= 2.6     with php-autoloader(%{gh_owner}/laminas-permissions-acl)      < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.3.5   with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-i18n)             >= 1.4     with php-autoloader(%{gh_owner}/laminas-mvc-i18n)             < 2)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) >= 1.8.1 with php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) < 2)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-navigation)           >= 2.15    with php-autoloader(%{gh_owner}/laminas-navigation)           < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-paginator)            >= 2.13    with php-autoloader(%{gh_owner}/laminas-paginator)            < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-permissions-acl)      >= 2.10    with php-autoloader(%{gh_owner}/laminas-permissions-acl)      < 3)
 %endif
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-router)               >= 3.0.1   with php-autoloader(%{gh_owner}/laminas-router)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.5     with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
-BuildRequires: (php-composer(phpspec/prophecy)                           >= 1.12.0  with php-composer(phpspec/prophecy)                           < 2)
-BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0     with php-composer(phpspec/prophecy-phpunit)                   < 3)
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-router)               >= 3.10    with php-autoloader(%{gh_owner}/laminas-router)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1   with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-dom": "*",
 #        "ext-filter": "*",
 #        "ext-json": "*",
@@ -104,7 +100,7 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "laminas/laminas-servicemanager": "^3.14.0",
 #        "laminas/laminas-stdlib": "^3.10.1",
 #        "psr/container": "^1 || ^2"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:       php-dom
 Requires:       php-filter
 Requires:       php-json
@@ -235,10 +231,6 @@ mkdir vendor
 cat << 'EOF' | tee vendor/autoload.php
 <?php
 require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
-\Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/Prophecy/autoload.php',
-    '%{php_home}/Prophecy/PhpUnit/autoload.php',
-]);
 \Fedora\Autoloader\Dependencies::optional([
     '%{php_home}/%{namespace}/Console/autoload.php',
     '%{php_home}/%{namespace}/ModuleManager/autoload.php',
@@ -261,8 +253,7 @@ rm -r test/Helper*
 
 : upstream test suite
 ret=0
-# TODO: php82 (dynamic properties)
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 \
       --verbose || ret=1
@@ -284,6 +275,10 @@ exit $ret
 
 
 %changelog
+* Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 2.24.0-1
+- update to 2.24.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.23.0-1
 - update to 2.23.0
 

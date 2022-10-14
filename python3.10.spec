@@ -13,7 +13,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.7
+%global general_version %{pybasever}.8
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -321,16 +321,6 @@ Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00382 # 9e275dcdf3934b827994ecc3247d583d5bab7985
-# CVE-2015-20107
-#
-# Make mailcap refuse to match unsafe filenames/types/params (GH-91993)
-#
-# Upstream: https://github.com/python/cpython/issues/68966
-#
-# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
-Patch382: 00382-cve-2015-20107.patch
 
 # (New patches go here ^^^)
 #
@@ -1589,6 +1579,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Oct 12 2022 Miro Hrončok <mhroncok@redhat.com> - 3.10.8-1
+- Update to 3.10.8
+
 * Wed Sep 07 2022 Miro Hrončok <mhroncok@redhat.com> - 3.10.7-1
 - Update to 3.10.7
 - Contains security fix for CVE-2020-10735

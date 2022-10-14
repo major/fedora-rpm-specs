@@ -984,8 +984,8 @@ find ./tests ./run-tests.sh -type f | cpio -pd %{buildroot}%{_prefix}/share/glus
 %endif
 
 ## Install bash completion for cli
-install -p -m 0755 -D extras/command-completion/gluster.bash \
-    %{buildroot}%{_sysconfdir}/bash_completion.d/gluster
+install -p -m 0644 -D extras/command-completion/gluster.bash \
+    %{buildroot}%{bash_completions_dir}/gluster
 
 ##-----------------------------------------------------------------------------
 ## All package definitions should be placed here in alphabetical order
@@ -1292,7 +1292,7 @@ exit 0
 %files cli
 %{_sbindir}/gluster
 %{_mandir}/man8/gluster.8*
-%{_sysconfdir}/bash_completion.d/gluster
+%{bash_completions_dir}/gluster
 
 %files client-xlators
 %dir %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/cluster

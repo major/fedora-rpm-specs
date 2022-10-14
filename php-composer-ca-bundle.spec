@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    30897edbfb15e784fe55587b4f73ceefd3c4d98c
+%global gh_commit    69098eca243998b53eed7a48d82dedd28b447cd5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.3.3
-Release:        2%{?dist}
+Version:        1.3.4
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -147,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 1.3.4-1
+- update to 1.3.4 (no change)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

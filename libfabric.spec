@@ -6,7 +6,7 @@
 %endif
  
 Name:           libfabric
-Version:        1.15.2
+Version:        1.16.1
 Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
@@ -99,6 +99,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Oct 11 2022 Orion Poplawski <orion@nwra.com> - 1.16.1-1
+- Update to 1.16.1
+
 * Wed Aug 24 2022 Orion Poplawski <orion@nwra.com> - 1.15.2-1
 - Update to 1.15.2
 

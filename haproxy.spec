@@ -8,7 +8,7 @@
 
 Name:           haproxy
 Version:        2.6.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPLv2+
@@ -19,7 +19,8 @@ Source1:        %{name}.service
 Source2:        %{name}.cfg
 Source3:        %{name}.logrotate
 Source4:        %{name}.sysconfig
-Source5:        halog.1
+Source5:        %{name}.sysusers
+Source6:        halog.1
 
 BuildRequires:  gcc
 BuildRequires:  lua-devel
@@ -27,6 +28,7 @@ BuildRequires:  pcre2-devel
 BuildRequires:  openssl-devel
 BuildRequires:  systemd-devel
 BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
 
 Requires(pre):  shadow-utils
@@ -50,54 +52,50 @@ availability environments. Indeed, it can:
 %setup -q
 %build
 
-%{__make} %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
+make %{?_smp_mflags} CPU="generic" TARGET="linux-glibc" USE_OPENSSL=1 USE_PCRE2=1 USE_SLZ=1 USE_LUA=1 USE_CRYPT_H=1 USE_SYSTEMD=1 USE_LINUX_TPROXY=1 USE_GETADDRINFO=1 USE_PROMEX=1 DEFINE=-DMAX_SESS_STKCTR=12 ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
 
-%{__make} admin/halog/halog ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
+make admin/halog/halog ADDINC="%{build_cflags}" ADDLIB="%{build_ldflags}"
 
 pushd admin/iprange
-%{__make} OPTIMIZE="%{build_cflags}" LDFLAGS="%{build_ldflags}"
+make OPTIMIZE="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 popd
 
 %install
-%{__make} install-bin DESTDIR=%{buildroot} PREFIX=%{_prefix} TARGET="linux2628"
-%{__make} install-man DESTDIR=%{buildroot} PREFIX=%{_prefix}
+make install-bin DESTDIR=%{buildroot} PREFIX=%{_prefix} TARGET="linux2628"
+make install-man DESTDIR=%{buildroot} PREFIX=%{_prefix}
 
-%{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
-%{__install} -p -D -m 0644 %{SOURCE2} %{buildroot}%{haproxy_confdir}/%{name}.cfg
-%{__install} -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-%{__install} -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
-%{__install} -p -D -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/halog.1
-%{__install} -d -m 0755 %{buildroot}%{haproxy_homedir}
-%{__install} -d -m 0755 %{buildroot}%{haproxy_datadir}
-%{__install} -d -m 0755 %{buildroot}%{haproxy_confdir}/conf.d
-%{__install} -d -m 0755 %{buildroot}%{_bindir}
-%{__install} -p -m 0755 ./admin/halog/halog %{buildroot}%{_bindir}/halog
-%{__install} -p -m 0755 ./admin/iprange/iprange %{buildroot}%{_bindir}/iprange
-%{__install} -p -m 0755 ./admin/iprange/ip6range %{buildroot}%{_bindir}/ip6range
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{haproxy_confdir}/%{name}.cfg
+install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/halog.1
+install -d -m 0755 %{buildroot}%{haproxy_homedir}
+install -d -m 0755 %{buildroot}%{haproxy_datadir}
+install -d -m 0755 %{buildroot}%{haproxy_confdir}/conf.d
+install -d -m 0755 %{buildroot}%{_bindir}
+install -p -m 0755 ./admin/halog/halog %{buildroot}%{_bindir}/halog
+install -p -m 0755 ./admin/iprange/iprange %{buildroot}%{_bindir}/iprange
+install -p -m 0755 ./admin/iprange/ip6range %{buildroot}%{_bindir}/ip6range
 
 for httpfile in $(find ./examples/errorfiles/ -type f) 
 do
-    %{__install} -p -m 0644 $httpfile %{buildroot}%{haproxy_datadir}
+    install -p -m 0644 $httpfile %{buildroot}%{haproxy_datadir}
 done
 
-%{__rm} -rf ./examples/errorfiles/
+rm -rf ./examples/errorfiles/
 
-find ./examples/* -type f ! -name "*.cfg" -exec %{__rm} -f "{}" \;
+find ./examples/* -type f ! -name "*.cfg" -exec rm -f "{}" \;
 
 for textfile in $(find ./ -type f -name '*.txt')
 do
-    %{__mv} $textfile $textfile.old
+    mv $textfile $textfile.old
     iconv --from-code ISO8859-1 --to-code UTF-8 --output $textfile $textfile.old
-    %{__rm} -f $textfile.old
+    rm -f $textfile.old
 done
 
 %pre
-getent group %{haproxy_group} >/dev/null || \
-    groupadd -r %{haproxy_group}
-getent passwd %{haproxy_user} >/dev/null || \
-    useradd -r -g %{haproxy_user} -d %{haproxy_homedir} \
-    -s /sbin/nologin -c "haproxy" %{haproxy_user}
-exit 0
+%sysusers_create_compat %{SOURCE5}
 
 %post
 %systemd_post %{name}.service
@@ -126,8 +124,12 @@ exit 0
 %{_bindir}/iprange
 %{_bindir}/ip6range
 %{_mandir}/man1/*
+%{_sysusersdir}/%{name}.conf
 
 %changelog
+* Tue Oct 11 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-3
+- Use systemd-sysusers (#2134206)
+
 * Tue Oct 11 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-2
 - Remove USE_REGPARM (#2097885)
 

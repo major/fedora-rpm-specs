@@ -1,19 +1,26 @@
 %undefine _package_note_flags
 
 Name:           ocaml-lablgtk
-Version:        2.18.12
-Release:        5%{?dist}
+Version:        2.18.13
+Release:        1%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
-License:        LGPLv2 with exceptions
+# The project as a whole is LGPL-2.0-only.  LGPL-2.1-or-later files:
+# - src/gtkSourceView2_types.mli
+# - src/introspection/xml-light/* (not included in the binary RPM)
+License:        LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://garrigue.github.io/lablgtk/
 Source:         https://github.com/garrigue/lablgtk/archive/%{version}/lablgtk-%{version}.tar.gz
+# Provide a definition of ml_rsvg_handle_new_gz for newer versions of librsvg
+# which do not explicitly expose an SVGZ interface.
+Patch0:         %{name}-svgz.patch
 
 BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.06
+BuildRequires:  ocaml-camlp-streams-devel
 BuildRequires:  ocaml-findlib >= 1.2.1
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  pkgconfig(gtk+-2.0)
@@ -58,15 +65,15 @@ chmod a-x README*
 %build
 # Parallel builds don't work.
 unset MAKEFLAGS
-%configure --enable-debug --without-gnomeui
+%configure --without-gnomeui
 sed -e "s|-O|%{build_cflags}|" \
     -e "s|-shared|& -ccopt '%{build_ldflags}'|" \
     -e "s|(CAMLMKLIB)|& -ldopt '%{build_ldflags}'|" \
     -e "s|-warn-error [-A-Za-z0-9]\+||" \
     -i src/Makefile
 %ifarch %{ocaml_native_compiler}
-make world CAMLOPT="ocamlopt.opt -g"
-make opt CAMLOPT="ocamlopt.opt -g"
+make world CAMLOPT="ocamlopt.opt -g" CAMLC="ocamlc.opt -g"
+make opt CAMLOPT="ocamlopt.opt -g" CAMLC="ocamlc.opt -g"
 %else
 make world CAMLC="ocamlc -g"
 %endif
@@ -101,7 +108,7 @@ done
 popd
 
 # Remove .cvsignore files from examples directory.
-find examples -name .cvsignore -exec rm {} \;
+find examples -name .cvsignore -delete
 
 # Generate man pages
 export LD_LIBRARY_PATH=$PWD/src
@@ -128,6 +135,13 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 2.18.13-1
+- Version 2.18.13
+- Convert License tag to SPDX
+- Provide a working definition of ml_rsvg_handle_new_gz
+- BR ocaml-camlp-streams-devel for OCaml 5 compatibility
+- Stop building in debug mode
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		pgaudit
-Version:	1.6.2
-Release:	2%{?dist}
+Version:	1.7.0
+Release:	1%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -50,13 +50,15 @@ trail or audit log. The term audit log is used in this documentation.
 %{_libdir}/pgsql/bitcode/%{name}.index.bc
 %{_libdir}/pgsql/bitcode/%{name}/%{name}.bc
 %endif
-%{_datadir}/pgsql/extension/%{name}--1.6--1.6.1.sql
-%{_datadir}/pgsql/extension/%{name}--1.6.1--1.6.2.sql
-%{_datadir}/pgsql/extension/%{name}--1.6.2.sql
+%{_datadir}/pgsql/extension/%{name}--1.7.sql
 %{_datadir}/pgsql/extension/%{name}.control
 
 
 %changelog
+* Wed Oct 12 2022 Ondrej Sloup <osloup@redhat.com> - 1.7.0-1
+- Add pgaudit sql 1.7 removed 1.6.2 and 1.6.1-1.6.2
+- Rebase to the latest upstream version
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

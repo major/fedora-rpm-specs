@@ -43,12 +43,12 @@ BuildRequires: gcc-gfortran
 %if %{with java}
 BuildRequires: java-devel
 BuildRequires: javapackages-tools
-%else
-Obsoletes:     java-hdf5 < %{version}-%{release}
-%endif
 BuildRequires: hamcrest
 BuildRequires: junit
 BuildRequires: slf4j
+%else
+Obsoletes:     java-hdf5 < %{version}-%{release}
+%endif
 BuildRequires: krb5-devel
 BuildRequires: openssl-devel
 BuildRequires: time

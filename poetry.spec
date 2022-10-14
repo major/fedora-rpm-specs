@@ -1,6 +1,6 @@
 # To break circular dependency on poetry-plugin-export, when bootstrapping
 # we don't BuildRequire runtime deps and we don't run tests.
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 %global common_description %{expand:
 Poetry helps you declare, manage and install dependencies of Python
@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        MIT
 
@@ -117,6 +117,10 @@ not editable_builder"
 
 
 %changelog
+* Fri Oct 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-2
+- Update to 1.2.1
+- Disable bootstrap bcond
+
 * Fri Sep 30 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-1
 - Update to 1.2.1
 - Enable bootstrap bcond

@@ -1,4 +1,3 @@
-%undefine _package_note_flags
 # Important note!
 # There are at least two quite separate OCaml cairo projects.
 #
@@ -9,29 +8,25 @@
 # The other one (which used to be packaged in Fedora <= 22) is:
 #   http://cairographics.org/cairo-ocaml/
 
-%ifnarch %{ocaml_native_compiler}
-%global debug_package %{nil}
-%endif
+%undefine _package_note_flags
 
 Name:           ocaml-cairo
 Epoch:          2
-Version:        0.6.2
-Release:        8%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/Chris00/%{name}
 
 Source0:        %{url}/releases/download/%{version}/cairo2-%{version}.tbz
 
-BuildRequires:  ocaml >= 4.02
-BuildRequires:  ocaml-dune-devel
-BuildRequires:  ocaml-findlib-devel
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml >= 4.03
+BuildRequires:  ocaml-dune >= 2.7.0
+BuildRequires:  ocaml-dune-configurator-devel >= 2.7.0
 BuildRequires:  ocaml-lablgtk-devel
 BuildRequires:  pkgconfig(cairo) >= 1.2.0
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(gtk+-2.0)
 
 %global _description %{expand:
 Cairo is a multi-platform library providing anti-aliased vector-based
@@ -100,6 +95,7 @@ This package contains OCaml bindings to use pango with cairo.
 Summary:        Development files for %{name}-pango
 Requires:       %{name}-pango%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       ocaml-lablgtk-devel%{?_isa}
 Requires:       pango-devel%{?_isa}
 
 
@@ -117,11 +113,11 @@ cairo_cflags="$(pkgconf --cflags cairo)"
 cairo_libs="$(pkgconf --libs cairo)"
 gtk_cflags="$(pkgconf --cflags gtk+-2.0)"
 gtk_libs="$(pkgconf --libs gtk+-2.0)"
-export CAIRO_CFLAGS="%{optflags} $cairo_cflags"
-export CAIRO_LIBS="$RPM_LD_FLAGS $cairo_libs"
-export GTK_CFLAGS="%{optflags} $gtk_cflags"
-export GTK_LIBS="$RPM_LD_FLAGS $gtk_libs"
-dune build
+export CAIRO_CFLAGS="%{build_cflags} $cairo_cflags"
+export CAIRO_LIBS="%{build_ldflags} $cairo_libs"
+export GTK_CFLAGS="%{build_cflags} $gtk_cflags"
+export GTK_LIBS="%{build_ldflags} $gtk_libs"
+%dune_build
 
 # Dune passes RPM_LD_FLAGS to ocamlmklib without -ldopt, resulting in "Unknown
 # option" warnings from ocamlmklib and a library that has not been linked with
@@ -131,110 +127,50 @@ dune build
 # nothing takes care of separating them and adding ldopt as necessary.  We
 # relink manually to address the problem.
 pushd _build/default/src
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" $cairo_libs -o cairo_stubs cairo_stubs.o
+ocamlmklib -g -ldopt '%{build_ldflags}' $cairo_libs -o cairo_stubs cairo_stubs.o
 cd ../gtk
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" $gtk_libs -o cairo_gtk_stubs cairo_gtk_stubs.o
+ocamlmklib -g -ldopt '%{build_ldflags}' $gtk_libs -o cairo_gtk_stubs cairo_gtk_stubs.o
 cd ../pango
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" $gtk_libs -o cairo_pango_stubs cairo_pango_stubs.o
+ocamlmklib -g -ldopt '%{build_ldflags}' $gtk_libs -o cairo_pango_stubs cairo_pango_stubs.o
 popd
 
 
 %install
-dune install --destdir=%{buildroot}
-
-# This just contains the README, LICENSE, and CHANGES files, 3 times, in
-# directories with names other than the ones we want.
-rm -rf %{buildroot}%{_prefix}/doc
-
-# Remove files we do not need to package
-rm %{buildroot}%{_libdir}/ocaml/*/*.ml
+%dune_install -s
 
 
 %check
-dune runtest
+%dune_check
 
 
-%files
+%files -f .ofiles-cairo2
 %doc CHANGES.md README.md
 %license GPL3.md LICENSE.md
-%dir %{_libdir}/ocaml/cairo2
-%{_libdir}/ocaml/cairo2/META
-%{_libdir}/ocaml/cairo2/cairo.cma
-%{_libdir}/ocaml/cairo2/cairo.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2/cairo.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/dllcairo_stubs.so
 
 
-%files devel
+%files devel -f .ofiles-cairo2-devel
 # XXX The tutorial doesn't build.
 %doc examples
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2/cairo.a
-%{_libdir}/ocaml/cairo2/cairo.cmx
-%{_libdir}/ocaml/cairo2/cairo.cmxa
-%endif
-%{_libdir}/ocaml/cairo2/cairo.cmt
-%{_libdir}/ocaml/cairo2/cairo.cmti
-%{_libdir}/ocaml/cairo2/cairo.mli
-%{_libdir}/ocaml/cairo2/cairo_ocaml.h
-%{_libdir}/ocaml/cairo2/dune-package
-%{_libdir}/ocaml/cairo2/libcairo_stubs.a
-%{_libdir}/ocaml/cairo2/opam
 
 
-%files gtk
-%dir %{_libdir}/ocaml/cairo2-gtk
-%{_libdir}/ocaml/cairo2-gtk/META
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cma
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/dllcairo_gtk_stubs.so
+%files gtk -f .ofiles-cairo2-gtk
 
 
-%files gtk-devel
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.a
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmx
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmxa
-%endif
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmt
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.cmti
-%{_libdir}/ocaml/cairo2-gtk/cairo_gtk.mli
-%{_libdir}/ocaml/cairo2-gtk/dune-package
-%{_libdir}/ocaml/cairo2-gtk/libcairo_gtk_stubs.a
-%{_libdir}/ocaml/cairo2-gtk/opam
+%files gtk-devel -f .ofiles-cairo2-gtk-devel
 
 
-%files pango
-%dir %{_libdir}/ocaml/cairo2-pango
-%{_libdir}/ocaml/cairo2-pango/META
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cma
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmxs
-%endif
-%{_libdir}/ocaml/stublibs/dllcairo_pango_stubs.so
+%files pango -f .ofiles-cairo2-pango
 
 
-%files pango-devel
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.a
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmx
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmxa
-%endif
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmt
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.cmti
-%{_libdir}/ocaml/cairo2-pango/cairo_pango.mli
-%{_libdir}/ocaml/cairo2-pango/dune-package
-%{_libdir}/ocaml/cairo2-pango/libcairo_pango_stubs.a
-%{_libdir}/ocaml/cairo2-pango/opam
+%files pango-devel -f .ofiles-cairo2-pango-devel
 
 
 %changelog
+* Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 2:0.6.4-1
+- New upstream version 0.6.4
+- Convert License tag to SPDX
+- Use new OCaml macros
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.6.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

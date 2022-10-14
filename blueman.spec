@@ -3,7 +3,7 @@ Summary:	GTK+ Bluetooth Manager
 License:	GPLv2+
 
 Epoch:		1
-Version:	2.3.2
+Version:	2.3.3
 Release:	1%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
@@ -222,6 +222,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Wed Oct 12 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.3-1
+- Update to v2.3.3
+
 * Mon Aug 01 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1:2.3.2-1
 - Update to v2.3.2
 

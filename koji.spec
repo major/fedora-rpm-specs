@@ -8,19 +8,13 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.30.0
-Release: 3%{?dist}
+Version: 1.30.1
+Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
 Summary: Build system tools
 URL: https://pagure.io/koji/
 Source0: https://releases.pagure.org/koji/koji-%{version}.tar.bz2
-
-# Proposed upstream
-## From: https://pagure.io/koji/pull-request/3496
-Patch1: 3496.patch
-## From: https://pagure.io/koji/pull-request/3498
-Patch2: 3498.patch
 
 # Not upstreamable
 Patch100: fedora-config.patch
@@ -353,6 +347,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Wed Oct 12 2022 Kevin Fenzi <kevin@scrye.com> - 1.30.1-1
+- Update to 1.30.1. Fixed rhbz#2133004
+
 * Mon Oct 03 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.30.0-3
 - Refresh kiwi-build patches to latest versions
 

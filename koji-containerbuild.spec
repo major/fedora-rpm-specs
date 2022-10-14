@@ -9,12 +9,12 @@
 %global owner release-engineering
 %global project koji-containerbuild
 
-%global commit 0.16.0
+%global commit 1.0.1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           %{project}
-Version:        0.16.0
-Release:        3%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Koji support for building layered container images
 
 License:        LGPLv2
@@ -99,6 +99,9 @@ build layered container images.
 
 
 %changelog
+* Wed Oct 12 2022 Kevin Fenzi <kevin@scrye.com> - 1.0.1-1
+- Update to 1.0.1. Fixes rhbz#2133987
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.4
+Version:       1.49.5
 Release:       1%{?dist}
 License:       GPLv2+
 
@@ -55,7 +55,7 @@ BuildRequires: autoconf, automake, libtool, gettext-devel
 # Basic build requirements.
 BuildRequires: gcc, gcc-c++
 BuildRequires: make
-BuildRequires: libguestfs-devel >= 1.45.3-1
+BuildRequires: libguestfs-devel >= 1.49.5-2
 BuildRequires: libguestfs-xfs
 BuildRequires: perl(Pod::Simple)
 BuildRequires: perl(Pod::Man)
@@ -97,6 +97,10 @@ BuildRequires: perl-generators
 %if 0%{verify_tarball_signature}
 BuildRequires: gnupg2
 %endif
+
+# Ensure a minimum version of libguestfs is installed.  This contains
+# a workaround for openssl bug RHBZ#2133884
+Requires:      libguestfs >= 1.49.5-2
 
 # For virt-builder:
 Requires:      curl
@@ -421,6 +425,9 @@ end
 
 
 %changelog
+* Wed Oct 12 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.5-1
+- New upstream development version 1.49.5
+
 * Mon Aug 01 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.4-1
 - New upstream development version 1.49.4
 

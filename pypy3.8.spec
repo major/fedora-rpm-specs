@@ -7,7 +7,7 @@ Version:        %{basever}.9
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 4
+%global baserelease 5
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -188,6 +188,12 @@ Source189: 189-use-rpm-wheels.patch
 #
 # Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
 Patch382: 382-cve-2015-20107.patch
+
+# 00386 #
+# CVE-2021-28861: open redirection in http.server
+# Upstream: https://foss.heptapod.net/pypy/pypy/-/commit/e42be9b593f1d5e83a947f73058b919395398424.patch
+# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2120642
+Patch386: 386-cve-2021-28861.patch
 
 # Build-time requirements:
 
@@ -896,6 +902,10 @@ CheckPyPy pypy3-c
 
 
 %changelog
+* Mon Oct 10 2022 Lumír Balhar <lbalhar@redhat.com> - 7.3.9-5.3.8
+- Backport fix for CVE-2021-28861
+Resolves: rhbz#2120788
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.9-4.3.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

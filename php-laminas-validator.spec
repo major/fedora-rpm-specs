@@ -8,7 +8,7 @@
 #
 # When buid without db, filter, http, session, uri
 %global bootstrap    0
-%global gh_commit    42de39b78e73b321db7d948cf8530a2764f8b9aa
+%global gh_commit    a995b21d18c63cd1f5d123d0d2cd31a1c2d828dc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-validator
@@ -19,7 +19,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.25.0
+Version:        2.26.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -31,7 +31,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-ctype
 BuildRequires:  php-date
 BuildRequires:  php-fileinfo
@@ -45,40 +45,38 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "^2.4.0",
 #        "laminas/laminas-db": "^2.15.0",
-#        "laminas/laminas-filter": "^2.18.0",
+#        "laminas/laminas-filter": "^2.22",
 #        "laminas/laminas-http": "^2.16.0",
-#        "laminas/laminas-i18n": "^2.17.0",
+#        "laminas/laminas-i18n": "^2.19",
 #        "laminas/laminas-session": "^2.13.0",
 #        "laminas/laminas-uri": "^2.9.1",
-#        "phpspec/prophecy-phpunit": "^2.0",
-#        "phpunit/phpunit": "^9.5.24",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "psr/http-client": "^1.0",
-#        "psr/http-factory": "^1.0",
-#        "psr/http-message": "^1.0",
-#        "vimeo/psalm": "^4.27.0"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.17.0 with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
+#        "psr/http-client": "^1.0.1",
+#        "psr/http-factory": "^1.0.1",
+#        "psr/http-message": "^1.0.1",
+#        "vimeo/psalm": "^4.28"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.19   with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
 %if ! %{bootstrap}
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15   with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.18   with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.22   with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-session)              >= 2.13   with php-autoloader(%{gh_owner}/laminas-session)              < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1  with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 %endif
-BuildRequires: (php-composer(psr/http-message)                           >= 1.0    with php-composer(psr/http-message)                           < 2)
-BuildRequires: (php-composer(psr/http-client)                            >= 1.0    with php-composer(psr/http-client)                            < 2)
-BuildRequires: (php-composer(psr/http-factory)                           >= 1.0    with php-composer(psr/http-factory)                           < 2)
-BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0    with php-composer(phpspec/prophecy-phpunit)                   < 3)
-BuildRequires:  phpunit9 >= 9.5.24
+BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1  with php-composer(psr/http-message)                           < 2)
+BuildRequires: (php-composer(psr/http-client)                            >= 1.0.1  with php-composer(psr/http-client)                            < 2)
+BuildRequires: (php-composer(psr/http-factory)                           >= 1.0.1  with php-composer(psr/http-factory)                           < 2)
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-servicemanager": "^3.12.0",
 #        "laminas/laminas-stdlib": "^3.13"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.12.0 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.13   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -184,7 +182,6 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/Psr/Http/Client/autoload.php',
     '%{php_home}/Psr/Http/Message/http-factory-autoload.php',
-    '%{php_home}/Prophecy/PhpUnit/autoload.php',
     dirname(__DIR__) . '/test/autoload.php',
 ]);
 \Fedora\Autoloader\Autoload::addPsr4('%{namespace}Test\\%{library}\\', dirname(__DIR__) . '/test');
@@ -209,8 +206,7 @@ exit (class_exists("\\Zend\\%{library}\\Hex") ? 0 : 1);
 
 : upstream test suite
 ret=0
-# TODO php82 (Trying to access array offset on value of type bool)
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d memory_limit=1G %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -230,6 +226,10 @@ exit $ret
 
 
 %changelog
+* Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 2.26.0-1
+- update to 2.26.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.25.0-1
 - update to 2.25.0
 - raise dependency on zend-stdlib >= 3.13

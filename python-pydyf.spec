@@ -2,7 +2,7 @@
 %global pypi_name pydyf
 
 Name:           python-pydyf
-Version:        0.3.0
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        Low-level PDF creator 
 # The test suite is released under the AGPL but we are not shipping any test
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Wed Oct 12 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 0.5.0-1
+- update to 0.5.0
+
 * Mon Sep 19 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 0.3.0-1
 - update to 0.3.0
 

@@ -1,6 +1,6 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 42%{?dist}
+Release: 43%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
 Source0: ftp://ftp.sane-project.org/pub/sane/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -18,11 +18,15 @@ Patch2: sane-frontends-1.0.14-xcam-man.patch
 # Update lib/snprintf.c to current version from LPRng to resolve license issue (#1102522)
 Patch3: sane-frontends-1.0.14-update-to-current-lprng-plp_snprintf.patch
 # 1837961 - [abrt] sane-frontends: operator delete(): scanadf killed by SIGSEGV
+# original PR https://gitlab.com/sane-project/frontends/-/merge_requests/1 (bz1837961)
+# updated PR https://gitlab.com/sane-project/frontends/-/merge_requests/7 (bz2133813)
 Patch4: frontends-scanadf-segv.patch
 
 License: GPLv2+ and LGPLv2+ and GPLv2+ with exceptions
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
+# use for autosetup
+BuildRequires: git-core
 # uses make
 BuildRequires: make
 
@@ -33,12 +37,7 @@ BuildRequires: sane-backends-devel >= 1.0.19-15
 This packages includes the scanadf and xcam programs.
 
 %prep
-%setup -q
-%patch0 -p1 -b .array-out-of-bounds
-%patch1 -p1 -b .sane-backends-1.0.20
-%patch2 -p1 -b .xcam-man
-%patch3 -p1 -b .snprintf
-%patch4 -p1 -b .scanadf-segv
+%autosetup -S git
 
 %build
 %configure --with-gnu-ld --prefix=%{_prefix} --sysconfdir=%{_sysconfdir} --mandir=%{_mandir}
@@ -60,6 +59,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Wed Oct 12 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-43
+- 2133813 - scanadf crashes on device enumeration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -39,12 +39,12 @@ BuildRequires: gcc-gfortran, gcc
 %if %{with java}
 BuildRequires: java-devel
 BuildRequires: javapackages-tools
-%else
-Obsoletes:     java-hdf < %{version}-%{release}
-%endif
 BuildRequires: hamcrest
 BuildRequires: junit
 BuildRequires: slf4j
+%else
+Obsoletes:     java-hdf < %{version}-%{release}
+%endif
 BuildRequires: make
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 

@@ -2,10 +2,10 @@
 %bcond_without perl_DateTime_TimeZone_enables_optional_test
 
 # Regenerate Perl library code from upstream Olson database of this date
-%global tzversion 2022d
+%global tzversion 2022e
 
 Name:           perl-DateTime-TimeZone
-Version:        2.54
+Version:        2.55
 Release:        1%{?dist}
 Summary:        Time zone object base class and factory
 # tzdata%%{tzversion}.tar.gz archive:   Public Domain
@@ -181,6 +181,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.55-1
+- 2.55 bump (2022e Olson database)
+
 * Mon Sep 26 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.54-1
 - 2.54 bump (2022d Olson database)
 

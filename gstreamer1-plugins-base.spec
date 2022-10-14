@@ -6,7 +6,7 @@
 
 Name:           gstreamer1-plugins-base
 Version:        1.20.3
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -47,6 +47,8 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLES-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  mesa-libEGL-devel
+BuildRequires:  mesa-libgbm-devel
+BuildRequires:  libgudev-devel
 BuildRequires:  wayland-devel
 BuildRequires:  egl-wayland-devel
 BuildRequires:  graphene-devel
@@ -120,6 +122,7 @@ for the GStreamer Base Plugins library.
 %meson \
   -D package-name='Fedora GStreamer-plugins-base package' \
   -D package-origin='http://download.fedoraproject.org' \
+  -D gl_winsys=wayland,x11,gbm \
   -D doc=disabled \
   -D orc=enabled \
   -D tremor=disabled \
@@ -480,6 +483,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Tue Sep 27 2022 Erico Nunes <ernunes@redhat.com> - 1.20.3-3
+- Enable gbm winsys
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

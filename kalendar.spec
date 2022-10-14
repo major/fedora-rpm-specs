@@ -1,10 +1,10 @@
-%global kf5_min_version 5.89.0
+%global kf5_min_version 5.96.0
 
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
 Version:        22.08.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
 URL:            https://invent.kde.org/pim/%{name}
@@ -12,6 +12,11 @@ Source0:        https://download.kde.org/stable/release-service/%{version}/src/%
 Source1:        %{name}.rpmlintrc
 
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+
+# Upstream patches
+# Require the latest stable version of the Akonadi and PIM APIs
+Patch0:         281.diff
+
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -42,8 +47,8 @@ BuildRequires:  cmake(KF5Service)       >= %{kf5_min_version}
 
 BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiContact)
-BuildRequires:  cmake(KF5CalendarSupport) 
-BuildRequires:  cmake(KF5EventViews)   
+BuildRequires:  cmake(KF5CalendarSupport)
+BuildRequires:  cmake(KF5EventViews)
 BuildRequires:  cmake(KF5GrantleeTheme)
 BuildRequires:  cmake(Grantlee5)
 BuildRequires:  qqc2-desktop-style
@@ -55,6 +60,7 @@ Requires:       kf5-kirigami2-addons-treeview
 Requires:       akonadi-calendar-tools
 Requires:       kdepim-addons
 Requires:       kdepim-runtime
+Requires:       kf5-calendarsupport
 Requires:       kf5-kirigami2
 Requires:       kf5-kirigami2-addons
 Requires:       hicolor-icon-theme
@@ -101,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Wed Oct 12 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.1-2
+- Backport upstream patch
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 

@@ -38,7 +38,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: Vim and MIT
 Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
@@ -398,7 +398,7 @@ cp -f os_unix.h os_unix.h.save
 
 perl -pi -e "s/vimrc/virc/"  os_unix.h
 %configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/virc\"'" \
-  --prefix=%{_prefix} --with-features=small --with-x=no \
+  --prefix=%{_prefix} --with-features=tiny --with-x=no \
   --enable-multibyte \
   --disable-netbeans \
 %if %{WITH_SELINUX}
@@ -972,6 +972,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Wed Oct 12 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.720-2
+- the current configure option for Vi is 'tiny'
+
 * Tue Oct 11 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.720-1
 - patchlevel 720
 

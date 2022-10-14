@@ -1,113 +1,140 @@
-%global	priority	65-3
-%global	ppriority	65-2
-%global	fontname	vlgothic
-%global	archivename	VLGothic-%{version}
-%global	fontconf	%{priority}-%{fontname}-gothic
-%global	pfontconf	%{ppriority}-%{fontname}-pgothic
-%global	common_desc	\
-VLGothic provides Japanese TrueType fonts from the Vine Linux project.\
-Most of the glyphs are taken from the M+ and Sazanami Gothic fonts,\
+# Packaging template: multi-family fonts packaging.
+#
+# SPDX-License-Identifier: MIT
+#
+# This template documents spec declarations, used when packaging multiple font
+# families, from a single dedicated source archive. The source rpm is named
+# after the first (main) font family). Look up “fonts-3-sub” when the source
+# rpm needs to be named some other way.
+#
+# It is part of the following set of packaging templates:
+# “fonts-0-simple”: basic single-family fonts packaging
+# “fonts-1-full”:   less common patterns for single-family fonts packaging
+# “fonts-2-multi”:  multi-family fonts packaging
+# “fonts-3-sub”:    packaging fonts, released as part of something else
+#
+Version: 20220612
+Release: 2%{?dist}
+URL:     http://dicey.org/vlgothic
+
+# The following declarations will be aliased to [variable]0 and reused for all
+# generated *-fonts packages unless overriden by a specific [variable][number]
+# declaration.
+%global foundry           VL  
+%global fontlicense       mplus and BSD
+%global fontlicenses      LICENSE_J.mplus LICENSE_E.mplus LICENSE LICENSE.en
+%global fontdocs          README README_J.mplus README.sazanami README_E.mplus
+%global fontdocsex        %{fontlicenses}
+
+# A text block that can be reused as part of the description of each generated
+# subpackage.
+%global common_description %{expand:
+VLGothic provides Japanese TrueType fonts from the Vine Linux project.
+Most of the glyphs are taken from the M+ and Sazanami Gothic fonts,
 but some have also been improved by the project.
+}
 
-Name:		%{fontname}-fonts
-Version:	20141206
-Release:	21%{?dist}
-Summary:	Japanese TrueType font
+# Declaration for the subpackage containing the first font family. Also used as
+# source rpm info. All the [variable]0 declarations are equivalent and aliased
+# to [variable].
 
-License:	mplus and BSD
-URL:		http://dicey.org/vlgothic
-Source0:	http://osdn.dl.sourceforge.jp/vlgothic/62375/%{archivename}.tar.bz2
-Source1:	%{name}-fontconfig-pgothic.conf
-Source2:	%{name}-fontconfig-gothic.conf
-Source3:        %{fontname}.metainfo.xml
-Source4:        %{fontname}-proportional.metainfo.xml
-Patch0:		%{name}-1331050.patch
-Patch1:		%{name}-p-1331050.patch
-
-BuildArch:	noarch
-BuildRequires:	fontpackages-devel libappstream-glib
-BuildRequires:	fonttools
-
-Requires:	fontpackages-filesystem
-Obsoletes:	%{name}-common < 20121230-2
-Provides:	%{name}-common = %{version}-%{release}
-%description
-%common_desc
+%global fontfamily0       VL Gothic
+%global fontsummary0      Japanese TrueType font
+%global fontpkgheader0    %{expand:
+Obsoletes:  vlgothic-fonts < %{version}-%{release}
+Provides:   vlgothic-fonts = %{version}-%{release}
+}
+%global fonts0            VL-Gothic-Regular.ttf
+%global fontsex0          %{nil}
+%global fontconfs0        %{SOURCE10}
+%global fontconfsex0      %{nil}
+%global fontdescription0  %{expand:
+%{common_description}
 
 This package provides the monospace VLGothic font.
+}
 
-
-%package -n	%{fontname}-p-fonts
-Summary:	Proportional Japanese TrueType font
-Requires:	fontpackages-filesystem
-Obsoletes:	%{name}-common < 20121230-2
-Provides:	%{name}-common = %{version}-%{release}
-
-%description -n	%{fontname}-p-fonts
-%common_desc
+%global fontfamily1       VL PGothic
+%global fontsummary1      Proportional Japanese TrueType font
+%global fontpkgheader1    %{expand:
+Obsoletes:  vlgothic-p-fonts < %{version}-%{release}
+Provides:   vlgothic-p-fonts = %{version}-%{release}
+}
+%global fonts1            VL-PGothic-Regular.ttf
+%global fontsex1          %{nil}
+%global fontconfs1        %{SOURCE11}
+%global fontconfsex1      %{nil}
+%global fontdescription1  %{expand:
+%{common_description}
 
 This package provides the VLGothic font with proportional glyphs for some
 non-Japanese characters.
+}
+
+
+# https://ja.osdn.net/frs/redir.php?m=gigenet&f=vlgothic%2F77450%2FVLGothic-%%{version}.tar.xz
+Source0:  https://mirrors.gigenet.com/OSDN/vlgothic/77450/VLGothic-%{version}.tar.xz
+Source10: 65-3-%{fontpkgname0}.conf
+Source11: 65-2-%{fontpkgname1}.conf
+
+# “fontpkg” will generate the font subpackage headers corresponding to the
+# elements declared above.
+# “fontpkg” accepts the following selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontpkg -a
+
+# “fontmetapkg” will generate a font meta(sub)package header for all the font
+# subpackages generated in this spec. Optional arguments:
+# – “-n [name]”      use [name] as metapackage name
+# – “-s [variable]”  use the content of [variable] as metapackage summary
+# – “-d [variable]”  use the content of [variable] as metapackage description
+# – “-z [numbers]”   restrict metapackaging to [numbers] comma-separated list
+#                    of font package suffixes
+%fontmetapkg
 
 %prep
 %setup -q -n VLGothic
-
+iconv -f EUC-JP -t UTF-8 -o README.sazanami.tmp README.sazanami
+touch -r README.sazanami README.sazanami.tmp
+mv README.sazanami.tmp README.sazanami
 
 %build
-#rhbz#1331050: reassign U+23F4 and U+23F5 each other.
-ttx -i -a -e VL-Gothic-Regular.ttf
-ttx -i -a -e VL-PGothic-Regular.ttf
-sed -ie 's/<!--.*-->//g' VL-Gothic-Regular.ttx
-sed -ie 's/<!--.*-->//g' VL-PGothic-Regular.ttx
-patch -b -z .1331050 VL-Gothic-Regular.ttx %{PATCH0}
-patch -b -z .1331050 VL-PGothic-Regular.ttx %{PATCH1}
-touch -r VL-Gothic-Regular.ttf VL-Gothic-Regular.ttx
-touch -r VL-PGothic-Regular.ttf VL-PGothic-Regular.ttx
-rm VL-Gothic-Regular.ttf
-rm VL-PGothic-Regular.ttf
-ttx -b VL-Gothic-Regular.ttx
-ttx -b VL-PGothic-Regular.ttx
-touch -r VL-Gothic-Regular.ttx VL-Gothic-Regular.ttf
-touch -r VL-PGothic-Regular.ttx VL-PGothic-Regular.ttf
-
-%{nil}
+# “fontbuild” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontbuild -a
 
 %install
-install -m 0755 -d $RPM_BUILD_ROOT%{_fontdir}
-install -m 0644 -p *.ttf $RPM_BUILD_ROOT%{_fontdir}
-
-install -m 0755 -d	$RPM_BUILD_ROOT%{_fontconfig_templatedir} \
-			$RPM_BUILD_ROOT%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{pfontconf}.conf
-install -m 0644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{fontconf}.conf
-
-for fconf in %{pfontconf}.conf %{fontconf}.conf; do
-	ln -s %{_fontconfig_templatedir}/$fconf $RPM_BUILD_ROOT%{_fontconfig_confdir}/$fconf
-done
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE3} \
-        %{buildroot}%{_metainfodir}/%{fontname}.metainfo.xml
-install -Dm 0644 -p %{SOURCE4} \
-        %{buildroot}%{_metainfodir}/%{fontname}-proportional.metainfo.xml
+# “fontinstall” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontinstall -a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+# “fontcheck” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontcheck -a
 
-%_font_pkg -f %{fontconf}.conf VL-Gothic-Regular.ttf
-%doc README*
-%license LICENSE*
-%{_metainfodir}/%{fontname}.metainfo.xml
-
-%_font_pkg -n p -f %{pfontconf}.conf VL-PGothic-Regular.ttf
-%doc README*
-%license LICENSE*
-%{_metainfodir}/%{fontname}-proportional.metainfo.xml
+# “fontfiles” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block
+%fontfiles -a
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20141206-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Tue Oct  4 2022 Akira TAGOH <tagoh@redhat.com> - 20220612-2
+- Correct the source URL.
+
+* Wed Jul 13 2022 Akira TAGOH <tagoh@redhat.com> - 20220612-1
+- New upstream release.
+  Resolves: rhbz#1858617
+- Revise the spec file for new packaging guidelines.
 
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20141206-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

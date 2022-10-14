@@ -3,7 +3,7 @@
 
 Name:           duo_unix
 Version:        1.12.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Duo two-factor authentication for UNIX systems
 
 License:        GPLv2
@@ -20,6 +20,12 @@ BuildRequires:  pkgconfig
 %if %{with tests}
 BuildRequires:  python3
 %endif
+
+# The third-party Duo package provided by the vendor ships pam_duo in the
+# duo_unix package; we recommend the subpackage here to avoid lockout issues
+# for systems accidentally being upgraded from the vendor package to this one
+# See RHBZ#2134160 for more details.
+Recommends:     pam_duo = %{version}-%{release}
 
 %description
 Duo provides simple two-factor authentication as a service via:
@@ -122,6 +128,10 @@ make check
 %{_mandir}/man3/duo.3*
 
 %changelog
+* Wed Oct 12 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-4
+- Add Recommends for pam_duo to the main package to prevent potential lockout
+  issues (Fixes: RHBZ#2134160)
+
 * Fri Oct 07 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-3
 - Fix EPEL build
 

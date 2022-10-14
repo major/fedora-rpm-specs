@@ -1,7 +1,7 @@
 Summary: Multipath TCP daemon
 Name: mptcpd
-Version: 0.10
-Release: 2%{?dist}
+Version: 0.11
+Release: 1%{?dist}
 License: BSD
 URL: https://multipath-tcp.org
 Requires(post): systemd
@@ -18,8 +18,6 @@ BuildRequires: systemd-units
 BuildRequires: systemd-rpm-macros
 
 Source0: https://github.com/intel/mptcpd/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0: 0001-uapi-fix-build-issue-when-__KERNEL__-is-undefined.patch
 
 %description
 The Multipath TCP Daemon is a daemon for Linux based operating systems that

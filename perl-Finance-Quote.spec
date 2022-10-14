@@ -1,5 +1,5 @@
 Name:           perl-Finance-Quote
-Version:        1.53
+Version:        1.5301
 Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
@@ -147,6 +147,9 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Wed Oct 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5301-1
+- 1.5301
+
 * Sun Oct  9 2022 Paul Howarth <paul@city-fan.org> - 1.53-1
 - Update to 1.53 (rhbz#2133215)
   - Changed bug tracker to
