@@ -1,6 +1,6 @@
 Name:           stubby
-Version:        0.4.0
-Release:        6%{?dist}
+Version:        0.4.2
+Release:        1%{?dist}
 Summary:        Application that act as a local DNS Privacy stub resolver
 
 License:        BSD-3-Clause
@@ -10,6 +10,8 @@ Source0:        https://github.com/getdnsapi/stubby/archive/v%{version}/stubby-%
 Provides:       getdns-stubby = 1.7.0-1
 Obsoletes:      getdns-stubby < 1.7.0-1
 %{?systemd_requires}
+
+Patch1:         stubby-0.3.1-dnssec-ta.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -64,6 +66,10 @@ fi
 
 
 %changelog
+* Thu Oct 13 2022 Petr Menšík <pemensik@redhat.com> - 0.4.2-1
+- Update to 0.4.2 (#1974450)
+- Use unbound-anchor key again
+
 * Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 0.4.0-6
 - Update License tag to SPDX identifier
 

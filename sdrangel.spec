@@ -6,7 +6,7 @@ License:	GPLv3+
 URL:		https://github.com/f4exb/sdrangel
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	org.sdrangel.SDRangel.metainfo.xml
-ExcludeArch:	s390x ppc64le
+ExclusiveArch:	%{qt5_qtwebengine_arches}
 
 Provides:	bundled(jrtplib) = 3.11.1
 Provides:	bundled(qthid)

@@ -3,12 +3,13 @@
 %global py3_deps python3-PyQt5 python3-numpy python3-pyopengl
 
 Name:           python-%{srcname}
-Version:        0.12.4
-Release:        4%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 Summary:        Scientific Graphics and GUI Library for Python
 License:        MIT
 URL:            https://www.pyqtgraph.org/
 Source0:        https://github.com/pyqtgraph/pyqtgraph/archive/refs/tags/pyqtgraph-%{version}.tar.gz
+Patch0:         no-sphinx-qt-doc.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -69,6 +70,9 @@ rm -f doc/build/html/objects.inv
 %doc pyqtgraph/examples doc/build/html
 
 %changelog
+* Tue Oct 04 2022 Scott Talbert <swt@techie.net> - 0.13.1-1
+- Update to new upstream release 0.13.1 (#2130347)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

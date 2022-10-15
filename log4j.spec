@@ -2,20 +2,18 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 License:        ASL 2.0
 
 URL:            https://logging.apache.org/%{name}
-Source0:        https://www.apache.org/dist/logging/%{name}/%{version}/apache-%{name}-%{version}-src.tar.gz
-Source1:        https://www.apache.org/dist/logging/%{name}/%{version}/apache-%{name}-%{version}-src.tar.gz.asc
-Source2:        https://www.apache.org/dist/logging/KEYS
+
+# ./generate-tarball.sh
+Source0:        %{name}-%{version}.tar.gz
 
 Patch2:         logging-log4j-Remove-unsupported-EventDataConverter.patch
-
-BuildRequires:  gnupg2
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
@@ -138,7 +136,6 @@ Summary:        API documentation for %{name}
 %{summary}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n apache-%{name}-%{version}-src
 %autopatch -p1
 
@@ -270,7 +267,6 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 %endif
 
 %files -f .mfiles
-%dir %{_javadir}/%{name}
 %doc LICENSE.txt NOTICE.txt
 
 %files slf4j -f .mfiles-slf4j
@@ -289,6 +285,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 
 %changelog
+* Thu Oct 13 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-4
+- Remove glyphicons zip archive from source package
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

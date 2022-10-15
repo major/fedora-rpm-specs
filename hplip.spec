@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.22.6
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -27,6 +27,7 @@ Source3: %{name}.appdata.xml
 Source4: hp-laserjet_cp_1025nw.ppd.gz
 Source5: hp-laserjet_professional_p_1102w.ppd.gz
 Source6: hplip-repack.sh
+Source7: hp-plugin.in
 
 Patch1: hplip-pstotiff-is-rubbish.patch
 Patch2: hplip-strstr-const.patch
@@ -201,6 +202,7 @@ Patch61: hplip-no-libhpmud-libm-warnings.patch
 # hplip 3.22.6 doesn't use the correct arguments for snprintf
 # reported as https://bugs.launchpad.net/hplip/+bug/1982185
 Patch62: hplip-snprintf-format.patch
+Patch63: hplip-plugin-script.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -213,9 +215,12 @@ BuildRequires: autoconf
 BuildRequires: automake
 # Make sure we get postscriptdriver tags - need cups and python3-cups.
 BuildRequires: cups
-BuildRequires: python3-cups
 # uses functions from CUPS in filters, backends and libraries defining them
 BuildRequires: cups-devel
+%if 0%{?rhel} <= 8 || 0%{?fedora}
+# needed for desktop file validation in spec file
+BuildRequires: desktop-file-utils
+%endif
 # gcc and gcc-c++ are no longer in buildroot by default
 # gcc is needed for compilation of HPAIO scanning backend, HP implementation of
 # IPP and MDNS protocols, hpps driver, hp backend, hpip (image processing
@@ -238,45 +243,43 @@ BuildRequires: openssl-devel
 # supports mDNS device discovery via Avahi
 BuildRequires: pkgconfig(avahi-client)
 BuildRequires: pkgconfig(avahi-core)
+BuildRequires: pkgconfig(dbus-1)
+BuildRequires: python3-cups
 # implements C Python extensions like hpmudext, cupsext, scanext
 BuildRequires: python3-devel
 # SANE backend hpaio uses function from SANE API
 BuildRequires: sane-backends-devel
-BuildRequires: pkgconfig(dbus-1)
 # macros: %%{_tmpfilesdir}, %%{_udevrulesdir}
 BuildRequires: systemd
 
-%if 0%{?rhel} <= 8 || 0%{?fedora}
-# needed for desktop file validation in spec file
-BuildRequires: desktop-file-utils
-%endif
+# uses avahi-browse for discovering IPP-over-USB printers
+Recommends: avahi-tools
+# 1733449 - Scanner on an HP AIO printer is not detected unless libsane-hpaio is installed
+Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
 
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-%if 0%{?rhel} <= 8 || 0%{?fedora}
-Requires: python3-pillow
-%endif
 Requires: cups
-Requires: wget
-Requires: python3-dbus
+# for bash script acting as hp-plugin (Source7)
+Requires: gawk
 # set require directly to /usr/bin/gpg, because gnupg2 and gnupg ships it,
 # but gnupg will be deprecated in the future
 Requires: %{_bindir}/gpg
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires: python3-dbus
+%if 0%{?rhel} <= 8 || 0%{?fedora}
+Requires: python3-pillow
+%endif
 # /usr/lib/udev/rules.d
 Requires: systemd
 # 1788643 - Fedora minimal does not ship tar by default
 Requires: tar
 # require usbutils, hp-diagnose_queues needs lsusb
 Requires: usbutils
-# uses avahi-browse for discovering IPP-over-USB printers
-Recommends: avahi-tools
+Requires: wget
 
 # require coreutils, because timeout binary is needed in post scriptlet,
 # because hpcups-update-ppds script can freeze in certain situation and
 # stop the update
 Requires(post): coreutils
-
-# 1733449 - Scanner on an HP AIO printer is not detected unless libsane-hpaio is installed
-Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
 
 %description
 The Hewlett-Packard Linux Imaging and Printing Project provides
@@ -303,14 +306,16 @@ Libraries needed by HPLIP.
 Summary: HPLIP graphical tools
 License: BSD
 BuildRequires: libappstream-glib
+
 # for avahi-browse - looks for devices on local network
 Recommends: avahi-tools
-Requires: python3-qt5
-Requires: python3-reportlab
+Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
+
+Requires: %{name}%{?_isa} = %{version}-%{release}
 # hpssd.py
 Requires: python3-gobject
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Recommends: libsane-hpaio%{?_isa} = %{version}-%{release}
+Requires: python3-reportlab
+Requires: python3-qt5
 
 %description gui
 HPLIP graphical tools.
@@ -319,6 +324,7 @@ HPLIP graphical tools.
 %package -n libsane-hpaio
 Summary: SANE driver for scanners in HP's multi-function devices
 License: GPLv2+
+
 Requires: sane-backends
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -519,6 +525,7 @@ done
 %patch61 -p1 -b .no-libm-libhpmud-warn
 # hplip 3.22.6 doesn't use proper arguments for snprintf
 %patch62 -p1 -b .snprintf-format
+%patch63 -p1 -b .plugin-patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui should be installed if you want GUI
@@ -539,6 +546,9 @@ sed -i.env-python -e 's,^#!/usr/bin/env python,#!%{__python3},' \
 rm locatedriver
 
 cp -p %{SOURCE4} %{SOURCE5} ppd/hpcups
+
+# 2129849 - move hp-plugin script into srcdir
+cp -p %{SOURCE7} .
 
 %build
 # Work-around Makefile.am imperfections.
@@ -611,6 +621,8 @@ rm -f   %{buildroot}%{_bindir}/foomatic-rip \
         %{buildroot}%{_datadir}/cups/model/foomatic-ppds \
         %{buildroot}%{_datadir}/applications/hplip.desktop \
         %{buildroot}%{_datadir}/ppd/HP/*.ppd
+
+install -p -m755 hp-plugin %{buildroot}%{_bindir}/hp-plugin-download
 
 %if 0%{?rhel} > 8
 rm -rf %{buildroot}%{_bindir}/hp-check \
@@ -745,6 +757,7 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %{_bindir}/hp-levels
 %{_bindir}/hp-makeuri
 %{_bindir}/hp-plugin
+%{_bindir}/hp-plugin-download
 %{_bindir}/hp-probe
 %{_bindir}/hp-query
 %if 0%{?rhel} <= 8 || 0%{?fedora}
@@ -874,6 +887,12 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Oct 13 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.6-4
+- bump the NVR
+
+* Thu Oct 13 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.6-3
+- 2129849 - hp-plugin unable to load plugin.conf - add a new backup download script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

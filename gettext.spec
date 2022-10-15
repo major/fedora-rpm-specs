@@ -5,7 +5,7 @@
 Summary: GNU tools and libraries for localized translated messages
 Name: gettext
 Version: 0.21
-Release: 19.0.%{snapshot}%{?dist}
+Release: 20.0.%{snapshot}%{?dist}
 
 # The following are licensed under LGPLv2+:
 # - libintl and its headers
@@ -329,26 +329,12 @@ make check LIBUNISTRING=-lunistring
 %{_bindir}/xgettext
 %{_infodir}/gettext*
 %exclude %{_mandir}/man1/autopoint.1*
+%exclude %{_mandir}/man1/envsubst.1*
 %exclude %{_mandir}/man1/gettextize.1*
 %exclude %{_mandir}/man1/msghack.1*
 %{_mandir}/man1/msg*
 %{_mandir}/man1/recode*.1*
 %{_mandir}/man1/xgettext.1*
-
-%files runtime -f %{name}-runtime.lang
-%license COPYING
-%doc gettext-runtime/BUGS
-%doc gettext-runtime/man/*.1.html
-%doc gettext-runtime/intl/COPYING*
-%{_bindir}/gettext
-%{_bindir}/gettext.sh
-%{_bindir}/ngettext
-%exclude %{_mandir}/man1/autopoint.1*
-%exclude %{_mandir}/man1/gettextize.1*
-%exclude %{_mandir}/man1/msg*
-%exclude %{_mandir}/man1/recode-sr-latin.1*
-%exclude %{_mandir}/man1/xgettext.1*
-%{_mandir}/man1/*
 %{_libdir}/%{name}
 %if %{with java}
 %exclude %{_libdir}/%{name}/gnu.gettext.*
@@ -361,9 +347,28 @@ make check LIBUNISTRING=-lunistring
 %dir %{_datadir}/%{name}-%{version}
 %{_datadir}/%{name}-%{version}/its
 
+%files runtime -f %{name}-runtime.lang
+%license COPYING
+%doc gettext-runtime/BUGS
+%doc gettext-runtime/man/gettext.1.html
+%doc gettext-runtime/man/ngettext.1.html
+%doc gettext-runtime/intl/COPYING*
+%{_bindir}/gettext
+%{_bindir}/gettext.sh
+%{_bindir}/ngettext
+%exclude %{_mandir}/man1/autopoint.1*
+%exclude %{_mandir}/man1/envsubst.1*
+%exclude %{_mandir}/man1/gettextize.1*
+%exclude %{_mandir}/man1/msg*
+%exclude %{_mandir}/man1/recode-sr-latin.1*
+%exclude %{_mandir}/man1/xgettext.1*
+%{_mandir}/man1/*
+
 %files envsubst
 %license COPYING
+%doc gettext-runtime/man/envsubst.1.html
 %{_bindir}/envsubst
+%{_mandir}/man1/envsubst.1*
 
 %files common-devel
 %{_datadir}/%{name}/archive.*.tar.xz
@@ -415,6 +420,10 @@ make check LIBUNISTRING=-lunistring
 %{_mandir}/man1/msghack.1*
 
 %changelog
+* Thu Oct 13 2022 Sundeep Anand <suanand@redhat.com> - 0.21-20.0.20220203
+- Include doc and man pages for envsubst subpackage.
+  Move _libdir and _datadir from gettext-runtime to gettext package.
+
 * Mon Sep 12 2022 Sundeep Anand <suanand@redhat.com> - 0.21-19.0.20220203
 - Add conflicts to enable new (sub)packages installable independently of the original package.
 

@@ -8,9 +8,9 @@
 # We manually specify this in order to workaround RHEL 8's deficient
 # python-rpm-generators and lack of dynamic BR support.
 # https://github.com/ansible-community/community-topics/issues/84
-%global ansible_core_version 2.13.4
+%global ansible_core_version 2.13.5
 %global ansible_core_next_version 2.14
-%global ansible_core_requires (ansible-core >= %{ansible_core_version} with ansible-core < %{ansible_core_next_version})
+%global ansible_core_requires (%{py3_dist ansible-core} >= %{ansible_core_version} with %{py3_dist ansible-core} < %{ansible_core_next_version})
 
 %if 0%{?rhel} == 8
 # RHEL 8's ansible-core package is built using Python 3.8, which is not the default version.
@@ -25,7 +25,7 @@ Requires:       %{ansible_core_requires}
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        6.4.0
+Version:        6.5.0
 Release:        1%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
@@ -94,21 +94,28 @@ echo "[START] Delete unnecessary files and directories"
 hidden_pattern=".*\.(DS_Store|all-contributorsrc|ansible-lint|azure-pipelines|circleci|codeclimate.yml|flake8|galaxy_install_info|gitattributes|github|gitignore|gitkeep|gitlab-ci.yml|idea|keep|mypy_cache|nojekyll|orig|plugin-cache.yaml|pre-commit-config.yaml|project|pydevproject|pytest_cache|pytest_cache|readthedocs.yml|settings|swp|travis.yml|vscode|yamllint|yamllint.yaml|zuul.d|zuul.yaml|rstcheck.cfg|placeholder)$"
 find ansible_collections -depth -regextype posix-egrep -regex "${hidden_pattern}" -print -exec rm -r {} \;
 
-# Not needed for runtime and has
-# /Users/kbreit/Documents/Programming/ansible_collections/cisco/meraki/venv/bin/python shebang
-rm -r ansible_collections/cisco/meraki/scripts
-
 # Not needed for runtime
-rm -r ansible_collections/netbox/netbox/hacking
-rm -r ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests
+rm -rv ansible_collections/cisco/meraki/scripts
+rm -rv ansible_collections/community/grafana/hacking
+rm -rv ansible_collections/community/okd/ci/
+rm -rv ansible_collections/community/vmware/tools
+rm -rv ansible_collections/cyberark/conjur/ci/
+rm -rv ansible_collections/cyberark/conjur/dev/
+rm -rv ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests/
+rm -rv ansible_collections/netbox/netbox/hacking/
+rm -rv ansible_collections/ovirt/ovirt/automation/
+rm -rv ansible_collections/sensu/sensu_go/docker/
+rm -v ansible_collections/ovirt/ovirt/build.sh
+rm -v ansible_collections/dellemc/enterprise_sonic/rebuild.sh
+rm -v ansible_collections/community/dns/update-psl.sh
 
 # rpmlint W: pem-certificate
 find ansible_collections/cyberark/conjur -type f -name "*.pem" -print -delete
 
 # rpmlint E: zero-length
 find -type f -name "*requirements.txt" -size 0 -print -delete
-rm -f ansible_collections/community/zabbix/roles/zabbix_agent/files/win_sample/doSomething.ps1
-rm -f ansible_collections/community/docker/meta/ee-bindep.txt
+rm -v ansible_collections/community/zabbix/roles/zabbix_agent/files/win_sample/doSomething.ps1
+rm -v ansible_collections/community/docker/meta/ee-bindep.txt
 
 echo "[END] Delete unnecessary files and directories"
 
@@ -185,6 +192,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/*egg-info
 
 %changelog
+* Thu Oct 13 2022 Maxwell G <gotmax@e.email> - 6.5.0-1
+- Update to 6.5.0.
+
 * Thu Sep 15 2022 Maxwell G <gotmax@e.email> - 6.4.0-1
 - Update to 6.4.0.
 

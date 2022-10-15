@@ -23,6 +23,8 @@ BuildRequires: python3-devel python3-setuptools
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 
+BuildRequires: meson
+
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
 %endif

@@ -1,5 +1,5 @@
 Name: fluent-bit
-Version: 1.9.7
+Version: 1.9.9
 Release: 1%{?dist}
 Summary: Fast data collector for Linux
 License: ASL 2.0
@@ -86,6 +86,9 @@ rm -rvf %{buildroot}%{_includedir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Thu Oct 13 2022 Ben Kircher <bkircher@0xadd.de> - 1.9.9-1
+- Update to 1.9.9
+
 * Wed Aug 10 2022 Ben Kircher <bkircher@0xadd.de> - 1.9.7-1
 - Update to 1.9.7
 

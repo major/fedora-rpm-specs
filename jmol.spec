@@ -1,5 +1,5 @@
 Name:           jmol
-Version:        14.32.74
+Version:        14.32.77
 Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
@@ -215,6 +215,9 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Thu Oct 13 2022 Jerry James <loganjerry@gmail.com> - 14.32.77-1
+- Version 14.32.77
+
 * Thu Sep  8 2022 Jerry James <loganjerry@gmail.com> - 14.32.74-1
 - Version 14.32.74
 - Convert License tag to SPDX

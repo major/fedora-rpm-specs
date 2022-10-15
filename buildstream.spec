@@ -7,7 +7,7 @@ Summary:       Build/integrate software stacks
 License:       LGPLv2+
 URL:           https://buildstream.build/
 
-Version:       1.6.7
+Version:       1.6.8
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 

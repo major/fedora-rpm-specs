@@ -80,8 +80,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		6.0.1
-Release:		2%{?dist}
+Version:		6.0.2
+Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -716,6 +716,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Oct 13 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 6.0.2-1
+- New version
+  Resolves: rhbz#2133932
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 6.0.1-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

@@ -2,14 +2,14 @@
 %bcond_with stubby
 #%%global extraver rc1
 %global upstream_version %{version}%{?extraver:-%{extraver}}
-%global stubby_version 0.4.0
+%global stubby_version 0.4.2
 
 %undefine __cmake_in_source_build
 
 Summary: Modern asynchronous API to the DNS
 Name: getdns
-Version: 1.7.0
-Release: 7%{?extraver:.%{extraver}}%{?dist}
+Version: 1.7.2
+Release: 1%{?extraver:.%{extraver}}%{?dist}
 License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
@@ -28,8 +28,6 @@ Requires: unbound-libs
 Source2: stubby.service
 %endif
 
-# https://github.com/getdnsapi/getdns/pull/522
-Patch1: getdns-1.7-libidn2.patch
 
 %description
 getdns is a modern asynchronous DNS API. It implements DNS entry points
@@ -158,6 +156,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Oct 13 2022 Petr Menšík <pemensik@redhat.com> - 1.7.2-1
+- Update to 1.7.2 (#1974450)
+
 * Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.7.0-7
 - Update License tag to SPDX identifier
 

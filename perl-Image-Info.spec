@@ -1,6 +1,6 @@
 Name:           perl-Image-Info
-Version:        1.42
-Release:        10%{?dist}
+Version:        1.43
+Release:        1%{?dist}
 Summary:        Image meta information extraction module for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Image-Info
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Thu Oct 13 2022 Tom Callaway <spot@fedoraproject.org> - 1.43-1
+- update to 1.43
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

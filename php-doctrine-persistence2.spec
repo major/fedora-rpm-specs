@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    830c2ba42093e0e428eca37568ab36bd8008bc17
+%global gh_commit    38670dd6ac8f2d997a0b5b6c98cb380ef0ba9bd3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.5.4
+Version:        2.5.5
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -45,36 +45,36 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer.json
 #        "composer/package-versions-deprecated": "^1.11",
-#        "phpstan/phpstan": "1.4.6",
+#        "phpstan/phpstan": "~1.4.10 || 1.8.8",
 #        "doctrine/annotations": "^1.0",
-#        "doctrine/coding-standard": "^9.0",
+#        "doctrine/coding-standard": "^9 || ^10",
 #        "doctrine/common": "^3.0",
 #        "phpunit/phpunit": "^7.5.20 || ^8.5 || ^9.5",
 #        "symfony/cache": "^4.4 || ^5.4 || ^6.0",
-#        "vimeo/psalm": "4.21.0"
+#        "vimeo/psalm": "4.29.0"
 BuildRequires: (php-composer(doctrine/annotations)   >= 1.0   with php-composer(doctrine/annotations)   < 2)
 BuildRequires: (php-composer(doctrine/cache)         >= 1.11  with php-composer(doctrine/cache)         < 3)
 BuildRequires: (php-composer(doctrine/collections)   >= 1.0   with php-composer(doctrine/collections)   < 2)
-BuildRequires: (php-composer(doctrine/event-manager) >= 1.0   with php-composer(doctrine/event-manager) < 2)
+BuildRequires: (php-composer(doctrine/event-manager) >= 1     with php-composer(doctrine/event-manager) < 3)
 BuildRequires: (php-composer(doctrine/common)        >= 3.0   with php-composer(doctrine/common)        < 4)
 BuildRequires: (php-composer(doctrine/deprecations)  >= 0.5.3 with php-composer(doctrine/deprecations)  < 2)
 BuildRequires: (php-composer(symfony/cache)          >= 4.4   with php-composer(symfony/cache)          < 7)
 BuildRequires: (php-composer(psr/cache)              >= 1.0   with php-composer(psr/cache)              < 2)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9
+BuildRequires:  phpunit9 >= 9.5
 %endif
 
 # From composer.json
 #        "php": "^7.1 || ^8.0"
 #        "doctrine/cache": "^1.11 || ^2.0",
 #        "doctrine/collections": "^1.0",
-#        "doctrine/event-manager": "^1.0",
+#        "doctrine/event-manager": "^1 || ^2",
 #        "psr/cache": "^1.0 || ^2.0 || ^3.0",
 #        "doctrine/deprecations": "^0.5.3 || ^1"
 Requires:       php(language) >= 7.1
 Requires:      (php-composer(doctrine/cache)         >= 1.11  with php-composer(doctrine/cache)         < 3)
 Requires:      (php-composer(doctrine/collections)   >= 1.0   with php-composer(doctrine/collections)   < 2)
-Requires:      (php-composer(doctrine/event-manager) >= 1.0   with php-composer(doctrine/event-manager) < 2)
+Requires:      (php-composer(doctrine/event-manager) >= 1     with php-composer(doctrine/event-manager) < 3)
 Requires:      (php-composer(doctrine/deprecations)  >= 0.5.3 with php-composer(doctrine/deprecations)  < 2)
 # ignore v2 and v3
 Requires:      (php-composer(psr/cache)              >= 1.0   with php-composer(psr/cache)              < 2)
@@ -124,7 +124,10 @@ cat << 'EOF' | tee -a src/%{ns_subproj}%{major}/autoload.php
         '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Cache/autoload.php',
     ],
     '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Collections/autoload.php',
-    '%{_datadir}/php/%{ns_vendor}/%{ns_project}/EventManager/autoload.php',
+    [
+        '%{_datadir}/php/%{ns_vendor}/EventManager2/autoload.php',
+        '%{_datadir}/php/%{ns_vendor}/%{ns_project}/EventManager/autoload.php',
+    ],
 ]);
 EOF
 
@@ -184,6 +187,10 @@ exit $ret
 
 
 %changelog
+* Thu Oct 13 2022 Remi Collet <remi@remirepo.net> - 2.5.5-1
+- update to 2.5.5
+- allow doctrine/event-manager v2
+
 * Mon Aug  8 2022 Remi Collet <remi@remirepo.net> - 2.5.4-1
 - update to 2.5.4
 

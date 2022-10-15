@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    eb2ecf80e3093e8f3c2769ac838e27d8ede8e683
+%global gh_commit    95aa4cb529f1e96576f3fda9f5705ada4056a520
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   event-manager
@@ -26,7 +26,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.2
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        Simple PHP event system
 
@@ -39,13 +39,19 @@ BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with_tests}
 BuildRequires:  php(language) >= 7.1
+BuildRequires:  php-reflection
+BuildRequires:  php-spl
+BuildRequires: (php-composer(doctrine/deprecations)  >= 0.5.3 with php-composer(doctrine/deprecations)  < 2)
 BuildRequires:  phpunit9
 %endif
 
 # From composer.json
 #        "php": "^7.1 || ^8.0"
+#        "doctrine/deprecations": "^0.5.3 || ^1"
 Requires:       php(language) >= 7.1
-# From phpcompatinfo report for version 1.0.0: only "core"
+Requires:      (php-composer(doctrine/deprecations)  >= 0.5.3 with php-composer(doctrine/deprecations)  < 2)
+# From phpcompatinfo report for version 1.2.0
+Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -67,16 +73,23 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/%{ns_subproj}/autoload.ph
 
 %build
 : Generate a simple autoloader
-mkdir lib/%{ns_vendor}/%{ns_project}/%{ns_subproj}
+mkdir src/%{ns_subproj}
 %{_bindir}/phpab \
-    --output lib/%{ns_vendor}/%{ns_project}/%{ns_subproj}/autoload.php \
+    --output src/%{ns_subproj}/autoload.php \
     --template fedora \
-    lib/%{ns_vendor}/%{ns_project}
+    src
+
+cat << 'AUTOLOAD' | tee -a src/%{ns_subproj}/autoload.php
+
+\Fedora\Autoloader\Dependencies::required([
+    '%{_datadir}/php/Doctrine/Deprecations/autoload.php',
+]);
+AUTOLOAD
 
 
 %install
-mkdir -p                              %{buildroot}%{_datadir}/php/%{ns_vendor}
-cp -pr lib/%{ns_vendor}/%{ns_project} %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
+mkdir -p   %{buildroot}%{_datadir}/php/%{ns_vendor}
+cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 
 %check
@@ -115,6 +128,10 @@ exit $ret
 
 
 %changelog
+* Thu Oct 13 2022 Remi Collet <remi@remirepo.net> - 1.2.0-1
+- update to 1.2.0
+- add dependency on doctrine/deprecations
+
 * Thu Jul 28 2022 Remi Collet <remi@remirepo.net> - 1.1.2-1
 - update to 1.1.2
 - switch to phpunit9

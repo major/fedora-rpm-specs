@@ -1,7 +1,7 @@
 Name:		numactl
 Summary:	Library for tuning for Non Uniform Memory Access machines
-Version:	2.0.14
-Release:	6%{dist}
+Version:	2.0.16
+Release:	1%{dist}
 # libnuma is LGPLv2 and GPLv2
 # numactl binaries are GPLv2 only
 License:	GPLv2
@@ -9,7 +9,7 @@ URL:		https://github.com/numactl/numactl
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires:	libtool automake autoconf
+BuildRequires: libtool automake autoconf
 
 ExcludeArch: s390 %{arm}
 
@@ -39,10 +39,6 @@ Provides development headers for numa library calls
 
 %build
 %configure --prefix=/usr --libdir=%{_libdir}
-# Using recipe to fix rpaths, from here:
-# https://fedoraproject.org/wiki/RPath_Packaging_Draft#Removing_Rpath
-sed -i -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-       -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
 
 %install
@@ -70,7 +66,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %{_libdir}/libnuma.so
 %exclude %{_libdir}/libnuma.a
-%exclude %{_libdir}/libnuma.la
 %{_libdir}/pkgconfig/numa.pc
 %{_includedir}/numa.h
 %{_includedir}/numaif.h
@@ -78,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Oct 08 2022 Filipe Brandenburger <filbranden@gmail.com> - 2.0.16-1
+- Upgrade to 2.0.16
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

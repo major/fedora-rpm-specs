@@ -5,14 +5,14 @@
 %define		rubyabi		1.9.1
 %endif
 
-%define		fedorarel	18
+%define		fedorarel	19
 
 
 %define		fullrel		%{?betaver:0.}%{fedorarel}%{?betaver:.%betaver}
 
 Name:		fantasdic
 Version:	%{mainver}
-Release:	%{fullrel}%{?dist}.2
+Release:	%{fullrel}%{?dist}
 Summary:	Dictionary application using Ruby
 
 License:	GPLv2+
@@ -79,6 +79,9 @@ unlink vendor_ruby
 %{__sed} \
 	-i.dir -e '/html/s|%{name}|%{name}-%{mainver}|' \
 	lib/fantasdic/ui/browser.rb
+
+# Ruby 3.2 completely removes File.exists?
+grep -rl FileTest.exists . | xargs sed -i -e 's|FileTest.exists|FileTest.exist|'
 
 %build
 export LANG=C.UTF-8
@@ -181,6 +184,9 @@ ruby setup.rb test
 
 
 %changelog
+* Thu Oct 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.19.beta7
+- Fix for ruby3.2 wrt File.exists? removal
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.18.beta7.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

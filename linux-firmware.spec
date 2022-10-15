@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 140
+%global firmware_release 141
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20220913
+Version:	20221012
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -528,6 +528,28 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Thu Oct 13 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221012-141
+- Update to upstream 20221012 release
+- rtl_bt: Update RTL8852C BT USB firmware to 0xD5B8_A40A
+- amdgpu: update various generations of RLC firmware
+- mediatek: Update mt8195 SOF firmware to v0.4.1
+- qcom: add squashed version of a530 zap shader
+- rtw89: 8852c: update fw to v0.27.56.1
+- mediatek: Update mt8186 SCP firmware
+- Update AMD cpu microcode
+- mediatek: mt8195: Update scp.img to v2.0.11956
+- mediatek: Add new mt8195 SOF firmware
+- mediatek: Update mt8186 SOF firmware to v0.2.1
+- update firmware for mediatek bluetooth chip (MT7922)
+- rtl_bt: Update RTL8852A BT USB firmware to 0xD9B8_8207
+- update firmware for mediatek bluetooth chip (MT7921)
+- update firmware for MT7921/MT7922 WiFi device
+- cxgb4: Update firmware to revision 1.27.0.0
+- i915: Add versionless HuC files for current platforms
+- i915: Add GuC v70.5.1 for DG1, DG2, TGL and ADL-P
+- qca: Update firmware files for BT chip WCN3991.
+- Removing crnv32
+
 * Thu Sep 29 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20220913-140
 - Update to upstream 20220913 release
 - amdgpu: update yellow carp DMCUB firmware

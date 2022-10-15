@@ -12,7 +12,7 @@ License:	LGPLv2+
 URL:		http://rubyforge.org/projects/test-unit/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
 
-%if 0%{?fedora} >= 19
+%if 0%{?fedora}  || 0%{?rhel} >= 9
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
 %else

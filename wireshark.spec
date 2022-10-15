@@ -1,13 +1,11 @@
 %undefine __cmake_in_source_build
 %global with_lua 1
 %global with_maxminddb 1
-%global plugins_version 3.6
-# added temporarily due to errors in libqt5core
-%define _lto_cflags %{nil}
+%global plugins_version 4.0
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	3.6.8
+Version:	4.0.0
 Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
@@ -27,8 +25,8 @@ Patch4:		wireshark-0004-Restore-Fedora-specific-groups.patch
 # Fedora-specific
 Patch5:		wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 # Fedora-specific
-Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
-Patch7:		wireshark-0007-cmakelists.patch
+#Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
+#Patch7:		wireshark-0007-cmakelists.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -58,15 +56,17 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	xdg-utils
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	pcre-devel
 BuildRequires:	perl(Pod::Html)
 BuildRequires:	perl(Pod::Man)
 BuildRequires:	perl(open)
+BuildRequires:	pcre2-devel
 Buildrequires:	libssh-devel
-BuildRequires:	qt5-linguist
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	qt5-qtmultimedia-devel
-BuildRequires:	qt5-qtsvg-devel
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	qt6-linguist
+BuildRequires:	qt6-qtbase-devel
+BuildRequires:	qt6-qt5compat-devel
+BuildRequires:	qt6-qtmultimedia-devel
+BuildRequires:	qt6-qtsvg-devel
 BuildRequires:	zlib-devel
 BuildRequires:	asciidoctor
 %if %{with_maxminddb} && 0%{?fedora}
@@ -83,7 +83,6 @@ BuildRequires: systemd-devel
 BuildRequires: libnghttp2-devel
 BuildRequires: systemd-rpm-macros
 
-Obsoletes: wireshark-qt, wireshark-gtk
 
 %description
 Wireshark allows you to examine protocol data stored in files or as it is
@@ -124,6 +123,7 @@ and plugins.
   -DBUILD_wireshark=ON \
 %if %{with_lua} && 0%{?fedora}
   -DENABLE_LUA=ON \
+  -DLUA_VERSION_NUM=5.1 \
 %else
   -DENABLE_LUA=OFF \
 %endif
@@ -135,11 +135,11 @@ and plugins.
   -DBUILD_randpktdump=OFF \
   -DBUILD_androiddump=ON \
   -DENABLE_SMI=ON \
+  -DUSE_qt6=ON \
   -DENABLE_PLUGINS=ON \
   -DENABLE_NETLINK=ON \
   -DBUILD_dcerpcidl2wrs=OFF \
-  -DBUILD_sdjournal=ON \
-  %{nil}
+  -DBUILD_sdjournal=ON
 
 %cmake_build
 
@@ -162,7 +162,6 @@ mkdir -p "${IDIR}/wsutil"
 mkdir -p %{buildroot}%{_udevrulesdir}
 install -m 644 %{_vpath_builddir}/config.h epan/register.h	"${IDIR}/"
 install -m 644 cfile.h file.h		"${IDIR}/"
-install -m 644 ws_symbol_export.h	"${IDIR}/"
 install -m 644 epan/*.h			"${IDIR}/epan/"
 install -m 644 epan/crypt/*.h		"${IDIR}/epan/crypt"
 install -m 644 epan/ftypes/*.h		"${IDIR}/epan/ftypes"
@@ -170,7 +169,6 @@ install -m 644 epan/dfilter/*.h		"${IDIR}/epan/dfilter"
 install -m 644 epan/dissectors/*.h	"${IDIR}/epan/dissectors"
 install -m 644 wiretap/*.h		"${IDIR}/wiretap"
 install -m 644 wsutil/*.h		"${IDIR}/wsutil"
-install -m 644 ws_diag_control.h	"${IDIR}/"
 install -m 644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
 install -Dpm 644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
 
@@ -226,6 +224,7 @@ fi
 %dir %{_libdir}/wireshark/plugins
 %{_libdir}/wireshark/extcap/ciscodump
 %{_libdir}/wireshark/extcap/udpdump
+%{_libdir}/wireshark/extcap/wifidump
 %{_libdir}/wireshark/extcap/sshdump
 %{_libdir}/wireshark/extcap/sdjournal
 %{_libdir}/wireshark/extcap/dpauxmon
@@ -253,6 +252,7 @@ fi
 %{_mandir}/man1/reordercap.*
 %{_mandir}/man1/sshdump.*
 %{_mandir}/man1/udpdump.*
+%{_mandir}/man1/wifidump.*
 %{_mandir}/man1/androiddump.*
 %{_mandir}/man1/captype.*
 %{_mandir}/man1/ciscodump.*
@@ -274,6 +274,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Oct 06 2022 Kenneth Topp <toppk@bllue.org> - 1:4.0.0-1
+- New version 4.0.0
+
 * Thu Sep 29 2022 Michal Ruprich <mruprich@redhat.com> - 1:3.6.8-2
 - New version 3.6.8
 - Fix for CVE-2022-3190

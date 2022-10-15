@@ -1,7 +1,7 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 69.0.0
-Release: 3%{?dist}
+Version: 71.1.0
+Release: 1%{?dist}
 License: GPLv2+
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
@@ -31,8 +31,8 @@ BuildRequires: libvorbis-devel
 BuildRequires: po4a
 BuildRequires: pkgconfig(dvdread)
 BuildRequires: pkgconfig(libcmark)
-BuildRequires: pkgconfig(libebml) >= 1.4.2
-BuildRequires: pkgconfig(libmatroska) >= 1.6.3
+BuildRequires: pkgconfig(libebml) >= 1.4.4
+BuildRequires: pkgconfig(libmatroska) >= 1.7.1
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(pugixml)
 BuildRequires: pkgconfig(zlib)
@@ -41,8 +41,8 @@ BuildRequires: rubygem-json
 BuildRequires: utf8cpp-devel >= 3.2-2
 BuildRequires: %{_bindir}/qmake6
 BuildRequires: %{_bindir}/xsltproc
-Requires: libebml%{_isa} >= 1.4.2
-Requires: libmatroska%{_isa} >= 1.6.3
+Requires: libebml%{_isa} >= 1.4.4
+Requires: libmatroska%{_isa} >= 1.7.1
 # bundles a modified avilib
 Provides: bundled(avilib) = 0.6.10
 # https://www.bunkus.org/videotools/librmff/index.html
@@ -122,6 +122,10 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Thu Oct 13 2022 Dominik Mierzejewski <dominik@greysector.net> - 71.1.0-1
+- update to 71.1.0 (#2118106)
+- require libebml 1.4.4 and libmatroska 1.7.1
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 69.0.0-3
 - Rebuilt for flac 1.4.0
 

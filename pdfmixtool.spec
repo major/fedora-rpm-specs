@@ -2,7 +2,7 @@
 
 Name:           pdfmixtool
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An application to split, merge, rotate and mix PDF files
 
 License:        GPLv3+
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Thu Oct 13 2022 Gustavo Costa <xfgusta@gmail.com> - 1.1.1-2
+- qpdf 11.1.1 rebuild
+
 * Sun Sep 25 2022 Gustavo Costa <xfgusta@gmail.com> - 1.1.1-1
 - Update to 1.1.1 (rhbz#2129512)
 

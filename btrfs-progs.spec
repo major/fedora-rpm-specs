@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        5.18
-Release:        3%{?dist}
+Version:        6.0
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPLv2
@@ -145,6 +145,12 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Thu Oct 13 2022 Neal Gompa <ngompa@fedoraproject.org> - 6.0-1
+- Update to 6.0
+
+* Thu Oct 13 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.19.1-1
+- Update to 5.19.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

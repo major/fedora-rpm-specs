@@ -110,7 +110,7 @@ echo ".so man1/rpmdev-spectool.1" > %{buildroot}%{_mandir}/man1/spectool.1
 %{_bindir}/*
 %{_emacs_sitestartdir}/rpmdev-init.el
 %ghost %{_emacs_sitestartdir}/rpmdev-init.elc
-%if 0%{?fedora} && 0%{fedora} < 36
+%if 0%{?fedora} && 0%{?fedora} < 36
 %{_xemacs_sitestartdir}/rpmdev-init.el
 %ghost %{_xemacs_sitestartdir}/rpmdev-init.elc
 %endif

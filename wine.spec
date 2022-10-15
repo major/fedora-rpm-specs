@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        7.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
@@ -335,6 +335,7 @@ Requires:       vulkan-loader(x86-32)
 %if 0%{?wine_staging}
 Requires:       libva(x86-32)
 %endif
+Requires:  mingw32-FAudio
 Requires:  mingw32-lcms2
 Requires:  mingw32-libpng
 Requires:  mingw32-libxml2
@@ -365,6 +366,7 @@ Requires:       vulkan-loader(x86-64)
 %if 0%{?wine_staging}
 Requires:       libva(x86-64)
 %endif
+Requires:  mingw64-FAudio
 Requires:  mingw64-lcms2
 Requires:  mingw64-libpng
 Requires:  mingw64-libxml2
@@ -2825,8 +2827,11 @@ fi
 %endif
 
 %changelog
+* Thu Oct 13 2022 Michael Cronenworth <mike@cchtml.com> - 7.18-2
+- Require MinGW FAudio
+
 * Tue Oct 11 2022 Michael Cronenworth <mike@cchtml.com> - 7.18-1
-- versuon update
+- version update
 - Drop isdn4k-utils from Recommends
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.12-3

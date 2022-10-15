@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    7dcdea3f2f5f473464e835be9be55283ff8cfdc3
+%global gh_commit    eae11d945e2885d86e1c080eec1bb30a2aa27998
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.11.0
+Version:        3.12.0
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -61,11 +61,11 @@ Provides:       bundled(php-psr-cache) = 1.0.1
 Provides:       bundled(php-psr-container) = 1.1.2
 Provides:       bundled(php-psr-event-dispatcher) = 1.0.0
 Provides:       bundled(php-psr-log) = 1.1.4
-Provides:       bundled(php-symfony-console) = v5.4.12
+Provides:       bundled(php-symfony-console) = v5.4.14
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
 Provides:       bundled(php-symfony-event-dispatcher) = v5.4.9
 Provides:       bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.12
+Provides:       bundled(php-symfony-filesystem) = v5.4.13
 Provides:       bundled(php-symfony-finder) = v5.4.11
 Provides:       bundled(php-symfony-options-resolver) = v5.4.11
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.26.0
@@ -77,8 +77,8 @@ Provides:       bundled(php-symfony-polyfill-php80) = v1.26.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.26.0
 Provides:       bundled(php-symfony-process) = v5.4.11
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-stopwatch) = v5.4.5
-Provides:       bundled(php-symfony-string) = v5.4.12
+Provides:       bundled(php-symfony-stopwatch) = v5.4.13
+Provides:       bundled(php-symfony-string) = v5.4.14
 
 Provides:       php-composer(friendsofphp/php-cs-fixer) = %{version}
 
@@ -138,7 +138,7 @@ install -Dpm755 %{name} %{buildroot}%{_bindir}/%{name}
 
 %check
 sed -e 's:%{_datadir}:%{buildroot}%{_datadir}:' -i %{name}
-./%{name} --version | grep %{version}
+PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %files
@@ -151,6 +151,9 @@ sed -e 's:%{_datadir}:%{buildroot}%{_datadir}:' -i %{name}
 
 
 %changelog
+* Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 3.12.0-1
+- update to 3.12.0
+
 * Thu Sep  8 2022 Remi Collet <remi@remirepo.net> - 3.11.0-1
 - update to 3.11.0
 

@@ -6,10 +6,11 @@
 
 Name:           python-jupyter-polymake
 Version:        0.16
-Release:        20.%{gitdate}.%{shortcommit}%{?dist}
+Release:        21.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Jupyter kernel for polymake
 
-License:        WTFPL
+# The code is WTFPL.  The JavaScript and image files are MIT.
+License:        WTFPL AND MIT
 URL:            https://github.com/polymake/jupyter-polymake
 Source0:        %{url}/archive/%{commit}/jupyter-polymake-%{shortcommit}.tar.gz
 
@@ -25,6 +26,7 @@ BuildRequires:  %{py3_dist jupymake}
 BuildRequires:  %{py3_dist jupyter-client}
 BuildRequires:  %{py3_dist pexpect}
 BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
@@ -67,6 +69,12 @@ rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
 %{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Thu Oct 13 2022 Jerry James <loganjerry@gmail.com> - 0.16-21.20180129.7049940
+- Add MIT to the license tag
+
+* Thu Oct 13 2022 Karolina Surma <ksurma@redhat.com> - 0.16-21.20180129.7049940
+- Explicitly BuildRequire python-setuptools
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-20.20180129.7049940
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

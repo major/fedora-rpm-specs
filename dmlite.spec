@@ -105,7 +105,7 @@
 
 Name: dmlite
 Version: 1.15.2
-Release: 10%{?dist}%{?_with_asan:.asan}
+Release: 11%{?dist}%{?_with_asan:.asan}
 Summary: Lcgdm grid data management and storage framework
 Group: Applications/Internet
 License: ASL 2.0
@@ -129,6 +129,7 @@ Patch16: dmlite-reduce-chksum-sleep.patch
 Patch17: dmlite-improve-migration-options.patch
 Patch18: dmlite-fix-bdii-ldap3-ldif.patch
 Patch19: dmlite-improve-migration-dcache-config.patch
+Patch20: dmlite-fix-dcache82-migration.patch
 
 BuildRequires: boost-devel
 
@@ -877,6 +878,7 @@ This package provides the modules for the DPM configuration via puppet
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 %global build_flags -DCMAKE_INSTALL_PREFIX=/ -DRUN_ONLY_STANDALONE_TESTS=ON -DOVERWRITE_CONFIGFILES=ON -DINSTALL_PFX_DOC=%{_pkgdocdir}
@@ -1094,6 +1096,9 @@ install -p -d -m 755 %{buildroot}%{_localstatedir}/log/dpm-gsiftp
 
 
 %changelog
+* Tue Oct 11 2022 Petr Vokac <petr.vokac@cern.ch> - 1.15.2-11
+- Support for DPM to dCache 8.2 migration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -24,6 +24,8 @@ Source0:        %url/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz
 
 # https://github.com/miyakogi/m2r/pull/62
 Patch0:         test_no_file.patch
+# https://github.com/miyakogi/m2r/pull/43
+Patch1:         %url/pull/43.patch#/lock_mistune_version.patch
 
 BuildArch:      noarch
 

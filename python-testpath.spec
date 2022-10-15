@@ -1,3 +1,4 @@
+%bcond_without docs
 %global pypi_name testpath
 
 Name:           python-%{pypi_name}
@@ -15,10 +16,12 @@ BuildArch:      noarch
 BuildRequires:  python3-pip
 BuildRequires:  python3-devel
 
-BuildRequires:  python3-flit
+BuildRequires:  python3-flit-core
 
+%if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
+%endif
 
 # Tests:
 BuildRequires:  python3-pytest
@@ -34,16 +37,17 @@ mocking system commands and recording calls to those.
 
 %package -n     python3-%{pypi_name}
 Summary:        %summary
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 
 %_description
 
+%if %{with docs}
 %package        doc
 Summary:        %{name} documentation
 %description doc
 Documentation for %{name}.
+%endif
 
 
 %prep
@@ -57,12 +61,14 @@ rm -f %{pypi_name}/*.exe
 # and upstream does not want one
 # https://github.com/takluyver/flit/issues/74
 # we use flit to create a wheel from sources
-flit build --format wheel
+%{python3} -m flit_core.wheel
 
+%if %{with docs}
 # generate html docs
 sphinx-build-3 doc html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
+%endif
 
 
 %install
@@ -72,7 +78,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %check
-%{__python3} -m pytest -v
+%pytest
 
 
 %files -n python3-%{pypi_name}
@@ -81,8 +87,10 @@ rm -rf html/.{doctrees,buildinfo}
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 %{python3_sitelib}/%{pypi_name}/
 
+%if %{with docs}
 %files doc
 %doc html
+%endif
 
 %changelog
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3

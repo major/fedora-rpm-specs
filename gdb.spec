@@ -51,7 +51,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1189,6 +1189,9 @@ fi
 %endif
 
 %changelog
+* Thu Oct 13 2022 Alexandra Hájková - 12.1-7
+- Bump the release number.
+
 * Tue Oct 11 2022 Alexandra Hájková - 12.1-6
 - Backport upstream patch "Add support for readline 8.2". (Andreas Schwab)
 

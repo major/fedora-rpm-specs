@@ -148,7 +148,7 @@ Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 %if "%{version}" >= "2.000001"
 Obsoletes:  perl-Type-Tie < %{version}-%{release}
-%if 0%{fedora} < 37
+%if 0%{?fedora} < 37
 Provides: perl-Type-Tie = %{version}-%{release}
 %endif
 %endif

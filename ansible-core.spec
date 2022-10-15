@@ -11,14 +11,13 @@
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.13.4
+Version: 2.13.5
 Release: 1%{?dist}
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
-# SPDX-License-Identifier: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
-License: GPLv3+ and BSD and Python and MIT and ASL 2.0
+License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
 Source: https://github.com/ansible/ansible/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # A 2.10.3 async test uses /usr/bin/python, which we do not have by default.
@@ -39,27 +38,22 @@ BuildArch: noarch
 
 # lib/ansible/module_utils/urls.py
 # SPDX-License-Identifier: BSD-2-Clause AND PSF-2.0
-# Fedora-License-Identifier: BSD and Python
 Provides: bundled(python3dist(backports-ssl-match-hostname)) = 3.7.0.1
 
 # lib/ansible/module_utils/distro/*
 # SPDX-License-Identifier: Apache-2.0
-# Fedora-License-Identifier: ASL 2.0
 Provides: bundled(python3dist(distro)) = 1.6.0
 
 # lib/ansible/module_utils/six/*
 # SPDX-License-Identifier: MIT
-# Fedora-License-Identifier: MIT
 Provides: bundled(python3dist(six)) = 1.16.0
 
 # lib/ansible/module_utils/compat/selectors.py
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Fedora-License-Identifier: GPLv3+
 Provides: bundled(python3dist(selectors2)) = 1.1.1
 
 # lib/ansible/module_utils/compat/ipaddress.py
 # SPDX-License-Identifier: PSF-2.0
-# Fedora-License-Identifier: Python
 Provides: bundled(python3dist(ipaddress)) = 1.0.22
 
 Conflicts: ansible <= 2.9.99
@@ -244,6 +238,9 @@ make PYTHON=%{python3} tests-py3
 %endif
 
 %changelog
+* Wed Oct 12 2022 Maxwell G <gotmax@e.email> - 2.13.5-1
+- Update to 2.13.5.
+
 * Tue Sep 13 2022 Maxwell G <gotmax@e.email> - 2.13.4-1
 - Update to 2.13.4.
 

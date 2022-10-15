@@ -3,22 +3,26 @@
 
 Name:    python-%{pkgname}
 Version: 1.1.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Show where your regex match assertion failed!
-License: MIT
 
+# SPDX
+License: MIT
 URL:     https://github.com/asottile/re-assert
-Source0: %{pypi_source}
+# The PyPI sdist lacks the tests, so we must use the GitHub archive
+Source0: %{url}/archive/v%{version}/re-assert-%{version}.tar.gz
 
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pytest
+BuildRequires: python3dist(setuptools)
+
+# For tests
+BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(regex)
 
 %global _description %{expand:
-Show where your regex match assertion failed!
-}
+Show where your regex match assertion failed!}
 
 %description %{_description}
 
@@ -29,7 +33,7 @@ Summary: %summary
 %description -n python3-%{pkgname} %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 %py3_build
@@ -37,6 +41,8 @@ Summary: %summary
 %install
 %py3_install
 
+%check
+%pytest
 
 %files -n python3-%{pkgname}
 %license LICENSE
@@ -46,6 +52,9 @@ Summary: %summary
 
 
 %changelog
+* Thu Oct 13 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.0-7
+- Run the tests from the GitHub archive
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

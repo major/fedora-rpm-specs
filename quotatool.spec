@@ -1,21 +1,33 @@
 Name:           quotatool
 Version:        1.6.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Command-line utility for filesystem quotas
 License:        GPLv2
 URL:            http://quotatool.ekenberg.se
 Source0:        http://quotatool.ekenberg.se/%{name}-%{version}.tar.gz
+# Upstream fixes
+Patch0:         https://github.com/ekenberg/quotatool/commit/ad6944baaa73cf6230f9a2bef2399b31c2130547.patch
+Patch1:         https://github.com/ekenberg/quotatool/commit/09695c944947d804cbe3b5c7e2c854953984413e.patch
+Patch2:         https://github.com/ekenberg/quotatool/commit/ca68628de86d18fda67ebcc4191c2b37891ed36e.patch
+Patch3:         https://github.com/ekenberg/quotatool/commit/58cdec3cdc6ae94864891a4e179ad68d4d136864.patch
+Patch4:         https://github.com/ekenberg/quotatool/commit/af27842d1a6640d932407999ceec57f54a225a78.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
+
 %description
-Quotatool is a utility to manipulate filesystem quotas from the commandline. 
-Most quota-utilities are interactive, requiring manual intervention from the 
-user. Quotatool on the other hand is not, making it suitable for use in 
+Quotatool is a utility to manipulate filesystem quotas from the commandline.
+Most quota-utilities are interactive, requiring manual intervention from the
+user. Quotatool on the other hand is not, making it suitable for use in
 scripts and other non-interactive situations.
 
 %prep
 %setup -q
+%patch0 -p1 -b .fix-compiler-warnings
+%patch1 -p1 -b .fix-implicit-fallthrough
+%patch2 -p1 -b .make-sure-make-clean-works-if-configure-has-not-run
+%patch3 -p1 -b .improved-error-message
+%patch4 -p1 -b .fix-compiler-warnings-again
 
 %build
 %configure
@@ -32,6 +44,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Oct 13 2022 Tom Callaway <spot@fedoraproject.org> - 1.6.2-21
+- apply fixes from upstream
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
