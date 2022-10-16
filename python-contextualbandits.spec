@@ -10,13 +10,13 @@ and compare ideas, to reproduce research papers that don't provide
 easily-available implementations of their proposed algorithms, and to
 serve as a guide in learning about contextual bandits.}
 
-%global commit          0ce7bfb64f33fb5d52090d0e92634b8d92ef6863
-%global snapshotdate    20220708
+%global commit          c8d2210bc1b22e2b6750a03d7cee89d844b8d848
+%global snapshotdate    20221014
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}
-Version:        0.3.17.3
-Release:        2%{?dist}
+Version:        0.3.19
+Release:        1%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
 License:        BSD
@@ -88,6 +88,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc example/
 
 %changelog
+* Fri Oct 14 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.19-1
+- Update to the latest upstream's release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

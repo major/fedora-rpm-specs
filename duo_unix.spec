@@ -1,9 +1,13 @@
+%global selinuxtype targeted
+%global moduletype contrib
+%global modulename authlogin_duo
+
 # Disable by default as the tests require root and write to /etc/pam.d
 %bcond_with tests
 
 Name:           duo_unix
 Version:        1.12.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Duo two-factor authentication for UNIX systems
 
 License:        GPLv2
@@ -12,9 +16,13 @@ Source:         https://dl.duosecurity.com/%{name}-%{version}.tar.gz
 
 Suggests:       %{name}-doc = %{version}-%{release}
 
+BuildRequires:  bzip2
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
+BuildRequires:  selinux-policy-devel
+BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig
 
 %if %{with tests}
@@ -50,6 +58,8 @@ Documentation and license files for %{name}
 %package -n     pam_duo
 Summary:        A PAM module for duo authentication
 Suggests:       %{name}-doc = %{version}-%{release}
+Requires:       pam
+Requires:       (%{name}-selinux if selinux-policy-%{selinuxtype})
 
 %description -n pam_duo
 A PAM module for duo authentication
@@ -62,6 +72,16 @@ Requires:       pam_duo%{?_isa} = %{version}-%{release}
 %description    devel
 Development files and documentation for duo_unix
 
+%package        selinux
+Summary:        SELinux rules for %{name}
+Requires:       selinux-policy-%{selinuxtype}
+Requires(post): selinux-policy-%{selinuxtype}
+Requires:       pam_duo%{?_isa} = %{version}-%{release}
+%{?selinux_requires}
+
+%description    selinux
+%{summary}.
+
 %prep
 %setup -q
 
@@ -71,9 +91,11 @@ Development files and documentation for duo_unix
   --sysconfdir=%{_sysconfdir}/duo \
   --includedir=%{_includedir}/duo
 %make_build
+%make_build -C pam_duo semodule
 
 %install
 %make_install
+%make_install -C pam_duo semodule-install
 
 rm %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 %if 0%{?rhel} || 0%{?fc35}
@@ -114,6 +136,7 @@ make check
 
 %files doc
 %license LICENSE
+%doc README.md AUTHORS CHANGES
 %doc %{_defaultdocdir}/%{name}
 
 %files devel
@@ -127,7 +150,28 @@ make check
 %{_libdir}/pkgconfig/libduo.pc
 %{_mandir}/man3/duo.3*
 
+%files selinux
+%{_datadir}/selinux/packages/%{modulename}.pp.bz2
+
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install %{_datadir}/selinux/packages/%{modulename}.pp.bz2
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall %{_datadir}/selinux/packages/%{modulename}.pp.bz2
+fi
+
+%posttrans selinux
+%selinux_relabel_post -s %{selinuxtype}
+
 %changelog
+* Fri Oct 14 2022 Ben Boeckel <mathstuf@gmail.com> - 1.12.1-5
+- Add selinux subpackage
+- Also package up docs from the source
+
 * Wed Oct 12 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.12.1-4
 - Add Recommends for pam_duo to the main package to prevent potential lockout
   issues (Fixes: RHBZ#2134160)

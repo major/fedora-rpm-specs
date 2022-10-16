@@ -13,8 +13,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.98.0
-Release: 3%{?dist}
+Version: 5.99.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 library that wraps Client and Server Wayland libraries
 
 License: GPLv2+
@@ -29,8 +29,6 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %endif
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
-# Without this kwin doesn't build with 5.98.0
-Patch0:  cb13afd8530f651c7d0ce82e47eaa3e1939bd676.patch
 
 BuildRequires: make
 BuildRequires:  extra-cmake-modules >= %{version}
@@ -116,6 +114,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.99.0-1
+- 5.99.0
+
 * Wed Sep 21 2022 Jan Grulich <jgrulich@redhat.com> - 5.98.0-3
 - Rebuild (qt5)
 

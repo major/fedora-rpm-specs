@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.880
+Version:        1.881
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -170,6 +170,14 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Fri Oct 14 2022 Paul Howarth <paul@city-fan.org> - 1.881-1
+- Update to 1.881 (rhbz#2134723)
+  - Improved the private _parse_chunk_size function for better utilization of
+    CPU cores in MCE::Grep, MCE::Map, and MCE::Stream, processing small input
+    sizes
+    - Previously, chunk_size => 'auto' equals 2 minimally
+    - Starting with MCE v1.881, 'auto' equals 1 minimally
+
 * Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 1.880-1
 - Update to 1.880 (rhbz#2133410)
   - Improved reliability on the Windows platform

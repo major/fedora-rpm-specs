@@ -2,8 +2,8 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        22.08.1
-Release:        2%{?dist}
+Version:        22.08.2
+Release:        1%{?dist}
 License:        GPLv2
 URL:            http://www.kdevelop.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdevelop-%{version}.tar.xz
@@ -222,6 +222,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Fri Oct 14 2022 Than Ngo <than@redhat.com> - 22.08.2-1
+- 22.08.2
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 9:22.08.1-2
 - Rebuild for clang 15
 

@@ -1,15 +1,14 @@
 #global pre_release .pre1
 
 Name:		libva
-Version:	2.15.0
-Release:	3%{?dist}
+Version:	2.16.0
+Release:	1%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 License:	MIT
 URL:		https://github.com/intel/libva
 Source0:	%{url}/archive/%{version}%{?pre_release}/%{name}-%{version}%{?pre_release}.tar.gz
 
-BuildRequires:	libtool
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  gcc
 
 BuildRequires:	libudev-devel
@@ -29,9 +28,6 @@ BuildRequires:  pkgconfig(wayland-scanner) >= 1
 }
 # owns the %%{_libdir}/dri directory
 Requires:	mesa-filesystem%{_isa}
-%if 0%{?fedora} >= 37
-Recommends:	(mesa-va-drivers%{?_isa} if mesa-dri-drivers)
-%endif
 
 %description
 Libva is a library providing the VA API video acceleration API.
@@ -47,22 +43,16 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?pre_release}
-autoreconf -vif
 
 %build
-%configure --disable-static \
-%{?_without_xorg: --disable-glx --disable-x11} \
-%{?_without_wayland:--disable-wayland}
+%meson \
+%{?_without_xorg: -Dwith_glx=no -Dwith_x11=no} \
+%{?_without_wayland: -Dwith_wayland=no}
 
-# remove rpath from libtool
-sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
+%meson_build
 
 %install
-%make_install
-find %{buildroot} -regex ".*\.la$" | xargs rm -f --
+%meson_install
 
 %ldconfig_scriptlets
 
@@ -86,8 +76,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
-* Sun Oct 02 2022 Pete Walter <pwalter@fedoraproject.org> - 2.15.0-3
-- Recommend split out mesa-va-drivers if mesa-dri-drivers is installed (#2123998)
+* Sun Oct 09 2022 Leigh Scott <leigh123linux@gmail.com> - 2.16.0-1
+- Update to 2.16.0
+- Use meson to build
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

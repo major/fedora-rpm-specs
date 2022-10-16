@@ -1,6 +1,6 @@
 Name:           python-mdurl
-Version:        0.1.1
-Release:        3%{?dist}
+Version:        0.1.2
+Release:        1%{?dist}
 Summary:        Markdown URL utilities
 
 License:        MIT
@@ -53,6 +53,10 @@ sed -i "s/pytest-cov//" tests/requirements.txt
 
 
 %changelog
+* Thu Oct 13 2022 Karolina Surma <ksurma@redhat.com> - 0.1.2-1
+- Update to 0.1.2
+Resolves: rhbz#2118132
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

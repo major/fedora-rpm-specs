@@ -1,7 +1,7 @@
-%global opencsd_tag 8dab50c35c8d181fc3ed6ad46e156398447d753f
+%global opencsd_tag a74fa026d7101f5f254f39bbaa27b3d5ab9cd124
 
 Name:           opencsd
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Summary:        An open source CoreSight(tm) Trace Decode library
 
@@ -58,6 +58,9 @@ PREFIX=%{buildroot}%{_prefix} LIB_PATH=%{_lib} make install DISABLE_STATIC=1 DEF
 
 #------------------------------------------------------------------------------
 %changelog
+* Fri Oct 14 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.3.2-1
+- Update to upstream 1.3.2
+
 * Thu Aug  4 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.3.1-1
 - Update to upstream 1.3.1
 

@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.15.3
+Version:        3.15.5
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 

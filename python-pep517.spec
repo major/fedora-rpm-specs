@@ -1,17 +1,16 @@
 %global pypi_name pep517
 
 Name:           python-%{pypi_name}
-Version:        0.12.0
-Release:        4%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Wrappers to build Python packages using PEP 517 hooks
 
 %bcond_without tests
 
 # colorlog.py is "copied from Tornado", Apache licensed
 License:        MIT and ASL 2.0
-URL:            https://github.com/takluyver/pep517
+URL:            https://github.com/pypa/pep517
 Source0:        %{pypi_source}
-Patch1:         0001-python-3.11-workaround.patch
 
 BuildArch:      noarch
 
@@ -70,6 +69,10 @@ sed -i '/pytest-flake8/d' dev-requirements.txt
 
 
 %changelog
+* Tue Sep 13 2022 Lumír Balhar <lbalhar@redhat.com> - 0.13.0-1
+- Update to 0.13.0
+Resolves: rhbz#2112398
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -83,7 +86,7 @@ sed -i '/pytest-flake8/d' dev-requirements.txt
 - Update to 0.12.0
 Resolves: rhbz#2014930
 
-* Thu Jul 22 2021 Petr Viktorin <pviktori@redhat.com> - 0.11.0-1
+* Fri Jul 23 2021 Petr Viktorin <pviktori@redhat.com> - 0.11.0-1
 - Update to version 0.11.0
 
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-3

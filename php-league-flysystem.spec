@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    094defdb4a7001845300334e7c1ee2335925ef99
+%global gh_commit    3239285c825c152bcc315fe0e87d6b55f5972ed1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   flysystem
@@ -19,8 +19,8 @@
 %global ns_project   Flysystem
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.1.9
-Release:        3%{?dist}
+Version:        1.1.10
+Release:        1%{?dist}
 Summary:        Filesystem abstraction: Many filesystems, one API
 
 License:        MIT
@@ -110,7 +110,7 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php';
 EOF
 
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php74 php80 php81 php82; do
   if which $cmd; then
    : Run upstream test suite
    $cmd %{_bindir}/phpunit8 \
@@ -131,6 +131,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct 14 2022 Remi Collet <remi@remirepo.net> - 1.1.10-1
+- update to 1.1.10
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

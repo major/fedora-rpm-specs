@@ -1,6 +1,6 @@
 Name:           python-pdm-pep517
 Version:        1.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Yet another PEP 517 backend
 
 License:        MIT AND Apache-2.0 AND Public Domain AND BSD-3-Clause AND ISC
@@ -46,10 +46,14 @@ git config --global user.name "Your Name"
 %pytest
 
 %files -n python3-pdm-pep517 -f %{pyproject_files}
+%{?el9:%{python3_sitelib}/pdm_pep517-%{version}.dist-info/license_files/LICENSE}
 
 %doc README.md
 %license LICENSE
 
 %changelog
+* Fri Oct 14 2022 Simon de Vlieger <cmdr@supakeen.com> - 1.0.4-2
+- epel9 needs an extra file.
+
 * Fri Sep 16 2022 Simon de Vlieger <cmdr@supakeen.com> - 1.0.4-1
 - Initial version of the package.

@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/facebook/rocksdb
 
 Name:    rocksdb
-Version: 7.7.2
+Version: 7.7.3
 Release: 1%{?dist}
 Summary: A Persistent Key-Value Store for Flash and RAM Storage
 
@@ -111,7 +111,7 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 %license LICENSE.Apache
 %license LICENSE.leveldb
 %{_libdir}/librocksdb.so.7
-%{_libdir}/librocksdb.so.7.7.2
+%{_libdir}/librocksdb.so.7.7.3
 
 
 %files tools
@@ -137,6 +137,9 @@ rm %{buildroot}%{_libdir}/librocksdb.a
 
 
 %changelog
+* Fri Oct 14 2022 Jonny Heggheim <hegjon@gmail.com> - 7.7.3-1
+- Updated to version 7.7.3
+
 * Sat Oct 08 2022 Jonny Heggheim <hegjon@gmail.com> - 7.7.2-1
 - Updated to version 7.7.2
 

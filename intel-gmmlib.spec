@@ -1,5 +1,5 @@
 Name:           intel-gmmlib
-Version:        22.1.7
+Version:        22.2.1
 Release:        1%{?dist}
 Summary:        Intel Graphics Memory Management Library
 
@@ -63,6 +63,9 @@ find Source -name "*.h" -exec chmod -x {} ';'
 
 
 %changelog
+* Fri Oct 14 2022 Nicolas Chauvet <kwizart@gmail.com> - 22.2.1-1
+- Update to 22.2.1
+
 * Wed Aug 10 2022 Nicolas Chauvet <kwizart@gmail.com> - 22.1.7-1
 - Update to 22.1.7
 

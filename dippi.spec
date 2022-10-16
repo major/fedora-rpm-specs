@@ -2,10 +2,10 @@
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        3.1.4
+Version:        4.0.2
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
-#   - data/metadata.appdata.xml.in is CC0-1.0, which is allowed for content
+#   - data/metadata.metainfo.xml.in is CC0-1.0, which is allowed for content
 #     only
 License:        GPL-3.0-only AND CC0-1.0
 
@@ -26,9 +26,8 @@ BuildRequires:  vala
 BuildRequires:  gcc
 
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(granite) >= 6.0
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(libhandy-1) >= 1.0.0
+BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libadwaita-1)
 
 Requires:       hicolor-icon-theme
 
@@ -38,6 +37,7 @@ Summary(en_GB): Calculate display info like DPI and aspect ratio
 Summary(es):    Cálculo de datos de la pantalla como los PPP y la relación de aspecto
 Summary(fr_CA): Calculez les informations de l’écran comme le DPI ou le ratio
 Summary(fr):    Calculez les informations de l’écran comme le DPI ou le ratio
+Summary(it):    Calcola informazioni di visualizzazione come DPI e proporzioni
 Summary(lt):    Apskaičiuoti tokią ekrano informaciją kaip taškus colyje (DPI) ir proporcijas
 Summary(nl):    Bereken scherminformatie, zoals DPI en beeldverhouding
 Summary(pt):    Calcule informação do monitor como o DPI e a relação de aspeto
@@ -56,9 +56,6 @@ Handy features:
   • Learn the logical resolution
   • Differentiate between laptops and desktop displays
   • Stupid simple: all in a cute li’l window
-
-Based on the author’s expertise and experience shipping HiDPI hardware and
-software at System76 and elementary.
 
 Tells you if a display’s density is:
   • Very Low DPI,
@@ -82,9 +79,6 @@ Handy features:
   • Differentiates between laptops and desktop displays
   • Stupid simple: all in a cute li’l window
 
-Based on the author’s expertise and experience shipping HiDPI hardware and
-software at System76 and elementary.
-
 Tells you if a display’s density is:
   • Very Low DPI,
   • Fairly Low DPI,
@@ -107,9 +101,6 @@ Handy features:
   • Differentiates between laptops and desktop displays
   • Stupid simple: all in a cute li’l window
 
-Based on the author’s expertise and experience shipping HiDPI hardware and
-software at System76 and elementary.
-
 Tells you if a display’s density is:
   • Very Low DPI,
   • Fairly Low DPI,
@@ -131,9 +122,6 @@ Handy features:
   • Learn the logical resolution
   • Differentiates between laptops and desktop displays
   • Stupid simple: all in a cute li’l window
-
-Based on the expertise of Cassidy James Blaede and the actual logic System76
-uses to determine screen size and resolution combinations.
 
 Tells you if a display’s density is:
   • Very Low DPI,
@@ -158,10 +146,6 @@ Funcionalidades útiles:
   • Distinga las pantallas para portátiles de las de escritorio
   • Sencillísimo: todo en una ventanita
 
-Basada en los conocimientos técnicos de Cassidy James Blaede y la lógica que
-System76 emplea para verificar combinaciones de tamaño y resolución en las
-pantallas.
-
 Le dice si la densidad de una pantalla es:
   • de muy pocos PPP,
   • de PPP relativamente escasos,
@@ -185,9 +169,6 @@ Fonctionnalités utiles:
   • Différencie les écrans d’ordinateurs de bureau et portables
   • Stupidement simple: tout dans une p’tite fenêtre toute mignone
 
-Basé sur l’expertise de Cassidy James Blaede et sur la logique que System76
-utilise pour déterminer la résolution et la diagonale d’écran.
-
 Vous dit si la densité d’un écran a:
   • DPI très faible
   • DPI plutôt faible
@@ -198,30 +179,50 @@ Vous dit si la densité d’un écran a:
   • DPI trop haut
 
 %description -l fr
-Analysez n’importe quel écran. Entrez de simples détails à son propos et
-obtenez son ratio, son DPI, et d’autres détails. Ainsi, vous pourrez plus
-aisément décider quel ordinateur portable ou écran acheter, et savoir si il
-sera considéré comme HiDPI.
+Analysez n’importe quel écran. Saisissez quelques informations simples et
+découvrez le rapport d’aspect, le DPI et d’autres détails d’un écran
+particulier. Idéal pour décider de l’achat d’un ordinateur portable ou d’un
+écran externe, et pour savoir s’il est considéré comme HiDPI.
 
-Fonctionnalités utiles:
-  • Déterminez si un écran est un bon choix en vous basant sur sa diagonale et
-    sa résolution
-  • Obtenez des conseils sur différentes densités d’écran
-  • Apprendre la résolution logique
-  • Différencie les écrans d’ordinateurs de bureau et portables
-  • Stupidement simple: tout dans une p’tite fenêtre toute mignone
+Fonctionnalités pratiques :
+  • Vérifiez si un écran est un bon choix en fonction de sa taille et de sa
+    résolution
+  • Obtenez des conseils sur les différentes densités
+  • Apprenez la résolution logique
+  • Différenciez les écrans d’ordinateurs de bureau et d’ordinateurs portables
+  • Stupidement simple : tout dans une jolie p’tite fenêtre.
 
-Basé sur l’expertise de Cassidy James Blaede et sur la logique que System76
-utilise pour déterminer la résolution et la diagonale d’écran.
-
-Vous dit si la densité d’un écran a:
-  • DPI très faible
-  • DPI plutôt faible
-  • Densité idéale pour le LoDPI
-  • DPI potentiellement problèmatique
-  • Densité idéale pour le HiDPI
-  • Densité plutôt haute pour le HiDPI, ou
+Vous dit si la densité d’un écran est :
+  • à DPI très bas,
+  • à DPI assez bas,
+  • Idéale pour LoDPI,
+  • Potentiellement problématique,
+  • Idéale pour HiDPI,
+  • assez haute pour HiDPI, ou
   • DPI trop haut
+
+%description -l it
+Analizza qualsiasi display. Inserisci alcuni semplici dettagli e scopri le
+proporzioni, il DPI e altri dettagli di un particolare display. Ottimo per
+decidere quale laptop o monitor esterno acquistare e se sarebbe considerato
+HiDPI.
+
+Funzioni utili:
+  • Scopri se un display è una buona scelta in base alle sue dimensioni e
+    risoluzione
+  • Ottieni consigli sulle diverse densità
+  • Impara la risoluzione logica
+  • Distinguere tra laptop e display desktop
+  • Stupido e semplice: tutto in una graziosa finestrella
+
+Ti dice se la densità di un display è:
+  • DPI molto basso,
+  • DPI abbastanza basso,
+  • Ideale per LoDPI,
+  • Potenzialmente problematico,
+  • Ideale per HiDPI,
+  • Abbastanza alto per HiDPI, o
+  • DPI troppo alto
 
 %description -l lt
 Išanalizuokite bet kurį ekraną. Įveskite kai kurią paprastą informaciją ir
@@ -235,9 +236,6 @@ Naudingos ypatybės:
   • Sužinokite loginę raišką
   • Atskirkite nešiojamųjų ir stalinių kompiuterių ekranus
   • Kvailai paprasta:  viskas viename mažame lange
-
-Paremta Cassidy James Blaede kompetencija ir tikraisiais loginiais System76
-naudojimais, skirtais nustatyti ekrano dydžio ir raiškos kombinacijas.
 
 Nurodo ar ekrano tankis yra:
   • Labai žemo DPI,
@@ -260,9 +258,6 @@ Handige functies:
   • Verkrijg informatie over logische resolutie
   • Onderscheid tussen laptop- en desktopschermen
   • Eenvoudiger kan niet: alles in een klein, handig venster
-
-Gebaseerd op de expertise van Cassidy James Blaede en de techniek die System76
-gebruikt bij het bepalen van de combinatie van schermgrootte en resolutie.
 
 Toont je of de schermdichtheid:
   • Erg laag is,
@@ -287,9 +282,6 @@ Funcionalidades úteis:
   • Diferencie entre computadores portáteis e monitores de secretária
   • Estupidamente simples: tudo numa pequena e engraçada janela
 
-Baseado na experiência de Cassidy James Blaede e na lógica em si que o System76
-usa para determinar combinações de tamanho do ecrã e resolução.
-
 Diz-lhe se a densidade do monitor é:
   • DPI Muito Baixo,
   • DPI Baixo,
@@ -311,9 +303,6 @@ Kullanışlı özellikler:
   • Mantıksal çözünürlüğü öğrenin
   • Dizüstü bilgisayarlar ve masaüstü ekranları arasında ayrım yapın
   • Kısaca:Hepsi zarif bir pencere
-
-Cassidy James Blaede'nin uzmanlığına ve gerçek mantığa dayanarak System76'nın
-ekran boyutu ve çözünürlüğünü belirtmek için kullanılan uygulama.
 
 Bir ekranın yoğunluğunu:
   • Çok Düşük DPI,
@@ -352,10 +341,10 @@ desktop-file-validate \
 # Still required by guidelines for now
 # (https://pagure.io/packaging-committee/issue/1053):
 appstream-util validate-relax --nonet \
-    %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
+    %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 # Matches what gnome-software and others use:
 appstreamcli validate --nonet \
-    %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
+    %{buildroot}/%{_metainfodir}/%{appname}.metainfo.xml
 
 
 %files -f %{appname}.lang
@@ -365,8 +354,8 @@ appstreamcli validate --nonet \
 %{_bindir}/%{appname}
 
 %{_datadir}/applications/%{appname}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{appname}.svg
-%{_metainfodir}/%{appname}.appdata.xml
+%{_datadir}/icons/hicolor/*/apps/%{appname}*.svg
+%{_metainfodir}/%{appname}.metainfo.xml
 
 
 %changelog

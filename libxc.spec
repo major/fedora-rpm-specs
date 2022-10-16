@@ -1,18 +1,3 @@
-# Tests cannot be run at the moment since the Python build breaks the makefiles
-%bcond_with tests
-
-%if 0%{?fedora}
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
-%if 0%{?fedora} >= 30
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 # Turn off LTO for architectures where this fails
 %ifarch %{arm} %{ix86} s390x
 %global _lto_cflags %nil
@@ -20,18 +5,18 @@
 
 # Turn off 4th derivatives for 32-bit targets
 %ifarch %{arm} %{ix86}
-%global lxcflag --disable-lxc
+%global lxcflag -DDISABLE_LXC=ON
 %else
-%global lxcflag --enable-lxc
+%global lxcflag -DDISABLE_LXC=OFF
 %endif
 
 # Shared library version
-%global soversion 9
+%global soversion 12
 
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
-Version:        5.2.2
-Release:        4%{?dist}
+Version:        6.0.0
+Release:        1%{?dist}
 License:        MPLv2.0
 Source0:        http://www.tddft.org/programs/libxc/down.php?file=%{version}/libxc-%{version}.tar.gz
 # Don't rebuild libxc for pylibxc
@@ -39,25 +24,12 @@ Patch0:         libxc-5.1.4-pylibxc.patch
 URL:            http://www.tddft.org/programs/octopus/wiki/index.php/Libxc
 
 BuildRequires:  make
+BuildRequires:  cmake
+BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
-BuildRequires:  libtool
-
-%if %{with python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-numpy
-%endif
-%if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  python3-setuptools
-%endif
-
-%if ! %{with python2}
-Obsoletes:      python2-%{name} < %{version}-%{release}
-%endif
-%if ! %{with python3}
-Obsoletes:      python3-%{name} < %{version}-%{release}
-%endif
 
 %description
 libxc is a library of exchange and correlation functionals. Its purpose is to
@@ -70,6 +42,7 @@ the energy density and its 1st, 2nd, 3rd, and 4th derivatives.
 Summary:        Development library and headers for libxc
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig
+Requires:       cmake
 
 %description devel
 libxc is a library of exchange and correlation functionals. Its purpose is to
@@ -81,30 +54,12 @@ the energy density and its 1st, 2nd, 3rd, and 4th derivatives.
 This package contains the development headers and library that are necessary
 in order to compile programs against libxc.
 
-%if %{with python2}
-%package -n python2-%{name}
-Summary:        Python2 interface to libxc
-Requires:       python2-numpy
-Requires:       %{name} = %{version}-%{release}
-BuildArch:      noarch
-%{?python_provide:%python_provide python2-%{name}}
-
-%description -n python2-%{name}
-libxc is a library of exchange and correlation functionals. Its purpose is to
-be used in codes that implement density-functional theory. For the moment, the
-library includes most of the local density approximations (LDAs), generalized
-density approximation (GGAs), and meta-GGAs. The library provides values for
-the energy density and its 1st, 2nd, 3rd, and 4th derivatives.
-
-This package contains the Python2 interface library to libxc.
-%endif
-
-%if %{with python3}
 %package -n python3-%{name}
 Summary:        Python3 interface to libxc
 Requires:       python3-numpy
 Requires:       %{name} = %{version}-%{release}
-BuildArch:      noarch
+Obsoletes:      python2-%{name} < %{version}-%{release}
+Obsoletes:      python3-%{name} < %{version}-%{release}
 %if 0%{?rhel}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 %else
@@ -118,7 +73,6 @@ density approximation (GGAs), and meta-GGAs. The library provides values for
 the energy density and its 1st, 2nd, 3rd, and 4th derivatives.
 
 This package contains the Python3 interface library to libxc.
-%endif
 
 %prep
 %setup -q
@@ -127,67 +81,33 @@ This package contains the Python3 interface library to libxc.
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
 %build
-# Don't insert C code during preprocessing
-export FCCPP="cpp -ffreestanding"
 # Disable var tracking assignments for C sources, since it fails anyhow due to the size of the sources
 export CFLAGS="%{optflags} -fno-var-tracking-assignments"
-%configure --enable-shared --disable-static --enable-vxc --enable-fxc --enable-kxc %{lxcflag}
-# Remove rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
-
-# Check we have the right soversion
-if [[ ! -f src/.libs/libxc.so.%{soversion} ]]; then
-    echo "soversion has changed!"
-    exit
-fi
-
-# Build python interface
-%if %{with python2}
-%{py2_build}
-%endif
-%if %{with python3}
-%{py3_build}
-%endif
+%cmake -DDISABLE_VXC=OFF -DDISABLE_FXC=OFF -DDISABLE_KXC=OFF %{lxcflag} -DENABLE_FORTRAN=ON -DENABLE_PYTHON=ON -DENABLE_XHOST=OFF
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 # Move modules in the right place
 mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
-# Get rid of .la files
-find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
+# Move python library to the right place
+mkdir -p %{buildroot}%{python3_sitearch}
+mv %{buildroot}%{_libdir}/pylibxc %{buildroot}%{python3_sitearch}
 
 # Remove bibtex bibliography placed in an odd location
 rm -f %{buildroot}%{_includedir}/libxc.bib
 
-# Install python interface
-%if %{with python2}
-%{py2_install}
-%endif
-%if %{with python3}
-%{py3_install}
-%endif
-
-%if 0%{?rhel} == 6 || 0%{?rhel} == 7
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%else
 %ldconfig_scriptlets
-%endif
 
 # Run tests
-%if %{with tests}
 %check
-make check
-%endif
+%ctest
 
 %files
 %doc README NEWS AUTHORS ChangeLog.md libxc.bib
 %license COPYING
 %{_bindir}/xc-info
-%{_bindir}/xc-threshold
 %{_libdir}/libxc.so.%{soversion}*
 %{_libdir}/libxcf90.so.%{soversion}*
 %{_libdir}/libxcf03.so.%{soversion}*
@@ -202,20 +122,16 @@ make check
 %{_libdir}/pkgconfig/libxc.pc
 %{_libdir}/pkgconfig/libxcf03.pc
 %{_libdir}/pkgconfig/libxcf90.pc
+%{_libdir}/cmake/Libxc/
 
-%if %{with python2}
-%files -n python2-%{name}
-%{python2_sitelib}/pylibxc/
-%{python2_sitelib}/pylibxc-%{version}-py*.egg-info
-%endif
-
-%if %{with python3}
 %files -n python3-%{name}
-%{python3_sitelib}/pylibxc/
-%{python3_sitelib}/pylibxc-%{version}-py*.egg-info
-%endif
+%{python3_sitearch}/pylibxc/
 
 %changelog
+* Fri Oct 14 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.0.0-1
+- Switch to CMake build.
+- Update to 6.0.0.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

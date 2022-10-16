@@ -14,7 +14,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.40.0
+Version:        2.41.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -200,6 +200,7 @@ done
 
 # Remove Windows/Powershell files.
 rm -f %{buildroot}%{_bindir}/az.{bat,ps1}
+rm -f %{buildroot}%{_bindir}/azps.ps1
 
 # Install the az bash completion script properly.
 install -Dp %{buildroot}%{_bindir}/az.completion.sh %{buildroot}%{_datadir}/bash-completion/completions/%{name}

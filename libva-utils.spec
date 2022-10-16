@@ -1,14 +1,15 @@
 #global pre_release .pre1
 
 Name:		libva-utils
-Version:	2.15.0
-Release:	2%{?dist}
+Version:	2.16.0
+Release:	1%{?dist}
 Summary:	Tools for VAAPI (including vainfo)
 License:	MIT and BSD
 URL:		https://github.com/intel/libva-utils
 Source0:	%{url}/archive/%{version}%{?pre_release}/%{name}-%{version}%{?pre_release}.tar.gz
+Patch0:         meson-add-missing-tools.patch
 
-BuildRequires:  libtool
+BuildRequires:  meson
 BuildRequires:  gcc-c++
 
 BuildRequires:	libXext-devel
@@ -19,7 +20,6 @@ BuildRequires:  libva-devel
 BuildRequires:  wayland-devel
 BuildRequires:  pkgconfig(wayland-client) >= 1
 BuildRequires:  pkgconfig(wayland-scanner) >= 1
-BuildRequires: make
 }
 
 %description
@@ -30,19 +30,18 @@ libva support is available on a system.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?pre_release}
-autoreconf -vif
 
 
 %build
-%configure --disable-static \
-%{?_with_tests:--enable-tests} \
-%{?_without_wayland:--disable-wayland}
+%meson \
+%{?_with_tests: -Dtests=true} \
+%{?_without_wayland: -Dwayland=false}
 
-%make_build
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 
 %files
@@ -76,6 +75,9 @@ autoreconf -vif
 
 
 %changelog
+* Fri Oct 14 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.16.0-1
+- Update to 2.16.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

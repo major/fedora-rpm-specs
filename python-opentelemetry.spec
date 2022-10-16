@@ -1,6 +1,6 @@
 # See eachdist.ini:
-%global stable_version 1.12.0
-%global prerel_version 0.33~b0
+%global stable_version 1.13.0
+%global prerel_version 0.34~b0
 # Contents of python3-opentelemetry-proto are generated from proto files in a
 # separate repository with a separate version number. We treat these as
 # generated sources: we aren’t required by the guidelines to re-generate them
@@ -14,9 +14,6 @@
 # almost all of the stable packages, because opentelemetry-sdk depends on the
 # prerelease package opentelementry-semantic-conventions.
 %bcond_without prerelease
-# There are also experimental packages in eachdist.ini, with yet another
-# version, but currently none of these actually exist. We will avoid packaging
-# them if at all possible.
 
 %if 0%{?el9}
 %bcond_with flaky
@@ -472,8 +469,8 @@ This package provides documentation for python-opentelemetry.
 # failures. However, we must deal with the system-wide versions of all
 # dependencies, so we will have to skip any failing tests until and unless
 # upstream is able to fix them properly.
-sed -r -i 's/(googleapis-common-protos.*), <.*/\1/' \
-    exporter/opentelemetry-exporter-jaeger-proto-grpc/setup.cfg
+sed -r -i 's/("googleapis-common-protos.*), <[^"]*/\1/' \
+    exporter/opentelemetry-exporter-jaeger-proto-grpc/pyproject.toml
 
 %py3_shebang_fix .
 
@@ -489,6 +486,9 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 (
   # - We do not use formatters/linters/type-checkers/coverage.
+  #
+  # - Similarly, we do not run the “spellcheck” tox environment, so we do not
+  #   need codespell.
   #
   # - ddtrace is mentioned in a README but does not seem to actually be used
   #   anywhere
@@ -527,6 +527,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   # - if we are not building the documentation, we do not need Django
   sed -r \
       -e '/\b(black|flake8|isort|mypy|mypy-protobuf|pylint|pytest-cov)\b/d' \
+      -e '/\b(codespell)\b/d' \
       -e '/\b(ddtrace|sphinx-(rtd-theme|jekyll-builder)|wrapt)\b/d' \
       -e '/\b(grpcio-tools|httpretty|readme-renderer|bleach)\b/d' \
       -e 's/\b(flask~=)1\.[[:digit:]]\b/\12\.0/' \
@@ -569,9 +570,9 @@ for dep in cfg.get("testenv", "deps").splitlines():
 # - we must allow opentracing 2.3.x and 2.4.x
 for dep in 'opentracing'
 do
-  find . -type f -name 'setup.cfg' -exec gawk -vDEP="${dep}" \
-      'NF==3 && $1==DEP && $2=="~=" { print FILENAME; nextfile }' '{}' '+' |
-    xargs -r -t sed -r -i "s/\b(${DEP}[[:blank:]])~=/\\1>=/"
+  find . -type f -name 'pyproject.toml' -exec gawk \
+      "/${dep}[[:blank:]]*~=/ { print FILENAME; nextfile }" '{}' '+' |
+    xargs -r -t sed -r -i "s/\b(${DEP}[[:blank:]]*)~=/\\1>=/"
 done
 
 
@@ -634,7 +635,36 @@ do
 %if %{without flaky}
   ignore='--ignore=opentelemetry-sdk/tests/metrics/test_periodic_exporting_metric_reader.py'
 %endif
-  %pytest "${pkgdir}" ${ignore-}
+  unset k
+  if [[ "${pkgdir}" = 'opentelemetry-api' ]]
+  then
+    # This is some kind of metadata issue with
+    # pkg_resources.iter_entry_points(). It is probably specific to the RPM
+    # build environment. The entry points are found just fine if we set
+    # PYTHONPATH='%%{buildroot}%%{python3_sitelib}' and run a Python snippet
+    # like:
+    #   from pkg_resources import iter_entry_points
+    #   print(list(iter_entry_points("opentelemetry_propagator", "tracecontext")))
+    # without using pytest.
+    #
+    # _ ERROR collecting opentelemetry-api/tests/propagators/test_global_httptextformat.py _
+    # opentelemetry-api/tests/propagators/test_global_httptextformat.py:20: in <module>
+    #     from opentelemetry.propagate import extract, inject
+    # ../../BUILDROOT/python-opentelemetry-1.13.0-2.fc38.x86_64/usr/lib/python3.11/site-packages/opentelemetry/propagate/__init__.py:136: in <module>
+    #     next(  # type: ignore
+    # E   StopIteration
+    echo "Skipping tests for ${pkgdir}; see spec file comments." 1>&2
+    continue
+  fi
+  if [[ "${pkgdir}" = 'opentelemetry-sdk' ]]
+  then
+    # Still more entry point issues
+    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
+    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
+    k="${k-}${k+ and }not (TestImportExporters and test_console_exporters)"
+    k="${k-}${k+ and }not (TestGlobals and test_sdk_log_emitter_provider)"
+  fi
+  %pytest "${pkgdir}" ${ignore-} -k "${k-}"
 done
 
 
@@ -649,6 +679,7 @@ done
 %{python3_sitelib}/opentelemetry/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/jaeger
+%{python3_sitelib}/opentelemetry/exporter/jaeger/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter/jaeger/proto
 
 %{python3_sitelib}/opentelemetry/exporter/jaeger/proto/grpc
@@ -666,6 +697,7 @@ done
 %{python3_sitelib}/opentelemetry/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/jaeger
+%{python3_sitelib}/opentelemetry/exporter/jaeger/py.typed
 
 %{python3_sitelib}/opentelemetry/exporter/jaeger/thrift
 %{python3_sitelib}/opentelemetry_exporter_jaeger_thrift-%{stable_distinfo}
@@ -676,11 +708,8 @@ done
 %license exporter/opentelemetry-exporter-jaeger/LICENSE
 %doc exporter/opentelemetry-exporter-jaeger/README.rst
 
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry
-%{python3_sitelib}/opentelemetry/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter
-%dir %{python3_sitelib}/opentelemetry/exporter/jaeger
+# Shared namespace directories are already (co)-owned by the implementation
+# subpackages (-proto-grpc, -thrift) upon which this subpackage depends.
 
 %dir %{python3_sitelib}/opentelemetry/exporter/jaeger/__pycache__
 %pycached %{python3_sitelib}/opentelemetry/exporter/jaeger/version.py
@@ -714,6 +743,7 @@ done
 %{python3_sitelib}/opentelemetry/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/otlp
+%{python3_sitelib}/opentelemetry/exporter/otlp/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter/otlp/proto
 
 %{python3_sitelib}/opentelemetry/exporter/otlp/proto/grpc
@@ -733,6 +763,7 @@ done
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/otlp
 %dir %{python3_sitelib}/opentelemetry/exporter/otlp/proto
+%{python3_sitelib}/opentelemetry/exporter/otlp/py.typed
 
 %{python3_sitelib}/opentelemetry/exporter/otlp/proto/http
 %{python3_sitelib}/opentelemetry_exporter_otlp_proto_http-%{stable_distinfo}
@@ -745,11 +776,8 @@ done
 %license exporter/opentelemetry-exporter-otlp/LICENSE
 %doc exporter/opentelemetry-exporter-otlp/README.rst
 
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry
-%{python3_sitelib}/opentelemetry/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter
-%dir %{python3_sitelib}/opentelemetry/exporter/otlp
+# Shared namespace directories are already (co)-owned by the implementation
+# subpackages (-proto-grpc, -proto-http) upon which this subpackage depends.
 
 %dir %{python3_sitelib}/opentelemetry/exporter/otlp/__pycache__
 %pycached %{python3_sitelib}/opentelemetry/exporter/otlp/version.py
@@ -783,6 +811,7 @@ done
 %{python3_sitelib}/opentelemetry/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/zipkin
+%{python3_sitelib}/opentelemetry/exporter/zipkin/py.typed
 
 %{python3_sitelib}/opentelemetry/exporter/zipkin/encoder
 %{python3_sitelib}/opentelemetry/exporter/zipkin/json
@@ -802,6 +831,7 @@ done
 %{python3_sitelib}/opentelemetry/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter
 %dir %{python3_sitelib}/opentelemetry/exporter/zipkin
+%{python3_sitelib}/opentelemetry/exporter/zipkin/py.typed
 %dir %{python3_sitelib}/opentelemetry/exporter/zipkin/proto
 
 %{python3_sitelib}/opentelemetry/exporter/zipkin/proto/http
@@ -813,11 +843,8 @@ done
 %license exporter/opentelemetry-exporter-zipkin/LICENSE
 %doc exporter/opentelemetry-exporter-zipkin/README.rst
 
-# Shared namespace directories
-%dir %{python3_sitelib}/opentelemetry
-%{python3_sitelib}/opentelemetry/py.typed
-%dir %{python3_sitelib}/opentelemetry/exporter
-%dir %{python3_sitelib}/opentelemetry/exporter/zipkin
+# Shared namespace directories are already (co)-owned by the implementation
+# subpackages (-json, -proto-http) upon which this subpackage depends.
 
 %dir %{python3_sitelib}/opentelemetry/exporter/zipkin/__pycache__
 %pycached %{python3_sitelib}/opentelemetry/exporter/zipkin/version.py

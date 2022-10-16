@@ -81,7 +81,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		6.0.2
-Release:		1%{?dist}
+Release:		3%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -215,11 +215,13 @@ Summary:		PDF and HTML documents for graphviz
 %description doc
 Provides some additional PDF and HTML documentation for graphviz.
 
+%if %{GTS}
 %package smyrna
 Summary:		Graphviz interactive graph viewer
 
 %description smyrna
 Smyrna is a viewer for graphs in the DOT format.
+%endif
 
 %package gd
 Summary:		Graphviz plugin for renderers based on gd
@@ -505,6 +507,11 @@ if [ "%{_prefix}" != "/usr" ]; then
   rm -rf %{buildroot}/usr/*
 fi
 
+# Explicitly create examples directory to always have it.
+# At the moment there are only examples dependant on smyrna. I.e. if smyrna is not
+# built this directory is empty.
+mkdir -p %{buildroot}%{_datadir}/%{name}/examples
+
 %check
 %if %{PHP}
 # Minimal load test of php extension
@@ -567,12 +574,14 @@ php --no-php-ini \
 
 %files
 %doc %{_docdir}/%{name}
+%if %{GTS}
 %exclude %{_bindir}/smyrna
+%exclude %{_mandir}/man1/smyrna.1*
+%endif
 %{_bindir}/*
 %dir %{_libdir}/graphviz
 %{_libdir}/*.so.*
 %{_libdir}/graphviz/*.so.*
-%exclude %{_mandir}/man1/smyrna.1*
 %{_mandir}/man1/*.1*
 %{_mandir}/man7/*.7*
 %dir %{_datadir}/%{name}
@@ -616,10 +625,12 @@ php --no-php-ini \
 %doc %{_docdir}/%{name}/*.pdf
 %doc %{_docdir}/%{name}/demo
 
+%if %{GTS}
 %files smyrna
 %{_bindir}/smyrna
 %{_datadir}/%{name}/smyrna
 %{_mandir}/man1/smyrna.1*
+%endif
 
 %files gd
 %{_libdir}/graphviz/libgvplugin_gd.so.*
@@ -716,6 +727,12 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Fri Oct 14 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 6.0.2-3
+- More fixes for conditional build of smyrna
+
+* Fri Oct 14 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 6.0.2-2
+- Made smyrna dependant on GTS
+
 * Thu Oct 13 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 6.0.2-1
 - New version
   Resolves: rhbz#2133932

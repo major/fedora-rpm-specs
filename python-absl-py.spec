@@ -1,9 +1,9 @@
 Name:           python-absl-py
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Abseil Python Common Libraries
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/abseil/abseil-py/
 Source0:        %{url}/archive/v%{version}/abseil-py-%{version}.tar.gz
 

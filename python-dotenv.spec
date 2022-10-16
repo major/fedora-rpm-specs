@@ -1,6 +1,6 @@
 Name:           python-dotenv
-Version:        0.19.2
-Release:        4%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
 License:        BSD
@@ -8,12 +8,7 @@ URL:            https://github.com/theskumar/python-dotenv
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  python3-click
 BuildRequires:  python3-devel
-BuildRequires:  python3-ipython
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-sh
 
 %description
 Reads the key/value pair from .env file and adds them to environment variable.
@@ -21,9 +16,7 @@ Reads the key/value pair from .env file and adds them to environment variable.
 
 %package -n     python3-dotenv
 Summary:        %{summary}
-%{!?python_extras_subpkg:Requires: python3-click}
-%{?python_extras_subpkg:Recommends: python3-dotenv+cli}
-%{?python_provide:%python_provide python3-dotenv}
+Recommends:     python3-dotenv+cli
 
 %description -n python3-dotenv
 Reads the key/value pair from .env file and adds them to environment variable.
@@ -31,33 +24,42 @@ Reads the key/value pair from .env file and adds them to environment variable.
 
 %prep
 %autosetup
-# Use the standard library mock
-sed -i 's/import mock/from unittest import mock/' tests/test_*.py
+
+# Get rid of dependency on coverage, invoke pytest directly in tox.ini
+# Downstream-only change, based on Fedora's linters policy
+sed -i "/^  coverage$/d" tox.ini
+sed -i "s/coverage run --parallel -m pytest {posargs}/pytest {posargs}/" tox.ini
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files dotenv
 
-%if 0%{?fedora} || 0%{?rhel} >= 9
+
 %check
-%pytest -v
-%endif
+%tox
 
-%files -n python3-dotenv
-%license LICENSE
+
+%files -n python3-dotenv -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/dotenv/
-%{python3_sitelib}/python_dotenv-%{version}-py%{python3_version}.egg-info/
 
-%{?python_extras_subpkg:%{python_extras_subpkg -n python3-dotenv -i %{python3_sitelib}/*.egg-info cli}}
+%pyproject_extras_subpkg -n python3-dotenv cli
 %{_bindir}/dotenv
 
 
 %changelog
+* Wed Oct 12 2022 Karolina Surma <ksurma@redhat.com> - 0.21.0-1
+- Update to 0.21.0
+Resolves: rhbz#2068308
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

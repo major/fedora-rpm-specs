@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-monitor
 
 Name:           python-%{srcname}
-Version:        4.0.1
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Monitor Client Library for Python
 License:        MIT

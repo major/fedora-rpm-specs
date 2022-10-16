@@ -5,7 +5,7 @@
 Summary:       A powerful visualization and data analysis tool
 Name:          extrema
 Version:       4.4.5
-Release:       33%{?dist}
+Release:       34%{?dist}
 License:       GPLv2+
 URL:           http://exsitewebware.com/extrema/
 Source0:       http://downloads.sourceforge.net/extrema/extrema-%{version}.tar.gz
@@ -13,8 +13,9 @@ Patch0:        extrema-4.2.10.desktop.patch
 Patch1:        extrema-4.4.5-gcc46.patch
 Patch2:        extrema-4.4.5-wx3.0.patch
 Patch3:        extrema-4.4.5-wx3.0-2.patch
+Patch4:        extrema-4.4.5-wx3.2.patch
 BuildRequires: gcc-c++
-BuildRequires: wxGTK3-devel
+BuildRequires: wxGTK-devel
 BuildRequires: desktop-file-utils
 BuildRequires: ImageMagick
 BuildRequires: make
@@ -45,11 +46,7 @@ This package contains Getting Started, User Guide and other
 documentation in PDF format for Extrema.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%autosetup -p1
 
 %build
 %configure --disable-static CXXFLAGS="%{optflags} -DNDEBUG"
@@ -79,6 +76,9 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.{la,a}
 %doc doc/*.pdf
 
 %changelog
+* Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 4.4.5-34
+- Rebuild with wxWidgets 3.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.7.0
+Version:        0.8.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,9 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Fri Oct 14 2022 Packit <hello@packit.dev> - 0.8.0-1
+- Added `Specfile.update_tag()` method that allows updating tag values while trying to preserve macro expansions. You can watch a demo on [YouTube](https://youtu.be/yzMfBPdFXZY). (#101)
+
 * Fri Oct 07 2022 Packit <hello@packit.dev> - 0.7.0-1
 - It is now possible to filter changelog entries by specifying lower bound EVR, upper bound EVR or both. (#104)
 - Added support for filenames specified in source URL fragments, for example: `https://example.com/foo/1.0/download.cgi#/%{name}-%{version}.tar.gz` (#100)

@@ -11,7 +11,7 @@ URL:            https://github.com/Azure/%{name}
 Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
 
-Patch0:		0001-Rudimentary-Fedora-OS-implementation.patch
+Patch0:         0001-Rudimentary-Fedora-OS-implementation.patch
 
 BuildArch:      noarch
 
@@ -42,9 +42,9 @@ images that are built to run in the Microsoft Azure environment.
 %if 0%{?with_legacy}
 %package legacy
 Summary:        The Microsoft Azure Linux Agent (legacy)
-Requires:	%name = %version-%release
-Requires:	python2
-Requires:	net-tools
+Requires:       %name = %version-%release
+Requires:       python2
+Requires:       net-tools
 
 %description legacy
 The Microsoft Azure Linux Agent supporting old version of extensions.

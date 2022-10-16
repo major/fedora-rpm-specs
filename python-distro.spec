@@ -1,8 +1,8 @@
 %global pypi_name distro
 
 Name:           python-%{pypi_name}
-Version:        1.7.0
-Release:        3%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        ASL 2.0
@@ -59,6 +59,9 @@ Suggests:       /usr/bin/lsb_release
 %tox
 
 %changelog
+* Fri Oct 14 2022 Marek Blaha <mblaha@redhat.com> - 1.8.0-1
+- Update to 1.8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

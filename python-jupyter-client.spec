@@ -1,10 +1,10 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
-%global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
+%undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        7.3.5
-Release:        2%{?dist}
+Version:        7.4.2
+Release:        1%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
 License:        BSD
@@ -107,6 +107,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Oct 13 2022 Karolina Surma <ksurma@redhat.com> - 7.4.2-1
+- Update to 7.4.2
+
 * Thu Sep 01 2022 Charalampos Stratakis <cstratak@redhat.com> - 7.3.5-2
 - Enable tests again
 

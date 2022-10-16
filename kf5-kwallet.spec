@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.98.0
+Version: 5.99.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
@@ -134,6 +134,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.99.0-1
+- 5.99.0
+
 * Thu Sep 15 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.98.0-1
 - 5.98.0
 

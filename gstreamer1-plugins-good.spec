@@ -16,8 +16,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.20.3
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.20.4
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -298,6 +298,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
+- Update to 1.20.4
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.20.3-3
 - Rebuilt for flac 1.4.0
 

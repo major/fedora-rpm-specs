@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.13
+Version: 2022.14
 Release: 1%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
@@ -234,6 +234,9 @@ $PYTHON autofiles.py > files.devel \
 
 %files devel -f files.devel
 %changelog
+* Thu Oct 13 2022 Joseph Marrero <jmarrero@fedoraproject.org> - 2022.14-1
+- https://github.com/coreos/rpm-ostree/releases/tag/v2022.14
+
 * Sat Aug 27 2022 Colin Walters <walters@verbum.org> - 2022.13-1
 - https://github.com/coreos/rpm-ostree/releases/tag/v2022.13
 

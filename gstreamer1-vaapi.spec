@@ -1,6 +1,6 @@
 Name:           gstreamer1-vaapi
-Version:        1.20.3
-Release:        3%{?dist}
+Version:        1.20.4
+Release:        1%{?dist}
 Summary:        GStreamer plugins to use VA API video acceleration
 
 License:        LGPLv2+
@@ -88,6 +88,9 @@ for the GStreamer VA API video acceleration plugins
 %endif
 
 %changelog
+* Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
+- Update to 1.20.4
+
 * Mon Oct 10 2022 Ray Strode <rstrode@redhat.com> - 1.20.3-3
 - Add requires on mesa-va-drivers
   Related: #2123998

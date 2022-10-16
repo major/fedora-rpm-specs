@@ -25,12 +25,14 @@
 %bcond_without sqlite
 # build with bdb_ro support?
 %bcond_without bdb_ro
+# build with sequoia crypto?
+%bcond_with sequoia
 
 %define rpmhome /usr/lib/rpm
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 3
+%global baserelease 4
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -71,7 +73,6 @@ BuildRequires: gawk
 BuildRequires: elfutils-devel >= 0.112
 BuildRequires: elfutils-libelf-devel
 BuildRequires: readline-devel zlib-devel
-BuildRequires: openssl-devel
 # The popt version here just documents an older known-good version
 BuildRequires: popt-devel >= 1.10.2
 BuildRequires: file-devel
@@ -93,6 +94,15 @@ BuildRequires: libzstd-devel
 %if %{with sqlite}
 BuildRequires: sqlite-devel
 %endif
+
+%if %{with sequoia}
+%global crypto sequoia
+BuildRequires: rpm-sequoia-devel >= 1.0.0
+%else
+%global crypto openssl
+BuildRequires: openssl-devel
+%endif
+
 # Couple of patches change makefiles so, require for now...
 BuildRequires: automake libtool
 
@@ -366,7 +376,7 @@ done;
     %{?with_sqlite: --enable-sqlite} \
     %{?with_bdb_ro: --enable-bdb-ro} \
     --enable-python \
-    --with-crypto=openssl
+    --with-crypto=%{crypto}
 
 %make_build
 
@@ -609,6 +619,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Fri Oct 14 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-4
+- Add an option for building with Sequoia crypto
+
 * Wed Oct 05 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-3
 - Break ancient rpm <-> rpm-libs ordering loop
 

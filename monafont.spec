@@ -6,6 +6,13 @@
 %define		fontname		%{projectname}
 %define		family_ttf_s		sazanami
 %define		family_ttf_v		vlgothic
+%if 0%{?fedora} >= 37
+%define		family_ttf_vp		vl-pgothic
+%define		family_ttf_vp_dir	%{_fontbasedir}/%{family_ttf_vp}-fonts
+%else
+%define		family_ttf_vp		vlgothic-p
+%define		family_ttf_vp_dir	%{_fontbasedir}/vlgothic
+%endif
 %define		real_family_ttf_s	sazanami
 %define		real_family_ttf_v	VLGothic
 
@@ -29,7 +36,7 @@
 
 %define		obsoletes_EVR		2.90-5.999
 %define		sazanami_ver		20040629
-%define		vlgothic_ver		20141206
+%define		vlgothic_ver		20220612
 
 %define		catalog_dir		%{_sysconfdir}/X11/fontpath.d
 
@@ -42,7 +49,7 @@ Japanese text arts correctly.
 
 Name:		%{archivename}
 Version:	2.90
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Japanese font for text arts
 
 # monafont itself is under public domain
@@ -108,7 +115,7 @@ Summary:	True Type Japanese font for text arts based on VLGothic
 # And the outline otf uses Kochi-substitute (later renamed to sazanami),
 # which is under BSD
 License:	mplus and BSD
-BuildRequires:	%{family_ttf_v}-p-fonts = %{vlgothic_ver}
+BuildRequires:	%{family_ttf_vp}-fonts = %{vlgothic_ver}
 Requires:	fontpackages-filesystem
 Obsoletes:	%{old_name_ttf_v} <= %{obsoletes_EVR}
 Provides:	%{old_name_ttf_v} = %{version}-%{release}
@@ -157,7 +164,7 @@ mv mona.ttf mona-%{real_family_ttf_s}.ttf
 sed -e 's|^Mona$|Mona-%{real_family_ttf_v}|' name.src.orig > name.src
 make clean
 make \
-	BASE_OUTLINE_TTF=$(find %{_fontbasedir}/%{family_ttf_v} -name VL-PGothic-Regular.ttf) \
+	BASE_OUTLINE_TTF=$(find %{family_ttf_vp_dir} -name VL-PGothic-Regular.ttf) \
 	BASE_OUTLINE_VERSION=%{real_family_ttf_v}-%{vlgothic_ver}
 mv mona.ttf mona-%{real_family_ttf_v}.ttf
 
@@ -246,6 +253,10 @@ fi
 %{_datadir}/appdata/%{fontname}-vlgothic.metainfo.xml
 
 %changelog
+* Fri Oct 14 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.90-32
+- Reflect vl-pgothic-fonts packaging change
+- Update vl-pgothic version
+
 * Wed Jul 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.90-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

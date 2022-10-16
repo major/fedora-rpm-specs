@@ -8,7 +8,7 @@ and Python features.}
 
 Name:		python-%{src_name}
 Version:	3.0.16
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPLv3
@@ -82,6 +82,9 @@ popd
 
 
 %changelog
+* Fri Oct 14 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.16-2
+- Release bump
+
 * Thu Aug 04 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.16-1
 - Rebase to the latest upstream version
 - Create patch files instead of sed

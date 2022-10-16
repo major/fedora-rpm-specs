@@ -9,9 +9,9 @@
 
 Summary: Builds packages inside chroots
 Name: mock
-Version: 3.1
+Version: 3.2
 Release: 1%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
 # cd mock
@@ -102,6 +102,9 @@ Recommends: cvs
 Recommends: git
 Recommends: subversion
 Recommends: tar
+
+# We could migrate to 'copr-distgit-client'
+Recommends: rpkg
 
 %description scm
 Mock SCM integration module.
@@ -237,7 +240,7 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %{_datadir}/cheat/mock
 
 # cache & build dirs
-%defattr(0775, root, mock, 02775)
+%defattr(0775, root, mock, 0775)
 %dir %{_localstatedir}/cache/mock
 %dir %{_localstatedir}/lib/mock
 
@@ -258,6 +261,16 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Fri Oct 14 2022 Pavel Raiskup <praiskup@redhat.com> 3.2-1
+- Fix the docker environment check for cgroupv2 (achal.velani@oracle.com)
+- mock-scm: recommend rpkg-util
+- don't use rpmbuild --noclean option if not supported
+- do only one fork() while reading --list-chroots configs
+- Error() (exceptions) code rewritten and simplified
+- dropped mock SGID from /var/{lib,cache}/mock dirs
+- change license to spdx (msuchy@redhat.com)
+- podman.py: don't let podman warnings taint container id (micho@redhat.com)
+
 * Fri Jul 22 2022 Pavel Raiskup <praiskup@redhat.com> 3.1-1
 - let rpmbuild know that it should not clean up after itself (msuchy@redhat.com)
 - typo in the subscription error message

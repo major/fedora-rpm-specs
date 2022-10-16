@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.16.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -111,6 +111,21 @@ Patch43: xen.gcc11.fixes.patch
 Patch44: xsa376.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
+Patch47: xsa410-4.16-01.patch
+Patch48: xsa410-4.16-02.patch
+Patch49: xsa410-4.16-03.patch
+Patch50: xsa410-4.16-04.patch
+Patch51: xsa410-4.16-05.patch
+Patch52: xsa410-4.16-06.patch
+Patch53: xsa410-4.16-07.patch
+Patch54: xsa410-4.16-08.patch
+Patch55: xsa410-4.16-09.patch
+Patch56: xsa410-4.16-10.patch
+Patch57: xsa409-4.13-0001-libxl-docs-Use-arch-specific-default-paging-memory.patch
+Patch58: xsa409-4.13-0002-xen-arm-Construct-the-P2M-pages-pool-for-guests.patch
+Patch59: xsa409-4.13-0003-xen-arm-libxl-Implement-XEN_DOMCTL_shadow_op-for-Arm.patch
+Patch60: xsa409-4.13-0004-xen-arm-Allocate-and-free-P2M-pages-from-the-P2M-poo.patch
+Patch61: xsa411.patch
 
 
 %if %build_qemutrad
@@ -323,6 +338,21 @@ manage Xen virtual machines.
 %patch44 -p1
 %patch45 -p1
 %patch46 -p1
+%patch47 -p1
+%patch48 -p1
+%patch49 -p1
+%patch50 -p1
+%patch51 -p1
+%patch52 -p1
+%patch53 -p1
+%patch54 -p1
+%patch55 -p1
+%patch56 -p1
+%patch57 -p1
+%patch58 -p1
+%patch59 -p1
+%patch60 -p1
+%patch61 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -938,6 +968,13 @@ fi
 %endif
 
 %changelog
+* Fri Oct 14 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-2
+- Arm: unbounded memory consumption for 2nd-level page tables [XSA-409,
+	CVE-2022-33747]
+- P2M pool freeing may take excessively long [XSA-410, CVE-2022-33746]
+- lock order inversion in transitive grant copy handling [XSA-411,
+	CVE-2022-33748]
+
 * Sat Sep 17 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-1
 - update to xen-4.16.2
   remove or adjust patches now included or superceded upstream

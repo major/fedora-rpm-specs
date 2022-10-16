@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Epoch:   1
-Version: 5.98.0
+Version: 5.99.0
 Release: 1%{?dist}
 Summary: A DAV protocol implementation with KJobs
 
@@ -92,14 +92,17 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKF5DAV.so.5*
 
 %files devel
-%{_kf5_includedir}/kdav_version.h
 %{_kf5_includedir}/KDAV/
+%{_kf5_includedir}/KDAV/kdav_version.h
 %{_kf5_libdir}/libKF5DAV.so
 %{_kf5_libdir}/cmake/KF5DAV/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KDAV.pri
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:5.99.0-1
+- 5.99.0
+
 * Thu Sep 15 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:5.98.0-1
 - 5.98.0
 

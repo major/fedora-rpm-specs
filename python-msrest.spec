@@ -3,9 +3,9 @@
 
 %global         srcname     msrest
 %global         forgeurl    https://github.com/Azure/msrest-for-python
-Version:        0.7.0
+Version:        0.7.1
 # MSFT isn't making tags any longer in this repo for some reason.
-%global         commit      1029bcec2c730303cb1ce7c5ea4a19d9e6579e08
+%global         commit      2d8fd04f68a124d0f3df7b81584accc3270b1afc
 %forgemeta
 
 Name:           python-%{srcname}

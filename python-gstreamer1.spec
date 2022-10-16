@@ -1,8 +1,8 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.20.3
-Release:        3%{?dist}
+Version:        1.20.4
+Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
 License:        LGPLv2+
@@ -56,11 +56,14 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 %files -n python3-gstreamer1
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS ChangeLog NEWS README RELEASE TODO
 %{python3_sitearch}/gi/overrides/*
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
+- Update to 1.20.4
+
 * Fri Sep 09 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.20.3-3
 - Move gi overrides installation to platform-specific site-packages
 

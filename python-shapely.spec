@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-shapely
-Version:        1.8.4
+Version:        1.8.5.post1
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 

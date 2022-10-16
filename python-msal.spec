@@ -3,8 +3,8 @@
 
 %global         srcname         msal
 %global         forgeurl        https://github.com/AzureAD/microsoft-authentication-library-for-python/
-Version:        1.18.0~b1
-%global         pypi_version    1.18.0b1
+Version:        1.20.0~b1
+%global         pypi_version    1.20.0b1
 %global         tag             %{pypi_version}
 %forgemeta
 
@@ -39,6 +39,9 @@ protocols.}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %description -n python3-%{srcname} %{_description}
+
+
+%pyproject_extras_subpkg -n python3-%{srcname} broker
 
 
 %prep

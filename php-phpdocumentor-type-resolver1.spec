@@ -10,8 +10,8 @@
 
 %global github_owner     phpDocumentor
 %global github_name      TypeResolver
-%global github_version   1.6.1
-%global github_commit    77a32518733312af16a44300404e945338981de3
+%global github_version   1.6.2
+%global github_commit    48f445a408c131e38cab1c235aa6d2bb7a0bb20d
 
 %global composer_vendor  phpdocumentor
 %global composer_project type-resolver
@@ -20,8 +20,8 @@
 # Install in reflection-common tree
 %global ns_major         2
 
-# "php": "^7.2 || ^8.0"
-%global php_min_ver 7.2
+# "php": "^7.4 || ^8.0"
+%global php_min_ver 7.4
 # "phpdocumentor/reflection-common": "^2.0"
 %global reflection_common_min_ver 2.0
 %global reflection_common_max_ver 3
@@ -33,7 +33,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A PSR-5 based resolver of Class names, Types and Structural Element Names
 
 Group:         Development/Libraries
@@ -51,7 +51,7 @@ BuildArch:     noarch
 ## composer.json
 BuildRequires:  php(language) >= %{php_min_ver}
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9
+BuildRequires:  phpunit9 >= 9.5
 BuildRequires: (php-composer(phpdocumentor/reflection-common) >= %{reflection_common_min_ver} with php-composer(phpdocumentor/reflection-common) <  %{reflection_common_max_ver})
 ## phpcompatinfo (computed from version 1.0.0)
 BuildRequires:  php-reflection
@@ -130,7 +130,7 @@ BOOTSTRAP
 
 : Upstream tests
 RETURN_CODE=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
     if which $cmdarg; then
         set $cmdarg
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -157,6 +157,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Oct 14 2022 Remi Collet <remi@remirepo.net> - 1.6.2-1
+- update to 1.6.2
+- raise dependency on PHP 7.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

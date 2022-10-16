@@ -6,7 +6,7 @@
 Summary:	Network traffic analyzer
 Name:		wireshark
 Version:	4.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 License:	GPL+
 Url:		http://www.wireshark.org/
@@ -25,8 +25,8 @@ Patch4:		wireshark-0004-Restore-Fedora-specific-groups.patch
 # Fedora-specific
 Patch5:		wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 # Fedora-specific
-#Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
-#Patch7:		wireshark-0007-cmakelists.patch
+Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
+Patch7:		wireshark-0007-cmakelists.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -72,7 +72,7 @@ BuildRequires:	asciidoctor
 %if %{with_maxminddb} && 0%{?fedora}
 BuildRequires:	libmaxminddb-devel
 %endif
-%if %{with_lua} && 0%{?fedora}
+%if %{with_lua}
 BuildRequires:	compat-lua-devel
 %endif
 Buildrequires: git-core
@@ -121,7 +121,7 @@ and plugins.
 %cmake -G "Unix Makefiles" \
   -DDISABLE_WERROR=ON \
   -DBUILD_wireshark=ON \
-%if %{with_lua} && 0%{?fedora}
+%if %{with_lua}
   -DENABLE_LUA=ON \
   -DLUA_VERSION_NUM=5.1 \
 %else
@@ -169,6 +169,8 @@ install -m 644 epan/dfilter/*.h		"${IDIR}/epan/dfilter"
 install -m 644 epan/dissectors/*.h	"${IDIR}/epan/dissectors"
 install -m 644 wiretap/*.h		"${IDIR}/wiretap"
 install -m 644 wsutil/*.h		"${IDIR}/wsutil"
+install -m 644 include/ws_symbol_export.h    "${IDIR}/"
+install -m 644 include/ws_diag_control.h    "${IDIR}/"
 install -m 644 %{SOURCE2}		%{buildroot}%{_udevrulesdir}
 install -Dpm 644 %{SOURCE3}		%{buildroot}%{_sysusersdir}/%{name}.conf
 
@@ -274,6 +276,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Oct 14 2022 Michal Ruprich <mruprich@redhat.com> - 1:4.0.0-2
+- Adding a couple of tweaks for the latest rebased version
+
 * Thu Oct 06 2022 Kenneth Topp <toppk@bllue.org> - 1:4.0.0-1
 - New version 4.0.0
 

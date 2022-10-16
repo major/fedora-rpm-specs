@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2022d
-%define tzdata_version 2022d
-%define tzcode_version 2022d
+Version: 2022e
+%define tzdata_version 2022e
+%define tzcode_version 2022e
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
@@ -153,6 +153,11 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Oct 14 2022 Patsy Griffin <patsy@redhat.com> - 2022e-1
+- Rebase to tzdata-2022e
+  - Jordan and Syria cancelled the DST transition planned
+    for 2022-10-28, remaining at +03 permanently.
+
 * Sun Sep 25 2022 Patsy Griffin <patsy@redhat.com> - 2022d-1
 - Rebase to tzdata-2022d
   - Palestine DST transition will be on October 29, 2022, 

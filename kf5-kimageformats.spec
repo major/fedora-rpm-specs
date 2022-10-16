@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf5-%{framework}
-Version: 5.98.0
-Release: 2%{?dist}
+Version: 5.99.0
+Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -75,6 +75,9 @@ image formats.
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.99.0-1
+- 5.99.0
+
 * Sun Sep 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 5.98.0-2
 - Support JPEG XL format on Fedora
 

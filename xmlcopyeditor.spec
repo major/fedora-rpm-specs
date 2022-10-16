@@ -1,22 +1,23 @@
 Name:           xmlcopyeditor
 Version:        1.2.1.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A fast, free, validating XML editor
 
 License:        GPLv2
 URL:            http://xml-copy-editor.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/xml-copy-editor/%name-%version.tar.gz
+Patch0:         xmlcopyeditor-wx3.2.patch
 
 BuildRequires: make
 BuildRequires:  gcc gcc-c++
-BuildRequires:  wxGTK3-devel pcre-devel aspell-devel boost-devel intltool
+BuildRequires:  wxGTK-devel pcre-devel aspell-devel boost-devel intltool
 BuildRequires:  xerces-c-devel libxslt-devel expat-devel desktop-file-utils libappstream-glib
 
 %description
 XML Copy Editor is a fast, free, validating XML editor.
 
 %prep
-%setup -q
+%autosetup -p1
 find src -type f -print0 | xargs -0 chmod a-x
 tr -d '\r' < src/copying/gpl.txt > COPYING
 chmod a-x AUTHORS COPYING NEWS
@@ -46,6 +47,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 1.2.1.3-20
+- Rebuild with wxWidgets 3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

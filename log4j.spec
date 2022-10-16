@@ -2,7 +2,7 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -285,6 +285,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 
 %changelog
+* Thu Oct 13 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-5
+- Remove the rest of glyphicons files
+
 * Thu Oct 13 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-4
 - Remove glyphicons zip archive from source package
 
