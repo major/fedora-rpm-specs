@@ -4,7 +4,7 @@
 # https://github.com/onsi/ginkgo
 %global goipath         github.com/onsi/ginkgo/v2
 %global forgeurl        https://github.com/onsi/ginkgo
-Version:                2.2.0
+Version:                2.3.1
 
 %gometa
 
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Oct 15 2022 Maxwell G <gotmax@e.email> - 2.3.1-1
+- Update to 2.3.1. Fixes rhbz#2127729.
+
 * Tue Sep 20 2022 Maxwell G <gotmax@e.email> - 2.2.0-1
 - Update to 2.2.0.
 

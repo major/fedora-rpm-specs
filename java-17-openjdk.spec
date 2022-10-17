@@ -369,7 +369,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1160,8 +1160,9 @@ Requires: ca-certificates
 # Require javapackages-filesystem for ownership of /usr/lib/jvm/ and macros
 Requires: javapackages-filesystem
 # Require zone-info data provided by tzdata-java sub-package
-# 2022a required as of JDK-8283350 in 17.0.4
-Requires: tzdata-java >= 2022a
+# 2022d required as of JDK-8294357
+# Should be bumped to 2022e once available (JDK-8295173)
+Requires: tzdata-java >= 2022d
 # for support of kernel stream control
 # libsctp.so.1 is being `dlopen`ed on demand
 Requires: lksctp-tools%{?_isa}
@@ -1378,8 +1379,6 @@ Patch2:    rh1648644-java_access_bridge_privileged_security.patch
 Patch3:    rh649512-remove_uses_of_far_in_jpeg_libjpeg_turbo_1_4_compat_for_jdk10_and_up.patch
 # Depend on pcsc-lite-libs instead of pcsc-lite-devel as this is only in optional repo
 Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-devel.patch
-# Add translations for Europe/Kyiv locally until upstream is fully updated for tzdata2022b
-Patch7: jdk8292223-tzdata2022b-kyiv.patch
 
 # Crypto policy and FIPS support patches
 # Patch is generated from the fips-17u tree at https://github.com/rh-openjdk/jdk/tree/fips-17u
@@ -1417,6 +1416,18 @@ Patch1001: fips-17u-%{fipsver}.patch
 #
 #############################################
 
+#############################################
+#
+# OpenJDK patches targetted for 17.0.6
+#
+#############################################
+# JDK-8293834: Update CLDR data following tzdata 2022c update
+Patch2001: jdk8293834-kyiv_cldr_update.patch
+# JDK-8294357: (tz) Update Timezone Data to 2022d
+Patch2002: jdk8294357-tzdata2022d.patch
+# JDK-8295173: (tz) Update Timezone Data to 2022e
+Patch2003: jdk8295173-tzdata2022e.patch
+
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: alsa-lib-devel
@@ -1449,8 +1460,9 @@ BuildRequires: java-%{buildjdkver}-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022a required as of JDK-8283350 in 17.0.4
-BuildRequires: tzdata-java >= 2022a
+# 2022d required as of JDK-8294357
+# Should be bumped to 2022e once available (JDK-8295173)
+BuildRequires: tzdata-java >= 2022d
 # Earlier versions have a bug in tree vectorization on PPC
 BuildRequires: gcc >= 4.8.3-8
 
@@ -1844,11 +1856,14 @@ pushd %{top_level_dir_name}
 %patch2 -p1
 %patch3 -p1
 %patch6 -p1
-%patch7 -p1
 # Add crypto policy and FIPS support
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
+# tzdata updates targetted for 17.0.6
+%patch2001 -p1
+%patch2002 -p1
+%patch2003 -p1
 popd # openjdk
 
 %patch600
@@ -2395,12 +2410,9 @@ $JAVA_HOME/bin/javac -d . %{SOURCE16}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
 
 # Check translations are available for new timezones
-$JAVA_HOME/bin/javac --add-exports java.base/sun.util.resources=ALL-UNNAMED \
-                     --add-exports java.base/sun.util.locale.provider=ALL-UNNAMED \
-                     -d . %{SOURCE18}
-$JAVA_HOME/bin/java --add-exports java.base/sun.util.resources=ALL-UNNAMED \
-                    --add-exports java.base/sun.util.locale.provider=ALL-UNNAMED \
-                    $(echo $(basename %{SOURCE18})|sed "s|\.java||") "Europe/Kiev" "Europe/Kyiv"
+$JAVA_HOME/bin/javac -d . %{SOURCE18}
+$JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
+$JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
 
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
@@ -2669,6 +2681,12 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Oct 14 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.5.0.7-0.2.ea
+- Update in-tree tzdata to 2022e with JDK-8294357 & JDK-8295173
+- Update CLDR data with Europe/Kyiv (JDK-8293834)
+- Drop JDK-8292223 patch which we found to be unnecessary
+- Update TestTranslations.java to use public API based on TimeZoneNamesTest upstream
+
 * Tue Oct 04 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.5.0.7-0.1.ea
 - Update to jdk-17.0.5+7
 - Update release notes to 17.0.5+7

@@ -1,7 +1,7 @@
 Name:    filelight 
 Summary: Graphical disk usage statistics 
 Epoch:   1
-Version: 22.08.1
+Version: 22.08.2
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:22.08.2-1
+- 22.08.2
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:22.08.1-1
 - 22.08.1
 

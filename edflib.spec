@@ -1,5 +1,5 @@
 Name:           edflib
-Version:        1.22
+Version:        1.23
 # Upstream has been encouraged to provide a shared library with proper ABI
 # versioning (https://gitlab.com/Teuniz/EDFlib/-/issues/6#note_732772193).
 #
@@ -30,13 +30,13 @@ Source0:        https://www.teuniz.net/edflib/edflib_%{tar_version}.tar.gz
 # versioning.
 Source1:        Makefile
 
-# Add support for big-endian platforms (fixes #9)
-# https://gitlab.com/Teuniz/EDFlib/-/merge_requests/1
-# See also: https://gitlab.com/Teuniz/EDFlib/-/issues/9
+# Big-endian support was proposed upstream, but a patch was declined, and
+# beginning with version 1.23, “non-support” of big-endian architectures is
+# explicitly documented and enforced at runtime. See the linked issue:
 #
-# Since upstream decided against supporting big-endian platforms, this patch is
-# applied *only* on s390x to keep the other architectures closer to upstream.
-Patch:          0001-Add-support-for-big-endian-platforms.patch
+# edflib does not support big-endian architectures
+# https://bugzilla.redhat.com/show_bug.cgi?id=2135034
+ExcludeArch:    s390x
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -65,9 +65,6 @@ applications that use edflib.
 
 %prep
 %setup -n edflib_%{tar_version} -q
-%ifarch s390x
-%patch0 -p1
-%endif
 cp -p '%{SOURCE1}' Makefile.shared
 
 

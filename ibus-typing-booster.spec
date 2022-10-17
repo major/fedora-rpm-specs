@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.2
+Version:    2.19.6
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPLv3+ and ASL 2.0
@@ -248,6 +248,15 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Sat Oct 15 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.6-1
+- Update to 2.19.6
+- Update emoji annotations from CLDR
+- Avoid showing passwords in OSK buttons by disabling typing-booster
+  in terminals when the on-screen-keyboard (OSK) is shown
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/393)
+  (Requires: https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2511)
+- Translation update from Weblate (bn 100% complete)
+
 * Sun Oct 09 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.2-1
 - Update to 2.19.2
 - Do not commit by index when OSK is visible

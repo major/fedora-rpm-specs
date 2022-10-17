@@ -100,9 +100,9 @@ rm -f %{buildroot}%{_includedir}/libxc.bib
 
 %ldconfig_scriptlets
 
-# Run tests
+# Run tests, don't parallellize them
 %check
-%ctest
+%ctest --parallel 1
 
 %files
 %doc README NEWS AUTHORS ChangeLog.md libxc.bib

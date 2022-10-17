@@ -6,7 +6,7 @@
 
 Summary: A fast, open source AsciiDoc implementation in Ruby
 Name: rubygem-%{gem_name}
-Version: 2.0.17
+Version: 2.0.18
 Release: 1%{?dist}
 License: MIT
 URL: https://asciidoctor.org
@@ -121,6 +121,9 @@ cp -a .%{gem_instdir}/man/*.1 \
 %doc %{gem_docdir}
 
 %changelog
+* Sat Oct 15 2022 Todd Zullinger <tmz@pobox.com> - 2.0.18-1
+- update to asciidoctor 2.0.18 (rhbz#1989716)
+
 * Tue Aug 02 2022 Todd Zullinger <tmz@pobox.com> - 2.0.17-1
 - update to asciidoctor 2.0.17 (rhbz#2113688)
 - disable tests which require open-uri-cached gem

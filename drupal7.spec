@@ -23,8 +23,8 @@ AutoReqProv: no
 %endif
 
 Name:          drupal7
-Version:       7.82
-Release:       3%{?dist}
+Version:       7.92
+Release:       1%{?dist}
 Summary:       An open-source content-management platform
 
 License:       GPLv2+ and BSD and MIT
@@ -257,6 +257,13 @@ install -pm0755 %{SOURCE11} %{buildroot}%{_prefix}/lib/rpm/%{name}.req
 
 
 %changelog
+* Sat Oct 15 2022 Shawn Iwinski <shawn.iwinski@gmail.com> - 7.92-1
+- Update to 7.92
+- SA-CORE-2022-012 / CVE-2022-25275
+- SA-CORE-2022-003 / CVE-2022-25271 (RHBZ #2055472, 2055473)
+- SA-CORE-2022-001 / CVE-2021-41184
+- SA-CORE-2022-002 / CVE-2021-41182 / CVE-2021-41183 / CVE-2016-7103 / CVE-2010-5312
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

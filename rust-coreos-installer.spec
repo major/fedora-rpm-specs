@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.16.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -22,6 +22,10 @@ Source0:        https://crates.io/api/v1/crates/%{crate}/%{version}/download#/%{
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{dracutcommit}/coreos-installer-dracut-%{dracutshortcommit}.tar.gz
+
+# Build with mbrman 0.5.x
+# https://github.com/coreos/coreos-installer/pull/1019
+Patch0:         mbrman-0.5.0.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel} && !0%{?eln}
@@ -181,6 +185,9 @@ from the initramfs.
 %endif
 
 %changelog
+* Fri Oct 14 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.16.1-2
+- Build with mbrman 0.5.0
+
 * Mon Sep 19 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.16.1-1
 - New release
 - Sync coreos-installer-dracut with CentOS Stream 9

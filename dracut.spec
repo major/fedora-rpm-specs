@@ -5,11 +5,13 @@
 # strip the automatically generated dep here and instead co-own the
 # directory.
 %global __requires_exclude pkg-config
-%define dist_free_release 3
+
+# rpmdev-bumpspec and releng automation compatible variable
+%global baserelease 4
 
 Name: dracut
 Version: 057
-Release: %{dist_free_release}%{?dist}
+Release: %{baserelease}%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -34,6 +36,10 @@ Patch0: 1882-dmsquash-live-root-Run-checkisomd5-on-correct-device.patch
 # for debugging) - workaround for RHBZ #1964879.
 # https://github.com/dracutdevs/dracut/pull/1521
 Patch1: 1521-Never-enable-the-bluetooth-module-by-default.patch
+
+# Add dmsquash-live-autooverlay module
+# https://github.com/dracutdevs/dracut/pull/1991
+Patch2: 1991-feat-dmsquash-live-add-new-dmsquash-live-autooverlay.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -112,7 +118,7 @@ initramfs with dracut, which drops capabilities.
 Summary: dracut modules to build a dracut initramfs with live image capabilities
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-network = %{version}-%{release}
-Requires: tar gzip coreutils bash device-mapper curl
+Requires: tar gzip coreutils bash device-mapper curl parted
 Requires: fuse ntfs-3g
 
 %description live
@@ -409,6 +415,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %files live
 %{dracutlibdir}/modules.d/99img-lib
 %{dracutlibdir}/modules.d/90dmsquash-live
+%{dracutlibdir}/modules.d/90dmsquash-live-autooverlay
 %{dracutlibdir}/modules.d/90dmsquash-live-ntfs
 %{dracutlibdir}/modules.d/90livenet
 
@@ -433,6 +440,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Sat Oct 15 2022 Neal Gompa <ngompa@datto.com> - 057-4
+- Backport dmsquash-live-autooverlay module
+
 * Thu Aug 25 2022 Pavel Valena <pvalena@redhat.com> - 057-3
 - Re-add patch Never-enable-the-bluetooth-module-by-default-1521
 - Recommend tpm2-tools package, as it's required by crypt module

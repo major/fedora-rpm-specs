@@ -1,6 +1,6 @@
 Name:           kwave
-Version: 22.08.1
-Release: 2%{?dist}
+Version: 22.08.2
+Release: 1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
 
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 22.08.1-2
 - Rebuilt for flac 1.4.0
 

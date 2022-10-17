@@ -1,19 +1,18 @@
 %undefine _package_note_flags
 
 Name:           ocaml-stdint
-Version:        0.7.0
-Release:        9%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Various signed and unsigned integers for OCaml
 
 License:        MIT
 URL:            https://github.com/andrenth/%{name}
 Source0:        %{url}/releases/download/%{version}/stdint-%{version}.tbz
-# Fix lognot and logxor for Int40, Int48, Int56, and Int128
-# https://github.com/andrenth/ocaml-stdint/pull/60
-Patch0:         %{name}-lognot.patch
 # Fix or disable broken tests
 # https://github.com/andrenth/ocaml-stdint/issues/59
-Patch1:         %{name}-test.patch
+Patch0:         %{name}-test.patch
+# Replace failwith with caml_failwith; fixes i686 FTFBS
+Patch1:         %{name}-failwith.patch
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.10
@@ -72,6 +71,11 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Oct 15 2022 Jerry James <loganjerry@gmail.com> - 0.7.1-1
+- Version 0.7.1
+- Drop upstreamed -lognot patch
+- Add -failwith patch to fix FTBFS on 32-bit systems
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

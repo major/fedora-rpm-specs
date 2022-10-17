@@ -1,6 +1,6 @@
 Name:    kdialog
 Summary: Nice dialog boxes from shell scripts
-Version: 22.08.1
+Version: 22.08.2
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -58,6 +58,9 @@ KDialog can be used to show nice dialog boxes from shell scripts.
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 

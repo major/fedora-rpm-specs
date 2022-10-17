@@ -1,5 +1,5 @@
 Name:           borgmatic
-Version:        1.7.3
+Version:        1.7.4
 Release:        1%{?dist}
 Summary:        Simple Python wrapper script for borgbackup
 
@@ -73,6 +73,9 @@ install -Dpm 0644 %{name}-bash-completion %{buildroot}%{_datadir}/bash-completio
 
 
 %changelog
+* Sat Oct 15 2022 Felix Kaechele <felix@kaechele.ca> - 1.7.4-1
+- update to 1.7.4
+
 * Wed Oct 12 2022 Felix Kaechele <felix@kaechele.ca> - 1.7.3-1
 - update to 1.7.3
 

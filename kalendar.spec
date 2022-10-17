@@ -3,8 +3,8 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        22.08.1
-Release:        2%{?dist}
+Version:        22.08.2
+Release:        1%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
 URL:            https://invent.kde.org/pim/%{name}
@@ -107,6 +107,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Wed Oct 12 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.1-2
 - Backport upstream patch
 

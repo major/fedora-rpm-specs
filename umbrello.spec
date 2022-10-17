@@ -1,8 +1,8 @@
 
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
-Version: 22.08.1
-Release: 2%{?dist}
+Version: 22.08.2
+Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv2+
 URL:     https://www.kde.org/applications/development/umbrello/
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Thu Oct 06 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.1-2
 - Rebuild (against proper kdevelop version)
 

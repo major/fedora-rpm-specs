@@ -21,13 +21,13 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 2.5.3
-Release: 4%{?dist}
+Version: 3.0.0
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD
 URL: https://github.com/riptideio/pymodbus
-Source0: https://github.com/riptideio/pymodbus/archive/v%{version}.tar.gz
+Source0: https://github.com/riptideio/pymodbus/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch: noarch
 BuildRequires: python3-devel
 
@@ -40,7 +40,6 @@ Summary: %{sum}
 %{?python_provide:%python_provide python3-%{name}}
 
 BuildRequires: python3-setuptools python3-six
-Requires: python3-twisted >= 12.2.0
 Requires: python3-pyserial >= 2.6
 # weak requirements for pymodbus.console
 Recommends: python3-pyserial >= 3.4
@@ -52,7 +51,9 @@ Recommends: python3-click
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
+# Fix version problem with 3.0.0 GA release
+sed -i 's#, "rc1"##' pymodbus/version.py
 
 %build
 %py3_build
@@ -71,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Oct 15 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.0-1
+- Update to 3.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

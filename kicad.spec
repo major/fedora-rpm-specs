@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        6.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -13,6 +13,8 @@ Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{v
 Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
+
+Patch1:         python_path.patch
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
@@ -91,6 +93,8 @@ Documentation for KiCad.
 %prep
 %setup -q -a 1 -a 2 -a 3 -a 4 -a 5
 
+%patch1 -p1
+
 
 %build
 
@@ -149,10 +153,10 @@ popd
 %cmake_install
 
 # Binaries must be executable to be detected by find-debuginfo.sh
-chmod +x %{buildroot}%{_prefix}/lib/python%{python3_version}/site-packages/_pcbnew.so
+chmod +x %{buildroot}%{python3_sitearch}/_pcbnew.so
 
 # Binaries are not allowed to contain rpaths
-chrpath --delete %{buildroot}%{_prefix}/lib/python%{python3_version}/site-packages/_pcbnew.so
+chrpath --delete %{buildroot}%{python3_sitearch}/_pcbnew.so
 
 # Install desktop
 for desktopfile in %{buildroot}%{_datadir}/applications/*.desktop ; do
@@ -201,8 +205,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %doc AUTHORS.txt
 %attr(0755, root, root) %{_bindir}/*
 %{_libdir}/*
-%{python3_sitelib}/*pcbnew*
-%{python3_sitelib}/__pycache__/*
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*.*
@@ -224,6 +226,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Oct 15 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-2
+- Move pcbnew.so
+
 * Tue Sep 27 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-1
 - Update to 6.0.8
 

@@ -137,9 +137,7 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_includedir}/KTextEditor/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KTextEditor.pri
 #
-%dir %{_kf5_datadir}/kdevfiletemplates/
-%dir %{_kf5_datadir}/kdevfiletemplates/templates/
-%{_kf5_datadir}/kdevfiletemplates/templates/ktexteditor-plugin.tar.bz2
+%{_kf5_datadir}/kdevappwizard/templates/ktexteditor-plugin.tar.bz2
 
 
 %changelog

@@ -9,8 +9,8 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 22.08.1
-Release: 2%{?dist}
+Version: 22.08.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     http://www.k3b.org/
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:22.08.2-1
+- 22.08.2
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 1:22.08.1-2
 - Rebuilt for flac 1.4.0
 

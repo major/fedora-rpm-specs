@@ -1,7 +1,7 @@
 
 Name:    kpat
 Summary: A selection of solitaire card games
-Version: 22.08.0
+Version: 22.08.2
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Fri Aug 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.0-1
 - 22.08.0
 

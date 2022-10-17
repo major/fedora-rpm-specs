@@ -1,6 +1,6 @@
 Name:    keditbookmarks
 Summary: Bookmark organizer and editor
-Version: 22.08.1
+Version: 22.08.2
 Release: 1%{?dist}
 
 # Documentation is GFDL, rest GPLv2 and GPLv3 (note: NOT any later version)
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 

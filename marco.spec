@@ -15,7 +15,7 @@
 Name:          marco
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       5%{?dist}
 %else
 Release:       0.17%{?git_rel}%{?dist}
 %endif
@@ -36,6 +36,9 @@ Patch3:        marco_0003-prefs-fix-memory-leak.patch
 Patch4:        marco_0004-build-fix-meson-build.patch
 Patch5:        marco_0005-compositor-xrender-fix-memory-leak.patch
 Patch6:        marco_0006-theme-fix-memory-leak.patch
+# https://github.com/mate-desktop/marco/commit/63b00b9
+# fixing wine
+Patch7:        marco_0001-window-do-not-disable-fullscreen-for-dialogs.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
@@ -159,6 +162,10 @@ desktop-file-install                                \
 
 
 %changelog
+* Sat Oct 15 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-5
+- fix dialog windows in wine
+- https://github.com/mate-desktop/marco/commit/63b00b9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

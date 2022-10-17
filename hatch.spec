@@ -61,9 +61,6 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros >= 1.2.0
 BuildRequires:  git-core
 
-# For script in %%generate_buildrequires:
-BuildRequires:  python3dist(tomli)
-
 Requires:  git-core
 
 %description

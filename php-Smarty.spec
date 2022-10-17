@@ -1,12 +1,12 @@
 %global github_owner   smarty-php
 %global github_name    smarty
-%global github_version 3.1.33
-%global github_commit  dd55b23121e55a3b4f1af90a707a6c4e5969530f
+%global github_version 3.1.47
+%global github_commit  a09364fe1706cb465e910eb040e592053d7effb8
 
 %global composer_vendor  smarty
 %global composer_project smarty
 
-# "php": ">=5.2"
+# "php": "^5.2 || ^7.0"
 %global php_min_ver 5.2
 
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
@@ -14,26 +14,27 @@
 Name:          php-Smarty
 Summary:       Smarty - the compiling PHP template engine
 Version:       %{github_version}
-Release:       8%{?dist}
+Release:       1%{?dist}
 
 License:       LGPLv3
 URL:           http://www.smarty.net
 Source0:       https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{name}-%{github_version}-%{github_commit}.tar.gz
 
 BuildArch:     noarch
+## Autoloader
+BuildRequires: php-fedora-autoloader-devel
 # composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 # Library version value check
 BuildRequires: php-cli
 
 Requires:      php(language) >= %{php_min_ver}
-# phpcompatinfo (computed from version 3.1.33)
+# phpcompatinfo (computed from version 3.1.47)
 Requires:      php-ctype
 Requires:      php-date
 Requires:      php-mbstring
 Requires:      php-pcre
 Requires:      php-spl
-Requires:      php-zlib
 
 # php-{COMPOSER_VENDOR}-{COMPOSER_PROJECT}
 Provides:      php-%{composer_vendor}-%{composer_project} = %{version}-%{release}
@@ -57,11 +58,11 @@ Autoloader: %{phpdir}/Smarty/autoload.php
 
 
 %install
+: Generate autoloader
+phpab --template fedora --output libs/autoload.php libs
+
 mkdir -p %{buildroot}%{phpdir}
 cp -rp libs %{buildroot}%{phpdir}/Smarty
-
-: Standard autoloader
-ln -s bootstrap.php %{buildroot}%{phpdir}/Smarty/autoload.php
 
 
 %check
@@ -77,15 +78,20 @@ php -r '
 %files
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
-%doc change_log.txt
+%doc *.md
+%doc *.txt
 %doc composer.json
-%doc NEW_FEATURES.txt
-%doc README.md
-%doc SMARTY*.txt
 %{phpdir}/Smarty
 
 
 %changelog
+* Fri Oct 14 2022 Shawn Iwinski <shawn@iwin.ski> - 3.1.47-1
+- Update to 3.1.47
+- CVE-2022-29221 (RHBZ #2088250, 2088251)
+- CVE-2021-29454 (RHBZ #2044970, 2044971)
+- CVE-2021-21408 (RHBZ #2043595, 2043596)
+- Security update (RHBZ #2126854, 2126855, 2126856)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.33-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

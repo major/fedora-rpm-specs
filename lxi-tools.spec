@@ -1,15 +1,13 @@
 Summary:        Tools to manage network attached LXI compatible instruments
 Name:           lxi-tools
-Version:        2.1
-Release:        3%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 # src/language-specs/lua-lxi-gui.lang is LGPL-2.1-or-later, rest is BSD-3-Clause
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://lxi-tools.github.io/
 Source0:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1
-Patch0:         https://github.com/lxi-tools/lxi-tools/commit/d55f9393388aff4b0c63b20f668c451e6c998465.patch#/lxi-tools-2.1-readline.patch
-Patch1:         https://github.com/lxi-tools/lxi-tools/commit/8319ca0f9af088acd4f7a784a37e31c99aeb47bd.patch#/lxi-tools-2.1-lua.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53.2
@@ -17,11 +15,12 @@ BuildRequires:  readline-devel
 BuildRequires:  liblxi-devel >= 1.13
 BuildRequires:  lua-devel >= 5.1
 BuildRequires:  bash-completion
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
 BuildRequires:  glib2-devel >= 2.70
-BuildRequires:  gtk4-devel >= 4.5.0
-BuildRequires:  gtksourceview5-devel >= 5.3.3
-BuildRequires:  libadwaita-devel >= 1.0.1
+BuildRequires:  gtk4-devel >= 4.6.0
+BuildRequires:  gtksourceview5-devel >= 5.4.0
+BuildRequires:  json-glib-devel >= 1.4
+BuildRequires:  libadwaita-devel >= 1.2
 BuildRequires:  %{_bindir}/desktop-file-validate
 BuildRequires:  %{_bindir}/appstream-util
 %endif
@@ -38,12 +37,10 @@ SCPI message performance, and powerful scripting for test automation.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch0 -p1 -b .readline
-%patch1 -p1 -b .lua
 
 %build
 %meson \
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
   -Dgui=true
 %else
   -Dgui=false
@@ -53,21 +50,21 @@ SCPI message performance, and powerful scripting for test automation.
 %install
 %meson_install
 
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/io.github.%{name}.lxi-gui.desktop
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/io.github.%{name}.lxi-gui.appdata.xml
 %endif
 
 %files
-%license COPYING
-%doc AUTHORS ChangeLog README.md
+%license LICENSE
+%doc AUTHORS NEWS README.md
 %{_bindir}/lxi
 %dir %{_datadir}/bash-completion/
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/lxi*
 %{_mandir}/man1/lxi.1*
-%if 0%{?fedora} > 35 || 0%{?rhel} > 9
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
 %{_bindir}/lxi-gui
 %{_datadir}/applications/io.github.%{name}.lxi-gui.desktop
 %{_datadir}/glib-2.0/schemas/io.github.%{name}.lxi-gui.gschema.xml
@@ -76,6 +73,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/io.github.%
 %endif
 
 %changelog
+* Sat Oct 15 2022 Robert Scheck <robert@fedoraproject.org> 2.2-1
+- Upgrade to 2.2 (#2135055)
+
 * Sun Oct 02 2022 Robert Scheck <robert@fedoraproject.org> 2.1-3
 - Build the lxi-gui application for Fedora 36 (and later)
 

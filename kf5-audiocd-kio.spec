@@ -1,7 +1,7 @@
 Name:    kf5-audiocd-kio
 Summary: KF5 Audiocd kio slave
-Version: 22.08.1
-Release: 2%{?dist}
+Version: 22.08.2
+Release: 1%{?dist}
 
 # code GPLv2+, handbook/docs GFDL
 License: GPLv2+
@@ -119,6 +119,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 22.08.1-2
 - Rebuilt for flac 1.4.0
 

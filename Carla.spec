@@ -1,7 +1,7 @@
 %global pname   carla
 
 Name:           Carla
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Audio plugin host
 
@@ -55,7 +55,6 @@ Source0:        https://github.com/falkTX/%{name}/archive/v%{version}.tar.gz#/%{
 Patch0:         %{name}-2.5-libdir.patch
 Patch1:         %{name}-single-libs-path.patch
 
-#ExcludeArch:    ppc64le
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  pkgconfig(alsa)
@@ -226,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Sat Oct 15 2022 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.2-1
+- Update to 2.5.2
+
 * Tue Oct 04 2022 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.1-1
 - Update to 2.5.1
 

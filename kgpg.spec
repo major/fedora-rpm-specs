@@ -1,6 +1,6 @@
 Name:    kgpg
 Summary: Manage GPG encryption keys 
-Version: 22.08.1
+Version: 22.08.2
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -120,6 +120,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 

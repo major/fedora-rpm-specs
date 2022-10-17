@@ -22,8 +22,8 @@
 
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
-Version: 22.08.1
-Release: 2%{?dist}
+Version: 22.08.2
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -303,6 +303,9 @@ fi
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Mon Sep 26 2022 Than Ngo <than@redhat.com> - 22.08.1-2
 - Fixed bz#2129725, konadi-server crash on startup, rebuild against qt-5.15.6
 

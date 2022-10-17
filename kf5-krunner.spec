@@ -81,9 +81,7 @@ developing applications that use %{name}.
 %{_kf5_libdir}/libKF5Runner.so
 %{_kf5_libdir}/cmake/KF5Runner/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KRunner.pri
-%dir %{_kf5_datadir}/kdevfiletemplates/
-%dir %{_kf5_datadir}/kdevfiletemplates/templates/
-%{_kf5_datadir}/kdevfiletemplates/templates/*.tar.bz2
+%{_kf5_datadir}/kdevappwizard/templates/*.tar.bz2
 %{_kf5_datadir}/dbus-1/interfaces/*
 
 

@@ -1,12 +1,13 @@
 Name:           python-strictyaml
-Version:        1.6.1
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Parses and validates a restricted subset of YAML
 
+# SPDX
 License:        MIT
 URL:            http://hitchdev.com/strictyaml
 %global forgeurl https://github.com/crdoconnor/strictyaml
-Source0:        %{url}/archive/%{version}/strictyaml-%{version}.tar.gz
+Source0:        %{forgeurl}/archive/%{version}/strictyaml-%{version}.tar.gz
 # https://github.com/crdoconnor/strictyaml/issues/152
 Source1:        https://sourceforge.net/p/ruamel-yaml/code/ci/0.16.13/tree/LICENSE?format=raw#/LICENSE-ruamel-yaml
 
@@ -61,7 +62,7 @@ sed -r -i 's/(__version__ *= *")DEVELOPMENT_VERSION"/\1%{version}"/' \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

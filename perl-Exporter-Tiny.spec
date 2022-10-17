@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Exporter-Tiny
-Version:	1.004003
+Version:	1.004004
 Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,10 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Sat Oct 15 2022 Paul Howarth <paul@city-fan.org> - 1.004004-1
+- Update to 1.004004
+  - Minor corrections to QuickStart page in the manual
+
 * Fri Sep 30 2022 Paul Howarth <paul@city-fan.org> - 1.004003-1
 - Update to 1.004003
   Bug Fixes

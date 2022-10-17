@@ -1,7 +1,7 @@
 %global framework ksmtp 
 
 Name:    kf5-%{framework}
-Version: 22.08.1
+Version: 22.08.2
 Release: 1%{?dist}
 Summary: KDE SMTP libraries
 
@@ -82,6 +82,9 @@ Requires:       kf5-kmime-devel >= %{version}
 
 
 %changelog
+* Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
+- 22.08.2
+
 * Thu Sep 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.1-1
 - 22.08.1
 
