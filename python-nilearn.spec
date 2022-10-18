@@ -73,6 +73,10 @@ sed -i 's/python/python3/' nilearn/plotting/html_document.py
 %ifarch s390x %{power64} %{arm64} %{arm32} %{ix86}
 k="${k:-}${k:+ and} not test_load_confounds"
 %endif
+# test fails on i686
+%ifarch s390x %{power64} %{arm64} %{arm32} %{ix86}
+k="${k:-}${k:+ and} not test_tfce_smoke"
+%endif
 
 %{pytest} -k "${k:-}" nilearn
 

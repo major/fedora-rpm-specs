@@ -1,6 +1,6 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
-Version:        9.3
+Version:        9.4
 Release:        1%{?dist}
 License:        AGPLv3 with exceptions
 # Old URL       https://www.thc.org/thc-hydra/
@@ -30,7 +30,7 @@ BuildRequires:  libssh-devel
 BuildRequires:  make
 BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  openssl-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  pkgconfig
 BuildRequires:  libpq-devel
 BuildRequires:  subversion-devel
@@ -84,7 +84,7 @@ sed -i 's|^INSTALLDIR=.*|INSTALLDIR=/usr|' %{buildroot}/%{_bindir}/dpl4hydra.sh
 
 %files
 %doc CHANGES README
-%license LICENSE LICENSE.OPENSSL
+%license LICENSE
 %{_bindir}/hydra
 %{_bindir}/pw-inspector
 %{_bindir}/hydra-wizard.sh
@@ -101,6 +101,10 @@ sed -i 's|^INSTALLDIR=.*|INSTALLDIR=/usr|' %{buildroot}/%{_bindir}/dpl4hydra.sh
 %{_datadir}/applications/*
 
 %changelog
+* Sun Oct 16 2022 Othman Madjoudj <athmane@fedoraproject.org> - 9.4-1
+- Update to 9.4 (rhbz #2125386)
+- Switch to PCRE2 (rhbz #2128308)
+
 * Tue Aug 16 2022 Simone Caronni <negativo17@gmail.com> - 9.3-1
 - Update to 9.3, fix build with recent updated libraries.
 

@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.99.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -19,6 +19,10 @@ URL:            https://invent.kde.org/frameworks/%{framework}
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
+
+# Upastream patches
+Patch0:         350ce1b990460cb2178f369f22fe80803f5645f3.diff
+Patch1:         1190e53e9b69da6f9663ceb75c4813c5708b7cbd.diff
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  jasper-devel
@@ -52,7 +56,7 @@ image formats.
 
 
 %prep
-%autosetup -n %{framework}-%{version}
+%autosetup -n %{framework}-%{version} -p1
 
 
 %build
@@ -75,6 +79,9 @@ image formats.
 
 
 %changelog
+* Sun Oct 16 2022 Marc Deop marcdeop@fedoraproject.org - 5.99.0-2
+- Add two upstream patches
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.99.0-1
 - 5.99.0
 

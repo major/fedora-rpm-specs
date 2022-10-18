@@ -2,8 +2,8 @@
 
 Summary: Tools for searching and reading man pages
 Name: man-db
-Version: 2.10.2
-Release: 2%{?dist}
+Version: 2.11.0
+Release: 1%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPLv2+ and GPLv3+
@@ -225,6 +225,9 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Fri Oct 14 2022 Lukas Javorsky <ljavorsk@redhat.com> - 2.11.0-1
+- Rebase to version 2.11.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

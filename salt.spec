@@ -11,7 +11,7 @@
 
 Name:    salt
 Version: 3005.1%{?__rc_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: ASL 2.0
@@ -317,8 +317,11 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 
 
 %changelog
-* Tue Oct 04 2022 Salt Project Packaging <saltproject-packaging@vmware.com> - %{version}-1
-- Update to feature release %{version}-1 for Python 3
+* Mon Oct 10 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 3005.1-2
+- Removed macros from changelog
+
+* Tue Oct 04 2022 Salt Project Packaging <saltproject-packaging@vmware.com> - 3005.1-1
+- Update to feature release 3005.1-1 for Python 3
 
 * Thu Aug 25 2022 Salt Project Packaging <saltproject-packaging@vmware.com> - 3005-1
 - Update to feature release 3005-1 for Python 3

@@ -1,5 +1,5 @@
 Name:           xsnow
-Version:        3.5.2
+Version:        3.5.3
 Release:        1%{?dist}
 Summary:        Let it snow on your desktop
 
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Oct 16 2022 Andrea Musuruane <musuruan@gmail.com> - 3.5.3-1
+- Updated to new upstream release
+
 * Tue Sep 06 2022 Andrea Musuruane <musuruan@gmail.com> - 3.5.2-1
 - Updated to new upstream release
 

@@ -1,11 +1,8 @@
-%{?!_without_python2:%global with_python2 0%{?_with_python2:1} || !(0%{?fedora} >= 30 || 0%{?rhel} >= 8)}
-%{?!_without_python3:%global with_python3 0%{?_with_python3:1} || !0%{?rhel} || 0%{?rhel} >= 7}
-
 %global srcname vcstool
 
 Name:           python-%{srcname}
-Version:        0.2.15
-Release:        7%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Tool to invoke vcs commands on multiple repositories
 
 License:        ASL 2.0
@@ -30,43 +27,6 @@ The biggest differences between the two are:
   command line tools built on top.
 
 
-%if 0%{?with_python2}
-%package -n python2-%{srcname}
-Summary:        %{summary}
-BuildRequires:  git
-BuildRequires:  python2-devel
-BuildRequires:  python2-pytest
-BuildRequires:  python2-pyyaml
-BuildRequires:  python2-setuptools
-%{?python_provide:%python_provide python2-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python2-pyyaml
-Requires:       python2-setuptools
-%endif
-
-%if !0%{?rhel} || 0%{?rhel} >= 8
-Recommends:     git
-%endif
-
-%description -n python2-%{srcname}
-Vcstool is a version control system (VCS) tool, designed to make working with
-multiple repositories easier.
-
-Note: This tool should not be confused with vcstools (with a trailing s) which
-provides a Python API for interacting with different version control systems.
-The biggest differences between the two are:
-
-- vcstool doesn't use any state beside the repository working copies available
-  in the filesystem.
-- The file format of vcstool export uses the relative paths of the repositories
-  as keys in YAML which avoids collisions by design.
-- vcstool has significantly less lines of code than vcstools including the
-  command line tools built on top.
-%endif
-
-
-%if 0%{?with_python3}
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  git
@@ -99,7 +59,6 @@ The biggest differences between the two are:
   as keys in YAML which avoids collisions by design.
 - vcstool has significantly less lines of code than vcstools including the
   command line tools built on top.
-%endif
 
 
 %prep
@@ -107,13 +66,7 @@ The biggest differences between the two are:
 
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-
-%if 0%{?with_python3}
 %py3_build
-%endif
 
 
 %install
@@ -124,27 +77,6 @@ The biggest differences between the two are:
 
 install -d %{buildroot}%{_datadir}/bash-completion/completions %{buildroot}%{_bindir}
 
-%if 0%{?with_python2}
-%py2_install -- --install-scripts %{_bindir}2
-
-echo -n "" > py2_bins
-for f in `ls %{buildroot}%{_bindir}2`; do
-  mv %{buildroot}%{_bindir}2/$f %{buildroot}%{_bindir}/$f-%{python2_version}
-  ln -s $f-%{python2_version} %{buildroot}%{_bindir}/$f-2
-%if !(0%{?with_python3})
-  ln -s $f-%{python2_version} %{buildroot}%{_bindir}/$f
-  echo "%{_bindir}/$f" >> py2_bins
-%endif
-  echo -e "%{_bindir}/$f-2\n%{_bindir}/$f-%{python2_version}" >> py2_bins
-done
-
-# Integrate bash completion with the bash-completion package
-cp -f %{buildroot}%{_datadir}/%{srcname}-completion/vcs.bash %{buildroot}%{_datadir}/bash-completion/completions/vcs
-ln -sf vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-2
-ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python2_version}
-%endif
-
-%if 0%{?with_python3}
 %py3_install -- --install-scripts %{_bindir}%{python3_pkgversion}
 
 echo -n "" > py3_bins
@@ -156,10 +88,9 @@ for f in `ls %{buildroot}%{_bindir}%{python3_pkgversion}`; do
 done
 
 # Integrate bash completion with the bash-completion package
-cp -f %{buildroot}%{_datadir}/%{srcname}-completion/vcs.bash %{buildroot}%{_datadir}/bash-completion/completions/vcs
+cp -af %{buildroot}%{_datadir}/%{srcname}-completion/vcs.bash %{buildroot}%{_datadir}/bash-completion/completions/vcs
 ln -sf vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-3
 ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_version}
-%endif
 
 
 %check
@@ -171,28 +102,9 @@ ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_vers
   --ignore test/test_commands.py \\\
   test
 
-%if 0%{?with_python2}
-%{__python2} -m pytest %pytest_options
-%endif
-
-%if 0%{?with_python3}
 %{__python3} -m pytest %pytest_options
-%endif
 
 
-%if 0%{?with_python2}
-%files -n python2-%{srcname} -f py2_bins
-%license LICENSE
-%doc CONTRIBUTING.md README.rst
-%{python2_sitelib}/%{srcname}/
-%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info/
-%{_datadir}/%{srcname}-completion
-%{_datadir}/bash-completion/completions/vcs
-%{_datadir}/bash-completion/completions/vcs-2
-%{_datadir}/bash-completion/completions/vcs-%{python2_version}
-%endif
-
-%if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-%{srcname} -f py3_bins
 %license LICENSE
 %doc CONTRIBUTING.md README.rst
@@ -202,10 +114,13 @@ ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_vers
 %{_datadir}/bash-completion/completions/vcs
 %{_datadir}/bash-completion/completions/vcs-3
 %{_datadir}/bash-completion/completions/vcs-%{python3_version}
-%endif
 
 
 %changelog
+* Sun Oct 16 2022 Scott K Logan <logans@cottsay.net> - 0.3.0-1
+- Update to 0.3.0 (rhbz#1991775)
+- Drop Python 2 subpackage, which is no longer supported upstream
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.15-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    csound
 Version: 6.16.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A sound synthesis language and library
 URL:     http://csound.github.io/
 License: LGPLv2+
@@ -174,7 +174,7 @@ for csd in $(find html/examples -name \*.csd); do
 done
 
 # Fix spurious executable bits
-chmod a-x html/examples/*
+find html/examples -type f -print0 | xargs -0 chmod a-x
 
 %build
 %if "%{_libdir}" == "%{_prefix}/lib64"
@@ -312,9 +312,9 @@ rm -rf %{buildroot}%{_datadir}/samples/
 
 %files -n python3-csound
 %{_libdir}/libcsnd6.so.6.0
-#%{_libdir}/%{name}/plugins-6.0/libpy.so
-#%{python3_sitearch}/_csnd*
-#%{python3_sitearch}/csnd*
+#%%{_libdir}/%%{name}/plugins-6.0/libpy.so
+#%%{python3_sitearch}/_csnd*
+#%%{python3_sitearch}/csnd*
 %{python3_sitearch}/*csound.py*
 %{python3_sitearch}/__pycache__/
 
@@ -357,6 +357,9 @@ rm -rf %{buildroot}%{_datadir}/samples/
 %doc html/
 
 %changelog
+* Mon Oct 17 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 6.16.2-6
+- Fix FTBFS (properly remove spurious x bits) (#2113161)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

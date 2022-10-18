@@ -3,8 +3,8 @@
 
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 5.13
-Release: 5%{?dist}
+Version: 6.00
+Release: 1%{?dist}
 License: GPL+ and GPLv2+ and BSD and MIT and Copyright only
 URL: http://www.kernel.org/doc/man-pages/
 Source: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.xz
@@ -34,9 +34,6 @@ BuildArch: noarch
 # https://bugzilla.kernel.org/show_bug.cgi?id=53781
 Patch21: man-pages-3.42-close.patch
 
-# https://lore.kernel.org/linux-man/920642e4bc7b60c19962187b266dfc0ee4ac7f27.camel@redhat.com/
-Patch22: man-pages-5.13-subid.patch
-
 %description
 A large collection of manual pages from the Linux Documentation Project (LDP).
 
@@ -44,7 +41,6 @@ A large collection of manual pages from the Linux Documentation Project (LDP).
 %setup -q -a 1
 
 %patch21 -p1
-%patch22 -p1
 
 ## Remove man pages we are not going to use ##
 
@@ -100,6 +96,10 @@ fi
 %{_mandir}/man*/*
 
 %changelog
+* Fri Oct 14 2022 Lukas Javorsky <ljavorsk@redhat.com> - 6.00-1
+- Rebase to version 6.00
+- Patch 22 upstreamed
+
 * Tue Aug 23 2022 Nikola Forró <nforro@redhat.com> - 5.13-5
 - nsswitch.conf.5: Mention subid database
 

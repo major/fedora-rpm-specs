@@ -10,8 +10,8 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2022.9.0
-%global tag     2022.9.0
+Version:        2022.10.0
+%global tag     2022.10.0
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
@@ -212,6 +212,7 @@ pytest_args=(
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt dask/array/NUMPY_LICENSE.txt
+%{_bindir}/dask
 
 %if %{without bootstrap}
 %files -n python-%{srcname}-doc

@@ -3,7 +3,7 @@
 
 # https://github.com/tdewolff/minify
 %global goipath         github.com/tdewolff/minify
-Version:                2.12.2
+Version:                2.12.4
 
 %gometa
 
@@ -39,14 +39,14 @@ BuildRequires:  (golang(github.com/dustin/go-humanize) >= 1.0.0 with golang(gith
 BuildRequires:  (golang(github.com/fsnotify/fsnotify) >= 1.5.4 with golang(github.com/fsnotify/fsnotify) < 2)
 BuildRequires:  golang(github.com/matryer/try)
 BuildRequires:  (golang(github.com/spf13/pflag) >= 1.0.5 with golang(github.com/spf13/pflag) < 2)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2)         >= 2.6.3 with golang(github.com/tdewolff/parse/v2)         < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/buffer)  >= 2.6.3 with golang(github.com/tdewolff/parse/v2/buffer)  < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/css)     >= 2.6.3 with golang(github.com/tdewolff/parse/v2/css)     < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/html)    >= 2.6.3 with golang(github.com/tdewolff/parse/v2/html)    < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/js)      >= 2.6.3 with golang(github.com/tdewolff/parse/v2/js)      < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/json)    >= 2.6.3 with golang(github.com/tdewolff/parse/v2/json)    < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/strconv) >= 2.6.3 with golang(github.com/tdewolff/parse/v2/strconv) < 3)
-BuildRequires:  (golang(github.com/tdewolff/parse/v2/xml)     >= 2.6.3 with golang(github.com/tdewolff/parse/v2/xml)     < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2)         >= 2.6.4 with golang(github.com/tdewolff/parse/v2)         < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/buffer)  >= 2.6.4 with golang(github.com/tdewolff/parse/v2/buffer)  < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/css)     >= 2.6.4 with golang(github.com/tdewolff/parse/v2/css)     < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/html)    >= 2.6.4 with golang(github.com/tdewolff/parse/v2/html)    < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/js)      >= 2.6.4 with golang(github.com/tdewolff/parse/v2/js)      < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/json)    >= 2.6.4 with golang(github.com/tdewolff/parse/v2/json)    < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/strconv) >= 2.6.4 with golang(github.com/tdewolff/parse/v2/strconv) < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2/xml)     >= 2.6.4 with golang(github.com/tdewolff/parse/v2/xml)     < 3)
 
 %if %{with check}
 # Tests

@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global firmware_release 141
+%global firmware_release 142
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
@@ -14,6 +14,7 @@ BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
 Patch1:		0001-Add-support-for-compressing-firmware-in-copy-firmwar.patch
+Patch2:		0001-brcm-add-symlink-for-Pi-Zero-2-W-NVRAM-file.patch
 
 BuildRequires:	make
 Requires:	linux-firmware-whence
@@ -528,6 +529,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Sun Oct 16 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221012-142
+- Add link for one variant of Raspberry Pi Zero 2W WiFi module
+
 * Thu Oct 13 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221012-141
 - Update to upstream 20221012 release
 - rtl_bt: Update RTL8852C BT USB firmware to 0xD5B8_A40A

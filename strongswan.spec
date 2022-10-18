@@ -13,8 +13,8 @@
 %endif
 
 Name:           strongswan
-Version:        5.9.6
-Release:        2%{?dist}
+Version:        5.9.8
+Release:        1%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 License:        GPLv2+
 URL:            http://www.strongswan.org/
@@ -23,12 +23,11 @@ Source1:        http://download.strongswan.org/strongswan-%{version}%{?prereleas
 Source2:        https://download.strongswan.org/STRONGSWAN-RELEASE-PGP-KEY
 Source3:        tmpfiles-strongswan.conf
 Patch0:         strongswan-5.6.0-uintptr_t.patch
-# https://github.com/strongswan/strongswan/issues/1025
-Patch1:         strongswan-5.9.6-error-format-security.patch
+# https://github.com/strongswan/strongswan/issues/1198
+Patch1:         strongswan-5.9.7-error-no-format.patch
 
-# only needed for pre-release versions
-#BuildRequires:  autoconf automake
-
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  gcc
@@ -216,8 +215,6 @@ for Strongswan runtime configuration from perl applications.
     --enable-imv-attestation \
     --enable-imv-os \
     --enable-imc-os \
-    --enable-imc-swid \
-    --enable-imv-swid \
     --enable-imc-swima \
     --enable-imv-swima \
     --enable-imc-hcd \
@@ -412,6 +409,12 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Sun Oct 16 2022 Arne Reiter <redhat@arnereiter.de> - 5.9.8-1
+- Resolves rhbz#2112274 strongswan-5.9.8 is available
+- Patch1 removes CFLAGS -Wno-format which interferes with -Werror=format-security
+- Add BuildRequire for autoconf and automake, now required for release
+- Remove obsolete patches
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

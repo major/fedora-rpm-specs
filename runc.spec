@@ -24,7 +24,7 @@
 %global import_path %{provider_prefix}
 %global git0 https://github.com/opencontainers/runc
 
-%global built_tag v1.1.3
+%global built_tag v1.1.4
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -63,7 +63,7 @@ Provides: bundled(golang(github.com/moby/sys/mountinfo)) = v0.5.0
 Provides: bundled(golang(github.com/mrunalp/fileutils)) = v0.5.0
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20210326190908_1c3f411f0417
 Provides: bundled(golang(github.com/opencontainers/selinux)) = v1.10.0
-Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.9.2_0.20210429002308_3879420cc921
+Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.9.2_0.20220502022130_f33da4d89646
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.8.1
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/urfave/cli)) = v1.22.1
@@ -141,6 +141,9 @@ install -p -m 0644 contrib/completions/bash/%{name} %{buildroot}%{_datadir}/bash
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Oct 15 2022 Jan Kuparinen <copperi@fedoraproject.org> - 2:1.1.4-1
+- Update to 1.1.4.
+
 * Mon Aug 08 2022 Maxwell G <gotmax@e.email> - 2:1.1.3-1
 - Update to 1.1.3.
 

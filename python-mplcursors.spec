@@ -2,15 +2,13 @@
 %bcond_without doc
 
 Name:           python-%{srcname}
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Interactive data selection cursors for Matplotlib
 
 License:        MIT
 URL:            https://github.com/anntzer/mplcursors
 Source0:        %pypi_source
-# Fix deprecation warnings with Matplotlib 3.6.0
-Patch:          https://github.com/anntzer/mplcursors/commit/a666fd204fca24a42e2fce8cc9207934ba71fd53.patch
 
 BuildArch:      noarch
 
@@ -30,22 +28,18 @@ mplcursors – Interactive data selection cursors for Matplotlib
 %package -n python-%{srcname}-doc
 Summary:        mplcursors documentation
 
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-gallery) >= 0.6
-BuildRequires:  python3dist(pandas)
-BuildRequires:  python3dist(pydata-sphinx-theme)
-
 %description -n python-%{srcname}-doc
 Documentation for mplcursors
 %endif
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-# Work around broken Sphinx check.
-sed -i -e 's/sphinx-gallery==0.9.0/sphinx-gallery==0/' .doc-requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r
+%if %{with doc}
+%pyproject_buildrequires -x docs
+%endif
 
 %build
 %if 0%{fedora} && 0%{fedora} < 36

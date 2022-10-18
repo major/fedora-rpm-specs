@@ -1,5 +1,5 @@
 Name:           bismuth
-Version:        3.1.3
+Version:        3.1.4
 Release:        %autorelease
 Summary:        KDE Plasma extension that lets you tile your windows automatically
 

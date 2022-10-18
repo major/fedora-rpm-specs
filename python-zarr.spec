@@ -1,7 +1,7 @@
 %global srcname zarr
 
 Name:           python-%{srcname}
-Version:        2.11.3
+Version:        2.13.3
 Release:        %autorelease
 Summary:        Chunked, compressed, N-dimensional arrays for Python
 
@@ -40,6 +40,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3dist(numpydoc)
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-copybutton)
 BuildRequires:  python3dist(sphinx-issues)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 

@@ -1,13 +1,13 @@
 %global srcname pyshtools
 
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %global blaslib flexiblas
 %else
 %global blaslib openblas
 %endif
 
 Name:           python-%{srcname}
-Version:        4.10
+Version:        4.10.1
 Release:        %autorelease
 Summary:        Tools for working with spherical harmonics
 

@@ -6,7 +6,7 @@ The fslpy project is a FSL programming library written in Python. It is used by 
 FSLeyes.
 
 Name:           python-fslpy
-Version:        3.9.0
+Version:        3.10.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 

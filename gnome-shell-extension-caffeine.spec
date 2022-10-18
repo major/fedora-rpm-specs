@@ -1,13 +1,13 @@
-%global commit		2394e7f7180542beccaad28cb557045ff07ecd48
-%global shortcommit	%(c=%{commit}; echo ${c:0:7})
-%global gitdate	20220331
-%global fgittag	%{gitdate}.git%{shortcommit}
+#global commit		2394e7f7180542beccaad28cb557045ff07ecd48
+#global shortcommit	%(c=%{commit}; echo ${c:0:7})
+#global gitdate	20220331
+#global fgittag	%{gitdate}.git%{shortcommit}
 %global extdir		caffeine@patapon.info
 %global gschemadir	%{_datadir}/glib-2.0/schemas
 
 Name:		gnome-shell-extension-caffeine
-Version:	39
-Release:	4%{?fgittag:.%{fgittag}}%{?dist}
+Version:	42
+Release:	1%{?fgittag:.%{fgittag}}%{?dist}
 Summary:	Disable the screen saver and auto suspend in gnome shell
 
 License:	GPLv2
@@ -59,6 +59,9 @@ fi
 %{_datadir}/gnome-shell/extensions/%{extdir}
 
 %changelog
+* Sat Oct 15 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 42-1
+- Update to v42
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 39-4.20220331.git2394e7f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

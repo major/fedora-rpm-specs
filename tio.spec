@@ -1,6 +1,6 @@
 Summary:        Simple TTY terminal I/O application
 Name:           tio
-Version:        2.0
+Version:        2.1
 Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://tio.github.io/
@@ -30,7 +30,7 @@ commandline interface to easily connect to TTY devices for basic input/output.
 
 %files
 %license LICENSE
-%doc AUTHORS NEWS README.md
+%doc AUTHORS NEWS README.md example/tiorc
 %{_bindir}/%{name}
 %dir %{_datadir}/bash-completion/
 %dir %{_datadir}/bash-completion/completions/
@@ -38,6 +38,9 @@ commandline interface to easily connect to TTY devices for basic input/output.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Oct 16 2022 Robert Scheck <robert@fedoraproject.org> 2.1-1
+- Upgrade to 2.1 (#2135115)
+
 * Tue Sep 13 2022 Robert Scheck <robert@fedoraproject.org> 2.0-1
 - Upgrade to 2.0 (#2126235)
 
