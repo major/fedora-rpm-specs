@@ -10,15 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%if 0
-%bcond_without       tests
-%bcond_without       syslib
-%else
-%bcond_with          tests
-%bcond_with          syslib
-%endif
-
-%global gh_commit    7d887621e69a0311eb50aed4a16f7044b2b385b9
+%global gh_commit    b34c0e9a93f2cd688c62ce4dfcc69e13b6ce7aa4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -26,13 +18,9 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.4.2
+%global upstream_version 2.4.3
 #global upstream_prever  RC1
 #global upstream_lower   rc1
-
-%global symfony_prefix php-symfony5
-%global symfony_path   %{_datadir}/php/Symfony5
-%global symfony_min    5.4.1
 
 %global _phpunit       %{_bindir}/phpunit9
 %global bashcompdir    %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -66,30 +54,6 @@ BuildRequires:  php(language) >= 7.2.5
 BuildRequires:  php-cli
 BuildRequires:  php-json
 BuildRequires:  pkgconfig(bash-completion)
-%if %{with tests}
-BuildRequires:  (php-composer(composer/ca-bundle)        >= 1.0    with  php-composer(composer/ca-bundle)        <  2)
-BuildRequires:  (php-composer(composer/metadata-minifier) >= 1.0   with  php-composer(composer/metadata-minifier) < 2)
-BuildRequires:  (php-composer(composer/semver)           >= 3.0    with  php-composer(composer/semver)           <  4)
-BuildRequires:  (php-composer(composer/spdx-licenses)    >= 1.2    with  php-composer(composer/spdx-licenses)    <  2)
-BuildRequires:  (php-composer(composer/xdebug-handler)   >= 2.0.2  with  php-composer(composer/xdebug-handler)   <  4)
-BuildRequires:  (php-composer(seld/jsonlint)             >= 1.4    with  php-composer(seld/jsonlint)             <  2)
-BuildRequires:  (php-composer(seld/phar-utils)           >= 1.2    with  php-composer(seld/phar-utils)           <  2)
-BuildRequires:  (php-composer(psr/log)                   >= 1.1    with  php-composer(psr/log)                   <  4)
-BuildRequires:  (php-composer(justinrainbow/json-schema) >= 5.2.11 with  php-composer(justinrainbow/json-schema) <  6)
-BuildRequires:  (php-composer(react/promise)             >= 2.7    with  php-composer(react/promise)             <  3)
-BuildRequires:  (php-composer(composer/pcre)             >= 2      with  php-composer(composer/pcre)             <  4)
-BuildRequires:  %{symfony_prefix}-console    >= %{symfony_min}
-BuildRequires:  %{symfony_prefix}-finder     >= %{symfony_min}
-BuildRequires:  %{symfony_prefix}-filesystem >= %{symfony_min}
-BuildRequires:  %{symfony_prefix}-process    >= %{symfony_min}
-BuildRequires:  php-zip
-# From composer.json, "require-dev": {
-#        "symfony/phpunit-bridge": "^4.2 || ^5.0 || ^6.0",
-#        "phpspec/prophecy": "^1.10"
-BuildRequires:  %{_phpunit}
-# For autoloader
-BuildRequires:  php-fedora-autoloader-devel
-%endif
 
 # From composer.json, "require": {
 #        "php": "^7.2.5 || ^8.0",
@@ -112,30 +76,11 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "symfony/polyfill-php80": "^1.24"
 Requires:       php(language)                           >= 7.2.5
 Requires:       php-cli
-%if %{with syslib}
-Requires:       (php-composer(composer/ca-bundle)        >= 1.0    with  php-composer(composer/ca-bundle)        <  2)
-Requires:       (php-composer(composer/metadata-minifier) >= 1.0   with  php-composer(composer/metadata-minifier) < 2)
-Requires:       (php-composer(composer/semver)           >= 3.0    with  php-composer(composer/semver)           <  4)
-Requires:       (php-composer(composer/spdx-licenses)    >= 1.2    with  php-composer(composer/spdx-licenses)    <  2)
-Requires:       (php-composer(composer/xdebug-handler)   >= 2.0.2  with  php-composer(composer/xdebug-handler)   <  4)
-Requires:       (php-composer(seld/jsonlint)             >= 1.4    with  php-composer(seld/jsonlint)             <  2)
-Requires:       (php-composer(seld/phar-utils)           >= 1.2    with  php-composer(seld/phar-utils)           <  2)
-Requires:       (php-composer(psr/log)                   >= 1.1    with  php-composer(psr/log)                   <  4)
-Requires:       (php-composer(justinrainbow/json-schema) >= 5.2.11 with  php-composer(justinrainbow/json-schema) <  6)
-Requires:       (php-composer(react/promise)             >= 2.7    with  php-composer(react/promise)             <  3)
-Requires:       (php-composer(composer/pcre)             >= 2      with  php-composer(composer/pcre)             <  4)
-Requires:       %{symfony_prefix}-console    >= %{symfony_min}
-Requires:       %{symfony_prefix}-finder     >= %{symfony_min}
-Requires:       %{symfony_prefix}-process    >= %{symfony_min}
-Requires:       %{symfony_prefix}-filesystem >= %{symfony_min}
-# For our autoloader
-Requires:       php-composer(fedora/autoloader)
-%else
 # System certificates
 Requires:       ca-certificates
 # Bundled libraries
 # License MIT
-Provides:       bundled(php-composer-ca-bundle) = 1.3.3
+Provides:       bundled(php-composer-ca-bundle) = 1.3.4
 Provides:       bundled(php-composer-class-map-generator) = 1.0.0
 Provides:       bundled(php-composer-metadata-minifier) = 1.0.0
 Provides:       bundled(php-composer-pcre) = 2.0.0
@@ -149,9 +94,9 @@ Provides:       bundled(php-react-promise) = v2.9.0
 Provides:       bundled(php-seld-jsonlint) = 1.9.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.12
+Provides:       bundled(php-symfony-console) = v5.4.14
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.12
+Provides:       bundled(php-symfony-filesystem) = v5.4.13
 Provides:       bundled(php-symfony-finder) = v5.4.11
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.26.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.26.0
@@ -161,8 +106,8 @@ Provides:       bundled(php-symfony-polyfill-php73) = v1.26.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.26.0
 Provides:       bundled(php-symfony-process) = v5.4.11
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.12
-%endif
+Provides:       bundled(php-symfony-string) = v5.4.14
+
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
 #        "ext-zip": "Enabling the zip extension allows you to unzip archives",
@@ -221,47 +166,6 @@ fi
 rm src/bootstrap.php
 rm src/Composer/vendor/composer/ca-bundle/res/cacert.pem
 
-%if %{with syslib}
-rm -rf src/Composer/vendor
-
-phpab --template fedora --output src/Composer/autoload.php src/Composer
-cat << 'EOF' | tee -a src/Composer/autoload.php
-
-\Fedora\Autoloader\Dependencies::required([
-    [  	/* before symfony which load composer */
-        '%{_datadir}/php/Composer/XdebugHandler3/autoload.php',
-        '%{_datadir}/php/Composer/XdebugHandler2/autoload.php',
-    ],
-    '%{symfony_path}/Component/Console/autoload.php',
-    '%{symfony_path}/Component/Finder/autoload.php',
-    '%{symfony_path}/Component/Process/autoload.php',
-    '%{symfony_path}/Component/Filesystem/autoload.php',
-    '%{_datadir}/php/Seld/JsonLint/autoload.php',
-    '%{_datadir}/php/Seld/PharUtils/autoload.php',
-    '%{_datadir}/php/Composer/CaBundle/autoload.php',
-    '%{_datadir}/php/Composer/Spdx/autoload.php',
-    '%{_datadir}/php/Composer/MetadataMinifier/autoload.php',
-    '%{_datadir}/php/Composer/Semver3/autoload.php',
-    [
-        '%{_datadir}/php/Composer/Pcre3/autoload.php',
-        '%{_datadir}/php/Composer/Pcre2/autoload.php',
-    ], [
-        '%{_datadir}/php/Psr/Log3/autoload.php',
-        '%{_datadir}/php/Psr/Log2/autoload.php',
-        '%{_datadir}/php/Psr/Log/autoload.php',
-    ],
-    '%{_datadir}/php/JsonSchema5/autoload.php',
-    '%{_datadir}/php/React/Promise/autoload.php',
-]);
-EOF
-
-cat << 'EOF' | tee tests/bootstrap.php
-<?php
-require 'Composer/autoload.php';
-\Fedora\Autoloader\Autoload::addPsr0('Composer\\Test\\', __DIR__ . '/');
-EOF
-
-%else
 : symlink autoloader for library
 ln -s vendor/autoload.php src/Composer/autoload.php
 
@@ -287,20 +191,10 @@ php -r '
 		printf("# License %s\n%s\n", $lic, implode("\n", $lib));
 	}
 '
-%endif
 
 : fix reported version
-%if 0%{?gh_date}
-DATE=%{gh_date}
-DATE=${DATE:0:4}-${DATE:4:2}-${DATE:6:2}
-sed -e '/VERSION/s/@package_version@/%{gh_commit}/' \
-    -e '/BRANCH_ALIAS_VERSION/s/@package_branch_alias_version@/%{gh_branch}/' \
-    -e "/RELEASE_DATE/s/@release_date@/$DATE/" \
-    -i src/Composer/Composer.php
-%else
 sed -e '/BRANCH_ALIAS_VERSION/s/@package_branch_alias_version@//' \
     -i src/Composer/Composer.php
-%endif
 
 : check Plugin API version
 php -r '
@@ -341,46 +235,6 @@ ln -sf %{_datadir}/%{name}/LICENSE LICENSE
 install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
-%check
-%if %{with tests} && %{with syslib}
-: Online tests
-rm tests/Composer/Test/Util/RemoteFilesystemTest.php
-
-: Ensure not used
-rm -rf res
-
-: Run test suite
-export BUILDROOT=%{buildroot}
-
-# testSearchWithSpecialChars is online
-# testCreateMap fails on 8.1
-# testOutputIgnoresFormatting use InstalledVersions
-FILTER="--filter '^((?!(testIntegration|testSearchWithSpecialChars|testCreateMap|testOutputIgnoresFormatting)).)*$'"
-
-# Adapt for phunit9
-find tests \
-  -name \*.php \
-  -exec sed -e '/function setUpBeforeClass(/s/$/:void/' \
-            -e '/function tearDownAfterClass(/s/$/:void/' \
-            -e '/function setUp(/s/$/:void/' \
-            -e '/function tearDown(/s/$/:void/' \
-            -i {} \;
-
-# testIntegration may hang on local build
-ret=0
-for cmd in php php74 php80 php81; do
-  if which $cmd; then
-    $cmd -d memory_limit=1G %{_phpunit} \
-      $FILTER \
-      --include-path %{buildroot}%{_datadir}/php  || ret=1
-  fi
-done
-exit $ret
-%else
-: Test suite disabled
-%endif
-
-
 %files
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
@@ -394,6 +248,9 @@ exit $ret
 
 
 %changelog
+* Sat Oct 15 2022 Remi Collet <remi@remirepo.net> - 2.4.3-1
+- update to 2.4.3
+
 * Thu Sep 15 2022 Remi Collet <remi@remirepo.net> - 2.4.2-1
 - update to 2.4.2
 

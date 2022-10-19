@@ -2,10 +2,10 @@
 %bcond_without perl_Text_Template_enables_optional_test
 
 Name:           perl-Text-Template
-Version:        1.60
-Release:        4%{?dist}
+Version:        1.61
+Release:        1%{?dist}
 Summary:        Expand template text with embedded Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Template
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHOUT/Text-Template-%{version}.tar.gz
 BuildArch:      noarch
@@ -22,6 +22,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 # Tests:
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
@@ -55,8 +56,7 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 unset AUTHOR_TESTING
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Mon Oct 17 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.61-1
+- 1.61 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.60-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           ocaml-zmq
 Version:        5.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Mon Oct 17 2022 Jerry James <loganjerry@gmail.com> - 5.1.5-5
+- Rebuild for ocaml-stdint 0.7.1
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 5.1.5-4
 - Rebuild for ocaml-lwt 5.6.1
 

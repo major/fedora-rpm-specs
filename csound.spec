@@ -1,6 +1,12 @@
+%ifarch %{java_arches}
+%global JAVA 1
+%else
+%global JAVA 0
+%endif
+
 Name:    csound
 Version: 6.16.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A sound synthesis language and library
 URL:     http://csound.github.io/
 License: LGPLv2+
@@ -27,8 +33,10 @@ BuildRequires: fltk-fluid
 BuildRequires: fluidsynth-devel
 BuildRequires: gettext-devel
 BuildRequires: jack-audio-connection-kit-devel
+%if %{JAVA}
 BuildRequires: java-devel
 BuildRequires: jpackage-utils
+%endif
 BuildRequires: lame-devel
 BuildRequires: libcurl-devel
 BuildRequires: liblo-devel
@@ -71,6 +79,7 @@ Requires: python3
 Contains Python language bindings for developing Python applications that
 use Csound.
 
+%if %{JAVA}
 %package java
 Summary: Java Csound support
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -80,6 +89,7 @@ Requires: jpackage-utils
 %description java
 Contains Java language bindings for developing and running Java
 applications that use Csound.
+%endif
 
 %package fltk
 Summary: FLTK plugins for Csound
@@ -188,8 +198,12 @@ find html/examples -type f -print0 | xargs -0 chmod a-x
 sed -i 's*//#define PFFFT_SIMD_DISABLE*#define PFFFT_SIMD_DISABLE*' OOps/pffft.c
 %endif
 
+JAVA_VAL=OFF
+%if %{JAVA}
+JAVA_VAL=ON
+%endif
 %cmake -DUSE_LIB64:BOOL=%{uselib64} -DFAIL_MISSING:BOOL=ON \
-       -DBUILD=BUILD_PYTHON_INTERFACE:BOOL=ON -DBUILD_JAVA_INTERFACE:BOOL=ON \
+       -DBUILD=BUILD_PYTHON_INTERFACE:BOOL=ON -DBUILD_JAVA_INTERFACE:BOOL=${JAVA_VAL} \
        -DBUILD_LUA_INTERFACE:BOOL=OFF -DSWIG_ADD_LIBRARY:BOOL=OFF \
        -DPYTHON_MODULE_INSTALL_DIR:STRING="%{python3_sitearch}" \
 %ifarch %{x86}
@@ -208,9 +222,11 @@ sed -i 's*//#define PFFFT_SIMD_DISABLE*#define PFFFT_SIMD_DISABLE*' OOps/pffft.c
 %install
 %cmake_install
 
+%if %{JAVA}
 # Fix the Java installation
 install -dm 755 %{buildroot}%{_javadir}
 (cd %{buildroot}%{_javadir}; ln -s %{_libdir}/%{name}/java/csnd.jar .)
+%endif
 
 # Help the debuginfo generator
 ln -s ../csound_orclex.c Engine/csound_orclex.c
@@ -318,11 +334,13 @@ rm -rf %{buildroot}%{_datadir}/samples/
 %{python3_sitearch}/*csound.py*
 %{python3_sitearch}/__pycache__/
 
+%if %{JAVA}
 %files java
 %{_libdir}/lib_jcsound6.so
 %{_libdir}/lib_jcsound.so.1
 %{_libdir}/csnd6.jar
 %{_javadir}/csnd.jar
+%endif
 
 %files fltk
 %{_libdir}/%{name}/plugins-6.0/libwidgets.so
@@ -357,6 +375,9 @@ rm -rf %{buildroot}%{_datadir}/samples/
 %doc html/
 
 %changelog
+* Mon Oct 17 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 6.16.2-7
+- Stop building java parts on i686 (#2104031)
+
 * Mon Oct 17 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 6.16.2-6
 - Fix FTBFS (properly remove spurious x bits) (#2113161)
 

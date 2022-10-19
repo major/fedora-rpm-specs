@@ -8,7 +8,7 @@
 #
 %bcond_without tests
 
-%global gh_commit    0976a33ca997c803379f9a4641d4942dfb79b2cc
+%global gh_commit    edf3832c05165775589af2fc698b5f9984d4c5f1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mail
@@ -18,7 +18,7 @@
 %global library      Mail
 
 Name:           php-%{gh_project}
-Version:        2.18.0
+Version:        2.19.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -48,24 +48,24 @@ BuildRequires: (php-composer(webmozart/assert)                           >= 1.11
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-crypt": "^3.8.0",
 #        "laminas/laminas-db": "^2.15.0",
-#        "laminas/laminas-servicemanager": "^3.16.0",
-#        "phpunit/phpunit": "^9.5.21",
+#        "laminas/laminas-servicemanager": "^3.19",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
 #        "symfony/process": "^6.0.11",
-#        "vimeo/psalm": "^4.26.0"
+#        "vimeo/psalm": "^4.29"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.8.0  with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15.0 with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.16.0 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 # ignore min version
 BuildRequires: (php-composer(symfony/process)                            >= 4      with php-composer(symfony/process)                            < 6)
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.25
 %global phpunit %{_bindir}/phpunit9
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-iconv": "*",
 #        "laminas/laminas-loader": "^2.8.0",
 #        "laminas/laminas-mime": "^2.10.0",
@@ -210,6 +210,9 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
+- update to 2.19.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.18.0-1
 - update to 2.18.0
 - raise dependency on laminas-mime 2.10

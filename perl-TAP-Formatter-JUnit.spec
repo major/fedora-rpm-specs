@@ -1,8 +1,8 @@
 Name:           perl-TAP-Formatter-JUnit
-Version:        0.15
-Release:        3%{?dist}
+Version:        0.16
+Release:        1%{?dist}
 Summary:        Harness output delegate for JUnit output
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-JUnit
 Source0:        https://cpan.metacpan.org/modules/by-module/TAP/TAP-Formatter-JUnit-%{version}.tar.gz
 BuildArch:      noarch
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 17 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
+- 0.16 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

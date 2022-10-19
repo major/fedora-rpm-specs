@@ -1,5 +1,5 @@
 Name:           bindfs
-Version:        1.17.0
+Version:        1.17.1
 Release:        1%{?dist}
 Summary:        Fuse filesystem to mirror a directory
 License:        GPLv2+
@@ -52,6 +52,9 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Oct 18 2022 Filipe Rosset <rosset.filipe@gmail.com> - 1.17.1-1
+- Update to 1.17.1 fixes rhbz#2135234
+
 * Fri Aug 19 2022 Filipe Rosset <rosset.filipe@gmail.com> - 1.17.0-1
 - Update to 1.17.0 fixes rhbz#2098359
 

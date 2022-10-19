@@ -1,6 +1,6 @@
 # remirepo/Fedora spec file for php-laminas-i18n-resources
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    7d7062849064bb89e7cdd7193c43ef95e95fbe4b
+%global gh_commit    4e1d53bbb24136555c7d91373f7fec57af945a6a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-i18n-resources
@@ -19,8 +19,8 @@
 %global library      Translator
 
 Name:           php-%{gh_project}
-Version:        2.8.0
-Release:        3%{?dist}
+Version:        2.9.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -31,20 +31,22 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~1.0.0",
-#        "phpunit/phpunit": "^9.5"
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "phpunit/phpunit": "^9.5",
+#        "psalm/plugin-phpunit": "^0.17.0",
+#        "vimeo/psalm": "^4.24"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0"
-Requires:       php(language) >= 7.3
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+Requires:       php(language) >= 8.0
 Requires:      (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -108,7 +110,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/I18n/%{library}/autoload.php'
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -139,6 +141,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.9.0-1
+- update to 2.9.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

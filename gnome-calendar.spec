@@ -24,11 +24,9 @@ Patch2:         256.patch
 # https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/257
 Patch3:         257.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2132769
-# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/261
-Patch4:         261.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2132772
-# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/262
-Patch5:         262.patch
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/266
+Patch4:         266.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

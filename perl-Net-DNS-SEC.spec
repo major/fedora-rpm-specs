@@ -1,5 +1,5 @@
 Name:           perl-Net-DNS-SEC
-Version:        1.19
+Version:        1.20
 Release:        4%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        MIT

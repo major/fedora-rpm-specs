@@ -12,7 +12,7 @@
 
 Name:           vte291
 Version:        0.70.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK+ 3 terminal emulator library
 
 # libvte-2.91.so is generated from LGPLv2+ and MIT sources
@@ -179,6 +179,9 @@ sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
 %{_sysconfdir}/profile.d/vte.sh
 
 %changelog
+* Mon Sep 26 2022 David King <amigadave@amigadave.com> - 0.70.0-2
+- Fix GTK4 ABI padding (#2122922)
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 0.70.0-1
 - Update to 0.70.0
 

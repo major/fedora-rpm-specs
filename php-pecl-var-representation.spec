@@ -18,7 +18,7 @@
 %global pecl_name   var_representation
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 0.1.3
+%global upstream_version 0.1.4
 #global upstream_prever  RC1
 
 Summary:        A compact, more readable alternative to var_export
@@ -160,6 +160,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 0.1.4-1
+- update to 0.1.4
+
 * Fri Oct 14 2022 Remi Collet <remi@remirepo.net> - 0.1.3-1
 - update to 0.1.3
 

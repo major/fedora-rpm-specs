@@ -3,8 +3,8 @@
 
 Summary:    The standard Tcl library
 Name:       tcllib
-Version:    1.20
-Release:    2%{?dist}
+Version:    1.21
+Release:    1%{?dist}
 License:    BSD
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
 URL:        https://core.tcl-lang.org/tcllib/doc/trunk/embedded/index.md
@@ -55,12 +55,16 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 %{tcl_sitelib}/%{name}-%{version}
 %{_mandir}/mann/*
 %{_bindir}/dtplite
-%{_bindir}/pt
+%{_bindir}/mkdoc
 %{_bindir}/nns*
 %{_bindir}/page
+%{_bindir}/pt
 %{_bindir}/tcldocstrip
 
 %changelog
+* Mon Oct 17 2022 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 1.21-1
+- Update to new 1.21.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

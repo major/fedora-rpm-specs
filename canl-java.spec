@@ -1,6 +1,6 @@
 Name:		canl-java
 Version:	2.8.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	EMI Common Authentication library - bindings for Java
 
 #		The main parts of the code are BSD
@@ -73,6 +73,9 @@ Javadoc documentation for EMI caNl.
 %license LICENSE.txt
 
 %changelog
+* Mon Oct 17 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.2-2
+- Ignore additional tests that require network
+
 * Wed Sep 14 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.2-1
 - Update to 2.8.2
 

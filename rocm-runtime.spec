@@ -2,8 +2,8 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 5.2
-%global rocm_patch 1
+%global rocm_release 5.3
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
@@ -19,18 +19,17 @@ Patch1:     0002-fix-link-time-ordering-condition.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
-BuildRequires:  clang
+BuildRequires:  clang-devel
 BuildRequires:  cmake
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  hsakmt-devel
 BuildRequires:  hsakmt(rocm) = %{rocm_release}
-%if 0%{?enableimage}
-BuildRequires:  clang-devel
-BuildRequires:  lld-devel
+BuildRequires:  libdrm-devel
+BuildRequires:  libffi-devel
+BuildRequires:  lld
 BuildRequires:  llvm-devel
 BuildRequires:  rocm-device-libs
 BuildRequires:  vim-common
-%endif
 
 %description
 The ROCm Runtime Library is a thin, user-mode API that exposes the necessary
@@ -50,22 +49,21 @@ ROCm Runtime development files
 
 %prep
 %autosetup -n ROCR-Runtime-rocm-%{version} -p1
+#FIXME: rocm-device-libs cannot be found due to fedora changing install location
+sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcode|" \
+	src/image/blit_src/CMakeLists.txt \
+	src/core/runtime/trap_handler/CMakeLists.txt
 
 %build
 %cmake -S src -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-    %{?!enableimage:-DIMAGE_SUPPORT=OFF} \
-    -DBITCODE_DIR="%{_libdir}/amdgcn/bitcode"
+    -DINCLUDE_PATH_COMPATIBILITY=OFF \
+    %{?!enableimage:-DIMAGE_SUPPORT=OFF}
 %cmake_build
 
 
 %install
 %cmake_install
-
-# We install this via license macro instead:
-rm %{buildroot}%{_docdir}/hsa-runtime64/LICENSE.md
-
-rm -rf %{buildroot}/usr/hsa
 
 %ldconfig_scriptlets
 
@@ -73,7 +71,8 @@ rm -rf %{buildroot}/usr/hsa
 %doc README.md
 %license LICENSE.txt
 %{_libdir}/libhsa-runtime64.so.1
-%{_libdir}/libhsa-runtime64.so.1.5.0
+%{_libdir}/libhsa-runtime64.so.1.7.0
+%exclude %{_docdir}/hsa-runtime64/LICENSE.md
 
 %files devel
 %{_includedir}/hsa/
@@ -81,6 +80,12 @@ rm -rf %{buildroot}/usr/hsa
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Tue Oct 04 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-2
+- Fix cmake path bug
+
+* Tue Oct 04 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
+- Update to 5.3.0
+
 * Thu Sep 15 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.2.1-2
 - Rebuild against llvm 15
 

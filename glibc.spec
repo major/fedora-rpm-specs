@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -1191,7 +1191,16 @@ build()
 	        --disable-nscd ||
 		{ cat config.log; false; }
 
-	%make_build -r %{glibc_make_flags}
+	# We enable DT_GNU_HASH and DT_HASH for ld.so and DSOs to improve
+	# compatibility with applications that expect DT_HASH e.g. Epic Games
+	# Easy Anti-Cheat.  This is temporary as applications move to
+	# supporting only DT_GNU_HASH.  This was initially enabled in Fedora
+	# 37.  We must use 'env' because it is the only way to pass, via the
+	# environment, two variables that set the initial Makefile values for
+	# LDFLAGS used to build shared objects and the dynamic loader.
+	env LDFLAGS.so="-Wl,--hash-style=both" \
+		LDFLAGS-rtld="-Wl,--hash-style=both" \
+		%make_build -r %{glibc_make_flags}
 	popd
 }
 
@@ -2184,6 +2193,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Oct 17 2022 Carlos O'Donell <carlos@redhat.com> - 2.36.9000-10
+- Enable ELF DT_HASH for shared objects and the dynamic loader (#2129358)
+
 * Mon Oct 03 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-9
 - Auto-sync with upstream branch master,
   commit 114e299ca66353fa7be1ee45bb4e1307d3de1fa2.

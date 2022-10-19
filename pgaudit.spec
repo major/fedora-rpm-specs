@@ -1,6 +1,6 @@
 Name:		pgaudit
 Version:	1.7.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -10,7 +10,7 @@ Source0:	https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version
 
 BuildRequires: make
 BuildRequires:	gcc
-BuildRequires:	postgresql-server-devel >= 14, postgresql-server-devel < 15
+BuildRequires:	postgresql-server-devel >= 14, postgresql-server-devel < 16
 BuildRequires:	openssl-devel
 
 %{?postgresql_module_requires}
@@ -55,6 +55,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Mon Oct 17 2022 Ondrej Sloup <osloup@redhat.com> - 1.7.0-2
+- Allow PostgreSQL server 15 build requirement
+
 * Wed Oct 12 2022 Ondrej Sloup <osloup@redhat.com> - 1.7.0-1
 - Add pgaudit sql 1.7 removed 1.6.2 and 1.6.1-1.6.2
 - Rebase to the latest upstream version

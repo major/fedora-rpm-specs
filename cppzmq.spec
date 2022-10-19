@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           cppzmq
-Version:        4.8.1
+Version:        4.9.0
 Release:        %autorelease
 Summary:        Header-only C++ binding for libzmq
 
@@ -24,7 +24,6 @@ automate resource management. cppzmq is a light-weight, header-only binding.
 
 %description %{_description}
 
-
 %package devel
 Summary:        %{summary}
 Provides:       %{name}-static = %{version}-%{release}
@@ -33,30 +32,25 @@ Requires:       pkgconfig(libzmq)
 
 %description devel %{_description}
 
-
 %prep
 %autosetup -p1
-
 
 %build
 %cmake
 %cmake_build
 
-
 %install
 %cmake_install
 
-
 %check
 %ctest
-
 
 %files devel
 %doc README.md
 %license LICENSE
 %{_includedir}/zmq*.hpp
 %{_datadir}/cmake/%{name}
-
+%{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:		rocminfo
-Version:	5.2.0
-Release:	2%{?dist}
+Version:	5.3.0
+Release:	1%{?dist}
 Summary:	ROCm system info utility
 
 License:	NCSA
@@ -37,6 +37,9 @@ pathfix.py -i %{__python3} rocm_agent_enumerator
 %install
 %cmake_install
 
+#FIXME:
+chmod 755 %{buildroot}%{_bindir}/*
+
 %files
 %doc README.md
 %license License.txt
@@ -47,6 +50,9 @@ pathfix.py -i %{__python3} rocm_agent_enumerator
 
 
 %changelog
+* Mon Oct 17 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
+- Update to 5.3.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

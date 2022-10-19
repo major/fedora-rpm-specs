@@ -5,22 +5,18 @@ Version:        2.28.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
 #   - Lib/ufo2ft/filters/propagateAnchors.py is Apache-2.0
-License:        MIT and Apache-2.0
+License:        MIT AND Apache-2.0
 URL:            %forgeurl
 Source0:        %{pypi_source %{srcname}}
 
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(fonttools)
-BuildRequires:  python3dist(fonttools[ufo])
-BuildRequires:  python3dist(cffsubr)
-BuildRequires:  python3dist(booleanoperations)
 BuildRequires:  python3dist(ufolib2)
 BuildRequires:  python3dist(defcon)
 
@@ -41,18 +37,18 @@ dependency.}
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname} %_description
 
-# Cannot package extras until python3dist(skia-pathops) is packaged
+# Cannot package “pathops” extra until python3dist(skia-pathops) is packaged
+%pyproject_extras_subpkg -n python3-%{srcname} cffsubr compreffor
 
 %prep
 %forgeautosetup -N
 %patch01 -p1 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x cffsubr,compreffor
 
 
 %build
@@ -68,13 +64,26 @@ Summary:        %{summary}
 # so some tests are expected to fail
 
 %check
-%pytest tests
+# These require the “pathops” extra
+k="${k-}${k+ and }not (IntegrationTest and test_removeOverlaps_pathops)"
+k="${k-}${k+ and }not (IntegrationTest and test_removeOverlaps_CFF_pathops)"
+k="${k-}${k+ and }not (TTFPreProcessorTest and test_custom_filters_as_argument)"
+k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters_as_argument)"
+
+%pytest -k "${k-}" tests
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
  
 %changelog
+* Sat Oct 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.28.0-3
+- Fix SPDX expression (and→AND)
+- Drop obsolete python_provide macro
+- Drop redundant explicit BR’s
+- Package “cffsubr” and “compreffor” extras
+- Skip/xfail fewer tests; move unrelated skips out of fonttoolscu2qu.patch
+
 * Tue Aug 30 2022 Benson Muite <benson_muite@emailplus.org> - 2.28.0-2
 - Update license information as indicated in review
 

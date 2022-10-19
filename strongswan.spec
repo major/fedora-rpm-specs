@@ -31,7 +31,9 @@ BuildRequires:  automake
 BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  systemd
 BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  gmp-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  openldap-devel
@@ -42,7 +44,6 @@ BuildRequires:  libxml2-devel
 BuildRequires:  pam-devel
 BuildRequires:  json-c-devel
 BuildRequires:  libgcrypt-devel
-BuildRequires:  systemd-devel
 BuildRequires:  iptables-devel
 BuildRequires:  libcap-devel
 BuildRequires:  tpm2-tss-devel

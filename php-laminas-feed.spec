@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    a57fdb9df42950d5b7f052509fbdab0d081c6b6d
+%global gh_commit    4d0a7a536b48f698914156ca6633104b3aef2f3b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-feed
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.18.2
+Version:        2.19.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-ctype
 BuildRequires:  php-date
 BuildRequires:  php-dom
@@ -44,41 +44,40 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-tidy
 # From composer, "require-dev": {
-#        "laminas/laminas-cache": "^2.13.2 || ^3.1.3",
-#        "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.0.0",
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "laminas/laminas-db": "^2.13.3",
-#        "laminas/laminas-http": "^2.15",
-#        "laminas/laminas-servicemanager": "^3.7",
-#        "laminas/laminas-validator": "^2.15",
-#        "phpunit/phpunit": "^9.5.5",
+#        "laminas/laminas-cache": "^2.13.2 || ^3.6",
+#        "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.1",
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-db": "^2.15",
+#        "laminas/laminas-http": "^2.16",
+#        "laminas/laminas-validator": "^2.26",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
 #        "psr/http-message": "^1.0.1",
-#        "vimeo/psalm": "^4.24.0"
+#        "vimeo/psalm": "^4.29"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.25
 BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1   with php-composer(psr/http-message)                           < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-escaper)              >= 2.9     with php-autoloader(%{gh_owner}/laminas-escaper)              < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.14.1  with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-cache)                >= 2.7.2   with php-autoloader(%{gh_owner}/laminas-cache)                < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.13.3  with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15    with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15    with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.26    with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "laminas/laminas-escaper": "^2.9",
 #        "laminas/laminas-servicemanager": "^3.14.0",
 #        "laminas/laminas-stdlib": "^3.2.1",
 #        "laminas/laminas-zendframework-bridge": "^1.0"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:       php-dom
 Requires:       php-libxml
 %if ! %{bootstrap}
@@ -189,7 +188,7 @@ exit (class_exists("\\Zend\\%{library}\\Uri") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -210,6 +209,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
+- update to 2.19.0
+- raise dependency on PHP 8.0
+
 * Tue Aug  9 2022 Remi Collet <remi@remirepo.net> - 2.18.2-1
 - update to 2.18.2
 

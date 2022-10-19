@@ -19,7 +19,38 @@ Version:        2.6.7
 Release:        %autorelease -b 5
 Summary:        C++ wrapper for libglade
 
-License:        LGPLv2+
+# Although the COPYING file contains version 2.1 of the LGPL, the copyright
+# statements in the source file headers (e.g. libglade/libglademm.h) read
+# “version 2 of the License, or (at your option) any later version”; therefore,
+# the entire source is LGPL-2.0-or-later, except the following files, which do
+# not contribute to the license of the binary RPMs because they belong to the
+# build system, are Windows-specific, or are otherwise not compiled and/or
+# installed.
+#   • The following are FSFULLR, or since they are derived from the corresponding
+#     Makefile.am files, perhaps more properly (LGPL-2.0-or-later AND FSFULLR):
+#       - Makefile.in */Makefile.in, */*/Makefile.in, and */*/*/Makefile.in
+#   • The following are FSFUL, or since they are derived from the corresponding
+#     configure.in file, perhaps more properly (LGPL-2.0-or-later AND FSFUL):
+#       - configure
+#   • The following are (clearly only) FSFULLR:
+#       - aclocal.m4
+#   • The following are GPL-2.0-or-later:
+#       - scripts/config.guess
+#       - scripts/config.sub
+#       - scripts/depcomp
+#       - scripts/ltmain.sh
+#       - scripts/missing
+#       - MSVC_Net2005/gendef/gendef.cc
+#   • The following are GPL-2.0-only:
+#       - examples/derived/deriveddialog.cc
+#       - examples/derived/deriveddialog.h
+#       - examples/derived/main.cc
+#       - examples/variablesmap/examplewindow.cc
+#       - examples/variablesmap/examplewindow.h
+#       - examples/variablesmap/main.cc
+#   • The following are X11:
+#       - scripts/install-sh
+License:        LGPL-2.0-or-later
 URL:            https://www.gtkmm.org/
 Source0:        https://ftp.gnome.org/pub/GNOME/sources/libglademm/2.6/libglademm-%{version}.tar.bz2
 

@@ -31,7 +31,7 @@
 
 Name:           gap
 Version:        4.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -159,6 +159,15 @@ Suggests:       catdoc
 This package contains the core GAP system.
 
 %package online-help
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Online help for GAP
 Requires:       %{name}-core = %{version}-%{release}
 BuildArch:      noarch
@@ -167,9 +176,16 @@ BuildArch:      noarch
 This package contains the documentation in TeX format needed for GAP's
 online help system.
 
+%package rpm-macros
+Summary:        RPM macros for GAP packages
+
+%description rpm-macros
+This package contains RPM macros for GAP packages.
+
 %package devel
 Summary:        GAP compiler and development files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-rpm-macros%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
 %description devel
@@ -310,6 +326,7 @@ mkdir -p %{buildroot}%{_bindir}
 install -p -m755 gap %{buildroot}%{_bindir}
 install -p -m755 gac %{buildroot}%{_bindir}
 install -p -m755 %{SOURCE2} %{buildroot}%{_bindir}
+
 mkdir -p %{buildroot}%{gapdir}
 cp -a bin %{buildroot}%{gapdir}
 
@@ -319,7 +336,6 @@ rm -f gap gac src config.h
 ln -s %{_bindir}/gap gap
 ln -s %{_bindir}/gac gac
 ln -s %{_includedir}/gap src
-ln -s %{_includedir}/gap/config.h config.h
 cd ../..
 ln -s %{_bindir}/gap gap
 ln -s %{_bindir}/gac gac
@@ -328,7 +344,7 @@ popd
 ## See make install-doc
 # Install the documentation
 mkdir -p %{buildroot}%{gapdir}/doc
-cp -p doc/{gapmacro.tex,make_doc,manualindex,versiondata,*.{bib,lab,pdf,six,xml}} \
+cp -p doc/{gapmacro.tex,manualindex,versiondata,*.{bib,lab,pdf,six,xml}} \
       %{buildroot}%{gapdir}/doc
 for book in hpc ref tut; do
     mkdir -p %{buildroot}%{gapdir}/doc/$book
@@ -509,11 +525,13 @@ make check
 %files online-help
 %{gapdir}/doc/
 
+%files rpm-macros
+%{_rpmconfigdir}/macros.d/macros.%{name}
+
 %files devel
 %{_bindir}/gac
 %{gapdir}/bin/BuildPackages.sh
 %{gapdir}/bin/%{gaparch}/gac
-%{gapdir}/bin/%{gaparch}/config.h
 %{gapdir}/bin/%{gaparch}/src
 %{gapdir}/etc/
 %{gapdir}/gac
@@ -521,7 +539,6 @@ make check
 %{gapdir}/tst/
 %{_includedir}/gap/
 %{_mandir}/man1/gac.1*
-%{_rpmconfigdir}/macros.d/macros.%{name}
 
 %files vim
 %doc etc/vim/debug.vim etc/vim/debugvim.txt etc/vim/README.vim-utils
@@ -535,6 +552,11 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Mon Oct 17 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-2
+- Add rpm-macros subpackage
+- Clarify license of the online-help subpackage
+- Don't ship config.h or make_doc at upstream's request
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-1
 - Version 4.12.0
 - Remove ix86 support

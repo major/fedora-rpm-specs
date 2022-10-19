@@ -1,13 +1,11 @@
-%define		gittag0		v0.9.15
-
 Name:		endless-sky
-Version:	0.9.15
+Version:	0.9.16
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
 URL:		https://%{name}.github.io
-Source0:	https://github.com/%{name}/%{name}/archive/%{gittag0}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:	https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	endless-sky-wrapper
 # Replace /usr/games with /usr/bin and /usr/share/games with /usr/share per
 # https://fedoraproject.org/wiki/SIGs/Games/Packaging.
@@ -65,7 +63,7 @@ LDFLAGS="%{?__global_ldflags}"	\
 	PREFIX=%{_prefix}
 
 %check
-appstream-util validate-relax --nonet %{name}.appdata.xml
+appstream-util validate-relax --nonet io.github.endless_sky.endless_sky.appdata.xml
 desktop-file-validate %{name}.desktop
 
 
@@ -77,7 +75,7 @@ LDFLAGS="%{?__global_ldflags}"	\
 	PREFIX=%{_prefix}	\
 	DESTDIR=%{buildroot}	\
 	install
-install -m644 -D endless-sky.appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+install -m644 -D io.github.endless_sky.endless_sky.appdata.xml %{buildroot}%{_datadir}/appdata/io.github.endless_sky.endless_sky.appdata.xml
 mv %{buildroot}%{_bindir}/%{name}  %{buildroot}%{_bindir}/%{name}.bin
 install -m755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
@@ -95,8 +93,8 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/appdata/io.github.endless_sky.endless_sky.appdata.xml
+%{_datadir}/metainfo/io.github.endless_sky.endless_sky.appdata.xml
 %{_mandir}/man6/%{name}.6.gz
 
 
@@ -106,6 +104,9 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Mon Oct 17 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.9.16-1
+- 0.9.16
+
 * Tue Oct 04 2022 Link Dupont <linkdupont@fedoraproject.org> - 0.9.15-1
 - 0.9.15
 

@@ -14,13 +14,13 @@
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 3.2.7
+%global upstream_version 3.2.9
 #global upstream_prever  RC1
 
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:        BSD
 
@@ -134,9 +134,6 @@ done
 
 
 %check
-rm ?TS/tests/igbinary_073.phpt
-rm ?TS/tests/igbinary_065.phpt
-
 MOD=""
 # drop extension load from phpt
 sed -e '/^extension=/d' -i ?TS/tests/*phpt
@@ -195,6 +192,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 3.2.9-1
+- update to 3.2.9
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 3.2.7-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.0
-Release: 4%{?dist}
+Version: 3.2.1
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+
 URL: http://www.freeradius.org/
 
@@ -27,7 +27,6 @@ Patch3: freeradius-bootstrap-create-only.patch
 Patch4: freeradius-no-buildtime-cert-gen.patch
 Patch5: freeradius-bootstrap-make-permissions.patch
 Patch6: freeradius-ldap-infinite-timeout-on-starttls.patch
-Patch7: freeradius-configure-runstatedir.patch
 
 %global docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
 
@@ -211,23 +210,14 @@ This plugin provides the REST support for the FreeRADIUS server project.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
 
 %build
 # Force compile/link options, extra security for network facing daemon
 %global _hardened_build 1
 
-# Hack: rlm_python3 as stable; prevents building other unstable modules.
-sed 's/rlm_python/rlm_python3/g' src/modules/stable -i
-
 %global build_ldflags %{build_ldflags} $(python3-config --embed --libs)
 export PY3_LIB_DIR="$(python3-config --configdir)"
 export PY3_INC_DIR="$(python3 -c 'import sysconfig; print(sysconfig.get_config_var("INCLUDEPY"))')"
-
-# In order for the above hack to stick, do a fake configure so
-# we can run reconfig before cleaning up after ourselves and running
-# configure for real.
-./configure && make reconfig && (make clean distclean || true)
 
 %configure \
         --libdir=%{_libdir}/freeradius \
@@ -247,6 +237,7 @@ export PY3_INC_DIR="$(python3 -c 'import sysconfig; print(sysconfig.get_config_v
         --with-rlm_python3 \
         --with-rlm-python3-lib-dir=$PY3_LIB_DIR \
         --with-rlm-python3-include-dir=$PY3_INC_DIR \
+        --without-rlm_python \
         --without-rlm_eap_ikev2 \
         --without-rlm_eap_tnc \
         --without-rlm_sql_iodbc \
@@ -434,6 +425,7 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/files/*
 %dir %attr(750,root,radiusd) /etc/raddb/mods-config/preprocess
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/preprocess/*
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/realm/freeradius-naptr-to-home-server.sh
 
 %dir %attr(750,root,radiusd) /etc/raddb/mods-config/sql
 %dir %attr(750,root,radiusd) /etc/raddb/mods-config/sql/counter
@@ -445,6 +437,7 @@ EOF
 # sites-available
 %dir %attr(750,root,radiusd) /etc/raddb/sites-available
 /etc/raddb/sites-available/README
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/sites-available/aws-nlb
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/sites-available/resource-check
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/sites-available/control-socket
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/sites-available/decoupled-accounting
@@ -881,8 +874,9 @@ EOF
 %dir %attr(750,root,radiusd) /etc/raddb/mods-config/sql/main/sqlite
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/queries.conf
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/schema.sql
-%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/process-radacct-refresh.sh
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/process-radacct-schema.sql
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/process-radacct-close-after-reload.pl
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/sql/main/sqlite/process-radacct-new-data-usage-period.sh
 
 %{_libdir}/freeradius/rlm_sql_sqlite.so
 
@@ -898,7 +892,14 @@ EOF
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
 %changelog
-* Tue 20 Sep 2022 Antonio Torres <antorres@redhat.com> - 3.2.0-4
+* Mon Oct 17 2022 Antonio Torres <antorres@redhat.com> - 3.2.1-2
+- Remove hack for Python3 support from specfile
+
+* Mon Oct 17 2022 Antonio Torres <antorres@redhat.com> - 3.2.1-1
+- Update to 3.2.1 upstream release
+  Resolves #2131850
+
+* Tue Sep 20 2022 Antonio Torres <antorres@redhat.com> - 3.2.0-4
 - Remove deprecated pcre-devel dependency
   Resolves #2128292
 

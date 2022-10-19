@@ -4,7 +4,7 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 1
+%global released_kernel 0
 %global baserelease 1
 %global fedora_build %{baserelease}
 
@@ -30,12 +30,11 @@
 ## The not-released-kernel case ##
 %else
 # The next upstream release sublevel (base_sublevel+1)
-# %global upstream_sublevel %(echo $((%{base_sublevel} + 1)))
-%global upstream_sublevel 0
+%global upstream_sublevel %(echo $((%{base_sublevel} + 1)))
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 0
+%global rcrev 1
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -114,7 +113,7 @@ Source5000: patch-%{upstream_major}.%{upstream_sublevel}-rc%{rcrev}.xz
 %endif
 %endif
 
-# Patch1: 
+Patch1: 0001-perf-tools-Fix-man-page-build-wrt-perf-arm-coresight.patch
 
 Name: kernel-tools
 Summary: Assortment of tools for the Linux kernel
@@ -218,7 +217,7 @@ cd linux-%{kversion}
     xzcat %{SOURCE5000} | patch -p1 -F1 -s
 %endif
 
-# %patch1 -p1
+%patch1 -p1
 
 # END OF PATCH APPLICATIONS
 
@@ -535,6 +534,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Oct 17 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.0.0-0.rc1.git0.1
+- Linux v6.1-rc1
+
 * Mon Oct 03 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.0.0-1
 - Linux v6.0
 

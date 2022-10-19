@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 720
+%define patchlevel 777
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -38,7 +38,7 @@ Summary: The VIM editor
 URL:     http://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 License: Vim and MIT
 Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
@@ -972,6 +972,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Mon Oct 17 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.777-1
+- patchlevel 777
+
 * Wed Oct 12 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.720-2
 - the current configure option for Vi is 'tiny'
 

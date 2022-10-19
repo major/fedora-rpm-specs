@@ -2,13 +2,13 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.7
-Release:        2%{?dist}
+Version:        1.2.8
+Release:        1%{?dist}
 Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         fix_tokio_dep.patch
+Patch1:         use-clap-3.patch
 ExclusiveArch:  %{rust_arches}
 BuildRequires:  make
 BuildRequires:  pkg-config
@@ -18,23 +18,24 @@ BuildRequires:  rust-packaging
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  patchelf
+BuildRequires:  (crate(clap/cargo) >= 3.1.0 with crate(clap/cargo) < 4.0)
+BuildRequires:  (crate(clap/default) >= 3.1.0 with crate(clap/default) < 4.0)
+BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 0.10)
+BuildRequires:  (crate(ethtool/default) >= 0.2.2 with crate(ethtool/default) < 0.3)
+BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4)
+BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
+BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
+BuildRequires:  (crate(mptcp-pm/default) >= 0.1.1 with crate(mptcp-pm/default) < 0.2)
+BuildRequires:  (crate(netlink-packet-route/default) >= 0.13.0 with crate(netlink-packet-route/default) < 0.14)
+BuildRequires:  (crate(netlink-packet-utils/default) >= 0.5.1 with crate(netlink-packet-utils/default) < 0.6)
+BuildRequires:  (crate(netlink-sys/default) >= 0.8.3 with crate(netlink-sys/default) < 0.9)
+BuildRequires:  (crate(rtnetlink/default) >= 0.11.0 with crate(rtnetlink/default) < 0.12)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
-BuildRequires:  (crate(rtnetlink/default) >= 0.10.0 with crate(rtnetlink/default) < 0.11.0)
-BuildRequires:  (crate(netlink-packet-route/default) >= 0.12.0 with crate(netlink-packet-route/default) < 0.13.0)
-BuildRequires:  (crate(netlink-packet-utils/default) >= 0.5.1 with crate(netlink-packet-utils/default) < 0.6.0)
-BuildRequires:  (crate(netlink-sys/default) >= 0.8.3 with crate(netlink-sys/default) < 0.9.0)
-BuildRequires:  (crate(ethtool/default) >= 0.2.2 with crate(ethtool/default) < 0.3.0)
-BuildRequires:  (crate(mptcp-pm/default) >= 0.1.1 with crate(mptcp-pm/default) < 0.2.0)
+BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 0.10)
 BuildRequires:  (crate(tokio/macros) >= 1.18 with crate(tokio/macros) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.18 with crate(tokio/rt) < 2.0)
-BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3.0)
-BuildRequires:  (crate(clap/default) >= 3.1.2 with crate(clap/default) < 4.0)
-BuildRequires:  (crate(clap/cargo) >= 3.1.2 with crate(clap/cargo) < 4.0)
-BuildRequires:  (crate(serde_yaml/default) >= 0.8 with crate(serde_yaml/default) < 0.9)
-BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 0.10)
-BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
 
 %description
 Unified interface for Linux network state querying.
@@ -132,7 +133,4 @@ patchelf --set-soname libnispor.so.1 \
 %ghost %{cargo_registry}/%{name}-%{version_no_tilde}/Cargo.toml
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog

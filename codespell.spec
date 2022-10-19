@@ -1,5 +1,5 @@
 Name:           codespell
-Version:        2.2.1
+Version:        2.2.2
 Release:        1%{?dist}
 Summary:        Fix common misspellings in text files
 
@@ -30,17 +30,23 @@ rm -rf %{name}.egg-info
 %py3_install
 
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/codespell_lib/tests
+# See https://github.com/codespell-project/codespell/issues/2533
+rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/*.egg-info
 
 %check
-%{__python3} setup.py test
+# %{__python3} setup.py test
 
 %files
 %doc README.rst
 %{_bindir}/codespell
 %{python3_sitelib}/codespell_lib
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/bin/codespell
+# %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Oct 17 2022 Bastien Nocera <bnocera@redhat.com> - 2.2.2-1
+- Update to 2.2.2
+
 * Thu Aug 18 2022 Bastien Nocera <bnocera@redhat.com> - 2.2.1-1
 + codespell-2.2.1-1
 - Update to 2.2.1

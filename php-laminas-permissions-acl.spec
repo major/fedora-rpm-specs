@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    e927ae0a3001655fea97eb240eeea9d10638e82f
+%global gh_commit    0d88f430953fbcbce382f09090db28905b90d60f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-permissions-acl
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.10.0
+Version:        2.12.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library}/%{subproj} component
 
@@ -35,25 +35,25 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-spl
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "laminas/laminas-servicemanager": "^3.15.1",
-#        "phpunit/phpunit": "^9.5.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-servicemanager": "^3.19",
+#        "phpunit/phpunit": "^9.5.25",
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.24.0"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.15.1 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+#        "vimeo/psalm": "^4.29"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0"
-Requires:       php(language) >= 7.4
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
@@ -136,7 +136,7 @@ exit (class_exists("\\Zend\\%{library}\\%{subproj}\\Acl") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -159,6 +159,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
 - update to 2.10.0
 - raise dependency on PHP 7.4

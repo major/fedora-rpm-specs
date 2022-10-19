@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-uri
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    7e837dc15c8fd3949df7d1213246fd7c8640032b
+%global gh_commit    663b050294945c7345cc3a61f3ca661d5f9e1f80
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-uri
@@ -23,8 +23,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.9.1
-Release:        3%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -35,26 +35,26 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "^2.2.1",
-#        "phpunit/phpunit": "^9.5.5"
+#        "laminas/laminas-coding-standard": "^2.4.0",
+#        "phpunit/phpunit": "^9.5.25"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-escaper)              >= 2.9   with php-autoloader(%{gh_owner}/laminas-escaper)              < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15  with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-escaper": "^2.9",
 #        "laminas/laminas-validator": "^2.15"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-escaper)              >= 2.9   with php-autoloader(%{gh_owner}/laminas-escaper)              < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15  with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -134,7 +134,7 @@ exit (class_exists("\\Zend\\%{library}\\File") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -155,6 +155,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
+- update to 2.10.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 # Note: 1.1.7 -> 1.2.0: just the upstream URL changed
 Name:		rubygem-%{gem_name}
-Version:	2.0.1
-Release:	201%{?dist}
+Version:	2.0.2
+Release:	200%{?dist}
 
 Summary:	Power Assert for Ruby
 License:	Ruby or BSD
@@ -88,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Oct 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-200
+- 2.0.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

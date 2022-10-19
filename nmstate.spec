@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.1.4
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+
@@ -17,22 +17,22 @@ BuildRequires:  gnupg2
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  rust-packaging
+BuildRequires:  (crate(clap/cargo) >= 3.1 with crate(clap/cargo) < 4.0)
+BuildRequires:  (crate(clap/default) >= 3.1 with crate(clap/default) < 4.0)
+BuildRequires:  (crate(ctrlc/default) >= 3.2 with crate(ctrlc/default) < 4.0)
+BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 1.0)
 BuildRequires:  (crate(ipnet/default) >= 2.5 with crate(ipnet/default) < 3.0)
+BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
+BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
+BuildRequires:  (crate(nispor/default) >= 1.2.8 with crate(nispor/default) < 2.0)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
-BuildRequires:  (crate(serde_yaml/default) >= 0.8 with crate(serde_yaml/default) < 0.9)
+BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 1.0)
 BuildRequires:  (crate(uuid/v4) >= 1.1 with crate(uuid/v4) < 2.0)
 BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
-BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
-BuildRequires:  (crate(clap/default) >= 3.1 with crate(clap/default) < 4.0)
-BuildRequires:  (crate(clap/cargo) >= 3.1 with crate(clap/cargo) < 4.0)
-BuildRequires:  (crate(ctrlc/default) >= 3.2 with crate(ctrlc/default) < 4.0)
-BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default) < 1.0)
-BuildRequires:  (crate(nispor/default) >= 1.2.7 with crate(nispor/default) < 2.0)
 
 %description
 Nmstate is a library with an accompanying command line tool that manages host

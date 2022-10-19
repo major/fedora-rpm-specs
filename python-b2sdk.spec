@@ -1,14 +1,13 @@
 %global srcname b2sdk
 
 Name:           python-%{srcname}
-Version:        1.14.0
-Release:        4%{?dist}
+Version:        1.18.0
+Release:        1%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
 URL:            https://github.com/Backblaze/b2-sdk-python
 Source0:        %{pypi_source}
-Patch0:         relax-setuptools_scm.patch
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -32,10 +31,11 @@ BuildRequires:  python3-setuptools_scm
 %prep
 %setup -q -n %{srcname}-%{version}
 rm -rf %{srcname}.egg-info
-%patch0 -p1
+
 
 %build
 %py3_build
+
 
 %install
 %py3_install
@@ -43,12 +43,17 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %files -n python3-%{srcname}
+%doc CHANGELOG.md
 %doc README.md
 %license LICENSE
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}/
 
+
 %changelog
+* Mon Oct 17 2022 Jonny Heggheim <hegjon@gmail.com> - 1.18.0-1
+- Updated to version 1.18.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

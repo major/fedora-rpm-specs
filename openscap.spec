@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPLv2+
@@ -36,6 +36,7 @@ BuildRequires:  systemd
 BuildRequires:  perl-XML-XPath
 BuildRequires:  bzip2
 %endif
+BuildRequires:  systemd-rpm-macros
 Requires:       bash
 Requires:       bzip2-libs
 Requires:       dbus
@@ -218,6 +219,9 @@ ln -sf ../oscap-remediate.service %{buildroot}%{_unitdir}/system-update.target.w
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Mon Oct 17 2022 Jan Černý <jcerny@redhat.com> - 1:1.3.6-11
+- Add systemd-rpm-macros to BuildRequires (rhbz#2126078)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

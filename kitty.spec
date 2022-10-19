@@ -11,7 +11,7 @@
 %bcond_without doc
 
 Name:           kitty
-Version:        0.26.3
+Version:        0.26.4
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 
@@ -39,7 +39,7 @@ BuildRequires:  lcms2-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  librsync-devel
 BuildRequires:  ncurses
-BuildRequires:  python3-devel >= 3.7
+BuildRequires:  python3-devel >= 3.8
 BuildRequires:  wayland-devel
 
 BuildRequires:  python3dist(setuptools)

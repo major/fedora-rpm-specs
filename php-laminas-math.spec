@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-math
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    146d8187ab247ae152e811a6704a953d43537381
+%global gh_commit    5770fc632a3614f5526632a8b70f41b65130460e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-math
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.5.0
-Release:        3%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-mbstring
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires:  php-bcmath
@@ -44,18 +44,18 @@ BuildRequires:  php-spl
 # test suite hangs without (need investigation)
 BuildRequires:  php-mcrypt
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~1.0.0",
-#        "phpunit/phpunit": "^9.5.5"
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "phpunit/phpunit": "^9.5.25"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.25
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 %endif
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-mbstring": "*"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:       php-mbstring
 Requires:      (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From phpcompatinfo report for version 3.2.0
@@ -137,7 +137,7 @@ if [ "$(id -un)" != "remi" ]; then
   filter="--filter '^((?!(testRandFloat)).)*$'"
 fi
 
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -167,6 +167,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 3.6.0-1
+- update to 3.6.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

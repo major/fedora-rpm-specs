@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.54
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -73,6 +73,7 @@ Source45: config.layout
 Source46: apachectl.sh
 Source47: apachectl.xml
 Source48: apache-poweredby.png
+Source49: httpd.sysusers
 
 # build/scripts patches
 Patch2: httpd-2.4.43-apxs.patch
@@ -111,6 +112,7 @@ BuildRequires: gcc, autoconf, pkgconfig, findutils, xmlto
 BuildRequires: perl-interpreter, perl-generators, systemd-devel
 BuildRequires: zlib-devel, libselinux-devel, lua-devel, brotli-devel
 BuildRequires: apr-devel >= 1.5.0, apr-util-devel >= 1.5.0
+BuildRequires: systemd-rpm-macros
 %if %{with pcre2}
 BuildRequires: pcre2-devel
 %endif
@@ -122,9 +124,7 @@ Requires: system-logos(httpd-logo-ng)
 Provides: webserver
 Requires: httpd-core = 0:%{version}-%{release}
 Recommends: mod_http2, mod_lua
-Requires(preun): systemd-units
-Requires(postun): systemd-units
-Requires(post): systemd-units
+%{?systemd_requires}
 
 %description
 The Apache HTTP Server is a powerful, efficient, and extensible
@@ -173,7 +173,7 @@ also be found at https://httpd.apache.org/docs/2.4/.
 %package filesystem
 Summary: The basic directory layout for the Apache HTTP Server
 BuildArch: noarch
-Requires(pre): /usr/sbin/useradd
+%{?sysusers_requires_compat}
 
 %description filesystem
 The httpd-filesystem package contains the basic directory layout
@@ -602,6 +602,9 @@ touch -r $RPM_BUILD_ROOT%{_bindir}/apxs \
       $RPM_BUILD_ROOT%{_libdir}/httpd/build/vendor-apxs
 chmod 755 $RPM_BUILD_ROOT%{_libdir}/httpd/build/vendor-apxs
 
+# Fix content dir in sysusers file and install it
+install -p -D -m 0644 %{SOURCE49} %{buildroot}%{_sysusersdir}/httpd.conf
+
 # Remove unpackaged files
 rm -vf \
       $RPM_BUILD_ROOT%{_libdir}/*.exp \
@@ -617,11 +620,7 @@ rm -vf \
 rm -rf $RPM_BUILD_ROOT/etc/httpd/conf/{original,extra}
 
 %pre filesystem
-getent group apache >/dev/null || groupadd -g 48 -r apache
-getent passwd apache >/dev/null || \
-  useradd -r -u 48 -g apache -s /sbin/nologin \
-    -d %{contentdir} -c "Apache" apache
-exit 0
+%sysusers_create_compat %{SOURCE49}
 
 %post
 %systemd_post httpd.service htcacheclean.service httpd.socket
@@ -785,6 +784,7 @@ exit $rv
 %dir %{contentdir}/icons
 %attr(755,root,root) %dir %{_unitdir}/httpd.service.d
 %attr(755,root,root) %dir %{_unitdir}/httpd.socket.d
+%{_sysusersdir}/httpd.conf
 
 %files tools
 %{_bindir}/*
@@ -837,6 +837,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Thu Oct 13 2022 Luboš Uhliarik <luhliari@redhat.com> - 2.4.54-6
+- Provide a sysusers.d file to get user() and group() provides (#2134430)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.54-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    aa72a694d79f01ef1252b276ca9930158c3b877d
+%global gh_commit    c4ceeb080f8d080006616072d2926949b3e5b9ea
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-serializer
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.13.0
-Release:        2%{?dist}
+Version:        2.14.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -34,33 +34,33 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-dom
 BuildRequires:  php-libxml
 BuildRequires:  php-pcre
 BuildRequires:  php-simplexml
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "laminas/laminas-math": "^3.3",
-#        "laminas/laminas-servicemanager": "^3.6",
-#        "phpunit/phpunit": "^9.3"
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-math": "^3.6.0",
+#        "laminas/laminas-servicemanager": "^3.19.0",
+#        "phpunit/phpunit": "^9.5.25"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-json)               >= 3.1    with php-autoloader(%{gh_owner}/laminas-json)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)             >= 3.2    with php-autoloader(%{gh_owner}/laminas-stdlib)             < 4)
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-math)               >= 3.3    with php-autoloader(%{gh_owner}/laminas-math)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)     >= 3.6    with php-autoloader(%{gh_owner}/laminas-servicemanager)     < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)     >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)     < 4)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0|| ~8.1.0"",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-json": "^3.1",
 #        "laminas/laminas-stdlib": "^3.2"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-json)               >= 3.1    with php-autoloader(%{gh_owner}/laminas-json)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)             >= 3.2    with php-autoloader(%{gh_owner}/laminas-stdlib)             < 4)
@@ -148,7 +148,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -176,6 +176,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-socketio
-Version:        5.7.1
+Version:        5.7.2
 Release:        %autorelease
 Summary:        Socket.IO server
 

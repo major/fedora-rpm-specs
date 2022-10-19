@@ -4,8 +4,8 @@
 %bcond_without ikiwiki
 
 Name:           git-annex
-Version:        10.20220525
-Release:        3%{?dist}
+Version:        10.20221003
+Release:        1%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPLv3+
@@ -228,6 +228,9 @@ popd
 
 
 %changelog
+* Mon Oct 17 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 10.20221003-1
+- https://hackage.haskell.org/package/git-annex-10.20221003/changelog
+
 * Wed Jul 27 2022 Dusty Mabe <dusty@dustymabe.com> - 10.20220525-3
 - Require git-core package instead of git
 

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-json
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    9a0ce9f330b7d11e70c4acb44d67e8c4f03f437f
+%global gh_commit    7a8a1d7bf2d05dd6c1fbd7c0868d3848cf2b57ec
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-json
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.3.0
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires:  php-json
 BuildRequires:  php-mbstring
@@ -42,18 +42,18 @@ BuildRequires:  php-pcre
 BuildRequires:  php-reflection
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "^2.2.1",
+#        "laminas/laminas-coding-standard": "^2.4.0",
 #        "laminas/laminas-stdlib": "^2.7.7 || ^3.1",
-#        "phpunit/phpunit": "^9.3"
-BuildRequires:  phpunit9 >= 9.3
+#        "phpunit/phpunit": "^9.5.25"
+BuildRequires:  phpunit9 >= 9.5.25
 BuildRequires: (php-composer(%{gh_owner}/laminas-stdlib) >= 3.1 with php-composer(%{gh_owner}/laminas-stdlib) < 4)
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
-Requires:       php(language) >= 7.3
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+Requires:       php(language) >= 8.0
 Requires:      (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-composer(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
 #        "laminas/laminas-json-server": "For implementing JSON-RPC servers",
@@ -133,7 +133,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/autoload.php';
 EOF
 
 ret=0
-for cmd in php php73 php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -160,6 +160,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

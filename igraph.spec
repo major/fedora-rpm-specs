@@ -8,14 +8,13 @@
 %endif
 
 Name:               igraph
-Version:            0.10.1
+Version:            0.10.2
 Release:            1%{?dist}
 Summary:            Library for creating and manipulating graphs
 
 License:             GPLv2+
 URL:                http://igraph.sourceforge.net/
 Source0:            https://github.com/igraph/igraph/releases/download/%{version}/igraph-%{version}.tar.gz
-Patch0:             29c9505a7543eeffe06275830a54301b66886620.patch
 
 BuildRequires:      gcc
 BuildRequires:      gcc-c++
@@ -40,8 +39,6 @@ documentation needed to develop application with %{name}.
 
 %prep
 %setup -q
-
-%patch0 -p1
 
 %build
 %cmake \
@@ -85,6 +82,9 @@ export FLEXIBLAS=netlib
 %exclude %{_mandir}/man3/igraph.3*
 
 %changelog
+* Mon Oct 17 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.10.2-1
+- 0.10.2
+
 * Thu Sep 08 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.10.1-1
 - 0.10.1
 

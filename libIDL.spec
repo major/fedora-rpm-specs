@@ -4,7 +4,33 @@ Version:        0.8.14
 %global so_version 0
 Release:        %autorelease
 
-License:        LGPLv2+
+# The entire source is LGPL-2.0-or-later, except:
+#   • The following are GPL-3.0-or-later:
+#       - texinfo.tex
+#       - libIDL2.info
+#       - libIDL2.texi
+#     The generated HTML documentation is also derived from texinfo.tex, and is
+#     therefore also GPL-3.0-or-later. These files comprise the entire contents
+#     of the -doc subpackage.
+#
+# Additionally, the following files do not contribute to the license of the
+# binary RPMs because they belong to the build system or are otherwise not
+# compiled and/or installed.
+#   • The following are FSFULLR, or since they are derived from the corresponding
+#     Makefile.am files, perhaps more properly (LGPL-2.0-or-later AND FSFULLR):
+#       - Makefile.in and */Makefile.in
+#   • The following are FSFUL, or since they are derived from the corresponding
+#     configure.in file, perhaps more properly (LGPL-2.0-or-later AND FSFUL):
+#       - configure
+#   • The following are (clearly only) FSFULLR:
+#       - aclocal.m4
+#   • The following are GPL-2.0-or-later:
+#       - config.guess
+#       - config.sub
+#       - depcomp
+#       - ltmain.sh
+#       - missing
+License:        LGPL-2.0-or-later
 %global minorversion %(echo '%{version}' | cut -d . -f 1-2)
 URL:            https://download.gnome.org/sources/libIDL/%{minorversion}/
 Source0:        %{url}/libIDL-%{version}.tar.bz2
@@ -77,6 +103,7 @@ programs that use libIDL.
 
 %package doc
 Summary:        Documentation for libIDL
+License:        GPL-3.0-or-later
 
 BuildArch:      noarch
 
@@ -128,8 +155,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files doc
-%license COPYING
-
 %{_infodir}/libIDL2.info*
 
 %{_pkgdocdir}

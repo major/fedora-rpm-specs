@@ -6,14 +6,25 @@ Summary:        C++ implementation of the Jupyter kernel protocol
 License:        BSD
 URL:            https://github.com/jupyter-xeus/xeus
 Source0:        https://github.com/jupyter-xeus/xeus/archive/%{version}/%{name}-%{version}.tar.gz
+# Backport to make further backports easier
+# https://github.com/jupyter-xeus/xeus/pull/292
+Patch:          0001-switched-from-gtest-to-doctest-292.patch
+# https://github.com/jupyter-xeus/xeus/pull/298
+Patch:          0002-Never-delete-context-before-sockets.patch
+# Backport a refactor that only adds API, but leave out the documentation
+# changes, plus a few later bug fixes.
+# https://github.com/jupyter-xeus/xeus/pull/285
+# https://github.com/jupyter-xeus/xeus/pull/314
+# https://github.com/jupyter-xeus/xeus/pull/315
+Patch:          0003-Fix-non-standard-messages.patch
 
 BuildRequires:  cmake >= 3.8
 BuildRequires:  cmake(cppzmq) >= 4.3.0
 BuildRequires:  cmake(nlohmann_json) >= 3.2.0
 BuildRequires:  cmake(xtl) >= 0.7
+BuildRequires:  doctest-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-BuildRequires:  gtest-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  make
 BuildRequires:  openssl-devel >= 1.0.1

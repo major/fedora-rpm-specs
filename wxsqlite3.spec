@@ -8,7 +8,7 @@
 
 Name:           wxsqlite3
 Version:        4.8.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
 License:        wxWidgets
@@ -89,7 +89,9 @@ chmod -x LICENCE.txt readme.md
 %build
 #autoreconf --install --force
 autoreconf
-%configure --enable-shared=yes --enable-static=no
+%configure --enable-shared=yes --enable-static=no --enable-codec=chacha20 \
+          --enable-codec=sqlcipher --enable-codec=rc4 --enable-codec=aes256 \
+          --enable-codec=aes128
 # use correct wx-config file
 %if 0%{?fedora} >= 37
 sed -i -e 's|WX_CONFIG_NAME=wx-config|WX_CONFIG_NAME=wx-config-3.2|g' configure
@@ -137,6 +139,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Oct 17 2022 Martin Gansser <martinkg@fedoraproject.org> 4.8.2-6
+- Update wxsqlite3.spec to enable encryption
+
 * Fri Aug 12 2022 Martin Gansser <martinkg@fedoraproject.org> 4.8.2-5
 - Use correct wx-config file in configure
 

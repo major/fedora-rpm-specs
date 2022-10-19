@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.88
+Version: 10.89
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -508,6 +508,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Oct 11 2022 Nick Clifton  <nickc@redhat.com> - 10.89-1
+- Libannocheck: Replace libannocheck_version variable with LIBANNOCHECK_VERSION define.
+
 * Tue Oct 11 2022 Nick Clifton  <nickc@redhat.com> - 10.88-1
 - Libannocheck: Remove 'Requires binutils-devel' from libannocheck.pc.
 

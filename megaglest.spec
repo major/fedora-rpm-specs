@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.13.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+ and GPL+
 Url:		http://megaglest.org/
@@ -52,6 +52,11 @@ Patch3:		%{name}-lua.patch
 Patch4:		%{name}-underlink.patch
 # Prevent multiple definitions of symbols
 Patch5:		%{name}-feathery_ftp.patch
+# Fix lua version ordering so 5.4 is preferred over 5.3
+Patch6:		%{name}-fix-lua-version-ordering.patch
+# Ignore GLEW_ERROR_NO_GLX_DISPLAY (we can continue with this on Wayland)
+Patch7:		%{name}-ignore-GLEW_ERROR_NO_GLX_DISPLAY.patch
+
 
 %description
 MegaGlest is an entertaining free (freeware and free software) and
@@ -72,6 +77,8 @@ game at no cost.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 mkdir -p %{_vpath_builddir}
@@ -97,6 +104,10 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Oct 17 2022 Tom Callaway <spot@fedoraproject.org> - 3.13.0-14
+- fix lua weighting so that it prefers the latest 5.4 over 5.3
+- fix err check on glewInit to ignore GLEW_ERROR_NO_GLX_DISPLAY
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
