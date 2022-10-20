@@ -1,5 +1,5 @@
 Name:		perl-B-COW
-Version:	0.005
+Version:	0.006
 Release:	1%{?dist}
 Summary:	Additional B helpers to check Copy On Write status
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -72,6 +72,10 @@ make test
 %{_mandir}/man3/B::COW.3*
 
 %changelog
+* Tue Oct 18 2022 Paul Howarth <paul@city-fan.org> - 0.006-1
+- Update to 0.006
+  - Disable prototypes to silence warning
+
 * Sat Oct 15 2022 Paul Howarth <paul@city-fan.org> - 0.005-1
 - Update to 0.005
   - Add version to Test::More use to ensure correct version

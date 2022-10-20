@@ -2,7 +2,7 @@
 %bcond_without perl_HTTP_Message_enables_Clone
 
 Name:           perl-HTTP-Message
-Version:        6.37
+Version:        6.40
 Release:        1%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0
@@ -20,7 +20,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(base)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Compress::Raw::Zlib)
 BuildRequires:  perl(Encode) >= 3.01
@@ -138,6 +138,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 18 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.40-1
+- 6.40 bump
+
 * Wed Aug 17 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.37-1
 - 6.37 bump
 

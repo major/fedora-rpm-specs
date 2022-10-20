@@ -2,7 +2,7 @@
 %global kf5_version_min 5.98
 
 Name:    qqc2-breeze-style
-Version: 5.26.0
+Version: 5.26.1
 Release: 1%{?dist}
 Summary: QtQuickControls2 breeze style
 
@@ -68,6 +68,9 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %{_kf5_libdir}/cmake/KF5QQC2BreezeStyle/
 
 %changelog
+* Tue Oct 18 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.1-1
+- 5.26.1
+
 * Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
 - 5.26.0
 

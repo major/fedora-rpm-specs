@@ -1,10 +1,14 @@
 Name: jhead
 Version: 3.06.0.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Tool for displaying EXIF data embedded in JPEG images
 License: Public Domain
 URL: http://www.sentex.net/~mwandel/jhead/
 Source0: https://codeload.github.com/Matthias-Wandel/jhead/tar.gz/refs/tags/%{version}#/jhead-%{version}.tar.gz
+# Based on https://github.com/Matthias-Wandel/jhead/pull/57 with
+# minimal whitespace changes to apply.
+# CVE-2022-41751
+Patch0: almost-57.patch
 %if 0%{?rhel} == 6
 Requires: libjpeg-turbo
 %else
@@ -19,6 +23,7 @@ JPEG images, such as the images produced by most digital cameras.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
@@ -35,6 +40,9 @@ cp -p jhead.1 ${RPM_BUILD_ROOT}/%{_mandir}/man1/
 %{_mandir}/man?/*
 
 %changelog
+* Tue Oct 18 2022 Adrian Reber <adrian@lisas.de> - 3.06.0.1-5
+- added patches to fix CVE-2022-41751
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.06.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

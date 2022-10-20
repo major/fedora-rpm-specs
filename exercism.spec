@@ -3,7 +3,7 @@
 
 # https://github.com/exercism/cli
 %global goipath         github.com/exercism/cli
-Version:                3.0.13
+Version:                3.1.0
 
 %gometa
 
@@ -15,7 +15,7 @@ Version:                3.0.13
 #global godocs          RELEASE.md CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           exercism
-Release:        10%{?dist}
+Release:        %autorelease
 Summary:        Exercism command-line interface
 
 License:        MIT
@@ -24,6 +24,8 @@ Source0:        %{gosource}
 
 # Remove the github.com/inconshreveable/go-update dependency
 Patch0001:      0001-Disable-self-update.patch
+# https://github.com/exercism/cli/pull/1066
+Patch0002:      0002-Fix-tests-with-Go1.17.patch
 
 BuildRequires:  golang(github.com/blang/semver)
 BuildRequires:  golang(github.com/spf13/cobra)
@@ -47,7 +49,7 @@ Python or Ruby environment simply to fetch and submit exercises.
 
 %prep
 %goprep
-%patch1 -p1
+%autopatch -p1
 
 
 %build
@@ -88,57 +90,4 @@ install -Dpm0644 shell/exercism_completion.zsh %{buildroot}%{_datadir}/zsh/site-
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 3.0.13-9
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Fri Jun 17 2022 Robert-André Mauchin <zebob.m@gmail.com> - 3.0.13-8
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Mar 01 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.0.13-3
-- Move fish completions to vendor directory (#1733321)
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 03 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.0.13-1
-- Update to latest version
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jul 10 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.0.12-1
-- Update to latest version
-- Add fish completions
-- Update to latest Go macros
-
-* Sat Feb 09 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 3.0.11-1
-- Update to latest version
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Sep 06 2017 Clément David <c.david86@gmail.com> - 2.4.1-1
-- First package for Fedora
+%autochangelog

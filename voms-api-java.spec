@@ -1,20 +1,26 @@
+%if %{?rhel}%{!?rhel:0} == 7
+%global java_arches ppc64le x86_64
+%endif
+
 Name:		voms-api-java
 Version:	3.3.2
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	ASL 2.0
 URL:		https://wiki.italiangrid.it/VOMS
 Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Disable failing tests
-# IllegalState object explicit - implicit expected.
-# https://github.com/italiangrid/voms-api-java/issues/29
+#		Disable failing tests
+#		IllegalState object explicit - implicit expected.
+#		https://github.com/italiangrid/voms-api-java/issues/29
 Patch0:		%{name}-disable-some-tests.patch
-# Disable failing multi-thread test
-Patch1:		%{name}-no-mt-test.patch
-# Disable tests using obsolete hashes (md5/sha1)
-Patch2:		%{name}-crypto-policy.patch
+#		Disable tests that fail due to expired certificates
+#		https://github.com/italiangrid/voms-api-java/issues/30
+#		2022-09-24 (test0.cert.pem, wilco_cnaf_infn_it.cert.pem)
+Patch1:		%{name}-expired-2022-09-24.patch
+#		2022-10-08 (test_host_cnaf_infn_it.cert.pem)
+Patch2:		%{name}-expired-2022-10-08.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -85,6 +91,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Mon Oct 17 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-10
+- Disable tests that fail due to expired certificates
+
 * Wed Sep 28 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-9
 - Disable failing multi-thread test
 - Disable tests using obsolete hashes (md5/sha1)

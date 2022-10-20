@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
-Version:        2.25.0
-Release:        5%{?dist}
+Version:        2.27.0
+Release:        1%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/Alexandria
 Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{name}-%{version}.tar.gz
@@ -9,8 +9,8 @@ Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{nam
 # It is downloaded from:
 # https://upload.cppreference.com/w/File:cppreference-doxygen-web.tag.xml
 Source1:        cppreference-doxygen-web.tag.xml
-Patch0:         ascii_reader_i386.patch
-Patch1:         drop-isEqual.patch
+Patch0:         drop-isEqual.patch
+Patch1:         i686.patch
 
 %global elements_version 6.0.1
 
@@ -191,6 +191,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Tue Oct 18 2022 Alejandro Alvarez Ayllon <aalvarez@fedoraproject.org> - 2.27.0-1
+- Alexandria 2.27.0
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.25.0-5
 - Rebuild for gcc / f38 (needed to build sourcextractor++)
 

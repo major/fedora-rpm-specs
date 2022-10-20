@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.21%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.22%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -41,6 +41,9 @@ Patch2:         qtwebkit_libsuffix.patch
 Patch3:         qtwebkit_python.patch
 # Fix build with bison 3.7
 Patch4:         qtwebkit-bison37.patch
+# From https://github.com/WebKit/WebKit/commit/c7d19a492d97f9282a546831beb918e03315f6ef
+# Ruby 3.2 removes Object#=~ completely
+Patch5:         webkit-offlineasm-warnings-ruby27.patch
 
 BuildArch:      noarch
 
@@ -248,6 +251,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Tue Oct 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.212.0-0.22.alpha4
+- Patch for offlineasm to support ruby 3.2 wrt Object#=~ removal
+
 * Fri Aug 05 2022 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.21.alpha4
 - Rebuild (icu)
 

@@ -1,17 +1,19 @@
-%if 0%{?fedora} && 0%{?fedora} < 30
-%bcond_with unversioned_gpg
-%else
-%bcond_without unversioned_gpg
-%endif
+%bcond_with bootstrap
+
+# Releases are occasionally signed with a brainpool key, which we cannot
+# (currently) use.  In such cases, set skip_verify to 1 and manually verify
+# the upstream source.
+%global skip_verify 0
 
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.3.7
-Release: 3%{?dist}
+Version: 2.3.8
+Release: 1%{?dist}
 
 License: GPLv3+
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2.sig
+Source2: https://gnupg.org/signature_key.asc
 # needed for compatibility with system FIPS mode
 Patch3:  gnupg-2.1.10-secmem.patch
 # non-upstreamable patch adding file-is-digest option needed for Copr
@@ -27,9 +29,6 @@ Patch21: gnupg-2.2.18-gpg-allow-import-of-previously-known-keys-even-without-UI.
 Patch22: gnupg-2.2.18-gpg-accept-subkeys-with-a-good-revocation-but-no-self-sig.patch
 # Fixes for issues found in Coverity scan - reported upstream
 Patch30: gnupg-2.2.21-coverity.patch
-# Fix Yubikey 5 detection (#2107766)
-# https://dev.gnupg.org/rGf34b9147eb3070bce80d53febaa564164cd6c977
-Patch31: gnupg2-yk5.patch
 
 
 URL:     https://www.gnupg.org/
@@ -40,24 +39,30 @@ BuildRequires: bzip2-devel
 BuildRequires: curl-devel
 BuildRequires: docbook-utils
 BuildRequires: gettext
-BuildRequires: libassuan-devel >= 2.1.0
+%if %{without bootstrap}
+# Require gnupg2 to verify sources, unless bootstrapping
+BuildRequires: gnupg2
+%endif
+BuildRequires: libassuan-devel >= 2.5.0
 BuildRequires: libgcrypt-devel >= 1.9.1
-BuildRequires: libgpg-error-devel >= 1.38
-BuildRequires: libksba-devel >= 1.3.0
+BuildRequires: libgpg-error-devel >= 1.41
+BuildRequires: libksba-devel >= 1.3.4
 BuildRequires: openldap-devel
 BuildRequires: pcsc-lite-libs
+BuildRequires: ncurses-devel
 BuildRequires: npth-devel
-BuildRequires: readline-devel ncurses-devel
+BuildRequires: readline-devel
 BuildRequires: zlib-devel
 BuildRequires: gnutls-devel
 BuildRequires: sqlite-devel
 BuildRequires: fuse
 BuildRequires: make
+BuildRequires: systemd-rpm-macros
 # for tests
 BuildRequires: openssh-clients
 
-Requires: libgcrypt >= 1.7.0
-Requires: libgpg-error >= 1.38
+Requires: libgcrypt >= 1.9.1
+Requires: libgpg-error >= 1.41
 
 Recommends: pinentry
 
@@ -66,13 +71,11 @@ Recommends: gnupg2-smime
 # for USB smart card support
 Recommends: pcsc-lite-ccid
 
-%if %{with unversioned_gpg}
 # pgp-tools, perl-GnuPG-Interface requires 'gpg' (not sure why) -- Rex
 Provides: gpg = %{version}-%{release}
 # Obsolete GnuPG-1 package
 Provides: gnupg = %{version}-%{release}
 Obsoletes: gnupg < 1.4.24
-%endif
 
 Provides: dirmngr = %{version}-%{release}
 Obsoletes: dirmngr < 1.2.0-1
@@ -102,6 +105,9 @@ package adds support for smart cards and S/MIME encryption and signing
 to the base GnuPG package
 
 %prep
+%if %{without bootstrap} && ! 0%{?skip_verify}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %setup -q -n gnupg-%{version}
 
 %patch3 -p1 -b .secmem
@@ -114,7 +120,6 @@ to the base GnuPG package
 %patch22 -p1 -b .good_revoc
 
 %patch30 -p1 -b .coverity
-%patch31 -p1 -b .yk5
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -128,9 +133,6 @@ sed -i -e 's/"libpcsclite\.so"/"%{pcsclib}"/' scd/scdaemon.c
 # can not regenerate makefiles because of automake-1.16.3 requirement
 # ./autogen.sh
 %configure \
-%if %{without unversioned_gpg}
-  --enable-gpg-is-gpg2 \
-%endif
   --disable-rpath \
   --enable-g13 \
   --disable-ccid-driver \
@@ -146,11 +148,6 @@ mkdir -p $HOME/.gnupg
 %make_install \
   docdir=%{_pkgdocdir}
 
-%if %{without unversioned_gpg}
-# rename file conflicting with gnupg-1.x
-rename gnupg.7 gnupg2.7 %{buildroot}%{_mandir}/man7/gnupg.7*
-%endif
-
 %find_lang %{name}
 
 # gpgconf.conf
@@ -161,14 +158,12 @@ touch %{buildroot}%{_sysconfdir}/gnupg/gpgconf.conf
 install -m644 -p AUTHORS NEWS THANKS TODO \
   %{buildroot}%{_pkgdocdir}
 
-%if %{with unversioned_gpg}
 # compat symlinks
 ln -sf gpg %{buildroot}%{_bindir}/gpg2
 ln -sf gpgv %{buildroot}%{_bindir}/gpgv2
 ln -sf gpg.1 %{buildroot}%{_mandir}/man1/gpg2.1
 ln -sf gpgv.1 %{buildroot}%{_mandir}/man1/gpgv2.1
 ln -sf gnupg.7 %{buildroot}%{_mandir}/man7/gnupg2.7
-%endif
 
 # info dir
 rm -f %{buildroot}%{_infodir}/dir
@@ -206,11 +201,9 @@ make -k check
 %{_bindir}/g13
 %{_bindir}/dirmngr
 %{_bindir}/dirmngr-client
-%if %{with unversioned_gpg}
 %{_bindir}/gpg
 %{_bindir}/gpgv
 %{_bindir}/gpgsplit
-%endif
 %{_bindir}/watchgnupg
 %{_bindir}/gpg-wks-server
 %{_sbindir}/*
@@ -228,6 +221,17 @@ make -k check
 
 
 %changelog
+* Mon Oct 17 2022 Todd Zullinger <tmz@pobox.com> - 2.3.8-1
+- update to 2.3.8
+- BR systemd-rpm-macros for %%{_userunitdir}
+
+* Mon Oct 17 2022 Todd Zullinger <tmz@pobox.com> - 2.3.7-5
+- verify upstream signatures in %%prep, unless bootstrapping
+
+* Wed Oct 05 2022 Todd Zullinger <tmz@pobox.com> - 2.3.7-4
+- update BR/R versions for libassuan, libgpg-error, and libksba
+- drop with/without unversioned_gpg, last used with fedora-29
+
 * Mon Aug 01 2022 Jakub Jelen <jjelen@redhat.com> - 2.3.7-3
 - Fix yubikey 5 detection (#2107766)
 

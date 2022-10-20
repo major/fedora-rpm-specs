@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.0.2
+%global upstream_version 6.0.3
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -262,6 +262,9 @@ end
 
 
 %changelog
+* Tue Oct 18 2022 Remi Collet <remi@remirepo.net> - 6.0.3-1
+- WordPress 6.0.3 Security Release
+
 * Thu Sep  8 2022 Remi Collet <remi@remirepo.net> - 6.0.2-1
 - WordPress 6.0.2 Security and Maintenance Release
 

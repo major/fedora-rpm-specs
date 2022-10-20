@@ -19,8 +19,8 @@ License:        MIT
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/ROCm-Developer-Tools/ROCclr/archive/refs/tags/rocm-%{version}.tar.gz#/ROCclr-%{version}.tar.gz
 
-#https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime/commit/b98828a206fef952abe2f65c337dafe0316c9e9e
-Patch104:       0004-SWDEV-336248-Don-t-exclude-cl_egl.h-from-install.patch
+# https://github.com/ROCm-Developer-Tools/ROCclr/commit/197ea6f76f34e0b3c8ab46d96c2fa5014e467e37
+Patch1:         0001-SWDEV-350289-Fix-build-warnings-due-to-file-re-org.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel

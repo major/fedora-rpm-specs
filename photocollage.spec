@@ -1,13 +1,14 @@
 Summary:        Graphical tool to make photo collage posters
 Name:           photocollage
 Version:        1.4.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Url:            https://github.com/adrienverge/PhotoCollage
 License:        GPLv2+
 
 Source0:        http://adrienverge.fedorapeople.org/packages/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 
@@ -46,6 +47,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Tue Oct 18 2022 Adrien Vergé <adrienverge@gmail.com> - 1.4.4-16
+- Rebuild with python3-setuptools (includes distutils) for Python 3.12+
+  https://peps.python.org/pep-0632/
+
 * Fri Aug 26 2022  Adrien Vergé <adrienverge@gmail.com> - 1.4.4-15
 - Only require gettext-runtime instead of gettext for Fedora 37+
   https://bugzilla.redhat.com/show_bug.cgi?id=2119023

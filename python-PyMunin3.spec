@@ -1,5 +1,4 @@
-# Package does not provide any tests
-%bcond_with tests
+%global pypi_name PyMunin3
 
 %global _description %{expand:
 Python module for developing Munin Multigraph Plugins
@@ -10,35 +9,28 @@ plugins permit retrieval of data for multiple graphs in one execution
 run (one plugin, many graphs), reducing the processing time and delay
 for the fetch cycle significantly.}
 
-# Package does not provide debug info
-%global debug_package %{nil}
-
-Name:           python-PyMunin3
+Name:           python-%{pypi_name}
 Version:        3.0.1
 Release:        %{autorelease}
 Summary:        Python module for developing Munin Multigraph Plugins
+BuildArch:      noarch
 
 License:        GPL-3.0-only
-URL:            https://pypi.org/pypi/PyMunin3
-Source0:        %{pypi_source PyMunin3}
+URL:            https://pypi.org/pypi/%{pypi_name}
+Source0:        %{pypi_source %{pypi_name}}
 
 %description %_description
 
-%package -n python3-PyMunin3
+%package -n python3-%{pypi_name}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-
-%if %{with tests}
 BuildRequires:  python3-pytest
-%endif
 
-BuildArch:      noarch
-
-%description -n python3-PyMunin3 %_description
+%description -n python3-%{pypi_name} %_description
 
 
 %prep
-%autosetup -n PyMunin3-%{version}
+%autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -54,14 +46,11 @@ BuildArch:      noarch
 
 
 %check
-%if %{with tests}
-%{pytest}
-%else
+# Package does not provide any tests
 %pyproject_check_import
-%endif
 
 
-%files -n python3-PyMunin3 -f %{pyproject_files}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 

@@ -12,7 +12,7 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 License: GPLv2+
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
@@ -36,6 +36,7 @@ Patch17: autofs-5.1.8-remove-nonstrict-parameter-from-tree_mapent_umount_offsets
 Patch18: autofs-5.1.8-fix-handling-of-incorrect-return-from-umount_ent.patch
 Patch19: autofs-5.1.8-dont-use-initgroups-at-spawn.patch
 Patch20: autofs-5.1.8-fix-missing-unlock-in-sasl_do_kinit_ext_cc.patch
+Patch21: autofs-5.1.8-fix-invalid-tsv-access.patch
 
 %if %{with_systemd}
 BuildRequires: systemd-units
@@ -120,6 +121,7 @@ echo %{version}-%{release} > .version
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 LDFLAGS=-Wl,-z,now
@@ -227,6 +229,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Wed Oct 19 2022 Ian Kent <ikent@redhat.com> - 1:5.1.8-7
+- fix invalid tsv access.
+
 * Tue Sep 13 2022 Ian Kent <ikent@redhat.com> - 1:5.1.8-6
 - fix changelog out of order entry.
 - fix missing unlock in sasl_do_kinit_ext_cc().

@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.68.%{?prerel}%{?dist}
+Release:        0.69%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPLv2 and BSD
@@ -31,6 +31,9 @@ Patch3:         qtwebkit-5.212.0-json.patch
 Patch4:         qtwebkit-bison37.patch
 Patch5:         qt5-qtwebkit-glib-2.68.patch
 Patch6:         qtwebkit-icu68.patch
+# From https://github.com/WebKit/WebKit/commit/c7d19a492d97f9282a546831beb918e03315f6ef
+# Ruby 3.2 removes Object#=~ completely
+Patch7:         webkit-offlineasm-warnings-ruby27.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -248,6 +251,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Tue Oct 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.212.0-0.69.alpha4
+- Patch for offlineasm to support ruby 3.2 wrt Object#=~ removal
+
 * Wed Sep 21 2022 Jan Grulich <jgrulich@redhat.com> - 5.212.0-0.68.alpha4
 - Rebuild (qt5)
 

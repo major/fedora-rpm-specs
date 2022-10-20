@@ -4,6 +4,7 @@ Version:        0.1.3
 Release:        %autorelease
 Summary:        Metalink library written in C
 
+# SPDX
 License:        MIT
 URL:            https://github.com/metalink-dev/libmetalink
 Source0:        %{url}/archive/release-%{version}/libmetalink-release-%{version}.tar.gz

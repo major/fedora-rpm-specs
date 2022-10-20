@@ -6,7 +6,7 @@ Tools and APIs to make working with AMQP in Fedora easier.
 %{?python_enable_dependency_generator}
 
 Name:           %{pkgname}
-Version:        3.1.0
+Version:        3.2.0
 Release:        5%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
@@ -112,6 +112,13 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %changelog
+* Mon Oct 17 2022 Packit <hello@packit.dev> - 3.2.0-5
+- Version 3.2.0 (Aurélien Bompard)
+- Use tomllib from the standard library on Python 3.11 (Miro Hrončok)
+- Support for message priorities (Aurélien Bompard)
+- CI: run the checks with fedora-python's tox action (Aurélien Bompard)
+- Add a clear way to deprecate message schemas (Aurélien Bompard)
+
 * Tue Sep 13 2022 Packit <hello@packit.dev> - 3.1.0-5
 - Version 3.1.0 (Aurélien Bompard)
 - Use the new `app_name` property in the schema documentation (Aurélien Bompard)

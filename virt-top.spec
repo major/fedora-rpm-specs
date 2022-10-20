@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           virt-top
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPLv2+
 
@@ -12,10 +12,14 @@ ExcludeArch:    %{power64}
 
 URL:            http://people.redhat.com/~rjones/virt-top/
 Source0:        http://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz
+Source1:        http://people.redhat.com/~rjones/virt-top/files/%{name}-%{version}.tar.gz.sig
 
 # Post-process output of CSV file (RHBZ#665817, RHBZ#912020).
-Source1:        processcsv.py
-Source2:        processcsv.py.pod
+Source2:        processcsv.py
+Source3:        processcsv.py.pod
+
+# Keyring used to verify tarball signature.
+Source4:        libguestfs.keyring
 
 # Adds a link to processcsv to the man page.  This patch is only
 # included in RHEL builds.
@@ -41,6 +45,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Pod::Perldoc)
 BuildRequires:  gawk
+BuildRequires:  gnupg2
 
 
 %description
@@ -53,6 +58,7 @@ different virtualization systems.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %if 0%{?rhel} >= 6
@@ -72,7 +78,7 @@ make -C src virt-top.1
 %if 0%{?rhel} >= 6
 # Build processcsv.py.1.
 pod2man -c "Virtualization Support" --release "%{name}-%{version}" \
-  %{SOURCE2} > processcsv.py.1
+  %{SOURCE3} > processcsv.py.1
 %endif
 
 
@@ -88,7 +94,7 @@ install -m 0644 src/virt-top.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %if 0%{?rhel} >= 6
 # Install processcsv.py.
-install -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
+install -m 0755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}
 
 # Install processcsv.py(1).
 install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
@@ -106,6 +112,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Tue Oct 18 2022 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-6
+- Check tarball signature
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           sanlock
-Version:        3.8.4
-Release:        6%{?dist}
+Version:        3.8.5
+Release:        1%{?dist}
 Summary:        A shared storage lock manager
 
 License:        GPLv2 and GPLv2+ and LGPLv2+
@@ -13,6 +13,7 @@ BuildRequires:  make
 BuildRequires:  python3
 BuildRequires:  python3-devel
 BuildRequires:  systemd-units
+BuildRequires:  python3-setuptools
 Requires:       %{name}-lib = %{version}-%{release}
 Requires(pre):  /usr/sbin/groupadd
 Requires(pre):  /usr/sbin/useradd
@@ -156,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Tue Oct 18 2022 David Teigland <teigland@redhat.com> - 3.8.5-1
+- Update to sanlock-3.8.5
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

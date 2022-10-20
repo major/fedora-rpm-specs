@@ -3,7 +3,7 @@
 
 # https://github.com/go-task/task
 %global goipath         github.com/go-task/task
-Version:                3.16.0
+Version:                3.17.0
 
 %gometa
 

@@ -30,8 +30,8 @@
 
 Summary:       Tool for creating supermin appliances
 Name:          supermin
-Version:       5.3.2
-Release:       5%{?dist}
+Version:       5.3.3
+Release:       1%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -45,20 +45,6 @@ Source0:       http://download.libguestfs.org/supermin/%{source_directory}/%{nam
 Source1:       http://download.libguestfs.org/supermin/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
 Source2:       libguestfs.keyring
-
-# All upstream patches since 5.3.2:
-Patch:         0001-Fix-for-missing-lib-modules.patch
-Patch:         0002-pacman-Recognise-Artix-an-Arch-derivative.patch
-Patch:         0003-pacman-Fix-database-mtime-detection.patch
-Patch:         0004-fix-cannot-detect-package-manager-on-anolis.patch
-Patch:         0005-init-Ignore-warnings-about-unchecked-return-values.patch
-Patch:         0006-ocaml-Use-non-deprecated-warning-format.patch
-Patch:         0007-src-Fix-warnings-about-parsing-ints-from-strings.patch
-Patch:         0008-src-ph_pacman.ml-Use-error-function-instead-of-failw.patch
-Patch:         0009-src-utils.ml-Fix-more-warnings-about-parsing-ints-fr.patch
-Patch:         0010-src-Replace-noalloc-with-noalloc.patch
-Patch:         0011-src-Unconditionally-enable-g-flag.patch
-Patch:         0012-src-Record-and-print-global-exception-backtraces.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -201,6 +187,9 @@ make check || {
 
 
 %changelog
+* Tue Oct 18 2022 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-1
+- New upstream development version 5.3.3
+
 * Wed Sep 07 2022 Richard W.M. Jones <rjones@redhat.com> - 5.3.2-5
 - Include all upstream patches since 5.3.2
 - Add debugging and accurate exception backtraces (RHBZ#2124571).

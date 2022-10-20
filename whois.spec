@@ -6,8 +6,8 @@
 %{bcond_with    whois_enables_idn}
 
 Name:       whois       
-Version:    5.5.13
-Release:    2%{?dist}
+Version:    5.5.14
+Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
 URL:        http://www.linux.it/~md/software/
@@ -133,6 +133,9 @@ fi
 %endif
 
 %changelog
+* Tue Oct 18 2022 Petr Menšík <pemensik@redhat.com> - 5.5.14-1
+- Update to 5.5.14 (#2135226)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

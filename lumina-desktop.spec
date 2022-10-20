@@ -4,7 +4,7 @@
 Summary:            A lightweight, portable desktop environment
 Name:               %{srcname}-desktop
 Version:            1.6.2
-Release:            6%{?dist}
+Release:            7%{?dist}
 License:            BSD
 URL:                http://%{name}.org
 Source0:            https://github.com/lumina-desktop/%{srcname}/archive/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
@@ -34,11 +34,8 @@ BuildRequires:      pam-devel
 BuildRequires:      desktop-file-utils
 BuildRequires:      make
 
-# Runtime requirements (?)
-Requires:           oxygen-cursor-themes
-Requires:           qt5-style-oxygen%{?_isa}
-Requires:           fluxbox%{?_isa}
-
+# Runtime requirements
+Requires:           firstboot(windowmanager)
 Requires:           %{name}-filesystem = %{version}-%{release}
 Requires:           %{name}-data = %{version}-%{release}
 Requires:           %{srcname}-open%{?_isa} = %{version}-%{release}
@@ -390,6 +387,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{srcname}-*.desktop
 
 ########################################################################################
 %changelog
+* Tue Oct 18 2022 TI_Eugene <ti.eugene@gmail.com) - 1.6.2-7
+- Hard dependencies on fluxbox and *oxygen* removed
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

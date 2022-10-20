@@ -8,7 +8,7 @@
 %endif
 
 Name:    plasma-firewall
-Version: 5.26.0
+Version: 5.26.1
 Release: 1%{?dist}
 Summary: Control Panel for your system firewall
 
@@ -128,6 +128,9 @@ rm -rfv %{buildroot}%{_kf5_libexecdir}/kauth/kde_ufw_plugin_helper
 
 
 %changelog
+* Tue Oct 18 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.1-1
+- 5.26.1
+
 * Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
 - 5.26.0
 

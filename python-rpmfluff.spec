@@ -1,8 +1,8 @@
 %global modname rpmfluff
 
 Name:          python-%{modname}
-Version:       0.6.1
-Release:       7%{?dist}
+Version:       0.6.2
+Release:       1%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPLv2+
@@ -27,6 +27,7 @@ Summary:        %{summary}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-rpm
+BuildRequires:  python3-setuptools
 Requires:       rpm-build
 Requires:       createrepo_c
 
@@ -52,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Tue Oct 18 2022 Jan Hutar <jhutar@redhat.com> - 0.6.2-1
+- Change deprecated distutils to setuptools
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -72,6 +76,7 @@ python3 -m unittest %{modname}.test
 
 * Wed Aug 12 2020 Jan Hutar <jhutar@redhat.com> - 0.6.1-1
 - jhutar: Expose two more items
+
 * Fri Aug 07 2020 Jan Hutar <jhutar@redhat.com> - 0.6-1
 - jhutar: Workaround for https://github.com/rpm-software-management/rpm/issues/1301
 - msuchy: Do not write %clean by default

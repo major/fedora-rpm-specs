@@ -1,6 +1,6 @@
 Name:           ppc64-diag
-Version:        2.7.8
-Release:        4%{?dist}
+Version:        2.7.9
+Release:        1%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPLv2
@@ -11,7 +11,7 @@ BuildRequires:  libservicelog-devel
 BuildRequires:  flex
 BuildRequires:  perl-interpreter
 BuildRequires:  byacc
-BuildRequires:  libvpd-devel
+BuildRequires:  libvpd-devel >= 2.2.9
 BuildRequires:  ncurses-devel
 BuildRequires:  librtas-devel >= 1.4.0
 BuildRequires:  systemd-units
@@ -32,9 +32,7 @@ Source4:        extract_platdump.8
 Source5:        rtas_errd.8
 
 # fix paths and permissions
-Patch0:         ppc64-diag-fedora.patch
-Patch1:         ppc64-diag-2.7.8-opal-dump-parse-getopt.patch
-Patch2:         ppc64-diag-gcc12.patch
+Patch0:         ppc64-diag-2.7.9-fedora.patch
 
 %description
 This package contains various diagnostic tools for PowerLinux.
@@ -169,6 +167,10 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Tue Oct 18 2022 Than Ngo <than@redhat.com> - 2.7.9-1
+- update to 2.7.9
+- added BR on libvpd >= 2.2.9
+
 * Thu Jul 28 2022 Than Ngo <than@redhat.com> - 2.7.8-4
 - Fixed FTBFS, error: format not a string literal
 

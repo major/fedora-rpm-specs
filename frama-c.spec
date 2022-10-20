@@ -13,7 +13,7 @@
 
 Name:           frama-c
 Version:        25.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Manganese
@@ -281,6 +281,9 @@ make PTESTS_OPTS=-error-code tests
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Oct 18 2022 Jerry James <loganjerry@gmail.com> - 25.0-5
+- Rebuild for ocaml-stdint 0.7.1
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 25.0-4
 - Rebuild for why3 1.5.1
 

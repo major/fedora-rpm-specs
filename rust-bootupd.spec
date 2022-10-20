@@ -4,14 +4,14 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.7
-Release:        2%{?dist}
+Version:        0.2.8
+Release:        3%{?dist}
 Summary:        Bootloader updater
 
 License:        ASL 2.0
 URL:            https://crates.io/crates/bootupd
 Source0:        https://github.com/coreos/bootupd/releases/download/v%{version}/bootupd-%{version}.crate
-Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
+Source1:        https://github.com/coreos/bootupd/releases/download/v%{version}/bootupd-%{version}-vendor.tar.gz
 
 # For now, see upstream
 ExclusiveArch:  x86_64 aarch64
@@ -71,6 +71,9 @@ EOF
 %systemd_postun bootupd.service bootupd.socket
 
 %changelog
+* Tue Oct 18 2022 Colin Walters <walters@verbum.org> - 0.2.8-3
+- Update to v0.2.8
+
 * Fri Jul 29 2022 Colin Walters <walters@verbum.org> - 0.2.7-2
 - https://github.com/coreos/bootupd/releases/tag/v0.2.7
 

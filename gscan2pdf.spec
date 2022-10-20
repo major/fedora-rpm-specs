@@ -3,8 +3,8 @@
 %bcond_without gscan2pdf_enables_test
 
 Name:           gscan2pdf
-Version:        2.12.8
-Release:        3%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -23,9 +23,6 @@ Source2:        gpgkey-463293E4AE33871846F30227B321F203110FCAF3.gpg
 Patch0:         gscan2pdf-2.9.0-Do-not-warn-about-missing-pdftk.patch
 # Replace copies of gscan2pdf.svg with links, not upstreamable
 Patch1:         gscan2pdf-2.12.7-Symlink-gscan2pdf.svg-files.patch
-# Adapt tests to ffmpeg-5.1, in upstream after 2.12.8,
-# <https://sourceforge.net/p/gscan2pdf/bugs/404/>
-Patch2:         gscan2pdf-2.12.8-Ignore-unpaper-warnings-from-ffmpeg-5.1.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -150,11 +147,6 @@ Suggests:       cuneiform
 Recommends:     gocr
 # djvulibre for djvused program
 Recommends:     djvulibre
-%if 0%{?fedora} && 0%{?fedora} > 35
-# Pull in icons which were removed from adwaita-icon-theme-42.0, but not yet
-# added into gtk3-3.24.31-2, bug #2071851. This is a temporary workaround.
-Requires:       gnome-icon-theme
-%endif
 # Prefer libtiff-tools (/usr/bin/tiff2ps) over poppler-utils or ghostscript
 # for PostScript support
 Requires:       libtiff-tools
@@ -332,6 +324,10 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 18 2022 Petr Pisar <ppisar@redhat.com> - 2.13.0-1
+- 2.13.0 bump
+- Stop requiring gnome-icon-theme; fixed in gtk3-3.24.34 (bug #2071851)
+
 * Wed Aug 31 2022 Petr Pisar <ppisar@redhat.com> - 2.12.8-3
 - Adapt tests to ffmpeg-5.1 (upstream bug #404)
 - Correct gscan2pdf-tests license to GPL-3.0-only

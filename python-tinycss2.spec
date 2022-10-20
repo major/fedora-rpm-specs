@@ -6,15 +6,13 @@
 
 
 Name:           python-%{srcname}
-Version:        1.1.1
-Release:        4%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{srcname}/
 Source0:        %pypi_source
-# Fedora does not ship pytest's flake8/isort modules
-Patch0:         %{name}-disable-flake8-isort-for-pytest.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -72,6 +70,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Tue Oct 18 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.1-1
+- update to 1.2.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

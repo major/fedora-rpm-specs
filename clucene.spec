@@ -3,10 +3,13 @@
 %global git_short e8e3d20
 %global snap 20130812
 
+# rpmdev-bumpspec / releng automation compatible
+%global baserelease 44
+
 Summary:	A C++ port of Lucene
 Name:		clucene
 Version:	2.3.3.4
-Release:	43.%{snap}.%{git_short}git%{?dist}
+Release:	%{baserelease}.%{snap}.%{git_short}git%{?dist}
 License:	LGPLv2+ or ASL 2.0
 URL:		http://www.sourceforge.net/projects/clucene
 %if 0%{?snap}
@@ -43,6 +46,9 @@ Patch53: clucene-core-2.3.3.4-usleep.patch
 # TestIndexSearcher failures":
 Patch54: 0001-Make-sure-to-return-value-from-non-void-function.patch
 Patch55: 0002-Avoid-deadlock-in-TestIndexSearcher.patch
+# Upstream at <https://sourceforge.net/p/clucene/code/merge-requests/3/> "Fix
+# missing #include <time.h>":
+Patch56: 0001-Fix-missing-include-time.h.patch
 
 %description
 CLucene is a C++ port of the popular Apache Lucene search engine
@@ -86,6 +92,7 @@ Requires:	%{name}-core%{?_isa} = %{version}-%{release}
 %patch53 -p1 -b .usleep
 %patch54 -p1 -b .return-value
 %patch55 -p1 -b .avoid-deadlock
+%patch56 -p1 -b .missing-include
 
 # nuke bundled code
 rm -rfv src/ext/{boost/,zlib/}
@@ -143,6 +150,9 @@ time make -C %{_target_platform} test ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Tue Oct 18 2022 Stephan Bergmann <sbergman@redhat.com> - 2.3.3.4-44.20130812.e8e3d20git
+- Fix FTBFS (missing #include <time.h>)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3.4-43.20130812.e8e3d20git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

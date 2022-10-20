@@ -2,7 +2,7 @@
 
 Name:    plasma-disks
 Summary: Hard disk health monitoring for KDE Plasma
-Version: 5.26.0
+Version: 5.26.1
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv3+ and BSD and CC0
@@ -70,6 +70,9 @@ signs of imminent failure appear.
 %{_kf5_datadir}/polkit-1/actions/org.kde.kded.smart.policy
 
 %changelog
+* Tue Oct 18 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.1-1
+- 5.26.1
+
 * Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
 - 5.26.0
 

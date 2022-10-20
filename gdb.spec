@@ -51,7 +51,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1189,6 +1189,14 @@ fi
 %endif
 
 %changelog
+* Tue Oct 18 2022 Bruno Larsen - 12.1-8
+- Backport fix to gdb.base/break-main-file-remove-fail.exp
+  (Tom de Vries)
+
+* Tue Oct 18 2022 Bruno Larsen - 12.1-7
+- Remove patch gdb-6.3-test-dtorfix.
+  Was upstreamed, will be back in the next rebase.
+
 * Thu Oct 13 2022 Alexandra Hájková - 12.1-7
 - Bump the release number.
 

@@ -1,6 +1,6 @@
 Name:           phd2
 Version:        2.6.11
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Telescope guiding software
 # Main program files are BSD licensed
 # Some components have different licenses:
@@ -90,103 +90,4 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/%{name}.
 
 
 %changelog
-* Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 2.6.11-4
-- Rebuild with wxWidgets 3.2
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Feb 26 2022 Mattia Verga <mattia.verga@protonmail.com> - 2.6.11-2
-- Disable parallel build
-
-* Thu Feb 24 2022 Mattia Verga <mattia.verga@protonmail.com> - 2.6.11-1
-- Update to 2.6.11 (fedora#2057427)
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Jul 31 2021 Mattia Verga <mattia.verga@protonmail.com> - 2.6.10-3
-- Replace _target_platform macro with _vpath_builddir
-- Fixes rhbz#1987803
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Jun 27 2021 Mattia Verga <mattia.verga@protonmail.com> - 2.6.10-1
-- Update to 2.6.10
-- Fixes rhbz#1976560
-
-* Thu Feb 11 2021 Mattia Verga <mattia.verga@protonmail.com> - 2.6.9-6
-- Rebuilt for cfitsio soname bump
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Aug 04 2020 Mattia Verga <mattia.verga@protonmail.com> - 2.6.9-4
-- Another rebuild attempt for F33 Mass Rebuild after gettext has been fixed
-- Use new cmake macros
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jul 05 2020 Mattia Verga <mattia.verga@protonmail.com> - 2.6.9-1
-- Upgrade to 2.6.9
-- Fixes rhbz#1853866
-
-* Mon May 18 2020 Mattia Verga <mattia.verga@protonmail.com> - 2.6.8-1
-- Upgrade to 2.6.8
-
-* Sat Feb 08 2020 Mattia Verga <mattia.verga@protonmail.com> - 2.6.7-1
-- Upgrade to 2.6.7
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Mar 30 2019 Mattia Verga <mattia.verga@protonmail.com> - 2.6.6-1
-- Upgrade to 2.6.6
-- Enable tests on i686
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat May 26 2018 Christian Dersch <lupinix@mailbox.org> - 2.6.5-2
-- rebuilt for cfitsio 3.450
-
-* Mon May 07 2018 Mattia Verga <mattia.verga@email.it> - 2.6.5-1
-- Upgrade to 2.6.5
-- Remove obsolete scriptlets
-- Use upstream patch to disable third party drivers
-- Specify libindi to be >= 1.5
-
-* Fri Feb 23 2018 Christian Dersch <lupinix@mailbox.org> - 2.6.4-6
-- rebuilt for cfitsio 3.420 (so version bump)
-
-* Tue Feb 13 2018 Mattia Verga <mattia.verga@email.it> - 2.6.4-5
-- Enable test output on failures
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Nov 05 2017 Mattia Verga <mattia.verga@email.it> - 2.6.4-3
-- Fix spurious exec bits and line endings
-- Use more macros
-- Purge another unneeded directory from sources
-- Use C++14 flag
-
-* Sat Nov 04 2017 Mattia Verga <mattia.verga@email.it> - 2.6.4-2
-- Breakdown components licenses
-- Add some useful docs
-- Add weak dependency to libindi
-
-* Thu Nov 02 2017 Mattia Verga <mattia.verga@email.it> - 2.6.4-1
-- Initial packaging
+%autochangelog

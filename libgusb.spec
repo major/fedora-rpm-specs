@@ -1,6 +1,6 @@
 Summary:   GLib wrapper around libusb1
 Name:      libgusb
-Version:   0.4.1
+Version:   0.4.2
 Release:   1%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libgusb
@@ -57,6 +57,11 @@ GLib headers and libraries for gusb.
 %{_datadir}/vala/vapi/gusb.vapi
 
 %changelog
+* Tue Oct 18 2022 Richard Hughes <richard@hughsie.com> 0.4.2-1
+- New upstream version
+- Close the GUsbDevice objects in gusbcmd
+- Do not call the hotplug callback with the mutex held
+
 * Sat Oct 01 2022 Richard Hughes <richard@hughsie.com> 0.4.1-1
 - New upstream version
 - Allow loading and saving only devices with specific tags

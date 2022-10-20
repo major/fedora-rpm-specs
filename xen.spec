@@ -970,10 +970,11 @@ fi
 %changelog
 * Fri Oct 14 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-2
 - Arm: unbounded memory consumption for 2nd-level page tables [XSA-409,
-	CVE-2022-33747]
+	CVE-2022-33747] (#2135268)
 - P2M pool freeing may take excessively long [XSA-410, CVE-2022-33746]
+	(#2135641)
 - lock order inversion in transitive grant copy handling [XSA-411,
-	CVE-2022-33748]
+	CVE-2022-33748] (#2135263)
 
 * Sat Sep 17 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-1
 - update to xen-4.16.2

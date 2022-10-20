@@ -4,8 +4,8 @@
 
 Summary: Application for remote coredump analysis
 Name: retrace-server
-Version: 1.24.1
-Release: 4%{?dist}
+Version: 1.24.2
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://github.com/abrt/retrace-server
 Source0: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -38,9 +38,12 @@ BuildRequires: xz
 # These packages are moreover required for the build or tests.
 BuildRequires: createrepo_c
 BuildRequires: podman
+BuildRequires: python3-bugzilla
 BuildRequires: python3-dnf
 BuildRequires: python3-magic
 BuildRequires: python3-pytest
+BuildRequires: python3-requests
+BuildRequires: python3-requests-gssapi
 
 # /usr/bin/df from coreutils is used to calculate free disk space.
 Requires: coreutils
@@ -81,8 +84,9 @@ Requires(post): /usr/bin/crontab
 Requires(post): /usr/bin/systemctl
 Recommends: httpd
 Recommends: logrotate
-Recommends: podman
 Recommends: rpm
+Suggests: podman
+Suggests: unar
 
 Obsoletes: abrt-retrace-server < 2.0.3
 Provides: abrt-retrace-server = 2.0.3
@@ -242,6 +246,55 @@ exit 0
 %license COPYING
 
 %changelog
+* Tue Oct 18 2022 Packit <hello@packit.dev> - 1.24.2-1
+- Release version 1.24.2-1 (Matěj Grabovský)
+- stats: Fix Releases counting by using wildcard at end and add el9 (Dave Wysochanski)
+- retrace-server-task: Add exception handling for SSLError (Dave Wysochanski)
+- retrace_worker: Try --zero_excluded crash option to gather sys output (Dave Wysochanski)
+- retrace_worker: Move --minimal option to end of crash commandline (Dave Wysochanski)
+- Update translations (mgrabovsky)
+- retrace: Fix Traceback if user's home directory is unavailable (Dave Wysochanski)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+- Update translations (mgrabovsky)
+- github: Upgrade codecov-action to v3 (Matěj Grabovský)
+- config: Add support for RAR archives if the unar tool is installed (Dave Wysochanski)
+- spec: Move podman to Suggests (Matěj Grabovský)
+- manager: Make FTP file box configurable with UseFTPTasks (Dave Wysochanski)
+- manager: Improve HTTP response if UseFTPTasks is set to 0 (Dave Wysochanski)
+- manager: Prevent double submit of vmcore or coredump tasks (#461) (DaveWysochanskiRH)
+- Update translations (#464) (abrt-bot)
+- Add logic to determine if we save a stripped vmcore (audrabaker)
+- github: Merge Pylint and Mypy into a single workflow (Matěj Grabovský)
+- httpd.conf: Fix lang and locale to UTF-8 (Matěj Grabovský)
+- archive: Adjust argument type (Matěj Grabovský)
+- container: Rename docker/ to container/ (Matěj Grabovský)
+- docker: Update dockerfiles (Matěj Grabovský)
+- spec: Ensure bytecompilation reproducibility (Matěj Grabovský)
+- retrace: Fix type errors (Matěj Grabovský)
+- test_architecture: Fix expected value (Matěj Grabovský)
+- Use longer variable names (Matěj Grabovský)
+- spec: Add more build-time Python deps (Matěj Grabovský)
+- r-s-{plugin-check,task,worker}: Use consistent quotes (Matěj Grabovský)
+- test: Add architecture module tests to Meson file (Matěj Grabovský)
+- More code style fixes (Matěj Grabovský)
+- test: Lint with Pylint; add test for architecture.py (Matěj Grabovský)
+- Various code style fixes (Matěj Grabovský)
+- stats: Fix code style (Matěj Grabovský)
+- retrace: Move SNAPSHOT_SUFFIXES to archive module (Matěj Grabovský)
+- hooks: Use generator expression for list of files (Matěj Grabovský)
+- Fix Pylint call and settings (Matěj Grabovský)
+- Adjust Pylint config (Matěj Grabovský)
+- Refactor reusable components (Matěj Grabovský)
+- Use with statements for resource allocation (Matěj Grabovský)
+- retrace: Use consistent quote style and meaningful variables (Matěj Grabovský)
+- retrace: Add type annotations to local vars (Matěj Grabovský)
+- Use longer, meaningful variable names (Matěj Grabovský)
+- retrace: Split archs-related code out into separate module (Matěj Grabovský)
+- github: CD to build directory for checks (Matěj Grabovský)
+- Use double quotes consistently when specifying utf-8 (Dave Wysochanski)
+- retrace: Re-use ProcessCommunicateTimeout with makedumpfile (Dave Wysochanski)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.2.3
+Version:        3.3.0
 Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -148,6 +148,9 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Tue Oct 18 2022 Bryan Gurney <bgurney@redhat.com> - 3.3.0-1
+- Update to 3.3.0
+
 * Sun Aug 28 2022 mulhern <amulhern@redhat.com> - 3.2.3-1
 - Update to 3.2.3
 

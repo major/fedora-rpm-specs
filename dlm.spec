@@ -1,13 +1,13 @@
 Name:           dlm
-Version:        4.1.0
-Release:        7%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and LGPLv2+
 # For a breakdown of the licensing, see README.license
-Summary:        Kernel Distributed Lock Manager control daemon and tool
-URL:            https://fedorahosted.org/cluster
+Summary:        dlm control daemon and tool
+URL:            https://pagure.io/dlm
 BuildRequires:  gcc
 BuildRequires:  glibc-kernheaders
-BuildRequires:  corosynclib-devel >= 1.99.9
+BuildRequires:  corosynclib-devel >= 3.1.0
 BuildRequires:  pacemaker-libs-devel >= 1.1.7
 BuildRequires:  libxml2-devel
 BuildRequires:  systemd-units
@@ -15,7 +15,7 @@ BuildRequires:  systemd-devel
 BuildRequires: make
 Source0:	https://releases.pagure.org/dlm/%{name}-%{version}.tar.gz
 
-Patch0: 0001-stonith_helper-fix-build.patch
+Patch0: 0001-Revert-treewide-add-fcf-protection-full-to-CFLAGS.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 ExclusiveArch: i686 x86_64
@@ -34,7 +34,7 @@ The kernel dlm requires a user daemon to control membership.
 
 %prep
 %setup -q
-%patch0 -p1 -b .0001-stonith_helper-fix-build.patch
+%patch0 -p1 -b .backup0
 
 %build
 # upstream does not require configure
@@ -99,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Tue Oct 18 2022 David Teigland <teigland@redhat.com> - 4.2.0-1
+- new upstream version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

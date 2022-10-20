@@ -1,3 +1,6 @@
+# Define before mingw-binutils is build
+%bcond_with bootstrap
+
 %global debug_package %{nil}
 
 # Place RPM macros in %%{_rpmconfigdir}/macros.d if it exists (RPM 4.11+)
@@ -6,8 +9,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           mingw-filesystem
-Version:        141
-Release:        2%{?dist}
+Version:        142
+Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPLv2+
@@ -90,6 +93,9 @@ Requires:       %{name}-base = %{version}-%{release}
 Conflicts:      mingw32-pkg-config < 0.28-17
 Obsoletes:      mingw32-pkg-config < 0.28-17
 Provides:       mingw32-pkg-config = 0.28-17
+%if %{without bootstrap}
+Requires:       mingw-binutils-generic
+%endif
 
 %description -n mingw32-filesystem
 This package contains the base filesystem layout, RPM macros and
@@ -107,7 +113,9 @@ Requires:       %{name}-base = %{version}-%{release}
 Conflicts:      mingw64-pkg-config < 0.28-17
 Obsoletes:      mingw64-pkg-config < 0.28-17
 Provides:       mingw64-pkg-config = 0.28-17
-
+%if %{without bootstrap}
+Requires:       mingw-binutils-generic
+%endif
 
 %description -n mingw64-filesystem
 This package contains the base filesystem layout, RPM macros and
@@ -117,6 +125,7 @@ This environment is maintained by the Fedora MinGW SIG at:
 
   http://fedoraproject.org/wiki/SIGs/MinGW
 
+
 %package -n ucrt64-filesystem
 Summary:        MinGW cross compiler base filesystem and environment for the win64 UCRT target
 Requires:       %{name}-base = %{version}-%{release}
@@ -124,7 +133,9 @@ Requires:       %{name}-base = %{version}-%{release}
 Conflicts:      ucrt64-pkg-config < 0.28-17
 Obsoletes:      ucrt64-pkg-config < 0.28-17
 Provides:       ucrt64-pkg-config = 0.28-17
-
+%if %{without bootstrap}
+Requires:       mingw-binutils-generic
+%endif
 
 %description -n ucrt64-filesystem
 This package contains the base filesystem layout, RPM macros and
@@ -363,6 +374,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Tue Oct 18 2022 Sandro Mani <manisandro@gmail.com> - 142-1
+- Require mingw-binutils-generic
+
 * Tue Sep 27 2022 Sandro Mani <manisandro@gmail.com> - 141-2
 - Replace egrep with grep -E
 

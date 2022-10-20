@@ -6,12 +6,17 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf
 Version:    2.71
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    GPLv2+ and GFDL
 Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
 Source2:    autoconf-init.el
 URL:        https://www.gnu.org/software/autoconf/
+
+# Cherry-pick from upstream f460883035ef849a2248b1713f711292ec19f4f0
+Patch0: 0001-_AC_PROG_CXX_STDCXX_EDITION_TRY-fix-typo-in-variable.patch
+# Cherry-pick from upstream 412166e185c00d6eacbe67dfcb0326f622ec4020
+Patch1: 0001-Fix-testsuite-failures-with-bash-5.2.patch
 
 BuildArch:  noarch
 
@@ -124,6 +129,10 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Oct 11 2022 Frederic Berat <fberat@redhat.com> - 2.71-4
+- Cherry-pick: Fix typo in variable name (#2132715)
+- Backport: Fix testsuite failures with bash 5.2
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

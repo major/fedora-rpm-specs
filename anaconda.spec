@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.6
+Version: 38.7
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -47,7 +47,6 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define subscriptionmanagerver 1.26
 %define utillinuxver 2.15.1
 
-BuildRequires: audit-libs-devel
 BuildRequires: libtool
 BuildRequires: gettext-devel >= %{gettextver}
 BuildRequires: gtk3-devel >= %{gtk3ver}
@@ -138,6 +137,9 @@ Requires: (glibc-langpack-en or glibc-all-langpacks)
 # anaconda literally runs its own dbus-daemon, so it needs this,
 # even though the distro default is dbus-broker in F30+
 Requires: dbus-daemon
+
+# setting time from time spoke
+Requires: /usr/bin/date
 
 # Ensure it's not possible for a version of grubby to be installed
 # that doesn't work with btrfs subvolumes correctly...
@@ -426,7 +428,6 @@ rm -rf \
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/metainfo/org.cockpit-project.anaconda-webui.metainfo.xml
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
-%{_libexecdir}/webui-desktop
 
 %files gui
 %{python3_sitearch}/pyanaconda/ui/gui/*
@@ -463,6 +464,21 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 17 2022 Packit <hello@packit.dev> - 38.7-1
+- Call date by full path and list it as a dependency (vslavik)
+- Remove the isys module and directory (vslavik)
+- Move set_system_date_time to pyanaconda.timezone (vslavik)
+- Call date instead of settimeofday (vslavik)
+- Clean up time-setting (vslavik)
+- network: document edge case of resolv.conf missing for %post scripts (#2101527) (rvykydal)
+- Revert "webui: start using custom webui-desktop script instead of cockpit-desktop" (rvykydal)
+- infra: bump pylint from 2.15.3 to 2.15.4 in /dockerfile (49699333+dependabot[bot])
+- infra: bump astroid from 2.12.10 to 2.12.11 in /dockerfile (49699333+dependabot[bot])
+- network: use separate main conext for NM client in threads (rvykydal)
+- Clean up configure and #include (vslavik)
+- Remove our custom mock auditd binary (vslavik)
+- Turn off audit without our custom binary (vslavik)
+
 * Mon Oct 10 2022 Packit <hello@packit.dev> - 38.6-1
 - Remove bogus dependency on python3-dbus (vslavik)
 - Fix a few typos in release document (rvykydal)

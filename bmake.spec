@@ -1,6 +1,6 @@
 Summary:       The NetBSD make(1) tool
 Name:          bmake
-Version:       20220901
+Version:       20220928
 Release:       %autorelease
 License:       BSD
 URL:           https://ftp.netbsd.org/pub/NetBSD/misc/sjg/
@@ -9,8 +9,7 @@ Source1:       %{url}/bmake-%{version}.tar.gz.asc
 Source2:       https://www.crufty.net/ftp/pub/sjg/Crufty.pub.asc
 Requires:      mk-files
 
-Patch1:        bmake-man-linux.patch
-Patch2:        bmake-egrep.patch
+#Patch1:       
 
 BuildRequires: gcc
 BuildRequires: sed

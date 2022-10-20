@@ -1,6 +1,6 @@
 Name:           spice
-Version:        0.15.0
-Release:        5%{?dist}
+Version:        0.15.1
+Release:        1%{?dist}
 Summary:        Implements the SPICE protocol
 License:        LGPLv2+
 URL:            http://www.spice-space.org/
@@ -97,6 +97,9 @@ mkdir -p %{buildroot}%{_libexecdir}
 
 
 %changelog
+* Tue Oct 18 2022 Victor Toso <victortoso@redhat.com> - 0.15.1-1
+- Update to 0.15.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

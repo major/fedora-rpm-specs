@@ -5,7 +5,7 @@
 
 Name:		lldb
 Version:	%{lldb_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Next generation high-performance debugger
 
 License:	NCSA
@@ -14,9 +14,10 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_v
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
-# Drop those two once 16.0.0 is out
+# Drop those three once 16.0.0 is out
 Patch0:		https://github.com/llvm/llvm-project/commit/f0a25fe0b746f56295d5c02116ba28d2f965c175.diff
 Patch1:		https://github.com/llvm/llvm-project/commit/81fc5f7909a4ef5a8d4b5da2a10f77f7cb01ba63.diff
+Patch2:		https://github.com/llvm/llvm-project/commit/6f59f302e4358b4dc869bc298c2b9c06aa716b60.diff
 ##
 
 BuildRequires:	clang
@@ -131,6 +132,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Tue Oct 18 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
+- Fix crash on ppc64le (fix rhbz#2121369)
+
 * Mon Oct 03 2022 sguelton@redhat.com - 15.0.0-2
 - Backport compat patches for swig 4.1.0, see rhbz#2128646
 

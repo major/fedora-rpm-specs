@@ -17,17 +17,18 @@ Documentation for python-molecule a tool designed to aid in the development and
 testing of Ansible roles.
 }
 
-%bcond_with doc
-%bcond_with tests
+%bcond_without doc
+%bcond_without tests
 
 Name:           %{pkgname}
-Version:        4.0.1
+Version:        4.0.2
 %forgemeta
 Release:        %autorelease
 Summary:        Molecule is designed to aid in the development and testing of Ansible roles
 URL:            %{forgeurl}
 Source:         %{forgesource}
 Patch:          0001_remove_sphinx_version_pinning.patch
+Patch:          0002_skiping_tests_requiring_connectivity.patch
 BuildArch:      noarch
 
 ########################################################################
@@ -42,6 +43,11 @@ License: MIT and ASL 2.0
 BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros
 
+%if %{with tests}
+BuildRequires: yamllint
+BuildRequires: python3dist(ansible-lint)
+%endif
+
 %description %{common_description}
 ########################################################################
 # Documentation package                                                #
@@ -55,7 +61,6 @@ Summary: %summary
 ########################################################################
 %package -n python3-%{srcname}
 Summary: %summary
-%description -n python3-%{srcname} %{common_description}
 
 Requires:   ansible-core
 Recommends: python-molecule-doc
@@ -64,11 +69,14 @@ Recommends: python3dist(docker)
 Recommends: python3dist(molecule-docker)
 Recommends: python3dist(molecule-podman)
 
+%description -n python3-%{srcname} %{common_description}
+
 %prep
 %forgeautosetup -p1
 
+
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x test} %{?with_doc:-x docs}
+%pyproject_buildrequires %{?with_tests:-x test} %{?with_doc:-x docs}
 
 %build
 %pyproject_wheel
@@ -84,16 +92,31 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-PYTHONPATH=src %{python3} -m pytest -vv src/molecule/test
+cat <<EOF > %{buildroot}/molecule
+#! /usr/bin/python3 -s
+# -*- coding: utf-8 -*-
+import re
+import sys
+from molecule.__main__ import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
+EOF
+
+chmod +x %{buildroot}/molecule
+
+sed -i 's@\["molecule"@\["%{buildroot}/molecule"@g' src/molecule/test/functional/conftest.py
+sed -i 's@"molecule"@"%{buildroot}/molecule"@g'     src/molecule/test/functional/test_command.py
+sed -i 's@"molecule"@"%{buildroot}/molecule"@g'     src/molecule/test/unit/command/test_base.py
+
+PYTHONPATH=$(pwd)/src %{python3} -m pytest -vv src/molecule/test
+rm -f  %{buildroot}/molecule
 %endif
 
 ########################################################################
 # Python package files                                                 #
 ########################################################################
-%files -n python3-%{srcname}
-%{python3_sitelib}/*
-%{python3_sitelib}/%{srcname}-%{version}.dist-info
-%{python3_sitelib}/%{srcname}/
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/%{srcname}
 

@@ -76,7 +76,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.38.0
+Version:        2.38.1
 Release:        1%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        GPLv2
@@ -1006,6 +1006,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Oct 18 2022 Todd Zullinger <tmz@pobox.com> - 2.38.1-1
+- update to 2.38.1 (CVE-2022-39253, CVE-2022-39260)
+
 * Mon Oct 03 2022 Todd Zullinger <tmz@pobox.com> - 2.38.0-1
 - update to 2.38.0
 
