@@ -1,6 +1,6 @@
 Name:           perl-Feed-Find
-Version:        0.12
-Release:        4%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Syndication feed auto-discovery
 
 License:        GPL+ or Artistic
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 19 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.13-1
+- 0.13 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

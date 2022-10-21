@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-source-context
 %global         forgeurl    https://github.com/googleapis/python-source-context
-Version:        1.2.6
+Version:        1.2.8
 %global         tag         v%{version}
 %forgemeta
 
@@ -40,6 +40,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 
 %generate_buildrequires

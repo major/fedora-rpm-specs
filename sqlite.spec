@@ -4,15 +4,15 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3390300
-%define docver 3390300
-%define rpmver 3.39.3
+%define realver 3390400
+%define docver 3390400
+%define rpmver 3.39.4
 %define year 2022
 
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Public Domain
 URL: http://www.sqlite.org/
 
@@ -274,6 +274,9 @@ make test
 %endif
 
 %changelog
+* Wed Oct 19 2022 Zuzana Miklankova <zmiklank@redhat.com> - 3.39.4-1
+- Updated to version 3.39.4 (https://sqlite.org/releaselog/3_39_4.html)
+
 * Tue Sep 06 2022 Zuzana Miklankova <zmiklank@redhat.com> - 3.39.3-1
 - Updated to version 3.39.3 (https://sqlite.org/releaselog/3_39_3.html)
 

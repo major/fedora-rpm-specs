@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-billing
 %global         forgeurl    https://github.com/googleapis/python-billing
-Version:        1.7.2
+Version:        1.7.3
 %global         tag         v%{version}
 %forgemeta
 
@@ -40,6 +40,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

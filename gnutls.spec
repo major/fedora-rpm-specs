@@ -12,6 +12,11 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
+%global with_mingw 0
+%if 0%{?fedora}
+%global with_mingw 0%{!?_without_mingw:1}
+%endif 
+
 Version: 3.7.8
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.6.7-no-now-guile.patch
@@ -74,6 +79,26 @@ BuildRequires: unbound-devel unbound-libs
 BuildRequires: guile22-devel
 %endif
 BuildRequires: make gtk-doc
+
+%if %{with_mingw}
+BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw32-libtasn1 >= 4.3
+BuildRequires:  mingw32-readline
+BuildRequires:  mingw32-zlib
+BuildRequires:  mingw32-p11-kit >= 0.23.1
+BuildRequires:  mingw32-nettle >= 3.6
+BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw64-libtasn1 >= 4.3
+BuildRequires:  mingw64-readline
+BuildRequires:  mingw64-zlib
+BuildRequires:  mingw64-p11-kit >= 0.23.1
+BuildRequires:  mingw64-nettle >= 3.6
+%endif
+
 URL: http://www.gnutls.org/
 %define short_version %(echo %{version} | grep -m1 -o "[0-9]*\.[0-9]*" | head -1)
 Source0: https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/%{name}-%{version}.tar.xz
@@ -170,6 +195,28 @@ other required structures.
 This package contains Guile bindings for the library.
 %endif
 
+%if %{with_mingw}
+%package -n mingw32-%{name}
+Summary:        MinGW GnuTLS TLS/SSL encryption library
+Requires:       pkgconfig
+Requires:       mingw32-libtasn1 >= 4.3
+
+%description -n mingw32-gnutls
+GnuTLS TLS/SSL encryption library.  This library is cross-compiled
+for MinGW.
+
+%package -n mingw64-%{name}
+Summary:        MinGW GnuTLS TLS/SSL encryption library
+Requires:       pkgconfig
+Requires:       mingw64-libtasn1 >= 4.3
+
+%description -n mingw64-gnutls
+GnuTLS TLS/SSL encryption library.  This library is cross-compiled
+for MinGW.
+
+%{?mingw_debug_package}
+%endif
+
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
@@ -204,6 +251,9 @@ eval $(sed -n 's/^\(\(NAME\|VERSION_ID\)=.*\)/OS_\1/p' /etc/os-release)
 export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
 %endif
 
+mkdir native_build
+pushd native_build
+%global _configure ../configure
 %configure \
 %if %{with fips}
            --enable-fips140-mode \
@@ -254,9 +304,33 @@ export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
            --with-default-priority-string="@SYSTEM"
 
 %make_build
+popd
+
+%if %{with_mingw}
+# MinGW does not support CCASFLAGS
+export CCASFLAGS=""
+%mingw_configure \
+    --enable-sha1-support \
+    --disable-static \
+    --disable-openssl-compatibility \
+    --disable-non-suiteb-curves \
+    --disable-guile \
+    --disable-libdane \
+    --disable-rpath \
+    --disable-nls \
+    --disable-cxx \
+    --enable-local-libopts \
+    --enable-shared \
+    --without-tpm \
+    --with-included-unistring \
+    --disable-doc \
+    --with-default-priority-string="@SYSTEM"
+%mingw_make %{?_smp_mflags}
+%endif
 
 %install
-%make_install
+%make_install -C native_build
+pushd native_build
 make -C doc install-html DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -283,13 +357,45 @@ sed -i "s^$RPM_BUILD_ROOT/usr^^" $RPM_BUILD_ROOT%{_libdir}/.gnutls.hmac
 %endif
 
 %find_lang gnutls
+popd
+
+%if %{with_mingw}
+%mingw_make_install
+
+# Remove .la files
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/*.la
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/*.la
+
+# The .def files aren't interesting for other binaries
+rm -f $RPM_BUILD_ROOT%{mingw32_bindir}/*.def
+rm -f $RPM_BUILD_ROOT%{mingw64_bindir}/*.def
+
+# Remove info and man pages which duplicate stuff in Fedora already.
+rm -rf $RPM_BUILD_ROOT%{mingw32_infodir}
+rm -rf $RPM_BUILD_ROOT%{mingw32_mandir}
+rm -rf $RPM_BUILD_ROOT%{mingw32_docdir}/gnutls
+
+rm -rf $RPM_BUILD_ROOT%{mingw64_infodir}
+rm -rf $RPM_BUILD_ROOT%{mingw64_mandir}
+rm -rf $RPM_BUILD_ROOT%{mingw64_docdir}/gnutls
+
+# Remove test libraries
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/crypt32.dll*
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/ncrypt.dll*
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/crypt32.dll*
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/ncrypt.dll*
+
+%mingw_debug_install_post
+%endif
 
 %check
 %if %{with tests}
+pushd native_build
 make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null
+popd
 %endif
 
-%files -f gnutls.lang
+%files -f native_build/gnutls.lang
 %{_libdir}/libgnutls.so.30*
 %if %{with fips}
 %{_libdir}/.gnutls.hmac
@@ -338,6 +444,40 @@ make check %{?_smp_mflags} GNUTLS_SYSTEM_PRIORITY_FILE=/dev/null
 %{_libdir}/guile/2.2/site-ccache/gnutls/extra.go
 %{_datadir}/guile/site/2.2/gnutls.scm
 %{_datadir}/guile/site/2.2/gnutls/extra.scm
+%endif
+
+%if %{with_mingw}
+%files -n mingw32-%{name}
+%license LICENSE doc/COPYING doc/COPYING.LESSER
+%{mingw32_bindir}/certtool.exe
+%{mingw32_bindir}/gnutls-cli-debug.exe
+%{mingw32_bindir}/gnutls-cli.exe
+%{mingw32_bindir}/gnutls-serv.exe
+%{mingw32_bindir}/libgnutls-30.dll
+%{mingw32_bindir}/ocsptool.exe
+%{mingw32_bindir}/p11tool.exe
+%{mingw32_bindir}/psktool.exe
+%{mingw32_bindir}/srptool.exe
+%{mingw32_libdir}/libgnutls.dll.a
+%{mingw32_libdir}/libgnutls-30.def
+%{mingw32_libdir}/pkgconfig/gnutls.pc
+%{mingw32_includedir}/gnutls/
+
+%files -n mingw64-%{name}
+%license LICENSE doc/COPYING doc/COPYING.LESSER
+%{mingw64_bindir}/certtool.exe
+%{mingw64_bindir}/gnutls-cli-debug.exe
+%{mingw64_bindir}/gnutls-cli.exe
+%{mingw64_bindir}/gnutls-serv.exe
+%{mingw64_bindir}/libgnutls-30.dll
+%{mingw64_bindir}/ocsptool.exe
+%{mingw64_bindir}/p11tool.exe
+%{mingw64_bindir}/psktool.exe
+%{mingw64_bindir}/srptool.exe
+%{mingw64_libdir}/libgnutls.dll.a
+%{mingw64_libdir}/libgnutls-30.def
+%{mingw64_libdir}/pkgconfig/gnutls.pc
+%{mingw64_includedir}/gnutls/
 %endif
 
 %changelog

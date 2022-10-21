@@ -52,7 +52,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 18
-%global nodejs_minor 10
+%global nodejs_minor 11
 %global nodejs_patch 0
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
@@ -548,14 +548,14 @@ mkdir -p %{buildroot}%{_mandir} \
 
 cp -pr deps/npm/man/* %{buildroot}%{_mandir}/
 rm -rf %{buildroot}%{_prefix}/lib/node_modules/npm/man
-ln -srf %{_mandir}  %{buildroot}%{_prefix}/lib/node_modules/npm/man
+ln -srf %{buildroot}%{_mandir} %{buildroot}%{_prefix}/lib/node_modules/npm/man
 
 
 # Install Gatsby HTML documentation to %%{_pkgdocdir}
 cp -pr deps/npm/docs %{buildroot}%{_pkgdocdir}/npm/
 rm -rf %{buildroot}%{_prefix}/lib/node_modules/npm/docs
 
-ln -srf %{_pkgdocdir}/npm %{buildroot}%{_prefix}/lib/node_modules/npm/docs
+ln -srf %{buildroot}%{_pkgdocdir}/npm %{buildroot}%{_prefix}/lib/node_modules/npm/docs
 %endif
 
 # Node tries to install some python files into a documentation directory
@@ -585,7 +585,7 @@ cp %{SOURCE1} %{buildroot}%{_sysconfdir}/npmrc
 # NPM upstream expects it to be in /usr/etc/npmrc, so we'll put a symlink here
 # This is done in the interests of keeping /usr read-only.
 mkdir -p %{buildroot}%{_prefix}/etc
-ln -rs %{_sysconfdir}/npmrc %{buildroot}%{_prefix}/etc/npmrc
+ln -rsf %{buildroot}%{_sysconfdir}/npmrc %{buildroot}%{_prefix}/etc/npmrc
 %endif
 
 # Install the full-icu data files

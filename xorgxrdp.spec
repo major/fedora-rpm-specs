@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.9.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -16,8 +16,12 @@ BuildRequires:  libXfont-devel
 %else
 BuildRequires:  libXfont2-devel
 %endif
-Requires:       Xorg %(xserver-sdk-abi-requires videodrv)
-Requires:       Xorg %(xserver-sdk-abi-requires xinput)
+BuildRequires:  mesa-libgbm-devel
+BuildRequires:  libepoxy-devel
+BuildRequires:  libdrm-devel
+
+Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
+Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 
 
 %description
@@ -30,7 +34,8 @@ for screen resizing and multiple monitors.
 
 
 %build
-%configure
+CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
+%configure --enable-glamor
 %make_build
 
 
@@ -56,6 +61,9 @@ for screen resizing and multiple monitors.
 
 
 %changelog
+* Thu Oct 20 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-2
+- Enable glamor, which apparently improves performance on Intel hardware
+
 * Sat Sep 10 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-1
 - Bump up to 0.9.19
 

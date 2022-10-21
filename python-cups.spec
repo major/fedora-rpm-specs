@@ -6,7 +6,7 @@
 Summary:       Python bindings for CUPS
 Name:          python-cups
 Version:       2.0.1
-Release:       14%{?dist}
+Release:       15%{?dist}
 # older URL, but still with useful information about pycups
 #URL:           http://cyberelk.net/tim/software/pycups/
 URL:           https://github.com/OpenPrinting/pycups/
@@ -28,6 +28,9 @@ BuildRequires: make
 
 BuildRequires: cups-devel
 BuildRequires: python3-devel
+# distutils are removed from python3 project, use the one
+# from setuptools
+BuildRequires: python3-setuptools
 
 %description
 This package provides Python bindings for CUPS API,
@@ -75,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %doc examples html
 
 %changelog
+* Wed Oct 19 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2.0.1-15
+- distutils will be removed in Python3.12, use setuptools instead
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

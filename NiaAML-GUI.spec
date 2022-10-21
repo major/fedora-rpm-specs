@@ -1,26 +1,19 @@
+%global commit fff3dd3e5ae1ec26df77d952970d90e1b26a0cf3
+%global snapdate 20211203
+
 Name:           NiaAML-GUI
-Version:        0.1.11
+Version:        0.1.11^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 Summary:        GUI for NiaAML Python package
 
+# SPDX
 License:        MIT
 URL:            https://github.com/lukapecnik/NiaAML-GUI
 # Also distributed via PyPI (https://pypi.org/project/niaaml-gui/) but without
 # tests and other auxiliary files.
-Source0:        %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
-# Add an icon file to AppData
-# https://github.com/lukapecnik/NiaAML-GUI/pull/14
-Source1:        %{url}/raw/c0d10e18af0334896a40ff0675a9b3135ea96fab/AppData/niaaml-gui.png
-
-# Create initial .desktop and .metadata files
-# https://github.com/lukapecnik/NiaAML-GUI/pull/9
-Patch0:         %{url}/pull/9.patch
-# Fix LICENSE file installed directly in site-packages
-# https://github.com/lukapecnik/NiaAML-GUI/pull/11
-Patch1:         %{url}/pull/11.patch
-# Add a GUI script entry point
-# https://github.com/lukapecnik/NiaAML-GUI/pull/13
-Patch2:         %{url}/pull/13.patch
+%global tag %{?commit:%{commit}}%{?!commit:%{version}}
+%global srcversion %{?commit:%{commit}}%{?!commit:%{version}}
+Source0:        %{url}/archive/%{tag}/NiaAML-GUI-%{srcversion}.tar.gz
 
 BuildArch:      noarch
  
@@ -45,12 +38,11 @@ Python package.}
 
 
 %prep
-%autosetup -p1
-cp -p '%{SOURCE1}' AppData/
+%autosetup -n %{name}-%{srcversion}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -86,7 +78,7 @@ k="${k-}${k+ and }not test_version"
 
 %files -f %{pyproject_files}
 %license LICENSE
-%doc CODE_OF_CONDUCT.md
+%doc CITATION.cff
 %doc README.md
 # README.rst is present but empty.
 

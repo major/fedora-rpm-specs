@@ -1,10 +1,10 @@
 %global         uuid app.drey.Dialect
 %global         forgeurl0 https://github.com/dialect-app/dialect
 %global         forgeurl1 https://github.com/dialect-app/po
-%global         adw_version 1.1.0
+%global         adw_version 1.2.0
 
 Name:           dialect
-Version:        2.0.2
+Version:        2.1.0
 Release:        %autorelease
 Summary:        A translation app for GNOME based on Google Translate
 

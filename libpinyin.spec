@@ -1,15 +1,15 @@
 %global snapshot 0
 
 Name:           libpinyin
-Version:        2.6.2
-Release:        2%{?dist}
+Version:        2.7.92
+Release:        1%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPLv3+
 URL:            https://github.com/libpinyin/libpinyin
 Source0:        http://downloads.sourceforge.net/libpinyin/libpinyin/%{name}-%{version}.tar.gz
 %if %snapshot
-Patch0:         libpinyin-2.3.x-head.patch
+Patch0:         libpinyin-2.8.x-head.patch
 %endif
 
 BuildRequires:  gcc-c++
@@ -108,6 +108,15 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Wed Oct 19 2022 Peng Wu <pwu@redhat.com> - 2.7.92-1
+- Update to 2.7.92
+- bug fixes
+
+* Wed Oct 19 2022 Peng Wu <pwu@redhat.com> - 2.7.91-1
+- Update to 2.7.91
+- improve suggestion candidates
+- support longer candidates
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

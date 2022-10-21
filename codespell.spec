@@ -1,11 +1,11 @@
 Name:           codespell
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
 URL:            https://github.com/codespell-project/codespell/
-Source0:        https://github.com/codespell-project/codespell/archive/v%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/42/57/2b07dc5eb131d34a820bbc08a4437ca2ddfff7a47476bffd1822437de910/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  git
@@ -19,7 +19,7 @@ checking misspelled words in source code, but it can be used with other files
 as well.
 
 %prep
-%autosetup -n %{name}-%{version} -S git_am
+%autosetup -n %{name}-%{version}
 # Remove bundled egg-info
 rm -rf %{name}.egg-info
 
@@ -30,8 +30,6 @@ rm -rf %{name}.egg-info
 %py3_install
 
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/codespell_lib/tests
-# See https://github.com/codespell-project/codespell/issues/2533
-rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/*.egg-info
 
 %check
 # %{__python3} setup.py test
@@ -41,9 +39,12 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/*.egg-info
 %{_bindir}/codespell
 %{python3_sitelib}/codespell_lib
 %{python3_sitelib}/bin/codespell
-# %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Oct 19 2022 Bastien Nocera <bnocera@redhat.com> - 2.2.2-2
+- Re-add egg-info
+
 * Mon Oct 17 2022 Bastien Nocera <bnocera@redhat.com> - 2.2.2-1
 - Update to 2.2.2
 

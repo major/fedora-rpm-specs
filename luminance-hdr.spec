@@ -3,20 +3,21 @@ Version:        2.6.1.1
 Release:        %autorelease
 Summary:        GUI that provides a complete workflow for HDR imaging
 
-# The entire source is GPLv2+, except:
+# The entire source is GPL-2.0-or-later, except:
 #
-# GPLv2:
+# GPL-2.0-only:
 #   src/HelpBrowser/schelptreemodel.{cpp,h} (before patching)
 #   src/HelpBrowser/treeitem.{cpp,h} (before patching)
 #   src/HelpBrowser/treemodel.{cpp,h} (before patching)
 #
 #   These files are patched with changes from upstream PR#250, after which they
-#   are BSD instead of GPLv2 (only). This resolves the license incompatibility
-#   with GPLv3+ (https://github.com/LuminanceHDR/LuminanceHDR/issues/247).
-#   Without the patches, we would need to remove these files in %%prep and
-#   patch out the help browser.
+#   are BSD-3-Clause instead of GPL-2.0-only. This resolves the license
+#   incompatibility with GPLv3+
+#   (https://github.com/LuminanceHDR/LuminanceHDR/issues/247). Without the
+#   patches, we would need to remove these files in %%prep and patch out the
+#   help browser.
 #
-# GPLv3+:
+# GPL-3.0-or-later:
 #   src/StopWatch.h
 #   src/gauss.h
 #   src/mytime.h
@@ -25,7 +26,7 @@ Summary:        GUI that provides a complete workflow for HDR imaging
 #   src/Libpfs/rt_algo.{cpp,h}
 #   src/MainCli/ezETAProgressBar.hpp
 #
-# LGPLv2+:
+# LGPL-2.1-or-later:
 #   src/HdrCreation/fusionoperator.{cpp,h}
 #   src/HdrCreation/weights.h
 #   src/Libpfs/array2d.{hxx,h}
@@ -42,33 +43,29 @@ Summary:        GUI that provides a complete workflow for HDR imaging
 #   src/Libpfs/utils/minmax.{hxx,h}
 #   src/Libpfs/utils/numeric.{hxx,h}
 #
-# BSD:
-#   src/UI/FlowLayout.cpp
+# BSD-3-Clause:
 #   src/HelpBrowser/schelptreemodel.{cpp,h} (after patching)
 #   src/HelpBrowser/treeitem.{cpp,h} (after patching)
 #   src/HelpBrowser/treemodel.{cpp,h} (after patching)
+#   src/UI/FlowLayout.cpp
 #
 # MIT:
 #   src/contrib/qtwaitingspinner/QtWaitingSpinner.{cpp,h}
 #
-# Boost: (see https://github.com/LuminanceHDR/LuminanceHDR/issues/239)
+# BSL-1.0: (see https://github.com/LuminanceHDR/LuminanceHDR/issues/239)
 #   src/helpersse2.h
 #   src/sleef.c
 #   src/sleefsseavx.c
 #
-# CC0:
+# CC0-1.0:
 #   net.sourceforge.qtpfsgui.LuminanceHDR.appdata.xml
 #
-# The resulting effective license for the compiled executables is GPLv3+. All
-# other files in the binary RPMs are GPLv2+, except
-# net.sourceforge.qtpfsgui.LuminanceHDR.appdata.xml which is CC0—but there is
-# significant precedent in Fedora for leaving CC0 out of the license field when
-# it only applies to an AppData file.
-License:        GPLv2+ and GPLv3+
+# Note that CC0-1.0 is allowed only for content, such as this AppData XML file.
+License:        GPL-2.0-only AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause AND MIT AND BSL-1.0 AND CC0-1.0
 # Additionally, the following are only build system files and do not contribute
 # to the License field:
 #
-# Boost:
+# BSL-1.0:
 #   build_files/Modules/GetGitRevisionDescription.cmake{,.in}
 URL:            http://qtpfsgui.sourceforge.net/
 %global forgeurl https://github.com/LuminanceHDR/LuminanceHDR/

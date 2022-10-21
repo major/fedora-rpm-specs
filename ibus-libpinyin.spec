@@ -1,14 +1,14 @@
 %global snapshot 0
 
 Name:       ibus-libpinyin
-Version:    1.13.1
+Version:    1.14.91
 Release:    1%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPLv3+
 URL:        https://github.com/libpinyin/ibus-libpinyin
 Source0:    http://downloads.sourceforge.net/libpinyin/ibus-libpinyin/%{name}-%{version}.tar.gz
 %if %snapshot
-Patch0:     ibus-libpinyin-1.13.x-head.patch
+Patch0:     ibus-libpinyin-1.15.x-head.patch
 %endif
 
 Requires:       python3-gobject
@@ -81,6 +81,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus/component/*
 
 %changelog
+* Wed Oct 19 2022 Peng Wu <pwu@redhat.com> - 1.14.91-1
+- Update to 1.14.91
+- require libpinyin 2.7.91
+- improve suggestion candidates
+- improve English candidates
+- support longer candidates
+- support Legacy mode
+
 * Thu Sep 15 2022 Peng Wu <pwu@redhat.com> - 1.13.1-1
 - Update to 1.13.1
 - fix setup dialog

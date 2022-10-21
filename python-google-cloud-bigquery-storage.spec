@@ -8,7 +8,7 @@
 
 %global         srcname     google-cloud-bigquery-storage
 %global         forgeurl    https://github.com/googleapis/python-bigquery-storage
-Version:        2.16.0
+Version:        2.16.2
 %global         tag         v%{version}
 %forgemeta
 
@@ -64,6 +64,9 @@ BuildArch:      noarch
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

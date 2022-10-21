@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-access-approval
 %global         forgeurl    https://github.com/googleapis/python-access-approval
-Version:        1.7.3
+Version:        1.7.5
 %global         tag         v%{version}
 %forgemeta
 
@@ -41,6 +41,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

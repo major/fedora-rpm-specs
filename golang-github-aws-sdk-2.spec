@@ -6,6 +6,7 @@
 %global goipath         github.com/aws/aws-sdk-go-v2
 Version:                20221007
 %global tag             release-2022-10-07
+%global distprefix      %{nil}
 
 %gometa
 

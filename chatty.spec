@@ -1,18 +1,18 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
 %global libgd_commit c7c7ff4e05d3fe82854219091cf116cce6b19de0
-%global libcmatrix_commit b46edf367fdb75a9501fb82d6ab1f413ffeaa40d
+%global libcmatrix_commit c59926331a648edeb7994e6a21cd63414de024bb
 
 Name: chatty
-Version: 0.6.7
-Release: 3%{?dist}
+Version: 0.7.0~rc0
+Release: 0%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+
 URL: https://source.puri.sm/Librem5/chatty
-Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.7.0_rc0/%{name}-v0.7.0_rc0.tar.gz
 Source1: https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.gz
-Source2: https://source.puri.sm/mohammed.sadiq/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
+Source2: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
 
 # Chatty links against a libpurple private library (libjabber).
 # Obviously, Fedora build tooling doesn't support that, so we have to use
@@ -20,14 +20,6 @@ Source2: https://source.puri.sm/mohammed.sadiq/libcmatrix/-/archive/%{libcmatrix
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
-
-# Chatty hasn't yet released a version supporting libsoup3
-# which breaks builds in rawhide (f37) so we need to patch
-# support for >= f37
-Patch1: chatty-0.6.7-migrate-to-libcmatrix.patch
-Patch2: chatty-0.6.7-fix-gnome43.patch
-Patch3: chatty-0.6.7-migrate-to-libsoup-3.0.patch
-Patch4: 0001-Preliminary-port-to-libsoup-3.0-patch-v2.patch
 
 # Temporary. Test failure on ppc64le
 ExcludeArch:	ppc64le
@@ -49,11 +41,7 @@ BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(gnome-desktop-3.0)
 BuildRequires:  pkgconfig(libgcrypt)
-%if 0%{fedora} >= 37
 BuildRequires:  pkgconfig(libsoup-3.0)
-%else
-BuildRequires:  pkgconfig(libsoup-2.4)
-%endif
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(mm-glib) >= 1.12.0
 BuildRequires:	gspell-devel
@@ -69,13 +57,11 @@ BuildRequires:  /usr/bin/xauth
 
 Requires: hicolor-icon-theme
 
-%if 0%{fedora} >= 37
 # Those packages may be dynamically loaded, but they depend on libsoup-2.4
 # libsoup-2.4 and libsoup-3.0 can't exist in the same process
 # Better to create a conflict, so user doesn't get a hard to debug error
 Conflicts: purple-chime <= 1.4.1
 Conflicts: purple-sipe <= 1.25.0
-%endif
 
 %description
 Chatty is a libpurple based messaging client for mobile phones,
@@ -86,26 +72,11 @@ works best with the phosh mobile DE.
 # Copy private libjabber library in so we can build against it
 cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
-%setup -a1 -a2 -n %{name}-v%{version}
+%setup -a1 -a2 -n %{name}-v0.7.0_rc0
 %patch0 -p1
-%patch2 -p1
 
-%if 0%{fedora} >= 37
-# Replace the current Matrix implementation with libcmatrix
-%patch1 -p1
-# Push libcmatrix ported to support libsoup-3.0 into a correct location
 rm -rf subprojects/libcmatrix
 mv libcmatrix-%{libcmatrix_commit} subprojects/libcmatrix
-cd subprojects/libcmatrix
-%patch4 -p1
-cd ../..
-# Patch remaining functions to support libsoup-3.0
-%patch3 -p1
-%else
-# Remove the libcmatrix directory so it doesn't get in our way
-rm -rf libcmatrix
-%endif
-
 
 rmdir subprojects/libgd
 mv libgd-%{libgd_commit} subprojects/libgd
@@ -159,6 +130,9 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
+* Tue Oct 18 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc0-1
+- Update to 0.7.0~rc0
+
 * Sat Aug 13 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.7-3
 - Thanks to Marcin <marcin@ipv8.pl> for providing patches and fixes
 - Adding patches for libsoup3 support to fix breaking builds

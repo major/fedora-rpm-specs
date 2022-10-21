@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-build
 %global         forgeurl    https://github.com/googleapis/python-cloudbuild
-Version:        3.9.1
+Version:        3.9.3
 %global         tag         v%{version}
 %forgemeta
 
@@ -39,6 +39,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

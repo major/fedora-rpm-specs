@@ -1,8 +1,8 @@
 %global pkgname ferret
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.0.8
-Release:        4%{?dist}
+Version:        1.0.9
+Release:        1%{?dist}
 Summary:        Backtracking search in permutation groups
 
 # YAPB++/simple_graph/gason is MIT
@@ -58,9 +58,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %prep
 %autosetup -n %{pkgname}-%{version}
 
-# Update the atlas package name
-sed -i 's/atlas/atlasrep/' tst/test_functions.g
-
 %build
 export LC_ALL=C.UTF-8
 %configure --with-gaproot=%{gap_dir}
@@ -89,6 +86,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Oct 19 2022 Jerry James <loganjerry@gmail.com> - 1.0.9-1
+- Version 1.0.9
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.8-4
 - Update for gap 4.12.0
 

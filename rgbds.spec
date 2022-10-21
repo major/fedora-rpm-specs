@@ -1,18 +1,21 @@
 Name:		rgbds
-Version:	0.5.2
-Release:	3%{?dist}
+Version:	0.6.0
+Release:	2%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
 # See LICENSE for details
 License:	DWPL and ISC and MIT and BSD
 URL:		https://github.com/gbdev/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:		%{url}/commit/12ba057b4f74a6ef4989d0ceb4075ef74bcc6ea2.patch#/color_slot_non_empty.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
+BuildRequires:	g++
 BuildRequires:	byacc
 BuildRequires:	bison
 BuildRequires:	flex
+BuildRequires:	git-core
 BuildRequires:	pkgconfig(libpng)
 
 %description
@@ -27,7 +30,7 @@ It consists of:
 * rgbgfx (PNG‐to‐2bpp graphics converter)
 
 %prep
-%autosetup
+%autosetup -S git
 
 %build
 %make_build Q="" CFLAGS="%{optflags}" VERSION_STRING=""
@@ -53,6 +56,9 @@ It consists of:
 %doc README.rst
 
 %changelog
+* Tue Oct 18 2022 Benjamin Lowry <ben@ben.gmbh> - 0.6.0-2
+- rgbds 0.6.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

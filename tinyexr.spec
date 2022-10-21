@@ -16,7 +16,7 @@ Patch3:         0004-Add-test-executable-for-CTest.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  unifdef
+BuildRequires:  sed
 BuildRequires:  zlib-devel
  
 %description
@@ -45,7 +45,7 @@ rm -rf deps
 %cmake
 %cmake_build
 # Remove static declarations from headers
-unifdef -x2 -m -UTINYEXR_IMPLEMENTATION tinyexr.h
+sed -i '/^#ifdef TINYEXR_IMPLEMENTATION$/,/^#endif  \/\/ TINYEXR_IMPLEMENTATION$/d' tinyexr.h
 
 %install
 %cmake_install

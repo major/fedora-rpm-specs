@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.15
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # COPYING:                  LGPL-2.1 text
 # man/libloc.txt:           LGPL-2.1-or-later
@@ -81,7 +81,7 @@ Patch0:     libloc-0.9.15-Makefile-Reset-Python-path.patch
 # Install Perl files vendor Perl module path, proposed to the upstream,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12954>
 Patch1:     libloc-0.9.15-Install-Perl-files-to-Perl-vendor-directory.patch
-# Remove empty RPATH, proposed to the upstream,
+# Remove empty RPATH, in upstream after 0.9.15,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12955>
 Patch2:     libloc-0.9.15-Revert-perl-Remove-RPATH.patch
 # Remove shebangs from Python modules, proposed to the upstream,
@@ -90,6 +90,9 @@ Patch3:     libloc-0.9.15-Remove-shebangs-from-Python-modules.patch
 # Move location(8) to location(1), proposed to the upstream,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12957>
 Patch4:     libloc-0.9.15-Move-location-manual-from-section-8-to-section-1.patch
+# Fix make dependencies for Perl, proposed to the upstream,
+# <https://bugzilla.ipfire.org/show_bug.cgi?id=12961>
+Patch5:     libloc-0.9.15-Declare-make-dependencies-for-Perl-binding.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -187,7 +190,7 @@ autoreconf -fi -I%{_datadir}/gnulib/m4
 %{configure} \
     --disable-analyzer \
     --with-database-path=%{default_database_file} \
-    --disable-debug \
+    --enable-debug \
     --enable-largefile \
     --enable-ld-version-script \
     --enable-man_pages \
@@ -227,6 +230,7 @@ chmod 0644 %{buildroot}/%{python3_sitelib}/%{name}-%{version}.dist-info/METADATA
 %find_lang %{name}
 
 %check
+unset LOC_LOG
 make check %{?_smp_mflags}
 
 %post tools
@@ -271,6 +275,10 @@ make check %{?_smp_mflags}
 %{_unitdir}/*
 
 %changelog
+* Wed Oct 19 2022 Petr Pisar <ppisar@redhat.com> - 0.9.15-2
+- Enable enabling debuging messages
+- Fix make dependencies for Perl
+
 * Tue Oct 04 2022 Petr Pisar <ppisar@redhat.com> - 0.9.15-1
 - 0.9.15 packaged
 

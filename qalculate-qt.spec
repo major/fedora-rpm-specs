@@ -1,6 +1,6 @@
 Name:           qalculate-qt
 Summary:        A multi-purpose desktop calculator for GNU/Linux
-Version:        4.3.0
+Version:        4.4.0
 Release:        %autorelease
 
 # The entire source is GPL-2.0-or-later, except:

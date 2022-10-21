@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPLv2+
 URL:            https://cockpit-project.org/
 
-Version:        277
+Version:        278
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -147,6 +147,8 @@ Suggests: cockpit-pcp
 
 %if 0%{?rhel} == 0
 Recommends: (cockpit-networkmanager if NetworkManager)
+# c-ostree is not in RHEL 8/9
+Recommends: (cockpit-ostree if rpm-ostree)
 Suggests: cockpit-selinux
 %endif
 %if 0%{?rhel} && 0%{?centos} == 0
@@ -657,6 +659,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 19 2022 Packit <hello@packit.dev> - 278-1
+- Metrics: Display individual disk read/write usage
+
+
 * Wed Sep 21 2022 Packit <hello@packit.dev> - 277-1
 - Performance and stability improvements
 

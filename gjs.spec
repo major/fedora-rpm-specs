@@ -1,10 +1,10 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
-%global mozjs102_version 102.3.0
+%global mozjs102_version 102.4.0
 
 Name:           gjs
 Version:        1.74.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -92,6 +92,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Wed Oct 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.74.0-4
+- Rebuild against mozjs102-102.4.0-1
+
 * Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 1.74.0-3
 - Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
 

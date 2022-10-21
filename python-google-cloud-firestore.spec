@@ -3,7 +3,7 @@
 
 %global         srcname     google-cloud-firestore
 %global         forgeurl    https://github.com/googleapis/python-firestore
-Version:        2.7.0
+Version:        2.7.2
 %global         tag         v%{version}
 %forgemeta
 
@@ -47,6 +47,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

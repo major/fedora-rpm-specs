@@ -1,6 +1,6 @@
 %global pypi_name patiencediff
 Name:           python-%{pypi_name}
-Version:        0.2.3
+Version:        0.2.6
 Release:        1%{?dist}
 Summary:        Python implementation of the patiencediff algorithm
 
@@ -47,6 +47,10 @@ Summary:        %{summary}
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Oct 19 2022 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.6-1
+- Update to 0.2.6
+- Resolves: rhbz#2135936
+
 * Wed Sep 07 2022 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.3-1
 - Update to 0.2.3
 - Resolves: rhbz#2124925

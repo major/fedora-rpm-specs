@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.22.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -247,6 +247,8 @@ BuildRequires: pkgconfig(dbus-1)
 BuildRequires: python3-cups
 # implements C Python extensions like hpmudext, cupsext, scanext
 BuildRequires: python3-devel
+# distutils are removed in Python3.12, use setuptools
+BuildRequires: python3-setuptools
 # SANE backend hpaio uses function from SANE API
 BuildRequires: sane-backends-devel
 # macros: %%{_tmpfilesdir}, %%{_udevrulesdir}
@@ -887,6 +889,9 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Wed Oct 19 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.6-5
+- distutils will be removed in Python3.12, use setuptools now
+
 * Thu Oct 13 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.6-4
 - bump the NVR
 

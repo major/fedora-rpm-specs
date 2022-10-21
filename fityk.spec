@@ -1,29 +1,29 @@
 Name:           fityk
 Version:        1.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Non-linear curve fitting and data analysis
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://fityk.nieto.pl/
 
 Source0:        https://github.com/wojdyr/%{name}/archive/v%{version}/%{name}-%{version}.tar.bz2
 # patch to check for cmpfit dependency
 Patch0:         cmpfit_config.patch
 
-BuildRequires:  gcc-c++
-BuildRequires:  readline-devel >= 4.2
-BuildRequires:  ncurses-devel
+BuildRequires:  boost-devel
+BuildRequires:  cmpfit-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
+BuildRequires:  libtool
+BuildRequires:  lua-devel
+BuildRequires:  make
+BuildRequires:  ncurses-devel
+#BuildRequires:  python-sphinx
+BuildRequires:  readline-devel
+BuildRequires:  swig
+BuildRequires:  wxGTK-devel
 BuildRequires:  xylib-devel
 BuildRequires:  zlib-devel
-BuildRequires:  boost-devel >= 1.35
-BuildRequires:  compat-wxGTK3-gtk2-devel
-BuildRequires:  lua-devel >= 5.1
-BuildRequires:  libtool
-BuildRequires:  swig
-#BuildRequires:  python-sphinx
-BuildRequires:  cmpfit-devel
-BuildRequires:  libappstream-glib
-BuildRequires:  make
 
 Requires:       gnuplot
 
@@ -101,15 +101,14 @@ rm -f %{buildroot}%{_datadir}/%{name}/samples/*.pl
 
 #ln -s fityk.1.gz $RPM_BUILD_ROOT%%{_mandir}/man1/cfityk.1.gz
 
-desktop-file-validate %{buildroot}/%{_datadir}/applications/fityk.desktop
-
 mkdir -p %{buildroot}%{_metainfodir}
 cp -p %{buildroot}/usr/share/appdata/%{name}.appdata.xml %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 rm -rf %{buildroot}/usr/share/appdata
+
+
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/fityk.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -133,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Oct 19 2022 Scott Talbert <swt@techie.net> - 1.3.2-2
+- Rebuild with wxWidgets 3.2
+
 * Sun Aug 07 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 1.3.2-1
 - Update to v1.3.2
 

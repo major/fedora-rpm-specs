@@ -1,5 +1,5 @@
 Name:		endless-sky
-Version:	0.9.16
+Version:	0.9.16.1
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
@@ -104,6 +104,9 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Wed Oct 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.9.16.1-1
+- 0.9.16.1
+
 * Mon Oct 17 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.9.16-1
 - 0.9.16
 

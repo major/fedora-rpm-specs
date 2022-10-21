@@ -4,6 +4,7 @@
 Name:           python-%{pypi_name}
 Version:        4.0.3
 Release:        %autorelease
+Epoch:          1
 Summary:        Python library to interact with keepass databases
 
 License:        GPLv3

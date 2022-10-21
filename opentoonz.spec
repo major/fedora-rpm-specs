@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.6.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -127,6 +127,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Aug 25 2022 Diego Herrera <dherrera@redhat.com> 1.6.0-7
+- Make exr patch compatible with upstream
+
 * Thu Aug 25 2022 Diego Herrera <dherrera@redhat.com> 1.6.0-6
 - Fix exr linking problems
 

@@ -1,7 +1,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           lucene
-Version:        9.2.0
-Release:        2%{?dist}
+Version:        9.4.0
+Release:        1%{?dist}
 Epoch:          0
 # License breakdown is present in NOTICE.txt file
 License:        ASL 2.0 and MIT and BSD
@@ -10,8 +10,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://dlcdn.apache.org/lucene/java/%{version}/lucene-%{version}-src.tgz
-Source1:        parent.pom
-Source2:        parent-analysis.pom
+Source1:        aggregator.pom
+Source2:        aggregator-analysis.pom
 
 Source3:        https://repo1.maven.org/maven2/org/apache/lucene/lucene-analysis-common/%{version}/lucene-analysis-common-%{version}.pom
 Source4:        https://repo1.maven.org/maven2/org/apache/lucene/lucene-analysis-icu/%{version}/lucene-analysis-icu-%{version}.pom
@@ -69,13 +69,6 @@ cross-platform.
 Summary:        Javadoc for Lucene
 
 %description javadoc
-%{summary}.
-
-%package analysis-pom
-Summary:        Lucene aggregator pom for the module analysis
-Obsoletes:      %{name}-analysis < 9
-
-%description analysis-pom
 %{summary}.
 
 %package analysis-common
@@ -236,7 +229,6 @@ find -name 'module-info.java' -delete
 find -wholename '*/src/test' -exec rm -rf {} +
 
 cp %SOURCE1 pom.xml
-%pom_xpath_set "pom:project/pom:version" "%{version}"
 
 function add_pom {
   source=${1}
@@ -249,18 +241,17 @@ function add_pom {
 
 for source in $(echo %{sources} | tr ' ' '\n' | grep -v 'lucene-analysis-.*\.pom' | grep 'lucene-.*\.pom'); do
   add_pom ${source} "lucene-"
-  %pom_add_parent org.apache.lucene:lucene-parent:%{version} ${module}
+  %pom_add_parent org.fedoraproject.xmvn.lucene:aggregator:any ${module}
   %pom_xpath_set -f "pom:dependency[pom:scope='runtime']/pom:scope" "compile" ${module}
 done
 
 pushd analysis
 cp %SOURCE2 pom.xml
-%pom_xpath_set "pom:project/pom:version" "%{version}"
-%pom_add_parent org.apache.lucene:lucene-parent:%{version}
+%pom_add_parent org.fedoraproject.xmvn.lucene:aggregator:any
 
 for source in $(echo %{sources} | tr ' ' '\n' | grep 'lucene-analysis-.*\.pom'); do
   add_pom ${source} "lucene-analysis-"
-  %pom_add_parent org.apache.lucene:lucene-analysis:%{version} ${module}
+  %pom_add_parent org.fedoraproject.xmvn.lucene:aggregator-analysis:any ${module}
 done
 popd
 
@@ -274,7 +265,8 @@ popd
 %pom_disable_module morfologik analysis
 %pom_disable_module opennlp analysis
 
-%mvn_package ':lucene-parent' lucene
+%mvn_package :aggregator __noinstall
+%mvn_package :aggregator-analysis __noinstall
 
 %build
 # Tests have unpackaged dependencies
@@ -283,15 +275,11 @@ popd
 %install
 %mvn_install
 
-%files -f .mfiles-lucene
-%license LICENSE.txt NOTICE.txt
-%doc README.md
-
 %files javadoc -f .mfiles-javadoc
+%license LICENSE.txt NOTICE.txt
 
 %files analysis-common -f .mfiles-lucene-analysis-common
 %files analysis-icu -f .mfiles-lucene-analysis-icu
-%files analysis-pom -f .mfiles-lucene-analysis
 %files analysis-kuromoji -f .mfiles-lucene-analysis-kuromoji
 %files analysis-nori -f .mfiles-lucene-analysis-nori
 %files analysis-phonetic -f .mfiles-lucene-analysis-phonetic
@@ -300,7 +288,12 @@ popd
 %files backward-codecs -f .mfiles-lucene-backward-codecs
 %files classification -f .mfiles-lucene-classification
 %files codecs -f .mfiles-lucene-codecs
+
+# core is a common dependency of all other modules
 %files core -f .mfiles-lucene-core
+%license LICENSE.txt NOTICE.txt
+%doc README.md
+
 %files expressions -f .mfiles-lucene-expressions
 %files grouping -f .mfiles-lucene-grouping
 %files highlighter -f .mfiles-lucene-highlighter
@@ -315,6 +308,12 @@ popd
 %files suggest -f .mfiles-lucene-suggest
 
 %changelog
+* Wed Oct 19 2022 Marian Koncek <mkoncek@redhat.com> - 0:9.4.0-1
+- Update to upstream version 9.4.0
+
+* Wed Oct 19 2022 Marian Koncek <mkoncek@redhat.com> - 0:9.2.0-3
+- Do not ship parent poms
+
 * Tue Aug 23 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:9.2.0-2
 - Add missing Obsoletes
 - Resolves: rhbz#2119506

@@ -5,8 +5,9 @@
 
 %global         srcname     google-cloud-asset
 %global         forgeurl    https://github.com/googleapis/python-asset
-Version:        3.14.0
-%global         tag         v%{version}
+Version:        3.14.2
+# 3.14.2 is an unusual release because GitHub tries to return two different commits.
+%global         commit      c576c10135f7ce6371daed98deba9227fe1cfada
 %forgemeta
 
 Name:           python-%{srcname}
@@ -40,6 +41,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

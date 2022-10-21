@@ -3,11 +3,11 @@
 %global app_id org.gnome.Shell.Extensions.GSConnect
 
 Name:           gnome-shell-extension-gsconnect
-Version:        50
-Release:        2%{?dist}
+Version:        54
+Release:        1%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/GSConnect/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        nautilus-gsconnect.metainfo.xml
@@ -19,20 +19,26 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires:  gtk4
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(glib-2.0)
 Requires:       firewalld-filesystem
 Requires:       gnome-shell
+# Needed for ssh-keygen
 Requires:       openssh
+# Needed for ssh-add
 Requires:       openssh-clients
 Requires:       openssl
+Requires:       /usr/bin/ffmpeg
 Requires(post): firewalld-filesystem
-Suggests:       evolution-data-server
-Suggests:       gsound
-Suggests:       libcanberra-gtk3
-Suggests:       /usr/bin/ffmpeg
+Recommends:     evolution-data-server
+Recommends:     gsound
+Recommends:     libcanberra-gtk3
+Suggests:       (nautilus-gsconnect = %{version}-%{release} if nautilus)
+Suggests:       (nemo-gsconnect = %{version}-%{release} if nemo)
+Suggests:       webextension-gsconnect = %{version}-%{release}
 
 %description
 The KDE Connect project allows devices to securely share content such as
@@ -150,6 +156,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Oct 19 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 54-1
+- Update to 54
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 50-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

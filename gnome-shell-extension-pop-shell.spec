@@ -1,13 +1,13 @@
 %global extension   pop-shell
 %global uuid        %{extension}@system76.com
-%global commit      4520e7813dcbca57ff19cba68085f5d8adf4785e
+%global commit      886a069c0582b371e90ac3602b1747ea5fba616c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        1.2.0^8.%{shortcommit}
+Version:        1.2.0^9.%{shortcommit}
 Release:        1%{?dist}
 Summary:        GNOME Shell extension for advanced tiling window management
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/pop-os/shell
 BuildArch:      noarch
 
@@ -20,17 +20,15 @@ Source5:        50_org.gnome.shell.%{extension}.gschema.override
 # downstream-only patch
 Patch0:         0001-Remove-schema-handling-from-transpile.sh.patch
 
-BuildRequires:  npm(typescript) >= 3.8
+BuildRequires:  typescript >= 3.8
 BuildRequires:  make
 
-Requires:       gnome-shell-extension-common
+Requires:       gnome-shell >= 3.36
 
 Recommends:     gnome-extensions-app
 Recommends:     %{name}-shortcut-overrides = %{version}-%{release}
 
 Provides:       %{extension}
-Provides:       bundled(npm(mathjs)) = 8.1.0
-Provides:       bundled(npm(js-levenshtein))
 
 
 %description
@@ -87,6 +85,9 @@ install -p -m 0644 %{S:1} %{S:2} %{S:3} %{S:4} %{S:5} %{buildroot}%{_datadir}/gl
 
 
 %changelog
+* Wed Oct 19 2022 Carl George <carl@george.computer> - 1.2.0^9.886a069-1
+- Latest upstream snapshot
+
 * Fri Sep 02 2022 Carl George <carl@george.computer> - 1.2.0^8.4520e78-1
 - Latest upstream snapshot (GNOME 43 compatibility)
 

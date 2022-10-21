@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        65
+Version:        66
 
 %gometa
 
@@ -53,7 +53,7 @@ Provides: bundled(golang(cloud.google.com/go/compute)) = v1.10.0
 Provides: bundled(golang(cloud.google.com/go/iam)) = v0.3.0
 Provides: bundled(golang(cloud.google.com/go/storage)) = v1.27.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854_5a71ef0e047d
-Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.108
+Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.114
 Provides: bundled(golang(github.com/aymerick/douceur)) = v0.2.0
 Provides: bundled(golang(github.com/Azure/azure_pipeline_go)) = v0.2.3
 Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v66.0.0+incompatible
@@ -130,7 +130,7 @@ Provides: bundled(golang(github.com/klauspost/pgzip)) = v1.2.5
 Provides: bundled(golang(github.com/kolo/xmlrpc)) = v0.0.0_20201022064351_38db28db192b
 Provides: bundled(golang(github.com/kr/text)) = v0.2.0
 Provides: bundled(golang(github.com/labstack/echo/v4)) = v4.9.0
-Provides: bundled(golang(github.com/labstack/gommon)) = v0.3.1
+Provides: bundled(golang(github.com/labstack/gommon)) = v0.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20220331220046_b23ab962616e
 Provides: bundled(golang(github.com/mailru/easyjson)) = v0.7.6
 Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.12
@@ -460,10 +460,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 65
-Requires:   osbuild-ostree >= 65
-Requires:   osbuild-lvm2 >= 65
-Requires:   osbuild-luks2 >= 65
+Requires:   osbuild >= 69
+Requires:   osbuild-ostree >= 69
+Requires:   osbuild-lvm2 >= 69
+Requires:   osbuild-luks2 >= 69
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -575,6 +575,22 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Oct 19 2022 Packit <hello@packit.dev> - 66-1
+Changes with 66
+----------------
+  * Build rpms on RHEL 8.8 and 9.2 (#3066)
+  * Fixes for Fedora IoT image types (#3038)
+  * Weldr/Cloud API: simplify GCP upload options (#3023)
+  * build(deps): bump github.com/aws/aws-sdk-go from 1.44.112 to 1.44.114 (#3054)
+  * cloudapi: add iot-installer (#3037)
+  * schutzbot/mockbuild: stop running mock as root (#3073)
+
+Contributions from: Achilleas Koutsou, Jakub Rusz, Sanne Raymaekers, Tomáš Hozza, dependabot[bot], schutzbot
+
+— Somewhere on the Internet, 2022-10-19
+
+
+
 * Wed Oct 05 2022 Packit <hello@packit.dev> - 65-1
 Changes with 65
 ----------------
@@ -599,10 +615,10 @@ Changes with 65
   * test: add CIV tool to azure.sh (#2923)
   * test: get correct CIV tag in azure.sh (#3043)
   * worker: log error details on job failure (#3025)
-
 Contributions from: Achilleas Koutsou, Antonio Murdaca, Brian C. Lane, Diaa Sami, Irene Diez, Juan Abia, Ondřej Budai, Sanne Raymaekers, Simon Steinbeiss, Xiaofeng Wang, dependabot[bot]
-
 — Somewhere on the Internet, 2022-10-05
+
+
 
 
 

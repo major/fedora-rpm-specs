@@ -8,7 +8,7 @@
 #
 # When build without laminas-mail
 %global bootstrap    0
-%global gh_commit    62a899a7c9100889c2d2386b1357003a2cb52fa9
+%global gh_commit    60ec04b755821c79c1987ce291b44e69f2c0831f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mime
@@ -19,7 +19,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.10.0
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -31,29 +31,29 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-iconv
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.2.1",
-#        "laminas/laminas-mail": "^2.12",
-#        "phpunit/phpunit": "^9.5"
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-mail": "^2.19.0",
+#        "phpunit/phpunit": "^9.5.25"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.0   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %if ! %{bootstrap}
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mail)                 >= 2.12  with php-autoloader(%{gh_owner}/laminas-mail)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mail)                 >= 2.19  with php-autoloader(%{gh_owner}/laminas-mail)                 < 3)
 %endif
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-stdlib": "^2.7 || ^3.0"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.0    with php-autoloader(%{gh_owner}/laminas-stdlib)              < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
@@ -168,6 +168,10 @@ exit $ret
 
 
 %changelog
+* Wed Oct 19 2022 Remi Collet <remi@remirepo.net> - 2.11.0-1
+- update to 2.11.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
 - update to 2.10.0
 

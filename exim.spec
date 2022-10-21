@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -50,6 +50,8 @@ Patch3: exim-4.96-pic.patch
 Patch4: exim-4.96-opendmarc-1.4-build-fix.patch
 # https://bugs.exim.org/show_bug.cgi?id=2899
 Patch5: exim-4.96-build-fix.patch
+# https://git.exim.org/exim.git/commit/4e9ed49f8f12eb331b29bd5b6dc3693c520fddc2
+Patch6: exim-4.96-CVE-2022-3559.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -497,6 +499,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Wed Oct 19 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-4
+- Fixed use after free in regex handler
+  Resolves: CVE-2022-3559
+
 * Mon Sep 12 2022 Marcel Härry <mh+fedora@scrit.ch> - 4.96-3
 - Fix "tainted search query is not properly quoted" for greylisting
 

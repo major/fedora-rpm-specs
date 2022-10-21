@@ -1,6 +1,6 @@
 Name:           xsecurelock
-Version:        1.7.0
-Release:        8%{?dist}
+Version:        1.8.0
+Release:        2%{?dist}
 Summary:        X11 screen lock utility with security in mind
 License:        ASL 2.0
 URL:            https://github.com/google/xsecurelock
@@ -23,6 +23,8 @@ BuildRequires: pandoc
 BuildRequires: doxygen
 BuildRequires: libXft-devel
 BuildRequires: xscreensaver
+BuildRequires: mpv
+
 
 %description
 XSecureLock is an X11 screen lock utility designed with the primary goal of
@@ -32,7 +34,7 @@ security.
 %autosetup
 
 %build
-%configure --with-pam-service-name=system-auth --with-xft --with-xscreensaver=/usr/bin/xscreensaver
+%configure --with-pam-service-name=system-auth --with-xft --with-xscreensaver=/usr/bin/xscreensaver --with-mpv=/usr/bin/mpv --with-htpasswd=/usr/bin/htpasswd
 %make_build
 
 %install
@@ -56,8 +58,15 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_libexecdir}/%{name}/saver_multiplex
 %{_libexecdir}/%{name}/until_nonidle
 %{_libexecdir}/%{name}/saver_xscreensaver
+%{_libexecdir}/%{name}/saver_mpv
 
 %changelog
+* Wed Oct 19 2022 Sam P <survient@fedoraproject.org> - 1.8.0-2
+- Added mpv build flag.
+
+* Wed Oct 19 2022 Sam P <survient@fedoraproject.org> - 1.8.0-1
+- Latest upstream release.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

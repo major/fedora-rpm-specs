@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        54
+Version:        55
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
@@ -54,6 +54,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 19 2022 Packit <hello@packit.dev> - 55-1
+- Pod CPU, memory, port and volume details
+- Create new pod group functionality
+
+
 * Wed Sep 21 2022 Packit <hello@packit.dev> - 54-1
 - Show all containers by default
 

@@ -134,8 +134,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.17.0
-%global baserelease 2
+%global samba_version 4.17.1
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -3108,6 +3108,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_tgs_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kpasswd_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/lockout_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/ms_kile_client_principal_lookup_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/nt_hash_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/pac_align_tests.*.pyc
@@ -3137,6 +3138,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/kdc_tests.py
 %{python3_sitearch}/samba/tests/krb5/kdc_tgs_tests.py
 %{python3_sitearch}/samba/tests/krb5/kpasswd_tests.py
+%{python3_sitearch}/samba/tests/krb5/lockout_tests.py
 %{python3_sitearch}/samba/tests/krb5/ms_kile_client_principal_lookup_tests.py
 %{python3_sitearch}/samba/tests/krb5/nt_hash_tests.py
 %{python3_sitearch}/samba/tests/krb5/pac_align_tests.py
@@ -4305,6 +4307,11 @@ fi
 %endif
 
 %changelog
+* Wed Oct 19 2022 Pavel Filipenský <pfilipen@redhat.com> - 4.17.1-1
+- Update to version 4.17.1
+- resolves: rhbz#2127301 - Permission denied calling SMBC_getatr when file not exists
+- resolves: rhbz#2133818 - rpcclient 4.17.0 unable to resolve server hostname
+
 * Wed Oct 05 2022 Andreas Schneider <asn@redhat.com> - 4.17.0-2
 - Move group creation logic to sysusers.d fragment
 

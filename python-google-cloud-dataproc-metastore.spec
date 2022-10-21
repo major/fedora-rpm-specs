@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-dataproc-metastore
 %global         forgeurl    https://github.com/googleapis/python-dataproc-metastore
-Version:        1.6.1
+Version:        1.6.3
 %global         tag         v%{version}
 %forgemeta
 
@@ -43,6 +43,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-debugger-client
 %global         forgeurl    https://github.com/googleapis/python-debugger-client
-Version:        1.4.1
+Version:        1.4.3
 %global         tag         v%{version}
 %forgemeta
 
@@ -43,6 +43,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

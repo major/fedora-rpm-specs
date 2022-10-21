@@ -1,9 +1,12 @@
 Name:           python-starlette
-Version:        0.20.4
+Version:        0.21.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
-License:        BSD
+# The entire source is BSD-3-Clause, with the possible exception of the
+# pre-compiled/minified JavaScript for the Gitter chat app for the
+# documentation, which is removed in %%prep anyway.
+License:        BSD-3-Clause
 URL:            https://www.starlette.io/
 Source0:        https://github.com/encode/starlette/archive/%{version}/starlette-%{version}.tar.gz
 BuildArch:      noarch
@@ -53,25 +56,27 @@ rm -vrf docs/js
 
 # Produce a filtered version of requirements.txt, which contains testing
 # dependencies.
-#
-# We do not need the “Optionals”, which correspond to the “full” extra we are
-# already BR’ing; those for “Packaging”, which are for uploading to PyPI; or
-# those for “Documentation”, so long as we are not able to build and package
-# it; but we do need those for “Testing”, except linters, formatters, coverage
-# analysis, and mypy-related dependencies.
-#
-# Loosen exact-version dependencies.
 awk '
 !NF { next }
 $1 == "#" {
+  # We do not need the “Optionals”, which correspond to the “full” extra we are
+  # already BR’ing; those for “Packaging”, which are for uploading to PyPI; or
+  # those for “Documentation”, so long as we are not able to build and package
+  # it; but we do need those for “Testing”, except linters, formatters,
+  # coverage analysis, and mypy-related dependencies.
   o = $2 !~ /^(Optionals|Documentation|Packaging)$/
   next
 }
 o {
+  # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
   if ($1 ~ /^(black|coverage|(auto)?flake8?|isort|mypy|types-)/) { next }
+  # Used only on lower versions than Python 3.10; see install_requires
+  if ($1 ~ /^typing[-_]extensions/) { next }
+  # Drop version pins
+  sub(/[>=]=.*$/, "", $0)
   print $0
 }
-' requirements.txt | sed -r 's/==/>=/' | tee requirements-filtered.txt
+' requirements.txt | tee requirements-filtered.txt
 
 
 %generate_buildrequires

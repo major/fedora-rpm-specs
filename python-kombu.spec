@@ -1,7 +1,7 @@
 %bcond_without tests
 %global srcname kombu
 # Packaging unstable?
-%global prerel b1
+%global prerel b2
 %global general_version 5.3.0
 %global upstream_version %{general_version}%{?prerel}
 
@@ -82,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Wed Oct 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:5.3.0~b2-1
+- kombu 5.3.0b2 (closes RHBZ#2136176)
+
 * Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:5.3.0~b1-1
 - kombu 5.3.0b1 (closes RHBZ#2102080)
 

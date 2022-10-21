@@ -9,8 +9,8 @@
 
 %global github_owner     FriendsOfPHP
 %global github_name      proxy-manager-lts
-%global github_version   1.0.12
-%global github_commit    8419f0158715b30d4b99a5bd37c6a39671994ad7
+%global github_version   1.0.13
+%global github_commit    88354616f4cf4f6620910fd035e282173ba453e8
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 %global major            %nil
 
@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       OOP proxy wrappers utilities
 
 License:       MIT
@@ -143,7 +143,7 @@ EOF
 
 : Upstream tests
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -166,6 +166,9 @@ exit $ret
 
 
 %changelog
+* Wed Oct 19 2022 Remi Collet <remi@remirepo.net> - 1.0.13-1
+- update to 1.0.13
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

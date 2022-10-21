@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.67.0
+Version:        0.68.0
 Release:        %autorelease
 
 # SPDX
@@ -40,7 +40,7 @@ for resource properties and best practices.
 
 
 %prep
-%autosetup -n cfn-lint-%{version}
+%autosetup
 
 
 %generate_buildrequires
@@ -95,8 +95,6 @@ k="${k-}${k+ and }not (TestUpdateDocumentation and test_update_docs)"
 # extracted and a couple dozen files, in the context of a base package that is
 # >100MB extracted with around a thousand files.
 %doc CHANGELOG.md
-%doc CODE_OF_CONDUCT.md
-%doc CONTRIBUTING.md
 %doc README.md
 # Markdown
 %doc docs/
