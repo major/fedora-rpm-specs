@@ -17,14 +17,6 @@
 %bcond_without mongodb
 %endif
 
-%if 0%{?fedora} > 27
-%global mysql_devel_pkg mariadb-connector-c-devel
-%global mysql_lib_dir %{_libdir}/mariadb
-%else
-%global mysql_devel_pkg mysql-devel
-%global mysql_lib_dir %{_libdir}/mysql
-%endif
-
 Name:             poco
 Version:          1.12.2
 Release:          %autorelease
@@ -45,7 +37,7 @@ BuildRequires:    cmake
 BuildRequires:    gcc-c++
 BuildRequires:    openssl-devel
 BuildRequires:    libiodbc-devel
-BuildRequires:    %{mysql_devel_pkg}
+BuildRequires:    mariadb-connector-c-devel
 BuildRequires:    zlib-devel
 BuildRequires:    pcre2-devel
 BuildRequires:    sqlite-devel

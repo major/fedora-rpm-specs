@@ -1,20 +1,15 @@
 Summary: imake source code configuration and build system
 Name: imake
-Version: 1.0.8
-Release: 9%{?dist}
+Version: 1.0.9
+Release: 2%{?dist}
 License: MIT
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/util/imake-1.0.8.tar.bz2
+Source0: https://www.x.org/pub/individual/util/imake-%{version}.tar.xz
 Source1: https://www.x.org/pub/individual/util/makedepend-1.0.6.tar.bz2
 Source2: https://www.x.org/pub/individual/util/gccmakedep-1.0.3.tar.bz2
-Source3: https://www.x.org/pub/individual/util/xorg-cf-files-1.0.6.tar.bz2
+Source3: https://www.x.org/pub/individual/util/xorg-cf-files-1.0.7.tar.bz2
 Source4: https://www.x.org/pub/individual/util/lndir-1.0.3.tar.bz2
-# this has been merged post 1.0.6
-Patch2: xorg-cf-files-1.0.2-redhat.patch
-# Adapt ar invocation to binutils 2.36, bug #1943274, in upstream after 1.0.6,
-# <https://gitlab.freedesktop.org/xorg/util/cf/-/merge_requests/2>
-Patch3: xorg-cf-files-1.0.6-Imake.tmpl-Invoke-ar-cq-with-binutils.patch
 Patch11: imake-1.0.2-abort.patch
 
 BuildRequires: make
@@ -40,11 +35,6 @@ migrate software to the GNU autotools system.
 
 %prep
 %setup -q -c %{name}-%{version} -a1 -a2 -a3 -a4
-%patch2 -p0 -b .redhat
-
-pushd xorg-cf-files-1.0.6
-%patch3 -p1 -b .ar
-popd
 
 # imake patches
 pushd %{name}-%{version}
@@ -112,6 +102,12 @@ popd
 %{_mandir}/man1/xmkmf.1*
 
 %changelog
+* Thu Oct 20 2022 Orion Poplawski <orion@nwra.com> - 1.0.9-2
+- Rebuild for koji issue
+
+* Thu Oct 20 2022 Orion Poplawski <orion@nwra.com> - 1.0.9-1
+- Update to 1.0.9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

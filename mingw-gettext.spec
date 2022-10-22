@@ -1,17 +1,13 @@
 %{?mingw_package_header}
 
 Name:      mingw-gettext
-Version:   0.21
-Release:   6%{?dist}
+Version:   0.21.1
+Release:   1%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
 License:   GPLv2+ and LGPLv2+
 URL:       http://www.gnu.org/software/gettext/
 Source0:   https://ftp.gnu.org/pub/gnu/gettext/gettext-%{version}.tar.xz
-# Don't override various *printf macros in C++, they collide with the std::xxx counterparts
-Patch0:   gettext-printf_collision.patch
-# Add missing symbol export
-Patch1:    gettext_formatstring-ruby.patch
 
 BuildArch: noarch
 
@@ -126,9 +122,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-21.dll
+%{mingw32_bindir}/libgettextlib-0-21-1.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-21.dll
+%{mingw32_bindir}/libgettextsrc-0-21-1.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
@@ -167,9 +163,9 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-21.dll
+%{mingw64_bindir}/libgettextlib-0-21-1.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-21.dll
+%{mingw64_bindir}/libgettextsrc-0-21-1.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe
@@ -201,6 +197,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 0.21.1-1
+- Update to 0.21.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

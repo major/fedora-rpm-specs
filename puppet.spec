@@ -3,7 +3,7 @@
 %global puppet_vendor_mod_dir %{_datadir}/%{name}/vendor_modules
 
 Name:           puppet
-Version:        7.19.0
+Version:        7.20.0
 Release:        1%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        ASL 2.0
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Thu Oct 20 2022 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 7.20.0-1
+- Update to 7.20.0 (fixes rhbz#2126546)
+
 * Sat Sep 17 2022 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 7.19.0-1
 - Update to 7.19.0 (fixes rhbz#2126546)
 

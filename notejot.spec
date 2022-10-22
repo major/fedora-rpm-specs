@@ -4,14 +4,14 @@ Name:           notejot
 Summary:        Jot your ideas
 Version:        3.5.1
 Release:        %autorelease
-# The entire source is GPLv3+, except:
+# The entire source is GPL-3.0-or-later, except:
 #   src/Widgets/NoteTheme.vala
 #   src/Widgets/MoveToDialog.vala
 #   src/Widgets/EditNotebookDialog.vala
-# which are GPLv2+; and
+# which are GPL-2.0-or-later; and
 #   data/io.github.lainsce.Notejot.metainfo.xml.in
-# which is CC0. This results in an effective license of GPLv3+.
-License:        GPLv3+
+# which is CC0-1.0 (allowed only for content, which this file is).
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 
 URL:            https://github.com/lainsce/notejot
 Source0:        %{url}/archive/%{version}/notejot-%{version}.tar.gz

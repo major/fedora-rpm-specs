@@ -64,7 +64,6 @@ Requires: dracut >= 050
 Requires: dracut-network >= 050
 Requires: dracut-squash >= 050
 Requires: ethtool
-Recommends: zstd
 Recommends: grubby
 Recommends: hostname
 BuildRequires: make
@@ -266,6 +265,11 @@ if [ ! -f /run/ostree-booted ] && [ $1 == 2 ] && grep -q get-default-crashkernel
   kdumpctl get-default-crashkernel fadump > /tmp/old_default_crashkernel_fadump 2>/dev/null
 %endif
 fi
+# indicate it's package install so kdumpctl later will only reset crashkernel
+# value for osbuild.
+if [ $1 == 1 ]; then
+  touch /tmp/kexec_tools_package_install
+fi
 # don't block package update
 :
 
@@ -343,7 +347,7 @@ done
 #  2. "[ $1 == 1 ]" in posttrans scriptlet means both install and upgrade. The
 #     former case is used to set up crashkernel for osbuild
 if [ ! -f /run/ostree-booted ] && [ $1 == 1 ]; then
-  kdumpctl reset-crashkernel-after-update
+  kdumpctl _reset-crashkernel-after-update
   rm /tmp/old_default_crashkernel 2>/dev/null
 %ifarch ppc64 ppc64le
   rm /tmp/old_default_crashkernel_fadump 2>/dev/null

@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Path-Tiny
-Version:	0.124
+Version:	0.130
 Release:	1%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
@@ -30,6 +30,7 @@ BuildRequires:	perl(Digest::SHA) >= 5.45
 BuildRequires:	perl(Encode)
 BuildRequires:	perl(Exporter) >= 5.57
 BuildRequires:	perl(Fcntl)
+BuildRequires:	perl(File::Compare)
 BuildRequires:	perl(File::Copy)
 BuildRequires:	perl(File::Glob)
 BuildRequires:	perl(File::Path) >= 2.07
@@ -65,6 +66,7 @@ Requires:	perl(Digest) >= 1.03
 Requires:	perl(Digest::SHA) >= 5.45
 Requires:	perl(Encode)
 Requires:	perl(Fcntl)
+Requires:	perl(File::Compare)
 Requires:	perl(File::Copy)
 Requires:	perl(File::Glob)
 Requires:	perl(File::Path) >= 2.07
@@ -121,6 +123,18 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Thu Oct 20 2022 Paul Howarth <paul@city-fan.org> - 0.130-1
+- Update to 0.130
+  - The 'mkdir' method no longer fails when applied to an existing directory
+
+* Thu Oct 20 2022 Paul Howarth <paul@city-fan.org> - 0.128-1
+- Update to 0.128
+  - Added 'mkdir' to replace 'mkpath', but returning the path object for
+    chaining
+  - The 'mkpath' method is deprecated in favor of 'mkdir'
+  - Added 'has_same_bytes' to efficiently compare the contents of two files
+  - Edited SYNOPSIS in the POD
+
 * Fri Sep  2 2022 Paul Howarth <paul@city-fan.org> - 0.124-1
 - Update to 0.124
   - Added link to 'touchpath' in the 'mkpath' docs

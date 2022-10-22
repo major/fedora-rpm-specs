@@ -82,6 +82,7 @@ Requires: bats
 Requires: gnupg
 Requires: jq
 Requires: podman
+Requires: crun
 Requires: httpd-tools
 Requires: openssl
 Requires: fakeroot

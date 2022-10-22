@@ -1,4 +1,4 @@
-#define prerelease beta1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -7,13 +7,13 @@
 %global clangver 15.0.0
 
 Name:           qt-creator
-Version:        8.0.1
-Release:        5%{?dist}
+Version:        9.0.0
+Release:        0.1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/8.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/9.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Bundled clang for patched libClangFormat
@@ -27,10 +27,8 @@ Patch1:         qt-creator_desktop.patch
 Patch2:         qt-creator_qmake-names.patch
 # QtCreator specific patch for libClangFormat
 # https://code.qt.io/cgit/clang/llvm-project.git/commit/?h=release_130-based&id=42879d1f355fde391ef46b96a659afeb4ad7814a
-Patch3:         clangFormat.patch
-Patch4:         qt-creator-clangformat.patch
-# Backport LLVM-15.x compatibility fix
-Patch5:         https://github.com/qt-creator/qt-creator/commit/a1bfcbf30d493e1e1fab94851fe50fed81cd3d6e.patch
+Patch3:         qt-creator-clangformat.patch
+Patch4:         clangFormat.patch
 
 BuildRequires:  chrpath
 BuildRequires:  clang-devel
@@ -48,6 +46,9 @@ BuildRequires:  cmake(Qt6PrintSupport)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(Qt6QmlModels)
 BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6Quick3D)
+BuildRequires:  cmake(Qt6Quick3DAssetUtils)
+BuildRequires:  cmake(Qt6QuickTimeline)
 BuildRequires:  cmake(Qt6SerialPort)
 BuildRequires:  cmake(Qt6ShaderTools)
 BuildRequires:  cmake(Qt6Sql)
@@ -59,6 +60,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
 BuildRequires:  libappstream-glib
+BuildRequires:  libffi-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  llvm-devel
 BuildRequires:  litehtml-devel
@@ -206,6 +208,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-0.1.beta1
+- Update to 9.0.0-beta1
+
 * Mon Sep 26 2022 Sandro Mani <manisandro@gmail.com> - 8.0.1-5
 - Drop Requires: qt6-qtdoc
 

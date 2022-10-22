@@ -1,7 +1,7 @@
-%global	mainver		1.13.8
+%global	mainver		1.13.9
 #%%global	prever		.rc4
 
-%global	mainrel		1
+%global	mainrel		2
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -230,6 +230,13 @@ export NOKOGIRI_TEST_GC_LEVEL=major
 sed -i test/test_compaction.rb -e 's|skip unless GC.respond_to.*|skip|'
 %endif
 %endif
+%ifarch s390x
+# With ruby 3.2 GC_LEVEL=compact seems to cause segfault:
+# change to major for now
+if pkg-config --atleast-version 3.2 ruby ; then
+export NOKOGIRI_TEST_GC_LEVEL=major
+fi
+%endif
 
 env \
 	RUBYLIB=".:lib:test:ext" \
@@ -267,6 +274,12 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Thu Oct 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.9-2
+- s390x: change GC_LEVEL to major on ruby3.2 for now
+
+* Thu Oct 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.9-1
+- 1.13.9
+
 * Wed Jul 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.8-1
 - 1.13.8
 

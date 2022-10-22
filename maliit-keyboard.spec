@@ -1,6 +1,6 @@
 Name:           maliit-keyboard
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maliit Keyboard 2
 
 License:        LGPLv3 and BSD
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{_datadir}/doc/maliit-keyboard
 
 
 %changelog
+* Thu Oct 20 2022 Peng Wu <pwu@redhat.com> - 2.3.1-2
+- Rebuild for libpinyin soname bump
+
 * Tue Sep 20 2022 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 2.3.1-1
 - 2.3.1
 - Old patches removed

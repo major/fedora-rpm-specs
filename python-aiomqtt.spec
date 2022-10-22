@@ -3,7 +3,7 @@ Version:        0.1.3
 Release:        %autorelease
 Summary:        An AsyncIO asynchronous wrapper around paho-mqtt
 
-# Eclipse Distribution License 1.0 is a BSD license. Upstream states:
+# Eclipse Distribution License 1.0 is BSD-3-Clause. Upstream states:
 #
 #   This project is dual licensed under the Eclipse Public License 1.0 and the
 #   Eclipse Distribution License 1.0 as described in the epl-v10 and edl-v10
@@ -23,7 +23,7 @@ Summary:        An AsyncIO asynchronous wrapper around paho-mqtt
 #   further distribute the code under.
 #
 # Therefore upstream’s “and” is our “or”.
-License:        EPL-1.0 or BSD
+License:        EPL-1.0 OR BSD-3-Clause
 URL:            https://github.com/mossblaser/aiomqtt
 Source0:        %{url}/archive/v%{version}/aiomqtt-%{version}.tar.gz
 BuildArch:      noarch
@@ -47,7 +47,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n aiomqtt-%{version} -p1
+%autosetup -n aiomqtt-%{version}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i '/\b(flake8)\b/d' requirements-test.txt
 

@@ -1,17 +1,22 @@
 %global api_ver 1.0
 %global branch 1.10
+%global mingw32_pkg_name mingw32-%{name}
+%global mingw64_pkg_name mingw64-%{name}
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
 License:        LGPLv2+
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gstreamermm/%{branch}/%{name}-%{version}.tar.xz
-Patch0:         %{name}-volatile.patch
+Patch0:         https://gitlab.gnome.org/GNOME/gstreamermm/-/merge_requests/4.patch
 Patch1:         %{name}-tests.patch
+# Fix mingw build issues, based on:
+# https://gstreamer.freedesktop.org/documentation/video/gstvideooverlay.html?gi-language=c#gstvideooverlay-and-gtk
+Patch2:         %{name}-mingw.patch
 
 BuildRequires:  gcc-c++
 BuildRequires: glibmm24-devel >= 2.21.1
@@ -23,6 +28,16 @@ BuildRequires: gstreamer1-plugins-base-devel
 BuildRequires: gtest-devel
 BuildRequires: libxml++-devel >= 2.14.0
 BuildRequires: doxygen graphviz m4
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw32-glibmm24
+BuildRequires: mingw64-glibmm24
+BuildRequires: mingw32-gtkmm30
+BuildRequires: mingw64-gtkmm30
+BuildRequires: mingw32-gstreamer1
+BuildRequires: mingw64-gstreamer1
+BuildRequires: mingw32-gstreamer1-plugins-base
+BuildRequires: mingw64-gstreamer1-plugins-base
 
 
 %description
@@ -54,25 +69,59 @@ library. Gstreamermm is the C++ API for the GStreamer library.
 The documentation can be viewed either through the devhelp
 documentation browser or through a web browser.
 
+%package -n mingw32-gstreamermm
+Summary: MingwGW Windows C++ wrapper for GStreamer library
+BuildArch: noarch
+
+%description -n mingw32-gstreamermm
+GStreamermm is a C++ wrapper library for the multimedia library
+GStreamer (http://gstreamer.freedesktop.org).  It is designed to allow
+C++ development of applications that work with multi-media.
+
+%package -n mingw64-gstreamermm
+Summary: MingwGW Windows C++ wrapper for GStreamer library
+BuildArch: noarch
+
+%description -n mingw64-gstreamermm
+GStreamermm is a C++ wrapper library for the multimedia library
+GStreamer (http://gstreamer.freedesktop.org).  It is designed to allow
+C++ development of applications that work with multi-media.
+
+%{?mingw_debug_package}
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .vol
+%patch0 -p1
 %patch1 -p1 -b .tests
+%patch2 -p1 -b .mingw
 
 
 %build
+mkdir %{_target_os}
+pushd %{_target_os}
+%define _configure ../configure
+mkdir -p gstreamer/src
 %configure
 %make_build
+popd
+%mingw_configure
+%mingw_make_build
 
 
 %install
+pushd %{_target_os}
 %make_install
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+popd
+%mingw_make_install
+%mingw_debug_install_post
 
+rm -rv %{buildroot}{%{mingw32_docdir},%{mingw64_docdir}}/%{name}-%{api_ver}
 
 %check
+pushd %{_target_os}
 %make_build check
+popd
 
 
 %files
@@ -91,8 +140,29 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %doc %{_docdir}/%{name}-%{api_ver}/
 %doc %{_datadir}/devhelp/books/%{name}-%{api_ver}/
 
+%files -n mingw32-gstreamermm
+%doc AUTHORS ChangeLog NEWS README
+%{mingw32_libdir}/%{name}-%{api_ver}
+%{mingw32_bindir}/libgstreamermm-1.0-1.dll
+%{mingw32_libdir}/libgstreamermm-1.0.dll.a
+%{mingw32_libdir}/pkgconfig/gstreamermm-1.0.pc
+%{mingw32_includedir}/%{name}-%{api_ver}
+%{mingw32_datadir}/devhelp/books/%{name}-%{api_ver}
+
+%files -n mingw64-gstreamermm
+%doc AUTHORS ChangeLog NEWS README
+%{mingw64_libdir}/%{name}-%{api_ver}
+%{mingw64_bindir}/libgstreamermm-1.0-1.dll
+%{mingw64_libdir}/libgstreamermm-1.0.dll.a
+%{mingw64_libdir}/pkgconfig/gstreamermm-1.0.pc
+%{mingw64_includedir}/%{name}-%{api_ver}
+%{mingw64_datadir}/devhelp/books/%{name}-%{api_ver}
 
 %changelog
+* Wed Oct 19 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-14
+- add mingw builds as subpackages (#1825263)
+- use upstream patch for fixing build against newer glib
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

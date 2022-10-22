@@ -10,8 +10,8 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.4.0
-Release:        2%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -49,7 +49,7 @@ BuildRequires:  ocaml-lwt-devel
 # does not support unbundling these dependencies.
 # See https://github.com/ocaml/dune/issues/220
 Provides:       bundled(ocaml-build-path-prefix-map) = 0.2
-Provides:       bundled(ocaml-cmdliner) = 1.0.4
+Provides:       bundled(ocaml-cmdliner) = 1.1.1
 Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
 Provides:       bundled(ocaml-inotify) = 2.3
 Provides:       bundled(ocaml-opam-file-format) = 2.0.0
@@ -507,6 +507,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 3.5.0-1
+- Version 3.5.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

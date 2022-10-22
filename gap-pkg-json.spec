@@ -1,8 +1,8 @@
 %global pkgname  json
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.1.0
-Release:        4%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        JSON reading and writing for GAP
 
 License:        BSD-2-Clause
@@ -83,6 +83,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-1
+- Version 2.1.1
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.1.0-4
 - Update for gap 4.12.0
 

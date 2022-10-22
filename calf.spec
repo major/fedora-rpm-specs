@@ -1,6 +1,6 @@
 Name:		calf
 Version:	0.90.3
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
 # The GUI code is LGPLv2+
@@ -11,14 +11,7 @@ License:	GPLv2+ and LGPLv2+
 URL:		http://calf-studio-gear.org/
 Source0:	http://calf-studio-gear.org/files/calf-%{version}.tar.gz
 Source1:	%{name}-dssi.desktop
-# Add LADSPA / DSSI as dropped by upstream
-# https://github.com/falkTX/calf.git calf-falktx
-#Patch0:		calf-0.0.60-add-LADSPA-DSSI.patch
-# fixes a crash during build, sent upstream via email:
-#Patch0:		calf-pkglibdir_path.patch
-# fixes crash due to accessing index of a vector beyond its size. RHBZ#1581433
-# https://github.com/calf-studio-gear/calf/pull/177
-#Patch1:         calf-vector-size-crashfix.patch
+
 BuildRequires:	desktop-file-utils
 BuildRequires:	dssi-devel
 BuildRequires:	expat-devel
@@ -26,7 +19,6 @@ BuildRequires:	gcc-c++
 BuildRequires:	glib2-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	jack-audio-connection-kit-devel
-BuildRequires:	ladspa-devel
 BuildRequires:	lash-devel
 BuildRequires:	libglade2-devel
 BuildRequires:	lv2-devel
@@ -34,7 +26,10 @@ BuildRequires:  fluidsynth-devel
 BuildRequires:  cairo-devel
 BuildRequires:  libtool
 BuildRequires:  fftw3-devel
-BuildRequires: make
+BuildRequires:  make
+
+Provides: ladspa-%{name}-plugins = %{version}-%{release}
+Obsoletes: ladspa-%{name}-plugins < 0.90.3-13
 
 %global common_desc \
 The Calf project aims at providing a set of high quality open source audio\
@@ -47,17 +42,6 @@ boxes.
 
 The plugins are available in LV2, DSSI, Standalone JACK and LADSPA formats.
 This package contains the common files and the Standalone JACK plugin.
-
-%package -n ladspa-%{name}-plugins
-Summary:	Calf plugins in LADSPA format
-License:	LGPLv2+
-Requires:	%{name} = %{version}-%{release}
-Requires:	ladspa
-
-%description -n ladspa-%{name}-plugins
-%common_desc
-
-This package contains only LADSPA effect plugins (no GUI), with LRDF.
 
 %package -n lv2-%{name}-plugins
 Summary:	Calf plugins in LV2 format
@@ -95,8 +79,6 @@ This package contains DSSI synthesizers and effects, also GUI extensions.
 
 %prep
 %setup -q
-#%%patch0 -p1
-#%%patch1 -p1
 
 %build
 # Add GenericName to the .desktop file
@@ -106,14 +88,13 @@ echo "GenericName= Audio Effects" >> %{name}.desktop.in
 sed -i 's|-O3||' configure
 
 %configure \
-	--with-ladspa-dir=%{_libdir}/ladspa/ \
 	--with-dssi-dir=%{_libdir}/dssi/ \
 	--with-lv2-dir=%{_libdir}/lv2 \
 	--enable-experimental=yes \
 %ifarch x86_64 %ix86
 	--enable-sse \
 %endif
-	--enable-ladspa
+
 make %{?_smp_mflags}
 
 %install
@@ -139,9 +120,7 @@ rm -f $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/icon-theme.cache
 rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/*.a*
 
 #symlinks for dssi and ladspa
-mkdir -p $RPM_BUILD_ROOT/%{_libdir}/ladspa
 mkdir -p $RPM_BUILD_ROOT/%{_libdir}/dssi
-ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/ladspa/calf.so
 ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 
 %files
@@ -157,9 +136,6 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_docdir}/%{name}
 %{_datadir}/bash-completion/
 
-%files -n ladspa-%{name}-plugins
-%{_libdir}/ladspa/%{name}.so
-
 %files -n lv2-%{name}-plugins
 %license COPYING*
 %{_libdir}/lv2/%{name}.lv2
@@ -174,6 +150,9 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Thu Oct 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.90.3-13
+- Drop ladspa, BZ 2064061
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

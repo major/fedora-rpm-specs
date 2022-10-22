@@ -3,12 +3,16 @@ Version:        2.3.1
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
+# SPDX
 License:        MIT
 URL:            https://github.com/GeospatialPython/pyshp
 Source0:        %{url}/archive/%{version}/pyshp-%{version}.tar.gz
 
-# Shapefiles for doctests. Public domain; not packaged. Upstream tests fetch
-# these from the network.
+# Shapefiles for doctests. These are not packaged in the binary RPMs, so do not
+# contribute to the License. They are LicenseRef-Fedora-Public-Domain
+# (https://github.com/nvkelso/natural-earth-vector/blob/master/LICENSE.md; see
+# also http://www.naturalearthdata.com/about/terms-of-use/). Upstream tests
+# fetch these from the network.
 %global ne_url https://github.com/nvkelso/natural-earth-vector
 # Upstream uses “master”
 %global ne_commit e6fd44e64780e9724e2c663594dafcc4da5b1cc1

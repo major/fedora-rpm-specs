@@ -1,8 +1,8 @@
 %global	gem_name	pdfkit
 
 Name:		rubygem-%{gem_name}
-Version:	0.8.7.1
-Release:	1%{?dist}
+Version:	0.8.7.2
+Release:	2%{?dist}
 
 Summary:	HTML+CSS to PDF using wkhtmltopdf
 License:	MIT
@@ -106,6 +106,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Oct 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.7.2-2
+- 0.8.7.2
+
 * Tue Oct 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.7.1-1
 - 0.8.7.1
 

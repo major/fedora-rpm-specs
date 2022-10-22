@@ -2,7 +2,7 @@
 BuildArch: noarch
 
 Version:    3.300
-Release:    1%{?dist}
+Release:    2%{?dist}
 URL:        https://software.sil.org/%{projectname}/
 
 %global foundry           SIL
@@ -14,7 +14,8 @@ URL:        https://software.sil.org/%{projectname}/
 %global fontfamily1        Scheherazade New
 %global fontsummary1       An Arabic script unicode font
 %global fontpkgheader1    %{expand:
-Obsoletes: scheherazade-fonts < %{version}-%{release}
+Provides: sil-scheherazade-fonts = %{version}-%{release}
+Obsoletes: sil-scheherazade-fonts < %{version}-%{release}
 }
 %global fonts1             *.ttf
 %global fontconfs1         %{SOURCE1}
@@ -53,6 +54,9 @@ rm -rf documentation/source documentation/pdf
 %fontfiles -a
 
 %changelog
+* Wed Oct 19 2022 Paul Whalen <pwhalen@fedoraproject.org> - 3.300-2
+- Fix Obsoletes, add Provides
+
 * Sat Sep 03 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.300-1
 - Convert spec to new fonts packaging guidelines
 - Update to new upstream release 3.300

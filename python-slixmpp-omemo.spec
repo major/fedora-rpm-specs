@@ -3,13 +3,13 @@
 
 
 Name:           python-slixmpp-omemo
-Version:        0.7.0
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        OMEMO plugin for Slixmpp
 
 License:        GPLv3
-URL:            https://lab.louiz.org/poezio/slixmpp-omemo
-Source0:        https://lab.louiz.org/poezio/slixmpp-omemo/-/archive/v%{version}/slixmpp-omemo-v%{version}.tar.bz2
+URL:            https://code.bouah.net/pep/slixmpp-omemo
+Source0:        https://code.bouah.net/pep/slixmpp-omemo/archive/v%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -36,7 +36,7 @@ python-slixmpp.
 
 
 %prep
-%autosetup -n slixmpp-omemo-v%{version}
+%autosetup -n slixmpp-omemo
 # Remove shebang in 3 non-executable files
 find ./%{srcname}/ -type f '(' -name __init__.py -o -name stanza.py -o -name version.py ')' -ls -exec sed -i 's@#!/usr/bin/env python3@@' '{}' \;
 
@@ -64,6 +64,11 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name stanza.py -o -name ver
 
 
 %changelog
+* Thu Oct 20 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.9.0-1
+- Update to 0.9.0
+- Update SourcesURL
+- Fix %%autosetup in %%prep section
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

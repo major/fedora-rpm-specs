@@ -5,12 +5,13 @@ Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
 URL:            https://github.com/codespell-project/codespell/
-Source0:        https://files.pythonhosted.org/packages/42/57/2b07dc5eb131d34a820bbc08a4437ca2ddfff7a47476bffd1822437de910/%{name}-%{version}.tar.gz
+Source0:        https://pypi.io/packages/source/c/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  git
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python-setuptools_scm
 BuildRequires:  python3-pytest
 
 %description
@@ -32,7 +33,7 @@ rm -rf %{name}.egg-info
 rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/codespell_lib/tests
 
 %check
-# %{__python3} setup.py test
+%{__python3} setup.py test
 
 %files
 %doc README.rst

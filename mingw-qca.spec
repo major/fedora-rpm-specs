@@ -4,13 +4,15 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.3.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
 
 License:        LGPLv2+
 URL:            https://userbase.kde.org/QCA
 Source0:        http://download.kde.org/stable/%{pkgname}/%{version}/%{pkgname}-%{version}.tar.xz
+# Install pkgconfig file
+Patch0:         qca_pkgconfig.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -110,6 +112,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw32_libdir}/qt5/plugins/crypto/libqca-ossl.dll
 %{mingw32_libdir}/qt5/plugins/crypto/libqca-softstore.dll
 %{mingw32_libdir}/cmake/Qca-qt5
+%{mingw32_libdir}/pkgconfig/qca2-qt5.pc
 %{mingw32_libdir}/qt5/mkspecs/features/crypto.prf
 
 
@@ -128,10 +131,14 @@ rm -rf %{buildroot}%{mingw64_mandir}
 %{mingw64_libdir}/qt5/plugins/crypto/libqca-ossl.dll
 %{mingw64_libdir}/qt5/plugins/crypto/libqca-softstore.dll
 %{mingw64_libdir}/cmake/Qca-qt5
+%{mingw64_libdir}/pkgconfig/qca2-qt5.pc
 %{mingw64_libdir}/qt5/mkspecs/features/crypto.prf
 
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 2.3.4-6
+- Install pkgconfig file
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

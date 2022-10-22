@@ -146,11 +146,6 @@ Source3: https://github.com/unicode-org/icu/releases/download/release-%{icu_majo
 Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-l.zip
 Source100: nodejs-sources.sh
 
-# The native module Requires generator remains in the nodejs SRPM, so it knows
-# the nodejs and v8 versions.  The remainder has migrated to the
-# nodejs-packaging SRPM.
-Source7: nodejs_native.attr
-
 # Disable running gyp on bundled deps we don't use
 Patch1: 0001-Disable-running-gyp-on-shared-deps.patch
 
@@ -176,10 +171,14 @@ BuildRequires: gcc-c++ >= 8.3.0
 %endif
 
 BuildRequires: jq
+
+%if %{with npm}
 # needed to generate bundled provides for npm dependencies
 # https://src.fedoraproject.org/rpms/nodejs/pull-request/2
 # https://pagure.io/nodejs-packaging/pull-request/10
 BuildRequires: nodejs-packaging
+%endif
+
 BuildRequires: chrpath
 BuildRequires: libatomic
 BuildRequires: ninja-build
@@ -278,12 +277,6 @@ Provides: bundled(icu) = %{icu_version}
 Provides: bundled(uvwasi) = %{uvwasi_version}
 Provides: bundled(histogram) = %{histogram_version}
 
-%if 0%{?fedora}
-# Make sure to pull in the appropriate packaging macros when building RPMs
-Requires: (nodejs-packaging if rpm-build)
-%endif
-
-# Make sure we keep NPM up to date when we update Node.js
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends: npm >= %{npm_epoch}:%{npm_version}-%{npm_release}
 %endif
@@ -515,15 +508,6 @@ done
 # own the sitelib directory
 mkdir -p %{buildroot}%{_prefix}/lib/node_modules
 
-# ensure Requires are added to every native module that match the Provides from
-# the nodejs build in the buildroot
-install -Dpm0644 %{SOURCE7} %{buildroot}%{_rpmconfigdir}/fileattrs/nodejs_native.attr
-cat << EOF > %{buildroot}%{_rpmconfigdir}/nodejs_native.req
-#!/bin/sh
-echo 'nodejs(abi%{nodejs_major}) >= %nodejs_abi'
-EOF
-chmod 0755 %{buildroot}%{_rpmconfigdir}/nodejs_native.req
-
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
 cp -pr doc/* %{buildroot}%{_pkgdocdir}/html
@@ -644,8 +628,6 @@ end
 %{_usr}/lib/dtrace/node.d
 %endif
 
-%{_rpmconfigdir}/fileattrs/nodejs_native.attr
-%{_rpmconfigdir}/nodejs_native.req
 %doc AUTHORS CHANGELOG.md onboarding.md GOVERNANCE.md README.md
 %doc %{_mandir}/man1/node.1*
 

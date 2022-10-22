@@ -84,13 +84,13 @@ Patch1:     libloc-0.9.15-Install-Perl-files-to-Perl-vendor-directory.patch
 # Remove empty RPATH, in upstream after 0.9.15,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12955>
 Patch2:     libloc-0.9.15-Revert-perl-Remove-RPATH.patch
-# Remove shebangs from Python modules, proposed to the upstream,
+# Remove shebangs from Python modules, in upstream after 0.9.15,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12956>
 Patch3:     libloc-0.9.15-Remove-shebangs-from-Python-modules.patch
-# Move location(8) to location(1), proposed to the upstream,
+# Move location(8) to location(1), in upstream after 0.9.15,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12957>
 Patch4:     libloc-0.9.15-Move-location-manual-from-section-8-to-section-1.patch
-# Fix make dependencies for Perl, proposed to the upstream,
+# Fix make dependencies for Perl, in upstream after 0.9.15,
 # <https://bugzilla.ipfire.org/show_bug.cgi?id=12961>
 Patch5:     libloc-0.9.15-Declare-make-dependencies-for-Perl-binding.patch
 BuildRequires:  asciidoc

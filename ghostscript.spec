@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          9.56.1
-Release:          3%{?dist}
+Release:          4%{?dist}
 
 License:          AGPLv3+
 
@@ -105,6 +105,7 @@ BuildRequires:    make
 #Patch000: example000.patch
 Patch000: ghostscript-9.56-fix-PDFFitPage-with-square-MediaBox.patch
 Patch001: ghostscript-9.56.1-Fix-color-info-juggling-with-x11-devices.patch
+Patch002: ghostscript-9.56.1-use-proper-bounds-check-for-subfunctions-of.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -435,6 +436,9 @@ done
 # =============================================================================
 
 %changelog
+* Wed Oct 19 2022 Michael J Gruber <mjg@fedoraproject.org> - 9.56.1-4
+- fix specifix shading subfunction handling
+
 * Wed Oct 05 2022 Michael J Gruber <mjg@fedoraproject.org> - 9.56.1-3
 - fix segfaulting X11 devices (rhbz#2125654)
 

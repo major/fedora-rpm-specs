@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.10.7
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -380,6 +380,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 3.10.7-3
+- Add %%mingw{32,64}_python3_hostsitearch
+
 * Tue Sep 13 2022 Sandro Mani <manisandro@gmail.com> - 3.10.7-2
 - Fix lib-dynload path computation in mingw-python3 macros
 

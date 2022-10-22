@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -40,6 +40,7 @@ Summary:        %{summary}
 %doc README.md
 %doc README.中文.md
 %doc crates-io-readme.md
+%doc examples
 %{_bindir}/just
 %{_mandir}/man1/just.1*
 %{_datadir}/bash-completion

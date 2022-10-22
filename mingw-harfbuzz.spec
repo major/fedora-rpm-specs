@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        5.2.0
+Version:        5.3.1
 Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
@@ -145,6 +145,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 5.3.1-1
+- Update to 5.3.1
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-1
 - Update to 5.2.0
 

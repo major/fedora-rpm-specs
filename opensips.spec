@@ -4,7 +4,7 @@
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.3.1
+Version:  3.3.2
 Release:  1%{?dist}
 License:  GPLv2+
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -1495,6 +1495,9 @@ useradd -r -g %{name} -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
 
 
 %changelog
+* Thu Oct 20 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.3.2-1
+- Ver. 3.3.2
+
 * Thu Aug 18 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.3.1-1
 - Ver. 3.3.1
 

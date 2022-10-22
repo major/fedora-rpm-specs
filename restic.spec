@@ -1,6 +1,6 @@
 # https://github.com/restic/restic
 %global goipath         github.com/restic/restic
-Version:                0.12.1
+Version:                0.14.0
 
 %gometa
 
@@ -23,16 +23,11 @@ Backup destinations can be:
 
 
 Name:    restic
-Release: 5%{?dist}
+Release: 1%{?dist}
 Summary: Fast, secure, efficient backup program
 URL:     %{gourl}
 License: BSD
 Source0: %{gosource}
-#Patch0: 0001-Fix-running-tests-on-a-SELinux-enabled-system.patch
-#Patch1: backport-2652.patch
-#Move internal/fs.TestChdir to internal/test.Chdir
-#Patch1:  0001-Move-internal-fs.TestChdir-to-internal-test.Chdir.patch
-Patch0:  f1cfb97.patch
 
 #Restic does not compile for the following archs
 ExcludeArch: s390x
@@ -45,7 +40,6 @@ BuildRequires: golang(github.com/elithrar/simple-scrypt)
 BuildRequires: golang(github.com/juju/ratelimit)
 BuildRequires: golang(github.com/kurin/blazer/b2)
 BuildRequires: golang(github.com/mattn/go-isatty)
-BuildRequires: golang(github.com/ncw/swift)
 BuildRequires: golang(github.com/pkg/errors)
 BuildRequires: golang(github.com/pkg/sftp)
 BuildRequires: golang(github.com/pkg/xattr)
@@ -64,6 +58,8 @@ BuildRequires: golang(golang.org/x/text/encoding/unicode)
 BuildRequires: golang(google.golang.org/api/googleapi)
 BuildRequires: golang(google.golang.org/api/storage/v1)
 BuildRequires: golang(gopkg.in/tomb.v2)
+#Updated for 0.14.0
+BuildRequires: golang(github.com/ncw/swift/v2)
 #Updated for 0.12.0
 BuildRequires: golang(github.com/minio/minio-go/v7)
 BuildRequires: golang(github.com/minio/minio-go/v7/pkg/credentials)
@@ -84,7 +80,6 @@ BuildRequires: golang(github.com/google/go-cmp/cmp)
 
 %prep
 %goprep
-%patch0 -p1
 
 %build
 %gobuild -o %{gobuilddir}/bin/%{name} %{goipath}/cmd/restic

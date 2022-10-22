@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.6.1%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        1.6.2%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -77,7 +77,7 @@ Features:
 
 
 %prep
-%autosetup -n %{archivename}
+%autosetup -n %{archivename} -p1
 # Loosen the minimum supported version of virtualenv. Upstream wants 20.16.2,
 # but, as of this writing, Fedora hasn’t updated past 20.15.1 because the
 # changes in subsequent releases would not had any effect on the RPM package:

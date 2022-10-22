@@ -21,9 +21,6 @@ BuildRequires:  python3-setuptools_scm
 %if %{with tests}
 BuildRequires:  python3-pytest
 # workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1756902
-%if 0%{?fedora} <= 31
-BuildRequires:  (python3-importlib-metadata if python3 < 3.8)
-%endif
 %endif
 
 %global _description\

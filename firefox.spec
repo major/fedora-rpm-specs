@@ -75,7 +75,8 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-%global build_with_pgo    1
+#Disabled PGO build due to rhbz#2136401
+%global build_with_pgo    0
 %endif
 %endif
 %if 0%{?flatpak}
@@ -218,6 +219,7 @@ Patch62:        build-python.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch77:        build-python-3.11.patch
 Patch78:        firefox-i686-build.patch
+Patch79:        firefox-aarch64-sysctl.patch
 
 # Test patches
 # Generate without context by
@@ -478,6 +480,7 @@ This package contains results of tests executed during build.
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch77 -p1 -b .build-python-3.11
 %patch78 -p1 -b .firefox-i686
+%patch79 -p1 -b .aarch64-sysctl
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -656,6 +659,7 @@ MOZ_OPT_FLAGS=$(echo "%{optflags}" | %{__sed} -e 's/-Wall//')
 # See also https://fedoraproject.org/wiki/Changes/Harden_All_Packages
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
+# More Fedora specific build flags
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -fpermissive"
 %if %{?debug_build}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2//')
@@ -930,6 +934,11 @@ ln -s %{_datadir}/myspell %{buildroot}%{mozappdir}/dictionaries
 # Default
 %{__cp} %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 
+# rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
+%if 0%{?fedora} > 36
+echo 'pref("widget.use-xdg-desktop-portal.file-picker", 1);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
+%endif
+
 # Since Fedora 36 the location of dictionaries has changed to /usr/share/hunspell.
 # For backward spec compatibility we set the old path in previous versions.
 # TODO remove when Fedora 35 becomes obsolete
@@ -1092,6 +1101,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Fri Oct 14 2022 Martin Stransky <stransky@redhat.com>- 106.0-1
 - Updated to 106.0
+- Disabled PGO build due to rhbz#2136401
 
 * Fri Oct 14 2022 Martin Stransky <stransky@redhat.com>- 105.0.2-2
 - Fixed crashes on multi-monitor systems (mzbz#1793922)

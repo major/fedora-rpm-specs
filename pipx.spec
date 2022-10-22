@@ -3,6 +3,7 @@ Version:        1.1.0
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
+# SPDX
 License:        MIT
 URL:            https://pypa.github.io/pipx
 Source0:        https://github.com/pypa/pipx/archive/%{version}/pipx-%{version}.tar.gz

@@ -1,8 +1,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           nodejs-packaging
-Version:        2021.06
-Release:        6%{?dist}
+Version:        2022.10
+Release:        1%{?dist}
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch
 License:        MIT
@@ -19,13 +19,19 @@ Source0007: nodejs-symlink-deps
 Source0008: nodejs.attr
 Source0009: nodejs.prov
 Source0010: nodejs.req
-Source0011: nodejs-packaging-bundler
+Source0011: nodejs_abi.attr
+Source0012: nodejs_abi.req
+
+Source0111: nodejs-packaging-bundler
 
 # Created with `tar cfz test.tar.gz test`
 Source0101: test.tar.gz
 
 BuildRequires:  python3
 
+# Several of the macros require the /usr/bin/node command, so we need to
+# ensure that it is present when packaging.
+Requires:       /usr/bin/node
 Requires:       redhat-rpm-config
 
 %description
@@ -59,8 +65,10 @@ popd
 %install
 install -Dpm0644 macros.nodejs %{buildroot}%{macrosdir}/macros.nodejs
 install -Dpm0644 nodejs.attr %{buildroot}%{_rpmconfigdir}/fileattrs/nodejs.attr
+install -Dpm0644 nodejs_abi.attr %{buildroot}%{_rpmconfigdir}/fileattrs/nodejs_abi.attr
 install -pm0755 nodejs.prov %{buildroot}%{_rpmconfigdir}/nodejs.prov
 install -pm0755 nodejs.req %{buildroot}%{_rpmconfigdir}/nodejs.req
+install -pm0755 nodejs_abi.req %{buildroot}%{_rpmconfigdir}/nodejs_abi.req
 install -pm0755 nodejs-symlink-deps %{buildroot}%{_rpmconfigdir}/nodejs-symlink-deps
 install -pm0755 nodejs-fixdep %{buildroot}%{_rpmconfigdir}/nodejs-fixdep
 install -pm0755 nodejs-setversion %{buildroot}%{_rpmconfigdir}/nodejs-setversion
@@ -84,6 +92,13 @@ install -Dpm0755 nodejs-packaging-bundler %{buildroot}%{_bindir}/nodejs-packagin
 
 
 %changelog
+* Thu Oct 20 2022 Stephen Gallagher <sgallagh@redhat.com> - 2022.10-1
+- Move native module building tools here from Node.js
+- Add `Requires: /usr/bin/node`
+
+* Tue Oct 18 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 2021.06-7
+- NPM bundler: recursively bundle modules for all packages found
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.06-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

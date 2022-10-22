@@ -6,7 +6,8 @@ Version:        1.9.0
 Release:        %autorelease
 Summary:        %{modname} – Perl5 extension for PostgreSQL
 
-License:        GPL+ or Artistic
+# https://docs.fedoraproject.org/en-US/legal/license-field/#_perl_packages
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{srcname}
 Source0:        https://cpan.metacpan.org/modules/by-module/%{modname}/%{srcname}-%{version}.tar.gz
 

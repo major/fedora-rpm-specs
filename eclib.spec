@@ -1,7 +1,7 @@
 %global         with_allprogs 0
 
 Name:           eclib
-Version:        20220621
+Version:        20221012
 Release:        3%{?dist}
 Summary:        Library for Computations on Elliptic Curves
 License:        GPL-2.0-or-later
@@ -103,6 +103,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT%{_libdir}
 
 
 %changelog
+* Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 20221012-3
+- Version 20221012
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 20220621-3
 - Rebuild for pari 2.15.0
 

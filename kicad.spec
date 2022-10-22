@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        6.0.8
-Release:        2%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -14,7 +14,7 @@ Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{ver
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
 
-Patch1:         python_path.patch
+Patch1:         swig.patch
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
@@ -111,7 +111,8 @@ Documentation for KiCad.
     -DKICAD_USE_EGL=%{EGL_FLAG} \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DKICAD_SHOW_GTK_MESSAGES=ON \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
 %cmake_build
 
 # Templates
@@ -226,6 +227,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Oct 20 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-4
+- Patch for SWIG 4.1.0
+
+* Thu Oct 20 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-3
+- Move pcbnew.so a different way
+
 * Sat Oct 15 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-2
 - Move pcbnew.so
 

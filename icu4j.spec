@@ -2,14 +2,16 @@
 %global srctgz %(v=%{version}; echo "icu4j-$v" | sed 's/\\./_/')
 
 Name:           icu4j
-Version:        71.1
-Release:        3%{?dist}
+Version:        72.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        International Components for Unicode for Java
-# ICU itself is now covered by Unicode license, but still has contributed
-# components covered by MIT and BSD licenses
-# Data from the Timezone Database is Public Domain
-License:        Unicode and MIT and BSD and Public Domain
+# ICU itself is covered by the Unicode-DFS-2016 license.  Other licenses:
+# NAIST-2003 AND BSD-3-Clause: cjdict.dict (in main/shared/data/icudata.jar)
+# BSD-2-Clause: laodict.dict (in main/shared/data/icudata.jar)
+# BSD-3-Clause: burmesedict.dict (in main/shared/data/icudata.jar)
+# LicenseRef-Fedora-Public-Domain: main/shared/data/icutzdata.jar
+License:        Unicode-DFS-2016 AND NAIST-2003 AND BSD-3-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://icu.unicode.org/
 
 Source0:        https://github.com/unicode-org/icu/releases/download/%{gittag}/%{srctgz}.tgz
@@ -74,10 +76,6 @@ API documentation for %{name}.
 %prep
 %autosetup -p1 -c
 
-# Ivy local does not name these libs as icu4j expects
-sed -i -e 's/junit-4.12/junit-SYSTEM/' \
-       -e 's/hamcrest-core-1.3/hamcrest-core-SYSTEM/' build.xml
-
 # Missing dep on pl.pragmatists:JUnitParams for tests, so delete tests that
 # requires it for now
 sed -i -e '/pl.pragmatists/d' ivy.xml
@@ -119,6 +117,10 @@ install -m 644 icu4j-localespi.jar %{buildroot}%{_javadir}/icu4j/
 %license main/shared/licenses/*
 
 %changelog
+* Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 1:72.1-1
+- Version 72.1
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:71.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

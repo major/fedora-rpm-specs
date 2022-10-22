@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.5.0
+Version:	5.5.1
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 
@@ -22,9 +22,10 @@ URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
 #		Disable LTO for XrdPosix on 32 bit architectures
 Patch0:		0001-Disable-LTO-for-XrdPosix-on-32-bit-architectures.patch
-#		https://github.com/xrootd/xrootd/pull/1774
-#		https://github.com/xrootd/xrootd-ceph/pull/19
-Patch1:		0001-Address-some-warnings-from-Doxygen.patch
+#		Check all sizes (8, 16, 32, 64) in <atomic> check
+#		Check operator++ in <atomic> check
+#		https://github.com/xrootd/xrootd/pull/1806
+Patch1:		0001-Check-all-sizes-8-16-32-64-in-atomic-check.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3 >= 3.6
@@ -681,6 +682,12 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Wed Oct 19 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.1-1
+- Update to version 5.5.1
+- Drop doxygen patch accepted upstream
+- Check all sizes (8, 16, 32, 64) in <atomic> check
+- Check operator++ in <atomic> check
+
 * Fri Aug 26 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.0-1
 - Update to version 5.5.0
 - Drop patches accepted upstream

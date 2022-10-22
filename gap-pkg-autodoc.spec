@@ -9,8 +9,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-autodoc
-Version:        2022.07.10
-Release:        3%{?dist}
+Version:        2022.10.20
+Release:        1%{?dist}
 Summary:        Generate documentation from GAP source code
 
 License:        GPL-2.0-or-later
@@ -75,6 +75,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 2022.10.20-1
+- Version 2022.10.20
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 2022.07.10-3
 - Update for gap 4.12.0
 

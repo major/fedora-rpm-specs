@@ -9,8 +9,12 @@ Summary:        PCG Random Number Generation, C++ Edition
 Version:        0.98.1^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 
-# See LICENSE.spdx
-License:        MIT or ASL 2.0
+# The entire package is (MIT OR Apache-2.0), except that any data files are
+# CC0-1.0. As far as we can tell, the binary RPMs do not contain any content
+# derived from “data” files.
+#
+# See: LICENSE.spdx
+License:        MIT OR Apache-2.0
 URL:            https://github.com/imneme/pcg-cpp
 Source0:        %{url}/archive/%{commit}/pcg-cpp-%{commit}.tar.gz
 

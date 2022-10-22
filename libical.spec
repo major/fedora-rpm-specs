@@ -2,8 +2,8 @@
 
 Summary:	Reference implementation of the iCalendar data type and serialization format
 Name:		libical
-Version:	3.0.14
-Release:	3%{?dist}
+Version:	3.0.16
+Release:	1%{?dist}
 License:	LGPLv2 or MPLv2.0
 URL:		https://libical.github.io/libical/
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -24,7 +24,7 @@ BuildRequires:	python3
 BuildRequires:	python3-pip
 BuildRequires:	python3-gobject
 BuildRequires:	vala
-BuildRequires: make
+BuildRequires:	make
 Requires:	tzdata
 
 %description
@@ -133,6 +133,9 @@ make test ARGS="-V" -C %{_vpath_builddir}
 %{_datadir}/gtk-doc/html/%{name}-glib
 
 %changelog
+* Thu Oct 20 2022 Milan Crha <mcrha@redhat.com> - 3.0.16-1
+- Update to 3.0.16
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.14-3
 - Rebuilt for ICU 71.1
 

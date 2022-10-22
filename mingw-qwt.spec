@@ -10,7 +10,7 @@
 Name:           mingw-%{name1}
 Summary:        MinGW Windows Qwt library
 Version:        6.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 URL:            http://qwt.sourceforge.net
 License:        LGPLv2 with exceptions
 Source:         http://downloads.sourceforge.net/%{name1}/%{name1}-%{version}.tar.bz2
@@ -20,6 +20,7 @@ Patch50:        qwt-6.1.1-pkgconfig.patch
 Patch51:        qwt-6.1.5-qt_install_paths.patch
 # parallel-installable qt5 version
 Patch52:        qwt-qt5.patch
+
 BuildRequires: make
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw64-filesystem
@@ -191,6 +192,20 @@ mv $RPM_BUILD_ROOT%{mingw64_libdir}/qt4/plugins/designer/%{name1}_designer_plugi
 %endif
 %endif
 
+# Manually add version field to pkg-config file, it is impossible to do with qmake (setting VERSION also alters the library names)
+%if 0%{?qt4}
+echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/Qt4Qwt6.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/qwtmathml-qt4.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/Qt4Qwt6.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/qwtmathml-qt4.pc
+%endif
+%if 0%{?qt5}
+echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/Qt5Qwt6.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/qwtmathml-qt5.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/Qt5Qwt6.pc
+echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/qwtmathml-qt5.pc
+%endif
+
 %if 0%{?qt4}
 %files -n mingw32-%{name1}
 %doc win32/COPYING
@@ -254,6 +269,9 @@ mv $RPM_BUILD_ROOT%{mingw64_libdir}/qt4/plugins/designer/%{name1}_designer_plugi
 %endif
 
 %changelog
+* Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 6.1.5-6
+- Fix missing version field in pkgconfig file
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

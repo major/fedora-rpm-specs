@@ -1,35 +1,35 @@
 %global build_javadoc 0
 
-Name:			mariadb-java-client
-Version:	3.0.8
-Release:	1%{?dist}
-Summary:	Connects applications developed in Java to MariaDB and MySQL databases
+Name:           mariadb-java-client
+Version:        3.0.8
+Release:        1%{?dist}
+Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
-License:	BSD and LGPLv2+
-URL:			https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/
-Source0:	https://github.com/mariadb-corporation/mariadb-connector-j/archive/refs/tags/%{version}.tar.gz#/mariadb-connector-j-%{version}.tar.gz
+License:        BSD and LGPLv2+
+URL:            https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/
+Source0:        https://github.com/mariadb-corporation/mariadb-connector-j/archive/refs/tags/%{version}.tar.gz#/mariadb-connector-j-%{version}.tar.gz
 # optional dependency not in Fedora
-Patch0:		remove_waffle-jna.patch
+Patch0:         remove_waffle-jna.patch
 
-BuildArch:	noarch
-ExclusiveArch:	%{java_arches} noarch
-BuildRequires:	maven-local
-BuildRequires:	mvn(net.java.dev.jna:jna)
-BuildRequires:	mvn(net.java.dev.jna:jna-platform)
-BuildRequires:	mvn(com.google.code.maven-replacer-plugin:replacer)
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+BuildRequires:  maven-local
+BuildRequires:  mvn(net.java.dev.jna:jna)
+BuildRequires:  mvn(net.java.dev.jna:jna-platform)
+BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
 # fedora 25
-BuildRequires:	mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:	mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:	mvn(org.osgi:osgi.cmpn)
-BuildRequires:	mvn(org.osgi:osgi.core)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+BuildRequires:  mvn(org.osgi:osgi.cmpn)
+BuildRequires:  mvn(org.osgi:osgi.core)
 # Since version 2.4.0
 # removing coverage test because of dependencies
-#BuildRequires:	mvn(org.jacoco:jacoco-maven-plugin)
+#BuildRequires:  mvn(org.jacoco:jacoco-maven-plugin)
 # since version 1.5.2 missing optional dependency (windows)
-#BuildRequires:	mvn(com.github.dblock.waffle:waffle-jna)
+#BuildRequires:  mvn(com.github.dblock.waffle:waffle-jna)
 
 %if %build_javadoc == 0
-Obsoletes:	%{name}-javadoc < 3.0.3
+Obsoletes:      %{name}-javadoc < 3.0.3
 %endif
 
 %description
@@ -38,10 +38,10 @@ Database Pure Java Driver. It was developed specifically as a lightweight
 JDBC connector for use with MySQL and MariaDB database servers.
 
 %if %build_javadoc
-%package javadoc
-Summary:	Javadoc for %{name}
+%package        javadoc
+Summary:        Javadoc for %{name}
 
-%description javadoc
+%description    javadoc
 This package contains the API documentation for %{name}.
 %endif
 
@@ -75,7 +75,6 @@ sed -i '/waffle/d' src/main/java9/module-info.java
 # removing missing dependencies form META-INF, so that the mariadb-java-client module would be valid
 sed -i '/aws/d' src/main/resources/META-INF/services/org.mariadb.jdbc.plugin.CredentialPlugin
 sed -i '/aws/d' src/test/resources/META-INF/services/org.mariadb.jdbc.plugin.CredentialPlugin
-
 
 # also remove the file using the removed plugin
 rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsNativeSspiAuthentication.java

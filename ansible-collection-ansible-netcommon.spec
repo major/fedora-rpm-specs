@@ -1,31 +1,28 @@
 %global _docdir_fmt %{name}
-%global collection_namespace ansible
-%global collection_name netcommon
-# This package does not include any ELF binaries, and we don't want this file
-# in the built collection artifact.
-%undefine _package_note_file
 
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        3.1.0
+Name:           ansible-collection-ansible-netcommon
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        Ansible Network Collection for Common Code
 
 # All files are licensed under GPL-3.0-or-later except:
-# licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v3.0" | sed 's|^|# |'
+# rg --pcre2 -g '!tests/sanity/extra/licenses.py' 'SPDX-License-Identifier: (?!GPL-3\.0-or-later)' | sort | sed 's|^|# |'
 #
-# ./plugins/module_utils/network/common/config.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/netconf.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/network.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/network_template.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/parsing.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/resource_module.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/utils.py: BSD 2-Clause License
-# ./plugins/module_utils/network/restconf/restconf.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/rm_base/network_template.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/rm_base/resource_module.py: BSD 2-Clause License
-# ./plugins/module_utils/network/common/rm_base/resource_module_base.py: BSD 2-Clause License
+# plugins/module_utils/cli_parser/cli_parserbase.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/cli_parser/cli_parsertemplate.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/config.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/netconf.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/network.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/network_template.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/parsing.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/resource_module.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/rm_base/network_template.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/rm_base/resource_module_base.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/rm_base/resource_module.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/common/utils.py:# SPDX-License-Identifier: BSD-2-Clause
+# plugins/module_utils/network/restconf/restconf.py:# SPDX-License-Identifier: BSD-2-Clause
 License:        GPL-3.0-or-later AND BSD-2-Clause
-URL:            %{ansible_collection_url}
+URL:            %{ansible_collection_url ansible netcommon}
 Source:         https://github.com/ansible-collections/ansible.netcommon/archive/%{version}/%{name}-%{version}.tar.gz
 # Patch galaxy.yml to exclude unnecessary files from the built collection.
 # This is a downstream only patch.
@@ -60,16 +57,18 @@ find -type f ! -executable -type f -name '*.py' -print -exec sed -i -e '1{\@^#!.
 %install
 %ansible_collection_install
 
-%files
-%license LICENSE
+%files -f %{ansible_collection_filelist}
+%license LICENSE LICENSES/
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 %files doc
-%doc docs
 %license LICENSE
+%doc docs
 
 %changelog
+* Wed Oct 19 2022 Maxwell G <gotmax@e.email> - 4.0.0-1
+- Update to 4.0.0. Fixes rhbz#2124745.
+
 * Sat Aug 27 2022 Maxwell G <gotmax@e.email> - 3.1.0-1
 - Update to 3.1.0. Fixes rhbz#2089526.
 
@@ -80,7 +79,7 @@ find -type f ! -executable -type f -name '*.py' -print -exec sed -i -e '1{\@^#!.
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
 * Wed Oct 13 2021 Sagi Shnaidman <sshnaidm@redhat.com> - 2.2.0-2
-- Use ansible or ansible-core as BuildRequires 
+- Use ansible or ansible-core as BuildRequires
 
 * Thu Jul 22 2021 Sagi Shnaidman <sshnaidm@redhat.com> - 2.2.0-1
 - Update to 2.2.0

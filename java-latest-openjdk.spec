@@ -322,7 +322,7 @@
 # New Version-String scheme-style defines
 %global featurever 19
 %global interimver 0
-%global updatever 0
+%global updatever 1
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -379,8 +379,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        36
-%global rpmrelease      3
+%global buildver        10
+%global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -2687,6 +2687,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Thu Oct 20 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:19.0.1.0.10-1.rolling
+- Update to jdk-19.0.1 release
+- Update release notes to 19.0.1
+
 * Wed Sep 21 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:19.0.0.0.36-3.rolling
 - The stdc++lib, zlib & freetype options should always be set from the global, so they are not altered for staticlibs builds
 - Remove freetype sources along with zlib sources
