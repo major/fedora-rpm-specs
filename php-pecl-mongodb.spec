@@ -18,16 +18,16 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 
-%global libmongo    1.22
-%global libcrypt    1.5
+%global libmongo    1.22.2
+%global libcrypt    1.5.2
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.14.1
+%global upstream_version 1.14.2
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        ASL 2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -171,6 +171,9 @@ cd ../ZTS
 
 
 %changelog
+* Fri Oct 21 2022 Remi Collet <remi@remirepo.net> - 1.14.2-1
+- update to 1.14.2
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.14.1-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        6.0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -110,7 +110,6 @@ Documentation for KiCad.
     -DKICAD_PCM=ON \
     -DKICAD_USE_EGL=%{EGL_FLAG} \
     -DKICAD_VERSION_EXTRA=%{release} \
-    -DKICAD_SHOW_GTK_MESSAGES=ON \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
 %cmake_build
@@ -227,6 +226,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Oct 21 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-5
+- Remove wxWidgets work-around
+
 * Thu Oct 20 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-4
 - Patch for SWIG 4.1.0
 

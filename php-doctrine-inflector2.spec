@@ -10,9 +10,9 @@
 
 %global github_owner     doctrine
 %global github_name      inflector
-%global github_version   2.0.5
+%global github_version   2.0.6
 %global major            2
-%global github_commit    ade2b3bbfb776f27f0558e26eed43b5d9fe1b392
+%global github_commit    d9d313a36c872fd6ee06d9a6cbcf713eaa40f024
 
 %global composer_vendor  doctrine
 %global composer_project inflector
@@ -117,6 +117,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Oct 21 2022 Remi Collet <remi@remirepo.net> - 2.0.6-1
+- update to 2.0.6
+
 * Fri Sep  9 2022 Remi Collet <remi@remirepo.net> - 2.0.5-1
 - update to 2.0.5
 

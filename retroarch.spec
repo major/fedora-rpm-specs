@@ -24,8 +24,8 @@
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.11.0
-Release:        2%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets

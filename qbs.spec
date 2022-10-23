@@ -10,7 +10,7 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        1.23.1
+Version:        1.23.2
 Release:        1%{?dist}
 Summary:        Cross platform build tool
 
@@ -141,10 +141,13 @@ rm %{buildroot}%{_bindir}/tst_*
 %{_datadir}/%{name}/examples/
 
 %files doc
-%doc %{_vpath_builddir}/doc/html/
+%doc %{_defaultdocdir}/%{name}
 
 
 %changelog
+* Fri Oct 21 2022 Sandro Mani <manisandro@gmail.com> - 1:1.23.2-1
+- Update to 1.23.2
+
 * Wed Aug 17 2022 Sandro Mani <manisandro@gmail.com> - 1:1.23.1-1
 - Update to 1.23.1
 

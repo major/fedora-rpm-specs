@@ -4,8 +4,8 @@
 %global crate pleaser
 
 Name:           rust-%{crate}
-Version:        0.5.0
-Release:        5%{?dist}
+Version:        0.5.3
+Release:        0%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 # Upstream license specification: GPL-3.0-or-later
@@ -20,8 +20,6 @@ BuildArch:      noarch
 
 # Patch nix dep to >= 0.19
 Patch0: pleaser-fix-metadata.diff
-# Patch process id type for syslog
-Patch1: pleaser-fix-syslog.diff
 
 BuildRequires:  rust-packaging
 
@@ -118,12 +116,6 @@ EOF
 %endif
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Feb 15 2022 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5.0-4
-- Rebuild with package notes
-
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

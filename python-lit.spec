@@ -6,7 +6,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -28,6 +28,7 @@ lit is a tool used by the LLVM project for executing its test suites.
 Summary: LLVM lit test runner for Python 3
 
 Requires: python3-setuptools
+Recommends: python3-psutil
 
 %description -n python3-lit
 lit is a tool used by the LLVM project for executing its test suites.
@@ -56,6 +57,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Fri Oct 21 2022 Serge Guelton <serge.guelton@telecom-bretagne.eu> - 15.0.0-2
+- Add python3-psutil recommends to avoid runtime warning
+
 * Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
 - Update to lit 15.0.0
 

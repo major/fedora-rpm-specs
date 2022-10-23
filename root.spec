@@ -63,9 +63,9 @@
 %global __provides_exclude_from ^(%{?python2_sitearch:%{python2_sitearch}|}%{python3_sitearch})/lib.*\\.so$
 
 Name:		root
-Version:	6.26.06
+Version:	6.26.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -130,10 +130,10 @@ Patch13:	%{name}-fix-test-failure-on-ppc64le-and-aarch64-with-gcc-12.patch
 Patch14:	%{name}-test-timeout.patch
 #		Fixes for tmva-sofie test compilation
 #		https://github.com/root-project/root/pull/10117
-Patch15:	%{name}-blas-linking-and-ignore-prefix.patch
-#		Move private declarations away from the public header file
-#		https://github.com/root-project/root/pull/10145
-Patch16:	%{name}-move-private-decl.patch
+Patch15:	%{name}-ignore-prefix.patch
+#		Fixes for garbage collection in Python 3.11
+#		https://github.com/root-project/root/pull/11457
+Patch16:	%{name}-Fixes-for-garbage-collection-in-Python-3.11.patch
 #		Fix test when long is 32 bits
 #		https://github.com/root-project/root/pull/10302
 Patch17:	%{name}-longlong.patch
@@ -176,19 +176,11 @@ Patch30:	%{name}-tmva-threads.patch
 Patch31:	%{name}-core-base-test.patch
 #		Backports
 Patch32:	%{name}-make-dyld-based-library-search-behavior-default.patch
-Patch33:	%{name}-fix-TMVA-tutorial-using-internally-python.patch
+Patch33:	%{name}-get-rid-of-lsb_release.patch
 Patch34:	%{name}-threadsh1-avoid-heap-use-after-free.patch
 Patch35:	%{name}-PyROOT-code.h-must-not-be-included-directly-in-3.11.patch
 Patch36:	%{name}-PyROOT-Prevent-cast-error-when-calling-PyTuple_SET_I.patch
-#		Fixes for garbage collection in Python 3.11
-#		https://github.com/root-project/root/pull/11457
-Patch37:	%{name}-Fixes-for-garbage-collection-in-Python-3.11.patch
-#		Backport
-Patch38:	%{name}-get-rid-of-lsb_release.patch
-Patch39:	%{name}-protect-against-empty-COMPILE_DEFINITIONS.patch
-#		Compatibility with nlohmann json 3.11+
-#		https://github.com/root-project/root/pull/11205
-Patch40:	root-json-3.11.patch
+Patch37:	%{name}-Guard-gInterpreterMutex-in-TClingClassInfo-IsEnum.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	devtoolset-8-toolchain
@@ -2055,9 +2047,6 @@ This package contains an ntuple extension for ROOT 7.
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
-%patch38 -p1
-%patch39 -p1
-%patch40 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2103,12 +2092,13 @@ rm etc/notebook/JsMVA/css/*.min.css
 
 %if %{?rhel}%{!?rhel:0} == 7 || %{?rhel}%{!?rhel:0} == 8
 # Allow older json on EPEL 7/8
-sed 's!nlohmann_json 3.9! nlohmann_json 3.6!' \
+sed 's!nlohmann_json 3.9!nlohmann_json 3.6!' \
     -i cmake/modules/SearchInstalledSoftware.cmake
 %endif
 
 %if %{?rhel}%{!?rhel:0} == 7
 # On EPEL 7 disable test that fails to compile
+# Brace initialization list is ambiguous with old compiler
 sed 's!.*dataframe_datasetspec!### &!' -i tree/dataframe/test/CMakeLists.txt
 %endif
 
@@ -2772,10 +2762,11 @@ tutorial-dataframe-df026_AsNumpyArrays-py|\
 tutorial-roofit-rf409_NumPyPandasToRooFit-py"
 %endif
 
-%ifarch %{ix86}
-# Test failing on ix86 only
-# - gtest-tree-dataframe-test-dataframe-snapshot
-excluded="${excluded}|gtest-tree-dataframe-test-dataframe-snapshot"
+%if %{?rhel}%{!?rhel:0} == 7
+# - pyunittests-pyroot-roofit-roodataset-numpy
+#   AttributeError: module 'numpy' has no attribute 'isin'
+excluded="${excluded}|\
+pyunittests-pyroot-roofit-roodataset-numpy"
 %endif
 
 %ifarch %{ix86} %{arm}
@@ -3992,6 +3983,13 @@ fi
 %endif
 
 %changelog
+* Wed Oct 19 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.08-1
+- Update to 6.26.08
+- Drop patch root-move-private-decl.patch (fixed upstream)
+- Drop some previously backported patches
+- Rename patch root-blas-linking-and-ignore-prefix.patch (partially fixed)
+- Backport locking of gInterpreterMutex in TClingClassInfo::IsEnum
+
 * Sat Oct 01 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.06-5
 - Use upstream's proposed change for the Python garbage collection issue
 

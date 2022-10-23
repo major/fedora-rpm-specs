@@ -2,7 +2,7 @@
 %global desc %{pypi_name} is a library of bindings to use the RESTful API for Podman.
 
 %global pypi_dist 4
-%global built_tag v4.2.0
+%global built_tag v4.3.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -14,7 +14,7 @@ Release: %autorelease
 Summary: RESTful API for Podman
 URL: https://github.com/containers/%{pypi_name}-py
 # Tarball fetched from upstream
-Source0: %{url}/releases/download/%{built_tag}/%{pypi_name}-%{version}.tar.gz
+Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildArch: noarch
 
 %description
@@ -40,7 +40,7 @@ Summary: %{summary}
 %desc
 
 %prep
-%autosetup -Sgit -n %{pypi_name}-%{built_tag_strip}
+%autosetup -Sgit -n %{pypi_name}-py-%{built_tag_strip}
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}

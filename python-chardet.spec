@@ -9,15 +9,15 @@ Version:        5.0.0
 Release:        %autorelease
 Summary:        Python character encoding detector
 
-# The entire source, after tests/ are filtered, is LGPLv2+. See the comment
-# above Source0 for more details on tests/.
+# The entire source, after tests/ are filtered, is LGPL-2.0-or-later. See the
+# comment above Source0 for more details on tests/.
 #
 # See also:
 #   clarify Trove license classifier
 #   https://github.com/chardet/chardet/issues/162
 #   Clarify LGPL version in License trove classifier
 #   https://github.com/chardet/chardet/pull/255
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/chardet/chardet
 # A filtered source tarball, obtained by (see Source1):
 #

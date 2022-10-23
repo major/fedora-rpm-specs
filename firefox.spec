@@ -164,7 +164,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        106.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -254,7 +254,7 @@ Patch602:        mozilla-1516803.patch
 Patch990:        work-around-GCC-ICE-on-arm.patch
 
 # Backported WebRTC changes for PipeWire/Wayland screen sharing support
-Patch1000:       libwebrtc-screen-cast-sync-1.patch
+Patch1000:       libwebrtc-screen-cast-sync.patch
 
 # Work around broken moz.build file on ppc64le (mozb#1779545, mozb#1775202)
 Patch1100:       mozilla-1775202.patch
@@ -516,7 +516,7 @@ This package contains results of tests executed during build.
 %patch990 -p1 -b .work-around-GCC-ICE-on-arm
 
 %ifnarch ppc64le %{arm}
-#%patch1000 -p1 -b .libwebrtc-screen-cast-sync
+%patch1000 -p1 -b .libwebrtc-screen-cast-sync
 %endif
 
 %patch1100 -p1 -b .ppc-mobzuild
@@ -1099,6 +1099,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Oct 20 2022 Jan Grulich <jgrulich@redhat.com> - 106.0-2
+- Enable upstream WebRTC code for screensharing on Wayland
+
 * Fri Oct 14 2022 Martin Stransky <stransky@redhat.com>- 106.0-1
 - Updated to 106.0
 - Disabled PGO build due to rhbz#2136401

@@ -9,6 +9,7 @@ Version:        1.1.0
 Release:        %autorelease
 Summary:        Cython interface for the interior point optimizer IPOPT
 
+# SPDX
 License:        EPL-1.0
 URL:            https://github.com/mechmotum/cyipopt
 # We prefer the GitHub source archive to the PyPI one because it contains

@@ -25,7 +25,7 @@
 %global url1    https://github.com/pbek
 
 Name:           qownnotes
-Version:        22.10.1
+Version:        22.10.2
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

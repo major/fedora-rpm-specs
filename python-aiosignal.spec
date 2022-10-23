@@ -9,7 +9,7 @@ Version:        1.2.0
 Release:        %autorelease
 Summary:        List of registered asynchronous callbacks
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/aio-libs/aiosignal
 Source0:        %{pypi_source aiosignal}
 

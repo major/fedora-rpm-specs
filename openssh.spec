@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 6
+%global openssh_rel 7
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -722,7 +722,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
-* Fri Oct 5 2022 Anthony Rabbito <hello@anthonyrabbito.com> - 9.0p1-6
+* Fri Oct 21 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-7
+- Check IP opts length (rhbz#1960015)
+
+* Wed Oct 5 2022 Anthony Rabbito <hello@anthonyrabbito.com> - 9.0p1-6
 - Add a socket unit to ssh-agent user unit (rhbz#2125576)
 
 * Thu Sep 29 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-5

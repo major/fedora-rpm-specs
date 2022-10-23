@@ -3,7 +3,7 @@
 %define gtk3_version 3.15.9
 
 Name:           gucharmap
-Version:        15.0.0
+Version:        15.0.1
 Release:        1%{?dist}
 Summary:        Unicode character picker and font browser
 
@@ -12,23 +12,23 @@ Summary:        Unicode character picker and font browser
 %global ver_minor       %(echo %{version} | cut -d. -f2)
 %global ver_minor_next  %(echo $((%{ver_minor}+1)))
 
-License:        GPLv3+ and GFDL and MIT
+License:        GPL-3.0-or-later AND GFDL-1.3-or-later AND Unicode-DFS-2015
 # GPL for the source code, GFDL for the docs, MIT for Unicode data
 URL:            https://wiki.gnome.org/Apps/Gucharmap
 Source:         https://gitlab.gnome.org/GNOME/gucharmap/-/archive/%{version}/gucharmap-%{version}.tar.bz2
 
-BuildRequires:  appdata-tools
+BuildRequires:  desktop-file-utils
 BuildRequires:  glib2-devel >= %{glib2_version}
 BuildRequires:  gtk3-devel >= %{gtk3_version}
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gettext
+BuildRequires:  itstool
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
-BuildRequires:  /usr/bin/appstream-util
-BuildRequires:  /usr/bin/desktop-file-validate
+BuildRequires:  perl(Env)
 BuildRequires:  (unicode-ucd >= %{ver_major}.%{ver_minor} with unicode-ucd < %{ver_major}.%{ver_minor_next})
 BuildRequires:  (unicode-ucd-unihan >= %{ver_major}.%{ver_minor} with unicode-ucd-unihan < %{ver_major}.%{ver_minor_next})
 BuildRequires:  vala
-BuildRequires:  perl(Env)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -69,22 +69,25 @@ needed to use the libgucharmap library.
 #
 # See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
 #
-appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/metainfo/gucharmap.metainfo.xml \
+# Opened https://gitlab.gnome.org/GNOME/gucharmap/-/issues/491
+#
+appstream-util replace-screenshots %{buildroot}%{_metainfodir}/gucharmap.metainfo.xml \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gucharmap/a.png \
   https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gucharmap/b.png
 
 %find_lang gucharmap --with-gnome
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gucharmap.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 %files -f gucharmap.lang
 %license COPYING COPYING.GFDL COPYING.UNICODE
 %doc README.md
-%{_bindir}/gucharmap
-%{_datadir}/applications/gucharmap.desktop
+%{_bindir}/%{name}
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.Charmap.gschema.xml
-%{_datadir}/metainfo/gucharmap.metainfo.xml
+%{_metainfodir}/%{name}.metainfo.xml
 
 %files libs
 %license COPYING
@@ -100,6 +103,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gucharmap.desktop
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Fri Oct 21 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.1-1
+- Update to 15.0.1 (#2136883)
+- Add itstool BuildRequires
+- Switch to SPDX license identifier
+- Clean up spec file
+
 * Wed Sep 14 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.0-1
 - Update to 15.0.0 (#2126886)
 

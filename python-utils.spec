@@ -1,6 +1,6 @@
 Name:           python-utils
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.3.3
+Release:        1%{?dist}
 Summary:        Python Utils is a module with some convenient utilities
 
 License:        BSD
@@ -13,9 +13,9 @@ BuildRequires:  python3-devel
 # tox.ini uses _python_utils_tests/requirements.txt and that uses coverage and linting
 # so we cherry-pick what we need instead
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-sphinx
 
-%?python_enable_dependency_generator
 
 %description
 Python Utils is a collection of small Python functions and classes which
@@ -43,8 +43,7 @@ Documentation for python-utils.
 %autosetup -p1 -n %{name}-%{version}
 
 # Stop linting code in %%check and measuring coverage, this is upstream's business
-sed -Ei '/--(cov|pep8|flake8|mypy)/d' pytest.ini
-sed -Ezi 's/flake8.+=.+\n(\s*\S+\s*\n)*\n/\n/' pytest.ini
+sed -Ei '/--(cov|mypy)/d' pytest.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -64,7 +63,9 @@ rm -rf html/{.doctrees,.buildinfo,*.inv}
 
 
 %check
-%pytest
+# Ignoring test_logger.py and python_utils/loguru.py - we don't have loguru
+# in Fedora yet, hence we don't package the loguru extra for python-utils.
+%pytest --ignore _python_utils_tests/test_logger.py --ignore python_utils/loguru.py
 
 
 %files -n python3-utils -f %{pyproject_files}
@@ -75,6 +76,10 @@ rm -rf html/{.doctrees,.buildinfo,*.inv}
 
 
 %changelog
+* Fri Oct 14 2022 Karolina Surma <ksurma@redhat.com> - 3.3.3-1
+- Update to 3.3.3
+- Fixes: rhbz#2085998
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

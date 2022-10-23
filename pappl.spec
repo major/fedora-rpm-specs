@@ -9,7 +9,7 @@
 
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 License: ASL 2.0
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
@@ -87,6 +87,9 @@ make test
 %{_libdir}/pkgconfig/pappl.pc
 
 %changelog
+* Fri Oct 21 2022 Richard Lescak <rlescak@redhat.com> - 1.2.3-1
+- Rebase to version 1.2.3 (#2133319)
+
 * Tue Sep 27 2022 Richard Lescak <rlescak@redhat.com> - 1.2.2-1
 - Rebase to version 1.2.2 (#2129391)
 

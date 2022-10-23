@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -80,6 +80,10 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
+Patch0001:	0001-alsa-seq-attempt-to-get-more-data-in-timeout.patch
+Patch0002:	0002-jack-set-port-valid-state-safely.patch
+Patch0003:	0003-bluez5-stop-before-freeing-things.patch
+Patch0004:	0004-bluez5-reset-timers-when-reassigning-followers.patch
 
 ## upstreamable patches
 
@@ -624,6 +628,13 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Oct 21 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.59-2
+- Add a patch to fix midi processing in some cases.
+- Add a patch to fix crash when exiting some JACK apps such as
+  Ardour7.
+- Add a patch to fix a crash when switching bluetooth profiles.
+- Add a patch to fix bluetooth source switching between drivers.
+
 * Fri Sep 30 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.59-1
 - Update version to 0.3.59
 

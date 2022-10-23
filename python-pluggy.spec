@@ -20,7 +20,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 %if %{with tests}
 BuildRequires:  python3-pytest
-# workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1756902
 %endif
 
 %global _description\

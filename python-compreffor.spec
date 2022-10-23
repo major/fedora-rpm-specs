@@ -3,7 +3,7 @@ Version:        0.5.2
 Release:        %autorelease
 Summary:        CFF table subroutinizer for FontTools
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/googlefonts/compreffor
 Source0:        %{url}/archive/%{version}/compreffor-%{version}.tar.gz
 # Man page written by hand for Fedora in groff_man(7) format using the

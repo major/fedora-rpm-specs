@@ -7,13 +7,13 @@
 # moby
 %global goipath_moby github.com/docker/docker
 %global git_moby https://%{goipath_moby}
-%global commit_moby f756502055d2e36a84f2068e6620bea5ecf09058
+%global commit_moby 03df974ae9e6c219862907efdd76ec2e77ec930b
 %global shortcommit_moby %(c=%{commit_moby}; echo ${c:0:7})
 
 # cli
 %global goipath_cli github.com/docker/cli
 %global git_cli https://%{goipath_cli}
-%global commit_cli aa7e414fdcb23a66e8fabbef0a560ef1769eace5
+%global commit_cli 9fdeb9c3de2f2d9f5799be373f27b2f9df44609d
 %global shortcommit_cli %(c=%{commit_cli}; echo ${c:0:7})
 
 # tini
@@ -22,7 +22,7 @@
 %global shortcommit_tini %(c=%{commit_tini}; echo ${c:0:7})
 
 Name:           moby-engine
-Version:        20.10.18
+Version:        20.10.20
 Release:        1%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
@@ -279,6 +279,13 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Thu Oct 20 2022 Jan Kuparinen <copperi@fedoraproject.org> - 20.10.20-1
+- Update to 20.10.20.
+- Mitigates CVE-2022-39253
+
+* Tue Oct 18 2022 Jan Kuparinen <copperi@fedoraproject.org> - 20.10.19-1
+- Update to 20.10.19.
+
 * Sat Sep 10 2022 Maxwell G <gotmax@e.email> - 20.10.18-1
 - Update to 20.10.18.
 - Mitigates CVE-2022-36109 / GHSA-rc4r-wh2q-q6c4

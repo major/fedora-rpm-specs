@@ -1,27 +1,20 @@
 %global pypi_name numpy-stl
 
 Name:           python-%{pypi_name}
-Version:        2.16.3
-Release:        3%{?dist}
+Version:        2.17.1
+Release:        1%{?dist}
 Summary:        Library for reading, writing and modifying STL files
 
 License:        BSD
 URL:            https://github.com/WoLpH/numpy-stl/
 Source:         %{pypi_source}
 
-# Fix Python 3.11 compatibility wrt random.randint()
-Patch:          https://github.com/WoLpH/numpy-stl/commit/988630fae0.patch
-
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
-BuildRequires:  python3-numpy
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
-BuildRequires:  python3-utils >= 1.6.2
 
 %ifnarch armv7hl
 # the test is optional based on the presence of PyQt5
@@ -30,8 +23,6 @@ BuildRequires:  python3-PyQt5
 BuildRequires:  /usr/bin/xvfb-run
 %endif
 
-%?python_enable_dependency_generator
-
 %description
 Simple library to make working with STL files (and 3D objects in general) fast
 and easy. Due to all operations heavily relying on numpy this is one of the
@@ -39,10 +30,6 @@ fastest STL editing libraries for Python available.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
-# for entrypoints
-Requires:       %{py3_dist setuptools}
 
 %description -n python3-%{pypi_name}
 Simple library to make working with STL files (and 3D objects in general) fast
@@ -58,37 +45,39 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 # generate html docs
 sphinx-build-3 docs html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files stl
 
 %check
-%{__python3} setup.py pytest --addopts -v
+%pytest -v
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/stl
 %{_bindir}/stl2bin
 %{_bindir}/stl2ascii
-%{python3_sitearch}/stl
-%{python3_sitearch}/numpy_stl-%{version}-py%{python3_version}.egg-info
 
 %files doc
 %doc html
 
 %changelog
+* Tue Oct 18 2022 Karolina Surma <ksurma@redhat.com> - 2.17.1-1
+- Update to 2.17.1
+Resolves: rhbz#2086213
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

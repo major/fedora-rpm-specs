@@ -5,8 +5,10 @@ Version:        0.5.1
 Release:        %autorelease
 Summary:        Setuptools extension to build and package CMake projects
 
-# The entire source is MIT, except example/bindings_swig/numpy.i, which is BSD.
-License:        MIT and BSD
+# The entire source is MIT, except example/bindings_swig/numpy.i, which is
+# BSD-3-Clause, and test_example/bindings_swig/numpy.i, which is also
+# BSD-3-Clause but does not contribute to any of the binary RPMs.
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/diegoferigo/cmake-build-extension
 Source0:        %{pypi_source cmake-build-extension}
 
@@ -59,7 +61,7 @@ flexible, and reusable setuptools extension with the following features:
 Summary:        %{summary}
 
 # Since this subpackage does not contain the example project, it has no
-# BSD-licensed sources.
+# BSD-3-Clause licensed sources.
 License:        MIT
 
 Requires:       cmake

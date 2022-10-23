@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-probeinterface
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 
@@ -24,15 +24,6 @@ Source0:        %{url}/archive/%{version}/probeinterface-%{version}.tar.gz
 %global probe_url https://web.gin.g-node.org/spikeinterface/probeinterface_library/raw/master
 Source1:        %{probe_url}/neuronexus/A1x32-Poly3-10mm-50-177/A1x32-Poly3-10mm-50-177.json
 Source2:        %{probe_url}/cambridgeneurotech/ASSY-156-P-1/ASSY-156-P-1.json
-
-# Explicitly list packages for setuptools
-# https://github.com/SpikeInterface/probeinterface/pull/134
-#
-# Fixes:
-#
-# All top-level directories installed to site-packages
-# https://github.com/SpikeInterface/probeinterface/issues/133
-Patch:          %{url}/pull/134.patch
 
 BuildArch:      noarch
 

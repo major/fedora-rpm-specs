@@ -2,7 +2,7 @@
 %bcond_without perl_HTTP_Message_enables_Clone
 
 Name:           perl-HTTP-Message
-Version:        6.40
+Version:        6.42
 Release:        1%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0
@@ -10,6 +10,9 @@ Summary:        HTTP style message
 License:        (GPL+ or Artistic) and CC0
 URL:            https://metacpan.org/release/HTTP-Message
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-%{version}.tar.gz
+Patch0:         0001-Remove-dependency-to-IO-Uncompress-Gunzip.patch
+Patch1:         0002-Remove-dependency-to-IO-Uncompress-Bunzip2.patch
+Patch2:         0003-Remove-dependencies-from-tests.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -33,8 +36,6 @@ BuildRequires:  perl(IO::Compress::Bzip2) >= 2.021
 BuildRequires:  perl(IO::Compress::Deflate)
 BuildRequires:  perl(IO::Compress::Gzip)
 BuildRequires:  perl(IO::HTML)
-BuildRequires:  perl(IO::Uncompress::Bunzip2) >= 2.021
-BuildRequires:  perl(IO::Uncompress::Gunzip)
 BuildRequires:  perl(IO::Uncompress::Inflate)
 BuildRequires:  perl(IO::Uncompress::RawInflate)
 BuildRequires:  perl(LWP::MediaTypes) >= 6
@@ -68,8 +69,6 @@ Requires:       perl(IO::Compress::Bzip2) >= 2.021
 Requires:       perl(IO::Compress::Deflate)
 Requires:       perl(IO::Compress::Gzip)
 Requires:       perl(IO::HTML)
-Requires:       perl(IO::Uncompress::Bunzip2) >= 2.021
-Requires:       perl(IO::Uncompress::Gunzip)
 Requires:       perl(IO::Uncompress::Inflate)
 Requires:       perl(IO::Uncompress::RawInflate)
 Requires:       perl(LWP::MediaTypes) >= 6
@@ -102,6 +101,9 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n HTTP-Message-%{version}
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -138,6 +140,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 21 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.42-1
+- 0.42 bump
+
 * Tue Oct 18 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.40-1
 - 6.40 bump
 

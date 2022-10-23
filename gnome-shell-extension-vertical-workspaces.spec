@@ -2,9 +2,9 @@
 %global uuid        %{extension}@G-dH.github.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        12
+Version:        13
 Release:        %autorelease
-Summary:        Vertical workspace orientation for GNOME 40+
+Summary:        Vertical orientation of workspaces for GNOME 40+
 License:        GPL-3.0-only
 URL:            https://github.com/G-dH/vertical-workspaces
 BuildArch:      noarch
@@ -17,8 +17,8 @@ Provides:       %{extension} = %{version}-%{release}
 
 
 %description
-Vertical workspace orientation for GNOME 40+ that adds options to customize
-Activities overview layout and content.
+Vertical orientation of workspaces and options to customize Activities overview
+layout and content for GNOME 40+.
 
 
 %prep

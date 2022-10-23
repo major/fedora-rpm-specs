@@ -3,6 +3,7 @@ Version:        4.1.0
 Release:        %autorelease
 Summary:        Infer properties from accessor methods
 
+# SPDX
 License:        MIT
 URL:            https://github.com/kalekundert/autoprop
 Source0:        %{pypi_source autoprop}
@@ -29,7 +30,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n autoprop-%{version} -p1
+%autosetup -n autoprop-%{version}
 
 # Patch out coverage dependencies
 sed -r -i '/\b(pytest-cov|coveralls)\b/d' pyproject.toml

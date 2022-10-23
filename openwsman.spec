@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD
@@ -50,17 +50,18 @@ Patch3:		openwsman-2.6.2-openssl-1.1-fix.patch
 Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
 Patch6:		openwsman-2.7.1-http-unauthorized-improve.patch
-BuildRequires:  make
+Patch7:		openwsman-2.7.1-fix-ruby-bindings-for-swig-41.patch
+BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
 %if %{with_python}
 BuildRequires:	python3 python3-devel
 %endif
 %if %{with_ruby}
-BuildRequires:  ruby ruby-devel rubygems-devel
+BuildRequires:	ruby ruby-devel rubygems-devel
 %endif
 %if %{with_perl}
-BuildRequires:  perl-interpreter perl-devel perl-generators
+BuildRequires:	perl-interpreter perl-devel perl-generators
 %endif
 BuildRequires:	pkgconfig openssl-devel
 BuildRequires:	cmake
@@ -193,6 +194,7 @@ Custom SELinux policy module
 %patch4 -p1 -b .http-status-line
 %patch5 -p1 -b .update-ssleay-conf
 %patch6 -p1 -b .http-unauthorized-improve
+%patch7 -p1 -b .fix-ruby-bindings-for-swig-41
 
 %build
 # Removing executable permissions on .c and .h files to fix rpmlint warnings. 
@@ -414,6 +416,11 @@ fi
 %endif
 
 %changelog
+* Fri Oct 21 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-8
+- Fix Ruby bindings for swig 4.1 (backported from upstream)
+  Resolves: #2136510
+- Remove mixed use of spaces and tabs from spec file
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

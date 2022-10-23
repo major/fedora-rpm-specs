@@ -1,8 +1,8 @@
 %undefine _hardened_build
 
 Name:    sugar-toolkit-gtk3
-Version: 0.119
-Release: 3%{?dist}
+Version: 0.120
+Release: 1%{?dist}
 Summary: Sugar toolkit GTK+ 3
 License: LGPLv2+
 URL:     http://wiki.laptop.org/go/Sugar
@@ -84,6 +84,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Fri Oct 21 2022 Ibiam Chihurumnaya <ibiam@sugarlabs.org> 0.120-1
+- New Release 0.120
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.119-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

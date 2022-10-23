@@ -1,9 +1,13 @@
 Name:           python-xxhash
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 
-License:        BSD
+# The entire source is BSD-2-Clause. When the PyPI sdist is used (vs. the
+# GitHub archive), a bundled copy of portions of the xxhash C library is also
+# present in the source archive; it is under the same license and is removed in
+# %%prep.
+License:        BSD-2-Clause
 URL:            https://github.com/ifduyue/python-xxhash
 Source0:        %{pypi_source xxhash}
 
@@ -31,7 +35,7 @@ rm -rvf deps
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

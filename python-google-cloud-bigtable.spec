@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-bigtable
 %global         forgeurl    https://github.com/googleapis/python-bigtable
-Version:        2.13.1
+Version:        2.13.2
 %global         tag         v%{version}
 %forgemeta
 

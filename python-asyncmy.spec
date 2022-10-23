@@ -8,7 +8,7 @@ Summary:        A fast asyncio MySQL/MariaDB driver
 Version:        0.2.5
 Release:        %autorelease
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/long2ice/asyncmy
 # The GitHub source includes tests and examples; the PyPI source lacks them.
 Source0:        %{url}/archive/v%{version}/asyncmy-%{version}.tar.gz
