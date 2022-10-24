@@ -1,16 +1,14 @@
 %bcond_without tests
 
 Name:           python-lazy-loader
-Version:        0.1~rc3
+Version:        0.1
 Release:        %autorelease
 Summary:        Populate library namespace without incurring immediate import costs
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/scientific-python/lazy_loader
-# As of 0.1~rc3, the PyPI project does not include a source distribution, so we
-# must use the GitHub tarball.
-%global pypi_version %(echo '%{version}' | tr -d '~')
-Source0:        %{url}/archive/v%{pypi_version}/lazy_loader-%{pypi_version}.tar.gz
+# The PyPI sdist lacks tests, so we must use the GitHub archive.
+Source0:        %{pypi_source lazy_loader}
 
 BuildArch:      noarch
 
@@ -45,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n lazy_loader-%{pypi_version}
+%autosetup -n lazy_loader-%{version}
 
 
 %generate_buildrequires

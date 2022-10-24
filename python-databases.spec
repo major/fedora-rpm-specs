@@ -22,7 +22,7 @@ Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
 # affected platforms. We can still make the binary RPMs noarch, except for the
 # affected extra metapackage.
 %global debug_package %{nil}
-%ifnarch %{ix86} %{arm32}
+%if 0%{?__isa_bits} != 32
 %global with_asyncmy 1
 %endif
 
@@ -43,6 +43,8 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(starlette)
 # Used only as a soft dependency of starlette
 BuildRequires:  python3dist(requests)
+# Used only as a soft dependency of starlette.testclient
+BuildRequires:  python3dist(httpx)
 %endif
 
 %if %{with mysql_tests}

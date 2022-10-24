@@ -9,6 +9,7 @@ Version:        0.8.11
 Release:        %autorelease
 Summary:        Create and modify Word documents with Python
 
+# SPDX
 License:        MIT
 URL:            https://python-docx.readthedocs.io/en/latest/
 # We MUST use the PyPI tarball; the GitHub tarball includes material under ref/

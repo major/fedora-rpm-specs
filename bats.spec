@@ -1,17 +1,13 @@
 %global         upstreamname  bats-core
 
 Name:           bats
-Version:        1.8.0
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Bash Automated Testing System
 
 License:        MIT
 URL:            https://github.com/%{upstreamname}/%{upstreamname}
 Source:        https://github.com/%{upstreamname}/%{upstreamname}/archive/v%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-# Fix for bash-5.2
-# https://github.com/bats-core/bats-core/pull/656
-Patch:         %{url}/commit/24a4ecbceff3ddbb410a3d2c301f8c521e6defb1.patch
 
 BuildArch:      noarch
 

@@ -9,7 +9,9 @@ Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
 Version:        0.26.0
 Release:        %autorelease
 
-License:        ASL 2.0
+# The entire source is Apache-2.0, except:
+# - asyncpg/protocol/record/recordobj.c is PSF-2.0
+License:        Apache-2.0 AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source0:        %{pypi_source asyncpg}
 
@@ -120,12 +122,6 @@ ln -s %{buildroot}%{python3_sitearch}/asyncpg/
 # Do not run flake8 code style tests, which may fail; besides, we have patched
 # flake8 and pycodestyle out of the test dependencies
 k="${k-}${k+ and }not TestFlake8"
-
-%ifarch s390x
-# This appears to be associated with GCC 12.
-# https://github.com/MagicStack/asyncpg/issues/877
-k="${k-}${k+ and }not (TestPrepare and test_prepare_28_max_args)"
-%endif
 
 %pytest -k "${k}"
 

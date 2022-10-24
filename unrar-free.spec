@@ -1,13 +1,11 @@
 Name:           unrar-free
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Free software version of the non-free unrar utility
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.com/bgermann/unrar-free
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-# This commit patches some hardening errors
-Patch:          %{url}/-/commit/a388076a518fa985f59790cf62263dbe55038392.diff
 
 BuildRequires:  autoconf
 BuildRequires:  automake

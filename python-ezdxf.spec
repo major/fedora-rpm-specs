@@ -36,6 +36,15 @@ Summary:        Create/manipulate DXF drawings
 #   source is also under an (MIT) license, so this does not affect the License
 #   tag.
 #     * ezdxf/addons/binpacking.py
+#
+# Finally, the following are removed in %%prep and do not contribute to the
+# licenses of the binary RPMs:
+# - The following are Apache-2.0:
+#     * fonts/Open_Sans/
+#     * fonts/Open_Sans_Condensed/
+# - The following are OFL-1.0
+#     * fonts/liberation-fonts-ttf-2.00.4/
+#     * fonts/liberation-fonts-ttf-2.1.1/
 License:        MIT AND ISC AND AGPL-3.0-only
 URL:            https://ezdxf.mozman.at/
 %global forgeurl https://github.com/mozman/ezdxf

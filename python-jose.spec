@@ -9,6 +9,7 @@ Version:        3.3.0
 Release:        %autorelease
 Summary:        A JOSE implementation in Python
 
+# SPDX
 License:        MIT
 URL:            https://github.com/mpdavis/python-jose
 Source0:        %{pypi_source python-jose}

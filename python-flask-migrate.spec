@@ -11,6 +11,7 @@ Version:            3.1.0
 Release:            %autorelease
 Summary:            SQLAlchemy database migrations for Flask applications using Alembic
 
+# SPDX
 License:            MIT
 URL:                https://github.com/miguelgrinberg/Flask-Migrate
 Source0:            %{url}/archive/v%{version}/Flask-Migrate-%{version}.tar.gz

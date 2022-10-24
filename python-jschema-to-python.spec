@@ -3,6 +3,7 @@ Summary:        Generate source code for Python classes from a JSON schema
 Version:        1.2.3
 Release:        %autorelease
 
+# SPDX
 License:        MIT
 URL:            https://github.com/microsoft/jschema-to-python
 Source0:        %{pypi_source jschema_to_python}

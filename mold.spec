@@ -1,5 +1,5 @@
 Name:		mold
-Version:	1.5.1
+Version:	1.6.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -17,11 +17,15 @@ Patch0:		tbb-strip-werror.patch
 # Allow building against the system-provided `xxhash.h`
 Patch2:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
-# Fix unit test failing on ppc64
-Patch3:		0002-ELF-Fix-test-for-PPC64LE.patch
+# Fix test failure on i386 (https://github.com/rui314/mold/issues/794)
+Patch3:		0002-ELF-i386-Allow-R_386_PC32-after-R_386_TLS_-GD-LDM.patch
+Patch4:		0003-ELF-i386-Fix-assertion-failure.patch
+
+# Fix test failure on epel8/epel9 (https://github.com/rui314/mold/pull/809)
+Patch5:		0004-Fix-name-lookup-for-section-symbols-when-st_shndx-SH.patch
 
 # mold can currently produce native binaries for these architectures only
-ExclusiveArch:	%{ix86} x86_64 %{arm32} aarch64 ppc64le %{riscv32} %{riscv64} sparc64 sparc64v
+ExclusiveArch:	%{ix86} x86_64 %{arm32} aarch64 %{power64} %{riscv32} %{riscv64} s390x sparc64 sparc64v
 
 BuildRequires:	cmake
 %if 0%{?el8}
@@ -35,6 +39,9 @@ BuildRequires:	mimalloc-devel
 BuildRequires:	openssl-devel
 BuildRequires:	xxhash-devel
 BuildRequires:	zlib-devel
+
+# Required by bundled oneTBB
+BuildRequires:	hwloc-devel
 
 # The following packages are only required for executing the tests
 BuildRequires:	clang
@@ -104,6 +111,11 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Sat Oct 22 2022 Christoph Erhardt <fedora@sicherha.de> - 1.6.0-1
+- Bump version to 1.6.0
+- Add new supported architectures
+- Drop upstreamed patch
+
 * Thu Sep 29 2022 Christoph Erhardt <fedora@sicherha.de> - 1.5.1-1
 - Bump version to 1.5.1 (#2130132)
 - Switch to CMake build

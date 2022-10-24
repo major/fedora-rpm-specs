@@ -8,6 +8,7 @@ Summary:        Python module for creating JUnit XML test result documents
 Version:        1.9^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 
+# SPDX
 License:        MIT
 URL:            https://github.com/kyrus/python-junit-xml
 Source0:        %{url}/archive/%{commit}/python-junit-xml-%{commit}.tar.gz

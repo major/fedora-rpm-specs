@@ -491,6 +491,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Sat Oct 22 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-1
+- chore(update): 1.12.0
+
 * Sat Oct 01 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.11.0-2
 - build: Recommends: gamemode
 

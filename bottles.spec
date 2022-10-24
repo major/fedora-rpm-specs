@@ -1,15 +1,15 @@
 %global uuid pm.mirko.%{name}
-%global suf trento-3
+%global suf brescia-3
 
 Name:       bottles
-Version:    2022.5.28
+Version:    2022.7.14
 Release:    %autorelease
 BuildArch:  noarch
 
 License:    GPLv3+
 Summary:    Easily manage Wine prefix in a new way
 URL:        https://github.com/bottlesdevs/Bottles
-Source0:    %{url}/archive/%{version}-%{suf}.tar.gz#/%{name}-%{version}-%{suf}.tar.gz
+Source0:    %{url}/archive/%{version}-%{suf}/%{name}-%{version}-%{suf}.tar.gz
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -18,20 +18,22 @@ BuildRequires: python3
 BuildRequires: python3-gobject
 
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(libhandy-1) >= 1.5
+BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(libadwaita-1) >= 1.1.99
 
 Requires:   cabextract
 Requires:   glibc(x86-32)           %dnl # https://github.com/bottlesdevs/Bottles/issues/601#issuecomment-936772762
-Requires:   gtk3
+Requires:   gtk4
 Requires:   gtksourceview4
 Requires:   hicolor-icon-theme
-Requires:   libhandy1 >= 1.5
-Requires:   p7zip                   %dnl # needed by the dependencies manager
+Requires:   libadwaita >= 1.1.99
+Requires:   p7zip p7zip-plugins     %dnl # needed by the dependencies manager
+Requires:   patool
 Requires:   python3-gobject
+Requires:   python3-icoextract      %dnl # icons support
 Requires:   python3-markdown
 Requires:   python3-patool
-Requires:   python3-pefile          %dnl # icons support | 'icoextract' not packaged
+Requires:   python3-pefile          %dnl # icons support
 Requires:   python3-pyyaml
 Requires:   python3-requests        %dnl # needed by the download manager
 Requires:   python3-urllib3         %dnl # needed by the download manager
@@ -73,7 +75,7 @@ Features:
 
 
 %prep
-%autosetup -n Bottles-%{version}-%{suf} -p1
+%autosetup -n Bottles-%{version}-%{suf}
 
 
 %build
@@ -87,10 +89,7 @@ Features:
 
 
 %check
-# ? tag-invalid           : <url> type invalid [unknown]
-# https://github.com/bottlesdevs/Bottles/commit/95b451d152c5a8609c2a46fd173514f2cbd6fb54
-%dnl appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
-
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 

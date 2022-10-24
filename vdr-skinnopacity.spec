@@ -11,8 +11,8 @@
 
 
 Name:           vdr-skinnopacity
-Version:        1.1.12
-Release:        2%{?dist}
+Version:        1.1.13
+Release:        1%{?dist}
 Summary:        A highly customizable native true color skin for the Video Disc Recorder
 
 License:        GPLv2+
@@ -77,6 +77,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/skinnopacity/icons/
 
 %changelog
+* Sat Oct 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.13-1
+- Update to 1.1.13
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

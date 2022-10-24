@@ -4,7 +4,7 @@
 Name:           google-api-python-client
 Summary:        %{sum}
 Epoch:          2
-Version:        2.63.0
+Version:        2.65.0
 Release:        %autorelease
 
 License:        ASL 2.0

@@ -41,7 +41,11 @@ sed -i "s|github.com/coreos/etcd/clientv3|go.etcd.io/etcd/client/v3|" $(find . -
 
 %if %{with check}
 %check
+%if 0%{?__isa_bits} == 32
+%gocheck -d mock/provider -d mock/service -d utils
+%else
 %gocheck
+%endif
 %endif
 
 %gopkgfiles

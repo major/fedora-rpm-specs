@@ -5,8 +5,8 @@ work-in-progress targeting performance levels applicable to both VOD and Live
 encoding / transcoding video applications.}
 
 Name:           svt-av1
-Version:        1.1.0
-%global commit  6e87a1de98281840abebc030781780edd822bae5
+Version:        1.3.0
+%global commit  91b94efb2809e83d9bf041d8575b32f234dfef27
 Release:        %autorelease
 Summary:        Scalable Video Technology for AV1 Encoder
 

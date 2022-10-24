@@ -3,7 +3,7 @@
 
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 6.00
+Version: 6.01
 Release: 1%{?dist}
 License: GPL+ and GPLv2+ and BSD and MIT and Copyright only
 URL: http://www.kernel.org/doc/man-pages/
@@ -96,6 +96,9 @@ fi
 %{_mandir}/man*/*
 
 %changelog
+* Fri Oct 21 2022 Lukas Javorsky <ljavorsk@redhat.com> - 6.01-1
+- Rebase to version 6.01
+
 * Fri Oct 14 2022 Lukas Javorsky <ljavorsk@redhat.com> - 6.00-1
 - Rebase to version 6.00
 - Patch 22 upstreamed

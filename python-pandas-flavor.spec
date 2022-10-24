@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://github.com/Zsailer/pandas_flavor
 Source0:        %{url}/archive/%{commit}/pandas_flavor-%{commit}.tar.gz
 
-# Update lazy-loader dependency to 0.1rc3
+# Update lazy-loader dependency to ≥0.1
 # https://github.com/Zsailer/pandas_flavor/pull/25
 Patch:          %{url}/pull/25.patch
 

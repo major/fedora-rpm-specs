@@ -1,8 +1,8 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name: cacti
-Version: 1.2.21
-Release: 2%{?dist}
+Version: 1.2.22
+Release: 1%{?dist}
 Summary: An rrd based graphing tool
 License: GPLv2+
 URL: https://www.cacti.net/
@@ -219,6 +219,9 @@ fi
 %ghost %{_datadir}/%{name}/resource.rpmmoved
 
 %changelog
+* Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 1.2.22-1
+- Update to 1.2.22
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

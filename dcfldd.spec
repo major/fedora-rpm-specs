@@ -1,6 +1,6 @@
 Name:           dcfldd
-Version:        1.7.1
-Release:        4%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 Summary:        Improved dd, useful for forensics and security
 
 #Whole dcfldd is licensed as GPLv2+
@@ -60,6 +60,9 @@ autoreconf -i
 %{_bindir}/dcfldd
 
 %changelog
+* Sat Oct 22 2022 Michal Ambroz <rebus at, seznam.cz> - 1.8-1
+- bump to 1.8
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

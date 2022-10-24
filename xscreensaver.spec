@@ -1,6 +1,7 @@
 %define name          xscreensaver
 
-%define mainversion   6.04
+%define mainversion   6.05
+%define extratarver   1
 #%%define beta_ver      b2
 %undefine beta_ver
 
@@ -73,7 +74,7 @@ Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{fl
 Epoch:           1
 License:         MIT
 URL:             http://www.jwz.org/xscreensaver/
-Source0:         http://www.jwz.org/xscreensaver/xscreensaver-%{mainversion}%{?beta_ver}.tar.gz
+Source0:         http://www.jwz.org/xscreensaver/xscreensaver-%{mainversion}%{?beta_ver}%{?extratarver:.%extratarver}.tar.gz
 %if %{modular_conf}
 Source10:        update-xscreensaver-hacks
 %endif
@@ -92,9 +93,11 @@ Patch1:          xscreensaver-5.45-0001-barcode-glsnake-sanitize-the-names-of-mo
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 # See bug 472061
-Patch21:         xscreensaver-5.35-webcollage-default-nonet.patch
-# watchdog_timer: don't relaunch hacks when unblanking
-Patch101:        xscreensaver-6.04-0001-watchdog_timer-don-t-relaunch-hacks-when-unblanking.patch
+Patch21:         xscreensaver-6.05-webcollage-default-nonet.patch
+# demo-Gtk.c/main: enable localization again
+Patch501:        xscreensaver-6.05-0001-demo-Gtk.c-main-enable-localization-again.patch
+# demo-Gtk.c/populate_prefs_page: use correct pointer for pref_changed_cb
+Patch502:        xscreensaver-6.05-0002-demo-Gtk.c-populate_prefs_page-use-correct-pointer-f.patch
 # misc: kill gcc warn_unused_result warnings
 Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
 # Fedora specific
@@ -102,8 +105,6 @@ Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warning
 Patch10001:     xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
 # dialog.c: window_init: show more version string
 Patch10003:     xscreensaver-6.00-0003-dialog.c-window_init-show-more-version-string.patch
-# blurb: show 1/100 sec on linux
-Patch10005:     xscreensaver-6.00-0005-blurb-show-1-100-sec-on-linux.patch
 #
 # gcc warning cleanup
 # Some cppcheck cleanup
@@ -176,11 +177,13 @@ BuildRequires:   libXt-devel
 BuildRequires:   libXxf86vm-devel
 # XScreenSaver 5.31
 BuildRequires:   libXft-devel
-BuildRequires:   gtk2-devel
+BuildRequires:   pkgconfig(gtk+-3.0) >= 2.22.0
+BuildRequires:   pkgconfig(gmodule-2.0)
+BuildRequires:   pkgconfig(libxml-2.0)
+BuildRequires:   pkgconfig(gio-2.0)
 # Write explicitly below, especially
 # for F-23 gdk_pixbuf package splitting
 BuildRequires:   pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:   pkgconfig(gdk-pixbuf-xlib-2.0)
 BuildRequires:   libjpeg-devel
 BuildRequires:   libglade2-devel
 %if 0%{?support_setcap} >= 1
@@ -229,7 +232,7 @@ Summary:         An enhanced set of screensavers
 # Does not available on EPEL7
 BuildRequires:   desktop-backgrounds-basic
 %else
-BuildRequires:	   gnome-backgrounds
+BuildRequires:   gnome-backgrounds
 %endif
 Requires:        %{name}-base = %{epoch}:%{version}-%{release}
 %if %{split_getimage}
@@ -376,12 +379,12 @@ find . -name \*.c -exec chmod ugo-x {} \;
 
 %__cat %PATCH1 | %__git am
 %__cat %PATCH21 | %__git am
-%__cat %PATCH101 | %__git am
+%__cat %PATCH501 | %__git am
+%__cat %PATCH502 | %__git am
 
 #%%__cat %PATCH3607 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
-%__cat %PATCH10005 | %__git am
 
 #%%__cat %PATCH13501 | %%__git am
 
@@ -579,6 +582,8 @@ export PATH=$(pwd):$PATH
 # xdg-open
 ln -sf /bin/true xdg-open
 popd
+# gtk-update-icon-cache
+ln -sf /bin/true gtk-update-icon-cache
 
 # Set optflags first
 %set_build_flags
@@ -618,6 +623,9 @@ export CC="${CC} -fanalyzer"
 # make build log look clear
 %global _smp_mflags -j1
 %endif
+
+# Show 1/100sec on blurb
+export CFLAGS="$CFLAGS -DBLURB_CENTISECONDS"
 
 CONFIG_OPTS="--prefix=%{_prefix} --with-pam --without-shadow --without-kerberos"
 CONFIG_OPTS="$CONFIG_OPTS --without-setuid-hacks"
@@ -676,8 +684,13 @@ pushd po
   make generate_potfiles_in
   cp -p POTFILES.in ..
   # Workaround for ui file
+  # 6.05
   sed -i ../POTFILES.in POTFILES.in POTFILES \
-     -e '\@xscreensaver\.ui@s|^\([ \t]*\)\(.*\)$|\1[type: gettext/glade]\2|'
+	-e 's|driver/xscreensaver.ui|driver/demo.ui\ndriver/prefs.ui|'
+  sed -i Makefile \
+	-e 's|../../driver/xscreensaver.ui \\|../../driver/demo.ui \\\n\t../../driver/prefs.ui \\|'
+  sed -i ../POTFILES.in POTFILES.in POTFILES \
+     -e '\@driver/.*\.ui@s|^\([ \t]*\)\(.*\)$|\1[type: gettext/glade]\2|'
   make xscreensaver.pot srcdir=..
   ( export srcdir=.. ; make update-po )
   rm -f ../POTFILES_in
@@ -707,8 +720,9 @@ fi
 # Workaround end
 
 # From 5.45: temporary workaround for installation issue
-# From 6.00: temporary workaround for installation issue
-cp -p ../driver/xscreensaver.ui driver/
+# From 6.00, 6.05: temporary workaround for installation issue
+# From 6.05: yet another one
+cp -p ../driver/*ui ../driver/gresource.xml driver/
 cp -a ../hacks/fonts hacks
 
 %if 0%{?use_clang_analyze} < 1
@@ -783,6 +797,12 @@ cd $archdir
 archdir=`sh ./config.guess`
 cd $archdir
 
+# Same as %%build
+export PATH=/usr/bin:$PATH
+pushd TMPBINDIR/
+export PATH=$(pwd):$PATH
+popd
+
 rm -rf ${RPM_BUILD_ROOT}
 
 # We have to make sure these directories exist,
@@ -814,6 +834,7 @@ desktop-file-install --vendor "" --delete-original    \
 list_files() {
    echo "%%defattr(-,root,root,-)"
    make -s install_prefix=${RPM_BUILD_ROOT} INSTALL=true "$@"  \
+      | sed -e '\@gtk-update-icon-cache@d' \
       | sed -n -e 's@.* \(/[^ ]*\)$@\1@p'                      \
       | sed    -e "s@^${RPM_BUILD_ROOT}@@"                     \
                -e "s@/[a-z][a-z]*/\.\./@/@"                    \
@@ -1168,6 +1189,12 @@ exit 0
 %endif
 
 %changelog
+* Sat Oct 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.05-2
+- demo-Gtk.c/populate_prefs_page: use correct pointer for pref_changed_cb
+
+* Sat Oct 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.05-1
+- Update to 6.05, now demo using GTK3
+
 * Wed Aug 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.04-2
 - watchdog_timer: don't relaunch hacks when unblanking
 

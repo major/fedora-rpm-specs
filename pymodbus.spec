@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -41,6 +41,7 @@ Summary: %{sum}
 
 BuildRequires: python3-setuptools python3-six
 Requires: python3-pyserial >= 2.6
+Requires: python3-pyserial-asyncio
 # weak requirements for pymodbus.console
 Recommends: python3-pyserial >= 3.4
 Recommends: python3-prompt-toolkit >= 2.0
@@ -72,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Oct 22 2022 Christian Krause <chkr@fedoraproject.org> - 3.0.0-2
+- Added a missing runtime dependency
+
 * Sat Oct 15 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.0-1
 - Update to 3.0.0
 

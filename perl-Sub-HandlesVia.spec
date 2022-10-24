@@ -1,5 +1,5 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.037
+Version:        0.038
 Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
@@ -70,6 +70,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/*
 
 %changelog
+* Sat Oct 22 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.038-1
+- Update to 0.038.
+
 * Mon Sep 26 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.037-1
 - Update to 0.037.
 

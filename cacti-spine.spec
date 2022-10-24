@@ -1,6 +1,6 @@
 Name: cacti-spine
-Version: 1.2.21
-Release: 2%{?dist}
+Version: 1.2.22
+Release: 1%{?dist}
 Summary: Threaded poller for Cacti written in C
 License: LGPLv2+
 URL: https://cacti.net
@@ -48,6 +48,9 @@ autoreconf -fiv
 %{_mandir}/man1/spine.1.*
 
 %changelog
+* Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 1.2.22-1
+- Update to 1.2.22
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

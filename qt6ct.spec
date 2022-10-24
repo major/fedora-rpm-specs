@@ -1,14 +1,14 @@
 #For git snapshots, set to 0 to use release instead:
 %global usesnapshot 1
 %if 0%{?usesnapshot}
-%global commit0 6abd58611f0fae2a65f3b1e62ae2fb84fd00dee0
+%global commit0 4e881ab49b26f82eb3e66e1ffe73f4f23af7b4a3
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global snapshottag .git%{shortcommit0}
 %endif
 
 Summary: Qt6 - Configuration Tool
 Name:    qt6ct
-Version: 0.6
+Version: 0.7
 %if 0%{?usesnapshot}
 Release: 0.1%{?snapshottag}%{?dist}
 %else
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/qss/*.qss
 
 %changelog
+* Sat Oct 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7-0.1.git4e881ab
+- Fix crash with a segmentation fault when closing the tool
+
 * Wed Sep 21 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.6-0.1.git6abd586
 - New Snapshot version
 

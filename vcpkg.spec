@@ -1,6 +1,6 @@
 %global version_year 2022
 %global version_month 10
-%global version_day 12
+%global version_day 17
 
 %global repo_name vcpkg-tool
 %global repo_tag %{version_year}-%{version_month}-%{version_day}
@@ -77,6 +77,9 @@ install -D -m 0644 -p "%{SOURCE1}" "%{buildroot}%{_sysconfdir}/profile.d/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
 %changelog
+* Sat Oct 22 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2022.10.17-1
+- Updated to version 2022.10.17.
+
 * Fri Oct 14 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2022.10.12-1
 - Updated to version 2022.10.12.
 

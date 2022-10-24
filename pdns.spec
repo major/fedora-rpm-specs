@@ -2,13 +2,12 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.6.2
-Release: 3%{?dist}
+Version: 4.7.0
+Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
-Patch0: pdns-disable-secpoll.patch
 ExcludeArch: %{arm} %{ix86}
 
 Requires(pre): shadow-utils
@@ -139,7 +138,7 @@ BuildRequires: yaml-cpp-devel
 This package contains the ixfrdist program.
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 export CPPFLAGS="-DLDAP_DEPRECATED"
@@ -179,6 +178,7 @@ sed -i \
     -e 's/# setuid=/setuid=pdns/' \
     -e 's/# setgid=/setgid=pdns/' \
     -e 's/# launch=/launch=bind/' \
+    -e 's/# security-poll-suffix=secpoll\.powerdns\.com\./security-poll-suffix=/' \
     %{buildroot}%{_sysconfdir}/%{name}/pdns.conf
 
 %{__rm} %{buildroot}/%{_bindir}/stubquery
@@ -317,6 +317,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 4.7.0-1
+- Update to 4.7.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

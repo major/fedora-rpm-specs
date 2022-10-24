@@ -1,8 +1,8 @@
 #global commit 8e64b2643b98bc0803cd3ff90e0203b0edf7200f
 
 Name:           Mayavi
-Version:        4.7.4
-Release:        5%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        Scientific data 3-dimensional visualizer
 License:        BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3
 URL:            http://code.enthought.com/projects/mayavi/
@@ -104,7 +104,8 @@ find -name '*.pyx' -exec cython {} \;
 
 # Need xvfb-run for html doc building
 %set_build_flags
-SPHINXBUILD=/usr/bin/sphinx-build-3 xvfb-run %{__python3} setup.py build --executable="%{__python3} %{py3_shbang_opts}"
+%py3_build
+SPHINXBUILD=/usr/bin/sphinx-build-3 xvfb-run %{__python3} setup.py build_docs
 
 %install
 %py3_install
@@ -162,6 +163,9 @@ PYTHONPATH=${libdir} mayavi/scripts/mayavi2 -t || :
 
 
 %changelog
+* Thu Oct 20 2022 Orion Poplawski <orion@nwra.com> - 4.8.1-1
+- Update to 4.8.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

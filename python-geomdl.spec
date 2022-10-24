@@ -9,12 +9,17 @@ Version:        5.3.1
 Release:        %autorelease
 Summary:        Object-oriented pure Python B-Spline and NURBS library
 
-# From docs/citing.txt:
+# From docs/citing.rst:
 #   * Source code is released under the terms of the MIT License
 #   * Examples are released under the terms of the MIT License
 #   * Documentation is released under the terms of CC BY 4.0
+#
 # The examples are maintained in a separate repository,
 # https://github.com/orbingol/geomdl-examples, which is not packaged here.
+#
+# Documentation is confined to the -doc subpackage.
+#
+# SPDX
 License:        MIT
 URL:            https://onurraufbingol.com/NURBS-Python/
 # The GitHub tarball has documentation; the PyPI one does not.
@@ -40,7 +45,7 @@ BuildRequires:  latexmk
 # For sphinx.ext.inheritance_diagram:
 BuildRequires:  graphviz
 # For index
-BuildRequires:  /usr/bin/xindy
+# BuildRequires:  /usr/bin/xindy
 %endif
 
 %global common_description %{expand:
@@ -77,13 +82,8 @@ Suggests:       python3-geomdl-doc = %{version}-%{release}
 
 %package        doc
 Summary:        Documentation for geomdl
-# From docs/citing.rst:
-#   * Source code is released under the terms of the MIT License
-#   * Examples are released under the terms of the MIT License
-#   * Documentation is released under the terms of CC BY 4.0
-# The examples are maintained in a separate repository,
-# https://github.com/orbingol/geomdl-examples, which is not packaged here.
-License:        CC-BY
+# See the comment above the base package License field.
+License:        CC-BY-4.0
 
 BuildArch:      noarch
 

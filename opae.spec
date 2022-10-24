@@ -28,6 +28,7 @@ BuildRequires:  python3-pyyaml
 BuildRequires:  python3-pybind11
 BuildRequires:  rpm-build
 BuildRequires:  systemd-devel
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  tbb-devel
 BuildRequires:  hwloc-devel
 BuildRequires:  pybind11-devel

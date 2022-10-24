@@ -1,8 +1,8 @@
 %global pkgname fr
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.4.10
-Release:        2%{?dist}
+Version:        2.4.11
+Release:        1%{?dist}
 Summary:        Computations with functionally recursive groups
 
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sat Oct 22 2022 Jerry James <loganjerry@gmail.com> - 2.4.11-1
+- Version 2.4.11
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.4.10-2
 - Update for gap 4.12.0
 

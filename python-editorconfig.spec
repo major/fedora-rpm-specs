@@ -13,11 +13,11 @@ Version:        0.12.3
 Release:        %autorelease
 Summary:        EditorConfig File Locator and Interpreter for Python
 
-# See COPYING: the overall license is BSD, but the following files are derived
-# from the Python standard library under the Python license:
+# See COPYING: the overall license is BSD-2-Clause, but the following files are derived
+# from the Python standard library under the PSF-2.0 license:
 #   - editorconfig/fnmatch.py
 #   - editorconfig/ini.py
-License:        Python and BSD
+License:        BSD-2-Clause AND PSF-2.0
 URL:            https://github.com/editorconfig/editorconfig-core-py
 Source0:        %{url}/archive/v%{version}/editorconfig-core-py-%{version}.tar.gz
 %global tests_url https://github.com/editorconfig/editorconfig-core-test
@@ -65,7 +65,7 @@ mv ../editorconfig-core-test-%{tests_commit}/ tests/
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

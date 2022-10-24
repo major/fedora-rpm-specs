@@ -12,6 +12,7 @@ Version:        0.3
 Release:        %autorelease
 Summary:        Editable installations
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pfmoore/editables
 # PyPI source distributions lack tests; use the GitHub archive
