@@ -21,6 +21,13 @@ ExcludeArch: i686
 # as the build is *very* slow.
 %global debug_build       0
 
+# rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
+%if 0%{?fedora} >= 37
+%global use_xdg_file_portal 1
+%else
+%global use_xdg_file_portal 0
+%endif
+
 %global system_nss        1
 %global system_libevent   1
 %global build_with_asan   0
@@ -163,13 +170,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        106.0
-Release:        2%{?pre_tag}%{?dist}
+Version:        106.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20221014.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20221023.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -332,6 +339,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if !0%{?flatpak}
 Requires:       u2f-hidraw-policy
+%endif
+%if %{?use_xdg_file_portal}
+Requires:       xdg-desktop-portal
 %endif
 
 BuildRequires:  desktop-file-utils
@@ -933,9 +943,7 @@ ln -s %{_datadir}/myspell %{buildroot}%{mozappdir}/dictionaries
 
 # Default
 %{__cp} %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
-
-# rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
-%if 0%{?fedora} > 36
+%if %{?use_xdg_file_portal}
 echo 'pref("widget.use-xdg-desktop-portal.file-picker", 1);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %endif
 
@@ -1099,6 +1107,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Sun Oct 23 2022 Martin Stransky <stransky@redhat.com>- 106.0.1-1
+- Update to 106.0.01
+- Require xdg-desktop-portal when file dialog portal is used.
+
 * Thu Oct 20 2022 Jan Grulich <jgrulich@redhat.com> - 106.0-2
 - Enable upstream WebRTC code for screensharing on Wayland
 

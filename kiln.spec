@@ -4,8 +4,8 @@
 # https://git.sr.ht/~adnano/kiln
 %global goipath         git.sr.ht/~adnano/kiln
 %global forgeurl        https://git.sr.ht/~adnano/kiln
-Version:                0.3.1
-%global tag             0.3.1
+Version:                0.4.0
+%global tag             0.4.0
 %global repo            kiln
 %global archivename     %{repo}-%{tag}
 %global archiveext      tar.gz
@@ -51,6 +51,7 @@ BuildRequires:  scdoc
 %build
 export LDFLAGS="-X main.Version=%{version} "
 %gobuild -o %{gobuilddir}/bin/%{name} %{goipath}
+%make_build docs
 
 %install
 install -m 0755 -vd                     %{buildroot}%{_bindir}

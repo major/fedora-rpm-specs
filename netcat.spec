@@ -1,4 +1,4 @@
-%global commit bc5a8259a456844c67e446bf6bd66575acc64837
+%global commit f78eea63cb60899c88ee243c20e1a106da264443
 
 %if 0%{?fedora} || 0%{?rhel} > 8
 %global link_bin nc
@@ -11,8 +11,8 @@
 Summary:         OpenBSD netcat to read and write data across connections using TCP or UDP
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
-Version:         1.218
-Release:         6%{?dist}
+Version:         1.219
+Release:         1%{?dist}
 License:         BSD
 URL:             https://man.openbsd.org/nc.1
 Source0:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/netcat.c
@@ -22,7 +22,7 @@ Source3:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin
 Source4:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/socks.c
 Source5:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/Makefile
 # Port peculiarities from OpenBSD to Linux
-Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/9de0012ffa88e80abf582456eea1454f2ecb69f8/debian/patches/port-to-linux-with-libsd.patch
+Patch0:          https://salsa.debian.org/debian/netcat-openbsd/-/raw/e1c64e850ca7b58138ad9c0d544d06ab5441baf6/debian/patches/port-to-linux-with-libbsd.patch
 BuildRequires:   make
 BuildRequires:   gcc
 BuildRequires:   libbsd-devel
@@ -45,7 +45,7 @@ with some.
 %prep
 %setup -q -T -c
 cp -pf %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} .
-%patch0 -p1 -b .port-to-linux-with-libsd
+%patch0 -p1 -b .port-to-linux-with-libbsd
 sed -e '1i #define unveil(path, permissions) 0' \
     -e '1i #define pledge(request, paths) 0' \
     -i netcat.c
@@ -77,6 +77,9 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Sun Oct 23 2022 Robert Scheck <robert@fedoraproject.org> 1.219-1
+- Upgrade to 1.219 (#2136750)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.218-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

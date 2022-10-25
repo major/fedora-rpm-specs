@@ -1,9 +1,9 @@
 Name:           arc-kde
-Version:        20220810
+Version:        20220908
 Release:        %autorelease
 Summary:        Port of the popular GTK theme Arc for the Plasma 5 desktop
 
-License:        GPLv3 and CC-BY-SA
+License:        GPL-3.0-only and CC-BY-SA-4.0
 URL:            https://github.com/PapirusDevelopmentTeam/arc-kde
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -40,7 +40,7 @@ In this package you'll find:
 
 %package kvantum
 Summary:    Arc-KDE Kvantum theme
-License:    GPLv3
+License:    GPL-3.0-only
 BuildArch:  noarch
 Requires:   kvantum
 
@@ -53,7 +53,7 @@ This package contains the ArcDark ard ArcDarker Kvantum theme.
 
 %package decorations
 Summary:    Arc-KDE Aurorae theme
-License:    GPLv3
+License:    GPL-3.0-only
 BuildArch:  noarch
 
 %description decorations
@@ -65,7 +65,7 @@ This package contains the Aurorae window decorations.
 
 %package konsole
 Summary:    Arc-KDE Konsole theme
-License:    GPLv3
+License:    GPL-3.0-only
 BuildArch:  noarch
 
 %description konsole
@@ -77,7 +77,7 @@ This package contains the ArcDark Konsole theme.
 
 %package konversation
 Summary:    Arc-KDE Konversation theme
-License:    GPLv3
+License:    GPL-3.0-only
 BuildArch:  noarch
 
 %description konversation
@@ -89,7 +89,7 @@ This package contains the Konversation theme.
 
 %package wallpapers
 Summary:    Arc-KDE wallpapers
-License:    CC-BY-SA
+License:    CC-BY-SA-4.0
 BuildArch:  noarch
 
 %description wallpapers
@@ -101,7 +101,7 @@ This package contains the Arc wallpapers.
 
 %package yakuake
 Summary:    Arc-KDE Yakuake theme
-License:    GPLv3
+License:    GPL-3.0-only
 BuildArch:  noarch
 
 %description yakuake

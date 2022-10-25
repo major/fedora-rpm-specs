@@ -1,33 +1,13 @@
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_with python3
-%else
-%bcond_without python3
-%endif
-
-# python2-backports-csv not in Fedora yet, disable Python 2 version 
-%global with_python2 0
-
-%global pypi_name cli_helpers
+%global         pypi_name cli_helpers
 
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
-Version:        2.2.1
-Release:        4%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 License:        BSD
 URL:            https://github.com/dbcli/cli_helpers
 Source0:        https://github.com/dbcli/cli_helpers/archive/v%{version}/cli_helpers-%{version}.tar.gz
 BuildArch:      noarch
-%if 0%{?with_python2}
-BuildRequires:  python2-backports-csv
-BuildRequires:  python2-configobj
-BuildRequires:  python2-devel
-BuildRequires:  python2-pytest
-BuildRequires:  python-setuptools
-BuildRequires:  python2-tabulate
-BuildRequires:  python2-terminaltables
-BuildRequires:  python2-wcwidth
-%endif
-%if %{with python3}
 BuildRequires:  python3-configobj
 BuildRequires:  python3-devel
 BuildRequires:  python3-mock
@@ -36,27 +16,12 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-tabulate
 BuildRequires:  python3-terminaltables
 BuildRequires:  python3-wcwidth
-%endif 
 %global _description\
 CLI Helpers is a Python package that makes it easy to perform common\
 tasks when building command-line apps. Its a helper library for\
 command-line interfaces.
 %description %_description
 
-%if 0%{?with_python2}
-%package -n     python2-cli-helpers
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-cli-helpers}
-%{?el6:Provides: python-cli-helpers}
-Requires:       python2-configobj >= 5.0.5
-Requires:       python2-pygments >= 1.6
-Requires:       python2-tabulate >= 0.8.2
-Requires:       python2-terminaltables >= 3.0.0
-Requires:       python2-wcwidth
-%description -n python2-cli-helpers %_description
-%endif
-
-%if %{with python3}
 %package -n     python3-cli-helpers
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-cli-helpers}
@@ -68,53 +33,32 @@ Requires:       python3-wcwidth
 %description -n python3-cli-helpers %_description
 
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-cli-helpers -i %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info styles}
-%endif
+
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-%if %{with python3}
 %py3_build
-%endif
 
 %install
-%if %{with python3}
 %py3_install
-%endif
-%if 0%{?with_python2}
-%py2_install
-%endif
 
 %check
-%if 0%{?with_python2}
-PYTHONPATH=build/lib/ py.test-2 || :
-%endif
-%if %{with python3}
-PYTHONPATH=build/lib/ py.test-3 || :
-%endif
+PYTHONPATH=build/lib/ py.test-3
 
-%if 0%{?with_python2}
-%files -n python2-cli-helpers
-%license LICENSE
-%doc AUTHORS CHANGELOG README.rst
-%{python2_sitelib}/%{pypi_name}
-%{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
-%endif
-
-%if %{with python3}
 %files -n python3-cli-helpers
 %license LICENSE
 %doc AUTHORS CHANGELOG README.rst
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%endif
 
 %changelog
+* Sun Oct 23 2022 Terje Rosten <terje.rosten@ntnu.no> - 2.3.0-
+- 2.3.0
+- Remove lagacy Python 2 subpackage
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

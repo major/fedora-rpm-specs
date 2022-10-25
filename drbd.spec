@@ -1,6 +1,6 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.21.4
+Version: 9.22.0
 Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.12.2-disable_xsltproc_network_read.patch
@@ -54,12 +54,17 @@ This is a virtual package, installing the full user-land suite.
     --with-pacemaker \
     --with-rgmanager \
     --with-distro=generic \
-    --with-systemdunitdir=%{_unitdir}
+    --with-systemdunitdir=%{_unitdir} \
+    --with-selinux \
+    --without-sbinsymlinks
 %{make_build}
+%{__make} selinux
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{make_install}
+%{__install} -d %{buildroot}%{_datadir}/selinux/packages
+%{__install} -m 0644 selinux/drbd.pp.bz2 %{buildroot}%{_datadir}/selinux/packages
 
 # Remove old init script, replace with systemd unit file
 rm -f $RPM_BUILD_ROOT/%{_initddir}/drbd
@@ -70,6 +75,7 @@ rm -rf $RPM_BUILD_ROOT/etc/ha.d
 
 %package utils
 Summary: Management utilities for DRBD
+Requires: (drbd-selinux if selinux-policy-targeted)
 
 %description utils
 DRBD mirrors a block device over the network to another machine.
@@ -218,13 +224,60 @@ management utility.
 %config %{_sysconfdir}/bash_completion.d/drbdadm*
 
 
+%global selinuxtype             targeted
+%global selinuxmodulename       drbd
+
+%package selinux
+Summary: SElinux policy for DRBD
+BuildRequires: checkpolicy
+BuildRequires: selinux-policy-devel
+Requires: selinux-policy >= %{_selinux_policy_version}
+# do we need to require drbd-pacemaker, to have it installed before our
+# posttrans tries to relabel?
+%{?selinux_requires}
+
+%description selinux
+drbd-selinux contains the SELinux policy meant to be used with this version of DRBD and related tools.
+
+%files selinux
+%attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
+%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
+
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+# install selinux policy module with priority 200 to override the default policy
+# maybe we want/need the next line to &> /dev/null
+%selinux_modules_install -s %{selinuxtype} -p 200 %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} -p 200 %{selinuxmodulename}
+fi
+
+# We we want a "rich forward dependency" of drbd-utils to drbd-selinux,
+# we above use
+#  Requires: (drbd-selinux if selinux-policy-targeted)
+# We need to relabel in posttrans, because in post the files to
+# relabel may not be installed yet.
+%posttrans selinux
+# maybe &> /dev/null
+%selinux_relabel_post -s %{selinuxtype}
+
+
 %post utils
 %systemd_post drbd.service
 
 %preun utils
 %systemd_preun drbd.service
 
+
 %changelog
+* Sat Oct 15 2022 Peter Hanecak <hany@hany.sk> - 9.22.0-1
+- Upstream release of 9.22.0
+- selinux sub package
+
 * Sun Jul 31 2022 Peter Hanecak <hany@hany.sk> - 9.21.4-1
 - Upstream release of 9.21.4
 

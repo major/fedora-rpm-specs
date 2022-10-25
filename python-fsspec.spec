@@ -7,8 +7,8 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2022.8.2
-%global tag     2022.8.2
+Version:        2022.10.0
+%global tag     2022.10.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
@@ -76,7 +76,7 @@ Summary:        %{summary}
 %pyproject_save_files %{srcname}
 
 %check
-%{pytest} -vra -k 'not test_find'  # Doesn't have a vcr cassette.
+%{pytest} -vra
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md

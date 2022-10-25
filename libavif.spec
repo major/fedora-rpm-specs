@@ -4,9 +4,12 @@
 %ifarch x86_64
 %bcond_without svt
 %endif
+%if 0%{?rhel}
+%bcond_with rav1e
+%endif
 
 Name:           libavif
-Version:        0.10.1
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Library for encoding and decoding .avif files
 
@@ -23,7 +26,7 @@ BuildRequires:  pkgconfig(aom)
 BuildRequires:  pkgconfig(dav1d)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(rav1e)
+%{?with_rav1e:BuildRequires:  pkgconfig(rav1e)}
 %{?with_svt:BuildRequires:  pkgconfig(SvtAv1Enc)}
 BuildRequires:  pkgconfig(zlib)
 
@@ -34,7 +37,7 @@ File Format, as described here:
 https://aomediacodec.github.io/av1-avif/
 
 %package devel
-Summary:        Development files for libavif
+Summary:        Development files for libavif~
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -67,7 +70,7 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     %{?with_aom:-DAVIF_CODEC_AOM=1} \
     -DAVIF_CODEC_DAV1D=1 \
-    -DAVIF_CODEC_RAV1E=1 \
+    %{?with_rav1e:-DAVIF_CODEC_RAV1E=1} \
     %{?with_svt:-DAVIF_CODEC_SVT=1} \
     -DAVIF_BUILD_APPS=1 \
     -DAVIF_BUILD_GDK_PIXBUF=1
@@ -79,7 +82,8 @@ Avif-pixbuf-loader contains a plugin to load AVIF images in GTK+ applications.
 %files
 %license LICENSE
 # Do not glob the soname
-%{_libdir}/libavif.so.14*
+%{_libdir}/libavif.so.15*
+%{_datadir}/thumbnailers/avif.thumbnailer
 
 %files devel
 %{_libdir}/libavif.so

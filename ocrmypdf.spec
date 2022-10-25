@@ -1,15 +1,12 @@
 %global srcname ocrmypdf
 
 Name:           %{srcname}
-Version:        13.7.0
+Version:        14.0.1
 Release:        %autorelease
 Summary:        Add an OCR text layer to scanned PDF files
 
-# Main code: MPLv2.0;
-# Completion files, hocrtransform.py: MIT;
-# _unicodefun.py: BSD;
-# Test files: CC-BY-SA and Public Domain
-License:        MPLv2.0 and MIT and BSD and CC-BY-SA and Public Domain
+# See all SPDX-License-Identifier tags in files.
+License:        MPL-2.0 and MIT
 URL:            https://github.com/ocrmypdf/OCRmyPDF
 Source0:        %pypi_source
 # Fedora specific.
@@ -17,10 +14,9 @@ Patch0001:      0001-Remove-unnecessary-dependencies.patch
 
 BuildArch:      noarch
 
-BuildRequires:  ghostscript >= 9.15
+BuildRequires:  ghostscript >= 9.50
 BuildRequires:  pngquant >= 2.0.0
-BuildRequires:  qpdf >= 8.1.0
-BuildRequires:  tesseract >= 4.0.0
+BuildRequires:  tesseract >= 4.1.1
 BuildRequires:  tesseract-osd
 BuildRequires:  tesseract-langpack-deu
 BuildRequires:  unpaper >= 6.1
@@ -28,8 +24,7 @@ BuildRequires:  python3-devel
 
 Requires:       ghostscript >= 9.15
 Recommends:     pngquant >= 2.0.0
-Requires:       qpdf >= 8.1.0
-Requires:       tesseract >= 3.04
+Requires:       tesseract >= 4.1.1
 Recommends:     unpaper >= 6.1
 
 %description
@@ -39,7 +34,7 @@ searched or copy-pasted.
 
 %package -n %{srcname}-doc
 Summary:        ocrmypdf documentation
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description -n %{srcname}-doc
 Documentation for ocrmypdf

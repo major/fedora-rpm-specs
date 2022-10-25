@@ -6,7 +6,7 @@
 
 Name: linux-thermaltake-rgb
 Version: 0.2.0
-Release: 6%{?dist}
+Release: %autorelease
 Summary: Python driver and daemon to control thermaltake Riing fans and pumps
 BuildArch: noarch
 
@@ -98,20 +98,4 @@ mv %{buildroot}%{_datadir}/%{pypi_name}/config.yml \
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.2.0-5
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.2.0-2
-- Rebuilt for Python 3.10
-
-* Sun Jan 31 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.2.0-1
-- Initial package
+%autochangelog

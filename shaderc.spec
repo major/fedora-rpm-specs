@@ -1,20 +1,20 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-# Release 2022.2
+# Release 2022.3
 %global commit          551f106dc64a1cacb298cc2f05613d142b53302f
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate    20220811
+%global snapshotdate    20221023
 
 # Glslang revision from packaged version
-%global glslang_version 600c5037baac82a80851d1fb95f3f09d34bb43e8
+%global glslang_version 73c9630da979017b2f7e19c6549e2bdb93d9b238
 
 Name:           shaderc
 Version:        2022.2
 Release:        %autorelease
 Summary:        A collection of tools, libraries, and tests for Vulkan shader compilation
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/google/shaderc
 Source0:        %url/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Patch to unbundle 3rd party code

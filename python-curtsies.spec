@@ -1,6 +1,6 @@
 Summary:       Curses-like terminal wrapper, with colored strings
 Name:          python-curtsies
-Version:       0.4.0
+Version:       0.4.1
 Release:       1%{?dist}
 License:       MIT
 URL:           https://github.com/bpython/curtsies
@@ -48,6 +48,9 @@ nosetests .
 %{python3_sitelib}/curtsies-*-py*.egg-info
 
 %changelog
+* Sun Oct 23 2022 Terje Rosten <terje.rosten@ntnu.no> - 0.4.1-1
+- 0.4.1
+
 * Fri Sep 02 2022 Terje Rosten <terje.rosten@ntnu.no> - 0.4.0-1
 - 0.4.0
 

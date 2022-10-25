@@ -1,5 +1,5 @@
 Name:           materia-kde
-Version:        20220714
+Version:        20220823
 Release:        %autorelease
 Summary:        Port of the popular GTK theme Materia for the Plasma 5 desktop
 

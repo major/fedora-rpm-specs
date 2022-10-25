@@ -1,8 +1,8 @@
 %global pkgname liepring
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.7
-Release:        2%{?dist}
+Version:        2.8
+Release:        1%{?dist}
 Summary:        Database and algorithms for Lie p-rings
 
 License:        GPL-2.0-or-later
@@ -19,7 +19,6 @@ BuildRequires:  gap-pkg-singular
 BuildRequires:  tth
 
 Requires:       gap-pkg-liering
-Requires:       gap-pkg-polycyclic
 Requires:       gap-pkg-singular
 
 %description
@@ -88,6 +87,10 @@ gap -l "%{buildroot}%{gap_dir};%{gap_dir}" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
 
 %changelog
+* Sat Oct 22 2022 Jerry James <loganjerry@gmail.com> - 2.8-1
+- Version 2.8
+- Remove runtime dependency on the polycyclic package
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.7-2
 - Update for gap 4.12.0
 - Convert License tag to SPDX

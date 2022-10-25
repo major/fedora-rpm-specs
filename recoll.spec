@@ -1,8 +1,8 @@
-%global gsspver 1.1.1
+%global         gsspver 1.1.1
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.32.7
+Version:        1.33.1
 Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
@@ -10,7 +10,6 @@ Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
 Source1:        https://www.lesbonscomptes.com/recoll/downloads/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt5.sh
 Patch01:        recoll-1.25.11-appdata.patch
-Patch02:        recoll-1.25.20-py3-only.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -111,7 +110,7 @@ make install DESTDIR=%{buildroot}
 popd
 
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
+echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arch}.conf
 
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/%{name}/filters/
 
@@ -121,25 +120,26 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_ar
 %files
 %license COPYING
 %doc ChangeLog README
-%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
-%{_bindir}/%{name}
-%{_bindir}/%{name}index
-%{_bindir}/%{name}q
-%{_datadir}/%{name}
-%{_datadir}/metainfo/%{name}.appdata.xml
-%{_datadir}/applications/%{name}-searchgui.desktop
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%{_datadir}/pixmaps/%{name}.png
+%{_sysconfdir}/ld.so.conf.d/recoll-%{_arch}.conf
+%{_bindir}/recoll
+%{_bindir}/recollindex
+%{_bindir}/recollq
+%{_datadir}/recoll
+%{_datadir}/metainfo/recoll.appdata.xml
+%{_datadir}/applications/recoll-searchgui.desktop
+%{_datadir}/icons/hicolor/48x48/apps/recoll.png
+%{_datadir}/pixmaps/recoll.png
 %{_libdir}/recoll
 %{python3_sitearch}/recoll
 %{python3_sitearch}/recollchm
 %{python3_sitearch}/Recoll-*.egg-info
 %{python3_sitearch}/recollchm-*.egg-info
-%{_mandir}/man1/%{name}.1*
-%{_mandir}/man1/%{name}q.1*
-%{_mandir}/man1/%{name}index.1*
+%{_mandir}/man1/recoll.1*
+%{_mandir}/man1/recollq.1*
+%{_mandir}/man1/recollindex.1*
+%{_mandir}/man1/rclgrep.1*
 %{_mandir}/man1/xadump.1*
-%{_mandir}/man5/%{name}.conf.5*
+%{_mandir}/man5/recoll.conf.5*
 %{_unitdir}/recollindex@.service
 %{_userunitdir}/recollindex.service
 
@@ -161,6 +161,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_ar
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Oct 23 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.33.1-1
+- 1.33.1
+
 * Sat Aug 27 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.32.7-1
 - 1.32.7
 

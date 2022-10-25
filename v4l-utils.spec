@@ -1,6 +1,6 @@
 Name:           v4l-utils
 Version:        1.22.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
 License:        GPLv2+ and GPLv2
@@ -8,6 +8,10 @@ URL:            http://www.linuxtv.org/downloads/v4l-utils/
 
 Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.bz2
 Patch0:         0001-utils-v4l2-TPG-Update-use-of-typeof.patch
+Patch1:         0002-libv4lconvert-Fix-v4lconvert_yuv420_to_rgb-bgr24-not.patch
+Patch2:         0003-libv4lconvert-Fix-v4lconvert_rgb565_to_rgb-bgr24-not.patch
+Patch3:         0004-libv4lconvert-Fix-v4lconvert_nv12_-not-taking-stride.patch
+Patch4:         0005-libv4lconvert-Fix-v4lconvert_nv16_to_yuyv-not-taking.patch
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils
@@ -202,6 +206,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Sun Oct 23 2022 Hans de Goede <hdegoede@redhat.com> - 1.22.1-4
+- Fix libv4lconvert issues when stride > width (with some formats)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

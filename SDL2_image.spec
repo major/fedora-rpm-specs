@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.6.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -77,6 +77,12 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.6.1-3
+- Rebuild for new libavif
+
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.6.1-2
+- Rebuild for new libavif
+
 * Thu Aug 04 2022 Pete Walter <pwalter@fedoraproject.org> - 2.6.1-1
 - Update to 2.6.1
 

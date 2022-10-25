@@ -1,9 +1,9 @@
 Name:           goodvibes
-Version:        0.7.4
+Version:        0.7.5
 Release:        %autorelease
 Summary:        Lightweight Radio Player
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://goodvibes.readthedocs.io/en/stable/index.html
 Source0:        https://gitlab.com/%{name}/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 

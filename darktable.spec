@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.0.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -245,6 +245,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.0.1-4
+- Rebuild for new libavif
+
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.0.1-3
+- Rebuild for new libavif
+
 * Wed Sep 28 2022 Germano Massullo <germano.massullo@gmail.com> - 4.0.1-2
 - re-enabled SDL library
 

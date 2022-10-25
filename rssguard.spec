@@ -1,5 +1,5 @@
 Name:           rssguard
-Version:        4.2.3
+Version:        4.2.5
 Release:        %autorelease
 Summary:        Simple yet powerful feed reader
 

@@ -146,6 +146,7 @@ Requires:       mesa-libGLU-devel
 Requires:       tbb-devel
 Requires:       tcl-devel
 Requires:       tk-devel
+Requires:       vtk-devel
 
 %description devel
 OpenCASCADE CAE platform library development files

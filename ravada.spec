@@ -1,5 +1,5 @@
 Name:           ravada
-Version:        1.6.0
+Version:        1.7.7
 Release:        %autorelease
 Summary:        Remote Virtual Desktops Manager
 # AGPL-3.0-only: main program

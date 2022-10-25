@@ -1,8 +1,5 @@
-%global commit fff3dd3e5ae1ec26df77d952970d90e1b26a0cf3
-%global snapdate 20211203
-
 Name:           NiaAML-GUI
-Version:        0.1.11^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.1.13
 Release:        %autorelease
 Summary:        GUI for NiaAML Python package
 
@@ -11,9 +8,7 @@ License:        MIT
 URL:            https://github.com/lukapecnik/NiaAML-GUI
 # Also distributed via PyPI (https://pypi.org/project/niaaml-gui/) but without
 # tests and other auxiliary files.
-%global tag %{?commit:%{commit}}%{?!commit:%{version}}
-%global srcversion %{?commit:%{commit}}%{?!commit:%{version}}
-Source0:        %{url}/archive/%{tag}/NiaAML-GUI-%{srcversion}.tar.gz
+Source0:        %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
 BuildArch:      noarch
  
@@ -38,7 +33,7 @@ Python package.}
 
 
 %prep
-%autosetup -n %{name}-%{srcversion}
+%autosetup
 
 
 %generate_buildrequires
@@ -65,15 +60,7 @@ install -t '%{buildroot}%{_datadir}/icons/hicolor/256x256/apps' -p -m 0644 -D \
 appstream-util validate-relax --nonet \
     '%{buildroot}%{_metainfodir}/%{app_id}.metainfo.xml'
 
-# https://github.com/lukapecnik/NiaAML-GUI/issues/10
-k="${k-}${k+ and }not test_version"
-# Since we have deselected the only test, we do not run pytest at all for now.
-# (It fails, i.e. exits with a non-zero code, if there are no tests.)
-# %%pytest -k "${k-}"
-
-# The upstream tests are extremely minimal, so we also perform an import “smoke
-# test.”
-%pyproject_check_import
+%pytest
 
 
 %files -f %{pyproject_files}

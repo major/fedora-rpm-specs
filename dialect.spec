@@ -4,7 +4,7 @@
 %global         adw_version 1.2.0
 
 Name:           dialect
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        A translation app for GNOME based on Google Translate
 

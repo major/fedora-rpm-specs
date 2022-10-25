@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.99.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -79,6 +79,12 @@ image formats.
 
 
 %changelog
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 5.99.0-4
+- Rebuild for new libavif
+
+* Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 5.99.0-3
+- Rebuild for new libavif
+
 * Sun Oct 16 2022 Marc Deop marcdeop@fedoraproject.org - 5.99.0-2
 - Add two upstream patches
 

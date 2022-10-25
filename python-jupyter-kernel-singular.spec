@@ -1,9 +1,9 @@
 Name:           python-jupyter-kernel-singular
 Version:        0.9.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Jupyter kernel for Singular
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/jupyter_kernel_singular
 Source0:        %{url}/archive/v%{version}/jupyter_kernel_singular-%{version}.tar.gz
 
@@ -14,6 +14,7 @@ BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jupyter-client}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pysingular}
+BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
@@ -54,6 +55,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Sat Oct 22 2022 Jerry James <loganjerry@gmail.com> - 0.9.9-11
+- Add setuptools BR
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
