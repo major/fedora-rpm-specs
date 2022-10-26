@@ -6,14 +6,14 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.25.0
+Version:                0.26.0
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
-%if %{fedora} > 35
-%global clang_llvm_version  14
+%if %{fedora} > 36
+%global clang_llvm_version  15
 %else
-%global clang_llvm_version  13
+%global clang_llvm_version  14
 %endif
 %global cmsis_svd_commit    df75ff974c76a911fc2815e29807f5ecaae06fc2
 %global compiler_rt_version %{clang_llvm_version}.0.0
@@ -60,7 +60,7 @@ Source3:        https://github.com/avr-rust/avr-mcu/archive/%{avr_commit}/avr-%{
 Source4:        cmsis_svd-%{cmsis_svd_commit}-clean.tar.xz
 Source50:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}/compiler-rt-%{compiler_rt_version}.src.tar.xz
 Source51:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{compiler_rt_version}/compiler-rt-%{compiler_rt_version}.src.tar.xz.sig
-Source52:       tstellar-gpg-key.asc
+Source52:       https://src.fedoraproject.org/rpms/compiler-rt/raw/f8e98d51f0c3fdbaa9ce5d99816930e4fcbe504b/f/release-keys.asc#/compiler-rt-release-keys.asc
 Source60:       https://musl.libc.org/releases/musl-%{musl_version}.tar.gz
 Source61:       https://musl.libc.org/releases/musl-%{musl_version}.tar.gz.asc
 Source62:       https://musl.libc.org/musl.pub
@@ -83,14 +83,21 @@ Patch0004:      0004-Suggest-optional-packages-to-install-if-missing.patch
 Patch0005:      0005-Skip-TestDirFS-on-32-bit-systems.patch
 Patch0006:      0006-Skip-broken-tests-on-i686.patch
 
-# https://github.com/tinygo-org/tinygo/issues/3008
-# Broken due to TestCVE202230630
-Patch0008:      0008-Temporarily-skip-io-fs-tests.patch
-
-# https://github.com/tinygo-org/tinygo/pull/3060
-Patch0009:      0009-Add-ErrProcessDone-error.patch
-Patch0010:      0010-Fix-tinygo-test-with-Go-1.19.patch
-Patch0011:      0011-Fix-tinygo-test-with-Go-1.16.patch
+# Backport patches for LLVM 15 support
+# https://github.com/tinygo-org/tinygo/pull/3230
+Patch0007:      0007-wasm-fix-GC-scanning-of-allocas.patch
+# https://github.com/tinygo-org/tinygo/pull/3189
+Patch0008:      0008-compiler-return-a-FunctionType-not-a-PointerType-in-.patch
+Patch0009:      0009-all-add-type-parameter-to-CreateCall.patch
+Patch0010:      0010-all-add-type-parameter-to-CreateLoad.patch
+Patch0011:      0011-all-add-type-parameter-to-GEP-calls.patch
+Patch0012:      0012-all-replace-llvm.Const-calls-with-builder.Create-cal.patch
+Patch0013:      0013-interp-change-object.llvmType-to-the-initializer-typ.patch
+Patch0014:      0014-all-remove-pointer-ElementType-calls.patch
+Patch0015:      0015-transform-fix-memory-corruption-issues.patch
+Patch0016:      0016-riscv-add-target-abi-metadata-flag.patch
+Patch0017:      0017-interp-add-support-for-constant-icmp-instructions.patch
+Patch0018:      0018-ci-add-support-for-LLVM-15.patch
 
 # Not supported upstream yet.
 ExcludeArch:    armv7hl ppc64le s390x
@@ -100,18 +107,18 @@ ExcludeArch:    %{ix86}
 BuildRequires:  (clang-devel >= %{clang_llvm_version} with clang-devel < %{lua: print(tonumber(rpm.expand('%{clang_llvm_version}')) + 1)})
 BuildRequires:  golang(github.com/aykevl/go-wasm)
 BuildRequires:  golang(github.com/blakesmith/ar)
-%if %{fedora} > 35
 %ifnarch %{ix86}
 BuildRequires:  chromium
 BuildRequires:  golang(github.com/chromedp/chromedp) >= 0.7.6
 BuildRequires:  golang(github.com/chromedp/cdproto/cdp)
 %endif
-%endif
 BuildRequires:  golang(github.com/gofrs/flock) >= 0.8.1
 BuildRequires:  golang(github.com/google/shlex)
+BuildRequires:  golang(github.com/inhies/go-bytesize)
 BuildRequires:  golang(github.com/marcinbor85/gohex)
 BuildRequires:  golang(github.com/mattn/go-colorable) >= 0.1.8
-BuildRequires:  golang(go.bug.st/serial) >= 1.1.2
+BuildRequires:  golang(github.com/mattn/go-tty) >= 0.0.4
+BuildRequires:  golang(go.bug.st/serial) >= 1.3.5
 BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
 BuildRequires:  golang(golang.org/x/tools/go/ssa) >= 0.1.11
 BuildRequires:  golang(gopkg.in/yaml.v2) >= 2.4.0
@@ -263,8 +270,10 @@ cp -rp lib/musl/src/errno %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/exit %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/include %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/internal %{buildroot}%{tinygoroot}/lib/musl/src
+cp -rp lib/musl/src/legacy %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/malloc %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/mman %{buildroot}%{tinygoroot}/lib/musl/src
+cp -rp lib/musl/src/math %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/signal %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/stdio %{buildroot}%{tinygoroot}/lib/musl/src
 cp -rp lib/musl/src/string %{buildroot}%{tinygoroot}/lib/musl/src
@@ -285,6 +294,7 @@ cp -rp lib/picolibc/newlib/libc/tinystdio %{buildroot}%{tinygoroot}/lib/picolibc
 chmod -x %{buildroot}%{tinygoroot}/lib/picolibc/newlib/libc/tinystdio/make-dtoa-data
 install -vdm 0755 %{buildroot}%{tinygoroot}/lib/picolibc/newlib/libm
 cp -rp lib/picolibc/newlib/libm/common %{buildroot}%{tinygoroot}/lib/picolibc/newlib/libm
+cp -rp lib/picolibc/newlib/libm/math %{buildroot}%{tinygoroot}/lib/picolibc/newlib/libm
 cp -rp lib/picolibc-stdio.c %{buildroot}%{tinygoroot}/lib
 install -vdm 0755 %{buildroot}%{tinygoroot}/pkg
 for target in thumbv6m-unknown-unknown-eabi-cortex-m0 thumbv6m-unknown-unknown-eabi-cortex-m0plus thumbv7em-unknown-unknown-eabi-cortex-m4; do
@@ -308,17 +318,15 @@ export GO111MODULE=off
 export XDG_CACHE_HOME="${PWD}/$(mktemp -d tinygo.XXXXXX)"
 %gocheck -v -t src -t tests
 ( cd _build/src/%{goipath} && GOPATH=%{currentgosourcedir}/_build:$GOPATH make smoketest STM32=0 XTENSA=0 )
-%if %{fedora} > 35
 %ifnarch %{ix86} aarch64
 make wasmtest
-%endif
 %endif
 # Ignoring errors due to CGo issue:
 # https://github.com/tinygo-org/tinygo/issues/3057
 %ifarch %{ix86}
-make tinygo-test-fast || true
+make tinygo-test-fast
 %else
-make tinygo-test || true
+make tinygo-test
 %endif
 %endif
 

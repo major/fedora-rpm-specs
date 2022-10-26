@@ -38,7 +38,7 @@
 %endif
 
 Name:           xpra
-Version:        4.4
+Version:        4.4.1
 Release:        1%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
@@ -310,6 +310,9 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Mon Oct 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4.1-1
+- Release 4.4.1
+
 * Sat Oct 01 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4-1
 - Release 4.4
 

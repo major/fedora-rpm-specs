@@ -1,38 +1,37 @@
-%global commit 83b37758f53372418baef148d4ae6f56397bd3d3
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           minipro
-Version:        0.5
-Release:        4.20220607git%{shortcommit}%{?dist}
+Version:        0.6
+Release:        1%{?dist}
 Summary:        Utility for MiniPro TL866A/TL866/CS programmer
 
 License:        GPLv3+
 URL:            https://gitlab.com/DavidGriffith/minipro
-Source0:        https://gitlab.com/DavidGriffith/minipro/-/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Source0:        https://gitlab.com/DavidGriffith/minipro/-/archive/%{version}/minipro-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  systemd-udev
-Requires:       udev
-Requires:       /usr/bin/srec_cat
+Requires:       systemd-udev
 
 %description
 Programming utility compatible with Minipro TL866CS and Minipro TL866A
-programmers. Supports more than 13000 target devices (including AVRs, PICs,
-various BIOSes and EEPROMs).
+programmers.
+
+Supports programming more than 16000 kinds of devices (including AVRs,
+PICs, GALs and EPROMs) as well as testing logic devices.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup
 
 
 %build
-%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags} -DSHARE_INSTDIR=\"$(SHARE_INSTDIR)\"" LDFLAGS="%{build_ldflags}"
+%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 
 %install
 %{make_install} PREFIX=%{_prefix} COMPLETIONS_DIR=%{_datadir}/bash-completion/completions
+# This is obsolete; we just keep the uaccess rule
 rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 
 
@@ -40,17 +39,21 @@ rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 %license LICENSE
 %{_datadir}/bash-completion/completions
 %{_bindir}/minipro
-%{_bindir}/miniprohex
-%{_udevrulesdir}/*.rules
+%{_udevrulesdir}/60-minipro.rules
+%{_udevrulesdir}/61-minipro-uaccess.rules
 %{_datadir}/%{name}/infoic.xml
+%{_datadir}/%{name}/logicic.xml
 %{_mandir}/man1/minipro.1*
 
 
 %changelog
+* Mon Oct 24 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.6
+- Update to version 0.6
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-4.20220607git83b3775
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Thu Jun 07 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.5-3.20220607git83b3775
+* Tue Jun 07 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.5-3.20220607git83b3775
 - Update to a newer Git snapshot
 
 * Sun May 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.5-3.20220522gitfefd160

@@ -29,6 +29,10 @@ BuildRequires:  python3-sip-devel < 5
 BuildRequires:  python3-pyqt5-sip
 Requires:       python3-pyqt5-sip
 
+# we add a dependency on setuptools to provide the distutils module
+# upstream already removed the distutils usage in version 5+
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
+
 %description
 Binding allowing libnest2d to be called from Python using NumPy.
 

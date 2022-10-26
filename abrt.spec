@@ -22,7 +22,7 @@
 %bcond_without retrace
 
 # rpmbuild --define 'desktopvendor mystring'
-%if "x%{desktopvendor}" == "x"
+%if "x%{?desktopvendor}" == "x"
     %define desktopvendor %(source /etc/os-release; echo ${ID})
 %endif
 
@@ -43,26 +43,22 @@
     %define docdirversion -%{version}
 %endif
 
+%define glib_ver 2.73.3
 %define libreport_ver 2.14.0
 %define satyr_ver 0.24
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.15.1
-Release: 6%{?dist}
+Version: 2.16.0
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0: 0001-Fix-for-rpm-4.18.patch
-Patch1: 0002-abrt-journal-call-sd_journal_get_fd-right-after-sd_j.patch
-Patch2: 0003-applet-Update-GLib-constant-name.patch
-Patch3: 0004-a-dump-journal-core-First-seek-the-journal-tail-and-.patch
-
 BuildRequires: git-core
 BuildRequires: %{dbus_devel}
 BuildRequires: hostname
 BuildRequires: gtk3-devel
-BuildRequires: glib2-devel >= 2.43.4
+BuildRequires: glib2-devel >= %{glib_ver}
 BuildRequires: rpm-devel >= 4.6
 BuildRequires: desktop-file-utils
 BuildRequires: libnotify-devel
@@ -72,7 +68,7 @@ BuildRequires: gettext
 BuildRequires: libxml2-devel
 BuildRequires: intltool
 BuildRequires: libtool
-BuildRequires: libsoup-devel
+BuildRequires: libsoup3-devel
 BuildRequires: asciidoc
 BuildRequires: doxygen
 BuildRequires: xmlto
@@ -80,15 +76,19 @@ BuildRequires: libreport-devel >= %{libreport_ver}
 BuildRequires: satyr-devel >= %{satyr_ver}
 BuildRequires: augeas
 BuildRequires: libselinux-devel
+# Required for the %%{_unitdir} and %%{_tmpfilesdir} macros.
+BuildRequires: systemd-rpm-macros
 %if %{with python3}
 BuildRequires: python3-devel
 BuildRequires: python3-systemd
 BuildRequires: python3-argcomplete
 BuildRequires: python3-dbus
 
+%if 0%{?fedora}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
 %global py_reproducible_pyc_path %{buildroot}%{python3_sitelib}
 BuildRequires: /usr/bin/marshalparser
+%endif
 %endif
 
 Requires: libreport >= %{libreport_ver}
@@ -197,11 +197,9 @@ Summary: %{name}'s C/C++ addon
 Requires: cpio
 Requires: gdb-headless
 Requires: elfutils
+# Required for local retracing with GDB.
+Requires: elfutils-debuginfod-client
 %if 0%{!?rhel:1}
-%if %{with retrace}
-# abrt-action-perform-ccpp-analysis wants to run analyze_RetraceServer:
-Requires: %{name}-retrace-client
-%endif
 %endif
 Requires: %{name} = %{version}-%{release}
 Requires: abrt-libs = %{version}-%{release}
@@ -209,6 +207,7 @@ Requires: abrt-libs = %{version}-%{release}
 Requires: python3-libreport
 %endif
 Obsoletes: abrt-addon-coredump-helper <= 2.12.2
+Obsoletes: abrt-retrace-client <= 2.15.1
 
 
 %description addon-ccpp
@@ -221,20 +220,6 @@ Requires: abrt-libs = %{version}-%{release}
 
 %description addon-upload-watch
 This package contains hook for uploaded problems.
-
-%if %{with retrace}
-%package retrace-client
-Summary: %{name}'s retrace client
-Requires: %{name} = %{version}-%{release}
-Requires: xz
-Requires: tar
-Requires: p11-kit-trust
-Requires: libsoup
-
-%description retrace-client
-This package contains the client application for Retrace server
-which is able to analyze C/C++ crashes remotely.
-%endif
 
 %package addon-kerneloops
 Summary: %{name}'s kerneloops addon
@@ -361,9 +346,6 @@ Requires: python3-abrt-addon
 %endif
 Requires: abrt-addon-xorg
 %if ! 0%{?rhel}
-%if %{with retrace}
-Requires: abrt-retrace-client
-%endif
 %if %{with bodhi}
 Requires: abrt-plugin-bodhi
 %endif
@@ -401,9 +383,6 @@ Requires: gdb-headless
 Requires: abrt-gui
 Requires: gnome-abrt
 %if ! 0%{?rhel}
-%if %{with retrace}
-Requires: abrt-retrace-client
-%endif
 %if %{with bodhi}
 Requires: abrt-plugin-bodhi
 %endif
@@ -481,7 +460,6 @@ to the shell
 %global __scm_apply_git(qp:m:) %{__git} am --exclude doc/design --exclude doc/project/abrt.tex
 %autosetup -S git -p 0
 
-
 %build
 ./autogen.sh
 
@@ -496,9 +474,6 @@ CFLAGS="%{optflags} -Werror" %configure \
 %endif
 %if %{without atomic}
         --without-atomic \
-%endif
-%if %{without retrace}
-        --without-retrace \
 %endif
 %ifnarch %{arm}
         --enable-native-unwinder \
@@ -553,7 +528,6 @@ make check|| {
     # do not cat tests/testsuite.log because it contains a lot of bloat
     find src -name "test-suite.log" -print -exec cat '{}' \;
     find tests/testsuite.dir -name "testsuite.log" -print -exec cat '{}' \;
-    cat src/cli/test-suite.log
     exit 1
 }
 
@@ -817,19 +791,13 @@ killall abrt-dbus >/dev/null 2>&1 || :
 
 %dir %{_localstatedir}/lib/abrt
 
-# attr(2755) ~= SETGID
-%attr(2755, abrt, abrt) %{_libexecdir}/abrt-action-install-debuginfo-to-abrt-cache
-
 %{_bindir}/abrt-action-analyze-c
 %{_bindir}/abrt-action-trim-files
-%{_bindir}/abrt-action-analyze-core
 %{_bindir}/abrt-action-analyze-vulnerability
-%{_bindir}/abrt-action-install-debuginfo
 %{_bindir}/abrt-action-generate-backtrace
 %{_bindir}/abrt-action-generate-core-backtrace
 %{_bindir}/abrt-action-analyze-backtrace
 %{_bindir}/abrt-action-list-dsos
-%{_bindir}/abrt-action-perform-ccpp-analysis
 %{_bindir}/abrt-action-analyze-ccpp-local
 %{_bindir}/abrt-dump-journal-core
 %config(noreplace) %{_sysconfdir}/libreport/events.d/ccpp_event.conf
@@ -840,7 +808,6 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %{_mandir}/man5/vimrc_event.conf.5*
 %{_datadir}/libreport/events/analyze_CCpp.xml
 %{_datadir}/libreport/events/analyze_LocalGDB.xml
-%{_datadir}/libreport/events/analyze_RetraceServer.xml
 %{_datadir}/libreport/events/collect_xsession_errors.xml
 %{_datadir}/libreport/events/collect_GConf.xml
 %{_datadir}/libreport/events/collect_vimrc_user.xml
@@ -852,11 +819,8 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %{_mandir}/man*/abrt-action-generate-core-backtrace.*
 %{_mandir}/man*/abrt-action-analyze-backtrace.*
 %{_mandir}/man*/abrt-action-list-dsos.*
-%{_mandir}/man*/abrt-action-install-debuginfo.*
 %{_mandir}/man*/abrt-action-analyze-ccpp-local.*
-%{_mandir}/man*/abrt-action-analyze-core.*
 %{_mandir}/man*/abrt-action-analyze-vulnerability.*
-%{_mandir}/man*/abrt-action-perform-ccpp-analysis.*
 %{_mandir}/man1/abrt-dump-journal-core.1*
 
 %files addon-upload-watch
@@ -864,14 +828,6 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %{_unitdir}/abrt-upload-watch.service
 %{_mandir}/man*/abrt-upload-watch.*
 
-
-%if %{with retrace}
-%files retrace-client
-%{_bindir}/abrt-retrace-client
-%{_mandir}/man1/abrt-retrace-client.1*
-%config(noreplace) %{_sysconfdir}/libreport/events.d/ccpp_retrace_event.conf
-%{_mandir}/man5/ccpp_retrace_event.conf.5*
-%endif
 
 %files addon-kerneloops
 %config(noreplace) %{_sysconfdir}/libreport/events.d/koops_event.conf
@@ -954,7 +910,6 @@ killall abrt-dbus >/dev/null 2>&1 || :
 
 %files tui
 %if %{with python3}
-%config(noreplace) %{_sysconfdir}/bash_completion.d/abrt.bash_completion
 %{_bindir}/abrt
 %{_bindir}/abrt-cli
 %{python3_sitelib}/abrtcli/
@@ -1011,6 +966,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Mon Oct 24 2022 Michal Srb <michal@redhat.com> - 2.16.0-1
+- Update to upstream release 2.16.0
+
 * Wed Oct 19 2022 Michal Srb <michal@redhat.com> - 2.15.1-6
 - abrt-journal: First seek the journal tail and then set filters
 - Resolves: rhbz#2128662

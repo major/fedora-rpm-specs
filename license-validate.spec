@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        11
+Version:        12
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -69,6 +69,9 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Mon Oct 24 2022 Miroslav Suchý <msuchy@redhat.com> 12-1
+- 2137269 - fedora2spdx: ignore licenses which does not have fedora abbrev
+
 * Tue Oct 04 2022 Miroslav Suchý <msuchy@redhat.com> 11-1
 - rebuild with new data
 

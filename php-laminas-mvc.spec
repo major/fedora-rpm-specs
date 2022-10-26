@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    4ccca214621659fe75b748b377d5ba6a313a878b
+%global gh_commit    111e08a9c27274af570260c83abe77204ccf3366
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mvc
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.4.0
+Version:        3.5.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -248,6 +248,9 @@ exit $ret
 
 
 %changelog
+* Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+
 * Thu Oct 20 2022 Remi Collet <remi@remirepo.net> - 3.4.0-1
 - update to 3.4.0
 - raise dependency on PHP 8.0

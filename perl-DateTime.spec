@@ -7,10 +7,10 @@
 
 Name:           perl-DateTime
 Epoch:          2
-Version:        1.58
-Release:        4%{?dist}
+Version:        1.59
+Release:        1%{?dist}
 Summary:        Date and time object for Perl
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-%{version}.tar.gz
 # Build:
@@ -23,7 +23,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
-BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DateTime::Locale) >= 1.06
 BuildRequires:  perl(DateTime::TimeZone) >= 2.44
@@ -114,6 +113,11 @@ make test
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Mon Oct 24 2022 Paul Howarth <paul@city-fan.org> - 2:1.59-1
+- Update to 1.59
+  - Fixed tests to pass with DateTime::Locale 1.37+ (GH#34)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.58-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

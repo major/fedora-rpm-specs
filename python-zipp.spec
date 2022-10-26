@@ -1,7 +1,7 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.9.0
+Version:        3.10.0
 Release:        1%{?dist}
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
@@ -31,9 +31,9 @@ A pathlib-compatible Zipfile object wrapper. A backport of the Path object.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 # jaraco.itertools and func_timeout are not available in Fedora yet
-sed -i "/import jaraco.itertools/d" test_zipp.py
+sed -i "/import jaraco.itertools/d" tests/test_zipp.py
 # this sed removes two lines - one import and one decorator
-sed -i "/func_timeout/d" test_zipp.py
+sed -i "/func_timeout/d" tests/test_zipp.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -54,6 +54,14 @@ sed -i "/func_timeout/d" test_zipp.py
 %doc README.rst
 
 %changelog
+* Mon Oct 24 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.0-1
+- Update to 3.10.0
+Resolves: rhbz#2137172
+
+* Mon Oct 24 2022 Lumír Balhar <lbalhar@redhat.com> - 3.9.1-1
+- Update to 3.9.1
+Resolves: rhbz#2137172
+
 * Sun Oct 09 2022 Lumír Balhar <lbalhar@redhat.com> - 3.9.0-1
 - Update to 3.9.0
 Resolves: rhbz#2133213

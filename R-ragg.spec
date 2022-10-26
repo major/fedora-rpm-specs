@@ -1,5 +1,5 @@
 %global packname ragg
-%global packver  1.2.2
+%global packver  1.2.4
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Oct 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.2.4-1
+- update to 1.2.4
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.2.2-1
 - update to 1.2.2
 - rebuild for R 4.2.1

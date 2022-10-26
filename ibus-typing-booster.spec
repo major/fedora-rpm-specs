@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.6
+Version:    2.19.7
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPLv3+ and ASL 2.0
@@ -248,6 +248,13 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Mon Oct 24 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.7-1
+- Update to 2.19.7
+- Avoid inline completion when OSK (on-screen-keyboard) is shown
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/395)
+- Do not reset input purpose on focus out
+  (See: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/5966#note_1576732)
+
 * Sat Oct 15 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.6-1
 - Update to 2.19.6
 - Update emoji annotations from CLDR

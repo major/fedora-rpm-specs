@@ -3,7 +3,7 @@
 %global fast_yaml_ver 1.0.27
 
 Name:       erlang-%{srcname}
-Version:    1.0.13
+Version:    1.0.14
 Release:    1%{?dist}
 BuildArch:  noarch
 
@@ -46,6 +46,9 @@ YAML configuration processor.
 
 
 %changelog
+* Mon Oct 24 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.0.14-1
+- Update to 1.0.14
+
 * Mon Aug 22 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.0.13-1
 - Update to 1.0.13
 

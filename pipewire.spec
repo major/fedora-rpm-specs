@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -137,6 +137,7 @@ BuildRequires:  readline-devel
 BuildRequires:  lilv-devel
 BuildRequires:  openssl-devel
 BuildRequires:  libcanberra-devel
+BuildRequires:  roc-toolkit-devel
 
 Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -362,7 +363,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     -D docs=enabled -D man=enabled -D gstreamer=enabled -D systemd=enabled	\
     -D gstreamer-device-provider=disabled -D sdl2=disabled 			\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
-    -D volume=disabled -D bluez5-codec-aptx=disabled -D roc=disabled 		\
+    -D volume=disabled -D bluez5-codec-aptx=disabled 				\
     -D bluez5-codec-lc3plus=disabled						\
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
@@ -628,6 +629,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Mon Oct 24 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.3.59-3
+- Enabled roc-toolkit support
+  Resolves: rhbz#2041189
+
 * Fri Oct 21 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.59-2
 - Add a patch to fix midi processing in some cases.
 - Add a patch to fix crash when exiting some JACK apps such as

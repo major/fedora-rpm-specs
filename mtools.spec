@@ -1,6 +1,6 @@
 Summary: Programs for accessing MS-DOS disks without mounting the disks
 Name: mtools
-Version: 4.0.41
+Version: 4.0.42
 Release: 1%{?dist}
 License: GPLv3+
 Source0: ftp://ftp.gnu.org/gnu/mtools/mtools-%{version}.tar.gz
@@ -62,6 +62,9 @@ ln -s mtools.5.gz %{buildroot}%{_mandir}/man5/mtools.conf.5.gz
 %{_infodir}/mtools.info*
 
 %changelog
+* Mon Oct 24 2022 Vojtech Trefny <vtrefny@redhat.com> 4.0.42-1
+- Update to 4.0.42
+
 * Tue Sep 20 2022 Vojtech Trefny <vtrefny@redhat.com> 4.0.41-1
 - Update to 4.0.41
 

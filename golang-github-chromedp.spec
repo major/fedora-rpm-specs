@@ -17,6 +17,7 @@ Version:                0.8.5
 A faster, simpler way to drive browsers supporting the Chrome DevTools
 Protocol.}
 
+%global goextensions    js
 %global golicenses      LICENSE
 %global godocs          README.md
 

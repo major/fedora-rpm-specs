@@ -1,11 +1,12 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.1
+Version:        3.2
 Release:        1%{?dist}
-License:        GPLv2+
+# {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
+License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://mimedefang.org/
 Source0:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz
-Source1:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz.asc
+Source1:        https://mimedefang.org/releases/%{name}-%{version}.tar.gz.sig
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/9F9B564003DFF9E4D904301E3B6DDB11E78FEBD2
 Source3:        README.FEDORA
 Source4:        mimedefang.service
@@ -13,8 +14,6 @@ Source5:        mimedefang-multiplexor.service
 Source6:        mimedefang-wrapper
 Source7:        mimedefang.tmpfilesd
 Source8:        mimedefang.sysusersd
-# https://github.com/The-McGrail-Foundation/MIMEDefang/issues/69
-Patch0:         https://github.com/The-McGrail-Foundation/MIMEDefang/commit/bdfa58eef62d61c4b5f07a053ee3f55a78cec204.patch#/mimedefang-3.1-dnsbltest.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -73,7 +72,6 @@ could cause problems, for example, with encrypted or signed messages.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch0 -p1 -b .dnsbltest
 cp -pf %{SOURCE3} .
 
 %build
@@ -172,6 +170,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Mon Oct 24 2022 Robert Scheck <robert@fedoraproject.org> 3.2-1
+- Upgrade to 3.2 (#2136815)
+
 * Wed Aug 24 2022 Robert Scheck <robert@fedoraproject.org> 3.1-1
 - Upgrade to 3.1 (#2121227)
 

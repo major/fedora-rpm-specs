@@ -13,7 +13,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.30
+%global last_tested_version 8.0.31
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -75,8 +75,8 @@
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             community-mysql
-Version:          8.0.30
-Release:          3%{?with_debug:.debug}%{?dist}
+Version:          8.0.31
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -636,14 +636,14 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 2200 ))
   set -ex
   cd %{buildroot}%{_datadir}/mysql-test
 
-  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=auto --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --mysqld=--binlog-format=mixed --max-test-fail=5 --report-unstable-tests --clean-vardir "
+  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=1 --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --mysqld=--binlog-format=mixed --max-test-fail=5 --report-unstable-tests --clean-vardir "
 
   # If full testsuite has already been run on this version and we don't explicitly want the full testsuite to be run
   if [[ "%{last_tested_version}" == "%{version}" ]] && [[ %{force_run_testsuite} -eq 0 ]]
   then
     # in further rebuilds only run the basic "main" suite (~800 tests)
     echo "running only base testsuite"
-    perl ./mysql-test-run.pl $common_testsuite_arguments --suite=main --mem --skip-test-list=%{skiplist}
+    perl ./mysql-test-run.pl $common_testsuite_arguments --suite=main --skip-test-list=%{skiplist}
   fi
 
  # If either this version wasn't marked as tested yet or I explicitly want to run the testsuite, run everything we have (~4000 test)
@@ -909,12 +909,14 @@ fi
 %{_libdir}/mysql/plugin/component_test_backup_lock_service.so
 %{_libdir}/mysql/plugin/component_test_component_deinit.so
 %{_libdir}/mysql/plugin/component_test_host_application_signal.so
+%{_libdir}/mysql/plugin/component_test_mysql_command_services.so
 %{_libdir}/mysql/plugin/component_test_mysql_current_thread_reader.so
 %{_libdir}/mysql/plugin/component_test_mysql_runtime_error.so
 %{_libdir}/mysql/plugin/component_test_mysql_system_variable_set.so
 %{_libdir}/mysql/plugin/component_test_pfs_notification.so
 %{_libdir}/mysql/plugin/component_test_pfs_resource_group.so
 %{_libdir}/mysql/plugin/component_test_sensitive_system_variables.so
+%{_libdir}/mysql/plugin/component_test_status_var_reader.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_int.so
 %{_libdir}/mysql/plugin/component_test_status_var_service_reg_only.so
 %{_libdir}/mysql/plugin/component_test_status_var_service.so
@@ -972,6 +974,7 @@ fi
 %{_libdir}/mysql/plugin/qa_auth_server.so
 %{_libdir}/mysql/plugin/replication_observers_example_plugin.so
 %{_libdir}/mysql/plugin/test_security_context.so
+%{_libdir}/mysql/plugin/test_services_command_services.so
 %{_libdir}/mysql/plugin/test_services_host_application_signal.so
 %{_libdir}/mysql/plugin/test_services_plugin_registry.so
 %{_libdir}/mysql/plugin/test_udf_services.so
@@ -979,6 +982,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 30 2022 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.31-1
+- Update to MySQL 8.0.31
+
 * Mon Sep 12 2022 Michal Schorm <mschorm@redhat.com> - 8.0.30-3
 - Release bump for rebuild
 

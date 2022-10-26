@@ -21,9 +21,10 @@ ExcludeArch: i686
 # as the build is *very* slow.
 %global debug_build       0
 
-# rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
+# See rhbz#2134527 - Use portal Gtk file dialog on Fedora 37+
+# Disabled due to various issues now.
 %if 0%{?fedora} >= 37
-%global use_xdg_file_portal 1
+%global use_xdg_file_portal 0
 %else
 %global use_xdg_file_portal 0
 %endif
@@ -417,6 +418,7 @@ BuildRequires:  xorg-x11-fonts-misc
 %endif
 BuildRequires:  make
 BuildRequires:  pciutils-libs
+BuildRequires:  mesa-libgbm-devel
 
 Obsoletes:      mozilla <= 37:1.7.13
 Provides:       webclient
@@ -1110,6 +1112,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Sun Oct 23 2022 Martin Stransky <stransky@redhat.com>- 106.0.1-1
 - Update to 106.0.01
 - Require xdg-desktop-portal when file dialog portal is used.
+- Disabled file dialog portals on F37+
 
 * Thu Oct 20 2022 Jan Grulich <jgrulich@redhat.com> - 106.0-2
 - Enable upstream WebRTC code for screensharing on Wayland

@@ -1,6 +1,6 @@
 Name:		vkd3d
-Version:	1.4
-Release:	3%{?dist}
+Version:	1.5
+Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
 License:	LGPLv2+
@@ -20,19 +20,19 @@ BuildRequires:	xcb-util-devel
 BuildRequires:	xcb-util-keysyms-devel
 BuildRequires:	xcb-util-wm-devel
 
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-gcc
-BuildRequires:  mingw32-spirv-headers
-BuildRequires:  mingw32-spirv-tools
-BuildRequires:  mingw32-vulkan-headers
-BuildRequires:  mingw32-vulkan-loader
+BuildRequires:	mingw32-filesystem >= 95
+BuildRequires:	mingw32-gcc
+BuildRequires:	mingw32-spirv-headers
+BuildRequires:	mingw32-spirv-tools
+BuildRequires:	mingw32-vulkan-headers
+BuildRequires:	mingw32-vulkan-loader
 
-BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-gcc
-BuildRequires:  mingw64-spirv-headers
-BuildRequires:  mingw64-spirv-tools
-BuildRequires:  mingw64-vulkan-headers
-BuildRequires:  mingw64-vulkan-loader
+BuildRequires:	mingw64-filesystem >= 95
+BuildRequires:	mingw64-gcc
+BuildRequires:	mingw64-spirv-headers
+BuildRequires:	mingw64-spirv-tools
+BuildRequires:	mingw64-vulkan-headers
+BuildRequires:	mingw64-vulkan-loader
 
 # Wine does not build on aarch64 due to clang requires
 # vulkan is not available in RHEL 7+ for aarch64 either
@@ -241,6 +241,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Mon Oct 24 2022 - Michael Cronenworth <mike@cchtml.com> - 1.5-1
+- version update
+
 * Thu Aug 25 2022 - Michael Cronenworth <mike@cchtml.com> - 1.4-3
 - Include MinGW debuginfo packages
 

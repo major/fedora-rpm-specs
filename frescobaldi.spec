@@ -2,7 +2,7 @@
 
 Name:           frescobaldi
 Version:        3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -12,6 +12,7 @@ URL:            http://www.frescobaldi.org/
 Source0:        https://github.com/wbsoft/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         frescobaldi-3.1.2-setup.patch
 Patch1:         0001-Remove-nested-list-from-metainfo-release.patch
+Patch2:         event.patch
 
 BuildArch:      noarch
 ExclusiveArch: %{qt5_qtwebengine_arches}
@@ -60,7 +61,7 @@ find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
 %patch0 -p0
 %patch1 -p0
-
+%patch2 -p0
 
 %build
 python3 ./setup.py build
@@ -98,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Oct 24 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.2-2
+- Patch for event issue.
+
 * Thu Aug 25 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.2-1
 - 3.2
 

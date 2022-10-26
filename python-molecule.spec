@@ -29,6 +29,7 @@ URL:            %{forgeurl}
 Source:         %{forgesource}
 Patch:          0001_remove_sphinx_version_pinning.patch
 Patch:          0002_skiping_tests_requiring_connectivity.patch
+Patch:          0003_adding_data_files_to_setup_cfg.patch
 BuildArch:      noarch
 
 ########################################################################

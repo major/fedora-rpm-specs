@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname rsconnect
-%global packver  0.8.27
+%global packver  0.8.28
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((plumber)\\)
@@ -20,8 +20,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-curl, R-digest, R-jsonlite, R-openssl, R-packrat >= 0.6, R-rstudioapi >= 0.5, R-yaml >= 2.1.5
-# Suggests:  R-RCurl, R-callr, R-httpuv, R-knitr, R-plumber >= 0.3.2, R-reticulate, R-rmarkdown >= 1.1, R-shiny, R-sourcetools, R-testthat, R-xtable
+# Imports:   R-curl, R-digest, R-jsonlite, R-openssl >= 2.0.0, R-packrat >= 0.6, R-rstudioapi >= 0.5, R-tools, R-yaml >= 2.1.5
+# Suggests:  R-MASS, R-RCurl, R-callr, R-httpuv, R-knitr, R-plumber >= 0.3.2, R-reticulate, R-rmarkdown >= 1.1, R-shiny, R-sourcetools, R-testthat, R-xtable
 # LinkingTo:
 # Enhances:
 
@@ -108,6 +108,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Mon Oct 24 2022 Tom Callaway <spot@fedoraproject.org> - 0.8.28-1
+- update to 0.8.28
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 0.8.27-1
 - update to 0.8.27
 - rebuild for R 4.2.1

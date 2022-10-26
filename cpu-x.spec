@@ -1,5 +1,5 @@
 Name:           cpu-x
-Version:        4.5.0
+Version:        4.5.1
 Release:        %autorelease
 Summary:        Gathers information on CPU, motherboard and more
 ExclusiveArch:  i686 x86_64
@@ -29,6 +29,8 @@ BuildRequires:  pkgconfig(vulkan)
 
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       hicolor-icon-theme
+
+Recommends:     polkit
 
 # https://github.com/X0rg/CPU-X/issues/105
 Provides:       bundled(bandwidth) = 1.5.1

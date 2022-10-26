@@ -2,13 +2,11 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.19.0
-Release: 4%{?dist}
+Version: 3.20.0
+Release: 1%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
-
-# Only necessary for RHEL, will be ignored on Fedora
 
 # Are we building for a Software Collection?
 %{?scl:%global is_scl 1}
@@ -84,12 +82,6 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-# KDE#434764 # iconv_open causes ld.so v2.28+ to execute optimised strncmp
-Patch5: valgrind-3.19.0-ld-so-strncmp.patch
-
-# KDE#454040 s390x: False-positive memcheck:cond in memmem on arch13 systems
-Patch6: valgrind-3.19.0-s390x-memmem.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -227,9 +219,6 @@ Valgrind User Manual for details.
 %patch3 -p1
 %patch4 -p1
 %endif
-
-%patch5 -p1
-%patch6 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  Valgrind has a --enable-lto
@@ -459,6 +448,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 24 2022 Mark Wielaard <mjw@fedoraproject.org> - 3.20.0-1
+- Upgrade to valgrind 3.20.0. Drop old patches.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.19.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

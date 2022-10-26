@@ -18,8 +18,8 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.4
-Release: 1%{?dist}
+Version: 2.17.5
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -670,6 +670,17 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Mon Oct 24 2022 Michal Srb <michal@redhat.com> - 2.17.5-2
+- Fix dist-tag
+
+* Mon Oct 24 2022 Packit <hello@packit.dev> - 2.17.5-1
+- Release version 2.17.5 (Michal Srb)
+- Update changelog (Michal Srb)
+- dump_dir.py: check that the filename doesn't start with "/" (Michal Srb)
+- dump_dir.py: Don't pass libreport flags to open() (Michal Srb)
+- reporter-bugzilla: Fix exceptions (Michal Srb)
+- Update translations (mgrabovsky)
+
 * Wed Sep 14 2022 Packit <hello@packit.dev> - 2.17.4-1
 - Release version 2.17.4 (Michal Fabik)
 - Update changelog (Michal Fabik)

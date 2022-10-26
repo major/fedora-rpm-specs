@@ -1,5 +1,5 @@
 Name:           trelby
-Version:        2.4.6
+Version:        2.4.7
 Release:        1%{?dist}
 Summary:        The free, multiplatform, feature-rich screenwriting program
 
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man1/trelby.1.gz
 
 %changelog
+* Mon Oct 24 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.7-1
+- 2.4.7
+
 * Wed Aug 31 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.6-1
 - 2.4.6
 

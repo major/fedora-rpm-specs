@@ -3,7 +3,7 @@
 
 
 Name:       erlang-%{realname}
-Version:    1.1.18
+Version:    1.1.19
 Release:    1%{?dist}
 BuildArch:  noarch
 
@@ -48,6 +48,9 @@ Pure Erlang PostgreSQL driver.
 
 
 %changelog
+* Mon Oct 24 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.1.19-1
+- Update to 1.1.19
+
 * Mon Aug 22 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.1.18-1
 - Update to 1.1.18
 

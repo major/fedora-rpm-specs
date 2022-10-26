@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.1
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -1067,6 +1067,7 @@ Summary: A Clustered Database based on Samba's Trivial Database (TDB)
 
 Requires: %{name}-common-libs = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
+Requires: %{name}-winbind-clients = %{samba_depver}
 
 Requires: coreutils
 # for ps and killall
@@ -4307,6 +4308,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 24 2022 Andreas Schneider <asn@redhat.com> - 4.17.1-2
+- Add missing dependency for wbinfo used by ctdb scripts
+
 * Wed Oct 19 2022 Pavel Filipenský <pfilipen@redhat.com> - 4.17.1-1
 - Update to version 4.17.1
 - resolves: rhbz#2127301 - Permission denied calling SMBC_getatr when file not exists

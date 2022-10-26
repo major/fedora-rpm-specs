@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	3%{?dist}
+Release:	4%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -106,7 +106,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	SDL2-devel
 BuildRequires:	subversion
 BuildRequires:	valgrind-devel
-BuildRequires:	wxGTK3-devel
+BuildRequires:	wxGTK-devel
 BuildRequires:	/usr/bin/appstream-util
 BuildRequires:	/usr/bin/python
 
@@ -271,6 +271,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Thu Oct 20 2022 Scott Talbert <swt@techie.net> - 0.0.26-4
+- Rebuild with wxWidgets 3.2
+
 * Sat Oct 01 2022 Kalev Lember <klember@redhat.com> - 0.0.26-3
 - Fix a self test failure when building under systemd-nspawn based mock
 - Re-enable self tests for all arches

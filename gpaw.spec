@@ -21,7 +21,7 @@ ExcludeArch: ppc64
 
 Name:			gpaw
 Version:		22.8.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -301,6 +301,9 @@ popd
 
 
 %changelog
+* Mon Oct 24 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-3
+- Rebuild for libxc-6.0.0 on f38
+
 * Wed Oct 12 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-2
 - Glob for build/lib platform name https://gitlab.com/gpaw/gpaw/-/issues/612
 

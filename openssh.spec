@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 7
+%global openssh_rel 8
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -85,6 +85,8 @@ Patch100: openssh-6.7p1-coverity.patch
 Patch200: openssh-7.6p1-audit.patch
 # Audit race condition in forked child (#1310684)
 Patch201: openssh-7.1p2-audit-race-condition.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2049947
+Patch202: openssh-9.0p1-audit-log.patch
 
 # --- pam_ssh-agent ---
 # make it build reusing the openssh sources
@@ -722,6 +724,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Mon Oct 24 2022 Norbert Pocs <npocs@redhat.com> - 9.0p1-8
+- Add additional audit logging about ssh key used to login (rhbz#2049947)
+
 * Fri Oct 21 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-7
 - Check IP opts length (rhbz#1960015)
 

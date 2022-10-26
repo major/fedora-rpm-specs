@@ -87,6 +87,9 @@ Provides: bundled(stb_vorbis)
 # src/lib/decoders/xxhash.h
 Provides: bundled(xxhash)
 
+# Automated Tests in Bodhi failed the textrel test for i686, see
+# https://sourceware.org/annobin/annobin.html/Test-textrel.html
+ExcludeArch: %{ix86}
 
 %description
 DOSBox Staging is full x86 CPU emulator (independent of host architecture),

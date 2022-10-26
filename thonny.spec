@@ -1,5 +1,5 @@
 Name:           thonny
-Version:        4.0.0
+Version:        4.0.1
 Release:        1%{?dist}
 Summary:        Python IDE for beginners
 
@@ -79,10 +79,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.thonn
 
 
 %check
-# test_pip_gui is temporarily disabled, the failure was reported upstream:
-# https://github.com/thonny/thonny/issues/2413
-# Enable it again with Thonny 4.0.1
-xvfb-run py.test-3 --pyargs thonny -k 'not test_pip_gui'
+xvfb-run py.test-3 --pyargs thonny
 
 %files -f %{pyproject_files}
 %license LICENSE.txt licenses/ECLIPSE-ICONS-LICENSE.txt
@@ -95,6 +92,9 @@ xvfb-run py.test-3 --pyargs thonny -k 'not test_pip_gui'
 
 
 %changelog
+* Mon Oct 17 2022 abrarwali <abrarwali@tutanota.com> - 4.0.1-1
+- New upstream version 4.0.1
+
 * Thu Sep 01 2022 abrarwali <abrarwali@tutanota.com> - 4.0.0-1
 - New upstream version 4.0.0
 

@@ -24,24 +24,24 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        65.3.0
+Version:        65.5.0
 Release:        1%{?dist}
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
 # appdirs is MIT
 # more-itertools is MIT
 # ordered-set is MIT
-# packaging is BSD or ASL 2.0
+# packaging is BSD-2-Clause OR Apache-2.0
 # pyparsing is MIT
-# importlib-metadata is ASL 2.0
-# importlib-resources is ASL 2.0
+# importlib-metadata is Apache-2.0
+# importlib-resources is Apache-2.0
 # jaraco.text is MIT
-# typing-extensions is Python
+# typing-extensions is Python-2.0.1
 # zipp is MIT
 # nspektr is MIT
 # tomli is MIT
 # the setuptools logo is MIT
-License:        MIT and ASL 2.0 and (BSD or ASL 2.0) and Python
+License:        MIT AND Apache-2.0 AND (BSD-2-Clause OR Apache-2.0) AND Python-2.0.1
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source %{srcname} %{version}}
 
@@ -230,6 +230,14 @@ PYTHONPATH=$(pwd) %pytest \
 
 
 %changelog
+* Fri Oct 14 2022 Miro Hrončok <mhroncok@redhat.com> - 65.5.0-1
+- Update to 65.5.0
+- Fixes: rhbz#2129562
+
+* Thu Oct 13 2022 Miro Hrončok <mhroncok@redhat.com> - 65.4.1-1
+- Update to 65.4.1
+- Update the RPM License field to use SPDX expressions
+
 * Tue Sep 13 2022 Lumír Balhar <lbalhar@redhat.com> - 65.3.0-1
 - Update to 65.3.0
 Resolves: rhbz#2102402

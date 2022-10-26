@@ -1,11 +1,10 @@
 Name:		msmtp
-Version:	1.8.21
+Version:	1.8.22
 Release:	1%{?dist}
 Summary:	SMTP client
 License:	GPLv3+
 URL:		https://marlam.de/%{name}/
 Source0:	https://marlam.de/%{name}/releases/%{name}-%{version}.tar.xz
-Patch1:		msmtp-0001-Fix-linking-w-o-gsasl.patch
 
 BuildRequires: make
 %if 0%{?el5}
@@ -75,6 +74,9 @@ fi
 %{_mandir}/man1/%{name}*.1*
 
 %changelog
+* Mon Oct 24 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.8.22-1
+- Ver. 1.8.22 (rhbz#2116156)
+
 * Sun Aug  7 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.8.21-1
 - Ver. 1.8.21 (rhbz#2116131)
 

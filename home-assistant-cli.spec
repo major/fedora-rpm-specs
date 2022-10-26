@@ -1,5 +1,5 @@
 Name:           home-assistant-cli
-Version:        0.9.5
+Version:        0.9.6
 Release:        1%{?dist}
 Summary:        Command-line tool for Home Assistant
 
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Mon Oct 24 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.6-1
+- Update to latest upstream release 0.9.6
+
 * Sat Oct 01 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.5-1
 - Update to latest upstream release 0.9.5 (closes rhbz#2058155)
 

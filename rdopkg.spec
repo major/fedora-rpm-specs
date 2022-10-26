@@ -1,5 +1,5 @@
 Name:             rdopkg
-Version:          1.5.0
+Version:          1.5.1
 Release:          1%{?dist}
 Summary:          RPM packaging automation tool CLI
 
@@ -84,6 +84,9 @@ install -p -m 644 doc/man/*.7 %{buildroot}%{_mandir}/man7/
 
 
 %changelog
+* Mon Oct 24 2022 Joel Capitao <jcapitao@redhat.com> - 1.5.1-1
+- Update to 1.5.1
+
 * Tue Oct 18 2022 Joel Capitao <jcapitao@redhat.com> - 1.5.0-1
 - Update to 1.5.0
 

@@ -1,16 +1,26 @@
-%global collection_namespace netbox
-%global collection_name netbox
+%if %{defined fedora}
+%bcond_without tests
+%else
+%bcond_with tests
+%endif
 
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        3.7.1
-Release:        2%{?dist}
+Name:           ansible-collection-netbox-netbox
+Version:        3.8.1
+Release:        1%{?dist}
 Summary:        Netbox modules for Ansible
 
-License:        GPLv3+
-URL:            %{ansible_collection_url}
-Source:         https://github.com/netbox-community/ansible_modules/archive/v%{version}/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            %{ansible_collection_url netbox netbox}
+%global furl    https://github.com/netbox-community/ansible_modules
+Source:         %{furl}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Remove unnecessary files from the collection tarball.
+# This is a downstream only patch.
+Patch:          build_ignore.patch
 
 BuildRequires:  ansible-packaging
+%if %{with tests}
+BuildRequires:  ansible-packaging-tests
+%endif
 
 BuildArch:      noarch
 
@@ -18,9 +28,8 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n ansible_modules-%{version}
+%autosetup -n ansible_modules-%{version} -p1
 sed -i -e '1{\@^#!.*@d}' plugins/modules/*.py
-rm -vr .{github,gitignore,readthedocs.yml} tests/integration
 
 %build
 %ansible_collection_build
@@ -28,12 +37,19 @@ rm -vr .{github,gitignore,readthedocs.yml} tests/integration
 %install
 %ansible_collection_install
 
-%files
+%if %{with tests}
+%check
+%ansible_test_unit
+%endif
+
+%files -f %{ansible_collection_filelist}
 %license LICENSE
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 %changelog
+* Mon Oct 24 2022 Maxwell G <gotmax@e.email> - 3.8.1-1
+- Update to 3.8.1. Fixes rhbz#2128028.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

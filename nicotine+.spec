@@ -2,14 +2,13 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.2.5
+Version:        3.2.6
 Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
-# - IP2Location Country Database (pynicotine/geoip/ipcountrydb.bin) is CC-BY-SA
-#   (see pynicotine/geoip/README.md)
-# - some icons are GPLv3+ and MIT (see files/icons/themes/original/CREDITS.md)
-License:        GPLv3+ and CC-BY-SA and MIT
+# IP2Location Country Database (pynicotine/geoip/ipcountrydb.bin) is
+# CC-BY-SA-4.0 (see pynicotine/geoip/README.md)
+License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 URL:            https://nicotine-plus.github.io/nicotine-plus/
 Source0:        https://github.com/nicotine-plus/nicotine-plus/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -23,11 +22,9 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-xvfb}
 # Runtime dependencies are not declared in setup.py (except pygobject) but are
 # actually required (see doc/DEPENDENCIES.md)
-Requires:       gdbm
 Requires:       gspell
 Requires:       gtk3
 Requires:       hicolor-icon-theme
-Requires:       libappindicator-gtk3
 BuildArch:      noarch
 
 %description
@@ -76,6 +73,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Mon Oct 24 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.6-1
+- Update to 3.2.6
+
 * Sat Sep 03 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.5-1
 - Update to 3.2.5
 

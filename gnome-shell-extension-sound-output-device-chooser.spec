@@ -5,14 +5,14 @@ Name:           gnome-shell-extension-%{extension}
 Version:        43
 Release:        %autorelease
 Summary:        GNOME Shell extension for selecting sound devices
-License:        GPLv3+
+License:        GPL-3.0-or-later
 BuildArch:      noarch
 URL:            https://github.com/kgshank/gse-sound-output-device-chooser
 Source:         %{url}/archive/%{version}/%{extension}-%{version}.tar.gz
 
 BuildRequires:  gettext
 
-Requires:       gnome-shell-extension-common
+Requires:       gnome-shell
 Requires:       python3
 
 Recommends:     gnome-extensions-app

@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.4.5
-%global github_commit    a5a58773109c0abb13e658c8ccd92aeec8d07f9e
+%global github_version   3.5.1
+%global github_commit    f38ee8aaca2d58ee88653cb34a6a3880c23f38a5
 %global major            3
 
 %global composer_vendor  doctrine
@@ -24,9 +24,9 @@
 # "doctrine/cache": "^1.0|^2.0"
 %global doctrine_cache_min_ver 1.11
 %global doctrine_cache_max_ver 3
-# "doctrine/event-manager": "^1.0"
-%global doctrine_event_min_ver 1.0
-%global doctrine_event_max_ver 2
+# "doctrine/event-manager": "^1|^2"
+%global doctrine_event_min_ver 1
+%global doctrine_event_max_ver 3
 # "doctrine/deprecations": "^0.5.3|^1",
 %global doctrine_deprecations_min_ver 0.5.3
 %global doctrine_deprecations_max_ver 2
@@ -76,7 +76,7 @@ Patch0:        %{name}-bin.patch
 BuildArch: noarch
 # Tests
 %if %{with tests}
-BuildRequires: phpunit9 >= 9.5.24
+BuildRequires: phpunit9 >= 9.5.25
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires:(php-composer(doctrine/cache) >= %{doctrine_cache_min_ver} with php-composer(doctrine/cache) <  %{doctrine_cache_max_ver})
@@ -164,9 +164,10 @@ if (!class_exists('Doctrine\\DBAL\\Connection')) {
     [
         '%{phpdir}/Doctrine/Common/Cache2/autoload.php',
         '%{phpdir}/Doctrine/Common/Cache/autoload.php',
-    ],
-    '%{phpdir}/Doctrine/Common/EventManager/autoload.php',
-    [
+    ], [
+        '%{phpdir}/Doctrine/EventManager2/autoload.php',
+        '%{phpdir}/Doctrine/Common/EventManager/autoload.php',
+    ], [
         '%{phpdir}/Psr/Cache3/autoload.php',
         '%{phpdir}/Psr/Cache2/autoload.php',
         '%{phpdir}/Psr/Cache/autoload.php',
@@ -250,6 +251,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 3.5.1-1
+- update to 3.5.1
+- allow doctrine/event-manager 2
+
 * Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 3.4.5-1
 - update to 3.4.5
 

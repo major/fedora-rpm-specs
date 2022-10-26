@@ -1,7 +1,7 @@
 %bcond_without RRD
 
 Name:           perl-Log-Log4perl
-Version:        1.56
+Version:        1.57
 Release:        1%{?dist}
 Summary:        Log4j implementation for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -218,6 +218,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 24 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.57-1
+- 1.57 bump
+
 * Mon Sep 05 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.56-1
 - 1.56 bump
 - Package tests

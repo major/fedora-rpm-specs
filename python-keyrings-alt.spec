@@ -22,10 +22,11 @@ system, defeating the intended purpose of this library to encourage best
 practices for security.}
 
 Name:           python-keyrings-alt
-Version:        4.1.2
+Version:        4.2.0
 Release:        %{autorelease}
 Summary:        Alternate keyring implementations
 
+# SPDX
 License:        MIT
 URL:            https://github.com/jaraco/keyrings.alt
 Source0:        %{pypi_source keyrings.alt}
@@ -60,14 +61,19 @@ This package provides documentation for %{name}.
 %prep
 %autosetup -n keyrings.alt-%{version}
 
-# Remove linters and coverage from BR
 # Remove backports, used for Py <=3.2
+sed -r -i '/backports\.unittest_mock/ d' setup.cfg
+# Remove linters and coverage from BR
 sed -r -i \
     -e '/flake8/ d' \
     -e '/pytest-(black|cov|checkdocs|flake8|mypy|enabler)/ d' \
     -e '/python_implementation != "PyPy"/ d' \
-    -e '/backports\.unittest_mock/ d' \
     setup.cfg
+# We cannot have a pycryptodome test dependency, since there is no
+# python-pycryptodome package (it would conflict with python-crypto/pycrypto).
+# However, the tests intended for pycryptodome will pass with pycrypto
+# installed, so we simply adjust the dependency.
+sed -r -i 's/(pycrypto)dome$/\1/' setup.cfg
 
 # The 'jaraco.packaging.sphinx' extension means sphinx-build attempts to
 # download things from PyPI. Obviously, we can’t have this.

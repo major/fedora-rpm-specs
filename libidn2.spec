@@ -1,8 +1,8 @@
 Summary:          Library to support IDNA2008 internationalized domain names
 Name:             libidn2
-Version:          2.3.3
-Release:          2%{?dist}
-License:          (GPLv2+ or LGPLv3+) and GPLv3+
+Version:          2.3.4
+Release:          1%{?dist}
+License:          (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
 URL:              https://www.gnu.org/software/libidn/#libidn2
 
 Source0:          https://ftp.gnu.org/gnu/libidn/%{name}-%{version}.tar.gz
@@ -32,7 +32,7 @@ developing applications that use libidn2.
 
 %package -n idn2
 Summary:          IDNA2008 internationalized domain names conversion tool
-License:          GPLv3+
+License:          GPL-3.0-or-later
 Requires:         %{name}%{?_isa} = %{version}-%{release}
 %if 0%{?rhel} && 0%{?rhel} <= 7
 Requires(post):   /sbin/install-info
@@ -102,6 +102,9 @@ fi
 %{_infodir}/%{name}.info*
 
 %changelog
+* Mon Oct 24 2022 Robert Scheck <robert@fedoraproject.org> 2.3.4-1
+- Upgrade to 2.3.4 (#2137124)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

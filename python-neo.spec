@@ -28,7 +28,7 @@ checks for dimensional consistency and automatic unit conversion.
 Read the documentation at http://neo.readthedocs.io/}
 
 Name:       python-neo
-Version:    0.11.0
+Version:    0.11.1
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 

@@ -1,7 +1,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.34
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 License: MIT
 Source0: https://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
 URL: http://www.aleksey.com/xmlsec/
@@ -175,6 +175,9 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Mon Oct 24 2022 David King <amigadave@amigadave.com> - 1.2.34-3
+- Rebuild against libxml2 (#2136800)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

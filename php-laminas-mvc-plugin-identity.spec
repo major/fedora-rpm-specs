@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    81b4bf2121044f6e3e24e00ea8676fa6de595f59
+%global gh_commit    362035bc191be806052666d8aa790ff860b394a9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mvc-plugin-identity
@@ -24,7 +24,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library}/%{subproj}/%{subsubp} component
 
@@ -36,19 +36,17 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-spl
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.11.0 with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.3.3  with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.15.1 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "phpspec/prophecy-phpunit": "^2.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "phpunit/phpunit": "^9.5"
 #        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.24"
-BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0    with php-composer(phpspec/prophecy-phpunit)                   < 3)
+#        "vimeo/psalm": "^4.29"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5
 %endif
@@ -56,12 +54,12 @@ BuildRequires:  phpunit9 >= 9.5
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "container-interop/container-interop": "^1.1",
 #        "laminas/laminas-authentication": "^2.11.0",
 #        "laminas/laminas-mvc": "^3.3.3",
 #        "laminas/laminas-servicemanager": "^3.15.1"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.11.0 with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.3.3  with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.15.1 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
@@ -131,9 +129,6 @@ cat << 'EOF' | tee vendor/autoload.php
 <?php
 require_once '%{buildroot}%{php_home}/%{namespace}/%{library}/%{subproj}/%{subsubp}/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('%{namespace}Test\\%{library}\\%{subproj}\\%{subsubp}\\', dirname(__DIR__) . '/test');
-\Fedora\Autoloader\Dependencies::required([
-    '%{php_home}/Prophecy/PhpUnit/autoload.php',
-]);
 EOF
 
 : check compat autoloader
@@ -144,7 +139,7 @@ exit (class_exists("\\Zend\\%{library}\\%{subproj}\\%{subsubp}\\Module") ? 0 : 1
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -167,6 +162,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0 (no change)
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Remi Collet <remi@remirepo.net> - 1.4.0-1
 - update to 1.4.0
 - raise dependency on PHP 7.4

@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.06
-Release:	60%{?dist}
+Release:	61%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD
@@ -22,6 +22,7 @@ BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	tomoe
 BuildRequires:	autoconf
 BuildRequires:	gnome-common
+BuildRequires:	python3-setuptools
 
 %description
 Zinnia provides a simple, customizable, and portable dynamic OCR
@@ -142,7 +143,7 @@ pushd python
 python3 setup.py install --root $RPM_BUILD_ROOT
 
 #the following line fixes RHBZ#2048104
-rm $RPM_BUILD_ROOT%{python3_sitearch}/zinnia_python-0.0.0-py%{python3_version}.egg-info
+rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/zinnia_python-0.0.0-py%{python3_version}.egg-info
 pushd
 
 #remove something unnecessary
@@ -194,6 +195,9 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Mon Oct 24 2022 Peng Wu <pwu@redhat.com> - 0.06-61
+- Add BuildRequires python3-setuptools
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

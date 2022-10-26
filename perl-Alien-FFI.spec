@@ -1,47 +1,68 @@
 Name:           perl-Alien-FFI
-Version:        0.25
-Release:        9%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        Make available libffi
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-FFI
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-FFI-%{version}.tar.gz
+# Drop dependencies not required for a system installation,
+# not suitable for an upstream.
+Patch0:         Alien-FFI-0.27-Simplify-alienfile-to-system-installation.patch
 # This is an architecture-dependenant package because it stores data about
 # architecture-specific library, but it has no XS code, hence no debuginfo.
 %global debug_package %{nil}
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl(alienfile)
-BuildRequires:  perl(Alien::Build) >= 2.10
 BuildRequires:  perl(Alien::Build::MM) >= 2.10
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(PkgConfig::LibPkgConf)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(warnings)
+BuildRequires:  pkgconfig(libffi)
 # Run-time:
-# Alien modules' purpose is to ensure one can compile against a library
-BuildRequires:  libffi-devel
 BuildRequires:  perl(Alien::Base) >= 2.10
 BuildRequires:  perl(base)
 # Tests:
 BuildRequires:  perl(IPC::Cmd)
-BuildRequires:  perl(Test2::V0) >= 0.000060
+BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien)
-# Alien modules' purpose is to ensure one can compile against a library
-Requires:       libffi-devel%{?_isa}
+# Alien modules' purpose is to ensure one can compile against a library.
+# libffi version is compiled into alien.json.
+Requires:       libffi-devel%{?_isa} %(perl -MPkgConfig::LibPkgConf -e 'print qq{= } . pkgconf_version(q{libffi})' 2>/dev/null)
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 2.10
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Alien::Base\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Alien::Base|Test2::V0\\)$
 
 %description
 This ensures that libffi library can be used by other Perl distributions.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+Requires:       perl(IPC::Cmd)
+Requires:       perl(Test2::V0) >= 0.000121
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
-%setup -q -n Alien-FFI-%{version}
+%autosetup -p1 -n Alien-FFI-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -49,9 +70,25 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# ExtUtils::CBuilder writes into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -60,7 +97,14 @@ make test
 %{perl_vendorarch}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Oct 24 2022 Petr Pisar <ppisar@redhat.com> - 0.27-1
+- 0.27 bump
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

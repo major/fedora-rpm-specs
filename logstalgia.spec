@@ -1,7 +1,7 @@
 Summary:        Web server access log visualizer
 Name:           logstalgia
 Version:        1.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv3+
 URL:            http://code.google.com/p/logstalgia/
 Source0:        https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
@@ -15,7 +15,7 @@ BuildRequires:  glm-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  make
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 Requires:       gnu-free-mono-fonts
 Requires:       gnu-free-serif-fonts
 
@@ -45,6 +45,9 @@ access log (eg access.log) as a retro arcade game-like simulation.
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Mon Oct 24 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.1.3-3
+- Switch to pcre2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

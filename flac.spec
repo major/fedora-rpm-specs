@@ -1,6 +1,6 @@
 Summary: An encoder/decoder for the Free Lossless Audio Codec
 Name: flac
-Version: 1.4.1
+Version: 1.4.2
 Release: 1%{?dist}
 License: BSD and GPLv2+ and GFDL
 Source0: https://downloads.xiph.org/releases/flac/flac-%{version}.tar.xz
@@ -8,10 +8,6 @@ URL: https://www.xiph.org/flac/
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: libogg-devel
 BuildRequires: gcc gcc-c++ automake autoconf libtool gettext-devel doxygen
-%ifarch %{ix86}
-# 2.0 supports symbol visibility
-BuildRequires: nasm >= 2.0
-%endif
 BuildRequires: make
 
 %description
@@ -57,7 +53,6 @@ will use the Free Lossless Audio Codec.
 
 %configure \
     --htmldir=%{_docdir}/flac/html \
-    --disable-xmms-plugin \
     --disable-silent-rules \
     --disable-thorough-tests
 
@@ -93,6 +88,9 @@ make check
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Oct 24 2022 Miroslav Lichvar <mlichvar@redhat.com> 1.4.2-1
+- update to 1.4.2
+
 * Mon Sep 26 2022 Miroslav Lichvar <mlichvar@redhat.com> 1.4.1-1
 - update to 1.4.1
 

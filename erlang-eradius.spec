@@ -3,8 +3,8 @@
 
 
 Name:		erlang-%{realname}
-Version:	2.2.4
-Release:	2%{?dist}
+Version:	2.3.1
+Release:	1%{?dist}
 BuildArch:	noarch
 Summary:	Erlang RADIUS server framework
 License:	MIT
@@ -44,6 +44,9 @@ Erlang RADIUS server framework.
 
 
 %changelog
+* Mon Oct 24 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.3.1-1
+- Ver. 2.3.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

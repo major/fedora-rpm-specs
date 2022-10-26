@@ -40,7 +40,7 @@
 
 Name:           neovim
 Version:        0.8.0
-Release:        0%{?dist}
+Release:        1%{?dist}
 
 License:        ASL 2.0
 Summary:        Vim-fork focused on extensibility and agility

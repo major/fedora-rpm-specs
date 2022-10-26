@@ -3,7 +3,7 @@
 
 
 Name:		erlang-%{realname}
-Version:	3.1.0
+Version:	3.1.1
 Release:	1%{?dist}
 BuildArch:	noarch
 Summary:	An Erlang library for building lightweight HTTP servers
@@ -49,6 +49,9 @@ cp -arv support %{buildroot}%{_erllibdir}/%{realname}-%{version}
 
 
 %changelog
+* Mon Oct 24 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.1.1-1
+- Ver. 3.1.1
+
 * Thu Aug 18 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.1.0-1
 - Ver. 3.1.0
 

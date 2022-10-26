@@ -80,8 +80,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		6.0.2
-Release:		3%{?dist}
+Version:		7.0.0
+Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -727,6 +727,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Oct 24 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.0-1
+- New version
+  Resolves: rhbz#2137071
+
 * Fri Oct 14 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 6.0.2-3
 - More fixes for conditional build of smyrna
 

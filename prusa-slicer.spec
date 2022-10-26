@@ -356,9 +356,9 @@ find %buildroot%_datadir/PrusaSlicer/localization -type d | sed '
     s:\(.*\):%dir \1:
 ' >> lang-files
 
-# remove the flatpak data on non flatpak builds
 %if 0%{?flatpak}
-rm -rf %buildroot%_datadir/PrusaSlicer/data/
+# Remove udev rules that aren't needed for flatpak builds
+rm -f %buildroot%_prefix/lib/udev/rules.d/90-3dconnexion.rules
 %endif
 
 %check
@@ -381,12 +381,10 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %_datadir/applications/PrusaSlicer.desktop
 %_datadir/appdata/%name.appdata.xml
 %dir %_datadir/PrusaSlicer
-%if 0%{?flatpak}
-%_datadir/PrusaSlicer/{icons,models,profiles,shaders,shapes,udev,applications}/
-%else
 %_datadir/PrusaSlicer/{icons,models,profiles,shaders,shapes,udev,applications,data}/
-%endif
+%if !0%{?flatpak}
 %_udevrulesdir/90-3dconnexion.rules
+%endif
 
 %changelog
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 2.4.2-2

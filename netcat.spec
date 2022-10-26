@@ -13,7 +13,9 @@ Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
 Version:         1.219
 Release:         1%{?dist}
-License:         BSD
+# BSD-3-Clause: nc.1 and netcat.c
+# BSD-2-Clause: atomicio.{c,h} and socks.c
+License:         BSD-3-Clause AND BSD-2-Clause
 URL:             https://man.openbsd.org/nc.1
 Source0:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/netcat.c
 Source1:         https://raw.githubusercontent.com/openbsd/src/%{commit}/usr.bin/nc/nc.1

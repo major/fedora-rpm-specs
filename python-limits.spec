@@ -34,7 +34,7 @@ limiting with commonly used storage backends
 (Redis, Memcached & MongoDB).}
 
 Name:           python-%{pypi_name}
-Version:        2.7.0
+Version:        2.7.1
 Release:        1%{?dist}
 Summary:        Utilities to implement rate limiting using various strategies
 
@@ -51,6 +51,11 @@ BuildArch:      noarch
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+%if %{without redis}
+# Even though redis is too old for the redis extra, we still need it for
+# test_lazy_dependency_found and test_lazy_dependency_version_low.
+BuildRequires:  python3dist(redis)
+%endif
 
 %description -n python3-%{pypi_name} %_description
 
@@ -183,6 +188,9 @@ m="${m-}${m+ and }not memcached"
 
 
 %changelog
+* Sun Oct 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.1-1
+- Update to 2.7.1 (close RHBZ#2136594)
+
 * Sun Oct 09 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.0-1
 - Support F36 and F35 (close RHBZ#2133279)
 - Don’t loosen Sphinx version bound on releases where we don’t have to do so

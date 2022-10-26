@@ -10,7 +10,7 @@
 %bcond_with          bootstrap
 %bcond_without       tests
 
-%global gh_commit    cd2dd3b3dc59e75a9f2117374222c0d84b25bf19
+%global gh_commit    6cabb26f472dc16cc7e582db7713d1eb9c23f87c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-modulemanager
@@ -20,7 +20,7 @@
 %global library      ModuleManager
 
 Name:           php-%{gh_project}
-Version:        2.12.0
+Version:        2.13.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -32,7 +32,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-spl
 BuildRequires: (php-composer(brick/varexporter)                          >= 0.3.2   with php-composer(brick/varexporter)                          < 1)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7     with php-autoloader(%{gh_owner}/laminas-config)               < 4)
@@ -42,31 +42,31 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1 
 BuildRequires: (php-composer(webimpress/safe-writer)                     >= 2.1     with php-composer(webimpress/safe-writer)                     < 3)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "^2.3",
-#        "laminas/laminas-loader": "^2.8",
-#        "laminas/laminas-mvc": "^3.1.1",
-#        "laminas/laminas-servicemanager": "^3.7",
-#        "phpunit/phpunit": "^9.5.5",
-#        "psalm/plugin-phpunit": "^0.16.1",
-#        "vimeo/psalm": "^4.10"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-loader)               >= 2.8     with php-autoloader(%{gh_owner}/laminas-loader)               < 3)
+#        "laminas/laminas-loader": "^2.9.0",
+#        "laminas/laminas-mvc": "^3.5.0",
+#        "laminas/laminas-servicemanager": "^3.19.0",
+#        "phpunit/phpunit": "^9.5.25",
+#        "psalm/plugin-phpunit": "^0.17.0",
+#        "vimeo/psalm": "^4.29"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-loader)               >= 2.9     with php-autoloader(%{gh_owner}/laminas-loader)               < 3)
 %if %{without bootstrap}
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.1.1   with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.5     with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
 %endif
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.7     with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19    with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ^8.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "brick/varexporter": "^0.3.2",
 #        "laminas/laminas-config": "^3.7",
 #        "laminas/laminas-eventmanager": "^3.4",
 #        "laminas/laminas-stdlib": "^3.6",
 #        "webimpress/safe-writer": "^1.0.2 || ^2.1"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:      (php-composer(brick/varexporter)                          >= 0.3.2   with php-composer(brick/varexporter)                          < 1)
 Requires:      (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7     with php-autoloader(%{gh_owner}/laminas-config)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-eventmanager)         >= 3.4     with php-autoloader(%{gh_owner}/laminas-eventmanager)         < 4)
@@ -173,7 +173,7 @@ exit (class_exists("\\Zend\\%{library}\\ModuleEvent") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -194,6 +194,10 @@ exit $ret
 
 
 %changelog
+* Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 2.13.0-1
+- update to 2.13.0
+- raise dependency on PHP 8.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
 - update to 2.12.0 (no change)
 

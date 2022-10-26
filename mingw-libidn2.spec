@@ -1,14 +1,12 @@
 %?mingw_package_header
 
-Name:           mingw-libidn2
-Version:        2.3.3
-Release:        2%{?dist}
 Summary:        MinGW Windows Internationalized Domain Name 2008 support library
-
-# The distribution contains only GPLv3 copying for some reason. Pointed
-# on the upstream ML: https://lists.gnu.org/archive/html/help-libidn/2016-11/msg00020.html
-License:        (GPLv2+ or LGPLv3+) and GPLv3+
+Name:           mingw-libidn2
+Version:        2.3.4
+Release:        1%{?dist}
+License:        (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
 URL:            https://www.gnu.org/software/libidn/#libidn2
+
 Source0:        https://ftp.gnu.org/gnu/libidn/libidn2-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/libidn/libidn2-%{version}.tar.gz.sig
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE
@@ -107,7 +105,7 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 # Win32
 %files -n mingw32-libidn2
-%license COPYING
+%license COPYING COPYING.LESSERv3 COPYING.unicode COPYINGv2
 %{mingw32_bindir}/idn2.exe
 %{mingw32_bindir}/libidn2-0.dll
 %{mingw32_libdir}/libidn2.dll.a
@@ -119,7 +117,7 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 # Win64
 %files -n mingw64-libidn2
-%doc COPYING
+%license COPYING COPYING.LESSERv3 COPYING.unicode COPYINGv2
 %{mingw64_bindir}/idn2.exe
 %{mingw64_bindir}/libidn2-0.dll
 %{mingw64_libdir}/libidn2.dll.a
@@ -130,6 +128,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/libidn2.a
 
 %changelog
+* Mon Oct 24 2022 Robert Scheck <robert@fedoraproject.org> 2.3.4-1
+- Upgrade to 2.3.4 (#2137125)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

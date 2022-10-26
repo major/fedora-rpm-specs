@@ -85,7 +85,7 @@ cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
 %{_mandir}/man1/afpcmd.1*
 %{_mandir}/man1/afpgetstatus.1*
 %{_libdir}/libafpclient.so.*
-%exclude %{_libdir}/*.la
+# %%exclude %%{_libdir}/*.la
 %doc AUTHORS ChangeLog docs/README docs/performance docs/FEATURES.txt docs/REPORTING-BUGS.txt
 
 

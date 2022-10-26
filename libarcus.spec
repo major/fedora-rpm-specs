@@ -20,6 +20,10 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 
+# we add a dependency on setuptools to provide the distutils module
+# upstream already removed the distutils usage in version 5+
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
 ExcludeArch:    %{ix86}

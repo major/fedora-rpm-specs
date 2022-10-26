@@ -1,11 +1,11 @@
-%define   baseversion     1.2.7
+%define   baseversion     1.2.8
 #define   fixversion      .2
 %global   _hardened_build 1
 
 Summary: Advanced Linux Sound Architecture (ALSA) utilities
 Name:    alsa-utils
 Version: %{baseversion}%{?fixversion}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GPLv2+
 URL:     http://www.alsa-project.org/
 Source:  ftp://ftp.alsa-project.org/pub/utils/alsa-utils-%{version}.tar.bz2
@@ -195,6 +195,9 @@ fi
 %systemd_postun_with_restart alsa-state.service
 
 %changelog
+* Mon Oct 24 2022 Jaroslav Kysela <perex@perex.cz> - 1.2.8-1
+* Updated to 1.2.8
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

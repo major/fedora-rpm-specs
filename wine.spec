@@ -46,8 +46,8 @@
 %endif
 
 Name:           wine
-Version:        7.18
-Release:        2%{?dist}
+Version:        7.19
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
@@ -2827,6 +2827,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 24 2022 Michael Cronenworth <mike@cchtml.com> - 7.19-1
+- version update
+
 * Thu Oct 13 2022 Michael Cronenworth <mike@cchtml.com> - 7.18-2
 - Require MinGW FAudio
 
