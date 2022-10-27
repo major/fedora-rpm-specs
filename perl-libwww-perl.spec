@@ -5,9 +5,9 @@
 
 Name:           perl-libwww-perl
 Version:        6.67
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Perl interface to the World-Wide Web
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libwww-perl
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/libwww-perl-%{version}.tar.gz
 # Normalize shelbangs, not suitable for an upstream
@@ -212,6 +212,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.67-3
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.67-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

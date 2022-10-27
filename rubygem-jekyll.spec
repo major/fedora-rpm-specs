@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Simple, blog aware, static site generator
-Version:        4.2.2
+Version:        4.3.0
 Release:        %autorelease
 License:        MIT
 
@@ -30,13 +30,6 @@ Patch5:         0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
 # Patch to disable tests reliant on the Gemfile and .gemspec file,
 # which are not shipped as part of the jekyll gem:
 Patch6:         0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
-
-# Patch to disable a race-y test that fails regularly
-Patch7:         0007-test-kramdown-disable-race-y-test.patch
-
-# Ruby 3.0 compatibility
-# Upstream fix: https://github.com/jekyll/jekyll/commit/5c797ba136a4d162497e976a1a52946344e6c32f
-Patch8:         0008-test-separate-keyword-arguments.patch
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
@@ -119,22 +112,6 @@ popd && rm -r upstream
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-
-# works with terminal-table 1.8.0 and 3.0.0, too
-# Upstream fix: https://github.com/jekyll/jekyll/pull/8586
-%gemspec_remove_dep -g terminal-table "~> 2.0"
-%gemspec_add_dep -g terminal-table ">= 1.8.0"
-
-# webrick became a normal gem in Ruby 3.0, needs to be added as dependency
-# Upstream fix: https://github.com/jekyll/jekyll/commit/5c797ba136a4d162497e976a1a52946344e6c32f
-%gemspec_add_dep -g webrick "~> 1.7"
-
-# Relax rouge dependency
-# https://github.com/jekyll/jekyll/commit/1a3d85a8a550bcdbc6239e4f7d575dd1eab13c50
-sed -i ../%{gem_name}-%{version}.gemspec \
-	-e '\@rouge@s|"~> 3.0"|">= 3.0", "< 5.0"|'
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -162,7 +139,9 @@ help2man -N -s1 -o %{buildroot}%{_mandir}/man1/%{gem_name}.1 \
 
 
 %check
-ruby -I"lib:test" -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
+# Tests only pass when timezone offset is zero.
+# Related: https://github.com/jekyll/jekyll/pull/9168
+TZ=UTC ruby -I"lib:test" -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 
 
 %files

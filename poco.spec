@@ -1,6 +1,6 @@
 %global _bundled_pcre2_version 10.40
 # read from libversion
-%global libversion 92
+%global libversion 93
 
 %global cmake_build_dir cmake-build
 %global cmake_debug_dir cmake-debug
@@ -18,19 +18,19 @@
 %endif
 
 Name:             poco
-Version:          1.12.2
+Version:          1.12.3
 Release:          %autorelease
 Summary:          C++ class libraries for network-centric applications
 
-License:          Boost
+License:          BSL-1.0
 URL:              https://pocoproject.org
 
-Source0:          https://github.com/pocoproject/%{name}/archive/%{name}-%{version}-release.tar.gz#/%{name}-%{version}.tar.gz
+Source:           https://github.com/pocoproject/poco/archive/poco-%{version}-release/poco-%{version}.tar.gz
 
-# Disable the tests that will fail under Koji (mostly network)
-Patch0:           0001-Disable-tests-that-fail-in-koji.patch
 # Fix XML compilation due to new methods being guarded by XML_DTD
-Patch1:           define-xml-dtd.patch
+Patch:            0001-Fix-XML-compilation-due-to-new-methods-being-guarded.patch
+# Disable the tests that will fail under Koji (mostly network)
+Patch:            0002-Disable-tests-that-fail-in-koji.patch
 
 BuildRequires:    make
 BuildRequires:    cmake

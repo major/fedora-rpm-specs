@@ -3,7 +3,7 @@
 
 Name:           jnr-x86asm
 Version:        1.0.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Pure-java port of asmjit
 
 License:        MIT
@@ -37,7 +37,7 @@ find ./ -name '*.class' -delete
 %pom_remove_parent
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.6 -Dmaven.compiler.target=1.6
+%mvn_build -- -Dmaven.compiler.source=8 -Dmaven.compiler.target=8
 
 %install
 %mvn_install
@@ -50,6 +50,9 @@ find ./ -name '*.class' -delete
 %license LICENSE
 
 %changelog
+* Tue Oct 25 2022 Mat Booth <mat.booth@gmail.com> - 1.0.2-29
+- Allow build on Java 17
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
-Version:    2.2.3
-Release:    4%{?dist}
+Version:    2.2.4
+Release:    1%{?dist}
 License:    BSD
 URL:        http://miniupnp.free.fr/
 
@@ -20,9 +20,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 Source0:    http://miniupnp.free.fr/files/%{name}-%{version}.tar.gz
-# https://github.com/miniupnp/miniupnp/issues/574
-# https://github.com/miniupnp/miniupnp/commit/f82b0563a72e33800f5918ead68c41bcda1fd4c1
-Patch0:     %{name}-cmake.patch
+Patch0:     https://github.com/miniupnp/miniupnp/commit/ea67c29b64ff3c89a01f4fd66e8d5733f5ebe00e.patch
 
 %description
 miniupnpc is an implementation of a UPnP client library, enabling applications
@@ -43,12 +41,11 @@ This package contains the header files and development documentation for
 %package -n python3-%{name}
 Summary:    Python3 interface to %{name}
 
-
 %description -n python3-%{name}
 This package contains python3 interfaces to %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p2
 
 # Use already built shared object for Python module
 # Unversioned link is not enough to avoid a rebuild
@@ -95,6 +92,9 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %{python3_sitearch}/miniupnpc*.so
 
 %changelog
+* Tue Oct 25 2022 Simone Caronni <negativo17@gmail.com> - 2.2.4-1
+- Update to 2.2.4.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

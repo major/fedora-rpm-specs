@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.8.0
+Version:        0.9.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Tue Oct 25 2022 Packit <hello@packit.dev> - 0.9.0-1
+- Added utility classes for working with (N)EVR. (#113)
+- Fixed an issue with multiple instances of `Specfile` not expanding macros in the right context. (#117)
+
 * Fri Oct 14 2022 Packit <hello@packit.dev> - 0.8.0-1
 - Added `Specfile.update_tag()` method that allows updating tag values while trying to preserve macro expansions. You can watch a demo on [YouTube](https://youtu.be/yzMfBPdFXZY). (#101)
 

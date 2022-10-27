@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for quantum chemistry
 License:        ASL 2.0
 URL:            https://github.com/pyscf/pyscf/
@@ -24,6 +24,8 @@ Source0:        https://github.com/pyscf/pyscf/archive/v%{version}/pyscf-%{versi
 
 # Disable rpath
 Patch1:         pyscf-2.1.0-rpath.patch
+# Patch for libxc 6 support
+Patch2:         https://github.com/pyscf/pyscf/pull/1467.patch
 
 # ppc64 doesn't appear to have floats beyond 64 bits, so ppc64 is
 # disabled as per upstream's request as for the libcint package.
@@ -88,6 +90,7 @@ chemistry programs.
 %prep
 %setup -q -n pyscf-%{version}
 %patch1 -p1 -b .rpath
+%patch2 -p1 -b .libxc6
 
 # Remove shebangs
 find pyscf -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' '{}' \;
@@ -125,6 +128,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Tue Oct 25 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.1.1-2
+- Rebuild with libxc 6.0.0 in rawhide.
+
 * Mon Sep 26 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.1.1-1
 - Update to 2.1.1.
 

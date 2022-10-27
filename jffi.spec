@@ -1,9 +1,12 @@
 %global cluster jnr
 %global sover 1.2
 
+# Symbols from libffi *must* be linked for this package to work
+%undefine _ld_as_needed
+
 Name:           jffi
-Version:        1.3.4
-Release:        4%{?dist}
+Version:        1.3.9
+Release:        2%{?dist}
 Summary:        Java Foreign Function Interface
 
 License:        LGPLv3+ or ASL 2.0
@@ -17,8 +20,7 @@ Patch0:         0001-Fix-dependencies-on-junit-hamcrest.patch
 # Fix compilation flags and binary stripping
 Patch1:         0002-Fix-compilation-flags.patch
 
-# Fix usage of antrun plugin, sent upstream: https://github.com/jnr/jffi/pull/111
-Patch2:         0003-Update-to-latest-maven-ant-plugin.patch
+ExclusiveArch:  %{java_arches}
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -53,7 +55,6 @@ This package contains the API documentation for %{name}.
 %setup -q -n %{name}-%{name}-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # Remove pointless parent pom
 %pom_remove_parent
@@ -69,7 +70,7 @@ find ./ -name '*.jar' -exec rm -f '{}' \;
 find ./ -name '*.class' -exec rm -f '{}' \; 
 
 # Test dependencies for ant tests
-build-jar-repository -s -p lib/ junit hamcrest/core
+build-jar-repository -s -p lib/ junit hamcrest/hamcrest
 
 # A couple of tests fail on armv7 for some reason
 sed -i -e 's/haltonfailure="true"/haltonfailure="no"/' build.xml
@@ -82,10 +83,8 @@ sed -i -e 's/<javac/<javac debug="true"/' build.xml
 
 %build
 # ant will produce JAR with native bits
-ant jar build-native -Duse.system.libffi=1
-
-# maven will look for JAR with native bits in archive/
-cp -p dist/jffi-*-Linux.jar archive/
+ant jar -Duse.system.libffi=1
+ant archive-platform-jar -Duse.system.libffi=1
 
 %mvn_build
 
@@ -125,6 +124,12 @@ ant -Duse.system.libffi=1 -Drun.jvm.model=-Xmx128m test
 %license COPYING.GPL COPYING.LESSER LICENSE
 
 %changelog
+* Tue Oct 25 2022 Mat Booth <mat.booth@gmail.com> - 1.3.9-2
+- Fix linkage to libffi
+
+* Tue Oct 25 2022 Mat Booth <mat.booth@gmail.com> - 1.3.9-1
+- Update to upstream release 1.3.9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

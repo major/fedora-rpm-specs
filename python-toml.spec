@@ -3,12 +3,14 @@
 obvious semantics. TOML is designed to map unambiguously to a hash table. TOML \
 should be easy to parse into data structures in a wide variety of languages. \
 This package loads toml file into python dictionary and dump dictionary into \
-toml file.
+toml file. \
+This package is deprecated, use tomllib from the Python standard library \
+or tomli/tomli-w.
 
 Name:           python-%{pypi_name}
 Version:        0.10.2
-Release:        9%{?dist}
-Summary:        Python Library for Tom's Obvious, Minimal Language
+Release:        10%{?dist}
+Summary:        A deprecated Python Library for Tom's Obvious, Minimal Language
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
@@ -34,6 +36,8 @@ BuildRequires:  /usr/bin/toml-test
 
 %package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+Provides:       deprecated()
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 %desc
@@ -74,6 +78,10 @@ toml-test $(pwd)/tests/decoding_test3.sh
 
 
 %changelog
+* Mon Oct 24 2022 Miro Hrončok <mhroncok@redhat.com> - 0.10.2-10
+- This package is now deprecated
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

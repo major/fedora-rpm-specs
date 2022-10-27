@@ -110,7 +110,6 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-%changelog
 * Mon Jul 11 2022 Troy Dawson <tdawson@redhat.com> - 2.0.8-4
 - Enable all arches in EPEL
 

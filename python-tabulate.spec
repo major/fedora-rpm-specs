@@ -1,5 +1,5 @@
 Name:           python-tabulate
-Version:        0.8.10
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Pretty-print tabular data in Python, a library and a command-line utility
 

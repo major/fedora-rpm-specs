@@ -1,6 +1,6 @@
 Name:      schismtracker
-Version:   20220905
-Release:   2%{?dist}
+Version:   20221020
+Release:   1%{?dist}
 Summary:   Sound module composer/player
 License:   GPLv2
 URL:       http://schismtracker.org/
@@ -63,6 +63,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Tue Oct 25 2022 josef radinger <cheese@nosuchhost.net> - 20221020-1
+- bump version
+
 * Mon Sep 19 2022 Jindrich Novy <jnovy@redhat.com> - 20220905-2
 - upload new source and remove training spaces
 

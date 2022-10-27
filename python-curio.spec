@@ -1,4 +1,3 @@
-%global srcname curio
 %global common_description %{expand:
 Curio is a library of building blocks for performing concurrent I/O and common
 system programming tasks such as launching subprocesses, working with files,
@@ -12,39 +11,35 @@ probably find it to be a bit too-low level--it's probably best to think of it
 as a library for building libraries.  Although you might not use it directly,
 many of its ideas have influenced other libraries with similar functionality.}
 
-%bcond_without  tests
 
-
-Name:           python-%{srcname}
-Version:        1.5
-Release:        7%{?dist}
+Name:           python-curio
+Version:        1.6
+Release:        1%{?dist}
 Summary:        Building blocks for performing concurrent I/O
 License:        BSD
 URL:            https://github.com/dabeaz/curio
-Source0:        %pypi_source
+Source0:        %pypi_source curio
 BuildArch:      noarch
 
 
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-curio
 Summary:        %{summary}
 BuildRequires:  python3-devel
-%if %{with tests}
 BuildRequires:  %{py3_dist pytest}
-%endif
 
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-curio %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -p 1
+%autosetup -n curio-%{version} -p 1
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -53,20 +48,21 @@ BuildRequires:  %{py3_dist pytest}
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files curio
 
 
-%if %{with tests}
 %check
 %pytest --verbose -m 'not internet'
-%endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-curio -f %{pyproject_files}
 %doc README.rst
 
 
 %changelog
+* Tue Oct 25 2022 Carl George <carl@george.computer> - 1.6-1
+- Update to 1.6, resolves rhbz#2137578
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

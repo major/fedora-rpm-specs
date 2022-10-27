@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    b3c7e9262b4fbec801d8df2370cdebb4f5d3a0ae
+%global gh_commit    10696c809866bebd9d71dca14de6c0d6c1cac2f8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -37,7 +37,7 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.19.0
+Version:       2.20.0
 Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
@@ -204,6 +204,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Oct 25 2022 Remi Collet <remi@remirepo.net> - 2.20.0-1
+- update to 2.20.0 (no change)
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
 - update to 2.19.0
 - raise dependency on PHP 8.0

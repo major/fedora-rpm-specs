@@ -6,9 +6,10 @@
 
 Name:           python-pynamodb
 Summary:        A pythonic interface to Amazon’s DynamoDB
-Version:        5.2.1
+Version:        5.2.3
 Release:        %autorelease
 
+# SPDX
 License:        MIT
 URL:            https://github.com/pynamodb/PynamoDB
 # We use the GitHub tarball instead of the PyPI tarball to get documentation

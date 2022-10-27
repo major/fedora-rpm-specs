@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # The main source code is BSD licensed.
 # The bundled libraries used are licensed as follows:
@@ -325,6 +325,9 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Tue Oct 25 2022 Carl George <carl@george.computer> - 1.4.274-2
+- Rebuilt for poco 1.12.3
+
 * Mon Aug 22 2022 Carl George <carl@george.computer> - 1.4.274-1
 - Latest upstream, resolves rhbz#2120162
 

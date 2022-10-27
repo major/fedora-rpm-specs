@@ -1,5 +1,5 @@
 Name:           perl-Alien-pkgconf
-Version:        0.18
+Version:        0.19
 Release:        1%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -119,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 25 2022 Petr Pisar <ppisar@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Tue Aug 16 2022 Petr Pisar <ppisar@redhat.com> - 0.18-1
 - 0.18 bump
 - Package the tests

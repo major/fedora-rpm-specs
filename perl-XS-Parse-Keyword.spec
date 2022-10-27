@@ -2,7 +2,7 @@
 %bcond_without perl_XS_Parse_Keyword_enables_optional_test
 
 Name:           perl-XS-Parse-Keyword
-Version:        0.25
+Version:        0.26
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -52,6 +52,7 @@ Provides:       perl(:XS_Parse_Keyword_ABI_2)
 # XS::Parse::Infix/ABIVERSION_MAX in lib/XS/Parse/Keyword.xs.
 Provides:       perl(:XS_Parse_Infix_ABI_0)
 Provides:       perl(:XS_Parse_Infix_ABI_1)
+Provides:       perl(:XS_Parse_Infix_ABI_2)
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
@@ -149,6 +150,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 25 2022 Petr Pisar <ppisar@redhat.com> - 0.26-1
+- 0.26 bump
+
 * Tue Jul 26 2022 Petr Pisar <ppisar@redhat.com> - 0.25-1
 - 0.25 bump
 

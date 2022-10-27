@@ -5,7 +5,7 @@
 #global snapdate yyyymmdd
 
 Name:           hatch
-Version:        1.6.2%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        1.6.3%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 

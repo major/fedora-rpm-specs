@@ -75,7 +75,6 @@ Recommends: python3dist(molecule-podman)
 %prep
 %forgeautosetup -p1
 
-
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test} %{?with_doc:-x docs}
 

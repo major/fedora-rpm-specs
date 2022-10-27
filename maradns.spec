@@ -1,5 +1,5 @@
 Name:		maradns
-Version:	3.5.0022
+Version:	3.5.0024
 Release:	1%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
@@ -149,6 +149,10 @@ fi
 
 
 %changelog
+
+* Tue Oct 25 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0024-1
+- new version (fixes rhbz#2135365)
+
 * Thu Aug 25 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0022-1
 - new version (fixes rhbz#2082783)
 - convert License: to SPDX tag

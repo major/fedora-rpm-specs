@@ -2,12 +2,17 @@
 
 Name:           python-%{srcname}
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ECDSA cryptographic signature library
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/ecdsa
 Source0:        %{pypi_source ecdsa}
+
+# tighter bounds for hypothesis parameters
+# fixes https://bugzilla.redhat.com/2137441
+# merged upstream
+Patch:          https://github.com/tlsfuzzer/python-ecdsa/pull/308.patch
 
 BuildArch:      noarch
 
@@ -42,7 +47,7 @@ into other protocols.
 
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 # Remove extraneous #!
 find src/ecdsa -name \*.py | xargs sed -ie '/\/usr\/bin\/env/d'
 
@@ -84,6 +89,10 @@ and not test_to_openssl_secp256k1"
 
 
 %changelog
+* Tue Oct 25 2022 Miro Hrončok <mhroncok@redhat.com> - 0.18.0-2
+- In the tests, tighter the bounds for hypothesis parameters
+- Fixes: rhbz#2137441
+
 * Fri Aug 26 2022 Jonathan Wright <jonathan@almalinux.org> - 0.18.0-1
 - update to 0.18.0
 - rhbz#1873173

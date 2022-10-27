@@ -3,11 +3,11 @@
 
 Name:           perl-HTTP-Message
 Version:        6.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP style message
-# CONTRIBUTING.md:  CC0
-# other files:      GPL+ or Artistic
-License:        (GPL+ or Artistic) and CC0
+# CONTRIBUTING.md:  CC0-1.0
+# other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC0-1.0
 URL:            https://metacpan.org/release/HTTP-Message
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-Message-%{version}.tar.gz
 BuildArch:      noarch
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.43-2
+- Update license to SPDX
+
 * Mon Oct 24 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.43-1
 - 6.43 bump
 

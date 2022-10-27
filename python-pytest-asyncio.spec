@@ -13,7 +13,7 @@ provides useful fixtures and markers to make testing easier.}
 %endif
 
 Name:           python-%{srcname}
-Version:        0.19.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Pytest support for asyncio
 License:        ASL 2.0

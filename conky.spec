@@ -21,7 +21,7 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.13.1
+Version:        1.15.0
 Release:        1%{?dist}
 Summary:        A system monitor for X
 
@@ -48,8 +48,8 @@ BuildRequires:  lua-devel
 %{?with_weather_xoap:BuildRequires: libxml2-devel}
 %{?with_wlan:BuildRequires: wireless-tools-devel}
 %{?with_xinerama:BuildRequires: libXinerama-devel}
-# needed to generate documentation in the git snapshot
-BuildRequires:  docbook2X docbook-style-xsl man
+BuildRequires:  pandoc
+BuildRequires:  python3-pyyaml python3-jinja2
 BuildRequires:  cmake git
 BuildRequires:  desktop-file-utils
 
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Tue Oct 25 2022 Miroslav Lichvar <mlichvar@redhat.com> - 1.15.0-1
+- update to 1.15.0
+
 * Tue Sep 20 2022 Miroslav Lichvar <mlichvar@redhat.com> - 1.13.1-1
 - update to 1.13.1
 - enable ncurses support

@@ -134,7 +134,7 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.17.1
+%global samba_version 4.17.2
 %global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
@@ -1167,7 +1167,11 @@ Support for using an existing CEPH cluster as a mutex helper for CTDB
 
 
 %prep
+%if 0%{?fedora} || 0%{?rhel} >= 9
+xzcat %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+%else
 xzcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
+%endif
 %autosetup -n samba-%{version}%{pre_release} -p1
 
 # Ensure we rely on GnuTLS and do not build any other crypto code shipping with
@@ -4308,6 +4312,11 @@ fi
 %endif
 
 %changelog
+* Tue Oct 25 2022 Andreas Schneider <asn@redhat.com> - 4.17.2-1
+- Update to version 4.17.2
+- Fix CVE-2022-3592: A malicious client can use a symlink to escape the
+  exported
+
 * Mon Oct 24 2022 Andreas Schneider <asn@redhat.com> - 4.17.1-2
 - Add missing dependency for wbinfo used by ctdb scripts
 

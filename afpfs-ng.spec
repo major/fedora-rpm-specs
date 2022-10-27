@@ -1,6 +1,6 @@
 Name:           afpfs-ng
 Version:        0.8.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Apple Filing Protocol client
 
 
@@ -68,10 +68,11 @@ make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 install -d %{buildroot}%{_includedir}/afpfs-ng
 cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
-
+# libtool .la file works different in different versions of libtool, should not be packaged
+[ -f %{buildroot}%{_libdir}/libafpclient.la ] && rm -f %{buildroot}%{_libdir}/libafpclient.la
 
 %if ( 0%{?rhel} && 0%{?rhel} <= 7 )
 %ldconfig_scriptlets
@@ -85,7 +86,6 @@ cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
 %{_mandir}/man1/afpcmd.1*
 %{_mandir}/man1/afpgetstatus.1*
 %{_libdir}/libafpclient.so.*
-# %%exclude %%{_libdir}/*.la
 %doc AUTHORS ChangeLog docs/README docs/performance docs/FEATURES.txt docs/REPORTING-BUGS.txt
 
 
@@ -107,8 +107,10 @@ cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
 %{_includedir}/afpfs-ng
 %{_libdir}/*.so
 
-
 %changelog
+* Tue Oct 25 2022 Michal Ambroz <rebus _AT seznam.cz> - 0.8.1-40
+- remove the libafpclient.la libtool file
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

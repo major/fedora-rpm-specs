@@ -1,75 +1,82 @@
-Name:		python-passlib
-Version:	1.7.4
-Release:	8%{?dist}
-Summary:	Comprehensive password hashing framework supporting over 20 schemes
+Name:           python-passlib
+Version:        1.7.4
+Release:        9%{?dist}
+Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
-License:	BSD and Beerware and Copyright only
-URL:		https://foss.heptapod.net/python-libs/passlib
-Source0:	https://pypi.io/packages/source/p/passlib/passlib-%{version}.tar.gz
+# license breakdown is described in LICENSE file
+# passlib/crypto/des.py is MIT UnixCrypt Variant, which is not yet on the SPDX list
+# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/87
+License:        BSD-3-Clause AND Beerware AND LicenseRef-Fedora-MIT AND ISC
+URL:            https://foss.heptapod.net/python-libs/passlib
+Source:         %pypi_source passlib
 
-BuildArch:	noarch
+BuildArch:      noarch
 
 # docs generation requires python-cloud-sptheme, which isn't packaged yet.
 # so we won't generate the docs yet.
-#BuildRequires:	python2-sphinx >= 1.0
-#BuildRequires:	python2-cloud-sptheme
+#BuildRequires: python2-sphinx >= 1.0
+#BuildRequires: python2-cloud-sptheme
 
-%description
+%global _description %{expand:
 Passlib is a password hashing library for Python 2 & 3, which provides
 cross-platform implementations of over 20 password hashing algorithms,
-as well as a framework for managing existing password hashes. It's
+as well as a framework for managing existing password hashes. It is
 designed to be useful for a wide range of tasks, from verifying a hash
 found in /etc/shadow, to providing full-strength password hashing for
-multi-user application.
+multi-user application.}
 
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-passlib -i %{python3_sitelib}/*.egg-info argon2 bcrypt totp}
+%description %{_description}
 
 
 %package -n python3-passlib
-Summary:	Comprehensive password hashing framework supporting over 20 schemes
-%{?python_provide:%python_provide python3-passlib}
+Summary:        %{summary}
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
-BuildRequires:	python3-devel
-BuildRequires:	python3-nose
-BuildRequires:	python3-setuptools
 
-%description -n python3-passlib
-Passlib is a password hashing library for Python 2 & 3, which provides
-cross-platform implementations of over 20 password hashing algorithms,
-as well as a framework for managing existing password hashes. It's
-designed to be useful for a wide range of tasks, from verifying a hash
-found in /etc/shadow, to providing full-strength password hashing for
-multi-user application.
+%description -n python3-passlib %{_description}
+
+
+# el9 missing argon2 https://bugzilla.redhat.com/show_bug.cgi?id=2089340
+%pyproject_extras_subpkg -n python3-passlib %{!?el9:argon2} bcrypt totp
 
 
 %prep
 %autosetup -n passlib-%{version}
-rm -fr *.egg*
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
 # passlib setup.py append HG revision to the end of version by default
 # which makes StrictVersion checks complaining
 export PASSLIB_SETUP_TAG_RELEASE="no"
-%py3_install
+%pyproject_install
+%pyproject_save_files passlib
 
 
 %check
-nosetests-%{python3_version} -v
+%pytest
 
 
-%files -n python3-passlib
+%files -n python3-passlib -f %{pyproject_files}
 %doc README
 %license LICENSE
-%{python3_sitelib}/passlib*/
 
 
 %changelog
+* Tue Oct 25 2022 Carl George <carl@george.computer> - 1.7.4-9
+- Convert to pyproject macros
+- Run tests with pytest instead of deprecated nose
+- Switch license field to SPDX identifiers
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

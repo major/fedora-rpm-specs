@@ -1,4 +1,4 @@
-%global pluginapi 4.1.0.0
+%global pluginapi 4.1.1.0
 
 # dillo plugin crashes
 # Gtk-WARNING **: xx:xx:xx.xxx: GtkSocket: only works under X11
@@ -18,15 +18,13 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 %global build_manual 1
 
 Name:           claws-mail
-Version:        4.1.0
-Release:        5%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
 Source0:        http://downloads.sourceforge.net/sylpheed-claws/%{name}-%{version}.tar.xz
 
-# prepare Perl plugin for Perl 5.36
-Patch1: claws-mail-4.1.0-perl-5.36.patch
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
 
@@ -43,7 +41,8 @@ BuildRequires:  pilot-link-devel
 %endif
 %endif
 BuildRequires:  bzip2-devel
-BuildRequires:  gpgme-devel >= 1.0.1
+BuildRequires:  pkgconfig(gpgme) >= 1.1.1
+BuildRequires:  pkgconfig(gpg-error)
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libstartup-notification-1.0) >= 0.5
 BuildRequires:  pkgconfig
@@ -423,8 +422,6 @@ exporting of your meetings or all your calendars.
 %prep
 %setup -q
 
-%patch1 -p1 -b .olderperl
-
 %if 0%{?fedora} > 20
 %patch11 -p1 -b.syscrypto
 %endif
@@ -549,6 +546,7 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 %{_bindir}/*
 %dir %{_libdir}/claws-mail
 %dir %{_libdir}/claws-mail/plugins
+%dir %{_libdir}/claws-mail/plugins/web_extensions
 %{_mandir}/man1/*
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -594,6 +592,7 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 %files plugins-fancy
 %{_libdir}/claws-mail/plugins/fancy*
+%{_libdir}/claws-mail/plugins/web_extensions/fancy*
 
 %files plugins-fetchinfo
 %{_libdir}/claws-mail/plugins/fetchinfo*
@@ -658,6 +657,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Tue Oct 25 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-1
+- Update to 4.1.1.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

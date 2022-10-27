@@ -129,6 +129,13 @@ popd
 # Must do this to load from buildroot
 rm -rf asv
 
+# Without this, test_git_submodule fails on git 2.38.1 and later due to
+# mitigations for CVE-2022-39253. See:
+#
+# https://github.blog/2022-10-18-git-security-vulnerabilities-announced/#cve-2022-39253
+# https://bugzilla.redhat.com/show_bug.cgi?id=2137127
+git config --global protocol.file.allow always
+
 %ifarch x86_64 aarch64
 WEBDRIVER="--webdriver=ChromeHeadless"
 %endif

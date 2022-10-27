@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        5.7.0
+Version:        5.8.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -52,6 +52,11 @@ Summary:        Modules and plugins supported by Ansible community
 License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND PSF-2.0
 URL:            %{ansible_collection_url community general}
 Source:         https://github.com/ansible-collections/community.general/archive/%{version}/%{name}-%{version}.tar.gz
+# Remove unnecessary/development files from the built collection.
+# Docs and licenses that are already installed to the standard locations are
+# also removed.
+# This is a downstream only patch.
+Patch:          build_ignore.patch
 
 BuildRequires:  ansible-packaging
 # Version 5 specifically requires ansible-core 2.11 or above
@@ -63,23 +68,23 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n community.general-%{version}
-rm -vr .github .azure-pipelines
+%autosetup -n community.general-%{version} -p1
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
-find -type f -name '.gitignore' -print -delete
 
 %build
 %ansible_collection_build
 
 %install
 %ansible_collection_install
-rm -vr %{buildroot}%{ansible_collections_dir}/community/general/tests
 
 %files -f %{ansible_collection_filelist}
-%license COPYING LICENSES
-%doc README.md CHANGELOG.rst
+%license COPYING LICENSES .reuse/dep5
+%doc README.md CHANGELOG.rst*
 
 %changelog
+* Wed Oct 26 2022 Maxwell G <gotmax@e.email> - 5.8.0-1
+- Update to 5.8.0.
+
 * Wed Oct 05 2022 Maxwell G <gotmax@e.email> - 5.7.0-1
 - Update to 5.7.0. Fixes rhbz#2132125.
 

@@ -1,7 +1,7 @@
-Name:           minizip
+Name:           minizip-ng
 Version:        3.0.2
 Release:        7%{?dist}
-Summary:        Minizip contrib in zlib with the latest bug fixes and advanced features
+Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        zlib
 URL:            https://github.com/nmoinvaz/%{name}
@@ -19,9 +19,13 @@ BuildRequires: libzstd-devel
 BuildRequires: xz-devel
 BuildRequires: openssl-devel
 
+# This part is mandatory for the renaming process
+# It can be removed in Fedora 42
+Provides: minizip <= %{version}-%{release}
+Obsoletes: minizip < 3.0.3
 
 %description
-Minizip zlib contribution that includes:
+Minizip-ng zlib-ng contribution that includes:
 * AES encryption
 * I/O buffering
 * PKWARE disk splitting
@@ -33,12 +37,17 @@ Summary:    Development files for %{name}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   zlib-devel
 
+# This part is mandatory for the renaming process
+# It can be removed in Fedora 42
+Provides: minizip-devel <= %{version}-%{release}
+Obsoletes: minizip-devel < 3.0.3
+
 %description devel
 Development files for %{name} library.
 
 
 %prep
-%autosetup -p 1 -n %{name}-ng-%{version}
+%autosetup -p 1 -n %{name}-%{version}
 
 
 %build
@@ -58,22 +67,23 @@ Development files for %{name} library.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}.so.3.0
-%{_libdir}/lib%{name}.so.3.0.2
+%{_libdir}/libminizip.so.3.0
+%{_libdir}/libminizip.so.3.0.2
 
 
 %files devel
-%{_libdir}/lib%{name}.so
-%{_libdir}/pkgconfig/%{name}.pc
-%{_libdir}/cmake/%{name}
+%{_libdir}/libminizip.so
+%{_libdir}/pkgconfig/minizip.pc
+%{_libdir}/cmake/minizip/
 %{_includedir}/%{name}/mz*.h
 %{_includedir}/%{name}/unzip.h
 %{_includedir}/%{name}/zip.h
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Thu Oct 06 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.2-7
+- Renaming the minizip package to minizip-ng
+- Fedora change dedicated to this: https://fedoraproject.org/wiki/Changes/MinizipRenaming
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

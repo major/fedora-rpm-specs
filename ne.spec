@@ -1,7 +1,9 @@
+%define _hardened_build 1
+
 Summary: ne, the nice editor
 Name: ne
 Version: 3.3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Source0: https://ne.di.unimi.it/ne-%{version}.tar.gz
 URL: https://ne.di.unimi.it/
@@ -67,6 +69,8 @@ Documentation for ne, the nice editor.
 %doc ./doc/default.*
 
 %changelog
+* Tue Oct 25 2022 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.2-2
+- Hardened build
 * Tue Sep 13 2022 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.2-1
 - First release
 * Tue May 18 2021 Sebastiano Vigna <sebastiano.vigna@gmail.com> - 3.3.1-1

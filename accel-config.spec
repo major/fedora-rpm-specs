@@ -2,8 +2,8 @@
 %global	debug_package	%{nil}
 
 Name:		accel-config
-Version:	3.4.8
-Release:	2%{?dist}
+Version:	3.5.0
+Release:	1%{?dist}
 Summary:	Configure accelerator subsystem devices
 # The entire source code is under GPLv2 except for accel-config
 # library which is mostly LGPLv2.1, ccan/list which is BSD-MIT and
@@ -75,8 +75,7 @@ make check
 %license licenses/accel-config-licenses LICENSE_GPL_2_0
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*
-%{_sysconfdir}/%{name}/%{name}.conf.sample
-%{_datadir}/%{name}/contrib/configs/*
+%{_sysconfdir}/%{name}/contrib/configs/*
 
 %files libs
 %doc README.md
@@ -91,6 +90,9 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Tue Oct 25 2022 Jun Miao <jun.miao@intel.com> - 3.5.0-1
+- Update to v3.5.0 release
+
 * Mon Sep 26 2022 Jun Miao <jun.miao@intel.com> - 3.4.8-2
 - Update to v3.4.8 release
 

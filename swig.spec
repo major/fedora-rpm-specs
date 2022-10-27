@@ -16,34 +16,32 @@
 %endif
 
 %{!?tcl:%global tcl 1}
-%{!?guile:%global guile 1}
 %{!?lualang:%global lualang 1}
 %{!?perllang:%global perllang 1}
-# Disable PHP test it fails with 8.1.0
-%{!?phplang:%global phplang 0}
+%{!?phplang:%global phplang 1}
 %{!?rubylang:%global rubylang 1}
 %{!?python3lang:%global python3lang 1}
 
 %if 0%{?rhel}
 %{!?golang:%global golang 0}
+%{!?guile:%global guile 0}
 %{!?octave:%global octave 0}
 %{!?Rlang:%global Rlang 0}
 %bcond_with build_ccache_swig
 %else
+%{!?guile:%global guile 1}
 %{!?octave:%global octave 1}
 %{!?Rlang:%global Rlang 1}
 %bcond_without build_ccache_swig
 %endif
 
-%ifarch aarch64 %{arm} %{mips} ppc %{power64} s390 s390x
+%ifarch i686
 %{!?javalang:%global javalang 0}
 %else
-# Disable tests failing with java-17-openjdk
-# it will pass with swig 4.1.0
-%{!?javalang:%global javalang 0}
+%{!?javalang:%global javalang 1}
 %endif
 
-# Do not run Go tests, they failed with 4.0.0 on ppc64le
+# Do not run Go tests, they failed with 4.0.0 on ppc64le, s390
 %ifarch x86_64 %{arm} aarch64
 %{!?golang:%global golang 1}
 %else
@@ -52,8 +50,8 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.0.2
-Release: 18%{?dist}
+Version: 4.1.0
+Release: 1%{?dist}
 License: GPLv3+ and BSD
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -65,24 +63,10 @@ Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
 
-# https://github.com/swig/swig/pull/1702
-Patch0: swig-Upgrade-to-support-newer-NodeJS.patch
-# Backport PHP 7.x and 8 updates
-Patch1: swig-4.0.2-Fix-overloaded-directed-methods-with-non-void-re.patch
-Patch2: swig-4.0.2-Fix-char-typecheck-typemap-to-accept-Null.patch
-Patch3: swig-4.0.2-Improve-PHP-object-creation.patch
-Patch4: swig-4.0.2-Support-PHP8.patch
-# octave 6 support - rebased version of https://github.com/swig/swig/pull/2020
-Patch5: swig-octave-6.patch
-# Fix overload_simple_cast test with Python 3.10 GH#2044
-Patch6: swig-4.0.2-Fix-overload_simple_cast-test-with-Python-3.10.patch
-# gcc-12 warning fix in test-case
-Patch7: swig-4.0.2-gcc-12-warning-fix-in-test-case.patch
-
 BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
-BuildRequires: perl-interpreter, pcre-devel
+BuildRequires: perl-interpreter, pcre2-devel
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: autoconf, automake, gawk, dos2unix
 BuildRequires: gcc-c++
@@ -114,7 +98,9 @@ BuildRequires: octave-devel
 %if %{golang}
 BuildRequires: golang
 BuildRequires: golang-bin
+%ifnarch s390x
 BuildRequires: golang-shared
+%endif
 BuildRequires: golang-src
 %endif
 %if %{lualang}
@@ -354,6 +340,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Oct 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.0-1
+- Update to 4.1.0
+
 * Thu Jul 21 2022 Maxwell G <gotmax@e.email> - 4.0.2-18
 - Exclude golang extension from i686
 

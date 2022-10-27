@@ -2,7 +2,7 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -23,6 +23,7 @@ BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(com.sun.activation:jakarta.activation)
 BuildRequires:  mvn(com.sun.mail:javax.mail)
 BuildRequires:  mvn(commons-logging:commons-logging)
+BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache:apache:pom:)
@@ -44,7 +45,6 @@ BuildRequires:  mvn(com.fasterxml.jackson.dataformat:jackson-dataformat-yaml)
 BuildRequires:  mvn(com.fasterxml.woodstox:woodstox-core)
 BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(com.sun.mail:javax.mail)
-BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(javax.servlet.jsp:jsp-api)
 BuildRequires:  mvn(org.apache.commons:commons-csv)
 BuildRequires:  mvn(org.apache.logging:logging-parent:pom:)
@@ -87,6 +87,12 @@ Summary:        Apache Log4j Commons Logging Bridge
 %description jcl
 Apache Log4j Commons Logging Bridge.
 
+%package web
+Summary:        Apache Log4j Web
+
+%description web
+Support for Log4j in a web servlet container.
+
 %if %{without jp_minimal}
 %package osgi
 Summary:        Apache Log4J Core OSGi Bundles
@@ -107,12 +113,6 @@ Requires:       java-devel
 %description jmx-gui
 Swing-based client for remotely editing the log4j configuration and remotely
 monitoring StatusLogger output. Includes a JConsole plug-in.
-
-%package web
-Summary:        Apache Log4j Web
-
-%description web
-Support for Log4j in a web servlet container.
 
 %package bom
 Summary:        Apache Log4j BOM
@@ -207,7 +207,6 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_disable_module %{name}-taglib
 %pom_disable_module %{name}-jmx-gui
 %pom_disable_module %{name}-bom
-%pom_disable_module %{name}-web
 %pom_disable_module %{name}-iostreams
 %pom_disable_module %{name}-jul
 %pom_disable_module %{name}-core-its
@@ -271,9 +270,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 %files slf4j -f .mfiles-slf4j
 %files jcl -f .mfiles-jcl
+%files web -f .mfiles-web
 %if %{without jp_minimal}
 %files taglib -f .mfiles-taglib
-%files web -f .mfiles-web
 %files bom -f .mfiles-bom
 %files nosql -f .mfiles-nosql
 %files jmx-gui -f .mfiles-jmx-gui
@@ -285,6 +284,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 
 %changelog
+* Mon Oct 24 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-6
+- Re-add log4j-web subpackage
+
 * Thu Oct 13 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-5
 - Remove the rest of glyphicons files
 
