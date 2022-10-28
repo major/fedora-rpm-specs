@@ -6,8 +6,8 @@ application.
 %global mod_name Flask-HTMLmin
 
 Name:       python-%{pkg_name}
-Version:    2.2.0
-Release:    7%{?dist}
+Version:    2.2.1
+Release:    1%{?dist}
 Summary:    Flask html response minifier
 License:    BSD
 URL:        https://github.com/hamidfzm/%{mod_name}
@@ -19,7 +19,6 @@ BuildRequires:  python%{python3_pkgversion}-cssmin
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-runner
 
 %description
 %{desc}
@@ -57,6 +56,10 @@ rm -rf %{pypi_name}.egg-info
 %doc README.md
 
 %changelog
+* Wed Oct 26 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.2.1-1
+- Update to the latest release
+- Remove pytest-runner dependency
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,9 @@
-%global	majorver	3.11.1
+%global	majorver	3.11.2
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	2
+%global	fedorarel	1
 
 %global	gem_name	rspec-mocks
 
@@ -22,10 +22,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
-
-# https://bugs.ruby-lang.org/issues/18729#note-5
-# https://github.com/rspec/rspec-mocks/pull/1470
-Patch1:	%{name}-3.11.1-check_method_is_same_as_class_new.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -58,7 +54,6 @@ This package contains documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -b 1
-%patch1 -p1 -b .ruby32_new
 
 # Cucumber 7 syntax change
 sed -i cucumber.yml -e "s|~@wip|not @wip|"
@@ -104,6 +99,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Wed Oct 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.11.2-1
+- 3.11.2
+
 * Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.11.1-2
 - Backport upstream patch for ruby32 wrt method reference changes
 

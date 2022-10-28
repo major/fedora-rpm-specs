@@ -1,8 +1,8 @@
 %global pypi_name         teamcity-messages
 
 Name:           python-%{pypi_name}
-Version:        1.30
-Release:        3%{?dist}
+Version:        1.32
+Release:        1%{?dist}
 Summary:        Send test results to TeamCity continuous integration servers
 
 License:        ASL 2.0
@@ -93,10 +93,20 @@ Twisted Plugin to interact with TeamCity
 
 
 %changelog
+* Wed Oct 26 2022 Maja Massarini <mmassari@redhat.com> - 1.32-1
+- 1.32 (Mikhail Kidiankin)
+- Skip test for pytest-flake8 1.1 for unsupported Python versions (Mikhail Kidiankin)
+- Fix tests for pytest-flake8 new 1.1 version (Mikhail Kidiankin)
+- Fix tests for pylint > 2.13 as pylint now is not reporting negative score values (Mikhail Kidiankin)
+- Update virtualenv to 20.16.5 (#267) (Mikhail Kidyankin)
+- Remove Python 3.9 Windows tests as there are no compatible docker container (Mikhail Kidiankin)
+- Update commit status publisher token (Mikhail Kidiankin)
+- flake8 formatter, not extension (itsb)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.30-2
 - Rebuilt for Python 3.11
-
 %autochangelog
+

@@ -27,7 +27,7 @@ antivirus quarantine files, etc.
 
 
 License:        BSD
-URL:            https://www.decalage.info/python/olefile
+URL:            https://www.decalage.info/olefile
 #               https://pypi.python.org/pypi/olefile/
 #               https://github.com/decalage2/olefile/releases
 Source0:        https://files.pythonhosted.org/packages/source/o/%{srcname}/%{srcname}-%{version}.zip

@@ -1,6 +1,6 @@
 Name:           e-antic
-Version:        1.2.1
-Release:        4%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Real Embedded Algebraic Number Theory In C
 
 License:        LGPL-3.0-or-later
@@ -105,6 +105,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %{_libdir}/libeanticxx.so
 
 %changelog
+* Thu Oct 27 2022 Jerry James <loganjerry@gmail.com> - 1.2.3-1
+- Version 1.2.3
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1.2.1-4
 - Convert License tag to SPDX
 

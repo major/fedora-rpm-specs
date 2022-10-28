@@ -2,8 +2,8 @@
 %global sum A fast and thorough lazy object proxy
 
 Name:           python-%{srcname}
-Version:        1.7.1
-Release:        4%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -47,6 +47,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Wed Oct 26 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-1
+- 1.8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.68
-Release:        1%{dist}
+Version:        0.69
+Release:        2%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pad
@@ -91,7 +91,7 @@ Requires:       perl(XS::Parse::Sublike) >= %{xs_parse_sublike_min_ver}
 Provides:       perl(:Object_Pad_ABI) = 0.57
 
 # Filter private modules
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((ARole|BaseClass)\\)
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((91rt141483Role|ARole|BaseClass)\\)
 # Filter under-specified dependencies
 %global __requires_exclude %{__requires_exclude}|^perl\\(Test::More\\)$
 
@@ -201,6 +201,13 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 26 2022 Petr Pisar <ppisar@redhat.com> - 0.69-2
+- Remove a dependency on a private module 91rt141483Role from
+  perl-Object-Pad-tests
+
+* Wed Oct 26 2022 Petr Pisar <ppisar@redhat.com> - 0.69-1
+- 0.69 bump
+
 * Wed Aug 17 2022 Petr Pisar <ppisar@redhat.com> - 0.68-1
 - 0.68 bump
 

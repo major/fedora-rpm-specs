@@ -3,7 +3,7 @@
 %global orig_name org.kde.plasma.nano
 
 Name:    plasma-nano
-Version: 5.26.1
+Version: 5.26.2
 Release: 1%{?dist}
 License: MIT and GPLv2+ and LGPLv2+
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{orig_nam
 
 
 %changelog
+* Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
 * Tue Oct 18 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.1-1
 - 5.26.1
 

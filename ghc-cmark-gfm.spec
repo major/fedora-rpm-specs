@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        0.2.3
-Release:        3%{?dist}
+Version:        0.2.5
+Release:        1%{?dist}
 Summary:        Fast, accurate GitHub Flavored Markdown parser and renderer
 
 License:        BSD
@@ -33,7 +33,7 @@ Provides:       bundled(cmark-gfm) = 0.29.0.gfm.3
 This package provides Haskell bindings for <https://github.com/github/cmark-gfm
 libcmark-gfm>, the reference parser for <https://github.github.com/gfm/ GitHub
 Flavored Markdown>, a fully specified variant of Markdown. It includes sources
-for libcmark-gfm (0.29.0.gfm.3) and does not require prior installation of the
+for libcmark-gfm (0.29.0.gfm.6) and does not require prior installation of the
 C library.
 
 
@@ -118,6 +118,12 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Oct 26 2022 Jens Petersen <petersen@redhat.com> - 0.2.5-1
+- 0.2.4 updates the C library to 0.29.0.gfm.6 which fixes CVE-2022-39209
+  https://github.com/github/cmark-gfm/security/advisories/GHSA-cgh3-p57x-9q7q
+- 0.2.5 includes support for footnotes
+- https://hackage.haskell.org/package/cmark-gfm-0.2.5/changelog
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global sum Getting CPU info
 
 Name:           python-%{srcname}
-Version:        8.0.0
-Release:        6%{?dist}
+Version:        9.0.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -77,6 +77,9 @@ sed -i -e '/^#!\//, 1d' cpuinfo/cpuinfo.py
 
 
 %changelog
+* Wed Oct 26 2022 Parag Nemade <pnemade AT redhat DOT com> - 9.0.0-1
+- Update to 9.0.0 version (#2137734)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

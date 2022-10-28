@@ -1,8 +1,8 @@
 %global pkgname  forms
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.2.8
-Release:        3%{?dist}
+Version:        1.2.9
+Release:        1%{?dist}
 Summary:        Sesquilinear and quadratic forms
 
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Wed Oct 26 2022 Jerry James <loganjerry@gmail.com> - 1.2.9-1
+- Version 1.2.9
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.2.8-3
 - Update for gap 4.12.0
 

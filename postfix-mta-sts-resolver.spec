@@ -1,8 +1,8 @@
 %global pypi_name postfix_mta_sts_resolver
 
 Name:           postfix-mta-sts-resolver
-Version:        1.0.0
-Release:        9%{?dist}
+Version:        1.1.4
+Release:        1%{?dist}
 Summary:        Daemon providing MTA-STS map to Postfix
 
 License:        MIT
@@ -45,9 +45,9 @@ Requires:       python%{python3_pkgversion}-aiodns
 Requires:       python%{python3_pkgversion}-aiohttp
 Requires:       python%{python3_pkgversion}-yaml
 Recommends:     python%{python3_pkgversion}-aiosqlite
+Recommends:     python%{python3_pkgversion}-uvloop
 # optional deps:
 #   - python3-aioredis is not packaged in Fedora or EL
-#   - python3-uvloop is not packaged in EL
 
 
 %description
@@ -125,6 +125,11 @@ getent passwd mta-sts >/dev/null || \
 
 
 %changelog
+* Wed Oct 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.1.4-1
+- NUR
+- recommends now available uvloop
+- updated postfix-mta-sts-resolver_tests_without_redis.patch
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

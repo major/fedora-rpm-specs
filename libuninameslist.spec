@@ -1,6 +1,6 @@
 Name:           libuninameslist
-Version:        20220701
-Release:        2%{?dist}
+Version:        20221022
+Release:        1%{?dist}
 
 Summary:        A library providing Unicode character names and annotations
 
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libuninameslist.pc
 
 %changelog
+* Wed Oct 26 2022 Parag Nemade <pnemade AT redhat DOT com> - 20221022-1
+- Update to 20221022 version (#2137768)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220701-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

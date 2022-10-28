@@ -1,5 +1,5 @@
 Name:           SimGear
-Version:        2020.3.14
+Version:        2020.3.16
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Simulation library components
@@ -76,6 +76,9 @@ patch -p2 < %{PATCH1}
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Thu Oct 20 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.16-1
+- new upstream release
+
 * Mon Oct 03 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.14-1
 - new upstream release
 

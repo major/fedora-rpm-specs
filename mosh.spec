@@ -1,22 +1,23 @@
 Name:		mosh
-Version:	1.3.2
-Release:	15%{?dist}
+Version:	1.4.0
+Release:	1%{?dist}
 Summary:	Mobile shell that supports roaming and intelligent local echo
 
 License:	GPLv3+
 URL:		https://mosh.mit.edu/
 Source0:	https://mosh.mit.edu/mosh-%{version}.tar.gz
 
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
+BuildRequires:	libutempter-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	openssl-devel
+BuildRequires:	perl-diagnostics
 BuildRequires:	perl-generators
 BuildRequires:	protobuf-compiler
 BuildRequires:	protobuf-devel
-BuildRequires:	libutempter-devel
 BuildRequires:	zlib-devel
-BuildRequires:	ncurses-devel
-BuildRequires:	openssl-devel
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  make
 Requires:	openssh-clients
 Requires:	openssl
 Requires:	perl(IO::Socket::IP)
@@ -54,6 +55,9 @@ Mosh is a remote terminal application that supports:
 
 
 %changelog
+* Wed Oct 26 2022 Alex Chernyakhovsky <achernya@mit.edu> - 1.4.0-1
+- Update to mosh 1.4.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

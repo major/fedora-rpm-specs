@@ -13,11 +13,11 @@
 %{bcond_without perl_PDL_enables_optional_test}
 
 Name:           perl-PDL
-%global cpan_version 2.080
-Version:        2.80.0
-Release:        4%{?dist}
+%global cpan_version 2.081
+Version:        2.81.0
+Release:        1%{?dist}
 Summary:        The Perl Data Language
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            http://pdl.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETJ/PDL-%{cpan_version}.tar.gz
 # Uncomment to enable PDL::IO::Browser
@@ -58,6 +58,7 @@ BuildRequires:  perl(ExtUtils::Depends)
 BuildRequires:  perl(ExtUtils::F77)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec) >= 0.6
+BuildRequires:  perl(File::Which)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(OpenGL) >= 0.70
@@ -78,6 +79,7 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::Manifest)
+BuildRequires:  perl(ExtUtils::Typemaps)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(fields)
 BuildRequires:  perl(File::Basename)
@@ -135,6 +137,7 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::Liblist)
 Requires:       perl(ExtUtils::MakeMaker)
 Requires:       perl(ExtUtils::MM)
+Requires:       perl(ExtUtils::Typemaps)
 Requires:       perl(Fcntl)
 Requires:       perl(File::Map) >= 0.57
 Requires:       perl(File::Spec) >= 0.6
@@ -266,6 +269,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 26 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.81.0-1
+- 2.081 bump
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.80.0-4
 - Rebuild for gsl-2.7.1
 

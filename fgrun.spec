@@ -1,7 +1,7 @@
 Name:           fgrun
 Summary:        Graphical front-end for launching FlightGear flight simulator
 Version:        2016.3.1
-Release:        51%{?dist}
+Release:        52%{?dist}
 License:        GPLv2+ and CC-BY-SA
 URL:            http://sourceforge.net/projects/fgrun
 # git clone http://git.code.sf.net/p/flightgear/fgrun
@@ -93,6 +93,9 @@ install -m 0644 %{SOURCE15} \
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Oct 26 2022 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-52
+- rebuild with newer SimGear
+
 * Mon Oct 03 2022 Fabrice Bellet <fabrice@bellet.info> - 2016.3.1-51
 - rebuild with newer SimGear
 

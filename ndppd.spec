@@ -5,8 +5,7 @@ Version:        0.2.5
 Release:        %autorelease
 Summary:        NDP Proxy Daemon
 
-Group:          System Environment/Daemons
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/DanielAdolfsson/ndppd
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/raw/%{commit}/%{name}.service
@@ -14,15 +13,13 @@ Source2:        %{name}.conf
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  systemd-rpm-macros
-%else
-BuildRequires:  systemd
-%endif
 
 %description
-ndppd, or NDP Proxy Daemon, is a daemon that proxies NDP (Neighbor
-Discovery Protocol) messages between interfaces.
+ndppd, or NDP Proxy Daemon, is a daemon that proxies neighbor discovery
+messages. It listens for neighbor solicitations on a specified interface
+and responds with neighbor advertisements - as described in RFC 4861
+section 7.2.
 
 %prep
 %setup -q
@@ -39,24 +36,13 @@ install -dm0755 %{buildroot}/run/%{name}
 install -Dpm0644 ndppd.conf-dist %{buildroot}%{_sysconfdir}/ndppd.conf
 
 %postun
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%systemd_postun_with_restart ndppd.service
-%else
-/bin/systemctl --system daemon-reload &> /dev/null || :
-%endif
+%systemd_postun_with_restart %{name}.service
 
 %post
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%systemd_post ndppd.service
-%else
-/bin/systemctl --system daemon-reload &> /dev/null || :
-/bin/systemctl --system preset ndppd &> /dev/null || :
-%endif
+%systemd_post %{name}.service
 
 %preun
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%systemd_preun ndppd.service
-%endif
+%systemd_preun %{name}.service
 
 %files
 %license LICENSE

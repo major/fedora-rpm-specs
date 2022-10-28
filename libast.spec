@@ -3,7 +3,7 @@
 Summary:        Library of Assorted Spiffy Things
 Name:           libast
 Version:        0.7.1
-Release:        0.33.%{cvs}cvs%{?dist}
+Release:        0.34.%{cvs}cvs%{?dist}
 License:        BSD
 URL:            http://www.eterm.org/
 # Sources are pulled from cvs:
@@ -19,7 +19,6 @@ BuildRequires: imlib2-devel
 BuildRequires: libXt-devel
 BuildRequires: libtool
 BuildRequires: make
-BuildRequires: pcre-devel
 
 %description
 LibAST is the Library of Assorted Spiffy Things.  It contains various
@@ -45,7 +44,7 @@ you will need to install %{name}-devel.
 %build
 ./autogen.sh
 autoupdate
-%configure
+%configure --with-regexp=posix
 %make_build
 
 %install
@@ -78,6 +77,9 @@ touch -r ChangeLog %{buildroot}%{_bindir}/%{name}-config
 %exclude %{_libdir}/*.a
 
 %changelog
+* Wed Oct 26 2022 Terje Rosten <terje.rosten@ntnu.no>- 0.7.1-0.34.20080502cvs
+- Switch to POSIX regex
+
 * Wed Sep 14 2022 Terje Rosten <terje.rosten@ntnu.no>- 0.7.1-0.33.20080502cvs
 - Fix typos
 

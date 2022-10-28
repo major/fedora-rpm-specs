@@ -1,6 +1,6 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 7.85.0
+Version: 7.86.0
 Release: 1%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
@@ -421,7 +421,14 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
-* Thu Sep 01 2022 Kamil Dudka <kdudka@redhat.com> - 7.85.0-3
+* Wed Oct 26 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2022-42916 - HSTS bypass via IDN
+    CVE-2022-42915 - HTTP proxy double-free
+    CVE-2022-35260 - .netrc parser out-of-bounds access
+    CVE-2022-32221 - POST following PUT confusion
+
+* Thu Sep 01 2022 Kamil Dudka <kdudka@redhat.com> - 7.85.0-1
 - new upstream release, which fixes the following vulnerability
     CVE-2022-35252 - control code in cookie denial of service
 

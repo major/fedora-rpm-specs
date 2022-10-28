@@ -1,8 +1,8 @@
 %global pkgname sonata
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.9.4
-Release:        3%{?dist}
+Version:        2.9.5
+Release:        1%{?dist}
 Summary:        GAP package for systems of nearrings
 
 License:        GPL-2.0-or-later
@@ -108,6 +108,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Oct 25 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
+- Version 2.9.5
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.9.4-3
 - Update for gap 4.12.0
 - Convert License tag to SPDX

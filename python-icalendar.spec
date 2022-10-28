@@ -1,12 +1,11 @@
 Name:           python-icalendar
-Version:        4.0.9
-Release:        5%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
 License:        BSD
 URL:            http://pypi.python.org/pypi/icalendar
-Source0:        https://github.com/collective/icalendar/archive/%{version}.tar.gz
-Patch0:         330.patch
+Source0:        https://github.com/collective/icalendar/archive/v%{version}/%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -44,8 +43,6 @@ execute the software that requires pkg_resources.py.
 %prep
 %setup -q -n icalendar-%{version}%{?veradd}
 
-%patch0 -p1
-
 # we have only 2.7 and 3.3
 sed -i 's/py26,//' tox.ini
 
@@ -75,6 +72,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Wed Oct 26 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.0.1-1
+- 5.0.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

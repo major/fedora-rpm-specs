@@ -3,7 +3,7 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2020.3.14
+Version:        2020.3.16
 Release:        1%{?dist}
 License:        GPLv2+
 Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/flightgear-%{version}.tar.bz2
@@ -14,6 +14,7 @@ Patch4:         0004-fgviewer-fix-crash-on-exit.patch
 Patch5:         0005-fgviewer-disconnect-the-viewer-from-the-renderer.patch
 Patch6:         0006-fgviewer-use-correct-renderer-declaration.patch
 Patch7:         0007-fgviewer-prevent-an-assert-on-uninitialized-locale.patch
+Patch8:         0008-Fix-crash-on-METAR-without-cloud-coverage-set.patch
 
 URL:            http://www.flightgear.org/
 BuildRequires:  openal-soft-devel, SimGear-devel >= %{version}
@@ -80,6 +81,10 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Thu Oct 20 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.16-1
+- new upstream release
+- Fix crash on METAR without cloud coverage set
+
 * Mon Oct 03 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.14-1
 - new upstream release
 

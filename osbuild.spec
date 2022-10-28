@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        69
+Version:        70
 
 %forgemeta
 
@@ -251,16 +251,36 @@ fi
 
 
 %changelog
+* Wed Oct 26 2022 Packit <hello@packit.dev> - 70-1
+Changes with 70
+----------------
+  * Build rpms on RHEL 8.8 and 9.2 (#1141)
+  * packit: Replace deprecated config options (#1145)
+  * schutzbot/mockbuild: stop running mock as root (#1148)
+  * schutzfile: update manifest-db ref 2022-10-20 (#1155)
+  * sources/ostree: set contenturl when pulling from remote (#1140)
+  * stages/keymap: add font option (#1158)
+  * stages/logind-systemd: add `ReserveVT` option (#1156)
+  * stages/rpm: make the fake machine-id newline-terminated (#1150)
+  * stages: add systemd-journald stage (#1143)
+  * test: add README.md on how to make tests for stages (#1149)
+
+Contributions from: Christian Kellner, Irene Diez, Jakub Rusz, Jan Macku, Ondřej Budai, Sanne Raymaekers, SchutzBot
+
+— Somewhere on the Internet, 2022-10-26
+
+
+
 * Wed Oct 12 2022 Packit <hello@packit.dev> - 69-1
 Changes with 69
 ----------------
   * runners: auto detection based on best matching distro+version (#996)
   * sources/ostree: pull from remote using rhsm mTLS certs (#1138)
   * stages: fix ostree config stage (#1129)
-
 Contributions from: Antonio Murdaca, Christian Kellner, Sanne Raymaekers
-
 — Somewhere on the Internet, 2022-10-12
+
+
 
 
 

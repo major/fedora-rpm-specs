@@ -21,7 +21,7 @@ testing of Ansible roles.
 %bcond_without tests
 
 Name:           %{pkgname}
-Version:        4.0.2
+Version:        4.0.3
 %forgemeta
 Release:        %autorelease
 Summary:        Molecule is designed to aid in the development and testing of Ansible roles

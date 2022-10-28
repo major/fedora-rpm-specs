@@ -1,10 +1,5 @@
 # go-rpm-macros are not available on RHEL.
-%if 0%{?fedora}
-    %global have_go_rpm_macros 1
-%else
-    %global have_go_rpm_macros 0
-%endif
-
+%global have_go_rpm_macros 1
 %global with_debug 0
 
 # Shamelessly copied from CRI-O spec file.
@@ -33,7 +28,7 @@
 %endif
 
 # htps://github.com/kata-containers/kata-containers
-Version: 2.4.2
+Version: 2.5.2
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -58,7 +53,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.2
+Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 2.x repository
 License:    ASL 2.0
 Url:        https://%{download}
@@ -161,12 +156,8 @@ ExcludeArch: %{arm} %{ix86} s390 s390x
 # The machine type uses a modern default
 # The kernel parameters workaround an issue with cgroupsv2 after kernel 5.3
 # To-do: add BUILDFLAGS=gobuildflags when the macro becomes available
-%if 0%{?fedora}
 %global qemu qemu-system-%{_arch}
 %global qemupath %{_bindir}/%{qemu}
-%else
-%global qemupath %{_libexecdir}/%{qemu}
-%endif
 
 # The machine type to be used is architecture specific:
 # aarch64: virt
@@ -186,6 +177,7 @@ ExcludeArch: %{arm} %{ix86} s390 s390x
 %global machinetype "q35"
 %endif
 
+%global kata_build_dir          %{repo}-%{version}%{?rcstr}
 %global katadatadir             %{_datadir}/kata-containers
 %global katadefaults            %{katadatadir}/defaults
 %global katacache               %{_localstatedir}/cache
@@ -213,11 +205,12 @@ ExcludeArch: %{arm} %{ix86} s390 s390x
 
 %global agent_make_vars         LIBC=gnu \\\
                                 DESTDIR=%{buildroot}%{kataagentdir}
+%global log_parser_vars         BINDIR=%{buildroot}%{_bindir}
 
 %prep
-%autosetup -S git -p1 -n %{repo}-%{version}%{?rcstr}
+%autosetup -S git -p1 -n %{kata_build_dir}
 
-cd %{_builddir}/%{repo}-%{version}%{?rcstr}
+cd %{_builddir}/%{kata_build_dir}
 tar -xf %{SOURCE1}
 
 # Not using gobuild here in order to stick to how upstream builds
@@ -227,7 +220,7 @@ export PATH=$PATH:"$(pwd)/go/bin"
 export GOPATH="$(pwd)/go"
 
 mkdir -p go/src/%{domain}/%{org}
-ln -s $(pwd)/../%{repo}-%{version}%{?rcstr} go/src/%{importname}
+ln -s $(pwd)/../%{kata_build_dir} go/src/%{importname}
 cd go/src/%{importname}
 
 pushd src/runtime
@@ -237,6 +230,10 @@ popd
 pushd src/agent
 %make_build %{agent_make_vars}
 touch kata-agent
+popd
+
+pushd src/tools/log-parser
+%make_build %{log_parser_vars}
 popd
 
 pushd tools/osbuilder
@@ -259,6 +256,10 @@ popd
 
 pushd src/agent
 %make_install %{agent_make_vars}
+popd
+
+pushd src/tools/log-parser
+%make_install %{log_parser_vars}
 popd
 
 pushd tools/osbuilder
@@ -289,13 +290,10 @@ install -m 0644 -D -t %{buildroot}%{_sysconfdir}/crio/crio.conf.d %{SOURCE5}
 # The kernels kata-osbuilder creates are in /var/cache now, see rhbz#1792216
 sed -i -e 's|^kernel = "%{_datadir}|kernel = "%{katacache}|' \
        -e 's|^image = "%{_datadir}/kata-containers/kata-containers.img"|initrd = "%{katacache}/kata-containers/kata-containers-initrd.img"|' \
-       %{buildroot}%{_datadir}/kata-containers/defaults/configuration.toml
+       %{buildroot}%{katadefaults}/configuration.toml
 
 # Enable vsock as transport instead of virtio-serial
-sed -i -e 's/^#use_vsock =/use_vsock =/' %{buildroot}%{_datadir}/kata-containers/defaults/configuration.toml
-
-# Remove non-tested / non-supported configuration files
-rm %{buildroot}%{_datadir}/kata-containers/defaults/configuration-*.toml
+sed -i -e 's/^#use_vsock =/use_vsock =/' %{buildroot}%{katadefaults}/configuration.toml
 
 # We could be run in a mock chroot, where uname will report
 # different kernel than what we have installed in the chroot.
@@ -350,6 +348,9 @@ fi
 %dir %{kataagentdir}
 %{kataagentdir}/*
 
+#log-parser
+%{_bindir}/kata-log-parser
+
 #osbuilder
 %dir %{kataosbuilderdir}
 %dir %{katalocalstatecachedir}
@@ -361,6 +362,7 @@ fi
 %{_sysconfdir}/crio/crio.conf.d/50-kata
 
 # Remove some scripts we don't use
+%exclude %{katadefaults}/configuration-*.toml
 %exclude %{kataosbuilderdir}/rootfs-builder/alpine
 %exclude %{kataosbuilderdir}/rootfs-builder/centos
 %exclude %{kataosbuilderdir}/rootfs-builder/clearlinux
@@ -370,6 +372,18 @@ fi
 
 
 %changelog
+* Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 2.5.2-1
+- kata-containers-2.5.2
+
+* Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 2.5.1-1
+- kata-containers-2.5.1
+
+* Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 2.5.0-1
+- kata-containers-2.5.0
+
+* Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 2.4.3-1
+- kata-containers-2.4.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

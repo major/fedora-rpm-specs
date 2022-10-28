@@ -3,7 +3,7 @@
 
 Name:           qimgv
 Version:        1.0.3
-Release:        5.alpha%{?dist}
+Release:        %autorelease
 Summary:        Image viewer. Fast, easy to use. Optional video support
 
 License:        GPLv3+
@@ -107,75 +107,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5.alpha
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 21 2022 Sérgio Basto <sergio@serjux.com> - 1.0.3-4.alpha
-- Rebuilt for opencv 4.6.0
-
-* Mon May 02 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.3-3.alpha
-- build: Use upstream suggested patch with AppData
-
-* Mon May 02 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.3-2.alpha
-- build: Update description
-
-* Mon May 02 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.3-1.alpha
-- chore(update): 1.0.3-alpha
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Sep 29 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.2-1
-- build(update): 1.0.2
-
-* Mon Sep 27 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.1-1
-- build(update): 1.0.1
-
-* Wed Sep 22 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.0-1
-- build(update): 1.0.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Oct 30 10:54:15 EET 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.1-6
-- build(rebuild): 'opencv' soname bump | rh#1892895
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.1-4
-- Rebuild with out-of-source builds new CMake macros
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 05 2020 Nicolas Chauvet <kwizart@gmail.com> - 0.9.1-2
-- Rebuilt for OpenCV 4.3.0
-
-* Mon May 04 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.1-1
-- Update to 0.9.1
-
-* Fri May 01 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9-1
-- Update to 0.9
-
-* Tue Mar 31 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.8.9-1
-- Update to 0.8.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Tue Nov 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.8.8-1
-- Update to 0.8.8
-
-* Tue Nov 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.8.7-1
-- Update to 0.8.7
-
-* Wed Oct 16 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 0.8.6-7
-- Spec file fixes
-
-* Tue Oct 15 2019 gasinvein <gasinvein@gmail.com>
-- Initial package
+%autochangelog

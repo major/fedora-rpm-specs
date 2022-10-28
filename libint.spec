@@ -11,6 +11,13 @@
 # Version of flags used in configure. Increment always when changing the flags, since it will break the API and ABI.
 %global apiversion 0
 
+# LTO fails on Fedora 36 i686 (out of memory)
+%if 0%{?fedora} == 36
+%ifarch %{ix86}
+%global _lto_cflags %nil
+%endif
+%endif
+
 Name:           libint
 Version:        1.2.1
 Release:        16%{?dist}

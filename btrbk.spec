@@ -4,7 +4,7 @@
 %endif
 
 Name: btrbk
-Version: 0.32.4
+Version: 0.32.5
 Release: 1%{?dist}
 Summary: Tool for creating snapshots and remote backups of btrfs sub-volumes
 License: GPLv3+
@@ -88,6 +88,9 @@ find %{buildroot}%{_datadir}/%{name} -type f -exec sed -i '1s=^#!/usr/bin/\(pyth
 
 
 %changelog
+* Wed Oct 26 2022 Juan Orti Alcaine <jortialc@redhat.com> - 0.32.5-1
+- Version 0.32.5 (RHBZ#2137114)
+
 * Mon Sep 05 2022 Juan Orti Alcaine <jortialc@redhat.com> - 0.32.4-1
 - Version 0.32.4 (RHBZ#2116134)
 

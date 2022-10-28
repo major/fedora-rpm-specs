@@ -5,7 +5,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.10.4
+Version:                0.10.5
 
 %gometa -f
 
@@ -27,6 +27,8 @@ License:        Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 Patch0:         0001-Remove-dependency-on-InstrumentationLibrary.patch
+# https://github.com/moby/buildkit/pull/3144
+Patch1:         3144.patch
 
 %description %{common_description}
 
@@ -37,6 +39,7 @@ Patch0:         0001-Remove-dependency-on-InstrumentationLibrary.patch
 # Remove in next release
 sed -i "s|github.com/containerd/stargz-snapshotter/snapshot/overlayutils|github.com/containerd/containerd/snapshots/overlay/overlayutils|" $(find . -iname "*.go" -type f)
 %patch0 -p1
+%patch1 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

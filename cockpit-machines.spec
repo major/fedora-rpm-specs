@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        275
+Version:        276
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPLv2+ and MIT
@@ -84,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 19 2022 Packit <hello@packit.dev> - 276-1
+- Add connection information to the VM detail page
+
+
 * Wed Sep 21 2022 Packit <hello@packit.dev> - 275-1
 - Improvements of offline token management
 

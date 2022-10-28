@@ -6,7 +6,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell-extensions
-Version:        43.0
+Version:        43.1
 Release:        1%{?dist}
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -256,6 +256,9 @@ workspaces.
 
 
 %changelog
+* Wed Oct 26 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-1
+- Update to 43.1
+
 * Sat Sep 17 2022 Florian Müllner <fmuellner@redhat.com> - 43.0-1
 -  Update to 43.0
 

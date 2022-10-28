@@ -1,5 +1,5 @@
 Name:    layer-shell-qt
-Version: 5.26.1
+Version: 5.26.2
 Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
@@ -68,6 +68,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
 * Tue Oct 18 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.1-1
 - 5.26.1
 

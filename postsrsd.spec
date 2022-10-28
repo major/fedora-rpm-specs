@@ -3,8 +3,8 @@
 %undefine __cmake_in_source_build
 
 Name:           postsrsd
-Version:        1.11
-Release:        4%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Summary:        Sender Rewriting Scheme (SRS) provider
 
 License:        GPLv2+
@@ -109,6 +109,9 @@ fi
 
 
 %changelog
+* Wed Oct 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.12-1
+- NUR
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

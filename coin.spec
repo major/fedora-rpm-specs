@@ -1,12 +1,8 @@
-# Enable LTO
-%global optflags        %{optflags} -flto
-%global build_ldflags   %{build_ldflags} -flto
-
 %global uuid    com.github.lainsce.%{name}
 
 Name:           coin
 Version:        1.3.0
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Track the virtual currencies in real world currency value
 
 License:        GPLv3+
@@ -18,11 +14,13 @@ BuildRequires:  gcc
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
+BuildRequires:  vala
+
 BuildRequires:  pkgconfig(granite)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libsoup-2.4)
-BuildRequires:  vala
+
 Requires:       hicolor-icon-theme
 
 %description
@@ -50,9 +48,7 @@ applet.
 
 
 %check
-# Disable temporary
-# * timestamp is in the future
-#appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -67,32 +63,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Feb 19 2021 Fabio Valentini <decathorpe@gmail.com> - 1.3.0-4
-- Rebuilt for granite 6 soname bump.
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Feb 01 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.0-1
-- Update to 1.3.0
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jan 11 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.2.7-1
-- Update to 1.2.7
-
-* Mon Aug 12 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.2.6-2
-- Initial package
+%autochangelog

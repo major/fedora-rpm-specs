@@ -23,7 +23,7 @@
 
 Name:           chatterino2
 Version:        2.3.5
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Chat client for twitch.tv
 
 # Boost Software License (v1.0) Boost Software License 1.0
@@ -140,71 +140,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed May 04 2022 Thomas Rodgers <trodgers@redhat.com> - 2.3.5-2
-- Rebuilt for Boost 1.78
-
-* Sat Apr 09 2022 Christian Birk <mail@birkc.de> - 2.3.5-1
-- Update to 2.3.5 | rh#2073690
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 2.3.4-3
-- Rebuilt with OpenSSL 3.0.0
-
-* Wed Aug 18 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.4-2
-- build: Rebuilt for Boost | rh#1991862
-
-* Sun Aug 08 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.4-1
-- build(update): 2.3.4
-
-* Fri Aug 06 2021 Jonathan Wakely <jwakely@redhat.com> - 2.3.3-3
-- Rebuilt for Boost 1.76
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jul 15 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.3-1
-- build(update): 2.3.3
-
-* Mon May 17 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.2-1
-- build(update): 2.3.2
-
-* Tue May 04 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.1-1
-- build(update): 2.3.1
-
-* Wed Apr 14 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.0-1
-- build(update): 2.3.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 22 2021 Jonathan Wakely <jwakely@redhat.com> - 2.2.2-2
-- Rebuilt for Boost 1.75
-
-* Thu Nov  5 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.2.2-1
-- build(update): 2.2.2
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 30 2020 Jonathan Wakely <jwakely@redhat.com> - 2.1.7-2
-- Rebuilt for Boost 1.73
-
-* Fri Feb 28 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1.7-1
-- Update to 2.1.7
-- Add new submodule 'qtkeychain'
-- Drop patches (upstreamed now)
-- Disable LTO
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Dec 21 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1.4-8
-- Build with system 'rapidjson'
-
-* Fri Dec 13 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1.4-7
-- Initial package
+%autochangelog

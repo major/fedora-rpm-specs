@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -318,9 +318,13 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 %define _find_debuginfo_dwz_opts %{nil}
 %endif
 
-# We set CLANG_DEFAULT_PIE_ON_LINUX=OFF to match the default used by Fedora's GCC.
+# We set CLANG_DEFAULT_PIE_ON_LINUX=OFF and PPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON to match the
+# defaults used by Fedora's GCC.
 %cmake  -G Ninja \
 	-DCLANG_DEFAULT_PIE_ON_LINUX=OFF \
+%if 0%{?fedora}
+	-DPPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON \
+%endif
 	-DLLVM_PARALLEL_LINK_JOBS=1 \
 	-DLLVM_LINK_LLVM_DYLIB:BOOL=ON \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -604,6 +608,9 @@ false
 
 %endif
 %changelog
+* Wed Oct 19 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-6
+- Enable ieeelongdouble for ppc64le, fix rhbz#2136099
+
 * Thu Oct 13 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-5
 - Default to non-pie, fix rhbz#2134146
 

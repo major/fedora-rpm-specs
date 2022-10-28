@@ -16,6 +16,8 @@ Source201:      python.lua
 %global compileall2_version 0.7.1
 Source301:      https://github.com/fedora-python/compileall2/raw/v%{compileall2_version}/compileall2.py
 Source302:      import_all_modules.py
+%global pathfix_version 1.0.0
+Source303:      https://github.com/fedora-python/pathfix/raw/v%{pathfix_version}/pathfix.py
 
 # BRP scripts
 # This one is from redhat-rpm-config < 190
@@ -34,6 +36,7 @@ Source403:      brp-fix-pyc-reproducibility
 # macros and lua: MIT
 # import_all_modules.py: MIT
 # compileall2.py: PSFv2
+# pathfix.py: PSFv2
 # brp scripts: GPLv2+
 License:        MIT and Python and GPLv2+
 
@@ -49,7 +52,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 BuildArch:      noarch
 
@@ -103,6 +106,10 @@ RPM macros for building Python 3 packages.
 %autosetup -c -T
 cp -a %{sources} .
 
+# We want to have shebang in the script upstream but not here so
+# the package with macros does not depend on Python.
+sed -i '1s=^#!/usr/bin/env python3==' pathfix.py
+
 
 %install
 mkdir -p %{buildroot}%{rpmmacrodir}
@@ -114,7 +121,7 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm python.lua
 mkdir -p %{buildroot}%{_rpmconfigdir}/redhat
 install -m 644 compileall2.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -m 644 import_all_modules.py %{buildroot}%{_rpmconfigdir}/redhat/
-
+install -m 644 pathfix.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -m 755 brp-* %{buildroot}%{_rpmconfigdir}/redhat/
 
 
@@ -137,6 +144,7 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 %{rpmmacrodir}/macros.python
 %{rpmmacrodir}/macros.pybytecompile
 %{_rpmconfigdir}/redhat/import_all_modules.py
+%{_rpmconfigdir}/redhat/pathfix.py
 
 %files -n python-srpm-macros
 %{rpmmacrodir}/macros.python-srpm
@@ -151,6 +159,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Tue Oct 25 2022 Lumír Balhar <lbalhar@redhat.com> - 3.11-5
+- Include pathfix.py in this package
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

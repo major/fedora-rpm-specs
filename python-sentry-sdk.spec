@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.9.10
+Version:        1.10.1
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -13,6 +13,7 @@ BuildRequires:  python3dist(certifi)
 BuildRequires:  python3dist(wheel)
 # Use Fedora versions of testing dependencies + pytest instead of pinned versions in upstream + tox
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-forked)
 BuildRequires:  python3dist(werkzeug)
 BuildRequires:  python3dist(pytest-localserver)
@@ -77,7 +78,10 @@ Summary:        %{summary}
   --deselect tests/integrations/threading/test_threading.py \
   --deselect tests/integrations/wsgi/test_wsgi.py \
   --deselect tests/tracing/test_deprecated.py \
-  --deselect tests/utils/test_contextvars.py
+  --deselect tests/utils/test_contextvars.py \
+  --deselect tests/test_profiler.py::test_thread_scheduler_takes_first_samples \
+  --deselect tests/test_profiler.py::test_thread_scheduler_takes_more_samples
+
 
 
 %files -n python3-sentry-sdk -f %{pyproject_files}
@@ -85,6 +89,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Oct 26 2022 Roman Inflianskas <rominf@aiven.io> - 1.10.1-1
+- Update to 1.10.1 (resolve rhbz#2136521)
+
 * Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 1.9.10-1
 - Update to 1.9.10 (resolve rhbz#2131775)
 

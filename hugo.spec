@@ -4,7 +4,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.98.0
+Version:        0.101.0
 
 %gometa
 
@@ -86,7 +86,6 @@ BUILDTAGS=extended %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
 %{gobuilddir}/bin/hugo gen autocomplete >hugo-completion
 %{gobuilddir}/bin/hugo gen man
 
-
 %install
 %gopkginstall
 
@@ -95,12 +94,12 @@ install -Dp -m 0755 %{gobuilddir}/bin/hugo %{buildroot}%{_bindir}
 install -Dp hugo-completion %{buildroot}%{_datadir}/bash-completion/completions/hugo
 install -Dp man/* -t %{buildroot}%{_mandir}/man1
 
-
 %if %{with check}
 %check
 # releaser: We do not want to test upstream release process (needs git repo)
 # tpl/time: A test depends on the host timezone, we do now want to test it.
 # time_test.go:49: [3] DateFormat failed: Unable to Cast 1421733600 to Time # line 35 returns different results
+# common/herrors: Terminal colors seem to affect this test.
 # common/text: Terminal colors seem to affect this test.
 # deploy: We do not want to test deployment process.
 # hugolib: We should run this one, but it presently fails.
@@ -110,9 +109,9 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 # metrics: produces wrong quote.
 # minifiers: produces wrong quote.
 # resources/page: fails on ppc64le
-%gocheck -d releaser -d tpl/time -d common/text -d deploy -d hugolib -d markup/goldmark/codeblocks -d markup/goldmark -d langs/i18n -d metrics -d minifiers -d resources/page
+# resources/resource_transformers/js: error message formats have changed.
+%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d markup/goldmark/codeblocks -d markup/goldmark -d langs/i18n -d metrics -d minifiers -d resources/page -d resources/resource_transformers/js
 %endif
-
 
 %files
 %doc CONTRIBUTING.md README.md docs
@@ -122,7 +121,6 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/*.1*
 
 %gopkgfiles
-
 
 %changelog
 %autochangelog

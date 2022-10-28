@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    cb57c459f3c2cef516e6d36218b70f780289d383
+%global gh_commit    f4ab187791a64370825e9012b756e49d568230ea
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-progressbar
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.10.1
+Version:        2.11.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-date
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
@@ -42,22 +42,20 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.2.
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~1.0.0",
-#        "laminas/laminas-json": "^3.0.0",
-#        "laminas/laminas-session": "^2.8.5",
-#        "phpunit/phpunit": "^9.3"
+#        "laminas/laminas-session": "^2.23",
+#        "phpunit/phpunit": "^9.5.25"
 # ignore max version
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-json)                  >= 3.0.0   with php-autoloader(%{gh_owner}/laminas-json)                  < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-session)               >= 2.8.5   with php-autoloader(%{gh_owner}/laminas-session)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-session)               >= 2.13    with php-autoloader(%{gh_owner}/laminas-session)               < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3
+BuildRequires:  phpunit9 >= 9.5.25
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-stdlib": "^3.2.1"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.2.1   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -151,7 +149,7 @@ exit (class_exists("\\Zend\\%{library}\\ProgressBar") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -172,6 +170,10 @@ exit $ret
 
 
 %changelog
+* Wed Oct 26 2022 Remi Collet <remi@remirepo.net> - 2.11.0-1
+- update to 2.11.0
+- raise dependency on PHP 8.0
+
 * Mon Aug  1 2022 Remi Collet <remi@remirepo.net> - 2.10.1-1
 - update to 2.10.1
 

@@ -2,18 +2,13 @@
 %global altname requests_toolbelt
 
 Name:           python-%{srcname}
-Version:        0.10.0
+Version:        0.10.1
 Release:        1%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
 License:        ASL 2.0
 URL:            https://toolbelt.readthedocs.io
 Source0:        https://github.com/sigmavirus24/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-# present in upstream master but not in a stable release yet
-Patch0:         python-requests-toolbelt-fix-unhandled-exception-from-tests.patch
-# upstream PR 261, currently the upstream tests are broken as some network
-# resources vanished
-Patch1:         python-requests-toolbelt-pass-session-into-tests.patch
 
 BuildArch:      noarch
 
@@ -67,6 +62,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py -k "not test_s
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Wed Oct 26 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.10.1-1
+- Update to 0.10.1 version (#2137927)
+
 * Tue Oct 11 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.10.0-1
 - Update to 0.10.0 version (#2133011)
 

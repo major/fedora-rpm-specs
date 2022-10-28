@@ -1,8 +1,8 @@
 %global pypi_name pytest-xdist
 
 Name:           python-%{pypi_name}
-Version:        2.5.0
-Release:        4%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        py.test plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -11,14 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist execnet} >= 1.1
-BuildRequires:  %{py3_dist filelock}
-BuildRequires:  %{py3_dist psutil} >= 3.0.0
-BuildRequires:  %{py3_dist pytest} >= 6.0.0
-BuildRequires:  %{py3_dist pytest-forked}
-BuildRequires:  %{py3_dist py}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist setuptools_scm}
 
 %global _description %{expand:
 The pytest-xdist plugin extends py.test with some unique test execution modes:
@@ -46,11 +38,14 @@ Requires:       %{py3_dist py}
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x testing -x psutil
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -63,6 +58,9 @@ Requires:       %{py3_dist py}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Wed Oct 26 2022 Scott Talbert <swt@techie.net> - 3.0.2-1
+- Update to new upstream release 3.0.2 (#2137874)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

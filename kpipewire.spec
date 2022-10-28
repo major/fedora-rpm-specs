@@ -1,6 +1,6 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.26.0
+Version: 5.26.2
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -94,6 +94,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
 * Thu Oct 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.0-1
 - 5.26.0
 

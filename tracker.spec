@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.4.0
+Version:        3.4.1
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -168,6 +168,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Oct 26 2022 David King <amigadave@amigadave.com> - 3.4.1-1
+- Update to 3.4.1 (#2137867)
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 3.4.0-1
 - Update to 3.4.0
 

@@ -722,6 +722,7 @@ the Kerberos credentials cache of the user issuing the print job.
 %package ldb-ldap-modules
 Summary: Samba ldap modules for ldb
 Requires: %{name}-client-libs = %{samba_depver}
+Requires: %{name}-common-libs = %{samba_depver}
 
 %description ldb-ldap-modules
 This package contains the ldb ldap modules required by samba-tool and

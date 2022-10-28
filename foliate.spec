@@ -2,7 +2,7 @@
 
 Name:           foliate
 Version:        2.6.4
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Simple and modern GTK eBook reader
 
 License:        GPLv3+
@@ -73,105 +73,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jan 13 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 2.6.4-1
-- chore(update): 2.6.4
-- build(add BR): iso-codes
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Apr 01 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.6.3-1
-- build(update): 2.6.3
-
-* Fri Mar 26 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.6.2-1
-- build(update): 2.6.2
-
-* Wed Mar 24 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.6.1-1
-- build(update): 2.6.1
-
-* Wed Mar 24 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.6.0-1
-- build(update): 2.6.0
-
-* Mon Feb 01 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 2.5.0-3
-- build: Add 'webkit2gtk3' dep | rh#1923207
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Oct 15 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.5.0-1
-- build(update): 2.5.0
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 06 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.4.2-1
-- Update to 2.4.2
-
-* Mon Jul 06 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.4.1-1
-- Update to 2.4.1
-
-* Thu Jul 02 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.4.0-1
-- Update to 2.4.0
-
-* Thu Jun 18 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.3.0-1
-- Update to 2.3.0
-
-* Mon Jun 08 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.2.1-1
-- Update to 2.2.1
-
-* Fri May 29 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.2.0-1
-- Update to 2.2.0
-
-* Thu Apr 09 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1.1-1
-- Update to 2.1.1
-
-* Wed Apr 08 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.1.0-1
-- Update to 2.1.0
-
-* Sun Apr 05 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.0.0-1
-- Update to 2.0.0
-
-* Mon Mar 30 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.3-3
-- Add dep: gjs | RHBZ#1818634
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Sep 04 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.3-1
-- Update to 1.5.3
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jul 19 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.2-1
-- Update to 1.5.2
-
-* Sun Jul 14 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.5.0-2
-- Update to 1.5.0
-
-* Sat Jul 13 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.0-3
-- Patch: Use book language for Wikipedia
-
-* Thu Jul 11 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.4.0-2
-- Update to 1.4.0
-
-* Sat Jun 29 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.1-1
-- Update to 1.3.1
-
-* Tue Jun 18 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.3.0-1
-- Update to 1.3.0
-
-* Thu Jun 06 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.2.0-1
-- Update to 1.2.0
-
-* Sun Jun 02 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.1.0-1
-- Update to 1.1.0
-
-* Sat Jun 01 2019 Artem Polishchuk <ego.cordatus@gmail.com> - 1.0.1-1
-- Initial package
+%autochangelog

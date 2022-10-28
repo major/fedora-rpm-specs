@@ -1,6 +1,6 @@
 Summary:        Library with simple API for communication with LXI devices
 Name:           liblxi
-Version:        1.17
+Version:        1.18
 Release:        1%{?dist}
 # src/vxi11core* and src/include/vxi11core* are EPICS, rest is BSD-3-Clause
 License:        BSD-3-Clause AND EPICS
@@ -55,6 +55,9 @@ developing applications that use %{name}.
 %{_mandir}/man3/lxi_*.3*
 
 %changelog
+* Wed Oct 26 2022 Robert Scheck <robert@fedoraproject.org> 1.18-1
+- Upgrade to 1.18 (#2137767)
+
 * Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 1.17-1
 - Upgrade to 1.17 (#2131162)
 

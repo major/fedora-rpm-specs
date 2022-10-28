@@ -3,7 +3,7 @@
 # python2-tornado package is too old on EPEL
 
 Name:           python-%{srcname}
-Version:        0.16.0
+Version:        0.17.0
 Release:        1%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
@@ -60,6 +60,9 @@ export INPUTRC=$PWD/.inputrc
 
 
 %changelog
+* Thu Oct 27 2022 Orion Poplawski <orion@nwra.com> - 0.17.0-1
+- Update to 0.17.0
+
 * Sat Oct 01 2022 Orion Poplawski <orion@nwra.com> - 0.16.0-1
 - Update to 0.16.0
 

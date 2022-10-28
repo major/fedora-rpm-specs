@@ -3,12 +3,11 @@
 #
 Summary: An authorization framework
 Name: polkit
-Version: 121
-Release: 4%{?dist}
+Version: 122
+Release: 1%{?dist}
 License: LGPLv2+
 URL: http://www.freedesktop.org/wiki/Software/polkit
-Source0: http://www.freedesktop.org/software/polkit/releases/%{name}-%{version}.tar.xz
-Source1: http://www.freedesktop.org/software/polkit/releases/%{name}-%{version}.tar.xz.sign
+Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel >= 2.30.0
@@ -131,7 +130,7 @@ exit 0
 %{_datadir}/polkit-1/actions/org.freedesktop.policykit.policy
 %{_datadir}/polkit-1/policyconfig-1.dtd
 %dir %{_sysconfdir}/polkit-1
-%{_sysconfdir}/polkit-1/rules.d/50-default.rules
+%{_datadir}/polkit-1/rules.d/50-default.rules
 %attr(0700,polkitd,root) %dir %{_sysconfdir}/polkit-1/rules.d
 %{_sysconfdir}/pam.d/polkit-1
 %{_bindir}/pkaction
@@ -162,6 +161,9 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Wed Oct 26 2022 Vincent Mihalkovic <vmihalko@redhat.com> - 122-1
+- rebase to 122
+
 * Mon Aug 15 2022 Jan Rybar <jrybar@redhat.com> - 121-4
 - duktape re-enabled
 

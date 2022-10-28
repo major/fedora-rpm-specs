@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-mediawriter
-Version:        5.0.3
+Version:        5.0.4
 Release:        1%{?dist}
 Summary:        Fedora Media Writer
 
@@ -28,8 +28,6 @@ BuildRequires:  mingw32-qt6-qtsvg
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-xz-libs
 BuildRequires:  mingw32-xz-libs-static
-BuildRequires:  mingw32-libadwaita-qt6
-BuildRequires:  mingw32-libadwaita-qt6-static
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
@@ -43,8 +41,6 @@ BuildRequires:  mingw64-qt6-qtsvg
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-xz-libs
 BuildRequires:  mingw64-xz-libs-static
-BuildRequires:  mingw64-libadwaita-qt6
-BuildRequires:  mingw64-libadwaita-qt6-static
 
 BuildRequires:  gettext
 
@@ -97,6 +93,9 @@ like flash drives or memory cards.
 %{mingw64_libexecdir}/%{shortname}/helper.exe
 
 %changelog
+* Wed Oct 26 2022 Jan Grulich <jgrulich@redhat.com> - 5.0.4-1
+- 5.0.4
+
 * Thu Aug 25 2022 Jan Grulich <jgrulich@redhat.com> - 5.0.3-1
 - 5.0.3
 

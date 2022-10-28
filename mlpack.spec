@@ -1,27 +1,13 @@
 Name:           mlpack
-Version:        3.4.2
-Release:        18%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Scalable, fast C++ machine learning library
 
 License:        BSD
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
 
-# By default the mlpack Doxyfile excludes all files in the directory pattern
-# */build/*.  Well, on Koji, that's everything.  So we need to not exclude
-# that.
-Patch0:		no_exclude_build.patch
-# Backported from:
-#   https://github.com/mlpack/mlpack/commit/775a3b55f73eb595c03baf78e6901c9e21a59aaa 
-Patch1:   setuptools_compatibility.patch
-
-# Fix OpenMP build.
-#Patch1:         omp.patch
-
-# Make sure CXXFLAGS get set for Python binding builds.
-#Patch1:         python_cxxflags.patch
-
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 # Use cmake28 package on RHEL.
 %if 0%{?rhel} && 0%{?rhel} <= 7
@@ -30,9 +16,10 @@ BuildRequires:  cmake28 >= 2.8.5
 BuildRequires:  cmake >= 2.8.5
 %endif
 
-BuildRequires:  armadillo-devel >= 8.400.0
+BuildRequires:  armadillo-devel >= 9.800.0
 BuildRequires:  ensmallen-devel >= 2.10.0
-BuildRequires:  boost-devel, cli11-devel, boost-math, boost-serialization >= 1.49
+BuildRequires:  cli11-devel
+BuildRequires:  cereal-devel
 BuildRequires:  pkg-config
 
 # Header-only libraries (-static is for tracking per guidelines)
@@ -53,19 +40,16 @@ BuildRequires:  stb_image_write-static
 # pages, generated offline, as a patch to this SRPM, but txt2man seems to exist
 # in repos.
 BuildRequires:  txt2man
-# For generation of Doxygen HTML documentation.
-BuildRequires:  doxygen
-BuildRequires:  graphviz
 
 # Required for building Python bindings.
-BuildRequires: 	python3-devel, python3-Cython, python3-setuptools, python3-numpy,
+BuildRequires: 	python3-devel, python3-Cython, python3-setuptools, python3-numpy
 BuildRequires:	python3-pandas, python3-pytest-runner
 
 # something doesn't like size_t being unsigned long on s390
 ExcludeArch:    s390
 # The s390x builders don't currently have enough RAM to build mlpack.
 # (Check again for mlpack 4.0, which should require much less RAM.)
-ExcludeArch:	s390x
+#ExcludeArch:	s390x
 
 %description
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -93,10 +77,9 @@ methods and related documentation.
 %package devel
 Summary:        Development headers for mlpack (C++ machine learning library)
 Requires:       %{name} = %{version}-%{release}
-Requires:       armadillo-devel >= 8.400.0
+Requires:       armadillo-devel >= 9.800.0
 Requires:	ensmallen-devel >= 2.10.0
-Requires:       boost-devel, boost-program-options, boost-math
-Requires:       libxml2-devel
+Requires:	cereal-devel
 Requires:       lapack-devel
 Requires:	pkg-config
 Requires:       stb_image-devel%{?_isa} >= %{min_stb_image}
@@ -112,17 +95,6 @@ margins.  This package provides the headers to compile applications against
 mlpack.
 
 
-
-%package doc
-Summary:        Doxygen documentation for mlpack (C++ machine learning library)
-
-%description doc
-mlpack is a C++ machine learning library with emphasis on scalability, speed,
-and ease-of-use.  Its aim is to make machine learning possible for novice users
-by means of a simple, consistent API, while simultaneously exploiting C++
-language features to provide maximum performance and maximum flexibility for
-expert users.  mlpack outperforms competing machine learning libraries by large
-margins.  This package provides the Doxygen-generated documentation for mlpack.
 
 %package python3
 Summary:	Python 3 bindings for mlpack (C++ machine learning library)
@@ -150,15 +122,12 @@ margins.  This package provides the Python bindings for mlpack.
 %prep
 %autosetup -p1
 
-# Disable Doxygen warnings being fatal.
-sed -i 's/WARN_AS_ERROR          = YES/WARN_AS_ERROR = NO/' Doxyfile;
-
 %build
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # On RHEL6, the Boost CMake scripts fail for some reason.  I don't have the
 # time (or patience) to investigate, but if we force CMake to find Boost "the
 # hard way" by specifying Boost_NO_BOOST_CMAKE=1, it works.
-%{cmake28} -D Boost_NO_BOOST_CMAKE=1 -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=$(which python3) -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
+%{cmake28} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=$(which python3) -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %else
 %{cmake} -D CMAKE_INSTALL_LIBDIR=%{_libdir} -D DEBUG=OFF -D PROFILE=OFF -D BUILD_TESTS=OFF -D BUILD_PYTHON_BINDINGS=ON -D PYTHON_EXECUTABLE=$(which python3) -D BUILD_GO_BINDINGS=OFF -D BUILD_JULIA_BINDINGS=OFF -D STB_IMAGE_INCLUDE_DIR=%{_includedir}
 %endif
@@ -178,10 +147,6 @@ cd ..;
 
 # Don't use %make because it could use too much RAM with multiple cores on Koji...
 %{cmake_build}
-# Build documentation ('doc' is not in the list of default targets).
-cd %{_vpath_builddir};
-make doc
-cd ..;
 
 %install
 %{cmake_install}
@@ -195,19 +160,13 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 
 %ldconfig_scriptlets
 
-
-%files
-%{_libdir}/libmlpack.so.3
-%{_libdir}/libmlpack.so.3.4
-%{our_docdir}/LICENSE.txt
-
 %files bin
+%{our_docdir}/LICENSE.txt
 %{_bindir}/mlpack_adaboost
 %{_bindir}/mlpack_approx_kfn
 %{_bindir}/mlpack_bayesian_linear_regression
 %{_bindir}/mlpack_cf
 %{_bindir}/mlpack_dbscan
-%{_bindir}/mlpack_decision_stump
 %{_bindir}/mlpack_decision_tree
 %{_bindir}/mlpack_det
 %{_bindir}/mlpack_emst
@@ -256,7 +215,6 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 %{_mandir}/mlpack_bayesian_linear_regression.1*
 %{_mandir}/mlpack_cf.1*
 %{_mandir}/mlpack_dbscan.1*
-%{_mandir}/mlpack_decision_stump.1*
 %{_mandir}/mlpack_decision_tree.1*
 %{_mandir}/mlpack_det.1*
 %{_mandir}/mlpack_emst.1*
@@ -302,22 +260,21 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 %{_mandir}/mlpack_sparse_coding.1*
 
 %files devel
-%{_libdir}/libmlpack.so
+%{our_docdir}/LICENSE.txt
+%{_includedir}/mlpack.hpp
 %{_includedir}/mlpack/
 %{_libdir}/pkgconfig/mlpack.pc
-%{_libdir}/cmake/mlpack/mlpack-config-version.cmake
-%{_libdir}/cmake/mlpack/mlpack-config.cmake
-%{_libdir}/cmake/mlpack/mlpack-targets-noconfig.cmake
-%{_libdir}/cmake/mlpack/mlpack-targets.cmake
-
-%files doc
-%{our_docdir}
 
 %files python3
 %{python3_sitearch}/mlpack/
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Wed Oct 26 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-1
+- Update to latest stable version.
+- doc subpackage is no longer produced (mlpack 4.0.0 has no Doxygen support anymore).
+- Remove boost dependency, replace with cereal.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.26.1
-Release: 2%{?dist}
+Version: 5.26.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -77,6 +77,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
 * Sat Oct 22 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.26.1-2
 - Removed strict flatpak dependency.
 - Added a weak dependency on plasma-desktop.

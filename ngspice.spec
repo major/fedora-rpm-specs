@@ -18,7 +18,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	mainrel	1
+%global	mainrel	2
 
 %if 0%{?usegitbare} >= 1
 %global	gitcommit	cc285741f58bf6a9f37988199b09f49f7425144f
@@ -41,7 +41,7 @@
 
 Name:			ngspice
 Version:		%{mainver}
-Release:		%{fedorarel}%{?dist}.1
+Release:		%{fedorarel}%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD
@@ -91,6 +91,7 @@ BuildRequires:	mot-adms
 
 BuildRequires:	git
 
+Requires:	%{name}-codemodel%{?_isa} = %{version}-%{release}
 Obsoletes:	ngspice-doc < 20-4.cvs20100619
 Provides:	ngspice-doc = %{version}-%{release}
 
@@ -128,8 +129,15 @@ TclSpice is an improved version of Berkeley Spice designed to be used with
 the Tcl/Tk scripting language. The project is based upon the NG-Spice source
 code base with many improvements.
 
+%package	codemodel
+Summary:	ngspice codemodel and some script files
+
+%description	codemodel
+This package contains ngspice codemodel and some script files.
+
 %package	-n libngspice
 Summary:	Shared library version of ngspice
+Requires:	%{name}-codemodel%{?_isa} = %{version}-%{release}
 
 %description	-n libngspice
 This package contains shared library version of ngspice.
@@ -204,6 +212,12 @@ find src/ -type f -name "*.l" -exec chmod -x {} ';'
 find src/ -type f -name "*.y" -exec chmod -x {} ';'
 git commit -m "Fix permission" -a || :
 
+# Move spinit directory to arch-dependent
+sed -i configure.ac -e '\@AC_DEFINE_UNQUOTED.*NGSPICEDATADIR@s|echo .dprefix/share/ngspice|echo %{_libdir}/ngspice|'
+sed -i src/misc/ivars.c -e 's|/share/ngspice|/%_lib/ngspice|'
+grep -rl "(pkgdatadir)/" . | xargs sed -i -e 's|(pkgdatadir)/|(pkglibdir)/|'
+git commit -m "move spinit directory to arch-dependent" -a
+
 # Fix Tclspice's examples
 sed -i \
 	's|load "../../../src/.libs/libspice.so"|lappend auto_path "%{_libdir}/tclspice"\npackage require spice|' \
@@ -212,7 +226,7 @@ sed -i \
 	's|load ../../../src/.libs/libspice.so|lappend auto_path "%{_libdir}/tclspice"\npackage require spice|' \
 	examples/tclspice/*/*.{tcl,sh}
 sed -i \
-	's|spice::codemodel ../../src/xspice/icm/spice2poly|spice::codemodel %{_libdir}/tclspice/spice2poly|' \
+	's|spice::codemodel ../../src/xspice/icm/spice2poly|spice::codemodel %{_libdir}/tclspice/ngspice/spice2poly|' \
 	examples/tclspice/tcl-testbench*/tcl-testbench*.sh
 git commit -m "Fix Tclspice's examples" -a
 
@@ -243,9 +257,9 @@ export CFLAGS="%{optflags} -I%{_includedir}/blt"
 
 # Configure tclspice
 cd tclspice
-sed -i \
-	's|\#define NGSPICEDATADIR "\`echo \$dprefix/share/ngspice\`"|\#define NGSPICEDATADIR "\`echo %{_libdir}/tclspice\`"|' \
-	configure*
+sed -i configure* \
+	-e 's|\#define NGSPICEDATADIR "\`echo %{_libdir}/ngspice\`"|\#define NGSPICEDATADIR "\`echo %{_libdir}/tclspice/ngspice\`"|'
+sed -i src/misc/ivars.c -e 's|/%_libdir/ngspice|/%_lib/tclspice/ngspice|'
 
 # direct access to Tcl_Interp->result deprecated in tcl8.6,
 # remaining usage cannot be replaced by Tcl_SetResult
@@ -332,9 +346,9 @@ cd %{name}
 
 # Clean up unneeded / duplicate files also installed from ngspice
 pushd INST-TCLSPICE
-rm -rf ./%{_datadir}/ngspice/include/
+rm -rf ./%{_libdir}/ngspice/include/
 # see bug 1311869
-rm -f ./%{_datadir}/ngspice/scripts/spinit
+rm -f ./%{_libdir}/tclspice/ngspice/scripts/spinit
 # binary differ
 # for --short-circuit
 if [ -f .%{_bindir}/cmpp ] ; then
@@ -364,7 +378,7 @@ cp -a INST-TCLSPICE/* %{buildroot}
 # It seems that the below is not needed, compiled into binary already
 # (mtasaka, 20160628)
 %if 0
-cp -pr ./src/spicelib/devices/adms/ %{buildroot}%{_datadir}/%{name}
+cp -pr ./src/spicelib/devices/adms/ %{buildroot}%{_libdir}/%{name}
 %endif
 
 # Ensuring that all docs are under %%{_pkgdocdir}
@@ -409,21 +423,23 @@ popd
 
 %files
 %{_bindir}/*
-%{_datadir}/%{name}/
-%exclude	%{_datadir}/%{name}/scripts/tclspinit
-%{_libdir}/ngspice/
-
 %{_mandir}/man1/*
-%exclude %{_pkgdocdir}/examples/tclspice
 %doc	%{_pkgdocdir}
 %license COPYING
 
 %files	-n tclspice
 %doc	%{_pkgdocdir}/examples/tclspice
-%{_libdir}/tclspice/
-%dir	%{_datadir}/ngspice
-%dir	%{_datadir}/%{name}/scripts/
-%{_datadir}/%{name}/scripts/tclspinit
+%dir	%{_libdir}/tclspice/
+%dir	%{_libdir}/tclspice/%{name}
+%{_libdir}/tclspice/libspice*.so*
+%{_libdir}/tclspice/%{name}/*.cm
+%{_libdir}/tclspice/%{name}/*.tcl
+%{_libdir}/tclspice/%{name}/scripts/
+
+%files	codemodel
+%dir	%{_libdir}/%{name}/
+%{_libdir}/%{name}/*.cm
+%{_libdir}/%{name}/scripts/
 
 %files	-n libngspice
 %{_libdir}/libngspice.so.0*
@@ -434,6 +450,10 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Wed Oct 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 37-2
+- Split out codemodel files, and make ngspice, libngspice require codemodel
+- Move scripts to %%_libdir, they were arch-dependent actually
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 37-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2020.3.14
+Version:        2020.3.16
 Release:        1%{?dist}
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ done
 %{_datadir}/flightgear
 
 %changelog
+* Thu Oct 20 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.16-1
+- new upstream release
+
 * Mon Oct 03 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.14-1
 - new upstream release
 

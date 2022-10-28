@@ -1,9 +1,9 @@
-%global svn_revision 3564
-%global svn_date 20220308
+%global svn_revision 3572
+%global svn_date 20221024
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        2%{?svn_date:.%{svn_date}}%{?dist}
+Release:        1%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -16,9 +16,9 @@ Patch0:         kBuild-0.1.3-escape.patch
 Patch1:         kBuild-pthread.patch
 Patch6:         kbuild-dummy_noreturn.diff
 Patch8:         kBuild-0.1.9998-portme.patch
-Patch9:         kBuild-0.1.9998-breakpoint_portme.patch
+Patch10:        assert.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  automake
 BuildRequires:  bison
@@ -53,7 +53,7 @@ repository.
 %patch8 -p1 -b .portme
 %endif
 %endif
-%patch9 -p1 -b .portme2
+%patch10 -p1 -b .portme3
 
 
 %build
@@ -98,6 +98,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Mon Oct 24 2022 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3572-2.20221024
+- Update to r3572.20221024
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3564-2.20220308
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
