@@ -10,7 +10,7 @@ run (one plugin, many graphs), reducing the processing time and delay
 for the fetch cycle significantly.}
 
 Name:           python-%{pypi_name}
-Version:        3.0.1
+Version:        3.0.2
 Release:        %{autorelease}
 Summary:        Python module for developing Munin Multigraph Plugins
 BuildArch:      noarch

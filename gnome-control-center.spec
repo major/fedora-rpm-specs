@@ -12,18 +12,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-control-center
-Version:        43.0
+Version:        43.1
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
 License:        GPLv2+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-# Fix crash when editing EAP connections with empty password
-# https://gitlab.gnome.org/GNOME/gnome-control-center/-/merge_requests/1478
-# https://gitlab.gnome.org/GNOME/gnome-control-center/-/issues/1905
-# https://bugzilla.redhat.com/show_bug.cgi?id=2136471
-Patch0:         1478.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

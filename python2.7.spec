@@ -74,7 +74,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 25%{?dist}
+Release: 26%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -1727,6 +1727,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Wed Oct 26 2022 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-26
+- Fix location and invocation of pathfix.py in py2_shebang_fix macro
+
 * Mon Aug 08 2022 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-25
 - Fix OpenSSL 3 compatibility (EVP_get_digestbyname -> EVP_MD_fetch)
 Resolves: rhbz#2111128

@@ -1,5 +1,5 @@
 %global packname oskeyring
-%global packver  0.1.4
+%global packver  0.1.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -14,14 +14,14 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:
-# Suggests:  R-askpass, R-testthat, R-withr
+# Suggests:  R-askpass, R-testthat >= 3.0.0, R-withr
 # LinkingTo:
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-askpass
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
 BuildRequires:    R-covr
 
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Oct 27 2022 Tom Callaway <spot@fedoraproject.org> - 0.1.5-1
+- update to 0.1.5
+
 * Sat Sep 17 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.1.4-1
 - Update to 0.1.4 (RHBZ #2125280)
 

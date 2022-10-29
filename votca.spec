@@ -2,7 +2,7 @@ Name:           votca
 Version:        2022
 %global         uversion %{version}
 %global         sover 2022
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
@@ -255,6 +255,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2022-10
+- Rebuild for new libxc
+
 * Mon Oct 24 2022 Christoph Junghans <junghans@votca.org> - 2022-9
 - Rebuild for libxc-6.0.0
 

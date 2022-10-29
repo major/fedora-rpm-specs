@@ -75,7 +75,7 @@ head -n 32 lib/berkeley-db-1.xx/db/db.c > LICENSE.libdb
 
 # Fix shebangs
 files=$(grep -rl '#!/usr/bin/env python')
-pathfix.py -i %{python3} -p $files
+%py3_shebang_fix $files
 
 # Removing pre-built binary; not required for build
 rm ports/cc3200/bootmgr/relocator/relocator.bin

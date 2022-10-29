@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          9.56.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 
 License:          AGPLv3+
 
@@ -106,6 +106,7 @@ BuildRequires:    make
 Patch000: ghostscript-9.56-fix-PDFFitPage-with-square-MediaBox.patch
 Patch001: ghostscript-9.56.1-Fix-color-info-juggling-with-x11-devices.patch
 Patch002: ghostscript-9.56.1-use-proper-bounds-check-for-subfunctions-of.patch
+Patch003: ghostscript-9.56.1-Deal-with-different-VM-modes-during-CIDFont-loading.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -436,6 +437,9 @@ done
 # =============================================================================
 
 %changelog
+* Thu Oct 27 2022 Richard Lescak <rlescak@redhat.com> - 9.56.1-5
+- fix loading of CIDFonts (#2137856)
+
 * Wed Oct 19 2022 Michael J Gruber <mjg@fedoraproject.org> - 9.56.1-4
 - fix specifix shading subfunction handling
 

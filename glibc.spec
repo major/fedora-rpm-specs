@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-165-g114e299ca6
+%global glibcsrcdir glibc-2.36.9000-249-g6f360366f7
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 11
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,94 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Oct 27 2022 Patsy Griffin <patsy@redhat.com> - 2.36.9000-11
+- Auto-sync with upstream branch master,
+  commit 6f360366f7f76b158a0f4bf20d42f2854ad56264.
+- elf: Introduce to _dl_call_fini
+- ld.so: Export tls_init_tp_called as __rtld_tls_init_tp_called
+- scripts/localplt.awk: Handle DT_JMPREL with empty PLT (for C-SKY)
+- Remove lingering libSegfault Makefile entries
+- aarch64: Use memcpy_simd as the default memcpy
+- aarch64: Cleanup memset ifunc
+- elf: Reinstate on DL_DEBUG_BINDINGS _dl_lookup_symbol_x
+- x86_64: Implement evex512 version of strchrnul, strchr and wcschr
+- linux: Fix generic struct_stat for 64 bit time (BZ# 29657)
+- manual: Add missing % in int conversion list
+- Avoid undefined behaviour in ibm128 implementation of llroundl (BZ #29488)
+- Remove all assembly optimizations for htonl and htons
+- Remove htonl.S for i386/x86_64
+- Fix BZ #29463 in the ibm128 implementation of y1l too
+- Add ADDRB from Linux 6.0 to bits/termios-c_cflag.h
+- x86: Use `testb` for FSRM check in memmove-vec-unaligned-erms
+- x86: Use `testb` for case-locale check in str{n}casecmp-sse42
+- x86: Use `testb` for case-locale check in str{n}casecmp-sse2
+- x86: Use `testb` for case-locale check in str{n}casecmp-avx2
+- x86: Add support for VEC_SIZE == 64 in strcmp-evex.S impl
+- x86: Remove AVX512-BVMI2 instruction from strrchr-evex.S
+- sysdeps: arm: Fix preconfigure script for ARMv8/v9 targets [BZ #29698]
+- nis: Fix nis_print_directory
+- linux: Avoid shifting a negative signed on POSIX timer interface
+- Bench: Improve benchtests for memchr, strchr, strnlen, strrchr
+- x86: Optimize strrchr-evex.S and implement with VMM headers
+- x86: Optimize memrchr-evex.S
+- x86: Optimize strnlen-evex.S and implement with VMM headers
+- x86: Shrink / minorly optimize strchr-evex and implement with VMM headers
+- x86: Optimize memchr-evex.S and implement with VMM headers
+- x86_64: Implement evex512 version of memchr, rawmemchr and wmemchr
+- String: Improve test coverage for memchr
+- Use PTR_MANGLE and PTR_DEMANGLE unconditionally in C sources
+- Introduce <pointer_guard.h>, extracted from <sysdep.h>
+- x86-64: Move LP_SIZE definition to its own header
+- math: Fix asin and acos invalid exception with old gcc
+- x86: Update strlen-evex-base to use new reg/vec macros.
+- x86: Remove now unused vec header macros.
+- x86: Update memset to use new VEC macros
+- x86: Update memmove to use new VEC macros
+- x86: Update memrchr to use new VEC macros
+- x86: Update VEC macros to complete API for evex/evex512 impls
+- elf: Do not completely clear reused namespace in dlmopen (bug 29600)
+- malloc: Switch global_max_fast to uint8_t
+- Add NT_S390_PV_CPU_DATA from Linux 6.0 to elf.h
+- Add AArch64 HWCAP2_EBF16 from Linux 6.0 to bits/hwcap.h
+- String: Improve test coverage for memchr
+- elf: Remove -fno-tree-loop-distribute-patterns usage on dl-support
+- socket: Use offsetof in SUN_LEN (bug 29578)
+- Expose all MAP_ constants in <sys/mman.h> unconditionally (bug 29375)
+- LoongArch: Fix the condition to use PC-relative addressing in start.S
+- arm: Enable USE_ATOMIC_COMPILER_BUILTINS (BZ #24774)
+- csu: Disable stack protector for static-reloc for static-pie
+- NEWS: Fix grammar
+- elf: Simplify output of hwcap subdirectories in ld.so help
+- elf: Remove _dl_string_hwcap
+- Add NEWS entry for legacy hwcaps removal
+- elf: Remove hwcap and bits_hwcap fields from struct cache_entry
+- elf: Remove hwcap parameter from add_to_cache signature
+- elf: Remove legacy hwcaps support from ldconfig
+- elf: Remove legacy hwcaps support from the dynamic loader
+- x86_64: Remove platform directory library loading test
+- Update to Unicode 15.0.0 [BZ #29604]
+- Update kernel version to 6.0 in header constant tests
+- x86: Fix -Os build (BZ #29576)
+- sunrpc: Suppress GCC -Os warning on user2netname
+- rt: Initialize mq_send input on tst-mqueue{5,6}
+- posix: Suppress -Os may be used uninitialized warnings on regexec
+- posix: Suppress -Os warnings on fnmatch
+- locale: prevent maybe-uninitialized errors with -Os [BZ #19444]
+- Regenerate sysdeps/mach/hurd/bits/errno.h
+- Update syscall lists for Linux 6.0
+- nscd: Drop local address tuple variable [BZ #29607]
+- Use Linux 6.0 in build-many-glibcs.py
+- x86-64: Require BMI1/BMI2 for AVX2 strrchr and wcsrchr implementations
+- x86-64: Require BMI2 and LZCNT for AVX2 memrchr implementation
+- x86-64: Require BMI2 for AVX2 (raw|w)memchr implementations
+- x86-64: Require BMI2 for AVX2 wcs(n)cmp implementations
+- x86-64: Require BMI2 for AVX2 strncmp implementation
+- x86-64: Require BMI2 for AVX2 strcmp implementation
+- x86-64: Require BMI2 for AVX2 str(n)casecmp implementations
+- x86: include BMI1 and BMI2 in x86-64-v3 level
+- x86: Cleanup pthread_spin_{try}lock.S
+- Benchtests: Add bench for pthread_spin_{try}lock and mutex_trylock
+
 * Mon Oct 17 2022 Carlos O'Donell <carlos@redhat.com> - 2.36.9000-10
 - Enable ELF DT_HASH for shared objects and the dynamic loader (#2129358)
 

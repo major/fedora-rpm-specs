@@ -4,9 +4,12 @@
 %global pkg_name pkgtreediff
 %global pkgver %{pkg_name}-%{version}
 
+# one test needs network
+%bcond_with tests
+
 Name:           %{pkg_name}
-Version:        0.5.0
-Release:        6%{?dist}
+Version:        0.6.0
+Release:        1%{?dist}
 Summary:        RPM package tree diff tool
 
 License:        GPLv3+
@@ -21,12 +24,14 @@ BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Glob-prof
 BuildRequires:  ghc-async-prof
 BuildRequires:  ghc-base-prof
+BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-extra-prof
 BuildRequires:  ghc-filepath-prof
 BuildRequires:  ghc-http-client-prof
 BuildRequires:  ghc-http-client-tls-prof
 BuildRequires:  ghc-http-directory-prof
+BuildRequires:  ghc-http-types-prof
 BuildRequires:  ghc-koji-prof
 BuildRequires:  ghc-rpm-nvr-prof
 BuildRequires:  ghc-simple-cmd-prof
@@ -35,7 +40,8 @@ BuildRequires:  ghc-text-prof
 # End cabal-rpm deps
 
 %description
-Tool for comparing RPM packages and versions in OS dist trees or instances.
+Tool for comparing RPM packages and version-releases in OS dist trees or
+instances.
 
 
 %package -n ghc-%{name}
@@ -100,6 +106,12 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 # End cabal-rpm install
 
 
+%check
+%if %{with tests}
+%cabal_test
+%endif
+
+
 %files
 # Begin cabal-rpm files:
 %license LICENSE
@@ -131,6 +143,12 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Oct 27 2022 Jens Petersen <petersen@redhat.com> - 0.6.0-1
+- significant processing performance improvement
+- allow multiple mode options; separate summary & rst options
+- add support for package list files via http
+- fix local filesystem recursion
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.039
+Version:        0.040
 Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
@@ -35,7 +35,9 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
 # Optional, for improved tests
+# N/A in Fedora: BuildRequires:  perl(Beam::Wire)
 BuildRequires:  perl(Moo)
+BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(MooseX::ArrayRef)
 BuildRequires:  perl(MooseX::InsideOut)
@@ -70,6 +72,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Oct 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.040-1
+- Update to 0.040.
+
 * Wed Oct 26 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.039-1
 - Update to 0.039.
 

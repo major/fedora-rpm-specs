@@ -1,5 +1,5 @@
 Name:    glib2
-Version: 2.74.0
+Version: 2.74.1
 Release: %autorelease
 Summary: A library of handy utility functions
 
@@ -11,10 +11,6 @@ Source0: https://download.gnome.org/sources/glib/2.72/glib-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/2921
-Patch1: 2921.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

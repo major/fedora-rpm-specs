@@ -2,8 +2,8 @@
 %global ibus_tables_dir %{_datadir}/ibus-table/tables
 %global ibus_icons_dir %{_datadir}/ibus-table/icons
 Name:           ibus-table-chinese
-Version:        1.8.9
-Release:        2%{?dist}
+Version:        1.8.10
+Release:        1%{?dist}
 Summary:        Chinese input tables for IBus
 Summary(zh_CN): 中文码表输入法
 Summary(zh_TW): 中文碼表輸入法
@@ -800,6 +800,13 @@ rm -fr %{buildroot}%{_docdir}/*
 %{ibus_tables_dir}/cantonyale.db
 
 %changelog
+* Tue Oct 25 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.10-1
+- Update to 1.8.10
+- Improve punctuation support in cangjie5.txt, cangjie3.txt, cangjie-big.txt,
+  quick5.txt, quick3.txt, quick-classic.txt
+  (Resolves: https://github.com/kaio/ibus-table/issues/73)
+- Remove obsolete patch: Make-build-outside-of-the-source-tree-possible.patch
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

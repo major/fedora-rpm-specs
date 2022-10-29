@@ -1,8 +1,8 @@
 %global glib2_version 2.56.0
 
 Name:           gdk-pixbuf2
-Version:        2.42.9
-Release:        2%{?dist}
+Version:        2.42.10
+Release:        1%{?dist}
 Summary:        An image loading library
 
 License:        LGPLv2+
@@ -27,9 +27,6 @@ BuildRequires:  /usr/bin/rst2man
 Requires: glib2%{?_isa} >= %{glib2_version}
 # We also need MIME information at runtime
 Requires: shared-mime-info
-
-# https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/issues/216
-Patch0: 0001-jpeg-Increase-memory-limit-for-loading-image-data.patch
 
 %description
 gdk-pixbuf is an image loading library that can be extended by loadable
@@ -128,6 +125,9 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Oct 27 2022 David King <amigadave@amigadave.com> - 2.42.10-1
+- Update to 2.42.10
+
 * Wed Sep 28 2022 Bastien Nocera <bnocera@redhat.com> - 2.42.9-2
 - Fix loading of large JPEG files
 

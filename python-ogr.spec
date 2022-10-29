@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.40.0
+Version:        0.41.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -52,6 +52,10 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Thu Oct 27 2022 Packit <hello@packit.dev> - 0.41.0-1
+- `CommitComment.comment` has been deprecated in favour of `CommitComment.body` to make the naming consistent across objects. (#748)
+- ogr now requires Python 3.9 or later. (#746)
+
 * Fri Sep 16 2022 Packit <hello@packit.dev> - 0.40.0-1
 - Using the method `users_with_write_access` you can generate the set of users that have write access to the project and the method `has_write_access(user)` you can find out if the user has write access to the project. (#742)
 

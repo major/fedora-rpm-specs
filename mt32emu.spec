@@ -14,6 +14,8 @@ Source0:        https://github.com/munt/munt/archive/refs/tags/lib%{name}_%{vers
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 
+# Not needed for multilib
+ExcludeArch: %{ix86}
 
 %description
 mt32emu is a part of the Munt project. It represents a C/C++ library named

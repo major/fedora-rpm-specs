@@ -15,6 +15,9 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 
+# Not needed for multilib
+ExcludeArch: %{ix86}
+
 
 %description
 An infinite impulse response (IIR) filter library for Linux, Mac OSX and Windows

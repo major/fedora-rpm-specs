@@ -1,8 +1,8 @@
 Name:           perl-PerlIO-utf8_strict
-Version:        0.009
-Release:        4%{?dist}
+Version:        0.010
+Release:        1%{?dist}
 Summary:        Fast and correct UTF-8 I/O
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-utf8_strict
 Source0:        https://cpan.metacpan.org/modules/by-module/PerlIO/PerlIO-utf8_strict-%{version}.tar.gz
 # Build:
@@ -61,6 +61,11 @@ make test
 %{_mandir}/man3/PerlIO::utf8_strict.3*
 
 %changelog
+* Thu Oct 27 2022 Paul Howarth <paul@city-fan.org> - 0.010-1
+- Update to 0.010 (rhbz#2138013)
+  - Re-release with updated ppport.h for 5.8.5 compatibility
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

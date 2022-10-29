@@ -5,8 +5,8 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.0.0
-Release:	2%{?dist}
+Version:	4.0.1
+Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
 Url:		http://www.wireshark.org/
@@ -72,7 +72,7 @@ BuildRequires:	asciidoctor
 %if %{with_maxminddb} && 0%{?fedora}
 BuildRequires:	libmaxminddb-devel
 %endif
-%if %{with_lua}
+%if %{with_lua} && 0%{fedora}
 BuildRequires:	compat-lua-devel
 %endif
 Buildrequires: git-core
@@ -121,9 +121,8 @@ and plugins.
 %cmake -G "Unix Makefiles" \
   -DDISABLE_WERROR=ON \
   -DBUILD_wireshark=ON \
-%if %{with_lua}
+%if %{with_lua} && 0%{?fedora}
   -DENABLE_LUA=ON \
-  -DLUA_VERSION_NUM=5.1 \
 %else
   -DENABLE_LUA=OFF \
 %endif
@@ -276,6 +275,10 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Oct 27 2022 Michal Ruprich <mruprich@redhat.com> - 1:4.0.1-1
+- New version 4.0.1
+- Only compat-lua is supported, on Fedora only
+
 * Fri Oct 14 2022 Michal Ruprich <mruprich@redhat.com> - 1:4.0.0-2
 - Adding a couple of tweaks for the latest rebased version
 

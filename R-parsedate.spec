@@ -1,5 +1,5 @@
 %global packname parsedate
-%global packver  1.3.0
+%global packver  1.3.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Oct 27 2022 Tom Callaway <spot@fedoraproject.org> - 1.3.1-1
+- update to 1.3.1
+
 * Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 1.3.0-1
 - update to 1.3.0
 - rebuild for R 4.2.1

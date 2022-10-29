@@ -16,7 +16,7 @@
 %endif
 
 Name:    kwin
-Version: 5.26.2
+Version: 5.26.2.1
 Release: 1%{?dist}
 Summary: KDE Window manager
 

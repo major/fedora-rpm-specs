@@ -1,6 +1,6 @@
 Name: zxing-cpp
 Version: 1.2.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: C++ port of the ZXing ("Zebra Crossing") barcode scanning library
 
 # The entire source is ASL 2.0, except:
@@ -102,7 +102,10 @@ popd &>/dev/null
 # but we don’t get any metadata (dist-info), so it’s not terribly useful for
 # packaging purposes. Instead, it seems we must re-build the whole library
 # through setuptools to get that.
-%cmake -DBUILD_EXAMPLES=OFF -DBUILD_PYTHON_MODULE=ON
+# CMAKE_BUILD_TYPE=RelWithDebInfo prevents the build from stripping the
+# python module after it is built.  The stripping happens in
+# pybind11_add_module.
+%cmake -DBUILD_EXAMPLES=OFF -DBUILD_PYTHON_MODULE=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
 pushd wrappers/python
 # CMake respects this environment variable. We need to see the compiler
@@ -149,6 +152,9 @@ popd
 %files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Wed Oct 26 2022 Tom Stellard <tstellar@redhat.com> - 1.2.0-8
+- Prevent stripping of python module
+
 * Tue Aug 02 2022 Caolán McNamara <caolanm@redhat.com> 1.2.0-7
 - Resolves: rhbz#2113772 FTBFS in Fedora rawhide/f37
 

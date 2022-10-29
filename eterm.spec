@@ -1,7 +1,7 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       29%{?dist}
+Release:       30%{?dist}
 License:       BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
 Source1:       http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
@@ -19,7 +19,6 @@ BuildRequires: glibc-common
 BuildRequires: imlib2-devel
 BuildRequires: libXmu-devel
 BuildRequires: libast-devel
-BuildRequires: pcre-devel
 BuildRequires: sed
 BuildRequires: make
 Provides:      Eterm = %{version}-%{release}
@@ -95,6 +94,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Wed Oct 26 2022 Terje Rosten <terje.rosten@ntnu.no> - 0.9.6-30
+- Rebuild to remove pcre deps
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

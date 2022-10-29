@@ -1,6 +1,6 @@
 
 %global forgeurl    https://github.com/AnalogJ/lexicon
-Version:            3.11.6
+Version:            3.11.7
 %forgemeta
 
 %global pypi_name dns-lexicon
@@ -201,6 +201,9 @@ rm -rf %{buildroot}%{python3_sitelib}/lexicon/tests
 # }}}
 
 %changelog
+* Thu Oct 27 2022 Christian Schuermann <spike@fedoraproject.org> 3.11.7-1
+- Update to 3.11.7
+
 * Wed Oct 12 2022 Christian Schuermann <spike@fedoraproject.org> 3.11.6-1
 - Update to 3.11.6
 

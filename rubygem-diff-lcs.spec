@@ -5,17 +5,18 @@
 %{!?_with_bootstrap: %global bootstrap 0}
 
 Name: rubygem-%{gem_name}
-Version: 1.3
-Release: 13%{?dist}
+Version: 1.5.0
+Release: 1%{?dist}
 Summary: Provide a list of changes between two sequenced collections
-License: GPLv2+ or Artistic or MIT
+License: MIT OR Artistic-2.0 OR GPL-2.0-or-later
 URL: https://github.com/halostatue/diff-lcs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
+BuildRequires: ruby
 %if ! 0%{?bootstrap}
 BuildRequires: rubygem(rspec)
 %endif
-BuildRequires: ruby(release)
 BuildArch: noarch
 
 %description
@@ -33,12 +34,15 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -c  -T
-%gem_install -n %{SOURCE0}
-
+%setup -q -n %{gem_name}-%{version}
 
 %build
+# Create the gem as gem install only works on a gem file
+gem build ../%{gem_name}-%{version}.gemspec
 
+# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
+# by default, so that we can move it into the buildroot in %%install
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -47,7 +51,7 @@ cp -a .%{gem_dir}/* \
 
 
 mkdir -p %{buildroot}%{_bindir}
-cp -pa .%{_bindir}/* \
+cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
@@ -80,12 +84,18 @@ popd
 %doc %{gem_instdir}/Contributing.md
 %doc %{gem_instdir}/History.md
 %doc %{gem_instdir}/Manifest.txt
-%{gem_instdir}/autotest
 %doc %{gem_instdir}/README.rdoc
 %{gem_instdir}/Rakefile
 %{gem_instdir}/spec
 
 %changelog
+* Thu Oct 27 2022 Vít Ondruch <vondruch@redhat.com> - 1.5.0-1
+- Refresh the .spec file to the current standards.
+
+* Thu Oct 20 2022 Pavel Valena <pvalena@redhat.com> - 1.5.0-1
+- Update to diff-lcs 1.5.0.
+  Resolves: rhbz#1849864
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

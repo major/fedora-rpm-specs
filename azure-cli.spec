@@ -31,6 +31,11 @@ Source0:        %forgesource
 # https://github.com/Azure/azure-cli/issues/23015#issuecomment-1268587028
 Patch0:         subparser-command-verb.patch
 
+# Offer azure-cli updates via dnf/rpm only.
+# Avoid importing files from the local directory when running az.
+# Source: https://github.com/Azure/azure-cli/pull/21261
+Patch1:         az-fixes.patch
+
 BuildArch:      noarch
 
 %if 0%{?fedora}

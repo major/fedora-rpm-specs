@@ -34,7 +34,7 @@
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        6%{?dist}
+Release:        8%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 License:        LGPLv2+
@@ -47,7 +47,7 @@ BuildRequires: libsbml-devel
 BuildRequires: libxml2-devel
 BuildRequires: bzip2-devel
 BuildRequires: xerces-c-devel
-BuildRequires: minizip-devel
+BuildRequires: minizip-ng-devel
 
 %if 0%{?with_check}
 BuildRequires: check-devel
@@ -185,6 +185,7 @@ of libNUML libraries.
 %build
 mkdir -p libnuml/build
 %cmake3 -B libnuml/build -S libnuml -Wno-dev \
+ -DEXTRA_INCLUDE_DIRS:STRING=%{_includedir}/minizip-ng \
 %if 0%{?with_python}
  -DWITH_PYTHON:BOOL=ON \
  -DWITH_SWIG:BOOL=ON \
@@ -366,6 +367,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Thu Oct 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-8
+- Switch to minizip-ng
+
 * Thu Sep 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-7
 - Patched for Swig-4.1.0 (rhbz#2127978)
 

@@ -1,9 +1,9 @@
-%global	majorver	3.11.0
+%global	majorver	3.12.0
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	3
+%global	fedorarel	1
 
 %global	gem_name	rspec-core
 
@@ -83,11 +83,6 @@ This package contains documentation for %{name}.
 %patch0 -p1
 gem specification %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
-# https://github.com/ruby/ruby/blob/28840d74c26189f4e730b906c2383e32ea6165fe/NEWS.md?plain=1#L232
-# https://github.com/rspec/rspec-core/commit/bf49c78d7a92e253d557924a3f85fd6991e32ca3
-# Ruby 3.2 removes Fixnum
-sed -i features/metadata/described_class.feature -e 's|Fixnum|Symbol|'
-
 %build
 gem build %{gem_name}.gemspec
 %gem_install
@@ -129,7 +124,7 @@ done
 %endif
 
 # cucumber 7.0.0 does not support ~@
-sed -i cucumber.yml -e "s|~@wip|'not @wip'|"
+sed -i cucumber.yml -e 's|~@wip|"not @wip"|'
 sed -i features/support/require_expect_syntax_in_aruba_specs.rb -e 's|~@|not @|g'
 # Perhaps with cucumber 7.0.0 change? (along with diff-lcs updated to 1.5)
 sed -i features/support/diff_lcs_versions.rb -e 's|scenario.title|scenario.name|'
@@ -180,6 +175,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-1
+- 3.12.0
+
 * Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.11.0-3
 - Backport upstream fix to eliminate Fixnum usage removed on Ruby 3.2
 

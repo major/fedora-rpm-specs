@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-initial-setup
-Version:        43.0
+Version:        43.1
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
@@ -15,10 +15,6 @@ License:        GPLv2+
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/160
-# https://bugzilla.redhat.com/show_bug.cgi?id=2123494
-Patch0:         160.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

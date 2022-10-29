@@ -1,5 +1,5 @@
 Name:           maven-shade-plugin
-Version:        3.4.0
+Version:        3.4.1
 Release:        1%{?dist}
 Summary:        Maven plugin for packaging artifacts in an uber-jar
 License:        ASL 2.0
@@ -64,6 +64,9 @@ ln -s $(build-classpath plexus/utils) src/test/jars/plexus-utils-1.4.1.jar
 %license LICENSE NOTICE
 
 %changelog
+* Thu Oct 27 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 3.4.1-1
+- Update to upstream version 3.4.1
+
 * Sat Oct 01 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 3.4.0-1
 - Update to upstream version 3.4.0
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    178b850d8b4a480e4a9e61a2ae849e8511c17d49
+%global gh_commit    1deab9c4bc484bbe21be5f0119a90e91d0da548c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-log
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.15.2
+Version:        2.15.3
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -198,7 +198,7 @@ exit (class_exists("\\Zend\\%{library}\\Logger") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} || ret=1
@@ -219,6 +219,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct 27 2022 Remi Collet <remi@remirepo.net> - 2.15.3-1
+- update to 2.15.3
+
 * Fri Jul 22 2022 Remi Collet <remi@remirepo.net> - 2.15.2-1
 - update to 2.15.2
 

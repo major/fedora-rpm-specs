@@ -1,12 +1,13 @@
 Name:           wxGlade
 Version:        1.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A wxWidgets/wxPython/wxPerl GUI designer
 License:        MIT
 URL:            http://wxglade.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/wxglade/wxglade/%{version}/%{name}-%{version}.zip
 Source1:        wxglade.desktop
 Source2:        wxglade.png
+Patch0:         fix-startup-script-py310.patch
 BuildArch:      noarch
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
@@ -50,6 +51,9 @@ install -pm 644 %{S:2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Oct 28 2022 Scott Talbert <swt@techie.net> - 1.0.4-5
+- Fix startup script on Python 3.10+ (#2136512)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

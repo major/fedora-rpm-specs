@@ -15,6 +15,15 @@ URL:            https://github.com/miguelgrinberg/python-engineio/
 Source0:        %{url}/archive/v%{version}/python-engineio-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# Address Python 3.11 mocking issue (Fixes #279)
+# https://github.com/miguelgrinberg/python-engineio/commit/ac3911356fbe933afa7c11d56141f0e228c01528
+#
+# Fixes:
+#
+# Test failures with Python 3.11 pre-release (3.11b3)
+# https://github.com/miguelgrinberg/python-engineio/issues/279
+Patch:          %{url}/commit/ac3911356fbe933afa7c11d56141f0e228c01528.patch
  
 BuildRequires:  python3-devel
 
@@ -87,21 +96,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 
 
 %check
-# python-engineio fails to build with Python 3.11: AssertionError: assert '200
-# OK' == '400 BAD REQUEST'
-# https://bugzilla.redhat.com/show_bug.cgi?id=2094381
-#
-# Test failures with Python 3.11 pre-release (3.11b3)
-# https://github.com/miguelgrinberg/python-engineio/issues/279
-#
-# We are not sure why these fail, and upstream does not intend to work on them
-# until the Python 3.11 final release, so we skip them for now to unblock
-# dependent packages.
-k="${k-}${k+ and }not (TestAsyncServer and test_connect_bad_poll)"
-k="${k-}${k+ and }not (TestAsyncServer and test_connect_transport_websocket)"
-k="${k-}${k+ and }not (TestAsyncServer and test_connect_transport_websocket_closed)"
-k="${k-}${k+ and }not (TestAsyncServer and test_http_upgrade_case_insensitive)"
-%pytest -k "${k-}"
+%pytest
 
 
 %files -n python3-engineio -f %{pyproject_files}

@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           seahorse
-Version:        42.0
-Release:        2%{?dist}
+Version:        43.0
+Release:        1%{?dist}
 Summary:        A GNOME application for managing encryption keys
 
 # seahorse is GPLv2+
@@ -10,8 +10,6 @@ Summary:        A GNOME application for managing encryption keys
 License:        GPLv2+ and LGPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Seahorse
 Source:         https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
-# https://gitlab.gnome.org/GNOME/seahorse/-/merge_requests/199
-Patch0:         seahorse-42.0-docs-license.patch
 
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(avahi-glib)
@@ -21,7 +19,7 @@ BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libsecret-unstable)
-BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
@@ -81,6 +79,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/org.gnome.seahor
 %{_metainfodir}/org.gnome.seahorse.Application.appdata.xml
 
 %changelog
+* Thu Oct 27 2022 David King <amigadave@amigadave.com> - 43.0-1
+- Update to 43.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 42.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

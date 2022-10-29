@@ -226,7 +226,7 @@ sed -i \
 	's|load ../../../src/.libs/libspice.so|lappend auto_path "%{_libdir}/tclspice"\npackage require spice|' \
 	examples/tclspice/*/*.{tcl,sh}
 sed -i \
-	's|spice::codemodel ../../src/xspice/icm/spice2poly|spice::codemodel %{_libdir}/tclspice/ngspice/spice2poly|' \
+	's|spice::codemodel [\./][\./]*src/xspice/icm/spice2poly/|spice::codemodel %{_libdir}/tclspice/ngspice/|' \
 	examples/tclspice/tcl-testbench*/tcl-testbench*.sh
 git commit -m "Fix Tclspice's examples" -a
 

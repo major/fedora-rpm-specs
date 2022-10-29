@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	38.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	Licensed only for approved usage, see COPYING for details.
@@ -87,6 +87,10 @@ install -p -m 644 bootloader/fedora_classic.icns $RPM_BUILD_ROOT%{_datadir}/pixm
 # To regenerate these files, run:
 # pngtopnm foo.png | ppmtoapplevol > foo.vol
 install -p -m 644 bootloader/fedora.vol bootloader/fedora-media.vol $RPM_BUILD_ROOT%{_datadir}/pixmaps/bootloader
+
+# m1n1 logos, see Makefile for how to regenerate
+install -p -m 644 bootloader/bootlogo_128.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/bootloader/bootlogo_128.png
+install -p -m 644 bootloader/bootlogo_256.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/bootloader/bootlogo_256.png
 
 # General purpose Fedora logos
 for i in pixmaps/* ; do
@@ -390,6 +394,9 @@ hardlink -vv %{buildroot}/usr
 
 
 %changelog
+* Thu Oct 27 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 38.0.0-2
+- Install bootloader logos for m1n1
+
 * Wed Sep 21 2022 Tom Callaway <spot@fedoraproject.org> - 38.0.0-1
 - update to 38.0.0, contains darkbackground image properly in tarball
 - source tarball comes from properly git tagged release

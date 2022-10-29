@@ -1,8 +1,11 @@
 %global srcname keylime
+%global policy_version 1.0.0
 
 # Package is actually noarch, but it has an optional dependency that is
 # arch-specific.
 %global debug_package %{nil}
+%global with_selinux 1
+%global selinuxtype targeted
 
 Name:    keylime
 Version: 6.4.3
@@ -12,6 +15,8 @@ Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 URL:            https://github.com/keylime/keylime
 Source0:        https://github.com/keylime/keylime/archive/refs/tags/v%{version}.tar.gz
 Source1:        %{srcname}.sysusers
+# The selinux policy for keylime is distributed via this repo: https://github.com/RedHat-SP-Security/keylime-selinux
+Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
 
 # Main program: BSD
 # Icons: MIT
@@ -57,6 +62,12 @@ Conflicts: keylime < 6.3.0-3
 Requires(pre): shadow-utils
 Requires: procps-ng
 Requires: tpm2-tss
+
+%if 0%{?with_selinux}
+# This ensures that the *-selinux package and all it’s dependencies are not pulled
+# into containers and other systems that do not use SELinux
+Recommends:       (%{srcname}-selinux if selinux-policy-%{selinuxtype})
+%endif
 
 %ifarch %efi
 Requires: efivar-libs
@@ -142,6 +153,20 @@ The Keylime Agent is deployed to the remote machine that is to be
 measured or provisioned with secrets stored within an encrypted
 payload released once trust is established.
 
+%if 0%{?with_selinux}
+# SELinux subpackage
+%package selinux
+Summary:             keylime SELinux policy
+BuildArch:           noarch
+Requires:            selinux-policy-%{selinuxtype}
+Requires(post):      selinux-policy-%{selinuxtype}
+BuildRequires:       selinux-policy-devel
+%{?selinux_requires}
+
+%description selinux
+Custom SELinux policy module
+%endif
+
 %package tenant
 Summary: The Python Keylime Tenant
 License: MIT
@@ -169,8 +194,17 @@ Requires: python3-%{srcname} = %{version}-%{release}
 %description tools
 The keylime tools package includes miscelaneous tools.
 
+
 %prep
-%autosetup -S git -n %{srcname}-%{version}
+%autosetup -S git -n %{srcname}-%{version} -a2
+
+%if 0%{?with_selinux}
+# SELinux policy (originally from selinux-policy-contrib)
+# this policy module will override the production module
+
+make -f %{_datadir}/selinux/devel/Makefile %{srcname}.pp
+bzip2 -9 %{srcname}.pp
+%endif
 
 %build
 %py3_build
@@ -186,6 +220,11 @@ sed -e 's/^run_as.*/run_as = %{srcname}:%{srcname}/g' -i %{srcname}.conf
 
 # rhbz#2114485 - using sha256 for tpm_hash_alg.
 sed -e 's/^tpm_hash_alg[[:space:]]*=.*/tpm_hash_alg = sha256/g' -i %{srcname}.conf
+
+%if 0%{?with_selinux}
+install -D -m 0644 %{srcname}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.bz2
+install -D -p -m 0644 keylime-selinux-%{policy_version}/%{srcname}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{srcname}.if
+%endif
 
 install -Dpm 600 %{srcname}.conf \
     %{buildroot}%{_sysconfdir}/%{srcname}.conf
@@ -234,6 +273,34 @@ exit 0
 %post -n python3-%{srcname}-agent
 %systemd_post %{srcname}_agent.service
 
+%if 0%{?with_selinux}
+# SELinux contexts are saved so that only affected files can be
+# relabeled after the policy module installation
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.bz2
+%selinux_relabel_post -s %{selinuxtype}
+
+if [ "$1" -le "1" ]; then # First install
+    # The services need to be restarted for the custom label to be
+    # applied in case they where already present in the system,
+    # restart fails silently in case they where not.
+    for svc in agent registrar verifier; do
+        [ -f "%{_unitdir}/%{srcname}_${svc}".service ] && \
+            %systemd_postun_with_restart "%{srcname}_${svc}".service
+    done
+fi
+exit 0
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{srcname}
+    %selinux_relabel_post -s %{selinuxtype}
+fi
+%endif
+
 %preun verifier
 %systemd_preun %{srcname}_verifier.service
 
@@ -270,6 +337,13 @@ exit 0
 %{_unitdir}/%{srcname}_agent.service
 %{_unitdir}/%{srcname}_agent_secure.mount
 %{_bindir}/%{srcname}_ima_emulator
+
+%if 0%{?with_selinux}
+%files selinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{srcname}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{srcname}
+%endif
 
 %files tenant
 %license LICENSE

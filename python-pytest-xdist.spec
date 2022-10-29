@@ -2,8 +2,8 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.2
-Release:        1%{?dist}
-Summary:        py.test plugin for distributed testing and loop-on-failing modes
+Release:        2%{?dist}
+Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-xdist
@@ -13,33 +13,29 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %global _description %{expand:
-The pytest-xdist plugin extends py.test with some unique test execution modes:
-* test run parallelization: if you have multiple CPUs or hosts you can use
-  those for a combined test run. This allows to speed up development or to use
-  special resources of remote machines.
-* --boxed: run each test in a boxed subprocess to survive SEGFAULTS or
-  otherwise dying processes
-* --looponfail: run your tests repeatedly in a subprocess. After each run
-  py.test waits until a file in your project changes and then re-runs the
-  previously failing tests. This is repeated until all tests pass after which
-  again a full run is performed.
-* Multi-Platform coverage: you can specify different Python interpreters or
-  different platforms and run tests in parallel on all of them.}
+The pytest-xdist plugin extends pytest with new test execution modes,
+the most used being distributing tests across multiple CPUs
+to speed up test execution:
+
+    pytest -n auto
+
+With this call, pytest will spawn a number of workers processes equal
+to the number of available CPUs, and distribute the tests randomly across them.}
 
 %description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-Requires:       %{py3_dist py}
 %description -n python3-%{pypi_name} %_description
+
+%pyproject_extras_subpkg -n python3-%{pypi_name} psutil setproctitle
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x testing -x psutil
+%pyproject_buildrequires -x testing -x psutil -x setproctitle
 
 %build
 %pyproject_wheel
@@ -58,6 +54,10 @@ Requires:       %{py3_dist py}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Fri Oct 28 2022 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-2
+- Drop unused runtime requirement on on the python3-py package
+- Package the pytest-xdist[psutil] and pytest-xdist[setproctitle] extras
+
 * Wed Oct 26 2022 Scott Talbert <swt@techie.net> - 3.0.2-1
 - Update to new upstream release 3.0.2 (#2137874)
 

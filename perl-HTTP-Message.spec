@@ -1,9 +1,6 @@
-# Use Clone module for duplicating HTTP::Headers objects
-%bcond_without perl_HTTP_Message_enables_Clone
-
 Name:           perl-HTTP-Message
-Version:        6.43
-Release:        2%{?dist}
+Version:        6.44
+Release:        1%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -22,6 +19,7 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Clone)
 BuildRequires:  perl(Compress::Raw::Zlib)
 BuildRequires:  perl(Encode) >= 3.01
 BuildRequires:  perl(Encode::Locale) >= 1
@@ -39,10 +37,6 @@ BuildRequires:  perl(LWP::MediaTypes) >= 6
 BuildRequires:  perl(MIME::Base64) >= 2.1
 BuildRequires:  perl(MIME::QuotedPrint)
 BuildRequires:  perl(URI) >= 1.10
-%if %{with perl_HTTP_Message_enables_Clone}
-# Optional run-time:
-BuildRequires:  perl(Clone)
-%endif
 # Tests only:
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
@@ -54,11 +48,9 @@ BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(URI::URL)
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
-%if %{with perl_HTTP_Message_enables_Clone}
-Recommends:     perl(Clone)
-%endif
 Recommends:     perl(IO::Compress::Brotli)
-Requires:       perl(Compress::Raw::Zlib)
+Requires:       perl(Clone) => 0.46
+Requires:       perl(Compress::Raw::Zlib) >= 2.062
 Requires:       perl(Encode) >= 3.01
 Requires:       perl(Encode::Locale) >= 1
 Requires:       perl(HTTP::Date) >= 6
@@ -75,7 +67,7 @@ Requires:       perl(URI) >= 1.10
 Conflicts:      perl-libwww-perl < 6
 
 # Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Exporter|HTTP::Date|URI)\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Clone|Exporter|HTTP::Date|URI)\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(HTTP::Headers\\)$
 # Remove private modules and unused dependencies
 %global __requires_exclude %{__requires_exclude}|^perl\\((Secret|Time::Local)\\)
@@ -134,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 27 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.44-1
+- 6.44 bump
+
 * Tue Oct 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.43-2
 - Update license to SPDX
 

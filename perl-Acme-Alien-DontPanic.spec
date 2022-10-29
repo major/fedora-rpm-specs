@@ -1,6 +1,6 @@
 Name:           perl-Acme-Alien-DontPanic
-%global cpan_version 2.6500
-Version:        2.650.0
+%global cpan_version 2.7200
+Version:        2.720.0
 Release:        1%{?dist}
 Summary:        Test module for Alien::Base
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 27 2022 Petr Pisar <ppisar@redhat.com> - 2.720.0-1
+- 2.7200 bump
+
 * Wed Aug 31 2022 Petr Pisar <ppisar@redhat.com> - 2.650.0-1
 - 2.6500 bump
 

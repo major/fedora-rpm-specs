@@ -46,11 +46,15 @@
 
 Name:		nordugrid-arc
 Version:	6.16.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
+#		Support SWIG 4.1
+#		Patch by Jitka Plesnikova <jplesnik@redhat.com> from RHBZ:
+#		https://bugzilla.redhat.com/show_bug.cgi?id=2128189
+Patch0:		nordugrid-arc-swig-4.1.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -211,6 +215,7 @@ for ARC services.
 %package gridftpd
 Summary:	ARC gridftp server
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-plugins-globus-common = %{version}-%{release}
 Requires:	%{name}-plugins-gridftp = %{version}-%{release}
 Requires:	%{name}-arcctl-service = %{version}-%{release}
 Requires:	logrotate
@@ -356,18 +361,6 @@ Requires:	%{name}-hed = %{version}-%{release}
 Requires:	%{name}-plugins-needed = %{version}-%{release}
 Requires:	%{name}-arcctl-service = %{version}-%{release}
 Requires:	logrotate
-%if %{py3default}
-Requires:	python3-isodate
-Requires:	python3-ldap
-%else
-%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 8
-Requires:	python2-isodate
-Requires:	python2-ldap
-%else
-Requires:	python-isodate
-Requires:	python-ldap
-%endif
-%endif
 Provides:	%{name}-cache-service = %{version}-%{release}
 Obsoletes:	%{name}-cache-service < 6.0.0
 Provides:	%{name}-candypond = %{version}-%{release}
@@ -807,6 +800,7 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1764,6 +1758,10 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Thu Oct 27 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.16.1-2
+- Support SWIG 4.1
+- Patch by Jitka Plesnikova <jplesnik@redhat.com> from RHBZ 2128189
+
 * Fri Sep 09 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.16.1-1
 - Update to version 6.16.1
 

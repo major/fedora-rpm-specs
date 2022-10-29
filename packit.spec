@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.61.0
+Version:        0.62.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,9 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Thu Oct 27 2022 Packit <hello@packit.dev> - 0.62.0-1
+- Fixed an issue with version and release being updated even if `--no-bump` flag was specified. Also fixed an issue when `None` appeared in release instead of a number. (#1753)
+
 * Fri Oct 21 2022 Packit <hello@packit.dev> - 0.61.0-1
 - Packit can now correctly authenticate with Bodhi 6 and therefore create Bodhi updates. 🚀 (#1746)
 - Packit now requires Python 3.9 or later. (#1745)
