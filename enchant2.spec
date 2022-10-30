@@ -191,8 +191,10 @@ find %{buildroot} -name '*.la' -delete
 %dir %{mingw32_libdir}/enchant-2/
 %{mingw32_libdir}/enchant-2/enchant_hunspell.dll
 %{mingw32_libdir}/enchant-2/enchant_hunspell.dll.a
+%if !0%{?rhel}
 %{mingw32_libdir}/enchant-2/enchant_nuspell.dll
 %{mingw32_libdir}/enchant-2/enchant_nuspell.dll.a
+%endif
 %{mingw32_libdir}/libenchant-2.dll.a
 %{mingw32_libdir}/pkgconfig/enchant-2.pc
 %{mingw32_datadir}/enchant-2/
@@ -206,8 +208,10 @@ find %{buildroot} -name '*.la' -delete
 %dir %{mingw64_libdir}/enchant-2/
 %{mingw64_libdir}/enchant-2/enchant_hunspell.dll
 %{mingw64_libdir}/enchant-2/enchant_hunspell.dll.a
+%if !0%{?rhel}
 %{mingw64_libdir}/enchant-2/enchant_nuspell.dll
 %{mingw64_libdir}/enchant-2/enchant_nuspell.dll.a
+%endif
 %{mingw64_libdir}/libenchant-2.dll.a
 %{mingw64_libdir}/pkgconfig/enchant-2.pc
 %{mingw64_datadir}/enchant-2/

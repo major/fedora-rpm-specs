@@ -1,13 +1,13 @@
-%global major_version %%(cut -d "." -f 1 <<<%{version})
 # Minimum GNOME Shell version supported
-%global min_gs_version %%(cut -d "." -f 1-3 <<<%{version})
+%global min_gs_version %%(cut -d "." -f 1 <<<%{version})
 
 %global pkg_prefix gnome-shell-extension
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell-extensions
 Version:        43.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
 License:        GPLv2+
@@ -256,6 +256,9 @@ workspaces.
 
 
 %changelog
+* Fri Oct 28 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-2
+- Adjust gnome-shell dependency
+
 * Wed Oct 26 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-1
 - Update to 43.1
 

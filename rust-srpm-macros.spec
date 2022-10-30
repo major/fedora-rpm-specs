@@ -1,5 +1,5 @@
 Name:           rust-srpm-macros
-Version:        22
+Version:        23
 Release:        %autorelease
 Summary:        RPM macros for building Rust source packages
 License:        MIT
@@ -14,8 +14,6 @@ BuildArch:      noarch
 
 %prep
 %autosetup -n rust2rpm-v%{version} -p1
-# https://pagure.io/koji/issue/659
-sed -i -e 's/i686/%%{ix86}/' data/macros.rust-srpm
 
 %install
 install -D -p -m 0644 -t %{buildroot}%{_rpmmacrodir} data/macros.rust-srpm

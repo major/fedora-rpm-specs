@@ -1,8 +1,8 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.1.0
-Release:        4%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        GPLv3
 URL:            http://nco.sourceforge.net/
@@ -110,6 +110,7 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 %{_bindir}/ncremap
 %{_bindir}/ncrename
 %{_bindir}/ncwa
+%{_bindir}/ncz2psx
 %{_mandir}/man1/ncap2.1*
 %{_mandir}/man1/ncatted.1*
 %{_mandir}/man1/ncbo.1*
@@ -136,6 +137,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Sat Oct 29 2022 Orion Poplawski <orion@nwra.com> - 5.1.1-1
+- Update to 5.1.1
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-4
 - Restrict BR: antlr and result binary ncap2 to %%java_arches
 

@@ -1,5 +1,5 @@
 Name:           i3
-Version:        4.21
+Version:        4.21.1
 Release:        %autorelease
 Summary:        Improved tiling window manager
 License:        BSD

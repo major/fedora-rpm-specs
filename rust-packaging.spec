@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           rust-packaging
-Version:        22
+Version:        23
 Release:        %autorelease
 Summary:        RPM macros for building Rust packages
 License:        MIT
@@ -11,13 +11,7 @@ License:        MIT
 URL:            https://pagure.io/fedora-rust/rust2rpm
 Source:         %{url}/archive/v%{version}/rust2rpm-v%{version}.tar.gz
 
-# upstream patch to avoid generation of architecture-specific patches
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/f0d04b0.patch
-# upstream patch to fix generation of specs without a manual patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/55998b3.patch
-# upstream patch to correctly recognize the "wasm64" target architecture
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/c026764.patch
-
+# https://pagure.io/fedora-rust/rust2rpm/pull-request/221
 Patch:          0001-Adjust-build-flags-to-allow-the-new-implementation-u.patch
 
 ExclusiveArch:  %{rust_arches}

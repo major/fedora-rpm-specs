@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit 9b4ef5fa68fe42929a5e5410165d36fcc7b2d2c7
+%global commit 47e17949d0fd95e524d4f90cc58a3fcb11bc0bae
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -62,9 +62,8 @@
 %ifarch x86_64
 %bcond_without python2_greenlet
 %endif
-# el7 does have perl-PSGI
-# el7 does have perl-Coro
 %bcond_without perl
+# el7 does have perl-Coro
 %bcond_without perlcoro
 # el7 httpd does not include mod_proxy_uwsgi
 %bcond_without mod_proxy_uwsgi
@@ -186,8 +185,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.20
-Release:        10%{?dist}
+Version:        2.0.21
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -617,7 +616,7 @@ This package contains the Carbon plugin for uWSGI (to use in graphite)
 %if %{with perl}
 %package -n uwsgi-plugin-psgi
 Summary:  uWSGI - Plugin for PSGI support
-Requires: perl-PSGI, uwsgi-plugin-common = %{version}-%{release}
+Requires: uwsgi-plugin-common = %{version}-%{release}
 
 %description -n uwsgi-plugin-psgi
 This package contains the PSGI plugin for uWSGI
@@ -1241,10 +1240,6 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch12 -p1
 %patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
 %patch18 -p1
 
 %if %{with perl} && (%{with python3} || %{with python3_other}) && %{with perlcoro}
@@ -1840,6 +1835,13 @@ exit 0
 
 
 %changelog
+* Fri Oct 28 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-2
+- Drop the perl-PSGI Requirement from the Perl plugin, it's not
+  strictly needed
+
+* Thu Oct 27 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-1
+- Update to 2.0.21
+
 * Thu Oct 06 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.20-10
 - Fix PHP 8.2 support
 

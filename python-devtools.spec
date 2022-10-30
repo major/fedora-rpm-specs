@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dev tools for Python
 
 License:        MIT
@@ -35,6 +35,8 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n python-%{pypi_name}-%{version}
+# Remove upper bound on executing version
+sed -r -i "s/(executing.*),<[^\"']/\1/" pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -w
@@ -66,6 +68,10 @@ Documentation for %{name}.
 
 
 %changelog
+* Mon Oct 10 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.9.0-2
+- Remove the upper bound on the version of “executing” (fix RHBZ#2130680,
+  fix RHBZ#2132027)
+
 * Wed Sep 07 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.0-1
 - Update to 0.9.0 rhbz#2125035
 - Fix FTBFS rhbz#2098884 rhbz#2046869

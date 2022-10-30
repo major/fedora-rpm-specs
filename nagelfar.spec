@@ -1,8 +1,8 @@
-%global versionnodot 132
+%global versionnodot 133
 
 Name:           nagelfar
-Version:        1.3.2
-Release:        2%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 Summary:        Syntax checker for Tcl
 
 License:        GPLv2+
@@ -15,12 +15,6 @@ Patch0:         use-datadir-to-store-aux-files.patch
 Patch1:         tclsh-as-shebang.patch
 # Add script to test Nagelfar installation
 Patch2:         script-to-test-install.patch
-# Fix project URL reported on GUI
-# https://sourceforge.net/p/nagelfar/code/merge-requests/9/
-Patch3:         fix-project-url-link.patch
-# Fix GPLv2 copying file and headers to point to correct FSF address
-# https://sourceforge.net/p/nagelfar/code/merge-requests/10/
-Patch4:         fix-GPLv2-copying-file-and-headers.patch
 
 BuildArch:      noarch
 
@@ -44,8 +38,6 @@ simple code coverage analysis.
 %patch1
 %patch2
 chmod +x test_nagelfar.sh
-%patch3
-%patch4
 
 %build
 
@@ -95,6 +87,9 @@ mv {doc/,}syntaxtokens.txt
 
 
 %changelog
+* Fri Oct 28 2022 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.3-1
+- Update to 1.3.3 (#2106590)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 %bcond_with          bootstrap
 %bcond_without       tests
 
-%global gh_commit    6cabb26f472dc16cc7e582db7713d1eb9c23f87c
+%global gh_commit    fb0a2c34423f7d3321dd7c42dc5fc4db905a99ac
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-modulemanager
@@ -20,7 +20,7 @@
 %global library      ModuleManager
 
 Name:           php-%{gh_project}
-Version:        2.13.0
+Version:        2.14.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -194,6 +194,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct 28 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 2.13.0-1
 - update to 2.13.0
 - raise dependency on PHP 8.0

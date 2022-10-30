@@ -31,13 +31,13 @@
 %endif
 
 Name:           suitesparse
-Version:        5.10.1
-Release:        3%{?dist}
+Version:        5.13.0
+Release:        1%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 License:        (LGPLv2+ or BSD) and LGPLv2+ and GPLv2+
 URL:            http://faculty.cse.tamu.edu/davis/suitesparse.html
-Source0:        https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v%{version}.tar.gz
+Source0:        https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -194,7 +194,6 @@ cp -a SuiteSparse-%{version} SuiteSparse64_-%{version}
 
 %build
 export AUTOCC=no
-export CC=gcc
 
 for build in SuiteSparse %{?build64:SuiteSparse64 SuiteSparse64_}
 do
@@ -203,7 +202,8 @@ do
   # TODO - Try to use upstream makefile - will build more components
   mkdir -p Doc/{AMD,BTF,CAMD,CCOLAMD,CHOLMOD,COLAMD,KLU,LDL,UMFPACK,SPQR,RBio} Include
 
-  export CFLAGS="$RPM_OPT_FLAGS -I%{_includedir}/metis"
+  %set_build_flags
+  export CFLAGS="$CFLAGS -I%{_includedir}/metis"
   export LAPACK=""
   # Set flags for ILP64 build
   if [ $build = SuiteSparse64 ]
@@ -494,6 +494,10 @@ done
 %doc SuiteSparse-%{version}/Doc/*
 
 %changelog
+* Thu Oct 27 2022 Orion Poplawski <orion@nwra.com> - 5.13.0-1
+- Update to 5.13.0
+- Use %%set_build_flags macro
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

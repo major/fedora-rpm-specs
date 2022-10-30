@@ -9,7 +9,7 @@
 Summary:    Library and tool to control NAT in UPnP-enabled routers
 Name:       miniupnpc
 Version:    2.2.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    BSD
 URL:        http://miniupnp.free.fr/
 
@@ -53,6 +53,8 @@ sed -i -e 's|build/libminiupnpc.a|build/libminiupnpc.so.%{version}|g' setup.py
 
 %build
 %cmake \
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+    -DCMAKE_SKIP_RPATH:BOOL=YES \
     -DNO_GETADDRINFO=FALSE \
     -DUPNPC_BUILD_SAMPLE=TRUE \
     -DUPNPC_BUILD_SHARED=TRUE \
@@ -68,6 +70,7 @@ sed -i -e 's|build/libminiupnpc.a|build/libminiupnpc.so.%{version}|g' setup.py
 %py3_install
 
 install -p -m 0644 -D man3/%{name}.3 %{buildroot}%{_mandir}/man3/%{name}.3
+install -p -m 0755 -D build/upnpc-shared %{buildroot}%{_bindir}/upnpc
 
 %check
 make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
@@ -75,6 +78,7 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %files
 %license LICENSE
 %doc Changelog.txt README
+%{_bindir}/upnpc
 %{_libdir}/libminiupnpc.so.17
 %{_libdir}/libminiupnpc.so.%{version}
 
@@ -92,6 +96,9 @@ make CFLAGS="%{optflags} -DMINIUPNPC_SET_SOCKET_TIMEOUT" check
 %{python3_sitearch}/miniupnpc*.so
 
 %changelog
+* Fri Oct 28 2022 Simone Caronni <negativo17@gmail.com> - 2.2.4-2
+- Restore test client binary.
+
 * Tue Oct 25 2022 Simone Caronni <negativo17@gmail.com> - 2.2.4-1
 - Update to 2.2.4.
 

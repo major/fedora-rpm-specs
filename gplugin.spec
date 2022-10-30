@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           gplugin
-Version:        0.38.1
+Version:        0.39.0
 Release:        %autorelease
 Summary:        GObject based library that implements a reusable plugin system
 
@@ -12,11 +12,11 @@ Source1:        https://downloads.sourceforge.net/pidgin/%{name}-%{version}.tar.
 Source2:        https://keybase.io/grim/pgp_keys.asc
 
 BuildRequires:  gnupg2
-BuildRequires:  meson >= 0.56.0
+BuildRequires:  meson >= 0.61.0
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
 BuildRequires:  /usr/bin/help2man
-BuildRequires:  pkgconfig(glib-2.0) >= 2.44.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.70.0
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  gettext
@@ -37,29 +37,6 @@ It has a very simple API which makes it very simple to use in your application.
 Summary:        Library for %{name}
 
 %description    libs
-%{summary}.
-
-%package        gtk3
-Summary:        GTK3 applications for %{name}
-BuildRequires:  pkgconfig(gtk+-3.0) >= 3.0.0
-Requires:       %{name}-gtk3-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Remove after F37.
-Obsoletes:      gplugin-gtk < 0.35.0-1
-# Upstream will move to GTK4 only soon.
-Provides:       deprecated()
-
-%description    gtk3
-%{summary}.
-
-%package        gtk3-libs
-Summary:        GTK3 libraries for %{name}
-Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Remove after F37.
-Obsoletes:      gplugin-gtk-libs < 0.35.0-1
-# Upstream will move to GTK4 only soon.
-Provides:       deprecated()
-
-%description    gtk3-libs
 %{summary}.
 
 %package        gtk4
@@ -87,20 +64,9 @@ Requires:       lua-lgi
 %description    loader-lua
 %{summary}.
 
-%package        loader-perl
-Summary:        Perl loader for %{name}
-BuildRequires:  perl(ExtUtils::Embed)
-BuildRequires:  perl(Glib::MakeHelper)
-BuildRequires:  perl(Glib::Object::Introspection)
-Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(Glib::Object::Introspection)
-
-%description    loader-perl
-%{summary}.
-
 %package        loader-python
 Summary:        Python loader for %{name}
-BuildRequires:  (pkgconfig(python3-embed) if python3 >= 3.8.0 else pkgconfig(python3))
+BuildRequires:  pkgconfig(python3-embed)
 BuildRequires:  pkgconfig(pygobject-3.0) >= 3.0.0
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       pkgconfig(pygobject-3.0) >= 3.0.0
@@ -113,17 +79,6 @@ Summary:        Development libraries and header files for %{name}-libs
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    devel
-%{summary}.
-
-%package        gtk3-devel
-Summary:        Development libraries and header files for %{name}-gtk3-libs
-Requires:       %{name}-gtk3-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Remove after F37.
-Obsoletes:      gplugin-gtk-devel < 0.35.0-1
-# Upstream will move to GTK4 only soon.
-Provides:       deprecated()
-
-%description    gtk3-devel
 %{summary}.
 
 %package        gtk4-devel
@@ -139,17 +94,6 @@ BuildRequires:  vala
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description    vala
-%{summary}.
-
-%package        gtk3-vala
-Summary:        Vala bindings for %{name}-gtk3-libs
-Requires:       %{name}-vala%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Remove after F37.
-Obsoletes:      gplugin-gtk-vala < 0.35.0-1
-# Upstream will move to GTK4 only soon.
-Provides:       deprecated()
-
-%description    gtk3-vala
 %{summary}.
 
 %package        gtk4-vala
@@ -192,15 +136,6 @@ sed -i -e '/install_data/,+1 d' gplugin/share/valgrind/meson.build
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GPlugin-1.0.typelib
 
-%files gtk3
-%{_bindir}/gplugin-gtk3-viewer
-%{_mandir}/man1/gplugin-gtk3-viewer.1*
-
-%files gtk3-libs
-%{_libdir}/libgplugin-gtk3.so.*
-%dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/GPluginGtk3-1.0.typelib
-
 %files gtk4
 %{_bindir}/gplugin-gtk4-viewer
 %{_mandir}/man1/gplugin-gtk4-viewer.1*
@@ -212,9 +147,6 @@ sed -i -e '/install_data/,+1 d' gplugin/share/valgrind/meson.build
 
 %files loader-lua
 %{_libdir}/gplugin/gplugin-lua.so
-
-%files loader-perl
-%{_libdir}/gplugin/gplugin-perl5.so
 
 %files loader-python
 %{_libdir}/gplugin/gplugin-python3.so
@@ -231,17 +163,6 @@ sed -i -e '/install_data/,+1 d' gplugin/share/valgrind/meson.build
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/GPlugin-1.0.gir
 
-%files gtk3-devel
-%doc %{_docdir}/gplugin-gtk3
-%{_libdir}/libgplugin-gtk3.so
-%{_includedir}/gplugin-gtk3-1.0/
-%{_libdir}/pkgconfig/gplugin-gtk3.pc
-%dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/GPluginGtk3-1.0.gir
-%dir %{_datadir}/glade
-%dir %{_datadir}/glade/catalogs
-%{_datadir}/glade/catalogs/gplugin-gtk3.xml
-
 %files gtk4-devel
 %doc %{_docdir}/gplugin-gtk4
 %{_libdir}/libgplugin-gtk4.so
@@ -255,10 +176,6 @@ sed -i -e '/install_data/,+1 d' gplugin/share/valgrind/meson.build
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/gplugin.deps
 %{_datadir}/vala/vapi/gplugin.vapi
-
-%files gtk3-vala
-%{_datadir}/vala/vapi/gplugin-gtk3.deps
-%{_datadir}/vala/vapi/gplugin-gtk3.vapi
 
 %files gtk4-vala
 %{_datadir}/vala/vapi/gplugin-gtk4.deps

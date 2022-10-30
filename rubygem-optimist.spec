@@ -1,14 +1,12 @@
 %global gem_name optimist
 
-# https://github.com/ManageIQ/optimist/issues/111
-%bcond_with check
+%bcond_without check
 
 Name:           rubygem-%{gem_name}
-Version:        3.0.0
-Release:        6%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        Commandline option parser for Ruby
 
-# https://github.com/ManageIQ/optimist/issues/112
 License:        MIT
 URL:            https://rubygems.org/gems/optimist
 Source:         https://rubygems.org/downloads/%{gem_name}-%{version}.gem
@@ -27,14 +25,16 @@ BuildArch:      noarch
 
 %package doc
 Summary:        Documentation for %{name}
-Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
+Requires:       %{name} = %{version}-%{release}
 
 %description doc
 %{summary}.
 
+
 %prep
-%autosetup -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version}
+
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -44,25 +44,38 @@ gem build ../%{gem_name}-%{version}.gemspec
 mkdir -p %{buildroot}%{gem_dir}
 cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 
-rm -vr %{buildroot}%{gem_instdir}/{.gitignore,.travis.yml,test}
-rm -v %{buildroot}%{gem_cache}
-
 %if %{with check}
+
 %check
-ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+# https://github.com/ManageIQ/optimist/issues/111
+ruby -Ilib:test -e '$0="workaround"; Dir.glob "./test/**/*_test.rb", &method(:require)'
+
 %endif
 
 %files
-%{gem_libdir}
+%license %{gem_instdir}/LICENSE.txt
+%dir %{gem_instdir}/
+%{gem_libdir}/
 %{gem_spec}
+%exclude %{gem_cache}
+%exclude %{gem_instdir}/.gitignore
+%exclude %{gem_instdir}/.travis.yml
+%exclude %{gem_instdir}/test/
+%exclude %{gem_instdir}/Gemfile
+%exclude %{gem_instdir}/Rakefile
+%exclude %{gem_instdir}/%{gem_name}.gemspec
 
 %files doc
-%doc %{gem_docdir}
-%dir %{gem_instdir}
-%doc %{gem_instdir}/{README.md,History.txt,FAQ.txt}
-%{gem_instdir}/{Gemfile,Rakefile,%{gem_name}.gemspec}
+%doc %{gem_docdir}/
+%doc %{gem_instdir}/FAQ.txt
+%doc %{gem_instdir}/History.txt
+%doc %{gem_instdir}/README.md
+
 
 %changelog
+* Fri Oct 21 2022 František Dvořák <valtri@civ.zcu.cz> - 3.0.1-1
+- Update to 3.0.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -72,7 +72,7 @@ BuildRequires:	asciidoctor
 %if %{with_maxminddb} && 0%{?fedora}
 BuildRequires:	libmaxminddb-devel
 %endif
-%if %{with_lua} && 0%{fedora}
+%if %{with_lua} && 0%{?fedora}
 BuildRequires:	compat-lua-devel
 %endif
 Buildrequires: git-core

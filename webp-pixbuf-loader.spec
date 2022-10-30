@@ -1,5 +1,5 @@
 Name:           webp-pixbuf-loader
-Version:        0.0.6
+Version:        0.0.7
 Release:        %autorelease
 Summary:        WebP image loader for GTK+ applications
 
@@ -27,6 +27,9 @@ webp-pixbuf-loader contains a plugin to load WebP images in GTK+ applications
 
 %install
 %meson_install
+
+%check
+%meson_test
 
 %files
 %license LICENSE.LGPL-2

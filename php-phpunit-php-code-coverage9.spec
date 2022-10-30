@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    aa94dc41e8661fe90c7316849907cba3007b10d8
+%global gh_commit    12fddc491826940cf9b7e88ad9664cf51f0f6d0a
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.17
+Version:        9.2.18
 Release:        1%{?dist}
 Summary:        PHP code coverage information
 
@@ -183,6 +183,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct 28 2022 Remi Collet <remi@remirepo.net> - 9.2.18-1
+- update to 9.2.18
+
 * Thu Sep  1 2022 Remi Collet <remi@remirepo.net> - 9.2.17-1
 - update to 9.2.17
 

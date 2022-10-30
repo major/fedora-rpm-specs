@@ -1,6 +1,6 @@
 Name:           cjose
 Version:        0.6.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        C library implementing the Javascript Object Signing and Encryption (JOSE)
 
 License:        MIT
@@ -8,6 +8,10 @@ URL:            https://github.com/cisco/cjose
 Source0:  	https://github.com/cisco/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch1: concatkdf.patch
+
+# Patch taken from CentOS Stream:
+# https://gitlab.com/redhat/centos-stream/rpms/cjose/-/blob/c9s/0001-Define-OPENSSL_API_COMPAT-to-0x10101000L.patch
+Patch2: 0001-Define-OPENSSL_API_COMPAT-to-0x10101000L.patch
 
 BuildRequires:  gcc
 BuildRequires:  doxygen
@@ -63,6 +67,9 @@ make check || (cat test/test-suite.log; exit 1)
 
 
 %changelog
+* Fri Oct 28 2022 Stephen Gallagher <sgallagh@redhat.com> - 0.6.1-12
+- Enable build on OpenSSL 3.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    3e6f90ca7e3d02025b1d147bd8d4a89fd4ca8a1d
+%global gh_commit    851867efcbb6a1b992ec515c71cdcf20d895e9d2
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 %global ver_minor    5
 
-%global upstream_version 9.5.25
+%global upstream_version 9.5.26
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -244,6 +244,9 @@ exit $ret
 
 
 %changelog
+* Fri Oct 28 2022 Remi Collet <remi@remirepo.net> - 9.5.26-1
+- update to 9.5.26
+
 * Sun Sep 25 2022 Remi Collet <remi@remirepo.net> - 9.5.25-1
 - update to 9.5.25
 - raise dependency on sebastian/comparator 4.0.8

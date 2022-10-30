@@ -9,7 +9,7 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        1.1.7
+Version:        1.1.8
 Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
@@ -70,6 +70,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Fri Oct 28 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.8-1
+- Update to 1.1.8-1
+
 * Wed Oct 12 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.7-1
 - Update to 1.1.7-1
 

@@ -1,5 +1,5 @@
 Name:          lnav
-Version:       0.11.0
+Version:       0.11.1
 Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 License:       BSD
@@ -15,7 +15,7 @@ BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: openssh
 BuildRequires: openssl-devel
-BuildRequires: pcre-devel
+BuildRequires: pcre2-devel
 BuildRequires: readline-devel
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
@@ -42,13 +42,18 @@ quickly and efficiently zero in on problems.
 
 
 %files
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS.md README.md
 %license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 
 %changelog
+* Fri Oct 28 2022 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.1-1
+- resolves: #2128322
+  updated to 0.11.1
+  migrated to pcre2
+
 * Sun Sep 25 2022 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.0-1
 - resolves: #2118081
   updated to 0.11.0

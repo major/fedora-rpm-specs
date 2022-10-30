@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.9
-%global runtime_version 6.0.9
+%global host_version 6.0.10
+%global runtime_version 6.0.10
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.109
+%global sdk_version 6.0.110
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -88,12 +88,10 @@ Patch100:       runtime-arm64-lld-fix.patch
 Patch101:       runtime-mono-remove-ilstrip.patch
 # https://github.com/dotnet/runtime/pull/66594
 Patch102:       runtime-66594-s390x-debuginfo.patch
-# https://github.com/dotnet/runtime/pull/74383
-Patch103:       runtime-fedora-38-rid.patch
 # https://github.com/dotnet/runtime/pull/73065
-Patch104:       runtime-clang15-support.patch
+Patch103:       runtime-clang15-support.patch
 # https://github.com/dotnet/runtime/pull/60675
-Patch105:       runtime-strerror.patch
+Patch104:       runtime-strerror.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -407,7 +405,6 @@ pushd src/runtime
 %patch102 -p1
 %patch103 -p1
 %patch104 -p1
-%patch105 -p1
 popd
 
 pushd src/fsharp
@@ -647,6 +644,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Fri Oct 28 2022 Omair Majid <omajid@redhat.com> - 6.0.110-1
+- Update to .NET SDK 6.0.110 and Runtime 6.0.10
+
 * Wed Oct 12 2022 Omair Majid <omajid@redhat.com> - 6.0.109-1
 - Update to .NET SDK 6.0.109 and Runtime 6.0.9
 

@@ -65,7 +65,7 @@
 Name:		root
 Version:	6.26.08
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -181,6 +181,9 @@ Patch34:	%{name}-threadsh1-avoid-heap-use-after-free.patch
 Patch35:	%{name}-PyROOT-code.h-must-not-be-included-directly-in-3.11.patch
 Patch36:	%{name}-PyROOT-Prevent-cast-error-when-calling-PyTuple_SET_I.patch
 Patch37:	%{name}-Guard-gInterpreterMutex-in-TClingClassInfo-IsEnum.patch
+#		Avoid race condition between C++ an Python version of test
+#		https://github.com/root-project/root/pull/11643
+Patch38:	%{name}-avoid-race-condition-tutorial-roofit-rf512.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	devtoolset-8-toolchain
@@ -2047,6 +2050,7 @@ This package contains an ntuple extension for ROOT 7.
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
+%patch38 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -3983,6 +3987,9 @@ fi
 %endif
 
 %changelog
+* Fri Oct 28 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.08-2
+- Avoid race condition between C++ and Python version of a roofit test
+
 * Wed Oct 19 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.08-1
 - Update to 6.26.08
 - Drop patch root-move-private-decl.patch (fixed upstream)

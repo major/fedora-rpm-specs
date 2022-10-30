@@ -1,18 +1,13 @@
 %global glib2_version 2.69.1
 
 Name:    libsoup3
-Version: 3.2.0
+Version: 3.2.1
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 
 License: LGPLv2
 URL:     https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/libsoup/3.2/libsoup-%{version}.tar.xz
-
-# Backported upstream MR to fix gnome-maps crashes
-# https://bugzilla.redhat.com/show_bug.cgi?id=2129914
-# https://gitlab.gnome.org/GNOME/libsoup/-/merge_requests/310
-Patch0: 310.patch
 
 BuildRequires: gcc
 BuildRequires: gettext

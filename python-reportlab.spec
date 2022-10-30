@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:           python-%{pypi_name}
-Version:        3.6.11
+Version:        3.6.12
 Release:        1%{?dist}
 Summary:        Library for generating PDFs and graphics
 License:        BSD and GPLv2+
@@ -104,6 +104,9 @@ cp -a build/lib.%{python3_platform}-cpython-%{python3_version_nodots}/reportlab 
 %{python3_sitearch}/reportlab-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Oct 28 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.6.12-1
+- Release 3.6.12
+
 * Sat Aug 06 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.6.11-1
 - Release 3.6.11
 

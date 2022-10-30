@@ -3,9 +3,9 @@
 # Coverity scan can override this to 0, to skip checking in gtk-doc generated code
 %{!?with_docs: %global with_docs 1}
 
-Name: libsoup
-Version: 2.74.2
-Release: 3%{?dist}
+Name:    libsoup
+Version: 2.74.3
+Release: 1%{?dist}
 Summary: Soup, an HTTP library implementation
 
 License: LGPLv2
@@ -112,6 +112,9 @@ This package contains developer documentation for %{name}.
 %endif
 
 %changelog
+* Fri Oct 28 2022 David King <amigadave@amigadave.com> - 2.74.3-1
+- Update to 2.74.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.74.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

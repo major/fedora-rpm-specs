@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    b34c0e9a93f2cd688c62ce4dfcc69e13b6ce7aa4
+%global gh_commit    e8d9087229bcdbc5867594d3098091412f1130cf
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.4.3
+%global upstream_version 2.4.4
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -248,6 +248,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Fri Oct 28 2022 Remi Collet <remi@remirepo.net> - 2.4.4-1
+- update to 2.4.4
+
 * Sat Oct 15 2022 Remi Collet <remi@remirepo.net> - 2.4.3-1
 - update to 2.4.3
 

@@ -12,7 +12,7 @@
 Name:    kate
 Summary: Advanced Text Editor
 Version: 22.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -74,6 +74,7 @@ BuildRequires: libappstream-glib
 BuildRequires: xorg-x11-server-Xvfb
 %endif
 
+Requires: %{name}-libs = %{version}-%{release}
 # not sure if we want -plugins by default, let's play it safe'ish
 # and make it optional
 Recommends: %{name}-plugins%{?_isa} = %{version}-%{release}
@@ -82,6 +83,11 @@ Recommends: %{name}-plugins%{?_isa} = %{version}-%{release}
 Conflicts: kde-l10n < 17.03
 
 %description
+%{summary}.
+
+%package libs
+Summary: Private runtime libraries for %{name}
+%description libs
 %{summary}.
 
 %package plugins
@@ -100,6 +106,7 @@ Summary: Text Editor
 License: LGPLv2+
 # translations moved here
 Conflicts: kde-l10n < 17.03
+Requires: %{name}-libs = %{version}-%{release}
 %description -n kwrite
 %{summary}.
 
@@ -147,8 +154,6 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/icons/hicolor/*/apps/kate.*
 %{_kf5_metainfodir}/org.kde.kate.appdata.xml
 %{_kf5_qtplugindir}/ktexteditor/cmaketoolsplugin.so
-# Marc: I am not sure this private .so belongs here
-%{_kf5_libdir}/libkateprivate.so.%{version}
 %{_mandir}/man1/kate.1*
 
 # katesessions applet
@@ -157,6 +162,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.katesessions/
 %{_kf5_datadir}/plasma/services/org.kde.plasma.katesessions.operations
 %{_kf5_metainfodir}/org.kde.plasma.katesessions.appdata.xml
+
+%files libs
+%{_kf5_libdir}/libkateprivate.so.%{version}
 
 %files plugins -f plugins.lang
 %{_kf5_datadir}/kateproject/
@@ -197,6 +205,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Oct 28 2022 Rex Dieter <rdieter@gmail.com> - 22.08.2-2
+- -libs subpkg for private library (#2137398)
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
 - 22.08.2
 

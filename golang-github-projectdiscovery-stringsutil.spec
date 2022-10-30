@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/stringsutil
 %global goipath         github.com/projectdiscovery/stringsutil
-Version:                0.0.1
+Version:                0.0.2
 
 %gometa
 
