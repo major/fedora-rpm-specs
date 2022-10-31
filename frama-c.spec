@@ -13,7 +13,7 @@
 
 Name:           frama-c
 Version:        25.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Manganese
@@ -243,6 +243,11 @@ chmod 0644 src/plugins/value/domains/apron/*.ml
 rm -f %{buildroot}%{_datadir}/frama-c/analysis-scripts/flamegraph.pl
 ln -s %{_bindir}/flamegraph.pl %{buildroot}%{_datadir}/frama-c/analysis-scripts
 
+# Fix a path in e-acsl-gcc.sh
+if [ "%{_lib}" != "lib" ]; then
+    sed -i '/EACSL_LIB/s,/lib/,/%{_lib}/,' %{buildroot}%{_bindir}/e-acsl-gcc.sh
+fi
+
 # FIXME: tests only pass on x86_64
 %ifarch x86_64
 %check
@@ -281,6 +286,9 @@ make PTESTS_OPTS=-error-code tests
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Sat Oct 29 2022 Jerry James <loganjerry@gmail.com> - 25.0-6
+- Fix a path in e-acsl-gcc.sh (bz 2137875)
+
 * Tue Oct 18 2022 Jerry James <loganjerry@gmail.com> - 25.0-5
 - Rebuild for ocaml-stdint 0.7.1
 

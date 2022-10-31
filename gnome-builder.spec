@@ -16,7 +16,7 @@
 
 Name:           gnome-builder
 Version:        43.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IDE for writing GNOME-based software
 
 # Note: Checked as of 3.20.2
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Sat Oct 29 2022 David King <amigadave@amigadave.com> - 43.2-2
+- Rebuild against vte
+
 * Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 43.2-1
 - Update to 43.2
 

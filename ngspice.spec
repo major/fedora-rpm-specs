@@ -13,20 +13,20 @@
 %global	userelease	1
 %endif
 
-%global	mainver	37
-%global	docver		37
+%global	mainver	38
+%global	docver		38
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	mainrel	2
+%global	mainrel	1
 
 %if 0%{?usegitbare} >= 1
-%global	gitcommit	cc285741f58bf6a9f37988199b09f49f7425144f
-%global	gitdate	20220430
+%global	gitcommit	c8ac00e87a524b756f0548cfbb249bcf79c5ec79
+%global	gitdate	20221028
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20220502
-%global	tarballtime	1812
+%global	tarballdate	20221029
+%global	tarballtime	2236
 %endif
 
 %if 0%{?userelease} >= 1
@@ -450,6 +450,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Sat Oct 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 38-1
+- Update to 38
+
 * Wed Oct 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 37-2
 - Split out codemodel files, and make ngspice, libngspice require codemodel
 - Move scripts to %%_libdir, they were arch-dependent actually

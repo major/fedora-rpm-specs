@@ -158,11 +158,6 @@ popd >/dev/null
 # Needed for correct Python wheel version
 export VERSION='%{version}'
 %set_build_flags
-%ifarch s390x
-# Compiling tests fails on s390x (big-endian) with -Werror=stringop-overflow
-# https://github.com/google/flatbuffers/issues/7366
-export CXXFLAGS="${CXXFLAGS} -Wno-error=stringop-overflow"
-%endif
 %cmake -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
 %if %{with tests}

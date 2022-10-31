@@ -1,16 +1,16 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Gives a fake chroot environment
 License:        LGPLv2+
 URL:            https://github.com/dex4er/fakechroot
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         https://github.com/dex4er/fakechroot/commit/b42d1fb9538f680af2f31e864c555414ccba842a.patch
-Patch2:         https://github.com/dex4er/fakechroot/pull/85/commits/534e6d555736b97211523970d378dfb0db2608e9.patch
-Patch3:         https://github.com/dex4er/fakechroot/pull/85/commits/75d7e6fa191c11a791faff06a0de86eaa7801d05.patch
-Patch4:         https://github.com/dex4er/fakechroot/pull/85/commits/693a3597ea7fccfb62f357503ff177bd3e3d5a89.patch
-Patch5:         https://github.com/dex4er/fakechroot/pull/86.patch
-Patch6:         fix_test_on_32bits.patch
+Patch2:         https://github.com/dex4er/fakechroot/pull/80.patch
+Patch3:         https://github.com/dex4er/fakechroot/pull/100.patch
+Patch4:         https://github.com/dex4er/fakechroot/pull/104.patch
+Patch5:         https://github.com/dex4er/fakechroot/pull/93.patch
+Patch9:         fix_test_on_32bits.patch
 
 
 
@@ -83,6 +83,21 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Sat Oct 29 2022 Sérgio Basto <sergio@serjux.com> - 2.20.1-12
+- All changes to fakechroot we carry in Debian for glibc >= 2.34 #104
+  check return value of dladdr #70
+  glibc 2.33+ compatibility #85
+  Wrap fstatat and fstatat64 (glibc 2.33) #86
+  src/lckpwdf.c: create an empty /etc/.pwd.lock #95
+  Wrap all functions accessing /etc/passwd, /etc/group and /etc/shadow for glibc >= 2.34 #98
+  Stat fix compilation #73 is also included
+  The strcpy writes the terminating null byte as well. #79 is also included
+  as note #98 for glibc 2.32 added src/__nss_files_fopen.c and later for glibc 2.34 remove it
+- Fix typo in AC_PATH_PROG for ldconfig #80 is not included but it is a trivial fix
+- Fix issue #92 #93 not included
+- rel2abs: Only call getcwd_real for relative paths #100 not included
+- fix_test_on_32bits.patch (which strated to fail on F36+)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

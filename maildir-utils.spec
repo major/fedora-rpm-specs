@@ -1,15 +1,15 @@
 %define _legacy_common_support 1
 
 Name:           maildir-utils
-Version:        1.8.9
-Release:        1%{?dist}
+Version:        1.8.11
+Release:        %autorelease
 Summary:        A command-line mail organization utility
 
 License:        GPLv3+
 URL:            http://www.djcbsoftware.nl/code/mu/index.html
 Source0:        https://github.com/djcb/mu/releases/download/v%{version}/mu-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -40,15 +40,9 @@ Summary:        Guile bindings for mu (maildir-utils)
 BuildRequires:  guile22-devel
 Requires:       guile22
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-guile-devel < 1.8.10-1
 %description guile
 This package contains the Guile bindings for mu
-(maildir-utils).
-
-%package guile-devel
-Summary:        Mu-Guile development files
-Requires:       %{name}-guile%{?_isa} = %{version}-%{release}
-%description guile-devel
-This package contains the Guile development files for mu
 (maildir-utils).
 
 %prep
@@ -93,63 +87,9 @@ rm %{buildroot}/%{_libdir}/libguile-mu.la
 %{_infodir}/mu-guile.info.gz
 %{_datadir}/mu/
 %{_libdir}/libguile-mu.so.0*
+%{_libdir}/libguile-mu.so
 %{_datadir}/guile/site/2.2/mu.scm
 %{_datadir}/guile/site/2.2/mu/
 
-%files guile-devel
-%{_libdir}/libguile-mu.so
-
-
 %changelog
-* Thu Sep 01 2022 Jani Juhani Sinervo <jani@sinervo.fi> - 1.8.9-1
-- Update to 1.8.9
-
-* Thu Sep 01 2022 Jakub Kadlcik <frostyx@email.cz> - 1.8.5-1
-- Update to a new upstream version
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Oct 01 2021 Jani Juhani Sinervo <jani@sinervo.fi> - 1.6.6-1
-- Update to latest upstream version
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 30 2021 Jani Juhani Sinervo <jani@sinervo.fi> - 1.4.15
-- Update to latest upstream version
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 19 2020 Maximiliano Sandoval <msandova@protonmail.com> - 1.4.10-1
-- Update to 1.4.10
-
-* Thu Apr 23 2020 Jani Juhani Sinervo <jani@sinervo.fi> - 1.4.1-1
-- Update to 1.4.1
-- Fix replying to mail (rhbz 1823325)
-
-* Sun Mar 01 2020 Jani Juhani Sinervo <jani@sinervo.fi> - 1.3.9-1.20200229git17f38dc
-- Update to 1.3.9
-- Fix build issue on rawhide
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Sep 08 2019 Maximiliano Sandoval <msandova@protonmail.com> - 1.3.3-1
-- Update to 1.3.3, removed patch merged upstream
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Jul 06 2019 Omair Majid <omajid@redhat.com> - 1.3.1-2
-- Fix mu4e-news by fixing mu4e's documentation root path
-
-* Wed Jun 19 2019 Jani Juhani Sinervo <jani@sinervo.fi> - 1.3.1-1
-- Initial spec
+%autochangelog

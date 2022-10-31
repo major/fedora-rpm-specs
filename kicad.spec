@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        6.0.8
-Release:        5%{?dist}
+Version:        6.0.9
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -13,8 +13,6 @@ Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{v
 Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
 Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
 Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
-
-Patch1:         swig.patch
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
@@ -92,8 +90,6 @@ Documentation for KiCad.
 
 %prep
 %setup -q -a 1 -a 2 -a 3 -a 4 -a 5
-
-%patch1 -p1
 
 
 %build
@@ -226,6 +222,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Oct 28 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.9-1
+- Update to 6.0.9
+
 * Fri Oct 21 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.8-5
 - Remove wxWidgets work-around
 

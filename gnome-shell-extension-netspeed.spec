@@ -8,7 +8,7 @@
 
 Name:           gnome-shell-extension-netspeed
 Version:        3.32
-Release:        0.5.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.6.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        A gnome-shell extension to show speed of the internet
 License:        GPLv3+
 URL:            https://github.com/hedayaty/NetSpeed
@@ -27,7 +27,7 @@ Add an Internet speed indicator to status area.
 %prep
 %setup -q -n NetSpeed-%{commit}
 sed -i -e 's|LANGUAGES=ca de en_CA fa fr it pt_BR ru zh_CN zh_TW es_ES nl_NL ru tr zh_CN|LANGUAGES=ca de en_CA es_ES fa fr hu it nl pt_BR ru tr zh_CN zh_TW|' Makefile
-#sed -i -e 's|"41"|"41", "42"|' metadata.json
+sed -i -e 's|"42"|"42", "43"|' metadata.json
 
 %build
 %make_build
@@ -61,6 +61,9 @@ rm -rf %{builddir}/%{_datadir}/gnome-shell/extensions/%{uuid}/schemas/
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.netspeed.gschema.xml
 
 %changelog
+* Sat Oct 29 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.32-0.6.20220421git5a96082
+- Add gnome 43 Support
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-0.5.20220421git5a96082
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

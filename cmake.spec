@@ -61,21 +61,21 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 3
-%global minor_version 24
+%global minor_version 25
 # Set to RC version if building RC, else %%{nil}
-#global rcsuf %%{nil}
+%global rcsuf rc2
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 0.1
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
 %global orig_name cmake
 
 Name:           %{orig_name}%{?name_suffix}
-Version:        %{major_version}.%{minor_version}.1
+Version:        %{major_version}.%{minor_version}.0
 Release:        %{baserelease}%{?relsuf}%{?dist}
 Summary:        Cross-platform make system
 
@@ -443,9 +443,9 @@ find %{buildroot}%{_bindir} -type f -or -type l -or -xtype l | \
 %if %{with test}
 %check
 pushd %{_vpath_builddir}
-# CTestTestUpload and BundleUtilities require internet access
+# CTestTestUpload, BundleUtilities, ExternalProject, and CTest.UpdateGIT require internet access
 # CPackComponentsForAll-RPM-IgnoreGroup failing wih rpm 4.15 - https://gitlab.kitware.com/cmake/cmake/issues/19983
-NO_TEST="CTestTestUpload|BundleUtilities"
+NO_TEST="CTestTestUpload|BundleUtilities|ExternalProject|CTest.UpdateGIT"
 # Likely failing for GCC 12
 NO_TEST="$NO_TEST|CustomCommand|CMakeLib.testCTestResourceAllocator"
 NO_TEST="$NO_TEST|CMakeLib.testCTestResourceSpec|RunCMake.PositionIndependentCode"
@@ -529,6 +529,13 @@ popd
 
 
 %changelog
+* Sat Oct 29 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.1.rc2
+- cmake-3.25.0-rc2
+  Fixes rhbz#2062783
+
+* Sat Oct 29 2022 Björn Esser <besser82@fedoraproject.org> - 3.24.2-1
+- cmake-3.24.2
+
 * Thu Aug 18 2022 Björn Esser <besser82@fedoraproject.org> - 3.24.1-1
 - cmake-3.24.1
 

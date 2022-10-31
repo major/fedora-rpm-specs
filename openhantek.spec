@@ -1,6 +1,6 @@
 Name:           openhantek
-Version:        3.3.0.1
-Release:        2%{?dist}
+Version:        3.3.1
+Release:        1%{?dist}
 Summary:        Hantek and compatible USB digital signal oscilloscope
 
 License:        GPLv3+ and GPLv2+ and ASL 2.0
@@ -56,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/OpenHantek.desktop
 
 
 %changelog
+* Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.1-1
+- Update to 3.3.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

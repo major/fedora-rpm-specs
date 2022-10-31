@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPLv2+ and LGPLv2+
@@ -57,7 +57,6 @@ BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  libv4l-devel
 BuildRequires:  libXext-devel
 BuildRequires:  libXmu-devel
-BuildRequires:  libunicap-devel
 BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
 BuildRequires:  opencv-devel
 BuildRequires:  openssl-devel
@@ -240,6 +239,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Sat Oct 29 2022 Rich Mattes <richmattes@gmail.com> - 3.1.0-44
+- Remove libunicap buildrequires (Fixes: #2130273)
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-43
 - Change to BR: libphidget22-devel
 

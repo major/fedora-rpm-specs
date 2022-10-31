@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 
 Name:           ocaml-stdint
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        Various signed and unsigned integers for OCaml
 
@@ -11,8 +11,6 @@ Source0:        %{url}/releases/download/%{version}/stdint-%{version}.tbz
 # Fix or disable broken tests
 # https://github.com/andrenth/ocaml-stdint/issues/59
 Patch0:         %{name}-test.patch
-# Replace failwith with caml_failwith; fixes i686 FTFBS
-Patch1:         %{name}-failwith.patch
 
 BuildRequires:  ocaml >= 4.03
 BuildRequires:  ocaml-dune >= 1.10
@@ -71,6 +69,10 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Sat Oct 29 2022 Jerry James <loganjerry@gmail.com> - 0.7.2-1
+- Version 0.7.2
+- Drop upstreamed -failwith patch
+
 * Sat Oct 15 2022 Jerry James <loganjerry@gmail.com> - 0.7.1-1
 - Version 0.7.1
 - Drop upstreamed -lognot patch

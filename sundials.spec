@@ -21,7 +21,7 @@
 %endif
 
 ## BLAS ##
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %global blaslib flexiblas
 %global blasvar %{nil}
 %else
@@ -40,7 +40,7 @@
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %global with_hypre 1
 %ifnarch s390x
-%global with_openmpicheck 1
+%global with_openmpicheck 0
 %global with_mpichcheck 1
 %endif
 %endif
@@ -70,7 +70,7 @@
 Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    5.8.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -106,7 +106,7 @@ BuildRequires: SuperLUMT-devel
 %endif
 
 # KLU support
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch s390x x86_64 %{power64} aarch64
 BuildRequires: suitesparse64-devel
 %endif
@@ -291,7 +291,7 @@ export CFLAGS="%{build_cflags}"
 export CFLAGS="%{build_fflags}"
 %cmake3 -B sundials-%{version}/build -S sundials-%{version} \
 %endif
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu64.so \
@@ -411,7 +411,7 @@ export CFLAGS="%{build_cflags}"
 export CFLAGS="%{build_fflags}"
 %cmake3 -B buildopenmpi_dir/build -S buildopenmpi_dir \
 %endif
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu64.so \
@@ -552,7 +552,7 @@ export CFLAGS="%{build_cflags}"
 export CFLAGS="%{build_fflags}"
 %cmake3 -B buildmpich_dir/build -S buildmpich_dir \
 %endif
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
  -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu64.so \
@@ -664,7 +664,7 @@ rm -f %{buildroot}%{_includedir}/sundials/NOTICE
 %check
 %if 0%{?with_openmpi}
 %if 0%{?with_openmpicheck}
-pushd buildopenmpi_dir/build
+%define _vpath_builddir buildopenmpi_dir/build
 %{_openmpi_load}
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
@@ -674,13 +674,12 @@ ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 export OMPI_MCA_rmaps_base_oversubscribe=yes
 %ifarch aarch64 %{power64}
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
+%ctest -- -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
 %else
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
+%ctest -- -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
 %endif
 %endif
 %{_openmpi_unload}
-popd
 %endif
 ## if with_openmpicheck
 %endif
@@ -688,44 +687,38 @@ popd
 
 %if 0%{?with_mpich}
 %if 0%{?with_mpichcheck}
-pushd buildmpich_dir/build
+%define _vpath_builddir buildmpich_dir/build
 %{_mpich_load}
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-export OMPI_MCA_rmaps_base_oversubscribe=yes
 ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-export OMPI_MCA_rmaps_base_oversubscribe=yes
 %ifarch aarch64 %{power64}
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
+%ctest -- -E 'test_fsunlinsol_dense_mod|test_sunnonlinsol_petscsnes'
 %else
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
+%ctest -- -E 'test_sunnonlinsol_petscsnes|test_sunlinsol_klu'
 %endif
 %endif
 %{_mpich_unload}
-popd
 %endif
 ## if with_mpichcheck
 %endif
 ## if with_mpich
 
 %if 0%{?with_sercheck}
-pushd sundials-%{version}/build
+%define _vpath_builddir sundials-%{version}/build
 %if %{with debug}
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-export OMPI_MCA_rmaps_base_oversubscribe=yes
 ctest3 --force-new-ctest-process -VV -j1 --output-on-failure --debug
 %else
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
-export OMPI_MCA_rmaps_base_oversubscribe=yes
 %ifarch aarch64 %{power64}
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_fsunlinsol_dense_mod'
+%ctest -- -E 'test_fsunlinsol_dense_mod'
 %else
-ctest3 --force-new-ctest-process -j1 --rerun-failed --output-on-failure -E 'test_sunlinsol_klu'
+%ctest -- -E 'test_sunlinsol_klu'
 %endif
 %endif
-popd
 %endif
 ## if with_sercheck
 
@@ -998,6 +991,10 @@ popd
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Sat Oct 29 2022 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-7
+- Use multiple jobs for testing
+- Disable OpenMPI tests
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

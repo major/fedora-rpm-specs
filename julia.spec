@@ -354,25 +354,25 @@ pushd %{buildroot}%{_libdir}/julia
         rm -f libopenblas64_.so
         ln -s ../libopenblasp64_.so.0 libopenblas64_.so
         ln -s ../libopenblasp64_.so.0 libopenblas64_.so.0
-        # Raise an error in case of failure
-        realpath -e libopenblas64_.so
-        realpath -e libopenblas64_.so.0
+        # Raise an error in case of changing files
+        test -e %{_libdir}/libopenblas64_.so
+        test -e %{_libdir}/libopenblas64_.so.0
 
         # Julia creates symlinks to SuiteSparse libraries linking to libopenblas rather than libopenblas64_
         for LIB in spqr umfpack colamd cholmod ccolamd camd amd suitesparseconfig btf klu ldl rbio
         do
             rm -f lib${LIB}.so
             ln -s ../$(readelf -d %{_libdir}/lib${LIB}64_.so | sed -n '/SONAME/s/.*\(lib[^ ]*\.so\.[0-9]*\).*/\1/p') lib${LIB}.so
-            # Raise an error in case of failure
-            realpath -e lib${LIB}.so
+            # Raise an error in case of changing files
+            test -e %{_libdir}/lib${LIB}.so
         done
     %else
         rm -f libopenblas.so
         ln -s ../libopenblasp.so.0 libopenblas.so
         ln -s ../libopenblasp.so.0 libopenblas.so.0
-        # Raise an error in case of failure
-        realpath -e libopenblas.so
-        realpath -e libopenblas.so.0
+        # Raise an error in case of changing files
+        test -e %{_libdir}/libopenblas.so
+        test -e %{_libdir}/libopenblas.so.0
     %endif
 popd
 
@@ -388,8 +388,8 @@ pushd %{buildroot}%{_libdir}/julia
     # Needed when USE_SYSTEM_CSL=1
     # https://github.com/JuliaLang/julia/issues/39637
     ln -sf ../libgcc_s.so.1 libgcc_s.so.1
-    # Raise an error in case of failure
-    realpath -e libgcc_s.so.1
+    # Raise an error in case of changing files
+    test -e %{_libdir}/libgcc_s.so.1
 popd
 
 # Use CA certificates from ca-certificates

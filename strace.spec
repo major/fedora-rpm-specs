@@ -1,6 +1,6 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 5.19
+Version: 6.0
 Release: 1%{?dist}
 # The test suite is GPLv2+, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
@@ -69,7 +69,7 @@ received by a process.
 %setup -q
 echo -n %version-%release > .tarball-version
 echo -n 2022 > .year
-echo -n 2022-07-19 > doc/.strace.1.in.date
+echo -n 2022-10-16 > doc/.strace.1.in.date
 echo -n 2022-01-01 > doc/.strace-log-merge.1.in.date
 
 %build
@@ -98,13 +98,25 @@ done
 wait
 
 %check
-%{buildroot}%{_bindir}/strace -V
-%make_build -k check VERBOSE=1
-echo 'BEGIN OF TEST SUITE INFORMATION'
-tail -n 99999 -- tests*/test-suite.log tests*/ksysent.gen.log
-find tests* -type f -name '*.log' -print0 |
-	xargs -r0 grep -H '^KERNEL BUG:' -- ||:
-echo 'END OF TEST SUITE INFORMATION'
+is_x86=
+%ifarch %ix86
+is_x86=1
+%endif
+
+is_latest_fedora=
+%if 0%{?fedora} >= 35
+is_latest_fedora=1
+%endif
+
+if [ "${is_x86}${is_latest_fedora}" != 11 ]; then
+	%{buildroot}%{_bindir}/strace -V
+	%make_build -k check VERBOSE=1
+	echo 'BEGIN OF TEST SUITE INFORMATION'
+	tail -n 99999 -- tests*/test-suite.log tests*/ksysent.gen.log
+	find tests* -type f -name '*.log' -print0 |
+		xargs -r0 grep -H '^KERNEL BUG:' -- ||:
+	echo 'END OF TEST SUITE INFORMATION'
+fi
 
 %files
 %maybe_use_defattr
@@ -114,6 +126,9 @@ echo 'END OF TEST SUITE INFORMATION'
 %{_mandir}/man1/*
 
 %changelog
+* Sat Oct 29 2022 Dmitry V. Levin <ldv@strace.io> - 6.0-1
+- v5.19 -> v6.0.
+
 * Fri Aug 12 2022 Dmitry V. Levin <ldv@strace.io> - 5.19-1
 - v5.18 -> v5.19.
 

@@ -1,7 +1,7 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.26.0
+Version:        0.27.0
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
@@ -16,6 +16,7 @@ ExcludeArch:    %{ix86}
 # Tests started to fail from 0.25
 # Waiting for upstream to look at that, meanwhile stick to 0.24 on these arches
 # https://github.com/mreineck/ducc/issues/3
+# Fedora#2138554
 ExcludeArch:    aarch64 s390x
 
 BuildRequires:  gcc-c++

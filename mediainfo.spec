@@ -1,8 +1,8 @@
 %global libzen_version  0.4.39
 
 Name:           mediainfo
-Version:        22.06
-Release:        3%{?dist}
+Version:        22.09
+Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 Summary(ru):    Предоставляет полную информацию о медиа файле (CLI)
 
@@ -256,6 +256,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.09-1
+- Update to 22.09
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 22.06-3
 - Rebuild with wxWidgets 3.2
 

@@ -1,64 +1,59 @@
+Name:    krb5-auth-dialog
 Summary: Kerberos 5 authentication dialog
-Name: krb5-auth-dialog
-Version: 3.26.1
-Release: 13%{?dist}
+Version: 43.0
+Release: 1%{?dist}
 License: GPLv2+
-URL: https://honk.sigxcpu.org/piki/projects/krb5-auth-dialog/
-Source0: https://download.gnome.org/sources/%{name}/3.26/%{name}-%{version}.tar.xz
+URL:     https://honk.sigxcpu.org/piki/projects/krb5-auth-dialog/
+Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{version}.tar.xz
 
 # avoid annoying notifications
 Patch0: krb5-auth-dialog-autostart.patch
 Patch1: Improve-auto-detection.patch
 
-BuildRequires: krb5-devel
-BuildRequires: perl(XML::Parser), gettext
+BuildRequires: gcc
+BuildRequires: gettext
 BuildRequires: intltool
 BuildRequires: itstool
+BuildRequires: meson
+BuildRequires: pam-devel
+BuildRequires: pkgconfig(gcr-3)
 BuildRequires: pkgconfig(gtk+-3.0)
-# libnotify support is required for configure, but not used.
-BuildRequires: pkgconfig(libnotify)
-BuildRequires: pkgconfig(libnm)
-BuildRequires: autoconf automake libtool
-BuildRequires: make
+BuildRequires: pkgconfig(krb5)
 
 %description
 This package contains a dialog that warns the user when their Kerberos
 tickets are about to expire and lets them renew them.
 
 %prep
-%setup -q
-%patch0 -p1 -b .autostart
-%patch1 -p1 -b .autodetect
-
-autoreconf -i -f
+%autosetup -p1
 
 %build
-%configure --disable-static
-make %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-%make_install
-
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
+%meson_install
 
 %find_lang %{name} --with-gnome
 
 %files -f %name.lang
-%doc COPYING AUTHORS NEWS README
+%license COPYING
+%doc AUTHORS NEWS README.md
 %{_bindir}/krb5-auth-dialog*
-%{_datadir}/appdata/krb5-auth-dialog.appdata.xml
-%{_datadir}/applications/krb5-auth-dialog.desktop
+%{_datadir}/applications/org.gnome.KrbAuthDialog.desktop
 %{_datadir}/dbus-1/services/org.gnome.KrbAuthDialog.service
-%{_datadir}/GConf/gsettings/org.gnome.KrbAuthDialog.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.KrbAuthDialog.gschema.xml
 %{_datadir}/icons/hicolor/*/status/*
-%{_mandir}/man1/*
-%{_sysconfdir}/xdg/autostart/krb5-auth-dialog.desktop
 %{_libdir}/krb5-auth-dialog
+%{_mandir}/man1/%{name}.1*
+%{_metainfodir}/krb5-auth-dialog.metainfo.xml
+%{_sysconfdir}/xdg/autostart/krb5-auth-dialog.desktop
 
 
 %changelog
+* Fri Oct 28 2022 David King <amigadave@amigadave.com> - 43.0-1
+- Update to 43.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

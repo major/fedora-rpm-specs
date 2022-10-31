@@ -1,20 +1,19 @@
 %undefine _package_note_flags
 
 Name:           ocaml-zmq
-Version:        5.1.5
-Release:        5%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
 URL:            https://github.com/issuu/%{name}
-Source0:        %{url}/releases/download/%{version}/zmq-lwt-%{version}.tbz
+Source0:        %{url}/releases/download/%{version}/zmq-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.03.0
-BuildRequires:  ocaml-dune >= 2.0
+BuildRequires:  ocaml-dune >= 2.7
 BuildRequires:  ocaml-dune-configurator-devel
-BuildRequires:  ocaml-lwt-devel
+BuildRequires:  ocaml-lwt-devel >= 2.6.0
 BuildRequires:  ocaml-ounit2-devel
-BuildRequires:  ocaml-stdint-devel >= 0.4.2
 BuildRequires:  pkgconfig(libzmq)
 
 # This can be removed when F40 reaches EOL
@@ -26,7 +25,6 @@ This library contains basic OCaml bindings for ZeroMQ.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-stdint-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and signature files
@@ -50,7 +48,7 @@ The %{name}-lwt-devel package contains libraries and signature
 files for developing applications that use %{name}-lwt.
 
 %prep
-%autosetup -n zmq-lwt-%{version}
+%autosetup -n zmq-%{version}
 
 # We cannot build the async-aware bindings until ocaml-async-kernel and
 # ocaml-async-unix have been added to Fedora.
@@ -85,6 +83,10 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Sat Oct 29 2022 Jerry James <loganjerry@gmail.com> - 5.2.0-1
+- Version 5.2.0
+- Drop ocaml-stdint dependency
+
 * Mon Oct 17 2022 Jerry James <loganjerry@gmail.com> - 5.1.5-5
 - Rebuild for ocaml-stdint 0.7.1
 

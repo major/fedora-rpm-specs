@@ -5,18 +5,14 @@ implements many SSH protocol features such as the various channels,\
 SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
-Version:        2.11.0
-Release:        4%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        Asynchronous SSH for Python
 
 License:        EPL-2.0 or GPLv2+
 URL:            https://github.com/ronf/asyncssh
 Source0:        %pypi_source
 
-
-# XXX TODO remove in next release
-Patch0:         sspi-win32.diff
-Patch1:         expand_user.diff
 
 BuildArch:      noarch
 
@@ -83,6 +79,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sat Oct 29 2022 Georg Sauthoff <mail@gms.tf> - 2.12.0-1
+- Update to latest upstream version (fixes fedora#2117472)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
-Version:        0.26.0
+Version:        0.27.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except:
