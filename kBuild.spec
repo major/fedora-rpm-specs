@@ -17,6 +17,7 @@ Patch1:         kBuild-pthread.patch
 Patch6:         kbuild-dummy_noreturn.diff
 Patch8:         kBuild-0.1.9998-portme.patch
 Patch10:        assert.patch
+Patch11:        relax_automake_version.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -54,6 +55,9 @@ repository.
 %endif
 %endif
 %patch10 -p1 -b .portme3
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%patch11 -p1
+%endif
 
 
 %build
@@ -100,6 +104,7 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 %changelog
 * Mon Oct 24 2022 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3572-2.20221024
 - Update to r3572.20221024
+- Allow build with automake 1.13.4 on epel7
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3564-2.20220308
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

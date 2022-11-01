@@ -1,17 +1,14 @@
-Name: python-mako
-Version: 1.1.4
-Release: 9%{?dist}
-BuildArch: noarch
+Name:    python-mako
+Version: 1.2.3
+Release: 1%{?dist}
+Summary: Mako template library for Python
 
 # Mostly MIT, but _ast_util.py is Python licensed
 License: MIT and Python
-Summary: Mako template library for Python
-URL: http://www.makotemplates.org/
+URL:     https://www.makotemplates.org/
 Source0: https://github.com/sqlalchemy/mako/archive/rel_%(echo %{version} | sed "s/\./_/g").tar.gz
 
-# patch for Python 3.11 compatibility to reduce exception message
-Patch: https://github.com/sqlalchemy/mako/commit/9b8da4b1e2bdc025b643f2061aa32bf7ae0c78a8.patch
-
+BuildArch:     noarch
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-setuptools
@@ -81,6 +78,9 @@ pytest-3
 
 
 %changelog
+* Thu Oct 27 2022 David King <amigadave@amigadave.com> - 1.2.3-1
+- Update to 1.2.3 (#1996163)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

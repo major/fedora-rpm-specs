@@ -17,7 +17,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.13.0
+Version:        7.17.2
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -27,9 +27,6 @@ Source0:        https://github.com/snakemake/snakemake/archive/v%{version}/snake
 
 BuildArch:      noarch
 
-# refactor: Replace “retry” dependency with “reretry”
-# https://github.com/snakemake/snakemake/pull/1777
-Patch:          https://github.com/snakemake/snakemake/pull/1777.patch
 # Since we build the docs as a PDF, we can’t include an animated GIF demo.
 # Patch out the image reference and the text referring to it.
 Patch:          snakemake-7.11.0-docs-no-animated-demo.patch

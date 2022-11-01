@@ -68,7 +68,7 @@
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 0.1
+%global baserelease 0.3
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -108,7 +108,9 @@ Patch101:       %{name}-fedora-flag_release.patch
 %endif
 # Add dl to CMAKE_DL_LIBS on MINGW
 # https://gitlab.kitware.com/cmake/cmake/issues/17600
+%if 0%{?fedora} && 0%{?fedora} < 38
 Patch102:       %{name}-mingw-dl.patch
+%endif
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -529,6 +531,14 @@ popd
 
 
 %changelog
+* Sun Oct 30 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.3.rc2
+- Allow valid short arguments for %%ctest macro
+  Fixes rhbz#2127650
+
+* Sun Oct 30 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.2.rc2
+- Drop non-upstream CMAKE_DL_LIBS windows patch
+  Fixes rhbz#2127529
+
 * Sat Oct 29 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.1.rc2
 - cmake-3.25.0-rc2
   Fixes rhbz#2062783

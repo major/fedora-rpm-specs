@@ -2,7 +2,7 @@
 
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
-Version: 0.22.9
+Version: 0.22.10
 Release: 1%{?dist}
 License: BSD
 URL: https://pypi.org/project/autowrap/
@@ -141,6 +141,9 @@ popd
 %endif
 
 %changelog
+* Sun Oct 30 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.22.10-1
+- Release 0.22.10
+
 * Fri Oct 21 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.22.9-1
 - Release 0.22.9
 

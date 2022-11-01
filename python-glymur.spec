@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.11.7
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -73,13 +73,7 @@ install -m 0644 -p -D -t %{buildroot}%{_mandir}/man1 %{SOURCE1} %{SOURCE2}
 
 
 %check
-%ifarch s390x
-# TestSuite.test_psnr fails on s390x
-# https://bugzilla.redhat.com/show_bug.cgi?id=2068124
-# https://github.com/quintusdias/glymur/issues/546
-k="${k-}${k+ and }not (TestSuite and test_psnr)"
-%endif
-%pytest -v -k "${k-}"
+%pytest -v
 
 
 %files -n python3-glymur -f %{pyproject_files}

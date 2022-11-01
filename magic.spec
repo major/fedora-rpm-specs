@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.328
+Version:	8.3.333
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -88,7 +88,7 @@ sed -i scripts/configure \
 # FIXME
 # Must report the upstream
 %global __global_cflags_orig %__global_cflags
-%global __global_cflags %__global_cflags_orig -Wno-error=implicit-function-declaration -Wno-error=implicit-int
+%global __global_cflags %__global_cflags_orig -Werror=implicit-function-declaration -Werror=implicit-int
 
 %build
 cd %{name}-%{version}
@@ -171,6 +171,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sun Oct 30 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.333-1
+- 8.3.333
+
 * Thu Oct  6 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.328-1
 - 8.3.328
 

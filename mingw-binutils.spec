@@ -3,7 +3,7 @@
 
 Name:           mingw-binutils
 Version:        2.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -128,6 +128,9 @@ Patch19: binutils-package-metadata.patch
 # Purpose:  Stop the assembler from generating DIE information for zero-sized functions.
 # Lifetime: Fixed in 2.40
 Patch20: binutils-gas-dwarf-skip-empty-functions.patch
+
+# Backport patch for CVE-2022-38533
+Patch21: CVE-2022-38533.patch
 
 
 BuildRequires:  make
@@ -461,6 +464,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 2.39-2
+- Backport patch for CVE-2022-38533
+
 * Tue Aug 16 2022 Sandro Mani <manisandro@gmail.com> - 2.39-1
 - Update to 2.39
 

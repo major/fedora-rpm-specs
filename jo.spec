@@ -1,6 +1,6 @@
 Name:           jo
 Summary:        Small utility to create JSON objects
-Version:        1.6
+Version:        1.7
 Release:        %autorelease
 
 URL:            https://github.com/jpmens/jo
@@ -17,20 +17,9 @@ Source0:        %{url}/archive/%{version}/jo-%{version}.tar.gz
 License:        GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
 BuildRequires:  gcc
-
-BuildRequires:  make
-BuildRequires:  autoconf
-BuildRequires:  automake
-
-# Currently, rebuilding jo.md and jo.1 from jo.pandoc does not work for us:
-#
-#   /usr/bin/pandoc -s -w man+simple_tables -o jo.1 jo.pandoc
-#   [WARNING] Could not deduce format from file extension .pandoc
-#     Defaulting to markdown
-#   The extension simple_tables is not supported for man
-#
-# We are not required to rebuild these, so for now we just use the ones from
-# the source tarball without rebuilding them; we therefore do not BR pandoc.
+BuildRequires:  meson
+# Rebuild jo.1 and jo.md; we can omit this if it ever breaks.
+BuildRequires:  pandoc
 
 BuildRequires:  pkgconfig(bash-completion)
 %global bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -77,17 +66,20 @@ or arrays
 
 
 %build
-autoreconf -fiv
-%configure
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
+# Upstream’s Autotools build system installs the zsh completions, but the meson
+# version does not; we can handle it manually.
+install -D -p -m 0644 jo.zsh '%{buildroot}%{zshcompdir}/_jo'
 
 
 %check
-%make_build check
+ln -s '%{buildroot}%{_bindir}/jo' .
+bash -e ./tests/jo.test
 
 
 %files

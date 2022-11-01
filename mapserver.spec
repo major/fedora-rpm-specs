@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -278,7 +278,6 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 %files -n php-%{name}
 %doc mapscript/php/README
 %config(noreplace) %{php_inidir}/%{ini_name}
-%{php_extdir}/mapscript.php
 %{php_extdir}/php_mapscriptng.so
 %endif
 
@@ -313,6 +312,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 8.0.0-3
+- Fix %%files for build with swig 4.1+
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 8.0.0-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

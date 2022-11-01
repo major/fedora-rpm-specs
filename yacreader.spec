@@ -1,8 +1,8 @@
 %global appname YACReader
-%global versuf 2210021
+%global versuf 2210304
 
 Name:           yacreader
-Version:        9.9.2
+Version:        9.10.0
 Release:        %autorelease
 Summary:        Cross platform comic reader and library manager
 
@@ -17,22 +17,27 @@ Source0:        https://github.com/YACReader/%{name}/releases/download/%{version
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  cmake3
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  systemd-rpm-macros
 
-BuildRequires:  pkgconfig(libunarr)
-BuildRequires:  pkgconfig(poppler-qt5)
-BuildRequires:  pkgconfig(Qt5)
-BuildRequires:  pkgconfig(Qt5Multimedia)
-BuildRequires:  pkgconfig(Qt5QuickControls2)
-BuildRequires:  pkgconfig(Qt5ScriptTools)
-BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  cmake(Qt5)
+BuildRequires:  cmake(Qt5LinguistTools)
+BuildRequires:  cmake(Qt5Multimedia)
+BuildRequires:  cmake(Qt5QuickControls2)
+BuildRequires:  cmake(Qt5ScriptTools)
+BuildRequires:  cmake(Qt5Svg)
+
 # For YACReaderLibrary QR Code display
 BuildRequires:  pkgconfig(libqrencode)
+
+BuildRequires:  pkgconfig(libunarr)
+BuildRequires:  pkgconfig(poppler-qt5)
 
 Requires:       hicolor-icon-theme
 Requires:       qt5-qtgraphicaleffects%{?_isa}
 Requires:       qt5-qtquickcontrols%{?_isa}
+Requires:       qt5-qtsvg
 
 %description
 Best comic reader and comic manager with support for .cbr .cbz .zip .rar comic
@@ -44,18 +49,25 @@ files.
 
 # wrong-file-end-of-line-encoding fix
 sed -i 's/\r$//' INSTALL.md
-
 # file-not-utf8 fix
 iconv -f iso8859-1 -t utf-8 README.md > README.md.conv && mv -f README.md.conv README.md
 
 
 %build
+# Translations
+lrelease-qt5 %{appname}/%{appname}.pro
+lrelease-qt5 %{appname}Library/%{appname}Library.pro
+
 %qmake_qt5
 %make_build
 
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%make_install \
+    INSTALL_ROOT=%{buildroot}
+# Translations
+mkdir -p %{buildroot}%{_datadir}/%{name}/languages
+find . -name \*.qm -exec cp {} %{buildroot}%{_datadir}/%{name}/languages/ \;
 %find_lang %{name} --with-qt
 %find_lang %{name}library --with-qt
 

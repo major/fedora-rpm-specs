@@ -1,6 +1,6 @@
 Name:           jetring
-Version:        0.30
-Release:        4%{?dist}
+Version:        0.31
+Release:        1%{?dist}
 Summary:        GPG keyring maintenance using changesets
 
 License:        GPLv2+
@@ -26,7 +26,7 @@ people to collaboratively edit.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -49,6 +49,9 @@ install -pm 0644 jetring-*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 0.31-1
+- Update to 0.31
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

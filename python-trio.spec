@@ -1,4 +1,3 @@
-%global srcname trio
 %global common_description %{expand:
 The Trio project's goal is to produce a production-quality, permissively
 licensed, async/await-native I/O library for Python.  Like all async libraries,
@@ -11,20 +10,14 @@ attempts to distinguish itself with an obsessive focus on usability and
 correctness.  Concurrency is complicated; we try to make it easy to get things
 right.}
 
-%bcond_without  tests
 
-
-Name:           python-%{srcname}
-Version:        0.20.0
-Release:        5%{?dist}
+Name:           python-trio
+Version:        0.22.0
+Release:        1%{?dist}
 Summary:        A friendly Python library for async concurrency and I/O
-License:        MIT or ASL 2.0
+License:        Apache-2.0 OR MIT
 URL:            https://github.com/python-trio/trio
-Source0:        %pypi_source
-
-# Python 3.11: traceback_exception_init() has new keyword arguments
-# Merged upstream
-Patch:          https://github.com/python-trio/trio/pull/2270.patch
+Source:         %pypi_source trio
 
 BuildArch:      noarch
 
@@ -32,23 +25,21 @@ BuildArch:      noarch
 %description %{common_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-trio
 Summary:        %{summary}
 BuildRequires:  python3-devel
-%if %{with tests}
-BuildRequires:  %{py3_dist pytest}
-%endif
+BuildRequires:  python3-pytest
 
 
-%description -n python3-%{srcname} %{common_description}
+%description -n python3-trio %{common_description}
 
 
 %prep
-%autosetup -p 1 -n %{srcname}-%{version}
+%autosetup -p 1 -n trio-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -57,20 +48,21 @@ BuildRequires:  %{py3_dist pytest}
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files trio
 
 
-%if %{with tests}
 %check
 %pytest trio/_core/tests
-%endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-trio -f %{pyproject_files}
 %doc README.rst
 
 
 %changelog
+* Mon Oct 31 2022 Carl George <carl@george.computer> - 0.22.0-1
+- Update to 0.22.0, resolves rhbz#2094511
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

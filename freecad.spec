@@ -64,7 +64,7 @@ BuildRequires:  eigen3-devel
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5UiTools)
-BuildRequires:  cmake(Qt5WebKit)
+BuildRequires:  cmake(Qt5WebEngine)
 BuildRequires:  cmake(Qt5XmlPatterns)
 #BuildRequires:  SoQt-devel
 BuildRequires:  xerces-c xerces-c-devel

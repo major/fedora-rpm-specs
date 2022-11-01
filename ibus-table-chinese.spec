@@ -2,7 +2,7 @@
 %global ibus_tables_dir %{_datadir}/ibus-table/tables
 %global ibus_icons_dir %{_datadir}/ibus-table/icons
 Name:           ibus-table-chinese
-Version:        1.8.10
+Version:        1.8.11
 Release:        1%{?dist}
 Summary:        Chinese input tables for IBus
 Summary(zh_CN): 中文码表输入法
@@ -800,6 +800,13 @@ rm -fr %{buildroot}%{_docdir}/*
 %{ibus_tables_dir}/cantonyale.db
 
 %changelog
+* Sun Oct 30 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.11-1
+- Update to 1.8.11
+- Improve punctuation support in jyutping.txt, cantonese.txt, cantonhk.txt, cantonyale.txt
+  (Resolves: https://github.com/mike-fabian/ibus-table-chinese/issues/7)
+- Improve “improve_jyutping.py” to allow comments in the table
+- Update of jyutping.txt for Unicode 15.0.0 final release
+
 * Tue Oct 25 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.10-1
 - Update to 1.8.10
 - Improve punctuation support in cangjie5.txt, cangjie3.txt, cangjie-big.txt,

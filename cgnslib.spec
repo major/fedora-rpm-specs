@@ -7,13 +7,15 @@
 
 Name:           cgnslib
 Version:        4.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        zlib
 URL:            http://www.cgns.org/
 Source0:        https://github.com/CGNS/CGNS/archive/v%{version}/%{name}-%{version}.tar.gz
 # Allow overriding all BIN/LIB/INCLUDE install dirs
 Patch0:         cgnslib-cmake-install-dirs.patch
+# Fix invalid Icon and Exec paths in desktop files
+Patch1:         cgnslib_desktop.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -378,6 +380,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 4.3.0-3
+- Fix invalid Icon and Exec paths in desktop files
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

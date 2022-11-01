@@ -22,6 +22,8 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  systemd-devel
+# For /usr/share/pkgconfig/udev.pc
+BuildRequires:  systemd
 
 # BPF decoder dependencies
 %define with_bpf 1

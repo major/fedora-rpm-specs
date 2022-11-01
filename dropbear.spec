@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:              dropbear
-Version:           2020.80
-Release:           7%{?dist}
+Version:           2022.82
+Release:           1%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -77,6 +77,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Sun Oct 30 2022 Christopher Meng <rpm@cicku.me> - 2022.82-1
+- Update to 2022.82
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.80-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

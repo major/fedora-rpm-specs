@@ -11,8 +11,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        9.2.0
-Release:        2%{?dist}
+Version:        9.3.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -300,6 +300,9 @@ popd
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 9.3.0-1
+- Update to 9.3.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

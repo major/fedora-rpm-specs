@@ -5,7 +5,7 @@
 # in setup.py for install_requires.
 
 Name:           python-mne
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) data analysis
 
@@ -20,6 +20,12 @@ Source0:        https://github.com/mne-tools/mne-python/archive/v%{version}/%{na
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+
+# BUG: Work around ppc64le bugs
+# https://github.com/mne-tools/mne-python/pull/11284
+#
+# Rebased on 1.2.1
+Patch:          0001-BUG-Work-around-ppc64le-bugs-11284.patch
 
 # The combination of an arched package with only noarch binary packages makes
 # it easier for us to detect arch-dependent test failures, since the tests will
@@ -109,7 +115,7 @@ Recommends:     python3-Traits
 %description -n python3-mne %_description
 
 %prep
-%autosetup -n mne-python-%{version}
+%autosetup -n mne-python-%{version} -p1
 
 # fix non-executable scripts
 sed -i -e '1{\@^#!/usr/bin/env python@d}' mne/commands/*.py
@@ -145,16 +151,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # required for some tests
 mkdir subjects
 
-# One test failure on aarch64
-# https://github.com/mne-tools/mne-python/issues/10984
-k="${k-}${k+ and }not test_mxne_inverse_sure_synthetic[3-0.75-4-20-60-20]"
-# Two test failures on ppc64le
-# https://github.com/mne-tools/mne-python/issues/10985
-k="${k-}${k+ and }not test_csd_morlet"
-k="${k-}${k+ and }not test_time_frequency"
 # https://github.com/mne-tools/mne-python/blob/v1.0.3/tools/github_actions_test.sh#L7
 # skip tests that require network
-%pytest -k "${k-}" -m "not (slowtest or pgtest)" \
+%pytest -m "not (slowtest or pgtest)" \
     --deselect mne/datasets/tests/test_datasets.py \
     --deselect mne/utils/tests/test_numerics.py
 

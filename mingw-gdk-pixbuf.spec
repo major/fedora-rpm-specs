@@ -4,7 +4,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gdk-pixbuf
-Version:        2.42.9
+Version:        2.42.10
 Release:        1%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
@@ -135,6 +135,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 2.42.10-1
+- Update to 2.42.10
+
 * Tue Aug 16 2022 Sandro Mani <manisandro@gmail.com> - 2.42.9-1
 - Update to 2.42.9
 

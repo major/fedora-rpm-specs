@@ -1,7 +1,5 @@
-%global proj zim-desktop-wiki
-
 Name:           Zim
-Version:        0.75.0
+Version:        0.75.1
 Release:        %autorelease
 Summary:        Desktop wiki & notekeeper
 
@@ -9,7 +7,7 @@ Summary:        Desktop wiki & notekeeper
 # ./zim/plugins/pageindex/generictreemodel,.py which is LGPLv2+
 License:        GPLv2+ and LGPLv2+
 URL:            http://zim-wiki.org/
-Source0:        https://github.com/%{proj}/%{proj}/archive/%{version}.tar.gz#/%{proj}-%{version}.tar.gz
+Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
@@ -34,7 +32,7 @@ and feel of an outliner. This tool is intended to keep track of TODO lists
 or to serve as a personal scratch book.
 
 %prep
-%autosetup -p1 -n %{proj}-%{version}
+%autosetup -p1 -n zim-%{version}
 
 %build
 ./setup.py build

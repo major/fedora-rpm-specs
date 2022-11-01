@@ -6,7 +6,7 @@
 %endif
 
 Name:           sdl12-compat
-Version:        1.2.56
+Version:        1.2.60
 Release:        1%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # mp3 decoder code is MIT-0/PD
@@ -18,6 +18,8 @@ Source0:        %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
 Source1:        SDL_config.h
 
 # Backports from upstream (0001~0500)
+## From: https://github.com/libsdl-org/sdl12-compat/commit/77892a1ef5260fe78e593c8337dbe98874ff336c
+Patch0001:      0001-fix-SDL12COMPAT_MAX_VIDMODE.patch
 
 # Proposed patches (0501~1000)
 
@@ -150,6 +152,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Sun Oct 30 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.2.60-1
+- Update to 1.2.60
+
 * Fri Sep 16 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.2.56-1
 - Update to 1.2.56 (RH#2127545)
 

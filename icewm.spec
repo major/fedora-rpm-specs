@@ -55,48 +55,45 @@ BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xrender)
 
-Requires:       adwaita-icon-theme
-Requires:       alsa-utils
 Requires:       %{name}-data = %{version}-%{release}
 Requires:       xdg-utils
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:     %{name}-themes = %{version}-%{release}
 Recommends:     abattis-cantarell-fonts
+# Command line utilities for the Advanced Linux Sound
+Recommends:     alsa-utils
 Recommends:     desktop-backgrounds-compat
+Recommends:     mutt
+# Commandline utility to change output properties. Required for
+# icewm-menu-xrandr.
+Recommends:     xrandr
 # https://github.com/bbidulock/icewm/issues/379
 Recommends:     xterm
 
 # Various additional useful tools
-#   * Display resolution control
-Suggests:       lxrandr
-
-#   * Launcher
-Suggests:       nwg-launchers
-
-#   * Screenshot
-Suggests:       gnome-screenshot
-
-Suggests:       network-manager-applet
-
-#   * X11 keyboard indicator and switcher
-Suggests:       gxkb
-
-#   * Night mode
-Suggests:       redshift-gtk
-
-#   * Notification daemon
-Suggests:       dunst
-
 #   * For antiX like IceWM
 Suggests:       conky
-
+#   * Notification daemon
+Suggests:       dunst
+#   * Screenshot
+Suggests:       gnome-screenshot
+#   * X11 keyboard indicator and switcher
+Suggests:       gxkb
+#   * Display resolution control
+Suggests:       lxrandr
+#   * A network control and status applet for NetworkManager
+Suggests:       network-manager-applet
+#   * Launcher
+Suggests:       nwg-launchers
 #   * Compositor for X11
 Suggests:       picom
-
+#   * Night mode
+Suggests:       redshift-gtk
 #   * Volume control
 Suggests:       volumeicon
 
+#   * Minimal session for icewm
 Suggests:       %{name}-minimal-session = %{version}-%{release}
 %endif
 
@@ -194,15 +191,15 @@ autoreconf -fiv
 # Themes
 cp -a awesome-%{name}-%{awe_commit}/themes/AntiX-collection/* %{buildroot}%{_datadir}/%{name}/themes/
 cp -a awesome-%{name}-%{awe_commit}/themes/IceAdwaita-* %{buildroot}%{_datadir}/%{name}/themes/
-install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/icewm.png \
-    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Small/taskbar/icewm.png
-install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/icewm-24.png \
-    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Medium/taskbar/icewm.png
-install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/icewm-24.png \
-    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Dark-Medium-alpha/taskbar/icewm.png
-install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/icewm-32.png \
-    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Large/taskbar/icewm.png
-rm %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-*/taskbar/icewm.xpm
+install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/%{name}.png \
+    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Small/taskbar/%{name}.png
+install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/%{name}-24.png \
+    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Medium/taskbar/%{name}.png
+install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/%{name}-24.png \
+    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Dark-Medium-alpha/taskbar/%{name}.png
+install -pm 0644 awesome-%{name}-%{awe_commit}/distro-logos/fedora/%{name}-32.png \
+    %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-Large/taskbar/%{name}.png
+rm %{buildroot}%{_datadir}/%{name}/themes/IceAdwaita-*/taskbar/%{name}.xpm
 
 echo "Theme=\"IceAdwaita-Medium/default.theme\"" > %{buildroot}%{_datadir}/%{name}/theme
 
@@ -216,19 +213,20 @@ sed -i 's!/backgrounds/gnome/adwaita-day.jpg!/backgrounds/default.png!' \
 %files -f %{name}.lang
 %license COPYING
 %doc README.md AUTHORS
-%{_pkgdocdir}/*.html
 %{_bindir}/%{name}
 %{_bindir}/%{name}-menu-fdo
 %{_bindir}/%{name}-menu-xrandr
 %{_bindir}/%{name}-session
 %{_bindir}/%{name}-set-gnomewm
+%{_bindir}/%{name}bg
+%{_bindir}/%{name}hint
 %{_bindir}/icehelp
 %{_bindir}/icesh
 %{_bindir}/icesound
-%{_bindir}/icewmbg
-%{_bindir}/icewmhint
 %{_datadir}/xsessions/%{name}-session.desktop
-%{_mandir}/man{1,5}/*.{1,5}*
+%{_mandir}/man1/*.1*
+%{_mandir}/man5/*.5*
+%{_pkgdocdir}/*.html
 
 %files data
 %{_datadir}/%{name}/IceWM.jpg
@@ -257,7 +255,6 @@ sed -i 's!/backgrounds/gnome/adwaita-day.jpg!/backgrounds/default.png!' \
 %{_datadir}/%{name}/themes/motif/
 %{_datadir}/%{name}/themes/NanoBlue/
 %{_datadir}/%{name}/themes/win95/
-
 # AntiX-collection
 %{_datadir}/%{name}/themes/Anti*-*/
 %{_datadir}/%{name}/themes/blue-crystal-*/

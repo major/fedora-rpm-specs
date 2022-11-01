@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        MIT
 
@@ -46,21 +46,10 @@ Summary:        %{summary}
 # remove vendored dependencies
 rm -r src/poetry/_vendor
 
-# compatibility with more pytest-mock versions
-sed -i s/MockFixture/MockerFixture/ tests/repositories/test_installed_repository.py
+# Allow newer requests-toolbelt version
+# https://bugzilla.redhat.com/show_bug.cgi?id=2138636
+sed -i 's/requests-toolbelt = "^0.9.1"/requests-toolbelt = ">=0.9.1"/' pyproject.toml
 
-# New empty projects created by poetry have a default dev dependency on pytest ^5.2,
-# however that version is not compatible with Python 3.10.
-# Hence, we replace it with a known compatible version 6.2 instead.
-# Upstream has already removed the default pytest dependency in 1.2.0a1+,
-# this sed should be removed once we update.
-%if v"%{python3_version}" >= v"3.10"
-    sed -i 's/5\.2/6\.2/' src/poetry/console/commands/new.py
-%endif
-
-# Allow newer packaging version
-# https://github.com/python-poetry/poetry/issues/4264
-sed -i 's/packaging = "^.*"/packaging = "*"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_bootstrap: -R}
@@ -117,6 +106,10 @@ not editable_builder"
 
 
 %changelog
+* Sun Oct 30 2022 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
+- Allow newer requests-toolbelt version
+- Fixes: rhbz#2138636
+
 * Fri Oct 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-2
 - Update to 1.2.1
 - Disable bootstrap bcond

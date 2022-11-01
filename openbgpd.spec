@@ -57,9 +57,11 @@ Requires:       rpki-client
 OpenBGPD is a free implementation of the Border Gateway Protocol (BGP),
 Version 4. It allows ordinary machines to be used as routers exchanging
 routes with other systems speaking the BGP protocol.
-
-This is the portable version and it does not have the means to influence
-kernel routing tables. It is only suitable for route servers/collectors.
+%if 0%{?rhel} && 0%{?rhel} <= 7
+Note: Because of the requirement for libmnl >= 1.0.4, which is not in
+RHEL/CentOS 7, this package does not have the means to influence kernel
+routing tables. It is only suitable for route servers/collectors.
+%endif
 
 %prep
 %if !0%{?with_snapshot}
