@@ -1,12 +1,12 @@
 %{?mingw_package_header}
 
-%global pkgname click
-%global pypi_name %{pkgname}
+%global pypi_name click
+%global pypi_name click
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
+Name:          mingw-python-%{pypi_name}
+Summary:       MinGW Windows Python %{pypi_name} library
 Version:       8.1.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       BSD
@@ -15,29 +15,29 @@ Source0:       %{pypi_source}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pkgname} library.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %prep
@@ -45,28 +45,30 @@ MinGW Windows Python3 %{pkgname} library.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{pypi_name}
 %license LICENSE.rst
-%{mingw32_python3_sitearch}/%{pkgname}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{pypi_name}
 %license LICENSE.rst
-%{mingw64_python3_sitearch}/%{pkgname}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 8.1.3-2
+- Switch to python3-build
+
 * Tue Aug 09 2022 Sandro Mani <manisandro@gmail.com> - 8.1.3-1
 - Update to 8.1.3
 

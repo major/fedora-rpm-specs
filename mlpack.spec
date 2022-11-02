@@ -1,7 +1,7 @@
 Name:           mlpack
 Version:        4.0.0
-Release:        1%{?dist}
-Summary:        Scalable, fast C++ machine learning library
+Release:        2%{?dist}
+Summary:        Fast, header-only C++ machine learning library
 
 License:        BSD
 URL:            http://www.mlpack.org
@@ -62,7 +62,7 @@ margins.
 # Executables.
 %package bin
 Summary:        Command-line executables for mlpack (machine learning library)
-Requires:       %{name}%{_isa} = %{version}-%{release}
+Requires:       armadillo
 
 %description bin
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -76,7 +76,6 @@ methods and related documentation.
 # Development headers.
 %package devel
 Summary:        Development headers for mlpack (C++ machine learning library)
-Requires:       %{name} = %{version}-%{release}
 Requires:       armadillo-devel >= 9.800.0
 Requires:	ensmallen-devel >= 2.10.0
 Requires:	cereal-devel
@@ -270,6 +269,9 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Mon Oct 31 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-2
+- Fix incorrect Requires.
+
 * Wed Oct 26 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-1
 - Update to latest stable version.
 - doc subpackage is no longer produced (mlpack 4.0.0 has no Doxygen support anymore).

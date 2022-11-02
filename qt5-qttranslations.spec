@@ -2,7 +2,7 @@
 
 Summary: Qt5 - QtTranslations module
 Name:    qt5-%{qt_module}
-Version: 5.15.6
+Version: 5.15.7
 Release: 1%{?dist}
 
 License: LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
@@ -89,32 +89,35 @@ make install INSTALL_ROOT=%{buildroot}
 %lang(fa) %{_qt5_translationdir}/*_fa.qm
 %lang(fi) %{_qt5_translationdir}/*_fi.qm
 %lang(fr) %{_qt5_translationdir}/*_fr.qm
-%lang(gl) %{_qt5_translationdir}/*_gd.qm
+%lang(gd) %{_qt5_translationdir}/*_gd.qm
 %lang(gl) %{_qt5_translationdir}/*_gl.qm
 %lang(he) %{_qt5_translationdir}/*_he.qm
 %lang(hu) %{_qt5_translationdir}/*_hu.qm
-%lang(hu) %{_qt5_translationdir}/*_hr.qm
+%lang(hr) %{_qt5_translationdir}/*_hr.qm
 %lang(it) %{_qt5_translationdir}/*_it.qm
 %lang(ja) %{_qt5_translationdir}/*_ja.qm
 %lang(ko) %{_qt5_translationdir}/*_ko.qm
 %lang(lt) %{_qt5_translationdir}/*_lt.qm
-%lang(lt) %{_qt5_translationdir}/*_lv.qm
-%lang(lt) %{_qt5_translationdir}/*_nn.qm
-%lang(lt) %{_qt5_translationdir}/*_nl.qm
+%lang(lv) %{_qt5_translationdir}/*_lv.qm
+%lang(nn) %{_qt5_translationdir}/*_nn.qm
+%lang(nl) %{_qt5_translationdir}/*_nl.qm
 %lang(pl) %{_qt5_translationdir}/*_pl.qm
-%lang(pt) %{_qt5_translationdir}/*_pt.qm
-%lang(pt) %{_qt5_translationdir}/*_pt_BR.qm
+%lang(pt) %{_qt5_translationdir}/*_pt_PT.qm
+%lang(pt_BR) %{_qt5_translationdir}/*_pt_BR.qm
 %lang(ru) %{_qt5_translationdir}/*_ru.qm
 %lang(sk) %{_qt5_translationdir}/*_sk.qm
 %lang(sl) %{_qt5_translationdir}/*_sl.qm
 %lang(sv) %{_qt5_translationdir}/*_sv.qm
-%lang(sv) %{_qt5_translationdir}/*_tr.qm
+%lang(tr) %{_qt5_translationdir}/*_tr.qm
 %lang(uk) %{_qt5_translationdir}/*_uk.qm
 %lang(zh_CN) %{_qt5_translationdir}/*_zh_CN.qm
 %lang(zh_TW) %{_qt5_translationdir}/*_zh_TW.qm
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
+- 5.15.7
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

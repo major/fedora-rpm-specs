@@ -16,8 +16,8 @@
 #global git_short_hash %(echo %{git_hash} | cut -b -7)
 
 Name:           javapackages-bootstrap
-Version:        1.7.1
-Release:        2%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
 License:        ASL 2.0 and ASL 1.1 and (ASL 2.0 or EPL-2.0) and (EPL-2.0 or GPLv2 with exceptions) and MIT and BSD with advertising and BSD and EPL-1.0 and EPL-2.0 and CDDL-1.0 and xpp and CC0 and Public Domain
@@ -150,6 +150,7 @@ Source1107:     xmvn.tar.xz
 Source1108:     xz-java.tar.xz
 
 Patch0:         0001-Bind-to-OpenJDK-17-for-runtime.patch
+Patch1:         0002-Rebase-xmvn-to-current-trunk.patch
 
 Provides:       bundled(ant) = 1.10.12
 Provides:       bundled(apache-parent) = 26
@@ -302,15 +303,14 @@ OpenJDK 8 toolchain for Java Packages Bootstrap.
 # leave out licensing breakdown file
 other_sources=$(echo %{sources} | cut -d' ' -f4-)
 
-for source in ${other_sources}
-do
+for source in ${other_sources}; do
   tar -xf "${source}"
 done
 
 %patch0 -p1
+%patch1 -p1
 
-for patch_path in patches/*/*
-do
+for patch_path in patches/*/*; do
   package_name="$(echo ${patch_path} | cut -f2 -d/)"
   patch_name="$(echo ${patch_path} | cut -f3 -d/)"
   
@@ -361,6 +361,9 @@ echo '%%jpb_env PATH=/usr/libexec/javapackages-bootstrap:$PATH' >%{buildroot}%{_
 %doc AUTHORS
 
 %changelog
+* Wed Oct 19 2022 Marian Koncek <mkoncek@redhat.com> - 1.7.2-1
+- Update to upstream version 1.7.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

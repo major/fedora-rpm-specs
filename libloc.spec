@@ -1,8 +1,9 @@
 Name:       libloc
-Version:    0.9.15
-Release:    2%{?dist}
+Version:    0.9.16
+Release:    1%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # COPYING:                  LGPL-2.1 text
+# data/database.db:         CC-BY-SA-4.0
 # man/libloc.txt:           LGPL-2.1-or-later
 # po/de.po:                 "same as libloc"
 # src/address.c:            LGPL-2.1-or-later
@@ -66,7 +67,6 @@ Summary:    Library to determine a location of an IP address in the Internet
 # src/test-network-list.c:  GPL-2.0-or-later
 # src/test-signature.c:     GPL-2.0-or-later
 # src/test-stringpool.c:    GPL-2.0-or-later
-# tests/data/location-2022-03-30.db:    CC-BY-SA-4.0
 ## Unbundled, then used only at build-time, not in any binary package
 # m4/ax_prog_perl_modules.m4:   FSFAP
 # m4/ld-version-script.m4:  FSFULLR
@@ -76,23 +76,6 @@ Summary:    Library to determine a location of an IP address in the Internet
 License:    LGPL-2.1-or-later
 URL:        https://location.ipfire.org/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
-# Install Python files into site Python module path, in upstream after 0.9.15
-Patch0:     libloc-0.9.15-Makefile-Reset-Python-path.patch
-# Install Perl files vendor Perl module path, proposed to the upstream,
-# <https://bugzilla.ipfire.org/show_bug.cgi?id=12954>
-Patch1:     libloc-0.9.15-Install-Perl-files-to-Perl-vendor-directory.patch
-# Remove empty RPATH, in upstream after 0.9.15,
-# <https://bugzilla.ipfire.org/show_bug.cgi?id=12955>
-Patch2:     libloc-0.9.15-Revert-perl-Remove-RPATH.patch
-# Remove shebangs from Python modules, in upstream after 0.9.15,
-# <https://bugzilla.ipfire.org/show_bug.cgi?id=12956>
-Patch3:     libloc-0.9.15-Remove-shebangs-from-Python-modules.patch
-# Move location(8) to location(1), in upstream after 0.9.15,
-# <https://bugzilla.ipfire.org/show_bug.cgi?id=12957>
-Patch4:     libloc-0.9.15-Move-location-manual-from-section-8-to-section-1.patch
-# Fix make dependencies for Perl, in upstream after 0.9.15,
-# <https://bugzilla.ipfire.org/show_bug.cgi?id=12961>
-Patch5:     libloc-0.9.15-Declare-make-dependencies-for-Perl-binding.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -117,6 +100,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  pkgconf-m4
 # pkgconf-pkg-config for pkg-config program
@@ -152,6 +136,7 @@ applications using libloc library.
 Summary:        Perl interface to libloc library
 License:        LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n perl-%{name}
 Location is a Perl interface to libloc, a library to determine an IP address
@@ -159,6 +144,8 @@ location in the Internet.
 
 %package -n python3-%{name}
 Summary:        Python interface to libloc library
+License:        LGPL-2.1-or-later AND CC-BY-SA-4.0
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %py_provides python3-location
 
 %description -n python3-%{name}
@@ -263,11 +250,12 @@ make check %{?_smp_mflags}
 %{python3_sitelib}/location
 %{python3_sitelib}/%{name}-%{version}.dist-info
 %{python3_sitearch}/_location.so
-# TODO: writable for a dedicated, non-root user
 # The default path is compiled into _location.so Python module. Not into
 # C libloc.so. Thus the database belongs here, to Python package.
-%{_sharedstatedir}/location
-%ghost %attr(0444, root, root) %{default_database_file}
+%dir %{_sharedstatedir}/location
+%{_sharedstatedir}/location/signing-key.pem
+# User can update the database later from the Internet.
+%attr(0444, root, root) %verify(not size filedigest mtime) %{default_database_file}
 
 %files tools
 %{_bindir}/location*
@@ -275,6 +263,10 @@ make check %{?_smp_mflags}
 %{_unitdir}/*
 
 %changelog
+* Mon Oct 31 2022 Petr Pisar <ppisar@redhat.com> - 0.9.16-1
+- 0.9.16 bump
+- A database snapshot from 2022-10-20T06:27:23 is included
+
 * Wed Oct 19 2022 Petr Pisar <ppisar@redhat.com> - 0.9.15-2
 - Enable enabling debuging messages
 - Fix make dependencies for Perl

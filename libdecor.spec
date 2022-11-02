@@ -1,11 +1,11 @@
 Name:           libdecor
-Version:        0.1.0
-Release:        3%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        Wayland client side decoration library
 
 License:        MIT
 URL:            https://gitlab.gnome.org/jadahl/libdecor
-Source:         %{url}/uploads/81adf91d27620e20bcc5f6b9b312d768/libdecor-0.1.0.tar.xz
+Source:         %{url}/uploads/ee5ef0f2c3a4743e8501a855d61cb397/libdecor-0.1.1.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Oct 31 2022 Jonas Ådahl <jadahl@redhat.com> - 0.1.1-1
+- Bump version to 0.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

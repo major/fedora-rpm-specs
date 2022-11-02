@@ -5,7 +5,7 @@
 %bcond_without tests
 
 Name:    %{pkgname}
-Version: 2.2.1
+Version: 2.2.3
 %forgemeta
 Release: %autorelease
 Summary: Ansible python helper functions

@@ -1,11 +1,11 @@
 %{?mingw_package_header}
 
-%global pkgname shapely
+%global mod_name shapely
 %global pypi_name Shapely
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname}
-Version:       1.8.4
+Name:          mingw-python-%{mod_name}
+Summary:       MinGW Windows Python %{pypi_name} library
+Version:       1.8.5
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -15,38 +15,44 @@ Source0:       %{pypi_source}
 
 # Fix loading geos library
 Patch0:        shapely_geos.patch
+# Relax requires
+Patch1:        shapely_requires.patch
 
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
 BuildRequires: mingw32-gcc
+BuildRequires: mingw32-python3
+BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-Cython
+BuildRequires: mingw32-python3-numpy
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
 BuildRequires: mingw64-gcc
+BuildRequires: mingw64-python3
+BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-Cython
+BuildRequires: mingw64-python3-numpy
 
 
 %description
-MinGW Windows Python %{pkgname}.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname}
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 # See Patch0
 Requires:      mingw32(libgeos_c-1.dll)
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname}.
+%description -n mingw32-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname}
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{mod_name} library
 # See Patch0
 Requires:      mingw64(libgeos_c-1.dll)
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname}.
+%description -n mingw64-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %prep
@@ -55,28 +61,32 @@ MinGW Windows Python3 %{pkgname}.
 
 %build
 export NO_GEOS_CONFIG=1
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
 export NO_GEOS_CONFIG=1
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{mod_name}
 %license LICENSE.txt
-%{mingw32_python3_sitearch}/%{pkgname}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{mod_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{mod_name}
 %license LICENSE.txt
-%{mingw64_python3_sitearch}/%{pkgname}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{mod_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.8.5-1
+- Update to 1.8.5
+- Switch to python3-build
+
 * Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 1.8.4-1
 - Update to 1.8.4
 

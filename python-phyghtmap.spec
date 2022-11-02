@@ -1,12 +1,12 @@
 %global modname phyghtmap
 
 Name:           python-phyghtmap
-Version:        2.21
-Release:        13%{?dist}
+Version:        2.23
+Release:        1%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
-Source0:        http://katze.tfiu.de/projects/%{modname}/%{modname}_%{version}.orig.tar.gz
+Source0:        %{url}/%{modname}_%{version}.orig.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -25,31 +25,34 @@ Requires:       python3-gdal
 Requires:       python3-numpy
 Requires:       python3-beautifulsoup4
 Requires:       python3-matplotlib
-%{?python_provide:%python_provide python3-phyghtmap}
 
 %description -n python3-phyghtmap %_description
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -p 1 -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 
 
-%files -n python3-phyghtmap
-%doc README LICENSE_GPL-2 COPYRIGHT Changelog
+%files -n python3-%{modname} -f %{pyproject_files}
+%doc README Changelog
+%license LICENSE_GPL-2 COPYRIGHT
 %{_bindir}/%{modname}
 %{_mandir}/man1/%{modname}.1*
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-py*.egg-info/
 
 %changelog
+* Mon Oct 31 2022 Federico Pellegrin <fede@evolware.org> - 2.23-1
+- Bump to 2.23
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

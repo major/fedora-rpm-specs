@@ -15,6 +15,10 @@ License:        GPLv3+
 URL:            https://wiki.gnome.org/Apps/Calendar
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 
+# Backported from upstream
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/269
+Patch0:         269.patch
+
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk-doc

@@ -2,16 +2,16 @@
 %bcond_without perl_DateTime_TimeZone_enables_optional_test
 
 # Regenerate Perl library code from upstream Olson database of this date
-%global tzversion 2022e
+%global tzversion 2022f
 
 Name:           perl-DateTime-TimeZone
-Version:        2.55
+Version:        2.56
 Release:        1%{?dist}
 Summary:        Time zone object base class and factory
-# tzdata%%{tzversion}.tar.gz archive:   Public Domain
-# other files:                          GPL+ or Artistic
+# tzdata%%{tzversion}.tar.gz archive:   LicenseRef-Fedora-Public-Domain
+# other files:                          GPL-1.0-or-later OR Artistic-1.0-Perl
 # Some other files are generated from tzdata%%{tzversion}.tar.gz content by
-# upstream or locally:                  Public Domain
+# upstream or locally:                  LicenseRef-Fedora-Public-Domain
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/DateTime-TimeZone
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-TimeZone-%{version}.tar.gz
@@ -181,6 +181,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.56-1
+- 2.56 bump (2022f Olson database)
+
 * Wed Oct 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.55-1
 - 2.55 bump (2022e Olson database)
 

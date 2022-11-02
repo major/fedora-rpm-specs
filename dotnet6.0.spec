@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -499,6 +499,13 @@ export EXTRA_LDFLAGS="$LDFLAGS"
 # suggested compile-time change doesn't work, unfortunately.
 export COMPlus_LTTng=0
 
+%if 0%{?fedora} > 37 || 0%{?rhel} > 8
+# OpenSSL 3.0 in RHEL 9 has disabled SHA1, used by .NET for strong
+# name signing. See https://github.com/dotnet/runtime/issues/67304
+# https://gitlab.com/redhat/centos-stream/rpms/openssl/-/commit/78fb78d30755ae18fdaef28ef392f4e67c662ff6
+export OPENSSL_ENABLE_SHA1_SIGNATURES=1
+%endif
+
 VERBOSE=1 ./build.sh \
 %if %{without bootstrap}
     --with-sdk previously-built-dotnet \
@@ -644,6 +651,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Mon Oct 31 2022 Omair Majid <omajid@redhat.com> - 6.0.110-2
+- Set OPENSSL_ENABLE_SHA1_SIGNATURES=1 when building
+
 * Fri Oct 28 2022 Omair Majid <omajid@redhat.com> - 6.0.110-1
 - Update to .NET SDK 6.0.110 and Runtime 6.0.10
 

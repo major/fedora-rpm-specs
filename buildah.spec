@@ -27,6 +27,7 @@ Summary: A command line tool used for creating OCI Images
 URL: https://%{name}.io
 # Tarball fetched from upstream
 Source: %{git0}/archive/%{built_tag}.tar.gz
+ExclusiveArch: %{golang_arches}
 BuildRequires: go-md2man
 BuildRequires: device-mapper-devel
 BuildRequires: git-core

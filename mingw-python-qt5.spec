@@ -5,7 +5,7 @@
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
 Version:        5.15.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 BuildArch:      noarch
 
 # GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
@@ -88,21 +88,24 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 %files -n mingw32-python3-qt5
 %license LICENSE
-%{mingw32_python3_sitearch}/PyQt5/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 %{mingw32_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw32_libdir}/qt5/plugins/PyQt5/
+%{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %files -n mingw64-python3-qt5
 %license LICENSE
-%{mingw64_python3_sitearch}/PyQt5/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 %{mingw64_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw64_libdir}/qt5/plugins/PyQt5/
+%{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-10
+- Rebuild (python-3.11)
+
 * Fri Jul 22 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-9
 - Rebuild (sip)
 

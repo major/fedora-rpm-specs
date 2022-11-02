@@ -6,7 +6,7 @@
 %bcond_without perl_FFI_Platypus_enables_optional_test
 
 Name:           perl-FFI-Platypus
-Version:        2.02
+Version:        2.03
 Release:        1%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -199,6 +199,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 31 2022 Petr Pisar <ppisar@redhat.com> - 2.03-1
+- 2.03 bump
+
 * Tue Oct 25 2022 Petr Pisar <ppisar@redhat.com> - 2.02-1
 - 2.02 bump
 

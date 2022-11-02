@@ -14,7 +14,6 @@ License: MIT
 %global collection_rolename server
 %global legacy_rolename %{collection_namespace}.sql-server
 
-%global installbase %{_datadir}/ansible/roles
 %global _pkglicensedir %{_licensedir}/%{name}
 
 Requires: linux-system-roles
@@ -108,35 +107,35 @@ pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name
 popd
 
 %install
-mkdir -p %{buildroot}%{installbase}
+mkdir -p %{buildroot}%{ansible_roles_dir}
 
 # Copy role in legacy format and rename rolename in tests
-cp -pR %{rolename} "%{buildroot}%{installbase}/%{legacy_rolename}"
+cp -pR %{rolename} "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
 sed -i "s/linux-system-roles\.%{rolename}/%{legacy_rolename}/g" \
-    %{buildroot}%{installbase}/%{legacy_rolename}/tests/*.yml
+    %{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/tests/*.yml
 
 # Copy README, COPYING, and LICENSE files to the corresponding directories
 mkdir -p %{buildroot}%{_pkglicensedir}
 mkdir -p "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-cp -p "%{buildroot}%{installbase}/%{legacy_rolename}/README.md" \
+cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.md" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-cp -p "%{buildroot}%{installbase}/%{legacy_rolename}/README.html" \
+cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.html" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-if [ -f "%{buildroot}%{installbase}/%{legacy_rolename}/COPYING" ]; then
-    cp -p "%{buildroot}%{installbase}/%{legacy_rolename}/COPYING" \
+if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" ]; then
+    cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" \
         "%{buildroot}%{_pkglicensedir}/%{legacy_rolename}.COPYING"
 fi
-if [ -f "%{buildroot}%{installbase}/%{legacy_rolename}/LICENSE" ]; then
-    cp -p "%{buildroot}%{installbase}/%{legacy_rolename}/LICENSE" \
+if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/LICENSE" ]; then
+    cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/LICENSE" \
         "%{buildroot}%{_pkglicensedir}/%{legacy_rolename}.LICENSE"
 fi
 
 # Remove dot files
-rm -r %{buildroot}%{installbase}/*/.[A-Za-z]*
-rm -r %{buildroot}%{installbase}/%{legacy_rolename}/tests/.[A-Za-z]*
+rm -r %{buildroot}%{ansible_roles_dir}/*/.[A-Za-z]*
+rm -r %{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/tests/.[A-Za-z]*
 
 # Remove the molecule directory
-rm -r %{buildroot}%{installbase}/*/molecule
+rm -r %{buildroot}%{ansible_roles_dir}/*/molecule
 
 # Install collection
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
@@ -169,11 +168,10 @@ fi
 popd
 %endif
 
-%files
+%files -f %{ansible_collection_filelist}
 %{_pkgdocdir}
 %license %{_pkglicensedir}
-%{ansible_collection_files}
-%{installbase}/%{legacy_rolename}
+%{ansible_roles_dir}/%{legacy_rolename}
 
 %if %{with collection_artifact}
 %files collection-artifact

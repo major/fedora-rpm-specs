@@ -3,86 +3,92 @@
 # Causes build failures
 %undefine _auto_set_build_flags
 
-%global pkgname Cython
+%global pypi_name Cython
 
-Name:          mingw-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
+Name:          mingw-%{pypi_name}
+Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.29.32
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       ASL 2.0
 URL:           http://www.cython.org
-Source:        https://github.com/cython/cython/archive/%{version}/cython-%{version}.tar.gz
+Source:        %{pypi_source}
 
 
 BuildRequires: mingw32-filesystem >= 102
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 102
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pkgname} library.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %{?mingw_debug_package}
 
 
 %prep
-%autosetup -p1 -n cython-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 
 %build
-%{mingw32_python3} setup.py build -b build_py3_mingw32
-%{mingw64_python3} setup.py build -b build_py3_mingw64
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-ln -s build_py3_mingw32 build
-%{mingw32_python3} setup.py install -O1 --skip-build --root=%{buildroot}
-rm build
-
-ln -s build_py3_mingw64 build
-%{mingw64_python3} setup.py install -O1 --skip-build  --root=%{buildroot}
-rm build
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw32_bindir}/cygdb
 %{mingw32_bindir}/cython
 %{mingw32_bindir}/cythonize
-%{mingw32_python3_sitearch}/*
+%{mingw32_python3_sitearch}/cython.py
+%{mingw32_python3_sitearch}/__pycache__/cython*.pyc
+%{mingw32_python3_sitearch}/pyximport/
+%{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw64_bindir}/cygdb
 %{mingw64_bindir}/cython
 %{mingw64_bindir}/cythonize
-%{mingw64_python3_sitearch}/*
+%{mingw64_python3_sitearch}/cython.py
+%{mingw64_python3_sitearch}/__pycache__/cython*.pyc
+%{mingw64_python3_sitearch}/pyximport/
+%{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 0.29.32-2
+- Switch to python3-build
+
 * Wed Aug 10 2022 Sandro Mani <manisandro@gmail.com> - 0.29.32-1
 - Update to 0.29.32
 

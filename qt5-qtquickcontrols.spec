@@ -2,7 +2,7 @@
 
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls
-Version: 5.15.6
+Version: 5.15.7
 Release: 1%{?dist}
 
 License: LGPLv2 or LGPLv3 and GFDL
@@ -59,6 +59,9 @@ make install INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
+- 5.15.7
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

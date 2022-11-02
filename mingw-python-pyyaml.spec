@@ -1,45 +1,47 @@
 %{?mingw_package_header}
 
-%global pkgname pyyaml
+%global mod_name pyyaml
 %global pypi_name PyYAML
 
-Name:          mingw-python-%{pkgname}
+Name:          mingw-python-%{mod_name}
 Version:       6.0
-Release:       6%{?dist}
-Summary:       MinGW Windows Python %{pkgname}
+Release:       7%{?dist}
+Summary:       MinGW Windows Python %{pypi_name} library
 BuildArch:     noarch
 
 License:       MIT
 URL:           https://github.com/yaml/pyyaml
-Source0:       %{pypi_source}
+Source0:       %{pypi_source PyYAML}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-Cython
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-Cython
 
 
 %description
-MinGW Windows Python %{pkgname}.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python2 %{pkgname}
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Windows Python2 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python2 %{pkgname}.
+%description -n mingw32-python3-%{mod_name}
+MinGW Windows Python2 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python2 %{pkgname}
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Windows Python2 %{pypi_name}
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python2 %{pkgname}.
+%description -n mingw64-python3-%{mod_name}
+MinGW Windows Python2 %{pypi_name} library.
 
 
 %prep
@@ -47,29 +49,32 @@ MinGW Windows Python2 %{pkgname}.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{mod_name}
 %license LICENSE
 %{mingw32_python3_sitearch}/yaml/
 %{mingw32_python3_sitearch}/_yaml/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{mod_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/yaml/
 %{mingw64_python3_sitearch}/_yaml/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Thu Oct 13 2022 Sandro Mani <manisandro@gmail.com> - 6.0-7
+- Switch to python3-build
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

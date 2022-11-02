@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2022.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       ASL 2.0
@@ -132,6 +132,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 2022.2-5
+- Rebuild (python-3.11)
+
 * Thu Sep 15 2022 Sandro Mani <manisandro@gmail.com> - 2022.2-4
 - Rebase to vulkan SDK 1.3.224.1
 

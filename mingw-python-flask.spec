@@ -1,12 +1,12 @@
 %{?mingw_package_header}
 
-%global pkgname flask
+%global mod_name flask
 %global pypi_name Flask
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
+Name:          mingw-python-%{mod_name}
+Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.2.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 BuildArch:     noarch
 
 License:       BSD
@@ -15,37 +15,29 @@ Source0:       %{pypi_source}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pkgname}.
+MinGW Windows Python %{pypi_name}.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname}
-Requires:      mingw32-python3-click
-Requires:      mingw32-python3-itsdangerous
-Requires:      mingw32-python3-jinja2
-Requires:      mingw32-python3-werkzeug
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name}
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname}.
+%description -n mingw32-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name}.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname}
-Requires:      mingw64-python3-click
-Requires:      mingw64-python3-itsdangerous
-Requires:      mingw64-python3-jinja2
-Requires:      mingw64-python3-werkzeug
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name}
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname}.
+%description -n mingw64-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name}.
 
 
 %prep
@@ -53,30 +45,32 @@ MinGW Windows Python3 %{pkgname}.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{mod_name}
 %license LICENSE.rst
-%{mingw32_bindir}/%{pkgname}
-%{mingw32_python3_sitearch}/%{pkgname}
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info
+%{mingw32_bindir}/flask
+%{mingw32_python3_sitearch}/%{mod_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{mod_name}
 %license LICENSE.rst
-%{mingw64_bindir}/%{pkgname}
-%{mingw64_python3_sitearch}/%{pkgname}
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info
+%{mingw64_bindir}/flask
+%{mingw64_python3_sitearch}/%{mod_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 2.2.2-2
+- Switch to python3-build
+
 * Tue Aug 09 2022 Sandro Mani <manisandro@gmail.com> - 2.2.2-1
 - Update to 2.2.2
 

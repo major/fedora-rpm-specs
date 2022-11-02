@@ -3,7 +3,7 @@
 
 Name:           WALinuxAgent
 Version:        2.7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        ASL 2.0
@@ -12,6 +12,7 @@ Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
 
 Patch0:         0001-Rudimentary-Fedora-OS-implementation.patch
+Patch1:         0001-waagent.service-set-ConditionVirtualization-microsof.patch
 
 BuildArch:      noarch
 
@@ -59,6 +60,7 @@ Udev rules specific to Microsoft Azure Virtual Machines.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %py3_build
@@ -121,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Tue Oct 18 2022 Chris Patterson <cpatterson@microsoft.com> - 2.7.3.0-2
+- Add ConditionVirtualization=|microsoft triggering condition
+
 * Wed Aug 03 2022 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.7.3.0-1
 - Update to 2.7.3.0 (#2110155)
 

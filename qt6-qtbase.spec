@@ -38,8 +38,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.3.1
-Release: 4%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -423,7 +423,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.3.1
+Version: 6.4.0
 EOF
 
 # rpm macros
@@ -508,9 +508,8 @@ make check -k ||:
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.FDL
-%license LICENSE.GPL*
-%license LICENSE.LGPL*
+%license LICENSES/GPL*
+%license LICENSES/LGPL*
 %dir %{_sysconfdir}/xdg/QtProject/
 %{_qt6_libdir}/libQt6Concurrent.so.6*
 %{_qt6_libdir}/libQt6Core.so.6*
@@ -836,6 +835,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 6.3.1-4
 - Rebuilt for ICU 71.1
 

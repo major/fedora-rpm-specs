@@ -1,16 +1,15 @@
 %{?mingw_package_header}
 
-%global pkgname setuptools
-%global pypi_name %{pkgname}
+%global pypi_name setuptools
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
-Version:       59.6.0
-Release:       6%{?dist}
+Name:          mingw-python-%{pypi_name}
+Summary:       MinGW Windows Python %{pypi_name} library
+Version:       65.5.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
-URL:           https://pypi.python.org/pypi/%{pkgname}
+URL:           https://pypi.python.org/pypi/%{pypi_name}
 Source0:       %{pypi_source %{pypi_name} %{version}}
 
 BuildRequires: mingw32-filesystem >= 95
@@ -22,24 +21,26 @@ BuildRequires: mingw64-python3
 # Don't call patch_for_msvc_specialized_compiler, MSVC was not used to compile python
 # Hit when running python3.exe get-pip.py
 Patch0:        mingw-python-setuptools_no-msvc.patch
+# Distutils fixes (adapted from mingw-python3_distutils.patch in mingw-python3)
+Patch1:        mingw-python-setuptools_distutils.patch
 
 
 %description
-MinGW Windows Python %{pkgname} library.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %prep
@@ -69,27 +70,27 @@ find %{buildroot}%{mingw32_python3_sitearch}/ -name '*.exe' | xargs rm -f
 find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{pypi_name}
 %license LICENSE
-%{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/%{pkgname}/
+%{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/%{pypi_name}/
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/pkg_resources/
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/_distutils_hack/
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/distutils-precedence.pth
 %{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
-%{mingw32_python3_sitearch}/%{pkgname}/
+%{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/pkg_resources/
 %{mingw32_python3_sitearch}/_distutils_hack/
 %{mingw32_python3_sitearch}/distutils-precedence.pth
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{pypi_name}
 %license LICENSE
-%{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/%{pkgname}/
+%{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/%{pypi_name}/
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/pkg_resources/
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/_distutils_hack/
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/distutils-precedence.pth
 %{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
-%{mingw64_python3_sitearch}/%{pkgname}/
+%{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/pkg_resources/
 %{mingw64_python3_sitearch}/_distutils_hack/
 %{mingw64_python3_sitearch}/distutils-precedence.pth
@@ -97,6 +98,15 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 65.5.0-1
+- Update to 65.5.0
+
+* Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 65.4.1-2
+- Add mingw-python-setuptools_linkpython.patch
+
+* Mon Oct 10 2022 Sandro Mani <manisandro@gmail.com> - 65.4.1-1
+- Update to 65.4.1
+
 * Thu Aug 04 2022 Sandro Mani <manisandro@gmail.com> - 59.6.0-6
 - Add host build
 

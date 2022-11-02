@@ -2,7 +2,7 @@
 
 Name:           objectweb-asm
 Version:        9.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java bytecode manipulation and analysis framework
 License:        BSD
 URL:            https://asm.ow2.org/
@@ -28,6 +28,9 @@ Source10:       tools-retrofitter.pom
 # Patch already applied in upstream master
 # https://gitlab.ow2.org/asm/asm/-/commit/5921eb2a141f0dcc83c6a5d7dcd5035a30c5edfc
 Patch1:         0001-Generate-the-module-info-classes-without-Bnd.-Delete.patch
+
+# Attempted fix for: https://gitlab.ow2.org/asm/asm/-/issues/317983
+Patch2:         0002-Replace-slash-for-dot-in-generated-module-infos.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -58,6 +61,7 @@ This package provides %{summary}.
 %setup -q
 
 %patch1 -p1
+%patch2 -p1
 
 # A custom parent pom to aggregate the build
 cp -p %{SOURCE1} pom.xml
@@ -95,6 +99,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 02 2022 Marian Koncek <mkoncek@redhat.com> - 9.3-4
+- Fix wrong generated module infos
+
 * Mon Aug 29 2022 Marian Koncek <mkoncek@redhat.com> - 9.3-3
 - Generate module-info without bnd-plugin
 - Resolves: rhbz#2106272

@@ -4,7 +4,7 @@
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
 Version:        6.6.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 License:        (GPLv2 or GPLv3) and (GPLv3+ with exceptions)
@@ -21,12 +21,12 @@ BuildRequires:  python3-setuptools
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+BuildRequires:  mingw64-python3-build
 
 
 %description
@@ -53,22 +53,22 @@ MinGW Windows SIP6.
 
 %build
 # Host build
-%{mingw32_py3_build_host}
-%{mingw64_py3_build_host}
+%{mingw32_py3_build_host_wheel}
+%{mingw64_py3_build_host_wheel}
 
 # Target build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%{mingw32_py3_build_wheel}
+%{mingw64_py3_build_wheel}
 
 
 %install
 # Host build
-%{mingw32_py3_install_host}
-%{mingw64_py3_install_host}
+%{mingw32_py3_install_host_wheel}
+%{mingw64_py3_install_host_wheel}
 
 # Target build
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%{mingw32_py3_install_wheel}
+%{mingw64_py3_install_wheel}
 
 # Fix extension
 mv %{buildroot}%{mingw32_python3_sitearch}/sipbuild/code_generator.abi3.so %{buildroot}%{mingw32_python3_sitearch}/sipbuild/code_generator.abi3.pyd
@@ -102,25 +102,28 @@ done
 %files -n mingw32-%{pypi_name}
 %license LICENSE LICENSE-GPL2 LICENSE-GPL3
 %{_bindir}/mingw32-sip-*
-%{_prefix}/%{mingw32_target}/bin/sip-*
-%{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/sipbuild/
-%{_prefix}/%{mingw32_target}/lib/python%{mingw32_python3_version}/site-packages/sip-%{version}*-py%{mingw32_python3_version}.egg-info/
 %{mingw32_bindir}/sip-*
 %{mingw32_python3_sitearch}/sipbuild/
-%{mingw32_python3_sitearch}/sip-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{_prefix}/%{mingw32_target}/bin/sip-*
+%{mingw32_python3_hostsitearch}/sipbuild/
+%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-%{pypi_name}
 %license LICENSE LICENSE-GPL2 LICENSE-GPL3
 %{_bindir}/mingw64-sip-*
-%{_prefix}/%{mingw64_target}/bin/sip-*
-%{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/sipbuild/
-%{_prefix}/%{mingw64_target}/lib/python%{mingw64_python3_version}/site-packages/sip-%{version}*-py%{mingw64_python3_version}.egg-info/
 %{mingw64_bindir}/sip-*
 %{mingw64_python3_sitearch}/sipbuild/
-%{mingw64_python3_sitearch}/sip-%{version}*-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{_prefix}/%{mingw64_target}/bin/sip-*
+%{mingw64_python3_hostsitearch}/sipbuild/
+%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 6.6.2-6
+- Switch to python3-build
+
 * Tue Aug 09 2022 Sandro Mani <manisandro@gmail.com> - 6.6.2-5
 - Backport fix for the instantiation of template values
 

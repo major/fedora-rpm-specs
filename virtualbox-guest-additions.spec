@@ -1,7 +1,7 @@
 %global __provides_exclude_from %{_libdir}/VBoxGuestAdditions
 
 Name:       virtualbox-guest-additions
-Version:    6.1.38
+Version:    6.1.40
 Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
@@ -183,6 +183,9 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Mon Oct 31 2022 Sérgio Basto <sergio@serjux.com> - 6.1.40-1
+- Update virtualbox-guest-additions to 6.1.40
+
 * Sat Sep 03 2022 Sérgio Basto <sergio@serjux.com> - 6.1.38-1
 - Update virtualbox-guest-additions to 6.1.38
 

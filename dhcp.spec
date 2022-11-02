@@ -15,7 +15,7 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  4%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  5%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
@@ -34,6 +34,7 @@ Source5:  56dhclient
 Source6:  dhcpd.service
 Source7:  dhcpd6.service
 Source8:  dhcrelay.service
+Source11: dhcp.sysusers
 
 Patch1: 0001-change-bug-url.patch
 Patch2: 0002-additional-dhclient-options.patch
@@ -85,6 +86,7 @@ BuildRequires: doxygen
 BuildRequires: systemtap-sdt-devel
 %global tapsetdir    /usr/share/systemtap/tapset
 %endif
+BuildRequires: systemd-rpm-macros
 
 # In _docdir we ship some perl scripts and module from contrib subdirectory.
 # Because nothing under _docdir is allowed to "require" anything,
@@ -99,11 +101,9 @@ DHCP (Dynamic Host Configuration Protocol)
 Summary: Provides the ISC DHCP server
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-compat < 12:4.4.2-12.b1
-Requires(pre): shadow-utils
 Requires(post): coreutils grep sed
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+%{?sysusers_requires_compat}
+%{?systemd_requires}
 
 %description server
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -119,9 +119,7 @@ Summary: Provides the ISC DHCP relay agent
 Requires: %{name}-common = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-compat < 12:4.4.2-12.b1
 Requires(post): grep sed
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
+%{?systemd_requires}
 
 %description relay
 DHCP (Dynamic Host Configuration Protocol) is a protocol which allows
@@ -305,6 +303,9 @@ install -m 644 %{SOURCE6} %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE7} %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE8} %{buildroot}%{_unitdir}
 
+# systemd-sysusers
+install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/dhcp.conf
+
 # Start empty lease databases
 mkdir -p %{buildroot}%{_localstatedir}/lib/dhcpd/
 touch %{buildroot}%{_localstatedir}/lib/dhcpd/dhcpd.leases
@@ -381,17 +382,7 @@ install -D -p -m 0644 contrib/ldap/dhcp.schema %{buildroot}%{_sysconfdir}/openld
 find %{buildroot} -type f -name "*.la" -delete -print
 
 %pre server
-# /usr/share/doc/setup/uidgid
-%global gid_uid 177
-getent group dhcpd >/dev/null || groupadd --force --gid %{gid_uid} --system dhcpd
-if ! getent passwd dhcpd >/dev/null ; then
-    if ! getent passwd %{gid_uid} >/dev/null ; then
-      useradd --system --uid %{gid_uid} --gid dhcpd --home / --shell /sbin/nologin --comment "DHCP server" dhcpd
-    else
-      useradd --system --gid dhcpd --home / --shell /sbin/nologin --comment "DHCP server" dhcpd
-    fi
-fi
-exit 0
+%sysusers_create_compat %{SOURCE11}
 
 %post server
 # Initial installation
@@ -475,6 +466,7 @@ done
 %config(noreplace) %{_sysconfdir}/openldap/schema/dhcp.schema
 %attr(0644,root,root)   %{_unitdir}/dhcpd.service
 %attr(0644,root,root)   %{_unitdir}/dhcpd6.service
+%{_sysusersdir}/dhcp.conf
 %{_sbindir}/dhcpd
 %{_bindir}/omshell
 %attr(0644,root,root) %{_mandir}/man1/omshell.1.gz
@@ -535,6 +527,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Mon Oct 31 2022 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-5.P1
+- Use systemd-sysusers for dhcp user and group (rhbz#2138822)
+
 * Wed Oct 05 2022 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-4.P1
 - New version 4.4.3-P1 (rhbz#2132240)
 - Fix for CVE-2022-2928 (rhbz#2132429)

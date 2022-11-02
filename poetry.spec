@@ -48,7 +48,8 @@ rm -r src/poetry/_vendor
 
 # Allow newer requests-toolbelt version
 # https://bugzilla.redhat.com/show_bug.cgi?id=2138636
-sed -i 's/requests-toolbelt = "^0.9.1"/requests-toolbelt = ">=0.9.1"/' pyproject.toml
+# Merged upstream: https://github.com/python-poetry/poetry/pull/6924
+sed -i 's/requests-toolbelt = "^0.9.1"/requests-toolbelt = ">=0.9.1,<0.11.0"/' pyproject.toml
 
 
 %generate_buildrequires

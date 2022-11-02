@@ -6,7 +6,7 @@
 
 Name:           xmvn
 Version:        4.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Local Extensions for Apache Maven
 License:        ASL 2.0
 URL:            https://fedora-java.github.io/xmvn/
@@ -16,6 +16,8 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/fedora-java/xmvn/releases/download/%{version}/xmvn-%{version}.tar.xz
 
 Patch0:         0001-Port-to-Modello-2.0.0.patch
+Patch1:         0002-Mimic-maven-javadoc-plugin-for--source-and---release.patch
+Patch2:         0003-Simple-implementation-of-toolchains.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
@@ -131,6 +133,8 @@ This package provides %{summary}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %mvn_package ::tar.gz: __noinstall
 %mvn_package ":{xmvn,xmvn-connector}" xmvn
@@ -267,6 +271,10 @@ end
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 05 2022 Marian Koncek <mkoncek@redhat.com> - 4.0.0-11
+- Mimic maven-javadoc-plugin for -source and --release
+- Add simple implementation of toolchains
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Wayland platform support and QtCompositor module
 Name:    qt5-%{qt_module}
-Version: 5.15.6
+Version: 5.15.7
 Release: 1%{?dist}
 
 License: LGPLv3
@@ -13,7 +13,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## Upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtwayland
 ## branch: kde/5.15
-## git format-patch v5.15.6-lts-lgpl
+## git format-patch v5.15.7-lts-lgpl
 Patch1:  0001-Client-Announce-an-output-after-receiving-more-compl.patch
 Patch2:  0002-Fix-issue-with-repeated-window-size-changes.patch
 Patch3:  0003-Client-Connect-drags-being-accepted-to-updating-the-.patch
@@ -23,46 +23,48 @@ Patch6:  0006-Fix-build.patch
 Patch7:  0007-Fix-remove-listener.patch
 Patch8:  0008-Hook-up-queryKeyboardModifers.patch
 Patch9:  0009-Correctly-detect-if-image-format-is-supported-by-QIm.patch
-Patch10: 0010-Wayland-client-Fix-crash-when-windows-are-shown-hidd.patch
-Patch11: 0011-Client-Don-t-always-recreate-frame-callbacks.patch
-Patch12: 0012-Client-Always-destroy-frame-callback-in-the-actual-c.patch
-Patch13: 0013-Fix-the-logic-for-decoding-modifiers-map-in-Wayland-.patch
-Patch14: 0014-Wayland-client-use-wl_keyboard-to-determine-active-s.patch
-Patch15: 0015-Client-do-not-empty-clipboard-when-a-new-popup-windo.patch
-Patch16: 0016-Set-preedit-cursor-when-cursor-equals-to-0.patch
-Patch17: 0017-Client-Implement-DataDeviceV3.patch
-Patch18: 0018-Client-Delay-deletion-of-QDrag-object-until-after-we.patch
-Patch19: 0019-Client-Avoid-processing-of-events-when-showing-windo.patch
-Patch20: 0020-Handle-registry_global-out-of-constructor.patch
-Patch21: 0021-Connect-flushRequest-after-forceRoundTrip.patch
-Patch22: 0022-Move-the-wayland-socket-polling-to-a-separate-event-.patch
-Patch23: 0023-Do-not-create-decorations-when-the-shellSurface-is-n.patch
-Patch24: 0024-Fix-crash-if-no-input-method-module-could-be-loaded.patch
-Patch25: 0025-Client-Remove-mWaitingForUpdateDelivery.patch
-Patch26: 0026-Cursor-position-0-should-still-show-the-cursor.patch
-Patch27: 0027-Update-the-preedit-styling-mapping.patch
-Patch28: 0028-client-Simplify-round-trip-behavior.patch
-Patch29: 0029-Client-Fix-opaque-region-setter.patch
-Patch30: 0030-Use-proper-dependencies-in-compile-tests.patch
-Patch31: 0031-client-update-button-state-and-etc-in-pointer_leave.patch
-Patch32: 0032-Revert-Client-Remove-mWaitingForUpdateDelivery.patch
-Patch33: 0033-Fix-race-condition-on-mWaitingForUpdateDelivery.patch
-Patch34: 0034-use-poll-2-when-reading-from-clipboard.patch
-Patch35: 0035-Reduce-memory-leakage.patch
-Patch36: 0036-Fix-build-with-libcxx-missing-array-include.patch
-Patch37: 0037-Only-close-popup-in-the-the-hierchary.patch
-Patch38: 0038-Build-fixes-for-GCC-11.patch
-Patch39: 0039-Check-pointer-for-null-before-use-in-ASSERT.patch
-Patch40: 0040-Use-wl_surface.damage_buffer-on-the-client-side.patch
-Patch41: 0041-Client-clear-focus-on-touch-cancel.patch
-Patch42: 0042-Guard-mResizeDirty-by-the-correctMutex.patch
-Patch43: 0043-client-Synthesize-enter-leave-event-for-popup-in-xdg.patch
-Patch44: 0044-Fix-compile-tests.patch
-Patch45: 0045-Use-CRLF-line-delimiter-for-text-uri-list-data.patch
-Patch46: 0046-Fix-missing-update-when-toggling-client-side-decorat.patch
-Patch47: 0047-Avoid-calling-requestUpdate-from-wrong-thread.patch
+Patch10: 0010-Client-Don-t-always-recreate-frame-callbacks.patch
+Patch11:  0011-Client-Always-destroy-frame-callback-in-the-actual-c.patch
+Patch12:  0012-Fix-the-logic-for-decoding-modifiers-map-in-Wayland-.patch
+Patch13:  0013-Wayland-client-use-wl_keyboard-to-determine-active-s.patch
+Patch14:  0014-Client-do-not-empty-clipboard-when-a-new-popup-windo.patch
+Patch15:  0015-Set-preedit-cursor-when-cursor-equals-to-0.patch
+Patch16:  0016-Client-Implement-DataDeviceV3.patch
+Patch17:  0017-Client-Delay-deletion-of-QDrag-object-until-after-we.patch
+Patch18:  0018-Client-Avoid-processing-of-events-when-showing-windo.patch
+Patch19:  0019-Handle-registry_global-out-of-constructor.patch
+Patch20:  0020-Connect-flushRequest-after-forceRoundTrip.patch
+Patch21:  0021-Move-the-wayland-socket-polling-to-a-separate-event-.patch
+Patch22:  0022-Do-not-create-decorations-when-the-shellSurface-is-n.patch
+Patch23:  0023-Fix-crash-if-no-input-method-module-could-be-loaded.patch
+Patch24:  0024-Client-Remove-mWaitingForUpdateDelivery.patch
+Patch25:  0025-Cursor-position-0-should-still-show-the-cursor.patch
+Patch26:  0026-Update-the-preedit-styling-mapping.patch
+Patch27:  0027-client-Simplify-round-trip-behavior.patch
+Patch28:  0028-Client-Fix-opaque-region-setter.patch
+Patch29:  0029-Use-proper-dependencies-in-compile-tests.patch
+Patch30:  0030-client-update-button-state-and-etc-in-pointer_leave.patch
+Patch31:  0031-Revert-Client-Remove-mWaitingForUpdateDelivery.patch
+Patch32:  0032-Fix-race-condition-on-mWaitingForUpdateDelivery.patch
+Patch33:  0033-use-poll-2-when-reading-from-clipboard.patch
+Patch34:  0034-Reduce-memory-leakage.patch
+Patch35:  0035-Fix-build-with-libcxx-missing-array-include.patch
+Patch36:  0036-Only-close-popup-in-the-the-hierchary.patch
+Patch37:  0037-Build-fixes-for-GCC-11.patch
+Patch38:  0038-Check-pointer-for-null-before-use-in-ASSERT.patch
+Patch39:  0039-Use-wl_surface.damage_buffer-on-the-client-side.patch
+Patch40:  0040-Client-clear-focus-on-touch-cancel.patch
+Patch41:  0041-Guard-mResizeDirty-by-the-correctMutex.patch
+Patch42:  0042-client-Synthesize-enter-leave-event-for-popup-in-xdg.patch
+Patch43:  0043-Fix-compile-tests.patch
+Patch44:  0044-Use-CRLF-line-delimiter-for-text-uri-list-data.patch
+Patch45:  0045-Fix-missing-update-when-toggling-client-side-decorat.patch
+Patch46:  0046-Avoid-calling-requestUpdate-from-wrong-thread.patch
+Patch47:  0047-Client-support-high-dpi-mode-for-window-icon.patch
+Patch48:  0048-Call-finishDrag-in-QWaylandDataDevice-dragSourceCanc.patch
+Patch49:  0049-Hold-surface-read-lock-throughout-QWaylandEglWindow-.patch
 
-Patch50: 0050-Client-set-constraint-adjustments-for-popups-in-xdg.patch
+Patch80:  0080-Client-set-constraint-adjustments-for-popups-in-xdg.patch
 
 # Menu location is offset depending on xdg_output.logical_layout in sway
 # https://bugreports.qt.io/browse/QTBUG-85297
@@ -178,6 +180,9 @@ popd
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
+- 5.15.7
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

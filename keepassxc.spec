@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -174,6 +174,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 2.7.1-14
+- Rebuild (qt5)
+
 * Thu Sep 22 2022  Otto Liljalaakso <otto.liljalaakso@iki.fi> - 2.7.1-13
 - Re-enable LTO (rhbz#2127754)
 - Enable most tests (rhbz#2127757)

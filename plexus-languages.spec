@@ -2,7 +2,7 @@
 
 Name:           plexus-languages
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plexus Languages
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-languages
@@ -40,9 +40,6 @@ cp %{SOURCE1} .
 
 %pom_remove_plugin :maven-enforcer-plugin
 
-# Remove module build specific to Java 9
-%pom_xpath_remove 'pom:profiles' plexus-java
-
 %build
 # many tests rely on bundled test jars/classes
 %mvn_build -f
@@ -54,6 +51,9 @@ cp %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Wed Aug 31 2022 Marian Koncek <mkoncek@redhat.com> - 1.1.1-3
+- Enable jpms support
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

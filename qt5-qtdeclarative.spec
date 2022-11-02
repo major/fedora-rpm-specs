@@ -11,7 +11,7 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.6
+Version: 5.15.7
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -27,27 +27,26 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.6-lts-lgpl
-Patch1:  0001-Document-that-StyledText-also-supports-nbsp-and-quot.patch
-Patch2:  0002-Support-apos-in-styled-text.patch
-Patch3:  0003-Remove-unused-QPointer-QQuickPointerMask.patch
-Patch4:  0004-Include-limits-in-Yarr.h-to-fix-build-with-GCC-11.patch
-Patch5:  0005-QQuickLoader-Do-not-incubate-if-the-source-arrives-a.patch
-Patch6:  0006-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
-Patch7:  0007-Fix-sweep-step-for-tainted-QObject-JavaScript-wrappe.patch
-Patch8:  0008-Fix-distorted-text-with-subpixel-matrix-translation.patch
-Patch0:  0009-Revert-Fix-for-possible-crash-in-QSGDefaultLayer-gra.patch
-Patch10: 0010-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
-Patch11: 0011-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
-Patch12: 0012-QQmlJs-FixedPoolArray-fix-UB-precondition-violation-.patch
-Patch13: 0013-V4-Do-not-call-dtor-of-an-object-we-continue-to-use.patch
-Patch14: 0014-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
-Patch15: 0015-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
-Patch16: 0016-QSGOpenGLDistanceFieldGlyphCache-fix-multiplication-.patch
-Patch17: 0017-QSGOpenGLDistanceFieldGlyphCache-fix-UB-ordering-of-.patch
-Patch18: 0018-Fix-Flickable-wheel-velocity-calculation.patch
-Patch19: 0019-Fix-Flickable-with-QTBUG-56075-patch-applied.patch
-Patch20: 0020-Reset-currentChanges-if-currentChanges-is-active-whe.patch
+## git format-patch v5.15.7-lts-lgpl
+Patch01: 0001-Document-that-StyledText-also-supports-nbsp-and-quot.patch
+Patch02: 0002-Support-apos-in-styled-text.patch
+Patch03: 0003-Remove-unused-QPointer-QQuickPointerMask.patch
+Patch04: 0004-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
+Patch05: 0005-Fix-sweep-step-for-tainted-QObject-JavaScript-wrappe.patch
+Patch06: 0006-Revert-Fix-for-possible-crash-in-QSGDefaultLayer-gra.patch
+Patch07: 0007-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
+Patch08: 0008-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
+Patch09: 0009-QQmlJs-FixedPoolArray-fix-UB-precondition-violation-.patch
+Patch10: 0010-V4-Do-not-call-dtor-of-an-object-we-continue-to-use.patch
+Patch11: 0011-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+Patch12: 0012-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
+Patch13: 0013-QSGOpenGLDistanceFieldGlyphCache-fix-multiplication-.patch
+Patch14: 0014-QSGOpenGLDistanceFieldGlyphCache-fix-UB-ordering-of-.patch
+Patch15: 0015-Fix-Flickable-wheel-velocity-calculation.patch
+Patch16: 0016-Fix-Flickable-with-QTBUG-56075-patch-applied.patch
+Patch17: 0017-Reset-currentChanges-if-currentChanges-is-active-whe.patch
+Patch18: 0018-Revert-Fix-ListView.isCurrentItem-when-used-with-Del.patch
+
 
 ## upstreamable patches
 Patch100: %{name}-gcc11.patch
@@ -230,6 +229,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
+- 5.15.7
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

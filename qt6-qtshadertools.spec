@@ -8,8 +8,8 @@
 
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv3
 Url:     http://www.qt.io
@@ -23,9 +23,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-Patch0:  0001-Fix-encoding-decoding-of-string-literals-for-big-end.patch
-Patch1:  0002-TIntermediate-promoteConstantUnion-fix-conversion-to.patch
-Patch2:  0003-Use-intermOut.cpp-s-IsNan-and-IsInfinity-for-parse-t.patch
 
 # Upstreamable patches
 
@@ -92,7 +89,7 @@ popd
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.*
+%license LICENSES/*
 %{_bindir}/qsb-qt6
 %{_qt6_bindir}/qsb
 %{_qt6_libdir}/libQt6ShaderTools.so.6*
@@ -113,6 +110,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

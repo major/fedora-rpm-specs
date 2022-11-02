@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-fastavro
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Fast Avro for Python
 
@@ -91,7 +91,7 @@ Documentation for python-fastavro.
 
 
 %prep
-%autosetup -n fastavro-%{version} -p1
+%autosetup -n fastavro-%{version}
 
 # Remove the already generated C files so we generate them ourselves
 find fastavro/ -name '*.c' -print -delete

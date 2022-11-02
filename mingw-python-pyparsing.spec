@@ -1,11 +1,16 @@
+# This package is required by python-build to build wheels.
+# To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
+# Note that as a pure Python package, the wheel contains no pre-built binary stuff.
+%bcond_with     bootstrap
+
 %{?mingw_package_header}
 
 %global pypi_name pyparsing
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
-Version:        2.4.7
-Release:        5%{?dist}
+Version:        3.0.9
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -15,11 +20,15 @@ Source0:        %{pypi_source}
 
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+%if %{without bootstrap}
+BuildRequires:  mingw32-python3-build
+%endif
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+%if %{without bootstrap}
+BuildRequires:  mingw64-python3-build
+%endif
 
 
 %description
@@ -45,29 +54,66 @@ MinGW Python 3 %{pypi_name}.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%if %{with bootstrap}
+%global distinfo %{pypi_name}-%{version}+rpmbootstrap.dist-info
+mkdir %{distinfo}
+cat > %{distinfo}/METADATA << EOF
+Metadata-Version: 2.2
+Name: %{pypi_name}
+Version: %{version}+rpmbootstrap
+EOF
+%else
+%global distinfo %{pypi_name}-%{version}.dist-info
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
+%mingw32_py3_build_host_wheel
+%mingw64_py3_build_host_wheel
+%endif
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%if %{with bootstrap}
+mkdir -p %{buildroot}%{mingw32_python3_sitearch}
+mkdir -p %{buildroot}%{mingw64_python3_sitearch}
+cp -a pyparsing %{distinfo} %{buildroot}%{mingw32_python3_sitearch}/
+cp -a pyparsing %{distinfo} %{buildroot}%{mingw64_python3_sitearch}/
+mkdir -p %{buildroot}%{mingw32_python3_hostsitearch}
+mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
+cp -a pyparsing %{distinfo} %{buildroot}%{mingw32_python3_hostsitearch}/
+cp -a pyparsing %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
+%else
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
+%mingw32_py3_install_host_wheel
+%mingw64_py3_install_host_wheel
+%endif
 
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE
-%{mingw32_python3_sitearch}/%{pypi_name}.py
-%{mingw32_python3_sitearch}/__pycache__/%{pypi_name}.*
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{distinfo}
+%{mingw32_python3_hostsitearch}/%{pypi_name}/
+%{mingw32_python3_hostsitearch}/%{distinfo}
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE
-%{mingw64_python3_sitearch}/%{pypi_name}.py
-%{mingw64_python3_sitearch}/__pycache__/%{pypi_name}.*
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{distinfo}
+%{mingw64_python3_hostsitearch}/%{pypi_name}/
+%{mingw64_python3_hostsitearch}/%{distinfo}
 
 
 %changelog
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 3.0.9-2
+- Full build
+
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 3.0.9-1
+- Update to 3.0.9 (bootstrap)
+
+* Wed Oct 12 2022 Sandro Mani <manisandro@gmail.com> - 2.4.7-6
+- Switch to python3-build
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

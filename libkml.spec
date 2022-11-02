@@ -11,7 +11,7 @@
 
 Name:           libkml
 Version:        1.3.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
 License:        BSD
@@ -156,6 +156,7 @@ MinGW Windows Python 3 %{name} library.
 %{?mingw_debug_package}
 %endif
 
+
 %prep
 %autosetup -p1 -a1
 
@@ -215,6 +216,7 @@ export MINGW64_CMAKE_ARGS="\
 %mingw_make_build
 %endif
 
+
 %install
 %cmake_install
 
@@ -222,6 +224,7 @@ export MINGW64_CMAKE_ARGS="\
 %mingw_make_install
 %mingw_debug_install_post
 %endif
+
 
 %check
 %ctest
@@ -277,7 +280,10 @@ export MINGW64_CMAKE_ARGS="\
 %endif
 
 %changelog
-* Sat Sep 25 2022 Tom Rix <trix@redhat.com> - 1.3.0-41
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.3.0-42
+- Rebuild (python-3.11)
+
+* Sat Sep 24 2022 Tom Rix <trix@redhat.com> - 1.3.0-41
 - Add mingw build conditional
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-40

@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.16.1
-Release: 7%{?commit:.git%shortcommit}%{?dist}
+Release: 8%{?commit:.git%shortcommit}%{?dist}
 Summary: GPS mapping and management tool
 
 License: GPLv3+ and BSD
@@ -58,6 +58,7 @@ Main features:
 
 %package -n qmaptool
 Summary: Create raster maps from paper map scans
+Recommends: gdal
 
 %description -n qmaptool
 This is a tool to create raster maps from paper map scans. QMapTool can be
@@ -109,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Sun Oct 30 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.16.1-8
+- Add Recommends for gdal to qmaptool (#2138688)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

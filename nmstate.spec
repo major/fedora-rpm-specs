@@ -3,7 +3,7 @@
 
 Name:           nmstate
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+
 URL:            https://github.com/%{srcname}/%{srcname}
@@ -105,6 +105,22 @@ BuildArch:      noarch
 This package contains library source intended for building other packages
 which use "%{name}" crate with default feature.
 
+%package -n rust-%{name}+gen_conf-devel
+Summary:        Rust crate of nmstate with default feature
+BuildArch:      noarch
+
+%description -n rust-%{name}+gen_conf-devel
+This package contains library source intended for building other packages
+which use "%{name}" crate with gen_conf feature.
+
+%package -n rust-%{name}+query_apply-devel
+Summary:        Rust crate of nmstate with default feature
+BuildArch:      noarch
+
+%description -n rust-%{name}+query_apply-devel
+This package contains library source intended for building other packages
+which use "%{name}" crate with query_apply feature.
+
 %prep
 gpg2 --import --import-options import-export,import-minimal \
     %{SOURCE2} > ./gpgkey-mantainers.gpg
@@ -175,6 +191,12 @@ popd
 %{cargo_registry}/%{name}-%{version}/
 
 %files -n rust-%{name}+default-devel
+%ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
+
+%files -n rust-%{name}+gen_conf-devel
+%ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
+
+%files -n rust-%{name}+query_apply-devel
 %ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
 
 %changelog

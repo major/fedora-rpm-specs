@@ -1,11 +1,11 @@
 Name:           perl-Devel-CheckOS
-Version:        1.94
+Version:        1.95
 Release:        1%{?dist}
 Summary:        Check what OS we're running on
-# Devel/AssertOS/Extending.pod: CC-BY-SA
-# Devel/CheckOS/Families.pod:   CC-BY-SA
-# Other files:  GPLv2 or Artistic
-License:        (GPLv2 or Artistic) and CC-BY-SA
+# Devel/AssertOS/Extending.pod: CC-BY-SA-2.0-UK
+# Devel/CheckOS/Families.pod:   CC-BY-SA-2.0-UK
+# Other files:  GPL-2.0-only OR Artistic-1.0-Perl
+License:        (GPL-2.0-only OR Artistic-1.0-Perl) AND CC-BY-SA-2.0-UK
 URL:            https://metacpan.org/release/Devel-CheckOS
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCANTRELL/Devel-CheckOS-%{version}.tar.gz
 BuildArch:      noarch
@@ -13,6 +13,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
@@ -24,7 +25,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Find::Rule) >= 0.28
 BuildRequires:  perl(vars)
 # Tests:
-BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Temp) >= 0.19
 BuildRequires:  perl(Test::More) >= 0.88
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.95-1
+- 1.95 bump
+
 * Mon Jul 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.94-1
 - 1.94 bump
 

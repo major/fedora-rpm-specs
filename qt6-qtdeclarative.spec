@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -49,6 +49,9 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtshadertools-devel >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+BuildRequires: qt6-qtbase-mysql >= %{version}
+BuildRequires: qt6-qtbase-odbc >= %{version}
+BuildRequires: qt6-qtbase-postgresql >= %{version}
 BuildRequires: python%{python3_pkgversion}
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 
@@ -163,7 +166,7 @@ make check -k -C tests ||:
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.LGPL*
+%license LICENSES/LGPL*
 %{_qt6_libdir}/libQt6LabsAnimation.so.6*
 %{_qt6_libdir}/libQt6LabsFolderListModel.so.6*
 %{_qt6_libdir}/libQt6LabsQmlModels.so.6*
@@ -172,6 +175,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6LabsWavefrontMesh.so.6*
 %{_qt6_libdir}/libQt6QmlLocalStorage.so.6*
 %{_qt6_libdir}/libQt6Qml.so.6*
+%{_qt6_libdir}/libQt6QmlCompiler.so.*
 %{_qt6_libdir}/libQt6QmlCore.so.6*
 %{_qt6_libdir}/libQt6QmlModels.so.6*
 %{_qt6_libdir}/libQt6QmlWorkerScript.so.6*
@@ -189,6 +193,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QuickTemplates2.so.6*
 %{_qt6_libdir}/libQt6QmlXmlListModel.so.6*
 %{_qt6_plugindir}/qmltooling/
+%{_qt6_plugindir}/qmllint/
 %{_qt6_archdatadir}/qml/
 
 %files devel
@@ -205,7 +210,6 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6LabsSettings
 %dir %{_qt6_libdir}/cmake/Qt6LabsSharedImage
 %dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh
-%dir %{_qt6_libdir}/cmake/Qt6QmlLintPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6QmlDomPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlLocalStorage
 %dir %{_qt6_libdir}/cmake/Qt6QmlModels/
@@ -239,6 +243,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6LabsWavefrontMesh.so
 %{_qt6_libdir}/libQt6QmlLocalStorage.so
 %{_qt6_libdir}/libQt6Qml.so
+%{_qt6_libdir}/libQt6QmlCompiler.so
 %{_qt6_libdir}/libQt6QmlCore.so
 %{_qt6_libdir}/libQt6QmlModels.so
 %{_qt6_libdir}/libQt6QmlWorkerScript.so
@@ -251,6 +256,7 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6PacketProtocolPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/*.cmake*
 %{_qt6_libdir}/cmake/Qt6Qml/*.cpp.in
+%{_qt6_libdir}/cmake/Qt6Qml/*.qrc.in
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlCore/*.cmake
@@ -265,7 +271,6 @@ make check -k -C tests ||:
 %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlDomPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlLocalStorage/*.cmake
-%{_qt6_libdir}/cmake/Qt6QmlLintPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlModels/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlTools/*.cmake
 %{_qt6_libdir}/cmake/Qt6QmlWorkerScript/*.cmake
@@ -298,13 +303,10 @@ make check -k -C tests ||:
 %{_qt6_libdir}/libQt6QmlDom.a
 %{_qt6_libdir}/libQt6QmlDom.prl
 %{_qt6_libdir}/libQt6QmlLocalStorage.prl
-%{_qt6_libdir}/libQt6QmlLint.a
-%{_qt6_libdir}/libQt6QmlLint.prl
 %{_qt6_libdir}/libQt6Quick*.prl
 %{_qt6_libdir}/libQt6QmlWorkerScript.prl
 %{_qt6_libdir}/libQt6QmlModels.prl
 %{_qt6_libdir}/libQt6Qml.prl
-%{_qt6_libdir}/libQt6QmlCompiler.a
 %{_qt6_libdir}/libQt6QmlCompiler.prl
 %{_qt6_libdir}/libQt6PacketProtocol.a
 %{_qt6_libdir}/libQt6PacketProtocol.prl
@@ -320,6 +322,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

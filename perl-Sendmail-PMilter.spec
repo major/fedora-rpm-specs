@@ -1,8 +1,8 @@
 Summary:	Perl binding of Sendmail Milter protocol
 Name:		perl-Sendmail-PMilter
-Version:	1.21
-Release:	2%{?dist}
-License:	BSD
+Version:	1.23
+Release:	1%{?dist}
+License:	BSD-3-Clause
 URL:		https://metacpan.org/release/Sendmail-PMilter
 Source0:	https://cpan.metacpan.org/authors/id/G/GW/GWHAYWOOD/Sendmail-PMilter-%{version}.tar.gz
 BuildArch:	noarch
@@ -21,7 +21,7 @@ BuildRequires:	perl(Errno)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(IO::Select)
 BuildRequires:	perl(IO::Socket::INET)
-BuildRequires:	perl(IO::Socket::INET6)
+BuildRequires:	perl(IO::Socket::IP)
 BuildRequires:	perl(IO::Socket::UNIX)
 BuildRequires:	perl(parent)
 BuildRequires:	perl(POSIX)
@@ -40,7 +40,7 @@ BuildRequires:	perl(Test::More)
 # Dependencies
 Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(IO::Socket::INET)
-Requires:	perl(IO::Socket::INET6)
+Requires:	perl(IO::Socket::IP)
 Requires:	perl(IO::Socket::UNIX)
 Requires:	perl(Socket6)
 Requires:	perl(Thread::Semaphore)
@@ -80,14 +80,23 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
+# Note: COPYRIGHT file is identical to LICENSE file
 %license LICENSE
-%doc ABOUT ACKNOWLEDGEMENTS Changes CONTRIBUTING README README.1.21 TODO
+%doc ABOUT ACKNOWLEDGEMENTS Changes CONTRIBUTING README README.%{version} TODO
 %doc examples/
 %{perl_vendorlib}/Sendmail/
 %{_mandir}/man3/Sendmail::PMilter.3*
 %{_mandir}/man3/Sendmail::PMilter::Context.3*
 
 %changelog
+* Mon Oct 31 2022 Paul Howarth <paul@city-fan.org> - 1.23-1
+- Update to 1.23
+  - Replace deprecated IO::Socket::INET6 with IO::Socket::IP (CPAN RT#144401)
+  - Most callbacks were not recognized unless the appropriate flags were set
+    during the negotiate callback (CPAN RT#144971, CPAN RT#144273)
+  - Packaging improvements (CPAN RT#130084)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -113,6 +122,7 @@ make test
   - Add get_sendmail_option() to read configuration file options
   - Propose to insist on Milter Protocol Version 6 in V1.21
   - Removed enable_chgfrom and some other some cruft
+  - Partial support for negotiation
   - Comments invited via CPAN issues
   - Added file CONTRIBUTING
   - Added file COPYRIGHT

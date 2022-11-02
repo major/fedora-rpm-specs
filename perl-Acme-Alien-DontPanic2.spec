@@ -1,6 +1,6 @@
 Name:           perl-Acme-Alien-DontPanic2
-%global cpan_version 2.6500
-Version:        2.650.0
+%global cpan_version 2.7200
+Version:        2.720.0
 Release:        1%{?dist}
 Summary:        Test module for Alien::Base + Alien::Build
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,12 +21,12 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(dontpanic)
 # Run-time
-BuildRequires:  perl(Alien::Base) >= 2.65
+BuildRequires:  perl(Alien::Base) >= 2.72
 # Alien::Build::Plugin::Digest::Negotiate not used
 BuildRequires:  perl(base)
 BuildRequires:  perl(lib)
 # Tests
-BuildRequires:  perl(Alien::Build) >= 2.65
+BuildRequires:  perl(Alien::Build) >= 2.72
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Inline) >= 0.56
@@ -36,7 +36,7 @@ BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien) >= 0.05
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
-Requires:       perl(Alien::Base) >= 2.65
+Requires:       perl(Alien::Base) >= 2.72
 Requires:       pkgconfig(dontpanic)
 
 # Remove under-specified dependencies
@@ -67,6 +67,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.720.0-1
+- 2.7200 bump
+
 * Wed Aug 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.650.0-1
 - 2.6500 bump
 

@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2022e
-%define tzdata_version 2022e
-%define tzcode_version 2022e
+Version: 2022f
+%define tzdata_version 2022f
+%define tzcode_version 2022f
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
@@ -153,6 +153,12 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Mon Oct 31 2022 Patsy Griffin <patsy@redhat.com> - 2022f-1
+- Rebase to tzdata-2022f
+  - Mexico will stop observing DST except near the US border.
+  - Chihuahua moved to -06 year round starting on 2022-10-30.
+  - Fiji no longer observes DST.
+
 * Fri Oct 14 2022 Patsy Griffin <patsy@redhat.com> - 2022e-1
 - Rebase to tzdata-2022e
   - Jordan and Syria cancelled the DST transition planned

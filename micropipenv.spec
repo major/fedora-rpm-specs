@@ -1,5 +1,5 @@
 Name:           micropipenv
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 
@@ -44,6 +44,10 @@ sed -i '1{\@^#!/usr/bin/env python@d}' %{name}.py
 %{_bindir}/micropipenv
 
 %changelog
+* Mon Oct 31 2022 Lumír Balhar <lbalhar@redhat.com> - 1.4.4-1
+- Update to 1.4.4
+Resolves: rhbz#2138859
+
 * Wed Oct 05 2022 Lumír Balhar <lbalhar@redhat.com> - 1.4.3-1
 - Update to 1.4.3
 Resolves: rhbz#2131986

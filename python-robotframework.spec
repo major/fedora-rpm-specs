@@ -1,8 +1,8 @@
 %global srcname robotframework
 
 Name:           python-%{srcname}
-Version:        5.0.1
-Release:        6%{?dist}
+Version:        6.0
+Release:        1%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
 # Support libraries to display HTML results:
@@ -13,8 +13,6 @@ Summary:        Generic automation framework for acceptance testing and RPA
 License:        Apache-2.0 and MIT
 URL:            https://github.com/robotframework/robotframework
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
-# https://github.com/robotframework/robotframework/issues/4401
-Patch0:         0001-Patch_tests_with_Python_3_11.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -74,6 +72,10 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Sun Oct 30 2022 Federico Pellegrin <fede@evolware.org> - 6.0-1
+- Upgrade to 6.0
+- Drop now upstreamed patch for Python 3.11
+
 * Tue Oct 04 2022 Federico Pellegrin <fede@evolware.org> - 5.0.1-6
 - Improve spec file after package review (jquery bundling)
 

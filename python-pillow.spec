@@ -12,7 +12,7 @@
 
 Name:           python-%{srcname}
 Version:        9.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -300,6 +300,9 @@ popd
 
 
 %changelog
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 9.3.0-2
+- Rebuild (mingw-python-3.11)
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 9.3.0-1
 - Update to 9.3.0
 

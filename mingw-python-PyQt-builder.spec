@@ -5,7 +5,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        GPLv2 or GPLv3
@@ -19,11 +19,11 @@ Patch1:         PyQt-builder_no-bundle.patch
 
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+BuildRequires:  mingw64-python3-build
 
 
 %description
@@ -54,13 +54,13 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
 %files -n mingw32-python3-%{pypi_name}
@@ -68,17 +68,20 @@ rm -rf pyqtbuild/bundle/dlls/
 %{mingw32_bindir}/pyqt-bundle
 %{mingw32_bindir}/pyqt-qt-wheel
 %{mingw32_python3_sitearch}/pyqtbuild/
-%{mingw32_python3_sitearch}/PyQt_builder-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/PyQt_builder-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE LICENSE-GPL2 LICENSE-GPL3
 %{mingw64_bindir}/pyqt-bundle
 %{mingw64_bindir}/pyqt-qt-wheel
 %{mingw64_python3_sitearch}/pyqtbuild/
-%{mingw64_python3_sitearch}/PyQt_builder-%{version}*-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/PyQt_builder-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.13.0-2
+- Switch to python3-build
+
 * Fri Jul 22 2022 Sandro Mani <manisandro@gmail.com> - 1.13.0-1
 - Update to 1.13.0
 

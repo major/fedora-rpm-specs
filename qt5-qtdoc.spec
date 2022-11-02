@@ -2,7 +2,7 @@
 
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
-Version: 5.15.6
+Version: 5.15.7
 Release: 1%{?dist}
 
 License: GFDL
@@ -50,6 +50,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
+- 5.15.7
+
 * Tue Sep 20 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.6-1
 - 5.15.6
 

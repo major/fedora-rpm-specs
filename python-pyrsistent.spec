@@ -9,8 +9,8 @@ Summary:        Persistent/Functional/Immutable data structures
 Version:        0.18.1
 Release:        %autorelease
 
-# The entire source is MIT, except pyrsistent/_toolz.py which is BSD.
-License:        MIT and BSD
+# The entire source is (SPDX) MIT, except pyrsistent/_toolz.py which is BSD-3-Clause.
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/tobgu/pyrsistent/
 Source0:        %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
 
@@ -51,6 +51,8 @@ Summary:        %{summary}
 
 %package        doc
 Summary:        Documentation for pyrsistent
+# The Sphinx documentation does contain content based on pyrsistent/_toolz.py,
+# so the full License carries over from the base package.
 
 BuildArch:      noarch
 

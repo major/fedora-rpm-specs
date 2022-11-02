@@ -1,74 +1,81 @@
 %{?mingw_package_header}
 
-%global pkgname dateutil
-%global pypi_name python-%{pkgname}
+%global mod_name dateutil
+%global pypi_name python-dateutil
 
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
+Name:          mingw-python-%{mod_name}
+Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.8.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       BSD
 URL:           https://github.com/dateutil/%{name}
 Source0:       %{pypi_source}
 
+# Don't depend on setuptools_scm (see also %%prep)
+Patch0:        python-dateutil_noscm.patch
+
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
-BuildRequires: mingw32-python3-setuptools_scm
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
-BuildRequires: mingw64-python3-setuptools_scm
+BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pkgname} library.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+# Manually write version, rather than using setuptools_scm
+sed -i 's|{version}|%{version}|' setup.py
+
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{mod_name}
 %license LICENSE
-%{mingw32_python3_sitearch}/%{pkgname}/
-%{mingw32_python3_sitearch}/python_%{pkgname}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{mod_name}/
+%{mingw32_python3_sitearch}/python_dateutil-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{mod_name}
 %license LICENSE
-%{mingw64_python3_sitearch}/%{pkgname}/
-%{mingw64_python3_sitearch}/python_%{pkgname}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{mod_name}/
+%{mingw64_python3_sitearch}/python_dateutil-%{version}.dist-info/
 
 
 %changelog
+* Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 2.8.2-3
+- Switch to python3-build
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

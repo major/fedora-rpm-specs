@@ -1,7 +1,7 @@
 %global srcname tmuxp
 
 Name:           python-%{srcname}
-Version:        1.10.1
+Version:        1.18.1
 Release:        %autorelease
 Summary:        Tmux session manager
 
@@ -16,7 +16,6 @@ BuildArch:      noarch
 
 %package -n python3-%{srcname}
 Summary:	%{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 

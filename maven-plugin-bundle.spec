@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-bundle
 Version:        5.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Maven Bundle Plugin
 License:        ASL 2.0
 URL:            https://felix.apache.org
@@ -62,7 +62,8 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 
 %build
 # Tests depend on bundled JARs
-%mvn_build -f
+# source and target set explicitly for xmvn-javadoc-plugin
+%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
@@ -74,6 +75,9 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Sep 05 2022 Marian Koncek <mkoncek@redhat.com> - 5.1.1-7
+- Set source and target version to 1.8
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

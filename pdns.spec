@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.7.0
+Version: 4.7.1
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
@@ -269,6 +269,7 @@ exit 0
 %{_pkgdocdir}/3.4.0_to_4.1.0_schema.mysql.sql
 %{_pkgdocdir}/4.1.0_to_4.2.0_schema.mysql.sql
 %{_pkgdocdir}/4.2.0_to_4.3.0_schema.mysql.sql
+%{_pkgdocdir}/4.3.0_to_4.7.0_schema.mysql.sql
 %{_pkgdocdir}/enable-foreign-keys.mysql.sql
 %{_libdir}/%{name}/libgmysqlbackend.so
 
@@ -279,6 +280,7 @@ exit 0
 %{_pkgdocdir}/3.4.0_to_4.1.0_schema.pgsql.sql
 %{_pkgdocdir}/4.1.0_to_4.2.0_schema.pgsql.sql
 %{_pkgdocdir}/4.2.0_to_4.3.0_schema.pgsql.sql
+%{_pkgdocdir}/4.3.0_to_4.7.0_schema.pgsql.sql
 %{_libdir}/%{name}/libgpgsqlbackend.so
 
 %files backend-pipe
@@ -303,6 +305,7 @@ exit 0
 %{_pkgdocdir}/4.0.0_to_4.2.0_schema.sqlite3.sql
 %{_pkgdocdir}/4.2.0_to_4.3.0_schema.sqlite3.sql
 %{_pkgdocdir}/4.3.0_to_4.3.1_schema.sqlite3.sql
+%{_pkgdocdir}/4.3.1_to_4.7.0_schema.sqlite3.sql
 %{_libdir}/%{name}/libgsqlite3backend.so
 
 %files backend-tinydns
@@ -317,6 +320,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Mon Oct 31 2022 Morten Stevens <mstevens@fedoraproject.org> - 4.7.1-1
+- Update to 4.7.1
+
 * Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 4.7.0-1
 - Update to 4.7.0
 

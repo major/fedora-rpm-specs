@@ -1,10 +1,10 @@
 %{?mingw_package_header}
 
-%global pkgname werkzeug
+%global mod_name werkzeug
 %global pypi_name Werkzeug
 
-Name:          mingw-python-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
+Name:          mingw-python-%{mod_name}
+Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.2.2
 Release:       1%{?dist}
 BuildArch:     noarch
@@ -12,33 +12,33 @@ BuildArch:     noarch
 # Code is BSD, bundled icons are CC-BY
 License:       BSD and CC-BY
 URL:           https://palletsprojects.com/p/werkzeug/
-Source0:       %{pypi_source}
+Source0:       %{pypi_source Werkzeug}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
 
 
 %description
-MinGW Windows Python %{pkgname} library.
+MinGW Windows Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{mod_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %prep
@@ -46,24 +46,24 @@ MinGW Windows Python3 %{pkgname} library.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pkgname}
+%files -n mingw32-python3-%{mod_name}
 %license LICENSE.rst src/werkzeug/debug/shared/ICON_LICENSE.md
-%{mingw32_python3_sitearch}/%{pkgname}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{mod_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pkgname}
+%files -n mingw64-python3-%{mod_name}
 %license LICENSE.rst src/werkzeug/debug/shared/ICON_LICENSE.md
-%{mingw64_python3_sitearch}/%{pkgname}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{mod_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog

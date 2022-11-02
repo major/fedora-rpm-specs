@@ -1,10 +1,9 @@
 Name: cadaver
-Version: 0.23.3
-Release: 28%{?dist}
+Version: 0.24
+Release: 1%{?dist}
 Summary: Command-line WebDAV client
 License: GPLv2+
-Source: http://www.webdav.org/cadaver/%{name}-%{version}.tar.gz
-Patch0: cadaver-0.23.3-neon030.patch
+Source: https://notroj.github.io/cadaver/%{name}-%{version}.tar.gz
 URL: http://www.webdav.org/cadaver/
 BuildRequires: gcc, make
 BuildRequires: neon-devel >= 0.27.0, readline-devel, ncurses-devel, gettext
@@ -17,23 +16,26 @@ and resource locking.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
-%configure --with-neon=%{_prefix} --enable-nls
+%configure --with-neon=%{_prefix} --disable-nls
 make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
-%find_lang %{name}
+# broken in 0.24
+#find_lang %{name}
 
-%files -f %{name}.lang
-%doc NEWS FAQ THANKS TODO COPYING README ChangeLog
+%files
+%doc NEWS FAQ THANKS TODO COPYING README.md ChangeLog
 %{_bindir}/*
 %{_mandir}/*/*
 
 %changelog
+* Mon Oct 31 2022 Joe Orton <jorton@redhat.com> - 0.24-1
+- update to 0.24
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

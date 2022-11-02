@@ -1,4 +1,4 @@
-%global unversion 2_4_9
+%global unversion 2_5_0
 
 Summary: An XML parser library
 Name: expat
@@ -74,6 +74,10 @@ make check
 %{_libdir}/libexpat.a
 
 %changelog
+* Mon Oct 31 2022 Tomas Korbar <tkorbar@redhat.com> - 2.5.0-1
+- Rebase to 2.5.0
+- Resolves: rhbz#2137660
+
 * Thu Sep 29 2022 Tomas Korbar <tkorbar@redhat.com> - 2.4.9-1
 - Rebase to 2.4.9
 

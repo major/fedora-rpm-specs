@@ -3,7 +3,7 @@
 CEKit helps to build container images from image definition files
 
 Name:           %{modname}
-Version:        4.3.0
+Version:        4.4.0
 Release:        1%{?dist}
 Summary:        Container image creation tool
 License:        MIT
@@ -108,6 +108,9 @@ cp support/completion/zsh/_cekit %{buildroot}/%{_datadir}/zsh/site-functions/_ce
 %{_bindir}/cekit-cache
 
 %changelog
+* Mon Oct 31 2022 Nick Cross <ncross@redhat.com> - 4.4.0-1
+- Release 4.4.0
+
 * Wed Aug 03 2022 Nick Cross <ncross@redhat.com> - 4.3.0-1
 - Release 4.3.0
 

@@ -4,8 +4,8 @@
 %undefine _auto_set_build_flags
 
 %global pkgname python3
-%global py_ver 3.10
-%global py_ver_nodots 310
+%global py_ver 3.11
+%global py_ver_nodots 311
 %global mingw32_py3_libdir       %{mingw32_libdir}/python%{py_ver}
 %global mingw64_py3_libdir       %{mingw64_libdir}/python%{py_ver}
 %global mingw32_py3_hostlibdir   %{_prefix}/%{mingw32_target}/lib/python%{py_ver}
@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.10.7
-Release:       3%{?dist}
+Version:       3.11.0
+Release:       2%{?pre:.%pre}%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -40,67 +40,28 @@ Source4:       mingw64_python3.attr
 
 # Add support for building with mingw
 Patch1:        mingw-python3_platform-mingw.patch
-# Implement setenv for PY_COERCE_C_LOCALE
+# Implement setenv for mingw
 Patch2:        mingw-python3_setenv.patch
 # Ignore main program for frozen scripts
 Patch3:        mingw-python3_frozenmain.patch
-# Fix using dllhandle and winver
-Patch4:        mingw-python3_dllhandle-winver.patch
-# Remove gettext dependency
-Patch5:        mingw-python3_gettext.patch
-# Add missing include dirs and link libraries, assorted build fixes
-Patch6:        mingw-python3_build.patch
-# Fix misc warnings
-Patch7:        mingw-python3_warnings.patch
 # Link resource files and build pythonw.exe
-Patch8:        mingw-python3_pythonw.patch
-# Install msilib
-Patch9:        mingw-python3_msilib.patch
-# Use posix layout
-Patch10:       mingw-python3_posix-layout.patch
+Patch4:        mingw-python3_pythonw.patch
 # Implement PyThread_get_thread_native_id for mingw-win-pthread
-Patch11:       mingw-python3_pthread_threadid.patch
+Patch5:        mingw-python3_pthread_threadid.patch
 # Output list of failed modules to mods_failed.txt so that we can abort the build
-Patch12:       mingw-python3_mods-failed.patch
-# Adapt cygwinccompiler for cross-compiling
-Patch13:       mingw-python3_adapt-cygwinccompiler.patch
+Patch6:        mingw-python3_mods-failed.patch
+# Adapt distutils for cross-compiling
+Patch7:        mingw-python3_distutils.patch
 # Make sysconfigdata.py relocatable
-Patch14:       mingw-python3_make-sysconfigdata.py-relocatable.patch
-# Adapt posix build detection
-Patch15:       mingw-python3_posix-build.patch
-# IO_REPARSE_TAG_APPEXECLINK does not exist in mingw (yet?)
-Patch16:       mingw-python3_tag_appexeclink.patch
-# Enable building some modules
-Patch17:       mingw-python3_enable-modules.patch
-# Disable building broken / unix-only modules
-Patch18:       mingw-python3_disable-modules.patch
-# Fix building multiprocessing module
-Patch19:       mingw-python3_module-multiprocessing.patch
-# Fix building ctypes module
-Patch20:       mingw-python3_module-ctypes.patch
-# Fix linking against tcl/tk
-Patch21 :      mingw-python3_module-tkinter.patch
-# Build winreg module
-Patch22:       mingw-python3_module-winreg.patch
-# Configure system calls in posixmodule
-Patch23:       mingw-python3_module-posix.patch
-# Fix socket module build
-# See also https://github.com/msys2/MINGW-packages/issues/5184
-Patch24:       mingw-python3_module-socket.patch
-# Fix signal module build
-Patch25:       mingw-python3_module-signal.patch
-# Fix select module build
-Patch26:       mingw-python3_module-select.patch
-# Fix ssl module build, not use enum certificates
-Patch27:       mingw-python3_module-ssl.patch
-# Fix building xxsubinterpreters module
-Patch28:       mingw-python3_module-xxsubinterpreters.patch
-# Use posix getpath
-Patch29:       mingw-python3_module-getpath-posix.patch
-# Add path of executable/dll to system path so that correct dependent dlls are found
-Patch30:       mingw-python3_module-getpath-execprefix.patch
-# Don't use MSVC localeconv struct on mingw
-Patch31:       mingw-python3_lconv.patch
+Patch8:        mingw-python3_make-sysconfigdata.py-relocatable.patch
+# Fix module builds: select, ssl, multiprocessing
+# Disable modules which do not build
+# Fix broken parallel make
+Patch9:        mingw-python3_modules.patch
+# Use POSIX layout
+Patch10:       mingw-python3_posix-layout.patch
+# Enable some modules needed on Windows
+Patch11:       mingw-python3_win-modules.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -112,10 +73,10 @@ BuildRequires: mingw32-gcc
 # Needed for correct value of CXX in _sysconfigdata.py
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-bzip2
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-expat
 BuildRequires: mingw32-libffi
 BuildRequires: mingw32-openssl
-BuildRequires: mingw32-readline
 BuildRequires: mingw32-sqlite
 BuildRequires: mingw32-tcl
 BuildRequires: mingw32-tk
@@ -125,21 +86,21 @@ BuildRequires: mingw64-gcc
 # Needed for correct value of CXX in _sysconfigdata.py
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-bzip2
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-expat
 BuildRequires: mingw64-libffi
 BuildRequires: mingw64-openssl
-BuildRequires: mingw64-readline
 BuildRequires: mingw64-sqlite
 BuildRequires: mingw64-tcl
 BuildRequires: mingw64-tk
 
 
 %description
-MinGW Windows %{pkgname} library.
+MinGW Windows %{pkgname}
 
 
 %package -n mingw32-%{pkgname}
-Summary:       MinGW Windows %{pkgname} library
+Summary:       MinGW Windows %{pkgname}
 Requires:      python%{py_ver}
 Requires:      python%{py_ver}-devel
 Requires:      python-rpm-macros
@@ -147,11 +108,35 @@ Requires:      python3-rpm-generators
 Provides:      mingw32(python(abi)) = %{py_ver}
 
 %description -n mingw32-%{pkgname}
-MinGW Windows %{pkgname} library.
+MinGW Windows %{pkgname}.
+
+
+%package -n mingw32-%{pkgname}-test
+Summary:       MinGW Windows %{pkgname} - native testsuite
+Requires:      mingw32-python3
+
+%description -n mingw32-%{pkgname}-test
+MinGW Windows %{pkgname} - native testsuite.
+
+
+%package -n mingw32-%{pkgname}-tkinter
+Summary:       MinGW Windows %{pkgname} - GUI toolkit
+Requires:      mingw32-python3
+
+%description -n mingw32-%{pkgname}-tkinter
+MinGW Windows %{pkgname} - GUI toolkit.
+
+
+%package -n mingw32-%{pkgname}-idle
+Summary:       MinGW Windows %{pkgname} - development environment
+Requires:      mingw32-python3
+
+%description -n mingw32-%{pkgname}-idle
+MinGW Windows %{pkgname} - development environment.
 
 
 %package -n mingw64-%{pkgname}
-Summary:       MinGW Windows %{pkgname} library
+Summary:       MinGW Windows %{pkgname}
 Requires:      python%{py_ver}
 Requires:      python%{py_ver}-devel
 Requires:      python-rpm-macros
@@ -159,7 +144,31 @@ Requires:      python3-rpm-generators
 Provides:      mingw64(python(abi)) = %{py_ver}
 
 %description -n mingw64-%{pkgname}
-MinGW Windows %{pkgname} library.
+MinGW Windows %{pkgname}.
+
+
+%package -n mingw64-%{pkgname}-test
+Summary:       MinGW Windows %{pkgname} - native testsuite
+Requires:      mingw64-python3
+
+%description -n mingw64-%{pkgname}-test
+MinGW Windows %{pkgname} - native testsuite.
+
+
+%package -n mingw64-%{pkgname}-tkinter
+Summary:       MinGW Windows %{pkgname} - GUI toolkit
+Requires:      mingw64-python3
+
+%description -n mingw64-%{pkgname}-tkinter
+MinGW Windows %{pkgname} - GUI toolkit.
+
+
+%package -n mingw64-%{pkgname}-idle
+Summary:       MinGW Windows %{pkgname} - development environment
+Requires:      mingw64-python3
+
+%description -n mingw64-%{pkgname}-idle
+MinGW Windows %{pkgname} - development environment.
 
 
 %{?mingw_debug_package}
@@ -181,13 +190,17 @@ rm -f Python/thread_nt.h
 export MINGW32_MAKE_ARGS="WINDRES=%{mingw32_target}-windres LD=%{mingw32_target}-ld DLLWRAP=%{mingw32_target}-dllwrap"
 export MINGW64_MAKE_ARGS="WINDRES=%{mingw64_target}-windres LD=%{mingw64_target}-ld DLLWRAP=%{mingw64_target}-dllwrap"
 
-# TODO Drop --with-ensurepip again (broken with python3.9-beta4?)
-MSYSTEM=MINGW %mingw_configure \
+CONFIG_SITE=$PWD/config.site-mingw \
+%mingw_configure \
 --enable-shared \
+--with-build-python=%{_bindir}/python3.11 \
 --with-system-expat \
---with-system-ffi \
+--with-suffix=.exe \
 --enable-loadable-sqlite-extensions \
 --with-ensurepip=no
+
+# Create directories needed by build
+mkdir -p build_win32/PC/icons build_win64/PC/icons
 
 %mingw_make_build
 
@@ -288,7 +301,6 @@ else:
     get_python_lib = lambda plat_specific=0, standard_lib=0, prefix=None: "%{_libdir}/python%{py_ver}/site-packages"
 EOF
 
-
 # Install macros
 install -Dpm 0644 %{SOURCE1} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw32-python3
 install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw64-python3
@@ -346,14 +358,64 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 %{mingw32_bindir}/python3-config
 %{mingw32_bindir}/python%{py_ver}.exe
 %{mingw32_bindir}/python%{py_ver}-config
-%{mingw32_bindir}/python%{py_ver}.exe
-%{mingw32_bindir}/python%{py_ver}-config
 %{mingw32_bindir}/python3w.exe
 %{mingw32_bindir}/libpython%{py_ver}.dll
 %{mingw32_py3_incdir}/
 %{mingw32_libdir}/libpython%{py_ver}.dll.a
 %{mingw32_py3_libdir}/
 %{mingw32_libdir}/pkgconfig/*.pc
+# Part of mingw32-python3-tkinter
+%exclude %{mingw32_py3_libdir}/tkinter/
+%exclude %{mingw32_py3_libdir}/lib-dynload/_tkinter.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/turtle.py
+%exclude %{mingw32_py3_libdir}/__pycache__/turtle*
+%exclude %{mingw32_py3_libdir}/turtledemo
+# Part of mingw32-python3-idle
+%exclude %{mingw32_bindir}/idle3
+%exclude %{mingw32_bindir}/idle%{py_ver}
+%exclude %{mingw32_py3_libdir}/idlelib/
+# Part of mingw32-python3-test
+%exclude %{mingw32_py3_libdir}/ctypes/test/
+%exclude %{mingw32_py3_libdir}/distutils/tests/
+%exclude %{mingw32_py3_libdir}/lib2to3/tests/
+%exclude %{mingw32_py3_libdir}/test/
+%exclude %{mingw32_py3_libdir}/tkinter/test/
+%exclude %{mingw32_py3_libdir}/unittest/test/
+%exclude %{mingw32_py3_libdir}/lib-dynload/_ctypes_test.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_testbuffer.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_testcapi.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_testimportmultiple.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_testinternalcapi.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_testmultiphase.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw32_py3_libdir}/lib-dynload/_xxtestfuzz.cpython-%{py_ver_nodots}.dll
+
+%files -n mingw32-%{pkgname}-test
+%{mingw32_py3_libdir}/ctypes/test/
+%{mingw32_py3_libdir}/distutils/tests/
+%{mingw32_py3_libdir}/lib2to3/tests/
+%{mingw32_py3_libdir}/test/
+%{mingw32_py3_libdir}/tkinter/test/
+%{mingw32_py3_libdir}/unittest/test/
+%{mingw32_py3_libdir}/lib-dynload/_ctypes_test.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_testbuffer.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_testcapi.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_testimportmultiple.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_testinternalcapi.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_testmultiphase.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/lib-dynload/_xxtestfuzz.cpython-%{py_ver_nodots}.dll
+
+%files -n mingw32-%{pkgname}-tkinter
+%{mingw32_py3_libdir}/tkinter/
+%exclude %{mingw32_py3_libdir}/tkinter/test/
+%{mingw32_py3_libdir}/lib-dynload/_tkinter.cpython-%{py_ver_nodots}.dll
+%{mingw32_py3_libdir}/turtle.py
+%{mingw32_py3_libdir}/__pycache__/turtle*
+%{mingw32_py3_libdir}/turtledemo
+
+%files -n mingw32-%{pkgname}-idle
+%{mingw32_bindir}/idle3
+%{mingw32_bindir}/idle%{py_ver}
+%{mingw32_py3_libdir}/idlelib/
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
@@ -369,17 +431,76 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 %{mingw64_bindir}/python3-config
 %{mingw64_bindir}/python%{py_ver}.exe
 %{mingw64_bindir}/python%{py_ver}-config
-%{mingw64_bindir}/python%{py_ver}.exe
-%{mingw64_bindir}/python%{py_ver}-config
 %{mingw64_bindir}/python3w.exe
 %{mingw64_bindir}/libpython%{py_ver}.dll
 %{mingw64_py3_incdir}/
 %{mingw64_libdir}/libpython%{py_ver}.dll.a
 %{mingw64_py3_libdir}/
 %{mingw64_libdir}/pkgconfig/*.pc
+# Part of mingw64-python3-tkinter
+%exclude %{mingw64_py3_libdir}/tkinter/
+%exclude %{mingw64_py3_libdir}/lib-dynload/_tkinter.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/turtle.py
+%exclude %{mingw64_py3_libdir}/__pycache__/turtle*
+%exclude %{mingw64_py3_libdir}/turtledemo
+# Part of mingw64-python3-idle
+%exclude %{mingw64_bindir}/idle3
+%exclude %{mingw64_bindir}/idle%{py_ver}
+%exclude %{mingw64_py3_libdir}/idlelib/
+# Part of mingw64-python3-test
+%exclude %{mingw64_py3_libdir}/ctypes/test/
+%exclude %{mingw64_py3_libdir}/distutils/tests/
+%exclude %{mingw64_py3_libdir}/lib2to3/tests/
+%exclude %{mingw64_py3_libdir}/test/
+%exclude %{mingw64_py3_libdir}/tkinter/test/
+%exclude %{mingw64_py3_libdir}/unittest/test/
+%exclude %{mingw64_py3_libdir}/lib-dynload/_ctypes_test.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_testbuffer.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_testcapi.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_testimportmultiple.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_testinternalcapi.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_testmultiphase.cpython-%{py_ver_nodots}.dll
+%exclude %{mingw64_py3_libdir}/lib-dynload/_xxtestfuzz.cpython-%{py_ver_nodots}.dll
+
+%files -n mingw64-%{pkgname}-test
+%{mingw64_py3_libdir}/ctypes/test/
+%{mingw64_py3_libdir}/distutils/tests/
+%{mingw64_py3_libdir}/lib2to3/tests/
+%{mingw64_py3_libdir}/test/
+%{mingw64_py3_libdir}/tkinter/test/
+%{mingw64_py3_libdir}/unittest/test/
+%{mingw64_py3_libdir}/lib-dynload/_ctypes_test.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_testbuffer.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_testcapi.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_testimportmultiple.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_testinternalcapi.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_testmultiphase.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/lib-dynload/_xxtestfuzz.cpython-%{py_ver_nodots}.dll
+
+%files -n mingw64-%{pkgname}-tkinter
+%{mingw64_py3_libdir}/tkinter/
+%exclude %{mingw64_py3_libdir}/tkinter/test/
+%{mingw64_py3_libdir}/lib-dynload/_tkinter.cpython-%{py_ver_nodots}.dll
+%{mingw64_py3_libdir}/turtle.py
+%{mingw64_py3_libdir}/__pycache__/turtle*
+%{mingw64_py3_libdir}/turtledemo
+
+%files -n mingw64-%{pkgname}-idle
+%{mingw64_bindir}/idle3
+%{mingw64_bindir}/idle%{py_ver}
+%{mingw64_py3_libdir}/idlelib/
 
 
 %changelog
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-2
+- Fix %%mingw_python3_host macros
+
+* Tue Oct 25 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-1
+- Update to 3.11.0
+
+* Fri Oct 21 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-0.1.rc2
+- Update to 3.11.0-rc2
+
 * Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 3.10.7-3
 - Add %%mingw{32,64}_python3_hostsitearch
 

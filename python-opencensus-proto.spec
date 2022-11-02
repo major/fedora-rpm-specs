@@ -1,7 +1,7 @@
 # Should we re-generate the Python binding code from the .proto files, instead
 # of using the pre-generated code in the source tarball? Either approach is OK
 # under Fedora packaging guidelines.
-%bcond_without codegen
+%bcond_with codegen
 
 %global srcname opencensus-proto
 %global _description %{expand:
@@ -13,7 +13,7 @@ Java). The API interface types are defined using protos to ensure consistency
 and interoperability for the different implementations.}
 
 Name:           python-%{srcname}
-Version:        0.3.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Language Independent Interface Types For OpenCensus
 
@@ -72,7 +72,7 @@ popd
 
 %check
 # Upstream has no tests.
-%pyproject_check_import
+%pyproject_check_import -e opencensus.proto.*.*.v1.* -e opencensus.proto.*.v1.*
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -1,8 +1,8 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
-Release:        4%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
@@ -59,6 +59,10 @@ A simple, correct PEP517 package builder.
 %{_bindir}/pyproject-build
 
 %changelog
+* Sun Oct 30 2022 Lumír Balhar <lbalhar@redhat.com> - 0.9.0-1
+- Update to 0.9.0
+Resolves: rhbz#2138145
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,7 +16,7 @@ BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
 BuildRequires: intltool gettext python3 python3-devel
-BuildRequires: desktop-file-utils dbus-glib-devel gtk2-devel libnotify-devel libselinux-devel polkit-devel
+BuildRequires: desktop-file-utils dbus-glib-devel libnotify-devel libselinux-devel polkit-devel
 BuildRequires: audit-libs-devel >= 3.0.1
 BuildRequires: python3-libselinux python3-dasbus python3-gobject gtk3-devel
 # for the _tmpfilesdir macro
