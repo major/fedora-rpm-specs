@@ -1,6 +1,6 @@
 Name:       miniz
-Version:    2.2.0
-Release:    5%{?dist}
+Version:    3.0.0
+Release:    1%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # LICENSE:  MIT text
 # miniz.c:  MIT
@@ -13,19 +13,6 @@ Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.zip
 # Adjust examples for building against a system miniz library,
 # not suitable for upstream that prefers a copy-lib approach.
 Patch0:     miniz-2.2.0-Examples-to-include-system-miniz.h.patch
-# Fix an unitialized memory in tinfl_decompress_mem_to_callback(), GH#197,
-# in upstream after 2.2.0.
-Patch1:     miniz-2.2.0-Fix-use-of-uninitialized-memory-in-tinfl_decompress_.patch
-# Fix an unaligned memory access, in upstream after 2.2.0.
-Patch2:     miniz-2.2.0-Fix-unaligned-pointer-access.patch
-# Fix setting MZ_ZIP_GENERAL_PURPOSE_BIT_FLAG_UTF8, in upstream after 2.2.0.
-Patch3:     miniz-2.2.0-Fix-MZ_ZIP_GENERAL_PURPOSE_BIT_FLAG_UTF8-not-being-s.patch
-# Fix an undefined behaviour in tinfl_decompress(), GH#216,
-# in upstream after 2.2.0.
-Patch4:     miniz-2.2.0-tinfl_decompress-avoid-NULL-ptr-arithmetic-UB.patch
-# Fix mz_zip_reader_extract_to_heap() to read correct sizes, GH#220,
-# in upstream after 2.2.0.
-Patch5:     miniz-2.2.0-miniz_zip-fix-mz_zip_reader_extract_to_heap-to-read-.patch
 BuildRequires:  coreutils
 # diffutils for cmp
 BuildRequires:  diffutils
@@ -64,19 +51,16 @@ Header files for developing applications that use the %{name} library.
 %setup -c -T -n %{name}-%{version}
 unzip -e '%{SOURCE0}'
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 # Normalize end-of-lines
 sed -e 's/\r$//' ChangeLog.md > ChangeLog.md.new
 touch -r ChangeLog.md ChangeLog.md.new
 mv ChangeLog.md.new ChangeLog.md
 
-%global soname lib%{name}.so.0.2
+%global soname lib%{name}.so.0.3
 
 %build
+# A release archive is missing a CMake build script
+# <https://github.com/richgel999/miniz/issues/201>.
 # Inject downstream SONAME, bug #1152653
 %{build_cc} %{optflags} -fPIC -DPIC -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 \
     %{name}.c -c -o %{name}.o
@@ -143,6 +127,9 @@ install -m 0644 %{name}.h '%{buildroot}/%{_includedir}'
 
 
 %changelog
+* Tue Nov 01 2022 Petr Pisar <ppisar@redhat.com> - 3.0.0-1
+- 3.0.0 bump (an API and ABI change)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

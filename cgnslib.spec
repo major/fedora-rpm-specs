@@ -243,10 +243,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
 %{_openmpi_load}
 %define _vpath_builddir %{_target_platform}-openmpi
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
-# parallel tests hang on i686,armv7hl
-%ifnarch i686 armv7hl
-%ctest || :
-%endif
+# FIXME parallel tests hang
+#ctest || :
 %{_mpich_unload}
 )
 %endif
@@ -257,10 +255,8 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
 %{_mpich_load}
 %define _vpath_builddir %{_target_platform}-mpich
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
-# parallel tests hang on i686,armv7hl
-%ifnarch i686 armv7hl
-%ctest || :
-%endif
+# FIXME parallel tests hang
+#ctest || :
 %{_mpich_unload}
 )
 %endif

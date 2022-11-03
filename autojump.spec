@@ -51,7 +51,7 @@ autojump-fish is designed to work with fish shell.
 # Use system argparse
 sed -i 's|autojump_argparse|argparse|' bin/%{name}
 # Fix shebangs, non .py files need to be specified manually, so we provide bin/* as well as .
-pathfix.py -i %{__python3} -pn . ./bin/*
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn . ./bin/*
 sed -i '1{/^#!/d}' bin/%{name}_*.py
 
 %build

@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.16.12
+Version:    1.16.13
 Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPLv2+
@@ -150,6 +150,18 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Tue Nov 01 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.13-1
+- Update to 1.16.13
+- Get program name of focused window also when ibus cannot get it
+- Use focus id if available (it is available for ibus >= 1.5.27)
+- Use IBus.PreeditFocusMode.COMMIT and make sure the input is
+  cleared and the UI updated when the focus changes
+  (Resolves: https://github.com/mike-fabian/ibus-table/issues/129)
+- Do not reset input purpose on focus out
+  (See: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/5966#note_1576732)
+- Do not commit by index when OSK is visible
+  (Resolves: https://github.com/mike-fabian/ibus-table/issues/128)
+
 * Mon Sep 05 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.12-1
 - Update to 1.16.12
 - Stop using locale.getdefaultlocale() because it is deprecated in Python

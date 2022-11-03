@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-variants-conv
 Version:        0.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml variant types
 
 License:        MIT
@@ -39,7 +39,7 @@ The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -n ppx_variants_conv-%{version} -p1
+%autosetup -n ppx_variants_conv-%{version}
 
 %build
 %dune_build
@@ -57,6 +57,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-8
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-7
 - Rebuild for ocaml-ppxlib 0.27.0
 

@@ -171,7 +171,7 @@ LLVM's modified googletest sources.
 %prep
 %autosetup -n llvm-%{version}%{?rc_ver:rc%{rc_ver}}.src -p1
 
-pathfix.py -i %{__python3} -pn \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
 	test/BugPoint/compile-custom.ll.py \
 	tools/opt-viewer/*.py
 

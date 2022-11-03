@@ -10,7 +10,7 @@
 
 Name:           ocaml-ppx-sexp-conv
 Version:        0.15.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate S-expression conversion functions from type definitions
 License:        MIT
 URL:            https://github.com/janestreet/ppx_sexp_conv
@@ -63,6 +63,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-5
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-4
 - Rebuild for ocaml-ppxlib 0.27.0
 

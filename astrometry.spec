@@ -2,10 +2,13 @@
 # files, but later package will require them for tests at build time
 %global bootstrap 1
 
+# Parallel make flags on break build
+%global _smp_build_ncpus 1
+
 
 Name:           astrometry
-Version:        0.89
-Release:        4%{?dist}
+Version:        0.91
+Release:        1%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -56,12 +59,12 @@ Source6:        astrometry-data-4208-4219.tar.xz
 Source7:        astrometry-get-data.sh
 
 # Patches from Ole Streicher <olebole@debian.org> used on Debian
-Patch:          %{name}-%{version}_Add-SONAME-to-libastrometry.so.patch
-Patch:          %{name}-%{version}_Dynamically-link-to-libastrometry.so-when-possible.patch
-Patch:          %{name}-%{version}_Fix-issues-when-using-Debian-libs-instead-of-convienience.patch
-Patch:          %{name}-%{version}_Fix-shared-lib-flags-so-that-the-package-can-be-built-on-.patch
-Patch:          %{name}-%{version}_Don-t-copy-demo-files-to-examples.patch
-Patch:          %{name}-%{version}_Remove-errornous-generation-of-net-client.py.patch
+Patch:          %{name}-0.89_Add-SONAME-to-libastrometry.so.patch
+Patch:          %{name}-0.89_Dynamically-link-to-libastrometry.so-when-possible.patch
+Patch:          %{name}-0.89_Fix-issues-when-using-Debian-libs-instead-of-convienience.patch
+Patch:          %{name}-0.91_Fix-shared-lib-flags-so-that-the-package-can-be-built-on-.patch
+Patch:          %{name}-0.89_Don-t-copy-demo-files-to-examples.patch
+Patch:          %{name}-0.89_Remove-errornous-generation-of-net-client.py.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -208,27 +211,24 @@ ln -sf . astrometry
 export NETPBM_INC=-I%{_includedir}/netpbm
 export NETPBM_LIB="-L%{_libdir} -lnetpbm"
 
-# Apply mandatory ld flags
-export LDFLAGS="%build_ldflags"
-
 # Parallel make flags on break build
 make SYSTEM_GSL=yes all py extra \
     ARCH_FLAGS="%{optflags}"
 
 
 %install
-%{make_install} SYSTEM_GSL=yes \
-                INSTALL_DIR=%{buildroot}%{_prefix} \
-                PY_BASE_INSTALL_DIR=%{buildroot}%{python3_sitearch}/%{name} \
-                INCLUDE_INSTALL_DIR=%{buildroot}%{_includedir}/%{name} \
-                LIB_INSTALL_DIR=%{buildroot}%{_libdir} \
-                BIN_INSTALL_DIR=%{buildroot}%{_bindir} \
-                DATA_INSTALL_DIR=%{buildroot}%{_datadir}/%{name}/data \
-                PY_BASE_LINK_DIR=%{python3_sitearch}/%{name} \
-                ETC_INSTALL_DIR=%{buildroot}%{_sysconfdir} \
-                MAN1_INSTALL_DIR=%{buildroot}%{_mandir}/man1 \
-                DOC_INSTALL_DIR=%{buildroot}%{_docdir}/%{name} \
-                EXAMPLE_INSTALL_DIR=%{buildroot}%{_datadir}/%{name}/examples
+%make_install SYSTEM_GSL=yes \
+              INSTALL_DIR=%{buildroot}%{_prefix} \
+              PY_BASE_INSTALL_DIR=%{buildroot}%{python3_sitearch}/%{name} \
+              INCLUDE_INSTALL_DIR=%{buildroot}%{_includedir}/%{name} \
+              LIB_INSTALL_DIR=%{buildroot}%{_libdir} \
+              BIN_INSTALL_DIR=%{buildroot}%{_bindir} \
+              DATA_INSTALL_DIR=%{buildroot}%{_datadir}/%{name}/data \
+              PY_BASE_LINK_DIR=%{python3_sitearch}/%{name} \
+              ETC_INSTALL_DIR=%{buildroot}%{_sysconfdir} \
+              MAN1_INSTALL_DIR=%{buildroot}%{_mandir}/man1 \
+              DOC_INSTALL_DIR=%{buildroot}%{_docdir}/%{name} \
+              EXAMPLE_INSTALL_DIR=%{buildroot}%{_datadir}/%{name}/examples
 
 # We need to correct the data dir link in config file
 sed -i \
@@ -243,7 +243,14 @@ done
 popd
 
 # Fix python shebangs
-%py3_shebang_fix %{buildroot}%{_bindir}/*
+%py3_shebang_fix %{buildroot}%{_bindir}/degtohms \
+                 %{buildroot}%{_bindir}/hmstodeg \
+                 %{buildroot}%{_bindir}/image2pnm \
+                 %{buildroot}%{_bindir}/merge-columns \
+                 %{buildroot}%{_bindir}/removelines \
+                 %{buildroot}%{_bindir}/text2fits \
+                 %{buildroot}%{_bindir}/uniformize \
+                 %{buildroot}%{_bindir}/votabletofits
 
 # Remove unuseful file
 rm -f %{buildroot}%{_docdir}/%{name}/report.txt
@@ -253,6 +260,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 # LICENSE file is managed by %%license scriptlet
 rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
+
+# Remove symlink in bin to python script
+rm -f %{buildroot}%{_bindir}/plotann.py
 
 # Install data files
 install -m0644 astrometry-data*/*.fits %{buildroot}%{_datadir}/%{name}/data
@@ -323,6 +333,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Tue Nov 01 2022 Mattia Verga <mattia.verga@proton.me> - 0.91-1
+- Update to 0.91 (fedora#2078037)
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.89-4
 - Rebuild for gsl-2.7.1
 

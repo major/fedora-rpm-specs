@@ -2,7 +2,7 @@
 
 Name:           ocaml-lwt
 Version:        5.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml lightweight thread library
 
 # The project as a whole is MIT.  The following files are BSD-2-Clause:
@@ -127,7 +127,7 @@ dune exec src/unix/config/discover.exe -- --save \
 
 # Relink the stublib with RPM_LD_FLAGS
 cd _build/default/src/unix
-ocamlmklib -g -ldopt "$RPM_LD_FLAGS" -lev -lpthread -lm -o lwt_unix_stubs \
+ocamlmklib -g -ldopt '%{build_ldflags}' -lev -lpthread -lm -o lwt_unix_stubs \
   $(ar t liblwt_unix_stubs.a)
 cd -
 
@@ -174,6 +174,9 @@ rm -rf %{buildroot}%{ocamldir}/lwt_ppx_let
 
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-3
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-2
 - Rebuild for ocaml-ppxlib 0.27.0
 

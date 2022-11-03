@@ -12,8 +12,8 @@
 
 
 Name:           centpkg
-Version:        0.6.7
-Release:        2%{?dist}
+Version:        0.6.8
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -92,6 +92,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Tue Nov 01 2022 Troy Dawson <tdawson@redhat.com> - 0.6.8-1
+- Latest upstream
+
 * Thu Sep 08 2022 Troy Dawson <tdawson@redhat.com> - 0.6.7-2
 - centpkg 0.6.7 requires rpkg 1.65 or greater
 

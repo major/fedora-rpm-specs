@@ -8,8 +8,8 @@
 
 Summary: Qt6 - QuickTimeline plugin
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -62,7 +62,7 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.GPL*
+%license LICENSES/GPL*
 %dir %{_qt6_qmldir}/QtQuick
 %{_qt6_libdir}/libQt6QuickTimeline.so.6*
 %{_qt6_qmldir}/QtQuick/Timeline/
@@ -84,6 +84,9 @@ Requires: qt6-qtdeclarative-devel%{?_isa}
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

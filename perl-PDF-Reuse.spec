@@ -1,10 +1,11 @@
 Name:           perl-PDF-Reuse
 Version:        0.39
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Reuse and mass produce PDF documents
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/PDF-Reuse
 Source:         https://cpan.metacpan.org/authors/id/C/CN/CNIGHS/PDF-Reuse-%{version}.tar.gz
+Patch0:         PDF-Reuse-0.39-Test-PDF-to-temp.patch
 BuildArch:      noarch
 BuildRequires:  findutils
 BuildRequires:  make
@@ -47,8 +48,23 @@ programs based on this module.
 The module is fairly fast, so it should be possible to use it for mass
 production. 
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n PDF-Reuse-%{version}
+%patch0
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -57,6 +73,14 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -67,7 +91,14 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Oct 31 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.39-20
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

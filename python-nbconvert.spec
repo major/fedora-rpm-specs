@@ -1,6 +1,6 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
-%global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
+%undefine _py3_shebang_s
 
 %global pypi_name nbconvert
 
@@ -75,7 +75,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{pypi_name}
 
 # fix permissions and shebangs
-pathfix.py -pni %{__python3} %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
+%py3_shebang_fix %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 chmod 755 %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 
 %if %{with check}

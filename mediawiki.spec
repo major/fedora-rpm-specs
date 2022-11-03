@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.38.2
+Version: 1.38.4
 Release: 1%{?dist}
 License: GPLv2+
 URL: https://www.mediawiki.org/
@@ -24,11 +24,11 @@ BuildRequires: php-theseer-autoload
 BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.0
 #BuildRequires: php-composer(leafo/lessphp) >= 0.5.0
 BuildRequires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-BuildRequires: php-composer(oojs/oojs-ui) >= 0.42.0
-BuildRequires: php-composer(psr/log) >= 1.1.3
-BuildRequires: php-composer(wikimedia/assert) >= 0.5.0
+BuildRequires: php-composer(oojs/oojs-ui) >= 0.43.2
+BuildRequires: php-composer(psr/log) >= 1.1.4
+BuildRequires: php-composer(wikimedia/assert) >= 0.5.1
 BuildRequires: php-composer(wikimedia/avro) >= 1.9.0
-BuildRequires: php-composer(wikimedia/cdb) >= 1.4.1
+BuildRequires: php-composer(wikimedia/cdb) >= 2.0.0
 BuildRequires: php-composer(wikimedia/ip-set) >= 3.0.0
 BuildRequires: php-composer(wikimedia/utfnormal) >= 3.0.2
 BuildRequires: php-composer(zordius/lightncandy) >= 1.2.6
@@ -38,7 +38,6 @@ BuildRequires: php-pear(Mail_mimeDecode) >= 1.5.5
 BuildRequires: php-pear(Net_SMTP) >= 1.9.2
 BuildRequires: php-pear(Net_Socket) >= 1.2.2
 BuildRequires: python3-devel
-BuildRequires: /usr/bin/pathfix.py
 
 Requires: httpd-filesystem
 Requires: php(httpd)
@@ -49,18 +48,18 @@ Requires: diffutils, ImageMagick
 Requires: php-composer(cssjanus/cssjanus) >= 2.1.0
 #Requires: php-composer(leafo/lessphp) >= 0.5.0
 Requires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-Requires: php-composer(oojs/oojs-ui) >= 0.42.0
-Requires: php-composer(psr/log) >= 1.1.3
-Requires: php-composer(wikimedia/assert) >= 0.5.0
+Requires: php-composer(oojs/oojs-ui) >= 0.43.2
+Requires: php-composer(psr/log) >= 1.1.4
+Requires: php-composer(wikimedia/assert) >= 0.5.1
 Requires: php-composer(wikimedia/avro) >= 1.9.0
-Requires: php-composer(wikimedia/cdb) >= 1.4.1
+Requires: php-composer(wikimedia/cdb) >= 2.0.0
 Requires: php-composer(wikimedia/ip-set) >= 3.0.0
 Requires: php-composer(wikimedia/utfnormal) >= 3.0.2
 Requires: php-composer(zordius/lightncandy) >= 1.2.6
 Requires: php-pear(Mail) >= 1.4.1
 Requires: php-pear(Mail_Mime) >= 1.10.11
 Requires: php-pear(Mail_mimeDecode) >= 1.5.5
-Requires: php-pear(Net_SMTP) >= 1.9.2
+Requires: php-pear(Net_SMTP) >= 1.10.0
 Requires: php-pear(Net_Socket) >= 1.2.2
 
 # Update script call command-line php
@@ -68,13 +67,13 @@ Requires(post): php-cli
 
 Obsoletes: php-mediawiki-at-ease <= 1.1.0
 
-Provides: bundled(php-christian-riesen-base32) = 1.4.0
-Provides: bundled(php-composer-semver) = 3.2.4
+Provides: bundled(php-christian-riesen-base32) = 1.6.0
+Provides: bundled(php-composer-semver) = 3.2.6
 Provides: bundled(php-guzzlehttp-guzzle) = 7.4.5
 Provides: bundled(php-guzzlehttp-promises) = 1.5.1
 Provides: bundled(php-guzzlehttp-psr7) = 2.4.0
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
-Provides: bundled(php-justinrainbow-json-schema) = 5.2.11
+Provides: bundled(php-opis-json-schema) = 1.1.0
 Provides: bundled(php-monolog-monolog) = 2.2.0
 Provides: bundled(php-pear-console_getopt) = 1.4.3
 Provides: bundled(php-pear-Net_URL2) = 2.2.2
@@ -86,15 +85,17 @@ Provides: bundled(php-psr-http-factory) = 1.0.1
 Provides: bundled(php-psr-http-message) = 1.0.1
 Provides: bundled(php-psr-simple-cache) = 1.0.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-ruflin-elastica) = 5.1.0
-Provides: bundled(php-symfony-polyfill-intl-idn) = 1.17.0
-Provides: bundled(php-symfony-polyfill-php80) = 1.23.1
+Provides: bundled(php-symfony-deprecation-contracts) = 2.5.1
+Provides: bundled(php-symfony-polyfill-php80) = 1.25.0
+Provides: bundled(php-symfony-polyfill-php81) = 1.25.0
+Provides: bundled(php-symfony-yaml) = 5.4.3
 Provides: bundled(php-wikimedia-at-ease) = 2.1.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.4.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
 Provides: bundled(php-wikimedia-css-sanitizer) = 3.0.2
+Provides: bundled(php-wikimedia-equivset) = 1.4.3
 Provides: bundled(php-wikimedia-remex-html) = 3.0.2
-Provides: bundled(php-wikimedia-timestamp) = 1.0.0
+Provides: bundled(php-wikimedia-timestamp) = 3.0.0
 Provides: bundled(php-wikimedia-base-convert) = 2.0.1
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 2.0.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
@@ -104,11 +105,11 @@ Provides: bundled(php-wikimedia-less.php) = 3.1.0
 Provides: bundled(php-wikimedia-minify) = 2.2.6
 Provides: bundled(php-wikimedia-normalized-exception) = 1.0.1
 Provides: bundled(php-wikimedia-object-factory) = 4.0.0
-Provides: bundled(php-wikimedia-parsoid) = 0.15.0
+Provides: bundled(php-wikimedia-parsoid) = 0.15.1
 Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.0
 Provides: bundled(php-wikimedia-purtle) = 1.0.8
 Provides: bundled(php-wikimedia-relpath) = 3.0.0
-Provides: bundled(php-wikimedia-remex-html) = 3.0.1
+Provides: bundled(php-wikimedia-remex-html) = 3.0.2
 Provides: bundled(php-wikimedia-request-timeout) = 1.2.0
 Provides: bundled(php-wikimedia-running-stat) = 1.2.1
 Provides: bundled(php-wikimedia-scoped-callback) = 3.0.0
@@ -168,7 +169,7 @@ ln -s %{_datadir}/php/IPSet vendor/wikimedia/ip-set-shared
 ln -s %{_datadir}/php/UtfNormal vendor/wikimedia/utfnormal-shared
 ln -s %{_datadir}/php/zordius vendor/zordius-shared
 # Fix up Python shebangs
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" \
+%py3_shebang_fix \
   maintenance/language/zhtable/Makefile.py \
   extensions/ConfirmEdit/captcha.py \
   extensions/SyntaxHighlight_GeSHi/pygments/create_pygmentize_bundle
@@ -262,6 +263,9 @@ cd tests/phpunit
 
 
 %changelog
+* Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 1.38.4-1
+- Update to 1.38.4
+
 * Thu Sep 01 2022 Michael Cronenworth <mike@cchtml.com> - 1.38.2-1
 - Update to 1.38.2
 - https://www.mediawiki.org/wiki/Release_notes/1.38#MediaWiki_1.38.2

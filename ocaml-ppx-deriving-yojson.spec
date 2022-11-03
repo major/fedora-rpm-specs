@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-deriving-yojson
 Version:        3.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON codec generator for OCaml
 
 License:        MIT
@@ -64,6 +64,9 @@ ln -s ../../src/ppx_deriving_yojson.cppo.ml _build/default
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 3.7.0-2
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Wed Aug 17 2022 Jerry James <loganjerry@gmail.com> - 3.7.0-1
 - Version 3.7.0
 - Drop upstreamed -pext-decl patch

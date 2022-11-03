@@ -8,8 +8,8 @@
 
 Summary: Qt6 - Qt 5 Compatibility Libraries
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 3%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv3
 Url:     http://www.qt.io
@@ -33,6 +33,7 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 # qt6-qtdeclarative is required for QtGraphicalEffects
 BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: qt6-qtshadertools-devel
 BuildRequires: pkgconfig(xkbcommon)
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: libicu-devel
@@ -78,7 +79,7 @@ popd
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.*
+%license LICENSES/*
 %{_qt6_libdir}/libQt6Core5Compat.so.6*
 %{_qt6_libdir}/qt6/qml/Qt5Compat/GraphicalEffects/*
 
@@ -97,6 +98,9 @@ popd
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 6.3.1-3
 - Rebuilt for ICU 71.1
 

@@ -2,7 +2,7 @@
 
 Name:           ocaml-sedlex
 Version:        3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -48,7 +48,8 @@ files for developing applications that use %{name}.
 # a good chance of succeeding anyway, so we cross our fingers and give it a try.
 # If the regression test fails, we'll have to try another approach.
 univer=$(sed -n 's/.*PropList-\([.[:digit:]]*\)\.txt/\1/p' %{_datadir}/unicode/ucd/PropList.txt)
-sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml
+sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml \
+  src/generator/data/base_url src/syntax/unicode.ml
 
 %build
 %dune_build
@@ -74,6 +75,9 @@ sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml
 
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 3.0-2
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Mon Aug  8 2022 Jerry James <loganjerry@gmail.com> - 3.0-1
 - Version 3.0
 - Remove unused ocaml-seq-devel BR

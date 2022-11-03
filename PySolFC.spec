@@ -16,7 +16,6 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  perl-interpreter
-BuildRequires:  /usr/bin/pathfix.py
 
 %if 0%{?fedora}
 # optional but nice to have but not available in any epel branch
@@ -74,7 +73,7 @@ mv $RPM_BUILD_ROOT%{_bindir}/pysol.py $RPM_BUILD_ROOT%{_datadir}/%{name}
 install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_bindir}/pysol
 cp -a PySolFC-Cardsets--Minimal-%{cardsets_minimal_ver}/cardset-* $RPM_BUILD_ROOT%{_datadir}/PySolFC
 find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl -ln -i -E 'say if (not (($. == 1) and (m&^#![ \t]*/usr/&)))'
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" $RPM_BUILD_ROOT%{_bindir}/*
+%py3_shebang_fix $RPM_BUILD_ROOT%{_bindir}/*
 
 %find_lang pysol
 

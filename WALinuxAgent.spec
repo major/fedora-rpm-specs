@@ -2,8 +2,8 @@
 %global dracut_modname 97walinuxagent
 
 Name:           WALinuxAgent
-Version:        2.7.3.0
-Release:        2%{?dist}
+Version:        2.8.0.11
+Release:        1%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        ASL 2.0
@@ -123,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Mon Oct 31 2022 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.8.0.11-1
+- Update to 2.8.0.11 (#2128547)
+
 * Tue Oct 18 2022 Chris Patterson <cpatterson@microsoft.com> - 2.7.3.0-2
 - Add ConditionVirtualization=|microsoft triggering condition
 

@@ -6,7 +6,7 @@ License:        GPLv2+
 URL:            https://github.com/frenzymadness/AutoDownloader
 Source0:        https://github.com/frenzymadness/AutoDownloader/archive/v%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  python3-devel /usr/bin/pathfix.py
+BuildRequires:  python3-devel
 BuildRequires: make
 Requires:       python3-gobject python3-six gtk3 hicolor-icon-theme
 
@@ -28,7 +28,7 @@ are not permitted to be (re)distributed unlike most files in Fedora.
 
 %prep
 %setup -q -n AutoDownloader-%{version}
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 # Avoid hardcoding /usr prefix
 sed -i -e 's!/usr/bin!%{_bindir}!' Makefile

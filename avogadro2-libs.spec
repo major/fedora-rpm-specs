@@ -162,7 +162,7 @@ popd
 
 # Move scale.py* files into %%{python3_sitearch}/avogadro2
 cp -a %{buildroot}%{_libdir}/avogadro2/scripts %{buildroot}%{python3_sitearch}/avogadro2/
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/avogadro2/scripts/*/*.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/avogadro2/scripts/*/*.py
 ln -sf %{python3_sitearch}/avogadro2/scripts %{buildroot}%{_libdir}/avogadro2/scripts
 
 chrpath -d %{buildroot}%{_libdir}/lib*.so

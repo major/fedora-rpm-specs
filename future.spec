@@ -2,7 +2,7 @@
 %if %{python3_pkgversion} != 3
 %global _pathfix pathfix%{python3_version}.py
 %else
-%global _pathfix pathfix.py
+%global _pathfix %{__python3} %{_rpmconfigdir}/redhat/pathfix.py
 %endif
 
 %global _description \

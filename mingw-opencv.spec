@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       4.6.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -212,7 +212,7 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %files -n mingw32-python3-%{pkgname}
-%{mingw32_python3_sitearch}/cv2-cpython-%{mingw32_python3_version_nodots}.dll
+%{mingw32_python3_sitearch}/cv2.cpython-%{mingw32_python3_version_nodots}.dll
 
 %files -n mingw32-%{pkgname}-tools
 %{mingw32_bindir}/*.exe
@@ -226,13 +226,16 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 %{mingw64_datadir}/opencv4
 
 %files -n mingw64-python3-%{pkgname}
-%{mingw64_python3_sitearch}/cv2-cpython-%{mingw64_python3_version_nodots}.dll
+%{mingw64_python3_sitearch}/cv2.cpython-%{mingw64_python3_version_nodots}.dll
 
 %files -n mingw64-%{pkgname}-tools
 %{mingw64_bindir}/*.exe
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-3
+- Rebuild (python-3.11)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -157,7 +157,7 @@ for file in %{name}-%{version}/src/*.txt; do
 done
 
 %if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
-pathfix.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
 %else
 pathfix3.8.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
 %endif
@@ -168,7 +168,7 @@ sed -i -e 's!env.AddPostAction(tgz_file, Delete(man_pages))! !g' %{name}-%{versi
 
 %if %{with python3_other}
 cp -a %{name}-%{version} %{name}-%{version}-py%{python3_other_pkgversion}
-pathfix.py -i %{__python3_other} -pn %{name}-%{version}-py%{python3_other_pkgversion}/scripts/scons.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3_other} -pn %{name}-%{version}-py%{python3_other_pkgversion}/scripts/scons.py
 %endif
 
 %build

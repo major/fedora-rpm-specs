@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Connectivity components
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -24,8 +24,6 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 %else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
-
-Patch0: %{name}-gcc11.patch
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt6_archdatadir}/qml/.*\\.so$
@@ -56,7 +54,6 @@ Requires: qt6-qtbase-devel%{?_isa}
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-# BuildRequires: qt6-qtconnectivity-devel >= %{version}
 %description examples
 %{summary}.
 %endif
@@ -90,7 +87,7 @@ popd
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.GPL* LICENSE.LGPL*
+%license LICENSES/GPL* LICENSES/LGPL*
 %{_qt6_libexecdir}/sdpscanner
 %{_qt6_libdir}/libQt6Bluetooth.so.6*
 %{_qt6_libdir}/libQt6Nfc.so.6*
@@ -105,6 +102,7 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Bluetooth/
 %dir %{_qt6_libdir}/cmake/Qt6Nfc/
 %{_qt6_libdir}/cmake/Qt6/FindBlueZ.cmake
+%{_qt6_libdir}/cmake/Qt6/FindPCSCLite.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Bluetooth/*.cmake
 %{_qt6_libdir}/cmake/Qt6Nfc/*.cmake
@@ -120,6 +118,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

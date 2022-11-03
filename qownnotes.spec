@@ -14,7 +14,7 @@
 %global qkeysequencewidget_commit       8cbb54a12f33e41bf7c4795405f4235db1ee8ff1
 %global qkeysequencewidget_shortcommit  %(c=%{qkeysequencewidget_commit}; echo ${c:0:7})
 
-%global md4c_commit                     d9fa2f1303e9870fac83977025271991fc775d9e
+%global md4c_commit                     8c23869db354572b9293f3d166557ad1720d0b51
 %global md4c_shortcommit                %(c=%{md4c_commit}; echo ${c:0:7})
 
 %global qhotkey_commit                  998c76c21bef8645802804d77e60a7dc8efcaf6f
@@ -25,7 +25,7 @@
 %global url1    https://github.com/pbek
 
 Name:           qownnotes
-Version:        22.10.3
+Version:        22.11.1
 Release:        %autorelease
 Summary:        Plain-text file markdown note taking with Nextcloud integration
 

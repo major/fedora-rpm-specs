@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 4%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv3
 Url:     http://www.qt.io
@@ -25,8 +25,6 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-Patch100: 0100-Keep-toplevel-windows-in-the-top-left-corner-of-the-screen.patch
-Patch101: 0101-client-do-not-take-decoration-shadows-into-account-when-placing-popups.patch
 
 # Upstreamable patches
 
@@ -108,7 +106,7 @@ popd
 
 %files
 %doc README
-%license LICENSE.*
+%license LICENSES/*
 %{_qt6_libdir}/libQt6WaylandCompositor.so.6*
 %{_qt6_libdir}/libQt6WaylandClient.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositor.so.6*
@@ -175,6 +173,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Fri Jul 29 2022 Jan Grulich <jgrulich@redhat.com> - 6.3.1-4
 - Do not take decoration shadows into account when placing popups
 

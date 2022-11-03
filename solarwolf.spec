@@ -30,7 +30,7 @@ powerups for your only chance.
 
 #%patch0 -p0
 %patch1 -p0
-#pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+#%py3_shebang_fix .
 #find . -type f -name '*.py' | xargs 2to3 -w
 
 %build

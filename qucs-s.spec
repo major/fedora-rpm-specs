@@ -2,8 +2,8 @@
 
 Summary: Qucs circuit simulator which works with SPICE
 Name:    qucs-s
-Version: 0.0.24
-Release: 4%{?dist}
+Version: 1.0.0
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://ra3xdh.github.io/
 
@@ -102,6 +102,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Nov  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-1
+- New version
+  Resolves: rhbz#2138647
+
 * Thu Jul 21 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.24-4
 - Fixed according to the review
   Related: rhbz#2106445

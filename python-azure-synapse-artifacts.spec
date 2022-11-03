@@ -5,7 +5,7 @@
 %global         srcname     azure-synapse-artifacts
 
 Name:           python-%{srcname}
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Artifacts Client Library for Python
 License:        MIT

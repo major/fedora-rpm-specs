@@ -13,7 +13,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 5.26.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -32,6 +32,11 @@ Source0: http://download.kde.org/%{stable}/plasma/%{verdir}/%{base_name}-%{versi
 Source10: discoverrc
 
 ## upstream patches
+# https://invent.kde.org/plasma/discover/merge_requests/404
+# https://bugzilla.redhat.com/show_bug.cgi?id=2139092
+# Fix an error in the update notification time check logic that
+# meant the notification would never get displayed
+Patch100: 404.patch
 
 ## downstream patches
 # workaround PK metadata refresh issues (always force refresh)
@@ -306,6 +311,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Tue Nov 01 2022 Adam Williamson <awilliam@redhat.com> - 5.26.2-3
+- Bump to do F37 build on correct side tag
+
+* Tue Nov 01 2022 Adam Williamson <awilliam@redhat.com> - 5.26.2-2
+- Backport MR #404 to fix update notifications (#2139092)
+
 * Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
 - 5.26.2
 

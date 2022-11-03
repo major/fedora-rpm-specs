@@ -11,10 +11,10 @@
 # Run tests
 %bcond_without tests
 # For a a more readable input to %%pytest
-%global _skip_tests %{expand: -k \\
-"not logticks and not backtransforms and not se_false and not facet \\
+%global _skip_tests %{expand:\\
+not logticks and not backtransforms and not se_false and not facet \\
 and not label and not ribbon and not arrow and not adjust_text \\
-and not caption_simple and not theme and not scale"}
+and not caption_simple and not theme and not scale}
 
 %global _description %{expand:
 Implementation of a grammar of graphics in Python, based on ggplot2.
@@ -88,6 +88,11 @@ Requires:       python3-%{pypi_name} == %{version}
 %autosetup -p1 -n %{pypi_name}-%{version} -S git
 # Disable coverage in pytest
 sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
+# Tests are failing in f36 with ImportError
+# https://github.com/has2k1/plotnine/issues/643
+%if 0%{?fedora} <= 36
+  rm -f tests/test_geom_bar_col_histogram.py tests/test_geom_bin_2d.py
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -114,7 +119,11 @@ sed -i -e 's/--cov=plotnine --cov-report=xml //' pyproject.toml
 
 %check
 %if %{with tests}
-  %pytest %_skip_tests
+  %if 0%{?fedora} <= 36
+    %pytest -k "%_skip_tests and not stat_bin"
+  %else
+    %pytest -k "%_skip_tests"
+  %endif
 %else
   %pyproject_check_import
 %endif

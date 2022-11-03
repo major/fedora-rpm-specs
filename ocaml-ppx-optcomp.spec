@@ -11,7 +11,7 @@
 
 Name:           ocaml-ppx-optcomp
 Version:        0.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Optional compilation for OCaml
 
 License:        MIT
@@ -66,6 +66,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-9
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-8
 - Rebuild for ocaml-ppxlib 0.27.0
 

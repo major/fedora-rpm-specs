@@ -11,11 +11,11 @@
 
 Name:           why3
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
-URL:            http://why3.lri.fr/
+URL:            https://why3.lri.fr/
 Source0:        https://why3.gitlabpages.inria.fr/releases/%{name}-%{version}.tar.gz
 # Desktop file written by Jerry James
 Source1:        fr.lri.%{name}.desktop
@@ -309,6 +309,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-2
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
 - Version 1.5.1
 

@@ -583,10 +583,10 @@ pushd %{name}-%{version}
 
 %patch7 -p1 -b .backup
 
-find . -name 'setup.py' | xargs pathfix.py -pn -i "%{__python3}"
-find . -name 'configure' | xargs pathfix.py -pn -i "%{__python3}"
-find config -name '*.py' | xargs pathfix.py -pn -i "%{__python3}"
-find src/benchmarks/streams -name '*.py' | xargs pathfix.py -pn -i "%{__python3}"
+find . -name 'setup.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
+find . -name 'configure' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
+find config -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
+find src/benchmarks/streams -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 
 %if 0%{?el7}
 %patch2 -p1 -b .backup

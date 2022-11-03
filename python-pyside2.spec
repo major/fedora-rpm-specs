@@ -56,7 +56,6 @@ BuildRequires:  cmake3
 BuildRequires:  cmake
 BuildRequires:  gcc graphviz
 BuildRequires:  clang-devel llvm-devel
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel
 BuildRequires:  python3-devel
@@ -238,7 +237,7 @@ done
 # -n prevents creating ~backup files
 # -i specifies the interpreter for the shebang
 # Need to list files that do not match ^[a-zA-Z0-9_]+\.py$ explicitly!
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/*
+%py3_shebang_fix %{buildroot}%{_bindir}/*
 
 
 %check

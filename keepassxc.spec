@@ -2,12 +2,14 @@
 # EPEL7 not possible because libgcrypt version is 1.5
 
 Name:           keepassxc
-Version:        2.7.1
-Release:        14%{?dist}
+Version:        2.7.4
+Release:        1%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
 Source0:        https://github.com/keepassxreboot/keepassxc/releases/download/%{version}/keepassxc-%{version}-src.tar.xz
+Source1:        https://github.com/keepassxreboot/keepassxc/releases/download/%{version}/keepassxc-%{version}-src.tar.xz.sig
+Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # Patch0: fixes GNOME quirks on Wayland sessions. Read
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/3BVLBS4B3XHJEXFVGD7RK2ZMXZG6JQZT/
 # read also https://github.com/keepassxreboot/keepassxc/pull/3520/files
@@ -31,7 +33,7 @@ Source0:        https://github.com/keepassxreboot/keepassxc/releases/download/%{
 # problems keepassxc users experienced
 
 Patch0:         xcb.patch
-
+Patch1:         appdata.patch
 
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
@@ -54,6 +56,8 @@ BuildRequires:  libXtst-devel
 BuildRequires:  libyubikey-devel
 %if %{defined el8}
 BuildRequires:  minizip1.2-devel
+%elif 0%{?fedora} >= 38
+BuildRequires:  minizip-compat-devel
 %else
 BuildRequires:  minizip-devel
 %endif
@@ -68,6 +72,8 @@ BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  ykpers-devel
 BuildRequires:  zlib-devel
 BuildRequires:  rubygem-asciidoctor
+# for gpg verification
+BuildRequires:  gnupg2
 
 # enforces on the user system, Qt version to be the same one used to build KeepassXC
 # This avoids "not a bug" bugreports like this one
@@ -106,6 +112,7 @@ information can be considered as quite safe.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -174,10 +181,21 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Nov 01 2022 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-1
+- 2.7.4 release
+- Adds appdata.patch
+
+* Tue Nov 01 2022 Jan Grulich <jgrulich@redhat.com> - 2.7.1-16
+- Rebuild (qt5)
+
+* Mon Oct 31 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.1-15
+- Verify gpg signature (rhbz#1514247)
+- Use minizip-compat-devel for >=F38
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 2.7.1-14
 - Rebuild (qt5)
 
-* Thu Sep 22 2022  Otto Liljalaakso <otto.liljalaakso@iki.fi> - 2.7.1-13
+* Thu Sep 22 2022 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 2.7.1-13
 - Re-enable LTO (rhbz#2127754)
 - Enable most tests (rhbz#2127757)
 
@@ -358,7 +376,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 - added BuildRequires: libgcrypt-devel >= 1.7
 - added BuildRequires: libsodium-devel
 - added BuildRequires: gcc-c++ >= 4.7
-- added %%{_mandir}/man1/%{name}-cli.1*
+- added %%{_mandir}/man1/%%{name}-cli.1*
 
 * Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.2.4-6
 - Escape macros in %%changelog

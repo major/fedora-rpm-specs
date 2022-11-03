@@ -19,7 +19,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        0.15.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OCaml record fields as first class values
 
 License:        MIT
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-7
+- Rebuild for ocaml-base 0.15.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

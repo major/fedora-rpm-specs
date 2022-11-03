@@ -4,8 +4,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        0.8.0
-Release:        3%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -96,6 +96,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 0.9.0-1
+- Update to 0.9.0
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 0.8.0-3
 - Require rpm for %%{_rpmconfigdir}/macros.d/
 

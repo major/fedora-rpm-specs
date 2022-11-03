@@ -184,7 +184,7 @@ LLVM's modified googletest sources.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{llvm_srcdir} -p2
 
-pathfix.py -i %{__python3} -pn \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
 	test/BugPoint/compile-custom.ll.py \
 	tools/opt-viewer/*.py \
 	utils/update_cc_test_checks.py

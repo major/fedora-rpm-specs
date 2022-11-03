@@ -1,13 +1,11 @@
-%global srcname ovirt-engine-sdk-python
-
 Name: python-ovirt-engine-sdk4
 Summary: Python SDK for version 4 of the oVirt Engine API
-Version: 4.4.15
+Version: 4.5.2
 %global major_version %(v=%{version}; echo ${v:0:3})
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: ASL 2.0
-URL: https://www.ovirt.org/
-Source: https://resources.ovirt.org/pub/ovirt-%{major_version}/src/%{name}/%{srcname}-%{version}.tar.gz
+URL: https://github.com/oVirt/python-ovirt-engine-sdk4
+Source: https://github.com/oVirt/python-ovirt-engine-sdk4/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: gcc
 BuildRequires: libxml2-devel
 BuildRequires: python3-devel
@@ -26,9 +24,25 @@ Summary: %summary
 %description -n python3-ovirt-engine-sdk4 %_description
 
 %prep
-%autosetup -c
+%autosetup
 %py3_shebang_fix examples
 find examples -type f -print0 | xargs -0 chmod 0644
+GENERATED_FILES="
+ lib/ovirtsdk4/version.py
+ setup.py
+ PKG-INFO
+ lib/ovirt_engine_sdk_python.egg-info/PKG-INFO
+ python-ovirt-engine-sdk4.spec
+"
+
+for gen_file in ${GENERATED_FILES} ; do
+  sed \
+    -e "s|@RPM_VERSION@|%{version}|g" \
+    -e "s|@RPM_RELEASE@|%{release}|g" \
+    -e "s|@PACKAGE_NAME@|%{name}|g" \
+    -e "s|@PACKAGE_VERSION@|%{package_version}|g" \
+    < ${gen_file}.in > ${gen_file}
+done
 
 %build
 %py3_build
@@ -44,6 +58,9 @@ find examples -type f -print0 | xargs -0 chmod 0644
 %{python3_sitearch}/ovirt_engine_sdk_python-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Nov 01 2022 Klaas Demter <Klaas-@users.noreply.github.com> - 4.5.2-1
+- Version 4.5.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

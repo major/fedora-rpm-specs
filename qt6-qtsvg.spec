@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Support for rendering and displaying SVG
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv3 or GPLv2+
 Url:     http://www.qt.io
@@ -53,7 +53,6 @@ Requires: qt6-qtbase-devel%{?_isa}
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-# BuildRequires: qt6-qtsvg-devel >= %{version}
 %description examples
 %{summary}.
 %endif
@@ -85,7 +84,7 @@ popd
 
 
 %files
-%license dist/changes-5.7.0 LICENSE.GPL2 LICENSE.GPL3 LICENSE.LGPL3
+%license LICENSES/GPL* LICENSES/LGPL*
 %{_qt6_libdir}/libQt6Svg.so.6*
 %{_qt6_libdir}/libQt6SvgWidgets.so.6*
 %{_qt6_plugindir}/iconengines/libqsvgicon.so
@@ -115,6 +114,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

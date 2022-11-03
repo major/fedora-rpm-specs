@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Charts component
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: GPLv3
 Url:     http://www.qt.io
@@ -67,7 +67,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %files
-%license LICENSE.GPL3
+%license LICENSES/GPL*
 %{_qt6_libdir}/libQt6Charts.so.6*
 %{_qt6_libdir}/libQt6ChartsQml.so.6*
 %{_qt6_qmldir}/QtCharts/
@@ -96,6 +96,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

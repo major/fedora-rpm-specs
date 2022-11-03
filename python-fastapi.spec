@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.85.1
+Version:        0.85.2
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -29,7 +29,8 @@ Patch:          %{url}/pull/4409.patch
 
 # Update starlette to 0.21.0.
 # https://github.com/tiangolo/fastapi/pull/5471
-Patch:          %{url}/pull/5471.patch
+# Rebased on 0.85.2.
+Patch:          0001-Update-starlette-to-0.21.0.patch
 
 BuildRequires:  python3-devel
 
@@ -342,6 +343,14 @@ sed -r -i \
 # We won’t be running a type checker (mypy), so we don’t need any
 # auto-generated PEP 561 stub packages:
 sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
+# Selectively allow newer versions for certain tightly-pinned dependencies:
+# • Upstream has pinned SQLAlchemy to <=1.4.41 in FastAPI 0.85.2, with the
+#   note, “TODO: once removing databases from tutorial, upgrade SQLAlchemy
+#   probably when including SQLModel.” We can’t respect this version bound, of
+#   course.
+sed -r -i 's/("((sqlalchemy)\b)[^<"]*),[[:blank:]]*<[^"]*/\1/' \
+    pyproject.toml
+
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
@@ -387,6 +396,12 @@ k="${k-}${k+ and }not test_post_file"
 k="${k-}${k+ and }not test_post_large_file"
 k="${k-}${k+ and }not test_post_upload_file"
 k="${k-}${k+ and }not test_post_files_and_token"
+
+# tests/test_tutorial/test_async_sql_databases/test_tutorial001.py::test_create_read
+# fails with “ValueError: not enough values to unpack (expected 5, got 4)”
+# while unpacking context.result_column struct in sqlalchemy.engine.cursor.
+# This is possibly an SQLAlchemy bug; any assistance in tracking it down is welcome.
+k="${k-}${k+ and }not test_create_read"
 
 # Requires orjson:
 k="${k-}${k+ and }not test_orjson_non_str_keys"

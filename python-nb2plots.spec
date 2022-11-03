@@ -1,9 +1,9 @@
 Name:           python-nb2plots
 Version:        0.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert between Jupyter notebooks and sphinx docs
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://matthew-brett.github.io/nb2plots/
 Source0:        https://github.com/matthew-brett/nb2plots/archive/%{version}/nb2plots-%{version}.tar.gz
 
@@ -70,12 +70,12 @@ sed -i '/ghp-import/d' doc-requirements.txt
 sed -i '/mock/d' test-requirements.txt
 
 # Fix shebangs
-pathfix.py -pni %{python3} scripts/* setup.py doc/conf.py
+%py3_shebang_fix scripts/* setup.py doc/conf.py
 sed -i '/#!python/d' nb2plots/from_notebook.py
 
 %build
 %pyproject_wheel
-pathfix.py -pni %{python3} build/scripts-*/*
+%py3_shebang_fix build/scripts-*/*
 
 # Documentation build
 export PATH=$PWD/build/scripts-%{python3_version}:$PATH
@@ -114,6 +114,10 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.6.1-4
+- Use %%py3_shebang_fix instead of invoking pathfix.py directly
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

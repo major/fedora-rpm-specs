@@ -26,7 +26,7 @@ fonts.
 
 %prep
 %setup -q
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 sed -i -e "s|-Wall -O2|$RPM_OPT_FLAGS|" GNUmakefile.in
 find . -type f -name '*.py' | xargs 2to3 -w

@@ -9,6 +9,8 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         update-m1n1.sysconfig
 # Add asahi-fwextract script
 Patch:          %{url}/commit/c749ccaa5d9b16d49b8ae49052f14c5838917cd7.patch
+#  asahi-fwextract: fix overzealous quoting
+Patch:          %{url}/commit/780b7f21f8dc002a3a073b34036291655af7dd38.patch
 # PR#9: Add dracut module
 Patch:          %{url}/pull/9.patch
 
@@ -39,6 +41,7 @@ Asahi Linux firmware extractor.
 Summary:        Dracut config for Apple Silicon Macs
 
 Requires:       dracut
+Requires:       linux-firmware-vendor = %{version}-%{release}
 Provides:       dracut-config-asahi = %{version}-%{release}
 Obsoletes:      dracut-config-asahi < 20220821-5
 Provides:       update-vendor-firmware = %{version}-%{release}
@@ -46,6 +49,14 @@ Obsoletes:      update-vendor-firmware < 20220918.2-8
 
 %description -n dracut-asahi
 Dracut config for Apple Silicon Macs.
+
+%package -n     linux-firmware-vendor
+Summary:        Ensure /lib/firmware/vendor exists for firmware handoff
+Requires:       linux-firmware
+
+%description -n linux-firmware-vendor
+This package ensures /lib/firmware/vendor exists so that firmware can be handed
+over properly from the initramfs.
 
 %package -n     update-m1n1
 Summary:        Keep m1n1 up to date
@@ -72,6 +83,7 @@ Keep m1n1 up to date on Apple Silicon systems.
   BIN_DIR="%{_sbindir}" \
   CONFIG_DIR="%{_sysconfdir}/sysconfig"
 
+install -Ddpm0755 %{buildroot}%{_prefix}/lib/firmware/vendor
 install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 
 %transfiletriggerin -n update-m1n1 -- %{_libdir}/m1n1 %{_datadir}/uboot/apple_m1 /boot/dtb-
@@ -89,6 +101,10 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 %license LICENSE
 %{_prefix}/lib/dracut/dracut.conf.d/10-asahi.conf
 %{_prefix}/lib/dracut/modules.d/99asahi-firmware/
+
+%files -n linux-firmware-vendor
+%license LICENSE
+%dir %{_prefix}/lib/firmware/vendor
 
 %files -n update-m1n1
 %license LICENSE

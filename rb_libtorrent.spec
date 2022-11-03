@@ -1,8 +1,8 @@
 %global git_url https://github.com/arvidn/libtorrent
  
 Name:		rb_libtorrent
-Version:	2.0.7
-Release:	2%{?dist}
+Version:	2.0.8
+Release:	1%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 License:	BSD
@@ -95,7 +95,6 @@ export PYTHON_LDFLAGS="$PYTHON_LDFLAGS $(python%{python3_version}-config --libs)
 
 %cmake \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DCMAKE_CXX_STANDARD=14 \
 	-DCMAKE_SKIP_RPATH=TRUE \
 	-GNinja \
 	-Dbuild_examples=ON \
@@ -103,8 +102,7 @@ export PYTHON_LDFLAGS="$PYTHON_LDFLAGS $(python%{python3_version}-config --libs)
 	-Dbuild_tools=ON \
 	-Dpython-bindings=ON \
 	-Dpython-egg-info=ON \
-	-Dpython-install-system-dir=ON \
-	..
+	-Dpython-install-system-dir=ON
 %cmake_build
 
 %check
@@ -172,6 +170,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Tue Nov 01 2022 Leigh Scott <leigh123linux@gmail.com> - 2.0.8-1
+- Upgrade to 2.0.8
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

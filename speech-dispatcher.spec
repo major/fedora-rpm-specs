@@ -1,5 +1,5 @@
 Name:          speech-dispatcher
-Version:       0.11.3
+Version:       0.11.4
 Release:       1%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
@@ -225,6 +225,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.11.4-1
+- 0.11.4
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.11.3-1
 - 0.11.3
 

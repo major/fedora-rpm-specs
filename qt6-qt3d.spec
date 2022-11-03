@@ -8,8 +8,8 @@
 
 Summary: Qt6 - Qt3D QML bindings and C++ APIs
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 %global examples 1
 
@@ -107,7 +107,7 @@ popd
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.GPL* LICENSE.LGPL*
+%license LICENSES/GPL* LICENSES/LGPL*
 %{_qt6_libdir}/libQt63DAnimation.so.6*
 %{_qt6_libdir}/libQt63DCore.so.6*
 %{_qt6_libdir}/libQt63DExtras.so.6*
@@ -204,6 +204,9 @@ popd
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

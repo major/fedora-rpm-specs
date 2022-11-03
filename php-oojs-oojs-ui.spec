@@ -1,14 +1,14 @@
 
 Name:		php-oojs-oojs-ui
-Version:	0.42.0
-Release:	3%{?dist}
+Version:	0.43.2
+Release:	1%{?dist}
 Summary:	Object-Oriented JavaScript – User Interface
 
 License:	MIT
 URL:		http://www.mediawiki.org/wiki/OOjs_UI
 # Wikimedia changed server software and now doesn't support downloads
 # https://phabricator.wikimedia.org/T111887
-Source0:	https://github.com/wikimedia/oojs-ui/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:	https://github.com/wikimedia/oojs-ui/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -48,6 +48,9 @@ cp -rp php/* %{buildroot}%{_datadir}/php/OOUI
 
 
 %changelog
+* Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 0.43.2-1
+- version update
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-yara
-Version:        4.2.0
-%global         baserelease     5
+Version:        4.2.3
+%global         baserelease     1
 Summary:        Python binding for the YARA pattern matching tool
 License:        ASL 2.0
 URL:            https://github.com/VirusTotal/yara-python/
@@ -10,8 +10,8 @@ URL:            https://github.com/VirusTotal/yara-python/
 # rpmbuild --rebuild python-yara.src.dpm --without release
 %bcond_without  release
 
-%global         commit          dc838e211e45442d219012099aaa63efa812c4be
-%global         gitdate         20210427
+%global         commit          8106b84fa967bcd2fff4f5a40e558c36bb8d54e8
+%global         gitdate         20220809
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
@@ -136,6 +136,9 @@ EXCLUDE='not testModuleData'
 
 #====================================================================
 %changelog
+* Tue Nov 01 2022 Michal Ambroz <rebus at, seznam.cz> - 4.2.3-1
+- Rebuilt for yara-4.2.3 - second service :)
+
 * Tue Aug 09 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 4.2.0-5
 - Rebuilt for yara-4.2.3
 

@@ -6,7 +6,7 @@
 
 Name:           ocaml-tyxml
 Version:        4.5.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -147,6 +147,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 4.5.0-14
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 4.5.0-13
 - Rebuild for ocaml-ppxlib 0.27.0
 - Convert License tag to SPDX

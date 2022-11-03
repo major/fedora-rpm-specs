@@ -1,6 +1,6 @@
 Name:		jgmenu
-Version:	4.4.0
-Release:	3%{?dist}
+Version:	4.4.1
+Release:	1%{?dist}
 Summary:	Simple X11 application menu
 License:	GPLv2+
 URL:		https://jgmenu.github.io
@@ -16,7 +16,7 @@ BuildRequires:	pkgconfig(cairo)
 # pango-devel
 BuildRequires:	pkgconfig(pango)
 # librsvg2-devel
-BuildRequires:	pkgconfig(librsvg-2.0)
+BuildRequires:	pkgconfig(librsvg-2.0) >= 2.46
 
 %description
 A simple, independent and contemporary-looking X11 menu, designed for scripting,
@@ -113,6 +113,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/xfce4/panel/plugins/%{name}-applet.desktop
 
 %changelog
+* Tue Nov 01 2022 TI_Eugene <ti.eugene@gmail.com> - 4.4.1-1
+- Version bump (close #2138771)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

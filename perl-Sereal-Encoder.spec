@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal-Encoder
 Version:        5.001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -120,6 +120,9 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Tue Nov 01 2022 Petr Pisar <ppisar@redhat.com> - 5.001-2
+- Rebuild against miniz-3.0.0 (bug #2137798)
+
 * Sun Sep  4 2022 Paul Howarth <paul@city-fan.org> - 5.001-1
 - Update to 5.001
   - First official release of protocol 5

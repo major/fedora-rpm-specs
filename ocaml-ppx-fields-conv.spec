@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-fields-conv
 Version:        0.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml records
 
 License:        MIT
@@ -56,6 +56,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-8
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-7
 - Rebuild for ocaml-ppxlib 0.27.0
 

@@ -1,13 +1,12 @@
 Name:           veusz
-Version:        3.4
-Release:        5%{?dist}
+Version:        3.5.3
+Release:        1%{?dist}
 Summary:        GUI scientific plotting package
 
 # The entire source code is GPLv2+ except helpers/src/_nc_cntr.c which is Python
 License:        GPLv2+ and Python
 URL:            https://veusz.github.io/
 Source0:        https://github.com/veusz/veusz/releases/download/veusz-%{version}/veusz-%{version}.tar.gz
-Patch0:         sip-build.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  python3 python3-devel python3-setuptools
@@ -16,6 +15,7 @@ BuildRequires:  qt5-qtbase-devel qt5-qtsvg-devel
 BuildRequires:  python3-qt5 python3-qt5-devel
 BuildRequires:  python3-pyqt5-sip python3dist(sip)
 BuildRequires:  python3-h5py
+BuildRequires:  python3-tomli
 BuildRequires:  desktop-file-utils
 
 Requires:       python3dist(pyqt5-sip) >= 12.8, python3dist(pyqt5-sip) < 13
@@ -43,7 +43,6 @@ data. 3D point, surface, volume and function plots are also supported.
 
 %prep
 %setup -q -n veusz-%{version}
-%patch0 -p1
 
 find -name \*~ | xargs rm -f
 
@@ -130,6 +129,12 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Tue Nov 01 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 3.5.3-1
+- Update to Veusz 3.5.3
+
+* Tue Nov 01 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 3.5-1
+- Update to Veusz 3.5
+
 * Wed Aug 17 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 3.4-5
 - Patch to fix build system for new sip versions (RHBZ#2113753)
 

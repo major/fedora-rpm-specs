@@ -1,7 +1,7 @@
 %global pypi_name colorama
 
 Name:           python-%{pypi_name}
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Cross-platform colored terminal text
 

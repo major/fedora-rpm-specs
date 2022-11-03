@@ -13,7 +13,7 @@ Patch3:         %{name}-0.7.1-py3.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
-BuildRequires:  python3-devel /usr/bin/pathfix.py
+BuildRequires:  python3-devel
 Requires:       python3-pygame
 Requires:       hicolor-icon-theme
 Provides:       %{name}-data = %{version}-%{release}
@@ -34,7 +34,7 @@ board again. Chain reactions earn you even more points.
 %patch1 -p1
 %patch2 -p0
 %patch3 -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 make %{?_smp_mflags} prefix=%{_usr} datadir=%{_datadir} pkgdatadir=%{_datadir}/%{name} CFLAGS="%{optflags}"

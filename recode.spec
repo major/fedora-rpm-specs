@@ -1,6 +1,6 @@
 Name:       recode
 Version:    3.7.12
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
 # COPYING-LIB:          LGPLv3 text
@@ -68,6 +68,8 @@ BuildRequires:  texinfo
 # Tests:
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel >= 3.7.5
+# https://fedoraproject.org/wiki/Changes/Python3.12#The_Python_standard_library_distutils_module_will_be_removed
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
 
 %description
 The recode tool and library convert files between character sets and surfaces.
@@ -130,6 +132,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Thu Oct 27 2022 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.12-3
+- Adds BuildRequire for Python 3.12
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

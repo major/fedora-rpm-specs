@@ -42,7 +42,7 @@ gnome-weather is a weather application for GNOME
 
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
-pathfix.py -i %{__python3} .
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} .
 
 %build
 %meson

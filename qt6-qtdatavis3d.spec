@@ -8,8 +8,8 @@
 
 Summary: Qt6 - Qt Data Visualization component
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -65,7 +65,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %cmake_install
 
 %files
-%license LICENSE.GPL3
+%license LICENSES/GPL*
 %{_qt6_libdir}/libQt6DataVisualization.so.6*
 %{_qt6_libdir}/libQt6DataVisualizationQml.so.6*
 %{_qt6_qmldir}/QtDataVisualization/
@@ -96,6 +96,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

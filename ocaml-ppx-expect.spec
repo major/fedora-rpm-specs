@@ -4,8 +4,8 @@
 %bcond_with test
 
 Name:           ocaml-ppx-expect
-Version:        0.15.0
-Release:        7%{?dist}
+Version:        0.15.1
+Release:        1%{?dist}
 Summary:        Framework for writing tests in OCaml
 
 License:        MIT
@@ -78,6 +78,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-1
+- Version 0.15.1
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-7
 - Rebuild for ocaml-ppxlib 0.27.0
 

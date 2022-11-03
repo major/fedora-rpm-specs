@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.0
-Release:       2%{?pre:.%pre}%{?dist}
+Release:       3%{?pre:.%pre}%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -62,6 +62,8 @@ Patch9:        mingw-python3_modules.patch
 Patch10:       mingw-python3_posix-layout.patch
 # Enable some modules needed on Windows
 Patch11:       mingw-python3_win-modules.patch
+# Enable the socket module
+Patch12:       mingw-python3_module-socket.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -492,6 +494,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-3
+- Enable socket and mmap modules, enable missing pieces of os and ctypes modules
+
 * Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-2
 - Fix %%mingw_python3_host macros
 

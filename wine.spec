@@ -9,7 +9,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.3
-%global winemono  7.3.0
+%global winemono  7.4.0
 #global _default_patch_fuzz 2
 %ifarch %{ix86}
 %global winepedir i386-windows
@@ -46,7 +46,7 @@
 %endif
 
 Name:           wine
-Version:        7.19
+Version:        7.20
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -2827,6 +2827,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 31 2022 Michael Cronenworth <mike@cchtml.com> - 7.20-1
+- version update
+
 * Mon Oct 24 2022 Michael Cronenworth <mike@cchtml.com> - 7.19-1
 - version update
 

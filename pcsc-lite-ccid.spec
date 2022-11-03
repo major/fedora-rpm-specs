@@ -3,7 +3,7 @@
 
 Name:           pcsc-lite-ccid
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 License:        LGPLv2+
@@ -12,7 +12,6 @@ Source0:        https://ccid.apdu.fr/files/ccid-%{version}.tar.bz2
 Source1:        https://ccid.apdu.fr/files/ccid-%{version}.tar.bz2.asc
 Source2:        gpgkey-F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E.gpg
 Patch0:         ccid-1.4.26-omnikey-3121.patch
-Patch1:		ccid-1.4.34-maxreaders.patch
 
 BuildRequires: make
 BuildRequires:  perl-interpreter
@@ -39,7 +38,6 @@ PC/SC Lite daemon.
 gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %setup -q -n ccid-%{version}
 %patch0 -p1 -b .omnikey
-%patch1 -p0 -b .maxreaders
 
 %build
 %configure --enable-twinserial
@@ -67,6 +65,9 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %changelog
+* Tue Nov 01 2022 Jakub Jelen <jjelen@redhat.com> - 1.5.0-3
+- Remove downstream patch breaking flatpak (#2054826)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

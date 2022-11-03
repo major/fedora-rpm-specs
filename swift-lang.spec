@@ -86,7 +86,6 @@ BuildRequires:  libedit-devel
 BuildRequires:  libicu-devel
 BuildRequires:  perl-podlators
 BuildRequires:  python3-six
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:	binutils-devel
 %if ! 0%{?el8}
 BuildRequires:	python-unversioned-command
@@ -164,8 +163,8 @@ mv Yams-%{yams_version} yams
 mv ninja-%{ninja_version} ninja
 
 # Fix python to python3 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" swift/utils/api_checker/swift-api-checker.py
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
+%py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
+%py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
 # Enable LZMA
 %patch2 -p0

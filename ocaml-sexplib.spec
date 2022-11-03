@@ -10,11 +10,11 @@
 Name:           ocaml-sexplib
 Version:        0.15.1
 Epoch:          1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Automated S-expression conversion
 
 # The project as a whole is MIT, but code in the src subdirectory is BSD.
-License:        MIT and BSD
+License:        MIT and BSD-3-Clause
 URL:            https://github.com/janestreet/sexplib
 Source0:        %{url}/archive/v%{version}/sexplib-%{version}.tar.gz
 
@@ -85,6 +85,10 @@ cp -p vim/syntax/sexplib.vim %{buildroot}%{vimfiles_root}/syntax
 %{vimfiles_root}/syntax/sexplib.vim
 
 %changelog
+* Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 1:0.15.1-2
+- Rebuild for ocaml-base 0.15.1
+- Convert License tag to SPDX
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 1:0.15.1-1
 - Version 0.15.1
 

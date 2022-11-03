@@ -6,8 +6,8 @@
 
 Name:           ocaml-ppxlib
 Epoch:          1
-Version:        0.27.0
-Release:        2%{?dist}
+Version:        0.28.0
+Release:        1%{?dist}
 Summary:        Base library and tools for ppx rewriters
 
 License:        MIT
@@ -15,8 +15,6 @@ URL:            https://github.com/ocaml-ppx/ppxlib
 Source0:        %{url}/archive/%{version}/ppxlib-%{version}.tar.gz
 # Fedora does not have, and does not need, stdlib-shims
 Patch0:         %{name}-stdlib-shims.patch
-# Work around differences in parentheses in test output
-Patch1:         %{name}-test.patch
 
 BuildRequires:  ocaml >= 4.04.1
 BuildRequires:  ocaml-base-devel
@@ -61,9 +59,6 @@ signature files for developing applications that use
 %prep
 %autosetup -n ppxlib-%{version} -p1
 
-# Adapt to grep 3.8
-sed -i 's/egrep/grep -E/g' test/expansion_context/run.t
-
 %build
 %dune_build
 
@@ -80,6 +75,11 @@ sed -i 's/egrep/grep -E/g' test/expansion_context/run.t
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 1:0.28.0-1
+- Version 0.28.0
+- Drop upstreamed test patch
+- Drop upstreamed grep 3.8 adaptation
+
 * Tue Sep  6 2022 Jerry James <loganjerry@gmail.com> - 1:0.27.0-2
 - Adapt to grep 3.8
 

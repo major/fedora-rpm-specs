@@ -1,6 +1,6 @@
 Name:		putty
-Version:	0.76
-Release:	4%{?dist}
+Version:	0.78
+Release:	1%{?dist}
 Summary:	SSH, Telnet and Rlogin client
 License:	MIT
 URL:		http://www.chiark.greenend.org.uk/~sgtatham/putty/
@@ -18,34 +18,36 @@ BuildRequires:	sed
 BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
+BuildRequires:	cmake
 
 %description
 Putty is a SSH, Telnet & Rlogin client - this time for Linux.
 
 %prep
-%setup -q
+%autosetup
 
 # fix python shebangs to use python3 (python bits aren't currently packaged)
 find . -type f -name "*.py" -exec sed -i '/^#!/ s|.*|#!%{__python3}|' {} \;
 
 %build
-export CFLAGS="%{optflags} -DNOT_X_WINDOWS -Wno-error=unused-function"
-%configure
-%make_build
-make -C doc
+export CFLAGS="%{build_cflags} -DNOT_X_WINDOWS -Wno-error=unused-function"
+%cmake
+%cmake_build
 make -C icons putty-48.png
+cd %{__cmake_builddir}
+make -C doc
 
 %install
-%make_install
+%cmake_install
 install -d html
-install -pm 0644 doc/*.html html
+install -pm 0644 doc/html/*.html html
 
 desktop-file-install \
   --vendor "" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+  --dir %{buildroot}%{_datadir}/applications \
   %{SOURCE1}
 
-install -m644 -D -p icons/putty-48.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/putty.png
+install -m644 -D -p icons/putty-48.png %{buildroot}%{_datadir}/pixmaps/putty.png
 
 %files
 %doc LICENCE html
@@ -55,6 +57,10 @@ install -m644 -D -p icons/putty-48.png $RPM_BUILD_ROOT%{_datadir}/pixmaps/putty.
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Tue Nov  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.78-1
+- New version
+  Resolves: rhbz#2138511
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

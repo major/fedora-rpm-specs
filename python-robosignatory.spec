@@ -3,12 +3,15 @@
 
 Name:               python-robosignatory
 Version:            0.7.0
-Release:            7%{?prerelease}%{?dist}
+Release:            8%{?prerelease}%{?dist}
 Summary:            A Fedora Messaging consumer that automatically signs artifacts
 
 License:            GPLv2+
 URL:                https://pagure.io/robosignatory/
 Source0:            https://pagure.io/releases/robosignatory/robosignatory-%{version}%{?prerelease}.tar.gz
+
+# Upstream patch at 
+Patch:              robosignatory-0_7_0-fix-tests-for-fedora-messaging-3_2.patch
 
 BuildArch:          noarch
 
@@ -55,7 +58,7 @@ Provides:           robosignatory = %{version}-%{release}
 %description -n python3-robosignatory %_description
 
 %prep
-%setup -q -n %{modname}-%{version}%{?prerelease}
+%autosetup -p1 -n %{modname}-%{version}%{?prerelease}
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
 
@@ -76,6 +79,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Tue Nov 01 2022 Mattia Verga <mattia.verga@proton.me> - 0.7.0-8
+- Fix tests with fedora-messaging 3.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,8 +5,8 @@
 %bcond_with test
 
 Name:           ocaml-base
-Version:        0.15.0
-Release:        6%{?dist}
+Version:        0.15.1
+Release:        1%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 License:        MIT
@@ -84,6 +84,9 @@ popd
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-1
+- Version 0.15.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Libbpf library
 
 License:        LGPLv2 or BSD
@@ -70,8 +70,8 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
-* Sat Sep 03 2022 Jiri Olsa <olsajiri@gmail.com> - 2:1.0.0-2
-- release 1.0.0-2
+* Tue Nov 01 2022 Jiri Olsa <olsajiri@gmail.com> - 2:1.0.0-3
+- release 1.0.0-3
 
 * Sat Sep 03 2022 Jiri Olsa <olsajiri@gmail.com> - 2:1.0.0-1
 - release 1.0.0-1

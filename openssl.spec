@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.0.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
@@ -184,6 +184,8 @@ Patch77: 0077-FIPS-140-3-zeroization.patch
 Patch78: 0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2124845, https://github.com/openssl/openssl/pull/19182
 Patch79: 0079-Fix-AES-GCM-on-Power-8-CPUs.patch
+#CVE-2022-3602
+Patch80: 0080-CVE-2022-3602.patch
 
 License: ASL 2.0
 URL: http://www.openssl.org/
@@ -521,6 +523,12 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Nov 01 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.5-6
+- CVE-2022-3602: X.509 Email Address Buffer Overflow
+- CVE-2022-3786: X.509 Email Address Buffer Overflow
+  Resolves: CVE-2022-3602
+  Resolves: CVE-2022-3786
+
 * Mon Sep 12 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.5-5
 - Update patches to make ELN build happy
   Resolves: rhbz#2123755
@@ -532,7 +540,6 @@ install -m644 %{SOURCE9} \
 * Thu Sep 01 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.5-3
 - Sync patches with RHEL
   Related: rhbz#2123755
-
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

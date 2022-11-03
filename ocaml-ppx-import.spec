@@ -2,7 +2,7 @@
 
 Name:           ocaml-ppx-import
 Version:        1.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Syntax extension for importing declarations from interface files
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i 's/oUnit/ounit2/' src_test/ppx_deriving/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 1.10.0-4
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 1.10.0-3
 - Rebuild for ocaml-ppxlib 0.27.0
 

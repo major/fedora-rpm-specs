@@ -4,12 +4,13 @@
 %global         srcname     azure-mgmt-synapse
 
 Name:           python-%{srcname}
-Version:        2.1.0b2
+Version:        2.1.0~b5
+%global         pypi_version    2.1.0b5
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 
 BuildArch:      noarch
 
@@ -38,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires

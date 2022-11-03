@@ -42,7 +42,6 @@ BuildRequires: fftw-devel, suitesparse-devel
 BuildRequires: %{blaslib}-devel
 BuildRequires: gcc-gfortran, swig, gcc-c++
 BuildRequires: qhull-devel
-BuildRequires: /usr/bin/pathfix.py
 
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-pybind11 >= 2.4.0
@@ -154,7 +153,7 @@ export SCIPY_USE_PYTHRAN=0%{?with_pythran}
 
 %py3_install
 # Some files got ambiguous python shebangs, we fix them after everything else is done
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitearch}
+%py3_shebang_fix %{buildroot}%{python3_sitearch}
 
 %check
 # check against the reference BLAS/LAPACK

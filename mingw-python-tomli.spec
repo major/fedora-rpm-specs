@@ -7,7 +7,7 @@
 Name:          mingw-python-%{pkgname}
 Summary:       MinGW Windows Python %{pkgname} library
 Version:       2.0.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -16,11 +16,11 @@ Source0:       %{pypi_source}
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-python3
-BuildRequires: mingw32-python3-setuptools
+BuildRequires: mingw32-python3-build
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-python3
-BuildRequires: mingw64-python3-setuptools
+BuildRequires: mingw64-python3-build
 
 
 %description
@@ -46,33 +46,30 @@ MinGW Windows Python3 %{pkgname} library.
 
 
 %build
-%global distinfo tomli-%{version}.dist-info
-mkdir %{distinfo}
-cat > %{distinfo}/METADATA << EOF
-Metadata-Version: 2.2
-Name: tomli
-Version: %{version}
-EOF
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
+
 
 %install
-mkdir -p %{buildroot}%{mingw32_python3_sitearch}
-mkdir -p %{buildroot}%{mingw64_python3_sitearch}
-cp -a src/%{pkgname} %{distinfo} %{buildroot}%{mingw32_python3_sitearch}
-cp -a src/%{pkgname} %{distinfo} %{buildroot}%{mingw64_python3_sitearch}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
 %files -n mingw32-python3-%{pkgname}
 %license LICENSE
 %{mingw32_python3_sitearch}/%{pkgname}/
-%{mingw32_python3_sitearch}/%{distinfo}
+%{mingw32_python3_sitearch}/%{pkgname}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pkgname}
 %license LICENSE
 %{mingw64_python3_sitearch}/%{pkgname}/
-%{mingw64_python3_sitearch}/%{distinfo}
+%{mingw64_python3_sitearch}/%{pkgname}-%{version}.dist-info/
 
 
 %changelog
+* Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 2.0.1-3
+- Switch to python3-build
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

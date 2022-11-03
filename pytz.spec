@@ -11,7 +11,7 @@
 %bcond_with tests
 
 Name:           pytz
-Version:        2022.5
+Version:        2022.6
 Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
@@ -78,12 +78,12 @@ Requires:       tzdata
 %if %{with python2}
 %py2_install
 rm -r %{buildroot}%{python2_sitelib}/pytz/zoneinfo
-pathfix.py -pn -i %{__python2} %{buildroot}%{python2_sitelib}
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i %{__python2} %{buildroot}%{python2_sitelib}
 %endif
 
 %py3_install
 rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
-pathfix.py -pn -i %{__python3} %{buildroot}%{python3_sitelib}
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i %{__python3} %{buildroot}%{python3_sitelib}
 
 
 %check
@@ -108,6 +108,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
 
 
 %changelog
+* Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.6-1
+- 2022.6
+
 * Tue Oct 18 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.5-1
 - 2022.5
 

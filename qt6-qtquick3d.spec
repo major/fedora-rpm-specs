@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -38,6 +38,7 @@ BuildRequires: qt6-qtdeclarative-devel
 BuildRequires: qt6-qtdeclarative-static
 BuildRequires: qt6-qtquicktimeline-devel
 BuildRequires: qt6-qtshadertools-devel
+
 #if 0{?fedora}
 # BuildRequires: pkgconfig(assimp) >= 5.0.0
 #endif
@@ -120,7 +121,7 @@ popd
 %ldconfig_scriptlets
 
 %files
-%license LICENSE.GPL*
+%license LICENSES/GPL*
 %{_qt6_libdir}/libQt6Quick3D.so.6*
 %{_qt6_libdir}/libQt6Quick3DAssetImport.so.6*
 %{_qt6_libdir}/libQt6Quick3DRuntimeRender.so.6*
@@ -170,6 +171,11 @@ popd
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%ifarch x86_64 aarch64
+%dir %{_qt6_libdir}/cmake/Qt6BundledEmbree/
+%{_qt6_libdir}/cmake/Qt6/FindWrapBundledEmbreeConfigExtra.cmake
+%{_qt6_libdir}/cmake/Qt6BundledEmbree/*.cmake
+%endif
 %dir %{_qt6_libdir}/cmake/Qt6Quick3D/
 %{_qt6_libdir}/cmake/Qt6Quick3D/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetImport/
@@ -190,6 +196,9 @@ popd
 %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects
 %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects/*.cmake
+%ifarch x86_64 aarch64
+%{_qt6_libdir}/libQt6BundledEmbree.a
+%endif
 %{_qt6_libdir}/libQt6Quick3D.prl
 %{_qt6_libdir}/libQt6Quick3D.so
 %{_qt6_libdir}/libQt6Quick3DAssetImport.prl
@@ -225,6 +234,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

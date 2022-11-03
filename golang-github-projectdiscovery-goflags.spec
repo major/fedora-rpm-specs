@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/goflags
 %global goipath         github.com/projectdiscovery/goflags
-Version:                0.1.2
+Version:                0.1.3
 
 %gometa
 

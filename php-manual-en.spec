@@ -1,8 +1,8 @@
 Name:           php-manual-en
 Summary:        Documentation for the PHP programming language
 Version:        20221028
-Release:        1%{?dist}
-License:        CC-BY 3.0
+Release:        2%{?dist}
+License:        CC-BY-3.0
 URL:            https://www.php.net/download-docs.php
 Source0:        https://www.php.net/distributions/manual/php_manual_en.tar.gz
 BuildArch:      noarch
@@ -27,6 +27,9 @@ EOF
 %doc %{_defaultdocdir}/php-manual
 
 %changelog
+* Tue Nov 1 2022 Stephen Medina <stephen@lilmail.xyz> - 20221028-2
+- Fix license expression
+
 * Fri Oct 28 2022 Stephen Medina <stephen@lilmail.xyz> - 20221028-1
 - Update to latest on 2022-10-28
 

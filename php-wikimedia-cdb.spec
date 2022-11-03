@@ -1,17 +1,17 @@
 
 Name:		php-wikimedia-cdb
-Version:	1.4.1
+Version:	2.0.0
 Release:	8%{?dist}
 Summary:	CDB functions for PHP
 
 License:	GPLv2+
 URL:		http://www.mediawiki.org/wiki/CDB
-Source0:	https://github.com/wikimedia/cdb/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:	https://github.com/wikimedia/cdb/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
-BuildRequires:  php-dba
-BuildRequires:  php-theseer-autoload
+BuildRequires:	php-dba
+BuildRequires:	php-theseer-autoload
 
 Requires:	php(language) >= 5.3.0
 Requires:	php-spl
@@ -47,6 +47,9 @@ cp -rp src/* %{buildroot}%{_datadir}/php/Cdb
 
 
 %changelog
+* Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 2.0.0-1
+- version update
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

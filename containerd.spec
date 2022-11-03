@@ -38,6 +38,8 @@ Patch0:         0001-Revert-commit-for-Windows-metrics.patch
 Patch1:         0002-Remove-windows-only-dep.patch
 # Backport for github.com/containerd/typeurl update
 Patch2:         0001-Use-typeurl.Any-instead-of-github.com-gogo-protobuf-.patch
+# To use with latest go-runc
+Patch3:         0001-Add-reaper-StartLocked.patch
 
 BuildRequires:  btrfs-progs-devel
 BuildRequires:  go-md2man

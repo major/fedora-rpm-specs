@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -52,6 +52,8 @@ Patch4: exim-4.96-opendmarc-1.4-build-fix.patch
 Patch5: exim-4.96-build-fix.patch
 # https://git.exim.org/exim.git/commit/4e9ed49f8f12eb331b29bd5b6dc3693c520fddc2
 Patch6: exim-4.96-CVE-2022-3559.patch
+# https://git.exim.org/exim.git/patch/12fb3842f81bcbd4a4519d5728f2d7e0e3ca1445
+Patch7: exim-4.96-CVE-2022-3620.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -499,6 +501,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Nov  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-5
+- Fixed use after free in dmarc_dns_lookup
+  Resolves: CVE-2022-3620
+
 * Wed Oct 19 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-4
 - Fixed use after free in regex handler
   Resolves: CVE-2022-3559

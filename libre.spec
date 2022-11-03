@@ -1,6 +1,6 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        2.8.0
+Version:        2.9.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
@@ -86,7 +86,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.10*
+%{_libdir}/%{name}.so.11*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -95,6 +95,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 01 2022 Robert Scheck <robert@fedoraproject.org> 2.9.0-1
+- Upgrade to 2.9.0 (#2139163)
+
 * Sat Oct 01 2022 Robert Scheck <robert@fedoraproject.org> 2.8.0-1
 - Upgrade to 2.8.0 (#2131446)
 

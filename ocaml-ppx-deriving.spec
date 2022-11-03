@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-deriving
 Version:        5.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Type-driven code generation for OCaml
 
 License:        MIT
@@ -75,6 +75,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 5.2.1-17
+- Rebuild for ocaml-ppxlib 0.28.0
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 5.2.1-16
 - Rebuild for ocaml-ppxlib 0.27.0
 

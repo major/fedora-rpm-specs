@@ -5,7 +5,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
 Version:        0.10.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -15,11 +15,11 @@ Source0:        %{pypi_source}
 
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+BuildRequires:  mingw64-python3-build
 
 
 %description
@@ -45,27 +45,30 @@ MinGW Python 3 %{pypi_name}.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
 %files -n mingw32-python3-%{pypi_name}
 %license LICENSE
 %{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw64_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 0.10.2-6
+- Switch to python3-build
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

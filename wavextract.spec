@@ -20,7 +20,7 @@ Program do wyciągania zagnieżdżonych danych audio z plików JPEG.
 %prep
 %setup -qn %{name}
 %patch0 -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" ./wavextract
+%py3_shebang_fix ./wavextract
 2to3 -w wavextract
 
 %build

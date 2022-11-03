@@ -69,7 +69,7 @@ sed -i 's/linuxx86/linuxppc/' src/SConscript
 
 %patch1 -p0
 %patch4 -p0
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 /bin/chmod -x src/main.cpp
 /bin/chmod -x src/game.cpp

@@ -55,7 +55,7 @@ developing against %{summary}
 cd clang/
 %patch01 -p1
 
-pathfix.py -i %{__python3} -pn \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
     tools/clang-format/*.py \
     tools/clang-format/git-clang-format \
     utils/hmaptool/hmaptool \

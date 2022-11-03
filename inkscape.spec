@@ -114,7 +114,7 @@ graphics in W3C standard Scalable Vector Graphics (SVG) file format.
 
 %prep
 %autosetup -n inkscape-1.2.1_2022-07-14_9c6d41e410 -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 find . -name CMakeLists.txt | xargs sed -i 's|COMMAND python |COMMAND %{__python3} |g'
 
 #strip invalid tag

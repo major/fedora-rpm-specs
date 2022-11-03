@@ -2,15 +2,13 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.3.4
-Release:    5%{?dist}
+Version:    0.3.6
+Release:    1%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 License:    Python
 URL:        https://readthedocs.org/projects/distlib/
-Source0:    %pypi_source %{srcname} %{version} zip
-
-Patch0: distlib_unbundle.patch
+Source0:    %pypi_source %{srcname} %{version}
 
 BuildArch:  noarch
 
@@ -41,10 +39,8 @@ between tools.
 
 %prep
 %setup -q -n %{srcname}-%{version}
-%patch0 -p1
 
 rm distlib/*.exe
-rm -rf distlib/_backport
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -69,9 +65,11 @@ export SKIP_ONLINE=1
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %pyproject_files
 %doc README.rst
-%license LICENSE.txt
 
 %changelog
+* Thu Oct 27 2022 Lumír Balhar <lbalhar@redhat.com> - 0.3.6-1
+- Update to 0.3.6
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

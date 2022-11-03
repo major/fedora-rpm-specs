@@ -118,7 +118,7 @@ cp -p planet/COPYING COPYING-planet
 
 # Force Python3
 %if 0%{?with_doc}
-pathfix.py -pn -i "%{__python3}" docs/build_hhp.py docs/xml2po.py docs/build_contents.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" docs/build_hhp.py docs/xml2po.py docs/build_contents.py
 sed -i 's|@python2|@python3|' docs/Makefile
 %endif
 

@@ -1,5 +1,5 @@
 %global nativever 2.1.1
-%global baserelease 1
+%global baserelease 2
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -23,12 +23,12 @@ BuildRequires:  python3-setuptools
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+BuildRequires:  mingw64-python3-build
 
 %description
 GeographicLib is a small set of C++ classes for performing conversions 
@@ -133,8 +133,8 @@ cmake .
 # Native build
 %py3_build
 # MinGW build
-%mingw32_py3_build
-%mingw64_py3_build
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 popd
 
 
@@ -148,8 +148,8 @@ pushd geographiclib-python-%{pythonver}
 # Native build
 %py3_install
 # MinGW build
-%mingw32_py3_install
-%mingw64_py3_install
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 popd
 
 %mingw_debug_install_post
@@ -217,7 +217,7 @@ popd
 %files -n mingw32-python3-%{name}
 %license LICENSE.txt
 %{mingw32_python3_sitearch}/geographiclib/
-%{mingw32_python3_sitearch}/geographiclib-%{pythonver}-py%{mingw32_python3_version}.egg-info
+%{mingw32_python3_sitearch}/geographiclib-%{pythonver}.dist-info/
 
 %files -n mingw64-%{name}
 %license LICENSE.txt
@@ -241,10 +241,13 @@ popd
 %files -n mingw64-python3-%{name}
 %license LICENSE.txt
 %{mingw64_python3_sitearch}/geographiclib/
-%{mingw64_python3_sitearch}/geographiclib-%{pythonver}-py%{mingw64_python3_version}.egg-info
+%{mingw64_python3_sitearch}/geographiclib-%{pythonver}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-2
+- Switch to python3-build
+
 * Tue Jul 26 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-1
 - Update to 2.1.1
 

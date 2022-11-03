@@ -1,20 +1,22 @@
 %{?mingw_package_header}
 
-%global pkgname numpy
+%global pypi_name numpy
 
-Name:          mingw-%{pkgname}
-Summary:       MinGW Windows Python %{pkgname} library
-Version:       1.22.0
-Release:       6%{?dist}
+Name:          mingw-%{pypi_name}
+Summary:       MinGW Windows Python %{pypi_name} library
+Version:       1.23.4
+Release:       1%{?dist}
 BuildArch:     noarch
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD and Python
 URL:           http://www.numpy.org/
-Source0:       https://github.com/%{pkgname}/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:       %{pypi_source}
 
 # Don't use MSC specific stuff
 Patch0:        numpy_mingw.patch
+# Drop werror, fails with py3.11
+Patch1:        numpy_werror.patch
 
 
 BuildRequires: mingw32-filesystem >= 102
@@ -31,48 +33,43 @@ BuildRequires: mingw64-python3-setuptools
 
 
 %description
-%package -n mingw32-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw32-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw32-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw32-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pkgname}
-Summary:       MinGW Windows Python3 %{pkgname} library
+%package -n mingw64-python3-%{pypi_name}
+Summary:       MinGW Windows Python3 %{pypi_name} library
 
-%description -n mingw64-python3-%{pkgname}
-MinGW Windows Python3 %{pkgname} library.
+%description -n mingw64-python3-%{pypi_name}
+MinGW Windows Python3 %{pypi_name} library.
 
 
 %{?mingw_debug_package}
 
 
 %prep
-%autosetup -p1 -n %{pkgname}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 
 %build
 # Add -fno-asynchronous-unwind-tables to workaround "Error: invalid register for .seh_savexmm"
 # See https://stackoverflow.com/questions/43152633/invalid-register-for-seh-savexmm-in-cygwin
-MINGW32_CFLAGS="%{mingw32_cflags} -fno-asynchronous-unwind-tables" %{mingw32_python3} setup.py build -b build_py3_mingw32
-MINGW64_CFLAGS="%{mingw64_cflags} -fno-asynchronous-unwind-tables" %{mingw64_python3} setup.py build -b build_py3_mingw64
+MINGW32_CFLAGS="%{mingw32_cflags} -fno-asynchronous-unwind-tables" %mingw32_py3_build
+MINGW64_CFLAGS="%{mingw64_cflags} -fno-asynchronous-unwind-tables" %mingw64_py3_build
 
 
 %install
-ln -s build_py3_mingw32 build
-%{mingw32_python3} setup.py install -O1 --root=%{buildroot} --skip-build
-rm build
-
-ln -s build_py3_mingw64 build
-%{mingw64_python3} setup.py install -O1 --root=%{buildroot} --skip-build
-rm build
+%mingw32_py3_install
+%mingw64_py3_install
 
 # FIXME: These files are not installed for some reason
-cp -a build_py3_mingw32/src.mingw-%{mingw32_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_py3_mingw32/src.mingw-%{mingw32_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_py3_mingw64/src.mingw-%{mingw64_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
-cp -a build_py3_mingw64/src.mingw-%{mingw64_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw32/src.mingw32-%{mingw32_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw32_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/*.h %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
+cp -a build_mingw64/src.mingw64-%{mingw64_python3_version}/numpy/core/include/numpy/*.txt %{buildroot}%{mingw64_python3_sitearch}/numpy/core/include/numpy/
 
 # Symlink includedir
 mkdir -p %{buildroot}%{mingw32_includedir}
@@ -80,29 +77,30 @@ mkdir -p %{buildroot}%{mingw64_includedir}
 ln -s %{mingw32_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw32_includedir}/numpy
 ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw64_includedir}/numpy
 
-# Exclude debug files from the main files (note: the debug files are only created after %%install, so we can't search for them directly)
-find %{buildroot}%{mingw32_prefix} | grep -E '.(exe|dll|pyd)$' | sed 's|^%{buildroot}\(.*\)$|%%exclude \1.debug|' > mingw32-%{pkgname}.debugfiles
-find %{buildroot}%{mingw64_prefix} | grep -E '.(exe|dll|pyd)$' | sed 's|^%{buildroot}\(.*\)$|%%exclude \1.debug|' > mingw64-%{pkgname}.debugfiles
 
-
-%files -n mingw32-python3-%{pkgname} -f mingw32-%{pkgname}.debugfiles
+%files -n mingw32-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw32_bindir}/f2py
 %{mingw32_bindir}/f2py3
 %{mingw32_bindir}/f2py%{mingw32_python3_version}
-%{mingw32_includedir}/%{pkgname}
-%{mingw32_python3_sitearch}/*
+%{mingw32_includedir}/%{pypi_name}
+%{mingw32_python3_sitearch}/%{pypi_name}/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info/
 
-%files -n mingw64-python3-%{pkgname} -f mingw64-%{pkgname}.debugfiles
+%files -n mingw64-python3-%{pypi_name}
 %license LICENSE.txt
 %{mingw64_bindir}/f2py
 %{mingw64_bindir}/f2py3
 %{mingw64_bindir}/f2py%{mingw32_python3_version}
-%{mingw64_includedir}/%{pkgname}
-%{mingw64_python3_sitearch}/*
+%{mingw64_includedir}/%{pypi_name}
+%{mingw64_python3_sitearch}/%{pypi_name}/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.23.4-1
+- Update to 1.23.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

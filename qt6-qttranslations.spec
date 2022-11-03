@@ -7,8 +7,8 @@
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
 Url:     http://www.qt.io
@@ -87,7 +87,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 #find_lang qttranslations --all-name --with-qt --without-mo
 
 %files
-%license LICENSE.*
+%license LICENSES/*
 %lang(ar) %{_qt6_translationdir}/*_ar.qm
 %lang(bg) %{_qt6_translationdir}/*_bg.qm
 %lang(ca) %{_qt6_translationdir}/*_ca.qm
@@ -125,6 +125,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

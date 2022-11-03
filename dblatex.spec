@@ -37,7 +37,6 @@ BuildRequires:  texlive-pdfpages
 BuildRequires:  texlive-subfigure
 BuildRequires:  texlive-stmaryrd
 BuildRequires:  texlive-wasysym
-Buildrequires:  /usr/bin/pathfix.py
 Requires:       texlive-base
 Requires:       texlive-collection-latex
 Requires:       texlive-collection-xetex
@@ -85,7 +84,7 @@ Authors:
 %patch2 -p1 -b .rsvg
 
 rm -rf lib/contrib
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 %{__python3} setup.py build
@@ -93,7 +92,7 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
 
 %install
 %{__python3} setup.py install --root $RPM_BUILD_ROOT
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" $RPM_BUILD_ROOT%{_bindir}/dblatex
+%py3_shebang_fix $RPM_BUILD_ROOT%{_bindir}/dblatex
 
 # these are already in tetex-latex:
 for file in bibtopic.sty enumitem.sty ragged2e.sty passivetex/ xelatex/; do

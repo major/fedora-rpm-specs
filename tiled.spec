@@ -1,11 +1,14 @@
 Name:           tiled
 Version:        1.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiled Map Editor
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPLv2+ and BSD
 URL:            http://www.mapeditor.org
 Source0:        https://github.com/mapeditor/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Explicitly specify location of plugins
+Patch0:         0000-set-plugin-dir.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -149,8 +152,13 @@ as GameMaker Studio 2.3 room files (.yy).
 
 %prep
 %setup -q
+
 # Remove copy of zlib
 rm -rf src/zlib
+
+# Explicitly specify location of plugins
+%patch0 -p1
+sed -e 's|__RPM_TILED_PLUGIN_DIR__|%{_libdir}/%{name}/plugins|g' -i src/libtiled/libtiled.qbs
 
 %build
 qbs setup-toolchains --detect
@@ -251,6 +259,9 @@ mkdir -p %{buildroot}%{_libdir}
 %{_libdir}/%{name}/plugins/libyy.so
 
 %changelog
+* Tue Nov 01 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.2-2
+- Fix loading modules on 64-bit platforms (again)
+
 * Mon Sep 19 2022 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.2-1
 - Update to 1.9.2 fixes rhbz#2127562
 

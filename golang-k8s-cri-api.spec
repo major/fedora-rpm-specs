@@ -4,8 +4,8 @@
 # https://github.com/kubernetes/cri-api
 %global goipath         k8s.io/cri-api
 %global forgeurl        https://github.com/kubernetes/cri-api
-Version:                1.23.3
-%global tag             kubernetes-1.23.3
+Version:                1.25.3
+%global tag             kubernetes-1.25.3
 %global distprefix      %{nil}
 
 %gometa

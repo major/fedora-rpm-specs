@@ -111,7 +111,7 @@ EOF
 rm -rf MSVC
 rm -rf webserver
 
-find crawl-ref/source -name '*.py' | xargs pathfix.py -i %{__python3} -pn
+find crawl-ref/source -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn
 
 #%%patch4 -p1 -b .use_lua5
 %patch3 -p1 -b .add_iswalnum_reference

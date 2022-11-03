@@ -1,8 +1,8 @@
 %global srcname flent
 
 Name:             flent
-Version:          2.0.1
-Release:          7%{?dist}
+Version:          2.1.1
+Release:          1%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 License:          GPLv3+
@@ -10,8 +10,8 @@ URL:              https://flent.org/
 Source0:          %{pypi_source}
 
 BuildArch:        noarch
-BuildRequires:    python3-devel python3-mock python3-sphinx desktop-file-utils libappstream-glib python3-setuptools make
-Recommends:       python3-matplotlib python3-matplotlib-qt5 python3-pyside2 python3-qtpy
+BuildRequires:    python3-devel python3-sphinx desktop-file-utils libappstream-glib python3-setuptools make
+Recommends:       python3-matplotlib python3-matplotlib-qt5 python3-pyside2 python3-QtPy
 Requires:         fping netperf golang-github-heistp-irtt
 
 %description
@@ -87,6 +87,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Wed Nov 2 2022 Toke Høiland-Jørgensen <toke@toke.dk> 2.1.1-1
+- Upstream release 2.1.1
+
+* Wed Nov 2 2022 Toke Høiland-Jørgensen <toke@toke.dk> 2.1.0-1
+- Upstream release 2.1.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

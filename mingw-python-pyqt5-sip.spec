@@ -1,11 +1,12 @@
 %{?mingw_package_header}
 
+%global mod_name pyqt5-sip
 %global pypi_name PyQt5_sip
 
-Name:           mingw-python-pyqt5-sip
-Summary:        MinGW Python pyqt5-sip
+Name:           mingw-python-%{mod_name}
+Summary:        MinGW Python %{pypi_name} library
 Version:        12.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        GPLv2 or GPLv3
@@ -16,30 +17,34 @@ Source0:        %{pypi_source}
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+BuildRequires:  mingw64-python3-build
 
 
 %description
-MinGW Python %{pypi_name}.
+MinGW Python %{pypi_name} library.
 
 
-%package -n mingw32-python3-%{pypi_name}
-Summary:       MinGW Python 3 %{pypi_name}
+%package -n mingw32-python3-%{mod_name}
+Summary:       MinGW Python 3 %{mod_name} library
+Obsoletes:     mingw32-python3-%{pypi_name} < 12.11.0-2
+Provides:      mingw32-python3-%{pypi_name} = %{version}-%{release}
 
-%description -n mingw32-python3-%{pypi_name}
-MinGW Python 3 %{pypi_name}.
+%description -n mingw32-python3-%{mod_name}
+MinGW Python 3 %{pypi_name} library.
 
 
-%package -n mingw64-python3-%{pypi_name}
-Summary:       MinGW Python 3 %{pypi_name}
+%package -n mingw64-python3-%{mod_name}
+Summary:       MinGW Python 3 %{pypi_name} library
+Obsoletes:     mingw64-python3-%{pypi_name} < 12.11.0-2
+Provides:      mingw64-python3-%{pypi_name} = %{version}-%{release}
 
-%description -n mingw64-python3-%{pypi_name}
-MinGW Python 3 %{pypi_name}.
+%description -n mingw64-python3-%{mod_name}
+MinGW Python 3 %{pypi_name} library.
 
 
 %{?mingw_debug_package}
@@ -50,27 +55,30 @@ MinGW Python 3 %{pypi_name}.
 
 
 %build
-%{mingw32_py3_build}
-%{mingw64_py3_build}
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
 
 
 %install
-%{mingw32_py3_install}
-%{mingw64_py3_install}
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
 
 
-%files -n mingw32-python3-%{pypi_name}
+%files -n mingw32-python3-%{mod_name}
 %dir %{mingw32_python3_sitearch}/PyQt5/
 %{mingw32_python3_sitearch}/PyQt5/sip*
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
-%files -n mingw64-python3-%{pypi_name}
+%files -n mingw64-python3-%{mod_name}
 %dir %{mingw64_python3_sitearch}/PyQt5/
 %{mingw64_python3_sitearch}/PyQt5/sip*
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}*-py%{mingw32_python3_version}.egg-info/
+%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 12.11.0-2
+- Switch to python3-build
+
 * Fri Jul 22 2022 Sandro Mani <manisandro@gmail.com> - 12.11.0-1
 - Update to 12.11.0
 

@@ -8,8 +8,8 @@
 
 Summary: Qt6 - QtImageFormats component
 Name:    qt6-%{qt_module}
-Version: 6.3.1
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -22,6 +22,8 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 %else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
+
+Patch0:  qtimageformats-fix-build.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -68,8 +70,8 @@ rm -rv src/3rdparty
 
 
 %files
-%license LICENSE.GPL*
-%license LICENSE.LGPL*
+%license LICENSES/GPL*
+%license LICENSES/LGPL*
 %{_qt6_plugindir}/imageformats/libqmng.so
 %{_qt6_plugindir}/imageformats/libqtga.so
 %{_qt6_plugindir}/imageformats/libqtiff.so
@@ -82,6 +84,9 @@ rm -rv src/3rdparty
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

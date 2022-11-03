@@ -7,7 +7,7 @@
 
 Name:           pcsc-lite
 Version:        1.9.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
 License:        BSD
@@ -15,7 +15,6 @@ URL:            https://pcsclite.apdu.fr/
 Source0:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.bz2
 Source1:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.bz2.asc
 Source2:        gpgkey-F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E.gpg
-Patch1:         pcsc-lite-1.9.1-maxreaders.patch
 
 BuildRequires:  make
 BuildRequires:  doxygen
@@ -85,7 +84,6 @@ Requires:       %{name}-libs = %{version}-%{release}
 gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 
 %setup -q
-%patch1 -p 0 -b .maxreaders
 
 # Convert to utf-8
 for file in ChangeLog; do
@@ -174,6 +172,9 @@ fi
 
 
 %changelog
+* Tue Nov 01 2022 Jakub Jelen <jjelen@redhat.com> - 1.9.9-2
+- Remove downstream patch breaking flatpak (#2054826)
+
 * Mon Sep 19 2022 Jakub Jelen <jjelen@redhat.com> - 1.9.9-1
 - New upstream release (#2126065)
 

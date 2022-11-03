@@ -1,11 +1,11 @@
 Name:		php-wikimedia-assert
-Version:	0.5.0
-Release:	5%{?dist}
+Version:	0.5.1
+Release:	1%{?dist}
 Summary:	An alternative to PHP's assert
 
 License:	MIT
 URL:		https://github.com/wikimedia/Assert
-Source0:	https://github.com/wikimedia/Assert/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:	https://github.com/wikimedia/Assert/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -39,7 +39,7 @@ cp -rp src/* %{buildroot}%{_datadir}/php/Wikimedia/Assert
 
 
 #check
-#phpunit -v --bootstrap %{buildroot}%{_datadir}/php/Wikimedia/Assert/autoload.php
+#phpunit -v --bootstrap %%{buildroot}%%{_datadir}/php/Wikimedia/Assert/autoload.php
 
 
 %files
@@ -49,6 +49,9 @@ cp -rp src/* %{buildroot}%{_datadir}/php/Wikimedia/Assert
 
 
 %changelog
+* Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 0.5.1-1
+- version update
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 427ac6d895a8ae105c62901850916c57f830832f
+%global commit c0f6c3be2b0059221dfc086ceb0632ad726fa34d
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 37.13
+Version: 37.14
 Release: 1%{?dist}
 License: GPLv2+
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -816,6 +816,30 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 31 2022 Zdenek Pytela <zpytela@redhat.com> - 37.14-1
+- Allow rotatelogs read httpd_log_t symlinks
+- Add winbind-rpcd to samba_enable_home_dirs boolean
+- Allow system cronjobs dbus chat with setroubleshoot
+- Allow setroubleshootd read device sysctls
+- Allow virt_domain read device sysctls
+- Allow rhcd compute selinux access vector
+- Allow insights-client manage samba var dirs
+- Label ports 10161-10162 tcp/udp with snmp
+- Allow aide to connect to systemd_machined with a unix socket.
+- Allow samba-dcerpcd use NSCD services over a unix stream socket
+- Allow vlock search the contents of the /dev/pts directory
+- Allow insights-client send null signal to rpm and system cronjob
+- Label port 15354/tcp and 15354/udp with opendnssec
+- Allow ftpd map ftpd_var_run files
+- Allow targetclid to manage tmp files
+- Allow insights-client connect to postgresql with a unix socket
+- Allow insights-client domtrans on unix_chkpwd execution
+- Add file context entries for insights-client and rhc
+- Allow pulseaudio create gnome content (~/.config)
+- Allow login_userdomain dbus chat with rhsmcertd
+- Allow sbd the sys_ptrace capability
+- Allow ptp4l_t name_bind ptp_event_port_t
+
 * Mon Oct 03 2022 Zdenek Pytela <zpytela@redhat.com> - 37.13-1
 - Remove the ipa module
 - Allow sss daemons read/write unnamed pipes of cloud-init

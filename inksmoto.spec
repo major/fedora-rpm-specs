@@ -28,7 +28,7 @@ Inksmoto Level Editor is written in Python, it's an Inkscape extension.
 %patch1 -p1
 
 %build
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %install
 mkdir -p %{buildroot}%{_datadir}/inkscape/extensions

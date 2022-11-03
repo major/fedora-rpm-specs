@@ -26,8 +26,8 @@
 # additional source even if we do not do the re-generation ourselves.
 
 Name:           llhttp
-Version:        6.0.10
-%global so_version 6.0
+Version:        8.1.0
+%global so_version 8.1
 Release:        %autorelease
 Summary:        Port of http_parser to llparse
 
@@ -71,7 +71,6 @@ BuildRequires:  gcc-c++
 
 # For check-null-licenses
 BuildRequires:  python3-devel
-BuildRequires:  (python3dist(tomli) if python3 < 3.11)
 
 %description
 This project is a port of http_parser to TypeScript. llparse is used to
@@ -121,7 +120,7 @@ sed -r -i 's@\bnpx[[:blank:]](ts-node)\b@node_modules/.bin/\1@' Makefile
 %build
 # Generate the C source “release” from TypeScript using the “node_modules_dev”
 # bundle.
-%make_build release TAG='%{version}'
+%make_build release RELEASE='%{version}'
 
 # To help prove that nothing from the bundled NodeJS dev dependencies is
 # included in the binary packages, remove the “node_modules” symlinks.

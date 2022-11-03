@@ -1,13 +1,13 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        1.0
-Release:        2%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
 URL:            http://www.stellarium.org
-Source0:        https://github.com/Stellarium/stellarium/releases/download/v%{version}/stellarium-%{version}.tar.gz
+Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
 
 # Disabled due to lconvert segfaulting on armv7hl
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
@@ -33,7 +33,7 @@ BuildRequires:	boost-devel
 BuildRequires:	glib2-devel
 BuildRequires:	perl-podlators
 BuildRequires:  libappstream-glib
-BuildRequires:  CalcMySky-devel
+BuildRequires:  CalcMySky-devel >= 0.2.1
 BuildRequires:  libindi-devel
 BuildRequires:  QXlsx-devel
 BuildRequires:  libnova-devel
@@ -51,7 +51,7 @@ constellations, planets, major satellites and nebulas.
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
-%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes
+%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -60,6 +60,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}
 for i in `find . -type f -name '*.so'`; do
 	install -c -p $i $RPM_BUILD_ROOT%{_libdir}
 done
+
+#Fix appdata
+sed -i /url/d $RPM_BUILD_ROOT%{_datadir}/metainfo/org.stellarium.Stellarium.appdata.xml
 
 # Remove unwanted files
 rm -f $RPM_BUILD_ROOT%{_datadir}/stellarium/data/*.ttf
@@ -84,6 +87,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.1-1
+- 1.1
+
 * Mon Oct 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0-2
 - Enable showmysky
 

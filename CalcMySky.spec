@@ -1,16 +1,15 @@
 Name: CalcMySky
-Version:  0.1.0
-Release:  2%{?dist}
+Version:  0.2.1
+Release:  1%{?dist}
 Summary: Simulator of light scattering by planetary atmospheres 
 
 License: GPL-3.0-only
 URL: https://github.com/10110111/CalcMySky
 Source0: https://github.com/10110111/CalcMySky/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0: 45a3541d55f3dca27da6fbca3ba2f03349bd45bd.patch
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: glm-devel
-BuildRequires: qt5-qtbase-devel
+BuildRequires: qt6-qtbase-devel
 BuildRequires: eigen3-devel
 
 %package devel
@@ -40,11 +39,9 @@ These are the development files.
 %prep
 %setup -q
 
-%patch0 -p1
-
 %build
 
-%cmake
+%cmake -DQT_VERSION=6
 %cmake_build
 
 %install
@@ -59,15 +56,18 @@ These are the development files.
 %{_bindir}/calcmysky
 %{_bindir}/showmysky
 %{_datadir}/CalcMySky/
-%{_libdir}/libShowMySky.so.0*
+%{_libdir}/libShowMySky-Qt6.so.14*
 
 %files devel
-%{_libdir}/ShowMySky/
-%{_libdir}/libShowMySky.so
+%{_libdir}/ShowMySky-Qt6/
+%{_libdir}/libShowMySky-Qt6.so
 %{_includedir}/ShowMySky/
 
 
 %changelog
+* Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.2.1-1
+- 0.2.1
+
 * Thu Oct 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.1.0-2
 - Review fixes.
 

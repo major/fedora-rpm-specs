@@ -50,7 +50,7 @@
 
 Name:             avahi
 Version:          0.8
-Release:          17%{?dist}
+Release:          18%{?dist}
 Summary:          Local network service discovery
 License:          LGPLv2+
 URL:              http://avahi.org
@@ -534,10 +534,6 @@ if [ -n "$(grep '^GenericName=$' $i)" ]; then
   desktop-file-edit --copy-name-to-generic-name $i
 fi
 done
-%else
-# unpackaged files
-rm -fv  %{buildroot}%{_datadir}/applications/{bssh,bvnc}.desktop
-rm -fv  %{buildroot}%{_datadir}/avahi/interfaces/avahi-discover.ui
 %endif
 
 rm -fv %{buildroot}%{_sysconfdir}/rc.d/init.d/avahi-daemon
@@ -680,14 +676,14 @@ exit 0
 %{_mandir}/man1/bshell.1*
 %{_mandir}/man1/bssh.1*
 %{_mandir}/man1/bvnc.1*
+%{_datadir}/applications/b*.desktop
+%{_datadir}/avahi/interfaces/
 %if %{WITH_PYTHON}
 # avahi-bookmarks is not really a UI tool, but I won't create a seperate package for it...
 %{_bindir}/avahi-bookmarks
 %{_mandir}/man1/avahi-discover*
 %{_mandir}/man1/avahi-bookmarks*
-%{_datadir}/applications/b*.desktop
 %{_datadir}/applications/avahi-discover.desktop
-%{_datadir}/avahi/interfaces/
 %{python2_sitelib}/avahi_discover/
 %endif
 
@@ -829,6 +825,11 @@ exit 0
 
 
 %changelog
+* Tue Nov 01 2022 Christian Krause <chkr@fedoraproject.org> - 0.8-18
+- Install glade file for avahi-discover-standalone unconditionally
+  (fixes #2036073 and #2126721)
+- Install desktop files for bssh and bvnc unconditionally
+
 * Fri Aug 05 2022 Kalev Lember <klember@redhat.com> - 0.8-17
 - Avoid systemd_requires as per updated packaging guidelines
 

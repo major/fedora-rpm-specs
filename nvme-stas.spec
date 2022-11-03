@@ -3,7 +3,7 @@
 
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 1.2~rc3
+Version: 2.0~rc5
 Release: 1%{?dist}
 License: ASL 2.0
 URL:     https://github.com/linux-nvme/nvme-stas
@@ -50,6 +50,7 @@ stafd (STorage Appliance Finder) and stacd (STorage Appliance Connector).
 
 %prep
 %autosetup -p1 -n %{name}-%{version_no_tilde}
+sed -i test/meson.build -e 's/python3-libnvme/libnvme/'
 
 %build
 %meson -Dman=true -Dhtml=true
@@ -98,6 +99,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Tue Nov 01 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.0~rc5-1
+- Upstream v2.0 Release Candidate 5
+
 * Fri Sep 16 2022 Tomas Bzatek <tbzatek@redhat.com> - 1.2~rc3-1
 - Upstream v1.2 Release Candidate 3
 

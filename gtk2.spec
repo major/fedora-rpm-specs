@@ -236,7 +236,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinput.d
 cp %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinput.d
 
 # Use python3 shebang instead of ambiguous python
-pathfix.py -pn -i %{__python3} $RPM_BUILD_ROOT%{_bindir}/gtk-builder-convert
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i %{__python3} $RPM_BUILD_ROOT%{_bindir}/gtk-builder-convert
 
 # Remove unpackaged files
 rm $RPM_BUILD_ROOT%{_libdir}/*.la

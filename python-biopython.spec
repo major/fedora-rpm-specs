@@ -134,14 +134,14 @@ popd
 pushd python3
 %{__python3} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT --install-data=%{_datadir}/python-biopython
 
-find Scripts -name '*.py' | xargs pathfix.py -pn -i "%{__python3}"
+find Scripts -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 popd
 
 %if 0%{?with_python3_other}
 pushd python%{python3_other_pkgversion}
 %{__python3_other} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT --install-data=%{_datadir}/python-biopython
 
-find Scripts -name '*.py' | xargs pathfix.py -pn -i "%{__python3_other}"
+find Scripts -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3_other}"
 popd
 %endif
 
@@ -150,7 +150,7 @@ popd
 
 # See https://github.com/biopython/biopython/issues/855; https://github.com/biopython/biopython/issues/1889
 pushd python3/Tests
-find . -name 'run_tests.py' | xargs pathfix.py -pn -i "%{__python3}"
+find . -name 'run_tests.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 find ../ -name '__init__.py' | xargs rm -f
 # See https://github.com/biopython/biopython/issues/2128; https://github.com/biopython/biopython/issues/2120
 # and https://bugs.python.org/issue24214
@@ -168,7 +168,7 @@ popd
 # See https://github.com/biopython/biopython/issues/855
 %if 0%{?with_python3_other}
 pushd python%{python3_other_pkgversion}/Tests
-find . -name 'run_tests.py' | xargs pathfix.py -pn -i "%{__python3_other}"
+find . -name 'run_tests.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3_other}"
 find ../ -name '__init__.py' | xargs rm -f
 for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf`; do
 echo $LANG

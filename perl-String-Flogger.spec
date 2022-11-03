@@ -1,15 +1,17 @@
 Name:           perl-String-Flogger
-Version:        1.101245
-Release:        23%{?dist}
+Version:        1.101246
+Release:        1%{?dist}
 Summary:        String munging for loggers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Flogger
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/String-Flogger-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -19,6 +21,7 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Sub::Exporter::Util)
 # Tests:
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON::MaybeXS)
@@ -32,23 +35,26 @@ Requires:       perl(JSON::MaybeXS)
 %setup -q -n String-Flogger-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.101246-1
+- 1.101246 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.101245-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

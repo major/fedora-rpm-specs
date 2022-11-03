@@ -31,7 +31,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.21.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 #Group: Development/Libraries
 License: GPLv3+ and MIT and BSD and Python
@@ -235,7 +235,7 @@ Source801: ansible-posix-1.4.0.tar.gz
 
 # Collection tarballs from Galaxy
 # Not used on Fedora.
-Source901: community-general-5.6.0.tar.gz
+Source901: community-general-5.8.0.tar.gz
 
 # changelog is auto generated on Fedora
 Source996: CHANGELOG.md
@@ -747,6 +747,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 01 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-4
+- Update community.general
+
 * Thu Sep 15 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-3
 - Update community.general
 

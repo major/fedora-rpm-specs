@@ -1,11 +1,6 @@
 %bcond_without tests
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can, in theory, generate PDF documentation as a substitute, but building
-# the generated LaTeX fails with an error like:
-#
-#   Error: /syntaxerror in /----nostringval----
 %bcond_without doc_pdf
 
 %global _description %{expand:
@@ -17,10 +12,14 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.17.2
+Version:        7.18.0
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
+# The entire project is (SPDX) MIT, except:
+# - versioneer.py is LicenseRef-Fedora-Public-Domain (“License: Public Domain”)
+#   but does not contribute to the license of the binary RPM
+# SPDX
 License:        MIT
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
 Source0:        https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
@@ -48,7 +47,7 @@ BuildRequires:  %{py3_dist requests-mock}
 
 %description %_description
 
-%package -n snakemake-doc
+%package doc
 
 Summary:        %{summary}
 
@@ -63,7 +62,7 @@ BuildRequires:  /usr/bin/xindy
 BuildRequires:  /usr/bin/rsvg-convert
 %endif
 
-%description -n snakemake-doc %_description
+%description doc %_description
 
 # No metapackage for “pep” extra because the following are not packaged:
 #   - python3-eido
@@ -126,7 +125,7 @@ k="${k-}${k+ and }not test_tes"
 %{_bindir}/snakemake
 %{_bindir}/snakemake-bash-completion
 
-%files -n snakemake-doc
+%files doc
 %license LICENSE.md
 %doc CHANGELOG.md
 %doc CODE_OF_CONDUCT.md

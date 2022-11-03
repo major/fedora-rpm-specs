@@ -116,7 +116,7 @@ rm -f %%{buildroot}/%{_docdir}/%{name}-doc/docs/python/.buildinfo
 
 %py3_install
 # Some files got ambiguous python shebangs, we fix them after everything else is done
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitearch}/
+%py3_shebang_fix %{buildroot}%{python3_sitearch}/
 
 find %{buildroot} -name '.*' -exec rm -rf {} +
 

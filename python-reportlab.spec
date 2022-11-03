@@ -75,11 +75,11 @@ cp -a demos %{buildroot}%{python3_sitearch}/reportlab/
 cp -a tools %{buildroot}%{python3_sitearch}/reportlab/
 
 # Fix shebang in individual files
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/demos/tests/testdemos.py
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/docpy.py
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/graphdocpy.py
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/rl_doc_utils.py
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/pythonpoint/pythonpoint.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/demos/tests/testdemos.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/docpy.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/graphdocpy.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/docco/rl_doc_utils.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/reportlab/tools/pythonpoint/pythonpoint.py
 
 chmod 0755 %{buildroot}%{python3_sitearch}/reportlab/demos/tests/testdemos.py
 chmod 0755 %{buildroot}%{python3_sitearch}/reportlab/tools/docco/docpy.py

@@ -225,7 +225,7 @@ rm -f \
     %{buildroot}%{_datadir}/xpra/COPYING
 
 #fix shebangs from python3_sitearch
-find %{buildroot}%{python3_sitearch}/xpra -name '*.py' | xargs pathfix.py -pn -i "%{__python3}"
+find %{buildroot}%{python3_sitearch}/xpra -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 find %{buildroot}%{python3_sitearch}/xpra -name '*.py' | xargs chmod 0755
 for i in `ack -rl '^#!/.*python' %{buildroot}%{python3_sitearch}/xpra`; do
     chmod 0755 $i
@@ -245,9 +245,9 @@ find %{buildroot}%{_datadir}/xpra -name '*.swf' -exec rm {} \;
 mkdir -p %{buildroot}%{_rundir}/xpra
 
 # Remove use of /usr/bin/enx on scripts
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{cupslibdir}/backend/xpraforwarder
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/auth_dialog
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/xdg-open
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{cupslibdir}/backend/xpraforwarder
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/auth_dialog
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/xdg-open
 
 for i in `find %{buildroot}%{_bindir} -perm /644 -type f \( -name "*" \)`; do
     chmod 0755 $i

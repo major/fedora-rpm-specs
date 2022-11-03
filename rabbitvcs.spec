@@ -15,7 +15,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
-BuildRequires:  /usr/bin/pathfix.py
 
 %description
 RabbitVCS is a set of graphical tools written to provide simple
@@ -101,7 +100,7 @@ source control system.
 
 %prep
 %autosetup -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 %py3_build
@@ -114,7 +113,7 @@ install -p -m0644 clients/nautilus/RabbitVCS.py -D %{buildroot}%{_datadir}/nauti
 install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-python/extensions/RabbitVCS.py
 install -p -m0644 clients/thunar/RabbitVCS.py -D %{buildroot}%{_datadir}/thunarx-python/extensions/RabbitVCS.py
 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/rabbitvcs
+%py3_shebang_fix %{buildroot}%{_bindir}/rabbitvcs
 
 %find_lang RabbitVCS
 

@@ -3,13 +3,15 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.14
-Release: 1%{?dist}
+Version: 2022.15
+Release: 2%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
+
+Patch0: 0001-util-Fix-fpermissive-warning.patch
 
 ExclusiveArch: %{rust_arches}
 
@@ -234,6 +236,9 @@ $PYTHON autofiles.py > files.devel \
 
 %files devel -f files.devel
 %changelog
+* Tue Nov 01 2022 Colin Walters <walters@verbum.org> - 2022.15-2
+- https://github.com/coreos/rpm-ostree/releases/tag/v2022.15
+
 * Thu Oct 13 2022 Joseph Marrero <jmarrero@fedoraproject.org> - 2022.14-1
 - https://github.com/coreos/rpm-ostree/releases/tag/v2022.14
 

@@ -28,7 +28,7 @@ BuildRequires:  perl(XML::Parser)
 BuildRequires:  pkgconfig
 BuildRequires:  libmusicbrainz5-devel
 BuildRequires:  automake autoconf libtool
-BuildRequires:  python3-devel, /usr/bin/pathfix.py
+BuildRequires:  python3-devel
 BuildRequires: make
 
 # some of the scripts in %%{_datadir}/%%{name}/scripts use which
@@ -49,7 +49,7 @@ The gtkpod-devel package contains libraries and header files for
 developing extensions for gtkpod.
 
 %prep
-pathfix.py -pni "%{__python2} %{py2_shbang_opts}" .
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni "%{__python2} %{py2_shbang_opts}" .
 %setup -q
 %patch4 -p1
 
@@ -74,7 +74,7 @@ desktop-file-install \
 # delete libtool files
 find %{buildroot} -name '*.la' -exec rm -f {} \;
 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}/usr/share/gtkpod/scripts/*
+%py3_shebang_fix %{buildroot}/usr/share/gtkpod/scripts/*
 
 %ldconfig_scriptlets
 

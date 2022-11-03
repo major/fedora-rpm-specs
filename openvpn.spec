@@ -5,8 +5,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.5.7
-Release:           3%{?dist}
+Version:           2.5.8
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.xz
@@ -16,7 +16,6 @@ Source3:           roadwarrior-client.conf
 # Upstream signing key
 Source10:          gpgkey-F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7.gpg
 Patch1:            0001-Change-the-default-cipher-to-AES-256-GCM-for-server-.patch
-Patch2:            0001-Allow-running-a-default-configuration-with-TLS-libra.patch
 Patch50:           openvpn-2.4-change-tmpfiles-permissions.patch
 License:           GPLv2
 BuildRequires:     gnupg2
@@ -78,7 +77,6 @@ to similar features as the various script-hooks.
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
 %setup -q -n %{name}-%{version}
 %patch1 -p1 -b .ch_default_cipher
-%patch2 -p1
 %patch50 -p1
 
 # %%doc items shouldn't be executable.
@@ -203,6 +201,9 @@ done
 
 
 %changelog
+* Tue Nov 1 2022 David Sommerseth <davids@openvpn.net> - 2.5.8-1
+- Update to upstream OpenVPN 2.5.8
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

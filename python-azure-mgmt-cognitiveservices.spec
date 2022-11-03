@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-cognitiveservices
 
 Name:           python-%{srcname}
-Version:        13.2.0
+Version:        13.3.0
 Release:        %autorelease
 Summary:        Microsoft Azure Cognitive Services Management Client Library for Python
 License:        MIT

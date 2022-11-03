@@ -147,7 +147,7 @@ chrpath -d %{buildroot}%{_libdir}/libapbs.so.1
 # Move Python libraries under Python's tree directories
 mkdir -p %{buildroot}%{python3_sitearch}/apbs
 install -pm 755 tools/manip/psize.py %{buildroot}%{python3_sitearch}/apbs/
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/apbs/psize.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/apbs/psize.py
 ln -s %{python3_sitearch}/apbs/psize.py %{buildroot}%{_bindir}/apbs-psize.py
 install -pm 755 build/lib/_apbslib.so %{buildroot}%{python3_sitearch}/apbs/
 

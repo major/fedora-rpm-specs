@@ -1,5 +1,8 @@
+# RHEL 8 compatibility
+%{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
+
 Name:           nvme-cli
-Version:        2.1.2
+Version:        2.2
 Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
@@ -7,7 +10,7 @@ License:        GPLv2
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
-BuildRequires:  meson >= 0.47.0
+BuildRequires:  meson >= 0.48.0
 BuildRequires:  libuuid-devel
 BuildRequires:  gcc gcc-c++
 BuildRequires:  systemd-devel
@@ -15,13 +18,16 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.1
-BuildRequires:  json-c-devel >= 0.14
+BuildRequires:  libnvme-devel >= 1.2
+BuildRequires:  json-c-devel >= 0.13
+
+%if (0%{?rhel} == 0)
 BuildRequires:  python3-nose2
 BuildRequires:  python3-mypy
 BuildRequires:  python3-flake8
 BuildRequires:  python3-autopep8
 BuildRequires:  python3-isort
+%endif
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
 
@@ -41,6 +47,7 @@ nvme-cli provides NVM-Express user space tooling for Linux.
 
 %install
 %meson_install
+%{__install} -pm 644 README.md %{buildroot}%{_pkgdocdir}
 
 # hostid and hostnqn are supposed to be unique per machine.  We obviously
 # can't package them.
@@ -59,7 +66,6 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 %files
 %license LICENSE
-%doc README.md
 %doc %{_pkgdocdir}
 %{_sbindir}/nvme
 %{_mandir}/man1/nvme*.gz
@@ -78,6 +84,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Tue Nov 01 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.2-1
+- Update to 2.2
+
 * Fri Aug 19 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.1.2-1
 - Update to 2.1.2
 

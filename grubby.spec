@@ -3,11 +3,11 @@
 
 Name: grubby
 Version: 8.40
-Release: 67%{?dist}
+Release: 68%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPLv2+
 Source1: grubby-bls
-Source2: rpm-sort.c
+# Source2: rpm-sort.c
 Source3: COPYING
 Source4: installkernel-bls
 Source5: 95-kernel-hooks.install
@@ -49,13 +49,8 @@ cp %{SOURCE3} . || true
 
 %build
 %set_build_flags
-gcc ${CPPFLAGS} ${CFLAGS} ${LDFLAGS} -std=gnu99 -DVERSION='"8.4.0"' \
-    -o rpm-sort %{SOURCE2} -lrpmio
 
 %install
-mkdir -p %{buildroot}%{_libexecdir}/grubby/
-install -D -m 0755 rpm-sort %{buildroot}%{_libexecdir}/grubby
-
 mkdir -p %{buildroot}%{_sbindir}/
 install -T -m 0755 %{SOURCE1} %{buildroot}%{_sbindir}/grubby
 install -T -m 0755 %{SOURCE4} %{buildroot}%{_sbindir}/installkernel
@@ -75,8 +70,6 @@ fi
 
 %files
 %license COPYING
-%dir %{_libexecdir}/grubby
-%attr(0755,root,root) %{_libexecdir}/grubby/rpm-sort
 %attr(0755,root,root) %{_sbindir}/grubby
 %attr(0755,root,root) %{_sbindir}/installkernel
 %attr(0755,root,root) %{_prefix}/lib/kernel/install.d/10-devicetree.install
@@ -84,6 +77,10 @@ fi
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Tue Nov 01 2022 Robbie Harwood <rharwood@redhat.com> - 8.40-68
+- Drop custom rpm-sort
+- See-also: https://github.com/rpm-software-management/rpm/pull/2249
+
 * Tue Oct 04 2022 Robbie Harwood <rharwood@redhat.com> - 8.40-67
 - Apply Marta's copy-default args fix
 

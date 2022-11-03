@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.5.2
-Release:       2%{?dist}
+Version:       3.5.3
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -71,6 +71,10 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
+# Fix build failure
+#   inlining failed in call to ‘always_inline’ ‘open.localalias’
+# See https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2526 for a similar issue
+Patch1:        gdal-fortify-source.patch
 
 
 BuildRequires: cmake
@@ -383,10 +387,15 @@ cp -a %{SOURCE4} .
 %mingw_make_build
 %endif
 
+
 %install
 %cmake_install
+
 %if %{with mingw}
 %mingw_make_install
+# Delete data from cross packages
+rm -r %{buildroot}%{mingw32_datadir}
+rm -r %{buildroot}%{mingw64_datadir}
 %endif
 
 # List of manpages for python scripts
@@ -405,14 +414,11 @@ cp -a %{SOURCE2} %{buildroot}%{_includedir}/%{name}/cpl_config.h
 mv %{buildroot}%{_bindir}/%{name}-config %{buildroot}%{_bindir}/%{name}-config-%{cpuarch}
 cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
+
 %if %{with mingw}
-# Delete data from cross packages
-rm -r %{buildroot}%{mingw32_datadir}
-rm -r %{buildroot}%{mingw64_datadir}
-
-
 %mingw_debug_install_post
 %endif
+
 
 %if 0%{run_tests}
 %check
@@ -555,6 +561,12 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 3.5.3-1
+- Update to 3.5.3
+
+* Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 3.5.2-3
+- Rebuild (python-3.11)
+
 * Fri Oct 7 2022 Tom Rix <trix@redhat.com> - 3.5.2-2
 - Add mingw build conditional
 - Reduce java build condition to rhel 8

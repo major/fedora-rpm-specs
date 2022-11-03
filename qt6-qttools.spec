@@ -10,8 +10,8 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.3.1
-Release: 3%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 
 License: LGPLv3 or LGPLv2
 Url:     http://www.qt.io
@@ -32,6 +32,7 @@ Patch1: qttools-run-qttools-with-qt6-suffix.patch
 Patch2: qttools-add-libatomic.patch
 
 ## upstream patches
+Patch50: lupdate-clang-15.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -49,6 +50,9 @@ BuildRequires: qt6-qtbase-static >= %{version}
 BuildRequires: qt6-qtdeclarative-static >= %{version}
 BuildRequires: qt6-qtdeclarative >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
+BuildRequires: qt6-qtbase-mysql >= %{version}
+BuildRequires: qt6-qtbase-odbc >= %{version}
+BuildRequires: qt6-qtbase-postgresql >= %{version}
 BuildRequires: clang-devel llvm-devel
 
 
@@ -145,8 +149,6 @@ Summary: Qt6 doc tools package
 %if 0%{?examples}
 %package examples
 Summary: Programming examples for %{name}
-# BuildRequires: qt6-qttools-devel >= %{version}
-# BuildRequires: qt6-qttools-static >= %{version}
 Requires: %{name}-common = %{version}-%{release}
 %description examples
 %{summary}.
@@ -160,6 +162,7 @@ Requires: %{name}-common = %{version}-%{release}
 %patch2 -p1 -b .libatomic
 %endif
 
+%patch50 -p1 -b .lupdate-clang-15
 
 %build
 %cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
@@ -241,7 +244,7 @@ popd
 %{_qt6_libdir}/libQt6UiTools.so.6*
 
 %files common
-%license LICENSE.LGPL*
+%license LICENSES/LGPL*
 
 %ldconfig_scriptlets libs-designer
 
@@ -374,6 +377,9 @@ popd
 
 
 %changelog
+* Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
+- 6.4.0
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 6.3.1-3
 - Rebuild for llvm 15
 

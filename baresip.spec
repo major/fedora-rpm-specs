@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.8.2
+Version:        2.9.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -17,8 +17,8 @@ BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 2.8.0
-BuildRequires:  librem-devel >= 2.8.0
+BuildRequires:  libre-devel >= 2.9.0
+BuildRequires:  librem-devel >= 2.9.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -55,6 +55,7 @@ with HTTP interface, command-line console and interface, and MQTT.
 %package devel
 Summary:        Development files for the baresip library
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       pkgconfig
 
 %description devel
 The baresip-devel package includes header files and libraries necessary
@@ -473,6 +474,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files devel
 %{_libdir}/lib%{name}.so
 %{_includedir}/%{name}.h
+%{_libdir}/pkgconfig/lib%{name}.pc
 
 %if 0%{?fedora}
 %files aac
@@ -559,6 +561,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Tue Nov 01 2022 Robert Scheck <robert@fedoraproject.org> 2.9.0-1
+- Upgrade to 2.9.0 (#2139174)
+
 * Tue Oct 11 2022 Robert Scheck <robert@fedoraproject.org> 2.8.2-1
 - Upgrade to 2.8.2 (#2133869)
 

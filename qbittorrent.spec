@@ -7,8 +7,8 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 4.4.4
-Release: 2%{?dist}
+Version: 4.4.5
+Release: 1%{?dist}
 License: GPLv2+
 URL:     https://www.qbittorrent.org
 
@@ -17,8 +17,6 @@ Source1: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.asc
 Source2: https://github.com/qbittorrent/qBittorrent/raw/master/5B7CC9A2.asc
 Source3: qbittorrent-nox.README
 Source4: qbittorrent-nox
-
-Patch0:  https://github.com/qbittorrent/qBittorrent/pull/17606.patch#/Fix_tracker_issue.patch
 
 ExcludeArch:   %{ix86}
 
@@ -75,7 +73,6 @@ It aims to be as fast as possible and to provide multi-OS, unicode support.
 mv %{name}-%{version} build
 
 pushd build
-%patch0 -p1
 sed -i -e 's@Exec=qbittorrent %U@Exec=env TMPDIR=/var/tmp qbittorrent %U@g' dist/unix/org.qbittorrent.qBittorrent.desktop
 cp README.md NEWS AUTHORS TODO Changelog COPYING ..
 popd
@@ -147,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 %{_mandir}/man1/qbittorrent-nox.1*
 
 %changelog
+* Tue Nov 01 2022 Leigh Scott <leigh123linux@gmail.com> - 1:4.4.5-1
+- Update to 4.4.5
+
 * Wed Aug 24 2022 Leigh Scott <leigh123linux@gmail.com> - 1:4.4.4-2
 - Fix magnet tracker issue
 

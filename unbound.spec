@@ -29,8 +29,8 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.16.3
-Release: 3%{?extra_version:.%{extra_version}}%{?dist}
+Version: 1.17.0
+Release: 1%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -471,6 +471,9 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Tue Nov 01 2022 Petr Menšík <pemensik@redhat.com> - 1.17.0-1
+- Update to 1.17.0 (#2134348)
+
 * Wed Oct 05 2022 Petr Menšík <pemensik@redhat.com> - 1.16.3-3
 - Correct issues made by unbound-anchor package split (#2110858)
 

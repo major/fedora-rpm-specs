@@ -28,7 +28,7 @@ updates that you have currently installed.
 
 %prep
 %autosetup -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" fedora-easy-karma.py
+%py3_shebang_fix fedora-easy-karma.py
 
 
 %install
