@@ -1,7 +1,7 @@
 # Upstream has only made one release, but there have been lots of bug fixes
 # since, so we use a git checkout.
-%global commit      810687f180f3c4929b5d965f54817a5218c9d89b
-%global date        20210830
+%global commit      d9fcc272b6a08c3e3e5b7919040f0ab5f8952d65
+%global date        20220917
 %global forgeurl    https://github.com/brendangregg/FlameGraph
 
 # The subpackage layout was designed with the following points in mind:
@@ -23,7 +23,7 @@ Summary:        Stack trace visualizer
 
 %forgemeta
 
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        CDDL-1.0
 URL:            http://www.brendangregg.com/flamegraphs.html
 Source0:        %{forgesource}
@@ -34,6 +34,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(open)
 BuildRequires:  php-cli
+BuildRequires:  python3-devel
 
 %description
 Flame graphs visualize profiled code.  Stack samples can be captured
@@ -100,20 +101,24 @@ fixtimestamp stackcollapse-vtune.pl
 # Add a missing executable bit
 chmod a+x stackcollapse-vtune.pl
 
+# Fix python shebangs
+%py3_shebang_fix *.py
+
 %build
 # Build man pages.  Some scripts produce no useful output with --help.
 HELP2MANFLAGS="-N --version-string=%{version} --no-discard-stderr"
 for fil in aix-perf.pl difffolded.pl files.pl flamegraph.pl range-perf.pl \
-           stackcollapse-elfutils.pl stackcollapse-go.pl \
-           stackcollapse-java-exceptions.pl stackcollapse-jstack.pl \
-           stackcollapse-perf.pl stackcollapse-xdebug.php; do
+           stackcollapse-chrome-tracing.py stackcollapse-elfutils.pl \
+           stackcollapse-go.pl stackcollapse-java-exceptions.pl \
+           stackcollapse-jstack.pl stackcollapse-perf.pl \
+           stackcollapse-vtune-mc.pl stackcollapse-xdebug.php; do
   help2man $HELP2MANFLAGS ./$fil > $fil.1
 done
 
 %install
 # Install the scripts
 mkdir -p %{buildroot}%{_bindir}
-cp -p *.{awk,php,pl} jmaps %{buildroot}%{_bindir}
+cp -p *.{awk,php,pl,py} jmaps %{buildroot}%{_bindir}
 
 # Install the man pages
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -138,6 +143,7 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/stackcollapse.pl
 %{_bindir}/stackcollapse-aix.pl
 %{_bindir}/stackcollapse-bpftrace.pl
+%{_bindir}/stackcollapse-chrome-tracing.py
 %{_bindir}/stackcollapse-elfutils.pl
 %{_bindir}/stackcollapse-gdb.pl
 %{_bindir}/stackcollapse-go.pl
@@ -151,14 +157,17 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/stackcollapse-stap.pl
 %{_bindir}/stackcollapse-vsprof.pl
 %{_bindir}/stackcollapse-vtune.pl
+%{_bindir}/stackcollapse-vtune-mc.pl
 %{_bindir}/stackcollapse-wcp.pl
 %{_mandir}/man1/difffolded.pl.1*
 %{_mandir}/man1/files.pl.1*
+%{_mandir}/man1/stackcollapse-chrome-tracing.py.1*
 %{_mandir}/man1/stackcollapse-elfutils.pl.1*
 %{_mandir}/man1/stackcollapse-go.pl.1*
 %{_mandir}/man1/stackcollapse-java-exceptions.pl.1*
 %{_mandir}/man1/stackcollapse-jstack.pl.1*
 %{_mandir}/man1/stackcollapse-perf.pl.1*
+%{_mandir}/man1/stackcollapse-vtune-mc.pl.1*
 
 %files          stackcollapse-perf
 %{_bindir}/aix-perf.pl
@@ -175,6 +184,9 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/stackcollapse-xdebug.php.1*
 
 %changelog
+* Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 1.0-12
+- Update to git HEAD for various enhancements and bug fixes
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1.0-11
 - Convert License tags to SPDX
 

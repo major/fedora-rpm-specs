@@ -63,12 +63,12 @@
 %global major_version 3
 %global minor_version 25
 # Set to RC version if building RC, else %%{nil}
-%global rcsuf rc2
+%global rcsuf rc3
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 0.3
+%global baserelease 0.5
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -445,22 +445,16 @@ find %{buildroot}%{_bindir} -type f -or -type l -or -xtype l | \
 %if %{with test}
 %check
 pushd %{_vpath_builddir}
-# CTestTestUpload, BundleUtilities, ExternalProject, and CTest.UpdateGIT require internet access
-# CPackComponentsForAll-RPM-IgnoreGroup failing wih rpm 4.15 - https://gitlab.kitware.com/cmake/cmake/issues/19983
-NO_TEST="CTestTestUpload|BundleUtilities|ExternalProject|CTest.UpdateGIT"
-# Likely failing for GCC 12
-NO_TEST="$NO_TEST|CustomCommand|CMakeLib.testCTestResourceAllocator"
-NO_TEST="$NO_TEST|CMakeLib.testCTestResourceSpec|RunCMake.PositionIndependentCode"
-# kwsys.testProcess-{4,5} are flaky on s390x.
-%ifarch s390x
-NO_TEST="$NO_TEST|kwsys.testProcess-4|kwsys.testProcess-5"
-%endif
+# CTestTestUpload requires internet access.
+NO_TEST="CTestTestUpload"
+# Likely failing for hardening flags from system.
+NO_TEST="$NO_TEST|CustomCommand|RunCMake.PositionIndependentCode"
 # curl test may fail during bootstrap
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
 %endif
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
-## do this only periodically, not for every build -- rdieter 20210429
+## do this only periodically, not for every build -- besser82 20221102
 # Keep an eye on failing tests
 #bin/ctest%{?name_suffix} %{?_smp_mflags} -V -R "$NO_TEST" --output-on-failure || :
 popd
@@ -531,6 +525,16 @@ popd
 
 
 %changelog
+* Wed Nov 02 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.5.rc3
+- Re-enable BundleUtilities, CMakeLib.testCTestResourceAllocator,
+  CMakeLib.testCTestResourceSpec, CTest.UpdateGIT, ExternalProject
+  during testsuite run
+- Re-enable kwsys.testProcess-{4,5} on s390x
+
+* Wed Nov 02 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.4.rc3
+- cmake-3.25.0-rc3
+  Fixes rhbz#2062783
+
 * Sun Oct 30 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.3.rc2
 - Allow valid short arguments for %%ctest macro
   Fixes rhbz#2127650

@@ -8,7 +8,7 @@ They also contains some embedded Japanese bitmap fonts.
 
 Name:		%{fontname}-fonts
 Version:	0.20040629
-Release:	40%{?dist}
+Release:	41%{?dist}
 BuildArch:	noarch
 BuildRequires:	ttmkfdir >= 3.0.6
 BuildRequires:	mkfontdir xorg-x11-fonts-misc >= 7.5-11
@@ -43,9 +43,6 @@ This package consists of files used by other %{name} packages.
 %package -n	%{fontname}-gothic-fonts
 Summary:	Sazanami Gothic Japanese TrueType font
 License:	BSD
-Conflicts:	fonts-japanese <= 0.20061016-9.fc8
-Provides:	ttfonts-ja = 1.2-37, %{fontname}-fonts-gothic = %{version}-%{release}
-Obsoletes:	ttfonts-ja < 1.2-37, %{fontname}-fonts-gothic < 0.20040629-6.20061016
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n	%{fontname}-gothic-fonts
@@ -56,9 +53,6 @@ This package contains Japanese TrueType font for Gothic type face.
 %package -n	%{fontname}-mincho-fonts
 Summary:	Sazanami Mincho Japanese TrueType font
 License:	BSD
-Conflicts:	fonts-japanese <= 0.20061016-9.fc8
-Provides:	ttfonts-ja = 1.2-37, %{fontname}-fonts-mincho = %{version}-%{release}
-Obsoletes:	ttfonts-ja < 1.2-37, %{fontname}-fonts-mincho < 0.20040629-6.20061016
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n	%{fontname}-mincho-fonts
@@ -138,6 +132,10 @@ ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
 %dir %{_fontdir}
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.20040629-41
+- Drop old dependencies.
+- Fix validation error in fontconfig config files.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040629-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 
 Name:           %{fontname}-fonts
 Version:        0.20080710
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        Public Domain and BSD and mplus
 BuildArch:      noarch
 BuildRequires:  xorg-x11-font-utils mkfontdir gawk fontpackages-devel
@@ -90,8 +90,6 @@ Patch54:        fonttools-replace.patch
 Summary:        Free Japanese Bitmap fonts
 
 Requires:	fontpackages-filesystem
-Provides:	jisksp14 = 0.1-16, kappa20 = 0.3-15, fonts-ja = 8.0-16, fonts-japanese = 0.20061016-13
-Obsoletes:	jisksp14 <= 0.1-16, kappa20 <= 0.3-15, fonts-ja <= 8.0-16, fonts-japanese <= 0.20061016-13
 
 %description
 This package provides various free Japanese Bitmap fonts.
@@ -336,6 +334,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{cataloguedir}/%{fontname}
 %{cataloguedir}/*
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.20080710-33
+- Drop old Provides/Obsoletes lines.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080710-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

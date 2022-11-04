@@ -39,7 +39,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?name_cross}%{?_with_debug:-debug}
 Version: 2.39
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -574,11 +574,11 @@ CARGS="$CARGS --enable-64-bit-bfd"
 # Also enable the BPF target so that strip will work on BPF files.
 case %{binutils_target} in
     s390*)
-        # FIXME: For some unknown reason settting --enable-targets=x86_64-pep
-        # here breaks the building of GOLD.  I have no idea why, and not enough
-        # knowledge of how gold is configured to fix quickly.  So instead I have
-        # found that supporting "all" targets works.
-	CARGS="$CARGS --enable-targets=all"
+	# Note - The s390-linux target is there so that the GOLD linker will
+	# build.  By default, if configured for just s390x-linux, the GOLD
+	# configure system will only include support for 64-bit targets, but
+	# the s390x gold backend uses both 32-bit and 64-bit templates.
+	CARGS="$CARGS --enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none"
 	;;
     ia64*)
 	CARGS="$CARGS --enable-targets=ia64-linux,x86_64-pep,bpf-unknown-none"
@@ -963,6 +963,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Nov 02 2022 Nick Clifton  <nickc@redhat.com> - 2.39-5
+- Fix configuration of s390x binutils so that it does not include support for extraneous targets.  (#2139143)
+
 * Mon Oct 03 2022 Nick Clifton  <nickc@redhat.com> - 2.39-4
 - Fix readelf's decoding of files with no sections.  (#2131609)
 

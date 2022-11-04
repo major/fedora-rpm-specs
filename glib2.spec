@@ -12,6 +12,9 @@ Source0: https://download.gnome.org/sources/glib/2.72/glib-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
 
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3039
+Patch1: glib-2.74.1-revert-fd-handling.patch
+
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: gettext

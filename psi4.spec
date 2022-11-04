@@ -10,7 +10,7 @@
 Name:           psi4
 Epoch:          1
 Version:        1.3.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        An ab initio quantum chemistry package
 License:        LGPLv3 and MIT
 URL:            http://www.psicode.org/
@@ -28,6 +28,8 @@ Patch3:         psi4-1.3.2-rpath.patch
 Patch4:         psi4-1.3.2-flexiblas.patch
 # Add missing includes
 Patch5:         psi4-1.3.2-include.patch
+# Fix problem with Python 3.11 (https://github.com/psi4/psi4/issues/2656)
+Patch6:         psi4-1.3.2-python311.patch
 
 BuildRequires:  cmake
 BuildRequires:  bison-devel
@@ -113,6 +115,7 @@ This package contains static libraries and development headers for psi.
 %patch3 -p1 -b .rpath
 %patch4 -p1 -b .flexiblas
 %patch5 -p1 -b .include
+%patch6 -p1 -b .python311
 
 %build
 export F77=gfortran
@@ -168,6 +171,9 @@ ctest -L smoketests
 %{_includedir}/psi4/
 
 %changelog
+* Wed Nov 02 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 1:1.3.2-17
+- Fix build issue on rawhide.
+
 * Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.3.2-16
 - Rebuild for new libxc
 

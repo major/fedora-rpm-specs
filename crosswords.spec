@@ -44,6 +44,8 @@ BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libipuz-0.1)
 
 Requires:       dbus-common
+Requires:       %{name}-puzzle-sets-cats-and-dogs = %{version}-%{release}
+Requires:       %{name}-puzzle-sets-uri = %{version}-%{release}
 Suggests:       crossword-editor = %{version}-%{release}
 Suggests:       %{name}-doc = %{version}-%{release}
 
@@ -62,8 +64,6 @@ Summary:        Puzzles about cats and dogs for GNOME Crosswords
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
-Supplements:    crosswords
-
 %description    puzzle-sets-cats-and-dogs
 This package contains a puzzle set about cats and dogs for GNOME Crosswords.
 
@@ -74,7 +74,6 @@ BuildArch:      noarch
 
 # Used to load .puz files from disk
 Recommends:     ipuz-convertor = %{version}-%{release}
-Supplements:    crosswords
 
 %description    puzzle-sets-uri
 This package contains a puzzle set for GNOME Crosswords that allows it to load

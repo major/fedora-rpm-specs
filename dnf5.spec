@@ -4,7 +4,7 @@
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        0~pre%{?dist}
+Release:        2~pre%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -171,18 +171,46 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 
 %files
 %{_bindir}/dnf5
-%{_prefix}/lib/dnf5
+%{_prefix}/share/dnf5
 %dir %{_sysconfdir}/dnf/dnf5-aliases.d
 %doc %{_sysconfdir}/dnf/dnf5-aliases.d/README
 %dir %{_libdir}/dnf5/
 %dir %{_libdir}/dnf5/plugins/
 %doc %{_libdir}/dnf5/plugins/README
+%dir %{_libdir}/libdnf5/plugins
 %dir %{_datadir}/bash-completion/
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/dnf5
 %license COPYING.md
 %license gpl-2.0.txt
 %{_mandir}/man8/dnf5.8.*
+%{_mandir}/man8/dnf5-advisory.8.*
+%{_mandir}/man8/dnf5-clean.8.*
+%{_mandir}/man8/dnf5-distro-sync.8.*
+%{_mandir}/man8/dnf5-downgrade.8.*
+%{_mandir}/man8/dnf5-download.8.*
+%{_mandir}/man8/dnf5-environment.8.*
+%{_mandir}/man8/dnf5-group.8.*
+# TODO(jkolarik): history is not ready yet
+# %%{_mandir}/man8/dnf5-history.8.*
+%{_mandir}/man8/dnf5-install.8.*
+%{_mandir}/man8/dnf5-makecache.8.*
+%{_mandir}/man8/dnf5-mark.8.*
+# TODO(jkolarik): module is not ready yet
+# %%{_mandir}/man8/dnf5-module.8.*
+%{_mandir}/man8/dnf5-reinstall.8.*
+%{_mandir}/man8/dnf5-remove.8.*
+%{_mandir}/man8/dnf5-repo.8.*
+%{_mandir}/man8/dnf5-repoquery.8.*
+%{_mandir}/man8/dnf5-swap.8.*
+%{_mandir}/man8/dnf5-upgrade.8.*
+%{_mandir}/man7/dnf5-comps.7.*
+# TODO(jkolarik): filtering is not ready yet
+# %%{_mandir}/man7/dnf5-filtering.7.*
+%{_mandir}/man7/dnf5-installroot.7.*
+# TODO(jkolarik): modularity is not ready yet
+# %%{_mandir}/man7/dnf5-modularity.7.*
+%{_mandir}/man7/dnf5-specs.7.*
 
 # ========== libdnf5 ==========
 %package -n libdnf5
@@ -390,7 +418,6 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Libdnf plugin that allows to run actions (external executables) on hooks.
 
 %files -n libdnf5-plugin-actions
-%dir %{_libdir}/libdnf5/plugins
 %{_libdir}/libdnf5/plugins/actions.*
 %endif
 
@@ -408,7 +435,6 @@ Requires:       python3-libdnf5%{?_isa} = %{version}-%{release}
 Libdnf plugin that allows loading Python plugins.
 
 %files -n python3-libdnf5-python-plugins-loader
-%dir %{_libdir}/libdnf5/plugins
 %{_libdir}/libdnf5/plugins/python_plugins_loader.*
 %dir %{python3_sitelib}/libdnf_plugins/
 %doc %{python3_sitelib}/libdnf_plugins/README
@@ -550,5 +576,13 @@ Core DNF5 plugins that enhance dnf5 with builddep and changelog commands.
 
 
 %changelog
+* Wed Nov 2 2022 Nicola Sella <nsella@redhat.com> - 5.0.0-2~pre
+- Fix failing builds for i686 arch
+
+* Mon Oct 31 2022 Nicola Sella <nsella@redhat.com> - 5.0.0-1~pre
+- Add man pages to dnf5
+- Fix non x86_64 builds
+- Remove unimplemented commands
+
 * Fri Sep 16 2022 Nicola Sella - <nsella@redhat.com> - 5.0.0-0~pre
 - Dnf pre release build for Fedora

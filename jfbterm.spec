@@ -7,7 +7,7 @@
 Summary:   Japanese Console for Linux Frame Buffer Device
 Name:      jfbterm
 Version:   0.4.7
-Release:   50%{?dist}
+Release:   51%{?dist}
 License:   BSD
 Source0:   http://downloads.sourceforge.jp/jfbterm/13501/jfbterm-%{version}.tar.gz
 Patch0:    jfbterm-0.4.6-conf.patch
@@ -37,14 +37,14 @@ BuildRequires:   ncurses
 # Now efont-unicode-bdf is split.
 BuildRequires:   efont-unicode-bdf
 BuildRequires:   xorg-x11-fonts-misc
-BuildRequires:   fonts-japanese
+BuildRequires:   japanese-bitmap-fonts
 BuildRequires:   jisksp16-1990-fonts
 BuildRequires:   make
 # Now fonts are symlinks so really these rpms are required.
 #Requires:   efont-unicode-bdf
 #Requires:   xorg-x11-fonts-base
 #Requires:   xorg-x11-fonts-misc
-#Requires:   fonts-japanese
+#Requires:   japanese-bitmap-fonts
 
 %description
 JFBTERM/ME takes advantages of framebuffer device that is 
@@ -191,6 +191,9 @@ iconv -f EUCJP -t UTF8 README.ja.orig > README.ja && \
 %{_mandir}/man5/jfbterm.conf.5*
 
 %changelog
+* Wed Nov 02 2022 Akira TAGOH <tagoh@redhat.com> - 0.4.7-51
+- Replace old BR of fonts-japanese to japanese-bitmap-fonts.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

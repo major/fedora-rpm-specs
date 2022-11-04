@@ -4,7 +4,7 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2022.15
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -12,6 +12,7 @@ URL: https://github.com/coreos/rpm-ostree
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
 
 Patch0: 0001-util-Fix-fpermissive-warning.patch
+Patch1: 0001-libpriv-postprocess-work-around-semanage-bug.patch
 
 ExclusiveArch: %{rust_arches}
 
@@ -236,6 +237,10 @@ $PYTHON autofiles.py > files.devel \
 
 %files devel -f files.devel
 %changelog
+* Wed Nov 02 2022 Jonathan Lebon <jonathan@jlebon.com> - 2022.15-3
+- Backport semanage bug workaround
+  https://github.com/coreos/rpm-ostree/pull/4122
+
 * Tue Nov 01 2022 Colin Walters <walters@verbum.org> - 2022.15-2
 - https://github.com/coreos/rpm-ostree/releases/tag/v2022.15
 

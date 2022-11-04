@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 
 Name:           ocaml-zmq
-Version:        5.2.0
+Version:        5.2.1
 Release:        1%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
@@ -83,6 +83,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 5.2.1-1
+- Version 5.2.1
+
 * Sat Oct 29 2022 Jerry James <loganjerry@gmail.com> - 5.2.0-1
 - Version 5.2.0
 - Drop ocaml-stdint dependency

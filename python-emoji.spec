@@ -10,7 +10,7 @@ official list is enabled but doing emoji.emojize(use_aliases=True)
 enables both the full list and aliases.}
 
 Name: python-%{pypi_name}
-Version: 2.1.0
+Version: 2.2.0
 Release: 1%{?dist}
 
 License: BSD
@@ -50,6 +50,9 @@ Summary: %{summary}
 %doc README.rst CHANGES.md
 
 %changelog
+* Wed Nov 02 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.2.0-1
+- Updated to version 2.2.0.
+
 * Tue Sep 20 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.1.0-1
 - Updated to version 2.1.0.
 

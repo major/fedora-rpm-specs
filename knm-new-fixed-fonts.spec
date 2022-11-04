@@ -5,7 +5,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 
 Summary:	12x12 JIS X 0208 Bitmap fonts
 License:	GPL+
@@ -19,8 +19,6 @@ BuildArch:	noarch
 BuildRequires:	mkfontdir fontpackages-devel
 
 Requires:	fontpackages-filesystem
-Conflicts:	fonts-japanese <= 0.20061016-11.fc8
-Obsoletes:	knm_new <= 1.1-16 knm_new-fonts < 1.1-7
 
 %description
 This package provides 12x12 Japanese bitmap fonts for JIS X 0208.
@@ -63,6 +61,9 @@ ln -s -f %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{fontname}
 
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 1.1-35
+- Drop old dependencies.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

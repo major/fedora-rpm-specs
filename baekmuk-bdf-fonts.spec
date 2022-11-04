@@ -5,7 +5,7 @@
 
 Name:           %{fontname}-fonts
 Version:        2.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Korean bitmap fonts
 
 License:        Baekmuk
@@ -14,7 +14,6 @@ Source:  http://kldp.net/frs/download.php/1428/%{fontname}-%{version}.tar.gz
 Patch0:	 baekmuk-bdf-fonts-fix-fonts-alias.patch
 BuildArch:      noarch
 BuildRequires:  mkfontdir bdftopcf
-Conflicts:      fonts-korean < 2.2-5
 
 %description
 This package provides the Korean Baekmuk bitmap fonts.
@@ -68,6 +67,9 @@ fi
 %{catalogue}/%{name}
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 2.2-33
+- Drop old dependencies.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

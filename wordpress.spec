@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.0.3
+%global upstream_version 6.1
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -106,9 +106,9 @@ Requires: ca-certificates
 # grep "SIMPLEPIE_VERSION'" wordpress/wp-includes/class-simplepie.php
 Provides: bundled(php-simplepie) = 1.5.8
 # grep ' VERSION '  wordpress/wp-includes/ID3/getid3.php
-Provides: bundled(php-getid3) = 1.9.21
+Provides: bundled(php-getid3) = 1.9.22
 # grep ' VERSION ' wordpress/wp-includes/PHPMailer/PHPMailer.php
-Provides: bundled(php-phpmailer)  = 6.6.0
+Provides: bundled(php-phpmailer)  = 6.6.5
 Provides: wordpress-mu = %{version}-%{release}
 Obsoletes: wordpress-mu < 2.9.3
 
@@ -262,6 +262,9 @@ end
 
 
 %changelog
+* Wed Nov  2 2022 Remi Collet <remi@remirepo.net> - 6.1-1
+- WordPress 6.1 “Misha”
+
 * Tue Oct 18 2022 Remi Collet <remi@remirepo.net> - 6.0.3-1
 - WordPress 6.0.3 Security Release
 

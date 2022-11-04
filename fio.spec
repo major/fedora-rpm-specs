@@ -172,7 +172,7 @@ RDMA engine for %{name}.
 %autosetup -p1
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-pathfix.py -i %{__python3} -pn \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
  tools/fio_jsonplus_clat2csv \
  tools/fiologparser.py \
  tools/hist/*.py \

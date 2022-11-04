@@ -23,7 +23,6 @@ BuildRequires:  python3-devel
 # https://github.com/confluentinc/confluent-kafka-python/issues/508
 #BuildRequires:  python3dist(pytest)
 BuildRequires:  python3-setuptools
-BuildRequires:  /usr/bin/pathfix.py
 
 Requires:       python3-fastavro
 Requires:       python3-requests

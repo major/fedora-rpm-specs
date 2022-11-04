@@ -3,9 +3,9 @@
 
 Name:           perl-Net-Ping
 Version:        2.75
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check a remote host for reachability
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Ping/
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Net-Ping-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,8 +59,31 @@ Conflicts:      perl < 4:5.22.0-350
 Net::Ping module contains methods to test the reachability of remote hosts on
 a network.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Socket)
+Requires:       perl(IO::Socket)
+Requires:       perl(IO::Socket::INET)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Net-Ping-%{version}
+# Remove author tests
+rm t/6*.t
+# Remove appveyor script
+rm t/appveyor-test.bat
+# Remove removed files from MANIFEST file
+perl -i -ne 'print $_ unless m{^(?:t/6.*\.t|appveyor-test\.bat)}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 unset PERL_CORE
@@ -69,7 +92,18 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING IS_MAINTAINER NET_PING_FAIL_IP PERL_TEST_Net_Ping \
+    TEST_PING_HOST TEST_PING6_HOST
+export NO_NETWORK_TESTING=1
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 unset AUTHOR_TESTING IS_MAINTAINER NET_PING_FAIL_IP PERL_TEST_Net_Ping \
@@ -82,7 +116,15 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Nov 02 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.75-2
+- Package tests
+- Unify to use macros
+- Update license to SPDX format
+
 * Tue Sep 06 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.75-1
 - Bump 2.75
 

@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   22.1.4
+Version:   22.1.5
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -124,6 +124,9 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Nov  2 2022 Olivier Fourdan <ofourdan@redhat.com> - 22.1.5-1
+- xwayland 22.1.5 (#2139387)
+
 * Thu Oct 20 2022 Olivier Fourdan <ofourdan@redhat.com> - 22.1.4-1
 - xwayland 22.1.4 (#2136518)
 

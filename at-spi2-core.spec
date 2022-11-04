@@ -1,6 +1,6 @@
 Name:           at-spi2-core
 Version:        2.46.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
 License:        LGPLv2+
@@ -22,6 +22,9 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xtst)
 
 Requires:       dbus
+# For xwayland-session-scriptlet
+# https://bugzilla.redhat.com/show_bug.cgi?id=2137281
+Requires:       /usr/bin/xprop
 
 %description
 at-spi allows assistive technologies to access GTK-based
@@ -165,6 +168,9 @@ install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/00-
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Wed Nov 02 2022 David King <amigadave@amigadave.com> - 2.46.0-2
+- Require xprop for xwayland scriptlet (#2137281)
+
 * Thu Oct 27 2022 David King <amigadave@amigadave.com> - 2.46.0-1
 - Update to 2.46.0
 - Merge of atk and at-spi2-atk

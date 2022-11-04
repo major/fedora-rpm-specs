@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.6.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -47,6 +47,8 @@ BuildRequires: SuperLU-devel
 BuildRequires: tinyexr-devel
 BuildRequires: turbojpeg-devel
 BuildRequires: xz-devel
+
+BuildRequires: kiss-fft-static
 
 Requires: opencv
 Requires: hicolor-icon-theme
@@ -127,6 +129,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Nov 2 2022 Diego Herrera <dherrera@redhat.com> 1.6.0-8
+- Expose static library dependency
+
 * Thu Aug 25 2022 Diego Herrera <dherrera@redhat.com> 1.6.0-7
 - Make exr patch compatible with upstream
 

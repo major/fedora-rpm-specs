@@ -5,9 +5,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2046246
 %undefine _package_note_flags
 
-# Fedora 37 is failing tests mysteriously on i686 and x86_64 but only on koji
-# Disable tests for now, hopefully re-enable later?
-%bcond_with tests
+%bcond_without tests
 
 # Using LTO breaks debuginfo (probably not true anymore?)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1113404
@@ -51,11 +49,11 @@ R CMD javareconf \\
 
 %global major_version 4
 %global minor_version 2
-%global patch_version 1
+%global patch_version 2
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -170,30 +168,30 @@ Provides:       R(ABI) = %{major_version}.%{minor_version}
 %add_submodule  base %{version}
 %add_submodule  boot 1.3-28
 %add_submodule  class 7.3-20
-%add_submodule  cluster 2.1.3
+%add_submodule  cluster 2.1.4
 %add_submodule  codetools 0.2-18
 %add_submodule  compiler %{version}
 %add_submodule  datasets %{version}
-%add_submodule  foreign 0.8-82
+%add_submodule  foreign 0.8-83
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
 %add_submodule  KernSmooth 2.23-20
 %add_submodule  lattice 0.20-45
-%add_submodule  MASS 7.3-57
-%add_submodule  Matrix 1.4-1
+%add_submodule  MASS 7.3-58.1
+%add_submodule  Matrix 1.5-1
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
-%add_submodule  mgcv 1.8-40
-%add_submodule  nlme 3.1-157
-%add_submodule  nnet 7.3-17
+%add_submodule  mgcv 1.8-41
+%add_submodule  nlme 3.1-160
+%add_submodule  nnet 7.3-18
 %add_submodule  parallel %{version}
-%add_submodule  rpart 4.1.16
+%add_submodule  rpart 4.1.19
 %add_submodule  spatial 7.3-15
 %add_submodule  splines %{version}
 %add_submodule  stats %{version}
 %add_submodule  stats4 %{version}
-%add_submodule  survival 3.3-1
+%add_submodule  survival 3.4-0
 %add_submodule  tcltk %{version}
 %add_submodule  tools %{version}
 %add_submodule  translations %{version}
@@ -249,7 +247,7 @@ Requires:       tex(inconsolata.sty)
 Requires:       qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.4.1
+Provides:       R-Matrix-devel = 1.5.1
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -393,24 +391,15 @@ sed -i '/"checking whether the BLAS is complete/i r_cv_complete_blas=yes' config
 %if %{with_lto}
     --enable-lto \
 %endif
-    MAKEINFO=texi2any \
     rdocdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} \
     rincludedir=%{_includedir}/R \
     rsharedir=%{_datadir}/R) | tee CONFIGURE.log
 cat CONFIGURE.log | grep -A30 'R is now' - > CAPABILITIES
 make V=1
 (cd src/nmath/standalone; make)
-#make check-all
 make pdf
-
-# What a hack.
-# Current texinfo doesn't like @eqn. Use @math instead where stuff breaks.
-cp doc/manual/R-exts.texi doc/manual/R-exts.texi.spot
-cp doc/manual/R-intro.texi doc/manual/R-intro.texi.spot
-sed -i 's|@eqn|@math|g' doc/manual/R-exts.texi
-sed -i 's|@eqn|@math|g' doc/manual/R-intro.texi
-
-make MAKEINFO=texi2any info
+make compact-pdf
+make info
 
 # Convert to UTF-8
 for i in doc/manual/R-intro.info doc/manual/R-FAQ.info doc/FAQ doc/manual/R-admin.info doc/manual/R-exts.info-1; do
@@ -420,11 +409,6 @@ done
 
 %install
 make DESTDIR=%{buildroot} install install-info
-
-# And now, undo the hack. :P
-mv doc/manual/R-exts.texi.spot doc/manual/R-exts.texi
-mv doc/manual/R-intro.texi.spot doc/manual/R-intro.texi
-
 make DESTDIR=%{buildroot} install-pdf
 
 rm -f %{buildroot}%{_infodir}/dir
@@ -474,9 +458,9 @@ if [ ! -d "%{buildroot}%{_datadir}/texmf/tex/latex/R" ]; then
 	popd
 fi
 
-# okay, look. its very clear that upstream does not run the test suite on any non-intel architectures.
 %check
 %if %{with tests}
+# okay, look. its very clear that upstream does not run the test suite on any non-intel architectures.
 %ifnarch ppc64 ppc64le armv7hl s390x aarch64
 # Needed by tests/ok-error.R, which will smash the stack on PPC64. This is the purpose of the test.
 ulimit -s 16384
@@ -873,6 +857,12 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Mon Oct 31 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-1
+- Update to 4.2.2
+- Run new compact-pdf target
+- Remove obsolete MAKEINFO and texinfo hack
+- Re-enable tests
+
 * Fri Sep 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.1-5
 - Add flexiblas to LAPACK_LIBS
 - Remove java_arches backport, already available in EPEL 8

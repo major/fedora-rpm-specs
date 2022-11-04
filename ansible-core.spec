@@ -1,35 +1,15 @@
-#
-# If we should enable docs building
-# Currently we cannot until we get a stack of needed packages added and a few bugs fixed
-#
-%bcond_with docs
-
-#
-# If we should enable tests by default
-#
 %bcond_without tests
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.13.5
+Version: 2.14.0~rc2
+%global uversion %{version_no_tilde %{quote:%nil}}
 Release: 1%{?dist}
-
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
 License: GPL-3.0-or-later AND BSD-2-Clause AND PSF-2.0 AND MIT AND Apache-2.0
-Source: https://github.com/ansible/ansible/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# A 2.10.3 async test uses /usr/bin/python, which we do not have by default.
-# Patch the test to use /usr/bin/python3 as we have for our build.
-Patch: 2.10.3-test-patch.patch
-
-# Allow Python 3.11
-# https://github.com/ansible/ansible/commit/dfde4be444ee66a1a0e44751b80bcf1afd6661d7
-# https://github.com/ansible/ansible/commit/0ef5274a3c6189e8fa6a7d97993c165ab548fe95
-# https://github.com/ansible/ansible/commit/8ca28acd0d121c778aa540c1d61f58f5ae2d5dcc
-Patch: allow-python3.11.patch
-
+Source: https://github.com/ansible/ansible/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
 Url: https://ansible.com
 BuildArch: noarch
 
@@ -68,72 +48,78 @@ BuildRequires: python%{python3_pkgversion}-devel
 # Needed to build manpages from source.
 BuildRequires: python%{python3_pkgversion}-straight-plugin
 BuildRequires: python%{python3_pkgversion}-docutils
+# Shell completions
 BuildRequires: python%{python3_pkgversion}-argcomplete
 
 %if %{with tests}
 BuildRequires: git-core
 BuildRequires: glibc-all-langpacks
 BuildRequires: python%{python3_pkgversion}-systemd
+# test/units/modules/test_async_wrapper.py needs this.
+# Instead of patching the tests to use /usr/bin/python3,
+# just give it what it wants.
+BuildRequires: /usr/bin/python
 %endif
 
 Requires: python%{python3_pkgversion}-argcomplete
 # Require packaging macros if rpm-build exists
 # This makes the transition seamless for other packages
+# This is DEPRECATED. Packages must explicitly BuildRequire ansible-packaging.
 Requires: (ansible-packaging if rpm-build)
 
 
-%description
+%global _description %{expand:
 Ansible is a radically simple model-driven configuration management,
 multi-node deployment, and remote task execution system. Ansible works
 over SSH and does not require any software or daemons to be installed
 on remote nodes. Extension modules can be written in any language and
-are transferred to managed machines automatically.
+are transferred to managed machines automatically.}
+
+%description %_description
 
 This is the base part of ansible (the engine).
 
-%package -n ansible-core-doc
+%package doc
 Summary: Documentation for Ansible Core
 Provides: ansible-base-doc = %{version}-%{release}
 Obsoletes: ansible-base-doc < 2.10.6-1
 
-%description -n ansible-core-doc
-
-Ansible is a radically simple model-driven configuration management,
-multi-node deployment, and remote task execution system. Ansible works
-over SSH and does not require any software or daemons to be installed
-on remote nodes. Extension modules can be written in any language and
-are transferred to managed machines automatically.
+%description doc %_description
 
 This package installs extensive documentation for ansible-core
 
+
 %prep
-%autosetup -p1 -n ansible-%{version}
+%autosetup -p1 -n ansible-%{uversion}
 find \( -name '.git_keep' -o -name '.rstcheck.cfg' \) -delete
-sed -i -s 's|/usr/bin/env python|%{python3}|' test/lib/ansible_test/_util/target/cli/ansible_test_cli_stub.py bin/*
-sed -i -e '1{\@^#!.*@d}' lib/ansible/cli/*.py lib/ansible/modules/hostname.py lib/ansible/cli/scripts/ansible_connection_cli_stub.py
+
+# ansible-test is executed directly by the Makefile, so we need to fix the shebang.
+sed -i -s 's|/usr/bin/env python|%{python3}|' \
+    bin/ansible-test \
+    test/lib/ansible_test/_util/target/cli/ansible_test_cli_stub.py
+
+
+# TODO: Investigate why hostname is the only module that still has a shebang
+# and file an upstream issue if needed.
+sed -i -e '1{\@^#!.*@d}' lib/ansible/modules/hostname.py
+
+sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > _requirements.txt
+
 
 %generate_buildrequires
-temp=$(mktemp)
-sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > ${temp}
-%pyproject_buildrequires %{?with_tests:${temp} test/units/requirements.txt} %{?with_docs:docs/docsite/requirements.txt}
+%pyproject_buildrequires %{?with_tests:_requirements.txt test/units/requirements.txt}
+
 
 %build
 # disable the python -s shbang flag as we want to be able to find non system modules
-%global py3_shebang_flags %(echo %{py3_shebang_flags} | sed 's/s//')
-%py3_shebang_fix .
+%undefine _py3_shebang_s
+
+%pyproject_wheel
 
 # Build manpages
 make PYTHON=%{python3} docs
 
-%pyproject_wheel
-
-%if %{with docs}
-  make PYTHON=%%{python3} SPHINXBUILD=sphinx-build-3 webdocs
-%else
-  # we still need things to build these minimal docs too.
-  # make PYTHON=%%{python3} -Cdocs/docsite config cli keywords modules plugins testing
-%endif
-
+# Build shell completions
 (
     cd bin
     for shell in bash fish; do
@@ -156,11 +142,13 @@ make PYTHON=%{python3} docs
     done
 )
 
+
 %install
 %pyproject_install
+%pyproject_save_files ansible ansible_test
 
-install -Dpm 0644 bash_completions/* -t %{buildroot}%{_datadir}/bash-completion/completions
-install -Dpm 0644 fish_completions/* -t %{buildroot}%{_datadir}/fish/vendor_completions.d
+install -Dpm 0644 bash_completions/* -t %{buildroot}%{bash_completions_dir}
+install -Dpm 0644 fish_completions/* -t %{buildroot}%{fish_completions_dir}
 
 # Create system directories that Ansible defines as default locations in
 # ansible/config/base.yml
@@ -197,17 +185,17 @@ mkdir -p %{buildroot}%{_datadir}/ansible/plugins/
 for location in $DATADIR_LOCATIONS ; do
     mkdir %{buildroot}"$location"
 done
-mkdir -p %{buildroot}/etc/ansible/
-mkdir -p %{buildroot}/etc/ansible/roles/
+mkdir -p %{buildroot}%{_sysconfdir}/ansible/
+mkdir -p %{buildroot}%{_sysconfdir}/ansible/roles/
 
 cp examples/hosts %{buildroot}/etc/ansible/
 cp examples/ansible.cfg %{buildroot}/etc/ansible/
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp -v docs/man/man1/*.1 %{buildroot}/%{_mandir}/man1/
 
-# no need to ship zero length files
-find %{buildroot}/%{python3_sitelib} -name .git_keep -exec rm -f {} \;
-find %{buildroot}/%{python3_sitelib} -name .travis.yml -exec rm -f {} \;
+# These files are needed for the unit tests, so we don't remove them in %prep
+find %{buildroot}/%{python3_sitelib} -name .travis.yml -type f -delete
+
 
 %check
 %if %{with tests}
@@ -215,29 +203,32 @@ ln -s /usr/bin/pytest-3 bin/pytest
 make PYTHON=%{python3} tests-py3
 %endif
 
-%files
+
+%files -f %{pyproject_files}
 %license COPYING licenses/{Apache-License,MIT-license,PSF-license,simplified_bsd}.txt
-%doc README.rst changelogs/CHANGELOG-v2.13.rst
+%doc README.rst changelogs/CHANGELOG-v2.1?.rst
 %dir %{_sysconfdir}/ansible/
 %config(noreplace) %{_sysconfdir}/ansible/*
-%{_mandir}/man1/ansible*
 %{_bindir}/ansible*
 %{_datadir}/ansible/
-%{_datadir}/bash-completion/completions/ansible*
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/ansible*.fish
-%{python3_sitelib}/ansible
-%{python3_sitelib}/ansible_test
-%{python3_sitelib}/*dist-info
+%{bash_completions_dir}/ansible*
+%{fish_completions_dir}/ansible*.fish
+%{_mandir}/man1/ansible*
 
-%files -n ansible-core-doc
+%files doc
 %doc docs/docsite/rst
 %if %{with docs}
 %doc docs/docsite/_build/html
 %endif
 
+
 %changelog
+* Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 2.14.0~rc2-1
+- Update to 2.14.0~rc2.
+
+* Fri Oct 28 2022 Maxwell G <gotmax@e.email> - 2.14.0~rc1-1
+- Update to 2.14.0~rc1.
+
 * Wed Oct 12 2022 Maxwell G <gotmax@e.email> - 2.13.5-1
 - Update to 2.13.5.
 

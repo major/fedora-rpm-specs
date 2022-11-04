@@ -2,8 +2,9 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7-RELEASE
-%global package_version 5.7
+%global swift_version 5.7.1-RELEASE
+%global fedora_release 1
+%global package_version 5.7.1
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
@@ -23,7 +24,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        3%{?dist}
+Release:        %{fedora_release}%{?dist}
 Summary:        The Swift programming language
 License:        Apache 2.0
 URL:            https://www.swift.org
@@ -63,8 +64,6 @@ Source31:       https://github.com/apple/swift-format/archive/refs/tags/%{swift_
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
-Patch0:		temp-patches.patch
-Patch1:		goldinclude.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
@@ -99,6 +98,7 @@ Requires:	binutils-gold
 %endif
 Requires:       gcc
 Requires:       ncurses-devel
+Requires:	lldb
 
 ExclusiveArch:  x86_64 aarch64 
 
@@ -182,8 +182,10 @@ export VERBOSE=1
 # Before Fedora 34, we may not have /usr/bin/python, so we 
 # roll our own because the build script expects there to be one.
 %if 0%{?fedora} < 34 || 0%{?el8}
-mkdir $PWD/binforpython
-ln -s /usr/bin/python3 $PWD/binforpython/python
+if [ ! -d $PWD/binforpython ] ; then
+	mkdir -p $PWD/binforpython
+	ln -s /usr/bin/python3 $PWD/binforpython/python
+fi
 export PATH=$PWD/binforpython:$PATH
 %endif
 
@@ -220,6 +222,12 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Nov 02 2022 Ron Olson <tachoknight@gmail.com> - 5.7.1-1
+- Updated to Swift 5.7.1-RELEASE
+  Resolves: rhbz#2139320
+* Tue Nov 01 2022 Ron Olson <tachoknight@gmail.com> - 5.7-4
+- Merged fix from Lumír Balhar to replace the pathfix.py tool
+  with the new way for Python 3.12
 * Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-3
 - Resolves: rhbz#2130233
 * Tue Sep 27 2022 Ron Olson <tachoknight@gmail.com> - 5.7-2

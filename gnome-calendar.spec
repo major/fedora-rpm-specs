@@ -18,6 +18,8 @@ Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_
 # Backported from upstream
 # https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/269
 Patch0:         269.patch
+# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/270
+Patch1:         270.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

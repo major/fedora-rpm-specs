@@ -1,6 +1,6 @@
 Name:           perl-HTML-Parser
 Summary:        Perl module for parsing HTML
-Version:        3.79
+Version:        3.80
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Parser-%{version}.tar.gz
@@ -61,11 +61,7 @@ chmod -c a-x eg/*
 
 # Help file to recognise the Perl scripts and normalize shebangs
 for F in t/*.t; do
-    if head -1 "$F" | grep -q -e '^#!.*perl\b' ; then
-        perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' "$F"
-    else
-        perl -i -MConfig -ple 'print $Config{startperl} if $. == 1' "$F"
-    fi
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
     chmod +x "$F"
 done
 
@@ -115,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 02 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.80-1
+- 3.80 bump
+
 * Thu Oct 13 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.79-1
 - 3.79 bump
 

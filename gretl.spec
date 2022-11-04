@@ -1,5 +1,5 @@
 Name: gretl	
-Version: 2022b
+Version: 2022c
 Release: 1%{?dist}
 Summary: A tool for econometric analysis	
 
@@ -141,6 +141,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Wed Nov 02 2022 Johannes Lips <hannes@fedoraproject.org> - 2022c-1
+- Update to 2022c
+
 * Wed Aug 10 2022 Johannes Lips <hannes@fedoraproject.org> - 2022b-1
 - Update to 2022b
 - new gretl edit binary for quick hansl development

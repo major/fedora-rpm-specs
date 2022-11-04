@@ -8,9 +8,17 @@
 # We manually specify this in order to workaround RHEL 8's deficient
 # python-rpm-generators and lack of dynamic BR support.
 # https://github.com/ansible-community/community-topics/issues/84
-%global ansible_core_version 2.13.5
-%global ansible_core_next_version 2.14
+%global ansible_core_version 2.14~rc1
+%global ansible_core_next_version 2.15
 %global ansible_core_requires (%{py3_dist ansible-core} >= %{ansible_core_version} with %{py3_dist ansible-core} < %{ansible_core_next_version})
+
+# Roles' files and templates should not be mangled.
+# These files are installed on remote systems which may or may not have the
+# same file system layout as Fedora.
+%global __brp_mangle_shebangs_exclude_from ^%{python3_sitelib}/ansible_collections/[^/]+/[^/]+/roles/[^/]+/(files|templates)/.*$
+%global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{__brp_mangle_shebangs_exclude_from}
+
+%global filelist %{_builddir}%{?buildsubdir:/%{buildsubdir}}/files.list
 
 %if 0%{?rhel} == 8
 # RHEL 8's ansible-core package is built using Python 3.8, which is not the default version.
@@ -21,11 +29,10 @@ BuildRequires:  python%{python3_pkgversion}-rpm-macros
 Requires:       %{ansible_core_requires}
 %endif
 
-%global uversion %(tr -d '~' <<< %{version})
-
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        6.5.0
+Version:        7.0.0~a2
+%global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
@@ -81,11 +88,6 @@ to ansible-core.
 # Fix wrong-script-end-of-line-encoding in azure.azcollection
 find ansible_collections/azure/azcollection -type f -print -exec dos2unix -k '{}' \;
 
-find ansible_collections/community/mongodb/roles/*/{files,templates} -type f ! -executable -name '*.sh*' \
-    -print -exec chmod a+x '{}' \;
-
-sed -i -e '1{\@^#!.*@d}' ansible_collections/cyberark/conjur/Jenkinsfile
-
 # Remove unnecessary files and directories included in the Ansible collection release tarballs
 # Tracked upstream in part by: https://github.com/ansible-community/community-topics/issues/29
 echo "[START] Delete unnecessary files and directories"
@@ -102,12 +104,14 @@ rm -rv ansible_collections/community/vmware/tools
 rm -rv ansible_collections/cyberark/conjur/ci/
 rm -rv ansible_collections/cyberark/conjur/dev/
 rm -rv ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests/
+rm -rv ansible_collections/inspur/sm/venv
 rm -rv ansible_collections/netbox/netbox/hacking/
 rm -rv ansible_collections/ovirt/ovirt/automation/
 rm -rv ansible_collections/sensu/sensu_go/docker/
-rm -v ansible_collections/ovirt/ovirt/build.sh
-rm -v ansible_collections/dellemc/enterprise_sonic/rebuild.sh
 rm -v ansible_collections/community/dns/update-psl.sh
+rm -v ansible_collections/cyberark/conjur/Jenkinsfile
+rm -v ansible_collections/dellemc/enterprise_sonic/rebuild.sh
+rm -v ansible_collections/ovirt/ovirt/build.sh
 
 # rpmlint W: pem-certificate
 find ansible_collections/cyberark/conjur -type f -name "*.pem" -print -delete
@@ -116,8 +120,22 @@ find ansible_collections/cyberark/conjur -type f -name "*.pem" -print -delete
 find -type f -name "*requirements.txt" -size 0 -print -delete
 rm -v ansible_collections/community/zabbix/roles/zabbix_agent/files/win_sample/doSomething.ps1
 rm -v ansible_collections/community/docker/meta/ee-bindep.txt
+rm -vr ansible_collections/ibm/spectrum_virtualize/roles/place_holder
 
 echo "[END] Delete unnecessary files and directories"
+
+###
+# Fix various shebang related issues to appease brp-managle-shebangs
+###
+find ansible_collections/community/mongodb/roles/*/{files,templates} -type f '!' -executable -name '*.sh*' \
+    -print -exec chmod a+x '{}' \;
+
+# ansible_collections/lowlydba/sqlserver thought it was a good idea to make
+# *every* single file, in its repository executable, including .md, .yml, and
+# .rst. :facepalm:
+#
+# TODO: File issue upstream
+find ansible_collections/lowlydba/sqlserver/ -executable -type f -print -exec chmod a-x '{}' \;
 
 # Remove shebangs instead of hardocding to %%__python3 to avoid unexpected issues
 # from https://github.com/ansible/ansible/commit/9142be2f6cabbe6597c9254c5bb9186d17036d55.
@@ -179,9 +197,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 # TODO: Run tests
 %endif
 
-%files -f %{_builddir}/files.list
+%files -f %{filelist}
 %license COPYING
-%doc README.rst PKG-INFO porting_guide_6.rst CHANGELOG-v6.rst
+%doc README.rst PKG-INFO porting_guide_?.rst CHANGELOG-v?.rst
 %{_bindir}/ansible-community
 # Note (dmsimard): This ansible package installs collections to the python sitelib to mirror the UX
 # when installing the ansible package from PyPi.
@@ -189,9 +207,12 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 # or via standalone distribution packages to datadir (/usr/share).
 # Both will have precedence over the collections installed in the python sitelib.
 %{python3_sitelib}/ansible_collections
-%{python3_sitelib}/*egg-info
+%{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Oct 28 2022 Maxwell G <gotmax@e.email> - 7.0.0~a2-1
+- Update to 7.0.0~a2.
+
 * Thu Oct 13 2022 Maxwell G <gotmax@e.email> - 6.5.0-1
 - Update to 6.5.0.
 

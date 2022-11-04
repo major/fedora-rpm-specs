@@ -13,7 +13,7 @@
 compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
-Version: 0.18.0
+Version: 0.19.0
 Release: 1%{?dist}
 Summary: Zstandard bindings for Python
 License: BSD and GPLv2
@@ -67,6 +67,9 @@ mv zstandard{.src,}
 %{python3_sitearch}/%{pypi_name}
 
 %changelog
+* Wed Nov 02 2022 Dominik Mierzejewski <dominik@greysector.net> 0.19.0-1
+- update to 0.19.0 (#2138646)
+
 * Wed Oct 05 2022 Dominik Mierzejewski <dominik@greysector.net> 0.18.0-1
 - update to 0.18.0 (#2099853)
 

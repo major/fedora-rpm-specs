@@ -1,17 +1,18 @@
 %global gem_name asciidoctor-pdf
 
 Name:     rubygem-%{gem_name}
-Version:  1.6.2
-Release:  4%{?dist}
+Version:  2.3.3
+Release:  1%{?dist}
 Summary:  Converts AsciiDoc documents to PDF using Prawn
 License:  MIT
 URL:      https://github.com/asciidoctor/asciidoctor-pdf
 Source0:  https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/asciidoctor/asciidoctor-pdf.git && cd asciidoctor-pdf
-# git checkout v1.6.2
-# tar -czf rubygem-asciidoctor-pdf-1.6.2-specs-examples.tgz spec/ examples/
+# git checkout v2.3.3
+# tar -czf rubygem-asciidoctor-pdf-2.3.3-specs-examples.tgz spec/ examples/ docs/
 Source1:  %{name}-%{version}-specs-examples.tgz
-Patch0:   converter.rb.p0
+Patch0:   cli_spec.rb.p0
+Patch1:   helpers.rb.p0
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel > 1.3.1
@@ -31,6 +32,7 @@ BuildRequires: rubygem(pdf-inspector)
 BuildRequires: rubygem(rouge)
 BuildRequires: rubygem(coderay)
 BuildRequires: rubygem(rexml)
+BuildRequires: poppler-utils
 
 BuildArch: noarch
 
@@ -48,8 +50,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-%patch0 -p0
 mv %{_builddir}/{spec,examples} .
+mv %{_builddir}/docs/modules docs/
+%patch0
+%patch1
 
 # Regenerate the parser.
 tt lib/asciidoctor/pdf/formatted_text/parser.treetop
@@ -72,8 +76,7 @@ cp -pa .%{_bindir}/* \
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 %check
-
-GEM_HOME=/builddir/build/BUILD/%{gem_name}-%{version}/usr/share/gems rspec -t ~network
+rspec -t '~network'
 
 %files
 %dir %{gem_instdir}
@@ -96,6 +99,9 @@ GEM_HOME=/builddir/build/BUILD/%{gem_name}-%{version}/usr/share/gems rspec -t ~n
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Wed Nov 02 2022 Sergi Jimenez <tripledes@fedoraproject.org> - 2.3.3-1
+- Bump to 2.3.3
+
 * Tue Sep 13 2022 Sergi Jimenez <tripledes@fedoraproject.org> - 1.6.2-4
 - Relax praw-icon version
 

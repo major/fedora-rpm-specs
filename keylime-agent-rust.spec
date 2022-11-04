@@ -4,11 +4,6 @@
 %bcond_without check
 
 %global crate keylime_agent
-%global crate_version 0.1.0
-
-%global commit aed51c7c8c526953e945357594352c3df2ca4ace
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20220603
 
 %if 0%{?rhel}
 # RHEL: Use bundled deps as it doesn't ship Rust libraries
@@ -19,7 +14,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        %{crate_version}~%{commitdate}git%{shortcommit}
+Version:        0.1.0
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Rust agent for Keylime
 
@@ -44,32 +39,29 @@ License:        ASL 2.0 and BSD and MIT
 URL:            https://github.com/keylime/rust-keylime/
 # The source tarball is downloaded using the following commands:
 #   spectool -g keylime-agent-rust.spec
-Source0:        %{url}/archive/%{commit}/rust-keylime-%{version}.tar.gz
-# The vendor tarball is created using cargo vendor:
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
+# The vendor tarball is created using cargo-vendor-filterer to remove Windows
+# related files (https://github.com/cgwalters/cargo-vendor-filterer)
 #   tar xf rust-keylime-%%{version}.tar.gz
 #   cd rust-keylime-%%{version}
-#   cargo vendor
+#   cargo vendor-filterer --platform x86_64-unknown-linux-gnu \
+#       --platform powerpc64le-unknown-linux-gnu \
+#       --platform aarch64-unknown-linux-gnu \
+#       --platform i686-unknown-linux-gnu \
+#       --platform s390x-unknown-linux-gnu \
+#       --exclude-crate-path "libloading#tests"
 #   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
 Source1:        rust-keylime-%{version}-vendor.tar.xz
-# Drop rustc-serialize and flate2, update clap, and make wiremock optional
-Patch0:         rust-keylime-drop-dependencies.patch
-# Add serialization functions to fix issue on big-endian arches
-Patch1:         rust-keylime-add-quote-serialization.patch
-# Show path on missing mTLS certificate
-Patch2:         rust-keylime-show-path-missing-cert.patch
-# Use more descriptive error messages for missing files errors
-Patch3:         rust-keylime-descriptive-error-messages.patch
-# Set supplementary groups when dropping privileges
-Patch4:         rust-keylime-set-supplementary-groups.patch
 # Fix version requirement for clap to avoid FTBFS in Fedora
-Patch5:         rust-keylime-metadata.patch
+Patch1:         rust-keylime-metadata.patch
+# Use API available on rust-config-0.12.0
+Patch2:         rust-keylime-config-separator.patch
 
 ExclusiveArch:  %{rust_arches}
 
 Requires: tpm2-tss
 
-# The keylime-base package provides the configuration file from the python
-# implementation which can be used for the rust implementation. It is available
+# The keylime-base package provides the keylime user creation. It is available
 # from Fedora 36
 %if 0%{?fedora} >= 36
 Requires: keylime-base
@@ -93,7 +85,7 @@ Conflicts:      keylime-agent
 Rust agent for Keylime
 
 %prep
-%autosetup -n rust-keylime-%{commit} -p1
+%autosetup -n rust-keylime-%{version} -p1
 %if 0%{?bundled_rust_deps}
 # Source1 is vendored dependencies
 %cargo_prep -V 1
@@ -113,12 +105,29 @@ mkdir -p %{buildroot}/%{_sharedstatedir}/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_localstatedir}/log/keylime
 mkdir -p --mode=0700 %{buildroot}/%{_libexecdir}/keylime
+mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime
+mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d
+
+install -Dpm 400 keylime-agent.conf \
+    %{buildroot}%{_sysconfdir}/keylime/agent.conf
 
 install -Dpm 644 ./dist/systemd/system/keylime_agent.service \
     %{buildroot}%{_unitdir}/keylime_agent.service
 
 install -Dpm 644 ./dist/systemd/system/var-lib-keylime-secure.mount \
     %{buildroot}%{_unitdir}/var-lib-keylime-secure.mount
+
+# Setting up the agent to use keylime:keylime user/group after dropping privileges.
+cat > %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d/001-run_as.conf << EOF
+[agent]
+run_as = "keylime:keylime"
+EOF
+
+%posttrans
+chmod 500 %{_sysconfdir}/keylime/agent.conf.d
+chmod 400 %{_sysconfdir}/keylime/agent.conf.d/*.conf
+chmod 500 %{_sysconfdir}/keylime
+chown -R keylime:keylime %{_sysconfdir}/keylime
 
 %preun
 %systemd_preun keylime_agent.service
@@ -131,6 +140,10 @@ install -Dpm 644 ./dist/systemd/system/var-lib-keylime-secure.mount \
 %files
 %license LICENSE
 %doc README.md
+%attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime
+%attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime/agent.conf.d
+%config(noreplace) %attr(400,keylime,keylime) %{_sysconfdir}/keylime/agent.conf.d/001-run_as.conf
+%config(noreplace) %attr(400,keylime,keylime) %{_sysconfdir}/keylime/agent.conf
 %{_unitdir}/keylime_agent.service
 %{_unitdir}/var-lib-keylime-secure.mount
 %attr(700,keylime,keylime) %dir %{_rundir}/keylime

@@ -39,7 +39,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPLv2+
 URL:            https://github.com/ibus/%name/wiki
@@ -301,6 +301,7 @@ fi
 #autoreconf -f -i -v
 #make -C ui/gtk3 maintainer-clean-generic
 #make -C tools maintainer-clean-generic
+autoreconf -f -i -v
 %configure \
     --disable-static \
     --enable-gtk2 \
@@ -322,6 +323,7 @@ fi
     --enable-install-tests \
     %{nil}
 
+make -C ui/gtk3 maintainer-clean-generic
 %make_build
 
 %install
@@ -521,6 +523,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Nov 03 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-4
+- Resolves: #2081055 Avoid to unref m_engines with double run
+
 * Mon Sep 19 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-3
 - Update ibus_input_context_set_surrounding_text for a global IC
 - Fix CI

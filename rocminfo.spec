@@ -15,7 +15,6 @@ BuildRequires: make
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	rocm-runtime-devel >= 2.0.0
-# We need python3-devel for pathfix.py
 BuildRequires:	python3-devel
 
 # rocminfo calls lsmod to check the kernel mode driver status
@@ -28,7 +27,7 @@ ROCm system info utility
 %prep
 %autosetup -n %{name}-rocm-%{version} -p1
 
-pathfix.py -i %{__python3} rocm_agent_enumerator
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} rocm_agent_enumerator
 
 %build
 %cmake -DROCM_DIR=/usr

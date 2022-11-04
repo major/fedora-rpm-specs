@@ -43,9 +43,9 @@ priority is changed, be it using tuna or plain chrt & taskset.
 
 %build
 %py3_build
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" tuna/
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" tuna-cmd.py
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" oscilloscope-cmd.py
+%py3_shebang_fix tuna/
+%py3_shebang_fix tuna-cmd.py
+%py3_shebang_fix oscilloscope-cmd.py
 
 %install
 rm -rf %{buildroot}

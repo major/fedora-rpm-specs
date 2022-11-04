@@ -1,10 +1,3 @@
-%global collection_namespace community
-%global collection_name docker
-%global forgeurl https://github.com/ansible-collections/%{collection_namespace}.%{collection_name}
-# This package does not include any ELF binaries, and we don't want this file
-# in the built collection artifact.
-%undefine _package_note_file
-
 # ansible-core in RHEL 8.6 is built against python38. In c8s and the next RHEL
 # 8 minor release, it will be built against python39. The testing dependencies
 # are not yet packaged for either python version in EPEL 8.
@@ -22,10 +15,8 @@
 %endif
 
 
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        3.1.0
-%global tag %{version}
-%forgemeta
+Name:           ansible-collection-community-docker
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
@@ -78,8 +69,9 @@ Summary:        Ansible modules and plugins for working with Docker
 # tests/unit/plugins/module_utils/_api/utils/test_proxy.py:# SPDX-License-Identifier: Apache-2.0
 # tests/unit/plugins/module_utils/_api/utils/test_utils.py:# SPDX-License-Identifier: Apache-2.0
 License:        GPL-3.0-or-later AND Apache-2.0
-URL:            %{ansible_collection_url}
-Source0:        %{forgesource}
+URL:            %{ansible_collection_url community docker}
+%global forgeurl https://github.com/ansible-collections/community.docker
+Source0:        %{forgeurl}/archive/%{version}/community.docker-%{version}.tar.gz
 Patch0:         build_ignore-unnecessary-files.patch
 
 BuildArch:      noarch
@@ -104,7 +96,7 @@ working with Docker.
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n community.docker-%{version}
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
 
 
@@ -122,13 +114,15 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %endif
 
 
-%files
+%files -f %{ansible_collection_filelist}
 %license COPYING LICENSES
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 
 %changelog
+* Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 3.2.0-1
+- Update to 3.2.0. Fixes rhbz#2139344.
+
 * Thu Sep 08 2022 Maxwell G <gotmax@e.email> - 3.1.0-1
 - Update to 3.1.0. Fixes rhbz#2125151.
 

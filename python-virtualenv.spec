@@ -1,6 +1,6 @@
 Name:           python-virtualenv
-Version:        20.15.1
-Release:        2%{?dist}
+Version:        20.16.6
+Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -138,8 +138,17 @@ unset SOURCE_DATE_EPOCH
 # - test_bundle.py (whole file)
 # Uses disabled functionalities around automatic updates:
 # - test_periodic_update.py (whole file)
+# Requires Python 2:
+# - test_py_pyc_missing
 PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
-%pytest -vv -k "not test_bundle and not test_acquire and not test_periodic_update and not test_wheel_ and not test_download_ and not test_base_bootstrap_via_pip_invoke and not test_seed_link_via_app_data"
+%pytest -vv -k "not test_bundle and \
+                not test_acquire and \
+                not test_periodic_update and \
+                not test_wheel_ and \
+                not test_download_ and \
+                not test_base_bootstrap_via_pip_invoke and \
+                not test_seed_link_via_app_data and \
+                not test_py_pyc_missing"
 
 rm -r tmp_path
 %endif
@@ -158,6 +167,10 @@ rm -r tmp_path
 
 
 %changelog
+* Thu Oct 27 2022 Lumír Balhar <lbalhar@redhat.com> - 20.16.6-1
+- Update to 20.16.6
+Resolves: rhbz#2137713
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

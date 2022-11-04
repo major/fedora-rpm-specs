@@ -1,6 +1,6 @@
 Name: tgbot-cpp
-Version: 1.3
-Release: 3%{?dist}
+Version: 1.4
+Release: 1%{?dist}
 
 Summary: C++ library for Telegram bot API
 License: MIT
@@ -51,6 +51,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/libTgBot.so
 
 %changelog
+* Wed Nov 02 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.4-1
+- Updated to version 1.4.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

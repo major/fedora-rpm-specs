@@ -1,6 +1,6 @@
 Name:           babeltrace
-Version:        1.5.8
-Release:        13%{?dist}
+Version:        1.5.11
+Release:        1%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT and GPLv2
 URL:            https://www.efficios.com/babeltrace
@@ -8,9 +8,7 @@ Source0:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz
 Source1:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz2.asc
 # gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
-Patch0:         python39.patch
-Patch1:         babeltrace-getaddrinfo.patch
-Patch2:         babeltrace-rhbz2126067-use-after-free.patch
+Patch0:         babeltrace-getaddrinfo.patch
 
 BuildRequires:  bison >= 2.4
 BuildRequires:  flex >= 2.5.35
@@ -18,11 +16,12 @@ BuildRequires:  glib2-devel >= 2.22.0
 BuildRequires:  libuuid-devel
 BuildRequires:  popt-devel >= 1.13
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  swig >= 2.0
 BuildRequires:  elfutils-devel >= 0.154
 BuildRequires:  autoconf automake libtool
 BuildRequires:  gnupg2
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
@@ -118,6 +117,11 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Wed Nov 02 2022 Michael Jeanson <mjeanson@efficios.com> - 1.5.11-1
+- New upstream release
+- Drop patches merged upstream
+- Add builddep on python3-setuptools for Python 3.12+
+
 * Fri Sep 16 2022 Keith Seitz - 1.5.8-13
 - Add use-after-free patch for popt-1.19 update.
   (Keith Seitz, RHBZ 2126067)

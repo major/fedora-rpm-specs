@@ -4,8 +4,8 @@
 %global __global_ldflags %(echo "%{__global_ldflags} -lX11")
 
 Name:           supertuxkart
-Version:        1.3
-Release:        3%{?rctag:.%{rctag}}%{?dist}.2
+Version:        1.4
+Release:        1%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -15,14 +15,9 @@ Summary:        Kids 3D go-kart racing game featuring Tux
 # SigmarOne - SIL 1.1 (OFL)
 License:        GPLv2+ and GPLv3 and CC-BY-SA and OFL and ASL 2.0
 URL:            https://supertuxkart.net/Main_Page
-Source0:        https://downloads.sourceforge.net/%{name}/SuperTuxKart-%{version}%{?rctag:-%{rctag}}-src.tar.xz
+Source0:        https://github.com/%{name}/stk-code/releases/download/%{version}/SuperTuxKart-%{version}%{?rctag:-%{rctag}}-src.tar.xz
 Source1:        %{name}.6
 Source2:        supertuxkart-0.7.3-license-clarification.txt
-
-# https://github.com/supertuxkart/stk-code/pull/4642
-Patch0:         0001-Use-tilde-for-pre-release-versioning-in-appdata.patch
-# https://github.com/supertuxkart/stk-code/pull/4643
-Patch1:         0001-Always-build-tinygettext-as-a-static-library.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -48,6 +43,7 @@ BuildRequires:  wayland-devel
 BuildRequires:  harfbuzz-devel
 BuildRequires:  SDL2-devel
 BuildRequires:  libgamerzilla-devel
+BuildRequires:  libshaderc-devel
 Requires:       hicolor-icon-theme opengl-games-utils
 Requires:       %{name}-data = %{version}
 
@@ -122,6 +118,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-1
+- 1.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

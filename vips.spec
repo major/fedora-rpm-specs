@@ -135,7 +135,7 @@ ImageMagick6.
 # The DIE_RPATH_DIE trick breaks the build wrt gobject-introspection
 sed -i 's|sys_lib_dlsearch_path_spec="|sys_lib_dlsearch_path_spec="/%{_lib} %{_libdir} |' configure
 
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" tools/vipsprofile
+%py3_shebang_fix tools/vipsprofile
 
 
 %build

@@ -1,6 +1,6 @@
 Name:		waypipe
-Version:	0.8.2
-Release:	2%{?dist}
+Version:	0.8.4
+Release:	1%{?dist}
 Summary:	Wayland forwarding proxy
 
 License:	MIT
@@ -59,6 +59,9 @@ install -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Nov 02 2022 Olivier Fourdan <ofourdan@redhat.com> - 0.8.4-1
+- Update to 0.8.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

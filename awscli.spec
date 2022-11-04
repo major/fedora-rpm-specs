@@ -4,7 +4,7 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.27.0
+Version:        1.27.1
 %global         tag             %{version}
 %forgemeta
 
@@ -47,8 +47,8 @@ sed -i "s/,<0.17//" setup.py
 sed -Ei 's/^( *'"'"'?rsa>=[0-9.]+,)<=?[0-9.]+(.*)/\1<4.9\2/g' setup.cfg setup.py
 
 # https://github.com/aws/aws-cli/issues/5795
-sed -i s/\<0.4.5/\<=0.4.5/g setup.py
-sed -i s/\<0.4.5/\<=0.4.5/g setup.cfg
+sed -i s/\<0.4.5/\<=0.4.6/g setup.py
+sed -i s/\<0.4.5/\<=0.4.6/g setup.cfg
 
 # https://github.com/aws/aws-cli/issues/5893
 sed -i s/\<5.4/\<=5.4.1/g setup.py
@@ -98,6 +98,9 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Wed Nov 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.27.1-1
+- 1.27.1
+
 * Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.27.0-1
 - 1.27.0
 

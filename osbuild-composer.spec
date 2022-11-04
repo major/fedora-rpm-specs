@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        66
+Version:        67
 
 %gometa
 
@@ -69,7 +69,7 @@ Provides: bundled(golang(github.com/Azure/go_autorest/autorest/validation)) = v0
 Provides: bundled(golang(github.com/Azure/go_autorest/logger)) = v0.2.1
 Provides: bundled(golang(github.com/Azure/go_autorest/tracing)) = v0.6.0
 Provides: bundled(golang(github.com/beorn7/perks)) = v1.0.1
-Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.2.0
+Provides: bundled(golang(github.com/BurntSushi/toml)) = v1.2.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = v4.1.3
 Provides: bundled(golang(github.com/cespare/xxhash/v2)) = v2.1.2
 Provides: bundled(golang(github.com/containers/common)) = v0.49.1
@@ -111,7 +111,7 @@ Provides: bundled(golang(github.com/hashicorp/errwrap)) = v1.1.0
 Provides: bundled(golang(github.com/hashicorp/go_cleanhttp)) = v0.5.2
 Provides: bundled(golang(github.com/hashicorp/go_multierror)) = v1.1.1
 Provides: bundled(golang(github.com/hashicorp/go_retryablehttp)) = v0.7.1
-Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = v1.0.0
+Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = v1.0.1
 Provides: bundled(golang(github.com/jackc/chunkreader/v2)) = v2.0.1
 Provides: bundled(golang(github.com/jackc/pgconn)) = v1.13.0
 Provides: bundled(golang(github.com/jackc/pgio)) = v1.0.0
@@ -163,7 +163,7 @@ Provides: bundled(golang(github.com/segmentio/ksuid)) = v1.0.4
 Provides: bundled(golang(github.com/sigstore/sigstore)) = v1.3.1_0.20220629021053_b95fc0d626c1
 Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.9.0
 Provides: bundled(golang(github.com/sony/gobreaker)) = v0.4.2_0.20210216022020_dd874f9dd33b
-Provides: bundled(golang(github.com/spf13/cobra)) = v1.5.0
+Provides: bundled(golang(github.com/spf13/cobra)) = v1.6.1
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.0
@@ -460,10 +460,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 69
-Requires:   osbuild-ostree >= 69
-Requires:   osbuild-lvm2 >= 69
-Requires:   osbuild-luks2 >= 69
+Requires:   osbuild >= 70
+Requires:   osbuild-ostree >= 70
+Requires:   osbuild-lvm2 >= 70
+Requires:   osbuild-luks2 >= 70
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -503,6 +503,12 @@ The dnf-json binary used by osbuild-composer and the workers.
 
 %files dnf-json
 %{_libexecdir}/osbuild-composer/dnf-json
+
+%post dnf-json
+# Fix ownership of the rpmmd cache files from previous versions where it was owned by root:root
+if [ -e /var/cache/osbuild-composer/rpmmd ]; then
+    chown -f -R --from root:root _osbuild-composer:_osbuild-composer /var/cache/osbuild-composer/rpmmd
+fi
 
 %if %{with tests} || 0%{?rhel}
 
@@ -575,6 +581,29 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Nov 02 2022 Packit <hello@packit.dev> - 67-1
+Changes with 67
+----------------
+  * Cloud API: make `location` optional for Azure Upload Options (#3093)
+  * Content url and rhsm ostree resolve (#3091)
+  * Fix blueprint firewall support (#3099)
+  * Ostree resolve job (#3072)
+  * RHEL-8.7+/9.1+: replace RHSM config on EC2 RHUI images with `redhat-cloud-client-configuration` package (#3081)
+  * Update snapshots to 20221025 (#3098)
+  * build(deps): bump github.com/spf13/cobra from 1.5.0 to 1.6.1 (#3094)
+  * distro: add support for RHEL 8.8 and 9.2 (#3095)
+  * internal/cloudapi: add ostree options for all otree image types (#3089)
+  * koji: put artifacts uploaded to koji under a second level directory (#3083)
+  * schutzbot/update_github_status: fix release fast-forwarding (#3082)
+  * spec: Fix ownership of the dnf-json rpmmd files (#3085)
+  * tests: Update the version of azurerm terraform provider (#3075)
+
+Contributions from: Alexander Todorov, Antonio Murdaca, Brian C. Lane, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tomáš Hozza, dependabot[bot], schutzbot
+
+— Somewhere on the Internet, 2022-11-02
+
+
+
 * Wed Oct 19 2022 Packit <hello@packit.dev> - 66-1
 Changes with 66
 ----------------
@@ -584,10 +613,10 @@ Changes with 66
   * build(deps): bump github.com/aws/aws-sdk-go from 1.44.112 to 1.44.114 (#3054)
   * cloudapi: add iot-installer (#3037)
   * schutzbot/mockbuild: stop running mock as root (#3073)
-
 Contributions from: Achilleas Koutsou, Jakub Rusz, Sanne Raymaekers, Tomáš Hozza, dependabot[bot], schutzbot
-
 — Somewhere on the Internet, 2022-10-19
+
+
 
 
 

@@ -1,6 +1,6 @@
 Name: elfutils
-Version: 0.187
-%global baserelease 9
+Version: 0.188
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -48,6 +48,8 @@ BuildRequires: iproute
 BuildRequires: procps
 BuildRequires: bsdtar
 BuildRequires: curl
+# For run-debuginfod-response-headers.sh test case
+BuildRequires: socat
 
 BuildRequires: automake
 BuildRequires: autoconf
@@ -72,14 +74,8 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2080957
-Patch2: elfutils-0.187-csh-profile.patch
-# https://sourceware.org/bugzilla/show_bug.cgi?id=29117
-Patch3: elfutils-0.187-debuginfod-client-fd-leak.patch
-# https://sourceware.org/bugzilla/show_bug.cgi?id=29122
-Patch4: elfutils-0.187-mhd_no_dual_stack.patch
-# https://sourceware.org/bugzilla/show_bug.cgi?id=29123
-Patch5: elfutils-0.187-mhd_epoll.patch
+# Don't export internal function.
+Patch2: elfutils-0.188-static-extract_section.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -420,11 +416,12 @@ fi
 %{_bindir}/debuginfod
 %config(noreplace) %{_sysconfdir}/sysconfig/debuginfod
 %{_unitdir}/debuginfod.service
-%{_sysconfdir}/sysconfig/debuginfod
 %if %{with_sysusers}
 %{_sysusersdir}/elfutils-debuginfod.conf
 %endif
-%{_mandir}/man8/debuginfod.8*
+%{_mandir}/man8/debuginfod*.8*
+%{_mandir}/man7/debuginfod*.7*
+
 
 %dir %attr(0700,debuginfod,debuginfod) %{_localstatedir}/cache/debuginfod
 %ghost %attr(0600,debuginfod,debuginfod) %{_localstatedir}/cache/debuginfod/debuginfod.sqlite
@@ -447,6 +444,12 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Wed Nov 2 2022 Mark Wielaard <mjw@fedoraproject.org> - 0.188-2
+- Add elfutils-0.188-static-extract_section.patch.
+
+* Wed Nov 2 2022 Mark Wielaard <mjw@fedoraproject.org> - 0.188-1
+- Upgrade to upsteam elfutils 0.188.
+
 * Wed Oct 5 2022 Amit Shah <amitshah@fedoraproject.org> - 0.187-9
 - Auto-configure debuginfod_url based on macros.dist
 

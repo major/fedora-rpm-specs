@@ -8,7 +8,7 @@ This package provides the free Korean TrueType fonts.
 
 Name:           %{fontname}-fonts
 Version:        2.2
-Release:        57%{?dist}
+Release:        58%{?dist}
 Summary:        Free Korean TrueType fonts
 
 License:        Baekmuk
@@ -23,9 +23,6 @@ Source8:        %{fontname}-dotum.metainfo.xml
 Source9:        %{fontname}-gulim.metainfo.xml
 Source10:       %{fontname}-hline.metainfo.xml
 Source11:       %{fontname}.metainfo.xml
-
-Obsoletes:      fonts-korean <= 2.2-23
-Provides:       fonts-korean = %{version}-%{release}
 
 BuildArch:      noarch
 BuildRequires:  fontpackages-devel >= 1.13
@@ -93,12 +90,9 @@ Headline is Korean TrueType font in Black face.
 
 %package -n %{fontname}-fonts-common
 Summary:        Common files for Korean Baekmuk TrueType fonts
-Obsoletes:      ttfonts-ko < 1.0.11-33, fonts-korean < 2.2-5
 Obsoletes:      baekmuk-ttf-common-fonts < 2.2-17
 Obsoletes:      %{fontname}-fonts-ghostscript < 2.2-44
 Provides:       baekmuk-ttf-common-fonts = %{version}-%{release}
-Provides:       fonts-korean = %{version}-%{release}
-Provides:       ttfonts-ko = %{version}-%{release}
 Provides:       %{fontname}-fonts-ghostscript = %{version}-%{release}
 Requires:       fontpackages-filesystem >= 1.13
 BuildRequires:  fontpackages-filesystem >= 1.13
@@ -167,6 +161,9 @@ install -Dm 0644 -p %{SOURCE11} \
         %{buildroot}%{_metainfodir}/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 2.2-58
+- Drop old dependencies.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: fail2ban
 Version: 1.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -17,6 +17,8 @@ Source4: Makefile
 Patch0: fail2ban-partof.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2034205
 Patch1: fail2ban-python311.patch
+# Patch for dovecot jail eating 100% CPU
+Patch2: https://github.com/fail2ban/fail2ban/commit/ca2b94c5229bd474f612b57b67d796252a4aab7a.patch
 
 
 BuildArch: noarch
@@ -403,6 +405,9 @@ fi
 
 
 %changelog
+* Wed Nov 02 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-2
+- Add patch for dovecot eating 100% CPU.
+
 * Sun Oct 02 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-1
 - Update to 1.0.1.
 

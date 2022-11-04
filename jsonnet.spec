@@ -1,8 +1,6 @@
-%global         so_version   0
-
 Name:           jsonnet
-Version:        0.17.0
-Release:        6%{?dist}
+Version:        0.19.1
+Release:        1%{?dist}
 Summary:        A data templating language based on JSON
 
 # The bundled MD5 library is RSA licenced
@@ -19,7 +17,10 @@ Source2:        jsonnetfmt.1
 # these benefit from static linking,
 # but we want to link to libjsonnet here so we are sharing the lib
 Patch0001:      0001-Dynamic-link-to-libjsonnet-rather-than-static.patch
+# Upstream hard codes compiler flags
 Patch0002:      0002-jsonnet-0.17.0-do-not-override-compiler-flags.patch
+# Upstream ships rapidyaml inside this source repo
+Patch0003:      0003-jsonnet-0.19.1-Use-system-provided-rapidyaml.patch
 
 
 # Bundled MD5 C++ class with very permissive license (RSA)
@@ -33,6 +34,7 @@ BuildRequires:  bash cmake gcc gcc-c++ gtest-devel make
 
 # json is header only, so note the static lib for tracking
 BuildRequires:  json-devel json-static
+BuildRequires:  rapidyaml-devel
 
 # Set our toplevel runtime requirements
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -133,8 +135,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}*.so.%{so_version}
-%{_libdir}/lib%{name}*.so.%{version}
+%{_libdir}/lib%{name}*.so.*
 
 %files devel
 %{_includedir}/lib%{name}*
@@ -151,11 +152,14 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 '%{SOURCE1}' '%{SOURCE2}'
 %doc CONTRIBUTING
 %doc doc
 %doc examples
-# don't package up the self-check script
-%exclude %{_docdir}/%{name}-doc/examples/*.sh
 
 
 %changelog
+* Wed Nov 2 2022 Pat Riehecky <riehecky@fnal.gov> - 0.19.1
+- Update to 0.19.1
+- v0.19.0 is not binary compatible with previous versions of libjsonnet.
+- this version introduces versioned soname objects from upstream
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

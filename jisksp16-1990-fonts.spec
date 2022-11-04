@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	0.983
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	16x16 JIS X 0212:1990 Bitmap font
 License:	Public Domain
 
@@ -14,9 +14,6 @@ BuildArch:	noarch
 BuildRequires:	gzip mkfontdir fontpackages-devel
 
 Requires:	fontpackages-filesystem
-Conflicts:	fonts-japanese <= 0.20061016-11.fc8
-Provides:	jisksp16-1990 = 0.1-16
-Obsoletes:	jisksp16-1990 <= 0.1-16
 
 %description
 This package provides 16x16 Japanese bitmap font for JIS X 0212:1990.
@@ -51,6 +48,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{name}
 %{catalogue}/*
 
 %changelog
+* Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.983-27
+- Drop old Dependencies.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.983-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

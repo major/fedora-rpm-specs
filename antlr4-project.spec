@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -54,6 +54,7 @@ BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 BuildRequires:  mvn(org.twdata.maven:mojo-executor)
+BuildRequires:  nodejs-packaging
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pip}
@@ -377,6 +378,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 4.10.1-5
+- BR nodejs-packaging to fix FTBFS
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 4.10.1-4
 - Convert License tag to SPDX
 
