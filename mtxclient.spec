@@ -1,6 +1,6 @@
 Name: mtxclient
 Version: 0.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 Summary: Client API library for Matrix, built on top of Boost.Asio
@@ -72,6 +72,9 @@ ln -s libmatrix_client.so.%{version} %{buildroot}%{_libdir}/libmatrix_client.so.
 %{_libdir}/*.so
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.2-3
+- Rebuilt due to spdlog update.
+
 * Fri Sep 09 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.2-2
 - Rebuilt due to incorrect Koji tag usage.
 

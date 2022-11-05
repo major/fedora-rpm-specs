@@ -6,15 +6,15 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    d6f5797fb568726f34c8e48741776d81e4a2646b
+%global gh_commit    f817c72a961484afef95ac64a9257c8e31f063b9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     apereo
 %global gh_project   phpCAS
 
 
 Name:           php-pear-CAS
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Central Authentication Service client library in php
 
 License:        ASL 2.0
@@ -118,6 +118,9 @@ echo "Ok\n";
 
 
 %changelog
+* Thu Nov  3 2022 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

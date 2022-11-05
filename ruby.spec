@@ -204,6 +204,9 @@ Patch27: ruby-irb-1.4.1-drop-rdoc-hard-dep.patch
 # Set soft dependency on RDoc in input-method.rb in IRB.
 # https://github.com/ruby/irb/pull/395
 Patch28: ruby-irb-1.4.1-set-rdoc-soft-dep.patch
+# Bypass git submodule test failure on Git >= 2.38.1.
+# https://github.com/ruby/ruby/pull/6587
+Patch29: ruby-3.2.0-git-2.38.1-fix-rubygems-test.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Suggests: rubypick
@@ -686,6 +689,7 @@ find .bundle/gems -name '*-[0-9]*.gemspec' -exec cp -t .bundle/specifications/ {
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .

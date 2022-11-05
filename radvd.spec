@@ -1,12 +1,13 @@
 Summary: A Router Advertisement daemon
 Name: radvd
 Version: 2.19
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # The code includes the advertising clause, so it's GPL-incompatible
 License: BSD with advertising
 URL: http://www.litech.org/radvd/
 Source0: %{url}dist/%{name}-%{version}.tar.xz
+Source1: radvd.sysusers
 
 BuildRequires: make
 BuildRequires: gcc
@@ -16,8 +17,9 @@ BuildRequires: flex-static
 BuildRequires: pkgconfig
 BuildRequires: check-devel
 BuildRequires: systemd
+BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
-Requires(pre): shadow-utils
+%{?sysusers_requires_compat}
 
 %description
 radvd is the router advertisement daemon for IPv6.  It listens to router
@@ -61,6 +63,7 @@ install -m 644 redhat/SysV/radvd.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/
 install -d -m 755 %{buildroot}%{_tmpfilesdir}
 install -p -m 644 redhat/systemd/radvd-tmpfs.conf %{buildroot}%{_tmpfilesdir}/radvd.conf
 install -m 644 redhat/systemd/radvd.service %{buildroot}%{_unitdir}
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/radvd.conf
 
 %check
 make check
@@ -74,12 +77,8 @@ make check
 %preun
 %systemd_preun radvd.service
 
-# Static UID and GID defined by /usr/share/doc/setup-*/uidgid
 %pre
-getent group radvd >/dev/null || groupadd -r -g 75 radvd
-getent passwd radvd >/dev/null || \
-  useradd -r -u 75 -g radvd -d / -s /sbin/nologin -c "radvd user" radvd
-exit 0
+%sysusers_create_compat %{SOURCE1}
 
 %files
 %doc CHANGES COPYRIGHT INTRO.html README TODO
@@ -87,6 +86,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/radvd.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/radvd
 %{_tmpfilesdir}/radvd.conf
+%{_sysusersdir}/radvd.conf
 %dir %attr(755,radvd,radvd) /run/radvd/
 %doc radvd.conf.example
 %{_mandir}/*/*
@@ -94,6 +94,9 @@ exit 0
 %{_sbindir}/radvdump
 
 %changelog
+* Thu Nov 03 2022 Martin Osvald <mosvald@redhat.com> - 2.19-7
+- Use systemd-sysusers for radvd user and group (rhbz#2139755)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

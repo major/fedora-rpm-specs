@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.0.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 License:        GPLv3 and MIT and WTFPL and Public Domain
@@ -152,6 +152,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.4-10
+- Rebuilt due to spdlog update.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

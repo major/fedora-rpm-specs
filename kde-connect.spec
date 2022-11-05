@@ -4,7 +4,7 @@
 %global module kdeconnect-kde
 
 Name:    kde-connect
-Version: 22.08.2
+Version: 22.08.3
 Release: 1%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
@@ -191,6 +191,9 @@ done
 
 
 %changelog
+* Thu Nov 03 2022 Than Ngo <than@redhat.com> - 22.08.3-1
+- 22.08.3
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
 - 22.08.2
 

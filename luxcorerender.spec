@@ -5,7 +5,7 @@
 
 Name:		luxcorerender
 Version:	2.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	LuxCore Renderer, an unbiased rendering system
 
 License:	ASL 2.0
@@ -250,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 %{_includedir}/{luxcore,luxrays,slg}
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.6-8
+- Rebuilt due to spdlog update.
+
 * Fri Oct 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.6-7
 - Rebuild for OpenImageIO 2.4.4.2.
 

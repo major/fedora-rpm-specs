@@ -229,8 +229,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 8.8.0
-Release: 2%{?dist}
+Version: 8.9.0
+Release: 1%{?dist}
 License: LGPLv2+
 URL: https://libvirt.org/
 
@@ -238,7 +238,6 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://libvirt.org/sources/%{?mainturl}libvirt-%{version}.tar.xz
-Patch: 0001-tests-Fix-libxlxml2domconfigtest-with-latest-xen.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -272,7 +271,7 @@ Requires: libvirt-libs = %{version}-%{release}
 # listed against each sub-RPM
 BuildRequires: python3-docutils
 BuildRequires: gcc
-BuildRequires: meson >= 0.54.0
+BuildRequires: meson >= 0.56.0
 BuildRequires: ninja-build
 BuildRequires: git
 BuildRequires: perl-interpreter
@@ -294,6 +293,7 @@ BuildRequires: libblkid-devel >= 2.17
 # for augparse, optionally used in testing
 BuildRequires: augeas
 BuildRequires: systemd-devel >= 185
+BuildRequires: systemd-rpm-macros
 BuildRequires: libpciaccess-devel >= 0.10.9
 BuildRequires: yajl-devel
 %if %{with_sanlock}
@@ -476,7 +476,6 @@ Requires: gettext-runtime
 %else
 Requires: gettext
 %endif
-
 
 # Ensure smooth upgrades
 Obsoletes: libvirt-admin < 7.3.0
@@ -903,6 +902,15 @@ Obsoletes: libvirt-bash-completion < 7.3.0
 %description client
 The client binaries needed to access the virtualization
 capabilities of recent versions of Linux (and other OSes).
+
+%package client-qemu
+Summary: Additional client side utilities for QEMU
+Requires: %{name}-libs = %{version}-%{release}
+Requires: python3-libvirt >= %{version}-%{release}
+
+%description client-qemu
+The additional client binaries are used to interact
+with some QEMU specific features of libvirt.
 
 %package libs
 Summary: Client side libraries
@@ -2164,6 +2172,12 @@ exit 0
 
 %{_datadir}/bash-completion/completions/virsh
 
+%if %{with_qemu}
+%files client-qemu
+%{_mandir}/man1/virt-qemu-qmp-proxy.1*
+%{_bindir}/virt-qemu-qmp-proxy
+%endif
+
 %files libs -f %{name}.lang
 %license COPYING COPYING.LESSER
 %dir %attr(0700, root, root) %{_sysconfdir}/libvirt/
@@ -2379,6 +2393,9 @@ exit 0
 
 
 %changelog
+* Thu Nov 03 2022 Cole Robinson <crobinso@redhat.com> - 8.9.0-1
+- Update to version 8.9.0
+
 * Mon Oct 24 2022 Cole Robinson <crobinso@redhat.com> - 8.8.0-2
 - Rebuild for wireshark soname bump
 

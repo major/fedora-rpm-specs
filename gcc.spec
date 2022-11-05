@@ -1,12 +1,12 @@
-%global DATE 20220819
-%global gitrev 12a206c28987ada47b447ebd200d1fd9639c8edd
+%global DATE 20221103
+%global gitrev fa08f2733eed2cb77bf0d6bd86a74399be68b5a2
 %global gcc_version 12.2.1
 %global gcc_major 12
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
-%global nvptx_tools_gitrev 5f6f343a302d620b0868edab376c00b15741e39e
-%global newlib_cygwin_gitrev 50e2a63b04bdd018484605fbb954fd1bd5147fa0
+%global gcc_release 3
+%global nvptx_tools_gitrev 472b6e78b3ba918d727698f79911360b7c808247
+%global newlib_cygwin_gitrev a8526cb52bedabd4d6ba4b227a5185627f871aa1
 %global _unpackaged_files_terminate_build 0
 %global _performance_build 1
 # Hardening slows the compiler way too much.
@@ -151,7 +151,7 @@ Source1: nvptx-tools-%{nvptx_tools_gitrev}.tar.xz
 # git --git-dir=newlib-cygwin-dir.tmp/.git archive --prefix=newlib-cygwin-%%{newlib_cygwin_gitrev}/ %%{newlib_cygwin_gitrev} ":(exclude)newlib/libc/sys/linux/include/rpc/*.[hx]" | xz -9e > newlib-cygwin-%%{newlib_cygwin_gitrev}.tar.xz
 # rm -rf newlib-cygwin-dir.tmp
 Source2: newlib-cygwin-%{newlib_cygwin_gitrev}.tar.xz
-%global isl_version 0.18
+%global isl_version 0.24
 Source3: https://gcc.gnu.org/pub/gcc/infrastructure/isl-%{isl_version}.tar.bz2
 URL: http://gcc.gnu.org
 # Need binutils with -pie support >= 2.14.90.0.4-4
@@ -275,8 +275,6 @@ Patch8: gcc12-no-add-needed.patch
 Patch9: gcc12-Wno-format-security.patch
 Patch10: gcc12-rh1574936.patch
 Patch11: gcc12-d-shared-libphobos.patch
-Patch12: gcc12-p2327r1.patch
-Patch13: gcc12-pr106590.patch
 
 Patch100: gcc12-fortran-fdec-duplicates.patch
 Patch101: gcc12-fortran-flogical-as-integer.patch
@@ -804,8 +802,6 @@ so that there cannot be any synchronization problems.
 %patch10 -p0 -b .rh1574936~
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
-%patch12 -p0 -b .p2327r1~
-%patch13 -p0 -b .pr106590~
 
 %if 0%{?rhel} >= 9
 %patch100 -p1 -b .fortran-fdec-duplicates~
@@ -925,7 +921,7 @@ ISL_FLAG_PIC=-fPIC
 ISL_FLAG_PIC=-fpic
 %endif
 cd isl-build
-sed -i 's|libisl|libgcc12privateisl|g' \
+sed -i 's|libisl\([^-]\)|libgcc12privateisl\1|g' \
   ../../isl-%{isl_version}/Makefile.{am,in}
 ../../isl-%{isl_version}/configure \
   CC=/usr/bin/gcc CXX=/usr/bin/g++ \
@@ -933,9 +929,9 @@ sed -i 's|libisl|libgcc12privateisl|g' \
 make %{?_smp_mflags}
 make install
 cd ../isl-install/lib
-rm libgcc12privateisl.so{,.15}
-mv libgcc12privateisl.so.15.3.0 libisl.so.15
-ln -sf libisl.so.15 libisl.so
+rm libgcc12privateisl.so{,.23}
+mv libgcc12privateisl.so.23.1.0 libisl.so.23
+ln -sf libisl.so.23 libisl.so
 cd ../..
 %endif
 
@@ -1144,7 +1140,7 @@ make jit.sphinx.install-html jit_htmldir=`pwd`/../../rpm.doc/libgccjit-devel/htm
 cd ..
 
 %if %{build_isl}
-cp -a isl-install/lib/libisl.so.15 gcc/
+cp -a isl-install/lib/libisl.so.23 gcc/
 %endif
 
 # Make generated man pages even if Pod::Man is not new enough
@@ -1294,7 +1290,7 @@ FULLPATH=%{buildroot}%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}
 FULLEPATH=%{buildroot}%{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 
 %if %{build_isl}
-cp -a isl-install/lib/libisl.so.15 $FULLPATH/
+cp -a isl-install/lib/libisl.so.23 $FULLPATH/
 %endif
 
 # fix some things
@@ -3217,19 +3213,45 @@ end
 %endif
 
 %changelog
-* Wed Sep 07 2022 Kalev Lember <klember@redhat.com> 12.2.1-2
+* Thu Nov  3 2022 Jakub Jelinek <jakub@redhat.com> 12.2.1-3
+- update from releases/gcc-12 branch
+  - PRs c++/93259, c++/105774, c++/106759, c++/106829, c++/106893, c++/106925,
+	c++/107358, c/106947, c/106981, c/107001, fortran/82868,
+	fortran/100029, fortran/100040, fortran/100097, fortran/100098,
+	fortran/100103, fortran/100132, fortran/100136, fortran/100245,
+	fortran/103413, fortran/103694, fortran/105012, fortran/105633,
+	fortran/106566, fortran/106579, fortran/106817, fortran/106857,
+	fortran/106985, fortran/106986, fortran/107054, libstdc++/105678,
+	libstdc++/106320, libstdc++/106589, libstdc++/106607,
+	libstdc++/106695, lto/107418, middle-end/106548, middle-end/106982,
+	other/106782, rtl-optimization/106187, target/96072, target/99184,
+	target/99685, target/100645, target/101322, target/103353,
+	target/104482, target/105421, target/105463, target/105485,
+	target/106017, target/106355, target/106459, target/106491,
+	target/106524, target/106704, target/106714, target/106721,
+	target/107061, target/107064, target/107248, target/107364,
+	tree-optimization/102892, tree-optimization/105937,
+	tree-optimization/106322, tree-optimization/106809,
+	tree-optimization/106841, tree-optimization/106860,
+	tree-optimization/106892, tree-optimization/106922,
+	tree-optimization/106934, tree-optimization/107107,
+	tree-optimization/107121, tree-optimization/107160,
+	tree-optimization/107212, tree-optimization/107254,
+	tree-optimization/107323
+
+* Wed Sep  7 2022 Kalev Lember <klember@redhat.com> 12.2.1-2
 - enable GDC on aarch64
 
 * Fri Aug 19 2022 Jakub Jelinek <jakub@redhat.com> 12.2.1-1
 - update from releases/gcc-12 branch
-  - GCC 12.1 release
+  - GCC 12.2 release
   - PRs c++/67048, c++/106369, c/106016, d/106623, d/106638, lto/106334,
 	lto/106540, middle-end/106492, tree-optimization/106513
 - fix an if-conversion wrong-code bug (PR rtl-optimization/106590)
 - implement C++23 P2327R1 - de-deprecating volatile compound operations - as
   a DR
 
-* Wed Aug  8 2022 Jakub Jelinek <jakub@redhat.com> 12.1.1-4
+* Wed Aug 10 2022 Jakub Jelinek <jakub@redhat.com> 12.1.1-4
 - update from releases/gcc-12 branch
   - PRs analyzer/105285, analyzer/106204, analyzer/106225, c++/53164,
 	c++/96363, c++/100374, c++/105541, c++/105626, c++/105634, c++/105637,

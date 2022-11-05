@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.3.1
-Release:        4%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPLv3 or GPLv2
@@ -125,7 +125,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 # Win32
 %files -n mingw32-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw32_bindir}/qml-qt6.exe
 %{mingw32_bindir}/qmleasing-qt6.exe
 %{mingw32_bindir}/qmlpreview-qt6.exe
@@ -137,6 +137,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_bindir}/Qt6LabsSharedImage.dll
 %{mingw32_bindir}/Qt6LabsWavefrontMesh.dll
 %{mingw32_bindir}/Qt6Qml.dll
+%{mingw32_bindir}/Qt6QmlCompiler.dll
 %{mingw32_bindir}/Qt6QmlCore.dll
 %{mingw32_bindir}/Qt6QmlLocalStorage.dll
 %{mingw32_bindir}/Qt6QmlModels.dll
@@ -168,7 +169,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_includedir}/qt6/QtQmlDebug/
 %{mingw32_includedir}/qt6/QtQmlDom/
 %{mingw32_includedir}/qt6/QtQmlIntegration/
-%{mingw32_includedir}/qt6/QtQmlLint/
 %{mingw32_includedir}/qt6/QtQmlLocalStorage/
 %{mingw32_includedir}/qt6/QtQmlModels/
 %{mingw32_includedir}/qt6/QtQmlWorkerScript/
@@ -195,7 +195,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/cmake/Qt6LabsSettings/
 %{mingw32_libdir}/cmake/Qt6LabsSharedImage/
 %{mingw32_libdir}/cmake/Qt6LabsWavefrontMesh/
-%{mingw32_libdir}/cmake/Qt6QmlLintPrivate/
 %{mingw32_libdir}/cmake/Qt6PacketProtocolPrivate/
 %{mingw32_libdir}/cmake/Qt6Qml/
 %{mingw32_libdir}/cmake/Qt6QmlCompilerPrivate/
@@ -253,12 +252,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/libQt6LabsSharedImage.dll.a
 %{mingw32_libdir}/libQt6LabsWavefrontMesh.dll.a
 %{mingw32_libdir}/libQt6PacketProtocol.a
-%{mingw32_libdir}/libQt6QmlCompiler.a
 %{mingw32_libdir}/libQt6QmlDebug.a
 %{mingw32_libdir}/libQt6Qml.dll.a
+%{mingw32_libdir}/libQt6QmlCompiler.dll.a
 %{mingw32_libdir}/libQt6QmlCore.dll.a
 %{mingw32_libdir}/libQt6QmlDom.a
-%{mingw32_libdir}/libQt6QmlLint.a
 %{mingw32_libdir}/libQt6QmlLocalStorage.dll.a
 %{mingw32_libdir}/libQt6QmlModels.dll.a
 %{mingw32_libdir}/libQt6QmlWorkerScript.dll.a
@@ -289,7 +287,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/metatypes/qt6qmlcore_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6qmldebugprivate_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6qmldomprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/metatypes/qt6qmllintprivate_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6qmllocalstorage_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6qml_relwithdebinfo_metatypes.json
@@ -320,7 +317,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/Qt6QmlCore.prl
 %{mingw32_libdir}/Qt6QmlDebug.prl
 %{mingw32_libdir}/Qt6QmlDom.prl
-%{mingw32_libdir}/Qt6QmlLint.prl
 %{mingw32_libdir}/Qt6QmlLocalStorage.prl
 %{mingw32_libdir}/Qt6QmlModels.prl
 %{mingw32_libdir}/Qt6Qml.prl
@@ -342,6 +338,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/Qt6QuickWidgets.prl
 
 %{mingw32_libdir}/Qt6PacketProtocol.prl
+%{mingw32_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labsfolderlistmodel.pri
@@ -362,7 +359,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration_private.pri
-%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllint_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlmodels.pri
@@ -398,17 +394,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets_private.pri
 
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_debugger.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_inspector.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_local.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_messages.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_nativedebugger.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_native.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_preview.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_profiler.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_quickprofiler.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_server.dll
-%{mingw32_libdir}/qt6/plugins/qmltooling/qmldbg_tcp.dll
+%{mingw32_libdir}/qt6/plugins/qmllint/
+%{mingw32_libdir}/qt6/plugins/qmltooling/
 
 %dir %{mingw32_libdir}/qt6/qml/
 %{mingw32_libdir}/qt6/qml/builtins.qmltypes
@@ -440,7 +427,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_datadir}/qt6/modules/QmlDebugPrivate.json
 %{mingw32_datadir}/qt6/modules/QmlDomPrivate.json
 %{mingw32_datadir}/qt6/modules/QmlIntegration.json
-%{mingw32_datadir}/qt6/modules/QmlLintPrivate.json
 %{mingw32_datadir}/qt6/modules/QmlLocalStorage.json
 %{mingw32_datadir}/qt6/modules/QmlModels.json
 %{mingw32_datadir}/qt6/modules/QmlWorkerScript.json
@@ -463,7 +449,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw64_bindir}/qml-qt6.exe
 %{mingw64_bindir}/qmleasing-qt6.exe
 %{mingw64_bindir}/qmlpreview-qt6.exe
@@ -475,6 +461,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_bindir}/Qt6LabsSharedImage.dll
 %{mingw64_bindir}/Qt6LabsWavefrontMesh.dll
 %{mingw64_bindir}/Qt6Qml.dll
+%{mingw64_bindir}/Qt6QmlCompiler.dll
 %{mingw64_bindir}/Qt6QmlCore.dll
 %{mingw64_bindir}/Qt6QmlLocalStorage.dll
 %{mingw64_bindir}/Qt6QmlModels.dll
@@ -506,7 +493,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_includedir}/qt6/QtQmlDebug/
 %{mingw64_includedir}/qt6/QtQmlDom/
 %{mingw64_includedir}/qt6/QtQmlIntegration/
-%{mingw64_includedir}/qt6/QtQmlLint/
 %{mingw64_includedir}/qt6/QtQmlLocalStorage/
 %{mingw64_includedir}/qt6/QtQmlModels/
 %{mingw64_includedir}/qt6/QtQmlWorkerScript/
@@ -533,7 +519,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/cmake/Qt6LabsSettings/
 %{mingw64_libdir}/cmake/Qt6LabsSharedImage/
 %{mingw64_libdir}/cmake/Qt6LabsWavefrontMesh/
-%{mingw64_libdir}/cmake/Qt6QmlLintPrivate/
 %{mingw64_libdir}/cmake/Qt6PacketProtocolPrivate/
 %{mingw64_libdir}/cmake/Qt6Qml/
 %{mingw64_libdir}/cmake/Qt6QmlCompilerPrivate/
@@ -591,12 +576,11 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/libQt6LabsSharedImage.dll.a
 %{mingw64_libdir}/libQt6LabsWavefrontMesh.dll.a
 %{mingw64_libdir}/libQt6PacketProtocol.a
-%{mingw64_libdir}/libQt6QmlCompiler.a
 %{mingw64_libdir}/libQt6QmlDebug.a
 %{mingw64_libdir}/libQt6Qml.dll.a
+%{mingw64_libdir}/libQt6QmlCompiler.dll.a
 %{mingw64_libdir}/libQt6QmlCore.dll.a
 %{mingw64_libdir}/libQt6QmlDom.a
-%{mingw64_libdir}/libQt6QmlLint.a
 %{mingw64_libdir}/libQt6QmlLocalStorage.dll.a
 %{mingw64_libdir}/libQt6QmlModels.dll.a
 %{mingw64_libdir}/libQt6QmlWorkerScript.dll.a
@@ -627,7 +611,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/metatypes/qt6qmlcore_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6qmldebugprivate_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6qmldomprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/metatypes/qt6qmllintprivate_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6qmllocalstorage_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6qml_relwithdebinfo_metatypes.json
@@ -658,7 +641,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/Qt6QmlCore.prl
 %{mingw64_libdir}/Qt6QmlDebug.prl
 %{mingw64_libdir}/Qt6QmlDom.prl
-%{mingw64_libdir}/Qt6QmlLint.prl
 %{mingw64_libdir}/Qt6QmlLocalStorage.prl
 %{mingw64_libdir}/Qt6QmlModels.prl
 %{mingw64_libdir}/Qt6Qml.prl
@@ -680,6 +662,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/Qt6QuickWidgets.prl
 
 %{mingw64_libdir}/Qt6PacketProtocol.prl
+%{mingw64_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsanimation_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labsfolderlistmodel.pri
@@ -700,7 +683,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration_private.pri
-%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllint_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlmodels.pri
@@ -736,17 +718,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickwidgets_private.pri
 
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_debugger.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_inspector.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_local.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_messages.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_nativedebugger.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_native.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_preview.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_profiler.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_quickprofiler.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_server.dll
-%{mingw64_libdir}/qt6/plugins/qmltooling/qmldbg_tcp.dll
+%{mingw64_libdir}/qt6/plugins/qmllint/
+%{mingw64_libdir}/qt6/plugins/qmltooling/
 
 %dir %{mingw64_libdir}/qt6/qml/
 %{mingw64_libdir}/qt6/qml/builtins.qmltypes
@@ -778,7 +751,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_datadir}/qt6/modules/QmlDebugPrivate.json
 %{mingw64_datadir}/qt6/modules/QmlDomPrivate.json
 %{mingw64_datadir}/qt6/modules/QmlIntegration.json
-%{mingw64_datadir}/qt6/modules/QmlLintPrivate.json
 %{mingw64_datadir}/qt6/modules/QmlLocalStorage.json
 %{mingw64_datadir}/qt6/modules/QmlModels.json
 %{mingw64_datadir}/qt6/modules/QmlWorkerScript.json

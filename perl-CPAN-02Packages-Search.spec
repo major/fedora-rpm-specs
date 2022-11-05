@@ -1,8 +1,8 @@
 Name:           perl-CPAN-02Packages-Search
-Version:        0.001
-Release:        6%{?dist}
+Version:        0.002
+Release:        1%{?dist}
 Summary:        Search Perl modules in 02packages.details.txt
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-02Packages-Search
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/CPAN-02Packages-Search-%{version}.tar.gz
 BuildArch:      noarch
@@ -54,6 +54,7 @@ perl Build.PL --installdirs=vendor
 
 %install
 ./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -62,8 +63,6 @@ cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
-# Correct permissions
-%{_fixperms} %{buildroot}/*
 
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
@@ -71,14 +70,17 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 %files
 %license LICENSE
-%doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes
+%{perl_vendorlib}/CPAN
+%{_mandir}/man3/CPAN::02Packages::Search.3pm.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 03 2022 Petr Pisar <ppisar@redhat.com> - 0.002-1
+- 0.002 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,10 @@
 %undefine _package_note_flags
 
+%global forgeurl https://github.com/coccinelle/coccinelle
+%global tag 1.1.1
+Version:       1.1.1
+%forgemeta
+
 # Build the documentation on Fedora only.
 %if 0%{?rhel}
 %bcond_with doc
@@ -8,20 +13,18 @@
 %endif
 
 Name:           coccinelle
-Version:        1.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPLv2
 
 URL:            https://coccinelle.gitlabpages.inria.fr/website/
-Source0:        https://github.com/coccinelle/coccinelle/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{forgesource}
 
 # Used for running Python tests.
 Source1:        test.c
 Source2:        testpy.cocci
 
-BuildRequires:  git
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  python3-devel
@@ -132,7 +135,7 @@ The %{name}-examples package contains examples for %{name}.
 
 
 %prep
-%autosetup -n %{name}-%{version} -S git
+%forgeautosetup
 
 # Replace /usr/bin/env shebang with /usr/bin/python3
 sed -i '1s_^#!/usr/bin/env python$_#!/usr/bin/python3_' tools/pycocci
@@ -279,6 +282,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Thu Nov 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-14
+- Switch to using forge macros
+
 * Mon Aug  1 2022 Jerry James <loganjerry@gmail.com> - 1.1.1-13
 - Rebuild for ocaml-pyml fixed for python 3.11
 

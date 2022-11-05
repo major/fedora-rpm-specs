@@ -1,12 +1,12 @@
-%global lit_version 15.0.0
+%global lit_version 15.0.1
 #global rc_ver 1
-%global post_ver 0
+#global post_ver 0
 
 %bcond_without check
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -57,6 +57,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Thu Nov 03 2022 Nikita Popov <npopov@redhat.com> - 15.0.1-1
+- Update to lit 15.0.1
+
 * Fri Oct 21 2022 Serge Guelton <serge.guelton@telecom-bretagne.eu> - 15.0.0-2
 - Add python3-psutil recommends to avoid runtime warning
 

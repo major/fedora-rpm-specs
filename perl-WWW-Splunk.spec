@@ -1,12 +1,13 @@
 Name:           perl-WWW-Splunk
 Version:        2.08
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Client for Splunk log search engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Splunk
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKIM/WWW-Splunk-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  findutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
@@ -29,24 +30,41 @@ WWW::Splunk is a client for Splunk log search engine. It consists of a utility
 with command-line interface, sc, and a supporting library. It lets you query
 the archived logs or conduct a real-time search.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n WWW-Splunk-%{version}
-
+# Help generators to recognize Perl scripts
+for F in $(find . -type f -name *.t); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 %{__perl} Build.PL installdirs=vendor
 ./Build
 
-
 %install
 ./Build install destdir=%{buildroot} create_packlist=0
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -r -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
-
 
 %check
 ./Build test
-
 
 %files
 %license LICENSE
@@ -56,8 +74,14 @@ the archived logs or conduct a real-time search.
 %{_mandir}/man1/*
 %{_bindir}/sc
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.08-17
+- Package tests
+- Update license format to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

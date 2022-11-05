@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.33.1
-Release:        3%{?dist}
+Version:        2.2.34
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -14,6 +14,8 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
+#backport python3.11 fix
+Patch1:         https://github.com/GNS3/gns3-server/commit/2d74d1ad94fa3ae48651778a89918524c7910dfb.patch
 
 BuildArch:      noarch
 
@@ -132,6 +134,10 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Nov 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.2.34-1
+- Update to 2.2.34
+- backport python3.11 fix - rhbz#2134944
+
 * Thu Jul 21 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.2.33.1-3
 - Drop busybox at build time
 

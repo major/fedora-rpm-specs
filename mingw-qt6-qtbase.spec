@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.3.1
-Release:        4%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -40,9 +40,6 @@ Patch1:         qtbase-readlink.patch
 # Include toolchain file automatically if it exists
 # Rather than having to specify -DCMAKE_TOOLCHAIN_FILE="$toolchain_path" manually when invoking cmake...
 Patch2:         qtbase-include-toolchain.patch
-
-# Upstream patches
-Patch50:        rhi-d3d11-fail-early-with-broken-device.patch
 
 
 BuildRequires:  cmake
@@ -212,7 +209,8 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 # Win32
 %files -n mingw32-qt6-qtbase
-%license LICENSE.LGPL*
+%license LICENSES/GPL*
+%license LICENSES/LGPL*
 %{mingw32_bindir}/Qt6Concurrent.dll
 %{mingw32_bindir}/Qt6Core.dll
 %{mingw32_bindir}/Qt6DBus.dll
@@ -344,7 +342,8 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 # Win64
 %files -n mingw64-qt6-qtbase
-%license LICENSE.LGPL*
+%license LICENSES/GPL*
+%license LICENSES/LGPL*
 %{mingw64_bindir}/Qt6Concurrent.dll
 %{mingw64_bindir}/Qt6Core.dll
 %{mingw64_bindir}/Qt6DBus.dll
@@ -475,6 +474,9 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 
 %changelog
+* Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Mon Aug 08 2022 Jan Grulich <jgrulich@redhat.com> - 6.3.1-4
 - Backport upstream fix needed for Fedora MediaWriter on Windows
 

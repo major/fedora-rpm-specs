@@ -13,11 +13,11 @@
 # checking whether gfortran and gcc agree on double complex...
 # configure: WARNING: gfortran and gcc disagree on double complex
 # AND that leads to Fortran complex functions are not available on this platform
-%bcond_with lto
+%bcond_with LTO
 
 # We need at least gcc 10 anyway
 %global with_lto 1
-%if %{without lto} || 0%{?rhel} < 9
+%if %{without LTO} || 0%{?rhel} < 9
 %global with_lto 0
 %global _lto_cflags %nil
 %endif

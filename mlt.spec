@@ -20,8 +20,8 @@
 #global gver .%%{gitdate}git%%{shortcommit}
 
 Name:           mlt
-Version:        7.8.0
-Release:        3%{?dist}
+Version:        7.10.0
+Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -68,6 +68,7 @@ BuildRequires:  vid.stab-devel
 BuildRequires:  movit-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  libebur128-devel
+BuildRequires:  rubberband-devel
 %if %{with freeworld}
 BuildRequires:  ffmpeg-devel
 BuildRequires:  xine-lib-devel
@@ -229,7 +230,6 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %files php
 %config(noreplace) %{_sysconfdir}/php.d/mlt.ini
 %{php_extdir}/mlt.so
-%{_libdir}/php/modules/mlt.php
 %endif
 
 %files devel
@@ -242,6 +242,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Fri Nov 04 2022 Sérgio Basto <sergio@serjux.com> - 7.10.0-1
+- Update mlt to 7.10.0 (#2137811 2139196)
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 7.8.0-3
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

@@ -37,7 +37,7 @@ File Format, as described here:
 https://aomediacodec.github.io/av1-avif/
 
 %package devel
-Summary:        Development files for libavif~
+Summary:        Development files for libavif
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel

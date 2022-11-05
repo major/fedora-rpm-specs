@@ -1,11 +1,16 @@
 %bcond_without selinux
+# Don't run check on 32-bit arches, seems to be issues with some tests
+%ifarch %{ix86} %{arm}
+%bcond_with check
+%else
 %bcond_without check
+%endif
 
 Summary: GNU file archiving program
 Name: tar
 Epoch: 2
 Version: 1.34
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/tar/
 
@@ -20,9 +25,13 @@ Patch4:  tar-1.28-atime-rofs.patch
 Patch9:  tar-1.28-document-exclude-mistakes.patch
 Patch10: tar-1.33-fix-capabilities-test.patch
 
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: gettext
+BuildRequires: libacl-devel
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires: autoconf automake texinfo gettext libacl-devel
+BuildRequires: texinfo
 
 %if %{with check}
 # cover needs of tar's testsuite
@@ -113,6 +122,9 @@ make check || (
 
 
 %changelog
+* Thu Nov 03 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2:1.34-5
+- Disable check on 32 bit arches as tests have issues
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.34-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

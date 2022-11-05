@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.63.0
-%global bootstrap_channel 1.63.0
-%global bootstrap_date 2022-08-11
+%global bootstrap_version 1.64.0
+%global bootstrap_channel 1.64.0
+%global bootstrap_date 2022-09-22
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -35,9 +35,9 @@
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 # (updated per https://github.com/rust-lang/rust/pull/96907)
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_commit 9886d3d6200fcc3726329966860fc058707406cd
-%global wasi_libc_name wasi-libc-%{wasi_libc_commit}
-%global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_commit}/%{wasi_libc_name}.tar.gz
+%global wasi_libc_ref wasi-sdk-16
+%global wasi_libc_name wasi-libc-%{wasi_libc_ref}
+%global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
 
 # Using llvm-static may be helpful as an opt-in, e.g. to aid LLVM rebases.
@@ -45,15 +45,15 @@
 
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 12.0+.
-%global min_llvm_version 12.0.0
-%global bundled_llvm_version 14.0.6
+%global min_llvm_version 13.0.0
+%global bundled_llvm_version 15.0.0
 %bcond_with bundled_llvm
 
-# Requires stable libgit2 1.4, and not the next minor soname change.
+# Requires stable libgit2 1.5, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.4.0
-%global next_libgit2_version 1.5.0~
-%global bundled_libgit2_version 1.4.2
+%global min_libgit2_version 1.5.0
+%global next_libgit2_version 1.6.0~
+%global bundled_libgit2_version 1.5.0
 %if 0%{?fedora} >= 99
 %bcond_with bundled_libgit2
 %else
@@ -83,7 +83,7 @@
 %endif
 
 Name:           rust
-Version:        1.64.0
+Version:        1.65.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
@@ -109,21 +109,24 @@ Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
 # https://github.com/rust-lang/rust/pull/102076
 Patch3:         0001-rustc_transmute-fix-big-endian-discriminants.patch
 
+# https://github.com/rust-lang/rust/pull/103072
+Patch4:         0001-compiletest-set-the-dylib-path-when-gathering-target.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
 Source100:      macros.rust-toolset
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.59.0-disable-libssh2.patch
+Patch100:       rustc-1.65.0-disable-libssh2.patch
 
 # libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
 # will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.63.0-disable-http2.patch
+Patch101:       rustc-1.65.0-disable-http2.patch
 
 # kernel rh1410097 causes too-small stacks for PIE.
 # (affects RHEL6 kernels when building for RHEL7)
-Patch102:       rustc-1.64.0-no-default-pie.patch
+Patch102:       rustc-1.65.0-no-default-pie.patch
 
 
 # Get the Rust triple for any arch.
@@ -440,6 +443,12 @@ Summary:        Documentation for Rust
 # Koji will fail the build in rpmdiff if two architectures build a noarch
 # subpackage differently, so instead we have to keep its arch.
 
+# Cargo no longer builds its own documentation
+# https://github.com/rust-lang/cargo/pull/4904
+# We used to keep a shim cargo-doc package, but now that's merged too.
+Obsoletes:      cargo-doc < 1.65.0~
+Provides:       cargo-doc = %{version}-%{release}
+
 %description doc
 This package includes HTML documentation for the Rust programming language and
 its standard library.
@@ -465,17 +474,6 @@ Cargo is a tool that allows Rust projects to declare their various dependencies
 and ensure that you'll always get a repeatable build.
 
 
-%package -n cargo-doc
-Summary:        Documentation for Cargo
-BuildArch:      noarch
-# Cargo no longer builds its own documentation
-# https://github.com/rust-lang/cargo/pull/4904
-Requires:       %{name}-doc = %{version}-%{release}
-
-%description -n cargo-doc
-This package includes HTML documentation for Cargo.
-
-
 %package -n rustfmt
 Summary:        Tool to find and fix Rust formatting issues
 Requires:       cargo
@@ -488,28 +486,21 @@ Provides:       rustfmt-preview = %{version}-%{release}
 A tool for formatting Rust code according to style guidelines.
 
 
-%package -n rls
-Summary:        Rust Language Server for IDE integration (deprecated)
-%if %with bundled_libgit2
-Provides:       bundled(libgit2) = %{bundled_libgit2_version}
-%endif
-Requires:       %{name}-analysis
-# /usr/bin/rls is dynamically linked against internal rustc libs
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-# The component/package was rls-preview until Rust 1.31.
-Obsoletes:      rls-preview < 1.31.6
-Provides:       rls-preview = %{version}-%{release}
-
-%description -n rls
-The Rust Language Server provides a server that runs in the background,
-providing IDEs, editors, and other tools with information about Rust programs.
-RLS is being deprecated in favor of rust-analyzer, and may be removed in the future.
-https://blog.rust-lang.org/2022/07/01/RLS-deprecation.html
-
-
 %package analyzer
 Summary:        Rust implementation of the Language Server Protocol
+
+# The standard library sources are needed for most functionality.
+%if 0%{?rhel} && 0%{?rhel} < 8
+Requires:       %{name}-src
+%else
+Recommends:     %{name}-src
+%endif
+
+# RLS is no longer available as of Rust 1.65, but we're including the stub
+# binary that implements LSP just enough to recommend rust-analyzer.
+Obsoletes:      rls < 1.65.0~
+# The component/package was rls-preview until Rust 1.31.
+Obsoletes:      rls-preview < 1.31.6
 
 %description analyzer
 rust-analyzer is an implementation of Language Server Protocol for the Rust
@@ -534,6 +525,11 @@ A collection of lints to catch common mistakes and improve your Rust code.
 %package src
 Summary:        Sources for the Rust standard library
 BuildArch:      noarch
+%if 0%{?rhel} && 0%{?rhel} < 8
+Requires:       %{name}-std-static = %{version}-%{release}
+%else
+Supplements:    %{name}-std-static = %{version}-%{release}
+%endif
 
 %description src
 This package includes source files for the Rust standard library.  It may be
@@ -542,7 +538,11 @@ useful as a reference for code completion tools in various editors.
 
 %package analysis
 Summary:        Compiler analysis data for the Rust standard library
+%if 0%{?rhel} && 0%{?rhel} < 8
 Requires:       %{name}-std-static%{?_isa} = %{version}-%{release}
+%else
+Supplements:    %{name}-std-static%{?_isa} = %{version}-%{release}
+%endif
 
 %description analysis
 This package contains analysis data files produced with rustc's -Zsave-analysis
@@ -587,6 +587,7 @@ test -f '%{local_rust_root}/bin/rustc'
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %if %with disabled_libssh2
 %patch100 -p1
@@ -671,7 +672,7 @@ find -name '*.rs' -type f -perm /111 -exec chmod -v -x '{}' '+'
 %build
 %{export_rust_env}
 
-%ifarch %{arm} %{ix86} s390x
+%ifarch %{arm} %{ix86}
 # full debuginfo is exhausting memory; just do libstd for now
 # https://github.com/rust-lang/rust/issues/45854
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -748,6 +749,10 @@ end}
   --disable-rpath \
   %{enable_debuginfo} \
   --set rust.codegen-units-std=1 \
+  --set build.build-stage=2 \
+  --set build.doc-stage=2 \
+  --set build.install-stage=2 \
+  --set build.test-stage=2 \
   --enable-extended \
   --tools=analysis,cargo,clippy,rls,rust-analyzer,rustfmt,src \
   --enable-vendor \
@@ -756,11 +761,11 @@ end}
   --release-channel=%{channel} \
   --release-description="%{?fedora:Fedora }%{?rhel:Red Hat }%{version}-%{release}"
 
-%{__python3} ./x.py build -j "$ncpus" --stage 2
-%{__python3} ./x.py doc --stage 2
+%{__python3} ./x.py build -j "$ncpus"
+%{__python3} ./x.py doc
 
 for triple in %{?mingw_targets} %{?wasm_targets}; do
-  %{__python3} ./x.py build --stage 2 --target=$triple std
+  %{__python3} ./x.py build --target=$triple std
 done
 
 %install
@@ -771,6 +776,9 @@ DESTDIR=%{buildroot} %{__python3} ./x.py install
 for triple in %{?mingw_targets} %{?wasm_targets}; do
   DESTDIR=%{buildroot} %{__python3} ./x.py install --target=$triple std
 done
+
+# The rls stub doesn't have an install target, but we can just copy it.
+%{__install} -t %{buildroot}%{_bindir} build/%{rust_triple}/stage2-tools-bin/rls
 
 # These are transient files used by x.py dist and install
 rm -rf ./build/dist/ ./build/tmp/
@@ -865,20 +873,17 @@ done
 
 # The results are not stable on koji, so mask errors and just log it.
 # Some of the larger test artifacts are manually cleaned to save space.
-%{__python3} ./x.py test --no-fail-fast --stage 2 || :
+%{__python3} ./x.py test --no-fail-fast || :
 rm -rf "./build/%{rust_triple}/test/"
 
-%{__python3} ./x.py test --no-fail-fast --stage 2 cargo || :
+%{__python3} ./x.py test --no-fail-fast cargo || :
 rm -rf "./build/%{rust_triple}/stage2-tools/%{rust_triple}/cit/"
 
-%{__python3} ./x.py test --no-fail-fast --stage 2 clippy || :
+%{__python3} ./x.py test --no-fail-fast clippy || :
 
-env RLS_TEST_WAIT_FOR_AGES=1 \
-%{__python3} ./x.py test --no-fail-fast --stage 2 rls || :
+%{__python3} ./x.py test --no-fail-fast rust-analyzer || :
 
-%{__python3} ./x.py test --no-fail-fast --stage 2 rust-analyzer || :
-
-%{__python3} ./x.py test --no-fail-fast --stage 2 rustfmt || :
+%{__python3} ./x.py test --no-fail-fast rustfmt || :
 
 
 %ldconfig_scriptlets
@@ -992,10 +997,14 @@ end}
 %{_docdir}/%{name}/html/*.woff2
 %license %{_docdir}/%{name}/html/*.txt
 %license %{_docdir}/%{name}/html/*.md
+# former cargo-doc
+%docdir %{_docdir}/cargo
+%dir %{_docdir}/cargo
+%{_docdir}/cargo/html
 
 
 %files -n cargo
-%license src/tools/cargo/LICENSE-APACHE src/tools/cargo/LICENSE-MIT src/tools/cargo/LICENSE-THIRD-PARTY
+%license src/tools/cargo/LICENSE-{APACHE,MIT,THIRD-PARTY}
 %doc src/tools/cargo/README.md
 %{_bindir}/cargo
 %{_libexecdir}/cargo*
@@ -1006,12 +1015,6 @@ end}
 %dir %{_datadir}/cargo/registry
 
 
-%files -n cargo-doc
-%docdir %{_docdir}/cargo
-%dir %{_docdir}/cargo
-%{_docdir}/cargo/html
-
-
 %files -n rustfmt
 %{_bindir}/rustfmt
 %{_bindir}/cargo-fmt
@@ -1019,13 +1022,8 @@ end}
 %license src/tools/rustfmt/LICENSE-{APACHE,MIT}
 
 
-%files -n rls
-%{_bindir}/rls
-%doc src/tools/rls/{README.md,COPYRIGHT,debugging.md}
-%license src/tools/rls/LICENSE-{APACHE,MIT}
-
-
 %files analyzer
+%{_bindir}/rls
 %{_bindir}/rust-analyzer
 %doc src/tools/rust-analyzer/README.md
 %license src/tools/rust-analyzer/LICENSE-{APACHE,MIT}
@@ -1054,6 +1052,10 @@ end}
 
 
 %changelog
+* Thu Nov 03 2022 Josh Stone <jistone@redhat.com> - 1.65.0-1
+- Update to 1.65.0.
+- rust-analyzer now obsoletes rls.
+
 * Thu Sep 22 2022 Josh Stone <jistone@redhat.com> - 1.64.0-1
 - Update to 1.64.0.
 - Add rust-analyzer.

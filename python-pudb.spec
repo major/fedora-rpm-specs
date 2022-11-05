@@ -1,13 +1,12 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2022.1.2
-Release:       2%{?dist}
+Version:       2022.1.3
+Release:       1%{?dist}
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
 URL:           https://github.com/inducer/pudb
 Source0:       %{pypi_source}
-Patch:         https://github.com/inducer/pudb/pull/535.patch
 
 BuildArch:     noarch
 BuildRequires: python3-devel
@@ -52,9 +51,13 @@ sed -i '1{\@^#! /usr/bin/env python@d}' pudb/debugger.py
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{_bindir}/pudb3
+%{_bindir}/pudb
 
 %changelog
+* Thu Nov 03 2022 Lumír Balhar <lbalhar@redhat.com> - 2022.1.3-1
+- Update to 2022.1.3
+Resolves: rhbz#2139902
+
 * Sun Aug 14 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 2022.1.2-2
 - Cleaned up specfile
 

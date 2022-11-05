@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/termwiz
 Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          termwiz-fix-metadata-auto.diff
+# Backport of 7b904f05eb4de9ed44d2068355a571b117eba0e1
+Patch:          termwiz-fixup-32-bit-systems.patch
 
 ExclusiveArch:  %{rust_arches}
 

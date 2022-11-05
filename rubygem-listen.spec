@@ -2,15 +2,18 @@
 %global gem_name listen
 
 Name: rubygem-%{gem_name}
-Version: 3.7.0
-Release: 3%{?dist}
+Version: 3.7.1
+Release: 1%{?dist}
 Summary: Listen to file modifications
 License: MIT
 URL: https://github.com/guard/listen
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/guard/listen.git --no-checkout
-# cd listen && git archive -v -o rubygem-listen-3.7.0-spec.txz v3.7.0 spec
+# cd listen && git archive -v -o rubygem-listen-3.7.1-spec.txz v3.7.1 spec
 Source1: rubygem-listen-%{version}-spec.txz
+# Fix kwargs matching compatibility with RSpec 3.12+.
+# https://github.com/guard/listen/pull/564
+Patch0: rubygem-listen-3.7.1-Fix-kwargs-matching-with-rspec-mock-3.12-and-Ruby-3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -36,10 +39,11 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 pushd %{_builddir}
+%patch0 -p1
 popd
 
 # Remove the hardcoded dependencies. We don't have them in Fedora
-# (except rb-inotify), they are platform specifis and not needed.
+# (except rb-inotify), they are platform specific and not needed.
 # https://github.com/guard/listen/pull/54
 %gemspec_remove_dep -g rb-fsevent [">= 0.10.3", "~> 0.10"]
 sed -i '/def self.usable?$/a         return false' lib/listen/adapter/darwin.rb
@@ -92,6 +96,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 03 2022 Vít Ondruch <vondruch@redhat.com> - 3.7.1-1
+- Update to Listen 3.7.1.
+  Resolves: rhbz#2040523
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

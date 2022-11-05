@@ -121,7 +121,7 @@ m     stapdev  stapdev
 
 
 Name: systemtap
-Version: 4.8~pre16650659g6a096a7d
+Version: 4.8
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -156,7 +156,7 @@ Release: 1%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPLv2+
 URL: http://sourceware.org/systemtap/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -235,9 +235,6 @@ BuildRequires: python3
 %if %{with_python3_probes}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-%endif
-%if %{with_specific_python}
-BuildRequires: /usr/bin/pathfix.py
 %endif
 
 %if %{with_httpd}
@@ -822,7 +819,7 @@ done
 
 %if %{with_specific_python}
 # Some files got ambiguous python shebangs, we fix them after everything else is done
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitearch} %{buildroot}%{_bindir}/*
+%py3_shebang_fix %{buildroot}%{python3_sitearch} %{buildroot}%{_bindir}/*
 %endif
 
 %pre runtime
@@ -877,7 +874,8 @@ if [ ! -f ~stap-server/.systemtap/rc ]; then
   numcpu=`/usr/bin/getconf _NPROCESSORS_ONLN`
   if [ -z "$numcpu" -o "$numcpu" -lt 1 ]; then numcpu=1; fi
   nproc=`expr $numcpu \* 30`
-  echo "--rlimit-as=614400000 --rlimit-cpu=60 --rlimit-nproc=$nproc --rlimit-stack=1024000 --rlimit-fsize=51200000" > ~stap-server/.systemtap/rc
+  # PR29661 -> 4G
+  echo "--rlimit-as=4294967296 --rlimit-cpu=60 --rlimit-nproc=$nproc --rlimit-stack=1024000 --rlimit-fsize=51200000" > ~stap-server/.systemtap/rc
   chown stap-server:stap-server ~stap-server/.systemtap/rc
 fi
 
@@ -1286,37 +1284,9 @@ exit 0
 
 # PRERELEASE
 %changelog
-* Thu Oct 06 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16650659g6a096a7d
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Aug 02 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16594741g5bdc37b9
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Tue Aug 02 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16594727g09f1b7bb
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8~pre16578235g069e109c-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.8~pre16578235g069e109c-2
-- Rebuilt for pyparsing-3.0.9
-
-* Thu Jul 14 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16578235g069e109c
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Mon Jun 20 2022 Frank Ch. Eigler <fche@redhat.com> - 4.8-16557277g2882dcc9
-- Automated weekly rawhide release
-- Applied spec changes from upstream git
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 4.7-3
-- Rebuilt for Python 3.11
-
-* Wed May 04 2022 Thomas Rodgers <trodgers@redhat.com> - 4.7-2
-- Rebuilt for Boost 1.78
+* Thu Nov 03 2022 Serhei Makarov <serhei@serhei.io> - 4.8-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
 
 * Mon May 02 2022 Frank Ch. Eigler <fche@redhat.com> - 4.7-1
 - Upstream release, see wiki page below for detailed notes.

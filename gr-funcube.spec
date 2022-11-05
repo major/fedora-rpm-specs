@@ -8,7 +8,7 @@
 Name:          gr-funcube
 URL:           https://github.com/dl1ksv/gr-funcube
 Version:       1.0.0
-Release:       17.%{git_suffix}%{?dist}
+Release:       18.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -103,6 +103,9 @@ exit 0
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.0-18.20220130gitbf71b979
+- Rebuilt due to spdlog update.
+
 * Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-17.20220130gitbf71b979
 - Rebuilt for new gnuradio
   Resolves: rhbz#2129779

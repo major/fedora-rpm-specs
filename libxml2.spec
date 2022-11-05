@@ -1,6 +1,6 @@
 Name:           libxml2
 Version:        2.10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing XML and HTML support
 
 License:        MIT
@@ -75,8 +75,14 @@ at parse time or later once the document has been modified.
 find doc -type f -executable -print -exec chmod 0644 {} ';'
 
 %build
+# see https://bugzilla.redhat.com/show_bug.cgi?id=2139546 , several
+# of these options are needed to (mostly) retain ABI compatibility
+# with earlier versions
 %configure \
     --enable-static \
+    --with-legacy \
+    --with-ftp \
+    --with-xptr-locs \
     --with-python=%{__python3}
 %make_build
 
@@ -136,6 +142,9 @@ gzip -9 -c doc/libxml2-api.xml > doc/libxml2-api.xml.gz
 %{python3_sitelib}/__pycache__/drv_libxml2.*
 
 %changelog
+* Thu Nov 03 2022 Adam Williamson <awilliam@redhat.com> - 2.10.3-2
+- Set build options to maintain (most) symbols from 2.9.14 (#2139546)
+
 * Thu Oct 20 2022 David King <amigadave@amigadave.com> - 2.10.3-1
 - Update to 2.10.3 (#2119077)
 

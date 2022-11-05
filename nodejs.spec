@@ -16,12 +16,6 @@
 %bcond_with bundled
 %endif
 
-%if 0%{?rhel} && 0%{?rhel} < 9
-%bcond_without python3_fixup
-%else
-%bcond_with python3_fixup
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} < 8
 %bcond_without bundled_zlib
 %else
@@ -35,7 +29,7 @@
 
 # Heavy-handed approach to avoiding issues with python
 # bytecompiling files in the node_modules/ directory
-%global __python %{__python3}
+%global __python %{python3}
 
 # == Master Relase ==
 # This is used by both the nodejs package and the npm subpackage that
@@ -95,7 +89,7 @@
 %global icu_version %{icu_major}.%{icu_minor}
 
 %global icudatadir %{nodejs_datadir}/icudata
-%{!?little_endian: %global little_endian %(%{__python3} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
+%{!?little_endian: %global little_endian %(%{python3} -c "import sys;print (0 if sys.byteorder=='big' else 1)")}
 # " this line just fixes syntax highlighting for vim that is confused by the above and continues literal
 
 
@@ -153,7 +147,7 @@ BuildRequires: make
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
 BuildRequires: python%{python3_pkgversion}-jinja2
-%if !%{with python3_fixup}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: python-unversioned-command
 %endif
 %if %{with bundled_zlib}
@@ -408,15 +402,9 @@ rm -rf deps/brotli
 rm -rf deps/v8/third_party/jinja2
 rm -rf tools/inspector_protocol/jinja2
 
-# Replace any instances of unversioned python' with python3
-%if %{with python3_fixup}
-pathfix.py -i %{__python3} -pn $(find -type f ! -name "*.js")
-find . -type f -exec sed -i "s~/usr\/bin\/env python~/usr/bin/python3~" {} \;
-find . -type f -exec sed -i "s~/usr\/bin\/python\W~/usr/bin/python3~" {} \;
-sed -i "s~usr\/bin\/python2~usr\/bin\/python3~" ./deps/v8/tools/gen-inlining-tests.py
-sed -i "s~usr\/bin\/python.*$~usr\/bin\/python3~" ./deps/v8/tools/mb/mb_unittest.py
-find . -type f -exec sed -i "s~python -c~python3 -c~" {} \;
-%endif
+# Replace any instances of unversioned python with python3
+pfiles=( $(grep -rl python) )
+%py3_shebang_fix ${pfiles[@]}
 
 
 %build
@@ -438,9 +426,7 @@ find . -type f -exec sed -i "s~python -c~python3 -c~" {} \;
 
 export CC='%{__cc}'
 export CXX='%{__cxx}'
-%if %{with python3_fixup}
-export NODE_GYP_FORCE_PYTHON=%{__python3}
-%endif
+export NODE_GYP_FORCE_PYTHON=%{python3}
 
 # build with debugging symbols and add defines from libuv (#892601)
 # Node's v8 breaks with GCC 6 because of incorrect usage of methods on
@@ -459,7 +445,7 @@ extra_cflags=(
 export CFLAGS="%{optflags} ${extra_cflags[*]}" CXXFLAGS="%{optflags} ${extra_cflags[*]}"
 export LDFLAGS="%{build_ldflags}"
 
-%{__python3} configure.py \
+%{python3} configure.py \
            --ninja \
            --enable-lto \
            --prefix=%{_prefix} \

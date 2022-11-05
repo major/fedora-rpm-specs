@@ -1,11 +1,11 @@
 Name:           spdlog
-Version:        1.10.0
-Release:        3%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 
 License:        MIT
 Summary:        Super fast C++ logging library
 URL:            https://github.com/gabime/%{name}
-Source0:        %{url}/archive/v%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  catch-devel >= 2.8.0
 BuildRequires:  cmake
@@ -66,6 +66,9 @@ ln -svf %{_includedir}/catch2/catch.hpp ./tests/catch.hpp
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-1
+- Updated to version 1.11.0.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

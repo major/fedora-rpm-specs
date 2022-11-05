@@ -2,7 +2,7 @@
 
 Name: libixion
 Version: 0.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A general purpose formula parser & interpreter library
 
 License: MPLv2.0
@@ -135,6 +135,9 @@ make %{?_smp_mflags} check
 %doc doc/python
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.17.0-5
+- Rebuilt due to spdlog update.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

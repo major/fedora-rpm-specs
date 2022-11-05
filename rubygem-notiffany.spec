@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.1.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Notifier library (extracted from Guard project)
 License: MIT
 URL: https://github.com/guard/notiffany
@@ -18,6 +18,9 @@ Patch0: rubygem-notiffany-0.1.1-Fix-uninitialized-constant-Notiffany-VERSION-tes
 # Fix hash argument passing for rspec-mocks >= 3.10.3.
 # https://github.com/guard/notiffany/pull/42
 Patch1: rubygem-notiffany-0.1.3-fix-rspec-mocks-compatibility.patch
+# Fix kw argument passing for rspec-mocks >= 3.12.
+# https://github.com/guard/notiffany/pull/45
+Patch2: 0001-Fix-kwargs-matching-with-rspec-mock-3.12-and-Ruby-3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -45,6 +48,7 @@ Documentation for %{name}.
 pushd %{_builddir}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 popd
 
 %build
@@ -81,6 +85,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 03 2022 Vít Ondruch <vondruch@redhat.com> - 0.1.3-9
+- Fix FTBFS due to rspec-mock 3.12 update.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

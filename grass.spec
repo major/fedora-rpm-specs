@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -19,6 +19,10 @@ Summary:	GRASS GIS - Geographic Resources Analysis Support System
 # Note that the bcond macros are named for the CLI option they create.
 # "%%bcond_without" means "ENABLE by default and create a --without option"
 %bcond_without python3
+
+# GRASS GIS addon reuses the compiler flags originating from rpmbuild environment,
+# hence disabling package-notes plugin
+%undefine _package_note_file
 
 License:	GPLv2+
 URL:		https://grass.osgeo.org
@@ -369,6 +373,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Thu Nov 03 2022 Markus Neteler <neteler@mundialis.de> - 8.2.0-6
+- fix RPM ARCH not defined for GRASS GIS addon installation (RHBZ #2138373)
+
 * Sat Sep 17 2022 Markus Neteler <neteler@mundialis.de> - 8.2.0-5
 - fix unexpected keyword argument 'codeset' (Python 3.11) for RHBZ #2126608
 

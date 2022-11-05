@@ -7,7 +7,7 @@
 %global epoch_version 1
 %global real_version 1.41.4
 %global rpm_version %{real_version}
-%global release_version 1
+%global release_version 2
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -188,7 +188,7 @@ Source5: 20-connectivity-redhat.conf
 Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
 
-#Patch1: 0001-some.patch
+Patch1: 0001-all-fix-generating-UUIDs-for-string.patch
 
 Requires(post): systemd
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -1224,6 +1224,9 @@ fi
 
 
 %changelog
+* Thu Nov  3 2022 Thomas Haller <thaller@redhat.com> - 1:1.41.4-2
+- fix generating stable UUIDs for keyfile (gitlab#1130)
+
 * Wed Nov  2 2022 Wen Liang <wenliang@redhat.com> - 1:1.41.4-1
 - Upgrade to 1.41.4 release
 

@@ -1,8 +1,8 @@
 Name:           perl-XML-Spice
 Version:        0.05
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Generating XML in Perl way
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Spice
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBN/XML-Spice-%{version}.tar.gz
 BuildArch:      noarch
@@ -32,8 +32,22 @@ Suggests:       perl(XML::Tidy::Tiny)
 XML::Spice is yet another XML generation Perl module. It tries to take some of
 the pain out of generating XML by making it more like Perl.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n XML-Spice-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor </dev/null
@@ -42,6 +56,14 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name .packlist -delete
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -53,7 +75,14 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.05-20
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.33.1
-Release:        3%{?dist}
+Version:        2.2.34
+Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Nov 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.2.34-1
+- Update to 2.2.34
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.33.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

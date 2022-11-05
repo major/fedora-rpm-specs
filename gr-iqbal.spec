@@ -8,7 +8,7 @@ Name:          gr-iqbal
 #URL:           http://cgit.osmocom.org/gr-iqbal/
 URL:           https://github.com/osmocom/gr-iqbal
 Version:       0.38.2
-Release:       17.%{git_suffix}%{?dist}
+Release:       18.%{git_suffix}%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -81,6 +81,9 @@ mv %{buildroot}%{_datadir}/doc/gr-iqbalance %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.38.2-18.20210210gitfbee239a
+- Rebuilt due to spdlog update.
+
 * Mon Sep 26 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.38.2-17.20210210gitfbee239a
 - Rebuilt for new gnuradio
   Resolves: rhbz#2129781

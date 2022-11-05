@@ -24,7 +24,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.6
+Version:        5.15.7
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
@@ -99,8 +99,8 @@ Patch18:        qt5-qtbase-link-openssl.patch
 
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.6..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
-Source100:      kde-5.15-rollup-20220920.patch.gz
+# git diff v5.15.7..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+Source100:      kde-5.15-rollup-20221031.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -812,6 +812,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-1
+- Update to 5.15.7
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-1
 - Update to 5.15.6
 

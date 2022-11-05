@@ -5,7 +5,7 @@ License:        BSD
 
 Version:        2.1.0
 %define opae_release 2
-%define patch_level 1
+%define patch_level 2
 Release:        %{opae_release}.%{patch_level}%{?dist}
 
 URL:            https://github.com/OPAE/%{name}-sdk
@@ -353,6 +353,9 @@ done
 
 
 %changelog
+* Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.1.0-2.2
+- Rebuilt due to spdlog update.
+
 * Thu Aug 18 2022 Tom Rix <trix@redat.com> - 2.1.0-2.1
 - Upstate tarball to 2.1.0-2
 

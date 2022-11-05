@@ -22,7 +22,7 @@
 Name:           libsedml
 Summary:        Library that fully supports SED-ML for SBML
 Version:        2.0.32
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML
 Source0:        https://github.com/fbergmann/libSEDML/archive/v%{version}/libSEDML-%{version}.tar.gz
@@ -56,6 +56,8 @@ Obsoletes:     R-%{octpkg} < 2:%{version}-1
 Patch0: %{name}-2.0-fix_install_libpaths.patch
 
 Patch1: %{name}-2.0-porting_to_python310.patch
+
+Patch2: %{name}-2.0-Fixes-for-swig-4.1.0-macro-definition-correction.patch
 
 %description
 C++ library that fully supports SED-ML 
@@ -185,6 +187,9 @@ sed -e 's| /usr/lib/cmake | %{_libdir}/cmake |g' -i CMakeModules/FindLIBSBML.cma
 %patch1 -p1 -b .porting_to_python310
 %endif
 %endif
+
+# Needed for SWIG 4.1.0
+%patch2 -p1 -b .fix_macro_definition
 
 %build
 ######################################################################################################
@@ -375,6 +380,9 @@ make test -C build
 %endif
 
 %changelog
+* Thu Nov 03 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2:2.0.32-4
+- Fixes for SWIG 4.1.0 macro definition correction (BZ#2127982)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.0.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

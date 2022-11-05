@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/ming1/ubdsrv
-%global commit 698c92c9d292903adae142a86d2fee10fce91850
+%global commit ca8baff898868f2ee6f5cdda9c16cf8d94435262
 # Upstream has not tagged any versions so far.
 Version:       1.0
 %forgemeta
 
 Summary:       Userspace block driver server and ublk tool
 Name:          ubdsrv
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 License:       LGPLv2+ or MIT
@@ -54,14 +54,14 @@ rm %{buildroot}%{_libdir}/*.la
 
 %files
 %license COPYING COPYING.LGPL LICENSE
-%doc README
+%doc README.rst
 %{_sbindir}/ublk
 %{_libdir}/libublksrv.so.0*
 
 
 %files devel
 %license COPYING COPYING.LGPL LICENSE
-%doc README
+%doc README.rst
 %{_includedir}/ublksrv_aio.h
 %{_includedir}/ublksrv.h
 %{_includedir}/ublk_cmd.h
@@ -70,6 +70,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Nov 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.0-2
+- Move to a newer tag (1.0-rc3 + a couple of upstream patches)
+
 * Tue Sep 27 2022 Richard W.M. Jones <rjones@redhat.com> - 1.0-1
 - New upstream version 1.0
 - Remove upstream patches

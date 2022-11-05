@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.5.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -131,6 +131,7 @@ BuildRequires: mingw32-filesystem >= 102
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-cfitsio
 BuildRequires: mingw32-curl
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-expat
 BuildRequires: mingw32-freexl
 BuildRequires: mingw32-geos
@@ -159,6 +160,7 @@ BuildRequires: mingw64-filesystem >= 102
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-cfitsio
 BuildRequires: mingw64-curl
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-expat
 BuildRequires: mingw64-freexl
 BuildRequires: mingw64-geos
@@ -561,6 +563,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 3.5.3-2
+- Re-enable java
+
 * Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 3.5.3-1
 - Update to 3.5.3
 

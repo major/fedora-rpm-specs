@@ -15,7 +15,7 @@
 Summary:  Dynamic host configuration protocol software
 Name:     dhcp
 Version:  4.4.3
-Release:  5%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
+Release:  6%{?prever:.%prever}%{?patchver:.%patchver}%{?dist}
 
 # NEVER CHANGE THE EPOCH on this package.  The previous maintainer (prior to
 # dcantrell maintaining the package) made incorrect use of the epoch and
@@ -527,6 +527,9 @@ done
 %attr(0644,root,root) %{_mandir}/man8/keama.8.gz
 
 %changelog
+* Thu Nov 03 2022 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-6.P1
+- Fix order of user and group in sysusers file
+
 * Mon Oct 31 2022 Martin Osvald <mosvald@redhat.com> - 12:4.4.3-5.P1
 - Use systemd-sysusers for dhcp user and group (rhbz#2138822)
 

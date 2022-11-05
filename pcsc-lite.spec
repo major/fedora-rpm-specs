@@ -32,7 +32,6 @@ BuildRequires:  libtool
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  flex
 
 Requires(post): systemd
@@ -103,7 +102,7 @@ done
   --enable-usbdropdir=%{_libdir}/pcsc/drivers
 %make_build
 doxygen doc/doxygen.conf ; rm -f doc/api/*.{map,md5}
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" src/spy/pcsc-spy
+%py3_shebang_fix src/spy/pcsc-spy
 
 
 %install

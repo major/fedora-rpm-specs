@@ -48,13 +48,14 @@
 
 Name:           libkolabxml
 Version:        1.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Kolab XML format collection parser library
 
 License:        LGPLv3+
 URL:            http://www.kolab.org
 
 Source0:        https://cgit.kolab.org/libkolabxml/snapshot/libkolabxml-%{version}.tar.gz
+Patch0:         libkolabxml-1.2.0-fix-for-swig4.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake >= 2.6
@@ -252,6 +253,9 @@ popd
 
 
 %changelog
+* Thu Nov 03 2022 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 1.2.0-14
+- add a patch for Swig 4.1 (bug 2137815)
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.2.0-13
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

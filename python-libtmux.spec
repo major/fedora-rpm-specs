@@ -1,7 +1,7 @@
 %global srcname libtmux
 
 Name:           python-%{srcname}
-Version:        0.15.8
+Version:        0.15.9
 Release:        %autorelease
 Summary:        Scripting library for tmux
 

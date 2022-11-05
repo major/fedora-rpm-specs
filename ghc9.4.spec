@@ -15,10 +15,6 @@
 # NB production builds should build hadrian (bcond_without)
 %bcond_without build_hadrian
 
-# Note lld should be avoided: it breaks build-id
-#   /usr/bin/debugedit: Cannot handle 8-byte build ID
-# https://bugzilla.redhat.com/show_bug.cgi?id=2116508
-
 # NB This should be enabled (bcond_without) for all production builds
 %bcond_without ghc_debuginfo
 
@@ -88,7 +84,7 @@ Version: 9.4.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -474,15 +470,18 @@ BUILD_SPHINX_PDF = NO
 EOF
 %endif
 
+
 %build
 # patch5 and patch12
 autoupdate
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
-%ifarch armv7hl
+# lld breaks build-id
+# /usr/bin/debugedit: Cannot handle 8-byte build ID
+# https://bugzilla.redhat.com/show_bug.cgi?id=2116508
+# https://gitlab.haskell.org/ghc/ghc/-/issues/22195
 export LD=%{_bindir}/ld.gold
-%endif
 
 export GHC=/usr/bin/ghc-%{ghcbootminor}
 
@@ -551,19 +550,22 @@ cd _build/bindist/ghc-%{version}-*
 ./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name}
 make install
 )
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %else
 make DESTDIR=%{buildroot} install
 %if %{defined _ghcdynlibdir}
 mv %{buildroot}%{ghclibdir}/*/libHS*ghc%{ghc_version}.so %{buildroot}%{_ghcdynlibdir}/
-for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
-  chrpath -d $i
-done
 for i in %{buildroot}%{ghclibdir}/package.conf.d/*.conf; do
   sed -i -e 's!^dynamic-library-dirs: .*!dynamic-library-dirs: %{_ghcdynlibdir}!' $i
 done
 sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynlibdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
 %endif
 %endif
+# avoid 'E: binary-or-shlib-defines-rpath'
+for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
+  chrpath -d $i
+done
 
 # containers src moved to a subdir
 cp -p libraries/containers/containers/LICENSE libraries/containers/LICENSE
@@ -623,6 +625,7 @@ fi\
 for i in %{buildroot}%{ghclibplatform}/libHSrts*ghc%{ghc_version}.so; do
 echo $i >> %{name}-base.files
 done
+echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %else
 %if %{defined _ghcdynlibdir}
 echo "%{ghclibdir}/rts" >> %{name}-base-devel.files
@@ -726,6 +729,7 @@ done
 export LANG=C.utf8
 # stolen from ghc6/debian/rules:
 %if %{with hadrian}
+export LD_LIBRARY_PATH=%{buildroot}%{ghclibplatform}:
 GHC=%{buildroot}%{ghclibdir}/bin/ghc
 %else
 GHC=inplace/bin/ghc-stage2
@@ -782,6 +786,10 @@ make test
 
 
 %if %{defined ghclibdir}
+%post base -p /sbin/ldconfig
+%postun base -p /sbin/ldconfig
+
+
 %transfiletriggerin compiler -- %{ghcliblib}/package.conf.d
 %ghc_pkg_recache
 %end
@@ -947,6 +955,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Oct 31 2022 Jens Petersen <petersen@redhat.com> - 9.4.2-11
+- add ld.conf.d file for finding shared libraries under Hadrian
+  and remove RPATHs for Hadrian builds to rid rpmlint RUNPATH errors
+- export LD to prevent configuring lld (see #2116508)
+
 * Tue Aug 23 2022 Jens Petersen <petersen@redhat.com> - 9.4.2-10
 - https://www.haskell.org/ghc/blog/20220822-ghc-9.4.2-released.html
 - https://downloads.haskell.org/~ghc/9.4.2/docs/users_guide/9.4.2-notes.html

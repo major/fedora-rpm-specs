@@ -27,6 +27,7 @@ ExclusiveArch: x86_64 aarch64
 Provides: %{reponame} = %{version}-%{release}
 Provides: bundled(blake3) = 1.2.0
 Provides: bundled(wasi-cpp-header) = 0.0.1
+Provides: wasm-library
 
 %description
 High performance WebAssembly Virtual Machine

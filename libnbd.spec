@@ -11,7 +11,7 @@
 %global source_directory 1.15-development
 
 Name:           libnbd
-Version:        1.15.6
+Version:        1.15.7
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -48,7 +48,7 @@ BuildRequires:  fuse3, fuse3-devel
 
 # For nbdublk
 BuildRequires:  liburing-devel >= 2.2
-BuildRequires:  ubdsrv-devel >= 1.0-1
+BuildRequires:  ubdsrv-devel >= 1.0-2
 
 # For the Python 3 bindings.
 BuildRequires:  python3-devel
@@ -346,6 +346,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Nov 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.15.7-1
+- New upstream development version 1.15.7
+
 * Thu Oct 13 2022 Richard W.M. Jones <rjones@redhat.com> - 1.15.6-1
 - New upstream development version 1.15.6
 

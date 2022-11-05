@@ -36,8 +36,8 @@
 
 Name:           octave
 Epoch:          6
-Version:        7.2.0
-Release:        2%{?dist}
+Version:        7.3.0
+Release:        1%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -451,6 +451,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Fri Nov 04 2022 Orion Poplawski <orion@nwra.com> - 6:7.3.0-1
+- Update to 7.3.0
+
 * Sun Oct 02 2022 Orion Poplawski <orion@nwra.com> - 6:7.2.0-2
 - Disable qscintilla and sundials support on EPEL9 for now (bz#2122390)
 

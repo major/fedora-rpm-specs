@@ -7,7 +7,7 @@
 # The conditional should be replaced with the line below once RHEL 9.1 is
 # released.
 # %%if (%%{defined fedora} || 0%%{?rhel} >= 9)
-#
+
 %if %{defined fedora}
 %bcond_without tests
 %else
@@ -17,7 +17,7 @@
 
 Name:           ansible-collection-community-docker
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -76,9 +76,6 @@ Patch0:         build_ignore-unnecessary-files.patch
 
 BuildArch:      noarch
 
-# Needed for %%py3_shebang_fix.
-Buildrequires:  python3-devel
-
 BuildRequires:  ansible-packaging
 %if %{with tests}
 BuildRequires:  ansible-packaging-tests
@@ -90,9 +87,9 @@ Provides:       bundled(python3dist(docker))
 
 
 %description
-%{name} provides the %{collection_namespace}.%{collection_name}
-Ansible collection. The collection includes Ansible modules and plugins for
-working with Docker.
+ansible-collection-community-docker provides the community.docker Ansible
+collection. The collection includes Ansible modules and plugins for working
+with Docker.
 
 
 %prep
@@ -115,11 +112,15 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %files -f %{ansible_collection_filelist}
-%license COPYING LICENSES
-%doc README.md CHANGELOG.rst
+%license COPYING LICENSES .reuse/dep5
+%doc README.md CHANGELOG.rst*
 
 
 %changelog
+* Thu Nov 03 2022 Maxwell G <gotmax@e.email> - 3.2.0-2
+- Remove unexpanded macros from %description
+- Handle .reuse/dep5
+
 * Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 3.2.0-1
 - Update to 3.2.0. Fixes rhbz#2139344.
 

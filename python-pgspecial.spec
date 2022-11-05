@@ -3,7 +3,7 @@ Version:        1.13.1
 Release:        %autorelease
 Summary:        Python implementation of postgres meta (backslash) commands
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.dbcli.com
 Source0:        %{pypi_source pgspecial}
 BuildArch:      noarch

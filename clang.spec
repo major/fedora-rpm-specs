@@ -5,7 +5,7 @@
 
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 0
+%global patch_ver 4
 #global rc_ver 3
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	6%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -71,10 +71,6 @@ Patch7:     0001-Mark-fopenmp-implicit-rpath-as-NoArgumentUnused.patch
 
 # TODO: Can be dropped in LLVM 16: https://reviews.llvm.org/D134362
 Patch8:     0001-clang-Fix-interaction-between-asm-labels-and-inline-.patch
-
-# Backport of https://reviews.llvm.org/D133800 to the 15.0.0 release.
-# TODO: Drop once updating to 15.0.1 or newer.
-Patch9:     0001-Clang-15.0.1-Downgrade-implicit-int-and-implicit-fun.patch
 
 %if %{without compat_build}
 # Patches for clang-tools-extra
@@ -608,6 +604,9 @@ false
 
 %endif
 %changelog
+* Thu Nov 03 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
+- Update to LLVM 15.0.4
+
 * Wed Oct 19 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-6
 - Enable ieeelongdouble for ppc64le, fix rhbz#2136099
 

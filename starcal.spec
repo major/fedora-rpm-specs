@@ -1,8 +1,8 @@
 %global pkg_name %{name}3
 
 Name:           starcal
-Version:        3.1.11
-Release:        6%{?dist}
+Version:        3.1.13
+Release:        1%{?dist}
 Summary:        A full-featured international calendar written in Python
 
 License:        GPLv3+
@@ -60,6 +60,9 @@ desktop-file-install     \
 %{_datadir}/icons/hicolor/*/apps/%{pkg_name}.png
 
 %changelog
+* Thu Nov 03 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.1.13-1
+- New upstream version, fix f37 compatibility and other fixes
+
 * Sat Aug 06 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.1.11-6
 - Mark as compatible with python 3.11
 

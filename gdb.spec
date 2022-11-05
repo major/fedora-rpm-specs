@@ -11,9 +11,6 @@
 # Turn off the brp-python-bytecompile automagic
 %global _python_bytecompile_extra 0
 
-# Disable LTO until upstream fixes GDB's ODR woes.
-%define _lto_cflags %{nil}
-
 # Only build on x86 for RHEL6 SCL, defining missing parallel make macros.
 %if 0%{?scl:1} && 0%{?el6:1}
 ExclusiveArch: %{ix86} x86_64
@@ -51,7 +48,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1189,6 +1186,10 @@ fi
 %endif
 
 %changelog
+* Thu Nov  3 2022 Keith Seitz <keiths@redhat.com> - 12.1-9
+- Add patch to fix ODR violations on powerpc and
+  enable LTO builds. (Keith Seitz, sw build/23395)
+
 * Tue Oct 18 2022 Bruno Larsen - 12.1-8
 - Backport fix to gdb.base/break-main-file-remove-fail.exp
   (Tom de Vries)
@@ -1206,7 +1207,7 @@ fi
 * Fri Oct 7 2022 Alexandra Hájková - 12.1-6
 - Update gdb-6.6-buildid-locate.patch to fix RHBZ 2122947.
 
-* Thu Jul 28 2022 Amit Shah <amitshah@fedoraproject.org> - 12.1-5
+* Thu Jul 28 2022 Amit Shah <amitshah@fedoraproject.org> 
 - Use the dist_name macro to identify the distribution
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org>

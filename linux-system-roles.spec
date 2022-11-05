@@ -3,14 +3,13 @@
 # ansible-core as a build_dep on RHEL8
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without ansible
-%global ansible_build_dep ansible-core >= 2.11.0
+%if 0%{?fedora}
+BuildRequires: ansible-packaging
 %else
-%if 0%{?rhel} && ! 0%{?epel}
-%bcond_with ansible
-%else
-%bcond_without ansible
-%global ansible_build_dep ansible >= 2.9.10
+BuildRequires: ansible-core >= 2.11.0
 %endif
+%else
+%bcond_with ansible
 %endif
 
 %bcond_with collection_artifact
@@ -31,22 +30,11 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.21.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
-#Group: Development/Libraries
 License: GPLv3+ and MIT and BSD and Python
-%global installbase %{_datadir}/linux-system-roles
 %global _pkglicensedir %{_licensedir}/%{name}
-%global rolealtprefix linux-system-roles.
-%global roleprefix %{name}.
-%global roleinstprefix %{nil}
-%global rolealtrelpath ../../linux-system-roles/
-%if 0%{?rhel}
-%global roleinstprefix %{roleprefix}
-%global installbase %{_datadir}/ansible/roles
-%global rolealtrelpath %{nil}
-%endif
-
+%global roleinstprefix %{name}.
 %if 0%{?rhel}
 %global collection_namespace redhat
 %global collection_name rhel_system_roles
@@ -58,19 +46,25 @@ License: GPLv3+ and MIT and BSD and Python
 %global collection_version %{version}
 
 # Helper macros originally from macros.ansible by Igor Raits <ignatenkobrain>
-# Not available on RHEL, so we must define those macros locally here without using ansible-galaxy
-
+# On RHEL, not available, so we must define those macros locally
+# On Fedora, provided by ansible-packager
 # Not used (yet). Could be made to point to AH in RHEL - but what about CentOS Stream?
 #%%{!?ansible_collection_url:%%define ansible_collection_url() https://galaxy.ansible.com/%%{collection_namespace}/%%{collection_name}}
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%{!?ansible_collection_files:%define ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/}
+%if 0%{?rhel}
+Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
+%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
+%define ansible_roles_dir %{_datadir}/ansible/roles
+%if %{without ansible}
+# Untar and copy everything instead of galaxy-installing the built artifact when ansible is not available
+%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .
+%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
 %else
-# Define undefined macro using "!?ansible_collection_files:..." does not work for rhel-7
-%if %{?ansible_collection_files:0}%{!?ansible_collection_files:1}
-%define ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
+%define ansible_collection_build() ansible-galaxy collection build
+%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
 %endif
 %endif
+# be compatible with the usual Fedora Provides:
+Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{collection_version}-%{release}
 
 # ansible-core is in rhel 8.6 and later - default to ansible-core, but allow
 # the use of ansible if present - we may revisit this if the automatic dependency
@@ -81,18 +75,6 @@ License: GPLv3+ and MIT and BSD and Python
 # responsible for knowing they have to install ansible
 %if 0%{?rhel} >= 8
 Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
-%endif
-
-%if %{with ansible}
-BuildRequires: %{ansible_build_dep}
-%endif
-
-%if %{without ansible}
-# We don't have ansible-galaxy.
-# Simply copy everything instead of galaxy-installing the built artifact.
-%define ansible_collection_build_install() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .; mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
-%else
-%define ansible_collection_build_install() ansible-galaxy collection build; ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
 %endif
 
 # For each role, call either defcommit() or deftag(). The other macros
@@ -228,25 +210,23 @@ Source18: %{archiveurl18}
 Source19: %{archiveurl19}
 Source20: %{archiveurl20}
 
+# Not conditionalizing sources per FPC:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/#_do_not_conditionalize_sources
+# Collections to vendor on RHEL only, Fedora has these available from RPMs
+Source801: https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz
+Source901: https://galaxy.ansible.com/download/community-general-5.8.0.tar.gz
 %if 0%{?rhel}
-# Collection tarballs from Automation Hub
-# Not used on Fedora.
-Source801: ansible-posix-1.4.0.tar.gz
-
-# Collection tarballs from Galaxy
-# Not used on Fedora.
-Source901: community-general-5.8.0.tar.gz
-
-# changelog is auto generated on Fedora
-Source996: CHANGELOG.md
+Provides: bundled(ansible-collection(ansible.posix)) = 1.4.0
+Provides: bundled(ansible-collection(community.general)) = 5.8.0
 %endif
 
-# Script to convert spec %changelog into collection CHANGELOG.md
-# only used on Fedora
+# RHEL only, changelog is auto generated on Fedora
+Source996: CHANGELOG.md
+
+# Fedora only, script to convert spec %%changelog into collection CHANGELOG.md
 Source997: spec-to-changelog-md.sh
 
-# Script to convert the collection README to Automation Hub.
-# Not used on Fedora.
+# RHEL only, script to convert the collection README from Galaxy to Automation Hub
 Source998: collection_readme.sh
 
 Patch51: network-disable-bondtests.diff
@@ -266,22 +246,9 @@ BuildRequires: highlight
 
 # Requirements for galaxy_transform.py
 BuildRequires: python3
-%if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires: %{py3_dist ruamel.yaml}
-%else
-BuildRequires: python3-ruamel-yaml
-%endif
+BuildRequires: python%{python3_pkgversion}-ruamel-yaml
 
-Obsoletes: rhel-system-roles-techpreview < 1.0-3
-
-%if %{undefined __ansible_provides}
-Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
-%endif
-# be compatible with the usual Fedora Provides:
-Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{version}-%{release}
-
-# We need to put %%description within the if block to avoid empty
-# lines showing up.
+# We must put %%description within the if block to avoid empty lines showing up.
 %if 0%{?rhel}
 %description
 Collection of Ansible roles and modules that provide a stable and
@@ -305,8 +272,10 @@ Collection artifact for %{name}. This package contains %{collection_namespace}-%
 %prep
 %setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -n %{getarchivedir 0}
 
-for file in %_sourcedir/*.tar.gz; do
-    if [[ "$file" =~ %_sourcedir/([^-]+)-([^-]+)-(.+).tar.gz ]]; then
+%if 0%{?rhel}
+# Untar vendored collection tarballs to corresponding directories
+for file in %{SOURCE801} %{SOURCE901}; do
+    if [[ "$(basename $file)" =~ ([^-]+)-([^-]+)-(.+).tar.gz ]]; then
         ns=${BASH_REMATCH[1]}
         name=${BASH_REMATCH[2]}
         ver=${BASH_REMATCH[3]}
@@ -316,6 +285,7 @@ for file in %_sourcedir/*.tar.gz; do
         popd > /dev/null
     fi
 done
+%endif
 
 declare -A ROLESTODIR=(%{rolestodir})
 for rolename in %{rolenames}; do
@@ -415,13 +385,11 @@ for module in "${!module_map[@]}"; do
   ls -alrtF $role/library/$module
   sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
 done
-%endif
 
 # Replacing "linux-system-roles.rolename" with "rhel-system-roles.rolename" in each role
-%if "%{roleprefix}" != "linux-system-roles."
 for rolename in %{rolenames}; do
     find $rolename -type f -exec \
-         sed "s/linux-system-roles[.]${rolename}\\>/%{roleprefix}${rolename}/g" -i {} \;
+         sed "s/linux-system-roles[.]${rolename}\\>/%{roleinstprefix}${rolename}/g" -i {} \;
 done
 %endif
 
@@ -490,7 +458,7 @@ done
 
 LANG=en_US.utf-8 LC_ALL=en_US.utf-8 python3 release_collection.py --galaxy-yml galaxy.yml \
     --src-path $(pwd) --dest-path $(pwd)/.collections $includes --force --no-update \
-	--src-owner %{name} --skip-git --skip-check --debug
+    --src-owner %{name} --skip-git --skip-check --debug
 
 # Remove table of contents from logging README.md
 # It is not needed for html and AH/Galaxy
@@ -515,42 +483,48 @@ cp %{SOURCE996} \
     .collections/ansible_collections/%{collection_namespace}/%{collection_name}/docs/CHANGELOG.md
 %endif
 
+# Build the collection
+pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
+%ansible_collection_build
+popd
+
 %install
-mkdir -p $RPM_BUILD_ROOT%{installbase}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/ansible/roles
+mkdir -p %{buildroot}%{ansible_roles_dir}
 
 for role in %{rolenames}; do
-    cp -pR "$role" "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role"
+    cp -pR "$role" "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role"
 done
 
-%if 0%{?rolealtprefix:1}
+%if 0%{?rhel}
+# Create symlinks for roles in /usr/share/ansible/roles/linux-system-roles.$rolename
+# That's required to make roles work with upstream naming too
 for role in %{rolenames}; do
-    ln -s    "%{rolealtrelpath}%{roleinstprefix}$role"   "$RPM_BUILD_ROOT%{_datadir}/ansible/roles/%{rolealtprefix}$role"
+    ln -s "%{name}.$role" "%{buildroot}%{ansible_roles_dir}/linux-system-roles.$role"
 done
 %endif
 
-mkdir -p $RPM_BUILD_ROOT%{_pkglicensedir}
-rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}network/examples/roles
+mkdir -p %{buildroot}%{_pkglicensedir}
+rm %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}network/examples/roles
 for role in %{rolenames}; do
-    mkdir -p "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
-    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/CHANGELOG.md" \
-       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
-    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/README.md" \
-       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+    mkdir -p "%{buildroot}%{_pkgdocdir}/$role"
+    ln -sr "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/CHANGELOG.md" \
+       "%{buildroot}%{_pkgdocdir}/$role"
+    ln -sr "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/README.md" \
+       "%{buildroot}%{_pkgdocdir}/$role"
 %if %{with html}
-    cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/README.html" \
-       "$RPM_BUILD_ROOT%{_pkgdocdir}/$role"
+    ln -sr "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/README.html" \
+       "%{buildroot}%{_pkgdocdir}/$role"
 %endif
-    if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/COPYING" ]; then
-        cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/COPYING" \
-           "$RPM_BUILD_ROOT%{_pkglicensedir}/$role.COPYING"
+    if [ -f "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/COPYING" ]; then
+        ln -sr "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/COPYING" \
+           "%{buildroot}%{_pkglicensedir}/$role.COPYING"
     fi
-    if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/LICENSE" ]; then
-        cp -p "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/LICENSE" \
-           "$RPM_BUILD_ROOT%{_pkglicensedir}/$role.LICENSE"
+    if [ -f "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/LICENSE" ]; then
+        ln -sr "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/LICENSE" \
+           "%{buildroot}%{_pkglicensedir}/$role.LICENSE"
     fi
-    if [ -d "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples" ]; then
-        for file in "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/"*.yml ; do
+    if [ -d "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples" ]; then
+        for file in "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples/"*.yml ; do
             basename=$(basename "$file" .yml)
             newname="$basename"
             if [[ "$newname" != example-* ]]; then
@@ -559,57 +533,58 @@ for role in %{rolenames}; do
             if [[ "$newname" != *-playbook ]]; then
                 newname="${newname}-playbook"
             fi
-            cp "$file" "$RPM_BUILD_ROOT%{_pkgdocdir}/$role/${newname}.yml"
+            cp "$file" "%{buildroot}%{_pkgdocdir}/$role/${newname}.yml"
             rm "$file"
         done
-        if [ -f "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory" ]; then
-            cp "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory" \
-               "$RPM_BUILD_ROOT%{_pkgdocdir}/$role/example-inventory"
-            rm "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples/inventory"
+        if [ -f "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples/inventory" ]; then
+            cp "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples/inventory" \
+               "%{buildroot}%{_pkgdocdir}/$role/example-inventory"
+            rm "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples/inventory"
         fi
         # special case for network
         # this will error if the directory is unexpectedly empty
-        rmdir "$RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}$role/examples"
+        rmdir "%{buildroot}%{ansible_roles_dir}/%{roleinstprefix}$role/examples"
     fi
 done
 
-rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/semaphore
-rm -r $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/molecule
+rm %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/semaphore
+rm -r %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/molecule
 
-rm -r $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/.[A-Za-z]*
-rm $RPM_BUILD_ROOT%{installbase}/%{roleinstprefix}*/tests/.git*
+rm -r %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/.[A-Za-z]*
+rm %{buildroot}%{ansible_roles_dir}/%{roleinstprefix}*/tests/.git*
 
 # NOTE: sshd/examples/example-root-login.yml is
 # referenced in the configuring-openssh-servers-using-the-sshd-system-role documentation module
 # must be updated if changing the file path
 
+# Install the collection
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
-%ansible_collection_build_install
+%ansible_collection_install
 popd
 
-mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection
-mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles
+mkdir -p %{buildroot}%{_pkgdocdir}/collection
+mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles
 
-cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
-   $RPM_BUILD_ROOT%{_pkgdocdir}/collection
+ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
+   %{buildroot}%{_pkgdocdir}/collection
 
 for rolename in %{rolenames}; do
   for file in CHANGELOG.md README.md; do
     if [ -f %{buildroot}%{ansible_collection_files}%{collection_name}/roles/${rolename}/$file ]; then
-      if [ ! -d $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename} ]; then
-        mkdir -p $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename}
+      if [ ! -d %{buildroot}%{_pkgdocdir}/collection/roles/${rolename} ]; then
+        mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/${rolename}
       fi
-      cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/roles/${rolename}/$file \
-        $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${rolename}
+      ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/${rolename}/$file \
+        %{buildroot}%{_pkgdocdir}/collection/roles/${rolename}
     fi
   done
 done
 
 %if %{with html}
-# converting README.md to README.html for collection in $RPM_BUILD_ROOT%{_pkgdocdir}/collection
-readmes="$RPM_BUILD_ROOT%{_pkgdocdir}/collection/README.md"
+# converting README.md to README.html for collection in %%{buildroot}%%{_pkgdocdir}/collection
+readmes="%{buildroot}%{_pkgdocdir}/collection/README.md"
 for role in %{rolenames}; do
-    readmes="${readmes} $RPM_BUILD_ROOT%{_pkgdocdir}/collection/roles/${role}/README.md"
+    readmes="${readmes} %{buildroot}%{_pkgdocdir}/collection/roles/${role}/README.md"
 done
 sh md2html.sh $readmes
 %endif
@@ -617,21 +592,21 @@ sh md2html.sh $readmes
 %if %{with collection_artifact}
 # Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
 pushd .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
-if [ -f %{collection_namespace}-%{collection_name}-%{version}.tar.gz ]; then
     mv %{collection_namespace}-%{collection_name}-%{version}.tar.gz \
-       $RPM_BUILD_ROOT%{_datadir}/ansible/collections/
-fi
+       %{buildroot}%{_datadir}/ansible/collections/
 popd
 %endif
 
-# generate the %files section in the file files_section.txt
+# Generate the %%files section in files_section.txt
+# Bulk files inclusion is not possible because roles store doc and licence
+# files together with other files
 format_item_for_files() {
     # $1 is directory or file name in buildroot
-    # $2 - if true, and item is a directory, use %dir
+    # $2 - if true, and item is a directory, use %%dir
     local item
     local files_item
-    item="$1"
-    files_item=${item##"%{buildroot}"}
+    item="$1" # full path including buildroot
+    files_item=${item##"%{buildroot}"} # path with cut buildroot to be added to %%files
     if [ -L "$item" ]; then
         echo "$files_item"
     elif [ -d "$item" ]; then
@@ -644,14 +619,14 @@ format_item_for_files() {
         fi
     elif [[ "$item" == */README.md ]] || [[ "$item" == */README.html ]] || [[ "$item" == */CHANGELOG.md ]]; then
         if [[ "$item" == */private_* ]]; then
-            # mark as regular file, not %doc
+            # mark as regular file, not %%doc
             echo "$files_item"
         else
             echo "%doc $files_item"
         fi
-    elif [[ "$item" != */COPYING* ]] && [[ "$item" != */LICENSE* ]]; then
-        # Avoid dynamically using the license macro since the license macro
-        # is replaced with the value of License directive in the older rpmbuild.
+    elif [[ "$item" == */COPYING* ]] || [[ "$item" == */LICENSE* ]]; then
+        echo "%""%""license" "$files_item"
+    else
         echo "$files_item"
     fi
 }
@@ -659,15 +634,7 @@ format_item_for_files() {
 files_section=files_section.txt
 rm -f $files_section
 touch $files_section
-%if %{without ansible}
-echo '%dir %{_datadir}/ansible' >> $files_section
-echo '%dir %{_datadir}/ansible/roles' >> $files_section
-%endif
-%if "%{installbase}" != "%{_datadir}/ansible/roles"
-echo '%dir %{installbase}' >> $files_section
-%endif
-echo '%dir %{ansible_collection_files}' >> $files_section
-echo '%dir %{ansible_collection_files}%{collection_name}' >> $files_section
+# Dynamically generate files section entries for %%{ansible_collection_files}
 find %{buildroot}%{ansible_collection_files}%{collection_name} -mindepth 1 -maxdepth 1 | \
     while read item; do
         if [[ "$item" == */roles ]]; then
@@ -683,7 +650,8 @@ find %{buildroot}%{ansible_collection_files}%{collection_name} -mindepth 1 -maxd
         fi
     done
 
-find %{buildroot}%{installbase} -mindepth 1 -maxdepth 1 | \
+# Dynamically generate files section entries for %%{ansible_roles_dir}
+find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
     while read item; do
         if [ -d "$item" ]; then
             format_item_for_files "$item" true >> $files_section
@@ -694,48 +662,23 @@ find %{buildroot}%{installbase} -mindepth 1 -maxdepth 1 | \
             format_item_for_files "$item" >> $files_section
         fi
     done
-if [ "%{installbase}" != "%{_datadir}/ansible/roles" ]; then
-    find %{buildroot}%{_datadir}/ansible/roles -mindepth 1 -maxdepth 1 | \
-        while read item; do
-            if [ -d "$item" ]; then
-                format_item_for_files "$item" true >> $files_section
-                find "$item" -mindepth 1 -maxdepth 1 | while read roles_item; do
-                    format_item_for_files "$roles_item" >> $files_section
-                done
-            else
-                format_item_for_files "$item" >> $files_section
-            fi
-        done
-fi
-# cat files_section.txt
-# done with files_section.txt generation
-
 
 %files -f files_section.txt
-%{_pkgdocdir}/*/CHANGELOG.md
-%{_pkgdocdir}/*/README.md
-%if %{with html}
-%{_pkgdocdir}/*/README.html
-%endif
-%{_pkgdocdir}/*/example-*
-%{_pkgdocdir}/collection/roles/*/CHANGELOG.md
-%{_pkgdocdir}/collection/roles/*/README.md
-%if %{with html}
-%{_pkgdocdir}/collection/roles/*/README.html
-%endif
-%license %{_pkglicensedir}/*
-%license %{installbase}/*/COPYING*
-%license %{installbase}/*/LICENSE*
-%license %{ansible_collection_files}/%{collection_name}/COPYING*
-%license %{ansible_collection_files}/%{collection_name}/LICENSE*
-%if 0%{?rhel} < 8
+%dir %{_datadir}/ansible
+%dir %{ansible_roles_dir}
+%dir %{ansible_collection_files}
+%dir %{ansible_collection_files}%{collection_name}
+%doc %{_pkgdocdir}
+%license %{_pkglicensedir}
+
+%if 0%{?rhel} && 0%{?rhel} < 8
 # Needs to list excluded files in this hardcoded style since when
 # format_item_for_files is executed, brp-python-bytecompile is not
 # executed yet.
-%exclude %{installbase}/*/*.py?
-%exclude %{installbase}/*/*/*.py?
-%exclude %{installbase}/*/*/*/*.py?
-%exclude %{installbase}/*/*/*/*/*.py?
+%exclude %{ansible_roles_dir}/*/*.py?
+%exclude %{ansible_roles_dir}/*/*/*.py?
+%exclude %{ansible_roles_dir}/*/*/*/*.py?
+%exclude %{ansible_roles_dir}/*/*/*/*/*.py?
 %exclude %{ansible_collection_files}/%{collection_name}/*/*/*.py?
 %exclude %{ansible_collection_files}/%{collection_name}/*/*/*/*.py?
 %exclude %{ansible_collection_files}/%{collection_name}/*/*/*/*/*.py?
@@ -747,6 +690,39 @@ fi
 %endif
 
 %changelog
+* Wed Nov 02 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-5
+- Simplify spec file and remove unused code
+  - Remove unused and redundant macros
+  - Replace ansible_collection_build_install with separate _build _install
+    It is required to build in the %%build stage and install in the %%install
+    for proper RPM build process
+  - 's|$RPM_BUILD_ROOT|%%{buildroot}|g' for consistency
+  - Set BuildRequires: ansible-packaging on Fedora
+  - Define BuildRequires and bcond_with_ansible separately for clarity
+  - Remove %%_sourcedir for best practicies
+    https://fedoraproject.org/wiki/Packaging:RPM_Source_Dir
+  - Resolve rpmlint issues
+    mixed-use-of-spaces-and-tabs
+    macro-in-comment
+  - Replace installbase with ansible_roles_dir
+  - Create symlinks for upstream naming on RHEL
+  - Define ansible_roles_dir the same way as ansible_collection_files
+  - Remove workaround for EPEL because we can build coll artifact from RHEL9
+  - Define helper macros on RHEL only
+  - Fedora must fail if macros provided by ansible-packager are not available
+  - Define whole %%{_pkglicensedir} and %%{_pkgdocdir} dirs in %%files
+  - Refactor generating files section
+  - Do not conditionalize sources, get vendored collections from galaxy
+  - Replace files copies in _pkgdocdir and _pkglicensedir with symlinks
+  - Remove old Obsoletes entry from 2018
+    The -techpreview package got only into RHEL 7 Extras briefly. The change
+    happened in RHEL 8 before GA, so there is no risk of anybody having the
+    -techpreview subpackage in RHEL 8.
+  - Define python3-ruamel-yaml requirement in one line
+  - Add bundled Provides
+  - Fix processing %%license in format_item_for_files on EL7
+  Resolves: rhbz#2126902
+
 * Tue Nov 01 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-4
 - Update community.general
 

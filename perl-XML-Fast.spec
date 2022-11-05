@@ -1,8 +1,8 @@
 Name:           perl-XML-Fast
 Version:        0.17
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Simple and very fast XML to hash conversion
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Fast
 Source0:        https://cpan.metacpan.org/authors/id/M/MO/MONS/XML-Fast-%{version}.tar.gz
 # Do not override OPTIMIZE, CPAN RT#118714
@@ -35,9 +35,23 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 This Perl module implements simple, state machine based, XML parser
 written in C. It could parse and recover some kind of broken XML's.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n XML-Fast-%{version}
 %patch0 -p1
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -46,6 +60,14 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -58,7 +80,14 @@ make test
 %{perl_vendorarch}/XML*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.17-19
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
