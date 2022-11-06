@@ -1,8 +1,8 @@
 
 Name:    ktp-contact-runner
 Summary: Plasma runner for KDE Telepathy
-Version: 22.04.3
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 License: GPLv3+
 URL:     https://invent.kde.org/network/%{name}
@@ -13,7 +13,7 @@ URL:     https://invent.kde.org/network/%{name}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # due to kaccounts-providers
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
@@ -56,6 +56,9 @@ BuildRequires:  ktp-common-internals-devel >= %{majmin_ver}
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

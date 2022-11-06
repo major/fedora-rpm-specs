@@ -9,10 +9,14 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         update-m1n1.sysconfig
 # Add asahi-fwextract script
 Patch:          %{url}/commit/c749ccaa5d9b16d49b8ae49052f14c5838917cd7.patch
-#  asahi-fwextract: fix overzealous quoting
+# asahi-fwextract: fix overzealous quoting
 Patch:          %{url}/commit/780b7f21f8dc002a3a073b34036291655af7dd38.patch
-# PR#9: Add dracut module
-Patch:          %{url}/pull/9.patch
+# Makefile: Rework to split out initramfs script installation/removal
+Patch:          %{url}/commit/594967c090cd7c64ee7e8bdb1bc0696f00e4a3ec.patch
+# dracut: Add firmware loading module
+Patch:          %{url}/commit/f933d5510543e8adeb215c450b1002910fecdde7.patch
+# dracut: Fix symlink direction
+Patch:          %{url}/commit/f67757c036dd16334ec1fd3b8463e66667e71269.patch
 
 BuildArch:      noarch
 

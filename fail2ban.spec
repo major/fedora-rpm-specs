@@ -89,7 +89,7 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
 %endif
 

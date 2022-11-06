@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
 License:        LGPLv3 or GPLv2
@@ -95,7 +95,7 @@ Fedora Windows cross-compiler.
 
 # Win32
 %files -n mingw32-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6WebSockets.dll
 %{mingw32_includedir}/qt6/QtWebSockets/
 %{mingw32_libdir}/cmake/Qt6WebSockets/
@@ -113,7 +113,7 @@ Fedora Windows cross-compiler.
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6WebSockets.dll
 %{mingw64_includedir}/qt6/QtWebSockets/
 %{mingw64_libdir}/cmake/Qt6WebSockets/
@@ -130,6 +130,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

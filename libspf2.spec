@@ -213,6 +213,7 @@ exit 0
 - Build latest upstream git HEAD
 - CVE-2021-20314
 - CVE-2021-33912
+- CVE-2021-33913
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-30.20150405gitd57d79fd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild

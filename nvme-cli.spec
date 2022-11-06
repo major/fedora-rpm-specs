@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.2
+Version:        2.2.1
 Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
@@ -11,7 +11,6 @@ URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
 BuildRequires:  meson >= 0.48.0
-BuildRequires:  libuuid-devel
 BuildRequires:  gcc gcc-c++
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
@@ -84,6 +83,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Fri Nov 04 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.2.1-1
+- Update to 2.2.1
+
 * Tue Nov 01 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.2-1
 - Update to 2.2
 

@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 
-%global commit 570ba7a8adc7973327ae612a3d535fd8621c41dd
-%global date 20180321
+%global commit 701bcf38c9f3c4877e1b4a8651b9ce922b15969e
+%global date 20210103
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # For building documentation, it needed Python2
@@ -11,7 +11,7 @@
 Name:           openclonk
 Summary:        Multiplayer action, tactics and skill game
 Version:        8.1
-Release:        18.%{date}git%{shortcommit}%{?dist}
+Release:        19.%{date}git%{shortcommit}%{?dist}
 URL:            http://www.openclonk.org/
 Source0:        https://github.com/openclonk/openclonk/archive/%{commit}/%{name}-%{commit}.tar.gz
 License:        ISC and CC-BY-SA
@@ -19,6 +19,7 @@ License:        ISC and CC-BY-SA
 Source1:        %{name}-html.desktop
 Source2:        %{name}-docs.png
 Patch0:         %{name}-gcc11.patch
+Patch1:         %{name}-bin-path.patch
 
 BuildRequires: make
 BuildRequires:  boost-devel
@@ -36,6 +37,7 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-3.0)
+BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpng12)
 BuildRequires:  pkgconfig(libupnp)
 BuildRequires:  pkgconfig(ogg)
@@ -135,6 +137,7 @@ SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Werror=format-security/-Wno-error
  -DCMAKE_SKIP_RPATH:BOOL=NO -DWITH_AUTOMATIC_UPDATE:BOOL=OFF \
  -DUSE_X11:BOOL=ON -DUSE_GTK:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF \
  -DUSE_STATIC_BOOST=OFF -DUSE_SYSTEM_TINYXML=ON \
+ -DWITH_APPDIR_INSTALLATION=ON \
  -DUSE_GCC_STYLE_LTCG:BOOL=OFF ..
 %make_build
 
@@ -148,8 +151,8 @@ popd
 
 %install
 %make_install -C build
-install -pm 755 $RPM_BUILD_ROOT%{_prefix}/games/openclonk $RPM_BUILD_ROOT%{_bindir}/
-rm -rf $RPM_BUILD_ROOT%{_prefix}/games
+#install -pm 755 $RPM_BUILD_ROOT%{_prefix}/games/openclonk $RPM_BUILD_ROOT%{_bindir}/
+#rm -rf $RPM_BUILD_ROOT%{_prefix}/games
 
 # Move upstream appdata file to metainfo/ directory
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
@@ -184,6 +187,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc Version.txt README TRADEMARK Credits.txt
 %license COPYING COPYING-planet
 %{_bindir}/openclonk
+%{_bindir}/openclonk-server
 %{_bindir}/c4group
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
@@ -201,6 +205,12 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %endif
 
 %changelog
+* Fri Nov 04 2022 Martin Gansser <martinkg@fedoraproject.org> - 8.1-19.20210103git701bcf3
+- Update to 8.1-19.20210103git701bcf3
+- Add openclonk-bin-path.patch
+- Add BR pkgconfig(libcurl)
+- Change location of pathfix.py 
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-18.20180321git570ba7a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

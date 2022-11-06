@@ -5,7 +5,7 @@ Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 48%{?dist}
+Release: 49%{?dist}
 
 License: GPLv2
 Url:     http://kdewebdev.org/ 
@@ -41,6 +41,7 @@ Patch303: kde3-libtool-aarch64.patch
 Patch304: kde3-autoconf-version.patch
 # automake-1.16.5
 Patch305: kdewebdev-3.5.10-automake-1.16.5.patch
+Patch306: kdewebdev-3.5.10-libxml-ftbfs.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: automake libtool
@@ -109,6 +110,7 @@ install -m644 -p %{SOURCE5} kxsldbg/
 %patch303 -p1 -b .libtool-aarch64
 %patch304 -p1 -b .autoconf-2.7x
 %patch305 -p1 -b .automake-1.16.5
+%patch306 -p1 -b .ftbfs
 
 make -f admin/Makefile.common cvs
 
@@ -213,6 +215,9 @@ done
 
 
 %changelog
+* Fri Nov 04 2022 Than Ngo <than@redhat.com> - 6:3.5.10-49
+- Fixed FTBFS
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

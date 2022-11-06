@@ -1,7 +1,7 @@
 %global framework mailcommon
 
 Name:    kf5-%{framework}
-Version: 22.08.2
+Version: 22.08.3
 Release: 1%{?dist}
 Summary: Mail applications support library
 
@@ -109,6 +109,9 @@ Requires:       cmake(KF5PimCommon)
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
 - 22.08.2
 

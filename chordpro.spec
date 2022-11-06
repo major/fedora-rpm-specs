@@ -5,8 +5,8 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
-Version: 5.987
-Release: 3%{?dist}
+Version: 5.990
+Release: 1%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -40,7 +40,7 @@ BuildRequires: perl(Data::Dumper)
 BuildRequires: perl(Encode)
 BuildRequires: perl(ExtUtils::MakeMaker)         >= 6.76
 BuildRequires: perl(File::HomeDir)               >= 1.004
-BuildRequires: perl(File::LoadLines)             >= 1.02
+BuildRequires: perl(File::LoadLines)             >= 1.021
 BuildRequires: perl(File::Spec)
 BuildRequires: perl(File::Temp)
 BuildRequires: perl(Hash::Util)
@@ -226,6 +226,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Fri Nov 04 2022 Johan Vromans <jvromans@squirrel.nl> - 5.990-1
+- Upgrade to upstream.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.987-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

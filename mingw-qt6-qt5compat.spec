@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.3.1
-Release:        3%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
 License:        LGPLv3 or GPLv2
@@ -93,7 +93,7 @@ Fedora Windows cross-compiler.
 
 # Win32
 %files -n mingw32-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6Core5Compat.dll
 %{mingw32_includedir}/qt6/QtCore5Compat/
 %{mingw32_libdir}/libQt6Core5Compat.dll.a
@@ -109,7 +109,7 @@ Fedora Windows cross-compiler.
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6Core5Compat.dll
 %{mingw64_includedir}/qt6/QtCore5Compat/
 %{mingw64_libdir}/libQt6Core5Compat.dll.a
@@ -125,6 +125,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Fri Aug 05 2022 Sandro Mani <manisandro@gmail.com> - 6.3.1-3
 - Rebuild (icu)
 

@@ -1,5 +1,5 @@
 Name:           solaar
-Version:        1.1.5
+Version:        1.1.7
 Release:        1%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
@@ -121,6 +121,9 @@ fi
 
 
 %changelog
+* Fri Nov 04 2022 Mark E. Fuller <fuller@fedoraproject.org> - 1.1.7-1
+- Update to 1.1.7 (#2137568)
+
 * Tue Sep 20 2022 Mark E. Fuller <fuller@fedoraproject.org> - 1.1.5-1
 - Update to 1.1.5 (#2126961)
 

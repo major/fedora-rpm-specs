@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
 License:        LGPLv3 or GPLv2
@@ -28,6 +28,13 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
+
+# Disable SIMD on mingw
+Patch0:         qtmultimedia-simd.patch
+# Fix WMF detection on mingw
+Patch1:         qtmultimedia-wmf.patch
+# Fix gstreamer plugin symbols not exported
+Patch2:         qtmultimedia-dllexport.patch
 
 BuildArch:      noarch
 
@@ -103,69 +110,110 @@ Fedora Windows cross-compiler.
 
 # Win32
 %files -n mingw32-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw32_bindir}/Qt6Multimedia.dll
 %{mingw32_bindir}/Qt6MultimediaWidgets.dll
+%{mingw32_bindir}/Qt6SpatialAudio.dll
 %{mingw32_includedir}/qt6/QtMultimedia/
 %{mingw32_includedir}/qt6/QtMultimediaWidgets/
+%{mingw32_includedir}/qt6/QtSpatialAudio/
+%{mingw32_libdir}/cmake/Qt6/FindAVFoundation.cmake
+%{mingw32_libdir}/cmake/Qt6/FindFFmpeg.cmake
+%{mingw32_libdir}/cmake/Qt6/FindGObject.cmake
+%{mingw32_libdir}/cmake/Qt6/FindGStreamer.cmake
+%{mingw32_libdir}/cmake/Qt6/FindMMRendererCore.cmake
+%{mingw32_libdir}/cmake/Qt6/FindVAAPI.cmake
+%{mingw32_libdir}/cmake/Qt6/FindWrapBundledResonanceAudioConfigExtra.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWrapPulseAudio.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWMF.cmake
 %{mingw32_libdir}/cmake/Qt6/FindMMRenderer.cmake
-%{mingw32_libdir}/cmake/Qt6/FindGStreamer.cmake
-%{mingw32_libdir}/cmake/Qt6/FindGObject.cmake
-%{mingw32_libdir}/cmake/Qt6/FindAVFoundation.cmake
+%{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
+%{mingw32_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw32_libdir}/cmake/Qt6Multimedia/
 %{mingw32_libdir}/cmake/Qt6MultimediaWidgets/
-%{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
+%{mingw32_libdir}/cmake/Qt6SpatialAudio/
 %{mingw32_libdir}/pkgconfig/Qt6Multimedia.pc
 %{mingw32_libdir}/pkgconfig/Qt6MultimediaWidgets.pc
+%{mingw32_libdir}/pkgconfig/Qt6SpatialAudio.pc
+%{mingw32_libdir}/libQt6BundledResonanceAudio.a
 %{mingw32_libdir}/libQt6Multimedia.dll.a
 %{mingw32_libdir}/libQt6MultimediaWidgets.dll.a
+%{mingw32_libdir}/libQt6SpatialAudio.dll.a
 %{mingw32_libdir}/Qt6MultimediaWidgets.prl
 %{mingw32_libdir}/Qt6Multimedia.prl
+%{mingw32_libdir}/Qt6SpatialAudio.prl
+%dir %{mingw32_libdir}/qt6/plugins/multimedia/
+%{mingw32_libdir}/qt6/plugins/multimedia/gstreamermediaplugin.dll
+%{mingw32_libdir}/qt6/plugins/multimedia/windowsmediaplugin.dll
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimedia.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimedia_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
 %{mingw32_libdir}/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
 %{mingw32_libdir}/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
 %{mingw32_datadir}/qt6/modules/Multimedia.json
 %{mingw32_datadir}/qt6/modules/MultimediaWidgets.json
+%{mingw32_datadir}/qt6/modules/SpatialAudio.json
 
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw64_bindir}/Qt6Multimedia.dll
 %{mingw64_bindir}/Qt6MultimediaWidgets.dll
+%{mingw64_bindir}/Qt6SpatialAudio.dll
 %{mingw64_includedir}/qt6/QtMultimedia/
 %{mingw64_includedir}/qt6/QtMultimediaWidgets/
+%{mingw64_includedir}/qt6/QtSpatialAudio/
+%{mingw64_libdir}/cmake/Qt6/FindAVFoundation.cmake
+%{mingw64_libdir}/cmake/Qt6/FindFFmpeg.cmake
+%{mingw64_libdir}/cmake/Qt6/FindGObject.cmake
+%{mingw64_libdir}/cmake/Qt6/FindGStreamer.cmake
+%{mingw64_libdir}/cmake/Qt6/FindMMRendererCore.cmake
+%{mingw64_libdir}/cmake/Qt6/FindVAAPI.cmake
+%{mingw64_libdir}/cmake/Qt6/FindWrapBundledResonanceAudioConfigExtra.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWrapPulseAudio.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWMF.cmake
 %{mingw64_libdir}/cmake/Qt6/FindMMRenderer.cmake
-%{mingw64_libdir}/cmake/Qt6/FindGStreamer.cmake
-%{mingw64_libdir}/cmake/Qt6/FindGObject.cmake
-%{mingw64_libdir}/cmake/Qt6/FindAVFoundation.cmake
+%{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
+%{mingw64_libdir}/cmake/Qt6BundledResonanceAudio/
 %{mingw64_libdir}/cmake/Qt6Multimedia/
 %{mingw64_libdir}/cmake/Qt6MultimediaWidgets/
-%{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
+%{mingw64_libdir}/cmake/Qt6SpatialAudio/
 %{mingw64_libdir}/pkgconfig/Qt6Multimedia.pc
 %{mingw64_libdir}/pkgconfig/Qt6MultimediaWidgets.pc
+%{mingw64_libdir}/pkgconfig/Qt6SpatialAudio.pc
+%{mingw64_libdir}/libQt6BundledResonanceAudio.a
 %{mingw64_libdir}/libQt6Multimedia.dll.a
 %{mingw64_libdir}/libQt6MultimediaWidgets.dll.a
+%{mingw64_libdir}/libQt6SpatialAudio.dll.a
 %{mingw64_libdir}/Qt6MultimediaWidgets.prl
 %{mingw64_libdir}/Qt6Multimedia.prl
+%{mingw64_libdir}/Qt6SpatialAudio.prl
+%dir %{mingw64_libdir}/qt6/plugins/multimedia/
+%{mingw64_libdir}/qt6/plugins/multimedia/gstreamermediaplugin.dll
+%{mingw64_libdir}/qt6/plugins/multimedia/windowsmediaplugin.dll
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimedia.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimedia_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
 %{mingw64_libdir}/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
 %{mingw64_libdir}/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
 %{mingw64_datadir}/qt6/modules/Multimedia.json
 %{mingw64_datadir}/qt6/modules/MultimediaWidgets.json
+%{mingw64_datadir}/qt6/modules/SpatialAudio.json
 
 
 %changelog
+* Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

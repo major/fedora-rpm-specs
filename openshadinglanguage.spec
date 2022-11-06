@@ -4,32 +4,28 @@
 %bcond_without  qt5
 
 Name:           openshadinglanguage
-Version:        1.12.6.2
+Version:        1.12.7.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD
 URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
 Source:        %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 
-# include the immintrin.h header only when needed
-# https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/pull/1605
-Patch:		0001-%{name}-nonsimd-arch.patch
-
 # Required for %%autosetup -S git, which in turn is required to use a patch
 # from git containing a binary diff.
 BuildRequires:  git-core
 
-BuildRequires:  bison
+BuildRequires:  bison >= 2.7
 BuildRequires:  boost-devel >= 1.55
-BuildRequires:  clang-devel > 7
+BuildRequires:  clang-devel >= 3.4
 BuildRequires:  cmake >= 3.12
-BuildRequires:  flex
+BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
-BuildRequires:  llvm-devel > 7
+BuildRequires:  llvm-devel >= 9
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
-BuildRequires:  pkgconfig(Imath) >= 2.0
-BuildRequires:  pkgconfig(OpenImageIO) >= 2.1
+BuildRequires:  pkgconfig(Imath) >= 2.3
+BuildRequires:  pkgconfig(OpenImageIO) >= 2.3
 BuildRequires:  pkgconfig(pugixml)
 
 # For osltoy

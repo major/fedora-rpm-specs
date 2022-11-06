@@ -7,6 +7,14 @@
 %endif
 %endif
 
+# wasmedge built only for aarch64 and x86_64
+%if 0%{?fedora} >= 36
+%ifarch aarch64 || x86_64
+%global wasm_support enabled
+%global wasm_opts --with-wasmedge
+%endif
+%endif
+
 %global built_tag 1.6
 %global gen_version %(b=%{built_tag}; echo ${b/-/"~"})
 
@@ -32,6 +40,9 @@ BuildRequires: yajl-devel
 %if "%{krun_support}" == "enabled"
 BuildRequires: libkrun-devel
 %endif
+%if "%{wasm_support}" == "enabled"
+BuildRequires: wasmedge-devel
+%endif
 BuildRequires: libseccomp-devel
 BuildRequires: libselinux-devel
 BuildRequires: python3-libmount
@@ -52,7 +63,7 @@ Provides: oci-runtime
 
 %build
 ./autogen.sh
-%configure --disable-silent-rules %{krun_opts}
+%configure --disable-silent-rules %{krun_opts} %{wasm_opts}
 %make_build
 
 %install
@@ -60,6 +71,10 @@ Provides: oci-runtime
 rm -rf %{buildroot}%{_prefix}/lib*
 %if "%{krun_support}" == "enabled"
 ln -s ../bin/%{name} %{buildroot}%{_bindir}/krun
+%endif
+
+%if "%{wasm_support}" == "enabled"
+ln -s ../bin/%{name} %{buildroot}%{_bindir}/%{name}-wasm
 %endif
 
 %files
@@ -71,6 +86,7 @@ ln -s ../bin/%{name} %{buildroot}%{_bindir}/krun
 %package krun
 Summary: OCI Runtime providing Virtualization-based process isolation capabilities.
 Provides: krun
+Requires: %{name} = %{version}-%{release}
 Requires: libkrun
 
 %description krun
@@ -78,7 +94,20 @@ Requires: libkrun
 
 %files krun
 %{_bindir}/krun
+%endif
 
+%if "%{wasm_support}" == "enabled"
+%package wasm
+Summary: wasm support for %{name}
+Requires: wasm-library
+Recommends: wasmedge
+Requires: %{name} = %{version}-%{release}
+
+%description wasm
+%{name}-wasm provides %{name} built with wasm support
+
+%files wasm
+%{_bindir}/%{name}-wasm
 %endif
 
 %changelog

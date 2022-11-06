@@ -9,12 +9,12 @@
 
 Summary: X.Org X11 libXp runtime library
 Name: libXp
-Version: 1.0.3
-Release: 12%{?dist}
+Version: 1.0.4
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -25,7 +25,6 @@ BuildRequires: libXau-devel
 BuildRequires: libtool automake autoconf gettext
 
 Patch0: add-proto-files.patch
-Patch1: 0001-Fix-a-memory-leak-on-the-error-path-in-XpGetLocaleNe.patch
 
 %description
 X.Org X11 libXp runtime library
@@ -44,7 +43,6 @@ X.Org X11 libXp development package
 %prep
 %setup -q
 %patch0 -p1 -b .add-proto-files
-%patch1 -p1 -b .leak
 
 %build
 CPPFLAGS="$CPPFLAGS -I$RPM_BUILD_ROOT%{_includedir}"
@@ -82,6 +80,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xp.pc
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.0.4-1
+- libXp 1.0.4-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

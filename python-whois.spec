@@ -8,8 +8,8 @@ Name: python-%{pypi_name}
 Summary: Python module for retrieving WHOIS information of domains
 License: MIT
 
-Version: 0.9.16
-Release: 3%{?dist}
+Version: 0.9.17
+Release: 1%{?dist}
 
 URL: https://github.com/DannyCork/python-whois/
 Source0: %pypi_source
@@ -50,6 +50,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Nov 04 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.17-1
+- Update to v0.9.17
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

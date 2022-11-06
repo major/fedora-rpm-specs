@@ -1,6 +1,6 @@
 %global _bundled_pcre2_version 10.40
 # read from libversion
-%global libversion 93
+%global libversion 94
 
 %global cmake_build_dir cmake-build
 %global cmake_debug_dir cmake-debug
@@ -18,7 +18,7 @@
 %endif
 
 Name:             poco
-Version:          1.12.3
+Version:          1.12.4
 Release:          %autorelease
 Summary:          C++ class libraries for network-centric applications
 

@@ -1,19 +1,32 @@
+# Upstream source information.
+%global upstream_owner    AdaCore
+%global upstream_name     florist
+%global upstream_version  22.0.0
+%global upstream_gittag   v%{upstream_version}
+
 Name:           florist
-Version:        2017
-Release:        13%{?dist}
+Epoch:          2
+Version:        %{upstream_version}
+Release:        1%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
-License:        GPLv2+
-URL:            https://www.adacore.com/download/more
-Source:         http://mirrors.cdn.adacore.com/art/591c45e2c7a447af2deed009#/florist-gpl-2017-src.tar.gz
-# The long hexadecimal number is what identifies the file on the server.
-# Don't forget to update it!
-Source2:        florist.gpr
-# adaptation to an API change in System.Soft_Links:
-Patch1:         florist-2017-gcc8.patch
+
+License:        GPLv2+ with exceptions
+
+URL:            https://github.com/%{upstream_owner}/%{upstream_name}
+Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+
+# The following patches have been downloaded from a fork of Florist that
+# continued public maintenance of the library while it was not available through
+# AdaCore's GitHub page. See the patch files for details.
+
+# [Bugfix] https://github.com/AdaCore/florist/issues/6
+Patch:          %{name}-fix-locking-full-size-file-even-when-growing.patch
+# [Bugfix] https://github.com/AdaCore/florist/issues/7
+Patch:          %{name}-fix-number-of-elements-to-write.patch
 
 BuildRequires:  fedora-gnat-project-common
 BuildRequires:  gprbuild gcc-gnat
-BuildRequires:  make
+BuildRequires:  make sed
 # Build only on architectures where GPRbuild is available:
 ExclusiveArch:  %{GPRbuild_arches}
 
@@ -26,11 +39,14 @@ you can call operating system services from within Ada programs.
 %description %{common_description_en}
 
 
+#################
+## Subpackages ##
+#################
+
 %package devel
 Summary:    Development files for Florist
-License:    GPLv2+
 Requires:   fedora-gnat-project-common
-Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel %{common_description_en}
 
@@ -38,58 +54,90 @@ The florist-devel package contains source code and linking information for
 developing applications that use Florist.
 
 
-# A workaround to avoid triggering an infinite loop in GCC 12:
-# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104366
-# https://bugzilla.redhat.com/show_bug.cgi?id=2041667
-%global build_adaflags %{build_adaflags} -fno-lto
-
+#############
+## Prepare ##
+#############
 
 %prep
-%autosetup -n %{name}-gpl-%{version}-src -p0
+%autosetup -p1
 
+
+###########
+## Build ##
+###########
 
 %build
 %configure --enable-shared
-make %{?_smp_mflags} GCCFLAGS='%{optflags}' \
-     GPRBUILD_FLAGS='%{GPRbuild_optflags} -XLIBRARY_TYPE=relocatable' TARGET=
 
+%{make_build} GPRBUILD_FLAGS='%{GPRbuild_optflags} -XLIBRARY_TYPE=relocatable' \
+     GCCFLAGS='%{build_cflags}' VERSION=%{version} TARGET=
+
+
+#############
+## Install ##
+#############
 
 %install
-# The easiest way to collect all the files seems to be to ignore the inadequate
-# Make rule and invoke GPRinstall directly.
-gprinstall -p -m -Pflorist -XLIBRARY_TYPE=relocatable \
-           --prefix='%{buildroot}%{_prefix}' \
-           --link-lib-subdir=%{buildroot}%{_libdir} \
-           --lib-subdir=%{buildroot}%{_libdir}/%{name}
-chmod 444 %{buildroot}%{_libdir}/%{name}/*.ali
-cp -p %{SOURCE2} %{buildroot}%{_GNAT_project_dir}
-# GPRinstall's manifest files are architecture-specific because they contain
-# what seems to be checksums of architecture-specific files, so they must not
-# be under _datadir. Their function is apparently undocumented, but my crystal
-# ball tells me that they're used when GPRinstall uninstalls or upgrades
-# packages. The manifest file is therefore irrelevant in this RPM package, so
-# delete it.
-rm -rf %{buildroot}%{_GNAT_project_dir}/manifests
+# Use GPRinstall directly to have full control over the installation.
+gprinstall %{GPRinstall_flags} --no-manifest --no-build-var \
+           -XLIBRARY_TYPE=relocatable \
+           florist.gpr
 
+# Fix up some things that GPRinstall does wrong.
+ln --symbolic --force lib%{name}.so.1 %{buildroot}%{_libdir}/lib%{name}.so
+
+# Make the generated usage project file architecture-independent.
+sed --regexp-extended --in-place \
+    '--expression=1i with "directories";' \
+    '--expression=/^--  This project has been generated/d' \
+    '--expression=s|^( *for +Source_Dirs +use +).*;$|\1(Directories.Includedir \& "/%{name}");|i' \
+    '--expression=s|^( *for +Library_Dir +use +).*;$|\1Directories.Libdir;|i' \
+    '--expression=s|^( *for +Library_ALI_Dir +use +).*;$|\1Directories.Libdir \& "/%{name}";|i' \
+    %{buildroot}%{_GNAT_project_dir}/%{name}*.gpr
+# The Sed commands are:
+# 1: Insert a with clause before the first line to import the directories
+#    project.
+# 2: Delete a comment that mentions the architecture.
+# 3: Replace the value of Source_Dirs with a pathname based on
+#    Directories.Includedir.
+# 4: Replace the value of Library_Dir with Directories.Libdir.
+# 5: Replace the value of Library_ALI_Dir with a pathname based on
+#    Directories.Libdir.
+
+
+###########
+## Files ##
+###########
 
 %files
 %doc README
 %license COPYING
-# There is a COPYING3 in the 2017 tarball, but the source files' headers say
-# version 2 or later, so COPYING3 is left out of the package for now.
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libflorist.so.1
-%{_libdir}/libflorist.so.1
+%{_libdir}/lib%{name}.so.1
+
 
 %files devel
 %{_GNAT_project_dir}/%{name}.gpr
 %{_includedir}/%{name}
-%{_libdir}/%{name}/*.ali
-%{_libdir}/%{name}/libflorist.so
-%{_libdir}/libflorist.so
+%dir %{_libdir}/%{name}
+%attr(444,-,-) %{_libdir}/%{name}/*.ali
+%{_libdir}/lib%{name}.so
 
+
+###############
+## Changelog ##
+###############
 
 %changelog
+* Fri Sep 23 2022 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:22.0.0-1
+- Updated to v22.0.0, using the archive available on GitHub.
+- Changed the epoch to mark the new upstream version scheme.
+- Changed the epoch to 2 instead of 1 for consistency with the GNATcoll packages.
+- Removed patch florist-2017-gcc8; has been fixed upstream (commit: 0bfc497).
+- Fixed the symbolic links for the shared libraries.
+- Made the generated usage project file architecture-independent.
+- Removed license from devel subpackage; inherit from main package.
+- Improved spec file readability.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2017-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

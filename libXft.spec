@@ -1,11 +1,11 @@
 Summary: X.Org X11 libXft runtime library
 Name: libXft
-Version: 2.3.4
-Release: 3%{?dist}
+Version: 2.3.6
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros
@@ -56,9 +56,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/Xft/XftCompat.h
 %{_libdir}/libXft.so
 %{_libdir}/pkgconfig/xft.pc
-%{_mandir}/man3/Xft.3*
+%{_mandir}/man3/Xft*.3*
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 2.3.6-1
+- libXft 2.3.6-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

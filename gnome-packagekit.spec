@@ -1,11 +1,10 @@
 Name:      gnome-packagekit
-Version:   3.32.0
-Release:   10%{?dist}
+Version:   43.0
+Release:   1%{?dist}
 Summary:   Session applications to manage packages
-
 License:   GPLv2+
-URL:       http://www.packagekit.org
-Source0:   http://download.gnome.org/sources/gnome-packagekit/3.32/%{name}-%{version}.tar.xz
+URL:       https://www.freedesktop.org/software/PackageKit/
+Source0:   http://download.gnome.org/sources/gnome-packagekit/43/%{name}-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= 2.25.8
 BuildRequires: gtk3-devel
@@ -26,7 +25,7 @@ BuildRequires: systemd-devel
 BuildRequires: meson
 BuildRequires: polkit-devel
 BuildRequires: itstool
-BuildRequires: libappstream-glib
+BuildRequires: appstream
 
 # the top level package depends on all the apps to make upgrades work
 Requires: %{name}-installer
@@ -75,9 +74,6 @@ without rebooting.
 %install
 %meson_install
 
-# use gnome-software for installing local files
-rm -f $RPM_BUILD_ROOT%{_datadir}/applications/gpk-install-local-file.desktop
-
 %find_lang %name --with-gnome
 
 %files
@@ -85,7 +81,7 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/applications/gpk-install-local-file.desktop
 
 %files common -f %{name}.lang
 %license COPYING
-%doc AUTHORS README
+%doc AUTHORS
 %{_bindir}/gpk-log
 %{_bindir}/gpk-prefs
 %dir %{_datadir}/gnome-packagekit
@@ -106,16 +102,19 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/applications/gpk-install-local-file.desktop
 %files installer
 %{_bindir}/gpk-application
 %{_datadir}/applications/org.gnome.Packages.desktop
-%{_datadir}/metainfo/org.gnome.Packages.appdata.xml
+%{_datadir}/metainfo/org.gnome.Packages.metainfo.xml
 %{_mandir}/man1/gpk-application.1*
 
 %files updater
 %{_bindir}/gpk-update-viewer
 %{_datadir}/applications/org.gnome.PackageUpdater.desktop
-%{_datadir}/metainfo/org.gnome.PackageUpdater.appdata.xml
+%{_datadir}/metainfo/org.gnome.PackageUpdater.metainfo.xml
 %{_mandir}/man1/gpk-update-viewer.1*
 
 %changelog
+* Fri Nov 04 2022 Richard Hughes <rhughes@redhat.com> - 43.0-1
+- Update to 43.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

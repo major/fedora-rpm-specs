@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        5.8.0
+Version:        6.0.0~a1
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -51,7 +51,8 @@ Summary:        Modules and plugins supported by Ansible community
 # tests/unit/plugins/modules/packaging/language/test_gem.py:# SPDX-License-Identifier: MIT
 License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND PSF-2.0
 URL:            %{ansible_collection_url community general}
-Source:         https://github.com/ansible-collections/community.general/archive/%{version}/%{name}-%{version}.tar.gz
+%global furl    https://github.com/ansible-collections/community.general
+Source:         %{furl}/archive/%{version_no_tilde}/%{name}-%{version}.tar.gz
 # Remove unnecessary/development files from the built collection.
 # Docs and licenses that are already installed to the standard locations are
 # also removed.
@@ -68,7 +69,7 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n community.general-%{version} -p1
+%autosetup -n community.general-%{version_no_tilde} -p1
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
 
 %build
@@ -82,6 +83,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst*
 
 %changelog
+* Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 6.0.0~a1-1
+- Update to 6.0.0~a1.
+
 * Wed Oct 26 2022 Maxwell G <gotmax@e.email> - 5.8.0-1
 - Update to 5.8.0.
 

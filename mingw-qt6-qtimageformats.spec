@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.4.0
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtImageFormats component
 
 License:        LGPLv3 or GPLv2
@@ -28,6 +28,9 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
+
+# Fix build: search for Threads ourself instead of promoting imported target
+Patch0:         qtimageformats-fix-build.patch
 
 BuildArch:      noarch
 
@@ -100,7 +103,7 @@ Fedora Windows cross-compiler.
 
 # Win32
 %files -n mingw32-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw32_libdir}/qt6/plugins/imageformats/qicns.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qjp2.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qmng.dll
@@ -122,7 +125,7 @@ Fedora Windows cross-compiler.
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
-%license LICENSE.LGPL* LICENSE.GPL*
+%license LICENSES/*GPL*
 %{mingw64_libdir}/qt6/plugins/imageformats/qicns.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qjp2.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qmng.dll
@@ -143,6 +146,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
+- Update to 6.4.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

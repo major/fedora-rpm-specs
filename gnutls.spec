@@ -200,6 +200,7 @@ This package contains Guile bindings for the library.
 Summary:        MinGW GnuTLS TLS/SSL encryption library
 Requires:       pkgconfig
 Requires:       mingw32-libtasn1 >= 4.3
+BuildArch:      noarch
 
 %description -n mingw32-gnutls
 GnuTLS TLS/SSL encryption library.  This library is cross-compiled
@@ -209,6 +210,7 @@ for MinGW.
 Summary:        MinGW GnuTLS TLS/SSL encryption library
 Requires:       pkgconfig
 Requires:       mingw64-libtasn1 >= 4.3
+BuildArch:      noarch
 
 %description -n mingw64-gnutls
 GnuTLS TLS/SSL encryption library.  This library is cross-compiled

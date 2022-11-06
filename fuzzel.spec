@@ -1,5 +1,5 @@
 Name:           fuzzel
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Application launcher for wlroots based Wayland compositors
 
@@ -62,8 +62,11 @@ rm %{buildroot}%{_docdir}/%{name}/LICENSE
 %doc CHANGELOG.md README.md
 %license LICENSE
 %{_bindir}/%{name}
+%dir %{_datadir}/fish
+%dir %{_datadir}/fish/vendor_completions.d
 %dir %{_datadir}/zsh
 %dir %{_datadir}/zsh/site-functions
+%{_datadir}/fish/vendor_completions.d/*.fish
 %{_datadir}/zsh/site-functions/_%{name}
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man5/*.5*

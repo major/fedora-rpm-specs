@@ -1,7 +1,7 @@
-%global version 0.11.1
+%global version 0.11.2
 %global reponame WasmEdge
 %global capi_soname 0
-%global capi_version 0.0.0
+%global capi_version 0.0.1
 
 Name:    wasmedge
 Version: %{version}

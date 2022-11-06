@@ -1,14 +1,11 @@
 Name:		orc
-Version:	0.4.31
-Release:	8%{?dist}
+Version:	0.4.33
+Release:	1%{?dist}
 Summary:	The Oil Run-time Compiler
 
 License:	BSD
 URL:		http://cgit.freedesktop.org/gstreamer/orc/
 Source0:	http://gstreamer.freedesktop.org/src/orc/%{name}-%{version}.tar.xz
-# Fix ppc64le segfault when used via libvips.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1917540
-Patch0:		orc-0.4.32-executor-Fix-orc_executor_set_program-to-save-OrcCode.patch
 
 BuildRequires:	meson >= 0.47.0
 BuildRequires:  gcc
@@ -51,8 +48,6 @@ The Orc compiler, to produce optimized code.
 %prep
 %setup -q
 
-%patch0 -p1
-
 %build
 %meson -D default_library=shared
 %meson_build
@@ -93,6 +88,9 @@ rm -rf %{buildroot}/%{_libdir}/orc
 
 
 %changelog
+* Fri Nov 04 2022 Wim Taymans <wtaymans@redhat.com> 0.4.33-1
+- Update to 0.4.33
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.31-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

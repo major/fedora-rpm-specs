@@ -469,6 +469,10 @@ ln -s %{_datadir}/clang/clang-format-diff.py %{buildroot}%{_bindir}/clang-format
 %check
 %if %{without compat_build}
 %if %{with check}
+# Build test dependencies separately, to prevent invocations of host clang from being affected
+# by LD_LIBRARY_PATH below.
+%cmake_build --target clang-test-depends \
+    ExtraToolsUnitTests ClangdUnitTests ClangIncludeCleanerUnitTests ClangPseudoUnitTests
 # requires lit.py from LLVM utilities
 # FIXME: Fix failing ARM tests
 LD_LIBRARY_PATH=%{buildroot}/%{_libdir} %{__ninja} check-all -C %{__cmake_builddir} || \

@@ -9,7 +9,7 @@
 %global tsort_version 0.1.0
 
 # Requires versions
-%global bundler_version 2.3.22
+%global bundler_version 2.3.25
 %global io_console_version 0.5.6
 %global openssl_version 2.2.0
 %global psych_version 3.3.0
@@ -35,7 +35,7 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 3.3.22
+Version: 3.3.25
 Release: 201%{?dist}
 # BSD-2-Clause: lib/rubygems/tsort/
 # BSD-2-Clause OR RUBY: lib/rubygems/optparse/
@@ -236,6 +236,10 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Thu Nov 03 2022 Jun Aruga <jaruga@redhat.com> - 3.3.25-201
+- Update to RubyGems 3.3.25.
+  Resolves: rhbz#2132563
+
 * Thu Sep 08 2022 Vít Ondruch <vondruch@redhat.com> - 3.3.22-201
 - Update to RubyGems 3.3.22.
   Resolves: rhbz#1941091

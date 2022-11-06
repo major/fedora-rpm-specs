@@ -14,18 +14,16 @@
 %bcond_with tests
 %endif
 
-%global collection_namespace community
-%global collection_name rabbitmq
-
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.2.2
+Name:           ansible-collection-community-rabbitmq
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        RabbitMQ collection for Ansible
 
 # plugins/module_utils/_version.py: Python Software Foundation License version 2
 License:        GPL-3.0-or-later and PSF-2.0
-URL:            %{ansible_collection_url}
-Source0:        https://github.com/ansible-collections/community.rabbitmq/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{ansible_collection_url community rabbitmq}
+%global forgeurl https://github.com/ansible-collections/community.rabbitmq
+Source0:        %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
 # Patch galaxy.yml to exclude unnecessary files from the built collection.
 # This is a downstream only patch.
 Patch0:         build_ignore.patch
@@ -33,6 +31,7 @@ Patch0:         build_ignore.patch
 BuildRequires:  ansible-packaging
 %if %{with tests}
 BuildRequires:  ansible-packaging-tests
+# Collection specific test dependency
 BuildRequires:  glibc-all-langpacks
 %endif
 
@@ -61,12 +60,14 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %endif
 
 
-%files
+%files -f %{ansible_collection_filelist}
 %license COPYING PSF-license.txt
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 %changelog
+* Fri Nov 04 2022 Maxwell G <gotmax@e.email> - 1.2.3-1
+- Update to 1.2.3. Fixes rhbz#2139970.
+
 * Thu Aug 18 2022 Maxwell G <gotmax@e.email> - 1.2.2-1
 - Update to 1.2.2. Fixes rhbz#2106951.
 - Adopt new Fedora licensing guidelines

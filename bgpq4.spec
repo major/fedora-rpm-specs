@@ -2,9 +2,13 @@
 
 Summary:        Automate BGP filter generation based on routing database information
 Name:           bgpq4
-Version:        1.6
+Version:        1.7
 Release:        1%{?dist}
-License:        BSD
+# bgpq4 itself is BSD-2-Clause but uses other source codes, breakdown:
+# BSD-3-Clause: include/sys/queue.h
+# ISC: compat/strlcpy.c
+# LicenseRef-Fedora-Public-Domain: include/{string,sys/{_null,types}}.h
+License:        BSD-2-Clause AND BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/bgp/bgpq4
 Source0:        https://github.com/bgp/bgpq4/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  autoconf
@@ -38,6 +42,9 @@ autoreconf --install
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Fri Nov 04 2022 Robert Scheck <robert@fedoraproject.org> 1.7-1
+- Upgrade to 1.7 (#2139999)
+
 * Thu Sep 08 2022 Robert Scheck <robert@fedoraproject.org> 1.6-1
 - Upgrade to 1.6 (#2125187)
 

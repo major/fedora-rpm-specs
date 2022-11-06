@@ -13,14 +13,14 @@
 %global uri_version 0.10.1
 
 Name: rubygem-%{gem_name}
-Version: 2.3.22
+Version: 2.3.25
 Release: 1%{?dist}
 Summary: Library and utilities to manage a Ruby application's gem dependencies
 License: MIT
 URL: https://bundler.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rubygems/rubygems/ && cd rubygems
-# git archive -v -o bundler-2.3.22-specs.txz bundler-v2.3.22 bundler/spec/ bundler/tool/bundler/{rubocop,standard,test}_gems.rb
+# git archive -v -o bundler-2.3.25-specs.txz bundler-v2.3.25 bundler/spec/ bundler/tool/bundler/{rubocop,standard,test}_gems.rb
 Source1: %{gem_name}-%{version}-specs.txz
 # ruby package has just soft dependency on rubygem(io-console), while
 # Bundler always requires it.
@@ -217,6 +217,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 03 2022 Jun Aruga <jaruga@redhat.com> - 2.3.25-1
+- Update to Bundler 2.3.25.
+  Resolves: rhbz#2132432
+
 * Mon Sep 12 2022 Vít Ondruch <vondruch@redhat.com> - 2.3.22-1
 - Update to Bundler 2.3.22.
   Resolves: rhbz#1579087

@@ -1,11 +1,11 @@
 %undefine __cmake_in_source_build
 Name:    ktp-accounts-kcm
 Summary: KDE Configuration Module for Telepathy Instant Messaging Accounts
-Version: 22.04.3
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 License: LGPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/network/%{name}
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
 %global revision %(echo %{version} | cut -d. -f3)
@@ -14,7 +14,7 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # due to kaccounts-providers
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
@@ -112,6 +112,9 @@ rm -fv %{buildroot}%{_kf5_libdir}/libktpaccountskcminternal.so
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

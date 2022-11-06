@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Spec) >= 0.86
 Requires:       perl(Net::DNS) >= 1.08
-Patch1:         gost-rm.patch
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Spec|Net::DNS)\\)
@@ -54,8 +53,6 @@ using RSA, DSA, ECDSA, and Edwards curve algorithms.
 
 %prep
 %setup -q -n Net-DNS-SEC-%{version}
-rm -f lib/Net/DNS/SEC/ECCGOST.pm t/41-ECC-GOST.t
-%patch1 -p0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1

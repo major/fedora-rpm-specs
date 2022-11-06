@@ -13,31 +13,14 @@
 # checking whether gfortran and gcc agree on double complex...
 # configure: WARNING: gfortran and gcc disagree on double complex
 # AND that leads to Fortran complex functions are not available on this platform
-%bcond_with LTO
+%bcond_with lto
 
 # We need at least gcc 10 anyway
-%global with_lto 1
-%if %{without LTO} || 0%{?rhel} < 9
-%global with_lto 0
+%global enable_lto 1
+%if %{without lto} || 0%{?rhel} < 9
+%global enable_lto 0
 %global _lto_cflags %nil
 %endif
-
-%ifarch x86_64
-%global java_arch amd64
-%else
-%global java_arch %{_arch}
-%endif
-
-%define javareconf() %{expand:
-R CMD javareconf \\
-    JAVA_HOME=%{_jvmdir}/jre \\
-    JAVA_CPPFLAGS='-I%{_jvmdir}/java/include\ -I%{_jvmdir}/java/include/linux' \\
-    JAVA_LIBS='-L%{_jvmdir}/jre/lib/%{java_arch}/server \\
-    -L%{_jvmdir}/jre/lib/%{java_arch}\ -L%{_jvmdir}/java/lib/%{java_arch}\ -L%{_jvmdir}/jre/lib/server \\
-    -L/usr/java/packages/lib/%{java_arch}\ -L/lib\ -L/usr/lib\ -ljvm' \\
-    JAVA_LD_LIBRARY_PATH=%{_jvmdir}/jre/lib/%{java_arch}/server:%{_jvmdir}/jre/lib/%{java_arch}:%{_jvmdir}/java/lib/%{java_arch}:%{_jvmdir}/jre/lib/server:/usr/java/packages/lib/%{java_arch}:/lib:/usr/lib \\
-    > /dev/null 2>&1 || exit 0
-}
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -53,7 +36,7 @@ R CMD javareconf \\
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -90,7 +73,7 @@ BuildRequires:  libicu-devel
 BuildRequires:  valgrind-devel
 %endif
 %ifarch %{java_arches}
-BuildRequires:  java-headless
+BuildRequires:  java-devel
 %endif
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -357,11 +340,8 @@ EOF
 chmod +x %{__perl_requires}
 
 %build
-# Disable R_LIBS_SITE force to an empty string (we always define it at the end if not set, and this breaks that)
-# Thanks R 4.2
-sed -i "s|R_LIBS_SITE=\${R_LIBS_SITE:-'%%S'}|#R_LIBS_SITE=\${R_LIBS_SITE:-'%%S'}|g" etc/Renviron.in
-
-# Add PATHS to Renviron for R_LIBS_SITE
+# Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
+sed -i -e '/R_LIBS_SITE=/s/^/#/g' etc/Renviron.in
 echo 'R_LIBS_SITE=${R_LIBS_SITE-'"'/usr/local/lib/R/site-library:/usr/local/lib/R/library:%{_libdir}/R/library:%{_datadir}/R/library'"'}' >> etc/Renviron.in
 # No inconsolata on RHEL tex
 %if 0%{?rhel}
@@ -372,28 +352,43 @@ export R_PDFVIEWER="%{_bindir}/xdg-open"
 export R_PRINTCMD="lpr"
 export R_BROWSER="%{_bindir}/xdg-open"
 
+%ifarch %{java_arches}
+%ifarch x86_64
+%define java_arch amd64
+%else
+%define java_arch %{_arch}
+%endif
+export JAVA_HOME=%{_jvmdir}/jre
+export JAVA_CPPFLAGS="-I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux"
+export JAVA_LIBS="-L%{_jvmdir}/jre/lib/%{java_arch}/server -L%{_jvmdir}/jre/lib/%{java_arch} -L%{_jvmdir}/java/lib/%{java_arch} -L%{_jvmdir}/jre/lib/server -L/usr/java/packages/lib/%{java_arch} -L/lib -L/usr/lib -ljvm"
+export JAVA_LD_LIBRARY_PATH=%{_jvmdir}/jre/lib/%{java_arch}/server:%{_jvmdir}/jre/lib/%{java_arch}:%{_jvmdir}/java/lib/%{java_arch}:%{_jvmdir}/jre/lib/server:/usr/java/packages/lib/%{java_arch}:/lib:/usr/lib
+%endif
+
 %if "%{blaslib}" == "flexiblas"
 # avoid this check
 sed -i '/"checking whether the BLAS is complete/i r_cv_complete_blas=yes' configure
 %endif
 
-( %configure \
-    --with-system-tre \
-    --with-system-valgrind-headers \
-    --with-lapack=%{blaslib}%{blasvar} \
-    --with-blas=%{blaslib}%{blasvar} \
-    --with-tcl-config=%{_libdir}/tclConfig.sh \
-    --with-tk-config=%{_libdir}/tkConfig.sh \
-    --enable-R-shlib \
-    --enable-prebuilt-html \
-    --enable-R-profiling \
-    --enable-memory-profiling \
-%if %{with_lto}
-    --enable-lto \
+%configure \
+  rdocdir=%{_pkgdocdir} \
+  rincludedir=%{_includedir}/R \
+  rsharedir=%{_datadir}/R \
+  --with-system-tre \
+%ifarch %{valgrind_arches}
+  --with-system-valgrind-headers \
 %endif
-    rdocdir=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} \
-    rincludedir=%{_includedir}/R \
-    rsharedir=%{_datadir}/R) | tee CONFIGURE.log
+  --with-lapack=%{blaslib}%{blasvar} \
+  --with-blas=%{blaslib}%{blasvar} \
+  --with-tcl-config=%{_libdir}/tclConfig.sh \
+  --with-tk-config=%{_libdir}/tkConfig.sh \
+  --enable-R-shlib \
+  --enable-prebuilt-html \
+  --enable-R-profiling \
+  --enable-memory-profiling \
+%if %{enable_lto}
+  --enable-lto \
+%endif
+  | tee CONFIGURE.log
 cat CONFIGURE.log | grep -A30 'R is now' - > CAPABILITIES
 make V=1
 (cd src/nmath/standalone; make)
@@ -408,13 +403,11 @@ for i in doc/manual/R-intro.info doc/manual/R-FAQ.info doc/FAQ doc/manual/R-admi
 done
 
 %install
-make DESTDIR=%{buildroot} install install-info
-make DESTDIR=%{buildroot} install-pdf
+make DESTDIR=%{buildroot} install install-pdf install-info
 
 rm -f %{buildroot}%{_infodir}/dir
-rm -f %{buildroot}%{_infodir}/dir.old
-mkdir -p %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
-install -p CAPABILITIES %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
+mkdir -p %{buildroot}%{_pkgdocdir}
+install -p CAPABILITIES %{buildroot}%{_pkgdocdir}
 
 # Install libRmath files
 (cd src/nmath/standalone; make install DESTDIR=%{buildroot})
@@ -425,23 +418,22 @@ echo "%{_libdir}/R/lib" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
 mkdir -p %{buildroot}%{_datadir}/R/library
 
 # Fix multilib
-touch -r README %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/CAPABILITIES
+touch -r README %{buildroot}%{_pkgdocdir}/CAPABILITIES
 touch -r README doc/manual/*.pdf
 touch -r README %{buildroot}%{_bindir}/R
 
 # Fix html/packages.html
 # We can safely use RHOME here, because all of these are system packages.
-sed -i 's|\..\/\..|%{_libdir}/R|g' %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/html/packages.html
+sed -i 's|\..\/\..|%{_libdir}/R|g' %{buildroot}%{_pkgdocdir}/html/packages.html
 
 for i in %{buildroot}%{_libdir}/R/library/*/html/*.html; do
-  sed -i 's|\..\/\..\/..\/doc|%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}|g' $i
+  sed -i 's|\..\/\..\/..\/doc|%{_pkgdocdir}|g' $i
 done
 
 # Fix exec bits
 chmod +x %{buildroot}%{_datadir}/R/sh/echo.sh
 chmod +x %{buildroot}%{_libdir}/R/bin/*
-chmod -x %{buildroot}%{_libdir}/R/library/mgcv/CITATION %{buildroot}%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}/CAPABILITIES
-
+chmod -x %{buildroot}%{_libdir}/R/library/mgcv/CITATION %{buildroot}%{_pkgdocdir}/CAPABILITIES
 
 # Symbolic link for convenience
 if [ ! -d "%{buildroot}%{_libdir}/R/include" ]; then
@@ -478,18 +470,7 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %posttrans core
-%ifarch %{java_arches}
-%{javareconf}
-%endif
 /usr/bin/mktexlsr %{_datadir}/texmf &>/dev/null || :
-
-%ifarch %{java_arches}
-%posttrans java
-%{javareconf}
-
-%posttrans java-devel
-%{javareconf}
-%endif
 
 %ldconfig_scriptlets -n libRmath
 
@@ -506,8 +487,8 @@ fi
 %{_libdir}/R/bin/
 %dir %{_libdir}/R/etc
 %config %{_libdir}/R/etc/Makeconf
+%config %{_libdir}/R/etc/javaconf
 %config(noreplace) %{_libdir}/R/etc/Renviron
-%config(noreplace) %{_libdir}/R/etc/javaconf
 %config(noreplace) %{_libdir}/R/etc/ldpaths
 %config(noreplace) %{_libdir}/R/etc/repositories
 %{_libdir}/R/lib/
@@ -824,8 +805,8 @@ fi
 %{_libdir}/R/SVN-REVISION
 %{_infodir}/R-*.info*
 %{_mandir}/man1/*
-%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
-%docdir %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}}
+%{_pkgdocdir}
+%docdir %{_pkgdocdir}
 /etc/ld.so.conf.d/*
 
 %files core-devel
@@ -857,6 +838,14 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Nov 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-2
+- Move Java configuration to the build phase
+- Remove javareconf from posttrans scriptlets
+- Remove noreplace from javaconf file
+- Rename LTO flag to avoid conflicts with bcond
+- Simplify default R_LIBS_SITE cleanup
+- Update old _pkgdocdir specification
+
 * Mon Oct 31 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-1
 - Update to 4.2.2
 - Run new compact-pdf target

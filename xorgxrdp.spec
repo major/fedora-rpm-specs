@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.9.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -16,27 +16,70 @@ BuildRequires:  libXfont-devel
 %else
 BuildRequires:  libXfont2-devel
 %endif
+
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+BuildRequires:  mesa-libgbm-devel
+BuildRequires:  libepoxy-devel
+BuildRequires:  libdrm-devel
+
+Conflicts: %{name}-glamor
+%endif
+
 Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
 Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+%package glamor
+Summary:        Implementation of xrdp backend as Xorg modules with glamor
+RemovePathPostfixes: .glamor
+Conflicts: %{name}
+%endif
 
 %description
 xorgxrdp is a set of X11 modules that make Xorg act as a backend for
 xrdp. Xorg with xorgxrdp is the most advanced xrdp backend with support
 for screen resizing and multiple monitors.
 
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+%description glamor
+xorgxrdp is a set of X11 modules that make Xorg act as a backend for
+xrdp. Xorg with xorgxrdp is the most advanced xrdp backend with support
+for screen resizing and multiple monitors. Built with glamor support.
+%endif
+
 %prep
 %autosetup -p1
 
-
 %build
-%configure
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+# Build/install with glamor support first
+CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
+%configure --enable-glamor
 %make_build
 
+# Preserve glamor files
+%{__mv} xrdpdev/.libs/xrdpdev_drv.so xrdpdev_drv.so.glamor
+%{__mv} xrdpkeyb/.libs/xrdpkeyb_drv.so xrdpkeyb_drv.so.glamor
+%{__mv} xrdpmouse/.libs/xrdpmouse_drv.so xrdpmouse_drv.so.glamor
+%{__mv} module/.libs/libxorgxrdp.so libxorgxrdp.so.glamor
+
+%{__make} clean
+%endif
+
+# Regular build
+%configure
+%make_build
 
 %install
 %make_install
 
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+# Install glamor files
+%{__install} -p xrdpdev_drv.so.glamor %{buildroot}%{_libdir}/xorg/modules/drivers
+%{__install} -p xrdpkeyb_drv.so.glamor %{buildroot}%{_libdir}/xorg/modules/input
+%{__install} -p xrdpmouse_drv.so.glamor %{buildroot}%{_libdir}/xorg/modules/input
+%{__install} -p libxorgxrdp.so.glamor %{buildroot}%{_libdir}/xorg/modules
+%endif
 
 %files
 %license COPYING
@@ -54,8 +97,28 @@ for screen resizing and multiple monitors.
 %exclude %{_libdir}/xorg/modules/drivers/*.a
 %exclude %{_libdir}/xorg/modules/drivers/*.la
 
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 8
+%files glamor
+%license COPYING
+%doc README.md
+%dir %{_sysconfdir}/X11/xrdp
+%{_sysconfdir}/X11/xrdp/xorg.conf
+%{_libdir}/xorg/modules/drivers/xrdpdev_drv.so.glamor
+%{_libdir}/xorg/modules/input/xrdpkeyb_drv.so.glamor
+%{_libdir}/xorg/modules/input/xrdpmouse_drv.so.glamor
+%{_libdir}/xorg/modules/libxorgxrdp.so.glamor
+%exclude %{_libdir}/xorg/modules/*.a
+%exclude %{_libdir}/xorg/modules/*.la
+%exclude %{_libdir}/xorg/modules/input/*.a
+%exclude %{_libdir}/xorg/modules/input/*.la
+%exclude %{_libdir}/xorg/modules/drivers/*.a
+%exclude %{_libdir}/xorg/modules/drivers/*.la
+%endif
 
 %changelog
+* Fri Nov  4 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-4
+- Build alternative binary with glamor enabled
+
 * Sat Sep 10 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-1
 - Bump up to 0.9.19
 

@@ -4,7 +4,7 @@
 %global kpmcoremin 22.03
 
 Name:           kde-partitionmanager
-Version:        22.08.2
+Version:        22.08.3
 Release:        %autorelease
 Summary:        KDE Partition Manager
 

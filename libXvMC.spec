@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXvMC runtime library
 Name: libXvMC
-Version: 1.0.12
-Release: 8%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.0.13
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -14,7 +14,7 @@ Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.5.99.902
@@ -78,6 +78,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/xvmc-wrapper.pc
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> - 1.0.13-1
+- libXvMC 1.0.13-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-Version:                0.12.0
+Version:                0.13.0
 %global topdir          %{name}-%{version}
 
 %gometa

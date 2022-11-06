@@ -230,6 +230,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %files php
 %config(noreplace) %{_sysconfdir}/php.d/mlt.ini
 %{php_extdir}/mlt.so
+%if ! (0%{?fedora} > 37)
+%{_libdir}/php/modules/mlt.php
+%endif
 %endif
 
 %files devel

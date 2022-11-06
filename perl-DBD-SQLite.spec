@@ -2,17 +2,17 @@
 %bcond_without perl_DBD_SQLite_enables_optional_test
 
 Name:           perl-DBD-SQLite
-Version:        1.70
-Release:        5%{?dist}
+Version:        1.72
+Release:        1%{?dist}
 Summary:        SQLite DBI Driver
-# lib/DBD/SQLite.pm:        GPL+ or Artistic
-# LICENSE:                  GPL+ or Artistic
+# lib/DBD/SQLite.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:                  GPL-1.0-or-later OR Artistic-1.0-Perl
 ## unbundled
-# inc/Test/FailWarnings.pm: ASL 2.0
+# inc/Test/FailWarnings.pm: Apache-2.0
 # sqlite3.c:                Public Domain (copied from sqlite)
 # sqlite3.h:                Public Domain (copied from sqlite)
 # sqlite3ext.h:             Public Domain (copied from sqlite)
-License:        (GPL+ or Artistic) and Public Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) and LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/DBD-SQLite
 Source0:        https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/DBD-SQLite-%{version}.tar.gz
 # Use system sqlite if it is available
@@ -21,12 +21,6 @@ Patch0:         perl-DBD-SQLite-bz543982.patch
 Patch1:         DBD-SQLite-1.62-Remove-bundled-source-extentions.patch
 # Adapt tests to unbundled Test::FailWarnings
 Patch2:         DBD-SQLite-1.64-Unbundle-Test-FailWarnings.patch
-# 1/2 Adapt to SQLite-3.38.0, bug #2065567, upstream bug GH#92,
-# in upstream 1.71_05
-Patch3:         DBD-SQLite-1.70-Lowercase-datatype.patch
-# 2/2 Adapt to SQLite-3.38.0, bug #2065567, upstream bug GH#92,
-# in upstream 1.71_05
-Patch4:         DBD-SQLite-1.71_04-THX.patch
 # if sqlite >= 3.6.0 then
 #   perl-DBD-SQLite uses the external library
 # else
@@ -82,18 +76,29 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(SQLiteTest\\)
+
 %description
 SQLite is a public domain, file-based, relational database engine that you can
 find at <https://www.sqlite.org/>. This package provides a Perl DBI driver for
 SQLite.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n DBD-SQLite-%{version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 # Remove bundled sqlite libraries (BZ#1059154)
 # System libraries will be used
 rm sqlite*
@@ -107,6 +112,12 @@ rm t/virtual_table/21_perldata_charinfo.t
 perl -i -ne 'print $_ unless m{^t/virtual_table/21_perldata_charinfo\.t}' MANIFEST
 %endif
 
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 CFLAGS="%{optflags}" perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build} OPTIMIZE="%{optflags}"
@@ -116,7 +127,25 @@ CFLAGS="%{optflags}" perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLO
 find %{buildroot} -type f  -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -126,7 +155,14 @@ make test
 %{perl_vendorarch}/DBD/
 %{_mandir}/man3/*.3pm*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Nov 04 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.72-1
+- 1.72 bump
+- Package tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

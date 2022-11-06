@@ -42,19 +42,14 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.8.0
-Release: 2%{?dist}
+Version: 2.8.1
+Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPLv3+
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.8.0/sssd-2.8.0.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.8.1/sssd-2.8.1.tar.gz
 
 ### Patches ###
-
-Patch0001: 0001-confdb-avoid-syslog-message-when-no-domains-are-enab.patch
-Patch0002: 0002-monitor-read-all-enabled-domains-in-add_implicit_ser.patch
-Patch0003: 0003-sss_cache-use-ERR_NO_DOMAIN_ENABLED-instead-of-ENOEN.patch
-Patch0004: 0004-confdb-chande-debug-level-when-no-domain-are-found-i.patch
 
 ### Dependencies ###
 
@@ -1063,6 +1058,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Nov 4 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.1-1
+- Rebase to SSSD 2.8.1
+
 * Mon Oct 24 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.0-2
 - Fix regression, syslog is no longer spammed when no SSSD domain is configured (#2133437)
 

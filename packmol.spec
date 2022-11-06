@@ -1,12 +1,14 @@
 Name:		packmol
-Version:	20.010
-Release:	8%{?dist}
+Version:	20.3.6
+Release:	1%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
 URL:		http://m3g.iqm.unicamp.br/packmol/home.shtml
-Source0:	https://github.com/mcubeg/packmol/archive/%{version}/packmol-%{version}.tar.gz
+Source0:	https://github.com/mcubeg/packmol/archive/v%{version}/packmol-%{version}.tar.gz
 # CMake file for compiling project, sent upstream.
 Source1:	packmol-CMakeLists.txt
+# Example files
+Source2:        http://leandro.iqm.unicamp.br/m3g/packmol/examples/examples.tar.gz
 
 BuildRequires:	cmake
 BuildRequires:	gcc-gfortran
@@ -34,6 +36,7 @@ MOLDY formats.
 %setup -q
 cp -a %{SOURCE1} CMakeLists.txt
 find . -name \*.o -delete
+tar zxvf %{SOURCE2}
 
 %build
 export FC=gfortran
@@ -44,6 +47,18 @@ export FC=gfortran
 %cmake_install
 install -D -p -m 755 solvate.tcl %{buildroot}%{_bindir}/packmol_solvate
 
+%check
+cd examples
+for f in interface.inp; do
+    out=$(basename $f .inp).out
+    ../redhat-linux-build/packmol < $f | tee  $out
+    ok=$(grep "Success" $out|wc -l)
+    if(( ! $ok )); then
+	echo "Example failed to run"
+	exit
+    fi
+done
+
 %files
 %doc AUTHORS
 %license LICENSE
@@ -51,6 +66,9 @@ install -D -p -m 755 solvate.tcl %{buildroot}%{_bindir}/packmol_solvate
 %{_bindir}/packmol_solvate
 
 %changelog
+* Fri Nov 04 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 20.3.6-1
+- Update to 20.3.6.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20.010-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,11 +3,11 @@
 
 Name:    ktp-kded-integration-module
 Summary: KDE integration for telepathy
-Version: 21.12.3
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 License: LGPLv2+
-URL:     https://cgit.kde.org/%{module}.git
+URL:     https://invent.kde.org/network/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -15,7 +15,7 @@ URL:     https://cgit.kde.org/%{module}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/stable/applications/%{version}/src/%{module}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{module}-%{version}.tar.xz
 
 # due to kaccounts-providers
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
@@ -80,6 +80,9 @@ integration like setting user to auto-away or handling connection errors.
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.12.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

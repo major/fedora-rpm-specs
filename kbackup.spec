@@ -1,5 +1,5 @@
 Name:           kbackup
-Version:        22.08.2
+Version:        22.08.3
 Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
 - 22.08.2
 

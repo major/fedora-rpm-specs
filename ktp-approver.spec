@@ -1,10 +1,10 @@
 Name:    ktp-approver
 Summary: KDE Channel Approver for Telepathy
-Version: 22.04.3
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 License: LGPLv2+
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/network/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -12,7 +12,7 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gettext
@@ -65,6 +65,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.6
+Version:        5.15.7
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtXmlPatterns component
 
@@ -138,6 +138,9 @@ done
 
 
 %changelog
+* Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-1
+- Update to 5.15.7
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 5.15.6-1
 - Update to 5.15.6
 

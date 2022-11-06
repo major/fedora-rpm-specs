@@ -1,24 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        43.0
-Release:        3%{?dist}
+Version:        43.1
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Projects/GnomeShell
 Source0:        https://download.gnome.org/sources/gnome-shell/43/%{name}-%{tarball_version}.tar.xz
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2487
-Patch0: 2487.patch
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2495
-Patch1: 2495.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2131837
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2508
-Patch2: 2508.patch
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch10001: gnome-shell-favourite-apps-firefox.patch
@@ -242,6 +231,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Fri Nov 04 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-1
+- Update to 43.1
+
 * Tue Oct 11 2022 Adam Williamson <awilliam@redhat.com> - 43.0-3
 - Backport MR2508 to fix OSK space entry (#2131837)
 

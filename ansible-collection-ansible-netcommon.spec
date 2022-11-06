@@ -1,7 +1,7 @@
 %global _docdir_fmt %{name}
 
 Name:           ansible-collection-ansible-netcommon
-Version:        4.0.0
+Version:        4.1.0
 Release:        1%{?dist}
 Summary:        Ansible Network Collection for Common Code
 
@@ -66,6 +66,9 @@ find -type f ! -executable -type f -name '*.py' -print -exec sed -i -e '1{\@^#!.
 %doc docs
 
 %changelog
+* Fri Nov 04 2022 Maxwell G <gotmax@e.email> - 4.1.0-1
+- Update to 4.1.0. Fixes rhbz#2139971.
+
 * Wed Oct 19 2022 Maxwell G <gotmax@e.email> - 4.0.0-1
 - Update to 4.0.0. Fixes rhbz#2124745.
 

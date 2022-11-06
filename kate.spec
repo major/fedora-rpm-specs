@@ -11,8 +11,8 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 22.08.2
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -205,6 +205,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Fri Oct 28 2022 Rex Dieter <rdieter@gmail.com> - 22.08.2-2
 - -libs subpkg for private library (#2137398)
 

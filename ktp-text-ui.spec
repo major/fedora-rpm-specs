@@ -1,14 +1,14 @@
 %undefine __cmake_in_source_build
 Name:    ktp-text-ui
 Summary: Telepathy text chat handler
-Version: 22.04.3
-Release: 2%{?dist}
+Version: 22.08.3
+Release: 1%{?dist}
 
 # GPLv2+: most code
 # (BSD or AFL): data/styles/renkoo.AdiumMessageStyle
 # MIT:  data/styles/simkete/, fadomatic javascript code used in Renkoo
 License: GPLv2+ and (BSD or AFL) and MIT
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/network/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -16,7 +16,7 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/stable/applications/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.ktplogviewer.
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

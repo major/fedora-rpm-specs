@@ -1,5 +1,5 @@
 Name:           mrack
-Version:        1.10.0
+Version:        1.11.0
 Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
@@ -35,15 +35,13 @@ testing supporting multiple provisioning providers (e.g. AWS, Beaker,
 Openstack). But in comparison to other multi-cloud libraries,
 the aim is to be able to describe host from application perspective.
 
-%{?python_provide:%python_provide %{name}}
-
 %package        cli
 Summary:        Command line interface for mrack
 Requires:       python3-%{name}lib = %{version}-%{release}
+Requires:       python3-click
 
 %package -n     python3-%{name}lib
 Summary:        Core mrack libraries
-Requires:       python3-click
 Requires:       python3-pyyaml
 Requires:       sshpass
 
@@ -119,7 +117,7 @@ library extending mrack package using testcloud
 %prep
 %autosetup -p1 -n %{name}-%{version}
 # Remove bundled egg-info
-rm -rf %{name}.egg-info
+rm -r src/%{name}.egg-info
 
 %build
 %py3_build
@@ -138,6 +136,7 @@ rm -rf %{name}.egg-info
 %doc README.md
 %doc CHANGELOG.md
 %{_bindir}/%{name}
+%{python3_sitelib}/%{name}/{,__pycache__/}run.*
 
 %files -n python3-%{name}lib
 %license LICENSE
@@ -145,6 +144,7 @@ rm -rf %{name}.egg-info
 %doc CHANGELOG.md
 %{python3_sitelib}/%{name}
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%exclude %{python3_sitelib}/%{name}/{,__pycache__/}run.*
 %exclude %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}osapi.*
 %exclude %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 %exclude %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}podman.*
@@ -175,6 +175,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Thu Nov 03 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.11.0-1
+- Released upstream version 1.11.0
+
 * Wed Oct 26 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.10.0-1
 - Released upstream version 1.10.0
 

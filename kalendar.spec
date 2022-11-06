@@ -3,7 +3,7 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        22.08.2
+Version:        22.08.3
 Release:        1%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
@@ -14,8 +14,6 @@ Source1:        %{name}.rpmlintrc
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
 # Upstream patches
-# Require the latest stable version of the Akonadi and PIM APIs
-Patch0:         281.diff
 
 
 BuildRequires:  desktop-file-utils
@@ -107,6 +105,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
+- 22.08.3
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.08.2-1
 - 22.08.2
 

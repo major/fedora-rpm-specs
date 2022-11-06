@@ -3,11 +3,11 @@
 
 Summary: X.Org X11 libfontenc runtime library
 Name: libfontenc
-Version: 1.1.4
-Release: 4%{?dist}
+Version: 1.1.6
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig make
 BuildRequires: xorg-x11-util-macros
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -type f -name '*.la' | xargs rm -f -- || :
 %{_libdir}/pkgconfig/fontenc.pc
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.1.6-1
+- libfontenc 1.1.6
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

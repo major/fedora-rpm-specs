@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXxf86vm runtime library
 Name: libXxf86vm
-Version: 1.1.4
-Release: 19%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.1.5
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -14,7 +14,7 @@ Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.5.99.902
@@ -52,7 +52,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %ldconfig_postun
 
 %files
-%doc README COPYING
+%doc README.md COPYING
 %{_libdir}/libXxf86vm.so.1
 %{_libdir}/libXxf86vm.so.1.0.0
 
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/X11/extensions/xf86vmode.h
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.1.5-1
+- libXxf86vm 1.1.5-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

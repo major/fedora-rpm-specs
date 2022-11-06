@@ -1,16 +1,18 @@
-%global	gnome_flashback	0
+%global	gnome_flashback	1
 %global	mate		1
 %global	xfce		1
 
 Name: workrave
-Version: 1.10.49
-Release: 3%{?dist}
+Version: 1.10.50
+Release: 1%{?dist}
 Summary: Program that assists in the recovery and prevention of RSI
 # Based on older packages by Dag Wieers <dag@wieers.com> and Steve Ratcliffe
 License: GPLv3+
 URL: http://www.workrave.org/
 %global tag %(echo %{version} | sed -e 's/\\./_/g')
 Source0: https://github.com/rcaelers/workrave/archive/v%{tag}/%{name}-v%{tag}.tar.gz
+# Support GNOME Shell 43, backport of https://github.com/rcaelers/workrave/pull/430
+Patch0:  578180d0982dd8f0dbe72574ae4758e6903691bb.patch
 
 Obsoletes: %{name}-gtk2 < 1.10.37-1
 Provides: %{name}-gtk2 = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -44,7 +46,7 @@ BuildRequires: intltool
 BuildRequires: autoconf, automake, libtool, autoconf-archive
 BuildRequires: desktop-file-utils
 %if 0%{?gnome_flashback}
-BuildRequires: pkgconfig(libpanel-applet)
+BuildRequires: pkgconfig(libgnome-panel)
 %endif
 %if 0%{?xfce} || 0%{?mate}
 BuildRequires: pkgconfig(gtk+-3.0)
@@ -63,17 +65,19 @@ Recommends: gstreamer1-plugins-good
 %endif
 Obsoletes: %{name}-devel < %{version}-%{release}
 
-%description
-Workrave is a program that assists in the recovery and prevention of
-Repetitive Strain Injury (RSI). The program frequently alerts you to
+%global _description Workrave is a program that assists in the recovery and prevention of\
+Repetitive Strain Injury (RSI). The program frequently alerts you to\
 take micro-pauses, rest breaks and restricts you to your daily limit.
+
+%description
+%{_description}
 
 %package gnome-flashback
 Requires: %{name} = %{version}-%{release}
 Summary: Workrave applet for GNOME Flashback
 
 %description gnome-flashback
-%{description}
+%{_description}
 
 This package provides an applet for the GNOME Flashback panel.
 
@@ -82,7 +86,7 @@ Requires: %{name} = %{version}-%{release}
 Summary: Workrave applet for MATE
 
 %description mate
-%{description}
+%{_description}
 
 This package provides an applet for the MATE panel.
 
@@ -91,13 +95,14 @@ Requires: %{name} = %{version}-%{release}
 Summary: Workrave applet for Xfce
 
 %description xfce
-%{description}
+%{_description}
 
 This package provides an applet for the Xfce panel.
 
 
 %prep
 %setup -q -n workrave-%{tag}
+%patch0 -p1
 touch ChangeLog
 # https://bugzilla.redhat.com/show_bug.cgi?id=304121
 sed -i -e '/^DISTRIBUTION_HOME/s/\/$//' frontend/gtkmm/src/Makefile.*
@@ -187,10 +192,7 @@ desktop-file-install \
 
 %if 0%{?gnome_flashback}
 %files gnome-flashback
-%{_libexecdir}/gnome-applets/workrave-applet
-%{_datadir}/dbus-1/services/org.gnome.panel.applet.WorkraveAppletFactory.service
-%{_datadir}/gnome-panel/5.0/applets/org.workrave.WorkraveApplet.panel-applet
-%{_datadir}/gnome-panel/ui/workrave-gnome-applet-menu.xml
+%{_libdir}/gnome-panel/modules/libworkrave-applet.so
 %endif
 
 %if 0%{?xfce}
@@ -208,6 +210,11 @@ desktop-file-install \
 %endif
 
 %changelog
+* Fri Nov 04 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.50-1
+- Update to 1.10.50
+- Enable GNOME Flashback applet
+- Support GNOME Shell 42 (#2132504) and 43 (#2132507)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.49-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

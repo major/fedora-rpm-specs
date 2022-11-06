@@ -1,9 +1,6 @@
-# RHEL 8 compatibility
-%{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
-
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
-Version: 2.0~rc5
+Version: 2.0
 Release: 1%{?dist}
 License: ASL 2.0
 URL:     https://github.com/linux-nvme/nvme-stas
@@ -13,7 +10,7 @@ BuildArch:     noarch
 
 BuildRequires: meson >= 0.57.0
 BuildRequires: glib2-devel
-BuildRequires: libnvme-devel
+BuildRequires: libnvme-devel >= 1.2
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: systemd-devel
@@ -34,7 +31,7 @@ BuildRequires: python3-gobject-devel
 BuildRequires: python3-lxml
 
 Requires:      avahi
-Requires:      python3-libnvme
+Requires:      python3-libnvme >= 1.2
 Requires:      python3-dasbus
 Requires:      python3-pyudev
 Requires:      python3-systemd
@@ -50,7 +47,7 @@ stafd (STorage Appliance Finder) and stacd (STorage Appliance Connector).
 
 %prep
 %autosetup -p1 -n %{name}-%{version_no_tilde}
-sed -i test/meson.build -e 's/python3-libnvme/libnvme/'
+sed -i meson.build -e "s/subdir('test')//"
 
 %build
 %meson -Dman=true -Dhtml=true
@@ -99,6 +96,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Fri Nov 04 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.0-1
+- Upstream v2.0 release
+
 * Tue Nov 01 2022 Tomas Bzatek <tbzatek@redhat.com> - 2.0~rc5-1
 - Upstream v2.0 Release Candidate 5
 

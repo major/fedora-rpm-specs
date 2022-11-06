@@ -1,6 +1,6 @@
 Name:           nv-codec-headers
-Version:        11.1.5.1
-Release:        3%{?dist}
+Version:        11.1.5.2
+Release:        1%{?dist}
 Summary:        FFmpeg version of Nvidia Codec SDK headers
 License:        MIT
 URL:            https://github.com/FFmpeg/nv-codec-headers
@@ -38,6 +38,9 @@ sed -i '1,22s/^.\{,3\}//' LICENSE
 
 
 %changelog
+* Fri Nov 04 2022 Leigh Scott <leigh123linux@gmail.com> - 11.1.5.2-1
+- Update to 11.1.5.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

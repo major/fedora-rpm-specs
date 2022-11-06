@@ -6,11 +6,7 @@
 %bcond_with abicheck
 
 # use the Hadrian buildsystem
-%if %{defined fedora}
 %bcond_without hadrian
-%else
-%bcond_with hadrian
-%endif
 
 # NB production builds should build hadrian (bcond_without)
 %bcond_without build_hadrian
@@ -79,12 +75,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.2
+Version: 9.4.3
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -356,7 +352,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD mtl-2.2.2
 %ghc_lib_subpackage -d -l BSD parsec-3.1.15.0
 %ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.15.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
 %ghc_lib_subpackage -d -l BSD stm-2.5.1.0
 %ghc_lib_subpackage -d -l BSD template-haskell-2.19.0.0
 %ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
@@ -955,6 +951,11 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Nov  4 2022 Jens Petersen <petersen@redhat.com> - 9.4.3-12
+- https://www.haskell.org/ghc/blog/20221103-ghc-9.4.3-released.html
+- https://downloads.haskell.org/~ghc/9.4.3/docs/users_guide/9.4.3-notes.html
+- enable Hadrian for epel9
+
 * Mon Oct 31 2022 Jens Petersen <petersen@redhat.com> - 9.4.2-11
 - add ld.conf.d file for finding shared libraries under Hadrian
   and remove RPATHs for Hadrian builds to rid rpmlint RUNPATH errors

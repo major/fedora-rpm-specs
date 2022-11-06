@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXrender runtime library
 Name: libXrender
-Version: 0.9.10
-Release: 17%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 0.9.11
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -14,7 +14,7 @@ Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.5.99.902
@@ -68,6 +68,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xrender.pc
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 0.9.11-1
+- libXrender 0.9.11-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

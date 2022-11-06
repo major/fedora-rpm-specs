@@ -5,7 +5,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -78,6 +78,14 @@ GStreamermm is a C++ wrapper library for the multimedia library
 GStreamer (http://gstreamer.freedesktop.org).  It is designed to allow
 C++ development of applications that work with multi-media.
 
+%package -n mingw32-gstreamermm-devel
+Summary:        Development files for %{name}
+Requires:       mingw32-%{name} = %{version}-%{release}
+
+%description -n mingw32-gstreamermm-devel
+The mingw32-%{name}-devel package contains libraries and header files for
+developing applications that use mingw32-%{name}.
+
 %package -n mingw64-gstreamermm
 Summary: MingwGW Windows C++ wrapper for GStreamer library
 BuildArch: noarch
@@ -86,6 +94,14 @@ BuildArch: noarch
 GStreamermm is a C++ wrapper library for the multimedia library
 GStreamer (http://gstreamer.freedesktop.org).  It is designed to allow
 C++ development of applications that work with multi-media.
+
+%package -n mingw64-gstreamermm-devel
+Summary:        Development files for %{name}
+Requires:       mingw64-%{name} = %{version}-%{release}
+
+%description -n mingw64-gstreamermm-devel
+The mingw64-%{name}-devel package contains libraries and header files for
+developing applications that use mingw64-%{name}.
 
 %{?mingw_debug_package}
 
@@ -142,8 +158,10 @@ popd
 
 %files -n mingw32-gstreamermm
 %doc AUTHORS ChangeLog NEWS README
-%{mingw32_libdir}/%{name}-%{api_ver}
 %{mingw32_bindir}/libgstreamermm-1.0-1.dll
+
+%files -n mingw32-gstreamermm-devel
+%{mingw32_libdir}/%{name}-%{api_ver}
 %{mingw32_libdir}/libgstreamermm-1.0.dll.a
 %{mingw32_libdir}/pkgconfig/gstreamermm-1.0.pc
 %{mingw32_includedir}/%{name}-%{api_ver}
@@ -151,14 +169,19 @@ popd
 
 %files -n mingw64-gstreamermm
 %doc AUTHORS ChangeLog NEWS README
-%{mingw64_libdir}/%{name}-%{api_ver}
 %{mingw64_bindir}/libgstreamermm-1.0-1.dll
+
+%files -n mingw64-gstreamermm-devel
+%{mingw64_libdir}/%{name}-%{api_ver}
 %{mingw64_libdir}/libgstreamermm-1.0.dll.a
 %{mingw64_libdir}/pkgconfig/gstreamermm-1.0.pc
 %{mingw64_includedir}/%{name}-%{api_ver}
 %{mingw64_datadir}/devhelp/books/%{name}-%{api_ver}
 
 %changelog
+* Fri Nov 04 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-15
+- put mingw devel files in corresponding -devel subpackages
+
 * Wed Oct 19 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-14
 - add mingw builds as subpackages (#1825263)
 - use upstream patch for fixing build against newer glib

@@ -4,7 +4,7 @@
 
 Summary:   Library for AppStream metadata
 Name:      libappstream-glib
-Version:   0.8.1
+Version:   0.8.2
 Release:   1%{?dist}
 License:   LGPLv2+
 URL:       http://people.freedesktop.org/~hughsient/appstream-glib/
@@ -129,6 +129,11 @@ from a directory of packages.
 %{_mandir}/man1/appstream-builder.1.gz
 
 %changelog
+* Fri Nov 04 2022 Richard Hughes <richard@hughsie.com> 0.8.2-1
+- New upstream release
+- Tell CURL to follow http redirects
+- Never add default icons to firmware, IMs or codecs
+
 * Wed Aug 10 2022 Richard Hughes <richard@hughsie.com> 0.8.1-1
 - New upstream release
 - Improve handling of <em> and <code> tags

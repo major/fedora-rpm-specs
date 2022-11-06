@@ -45,6 +45,14 @@ software:
 %prep
 %autosetup -n %{sys_name}-%{version} -p1
 sed -i 's/PROJECTVERSION/%{version}/g' setup.py
+# Fixed missing 1 positional argument in daemon/config.py
+#
+# For newer versions of python yaml, Simply loading the config with
+# yaml.load(cfg) does not work due to it being deprecated, It has been fixed
+# here.
+# https://github.com/chestm007/linux_thermaltake_riing/pull/53
+sed -i 's/return yaml.load(cfg)/return yaml.load(cfg, Loader=yaml.FullLoader)/' \
+    %{pypi_name}/daemon/config.py
 
 # fix wrong package requirement for GObject
 # https://github.com/chestm007/linux_thermaltake_riing/pull/37

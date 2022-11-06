@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libXinerama runtime library
 Name: libXinerama
-Version: 1.1.4
-Release: 11%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.1.5
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -14,7 +14,7 @@ Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: http://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 Requires: libX11 >= 1.5.99.902
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/extensions/panoramiXext.h
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.1.5-1
+- libXinerama 1.1.5-1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

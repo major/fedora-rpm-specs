@@ -4,8 +4,8 @@
 
 Summary: X.Org X11 libFS runtime library
 Name: libFS
-Version: 1.0.8
-Release: 8%{?dist}
+Version: 1.0.9
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -14,7 +14,7 @@ Source0:    %{tarball}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.tar.xz
 %endif
 
 BuildRequires: xorg-x11-util-macros
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_libdir}/pkgconfig/libfs.pc
 
 %changelog
+* Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.0.9-1
+- libFS 1.0.9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
