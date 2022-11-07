@@ -1,0 +1,55 @@
+Name: libglibutil
+Version: 1.0.67
+Release: 1%{?dist}
+Summary: Library of glib utilities
+License: BSD
+URL: https://github.com/sailfishos/libglibutil
+Source0: %{url}/archive/refs/tags/%{version}.tar.gz
+
+BuildRequires: pkgconfig
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: make gcc
+
+%description
+Provides glib utility functions and macros
+
+%package devel
+Summary: Development library for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: pkgconfig
+
+%description devel
+This package contains the development library for %{name}.
+
+%prep
+%setup -q
+
+%build
+%make_build LIBDIR=%{_libdir} KEEP_SYMBOLS=1 release pkgconfig
+
+%install
+%{make_build} LIBDIR=%{_libdir} DESTDIR=%{buildroot} install-dev
+
+%check
+%{make_build} -C test test
+
+%files
+%license LICENSE
+%{_libdir}/%{name}.so.*
+
+%files devel
+%{_libdir}/pkgconfig/*.pc
+%{_libdir}/%{name}.so
+%{_includedir}/gutil
+
+%changelog
+* Sat Oct 29 2022 Alessandro Astone <ales.astone@gmail.com> - 1.0.67-1
+- Update to 1.0.67
+
+* Mon Aug 22 2022 Benson Muite <benson_muite@emailplus.org> - 1.0.66-1
+- Update to new release
+
+* Sun Dec 12 2021 Mo 森 <rmnscnce@ya.ru> - 1.0.61-1
+- Track a new upstream URL
+- Use the 'make_build' macro
+- 1.0.61

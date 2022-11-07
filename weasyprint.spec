@@ -2,15 +2,13 @@
 %global srcname weasyprint
 
 Name:           weasyprint
-Version:        56.1
+Version:        57.1
 Release:        1%{?dist}
 Summary:        Utility to render HTML and CSS to PDF
 
 License:        BSD
 URL:            https://weasyprint.org/
 Source0:        %pypi_source
-Patch0:         %{name}-disable-flake8-isort-for-pytest.patch
-Patch1:         %{name}-remove-dependency-coverage-toml.patch
 
 BuildArch:      noarch
 
@@ -76,6 +74,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{modname}/tests
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Sat Nov 05 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 57.1-1
+- update to 57.1
+
 * Mon Jul 25 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 56.1-1
 - update to 56.1
 

@@ -25,6 +25,9 @@ URL:     https://konqueror.org/
 %endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
+# handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
+%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+
 ## upstream patches
 
 ## upstreamable patches

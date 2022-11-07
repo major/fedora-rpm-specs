@@ -52,7 +52,7 @@ checks.}
 %global godocs          VERSION.txt README.md
 
 Name:       reg
-Release:    10%{?dist}
+Release:    %autorelease
 Summary:    Docker registry v2 command line client
 
 License:    MIT
@@ -81,8 +81,7 @@ BuildRequires: systemd-rpm-macros
 
 Obsoletes: reg-server < %{version}
 
-%description
-%{common_description}
+%description %{common_description}
 
 %prep
 %if 0%{?epel}
@@ -95,6 +94,9 @@ Obsoletes: reg-server < %{version}
 sed \
     -e 's|github.com/docker/distribution|github.com/distribution/distribution/v3|' \
     -i $(find . -name '*.go')
+
+# remove dependency to pkg/term
+rm -rfv main_test>go testutils/
 %endif
 
 %if %{without bundled}
@@ -150,102 +152,4 @@ install -p -m 0640 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}-serve
 %config(noreplace) %{_sharedstatedir}/%{name}-server/templates/
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.16.1-9
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Mon Jul 04 2022 Maxwell G <gotmax@e.email> - 0.16.1-8
-- Fix FTBFS
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.16.1-7
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Sep 19 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.16.1-5
-- Fix vendoring for devel package
-- Make compatible with EPEL8
-- Close: rhbz#1941017, rhbz#1933618
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Feb 23 2021 Mattia Verga <mattia.verga@protonmail.com> - 0.16.1-3
-- Use bundled modules for EPEL8
-
-* Sun Feb 21 2021 Mattia Verga <mattia.verga@protonmail.com> - 0.16.1-2
-- Use modules from Fedora repository where possible
-
-* Sat Feb 20 2021 Mattia Verga <mattia.verga@protonmail.com> - 0.16.1-1
-- Update to 0.16.1
-- Fix FTB in F34
-- Make use of some Golang macros
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jun 14 2020 Athos Ribeiro <athoscr@fedoraproject.org> - 0.15.5-6
-- Fix image search
-
-* Thu Apr 23 2020 Mattia Verga <mattia.verga@protonmail.com> - 0.15.5-5
-- Fix %%postun directive
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org>
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Oct 16 2018 Kevin Fenzi <kevin@scrye.com> - 0.15.5-1
-- Update to 0.15.5
-
-* Thu Jul 26 2018 Kevin Fenzi <kevin@scrye.com> - 0.15.4-1
-- Update to 0.15.4.
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Jun 29 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.4.1-5
-- Actually apply the patch for single-run execution
-
-* Thu Jun 29 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.4.1-4
-- Fix epel7 build
-
-* Tue Jun 27 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.4.1-3
-- Add patch to allow single-run execution of reg-server for static html
-  generation
-
-* Mon Jun 19 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.4.1-2
-- Add ghost file entry for statically generated index.html
-
-* Mon Jun 12 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.4.1-1
-- Update to latest upstream
-- Switch to using upstream versioning, they are tagging versions now.
-
-* Tue Mar 21 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.2.0-2.git.0.94d0af5
-- Move static/templates and systemd workingdir to /var/lib/reg-server
-- Change Source0 to point to github archive url instead of local git-archive
-- Fix tabs vs spaces in the spec file
-
-* Tue Mar 14 2017 Adam Miller <maxamillion@fedoraproject.org> - 0.2.0-1.git.0.94d0af5
-- First package for Fedora
+%autochangelog

@@ -13,6 +13,12 @@ Source0:        %{url}/archive/%{version}/%{repo}-%{version}.tar.gz
 Source1:        fontconfig.json
 Source2:        %{sname}.sysusers
 
+# applied in upstream git04c900d31414b3ea8f3f69da8e1542ce7b7d9e59
+Patch0:         0001-chore.patch
+# applied in upstream git8f8e763baf795f66704ac5cc6f9a6c0da361ad3b
+Patch1:         0001-fix-libinput.patch
+Patch2:         https://raw.githubusercontent.com/archlinux/svntogit-community/packages/deepin-daemon/trunk/deepin-daemon-fix-vanilla-libinput.patch
+
 BuildRequires:  python3
 ExclusiveArch:  %{?go_arches:%{go_arches}}%{!?go_arches:%{ix86} x86_64 aarch64 %{arm}}
 BuildRequires:  golang(github.com/linuxdeepin/dde-api/dxinput)

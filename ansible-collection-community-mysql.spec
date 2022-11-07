@@ -4,12 +4,9 @@
 %bcond_with tests
 %endif
 
-%global collection_namespace community
-%global collection_name mysql
-
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        3.4.0
-Release:        2%{?dist}
+Name:           ansible-collection-community-mysql
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        MySQL collection for Ansible
 
 # All files are GPL-3.0-or-later except:
@@ -18,7 +15,7 @@ Summary:        MySQL collection for Ansible
 # BSD-2-Clause: plugins/module_utils/mysql.py
 # BSD-2-Clause: plugins/module_utils/database.py
 License:        GPL-3.0-or-later AND PSF-2.0 AND BSD-2-Clause
-URL:            %{ansible_collection_url}
+URL:            %{ansible_collection_url community mysql}
 Source:         https://github.com/ansible-collections/community.mysql/archive/%{version}/%{name}-%{version}.tar.gz
 # Patch galaxy.yml to exclude unnecessary files from the built collection.
 # This is a downstream only patch.
@@ -49,12 +46,14 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %ansible_test_unit
 %endif
 
-%files
+%files -f %{ansible_collection_filelist}
 %license COPYING PSF-license.txt simplified_bsd.txt CONTRIBUTORS
 %doc README.md CHANGELOG.rst
-%{ansible_collection_files}
 
 %changelog
+* Sun Nov 06 2022 Maxwell G <gotmax@e.email> - 3.5.1-1
+- Update to 3.5.1. Fixes rhbz#1956098.
+
 * Sat Aug 27 2022 Maxwell G <gotmax@e.email> - 3.4.0-2
 - Update license from "GPLv3+ and Python" to "GPL-3.0-or-later AND PSF-2.0 AND BSD-2-Clause"
 - Run unit tests

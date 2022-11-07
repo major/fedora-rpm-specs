@@ -1,11 +1,13 @@
 Name:       pass-otp
 Version:    1.2.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A pass extension for managing one-time-password (OTP) tokens
 License:    GPLv3+
 BuildArch:  noarch
 URL:        https://github.com/tadfisher/pass-otp
 Source:     https://github.com/tadfisher/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2136582
+Patch0:     %{name}-1.2.0-fix_hotp_counter.patch
 BuildRequires: make
 BuildRequires: expect
 BuildRequires: git
@@ -40,6 +42,9 @@ otpauth:// scheme.
 %{_sysconfdir}/bash_completion.d/pass-otp
 
 %changelog
+* Sat Nov 05 2022 Juan Orti Alcaine <jortialc@redhat.com> - 1.2.0-10
+- Add patch to fix RHBZ#2136582
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

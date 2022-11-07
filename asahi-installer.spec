@@ -14,7 +14,7 @@
 %global liblzfse_majver 1
 
 Name:           asahi-installer
-Version:        0.5pre7
+Version:        0.5pre9
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -61,6 +61,9 @@ sed -i asahi_firmware/img4.py \
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
+
+# remove this as it conflicts with the wrapper shipped in asahi-scripts
+rm %{buildroot}%{_bindir}/asahi-fwextract
 
 %check
 %pyproject_check_import

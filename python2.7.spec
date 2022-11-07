@@ -74,7 +74,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 26%{?dist}
+Release: 27%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -1727,6 +1727,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Thu Nov 03 2022 Orion Poplawski <orion@nwra.com> - 2.7.18-27
+- Avoid triggering of %%__python macro by %%py2_shebang_fix
+
 * Wed Oct 26 2022 Lumír Balhar <lbalhar@redhat.com> - 2.7.18-26
 - Fix location and invocation of pathfix.py in py2_shebang_fix macro
 

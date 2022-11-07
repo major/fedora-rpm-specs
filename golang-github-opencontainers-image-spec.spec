@@ -4,9 +4,9 @@
 
 # https://github.com/opencontainers/image-spec
 %global goipath         github.com/opencontainers/image-spec
-Version:                1.1.0~rc1
-# Needed for containerd (zstd compression)
-%global commit          decdb1500673e7ef4fd912e0741f67a49e35d502
+Version:                1.1.0~rc2
+%global tag             v1.1.0-rc2
+%global distprefix      %nil
 
 %gometa
 

@@ -31,6 +31,7 @@ BuildRequires:  pugixml-devel
 BuildRequires:  mariadb-connector-c-devel
 %{?sysusers_requires_compat}
 %{?systemd_ordering}
+BuildRequires:  systemd
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
@@ -126,6 +127,7 @@ EOF
 %changelog
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-4
 - Rebuilt due to spdlog update.
+- Fixed FTBFS on Rawhide. Closes rhbz#2139904.
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

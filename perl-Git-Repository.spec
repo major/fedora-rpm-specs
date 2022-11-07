@@ -1,10 +1,11 @@
 Name:           perl-Git-Repository
 Version:        1.325
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl interface to Git repositories
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-Repository
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOOK/Git-Repository-%{version}.tar.gz
+Patch1:         git-2.38.1-compatibility.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  make
@@ -54,7 +55,7 @@ Test::Git provides a number of helpful functions when running test scripts that
 require the creation and management of a Git repository.
 
 %prep
-%setup -q -n Git-Repository-%{version}
+%autosetup -p1 -n Git-Repository-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
@@ -79,6 +80,9 @@ make test
 %{perl_vendorlib}/Test
 
 %changelog
+* Sat Nov 05 2022 Pazdziora <jpazdziora@redhat.com> - 1.325-6
+- 2137877 - test compatilibity patch for git 2.38.1.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

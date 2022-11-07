@@ -156,7 +156,7 @@ BuildRequires:  pkgconfig(gtk+-3.0) >= 3.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.32
 BuildRequires:  desktop-file-utils
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
-License:        BSD and (LGPLv3+ or CC-BY-SA)
+License:        BSD-3-Clause AND (LGPL-3.0-or-later OR CC-BY-SA-3.0)
 BuildRequires:  librsvg2
 BuildRequires:  /usr/bin/gtk-encode-symbolic-svg
 Requires:       adwaita-icon-theme < 3.31.91-1

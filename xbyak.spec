@@ -20,7 +20,7 @@ BuildRequires:  sed
 %bcond_with check
 %if %{with check}
 # check
-BuildRequires:  g++
+BuildRequires:  gcc-c++
 #  -m32
 BuildRequires:  glibc-devel(x86-32), libstdc++(x86-32)
 BuildRequires:  nasm, yasm

@@ -4,8 +4,8 @@ code to use the services and types in the document. This\
 provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
-Version:        4.1.0
-Release:        5%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        A fast and modern Python SOAP client
 
 License:        MIT and BSD
@@ -69,11 +69,6 @@ Summary:        %{summary}
 # disable linting dependencies and exact test dependencies
 sed -i -e "s/\('\(isort\|flake\)\)/# \1/"  -e "s/\('[A-Za-z_-]\+\)==/\1>=/"  setup.py
 
-# replace deprecated and removed httpx_mock.add_response() keywords (pytest_httpx)
-# cf. https://github.com/Colin-b/pytest_httpx/blob/develop/CHANGELOG.md#0140---2021-10-22  0.14
-#     https://github.com/Colin-b/pytest_httpx/blob/develop/CHANGELOG.md#0180---2022-01-17  0.18
-# XXX TODO remove again when upstream switches to a more recent pytest_httpx version
-sed 's/\(url="[^"]\+", \)data\(="[^"]\+"\)/\1text\2/' tests/test_async_transport.py -i
 
 %build
 %py3_build
@@ -93,6 +88,9 @@ PYTHONPATH=src %{__python3} -m pytest tests
 
 
 %changelog
+* Sat Nov 05 2022 Georg Sauthoff <mail@gms.tf> - 4.2.0-1
+- bump version (fixes fedora#2139784)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

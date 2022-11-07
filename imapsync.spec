@@ -1,6 +1,6 @@
 Name: imapsync
 Summary: Tool to migrate email between IMAP servers
-Version: 2.200
+Version: 2.229
 Release: 1%{?dist}
 License: NLPL
 
@@ -36,6 +36,7 @@ BuildRequires: perl(Package::Stash)
 BuildRequires: perl(Package::Stash::XS)
 BuildRequires: perl(PAR::Packer)
 BuildRequires: perl(Pod::Usage)
+BuildRequires: perl(Proc::ProcessTable)
 BuildRequires: perl(Readonly)
 BuildRequires: perl(Regexp::Common)
 BuildRequires: perl(Sys::MemInfo)
@@ -79,6 +80,7 @@ Requires: perl(IO::Tee)
 Requires: perl(JSON::WebToken)
 Requires: perl(Mail::IMAPClient) >= 3.25
 Requires: perl(Pod::Usage)
+Requires: perl(Proc::ProcessTable)
 Requires: perl(Regexp::Common)
 Requires: perl(Readonly)
 Requires: perl(Sys::MemInfo)
@@ -126,6 +128,9 @@ iconv -f iso-8859-1 -t utf-8 -o TODO.utf8 TODO && %{__mv} TODO.utf8 TODO
 %attr(644, root, root) %{_mandir}/man1/imapsync.1*
 
 %ChangeLog
+* Sat Nov 5 2022 Nick Bebout <nb@fedoraproject.org> - 2.229-1
+- Update to 2.229
+
 * Sun Aug 21 2022 Jonathan Wright <nb@fedoraproject.org> - 2.200-1
 - Update to 2.200
 - Update URL

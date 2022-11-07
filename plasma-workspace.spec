@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.26.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -280,6 +280,10 @@ Requires:        maliit-keyboard
 %if %{with systemdBoot}
 Requires:        (uresourced if systemd-oomd-defaults)
 %endif
+
+# needed for task manager thumbnails under wayland and for things like
+# screenshare portal
+Requires:       kpipewire
 
 # Require any plasmashell (plasma-desktop provides plasmashell(desktop))
 %if 0%{?bootstrap}
@@ -778,6 +782,9 @@ fi
 
 
 %changelog
+* Sat Nov 05 2022 Marc Deop marcdeop@fedoraproject.org - 5.26.2-2
+- Require kpipewire
+
 * Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
 - 5.26.2
 

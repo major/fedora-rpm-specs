@@ -17,12 +17,12 @@
 
 # We need at least gcc 10 anyway
 %global enable_lto 1
-%if %{without lto} || 0%{?rhel} < 9
+%if %{without lto} || (0%{?rhel} && 0%{?rhel} < 9)
 %global enable_lto 0
 %global _lto_cflags %nil
 %endif
 
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} >= 33 || 0%{?rhel} < 9
 %global blaslib flexiblas
 %global blasvar %{nil}
 %else
@@ -36,7 +36,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -353,20 +353,7 @@ export R_PRINTCMD="lpr"
 export R_BROWSER="%{_bindir}/xdg-open"
 
 %ifarch %{java_arches}
-%ifarch x86_64
-%define java_arch amd64
-%else
-%define java_arch %{_arch}
-%endif
 export JAVA_HOME=%{_jvmdir}/jre
-export JAVA_CPPFLAGS="-I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux"
-export JAVA_LIBS="-L%{_jvmdir}/jre/lib/%{java_arch}/server -L%{_jvmdir}/jre/lib/%{java_arch} -L%{_jvmdir}/java/lib/%{java_arch} -L%{_jvmdir}/jre/lib/server -L/usr/java/packages/lib/%{java_arch} -L/lib -L/usr/lib -ljvm"
-export JAVA_LD_LIBRARY_PATH=%{_jvmdir}/jre/lib/%{java_arch}/server:%{_jvmdir}/jre/lib/%{java_arch}:%{_jvmdir}/java/lib/%{java_arch}:%{_jvmdir}/jre/lib/server:/usr/java/packages/lib/%{java_arch}:/lib:/usr/lib
-%endif
-
-%if "%{blaslib}" == "flexiblas"
-# avoid this check
-sed -i '/"checking whether the BLAS is complete/i r_cv_complete_blas=yes' configure
 %endif
 
 %configure \
@@ -452,12 +439,10 @@ fi
 
 %check
 %if %{with tests}
-# okay, look. its very clear that upstream does not run the test suite on any non-intel architectures.
-%ifnarch ppc64 ppc64le armv7hl s390x aarch64
-# Needed by tests/ok-error.R, which will smash the stack on PPC64. This is the purpose of the test.
+# Needed by tests/ok-error.R, which will smash the stack on PPC64.
+# This is the purpose of the test.
 ulimit -s 16384
 TZ="Europe/Paris" make check
-%endif
 %endif
 
 %post core
@@ -838,6 +823,14 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Sat Nov 05 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-4
+- Remove FlexiBLAS workaround, now officially supported
+- Re-enable tests in all platforms
+- Fix LTO flag once and for all (thanks, Mattias)
+
+* Sat Nov 05 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-3
+- Let R find its way into Java instead of specifying too many possible paths
+
 * Fri Nov 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-2
 - Move Java configuration to the build phase
 - Remove javareconf from posttrans scriptlets

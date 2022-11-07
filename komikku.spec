@@ -4,7 +4,7 @@
 %global libadwaita_version  1.2
 
 Name:           komikku
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -40,6 +40,7 @@ Requires:       python3-natsort
 Requires:       python3dist(file-magic)
 Requires:       python3-pillow
 Requires:       python3-pure-protobuf
+Requires:       python3-rarfile
 Requires:       python3-unidecode
 
 %description

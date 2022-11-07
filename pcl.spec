@@ -110,8 +110,6 @@ sed -i 's|@PCL_SOURCE_DIR@/build|@PCL_SOURCE_DIR@/%{_vpath_builddir}|' doc/doxyg
 # esp. on ARM builders)
 %global optflags %(echo %{optflags} | sed -e 's/-g /-g1 /' -e 's/-pipe //' -e's/-ffat-lto-objects/-fno-fat-lto-objects/')
 
-# Disable Altivec MMA to work around eigen3-3.4/GCC issue
-# rhbz#1996330
 %cmake \
   -DCMAKE_BUILD_TYPE=None \
   -DWITH_DOCS=ON \

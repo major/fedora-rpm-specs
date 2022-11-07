@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GNU Data Language
 
 License:        GPLv2+
@@ -147,11 +147,6 @@ popd
 #           --with-mpich=%{_libdir}/mpich2 \
 
 %build
-%ifarch ppc64le
-# lto seems to have a problem with latest eigen3
-# https://bugzilla.redhat.com/show_bug.cgi?id=1996330
-%global _lto_cflags %nil
-%endif
 export CXXFLAGS="%optflags -fcommon"
 %ifarch %{arm}
 # Work around https://github.com/gnudatalanguage/gdl/issues/677
@@ -248,6 +243,9 @@ cat xorg.log
 
 
 %changelog
+* Sat Nov 05 2022 Orion Poplawski <orion@nwra.com> - 1.0.1-10
+- Re-enable LTO on ppc64le
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.1-9
 - Rebuild for gsl-2.7.1
 
