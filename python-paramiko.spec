@@ -1,22 +1,14 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       2.11.0
-Release:       3%{?dist}
+Version:       2.12.0
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://github.com/paramiko/paramiko
 Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Skip tests that would fail without SHA-1 signing support in backend (e.g. on EL-9)
-# Can be removed when https://github.com/paramiko/paramiko/pull/2057/ is released
-Patch1:        0001-Mark-new-tests-that-require-SHA1.patch
-
-# Skip tests requiring invoke if it's not installed
-# Can be removed when https://github.com/paramiko/paramiko/pull/1667/ is released
-Patch2:        0002-Skip-tests-requiring-invoke.patch
 
 # Remove pytest-relaxed, which depends on pytest4
 # Can be removed when https://github.com/paramiko/paramiko/pull/1665/ is released
@@ -96,6 +88,23 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sun Nov  6 2022 Paul Howarth <paul@city-fan.org> - 2.12.0-1
+- Update to 2.12.0 (rhbz#2140281)
+  - Add a 'transport_factory' kwarg to 'SSHClient.connect' for advanced users
+    to gain more control over early Transport setup and manipulation (GH#2054,
+    GH#2125)
+  - Update '~paramiko.client.SSHClient' so it explicitly closes its wrapped
+    socket object upon encountering socket errors at connection time; this
+    should help somewhat with certain classes of memory leaks, resource
+    warnings, and/or errors (though we hasten to remind everyone that Client
+    and Transport have their own '.close()' methods for use in non-error
+    situations!) (GH#1822)
+  - Raise '~paramiko.ssh_exception.SSHException' explicitly when blank private
+    key data is loaded, instead of the natural result of 'IndexError'; this
+    should help more bits of Paramiko or Paramiko-adjacent codebases to
+    correctly handle this class of error (GH#1599, GH#1637)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf5-%{framework}
-Version: 5.99.0
-Release: 4%{?dist}
+Version: 5.100.0
+Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -21,9 +21,6 @@ Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framewo
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
 
 # Upastream patches
-Patch0:         350ce1b990460cb2178f369f22fe80803f5645f3.diff
-Patch1:         1190e53e9b69da6f9663ceb75c4813c5708b7cbd.diff
-Patch2:         f475a4b24a166d7582163753bc2f4f254257daed.diff
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  jasper-devel
@@ -80,6 +77,9 @@ image formats.
 
 
 %changelog
+* Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
+- 5.100.0
+
 * Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 5.99.0-4
 - Rebuild for new libavif
 

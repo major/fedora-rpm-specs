@@ -1,6 +1,6 @@
 Name:           solaar
 Version:        1.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -9,6 +9,8 @@ Patch0:         solaar-paths.patch
 # Fedora-specific patch; remove udev-acl tag from upsteam udev rules as it only
 # applies to some old version of ubuntu.
 Patch1:         patch-udev-rules
+# upstream patch to remove unnecessary dependency
+Patch2:         https://github.com/pwr-Solaar/Solaar/pull/1826.patch
 
 BuildArch:      noarch
 License:        GPLv2
@@ -121,6 +123,9 @@ fi
 
 
 %changelog
+* Sun Nov 06 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.1.7-2
+- drop unnecessary dependency
+
 * Fri Nov 04 2022 Mark E. Fuller <fuller@fedoraproject.org> - 1.1.7-1
 - Update to 1.1.7 (#2137568)
 

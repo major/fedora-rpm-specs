@@ -13,8 +13,8 @@
 
 
 Name:		scummvm
-Version:	2.6.0
-Release:	2%{?dist}
+Version:	2.6.1
+Release:	1%{?dist}
 Summary:	Interpreter for several adventure games
 # OFL only used by font files (distributed as fonts.dat)
 License:	GPLv3+ and LGPLv2+ and BSD and OFL and MIT and ISC
@@ -148,6 +148,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -name '*.so' | xargs chmod -Rc 0755
 
 
 %changelog
+* Sun Nov 06 2022 Christian Krause <chkr@fedoraproject.org> - 2.6.1-1
+- Update to 2.6.1 (#2135801)
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.6.0-2
 - Rebuilt for flac 1.4.0
 

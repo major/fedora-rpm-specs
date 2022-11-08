@@ -18,8 +18,8 @@
 
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.5
-Release: 2%{?dist}
+Version: 2.17.6
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -670,6 +670,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Sun Nov 06 2022 Packit <hello@packit.dev> - 2.17.6-1
+- Release version 2.17.6 (Michal Srb)
+- Update translations (mgrabovsky)
+- Update changelog (Michal Srb)
+- reporter-bugzilla: Fix TypeError (Michal Srb)
+
 * Mon Oct 24 2022 Michal Srb <michal@redhat.com> - 2.17.5-2
 - Fix dist-tag
 

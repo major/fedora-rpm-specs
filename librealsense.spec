@@ -1,6 +1,6 @@
-%global abiver 2.50
+%global abiver 2.52
 Name:           librealsense
-Version:        2.50.0
+Version:        2.52.1
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -12,6 +12,8 @@ Source0:        https://github.com/IntelRealSense/librealsense/archive/v%{versio
 Patch0:         librealsense.remove-cflags.patch
 Patch1:         librealsense.realsense-file-shared-library.patch
 Patch2:         librealsense.use-system-pybind11.patch
+Patch3:         librealsense.remove-invalid-unused-code.patch
+Patch4:         librealsense.iostream-include.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)

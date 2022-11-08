@@ -1,7 +1,7 @@
 %global	gem_name	image_size
 
 Name:		rubygem-%{gem_name}
-Version:	3.1.0
+Version:	3.2.0
 Release:	1%{?dist}
 
 Summary:	Measure image size using pure Ruby
@@ -18,8 +18,9 @@ BuildRequires:	rubygem(webrick)
 BuildArch:		noarch
 
 %description
-Measure following file dimensions: apng, bmp, cur, gif, ico, j2c, jp2, jpeg,
-jpx, mng, pam, pbm, pcx, pgm, png, ppm, psd, svg, swf, tiff, webp, xbm, xpm.
+Measure following file dimensions: apng, bmp, cur, emf, gif, ico, j2c, jp2,
+jpeg, jpx, mng, pam, pbm, pcx, pgm, png, ppm, psd, svg, swf, tiff, webp, xbm,
+xpm.
 
 
 %package	doc
@@ -57,7 +58,16 @@ popd
 
 %check
 pushd .%{gem_instdir}
+
+# "gemspec" test reads gemspec, which needs `git',
+# providing fake git.
+rm -rf TMPBINDIR
+mkdir TMPBINDIR
+ln -sf /bin/true TMPBINDIR/git
+export PATH=$(pwd)/TMPBINDIR:$PATH
+
 rspec spec
+rm -rf TMPBINDIR
 popd
 
 %files
@@ -73,6 +83,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.markdown
 
 %changelog
+* Sun Nov  6 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.0-1
+- 3.2.0
+
 * Sun Sep 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-1
 - 3.1.0
 

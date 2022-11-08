@@ -1,5 +1,5 @@
 Name:           libipuz
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 

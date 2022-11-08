@@ -7,21 +7,15 @@
 %endif
 
 Name:           crosswords
-Version:        0.3.5
+Version:        0.3.6
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
-License:        GPL-3.0-or-later
+# crosswords itself is GPL-3.0-or-later, the puzzle sets it bundles are
+# CC-BY-SA-4.0
+License:        GPL-3.0-or-later and CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/jrb/crosswords
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
-# meson: make libword_list a static library
-Patch:          %{url}/-/commit/38ab5a6de693651d1482c742524e1aac2aeace78.patch
-#  Install each puzzleset in its own subdir
-Patch:          %{url}/-/commit/95dbdeb19d134cc8070e2e44f0109cb9d09d1fe4.patch
-# Register MIME type
-Patch:          %{url}/-/commit/4fbc75dcf53d5f306ef7f84618aecb6fcc710a06.patch
-# Put the devel puzzles in a get_optin ('development') guard
-Patch:          %{url}/-/commit/1e163c45e0372a396e009d717be945f55a2ecb98.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake
@@ -103,6 +97,7 @@ suggestions of words when creating the grid.
 Summary:        Converts puz files to ipuz files
 BuildArch:      noarch
 
+Requires:       crosswords
 Requires:       python3
 Requires:       python3dist(dateparser)
 Requires:       python3dist(lxml)
@@ -176,6 +171,7 @@ desktop-file-validate \
 
 %files -n ipuz-convertor
 %license COPYING
+%{_datadir}/%{name}/ipuz-convertor
 %{_libexecdir}/ipuz-convertor
 
 %changelog

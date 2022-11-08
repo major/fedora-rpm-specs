@@ -18,6 +18,9 @@ fi                                               \
 # Always do out-of-source builds with CMake.
 %{?__cmake_in_source_build:%undefine __cmake_in_source_build}
 
+# Do not build non-lto objects to reduce build time significantly.
+%global optflags %(echo '%{optflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
+
 # Build and package Doxygen documentation?
 %bcond_without    doxy
 
@@ -33,7 +36,7 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.24.1
+Version:          1.24.4
 Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
@@ -56,6 +59,7 @@ Source1000:       gen_openssl_cnf.py
 
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
+Patch01001:       %{name}-1.24.4-no_brainpool_curves.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies
@@ -318,6 +322,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Nov 06 2022 Björn Esser <besser82@fedoraproject.org> - 1.24.4-1
+- New upstream release
+
 * Fri Sep 02 2022 Björn Esser <besser82@fedoraproject.org> - 1.24.1-1
 - New upstream release
 

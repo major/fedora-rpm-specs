@@ -3,11 +3,11 @@
 # documentation, so use the following procedure:
 # 1. Do a bootstrap build of this package.
 # 2. Build python-ZODB.
-# 3. Do a normal build of this packages.
+# 3. Do a normal build of this package.
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        4.10.1
+Version:        4.11.0
 Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
@@ -120,6 +120,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Sun Nov  6 2022 Jerry James <loganjerry@gmail.com> - 4.11.0-1
+- Version 4.11.0
+
 * Mon Sep 12 2022 Jerry James <loganjerry@gmail.com> - 4.10.1-1
 - Version 4.10.1
 - Convert License tag to SPDX

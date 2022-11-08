@@ -1,8 +1,9 @@
 Name:           python-typer
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Build great CLIs; easy to code; based on Python type hints
 
+# SPDX
 License:        MIT
 URL:            https://typer.tiangolo.com/
 Source0:        https://github.com/tiangolo/typer/archive/%{version}/typer-%{version}.tar.gz
@@ -88,11 +89,6 @@ rm -rvf docs/js docs/css
 #  - %%check -p /bin/bash
 # so we must simply skip the affected tests.
 k="${k-}${k+ and }not test_show_completion and not test_install_completion"
-# Failure in test_not_exists because the error message is not as expected; we
-# suspect this is because the packaged version of one of the dependencies is
-# lagging upstream, but we have not tracked down which one. See:
-# https://github.com/tiangolo/typer/issues/413#issuecomment-1183276742
-k="${k-}${k+ and }not test_not_exists"
 %pytest -k "${k-}" -n %{_smp_build_ncpus}
 
 

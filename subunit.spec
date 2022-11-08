@@ -1,31 +1,18 @@
-%if (0%{?rhel} > 0 && 0%{?rhel} < 9)
-%bcond_without python2
-%else
-%bcond_with python2
-%endif
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
+# NOTE: python2 support is no longer available.  Do not build for EPEL versions
+# that do not support python3.
 
 Name:           subunit
-Version:        1.4.0
-Release:        13%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
 
-License:        ASL 2.0 or BSD
+License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/%{name}
 Source0:        https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
-Source1:        https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz.asc
-# Public key for Jelmer Vernooij <jelmer@jelmer.uk>
-Source2:        gpgkey-B23862C415D6565A4E86CBD7579C160D4C9E23E8.gpg
 
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -33,19 +20,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(cppunit)
-
-%if %{with python2}
-BuildRequires:  python2-devel
-BuildRequires:  python2-docutils
-BuildRequires:  python2-extras
-BuildRequires:  python2-fixtures
-BuildRequires:  python2-hypothesis
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-testscenarios
-BuildRequires:  python2-testtools >= 1.8.0
-%endif
-
-%if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist extras}
@@ -54,9 +28,8 @@ BuildRequires:  %{py3_dist hypothesis}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist testscenarios}
-BuildRequires:  %{py3_dist testtools} >= 1.8.0
+BuildRequires:  %{py3_dist testtools} >= 0.9.34
 BuildRequires:  %{py3_dist wheel}
-%endif
 
 %description
 Subunit C bindings.  See the python-subunit package for test processing
@@ -103,46 +76,15 @@ BuildArch:      noarch
 Subunit shell bindings.  See the python-subunit package for test
 processing functionality.
 
-%if %{with python2}
-%package -n python2-%{name}
-Summary:        Streaming protocol for test results
-BuildArch:      noarch
-Requires:       python2-extras
-Requires:       python2-testtools >= 1.8.0
-Provides:       bundled(python2-iso8601) = 0.1.4
-
-%description -n python2-%{name}
-Subunit is a streaming protocol for test results.  The protocol is a
-binary encoding that is easily generated and parsed.  By design all the
-components of the protocol conceptually fit into the xUnit TestCase ->
-TestResult interaction.
-
-Subunit comes with command line filters to process a subunit stream and
-language bindings for python, C, C++ and shell.  Bindings are easy to
-write for other languages.
-
-A number of useful things can be done easily with subunit:
-- Test aggregation: Tests run separately can be combined and then
-  reported/displayed together.  For instance, tests from different
-  languages can be shown as a seamless whole.
-- Test archiving: A test run may be recorded and replayed later.
-- Test isolation: Tests that may crash or otherwise interact badly with
-  each other can be run separately and then aggregated, rather than
-  interfering with each other.
-- Grid testing: subunit can act as the necessary serialization and
-  deserialization to get test runs on distributed machines to be
-  reported in real time.
-%endif
-
-%if %{with python3}
 %package -n python3-%{name}
+# The bundled iso8601 library is MIT licensed
+License:        (Apache-2.0 OR BSD-3-Clause) AND MIT
 Summary:        Streaming protocol for test results
 BuildArch:      noarch
-%if %{with python2}
-Requires:       python3-extras
-Requires:       python3-testtools >= 1.8.0
-%endif
 Provides:       bundled(python3-iso8601) = 0.1.4
+
+# This can be removed when Fedora 41 reaches EOL
+Obsoletes:      python2-%{name} < 1.4.1
 
 %description -n python3-%{name}
 Subunit is a streaming protocol for test results.  The protocol is a
@@ -174,22 +116,15 @@ Requires:       %{name}-filters = %{version}-%{release}
 
 %description -n python3-%{name}-test
 %{summary}.
-%endif
 
 %package filters
 Summary:        Command line filters for processing subunit streams
 BuildArch:      noarch
-%if %{with python3}
 Requires:       python3-%{name} = %{version}-%{release}
 Requires:       python3-gobject
 Requires:       gtk3 >= 3.20
 Requires:       libnotify >= 0.7.7
 Requires:       %{py3_dist junitxml}
-%else
-Requires:       python2-%{name} = %{version}-%{release}
-Requires:       pygtk2
-Requires:       python2-junitxml
-%endif
 
 %description filters
 Command line filters for processing subunit streams.
@@ -202,12 +137,8 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Subunit C bindings in a static library, for building statically linked
 test cases.
 
-
 %prep
 %autosetup -p1
-
-# Verify the source file
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 
 fixtimestamp() {
   touch -r $1.orig $1
@@ -218,53 +149,16 @@ fixtimestamp() {
 sed "/^tests_LDADD/ilibcppunit_subunit_la_LIBADD = -lcppunit libsubunit.la\n" \
     -i Makefile.am
 
-# Depend on versioned python
-sed -i.orig 's,%{_bindir}/python,&2,' python/subunit/run.py
-fixtimestamp python/subunit/run.py
-
 # Do not use env
 for fil in $(grep -Frl "%{_bindir}/env python"); do
-  sed -i.orig 's,%{_bindir}/env python,%{_bindir}/python2,' $fil
+  sed -ri.orig 's,%{_bindir}/env python3?,%{python3},' $fil
   fixtimestamp $fil
 done
-
-# Generate the configure script
-autoreconf -fi
-
-%if %{with python3}
-# Prepare to build for python 3
-cp -a ../%{name}-%{version} ../python3
-mv ../python3 .
-pushd python3
-for fil in $(grep -Frl "%{_bindir}/python2"); do
-  sed -i.orig 's,\(%{_bindir}/python\)2,\13,' $fil
-  fixtimestamp $fil
-done
-popd
-%endif
 
 %build
 export INSTALLDIRS=perl
 
-# Build for python2
-%if %{with python2}
-export PYTHON=%{_bindir}/python2
-%configure --enable-shared --enable-static
-
-# Get rid of undesirable hardcoded rpaths; workaround libtool reordering
-# -Wl,--as-needed after all the libraries.
-sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
-    -e 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' \
-    -e 's|CC=.g..|& -Wl,--as-needed|' \
-    -i libtool
-
-%make_build
-%py2_build
-%endif
-
 # Build for python3
-%if %{with python3}
-pushd python3
 export PYTHON=%{_bindir}/python3
 %configure --enable-shared --enable-static
 
@@ -277,37 +171,15 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %make_build
 %pyproject_wheel
-popd
-%endif
 
 %install
-# Install for python 2 first so that the python 3 install overwrites files
-%if %{with python2}
-%py2_install
-
-# Patch the test code to look for filters in _bindir
-sed -i "s|root, 'filters'|'/usr', 'bin'|" \
-  %{buildroot}%{python2_sitelib}/%{name}/tests/test_subunit_filter.py
-
-# We set pkgpython_PYTHON for efficiency to disable automake python compilation
-%make_install pkgpython_PYTHON='' INSTALL="%{_bindir}/install -p"
-%endif
-
-%if %{with python3}
-pushd python3
 %pyproject_install
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/run.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-script.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
 
-# Patch the test code to look for filters in _bindir
-sed -i "s|root, 'filters'|'/usr', 'bin'|" \
-  %{buildroot}%{python3_sitelib}/%{name}/tests/test_subunit_filter.py
-
 # We set pkgpython_PYTHON for efficiency to disable automake python compilation
 %make_install pkgpython_PYTHON='' INSTALL="%{_bindir}/install -p"
-popd
-%endif
 
 # Install the shell interface
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
@@ -317,57 +189,38 @@ cp -p shell/share/%{name}.sh %{buildroot}%{_sysconfdir}/profile.d
 rm -f %{buildroot}%{_libdir}/*.la
 
 # Fix perl installation
+perl_majver=$(cut -d. -f-2 <<< %{perl_version})
 mkdir -p %{buildroot}%{perl_vendorlib}
-mv %{buildroot}%{perl_privlib}/Subunit* %{buildroot}%{perl_vendorlib}
-rm -fr %{buildroot}%{perl_archlib}
+mv %{buildroot}%{perl_privlib}/$perl_majver/Subunit* %{buildroot}%{perl_privlib}
+rm -fr %{buildroot}%{perl_privlib}/$perl_majver %{buildroot}%{perl_archlib}
 
 # Fix permissions
-%if %{with python2}
-chmod 0755 %{buildroot}%{python2_sitelib}/%{name}/run.py
-%endif
 chmod 0755 %{buildroot}%{_bindir}/subunit-diff
-%if %{with python3}
+chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/*.py
+chmod 0644 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/__init__.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-script.py
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
-%endif
 
 # Fix timestamps
 touch -r c/include/%{name}/child.h %{buildroot}%{_includedir}/%{name}/child.h
 touch -r c++/SubunitTestProgressListener.h \
       %{buildroot}%{_includedir}/%{name}/SubunitTestProgressListener.h
 touch -r perl/subunit-diff %{buildroot}%{_bindir}/subunit-diff
-for fil in filters/*; do
-  touch -r $fil %{buildroot}%{_bindir}/$(basename $fil)
-done
 
 %check
-%if %{with python2} && 0%{?!disable_tests}
-# Run the tests for python2
-export LD_LIBRARY_PATH=$PWD/.libs
-export PYTHONPATH=$PWD/python/subunit:$PWD/python/subunit/tests
-make check
-# Make sure subunit.iso8601 is importable from buildroot
-PYTHONPATH=%{buildroot}%{python2_sitelib} %{__python2} -c "import subunit.iso8601"
-%endif
-
-%if %{with python3} && 0%{?!disable_tests}
+%if 0%{?!disable_tests}
 # Run the tests for python3
-pushd python3
 export LD_LIBRARY_PATH=$PWD/.libs
 export PYTHON=%{python3}
 make check
 # Make sure subunit.iso8601 is importable from buildroot
 %py3_check_import subunit.iso8601
-popd
 %endif
-
-%ldconfig_scriptlets
-%ldconfig_scriptlets cppunit
 
 %files
 %doc NEWS README.rst
 %license Apache-2.0 BSD COPYING
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.0*
 
 %files devel
 %doc c/README
@@ -377,7 +230,7 @@ popd
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %files cppunit
-%{_libdir}/libcppunit_%{name}.so.*
+%{_libdir}/libcppunit_%{name}.so.0*
 
 %files cppunit-devel
 %doc c++/README
@@ -388,22 +241,14 @@ popd
 %files perl
 %license Apache-2.0 BSD COPYING
 %{_bindir}/%{name}-diff
-%{perl_vendorlib}/*
+%{perl_privlib}/Subunit/
+%{perl_privlib}/Subunit.pm
 
 %files shell
 %doc shell/README
 %license Apache-2.0 BSD COPYING
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
-%if %{with python2}
-%files -n python2-%{name}
-%license Apache-2.0 BSD COPYING
-%{python2_sitelib}/%{name}/
-%{python2_sitelib}/python_%{name}-%{version}-*.egg-info/
-%exclude %{python2_sitelib}/%{name}/tests/
-%endif
-
-%if %{with python3}
 %files -n python3-%{name}
 %license Apache-2.0 BSD COPYING
 %{python3_sitelib}/%{name}/
@@ -412,16 +257,22 @@ popd
 
 %files -n python3-%{name}-test
 %{python3_sitelib}/%{name}/tests/
-%endif
 
 %files static
 %{_libdir}/*.a
 
 %files filters
-%{_bindir}/*
+%{_bindir}/subunit*
+%{_bindir}/tap2subunit
 %exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Sat Nov  5 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-1
+- Version 1.4.1
+- Upstream no longer provides GPG signatures
+- Convert License tag to SPDX
+- Python 2 is no longer supported
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

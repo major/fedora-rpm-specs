@@ -1,5 +1,5 @@
 Name:           pari
-Version:        2.15.0
+Version:        2.15.1
 Release:        1%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
@@ -16,8 +16,6 @@ Source4:        pari-gp.xpm
 Source5:        pari.abignore
 # Use xdg-open rather than xdvi to display DVI files (#530565)
 Patch0:         pari-2.13.0-xdgopen.patch
-# Fix misindented help text
-Patch1:         pari-2.15.0-ploth-doc.patch
 # Fix compiler warnings
 # http://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=1316
 Patch10:        pari-2.9.0-missing-field-init.patch
@@ -176,6 +174,10 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Sat Nov  5 2022 Jerry James <loganjerry@gmail.com> - 2.15.1-1
+- Version 2.15.1
+- Drop upstreamed ploth-doc patch
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 2.15.0-1
 - Version 2.15.0
 - Drop upstreamed optflags patch

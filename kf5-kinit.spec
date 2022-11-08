@@ -3,7 +3,7 @@
 %global rpm_macros_dir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           kf5-%{framework}
-Version: 5.99.0
+Version: 5.100.0
 Release: 1%{?dist}
 Summary:        KDE Frameworks 5 tier 3 solution for process launching
 
@@ -93,6 +93,9 @@ install -p -m644 -D %{SOURCE10} \
 
 
 %changelog
+* Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
+- 5.100.0
+
 * Fri Oct 14 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.99.0-1
 - 5.99.0
 

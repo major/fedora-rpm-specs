@@ -1,6 +1,6 @@
 Name:             xdp-tools
 Version:          1.2.8
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.2.0
 
@@ -112,6 +112,9 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> 1.2.8-2
+- libbpf 1.0 build
+
 * Sun Sep 18 2022 Toke Høiland-Jørgensen <toke@redhat.com> 1.2.8-1
 - Upstream version bump
 

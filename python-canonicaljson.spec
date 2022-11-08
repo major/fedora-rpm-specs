@@ -1,8 +1,7 @@
-%bcond_without check
 %global modname canonicaljson
 
 Name:           python-%{modname}
-Version:        1.6.2
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        Canonical JSON
 
@@ -11,6 +10,7 @@ URL:            https://github.com/matrix-org/python-canonicaljson
 Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
 
 %global _description \
 Features:\
@@ -27,42 +27,40 @@ Features:\
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if %{with check}
-BuildRequires:  python3-nose
-BuildRequires:  python3dist(simplejson) >= 3.6.5
-BuildRequires:  python3dist(frozendict) >= 1
-BuildRequires:  python3dist(six)
-%endif
 
 %description -n python3-%{modname} %{_description}
 
-Python 3 version.
 
 %prep
-%autosetup
+%autosetup -p1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -e py
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
 
-%if %{with check}
+%pyproject_save_files %{modname}
+
+
 %check
-nosetests-%{python3_version} -v
-%endif
+%tox -e py
 
-%files -n python3-%{modname}
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{modname}-*.egg-info/
-%{python3_sitelib}/%{modname}.py
-%{python3_sitelib}/__pycache__/%{modname}.*
+
+%files -n python3-%{modname} -f %{pyproject_files}
+
 
 %changelog
+* Sun Nov 06 2022 Kai A. Hiller <V02460@gmail.com> - 1.6.4-1
+- Update to 1.6.4
+- Follow new Python packaging guidelines
+
 * Fri Aug 05 2022 Kai A. Hiller <V02460@gmail.com> - 1.6.2-1
 - Update to 1.6.2
 

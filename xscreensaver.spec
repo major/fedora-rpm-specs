@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define fedora_rel    2
+%define fedora_rel    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -98,6 +98,12 @@ Patch21:         xscreensaver-6.05-webcollage-default-nonet.patch
 Patch501:        xscreensaver-6.05-0001-demo-Gtk.c-main-enable-localization-again.patch
 # demo-Gtk.c/populate_prefs_page: use correct pointer for pref_changed_cb
 Patch502:        xscreensaver-6.05-0002-demo-Gtk.c-populate_prefs_page-use-correct-pointer-f.patch
+# hacks/fonts: fix installation on out-of-source build
+Patch503:        xscreensaver-6.05-0003-hacks-fonts-fix-installation-on-out-of-source-build.patch
+# driver/Makefile.in: fix GLIB_COMPILE_RESOURCES source
+Patch504:        xscreensaver-6.05-0004-driver-Makefile.in-fix-GLIB_COMPILE_RESOURCES-source.patch
+# hacks/Makefile.in: fix driver/prefs.o output location
+Patch505:        xscreensaver-6.05-0005-hacks-Makefile.in-fix-driver-prefs.o-output-location.patch
 # misc: kill gcc warn_unused_result warnings
 Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
 # Fedora specific
@@ -381,6 +387,9 @@ find . -name \*.c -exec chmod ugo-x {} \;
 %__cat %PATCH21 | %__git am
 %__cat %PATCH501 | %__git am
 %__cat %PATCH502 | %__git am
+%__cat %PATCH503 | %__git am
+%__cat %PATCH504 | %__git am
+%__cat %PATCH505 | %__git am
 
 #%%__cat %PATCH3607 | %__git am
 %__cat %PATCH10001 | %__git am
@@ -544,13 +553,6 @@ sed -i Makefile.in.in \
 popd
 %__git commit -m "Manually fix po files entry" -a
 
-# Fix prefs.o path for xscreensaver-getimage in hacks/Makefile
-sed -i hacks/Makefile.in \
-    -e 's|\$(srcdir)/../driver/prefs.o|../driver/prefs.o|' \
-    -e 's|cd $(srcdir)/../driver|cd ../driver|' \
-    %{nil}
-%__git commit -m "Fix prefs.o path for xscreensaver-getimage in hacks/Makefile" -a
-
 # %%configure adds --disable-dependency-tracking, don't fail with that for now
 sed -i configure.ac \
 	-e "$(($(sed -n '\@ac_unrecognized_opts@=' configure.ac | head -n 1) + 2))s|exit 2|true exit 2|"
@@ -678,26 +680,24 @@ rm -f configure
 sed -i driver/XScreenSaver.ad -e "s|$(pwd)/TMPBINDIR/||"
 
 %if %{update_po}
-#( cd po ; make generate_potfiles_in update-po )
-# ???
 pushd po
   make generate_potfiles_in
-  cp -p POTFILES.in ..
-  # Workaround for ui file
-  # 6.05
-  sed -i ../POTFILES.in POTFILES.in POTFILES \
-	-e 's|driver/xscreensaver.ui|driver/demo.ui\ndriver/prefs.ui|'
-  sed -i Makefile \
-	-e 's|../../driver/xscreensaver.ui \\|../../driver/demo.ui \\\n\t../../driver/prefs.ui \\|'
-  sed -i ../POTFILES.in POTFILES.in POTFILES \
+  # The following hack still seems needed
+  sed -i POTFILES.in POTFILES \
      -e '\@driver/.*\.ui@s|^\([ \t]*\)\(.*\)$|\1[type: gettext/glade]\2|'
+  # Update POTFILES.in, the copy to the original directory
+  cp -p POTFILES.in ../../po/
+  git commit -m "POTFILES.in regenerated" -a || true
+  ( cd .. ; ./config.status )
+
+  cp -p POTFILES{.in,} ..
   make xscreensaver.pot srcdir=..
-  ( export srcdir=.. ; make update-po )
-  rm -f ../POTFILES_in
+  make update-po
+  rm -f ../POTFILES{.in,}
 popd
 
 
-( cp -p ../po/*.po po/)
+( cp -p po/* ../po/)
 ( ( cd ../po ; git add *.po ; git commit -m "po regenerated" ) || true )
 %endif
 
@@ -709,36 +709,23 @@ popd
 mkdir clang-analyze
 %endif
 
-# Workaround for 5.39
-mkdir -p hacks/images || true
-if [ ! -f hacks/images/Makefile ] ; then
-   cat > hacks/images/Makefile <<EOF
-default:
-install:
-EOF
-fi
-# Workaround end
-
-# From 5.45: temporary workaround for installation issue
-# From 6.00, 6.05: temporary workaround for installation issue
-# From 6.05: yet another one
-cp -p ../driver/*ui ../driver/gresource.xml driver/
-cp -a ../hacks/fonts hacks
-
+BUILD_STATUS=0
 %if 0%{?use_clang_analyze} < 1
-# Workaround for ppc64 build failure
-make -C ../hacks/images -j1
+make -C ../hacks/images || BUILD_STATUS=1
 for dir in \
   utils driver ../hacks/images hacks/images hacks hacks/glx po
 do
   %__make %{?_smp_mflags} -k \
     -C $dir \
-	GMSGFMT="msgfmt --statistics"
+	GMSGFMT="msgfmt --statistics" || BUILD_STATUS=1
 done
 %endif
 
 # Again
-%__make %{?_smp_mflags} -k
+%__make %{?_smp_mflags} -k || BUILD_STATUS=1
+if [ $BUILD_STATUS != 0 ] ; then
+	exit $BUILD_STATUS
+fi
 
 %if %{modular_conf}
 # Make XScreenSavar.ad modular (bug 200881)
@@ -1189,6 +1176,12 @@ exit 0
 %endif
 
 %changelog
+* Sun Nov  6 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.05-3
+- Kill no longer needed workaround stuff
+- hacks/fonts: fix installation on out-of-source build
+- driver/Makefile.in: fix GLIB_COMPILE_RESOURCES source
+- hacks/Makefile.in: fix driver/prefs.o output location
+
 * Sat Oct 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.05-2
 - demo-Gtk.c/populate_prefs_page: use correct pointer for pref_changed_cb
 

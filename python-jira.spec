@@ -1,6 +1,6 @@
 Name:               python-jira
-Version:            3.2.0
-Release:            3%{?dist}
+Version:            3.4.1
+Release:            1%{?dist}
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD
@@ -10,6 +10,7 @@ Source0:            %{pypi_source jira}
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
+BuildRequires:      python3-keyring
 
 %global _description %{expand:
 Python library for interacting with JIRA via REST APIs
@@ -47,6 +48,12 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Nov 06 2022 Alois Mahdal <netvor@vornet.cz> - 3.4.1-1
+- Update to version 3.4.1
+
+* Wed Jul 27 2022 Alois Mahdal <netvor@vornet.cz> - 3.3.1-1
+- Update to version 3.3.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
