@@ -11,7 +11,7 @@
 %bcond_without doc
 
 Name:           kitty
-Version:        0.26.4
+Version:        0.26.5
 Release:        %autorelease
 Summary:        Cross-platform, fast, feature full, GPU based terminal emulator
 

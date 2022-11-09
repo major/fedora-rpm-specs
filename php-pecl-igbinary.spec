@@ -14,7 +14,7 @@
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 3.2.9
+%global upstream_version 3.2.12
 #global upstream_prever  RC1
 
 Summary:        Replacement for the standard PHP serializer
@@ -192,6 +192,12 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 3.2.12-1
+- update to 3.2.12
+
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 3.2.11-1
+- update to 3.2.11
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 3.2.9-1
 - update to 3.2.9
 

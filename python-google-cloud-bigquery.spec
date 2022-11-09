@@ -8,7 +8,7 @@
 
 %global         srcname     google-cloud-bigquery
 %global         forgeurl    https://github.com/googleapis/python-bigquery
-Version:        3.3.5
+Version:        3.3.6
 %global         tag         v%{version}
 %forgemeta
 

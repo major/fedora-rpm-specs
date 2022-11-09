@@ -29,8 +29,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.21.1
-Release: 5%{?dist}
+Version: 1.22.0
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -109,15 +109,15 @@ Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 
 #%%defcommit 1 14314822b529520ac12964e0d2938c4bb18ab895
 %global rolename1 postfix
-%deftag 1 1.2.4
+%deftag 1 1.3.0
 
 #%%defcommit 2 9fe6eb36772e83b53dcfb8ceb73608fd4f72eeda
 %global rolename2 selinux
-%deftag 2 1.4.0
+%deftag 2 1.5.0
 
 #%%defcommit 3 cbe4bf262bffae3bf53e531662237741954c4182
 %global rolename3 timesync
-%deftag 3 1.6.9
+%deftag 3 1.7.1
 
 #%%defcommit 4 02fc72b482e165472624b2f68eecd2ddce1d93b1
 %global rolename4 kdump
@@ -125,15 +125,15 @@ Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 
 #%%defcommit 5 a74092634adfe45f76cf761138abab1811692b4b
 %global rolename5 network
-%deftag 5 1.9.1
+%deftag 5 1.10.0
 
 #%%defcommit 6 50d2b8ccc98a8f4cb9d1d550d21adc227181e9fa
 %global rolename6 storage
-%deftag 6 1.9.1
+%deftag 6 1.9.2
 
 #%%defcommit 7 d57caa8ca506d8cbc7ca0f96f7cb62b7e965f163
 %global rolename7 metrics
-%deftag 7 1.7.3
+%deftag 7 1.8.0
 
 #%%defcommit 8 2b9e53233ee3a68bdb532e62f289733e436a6106
 %global rolename8 tlog
@@ -145,19 +145,19 @@ Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 
 #%%defcommit 10 20dd3e5520ca06dcccaa9b3f1fb428d055e0c23f
 %global rolename10 logging
-%deftag 10 1.10.0
+%deftag 10 1.11.0
 
 #%%defcommit 11 c57d0b1f3384c525738fa26ba4bdca485e162567
 %global rolename11 nbde_server
-%deftag 11 1.1.5
+%deftag 11 1.2.0
 
 #%%defcommit 12 bef2fad5e365712d1f40e53662490ba2550a253f
 %global rolename12 nbde_client
-%deftag 12 1.2.6
+%deftag 12 1.2.7
 
 #%%defcommit 13 310fc53db04e8d3134524afb7a89b0477a2ffb83
 %global rolename13 certificate
-%deftag 13 1.1.6
+%deftag 13 1.1.7
 
 #%%defcommit 14 b2a9857ac661fa32e66666e444b73bfdb34cdf95
 %global rolename14 crypto_policies
@@ -166,28 +166,34 @@ Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 %global forgeorg15 https://github.com/willshersystems
 %global repo15 ansible-sshd
 %global rolename15 sshd
-%defcommit 15 9766d9097a87a130d4c8abde2247aaad5c925ecf
-#%%deftag 15 v0.15.1
+#%%defcommit 15 9766d9097a87a130d4c8abde2247aaad5c925ecf
+%deftag 15 v0.18.0
 
 #%%defcommit 16 59b9fd7b25607d8bd33bdb082748955f2652846a
 %global rolename16 ssh
-%deftag 16 1.1.9
+%deftag 16 1.1.11
 
 #%%defcommit 17 f901239cb91878719c9e7461760ef8d4789d626d
 %global rolename17 ha_cluster
-%deftag 17 1.7.4
+%deftag 17 1.8.0
 
 #%%defcommit 18 5f6cb73e6753fbdbb219b7d3079f0378b2d3bdb3
 %global rolename18 vpn
-%deftag 18 1.3.5
+%deftag 18 1.5.0
 
 %global rolename19 firewall
 %deftag 19 1.4.0
 
 %global rolename20 cockpit
-%deftag 20 1.3.0
+%deftag 20 1.4.0
 
-%global mainid c22eff88d40972158cd5c413b7468b4e904cc76c
+%global rolename21 podman
+%deftag 21 1.0.0
+
+%global rolename22 ad_integration
+%deftag 22 0.0.1
+
+%global mainid 49db00dddab301cc55bd4a3708c3f201567f645b
 Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
 Source1: %{archiveurl1}
 Source2: %{archiveurl2}
@@ -209,19 +215,24 @@ Source17: %{archiveurl17}
 Source18: %{archiveurl18}
 Source19: %{archiveurl19}
 Source20: %{archiveurl20}
+Source21: %{archiveurl21}
+Source22: %{archiveurl22}
 
 # Not conditionalizing sources per FPC:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/#_do_not_conditionalize_sources
 # Collections to vendor on RHEL only, Fedora has these available from RPMs
 Source801: https://galaxy.ansible.com/download/ansible-posix-1.4.0.tar.gz
 Source901: https://galaxy.ansible.com/download/community-general-5.8.0.tar.gz
+Source902: https://galaxy.ansible.com/download/containers-podman-1.9.4.tar.gz
 %if 0%{?rhel}
 Provides: bundled(ansible-collection(ansible.posix)) = 1.4.0
 Provides: bundled(ansible-collection(community.general)) = 5.8.0
+Provides: bundled(ansible-collection(containers.podman)) = 1.9.4
 %endif
 
 # RHEL only, changelog is auto generated on Fedora
-Source996: CHANGELOG.md
+Source995: CHANGELOG.md
+Source996: CHANGELOG.rst
 
 # Fedora only, script to convert spec %%changelog into collection CHANGELOG.md
 Source997: spec-to-changelog-md.sh
@@ -270,11 +281,11 @@ Collection artifact for %{name}. This package contains %{collection_namespace}-%
 %endif
 
 %prep
-%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -n %{getarchivedir 0}
+%setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -a21 -a22 -n %{getarchivedir 0}
 
 %if 0%{?rhel}
 # Untar vendored collection tarballs to corresponding directories
-for file in %{SOURCE801} %{SOURCE901}; do
+for file in %{SOURCE801} %{SOURCE901} %{SOURCE902}; do
     if [[ "$(basename $file)" =~ ([^-]+)-([^-]+)-(.+).tar.gz ]]; then
         ns=${BASH_REMATCH[1]}
         name=${BASH_REMATCH[2]}
@@ -360,7 +371,6 @@ for module in "${!module_map[@]}"; do
     mkdir -p $role/module_utils/${role}_lsr
   fi
   cp -pL .external/ansible/posix/plugins/module_utils/$module $role/module_utils/${role}_lsr/$module
-  sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
 done
 
 # community.general:
@@ -386,10 +396,49 @@ for module in "${!module_map[@]}"; do
   sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' $role/library/$module
 done
 
+# containers.podman:
+#   - library:
+#     - Module podman_container_info, podman_image and podman_play for the podman role
+module_map=( ["podman_container_info.py"]="podman" ["podman_image.py"]="podman" ["podman_play.py"]="podman" )
+for module in "${!module_map[@]}"; do
+  role="${module_map[${module}]}"
+  if [ ! -d $role/library ]; then
+    mkdir $role/library
+  fi
+  moduledir=.external/containers/podman/plugins/modules
+  cp -pL $moduledir/$module $role/library/$module
+  ls -alrtF $role/library/$module
+  sed -i -e ':a;N;$!ba;s/description:\n\( *\)/description:\n\1- WARNING: Do not use this module directly! It is only for role internal use.\n\1/' \
+    -e "s/ansible_collections.containers.podman.plugins.module_utils.podman/ansible.module_utils.${role}_lsr/" \
+    $role/library/$module
+done
+
+# containers.podman:
+#   - module_utils:
+#     - Module_util common for the podman role
+module_map=( ["common.py"]="podman" )
+for module in "${!module_map[@]}"; do
+  role="${module_map[${module}]}"
+  if [ ! -d $role/module_utils/${role}_lsr ]; then
+    mkdir -p $role/module_utils/${role}_lsr
+  fi
+  cp -pL .external/containers/podman/plugins/module_utils/podman/$module $role/module_utils/${role}_lsr/$module
+done
+
+# remove the temporary .external directory after vendoring
+rm -rf .external
+
 # Replacing "linux-system-roles.rolename" with "rhel-system-roles.rolename" in each role
+# Replacing "fedora.linux_system_roles." with "redhat.rhel_system_roles" in each role
+# This is for the "roles calling other roles" case
+# for podman, change the FQCN - using a non-FQCN module name doesn't seem to work,
+# even for the legacy role format
 for rolename in %{rolenames}; do
     find $rolename -type f -exec \
-         sed "s/linux-system-roles[.]${rolename}\\>/%{roleinstprefix}${rolename}/g" -i {} \;
+         sed -e "s/linux-system-roles[.]${rolename}\\>/%{roleinstprefix}${rolename}/g" \
+             -e "s/fedora[.]linux_system_roles[.]/%{collection_namespace}.%{collection_name}./g" \
+             -e "s/containers[.]podman[.]/%{collection_namespace}.%{collection_name}./g" \
+             -i {} \;
 done
 %endif
 
@@ -456,9 +505,15 @@ for role in %{rolenames}; do
 %endif
 done
 
-LANG=en_US.utf-8 LC_ALL=en_US.utf-8 python3 release_collection.py --galaxy-yml galaxy.yml \
+# do not process changelogs on RHEL
+%if 0%{?rhel}
+extra_mapping="--extra-mapping fedora.linux_system_roles:%{collection_namespace}.%{collection_name}"
+%else
+extra_mapping=""
+%endif
+LANG=C.utf-8 LC_ALL=C.utf-8 python3 release_collection.py --galaxy-yml galaxy.yml \
     --src-path $(pwd) --dest-path $(pwd)/.collections $includes --force --no-update \
-    --src-owner %{name} --skip-git --skip-check --debug
+    --src-owner %{name} --skip-git --skip-check --skip-changelog $extra_mapping --debug
 
 # Remove table of contents from logging README.md
 # It is not needed for html and AH/Galaxy
@@ -475,8 +530,10 @@ for role in %{rolenames}; do
 done
 
 %if 0%{?rhel}
-cp %{SOURCE996} \
+cp %{SOURCE995} \
     .collections/ansible_collections/%{collection_namespace}/%{collection_name}/docs/CHANGELOG.md
+cp %{SOURCE996} \
+    .collections/ansible_collections/%{collection_namespace}/%{collection_name}/CHANGELOG.rst
 %else
 # Build the collection CHANGELOG.md
 %{SOURCE997} %{_specdir}/%{name}.spec \
@@ -690,6 +747,47 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Nov 03 2022 Rich Megginson <rmeggins@redhat.com> - 1.22.0-1
+- ad_integration - new role
+- cockpit - use the firewall, selinux, certificate roles
+- ha_cluster - use the firewall, selinux, certificate roles
+- ha_cluster - fix decoding Vault variables
+- ha_cluster - support configuring qnetd, qdevice
+- ha_cluster - fix sbd config file template
+- logging - use the firewall, selinux, certificate roles
+- metrics - use the firewall, selinux roles
+- metrics - support Grafana v9
+- nbde_client - Add default clevis luks askpass unit
+- nbde_client - correct clevis askpass unit conditional
+- nbde_client - use no_log: true where secrets might be revealed
+- nbde_server - add support for custom ports
+- nbde_server - use the firewall, selinux roles
+- network - Support looking up named route table in routing rule
+- network - bond: improve the validation for setting peer_notif_delay
+- network - bond: test arp_all_targets only when arp_interval is enabled
+- network - bond: attach ports when creating the bonding connection
+- network - Support 'route_metric4' for initscripts provider
+- network - use rpm -i instead of yum install for epel7
+- network - Support the DNS priority
+- podman - new role
+- postfix - use the firewall, selinux roles
+- selinux - add 'local' parameter to seport
+- ssh - add RSAMinSize, RequiredRSASize
+- ssh - cast Jinja variables to correct type
+- sshd - add RSAMinSize, RequiredRSASize
+- sshd - Adding support for OpenWrt 21.03
+- sshd - Moves internal non-overridable variables out of defaults
+- sshd - cast Jinja variables to correct type
+- storage - Fixed calculation of relative thinp sizes
+- storage - Fixed size and percentage handling for thin pools
+- timesync - cast Jinja variables to correct type
+- timesync - Update timestamping checks using ethtool
+- vpn - Check for /usr/bin/openssl on controller - do not use package_facts
+- vpn - Add support for the parameters shared_key_content, leftid, rightid, ike,
+        esp, type, ikelifetime, salifetime, retransmit_timeout, dpddelay, dpdtimeout,
+        dpdaction, leftupdown
+- vpn - use the firewall, selinux roles
+
 * Wed Nov 02 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.21.1-5
 - Simplify spec file and remove unused code
   - Remove unused and redundant macros

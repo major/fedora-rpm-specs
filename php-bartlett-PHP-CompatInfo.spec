@@ -11,13 +11,13 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    832e40edc6e818f10f432803ddd9350b37f07d8f
+%global gh_commit    e2bc72e017addab11d68e4733d84c77d3ff30b19
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  6.5.2
+%global upstream_version  6.5.3
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
@@ -25,7 +25,7 @@ Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
-# see bundled libraries list below
+# SPDX: see bundled libraries list below
 License:        BSD-3-Clause and MIT
 URL:            https://github.com/llaville/php-compatinfo
 Source0:        %{name}-%{version}-%{gh_short}.tgz
@@ -57,7 +57,7 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 4.6.1
+Provides: bundled(php-bartlett-php-compatinfo-db) = 4.8.0
 Provides: bundled(php-nikic-php-parser) = v4.15.1
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
@@ -81,11 +81,11 @@ Provides: bundled(php-psr-event-dispatcher) = 1.0.0
 Provides: bundled(php-psr-log) = 1.1.4
 Provides: bundled(php-ramsey-collection) = 1.2.2
 Provides: bundled(php-ramsey-uuid) = 4.2.3
-Provides: bundled(php-symfony-amqp-messenger) = v5.4.13
-Provides: bundled(php-symfony-cache) = v5.4.13
+Provides: bundled(php-symfony-amqp-messenger) = v5.4.15
+Provides: bundled(php-symfony-cache) = v5.4.15
 Provides: bundled(php-symfony-cache-contracts) = v2.5.2
 Provides: bundled(php-symfony-config) = v5.4.11
-Provides: bundled(php-symfony-console) = v5.4.14
+Provides: bundled(php-symfony-console) = v5.4.15
 Provides: bundled(php-symfony-dependency-injection) = v5.4.13
 Provides: bundled(php-symfony-deprecation-contracts) = v2.5.2
 Provides: bundled(php-symfony-doctrine-messenger) = v5.4.12
@@ -93,7 +93,7 @@ Provides: bundled(php-symfony-event-dispatcher) = v5.4.9
 Provides: bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
 Provides: bundled(php-symfony-filesystem) = v5.4.13
 Provides: bundled(php-symfony-finder) = v5.4.11
-Provides: bundled(php-symfony-http-client) = v5.4.14
+Provides: bundled(php-symfony-http-client) = v5.4.15
 Provides: bundled(php-symfony-http-client-contracts) = v2.5.2
 Provides: bundled(php-symfony-messenger) = v5.4.14
 Provides: bundled(php-symfony-polyfill-ctype) = v1.26.0
@@ -105,12 +105,12 @@ Provides: bundled(php-symfony-polyfill-php73) = v1.26.0
 Provides: bundled(php-symfony-polyfill-php80) = v1.26.0
 Provides: bundled(php-symfony-polyfill-php81) = v1.26.0
 Provides: bundled(php-symfony-process) = v5.4.11
-Provides: bundled(php-symfony-redis-messenger) = v5.4.13
+Provides: bundled(php-symfony-redis-messenger) = v5.4.15
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
-Provides: bundled(php-symfony-serializer) = v5.4.14
+Provides: bundled(php-symfony-serializer) = v5.4.15
 Provides: bundled(php-symfony-service-contracts) = v2.5.2
 Provides: bundled(php-symfony-stopwatch) = v5.4.13
-Provides: bundled(php-symfony-string) = v5.4.14
+Provides: bundled(php-symfony-string) = v5.4.15
 Provides: bundled(php-symfony-var-exporter) = v5.4.10
 
 Provides: phpcompatinfo = %{version}
@@ -197,6 +197,10 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 6.5.3-1
+- update to 6.5.3
+- update bundled bartlett/php-compatinfo-db to 4.8.0
+
 * Tue Oct 25 2022 Remi Collet <remi@remirepo.net> - 6.5.2-1
 - update to 6.5.2
 

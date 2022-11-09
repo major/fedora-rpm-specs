@@ -1,7 +1,7 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
 #global rc_ver 1
-%global llvm_test_suite_version 15.0.0
+%global llvm_test_suite_version 15.0.4
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:rc%{rc_ver}}.src.fedora
 
 Name:		llvm-test-suite
@@ -82,6 +82,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
+- Update to LLVM 15.0.4
+
 * Tue Sep 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-1
 - Update to LLVM 15.0.0
 

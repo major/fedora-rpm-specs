@@ -1,6 +1,6 @@
 Name:           klog
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPLv2+
@@ -99,6 +99,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.1-2
+- Rebuild for updated hamlib 4.5.
+
 * Sun Sep 04 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.1-1
 - Update to 2.2.1.
 

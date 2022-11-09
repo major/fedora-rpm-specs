@@ -2,19 +2,24 @@
 %global gem_name guard
 
 Name: rubygem-%{gem_name}
-Version: 2.16.2
-Release: 5%{?dist}
+Version: 2.18.0
+Release: 1%{?dist}
 Summary: Guard keeps an eye on your file modifications
 License: MIT
 URL: http://guardgem.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/guard/guard.git && cd guard
-# git checkout v2.16.2 && tar -czvf rubygem-guard-2.16.2-spec.tar.gz spec/
-Source1: %{name}-%{version}-spec.tar.gz
+# git archive -v -o guard-2.18.0-spec.tar.gz v2.18.0 spec/
+Source1: %{gem_name}-%{version}-spec.tar.gz
 # Cucumber test suite is tightly coupled with guard-cucumber which is not in Fedora yet.
 # git clone https://github.com/guard/guard.git && cd guard
-# git checkout v2.16.2 && tar -czvf rubygem-guard-2.16.2-features.tar.gz features/
+# git archive -v -o guard-2.18.0-features.tar.gz v2.18.0 features/
 # Source2: %%{name}-%%{version}-features.tar.gz
+# Fix RSpec 3.12 kwargs detection. Note that upstream version significantly
+# differs from the stable version, therefore unfortunately also the patch
+# significantly differs.
+# https://github.com/guard/guard/pull/986
+Patch0: rubygem-guard-2.18.0-Fix-RSpec-3.12-kwargs-compatibility.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.9.3
@@ -48,6 +53,10 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1 
 
+pushd %{_builddir}
+%patch0 -p1
+popd
+
 # Kill Shebang
 sed -i -e '\|^#!|d' lib/guard/rake_task.rb
 
@@ -70,7 +79,7 @@ cp -a .%{_bindir}/* \
         %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_mandir}/man1
-mv %{buildroot}%{gem_instdir}/man/guard.1* %{buildroot}%{_mandir}/man1/
+mv %{buildroot}%{gem_instdir}/man/guard.1 %{buildroot}%{_mandir}/man1/
 
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
@@ -84,16 +93,13 @@ sed -i "/simplecov/ s/^/#/" spec/spec_helper.rb
 sed -i "/SimpleCov.start do/,/^end/ s/^/#/" spec/spec_helper.rb
 
 # Correct path to the bin file.
-sed -i 's/path = File.expand_path("..\/..\/..\/bin\/guard", __dir__)/path = File.expand_path("..\/..\/..\/guard-2.16.2\/bin\/guard", __dir__)/' spec/lib/guard/bin_spec.rb
-
-# RPM has some unexpected environment variables, ignore them.
-sed -i '/GEM_SKIP/a \    allow(ENV).to receive(:[]).with("RPM_PACKAGE_NAME").and_call_original' spec/spec_helper.rb
+sed -i 's/path = File.expand_path("..\/..\/..\/bin\/guard", __dir__)/path = File.expand_path("..\/..\/..\/guard-%{version}\/bin\/guard", __dir__)/' spec/lib/guard/bin_spec.rb
 
 # TODO: Fails with "stub me! (File.exist?("/usr/lib/gems/ruby/ffi-1.12.1/gem.build_complete"))",
 # not entirely sure why
 sed -i '/it "shows an info message" do/,/^      end$/ s/^/#/' spec/lib/guard/plugin_util_spec.rb
 
-rspec -rspec_helper spec
+rspec -rspec_helper -f d spec
 
 # Cucumber features require guard-rspec and guard-cucumber and those are not in Fedora yet.
 # cucumber
@@ -115,8 +121,13 @@ popd
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/README.md
+%doc %{gem_instdir}/man/guard.1.html
 
 %changelog
+* Fri Nov 04 2022 Vít Ondruch <vondruch@redhat.com> - 2.18.0-1
+- Update to Guard 2.18.0.
+  Resolves: rhbz#1960463
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,12 +3,13 @@
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.21
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: GPLv3
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
 Source2: which2.csh
 Patch0: which-2.21-coverity-fixes.patch
+Patch1: which-2.21-path_max.patch
 Url: https://savannah.gnu.org/projects/which/
 Requires: coreutils
 BuildRequires: make
@@ -20,9 +21,8 @@ The which command shows the full pathname of a specified program, if
 the specified program is in your PATH.
 
 %prep
-%setup -q
-%patch0 -p1 -b .coverity
-
+%autosetup -p1
+ 
 %build
 %configure
 %make_build
@@ -47,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Mon Nov 07 2022 Than Ngo <than@redhat.com> - 2.21-36
+- which fails for long path
+
 * Fri Aug 05 2022 Than Ngo <than@redhat.com> - 2.21-35
 - disable which2 alias and function by default as it caused more problems than benefits
 

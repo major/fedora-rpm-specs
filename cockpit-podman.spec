@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        55
+Version:        56
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
@@ -54,6 +54,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Mon Nov 07 2022 Packit <hello@packit.dev> - 56-1
+- Dark theme support
+
+
 * Wed Oct 19 2022 Packit <hello@packit.dev> - 55-1
 - Pod CPU, memory, port and volume details
 - Create new pod group functionality

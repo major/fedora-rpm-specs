@@ -6,7 +6,7 @@
 %global pkgname pygithub
 
 Name:           python-%{srcname}
-Version:        1.56
+Version:        1.57
 Release:        1%{?dist}
 Summary:        Python library to work with the Github API
 License:        LGPLv3+
@@ -52,6 +52,9 @@ Obsoletes:      python3-PyGithub < 1.29-8
 %exclude %{python3_sitelib}/%{libname}/tests
 
 %changelog
+* Mon Nov 07 2022 Jiri Popelka <jpopelka@redhat.com> - 1.57-1
+- 1.57
+
 * Tue Oct 18 2022 Jiri Popelka <jpopelka@redhat.com> - 1.56-1
 - 1.56
 

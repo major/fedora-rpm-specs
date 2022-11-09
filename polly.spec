@@ -1,11 +1,11 @@
 %global toolchain clang
 #global rc_ver 3
-%global polly_version 15.0.0
+%global polly_version 15.0.4
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: LLVM Framework for High-Level Loop and Data-Locality Optimizations
 
 License: NCSA
@@ -101,6 +101,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
+- Update to LLVM 15.0.4
+
 * Tue Sep 13 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
 - Set CMAKE_SKIP_RPATH
 

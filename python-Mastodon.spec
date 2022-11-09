@@ -3,8 +3,8 @@
 %global modname Mastodon
 
 Name:               python-Mastodon
-Version:            1.5.1
-Release:            9%{?dist}
+Version:            1.5.2
+Release:            1%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Mon Nov 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5.2-1
+- 1.5.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global toolchain clang
 
 %global maj_ver 15
-%global libomp_version %{maj_ver}.0.0
+%global libomp_version %{maj_ver}.0.4
 #global rc_ver 3
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -14,7 +14,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: OpenMP runtime for clang
 
 License: NCSA
@@ -160,6 +160,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
+- Update to LLVM 15.0.4
+
 * Mon Sep 12 2022 Nikita Popov <npopov@redhat.com> - 15.0.0-3
 - Re-enable LTO build
 

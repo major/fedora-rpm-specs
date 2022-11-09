@@ -5,17 +5,15 @@
 %endif
 
 Name:		libappindicator
-Version:	12.10.0
-Release:	34%{?dist}
+Version:	12.10.1
+Release:	0%{?dist}
 Summary:	Application indicators library
 
 License:	LGPLv2 and LGPLv3
 URL:		https://launchpad.net/libappindicator
-Source0:	https://launchpad.net/libappindicator/12.10/%{version}/+download/%{name}-%{version}.tar.gz
+# see https://launchpad.net/ubuntu/+source/libappindicator/12.10.1+20.10.20200706.1-0ubuntu1
+Source0:	https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/%{name}/%{version}+20.10.20200706.1-0ubuntu1/%{name}_%{version}+20.10.20200706.1.orig.tar.gz
 Patch0:		0001_Fix_mono_dir.patch
-# https://bazaar.launchpad.net/~indicator-applet-developers/libappindicator/trunk.16.10/revision/285
-Patch1:		incompatible_pointer_build_fix.patch
-Patch2:		nopython.patch
 
 BuildRequires: make
 BuildRequires:	autoconf
@@ -116,13 +114,11 @@ This package contains the development files for the appindicator-sharp library.
 
 
 %prep
-%setup -q
+%setup -q -c
 %patch0 -p1 -b .monodir
-%patch1 -p1 -b .incompatible_pointer_build_fix
-%patch2 -p1 -b .nopython
 
 
-sed -i "s#gmcs#mcs#g" configure.ac
+sed -i "s#mono-csc#mcs#g" configure.ac
 # fix for gtk-doc 1.26
 sed -i 's/--nogtkinit//' docs/reference/Makefile.am
 gtkdocize --copy
@@ -168,7 +164,6 @@ find %{buildroot} -type f -name '*.la' -delete
 %files
 %doc AUTHORS README COPYING COPYING.LGPL.2.1
 %{_libdir}/libappindicator.so.*
-%{_libdir}/girepository-1.0/AppIndicator-0.1.typelib
 
 
 %files devel
@@ -177,9 +172,6 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_includedir}/libappindicator-0.1/libappindicator/*.h
 %{_libdir}/libappindicator.so
 %{_libdir}/pkgconfig/appindicator-0.1.pc
-%{_datadir}/gir-1.0/AppIndicator-0.1.gir
-%{_datadir}/vala/vapi/appindicator-0.1.vapi
-%{_datadir}/vala/vapi/appindicator-0.1.deps
 
 
 %files gtk3
@@ -234,6 +226,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %endif
 
 %changelog
+* Mon Nov 07 2022 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 12.10.1-0
+- Upgrade to 12.10.1 to fix bug 2135815
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -252,7 +247,7 @@ find %{buildroot} -type f -name '*.la' -delete
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Sun Apr 13 2020 Eduardo Echeverria <echevemaster@gmail.com> - 12-10-0-28
+* Sun Apr 12 2020 Eduardo Echeverria <echevemaster@gmail.com> - 12-10-0-28
 - Added mono to sharp sub-package 
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.0-27

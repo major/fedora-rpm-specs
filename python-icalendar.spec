@@ -33,12 +33,12 @@ Requires:       python3-pytz
 Requires:       python3-dateutil
 
 %description -n python3-icalendar
-Setuptools is a collection of enhancements to the Python 3 distutils that allow
-you to more easily build and distribute Python 3 packages, especially ones that
-have dependencies on other packages.
-
-This package contains the runtime components of setuptools, necessary to
-execute the software that requires pkg_resources.py.
+iCalendar specification (RFC 2445) defines calendaring format used\
+by many applications (Zimbra, Thunderbird and others). This\
+module is a parser/generator of iCalendar files for use with\
+Python. It follows the RFC 2445 (iCalendar) specification.\
+The aim is to make a package that is fully compliant with RFC 2445,\
+well designed, simple to use and well documented.\
 
 %prep
 %setup -q -n icalendar-%{version}%{?veradd}

@@ -12,13 +12,11 @@ Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 License:        Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustix
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          rustix-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * drop dependencies on compiler internals
 # * make cc build-dependency non-optional
-# * add missing dependencies for s390x
+# * drop Windows-specific dependencies
 Patch:          rustix-fix-metadata.diff
 # * unconditionally rebuild static objects from Assembly
 Patch:          0001-Unconditionally-compile-C-code-from-source.patch
@@ -419,17 +417,17 @@ rm -r src/backend/linux_raw/arch/outline/debug/
 rm -r src/backend/linux_raw/arch/outline/release/
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -a
+%cargo_build
 
 %install
-%cargo_install -a
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -a
+%cargo_test
 %endif
 
 %changelog

@@ -2,7 +2,7 @@
 %global pypi_name cloudflare
 
 Name:           python-%{pypi_name}
-Version:        2.9.12
+Version:        2.10.3
 Release:        1%{?dist}
 Summary:        Python wrapper for the Cloudflare Client API v4
 
@@ -62,7 +62,7 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 %{_bindir}/cli4
 %doc %attr(0644,root,root) %{_mandir}/man1/cli4.1*
 %{python3_sitelib}/cli4
@@ -70,6 +70,9 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %changelog
+* Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 2.10.3-1
+- update to 2.10.3 rhbz#2125087
+
 * Thu Sep 01 2022 Jonathan Wright <jonathan@almalinux.org> - 2.9.12-1
 - update to 2.9.12
 - rhbz#2118035

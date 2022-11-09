@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    2e9a2f2b867eb423338a9948ae0027ec4e556378
+%global gh_commit    ec8b923d2c6923c24e4822a9ac77b4cd0f047ad3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-inputfilter
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.22.0
+Version:        2.22.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -174,6 +174,9 @@ exit $ret
 %{php_home}/%{namespace}/%{library}
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 2.22.1-1
+- update to 2.22.1
+
 * Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 2.22.0-1
 - update to 2.22.0
 - raise dependency on PHP 8.0

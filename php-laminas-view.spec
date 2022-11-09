@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    50ae82af3e2da96108490ceb474480e6df226993
+%global gh_commit    77a4b6d78445ae2f30625c5af09a05ad4e4434eb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-view
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.24.0
+Version:        2.25.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -46,43 +46,43 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.10
 BuildRequires: (php-composer(psr/container)                              >= 1       with php-composer(psr/container)                              < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-authentication": "^2.12",
+#        "laminas/laminas-authentication": "^2.13",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-console": "^2.8",
-#        "laminas/laminas-feed": "^2.18.2",
-#        "laminas/laminas-filter": "^2.23",
-#        "laminas/laminas-http": "^2.16",
+#        "laminas/laminas-feed": "^2.19",
+#        "laminas/laminas-filter": "^2.25",
+#        "laminas/laminas-http": "^2.17",
 #        "laminas/laminas-i18n": "^2.19",
-#        "laminas/laminas-modulemanager": "^2.12",
-#        "laminas/laminas-mvc": "^3.3.5",
-#        "laminas/laminas-mvc-i18n": "^1.4",
-#        "laminas/laminas-mvc-plugin-flashmessenger": "^1.8.1",
-#        "laminas/laminas-navigation": "^2.15",
-#        "laminas/laminas-paginator": "^2.13",
-#        "laminas/laminas-permissions-acl": "^2.10",
+#        "laminas/laminas-modulemanager": "^2.14",
+#        "laminas/laminas-mvc": "^3.5",
+#        "laminas/laminas-mvc-i18n": "^1.6",
+#        "laminas/laminas-mvc-plugin-flashmessenger": "^1.9",
+#        "laminas/laminas-navigation": "^2.16",
+#        "laminas/laminas-paginator": "^2.15",
+#        "laminas/laminas-permissions-acl": "^2.12",
 #        "laminas/laminas-router": "^3.10",
-#        "laminas/laminas-uri": "^2.9.1",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.28"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.12    with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
+#        "laminas/laminas-uri": "^2.10",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.3",
+#        "vimeo/psalm": "^4.30"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-authentication)       >= 2.13    with php-autoloader(%{gh_owner}/laminas-authentication)       < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-console)              >= 2.8     with php-autoloader(%{gh_owner}/laminas-console)              < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-feed)                 >= 2.18.2  with php-autoloader(%{gh_owner}/laminas-feed)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.23    with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-feed)                 >= 2.19    with php-autoloader(%{gh_owner}/laminas-feed)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.25    with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.17    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.19    with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-modulemanager)        >= 2.12    with php-autoloader(%{gh_owner}/laminas-modulemanager)        < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-modulemanager)        >= 2.14    with php-autoloader(%{gh_owner}/laminas-modulemanager)        < 3)
 %if ! %{bootstrap}
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.3.5   with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-i18n)             >= 1.4     with php-autoloader(%{gh_owner}/laminas-mvc-i18n)             < 2)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) >= 1.8.1 with php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) < 2)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-navigation)           >= 2.15    with php-autoloader(%{gh_owner}/laminas-navigation)           < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-paginator)            >= 2.13    with php-autoloader(%{gh_owner}/laminas-paginator)            < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-permissions-acl)      >= 2.10    with php-autoloader(%{gh_owner}/laminas-permissions-acl)      < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc)                  >= 3.5     with php-autoloader(%{gh_owner}/laminas-mvc)                  < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-i18n)             >= 1.6     with php-autoloader(%{gh_owner}/laminas-mvc-i18n)             < 2)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) >= 1.9 with php-autoloader(%{gh_owner}/laminas-mvc-plugin-flashmessenger) < 2)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-navigation)           >= 2.16    with php-autoloader(%{gh_owner}/laminas-navigation)           < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-paginator)            >= 2.15    with php-autoloader(%{gh_owner}/laminas-paginator)            < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-permissions-acl)      >= 2.12    with php-autoloader(%{gh_owner}/laminas-permissions-acl)      < 3)
 %endif
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-router)               >= 3.10    with php-autoloader(%{gh_owner}/laminas-router)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1   with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10    with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -92,7 +92,6 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "ext-dom": "*",
 #        "ext-filter": "*",
 #        "ext-json": "*",
-#        "container-interop/container-interop": "^1.2",
 #        "laminas/laminas-escaper": "^2.5",
 #        "laminas/laminas-eventmanager": "^3.4",
 #        "laminas/laminas-json": "^3.3",
@@ -114,7 +113,6 @@ Requires:      (php-composer(psr/container)                              >= 1   
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
 #        "laminas/laminas-authentication": "Laminas\\Authentication component",
-#        "laminas/laminas-escaper": "Laminas\\Escaper component",
 #        "laminas/laminas-feed": "Laminas\\Feed component",
 #        "laminas/laminas-filter": "Laminas\\Filter component",
 #        "laminas/laminas-http": "Laminas\\Http component",
@@ -124,7 +122,6 @@ Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 #        "laminas/laminas-navigation": "Laminas\\Navigation component",
 #        "laminas/laminas-paginator": "Laminas\\Paginator component",
 #        "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component",
-#        "laminas/laminas-servicemanager": "Laminas\\ServiceManager component",
 #        "laminas/laminas-uri": "Laminas\\Uri component"
 Suggests:       php-composer(%{gh_owner}/laminas-authentication)
 Suggests:       php-composer(%{gh_owner}/laminas-feed)
@@ -275,6 +272,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 2.25.0-1
+- update to 2.25.0 (no change)
+
 * Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 2.24.0-1
 - update to 2.24.0
 - raise dependency on PHP 8.0

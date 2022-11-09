@@ -1,7 +1,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 %{!?with_check: %global with_check 1}
 
-%global     package_version 0.6.3
+%global     package_version 0.6.4
 %global     package_name mom
 
 %if 0%{?fedora} >= 30 || 0%{?rhel} >= 8
@@ -15,13 +15,13 @@
 %endif
 
 Name:     %{package_name}
-Version:  0.6.3
+Version:  0.6.4
 Release:  1%{?dist}
 Summary:  Dynamically manage system resources on virtualization hosts
 
 License:  GPLv2
 URL:      https://www.ovirt.org
-Source:   https://resources.ovirt.org/pub/src/%{name}/%{package_name}-%{package_version}.tar.gz
+Source:   https://github.com/oVirt/%{name}/releases/download/v%{package_version}/%{name}-%{package_version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: make
@@ -109,6 +109,9 @@ make check %{?_smp_mflags}
 %{python_sitelib}/mom/
 
 %changelog
+* Tue Oct 25 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.4-1
+- Rebase on upstream 0.6.4
+
 * Fri Jul 22 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 0.6.3-1
 - Rebase on upstream 0.6.3
 

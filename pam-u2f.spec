@@ -6,10 +6,10 @@
 
 Name:          pam-u2f
 Version:       1.2.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Implements PAM authentication over U2F
 
-License:       BSD
+License:       BSD-2-Clause
 URL:           https://github.com/Yubico/pam-u2f
 Source0:       https://developers.yubico.com/pam-u2f/Releases/pam_u2f-%{version}.tar.gz
 Source1:       https://developers.yubico.com/pam-u2f/Releases/pam_u2f-%{version}.tar.gz.sig
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 07 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.2.1-3
+- Migrate spec file to SPDX license specification (BSD -> BSD-2-Clause)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

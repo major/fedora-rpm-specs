@@ -1,5 +1,5 @@
 Name:       miniz
-Version:    3.0.0
+Version:    3.0.1
 Release:    1%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # LICENSE:  MIT text
@@ -127,6 +127,9 @@ install -m 0644 %{name}.h '%{buildroot}/%{_includedir}'
 
 
 %changelog
+* Mon Nov 07 2022 Petr Pisar <ppisar@redhat.com> - 3.0.1-1
+- 3.0.1 bump
+
 * Tue Nov 01 2022 Petr Pisar <ppisar@redhat.com> - 3.0.0-1
 - 3.0.0 bump (an API and ABI change)
 

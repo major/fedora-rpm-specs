@@ -1,6 +1,6 @@
 Name:           libspectre
-Version:        0.2.10
-Release:        2%{?dist}
+Version:        0.2.11
+Release:        1%{?dist}
 Summary:        A library for rendering PostScript(TM) documents
 
 License:        GPLv2+
@@ -61,6 +61,10 @@ rm -fv %{buildroot}%{_libdir}/libspectre.la
 
 
 %changelog
+* Mon Nov 07 2022 Marek Kasik <mkasik@redhat.com> - 0.2.11-1
+- Update to 0.2.11
+- Resolves: #2139968
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

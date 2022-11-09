@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    41cff2f850753f0bb3fc75c5ce011fcad6aa1731
+%global gh_commit    7248f26ed9ef0979ccd6ebe3dd4b38ef229bb71b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.23.0
+Version:        2.26.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -43,19 +43,19 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.13
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "laminas/laminas-crypt": "^3.8",
-#        "laminas/laminas-uri": "^2.9",
+#        "laminas/laminas-crypt": "^3.9",
+#        "laminas/laminas-uri": "^2.10",
 #        "pear/archive_tar": "^1.4.14",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.3",
 #        "psr/http-factory": "^1.0.1",
-#        "vimeo/psalm": "^4.28"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.8   with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1 with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+#        "vimeo/psalm": "^4.30"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.9   with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10  with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0.1 with php-composer(psr/http-factory)                           < 2)
 BuildRequires:  php-composer(pear/archive_tar)                           >= 1.4.14
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -198,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 2.26.0-1
+- update to 2.26.0
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 2.23.0-1
 - update to 2.23.0
 - raise dependency on PHP 8.0

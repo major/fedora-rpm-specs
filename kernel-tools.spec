@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 3
+%global rcrev 4
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -113,7 +113,7 @@ Source5000: patch-%{upstream_major}.%{upstream_sublevel}-rc%{rcrev}.xz
 %endif
 %endif
 
-Patch1: 0001-perf-tools-Fix-man-page-build-wrt-perf-arm-coresight.patch
+# Patch1: 
 
 Name: kernel-tools
 Summary: Assortment of tools for the Linux kernel
@@ -217,7 +217,7 @@ cd linux-%{kversion}
     xzcat %{SOURCE5000} | patch -p1 -F1 -s
 %endif
 
-%patch1 -p1
+# %patch1 -p1
 
 # END OF PATCH APPLICATIONS
 
@@ -534,6 +534,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Nov 07 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.1.0-0.rc4.git0.1
+- Linux v6.1-rc4
+
 * Wed Nov 02 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.1.0-0.rc3.git0.1
 - Linux v6.1-rc3
 

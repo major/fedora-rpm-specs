@@ -1,6 +1,6 @@
 Name:           iaito
 Summary:        GUI for radare2 reverse engineering framework
-Version:        5.7.6
+Version:        5.7.8
 %global         rel             1
 %global         upversion       %{version}-beta
 URL:            https://radare.org/n/iaito.html
@@ -16,12 +16,13 @@ VCS:            https://github.com/radareorg/iaito/
 %global         gituser         radareorg
 %global         gitname         iaito
 
-%global         gitdate         20220930
-%global         commit          2d78b571228c2a770bfccdbaa6c62d59ed4240c8
+%global         gitdate         20221019
+%global         commit          269cbac239e6ed8126d424728e9209dde7c84e37
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-%global         iaito_translations_gitdate      20220930
-%global         iaito_translations_commit       793ae9326330986ab9adfcc380be1561d09365a1
+%global         iaito_translations_gitdate      20221014
+%global         iaito_translations_commit       ab923335409fa298c39f0014588d78d926c6f3a2
+%global         iaito_translations__shortcommit %(c=%{iaito_translations_commit}; echo ${c:0:7})
 
 %if %{with releasetag}
 Release:        %{rel}%{?dist}
@@ -36,12 +37,14 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{nam
 # CC0: src/fonts/Anonymous Pro.ttf
 License:        GPLv3 and CC-BY-SA and CC0
 
-Source1:        https://github.com/radareorg/iaito-translations/archive/%{iaito_translations_commit}.tar.gz#/iaito-translations-%{iaito_translations_commit}.tar.gz
+Source1:        https://github.com/radareorg/iaito-translations/archive/%{iaito_translations_commit}.tar.gz#/iaito-translations-git%{iaito_translations_gitdate}.tar.gz
 Patch0:         iaito-5.6.0-norpath.patch
 
-# removing duplicate StartupNotify=true
-# https://github.com/radareorg/iaito/pull/103
-Patch1:         iaito-5.7.6-desktop.patch
+# Upstream release of 5.7.8 by accident didn't bump the version from 5.7.6
+# https://patch-diff.githubusercontent.com/raw/radareorg/iaito/pull/114.patch
+# https://patch-diff.githubusercontent.com/raw/radareorg/iaito/pull/115.patch
+Patch1:         iaito-5.7.8-version.patch
+
 
 BuildRequires:  radare2-devel >= 5.6.8
 # BuildRequires:  git
@@ -123,6 +126,7 @@ information.
 sed -i -e "s|%{version}-git|%{version}|g;" configure configure.acr
 %endif
 
+[ -d src/translations ] || mkdir -p src/translations
 tar --strip-component=1 -xvf %{SOURCE1} -C src/translations
 
 # Honor parallel jobs number
@@ -160,10 +164,11 @@ export PATH=$(pwd)/TMPBINDIR:$PATH
 export PATH=$(pwd)/TMPBINDIR:$PATH
 # don't strip binary
 %make_install STRIP=true
+make install-translations DESTDIR=%{?buildroot}
 
 # Move files manually
-mkdir -p %{buildroot}%{_mandir}/man1
-cp -p ./src/iaito.1 %{buildroot}%{_mandir}/man1/
+# mkdir -p %{buildroot}%{_mandir}/man1
+# cp -p ./src/iaito.1 %{buildroot}%{_mandir}/man1/
 
 %find_lang %name --with-qt
 
@@ -185,6 +190,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Oct 27 2022 Michal Ambroz <rebus _AT seznam.cz> - 5.7.8-1
+- bump to 5.7.8
+
 * Tue Oct 04 2022 Michal Ambroz <rebus _AT seznam.cz> - 5.7.6-1
 - bump to 5.7.6
 

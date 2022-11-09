@@ -3,7 +3,7 @@
 
 Name:           fldigi
 Version:        4.1.23
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Digital modem program for Linux
 
 License:        GPLv3+  
@@ -113,6 +113,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 4.1.23-3
+- Rebuild for hamlib 4.5.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

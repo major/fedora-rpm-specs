@@ -2,12 +2,13 @@
 
 Name:           pungi
 Version:        4.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPLv2
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch:          https://pagure.io/pungi/pull-request/1641.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -138,6 +139,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Mon Nov 07 2022 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.6-2
+- Stop including comps in modular repos
+
 * Fri Aug 26 2022 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.6-1
 - pkgset: Report better error when module is missing an arch (lsedlar)
 - osbuild: add support for building ostree artifacts (ondrej)

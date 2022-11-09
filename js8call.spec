@@ -7,7 +7,7 @@
 
 Name:           js8call
 Version:        2.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
 License:        GPLv3+
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-15
+- Rebuild for hamlib 4.5.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

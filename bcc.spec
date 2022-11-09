@@ -24,13 +24,14 @@
 
 
 Name:           bcc
-Version:        0.24.0
-Release:        3%{?dist}
+Version:        0.25.0
+Release:        1%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        ASL 2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         libbpf-tools-Allow-to-use-different-cflags-for-bpf-t.patch
+Patch0:         Fix-bpf_pseudo_fd-type-conversion-error.patch
+Patch1:         Fix-clang-15-int-to-pointer-conversion-errors.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -52,9 +53,9 @@ BuildRequires:  ncurses-devel
 %if %{with lua}
 BuildRequires:  pkgconfig(luajit)
 %endif
-BuildRequires:  libbpf-devel >= 0.0.5-3, libbpf-static >= 0.0.5-3
+BuildRequires:  libbpf-devel >= 2:0.8.0-1, libbpf-static >= 2:0.8.0-1
 
-Requires:       libbpf >= 0.0.5-3
+Requires:       libbpf >= 2:0.8.0-1
 Requires:       tar
 Recommends:     kernel-devel
 
@@ -121,7 +122,7 @@ Command line tools for BPF Compiler Collection (BCC)
 %if %{with libbpf_tools}
 %package -n libbpf-tools
 Summary:        Command line libbpf tools for BPF Compiler Collection (BCC)
-BuildRequires:  libbpf-devel >= 0.0.5-3, libbpf-static >= 0.0.5-3
+BuildRequires:  libbpf-devel >= 2:0.8.0-1, libbpf-static >= 2:0.8.0-1
 BuildRequires:  bpftool
 
 %description -n libbpf-tools

@@ -12,7 +12,7 @@
 %global bpftool_version 7.0.0
 
 Name:           retsnoop
-Version:        0.9.2
+Version:        0.9.3
 Release:        %autorelease
 Summary:        A tool for investigating kernel error call stacks
 
@@ -85,8 +85,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{libbpf_url}/archive/v%{libbpf_version}/libbpf-%{libbpf_version}.tar.gz
 Source2:        %{bpftool_url}/archive/v%{bpftool_version}/bpftool-%{bpftool_version}.tar.gz
 Source3:        README.Fedora
-Patch0:         %{url}/commit/64280c6d26d7ec5e9de99d9e6ceed5efa81f8d5c.patch#/%{name}-use-cflags.diff
-Patch1:         %{url}/commit/36305e9cb6e244250734d64f6cc25fb8d68bf6f0.patch#/%{name}-fix-32-bit-builds.diff
 
 # has a Rust component
 ExclusiveArch:  %{rust_arches}

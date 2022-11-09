@@ -1,7 +1,7 @@
 #%global shorttag 413855e
 Name:           direwolf
 Version:        1.6.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPLv2+
@@ -142,6 +142,9 @@ exit 0
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 1.6.0-16
+- Rebuild for updated hamlib 4.5.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

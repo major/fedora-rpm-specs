@@ -12,11 +12,11 @@
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.4
-Release:        5%{?dist}
+Version:        4.5
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later and LGPL-2.0-or-later
 URL:            http://www.hamlib.org
 %if "%{githash}" == "0"
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -205,6 +205,7 @@ make V=1 check
 %{_includedir}/hamlib/ampclass.h
 %{_includedir}/hamlib/amplifier.h
 %{_includedir}/hamlib/amplist.h
+%{_includedir}/hamlib/config.h
 %{_includedir}/hamlib/rig.h
 %{_includedir}/hamlib/riglist.h
 %{_includedir}/hamlib/rig_dll.h
@@ -243,6 +244,9 @@ make V=1 check
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 4.5-1
+- Update to 4.5.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

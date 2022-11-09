@@ -2,7 +2,7 @@
 
 Name:		wsjtx
 Version:	2.5.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Weak Signal communication by K1JT
 License:	GPLv3+
 
@@ -150,6 +150,9 @@ rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.5.4-5
+- Rebuild for updated hamlib 4.5.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

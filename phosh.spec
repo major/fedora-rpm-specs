@@ -1,8 +1,9 @@
 %global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
 %global libcall_ui_commit 7e2f9e2db6515fb9c4650010c2a9ecb9796957e3
+%global libgmobile_commit 3035e22ff124ca7b80ac5a21fe114be442e4dde6
 
 Name:		phosh
-Version:	0.21.1
+Version:	0.22.0
 Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
@@ -16,10 +17,12 @@ Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_
 # Similar sutiation as gvc
 Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
 
-Source3:	phosh
+Source3:	https://gitlab.gnome.org/guidog/gmobile/-/archive/%{libgmobile_commit}/gmobile-%{libgmobile_commit}.tar.gz
+
+Source4:	phosh
 
 # Needed when not using the OSK package
-Source4:	sm.puri.OSK0.desktop
+Source5:	sm.puri.OSK0.desktop
 
 # Tests failing
 ExcludeArch:	i686
@@ -32,6 +35,7 @@ BuildRequires:	callaudiod-devel
 BuildRequires:	feedbackd-devel
 BuildRequires:	dbus-daemon
 BuildRequires:	pkgconfig(alsa)
+BuildRequires:	pkgconfig(evince-document-3.0)
 BuildRequires:	pkgconfig(gcr-3) >= 3.7.5
 BuildRequires:	pkgconfig(gio-2.0) >= 2.58
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.58
@@ -82,13 +86,16 @@ protocol. It currently supports
 
 
 %prep
-%setup -a1 -a2 -q -n %{name}-v%{version}
+%setup -a1 -a2 -a3 -q -n %{name}-v%{version}
 
 rmdir subprojects/gvc
 mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 
 rmdir subprojects/libcall-ui
 mv libcall-ui-%{libcall_ui_commit} subprojects/libcall-ui
+
+rmdir subprojects/gmobile
+mv gmobile-%{libgmobile_commit} subprojects/gmobile
 
 
 %build
@@ -97,10 +104,10 @@ mv libcall-ui-%{libcall_ui_commit} subprojects/libcall-ui
 
 %install
 install -d %{buildroot}%{_sysconfdir}/pam.d/
-cp %{SOURCE3} %{buildroot}%{_sysconfdir}/pam.d/
+cp %{SOURCE4} %{buildroot}%{_sysconfdir}/pam.d/
 
 install -d %{buildroot}%{_datadir}/applications
-desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
+desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE5}
 
 %meson_install
 %find_lang %{name}
@@ -122,6 +129,7 @@ SH
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.gschema.xml
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.enums.xml
 %{_datadir}/glib-2.0/schemas/00_sm.puri.Phosh.gschema.override
+%{_datadir}/glib-2.0/schemas/sm.puri.phosh.plugins.ticket-box.gschema.xml
 %{_datadir}/gnome-session/sessions/phosh.session
 %{_datadir}/wayland-sessions/phosh.desktop
 %{_datadir}/phosh
@@ -136,6 +144,8 @@ SH
 %{_libdir}/phosh/plugins/calendar.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-upcoming-events.so
 %{_libdir}/phosh/plugins/upcoming-events.plugin
+%{_libdir}/phosh/plugins/libphosh-plugin-ticket-box.so
+%{_libdir}/phosh/plugins/ticket-box.plugin
 %{_datadir}/icons/hicolor/symbolic/apps/sm.puri.Phosh-symbolic.svg
 %{_datadir}/dbus-1/services/sm.puri.Phosh.CalendarServer.service
 
@@ -143,6 +153,9 @@ SH
 %license COPYING
 
 %changelog
+* Mon Nov 07 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.22.0-1
+- Update to 0.22.0
+
 * Wed Sep 28 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.21.1-1
 - Update to 0.21.1
 

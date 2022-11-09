@@ -194,7 +194,6 @@ sed -i "s/-php/-php7/g" src/php/CMakeLists.txt
 mkdir -p \
     %{buildroot}/%{_datadir}/php \
     %{buildroot}/%{php_inidir}/
-mv %{buildroot}/%{php_extdir}/kolabformat.php %{buildroot}/%{_datadir}/php/kolabformat.php
 cat > %{buildroot}/%{php_inidir}/%{ini_name} << EOF
 extension=kolabformat.so
 EOF
@@ -239,7 +238,6 @@ popd
 
 %if 0%{?with_php} > 0
 %files -n php-kolabformat
-%{_datadir}/php/kolabformat.php
 %{php_extdir}/kolabformat.so
 %config(noreplace) %{php_inidir}/%{ini_name}
 %endif

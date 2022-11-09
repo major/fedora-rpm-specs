@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    a161a26d917604dc6d3aa25100fddf2556e9f35d
+%global gh_commit    ad63bc700e7d021039e30ce464eba384c4a1d40f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   uuid
@@ -22,7 +22,7 @@
 %global ns_project   Uuid
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        4.5.1
+Version:        4.6.0
 Release:        1%{?dist}
 Summary:        Library for generating and working with UUIDs
 
@@ -35,7 +35,6 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 
 BuildRequires:  php(language) >= 8.0
-BuildRequires:  php-ctype
 BuildRequires:  php-date
 BuildRequires:  php-hash
 BuildRequires:  php-json
@@ -74,16 +73,14 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
 #        "php": "^8.0",
-#        "ext-ctype": "*",
 #        "ext-json": "*",
 #        "brick/math": "^0.8.8 || ^0.9 || ^0.10",
 #        "ramsey/collection": "^1.0",
 Requires:       php(language) >= 8.0
-Requires:       php-ctype
 Requires:       php-json
 Requires:      (php-composer(brick/math)        >= 0.8.8     with php-composer(brick/math)             < 1)
 Requires:      (php-composer(ramsey/collection) >= 1.0       with php-composer(ramsey/collection)      < 2)
-# From phpcompatifo report for 4.1.1
+# From phpcompatifo report for 4.6.0
 Requires:       php-date
 Requires:       php-hash
 Requires:       php-pcre
@@ -173,6 +170,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 4.6.0-1
+- update to 4.6.0
+
 * Fri Sep 16 2022 Remi Collet <remi@remirepo.net> - 4.5.1-1
 - update to 4.5.1
 

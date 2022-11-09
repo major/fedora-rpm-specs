@@ -2,10 +2,10 @@
 %{?rhel: %global cmake %cmake3}
 
 Name:           freedv
-Version:        1.6.1
-Release:        7%{?dist}
+Version:        1.8.4
+Release:        1%{?dist}
 Summary:        FreeDV Digital Voice
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 URL:            http://freedv.org
 Source0:        https://github.com/drowe67/freedv-gui/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet \
     %{buildroot}%{_datadir}/appdata/*.appdata.xml
 %endif
 
+# Remove manuals installed by CMake
+rm -rf %{buildroot}%{_datadir}/freedv-gui/USER_MANUAL.*
+
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %post
@@ -100,10 +103,14 @@ fi
 %{_bindir}/%{name}
 %{?fedora:%{_datadir}/appdata/*.appdata.xml}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/freedv-gui/wav/
 %{_iconsbasedir}/*/apps/%{name}.png
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 1.8.4-1
+- Update to 1.8.4.
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 1.6.1-7
 - Rebuild with wxWidgets 3.2
 

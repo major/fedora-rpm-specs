@@ -1,6 +1,6 @@
 Name:           bpftrace
 Version:        0.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        ASL 2.0
 
@@ -81,6 +81,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Mon Nov 07 2022 Jerome Marchand <jmarchan@redhat.com> - 0.16.0-4
+- Rebuild for libbpf 1.0
+
 * Mon Sep 26 2022 Kenneth Topp <toppk@bllue.org> - 0.16.0-3
 - Enable workaround for non OpaquePointers on LLVM-15
 

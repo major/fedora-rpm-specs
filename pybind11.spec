@@ -16,7 +16,7 @@
 %global python3_enabled 1
 
 Name:    pybind11
-Version: 2.10.0
+Version: 2.10.1
 Release: 1%{?dist}
 Summary: Seamless operability between C++11 and Python
 License: BSD
@@ -24,7 +24,7 @@ URL:	 https://github.com/pybind/pybind11
 Source0: https://github.com/pybind/pybind11/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Patch out header path
-Patch1:  pybind11-2.10.0-hpath.patch
+Patch1:  pybind11-2.10.1-hpath.patch
 
 BuildRequires: make
 %if %{python2_enabled}
@@ -166,6 +166,7 @@ PYBIND11_USE_CMAKE=true %py3_install "--install-purelib" "%{python3_sitearch}"
 %{_includedir}/pybind11/
 %{_datadir}/cmake/pybind11/
 %{_bindir}/pybind11-config
+%{_datadir}/pkgconfig/%{name}.pc
 
 %if %{python2_enabled}
 %files -n python2-%{name}
@@ -180,6 +181,9 @@ PYBIND11_USE_CMAKE=true %py3_install "--install-purelib" "%{python3_sitearch}"
 %endif
 
 %changelog
+* Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 2.10.1-1
+- Update to 2.10.1 rhbz#2139245
+
 * Tue Aug 02 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.10.0-1
 - Update to 2.10.0.
 

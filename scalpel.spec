@@ -1,16 +1,17 @@
 %global         gituser         sleuthkit
 %global         gitname         scalpel
-%global         commit          47815c21172978b423be496e8451604ccd124137
+%global         gitdate         20210326
+%global         commit          35e1367ef2232c0f4883c92ec2839273c821dd39
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           scalpel
 Version:        2.1
-Release:        0.rc1.2.%{shortcommit}%{?dist}.16
+Release:        0.rc2.%{shortcommit}%{?dist}
 Summary:        Fast file carver working on disk images
 
 License:        GPLv2+
 URL:            https://github.com/sleuthkit/scalpel
-Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
+Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-git%{gitdate}-%{shortcommit}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -18,8 +19,9 @@ BuildRequires:  tre-devel
 BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  libtool
+%ifarch %{java_arches}
 BuildRequires:  java-devel
-
+%endif
 
 %description
 Scalpel is a fast file carver that reads a database of header and footer
@@ -74,6 +76,10 @@ rm -f  %{buildroot}/%{_libdir}/libscalpel*.la
 
 
 %changelog
+* Mon Nov 07 2022 Michal Ambroz <rebus at, seznam.cz> 2.1-0.rc2.35e1367
+- bump to current git snapshot 2.1-0.rc2.35e1367
+- do not build java bindings where not possible
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.rc1.2.47815c2.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

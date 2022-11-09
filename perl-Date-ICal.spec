@@ -1,19 +1,16 @@
 Name:           perl-Date-ICal
-Version:        2.678
-Release:        35%{?dist}
+Version:        2.679
+Release:        1%{?dist}
 Summary:        Perl extension for ICalendar date objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-ICal
 Source0:        https://cpan.metacpan.org/modules/by-module/Date/Date-ICal-%{version}.tar.gz
-# Pass 4-digit years to timegm() to fix tests after year 2019, CPAN RT#124548
-Patch0:         Date-ICal-2.678-4_digit_year.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Date::Leapyear) >= 1.03
@@ -24,7 +21,7 @@ BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.45
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Date::Leapyear) >= 1.03
 
 # Filter under-specified dependencies
@@ -36,32 +33,29 @@ for other date/calendar modules that know about ICal time format also.
 
 %prep
 %setup -q -n Date-ICal-%{version}
-%patch0 -p1
 chmod a-x lib/Date/ICal.pm
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
 %files
-%doc Changes INTERNALS LICENSE README
+%license LICENSE
+%doc Changes INTERNALS README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.679-1
+- 2.679 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.678-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

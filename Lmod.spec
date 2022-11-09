@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.7
-Release:        2%{?dist}
+Version:        8.7.14
+Release:        1%{?dist}
 Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
@@ -14,6 +14,8 @@ Source0:        https://github.com/TACC/Lmod/archive/%{version}/Lmod-%{version}.
 Source1:        macros.%{name}
 
 BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  bc
 BuildRequires:  lua-devel
 BuildRequires:  lua-filesystem
 BuildRequires:  lua-json
@@ -21,7 +23,6 @@ BuildRequires:  lua-posix
 BuildRequires:  lua-term
 BuildRequires:  tcl-devel
 BuildRequires:  zsh
-BuildRequires: make
 Requires:       lua-filesystem
 Requires:       lua-json
 Requires:       lua-posix
@@ -143,6 +144,9 @@ fi
 
 
 %changelog
+* Mon Nov 07 2022 Orion Poplawski <orion@nwra.com> - 8.7.14-1
+- Update to 8.7.14
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

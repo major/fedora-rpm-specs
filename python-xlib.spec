@@ -5,8 +5,8 @@
 %endif
 
 Name:           python-xlib
-Version:        0.31
-Release:        5%{?dist}
+Version:        0.32
+Release:        1%{?dist}
 Summary:        X client library for Python
 
 License:        LGPLv2+
@@ -24,7 +24,7 @@ Patch2:         fix-ssh-tunnel-auth
 Patch4:         python-xlib-test.patch
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  texinfo-tex
 BuildRequires:  tex(dvips)
 # For tests
@@ -42,9 +42,11 @@ BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
 BuildRequires:  python2-setuptools_scm
 BuildRequires:  python2-six >= 1.10.0
+BuildRequires:  python2-tkinter
 # For tests
 BuildRequires:  python2-mock
 Requires:       python2-six >= 1.10.0
+#Requires:       python2-tkinter
 %{?python_provide:%python_provide python2-xlib}
 
 %description -n python2-xlib
@@ -59,8 +61,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools_scm
 BuildRequires:  python%{python3_pkgversion}-six >= 1.10.0
-# For tests
+BuildRequires:  python%{python3_pkgversion}-tkinter
 Requires:       python%{python3_pkgversion}-six >= 1.10.0
+Suggests:       python%{python3_pkgversion}-tkinter
 %{?python_provide:%python_provide python%{python3_pkgversion}-xlib}
 
 %description -n python%{python3_pkgversion}-xlib
@@ -133,6 +136,9 @@ cat xorg.log
 
 
 %changelog
+* Mon Nov 07 2022 Orion Poplawski <orion@nwra.com> - 0.32-1
+- Update to 0.32
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

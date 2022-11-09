@@ -15,7 +15,7 @@
 %endif
 %endif
 
-%global built_tag 1.6
+%global built_tag 1.7
 %global gen_version %(b=%{built_tag}; echo ${b/-/"~"})
 
 Summary: OCI runtime written in C

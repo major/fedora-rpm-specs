@@ -1,15 +1,12 @@
 Name:           gerbera
-Version:        1.11.0
-Release:        4%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPLv2 and MIT and OFL
 Url:            https://gerbera.io
 Source0:        https://github.com/gerbera/gerbera/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        config.xml
 Source2:        gerbera-sysusers.conf
-# FMT-9 build issue
-# https://github.com/gerbera/gerbera/issues/2681
-Patch1:         gerbera-1.11.0-fmt9-const.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -125,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Mon Nov 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.12.0-1
+- 1.12.0
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-4
 - Rebuilt due to spdlog update.
 - Fixed FTBFS on Rawhide. Closes rhbz#2139904.

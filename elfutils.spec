@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.188
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -76,6 +76,10 @@ BuildRequires: gettext-devel
 Patch1: elfutils-0.186-fdo-swap.patch
 # Don't export internal function.
 Patch2: elfutils-0.188-static-extract_section.patch
+# Silence some compiler warnings
+Patch3: elfutils-0.188-compile-warnings.patch
+# The debuginfod_client object lifetime needs more careful handling
+Patch4: elfutils-0.188-debuginfod-client-lifetime.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -444,6 +448,10 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Mon Nov 7 2022 Mark Wielaard <mjw@fedoraproject.org> - 0.188-3
+- Add elfutils-0.188-compile-warnings.patch
+- Add elfutils-0.188-debuginfod-client-lifetime.patch
+
 * Wed Nov 2 2022 Mark Wielaard <mjw@fedoraproject.org> - 0.188-2
 - Add elfutils-0.188-static-extract_section.patch.
 

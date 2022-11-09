@@ -1,6 +1,6 @@
 Name:		fio
-Version:	3.32
-Release:	3%{?dist}
+Version:	3.33
+Release:	1%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPLv2
@@ -247,6 +247,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Mon Nov 07 2022 Pavel Reichl <preichl@redhat.com> - 3.33-1
+- New upstream version (RHBZ#2140453)
+
 * Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 3.32-3
 - Make it buildable on RHEL again
 

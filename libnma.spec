@@ -3,7 +3,7 @@
 %global glib2_version         %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 %global nm_version            1:1.8.0
 %global mbp_version           0.20090602
-%global old_libnma_version    1.8.27
+%global old_libnma_version    1.10.4
 
 %if 0%{?fedora} >= 34 || 0%{?rhel} >= 10
 %bcond_without libnma_gtk4
@@ -11,15 +11,9 @@
 %bcond_with libnma_gtk4
 %endif
 
-%if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
-%bcond_without gcr_gtk4
-%else
-%bcond_with gcr_gtk4
-%endif
-
 Name:           libnma
 Summary:        NetworkManager GUI library
-Version:        1.10.2
+Version:        1.10.4
 Release:        1%{?dist}
 # The entire source code is GPLv2+ except some files in shared/ which are LGPLv2+
 License:        GPLv2+ and LGPLv2+
@@ -31,6 +25,7 @@ Patch1:         0001-nm-applet-no-notifications.patch
 Requires:       mobile-broadband-provider-info >= %{mbp_version}
 
 Conflicts:      libnma < %{old_libnma_version}
+Conflicts:      nm-connection-editor < 1.30.0
 
 BuildRequires:  gcc
 BuildRequires:  NetworkManager-libnm-devel >= %{nm_version}
@@ -46,12 +41,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  meson
 BuildRequires:  gtk-doc
 BuildRequires:  iso-codes-devel
-%if %{with gcr_gtk4}
-BuildRequires:  gcr-gtk3-devel
-BuildRequires:  gcr-gtk4-devel
-%else
 BuildRequires:  gcr-devel
-%endif
 BuildRequires:  mobile-broadband-provider-info-devel >= %{mbp_version}
 
 %description
@@ -110,11 +100,6 @@ files to be used for integrating GUI tools with NetworkManager.
 %else
         -Dlibnma_gtk4=false \
 %endif
-%if %{with gcr_gtk4}
-        -Dgcr_gtk4=true
-%else
-        -Dgcr_gtk4=false
-%endif
 %meson_build
 
 
@@ -130,7 +115,8 @@ files to be used for integrating GUI tools with NetworkManager.
 %files -f %{name}.lang
 %{_libdir}/libnma.so.*
 %{_libdir}/girepository-1.0/NMA-1.0.typelib
-%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
+%exclude %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.eap.gschema.xml
 %doc NEWS CONTRIBUTING
 %license COPYING
 
@@ -159,6 +145,9 @@ files to be used for integrating GUI tools with NetworkManager.
 
 
 %changelog
+* Mon Nov 07 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.10.4-1
+- Update to 1.10.4 release
+
 * Fri Sep 09 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.10.2-1
 - Update to 1.10.2 release
 

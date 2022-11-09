@@ -35,6 +35,10 @@
 %global flagrel %{flagrel}.clang_alz
 %endif
 
+%global toolchain     gcc
+%if 0%{?use_clang_as_cc} >= 1
+%global toolchain     clang
+%endif
 
 # EPEL6
 %{!?__git:%define __git git}
@@ -597,15 +601,7 @@ export CFLAGS="$CFLAGS -Wno-long-long"
 export CFLAGS="$CFLAGS -Wno-variadic-macros"
 
 %if 0%{?use_clang_as_cc}
-export CC=clang
-export CFLAGS="$(echo $CFLAGS | sed -e 's|-fstack-protector-strong|-fstack-protector|')"
-export CFLAGS="$(echo $CFLAGS | sed -e 's|-specs=[^ \t][^ \t]*||g')"
-export CFLAGS="$(echo $CFLAGS | sed -e 's|-flto=[^ \t][^ \t]* -ffat-lto-objects |-flto |')"
 export CFLAGS="$CFLAGS -Wno-gnu-statement-expression"
-export LDFLAGS="$(echo $LDFLAGS | sed -e 's|-specs=[^ \t][^ \t]*||g')"
-%if 0%{?fedora} >= 33
-export LDFLAGS="$LDFLAGS -flto"
-%endif
 %endif
 
 %if 0%{?use_gcc_strict_sanitize}

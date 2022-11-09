@@ -3,7 +3,7 @@
 
 Name:		tlf
 Version:	1.4.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Ham radio contest logger
 # GPLv3+ are some m4 macros
 License:	GPLv2+ and GPLv3+
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-10
+- Rebuild for updated hamlib 4.5.
+
 * Thu Aug  4 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.1-9
 - Fixed FTBFS
   Resolves: rhbz#2113745

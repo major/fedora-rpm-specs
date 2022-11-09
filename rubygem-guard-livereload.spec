@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Guard plugin for livereload
 License: MIT
 URL: https://rubygems.org/gems/guard-livereload
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix FTBFS due to rspec-mock 3.12+ incompatibility.
+# https://github.com/guard/guard-livereload/pull/194
+Patch0: rubygem-guard-livereload-2.5.2-Fix-RSpec-3.12-kwargs-handling.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -31,15 +34,13 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
 
-%setup -q -D -T -n  %{gem_name}-%{version}
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%patch0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -81,6 +82,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Nov 07 2022 Vít Ondruch <vondruch@redhat.com> - 2.5.2-13
+- Fix FTBFS due to rspec-mock 3.12+ incompatibility.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,6 +11,7 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
+Patch0:         https://github.com/baresip/baresip/commit/7ee4a769aaa1e3899b536b724cc854dd327ae865.patch#/baresip-2.9.0-gtk.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
@@ -351,6 +352,7 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
+%patch0 -p1 -b .gtk
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -561,6 +563,12 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Tue Nov 08 2022 Robert Scheck <robert@fedoraproject.org> 2.9.0-3
+- Added upstream patch to fix GTK+ dial segfault regression
+
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.9.0-2
+- Rebuild for updated codec2.
+
 * Tue Nov 01 2022 Robert Scheck <robert@fedoraproject.org> 2.9.0-1
 - Upgrade to 2.9.0 (#2139174)
 

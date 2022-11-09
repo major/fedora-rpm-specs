@@ -1,23 +1,35 @@
-Name:		perl-V
-Version:	0.15
-Release:	6%{?dist}
-Summary:	Print version of the specified Perl modules
+Name:           perl-V
+Version:        0.16
+Release:        1%{?dist}
+Summary:        Print version of the specified Perl modules
 
-Group:		Development/Libraries
-License:	GPL+ or Artistic
-URL:		http://search.cpan.org/dist/V
-Source0:	http://search.cpan.org/CPAN/authors/id/A/AB/ABELTJE/V-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Group:          Development/Libraries
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+URL:            http://search.cpan.org/dist/V
+Source0:        http://search.cpan.org/CPAN/authors/id/A/AB/ABELTJE/V-%{version}.tar.gz
+BuildArch:      noarch
 
-BuildArch:	noarch
-
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-generators perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
-BuildRequires:	perl(Test::More)
-BuildRequires:	perl(Test::Fatal)
-BuildRequires:	perl(Test::Warnings)
+BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+# Run-time
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(vars)
+BuildRequires:  perl(version)
+# Tests
+BuildRequires:  perl(feature)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(Test::Builder::Module)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::Fatal)
+BuildRequires:  perl(Test::Warnings)
+BuildRequires:  perl(warnings)
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(version)
 
 %description
 A light-weight module for getting versions of Perl modules without
@@ -37,15 +49,15 @@ make test VERBOSE=1
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
-%clean
-%{__rm} -rf %{buildroot}
-
 %files
 %doc Changes README.md
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-1
+- 0.16 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

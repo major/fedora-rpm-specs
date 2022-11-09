@@ -1,6 +1,6 @@
 Name:           CubicSDR
 Version:        0.2.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Cross-Platform Software-Defined Radio Panadapter
 
 # The primary license of CubicSDR is GPLv2+.
@@ -67,6 +67,9 @@ install -m 0755 %{SOURCE1} %{buildroot}/%{_bindir}/%{name}
 
 
 %changelog
+* Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 0.2.7-7
+- Rebuild for hamlib 4.5.
+
 * Mon Jul 25 2022 Scott Talbert <swt@techie.net> - 0.2.7-6
 - Rebuild for wxGTK 3.2.0
 

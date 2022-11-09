@@ -1,6 +1,4 @@
-%global srcname atpublic
-%global pkgname atpublic
-%global summary Decorator for populating a Python module's __all__
+%global debug_package %{nil}
 %global _description \
 This is a very simple decorator and function which populates a  \
 module's __all__ and optionally the module globals.  \
@@ -9,94 +7,65 @@ It is proposed that the C implementation be added to built-ins for  \
 Python 3.6.
 
 
-Name:           python-%{pkgname}
-Version:        1.0
-Release:        11%{?dist}
-Summary:        %{summary}
+Name:           python-atpublic
+Version:        3.1.1
+Release:        1%{?dist}
+Summary:        Decorator for populating a Python module's __all__
 
-License:        ASL 2.0
-URL:            http://public.readthedocs.io
-Source0:        https://files.pythonhosted.org/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+License:        Apache-2.0
+URL:            https://gitlab.com/warsaw/public
+Source:         %pypi_source atpublic
+
+Patch:          disable_cov.patch
 
 BuildRequires:  gcc
-BuildRequires:  python-srpm-macros
-BuildRequires:  python%{python3_pkgversion}-devel >= 3.4
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-nose2
-BuildRequires:  python%{python3_pkgversion}-flufl-testing
-%if 0%{?with_python3_other}
-BuildRequires:  python%{python3_other_pkgversion}-devel >= 3.4
-BuildRequires:  python%{python3_other_pkgversion}-setuptools
-BuildRequires:  python%{python3_other_pkgversion}-nose2
-BuildRequires:  python%{python3_other_pkgversion}-flufl-testing
-%endif
+BuildRequires:  python3-devel
+# for tests
+BuildRequires:  python3-pytest
+BuildRequires:  python3-sybil
 
 %description %{_description}
 
 
-%package -n python%{python3_pkgversion}-%{pkgname}
+%package -n python3-atpublic
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
-Requires:       python%{python3_pkgversion}-setuptools
+Requires:       python3-setuptools
 
-%description -n python%{python3_pkgversion}-%{pkgname} %{_description}
-
-
-%if 0%{?with_python3_other}
-%package -n python%{python3_other_pkgversion}-%{pkgname}
-Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{pkgname}}
-Requires:       python%{python3_other_pkgversion}-setuptools
-
-%description -n python%{python3_other_pkgversion}-%{pkgname} %{_description}
-%endif
+%description -n python3-atpublic %{_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n atpublic-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
 export ATPUBLIC_BUILD_EXTENSION=1
-%py3_build
-%if 0%{?with_python3_other}
-%py3_other_build
-%endif
+%pyproject_wheel
 
 
 %install
 export ATPUBLIC_BUILD_EXTENSION=1
-%py3_install
-%if 0%{?with_python3_other}
-%py3_other_install
-%endif
+%pyproject_install
+%pyproject_save_files public
 
 
 %check
-%{__python3} -m nose2 -v
-%if 0%{?with_python3_other}
-%{__python3_other} -m nose2 -v
-%endif
+%pytest
 
 
-%files -n python%{python3_pkgversion}-%{pkgname}
-%license LICENSE.txt
-%doc README.rst NEWS.rst
-%{python3_sitearch}/public/
-%{python3_sitearch}/%{srcname}-%{version}*-py%{python3_version}.egg-info/
-%{python3_sitearch}/_public.*.so
-
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-%{pkgname}
-%license LICENSE.txt
-%doc README.rst NEWS.rst
-%{python3_other_sitearch}/public/
-%{python3_other_sitearch}/%{srcname}-%{version}*-py%{python3_other_version}.egg-info/
-%{python3_other_sitearch}/_public.*.so
-%endif
+%files -n python3-atpublic -f %{pyproject_files}
+%license LICENSE
+%doc README.rst docs/
 
 
 %changelog
+* Fri Oct 28 2022 Jonathan Wright <jonathan@almalinux.org> - 3.1.1-1
+- Update to 3.1.1 rhbz#1861230
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

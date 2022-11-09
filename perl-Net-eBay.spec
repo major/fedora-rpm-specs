@@ -1,8 +1,8 @@
 Name:           perl-Net-eBay
-Version:        0.61
-Release:        21%{?dist}
+Version:        0.62
+Release:        1%{?dist}
 Summary:        Perl Interface to XML based eBay API
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-eBay
 Source0:        https://cpan.metacpan.org/authors/id/I/IC/ICHUDOV/Net-eBay-%{version}.tar.gz
 # Do no load a private IgorBusinessRules module, CPAN RT#105379
@@ -10,15 +10,15 @@ Patch0:         Net-eBay-0.61-Do-use-non-existent-IgorBusinessRules.patch
 
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
 # Run-time:
+# BSD::Resource not used at tests
 BuildRequires:  perl(Carp)
 # Cwd not used at tests
 BuildRequires:  perl(Data::Dumper)
@@ -60,21 +60,18 @@ This module helps user to easily execute queries against eBay's XML API.
 # Skip Test::Pod::Coverage tests because they are not useful and fail,
 # CPAN RT#97511
 rm t/pod-coverage.t
-sed -i -e '/^t\/pod-coverage.t$/d' MANIFEST
+perl -i -ne 'print $_ unless m{^t\/pod-coverage.t$}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT
 
 %check
 make test
-
 
 %files
 %doc Changes README
@@ -88,8 +85,10 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/Net::eBay.3pm.gz
 
-
 %changelog
+* Mon Nov 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.62-1
+- 0.62 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

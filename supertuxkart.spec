@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -18,6 +18,7 @@ URL:            https://supertuxkart.net/Main_Page
 Source0:        https://github.com/%{name}/stk-code/releases/download/%{version}/SuperTuxKart-%{version}%{?rctag:-%{rctag}}-src.tar.xz
 Source1:        %{name}.6
 Source2:        supertuxkart-0.7.3-license-clarification.txt
+Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -118,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Nov 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-2
+- Patch to fix soccer ball rolling.
+
 * Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-1
 - 1.4
 

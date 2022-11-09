@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-249-g6f360366f7
+%global glibcsrcdir glibc-2.36.9000-291-g8d291eabd5
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 11
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,52 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Nov 07 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-12
+- Auto-sync with upstream branch master,
+  commit 8d291eabd541029d7ac705cc1ea112c58dfbb05f.
+- Apply asm redirection in gmp.h before first use
+- Rewrite find_cxx_header config configure.ac
+- elf/tlsdeschtab.h: Add the Malloc return value check in _dl_make_tlsdesc_dynamic()
+- elf: Disable some subtests of ifuncmain1, ifuncmain5 for !PIE
+- posix: Make posix_spawn extensions available by default
+- x86_64: Implement evex512 version of strrchr and wcsrchr
+- elf: Introduce <dl-call_tls_init_tp.h> and call_tls_init_tp (bug 29249)
+- LoongArch: Fix ABI related macros in elf.h to keep consistent with binutils[1].
+- scripts/glibcelf.py: Properly report <elf.h> parsing failures
+- elf: Rework exception handling in the dynamic loader [BZ #25486]
+- linux: Drop useless include from fstatat.c
+- Fix OOB read in stdlib thousand grouping parsing [BZ #29727]
+- linux: Fix fstatat on MIPSn64 (BZ #29730)
+- elf: Remove allocate use on _dl_debug_printf
+- nptl: Fix pthread_create.c build with clang
+- allocate_once: Apply asm redirection before first use
+- alloc_buffer: Apply asm redirection before first use
+- configure: Use -Wno-ignored-attributes if compiler warns about multiple aliases
+- Disable use of -fsignaling-nans if compiler does not support it
+- intl: Fix clang -Wunused-but-set-variable on plural.c
+- Apply asm redirection in not-cancel before first use
+- malloc: Use uintptr_t for pointer alignment
+- Use uintptr_t in fts for pointer alignment
+- Fix build with GCC 13 _FloatN, _FloatNx built-in functions
+- elf: Build tst-relr-mod[34]a.so with $(LDFLAGS-rpath-ORIGIN)
+- x86-64: Improve evex512 version of strlen functions
+- Correctly determine libc.so 'OUTPUT_FORMAT' when cross-compiling.
+- Remove unused scratch_buffer_dupfree
+- Fix elf/tst-dlmopen-twice not to exhaust static TLS
+- Use uintptr_t in string/tester for pointer alignment
+- stdlib/strfrom: Add copysign to fix NAN issue on riscv (BZ #29501)
+- Fix resource/bug-ulimit1 test
+- Fix missing NUL terminator in stdio-common/scanf13 test
+- Fix off-by-one OOB read in elf/tst-tls20
+- elf: Fix alloca size in _dl_debug_vdprintf
+- malloc: Use uintptr_t in alloc_buffer
+- Fix invalid pointer dereference in wcpcpy_chk
+- Fix invalid pointer dereference in wcscpy_chk
+- aarch64: Fix the extension header write in getcontext and swapcontext
+- aarch64: Don't build wordcopy
+- scripts: Use bool in tunables initializer
+- longlong.h: update from GCC for LoongArch clz/ctz support
+
 * Thu Oct 27 2022 Patsy Griffin <patsy@redhat.com> - 2.36.9000-11
 - Auto-sync with upstream branch master,
   commit 6f360366f7f76b158a0f4bf20d42f2854ad56264.
