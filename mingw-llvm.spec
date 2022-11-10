@@ -15,7 +15,7 @@
 #global native_llvm_suffix 6.0
 
 Name:          mingw-%{pkgname}
-Version:       15.0.0
+Version:       15.0.4
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
@@ -246,6 +246,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Tue Nov 08 2022 Sandro Mani <manisandro@gmail.com> - 15.0.4-1
+- Update to 15.0.4
+
 * Thu Sep 15 2022 Sandro Mani <manisandro@gmail.com> - 15.0.0-1
 - Update to 15.0.0
 

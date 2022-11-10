@@ -2,8 +2,8 @@
 %global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           environment-modules
-Version:        5.1.1
-Release:        2%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPLv2+
@@ -31,6 +31,9 @@ Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 Provides:       environment(modules)
 Obsoletes:      environment-modules-compat <= 4.8.99
+
+# Tcl linter is useful for module lint command
+Recommends:     nagelfar
 
 %description
 The Environment Modules package provides for the dynamic modification of
@@ -69,6 +72,7 @@ have access to the module alias.
            --libexecdir=%{_datadir}/Modules/libexec \
            --mandir=%{_mandir} \
            --vimdatadir=%{vimdatadir} \
+           --nagelfardatadir=%{_datadir}/Modules/nagelfar \
            --with-bashcompletiondir=%{_datadir}/bash-completion/completions \
            --with-fishcompletiondir=%{_datadir}/fish/vendor_completions.d \
            --with-zshcompletiondir=%{_datadir}/zsh/site-functions \
@@ -172,9 +176,16 @@ fi
 %{vimdatadir}/ftdetect/modulefile.vim
 %{vimdatadir}/ftplugin/modulefile.vim
 %{vimdatadir}/syntax/modulefile.vim
+%dir %{_datadir}/Modules/nagelfar
+%{_datadir}/Modules/nagelfar/*
 
 
 %changelog
+* Tue Nov 08 2022 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.2.0-1
+- Update to 5.2.0 (#2140892)
+- Recommends Nagelfar Tcl syntax linter
+- Add Nagelfar linter addons
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

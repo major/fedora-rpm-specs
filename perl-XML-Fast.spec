@@ -1,6 +1,6 @@
 Name:           perl-XML-Fast
 Version:        0.17
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Simple and very fast XML to hash conversion
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Fast
@@ -36,6 +36,7 @@ This Perl module implements simple, state machine based, XML parser
 written in C. It could parse and recover some kind of broken XML's.
 
 %package tests
+BuildArch:      noarch
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -84,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.17-20
+- *-tests package is noarch
+
 * Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.17-19
 - Package tests
 - Update license to SPDX format

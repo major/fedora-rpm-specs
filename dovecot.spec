@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.19.1
 %global prever %{nil}
-Release: 5%{?dist}
+Release: 6%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT and LGPLv2
 
@@ -480,6 +480,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Nov 08 2022 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.19.1-6
+- use Wants=network-online.target instead of preexec nm-online (#2095949)
+
 * Tue Oct 11 2022 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.19.1-5
 - build with lua support (#2132420)
 

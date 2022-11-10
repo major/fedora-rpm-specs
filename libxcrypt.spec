@@ -158,7 +158,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.30
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -171,6 +171,10 @@ Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.gpg
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
+Patch0000:      0002-Fix-warning-about-truncating-conversion.patch
+Patch0001:      0003-alg-sha256.c-SHA-2-Maj-optimization-proposed-by-Wei-.patch
+Patch0002:      0004-test-getrandom-fallback.c-Fix-OVERRUN-found-by-Covsc.patch
+Patch0003:      0005-Fix-warning-about-signed-unsigned-conversion.patch
 
 # Patch 3000 - 5999: Backported patches from pull requests.
 
@@ -408,7 +412,10 @@ unset LT_SYS_LIBRARY_PATH
 
 # Build a library suitable for all possible tests.
 pushd %{_vpath_builddir}-all_possible_tests
+# Disable arc4random_buf on purpose, so we are able
+# to run test/getrandom-fallback from testsuite.
 %configure                                       \
+ac_cv_func_arc4random_buf=no                     \
 %if %{with compat_pkg}
   %{common_configure_options}                    \
   --enable-hashes=all                            \
@@ -551,6 +558,13 @@ done
 
 
 %changelog
+* Tue Nov 08 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.30-3
+- Backport another upstream patch for a conversion fix
+
+* Tue Nov 08 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.30-2
+- Backport some upstream patches for fixes and optimizations
+- Explicitly disable arc4random_buf in all_possible_tests configuration
+
 * Tue Nov 01 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.30-1
 - New upstream release
 

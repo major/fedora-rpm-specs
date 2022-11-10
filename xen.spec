@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.16.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -169,6 +169,8 @@ Patch101: xsa419-xenstored-03.patch
 Patch102: xsa420.patch
 Patch103: xsa421-01.patch
 Patch104: xsa421-02.patch
+Patch105: xsa422-4.16-1.patch
+Patch106: xsa422-4.16-2.patch
 
 
 %if %build_qemutrad
@@ -439,6 +441,8 @@ manage Xen virtual machines.
 %patch102 -p1
 %patch103 -p1
 %patch104 -p1
+%patch105 -p1
+%patch106 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -1054,6 +1058,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 08 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-4
+- x86: Multiple speculative security issues [XSA-422, CVE-2022-23824]
+
 * Tue Nov 01 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-3
 - x86: unintended memory sharing between guests [XSA-412, CVE-2022-42327]
 - Xenstore: Guests can crash xenstored [XSA-414, CVE-2022-42309]

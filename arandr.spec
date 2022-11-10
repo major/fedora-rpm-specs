@@ -1,12 +1,17 @@
 Name:           arandr
 Version:        0.1.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simple GTK+ XRandR GUI
 
 License:        GPLv3
 URL:            http://christian.amsuess.com/tools/arandr/
 Source0:        http://christian.amsuess.com/tools/arandr/files/%{name}-%{version}.tar.gz
 Patch0:         0001-Make-ARandR-appear-in-XFCE-Settings-Manager.patch
+# Make arandr compatible with Python 3.11
+# Slightly modified version of [0], since it's currently open against
+# a "wrong" branch, hence not matching our tree
+# [0] https://gitlab.com/arandr/arandr/-/merge_requests/10
+Patch1:         5cf1f3aa93e38cfa374fc224b29d6fe9cd426c68.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -24,9 +29,7 @@ Relative monitor positions are shown graphically and can be changed in a
 drag-and-drop way.
 
 %prep
-%setup -q
-%patch0 -p1
-
+%autosetup -p1
 
 %build
 %py3_build
@@ -52,6 +55,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/arandr.desktop
 
 
 %changelog
+* Tue Nov 08 2022 Frantisek Sumsal <frantisek@sumsal.cz> - 0.1.10-13
+- Fix compatibility with Python 3.11 [BZ#2141076]
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

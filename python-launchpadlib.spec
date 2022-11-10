@@ -1,6 +1,6 @@
 %global pypi_name launchpadlib
 Name:           python-%{pypi_name}
-Version:        1.10.17
+Version:        1.10.18
 Release:        1%{?dist}
 Summary:        Script Launchpad through its web services interfaces
 
@@ -52,6 +52,10 @@ BuildRequires:  python3dist(wadllib)
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Nov 08 2022 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.18-1
+- Update to 1.10.18
+- Resolves: rhbz#2138506
+
 * Mon Oct 17 2022 Ondřej Pohořelský <opohorel@redhat.com> - 1.10.17-1
 - Update to 1.10.17
 - Resolves: rhbz#2135033

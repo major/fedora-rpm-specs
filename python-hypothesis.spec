@@ -9,18 +9,13 @@
 %endif
 
 Name:           python-hypothesis
-Version:        6.45.0
+Version:        6.56.3
 Release:        %autorelease
 Summary:        Library for property based testing
 
 License:        MPLv2.0
 URL:            https://github.com/HypothesisWorks/hypothesis
 Source0:        %{url}/archive/hypothesis-python-%{version}/hypothesis-%{version}.tar.gz
-
-# Python 3.11 fixes
-Patch:          https://github.com/HypothesisWorks/hypothesis/commit/6d1d17d016.patch
-Patch:          https://github.com/HypothesisWorks/hypothesis/commit/a4681f6962.patch
-Patch:          https://github.com/HypothesisWorks/hypothesis/commit/2484942b4f.patch
 
 BuildArch:      noarch
 
@@ -56,9 +51,8 @@ Summary:        %{summary}
 %description -n python%{python3_pkgversion}-hypothesis %{_description}
 
 
-%global extras cli,ghostwriter,pytz,dateutil,lark,numpy,pandas,pytest,redis,zoneinfo,django
+%global extras cli,ghostwriter,pytz,dateutil,lark,numpy,pandas,pytest,redis,zoneinfo,django,codemods
 # extras with missing deps:
-#  codemods: libcst
 #  dpcontracts: dpcontracts
 %{pyproject_extras_subpkg -n python%{python3_pkgversion}-hypothesis %{extras}}
 
@@ -85,7 +79,7 @@ PYTHONPATH=src READTHEDOCS=True sphinx-build -b man docs docs/_build/man
 
 %install
 %pyproject_install
-%pyproject_save_files hypothesis
+%pyproject_save_files hypothesis '_hypothesis_*'
 
 %if %{with doc}
 install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/hypothesis.1
@@ -96,19 +90,12 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/hypothesis.1
 %check
 k="not test_registered_from_entrypoint"
 
-# https://github.com/HypothesisWorks/hypothesis/issues/3035
-k="$k and not test_recursion_error_is_not_flaky"
-
-# test hangs, TODO investigate/report upstream
-k="$k and not test_numpy_signature_parses "
-
 # https://github.com/pandas-dev/pandas/commit/95a86a9884e
 %if "%{_arch}" == "s390x"
 k="$k and not test_data_frames_with_timestamp_columns"
 %endif
 
 %pytest -v -n auto -k "$k" \
-  --ignore tests/codemods \
   --ignore tests/dpcontracts \
   --ignore tests/redis \
 
@@ -123,8 +110,6 @@ k="$k and not test_data_frames_with_timestamp_columns"
 %files -n python%{python3_pkgversion}-hypothesis -f %{pyproject_files}
 %license ../LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/_hypothesis_pytestplugin.py
-%{python3_sitelib}/__pycache__/_hypothesis_pytestplugin*.pyc
 %{_bindir}/hypothesis
 %if %{with doc}
 %{_mandir}/man1/hypothesis.1*

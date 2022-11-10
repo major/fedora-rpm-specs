@@ -4,12 +4,14 @@
 %define multilib_arches %{ix86} x86_64 ppc ppc64 s390 s390x sparcv9 sparc64
 # This package ships .la files
 %global __brp_remove_la_files %nil
+# Disable LTO because it breaks ALSA versioned symbol use, crashing (#1910437)
+%global _lto_cflags %nil
 
 Name:    arts
 Summary: aRts (analog realtime synthesizer) - the KDE sound system 
 Epoch:   8
 Version: 1.5.10
-Release: 53%{?dist}
+Release: 54%{?dist}
 
 License: LGPLv2+
 Url: http://www.kde.org
@@ -219,6 +221,9 @@ test -z "$(chrpath --list %{buildroot}%{_bindir}/artsd 2>/dev/null | grep RPATH=
 
 
 %changelog
+* Tue Nov 08 2022 Kevin Kofler <Kevin@tigcc.ticalc.org> - 8:1.5.10-54
+- Disable LTO because it breaks ALSA versioned symbol use, crashing (#1910437)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8:1.5.10-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

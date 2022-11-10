@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    b9da3c576ee891319234cad958eb74d58c3f4d52
+%global gh_commit    02df617f4a0ed053849cc0d5a9f030c3d12f3e98
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     swaggest
 %global gh_project   json-diff
@@ -23,7 +23,7 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.10.1
+Version:        3.10.3
 Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        JSON diff/rearrange/patch/pointer library for PHP
 
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov  8 2022 Remi Collet <remi@remirepo.net> - 3.10.3-1
+- update to 3.10.3
+
 * Tue Oct 25 2022 Remi Collet <remi@remirepo.net> - 3.10.1-1
 - update to 3.10.1
 

@@ -1,11 +1,11 @@
 Name:           sidplayfp
-Version:        2.2.3
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        SID chip music module player
 License:        GPLv2+
 URL:            https://github.com/libsidplayfp
 Source0:        https://github.com/libsidplayfp/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libsidplayfp-devel >= 2.0
 BuildRequires:  alsa-lib-devel pulseaudio-libs-devel libtool
@@ -46,6 +46,10 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Tue Nov 08 2022 Karel Volný <kvolny@redhat.com> - 2.4.0-1
+- Update to 2.4.0 (rhbz#2140720)
+- See the upstream changes at https://github.com/libsidplayfp/sidplayfp/releases
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

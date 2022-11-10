@@ -5,13 +5,13 @@
 %bcond_without doc_pdf
 
 Name:           python-pdfminer
-Version:        20220524
+Version:        20221105
 Release:        %autorelease
 Summary:        Tool for extracting information from PDF documents
 
 # The entire source is MIT except:
 #
-# Public Domain:
+# LicenseRef-Fedora-Public-Domain:
 #   pdfminer/arcfour.py
 #     - If this is a bundled library, its origin is unclear
 #   pdfminer/ascii85.py
@@ -22,22 +22,25 @@ Summary:        Tool for extracting information from PDF documents
 #     - Data extracted and converted from the AFM files:
 #       https://www.ctan.org/tex-archive/fonts/adobe/afm/
 #
-# BSD:
+# BSD-3-Clause:
 #   pdfminer/cmap/*
 #     - Both the original bundled data and the data generated from the
-#       adobe-mappings-cmap package are BSD-licensed.
+#       adobe-mappings-cmap package are BSD-3-Clause-licensed.
 #
-# ASL 2.0 and MIT:
+# Apache-2.0 AND MIT:
 #   pdfminer/_saslprep.py
-#     - Forked from from ASL 2.0 code by MongoDB, Inc.—originally
+#     - Forked from from Apache-2.0 code by MongoDB, Inc.—originally
 #       pymongo/saslprep.py in mongo-python-driver (python-pymongo), with
-#       additional modifications in pyHanko (not yet packaged).
+#       additional modifications in pyHanko (not yet packaged); see
+#       docs/licenses/LICENSE.pyHanko.
 #
-# Note that pdfminer/glyphlist.py contains data extracted and converted from
-# https://partners.adobe.com/public/developer/en/opentype/glyphlist.txt under
-# the Adobe Glyph List License; but that this license is just an MIT variant
-# (https://fedoraproject.org/wiki/Licensing:MIT?rd=Licensing/MIT#AdobeGlyph).
-License:        MIT and Public Domain and APAFML and BSD and (ASL 2.0 and MIT)
+# Adobe-Glyph:
+#   pdfminer/glyphlist.py
+#     - Contains both code under the base MIT license and data extracted and
+#       converted from
+#       https://partners.adobe.com/public/developer/en/opentype/glyphlist.txt
+#       under the Adobe Glyph List License
+License:        MIT AND LicenseRef-Fedora-Public-Domain AND APAFML AND BSD-3-Clause AND (Apache-2.0 AND MIT) AND Adobe-Glyph
 URL:            https://github.com/pdfminer/pdfminer.six
 # This has the samples/ directory stripped out. While upstream claims the
 # sample PDFs are “freely distributable”, they have unclear or unspecified
@@ -195,6 +198,7 @@ done
 %check
 # Skipped tests (and ignored files) are those that require the sample PDFs,
 # which are not included in our version of the source tarball.
+k="${k-}${k+ and }not TestColorSpace"
 k="${k-}${k+ and }not TestDumpImages"
 k="${k-}${k+ and }not TestDumpPDF"
 k="${k-}${k+ and }not TestExtractPages"

@@ -3,8 +3,8 @@
 %bcond_with check
 
 Name:           libkrun
-Version:        1.4.2
-Release:        2%{?dist}
+Version:        1.4.8
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
@@ -57,6 +57,7 @@ BuildRequires:  (crate(log/default) >= 0.4.0 with crate(log/default) < 0.5.0~)
 BuildRequires:  (crate(nix/default) >= 0.24.1 with crate(nix/default) < 0.25.0~)
 BuildRequires:  (crate(rand/default) >= 0.8.5 with crate(rand/default) < 0.9.0~)
 BuildRequires:  (crate(once_cell/default) >= 1.4.1 with crate(once_cell/default) < 2.0.0~)
+BuildRequires:  (crate(crossbeam-channel/default) >= 0.5.0 with crate(crossbeam-channel/default) < 0.6.0~)
 
 %ifarch x86_64
 # SEV variant dependencies
@@ -160,6 +161,11 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Tue Nov  8 2022 Sergio Lopez <slp@redhat.com> - 1.4.8-1
+- Update to upstream version 1.4.8
+- Add crossbeam-channel to the list of dependencies
+- Update libkrun-remove-sev-deps.diff patch
+
 * Fri Aug 26 2022 Cole Robinson <crobinso@redhat.com> - 1.4.2-2
 - Allow building with rust-sev-0.3.0
 

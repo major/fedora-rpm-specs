@@ -5,7 +5,7 @@
 %define		rubyabi		1.9.1
 %endif
 
-%define		fedorarel	19
+%define		fedorarel	20
 
 
 %define		fullrel		%{?betaver:0.}%{fedorarel}%{?betaver:.%betaver}
@@ -34,6 +34,8 @@ Patch14:	fantasdic-1.0-beta7-ruby22-rbconfig-fix.patch
 # rbpango 3.1.6: use no-gi for now
 # pango 1.44.x changed massively: use rbpango gi
 Patch15:	fantasdic-1.0-beta7-use-pango-gi.patch
+# ruby psych 4.0.x needs YAML.unsafe_load
+Patch16:	fantasdic-1.0-beta7-yaml-unsafe-load.patch
 
 BuildArch:	noarch
 
@@ -71,6 +73,9 @@ Fantasdic is Free Software.
 ln -sf lib vendor_ruby
 %patch15 -p4
 unlink vendor_ruby
+%if 0%{?fedora} >= 37
+%patch16 -p1
+%endif
 
 %{__chmod} 0644 tools/*.rb
 %{__sed} -i.path -e 's|%{_bindir}/||' fantasdic.desktop
@@ -173,17 +178,13 @@ ruby setup.rb test
 
 %{_mandir}/man1/%{name}.1*
 
-%if 0%{fedora} >= 17
 %{ruby_vendorlibdir}/%{name}.rb
 %{ruby_vendorlibdir}/%{name}/
-%else
-%{ruby_sitelib}/%{name}.rb
-%{ruby_sitelib}/%{name}/
-%endif
-
-
 
 %changelog
+* Tue Nov  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.20.beta7
+- Use YAML.unsafe_load for psych 4.0.x
+
 * Thu Oct 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.19.beta7
 - Fix for ruby3.2 wrt File.exists? removal
 

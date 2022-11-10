@@ -11,11 +11,14 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/downloads/%{gem_name}-%{version}.gem
+# Assign non-zero unique ID to each string (especially for id_relative_callbacks),
+# especially for ruby 3.2
+Patch0:	rubygem-gtk2-3.4.3-assign-nonzero-ID-to-relative-callback.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -95,6 +98,9 @@ mv ../%{gem_name}-%{version}.gemspec .
 sed -i -e 's|= 3\.4\.3|>= 3.4.3|' %{gem_name}-%{version}.gemspec
 
 # Patches and etc
+%if 0%{?fedora} >= 38
+%patch0 -p1 -b .nonzero_id
+%endif
 
 # Fix wrong dir
 grep -rl /usr/local/bin sample | \
@@ -162,9 +168,7 @@ sed -i test/run-test.rb \
 # Adwaita themes broken on F-30?? Need investigating...
 xvfb-run \
 	ruby -Ilib:test:ext/%{gem_name} ./test/run-test.rb \
-%if 0%{?fedora} >= 38
-	|| true
-%endif
+	|| false
 
 # back
 mv test/test_gtk_icon_theme.rb{.skip,}
@@ -200,7 +204,10 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/test/
 
 %changelog
-* Thu Nov  1 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-10
+* Tue Nov  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-11
+- Assign non-zero unique ID to each string, especially for ruby 3.2
+
+* Tue Nov  1 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-10
 - Ignore test failure on ruby32 for now
 
 * Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-9

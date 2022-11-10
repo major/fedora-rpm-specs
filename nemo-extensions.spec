@@ -16,7 +16,6 @@ BuildRequires:  make
 BuildRequires:  desktop-file-utils
 BuildRequires:  gpgme-devel
 BuildRequires:  pkgconfig(cryptui-0.0) 
-BuildRequires:  pkgconfig(gnome-keyring-1)
 BuildRequires:  pkgconfig(gcr-3)
 BuildRequires:  pkgconfig(libnemo-extension) >= 5.4.0
 BuildRequires:  python3-distutils-extra

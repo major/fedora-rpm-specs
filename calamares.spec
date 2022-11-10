@@ -4,7 +4,7 @@
 #global prerelease beta2
 
 # For rpmdev-bumpspec and releng scripts
-%global baserelease 8
+%global baserelease 9
 
 # do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
 # (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
@@ -360,6 +360,9 @@ EOF
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 3.2.41.1-9
+- Rebuild for yaml-cpp 0.7.0.
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.2.41.1-8
 - Rebuilt for ICU 71.1
 

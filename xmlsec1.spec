@@ -1,6 +1,6 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
-Version: 1.2.35
+Version: 1.2.36
 Release: 1%{?dist}%{?extra_release}
 License: MIT
 Source0: https://www.aleksey.com/xmlsec/download/xmlsec1-%{version}.tar.gz
@@ -19,8 +19,6 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gettext-devel
 BuildRequires: libtool
-
-Patch1: fix-size_max-412.patch.1
 
 %description
 XML Security Library is a C library based on LibXML2  and OpenSSL.
@@ -103,7 +101,6 @@ Libraries, includes, etc. for developing XML Security applications with NSS.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 autoreconf -vfi
@@ -178,6 +175,9 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %{_libdir}/pkgconfig/xmlsec1-nss.pc
 
 %changelog
+* Tue Nov 08 2022 Caolán McNamara <caolanm@redhat.com> - 1.2.36-1
+- Resolves: rhbz#2138484 latest upstream release
+
 * Thu Oct 27 2022 Caolán McNamara <caolanm@redhat.com> - 1.2.35-1
 - Resolves: rhbz#2137430 latest upstream release
 

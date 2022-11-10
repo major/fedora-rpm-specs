@@ -50,7 +50,7 @@ sed -i -e '/^#!\//, 1d' andriller/{screencap.py,windows.py}
 # Install desktop file
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
-pathfix.py -pn -i "%{__python3}" %{buildroot}%{_bindir}/andriller-gui.py
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{_bindir}/andriller-gui.py
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests

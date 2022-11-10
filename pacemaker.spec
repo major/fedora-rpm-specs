@@ -31,11 +31,11 @@
 ## Upstream pacemaker version, and its package version (specversion
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
-%global pcmkversion 2.1.4
-%global specversion 4
+%global pcmkversion 2.1.5
+%global specversion 0.1.rc1
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit dc6eb4362e67c1497a413434eba097063bf1ef83
+%global commit 844c0640d99780fd7c98ec0f0fa7ccf806cbee24
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -201,7 +201,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}.1
+Release:       %{pcmk_release}%{?dist}
 License:       GPLv2+ and LGPLv2+
 Url:           https://www.clusterlabs.org/
 
@@ -217,7 +217,8 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 
 # upstream commits
-Patch0:        0001-Fix-tools-Don-t-output-null-in-crm_attribute-s-quiet.patch
+
+Patch0:        0001-Tests-Fix-running-pcmk__procfs_pid2path_test-on-i686.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -292,6 +293,9 @@ BuildRequires: inkscape
 BuildRequires: %{python_name}-sphinx
 %endif
 
+# Booth requires this
+Provides:      pacemaker-ticket-support = 2.0
+
 Provides:      pcmk-cluster-manager = %{version}-%{release}
 Provides:      pcmk-cluster-manager%{?_isa} = %{version}-%{release}
 
@@ -326,6 +330,7 @@ Recommends:    bzip2
 Requires:      perl-TimeDate
 Requires:      %{pkgname_procps}
 Requires:      psmisc
+Requires:      %{python_name}-psutil
 Requires(post):coreutils
 
 %description cli
@@ -549,12 +554,6 @@ find %{buildroot} -name '*.la' -type f -print0 | xargs -0 rm -f
 # Do not package these either
 rm -f %{buildroot}/%{_sbindir}/fence_legacy
 rm -f %{buildroot}/%{_mandir}/man8/fence_legacy.*
-
-# For now, don't package the servicelog-related binaries built only for
-# ppc64le when certain dependencies are installed. If they get more exercise by
-# advanced users, we can reconsider.
-rm -f %{buildroot}/%{_sbindir}/notifyServicelogEvent
-rm -f %{buildroot}/%{_sbindir}/ipmiservicelogd
 
 # Byte-compile Python sources where suitable and the distro procedures known
 %if %{defined py_byte_compile}
@@ -811,6 +810,12 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed Oct 26 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.1.rc1
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc1,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.5-rc1
+- add patch to fix 32 bit issue with cmocka
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

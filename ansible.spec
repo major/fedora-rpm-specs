@@ -8,7 +8,7 @@
 # We manually specify this in order to workaround RHEL 8's deficient
 # python-rpm-generators and lack of dynamic BR support.
 # https://github.com/ansible-community/community-topics/issues/84
-%global ansible_core_version 2.14~rc1
+%global ansible_core_version 2.14
 %global ansible_core_next_version 2.15
 %global ansible_core_requires (%{py3_dist ansible-core} >= %{ansible_core_version} with %{py3_dist ansible-core} < %{ansible_core_next_version})
 
@@ -31,7 +31,7 @@ Requires:       %{ansible_core_requires}
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.0.0~a2
+Version:        7.0.0~b1
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -104,7 +104,6 @@ rm -rv ansible_collections/community/vmware/tools
 rm -rv ansible_collections/cyberark/conjur/ci/
 rm -rv ansible_collections/cyberark/conjur/dev/
 rm -rv ansible_collections/cyberark/conjur/roles/conjur_host_identity/tests/
-rm -rv ansible_collections/inspur/sm/venv
 rm -rv ansible_collections/netbox/netbox/hacking/
 rm -rv ansible_collections/ovirt/ovirt/automation/
 rm -rv ansible_collections/sensu/sensu_go/docker/
@@ -210,6 +209,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Nov 08 2022 Maxwell G <gotmax@e.email> - 7.0.0~b1-1
+- Update to 7.0.0~b1.
+
 * Fri Oct 28 2022 Maxwell G <gotmax@e.email> - 7.0.0~a2-1
 - Update to 7.0.0~a2.
 

@@ -1,17 +1,25 @@
 # disable prof, docs, perf build
-# NB This must be disabled (bcond_with) for all koji production builds
+# bcond_with for production builds: disable quick build
 %bcond_with quickbuild
 
 # make sure ghc libraries' ABI hashes unchanged (ghcX.Y not supported yet)
 %bcond_with abicheck
 
-# use the Hadrian buildsystem
+# bcond_without for production builds: use Hadrian buildsystem
+%if %{defined fedora}
 %bcond_without hadrian
+%else
+%ifarch s390x
+%bcond_with hadrian
+%else
+%bcond_without hadrian
+%endif
+%endif
 
-# NB production builds should build hadrian (bcond_without)
+# bcond_without for production builds: build hadrian
 %bcond_without build_hadrian
 
-# NB This should be enabled (bcond_without) for all production builds
+# bcond_without for production builds: enable debuginfo
 %bcond_without ghc_debuginfo
 
 %if %{without ghc_debuginfo}
@@ -65,7 +73,7 @@
 %bcond_with testsuite
 
 # 9.4 needs llvm 10-13
-%global llvm_major 12
+%global llvm_major 13
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -80,7 +88,7 @@ Version: 9.4.3
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -159,11 +167,7 @@ BuildRequires: python3
 BuildRequires: python3-sphinx
 %endif
 %ifarch %{ghc_llvm_archs}
-%if 0%{?fedora} >= 34
 BuildRequires: llvm%{llvm_major}
-%else
-BuildRequires: llvm >= %{llvm_major}
-%endif
 %endif
 BuildRequires: autoconf, automake
 %if %{with hadrian}
@@ -242,11 +246,7 @@ Obsoletes: %{name}-doc-index < %{version}-%{release}
 Obsoletes: %{name}-filesystem < %{version}-%{release}
 %endif
 %ifarch %{ghc_llvm_archs}
-%if 0%{?fedora} >= 34
 Requires: llvm%{llvm_major}
-%else
-Requires: llvm >= %{llvm_major}
-%endif
 %endif
 
 %description compiler
@@ -957,7 +957,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 - enable Hadrian for epel9
 
 * Mon Oct 31 2022 Jens Petersen <petersen@redhat.com> - 9.4.2-11
-- add ld.conf.d file for finding shared libraries under Hadrian
+- add ld.so.conf.d file for finding shared libraries under Hadrian
   and remove RPATHs for Hadrian builds to rid rpmlint RUNPATH errors
 - export LD to prevent configuring lld (see #2116508)
 

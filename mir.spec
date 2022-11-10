@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPLv2/LGPLv3, everything else is GPLv2/GPLv3
@@ -282,6 +282,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 2.8.0-5
+- Rebuild for yaml-cpp 0.7.0.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

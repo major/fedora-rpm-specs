@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 65
+%global micro_version 68
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -92,6 +92,8 @@ BuildRequires: findutils
 BuildRequires: java-devel >= 1:1.8.0
 BuildRequires: javapackages-local
 BuildRequires: aqute-bnd
+BuildRequires: aqute-bndlib
+BuildRequires: wsdl4j
 BuildRequires: systemd
 
 Requires:      java-headless >= 1:1.8.0
@@ -222,9 +224,14 @@ touch HACK
   -Dcommons-daemon.native.win.mgr.exe="HACK" \
   -Dnsis.exe="HACK" \
   -Djaxrpc-lib.jar="HACK" \
-  -Dwsdl4j-lib.jar="HACK" \
+  -Dwsdl4j-lib.jar="$(build-classpath wsdl4j)" \
   -Dbnd.jar="$(build-classpath aqute-bnd/biz.aQute.bnd)" \
+  -Dbndlib.jar="$(build-classpath aqute-bnd/biz.aQute.bndlib)" \
+  -Dbndlibg.jar="$(build-classpath aqute-bnd/aQute.libg)" \
+  -Dbndannotation.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
   -Dosgi-annotations.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
+  -Dslf4j-api.jar="$(build-classpath slf4j/slf4j-api)" \
+  -Dosgi-cmpn.jar="$(build-classpath osgi-compendium/osgi.cmpn)" \
   -Dversion="%{version}" \
   -Dversion.build="%{micro_version}" \
   deploy
@@ -496,8 +503,8 @@ fi
 %{appdir}/ROOT
 
 %changelog
-* Thu Sep 01 2022 Coty Sutherland <csutherl@redhat.com> - 1:9.0.65-2
-- Cleaning up some unused deps and system properties
+* Thu Nov 03 2033 Hui Wang <huwang@redhat.com> - 1:9.0.68-1
+- Update to 9.0.68
 
 * Thu Jul 21 2022 Hui Wang <huwang@redhat.com> - 1:9.0.65-1
 - Update to 9.0.65

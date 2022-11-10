@@ -3,7 +3,7 @@
 Name:		gnome-bluetooth
 Epoch:		1
 Version:	42.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Bluetooth graphical utilities
 
 License:	GPLv2+
@@ -33,6 +33,7 @@ Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	bluez >= 5.0
 %ifnarch s390 s390x
 Requires:	pulseaudio-module-bluetooth
+Requires:	bluez-obexd
 %endif
 
 %description
@@ -95,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Nov 08 2022 Bastien Nocera <bnocera@redhat.com> - 42.4-3
+- Require bluez-obexd (#2090443)
+
 * Tue Sep 06 2022 Kalev Lember <klember@redhat.com> - 42.4-2
 - Rebuild to include in GNOME 43.rc mega-update
 

@@ -9,6 +9,9 @@
 %global libxmlb_version 0.1.7
 %global packagekit_version 1.1.1
 
+# Disable WebApps for RHEL builds
+%{!?with_webapps: %global with_webapps !0%{?rhel}}
+
 # this is not a library version
 %define gs_plugin_version 19
 
@@ -18,7 +21,7 @@
 
 Name:      gnome-software
 Version:   43.1
-Release:   1%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPLv2+
@@ -59,7 +62,9 @@ BuildRequires: pkgconfig(xmlb) >= %{libxmlb_version}
 
 Requires: appstream-data
 Requires: appstream%{?_isa} >= %{appstream_version}
+%if %{with_webapps}
 Requires: epiphany-runtime%{?_isa}
+%endif
 Requires: flatpak%{?_isa} >= %{flatpak_version}
 Requires: flatpak-libs%{?_isa} >= %{flatpak_version}
 Requires: fwupd%{?_isa} >= %{fwupd_version}
@@ -116,9 +121,15 @@ This package includes the rpm-ostree backend.
     -Dpackagekit_autoremove=true \
     -Dexternal_appstream=false \
     -Drpm_ostree=true \
+%if %{with_webapps}
     -Dwebapps=true \
     -Dhardcoded_foss_webapps=true \
     -Dhardcoded_proprietary_webapps=false \
+%else
+    -Dwebapps=false \
+    -Dhardcoded_foss_webapps=false \
+    -Dhardcoded_proprietary_webapps=false \
+%endif
     -Dtests=false
 %meson_build
 
@@ -161,14 +172,18 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Software-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/actions/app-remove-symbolic.svg
 %{_datadir}/metainfo/org.gnome.Software.metainfo.xml
+%if %{with_webapps}
 %{_datadir}/metainfo/org.gnome.Software.Plugin.Epiphany.metainfo.xml
+%endif
 %{_datadir}/metainfo/org.gnome.Software.Plugin.Flatpak.metainfo.xml
 %{_datadir}/metainfo/org.gnome.Software.Plugin.Fwupd.metainfo.xml
 %dir %{_libdir}/gnome-software/plugins-%{gs_plugin_version}
 %{_libdir}/gnome-software/libgnomesoftware.so.%{gs_plugin_version}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_appstream.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_dummy.so
+%if %{with_webapps}
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_epiphany.so
+%endif
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-langpacks.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_fedora-pkgdb-collections.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_flatpak.so
@@ -187,7 +202,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_sysconfdir}/xdg/autostart/org.gnome.Software.desktop
 %dir %{_datadir}/swcatalog
 %dir %{_datadir}/swcatalog/xml
+%if %{with_webapps}
 %{_datadir}/swcatalog/xml/gnome-pwa-list-foss.xml
+%endif
 %{_datadir}/swcatalog/xml/org.gnome.Software.Curated.xml
 %{_datadir}/swcatalog/xml/org.gnome.Software.Featured.xml
 %{_datadir}/dbus-1/services/org.freedesktop.PackageKit.service
@@ -211,6 +228,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Tue Nov 08 2022 Milan Crha <mcrha@redhat.com> - 43.1-3
+- Also skip gnome-pwa-list-foss.xml when building without WebApps
+
+* Tue Nov 08 2022 Milan Crha <mcrha@redhat.com> - 43.1-2
+- Disable WebApps for RHEL builds
+
 * Mon Oct 24 2022 Milan Crha <mcrha@redhat.com> - 43.1-1
 - Update to 43.1
 

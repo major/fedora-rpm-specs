@@ -9,7 +9,7 @@
 %endif
 
 Name:           krita
-Version:        5.1.1
+Version:        5.1.3
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
@@ -172,6 +172,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Tue Nov 08 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.3-1
+- Updated to version 5.1.3.
+
 * Sat Sep 17 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.1-1
 - Updated to version 5.1.1.
 

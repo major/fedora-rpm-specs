@@ -1,6 +1,6 @@
 Name:           python-odata-query
-Version:        0.5.2
-Release:        3%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        An OData v4 query parser and transpiler for Python
 
 License:        MIT
@@ -22,25 +22,14 @@ Summary:        %{summary}
 
 %description -n python3-odata-query %_description
 
-# Enable sqlalchemy extra and tests where possible
-%if 0%{?fedora} >= 35
-%global _extras django sqlalchemy
-%global _requirements -t
-%global _tests 1
-%else
-%global _extras django
-%global _requirements -r
-%global _tests 0
-%endif
-
-%pyproject_extras_subpkg -n python3-odata-query %{_extras}
+%pyproject_extras_subpkg -n python3-odata-query django sqlalchemy
 
 %prep
 %autosetup -p1 -n odata-query-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{_requirements}
+%pyproject_buildrequires -t
 
 
 %build
@@ -53,9 +42,7 @@ Summary:        %{summary}
 
 
 %check
-%if %{_tests}
 %tox
-%endif
 
 
 %files -n python3-odata-query -f %{pyproject_files}
@@ -64,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Nov 08 2022 Roman Inflianskas <rominf@aiven.io> - 0.7.0-1
+- Update to 0.7.0 (#2093198)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

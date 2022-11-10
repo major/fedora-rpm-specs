@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      DoctrineBundle
-%global github_version   2.7.0
-%global github_commit    d2088fc50494e4e7441fecca54732245a613eeb6
+%global github_version   2.7.1
+%global github_commit    a2dcad48741c9d12fd6040398cf075025030096e
 %global major            2
 
 %global composer_vendor  doctrine
@@ -42,20 +42,20 @@
 # "doctrine/sql-formatter": "^1.0.1"
 %global sql_formatter_min_ver 1.0.1
 %global sql_formatter_max_ver 2.0
-# "symfony/config": "^4.3.3|^5.0|^6.0",
-# "symfony/console": "^3.4.30|^4.3.3|^5.0|^6.0"
-# "symfony/dependency-injection": "^4.4.18|^5.0|^6.0"
-# "symfony/doctrine-bridge": "^4.3.7|^5.0|^6.0"
-# "symfony/framework-bundle": "^3.4.30|^4.3.3|^5.0|^6.0"
-# "symfony/cache": "^4.3.3|^5.0|^6.0",
-# "symfony/property-info": "^4.3.3|^5.0|^6.0"
-# "symfony/proxy-manager-bridge": "^3.4|^4.3.3|^5.0|^6.0"
-# "symfony/twig-bridge": "^3.4.30|^4.3.3|^5.0|^6.0",
-# "symfony/validator": "^3.4.30|^4.3.3|^5.0|^6.0"
-# "symfony/web-profiler-bundle": "^3.4.30|^4.3.3|^5.0|^6.0"
-# "symfony/yaml": "^3.4.30|^4.3.3|^5.0|^6.0"
-%global symfony_min_ver 4.4.18
-%global symfony_max_ver 6
+# "symfony/cache": "^4.4|^5.4|^6.0",
+# "symfony/config": "^4.4.3|^5.4|^6.0",
+# "symfony/console": "^4.4|^5.4|^6.0"
+# "symfony/dependency-injection": "^4.4.18|^5.4|^6.0"
+# "symfony/doctrine-bridge": "^4.4.22|^5.4|^6.0"
+# "symfony/framework-bundle": "^4.4|^5.4|^6.0"
+# "symfony/property-info": "^4.4|^5.4|^6.0"
+# "symfony/proxy-manager-bridge": "^4.4|^5.4|^6.0"
+# "symfony/twig-bridge": "^4.4|^5.4|^6.0",
+# "symfony/validator": "^4.4|^5.4|^6.0"
+# "symfony/web-profiler-bundle": "^4.4|^5.4|^6.0"
+# "symfony/yaml": "^4.4|^5.4|^6.0"
+%global symfony_min_ver 4.4.22
+%global symfony_max_ver 7
 %global symfony_br_ver  %{symfony_min_ver}
 # "symfony/service-contracts": "^1.1.1|^2.0|^3",
 # "symfony/deprecation-contracts": "^2.1|^3",
@@ -79,7 +79,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Symfony Bundle for Doctrine
 
 License:       MIT
@@ -205,8 +205,9 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
         '%{phpdir}/Doctrine/ORM3/autoload.php',
         '%{phpdir}/Doctrine/ORM/autoload.php',
     ], [
+        '%{phpdir}/Symfony6/Bundle/WebProfilerBundle/autoload.php',
+        '%{phpdir}/Symfony5/Bundle/WebProfilerBundle/autoload.php',
         '%{phpdir}/Symfony4/Bundle/WebProfilerBundle/autoload.php',
-        '%{phpdir}/Symfony3/Bundle/WebProfilerBundle/autoload.php',
     ], [
         '%{phpdir}/Twig3/autoload.php',
         '%{phpdir}/Twig2/autoload.php',
@@ -233,32 +234,26 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
         '%{phpdir}/Symfony6/Bridge/Doctrine/autoload.php',
         '%{phpdir}/Symfony5/Bridge/Doctrine/autoload.php',
         '%{phpdir}/Symfony4/Bridge/Doctrine/autoload.php',
-        '%{phpdir}/Symfony3/Bridge/Doctrine/autoload.php',
     ], [
         '%{phpdir}/Symfony6/Bundle/FrameworkBundle/autoload.php',
         '%{phpdir}/Symfony5/Bundle/FrameworkBundle/autoload.php',
         '%{phpdir}/Symfony4/Bundle/FrameworkBundle/autoload.php',
-        '%{phpdir}/Symfony3/Bundle/FrameworkBundle/autoload.php',
     ], [
         '%{phpdir}/Symfony6/Component/Cache/autoload.php',
         '%{phpdir}/Symfony5/Component/Cache/autoload.php',
         '%{phpdir}/Symfony4/Component/Cache/autoload.php',
-        '%{phpdir}/Symfony3/Component/Cache/autoload.php',
     ], [
         '%{phpdir}/Symfony6/Component/Config/autoload.php',
         '%{phpdir}/Symfony5/Component/Config/autoload.php',
         '%{phpdir}/Symfony4/Component/Config/autoload.php',
-        '%{phpdir}/Symfony3/Component/Config/autoload.php',
     ], [
         '%{phpdir}/Symfony6/Component/Console/autoload.php',
         '%{phpdir}/Symfony5/Component/Console/autoload.php',
         '%{phpdir}/Symfony4/Component/Console/autoload.php',
-        '%{phpdir}/Symfony3/Component/Console/autoload.php',
     ], [
         '%{phpdir}/Symfony6/Component/DependencyInjection/autoload.php',
         '%{phpdir}/Symfony5/Component/DependencyInjection/autoload.php',
         '%{phpdir}/Symfony4/Component/DependencyInjection/autoload.php',
-        '%{phpdir}/Symfony3/Component/DependencyInjection/autoload.php',
 ]]);
 AUTOLOAD
 
@@ -294,7 +289,7 @@ rm Tests/DependencyInjection/Compiler/CacheCompatibilityPassTest.php
 
 : Upstream tests with SCLs if available
 RETURN_CODE=0
-for CMDARG in "php %{phpunit}" php74 php80 php81; do
+for CMDARG in "php %{phpunit}" php74 php80 php81 php82; do
     if which $CMDARG; then
         set $CMDARG
         $1 ${2:-%{_bindir}/phpunit9} \
@@ -323,6 +318,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Nov  8 2022 Remi Collet <remi@remirepo.net> - 2.7.1-1
+- update to 2.7.1
+- raise dependency on Symfony 4.4.22
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

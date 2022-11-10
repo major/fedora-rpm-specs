@@ -11,7 +11,7 @@ Requires:       %{_bindir}/%{1}
 
 Name:           libzypp
 Version:        17.31.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A package management library
 
 License:        GPLv2+
@@ -236,6 +236,9 @@ end
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 17.31.1-2
+- Rebuild for yaml-cpp 0.7.0.
+
 * Fri Sep 02 2022 Neal Gompa <ngompa@fedoraproject.org> - 17.31.1-1
 - Rebase to 17.31.1 (#1929931)
 

@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.7
+Version:    2.19.8
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPLv3+ and ASL 2.0
@@ -248,6 +248,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Mon Nov 07 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.8-1
+- Update to 2.19.8
+- Do not show automatic emoji predictions when OSK (on-screen-keyboard) is visible
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/398)
+- Update emoji annotations from CLDR
+- If a commit is triggered by a simple space, commit the space instead of forwarding it
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/397)
+
 * Mon Oct 24 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.7-1
 - Update to 2.19.7
 - Avoid inline completion when OSK (on-screen-keyboard) is shown

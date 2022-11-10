@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        1.22.0
-Release:        7%{?dist}
+Version:        1.23.4
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -28,16 +28,7 @@ Summary:        A fast multidimensional array facility for Python
 License:        BSD and Python and ASL 2.0
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        https://numpy.org/doc/1.19/numpy-html.zip
-# Upstream issue: https://github.com/numpy/numpy/issues/21526
-Patch:          21543.patch
-# And a followup, https://github.com/numpy/numpy/pull/21605/commits/4461ec48
-#                 https://github.com/numpy/numpy/pull/21605/commits/2bb09680
-#                 https://github.com/numpy/numpy/pull/21605/commits/46826998
-#                 https://github.com/numpy/numpy/pull/21605/commits/f3fd03f3
-Patch:          21605.patch
-# Python 3.11.0b4 fix, https://github.com/numpy/numpy/pull/21982
-Patch:          21982.patch
+Source1:        https://numpy.org/doc/1.23/numpy-html.zip
 
 %description
 NumPy is a general-purpose array-processing package designed to
@@ -75,6 +66,7 @@ BuildRequires:  python3-test
 BuildRequires:  python3-typing-extensions
 %endif
 BuildRequires: %{blaslib}-devel
+BuildRequires: chrpath
 
 %description -n python3-numpy
 NumPy is a general-purpose array-processing package designed to
@@ -131,7 +123,6 @@ EOF
 env OPENBLAS=%{_libdir} \
     BLAS=%{_libdir} \
     LAPACK=%{_libdir} CFLAGS="%{optflags}" \
-    SETUPTOOLS_USE_DISTUTILS=stdlib
     %{__python3} setup.py build
 
 %install
@@ -145,7 +136,6 @@ popd
 env OPENBLAS=%{_libdir} \
     FFTW=%{_libdir} BLAS=%{_libdir} \
     LAPACK=%{_libdir} CFLAGS="%{optflags}" \
-    SETUPTOOLS_USE_DISTUTILS=stdlib
     %{__python3} setup.py install --root %{buildroot} --prefix=%{_prefix}
 pushd %{buildroot}%{_bindir} &> /dev/null
 ln -s f2py3 f2py.numpy
@@ -155,29 +145,25 @@ popd &> /dev/null
 mkdir -p %{buildroot}%{_includedir}
 ln -s %{python3_sitearch}/%{name}/core/include/numpy/ %{buildroot}%{_includedir}/numpy
 
+# distutils from setuptools don't have the patch that was created to avoid standard runpath here
+# we strip it manually instead
+# ERROR   0001: file '...' contains a standard runpath '/usr/lib64' in [/usr/lib64]
+chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/core/_multiarray_umath.*.so
+chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/linalg/lapack_lite.*.so
+chrpath --delete %{buildroot}%{python3_sitearch}/%{name}/linalg/_umath_linalg.*.so
+
 
 %check
 %if %{with tests}
-# core/tests/test_cython.py and random/tests/test_extending.py
-# fail due to setuptools-bundled distutils' LooseVersion issue:
-# https://github.com/pypa/distutils/issues/122
-# This can be worked around by setting the environment variable to point
-# to distutils from Python's standard library instead.
-# The workaround may be removed once numpy includes the commit removing
-# LooseVersion into release: https://github.com/numpy/numpy/pull/21000
-export SETUPTOOLS_USE_DISTUTILS=stdlib
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 # test_ppc64_ibm_double_double128 is unnecessary now that ppc64le has switched long doubles to IEEE format.
 # https://github.com/numpy/numpy/issues/21094
-# test_to_int_scalar is disabled for compatibility with Python 3.11
-# Downstream issue: https://bugzilla.redhat.com/show_bug.cgi?id=2046668
-# Some GenericAlias tests are still failing, even with upstream patch, hence we skip them below.
-# Upstream issue: https://github.com/numpy/numpy/issues/21526
 %ifarch %{ix86}
-# Weird RuntimeWarnings on i686, siilar to https://github.com/numpy/numpy/issues/13173
-%global ix86_k and not test_vector_matrix_values and not test_matrix_vector_values
+# Weird RuntimeWarnings on i686, similar to https://github.com/numpy/numpy/issues/13173
+# Some tests also overflow on 32bit
+%global ix86_k and not test_vector_matrix_values and not test_matrix_vector_values and not test_identityless_reduction_huge_array and not (TestKind and test_all)
 %endif
-python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 and not test_to_int_scalar and not (GenericAlias and test_pass and __dir__)%{?ix86_k}'
+python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k}'
 %endif
 
 
@@ -208,6 +194,8 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 an
 %{python3_sitearch}/%{name}/py.typed
 %{python3_sitearch}/%{name}/typing/
 %{python3_sitearch}/%{name}/array_api/
+%{python3_sitearch}/%{name}/_pyinstaller/
+%{python3_sitearch}/%{name}/_typing/
 
 %files -n python3-numpy-f2py
 %{_bindir}/f2py
@@ -221,6 +209,10 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 an
 
 
 %changelog
+* Fri Oct 21 2022 Miro Hrončok <mhroncok@redhat.com> - 1:1.23.4-1
+- Update to 1.23.4
+- Use distutils from setuptools to build the package
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.22.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

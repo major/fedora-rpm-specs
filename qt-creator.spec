@@ -4,11 +4,11 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 15.0.0
+%global clangver 15.0.4
 
 Name:           qt-creator
 Version:        9.0.0
-Release:        0.1%{?dist}
+Release:        0.3%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -68,6 +68,9 @@ BuildRequires:  ninja-build
 BuildRequires:  python3
 # tight dep on qt6-qtbase used to build, uses some private apis
 BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtbase-mysql
+BuildRequires:  qt6-qtbase-odbc
+BuildRequires:  qt6-qtbase-postgresql
 BuildRequires:  systemd-devel
 BuildRequires:  yaml-cpp-devel
 
@@ -208,6 +211,12 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 9.0.0-0.3
+- Rebuild for yaml-cpp 0.7.0.
+
+* Tue Nov 08 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-0.2.beta1
+- Rebase to clang 15.0.4
+
 * Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-0.1.beta1
 - Update to 9.0.0-beta1
 

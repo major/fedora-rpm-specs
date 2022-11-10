@@ -7,7 +7,7 @@ Name: perl-%{FullName}
 Summary: Pango style text formatting
 License: (GPL+ or Artistic) and Artistic 2.0
 Version: 0.030
-Release: 1%{?dist}
+Release: 3%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -17,7 +17,7 @@ BuildArch: noarch
 # This package would provide many (perl) modules, but these are
 # note intended for general use.
 %global __requires_exclude Text::Layout::Font(Config|Descriptor)
-%global __provides_exclude_from /(Cairo|Markdown|Pango|PDFAPI2)\\.pm$
+%global __provides_exclude_from /(Testing|Cairo|Pango|PDFAPI2)\\.pm$
 
 Requires: perl(:VERSION) >= 5.10.1
 Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
@@ -76,6 +76,12 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 08 2022 Johan Vromans <jvromans@squirrel.nl> - 0.030-3
+- Fix provides for Text::Layout::Testing.
+
+* Tue Nov 08 2022 Johan Vromans <jvromans@squirrel.nl> - 0.030-2
+- Fix provides for Text::Layout::Markdown.
+
 * Sat Sep 03 2022 Johan Vromans <jvromans@squirrel.nl> - 0.030-1
 - Upgrade to upstream 0.030.
 

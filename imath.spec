@@ -3,8 +3,8 @@
 %global pyver_under %(%{python3} -Esc "import sys; sys.stdout.write('{0.major}_{0.minor}'.format(sys.version_info))")
 
 Name:           imath
-Version:        3.1.5
-Release:        4%{?dist}
+Version:        3.1.6
+Release:        1%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD
@@ -97,6 +97,9 @@ mv %{__cmake_builddir}/docs/sphinx ./html
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 3.1.6-1
+- Update to 3.1.6.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

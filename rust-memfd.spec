@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate strength_reduce
+%global crate memfd
 
-Name:           rust-strength_reduce
-Version:        0.2.4
+Name:           rust-memfd
+Version:        0.6.1
 Release:        %autorelease
-Summary:        Faster integer division and modulus operations
+Summary:        Pure-Rust library to work with Linux memfd and sealing
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/strength_reduce
+URL:            https://crates.io/crates/memfd
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Faster integer division and modulus operations.}
+Pure-Rust library to work with Linux memfd and sealing.}
 
 %description %{_description}
 
@@ -33,7 +33,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASES.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

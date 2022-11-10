@@ -4,15 +4,13 @@
 %endif
 
 Name:           OpenColorIO
-Version:        2.1.2
-Release:        4%{?dist}
+Version:        2.2.0
+Release:        0.1%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 License:        BSD
 URL:            http://opencolorio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         OCIO-strlen.patch
 
 # OIIO is only built for these arches due to Libraw
 %if 0%{?rhel} >= 8
@@ -34,6 +32,7 @@ BuildRequires:  freeglut-devel
 BuildRequires:  glew-devel
 BuildRequires:  libX11-devel libXmu-devel libXi-devel
 BuildRequires:  mesa-libGL-devel mesa-libGLU-devel
+BuildRequires:  minizip-devel
 BuildRequires:  opencv-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
@@ -44,15 +43,15 @@ BuildRequires:  zlib-devel
 # WARNING: OpenColorIO and OpenImageIO are cross dependent.
 # If an ABI incompatible update is done in one, the other also needs to be
 # rebuilt.
-BuildRequires:  OpenImageIO-devel
-BuildRequires:  OpenImageIO-iv
-BuildRequires:  OpenImageIO-utils
+#BuildRequires:  OpenImageIO-devel
+#BuildRequires:  OpenImageIO-iv
+#BuildRequires:  OpenImageIO-utils
 
 #######################
 # Unbundled libraries #
 #######################
 BuildRequires:  lcms2-devel
-BuildRequires:  yaml-cpp-devel >= 0.5.0
+BuildRequires:  yaml-cpp-devel >= 0.7.0
 
 %if 0%{?docs}
 BuildRequires:  doxygen
@@ -169,6 +168,10 @@ popd
 
 
 %changelog
+* Wed Nov 02 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-0.1
+- Update to 2.2.0.
+- Bootstrap build with OIIO for soname bump.
+
 * Fri Oct 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.1.2-4
 - Rebuild for OpenImageIO 2.4.4.2.
 

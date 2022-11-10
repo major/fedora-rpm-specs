@@ -1,7 +1,7 @@
 Summary: Collection of performance monitoring tools for Linux
 Name: sysstat
-Version: 12.6.0
-Release: 3%{?dist}
+Version: 12.7.1
+Release: 1%{?dist}
 License: GPLv2+
 URL: http://sebastien.godard.pagesperso-orange.fr/
 Source: https://github.com/sysstat/sysstat/archive/v%{version}.tar.gz
@@ -82,6 +82,9 @@ fi
 %{_localstatedir}/log/sa
 
 %changelog
+* Tue Nov 08 2022 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.1-1
+- Update to 12.7.1 (rhbz#2140811)
+
 * Thu Sep 01 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 12.6.0-3
 - Drop profile.d configs for color output, which is enabled by default
 

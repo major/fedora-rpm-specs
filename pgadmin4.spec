@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.14
-Release:        2%{?dist}
+Version:        6.15
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -40,8 +40,6 @@ Patch1:         pgadmin4_sphinx_werror.patch
 Patch2:         pgadmin4-socketio.patch
 # Flask 2.2 compatibility
 Patch3:         pgadmin4_flask22.patch
-# ??? Fix crash on None username, retest with 6.15
-Patch4:         pgadmin4_username.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
@@ -74,7 +72,6 @@ Requires: (python3dist(wtforms) >= 3 with python3dist(wtforms) < 4)
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
 Requires: python3dist(pytz) >= 2021
 Requires: (python3dist(simplejson) >= 3 with python3dist(simplejson) < 4)
-Requires: (python3dist(six) >= 1 with python3dist(six) < 2)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
 Requires: (python3dist(psutil) >= 5 with python3dist(psutil) < 6)
 Requires: (python3dist(psycopg2) >= 2.9 with python3dist(psycopg2) < 2.10)
@@ -246,6 +243,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Nov 08 2022 Sandro Mani <manisandro@gmail.com> - 6.15-1
+- Update to 6.15
+
 * Tue Oct 04 2022 Sandro Mani <manisandro@gmail.com> - 6.14-2
 - Re-add pgadmin4_username.patch
 

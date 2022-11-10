@@ -2,10 +2,10 @@
 # the VM's memory, so no useful debug info can be generated from it.
 %global debug_package %{nil}
 
-%global kernel linux-5.15.71
+%global kernel linux-6.0.6
 
 Name:           libkrunfw
-Version:        3.7.0
+Version:        3.8.1
 Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPLv2 and GPLv2
@@ -20,7 +20,7 @@ Source0:        https://github.com/containers/libkrunfw/archive/refs/tags/v%{ver
 # The convenience of distributing a kernel this way and for this purpose was
 # discussed here:
 # https://lists.fedorahosted.org/archives/list/kernel@lists.fedoraproject.org/thread/2TMXPCE2VWF7USZA7OHQ3P2SBJAEGCSX/
-Source1:        https://www.kernel.org/pub/linux/kernel/v5.x/%{kernel}.tar.xz
+Source1:        https://www.kernel.org/pub/linux/kernel/v6.x/%{kernel}.tar.xz
 
 # libkrunfw only provides configs for x86_64 and aarch64 as libkrun (the only
 # consumer of this library) only supports those architectures.
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Tue Nov 08 2022 Sergio Lopez <slp@redhat.com> - 3.8.1-1
+- Update to 3.8.1 which bundles a 6.0.6 kernel
+
 * Tue Oct 04 2022 Sergio Lopez <slp@redhat.com> - 3.7.0-1
 - Update to 3.7.0 which bundles a 5.15.71 kernel
 

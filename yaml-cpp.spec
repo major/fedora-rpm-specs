@@ -1,21 +1,21 @@
-%global sover 0.6
+%global sover 0.7
 
 Name:           yaml-cpp
-Version:        0.6.3
-Release:        7%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        A YAML parser and emitter for C++
 License:        MIT 
 URL:            https://github.com/jbeder/yaml-cpp
 Source0:        https://github.com/jbeder/yaml-cpp/archive/%{name}-%{version}.tar.gz
 
-Patch0:         CVE-2017-5950.patch
+# Install pkgconf and cmake files in LIBDIR instead of DATADIR
+Patch0:         yaml-cpp-cmake.patch
 
-BuildRequires: make
 BuildRequires:  cmake gcc gcc-c++
+BuildRequires:  make
 
 %description
 yaml-cpp is a YAML parser and emitter in C++ written around the YAML 1.2 spec.
-
 
 %package        devel
 Summary:        Development files for %{name}
@@ -26,7 +26,6 @@ Requires:       pkgconfig
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
-
 
 %package        static
 Summary:        Static library for %{name}
@@ -66,8 +65,8 @@ mv %{buildroot}%{_libdir}/cmake/%{name} \
 mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
    %{buildroot}%{_libdir}/pkgconfig/%{name}-static.pc
 
-
 %make_install -C build_shared
+
 
 %ldconfig_scriptlets
 
@@ -91,6 +90,9 @@ mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
 
 
 %changelog
+* Tue Sep 06 2022 Richard Shaw <hobbes1069@gmail.com> - 0.7.0-1
+- Update to 0.7.0.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

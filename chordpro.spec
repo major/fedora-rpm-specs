@@ -6,7 +6,7 @@ Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
 Version: 5.990
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -117,6 +117,9 @@ This packages installs the requirements for LilyPond support for ChordPro.
 
 # Remove some stuff.
 rm lib/App/Music/ChordPro/res/linux/setup_desktop.sh
+rm lib/App/Music/ChordPro/Output/LaTeX.pm
+rm lib/App/Music/ChordPro/Output/Markdown.pm
+rm t/73_md.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -226,6 +229,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Tue Nov 08 2022 Johan Vromans <jvromans@squirrel.nl> - 5.990-2
+- Remove some experimental stuff from being installed.
+
 * Fri Nov 04 2022 Johan Vromans <jvromans@squirrel.nl> - 5.990-1
 - Upgrade to upstream.
 

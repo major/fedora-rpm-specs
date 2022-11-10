@@ -41,6 +41,7 @@ BuildRequires:  kf5-kxmlgui-devel >= %{majmin}
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
+BuildRequires:  qt5-qttools-devel
 
 %description
 KDE Frameworks 5 Tier 3 module for downloading and sharing additional
@@ -100,6 +101,7 @@ developing applications that use %{name}.
 %{_kf5_libdir}/cmake/KF5NewStuffQuick/
 %{_kf5_archdatadir}/mkspecs/modules/qt_KNewStuff.pri
 %{_kf5_archdatadir}/mkspecs/modules/qt_KNewStuffCore.pri
+%{_kf5_qtplugindir}/designer/knewstuffwidgets.so
 
 
 %changelog

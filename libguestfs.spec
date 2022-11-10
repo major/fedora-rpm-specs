@@ -48,7 +48,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.49.5
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPLv2+
 
 # Build only for architectures that have a kernel
@@ -323,6 +323,9 @@ Requires:      coreutils
 Requires:      grep
 Requires:      tar
 
+# libguestfs-make-fixed-appliance requires xz.
+Requires:      xz
+
 # For qemu direct and libvirt backends.
 Requires:      qemu-kvm-core
 %if !0%{?rhel}
@@ -421,10 +424,6 @@ Requires:      supermin >= 5.1.18
 Summary:       Development tools and libraries for %{name}
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:      pkgconfig
-
-# libguestfs-make-fixed-appliance requires guestfish.
-Requires:      xz
-Requires:      %{name} = %{epoch}:%{version}-%{release}
 
 
 %description devel
@@ -922,6 +921,7 @@ rm ocaml/html/.gitignore
 %{_bindir}/virt-copy-out
 %{_bindir}/virt-tar-in
 %{_bindir}/virt-tar-out
+%{_sbindir}/libguestfs-make-fixed-appliance
 %{_libdir}/libguestfs.so.*
 %{_mandir}/man1/guestfish.1*
 %{_mandir}/man1/guestfs-faq.1*
@@ -932,6 +932,7 @@ rm ocaml/html/.gitignore
 %{_mandir}/man1/guestfs-security.1*
 %{_mandir}/man1/guestmount.1*
 %{_mandir}/man1/guestunmount.1*
+%{_mandir}/man1/libguestfs-make-fixed-appliance.1*
 %{_mandir}/man1/libguestfs-test-tool.1*
 %{_mandir}/man1/virt-copy-in.1*
 %{_mandir}/man1/virt-copy-out.1*
@@ -951,12 +952,10 @@ rm ocaml/html/.gitignore
 %doc AUTHORS HACKING TODO README
 %doc examples/*.c
 %{_libdir}/libguestfs.so
-%{_sbindir}/libguestfs-make-fixed-appliance
 %{_mandir}/man1/guestfs-building.1*
 %{_mandir}/man1/guestfs-hacking.1*
 %{_mandir}/man1/guestfs-internals.1*
 %{_mandir}/man1/guestfs-testing.1*
-%{_mandir}/man1/libguestfs-make-fixed-appliance.1*
 %{_mandir}/man3/guestfs.3*
 %{_mandir}/man3/guestfs-examples.3*
 %{_mandir}/man3/libguestfs.3*
@@ -1127,6 +1126,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Nov 08 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.5-3
+- Move libguestfs-make-fixed-appliance to main package (RHBZ#2140695)
+
 * Tue Oct 11 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.5-2
 - New upstream development version 1.49.5
 

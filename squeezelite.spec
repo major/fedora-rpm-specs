@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   790f8bda0d906e55c813493eae095bc2d295e8da
+%global commit   39555f934696f6dffbfd03c3a1391ec96535ba1a
 %forgemeta
 
 # Raspberry Pi-specific GPIO support.
@@ -15,13 +15,13 @@
 
 
 Name:            squeezelite
-Version:         1.9.9.1392
+Version:         1.9.9.1412
 Release:         %autorelease
 Summary:         Headless music player for streaming from Logitech Media Server
 
 # Squeezelite is released under the GPLv3 licence.
 # It incorporates dsd2pcm, which is BSD licenced.
-License:         GPLv3 and BSD
+License:         GPL-3.0-only AND BSD-2-Clause-Views
 
 URL:             %{forgeurl}
 Source0:         %{forgesource}

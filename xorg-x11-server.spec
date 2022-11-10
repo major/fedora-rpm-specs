@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   8%{?gitdate:.%{gitdate}}%{?dist}
+Release:   9%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -105,6 +105,11 @@ Patch103: 0001-Don-t-hardcode-fps-for-fake-screen.patch
 Patch110: 0001-xkb-switch-to-array-index-loops-to-moving-pointers.patch
 Patch111: 0002-xkb-swap-XkbSetDeviceInfo-and-XkbSetDeviceInfoCheck.patch
 Patch112: 0003-xkb-add-request-length-validation-for-XkbSetGeometry.patch
+
+# CVE-2022-3550
+Patch113: 0001-xkb-proof-GetCountedString-against-request-length-at.patch
+# CVE-2022-3551
+Patch114: 0001-xkb-fix-some-possible-memleaks-in-XkbGetKbdByName.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -520,6 +525,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Tue Nov  8 2022 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-9
+- Fix CVE-2022-3550, CVE-2022-3551
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

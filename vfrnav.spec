@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20201231
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -479,6 +479,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 20201231-33
+- Rebuild for yaml-cpp 0.7.0.
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 20201231-32
 - Restrict BR: antlr to %%java_arches
 

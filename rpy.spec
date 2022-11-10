@@ -1,21 +1,30 @@
 %global srcname rpy
 %global sum Python interface to the R language
+%global rmaj   4
 %if (0%{?fedora} && 0%{?fedora} >= 37)
-%global rver   4.2.1
+%global rmin   2
 %else
-%global rver   4.1.3
+%global rmin   1
 %endif
+
+%define add_rver() %{lua:
+  local dep  = rpm.expand("%1")
+  local rmaj = rpm.expand("%{rmaj}")
+  local rmin = rpm.expand("%{rmin}")
+  print(dep .. " >= " .. rmaj .. "." .. rmin .. ", ")
+  print(dep .. " < " .. rmaj .. "." .. rmin + 1)
+}
 
 Name:          rpy
 Version:       3.5.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       %{sum}
 License:       GPLv2+
 Url:           https://pypi.python.org/pypi/rpy2
 Source:        https://files.pythonhosted.org/packages/source/r/%{srcname}2/%{srcname}2-%{version}.tar.gz
 
 BuildRequires: gcc
-BuildRequires: R-devel = %{rver}
+BuildRequires: %add_rver R-devel
 BuildRequires: python3-devel
 BuildRequires: readline-devel
 BuildRequires: python3dist(setuptools)
@@ -34,7 +43,7 @@ converted to Python exceptions.
 
 %package -n python3-%{srcname}
 Summary:       %{sum}
-Requires:      R-core = %{rver}
+Requires:      %add_rver R-core
 %if (0%{?fedora} && 0%{?fedora} < 33)
 %{?python_provide:%python_provide python3-%{srcname}}
 %endif
@@ -74,6 +83,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Tue Nov 08 2022 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.3-2
+- Rebuilt for R 4.2.2 + avoid depending on the patch version
+
 * Thu Jul 28 2022 Tom Callaway <spot@fedoraproject.org> - 3.5.3-1
 - update to 3.5.3
 - R 4.2.1

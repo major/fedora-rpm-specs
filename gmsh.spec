@@ -1,7 +1,7 @@
 %bcond_without openmpi
 %bcond_without mpich
 
-%global sover 4.10
+%global sover 4.11
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -9,8 +9,8 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.10.5
-Release:    2%{?dist}
+Version:    4.11.0
+Release:    1%{?dist}
 
 # gmsh is GPLv2+ with exceptions, see LICENSE.txt
 # contrib/{DiscreteIntegration, HighOrderMeshOptimizer, MeshOptimizer, onelab} are MIT, see respective README.txt
@@ -336,6 +336,7 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 %doc %{_defaultdocdir}/%{name}/tutorials
 %doc %{_defaultdocdir}/%{name}/examples
 %doc %{_defaultdocdir}/%{name}/%{name}.html
+%doc %{_defaultdocdir}/%{name}/images/
 
 %files
 %{_bindir}/%{name}
@@ -343,8 +344,8 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 %files devel
 %{_includedir}/gmsh.h
 %{_includedir}/gmshc.h
-%{_includedir}/gmshf.h
 %{_includedir}/gmsh.h_cwrap
+%{_includedir}/gmsh.f90
 %{_libdir}/libgmsh.so
 
 %files libs
@@ -354,6 +355,7 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 %files -n python3-%{name}
 %{python3_sitelib}/gmsh.py
 %{python3_sitelib}/__pycache__/gmsh.*.pyc
+%{python3_sitelib}/gmsh-%{version}*.dist-info/
 
 %if %{with openmpi}
 %files openmpi
@@ -362,8 +364,8 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 %files openmpi-devel
 %{_includedir}/openmpi*/gmsh.h
 %{_includedir}/openmpi*/gmshc.h
-%{_includedir}/openmpi*/gmshf.h
 %{_includedir}/openmpi*/gmsh.h_cwrap
+%{_includedir}/openmpi*/gmsh.f90
 %{_libdir}/openmpi/lib/libgmsh.so
 
 %files openmpi-libs
@@ -378,8 +380,8 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 %files mpich-devel
 %{_includedir}/mpich*/gmsh.h
 %{_includedir}/mpich*/gmshc.h
-%{_includedir}/mpich*/gmshf.h
 %{_includedir}/mpich*/gmsh.h_cwrap
+%{_includedir}/mpich*/gmsh.f90
 %{_libdir}/mpich/lib/libgmsh.so
 
 %files mpich-libs
@@ -389,6 +391,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Tue Nov 08 2022 Sandro Mani <manisandro@gmail.com> - 4.11.0-1
+- Update to 4.11.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,10 @@
 %global _hardened_build 1
+%global _smp_mflags -j1
 
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
-Version: 2.6.5
-Release: 2%{?dist}
+Version: 2.7.0
+Release: 1%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -13,7 +14,7 @@ Source2: inn-default-distributions
 # gpg2 --recv-key 0xD73934B49674CF5CCD9AC2787D80315C5736DE75
 # gpg2 --export --export-options export-minimal 0xD73934B49674CF5CCD9AC2787D80315C5736DE75
 Source3: 0xD73934B49674CF5CCD9AC2787D80315C5736DE75.gpg
-Source10: http://www.eyrie.org/~eagle/faqs/inn.html
+Source10: http://www.eyrie.org/~eagle/faqs/inn.html#/inn-faq-%{version}.html
 Source20: innd.service
 Source21: innd-expire.service
 Source22: innd-expire.timer
@@ -22,7 +23,7 @@ Source24: innd-nntpsend.timer
 Source25: innd-rnews.service
 Source26: innd-rnews.timer
 Source30: inn.rsyslog
-Patch1: inn-2.6.4-rh.patch
+Patch1: inn-2.7.0-fedora.patch
 BuildRequires: autoconf
 BuildRequires: byacc
 BuildRequires: cyrus-sasl-devel
@@ -44,6 +45,7 @@ BuildRequires: perl(MIME::Parser)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Test::Pod)
 BuildRequires: python3-devel
+BuildRequires: sqlite-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: wget
 BuildRequires: zlib-devel
@@ -155,7 +157,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 # -- Install man pages needed by suck et al.
 mkdir -p $RPM_BUILD_ROOT%{_includedir}/inn
 
-for f in defines.h system.h libinn.h storage.h options.h dbz.h
+for f in system.h libinn.h storage.h options.h dbz.h
 do
     install -p -m 0644 ./include/inn/$f $RPM_BUILD_ROOT%{_includedir}/inn
 done
@@ -190,7 +192,7 @@ export PATH
 EOF
 
 #Fix perms in sample directory to avoid bogus dependencies
-find samples -name "*.in" -exec chmod a-x {} \;
+find samples -type f | xargs chmod a-x
 
 # we get this from cleanfeed
 rm -f $RPM_BUILD_ROOT%{_libexecdir}/news/filter/filter_innd.pl
@@ -199,7 +201,7 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 ln -sf %{_libexecdir}/news/inews $RPM_BUILD_ROOT%{_bindir}/inews
 ln -sf %{_libexecdir}/news/rnews $RPM_BUILD_ROOT%{_bindir}/rnews
 # fix debuginfo extraction, permissions are set in files section, anyway
-chmod u+w $RPM_BUILD_ROOT%{_libdir}/lib{inn{,hist},storage}.so.*
+chmod u+w $RPM_BUILD_ROOT%{_libdir}/libinn{,hist,storage}.so.*
 pushd $RPM_BUILD_ROOT%{_libexecdir}/news
 chmod u+w \
           actsync \
@@ -207,13 +209,14 @@ chmod u+w \
           auth/passwd/{auth_krb5,ckpasswd,radius} \
           auth/resolv/{domain,ident} \
           batcher \
-          {buff,file,over}chan \
+          {buff,over}chan \
           buffindexed_d \
           convdate \
           ctlinnd \
           cvtbatch \
           expire{,over} \
           fastrm \
+          gencancel \
           getlist \
           {grep,make,prune}history \
           imapfeed \
@@ -224,6 +227,7 @@ chmod u+w \
           nnrpd \
           nntpget \
           ovdb_{init,monitor,server,stat} \
+          ovsqlite-server \
           rnews{,.libexec/{de,en}code} \
           shlock \
           shrinkfile \
@@ -371,7 +375,9 @@ fi
 %config(noreplace) %{_sysconfdir}/news/nocem.ctl
 %config(noreplace) %{_sysconfdir}/news/incoming.conf
 %config(noreplace) %{_sysconfdir}/news/inn-radius.conf
+%config(noreplace) %{_sysconfdir}/news/inn-secrets.conf
 %config(noreplace) %{_sysconfdir}/news/ovdb.conf
+%config(noreplace) %{_sysconfdir}/news/ovsqlite.conf
 %config(noreplace) %{_sysconfdir}/news/newsfeeds
 %config(noreplace) %{_sysconfdir}/news/readers.conf
 %config(noreplace) %{_sysconfdir}/news/distributions
@@ -389,16 +395,16 @@ fi
 %config(noreplace) %{_sysconfdir}/news/innshellvars.tcl.local
 
 %defattr(0755,root,news,0755)
-%attr(0755,news,news) %{_bindir}/rnews
+%{_bindir}/rnews
 %dir %{_libexecdir}/news
 %{_libexecdir}/news/controlbatch
 %attr(4510,root,news) %{_libexecdir}/news/innbind
 %{_libexecdir}/news/docheckgroups
 %{_libexecdir}/news/imapfeed
-%{_libexecdir}/news/send-nntp
 %{_libexecdir}/news/actmerge
 %{_libexecdir}/news/ovdb_server
-%{_libexecdir}/news/filechan
+%{_libexecdir}/news/ovsqlite-server
+%{_libexecdir}/news/gencancel
 %{_libexecdir}/news/ninpaths
 %{_libexecdir}/news/mod-active
 %{_libexecdir}/news/news2mail
@@ -447,6 +453,7 @@ fi
 %{_libexecdir}/news/prunehistory
 %{_libexecdir}/news/innreport
 %attr(0644,root,news) %{_libexecdir}/news/innreport_inn.pm
+%attr(0644,root,news) %{_libexecdir}/news/innreport-display.conf
 %{_libexecdir}/news/getlist
 %{_libexecdir}/news/innd
 %{_libexecdir}/news/innupgrade
@@ -455,7 +462,6 @@ fi
 %{_libexecdir}/news/innwatch
 %{_libexecdir}/news/inncheck
 %{_libexecdir}/news/writelog
-%{_libexecdir}/news/signcontrol
 %{_libexecdir}/news/tdx-util
 %{_libexecdir}/news/tally.control
 %{_libexecdir}/news/overchan
@@ -496,12 +502,9 @@ fi
 
 %define controldir %{_libexecdir}/news/control
 %dir %{controldir}
-%{controldir}/version.pl
 %{controldir}/ihave.pl
-%{controldir}/sendsys.pl
 %{controldir}/sendme.pl
 %{controldir}/checkgroups.pl
-%{controldir}/senduuname.pl
 %{controldir}/newgroup.pl
 %{controldir}/rmgroup.pl
 
@@ -535,14 +538,17 @@ fi
 %dir /var/spool/news/overview
 %dir /var/log/news/OLD
 %dir %{_sharedstatedir}/news/tmp
-%ghost %dir /run/news
 
 %files libs
-%{_libdir}/lib*.so.*
+%{_libdir}/libinn.so.8{,.*}
+%{_libdir}/libinnhist.so.3{,.*}
+%{_libdir}/libinnstorage.so.3{,.*}
 
 %files devel
 %{_includedir}/inn
-%{_libdir}/lib*.so
+%{_libdir}/libinn.so
+%{_libdir}/libinnhist.so
+%{_libdir}/libinnstorage.so
 %{_mandir}/man3/*
 %exclude %{_mandir}/man3/INN::Config.3pm*
 %exclude %{_mandir}/man3/INN::Utils::Shlock.3pm*
@@ -550,12 +556,19 @@ fi
 
 %files -n inews
 %config(noreplace) %attr(-,news,news) %{_sysconfdir}/news/inn.conf
+%config(noreplace) %attr(0660,news,news) %{_sysconfdir}/news/inn-secrets.conf
 %config(noreplace) %attr(-,news,news) %{_sysconfdir}/news/passwd.nntp
 %{_bindir}/inews
 %attr(0755,root,root) %{_libexecdir}/news/inews
 %{_mandir}/man1/inews*
 
 %changelog
+* Mon Nov 07 2022 Dominik Mierzejewski <dominik@greysector.net> - 2.7.0-1
+- update to 2.7.0 (#2107592)
+- update files list (API and ABI break)
+- enable SQLite support
+- disable parallel build again
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

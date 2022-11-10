@@ -1,7 +1,7 @@
 # Upstream source information.
 %global upstream_owner    AdaCore
 %global upstream_name     gprconfig_kb
-%global upstream_version  22.0.0
+%global upstream_version  23.0.0
 %global upstream_gittag   v%{upstream_version}
 
 Name:           gprconfig-kb
@@ -20,10 +20,8 @@ Source1:        fedora_arches.xml
 
 # [Fedora specific]
 Patch0:         %{name}-fedora-compilers.patch
-# [Backport patch] Detect by major version (commit: 21cbb4d)
-Patch1:         %{name}-detect-by-major-version.patch
 # [Fedora specific] Detect major version using `gcc -dumpversion`.
-Patch2:         %{name}-use-dumpversion.patch
+Patch1:         %{name}-use-dumpversion.patch
 
 # The contents of this package are split off from the gprbuild package.
 Conflicts:      gprbuild <= 2020
@@ -79,5 +77,9 @@ mkdir --parents %{buildroot}%{_datadir}/gprconfig
 ###############
 
 %changelog
+* Sun Oct 30 2022 Dennis van Raaij <dvraaij@fedoraproject.org> - 23.0.0-1
+- Updated to v23.0.0, using the archive available on GitHub.
+- Removed backport patch gprconfig-kb-detect-by-major-version.patch.
+
 * Sun Oct 02 2022 Dennis van Raaij <dvraaij@fedoraproject.org> - 22.0.0-1
 - New package. The contents of this package are split off from the gprbuild package.

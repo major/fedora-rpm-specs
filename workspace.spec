@@ -1,7 +1,7 @@
 Name:		workspace
 
 Version:	1.3.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	A tool to create scratch directories by users with an expiration date
 
 License:	GPLv3
@@ -67,6 +67,9 @@ install -p -m 755 contribs/ws_prepare %{buildroot}%{_sbindir}/ws_prepare
 
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-12
+- Rebuild for yaml-cpp 0.7.0.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

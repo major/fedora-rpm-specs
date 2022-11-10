@@ -3,7 +3,7 @@
 
 Name:           daggy
 Version:        2.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Data Aggregation Utility and developer library
 
 License:        MIT
@@ -59,6 +59,9 @@ daggy --version
 %{_includedir}/DaggyCore
 
 %changelog
+* Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 2.1.3-2
+- Rebuild for yaml-cpp 0.7.0.
+
 * Sun Aug 28 2022 Mikhail Milovidov <milovidovmikhail@gmail.com> - 2.1.3-1
 - Updated daggy version up to 2.1.3
 

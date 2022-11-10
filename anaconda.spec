@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.7
+Version: 38.8
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -31,7 +31,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define gtk3ver 3.22.17
 %define helpver 26.2-1
 %define isomd5sumver 1.0.10
-%define langtablever 0.0.54
+%define langtablever 0.0.60
 %define libarchivever 3.0.4
 %define libblockdevver 2.1
 %define libreportanacondaver 2.0.21-1
@@ -464,6 +464,32 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 08 2022 Packit <hello@packit.dev> - 38.8-1
+- Web UI: Update language selection screen (ozobal)
+- There are no installation targets if bootloader devices are not set (#2131183) (vponcova)
+- makebumpver: import bugzilla only if used (vslavik)
+- Remove the period at the end of the button caption (bramgn)
+- sync_run_task: Poll proxy state faster (vslavik)
+- Use more dasbus-ish interface (vslavik)
+- Web UI: Redesign language selection screen (ozobal)
+- Add GetCommonLocales to API (ozobal)
+- network: fix add_connection_sync doc string (rvykydal)
+- webui: update pixel tests for "Detect disks" updates (rvykydal)
+- webui: Use 'Detect Disks' instead of 'Discover Disks' (rvykydal)
+- webui: do not hide checkbox when showing skeleton while rescanning disks (rvykydal)
+- Add release notes for Fedora 37 (vponcova)
+- driver_updates: migrate driver_updates.py to pep8 format (jkonecny)
+- driver_updates: adding tests for the new logging solution (jkonecny)
+- driver_updates: add lot of debug logs for easier debugging (jkonecny)
+- driver_updates: extend where we print log messages (jkonecny)
+- Change screensaver handling to dasbus, drop safe_dbus (vslavik)
+- webui: improve formatting of a promise (rvykydal)
+- webui: show alert when there are no discovered disks (rvykydal)
+- webui: disable bulk selection during disks discovery (rvykydal)
+- webui: add tooltip to disks discovery button (rvykydal)
+- webui: replace discovery button spinner with skeleton (rvykydal)
+- rpm-ostree: set untrusted ostree pull flag (champetier.etienne)
+
 * Mon Oct 17 2022 Packit <hello@packit.dev> - 38.7-1
 - Call date by full path and list it as a dependency (vslavik)
 - Remove the isys module and directory (vslavik)
