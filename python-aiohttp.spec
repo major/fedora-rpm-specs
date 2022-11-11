@@ -2,7 +2,7 @@
 
 Name:           python-aiohttp
 Version:        3.8.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -123,6 +123,11 @@ k="${k-}${k+ and }not test_client_session_timeout_zero"
 # E               RuntimeError: Event loop is closed
 k="${k-}${k+ and }not test_static_file_if_match"
 k="${k-}${k+ and }not test_static_file_if_none_match"
+%ifarch %{arm32}
+# Unexplained error during teardown:
+# ResourceWarning: unclosed transport <_SelectorSocketTransport fd=15>
+k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
+%endif
 %if 0%{?el9}
 # The following test modules unconditionally import re_assert.
 #
@@ -146,6 +151,9 @@ ignore="${ignore-} --ignore=tests/test_client_session.py"
 %doc README.rst
 
 %changelog
+* Thu Nov 03 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.3-3
+- Skip a test that leaks a socket file descriptor on 32-bit ARM
+
 * Sat Oct 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.3-2
 - Port to pyproject-rpm-macros
 - Add metapackage for “speedups” extra

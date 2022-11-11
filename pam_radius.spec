@@ -1,8 +1,8 @@
 Name: pam_radius
 Summary: PAM Module for RADIUS Authentication
 Version: 2.0.0
-Release: 3%{?dist}
-License: GPLv2+
+Release: 4%{?dist}
+License: GPL-2.0-or-later
 URL: http://www.freeradius.org/pam_radius_auth/
 
 # In reality the releases are located in
@@ -59,6 +59,9 @@ install -p pam_radius_auth.conf %{buildroot}%{_sysconfdir}/pam_radius.conf
 /%{_lib}/security/pam_radius_auth.so
 
 %changelog
+* Wed Nov  9 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2.0.0-4
+- SPDX license migration
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

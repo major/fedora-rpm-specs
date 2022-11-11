@@ -1,5 +1,11 @@
 # when bootstrapping Python, pytest-xdist is not yet available
+
+%if 0%{?fedora} != 38
 %bcond_without xdist
+%else
+# on Fedora 38, tests crash when being run by xdist right now
+%bcond_with xdist
+%endif
 
 %global srcname SQLAlchemy
 

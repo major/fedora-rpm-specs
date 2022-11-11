@@ -1,6 +1,6 @@
 Name:           vulkan-tools
-Version:        1.3.224.0
-Release:        1%{?dist}
+Version:        1.3.231.0
+Release:        %autorelease
 Summary:        Vulkan tools
 
 License:        ASL 2.0
@@ -47,90 +47,4 @@ Vulkan tools
 %{_bindir}/*
 
 %changelog
-* Wed Aug 24 2022 Dave Airlie <airlied@redhat.com> - 1.3.224.0-1
-- Update to 1.3.224.0
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.216.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Dave Airlie <airlied@redhat.com> - 1.3.216.0-1
-- Update to 1.3.216.0
-
-* Wed Apr 27 2022 Dave Airlie <airlied@redhat.com> - 1.3.211.0-1
-- Update to 1.3.211.0
-
-* Wed Feb 16 2022 Dave Airlie <airlied@redhat.com> - 1.3.204.0-1
-- Update to 1.3.204.0
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.198.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Nov 23 2021 Dave Airlie <airlied@redhat.com> - 1.2.198.0-1
-- Update to 1.2.198.0
-
-* Wed Sep 08 2021 Dave Airlie <airlied@redhat.com> - 1.2.189.0-1
-- Update to 1.2.189.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.182.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 07 2021 Dave Airlie <airlied@redhat.com> - 1.2.182.0-1
-- Update to 1.2.182.0
-
-* Tue May 18 2021 Dave Airlie <airlied@redhat.com> - 1.2.176.0-1
-- Update to 1.2.176.0
-
-* Fri Jan 29 2021 Dave Airlie <airlied@redhat.com> - 1.2.162.0-1
-- Update to 1.2.162.0
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.154.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Nov 04 2020 Dave Airlie <airlied@redhat.com> - 1.2.154.0-1
-- Update to 1.2.154.0
-
-* Wed Aug 05 2020 Dave Airlie <airlied@redhat.com> - 1.2.148.0-1
-- Update to 1.2.148.0
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.135.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Apr 22 2020 Dave Airlie <airlied@redhat.com> - 1.2.135.0-1
-- Update to 1.2.135.0
-
-* Wed Jan 29 2020 Dave Airlie <airlied@redhat.com> - 1.2.131.1-1
-- Update to 1.2.131.1
-
-* Thu Nov 14 2019 Dave Airlie <airlied@redhat.com> - 1.1.126.0-1
-- Update to 1.1.126.0
-
-* Wed Jul 31 2019 Dave Airlie <airlied@redhat.com> - 1.1.114.0-1
-- Update to 1.1.114.0
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.108.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Jun 25 2019 Dave Airlie <airlied@redhat.com> - 1.1.108.0-1
-- Update to 1.1.108.0
-
-* Thu Mar 07 2019 Dave Airlie <airlied@redhat.com> - 1.1.101.0-1
-- Update to 1.1.101.0
-
-* Wed Feb 13 2019 Dave Airlie <airlied@redhat.com> - 1.1.97.0-1
-- Update to 1.1.97.0
-
-* Tue Feb 12 2019 Dave Airlie <airlied@redhat.com> - 1.1.92.0-1
-- Update to 1.1.92.0
-- don't rename anymore, upstream changed cube app name
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.82.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Aug 07 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.1.82.0-1
-- Update to 1.1.82.0
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.77.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sat Jun 23 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.1.77.0-1
-- Initial package
+%autochangelog

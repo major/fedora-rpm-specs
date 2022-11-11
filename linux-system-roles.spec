@@ -30,7 +30,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.22.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -240,8 +240,6 @@ Source997: spec-to-changelog-md.sh
 # RHEL only, script to convert the collection README from Galaxy to Automation Hub
 Source998: collection_readme.sh
 
-Patch51: network-disable-bondtests.diff
-
 BuildArch: noarch
 
 %if %{with html}
@@ -279,6 +277,23 @@ Summary: Collection artifact to import to Automation Hub / Ansible Galaxy
 %description collection-artifact
 Collection artifact for %{name}. This package contains %{collection_namespace}-%{collection_name}-%{version}.tar.gz
 %endif
+
+# Fix issue with package update introduce with changing symlink to directory
+# in 1.21.1-5
+%pretrans -p <lua>
+roles = {
+    "certificate", "cockpit", "crypto_policies", "firewall", "ha_cluster",
+    "kdump", "kernel_settings", "logging", "metrics", "nbde_client",
+    "nbde_server", "network", "postfix", "selinux", "ssh", "sshd", "storage",
+    "timesync", "tlog", "vpn"
+}
+for i,v in ipairs(roles) do
+    path = "/usr/share/ansible/roles/linux-system-roles." .. v
+    st = posix.stat(path)
+    if st and st.type == "link" then
+      os.remove(path)
+    end
+end
 
 %prep
 %setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15 -a16 -a17 -a18 -a19 -a20 -a21 -a22 -n %{getarchivedir 0}
@@ -320,9 +335,6 @@ sed -r -i -e '/hosts: all/a\
     - tests::avc' tests_selinux_disabled.yml
 cd ../..
 
-cd %{rolename5}
-%patch51 -p1
-cd ..
 cd %{rolename15}
 find -P tests examples -name \*.yml | while read file; do
   sed -r -i -e "s/ansible-sshd/linux-system-roles.sshd/" \
@@ -747,6 +759,19 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Nov 08 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.22.0-4
+- Fix issue with package update introduce with changing symlink to directory
+  Resolves:rhbz#2141152
+  Added pretrans scriptlet to deal with conversion of symlink to directory
+
+* Tue Nov 08 2022 Rich Megginson <rmeggins@redhat.com> - 1.22.0-3
+- remove unneeded network patch
+
+* Tue Nov 08 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.22.0-2
+- fix https://bugzilla.redhat.com/show_bug.cgi?id=2141152
+  Resolves:rhbz#2141152
+  Added pretrans scriptlet to deal with conversion of symlink to directory
+
 * Thu Nov 03 2022 Rich Megginson <rmeggins@redhat.com> - 1.22.0-1
 - ad_integration - new role
 - cockpit - use the firewall, selinux, certificate roles

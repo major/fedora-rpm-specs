@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.3.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 Summary:	Red Colors provides a wide array of features for dealing with colors
 License:	MIT
@@ -18,6 +18,10 @@ BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(matrix)
 %endif
 BuildArch:	noarch
+# red-colors contains some json files, reading them requires the below
+# also, file inclusion always requires this as:
+# json <- colors/colormap_data.rb <- colors.rb
+Requires:		rubygem(json)
 
 %description
 Red Colors provides a wide array of features for dealing with colors. This
@@ -80,6 +84,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Nov  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.0-6
+- Explicitly require rubygem(json)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

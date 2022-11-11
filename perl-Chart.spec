@@ -1,13 +1,8 @@
-# Use Graphics::ColorNames for translating color names
-%bcond_without perl_Chart_enables_Graphics_ColorNames
-
 Name:           perl-Chart
-Version:        2.403.7
+Version:        2.403.8
 Release:        1%{?dist}
 Summary:        Series of charting modules
 # lib/Chart.pm:         GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Chart/Color.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Chart/Color/Value.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual/Methods.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual/Workflows.pod    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -27,29 +22,24 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(base)
 BuildRequires:  perl(Carp) >= 1.35
 BuildRequires:  perl(constant)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(GD) >= 2
 BuildRequires:  perl(GD::Image)
-%if %{with perl_Chart_enables_Graphics_ColorNames}
-BuildRequires:  perl(Graphics::ColorNames)
-%endif
+BuildRequires:  perl(Graphics::Toolkit::Color) >= 1
 BuildRequires:  perl(POSIX)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp) >= 0.19
-BuildRequires:  perl(Test::More) >= 1.3
-BuildRequires:  perl(Test::Warn) >= 0.30
 Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp) >= 1.35
 Requires:       perl(GD) >= 2
-%if %{with perl_Chart_enables_Graphics_ColorNames}
-Recommends:     perl(Graphics::ColorNames)
-%endif
+Requires:       perl(Graphics::Toolkit::Color) >= 1
 
 # Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|GD|Test::More|Test::Warn)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|GD|Graphics::Toolkit::Color)\\)$
 
 %description
 This module is an attempt to build a general purpose graphing module that
@@ -61,8 +51,6 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(GD) >= 2
-Requires:       perl(Test::More) >= 1.3
-Requires:       perl(Test::Warn) >= 0.30
 
 %description tests
 Tests from %{name}. Execute them
@@ -103,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 24 2022 Petr Pisar <ppisar@redhat.com> - 2.403.8-1
+- 2.403.8 bump
+
 * Mon Aug 01 2022 Petr Pisar <ppisar@redhat.com> - 2.403.7-1
 - 2.403.7 bump
 

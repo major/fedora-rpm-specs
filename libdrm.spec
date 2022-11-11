@@ -1,6 +1,13 @@
 %define bcond_meson() %{lua: do
   local option = rpm.expand("%{1}")
   local with = rpm.expand("%{?with_" .. option .. "}")
+  local value = (with ~= '') and "enabled" or "disabled"
+  option = option:gsub('_', '-')
+  print(string.format("-D%s=%s", option, value))
+end}
+%define bcond_meson_tf() %{lua: do
+  local option = rpm.expand("%{1}")
+  local with = rpm.expand("%{?with_" .. option .. "}")
   local value = (with ~= '') and "true" or "false"
   option = option:gsub('_', '-')
   print(string.format("-D%s=%s", option, value))
@@ -46,7 +53,7 @@ end}
 
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
-Version:        2.4.112
+Version:        2.4.114
 Release:        1%{?dist}
 License:        MIT
 
@@ -121,9 +128,9 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
   %{bcond_meson cairo_tests}           \
   %{bcond_meson man_pages}             \
   %{bcond_meson valgrind}              \
-  %{bcond_meson freedreno_kgsl}        \
-  %{bcond_meson install_test_programs} \
-  %{bcond_meson udev}                  \
+  %{bcond_meson_tf freedreno_kgsl}        \
+  %{bcond_meson_tf install_test_programs} \
+  %{bcond_meson_tf udev}                  \
   %{nil}
 %meson_build
 
@@ -278,6 +285,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Thu Nov 10 2022 Dave Airlie <airlied@redhat.com> - 2.4.114-1
+- Update to 2.4.114
+
 * Sat Aug 06 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.4.112-1
 - Update to 2.4.112
 

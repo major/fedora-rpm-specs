@@ -5,7 +5,7 @@ Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.4
 Release: 3%{?dist}
-License: GPLv2
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/checkpolicy-3.4.tar.gz
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux

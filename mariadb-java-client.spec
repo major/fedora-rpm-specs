@@ -1,7 +1,7 @@
 %global build_javadoc 0
 
 Name:           mariadb-java-client
-Version:        3.0.8
+Version:        3.0.9
 Release:        1%{?dist}
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
@@ -111,6 +111,9 @@ opts="-j"
 %endif
 
 %changelog
+* Wed Nov 09 2022 Zuzana Miklankova <zmiklank@redhat.com> - 3.0.9-1
+- Rebase to version 3.0.9
+
 * Fri Sep 23 2022 Zuzana Miklankova <zmiklank@redhat.com> - 3.0.8-1
 - Rebase to version 3.0.8
 

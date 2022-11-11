@@ -1,3 +1,8 @@
+%define	BothRequires() \
+Requires:	%1 \
+BuildRequires:	%1 \
+%{nil}
+
 %define		mainver		1.0
 %define		betaver		beta7
 
@@ -5,7 +10,7 @@
 %define		rubyabi		1.9.1
 %endif
 
-%define		fedorarel	20
+%define		fedorarel	21
 
 
 %define		fullrel		%{?betaver:0.}%{fedorarel}%{?betaver:.%betaver}
@@ -36,6 +41,14 @@ Patch14:	fantasdic-1.0-beta7-ruby22-rbconfig-fix.patch
 Patch15:	fantasdic-1.0-beta7-use-pango-gi.patch
 # ruby psych 4.0.x needs YAML.unsafe_load
 Patch16:	fantasdic-1.0-beta7-yaml-unsafe-load.patch
+# Remove duplicate test names
+Patch17:	fantasdic-1.0-beta7-testsuite-remove-dupes.patch
+# # Ruby 3.2 completely removes File.exists?
+Patch18:	fantasdic-1.0-beta7-ruby32-file_exist.patch
+# Misc fixes for ruby 3.2
+Patch19:	fantasdic-1.0-beta7-ruby32-misc-fix.patch
+# Dict server configuration update
+Patch20:	fantasdic-1.0-beta7-dict-server-update.patch
 
 BuildArch:	noarch
 
@@ -46,15 +59,17 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:  ruby-devel
 
-Requires:	ruby
-Requires:	rubygem(gettext)
+%BothRequires	ruby
+%BothRequires	rubygem(gettext)
 
-Requires:	ruby(libglade2)
-Requires:	ruby(gconf2)
-Requires:	ruby(gnome2)
-Requires:	ruby(gtk2)
+%BothRequires	ruby(libglade2)
+%BothRequires	ruby(gconf2)
+%BothRequires	ruby(gnome2)
+%BothRequires	ruby(gtk2)
 # F-31+: use rbpango-gi
-Requires:	rubygem(pango)
+%BothRequires	rubygem(pango)
+BuildRequires:	rubygem(test-unit)
+BuildRequires:	%{_bindir}/xvfb-run
 
 %description
 Fantasdic is a dictionary application. It allows to look up words in 
@@ -73,9 +88,14 @@ Fantasdic is Free Software.
 ln -sf lib vendor_ruby
 %patch15 -p4
 unlink vendor_ruby
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 36
+# ruby 3.1 (psych 4.x)
 %patch16 -p1
 %endif
+%patch17 -p1
+%patch18 -p1
+%patch19 -p1
+%patch20 -p1
 
 %{__chmod} 0644 tools/*.rb
 %{__sed} -i.path -e 's|%{_bindir}/||' fantasdic.desktop
@@ -85,23 +105,14 @@ unlink vendor_ruby
 	-i.dir -e '/html/s|%{name}|%{name}-%{mainver}|' \
 	lib/fantasdic/ui/browser.rb
 
-# Ruby 3.2 completely removes File.exists?
-grep -rl FileTest.exists . | xargs sed -i -e 's|FileTest.exists|FileTest.exist|'
-
 %build
 export LANG=C.UTF-8
 
 ruby setup.rb config \
 	--prefix=%{_prefix} \
 	--bindir=%{_bindir} \
-%if 0%{fedora} >= 17
 	--siterubyver=%{ruby_vendorlibdir} \
-%else
-	--siteruby=%{ruby_sitelib} \
-%endif
-%if 0%{?fedora} >= 19
 	--datadir=%{_datadir} \
-%endif
 	--without-scrollkeeper
 ruby setup.rb setup
 
@@ -112,9 +123,6 @@ ruby setup.rb install \
 desktop-file-install \
 	--add-category 'GTK' \
 	--add-category 'Dictionary' \
-%if 0%{?fedora} < 19
-	--vendor 'fedora' \
-%endif
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
 	%{name}.desktop
 
@@ -150,14 +158,39 @@ popd
 
 
 %check
-# Need X, disabling
-exit 0
-ruby setup.rb test
+STATUS=0
+
+# Tweak configuration for local test (without fantasdic itself being installed)
+sed -i.save lib/fantasdic/config.rb -e "s|'%{_prefix}|'%{buildroot}%{_prefix}|"
+
+NET_STATUS=0
+ping -w3 www.google.co.jp || NET_STATUS=1
+
+if [ $NET_STATUS != 0 ] ; then
+	# disable test requiring net connection
+	mv test/test_dict_server.rb{,.save}
+fi
+# google test not working, skip
+mv test/test_google_translate.rb{,.save}
+
+# Test suite expects that /bin/true is found
+export PATH=/bin:$PATH
+
+export LANG=C.utf8
+xvfb-run \
+	ruby -Ilib:. -e "Dir.glob('test/**/test_*.rb'){|f| require f}" || \
+	STATUS=1
+
+find . -name \*.save | while read f ; do
+	mv $f ${f%.save}
+done
+
+exit $STATUS
 
 %files	-f %{name}.lang 
 %defattr(-,root,root,-)
 %doc	AUTHORS
-%doc	COPY*
+%license	COPY*
 %doc	ChangeLog
 %doc	NEWS
 %doc	README
@@ -182,8 +215,11 @@ ruby setup.rb test
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
-* Tue Nov  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.20.beta7
+* Wed Nov  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.21.beta7
 - Use YAML.unsafe_load for psych 4.0.x
+- Some misc fixes for ruby 3.1
+- Server configuration update for DICT
+- Enable testsuite
 
 * Thu Oct 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.19.beta7
 - Fix for ruby3.2 wrt File.exists? removal

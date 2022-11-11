@@ -1,8 +1,8 @@
-%global sdkver 1.3.224.0
+%global sdkver 1.3.231.1
 
 Name:           glslang
 Version:        11.9.0
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 
 License:        BSD and GPLv3+ and ASL 2.0
@@ -64,7 +64,6 @@ popd
 
 %files devel
 %{_includedir}/glslang/
-%{_datadir}/glslang/*
 %{_libdir}/libHLSL.a
 %{_libdir}/libOGLCompiler.a
 %{_libdir}/libOSDependent.a
@@ -79,129 +78,4 @@ popd
 %{_libdir}/cmake/*
 
 %changelog
-* Wed Aug 24 2022 Dave Airlie <airlied@redhat.com> - 11.9.0-5
-- Latest snapshot used in 1.3.224 sdk
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.9.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Dave Airlie <airlied@redhat.com> - 11.9.0-3
-- Latest snapshot used in 1.3.216 sdk
-
-* Wed Apr 27 2022 Dave Airlie <airlied@redhat.com> - 11.9.0-2.20220406.git9bb8cff
-- Latest snapshot used in 1.3.211 sdk
-
-* Wed Feb 16 2022 Dave Airlie <airlied@redhat.com> - 11.9.0-1.20220202.git2742e95
-- Latest snapshot used in 1.3.204 sdk
-
-* Sat Jan 29 2022 Jan Grulich <jgrulich@redhat.com - 11.7.0-4.20211110.gitc9706bd
-- Fix encoding/decoding of string literals for big-endian systems
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.7.0-3.20211110.gitc9706bd
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 06 2021 Dave Airlie <airlied@redhat.com> - 11.7.0-2.20211110.gitc9706bd
-- Fix for spirv-tools ABI
-
-* Tue Nov 23 2021 Dave Airlie <airlied@redhat.com> - 11.7.0-1.20211110.gitc9706bd
-- Latest snapshot used in 1.2.198 sdk
-
-* Tue Sep 07 2021 Dave Airlie <airlied@redhat.com> - 11.6.0-1.20210825.git2fb89a0
-- Latest snapshot used in 1.2.189 sdk
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.0-2.20210623.gitae2a562
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 07 2021 Dave Airlie <airlied@redhat.com> - 11.5.0-1
-- Latest snapshot used in 1.2.182 sdk
-
-* Tue May 18 2021 Dave Airlie <airlied@redhat.com< - 11.4.0-1.20210423.git18eef33
-- Latest snapshot used in 1.2.176 sdk
-
-* Thu Jan 28 2021 Dave Airlie <airlied@redhat.com> - 11.0.0-4.20201208.gitc594de2
-- Latest snapshot used in 1.2.162 sdk
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.0-3.20201104.gitd550beb
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Nov 04 2020 Dave Airlie <airlied@redhat.com> - 11.0.0-2
-- Latest upstream snapshot
-
-* Wed Aug 05 2020 Dave Airlie <airlied@redhat.com> - 11.0.0-1
-- Latest upstream snapshot
-
-* Tue Aug 04 2020 Dave Airlie <airlied@redhat.com> - 8.13.3559-5
-- Use cmake macros.
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.3559-4.2020421.gitc9b28b9
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 8.13.3559-3.2020421.gitc9b28b9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Apr 22 2020 Dave Airlie <airlied@redhat.com> - 8.13.3559-2
-- Update to latest git snapshot
-
-* Wed Jan 29 2020 Dave Airlie <airlied@redhat.com> - 8.13.3559-1
-- Update to latest git snapshot
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 7.13.3496-3.20191102.git7f77b2e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Dec 19 2019 Leigh Scott <leigh123linux@googlemail.com> - 7.13.3496-2.20191102.git7f77b2e
-- Add patch for 'Fix a couple relative header paths in header'
-
-* Wed Nov 13 2019 Dave Airlie <airlied@redhat.com> - 7.13.3496-1
-- Latest upstream snapshot for validation layers build
-
-* Sat Aug 03 2019 Dave Airlie <airlied@redhat.com> - 7.11.3214-3
-- Latest upstream snapshot for validation layers build
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 7.11.3214-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 10 01:27:27 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 7.11.3214-1
-- Release 7.11.3214
-- Add patch to build against system spirv-tools
-
-* Fri Mar 29 2019 Dave Airlie <airlied@redhat.com> - 3.1-0.13.20190329.gite0d59bb
-- Update for vulkan 1.1.101.0
-
-* Tue Feb 12 2019 Dave Airlie <airlied@redhat.com> - 3.1-0.12.20190212.git05d12a9
-- Update for vulkan 1.1.92.0
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-0.11.20180727.gite99a268
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Aug 07 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.10.20180727.gite99a268
-- Update for vulkan 1.1.82.0
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-0.9.20180416.git3bb4c48
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Apr 23 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.8.20180416.git3bb4c48
-- Update for vulkan 1.1.73.0
-
-* Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 3.1-0.7.20180205.git2651cca
-- Rebuild to fix GCC 8 mis-compilation
-  See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
-
-* Fri Feb 09 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.6.20180205.git2651cca
-- Update for vulkan 1.0.68.0
-
-* Fri Feb 09 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.5.20171028.git715c353
-- Use ninja to build
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-0.4.20171028.git715c353
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Jan 03 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.3.20171028.git715c353
-- Exclude s390x and ppc64 from check section
-
-* Wed Jan 03 2018 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.2.20171028.git715c353
-- Add check section to run tests
-- Split binaries into main package
-
-* Thu Jul 13 2017 Leigh Scott <leigh123linux@googlemail.com> - 3.1-0.1.20171028.git715c353
-- First build
+%autochangelog

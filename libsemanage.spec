@@ -5,7 +5,7 @@ Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.4
 Release: 5%{?dist}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/libsemanage-3.4.tar.gz
 # fedora-selinux/selinux: git format-patch -N 3.4 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done

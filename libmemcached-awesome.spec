@@ -13,19 +13,20 @@
 
 %global libname              libmemcached
 
-%global gh_commit            03c0a641f8dbd5cc8a0d9ac62f7e8e2b00f45159
+%global gh_commit            6e713c39031ff312164cc3ff12f943f8e8e01885
 %global gh_short             %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner             awesomized
 %global gh_project           libmemcached
 
-%global upstream_version     1.1.2
+%global upstream_version     1.1.3
 #global upstream_prever      beta3
 
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:   1%{?dist}
-License:   BSD
+# SPDX:
+License:   BSD-3-Clause
 URL:       https://github.com/%{gh_owner}/%{gh_project}
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
@@ -183,6 +184,9 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 
 
 %changelog
+* Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 1.1.3-1
+- update to 1.1.3
+
 * Wed Aug 10 2022 Remi Collet <remi@remirepo.net> - 1.1.2-1
 - update to 1.1.2
 

@@ -1,6 +1,6 @@
 Name:           nss_wrapper
-Version:        1.1.12
-Release:        2%{?dist}
+Version:        1.1.13
+Release:        1%{?dist}
 
 License:        BSD
 Summary:        A wrapper for the user, group and hosts NSS API
@@ -84,6 +84,10 @@ sed -i '1 s|/usr/bin/env\ perl|/usr/bin/perl|' %{buildroot}%{_bindir}/nss_wrappe
 %{_libdir}/libnss_wrapper.so*
 
 %changelog
+* Wed Nov 09 2022 Andreas Schneider <asn@redhat.com> - 1.1.13-1
+- Update to version 1.1.13
+  https://gitlab.com/cwrap/nss_wrapper/-/blob/nss_wrapper-1.1.13/CHANGELOG
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

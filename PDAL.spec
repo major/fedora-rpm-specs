@@ -9,12 +9,12 @@ Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
 Version:	2.4.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
 # - plugins/e57/libE57Format/{src,include}/* is Boost
-License:	BSD and ASL 2.0 and MIT and Boost
+License:	BSD-3-Clause AND Apache-2.0 AND MIT AND BSL-1.0
 URL:		https://www.pdal.io
 Source:		https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}-src.tar.gz
 # commented out due to size (320 MB larger)
@@ -246,6 +246,9 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Wed Nov 09 2022 Markus Neteler <neteler@mundialis.de> 2.4.3-2
+- SPDX license tag update
+
 * Sat Aug 06 2022 Sandro Mani <manisandro@gmail.com> - 2.4.3-1
 - Update to 2.4.3
 

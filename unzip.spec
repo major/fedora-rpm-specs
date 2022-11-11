@@ -71,6 +71,7 @@ Patch30: unzip-zipbomb-part4.patch
 Patch31: unzip-zipbomb-part5.patch
 Patch32: unzip-zipbomb-part6.patch
 Patch33: unzip-zipbomb-switch.patch
+Patch34: unzip-gnu89-build.patch
 
 URL: http://infozip.sourceforge.net
 BuildRequires: make
@@ -123,6 +124,7 @@ a zip archive.
 %patch31 -p1
 %patch32 -p1
 %patch33 -p1
+%patch34 -p1
 
 %build
 # IZ_HAVE_UXUIDGID is needed for right functionality of unzip -X
@@ -141,6 +143,10 @@ make -f unix/Makefile prefix=$RPM_BUILD_ROOT%{_prefix} MANDIR=$RPM_BUILD_ROOT%{_
 %{_mandir}/*/*
 
 %changelog
+* Wed Nov 09 2022 Jakub Martisko <jamartis@redhat.com> - 6.0-59
+- Rebuild with the -std=gnu89 flag
+Resolves: rhbz#1750694
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -10,13 +10,13 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        2.0.8
+Version:        22.10.26
 # The .so version is explicitly constructed from project version—search
 # CMakeLists.txt for FlatBuffers_Library_SONAME_MAJOR and
 # FlatBuffers_Library_SONAME_FULL—but we manually repeat the SOVERSION here,
 # and use the macro in the file lists, as a reminder to avoid undetected .so
 # version bumps.
-%global so_version 2
+%global so_version 22
 Release:        %autorelease
 Summary:        Memory efficient serialization library
 
@@ -29,6 +29,13 @@ URL:            https://google.github.io/flatbuffers
 Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
+
+# Fix help output for --gen-includes
+# https://github.com/google/flatbuffers/pull/7611
+Patch:          https://github.com/google/flatbuffers/pull/7611.patch
+# Fix missing spaces in flatc help text
+# https://github.com/google/flatbuffers/pull/7612
+Patch:          https://github.com/google/flatbuffers/pull/7612.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -50,10 +57,12 @@ BuildRequires:  python3-devel
 #   generator.
 #
 # It’s not clearly documented which GPRC version is excerpted, but see
-# https://github.com/google/flatbuffers/pull/4305 for more details.
+# https://github.com/google/flatbuffers/pull/4305 for more details. We use
+# _GRPC_VERSION from the WORKSPACE file as the bundled GRPC version, but we are
+# not 100% certain that this is entirely correct.
 #
 # It is not possible to unbundle this because private/internal APIs are used.
-Provides:       bundled(grpc)
+Provides:       bundled(grpc) = 1.49.0
 
 %global common_description %{expand:
 FlatBuffers is a cross platform serialization library architected for maximum
@@ -120,7 +129,7 @@ serialization format.
 
 
 %prep
-%autosetup
+%autosetup -p1
 # Remove unused directories that contain pre-compiled .jar files:
 rm -rvf android/ kotlin/
 

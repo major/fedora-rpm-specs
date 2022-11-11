@@ -7,7 +7,7 @@
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        4.11.0
+Version:        4.11.1
 Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
@@ -120,6 +120,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 4.11.1-1
+- Version 4.11.1
+
 * Sun Nov  6 2022 Jerry James <loganjerry@gmail.com> - 4.11.0-1
 - Version 4.11.0
 

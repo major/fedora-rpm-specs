@@ -1,6 +1,6 @@
 Name:       iso-codes
 Summary:    ISO code lists and translations
-Version:    4.11.0
+Version:    4.12.0
 Release:    1%{?dist}
 License:    LGPLv2+
 URL:        https://salsa.debian.org/iso-codes-team/iso-codes
@@ -50,6 +50,9 @@ when building programs that use %{name}.
 %{_datadir}/pkgconfig/iso-codes.pc
 
 %changelog
+* Thu Nov 10 2022 Parag Nemade <pnemade AT redhat DOT com> - 4.12.0-1
+- Update to 4.12.0 version (#2140456)
+
 * Mon Jul 25 2022 Parag Nemade <pnemade AT redhat DOT com> - 4.11.0-1
 - Update to 4.11.0 version (#2110786)
 

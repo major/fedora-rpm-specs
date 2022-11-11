@@ -21,8 +21,8 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.0.0
-Release: 2%{?dist}
+Version: 3.0.2
+Release: 1%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Nov 07 2022 Christian Krause <chkr@fedoraproject.org> - 3.0.2-1
+- Update to 3.0.2 (#2140564)
+
 * Sat Oct 22 2022 Christian Krause <chkr@fedoraproject.org> - 3.0.0-2
 - Added a missing runtime dependency
 

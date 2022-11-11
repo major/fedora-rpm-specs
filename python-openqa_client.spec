@@ -6,7 +6,7 @@ openQA web API, using the requests HTTP request library.
 
 %global github_owner    os-autoinst
 %global github_name     openQA-python-client
-%global github_version  4.2.0
+%global github_version  4.2.1
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
 #global github_commit   080d03858b7b12f144770af8ceb938fe6c7dbb11
 #global github_date     20170130
@@ -62,6 +62,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 
 
 %changelog
+* Wed Nov 09 2022 Adam Williamson <awilliam@redhat.com> - 4.2.1-1
+- New release 4.2.1
+
 * Tue Sep 13 2022 Adam Williamson <awilliam@redhat.com> - 4.2.0-1
 - New release 4.2.0
 

@@ -15,14 +15,14 @@
 %global with_zts    0%{?__ztsphp:1}
 %global ini_name    40-%{pecl_name}.ini
 
-%global upstream_version 3.0.7
+%global upstream_version 3.0.8
 #global upstream_prever  RC3
 #global upstream_postver r1
 
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       3%{?dist}
+Release:       1%{?dist}
 License:       PHP
 URL:           https://pecl.php.net/package/event
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver}.tgz
@@ -147,13 +147,13 @@ fi
 : Minimal load test for NTS extension
 %{__php} --no-php-ini $OPTS  \
     --define extension=NTS/modules/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 %if %{with_zts}
 : Minimal load test for ZTS extension
 %{__ztsphp} --no-php-ini $OPTS  \
     --define extension=ZTS/modules/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 %endif
 
 %if %{with_tests}
@@ -162,9 +162,7 @@ cd NTS
 SKIP_ONLINE_TESTS=1 \
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff
+%{__php} -n run-tests.php -q --show-diff
 
 %if %{with_zts}
 cd ../ZTS
@@ -172,9 +170,7 @@ cd ../ZTS
 SKIP_ONLINE_TESTS=1 \
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff
+%{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 %endif
 
@@ -194,6 +190,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 3.0.8-1
+- update to 3.0.8
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 3.0.7-3
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

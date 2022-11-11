@@ -1,12 +1,11 @@
 Name: liburing
-Version: 2.2
+Version: 2.3
 Release: 1%{?dist}
 Summary: Linux-native io_uring I/O access library
 License: (GPLv2 with exceptions and LGPLv2+) or MIT
 Source0: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz
 Source1: https://brick.kernel.dk/snaps/%{name}-%{version}.tar.gz.asc
 URL: https://git.kernel.dk/cgit/liburing/
-Patch1: 0001-test-io_uring_register-kill-old-memfd-test.patch
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -51,6 +50,9 @@ for the Linux-native io_uring.
 %{_mandir}/man7/*
 
 %changelog
+* Wed Nov 9 2022 Stefan Hajnoczi <stefanha@redhat.com> - 2.3-1
+- Update to liburing 2.3.
+
 * Mon Aug 22 2022 Richard W.M. Jones <rjones@redhat.com> - 2.2-1
 - Update to liburing 2.2.
 

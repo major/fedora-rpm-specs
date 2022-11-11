@@ -92,6 +92,7 @@ ExclusiveArch:  %{rust_arches}
 ExcludeArch:    armv7hl
 
 BuildRequires:  clang
+BuildRequires:  llvm
 BuildRequires:  make
 BuildRequires:  rust-packaging >= 21
 # libbpf deps

@@ -12,7 +12,7 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 75d4c1de9673da2ae3df3904fae960d8ae534a00
+%global abi 399fa7ed46d68f4c4f42a8fd2748339750d99a8b
 %global vrt 16.0
 
 # Package scripts are now external
@@ -22,7 +22,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 7.2.0
+Version: 7.2.1
 Release: 1%{?dist}
 License: BSD
 URL: https://www.varnish-cache.org/
@@ -266,6 +266,10 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Wed Nov 09 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.2.1-1
+- New upstream release: A security release
+- Includes fix for VSV00011
+
 * Fri Sep 16 2022 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.2.0-1
 - New upstream release. The regular bi-annual "fresh" release
 - Removed list of patches from comments

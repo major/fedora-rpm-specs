@@ -3,7 +3,7 @@
 #
 # remirepo spec file for php-pecl-dio
 #
-# Copyright (c) 2013-2021 Remi Collet
+# Copyright (c) 2013-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -19,8 +19,8 @@
 
 Summary:        Direct I/O functions
 Name:           php-pecl-%{pecl_name}
-Version:        0.2.0
-Release:        9%{?dist}
+Version:        0.2.1
+Release:        1%{?dist}
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
@@ -133,9 +133,7 @@ cd NTS
 : Upstream test suite for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff
+%{__php} -n run-tests.php -q --show-diff
 
 
 %if %{with_zts}
@@ -148,9 +146,7 @@ cd ../ZTS
 : Upstream test suite for ZTS extension
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff
+%{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 
 
@@ -168,6 +164,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Nov  9 2022 Remi Collet <remi@fedoraproject.org> - 0.2.1-1
+- update to 0.2.1
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.2.0-9
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

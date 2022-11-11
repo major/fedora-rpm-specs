@@ -2,7 +2,7 @@ Summary: SELinux Translation Daemon
 Name: mcstrans
 Version: 3.4
 Release: 3%{?dist}
-License: GPL+
+License: GPL-2.0-or-later
 Url: https://github.com/SELinuxProject/selinux/wiki
 Source: https://github.com/SELinuxProject/selinux/releases/download/3.4/mcstrans-3.4.tar.gz
 Source2: secolor.conf.8

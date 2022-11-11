@@ -1,5 +1,5 @@
 Name:           libspiro
-Version:        20220722
+Version:        20221101
 Release:        1%{?dist}
 Summary:        Library to simplify the drawing of beautiful curves
 
@@ -51,6 +51,9 @@ make check
 %{_mandir}/man3/libspiro.3.gz
 
 %changelog
+* Thu Nov 10 2022 Parag Nemade <pnemade AT redhat DOT com> - 20221101-1
+- Update to 20221101 version (#2139603)
+
 * Sun Jul 24 2022 Parag Nemade <pnemade AT redhat DOT com> - 20220722-1
 - Update to 20220722 version (#2110088)
 

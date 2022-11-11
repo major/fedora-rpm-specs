@@ -1,8 +1,8 @@
-%global sdkver 1.3.224.0
+%global sdkver 1.3.231.1
 
 Name:           spirv-headers
 Version:        1.5.5
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Header files from the SPIR-V registry
 
 License:        MIT
@@ -52,105 +52,4 @@ mv include/* %buildroot%{_includedir}/
 %{_includedir}/spirv/
 
 %changelog
-* Wed Aug 24 2022 Dave Airlie <airlied@redhat.com> - 1.5.5-5
-- Update to spirv headers for 1.3.224 sdk
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Dave Airlie <airlied@redhat.com> - 1.5.5-3
-- Update to spirv headers for 1.3.216 sdk
-
-* Wed Apr 27 2022 Dave Airlie <airlied@redhat.com> - 1.5.5-2.20220316.git4995a2f
-- Update to spirv headers for 1.3.211 sdk
-
-* Wed Feb 16 2022 Dave Airlie <airlied@redhat.com> - 1.5.5-1.20220117.gitb42ba6d
-- Update to spirv headers for 1.3.204 sdk
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-9.20211110.git814e728
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 07 2021 Dave Airlie <airlied@redhat.com> - 1.5.4-8.20211110.git814e728
-- Update to spirv headers for 1.2.198 sdk
-
-* Tue Sep 07 2021 Dave Airlie <airlied@redhat.com> - 1.5.4-7.20210728.git449bc98
-- Update to spirv headers for 1.2.189 sdk
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-6.20210617.git07f259e
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 07 2021 Dave Airlie <airlied@redhat.com> - 1.5.4-5.20210617.git07f259
-- Update to spirv headers for 1.2.182 sdk
-
-* Tue May 18 2021 Dave Airlie <airlied@redhat.com> - 1.5.4-4.20210415.gitdafead1
-- Update to spirv headers for 1.2.176 sdk
-
-* Thu Jan 28 2021 Dave Airlie <airlied@redhat.com> - 1.5.4-3.20201128.gitf027d53
-- Update to spirv headers for 1.2.162 sdk
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2.20201024.git7845730
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Nov 02 2020 Dave Airlie <airlied@redhat.com> - 1.5.4-1
-- Update to latest spirv headers
-
-* Tue Aug 04 2020 Dave Airlie <airlied@redhat.com> - 1.5.1-5.20200803.git3fdabd0
-- Update to latest spirv headers
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4.20200414.git2ad0492
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Apr 22 2020 Dave Airlie <airlied@redhat.com> - 1.5.1-3
-- Update to latest spirv headers
-
-* Wed Jan 29 2020 Dave Airlie <airlied@redhat.com> - 1.5.1-2
-- Update to latest spirv headers
-
-* Tue Nov 12 2019 Dave Airlie <airlied@redhat.com> - 1.5.1-1
-- Latest git snapshot building vulkan
-
-* Thu Aug 01 2019 Dave Airlie <airlied@redhat.com> - 1.4.2-0.1
-- Latest git snapshot for building vulkan.
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Jun 10 03:08:22 CEST 2019 Robert-André Mauchin <zebob.m@gmail.com> - 1.4.1-1
-- Release 1.4.1
-
-* Thu Mar 07 2019 Dave Airlie <airlied@redhat.com> - 1.2-0.12.20190307.git03a0815
-- Update to latest version
-
-* Mon Feb 04 2019 Dave Airlie <airlied@redhat.com> - 1.2-0.11.20190125.git8bea0a2
-- Update to latest version
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.10.20180703.gitff684ff
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Oct 20 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.9.20180703.gitff684ff
-- Revert last commit
-
-* Sat Oct 20 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.8.20180919.gitd5b2e12
-- Update for SPIRV-Tools-2018.5
-
-* Mon Jul 23 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.7.20180703.gitff684ff
-- Update for SPIRV-Tools-2018.4
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.6.20180405.git12f8de9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Apr 24 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.5.20180405.git12f8de9
-- Update for vulkan 1.0.73.0
-
-* Fri Feb 09 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.4.20180201.gitce30920
-- Update for vulkan 1.0.68.0
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.3.20171015.git0610978
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Jan 22 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.2.20171015.git0610978
-- fix rpmlint error
-
-* Thu Jul 13 2017 Leigh Scott <leigh123linux@googlemail.com> - 1.2-0.1.20171015.git0610978
-- First build
-
+%autochangelog

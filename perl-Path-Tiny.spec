@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Path-Tiny
-Version:	0.130
+Version:	0.142
 Release:	1%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
@@ -123,6 +123,40 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Wed Nov  9 2022 Paul Howarth <paul@city-fan.org> - 0.142-1
+- Update to 0.142
+  Deprecations
+  - Tilde expansion is deprecated due to inconsistent and bug-prone behavior
+  Bug fixes
+  - Prevent expansion of tildes that are not the very first character (e.g.
+    "./~foo")
+  - Prevent unintentional tilde expansion during internal path processing
+  - Escape non-tilde glob characters before tilde expansion
+  - Fixed spew/edit to a long filename approaching the filesystem length limit
+  - Internal calls to 'print' are checked for possible errors
+  - Internal read calls are checked for errors
+  Changes
+  - Path stringification now adds "./" in front of paths starting with literal
+    tilde so they will round-trip; FREEZE updated to use this stringification
+    rule as well
+  - 'move' now uses File::Copy::move internally instead of the built-in
+    'rename', allowing it to work across filesystems; it also returns an object
+    for the moved location, allowing chaining
+  - edit_lines_raw now uses a buffered raw I/O layer
+  - edit_lines_utf8 now prefers PerlIO::utf8_strict, if available
+  - lines_utf8 now consistently uses a buffered I/O layer
+  - open*_utf8 now prefers PerlIO::utf8_strict, if available
+  - slurp_utf8 now consistently uses an unbuffered I/O layer
+  Documented
+  - Changed all raw/UTF-8 layer descriptions in method documentation to match
+    the code
+  - Fixed SYNOPSIS syntax
+  - Documented how to disable TMPDIR when making temp files/dirs
+  Testing
+  - Add additional tilde stringification testing
+  - Fixed tilde expansion tests on Windows
+  - Skip a problematic test case on Cygwin
+
 * Thu Oct 20 2022 Paul Howarth <paul@city-fan.org> - 0.130-1
 - Update to 0.130
   - The 'mkdir' method no longer fails when applied to an existing directory

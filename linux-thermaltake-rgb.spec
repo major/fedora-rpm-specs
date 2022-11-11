@@ -51,7 +51,7 @@ sed -i 's/PROJECTVERSION/%{version}/g' setup.py
 # yaml.load(cfg) does not work due to it being deprecated, It has been fixed
 # here.
 # https://github.com/chestm007/linux_thermaltake_riing/pull/53
-sed -i 's/return yaml.load(cfg)/return yaml.load(cfg, Loader=yaml.FullLoader)/' \
+sed -i 's/yaml.load(cfg)/yaml.load(cfg, Loader=yaml.FullLoader)/' \
     %{pypi_name}/daemon/config.py
 
 # fix wrong package requirement for GObject

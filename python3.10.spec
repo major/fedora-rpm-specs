@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -321,6 +321,26 @@ Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
+
+# 00391 # e6d12d8fca6afad3a56dc076c220f213b723a28e
+# Don't use Linux abstract sockets for multiprocessing
+#
+# Linux abstract sockets are insecure as they lack any form of filesystem
+# permissions so their use allows anyone on the system to inject code into
+# the process.
+#
+# This removes the default preference for abstract sockets in
+# multiprocessing introduced in Python 3.9+ via
+# https://github.com/python/cpython/pull/18866 while fixing
+# https://github.com/python/cpython/issues/84031.
+#
+# Explicit use of an abstract socket by a user now generates a
+# RuntimeWarning.  If we choose to keep this warning, it should be
+# backported to the 3.7 and 3.8 branches.
+#
+#
+# Automerge-Triggered-By: GH:gpshead
+Patch391: 00391-don-t-use-linux-abstract-sockets-for-multiprocessing.patch
 
 # (New patches go here ^^^)
 #
@@ -1579,6 +1599,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Nov 09 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.8-2
+- Fix CVE-2022-42919
+Resolves: rhbz#2138709
+
 * Wed Oct 12 2022 Miro Hrončok <mhroncok@redhat.com> - 3.10.8-1
 - Update to 3.10.8
 

@@ -1,8 +1,8 @@
 %global srcname nagiosplugin
 
 Name:           python-%{srcname}
-Version:        1.3.2
-Release:        5%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 License:        ZPLv2.1
 Summary:        Library for writing Nagios (Icinga) plugins
 
@@ -57,6 +57,9 @@ Summary:        %{summary}
 %{python3_sitelib}/nagiosplugin/
 
 %changelog
+* Wed Nov 09 2022 Simone Caronni <negativo17@gmail.com> - 1.3.3-1
+- Update to 1.3.3.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -53,11 +53,14 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.6
-Release:   1%{?dist}
+Version:   1.8.7
+Release:   2%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
+
+Patch1:    0001-trivial-Fix-the-tests-on-s390x.patch
+Patch2:    0001-trivial-Fix-lvfs-testing-remote-file.patch
 
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -428,6 +431,22 @@ done
 %endif
 
 %changelog
+* Wed Nov 09 2022 Richard Hughes <richard@hughsie.com> 1.8.7-2
+- Fix the lvfs-testing remote
+
+* Wed Nov 09 2022 Richard Hughes <richard@hughsie.com> 1.8.7-1
+- New upstream release
+- Add a new HSI check for the leaked Lenovo 'Key Manifest' hashes
+- Allow parsing metadata more than 1MB in size
+- Do not follow symlinks when searching for ESP devices
+- Fix a regression when using fwuptool install-blob with FMAP firmware
+- Measure system integrity when installing UEFI updates
+- Only count the Microsoft hashes when getting the dbx version
+- Only use the IFD when the system is Intel-based
+- Record more host DMI data when submitting a report for dbx failures
+- Support loading CoSWID when only one role has been set
+- Use xz-compressed metadata to reduce bandwidth used by ~25%
+
 * Fri Oct 07 2022 Richard Hughes <richard@hughsie.com> 1.8.6-1
 - New upstream release
 - Allow disabling a DFU device when required

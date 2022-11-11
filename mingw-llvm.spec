@@ -11,8 +11,7 @@
 
 %global pkgname llvm
 %global ffi_ver 3.4.2
-%global libver 14
-#global native_llvm_suffix 6.0
+%global libver 15
 
 Name:          mingw-%{pkgname}
 Version:       15.0.4
@@ -22,6 +21,7 @@ Summary:       LLVM for MinGW
 License:       NCSA
 URL:           http://llvm.org
 Source0:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/llvm-%{version}.src.tar.xz
+Source1:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/cmake-%{version}.src.tar.xz
 # Set LLVM_INCLUDE_BENCHMARKS=OFF by default
 Patch0:        llvm-no-benchmarks.patch
 
@@ -97,6 +97,10 @@ LLVM for MinGW Windows - Runtime tools.
 
 
 %prep
+# Setup cmake support files
+%setup -T -q -b 1 -n cmake-%{version}.src
+mv ../cmake-%{version}.src ../cmake
+# Setup llvm itself
 %autosetup -p1 -n %{pkgname}-%{version}.src
 
 

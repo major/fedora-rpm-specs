@@ -1,52 +1,47 @@
 Name:		fvwm
-Version:	2.6.9
-Release:	8%{?dist}
+Version:	2.7.0
+Release:	1%{?dist}
 Summary:	Highly configurable multiple virtual desktop window manager
-
 License:	GPLv2+
-URL:		http://www.fvwm.org/
+URL:		https://www.fvwm.org/
 Source0:	https://github.com/fvwmorg/fvwm/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
-
 Patch1:		fvwm-0001-Change-html-viewer-to-xdg-open.patch
 Patch2:		fvwm-0002-Use-mimeopen-instead-of-EDITOR.patch
-# This patch will NEVER be included in the official FVWM and that's why:
-#
-# https://bugs.gentoo.org/show_bug.cgi?id=411811#c7
-# https://github.com/ThomasAdam/fvwm/pull/4#issuecomment-5712410
-#
-# In short - X-servers other than X.org and Xfree86 doesn't support so many
-# mouse buttons so this is a distro-specific patch.
-Patch3:		fvwm-0003-Increase-number-of-mouse-buttons-supported.patch
-# https://github.com/ThomasAdam/fvwm/issues/5
-Patch4:		fvwm-0004-FvwmPager-be-more-careful-with-window-labels.patch
-
+# This has to be proposed upstream
+Patch3:		fvwm-0003-FvwmPager-be-more-careful-with-window-labels.patch
 # Fedora-specific
-Patch5:		fvwm-0005-Skip-install-data-hook-for-default-configs.patch
-
-BuildRequires:  gcc
+Patch4:		fvwm-0004-Skip-install-data-hook-for-default-configs.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext libX11-devel libXt-devel libXext-devel libXinerama-devel libXpm-devel
-BuildRequires:	libXft-devel libXrender-devel
-BuildRequires:	libstroke-devel perl-generators readline-devel libpng-devel fribidi-devel
-BuildRequires:	librsvg2-devel
-BuildRequires:	libxslt
+BuildRequires:	fribidi-devel
+BuildRequires:	gcc
+BuildRequires:	gettext
+BuildRequires:	libX11-devel
 BuildRequires:	libXcursor-devel
-BuildRequires: make
-Requires:	xterm %{_bindir}/mimeopen
-
+BuildRequires:	libXext-devel
+BuildRequires:	libXft-devel
+BuildRequires:	libXinerama-devel
+BuildRequires:	libXpm-devel
+BuildRequires:	libXrender-devel
+BuildRequires:	libXt-devel
+BuildRequires:	libpng-devel
+BuildRequires:	librsvg2-devel
+BuildRequires:	libstroke-devel
+BuildRequires:	libxslt
+BuildRequires:	make
+BuildRequires:	perl-generators
+BuildRequires:	readline-devel
+Requires:	xterm
+Requires:	%{_bindir}/mimeopen
 # for fvwm-bug
 Requires:	%{_sbindir}/sendmail
-
 # for fvwm-menu-headlines
 Requires:	xdg-utils
-
 # for fvwm-menu-xlock
 Requires:	xlockmore
-
 # for fvwm-menu-desktop
-Requires: python3-pyxdg
+Requires:	python3-pyxdg
 
 %description
 Fvwm is a window manager for X11. It is designed to
@@ -86,6 +81,9 @@ install -D -m0644 -p %{SOURCE1} \
 
 
 %changelog
+* Wed Nov  9 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.7.0-1
+- Ver. 2.7.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

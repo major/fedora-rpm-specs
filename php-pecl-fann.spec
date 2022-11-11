@@ -16,17 +16,15 @@
 %global ini_name   40-%{pecl_name}.ini
 
 %global upstream_version 1.2.0
-%global upstream_prever  RC1
+%global upstream_prever  RC2
 
 Summary:        Wrapper for FANN Library
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
-
-Patch0:         %{pecl_name}-php81.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -61,8 +59,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd NTS
-%patch0 -p1
-
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_FANN_VERSION/{s/.* "//;s/".*$//;p}' php_fann.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -131,9 +127,7 @@ cd NTS
 : Upstream test suite  for NTS extension
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__php} -n run-tests.php --show-diff
+%{__php} -n run-tests.php -q --show-diff
 %endif
 
 %if %{with_zts}
@@ -147,9 +141,7 @@ cd ../ZTS
 : Upstream test suite  for ZTS extension
 TEST_PHP_EXECUTABLE=%{_bindir}/zts-php \
 TEST_PHP_ARGS="-n -d extension=$PWD/modules/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{_bindir}/zts-php -n run-tests.php --show-diff
+%{_bindir}/zts-php -n run-tests.php -q --show-diff
 %endif
 %endif
 
@@ -169,6 +161,10 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 1.2.0~RC2-1
+- update to 1.2.0RC2
+- drop patches merged upstream
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.2.0~RC1-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

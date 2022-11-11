@@ -63,12 +63,12 @@
 %global major_version 3
 %global minor_version 25
 # Set to RC version if building RC, else %%{nil}
-%global rcsuf rc3
+%global rcsuf rc4
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 0.5
+%global baserelease 0.6
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -525,6 +525,10 @@ popd
 
 
 %changelog
+* Wed Nov 09 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.6.rc4
+- cmake-3.25.0-rc4
+  Fixes rhbz#2141122
+
 * Wed Nov 02 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-0.5.rc3
 - Re-enable BundleUtilities, CMakeLib.testCTestResourceAllocator,
   CMakeLib.testCTestResourceSpec, CTest.UpdateGIT, ExternalProject

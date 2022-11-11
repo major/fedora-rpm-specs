@@ -1,5 +1,5 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.044
+Version:        0.045
 Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
@@ -23,7 +23,10 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(List::Util) >= 1.54
 # N/A in Fedora: BuildRequires:  perl(MooseX::Extended)
+BuildRequires:  perl(Moose::Role)
+BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(Object::Pad)
+BuildRequires:  perl(Object::Pad::MetaFunctions)
 BuildRequires:  perl(Role::Tiny)
 BuildRequires:  perl(Role::Hooks) >= 0.008
 BuildRequires:  perl(Sub::Util)
@@ -32,6 +35,7 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Type::Params) >= 1.004000
 BuildRequires:  perl(Types::Standard)
+BuildRequires:  perl(mro)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
@@ -73,6 +77,9 @@ you should have a fairly good idea what this does.
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 09 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.045-1
+- Update to 0.045.
+
 * Tue Nov 01 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.044-1
 - Update to 0.044.
 

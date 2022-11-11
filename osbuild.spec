@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        70
+Version:        71
 
 %forgemeta
 
@@ -251,6 +251,26 @@ fi
 
 
 %changelog
+* Wed Nov 09 2022 Packit <hello@packit.dev> - 71-1
+Changes with 71
+----------------
+  * Extend firewall stage to add sources (continues from PR #1137) (#1157)
+  * Update snapshots to 20221025 (#1159)
+  * Update snapshots to 20221028 (#1161)
+  * ci(lint): add shell linter - Differential ShellCheck (#1147)
+  * ci: update to containers/privdocker@552e30c (#1166)
+  * ci: upgrade to actions/checkout@v3 (#1165)
+  * osbuild-dev: a new tool to help with manifests (#1152)
+  * osbuild-mpp: recognize manifest without mediaType and with manifests fields as a list (#1168)
+  * stages/ostree.preptree: link to rpm-ostree code (#1151)
+  * stages: add new cpio.out stage (#1164)
+
+Contributions from: Antonio Murdaca, Christian Kellner, Colin Walters, David Rheinsberg, Irene Diez, Jan Macku, Simon de Vlieger, Ygal Blum, schutzbot
+
+— Somewhere on the Internet, 2022-11-09
+
+
+
 * Wed Oct 26 2022 Packit <hello@packit.dev> - 70-1
 Changes with 70
 ----------------
@@ -264,10 +284,10 @@ Changes with 70
   * stages/rpm: make the fake machine-id newline-terminated (#1150)
   * stages: add systemd-journald stage (#1143)
   * test: add README.md on how to make tests for stages (#1149)
-
 Contributions from: Christian Kellner, Irene Diez, Jakub Rusz, Jan Macku, Ondřej Budai, Sanne Raymaekers, SchutzBot
-
 — Somewhere on the Internet, 2022-10-26
+
+
 
 
 

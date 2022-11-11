@@ -1,14 +1,14 @@
 Name:           perl-Module-Package
 Version:        0.30
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Postmodern Perl Module Packaging
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Package
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Module-Package-%{version}.tar.gz
 # Fix building on Perl without "." in @INC, CPAN RT#121748
 Patch0:         Module-Package-0.30-Fix-building-on-Perl-without-.-in-INC.patch
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Run-time:
@@ -50,11 +50,17 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 make test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 09 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.30-31
+- Fix whitespace
+- Update license to SPDX format
+- Use %license macro
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

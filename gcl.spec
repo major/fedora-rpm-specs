@@ -17,14 +17,36 @@
 %global _lto_cflags %{nil}
 
 # Upstream prerelease number
-%global prerel 119
+%global prerel 126
 
 Name:           gcl
 Version:        2.6.13
 Release:        0.%{prerel}%{?dist}
 Summary:        GNU Common Lisp
 
-License:        GPL+ and LGPLv2+
+# LGPL-2.0-or-later:
+# - cmpnew
+# - gcl-tk/guis.c
+# - gcl-tk/tkinfo.lsp
+# - gcl-tk/tkl.lsp
+# - gmp4 (not used)
+# - h
+# - lsp (except as noted below)
+# - o (except as noted below)
+# GPL-1.0-or-later:
+# - o/firstfile.c
+# - o/lastfile.c
+# - o/ntheap.h (not used on Linux)
+# - o/unexec*
+# - xgcl-2
+# MIT-Modern-Variant:
+# - gcl-tk/tkAppInit.c
+# - gcl-tk/tkMain.c
+# - gcl-tk/tkXAppInit.c
+# - gcl-tk/tkXshell.c
+# HPND (see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/93)
+# - lsp/gcl_loop.lsp
+License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND HPND
 URL:            https://www.gnu.org/software/gcl/
 Source0:        ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-2.6.12.tar.gz
 Source1:        gcl.el
@@ -168,6 +190,10 @@ Patch132:       Version_2.6.13pre113.patch
 Patch133:       Version_2.6.13pre114.patch
 Patch134:       Version_2_6_13pre119.patch
 Patch135:       Version_2_6_13pre120.patch
+Patch136:       Version_2.6.13pre121.patch
+Patch137:       Version_2_6_13pre124.patch
+Patch138:       Version_2_6_13pre125.patch
+Patch139:       Version_2_6_13pre126.patch
 
 ### Fedora patches
 
@@ -241,6 +267,7 @@ easy portability.  The GUI currently uses TCL/Tk.
 
 
 %package emacs
+License:        GPL-1.0-or-later
 Summary:        Emacs mode for interacting with GCL
 Requires:       %{name} = %{version}-%{release}
 Requires:       emacs(bin) %{?_emacs_version:>= %{_emacs_version}}
@@ -288,8 +315,8 @@ make -C info gcl.info
 
 # dwdoc needs two extra LaTeX runs to resolve references
 cd xgcl-2
-pdflatex dwdoc.tex
-pdflatex dwdoc.tex
+pdflatex -interaction=batchmode dwdoc.tex
+pdflatex -interaction=batchmode dwdoc.tex
 cd -
 
 
@@ -354,6 +381,10 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 2.6.13-0.126
+- Update to 2.6.13pre126
+- Convert License tag to SPDX
+
 * Mon Aug  8 2022 Jerry James <loganjerry@gmail.com> - 2.6.13-0.119
 - Update to 2.6.13pre119
 

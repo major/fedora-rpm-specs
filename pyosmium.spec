@@ -2,11 +2,11 @@
 %global pybind_version 2.9.2
 
 Name:           pyosmium
-Version:        3.4.1
+Version:        3.5.0
 Release:        1%{?dist}
 Summary:        Python bindings for libosmium
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://osmcode.org/pyosmium/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Disable stripping
@@ -66,6 +66,9 @@ make -C doc html SPHINXBUILD=sphinx-build-3
 
 
 %changelog
+* Wed Nov  9 2022 Tom Hughes <tom@compton.nu> - 3.5.0-1
+- Update to 3.5.0 upstream release
+
 * Fri Jul 29 2022 Tom Hughes <tom@compton.nu> - 3.4.1-1
 - Update to 3.4.1 upstream release
 

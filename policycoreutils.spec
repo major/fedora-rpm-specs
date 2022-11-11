@@ -12,7 +12,7 @@ Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.4
 Release: 6%{?dist}
-License: GPLv2
+License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/selinux-3.4.tar.gz
 URL:     https://github.com/SELinuxProject/selinux

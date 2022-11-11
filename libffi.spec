@@ -3,18 +3,15 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.4.2
-Release:	9%{?dist}
+Version:	3.4.4
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library
 License:	MIT
 URL:		http://sourceware.org/libffi
 
-Source0:	https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz
+Source0:	https://github.com/libffi/libffi/releases/download/v3.4.4/libffi-3.4.4.tar.gz
 Source1:	ffi-multilib.h
 Source2:	ffitarget-multilib.h
-
-# https://github.com/libffi/libffi/pull/689
-Patch0:		libffi-3.4.2-ppc.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -106,7 +103,7 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %license LICENSE
 %doc README.md
 %{_libdir}/libffi.so.8
-%{_libdir}/libffi.so.8.1.0
+%{_libdir}/libffi.so.8.1.2
 
 %files devel
 %{_libdir}/pkgconfig/*.pc
@@ -116,6 +113,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Fri Oct 28 2022 DJ Delorie <dj@redhat.com> - 3.4.4-1
+- Rebase to libffi 3.4.4.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

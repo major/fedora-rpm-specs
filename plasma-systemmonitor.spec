@@ -2,7 +2,7 @@
 %global kf5_version_min 5.98
 
 Name:    plasma-systemmonitor
-Version: 5.26.2
+Version: 5.26.3
 Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
@@ -81,6 +81,9 @@ resources.
 %{_kf5_qmldir}/org/kde/ksysguard/
 
 %changelog
+* Wed Nov 09 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.3-1
+- 5.26.3
+
 * Wed Oct 26 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.2-1
 - 5.26.2
 

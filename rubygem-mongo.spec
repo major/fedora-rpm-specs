@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.14.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Ruby driver for MongoDB
 License: ASL 2.0
 URL: https://docs.mongodb.com/ruby-driver/current/
@@ -38,6 +38,12 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+
+# This is borken symlink, which is not created by the recent RubyGems:
+# https://github.com/rubygems/rubygems/issues/5768
+# https://jira.mongodb.org/browse/RUBY-2467
+%gemspec_remove_file -t 'spec/support/ocsp'
+%gemspec_remove_file 'spec/support/ocsp'
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -144,11 +150,11 @@ popd
 %{gem_instdir}/Rakefile
 %{gem_instdir}/mongo.gemspec
 %{gem_instdir}/spec
-# Exclude not referenced symbolic link.
-# https://jira.mongodb.org/browse/RUBY-2467
-%exclude %{gem_instdir}/spec/support/ocsp
 
 %changelog
+* Wed Nov 09 2022 Vít Ondruch <vondruch@redhat.com> - 2.14.0-6
+- Fix FTBFS caused by RubyGems 3.3.20+.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

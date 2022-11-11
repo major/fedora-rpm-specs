@@ -1,9 +1,9 @@
 Name:           python-ZODB
-Version:        5.7.0
-Release:        3%{?dist}
+Version:        5.8.0
+Release:        1%{?dist}
 Summary:        Zope Object Database and persistence
 
-License:        ZPLv2.1
+License:        ZPL-2.1
 URL:            https://www.zodb.org/
 Source0:        %pypi_source ZODB
 BuildArch:      noarch
@@ -91,6 +91,10 @@ rst2html --no-datestamp CHANGES.rst CHANGES.html
 %doc docs/build/html
 
 %changelog
+* Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-1
+- Version 5.8.0
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

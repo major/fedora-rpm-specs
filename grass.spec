@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -24,7 +24,7 @@ Summary:	GRASS GIS - Geographic Resources Analysis Support System
 # hence disabling package-notes plugin
 %undefine _package_note_file
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://grass.osgeo.org
 Source0:	https://grass.osgeo.org/%{name}%{shortver}/source/%{name}-%{version}.tar.gz
 
@@ -373,6 +373,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Wed Nov 09 2022 Markus Neteler <neteler@mundialis.de> 8.2.0-7
+- SPDX license tag update
+
 * Thu Nov 03 2022 Markus Neteler <neteler@mundialis.de> - 8.2.0-6
 - fix RPM ARCH not defined for GRASS GIS addon installation (RHBZ #2138373)
 

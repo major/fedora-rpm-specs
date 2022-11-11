@@ -13,14 +13,14 @@
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 8.1.1
+%global upstream_version 8.1.2
 #global upstream_prever  RC1
 
 Summary:        Get geo location information of an IP address
 Name:           php-pecl-%{pecl_name}
 License:        PHP
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        8%{?dist}
+Release:        1%{?dist}
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -28,7 +28,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-pear
 BuildRequires:  php-devel
-BuildRequires:  IP2Location-devel >= 8.3
+BuildRequires:  IP2Location-devel >= 8.4
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -117,29 +117,25 @@ done
 : simple NTS module load test
 %{_bindir}/php --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : upstream test suite
 cd NTS
 TEST_PHP_EXECUTABLE=%{_bindir}/php \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{_bindir}/php -n run-tests.php --show-diff
+%{_bindir}/php -n run-tests.php -q --show-diff
 
 %if %{with_zts}
 : simple ZTS module load test
 %{__ztsphp} --no-php-ini \
     --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep %{pecl_name}
+    --modules | grep '^%{pecl_name}$'
 
 : upstream test suite
 cd ../ZTS
 TEST_PHP_EXECUTABLE=%{__ztsphp} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-NO_INTERACTION=1 \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php --show-diff
+%{__ztsphp} -n run-tests.php -q --show-diff
 %endif
 
 
@@ -157,6 +153,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 8.1.2-1
+- update to 8.1.2
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 8.1.1-8
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

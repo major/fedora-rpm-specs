@@ -1,7 +1,7 @@
 %global soversion 1
 
 Name:           mopac
-Version:        22.0.4
+Version:        22.0.5
 Release:        1%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        LGPLv3+
@@ -16,7 +16,7 @@ BuildRequires:  cmake
 BuildRequires:  make
 
 # Turn off rpath
-Patch1:         mopac-22.0.1-rpath.patch
+Patch1:         mopac-22.0.5-rpath.patch
 
 # For license file
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -69,6 +69,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/libmopac.so
 
 %changelog
+* Wed Nov 09 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.5-1
+- Update to 22.0.5.
+
 * Thu Jul 28 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.4-1
 - Update to 22.0.4.
 

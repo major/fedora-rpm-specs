@@ -6,8 +6,8 @@
 #global candidate RC0
 
 Name:		tpm2-pkcs11
-Version:	1.7.0
-Release:	4%{?candidate:.%{candidate}}%{?dist}
+Version:	1.8.0
+Release:	1%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD
@@ -27,12 +27,14 @@ BuildRequires:	p11-kit-devel
 BuildRequires:	sqlite-devel
 BuildRequires:	tpm2-tools
 BuildRequires:	tpm2-tss-devel
+BuildRequires:	tpm2-abrmd-devel
 # for tools
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-pyasn1-modules
 BuildRequires:	python3-pyyaml
 BuildRequires:	python3-cryptography
+BuildRequires:	python3-tpm2-pytss
 # for tests
 BuildRequires:	libcmocka-devel
 BuildRequires:	dbus-daemon
@@ -100,6 +102,9 @@ cd tools
 
 
 %changelog
+* Wed Oct 26 2022 Jakub Jelen <jjelen@redhat.com> - 1.8.0-1
+- New upstream release (#2064490)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

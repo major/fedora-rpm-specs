@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-aiosignal
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        List of registered asynchronous callbacks
 
@@ -56,9 +56,12 @@ BuildArch:      noarch
 # documentation packages.
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
+# Patch out coverage options
+sed -r -i 's/--cov[^[:blank:]]*//g' setup.cfg
+
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

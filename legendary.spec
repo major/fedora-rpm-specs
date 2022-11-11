@@ -1,5 +1,5 @@
 Name:           legendary
-Version:        0.20.30
+Version:        0.20.31
 Release:        %autorelease
 Summary:        Free and open-source replacement for the Epic Games Launcher
 BuildArch:      noarch
@@ -8,7 +8,7 @@ License:        GPLv3+
 URL:            https://github.com/derrod/legendary
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  python3-devel >= 3.8
+BuildRequires:  python3-devel >= 3.9
 BuildRequires:  python3-setuptools
 BuildRequires:  python3dist(requests)
 

@@ -17,12 +17,6 @@
 %bcond_without lto
 %endif
 
-%ifarch %{ix86}
-%bcond_with vulkan
-%else
-%bcond_without vulkan
-%endif
-
 %ifarch x86_64
 %bcond_without svtav1
 %bcond_without mfx
@@ -99,7 +93,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -207,6 +201,7 @@ BuildRequires:  pkgconfig(rav1e)
 BuildRequires:  pkgconfig(rubberband)
 BuildRequires:  pkgconfig(schroedinger-1.0)
 BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(shaderc) >= 2019.1
 BuildRequires:  pkgconfig(smbclient)
 BuildRequires:  pkgconfig(snappy)
 BuildRequires:  pkgconfig(soxr)
@@ -220,6 +215,7 @@ BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(vidstab)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(vpx)
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-render)
@@ -248,10 +244,6 @@ BuildRequires:  pkgconfig(libmfx) < 2.0
 %endif
 %if %{with svtav1}
 BuildRequires:  pkgconfig(SvtAv1Enc) >= 0.8.4
-%endif
-%if %{with vulkan}
-BuildRequires:  vulkan-loader-devel
-BuildRequires:  pkgconfig(shaderc) >= 2019.1
 %endif
 %if %{with x264}
 BuildRequires:  pkgconfig(x264)
@@ -583,10 +575,8 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-gcrypt \
     --enable-gnutls \
     --enable-ladspa \
-%if %{with vulkan}
     --enable-libshaderc \
     --enable-vulkan \
-%endif
     --disable-cuda-sdk \
     --enable-libaom \
     --enable-libass \
@@ -846,6 +836,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Nov 09 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-2
+- Unconditionally enable Vulkan
+
 * Wed Oct 12 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-1
 - Update to version 5.1.2
 - Refresh dlopen headers and patch for OpenH264 2.3.1

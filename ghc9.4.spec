@@ -9,6 +9,8 @@
 %if %{defined fedora}
 %bcond_without hadrian
 %else
+# https://bugzilla.redhat.com/show_bug.cgi?id=2141054
+# https://gitlab.haskell.org/ghc/ghc/-/issues/22427
 %ifarch s390x
 %bcond_with hadrian
 %else
@@ -54,10 +56,20 @@
 %ifarch armv7hl
 %undefine with_haddock
 %else
+%if %{with hadrian}
+%bcond_without haddock
+%bcond_without manual
+%else
+%ifarch s390x
+%if %{defined fedora}
+%bcond_without haddock
+%else
+%undefine with_haddock
+%endif
+%else
 %bcond_without haddock
 %endif
-%if %{with hadrian}
-%bcond_without manual
+%endif
 %endif
 %bcond_without perf_build
 %endif
@@ -65,7 +77,7 @@
 %if %{without hadrian}
 # locked together since disabling haddock causes no manuals built
 # and disabling haddock still created index.html
-# https://ghc.haskell.org/trac/ghc/ticket/15190
+# https://gitlab.haskell.org/ghc/ghc/-/issues/15190
 %{?with_haddock:%bcond_without manual}
 %endif
 
@@ -120,7 +132,7 @@ Patch12: ghc-armv7-VFPv3D16--NEON.patch
 Patch13: text2-allow-ghc8-arm.patch
 
 # for unregisterized
-# https://ghc.haskell.org/trac/ghc/ticket/15689
+# https://gitlab.haskell.org/ghc/ghc/-/issues/15689
 Patch15: ghc-warnings.mk-CC-Wall.patch
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
@@ -433,7 +445,7 @@ fi
 %endif
 
 %if %{without hadrian}
-# http://ghc.haskell.org/trac/ghc/wiki/Platforms
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perf_build}
 %ifarch %{ghc_llvm_archs}

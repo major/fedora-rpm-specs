@@ -1,9 +1,9 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
-Version: 4.12.3
-Release: 3%{?dist}
+Version: 4.13
+Release: 1%{?dist}
 Epoch: 2
-License: BSD and GPLv2+
+License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
 Source0: https://github.com/shadow-maint/shadow/releases/download/v%{version}/shadow-%{version}.tar.xz
 Source1: https://github.com/shadow-maint/shadow/releases/download/v%{version}/shadow-%{version}.tar.xz.asc
@@ -19,34 +19,18 @@ Source6: shadow-utils.HOME_MODE.xml
 ### Patches ###
 # Misc small changes - most probably non-upstreamable
 Patch0: shadow-4.12.3-redhat.patch
-# https://github.com/shadow-maint/shadow/commit/cfc981df2afc615e3792b918e9ee49e631b0a3a9
-Patch1: shadow-4.12.3-goodname.patch
 # SElinux related - upstreamability unknown
-Patch3: shadow-4.9-default-range.patch
+Patch1: shadow-4.13-default-range.patch
 # Misc manual page changes - non-upstreamable
-Patch4: shadow-4.9-manfix.patch
+Patch2: shadow-4.9-manfix.patch
 # Date parsing improvement - could be upstreamed
-Patch5: shadow-4.2.1-date-parsing.patch
-# Additional error message - could be upstreamed
-Patch6: shadow-4.6-move-home.patch
+Patch3: shadow-4.2.1-date-parsing.patch
 # Audit message changes - upstreamability unknown
-Patch7: shadow-4.11.1-audit-update.patch
+Patch4: shadow-4.11.1-audit-update.patch
 # Changes related to password unlocking - could be upstreamed
-Patch8: shadow-4.5-usermod-unlock.patch
+Patch5: shadow-4.5-usermod-unlock.patch
 # Additional SElinux related changes - upstreamability unknown
-Patch9: shadow-4.12.3-selinux-perms.patch
-# Handle NULL return from *time funcs - upstreamable
-Patch10: shadow-4.11.1-null-tm.patch
-# Handle /etc/passwd corruption - could be upstreamed
-Patch11: shadow-4.12.3-long-entry.patch
-# Limit uid/gid allocation to non-zero - could be upstreamed
-Patch12: shadow-4.6-sysugid-min-limit.patch
-# Ignore LOGIN_PLAIN_PROMPT in login.defs - upstreamability unknown
-Patch13: shadow-4.8-ignore-login-prompt.patch
-# https://github.com/shadow-maint/shadow/commit/ebf9b232b012725d2be5e750876c7336cf1c37fd
-Patch14: shadow-4.12.3-useradd-stop-last-fail-log-reset.patch
-# https://github.com/shadow-maint/shadow/commit/e503fd574b7dbf6b21b1168e20938f0922807916
-Patch15: shadow-4.12.3-chage-print-date-regression.patch
+Patch6: shadow-4.12.3-selinux-perms.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -108,20 +92,12 @@ Development files for shadow-utils-subid.
 %prep
 %setup -q -n shadow-%{version}
 %patch0 -p1 -b .redhat
-%patch1 -p1 -b .goodname
-%patch3 -p1 -b .default-range
-%patch4 -p1 -b .manfix
-%patch5 -p1 -b .date-parsing
-%patch6 -p1 -b .move-home
-%patch7 -p1 -b .audit-update
-%patch8 -p1 -b .unlock
-%patch9 -p1 -b .selinux-perms
-%patch10 -p1 -b .null-tm
-%patch11 -p1 -b .long-entry
-%patch12 -p1 -b .sysugid-min-limit
-%patch13 -p1 -b .login-prompt
-%patch14 -p1 -b .useradd-stop-last-fail-log-reset
-%patch15 -p1 -b .chage-print-date-regression
+%patch1 -p1 -b .default-range
+%patch2 -p1 -b .manfix
+%patch3 -p1 -b .date-parsing
+%patch4 -p1 -b .audit-update
+%patch5 -p1 -b .unlock
+%patch6 -p1 -b .selinux-perms
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -295,6 +271,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Nov  9 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-1
+- Rebase to version 4.13
+- SPDX license migration
+
 * Wed Oct  5 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.12.3-3
 - chage: Fix regression in print_date. Resolves: #2129336
 

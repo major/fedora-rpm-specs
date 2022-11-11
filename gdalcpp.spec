@@ -8,7 +8,7 @@ Version:        1.3.0
 Release:        3.20210925git%{shortcommit}%{?dist}
 Summary:        C++11 wrapper classes for GDAL/OGR
 
-License:        Boost
+License:        BSL-1.0
 URL:            https://github.com/joto/gdalcpp
 Source0:        https://github.com/joto/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
@@ -63,7 +63,7 @@ cp -p *.hpp  %{buildroot}%{_includedir}
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2.20210925git7e23085
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Fri Dec 17 2021 Tom Hughes <tom@compton.nu> - 1.3.0-1.20210925git%(c=%{commit}; echo ${c:0:7})%{?dist}
+* Fri Dec 17 2021 Tom Hughes <tom@compton.nu> - 1.3.0-1.20210925git7e23085
 - Update to 1.3.0 upstream release
 
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7.20180829git4df5ca1
