@@ -46,7 +46,7 @@ Name: evolution
 Version: 3.46.1
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
-License: GPLv2+ and GFDL
+License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
 Source1: flatpak-evolution-fix-service-names.sh

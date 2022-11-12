@@ -8,8 +8,8 @@ Summary:        Irreducible soluble linear groups over finite fields
 License:        BSD-2-Clause
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            http://www.icm.tu-bs.de/~bhoeflin/%{pkgname}/
-Source0:        https://github.com/bh11/%{pkgname}/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
+URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
+Source0:        https://github.com/bh11/irredsol/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
 # Fix references to the primgrp manual
 Patch0:         %{name}-ref.patch
 
@@ -31,6 +31,14 @@ integer and q a prime power satisfying q^n <= 2000000, and a library
 of all primitive soluble groups of degree at most 2000000.
 
 %package doc
+# The content is BSD-2-Clause.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        IRREDSOL documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-crisp-doc
@@ -84,6 +92,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
 - Update for gap 4.12.0
 

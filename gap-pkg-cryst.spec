@@ -49,6 +49,12 @@ the one preferred by crystallographers.  There are also functions to
 determine representatives of all space group types of a given dimension.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
 Summary:        Cryst documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -95,6 +101,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.1.25-2
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.1.25-2
 - Update for gap 4.12.0
 

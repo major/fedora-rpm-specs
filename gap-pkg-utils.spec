@@ -27,6 +27,14 @@ The Utils package provides a collection of utility functions gleaned
 from many packages.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-curlinterface-doc
@@ -67,6 +75,9 @@ cp -p tst/download.tst %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.77-2
+- Clarify license of the doc subpackage
+
 * Wed Sep 28 2022 Jerry James <loganjerry@gmail.com> - 0.77-2
 - Fix -doc subpackage Requires (rhbz#2130679)
 

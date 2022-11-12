@@ -8,8 +8,8 @@ Summary:        GAP Table of Marks package
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/tomlib/
+Source0:        https://github.com/gap-packages/tomlib/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
@@ -25,6 +25,12 @@ This package provides access to several hundred tables of marks of
 almost simple groups and their maximal subgroups.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Table of Marks documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -66,6 +72,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.2.9-8
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.2.9-8
 - Update for gap 4.12.0
 - Convert License tag to SPDX

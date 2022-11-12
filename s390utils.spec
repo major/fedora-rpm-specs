@@ -9,7 +9,7 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.23.0
+Version:        2.24.0
 Release:        1%{?dist}
 Epoch:          2
 License:        MIT
@@ -270,7 +270,6 @@ BuildRequires:  json-c-devel
 BuildRequires:  rpm-devel
 BuildRequires:  glib2-devel
 BuildRequires:  libxml2-devel
-BuildRequires:  liblockfile-devel
 
 
 %description base
@@ -897,6 +896,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Nov 10 2022 Dan Horák <dan[at]danny.cz> - 2:2.24.0-1
+- rebased to 2.24.0
+
 * Fri Aug 19 2022 Dan Horák <dan[at]danny.cz> - 2:2.23.0-1
 - rebased to 2.23.0
 

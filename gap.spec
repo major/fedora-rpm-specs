@@ -30,8 +30,8 @@
 %bcond_with bootstrap
 
 Name:           gap
-Version:        4.12.0
-Release:        2%{?dist}
+Version:        4.12.1
+Release:        1%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -50,44 +50,13 @@ Source8:        update-gap-workspace.1
 Source9:        gap.vim
 # ATLAS data used during the tests
 Source10:       gap-testdata.tar.xz
-# Patch applied in bootstrap mode to break circular dependencies.
-Patch0:         %{name}-bootstrap.patch
 # This patch applies a change from Debian to allow help files to be in gzip
 # compressed DVI files, and also adds support for viewing with xdg-open.
-Patch1:         %{name}-help.patch
+Patch0:         %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
-Patch2:         %{name}-popcount.patch
+Patch1:         %{name}-popcount.patch
 # Avoid unused definitions.  See https://github.com/gap-system/gap/pull/5027.
-Patch3:         %{name}-unused.patch
-# Fix __builtin_mul_overflow detection.
-Patch4:         %{name}-builtin-mul-overflow.patch
-
-# Post-4.12.0 release bug fixes
-
-# Fix tab completion on non-record component objects
-# https://github.com/gap-system/gap/commit/4b01ecdc9e7834d877c4d3829b47cb0d9a554fee
-Patch5:         %{name}-tab-completion.patch
-# Fix unexpected error in ConjugacyClassesSubgroups
-# https://github.com/gap-system/gap/commit/e2a206ed076ea1d4843daa7df4dc8a4d2d4bfcd5
-Patch6:         %{name}-conjugacy-classes.patch
-# Centre for pc groups gives the wrong result
-# https://github.com/gap-system/gap/commit/7a04992090ffff828bc0fba1eaa936429d41e4a8
-Patch7:         %{name}-centre-pc-groups.patch
-# Fix unexpected error in MinimalGeneratingSet for solvable non-pc groups
-# https://github.com/gap-system/gap/commit/d11ab9608d7c2320146537e8a4654e696108282d
-Patch8:         %{name}-minimal-generating-non-pc.patch
-# DirectSumMat builds field extensions if needed
-# https://github.com/gap-system/gap/commit/f13d1edcd61bcc03a1ad0a094173dfb812b4f964
-Patch9:         %{name}-directsummat-fix.patch
-# Fix SaveOnExitFile in restored workspaces
-# https://github.com/gap-system/gap/commit/c1009a20003c09dc05dbbe2d523c8f6f1c506347
-Patch10:        %{name}-saveonexitfile.patch
-# Add missing header to Centralizer entry
-# https://github.com/gap-system/gap/commit/b576deedba5bc5ead847329e266d1262bc8cd565
-Patch11:        %{name}-centralizer.patch
-# Fix HASH_FLAGS on big endian architectures
-# https://github.com/gap-system/gap/commit/093cb0353c936d0af42f2e1d1995b6aa95bbf246
-Patch12:        %{name}-endian.patch
+Patch2:         %{name}-unused.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -236,17 +205,10 @@ Provides:       libgap-devel = %{version}-%{release}
 Library containing core GAP logic
 
 %prep
-%autosetup -N
-%if %{with bootstrap}
-%patch0
-%endif
-%autopatch -p 0 -m 1
+%autosetup -p0
 
 # Get the README
 cp -p %{SOURCE1} README.fedora
-
-# Fix broken shebang
-sed -i 's,^#/,#!/,' tst/testspecial/run_gap.sh
 
 # Compile default package path into the executable
 sed 's,^GAP_CPPFLAGS =,& -DSYS_DEFAULT_PATHS="\\"%{gapdir}\\"",' \
@@ -318,7 +280,9 @@ cat > macros.%{name} << EOF
 EOF
 
 %install
-## "make install" doesn't quite do what we want yet
+## "make install" wants to install into a double-rooted tree (noarch files in
+## %%{_datadir}, archful files in %%{_libdir}).  We need to do some work to
+## prepare for that.  For now, install manually into a single-rooted tree.
 
 ## See make install-bin
 # Install the binaries
@@ -448,11 +412,6 @@ sed "s|@VERSION@|%{version}|" %{SOURCE6} > %{buildroot}%{_mandir}/man1/gap.1
 sed "s|@VERSION@|%{version}|" %{SOURCE7} > %{buildroot}%{_mandir}/man1/gac.1
 cp -p %{SOURCE8} %{buildroot}%{_mandir}/man1
 
-# GAP 4.12 bug?  USE_GASMAN is not defined in any installed header file.
-# Check future versions to see if this is still the case.
-sed -i '/ifdef USE_GASMAN/i#ifndef USE_GASMAN\n#define USE_GASMAN 1\n#endif' \
-    %{buildroot}%{_includedir}/gap/common.h
-
 %preun
 if [ $1 -eq 0 ]; then
   %{_bindir}/update-gap-workspace delete &> /dev/null || :
@@ -552,6 +511,12 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.12.1-1
+- Version 4.12.1
+- Drop builtin-mul-overflow patch
+- Drop post-4.12.0 bug fix patches
+- Switch to upstream's method of bootstrapping
+
 * Mon Oct 17 2022 Jerry James <loganjerry@gmail.com> - 4.12.0-2
 - Add rpm-macros subpackage
 - Clarify license of the online-help subpackage

@@ -1,5 +1,5 @@
 Name:		packmol
-Version:	20.3.6
+Version:	20.11.0
 Release:	1%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
@@ -66,6 +66,9 @@ done
 %{_bindir}/packmol_solvate
 
 %changelog
+* Thu Nov 10 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 20.11.0-1
+- Update to 20.11.0.
+
 * Fri Nov 04 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 20.3.6-1
 - Update to 20.3.6.
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -588,6 +588,17 @@ Patch386: 00386-cve-2021-28861.patch
 # no value (invalid) when the PYTHONINTMAXSTRDIGITS environment
 # variable is set to a valid limit.
 Patch387: 00387-cve-2020-10735-prevent-dos-by-very-large-int.patch
+
+# 00392 # 033f82b975577a72218ce385b5333dcc5c88dfd5
+# CVE-2022-37454: Fix buffer overflows in _sha3 module
+#
+# This is a port of the applicable part of XKCP's fix [1] for
+# CVE-2022-37454 and avoids the segmentation fault and the infinite
+# loop in the test cases published in [2].
+#
+# [1]: https://github.com/XKCP/XKCP/commit/fdc6fef075f4e81d6b1bc38364248975e08e340a
+# [2]: https://mouha.be/sha-3-buffer-overflow/
+Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
 
 # (New patches go here ^^^)
 #
@@ -1838,6 +1849,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Nov 10 2022 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-14
+- CVE-2022-37454: Fix buffer overflows in _sha3 module
+  Related: rhbz#2140200
+
 * Wed Oct 05 2022 Victor Stinner <vstinner@python.org> - 3.6.15-13
 - Prevent denial of service (DoS) by very large integers.
   Resolves: rhbz#1834423

@@ -1,15 +1,15 @@
 %global pkgname smallgrp
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Small groups library
 
 License:        Artistic-2.0
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/smallgrp/
+Source0:        https://github.com/gap-packages/smallgrp/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -24,6 +24,12 @@ isomorphism; that is, for each of the available orders a complete and
 irredundant list of isomorphism type representatives of groups is given.
 
 %package doc
+# The content is Artistic-2.0.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        Artistic-2.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Small groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -39,7 +45,7 @@ chmod a-x id9/idgrp9.g id10/idgrp10.g
 
 %build
 export LC_ALL=C.UTF-8
-gap makedoc.g
+gap --bare makedoc.g
 
 # Compress large group files
 parallel %{?_smp_mflags} --no-notice gzip --best -f ::: id*/* small*/*
@@ -51,7 +57,7 @@ cp -a *.g gap id* small* tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" --bare tst/testall.g
 
 %files
 %doc CHANGES.md README README.md
@@ -64,6 +70,11 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
+- Version 1.5.1
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.5-3
 - Update for gap 4.12.0
 - Convert License tag to SPDX

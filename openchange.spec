@@ -25,7 +25,7 @@ Name: openchange
 Version: 2.3
 Release: 42%{?dist}
 Summary: Provides access to Microsoft Exchange servers using native protocols
-License: GPLv3+ and Public Domain
+License: GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL: http://www.openchange.org/
 Source0: https://github.com/openchange/openchange/archive/openchange-%{version}-%{nickname}.tar.gz
 Source1: doxygen_to_devhelp.xsl

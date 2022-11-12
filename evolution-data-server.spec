@@ -55,7 +55,7 @@ Name: evolution-data-server
 Version: 3.46.1
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.46/%{name}-%{version}.tar.xz
 

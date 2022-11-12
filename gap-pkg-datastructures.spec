@@ -1,16 +1,14 @@
 %global pkgname  datastructures
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.2.7
-Release:        4%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Standard data structures for GAP
 
 License:        GPL-2.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Remove an unused function
-Patch0:         %{name}-unused.patch
+URL:            https://gap-packages.github.io/datastructures/
+Source0:        https://github.com/gap-packages/datastructures/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -34,6 +32,12 @@ The following data structures are provided:
 - dictionaries
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Data structures documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -43,7 +47,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p1 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
@@ -75,6 +79,11 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Nov  4 2022 Jerry James <loganjerry@gmail.com> - 0.3.0-1
+- Version 0.3.0
+- Drop obsolete -unused patch
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.2.7-4
 - Update for gap 4.12.0
 - Add -unused patch to silence compiler warnings

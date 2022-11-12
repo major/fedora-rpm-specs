@@ -9,12 +9,25 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        MIT
 
 URL:            https://python-poetry.org/
 Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetry-%{version}.tar.gz
+
+# We don't ship embedded wheels in Fedora and they are being patched out
+# from virtualenv (https://src.fedoraproject.org/rpms/python-virtualenv/blob/370bb9cf4e/f/rpm-wheels.patch#_110).
+# Since poetry touches get_embedded_wheel() our patch breaks it as it
+# retuns None instead of wheels.
+# This temporary patch returns correct wheels by calling
+# get_system_wheels_paths() from virtualenv.
+# TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
+Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
+# Some tests are failing with permission error because they were writing to the Poetry test
+# runtime environment rather than a mocked local directory.
+# Merged upstream: https://github.com/python-poetry/poetry/pull/6929.patch
+Patch:         fix-remove-side-effects-from-tests.patch
 
 BuildArch:      noarch
 
@@ -72,18 +85,24 @@ for i in bash,bash-completion/completions,poetry fish,fish/vendor_completions.d,
     %{buildroot}%{_bindir}/poetry completions $1 | sed 's|%{buildroot}||g' > %{buildroot}%{_datadir}/$2/$3
 done
 
-%if %{with bootstap}
+%if %{without bootstap}
 %check
 # don't use %%tox here because tox.ini runs "poetry install"
-# test_lock_no_update: attempts a network connection to pypi
+# test_lock_no_update, test_uninstall_git_package_nspkg_pth_cleanup: attempts a network connection to pypi
 # test_export_exports_requirements_txt_file_locks_if_no_lock_file:
 #    virtualenv: error: argument dest: the destination . is not write-able at /
 # test_executor and test_editable_builder doesn't work with pytest7
 #    upstream report: https://github.com/python-poetry/poetry/issues/4901
-%pytest -k "not lock_no_update and \
+# the --ignore'd files need not yet packaged flatdict and deepdiff
+%pytest -k "not lock_no_update and not test_uninstall_git_package_nspkg_pth_cleanup and \
 not export_exports_requirements_txt_file_locks_if_no_lock_file and \
 not executor and \
-not editable_builder"
+not editable_builder" \
+--ignore tests/config/test_config.py \
+--ignore tests/console/commands/test_config.py \
+--ignore tests/masonry/builders/test_editable_builder.py \
+--ignore tests/test_factory.py \
+--ignore tests/utils/test_dependency_specification.py
 %endif
 
 
@@ -107,6 +126,14 @@ not editable_builder"
 
 
 %changelog
+* Tue Nov 08 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-4
+- Add patch to return correct wheels
+- Backport upstream patch to fix some failing tests
+- Fix bcond so tests are enabled
+- Disable test_uninstall_git_package_nspkg_pth_cleanup attempting a network connection to pypi
+- Some test files are --ignore'd until flatdict and deepdiff are not packaged into Fedora
+- Fixes: rhbz#2138663
+
 * Sun Oct 30 2022 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
 - Allow newer requests-toolbelt version
 - Fixes: rhbz#2138636

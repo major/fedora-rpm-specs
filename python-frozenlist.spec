@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-frozenlist
-Version:        1.3.1
+Version:        1.3.3
 Release:        %autorelease
 Summary:        List-like structure which can be made immutable
 
@@ -61,7 +61,7 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

@@ -1,6 +1,6 @@
 %bcond_with bootstrap
 
-%if %{without bootstrap} && !0%{?rhel}
+%if %{without bootstrap}
 %bcond_without bnd_maven_plugin
 %else
 %bcond_with bnd_maven_plugin
@@ -8,7 +8,7 @@
 
 Name:           aqute-bnd
 Version:        6.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        BND Tool
 # Part of jpm is under BSD, but jpm is not included in binary RPM
 License:        ASL 2.0 or EPL-2.0
@@ -244,6 +244,9 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %license LICENSE
 
 %changelog
+* Tue Nov 08 2022 Stephen Gallagher <sgallagh@redhat.com> - 6.3.1-2
+- Re-enable maven plugin for RHEL 10+
+
 * Wed Sep 07 2022 Marian Koncek <mkoncek@redhat.com> - 6.3.1-1
 - Update to upstream version 6.3.1
 

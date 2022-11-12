@@ -27,6 +27,13 @@ possible to create the Galois group and the splitting field of a
 rational polynomial.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        Radiroot documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -75,6 +82,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.9-3
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.9-3
 - Update for gap 4.12.0
 

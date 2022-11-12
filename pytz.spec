@@ -1,27 +1,18 @@
-# There is an exception to ship python2-pytz on Fedora, for trac:
-# https://pagure.io/fesco/issue/2260
-# Trac has been switched to Python 3 in Fedora 34
-%if 0%{?fedora} && 0%{?fedora} < 34
-%bcond_without python2
-%else
-%bcond_with python2
-%endif
-
 # Allow build without test
-%bcond_with tests
+%bcond_without tests
 
 Name:           pytz
 Version:        2022.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
 URL:            http://pytz.sourceforge.net/
-Source0:        %pypi_source
+Source:         %pypi_source
 # Patch to use the system supplied zoneinfo files
-Patch0:         pytz-zoneinfo.patch
+Patch:          pytz-zoneinfo.patch
 # https://bugzilla.redhat.com/1497572
-Patch1:         remove_tzinfo_test.patch
+Patch:          remove_tzinfo_test.patch
 
 BuildArch:      noarch
 BuildRequires:  tzdata
@@ -38,21 +29,8 @@ Almost all (over 540) of the Olson timezones are supported.
 %description %_description
 
 
-%if %{with python2}
-%package -n python2-%{name}
-Summary:        %summary
-%{?python_provide:%python_provide python2-%{name}}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-Requires:       tzdata
-
-%description -n python2-%{name} %_description
-%endif
-
-
 %package -n python3-%{name}
 Summary:        %summary
-%{?python_provide:%python_provide python3-%{name}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with tests}
@@ -68,37 +46,19 @@ Requires:       tzdata
 
 
 %build
-%if %{with python2}
-%py2_build
-%endif
 %py3_build
 
 
 %install
-%if %{with python2}
-%py2_install
-rm -r %{buildroot}%{python2_sitelib}/pytz/zoneinfo
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i %{__python2} %{buildroot}%{python2_sitelib}
-%endif
-
 %py3_install
 rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i %{__python3} %{buildroot}%{python3_sitelib}
 
 
-%check
 %if %{with tests}
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
+%check
+%pytest -v
 %endif
 
-
-%if %{with python2}
-%files -n python2-%{name}
-%license LICENSE.txt
-%doc README.rst
-%{python2_sitelib}/pytz/
-%{python2_sitelib}/*.egg-info/
-%endif
 
 %files -n python3-pytz
 %license LICENSE.txt
@@ -108,6 +68,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest -v
 
 
 %changelog
+* Thu Nov 10 2022 Miro Hrončok <mhroncok@redhat.com> - 2022.6-2
+- Run tests during build
+
 * Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.6-1
 - 2022.6
 

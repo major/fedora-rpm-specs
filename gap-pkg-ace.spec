@@ -28,6 +28,13 @@ However the package is used, a plethora of options and strategies are
 available to assist the user in avoiding incomplete coset enumerations.
 
 %package doc
+# The content is MIT.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        MIT AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        Advanced Coset Enumerator documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -92,6 +99,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/res-examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-1
 - Version 5.6.1
 - Drop upstreamed patches

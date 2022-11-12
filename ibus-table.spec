@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.16.13
+Version:    1.16.14
 Release:    1%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPLv2+
@@ -150,6 +150,13 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Thu Nov 10 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.14-1
+- Update to 1.16.14
+- Fix a problem in C/POSIX and invalid locales:
+  Use lower() on LC_MESSAGES only if it is a string and not None
+  Resolves: https://github.com/mike-fabian/ibus-table/issues/130
+  Resolves: rhbz#2131410 https://bugzilla.redhat.com/show_bug.cgi?id=2131410
+
 * Tue Nov 01 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.13-1
 - Update to 1.16.13
 - Get program name of focused window also when ibus cannot get it

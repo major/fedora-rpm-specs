@@ -8,8 +8,8 @@ Summary:        Database and algorithms for Lie p-rings
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/liepring/
+Source0:        https://github.com/gap-packages/liepring/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -26,6 +26,13 @@ The main object of the LiePRing package is to provide access to the
 nilpotent Lie rings of order p^n for p>2 and n<=7.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        LiePRing documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -87,6 +94,9 @@ gap -l "%{buildroot}%{gap_dir};%{gap_dir}" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/lib/dim7/5gen/notes/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.8-1
+- Clarify license of the doc subpackage
+
 * Sat Oct 22 2022 Jerry James <loganjerry@gmail.com> - 2.8-1
 - Version 2.8
 - Remove runtime dependency on the polycyclic package

@@ -72,8 +72,10 @@ desktop-file-install	\
 %files -f %{name}.lang
 %doc BUGS COPYING ChangeLog FAQ FEATURES README* NEWS THANKS TODO
 %config(noreplace) %{_sysconfdir}/lftp.conf
-%{_bindir}/*
-%{_mandir}/*/*
+%{_bindir}/lftp
+%{_bindir}/lftpget
+%{_mandir}/man1/lftp*.1*
+%{_mandir}/man5/lftp.conf.5*
 %dir %{_libdir}/lftp
 %dir %{_libdir}/lftp/%{version}
 %{_libdir}/lftp/%{version}/cmd-torrent.so

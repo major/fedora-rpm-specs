@@ -5,7 +5,7 @@
 # and BuildRequires to reflect that.
 
 Name:           python-%{pypi_name}
-Version:        1.29.0
+Version:        1.32.0
 Release:        2%{?dist}
 Summary:        RFC 2136 DNS Authenticator plugin for Certbot
 
@@ -76,6 +76,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0
+- Update to 1.32.0
+
 * Wed Aug 10 2022 Jonathan Wright <jonathan@almalinux.org> - 1.29.0-2
 - Update to 1.29.0 (#2094637)
 - Update license to SPDX format

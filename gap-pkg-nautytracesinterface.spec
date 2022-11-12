@@ -1,6 +1,6 @@
 # There have been no official releases yet, so we pull from git
-%global gitdate  20220727
-%global gittag   34316a24d4f5904a513a6d55ad86085e337865cf
+%global gitdate  20221102
+%global gittag   d54d393b5d9300823ac12641274ae58400bad610
 %global shorttag %(cut -b -7 <<< %{gittag})
 %global user     gap-packages
 %global pkgname  nautytracesinterface
@@ -15,13 +15,13 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        24.%{gitdate}git%{shorttag}%{?dist}
+Release:        25.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://github.com/%{user}/NautyTracesInterface
-Source0:        https://github.com/%{user}/NautyTracesInterface/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
+URL:            https://github.com/gap-packages/NautyTracesInterface
+Source0:        %{url}/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
 # Fedora-only patch: use the system nauty library
 Patch0:         %{name}-nauty.patch
 
@@ -42,6 +42,12 @@ Requires:       gap-core%{?_isa}
 This GAP package provides an interface to nauty and Traces.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        NautyTracesInterface documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -92,6 +98,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.2-25.20221102gitd54d393
+- Update to latest git snapshot for minor build system enhancements
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.2-24.20220727git34316a2
 - Update to latest git snapshot for gap 4.12.0 support
 - Convert License tag to SPDX

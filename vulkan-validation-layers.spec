@@ -8,6 +8,9 @@ URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
 Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
 Patch0:         fix_shared.patch
 
+# it appears there is a warning with rawhide gcc
+Patch1: 	disable-werror.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -48,10 +51,11 @@ developing applications that use %{name}.
 %global optflags %(echo %{optflags} | sed 's/-O2 /-O1 /')
 
 %cmake3 -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_WERROR=OFF \
         -DGLSLANG_INSTALL_DIR=%{_prefix} \
         -DBUILD_LAYER_SUPPORT_FILES:BOOL=ON \
         -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF \
-        -DSPIRV_HEADERS_INCLUDE_DIR=%{_includedir} \
+        -DSPIRV_HEADERS_INSTALL_DIR=%{_prefix} \
         -DVULKAN_HEADERS_INSTALL_DIR=%{_prefix} \
         -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/vulkan/
 %cmake_build

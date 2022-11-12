@@ -21,43 +21,37 @@ Summary:        Documentation tool for GObject-based libraries
 #   - gidocgen/templates/basic/solarized-{dark,light}.js
 #
 # CC0:
-#   - .editorconfig (not packaged)
-#   - .gitlab-ci.yml (not packaged)
 #   - gi-docgen.pc.in (from which gi-docgen.pc is generated)
 #   - gidocgen/templates/basic/*.png
 #   - docs/CODEOWNERS (-doc subpackage)
 #   - examples/*.toml (-doc subpackage)
-#   - gi-docgen.doap (not installed)
 #   - gidocgen/porter.py
-#   - MANIFEST.in (not installed)
-#
-# CC-BY-SA:
-#   - code-of-conduct.md (-doc subpackage)
 #
 # Additionally, the following sources are under licenses other than (ASL 2.0 or
 # GPLv3+), but are not packaged in any of the binary RPMs:
 #
 # CC0:
-#   - .editorconfig (not packaged)
-#   - .gitlab-ci.yml (not packaged)
+#   - .editorconfig (not installed)
+#   - .gitlab-ci.yml (not installed)
 #   - gi-docgen.doap (not installed)
 #   - MANIFEST.in (not installed)
 #   - pytest.ini (not installed)
 #
 # CC-BY-SA
 #   - docs/gi-docgen.{png,svg} (for HTML docs; not currently packaged)
+#   - code-of-conduct.md (not installed)
 #
 # OFL:
 #   - gidocgen/templates/basic/*.{woff,woff2} (removed in prep)
 #
 # GPLv2+:
-#   - test/gir/{Utility-1.0,Regress-1.0}.gir (not packaged; test only)
+#   - test/gir/{Utility-1.0,Regress-1.0}.gir (not installed; test only)
 #
 # LGPLv2+:
-#   - test/gir/{GLib,GObject,Gio}-2.0.gir (not packaged; test only)
+#   - test/gir/{GLib,GObject,Gio}-2.0.gir (not installed; test only)
 #
 # (LGPLv2+ or MPLv1.1):
-#   - test/gir/cairo-1.0.gir (not packaged; test only)
+#   - test/gir/cairo-1.0.gir (not installed; test only)
 License:        (ASL 2.0 or GPLv3+) and MIT and CC0
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
 Source0:        %{url}/archive/%{version}/gi-docgen-%{version}.tar.bz2
@@ -153,17 +147,14 @@ to ensure the proper system fonts are present.
 
 %package doc
 Summary:        Documentation for gi-docgen
-License:        (ASL 2.0 or GPLv3+) and CC0 and CC-BY-SA
+License:        (ASL 2.0 or GPLv3+) and CC0
 
 %description doc
 Documentation for gi-docgen.
 
 
 %generate_buildrequires
-# There are no upstream tests to run; but we add the runtime requirements as
-# BR’s anyway so that the build will fail if some are not available in the
-# distribution.
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %prep
@@ -187,7 +178,6 @@ sphinx-build -b latex %{?_smp_mflags} docs %{_vpath_builddir}/_latex
 %pyproject_save_files gidocgen
 
 install -t '%{buildroot}%{_pkgdocdir}' -D -m 0644 -p \
-    code-of-conduct.md \
     CONTRIBUTING.md \
     docs/CODEOWNERS \
     README.md

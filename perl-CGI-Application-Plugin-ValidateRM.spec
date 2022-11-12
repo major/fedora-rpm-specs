@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-ValidateRM
-Version:        2.5
-Release:        28%{?dist}
+Version:        2.52
+Release:        1%{?dist}
 Summary:        Help validate CGI::Application run modes using Data::FormValidator
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-ValidateRM
@@ -47,6 +47,9 @@ chmod 0644 $RPM_BUILD_ROOT/%{perl_vendorlib}/CGI/Application/Plugin/ValidateRM.p
 %{_mandir}/man3/*
 
 %changelog
+* Thu Nov 10 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 2.52-1
+- Update to 2.52
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

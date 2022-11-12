@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 59
+%global microversion 60
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -54,13 +54,6 @@
 %bcond_without libcamera_plugin
 %endif
 
-# libusb is removed from f37
-%if (0%{?fedora} && 0%{?fedora} < 37)
-%bcond_without libusb
-%else
-%bcond_with libusb
-%endif
-
 %bcond_without v4l2
 
 Name:           pipewire
@@ -80,10 +73,7 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
-Patch0001:	0001-alsa-seq-attempt-to-get-more-data-in-timeout.patch
-Patch0002:	0002-jack-set-port-valid-state-safely.patch
-Patch0003:	0003-bluez5-stop-before-freeing-things.patch
-Patch0004:	0004-bluez5-reset-timers-when-reassigning-followers.patch
+Patch0001:	0001-pulse-server-also-advance-read-pointer-in-underrun.patch
 
 ## upstreamable patches
 
@@ -130,9 +120,7 @@ BuildRequires:  ncurses-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  avahi-devel
 BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.2
-%if %{with libusb}
-BuildRequires:  libusb-devel
-%endif
+BuildRequires:  libusb1-devel
 BuildRequires:  readline-devel
 BuildRequires:  lilv-devel
 BuildRequires:  openssl-devel
@@ -375,7 +363,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     %{?with_jack:-D jack-devel=true} 						\
     %{!?with_alsa:-D pipewire-alsa=disabled}					\
     %{?with_vulkan:-D vulkan=enabled}						\
-    %{!?with_libusb:-D libusb=disabled}
+    %{nil}
 %meson_build
 
 %install
@@ -629,6 +617,15 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Nov 10 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-3
+- Add patch to make Telegram playback work again
+
+* Thu Nov 10 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.3.60-2
+- Restore libusb support
+
+* Thu Nov 10 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-1
+- Update version to 0.3.60
+
 * Mon Oct 24 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.3.59-3
 - Enabled roc-toolkit support
   Resolves: rhbz#2041189

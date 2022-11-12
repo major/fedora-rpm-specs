@@ -42,6 +42,13 @@ OrbitStabilizer-type methods).  It is also capable of calculating free
 resolutions for Bieberbach groups.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        HAPcryst documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -98,6 +105,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.1.15-2
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.1.15-2
 - Update for gap 4.12.0
 

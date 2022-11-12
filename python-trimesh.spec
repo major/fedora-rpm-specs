@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.15.8
+Version:        3.16.1
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -149,8 +149,8 @@ sed -r -i "/^[[:blank:]]*'python-fcl',/d" setup.py
 #           depends on https://github.com/jpcy/xatlas, also not yet packaged
 sed -r -i "/^[[:blank:]]*'xatlas',/d" setup.py
 
-# Patch out unavailable pyinstrument test dependency; we don’t really need to
-# do profiling anyway. Note that this does mean that API function
+# Stub out unavailable pyinstrument test dependency; we don’t really need to do
+# profiling anyway. Note that this does mean that API function
 # trimesh.viewer.windowed.SceneViewer(…) will not work with “profile=True”.
 #
 # Packaging pyinstrument would be difficult due to a vue.js-based HTML
@@ -158,9 +158,21 @@ sed -r -i "/^[[:blank:]]*'xatlas',/d" setup.py
 # this would have to be patched out, or the web asset pipeline would have to be
 # somehow executed in the RPM build environment. (Or, of course, we can
 # continue to do without pyinstrument.)
+mkdir -p _stub
+cat > _stub/pyinstrument.py <<'EOF'
+class Profiler(object):
+    def __enter__(self, *args, **kwds):
+        return self
+
+    def __exit__(self, *args, **kwds):
+        return False
+
+    def output_text(self, *args, **kwds):
+        return """
+Profiling output would be here if pyinstrument were available.
+"""
+EOF
 sed -r -i "/'pyinstrument',/d" setup.py
-sed -r -i 's/^([[:blank:]]*)(.*(pyinstrument|profiler)\b)/\1# \2/' \
-    tests/regression.py
 
 
 %generate_buildrequires
@@ -255,6 +267,7 @@ SceneTests::test_scene
 EOF
 )
 
+export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
 %pytest -v -k "${k-}"
 
 

@@ -50,7 +50,7 @@
 
 Name:             avahi
 Version:          0.8
-Release:          18%{?dist}
+Release:          19%{?dist}
 Summary:          Local network service discovery
 License:          LGPLv2+
 URL:              http://avahi.org
@@ -123,20 +123,32 @@ BuildRequires:    gcc-c++
 Source0:          https://github.com/lathiat/avahi/archive/%{version}-%{beta}.tar.gz#/%{name}-%{version}-%{beta}.tar.gz
 %else
 Source0:          https://github.com/lathiat/avahi/releases/download/v%{version}/avahi-%{version}.tar.gz
-#Source0:         http://avahi.org/download/avahi-%{version}.tar.gz
+#Source0:         http://avahi.org/download/avahi-%%{version}.tar.gz
 %endif
 
 ## upstream patches
+# https://github.com/lathiat/avahi/commit/9c3a314856affb288f701d2d3ee23278fc98eaee
 Patch6: 0006-avahi-dnsconfd.service-Drop-Also-avahi-daemon.socket.patch
+# https://github.com/lathiat/avahi/pull/148
+# https://github.com/lathiat/avahi/commit/f983df44870b602179b493f9c3d113753b378e27
 Patch7: 0007-man-add-missing-bshell.1-symlink.patch
+# https://github.com/lathiat/avahi/pull/142
 Patch8: 0008-Ship-avahi-discover-1-bssh-1-and-bvnc-1-also-for-GTK.patch
+# https://github.com/lathiat/avahi/pull/265
+# https://github.com/lathiat/avahi/commit/366e3798bdbd6b7bf24e59379f4a9a51af575ce9
 Patch9: 0009-fix-requires-in-pc-file.patch
+# https://github.com/lathiat/avahi/pull/270
+# https://github.com/lathiat/avahi/commit/a94f72081dd1d546a1d95d860311a1242315bb28
 Patch10: 0010-fix-bytestring-decoding-for-proper-display.patch
+# https://github.com/lathiat/avahi/pull/268
+# https://github.com/lathiat/avahi/commit/b897ca43ac100d326d118e5877da710eb7f836f9
 Patch11: 0011-avahi_dns_packet_consume_uint32-fix-potential-undefi.patch
+# https://github.com/lathiat/avahi/pull/324
+# https://github.com/lathiat/avahi/commit/9d31939e55280a733d930b15ac9e4dda4497680c
 Patch16: 0016-Fix-NULL-pointer-crashes-from-175.patch
 
 ## downstream patches
-Patch100:         avahi-0.6.30-mono-libdir.patch
+Patch100: avahi-0.6.30-mono-libdir.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897925
 # https://github.com/lathiat/avahi/pull/312
 Patch101: 0016-fix-QT3-build.patch
@@ -208,7 +220,6 @@ This library contains a GObject wrapper for the Avahi API
 Summary:          Libraries and header files for Avahi GObject development
 Requires:         %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:         %{name}-gobject%{?_isa} = %{version}-%{release}
-#Requires:         %{name}-glib-devel = %{version}-%{release}
 
 %description gobject-devel
 The avahi-gobject-devel package contains the header files and libraries
@@ -238,7 +249,6 @@ Summary:          Libraries and header files for Avahi UI development
 Requires:         %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:         %{name}-ui%{?_isa} = %{version}-%{release}
 Requires:         %{name}-ui-gtk3%{?_isa} = %{version}-%{release}
-#Requires:         %{name}-glib-devel = %{version}-%{release}
 
 %description ui-devel
 The avahi-ui-devel package contains the header files and libraries
@@ -461,11 +471,11 @@ NOCONFIGURE=1 ./autogen.sh
 %if %{without bootstrap}
         --enable-gtk \
 %else
-	--disable-gtk \
-	--disable-gtk3 \
+        --disable-gtk \
+        --disable-gtk3 \
 %endif
 %if ! %{WITH_PYTHON}
-	--disable-python \
+        --disable-python \
 %endif
 %if %{WITH_COMPAT_DNSSD}
         --enable-compat-libdns_sd \
@@ -717,15 +727,15 @@ exit 0
 
 %files gobject
 %{_libdir}/libavahi-gobject.so.*
-#%{_libdir}/girepository-1.0/Avahi-0.6.typelib
-#%{_libdir}/girepository-1.0/AvahiCore-0.6.typelib
+#%%{_libdir}/girepository-1.0/Avahi-0.6.typelib
+#%%{_libdir}/girepository-1.0/AvahiCore-0.6.typelib
 
 %files gobject-devel
 %{_libdir}/libavahi-gobject.so
 %{_includedir}/avahi-gobject
 %{_libdir}/pkgconfig/avahi-gobject.pc
-#%{_datadir}/gir-1.0/Avahi-0.6.gir
-#%{_datadir}/gir-1.0/AvahiCore-0.6.gir
+#%%{_datadir}/gir-1.0/Avahi-0.6.gir
+#%%{_datadir}/gir-1.0/AvahiCore-0.6.gir
 
 %if %{without bootstrap}
 %files ui
@@ -825,6 +835,9 @@ exit 0
 
 
 %changelog
+* Fri Nov 11 2022 Petr Menšík <pemensik@redhat.com> - 0.8-19
+- Add upstream PR links to patches
+
 * Tue Nov 01 2022 Christian Krause <chkr@fedoraproject.org> - 0.8-18
 - Install glade file for avahi-discover-standalone unconditionally
   (fixes #2036073 and #2126721)

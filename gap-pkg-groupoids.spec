@@ -9,7 +9,7 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/groupoids/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/groupoids/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -44,6 +44,14 @@ HNN extensions, when the vertex groups come with their own rewriting
 systems.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Groupoids documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
@@ -86,6 +94,9 @@ done
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.71-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 13 2022 Jerry James <loganjerry@gmail.com> - 1.71-1
 - Version 1.71
 - Update for gap 4.12.0

@@ -9,7 +9,7 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/polymaking/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/polymaking/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Update outdated information about the .gaprc file
 # https://github.com/gap-packages/polymaking/pull/15
 Patch0:         %{name}-doc.patch
@@ -25,6 +25,12 @@ Requires:       polymake
 This package provides a very basic GAP interface to polymake.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Polymaking documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -40,11 +46,7 @@ sed -i 's/URL/url/' doc/polymaking.bib
 
 %build
 export LC_ALL=C.UTF-8
-
-# Link to main GAP documentation
-#ln -s %{gap_dir}/doc ../../doc
 gap makedoc.g
-#rm -fr ../../doc
 
 %install
 mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
@@ -71,6 +73,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.8.6-5
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.8.6-5
 - Update for gap 4.12.0
 - Add -doc patch

@@ -1,8 +1,8 @@
 Name:		perltidy
-Version:	20220613
-Release:	2%{?dist}
+Version:	20221111
+Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://perltidy.sourceforge.net/
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-Tidy-%{version}.tar.gz
 BuildArch:	noarch
@@ -30,6 +30,7 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Getopt::Long)
 BuildRequires:	perl(HTML::Entities)
 BuildRequires:	perl(IO::File)
+BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Pod::Html)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
@@ -96,6 +97,10 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Thu Nov 10 2022 Paul Howarth <paul@city-fan.org> - 20221111-1
+- Update to 20221111 (see CHANGES.md for details) (rhbz#2141765)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220613-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

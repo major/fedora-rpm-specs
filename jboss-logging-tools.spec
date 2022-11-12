@@ -7,7 +7,7 @@ Release:          10%{?dist}
 Summary:          JBoss Logging I18n Annotation Processor
 # Not available license file https://issues.jboss.org/browse/LOGTOOL-107
 # ./annotations/src/main/java/org/jboss/logging/annotations/*.java: Apache (v2.0)
-License:          ASL 2.0 and LGPLv2+
+License:          Apache-2.0 and LGPL-2.0-or-later
 URL:              https://github.com/jboss-logging/jboss-logging-tools
 Source0:          %{url}/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
 Source1:          http://www.apache.org/licenses/LICENSE-2.0.txt

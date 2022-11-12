@@ -13,7 +13,7 @@ Source:          %{forgesource}
 BuildRequires:   gcc
 BuildRequires:   librdkafka-devel
 
-Provides:        kafkacat
+Provides:        kafkacat = %{version}-%{release}
 
 %description
 kcat is a generic non-JVM producer and consumer for Apache Kafka >=0.8, like a

@@ -8,8 +8,8 @@ Summary:        GAP package for systems of nearrings
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/sonata/
+Source0:        https://github.com/gap-packages/sonata/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  parallel
@@ -57,6 +57,11 @@ finite nearrings.
    representation.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        SONATA documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -108,6 +113,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
+- Clarify license of the doc subpackage
+
 * Tue Oct 25 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
 - Version 2.9.5
 

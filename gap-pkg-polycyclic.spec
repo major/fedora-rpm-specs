@@ -11,7 +11,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.16
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Algorithms on polycylic groups for GAP
 
 License:        GPL-2.0-or-later
@@ -19,36 +19,6 @@ BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/polycyclic/
 Source0:        https://github.com/gap-packages/polycyclic/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-
-## Post-release bug fixes from upstream
-
-# Update AbelianPcpGroup, support infinity
-# https://github.com/gap-packages/polycyclic/commit/37af5a8832b9f0872f058fd66572d423e270a2f7
-Patch0:         %{name}-abelianpcpgroup-infinity.patch
-# Support infinity in AbelianPcpGroup and AbelianGroupCons
-# https://github.com/gap-packages/polycyclic/commit/929755ef354319268a7cd8cf574fad92543f38f6
-Patch1:         %{name}-infinity.patch
-# Fix a bug in ConjugacyElementsBySeries
-# https://github.com/gap-packages/polycyclic/commit/e9312334e0be52f6aebb04d76feff4ac06a0b766
-Patch2:         %{name}-conjugacyelementsbyseries.patch
-# Fix Random not working for the trivial group
-# https://github.com/gap-packages/polycyclic/commit/f3bdcbd90f729cf9e231614ae37bfcfe49abfca6
-Patch3:         %{name}-random-trivial.patch
-# Fix IsNormal, uprank FittingSubgroup method
-# https://github.com/gap-packages/polycyclic/commit/3f385e49fca33917bfcf5f6d61828bdd97c4468a
-Patch4:         %{name}-isnormal.patch
-# Replace INV by its official name InverseMutable
-# https://github.com/gap-packages/polycyclic/commit/237ed84786fd8477805241ec55e0955847717cae
-Patch5:         %{name}-inverse-mutable.patch
-# Fix a cohomology example
-# https://github.com/gap-packages/polycyclic/commit/2d4c8d475f51075f2692e29f2b50e008d30f67eb
-Patch6:         %{name}-cohom-example.patch
-# Remove a duplicate SubsWord definition
-# https://github.com/gap-packages/polycyclic/commit/7455d890b97b77cdede6d34d4edbf0a2a9ed2a6b
-Patch7:         %{name}-subsword-dup.patch
-# Fix a bug in IsSingleValued
-# https://github.com/gap-packages/polycyclic/commit/02ebcc4f22d165e4f823a912e7cb2ed703d9416a
-Patch8:         %{name}-issinglevalued.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -80,6 +50,14 @@ The features of this package include:
   square and the non-abelian tensor square
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Polycyclic groups documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -106,11 +84,13 @@ mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
 cp -a *.g gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 %gap_copy_docs
 
-%if %{without bootstrap}
-%check
-export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
-%endif
+# Tests disabled until upstream can fix a test hang:
+# https://github.com/gap-packages/polycyclic/issues/46
+#%%if %%{without bootstrap}
+#%%check
+#export LC_ALL=C.UTF-8
+#gap -l "%%{buildroot}%%{gap_dir};" tst/testall.g
+#%%endif
 
 %files
 %doc CHANGES.md README.md
@@ -123,6 +103,11 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.16-8
+- Drop post-release bug fix patches at upstream's request
+- Disable tests until upstream fixes a test hang
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.16-7
 - Update for gap 4.12.0
 - Add post-release bug fix patches from upstream

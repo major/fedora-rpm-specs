@@ -10,8 +10,8 @@ Summary:        Line by line profiling and code coverage for GAP
 # src/md5.{cc,h} is Public Domain.
 License:        MIT AND LicenseRef-Fedora-Public-Domain
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/profiling/
+Source0:        https://github.com/gap-packages/profiling/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Adapt to rapidjson 1.1.0
 Patch0:         %{name}-rapidjson.patch
 
@@ -48,7 +48,12 @@ There is also OutputFlameGraph, which outputs a graphical diagram
 showing which functions took the most time during execution.
 
 %package doc
-License:        MIT
+# The content is MIT.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        MIT AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Profiling documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -106,6 +111,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
+- Clarify license of the doc subpackage
+
 * Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
 - Version 2.5.1
 

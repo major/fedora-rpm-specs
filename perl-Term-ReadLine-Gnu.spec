@@ -1,5 +1,5 @@
 Name:           perl-Term-ReadLine-Gnu
-Version:        1.43
+Version:        1.44
 Release:        1%{?dist}
 Summary:        Perl extension for the GNU Readline/History Library
 License:        GPL+ or Artistic
@@ -83,6 +83,9 @@ expect -c '
 
 
 %changelog
+* Thu Nov 10 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.44-1
+- Update to 1.44
+
 * Sun Oct 09 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.43-1
 - Update to 1.43
 

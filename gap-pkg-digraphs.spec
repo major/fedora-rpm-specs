@@ -41,6 +41,13 @@ The Digraphs package is a GAP package containing methods for graphs,
 digraphs, and multidigraphs.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Digraphs documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -96,6 +103,9 @@ rm -fr ../pkg
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
 - Version 1.6.0
 - Update for gap 4.12.0

@@ -1113,9 +1113,9 @@ CheckPython() {
   # test_distutils
   #   distutils.tests.test_bdist_rpm tests fail when bootstraping the Python
   #   package: rpmbuild requires /usr/bin/pythonX.Y to be installed
-  # test_freeze_simple_script is skipped, because it fails when bundled wheels
-  #  are removed in Fedora.
-  #  upstream report: https://bugs.python.org/issue45783
+  # test_freeze_simple_script is skipped, because it fails without bundled libs.
+  #  the freeze tool is only usable from the source checkout anyway,
+  #  we don't ship it in the RPM package.
 
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest -j0 --timeout=1800 \

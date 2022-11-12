@@ -1,6 +1,6 @@
 %global upstreamname ROCm-OpenCL-Runtime
 %global rocm_release 5.3
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 #Set enable_ocltst to enable HW OCL test suite
@@ -169,6 +169,9 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Thu Nov 10 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.2-1
+- Update to 5.3.2
+
 * Mon Oct 17 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
 - Update to 5.3.0
 

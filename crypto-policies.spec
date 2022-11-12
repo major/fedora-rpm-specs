@@ -1,5 +1,5 @@
-%global git_date 20221003
-%global git_commit cb1ad32f5d0ecfa2b50e634dfd2fe4f1ec82a1e6
+%global git_date 20221110
+%global git_commit 87a75f462fa6c6e609e631f386b81df65b7aff2a
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -9,7 +9,7 @@ Version:        %{git_date}
 Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gitlab.com/redhat-crypto/fedora-crypto-policies
 Source0:        https://gitlab.com/redhat-crypto/fedora-crypto-policies/-/archive/%{git_commit_hash}/%{name}-git%{git_commit_hash}.tar.gz
 
@@ -32,6 +32,7 @@ BuildRequires: python3-flake8
 BuildRequires: python3-coverage
 BuildRequires: codespell
 BuildRequires: make
+BuildRequires: krb5-devel
 
 Conflicts: openssl-libs < 3.0.2-2
 Conflicts: nss < 3.44.0
@@ -173,6 +174,7 @@ end
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/krb5.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/libreswan.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/libssh.config
+%ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/sequoia.config
 # %verify(not mode) comes from the fact
 # these turn into symlinks and back to regular files at will, see bz1898986
 
@@ -205,6 +207,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Nov 10 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221110-1.git87a75f4
+- sequoia: introduce new backend
+- migrate license tag to SPDX
+
 * Mon Oct 03 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221003-1.gitcb1ad32
 - openssh: force RequiredRSASize option name
 

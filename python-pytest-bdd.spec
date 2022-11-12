@@ -9,6 +9,7 @@ Version:        5.0.0
 Release:        %autorelease
 Summary:        BDD library for the py.test runner
 
+# SPDX
 License:        MIT
 URL:            https://pytest-bdd.readthedocs.io/en/latest/
 %global forgeurl https://github.com/pytest-dev/pytest-bdd

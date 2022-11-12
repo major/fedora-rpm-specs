@@ -25,6 +25,7 @@ Source0:        https://github.com/openSUSE/%{name}/archive/%{version}/%{name}-%
 # Fedora specific patches
 ## Fix include paths for fcgi headers
 Patch1001:      libzypp-17.23.1-fix-fcgi-header-paths.patch
+Patch1002:      libzypp-yaml-cpp.patch
 
 BuildRequires:  %{_bindir}/asciidoctor
 BuildRequires:  %{_bindir}/xsltproc

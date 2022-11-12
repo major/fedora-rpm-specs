@@ -29,6 +29,15 @@ such an algorithm to terminate, as it would imply solvability of the
 word problem for finitely presented (semi)groups.
 
 %package doc
+# The content is LGPL-2.1-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# LaTeX: LPPL-1.0
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        LGPL-2.1-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only
 Summary:        GBNP documentation and examples
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -73,6 +82,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-3
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-3
 - Update for gap 4.12.0
 

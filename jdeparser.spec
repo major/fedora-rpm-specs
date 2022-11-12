@@ -5,7 +5,7 @@ Name:             jdeparser
 Version:          2.0.3
 Release:          12%{?dist}
 Summary:          Source generator library for Java
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              https://github.com/jdeparser/jdeparser2
 # old repos https://github.com/jdeparser/jdeparser
 Source0:          %{url}/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz

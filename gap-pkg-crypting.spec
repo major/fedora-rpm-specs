@@ -1,16 +1,14 @@
 %global pkgname crypting
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.10.3
+Version:        0.10.4
 Release:        1%{?dist}
 Summary:        Hashes and Crypto in GAP
 
 License:        BSD-3-Clause
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Make sure WORD_BIGENDIAN is defined on big endian arches
-Patch0:         %{name}-endian.patch
+URL:            https://gap-packages.github.io/crypting/
+Source0:        https://github.com/gap-packages/crypting/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -29,6 +27,12 @@ Bindings to a full crypto library are a possibility for the future, and
 pull-requests (after discussion) are appreciated.
 
 %package doc
+# The content is BSD-3-Clause.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        BSD-3-Clause AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 BuildArch:      noarch
 Summary:        Crypting documentation
 Requires:       %{name} = %{version}-%{release}
@@ -38,7 +42,7 @@ Requires:       gap-online-help
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
+%autosetup -n %{pkgname}-%{version}
 
 %build
 export LC_ALL=C.UTF-8
@@ -70,6 +74,11 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.10.4-1
+- Version 0.10.4
+- Drop obsolete -endian patch
+- Clarify license of the doc subpackage
+
 * Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 0.10.3-1
 - Version 0.10.3
 

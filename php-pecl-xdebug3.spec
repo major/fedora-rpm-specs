@@ -16,12 +16,12 @@
 
 %global pecl_name  xdebug
 %global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
-%global gh_commit  ddee051e64322c1955ccc7350a6da48af3a27ee7
+%global gh_commit  337c0c331ddeed4ff5bac2e58dcfe2b7666d936d
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.2.0
-%global upstream_prever  RC1
+%global upstream_prever  RC2
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 
 # XDebug should be loaded after opcache
@@ -55,14 +55,11 @@ Provides:       php-%{pecl_name}%{?_isa}      = %{version}
 Provides:       php-pecl(Xdebug)              = %{version}
 Provides:       php-pecl(Xdebug)%{?_isa}      = %{version}
 
-%if 0%{?fedora} >= 35 || 0%{?rhel} >= 9 || "%{php_version}" > "8.0"
-Obsoletes:     php-pecl-%{pecl_name}          < 3
-Provides:      php-pecl-%{pecl_name}          = %{version}-%{release}
-Provides:      php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
-%else
-# A single version can be installed
-Conflicts:     php-pecl-%{pecl_name}          < 3
-%endif
+# package was renamed on new major version
+Obsoletes:      php-pecl-%{pecl_name}         < 3
+Provides:       php-pecl-%{pecl_name}         = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+
 
 %description
 The Xdebug extension helps you debugging your script by providing a lot of
@@ -218,6 +215,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Thu Nov 10 2022 Remi Collet <remi@remirepo.net> - 3.2.0~rc2-1
+- update to 3.2.0RC2
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.2.0~rc1-1
 - update to 3.2.0RC1
 

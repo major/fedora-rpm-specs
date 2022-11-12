@@ -8,8 +8,8 @@ Summary:        ZeroMQ bindings for GAP
 
 License:        GPL-2.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://gap-packages.github.io/%{upname}/
-Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/ZeroMQInterface/
+Source0:        https://github.com/gap-packages/ZeroMQInterface/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -27,6 +27,12 @@ level interfaces for the ZeroMQ message passing library for GAP and
 HPC-GAP, enabling lightweight distributed computation.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Documentation for ZeroMQ bindings for GAP
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -75,6 +81,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.14-2
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.14-2
 - Update for gap 4.12.0
 - Convert License tag to SPDX

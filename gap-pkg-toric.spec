@@ -26,6 +26,13 @@ combinatorial geometry in GAP.  Affine toric varieties can be created
 and related information about them can be calculated.
 
 %package doc
+# The content is MIT.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        MIT AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Toric documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -63,6 +70,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
 - Update for gap 4.12.0
 

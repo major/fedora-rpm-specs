@@ -56,7 +56,14 @@ The functions within GUAVA can be divided into four categories:
   For example, BoundsMinimumDistance.
 
 %package doc
-License:        GFDL-1.2-no-invariants-or-later
+# The content is GFDL-1.2-no-invariants-or-later.  The remaining licenses cover
+# the various fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GFDL-1.2-no-invariants-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        GUAVA documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -123,6 +130,9 @@ EOF
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
 - Version 3.17
 - Update for gap 4.12.0

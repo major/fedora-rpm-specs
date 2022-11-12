@@ -8,8 +8,8 @@ Summary:        Primitive permutation groups library
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/primgrp/
+Source0:        https://github.com/gap-packages/primgrp/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -24,6 +24,13 @@ the corresponding symmetric group), all primitive permutation groups of
 degree < 4096.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Primitive permutation groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -41,7 +48,7 @@ export LC_ALL=C.UTF-8
 ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" makedoc.g
+gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedoc.g
 rm -fr ../../doc ../pkg
 
 # Compress large group files
@@ -54,7 +61,7 @@ cp -a *.g data lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" --bare tst/testall.g
 
 %files
 %doc CHANGES.md README.md
@@ -67,6 +74,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-3
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-3
 - Update for gap 4.12.0
 - Convert License tag to SPDX

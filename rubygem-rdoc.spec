@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.0
-Release: 201%{?dist}
+Release: 202%{?dist}
 Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
@@ -18,6 +18,9 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 # applied in ruby package.
 # https://bugs.ruby-lang.org/issues/11002
 Patch0: rubygem-rdoc-5.1.0-ruby_version.patch
+# https://github.com/ruby/rdoc/pull/927
+# Fix test failure with upcoming ruby 3.2
+Patch1: rubygem-rdoc-6.4.0-test_parse_method_bracket.patch
 Requires: rubygem(irb)
 Requires: rubygem(io-console)
 Requires: rubygem(json)
@@ -53,6 +56,9 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 %patch0 -p1
+( cd %{_builddir}/test
+%patch1 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -118,6 +124,10 @@ popd
 %{gem_instdir}/rdoc.gemspec
 
 %changelog
+* Thu Nov 10 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.4.0-202
+- Backport upstream fix for test_parse_method_bracket test for
+  upcoming ruby3.2
+
 * Fri Sep 02 2022 Vít Ondruch <vondruch@redhat.com> - 6.4.0-201
 - Update to RDoc 6.4.0.
   Resolves: rhbz#2022293

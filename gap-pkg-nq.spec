@@ -1,8 +1,8 @@
 %global pkgname nq
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.8
-Release:        4%{?dist}
+Version:        2.5.9
+Release:        1%{?dist}
 Summary:        Nilpotent Quotients of finitely presented groups
 
 License:        GPL-2.0-or-later
@@ -27,6 +27,14 @@ quotient program for computing nilpotent factor groups of finitely
 presented groups.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        NQ documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -68,6 +76,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.5.9-1
+- Version 2.5.9
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.5.8-4
 - Update for gap 4.12.0
 - Convert License tag to SPDX

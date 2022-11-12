@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 142
+%global firmware_release 143
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20221012
+Version:	20221109
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -14,7 +14,6 @@ BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
 Patch1:		0001-Add-support-for-compressing-firmware-in-copy-firmwar.patch
-Patch2:		0001-brcm-add-symlink-for-Pi-Zero-2-W-NVRAM-file.patch
 
 BuildRequires:	make
 Requires:	linux-firmware-whence
@@ -529,6 +528,35 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Thu Nov 10 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-143
+- Update to upstream 20221109 release
+- Update firmware file for Intel Bluetooth 9462/9560/AX20x/AX21x
+- amdgpu: update DMCUB firmware for DCN 3.1.6
+- rtl_bt: Update RTL8822C BT UART firmware to 0xFFB8_ABD6
+- rtl_bt: Update RTL8822C BT USB firmware to 0xFFB8_ABD3
+- mrvl: prestera: Update Marvell Prestera Switchdev FW to v4.1
+- iwlwifi: add new FWs from core74_pv-60 release
+- qcom: drop split a530_zap firmware file
+- qcom/vpu-1.0: drop split firmware in favour of the mbn file
+- qcom/venus-4.2: drop split firmware in favour of the mbn file
+- qcom/venus-4.2: replace split firmware with the mbn file
+- qcom/venus-1.8: replace split firmware with the mbn file
+- iwlwifi: add new PNVM binaries from core74-44 release
+- iwlwifi: add new FWs from core69-81 release
+- qcom: update venus firmware files for VPU-2.0
+- qcom: remove split SC7280 venus firmware images
+- qcom: update venus firmware file for v5.4
+- qcom: replace split SC7180 venus firmware images with symlink
+- rtw89: 8852b: update fw to v0.27.32.1
+- rtlwifi: update firmware for rtl8192eu to v35.7
+- rtlwifi: Add firmware v4.0 for RTL8188FU
+- i915: Add HuC 7.10.3 for DG2
+- cnm: update chips&media wave521c firmware.
+- brcm: add symlink for Pi Zero 2 W NVRAM file
+- Add firmware for Cirrus CS35L41 on ASUS/Lenovo/HP Laptops
+- iwlwifi: add new FWs from core72-129 release
+- iwlwifi: update 9000-family firmwares to core72-129
+
 * Sun Oct 16 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221012-142
 - Add link for one variant of Raspberry Pi Zero 2W WiFi module
 

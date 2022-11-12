@@ -1,7 +1,7 @@
 %bcond_without gnutls
 
-%global gitdate     20220427
-%global gitcommit   f2268eebb0d1adf89bad83fa4cf91e37b4e3fa53
+%global gitdate     20221110
+%global gitcommit   2ae7b019370760e17f4f2675195a91ca53950eda
 %global gitshortcommit  %(c=%{gitcommit}; echo ${c:0:7})
 
 # Macros needed by SELinux
@@ -11,11 +11,13 @@
 
 Summary: TPM Emulator
 Name:           swtpm
-Version:        0.7.3
-Release:        2.%{gitdate}git%{gitshortcommit}%{?dist}
+Version:        0.8.0
+Release:        2%{?dist}
 License:        BSD
 Url:            http://github.com/stefanberger/swtpm
 Source0:        %{url}/archive/%{gitcommit}/%{name}-%{gitshortcommit}.tar.gz
+
+Patch0001:	0001-swtpm_setup-Initialized-argv-to-NULL-Fedore-Rawhide.patch
 
 BuildRequires: make
 BuildRequires:  git-core
@@ -159,15 +161,16 @@ fi
 %{_bindir}/swtpm_setup
 %{_bindir}/swtpm_ioctl
 %{_bindir}/swtpm_localca
+%{_mandir}/man5/swtpm-localca.conf.5*
+%{_mandir}/man5/swtpm-localca.options.5*
+%{_mandir}/man5/swtpm_setup.conf.5*
 %{_mandir}/man8/swtpm_bios.8*
 %{_mandir}/man8/swtpm_cert.8*
 %{_mandir}/man8/swtpm_ioctl.8*
-%{_mandir}/man8/swtpm-localca.conf.8*
-%{_mandir}/man8/swtpm-localca.options.8*
 %{_mandir}/man8/swtpm-localca.8*
 %{_mandir}/man8/swtpm_localca.8*
 %{_mandir}/man8/swtpm_setup.8*
-%{_mandir}/man8/swtpm_setup.conf.8*
+%exclude %{_mandir}/man8/swtpm_cuse.8.gz
 %config(noreplace) %{_sysconfdir}/swtpm_setup.conf
 %config(noreplace) %{_sysconfdir}/swtpm-localca.options
 %config(noreplace) %{_sysconfdir}/swtpm-localca.conf
@@ -181,6 +184,12 @@ fi
 %{_datadir}/swtpm/swtpm-create-tpmca
 
 %changelog
+* Thu Nov 10 2022 Stefan Berger <stefanb@linux.ibm.com> - 0.8.0-2
+- Adding patch needed on Rawhide build servers only
+
+* Thu Nov 10 2022 Stefan Berger <stefanb@linux.ibm.com> - 0.8.0-1
+- Update to v0.8.0 release
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2.20220427gitf2268ee
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

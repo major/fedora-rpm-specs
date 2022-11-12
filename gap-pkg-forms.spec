@@ -24,6 +24,13 @@ This package provides:
 - An operation which returns the forms left invariant by a matrix group.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Forms documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -60,6 +67,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.2.9-1
+- Clarify license of the doc subpackage
+
 * Wed Oct 26 2022 Jerry James <loganjerry@gmail.com> - 1.2.9-1
 - Version 1.2.9
 

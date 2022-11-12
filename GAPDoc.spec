@@ -1,6 +1,6 @@
 # When bootstrapping a new architecture, there is no gap-pkg-io package yet,
 # since it requires this package to build.  This package can be built without
-# gap-pkg-io, but  needs it for completeness.  Use the following procedure:
+# gap-pkg-io, but needs it for completeness.  Use the following procedure:
 # 1. Do a bootstrap build of this package
 # 2. Build gap-pkg-autodoc in bootstrap mode
 # 3. Build gap-pkg-io
@@ -21,8 +21,8 @@ Summary:        GAP documentation tool
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/%{name}/
-Source0:        https://www.math.rwth-aachen.de/~Frank.Luebeck/%{name}/%{name}-%{version}.tar.bz2
+URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/
+Source0:        %{url}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  ghostscript
@@ -128,6 +128,13 @@ this package to pull in all of the necessary LaTeX dependencies for
 building GAP package documentation.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        GAPDoc documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -149,7 +156,11 @@ export LC_ALL=C.UTF-8
 ln -s %{gap_dir}/doc ../../doc
 mkdir ../pkg
 ln -s ../GAPDoc-%{version} ../pkg
-gap -l "$PWD/..;" makedocrel.g
+%if %{with bootstrap}
+gap -l "$PWD/..;" --bare makedocrel.g
+%else
+gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedocrel.g
+%endif
 rm -fr ../../doc ../pkg
 
 # Remove build paths
@@ -202,6 +213,10 @@ rm -fr ../pkg
 %{gap_dir}/pkg/%{name}/example/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.6-3
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 1.6.6-3
 - Update for gap 4.12.0
 - Add conditionally-enabled %%check script

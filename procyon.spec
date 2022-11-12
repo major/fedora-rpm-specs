@@ -2,13 +2,13 @@
 %define debug_package %{nil}
 %global remove_tests 1
 
-%global commit 92ba3f44b8f2b755a21efcdc05dec347ab4df552
+%global commit 88a95fa93c58322393174f84543edc7a0a2ca44d
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20210619
+%global commitdate 20220221
 
 Name:       procyon
-Version:    0.5.36
-Release:    0.11.%{commitdate}.git%{shortcommit}%{?dist}
+Version:    0.6.0
+Release:    0.1.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:    procyon java decompiler and other tools
 License:    ASL 2.0 
 URL:        https://github.com/mstrobel/procyon
@@ -16,17 +16,8 @@ URL:        https://github.com/mstrobel/procyon
 # This script uses a fork of the original project
 Source0:    %{name}-%{commit}.tar.gz
 Source1:    procyon-decompiler
-
-# main removal is not upstream-able, and is enforced by fedora policy
-# signature is touching online world, necessary for packaging, not usptream able
-Patch0:     removeSigningAndIfDecompilerAndMain.patch
-# fat jar do not have much sense for fedora packagin. not upstream-able
-Patch1:     disableFatJar.patch
-# patch should be proposed to upstream.
-Patch2:     adaptToNewerJcommander.patch
 Patch3:     madeToPasXlint.patch
-Patch4:     newJcommander.patch
-Patch5:     lookupPatch.patch
+
 
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -129,15 +120,8 @@ find | grep "\\.jar$"   && exit 1
 dos2unix Procyon.Decompiler/build.gradle
 dos2unix build.gradle
 dos2unix README.md
-# also removing main method from enter point jar
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 dos2unix Procyon.CompilerTools/src/main/java/com/strobel/assembler/metadata/MethodBinder.java
 %patch3 -p1
-%patch4 -p1
-dos2unix Procyon.Reflection/src/main/java/com/strobel/reflection/emit/TypeBuilder.java
-%patch5 -p0
 
 %build
 mkdir -p build/Procyon.CompilerTools/{libs,classes}
@@ -227,6 +211,9 @@ popd
 %doc README.md
 
 %changelog
+* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.1.20220221.git88a95fa
+- bumped to 0.6.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.11.20210619.git92ba3f4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -242,7 +229,7 @@ popd
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.7.20210619.git92ba3f4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Thu Jun 03 2020 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.6-92ba3f4
+* Thu Jun 03 2021 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.6-92ba3f4
 - moved to commit versioning
 
 * Thu Jun 03 2021 Marian Koncek <mkoncek@redhat.com> - 1.0~SNAPSHOT-1

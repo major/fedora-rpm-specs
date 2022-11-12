@@ -13,20 +13,19 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-# disable brainpool curves by default
-%bcond_with brainpool
-
 Name: libgcrypt
 Version: 1.10.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
 Source2: wk@g10code.com
-# brainpool curves are still not allowed to be shipped in Fedora
-Patch1: libgcrypt-1.10.0-disable-brainpool.patch
 # Pass the annobin flags to the libgcrypt.so (#2016349)
-Patch2: libgcrypt-1.10.1-annobin.patch
+Patch1: libgcrypt-1.10.1-annobin.patch
+# https://dev.gnupg.org/T5919
+# tests occasionally fail with "error generating RSA key: Number is not prime"
+# https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=patch;h=cd30ed3c0
+Patch2: 0001-cipher-Change-the-bounds-for-RSA-key-generation-roun.patch
 
 %global gcrylibdir %{_libdir}
 %global gcrysoname libgcrypt.so.20
@@ -89,7 +88,6 @@ autoreconf -f
 %endif
      --enable-noexecstack \
      --enable-hmac-binary-check=%{hmackey} \
-     %{!?with_brainpool:--disable-brainpool} \
      --enable-digests="$DIGESTS" \
      --enable-ciphers="$CIPHERS" \
      --with-fips-module-version="$FIPS_MODULE_NAME %{version}-%{srpmhash}"
@@ -182,6 +180,10 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Tue Nov 08 2022 Todd Zullinger <tmz@pobox.com> - 1.10.1-5
+- enable brainpool by default (#1413618)
+- fix sporadic failures generating RSA keys in FIPS mode
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

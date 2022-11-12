@@ -3,10 +3,10 @@
 
 Name:           jcuber
 Version:        4.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CUBE reader for Java
 # tarviewer is ASL
-License:        BSD and ASL 2.0
+License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
 Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%(echo %version|awk -F. '{print $1 "." $2}')/dist/jcuber-%version.tar.gz
 BuildRequires:  java-devel
@@ -70,6 +70,9 @@ cp -rp examples AUTHORS %buildroot%_defaultdocdir/%name
 
 
 %changelog
+* Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 4.6-6
+- Use SPDX licence tag
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

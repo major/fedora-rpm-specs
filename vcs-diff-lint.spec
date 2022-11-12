@@ -1,5 +1,5 @@
 Name:    vcs-diff-lint
-Version: 2
+Version: 3
 Release: 1%{?dist}
 Summary: VCS Differential Code Analysis Tool
 BuildArch: noarch
@@ -14,6 +14,7 @@ Source0: %name-%version.tar.gz
 Requires: csdiff
 Requires: git
 Requires: pylint
+Requires: python3-mypy
 
 %description
 Analyze code, and print only reports related to a particular change.
@@ -38,6 +39,7 @@ added (or even fixed, as opt-in) analyzers' warnings.
 install -d %buildroot%_bindir
 install -p vcs-diff-lint %buildroot%_bindir
 install -p vcs-diff-lint-csdiff-pylint %buildroot%_bindir
+install -p vcs-diff-lint-csdiff-mypy   %buildroot%_bindir
 
 
 %files
@@ -47,6 +49,11 @@ install -p vcs-diff-lint-csdiff-pylint %buildroot%_bindir
 
 
 %changelog
+* Thu Nov 10 2022 Pavel Raiskup <praiskup@redhat.com> 3-1
+- print the headers back to stdout again
+- non-monorepo use-case fixed
+- add support for Mypy
+
 * Thu Oct 20 2022 Pavel Raiskup <praiskup@redhat.com> 2-1
 - don't pollute stdout so csgrep can read it
 

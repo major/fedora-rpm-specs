@@ -10,11 +10,10 @@ Summary:        Methods to enumerate orbits in GAP
 License:        GPL-3.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/orb/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/orb/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
-# The AtlasRep, Browse and CtblLib dependencies are needed for the tests only
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-io
@@ -38,6 +37,13 @@ Requires:       gap-pkg-io%{?_isa}
 This package enables enumerating orbits in various ways from within GAP.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        ORB documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -95,6 +101,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.9.0-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.9.0-1
 - Version 4.9.0
 - Update for gap 4.12.0

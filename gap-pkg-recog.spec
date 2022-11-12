@@ -8,8 +8,8 @@ Summary:        Group recognition methods
 License:        GPL-3.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+URL:            https://gap-packages.github.io/recog/
+Source0:        https://github.com/gap-packages/recog/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
@@ -33,6 +33,13 @@ Requires:       gap-pkg-orb
 This is a GAP package for group recognition.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Recog documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -79,6 +86,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testslow.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
 - Version 1.4.2
 - Update for gap 4.12.0

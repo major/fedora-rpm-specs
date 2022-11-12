@@ -1,6 +1,6 @@
 Name:           xgap
 Version:        4.31
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GUI for GAP
 
 # The project as a whole is GPL-2.0-or-later.
@@ -8,7 +8,7 @@ Summary:        GUI for GAP
 License:        GPL-2.0-or-later AND HPND
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/xgap/
-Source0:        https://github.com/gap-packages/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/xgap/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Created by Jerry James <loganjerry@gmail.com>
 Source1:        %{name}.desktop
 # Created by Paulo César Pereira de Andrade
@@ -38,6 +38,12 @@ Provides:       gap-pkg-xgap = %{version}-%{release}
 A X Windows GUI for GAP.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
 Summary:        XGap documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -71,7 +77,7 @@ rm -f ../%{name} ../smallgrp ../../{doc,etc}
 %install
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{gap_dir}/pkg/%{name}/doc
-cp -a *.g bin examples htm lib %{buildroot}%{gap_dir}/pkg/%{name}
+cp -a *.g bin examples htm lib tst %{buildroot}%{gap_dir}/pkg/%{name}
 mv %{buildroot}%{gap_dir}/pkg/%{name}/bin/xgap.sh %{buildroot}%{_bindir}/xgap
 rm %{buildroot}%{gap_dir}/pkg/%{name}/bin/*/{Makefile,config*,*.o}
 %gap_copy_docs -n %{name}
@@ -85,12 +91,13 @@ desktop-file-install --mode=644 --dir=%{buildroot}%{_datadir}/applications \
 mkdir -p %{buildroot}%{_datadir}/X11/app-defaults
 cp -p %{SOURCE2} %{buildroot}%{_datadir}/X11/app-defaults
 
-# This doesn't work, because tst/testall.g invokes a function that is defined
-# inside one of the test files.  TODO: ask upstream how the tests are supposed
-# to be invoked.
-#
-#%check
-#gap -l "%%{buildroot}%%{gap_dir};" tst/testall.g
+%check
+# Temporarily modify the test runner to add the necessary -l argument
+sed -i.orig 's|"-p"|"-l","%{buildroot}%{gap_dir};",&|' \
+   %{buildroot}%{gap_dir}/pkg/%{name}/tst/xgap_test.g
+gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+mv %{buildroot}%{gap_dir}/pkg/%{name}/tst/xgap_test.g.orig \
+   %{buildroot}%{gap_dir}/pkg/%{name}/tst/xgap_test.g
 
 %files
 %doc CHANGES README
@@ -111,6 +118,10 @@ cp -p %{SOURCE2} %{buildroot}%{_datadir}/X11/app-defaults
 %{gap_dir}/pkg/%{name}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.31-5
+- Fix and reenable the tests
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.31-4
 - Update for gap 4.12.0
 - Convert License tag to SPDX

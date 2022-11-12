@@ -6,7 +6,7 @@ Version:        4.4.0
 Release:        9%{?dist}
 Summary:        Policy analysis tools for SELinux
 
-License:        GPLv2
+License:        GPL-2.0-only and LGPL-2.1-only
 URL:            https://github.com/SELinuxProject/setools/wiki
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
@@ -35,7 +35,7 @@ Python modules designed to facilitate SELinux policy analysis.
 
 %package     console
 Summary:     Policy analysis command-line tools for SELinux
-License:     GPLv2
+License:     GPL-2.0-only
 Requires:    python3-setools = %{version}-%{release}
 Requires:    libselinux >= %{selinux_ver}
 
@@ -52,7 +52,7 @@ This package includes the following console tools:
 
 %package     console-analyses
 Summary:     Policy analysis command-line tools for SELinux
-License:     GPLv2
+License:     GPL-2.0-only
 Requires:    python3-setools = %{version}-%{release}
 Requires:    libselinux >= %{selinux_ver}
 Requires:    python3-networkx
@@ -68,7 +68,8 @@ This package includes the following console tools:
 
 
 %package     -n python3-setools
-Summary:     Policy analysis tools for SELinux  
+Summary:     Policy analysis tools for SELinux
+License:     LGPL-2.1-only
 Obsoletes:   setools-libs < 4.0.0
 %{?python_provide:%python_provide python3-setools}
 Requires:    python3-setuptools
@@ -80,6 +81,7 @@ Python 3 modules designed to facilitate SELinux policy analysis.
 
 %package     gui
 Summary:     Policy analysis graphical tools for SELinux
+License:     GPL-2.0-only
 Requires:    python3-setools = %{version}-%{release}
 Requires:    python3-qt5
 Requires:    python3-networkx
@@ -109,6 +111,7 @@ Python modules designed to facilitate SELinux policy analysis.
 %files
 
 %files console
+%license COPYING.GPL
 %{_bindir}/sechecker
 %{_bindir}/sediff
 %{_bindir}/seinfo
@@ -122,6 +125,7 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/sesearch*
 
 %files console-analyses
+%license COPYING.GPL
 %{_bindir}/sedta
 %{_bindir}/seinfoflow
 %{_mandir}/man1/sedta*
@@ -130,11 +134,12 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/seinfoflow*
 
 %files -n python3-setools
-%license COPYING COPYING.GPL COPYING.LGPL
+%license COPYING COPYING.LGPL
 %{python3_sitearch}/setools
 %{python3_sitearch}/setools-*
 
 %files gui
+%license COPYING.GPL
 %{_bindir}/apol
 %{python3_sitearch}/setoolsgui
 %{_mandir}/man1/apol*

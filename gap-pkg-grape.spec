@@ -9,7 +9,7 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/grape/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/grape/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fedora-only patch: unbundle nauty
 Patch0:         %{name}-nauty.patch
 # Fix a multiple citation
@@ -28,6 +28,13 @@ primarily designed for constructing and analyzing graphs related to
 groups, finite geometries, and designs.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        GRAPE documentation and examples
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -78,6 +85,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.8.5-5
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 4.8.5-5
 - Update for gap 4.12.0
 - Add -citation patch

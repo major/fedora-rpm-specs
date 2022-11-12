@@ -14,8 +14,8 @@ Summary:        Simple web access for GAP
 
 License:        GPL-2.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
-URL:            https://gap-packages.github.io/%{upname}/
-Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/curlInterface/
+Source0:        https://github.com/gap-packages/curlInterface/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -31,6 +31,12 @@ This package provides a simple GAP wrapper around libcurl, to allow
 downloading files over http, ftp and https.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Curl interface for GAP documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -74,6 +80,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
 - Version 2.3.1
 - Update for gap 4.12.0

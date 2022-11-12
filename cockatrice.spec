@@ -16,7 +16,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 
 Name:		cockatrice
 Version:	2.8.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
 # * Public Domain (cockatrice/resources/countries/*.svg)
@@ -47,6 +47,7 @@ BuildRequires:	libappstream-glib
 BuildRequires:	desktop-file-utils
 Requires:		wget
 Requires:		hicolor-icon-theme
+Requires:		%{name}-utils = %{version}-%{release}
 
 %description
 Cockatrice is an open-source multi-platform supported program for playing
@@ -54,6 +55,34 @@ tabletop card games over a network. The program's server design prevents any
 kind of client modifications to gain an unfair advantage in a game.
 The client also has a built in single-player mode where you can create decks
 without being connected to a server.
+
+
+%package server
+Summary:	Standalone server for Cockatrice
+Provides:	servatrice = %{version}-%{release}
+Requires:	%{name}-utils = %{version}-%{release}
+
+%description server
+Cockatrice is an open-source multi-platform supported program for playing
+tabletop card games over a network. The program's server design prevents any
+kind of client modifications to gain an unfair advantage in a game.
+The client also has a built in single-player mode where you can create decks
+without being connected to a server.
+
+This is the standalone server, "servatrice".
+
+
+%package utils
+Summary:	Utilities common to both cockatrice and servatrice
+
+%description utils
+Cockatrice is an open-source multi-platform supported program for playing
+tabletop card games over a network. The program's server design prevents any
+kind of client modifications to gain an unfair advantage in a game.
+The client also has a built in single-player mode where you can create decks
+without being connected to a server.
+
+This package provides utilities required by both cockatrice and servatrice.
 
 
 %prep
@@ -91,11 +120,10 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %files
 %doc README.md
 %license LICENSE
-%{_bindir}/*
-%{_datadir}/applications/*
+%{_bindir}/{cockatrice,oracle}
+%{_datadir}/applications/{cockatrice,oracle}.desktop
 %{_datadir}/appdata/*
 %{_datadir}/%{name}
-%{_datadir}/servatrice
 %{_datadir}/icons/hicolor/{48x48,scalable}/apps/*
 %{_datadir}/oracle
 %exclude %{_datadir}/%{name}/translations/%{name}_*.qm
@@ -120,8 +148,20 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %lang_subpkg sv Swedish
 %lang_subpkg zh-Hans "Chinese (Simplified)"
 
+%files utils
+%license LICENSE
+%{_bindir}/dbconverter
+
+%files server
+%license LICENSE
+%{_bindir}/servatrice
+%{_datadir}/servatrice
+%{_datadir}/applications/servatrice.desktop
 
 %changelog
+* Thu Nov 10 2022 Link Dupont <linkdupont@fedoraproject.org> - 2.8.0-7
+- Split servatrice into separate subpackage
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

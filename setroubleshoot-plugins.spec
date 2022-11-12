@@ -7,7 +7,7 @@ Summary: Analysis plugins for use with setroubleshoot
 Name: setroubleshoot-plugins
 Version: 3.3.14
 Release: 5%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/fedora-selinux/setroubleshoot
 Source0: https://releases.pagure.org/setroubleshoot/%{name}-%{version}.tar.gz
 # git format-patch -N setroubleshoot-plugins-<version> -- plugins

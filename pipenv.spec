@@ -3,15 +3,16 @@
 # - Update the test_artifacts_commit macro to point to the correct commit
 # - Upload both new sources to the side cache
 # - Update the `bundled-licenses` file (see guidance inside)
+# - Update the License tag (see guidance above it)
 # - Update licenses in %%files section (see guidance in that section)
 # - Update versions of bundled packages (see files
 #     * pipenv/vendor/vendor.txt
 #     * pipenv/patched/patched.txt
-#     * pipenv/patched/notpip/_vendor/vendor.txt [previously located at pipenv/vendor/vendor_pip.txt]
+#     * pipenv/patched/pip/_vendor/vendor.txt [previously: pipenv/patched/notpip/_vendor/vendor.txt and pipenv/vendor/vendor_pip.txt]
 #     * pipenv/vendor/pythonfinder/_vendor/vendor.txt
 #   inside the sources, and possibly diff them with the previous version)
 
-%global base_version        2022.5.2
+%global base_version        2022.10.25
 # %%global prerelease_version  --
 
 # Test artifacts are not released, we have to download the commit tree
@@ -24,12 +25,12 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
 # - See file `bundled-licenses` on instructions how to generate the License field here.
-License:        MIT and (ASL 2.0 or BSD) and ASL 2.0 and BSD and ISC and MPLv2.0 and Python and Unlicense
+License:        MIT and (ASL 2.0 or BSD) and ASL 2.0 and BSD and ISC and LGPLv2+ and MPLv2.0 and Python
 URL:            https://github.com/pypa/pipenv
 Source0:        https://github.com/pypa/%{name}/archive/v%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
@@ -50,9 +51,9 @@ Patch4:         dummy-certifi.patch
 # pip and distlib
 Patch6:         remove-bundled-exe-files.patch
 
-# Make pipenv work with the venv install scheme if it is detected
-# Upstream: https://github.com/pypa/pipenv/pull/5096
-Patch8:         venv-install-scheme.patch
+# Fix compatibility with Python 3.11 in the vendored attrs library
+# See: https://github.com/pypa/pipenv/issues/5449
+Patch7:         fix-set_closure_cell-on-3.11.patch
 
 BuildArch:      noarch
 
@@ -106,92 +107,72 @@ Requires:       which
 # will hopefully spare some maintenance burden in the future
 %global bundled %{expand:
 Provides: bundled(python3dist(click-didyoumean)) = 0.0.3
-Provides: bundled(python3dist(pipdeptree)) = 2.2.1
+Provides: bundled(python3dist(pipdeptree)) = 2.3.1
 # This library uses pip.internals. Some changes in init methods happened there.
 # So version 1.3.3 is useless with pip 19+ and newer versions will break pipenv
 # because pipenv has bundled patched pip.
-Provides: bundled(python3dist(requirementslib)) = 1.6.4
+Provides: bundled(python3dist(requirementslib)) = 2.1
 
 # The sources contains patched versions of following packages:
-Provides: bundled(python3dist(crayons)) = 0.1.2
-Provides: bundled(python3dist(pipfile)) = 0.0.2
-Provides: bundled(python3dist(pip)) = 22.0.4
+Provides: bundled(python3dist(pip)) = 22.3
 Provides: bundled(python3dist(safety)) = 1.10.3
 
 # We cannot unbundle this easily,
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1767003
-Provides: bundled(python3dist(tomlkit)) = 0.7.2
+Provides: bundled(python3dist(tomlkit)) = 0.9.2
 
 # The packages bundled with pip (22.0.4):
-Provides: bundled(python3dist(cachecontrol)) = 0.12.10
-Provides: bundled(python3dist(certifi)) = 2021.5.30
-Provides: bundled(python3dist(chardet)) = 4
-Provides: bundled(python3dist(charset-normalizer)) = 2.0.7
+Provides: bundled(python3dist(cachecontrol)) = 0.12.11
+Provides: bundled(python3dist(chardet)) = 5
 Provides: bundled(python3dist(colorama)) = 0.4.4
-Provides: bundled(python3dist(distlib)) = 0.3.3
-Provides: bundled(python3dist(distro)) = 1.6
-Provides: bundled(python3dist(html5lib)) = 1.1
+Provides: bundled(python3dist(distlib)) = 0.3.6
+Provides: bundled(python3dist(distro)) = 1.7
 Provides: bundled(python3dist(idna)) = 3.2
-Provides: bundled(python3dist(msgpack)) = 1.0.3
+Provides: bundled(python3dist(msgpack)) = 1.0.4
 Provides: bundled(python3dist(packaging)) = 21.3
-Provides: bundled(python3dist(pep517)) = 0.12
-Provides: bundled(python3dist(platformdirs)) = 2.4.1
-Provides: bundled(python3dist(progress)) = 1.6
-Provides: bundled(python3dist(pygments)) = 2.11.2
-Provides: bundled(python3dist(pyparsing)) = 3.0.7
-Provides: bundled(python3dist(requests)) = 2.27.1
+Provides: bundled(python3dist(platformdirs)) = 2.5.2
+Provides: bundled(python3dist(pygments)) = 2.13
+Provides: bundled(python3dist(requests)) = 2.28.1
 Provides: bundled(python3dist(resolvelib)) = 0.8.1
-Provides: bundled(python3dist(rich)) = 11
+Provides: bundled(python3dist(rich)) = 12.5.1
 Provides: bundled(python3dist(setuptools)) = 44
 Provides: bundled(python3dist(six)) = 1.16
-Provides: bundled(python3dist(tenacity)) = 8.0.1
-Provides: bundled(python3dist(tomli)) = 1.0.3
-Provides: bundled(python3dist(typing-extensions)) = 4.0.1
-Provides: bundled(python3dist(urllib3)) = 1.26.6
+Provides: bundled(python3dist(tenacity)) = 8.1
+Provides: bundled(python3dist(tomli)) = 2.0.1
+Provides: bundled(python3dist(typing-extensions)) = 4.4
 Provides: bundled(python3dist(webencodings)) = 0.5.1
 
 # The packages bundles with pipenv
 # Some occur twice - with pip and pipenv, possibly with different versions
 Provides: bundled(python3dist(attrs)) = 21.2
-Provides: bundled(python3dist(appdirs)) = 1.4.4
-Provides: bundled(python3dist(cached-property)) = 1.5.2
 Provides: bundled(python3dist(cerberus)) = 1.3.4
-Provides: bundled(python3dist(certifi)) = 2021.10.8
+Provides: bundled(python3dist(certifi)) = 2022.9.24
 Provides: bundled(python3dist(click)) = 8.0.3
-Provides: bundled(python3dist(colorama)) = 0.4.4
+Provides: bundled(python3dist(colorama)) = 0.4.5
 Provides: bundled(python3dist(distlib)) = 0.3.2
-Provides: bundled(python3dist(dparse)) = 0.5.1
-Provides: bundled(python3dist(funcsigs)) = 1.0.2
-Provides: bundled(python3dist(idna)) = 3.3
-Provides: bundled(python3dist(importlib-resources)) = 5.2
-Provides: bundled(python3dist(importlib-metadata)) = 4.6.1
-Provides: bundled(python3dist(iso8601)) = 0.1.16
+Provides: bundled(python3dist(dparse)) = 0.6.2
+Provides: bundled(python3dist(idna)) = 3.4
 Provides: bundled(python3dist(markupsafe)) = 2.0.1
-Provides: bundled(python3dist(orderedmultidict)) = 1.0.1
 Provides: bundled(python3dist(packaging)) = 21.3
 Provides: bundled(python3dist(parse)) = 1.19
 Provides: bundled(python3dist(pep514tools))
-Provides: bundled(python3dist(pep517)) = 0.11
+Provides: bundled(python3dist(pep517)) = 0.13
 Provides: bundled(python3dist(pexpect)) = 4.8
-Provides: bundled(python3dist(pip-shims)) = 0.7
 Provides: bundled(python3dist(platformdirs)) = 2.4
-Provides: bundled(python3dist(plette[validation])) = 0.2.3
+Provides: bundled(python3dist(plette[validation])) = 0.4.2
 Provides: bundled(python3dist(ptyprocess)) = 0.7
-Provides: bundled(python3dist(pyparsing)) = 3.0.7
-Provides: bundled(python3dist(pythonfinder)) = 1.2.10
-Provides: bundled(python3dist(python-dateutil)) = 2.8.2
+Provides: bundled(python3dist(pyparsing)) = 3.0.9
+Provides: bundled(python3dist(pythonfinder)) = 1.3.1
 Provides: bundled(python3dist(python-dotenv)) = 0.19
-Provides: bundled(python3dist(requests)) = 2.26
-Provides: bundled(python3dist(shellingham)) = 1.4
-Provides: bundled(python3dist(six)) = 1.16
+Provides: bundled(python3dist(requests)) = 2.28.1
+Provides: bundled(python3dist(shellingham)) = 1.5
 Provides: bundled(python3dist(termcolor)) = 1.1
 Provides: bundled(python3dist(toml)) = 0.10.2
 Provides: bundled(python3dist(tomli)) = 1.1
-Provides: bundled(python3dist(urllib3)) = 1.26.8
-Provides: bundled(python3dist(vistir)) = 0.5.2
-Provides: bundled(python3dist(wheel)) = 0.36.2
+Provides: bundled(python3dist(urllib3)) = 1.26.12
+Provides: bundled(python3dist(vistir)) = 0.6.1
+Provides: bundled(python3dist(wheel)) = 0.37.1
 Provides: bundled(python3dist(yaspin)) = 2
-Provides: bundled(python3dist(zipp)) = 3.5
 }
 %{bundled}
 
@@ -216,7 +197,7 @@ Documentation for Pipenv
 tar -xf %{SOURCE1} --strip-components 1 -C tests/pypi
 
 # this goes together with patch4
-rm pipenv/patched/notpip/_vendor/certifi/*.pem
+rm pipenv/patched/pip/_vendor/certifi/*.pem
 
 # Remove python2 parts because they fail bytecompilation
 rm -rf pipenv/patched/yaml2/
@@ -227,7 +208,7 @@ sed -i /setup_requires/d setup.py
 
 # Remove windows executable binaries
 # This goes together with patch6
-rm -v pipenv/patched/notpip/_vendor/distlib/*.exe
+rm -v pipenv/patched/pip/_vendor/distlib/*.exe
 rm -v pipenv/vendor/distlib/*.exe
 
 %build
@@ -276,77 +257,79 @@ rm -rf check_path
 
 %files
 %license LICENSE
+
 # To regenerate list of licenses, use:
 #  $ ./license-helper.py --bundled-modules bundled-licenses \
 #                        --sources <directory created by fedpkg prep> \
 #                        --list-license-files
+#
+# Ignore RPM warnings about these license files being listed twice.
+
 # Keep this list alphabetically sorted
-%license %{python3_sitelib}/%{name}/patched/crayons.LICENSE
-%license %{python3_sitelib}/%{name}/patched/notpip/COPYING
-%license %{python3_sitelib}/%{name}/patched/notpip/LICENSE
-%license %{python3_sitelib}/%{name}/patched/notpip/LICENSE.APACHE
-%license %{python3_sitelib}/%{name}/patched/notpip/LICENSE.BSD
-%license %{python3_sitelib}/%{name}/patched/notpip/LICENSE.md
-%license %{python3_sitelib}/%{name}/patched/notpip/LICENSE.txt
-%license %{python3_sitelib}/%{name}/patched/notpip/appdirs.LICENSE.txt
-%license %{python3_sitelib}/%{name}/patched/notpip/distro.LICENSE
-%license %{python3_sitelib}/%{name}/patched/notpip/pyparsing.LICENSE
-%license %{python3_sitelib}/%{name}/patched/notpip/six.LICENSE
-%license %{python3_sitelib}/%{name}/patched/notpip/typing_extensions.LICENSE
-%license %{python3_sitelib}/%{name}/patched/pipfile/LICENSE
-%license %{python3_sitelib}/%{name}/patched/pipfile/LICENSE.APACHE
-%license %{python3_sitelib}/%{name}/patched/pipfile/LICENSE.BSD
+%license %{python3_sitelib}/%{name}/patched/pip/COPYING
+%license %{python3_sitelib}/%{name}/patched/pip/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/LICENSE.APACHE
+%license %{python3_sitelib}/%{name}/patched/pip/LICENSE.BSD
+%license %{python3_sitelib}/%{name}/patched/pip/LICENSE.md
+%license %{python3_sitelib}/%{name}/patched/pip/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/cachecontrol/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/certifi/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/chardet/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/colorama/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/distlib/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/distro/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/idna/LICENSE.md
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/msgpack/COPYING
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE.APACHE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/packaging/LICENSE.BSD
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/pep517/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/pkg_resources/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/platformdirs/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/pygments/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/pyparsing/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/requests/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/resolvelib/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/rich/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/six.LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/tenacity/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/tomli/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/typing_extensions.LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/urllib3/LICENSE.txt
+%license %{python3_sitelib}/%{name}/patched/pip/_vendor/webencodings/LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/six.LICENSE
+%license %{python3_sitelib}/%{name}/patched/pip/typing_extensions.LICENSE
 %license %{python3_sitelib}/%{name}/patched/safety/LICENSE
-%license %{python3_sitelib}/%{name}/patched/yaml3/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/appdirs.LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/attr/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/cached-property.LICENSE
-%license %{python3_sitelib}/%{name}/vendor/cached_property.LICENSE
 %license %{python3_sitelib}/%{name}/vendor/cerberus/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/certifi/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/charset_normalizer/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/click/LICENSE.rst
 %license %{python3_sitelib}/%{name}/vendor/click_didyoumean/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/colorama/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/distlib/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/dotenv/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/dparse/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/funcsigs/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/idna/LICENSE.md
-%license %{python3_sitelib}/%{name}/vendor/importlib_metadata/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/importlib_resources/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/iso8601/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/markupsafe/LICENSE.rst
-%license %{python3_sitelib}/%{name}/vendor/orderedmultidict/LICENSE.md
-%license %{python3_sitelib}/%{name}/vendor/packaging/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/packaging/LICENSE.APACHE
-%license %{python3_sitelib}/%{name}/vendor/packaging/LICENSE.BSD
 %license %{python3_sitelib}/%{name}/vendor/parse.LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pep517/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/pexpect/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pip_shims/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pipdeptree.LICENSE
+%license %{python3_sitelib}/%{name}/vendor/pipdeptree/LICENSE
+%license %{python3_sitelib}/%{name}/vendor/platformdirs/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/plette/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/ptyprocess/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/pyparsing.LICENSE
 %license %{python3_sitelib}/%{name}/vendor/pyparsing/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/pythonfinder/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/pythonfinder/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/pythonfinder/_vendor/pep514tools/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/requests/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/requirementslib/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/shellingham/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/six.LICENSE
 %license %{python3_sitelib}/%{name}/vendor/termcolor.COPYING.txt
 %license %{python3_sitelib}/%{name}/vendor/toml/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/tomli/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/tomlkit/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/urllib3/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/vistir/LICENSE
 %license %{python3_sitelib}/%{name}/vendor/wheel/LICENSE.txt
 %license %{python3_sitelib}/%{name}/vendor/yaspin/LICENSE
-%license %{python3_sitelib}/%{name}/vendor/zipp.LICENSE
 
 %doc README.md NOTICES CHANGELOG.rst HISTORY.txt
 %{_bindir}/pipenv
@@ -359,6 +342,10 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Wed Aug 03 2022 Tomas Orsava <torsava@redhat.com> - 2022.10.25-1
+- Rebase to version 2022.10.25
+Resolves: rhbz#2115908
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

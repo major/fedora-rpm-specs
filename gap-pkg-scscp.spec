@@ -11,7 +11,7 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/scscp/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/scscp/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 Source1:        %{usrname}.sh
 Source2:        gap-scscp.service
 Source3:        %{usrname}.logrotate
@@ -43,6 +43,12 @@ specification, described at https://openmath.org/standard/scscp/, and
 OpenMath dictionaries scscp1 and scscp2.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        SCSCP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-io-doc
@@ -161,6 +167,9 @@ rm -fr ../pkg
 %{gap_dir}/pkg/%{upname}/example/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
 - Update for gap 4.12.0
 - Convert License tag to SPDX

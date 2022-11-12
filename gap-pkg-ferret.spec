@@ -11,7 +11,7 @@ Summary:        Backtracking search in permutation groups
 License:        MPL-2.0
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://gap-packages.github.io/ferret/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/ferret/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
@@ -48,6 +48,12 @@ This package can be used by users in two ways:
   all the functionality of the package directly.
 
 %package doc
+# The content is MPL-2.0.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        MPL-2.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Ferret documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -86,6 +92,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.9-1
+- Clarify license of the doc subpackage
+
 * Wed Oct 19 2022 Jerry James <loganjerry@gmail.com> - 1.0.9-1
 - Version 1.0.9
 

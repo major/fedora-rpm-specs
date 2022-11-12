@@ -16,8 +16,8 @@ Summary:        GAP Character Table Library
 License:        GPL-3.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/
-Source0:        https://www.math.rwth-aachen.de/~Thomas.Breuer/%{pkgname}/%{pkgname}-%{version}.tar.gz
+URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/
+Source0:        %{url}%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
@@ -49,6 +49,16 @@ Recommends:     gap-pkg-transgrp
 This package provides the Character Table Library by Thomas Breuer.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# LaTeX: LPPL-1.0
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Character Table Library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-atlasrep-doc
@@ -145,6 +155,9 @@ rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/*~
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.3.4-3
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.3.4-3
 - Update for gap 4.12.0
 

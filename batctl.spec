@@ -1,5 +1,5 @@
 Name:           batctl
-Version:        2022.2
+Version:        2022.3
 Release:        1%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Thu Nov 10 2022 Felix Kaechele <heffer@fedoraproject.org> - 2022.3-1
+- update to 2022.3
+
 * Tue Jul 26 2022 John W. Linville <linville@tuxdriver.com> - 2022.2-1
 - update to 2022.2
 

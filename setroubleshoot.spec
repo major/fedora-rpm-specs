@@ -5,7 +5,7 @@ Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.30
 Release: 2%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
 Source1: %{name}.tmpfiles

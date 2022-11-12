@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-291-g8d291eabd5
+%global glibcsrcdir glibc-2.36.9000-306-g22a46dee24
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 12
+%global baserelease 13
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,25 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Nov 10 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-13
+- Auto-sync with upstream branch master,
+  commit 22a46dee24351fd5f4f188ad80554cad79c82524:
+- Linux: Support __IPC_64 in sysvctl *ctl command arguments (bug 29771)
+- riscv: Get level 3 cache's information
+- debug: Fix typo in tests-unsupported rule
+- iconvdata/tst-table-charmap.sh: remove handling of old, borrowed format
+- Makerules: Generate shlib.lds with -fuse-ld=bfd
+- x86: Add avx2 optimized functions for the wchar_t strcpy family
+- x86: Add evex optimized functions for the wchar_t strcpy family
+- x86: Optimize and shrink st{r|p}{n}{cat|cpy}-avx2 functions
+- x86: Optimize and shrink st{r|p}{n}{cat|cpy}-evex functions
+- benchtests: Make str{n}{cat|cpy} benchmarks output json
+- x86: Use VMM API in memcmpeq-evex.S and minor changes
+- x86: Use VMM API in memcmp-evex-movbe.S and minor changes
+- string: Add len=0 to {w}memcmp{eq} tests and benchtests
+- Linux: Add ppoll fortify symbol for 64 bit time_t (BZ# 29746)
+- hurd: Add sigtimedwait and sigwaitinfo support
+
 * Mon Nov 07 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-12
 - Auto-sync with upstream branch master,
   commit 8d291eabd541029d7ac705cc1ea112c58dfbb05f.

@@ -2,7 +2,7 @@
 %global pypi_name cloudflare
 
 Name:           python-%{pypi_name}
-Version:        2.10.3
+Version:        2.10.4
 Release:        1%{?dist}
 Summary:        Python wrapper for the Cloudflare Client API v4
 
@@ -70,6 +70,9 @@ sed -i -e '1!b' -e '\~^#!/usr/bin/env python~d' cli4/*.py
 
 
 %changelog
+* Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 2.10.4-1
+- Update to 2.10.4
+
 * Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 2.10.3-1
 - update to 2.10.3 rhbz#2125087
 

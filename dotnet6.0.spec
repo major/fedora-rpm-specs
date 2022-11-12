@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.10
-%global runtime_version 6.0.10
+%global host_version 6.0.11
+%global runtime_version 6.0.11
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.110
+%global sdk_version 6.0.111
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -118,8 +118,6 @@ Patch1500:      sdk-telemetry-optout.patch
 # https://github.com/dotnet/sdk/pull/22373
 Patch1501:      sdk-22373-portablerid.patch
 
-# https://github.com/dotnet/installer/pull/12516
-Patch1600:      installer-12516-portablerid.patch
 
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -441,7 +439,6 @@ pushd src/sdk
 popd
 
 pushd src/installer
-%patch1600 -p1
 popd
 
 
@@ -651,6 +648,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Thu Nov 10 2022 Omair Majid <omajid@redhat.com> - 6.0.111-1
+- Update to .NET SDK 6.0.111 and Runtime 6.0.11
+
 * Mon Oct 31 2022 Omair Majid <omajid@redhat.com> - 6.0.110-2
 - Set OPENSSL_ENABLE_SHA1_SIGNATURES=1 when building
 

@@ -17,7 +17,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -70,7 +70,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
 BuildRequires:  bluez-libs-devel
 BuildRequires:  cmake
-BuildRequires:  cubeb-devel
+BuildRequires:  cubeb-static
 BuildRequires:  enet-devel
 BuildRequires:  fmt-devel >= 6.0.0
 BuildRequires:  hidapi-devel
@@ -269,6 +269,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Thu Nov 10 2022 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.16380-6
+- Build against static cubeb
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.16380-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

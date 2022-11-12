@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 License:        MIT
@@ -54,9 +54,16 @@ Summary:        %{summary}
 %pyproject_save_files myst_parser
 
 %check
-# disabled tests require linkify which we don't have in Fedora
-%pytest -k  'not test_extended_syntaxes' \
---deselect 'tests/test_renderers/test_myst_config.py::test_cmdline'
+# test_extended_syntaxes and test_myst_config.py::test_cmdline require linkify
+# which we don't have in Fedora yet
+# test_sphinx_directives and test_fieldlist_extension compare rendered
+# Sphinx output which has changed in version 5.2+
+# reported upstream: https://github.com/executablebooks/MyST-Parser/issues/626
+%pytest -k  "not test_extended_syntaxes \
+  and not test_sphinx_directives \
+  and not test_fieldlist_extension" \
+  --deselect 'tests/test_renderers/test_myst_config.py::test_cmdline'
+
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
@@ -69,6 +76,9 @@ Summary:        %{summary}
 %{_bindir}/myst-docutils-pseudoxml
 
 %changelog
+* Wed Nov 09 2022 Karolina Surma <ksurma@redhat.com> - 0.18.1-3
+- Skip tests failing with Sphinx 5.2+
+
 * Mon Oct 03 2022 Karolina Surma <ksurma@redhat.com> - 0.18.1-1
 - Update to 0.18.1
 Resolves: rhbz#2130162

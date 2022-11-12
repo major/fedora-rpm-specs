@@ -24,7 +24,7 @@ Version:   43.1
 Release:   3%{?dist}
 Summary:   A software center for GNOME
 
-License:   GPLv2+
+License:   GPL-2.0-or-later
 URL:       https://wiki.gnome.org/Apps/Software
 Source0:   https://download.gnome.org/sources/gnome-software/43/%{name}-%{tarball_version}.tar.xz
 

@@ -8,9 +8,9 @@ Summary:        Transitive groups library
 License:        GPL-2.0-only OR GPL-3.0-only
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://www.gap-system.org/Packages/%{pkgname}.html
-Source0:        https://www.math.colostate.edu/~hulpke/%{pkgname}/%{pkgname}%{version}.tar.gz
-Source1:        https://www.math.colostate.edu/~hulpke/%{pkgname}/trans32.tgz
+URL:            https://www.gap-system.org/Packages/transgrp.html
+Source0:        https://www.math.colostate.edu/~hulpke/transgrp/%{pkgname}%{version}.tar.gz
+Source1:        https://www.math.colostate.edu/~hulpke/transgrp/trans32.tgz
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -52,6 +52,12 @@ This package contains a library of transitive groups of degree 32, due
 to John Cannon and Derek Holt.
 
 %package doc
+# The content is GPL-2.0-only OR GPL-3.0-only.  The remaining licenses cover
+# the various fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+License:        (GPL-2.0-only OR GPL-3.0-only) AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
 Summary:        Transitive groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -89,7 +95,7 @@ cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
 %files
 %doc README.md
@@ -113,6 +119,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
 - Update for gap 4.12.0
 - Convert License tags to SPDX

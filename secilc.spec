@@ -5,7 +5,7 @@ Version:        3.4
 Release:        3%{?dist}
 Summary:        The SELinux CIL Compiler
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
 Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.4/secilc-3.4.tar.gz
 # fedora-selinux/selinux: git format-patch -N 3.4 -- secilc

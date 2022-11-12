@@ -1,7 +1,7 @@
 %global pkgname io
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.7.3
+Version:        4.8.0
 Release:        1%{?dist}
 Summary:        Unix I/O functionality for GAP
 
@@ -51,6 +51,12 @@ standard builtin types of GAP like numbers, permutations, polynomials,
 lists, and records and can be extended to nearly arbitrary GAP objects.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 BuildArch:      noarch
 Summary:        Unix I/O for GAP documentation
 Requires:       %{name} = %{version}-%{release}
@@ -65,8 +71,8 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %build
 export LC_ALL=C.UTF-8
 %configure --with-gaproot=%{gap_dir}
-%make_build
-make doc
+%make_build GAP="%{_bindir}/gap --bare"
+make doc GAP="%{_bindir}/gap --bare"
 
 %install
 mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
@@ -76,7 +82,7 @@ cp -a *.g bin example gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 %check
 # Cannot run the HTTP test, as there is no network access on koji builders
 runtest() {
-  gap -l "%{buildroot}%{gap_dir};" $1 < /dev/null 2>&1 | tee log
+  gap -l "%{buildroot}%{gap_dir};" --bare -c 'LoadPackage("io");' $1 < /dev/null 2>&1 | tee log
   ! grep -Fq 'gap> Error' log
   rm -f log
 }
@@ -107,6 +113,11 @@ popd
 %{gap_dir}/pkg/%{pkgname}/example/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.8.0-1
+- Version 4.8.0
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Mon Sep 26 2022 Jerry James <loganjerry@gmail.com> - 4.7.3-1
 - Version 4.7.3
 - Update for gap 4.12.0

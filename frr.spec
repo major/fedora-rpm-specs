@@ -6,8 +6,8 @@
 %bcond_without selinux
 
 Name:           frr
-Version:        8.3.1
-Release:        5%{?dist}
+Version:        8.4
+Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPLv2+
 URL:            http://www.frrouting.org
@@ -24,7 +24,6 @@ Patch0002:      0002-enable-openssl.patch
 Patch0003:      0003-disable-eigrp-crypto.patch
 Patch0004:      0004-fips-mode.patch
 Patch0005:      0005-remove-grpc-test.patch
-Patch0006:      0006-ospf-api.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -239,10 +238,14 @@ rm tests/lib/*grpc*
 %dir %attr(755,frr,frr) %{_localstatedir}/log/frr
 %dir %attr(755,frr,frr) /run/frr
 %{_infodir}/*info*
-%{_mandir}/man*/*
+%{_mandir}/man1/frr.1*
+%{_mandir}/man1/vtysh.1*
+%{_mandir}/man8/frr-*.8*
+%{_mandir}/man8/mtracebis.8*
 %dir %{frr_libdir}/
 %{frr_libdir}/*
-%{_bindir}/*
+%{_bindir}/mtracebis
+%{_bindir}/vtysh
 %dir %{_libdir}/frr
 %{_libdir}/frr/*.so.*
 %dir %{_libdir}/frr/modules
@@ -264,6 +267,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Nov 10 2022 Michal Ruprich <mruprich@redhat.com> - 8.4-1
+- New version 8.4
+
 * Fri Sep 16 2022 Michal Ruprich <mruprich@redhat.com> - 8.3.1-5
 - Adding SELinux rule to enable zebra to write to sysctl_net_t
 - Adding SELinux rule to enable bgpd to call name_connect to bgp_port_t

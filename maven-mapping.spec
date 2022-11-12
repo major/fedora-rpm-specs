@@ -1,6 +1,8 @@
+%bcond_with bootstrap
+
 Name:           maven-mapping
 Version:        3.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Apache Maven Mapping
 License:        ASL 2.0
 
@@ -10,12 +12,16 @@ Source0:        https://repo.maven.apache.org/maven2/org/apache/maven/shared/%{n
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven.plugin-testing:maven-plugin-testing-harness)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-interpolation)
+%endif
 
 %description
 Maven shared component that implements file name mapping.
@@ -44,6 +50,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 09 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.0.0-19
+- Implement bootstrap mode
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

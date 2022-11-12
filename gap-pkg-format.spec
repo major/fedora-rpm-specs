@@ -8,8 +8,8 @@ Summary:        Formations of finite solvable groups
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/format/
+Source0:        https://github.com/gap-packages/format/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Add omitted bibliography file
 # See https://github.com/gap-packages/format/pull/8
 Patch0:         0001-Add-missing-bibliography.patch
@@ -25,6 +25,14 @@ The package contains programs for computing with formations of finite
 solvable groups and with various formation-theoretic subgroups.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        Format documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -72,6 +80,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-7
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-7
 - Update for gap 4.12.0
 - Add patch to include missing bibliography file

@@ -13,8 +13,8 @@ Summary:        Jupyter kernel written in GAP
 License:        BSD-3-Clause
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{upname}/
-Source0:        https://github.com/gap-packages/%{upname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+URL:            https://gap-packages.github.io/JupyterKernel/
+Source0:        https://github.com/gap-packages/JupyterKernel/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -37,6 +37,12 @@ Requires:       python-jupyter-filesystem
 This package implements the Jupyter protocol in GAP.
 
 %package doc
+# The content is BSD-3-Clause.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        BSD-3-Clause AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Jupyter kernel for GAP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -90,6 +96,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-5
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-5
 - Update for gap 4.12.0
 

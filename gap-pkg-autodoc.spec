@@ -35,6 +35,14 @@ This package is an add-on to GAPDoc that enables generating
 documentation from GAP source code.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        AutoDoc documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
@@ -49,7 +57,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 mkdir ../pkg
 ln -s ../AutoDoc-%{version} ../pkg
-gap -l "$PWD/..;" makedoc.g
+gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedoc.g
 rm -fr ../pkg
 
 %install
@@ -61,7 +69,7 @@ cp -p doc/*.xml %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
 %if %{without bootstrap}
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_dir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 %endif
 
 %files
@@ -75,6 +83,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2022.10.20-2
+- Use upstream's method of bootstrapping
+- Clarify license of the doc subpackage
+
 * Thu Oct 20 2022 Jerry James <loganjerry@gmail.com> - 2022.10.20-1
 - Version 2022.10.20
 

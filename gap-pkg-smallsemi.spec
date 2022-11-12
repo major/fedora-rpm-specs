@@ -8,7 +8,7 @@ Summary:        GAP library of small semigroups
 License:        GPL-3.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
+URL:            https://gap-packages.github.io/smallsemi/
 Source0:        https://github.com/gap-packages/smallsemi/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
@@ -22,7 +22,12 @@ provides all semigroups with at most 8 elements as well as information
 of various kinds about these objects.
 
 %package doc
-License:        GFDL-1.1-no-invariants-or-later
+# The content is GFDL-1.1-no-invariants-or-later.  The remaining licenses cover
+# the various fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GFDL-1.1-no-invariants-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Small semigroups documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -57,6 +62,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.6.13-3
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 0.6.13-3
 - Update for gap 4.12.0
 - Convert License tag to SPDX

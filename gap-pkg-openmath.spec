@@ -18,7 +18,7 @@ License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/openmath/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+Source0:        https://github.com/gap-packages/openmath/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 
 %global _docdir_fmt %{name}
 
@@ -38,6 +38,12 @@ the purpose of exchanging them with other OpenMath-enabled applications.
 For details about the OpenMath encoding, see https://openmath.org/.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        OpenMath documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -82,6 +88,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
 - Update for gap 4.12.0
 

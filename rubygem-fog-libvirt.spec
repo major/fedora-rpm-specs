@@ -2,15 +2,12 @@
 %global gem_name fog-libvirt
 
 Name: rubygem-%{gem_name}
-Version: 0.8.0
-Release: 4%{?dist}
+Version: 0.9.0
+Release: 1%{?dist}
 Summary: Module for the 'fog' gem to support libvirt
 License: MIT
 URL: http://github.com/fog/fog-libvirt
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Fix Ruby 3.0.0 test suite compatibility.
-# https://github.com/fog/fog-libvirt/pull/85
-Patch0: rubygem-fog-libvirt-0.8.0-Proc-without-block-cannot-be-created-anymore.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -39,8 +36,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
-%patch0 -p1
-
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -53,7 +48,7 @@ cp -a .%{gem_dir}/* \
 # Run the test suite
 %check
 pushd .%{gem_instdir}
-FOG_MOCK=true shindo -Ilib tests
+FOG_MOCK=true shindo tests
 ruby -Iminitests -e "Dir.glob './minitests/**/*_test.rb', &method(:require)"
 popd
 
@@ -75,6 +70,10 @@ popd
 %{gem_instdir}/minitests
 
 %changelog
+* Thu Nov 10 2022 Vít Ondruch <vondruch@redhat.com> - 0.9.0-1
+- Update to fog-libvirt 0.8.0.
+  Resolves: rhbz#1983118
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

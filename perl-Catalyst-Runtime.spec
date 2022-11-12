@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Runtime
 Summary:        Catalyst Framework Runtime
-Version:        5.90129
-Release:        2%{?dist}
+Version:        5.90130
+Release:        1%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Runtime-%{version}.tar.gz
@@ -276,6 +276,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Thu Nov 10 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 5.90130-1
+- Update to 5.90130
+
 * Tue Sep 27 2022 Petr Pisar <ppisar@redhat.com> - 5.90129-2
 - Specify all dependencies
 

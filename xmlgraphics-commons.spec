@@ -1,12 +1,13 @@
 Name:           xmlgraphics-commons
-Version:        2.7
-Release:        4%{?dist}
+Version:        2.8
+Release:        1%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
 License:        ASL 2.0
 URL:            http://xmlgraphics.apache.org/
 Source0:        http://archive.apache.org/dist/xmlgraphics/commons/source/xmlgraphics-commons-%{version}-src.tar.gz
+Patch0:         test.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -36,6 +37,8 @@ This package contains API documentation for %{name}.
 
 %prep
 %setup -q %{name}-%{version}
+
+%patch0 -p3
 
 find -name "*.jar" -delete
 
@@ -68,6 +71,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 09 2022 Gwyn Ciesla <gwync@protonmail.com> - 0:2.8-1
+- 2.8
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

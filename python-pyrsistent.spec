@@ -4,15 +4,23 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
+# Upstream has not yet pushed the tag for v0.19.2, but it is clear which commit
+# corresponds to the PyPI release. Therefore, this is not treated as a snapshot
+# from a package-versioning perspective.
+#
+# https://github.com/tobgu/pyrsistent/issues/262#issuecomment-1302000278
+%global commit 29f5ac97f1356c82dc44dfe4e5a46cc3e9e91a4c
+
 Name:           python-pyrsistent
 Summary:        Persistent/Functional/Immutable data structures
-Version:        0.18.1
+Version:        0.19.2
 Release:        %autorelease
 
 # The entire source is (SPDX) MIT, except pyrsistent/_toolz.py which is BSD-3-Clause.
 License:        MIT AND BSD-3-Clause
 URL:            https://github.com/tobgu/pyrsistent/
-Source0:        %{url}/archive/v%{version}/pyrsistent-%{version}.tar.gz
+#Source0:        %%{url}/archive/v%%{version}/pyrsistent-%%{version}.tar.gz
+Source0:        %{url}/archive/%{commit}/pyrsistent-%{commit}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -60,7 +68,8 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n pyrsistent-%{version} -p1
+#%%autosetup -n pyrsistent-%%{version}
+%autosetup -n pyrsistent-%{commit}
 
 # Loosen exact-version pins in requirements.txt; we must tolerate newer
 # versions and use what is packaged.

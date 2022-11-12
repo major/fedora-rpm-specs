@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.3.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Almost Crystallographic groups library for GAP
 
 License:        Artistic-2.0
@@ -43,6 +43,14 @@ used to compute with the given groups using the methods of the
 Polycyclic package.
 
 %package doc
+# The content is Artistic-2.0.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        Artistic-2.0 AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        AClib documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -57,12 +65,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 sed -i.orig 's/\r//' doc/algos.tex
 touch -r doc/algos.tex.orig doc/algos.tex
 rm -f doc/algos.tex.orig
-
-# FIXME: With gap 4.12.0 and polycyclic 2.16 + upstream patches, two tests
-# fail.  Munge them to pass for now until the issue can be diagnosed.
-sed -e 's/\[ -3, 2, -1, -2, -1 \]/[ 1, -4, 0, 1, 0 ]/' \
-    -e 's/\[ -1, 1, -4, 1, 0 \]/[ -2, 3, 1, 0, -2 ]/' \
-    -i tst/manual.example-3.tst
 
 %build
 export LC_ALL=C.UTF-8
@@ -97,6 +99,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Fri Nov  4 2022 Jerry James <loganjerry@gmail.com> - 1.3.2-8
+- Don't munge the test results
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.3.2-7
 - Update for gap 4.12.0
 

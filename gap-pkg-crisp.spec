@@ -9,7 +9,7 @@ License:        BSD-2-Clause
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/crisp/
-Source0:        http://www.icm.tu-bs.de/~bhoeflin/crisp/%{pkgname}-%{version}.tar.bz2
+Source0:        %{url}%{pkgname}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  tth
@@ -33,6 +33,14 @@ compute the set of all normal subgroups of a finite soluble group, its
 characteristic subgroups, and the socle and p-socles for given primes p.
 
 %package doc
+# The content is BSD-2-Clause.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        CRISP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -85,6 +93,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.5-8
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.4.5-8
 - Update for gap 4.12.0
 

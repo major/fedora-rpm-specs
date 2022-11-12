@@ -7,6 +7,10 @@ License:        BSD
 URL:            http://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage
 Source0:        https://github.com/rordenlab/%{name}/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+# Patch for new yaml-cpp using CMake config files
+# https://github.com/rordenlab/dcm2niix/issues/647
+Patch0:         dcm2niix-yaml-cpp.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  nifticlib-devel
@@ -29,7 +33,7 @@ dcm2niix is a tool designed to convert neuroimaging data from the NIfTI format
 to the DICOM format.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 # Set executable name
 sed -i 's/sphinx-build/sphinx-build-3/' docs/CMakeLists.txt
 

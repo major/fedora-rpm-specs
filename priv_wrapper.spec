@@ -1,6 +1,6 @@
 Name:           priv_wrapper
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A library to disable resource limits and other privilege dropping
 License:        GPLv3+
@@ -9,6 +9,8 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        priv_wrapper.keyring
+
+Patch0:         0001-prctl.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -63,6 +65,9 @@ development/testing.
 %{_mandir}/man1/priv_wrapper.1*
 
 %changelog
+* Thu Nov 10 2022 Pavel Filipenský <pfilipen@redhat.com> - 1.0.0-3
+- Patch prctl() on ppc64le
+
 * Tue Oct 25 2022 Pavel Filipenský <pfilipen@redhat.com> - 1.0.0-2
 - Verify packages using gpgverify
 - Make description line length < 80

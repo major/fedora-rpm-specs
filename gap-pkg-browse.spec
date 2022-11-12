@@ -31,7 +31,7 @@ Summary:        GAP browser for 2-dimensional arrays of data
 License:        GPL-3.0-or-later
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
 URL:            https://www.math.rwth-aachen.de/~Browse/
-Source0:        https://www.math.rwth-aachen.de/~Browse/%{upname}-%{version}.tar.bz2
+Source0:        %{url}/%{upname}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -87,6 +87,12 @@ other types of applications:
   character tables, several games, and an interface for demos.
 
 %package doc
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Gap browser documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -139,6 +145,9 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_dir}/pkg/%{upname}
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.8.18-1
+- Clarify license of the doc subpackage
+
 * Tue Oct 18 2022 Jerry James <loganjerry@gmail.com> - 1.8.18-1
 - Version 1.8.18
 

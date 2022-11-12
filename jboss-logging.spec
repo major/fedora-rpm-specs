@@ -5,7 +5,7 @@ Name:             jboss-logging
 Version:          3.4.1
 Release:          13%{?dist}
 Summary:          The JBoss Logging Framework
-License:          ASL 2.0
+License:          Apache-2.0
 
 URL:              https://github.com/jboss-logging/jboss-logging
 Source0:          %{url}/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
