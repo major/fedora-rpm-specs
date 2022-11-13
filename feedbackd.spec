@@ -1,5 +1,5 @@
 Name:           feedbackd
-Version:        0.0.0+git20220520
+Version:        0.0.1
 Release:        1%{?dist}
 Summary:        Feedback library for GNOME
 
@@ -85,6 +85,9 @@ install -D -m 644 debian/feedbackd.udev %{buildroot}%{_udevrulesdir}/90-feedback
 %{_libdir}/pkgconfig/libfeedback-0.0.pc
 
 %changelog
+* Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.1-1
+- Update to 0.0.1
+
 * Thu Oct 20 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.0+git20220520-1
 - Update to 0.0.0+git20220520
 

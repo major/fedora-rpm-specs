@@ -7,9 +7,9 @@
 
 Name:           freecol
 Version:        0.11.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Turn-based multi-player strategy game
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://www.freecol.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-src.zip
 Source1:        %{name}.sh
@@ -53,7 +53,7 @@ User Documentation for freecol.
 
 %package shadowedblack-fonts
 Summary:        Gothic font with drop shadows
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       fontpackages-filesystem
 
 %description shadowedblack-fonts
@@ -63,7 +63,7 @@ extended by the freecol project to include most accented latin characters.
 
 %package imperator-fonts
 Summary:        Gothic font
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       fontpackages-filesystem
 
 %description imperator-fonts
@@ -146,6 +146,9 @@ install -p -m 644 packaging/common/freecol.svg \
 
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 0.11.6-21
+- Change license string to the SPDX format required by Fedora
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.6-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,10 +1,10 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
 
@@ -74,6 +74,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.4.0-2
+- Change license string to the SPDX format required by Fedora
+
 * Sun Sep 18 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.4.0-1
 - Translated using Weblate (Russian) (mistresssilvara)
 - Translated using Weblate (Russian) (xasertop)

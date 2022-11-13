@@ -2,10 +2,10 @@
 
 Name:      python-%{srcname}
 Version:   0.24
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Support for running pylint against projects
 
-License:   GPLv2+
+License:   GPL-2.0-or-later
 Url:       https://github.com/rhinstaller/%{srcname}
 Source0:   https://github.com/rhinstaller/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -51,6 +51,9 @@ make PYTHON=%{__python3} check
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 0.24-3
+- Change license string to the SPDX format required by Fedora
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

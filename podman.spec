@@ -29,7 +29,7 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy fdc231ae7b8fe1aec4cf0b8777274fa21b70d789
 
-%global built_tag v4.3.0
+%global built_tag v4.3.1
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -45,7 +45,6 @@ URL: https://%{name}.io/
 Source0: %{git0}/archive/%{built_tag}.tar.gz
 Source1: %{git_plugins}/archive/%{commit_plugins}/%{repo_plugins}-%{commit_plugins}.tar.gz
 Source2: %{git_gvproxy}/archive/%{commit_gvproxy}/%{repo_gvproxy}-%{commit_gvproxy}.tar.gz
-Patch0: gating-test1.patch
 Provides: %{name}-manpages = %{epoch}:%{version}-%{release}
 BuildRequires: go-md2man
 BuildRequires: btrfs-progs-devel

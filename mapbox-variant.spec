@@ -5,7 +5,7 @@ Version:        1.2.0
 Release:        5%{?dist}
 Summary:        A header-only alternative to boost::variant for C++11 and C++14
 
-License:        Boost and BSD
+License:        BSL-1.0 AND BSD-3-Clause
 URL:            https://github.com/mapbox/variant
 Source0:        https://github.com/mapbox/variant/archive/v%{version}/%{name}-%{version}.tar.gz
 

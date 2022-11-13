@@ -4,7 +4,7 @@
 
 Name:		phosh
 Version:	0.22.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
@@ -67,6 +67,7 @@ BuildRequires:	systemd-rpm-macros
 Requires:	phoc >= 0.21.0
 Requires:	iio-sensor-proxy
 Requires:	gnome-session
+Requires:	gnome-shell
 Requires:	lato-fonts
 Requires:	hicolor-icon-theme
 
@@ -153,6 +154,9 @@ SH
 %license COPYING
 
 %changelog
+* Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.22.0-2
+- Requires gnome-shell
+
 * Mon Nov 07 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.22.0-1
 - Update to 0.22.0
 

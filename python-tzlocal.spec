@@ -1,72 +1,70 @@
-%global srcname tzlocal
-%global sum A Python module that tries to figure out what your local timezone is
-
 Name:           python-tzlocal
-Version:        2.1
-Release:        5%{?dist}
-Summary:        %{sum}
+Version:        4.2
+Release:        1%{?dist}
+Summary:        A Python module that tries to figure out what your local timezone is
 
 License:        MIT
 URL:            https://github.com/regebro/tzlocal
 # pypi/pythonhosted tarballs don't respect symlinks which are used in the test
-Source0:        https://github.com/regebro/tzlocal/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/tzlocal-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-mock
-BuildRequires:  python3-pytz
-BuildRequires:  python3-setuptools
 
-
-%description
+%global common_description %{expand:
 This Python module returns a tzinfo object with the local timezone information.
-It requires pytz, and returns pytz tzinfo objects.  This module attempts to fix
+It requires pytz, and returns pytz tzinfo objects. This module attempts to fix
 a glaring hole in pytz, that there is no way to get the local timezone
-information, unless you know the zoneinfo name.
+information, unless you know the zoneinfo name.}
+
+%description %{common_description}
 
 
-%package -n python3-%{srcname}
-Summary:        %{sum}
-License:        MIT
-Requires:       python3-pytz
-%{?python_provide:%python_provide python3-%{srcname}}
+%package -n python3-tzlocal
+Summary:        %{summary}
 
-%description -n python3-%{srcname}
-This Python module returns a tzinfo object with the local timezone information.
-It requires pytz, and returns pytz tzinfo objects.  This module attempts to fix
-a glaring hole in pytz, that there is no way to get the local timezone
-information, unless you know the zoneinfo name.
+%description -n python3-tzlocal %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n tzlocal-%{version}
 
-rm -rf *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-# Don't install unit tests and test_data
-rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/test_data
+%pyproject_install
+%pyproject_save_files tzlocal
 
 
 %check
-%{__python3} setup.py test
+%pytest
 
 
-%files -n python3-%{srcname}
+%files -n python3-tzlocal -f %{pyproject_files}
+# pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.rst CHANGES.txt
-%license LICENSE.txt
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Mon Aug 22 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2-1
+- Update to 4.2 (close RHBZ#1993583)
+
+* Mon Aug 22 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1-6
+- Simplify and update various macros in the spec file
+- Change source archive name to match extraction directory
+- Exclude test_data with a patch instead of using “rm”
+- Remove manual Requires, which is no longer required
+- Remove dependency on deprecated python-mock
+- Port to pyproject-rpm-macros
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -117,7 +117,7 @@ Name:		nfs-ganesha
 Version:	4.0
 Release:	9%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
@@ -479,7 +479,7 @@ fi
 %if ! %{with system_ntirpc}
 %package -n libntirpc
 Summary:	New Transport Independent RPC Library
-License:	BSD
+License:	BSD-3-Clause
 Version:	@NTIRPC_VERSION_EMBED@
 Url:		https://github.com/nfs-ganesha/ntirpc
 
@@ -503,7 +503,7 @@ the following features not found in libtirpc:
 %package -n libntirpc-devel
 Summary:	Development headers for libntirpc
 Requires:	libntirpc = @NTIRPC_VERSION_EMBED@
-License:	BSD
+License:	BSD-3-Clause
 Version:	@NTIRPC_VERSION_EMBED@
 Url:		https://github.com/nfs-ganesha/ntirpc
 
@@ -901,6 +901,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 11 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com>
+- SPDX migration
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

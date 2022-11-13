@@ -1,5 +1,5 @@
 Name:		perltidy
-Version:	20221111
+Version:	20221112
 Release:	1%{?dist}
 Summary:	Tool for indenting and re-formatting Perl scripts
 License:	GPL-2.0-or-later
@@ -97,6 +97,10 @@ make test
 %{_mandir}/man3/Perl::Tidy.3*
 
 %changelog
+* Fri Nov 11 2022 Paul Howarth <paul@city-fan.org> - 20221112-1
+- Update to 20221112 (rhbz#2142076)
+  - Fix undef warning in Perl before 5.12 (CPAN RT#145095)
+
 * Thu Nov 10 2022 Paul Howarth <paul@city-fan.org> - 20221111-1
 - Update to 20221111 (see CHANGES.md for details) (rhbz#2141765)
 - Use SPDX-format license tag

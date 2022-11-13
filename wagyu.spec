@@ -11,7 +11,7 @@ Version:        0.5.0
 Release:        6%{?dist}
 Summary:        A general library for geometry operations of union, intersections, difference, and xor
 
-License:        Boost
+License:        BSL-1.0 AND BSD-3-Clause
 URL:            https://github.com/mapbox/wagyu
 Source0:        https://github.com/mapbox/wagyu/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/mapnik/geometry-test-data/archive/%{testcommit}/geometry-test-data-%{testcommit}.tar.gz

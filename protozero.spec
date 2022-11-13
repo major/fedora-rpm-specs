@@ -5,7 +5,7 @@ Version:        1.7.1
 Release:        3%{?dist}
 Summary:        Minimalistic protocol buffer decoder and encoder in C++
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/mapbox/protozero
 Source0:        https://github.com/mapbox/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

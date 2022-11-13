@@ -5,8 +5,8 @@
 %endif
 
 Name:    bluez
-Version: 5.65
-Release: 3%{?dist}
+Version: 5.66
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -16,16 +16,6 @@ Source1: bluez.gitignore
 
 # https://github.com/hadess/bluez/commits/obex-5.46
 Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
-
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=ede7b915980f
-Patch2: 0001-adapter-Reset-pending-settings-when-receiving-MGMT-e.patch
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=abf5ba6b80ad
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=58021a665b7f
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=48992da64f52
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=6e49216ad47d
-# https://git.kernel.org/pub/scm/bluetooth/bluez.git/commit/?id=61f4f2895882
-# https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
-Patch3: power-state-adapter-property.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -309,7 +299,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_udevrulesdir}/97-hid2hci.rules
 
 %files mesh
-%doc tools/mesh-gatt/*.json
+#%doc tools/mesh-gatt/*.json
 %config %{_sysconfdir}/bluetooth/mesh-main.conf
 %config %{_sysconfdir}/dbus-1/system.d/bluetooth-mesh.conf
 %{_bindir}/meshctl
@@ -327,6 +317,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Nov 11 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.66-1
+- Update to 5.66
+
 * Thu Sep 01 2022 Bastien Nocera <bnocera@redhat.com> - 5.65-3
 + bluez-5.65-3
 - Update PowerState property patch to upstream version

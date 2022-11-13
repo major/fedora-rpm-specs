@@ -72,7 +72,7 @@ sed -i '/COPYING/d' doc/CMakeLists.txt
 sed -i 's/"git"/"%{fgittag}"/' gui/AboutDlg.c
 
 %build
-%cmake . -DUSE_LIBCDIO:BOOL=ON -DUSE_LIBARCHIVE:BOOL=ON \
+%cmake -DUSE_LIBCDIO:BOOL=ON -DUSE_LIBARCHIVE:BOOL=ON \
   -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS -zmuldefs -fno-pie" \
   -DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS -zmuldefs"
 %cmake_build

@@ -51,8 +51,6 @@ BuildRequires: librdkafka-devel
 BuildRequires: zlib-devel
 BuildRequires: paho-c-devel
 
-BuildRequires: /usr/bin/pathfix.py
-
 Requires: logrotate
 Requires: ivykis >= %{ivykis_ver}
 Requires(post): systemd-units
@@ -219,7 +217,7 @@ rm -rf modules/afmongodb/mongo-c-driver
     %{__mv} -f AUTHORS.conv AUTHORS
 
 # Fix python shebang
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" lib/merge-grammar.py
+%py3_shebang_fix lib/merge-grammar.py
 touch -r lib/cfg-grammar.y lib/merge-grammar.py
 
 %build

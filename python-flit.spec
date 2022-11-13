@@ -4,8 +4,8 @@
 %global srcname flit
 
 Name:		python-%{srcname}
-Version:	3.7.1
-Release:	5%{?dist}
+Version:	3.8.0
+Release:	1%{?dist}
 Summary:	Simplified packaging of Python modules
 
 # ./flit/log.py under ASL 2.0 license
@@ -22,9 +22,6 @@ BuildArch:	noarch
 BuildRequires:	python3-devel
 BuildRequires:	pyproject-rpm-macros >= 0-40
 BuildRequires:	python3-pip
-
-# Runtime deps needed to build self
-BuildRequires:	python3-tomli
 
 %if %{with tests}
 # Runtime deps, others
@@ -76,8 +73,6 @@ Recommends:	python3-pygments
 %package -n python3-%{srcname}-core
 Summary:	PEP 517 build backend for packages using Flit
 Conflicts:	python3-%{srcname} < 2.1.0-2
-# We manually specify this, because it's bundled upstream and not in the metadata
-Requires:       python3-tomli
 
 %description -n python3-%{srcname}-core
 This provides a PEP 517 build backend for packages using Flit.
@@ -88,13 +83,9 @@ at flit_core.buildapi.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Remove vendored tomli that flit_core includes to solve the circular dependency.
+# Remove vendored tomli that flit_core includes to solve the circular dependency on older Pythons
 # (flit_core requires tomli, but flit_core is needed to build tomli).
-# We don't use this, as python3-tomli already has its own bootstrap bcond
-# to build without flit_core.
-#
-# flit's tests already require tomli, so we're pulling it in at buildtime anyways.
-sed -i 's|from \.vendor import tomli|import tomli|' flit_core/flit_core/config.py
+# We don't use this, as tomllib is a part of standard library since Python 3.11.
 rm -rf flit_core/flit_core/vendor
 
 %build
@@ -145,6 +136,10 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 
 
 %changelog
+* Thu Nov 10 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.0-1
+- Update to 3.8.0
+- Fixes: rhbz#2140390
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-PyYAML
-Requires:       python3-mediafile
+BuildRequires:  python3-mediafile
 BuildRequires:  python3-musicbrainzngs >= 0.4
 BuildRequires:  python3-jellyfish
 BuildRequires:  python3-munkres

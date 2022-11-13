@@ -1,9 +1,9 @@
 Name:           perl-Text-Markdown
 Version:        1.000031
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Convert Markdown syntax to (X)HTML
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Text-Markdown
 Source0:        https://cpan.metacpan.org/modules/by-module/Text/Text-Markdown-%{version}.tar.gz
 # Fix building on Perl without "." in @INC,
@@ -41,6 +41,7 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Text::Balanced)
 # Text::Diff not helpful
 BuildRequires:  perl(warnings)
+BuildRequires:  sed
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
@@ -58,39 +59,69 @@ For more information about Markdown's syntax, see:
 
     http://daringfireball.net/projects/markdown/
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Text-Markdown-%{version}
 %patch0 -p1
 # Remove bundled modules
 rm -r inc
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm %{buildroot}%{_libexecdir}/%{name}/t/02pod.t %{buildroot}%{_libexecdir}/%{name}/t/03podcoverage.t
+# Switch tests to use Markdown.pl in system
+sed -i 's/\$Bin\/\.\.\/script\/Markdown\.pl/\/usr\/bin\/Markdown.pl/' %{buildroot}%{_libexecdir}/%{name}/t/34commandlinemarkdown.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 TEST_POD=1 make test
 
 %files
-%doc Changes License.text README Readme.text Todo
+%license License.text
+%doc Changes README Readme.text Todo
 # For noarch packages: vendorlib
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 %{_mandir}/man1/*
 %{_bindir}/Markdown.pl
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Nov 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.000031-27
+- Fix to license macro
+- Package tests
+- Simplify build
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.000031-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

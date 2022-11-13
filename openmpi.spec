@@ -37,7 +37,7 @@
 
 Name:           openmpi%{?_cc_name_suffix}
 Version:        4.1.4
-Release:        5%{?dist}
+Release:        7%{?dist}
 Summary:        Open Message Passing Interface
 License:        BSD and MIT and Romio
 URL:            http://www.open-mpi.org/
@@ -197,6 +197,7 @@ OpenMPI support for Python 3.
 	--disable-silent-rules \
 	--enable-builtin-atomics \
 	--enable-mpi-cxx \
+	--enable-ipv6 \
 %if %{with java}
 	--enable-mpi-java \
 %endif
@@ -205,7 +206,6 @@ OpenMPI support for Python 3.
 	--with-valgrind \
 	--enable-memchecker \
 	--with-hwloc=/usr \
-        --enable-ipv6 \
 %if !0%{?el7}
 	--with-libevent=external \
 	--with-pmix=external \
@@ -380,6 +380,12 @@ make check
 
 
 %changelog
+* Fri Nov 11 2022 Orion Poplawski <orion@nwra.com> - 4.1.4-7
+- Re-enable IPv6 support - was not the issue
+
+* Fri Nov 11 2022 Orion Poplawski <orion@nwra.com> - 4.1.4-6
+- Disable IPv6 support - appears to break MPI_Init() on koji builders (bz#2141137)
+
 * Fri Aug 19 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 4.1.4-5
 - Enable IPv6 support (bz#2119845)
 

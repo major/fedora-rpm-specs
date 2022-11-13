@@ -5,7 +5,7 @@ Version:        2.13.8
 Release:        3%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
-License:        Boost
+License:        BSL-1.0
 URL:            https://github.com/catchorg/Catch2
 Source0:        https://github.com/catchorg/Catch2/archive/v%{version}/%{name}-%{version}.tar.gz
 

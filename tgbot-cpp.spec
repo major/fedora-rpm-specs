@@ -1,5 +1,5 @@
 Name: tgbot-cpp
-Version: 1.4
+Version: 1.5
 Release: 1%{?dist}
 
 Summary: C++ library for Telegram bot API
@@ -51,6 +51,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/libTgBot.so
 
 %changelog
+* Fri Nov 11 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5-1
+- Updated to version 1.5.
+
 * Wed Nov 02 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.4-1
 - Updated to version 1.4.
 

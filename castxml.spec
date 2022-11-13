@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.4.6
-Release:	2%{?dist}
+Version:	0.4.7
+Release:	1%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	ASL 2.0
@@ -61,6 +61,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Fri Nov 11 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.7-1
+- Update to version 0.4.7
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 0.4.6-2
 - Rebuild for llvm 15
 

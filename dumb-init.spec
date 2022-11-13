@@ -1,11 +1,16 @@
 Name:           dumb-init
 Version:        1.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Entry-point for containers that proxies signals
 
 License:        MIT
 URL:            https://github.com/Yelp/dumb-init
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# pytest 7.2.0+ no longer installs the "py" library,
+# which is used by dumb-init's test suite.
+# Backported from upstream commit: https://github.com/Yelp/dumb-init/commit/b1a2551ad3c909384d97bca914f7c42cfdcdbf05
+Patch0:         0000-update-for-pytest-7.2.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -31,7 +36,7 @@ PID 1 inside minimal container environments (such as Podman and Docker).
 * It can pass signals properly for simple containers.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 gcc -std=gnu99 %{optflags} -o %{name} dumb-init.c
@@ -51,6 +56,9 @@ install -Dpm0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md
 
 %changelog
+* Sat Nov 12 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.5-6
+- Add a patch to make test suite work properly with pytest 7.2.0+
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

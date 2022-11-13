@@ -207,7 +207,7 @@ Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
 Release:          0.@PACKAGE_RELEASE@%{?dist}.13
 %endif
-License:          GPLv2 or LGPLv3+
+License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
 %if ( 0%{_for_fedora_koji_builds} )
 Source0:          http://bits.gluster.org/pub/gluster/glusterfs/src/glusterfs-%{version}%{?prereltag}.tar.gz
@@ -728,7 +728,7 @@ regression testing of Gluster.
 %if ( 0%{!?_without_ocf:1} )
 %package resource-agents
 Summary:          OCF Resource Agents for GlusterFS
-License:          GPLv3+
+License:          GPL-3.0-or-later
 BuildArch:        noarch
 # for glusterd
 Requires:         %{name}-server = %{version}-%{release}
@@ -1635,6 +1635,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Fri Nov 11 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
+- SPDX migration
+
 * Tue Sep 20 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 10.3-1
 - 10.3 GA
 

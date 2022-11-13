@@ -15,6 +15,13 @@
 %global enablejit 1
 %endif
 
+#Minizip package name, f38 uses minizip-ng
+%if 0%{?fedora} > 37
+%global minizippkg minizip-ng
+%else
+%global minizippkg minizip
+%endif
+
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
 Release:        6%{?dist}
@@ -70,7 +77,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  alsa-lib-devel
 BuildRequires:  bluez-libs-devel
 BuildRequires:  cmake
-BuildRequires:  cubeb-static
+BuildRequires:  cubeb-devel
 BuildRequires:  enet-devel
 BuildRequires:  fmt-devel >= 6.0.0
 BuildRequires:  hidapi-devel
@@ -85,7 +92,7 @@ BuildRequires:  libzstd-devel
 BuildRequires:  lzo-devel
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  minizip-devel
+BuildRequires:  %{minizippkg}-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  picojson-devel
@@ -159,7 +166,7 @@ echo "%{_datadir}/%{name}/Sys/GC:" > font-licenses.txt
 cat Data/Sys/GC/font-licenses.txt >> font-licenses.txt
 
 #Fix for minizip install path
-sed -i 's|<unzip.h>|<minizip/unzip.h>|' \
+sed -i 's|<unzip.h>|<%{minizippkg}/unzip.h>|' \
     Source/Core/*/*.h \
     Source/Core/*/*.cpp \
     Source/Core/*/*/*.cpp

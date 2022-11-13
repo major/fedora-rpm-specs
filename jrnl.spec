@@ -1,5 +1,5 @@
 Name:           jrnl
-Version:        3.0
+Version:        3.3
 Release:        %autorelease
 Summary:        Collect your thoughts and notes without leaving the command line
 
@@ -12,7 +12,16 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+BuildRequires:  dos2unix
 BuildRequires:  help2man
+
+# The mkdocs-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can package the Markdown sources without building them; they are still
+# relatively legible as plain text. However, the text documentation files are
+# no longer large or numerous enough to justify a separate -doc subpackage.
+Obsoletes:      jrnl-doc < 3.3-1
 
 %description
 jrnl is a simple journal application for the command line.
@@ -22,25 +31,15 @@ stored as human-readable plain text, and can also be encrypted using AES
 encryption.
 
 
-%package doc
-Summary:        Documentation for jrnl
-
-# The mkdocs-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can package the Markdown sources without building them; they are still
-# relatively legible as plain text.
-
-%description doc
-The jrnl-doc package contains detailed documentation for jrnl.
-
-
 %prep
-%autosetup -n jrnl-%{version} -p1
+%autosetup -n jrnl-%{version}
 
-# Exception: gherkin-terminal-reporter is not compatible with 'xdist' plugin.
-# https://github.com/pytest-dev/pytest-bdd/issues/501
-sed -r -i '/"--gherkin-terminal-reporter"/d' pyproject.toml
+dos2unix \
+    SECURITY.md \
+    docs/external-editors.md \
+    docs/journal-types.md \
+    docs/reference-command-line.md \
+    docs/reference-config-file.md
 
 
 %generate_buildrequires
@@ -68,18 +67,16 @@ install -D -t '%{buildroot}%{_mandir}/man1' -p -m 0644 'jrnl.1'
 
 %files -f %{pyproject_files}
 %license LICENSE.md
-%{_bindir}/jrnl
-%{_mandir}/man1/jrnl.1*
 
-
-%files doc
-%license LICENSE.md
 %doc CHANGELOG.md
 %doc CODE_OF_CONDUCT.md
 %doc CONTRIBUTING.md
 %doc README.md
 %doc SECURITY.md
 %doc docs/
+
+%{_bindir}/jrnl
+%{_mandir}/man1/jrnl.1*
 
 
 %changelog

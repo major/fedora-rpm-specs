@@ -1,8 +1,8 @@
 Name:           perl-Tie-DataUUID
 Version:        1.02
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Tie interface to Data::UUID
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-DataUUID
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKF/Tie-DataUUID-%{version}.tar.gz
 BuildArch:      noarch
@@ -36,20 +36,45 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %description
 This is a simple tie interface to the Data::UUID Perl module.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Tie-DataUUID-%{version}
 # Remove bundles modules
 rm -rf inc/*
 sed -i -e '/^inc\//d' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+for F in 001pod.t 002podcoverage.t 003perlcritic.t anyperlperlcriticrc; do
+	rm %{buildroot}%{_libexecdir}/%{name}/t/$F
+done
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -59,7 +84,15 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Nov 11 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.02-20
+- Package tests
+- Simplify build and install
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

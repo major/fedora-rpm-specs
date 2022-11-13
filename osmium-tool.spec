@@ -8,7 +8,7 @@ Version:        1.14.0
 Release:        3%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://osmcode.org/osmium-tool/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Disable tests which break on big endian architectures

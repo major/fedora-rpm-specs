@@ -1,6 +1,6 @@
 Name:           bzip3
-Version:        1.2.0
-Release:        3%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
 # include/common.h:         LGPL-3.0-or-later
@@ -36,18 +36,6 @@ Summary:        Tools for compressing and decompressing bzip3 files
 License:        LGPL-3.0-or-later AND BSD-2-Clause
 URL:            https://github.com/kspalaiologos/%{name} 
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz 
-# 1/2 Fix a formatting string, in upstream after 1.2.0,
-# <https://github.com/kspalaiologos/bzip3/pull/71>
-Patch0:         bzip3-1.2.0-fix-compiler-warnings-ld-to-llu-71.patch
-# 2/2 Fix a formatting string, in upstream after 1.2.0,
-# <https://github.com/kspalaiologos/bzip3/pull/71>
-Patch1:         bzip3-1.2.0-use-the-PRIu64-macro-for-portability.patch
-# Fix a LZP decompression bug when a match occurred before block boundary,
-# in upstream after 1.2.0.
-Patch2:         bzip3-1.2.0-Update-libbz3.c.patch
-# Remove a redundant RPATH, in upstream after 1.2.0,
-# <https://github.com/kspalaiologos/bzip3/pull/69>
-Patch3:         bzip3-1.2.0-Revert-Set-rpath-in-the-Makefile-69.patch
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -73,6 +61,8 @@ Requires:       grep
 Requires:       less
 # Executed by bz3more
 Requires:       util-linux-core
+# Executed by bz3most
+Requires:       most
 
 %description
 These are tools for compressing, decompressing, printing, and searching bzip3
@@ -150,7 +140,7 @@ if cmp %{buildroot}%{_mandir}/man1/{bz3cat,bunzip3}.1; then
 fi
 
 %files
-%define programs \{bunzip3,bz3cat,bz3grep,bz3less,bz3more,bzip3\}
+%define programs \{bunzip3,bz3cat,bz3grep,bz3less,bz3more,bz3most,bzip3\}
 %{_bindir}/%{programs}
 %{_mandir}/man1/%{programs}.1*
 
@@ -165,6 +155,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Fri Nov 11 2022 Petr Pisar <ppisar@redhat.com> - 1.2.1-1
+- 1.2.1 bump
+
 * Wed Nov 02 2022 Petr Pisar <ppisar@redhat.com> - 1.2.0-3
 - Do not own pkg-config directory
 

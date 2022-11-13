@@ -1,6 +1,6 @@
 Name:           python-pdm-pep517
-Version:        1.0.4
-Release:        2%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Yet another PEP 517 backend
 
 License:        MIT AND Apache-2.0 AND Public Domain AND BSD-3-Clause AND ISC
@@ -9,7 +9,7 @@ Source0:        %{pypi_source pdm-pep517}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
+BuildRequires:  python3-devel python3-setuptools
 BuildRequires:  gcc
 BuildRequires:  git
 BuildRequires:  pytest
@@ -52,6 +52,12 @@ git config --global user.name "Your Name"
 %license LICENSE
 
 %changelog
+* Fri Nov 11 2022 Simon de Vlieger <cmdr@supakeen.com> - 1.0.5-1
+- bump to 1.0.5-1
+
+* Fri Nov 11 2022 Simon de Vlieger <cmdr@supakeen.com> - 1.0.4-3
+- explicit dependency on python3-setuptools, see BZ#2142037
+
 * Fri Oct 14 2022 Simon de Vlieger <cmdr@supakeen.com> - 1.0.4-2
 - epel9 needs an extra file.
 

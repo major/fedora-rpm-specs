@@ -2,7 +2,7 @@ Name:           i3
 Version:        4.21.1
 Release:        %autorelease
 Summary:        Improved tiling window manager
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://i3wm.org
 Source0:        %{URL}/downloads/%{name}-%{version}.tar.xz
 Source1:        %{URL}/downloads/%{name}-%{version}.tar.xz.asc

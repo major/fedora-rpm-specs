@@ -1,8 +1,8 @@
 Summary: Programs for accessing MS-DOS disks without mounting the disks
 Name: mtools
 Version: 4.0.42
-Release: 1%{?dist}
-License: GPLv3+
+Release: 2%{?dist}
+License: GPL-3.0-or-later
 Source0: ftp://ftp.gnu.org/gnu/mtools/mtools-%{version}.tar.gz
 Url: https://www.gnu.org/software/mtools/
 Patch0: mtools-3.9.6-config.patch
@@ -62,6 +62,9 @@ ln -s mtools.5.gz %{buildroot}%{_mandir}/man5/mtools.conf.5.gz
 %{_infodir}/mtools.info*
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 4.0.42-2
+- Change license string to the SPDX format required by Fedora
+
 * Mon Oct 24 2022 Vojtech Trefny <vtrefny@redhat.com> 4.0.42-1
 - Update to 4.0.42
 

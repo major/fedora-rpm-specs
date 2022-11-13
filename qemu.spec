@@ -310,7 +310,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 3
+%global baserelease 4
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -399,7 +399,7 @@ BuildRequires: pkgconfig(gbm)
 %endif
 BuildRequires: perl-Test-Harness
 BuildRequires: libslirp-devel
-BuildRequires: libbpf-devel
+BuildRequires: libbpf-devel >= 1.0.0
 
 
 # Fedora specific
@@ -2741,6 +2741,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Fri Nov 11 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.1.0-4
+- Update libbpf dependency
+
 * Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 7.1.0-3
 - Unconditionally enable capstone-devel
 

@@ -1,12 +1,12 @@
-%global commit0 c4a52b1b028fed3fcb1d14fb7c430ab1af5608ca
+%global commit0 c75f12a989d0a98c19e34e367a9fb688c9463252
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20221006
+%global snapdate 20221109
 
 %global __python %{__python3}
 
 Name:           yosys
-Version:        0.22
+Version:        0.23
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -172,6 +172,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Wed Nov 09 2022 Gabriel Somlo <gsomlo@gmail.com> - 0.22.1.20221109gitc75f12a
+- update to 0.23 snapshot
+
 * Thu Oct 06 2022 Gabriel Somlo <gsomlo@gmail.com> - 0.22.1.20221006gitc4a52b1
 - update to 0.22 snapshot
 

@@ -1,12 +1,11 @@
 Name:          sbc
-Version:       1.5
-Release:       4%{?dist}
+Version:       2.0
+Release:       1%{?dist}
 Summary:       Sub Band Codec used by bluetooth A2DP
 
 License:       GPLv2 and LGPLv2+
 URL:           http://www.bluez.org
 Source0:       http://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-Patch1:        sbc-fix-non-x86.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -66,6 +65,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libsbc.so
 
 %changelog
+* Fri Nov 11 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-1
+- Update to 2.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

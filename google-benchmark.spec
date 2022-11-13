@@ -2,7 +2,7 @@
 %global lbname lib%{intname}
 
 Name: google-benchmark
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 
 License: ASL 2.0
@@ -74,6 +74,9 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 %{_docdir}/%{intname}/
 
 %changelog
+* Fri Nov 11 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7.1-1
+- Updated to version 1.7.1.
+
 * Tue Jul 26 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7.0-1
 - Updated to version 1.7.0.
 

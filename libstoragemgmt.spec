@@ -2,7 +2,7 @@
 
 Name:           libstoragemgmt
 Version:        1.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Storage array management library
 License:        LGPLv2+
 URL:            https://github.com/libstorage/libstoragemgmt
@@ -444,6 +444,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Fri Nov 11 2022 Tony Asleson <tasleson@redhat.com> - 1.9.6-2
+- Rebuild
+
 * Thu Nov 10 2022 Tony Asleson <tasleson@redhat.com> - 1.9.6-1
 - Upgrade to 1.9.6
 

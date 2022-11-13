@@ -7,7 +7,7 @@
 %global debug_package %{nil}
 %endif
 
-%global built_tag v2.1.4
+%global built_tag v2.1.5
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 

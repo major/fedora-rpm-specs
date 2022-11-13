@@ -125,9 +125,9 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     2%{?dist}
+Release:     3%{?dist}
 Summary:     A library for low-level manipulation with block devices
-License:     LGPLv2+
+License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}-%{release}/%{name}-%{version}.tar.gz
 
@@ -980,6 +980,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.28-3
+- Change license string to the SPDX format required by Fedora
+
 * Thu Sep 15 2022 Kevin Fenzi <kevin@scrye.com> - 2.28-2
 - Change Requires on mpath subpackage for device-mapper-multipath back to Recommends.
 - This breaks rawhide compose/livecd's.

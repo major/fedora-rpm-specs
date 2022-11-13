@@ -1,8 +1,8 @@
 Name:           focuswriter
 Version:        1.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A full screen, distraction-free writing program
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://gottcode.org/%{name}/
 Source0:        http://gottcode.org/%{name}/%{name}-%{version}.tar.bz2
 
@@ -47,6 +47,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 1.8.3-2
+- Change license string to the SPDX format required by Fedora
+
 * Thu Sep 29 2022 Vojtech Trefny <vtrefny@redhat.com> - 1.8.3-1
 - Update to 1.8.3
 

@@ -1,133 +1,57 @@
-# what it's called on pypi
-%global srcname pdir2
-# what it's imported as
-%global libname pdir
-# name of egg info directory
-%global eggname pdir2
-# package name fragment
-%global pkgname pdir2
+Name:           python-pdir2
+Version:        0.3.6
+Release:        1%{?dist}
+Summary:        Pretty dir() printing with joy
 
-%global common_description %{expand:
+License:        MIT
+URL:            https://github.com/laike9m/pdir2
+Source0:        %{pypi_source pdir2}
+
+Patch0:         pdir2-0003-add-py311-getstate.patch
+Patch1:         pdir2-0004-enable-python-311.patch
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel python3-pip python3-pdm-pep517
+BuildRequires:  python3-typing-extensions
+BuildRequires:  pytest
+
+%global _description %{expand:
 An improved version of dir() with better output.  Attributes are grouped by
 types/functionalities, with beautiful colors.  Supports ipython, ptpython,
 bpython, and Jupyter Notebook.}
 
-%if (%{defined fedora} && 0%{?fedora} < 30) || (%{defined rhel} && 0%{?rhel} < 8)
-%bcond_without  python2
-%bcond_without  python2_tests
-%endif
+%description %_description
 
-%bcond_without  python3
-%if %{defined fedora}
-# missing python36-pandas in EPEL
-%bcond_without  python3_tests
-%endif
+%package -n python3-pdir2
+Summary: %{summary}
 
-# Upstream tag doesn't match the version
-%global tag 0.3.1
-
-
-Name:           python-%{pkgname}
-Version:        0.3.1.post2
-Release:        16%{?dist}
-Summary:        Pretty dir() printing with joy
-License:        MIT
-URL:            https://github.com/laike9m/pdir2
-# PyPI tarball doesn't have tests
-Source0:        %{url}/archive/v%{tag}/%{srcname}-%{version}.tar.gz
-# https://github.com/laike9m/pdir2/issues/31
-Patch0:         remove-environment-markers.patch
-# Patch to add support for pytest 4 and 5.  This is fixed upstream in the
-# master branch in a way that drops support for pytest 2 (the version in EL7).
-# This patch is similar to the upstream fixes but retains pytest 2
-# compatibility.
-# https://github.com/laike9m/pdir2/commit/787195841c86980562c81fc81df65d4096a73f09#diff-e2b79530c0a804d26dfec15c6f85f757
-# https://github.com/laike9m/pdir2/commit/a85a7e2fc0b60b865039d8b75c5268be5ada99c3#diff-c3d931c13b4769887b493d82966b7771
-# https://github.com/laike9m/pdir2/commit/ad9fe01639bc927fc0d721469254e6fbe78fea6a
-Patch1:         pdir2-0001-pytest-compat.patch
-# Patch to fix Python 3.9 compatibility.  Backported from the upstream master
-# branch.
-# https://github.com/laike9m/pdir2/commit/5d44803dca3c24eba44aac373a8e06ebacea59a5
-Patch2:         pdir2-0002-fix-deprecated-imports-from-collections.patch
-Patch3:         pdir2-0003-add-py311-getstate.patch
-BuildArch:      noarch
-
-
-%description %{common_description}
-
-
-%if %{with python2}
-%package -n python2-%{pkgname}
-Summary:        %{summary}
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%if %{with python2_tests}
-BuildRequires:  python2-pytest >= 2.4
-BuildRequires:  python2-pandas
-BuildRequires:  python2-enum34
-%endif
-Requires:       python2-enum34
-%{?python_provide:%python_provide python2-%{pkgname}}
-
-
-%description -n python2-%{pkgname} %{common_description}
-%endif
-
-
-%if %{with python3}
-%package -n python%{python3_pkgversion}-%{pkgname}
-Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with python3_tests}
-BuildRequires:  python%{python3_pkgversion}-pytest >= 2.4
-BuildRequires:  python%{python3_pkgversion}-pandas
-%endif
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pkgname}}
-
-
-%description -n python%{python3_pkgversion}-%{pkgname} %{common_description}
-%endif
-
+%description -n python3-pdir2 %_description
 
 %prep
-%autosetup -n %{srcname}-%{tag} -p 1
+%autosetup -n pdir2-%{version} -p 1
 
+#%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{?with_python2:%py2_build}
-%{?with_python3:%py3_build}
-
+%pyproject_wheel
 
 %install
-%{?with_python2:%py2_install}
-%{?with_python3:%py3_install}
-
+%pyproject_install
+%pyproject_save_files pdir
 
 %check
-%{?with_python2_tests:PYTHONPATH=%{buildroot}%{python2_sitelib} py.test-%{python2_version} --verbose}
-%{?with_python3_tests:PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} --verbose}
+%pytest
 
-
-%if %{with python2}
-%files -n python2-%{pkgname}
+%files -n python3-pdir2 -f %{pyproject_files}
 %license LICENSE
-%doc README.md HISTORY.md
-%{python2_sitelib}/%{libname}
-%{python2_sitelib}/%{eggname}-%{version}-py%{python2_version}.egg-info
-%endif
-
-
-%if %{with python3}
-%files -n python%{python3_pkgversion}-%{pkgname}
-%license LICENSE
-%doc README.md HISTORY.md
-%{python3_sitelib}/%{libname}
-%{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
-%endif
-
+%doc README.md
 
 %changelog
+* Fri Nov 11 2022 Simon de Vlieger <cmdr@supakeen.com> - 0.3.6-1
+- New upstream version
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1.post2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

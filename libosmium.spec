@@ -10,7 +10,7 @@ Version:        2.18.0
 Release:        2%{?dist}
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
-License:        Boost
+License:        BSL-1.0
 URL:            http://osmcode.org/libosmium/
 Source0:        https://github.com/osmcode/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/osmcode/osm-testdata/archive/%{testcommit}/osm-testdata-%{testcommit}.tar.gz

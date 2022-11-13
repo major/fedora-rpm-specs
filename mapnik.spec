@@ -2,7 +2,7 @@ Name:      mapnik
 Version:   3.1.0
 Release:   20%{?dist}
 Summary:   Free Toolkit for developing mapping applications
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 URL:       http://mapnik.org/
 Source0:   https://github.com/mapnik/mapnik/releases/download/v%{version}/mapnik-v%{version}.tar.bz2
 Source1:   https://github.com/mapnik/test-data/archive/v%{version}/test-data-v%{version}.tar.gz

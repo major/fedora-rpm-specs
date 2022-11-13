@@ -3,8 +3,8 @@
 #%%global shortcommit %%(c=%%{commit};echo ${c:0:7})
 
 Name:           grive2
-Version:        0.5.1
-Release:        15%{?dist}
+Version:        0.5.3
+Release:        1%{?dist}
 #Release:        22.%%{commit_date}git%%{shortcommit}%%{?dist}
 Summary:        Google Drive client
 
@@ -28,6 +28,7 @@ BuildRequires:  yajl-devel
 BuildRequires:  zlib-devel
 BuildRequires:  systemd
 Requires(preun): systemd
+Requires:       inotify-tools
 
 %description
 The purpose of this project is to provide an independent open source
@@ -43,11 +44,6 @@ REST API to talk to Google Drive service.
 
 %install
 %cmake_install
-mkdir -p %{buildroot}%{_libdir}/%{name}/
-mv %{buildroot}/usr/lib/grive/grive-sync.sh %{buildroot}%{_libdir}/%{name}/
-sed -i 's|/usr/lib/grive/grive-sync.sh|%{_libdir}/%{name}/grive-sync.sh|g'  %{buildroot}%{_userunitdir}/grive-changes@.service
-sed -i 's|/usr/lib/grive/grive-sync.sh|%{_libdir}/%{name}/grive-sync.sh|g'  %{buildroot}%{_userunitdir}/grive-timer@.service
-sed -i 's|/usr/lib/grive/grive-sync.sh|%{_libdir}/%{name}/grive-sync.sh|g'  %{buildroot}%{_userunitdir}/grive-timer@.timer
 
 %preun
 %systemd_user_preun grive-changes@.service
@@ -61,9 +57,13 @@ sed -i 's|/usr/lib/grive/grive-sync.sh|%{_libdir}/%{name}/grive-sync.sh|g'  %{bu
 %{_bindir}/grive
 %{_mandir}/man1/*
 %{_userunitdir}/grive*
-%{_libdir}/%{name}
+%{_libexecdir}/grive
 
 %changelog
+* Fri Nov 11 2022 Zamir SUN <sztsian@gmail.com> - 0.5.3-1
+- Update to 0.5.3 to apply "loopback" flow authentication
+- Fixes: RHBZ#2139494
+
 * Wed Sep  7 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.1-15
 - Fix FTBFS
   - Fix cmake invocation error with libgcrypt-config output

@@ -13,7 +13,7 @@ Version:        3.0.23
 Release:        20.20200224git%{shortcommit}%{?dist}
 Summary:        Python bindings for Mapnik
 
-License:        LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://github.com/mapnik/python-mapnik
 Source0:        https://github.com/mapnik/python-mapnik/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1:        https://github.com/mapnik/test-data/archive/%{testcommit}/test-data-%{testcommit}.tar.gz

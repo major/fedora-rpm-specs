@@ -3,7 +3,7 @@ Version:        1.5.0
 Release:        12%{?dist}
 Summary:        C library to read and write OpenStreetMap PBF files
 
-License:        LGPLv3
+License:        LGPL-3.0-or-later
 URL:            https://github.com/openstreetmap/OSM-binary
 Source0:        https://github.com/openstreetmap/OSM-binary/archive/v%{version}/OSM-binary-%{version}.tar.gz
 

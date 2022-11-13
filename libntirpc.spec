@@ -7,7 +7,7 @@ Name:		libntirpc
 Version:	4.0
 Release:	6%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
-License:	BSD
+License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
 
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
@@ -83,16 +83,19 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Fri Nov 11 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com>
+- SPDX migration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Fri Mar 4 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.0-5
+* Fri Mar 4 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-5
 - rebuild w/ cmake-2.23
 
-* Wed Jan 26 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.0-4
+* Wed Jan 26 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-4
 - rebuild w/ modern linker (mold), this time for real
 
-* Wed Jan 26 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.0-3
+* Wed Jan 26 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.0-3
 - rebuild w/ modern linker (mold)
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2

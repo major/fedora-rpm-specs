@@ -23,9 +23,9 @@ Version: 3.6.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
-License: LGPLv2+
+License: LGPL-2.1-or-later
 %global realname blivet
 %global realversion %{version}%{?prerelease}
 Source0: http://github.com/storaged-project/blivet/archive/%{realname}-%{realversion}.tar.gz
@@ -196,6 +196,9 @@ configuration.
 %endif
 
 %changelog
+* Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 3.6.0-2
+- Change license string to the SPDX format required by Fedora
+
 * Tue Sep 20 2022 Vojtech Trefny <vtrefny@redhat.com> - 3.6.0-1
 - pylint: Explicitly allow loading the _ped module from pyparted (vtrefny)
 - ci: Run static analysis on Ubuntu 22.04 (vtrefny)

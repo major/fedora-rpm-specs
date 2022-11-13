@@ -30,6 +30,7 @@ Summary:        Coverage plugin for pytest
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
+Patch:          0001_disabling_boxed_xdist_test.patch 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
