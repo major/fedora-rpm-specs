@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           %{pkg_name}
-Version:        0.4.8
-Release:        2%{?dist}
+Version:        0.4.10
+Release:        1%{?dist}
 Summary:        Sort RPM packages in dependency order
 
 License:        BSD
@@ -155,6 +155,13 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Sat Nov 12 2022 Jens Petersen <petersen@redhat.com> - 0.4.10-1
+- Order: add depsPackages and factor out depsGraph to Graph
+- Graph: add depsGraphDeps which takes a list of possible deps
+- Graph: add topsortGraph (factored out of sortGraph)
+- Graph rpmspecDynBuildRequires: error if no srpm generated
+- tests: add testcase for deps command
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

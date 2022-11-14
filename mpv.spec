@@ -1,12 +1,11 @@
 Name:           mpv
-Version:        0.34.1
-Release:        11%{?dist}
+Version:        0.35.0
+Release:        1%{?dist}
 
 License:        GPLv2+ and LGPLv2+
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{name}.metainfo.xml
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -30,6 +29,7 @@ BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libarchive) >= 3.4.0
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libavcodec) >= 58.16.100
+BuildRequires:  pkgconfig(libavdevice) >= 57.0.0
 BuildRequires:  pkgconfig(libavfilter) >= 7.14.100
 BuildRequires:  pkgconfig(libavformat) >= 58.9.100
 BuildRequires:  pkgconfig(libavutil) >= 56.12.100
@@ -39,6 +39,7 @@ BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libguess)
 BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.19
 BuildRequires:  pkgconfig(libplacebo)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswresample) >= 3.0.100
@@ -59,9 +60,11 @@ BuildRequires:  pkgconfig(wayland-egl)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xpresent)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xscrnsaver)
 BuildRequires:  pkgconfig(xv)
@@ -71,6 +74,7 @@ BuildRequires:  pkgconfig(zlib)
 Requires:       hicolor-icon-theme
 Provides:       mplayer-backend
 Recommends:     (yt-dlp or youtube-dl)
+Suggests:       yt-dlp
 
 %description
 Mpv is a movie player based on MPlayer and mplayer2. It supports a wide variety
@@ -132,12 +136,12 @@ sed -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.sta
     --enable-cdda \
     --enable-html-build \
     --enable-dvbin \
-    --enable-gl-x11
+    --enable-gl-x11 \
+    --enable-wayland
 %{_bindir}/waf -v build %{?_smp_mflags}
 
 %install
 %{_bindir}/waf install --destdir=%{buildroot}
-install -D -m 0644 -p %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
@@ -163,7 +167,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files libs
 %license LICENSE.GPL LICENSE.LGPL Copyright
-%{_libdir}/lib%{name}.so.1*
+%{_libdir}/lib%{name}.so.2*
 
 %files devel
 %{_includedir}/%{name}/
@@ -171,6 +175,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Nov 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.35.0-1
+- Updated to version 0.35.0.
+- Enabled Wayland backend.
+- Enabled native PipeWire output support.
+
 * Mon Sep 05 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.34.1-11
 - Moved to Fedora.
 - Added XDG metainfo manifest.

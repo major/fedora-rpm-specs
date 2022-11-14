@@ -3,12 +3,12 @@
 %global pkgname spirv-headers
 %global srcname SPIRV-Headers
 
-%global sdkver 1.3.224.1
+%global sdkver 1.3.231.1
 
 
 Name:          mingw-%{pkgname}
 Version:       1.5.5
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       MIT
@@ -70,6 +70,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.5.5-8
+- Update for 1.3.231.1 sdk
+
 * Thu Sep 15 2022 Sandro Mani <manisandro@gmail.com> - 1.5.5-7
 - Rebase to vulkan SDK 1.3.224.1
 

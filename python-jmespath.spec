@@ -1,16 +1,13 @@
 %global pypi_name jmespath
 
 Name:           python-%{pypi_name}
-Version:        1.0.0
-Release:        5%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        JSON Matching Expressions
 
 License:        MIT
 URL:            https://github.com/jmespath/jmespath.py
 Source0:        %{url}/archive/%{version}/jmespath.py-%{version}.tar.gz
-# Use list for random.sample since using a set has been removed in Python 3.11.
-# This can be removed once upstream PR is merged.
-Patch217:       https://github.com/jmespath/jmespath.py/pull/217.patch
 BuildArch:      noarch
 
 %description
@@ -37,7 +34,6 @@ a JSON document.
 
 %prep
 %setup -q -n jmespath.py-%{version}
-%patch217 -p1
 rm -rf %{pypi_name}.egg-info
 
 %build
@@ -60,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Nov 12 2022 Kevin Fenzi <kevin@scrye.com> - 1.0.1-1
+- Update to 1.0.1. Fixes rhbz#2098349
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

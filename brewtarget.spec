@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 %global forgeurl https://github.com/Brewtarget/brewtarget
-%global tag v3.0.2
+%global tag v3.0.3
 %forgemeta
 
 %global _description %{expand:
@@ -13,7 +13,7 @@ priming sugar calculators, OG correction help, and a unique mash designing tool.
 It also can export and import recipes in BeerXML.}
 
 Name:		brewtarget
-Version:	3.0.2
+Version:	3.0.3
 Release:	1%{?dist}
 Summary:	An open source beer recipe creation tool 🍺
 

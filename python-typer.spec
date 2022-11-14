@@ -80,6 +80,8 @@ rm -rvf docs/js docs/css
 %check
 # See scripts/test.sh. We do not run the linters (scripts/lint.sh, i.e.,
 # mypy/black/isort).
+export TERMINAL_WIDTH=3000
+export _TYPER_FORCE_DISABLE_TERMINAL=1
 ./scripts/test-files.sh
 # Shell completion tests need us to be running under a supported shell, i.e.
 # bash rather than sh. Unfortunately, shell detection with shellingham is so

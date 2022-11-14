@@ -5,7 +5,7 @@
 %global modname django_extensions
 
 Name:           python-%{srcname}
-Version:        3.2.0
+Version:        3.2.1
 Release:        %autorelease
 Summary:        Extensions for Django
 
@@ -24,6 +24,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 
 %if %{with doc}
 BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  make
 %endif
 
 %global _description %{expand:

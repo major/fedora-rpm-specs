@@ -12,7 +12,6 @@ Source2:        noggin.sysconfig
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 0-14
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  /usr/bin/pathfix.py
 Requires:       (python3dist(gunicorn) with /usr/bin/gunicorn-3)
 
 %description
@@ -62,7 +61,7 @@ Provides a theme for Noggin used for openSUSE Accounts.
 mkdir -p %{buildroot}%{_bindir}
 install -pm 0755 deployment/scripts/sar.py %{buildroot}%{_bindir}/noggin-sar
 # Fix shebangs for noggin-sar
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/noggin-sar
+%py3_shebang_fix %{buildroot}%{_bindir}/noggin-sar
 
 mkdir -p %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}

@@ -1,6 +1,6 @@
 Name:          saga
 Version:       7.6.1
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       Geographic information system with an API for processing geodata
 
 # libsaga_api is licensed under the terms of LGPLv2. So is one single
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.saga
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 7.6.1-17
+- Rebuild (gdal)
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 7.6.1-16
 - Rebuild for libsvm 3.3
 

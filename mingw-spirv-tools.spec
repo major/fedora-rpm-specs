@@ -3,11 +3,11 @@
 %global pkgname spirv-tools
 %global srcname SPIRV-Tools
 
-%global sdkver 1.3.224.1
+%global sdkver 1.3.231.1
 
 Name:          mingw-%{pkgname}
 Version:       2022.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       ASL 2.0
@@ -132,6 +132,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 2022.2-6
+- Update for 1.3.231.1 sdk
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 2022.2-5
 - Rebuild (python-3.11)
 

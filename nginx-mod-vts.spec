@@ -3,7 +3,7 @@
 
 Name:           nginx-mod-vts
 Version:        0.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Nginx virtual host traffic status module
 
 License:        BSD
@@ -44,6 +44,9 @@ popd
 
 
 %changelog
+* Sat Nov 12 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.2.1-2
+- Rebuild for nginx 1.22.1
+
 * Thu Sep 22 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.2.1-1
 - Bump to 0.2.1 rhbz#2124567
 

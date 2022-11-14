@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -68,7 +68,7 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %check
-%ctest
+%ctest \-E regress_cred
 
 
 %files
@@ -88,6 +88,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Sat Nov 12 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-2
+- exclude (future invalid crypto policy) test (resolves: rhbz#2141852)
+
 * Fri Sep 23 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-1
 - 1.12.0 release (resolves: rhbz#2129268)
 - remove unneeded BR for hidapi-hidraw

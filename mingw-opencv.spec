@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       4.6.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -233,6 +233,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-4
+- Rebuild (gdal)
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-3
 - Rebuild (python-3.11)
 

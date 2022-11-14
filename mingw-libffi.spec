@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:		mingw-libffi
-Version:	3.4.2
-Release:	4%{?dist}
+Version:	3.4.4
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library for MinGW
 
 License:	BSD
@@ -103,6 +103,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 3.4.4-1
+- Update to 3.4.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

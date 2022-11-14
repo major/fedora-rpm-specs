@@ -1,8 +1,10 @@
 %bcond_without tests
+# disable the python -s shbang flag as we want to be able to find non system modules
+%undefine _py3_shebang_s
 
 Name: ansible-core
 Summary: A radically simple IT automation system
-Version: 2.14.0~rc2
+Version: 2.14.0
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release: 1%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -111,9 +113,6 @@ sed '/^mock$/d' test/lib/ansible_test/_data/requirements/units.txt > _requiremen
 
 
 %build
-# disable the python -s shbang flag as we want to be able to find non system modules
-%undefine _py3_shebang_s
-
 %pyproject_wheel
 
 # Build manpages
@@ -146,6 +145,16 @@ make PYTHON=%{python3} docs
 %install
 %pyproject_install
 %pyproject_save_files ansible ansible_test
+
+# These files are executable when they shouldn't be.
+# Only the actual "binaries" in %%{_bindir} need to be executable
+# and have shebangs.
+while read -r file; do
+    sed -i -e '1{\@^#!.*@d}' "${file}"
+done < <(find \
+    %{buildroot}%{python3_sitelib}/ansible/cli/*.py \
+    %{buildroot}%{python3_sitelib}/ansible/cli/scripts/ansible_connection_cli_stub.py \
+        -type f ! -executable)
 
 install -Dpm 0644 bash_completions/* -t %{buildroot}%{bash_completions_dir}
 install -Dpm 0644 fish_completions/* -t %{buildroot}%{fish_completions_dir}
@@ -193,9 +202,16 @@ cp examples/ansible.cfg %{buildroot}/etc/ansible/
 mkdir -p %{buildroot}/%{_mandir}/man1
 cp -v docs/man/man1/*.1 %{buildroot}/%{_mandir}/man1/
 
-# These files are needed for the unit tests, so we don't remove them in %prep
+# These files are needed for the unit tests, so we don't remove them in %%prep
 find %{buildroot}/%{python3_sitelib} -name .travis.yml -type f -delete
 
+# We install licenses in this manner so we don't miss new licenses:
+  # 1. Copy all files in licenses to %%{_pkglicensedir}.
+  # 2. List the files explicitly in %%files.
+  # 3. The build will fail with unpackaged file errors if license
+  #    files aren't accounted for.
+%global _pkglicensedir %{_licensedir}/ansible-core
+install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 %check
 %if %{with tests}
@@ -205,7 +221,8 @@ make PYTHON=%{python3} tests-py3
 
 
 %files -f %{pyproject_files}
-%license COPYING licenses/{Apache-License,MIT-license,PSF-license,simplified_bsd}.txt
+%license COPYING
+%license %{_pkglicensedir}/{Apache-License,MIT-license,PSF-license,simplified_bsd}.txt
 %doc README.rst changelogs/CHANGELOG-v2.1?.rst
 %dir %{_sysconfdir}/ansible/
 %config(noreplace) %{_sysconfdir}/ansible/*
@@ -223,6 +240,9 @@ make PYTHON=%{python3} tests-py3
 
 
 %changelog
+* Mon Nov 07 2022 Maxwell G <gotmax@e.email> - 2.14.0-1
+- Update to 2.14.0.
+
 * Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 2.14.0~rc2-1
 - Update to 2.14.0~rc2.
 

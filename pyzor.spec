@@ -1,22 +1,23 @@
 %global forgeurl https://github.com/SpamExperts/pyzor
-%global commit f46159bd6519cebcebf59e9334a7920371111d75
+%global commit   f46159bd6519cebcebf59e9334a7920371111d75
 
-Name:       pyzor
-Version:    1.0.0
-Release:    31%{?dist}
-Summary:    Collaborative spam filtering system
-License:    GPLv2
+Name:           pyzor
+Version:        1.0.0
+Release:        32%{?dist}
+Summary:        Collaborative spam filtering system
+License:        GPL-2.0-only
 %forgemeta
-URL:        %forgeurl
-Source0:    %forgesource
-Patch0:     https://patch-diff.githubusercontent.com/raw/SpamExperts/pyzor/pull/119.patch
+URL:            %forgeurl
+Source0:        %forgesource
+Patch0:         https://patch-diff.githubusercontent.com/raw/SpamExperts/pyzor/pull/119.patch
 
-BuildArch:     noarch
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-pytest
+BuildArch:      noarch
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-setuptools
 # No python3-redis (yet?) in EPEL, only in Fedora
 %if 0%{?fedora}  
-BuildRequires: python%{python3_pkgversion}-redis
+BuildRequires:  python%{python3_pkgversion}-redis
 %endif
 
 %description
@@ -61,6 +62,10 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}
 
 
 %changelog
+* Sat Nov 12 2022 Robert Scheck <robert@fedoraproject.org> - 1.0.0-32
+- Updated license identifier to SPDX expression
+- Added missing build dependency on python3-setuptools (#2142035)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

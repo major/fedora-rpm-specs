@@ -13,9 +13,9 @@
 %{!?rel_build:%global git_tar %{name}-%{version}-%{git_ver}.tar.xz}
 
 Name:          marco
-Version:       %{branch}.0
+Version:       %{branch}.1
 %if 0%{?rel_build}
-Release:       5%{?dist}
+Release:       1%{?dist}
 %else
 Release:       0.17%{?git_rel}%{?dist}
 %endif
@@ -29,17 +29,6 @@ URL:           http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-# from 1.26 upstream branch
-Patch1:        marco_0001-Safeguard-against-calling-gdk_x11_window_get_xid-wit.patch
-Patch2:        marco_0002-fix-code-formatting-issue-of-previous-commit.patch
-Patch3:        marco_0003-prefs-fix-memory-leak.patch
-Patch4:        marco_0004-build-fix-meson-build.patch
-Patch5:        marco_0005-compositor-xrender-fix-memory-leak.patch
-Patch6:        marco_0006-theme-fix-memory-leak.patch
-# https://github.com/mate-desktop/marco/commit/63b00b9
-# fixing wine
-Patch7:        marco_0001-window-do-not-disable-fullscreen-for-dialogs.patch
-
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
 BuildRequires: libcanberra-devel
@@ -48,6 +37,7 @@ BuildRequires: libSM-devel
 BuildRequireS: libsoup-devel
 BuildRequires: libXdamage-devel
 BuildRequires: libXpresent-devel
+BuildRequires: libXres-devel
 BuildRequires: make
 BuildRequires: mate-common
 BuildRequires: mate-desktop-devel
@@ -162,6 +152,9 @@ desktop-file-install                                \
 
 
 %changelog
+* Sat Nov 12 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
+- update to 1.26.1
+
 * Sat Oct 15 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-5
 - fix dialog windows in wine
 - https://github.com/mate-desktop/marco/commit/63b00b9

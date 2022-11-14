@@ -19,7 +19,7 @@
 %global cname   CloudCompare
 Name:           cloudcompare
 Version:        2.11.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        3D point cloud and mesh processing software
 
 # Main part is GPLv2+
@@ -286,6 +286,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE4}
 %doc doc
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 2.11.3-5
+- Rebuild (gdal)
+
 * Thu Aug 25 2022 Miro Hrončok <mhroncok@redhat.com> - 2.11.3-4
 - Security fix for CVE-2021-21897
 - Fixes: rhbz#2080986

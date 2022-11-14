@@ -1,5 +1,5 @@
 Name:           libcpuid
-Version:        0.6.0
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        Provides CPU identification for x86
 License:        BSD
@@ -56,6 +56,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man3/*.3.*
 
 %changelog
+* Sat Nov 12 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.6.2-1
+- Update to 0.6.2
+
 * Sat Oct 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.6.0-1
 - Update to 0.6.0
 

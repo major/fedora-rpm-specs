@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        5.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -768,6 +768,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 5.10.1-6
+- Rebuild (gdal)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

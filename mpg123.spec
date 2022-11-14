@@ -4,7 +4,7 @@
 
 Name: mpg123
 Version: 1.31.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1, 2 and 3
 License: LGPLv2+
 URL: https://mpg123.org
@@ -102,8 +102,7 @@ Development files for decoding and output libraries.
 %build
 autoreconf -vfi
 %configure --enable-modules=yes --with-default-audio=alsa \
-  --with-audio=alsa,%{?enable_jack:jack},pulse,oss,%{?enable_portaudio:portaudio} \
-  --disable-largefile
+  --with-audio=alsa,%{?enable_jack:jack},pulse,oss,%{?enable_portaudio:portaudio}
 %make_build
 pushd doc
   doxygen doxygen.conf
@@ -162,6 +161,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/lib%{syn}.pc
 
 %changelog
+* Sun Nov 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.31.1-3
+- Revert the previous change for now
+
 * Fri Nov 11 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.31.1-2
 - Use --disable-largefile and allow co-installable arch devel packages
 

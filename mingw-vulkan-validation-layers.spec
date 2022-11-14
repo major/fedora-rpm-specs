@@ -6,7 +6,7 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.224.1
+Version:       1.3.231.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -104,6 +104,9 @@ mv %{buildroot}%{mingw64_libdir}/libVkLayer_utils.dll %{buildroot}%{mingw64_bind
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.3.231.1-1
+- Update to 1.3.231.1
+
 * Fri Sep 16 2022 Sandro Mani <manisandro@gmail.com> - 1.3.224.1-1
 - Update to 1.3.224.1
 

@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -373,6 +373,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 8.2.0-8
+- Rebuild (gdal)
+
 * Wed Nov 09 2022 Markus Neteler <neteler@mundialis.de> 8.2.0-7
 - SPDX license tag update
 

@@ -2,11 +2,11 @@
 
 %global pkgname glslang
 
-%global sdkver 1.3.224.1
+%global sdkver 1.3.231.1
 
 Name:          mingw-%{pkgname}
 Version:       11.9.0
-Release:       6%{?commit:.git%{shortcommit}}%{?dist}
+Release:       7%{?commit:.git%{shortcommit}}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD and GPLv3+ and ASL 2.0
@@ -80,7 +80,6 @@ rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
 %{mingw32_libdir}/libglslang.a
 %{mingw32_libdir}/libglslang-default-resource-limits.a
 %{mingw32_libdir}/cmake/*
-%{mingw32_datadir}/%{pkgname}/
 
 %files -n mingw64-%{pkgname}
 %{mingw64_bindir}/glslangValidator.exe
@@ -96,10 +95,12 @@ rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
 %{mingw64_libdir}/libglslang.a
 %{mingw64_libdir}/libglslang-default-resource-limits.a
 %{mingw64_libdir}/cmake/*
-%{mingw64_datadir}/%{pkgname}/
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-7
+- Update for 1.3.231.1 sdk
+
 * Thu Sep 15 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-6
 - Rebase to vulkan SDK 1.3.224.1
 

@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -299,6 +299,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 3.28.0-2
+- Rebuild (gdal)
+
 * Tue Oct 25 2022 Sandro Mani <manisandro@gmail.com> - 3.28.0-1
 - Update to 3.28.0
 

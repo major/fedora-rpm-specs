@@ -69,7 +69,7 @@ Version:        4.6.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -512,6 +512,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-8
+- Rebuild (gdal)
+
 * Wed Sep 28 2022 Tom Rix <trix@redhat.com> - 4.6.0-7
 - Remove Unicap
 

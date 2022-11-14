@@ -6,7 +6,7 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.224.1
+Version:       1.3.231.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -18,8 +18,6 @@ Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}
 # Omit def file, results in vulkan-1.dll.a containing non @-decorated symbols, while vulkan-1.dll contains @-decorated symbols
 # Fix include oder resulting in windows.h getting included before winsock2.h
 Patch0:        vulkan-loader_mingw.patch
-# Backport fix for mingw build failure
-Patch1:        https://github.com/KhronosGroup/Vulkan-Loader/commit/b437061de1ce0df273d173472433e125a6e24ed7.patch
 
 
 BuildRequires: make
@@ -73,7 +71,7 @@ MinGW Windows %{pkgname} library.
 %files -n mingw32-%{pkgname}
 %doc README.md
 %license LICENSE.txt
-%{mingw32_bindir}/libvulkan-1.dll
+%{mingw32_bindir}/vulkan-1.dll
 %{mingw32_libdir}/libvulkan-1.dll.a
 %{mingw32_libdir}/pkgconfig/vulkan.pc
 
@@ -81,12 +79,15 @@ MinGW Windows %{pkgname} library.
 %files -n mingw64-%{pkgname}
 %doc README.md
 %license LICENSE.txt
-%{mingw64_bindir}/libvulkan-1.dll
+%{mingw64_bindir}/vulkan-1.dll
 %{mingw64_libdir}/libvulkan-1.dll.a
 %{mingw64_libdir}/pkgconfig/vulkan.pc
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.3.231.1-1
+- Update to 1.3.231.1
+
 * Fri Sep 16 2022 Sandro Mani <manisandro@gmail.com> - 1.3.224.1-1
 - Update to 1.3.224.1
 

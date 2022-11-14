@@ -4,7 +4,7 @@
 #global prerelease beta2
 
 # For rpmdev-bumpspec and releng scripts
-%global baserelease 9
+%global baserelease 1
 
 # do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
 # (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
@@ -17,7 +17,7 @@
 %endif
 
 Name:           calamares
-Version:        3.2.41.1
+Version:        3.2.61
 Release:        %{baserelease}%{?snaphash:.%{snapdate}git%(echo %{snaphash} | cut -c -13)}%{!?snaphash:%{?prerelease:.%{prerelease}}}%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
@@ -39,7 +39,7 @@ Source4:        calamares-auto_de.ts
 Source5:        calamares-auto_it.ts
 
 # adjust some default settings (default shipped .conf files)
-Patch0:         calamares-3.2.40-default-settings.patch
+Patch0:         calamares-3.2.61-default-settings.patch
 
 # use kdesu instead of pkexec (works around #1171779)
 Patch1:         calamares-3.2.40-kdesu.patch
@@ -360,6 +360,9 @@ EOF
 
 
 %changelog
+* Sat Nov 12 2022 Neal Gompa <ngompa@fedoraproject.org> - 3.2.61-1
+- Update to 3.2.61
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 3.2.41.1-9
 - Rebuild for yaml-cpp 0.7.0.
 

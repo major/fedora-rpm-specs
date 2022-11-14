@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20201231
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -479,6 +479,9 @@ fi
 %endif
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 20201231-34
+- Rebuild (gdal)
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 20201231-33
 - Rebuild for yaml-cpp 0.7.0.
 

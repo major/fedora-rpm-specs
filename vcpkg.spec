@@ -17,6 +17,7 @@ Source1: %{name}.sh
 
 BuildRequires: catch-devel >= 2.13.0
 BuildRequires: cmake
+BuildRequires: cmrc-devel
 BuildRequires: fmt-devel >= 9.1.0
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
@@ -56,6 +57,7 @@ ln -svf %{_includedir}/catch2/ include/
     -DVCPKG_VERSION:STRING=%{repo_tag} \
     -DVCPKG_DEVELOPMENT_WARNINGS:BOOL=OFF \
     -DVCPKG_WARNINGS_AS_ERRORS:BOOL=OFF \
+    -DVCPKG_DEPENDENCY_CMAKERC:BOOL=ON \
     -DVCPKG_DEPENDENCY_EXTERNAL_FMT:BOOL=ON \
     -DVCPKG_BUILD_TLS12_DOWNLOADER:BOOL=OFF \
     -DVCPKG_BUILD_FUZZING:BOOL=OFF \

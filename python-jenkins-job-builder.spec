@@ -2,11 +2,11 @@
 
 Name:           python-%{srcname}
 Version:        4.1.0
-Release:        3%{dist}
+Release:        4%{dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://jenkins-job-builder.readthedocs.io/en/latest/
 Source:         %{pypi_source}
 
@@ -59,6 +59,9 @@ stestr run
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Sat Nov 12 2022 Christoph Erhardt <fedora@sicherha.de> - 1:4.1.0-4
+- Migrate to SPDX license identifier
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

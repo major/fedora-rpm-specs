@@ -10,14 +10,14 @@
 %global subpkgs %{bodhi} %{coprapi} %{cachedjsonfile} %{pdc} %{fedoradists} %{pagure}
 
 Name:           fbrnch
-Version:        1.1.2
+Version:        1.2
 # can only be reset when all subpkgs bumped
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
 # copr-api, fedora-dists: GPLv3+
-# fbrnch, koji-hs, pagure-hs: GPLv2+
+# fbrnch, pagure-hs: GPLv2+
 License:        GPLv2+ and MIT and GPLv3+
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
@@ -51,13 +51,12 @@ BuildRequires:  ghc-http-directory-static
 BuildRequires:  ghc-http-query-static
 BuildRequires:  ghc-koji-static
 BuildRequires:  ghc-network-uri-static
-BuildRequires:  ghc-optparse-applicative-static
 #BuildRequires:  ghc-pagure-static
 BuildRequires:  ghc-pretty-terminal-static
 BuildRequires:  ghc-process-static
 BuildRequires:  ghc-rpm-nvr-static
-BuildRequires:  ghc-rpmbuild-order-static >= 0.4.8
-BuildRequires:  ghc-simple-cmd-static >= 0.2.6
+BuildRequires:  ghc-rpmbuild-order-static
+BuildRequires:  ghc-simple-cmd-static
 BuildRequires:  ghc-simple-cmd-args-static
 BuildRequires:  ghc-text-static
 BuildRequires:  ghc-time-static
@@ -66,8 +65,6 @@ BuildRequires:  ghc-unix-static
 BuildRequires:  ghc-unordered-containers-static
 BuildRequires:  ghc-utf8-string-static
 BuildRequires:  ghc-xdg-basedir-static
-# for missing dep 'copr-api':
-BuildRequires:  ghc-unordered-containers-prof
 # End cabal-rpm deps
 # for missing dep 'bodhi'/'copr-api'/'pagure'/'pdc'
 BuildRequires:  ghc-aeson-prof
@@ -107,12 +104,12 @@ and many more commands.
 %global main_version %{version}
 
 %if %{defined ghclibdir}
-%ghc_lib_subpackage %{bodhi}
-%ghc_lib_subpackage %{cachedjsonfile}
-%ghc_lib_subpackage %{coprapi}
-%ghc_lib_subpackage %{fedoradists}
-%ghc_lib_subpackage %{pagure}
-%ghc_lib_subpackage %{pdc}
+%ghc_lib_subpackage -l MIT %{bodhi}
+%ghc_lib_subpackage -l BSD %{cachedjsonfile}
+%ghc_lib_subpackage -l GPLv3+ %{coprapi}
+%ghc_lib_subpackage -l GPLv3+ %{fedoradists}
+%ghc_lib_subpackage -l GPLv2+ %{pagure}
+%ghc_lib_subpackage -l MIT %{pdc}
 %endif
 
 %global version %{main_version}
@@ -154,6 +151,28 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Nov 12 2022 Jens Petersen <petersen@redhat.com> - 1.2-7
+- improvements to the branch merging logic
+- no more gratuitous merge rebasing
+- 'build' bugfix: use long git commit hashes
+- 'build','scratch','waitrepo': add --sidetag option
+- 'local': add --short-compile and rename --short-circuit to --short-install
+- 'merge': --skip-bumps ignores up to N (trivial) commits & --show-all
+- 'mock': add simple --short-circuit option for install stage
+- 'parallel': no longer offer to remove sidetag
+- 'parallel': update improvements, including fixing parallel
+   single package update (#36)
+- 'request-branches': add --recurse-from BRANCH
+- 'scratch' builds now support multiple (serial) targets
+- 'install': offer to merge and add --from to override branch
+- 'install': only update installed subpackages, unless --all-subpackages
+- new git 'fetch' command
+- new 'list-local' command: lists packages with a spec file in a branch
+- new 'owner' command: prints owner and admins of package(s)
+- new 'src-deps' command: wrapper of rpmbuild-order (r)deps
+- many smaller fixes and improvements:
+  see https://hackage.haskell.org/package/fbrnch-1.2/changelog for details
+
 * Sat Jul 30 2022 Jens Petersen <petersen@redhat.com> - 1.1.2-6
 - build, install: count remaining builds
 - commit: add all if nothing staged; remove initial "- "

@@ -23,7 +23,7 @@
 
 Name:           GMT
 Version:        6.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generic Mapping Tools
 
 License:        LGPLv3+
@@ -223,6 +223,9 @@ find $RPM_BUILD_ROOT -name \*.bat -delete
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-4
+- Rebuild (gdal)
+
 * Mon Sep 26 2022 Orion Poplawski <orion@nwra.com> - 6.4.0-3
 - Build with pcre2 (bz#2128300)
 

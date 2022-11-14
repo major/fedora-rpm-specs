@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.5.3
-Release:       2%{?dist}
+Version:       3.6.0
+Release:       1%{?pre:.%pre}%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -81,6 +81,7 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 
 BuildRequires: armadillo-devel
+BuildRequires: bison
 BuildRequires: cfitsio-devel
 BuildRequires: CharLS-devel
 BuildRequires: curl-devel
@@ -106,6 +107,7 @@ BuildRequires: libspatialite-devel
 BuildRequires: libtiff-devel
 BuildRequires: libtirpc-devel
 BuildRequires: libwebp-devel
+BuildRequires: libzstd-devel
 %if 0%{?with_mysql}
 BuildRequires: mariadb-connector-c-devel
 %endif
@@ -155,6 +157,7 @@ BuildRequires: mingw32-sqlite
 BuildRequires: mingw32-xerces-c
 BuildRequires: mingw32-xz-libs
 BuildRequires: mingw32-zlib
+BuildRequires: mingw32-zstd
 
 BuildRequires: mingw64-filesystem >= 102
 BuildRequires: mingw64-gcc-c++
@@ -184,6 +187,7 @@ BuildRequires: mingw64-sqlite
 BuildRequires: mingw64-xerces-c
 BuildRequires: mingw64-xz-libs
 BuildRequires: mingw64-zlib
+BuildRequires: mingw64-zstd
 %endif
 
 # Python
@@ -466,8 +470,8 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.31
-%{_libdir}/libgdal.so.31.*
+%{_libdir}/libgdal.so.32
+%{_libdir}/libgdal.so.32.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -483,7 +487,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-31.dll
+%{mingw32_bindir}/libgdal-32.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -496,7 +500,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-31.dll
+%{mingw64_bindir}/libgdal-32.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -530,6 +534,7 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 %{_bindir}/gdalattachpct.py
 %{_bindir}/gdalcompare.py
 %{_bindir}/gdalmove.py
+%{_bindir}/ogr_layer_algebra.py
 %{_bindir}/ogrmerge.py
 %{_bindir}/pct2rgb.py
 %{_bindir}/rgb2pct.py
@@ -563,6 +568,12 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Fri Nov 11 2022 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
+- Update to 3.6.0
+
+* Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 3.6.0-0.1.rc1
+- Update to 3.6.0-rc1
+
 * Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 3.5.3-2
 - Re-enable java
 

@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.16.1
-Release: 8%{?commit:.git%shortcommit}%{?dist}
+Release: 9%{?commit:.git%shortcommit}%{?dist}
 Summary: GPS mapping and management tool
 
 License: GPLv3+ and BSD
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.16.1-9
+- Rebuild (gdal)
+
 * Sun Oct 30 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.16.1-8
 - Add Recommends for gdal to qmaptool (#2138688)
 

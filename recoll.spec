@@ -2,7 +2,7 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.33.1
+Version:        1.33.2
 Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
@@ -161,6 +161,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sat Nov 12 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.33.2-1
+- 1.33.2
+
 * Sun Oct 23 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.33.1-1
 - 1.33.1
 

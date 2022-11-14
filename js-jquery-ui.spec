@@ -1,8 +1,8 @@
 %global jsname jquery-ui
 
 Name:		js-%{jsname}
-Version:	1.13.0
-Release:	4%{?dist}
+Version:	1.13.2
+Release:	1%{?dist}
 Summary:	jQuery user interface
 
 License:	MIT
@@ -32,6 +32,7 @@ themes built on top of the jQuery JavaScript Library.
 
 %prep
 %setup -q -n %{jsname}-%{version} -a 1
+rm -rf dist
 
 %build
 ./node_modules/grunt-cli/bin/grunt -v requirejs:js concat:css uglify:main
@@ -55,6 +56,9 @@ install -m 644 -p themes/base/images/* %{buildroot}%{_jsdir}/%{jsname}/images
 %doc AUTHORS.txt CONTRIBUTING.md README.md
 
 %changelog
+* Fri Nov 11 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.13.2-1
+- Update to version 1.13.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
