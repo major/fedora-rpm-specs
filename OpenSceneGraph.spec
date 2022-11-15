@@ -311,24 +311,20 @@ doxygen -u doc/Doxyfiles/openthreads.doxyfile.cmake
 
 %build
 # Native build
-CFLAGS="${RPM_OPT_FLAGS} -pthread"
-CXXFLAGS="${RPM_OPT_FLAGS} -pthread"
 %cmake -DBUILD_OSG_EXAMPLES=ON -DBUILD_DOCUMENTATION=ON \
   -DOSG_AGGRESSIVE_WARNING_FLAGS=OFF \
   -DLIB_POSTFIX=%(l=%{_lib}; echo ${l:3}) \
-  %{?with_Collada:-DCOLLADA_INCLUDE_DIR=$(pkg-config collada-dom --variable=includedir)} \
-  -Wno-dev
+  %{?with_Collada:-DCOLLADA_INCLUDE_DIR=$(pkg-config collada-dom --variable=includedir)}
 %cmake_build
 
 make -C %{_vpath_builddir} doc_openscenegraph doc_openthreads
 
 # MinGW build
 # We are cross-compiling and TryRun fails
+
 %mingw_cmake \
-    -DOSG_DETERMINE_WIN_VERSION=OFF \
-    -D_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE=0 -D_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE__TRYRUN_OUTPUT="" \
-    -D_OPENTHREADS_ATOMIC_USE_WIN32_INTERLOCKED_EXITCODE=0 -D_OPENTHREADS_ATOMIC_USE_WIN32_INTERLOCKED_EXITCODE__TRYRUN_OUTPUT="" \
-    -DPOPPLER_HAS_CAIRO_EXITCODE=0 -DPOPPLER_HAS_CAIRO_EXITCODE__TRYRUN_OUTPUT=""
+  -DOSG_AGGRESSIVE_WARNING_FLAGS=OFF \
+  -DOSG_DETERMINE_WIN_VERSION=OFF
 %mingw_make_build
 
 

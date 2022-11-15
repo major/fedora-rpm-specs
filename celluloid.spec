@@ -1,6 +1,6 @@
 Name:           celluloid
 Version:        0.24
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPLv3+
@@ -58,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_p
  %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sun Nov 13 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.24-4
+- Rebuilt due to mpv update.
+
 * Fri Sep 09 2022 Vasiliy N. Glazov <vascom2@gmail.com>  - 0.24-3
 - Require dbus-common
 

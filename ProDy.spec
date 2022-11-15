@@ -12,8 +12,8 @@ ExcludeArch: ppc64 s390x
 
 Name: ProDy
 Summary: Application for protein structure, dynamics and sequence analysis
-Version: 2.2.0
-Release: 5%{?dist}
+Version: 2.3.0
+Release: 1%{?dist}
 
 # MIT is the main license for ProDy
 # prody/utilities/tnt/* code --> 'Public domain' license
@@ -21,7 +21,6 @@ Release: 5%{?dist}
 License: MIT and Public domain and BSD
 URL: http://www.csb.pitt.edu/ProDy
 Source0: https://github.com/prody/ProDy/archive/v%{version}/ProDy-%{version}.tar.gz
-Patch0:  %{name}-do_not_restrict_to_biopython176.patch
 
 BuildRequires: gcc, gcc-c++
 
@@ -74,9 +73,6 @@ find %{name}-%{version}/prody/proteins/ccealign -name '*.h' -exec chmod 0644 '{}
 find %{name}-%{version}/prody/proteins/ccealign -name '*.cpp' -exec chmod 0644 '{}' \;
 
 mv %{name}-%{version} python3
-pushd python3
-%autopatch -p1
-popd
 
 %build
 pushd python3
@@ -139,6 +135,9 @@ popd
 %{python3_sitearch}/%{name}-*.egg-info
 
 %changelog
+* Sun Nov 13 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.3.0-1
+- Release 2.3.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

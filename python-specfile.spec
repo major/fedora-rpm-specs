@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Sat Nov 12 2022 Packit <hello@packit.dev> - 0.9.1-1
+- `specfile` now supports localized tags (e.g. `Summary(fr)`) and tags with qualifiers (e.g. `Requires(post)`).
+  It also follows more closely rpm parsing logic and doesn't fail on invalid section names. (#132)
+
 * Tue Oct 25 2022 Packit <hello@packit.dev> - 0.9.0-1
 - Added utility classes for working with (N)EVR. (#113)
 - Fixed an issue with multiple instances of `Specfile` not expanding macros in the right context. (#117)

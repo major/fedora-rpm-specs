@@ -29,7 +29,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.17.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: Sendmail
 URL: http://www.sendmail.org/
 
@@ -94,6 +94,8 @@ Patch23: sendmail-8.17.1-sasl2-in-etc.patch
 # upstream reserved option ID 0xe7 for testing of this new feature, #576643
 Patch25: sendmail-8.17.1-qos.patch
 Patch26: sendmail-8.17.1-libmilter-socket-activation.patch
+# upstream patch
+Patch27: sendmail-8.17.1-cyrus-sasl-2.1.28-fix.patch
 
 BuildRequires: make
 BuildRequires: libdb-devel
@@ -204,6 +206,7 @@ cp devtools/M4/UNIX/{,shared}library.m4
 %patch23 -p1 -b .sasl2-in-etc
 %patch25 -p1 -b .qos
 %patch26 -p1 -b .libmilter-socket-activation
+%patch27 -p1 -b .cyrus-sasl-2.1.28-fix
 
 for f in RELEASE_NOTES contrib/etrn.0; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -708,6 +711,10 @@ exit 0
 
 
 %changelog
+* Sun Nov 13 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.1-7
+- Fixed SASL auth with cyrus-sasl-2.1.28
+  Resolves: rhbz#2140596
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

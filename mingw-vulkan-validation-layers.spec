@@ -17,7 +17,8 @@ Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}
 
 # Build shared library
 Patch0:        fix_shared.patch
-
+# it appears there is a warning with rawhide gcc
+Patch1: 	disable-werror.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -64,9 +65,9 @@ MinGW Windows %{pkgname} library.
 
 
 %build
-MINGW32_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw32_prefix} -DSPIRV_HEADERS_INSTALL_DIR=%{mingw32_includedir}/spirv -DCMAKE_INSTALL_INCLUDEDIR=%{mingw32_includedir}/vulkan" \
-MINGW64_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw64_prefix} -DSPIRV_HEADERS_INSTALL_DIR=%{mingw64_includedir}/spirv -DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/vulkan"\
-%mingw_cmake -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF
+MINGW32_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw32_prefix} -DSPIRV_HEADERS_INSTALL_DIR=%{mingw32_prefix} -DVULKAN_HEADERS_INSTALL_DIR=%{mingw32_prefix} -DCMAKE_INSTALL_INCLUDEDIR=%{mingw32_includedir}/vulkan" \
+MINGW64_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw64_prefix} -DSPIRV_HEADERS_INSTALL_DIR=%{mingw64_prefix} -DVULKAN_HEADERS_INSTALL_DIR=%{mingw64_prefix} -DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/vulkan"\
+%mingw_cmake -DBUILD_WERROR=OFF -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF
 %mingw_make_build
 
 

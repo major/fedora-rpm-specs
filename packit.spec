@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.63.0
+Version:        0.63.1
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,10 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Sat Nov 12 2022 Packit <hello@packit.dev> - 0.63.1-1
+- Packit now correctly finds SRPM when rpmbuild reports warnings when it parses the spec file. (#1772)
+- When packit.yaml is present in the repo but is empty, Packit now produces a better error message instead of an internal Python exception. (#1769)
+
 * Fri Nov 04 2022 Packit <hello@packit.dev> - 0.63.0-1
 - Fixed an issue due to which the repository was never searched for a specfile if 'specfile_path' was not specified, and 'specfile_path' was always set to '<repo_name>.spec'. (#1758)
 - Packit is now able to generate automatic Bodhi update notes including a changelog diff since the latest stable build of a package. (#1747)

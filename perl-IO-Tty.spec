@@ -1,8 +1,8 @@
 Name:           perl-IO-Tty
-Version:        1.16
-Release:        7%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 Summary:        Perl interface to pseudo tty's
-License:        (GPL+ or Artistic) and BSD
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-2-Clause
 URL:            https://metacpan.org/release/IO-Tty
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Tty-%{version}.tar.gz
 # Module Build
@@ -61,6 +61,15 @@ make test
 %{_mandir}/man3/IO::Tty::Constant.3*
 
 %changelog
+* Sun Nov 13 2022 Paul Howarth <paul@city-fan.org> - 1.17-1
+- Update to 1.17 (rhbz#2142173)
+  - Switch changelog entries to MetaCPAN-friendly format
+  - Fix printf format conversion specifiers in croak to support size_t on all
+    platforms (GH#29)
+  - Tty.pm: pre-allocate buffer for ioctl but leave it length 0 (GH#11, GH#30)
+  - Use $arg to match @ARGV in Makefile.PL (GH#28)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

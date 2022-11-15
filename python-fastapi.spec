@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.85.2
+Version:        0.86.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -29,8 +29,7 @@ Patch:          %{url}/pull/4409.patch
 
 # Update starlette to 0.21.0.
 # https://github.com/tiangolo/fastapi/pull/5471
-# Rebased on 0.85.2.
-Patch:          0001-Update-starlette-to-0.21.0.patch
+Patch:          %{url}/pull/5471.patch
 
 BuildRequires:  python3-devel
 
@@ -337,7 +336,7 @@ sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
 # and will not be used. Also comment out the “dev” dependency on pre-commit,
 # which we will not use here.
 sed -r -i \
-    -e 's/("(mypy|black|flake8|isort|autoflake|pytest-cov)\b.*",)/# \1/' \
+    -e 's/("(mypy|black|flake8|isort|autoflake|coverage)\b.*",)/# \1/' \
     -e 's/("(pre-commit)\b.*",)/# \1/' \
     pyproject.toml
 # We won’t be running a type checker (mypy), so we don’t need any
@@ -371,32 +370,6 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 
 %check
-# These leak a temporary file and fail with a ResourceWarning. Report it
-# upstream if it can be reproduced on the latest version in a virtualenv.
-#
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001.py::test_post_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001.py::test_post_large_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_02.py::test_post_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_02.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_02_py310.py::test_post_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_02_py310.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_03.py::test_post_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial001_03.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial002.py::test_post_files
-# FAILED tests/test_tutorial/test_request_files/test_tutorial002.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial002_py39.py::test_post_files
-# FAILED tests/test_tutorial/test_request_files/test_tutorial002_py39.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial003.py::test_post_files
-# FAILED tests/test_tutorial/test_request_files/test_tutorial003.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_files/test_tutorial003_py39.py::test_post_files
-# FAILED tests/test_tutorial/test_request_files/test_tutorial003_py39.py::test_post_upload_file
-# FAILED tests/test_tutorial/test_request_forms_and_files/test_tutorial001.py::test_post_files_and_token
-k="${k-}${k+ and }not test_post_file"
-k="${k-}${k+ and }not test_post_large_file"
-k="${k-}${k+ and }not test_post_upload_file"
-k="${k-}${k+ and }not test_post_files_and_token"
-
 # tests/test_tutorial/test_async_sql_databases/test_tutorial001.py::test_create_read
 # fails with “ValueError: not enough values to unpack (expected 5, got 4)”
 # while unpacking context.result_column struct in sqlalchemy.engine.cursor.

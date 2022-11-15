@@ -1,18 +1,16 @@
-#%%global prerelease beta1
-%global with_qt4 0%{?rhel} && 0%{?rhel} < 8
-%global with_qt5 (0%{?rhel} && 0%{?rhel} >= 8) || 0%{?fedora}
-
+%global prerelease beta1
+%global with_qt6 0%{?fedora}
+%global with_fitz 0%{?fedora}
 
 Name:		qpdfview
-Version:	0.4.18
-Release:	10%{?dist}
+Version:	0.5.0
+#Release:	1%%{?dist}
 # Use the following format for beta
-#Release:	0.1.%%{?prerelease}%%{?dist}
+Release:	0.1.%{?prerelease}%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
-Source0:	https://launchpad.net/qpdfview/trunk/%{version}%{?prerelease}/+download/%{name}-%{version}%{?prerelease}.tar.gz
-Patch0:		%{name}_model.patch
+Source0:	%{url}/trunk/%{version}%{?prerelease}/+download/%{name}-%{version}%{prerelease}.tar.gz
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	desktop-file-utils
@@ -21,9 +19,17 @@ BuildRequires:	cups-devel
 BuildRequires:	hicolor-icon-theme
 BuildRequires:	pkgconfig(libspectre)
 BuildRequires:	pkgconfig(zlib)
-%if 0%{?fedora}
-# check if required for qt4
 BuildRequires:	pkgconfig(ddjvuapi)
+%if %{with_fitz}
+BuildRequires:	mupdf-devel
+# tesseract-devel
+BuildRequires:	pkgconfig(tesseract)
+# openjpeg2-devel
+BuildRequires:	pkgconfig(libopenjp2)
+# jbig2dec-devel
+BuildRequires:	pkgconfig(jbig2dec)
+# gumbo-parser-devel
+BuildRequires:	pkgconfig(gumbo)
 %endif
 
 %description
@@ -39,26 +45,6 @@ BuildArch:	noarch
 %description common
 This package provides common files for %{name}.
 
-%if %{with_qt4}
-%package qt4
-Summary:	Tabbed PDF Viewer
-BuildRequires:	pkgconfig(poppler-qt4)
-BuildRequires:	pkgconfig(QtGui)
-BuildRequires:	pkgconfig(QtDBus)
-%if 0%{?rhel}
-Requires:	qt-sqlite
-%endif
-Requires:	%{name}-common = %{version}-%{release}
-Obsoletes:	%{name} < %{version}-%{release}
-
-%description qt4
-qpdfview is a tabbed PDF viewer.
-It uses the Poppler library for rendering and CUPS for printing.
-It provides a clear and simple graphical user interface using the Qt framework.
-%endif
-
-
-%if %{with_qt5}
 %package qt5
 Summary:	Tabbed PDF Viewer
 BuildRequires:	qt5-qttools-devel
@@ -68,11 +54,27 @@ BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(Qt5Widgets)
 Requires:	%{name}-common = %{version}-%{release}
-%if 0%{?fedora} > 33
-Obsoletes:	%{name} < %{version}-%{release}
-%endif
 
 %description qt5
+qpdfview is a tabbed PDF viewer.
+It uses the Poppler library for rendering and CUPS for printing.
+It provides a clear and simple graphical user interface using the Qt framework.
+
+
+%if %{with_qt6}
+%package qt6
+Summary:	Tabbed PDF Viewer
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	pkgconfig(poppler-qt6)
+BuildRequires:	pkgconfig(Qt6DBus)
+BuildRequires:	pkgconfig(Qt6Gui)
+BuildRequires:	pkgconfig(Qt6Svg)
+BuildRequires:	pkgconfig(Qt6Widgets)
+Requires:	%{name}-common = %{version}-%{release}
+# no poppler-qt6
+ExcludeArch:	s390x
+
+%description qt6
 qpdfview is a tabbed PDF viewer.
 It uses the Poppler library for rendering and CUPS for printing.
 It provides a clear and simple graphical user interface using the Qt framework.
@@ -81,30 +83,13 @@ It provides a clear and simple graphical user interface using the Qt framework.
 
 %prep
 %setup -qc
-%patch0 -p0
 
 
 %build
-%if %{with_qt4}
-cp -a %{name}-%{version}%{?prerelease} build-qt4
-pushd build-qt4
-lrelease-qt4 qpdfview.pro
-%{qmake_qt4} \
-    PLUGIN_INSTALL_PATH="%{_libdir}/%{name}" \
-    DATA_INSTALLPATH="%{_datadir}/%{name}" \
-%if 0%{?rhel}
-    CONFIG+=without_djvu \
-%endif
-    qpdfview.pro
-make %{?_smp_mflags}
-popd
-%endif
-
-%if %{with_qt5} 
 cp -a %{name}-%{version}%{?prerelease} build-qt5
 pushd build-qt5
 lrelease-qt5 qpdfview.pro
-# Some adjustments to avoid conflict with Qt4 package
+# Some adjustments to avoid conflicts between packages
 sed -i "s/TARGET = qpdfview/TARGET = qpdfview-qt5/g" application.pro
 sed -i "s,DESKTOP_FILE = miscellaneous/qpdfview.desktop,DESKTOP_FILE = miscellaneous/qpdfview-qt5.desktop,g" application.pro
 sed "s/Exec=qpdfview/Exec=qpdfview-qt5/g" miscellaneous/qpdfview.desktop.in  > miscellaneous/qpdfview-qt5.desktop.in
@@ -112,8 +97,29 @@ sed -i "s/Name=qpdfview/Name=qpdfview (Qt5)/g" miscellaneous/qpdfview-qt5.deskto
 %{qmake_qt5} \
     PLUGIN_INSTALL_PATH="%{_libdir}/%{name}-qt5" \
     DATA_INSTALLPATH="%{_datadir}/%{name}" \
-%if 0%{?rhel}
-    CONFIG+=without_djvu \
+%if %{with_fitz}
+    CONFIG+=with_fitz \
+    FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
+%endif
+    qpdfview.pro
+make %{?_smp_mflags}
+popd
+
+%if %{with_qt6}
+cp -a %{name}-%{version}%{?prerelease} build-qt6
+pushd build-qt6
+lrelease-qt6 qpdfview.pro
+# Some adjustments to avoid conflict between packages
+sed -i "s/TARGET = qpdfview/TARGET = qpdfview-qt6/g" application.pro
+sed -i "s,DESKTOP_FILE = miscellaneous/qpdfview.desktop,DESKTOP_FILE = miscellaneous/qpdfview-qt6.desktop,g" application.pro
+sed "s/Exec=qpdfview/Exec=qpdfview-qt6/g" miscellaneous/qpdfview.desktop.in  > miscellaneous/qpdfview-qt6.desktop.in
+sed -i "s/Name=qpdfview/Name=qpdfview (Qt6)/g" miscellaneous/qpdfview-qt6.desktop.in
+%{qmake_qt6} \
+    PLUGIN_INSTALL_PATH="%{_libdir}/%{name}-qt6" \
+    DATA_INSTALLPATH="%{_datadir}/%{name}" \
+%if %{with_fitz}
+    CONFIG+=with_fitz \
+    FITZ_PLUGIN_LIBS="-lmupdf -lmupdf-third -ltesseract -lopenjp2 -ljbig2dec -lgumbo" \
 %endif
     qpdfview.pro
 make %{?_smp_mflags}
@@ -122,57 +128,50 @@ popd
 
 
 %install
-%if %{with_qt4} 
-pushd build-qt4
+pushd build-qt5
 make INSTALL_ROOT=%{buildroot} install
 popd
-%endif
 
-%if %{with_qt5}
-pushd build-qt5
+%if %{with_qt6}
+pushd build-qt6
 make INSTALL_ROOT=%{buildroot} install
 popd
 %endif
 
 %find_lang %{name} --with-qt --without-mo
-# Common files are equal for both Qt4 and Qt5
+# Common files are equal for all QtX
 cd %{name}-%{version}%{?prerelease}
 install -Dm 0644 icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%if %{with_qt4}
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-%endif
-%if %{with_qt5}
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
+%if %{with_qt6}
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %endif
-# unknown language (epel7..9, f34)
-%if 0%{?rhel} || 0%{?fedora} <= 34
-    rm -f %{buildroot}/%{_datadir}/%{name}/%{name}_ast.qm
-%endif
-
-
-%if %{with_qt4}
-%ldconfig_scriptlets
+# unknown languages (epel7..9, f34) - qpdfview_{ast,ber,nds,rue,zdh}.qm
+%if 0%{?rhel}
+    rm -f %{buildroot}/%{_datadir}/%{name}/%{name}_???.qm
 %endif
 
 
-%if %{with_qt5}
 # Scriptlets qt5 subpackage
 %ldconfig_scriptlets qt5
+
+
+%if %{with_qt6}
+# Scriptlets qt6 subpackage
+%ldconfig_scriptlets qt6
 %endif
 
 
-%if %{with_qt4}
-%files qt4
-%{_bindir}/%{name}
-%{_libdir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%endif
-
-%if %{with_qt5}
 %files qt5
 %{_bindir}/%{name}-qt5
 %{_libdir}/%{name}-qt5
 %{_datadir}/applications/%{name}-qt5.desktop
+
+%if %{with_qt6}
+%files qt6
+%{_bindir}/%{name}-qt6
+%{_libdir}/%{name}-qt6
+%{_datadir}/applications/%{name}-qt6.desktop
 %endif
 
 %files common -f %{name}.lang
@@ -180,11 +179,19 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
 %doc %{name}-%{version}%{?prerelease}/CHANGES %{name}-%{version}%{?prerelease}/CONTRIBUTORS %{name}-%{version}%{?prerelease}/README %{name}-%{version}%{?prerelease}/TODO
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/help*.html
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_mandir}/man?/*
 
 %changelog
+* Sun Nov 13 2022 TI_Eugene <ti.eugene@gmail.com> - 0.5.0-0.1.beta1
+- Version bump
+- Enabled fitz plugin for Fedora (EPUB, FB2, CBR/CBZ etc support)
+- Enabled Djvu for EPEL
+- Removed Qt4 build (because of EL7 because of C11 requirement)
+- Qt5 build is mandatory
+- Added Qt6 build (Fedora)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.18-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

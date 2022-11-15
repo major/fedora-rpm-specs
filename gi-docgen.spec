@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           gi-docgen
-Version:        2022.1
+Version:        2022.2
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -13,48 +13,50 @@ Summary:        Documentation tool for GObject-based libraries
 # .reuse/dep5, and on inspection of SPDX headers or other file contents with
 # assistance from licensecheck.
 #
-# The entire source is (ASL 2.0 or GPLv3+) except the following files that are
+# The entire source is (Apache-2.0 OR GPL-3.0-or-later) except the following files that are
 # packaged or are used to generate packaged files:
 #
 # MIT:
 #   - gidocgen/templates/basic/fzy.js
 #   - gidocgen/templates/basic/solarized-{dark,light}.js
 #
-# CC0:
+# CC0-1.0:
 #   - gi-docgen.pc.in (from which gi-docgen.pc is generated)
 #   - gidocgen/templates/basic/*.png
 #   - docs/CODEOWNERS (-doc subpackage)
 #   - examples/*.toml (-doc subpackage)
-#   - gidocgen/porter.py
+#
+# Note that CC0-1.0 is allowed for content only; these files may reasonably be
+# called content.
 #
 # Additionally, the following sources are under licenses other than (ASL 2.0 or
 # GPLv3+), but are not packaged in any of the binary RPMs:
 #
-# CC0:
+# CC0-1.0:
 #   - .editorconfig (not installed)
 #   - .gitlab-ci.yml (not installed)
 #   - gi-docgen.doap (not installed)
 #   - MANIFEST.in (not installed)
 #   - pytest.ini (not installed)
 #
-# CC-BY-SA
+# CC-BY-SA-3.0:
 #   - docs/gi-docgen.{png,svg} (for HTML docs; not currently packaged)
 #   - code-of-conduct.md (not installed)
 #
-# OFL:
+# OFL-1.1:
 #   - gidocgen/templates/basic/*.{woff,woff2} (removed in prep)
 #
-# GPLv2+:
+# GPL-2.0-or-later:
 #   - test/gir/{Utility-1.0,Regress-1.0}.gir (not installed; test only)
 #
-# LGPLv2+:
+# LGPL-2.0-or-later:
 #   - test/gir/{GLib,GObject,Gio}-2.0.gir (not installed; test only)
 #
-# (LGPLv2+ or MPLv1.1):
+# LGPL-2.0-or-later OR MPL-1.1:
 #   - test/gir/cairo-1.0.gir (not installed; test only)
-License:        (ASL 2.0 or GPLv3+) and MIT and CC0
+License:        (Apache-2.0 OR GPL-3.0-or-later) AND MIT AND CC0-1.0
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
-Source0:        %{url}/archive/%{version}/gi-docgen-%{version}.tar.bz2
+Source0:        %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 
 # We are prohibited from bundling fonts, and we are prohibited from shipping
 # fonts in web font formats; see
@@ -66,7 +68,7 @@ Source0:        %{url}/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # This patch removes all references to WOFF/WOFF2 font files (which we still
 # must remove in %%prep) and ensures the CSS correctly references corresponding
 # local system fonts.
-Patch:          gi-docgen-2021.8-no-web-fonts.patch
+Patch:          gi-docgen-2022.2-no-web-fonts.patch
 
 BuildArch:      noarch
 
@@ -129,7 +131,7 @@ stable.
 Summary:        Metapackage providing fonts for gi-docgen output
 # Really, there is nothing copyrightable in this metapackage, so we give it the
 # overall license of the project.
-License:        (ASL 2.0 or GPLv3+)
+License:        Apache-2.0 OR GPL-3.0-or-later
 
 Requires:       font(redhatdisplay)
 Requires:       font(redhatdisplayblack)
@@ -147,7 +149,7 @@ to ensure the proper system fonts are present.
 
 %package doc
 Summary:        Documentation for gi-docgen
-License:        (ASL 2.0 or GPLv3+) and CC0
+License:        (Apache-2.0 OR GPL-3.0-or-later) AND CC0-1.0
 
 %description doc
 Documentation for gi-docgen.

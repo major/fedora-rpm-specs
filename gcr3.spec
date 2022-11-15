@@ -4,7 +4,7 @@
 
 Name:           gcr3
 Version:        3.41.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 License:        LGPLv2+
@@ -19,6 +19,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(libsystemd)
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(p11-kit-1)
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libgcrypt-devel
@@ -121,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT%{_userunitdir}/gcr-ssh-agent.socket
 %{_libdir}/libgcr-base-3.so.1*
 
 %changelog
+* Sat Nov 12 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.41.1-4
+- Explicitly BR pkgconfig(systemd); fixes RHBZ#2142295
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.41.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

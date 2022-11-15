@@ -157,8 +157,8 @@ fi                                          \
 
 
 Name:           libxcrypt
-Version:        4.4.30
-Release:        3%{?dist}
+Version:        4.4.31
+Release:        1%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -171,10 +171,6 @@ Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.gpg
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
-Patch0000:      0002-Fix-warning-about-truncating-conversion.patch
-Patch0001:      0003-alg-sha256.c-SHA-2-Maj-optimization-proposed-by-Wei-.patch
-Patch0002:      0004-test-getrandom-fallback.c-Fix-OVERRUN-found-by-Covsc.patch
-Patch0003:      0005-Fix-warning-about-signed-unsigned-conversion.patch
 
 # Patch 3000 - 5999: Backported patches from pull requests.
 
@@ -558,6 +554,9 @@ done
 
 
 %changelog
+* Sun Nov 13 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-1
+- New upstream release
+
 * Tue Nov 08 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.30-3
 - Backport another upstream patch for a conversion fix
 

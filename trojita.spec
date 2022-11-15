@@ -1,26 +1,28 @@
 %undefine __cmake_in_source_build
 
-%bcond_with doxy
+%bcond doxy 0
+%bcond testsqtwebkit 0
+# disable ragel since it is failing on i686:
+#   [ 17%] Generating Rfc5322HeaderParser.generated.cpp from /builddir/build/BUILD/trojita-5295175f234c73c2df03eb59d571c239c2d19e58/src/Imap/Parser/Rfc5322HeaderParser.cpp
+#   /usr/bin/ragel-c -T1 -o /builddir/build/BUILD/trojita-5295175f234c73c2df03eb59d571c239c2d19e58/redhat-linux-build/Rfc5322HeaderParser.generated.cpp /builddir/build/BUILD/trojita-5295175f234c73c2df03eb59d571c239c2d19e58/src/Imap/Parser/Rfc5322HeaderParser.cpp
+#   fatal: UNKNOWN INSTRUCTION: 0x00 -- something is wrong
+%bcond ragel 0
 
-%global gitdate 20220117
-%global commit0 266c757344b183a97713305319fd1a48d7a46b50
+%global gitdate 20220904
+%global commit0 5295175f234c73c2df03eb59d571c239c2d19e58
 %global srcurl  https://github.com/KDE/%{name}
-#%%global srcurl  https://github.com/jktjkt/%{name}
 
 Name:           trojita
 Version:        0.7.0.1
-Release:        0.14.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        0.15.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 Source0:        %{srcurl}/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
-# manually generated manpage with help2man
-# help2man -o trojita.1 --no-info --no-discard-stderr -h --version-string=0.6 /usr/bin/trojita
-#Source1:        trojita.1
 
 # run the script that calls svn to get latest po files:
 # cd $SRCDIR
 # sed -i -e s/extragear-pim/trojita/g l10n-fetch-po-files.py
 # python2 l10n-fetch-po-files.py
 # tar cJf ../trojita_common-po-20220125.tar.xz po/
-Source10:       %{name}_common-po-20220125.tar.xz
+Source10:       %{name}_common-po-20221113.tar.xz
 
 ## upstream patches
 
@@ -40,7 +42,8 @@ Patch11:        trojita-0.7.0.1-disable-gpg-tests.patch
 ## note that LGPL 2.1 short name is LGPLv2 according to
 ## https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 #License:        GPLv2+ and LGPLv2+ and BSD
-License:        GPLv2+
+#License:        GPLv2+
+License:        GPL-2.0-or-later
 
 Summary:        IMAP e-mail client
 URL:            http://%{name}.flaska.net
@@ -49,17 +52,9 @@ URL:            http://%{name}.flaska.net
 # error: narrowing conversion of '-1' from 'int' to 'char' inside { } [-Wnarrowing]
 # also rhbz#1402580 aarch64 and rhbz#1450505 s390x
 ExcludeArch:    ppc64 ppc64le s390x
-# rhbz#1402582 FIXME: ragel core dumps
-#ExcludeArch:    armv7hl
-# both issues above for aarch64
-#ExcludeArch:    aarch64
 
 BuildRequires:  kf5-rpm-macros
 %global ctest ctest%{?rhel:3} %{?_smp_mflags} --output-on-failure -VV
-
-# pre-build: generation of additional sources
-#BuildRequires:  python2 subversion
-#BuildRequires:  help2man
 
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5DBus)
@@ -78,8 +73,8 @@ Requires:       qt5-qtsvg
 # (optional) features
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  qtkeychain-qt5-devel
-%if 0%{?fedora}
-#BuildRequires:  ragel
+%if %{with ragel}
+BuildRequires:  ragel
 %endif
 
 # (optional) support for GPG and S/MIME
@@ -105,7 +100,6 @@ BuildRequires:  grantlee-qt5-devel
 
 BuildRequires:  kf5-akonadi-contacts-devel
 BuildRequires:  kf5-sonnet-devel
-
 
 %if %{with doxy}
 BuildRequires:  doxygen graphviz
@@ -141,6 +135,17 @@ Trojitá is a IMAP e-mail client which:
 This application is heavily based on Qt and uses WebKit.
 
 
+%if %{with doxy}
+# optional developer documentation
+%package doc
+BuildArch: noarch
+Summary:   Documentation files for %{name}
+
+%description doc
+%{summary}.
+%endif
+
+
 %prep
 %setup -qn%{name}-%{commit0} -a10
 %patch11 -p1 -b .disable-gpg-tests
@@ -158,7 +163,7 @@ export CXXFLAGS="%{optflags} -DSKIP_WEBKIT_TESTS"
     -DWITH_AKONADIADDRESSBOOK_PLUGIN:BOOL=ON \
     -DWITH_GPGMEPP:BOOL=ON \
     -DWITH_SONNET_PLUGIN:BOOL=ON \
-    -DWITH_RAGEL:BOOL=OFF
+    -DWITH_RAGEL:BOOL=%{?with_ragel:ON}%{!?with_ragel:OFF}
 %cmake_build
 
 %if %{with doxy}
@@ -168,11 +173,6 @@ doxygen src/Doxyfile
 %install
 %cmake_install
 %find_lang %{name}_common --with-qt
-# work around find_lang not supporting nds
-echo '%lang(nds) %{_datadir}/%{name}/locale/%{name}_common_nds.qm' \
-    >>%{name}_common.lang
-#install -m644 -p -D %%{SOURCE1} %%{buildroot}%%{_mandir}/man1/%%{name}.1
-
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
@@ -181,14 +181,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*%{name}.appdata.xml
 %endif
 # do tests in some fake X
-#xvfb-run -a find %%{_target_platform} -name test_\* -print -exec '{}' \;
 xvfb-run -a %ctest
 
 
 %files -f %{name}_common.lang
 %license LICENSE
 %doc README src/Doxyfile
-#%%{_mandir}/man1/%%{name}.1*
+%{_mandir}/man1/%{name}.1*
 %{_libdir}/%{name}/
 %{_bindir}/%{name}
 %{_bindir}/be.contacts
@@ -200,14 +199,6 @@ xvfb-run -a %ctest
 %dir %{_datadir}/%{name}/locale
 
 %if %{with doxy}
-# optional developer documentation
-%package doc
-BuildArch: noarch
-Summary:   Documentation files for %{name}
-
-%description doc
-%{summary}.
-
 %files doc
 %license LICENSE
 %doc _doxygen/*
@@ -215,6 +206,15 @@ Summary:   Documentation files for %{name}
 
 
 %changelog
+* Sun Nov 13 2022 Jiri Kucera <jkucera@redhat.com> - 0.7.0.1-0.15.20220904git5295175
+- New git snapshot, up to gpgme[>=1.18.0] fix (gpgme is not rebased yet)
+  Note that no new strings have been added from commit 5295175 to now so it is save
+  to fetch the latest ./po revision from SVN
+- Fixes FTBFS with akonadi-contact>=22.04.x
+- Add support for ragel 7
+- Use SPDX license identifier
+- Spec file cleanup
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0.1-0.14.20220117git266c757
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

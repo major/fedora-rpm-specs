@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -64,8 +64,7 @@ sed -i -e "s|python |python3 |" test/test.py
 
 %install
 %py3_install
-mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d/
-install -p -m0644 %{buildroot}%{python3_sitelib}/argcomplete/bash_completion.d/python-argcomplete %{buildroot}%{_sysconfdir}/bash_completion.d/
+install -Dp -m0644 argcomplete/bash_completion.d/%{name} %{buildroot}%{bash_completions_dir}/%{name}
 
 %if %{with check}
 %check
@@ -86,9 +85,12 @@ export INPUTRC=$PWD/.inputrc
 %{_bindir}/python-argcomplete-check-easy-install-script
 %{_bindir}/python-argcomplete-tcsh
 %{_bindir}/register-python-argcomplete
-%{_sysconfdir}/bash_completion.d/python-argcomplete
+%{bash_completions_dir}/%{name}
 
 %changelog
+* Sat Nov 12 2022 Todd Zullinger <tmz@pobox.com> - 2.0.0-5
+- Install bash-completion in default location
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
