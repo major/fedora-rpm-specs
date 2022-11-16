@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.9.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -33,6 +33,9 @@ Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 Summary:        Implementation of xrdp backend as Xorg modules with glamor
 RemovePathPostfixes: .glamor
 Conflicts: %{name}
+
+Requires:       Xorg %(xserver-sdk-abi-requires videodrv 2>/dev/null)
+Requires:       Xorg %(xserver-sdk-abi-requires xinput 2>/dev/null)
 %endif
 
 %description
@@ -79,6 +82,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %{__install} -p xrdpkeyb_drv.so.glamor %{buildroot}%{_libdir}/xorg/modules/input
 %{__install} -p xrdpmouse_drv.so.glamor %{buildroot}%{_libdir}/xorg/modules/input
 %{__install} -p libxorgxrdp.so.glamor %{buildroot}%{_libdir}/xorg/modules
+%{__sed} '/^[[:blank:]]*Load "xorgxrdp"/i\    Load "glamoregl"' \
+         %{buildroot}%{_sysconfdir}/X11/xrdp/xorg.conf > \
+         %{buildroot}%{_sysconfdir}/X11/xrdp/xorg.conf.glamor
 %endif
 
 %files
@@ -102,7 +108,7 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %license COPYING
 %doc README.md
 %dir %{_sysconfdir}/X11/xrdp
-%{_sysconfdir}/X11/xrdp/xorg.conf
+%{_sysconfdir}/X11/xrdp/xorg.conf.glamor
 %{_libdir}/xorg/modules/drivers/xrdpdev_drv.so.glamor
 %{_libdir}/xorg/modules/input/xrdpkeyb_drv.so.glamor
 %{_libdir}/xorg/modules/input/xrdpmouse_drv.so.glamor
@@ -116,6 +122,10 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Mon Nov 14 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-5
+- Insert glamoregl module into xorg.conf for glamor package
+- Add missed Xorg server dependencies into glamor package
+
 * Fri Nov  4 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-4
 - Build alternative binary with glamor enabled
 

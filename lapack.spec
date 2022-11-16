@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortver	3
-%global mediumver	%{shortver}.10
+%global mediumver	%{shortver}.11
 
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
 %global arch64 1
@@ -12,11 +12,11 @@
 
 Summary: Numerical linear algebra package libraries
 Name: lapack
-Version: %{mediumver}.1
-Release: 2%{?dist}
+Version: %{mediumver}.0
+Release: 1%{?dist}
 License: BSD
 URL: http://www.netlib.org/lapack/
-Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{version}.tar.gz
+Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.tar.gz
 Source1: http://www.netlib.org/lapack/manpages.tgz
 Source4: http://www.netlib.org/lapack/lapackqref.ps
 Source5: http://www.netlib.org/blas/blasqr.ps
@@ -109,8 +109,8 @@ This build has 64bit INTEGER support and a symbol name suffix.
 %endif
 
 %prep
-%setup -q
-%setup -q -D -T -a1
+%setup -q -n %{name}-%{mediumver}
+%setup -q -n %{name}-%{mediumver} -D -T -a1
 
 mkdir manpages
 mv man/ manpages/
@@ -393,6 +393,9 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %endif
 
 %changelog
+* Mon Nov 14 2022 Tom Callaway <spot@fedoraproject.org> - 3.11.0-1
+- update to 3.11.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

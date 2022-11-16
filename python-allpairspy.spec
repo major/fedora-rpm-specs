@@ -1,13 +1,13 @@
 %global srcname allpairspy
 
-Name:      python-%{srcname}
+Name:      python-allpairspy
 Version:   2.5.0
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Pairwise test combinations generator
 
 License:   MIT
 URL:       https://github.com/thombashi/allpairspy
-Source0:   %{pypi_source}
+Source0:   %{pypi_source allpairspy}
 
 #https://github.com/thombashi/allpairspy/pull/9
 Source1:   https://raw.githubusercontent.com/thombashi/allpairspy/v2.5.0/LICENSE.txt
@@ -17,18 +17,19 @@ BuildArch: noarch
 %description
 %{summary}.
 
-%package -n python3-%{srcname}
+%package -n python3-allpairspy
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-six
 BuildRequires:  python3-pytest
+BuildRequires:  python3-setuptools
 
-%description -n python3-%{srcname}
+%description -n python3-allpairspy
 %{summary}.
 
 %prep
-%setup -q -n %{srcname}-%{version}
-rm -rf %{srcname}.egg-info
+%setup -q -n allpairspy-%{version}
+rm -rf allpairspy.egg-info
 
 chmod -R -x+X .
 install -m 644 %{SOURCE1} .
@@ -43,13 +44,17 @@ install -m 644 %{SOURCE1} .
 %{pytest}
 
 
-%files -n python3-%{srcname}
+%files -n python3-allpairspy
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%{python3_sitelib}/allpairspy-*.egg-info/
+%{python3_sitelib}/allpairspy/
 
 %changelog
+* Mon Nov 14 2022 Jonny Heggheim <hegjon@gmail.com> - 2.5.0-7
+- Added missing BuildRequires for python3-setuptools
+  Fixes rhbz#2142044
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

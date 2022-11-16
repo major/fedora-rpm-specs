@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 Name:           picom
-Version:        10~rc1
+Version:        10
 Release:        %autorelease
 Summary:        Lightweight compositor for X11
 
 License:        MPLv2.0 and MIT
 URL:            https://github.com/yshui/picom
-Source0:        %{url}/archive/v%{tarball_version}/%{name}-%{tarball_version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  asciidoc
 BuildRequires:  desktop-file-utils
@@ -58,7 +58,7 @@ You can leave your feedback or thoughts in the discussion tab.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{tarball_version}
+%autosetup -p1
 
 
 %build

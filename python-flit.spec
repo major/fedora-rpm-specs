@@ -34,6 +34,7 @@ BuildRequires:	python3-tomli-w
 BuildRequires:	/usr/bin/python
 BuildRequires:	python3-pytest
 BuildRequires:	python3-responses
+BuildRequires:	git-core
 
 # Test deps that require flit to build:
 BuildRequires:	python3-testpath

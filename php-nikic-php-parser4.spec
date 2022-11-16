@@ -17,7 +17,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    0ef6c55a3f47f89d7a374e6f835197a0b5fcf900
+%global gh_commit    f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,7 +27,7 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.15.1
+Version:        4.15.2
 Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
@@ -130,7 +130,7 @@ if [ $BITS -lt 8 ]; then
    # ignore test failing on 32-bit (in koji)
    FILTER="--filter '^((?!(testParse|testLexNewFeatures)).)*$'"
 else
-   FILTER=""
+   FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
 fi
 
 ret=0
@@ -157,6 +157,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 14 2022 Remi Collet <remi@remirepo.net> - 4.15.2-1
+- update to 4.15.2
+
 * Thu Sep  8 2022 Remi Collet <remi@remirepo.net> - 4.15.1-1
 - update to 4.15.1
 

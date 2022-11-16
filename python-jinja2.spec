@@ -2,7 +2,7 @@
 
 Name:           python-jinja2
 Version:        3.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General purpose template engine
 License:        BSD
 URL:            https://palletsprojects.com/p/jinja/
@@ -50,6 +50,8 @@ BuildRequires:  python3-sphinx-issues
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# Fix for https://github.com/pallets/jinja/issues/1758
+sed -i "s/def teardown/def teardown_method/" tests/test_loader.py
 
 %generate_buildrequires
 %pyproject_buildrequires -x i18n
@@ -83,6 +85,9 @@ rm -rvf docs/_build/html/.buildinfo
 
 
 %changelog
+* Mon Nov 14 2022 Lumír Balhar <lbalhar@redhat.com> - 3.0.3-6
+- Fix compatibility with pytest 7.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

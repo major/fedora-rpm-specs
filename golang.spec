@@ -114,7 +114,7 @@
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
  
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
  
 Name:           golang
 Version:        %{go_version}
@@ -162,6 +162,7 @@ Requires:       %{name}-src = %{version}-%{release}
 
 Patch2:       0002-syscall-expose-IfInfomsg.X__ifi_pad-on-s390x.patch
 Patch3:       0003-cmd-go-disable-Google-s-proxy-and-sumdb.patch
+Patch4:       0004-cmd-link-use-gold-on-ARM-ARM64-only-if-gold-is-avail.patch
 
 # Having documentation separate was broken
 Obsoletes:      %{name}-docs < 1.1-4
@@ -537,6 +538,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 8 2022 Amit Shah <amitshah@fedoraproject.org> - 1.19.3-2
+- Fix build without binutils-gold
+
 * Sun Nov 06 2022 Mike Rochefort <mroche@redhat.com> - 1.19.3-1
 - Update to go1.19.3
 - Resolves: rhbz#2139548

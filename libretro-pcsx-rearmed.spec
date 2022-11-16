@@ -1,6 +1,6 @@
-%global commit  8622c9dcd0abc62601ff6c64f93f9294c520ed58
+%global commit  48e85d1b2f4dafad7c9e1e38994858ec0dfc7b5e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date    20221014
+%global date    20221114
 
 %global corename pcsx-rearmed
 %global filename pcsx_rearmed

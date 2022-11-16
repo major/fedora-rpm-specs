@@ -1,6 +1,6 @@
 Name:          saga
 Version:       7.6.1
-Release:       17%{?dist}
+Release:       18%{?dist}
 Summary:       Geographic information system with an API for processing geodata
 
 # libsaga_api is licensed under the terms of LGPLv2. So is one single
@@ -50,7 +50,7 @@ BuildRequires: qhull-devel
 BuildRequires: swig
 BuildRequires: unixODBC-devel
 #BuildRequires: vigra-devel
-BuildRequires: wxGTK3-devel
+BuildRequires: wxGTK-devel
 
 
 %description
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.saga
 
 
 %changelog
+* Mon Nov 14 2022 Scott Talbert <swt@techie.net> - 7.6.1-18
+- Rebuild with wxWidgets 3.2
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 7.6.1-17
 - Rebuild (gdal)
 

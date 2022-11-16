@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.74.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPLv2+
@@ -156,9 +156,11 @@ rm -f %{buildroot}%{mingw64_libdir}/*.def
 # The gdbus-codegen pieces are already in the native glib2 package
 rm -f %{buildroot}%{mingw32_bindir}/gdbus-codegen
 rm -rf %{buildroot}%{mingw32_libdir}/gdbus-2.0
+sed -i 's|gdbus_codegen=.*|gdbus_codegen=%{_bindir}/gdbus-codegen|g' %{buildroot}%{mingw32_libdir}/pkgconfig/gio-2.0.pc
 
 rm -f %{buildroot}%{mingw64_bindir}/gdbus-codegen
 rm -rf %{buildroot}%{mingw64_libdir}/gdbus-2.0
+sed -i 's|gdbus_codegen=.*|gdbus_codegen=%{_bindir}/gdbus-codegen|g' %{buildroot}%{mingw64_libdir}/pkgconfig/gio-2.0.pc
 
 # Drop all .la files
 find %{buildroot} -name "*.la" -delete
@@ -277,6 +279,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Mon Nov 14 2022 Marc-André Lureau <marcandre.lureau@redhat.com> - 2.74.1-2
+- Set gio-2.0.pc gdbus_codegen variable to system path.
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 2.74.1-1
 - Update to 2.74.1
 

@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
 Version:        6.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -17,6 +17,8 @@ Patch3:         elements_disable_latex.patch
 Patch4:         python-3.11.patch
 # Fix a buggy test
 Patch5:         elements_tests.patch
+# Move from Py.Test to PyTest
+Patch6:         elements-pytest.patch
 
 BuildRequires: CCfits-devel
 BuildRequires: boost-devel >= 1.53
@@ -170,6 +172,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Mon Nov 14 2022 Alejandro Alvarez Ayllon <aalvarez@fedoraproject.org> - 6.0.1-6
+- Move from Py.Test to PyTest
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.0.1-5
 - rebuild for new gcc / f38 (needed for alexandria)
 

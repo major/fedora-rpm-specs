@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -383,6 +383,17 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 #
 # Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
 Patch382: 00382-cve-2015-20107.patch
+
+# 00392 # 033f82b975577a72218ce385b5333dcc5c88dfd5
+# CVE-2022-37454: Fix buffer overflows in _sha3 module
+#
+# This is a port of the applicable part of XKCP's fix [1] for
+# CVE-2022-37454 and avoids the segmentation fault and the infinite
+# loop in the test cases published in [2].
+#
+# [1]: https://github.com/XKCP/XKCP/commit/fdc6fef075f4e81d6b1bc38364248975e08e340a
+# [2]: https://mouha.be/sha-3-buffer-overflow/
+Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
 
 # (New patches go here ^^^)
 #
@@ -1713,6 +1724,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Nov 14 2022 Miro Hrončok <mhroncok@redhat.com> - 3.8.15-2
+- CVE-2022-37454: Fix buffer overflows in _sha3 module
+  Related: rhbz#2140200
+
 * Wed Oct 12 2022 Miro Hrončok <mhroncok@redhat.com> - 3.8.15-1
 - Update to 3.8.15
 

@@ -5,7 +5,7 @@
 
 %global         srcname         google-api-core
 %global         forgeurl        https://github.com/googleapis/python-api-core
-Version:        2.8.2
+Version:        2.10.2
 %global         tag             v%{version}
 %forgemeta
 
@@ -16,7 +16,6 @@ Summary:        Core Library for Google Client Libraries
 License:        ASL 2.0
 URL:            %forgeurl
 Source0:        %forgesource
-Patch0:         use-unittest-mock-builtin.patch
 
 BuildRequires:  python3-devel
 
@@ -57,6 +56,13 @@ Requires:       python3dist(grpcio-status)
 
 %prep
 %forgeautosetup -p1
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
+
+# Replace mock imports with unittest.mock.
+grep -rl "^[[:space:]]*import mock" tests | \
+    xargs sed -i -E 's/^([[:space:]]*)import mock/\1from unittest import mock/'
 
 
 %generate_buildrequires

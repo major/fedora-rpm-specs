@@ -1,6 +1,6 @@
 Name:           jo
 Summary:        Small utility to create JSON objects
-Version:        1.7
+Version:        1.9
 Release:        %autorelease
 
 URL:            https://github.com/jpmens/jo
@@ -21,11 +21,8 @@ BuildRequires:  meson
 # Rebuild jo.1 and jo.md; we can omit this if it ever breaks.
 BuildRequires:  pandoc
 
+# For automatic installation of completions support via meson
 BuildRequires:  pkgconfig(bash-completion)
-%global bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
-BuildRequires:  zsh
-%global zshcompdir %{_datadir}/zsh/site-functions
-%global zshcomproot %(dirname %{zshcompdir} 2>/dev/null)
 
 # Upstream URL: http://ccodearchive.net/info/json.html
 # Upstream VCS: https://github.com/rustyrussell/ccan/tree/master/ccan/json
@@ -74,7 +71,7 @@ or arrays
 %meson_install
 # Upstream’s Autotools build system installs the zsh completions, but the meson
 # version does not; we can handle it manually.
-install -D -p -m 0644 jo.zsh '%{buildroot}%{zshcompdir}/_jo'
+install -D -p -m 0644 jo.zsh '%{buildroot}%{zsh_completions_dir}/_jo'
 
 
 %check
@@ -99,10 +96,8 @@ bash -e ./tests/jo.test
 # the relevant shell completions package. However, for bash (but not for other
 # shells), this directory and its parent are now owned by the “filesystem”
 # package in all current Fedora releases plus EPEL8 and newer.
-%{bashcompdir}/jo.bash
-%dir %{zshcomproot}
-%dir %{zshcompdir}
-%{zshcompdir}/_jo
+%{bash_completions_dir}/jo.bash
+%{zsh_completions_dir}/_jo
 
 
 %changelog

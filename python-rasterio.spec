@@ -12,6 +12,9 @@ Source0:        https://github.com/mapbox/rasterio/archive/%{version}/%{srcname}
 Patch:          0001-Loosen-up-build-requirements.patch
 # https://github.com/rasterio/rasterio/pull/2619
 Patch:          0002-Don-t-used-fixed-port-for-test-server.patch
+# Backport fixes for GDAL-3.6.0 test failures
+Patch:          https://github.com/rasterio/rasterio/pull/2634/commits/55cd34e06b422f58bf3bd5d2148d4d236e15c969.patch
+Patch:          https://github.com/rasterio/rasterio/pull/2641/commits/cdb7d3922e8b5039b731c5cf433d1395080580be.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 1.11

@@ -2,7 +2,7 @@ Name:		python-astor
 Version:	0.8.1
 Release:	%autorelease
 Summary:	Designed to allow easy manipulation of python source via the AST
-		
+
 License:	BSD
 URL:		https://github.com/berkerpeksag/astor
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -40,7 +40,9 @@ sed -i '/\/usr\/bin\/env.*python/ d' astor/rtrip.py
 
 %check
 # RtripTestCase.test_convert_stdlib Failed: AssertionError: Lists differ: ['/usr/lib64/python3.10/xml/dom/minidom.py'] != []
-%pytest -k "not test_convert_stdlib"
+# Disable max string length (https://github.com/berkerpeksag/astor/issues/212)
+# https://docs.python.org/3/library/stdtypes.html#configuring-the-limit
+PYTHONINTMAXSTRDIGITS=0 %pytest -k "not test_convert_stdlib"
 
 %files -n python3-astor -f %{pyproject_files}
 %doc README.*

@@ -2,7 +2,7 @@
 
 Name:           pypolicyd-spf
 Version:        2.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 License:        ASL 2.0
@@ -12,7 +12,7 @@ Source1:        %{name}-tmpfiles.conf
 Patch0:         pypolicyd-spf-2.9.3-service.patch
 
 BuildArch:      noarch
-Requires:       postfix, python3-pyspf
+Requires:       postfix, python3-pyspf, python3-authres
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd
@@ -71,6 +71,9 @@ range of requirements.
 
 
 %changelog
+* Mon Nov 14 2022 Bojan Smojver <bojan@rexursive.com> 2.9.3-2
+- require python3-authres (bug #2142476)
+
 * Tue Jul 26 2022 Bojan Smojver <bojan@rexursive.com> 2.9.3-1
 - bump up to 2.9.3 (spf-engine is now the source)
 

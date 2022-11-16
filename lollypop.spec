@@ -3,7 +3,7 @@
 %global provider org.gnome.Lollypop
 
 Name:           lollypop
-Version:        1.4.35
+Version:        1.4.36
 Release:        1%{?dist}
 Summary:        Music player for GNOME
 License:        GPLv3+
@@ -82,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Mon Nov 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.36-1
+- Update to 1.4.36
+
 * Wed Aug 17 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.35-1
 - Update to 1.4.35
 

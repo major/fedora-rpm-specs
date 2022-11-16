@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 4
+%global baserelease 5
 
 Name: dracut
 Version: 057
@@ -40,6 +40,10 @@ Patch1: 1521-Never-enable-the-bluetooth-module-by-default.patch
 # Add dmsquash-live-autooverlay module
 # https://github.com/dracutdevs/dracut/pull/1991
 Patch2: 1991-feat-dmsquash-live-add-new-dmsquash-live-autooverlay.patch
+
+# Add sysctl to initramfs to handle modprobe files
+# https://github.com/dracutdevs/dracut/pull/2037
+Patch3: 2037-Add-sysctl-to-initramfs-to-handle-modprobe-files.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -440,6 +444,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Sun Nov 13 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 057-5
+- Backport fix to add sysctl to initramfs to handle modprobe files
+
 * Sat Oct 15 2022 Neal Gompa <ngompa@datto.com> - 057-4
 - Backport dmsquash-live-autooverlay module
 

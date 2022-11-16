@@ -5,7 +5,7 @@
 Summary: Image browser and viewer
 Name: geeqie
 License: GPLv2+
-Version: 1.7.3
+Version: 2.0.1
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -15,11 +15,15 @@ Source0: https://github.com/BestImageViewer/%{name}/archive/%{gitcommit}/%{name}
 Source0: https://github.com/BestImageViewer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 %endif
 
-Patch:   sun_path.patch
+# need to document what this is for (and upstream it?)
+Patch1:   geeqie-2.0.1_sun_path.patch
+# https://github.com/BestImageViewer/geeqie/pull/1049
+Patch2:   geeqie-2.0.1_find-lua.patch
+# this is upstream and should be there in any future release
+Patch3:   geeqie-2.0.1_fix_appdata.patch
 
+BuildRequires: meson
 BuildRequires: gcc-c++
-BuildRequires: autoconf
-BuildRequires: automake
 BuildRequires: libtool
 BuildRequires: yelp-tools
 # for /usr/bin/appstream-util
@@ -42,6 +46,8 @@ BuildRequires: poppler-glib-devel
 BuildRequires: lua-devel
 BuildRequires: gettext intltool desktop-file-utils
 BuildRequires: gnome-doc-utils
+BuildRequires: LibRaw-devel
+BuildRequires: gspell-devel
 
 # for the included plug-in scripts
 BuildRequires: exiv2
@@ -73,12 +79,8 @@ support for external editors, previewing images using thumbnails, and zoom.
 %prep
 %autosetup -p1 %{?gitcommit:-n %{name}-%{gitcommit}}
 
-# fix autoconf problem with missing version
-sed -r -i 's/m4_esyscmd_s\(git rev-parse --quiet --verify --short HEAD\)/[%{version}]/' configure.ac
 
 %build
-
-autoreconf -f -i ; intltoolize
 # guard against missing executables at (re)build-time,
 # these are needed by the plug-in scripts
 for f in exiftran exiv2 mogrify zenity ; do
@@ -90,26 +92,15 @@ for f in ufraw-batch ; do
 done
 %endif
 
-cflags=(
-	-Wno-error=unused-variable
-	-Wno-error=maybe-uninitialized
-	-Wno-error=unused-function
-	-Wno-error=unused-but-set-variable
-	-Wno-error=parentheses
-	-Wno-deprecated-declarations
-)
+%meson -Dvideothumbnailer=disabled -Dheif=disabled
+%meson_build
 
-%configure --enable-lirc \
-    --with-readmedir=%{_pkgdocdir} CFLAGS="$CFLAGS ${cflags[*]}"
 
 # this will fail w/o git repo structure
-touch ChangeLog ChangeLog.html
-
-%make_build
+#touch ChangeLog ChangeLog.html
 
 %install
-mkdir -p %{buildroot}%{_pkgdocdir}/html
-%make_install
+%meson_install
 
 # guard against missing HTML tree
 [ ! -f %{buildroot}%{_pkgdocdir}/html/index.html ] && exit 1
@@ -128,6 +119,7 @@ desktop-file-install \
 mv %{buildroot}/usr/share/metainfo %{buildroot}%{_datadir}/appdata
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
 
+
 %files -f %{name}.lang
 %doc %{_pkgdocdir}/
 %license COPYING
@@ -136,6 +128,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.geeqie
 %{_mandir}/man1/%{name}.1*
 %{_datadir}/%{name}/
 %{_datadir}/pixmaps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/appdata/org.geeqie.Geeqie.appdata.xml
 

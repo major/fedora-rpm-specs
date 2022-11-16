@@ -6,8 +6,8 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.0.4
-Release:       	2%{?dist}
+Version:        4.0.5
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPLv2+
@@ -174,6 +174,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Mon Nov 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-1
+- 4.0.5
+
 * Wed Oct 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.4-2
 - Rebundle google-apiclient
 

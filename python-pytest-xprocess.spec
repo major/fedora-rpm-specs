@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(psutil)
+BuildRequires:  python3dist(py)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
@@ -30,6 +31,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 Requires:       python3dist(psutil)
+Requires:       python3dist(py)
 Requires:       python3dist(pytest)
 Requires:       python3dist(setuptools)
 %description -n python3-%{pypi_name}
@@ -47,6 +49,8 @@ line...
 rm -rf %{pypi_name}.egg-info
 # Remove executable bit from README
 chmod -x README.rst
+# Fix compatibility with pytest 7.2
+sed -i "s/pytest\.mark\.hookwrapper/pytest.hookimpl(hookwrapper=True)/" xprocess/pytest_xprocess.py
 
 %build
 %py3_build

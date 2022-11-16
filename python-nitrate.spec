@@ -108,7 +108,7 @@ export LANG=en_US.utf-8
 mkdir -p %{buildroot}%{_mandir}/man1
 install -pm 644 docs/*.1.gz %{buildroot}%{_mandir}/man1
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1335203
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}i" %{buildroot}%{_bindir}/nitrate
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni "%{__python3} %{py3_shbang_opts}i" %{buildroot}%{_bindir}/nitrate
 
 %if %{with python2}
 %files -n python2-nitrate

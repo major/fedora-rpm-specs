@@ -1,10 +1,10 @@
 Name:           xdotool
-Version:        3.20160805.1
+Version:        3.20211022.1
 Epoch:          1
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Fake keyboard/mouse input
 License:        BSD
-URL:            http://www.semicomplete.com/projects/xdotool/
+URL:            https://github.com/jordansissel/xdotool
 Source0:        https://github.com/jordansissel/xdotool/releases/download/v%{version}/xdotool-%{version}.tar.gz
 
 BuildRequires: make
@@ -33,12 +33,11 @@ developing applications that use libxdo
 %setup -q
 
 %build
-export WARNFLAGS="$RPM_OPT_FLAGS"
-make %{?_smp_mflags} WITHOUT_RPATH_FIX=1
+%set_build_flags
+%make_build WITHOUT_RPATH_FIX=1
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make PREFIX=$RPM_BUILD_ROOT/%{_prefix} INSTALLMAN=$RPM_BUILD_ROOT%{_mandir} INSTALLLIB=$RPM_BUILD_ROOT%{_libdir} install
+%make_install PREFIX=%{_prefix} INSTALLMAN=%{_mandir} INSTALLLIB=%{_libdir}
 
 #fix permissions
 chmod 0644 examples/ffsp.sh
@@ -46,12 +45,13 @@ chmod 0644 examples/ffsp.sh
 %ldconfig_scriptlets -n libxdo
 
 %files -n libxdo
-%doc CHANGELIST COPYRIGHT README
-%{_libdir}/*.so.*
+%doc CHANGELIST COPYRIGHT README.md
+%{_libdir}/*.so.3*
 
 %files -n libxdo-devel
 %{_includedir}/*
 %{_libdir}/*.so
+%{_libdir}/pkgconfig/libxdo.pc
 
 %files
 %{_bindir}/%{name}
@@ -59,6 +59,10 @@ chmod 0644 examples/ffsp.sh
 %doc examples
 
 %changelog
+* Sat Nov 05 2022 Orion Poplawski <orion@nwra.com> - 1:3.20111022.1-1
+- Update to 3.20111022.1
+- Use set_build_flags and make macros
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.20160805.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        3.00
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
@@ -15,9 +15,10 @@ Patch1:		transmission-fdlimits.patch
 # Fix the DBus name to match the app name for flatpak builds
 # https://github.com/transmission/transmission/pull/847
 Patch2:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
+Patch3:         openssl3-compat.patch
 
 BuildRequires: make
-BuildRequires:  openssl1.1-devel >= 1.1.0
+BuildRequires:  openssl-devel
 BuildRequires:  glib2-devel >= 2.32.0
 BuildRequires:  gtk3-devel >= 3.2.0
 BuildRequires:  libnotify-devel >= 0.4.3
@@ -181,6 +182,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Mon Nov 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.00-14
+- Patch from Debian to use OpenSSL 3.x
+
 * Mon Aug 22 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.00-13
 - Move to OpenSSL 1.1
 

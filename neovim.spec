@@ -39,7 +39,7 @@
 %endif
 
 Name:           neovim
-Version:        0.8.0
+Version:        0.8.1
 Release:        1%{?dist}
 
 License:        ASL 2.0
@@ -422,8 +422,6 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/doc/lua.txt
 %{_datadir}/nvim/runtime/doc/luaref.txt
 %{_datadir}/nvim/runtime/doc/luvref.txt
-%{_datadir}/nvim/runtime/doc/makehtml.awk
-%{_datadir}/nvim/runtime/doc/maketags.awk
 %{_datadir}/nvim/runtime/doc/map.txt
 %{_datadir}/nvim/runtime/doc/mbyte.txt
 %{_datadir}/nvim/runtime/doc/message.txt
@@ -1029,6 +1027,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/lua
 %{_datadir}/nvim/runtime/lua/health.lua
 %{_datadir}/nvim/runtime/lua/man.lua
+
+%dir %{_datadir}/nvim/runtime/lua/man
+%{_datadir}/nvim/runtime/lua/man/health.lua
 
 %dir %{_datadir}/nvim/runtime/lua/vim
 %{_datadir}/nvim/runtime/lua/vim/F.lua
@@ -1884,6 +1885,10 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Mon Nov 14 2022 Andreas Schneider <asn@redhat.com> - 0.8.1-1
+- Update to version 0.8.1
+  * https://github.com/neovim/neovim/releases/tag/v0.8.1
+
 * Fri Sep 30 2022 Andreas Schneider <asn@redhat.com> - 0.8.0-1
 - Update to version 0.8.0
   * https://github.com/neovim/neovim/releases/tag/v0.8.0

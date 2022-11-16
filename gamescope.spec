@@ -1,7 +1,7 @@
 %global libliftoff_minver 0.3.0
 
 Name:           gamescope
-Version:        3.11.47
+Version:        3.11.48
 Release:        1%{?dist}
 Summary:        Micro-compositor for video games on Wayland
 
@@ -72,6 +72,9 @@ export PKG_CONFIG_PATH=pkgconfig
 
 
 %changelog
+* Sat Nov 12 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.11.48-1
+- Rebase to 3.11.48 (fixes RHBZ#2138408 )
+
 * Mon Oct 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.11.47-1
 - Rebase to 3.11.47 (fixes RHBZ#2053802 )
 

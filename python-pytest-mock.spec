@@ -2,7 +2,7 @@
 %global file_name pytest_mock
 
 Name:           python-%{pypi_name}
-Version:        3.9.0
+Version:        3.10.0
 Release:        1%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
@@ -57,6 +57,10 @@ sed -i 's/\r$//' README.rst
 %{python3_sitelib}/%{file_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.0-1
+- Update to 3.10.0
+Resolves: rhbz#2132453
+
 * Wed Sep 28 2022 Fabian Affolter <mail@fabian-affolter.ch> - 3.9.0-1
 - Update to latest upstream release 3.9.0 (closes rhbz#2130519)
 

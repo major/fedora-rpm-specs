@@ -25,7 +25,7 @@
 
 Name:           %{appname}%{?p_suffix}
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -126,24 +126,27 @@ Patch0:         https://github.com/libretro/retroarch-assets/pull/334.patch#/add
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
+BuildRequires:  glslang-devel
 BuildRequires:  libappstream-glib
-BuildRequires:  libv4l-devel
-BuildRequires:  libXxf86vm-devel
 BuildRequires:  make
 BuildRequires:  mbedtls-devel
 BuildRequires:  mesa-libEGL-devel
-BuildRequires:  mesa-libgbm-devel
+BuildRequires:  spirv-tools-libs
 BuildRequires:  systemd-devel
-BuildRequires:  wayland-devel
-BuildRequires:  wayland-protocols-devel
 
+BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(caca)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(gbm)
+BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libass)
+BuildRequires:  pkgconfig(libdecor-0)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libusb)
+BuildRequires:  pkgconfig(libv4l2)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(miniupnpc)
 BuildRequires:  pkgconfig(openal)
@@ -155,13 +158,28 @@ BuildRequires:  pkgconfig(Qt5Network) >= 5.2
 BuildRequires:  pkgconfig(Qt5Widgets) >= 5.2
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(wayland-egl)
+BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xrandr)
+BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(zlib)
 
 %if %{with freeworld}
 # Available in Freeworld repo
 BuildRequires:  ffmpeg-devel
+# Since F36 ffmpeg-free available in official repos
+%else
+%if 0%{?fedora} >= 37
+BuildRequires:  ffmpeg-free-devel
+BuildRequires:  libavcodec-free-devel
+BuildRequires:  libavdevice-free-devel
+BuildRequires:  libavformat-free-devel
+BuildRequires:  libavutil-free-devel
+BuildRequires:  libswresample-free-devel
+BuildRequires:  libswscale-free-devel
+%endif
 %endif
 %if %{with nonfree}
 # Available in Non-Free repo
@@ -491,6 +509,15 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-4
+- build: Use ffmpeg-free only for >= f37
+
+* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-3
+- build: Add new build deps
+
+* Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-2
+- build: Add limited ffmpeg support for >= f36
+
 * Sat Oct 22 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-1
 - chore(update): 1.12.0
 

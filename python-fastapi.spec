@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.86.0
+Version:        0.87.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -26,10 +26,6 @@ BuildArch:      noarch
 # Fix sql_app_py39 and py310 tests
 # https://github.com/tiangolo/fastapi/pull/4409
 Patch:          %{url}/pull/4409.patch
-
-# Update starlette to 0.21.0.
-# https://github.com/tiangolo/fastapi/pull/5471
-Patch:          %{url}/pull/5471.patch
 
 BuildRequires:  python3-devel
 
@@ -332,21 +328,24 @@ Summary(zh):    %{sum_zh}
 # packaged in Fedora until it builds with the stable Rust toolchain instead of
 # the nightly one. Note that this removes it from the “all” extra metapackage.
 sed -r -i 's/("orjson\b.*",)/# \1/' pyproject.toml
+
 # Comment out test dependencies that are only for linting/formatting/analysis,
 # and will not be used. Also comment out the “dev” dependency on pre-commit,
 # which we will not use here.
 sed -r -i \
-    -e 's/("(mypy|black|flake8|isort|autoflake|coverage)\b.*",)/# \1/' \
+    -e 's/("(mypy|black|ruff|isort|coverage)\b.*",)/# \1/' \
     -e 's/("(pre-commit)\b.*",)/# \1/' \
     pyproject.toml
+
 # We won’t be running a type checker (mypy), so we don’t need any
 # auto-generated PEP 561 stub packages:
 sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
+
 # Selectively allow newer versions for certain tightly-pinned dependencies:
 # • Upstream has pinned SQLAlchemy to <=1.4.41 in FastAPI 0.85.2, with the
 #   note, “TODO: once removing databases from tutorial, upgrade SQLAlchemy
 #   probably when including SQLModel.” We can’t respect this version bound, of
-#   course.
+#   course. Note that this is only a *test* dependency.
 sed -r -i 's/("((sqlalchemy)\b)[^<"]*),[[:blank:]]*<[^"]*/\1/' \
     pyproject.toml
 
@@ -373,7 +372,9 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 # tests/test_tutorial/test_async_sql_databases/test_tutorial001.py::test_create_read
 # fails with “ValueError: not enough values to unpack (expected 5, got 4)”
 # while unpacking context.result_column struct in sqlalchemy.engine.cursor.
-# This is possibly an SQLAlchemy bug; any assistance in tracking it down is welcome.
+#
+# This may have to do with the sqlalchemy version upper-bound in the test
+# dependencies, which we are not able to respect.
 k="${k-}${k+ and }not test_create_read"
 
 # Requires orjson:
@@ -383,16 +384,11 @@ k="${k-}${k+ and }not test_orjson_non_str_keys"
 # dependencies in practice. Upstream deals with this by tightly controlling
 # dependency versions in CI.
 #
-# Fails with a segfault due to an unexpected exception that we can’t figure out
-# how to look at.
-#   tests/test_custom_middleware_exception.py
-#
 # Requires orjson:
 #   tests/test_default_response_class.py
 #   tests/test_tutorial/test_custom_response/test_tutorial001b.py
 #   tests/test_tutorial/test_custom_response/test_tutorial009c.py
 %pytest -W 'ignore::DeprecationWarning' -k "${k-}" \
-    --ignore=tests/test_custom_middleware_exception.py \
     --ignore=tests/test_default_response_class.py \
     --ignore=tests/test_tutorial/test_custom_response/test_tutorial001b.py \
     --ignore=tests/test_tutorial/test_custom_response/test_tutorial009c.py

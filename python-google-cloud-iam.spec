@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-iam
 %global         forgeurl    https://github.com/googleapis/python-iam
-Version:        2.8.2
+Version:        2.9.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -42,6 +42,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup
+
+# Temporary fix until protobuf version > 3.19.5 is available
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

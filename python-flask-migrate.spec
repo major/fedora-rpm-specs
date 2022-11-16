@@ -1,5 +1,3 @@
-%bcond_without tests
-
 # Sphinx-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
@@ -21,10 +19,10 @@ BuildRequires:      python3-devel
 
 # Documentation
 %if %{with doc_pdf}
-BuildRequires:      python3dist(sphinx)
 BuildRequires:      make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
+BuildRequires:      latexmk
+BuildRequires:      python3dist(sphinx)
+BuildRequires:      python3-sphinx-latex
 %endif
 
 %global common_description %{expand:
@@ -70,13 +68,7 @@ Documentation for Flask-Migrate.
 
 
 %check
-%if %{with tests}
-env PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitelib}}" \
-    PYTHONDONTWRITEBYTECODE=1 \
-    %{python3} -m unittest discover -v
-%else
-echo 'Tests are disabled'
-%endif
+%tox
 
 
 %files -n python3-flask-migrate -f %{pyproject_files}

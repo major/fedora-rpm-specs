@@ -14,7 +14,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.20.4
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -115,7 +115,6 @@ BuildRequires:  libmodplug-devel
 ## Plugins not ported
 #BuildRequires:  libmusicbrainz-devel
 #BuildRequires:  libtimidity-devel
-BuildRequires:  libvdpau-devel
 BuildRequires:  libva-devel
 BuildRequires:  openal-soft-devel
 ## If enabled, adds ~90 additional deps; perhaps can be moved to a
@@ -253,7 +252,7 @@ aren't tested well enough, or the code is not of good enough quality.
     %{!?with_extras:-D curl=disabled -D curl-ssh2=disabled } \
     %{!?with_extras:-D ttml=disabled -D kate=disabled } \
     %{!?with_extras:-D modplug=disabled } \
-    %{!?with_extras:-D vdpau=disabled -D openal=disabled } \
+    %{!?with_extras:-D openal=disabled } \
     %{!?with_extras:-D opencv=disabled -D openjpeg=disabled } \
     %{!?with_extras:-D wildmidi=disabled -D zbar=disabled } \
     %{!?with_extras:-D gme=disabled -D lv2=disabled } \
@@ -387,7 +386,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgsttranscoder-%{majorminor}.so.*
 %{_libdir}/libgsturidownloader-%{majorminor}.so.*
 %{_libdir}/libgstvulkan-%{majorminor}.so.*
+%if %{with extras}
 %{_libdir}/libgstva-%{majorminor}.so.*
+%endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so.*
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so.*
@@ -596,7 +597,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgsttranscoder-%{majorminor}.so
 %{_libdir}/libgsturidownloader-%{majorminor}.so
 %{_libdir}/libgstvulkan-%{majorminor}.so
+%if %{with extras}
 %{_libdir}/libgstva-%{majorminor}.so
+%endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so
@@ -637,6 +640,11 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Mon Nov 14 2022 Stephen Gallagher <sgallagh@redhat.com> - 1.20.4-2
+- Drop vdpau configure option
+- The libgstva plugin is now excluded from file listings when disabled
+- Resolves: rhbz#2141093
+
 * Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
 - Update to 1.20.4
 

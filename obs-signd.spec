@@ -5,19 +5,21 @@
 %global snapdate 20210907
 %global snapshotrel .%{snapdate}git%{shortcommit}
 # To make rpmdev-bumpspec work properly
-%global baserelease 4
+%global baserelease 1
 
 Name:             obs-signd
 Summary:          The OBS sign daemon
 License:          GPLv2
 URL:              https://github.com/openSUSE/obs-sign
-Version:          2.5.10
-Release:          %{baserelease}%{?snapshotrel}%{?dist}
+Version:          2.6.1
+Release:          1
+#Release:          %%{baserelease}%%{?snapshotrel}%%{?dist}
 Source0:          https://github.com/openSUSE/obs-sign/archive/refs/tags/obs-sign-%{version}.tar.gz
 # We renamed the option in gnupg2 to 'file-is-digest'
 Patch0:           0001-Rename-option-files-are-digests-to-file-is-digest.patch
 # https://github.com/openSUSE/obs-sign/pull/6
 Patch1:           0002-fixes-user-id-matching-to-provide-unique-results.patch
+# https://github.com/openSUSE/obs-sign/pull/36
 Patch2:           0003-Implement-allow-unprivileged-ports-for-the-client.patch
 Requires:         gnupg2
 Requires(pre):    shadow-utils
@@ -84,9 +86,13 @@ exit 0
 %doc %{_mandir}/man*/*
 
 %changelog
+* Mon Nov 14 2022 Miroslav Suchý <msuchy@redhat.com> 2.6.1-1
+- rebase patches
+- rebase obs-sign to 2.6.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.10-4.20210907git5c32050
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
+                                                                                          
 * Tue May 24 2022 Pavel Raiskup <praiskup@redhat.com> - 2.5.10-3.20210907git5c32050
 - implemented 'unprivileged-client-port' option for the OpenShift environments
 

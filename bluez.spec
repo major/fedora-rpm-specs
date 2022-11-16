@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.66
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -16,6 +16,8 @@ Source1: bluez.gitignore
 
 # https://github.com/hadess/bluez/commits/obex-5.46
 Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
+# https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
+Patch2: power-state-adapter-property.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -317,6 +319,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Nov 14 2022 Bastien Nocera <bnocera@redhat.com> - 5.66-2
+- Re-add wrongly removed non-upstreamed patch
+
 * Fri Nov 11 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.66-1
 - Update to 5.66
 

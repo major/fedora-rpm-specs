@@ -1,10 +1,10 @@
-%global commit 15ece115c4bfef3e47f3f9f4bd316d573fae18aa
+%global commit 78313b43dd0de6f124ca4d5aad33fd2248a52dab
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global snap .git%{shortcommit}
 
 Name:           twinkle
 Version:        1.10.3
-Release:        2%{?snap}%{?dist}
+Release:        3%{?snap}%{?dist}
 Summary:        SIP-based VoIP client
 
 # Incorrect FSF addresses: https://github.com/LubosD/twinkle/issues/71
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop || :
 
 
 %changelog
+* Mon Nov 14 2022 Sandro Mani <manisandro@gmail.com> - 1.10.3-3.git78313b4
+- Update to git 78313b4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-2.git15ece11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

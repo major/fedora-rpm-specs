@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.11.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 License: MIT
 URL: https://github.com/minimagick/minimagick
@@ -14,6 +14,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone http://github.com/minimagick/minimagick.git --no-checkout
 # cd minimagick && git archive -v -o mini_magick-4.11.0-tests.txz v4.11.0 spec/
 Source1: %{gem_name}-%{version}-tests.txz
+
+# https://github.com/minimagick/minimagick/pull/550
+# File.exists? is deprecated since ruby 2.1.0 and will be removed on ruby 3.2
+Patch0:  rubygem-mini_magick-4.11.0-File_exists-removal.patch
 
 Requires: ImageMagick
 BuildRequires: ruby(release)
@@ -42,6 +46,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+
+( cd %{_builddir}/spec
+%patch0 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -93,6 +101,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Mon Nov 14 2022 Mamoru TASAKA <mtasaka@fedoraprpject.org> - 4.11.0-6
+- Backport upstream fix for ruby32 File.exists? removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

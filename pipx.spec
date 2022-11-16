@@ -15,11 +15,6 @@ BuildRequires:  python3-devel
 # noxfile.py: MAN_DEPENDENCIES
 BuildRequires:  python3dist(argparse-manpage)
 
-BuildRequires:  pkgconfig(bash-completion)
-%global bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
-BuildRequires:  pkgconfig(fish)
-%global fishcompdir %(pkg-config --variable=completionsdir fish 2>/dev/null)
-%global fishcomproot %(dirname %{fishcompdir} 2>/dev/null)
 BuildRequires:  /usr/bin/register-python-argcomplete
 
 %description
@@ -100,8 +95,8 @@ PYTHONPATH="${PWD}/src" %{python3} scripts/generate_man.py
 
 install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' pipx.1
 
-install -p -m 0644 -D -t '%{buildroot}%{bashcompdir}' pipx.bash
-install -p -m 0644 -D -t '%{buildroot}%{fishcompdir}' pipx.fish
+install -p -m 0644 -D -t '%{buildroot}%{bash_completions_dir}' pipx.bash
+install -p -m 0644 -D -t '%{buildroot}%{fish_completions_dir}' pipx.fish
 # It seems that there is not a reasonable way to install tcsh completions
 # system-wide, so we just make the completions file available for interested
 # users.
@@ -140,13 +135,8 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 %{_mandir}/man1/pipx.1*
 
-# Note that it is historically standard in Fedora for packages providing shell
-# completions to co-own the completions directory in lieu of having a runtime
-# dependency on the relevant shell completions package. However, the bash
-# completions directory is now (co-)owned by the filesystem package, so we
-# don’t have to explicitly handle its ownership.
-%{bashcompdir}/pipx.bash
-%{fishcomproot}
+%{bash_completions_dir}/pipx.bash
+%{fish_completions_dir}/pipx.fish
 %{_datadir}/pipx
 
 

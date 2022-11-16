@@ -70,7 +70,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       bash
 Requires:       gzip
 Requires:       m1n1
-Requires:       uboot-images-armv8 >= 2022.10-0.3.rc1
+Requires:       uboot-images-armv8
 
 %description -n update-m1n1
 Keep m1n1 up to date on Apple Silicon systems.

@@ -8,7 +8,7 @@
 #
 # When buid without db, filter, http, session, uri
 %global bootstrap    0
-%global gh_commit    a995b21d18c63cd1f5d123d0d2cd31a1c2d828dc
+%global gh_commit    695bfa40b0a83dc1c5c58bdf74a03fdbeb516c39
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-validator
@@ -19,7 +19,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.26.0
+Version:        2.28.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -42,29 +42,28 @@ BuildRequires:  php-spl
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.12.0 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.13   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
+BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1  with php-composer(psr/http-message)                           < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "^2.4.0",
 #        "laminas/laminas-db": "^2.15.0",
-#        "laminas/laminas-filter": "^2.22",
-#        "laminas/laminas-http": "^2.16.0",
+#        "laminas/laminas-filter": "^2.23.0",
+#        "laminas/laminas-http": "^2.17.0",
 #        "laminas/laminas-i18n": "^2.19",
 #        "laminas/laminas-session": "^2.13.0",
-#        "laminas/laminas-uri": "^2.9.1",
+#        "laminas/laminas-uri": "^2.10.0",
 #        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "psalm/plugin-phpunit": "^0.18.0",
 #        "psr/http-client": "^1.0.1",
 #        "psr/http-factory": "^1.0.1",
-#        "psr/http-message": "^1.0.1",
 #        "vimeo/psalm": "^4.28"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-i18n)                 >= 2.19   with php-autoloader(%{gh_owner}/laminas-i18n)                 < 3)
 %if ! %{bootstrap}
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15   with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.22   with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-filter)               >= 2.23   with php-autoloader(%{gh_owner}/laminas-filter)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.17   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-session)              >= 2.13   with php-autoloader(%{gh_owner}/laminas-session)              < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1  with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10   with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 %endif
-BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1  with php-composer(psr/http-message)                           < 2)
 BuildRequires: (php-composer(psr/http-client)                            >= 1.0.1  with php-composer(psr/http-client)                            < 2)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0.1  with php-composer(psr/http-factory)                           < 2)
 BuildRequires:  phpunit9 >= 9.5.25
@@ -75,11 +74,13 @@ BuildRequires:  php-fedora-autoloader-devel
 # From composer, "require": {
 #        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-servicemanager": "^3.12.0",
-#        "laminas/laminas-stdlib": "^3.13"
+#        "laminas/laminas-stdlib": "^3.13",
+#        "psr/http-message": "^1.0.1"
 Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.12.0 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.13   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
+Requires:      (php-composer(psr/http-message)                           >= 1.0.1  with php-composer(psr/http-message)                           < 2)
 # From composer, "suggest": {
 #        "laminas/laminas-db": "Laminas\\Db component, required by the (No)RecordExists validator",
 #        "laminas/laminas-filter": "Laminas\\Filter component, required by the Digits validator",
@@ -88,7 +89,6 @@ Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 #        "laminas/laminas-servicemanager": "Laminas\\ServiceManager component to allow using the ValidatorPluginManager and validator chains",
 #        "laminas/laminas-session": "Laminas\\Session component, ^2.8; required by the Csrf validator",
 #        "laminas/laminas-uri": "Laminas\\Uri component, required by the Uri and Sitemap\\Loc validators",
-#        "psr/http-message": "psr/http-message, required when validating PSR-7 UploadedFileInterface instances via the Upload and UploadFile validators"
 Suggests:       php-composer(%{gh_owner}/laminas-db)
 Suggests:       php-composer(%{gh_owner}/laminas-filter)
 Suggests:       php-composer(%{gh_owner}/laminas-i18n)
@@ -96,7 +96,6 @@ Suggests:       php-composer(%{gh_owner}/laminas-i18n-resources)
 Suggests:       php-composer(%{gh_owner}/laminas-servicemanager)
 Suggests:       php-composer(%{gh_owner}/laminas-session)
 Suggests:       php-composer(%{gh_owner}/laminas-uri)
-Recommends:     php-composer(psr/http-message)
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 2.13.0
@@ -138,9 +137,9 @@ cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/%{namespace}/ServiceManager/autoload.php',
     '%{php_home}/%{namespace}/Stdlib/autoload.php',
+    '%{php_home}/Psr/Http/Message/autoload.php',
 ]);
 \Fedora\Autoloader\Dependencies::optional([
-    '%{php_home}/Psr/Http/Message/autoload.php',
     '%{php_home}/%{namespace}/Db/autoload.php',
     '%{php_home}/%{namespace}/Filter/autoload.php',
     '%{php_home}/%{namespace}/I18n/autoload.php',
@@ -226,6 +225,10 @@ exit $ret
 
 
 %changelog
+* Mon Nov 14 2022 Remi Collet <remi@remirepo.net> - 2.28.0-1
+- update to 2.28.0
+- add mandatory dependency on psr/http-message
+
 * Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 2.26.0-1
 - update to 2.26.0
 - raise dependency on PHP 8.0

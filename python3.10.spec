@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python-2.0.1
 
 
@@ -341,6 +341,15 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 #
 # Automerge-Triggered-By: GH:gpshead
 Patch391: 00391-don-t-use-linux-abstract-sockets-for-multiprocessing.patch
+
+# 00393 # 353b3ca7b9e0884839cd6dea28c9bafd9f878571
+# IDLE - fix buggy macosx patch
+#
+# GH-97530 fixed IDLE tests possibly crashing on a Mac without a GUI.
+# But it resulted in IDLE not starting in 3.10.8, 3.12.0a1, and
+# Microsoft Python 3.10.2288.0 when test/* is not installed.
+# After this patch, test.* is only imported when testing on Mac.
+Patch393: 00393-idle---fix-buggy-macosx-patch.patch
 
 # (New patches go here ^^^)
 #
@@ -1599,6 +1608,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Nov 14 2022 Miro Hrončok <mhroncok@redhat.com> - 3.10.8-3
+- Make IDLE work without python3-test installed
+- Fixes rhbz#2142602
+
 * Wed Nov 09 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.8-2
 - Fix CVE-2022-42919
 Resolves: rhbz#2138709

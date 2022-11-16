@@ -2,7 +2,7 @@
 
 Name:     python-hidapi
 Version:  0.12.0.post2
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
@@ -16,7 +16,8 @@ BuildRequires: libudev-devel
 
 BuildRequires: python3-Cython
 BuildRequires: python3-devel
-BuildRequires: python3dist(pytest)
+BuildRequires: python3-pytest
+BuildRequires: python3-setuptools
 
 %description
 %{summary}.
@@ -56,6 +57,10 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Nov 14 2022 Jonny Heggheim <hegjon@gmail.com> - 0.12.0.post2-4
+- Added missing BuildRequires for python3-setuptools
+  Fixes rhbz#2142038
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0.post2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

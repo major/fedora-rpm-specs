@@ -1,6 +1,6 @@
 Name:           python-beanbag
 Version:        1.9.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A helper module for accessing REST APIs
 License:        MIT
 URL:            https://github.com/ajtowns/beanbag
@@ -57,6 +57,9 @@ See http://beanbag.readthedocs.org/ for more information.
 %prep
 %autosetup -p1 -n beanbag-%{version}
 
+# Fix compatibility with pytest 7.2.0
+sed -i "s/py\.test/pytest/g" tests/test_attrdict.py tests/test_bbv1.py
+
 %build
 %py3_build
 
@@ -72,6 +75,9 @@ See http://beanbag.readthedocs.org/ for more information.
 %{python3_sitelib}/beanbag*
 
 %changelog
+* Mon Nov 14 2022 Kevin Fenzi <kevin@scrye.com> - 1.9.2-27
+- Fix compatibility with pytest 7.2.0.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

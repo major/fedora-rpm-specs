@@ -1,7 +1,7 @@
 Summary:        A GUI front-end to CHMlib
 Name:           xchm
 Version:        1.23
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPLv2+
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
@@ -11,7 +11,7 @@ BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  chmlib-devel
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 BuildRequires:  desktop-file-utils
 
 %description
@@ -59,6 +59,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
 %{_datadir}/applications/*
 
 %changelog
+* Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 1.23-23
+- Rebuild with wxWidgets 3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,17 +2,13 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        1.2
-Release:        4%{?dist}
+Version:        1.3
+Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
 URL:            https://github.com/Sysinternals/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
-
-# Patch from upstream by Sergei Trofimovich:
-# https://github.com/Sysinternals/ProcDump-for-Linux/pull/133
-Patch0:         eb746130914f800d72038b529d9035454fcd3dc7.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -49,6 +45,10 @@ other scripts.
 
 
 %changelog
+* Mon Nov 14 2022 Matěj Grabovský <mgrabovs@redhat.com> - 1.3-1
+- New upstream release 1.3
+- BREAKING CHANGE: CLI interface has been changed to match ProcDump for Windows.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

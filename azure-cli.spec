@@ -157,7 +157,6 @@ sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.p
 
 # Temporarily allow newer -core versions in rawhide.
 sed -i 's/^azure-core==.*$/azure-core==1.25.1/' src/azure-cli/requirements.py3.Linux.txt
-sed -i 's/^azure-mgmt-core==.*$/azure-mgmt-core==1.3.2/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow for older EPEL 9 packages.
 %if 0%{?rhel}

@@ -1,7 +1,7 @@
 %global srcname guest-configs
 
 Name: google-compute-engine-guest-configs
-Version: 20220211.00
+Version: 20221110.00
 Release: 1%{?dist}
 Summary: Google Compute Engine guest environment tools
 License: ASL 2.0
@@ -63,6 +63,9 @@ cp -vp                      src/lib/udev/google_nvme_id     %{buildroot}%{_udevr
 %config(noreplace) /etc/sysctl.d/*
 
 %changelog
+* Mon Nov 14 2022 Major Hayden <major@redhat.com> - 20221110.00-1
+- new version
+
 * Tue Aug 16 2022 Major Hayden <major@redhat.com> - 20220211.00-1
 - new version
 

@@ -3,8 +3,8 @@
 %global with_docs 1
 
 Name:          osgearth
-Version:       3.2
-Release:       11%{?dist}
+Version:       3.3
+Release:       1%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPLv3 with exceptions
@@ -14,6 +14,10 @@ Source0:       https://github.com/gwaldron/osgearth/archive/%{name}-%{version}.t
 Patch0:        osgearth_mingw.patch
 # Support option to disable fastdxt build
 Patch1:        osgearth_fastdxt.patch
+# Unbundle liblerc, rapidjson
+Patch2:        osgearth_unbundle.patch
+# Fix installing cmake config files
+Patch3:        osgearth_cmake.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -21,12 +25,14 @@ BuildRequires: gdal-devel
 BuildRequires: geos-devel
 BuildRequires: glew-devel
 BuildRequires: libcurl-devel
+BuildRequires: liblerc-devel
 BuildRequires: libzip-devel
 BuildRequires: libzip-tools
 BuildRequires: make
 BuildRequires: OpenSceneGraph = %{osg_ver}
 BuildRequires: OpenSceneGraph-devel
 BuildRequires: protobuf-devel
+BuildRequires: rapidjson-devel
 BuildRequires: sqlite-devel
 %if 0%{?with_docs}
 BuildRequires: python3-recommonmark
@@ -35,17 +41,19 @@ BuildRequires: python3-sphinx-markdown-tables
 %endif
 
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-OpenSceneGraph = %{osg_ver}
 BuildRequires: mingw32-curl
+BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-gdal
+BuildRequires: mingw32-liblerc
+BuildRequires: mingw32-OpenSceneGraph
 BuildRequires: mingw32-protobuf
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-OpenSceneGraph = %{osg_ver}
 BuildRequires: mingw64-curl
+BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-gdal
+BuildRequires: mingw64-liblerc
+BuildRequires: mingw64-OpenSceneGraph
 BuildRequires: mingw64-protobuf
 
 Provides:      bundled(tinyxml)
@@ -183,20 +191,20 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 %files
 %license LICENSE.txt
-%{_libdir}/libosgEarth*.so.3.2.0
-%{_libdir}/libosgEarth*.so.113
+%{_libdir}/libosgEarth*.so.3.3.0
+%{_libdir}/libosgEarth*.so.135
 %{_libdir}/osgPlugins-%{osg_ver}/osgdb_*.so
 
 %files devel
 %{_includedir}/osgEarth/
 %{_includedir}/osgEarthDrivers/
 %{_libdir}/libosgEarth.so
+%{_libdir}/cmake/osgearth/
 
 %files tools
 %{_bindir}/osgearth_atlas
 %{_bindir}/osgearth_boundarygen
 %{_bindir}/osgearth_conv
-%{_bindir}/osgearth_shadergen
 %{_bindir}/osgearth_tfs
 %{_bindir}/osgearth_version
 %{_bindir}/osgearth_viewer
@@ -208,38 +216,26 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{_bindir}/osgearth_city
 %{_bindir}/osgearth_clamp
 %{_bindir}/osgearth_cluster
-%{_bindir}/osgearth_collecttriangles
-%{_bindir}/osgearth_computerangecallback
-%{_bindir}/osgearth_controls
 %{_bindir}/osgearth_createtile
-%{_bindir}/osgearth_decal
 %{_bindir}/osgearth_drawables
 %{_bindir}/osgearth_eci
-%{_bindir}/osgearth_elevation
 %{_bindir}/osgearth_ephemeris
 %{_bindir}/osgearth_featurefilter
-%{_bindir}/osgearth_featurequery
 %{_bindir}/osgearth_features
-%{_bindir}/osgearth_geodetic_graticule
 %{_bindir}/osgearth_graticule
 %{_bindir}/osgearth_heatmap
 %{_bindir}/osgearth_horizon
-%{_bindir}/osgearth_imgui
 %{_bindir}/osgearth_infinitescroll
 %{_bindir}/osgearth_lights
 %{_bindir}/osgearth_los
 %{_bindir}/osgearth_magnify
 %{_bindir}/osgearth_manip
 %{_bindir}/osgearth_map
-%{_bindir}/osgearth_measure
 %{_bindir}/osgearth_minimap
 %{_bindir}/osgearth_mrt
 %{_bindir}/osgearth_mvtindex
 %{_bindir}/osgearth_occlusionculling
 %{_bindir}/osgearth_overlayviewer
-%{_bindir}/osgearth_pick
-%{_bindir}/osgearth_scenegraphcallbacks
-%{_bindir}/osgearth_sequencecontrol
 %{_bindir}/osgearth_shadercomp
 %{_bindir}/osgearth_skyview
 %{_bindir}/osgearth_terrainprofile
@@ -248,8 +244,6 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{_bindir}/osgearth_tracks
 %{_bindir}/osgearth_transform
 %{_bindir}/osgearth_video
-%{_bindir}/osgearth_wfs
-%{_bindir}/osgearth_windows
 
 %files examples-data
 %{_datadir}/%{name}
@@ -265,6 +259,7 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{mingw32_bindir}/libosgEarth*.dll
 %{mingw32_bindir}/osgPlugins-%{osg_ver}/*.dll
 %{mingw32_libdir}/libosgEarth*.dll.a
+%{mingw32_libdir}/cmake/osgearth/
 %{mingw32_includedir}/osgEarth*/
 
 %files -n mingw32-%{name}-tools
@@ -276,6 +271,7 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 %{mingw64_bindir}/libosgEarth*.dll
 %{mingw64_bindir}/osgPlugins-%{osg_ver}/*.dll
 %{mingw64_libdir}/libosgEarth*.dll.a
+%{mingw64_libdir}/cmake/osgearth/
 %{mingw64_includedir}/osgEarth*/
 
 %files -n mingw64-%{name}-tools
@@ -283,6 +279,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Mon Nov 14 2022 Sandro Mani <manisandro@gmail.com> - 3.3-1
+- Update to 3.3
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 3.2-11
 - Rebuild (gdal)
 

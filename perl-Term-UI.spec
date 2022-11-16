@@ -1,8 +1,8 @@
 Name:           perl-Term-UI
 Version:        0.50
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Term::ReadLine user interface made easy
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-UI
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Term-UI-%{version}.tar.gz
 BuildArch:      noarch
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 14 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.50-7
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

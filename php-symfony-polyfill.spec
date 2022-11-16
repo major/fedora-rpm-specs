@@ -11,8 +11,8 @@
 
 %global github_owner     symfony
 %global github_name      polyfill
-%global github_version   1.26.0
-%global github_commit    d45b58e9f527e408fb28c4b6431b7284f8c168ff
+%global github_version   1.27.0
+%global github_commit    b78222a273aac3e5bab6358bf499d7f1fb88e48b
 
 %global composer_vendor  symfony
 %global composer_project polyfill
@@ -27,7 +27,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Symfony polyfills backporting features to lower PHP versions
 
 License:       MIT
@@ -79,6 +79,7 @@ Provides:      php-composer(%{composer_vendor}/%{composer_project}-php74) = %{ve
 Provides:      php-composer(%{composer_vendor}/%{composer_project}-php80) = %{version}
 Provides:      php-composer(%{composer_vendor}/%{composer_project}-php81) = %{version}
 Provides:      php-composer(%{composer_vendor}/%{composer_project}-php82) = %{version}
+Provides:      php-composer(%{composer_vendor}/%{composer_project}-php83) = %{version}
 
 %description
 %{summary}.
@@ -90,7 +91,7 @@ Autoloader: %{phpdir}/Symfony/Polyfill/autoload.php
 %setup -qn %{github_name}-%{github_commit}
 
 : Docs
-mkdir -p docs/{Mbstring,Php72,Php73,Php74,Php80,Php81,Php82,Util}
+mkdir -p docs/{Mbstring,Php72,Php73,Php74,Php80,Php81,Php82,Php83,Util}
 mv *.md composer.json docs/
 mv src/Mbstring/{*.md,composer.json}  docs/Mbstring/
 mv src/Php72/{*.md,composer.json} docs/Php72/
@@ -99,6 +100,7 @@ mv src/Php74/{*.md,composer.json} docs/Php74/
 mv src/Php80/{*.md,composer.json} docs/Php80/
 mv src/Php81/{*.md,composer.json} docs/Php81/
 mv src/Php82/{*.md,composer.json} docs/Php82/
+mv src/Php83/{*.md,composer.json} docs/Php83/
 mv src/Util/{*.md,composer.json}  docs/Util/
 
 : Remove unneeded polyfills as extensions are available
@@ -114,7 +116,7 @@ cat src/autoload.php
 cat <<'AUTOLOAD' | tee -a src/autoload.php
 
 \Fedora\Autoloader\Dependencies::required(array(
-    __DIR__ . '/bootstrap.php',
+    __DIR__ . '/bootstrap.php', // load needed PHP version bootstrap
     __DIR__ . '/Mbstring/bootstrap.php',
 ));
 AUTOLOAD
@@ -137,18 +139,14 @@ require '%{phpdir}/Symfony4/Component/Intl/autoload.php';
 require '%{phpdir}/Symfony4/Component/VarDumper/autoload.php';
 EOF
 
-: Skip tests known to fail
-sed 's/function testDecodeNumericEntity/function SKIP_testDecodeNumericEntity/' \
-  -i tests/Mbstring/MbstringTest.php
-sed 's/function testPhpFloat/function SKIP_testPhpFloat/' \
-  -i tests/Php72/Php72Test.php
-
 : Upstream tests
 RETURN_CODE=0
 for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
     if which $cmdarg; then
         set $cmdarg
-        $1 ${2:-%{_bindir}/phpunit9} --verbose \
+        $1 ${2:-%{_bindir}/phpunit9} \
+            --filter '^((?!(testDecodeNumericEntity)).)*$' \
+            --verbose \
             || RETURN_CODE=1
     fi
 done
@@ -167,6 +165,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Nov 14 2022 Remi Collet <remi@remirepo.net> - 1.27.0-1
+- update to 1.27.0
+- provides symfony/polyfill-php83
+
 * Wed Oct 12 2022 Shawn Iwinski <shawn.iwinski@gmail.com> - 1.26.0-3
 - Skip tests known to fail
 

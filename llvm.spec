@@ -69,7 +69,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -230,6 +230,9 @@ mv %{cmake_srcdir} cmake
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
+
+# Copy CFLAGS into ASMFLAGS, so -fcf-protection is used when compiling assembly files.
+export ASMFLAGS=$CFLAGS
 
 # force off shared libs as cmake macros turns it on.
 %cmake	-G Ninja \
@@ -556,6 +559,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 11 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-2
+- Copy CFLAGS to ASMFLAGs to enable CET in asm files
+
 * Wed Nov 02 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

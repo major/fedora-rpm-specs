@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-306-g22a46dee24
+%global glibcsrcdir glibc-2.36.9000-314-g94628de778
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 13
+%global baserelease 14
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,18 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Nov 14 2022 Arjun Shankar <arjun@redhat.com> - 2.36.9000-14
+- Auto-sync with upstream branch master,
+  commit 94628de77888c3292fc103840731ff85f283368e:
+- elf/tst-tlsopt-powerpc fails when compiled with -mcpu=power10 (BZ# 29776)
+- LoongArch: Hard Float Support for fmaximum_mag_num{f/ }, fminimum_mag_num{f/ }.
+- LoongArch: Hard Float Support for fmaximum_mag{f/ }, fminimum_mag{f/ }.
+- LoongArch: Hard Float Support for fmaxmag{f/ }, fminmag{f/ }.
+- LoongArch: Hard Float Support for fmaximum_num{f/ }, fminimum_num{f/ }.
+- LoongArch: Hard Float Support for fmaximum{f/ }, fminimum{f/ }.
+- LoongArch: Hard Float Support for float-point classification functions.
+- LoongArch: Use __builtin_{fma, fmaf} to implement function {fma, fmaf}.
+
 * Thu Nov 10 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-13
 - Auto-sync with upstream branch master,
   commit 22a46dee24351fd5f4f188ad80554cad79c82524:

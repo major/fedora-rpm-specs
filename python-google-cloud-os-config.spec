@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-os-config
 %global         forgeurl    https://github.com/googleapis/python-os-config
-Version:        1.12.2
+Version:        1.12.4
 %global         tag         v%{version}
 %forgemeta
 
@@ -40,6 +40,9 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup
+
+# Allow a slightly older protobuf.
+sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py 
 
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \

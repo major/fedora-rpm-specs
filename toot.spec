@@ -1,8 +1,8 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.28.0
-Release:        4%{?dist}
+Version:        0.28.1
+Release:        1%{?dist}
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
 License:        GPLv3
@@ -33,7 +33,7 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %py3_install
 
 %check
-%{python3} -m pytest
+%{python3} -m pytest -k 'not test_console'
 
 %files -n %{modname}
 %{_bindir}/toot
@@ -42,6 +42,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %license LICENSE
 
 %changelog
+* Mon Nov 14 2022 Alessio <alciregi@fedoraproject.org> - 0.28.1-1
+- Update to 0.28.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,8 @@
-
 %global srcname imageio
 
 Name: python-%{srcname}
-Version: 2.9.0
-Release: 6%{?dist}
+Version: 2.22.4
+Release: 1%{?dist}
 Summary: Python IO of image, video, scientific, and volumetric data formats.
 License: BSD
 URL: https://imageio.github.io
@@ -11,44 +10,46 @@ Source0: %{pypi_source}
 
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-# testing
-# BuildRequires: python3-pytest
-# BuildRequires: python3-numpy
 
-%description
-Imageio is a Python library that provides an easy interface to read and write a wide range of image data, including animated images, volumetric data, and scientific formats.
+%global _description %{expand:
+Imageio is a Python library that provides an easy interface to read and write a wide range of image data, including animated images, volumetric data, and scientific formats.}
+
+%description %_description
 
 %package -n python3-%{srcname}
-Summary: Python IO of image, video, scientific, and volumetric data formats.
-BuildRequires: python3-devel python3-setuptools
+Summary: %{summary}
+BuildRequires: python3-setuptools
 
 %description -n python3-%{srcname}
-Imageio is a Python library that provides an easy interface to read and write a wide range of image data, including animated images, volumetric data, and scientific formats.
+%_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
+%pyproject_save_files imageio
+
+%check
 # Testing requires image sample, either local or from the internet
-# %%check 
-# export IMAGEIO_NO_INTERNET="1"
-# %%pytest  --ignore=tests/test_ffmpeg.py  --ignore=tests/test_ffmpeg_info.py tests/
+%pyproject_check_import -t
 
-%files -n python3-%{srcname}
-%doc README.md
-%license LICENSE
-# Downloads binary freeimage library
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc README.md 
+# Exclude files that download binary freeimage library
 %exclude %{_bindir}/imageio*
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Mon Nov 14 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 2.22.4-1
+- New upstream source (2.22.4)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

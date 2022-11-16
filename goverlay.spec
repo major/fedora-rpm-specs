@@ -19,6 +19,7 @@ BuildRequires:  make
 
 Requires:       hicolor-icon-theme
 Requires:       mangohud%{?_isa}
+Requires:       mesa-libGLU
 Requires:       qt5pas%{?_isa}
 
 # git - Clone reshade repository

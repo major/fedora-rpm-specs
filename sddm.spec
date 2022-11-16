@@ -14,8 +14,8 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit fc24321541f6f65b7d1aac89cd82336ffd53e1a0
-%global commitdate 20221025
+%global commit 1d156897ab763d1442b0d6b0341c091f0c38b496
+%global commitdate 20221114
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
@@ -299,6 +299,9 @@ fi
 
 
 %changelog
+* Mon Nov 14 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221114.1d15689-1
+- Update to new snapshot
+
 * Tue Oct 25 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221025.fc24321-1
 - Update to new snapshot
 

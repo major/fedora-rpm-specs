@@ -22,7 +22,7 @@
     aiosqlite
 
 Name:           python-sqlalchemy
-Version:        1.4.43
+Version:        1.4.44
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease
@@ -31,6 +31,8 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{srcname} %{srcversion}}
+# Upstream fix for failing test
+Patch0:         0001-Repair-test-in-32bit-python-builds.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.6
@@ -74,7 +76,7 @@ Documentation for SQLAlchemy.
 
 
 %prep
-%setup -q -n %{srcname}-%{srcversion}
+%autosetup -n %{srcname}-%{srcversion} -p1
 
 %build
 %py3_build

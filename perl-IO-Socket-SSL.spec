@@ -6,14 +6,14 @@
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
 
 Name:		perl-IO-Socket-SSL
-Version:	2.075
+Version:	2.076
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
-Patch0:		IO-Socket-SSL-2.074-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.075-use-system-default-SSL-version.patch
+Patch0:		IO-Socket-SSL-2.076-use-system-default-cipher-list.patch
+Patch1:		IO-Socket-SSL-2.076-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.066-Test-client-performs-Post-Handshake-Authentication.patch
@@ -126,6 +126,11 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Mon Nov 14 2022 Paul Howarth <paul@city-fan.org> - 2.076-1
+- Update to 2.076
+ - Added curl like tracing (based on GH#117)
+ - Fixed race condition in t/sni_verify.t (GH#97)
+
 * Sat Sep  3 2022 Paul Howarth <paul@city-fan.org> - 2.075-1
 - Update to 2.075
   - Treat SSL_write returning 0 same as previously -1, as suggested by both
