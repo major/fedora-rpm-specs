@@ -1,63 +1,65 @@
 %global srcname stdnum
 
 Name:           python-%{srcname}
-Version:        1.17
-Release:        4%{?dist}
+Version:        1.18
+Release:        1%{?dist}
 Summary:        Python module to handle standardized numbers and codes
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/python-stdnum/
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  python3-setuptools
+#BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 
 # needed for tests
-BuildRequires:  python3-nose
+#BuildRequires:  python3-nose
 
-
-%description
+%global _description %{expand:
 Parse, validate and reformat standard numbers and codes. This library offers
 functions for parsing, validating and reformatting standard numbers and codes
-in various formats like personal IDs, VAT numbers, IBAN and more.
+in various formats like personal IDs, VAT numbers, IBAN and more.}
+
+%description %_description
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname}
-Parse, validate and reformat standard numbers and codes. This library offers
-functions for parsing, validating and reformatting standard numbers and codes
-in various formats like personal IDs, VAT numbers, IBAN and more.
+%description -n python3-%{srcname} %_description
 
 
 %prep
-%setup -q
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
+%autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
+%pyproject_save_files %{srcname}
 
 %check
-LANG=C.utf-8 nosetests-%{python3_version} -v
+export LANG=C.utf-8
+%tox
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license COPYING
 %doc NEWS README.md
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/python_%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Nov 15 2022 Dan Horák <dan[at]danny.cz> - 1.18-1
+- updated to 1.18 (#2142430)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

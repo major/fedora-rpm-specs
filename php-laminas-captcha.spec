@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    debd6783ce593cb2e4cf74c3028baf1730918d85
+%global gh_commit    1213445d2017aa869990e9b8cae6e1e4ed05e1e4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-captcha
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.13.0
+Version:        2.14.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -47,19 +47,19 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.19
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "ext-gd": "*",
-#        "laminas/laminas-coding-standard": "~2.3.0",
-#        "phpunit/phpunit": "^9.5.21",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.24.0"
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^4.29.0"
 BuildRequires:  php-gd
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.21
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+#        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-math": "^2.7 || ^3.0",
 #        "laminas/laminas-recaptcha": "^3.4.0",
 #        "laminas/laminas-session": "^2.12",
@@ -169,7 +169,7 @@ exit (class_exists("\\Zend\\%{library}\\Image") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov 15 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0 (no change)
+
 * Mon Jul 25 2022 Remi Collet <remi@remirepo.net> - 2.13.0-1
 - update to 2.13.0
 - raise dependency on PHP 7.4

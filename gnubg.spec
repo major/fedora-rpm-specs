@@ -4,12 +4,12 @@ Name:          gnubg
 License:       GPLv3
 Summary:       A backgammon game and analyser
 Epoch:         1
-Version:       1.06.001
-Release:       17%{?dist}
-Source0:       http://gnubg.org/media/sources/gnubg-release-1.06.001-sources.tar.gz
+Version:       1.07.001
+Release:       1%{?dist}
+Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
 Source2:       gnubg.png
-URL:           http://www.gnubg.org
+URL:           https://www.gnu.org/software/gnubg/
 BuildRequires: libcanberra-devel
 BuildRequires: sqlite-devel
 BuildRequires: gmp-devel
@@ -112,8 +112,11 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/gnubg.sql
 %{_datadir}/gnubg/gnubg_ts0.bd
 %{_datadir}/gnubg/gnubg.css
-
+%{_datadir}/gnubg/Shaders/
 %changelog
+* Tue Nov 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:1.07.001-1
+- 1.07.001
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.06.001-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

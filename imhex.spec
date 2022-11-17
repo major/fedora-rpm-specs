@@ -1,8 +1,5 @@
-# ftbfs without this, dev is aware https://github.com/WerWolv/ImHex/issues/610
-%global _lto_cflags %{nil}
-
 Name:           imhex
-Version:        1.24.3
+Version:        1.25.0
 Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
@@ -109,8 +106,6 @@ rm -f %{buildroot}%{_metainfodir}/net.werwolv.%{name}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/net.werwolv.%{name}.metainfo.xml
 
 # install licenses
-cp -a lib/libimhex-rs/imgui-rs/LICENSE-APACHE                     %{buildroot}%{_datadir}/licenses/%{name}/imgui-LICENSE-APACHE
-cp -a lib/libimhex-rs/imgui-rs/LICENSE-MIT                        %{buildroot}%{_datadir}/licenses/%{name}/imgui-LICENSE-MIT
 cp -a lib/external/nativefiledialog/LICENSE                       %{buildroot}%{_datadir}/licenses/%{name}/nativefiledialog-LICENSE
 cp -a lib/external/capstone/LICENSE.TXT                           %{buildroot}%{_datadir}/licenses/%{name}/capstone-LICENSE
 cp -a lib/external/capstone/suite/regress/LICENSE                 %{buildroot}%{_datadir}/licenses/%{name}/capstone-regress-LICENSE
@@ -131,6 +126,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Tue Nov 15 2022 Jonathan Wright <jonathan@almalinux.org> - 1.25.0-1
+- update to 1.25.0 rhbz#2142599
+
 * Wed Oct 12 2022 Jonathan Wright <jonathan@almalinux.org> - 1.24.3-1
 - update to 1.24.3
 

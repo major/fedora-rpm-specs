@@ -1,20 +1,22 @@
-%global pypi_name certifi
-
-Name:           python-%{pypi_name}
-Version:        2021.10.8
-Release:        3%{?dist}
+Name:           python-certifi
+Version:        2022.09.24
+Release:        1%{?dist}
 Summary:        Python package for providing Mozilla's CA Bundle
 
-License:        MPLv2.0
-#https://www.mozilla.org/MPL/2.0/
-URL:            http://certifi.io/en/latest/
-Source0:        %pypi_source
-Patch1:         certifi-2020.11.8-use-system-cert.patch
+License:        MPL-2.0
+URL:            https://certifi.io/
+Source:         https://github.com/certifi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          certifi-2022.09.24-use-system-cert.patch
 
 BuildArch:      noarch
 
 # Require the system certificate bundle (/etc/pki/tls/certs/ca-bundle.crt)
 BuildRequires: ca-certificates
+
+BuildRequires:  python3-devel
+
+# Run upstream tests
+BuildRequires: python3-pytest
 
 %description
 Certifi is a carefully curated collection of Root Certificates for validating
@@ -25,14 +27,11 @@ Please note that this Fedora package does not actually include a certificate
 collection at all. It reads the system shared certificate trust collection
 instead. For more details on this system, see the ca-certificates package.
 
-%package -n python%{python3_pkgversion}-%{pypi_name}
+%package -n python3-certifi
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       ca-certificates
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python3-certifi
 Certifi is a carefully curated collection of Root Certificates for validating
 the trustworthiness of SSL certificates while verifying the identity of TLS
 hosts. It has been extracted from the Requests project.
@@ -45,22 +44,24 @@ This package provides the Python 3 certifi library.
 
 
 %prep
-%setup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1
+
 # Remove bundled Root Certificates collection
 rm -rf certifi/*.pem
-%patch1 -p1
 
-#drop shebangs from python_sitearch
-find %{_builddir}/%{pypi_name}-%{version} -name '*.py' \
-    -exec sed -i '1{\@^#!/usr/bin/env python@d}' {} \;
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files certifi
+
 
 %check
 # sanity check
@@ -69,14 +70,18 @@ test $(%{__python3} -m certifi) == /etc/pki/tls/certs/ca-bundle.crt
 test $(%{__python3} -c 'import certifi; print(certifi.where())') == /etc/pki/tls/certs/ca-bundle.crt
 %{__python3} -c 'import certifi; print(certifi.contents())' > contents
 diff --ignore-blank-lines /etc/pki/tls/certs/ca-bundle.crt contents
+# upstream tests
+%pytest -v
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
-%license LICENSE
+
+%files -n python3-certifi -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*-py%{python3_version}.egg-info/
+
 
 %changelog
+* Mon Nov 14 2022 Karolina Surma <ksurma@redhat.com> - 2022.09.24-1
+- Update to 2022.09.24
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.10.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

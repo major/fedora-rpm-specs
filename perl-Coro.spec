@@ -1,11 +1,11 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The only real threads in perl
-# Coro/libcoro:    GPLv2 or BSD
-# Rest of package: GPL+ or Artistic
-License:        (GPL+ or Artistic) and (GPLv2 or BSD)
+# Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
+# Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (GPL-2.0-or-later OR BSD-2-Clause)
 URL:            https://metacpan.org/release/Coro
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Coro-%{cpan_version}.tar.gz
 Patch0:         %{name}-5.25-ucontext-default.patch
@@ -89,6 +89,15 @@ between threads unless necessary, at easily-identified points in your
 program, so locking and parallel access are rarely an issue, making thread
 programming much safer and easier than using other thread models.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Coro-%{cpan_version}
@@ -111,6 +120,11 @@ for F in Coro/jit-*.pl; do
 done
 %fix_shbang_line eg/myhttpd
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 # Disable FORTIFY_SOURCE on ARM as it breaks setjmp - RHBZ 750805
@@ -126,6 +140,14 @@ perl Makefile.PL INSTALLDIRS=perl NO_PACKLIST=1 NO_PERLLOCAL=1 \
 %install
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -140,7 +162,14 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{perl_archlib}/Coro.pm
 %{_mandir}/man3/Coro*.3pm*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Nov 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.570-8
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.570-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           %{project}
 Version:        3.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Improved builder for Docker images
 License:        BSD
@@ -14,9 +14,13 @@ Source0:        https://github.com/containerbuildsystem/atomic-reactor/archive/r
 
 # Fedora uses a local buildroot image
 Patch0:		atomic-reactor-local-buildroot.patch
-# Upstream has to support python2-docker, but Fedora doesn't. 
+# Upstream has to support python2-docker, but Fedora doesn't.
 # https://github.com/containerbuildsystem/atomic-reactor/issues/1865
 Patch1:         atomic-reactor-3.14.0-docker-version.patch
+# https://pagure.io/releng/issue/11092
+# https://github.com/containerbuildsystem/atomic-reactor/issues/2027
+# https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr
+Patch2:         atomic-reactor-3-rpmqa-dbpath.patch
 
 BuildArch:      noarch
 Requires:       python3-atomic-reactor = %{version}-%{release}
@@ -103,7 +107,13 @@ Plugins for automated rebuilds
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+#%%autosetup -p1 -n %{name}-%{version}
+%setup -q
+%patch0 -p1
+%patch1 -p1
+%if 0%{fedora} >= 36
+%patch2 -p1
+%endif
 
 %build
 %py3_build
@@ -196,6 +206,10 @@ cp -a docs/manpage/atomic-reactor.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Nov 15 2022 Jens Petersen <petersen@redhat.com> - 3.14.0-2
+- update rpmqa RPMDB_PATH to /usr/lib/sysimage/rpm for F36+ to unbreak
+  containerBuilds (#2142731)
+
 * Sat Sep 10 2022 Kevin Fenzi <kevin@scrye.com> - 3.14.0-1
 - Update to 3.14.0. Fixes rhbz#2118684
 - Fix dependency that made is FTBFS. Fixes rhbz#2068733

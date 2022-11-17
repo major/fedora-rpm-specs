@@ -1,6 +1,6 @@
 Name:           libxlsxwriter
 Version:        1.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A C library for creating Excel XLSX files
 
 # BSD: Most files
@@ -64,6 +64,9 @@ rm -f include/xlsxwriter/third_party/zip.h
 
 
 %changelog
+* Tue Nov 15 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.4-4
+- Rebuild for minizip-ng soname bump
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

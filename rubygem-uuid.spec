@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.3.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        UUID generator based on RFC 4122
 
 License:        MIT or CC-BY-SA
@@ -10,6 +10,9 @@ URL:            http://github.com/assaf/uuid
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/assaf/uuid/pull/39
 Patch0:         %{name}-tool.patch
+# https://github.com/assaf/uuid/pull/36
+# Needed for ruby3.2, which removes File.exists? deprecated since ruby 2.1
+Patch1:         %{name}-file_exists_deprecation.patch
 
 BuildArch:      noarch
 BuildRequires:  rubygems-devel
@@ -43,6 +46,7 @@ gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 %patch0 -p1
+%patch1 -p1
 sed -i -e '1s,.*,#!/usr/bin/ruby,' bin/uuid
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
@@ -99,6 +103,9 @@ popd
 
 
 %changelog
+* Tue Nov 15 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-16
+- Backport upstream patch for File.exists? removal for ruby3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

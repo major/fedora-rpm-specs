@@ -10,6 +10,8 @@ Summary:        Quick, precise tests for entire TCP/UDP/IPv4/IPv6 network stacks
 License:        GPL-2.0-only
 URL:            https://github.com/google/packetdrill
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+# PR#62: Switch to Python3
+Patch:          %{url}/pull/62.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -49,16 +51,12 @@ This package contains a test runner, test scripts, and editor configs for
 %{name}.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-%{commit} -p1
 
 # Fix paths in the test runner
 sed -i gtests/net/packetdrill/run_all.py \
-    -e 's:#!/usr/bin/python.*:#!/usr/bin/python3:' \
     -e 's:bin_path = .*:bin_path = "%{_bindir}/%{name}":' \
     -e 's:nswrap_path = .*:nswrap_path = "%{_datadir}/%{name}/in_netns.sh":'
-
-sed -i gtests/net/tcp/common/set_sysctls.py \
-    -e 's:#!/usr/bin/python:#!/usr/bin/python3:'
 
 %build
 pushd gtests/net/%{name}

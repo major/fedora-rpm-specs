@@ -126,7 +126,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.82
+%global nss_version 3.84
 %global nss_build_version %{nss_version}
 %endif
 
@@ -171,13 +171,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        106.0.4
+Version:        107.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20221104.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20221114.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -227,7 +227,6 @@ Patch62:        build-python.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch77:        build-python-3.11.patch
 Patch78:        firefox-i686-build.patch
-Patch79:        firefox-aarch64-sysctl.patch
 
 # Test patches
 # Generate without context by
@@ -252,7 +251,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
-Patch417:        D158747.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -492,7 +490,6 @@ This package contains results of tests executed during build.
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch77 -p1 -b .build-python-3.11
 %patch78 -p1 -b .firefox-i686
-%patch79 -p1 -b .aarch64-sysctl
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -515,7 +512,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
-%patch417 -p1 -b .D158747
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1109,6 +1105,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Nov 14 2022 Martin Stransky <stransky@redhat.com>- 107.0-1
+- Update to 107.0
+
 * Fri Nov 04 2022 Martin Stransky <stransky@redhat.com>- 106.0.4-1
 - Update to 106.0.4
 

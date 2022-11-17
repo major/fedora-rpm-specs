@@ -34,7 +34,7 @@
 Name:           libnuml
 Summary:        Numerical Markup Language
 Version:        1.1.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 URL:            https://github.com/NuML/NuML
 Source0:        https://github.com/NuML/NuML/archive/%{commit}/NuML-%{version}.tar.gz
 License:        LGPLv2+
@@ -185,7 +185,7 @@ of libNUML libraries.
 %build
 mkdir -p libnuml/build
 %cmake3 -B libnuml/build -S libnuml -Wno-dev \
- -DEXTRA_INCLUDE_DIRS:STRING=%{_includedir}/minizip-ng \
+ -DEXTRA_INCLUDE_DIRS:STRING=%{_includedir}/minizip \
 %if 0%{?with_python}
  -DWITH_PYTHON:BOOL=ON \
  -DWITH_SWIG:BOOL=ON \
@@ -367,6 +367,9 @@ make test -C libnuml/build
 %endif
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 1.1.4-9
+- Rebuild (minizip-ng)
+
 * Thu Oct 27 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.4-8
 - Switch to minizip-ng
 

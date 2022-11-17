@@ -1,10 +1,31 @@
+# NOTE: Even though ansible-core is in 8.6, it is only available
+# at *runtime*, not at *buildtime* - so we can't have
+# ansible-core as a build_dep on RHEL8
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%bcond_without ansible
+%if 0%{?fedora}
+BuildRequires: ansible-packaging
+%else
+BuildRequires: ansible-core >= 2.11.0
+%endif
+%else
+%bcond_with ansible
+%endif
+
 %bcond_with collection_artifact
+
+# Do not convert .md to .html on RHEL 7 because pandoc is not available
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%bcond_without html
+%else
+%bcond_with html
+%endif
 
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 1.2.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: MIT
 
@@ -12,11 +33,47 @@ License: MIT
 %global collection_namespace microsoft
 %global collection_name sql
 %global collection_rolename server
+%global collection_version %{version}
 %global legacy_rolename %{collection_namespace}.sql-server
-
 %global _pkglicensedir %{_licensedir}/%{name}
 
+# Helper macros originally from macros.ansible by Igor Raits <ignatenkobrain>
+# On RHEL, not available, so we must define those macros locally
+# On Fedora, provided by ansible-packager
+# Not used (yet). Could be made to point to AH in RHEL - but what about CentOS Stream?
+#%%{!?ansible_collection_url:%%define ansible_collection_url() https://galaxy.ansible.com/%%{collection_namespace}/%%{collection_name}}
+%if 0%{?rhel}
+Provides: ansible-collection(%{collection_namespace}.%{collection_name}) = %{collection_version}
+%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}/
+%define ansible_roles_dir %{_datadir}/ansible/roles
+%if %{without ansible}
+# Untar and copy everything instead of galaxy-installing the built artifact when ansible is not available
+%define ansible_collection_build() tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .
+%define ansible_collection_install() mkdir -p %{buildroot}%{ansible_collection_files}%{collection_name}; (cd %{buildroot}%{ansible_collection_files}%{collection_name}; tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz)
+%else
+%define ansible_collection_build() ansible-galaxy collection build
+%define ansible_collection_install() ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%endif
+%endif
+# be compatible with the usual Fedora Provides:
+Provides: ansible-collection-%{collection_namespace}-%{collection_name} = %{collection_version}-%{release}
+
+# ansible-core is in rhel 8.6 and later - default to ansible-core, but allow
+# the use of ansible if present - we may revisit this if the automatic dependency
+# generator is added to ansible-core in RHEL
+# Fedora - the automatic generator will add this - no need to explicit declare
+# it in the spec file
+# EL7 - no dependency on ansible because there is no ansible in el7 - user is
+# responsible for knowing they have to install ansible
+%if 0%{?rhel} >= 8
+Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
+%endif
+
+%if 0%{?rhel}
+Requires: rhel-system-roles
+%else
 Requires: linux-system-roles
+%endif
 
 %global mainid cdc706f14614ef5e80bbce8db10beb369e889df9
 %global parenturl https://github.com/linux-system-roles
@@ -25,15 +82,20 @@ Source1: %{parenturl}/%{rolename}/archive/%{version}/%{rolename}-%{version}.tar.
 
 BuildArch: noarch
 
-# Requirement for %%ansible_collection_build, %%ansible_collection_install, %%ansible_collection_files
-BuildRequires: ansible-packaging
-
+%if %{with html}
 # Requirements for md2html.sh to build the documentation
+%if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: rubygem-kramdown-parser-gfm
+%else
+BuildRequires: pandoc
+BuildRequires: asciidoc
+BuildRequires: highlight
+%endif
+%endif
 
 # Requirements for galaxy_transform.py
 BuildRequires: python3
-BuildRequires: %{py3_dist ruamel.yaml}
+BuildRequires: python%{python3_pkgversion}-ruamel-yaml
 
 %description
 This RPM installs the %{collection_namespace}.%{collection_name} Ansible
@@ -50,6 +112,13 @@ Collection artifact for %{name}. This package contains
 %{collection_namespace}-%{collection_name}-%{version}.tar.gz
 %endif
 
+%pretrans -p <lua>
+path = "%{installbase}/%{legacy_rolename}"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
+
 %prep
 %setup -q -a1 -n auto-maintenance-%{mainid}
 
@@ -64,8 +133,10 @@ if [ -d %{rolename}/tests/roles ]; then
 fi
 
 %build
+%if %{with html}
 # Convert README.md to README.html in the source roles
 sh md2html.sh %{rolename}/README.md
+%endif
 
 mkdir .collections
 # Copy README.md for the collection build
@@ -73,13 +144,33 @@ cp %{rolename}/.collection/README.md lsr_role2collection/collection_readme.md
 # Copy galaxy.yml for the collection build
 cp %{rolename}/.collection/galaxy.yml ./
 
+%if 0%{?rhel}
 # Ensure the correct entries in galaxy.yml
 ./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{version}" \
                       "Ansible collection for Microsoft SQL Server management" \
+                      "https://github.com/linux-system-roles/mssql" \
+                      "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel/assembly_configuring-microsoft-sql-server-using-microsoft-sql-server-ansible-role_assembly_updating-packages-to-enable-automation-for-the-rhel-system-roles" \
+                      "https://github.com/linux-system-roles/mssql/blob/master/README.md" \
+                      "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=ansible-collection-microsoft-sql" \
                       > galaxy.yml.tmp
+%else
+./galaxy_transform.py "%{collection_namespace}" "%{collection_name}" "%{version}" \
+                      "Ansible collection for Microsoft SQL Server management" \
+                      > galaxy.yml.tmp
+%endif
 mv galaxy.yml.tmp galaxy.yml
 
-# Convert roles to the collection format
+%if 0%{?rhel}
+# Replace fedora.linux_system_roles with redhat.rhel_system_roles
+sed -i 's/fedora\.linux_system_roles/redhat.rhel_system_roles/g' \
+    %{rolename}/CHANGELOG.md \
+    %{rolename}/README.md \
+    %{rolename}/tasks/*.yml \
+    %{rolename}/tests/*.yml \
+    %{rolename}/meta/*.yml
+%endif
+
+# Convert to the collection format
 python3 lsr_role2collection.py --role "%{rolename}" \
     --src-path "%{rolename}" \
     --src-owner linux-system-roles \
@@ -90,14 +181,14 @@ python3 lsr_role2collection.py --role "%{rolename}" \
     --new-role "%{collection_rolename}" \
     --meta-runtime lsr_role2collection/runtime.yml
 
-# Remove dot files/dirs
+# removing dot files/dirs
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/.[A-Za-z]*
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/tests/%{collection_rolename}/.[A-Za-z]*
 
 # Copy galaxy.yml to the collection directory
 cp -p galaxy.yml .collections/ansible_collections/%{collection_namespace}/%{collection_name}
 
-# Copy CHANGELOG.md from %%{rolename} to collection dir
+# Copy CHANGELOG.md from mssql to collection dir
 mv .collections/ansible_collections/%{collection_namespace}/%{collection_name}/roles/%{collection_rolename}/CHANGELOG.md \
     .collections/ansible_collections/%{collection_namespace}/%{collection_name}/
 
@@ -110,23 +201,25 @@ popd
 mkdir -p %{buildroot}%{ansible_roles_dir}
 
 # Copy role in legacy format and rename rolename in tests
-cp -pR %{rolename} "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
-sed -i "s/linux-system-roles\.%{rolename}/%{legacy_rolename}/g" \
+cp -pR "%{rolename}" "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
+sed -i "s/linux-system-roles\.%{rolename}/microsoft\.%{legacy_rolename}/g" \
     %{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/tests/*.yml
 
 # Copy README, COPYING, and LICENSE files to the corresponding directories
 mkdir -p %{buildroot}%{_pkglicensedir}
 mkdir -p "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.md" \
+ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.md" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
-cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.html" \
+%if %{with html}
+ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/README.html" \
     "%{buildroot}%{_pkgdocdir}/%{legacy_rolename}"
+%endif
 if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" ]; then
-    cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" \
+    ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/COPYING" \
         "%{buildroot}%{_pkglicensedir}/%{legacy_rolename}.COPYING"
 fi
 if [ -f "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/LICENSE" ]; then
-    cp -p "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/LICENSE" \
+    ln -sr "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/LICENSE" \
         "%{buildroot}%{_pkglicensedir}/%{legacy_rolename}.LICENSE"
 fi
 
@@ -145,18 +238,20 @@ popd
 mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles
 
 # Copy the collection README files to the collection
-cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
+ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/README.md \
    %{buildroot}%{_pkgdocdir}/collection
 
 # Copy role's readme to /usr/share/doc/
 if [ -f "%{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md" ]; then
     mkdir -p %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
-    cp -p %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
+    ln -sr %{buildroot}%{ansible_collection_files}%{collection_name}/roles/%{collection_rolename}/README.md \
         %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}
 fi
 
+%if %{with html}
 # Convert README.md to README.html for collection in %%{buildroot}%%{_pkgdocdir}/collection
 sh md2html.sh %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}/README.md
+%endif
 
 %if %{with collection_artifact}
 # Copy collection artifact to /usr/share/ansible/collections/ for collection-artifact
@@ -168,10 +263,79 @@ fi
 popd
 %endif
 
-%files -f %{ansible_collection_filelist}
-%{_pkgdocdir}
+# Generate the %%files section in files_section.txt
+# Bulk files inclusion is not possible because roles store doc and licence
+# files together with other files
+format_item_for_files() {
+    # $1 is directory or file name in buildroot
+    # $2 - if true, and item is a directory, use %%dir
+    local item
+    local files_item
+    item="$1" # full path including buildroot
+    files_item=${item##"%{buildroot}"} # path with cut buildroot to be added to %%files
+    if [ -L "$item" ]; then
+        echo "$files_item"
+    elif [ -d "$item" ]; then
+        if [[ "$item" == */doc* ]]; then
+            echo "%doc $files_item"
+        elif [ "${2:-false}" = true ]; then
+            echo "%dir $files_item"
+        else
+            echo "$files_item"
+        fi
+    elif [[ "$item" == */README.md ]] || [[ "$item" == */README.html ]] || [[ "$item" == */CHANGELOG.md ]]; then
+        if [[ "$item" == */private_* ]]; then
+            # mark as regular file, not %%doc
+            echo "$files_item"
+        else
+            echo "%doc $files_item"
+        fi
+    elif [[ "$item" == */COPYING* ]] || [[ "$item" == */LICENSE* ]]; then
+        echo "%""%""license" "$files_item"
+    else
+        echo "$files_item"
+    fi
+}
+
+files_section=files_section.txt
+rm -f $files_section
+touch $files_section
+# Dynamically generate files section entries for %%{ansible_collection_files}
+find %{buildroot}%{ansible_collection_files}%{collection_name} -mindepth 1 -maxdepth 1 | \
+    while read item; do
+        if [[ "$item" == */roles ]]; then
+            format_item_for_files "$item" true >> $files_section
+            find "$item" -mindepth 1 -maxdepth 1 | while read roles_dir; do
+                format_item_for_files "$roles_dir" true >> $files_section
+                find "$roles_dir" -mindepth 1 -maxdepth 1 | while read roles_item; do
+                    format_item_for_files "$roles_item" >> $files_section
+                done
+            done
+        else
+            format_item_for_files "$item" >> $files_section
+        fi
+    done
+
+# Dynamically generate files section entries for %%{ansible_roles_dir}
+find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
+    while read item; do
+        if [ -d "$item" ]; then
+            format_item_for_files "$item" true >> $files_section
+            find "$item" -mindepth 1 -maxdepth 1 | while read roles_item; do
+                format_item_for_files "$roles_item" >> $files_section
+            done
+        else
+            format_item_for_files "$item" >> $files_section
+        fi
+    done
+
+%files -f files_section.txt
+%dir %{_datadir}/ansible
+%dir %{ansible_roles_dir}
+%dir %{ansible_collection_files}
+%dir %{ansible_collection_files}%{collection_name}
+%doc %{_pkgdocdir}
 %license %{_pkglicensedir}
-%{ansible_roles_dir}/%{legacy_rolename}
 
 %if %{with collection_artifact}
 %files collection-artifact
@@ -179,6 +343,13 @@ popd
 %endif
 
 %changelog
+* Fri Nov 11 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.2.4-4
+- Keep spec consistent with linux-system-roles
+  - Return conditionals related to EL to keep up- and downstream consistent
+  - Add pretrans scriplet to remove symlinks if exist to fix issue with update
+  - Instead of copying doc and license files create symlinks
+  - Dynamically generate %%files section
+
 * Thu Sep 22 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.2.4-3
 - Further simplify spec file
   - Do not install roles to /usr/share/microsoft and then create symlinks

@@ -1,7 +1,7 @@
-%global version_l10n 1.5.1642
+%global version_l10n 1.5.1644
 
 Name:           psi-plus
-Version:        1.5.1642
+Version:        1.5.1644
 Release:        1%{?dist}
 Epoch:          1
 
@@ -164,6 +164,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}
 
 %changelog
+* Tue Nov 15 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1:1.5.1644-1
+- Updated to version 1.5.1644.
+
 * Wed Oct 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1:1.5.1642-1
 - Updated to version 1.5.1642.
 

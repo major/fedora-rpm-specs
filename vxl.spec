@@ -2,7 +2,7 @@
 
 Name:       vxl
 Version:    2.0.2
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    C++ Libraries for Computer Vision Research and Implementation
 License:    BSD
 URL:        https://vxl.github.io/
@@ -832,6 +832,9 @@ ctest %{_vpath_builddir} || exit 0
 %doc %{_docdir}/*
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 2.0.2-15
+- Rebuild (minizip-ng)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

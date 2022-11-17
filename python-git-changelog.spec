@@ -11,6 +11,7 @@ Source1:        git-changelog.1
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-setuptools
 
 %global _description %{expand:
 Automatic Changelog generator using Jinja2 templates 

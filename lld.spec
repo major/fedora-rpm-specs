@@ -22,7 +22,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -100,9 +100,6 @@ sed 's/add_subdirectory(tools\/lld)//' -i CMakeLists.txt
 
 %build
 
-# Disable lto since it causes the COFF/libpath.test lit test to crash.
-%global _lto_cflags %{nil}
-
 %cmake \
 	-GNinja \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -179,6 +176,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Mon Nov 14 2022 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.4-2
+- Enable LTO.
+
 * Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

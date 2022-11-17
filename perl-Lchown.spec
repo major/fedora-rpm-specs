@@ -1,15 +1,16 @@
 Name:           perl-Lchown
 Version:        1.01
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Use the lchown(2) system call from Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lchown
 Source0:        https://cpan.metacpan.org/authors/id/N/NC/NCLEATON/Lchown-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
@@ -51,6 +52,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 15 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.01-24
+- Update license format to SPDX; Add BR coreutils
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

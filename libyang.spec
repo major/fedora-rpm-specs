@@ -14,6 +14,9 @@ Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/v%{version}.tar.gz
 License: BSD
 
+# disable tests failing on s390x
+Patch1: disable-test_structure.patch
+
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
@@ -105,6 +108,7 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %changelog
 * Wed Nov 09 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.4-1
 - Rebase to version 2.1.4 (Resolves: rhbz#2141228)
+- Add patch to disable tests failing on s390x
 
 * Mon Aug 01 2022 Tomas Korbar <tkorbar@redhat.com> - 2.0.231-2
 - Clean specfile and remove obsolete tag that is not relevant

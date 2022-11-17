@@ -49,6 +49,11 @@ BuildRequires: gnome-doc-utils
 BuildRequires: LibRaw-devel
 BuildRequires: gspell-devel
 
+# This is needed to generate one of the icc headers in the build
+# process. Kind of annoyingly, this is part of _vim_, but, eh,
+# I guess it doesn't _really_ matter for a build dep.
+BuildRequires: /usr/bin/xxd
+
 # for the included plug-in scripts
 BuildRequires: exiv2
 BuildRequires: fbida

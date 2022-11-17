@@ -25,7 +25,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -252,7 +252,7 @@ Requires:       ucrt64-cpp
 %if 0%{bootstrap} == 0
 Requires:       ucrt64-crt
 Requires:       ucrt64-libgcc
-Requires:       mingw64-winpthreads-static
+Requires:       ucrt64-winpthreads-static
 %endif
 
 
@@ -902,6 +902,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 12.2.1-4
+- Fix incorrect requires
+
 * Fri Jul 22 2022 Sandro Mani <manisandro@gmail.com> - 12.1.1-3
 - Update to 20220628 snapshot
 

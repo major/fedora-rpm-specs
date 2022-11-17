@@ -90,6 +90,8 @@ BuildRequires:  libtree-sitter-devel >= %{tree_sitter_min_ver}
 # tree-sitter didn't do an soname bump. enforce the min version
 # see https://github.com/nvim-treesitter/nvim-treesitter/pull/3055/files
 Requires:       libtree-sitter >= %{tree_sitter_min_ver}
+# Parser generator, only needed for :TSInstallFromGrammar
+Recommends:     tree-sitter-cli
 Suggests:       (python2-neovim if python2)
 Suggests:       (python3-neovim if python3)
 # XSel provides access to the system clipboard

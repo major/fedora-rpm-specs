@@ -1,10 +1,10 @@
-%define alphatag 20211220cvs
+%define alphatag 20221115cvs
 
 Summary: Reminder utility
 Name:    calendar
 Version: 1.37
-Release: 7.%{alphatag}%{?dist}
-License: BSD
+Release: 1.%{alphatag}%{?dist}
+License: BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:     http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/calendar
 
 # The source archive is generated with the export-calendar-source.sh
@@ -54,6 +54,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/calendar
 
 %changelog
+* Tue Nov 15 2022 David Cantrell <dcantrell@redhat.com> - 1.37-20221115cvs
+- Upgrade to calendar(1) from OpenBSD 7.2
+- Use SPDX license expression in the License tag
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-7.20211220cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

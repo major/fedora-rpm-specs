@@ -1,5 +1,5 @@
 Name: sysrepo
-Version: 2.1.84
+Version: 2.2.12
 Release: 1%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
@@ -127,6 +127,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Tue Nov 15 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.2.12-1
+- New version
+
 * Fri Jul 29 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.84-1
 - New version
 

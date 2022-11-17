@@ -14,7 +14,7 @@ https://hdmf.readthedocs.io}
 %global pypi_name hdmf
 
 Name:           python-hdmf
-Version:        3.4.6
+Version:        3.4.7
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 

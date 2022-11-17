@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 4
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -74,6 +74,7 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 
 ## upstream patches
 Patch0001:	0001-pulse-server-also-advance-read-pointer-in-underrun.patch
+Patch0002:	0002-audioadapter-perform-setup-again-after-a-PortConfig.patch
 
 ## upstreamable patches
 
@@ -617,6 +618,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Nov 15 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-4
+- Add patch to avoid crashes when switching profiles
+
 * Thu Nov 10 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-3
 - Add patch to make Telegram playback work again
 

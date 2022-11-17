@@ -36,6 +36,8 @@ to worry about undoing patches at the end of a test.
 rm -rf *.egg-info
 # Correct end of line encoding for README
 sed -i 's/\r$//' README.rst
+# Backport https://github.com/pytest-dev/pytest-mock/commit/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8
+sed -i "s/import py\.code//" tests/test_pytest_mock.py
 
 %build
 %py3_build

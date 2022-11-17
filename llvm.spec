@@ -418,10 +418,7 @@ rm %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
 # ghost presence
 touch %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
 
-%if %{without compat_build}
-cp -Rv ../cmake/Modules/* %{buildroot}%{_libdir}/cmake/llvm
-%endif
-
+cp -Rv ../cmake/Modules/* %{buildroot}%{pkg_libdir}/cmake/llvm
 
 %check
 # Disable check section on arm due to some kind of memory related failure.

@@ -1,8 +1,8 @@
 %global pypi_name pgcli
 
 Name:           %{pypi_name}
-Version:        3.4.1
-Release:        7%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD
@@ -17,10 +17,10 @@ BuildRequires:  pyproject-rpm-macros
 # Additional BuildRequires for tests, not in the package metadata. Versions
 # come from tox.ini in unreleased upstream sources. Note that upstream wants
 # pytest <= 3.0.7, and we will have to unpin it and hope for the best.
-BuildRequires:  python3dist(pytest) >= 2.7.0
+BuildRequires:  python3dist(pytest) >= 2.7
 BuildRequires:  python3dist(behave) >= 1.2.4
 BuildRequires:  python3dist(pexpect) >= 3.3
-BuildRequires:  python3dist(sshtunnel)
+BuildRequires:  python3dist(sshtunnel) >= 0.4
 
 %py_provides python3-%{pypi_name}
 
@@ -33,7 +33,7 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %pyproject_buildrequires -x keyring
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 %pyproject_wheel
@@ -46,11 +46,13 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %pytest
 
 %files -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.rst changelog.rst
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Thu Nov 03 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-1
+- Update to 3.5.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

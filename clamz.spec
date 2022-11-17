@@ -1,8 +1,8 @@
 Name:           clamz
 Version:        0.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Amazon Downloader
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://code.google.com/archive/p/clamz/
 Source0:        https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/clamz/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} UPDATE_MIME_DATABASE=: UPDATE_DESKTOP_DATABASE
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
+* Tue Nov 15 2022 David Cantrell <dcantrell@redhat.com> - 0.5-25
+- Change License tag to use SPDX license expression
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

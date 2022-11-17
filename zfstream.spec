@@ -4,7 +4,7 @@
 
 Name:           zfstream
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Library for reading and writing compressed and non-compressed files
 
 License:        LGPLv2+
@@ -82,6 +82,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 20041202-36
+- Rebuild (minizip-ng)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

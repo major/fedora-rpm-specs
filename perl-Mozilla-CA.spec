@@ -2,8 +2,8 @@ Name:           perl-Mozilla-CA
 # You do not need to back-port a new version for updating a list of the
 # certificates. They are taken from ca-certificates package instead
 # per bug #738383.
-Version:        20211001
-Release:        5%{?dist}
+Version:        20221114
+Release:        1%{?dist}
 Summary:        Mozilla's CA certificate bundle in PEM format
 # README:                       MPL-2.0
 ## Unbundled
@@ -13,7 +13,7 @@ License:        MPL-2.0
 URL:            https://metacpan.org/release/Mozilla-CA
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABH/Mozilla-CA-%{version}.tar.gz
 # Use a CA bundle from ca-certificates package, bug #738383
-Patch0:         Mozilla-CA-20211001-Redirect-to-ca-certificates-bundle.patch
+Patch0:         Mozilla-CA-20211114-Redirect-to-ca-certificates-bundle.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -25,7 +25,7 @@ BuildRequires:  ca-certificates
 BuildRequires:  perl(strict)
 BuildRequires:  perl(File::Spec)
 # Tests:
-BuildRequires:  perl(Test)
+BuildRequires:  perl(Test::More)
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       ca-certificates
 
@@ -48,10 +48,6 @@ with "%{_libexecdir}/%{name}/test".
 %patch0 -p1
 # Remove a bundled CA bundle for sure
 rm lib/Mozilla/CA/cacert.pem
-# Do not distribute Mozilla downloader, we take certificates from
-# ca-certificates package
-rm mk-ca-bundle.pl
-perl -i -ne 'print $_ unless m{^mk-ca-bundle\.pl$}' MANIFEST
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -86,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 20221114-1
+- 20221114 bump
+
 * Mon Nov 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 20211001-5
 - Package tests
 - Unify variable to macro

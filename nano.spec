@@ -7,14 +7,14 @@
 
 Summary:         A small text editor
 Name:            nano
-Version:         6.4
+Version:         7.0
 Release:         1%{?dist}
 License:         GPLv3+
 URL:             https://www.nano-editor.org
 
 Source0:         https://www.nano-editor.org/dist/latest/%{name}-%{version}.tar.xz
 Source1:         https://www.nano-editor.org/dist/latest/%{name}-%{version}.tar.xz.asc
-# gpg --keyserver pgp.mit.edu --recv-key BFD009061E535052AD0DF2150D28D4D2A0ACE884
+# gpg --keyserver keyserver.ubuntu.com --recv-key 168E6F4297BFD7A79AFD4496514BBE2EB8E1961F
 # gpg --output bensberg.pgp --armor --export bensberg@telfort.nl
 Source2:         bensberg.pgp
 
@@ -132,6 +132,10 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Tue Nov 15 2022 Lukáš Zaoral <lzaoral@redhat.com> - 7.0-1
+- new upstream release (#2142885)
+- update GPG signature key
+
 * Tue Aug 02 2022 Lukáš Zaoral <lzaoral@redhat.com> - 6.4-1
 - new upstream release (#2113894)
 

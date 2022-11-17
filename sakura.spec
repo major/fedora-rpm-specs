@@ -2,7 +2,7 @@
 %global build_ldflags %{build_ldflags} -flto
 
 Name:           sakura
-Version:        3.8.5
+Version:        3.8.6
 Release:        %autorelease
 Summary:        Terminal emulator based on GTK and VTE
 

@@ -1,11 +1,12 @@
 Name:           perl-Dancer
 Version:        1.3513
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Lightweight yet powerful web application framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dancer
 Source0:        http://cpan.metacpan.org/authors/id/B/BI/BIGPRESH/Dancer-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -113,6 +114,11 @@ your code.
 
 %prep
 %setup -q -n Dancer-%{version}
+# 10_error_dumper_without_clone.t fails with HTTP-Message-6.44, because
+# there were added dependency on Clone, so the test could not be executed.
+# BZ#2139414
+rm t/12_response/10_error_dumper_without_clone.t
+perl -i -ne 'print $_ unless m{^t/12_response/10_error_dumper_without_clone.t}' MANIFEST
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -134,6 +140,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 15 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.3513-15
+- Stop executing the test 10_error_dumper_without_clone.t (BZ#2139414)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3513-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

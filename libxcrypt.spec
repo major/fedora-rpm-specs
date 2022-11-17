@@ -158,7 +158,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.31
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -178,9 +178,22 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 
 BuildRequires:  fipscheck
 BuildRequires:  gcc
-BuildRequires:  glibc-devel           >= %{glibc_minver}
+BuildRequires:  glibc-devel                  >= %{glibc_minver}
 BuildRequires:  make
-BuildRequires:  perl-core
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Class::Struct)
+BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(if)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(open)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(:VERSION)               >= 5.14.0
+BuildRequires:  perl(warnings)
 
 %if %{without bootstrap}
 # Possibly not available during bootstrap.
@@ -554,6 +567,12 @@ done
 
 
 %changelog
+* Tue Nov 15 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-3
+- Explicitly list all needed build-time Perl modules
+
+* Tue Nov 15 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-2
+- Narrow down BuildRequires for the minimum needed Perl modules
+
 * Sun Nov 13 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-1
 - New upstream release
 

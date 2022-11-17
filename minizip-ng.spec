@@ -1,14 +1,11 @@
 Name:           minizip-ng
-Version:        3.0.2
-Release:        7%{?dist}
+Version:        3.0.7
+Release:        2%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        zlib
 URL:            https://github.com/nmoinvaz/%{name}
 Source0:        https://github.com/nmoinvaz/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# pkgconfig file must have full paths specified.
-Patch0:         minizip-ng-3.0.2-fix_pkgconfig.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -52,10 +49,10 @@ Development files for %{name} library.
 
 %build
 %cmake \
-  -DMZ_BUILD_TEST:BOOL=ON \
+  -DMZ_BUILD_TESTS:BOOL=ON \
   -DSKIP_INSTALL_BINARIES:BOOL=ON \
-  -DINSTALL_INC_DIR=%{_includedir}/%{name} \
-  -DZSTD_FORCE_FETCH=OFF
+  -DCMAKE_INSTALL_INCLUDEDIR=include/minizip \
+  -DMZ_FORCE_FETCH_LIBS:BOOL=OFF
 
 %cmake_build
 
@@ -67,20 +64,40 @@ Development files for %{name} library.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libminizip.so.3.0
-%{_libdir}/libminizip.so.3.0.2
+%{_libdir}/libminizip.so.3
+%{_libdir}/libminizip.so.%{version}
+
 
 
 %files devel
 %{_libdir}/libminizip.so
 %{_libdir}/pkgconfig/minizip.pc
 %{_libdir}/cmake/minizip/
-%{_includedir}/%{name}/mz*.h
-%{_includedir}/%{name}/unzip.h
-%{_includedir}/%{name}/zip.h
+%{_includedir}/minizip/mz*.h
+%{_includedir}/minizip/unzip.h
+%{_includedir}/minizip/zip.h
 
 
 %changelog
+* Mon Nov 14 2022 Julian Sikorski <belegdol@fedoraproject.org> - 3.0.7-2
+- Fix broken pkg-config file (RH #1998742)
+- Update %%cmake call to use current and supported variables
+
+* Fri Nov 04 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.7-1
+- Rebase to version 3.0.7
+
+* Fri Nov 04 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.6-1
+- Rebase to version 3.0.6
+
+* Fri Nov 04 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.5-1
+- Rebase to version 3.0.5
+
+* Fri Nov 04 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.4-1
+- Rebase to version 3.0.4
+
+* Fri Nov 04 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.3-1
+- Rebase to version 3.0.3
+
 * Thu Oct 06 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.0.2-7
 - Renaming the minizip package to minizip-ng
 - Fedora change dedicated to this: https://fedoraproject.org/wiki/Changes/MinizipRenaming

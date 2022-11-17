@@ -3,7 +3,7 @@
 %global libqat_soversion  3
 %global libusdm_soversion 0
 Name:             qatlib
-Version:          22.07.1
+Version:          22.07.2
 Release:          1%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
@@ -11,7 +11,7 @@ Summary:          Intel QuickAssist user space library
 License:          BSD and (BSD or GPLv2)
 URL:              https://github.com/intel/%{name}
 Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:    systemd gcc make autoconf automake libtool systemd-devel openssl-devel zlib-devel yasm
+BuildRequires:    systemd gcc make autoconf automake libtool systemd-devel openssl-devel zlib-devel nasm
 Requires(pre):    shadow-utils
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
@@ -95,6 +95,7 @@ exit 0
 %files         devel
 %{_libdir}/libqat.so
 %{_libdir}/libusdm.so
+%{_libdir}/pkgconfig/*.pc
 %{_includedir}/qat
 
 %files         tests
@@ -129,6 +130,9 @@ exit 0
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Tue Nov 15 2022 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 22.07.2-1
+- Update to qatlib 22.07.2
+
 * Thu Oct 20 2022 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 22.07.1-1
 - Update to qatlib 22.07.1
 

@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.0.1
-Release:       17%{?dist}
+Release:       18%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPLv1.1 or GPLv2+ or LGPLv2+
@@ -181,6 +181,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Tue Nov 15 2022 Lukas Javorsky <ljavorsk@redhat.com> - 5.0.1-18
+- Rebuild for minizip-ng soname bump
+
 * Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 5.0.1-17
 - Disable mingw for EL9
 

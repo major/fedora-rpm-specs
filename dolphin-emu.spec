@@ -24,7 +24,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -166,7 +166,7 @@ echo "%{_datadir}/%{name}/Sys/GC:" > font-licenses.txt
 cat Data/Sys/GC/font-licenses.txt >> font-licenses.txt
 
 #Fix for minizip install path
-sed -i 's|<unzip.h>|<%{minizippkg}/unzip.h>|' \
+sed -i 's|<unzip.h>|<minizip/unzip.h>|' \
     Source/Core/*/*.h \
     Source/Core/*/*.cpp \
     Source/Core/*/*/*.cpp
@@ -276,6 +276,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 5.0.16380-7
+- Rebuild (minizip-ng)
+
 * Thu Nov 10 2022 Jeremy Newton <alexjnewt AT hotmail DOT com> - 5.0.16380-6
 - Build against static cubeb
 

@@ -1,6 +1,6 @@
 Name:		libavtp
 Version:	0.2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	An AVTP protocol implementation
 
 License:	BSD
@@ -36,8 +36,6 @@ This package contains development files for %{name}.
 %check
 %meson_test
 
-%ldconfig_scriptlets
-
 %files
 %license LICENSE
 %{_libdir}/libavtp.so.*
@@ -50,6 +48,9 @@ This package contains development files for %{name}.
 
 
 %changelog
+* Tue Nov 15 2022 Simone Caronni <negativo17@gmail.com> - 0.2.0-3
+- Drop ldconfig_scriptlets macro.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

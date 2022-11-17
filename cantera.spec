@@ -48,7 +48,6 @@ BuildRequires:  gcc-gfortran
 
 %global scons scons%{?rhel:-3}
 
-
 %global common_description %{expand: \
  Cantera is a suite of object-oriented software tools for solving problems
  involving chemical kinetics, thermodynamics, and/or transport processes.

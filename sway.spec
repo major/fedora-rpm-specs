@@ -2,7 +2,7 @@
 
 Name:           sway
 Version:        1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -13,6 +13,8 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 
 # Fixes crash when destroying layer surfaces on removed output
 Patch0:         %{url}/pull/6820.patch#/sway-1.7-layer_shell-keep-output-non-NULL-wherever-possible.patch
+# Fixes crash in xdg-activation code
+Patch1:         %{url}/pull/7168.patch#/sway-1.7-Fix-crash-in-xdg_activation_v1.c.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
@@ -72,7 +74,7 @@ i3-compatible configuration.
 %package        wallpapers
 Summary:        Wallpapers for Sway
 BuildArch:      noarch
-License:        CC0
+License:        CC0-1.0
 
 %description    wallpapers
 Wallpaper collection provided with Sway
@@ -149,6 +151,10 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Mon Nov 14 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.7-4
+- Add upstream patch to fix crash in xdg-activation
+- Convert license to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

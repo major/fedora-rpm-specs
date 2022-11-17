@@ -1,5 +1,5 @@
 Name:		proxmark3
-Version:	4.14831
+Version:	4.15864
 Release:	3%{?dist}
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+
@@ -7,6 +7,7 @@ URL:		https://github.com/RfidResearchGroup/proxmark3
 Source0:	https://github.com/RfidResearchGroup/proxmark3/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:	make, gcc, g++, readline-devel, arm-none-eabi-gcc, arm-none-eabi-newlib, bzip2-devel, libatomic, openssl-devel, python3-devel, jansson-devel, bluez-libs-devel, qt5-qtbase-devel
 Requires:	bzip2-libs, readline, python3, bluez, qt5-qtbase
+ExcludeArch:	ppc64le s390x
 
 %description
 The Swiss Army Knife of RFID Research - RRG/Iceman repo
@@ -47,6 +48,10 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+
+* Mon Nov 14 2022 Marlin Soose <marlin.soose@laro.se> - 4.15864
+- Bumping package to v4.15864
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.14831-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

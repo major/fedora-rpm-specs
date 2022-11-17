@@ -1,5 +1,5 @@
 Name:           galera
-Version:        26.4.12
+Version:        26.4.13
 Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
@@ -152,6 +152,9 @@ sed -i 's/User=nobody/User=garb/g' %{buildroot}/usr/lib/systemd/system/garbd.ser
 
 
 %changelog
+* Tue Nov 15 2022 Michal Schorm <mschorm@redhat.com> - 26.4.13-1
+- Rebase to 26.4.13
+
 * Wed Aug 24 2022 Michal Schorm <mschorm@redhat.com> - 26.4.12-1
 - Rebase to 26.4.12
 

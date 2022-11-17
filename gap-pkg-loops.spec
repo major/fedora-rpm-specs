@@ -1,8 +1,8 @@
 %global pkgname loops
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.4.2
-Release:        2%{?dist}
+Version:        3.4.3
+Release:        1%{?dist}
 Summary:        Computing with quasigroups and loops
 
 License:        GPL-2.0-or-later
@@ -65,6 +65,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Nov 15 2022 Jerry James <loganjerry@gmail.com> - 3.4.3-1
+- Version 3.4.3
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-2
 - Clarify license of the doc subpackage
 

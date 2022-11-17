@@ -3,11 +3,19 @@
 
 Name:           wlroots
 Version:        0.15.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
-# - LGPLv2.1+
+# - HPND-sell-variant
+#   * protocol/drm.xml
+#   * protocol/wlr-data-control-unstable-v1.xml
+#   * protocol/wlr-foreign-toplevel-management-unstable-v1.xml
+#   * protocol/wlr-gamma-control-unstable-v1.xml
+#   * protocol/wlr-input-inhibitor-unstable-v1.xml
+#   * protocol/wlr-layer-shell-unstable-v1.xml
+#   * protocol/wlr-output-management-unstable-v1.xml
+# - LGPL-2.1-or-later
 #   * protocol/idle.xml
 #   * protocol/server-decoration.xml
 # Those files are processed to C-compilable files by the
@@ -30,6 +38,8 @@ Source3:        examples.meson.build
 Patch0:         Revert-layer-shell-error-on-0-dimension-without-anch.patch
 Patch1:         wlroots-0.15.1-wlr_output_layout_contains_point-handle-outputs-that.patch
 Patch2:         wlroots-0.15.1-xdg-activation-Deduplicate-token-creation-code.patch
+# wlroots/wlroots!3601
+Patch3:         wlroots-0.15.1-wlr_output_commit_state-Make-sure-to-clear-the-back-.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
@@ -127,6 +137,10 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Mon Nov 14 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.1-5
+- Backport upstream crash fix (#2142447)
+- Convert license to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

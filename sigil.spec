@@ -2,7 +2,7 @@
 
 Name:           sigil
 Version:        0.9.14
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        WYSIWYG ebook editor
 License:        GPLv3+
 URL:            https://sigil-ebook.com/
@@ -163,6 +163,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 0.9.14-15
+- Rebuild (minizip-ng)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.14-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

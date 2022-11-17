@@ -21,23 +21,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 ###############################################################################
-%global with_python2 1
-%global with_python3 1
-
-%if 0%{?fedora} || 0%{?rhel} >= 8
-# Python v2 Support dropped
-%global with_python2 0
-%endif
-
 %if 0%{?_module_build}
 %bcond_with tests
 %else
 # When bootstrapping Python, we cannot test this yet
 %bcond_without tests
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global with_python3 0
 %endif
 
 %global pypi_name apprise
@@ -47,98 +35,59 @@ Apprise is a Python package for simplifying access to all of the different
 notification services that are out there. Apprise opens the door and makes
 it easy to access:
 
-Apprise API, AWS SES, AWS SNS, Bark, Boxcar, ClickSend, DAPNET, DingTalk,
-Discord, E-Mail, Emby, Faast, FCM, Flock, Gitter, Google Chat, Gotify, Growl,
-Guilded, Home Assistant, IFTTT, Join, Kavenegar, KODI, Kumulos, LaMetric,
-Line, MacOSX, Mailgun, Mattermost, Matrix, Microsoft Windows, Microsoft Teams,
-MessageBird, MQTT, MSG91, MyAndroid, Nexmo, Nextcloud, NextcloudTalk, Notica,
-Notifico, ntfy, Office365, OneSignal, Opsgenie, PagerDuty, ParsePlatform,
-PopcornNotify, Prowl, Pushalot, PushBullet, Pushjet, Pushover, PushSafer,
-Reddit, Rocket.Chat, SendGrid, ServerChan, Signal, SimplePush, Sinch, Slack,
-SMTP2Go, Spontit, SparkPost, Super Toasty, Streamlabs, Stride, Syslog,
-Techulus Push, Telegram, Twilio, Twitter, Twist, XBMC, Vonage, Webex Teams}
+Apprise API, AWS SES, AWS SNS, Bark, BulkSMS, Boxcar, ClickSend, DAPNET,
+DingTalk, Discord, E-Mail, Emby, Faast, FCM, Flock, Gitter, Google Chat,
+Gotify, Growl, Guilded, Home Assistant, IFTTT, Join, Kavenegar, KODI, Kumulos,
+LaMetric, Line, MacOSX, Mailgun, Mattermost, Matrix, Microsoft Windows,
+Mastodon, Microsoft Teams, MessageBird, MQTT, MSG91, MyAndroid, Nexmo,
+Nextcloud, NextcloudTalk, Notica, Notifico, ntfy, Office365, OneSignal,
+Opsgenie, PagerDuty, ParsePlatform, PopcornNotify, Prowl, Pushalot, PushBullet,
+Pushjet, Pushover, PushSafer, Reddit, Rocket.Chat, SendGrid, ServerChan, Signal,
+SimplePush, Sinch, Slack, SMSEagle, SMTP2Go, Spontit, SparkPost, Super Toasty,
+Streamlabs, Stride, Syslog, Techulus Push, Telegram, Twilio, Twitter, Twist,
+XBMC, Vonage, Webex Teams}
 
 Name:           python-%{pypi_name}
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        MIT
 URL:            https://github.com/caronc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# this patch allows version of requests that ships with RHEL v7 to
-# correctly handle test coverage.  It also removes reference to a
-# extra check not supported in py.test in EPEL7 builds
-Patch0:         %{pypi_name}-rhel7-support.patch
-# CentOS/Rocky 7 and 8 ship with Click v6.7 which does not support the .stdout
+
+# RHEL/Rocky 8 ship with Click v6.7 which does not support the .stdout
 # directive used in the unit testing.  This patch just makes it so our package
 # continues to be compatible with these linux distributions
-Patch1:         %{pypi_name}-click67-support.patch
+Patch0:         %{pypi_name}-click67-support.patch
+
+# RHEL/Rocky 8 ship with Pytest v3.4.2 which does not support the
+# session_mocker fixture.  This patch removes the session_mocker
+# Patch thanks to Andreas Motl and his PR:
+#   - https://github.com/caronc/apprise/pull/763
+Patch1:         %{pypi_name}-pytest-session_mocker-removal.patch
+
+# RHEL/Rocky 8 ship with Pytest v3.4.2 which does not support the
+# tmp_path fixture.  This patch removes the macos testing as it
+# leverages this unavailabe fixture.
+# At the end of the day, the macos testing it is not needed by a
+# RHEL/Fedora environment anyway for obvious reasons.
+Patch2:         %{pypi_name}-no-macosx-testing.patch
+
 BuildArch:      noarch
 
 %description %{common_description}
 
-%if 0%{?with_python2}
-%package -n python2-%{pypi_name}
-Summary: A simple wrapper to many popular notification services used today
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-BuildRequires: python2-devel
-BuildRequires: python-requests
-BuildRequires: python2-requests-oauthlib
-BuildRequires: python-six
-BuildRequires: python2-click >= 5.0
-BuildRequires: python-markdown
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires: python-cryptography
-BuildRequires: python-babel
-BuildRequires: python-yaml
-%else
-BuildRequires: python2-cryptography
-BuildRequires: python2-babel
-BuildRequires: python2-yaml
-%endif
-
-Requires: python-requests
-Requires: python2-requests-oauthlib
-Requires: python-six
-Requires: python-markdown
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires: python-cryptography
-Requires: python-yaml
-%else
-Requires: python2-cryptography
-Requires: python2-yaml
-%endif
-
-%if %{with tests}
-BuildRequires: python-mock
-BuildRequires: python2-pytest-runner
-BuildRequires: python2-pytest
-
-%endif
-
-%description -n python2-%{pypi_name} %{common_description}
-%endif
-
 %package -n %{pypi_name}
 Summary: Apprise CLI Tool
 
-%if 0%{?with_python3}
 Requires: python%{python3_pkgversion}-click >= 5.0
 Requires: python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
-%endif
-
-%if 0%{?with_python2}
-Requires: python2-click >= 5.0
-Requires: python2-%{pypi_name} = %{version}-%{release}
-%endif
 
 %description -n %{pypi_name}
 An accompanied CLI tool that can be used as part of Apprise
 to issue notifications from the command line to you favorite
 services.
 
-%if 0%{?with_python3}
 %package -n python%{python3_pkgversion}-%{pypi_name}
 Summary: A simple wrapper to many popular notification services used today
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
@@ -147,18 +96,23 @@ BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
 BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-requests-oauthlib
-BuildRequires: python%{python3_pkgversion}-six
 BuildRequires: python%{python3_pkgversion}-click >= 5.0
 BuildRequires: python%{python3_pkgversion}-markdown
 BuildRequires: python%{python3_pkgversion}-yaml
 BuildRequires: python%{python3_pkgversion}-babel
 BuildRequires: python%{python3_pkgversion}-cryptography
+BuildRequires: python%{python3_pkgversion}-paho-mqtt
 Requires: python%{python3_pkgversion}-requests
 Requires: python%{python3_pkgversion}-requests-oauthlib
-Requires: python%{python3_pkgversion}-six
 Requires: python%{python3_pkgversion}-markdown
 Requires: python%{python3_pkgversion}-cryptography
 Requires: python%{python3_pkgversion}-yaml
+Recommends: python%{python3_pkgversion}-paho-mqtt
+
+%if 0%{?rhel} && 0%{?rhel} <= 8
+BuildRequires: python%{python3_pkgversion}-dataclasses
+Requires: python%{python3_pkgversion}-dataclasses
+%endif
 
 %if %{with tests}
 %if 0%{?rhel} >= 9
@@ -168,97 +122,69 @@ Requires: python%{python3_pkgversion}-yaml
 BuildRequires: python%{python3_pkgversion}-mock
 %endif
 BuildRequires: python%{python3_pkgversion}-pytest
+BuildRequires: python%{python3_pkgversion}-pytest-mock
 BuildRequires: python%{python3_pkgversion}-pytest-runner
+BuildRequires: python%{python3_pkgversion}-pytest-cov
+BuildRequires: python%{python3_pkgversion}-pytest-xdist
 %endif
 
 %description -n python%{python3_pkgversion}-%{pypi_name} %{common_description}
-%endif
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-%if 0%{?rhel} && 0%{?rhel} <= 7
-# rhel7 older package work-arounds
-%patch0 -p1
-# rhel7 doesn't like the new asyncio syntax
-rm -f apprise/py3compat/asyncio.py
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} <= 8
-# click v6.7 unit testing support
+# Rocky/RHEL 8 click v6.7 unit testing support
+%patch0 -p1
+# Rocky/RHEL 8 Drop session_mocker support
 %patch1 -p1
+# Rocky/RHEL 8 Lose MacOSX Testing
+%patch2 -p1
 %endif
 
 %if 0%{?rhel} >= 9
-# Nothing to do under normal circumstances; this line here allows legacy
-# copies of Apprise to still build against this one
-find test -type f -name '*.py' -exec \
-   sed -i -e 's|^import mock|from unittest import mock|g' {} \;
+# Do nothing
 %else
-# support python-mock (remain backwards compatible with older distributions)
+# CentOS 8.x requires python-mock (cororlates with import ab)ve
 find test -type f -name '*.py' -exec \
    sed -i -e 's|^from unittest import mock|import mock|g' {} \;
 %endif
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-%if 0%{?with_python3}
 %py3_build
-%endif
 
 %install
-%if 0%{?with_python2}
-%py2_install
-%endif
-%if 0%{?with_python3}
 %py3_install
-%endif
 
 install -p -D -T -m 0644 packaging/man/%{pypi_name}.1 \
    %{buildroot}%{_mandir}/man1/%{pypi_name}.1
 
 %if %{with tests}
 %check
-%if 0%{?with_python2}
-LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python2_sitelib} py.test
-%endif
-%if 0%{?with_python3}
 LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version}
 %endif
-%endif
 
-%if 0%{?with_python2}
-%files -n python2-%{pypi_name}
-%license LICENSE
-%doc README.md
-%{python2_sitelib}/%{pypi_name}
-%exclude %{python2_sitelib}/%{pypi_name}/cli.*
-%{python2_sitelib}/*.egg-info
-%endif
-
-%if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
 %doc README.md
 %{python3_sitelib}/%{pypi_name}
 %exclude %{python3_sitelib}/%{pypi_name}/cli.*
 %{python3_sitelib}/*.egg-info
-%endif
 
 %files -n %{pypi_name}
 %{_bindir}/%{pypi_name}
 %{_mandir}/man1/%{pypi_name}.1*
-
-%if 0%{?with_python3}
 %{python3_sitelib}/%{pypi_name}/cli.*
-%endif
-
-%if 0%{?with_python2}
-%{python2_sitelib}/%{pypi_name}/cli.*
-%endif
 
 %changelog
+* Tue Nov 15 2022 Chris Caron <lead2gold@gmail.com> - 1.2.0-1
+- Updated to v1.2.0
+
+* Sat Oct  8 2022 Chris Caron <lead2gold@gmail.com> - 1.1.0-1
+- Updated to v1.1.0
+
+* Fri Oct  7 2022 Chris Caron <lead2gold@gmail.com> - 1.0.0-3
+- Python 2 Support dropped
+
 * Wed Aug 31 2022 Chris Caron <lead2gold@gmail.com> - 1.0.0-2
 - Rebuilt for RHEL9 Support
 

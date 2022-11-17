@@ -1,10 +1,10 @@
 Name:           dgit
-Version:        10.0
+Version:        10.1
 Release:        1%{?dist}
 Summary:        Integration between git and Debian-style archives
 License:        GPLv3+
 URL:            https://browse.dgit.debian.org/dgit.git/
-Source0:        https://http.debian.net/debian/pool/main/d/%{name}/%{name}_%{version}.tar.gz
+Source0:        https://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.gz
 BuildRequires:  perl-generators
 BuildRequires:  perl-podlators
 BuildRequires:  make
@@ -61,6 +61,9 @@ make install DESTDIR="%{buildroot}" \
 %license debian/copyright
 
 %changelog
+* Tue Nov 15 2022 Filipe Rosset <rosset.filipe@gmail.com> - 10.1-1
+- Update to 10.1 fixes rhbz#2142228
+
 * Fri Sep 09 2022 Filipe Rosset <rosset.filipe@gmail.com> - 10.0-1
 - Update to 10.0 fixes rhbz#2124070
 

@@ -1,5 +1,5 @@
 %global debug_package %{nil}
-%global firmware_release 143
+%global firmware_release 144
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
@@ -374,6 +374,7 @@ sed \
 	-i -e '/^amdgpu/d' \
 	-i -e '/^radeon/d' \
 	-i -e '/^i915/d' \
+	-i -e '/^iwlwifi/d' \
 	-i -e '/^nvidia\/g/d' \
 	-i -e '/^nvidia\/tu/d' \
 	-i -e '/^libertas\/sd8686/d' \
@@ -528,6 +529,9 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Tue Nov 15 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-144
+- Fix regression in shipping iwlwifi firmware
+
 * Thu Nov 10 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-143
 - Update to upstream 20221109 release
 - Update firmware file for Intel Bluetooth 9462/9560/AX20x/AX21x

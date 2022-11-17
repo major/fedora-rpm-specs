@@ -1,11 +1,11 @@
 Name:           python-matrix-nio
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        A Matrix client library
 
 License:        ISC and ASL 2.0
 URL:            https://pypi.python.org/pypi/matrix-nio
-Source0:        %{pypi_source matrix-nio}
+Source0:        %{pypi_source matrix_nio}
 
 BuildArch:      noarch
 
@@ -21,11 +21,12 @@ enable end-to-end encryption (E2EE).}
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-toml
+BuildRequires:  python3-logbook
 
 %description -n python3-matrix-nio %_description
 
 %prep
-%autosetup -n matrix-nio-%{version}
+%autosetup -n matrix_nio-%{version}
 # Update BRs
 sed \
     -e 's/^aiohttp-socks.*/aiohttp-socks = "*"/' \

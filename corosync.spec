@@ -17,13 +17,11 @@
 
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
-Version: 3.1.6
-Release: 4%{?gitver}%{?dist}
+Version: 3.1.7
+Release: 1%{?gitver}%{?dist}
 License: BSD
 URL: http://corosync.github.io/corosync/
 Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}%{?gittarver}.tar.gz
-
-Patch0: logrotate-Use-copytruncate-method-by-default.patch
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -73,7 +71,6 @@ BuildRequires: make
 
 %prep
 %setup -q -n %{name}-%{version}%{?gittarver}
-%patch0 -p1
 
 %build
 %if %{with runautogen}
@@ -292,6 +289,9 @@ network splits)
 %endif
 
 %changelog
+* Tue Nov 15 2022 Jan Friesse <jfriesse@redhat.com> - 3.1.7-1
+- New upstream release
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

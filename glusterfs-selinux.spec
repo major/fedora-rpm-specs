@@ -5,12 +5,14 @@
 
 Name:		glusterfs-selinux
 Version:	2.0.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Glusterfs targeted SELinux policy
 
 License:	GPLv2
 URL:		https://github.com/gluster/glusterfs-selinux
 Source0:	%{name}-%{version}.tar.gz
+
+Patch:		%{url}/pull/28.patch#/001-anon-inode.patch
 
 BuildArch:      noarch
 Requires:       selinux-policy-%{selinuxtype}
@@ -24,7 +26,7 @@ SELinux targeted policy modules for glusterfs
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 
 %build
@@ -55,11 +57,14 @@ fi
 
 %files
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 %license COPYING
 
 
 %changelog
+* Fri Sep 09 2022 Ondrej Mosnáček <omosnacek@gmail.com> - 2.0.1-8
+- Apply patch for upcoming anon_inode support in SELinux policy
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

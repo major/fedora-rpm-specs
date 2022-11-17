@@ -2,7 +2,7 @@
 Summary: Off-The-Record Messaging library and toolkit
 Name: libotr
 Version: 4.1.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPLv2 and LGPLv2
 Source0: http://otr.cypherpunks.ca/%{name}-%{version}.tar.gz
 Url: http://otr.cypherpunks.ca/
@@ -17,7 +17,8 @@ BuildRequires: libgcrypt-devel >= 1.2.0, libgpg-error-devel
 Buildrequires: libtool automake autoconf
 %endif
 
-Patch1: libotr-4.1.1-versioning.patch
+Patch: libotr-4.1.1-versioning.patch
+Patch: libotr-4.1.1-socket-h.patch
 
 %description
 Off-the-Record Messaging Library and Toolkit
@@ -34,8 +35,7 @@ Conflicts: libotr3-devel
 The devel package contains the libotr library and include files.
 
 %prep
-%setup -q
-%patch1 -p1
+%autosetup -p1
 
 %if %{snapshot}
 aclocal
@@ -75,6 +75,11 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Tue Nov 15 2022 Stephen Gallagher <sgallagh@redhat.com> - 4.1.1-16
+- Fix FTBFS: Add missing include to client test
+- Resolves: rhbz#2113487
+- Drop unused patches
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

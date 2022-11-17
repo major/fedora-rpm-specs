@@ -1,6 +1,6 @@
 Name:           sasutils
-Version:        0.3.12
-Release:        4%{?dist}
+Version:        0.3.13
+Release:        1%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Mon Nov 14 2022 Stephane Thiell <sthiell@stanford.edu> 0.3.13-1
+- update version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

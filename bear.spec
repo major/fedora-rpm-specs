@@ -47,8 +47,15 @@ tooling.
 for f in $(ls test/bin/); do
     sed -i "s|^#\!/usr/bin/env\s\+python\s\?$|#!%{__python3}|" test/bin/$f
 done
+%ifarch s390x
+# Dereferences a null pointer in some grpc routines; this is nontrivial to
+# debug, but any assistance in investigating it is welcome. In case this is a
+# grpc bug, we should check to see if this is fixed when grpc is updated.
+#
+# https://bugzilla.redhat.com/show_bug.cgi?id=2127458
+rm -vf test/cases/intercept/valgrind/shell_commands_intercepted.sh
+%endif
 
-# Functional tests are broken for some unknown reason, disable for now.
 %cmake -DENABLE_FUNC_TESTS=ON -DENABLE_UNIT_TESTS=ON
 %cmake_build
 

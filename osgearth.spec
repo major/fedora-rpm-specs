@@ -4,7 +4,7 @@
 
 Name:          osgearth
 Version:       3.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Dynamic map generation toolkit for OpenSceneGraph
 
 License:       LGPLv3 with exceptions
@@ -279,6 +279,9 @@ cp -a tests %{buildroot}%{_datadir}/%{name}/tests
 
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 3.3-2
+- Rebuild (geos)
+
 * Mon Nov 14 2022 Sandro Mani <manisandro@gmail.com> - 3.3-1
 - Update to 3.3
 

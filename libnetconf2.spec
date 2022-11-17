@@ -1,5 +1,5 @@
 Name: libnetconf2
-Version: 2.1.18
+Version: 2.1.25
 Release: 1%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
@@ -53,6 +53,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Wed Nov 09 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.25-1
+- New upstream version
+
 * Fri Jul 29 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.18-1
 - New upstream version
 - New dependency pam-devel

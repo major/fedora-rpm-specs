@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        6.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -245,6 +245,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 6.15-3
+- Fix window icon on Wayland
+
 * Thu Nov 10 2022 Sandro Mani <manisandro@gmail.com> - 6.15-2
 - Re-add pgadmin4_username.patch
 

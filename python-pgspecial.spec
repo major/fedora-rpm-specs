@@ -1,5 +1,5 @@
 Name:           python-pgspecial
-Version:        1.13.1
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Python implementation of postgres meta (backslash) commands
 
@@ -7,10 +7,6 @@ License:        BSD-3-Clause
 URL:            https://www.dbcli.com
 Source0:        %{pypi_source pgspecial}
 BuildArch:      noarch
-
-# Add @dbtest decorator for test_slash_dp_pattern_schema
-# https://github.com/dbcli/pgspecial/pull/126
-Patch:          https://github.com/dbcli/pgspecial/pull/126.patch
 
 BuildRequires:  python3-devel
 

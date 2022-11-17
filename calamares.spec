@@ -4,7 +4,7 @@
 #global prerelease beta2
 
 # For rpmdev-bumpspec and releng scripts
-%global baserelease 1
+%global baserelease 2
 
 # do not use QtWebEngine because it no longer works with QtWebEngine >= 5.11
 # (it now refuses to run as root unless "export QTWEBENGINE_DISABLE_SANDBOX=1")
@@ -360,6 +360,9 @@ EOF
 
 
 %changelog
+* Tue Nov 15 2022 Richard Shaw <hobbes1069@gmail.com> - 3.2.61-2
+- Rebuild for yaml-cpp 0.7.0.
+
 * Sat Nov 12 2022 Neal Gompa <ngompa@fedoraproject.org> - 3.2.61-1
 - Update to 3.2.61
 

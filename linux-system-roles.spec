@@ -30,7 +30,7 @@ Name: linux-system-roles
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
 Version: 1.22.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -193,7 +193,7 @@ Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 %global rolename22 ad_integration
 %deftag 22 0.0.1
 
-%global mainid 49db00dddab301cc55bd4a3708c3f201567f645b
+%global mainid f13906e3c3f005570d160d0361fb704828527c6f
 Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
 Source1: %{archiveurl1}
 Source2: %{archiveurl2}
@@ -513,7 +513,8 @@ for role in %{rolenames}; do
     includes="$includes --include $role"
 %if 0%{?rhel}
     # we vendor-in all of the dependencies on rhel, so remove them
-    rm -f "$role/meta/requirements.yml" "$role/meta/collection-requirements.yml"
+    rm -f "$role/meta/requirements.yml" "$role/meta/collection-requirements.yml" \
+      "$role/tests/collection-requirements.yml"
 %endif
 done
 
@@ -759,6 +760,11 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Nov 11 2022 Rich Megginson <rmeggins@redhat.com> - 1.22.0-5
+- use latest release_collection.py which generates .ansible-lint, .yamllint.yml
+  to suppress line length warnings about collection
+- support tests/collection-requirements.yml on EL by removing it
+
 * Tue Nov 08 2022 Sergei Petrosian <spetrosi@redhat.com> - 1.22.0-4
 - Fix issue with package update introduce with changing symlink to directory
   Resolves:rhbz#2141152
