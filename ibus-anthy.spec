@@ -18,9 +18,9 @@
 
 Name:           ibus-anthy
 Version:        1.5.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Anthy engine for IBus input platform
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
 Source0:        https://github.com/ibus/ibus-anthy/releases/download/%{version}/%{name}-%{version}.tar.gz
 
@@ -156,6 +156,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.14-8
+- Migrate license tag to SPDX
+
 * Wed Aug 03 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.14-7
 - Change metainfo icon from SVG to PNG file
 

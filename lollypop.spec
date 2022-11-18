@@ -4,7 +4,7 @@
 
 Name:           lollypop
 Version:        1.4.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music player for GNOME
 License:        GPLv3+
 URL:            https://gitlab.gnome.org/World/lollypop
@@ -20,7 +20,7 @@ BuildRequires:  intltool
 BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  pkgconfig(pygobject-3.0) >= 3.29.1
-BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libhandy-1) >= 1.5
 Requires:       gdk-pixbuf2
 Requires:       gstreamer1-plugins-base
@@ -47,6 +47,7 @@ Lollypop is a new GNOME music playing application.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+sed -i -e 's|libsoup-2.4|libsoup-3.0|' meson.build
 
 %build
 %meson
@@ -82,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Wed Nov 16 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.36-2
+- replaced BR libsoup-2.4 by libsoup-3.0
+
 * Mon Nov 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.36-1
 - Update to 1.4.36
 

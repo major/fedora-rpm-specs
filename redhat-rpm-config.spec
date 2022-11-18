@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 233
+%global baserelease 234
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -221,6 +221,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Fri Jun 24 2022 Tom Stellard <tstellar@redhat.com> - 234-1
+- Remove unsupported arches from rpmrc
+
 * Fri Nov  4 2022 Florian Weimer <fweimer@redhat.com> - 233-1
 - Set -g when building Vala applications
 

@@ -1,5 +1,5 @@
 Name:           libnftnl
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Wed Nov 16 2022 Phil Sutter <psutter@redhat.com> - 1.2.4-1
+- new version 1.2.4
+
 * Wed Aug 10 2022 Phil Sutter <psutter@redhat.com> - 1.2.3-1
 - New version 1.2.3
 

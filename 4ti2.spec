@@ -1,11 +1,16 @@
 Name:           4ti2
 Version:        1.6.9
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
 
-License:        GPL-2.0-or-later
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in the PDF manual.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 URL:            https://4ti2.github.io/
 Source0:        https://github.com/4ti2/4ti2/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz
 Source1:        4ti2.module.in
@@ -64,6 +69,13 @@ mv -f NEWS.utf8 NEWS
 # Update the C++ standard
 sed -i 's/c++0x/c++11/g' configure
 
+# Silence "egrep is obsolescent" warnings
+for f in $(grep -Frl egrep src/groebner test); do
+  sed -i.orig 's/egrep/grep -E/g' $f
+  touch -r $f.orig $f
+  rm $f.orig
+done
+
 %build
 %configure --enable-shared --disable-static
 
@@ -81,8 +93,8 @@ export LD_LIBRARY_PATH=$PWD/src/4ti2/.libs:$PWD/src/fiber/.libs:$PWD/src/groebne
 pushd doc
 make update-manual
 bibtex 4ti2_manual
-pdflatex 4ti2_manual
-pdflatex 4ti2_manual
+pdflatex -interaction=batchmode 4ti2_manual
+pdflatex -interaction=batchmode 4ti2_manual
 popd
 
 %install
@@ -130,6 +142,10 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-12
+- Silence "egrep is obsolescent" warnings from the scripts
+- Update license to reflect embedded fonts in the PDF manual
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-11
 - Convert License tag to SPDX
 

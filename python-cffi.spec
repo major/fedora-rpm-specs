@@ -1,14 +1,19 @@
 Name:           python-cffi
 %global general_version 1.15.1
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Foreign Function Interface for Python to call C code
 License:        MIT
 URL:            https://cffi.readthedocs.org/
-Source0:        %{pypi_source cffi}
+Source:         https://foss.heptapod.net/pypy/cffi/-/archive/v%{version}/cffi-v%{version}.tar.bz2
 
 # Adjust tests for a last minute Python 3.11 change in the traceback format 
 Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/113.patch
+
+# Drop usage of the deprecated py.test package
+Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/115.patch
+# Drop usage of the deprecated py.code package
+Patch:          https://foss.heptapod.net/pypy/cffi/-/merge_requests/116.patch
 
 BuildRequires:  make
 BuildRequires:  libffi-devel
@@ -16,8 +21,6 @@ BuildRequires:  gcc
 
 # For tests:
 BuildRequires:  gcc-c++
-
-%?python_enable_dependency_generator
 
 %description
 Foreign Function Interface for Python, providing a convenient and
@@ -31,7 +34,6 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pycparser
-%{?python_provide:%python_provide python3-cffi}
 
 %description -n python3-cffi
 Foreign Function Interface for Python, providing a convenient and
@@ -46,7 +48,7 @@ BuildArch:      noarch
 Documentation for CFFI, the Foreign Function Interface for Python.
 
 %prep
-%autosetup -p1 -n cffi-%{general_version}%{?prerel}
+%autosetup -p1 -n cffi-v%{general_version}%{?prerel}
 
 %build
 %py3_build
@@ -62,7 +64,7 @@ rm build/html/.buildinfo
 PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m pytest c/ testing/
 
 %files -n python3-cffi
-%doc PKG-INFO
+%doc README.md
 %license LICENSE
 %{python3_sitearch}/cffi/
 %{python3_sitearch}/_cffi_backend.*.so
@@ -72,6 +74,10 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m pytest c/ testing/
 %doc doc/build/html
 
 %changelog
+* Mon Nov 14 2022 Miro Hrončok <mhroncok@redhat.com> - 1.15.1-3
+- Fix build with pytest 7.2
+- Fixes: rhbz#2142063
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

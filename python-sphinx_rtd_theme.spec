@@ -4,19 +4,19 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        1.0.0
-Release:        8%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 License:        MIT
-URL:            https://github.com/rtfd/%{srcname}
-Source0:        https://github.com/rtfd/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/readthedocs/%{srcname}/
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # The koji builders do not have network access, and this file is not included
 # in any Fedora package, so we retrieve it for offline use.
-Source1:        https://docs.readthedocs.io/en/latest/objects.inv
+Source:         https://docs.readthedocs.io/en/latest/objects.inv
 # Remove all traces of html5shiv.  We have no interest in supporting ancient
 # versions of Internet Explorer.
-Patch0:         %{name}-html5shiv.patch
+Patch:          %{name}-html5shiv.patch
 
 BuildArch:      noarch
 
@@ -72,7 +72,7 @@ readthedocs.org.
 # Make theme work with docutils 0.18+ in Fedora 37+
 # This is not officially supported yet, tracked upstram in:
 # https://github.com/readthedocs/sphinx_rtd_theme/issues/1302
-sed -i "s|docutils<0.18|docutils<0.19|" setup.py
+sed -i "s|docutils <0.18|docutils <0.20|" setup.cfg
 
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.readthedocs\.io/en/stable/', \)None|\1'%{SOURCE1}'|" \
@@ -171,6 +171,8 @@ grep 'format("woff2\?")' \
 %lang(et) %{python3_sitelib}/%{srcname}/locale/et/
 %lang(fa_IR) %{python3_sitelib}/%{srcname}/locale/fa_IR/
 %lang(fr) %{python3_sitelib}/%{srcname}/locale/fr/
+%lang(hr) %{python3_sitelib}/%{srcname}/locale/hr/
+%lang(hu) %{python3_sitelib}/%{srcname}/locale/hu/
 %lang(it) %{python3_sitelib}/%{srcname}/locale/it/
 %lang(lt) %{python3_sitelib}/%{srcname}/locale/lt/
 %lang(nl) %{python3_sitelib}/%{srcname}/locale/nl/
@@ -189,6 +191,10 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Wed Nov 09 2022 Karolina Surma <ksurma@redhat.com> - 1.1.1-1
+- Update to the new upstream version
+- Relax the python-docutils version requirement to <0.20
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

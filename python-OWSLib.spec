@@ -65,7 +65,10 @@ sed -r -i 's/[-]-cov[^[:blank:]]*[[:blank:]][^[[:blank:]]+//g' tox.ini
 #
 # Don’t generate twine dependency, which is just for the upstream maintainer
 # uploading to PyPI.
-sed -r '/^(flake8|pytest-cov|pandoc|coverage|coveralls|twine)\b/d' \
+sed -r -e '/^(flake8|pytest-cov|pandoc|coverage|coveralls|twine)\b/d' \
+%if %{without doc_pdf}
+    -e '/^(ipykernel|nbconvert|.*sphinx)/d' \
+%endif
     requirements-dev.txt | tee requirements-dev-filtered.txt
 
 # We don’t need shebangs in the examples. The pattern of selecting files

@@ -32,10 +32,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.5
-%global specversion 0.1.rc1
+%global specversion 0.2.rc2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 844c0640d99780fd7c98ec0f0fa7ccf806cbee24
+%global commit d3699a6216bdf59de6f416ed73bc1bc9ca727dc2
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -217,8 +217,6 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 
 # upstream commits
-
-Patch0:        0001-Tests-Fix-running-pcmk__procfs_pid2path_test-on-i686.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -810,6 +808,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed Nov 16 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.2.rc2
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc2,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.5-rc2
+
 * Wed Oct 26 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.1.rc1
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc1,
   for full details, see included ChangeLog file or

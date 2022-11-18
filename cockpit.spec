@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPLv2+
 URL:            https://cockpit-project.org/
 
-Version:        279
+Version:        280
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -429,6 +429,7 @@ authentication via sssd/FreeIPA.
 # created in %post, so that users can rm the files
 %ghost %{_sysconfdir}/issue.d/cockpit.issue
 %ghost %{_sysconfdir}/motd.d/cockpit
+%ghost %attr(0644, root, root) %{_sysconfdir}/cockpit/disallowed-users
 %dir %{_datadir}/cockpit/motd
 %{_datadir}/cockpit/motd/update-motd
 %{_datadir}/cockpit/motd/inactive.motd
@@ -477,10 +478,13 @@ if [ -x %{_sbindir}/selinuxenabled ]; then
 fi
 
 # set up dynamic motd/issue symlinks on first-time install; don't bring them back on upgrades if admin removed them
+# disable root login on first-time install; so existing installations aren't changed
 if [ "$1" = 1 ]; then
     mkdir -p /etc/motd.d /etc/issue.d
     ln -s ../../run/cockpit/motd /etc/motd.d/cockpit
     ln -s ../../run/cockpit/motd /etc/issue.d/cockpit.issue
+    printf "# List of users which are not allowed to login to Cockpit\nroot\n" > /etc/cockpit/disallowed-users
+    chmod 644 /etc/cockpit/disallowed-users
 fi
 
 %tmpfiles_create cockpit-tempfiles.conf
@@ -660,6 +664,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 16 2022 Packit <hello@packit.dev> - 280-1
+- tools: Disallow root login by default
+
+
 * Mon Nov 07 2022 Packit <hello@packit.dev> - 279-1
 - Dark theme support
 

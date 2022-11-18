@@ -7,7 +7,7 @@
 
 Name:           moodle
 Version:        4.0.5
-Release:       	1%{?dist}
+Release:       	2%{?dist}
 Summary:        A Course Management System
 
 License:        GPLv2+
@@ -45,6 +45,10 @@ Requires(preun): systemd
 Requires(postun): systemd
 
 Provides: bundled(php-tcpdf)
+Provides: bundled(php-google-apiclient1)
+
+Provides: php-google-apiclient1 = 1.1.7-14
+Obsoletes: php-google-apiclient1 < 1.1.7-14
 
 %description
 Moodle is a course management system (CMS) - a free, Open Source software
@@ -174,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Wed Nov 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-2
+- Fix php-google-apiclient1 requirements.
+
 * Mon Nov 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-1
 - 4.0.5
 

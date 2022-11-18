@@ -2,16 +2,15 @@
 %global uuid        %{extension}@fthx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        11
-Release:        4%{?dist}
+Version:        12
+Release:        1%{?dist}
 Summary:        GNOME Shell extension for no overview at start-up
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://extensions.gnome.org/extension/4099/no-overview/
 Source0:        https://extensions.gnome.org/extension-data/no-overviewfthx.v%{version}.shell-extension.zip
 Source1:        https://raw.githubusercontent.com/fthx/no-overview/main/LICENSE#/%{extension}-LICENSE
 Source2:        https://raw.githubusercontent.com/fthx/no-overview/main/README.md#/%{extension}-README.md
 #Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 BuildArch:      noarch
 # rhbz#2001561 Delete to require gnome-shell-extension-common
 #Requires:       gnome-shell-extension-common
@@ -44,6 +43,10 @@ cp -rp *.js metadata.json \
 
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 12-1
+- Migrate license tag to SPDX
+- Bump to 12
+
 * Sat Aug 13 2022 Takao Fujiwara <tfujiwar@redhat.com> - 11-4
 - Add gnome-shell-43
 

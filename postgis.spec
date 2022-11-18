@@ -15,7 +15,7 @@
 
 Name:          postgis
 Version:       3.3.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPLv2+
 
@@ -404,6 +404,9 @@ fi
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.3.2-2
+- Rebuild for new PostgreSQL 15
+
 * Mon Nov 14 2022 Sandro Mani <manisandro@gmail.com> - 3.3.2-1
 - Update to 3.3.2
 

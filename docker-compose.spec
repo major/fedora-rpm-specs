@@ -1,11 +1,13 @@
 Name:           docker-compose
 Version:        1.29.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Multi-container orchestration for Docker
 License:        ASL 2.0
 URL:            https://github.com/docker/compose
 Source0:        %pypi_source
 BuildArch:      noarch
+
+Patch:          pytest-7.2-compatibility.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -106,6 +108,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} --verbose te
 
 
 %changelog
+* Wed Nov 16 2022 Lumír Balhar <lbalhar@redhat.com> - 1.29.2-7
+- Fix compatibility with pytest 7.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

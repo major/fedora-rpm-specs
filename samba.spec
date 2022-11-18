@@ -4311,6 +4311,7 @@ fi
 %changelog
 * Tue Nov 15 2022 Guenther Deschner <gdeschner@redhat.com> - 4.17.3-0
 - resolves: #2142959 - Update to version 4.17.3
+- resolves: #2140960, #2143117 - Security fixes for CVE-2022-42898
 
 * Wed Nov 02 2022 Pavel Filipenský <pfilipen@redhat.com> - 4.17.2-1
 - Always add epoch to samba_depver to fix osci.brew-build.rpmdeplint.functional

@@ -1,7 +1,7 @@
 Name:           fop
 Summary:        XSL-driven print formatter
-Version:        2.7
-Release:        4%{?dist}
+Version:        2.8
+Release:        2%{?dist}
 # ASL 1.1:
 # several files in fop-core/src/main/resources/org/apache/fop/render/awt/viewer/resources
 # rest is ASL 2.0
@@ -11,10 +11,9 @@ Source0:        https://www.apache.org/dist/xmlgraphics/%{name}/source/%{name}-%
 Source1:        %{name}.script
 Source2:        batik-pdf-MANIFEST.MF
 Source4:        https://www.apache.org/licenses/LICENSE-1.1.txt
-#Patch0:        fop-xmlunit.patch
 Patch1:		0001-Main.patch
 Patch2:		0002-Use-sRGB.icc-color-profile-from-colord-package.patch
-Patch4:         0004-Port-to-QDox-2.0.patch
+Patch3:         0003-Port-to-QDox-2.0.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -119,6 +118,12 @@ cp -rp target/xmvn-apidocs/* %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Wed Nov 16 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.8-2
+- Build from cleaned up tarball
+
+* Wed Nov 16 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.8-1
+- Update to 2.8
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -129,7 +134,7 @@ cp -rp target/xmvn-apidocs/* %{buildroot}%{_javadocdir}/%{name}
 - Rebuilt for java-17-openjdk as system jdk
 
 * Thu Jan 27 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.7-1
-- Update to 2.6
+- Update to 2.7
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

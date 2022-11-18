@@ -1,8 +1,8 @@
 Name:           perl-Type-Tiny
 Version:        2.000001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Type-Tiny-%{version}.tar.gz
 BuildArch:      noarch
@@ -132,7 +132,7 @@ BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Type::Tie)
 %endif
 # N/A in Fedora: BuildRequires:  perl(Types::ReadOnly)
-# N/A in Fedora: BuildRequires:  perl(Type::Tiny::XS)
+BuildRequires:  perl(Type::Tiny::XS)
 %if !%{defined perl_bootstrap}
 # Build-cycle: perl-Types-Path-Tiny → perl-Type-Tiny
 BuildRequires:  perl(Types::Path::Tiny)
@@ -152,6 +152,8 @@ Obsoletes:  perl-Type-Tie < %{version}-%{release}
 Provides: perl-Type-Tie = %{version}-%{release}
 %endif
 %endif
+
+Recommends:	perl(Type::Tiny::XS)
 
 %description
 Type::Tiny is a tiny class for creating Moose-like type constraint objects
@@ -194,6 +196,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Wed Nov 16 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-2
+- Add perl(Type::Tiny::XS)
+
 * Tue Oct 04 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-1
 - Update to 2.000001.
 

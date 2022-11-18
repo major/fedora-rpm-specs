@@ -1,27 +1,18 @@
 Name:           rsnapshot
-Version:        1.4.3
-Release:        8%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Local and remote filesystem snapshot utility
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://rsnapshot.org/
-Source:         https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-# Skip both SSH tests (rather one) if SSH doesn't work, https://github.com/rsnapshot/rsnapshot/pull/244
-Patch0:         rsnapshot-1.4.3-skip-ssh-test.patch
-# Emulate m4_esyscmd_s for autoconf 2.63 (RHEL/CentOS 6), https://github.com/rsnapshot/rsnapshot/pull/245
-Patch1:         rsnapshot-1.4.3-autoconf-2.63.patch
-
-BuildRequires: make
-BuildRequires:  /usr/bin/pod2man
+BuildRequires:  lvm2
+BuildRequires:  make
+BuildRequires:  openssh-clients
 BuildRequires:  perl-generators
 BuildRequires:  rsync
-BuildRequires:  openssh-clients
-BuildRequires:  lvm2
-
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  git
+BuildRequires:  %{_bindir}/pod2man
 
 # For running %%check
 BuildRequires:  perl(Cwd)
@@ -39,8 +30,8 @@ BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 
 Requires:       openssh-clients
-Requires:       rsync
 Requires:       perl(Lchown)
+Requires:       rsync
 
 %description
 This is a remote backup program that uses rsync to take backup snapshots of
@@ -48,9 +39,6 @@ filesystems.  It uses hard links to save space on disk.
 
 %prep
 %autosetup -p1
-
-# No configure in 1.4.3
-./autogen.sh
 
 %build
 %configure                              \
@@ -63,10 +51,13 @@ filesystems.  It uses hard links to save space on disk.
     --with-du="%{_bindir}/du"
 
 %install
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 # Rename the installed .default config file to a usable name
-mv $RPM_BUILD_ROOT/etc/rsnapshot.conf.default $RPM_BUILD_ROOT/etc/rsnapshot.conf
+mv -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf{.default,}
+
+# Reset timestamp of .default config file to pre-%%configure
+touch -c -r %{name}.conf.default{.in,} $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf
 
 # Change the perms on the utils/ files so rpm doesn't pick up their dependencies
 find utils/ -type f -print0 | xargs -r0 chmod 644
@@ -77,14 +68,17 @@ find utils/ -type f -print0 | xargs -r0 chmod 644
 %files
 %doc AUTHORS ChangeLog README.md
 %license COPYING
-%doc rsnapshot.conf.default
-%doc utils/
-%config(noreplace) %{_sysconfdir}/rsnapshot.conf
-%{_bindir}/rsnapshot
-%{_bindir}/rsnapshot-diff
-%{_mandir}/man1/rsnapshot*
+%doc %{name}.conf.default utils/
+%config(noreplace) %{_sysconfdir}/%{name}.conf
+%{_bindir}/%{name}
+%{_bindir}/%{name}-diff
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-diff.1*
 
 %changelog
+* Wed Nov 16 2022 Robert Scheck <robert@fedoraproject.org> - 1.4.4-1
+- Upgrade to 1.4.4 (#1974006, thanks to Todd Zullinger)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -189,32 +183,32 @@ find utils/ -type f -print0 | xargs -r0 chmod 644
 - update to 1.3.1
 - remove comment lines (more trouble than they're worth)
 
-* Mon May 28 2007 Chris Petersen <rpm@forevermore.net>                  1.3.0-1
+* Mon May 28 2007 Chris Petersen <rpm@forevermore.net> 1.3.0-1
 - Upgrade to 1.3.0
 
-* Fri Sep  8 2006 Chris Petersen <rpm@forevermore.net>                  1.2.9-5
+* Fri Sep  8 2006 Chris Petersen <rpm@forevermore.net> 1.2.9-5
 - Rebuild for FC6 glibc update
 
-* Sun Jul 23 2006 Chris Petersen <rpm@forevermore.net>                  1.2.9-4
+* Sun Jul 23 2006 Chris Petersen <rpm@forevermore.net> 1.2.9-4
 - Bump release number to correspond with fc4.
 
-* Thu May 25 2006 Chris Petersen <rpm@forevermore.net>                  1.2.9-2
+* Thu May 25 2006 Chris Petersen <rpm@forevermore.net> 1.2.9-2
 - Update configfile patch to work with 1.2.9
 
-* Sun May 21 2006 Chris Petersen <rpm@forevermore.net>                  1.2.9-1
+* Sun May 21 2006 Chris Petersen <rpm@forevermore.net> 1.2.9-1
 - Preliminary build for 1.2.9
 
-* Wed May 17 2006 Chris Petersen <rpm@forevermore.net>                  1.2.3-2
+* Wed May 17 2006 Chris Petersen <rpm@forevermore.net> 1.2.3-2
 - Add rsync and openssh-clients build requirements because the configure script checks for them.
 - Remove perl requirement because it's detected by rpm.
 
-* Wed May 17 2006 Chris Petersen <rpm@forevermore.net>                  1.2.3-1
+* Wed May 17 2006 Chris Petersen <rpm@forevermore.net> 1.2.3-1
 - Update to version 1.2.3 which is in the downloads directory but not linked on the site.
 - Change openssh requirement to openssh-clients
 - Update %%post script with better info from the rpmforge spec and nifty logger reports
 - Add utils/ to the %%doc files
 
-* Sat May 13 2006 Chris Petersen <rpm@forevermore.net>                  1.2.1-1
+* Sat May 13 2006 Chris Petersen <rpm@forevermore.net> 1.2.1-1
 - Update specfile to be compatible with fedora guidelines
 
 * Sat Jan 29 2005 Nathan Rosenquist <nathan@rsnapshot.org>

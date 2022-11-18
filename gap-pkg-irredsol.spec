@@ -1,8 +1,8 @@
 %global pkgname irredsol
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.3
-Release:        5%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
@@ -10,13 +10,10 @@ BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
 Source0:        https://github.com/bh11/irredsol/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
-# Fix references to the primgrp manual
-Patch0:         %{name}-ref.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-crisp-doc
 BuildRequires:  gap-pkg-primgrp-doc
-BuildRequires:  parallel
 BuildRequires:  perl-interpreter
 BuildRequires:  tth
 
@@ -48,7 +45,7 @@ Requires:       gap-pkg-primgrp-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -p0 -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version}
 
 %build
 # Link to main GAP documentation and CRISP documentation
@@ -66,9 +63,6 @@ rm -f ../htm/*
 perl %{gap_dir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
 popd
 rm -f ../../{doc,etc,pkg} ../crisp
-
-# Compress large data files
-parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.grp fp/*.fp
 
 %install
 mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
@@ -92,6 +86,11 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.4-1
+- Version 1.4.4
+- Drop upstreamed -ref patch
+- Upstream now compresses the data files
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-5
 - Clarify license of the doc subpackage
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    e2a4b56e2f6c800992fe1c7e7cc0da851dcfdfa0
+%global gh_commit    f3e36bc861daae5e76d2a3f40b743f4908a85823
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-barcode
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.11.0
-Release:        3%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 
 BuildRequires:  php-dom
 BuildRequires:  php-gd
@@ -48,20 +48,20 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.3.0",
 #        "laminas/laminas-config": "^3.7.0",
-#        "phpunit/phpunit": "^9.3.7"
+#        "phpunit/phpunit": "^9.5"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7    with php-autoloader(%{gh_owner}/laminas-config)               < 4)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3.7
+BuildRequires:  phpunit9 >= 9.5
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "~7.4.0 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-servicemanager": "^3.10.0",
 #        "laminas/laminas-stdlib": "^3.6.0",
 #        "laminas/laminas-validator": "^2.15.1"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.10.0 with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6.0  with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15.1 with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
@@ -150,7 +150,7 @@ exit (class_exists("\\Zend\\%{library}\\Barcode") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -171,6 +171,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

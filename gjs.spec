@@ -1,10 +1,10 @@
 %global glib2_version 2.66.0
 %global gobject_introspection_version 1.66.0
-%global mozjs102_version 102.4.0
+%global mozjs102_version 102.5.0
 
 Name:           gjs
 Version:        1.74.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -92,6 +92,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Wed Nov 16 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.74.1-2
+- Rebuild against mozjs102-102.5.0-1
+
 * Sun Oct 30 2022 David King <amigadave@amigadave.com> - 1.74.1-1
 - Update to 1.74.1
 

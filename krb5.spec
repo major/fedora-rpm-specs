@@ -34,7 +34,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 12
+%global baserelease 13
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -120,6 +120,7 @@ Patch40: Try-harder-to-avoid-password-change-replay-errors.patch
 Patch41: Add-configure-variable-for-default-PKCS-11-module.patch
 Patch42: downstream-Allow-krad-UDP-TCP-localhost-connection-with-FIPS.patch
 Patch43: Read-GSS-configuration-files-with-mtime-0.patch
+Patch44: Fix-integer-overflows-in-PAC-parsing.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -675,6 +676,10 @@ exit 0
 %{_libdir}/libkadm5srv_mit.so.*
 
 %changelog
+* Wed Nov 09 2022 Julien Rische <jrische@redhat.com> - 1.19.2-13
+- Fix integer overflows in PAC parsing (CVE-2022-42898)
+- Resolves: rhbz#2143011
+
 * Tue Aug 02 2022 Andreas Schneider <asn@redhat.com> - 1.19.2-12
 - Use baserelease to set the release number
 - Do not define netlib, but use autoconf detection for res_* functions

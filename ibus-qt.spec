@@ -1,8 +1,8 @@
 Name:       ibus-qt
 Version:    1.3.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Qt IBus library and Qt input method plugin
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/ibus/ibus/wiki
 Source0:    https://github.com/ibus/ibus-qt/releases/download/%{version}/%{name}-%{version}-Source.tar.gz
 
@@ -64,6 +64,9 @@ The ibus-qt-docs package contains developer documentation for ibus qt library.
 %doc %__cmake_builddir/docs/html
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.3.4-4
+- Migrate license tag to SPDX
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.3.4-3
 - Rebuilt for ICU 71.1
 

@@ -56,6 +56,10 @@
 %global glibc_minver     2.28
 
 
+# Minimum version of Perl needed for some build-scripts.
+%global perl_minver      5.14
+
+
 # The libxcrypt-devel package conflicts with out-dated manuals
 # shipped with the man-pages packages *before* this EVR.
 %global man_pages_minver 4.15-3
@@ -158,7 +162,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.31
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -180,7 +184,7 @@ BuildRequires:  fipscheck
 BuildRequires:  gcc
 BuildRequires:  glibc-devel                  >= %{glibc_minver}
 BuildRequires:  make
-BuildRequires:  perl-interpreter
+BuildRequires:  perl-interpreter             >= %{perl_minver}
 BuildRequires:  perl(Class::Struct)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Exporter)
@@ -188,11 +192,13 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(if)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(open)
 BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(:VERSION)               >= 5.14.0
+BuildRequires:  perl(:VERSION)               >= %{perl_minver}
 BuildRequires:  perl(warnings)
 
 %if %{without bootstrap}
@@ -567,6 +573,13 @@ done
 
 
 %changelog
+* Wed Nov 16 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-5
+- Add %%{perl_minver} macro and re-add BR on perl(:VERSION)
+
+* Wed Nov 16 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-4
+- Add BR for perl modules to run the skip-if-exec-format-error script
+- Move the BR for minimum Perl version to perl-interpreter
+
 * Tue Nov 15 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-3
 - Explicitly list all needed build-time Perl modules
 

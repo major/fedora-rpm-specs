@@ -8,8 +8,8 @@
 %endif
 
 Name: heimdal
-Version: 7.7.0
-Release: 12%{?dist}
+Version: 7.7.1
+Release: 1%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 License: BSD and MIT
 URL: http://www.heimdal.software/
@@ -36,10 +36,8 @@ Source31: %{name}-ipropd-slave-wrapper
 # klist, kswitch, and kvno are symlinks to "heimtools", and this utility needs
 # to know how to interpret the "heimdal-" prefixes.
 Patch1: heimdal-1.6.0-c25f45a-rename-commands.patch
-Patch3: heimdal-7.7.0-pythonpath.patch
 Patch4: heimdal-7.7.0-configure.patch
 Patch5: heimdal-7.7.0-58c8ad96-py3.patch
-Patch6: heimdal-7.7.0-22352b90-autoconf.patch
 
 BuildRequires:  gettext
 BuildRequires:  bison
@@ -155,10 +153,12 @@ PATH.
 %prep
 %setup -q
 %patch1 -p1 -b .cmds
-%patch3 -p1 -b .pythonpath
 %patch4 -p1 -b .config
 %patch5 -p1 -b .2to3
-%patch6 -p1 -b .ac270
+
+for f in lib/*/*.py; do
+    sed -i "$f" -re 's,^#!/usr/(local/|)bin/python,#!/usr/bin/python3,'
+done
 
 ./autogen.sh
 
@@ -502,6 +502,11 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Wed Nov 16 2022 Alexander Boström <abo@root.snowtree.se> - 7.7.1-1
+- Update to 7.7.1
+- Remove upstreamed patch
+- Replace patch with sed command
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

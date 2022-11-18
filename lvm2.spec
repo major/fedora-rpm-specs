@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.185
+%global device_mapper_version 1.02.187
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -44,18 +44,12 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.16
+Version: 2.03.17
 Release: 1%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-Patch1: 0001-devices-file-move-clean-up-after-command-is-run.patch
-Patch2: 0002-devices-file-fail-if-devicesfile-filename-doesn-t-ex.patch
-Patch3: 0003-filter-mpath-handle-other-wwid-types-in-blacklist.patch
-Patch4: 0004-filter-mpath-get-wwids-from-sysfs-vpd_pg83.patch
-Patch5: 0005-pvdisplay-restore-reportformat-option.patch
-Patch6: 0006-exit-with-error-when-devicesfile-name-doesn-t-exist.patch
-Patch7: 0007-make-generate.patch
+#Patch1: 0001-make-generate.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -109,13 +103,7 @@ or more physical volumes and creating one or more logical volumes
 
 %prep
 %setup -q -n LVM2.%{version}
-%patch1 -p1 -b .backup1
-%patch2 -p1 -b .backup2
-%patch3 -p1 -b .backup3
-%patch4 -p1 -b .backup4
-%patch5 -p1 -b .backup5
-%patch6 -p1 -b .backup6
-%patch7 -p1 -b .backup7
+#%%patch1 -p1 -b .backup1
 
 %build
 %global _default_pid_dir /run
@@ -289,6 +277,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgs
 %{_sbindir}/vgscan
 %{_sbindir}/vgsplit
+%{_libexecdir}/lvresize_fs_helper
 %{_mandir}/man5/lvm.conf.5.gz
 %{_mandir}/man7/lvmautoactivation.7.gz
 %{_mandir}/man7/lvmcache.7.gz
@@ -667,6 +656,12 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Wed Nov 16 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.17-1
+- Update to upstream version 2.03.17.
+- Add new options (--fs, --fsmode) for FS handling when resizing LVs.
+- Many bugfixes mainly in VDO, lvmdbusd and devices file support.
+- See WHATS_NEW and WHATS_NEW_DM for more information.
+
 * Mon Sep 26 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.16-1
 - Update to upstream version 2.03.16.
 - Devices file feature - see lvmdevices(8).

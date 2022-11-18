@@ -13,9 +13,9 @@
 
 Name:       input-pad
 Version:    1.0.99.20210817
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    On-screen Input Pad to Send Characters with Mouse
-License:    LGPLv2+
+License:    LGPL-2.0-or-later
 URL:        https://github.com/fujiwarat/input-pad/wiki
 Source0:    https://github.com/fujiwarat/input-pad/releases/download/%{version}/%{name}-%{version}.tar.gz
 # Patch0:     %%{name}-HEAD.patch
@@ -114,6 +114,9 @@ rm -f $RPM_BUILD_ROOT%xkeysenddir/*.a
 %endif
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.0.99.20210817-4
+- Migrate license tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.99.20210817-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

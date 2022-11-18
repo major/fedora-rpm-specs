@@ -10,18 +10,14 @@
 %{!?with_pcp: %global with_pcp 1}
 Summary: Performance Application Programming Interface
 Name: papi
-Version: 6.0.0
-Release: 12%{?dist}
+Version: 7.0.0
+Release: 1%{?dist}
 License: BSD
 Requires: papi-libs = %{version}-%{release}
 URL: http://icl.cs.utk.edu/papi/
 Source0: http://icl.cs.utk.edu/projects/papi/downloads/%{name}-%{version}.tar.gz
 Patch1: papi-python3.patch
-Patch2: papi-a64fx.patch
-Patch3: papi-no-iozone.patch
-Patch4: papi-config.patch
 Patch5: papi-nostatic.patch
-Patch6: papi-init_thread.patch
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: doxygen
@@ -90,18 +86,9 @@ the PAPI user-space libraries and interfaces.
 %prep
 %setup -q
 %patch1 -p1 -b .python3
-%patch2 -p1 -b .a64fx
-%patch3 -p1
-%patch4 -p1
 %patch5 -p1
-%patch6 -p1 -b .thread
 
 %build
-# This package fails to build with LTO due to undefined symbols.  LTO
-# was disabled in OpenSuSE as well, but with no real explanation why
-# beyond the undefined symbols.  It really shold be investigated further.
-# Disable LTO
-%define _lto_cflags %{nil}
 
 %if %{without bundled_libpfm}
 # Build our own copy of libpfm.
@@ -133,7 +120,7 @@ autoconf
 %configure --with-perf-events \
 %{?libpfm_config} \
 %{?static_lib_config} \
---with-shared-lib=yes --with-shlib --with-shlib-tools \
+--with-shared-lib=yes --with-shlib-tools \
 --with-components="appio coretemp example infiniband lmsensors lustre micpower mx net %{?pcp_enable} rapl stealtime"
 # implicit enabled components: perf_event perf_event_uncore
 #components currently left out because of build configure/build issues
@@ -172,6 +159,7 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 
 %files devel
 %{_includedir}/*.h
+%{_includedir}/*.hpp
 %if %{with bundled_libpfm}
 %{_includedir}/perfmon/*.h
 %endif
@@ -193,6 +181,9 @@ find %{buildroot} -type f -executable ! -iname "*.py" ! -iname "*.sh" | xargs ch
 %endif
 
 %changelog
+* Wed Nov 16 2022 William Cohen <wcohen@redhat.com> - 7.0.0-1
+- Rebase to official papi-7.0.0.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

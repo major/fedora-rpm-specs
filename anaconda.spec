@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.8
+Version: 38.9
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 16 2022 Packit <hello@packit.dev> - 38.9-1
+- Progress step improvements (mkolman)
+- makebumpver: Ignore all infra, not just bumps (vslavik)
+
 * Tue Nov 08 2022 Packit <hello@packit.dev> - 38.8-1
 - Web UI: Update language selection screen (ozobal)
 - There are no installation targets if bootloader devices are not set (#2131183) (vponcova)

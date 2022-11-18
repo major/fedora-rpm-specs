@@ -173,7 +173,7 @@ BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(libchromaprint)
 %endif
 BuildRequires:  pkgconfig(libdrm)
-BuildRequires:  pkgconfig(libjxl)
+BuildRequires:  pkgconfig(libjxl) >= 0.7.0
 BuildRequires:  pkgconfig(libmodplug)
 %if %{with omxil}
 BuildRequires:  pkgconfig(libomxil-bellagio)

@@ -3,7 +3,7 @@
 
 # https://gitlab.com/WhyNotHugo/darkman
 %global goipath         gitlab.com/WhyNotHugo/darkman
-%global commit          c2656986c24a7118146b92958c1063d195513c2f
+%global commit          5f30663e4cee23158978e382eea96d0148cf505d
 
 %gometa
 
@@ -14,8 +14,8 @@ Daemon for dark-mode and light-mode transitions on Linux desktop.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           darkman
-Version:        1.3.1
-Release:        0.5%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Daemon for dark-mode and light-mode transitions on Linux desktop
 
 License:        ISC
@@ -95,6 +95,9 @@ install -m 0644 -Dp contrib/portal/darkman.portal %{buildroot}%{_datadir}/xdg-de
 %gopkgfiles
 
 %changelog
+* Mon Oct 31 2022 Link Dupont <linkdupont@fedoraproject.org> - 1.4.0-1
+- New upstream version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-0.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

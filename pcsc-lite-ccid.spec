@@ -2,8 +2,8 @@
 %global pcsc_lite_ver 1.8.9
 
 Name:           pcsc-lite-ccid
-Version:        1.5.0
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 License:        LGPLv2+
@@ -65,6 +65,9 @@ cp -p src/openct/LICENSE LICENSE.openct
 
 
 %changelog
+* Wed Nov 16 2022 Jakub Jelen <jjelen@redhat.com> - 1.5.1-1
+- New upstream release (#2142976)
+
 * Tue Nov 01 2022 Jakub Jelen <jjelen@redhat.com> - 1.5.0-3
 - Remove downstream patch breaking flatpak (#2054826)
 

@@ -13,7 +13,7 @@
 %endif
 
 %global srcname pip
-%global base_version 22.2.2
+%global base_version 22.3.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -21,40 +21,40 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
 # Here is the list of the libraries with corresponding licenses:
 
 # appdirs: MIT
-# certifi: MPLv2.0
-# chardet: LGPLv2
-# colorama: BSD
-# CacheControl: ASL 2.0
-# distlib: Python
-# distro: ASL 2.0
+# certifi: MPL-2.0
+# chardet: LGPL-2.1-only
+# colorama: BSD-3-Clause
+# CacheControl: Apache-2.0
+# distlib: Python-2.0.1
+# distro: Apache-2.0
 # html5lib: MIT
-# idna: BSD
-# ipaddress: Python
-# msgpack: ASL 2.0
-# packaging: ASL 2.0 or BSD
+# idna: BSD-3-Clause
+# ipaddress: Python-2.0.1
+# msgpack: Apache-2.0
+# packaging: Apache-2.0 OR BSD-2-Clause
 # pep517: MIT
 # progress: ISC
-# pygments: BSD
+# pygments: BSD-2-Clause
 # pyparsing: MIT
-# requests: ASL 2.0
+# requests: Apache-2.0
 # resolvelib: ISC
 # rich: MIT
 # setuptools: MIT
 # six: MIT
-# tenacity: ASL 2.0
+# tenacity: Apache-2.0
 # tomli: MIT
-# typing-extensions: Python
+# typing-extensions: Python-2.0.1
 # urllib3: MIT
-# webencodings: BSD
+# webencodings: BSD-3-Clause
 
-License:        MIT and Python and ASL 2.0 and BSD and ISC and LGPLv2 and MPLv2.0 and (ASL 2.0 or BSD)
+License:        MIT AND Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 URL:            https://pip.pypa.io/
 Source0:        https://github.com/pypa/pip/archive/%{upstream_version}/%{srcname}-%{upstream_version}.tar.gz
 
@@ -77,6 +77,7 @@ Patch:          remove-existing-dist-only-if-path-conflicts.patch
 
 # Use the system level root certificate instead of the one bundled in certifi
 # https://bugzilla.redhat.com/show_bug.cgi?id=1655253
+# The same patch is a part of the RPM-packaged python-certifi
 Patch:          dummy-certifi.patch
 
 # Don't warn the user about pip._internal.main() entrypoint
@@ -88,11 +89,6 @@ Patch:          nowarn-pip._internal.main.patch
 # (This also breaks Python's test suite when warnings are treated as errors.)
 # Upstream issue: https://github.com/pypa/packaging/issues/368
 Patch:          no-version-warning.patch
-
-# Ignore distributions with invalid name in metadata instead of crashing, when
-# using the importlib.metadata backend.
-# Resolved upstream: https://github.com/pypa/pip/pull/11353
-Patch:          bad-metadata-fix.patch
 
 # Downstream only patch
 # Users might have local installations of pip from using
@@ -130,27 +126,27 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.12.11
-Provides: bundled(python%{1}dist(certifi)) = 2022.6.15
+Provides: bundled(python%{1}dist(certifi)) = 2022.9.24
 Provides: bundled(python%{1}dist(chardet)) = 5
 Provides: bundled(python%{1}dist(colorama)) = 0.4.5
-Provides: bundled(python%{1}dist(distlib)) = 0.3.5
+Provides: bundled(python%{1}dist(distlib)) = 0.3.6
 Provides: bundled(python%{1}dist(distro)) = 1.7
-Provides: bundled(python%{1}dist(idna)) = 3.3
+Provides: bundled(python%{1}dist(idna)) = 3.4
 Provides: bundled(python%{1}dist(msgpack)) = 1.0.4
 Provides: bundled(python%{1}dist(packaging)) = 21.3
-Provides: bundled(python%{1}dist(pep517)) = 0.12
+Provides: bundled(python%{1}dist(pep517)) = 0.13
 Provides: bundled(python%{1}dist(platformdirs)) = 2.5.2
-Provides: bundled(python%{1}dist(pygments)) = 2.12
+Provides: bundled(python%{1}dist(pygments)) = 2.13
 Provides: bundled(python%{1}dist(pyparsing)) = 3.0.9
 Provides: bundled(python%{1}dist(requests)) = 2.28.1
 Provides: bundled(python%{1}dist(resolvelib)) = 0.8.1
 Provides: bundled(python%{1}dist(rich)) = 12.5.1
 Provides: bundled(python%{1}dist(setuptools)) = 44
 Provides: bundled(python%{1}dist(six)) = 1.16
-Provides: bundled(python%{1}dist(tenacity)) = 8.0.1
+Provides: bundled(python%{1}dist(tenacity)) = 8.1
 Provides: bundled(python%{1}dist(tomli)) = 2.0.1
-Provides: bundled(python%{1}dist(typing-extensions)) = 4.3
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.10
+Provides: bundled(python%{1}dist(typing-extensions)) = 4.4
+Provides: bundled(python%{1}dist(urllib3)) = 1.26.12
 Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 }
 
@@ -351,26 +347,14 @@ install -p dist/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
 
 # Upstream tests
 # bash completion tests only work from installed package
-# needs unaltered sys.path and we cannot do that in %%check
-#     test_pep517_and_build_options
-#     test_config_file_venv_option
-# Incompatible with the latest virtualenv
-#     test_from_link_vcs_with_source_dir_obtains_commit_id
-#     test_from_link_vcs_without_source_dir
-#     test_should_cache_git_sha
-pytest_k='not completion and
-          not test_pep517_and_build_options and
-          not test_config_file_venv_option and
-          not test_from_link_vcs_with_source_dir_obtains_commit_id and
-          not test_from_link_vcs_without_source_dir and
-          not test_should_cache_git_sha'
+pytest_k='not completion'
 
 # --deselect'ed tests are not compatible with the latest virtualenv
 # These files contain almost 500 tests so we should enable them back
 # as soon as pip will be compatible upstream
 # https://github.com/pypa/pip/pull/8441
 %pytest -m 'not network' -k "$(echo $pytest_k)" \
-    --deselect tests/functional --deselect tests/lib/test_lib.py --deselect tests/unit/test_build_env.py
+    --deselect tests/functional --deselect tests/lib/test_lib.py
 %endif
 
 
@@ -406,6 +390,10 @@ pytest_k='not completion and
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Mon Nov 14 2022 Karolina Surma <ksurma@redhat.com> - 22.3.1-1
+- Update to 22.3.1
+Resolves: rhbz#2135044
+
 * Mon Sep 05 2022 Python Maint <python-maint@redhat.com> - 22.2.2-2
 - Fix crash when an empty dist-info/egg-info is present
 Resolves: rhbz#2115001

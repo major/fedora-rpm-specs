@@ -14,7 +14,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.17.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1764,6 +1764,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.17.3-5
+- Rebuild for new PostgreSQL 15
+
 * Tue Sep 20 2022 Tom Callaway <spot@fedoraproject.org> - 3.17.3-4
 - use pcre2
 - use gmime30

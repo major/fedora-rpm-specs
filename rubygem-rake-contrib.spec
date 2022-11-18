@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Additional libraries for Rake
 License: MIT
 URL: https://github.com/ruby/rake-contrib
@@ -15,6 +15,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(rake)
+BuildRequires: rubygem(net-ftp)
 BuildRequires: ruby
 BuildArch: noarch
 
@@ -71,6 +72,9 @@ popd
 %{gem_instdir}/rake-contrib.gemspec
 
 %changelog
+* Thu Nov 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.0-14
+- Add missing BR for bundled gems
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

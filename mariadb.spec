@@ -11,7 +11,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 10.5.16
+%global last_tested_version 10.5.18
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -149,8 +149,8 @@
 %global sameevr   %{epoch}:%{version}-%{release}
 
 Name:             mariadb
-Version:          10.5.16
-Release:          3%{?with_debug:.debug}%{?dist}
+Version:          10.5.18
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -209,12 +209,6 @@ Patch7:           %{pkgnamepatch}-scripts.patch
 Patch9:           %{pkgnamepatch}-ownsetup.patch
 #   Patch10: Fix cipher name in the SSL Cipher name test
 Patch10:          %{pkgnamepatch}-ssl-cipher-tests.patch
-#   Patch12: OpenSSL 3 patch
-#   Picked from the upstream developement branch for MariaDB 10.8.
-#   https://jira.mariadb.org/browse/MDEV-25785
-Patch12:           %{pkgnamepatch}-openssl3.patch
-#   Patch16: Fix MD5 in FIPS mode
-Patch16:          %{pkgnamepatch}-fips.patch
 
 BuildRequires:    make
 BuildRequires:    cmake gcc-c++
@@ -740,11 +734,12 @@ rm -r storage/rocksdb/
 %patch4 -p1
 %patch7 -p1
 %patch9 -p1
-%patch10 -p1
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-%patch12 -p1
-%patch16 -p1
-%endif
+# The test in Patch 10 has been recently updated by upstream
+# and the test was disabled in the testuite run
+#   main.ssl_cipher     [ disabled ]  MDEV-17184 - Failures with OpenSSL 1.1.1
+# Keeping the patch commented out, need to revisit
+#  once the test is re-enabled by upstream  in some future release
+#%patch10 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1644,6 +1639,10 @@ fi
 %endif
 
 %changelog
+* Wed Nov 16 2022 Michal Schorm <mschorm@redhat.com> - 3:10.5.18-1
+- Rebase to 10.5.18
+- OpenSSL 3 patch upstreamed
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.5.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

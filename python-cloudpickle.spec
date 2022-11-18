@@ -9,7 +9,7 @@ interactively in the __main__ module.
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended pickling support for Python objects
 
 License:        BSD
@@ -53,7 +53,9 @@ sed -i "s/'beta', 2/'beta', 4/" tests/cloudpickle_test.py
 %check
 # file_handles tests fail, TypeError: cannot pickle '_io.FileIO' object
 # GH issue: https://github.com/cloudpipe/cloudpickle/issues/114
-PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_handles"
+# test_dynamic_pytest_module uses py which is not longer part of pytest
+# https://github.com/cloudpipe/cloudpickle/issues/487
+PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_handles and not test_dynamic_pytest_module"
 
 %files -n python3-%{pypi_name}
 %license LICENSE
@@ -62,6 +64,9 @@ PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_hand
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 16 2022 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-2
+- Fix compatibility with pytest 7.2 (#2142057)
+
 * Thu Sep 08 2022 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-1
 - Update to 2.2.0
 Resolves: rhbz#2124985

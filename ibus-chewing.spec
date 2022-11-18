@@ -19,10 +19,10 @@
 %endif
 Name:           ibus-chewing
 Version:        1.6.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The Chewing engine for IBus input platform
 Summary(zh_TW): IBus新酷音輸入法
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/definite/ibus-chewing
 Source0:        https://github.com/definite/%{name}/releases/download/%{version}/%{name}-%{version}-Source.tar.gz
 Patch1:         %{name}-1799517-no-gob2.patch
@@ -141,6 +141,9 @@ fi
 %{_libexecdir}/ibus-setup-chewing
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.6.1-20
+- Migrate license tag to SPDX
+
 * Thu Aug 18 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.6.1-19
 - Resolves: #2119019 Not to require gettext
 

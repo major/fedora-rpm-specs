@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    f45e1a6f614a11af8eff5d2d409f12229101cfc1
+%global gh_commit    c249f0638c8bdd67305509b7173bd535c21d109d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-server
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.11.1
-Release:        2%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-reflection
@@ -53,11 +53,11 @@ BuildRequires:  phpunit9 >= 9.5.5
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-code": "^3.5.1 || ^4.0.0",
 #        "laminas/laminas-stdlib": "^3.3.1",
 #        "laminas/laminas-zendframework-bridge": "^1.2.0"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-code)                 >= 3.5.1 with php-autoloader(%{gh_owner}/laminas-code)                 < 5)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.3.1 with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
@@ -141,7 +141,7 @@ EOF
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -169,6 +169,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0 (no change)
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

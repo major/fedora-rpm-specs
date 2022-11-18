@@ -7,6 +7,12 @@
 %global debug_package %{nil}
 %endif
 
+%if 0%{?rhel}
+%bcond_with docs
+%else
+%bcond_without docs
+%endif
+
 %global built_tag v2.1.5
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
@@ -20,7 +26,10 @@ Summary: OCI container runtime monitor
 URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
+%if %{with docs}
+ExclusiveArch: %{go_arches}
 BuildRequires: go-md2man
+%endif
 BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: glib2-devel
@@ -42,11 +51,17 @@ sed -i 's/install.crio: bin\/conmon/install.crio:/' Makefile
 
 %build
 %{__make} DEBUGFLAG="-g" bin/conmon
+
+%if %{with docs}
 %{__make} GOMD2MAN=go-md2man -C docs
+%endif
 
 %install
 %{__make} PREFIX=%{buildroot}%{_prefix} install.bin install.crio
+
+%if %{with docs}
 %{__make} PREFIX=%{buildroot}%{_prefix} -C docs install
+%endif
 
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
@@ -57,7 +72,10 @@ sed -i 's/install.crio: bin\/conmon/install.crio:/' Makefile
 %{_bindir}/%{name}
 %{_libexecdir}/crio/%{name}
 %dir %{_libexecdir}/crio
+
+%if %{with docs}
 %{_mandir}/man8/%{name}.8.gz
+%endif
 
 %changelog
 %autochangelog

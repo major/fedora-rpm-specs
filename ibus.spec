@@ -39,9 +39,9 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
 Source0:        https://github.com/ibus/%name/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}-xinput
@@ -523,6 +523,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-5
+- Migrate license tag to SPDX
+
 * Thu Nov 03 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-4
 - Resolves: #2081055 Avoid to unref m_engines with double run
 

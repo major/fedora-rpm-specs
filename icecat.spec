@@ -101,7 +101,7 @@ ExcludeArch: %{arm}
 
 Name: icecat
 Epoch:   1
-Version: 102.4.0
+Version: 102.5.0
 Release: 1.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
@@ -827,6 +827,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Wed Nov 16 2022 Antonio Trande <sagitter@fedoraproject.org> - 1:102.5.0-1.rh1
+- Release 102.5.0
+
 * Thu Oct 20 2022 Antonio Trande <sagitter@fedoraproject.org> - 1:102.4.0-1.rh1
 - Release 102.4.0
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.20.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest plugin to manage external processes across test runs
 
 License:        MIT
@@ -68,6 +68,9 @@ sed -i "s/pytest\.mark\.hookwrapper/pytest.hookimpl(hookwrapper=True)/" xprocess
 %{python3_sitelib}/pytest_xprocess-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 16 2022 Lumír Balhar <lbalhar@redhat.com> - 0.20.0-2
+- Fix compatibility with pytest 7.2 (fixes RHBZ#2142054 )
+
 * Tue Aug 30 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.20.0-1
 - Update to pytest-xprocess-0.20.0 (fixes RHBZ#2122212 )
 

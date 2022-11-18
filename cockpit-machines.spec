@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        277
+Version:        278
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPLv2+ and MIT
@@ -56,7 +56,7 @@ Recommends: qemu-device-usb-redirect
 Requires: libvirt-client
 Requires: libvirt-dbus >= 1.2.0
 # Optional components
-Recommends: virt-install
+Recommends: virt-install >= 3.0.0
 Recommends: libosinfo
 Recommends: python3-gobject-base
 Suggests: qemu-virtiofsd
@@ -84,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 16 2022 Packit <hello@packit.dev> - 278-1
+- Stability and performance improvements
+
+
 * Mon Nov 07 2022 Packit <hello@packit.dev> - 277-1
 - Dark theme support
 - Allow TRIM/UNMAP requests by default for newly added disks

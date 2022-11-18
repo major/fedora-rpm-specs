@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a1
+%global prerel a2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 # Getting this build in Koji on 32bit ARM is frustrating due to technical problems
@@ -62,8 +62,7 @@ ExcludeArch: %{arm}
 # but setuptools BR python3-devel and that brings in python3-rpm-generators;
 # python3-rpm-generators needs python3-setuptools, so we cannot have it yet.
 #
-# We also use the previous build of Python in "make regen-all"
-# and in "distutils.tests.test_bdist_rpm".
+# We also use the previous build of Python in "make regen-all".
 #
 # Procedure: https://fedoraproject.org/wiki/SIGs/Python/UpgradingPython
 #
@@ -78,7 +77,7 @@ ExcludeArch: %{arm}
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 22.3
+%global pip_version 22.3.1
 %global setuptools_version 65.5.0
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -248,12 +247,14 @@ BuildRequires: /usr/bin/dtrace
 BuildRequires: /usr/sbin/ifconfig
 
 %if %{with rpmwheels}
-BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
-BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel
+# Newer versions in Fedora 37 support Python 3.12
+# Versions in Fedora 36 were patched to add the support, in the versions listed bellow
+BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 59.6.0-3
+BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 21.3.1-4
 %endif
 
 %if %{without bootstrap}
-# for make regen-all and distutils.tests.test_bdist_rpm
+# for make regen-all
 # Note that we're not using the %%{pkgname} macro here on purpose, because when
 # upgrading the main python3 to a new Python version, this would pull in the
 # old version instead.
@@ -284,21 +285,12 @@ Source11: idle3.appdata.xml
 
 # (Patches taken from github.com/fedora-python/cpython)
 
-# 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
-# Fixup distutils/unixccompiler.py to remove standard library path from rpath
-# Was Patch0 in ivazquez' python3000 specfile
-Patch1: 00001-rpath.patch
-
-# 00251 # af0f1ba72e01cb93371ff21fb7ca889daa43fa7a
+# 00251 # cae5a6abc5df08239c85b83e4e250b6f2702e4f5
 # Change user install location
 #
 # Set values of base and platbase in sysconfig from /usr
 # to /usr/local when RPM build is not detected
 # to make pip and similar tools install into separate location.
-#
-# Set values of prefix and exec_prefix in distutils install command
-# to /usr/local if executable is /usr/bin/python* and RPM build
-# is not detected to make distutils and pypa/distutils install into separate location.
 #
 # Fedora Change: https://fedoraproject.org/wiki/Changes/Making_sudo_pip_safe
 # Downstream only.
@@ -334,37 +326,6 @@ Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00389 # eec8cefdbbc164dc19d7112d1c65dbf6406ecca3
-# Don't let --with-system-libmpdec / --with-system-expat use the vendored headers
-#
-# This was a regression in Python 3.12.0a2 that prevented Fedora doing
-# this:
-#
-#     $ rm -r Modules/_decimal/libmpdec
-#     $ rm -r Modules/expat
-#
-# Before building Python with --with-system-libmpdec --with-system-expat.
-#
-# The errors were:
-#
-#     make: *** No rule to make target
-# 'Modules/_decimal/libmpdec/basearith.h', needed by
-# 'Modules/_decimal/_decimal.o'.  Stop.
-#     make: *** No rule to make target 'Modules/expat/ascii.h', needed by
-# 'Modules/pyexpat.o'.  Stop.
-#
-# Now the make-dependency on the headers only exists
-# when --with-system-libmpdec / --with-system-expat is **not** used.
-#
-# Fixes https://github.com/python/cpython/issues/98707
-Patch389: 00389-don-t-let---with-system-libmpdec---with-system-expat-use-the-vendored-headers.patch
-
-# 00390 # 1b549f4b0f00f9b782f254eca0d4dee9cd764085
-# gh-98776: Fix make regen-test-levenshtein for out-of-tree builds
-#
-# Fixes https://github.com/python/cpython/issues/98776
-Patch390: 00390-gh-98776-fix-make-regen-test-levenshtein-for-out-of-tree-builds.patch
 
 # (New patches go here ^^^)
 #
@@ -487,8 +448,8 @@ This package contains /usr/bin/python - the "python" command that runs Python 3.
 Summary:        Python runtime libraries
 
 %if %{with rpmwheels}
-Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: %{python_wheel_pkg_prefix}-pip-wheel
+Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 59.6.0-3
+Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 21.3.1-4
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
@@ -939,16 +900,10 @@ cp -a %{SOURCE11} %{buildroot}%{_metainfodir}
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/idle3.appdata.xml
 %endif
 
-# Make sure distutils looks at the right pyconfig.h file
+# Make sure sysconfig looks at the right pyconfig-32.h/pyconfig-64.h file instead of pyconfig.h
 # See https://bugzilla.redhat.com/show_bug.cgi?id=201434
-# Similar for sysconfig: sysconfig.get_config_h_filename tries to locate
-# pyconfig.h so it can be parsed, and needs to do this at runtime in site.py
-# when python starts up (see https://bugzilla.redhat.com/show_bug.cgi?id=653058)
-#
-# Split this out so it goes directly to the pyconfig-32.h/pyconfig-64.h
-# variants:
+# and https://bugzilla.redhat.com/show_bug.cgi?id=653058
 sed -i -e "s/'pyconfig.h'/'%{_pyconfig_h}'/" \
-  %{buildroot}%{pylibdir}/distutils/sysconfig.py \
   %{buildroot}%{pylibdir}/sysconfig.py
 
 # Install i18n tools to bindir
@@ -1110,9 +1065,6 @@ CheckPython() {
 
   # Run the upstream test suite
   # --timeout=1800: kill test running for longer than 30 minutes
-  # test_distutils
-  #   distutils.tests.test_bdist_rpm tests fail when bootstraping the Python
-  #   package: rpmbuild requires /usr/bin/pythonX.Y to be installed
   # test_freeze_simple_script is skipped, because it fails without bundled libs.
   #  the freeze tool is only usable from the source checkout anyway,
   #  we don't ship it in the RPM package.
@@ -1120,9 +1072,6 @@ CheckPython() {
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest -j0 --timeout=1800 \
     -i test_freeze_simple_script \
-    %if %{with bootstrap}
-    -x test_distutils \
-    %endif
     %ifarch %{mips64}
     -x test_ctypes \
     %endif
@@ -1322,13 +1271,6 @@ CheckPython optimized
 %{pylibdir}/dbm/*.py
 %{pylibdir}/dbm/__pycache__/*%{bytecode_suffixes}
 
-%dir %{pylibdir}/distutils/
-%dir %{pylibdir}/distutils/__pycache__/
-%{pylibdir}/distutils/*.py
-%{pylibdir}/distutils/__pycache__/*%{bytecode_suffixes}
-%{pylibdir}/distutils/README
-%{pylibdir}/distutils/command
-
 %dir %{pylibdir}/email/
 %dir %{pylibdir}/email/__pycache__/
 %{pylibdir}/email/*.py
@@ -1395,7 +1337,7 @@ CheckPython optimized
 %endif
 
 # "Makefile" and the config-32/64.h file are needed by
-# distutils/sysconfig.py:_init_posix(), so we include them in the core
+# sysconfig.py:get_config_vars(), so we include them in the core
 # package, along with their parent directories (bug 531901):
 %dir %{pylibdir}/config-%{LDVERSION_optimized}-%{platform_triplet}/
 %{pylibdir}/config-%{LDVERSION_optimized}-%{platform_triplet}/Makefile
@@ -1472,7 +1414,6 @@ CheckPython optimized
 
 
 %files -n %{pkgname}-test
-%{pylibdir}/distutils/tests
 %{pylibdir}/test
 %{dynload_dir}/_ctypes_test.%{SOABI_optimized}.so
 %{dynload_dir}/_testbuffer.%{SOABI_optimized}.so
@@ -1480,6 +1421,7 @@ CheckPython optimized
 %{dynload_dir}/_testimportmultiple.%{SOABI_optimized}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_optimized}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_optimized}.so
+%{dynload_dir}/_testsinglephase.%{SOABI_optimized}.so
 %{dynload_dir}/_xxtestfuzz.%{SOABI_optimized}.so
 
 # We don't bother splitting the debug build out into further subpackages:
@@ -1572,7 +1514,6 @@ CheckPython optimized
 %{dynload_dir}/xxlimited_35.%{SOABI_debug}.so
 %{dynload_dir}/_xxsubinterpreters.%{SOABI_debug}.so
 %{dynload_dir}/xxsubtype.%{SOABI_debug}.so
-%{dynload_dir}/_xxtestfuzz.%{SOABI_debug}.so
 %{dynload_dir}/zlib.%{SOABI_debug}.so
 %{dynload_dir}/_zoneinfo.%{SOABI_debug}.so
 
@@ -1606,6 +1547,8 @@ CheckPython optimized
 %{dynload_dir}/_testimportmultiple.%{SOABI_debug}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_debug}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_debug}.so
+%{dynload_dir}/_testsinglephase.%{SOABI_debug}.so
+%{dynload_dir}/_xxtestfuzz.%{SOABI_debug}.so
 
 %{pylibdir}/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}.py
 %{pylibdir}/__pycache__/_sysconfigdata_%{ABIFLAGS_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
@@ -1633,6 +1576,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Nov 15 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a2-1
+- Update to 3.12.0a2
+- Fixes: rhbz#2133847
+
 * Thu Oct 27 2022 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~a1-2
 - Finish initial bootstrap of Python 3.12.0a1
 

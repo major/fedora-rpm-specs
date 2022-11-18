@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           python-%{modname}
-Version:        6.16.0
+Version:        6.17.1
 Release:        1%{?dist}
 Summary:        IPython Kernel for Jupyter
 License:        BSD
@@ -21,6 +21,7 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-github-alt
 BuildRequires:  python3-myst-parser
+BuildRequires:  python3-pydata-sphinx-theme
 
 %global _description \
 This package provides the IPython kernel for Jupyter.
@@ -126,6 +127,9 @@ cat %{buildroot}%{_datadir}/jupyter/kernels/python3/kernel.json
 
 
 %changelog
+* Fri Nov 11 2022 Lumír Balhar <lbalhar@redhat.com> - 6.17.1-1
+- Update to 6.17.1 (#2136453)
+
 * Tue Sep 27 2022 Charalampos Stratakis <cstratak@redhat.com> - 6.16.0-1
 - Update to 6.16.0
 Resolves: rhbz#2126544

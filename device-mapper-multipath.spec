@@ -1,75 +1,66 @@
 Name:    device-mapper-multipath
-Version: 0.9.0
-Release: 3%{?dist}
+Version: 0.9.3
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.0.tar.gz -o multipath-tools-0.9.0.tgz
-Source0: multipath-tools-0.9.0.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.3.tar.gz -o multipath-tools-0.9.3.tgz
+Source0: multipath-tools-0.9.3.tgz
 Source1: multipath.conf
-Patch0001: 0001-github-workflows-switch-to-fedora-36.patch
-Patch0002: 0002-multipath-tools-fix-multipath-ll-bug-for-Native-NVME.patch
-Patch0003: 0003-multipath-tools-update-Huawei-OceanStor-NVMe-vendor-.patch
-Patch0004: 0004-multipath-tools-update-Generic-NVMe-vendor-regex-in-.patch
-Patch0005: 0005-libmultipath-fix-find_multipaths_timeout-for-unknown.patch
-Patch0006: 0006-multipath-tools-update-devel-repo-info-in-README.md.patch
-Patch0007: 0007-multipath-tools-delete-README.alua.patch
-Patch0008: 0008-multipath-tools-add-ALUA-info-to-README.md.patch
-Patch0009: 0009-libmultipath-alua-remove-get_sysfs_pg83.patch
-Patch0010: 0010-libmultipath-remove-sysfs_get_binary.patch
-Patch0011: 0011-libmultipath-sysfs_bin_attr_get_value-no-error-if-bu.patch
-Patch0012: 0012-libmultipath-common-code-path-for-sysfs_attr_get_val.patch
-Patch0013: 0013-libmultipath-sanitize-error-checking-in-sysfs-access.patch
-Patch0014: 0014-libmultipath-get-rid-of-PATH_SIZE.patch
-Patch0015: 0015-libmultipath-sysfs_attr_get_value-don-t-return-0-if-.patch
-Patch0016: 0016-libmultipath-sysfs_attr_set_value-don-t-return-0-on-.patch
-Patch0017: 0017-libmultipath-sysfs-cleanup-file-descriptors-on-pthre.patch
-Patch0018: 0018-libmultipath-multipathd-log-failure-setting-sysfs-at.patch
-Patch0019: 0019-multipath-tests-expect_condlog-skip-depending-on-ver.patch
-Patch0020: 0020-multipath-tests-__wrap_dlog-print-log-message.patch
-Patch0021: 0021-multipath-tests-add-sysfs-test.patch
-Patch0022: 0022-libmultipath.version-bump-version-for-sysfs-accessor.patch
-Patch0023: 0023-libmultipath-unset-detect_checker-for-clariion-Unity.patch
-Patch0024: 0024-libmultipath-spelling-cplusplus.patch
-Patch0025: 0025-libmultipath-spelling-ascii.patch
-Patch0026: 0026-libmultipath-spelling-progress.patch
-Patch0027: 0027-multipath-tools-spelling-fixes.patch
-Patch0028: 0028-multipath-tools-remove-list-of-rebranded-arrays-vend.patch
-Patch0029: 0029-multipath-tools-correct-CLARiiON-info-from-multipath.patch
-Patch0030: 0030-multipath-tools-add-basic-info-on-how-to-use-multipa.patch
-Patch0031: 0031-multipathd-factor-out-the-code-to-flush-a-map-with-n.patch
-Patch0032: 0032-libmultipath-return-success-if-we-raced-to-remove-a-.patch
-Patch0033: 0033-multipathd-Handle-losing-all-path-in-update_map.patch
-Patch0034: 0034-multipath-fix-systemd-timers-in-the-initramfs.patch
-Patch0035: 0035-multipathd-Add-missing-ctype-include.patch
-Patch0036: 0036-multipathd-replace-libreadline-with-libedit.patch
-Patch0037: 0037-libmultipath-convert-license-of-strbuf-code-to-GPL-2.patch
-Patch0038: 0038-github-workflows-build-and-unittest.yaml-add-libedit.patch
-Patch0039: 0039-github-workflows-coverity.yaml-add-libedit-dev.patch
-Patch0040: 0040-github-workflows-abi.yaml-add-libedit-dev.patch
-Patch0041: 0041-GitHub-workflows-native.yaml-add-libedit-dev-except-.patch
-Patch0042: 0042-GitHub-workflows-foreign.yaml-switch-to-Debian-11-bu.patch
-Patch0043: 0043-RH-fixup-udev-rules-for-redhat.patch
-Patch0044: 0044-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0045: 0045-RH-don-t-start-without-a-config-file.patch
-Patch0046: 0046-RH-Fix-nvme-function-missing-argument.patch
-Patch0047: 0047-RH-use-rpm-optflags-if-present.patch
-Patch0048: 0048-RH-add-mpathconf.patch
-Patch0049: 0049-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0050: 0050-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0051: 0051-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0052: 0052-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0053: 0053-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0001: 0001-libmultipath-fix-show-paths-format-failure.patch
+Patch0002: 0002-fixup-Makefile.inc-fix-man-and-include-paths.patch
+Patch0003: 0003-multipath-tools-Makefile.inc-Fix-paths-for-systemd.patch
+Patch0004: 0004-multipath-tools-Makefile.inc-don-t-take-values-from-.patch
+Patch0005: 0005-multipath-tools-Makefile.inc-get-rid-of-RUN.patch
+Patch0006: 0006-multipath-tools-Makefile.inc-more-compact-code-for-L.patch
+Patch0007: 0007-multipath-tools-Makefiles-simplify-code-for-include-.patch
+Patch0008: 0008-multipath-tools-Makefiles-use-mandir.patch
+Patch0009: 0009-multipath-tools-Makefile.inc-simplify-expression-for.patch
+Patch0010: 0010-multipath-tools-Makefile.inc-untangle-paths-and-sour.patch
+Patch0011: 0011-multipath-tools-Makefiles-replace-libdir-by-plugindi.patch
+Patch0012: 0012-multipath-tools-Makefile.inc-use-simple-make-variabl.patch
+Patch0013: 0013-multipath-tools-Makefile.inc-fix-a-log-message.patch
+Patch0014: 0014-multipath-tools-Makefile.inc-set-systemd-specific-fl.patch
+Patch0015: 0015-multipathd-Makefile-fix-compilation-flags-for-libedi.patch
+Patch0016: 0016-multipath-tools-Makefiles-clean-up-executable-Makefi.patch
+Patch0017: 0017-multipath-tools-Makefiles-use-common-code-for-librar.patch
+Patch0018: 0018-multipath-tools-Makefiles-move-common-code-to-rules..patch
+Patch0019: 0019-multipath-tools-Makefiles-create-config.mk.patch
+Patch0020: 0020-multipath-tools-Makefiles-enable-quiet-build.patch
+Patch0021: 0021-multipath-tools-quiet-build-support-for-top-level-Ma.patch
+Patch0022: 0022-GitHub-workflows-use-make-j8-Orecurse.patch
+Patch0023: 0023-README.md-Move-section-about-libedit-and-libreadline.patch
+Patch0024: 0024-README.md-Fix-indentation-in-paragraph-about-device-.patch
+Patch0025: 0025-README.md-document-options-for-paths-and-optimizatio.patch
+Patch0026: 0026-README.md-document-how-to-customize-build.patch
+Patch0027: 0027-libmultipath-avoid-Warray-bounds-error-with-gcc-12-a.patch
+Patch0028: 0028-multipath-avoid-NULL-string-in-released_to_systemd.patch
+Patch0029: 0029-libmultipath-avoid-NULL-string-in-is_udev_ready.patch
+Patch0030: 0030-libmultipath-impove-add_feature-variable-names.patch
+Patch0031: 0031-multipathd-don-t-initialize-the-field-width-in-show_.patch
+Patch0032: 0032-libmultipath-improve-remove_feature-variable-names.patch
+Patch0033: 0033-RH-fixup-udev-rules-for-redhat.patch
+Patch0034: 0034-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0035: 0035-RH-don-t-start-without-a-config-file.patch
+Patch0036: 0036-RH-Fix-nvme-function-missing-argument.patch
+Patch0037: 0037-RH-use-rpm-optflags-if-present.patch
+Patch0038: 0038-RH-add-mpathconf.patch
+Patch0039: 0039-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0040: 0040-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0041: 0041-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0042: 0042-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0043: 0043-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0044: 0044-RH-compile-with-libreadline-support.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
 Requires: kpartx = %{version}-%{release}
 Requires: device-mapper >= 1.02.96
 Requires: userspace-rcu
-Requires: libedit
+Requires: readline
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -87,7 +78,7 @@ Conflicts: udisks2 < 2.8.0-2
 # build/setup
 BuildRequires: libaio-devel, device-mapper-devel >= 1.02.89
 BuildRequires: libselinux-devel, libsepol-devel
-BuildRequires: libedit-devel, ncurses-devel
+BuildRequires: readline-devel, ncurses-devel
 BuildRequires: systemd-units, systemd-devel
 BuildRequires: json-c-devel, perl-interpreter, pkgconfig, gcc
 BuildRequires: userspace-rcu-devel
@@ -147,7 +138,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.9.0 -p1
+%autosetup -n multipath-tools-0.9.3 -p1
 cp %{SOURCE1} .
 
 %build
@@ -162,11 +153,12 @@ cp %{SOURCE1} .
 	bindir=%{_sbindir} \
 	syslibdir=%{_libdir} \
 	usrlibdir=%{_libdir} \
-	libdir=%{_libmpathdir} \
-	rcdir=%{_initrddir} \
+	plugindir=%{_libmpathdir} \
+	mandir=%{_mandir} \
 	unitdir=%{_unitdir} \
 	includedir=%{_includedir} \
-	pkgconfdir=%{_pkgconfdir}
+	pkgconfdir=%{_pkgconfdir} \
+	tmpfilesdir=%{_tmpfilesdir}
 
 # tree fix up
 install -d %{buildroot}/etc/multipath
@@ -191,32 +183,37 @@ fi
 /bin/systemctl --quiet is-enabled multipathd.service >/dev/null 2>&1 && /bin/systemctl reenable multipathd.service ||:
 
 %files
-%license LICENSES/GPL-2.0 LICENSES/LGPL-2.0
+%license LICENSES/GPL-2.0 LICENSES/LGPL-2.0 LICENSES/GPL-3.0
 %{_sbindir}/multipath
 %{_sbindir}/multipathd
+%{_sbindir}/multipathc
 %{_sbindir}/mpathconf
 %{_sbindir}/mpathpersist
 %{_unitdir}/multipathd.service
 %{_unitdir}/multipathd.socket
-%{_mandir}/man5/multipath.conf.5.gz
-%{_mandir}/man8/multipath.8.gz
-%{_mandir}/man8/multipathd.8.gz
-%{_mandir}/man8/mpathconf.8.gz
-%{_mandir}/man8/mpathpersist.8.gz
+%{_mandir}/man5/multipath.conf.5*
+%{_mandir}/man8/multipath.8*
+%{_mandir}/man8/multipathd.8*
+%{_mandir}/man8/multipathc.8*
+%{_mandir}/man8/mpathconf.8*
+%{_mandir}/man8/mpathpersist.8*
 %config /usr/lib/udev/rules.d/62-multipath.rules
 %config /usr/lib/udev/rules.d/11-dm-mpath.rules
 %dir /usr/lib/modules-load.d
 /usr/lib/modules-load.d/multipath.conf
 /usr/lib/modules-load.d/scsi_dh.conf
+%{_tmpfilesdir}/multipath.conf
 %doc README.md
 %doc multipath.conf
 %dir /etc/multipath
 
 %files libs
-%license LICENSES/GPL-2.0 LICENSES/LGPL-2.0
+%license LICENSES/GPL-2.0 LICENSES/LGPL-2.0 LICENSES/LGPL-2.1
 %doc README.md
 %{_libdir}/libmultipath.so
 %{_libdir}/libmultipath.so.*
+%{_libdir}/libmpathutil.so
+%{_libdir}/libmpathutil.so.*
 %{_libdir}/libmpathpersist.so.*
 %{_libdir}/libmpathcmd.so.*
 %{_libdir}/libmpathvalid.so.*
@@ -233,15 +230,15 @@ fi
 %{_includedir}/mpath_cmd.h
 %{_includedir}/mpath_persist.h
 %{_includedir}/mpath_valid.h
-%{_mandir}/man3/mpath_persistent_reserve_in.3.gz
-%{_mandir}/man3/mpath_persistent_reserve_out.3.gz
+%{_mandir}/man3/mpath_persistent_reserve_in.3*
+%{_mandir}/man3/mpath_persistent_reserve_out.3*
 
 %files -n kpartx
 %license LICENSES/GPL-2.0
 %doc README.md
 %{_sbindir}/kpartx
 /usr/lib/udev/kpartx_id
-%{_mandir}/man8/kpartx.8.gz
+%{_mandir}/man8/kpartx.8*
 %config /usr/lib/udev/rules.d/11-dm-parts.rules
 %config /usr/lib/udev/rules.d/66-kpartx.rules
 %config /usr/lib/udev/rules.d/68-del-part-nodes.rules
@@ -259,10 +256,24 @@ fi
 %dir %{_includedir}/libdmmp
 %{_includedir}/libdmmp/*
 %{_mandir}/man3/dmmp_*
-%{_mandir}/man3/libdmmp.h.3.gz
+%{_mandir}/man3/libdmmp.h.3*
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Tue Nov 15 2022 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.3-1
+- Update to the head of the upstream staging branch
+  * Previous patches 0001-0042 are included in the source tarball
+  * Patches 0001-0032 are from the upstream staging branch
+- Rename redhat patches
+  * Previous patches 0043-0053 are now patches 0033-0043
+- Change back to using readline instead of libedit
+  * The code the uses readline has been isolated from the code that
+    is licensed gpl v2 only.
+- Add libmpathutil libraries to spec file
+- Add multipathc program to spec file
+- Add multipath.conf systemd tempfile configuration to spec file
+- Misc spec file cleanups
+
 * Fri Aug 19 2022 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.0-3
 - Update to the head of the upstream staging branch
   * Patches 0005-0042 are from the upstream staging branch

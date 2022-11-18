@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1213445d2017aa869990e9b8cae6e1e4ed05e1e4
+%global gh_commit    de816814f52c67b33db614deb6227d46df531bc6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-captcha
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.14.0
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-date
 BuildRequires:  php-gd
 BuildRequires:  php-spl
@@ -59,14 +59,14 @@ BuildRequires:  phpunit9 >= 9.5.26
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-math": "^2.7 || ^3.0",
 #        "laminas/laminas-recaptcha": "^3.4.0",
 #        "laminas/laminas-session": "^2.12",
 #        "laminas/laminas-stdlib": "^3.10.1",
 #        "laminas/laminas-text": "^2.9.0",
 #        "laminas/laminas-validator": "^2.19.0"
-Requires:       php(language) >= 7.4
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-math)                 >= 2.7     with php-autoloader(%{gh_owner}/laminas-math)                 < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-recaptcha)            >= 3.4.0   with php-autoloader(%{gh_owner}/laminas-recaptcha)            < 4)
@@ -192,6 +192,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.15.0-1
+- update to 2.15.0
+- raise dependency on PHP 8.0
+
 * Tue Nov 15 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
 - update to 2.14.0 (no change)
 

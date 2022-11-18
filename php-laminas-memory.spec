@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    c5b51ba1958d55bceb5c79506fd7f25eef96156c
+%global gh_commit    f337bd5106b7464839e5c16ce0bdf1aea2809d1a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-memory
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.9.0
-Release:        2%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -34,25 +34,25 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "laminas/laminas-cache": "^3.0",
 #        "laminas/laminas-cache-storage-adapter-memory": "^2.0",
 #        "laminas/laminas-coding-standard": "^2.0",
-#        "phpunit/phpunit": "^9.3"
+#        "phpunit/phpunit": "^9.5"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # ignore minimal version
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-cache)                >= 2.7   with php-autoloader(%{gh_owner}/laminas-cache)                < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3
+BuildRequires:  phpunit9 >= 9.5
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0"
-Requires:       php(language) >= 7.3
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+Requires:       php(language) >= 8.0
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %if ! %{bootstrap}
 # From composer, "suggest": {
@@ -141,7 +141,7 @@ exit (class_exists("\\Zend\\%{library}\\Value") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -162,6 +162,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
+- update to 2.10.0 (no change)
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

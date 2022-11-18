@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1deab9c4bc484bbe21be5f0119a90e91d0da548c
+%global gh_commit    932a4b95b4cbb64dc69fb56ad3cd5032d5995104
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-log
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.15.3
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-ctype
 BuildRequires:  php-date
 BuildRequires:  php-dom
@@ -76,11 +76,11 @@ BuildRequires:  php-autoloader(%{gh_owner}/laminas-mime)           >= 2.5
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-servicemanager": "^3.3.0",
 #        "laminas/laminas-stdlib": "^3.0",
 #        "psr/log": "^1.1.2"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
 Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.3.0   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.0     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
@@ -219,6 +219,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.16.0-1
+- update to 2.16.0 (no change)
+- raise dependency on PHP 8.0
+
 * Thu Oct 27 2022 Remi Collet <remi@remirepo.net> - 2.15.3-1
 - update to 2.15.3
 

@@ -59,7 +59,7 @@ Provides: oci-runtime
 %{name} is a runtime for running OCI containers
 
 %prep
-%autosetup -Sgit %{name}-%{built_tag_strip}
+%autosetup -Sgit %{name}-%{built_tag}
 
 %build
 ./autogen.sh

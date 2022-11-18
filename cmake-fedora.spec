@@ -1,8 +1,8 @@
 Name:           cmake-fedora
 Version:        2.9.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        CMake helper modules for fedora developers
-License:        BSD
+License:        BSD-2-Clause-FreeBSD
 URL:            https://pagure.io/%{name}/
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{version}-Source.tar.gz
 
@@ -93,6 +93,9 @@ ctest --output-on-failure
 %{_datadir}/cmake/Templates/fedora/project.spec.in
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <fujiwara@redhat.com> - 2.9.3-16
+- Migrate license tag to SPDX
+
 * Wed Aug 03 2022 Takao Fujiwara <fujiwara@redhat.com> - 2.9.3-15
 - Resolves: #2113152 FTBFS with koji hardware failure
 

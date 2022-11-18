@@ -1,14 +1,16 @@
 Name:         bicon
-License:      LGPLv2+ and Python
+License:      LGPL-2.0-or-later and Python-2.0.1
 Version:      0.5
-Release:      16%{?dist}
+Release:      17%{?dist}
 Summary:      Bidirectional Console
 Source:       https://github.com/behdad/bicon/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:       %{name}-HEAD.patch
 URL:          https://www.arabeyes.org/Bicon
 
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: fribidi-devel
+BuildRequires: git
 BuildRequires: kbd
 BuildRequires: libtool
 BuildRequires: make
@@ -44,7 +46,7 @@ BuildArch:      noarch
 The bicon-keymaps package contains the keymap files for BiCon.
 
 %prep
-%setup -q
+%autosetup -S git
 
 %build
 libtoolize
@@ -78,6 +80,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/bicon/*.a
 %{_datadir}/%{name}/keymap
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 0.5-17
+- Migrate license tag to SPDX
+- Port upstream patches
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

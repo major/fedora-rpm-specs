@@ -3,11 +3,17 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A fake filesystem. Use it in your tests
 License: MIT
 URL: https://github.com/fakefs/fakefs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# From https://github.com/fakefs/fakefs/pull/467
+# ruby3.2 does not respond to Pathname#=~
+Patch0:  rubygem-fakefs-1.4.1-regexmatch-for-pathname-ruby32.patch
+# From https://github.com/fakefs/fakefs/pull/480
+# Test suite needs more filtering for ruby3.2
+Patch1:  rubygem-fakefs-1.9.0-ruby32-testsuite.patch
 # git clone https://github.com/fakefs/fakefs.git && cd fakefs/
 # git archive -v -o fakefs-1.2.2-tests.tar.gz v1.2.2 spec/ test/
 Source1: fakefs-%{version}-tests.tar.gz
@@ -32,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n  %{gem_name}-%{version} -b 1
+%patch0 -p1
+( cd %{_builddir}/test
+%patch1 -p2
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -75,6 +85,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Nov 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.2-6
+- Backport upstream fix for ruby32 wrt Object#=~ removal
+- Backport upstream fix for ruby32 wrt some method detection issue
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

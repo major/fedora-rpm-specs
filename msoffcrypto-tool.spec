@@ -2,20 +2,23 @@
 
 Summary:        Python tool for decrypting MS Office files with passwords or other keys
 Name:           msoffcrypto-tool
-Version:        4.11.0
-Release:        8%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/nolze/msoffcrypto-tool
 Source:         https://github.com/nolze/msoffcrypto-tool/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-cryptography >= 2.3
-BuildRequires:  python%{python3_pkgversion}-olefile >= 0.45
+%if 0%{?rhel} && 0%{?rhel} < 9
+BuildRequires:  pyproject-rpm-macros
+%endif
+
 # Tests
 BuildRequires:  python%{python3_pkgversion}-pytest
 
 Requires:       python%{python3_pkgversion}-%{modulename}
+
 
 %description
 The msoffcrypto-tool (formerly ms-offcrypto-tool) is a Python tool and
@@ -33,14 +36,18 @@ The msoffcrypto-tool (formerly ms-offcrypto-tool) is a Python tool and
 library for decrypting encrypted Microsoft Office files with password,
 intermediate key, or private key which generated its escrow key.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
-%setup -q
+%autosetup
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modulename}
 
 %check
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -53,12 +60,14 @@ pytest-3
 %doc README.md
 %{_bindir}/%{name}
 
-%files -n python%{python3_pkgversion}-%{modulename}
+%files -n python%{python3_pkgversion}-%{modulename} -f %{pyproject_files}
 %license LICENSE.txt
-%{python3_sitelib}/%{modulename}/
-%{python3_sitelib}/%{modulename}_tool-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Oct 26 2022 Michal Ambroz <rebus _AT seznam.cz> 5.0.0-1
+- Upgrade to 5.0.0
+- migrate the spec to poetry / pyproject-rpm-macros
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

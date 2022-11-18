@@ -1,17 +1,17 @@
-%global tag_version release-42-beta3
+%global tag_version release-42
 #%%global is_official 0%%(echo %%{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
-%global is_official 0%(echo %{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
 #%%global is_official 0
+%global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    42~beta3
+Version:    42
 Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
 %endif
 # Annotation files are in Unicode license
 Summary:    Emoji annotation files in CLDR
-License:    Unicode
+License:    Unicode-DFS-2016
 URL:        https://unicode.org/cldr
 %if %is_official
 Source0:    https://github.com/unicode-org/cldr/releases/download/%{tag_version}/cldr-common-%{version}.zip
@@ -126,6 +126,10 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Wed Nov 16 2022 Takao Fujiwara <tfujiwar@gmail.com> - 1:42
+- Migrate license tag to SPDX
+- Bump to release-42
+
 * Thu Oct 06 2022 Takao Fujiwara <tfujiwar@gmail.com> - 1:42~beta3-1
 - Bump to release-42-beta3
 

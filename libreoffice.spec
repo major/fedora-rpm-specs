@@ -56,7 +56,17 @@ Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.3
 Release:        1%{?libo_prerelease}%{?dist}
-License:        (MPLv1.1 or LGPLv3+) and LGPLv3 and LGPLv2+ and BSD and (MPLv1.1 or GPLv2 or LGPLv2 or Netscape) and Public Domain and ASL 2.0 and MPLv2.0 and CC0
+# default new files are: MPLv2
+# older files are typically: MPLv2 incorporating work under ASLv2
+# nlpsolver is: LGPLv3
+# icon-themes/karasa_jaga/COPYING: LGPLv3+
+# icon-themes/colibre/COPYING-ICONS: CC0
+# lotuswordpro is: Either LGPL 2.1 or SISSL 1.1
+# wizards/source/access2base: Either MPLv2 or LGPLv3+
+# writerperfect/source/common/DirectoryStream.cxx: MPLv2 or LGPLv2+
+# extras/source/autocorr/lang/hr/license.md: GPL 2.0 or LGPL2 or MPLv1.1
+# odk/examples/java/...: 3 clause BSD
+License:        MPL-2.0 and Apache-2.0 and LGPL-3.0-only and LGPL-3.0-or-later and CC0-1.0 and BSD-3-Clause and (LGPL-2.1-only or SISSL) and (MPL-2.0 or LGPL-3.0-or-later) and (MPL-2.0 or LGPL-2.1-or-later) and (MPL-1.1 or GPL-2.0-only or LGPL-2.1-only)
 URL:            http://www.libreoffice.org/
 
 Source0:        %{source_url}/libreoffice-%{version}%{?libo_prerelease}%{?libo_buildfix}.tar.xz
@@ -1100,9 +1110,6 @@ touch autogen.lastrun
  %{?archoptions} \
  %{?flatpakoptions}
 
-%ifarch s390x
-make verbose=true GMAKE_OPTIONS=-rj1 build
-%else
 if ! make verbose=true build; then
     echo "build attempt 1 failed"
     if ! make verbose=true build; then
@@ -1110,7 +1117,6 @@ if ! make verbose=true build; then
         make verbose=true GMAKE_OPTIONS=-rj1 build
     fi
 fi
-%endif
 
 #generate the icons and mime type stuff
 export DESTDIR=../output

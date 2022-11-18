@@ -1,15 +1,12 @@
 Name:           python-docutils
-Version:        0.18.1
-Release:        2%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        System for processing plaintext documentation
 
 # See COPYING.txt for information
 License:        Public Domain and BSD and Python and GPLv3+
 URL:            https://docutils.sourceforge.net
 Source0:        https://sourceforge.net/projects/docutils/files/docutils/%{version}/docutils-%{version}.tar.gz
-
-# https://sourceforge.net/p/docutils/bugs/436/
-Patch1:         python3.11-skip-null-bytes-exception-test.patch
 
 BuildArch:      noarch
 
@@ -45,6 +42,11 @@ sed -i -e '/#! *\/usr\/bin\/.*/{1D}' $(grep -Erl '^#!.+python' docutils)
 # We want the licenses but don't need this build file
 rm -f licenses/docutils.conf
 
+# docutils's upstream generates HTML files from the txt files, which affects
+# some of the egg-info's files too. We don't want those files in our package
+# Reported upstream: https://sourceforge.net/p/docutils/bugs/461/
+rm -v *.egg-info/*.html
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -72,9 +74,14 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %license COPYING.txt licenses/*
 %doc BUGS.txt FAQ.txt HISTORY.txt README.txt RELEASE-NOTES.txt THANKS.txt
 %{_bindir}/rst*
+%{_bindir}/docutils
 
 
 %changelog
+* Mon Oct 24 2022 Karolina Surma <ksurma@redhat.com> - 0.19-1
+- Update to 0.19
+Resolves: rhbz#2099884
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-xml
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    dcadeefdb6d7ed6b39d772b47e3845003d6ea60f
+%global gh_commit    30a4da5a003971de8f54e6810e742fe375e5d5d3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-xml
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -34,7 +34,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires:  php-simplexml
 BuildRequires:  php-dom
@@ -52,10 +52,10 @@ BuildRequires:  php-iconv
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-dom": "*",
 #        "ext-simplexml": "*"
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 8.0
 Requires:       php-dom
 Requires:       php-simplexml
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
@@ -120,7 +120,7 @@ EOF
 
 : upstream test suite
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -147,6 +147,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0 (no change)
+- raise dependency on PHP 8.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

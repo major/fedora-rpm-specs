@@ -7,8 +7,8 @@
 %global crate sev
 
 Name:           rust-sev
-Version:        0.3.0
-Release:        3%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Library for AMD SEV
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ use the "openssl" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Nov 16 2022 Tyler Fanelli <tfanelli@redhat.com> - 1.0.1-1
+- Rebase to 1.0.1 release (rhbz#2141113)
+
 * Fri Aug 26 2022 Cole Robinson <crobinso@redhat.com> - 0.3.0-3
 - Only build for x86_64
 

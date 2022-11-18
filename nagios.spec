@@ -305,6 +305,8 @@ install -d -m 0755 %{buildroot}%{_datadir}/nagios/html/docs
 %if 0%{?with_selinux}
 install -pm 0644 %{SOURCE13} README.SELinux.rst
 install -D -m 0644 %{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+install -D -p -m 0644 selinux/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
+
 %endif
 
 ### CONTRIB ITEMS TAKEN FROM UPSTREAM NAGIOS SPEC
@@ -456,7 +458,8 @@ fi
 %files selinux
 %doc README.SELinux.rst
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.*
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
+%{_datadir}/selinux/devel/include/distributed/%{name}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
 %endif
 
 

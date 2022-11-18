@@ -5,7 +5,7 @@ Name:       yubioath-desktop
 Version:    5.1.0
 Summary:    Yubikey tool for generating OATH event-based HOTP and time-based TOTP codes
 License:    BSD
-Release:    9%{?dist}
+Release:    10%{?dist}
 URL:        %{forgeurl}
 
 %forgemeta
@@ -19,7 +19,7 @@ BuildRequires: qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtsvg-devel gcc-c++
 BuildRequires: python3 desktop-file-utils qt5-qtquickcontrols2-devel
 BuildRequires: qt5-qtbase-private-devel qt5-qtmultimedia-devel
 Requires:      pyotherside qt5-qtdeclarative qt5-qtquickcontrols pcsc-lite-ccid
-Requires:      yubikey-manager
+Requires:      yubikey-manager < 5.0.0
 
 %description
 The Yubico Authenticator is a graphical desktop tool and CLI for generating
@@ -53,6 +53,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps resources
 %{_datadir}/applications/*
 
 %changelog
+* Wed Nov 16 2022 Gerald Cox <gbcox@fedoraproject.org> - 5.1.0-10
+- Requires yubikey-manager < 5.0.0 rhbz#2136583
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

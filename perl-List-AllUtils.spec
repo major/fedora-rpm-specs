@@ -1,10 +1,10 @@
 Name:           perl-List-AllUtils
 Version:        0.19
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Combines List::Util and List::SomeUtils
-# CODE_OF_CONDUCT.md:   CC-BY
-# lib/List/AllUtils.pm: Artistic 2.0
-License:        Artistic 2.0 and CC-BY
+# CODE_OF_CONDUCT.md:   CC-BY-4.0
+# lib/List/AllUtils.pm: Artistic-2.0
+License:        Artistic-2.0 AND CC-BY-4.0
 URL:            https://metacpan.org/release/List-AllUtils
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/List-AllUtils-%{version}.tar.gz
 BuildArch:      noarch
@@ -96,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 16 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.19-8
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

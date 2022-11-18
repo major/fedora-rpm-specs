@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        67
+Version:        68
 
 %gometa
 
@@ -581,6 +581,29 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Nov 16 2022 Packit <hello@packit.dev> - 68-1
+Changes with 68
+----------------
+  * Fix iot-installer build via the cloud API (#3132)
+  * Fix issues reported by Coverity (#3092)
+  * Fix loading cross distro compose results (#3090)
+  * RHEL-8/9 EC2 image definitions fixes (#3135)
+  * Refactor the RHEL 9 SAP config and packages to be useful on other platforms (#3100)
+  * ci: add my SSH keys to the CI ssh keys (#3119)
+  * ci: add tags to AWS instances (#3127)
+  * cloudapi/v2: expose ostree contenturl and rhsm options (#3105)
+  * dbjobqueue: acquire a new connection for each listen query (#3116)
+  * diff-manifests.sh: Use shared_lib for greenprint and redprint (#3133)
+  * distro: SELinux should be the last stage (#3117)
+  * docker-compose: remove unavailable `--dnf-json` (#3124)
+  * tools/provision.sh: copy RHEL repo overrides using wildcard (#3111)
+
+Contributions from: Brian C. Lane, Jakub Rusz, Ondřej Budai, Paul Whalen, Sanne Raymaekers, Simon de Vlieger, Thomas Lavocat, Tom Gundersen, Tomáš Hozza
+
+— Somewhere on the Internet, 2022-11-16
+
+
+
 * Wed Nov 02 2022 Packit <hello@packit.dev> - 67-1
 Changes with 67
 ----------------
@@ -597,10 +620,10 @@ Changes with 67
   * schutzbot/update_github_status: fix release fast-forwarding (#3082)
   * spec: Fix ownership of the dnf-json rpmmd files (#3085)
   * tests: Update the version of azurerm terraform provider (#3075)
-
 Contributions from: Alexander Todorov, Antonio Murdaca, Brian C. Lane, Jakub Rusz, Ondřej Budai, Sanne Raymaekers, Tomáš Hozza, dependabot[bot], schutzbot
-
 — Somewhere on the Internet, 2022-11-02
+
+
 
 
 
