@@ -8,7 +8,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	5.0.0
+Version:	5.1.0
 Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
@@ -22,6 +22,7 @@ Source2:	rmagick-create-full-tarball.sh
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
 BuildRequires:	ruby-devel
+BuildRequires:	rubygem(pkg-config)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(rspec)
 BuildRequires:	rubygem(pry)
@@ -32,7 +33,6 @@ BuildRequires:	rubygem(pry)
 %setIMver 38 1:6.9.12 1:6.9.13
 %setIMver 37 1:6.9.12 1:6.9.13
 %setIMver 36 1:6.9.12 1:6.9.13
-%setIMver 35 1:6.9.12 1:6.9.13
 %endif
 
 Obsoletes:	ruby-RMagick < 2.13.2
@@ -64,6 +64,10 @@ find . -name \*.rb -or -name \*.gif | xargs chmod ugo-x
 # kill rpath
 sed -i ext/RMagick/extconf.rb \
     -e '\@LDFLAGS@s|[ \t]*-Wl,-rpath,[^ \t][^ \t]*"|"|'
+
+# kill gcc optflags suppressing warnings
+sed -i ext/RMagick/extconf.rb \
+    -e "\@-std=gnu99@s|-Wno[^ \t'][^ \t']*||g"
 
 %build
 export MAKE="make %{?_smp_mflags}"
@@ -142,7 +146,10 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
-* Sun Oct  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-1
+* Thu Nov 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-1
+- 5.1.0
+
+* Sun Oct  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.0.0-1
 - 5.0.0
 
 * Mon Sep 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-1

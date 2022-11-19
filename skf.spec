@@ -5,15 +5,15 @@
 #%%define usescm 1
 %undefine	usescm
 
-%global	repoid		73963
+%global	repoid		78000
 
-%global	mainver	2.10.14
+%global	mainver	2.10.15
 %global	prever	2.10.10
 #%%define	betaver	-rc1
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	fedoraver	4
+%global	fedoraver	1
 
 %if 0%{?fedora} >= 13
 # Disable python3 support for now, how to handle NON-utf8 string
@@ -25,20 +25,16 @@
 
 Name:		skf
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.6
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}
 Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
 URL:		http://osdn.jp/projects/skf
-Source0:	http://dl.osdn.jp/skf/%{repoid}/skf_%{mainver}%{?betaver}.tar.xz
+Source0:	https://ja.osdn.net/frs/redir.php?f=skf/%{repoid}/skf_%{mainver}%{?betaver}.tar.xz
 Source1:	skf-basic-test.sh
 Source2:	create-skf-tarball-from-scm.sh
 # https://osdn.net/projects/skf/ticket/39882
 Source11:	https://ymu.dl.osdn.jp/ticket/g/s/sk/skf/39882/5733/pythontest
-# Reported: https://osdn.net/projects/skf/ticket/41024
-Patch1:	skf-2.10.14-0001-skf_convert.i-avoid-double-free-for-rubyext.patch
-# Need investigation
-Patch2:	skf-2.10.14-0002-skf_convert.i-avoid-invalid-free.patch
 
 # common BR
 BuildRequires:	gcc
@@ -78,19 +74,6 @@ Requires:	ruby(abi) = %{rubyabi}
 %endif
 Provides:	ruby(skf) = %{version}-%{release}
 
-%if 0%{?fedora} >= 27
-%package	-n python2-skf
-%{?python_provide:%python_provide python2-skf}
-# Remove before F30
-Provides: %{name}-python = %{version}-%{release}
-Provides: %{name}-python%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-python < %{version}-%{release}
-%else
-%package	python
-%endif
-Summary:	Python extension module for %{name}
-Requires:	%{name}-common = %{version}-%{release}
-
 %if %enable_python3
 %package	-n python3-skf
 Summary:	Python3 extension module for %{name}
@@ -125,13 +108,6 @@ packages.
 %description	ruby
 This package contains Ruby extension module for skf.
 
-%if 0%{?fedora} >= 27
-%description	-n python2-skf
-%else
-%description	python
-%endif
-This package contains Python extension module for skf.
-
 %if %enable_python3
 %description	-n python3-skf
 This package contains Python3 extension module for skf.
@@ -147,8 +123,6 @@ ln -sf %{name}-* main
 cp -p %SOURCE1 .
 
 pushd main
-%patch1 -p1 -b .rubyext
-%patch2 -p1 -b .rubyext2
 
 %if 0%{?usescm} >= 1
 autoconf
@@ -164,10 +138,10 @@ find . -type d -name CVS | sort -r | xargs rm -rf
 sed -i -e '/python_version=.*substr/s|)-2|)-3|' configure
 
 # Fix for ruby 3
-sed -i.ruby3 skf_convert.i \
-	-e 's@ defined(SKF_RUBY2)@ defined(SKF_RUBY2) || defined(SKF_RUBY3)@' \
-	-e 's@ !defined(SKF_RUBY2)@ !defined(SKF_RUBY2) \&\& !defined(SKF_RUBY3)@' \
-	%{nil}
+sed -i.ruby3 skf_convert.h \
+	-e 's@^#if defined.SKF_RUBY3.*$@#if 0@'
+sed -i configure.ac configure \
+	-e '\@^[ \t][ \t]*ruby_19_preferred="yes"@i ruby_21_preferred="yes";@'
 
 ## configure option, etc
 # change optflags, don't strip
@@ -212,6 +186,9 @@ PYTHONOPTS="$OPTS --enable-python2 --with-python_sitearch_dir=%{python2_sitearch
 %if %enable_python3
 PYTHON3OPTS="$OPTS --enable-python3 --with-python_sitearch_dir=%{python3_sitearch}"
 %endif
+
+# Workaround for ruby 3
+export RUBY=ruby
 
 # A. main
 pushd main
@@ -371,9 +348,9 @@ sh %{SOURCE1}
 
 %files	common	-f %{name}.lang
 %defattr(-,root,root,-)
-%lang(ja)	%doc	main/CHANGES_ja.txt
+%lang(ja)	%doc	main/debian/changelog
 %doc	main/README.txt
-%doc	main/copyright
+%license	main/copyright
 %if 0%{?usescm} < 1
 %lang(ja)	%doc	main/doc/
 %endif
@@ -398,6 +375,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Thu Nov 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-1
+- 2.10.15
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.14-4.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -416,7 +396,7 @@ sh %{SOURCE1}
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.14-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Sun Jun 21 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.14-4
+* Mon Jun 21 2021 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.14-4
 - BR: glibc-all-langpacks for iconv for Japanese locale
 
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.10.14-3.3

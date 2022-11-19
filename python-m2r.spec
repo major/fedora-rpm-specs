@@ -9,26 +9,24 @@ M2R converts a markdown file including reST markups to a valid reST format.}
 
 %bcond_without  check
 
-%global commit          66f4a5a500cdd9fc59085106bff082c9cadafaf3
-%global shortcommit     %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate    20190604
-
 Name:           python-%{srcname}
-Version:        0.2.1
-Release:        %autorelease -s %{snapshotdate}git%{shortcommit}
+Version:        0.3.1
+Release:        %autorelease
 Summary:        Markdown to reStructuredText converter
 
 License:        MIT
 URL:            https://github.com/miyakogi/%{srcname}
-Source0:        %url/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz
-
-# https://github.com/miyakogi/m2r/pull/67
-Patch0:         compatibility_fixes.patch
+Source0:        %{pypi_source %{srcname}}
 
 BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+
+%if %{with check}
+BuildRequires:  python3-pygments
+BuildRequires:  python3-pytest
+%endif
 
 
 %description
@@ -38,51 +36,41 @@ BuildRequires:  python3-devel
 %package -n python3-%{srcname}
 Summary:        %{summary}
 
+
 %description -n python3-%{srcname} %{common_description}
 
-%package doc
-Summary:        Documentation for %{name}
-
-%description doc
-%{common_description}
-
-Documentation for %name.
 
 %prep
-%autosetup -p1 -n %{srcname}-%{commit}
-
-# https://github.com/sphinx-doc/sphinx/issues/10474
-sed -i "s/language = None/language = 'en'/" docs/conf.py
+%autosetup -p1 -n %{srcname}-%{version}
 
 # Remove shebang
 sed -i '1{\@^#!/usr/bin/env python@d}' m2r.py
 
+
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
+
 
 %build
 %pyproject_wheel
 
-PYTHONPATH=${PWD} sphinx-build-3 docs html
-# remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
 %pyproject_save_files %{libname}
 
+
 %if %{with check}
 %check
-%tox
+%pytest
 %endif
 
+
 %files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE
 %doc README.md
 %{_bindir}/m2r
 
-%files doc
-%doc html
-%license LICENSE
 
 %changelog
 %autochangelog

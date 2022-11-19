@@ -2,7 +2,7 @@
 
 Name:           pypolicyd-spf
 Version:        2.9.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SPF Policy Server for Postfix (Python implementation)
 
 License:        ASL 2.0
@@ -12,19 +12,29 @@ Source1:        %{name}-tmpfiles.conf
 Patch0:         pypolicyd-spf-2.9.3-service.patch
 
 BuildArch:      noarch
-Requires:       postfix, python3-pyspf, python3-authres, python3-pymilter
+Requires:       postfix
+Requires:       python3-pyspf
+Requires:       python3-authres
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd
 
+%package milter
+Summary:        Milter for pypolicyd-spf (spf-engine).
+Requires:       %{name} = %{version}-%{release}
+Requires:       python3-pymilter
+
 %description
-pypolicyd-spf is a Postfix policy engine for Sender Policy Framework (SPF)
-checking. It is implemented in pure Python and uses the python-spf (pyspf)
-module.
+pypolicyd-spf (spf-engine) is a Postfix policy engine for Sender Policy
+Framework (SPF) checking. It is implemented in pure Python and uses the
+python-spf (pyspf) module.
 
 This SPF policy server implementation provides flexible options for different
 receiver policies and sender whitelisting to enable it to support a very wide
 range of requirements.
+
+%description milter
+Milter for pypolicyd-spf.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
@@ -37,6 +47,7 @@ range of requirements.
 %install
 %{__rm} -rf %{buildroot}
 %py3_install
+
 # We want the binary in Postfix libexec directory
 %{__mkdir_p} %{buildroot}%{_libexecdir}/postfix
 %{__mv} %{buildroot}%{_bindir}/policyd-spf %{buildroot}%{_libexecdir}/postfix
@@ -62,15 +73,26 @@ range of requirements.
 %dir %{_sysconfdir}/python-policyd-spf
 %config(noreplace) %{_sysconfdir}/python-policyd-spf/policyd-spf.conf
 %{_libexecdir}/postfix/policyd-spf
-%{_bindir}/pyspf-milter
-%{_unitdir}/pyspf-milter.service
 %{_tmpfilesdir}/%{name}.conf
 %{_mandir}/man1/*
 %{_mandir}/man5/*
-%{python3_sitelib}/*
+%dir %{python3_sitelib}/spf_engine
+%{python3_sitelib}/spf_engine-%{version}*.egg-info/
+%pycached %{python3_sitelib}/spf_engine/__init__.py
+%pycached %{python3_sitelib}/spf_engine/policy*.py
+
+
+%files milter
+%{_bindir}/pyspf-milter
+%{_unitdir}/pyspf-milter.service
+%pycached %{python3_sitelib}/spf_engine/milter*.py
+%pycached %{python3_sitelib}/spf_engine/util.py
 
 
 %changelog
+* Thu Nov 17 2022 Bojan Smojver <bojan@rexursive.com> 2.9.3-4
+- split milter into a sub-package
+
 * Tue Nov 15 2022 Bojan Smojver <bojan@rexursive.com> 2.9.3-3
 - require python3-pymilter (bug #2142743)
 

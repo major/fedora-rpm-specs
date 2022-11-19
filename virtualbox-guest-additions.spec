@@ -1,8 +1,6 @@
-%global __provides_exclude_from %{_libdir}/VBoxGuestAdditions
-
 Name:       virtualbox-guest-additions
-Version:    6.1.40
-Release:    1%{?dist}
+Version:    7.0.2
+Release:    2%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -11,32 +9,24 @@ Source0:    https://download.virtualbox.org/virtualbox/%{version}/VirtualBox-%{v
 Source1:    vboxservice.service
 Source3:    VirtualBox-60-vboxguest.rules
 Source4:    vboxclient.service
+Source5:    mount.vboxsf
 
-# Mainline vboxsf uses an option string rather then a custom binary data struct
-#Patch2:     0001-VBoxServiceAutoMount-Change-Linux-mount-code-to-use-.patch
-# Do not show an error dialog when not running under vbox
-# Do not start VBoxClient --vmsvga-x11, we run VBoxClient --vmsvga as
-# a systemd service, this works with both Wayland and Xorg based sessions
-Patch3:     VirtualBox-5.2.10-xclient.patch
+Patch60:    VirtualBox-7.0.2-xclient-cleanups.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  kBuild >= 0.1.9998.r3093
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  alsa-lib-devel
+BuildRequires:  pulseaudio-libs-devel
 # for xsltproc
 BuildRequires:  libxslt
 BuildRequires:  makeself
 BuildRequires:  yasm
-BuildRequires:  boost-devel
-BuildRequires:  liblzf-devel
-BuildRequires:  libXcomposite-devel
-BuildRequires:  libXdamage-devel
 BuildRequires:  libXmu-devel
+BuildRequires:  libX11-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  libXt-devel
-BuildRequires:  mesa-libEGL-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  mesa-libGLU-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
 BuildRequires:  zlib-devel
@@ -61,10 +51,14 @@ Requires: kernel >= 5.6.14
 Obsoletes:  %{name}-ogl < 6.0.14-2
 
 %description
+This package replaces the application of Virtualbox's own methodology to
+install Guest Additions (in menu: Devices | Insert Guest Additions CD-image file).
 VirtualBox is a powerful x86 and AMD64/Intel64 virtualization product for
 enterprise as well as home use. This package contains the VirtualBox
 Guest Additions which support better integration of VirtualBox guests
 with the Host, including file sharing, clipboard sharing and Seamless mode.
+Aditional note: this package can be installed on an non-guest system, because it is
+harmless and services would not run anyway.
 
 
 %prep
@@ -77,13 +71,16 @@ rm -r kBuild/
 rm -r tools/
 # Remove bundle X11 sources and some lib sources, before patching.
 rm -r src/VBox/Additions/x11/x11include/
-rm -r src/VBox/Additions/x11/x11stubs/
-rm -r src/VBox/Additions/3D/mesa/mesa-17.3.9/
+rm -r src/VBox/Additions/3D/mesa/mesa-21.3.8/
 rm -r src/libs/liblzf-3.*/
 rm -r src/libs/libpng-1.6.*/
 rm -r src/libs/libxml2-2.9.*/
-rm -r src/libs/openssl-1.*/
+rm -r src/libs/openssl-3.*/
 rm -r src/libs/zlib-1.2.*/
+rm -r src/libs/curl-7.*/
+rm -r src/libs/libvorbis-1.3.*/
+rm -r src/libs/libogg-1.3.*/
+rm -r src/libs/libtpms-0.9.0/
 
 
 %build
@@ -97,11 +94,10 @@ umask 0022
 # the installation paths, but install the tree with the default
 # layout under 'obj' and shuffle files around in %%install.
 kmk %{_smp_mflags}                                             \
+    VBOX_ONLY_ADDITIONS=1                                      \
     KBUILD_VERBOSE=2                                           \
     PATH_OUT="$PWD/obj"                                        \
     TOOL_YASM_AS=yasm                                          \
-    VBOX_WITH_TESTCASES=                                       \
-    VBOX_WITH_VALIDATIONKIT=                                   \
     VBOX_USE_SYSTEM_XORG_HEADERS=1                             \
     VBOX_USE_SYSTEM_GL_HEADERS=1                               \
     VBOX_NO_LEGACY_XORG_X11=1                                  \
@@ -122,13 +118,17 @@ mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_sbindir}
 mkdir -p %{buildroot}%{_libdir}/security
 
+# Guest-additions tools
 install -m 0755 -t %{buildroot}%{_sbindir}   \
-    obj/bin/additions/VBoxService
+    obj/bin/additions/VBoxService            \
+    %{SOURCE5}
+
 install -m 0755 -t %{buildroot}%{_bindir}    \
     obj/bin/additions/VBoxDRMClient          \
     obj/bin/additions/VBoxClient             \
     obj/bin/additions/VBoxControl
 
+# Guest libraries
 install -m 0755 -t %{buildroot}%{_libdir}/security \
     obj/bin/additions/pam_vbox.so
 
@@ -174,6 +174,7 @@ getent passwd vboxadd >/dev/null || \
 %{_bindir}/VBoxClient-all
 %{_bindir}/VBoxDRMClient
 %{_sbindir}/VBoxService
+%{_sbindir}/mount.vboxsf
 %{_libdir}/security/pam_vbox.so
 %{_sysconfdir}/X11/xinit/xinitrc.d/98vboxadd-xclient.sh
 %{_sysconfdir}/xdg/autostart/vboxclient.desktop
@@ -183,6 +184,12 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Sat Nov 05 2022 Sérgio Basto <sergio@serjux.com> - 7.0.2-1
+- Update to 7.0.2
+- Add mount.vboxsf script wrapper
+- (#2049736) Add a note into the description informing this packages replaces
+  Virtualbox's own method to install Guest Additions.
+
 * Mon Oct 31 2022 Sérgio Basto <sergio@serjux.com> - 6.1.40-1
 - Update virtualbox-guest-additions to 6.1.40
 

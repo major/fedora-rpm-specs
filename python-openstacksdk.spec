@@ -1,4 +1,3 @@
-%{?python_enable_dependency_generator}
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -16,15 +15,13 @@ A collection of libraries for building applications to work with OpenStack \
 clouds - test files
 
 Name:           python-%{pypi_name}
-Version:        0.61.0
-Release:        4%{?dist}
+Version:        0.101.0
+Release:        1%{?dist}
 Summary:        An SDK for building applications to work with OpenStack
 
 License:        ASL 2.0
 URL:            http://www.openstack.org/
 Source0:        https://pypi.io/packages/source/o/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-# Required for compatibility with python 3.11 until we have a new release
-Patch1:         0001-Replace-deprecated-inspect.getargspec-call.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -45,6 +42,7 @@ BuildRequires:  python3-munch
 BuildRequires:  python3-jmespath
 BuildRequires:  python3-jsonschema
 BuildRequires:  python3-os-service-types
+
 # Test requirements
 %if (0%{?fedora} && 0%{?fedora} < 32) || (0%{?rhel} && 0%{?rhel} < 9)
 BuildRequires:  python3-importlib-metadata
@@ -152,6 +150,12 @@ PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --black-regex '(t
 %endif
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 0.101.0-1
+- Update to upstream version 0.101.0
+
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 0.101.0-1
+- Update to upstream version 0.101.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.61.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

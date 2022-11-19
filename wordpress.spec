@@ -13,7 +13,7 @@
 %else
 %global with_nginx 0
 %endif
-%global upstream_version 6.1
+%global upstream_version 6.1.1
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -262,6 +262,9 @@ end
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 6.1.1-1
+- WordPress 6.1.1 Maintenance Release
+
 * Wed Nov  2 2022 Remi Collet <remi@remirepo.net> - 6.1-1
 - WordPress 6.1 “Misha”
 

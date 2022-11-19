@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
@@ -15,8 +14,8 @@ The OpenStack Oslo database handling library. Provides database connectivity \
 to the different backends and helper utils.
 
 Name:           python-%{pkg_name}
-Version:        11.2.0
-Release:        2%{?dist}
+Version:        12.1.0
+Release:        1%{?dist}
 Summary:        OpenStack oslo.db library
 
 License:        ASL 2.0
@@ -68,7 +67,9 @@ BuildRequires:  python3-testresources
 BuildRequires:  python3-testscenarios
 
 Requires:       python3-PyMySQL
+%if 0%{?rhosp} == 0
 Requires:       python3-pynacl
+%endif
 Requires:       python3-oslo-config >= 2:5.2.0
 Requires:       python3-oslo-i18n >= 3.15.3
 Requires:       python3-oslo-utils >= 3.33.0
@@ -182,6 +183,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 12.1.0-1
+- Update to upstream version 12.1.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

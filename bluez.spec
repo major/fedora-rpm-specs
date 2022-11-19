@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.66
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -18,6 +18,8 @@ Source1: bluez.gitignore
 Patch1: 0001-obex-Use-GLib-helper-function-to-manipulate-paths.patch
 # https://lore.kernel.org/linux-bluetooth/20220901110719.176944-1-hadess@hadess.net/T/#m9c08d004cd5422783ee1d93154f42303bba9169f
 Patch2: power-state-adapter-property.patch
+# Upstreamed patches
+Patch3: transient-hostname-fix.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -266,6 +268,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_bindir}/hciconfig
 %{_bindir}/hcidump
 %{_bindir}/hcitool
+%{_bindir}/meshctl
 %{_bindir}/rfcomm
 %{_bindir}/sdptool
 %{_mandir}/man1/ciptool.1.*
@@ -304,7 +307,6 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 #%doc tools/mesh-gatt/*.json
 %config %{_sysconfdir}/bluetooth/mesh-main.conf
 %config %{_sysconfdir}/dbus-1/system.d/bluetooth-mesh.conf
-%{_bindir}/meshctl
 %{_bindir}/mesh-cfgclient
 %{_bindir}/mesh-cfgtest
 %{_datadir}/dbus-1/system-services/org.bluez.mesh.service
@@ -319,6 +321,12 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Thu Nov 17 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.66-4
+- Move meshctl to deprecated
+
+* Thu Nov 17 2022 Bastien Nocera <bnocera@redhat.com> - 5.66-3
+- Fix handling of transient hostnames (#2143488)
+
 * Mon Nov 14 2022 Bastien Nocera <bnocera@redhat.com> - 5.66-2
 - Re-add wrongly removed non-upstreamed patch
 

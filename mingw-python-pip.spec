@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       22.2.2
-Release:       3%{?dist}
+Version:       22.3.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 
@@ -125,6 +125,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Thu Nov 17 2022 Sandro Mani <manisandro@gmail.com> - 22.3.1-1
+- Update to 22.3.1
+
 * Sat Oct 15 2022 Sandro Mani <manisandro@gmail.com> - 22.2.2-3
 - Strip shebang from non-exec scripts
 - Install all license files

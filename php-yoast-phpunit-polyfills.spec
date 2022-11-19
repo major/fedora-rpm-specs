@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-yoast-phpunit-polyfills
 #
-# Copyright (c) 2020 Remi Collet
+# Copyright (c) 2020-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    5ea3536428944955f969bc764bbe09738e151ada
+%global gh_commit    3c621ff5429d2b1ff96dc5808ad6cde99d31ea4c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.0.3
-Release:        3%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality
 
 License:        BSD
@@ -125,7 +125,7 @@ if [ -x %{_bindir}/phpunit8 ]; then
   done
 fi
 if [ -x %{_bindir}/phpunit9 ]; then
-  for cmd in php php73 php74 php80 php81; do
+  for cmd in php php80 php81 php82; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit9 --no-coverage --verbose || ret=1
     fi
@@ -144,6 +144,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 1.0.4-1
+- update to 1.0.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

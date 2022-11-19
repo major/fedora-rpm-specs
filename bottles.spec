@@ -24,7 +24,7 @@ BuildRequires: pkgconfig(libadwaita-1) >= 1.1.99
 Requires:   cabextract
 Requires:   glibc(x86-32)           %dnl # https://github.com/bottlesdevs/Bottles/issues/601#issuecomment-936772762
 Requires:   gtk4
-Requires:   gtksourceview4
+Requires:   gtksourceview5
 Requires:   hicolor-icon-theme
 Requires:   libadwaita >= 1.1.99
 Requires:   p7zip p7zip-plugins     %dnl # needed by the dependencies manager

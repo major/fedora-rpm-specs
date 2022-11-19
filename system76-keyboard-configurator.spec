@@ -1,12 +1,12 @@
 %bcond_without check
 
-%global tag      v1.2.0
+%global tag      v1.3.0
 %global forgeurl https://github.com/pop-os/keyboard-configurator
-Version:         1.2.0
+Version:         1.3.0
 %forgemeta
 
 Name:          system76-keyboard-configurator
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       System76 Keyboard Configurator
 
 License:       GPLv3
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet linux/com.system76.keyboardconfigurator.ap
 
 
 %changelog
+* Thu Nov 17 2022 Link Dupont <linkdupont@fedoraproject.org> - 1.3.0-1
+- New upstream version (RHBZ#2143483)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,13 @@
 Name:           fftw2
 Version:        2.1.5
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Fast Fourier Transform library (version 2)
 %define         real_name fftw
 
 License:        GPLv2+
 URL:            http://www.fftw.org/
 Source0:        ftp://ftp.fftw.org/pub/fftw/fftw-%{version}.tar.gz
+Patch0: fftw2-configure.patch
 
 BuildRequires: make
 BuildRequires:  gcc-gfortran
@@ -46,6 +47,10 @@ transform library (version 2).
 
 %prep
 %setup -q -c %{real_name}-%{version}
+pushd %{real_name}-%{version}
+%patch0 -p1
+popd
+
 mv %{real_name}-%{version} single
 cp -a single double
 
@@ -110,6 +115,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %{_libdir}/*.a
 
 %changelog
+* Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 2.1.5-44
+- Avoid implicit function declaration during configure (#2143573)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

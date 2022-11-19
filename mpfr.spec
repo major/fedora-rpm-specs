@@ -1,32 +1,16 @@
 Summary: C library for multiple-precision floating-point computations
 Name: mpfr
-Version: 4.1.0
-Release: 10%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 URL: https://www.mpfr.org/
 
-License: LGPLv3+
+License: LGPL-3.0-or-later
 BuildRequires: gcc
 BuildRequires: gmp-devel
 BuildRequires: make
 BuildRequires: texinfo
 
 Source0: https://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
-
-# Upstream post-release patches.  This currently contains:
-# - decimal128-conv.patch
-# - random_deviate.patch
-# - set_z_2exp-overflow.patch
-# - prototypes.patch
-# - digamma-hugemem.patch
-# - digamma-interm-zero.patch
-# - jn-interm-zero.patch
-# - digamma-interm-zero2.patch
-# - jyn-asympt-interm-zero.patch
-# - macros.patch
-# - tset_sij.patch
-# - get_str_ndigits.patch
-# - vasprintf-prec-zero.patch
-Patch0: https://www.mpfr.org/%{name}-%{version}/allpatches
 
 %description
 The MPFR library is a C library for multiple-precision floating-point
@@ -50,7 +34,7 @@ install the mpfr package.
 
 %package doc
 Summary: Documentation for the MPFR library
-License: GFDL
+License: GFDL-1.2-no-invariants-or-later
 BuildArch: noarch
 
 %description doc
@@ -73,7 +57,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install
-cp -p PATCHES README %{buildroot}%{_pkgdocdir}
+cp -p ChangeLog PATCHES README %{buildroot}%{_pkgdocdir}
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_infodir}/dir
 
@@ -87,6 +71,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %files
 %license COPYING COPYING.LESSER
 %{_pkgdocdir}/BUGS
+%{_pkgdocdir}/ChangeLog
 %{_pkgdocdir}/NEWS
 %{_pkgdocdir}/PATCHES
 %{_pkgdocdir}/README
@@ -106,6 +91,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_infodir}/mpfr.info*
 
 %changelog
+* Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 4.1.1-1
+- Update to MPFR version 4.1.1
+- Drop all patches
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

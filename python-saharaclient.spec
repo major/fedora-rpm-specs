@@ -1,14 +1,13 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %global sname saharaclient
 
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:             python-saharaclient
-Version:          3.5.0
-Release:          3%{?dist}
+Version:          4.0.2
+Release:          1%{?dist}
 Summary:          Client library for OpenStack Sahara API
 License:          ASL 2.0
 URL:              https://launchpad.net/sahara
@@ -39,20 +38,18 @@ BuildRequires:    python3-osc-lib-tests >= 1.11.0
 BuildRequires:    python3-oslotest >= 3.2.0
 BuildRequires:    python3-oslo-log >= 3.36.0
 BuildRequires:    python3-oslo-serialization >= 2.18.0
-BuildRequires:    python3-pbr >= 2.0.0
+BuildRequires:    python3-pbr >= 3.1.1
 BuildRequires:    python3-requests-mock >= 1.2.0
 BuildRequires:    python3-stestr >= 1.0.0
 
 Requires:         python3-keystoneauth1 >= 3.4.0
 Requires:         python3-openstackclient >= 5.2.0
 Requires:         python3-osc-lib >= 2.0.0
-Requires:         python3-oslo-i18n >= 3.15.3
-Requires:         python3-oslo-log >= 3.36.0
-Requires:         python3-oslo-serialization >= 2.18.0
+Requires:         python3-oslo-i18n >= 3.20.0
+Requires:         python3-oslo-log >= 5.0.0
+Requires:         python3-oslo-serialization >= 2.25.0
 Requires:         python3-oslo-utils >= 3.33.0
-Requires:         python3-pbr >= 2.0.0
 Requires:         python3-requests >= 2.14.2
-Requires:         python3-six >= 1.10.0
 
 %{?python_provide:%python_provide python3-%{sname}}
 
@@ -89,6 +86,9 @@ stestr-3 run
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 4.0.2-1
+- Update to upstream version 4.0.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

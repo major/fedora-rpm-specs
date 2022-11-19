@@ -1,9 +1,9 @@
 Name:           hackrf
-Version:        2018.01.1
-Release:        12%{?dist}
+Version:        2022.09.1
+Release:        1%{?dist}
 Summary:        HackRF Utilities
 
-License:        GPLv2
+License:        GPL-2.0
 URL:            https://greatscottgadgets.com/hackrf/
 Source0:        https://github.com/mossmann/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -98,10 +98,14 @@ sed -i -e 's/GROUP="plugdev"/TAG+="uaccess"/g' host/libhackrf/53-hackrf.rules
 %{_libdir}/libhackrf.a
 
 %files doc
-%doc doc/*
+%doc docs/*
 
 
 %changelog
+* Thu Nov 17 2022 Richard Shaw <hobbes1069@gmail.com> - 2022.09.1-1
+- Update to 2022.09.1.
+- Update license tag to SPDX format.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2018.01.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

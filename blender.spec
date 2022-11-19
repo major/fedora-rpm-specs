@@ -83,6 +83,7 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(python3) >= 3.7
 %if %{with wayland}
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
@@ -262,6 +263,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with wayland}
     -DWITH_GHOST_WAYLAND=ON \
     -DWITH_GL_EGL=ON \
+    -DWITH_GHOST_WAYLAND_DBUS=ON \
+    -DWITH_GHOST_WAYLAND_DYNLOAD=ON \
     -DWITH_GHOST_WAYLAND_LIBDECOR=ON \
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \

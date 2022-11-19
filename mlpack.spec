@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        6%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 License:        BSD
@@ -59,9 +59,24 @@ language features to provide maximum performance and maximum flexibility for
 expert users. mlpack outperforms competing machine learning libraries by large
 margins.
 
+# Licenses and information files
+%package licenses
+Summary:        Licenses and information files for mlpack (machine learning library)
+
+%description licenses
+mlpack is a C++ machine learning library with emphasis on scalability, speed,
+and ease-of-use. Its aim is to make machine learning possible for novice users
+by means of a simple, consistent API, while simultaneously exploiting C++
+language features to provide maximum performance and maximum flexibility for
+expert users. mlpack outperforms competing machine learning libraries by large
+margins.  This package provides the command-line executables which run mlpack
+methods and related documentation.
+
 # Executables.
 %package bin
 Summary:        Command-line executables for mlpack (machine learning library)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-licenses
 Requires:       armadillo
 
 %description bin
@@ -75,14 +90,17 @@ methods and related documentation.
 
 # Development headers.
 %package devel
-Summary:        Development headers for mlpack (C++ machine learning library)
-Requires:       armadillo-devel >= 9.800.0
+Summary:    Development headers for mlpack (C++ machine learning library)
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   %{name}-licenses
+Requires:   armadillo-devel >= 9.800.0
 Requires:	ensmallen-devel >= 2.10.0
 Requires:	cereal-devel
-Requires:       lapack-devel
+Requires:   lapack-devel
 Requires:	pkg-config
-Requires:       stb_image-devel%{?_isa} >= %{min_stb_image}
-Requires:       stb_image_write-devel%{?_isa}
+Requires:   stb_image-devel%{?_isa} >= %{min_stb_image}
+Requires:   stb_image_write-devel%{?_isa}
+Provides:   %{name}-static = %{version}-%{release}
 
 %description devel
 mlpack is a C++ machine learning library with emphasis on scalability, speed,
@@ -97,6 +115,8 @@ mlpack.
 
 %package python3
 Summary:	Python 3 bindings for mlpack (C++ machine learning library)
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   %{name}-licenses
 Requires:	python3
 Requires:	python3-numpy
 Requires:	python3-pandas
@@ -150,17 +170,19 @@ cd ..;
 %install
 %{cmake_install}
 
-# Put the license file and documentation in place.
-if [ "%{our_docdir}" != "%{_docdir}/mlpack" ]; then
-  mv $RPM_BUILD_ROOT/%{_docdir}/mlpack $RPM_BUILD_ROOT/%{our_docdir}
-fi
-mkdir -p $RPM_BUILD_ROOT/%{our_docdir}
-cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
-
 %ldconfig_scriptlets
 
+%files licenses
+%license LICENSE.txt
+%license COPYRIGHT.txt
+%doc CODE_OF_CONDUCT.md
+%doc CONTRIBUTING.md
+%doc HISTORY.md
+%doc GOVERNANCE.md
+%doc README.md
+%doc UPDATING.txt
+
 %files bin
-%{our_docdir}/LICENSE.txt
 %{_bindir}/mlpack_adaboost
 %{_bindir}/mlpack_approx_kfn
 %{_bindir}/mlpack_bayesian_linear_regression
@@ -259,7 +281,6 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 %{_mandir}/mlpack_sparse_coding.1*
 
 %files devel
-%{our_docdir}/LICENSE.txt
 %{_includedir}/mlpack.hpp
 %{_includedir}/mlpack/
 %{_libdir}/pkgconfig/mlpack.pc
@@ -269,6 +290,19 @@ cp LICENSE.txt $RPM_BUILD_ROOT/%{our_docdir}
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Thu Nov 17 2022 Benson Muite <benson_muite@emailplus.org> - 4.0.0-6
+- Use license package
+
+* Tue Nov 15 2022 Benson Muite <benson_muite@emailplus.org> - 4.0.0-5
+- Use just bin and devel directories
+
+* Mon Nov 14 2022 Benson Muite <benson_muite@emailplus.org> - 4.0.0-4
+- Include README and other documentation files
+
+* Sun Nov 13 2022 Benson Muite <benson_muite@emailplus.org> - 4.0.0-3
+- Put license in base package
+- Add static label to header only library
+
 * Mon Oct 31 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-2
 - Fix incorrect Requires.
 

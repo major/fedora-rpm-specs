@@ -1,6 +1,6 @@
 Name:		kcc
 Version:	2.3
-Release:	54%{?dist}
+Release:	55%{?dist}
 License:	GPLv2+
 
 BuildRequires:	gcc
@@ -13,6 +13,7 @@ Patch0:		kcc-2.3-dontstrip.patch
 Patch1:		kcc-2.3-varargs.patch
 Patch2:		kcc-2.3-fix-segv.patch
 Patch3:		kcc-2.3-timestamp.patch
+Patch4:		kcc-2.3-c99.patch
 
 Summary:	Kanji Code Converter
 %description
@@ -24,9 +25,10 @@ kcc is a kanji code converter with an auto detection.
 %patch1 -p1 -b .varargs
 %patch2 -p1 -b .segv
 %patch3 -p1 -b .timestamp
+%patch4 -p1 -b .c99
 
 %build
-make "CFLAGS=$RPM_OPT_FLAGS"
+make "CFLAGS=-std=gnu99 $RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -50,6 +52,10 @@ gzip -9 $RPM_BUILD_ROOT%{_mandir}/man1/kcc.1
 %{_mandir}/man1/kcc.1*
 
 %changelog
+* Wed Oct 26 2022 Florian Weimer <fweimer@redhat.com> - 2.3-55
+- Updates for C99 compatibility (#2141799).
+- Build in C99 mode because of old-style function definitions.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-54
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

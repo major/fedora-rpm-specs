@@ -37,14 +37,16 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 
 Name:			elk
-Version:		8.3.22
-Release:		3%{?dist}
+Version:		8.5.10
+Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 License:		GPLv3+
 URL:			http://elk.sourceforge.net/
 Source0:		https://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tgz
+Patch0:			elk-8.5.10-libxc6.patch
 
+BuildRequires:		patch
 BuildRequires:		time
 
 BuildRequires:		gcc-gfortran
@@ -119,6 +121,7 @@ This package contains the common binaries.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 # create common make.inc.common
 # default serial fortran
@@ -240,16 +243,18 @@ export OMP_NUM_THREADS=$NPROC
 mv tests-libxc tests-libxc.orig
 mv tests tests.orig
 
+export TIMEOUT_OPTS='--preserve-status --kill-after 10 7200'
+
 # To avoid replicated code define a macro
 %global docheck() \
 cp -rp tests-libxc.orig tests-libxc&& \
 sed -i "s#../../src/elk#$ELK_EXECUTABLE#g" tests-libxc/test.sh&& \
 sed -i "/Failed/ a \ \ \ \ cat test.log" tests-libxc/test.sh&& \
-time %{__make} test-libxc 2>&1 | tee test-libxc.${NPROC}$MPI_SUFFIX.log&& \
+timeout ${TIMEOUT_OPTS} time %{__make} test-libxc 2>&1 | tee test-libxc.${NPROC}$MPI_SUFFIX.log&& \
 cp -rp tests.orig tests&& \
 sed -i "s#mpirun -n 4 ../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
 sed -i "/Failed/ a \ \ \ \ cat test.log" tests/test-mpi.sh&& \
-time %{__make} test-mpi 2>&1 | tee test-mpi.${NPROC}$MPI_SUFFIX.log&& \
+timeout ${TIMEOUT_OPTS} time %{__make} test-mpi 2>&1 | tee test-mpi.${NPROC}$MPI_SUFFIX.log&& \
 rm -rf tests tests-libxc
 
 # check serial version
@@ -298,6 +303,10 @@ mv tests.orig tests
 
 
 %changelog
+* Thu Nov 17 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 8.5.10-1
+- New upstream release
+- Patch for libxc6 compatibility bug #2137308
+
 * Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.22-3
 - Rebuild for new libxc
 

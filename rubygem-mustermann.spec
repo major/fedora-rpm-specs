@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Your personal string matching expert
 License: MIT
 URL: https://github.com/sinatra/mustermann
@@ -17,6 +17,11 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1: %{gem_name}-%{version}-support.tgz
 # tar czvf mustermann-1.1.1-mustermann-contrib.tgz mustermann-contrib/
 Source2: %{gem_name}-%{version}-mustermann-contrib.tgz
+# https://github.com/sinatra/mustermann/commit/8be5bd4ac3642d9c9582d0a7258f3197fa54bb96
+# Ruby3.2 removes Object#:~
+Patch0:  %{gem_name}-2.0.2-ruby32-regex_match-for-object.patch
+# Similarly, from https://github.com/sinatra/mustermann/pull/113
+Patch1:  %{gem_name}-1.1.1-ruby32-regex_match-for-object-2.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.2.0
@@ -42,6 +47,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1 -b 2
+%patch0 -p2
+%patch1 -p2
 # Drop ruby2_keywords dependency that is required by Ruby < 2.7.
 %gemspec_remove_dep -g ruby2_keywords
 
@@ -95,6 +102,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Nov 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-8
+- Backport upstream fix for ruby32 Object#:~ removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

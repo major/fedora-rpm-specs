@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %global pypi_name oslo.utils
 %global pkg_name oslo-utils
 %global with_doc 1
@@ -16,8 +15,8 @@ The OpenStack Oslo Utility library. \
 %global common_desc_tests Tests for the Oslo Utility library.
 
 Name:           python-oslo-utils
-Version:        4.12.2
-Release:        4%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        OpenStack Oslo Utility library
 
 License:        ASL 2.0
@@ -76,7 +75,6 @@ Requires:       python3-pytz
 Requires:       python3-netifaces >= 0.10.4
 Requires:       python3-packaging >= 20.4
 Requires:       python-%{pkg_name}-lang = %{version}-%{release}
-Requires:       python3-pbr >= 2.0.0
 
 %description -n python3-%{pkg_name}
 %{common_desc}
@@ -172,6 +170,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 6.0.1-1
+- Update to upstream version 6.0.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

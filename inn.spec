@@ -4,7 +4,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -375,7 +375,7 @@ fi
 %config(noreplace) %{_sysconfdir}/news/nocem.ctl
 %config(noreplace) %{_sysconfdir}/news/incoming.conf
 %config(noreplace) %{_sysconfdir}/news/inn-radius.conf
-%config(noreplace) %{_sysconfdir}/news/inn-secrets.conf
+%config(noreplace) %attr(0660,news,news) %{_sysconfdir}/news/inn-secrets.conf
 %config(noreplace) %{_sysconfdir}/news/ovdb.conf
 %config(noreplace) %{_sysconfdir}/news/ovsqlite.conf
 %config(noreplace) %{_sysconfdir}/news/newsfeeds
@@ -556,13 +556,15 @@ fi
 
 %files -n inews
 %config(noreplace) %attr(-,news,news) %{_sysconfdir}/news/inn.conf
-%config(noreplace) %attr(0660,news,news) %{_sysconfdir}/news/inn-secrets.conf
 %config(noreplace) %attr(-,news,news) %{_sysconfdir}/news/passwd.nntp
 %{_bindir}/inews
 %attr(0755,root,root) %{_libexecdir}/news/inews
 %{_mandir}/man1/inews*
 
 %changelog
+* Thu Nov 17 2022 Dominik Mierzejewski <dominik@greysector.net> - 2.7.0-2
+- drop duplicate inn-secrets.conf from inews package
+
 * Mon Nov 07 2022 Dominik Mierzejewski <dominik@greysector.net> - 2.7.0-1
 - update to 2.7.0 (#2107592)
 - update files list (API and ABI break)

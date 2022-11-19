@@ -349,6 +349,8 @@ sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
 sed -r -i 's/("((sqlalchemy)\b)[^<"]*),[[:blank:]]*<[^"]*/\1/' \
     pyproject.toml
 
+# Use starlette 0.22.0 instead of 0.21.0
+sed -r -i 's/(starlette==0\.)21(\.0)/\122\2/' pyproject.toml
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:

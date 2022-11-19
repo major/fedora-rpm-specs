@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.0.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
@@ -186,6 +186,12 @@ Patch78: 0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 Patch79: 0079-Fix-AES-GCM-on-Power-8-CPUs.patch
 #CVE-2022-3602
 Patch80: 0080-CVE-2022-3602.patch
+#Provider interface fixes
+Patch81: 0081-EVP_PKEY_eq-regain-compatibility-with-the-3.0.0-FIPS.patch
+Patch82: 0082-Propagate-selection-all-the-way-on-key-export.patch
+Patch83: 0083-Update-documentation-for-keymgmt-export-utils.patch
+Patch84: 0084-Add-test-for-EVP_PKEY_eq.patch
+Patch85: 0085-Drop-explicit-check-for-engines-in-opt_legacy_okay.patch
 
 License: ASL 2.0
 URL: http://www.openssl.org/
@@ -523,6 +529,9 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Nov 16 2022 Simo sorce <simo@redhat.com> - 1:3.0.5-7
+- Backport patches to fix external providers compatibility issues
+
 * Tue Nov 01 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.5-6
 - CVE-2022-3602: X.509 Email Address Buffer Overflow
 - CVE-2022-3786: X.509 Email Address Buffer Overflow

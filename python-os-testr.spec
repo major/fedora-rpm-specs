@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global pypi_name os-testr
@@ -11,8 +11,8 @@ ostestr is a testr wrapper that uses subunit-trace for output and builds \
 some helpful extra functionality around testr.
 
 Name:           python-%{pypi_name}
-Version:        2.0.1
-Release:        3%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        A testr wrapper to provide functionality for OpenStack projects
 
 License:        ASL 2.0
@@ -84,7 +84,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %install
 %{py3_install}
-for file in %{buildroot}%{python3_sitelib}/os_testr/{subunit_trace,ostestr,subunit2html}.py; do
+for file in %{buildroot}%{python3_sitelib}/os_testr/{subunit_trace,subunit2html}.py; do
     chmod a+x $file
 done
 
@@ -95,7 +95,6 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}
 %doc README.rst
 %license LICENSE
 %{_bindir}/generate-subunit
-%{_bindir}/ostestr
 %{_bindir}/subunit-trace
 %{_bindir}/subunit2html
 %{python3_sitelib}/os_testr
@@ -108,6 +107,9 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib}
 %endif
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 3.0.0-1
+- Update to upstream version 3.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

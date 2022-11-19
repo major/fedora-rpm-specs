@@ -2,7 +2,7 @@
 
 Name:		liblognorm
 Version:	2.0.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Fast samples-based log normalization library
 License:	LGPLv2+
 URL:		http://www.liblognorm.com
@@ -15,6 +15,7 @@ BuildRequires:	libestr-devel
 BuildRequires:	pcre-devel
 
 Patch0: liblognorm-2.0.6-rhbz2105934-sphinx5.patch
+Patch1: liblognorm-configure-glitch.patch
 
 %description
 Briefly described, liblognorm is a tool to normalize log data.
@@ -57,8 +58,12 @@ log files.
 %setup -q
 
 %patch0 -p1 -b .sphinx5
+%patch1 -p1 -b .configure-glitch
 
 %build
+# Prevent rebuild of the configure script.
+touch configure aclocal.m4 Makefile.in config.h.in
+
 %configure --enable-regexp --enable-docs --docdir=%{htmldir} --includedir=%{_includedir}/%{name}/
 
 
@@ -92,6 +97,9 @@ rm %{buildroot}%{htmldir}/{objects.inv,.buildinfo}
 
 
 %changelog
+* Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 2.0.6-6
+- Fix configure.ac/configure glitch (#2141801)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

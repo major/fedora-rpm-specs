@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
@@ -17,8 +16,8 @@ external processes.
 Tests for the Oslo concurrency library.
 
 Name:           python-oslo-concurrency
-Version:        4.5.0
-Release:        3%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        OpenStack Oslo concurrency library
 
 License:        ASL 2.0
@@ -56,6 +55,10 @@ BuildRequires:  python3-oslo-utils
 BuildRequires:  python3-fasteners
 # Required to compile translation files
 BuildRequires:  python3-babel
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-tox
+BuildRequires:  python3-tox-current-env
+BuildRequires:  python3-stestr
 
 Requires:       python3-pbr
 Requires:       python3-oslo-config >= 2:5.2.0
@@ -90,6 +93,9 @@ Requires:  python3-%{pkg_name} = %{version}-%{release}
 Requires:  python3-hacking
 Requires:  python3-oslotest
 Requires:  python3-fixtures
+Requires:  python3-tox
+Requires:  python3-tox-current-env
+Requires:  python3-stestr
 
 %description -n python3-%{pkg_name}-tests
 %{common_desc2}
@@ -136,8 +142,7 @@ mv %{buildroot}%{python3_sitelib}/oslo_concurrency/locale %{buildroot}%{_datadir
 %find_lang oslo_concurrency --all-name
 
 %check
-export PYTHON_DISALLOW_AMBIGUOUS_VERSION=0
-python3 setup.py test
+%tox
 
 %files -n python3-%{pkg_name}
 %doc README.rst
@@ -161,6 +166,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 5.0.1-1
+- Update to upstream version 5.0.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

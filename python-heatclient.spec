@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 1
 
@@ -12,8 +11,8 @@ heatclient module), and a command-line script (heat). Each implements 100% of \
 the OpenStack Heat API.
 
 Name:    python-heatclient
-Version: 2.5.1
-Release: 3%{?dist}
+Version: 3.1.0
+Release: 1%{?dist}
 Summary: Python API and CLI for OpenStack Heat
 
 License: ASL 2.0
@@ -51,7 +50,6 @@ Requires: python3-keystoneauth1 >= 3.8.0
 Requires: python3-osc-lib >= 1.14.0
 Requires: python3-prettytable
 Requires: python3-pbr
-Requires: python3-six
 Requires: python3-oslo-serialization >= 2.18.0
 Requires: python3-oslo-utils >= 3.33.0
 Requires: python3-oslo-i18n >= 3.15.3
@@ -75,7 +73,6 @@ BuildRequires: python3-keystoneauth1
 BuildRequires: python3-osc-lib
 BuildRequires: python3-prettytable
 BuildRequires: python3-pbr
-BuildRequires: python3-six
 BuildRequires: python3-oslo-serialization
 BuildRequires: python3-oslo-utils
 BuildRequires: python3-oslo-i18n
@@ -145,6 +142,9 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %endif
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 3.1.0-1
+- Update to upstream version 3.1.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

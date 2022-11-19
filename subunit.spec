@@ -2,15 +2,15 @@
 # that do not support python3.
 
 Name:           subunit
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
 
 License:        Apache-2.0 OR BSD-3-Clause
-URL:            https://launchpad.net/%{name}
-Source0:        https://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
+URL:            https://launchpad.net/subunit
+Source0:        https://launchpad.net/subunit/trunk/%{version}/+download/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -267,6 +267,9 @@ make check
 %exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
+- Version 1.4.2
+
 * Sat Nov  5 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-1
 - Version 1.4.1
 - Upstream no longer provides GPG signatures

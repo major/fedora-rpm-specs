@@ -1,21 +1,16 @@
+%global commit0 509d3b21a1084b4f492b50cced8835f4cd591c4a
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20211013
+
 Name:           libva-vdpau-driver
 Version:        0.7.4
-Release:        112%{?dist}
+Release:        201.%{date0}%{?dist}
 Summary:        HW video decode support for VDPAU platforms
 License:        GPLv2+
-URL:            http://cgit.freedesktop.org/vaapi/vdpau-driver
-Source0:        http://www.freedesktop.org/software/vaapi/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch0:         %{name}-0.7.4-glext-85.patch
-Patch1:         %{name}-0.7.4-drop-h264-api.patch
-Patch2:         %{name}-0.7.4-fix_type.patch
-# Reported in https://bugs.freedesktop.org/58836 and http://bugs.debian.org/748294
-Patch3:         sigfpe-crash.patch
-#chromium-vaapi specific patches
-Patch4:         implement-vaquerysurfaceattributes.patch
-#Fix build
-Patch5:         Change-struct-v4l2-to-uintptr_t.patch
+URL:            https://github.com/xuanruiqi/vdpau-va-driver-vp9
+Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 
-#BuildRequires: libtool
+BuildRequires: libtool
 BuildRequires:  gcc
 BuildRequires:  libva-devel
 BuildRequires:  libvdpau-devel
@@ -28,18 +23,11 @@ Requires:       mesa-dri-filesystem
 VDPAU Backend for Video Acceleration (VA) API.
 
 %prep
-%setup -q
-%patch0 -p1
-%if 0%{?fedora} >= 20 || 0%{?rhel} >= 7
-%patch1 -p1
-%endif
-%patch2 -p1 -b .fix_type
-%patch3 -p1 -b .sigfpe
-%patch4 -p1 -b .vaquery
-%patch5 -p1 -b .v4l2
+%setup -q -n vdpau-va-driver-vp9-%{commit0}
 
 
 %build
+autoreconf -vif
 %configure \
   --disable-silent-rules \
   --enable-glx
@@ -52,11 +40,16 @@ find %{buildroot} -name '*.la' -delete
 
 
 %files
-%doc AUTHORS NEWS README
-%license COPYING
+%doc AUTHORS NEWS README.md
+%license COPYING LICENSE
 %{_libdir}/dri/*.so
+%exclude %{_libdir}/dri/nvidia_drv_video.so
 
 %changelog
+* Thu Nov 17 2022 Nicolas Chauvet <kwizart@gmail.com> - 0.7.4-201.20211013
+- Swich upstream
+- Exclude nvidia_drv_video to prevent conflicts
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-112
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

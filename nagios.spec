@@ -5,7 +5,7 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.4.8
+Version:        4.4.9
 Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
@@ -469,6 +469,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Thu Nov 17 2022 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.9-1
+- Update to 4.4.9
+
 * Sun Oct 23 2022 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.8-1
 - Update to 4.4.8
 

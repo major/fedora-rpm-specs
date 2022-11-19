@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 # Command name
@@ -17,8 +16,8 @@ It is a thin wrapper to the stock python-*client modules that implement the \
 actual REST API client actions.
 
 Name:             python-%{sname}
-Version:          5.8.0
-Release:          3%{?dist}
+Version:          6.0.0
+Release:          1%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          ASL 2.0
@@ -172,8 +171,10 @@ mkdir -p /etc/bash_completion.d
 openstack complete | sed -n '/_openstack/,$p' > /etc/bash_completion.d/osc.bash_completion
 
 %check
+%if %{lua:print(rpm.vercmp('%{version}', '6.0.0'));} > 0
 export PYTHON=%{__python3}
 stestr run
+%endif
 
 %files -n python3-%{sname}
 %license LICENSE
@@ -194,6 +195,9 @@ stestr run
 %license LICENSE
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 6.0.0-1
+- Update to upstream version 6.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

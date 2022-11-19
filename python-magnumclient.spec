@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global sname python-magnumclient
 %global pname magnumclient
@@ -14,8 +13,8 @@ command-line tool (magnum).
 %global common_desc_tests Python-magnumclient test subpackage
 
 Name:           python-%{pname}
-Version:        3.6.0
-Release:        3%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Client library for Magnum API
 
 License:        ASL 2.0
@@ -64,7 +63,6 @@ BuildRequires:  python3-keystoneauth1
 BuildRequires:  python3-prettytable
 BuildRequires:  python3-stestr
 
-Requires:    python3-babel
 Requires:    python3-cryptography
 Requires:    python3-keystoneauth1 >= 3.4.0
 Requires:    python3-oslo-i18n >= 3.15.3
@@ -163,6 +161,9 @@ PYTHON=%{__python3} stestr run --slowest || true
 %{python3_sitelib}/%{pname}/tests
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 4.0.0-1
+- Update to upstream version 4.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

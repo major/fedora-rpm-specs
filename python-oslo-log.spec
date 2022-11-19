@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -17,8 +16,8 @@ support for context specific logging (like resource id’s etc).
 Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
-Version:        4.7.0
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        ASL 2.0
@@ -63,11 +62,12 @@ BuildRequires:  python3-testscenarios
 # Required to compile translation files
 BuildRequires:  python3-babel
 BuildRequires:  python3-inotify
+BuildRequires:  python3-eventlet
 
 Requires:       python3-pbr
 Requires:       python3-dateutil
 Requires:       python3-oslo-config >= 2:5.2.0
-Requires:       python3-oslo-context >= 2.20.0
+Requires:       python3-oslo-context >= 2.21.0
 Requires:       python3-oslo-i18n >= 3.20.0
 Requires:       python3-oslo-utils >= 3.36.0
 Requires:       python3-oslo-serialization >= 2.25.0
@@ -175,6 +175,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 5.0.0-1
+- Update to upstream version 5.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

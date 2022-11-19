@@ -1,21 +1,20 @@
-%global commit 3463ab40a89179e6e199575e8bee9c23ee027377
-%global gittag 1.4
+%global commit d3c5bd63bf8878d59b22d618d2bb5116db392d28
+%global gittag 1.5
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           vdpauinfo
-Version:        1.4
-Release:        4%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Tool to query the capabilities of a VDPAU implementation
 
 License:        MIT
 URL:            https://gitlab.freedesktop.org/vdpau/vdpauinfo
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch0:         https://gitlab.freedesktop.org/vdpau/vdpauinfo/-/commit/da66af25aa327d21179d478f3a6d8c03b6c7f574.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
-BuildRequires:  libvdpau-devel >= 1.4
+BuildRequires:  libvdpau-devel >= 1.5
 
 
 %description
@@ -41,6 +40,9 @@ autoreconf -vif
 
 
 %changelog
+* Thu Nov 17 2022 Nicolas Chauvet <kwizart@gmail.com> - 1.5-1
+- Update to 1.5
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

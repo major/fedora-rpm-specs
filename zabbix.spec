@@ -17,7 +17,7 @@
 Name:           zabbix
 Epoch:          1
 Version:        6.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2+
@@ -49,6 +49,7 @@ Patch0:         %{srcname}-config.patch
 Patch1:         %{srcname}-out-of-tree.patch
 # Enforce Fedora Crypto Policy
 Patch2:         %{srcname}-crypto-policy.patch
+Patch3:		%{srcname}-configure-sscanf.patch
 
 # Patch1 patches automake files so we need to autoreconf
 BuildRequires:   libtool
@@ -327,6 +328,7 @@ Custom SELinux policy module
 %patch0 -p1 -b .config
 %patch1 -p1 -b .out-of-tree
 %patch2 -p1 -b .crypto-policy
+%patch3 -p1 -b .configure-sscanf
 autoreconf
 
 # Remove bundled java libs
@@ -796,6 +798,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 1:6.0.8-2
+- Include <stdio.h> in configure for sscanf prototype
+
 * Wed Sep 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:6.0.8-1
 - 6.0.8
 

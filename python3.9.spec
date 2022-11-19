@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 
 
@@ -1829,6 +1829,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Thu Nov 17 2022 Miro Hrončok <mhroncok@redhat.com> - 3.9.15-3
+- Rebuilt for infrastructure problems
+
 * Wed Nov 09 2022 Lumír Balhar <lbalhar@redhat.com> - 3.9.15-2
 - Fix for CVE-2022-42919
 Resolves: rhbz#2138711

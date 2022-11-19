@@ -1,6 +1,5 @@
-%{?python_enable_dependency_generator}
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global pypi_name taskflow
@@ -12,8 +11,8 @@ A library to do [jobs, tasks, flows] in a HA manner using \
 different backends to be used with OpenStack projects.
 
 Name:           python-%{pypi_name}
-Version:        4.6.4
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Taskflow structured state management library
 
 License:        ASL 2.0
@@ -45,13 +44,12 @@ BuildRequires:  python3-babel
 
 Requires:       python3-cachetools >= 2.0.0
 Requires:       python3-jsonschema
-Requires:       python3-six
 Requires:       python3-stevedore
 Requires:       python3-oslo-serialization >= 2.18.0
 Requires:       python3-oslo-utils >= 3.33.0
 Requires:       python3-automaton >= 1.9.0
 Requires:       python3-futurist >= 1.2.0
-Requires:       python3-fasteners >= 0.7.0
+Requires:       python3-fasteners >= 0.17.3
 Requires:       python3-pbr >= 2.0.0
 Requires:       python3-tenacity >= 6.0.0
 Requires:       python3-pydot >= 1.2.4
@@ -130,6 +128,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 5.0.0-1
+- Update to upstream version 5.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

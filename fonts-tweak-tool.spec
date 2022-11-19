@@ -1,13 +1,11 @@
 Name: fonts-tweak-tool
-Version: 0.4.5
-Release: 18%{?dist}
+Version: 0.4.6
+Release: 1%{?dist}
 Summary: Tool for customizing fonts per language
 
 License: LGPLv3+
-URL: https://bitbucket.org/tagoh/%{name}/
-Source0: https://bitbucket.org/tagoh/%{name}/downloads/%{name}-%{version}.tar.bz2
-Patch0:	%{name}-drop-pyxdg.patch
-Patch1: fix_library_typo.patch
+URL: https://gitlab.com/tagoh/%{name}/
+Source0: https://gitlab.com/api/v4/projects/tagoh%2F%{name}packages/generic/%{name}/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires: desktop-file-utils
 BuildRequires: intltool
@@ -57,6 +55,11 @@ rm -f %{buildroot}%{_datadir}/gir-*/FontsTweak-*.gir
 
 
 %changelog
+* Thu Nov 17 2022 Akira TAGOH <tagoh@redhat.com> - 0.4.6-1
+- New upstream release.
+- Fix runtime error around gettext.
+  Resolves: rhbz#2143065
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

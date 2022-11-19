@@ -1,8 +1,8 @@
 %global pkgname grpconst
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.6.2
-Release:        7%{?dist}
+Version:        2.6.3
+Release:        1%{?dist}
 Summary:        Constructing groups of a given order
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 2.6.3-1
+- Version 2.6.3
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.6.2-7
 - Clarify license of the doc subpackage
 

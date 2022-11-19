@@ -1,5 +1,5 @@
 Name:           python-compreffor
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        CFF table subroutinizer for FontTools
 

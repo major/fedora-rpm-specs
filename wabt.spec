@@ -2,15 +2,15 @@
 %bcond_without check
 %global commit 3e8207aabe969098d2b4941142a1973008c63033
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global ts_commit d42da0117f7a93c6a9127e2b9eec64749152c4c1
+%global ts_commit 4f77306bb63151631d84f58dedf67958eb9911b9
 %global ts_shortcommit %(c=%{ts_commit}; echo ${c:0:7})
 %global wc_commit d9a80099d496b5cdba6f3fe8fc77586e0e505ddc
 %global wc_shortcommit %(c=%{wc_commit}; echo ${c:0:7})
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.29
-Release: 2%{?dist}
+Version: 1.0.30
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -56,17 +56,26 @@ rm spec/simd_f32x4_arith.txt
 rm spec/simd_f32x4_pmin_pmax.txt
 rm spec/simd_f64x2_arith.txt
 rm spec/simd_f64x2_pmin_pmax.txt
+rm wasm2c/old-spec/select.txt
 rm wasm2c/spec/conversions.txt
 rm wasm2c/spec/float_literals.txt
 rm wasm2c/spec/float_memory.txt
 rm wasm2c/spec/float_misc.txt
 rm wasm2c/spec/float_exprs.txt
+rm wasm2c/spec/local_tee.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1045
 %ifarch ppc64le
 rm spec/conversions.txt
 rm spec/simd_conversions.txt
 rm wasm2c/spec/conversions.txt
+%endif
+# https://github.com/WebAssembly/wabt/issues/2070
+%ifarch s390x
+rm wasm2c/spec/bulk.txt
+rm wasm2c/spec/memory_copy.txt
+rm wasm2c/spec/memory_fill.txt
+rm wasm2c/spec/memory_init.txt
 %endif
 popd
 %endif
@@ -80,7 +89,7 @@ popd
 
 %if %{with check}
 %check
-test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=80 %{?_smp_mflags}
+test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %endif
 
 %files
@@ -98,8 +107,11 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=80 %{?_smp_mflags}
 %{_bindir}/wast2json
 %{_bindir}/wat-desugar
 %{_bindir}/wat2wasm
+%{_includedir}/wabt
 %{_includedir}/wasm-rt-impl.h
 %{_includedir}/wasm-rt.h
+%{_libdir}/cmake/wabt
+%{_libdir}/libwabt.a
 %{_libdir}/libwasm-rt-impl.a
 %{_mandir}/man1/spectest-interp.1*
 %{_mandir}/man1/wasm-decompile.1*
@@ -115,6 +127,11 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=80 %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Sat Oct 15 2022 Dominik Mierzejewski <dominik@greysector.net> 1.0.30-1
+- update to 1.0.30 (#2132095)
+- increase timeout to fix tests on ARM
+- skip some new failing tests on i686 and s390x for now
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.29-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

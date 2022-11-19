@@ -1,7 +1,7 @@
 Summary: A file compression and packaging utility compatible with PKZIP
 Name: zip
 Version: 3.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: BSD
 Source: http://downloads.sourceforge.net/infozip/zip30.tar.gz
 URL: http://www.info-zip.org/Zip.html
@@ -39,7 +39,7 @@ program.
 %patch6 -p1 -b .zipnote
 
 %build
-%{make_build} -f unix/Makefile prefix=%{_prefix} "CFLAGS_NOOPT=-I. -DUNIX $RPM_OPT_FLAGS" generic
+%{make_build} -f unix/Makefile prefix=%{_prefix} "CFLAGS_NOOPT=-I. -DUNIX -std=gnu89 $RPM_OPT_FLAGS" generic
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -62,6 +62,9 @@ mkdir -p $RPM_BULD_ROOT%{_mandir}/man1
 %{_mandir}/man1/zipsplit.1*
 
 %changelog
+* Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 3.0-34
+- Build with -std=gnu89 (#2143565)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

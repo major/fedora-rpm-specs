@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 4
+%global baserelease 5
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -75,6 +75,8 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 ## upstream patches
 Patch0001:	0001-pulse-server-also-advance-read-pointer-in-underrun.patch
 Patch0002:	0002-audioadapter-perform-setup-again-after-a-PortConfig.patch
+Patch0003:	0003-acp-do-probing-in-44100-Hz-again.patch
+Patch0004:	0004-alsa-force-playback-start-when-buffer-is-full.patch
 
 ## upstreamable patches
 
@@ -618,6 +620,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Nov 17 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-5
+- Add patch to fix sound in qemu.
+
 * Tue Nov 15 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.60-4
 - Add patch to avoid crashes when switching profiles
 

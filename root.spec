@@ -63,9 +63,9 @@
 %global __provides_exclude_from ^(%{?python2_sitearch:%{python2_sitearch}|}%{python3_sitearch})/lib.*\\.so$
 
 Name:		root
-Version:	6.26.08
+Version:	6.26.10
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -131,9 +131,9 @@ Patch14:	%{name}-test-timeout.patch
 #		Fixes for tmva-sofie test compilation
 #		https://github.com/root-project/root/pull/10117
 Patch15:	%{name}-ignore-prefix.patch
-#		Fixes for garbage collection in Python 3.11
-#		https://github.com/root-project/root/pull/11457
-Patch16:	%{name}-Fixes-for-garbage-collection-in-Python-3.11.patch
+#		Use different filenames in io/loopdir tests
+#		https://github.com/root-project/root/pull/11725
+Patch16:	%{name}-different-filename.patch
 #		Fix test when long is 32 bits
 #		https://github.com/root-project/root/pull/10302
 Patch17:	%{name}-longlong.patch
@@ -180,10 +180,9 @@ Patch33:	%{name}-get-rid-of-lsb_release.patch
 Patch34:	%{name}-threadsh1-avoid-heap-use-after-free.patch
 Patch35:	%{name}-PyROOT-code.h-must-not-be-included-directly-in-3.11.patch
 Patch36:	%{name}-PyROOT-Prevent-cast-error-when-calling-PyTuple_SET_I.patch
-Patch37:	%{name}-Guard-gInterpreterMutex-in-TClingClassInfo-IsEnum.patch
 #		Avoid race condition between C++ an Python version of test
 #		https://github.com/root-project/root/pull/11643
-Patch38:	%{name}-avoid-race-condition-tutorial-roofit-rf512.patch
+Patch37:	%{name}-avoid-race-condition-tutorial-roofit-rf512.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	devtoolset-8-toolchain
@@ -2050,7 +2049,6 @@ This package contains an ntuple extension for ROOT 7.
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
-%patch38 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -3987,6 +3985,14 @@ fi
 %endif
 
 %changelog
+* Wed Nov 16 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-1
+- Update to 6.26.10
+- Drop patches root-Fixes-for-garbage-collection-in-Python-3.11.patch
+  and root-Guard-gInterpreterMutex-in-TClingClassInfo-IsEnum.patch
+  (fixed upstream)
+- Use different filenames in io/loopdir tests
+- Update root-test-timeout.patch to address one more issue
+
 * Fri Oct 28 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.08-2
 - Avoid race condition between C++ and Python version of a roofit test
 

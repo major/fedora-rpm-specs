@@ -3,8 +3,8 @@
 #
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
-Version: 8.0.1
-Release: 4%{?dist}
+Version: 8.0.2
+Release: 1%{?dist}
 License: GPLv3
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -18,53 +18,8 @@ Requires: binutils
 Provides: bundled(libiberty)
 Provides: bundled(gdb) = 10.2
 Patch0: lzo_snappy_zstd.patch
-Patch1: crash-8.0.1_build.patch
-Patch2: 0001-ppc64-update-the-NR_CPUS-to-8192.patch
-Patch3: 0002-sbitmapq-remove-struct-and-member-validation-in-sbit.patch
-Patch4: 0003-sbitmapq-fix-invalid-offset-for-sbitmap_queue_alloc_.patch
-Patch5: 0004-sbitmapq-fix-invalid-offset-for-sbitmap_queue_round_.patch
-Patch6: 0005-sbitmapq-fix-invalid-offset-for-sbitmap_word_depth-o.patch
-Patch7: 0006-Makefile-add-missing-crash_target.o-to-be-cleaned.patch
-Patch8: 0007-bt-x86_64-filter-out-idle-task-stack.patch
-Patch9: 0008-bt-arm64-add-support-for-bt-n-idle.patch
-Patch10: 0009-gdb-print-details-of-unnamed-struct-and-union.patch
-Patch11: 0010-Enhance-dev-d-D-options-to-support-blk-mq-sbitmap.patch
-Patch12: 0011-Fix-for-dev-d-D-options-to-support-blk-mq-change-on-.patch
-Patch13: 0012-Doc-update-man-page-for-the-bpf-and-sbitmapq-command.patch
-Patch14: 0013-sbitmapq-Fix-for-sbitmap_queue-without-ws_active-mem.patch
-Patch15: 0014-sbitmapq-Fix-for-sbitmap_word-without-cleared-member.patch
-Patch16: 0015-sbitmapq-Fix-for-sbitmap_queue-without-min_shallow_d.patch
-Patch17: 0016-Make-dev-d-D-options-parse-sbitmap-on-Linux-4.18-and.patch
-Patch18: 0001-sbitmapq-Fix-for-kernels-without-struct-wait_queue_h.patch
-Patch19: 0002-sbitmapq-Limit-kernels-without-sbitmap-again.patch
-Patch20: 0003-Fix-for-dev-command-on-Linux-5.11-and-later.patch
-Patch21: 0004-Extend-field-length-of-task-attributes.patch
-Patch22: 0005-ppc64-fix-bt-for-S-case.patch
-Patch23: 0006-ppc64-dynamically-allocate-h-w-interrupt-stack.patch
-Patch24: 0007-ppc64-rename-ppc64_paca_init-to-ppc64_paca_percpu_of.patch
-Patch25: 0008-ppc64-handle-backtrace-when-CPU-is-in-an-emergency-s.patch
-Patch26: 0009-ppc64-print-emergency-stacks-info-with-mach-command.patch
-Patch27: 0010-ppc64-use-a-variable-for-machdep-machspec.patch
-Patch28: 0011-arm64-Fix-for-st-_stext_vmlinux-not-initialized-when.patch
-Patch29: 0012-Fix-gcc-11-compiler-warnings-on-filesys.c.patch
-Patch30: 0013-Fix-gcc-11-compiler-warning-on-symbols.c.patch
-Patch31: 0014-Fix-gcc-11-compiler-warning-on-makedumpfile.c.patch
-Patch32: 0015-Fix-gcc-11-compiler-warning-on-kvmdump.c.patch
-Patch33: 0016-x86_64-Fix-for-AMD-SME-issue.patch
-Patch34: 0017-Makefile-Fix-unnecessary-re-patching-with-coreutils-.patch
-Patch35: 0018-gdb-fix-for-assigning-NULL-to-std-string.patch
-Patch36: 0019-arm64-use-TCR_EL1_T1SZ-to-get-the-correct-info-if-va.patch
-Patch37: 0020-Fix-task-R-by-adding-end-identifier-for-union-in-tas.patch
-Patch38: 0021-Let-gdb-get-kernel-module-symbols-info-from-crash.patch
-Patch39: 0022-x86_64-Correct-the-identifier-when-locating-the-call.patch
-Patch40: 0023-Add-debian-ubuntu-vmlinux-location-to-default-search.patch
-Patch41: 0024-Fix-gcc-12-compiler-warnings-on-lkcd_-.c.patch
-Patch42: 0025-Fix-gcc-11-compiler-warnings-on-gdb-10.2-gdb-symtab..patch
-Patch43: 0026-Fix-for-the-invalid-linux_banner-pointer-issue.patch
-Patch44: 0027-Fix-kmem-failing-to-print-task-context-when-address-.patch
-Patch45: 0028-Fix-page-offset-issue-when-converting-physical-to-vi.patch
-Patch46: 0029-Let-kmem-print-task-context-with-physical-address.patch
-Patch47: crash-8.0.0-5-gdb-cdefs.patch
+Patch1: crash-8.0.2_build.patch
+Patch2: crash-8.0.0-5-gdb-cdefs.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -85,54 +40,9 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %prep
 %setup -n %{name}-%{version} -q
 %patch0 -p1 -b lzo_snappy_zstd.patch
-%patch1 -p1 -b crash-8.0.1_build.patch
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
-%patch16 -p1
-%patch17 -p1
-%patch18 -p1
-%patch19 -p1
-%patch20 -p1
-%patch21 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch25 -p1
-%patch26 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
-%patch34 -p1
-%patch35 -p1
-%patch36 -p1
-%patch37 -p1
-%patch38 -p1
-%patch39 -p1
-%patch40 -p1
-%patch41 -p1
-%patch42 -p1
-%patch43 -p1
-%patch44 -p1
-%patch45 -p1
-%patch46 -p1
+%patch1 -p1 -b crash-8.0.2_build.patch
 %ifarch ppc64le
-%patch47 -p1 -b crash-8.0.0-5-gdb-cdefs.patch
+%patch2 -p1 -b crash-8.0.0-5-gdb-cdefs.patch
 %endif
 
 
@@ -160,6 +70,9 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Thu Nov 17 2022 Lianbo Jiang <lijiang@redhat.com> - 8.0.2-1
+- Rebase to upstream crash 8.0.2
+
 * Thu Sep 22 2022 Lianbo Jiang <lijiang@redhat.com> - 8.0.1-4
 - Update to the latest upstream commit <3b5e3e1583a1>
 

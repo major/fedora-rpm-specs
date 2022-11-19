@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        0.21.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -70,8 +70,6 @@ $1 == "#" {
 o {
   # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
   if ($1 ~ /^(black|coverage|(auto)?flake8?|isort|mypy|types-)/) { next }
-  # Used only on lower versions than Python 3.10; see install_requires
-  if ($1 ~ /^typing[-_]extensions/) { next }
   # Drop version pins
   sub(/[>=]=.*$/, "", $0)
   print $0
@@ -93,7 +91,16 @@ o {
 
 
 %check
-%pytest
+# There are new trio.TrioDeprecationWarnings from trio 0.22.0, which would be
+# treated as errors; Starlette upstream pins trio 0.21.0 for their CI. We trust
+# upstream will encounter and deal with this by the time the deprecated
+# functionality is removed.
+#
+#   E       trio.TrioDeprecationWarning: trio.MultiError is deprecated since
+#           Trio 0.22.0; use BaseExceptionGroup (on Python 3.11 and later) or
+#           exceptiongroup.BaseExceptionGroup (earlier versions) instead
+#           (https://github.com/python-trio/trio/issues/2211)
+%pytest -W 'ignore::trio.TrioDeprecationWarning'
 
 
 %files -n python3-starlette -f %{pyproject_files}

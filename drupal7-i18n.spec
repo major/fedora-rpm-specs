@@ -3,8 +3,8 @@
 %global module i18n
 
 Name:          drupal7-%{module}
-Version:       1.26
-Release:       9%{?dist}
+Version:       1.31
+Release:       1%{?dist}
 Summary:       Enables multilingual content
 
 License:       GPLv2+
@@ -17,7 +17,7 @@ BuildRequires: drupal7-rpmbuild >= 7.70-2
 # i18n.info
 Requires:      drupal7(locale)
 Requires:      drupal7(variable)
-# phpcompatinfo (computed from version 1.26)
+# phpcompatinfo (computed from version 1.31)
 Requires:      php-pcre
 
 %description
@@ -89,6 +89,9 @@ cp -pr * %{buildroot}%{drupal7_modules}/%{module}/
 
 
 %changelog
+* Thu Nov 17 2022 Shawn Iwinski <shawn.iwinski@gmail.com> - 1.31-1
+- Update to 1.31 (RHBZ #1848185)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

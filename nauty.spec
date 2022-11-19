@@ -1,19 +1,20 @@
-%global nautybasever    2.7r4
-%global nautytarver     %(tr -d . <<< %{nautybasever})
-
 Name:           nauty
-Version:        %(tr r . <<< %{nautybasever})
-Release:        2%{?dist}
+Version:        2.8.6
+Release:        1%{?dist}
 Summary:        Graph canonical labeling and automorphism group computation
 
-License:        ASL 2.0
+%global nautytarver %(tr . _ <<< %{version})
+
+# The bundled cliquer code in nautycliquer.c is GPL-2.0-or-later, but we patch
+# it out.
+License:        Apache-2.0
 URL:            https://pallini.di.uniroma1.it/
 Source0:        https://pallini.di.uniroma1.it/%{name}%{nautytarver}.tar.gz
 
 # Debian patch to fix the gt_numorbits declaration
 Patch0:         %{name}-fix-gt_numorbits.patch
-# Debian patch to use zlib instead of invoking zcat through a pipe
-Patch1:         %{name}-zlib-blisstog.patch
+# Use zlib instead of invoking zcat through a pipe
+Patch1:         %{name}-zlib-dimacs2g.patch
 # Debian patch to improve usage and help information
 Patch2:         %{name}-help2man.patch
 # Debian patch to add libtool support for building a shared library
@@ -85,11 +86,13 @@ This package contains files needed to develop programs that use libnauty.
 # Remove the pregenerated makefile
 rm -f makefile
 
-# Inject the version number
-sed -i 's/@INJECTVER@/%{version}/' configure.ac
-
 # Regenerate the configure script with libtool support
 autoreconf -fi
+
+# Fix the pkgconfig file on 64-bit systems
+if [ '%{_lib}' != 'lib' ]; then
+    sed -i 's,/lib,/lib64,' nauty.pc
+fi
 
 %build
 # The runtime popcnt support used to work for 32-bit x86 as well.  But then
@@ -123,17 +126,17 @@ rm %{buildroot}%{_bindir}/nauty-pickg
 ln -s nauty-countg %{buildroot}%{_bindir}/nauty-pickg
 
 %check
-LD_LIBRARY_PATH=$PWD/.libs make check
+LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 
 %files
-%doc README nug27.pdf
+%doc README nug28.pdf
 %{_bindir}/dreadnaut
 %{_bindir}/nauty-*
 %{_mandir}/man1/dreadnaut.1*
 %{_mandir}/man1/nauty-*.1*
 
 %files -n libnauty
-%doc changes24-27.txt formats.txt
+%doc changes24-28.txt formats.txt
 %license COPYRIGHT
 %{_libdir}/libnauty*.so.2*
 
@@ -144,6 +147,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 2.8.6-1
+- Version 2_8_6
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -69,7 +69,7 @@ Source1:        Mesa-MLAA-License-Clarification-Email.txt
 Patch10:	0001-Revert-glx-Guard-usage-of-infer_zink-explicit_zink-i.patch
 Patch11:	0002-Revert-egl-glx-add-fallback-for-zink-loading.patch
 
-BuildRequires:  meson >= 0.45
+BuildRequires:  meson >= 0.61.4
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -122,7 +122,11 @@ BuildRequires:  pkgconfig(libglvnd) >= 1.3.2
 BuildRequires:  llvm-devel >= 7.0.0
 %if 0%{?with_opencl}
 BuildRequires:  clang-devel
+BuildRequires:  bindgen
+BuildRequires:  rust-packaging
 BuildRequires:  pkgconfig(libclc)
+BuildRequires:  pkgconfig(SPIRV-Tools)
+BuildRequires:  pkgconfig(LLVMSPIRVLib)
 %endif
 %if %{with valgrind}
 BuildRequires:  pkgconfig(valgrind)
@@ -350,6 +354,9 @@ cp %{SOURCE1} docs/
   -Dgallium-xa=%{?with_xa:enabled}%{!?with_xa:disabled} \
   -Dgallium-nine=%{?with_nine:true}%{!?with_nine:false} \
   -Dgallium-opencl=%{?with_opencl:icd}%{!?with_opencl:disabled} \
+%if 0%{?with_opencl}
+  -Dgallium-rusticl=true -Dllvm=enabled -Drust_std=2021 \
+%endif
   -Dvulkan-drivers=%{?vulkan_drivers} \
   -Dvulkan-layers=device-select \
   -Dshared-glapi=enabled \
@@ -457,9 +464,12 @@ popd
 %if 0%{?with_opencl}
 %files libOpenCL
 %{_libdir}/libMesaOpenCL.so.*
+%{_libdir}/libRusticlOpenCL.so.*
 %{_sysconfdir}/OpenCL/vendors/mesa.icd
+%{_sysconfdir}/OpenCL/vendors/rusticl.icd
 %files libOpenCL-devel
 %{_libdir}/libMesaOpenCL.so
+%{_libdir}/libRusticlOpenCL.so
 %endif
 
 %if 0%{?with_nine}
