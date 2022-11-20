@@ -7,7 +7,7 @@ Version:       2.0.3
 Release:       16%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-License:       zlib
+License:       Zlib
 BuildArch:     noarch
 URL:           http://www.libmng.com/
 Source0:       http://download.sourceforge.net/sourceforge/%{pkgname}/%{pkgname}-%{version}.tar.gz

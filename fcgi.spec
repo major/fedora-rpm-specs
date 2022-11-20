@@ -1,6 +1,6 @@
 Name:           fcgi
 Version:        2.4.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        FastCGI development kit
 
 License:        OML
@@ -11,7 +11,7 @@ Patch1:         fcgi-2.4.0-autotools.patch
 Patch2:         fcgi-2.4.0-gcc44_fixes.patch
 # CVE-2012-6687
 Patch3:         fcgi-2.4.0-poll.patch
-Patch4:		fcgi-configure-exit.patch
+Patch4:         fcgi-configure-exit.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -79,6 +79,9 @@ rm -f -- doc/*.3
 %doc doc/
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 2.4.0-45
+- Fix another implicit declaration of exit (#2143591)
+
 * Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 2.4.0-44
 - Avoid implicit declaration of exit in configure (#2143591)
 

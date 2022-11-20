@@ -8,7 +8,7 @@ Release:        13%{?dist}
 Summary:        MinGW Windows %{pkgname} library
 BuildArch:      noarch
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.0-or-later WITH FLTK-exception
 URL:            http://qwtpolar.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{pkgname}/%{pkgname}-%{version}.tar.bz2
 

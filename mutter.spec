@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       43.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -27,6 +27,13 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch2:        mutter-42.alpha-disable-tegra.patch
+
+# Revert Clutter optimization causing issues on X11
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2667
+# Will be replaced with a proper fix in 43.2
+# Backport edge resistance fix
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2687
+Patch3:        post-43.1-fixes.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -173,6 +180,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Thu Nov 17 2022 Jonas Ådahl <jadahl@redhat.com> - 43.1-2
+- Backport regression fixes
+
 * Fri Nov 04 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-1
 - Update to 43.1
 

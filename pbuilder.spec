@@ -3,7 +3,7 @@ Version:        0.231
 Release:        5%{?dist}
 Summary:        Personal package builder for Debian packages
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://packages.debian.org/unstable/admin/%{name}
 Source0:        http://ftp.debian.org/debian/pool/main/p/%{name}/%{name}_%{version}.tar.xz
 Source1:        README.fedora

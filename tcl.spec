@@ -21,6 +21,7 @@ Patch0: tcl-8.6.12-autopath.patch
 Patch1: tcl-8.6.12-conf.patch
 Patch2: tcl-8.6.12-hidden.patch
 Patch3: tcl-8.6.10-tcltests-path-fix.patch
+Patch4: tcl-configure-c99.patch
 
 %if %sdt
 BuildRequires: systemtap-sdt-devel
@@ -67,6 +68,7 @@ chmod -x generic/tclStrToD.c
 %patch1 -p1 -b .conf
 %patch2 -p1 -b .hidden
 %patch3 -p1 -b .tcltests-path-fix
+%patch4 -p1 -b .configure-c99
 
 %build
 pushd unix

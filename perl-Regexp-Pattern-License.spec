@@ -2,7 +2,7 @@ Name:           perl-Regexp-Pattern-License
 Version:        3.9.4
 Release:        3%{?dist}
 Summary:        Regular expressions for legal licenses
-License:        GPLv3+
+License:        GPL-3.0-or-later
 
 URL:            https://metacpan.org/release/Regexp-Pattern-License
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/Regexp-Pattern-License-v%{version}.tar.gz

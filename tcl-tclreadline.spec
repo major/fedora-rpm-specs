@@ -6,7 +6,7 @@
 Summary:        GNU Readline extension for Tcl/Tk
 Name:           tcl-tclreadline
 Version:        2.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        BSD
 URL:            http://tclreadline.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{pkgname}/%{pkgname}-%{version}.tar.gz
@@ -17,6 +17,8 @@ Patch2:         tcl-tclreadline-2.1.0-man-page.patch
 Patch3:         tcl-tclreadline-2.1.0-rl_completion.patch
 Patch4:         tcl-tclreadline-2.1.0-prompt2.patch
 Patch5:         tcl-tclreadline-2.1.0-memuse.patch
+Patch6:         tcl-tclreadline-ding.patch
+Patch7:         tcl-tclreadline-configure-fclose.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tcl-devel
@@ -52,6 +54,8 @@ necessary for developing programs which use the tclreadline library.
 %patch3 -p1 -b .rl_completion
 %patch4 -p1 -b .prompt2
 %patch5 -p1 -b .memuse
+%patch6 -p1 -b .ding
+%patch7 -p1 -b .configure-fclose
 autoreconf -f -i
 
 # Copy sample tclshrc for later pickup at %%doc
@@ -99,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{tcl_sitearch}/%{pkgname}%{version}/*.{a,la}
 %{_includedir}/%{pkgname}.h
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 2.1.0-21
+- Fixes for building in strict C99 mode
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

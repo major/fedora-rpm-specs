@@ -4,7 +4,7 @@ Release:        3%{?dist}
 Summary:        GitHub Pages Import
 BuildArch:      noarch
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/c-w/ghp-import
 Source0:        %{pypi_source ghp-import}
 

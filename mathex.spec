@@ -4,7 +4,7 @@ Release:        22%{?dist}
 Summary:        C++ library to parse/evaluate mathematical expressions
 
 # Exceptions apply to static linking, see license.txt
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH Qwt-exception-1.0
 URL:            http://sscilib.sourceforge.net/
 Source0:        http://sourceforge.net/projects/sscilib/files/%{name}/%{name}-0.3-b.zip
 Source1:        CMakeLists.txt

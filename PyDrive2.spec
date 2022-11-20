@@ -1,5 +1,5 @@
 Name:           PyDrive2
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Google Drive API Python wrapper library, maintained fork of PyDrive
 
@@ -11,7 +11,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
-Obsoletes:      python3-PyDrive <= 1.3.1-19
+Obsoletes:      python3-PyDrive <= 1.3.1-21
 
 %description
 Google Drive API Python wrapper library. Maintained fork of PyDrive.

@@ -12,7 +12,7 @@ Version:        10.0.0
 Release:        3%{?dist}
 Summary:        MinGW Windows cross-compiler runtime
 
-License:        Public Domain and ZPLv2.1
+License:        LicenseRef-Fedora-Public-Domain AND ZPL-2.1
 URL:            http://mingw-w64.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/mingw-w64/mingw-w64-v%{version}.tar.bz2
 

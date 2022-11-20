@@ -2,7 +2,7 @@ Name:           massif-visualizer
 Summary:        Visualizer for Massif heap memory profiler data files
 Version:        0.7.0
 Release:        10%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://cgit.kde.org/%{name}.git
 Source0:        http://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
 

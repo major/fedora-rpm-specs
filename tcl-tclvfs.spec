@@ -4,12 +4,13 @@
 
 Name:		tcl-%{realname}
 Version:	20080503
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Tcl extension for Virtual Filesystem support
 License:	MIT
 URL:		http://sourceforge.net/projects/tclvfs
 Source0:	http://downloads.sourceforge.net/%{realname}/%{realname}-%{version}.tar.gz
 Patch0:		tclvfs-20080503-tcl86.patch
+Patch1:		tcl-tclvfs-configure-c99.patch
 Provides:	tcl-vfs = %{version}-%{release}
 Provides:	%{realname} = %{version}-%{release}
 BuildRequires: make
@@ -26,6 +27,7 @@ http, webdav, namespace, url)
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1 -b .tcl86
+%patch1 -p1 -b .configure-c99
 
 %build
 %configure
@@ -45,6 +47,9 @@ chmod +x %{buildroot}%{tcl_sitearch}/vfs1.3/template/fishvfs.tcl
 %{_mandir}/mann/vfs*
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 20080503-30
+- Avoid implicit declaration of exit in configure script
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20080503-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Version:          0.9.4
 Release:          2%{?prever:.%{prever}}%{?GITrev:.git.%{GITrev}}%{?dist}
 Summary:          PostgreSQL Database Modeler
 
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              http://pgmodeler.io/
 # Script to generate main source0 for git based builds
 Source0:          https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz

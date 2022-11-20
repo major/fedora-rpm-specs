@@ -5,7 +5,7 @@ Version:        2021.1.1
 Release:        4%{?dist}
 Summary:        GnuPG archive keys of the Debian archive
 
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            http://packages.debian.org/unstable/admin/%{upstreamname}
 Source0:        http://ftp.debian.org/debian/pool/main/d/%{upstreamname}/%{upstreamname}_%{version}.tar.xz
 # Use gpg2

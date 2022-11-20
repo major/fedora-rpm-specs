@@ -2,14 +2,22 @@
 
 Name:           ncrack
 Version:        0.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A high-speed network auth cracking tool
 
 License:        GPLv2 with exceptions
 URL:            http://nmap.org/ncrack/
 Source0:        http://nmap.org/ncrack/dist/%{name}-%{version}.tar.gz
+# Properly parse IPv6 services in the cli
+Patch0:         https://github.com/nmap/ncrack/commit/bdcd5d6a0c9ed0b21de33d7bfe34c0f43ced8edd.patch
+# Fix segfault in the ssh plugin
+Patch1:         https://github.com/nmap/ncrack/commit/9232958b35a6f5118049f252814a26bbe21783d6.patch
+# SSH module is not iterating on the credential list properly
+Patch2:         https://github.com/nmap/ncrack/pull/99.patch
 
-BuildRequires: make
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  openssl-devel
@@ -29,6 +37,7 @@ multiple hosts.
 %autosetup -p1
 
 %build
+autoreconf -ivf
 export CFLAGS="${RPM_OPT_FLAGS} -fcommon"
 %configure
 %make_build
@@ -44,6 +53,11 @@ export CFLAGS="${RPM_OPT_FLAGS} -fcommon"
 %{_datadir}/%{name}/*
 
 %changelog
+* Fri Nov 18 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 0.7-8
+- Regenerate autotools; Fixes: RHBZ#2143996
+- Backport upstream fix for IPv6 support
+- Backport an upstream fix and a pending PR for the ssh plugin
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

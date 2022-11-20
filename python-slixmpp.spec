@@ -3,13 +3,13 @@
 
 
 Name:           python-slixmpp
-Version:        1.8.2
-Release:        3%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        Slixmpp is an XMPP library for Python 3.5+
 
 License:        MIT
 URL:            https://github.com/poezio/%{srcname}
-Source0:        https://github.com/poezio/%{srcname}/archive/slix-%{version}/%{name}-%{version}.tar.gz
+Source0:        https://lab.louiz.org/poezio/%{srcname}/-/archive/slix-%{version}/%{srcname}-slix-%{version}.tar.bz2
 
 BuildRequires:  make
 BuildRequires:  python3-devel
@@ -121,6 +121,10 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/stringprep.cpython-*.so
 
 
 %changelog
+* Mon Nov 14 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 1.8.3-1
+- Update to 1.8.3
+- Update SourcesURL
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

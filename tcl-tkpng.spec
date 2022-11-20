@@ -4,11 +4,12 @@
 
 Name:		tcl-%{realname}
 Version:	0.9
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Tcl/Tk support for PNG
 License:	TCL
 URL:		http://www.muonics.com/FreeStuff/TkPNG/
 Source0:	http://downloads.sourceforge.net/tkpng/%{realname}%{version}.tgz
+Patch0:		tcl-tkpng-configure-c99.patch
 Provides:	%{realname} = %{version}-%{release}
 Provides:	tk-%{realname} = %{version}-%{release}
 BuildRequires: make
@@ -26,7 +27,7 @@ for alpha (partial-transparency) channels, although it does have support for
 alpha blending internally.
 
 %prep
-%setup -q -n %{realname}%{version}
+%autosetup -p1 -n %{realname}%{version}
 
 %build
 %if 0%{?__isa_bits} == 64
@@ -48,6 +49,9 @@ mv %{buildroot}%{_libdir}/%{realname}%{version} %{buildroot}%{tcl_sitearch}/%{re
 %{tcl_sitearch}/%{realname}%{version}/
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 0.9-31
+- Avoid implicit declaration of exit in configure script
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

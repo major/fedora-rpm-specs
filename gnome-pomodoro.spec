@@ -3,8 +3,8 @@
 
 Epoch:          1
 Name:           gnome-pomodoro
-Version:        0.21.1
-Release:        2%{?dist}
+Version:        0.22.0
+Release:        1%{?dist}
 Summary:        A time management utility for GNOME
 
 License:        GPLv3+
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/*/org.gnome.Pomod
 %{_datadir}/dbus-1/services/org.gnome.Pomodoro.service
 
 %changelog
+* Sat Nov 12 2022 Jaka Hudoklin <jaka@x-truder.net> - 1:0.22.0-1
+- Update to latest upstream release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Version:        1
 Release:        17%{?dist}
 Summary:        Keyrings filesystem layout
 
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 BuildArch:      noarch
 
 Requires:       filesystem

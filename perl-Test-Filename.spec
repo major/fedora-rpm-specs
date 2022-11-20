@@ -2,7 +2,7 @@ Name:           perl-Test-Filename
 Version:        0.03
 Release:        20%{?dist}
 Summary:        Portable filename comparison
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://metacpan.org/release/Test-Filename
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Test-Filename-%{version}.tar.gz

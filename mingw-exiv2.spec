@@ -6,7 +6,7 @@ Name:          mingw-%{pkgname}
 Version:       0.27.5
 Release:       4%{?dist}
 Summary:       MinGW Windows %{pkgname} library
-License:       GPLv2+
+License:       GPL-2.0-or-later
 BuildArch:     noarch
 URL:           http://www.exiv2.org/
 Source0:       https://github.com/Exiv2/%{pkgname}/archive/v%{version}/%{pkgname}-%{version}.tar.gz

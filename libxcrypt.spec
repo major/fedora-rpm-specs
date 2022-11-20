@@ -161,8 +161,8 @@ fi                                          \
 
 
 Name:           libxcrypt
-Version:        4.4.31
-Release:        5%{?dist}
+Version:        4.4.33
+Release:        1%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -573,6 +573,12 @@ done
 
 
 %changelog
+* Fri Nov 18 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-1
+- New upstream release
+
+* Fri Nov 18 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.32-1
+- New upstream release
+
 * Wed Nov 16 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.31-5
 - Add %%{perl_minver} macro and re-add BR on perl(:VERSION)
 

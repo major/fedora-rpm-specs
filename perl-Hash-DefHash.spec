@@ -2,7 +2,7 @@ Name:           perl-Hash-DefHash
 Version:        0.072
 Release:        4%{?dist}
 Summary:        Manipulate defhash
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Hash-DefHash
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Hash-DefHash-%{version}.tar.gz

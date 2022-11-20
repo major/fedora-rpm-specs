@@ -1,8 +1,8 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        ASL 2.0
@@ -90,6 +90,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Fri Nov 18 2022 Scott K Logan <logans@cottsay.net> - 0.11.0-1
+- Update to 0.11.0 (rhbz#2102790)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

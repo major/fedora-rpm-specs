@@ -5,7 +5,7 @@ Version:        2.1.0
 Release:        0.14%{?pre:.%pre}%{?dist}
 Summary:        GUI to manage Spatialite databases
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://www.gaia-gis.it/fossil/spatialite_gui
 Source0:        http://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-%{version}%{?pre:-%pre}.tar.gz
 # Link agains wx aui

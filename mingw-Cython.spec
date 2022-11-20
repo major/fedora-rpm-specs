@@ -11,7 +11,7 @@ Version:       0.29.32
 Release:       2%{?dist}
 BuildArch:     noarch
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           http://www.cython.org
 Source:        %{pypi_source}
 

@@ -3,7 +3,7 @@ Version:        3.3.0
 Release:        4%{?dist}
 Summary:        Simple license checker for source files
 
-License:        AGPLv3+
+License:        AGPL-3.0-or-later
 BuildArch:      noarch
 URL:            https://metacpan.org/release/App-Licensecheck
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/App-Licensecheck-v%{version}.tar.gz

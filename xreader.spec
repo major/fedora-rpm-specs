@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.4.5
+Version:	3.6.0
 Release:	1%{?dist}
 Summary:	Simple document viewer
 
@@ -129,7 +129,7 @@ This package adds configuration to use %{name} as a thumbnailer.
 
 %files -f %{name}.lang
 %license AUTHORS COPYING debian/copyright
-%doc ChangeLog README debian/changelog
+%doc ChangeLog README.md debian/changelog
 %{_bindir}/%{name}
 %{_bindir}/%{name}-previewer
 %{_datadir}/applications/%{name}.desktop
@@ -167,6 +167,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 3.6.0-1
+- Update to 3.6.0 release
+
 * Sun Aug 21 2022 Leigh Scott <leigh123linux@gmail.com> - 3.4.5-1
 - Update to 3.4.5 release
 

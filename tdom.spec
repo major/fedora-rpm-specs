@@ -2,7 +2,7 @@
 
 Name:           tdom
 Version:        0.8.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        DOM parser for Tcl
 
 # Most files MPL except for ./generic/xmlsimple.c and ./generic/domhtml.c
@@ -12,6 +12,7 @@ URL:            http://www.tdom.org
 Source0:        http://www.tdom.org/files/tDOM-%{version}.tgz
 Patch0:         tdom-0.8.2-noexpat.patch
 Patch1:         tdom-0.8.2-tcl8.6.patch
+Patch2:         tdom-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -33,6 +34,7 @@ Development header files for compiling against tdom.
 %setup -q -n tDOM-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure --enable-threads
@@ -69,6 +71,9 @@ sed -i -e "s#%{_libdir}/%{name}%{version}#%{_libdir}#" %{buildroot}%{_libdir}/td
 
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 0.8.2-34
+- Remove implicit function declarations from configure script
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

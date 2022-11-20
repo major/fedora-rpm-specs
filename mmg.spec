@@ -3,7 +3,7 @@ Version:        5.6.0
 Release:        3%{?dist}
 Summary:        Surface and volume remeshers
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://www.mmgtools.org/
 Source0:        https://github.com/MmgTools/mmg/archive/v%{version}/%{name}-%{version}.tar.gz
 

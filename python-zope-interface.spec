@@ -4,7 +4,7 @@
 %global _docdir_fmt %{name}
 
 Name:		python-zope-interface
-Version:	5.5.1
+Version:	5.5.2
 Release:	1%{?dist}
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPLv2.1
@@ -93,6 +93,9 @@ popd
 %endif
 
 %changelog
+* Fri Nov 18 2022 Lumír Balhar <lbalhar@redhat.com> - 5.5.2-1
+- Update to 5.5.2 (rhbz#2143698)
+
 * Thu Nov 03 2022 Lumír Balhar <lbalhar@redhat.com> - 5.5.1-1
 - Update to 5.5.1
 Resolves: rhbz#2139843

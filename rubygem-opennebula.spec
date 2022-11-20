@@ -1,8 +1,8 @@
 %global gem_name opennebula
 
 Name:           rubygem-%{gem_name}
-Version:        5.12.8
-Release:        4%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        OpenNebula Client API
 
 License:        ASL 2.0
@@ -30,38 +30,38 @@ Documentation for %{name}.
 
 # bigdecimal is in independent package in Fedora.
 %gemspec_add_dep -g bigdecimal
-# xmlrpc was extracted into independent package in Ruby 2.4.
-%gemspec_add_dep -g xmlrpc
+# rexml extracted into independent gem
+%gemspec_add_dep -g rexml
+
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
-
 %gem_install
 
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
-cp -a .%{gem_dir}/* \
-        %{buildroot}%{gem_dir}/
-
-
-# no testsuite
-#%%check
+cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %files
 %license %{gem_instdir}/LICENSE
-%doc %{gem_instdir}/NOTICE
+%license %{gem_instdir}/NOTICE
 %dir %{gem_instdir}/
 %{gem_libdir}/
-%exclude %{gem_cache}
 %{gem_spec}
+%exclude %{gem_cache}
 
 %files doc
 %doc %{gem_docdir}/
 
 
 %changelog
+* Fri Nov 18 2022 František Dvořák <valtri@civ.zcu.cz> - 6.4.2-1
+- Update to 6.4.2
+- Remove explicit rubygem(xmlrpc) dependency, in upstream now
+- Add explicit rubygem(rexml) dependency
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %global crate sevctl
 
 Name:           rust-sevctl
-Version:        0.3.0
-Release:        2%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        Administrative utility for AMD SEV
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Nov 18 2022 Tyler Fanelli <tfanelli@redhat.com> - 0.3.2-1
+- Update to 0.3.2 (rhbz#2143857)
+
 * Thu Aug 25 2022 Fabio Valentini <decathorpe@gmail.com> - 0.3.0-2
 - Regenerate with rust2rpm v22 and specify License for binary package.
 

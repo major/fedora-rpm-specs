@@ -2,15 +2,16 @@
 # tthdynamic.c and ttmdynamic.c IS a test.  We do that in %%build.
 
 Name:           tth
-Version:        4.15
-Release:        8%{?dist}
+Version:        4.16
+Release:        1%{?dist}
 Summary:        TeX to HTML/MathML translators
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://hutchinson.belmont.ma.us/tth/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
-Source1:        http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz.asc
-Source2:        http://silas.psfc.mit.edu/ihutch.asc
+Source0:        http://downloads.sourceforge.net/tth/%{name}%{version}.tar.gz
+Source1:        http://downloads.sourceforge.net/tth/%{name}%{version}.tar.gz.asc
+# Received in email from the author.  Not yet on public key servers.
+Source2:        ianhhutchinson.asc
 # Header file created by Jerry James from the source code.  It therefore has
 # the same copyright and license as tth itself.
 Source3:        tth.h
@@ -241,8 +242,8 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_texmf_main}/tex/generic/%{name}/
 
 %files libs
-%{_libdir}/libtth.so.*
-%{_libdir}/libttm.so.*
+%{_libdir}/libtth.so.0*
+%{_libdir}/libttm.so.0*
 
 %files devel
 %doc tthfunc/README.ttmdynamic
@@ -251,6 +252,10 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Fri Nov 18 2022 Jerry James <loganjerry@gmail.com> - 4.16-1
+- Version 4.16
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

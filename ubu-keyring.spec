@@ -3,7 +3,7 @@ Version:        2021.03.26
 Release:        4%{?dist}
 Summary:        GnuPG keys of the Ubuntu archive
 
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            https://launchpad.net/ubuntu-keyring
 Source0:        https://launchpad.net/ubuntu/+archive/primary/+files/ubuntu-keyring_%{version}.tar.gz
 

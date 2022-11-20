@@ -15,7 +15,7 @@
 
 Name:           openblas
 Version:        0.3.21
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An optimized BLAS library based on GotoBLAS2
 License:        BSD
 URL:            https://github.com/xianyi/OpenBLAS/
@@ -30,6 +30,12 @@ Patch2:         openblas-0.2.15-constructor.patch
 Patch3:         openblas-0.3.21-sbgemm-test.patch
 # Supply the proper flags to the test makefile
 Patch4:         openblas-0.3.11-tests.patch
+# C99 porting.
+Patch5:         openblas-0.3.21-c99-1.patch
+Patch6:         openblas-0.3.21-c99-2.patch
+Patch7:         openblas-0.3.21-c99-3.patch
+Patch8:         openblas-0.3.21-c99-4.patch
+Patch9:         openblas-0.3.21-c99-5.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -244,6 +250,11 @@ cd OpenBLAS-%{version}
 %endif
 %patch3 -p1 -b .sbgemm
 %patch4 -p1 -b .tests
+%patch5 -p1 -b .c99-1
+%patch6 -p1 -b .c99-2
+%patch7 -p1 -b .c99-3
+%patch8 -p1 -b .c99-4
+%patch9 -p1 -b .c99-5
 
 # Fix source permissions
 find -name \*.f -exec chmod 644 {} \;
@@ -649,6 +660,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig
 %endif
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 0.3.21-4
+- Apply upstream patches to support building in stricter C99 mode
+
 * Fri Aug 26 2022 Honza Horak <hhorak@redhat.com> - 0.3.21-3
 - Re-add flags for tests
 

@@ -4,7 +4,7 @@ Summary:          Fast NTLM authentication proxy with tunneling
 Name:             cntlm
 Version:          0.92.3
 Release:          23%{?dist}
-License:          GPLv2+
+License:          GPL-2.0-or-later
 
 URL:              http://cntlm.sourceforge.net/
 Source0:          http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2

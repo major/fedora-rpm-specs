@@ -2,25 +2,21 @@
 
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
-Version: 6.8
-Release: 4%{?dist}
+Version: 7.0
+Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
 Source1: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz.sig
-# Patch0: this is needed just for koji/mock, all tests pass fine in local build
-Patch0: texinfo-6.0-disable-failing-info-test.patch
-# Patch1: rhbz#1348671, because of OSTree
-Patch1: texinfo-6.1-install-info-use-create-tmp-then-rename-pattern.patch
-# Patch2: we need to fix template fix-info-dir generates
-Patch2: info-6.5-sync-fix-info-dir.patch
-# Patch3: rhbz#1592433, bug in fix-info-dir --delete
-Patch3: texinfo-6.5-fix-info-dir.patch
-# Patch4: fixes issues detected by static analysis
-Patch4: texinfo-6.5-covscan-fixes.patch
-# Patch5: undos change done in gnulib that causes build to fail
-# https://lists.gnu.org/r/bug-gnulib/2021-03/msg00066.html
-Patch5: texinfo-6.8-undo-gnulib-nonnul.patch
+Source2: fix-info-dir
+# Patch0: rhbz#1348671, because of OSTree
+Patch0: texinfo-6.1-install-info-use-create-tmp-then-rename-pattern.patch
+# Patch1: we need to fix template fix-info-dir generates
+Patch1: info-6.5-sync-fix-info-dir.patch
+# Patch2: rhbz#1592433, bug in fix-info-dir --delete
+Patch2: texinfo-6.5-fix-info-dir.patch
+# Patch3: fixes issues detected by static analysis
+Patch3: texinfo-6.5-covscan-fixes.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -70,7 +66,10 @@ The texinfo-tex package provides tools to format Texinfo documents
 for printing using TeX.
 
 %prep
-%autosetup -p1
+%setup -q
+mkdir contrib
+install -Dpm0755 -t contrib %{SOURCE2}
+%autopatch -p1
 
 %build
 %configure --with-external-Text-Unidecode \
@@ -120,6 +119,8 @@ export ALL_TESTS=yes
 %{_bindir}/pod2texi
 %{_datadir}/texinfo
 %{_infodir}/texinfo*
+%{_infodir}/texi2any_api.info*
+%{_infodir}/texi2any_internals.info*
 %{_mandir}/man1/makeinfo.1*
 %{_mandir}/man5/texinfo.5*
 %{_mandir}/man1/texi2any.1*
@@ -149,6 +150,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Fri Nov 18 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0-1
+- Update to texinfo-7.0
+  Resolves: #2140872
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

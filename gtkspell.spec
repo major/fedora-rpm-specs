@@ -3,7 +3,7 @@
 Name: gtkspell
 Version: 2.0.16
 Release: 26%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: On-the-fly spell checking for GtkTextView widgets
 URL: http://gtkspell.sourceforge.net/
 Source: http://gtkspell.sourceforge.net/download/%{name}-%{version}.tar.gz

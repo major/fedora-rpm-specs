@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 
 %global with_doc 1
 
@@ -11,8 +11,8 @@
 Code from the future, delivered to you in the now.
 
 Name:           python-%{pypi_name}
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        Useful additions to futures, from the future
 
 License:        ASL 2.0
@@ -39,9 +39,7 @@ BuildRequires:  python3-pbr
 BuildRequires:  git-core
 BuildRequires:  python3-prettytable
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
 
-Requires:       python3-six >= 1.10.0
 
 %description -n python3-%{pypi_name}
 %{common_desc}
@@ -97,6 +95,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Nov 18 2022 Alfredo Moralejo <amoralej@redhat.com> 2.4.1-1
+- Update to upstream version 2.4.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

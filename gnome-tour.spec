@@ -2,13 +2,13 @@
 
 # Use bundled deps as we don't ship the exact right versions for all the
 # required rust libraries
-%global bundled_rust_deps 1
+%global bundled_rust_deps 0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-tour
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
@@ -200,6 +200,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Fri Nov 18 2022 Kalev Lember <klember@redhat.com> - 43.0-2
+- Switch to packaged rust deps
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

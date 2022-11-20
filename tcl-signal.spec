@@ -1,6 +1,6 @@
 Name:           tcl-signal
 Version:        1.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        This extension adds dynamically loadable signal handling to Tcl/Tk scripts
 
 License:        MIT
@@ -14,6 +14,7 @@ Patch1:         signal_ext-destdir.patch
 Patch2:         signal_ext-lib64.patch
 #Rename library to libtclsignal.so
 Patch3:         signal_ext-libtclsignal.patch
+Patch4:         tcl-signal-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -33,6 +34,7 @@ linking and to prevent conflicts.
 %patch1 -p1 -b .destdir
 %patch2 -p1 -b .lib64
 %patch3 -p1 -b .libtclsignal
+%patch4 -p1 -b .c99
 
 
 %build
@@ -55,6 +57,9 @@ chmod 644 $RPM_BUILD_ROOT%{_libdir}/tcl*/signal/pkgIndex.tcl
 
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1.4-26
+- Avoid implicit declaration of exit in configure (#2143640)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

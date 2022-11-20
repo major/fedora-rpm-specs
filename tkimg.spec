@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	1.4
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	Image support library for Tk
 License:	BSD
 URL:		http://sourceforge.net/projects/tkimg
@@ -24,6 +24,7 @@ Patch7:		tkimg-libpng16.patch
 Patch8:		tkimg-libpng-deprecated.patch
 # gcc10 has -fno-common by default
 Patch9:		tkimg-gcc10.patch
+Patch10: tkimg-implicit-int.patch
 
 # A request to allow building with system libraries has been submitted
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2292032&group_id=52039&atid=465495
@@ -71,6 +72,7 @@ rm -rf compat/libtiff
 %patch7 -p1 -b .png16
 %patch8 -p1 -b .deprecated
 %patch9 -p1 -b .gcc10
+%patch10 -p1
 
 %build
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
@@ -109,6 +111,9 @@ done
 %{tcl_sitearch}/Img1.4/*.a
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1.4-38
+- Eliminate implicit int declarations
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

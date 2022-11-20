@@ -8,7 +8,7 @@ Version:       0.1.7
 Release:       8%{?dist}
 BuildArch:     noarch
 
-License:       GPLv3
+License:       GPL-3.0-only
 URL:           https://github.com/satellogic/%{pypi_name}
 Source0:       %{pypi_source}
 

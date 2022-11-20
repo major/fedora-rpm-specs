@@ -1,11 +1,12 @@
 %global sconsopts VERSION=%{version} PREFIX=%{_prefix} PREFIX_CONF=%{_sysconfdir} ZLIB_W32=%{mingw32_prefix} SKIPUTILS='NSIS Menu' STRIP_CP=false NSIS_MAX_STRLEN=8192 NSIS_CONFIG_LOG=yes
+%global sconsopts64 %{sconsopts} TARGET_ARCH=amd64
 
 Name:           mingw-nsis
 Version:        3.08
 Release:        3%{?dist}
 Summary:        Nullsoft Scriptable Install System
 
-License:        zlib and CPL
+License:        Zlib AND CPL-1.0
 URL:            http://nsis.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/nsis/nsis-%{version}-src.tar.bz2
 
@@ -22,6 +23,12 @@ BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-zlib
+
+BuildRequires:  mingw64-filesystem >= 40
+BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw64-binutils
+BuildRequires:  mingw64-zlib
 
 # Don't build NSIS Menu as it doesn't actually work on POSIX systems: 1. it
 # doesn't find its index.html file without patching, 2. it has various links to
@@ -45,20 +52,39 @@ This package includes native Fedora binaries of makensis (etc.) and
 all plugins.
 
 
+%package -n mingw-nsis-base
+Summary:        Nullsoft Scriptable Install System - base files
+
+%description -n mingw-nsis-base
+NSIS, the Nullsoft Scriptable Install System, is a script-driven
+Windows installation system.
+
+This package includes the natife Fedora binaries and the common
+files for both mingw32-nsis and mingw64-nsis.
+
+
 %package -n mingw32-nsis
-Summary:        Nullsoft Scriptable Install System
-# upgrade path for CalcForge users
-Obsoletes:      nsis < %{version}-%{release}
-Provides:       nsis = %{version}-%{release}
-Obsoletes:      nsis-data < %{version}-%{release}
-Provides:       nsis-data = %{version}-%{release}
+Summary:        Nullsoft Scriptable Install System - win32
+BuildArch:      noarch
+Requires:       mingw-nsis-base = %{version}-%{release}
 
 %description -n mingw32-nsis
 NSIS, the Nullsoft Scriptable Install System, is a script-driven
 Windows installation system.
 
-This package includes native Fedora binaries of makensis (etc.) and
-all plugins.
+This package includes the binaries compiled for win32.
+
+
+%package -n mingw64-nsis
+Summary:        Nullsoft Scriptable Install System - win64
+BuildArch:      noarch
+Requires:       mingw-nsis-base = %{version}-%{release}
+
+%description -n mingw64-nsis
+NSIS, the Nullsoft Scriptable Install System, is a script-driven
+Windows installation system.
+
+This package includes the binaries compiled for win64.
 
 
 %prep
@@ -69,23 +95,67 @@ find -type f -exec chmod -x {} \;
 
 %build
 scons %{sconsopts}
+scons %{sconsopts64}
 
 %install
 scons %{sconsopts} PREFIX_DEST=%{buildroot} install
+scons %{sconsopts64} PREFIX_DEST=%{buildroot} install
 mv %{buildroot}%{_docdir}/nsis %{buildroot}%{_docdir}/%{name}
 
 
-%files -n mingw32-nsis
+%files -n mingw-nsis-base
 %license COPYING
 %doc %{_docdir}/%{name}
+%{_bindir}/GenPat
+%{_bindir}/makensis
 %{_sysconfdir}/nsisconf.nsh
-%{_bindir}/*
-%{_datadir}/nsis/
+%dir %{_datadir}/nsis
+%dir %{_datadir}/nsis/Bin
+%{_datadir}/nsis/Bin/MakeLangId.exe
+%{_datadir}/nsis/Bin/makensisw.exe
+%{_datadir}/nsis/Bin/zip2exe.exe
+%{_datadir}/nsis/Contrib/
+%{_datadir}/nsis/Include/
+%dir %{_datadir}/nsis/Plugins
+%dir %{_datadir}/nsis/Stubs
+%{_datadir}/nsis/Stubs/uninst
+
+%files -n mingw32-nsis
+%{_datadir}/nsis/Bin/RegTool-x86.bin
+%{_datadir}/nsis/Plugins/x86-ansi/
+%{_datadir}/nsis/Plugins/x86-unicode/
+%{_datadir}/nsis/Stubs/bzip2_solid-x86-ansi
+%{_datadir}/nsis/Stubs/bzip2_solid-x86-unicode
+%{_datadir}/nsis/Stubs/bzip2-x86-ansi
+%{_datadir}/nsis/Stubs/bzip2-x86-unicode
+%{_datadir}/nsis/Stubs/lzma_solid-x86-ansi
+%{_datadir}/nsis/Stubs/lzma_solid-x86-unicode
+%{_datadir}/nsis/Stubs/lzma-x86-ansi
+%{_datadir}/nsis/Stubs/lzma-x86-unicode
+%{_datadir}/nsis/Stubs/zlib_solid-x86-ansi
+%{_datadir}/nsis/Stubs/zlib_solid-x86-unicode
+%{_datadir}/nsis/Stubs/zlib-x86-ansi
+%{_datadir}/nsis/Stubs/zlib-x86-unicode
+
+%files -n mingw64-nsis
+%{_datadir}/nsis/Bin/RegTool-amd64.bin
+%{_datadir}/nsis/Plugins/amd64-unicode/
+%{_datadir}/nsis/Stubs/bzip2-amd64-unicode
+%{_datadir}/nsis/Stubs/bzip2_solid-amd64-unicode
+%{_datadir}/nsis/Stubs/lzma-amd64-unicode
+%{_datadir}/nsis/Stubs/lzma_solid-amd64-unicode
+%{_datadir}/nsis/Stubs/zlib-amd64-unicode
+%{_datadir}/nsis/Stubs/zlib_solid-amd64-unicode
 
 
 %changelog
+<<<<<<< Updated upstream
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+=======
+* Fri May 06 2022 Sandro Mani <manisandro@gmail.com> - 3.08-3
+- Add win64 build
+>>>>>>> Stashed changes
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

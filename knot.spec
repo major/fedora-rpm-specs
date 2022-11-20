@@ -8,7 +8,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -77,6 +77,9 @@ BuildRequires:	pkgconfig(libelf)
 # XDP is auto-enabled when libbpf is present
 %define configure_xdp --enable-quic=yes
 BuildRequires:	pkgconfig(libbpf) >= 0.0.6
+%if 0%{?fedora} >= 36
+BuildRequires:	pkgconfig(libxdp)
+%endif
 %endif
 %endif
 
@@ -333,6 +336,9 @@ getent passwd knot >/dev/null || \
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Nov 04 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.2-2
+- New BuildRequires: libxdp (needed for libbpf >= 1.0)
+
 * Tue Nov 01 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.2.2-1
 - Update to 3.2.2
 

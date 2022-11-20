@@ -6,7 +6,7 @@
 
 Name:           python-pynamodb
 Summary:        A pythonic interface to Amazon’s DynamoDB
-Version:        5.3.0
+Version:        5.3.1
 Release:        %autorelease
 
 # SPDX
@@ -17,6 +17,13 @@ URL:            https://github.com/pynamodb/PynamoDB
 Source0:        %{url}/archive/%{version}/PynamoDB-%{version}.tar.gz
 
 BuildArch:      noarch
+
+#   Fix issue 1117 (typing_tests installed to site-packages)
+#   https://github.com/pynamodb/PynamoDB/pull/1118
+# Fixes:
+#   Regression in 5.3.1: typing_tests is installed to site-packages
+#   https://github.com/pynamodb/PynamoDB/issues/1117
+Patch:          %{url}/pull/1118.patch
 
 BuildRequires:  python3-devel
 
@@ -52,7 +59,7 @@ Summary:        Documentation and examples for PynamoDB
 
 
 %prep
-%autosetup -n PynamoDB-%{version}
+%autosetup -n PynamoDB-%{version} -p1
 
 {
 %if %{with doc_pdf}

@@ -8,7 +8,7 @@ Release:       5%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           http://djvu.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/djvu/%{pkgname}-%{version}.tar.gz
 # Downstream fix for CVE-2021-32490

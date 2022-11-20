@@ -3,7 +3,7 @@ Version:        6.47
 Release:        11%{?dist}
 Summary:        Analysis tool for airfoils, wings and planes
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.xflr5.com/
 Source0:        https://sourceforge.net/projects/xflr5/files/%{version}/%{name}_v%{version}_src.tar.gz
 Source1:        %{name}.desktop

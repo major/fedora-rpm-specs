@@ -45,9 +45,9 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
-Version:          2.3.0
-Release:          2%{?dist}
-License:          GPLv3+ and (ASL 2.0 or MIT) and MPLv2.0 and BSD
+Version:          2.3.1
+Release:          1%{?dist}
+License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
 Conflicts:        freeipa-server < 4.0.3
@@ -61,78 +61,78 @@ Provides:  bundled(crate(ahash)) = 0.7.6
 Provides:  bundled(crate(ansi_term)) = 0.12.1
 Provides:  bundled(crate(atty)) = 0.2.14
 Provides:  bundled(crate(autocfg)) = 1.1.0
-Provides:  bundled(crate(base64)) = 0.13.0
+Provides:  bundled(crate(base64)) = 0.13.1
 Provides:  bundled(crate(bitflags)) = 1.3.2
 Provides:  bundled(crate(byteorder)) = 1.4.3
 Provides:  bundled(crate(cbindgen)) = 0.9.1
-Provides:  bundled(crate(cc)) = 1.0.73
+Provides:  bundled(crate(cc)) = 1.0.76
 Provides:  bundled(crate(cfg-if)) = 1.0.0
 Provides:  bundled(crate(clap)) = 2.34.0
 Provides:  bundled(crate(concread)) = 0.2.21
 Provides:  bundled(crate(crossbeam)) = 0.8.2
 Provides:  bundled(crate(crossbeam-channel)) = 0.5.6
 Provides:  bundled(crate(crossbeam-deque)) = 0.8.2
-Provides:  bundled(crate(crossbeam-epoch)) = 0.9.10
+Provides:  bundled(crate(crossbeam-epoch)) = 0.9.11
 Provides:  bundled(crate(crossbeam-queue)) = 0.3.6
-Provides:  bundled(crate(crossbeam-utils)) = 0.8.11
+Provides:  bundled(crate(crossbeam-utils)) = 0.8.12
 Provides:  bundled(crate(entryuuid)) = 0.1.0
 Provides:  bundled(crate(entryuuid_syntax)) = 0.1.0
 Provides:  bundled(crate(fastrand)) = 1.8.0
 Provides:  bundled(crate(fernet)) = 0.1.4
 Provides:  bundled(crate(foreign-types)) = 0.3.2
 Provides:  bundled(crate(foreign-types-shared)) = 0.1.1
-Provides:  bundled(crate(getrandom)) = 0.2.7
+Provides:  bundled(crate(getrandom)) = 0.2.8
 Provides:  bundled(crate(hashbrown)) = 0.12.3
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
 Provides:  bundled(crate(instant)) = 0.1.12
-Provides:  bundled(crate(itoa)) = 1.0.3
-Provides:  bundled(crate(jobserver)) = 0.1.24
-Provides:  bundled(crate(libc)) = 0.2.132
+Provides:  bundled(crate(itoa)) = 1.0.4
+Provides:  bundled(crate(jobserver)) = 0.1.25
+Provides:  bundled(crate(libc)) = 0.2.137
 Provides:  bundled(crate(librnsslapd)) = 0.1.0
 Provides:  bundled(crate(librslapd)) = 0.1.0
-Provides:  bundled(crate(lock_api)) = 0.4.8
+Provides:  bundled(crate(lock_api)) = 0.4.9
 Provides:  bundled(crate(log)) = 0.4.17
 Provides:  bundled(crate(lru)) = 0.7.8
 Provides:  bundled(crate(memoffset)) = 0.6.5
-Provides:  bundled(crate(once_cell)) = 1.13.1
-Provides:  bundled(crate(openssl)) = 0.10.41
+Provides:  bundled(crate(once_cell)) = 1.16.0
+Provides:  bundled(crate(openssl)) = 0.10.42
 Provides:  bundled(crate(openssl-macros)) = 0.1.0
-Provides:  bundled(crate(openssl-sys)) = 0.9.75
+Provides:  bundled(crate(openssl-sys)) = 0.9.77
 Provides:  bundled(crate(parking_lot)) = 0.11.2
 Provides:  bundled(crate(parking_lot_core)) = 0.8.5
 Provides:  bundled(crate(paste)) = 0.1.18
 Provides:  bundled(crate(paste-impl)) = 0.1.18
 Provides:  bundled(crate(pin-project-lite)) = 0.2.9
-Provides:  bundled(crate(pkg-config)) = 0.3.25
-Provides:  bundled(crate(ppv-lite86)) = 0.2.16
+Provides:  bundled(crate(pkg-config)) = 0.3.26
+Provides:  bundled(crate(ppv-lite86)) = 0.2.17
 Provides:  bundled(crate(proc-macro-hack)) = 0.5.19
-Provides:  bundled(crate(proc-macro2)) = 1.0.43
+Provides:  bundled(crate(proc-macro2)) = 1.0.47
 Provides:  bundled(crate(pwdchan)) = 0.1.0
 Provides:  bundled(crate(quote)) = 1.0.21
 Provides:  bundled(crate(rand)) = 0.8.5
 Provides:  bundled(crate(rand_chacha)) = 0.3.1
-Provides:  bundled(crate(rand_core)) = 0.6.3
+Provides:  bundled(crate(rand_core)) = 0.6.4
 Provides:  bundled(crate(redox_syscall)) = 0.2.16
 Provides:  bundled(crate(remove_dir_all)) = 0.5.3
 Provides:  bundled(crate(ryu)) = 1.0.11
 Provides:  bundled(crate(scopeguard)) = 1.1.0
-Provides:  bundled(crate(serde)) = 1.0.144
-Provides:  bundled(crate(serde_derive)) = 1.0.144
-Provides:  bundled(crate(serde_json)) = 1.0.85
+Provides:  bundled(crate(serde)) = 1.0.147
+Provides:  bundled(crate(serde_derive)) = 1.0.147
+Provides:  bundled(crate(serde_json)) = 1.0.88
 Provides:  bundled(crate(slapd)) = 0.1.0
 Provides:  bundled(crate(slapi_r_plugin)) = 0.1.0
-Provides:  bundled(crate(smallvec)) = 1.9.0
+Provides:  bundled(crate(smallvec)) = 1.10.0
 Provides:  bundled(crate(strsim)) = 0.8.0
-Provides:  bundled(crate(syn)) = 1.0.99
+Provides:  bundled(crate(syn)) = 1.0.103
 Provides:  bundled(crate(synstructure)) = 0.12.6
 Provides:  bundled(crate(tempfile)) = 3.3.0
 Provides:  bundled(crate(textwrap)) = 0.11.0
-Provides:  bundled(crate(tokio)) = 1.20.1
+Provides:  bundled(crate(tokio)) = 1.21.2
 Provides:  bundled(crate(tokio-macros)) = 1.8.0
 Provides:  bundled(crate(toml)) = 0.5.9
-Provides:  bundled(crate(unicode-ident)) = 1.0.3
-Provides:  bundled(crate(unicode-width)) = 0.1.9
-Provides:  bundled(crate(unicode-xid)) = 0.2.3
+Provides:  bundled(crate(unicode-ident)) = 1.0.5
+Provides:  bundled(crate(unicode-width)) = 0.1.10
+Provides:  bundled(crate(unicode-xid)) = 0.2.4
 Provides:  bundled(crate(uuid)) = 0.8.2
 Provides:  bundled(crate(vcpkg)) = 0.2.15
 Provides:  bundled(crate(vec_map)) = 0.8.2
@@ -708,6 +708,48 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 18 2022 Mark Reynolds <mreynolds@redhat.com> - 2.3.1-1
+- Bump version to 2.3.1
+- Issue 5532 - Make db compaction TOD day more robust.
+- Issue 3729 - RFE Extend log of operations statistics in access log (#5508)
+- Issue 5529 - UI - Fix npm vulnerability in loader-utils
+- Issue 5490 - tombstone in entryrdn index with lmdb but not with bdb (#5498)
+- Issue 5162 - Fix dsctl tls ca-certfiicate add-cert arg requirement
+- Issue 5510 - remove twalk_r dependency to build on RHEL8 (#5516)
+- Issue 5162 - RFE - CLI allow adding CA certificate bundles
+- Issue 5440 - memberof is slow on update/fixup if there are several 'groupattr' (#5455)
+- Issue 5512 - BUG - skip pwdPolicyChecker OC in migration (#5513)
+- Issue 3555 - UI - fix audit issue with npm loader-utils (#5514)
+- Issue 5505 - Fix compiler warning (#5506)
+- Issue 5469 - Increase the default value of nsslapd-conntablesize (#5472)
+- Issue 5408 - lmdb import is slow (#5481)
+- Issue 5429 - healthcheck - add checks for MemberOf group attrs being indexed
+- Issue 5502 - RFE - Add option to display entry attributes in audit log
+- Issue 5495 - BUG - Minor fix to dds skip, inconsistent attrs caused errors (#5501)
+- Issue 5367 - RFE - store full DN in database record
+- Issue 5495 - RFE - skip dds during migration. (#5496)
+- Issue 5491 - UI - Add rework and finish jpegPhoto functionality (#5492)
+- Issue 5368 - Retro Changelog trimming does not work (#5486)
+- Issue 5487 - Fix various issues with logconv.pl
+- Issue 5476 - RFE - add memberUid read aci by default (#5477)
+- Issue 5482 - lib389 - Can not enable replication with a mixed case suffix
+- Issue 5478 - Random crash in connection code during server shutdown (#5479)
+- Issue 3061 - RFE - Add password policy debug log level
+- Issue 5302 - Release tarballs don't contain cockpit webapp
+- Issue 5262 - high contention in find_entry_internal_dn on mixed load (#5264)
+- Issue 4324 - Revert recursive pthread mutex change (#5463)
+- Issue 5462 - RFE - add missing default indexes (#5464)
+- Issue 5465 - Fix dbscan linking (#5466)
+- Issue 5271 - Serialization of pam_passthrough causing high etimes (#5272)
+- Issue 5453 - UI/CLI - Changing Root DN breaks UI
+- Issue 5446 - Fix some covscan issues (#5451)
+- Issue 4308 - checking if an entry is a referral is expensive
+- Issue 5447 - UI - add NDN max cache size to UI
+- Issue 5443 - UI - disable save button while saving
+- Issue 5413 - Allow only one MemberOf fixup task at a time
+- Issue 4592 - dscreate error with custom dir_path (#5434)
+- Issue 5158 - entryuuid fixup tasks fails in replicated topology (#5439)
+
 * Tue Sep 20 2022 Mark Reynolds <mreynolds@redhat.com> - 2.3.0-2
 - Bump version to 2.3.0-2
 - Update old pcre-devel requirement to pcre2-devel

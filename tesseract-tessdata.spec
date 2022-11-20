@@ -9,7 +9,7 @@ Release:       4%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:       Trained models for the Tesseract Open Source OCR Engine
 BuildArch:     noarch
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://github.com/tesseract-ocr/tessdata_fast
 %if 0%{?commit:1}
 Source0:       https://github.com/tesseract-ocr/tessdata_fast/archive/%{commit}/tessdata_fast-%{shortcommit}.tar.gz

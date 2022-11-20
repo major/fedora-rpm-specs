@@ -436,6 +436,23 @@ and translations langpack add-ons.
 %dir %{langpackdir}
 %endif
 
+%if %{enable_mozilla_crashreporter}
+%global moz_debug_prefix %{_prefix}/lib/debug
+%global moz_debug_dir %{moz_debug_prefix}%{mozappdir}
+%global uname_m %(uname -m)
+%global symbols_file_name %{name}-%{version}.en-US.%{_os}-%{uname_m}.crashreporter-symbols.zip
+%global symbols_file_path %{moz_debug_dir}/%{symbols_file_name}
+%global _find_debuginfo_opts -p %{symbols_file_path} -o debugcrashreporter.list
+%global crashreporter_pkg_name mozilla-crashreporter-%{name}-debuginfo
+%package -n %{crashreporter_pkg_name}
+Summary: Debugging symbols used by Mozilla's crash reporter servers
+%description -n %{crashreporter_pkg_name}
+This package provides debug information for Firefox, for use by
+Mozilla's crash reporter servers.  If you are trying to locally
+debug %{name}, you want to install %{name}-debuginfo instead.
+%files -n %{crashreporter_pkg_name} -f debugcrashreporter.list
+%endif
+
 %package x11
 Summary: Firefox X11 launcher.
 Requires: %{name}
@@ -608,10 +625,6 @@ echo "ac_add_options --disable-jit" >> .mozconfig
 %if %{build_with_asan}
 echo "ac_add_options --enable-address-sanitizer" >> .mozconfig
 echo "ac_add_options --disable-jemalloc" >> .mozconfig
-%endif
-
-%if !%{enable_mozilla_crashreporter}
-echo "ac_add_options --disable-crashreporter" >> .mozconfig
 %endif
 
 # api keys full path
@@ -932,6 +945,14 @@ ln -s %{_datadir}/hunspell %{buildroot}%{mozappdir}/dictionaries
 ln -s %{_datadir}/myspell %{buildroot}%{mozappdir}/dictionaries
 %endif
 
+# Enable crash reporter for Firefox application
+%if %{enable_mozilla_crashreporter}
+sed -i -e "s/\[Crash Reporter\]/[Crash Reporter]\nEnabled=1/" %{buildroot}/%{mozappdir}/application.ini
+# Add debuginfo for crash-stats.mozilla.com
+%{__mkdir_p} %{buildroot}/%{moz_debug_dir}
+%{__cp} objdir/dist/%{symbols_file_name} %{buildroot}/%{moz_debug_dir}
+%endif
+
 %if 0%{?run_firefox_tests}
 %{__mkdir_p} %{buildroot}/%{version}-%{release}/test_results
 %{__cp} test_results/* %{buildroot}/%{version}-%{release}/test_results
@@ -1079,13 +1100,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/firefox.png
 %{_datadir}/icons/hicolor/48x48/apps/firefox.png
 %{_datadir}/icons/hicolor/symbolic/apps/firefox-symbolic.svg
-%if %{enable_mozilla_crashreporter}
 %{mozappdir}/crashreporter
 %{mozappdir}/crashreporter.ini
 %{mozappdir}/minidump-analyzer
 %{mozappdir}/Throbber-small.gif
 %{mozappdir}/browser/crashreporter-override.ini
-%endif
 %{mozappdir}/*.so
 %{mozappdir}/defaults/pref/channel-prefs.js
 %{mozappdir}/dependentlibs.list

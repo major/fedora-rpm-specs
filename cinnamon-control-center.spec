@@ -1,13 +1,13 @@
 %global _artwork_version 5.7
 
-%global cinnamon_desktop_version 5.4.0
-%global csd_version 5.4.0
-%global cinnamon_menus_version 5.4.0
+%global cinnamon_desktop_version 5.6.0
+%global csd_version 5.6.0
+%global cinnamon_menus_version 5.6.0
 %global redhat_menus_version 1.8
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.4.6
+Version: 5.6.0
 Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
@@ -20,7 +20,6 @@ License: GPLv2+ and LGPLv2+ and MIT and ISC
 URL:     https://github.com/linuxmint/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork-cinnamon/mint-artwork-cinnamon_%{_artwork_version}.tar.gz
-Patch0:  %{url}/pull/293.patch
 
 ExcludeArch: %{ix86}
 
@@ -141,6 +140,9 @@ install -pm 0644 mint-artwork-cinnamon-%{_artwork_version}/%{_datadir}/mint-artw
 
 
 %changelog
+* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
+- Update to 5.6.0 release
+
 * Tue Aug 02 2022 Leigh Scott <leigh123linux@gmail.com> - 5.4.6-1
 - Update to 5.4.6 release
 

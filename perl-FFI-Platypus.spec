@@ -7,7 +7,7 @@
 
 Name:           perl-FFI-Platypus
 Version:        2.05
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FFI-Platypus
@@ -102,6 +102,8 @@ Requires:       perl(IPC::Cmd)
 # Filter private modules
 %global __provides_exclude %{__provides_exclude}|^perl\\((FFI::Build::Plugin::Foo(1|2)|Test::Cleanup|Test::FauxAttach|Test::Platypus)\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\((Test::Cleanup|Test::FauxAttach|Test::Platypus)\\)
+# Do not expport test libraries
+%global __provides_exclude %{__provides_exclude}|^libtest\\.so\\(\\)
 # Do not export private redefinitions
 %global __provides_exclude %{__provides_exclude}|^perl\\(FFI::Platypus\\)$
 
@@ -199,6 +201,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 18 2022 Petr Pisar <ppisar@redhat.com> - 2.05-2
+- Do not provide a test library libtest.so()
+
 * Wed Nov 16 2022 Petr Pisar <ppisar@redhat.com> - 2.05-1
 - 2.05 bump
 

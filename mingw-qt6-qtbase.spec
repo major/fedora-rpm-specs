@@ -20,11 +20,11 @@
 
 Name:           mingw-qt6-qtbase
 Version:        6.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
-License:        LGPLv3 or GPLv2
+License:        LGPL-3.0-only OR GPL-2.0-only
 URL:            http://qt.io/
 
 %if 0%{?commit:1}
@@ -474,6 +474,9 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 
 %changelog
+* Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-2
+- Rebuild (mingw-postgresql)
+
 * Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
 - Update to 6.4.0
 

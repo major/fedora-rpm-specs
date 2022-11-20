@@ -5,7 +5,7 @@ Version:        0.17
 Release:        7%{?dist}
 Summary:        Basic requirement for icon themes in MingGW
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://icon-theme.freedesktop.org/releases/
 Source0:        http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-%{version}.tar.xz
 

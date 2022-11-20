@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.9.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 BuildArch:     noarch
 
 
@@ -21,13 +21,15 @@ Patch0:        psycopg2_mingw.patch
 
 BuildRequires: gcc
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-postgresql
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-postgresql
 BuildRequires: mingw64-python3
@@ -81,6 +83,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 2.9.3-4
+- Rebuild (mingw-postgresql)
+
 * Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 2.9.3-3
 - Switch to python3-build
 

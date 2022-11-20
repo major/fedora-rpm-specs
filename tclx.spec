@@ -11,7 +11,7 @@
 Summary: Extensions for Tcl and Tk
 Name: tclx
 Version: %{major_ver}.0
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: BSD
 URL: http://tclx.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{major_ver}.tar.bz2
@@ -24,6 +24,7 @@ Patch1: tclx-%{major_ver}-varinit.patch
 Patch2: tclx-%{major_ver}-relid.patch
 Patch3: tclx-%{major_ver}-man.patch
 Patch4: tclx-%{major_ver}-tcl86.patch
+Patch5: tclx-configure-c99.patch
 
 %description
 Extended Tcl (TclX) is a set of extensions to the Tcl programming language.
@@ -46,6 +47,7 @@ applications embedding tclx.
 %patch2 -p1 -b .2.relid
 %patch3 -p1 -b .3.patch
 %patch4 -p1 -b .4.tcl86
+%patch5 -p1 -b .5.configure-c99
 
 # patch2 touches tcl.m4
 
@@ -98,6 +100,9 @@ echo '%{_libdir}/tcl%{tcl_version}/%{name}%{major_ver}' > $RPM_BUILD_ROOT%{_sysc
 %{_mandir}/man3/Keylist.3*
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 8.4.0-41
+- Avoid implicit function declarations in configure script
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

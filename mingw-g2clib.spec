@@ -8,7 +8,7 @@ Release:       6%{?dist}
 Summary:       MinGW Windows g2clib library
 
 BuildArch:     noarch
-License:       Public Domain
+License:       LicenseRef-Fedora-Public-Domain
 URL:           http://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/
 Source0:       http://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/%{pkgname}-%{version}.tar
 Source1:       g2clib-msg.txt

@@ -2,14 +2,16 @@
 
 Name:           obserware
 Version:        0.2.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An advanced system monitor utility written in Python and Qt
 
 License:        GPLv3+
 Url:            https://gitlab.com/t0xic0der/%{name}
 Source0:        %{pypi_source}
-
 BuildArch:      noarch
+
+Patch0: 0001-Change-the-version-constraint-for-py-cpuinfo.patch
+
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -19,7 +21,7 @@ BuildRequires:  python3-devel
 An advanced system monitor utility written in Python and Qt
 
 %prep
-%autosetup
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -48,6 +50,9 @@ appstream-util validate-relax --nonet %{buildroot}%{python3_sitelib}/%{name}/app
 %{_datadir}/pixmaps/%{uuid}.png
 
 %changelog
+* Fri Nov 18 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.2.9-4
+- Rebuild for python and updated py deps (fixes RHBZ#2137855)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

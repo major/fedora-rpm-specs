@@ -2,7 +2,7 @@ Name:           perl-Test-Command-Simple
 Version:        0.05
 Release:        10%{?dist}
 Summary:        Test external commands (nearly) as easily as loaded modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Test-Command-Simple
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMCBRIDE/Test-Command-Simple-%{version}.tar.gz

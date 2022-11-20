@@ -2,7 +2,7 @@ Name:           perl-Test-Regexp-Pattern
 Version:        0.010
 Release:        1%{?dist}
 Summary:        Test Regexp::Pattern patterns
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Test-Regexp-Pattern
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Test-Regexp-Pattern-%{version}.tar.gz

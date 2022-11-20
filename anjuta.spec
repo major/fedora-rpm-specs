@@ -10,7 +10,7 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
 License:        GPLv2+
@@ -18,6 +18,7 @@ URL:            http://www.anjuta.org/
 Source0:        http://download.gnome.org/sources/anjuta/3.34/%{name}-%{version}.tar.xz
 Patch0:         cpp-java.patch
 Patch1:         webkit-4.1.patch
+Patch2:         autoconf-2.72.patch
 
 BuildRequires:  autogen
 BuildRequires:  chrpath
@@ -89,6 +90,7 @@ This package contains library files for %{name}.
 
 %patch0 -p0 -b .cpp-java
 %patch1 -p1 -b .webkit
+%patch2 -p1 -b .autoconf
 
 %build
 %if 0%{?with_python3}
@@ -185,6 +187,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Fri Nov 18 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-17
+- Patch for autoconf 2.72
+
 * Fri Sep 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-16
 - Fix libgda requires.
 

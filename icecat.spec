@@ -311,9 +311,6 @@ Extensions included to this version of IceCat:
    HTTPS Everywhere is an extension that encrypts your communications with
    many major websites, making your browsing more secure.
 
- * ViewTube
-   Watch videos from video sharing websites with extra options.
-
  * A set of companion extensions for LibreJS by Nathan Nichols
    are pre-installed, and provide workarounds to use some services at USPS,
    RSF.org, SumOfUs.org, pay.gov, McDonalds, goteo.org and Google Docs

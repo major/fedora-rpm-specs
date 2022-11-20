@@ -3,7 +3,7 @@ Version:        1.1.0
 Release:        10%{?dist}
 Summary:        Create and manage SQL/MM topologies
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://git.osgeo.org/gitea/rttopo/librttopo
 Source0:        https://git.osgeo.org/gitea/rttopo/librttopo/archive/%{name}-%{version}.tar.gz
 # Use pkgconfig to find geos

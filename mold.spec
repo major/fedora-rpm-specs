@@ -1,5 +1,8 @@
+# Force out-of-source build (needed on el8)
+%undefine __cmake_in_source_build
+
 Name:		mold
-Version:	1.6.0
+Version:	1.7.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -17,19 +20,12 @@ Patch0:		tbb-strip-werror.patch
 # Allow building against the system-provided `xxhash.h`
 Patch2:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
 
-# Fix test failure on i386 (https://github.com/rui314/mold/issues/794)
-Patch3:		0002-ELF-i386-Allow-R_386_PC32-after-R_386_TLS_-GD-LDM.patch
-Patch4:		0003-ELF-i386-Fix-assertion-failure.patch
-
-# Fix test failure on epel8/epel9 (https://github.com/rui314/mold/pull/809)
-Patch5:		0004-Fix-name-lookup-for-section-symbols-when-st_shndx-SH.patch
-
-# mold can currently produce native binaries for these architectures only
-ExclusiveArch:	%{ix86} x86_64 %{arm32} aarch64 %{power64} %{riscv32} %{riscv64} s390x sparc64 sparc64v
+# mold currently cannot produce native binaries for MIPS
+ExcludeArch:	%{mips}
 
 BuildRequires:	cmake
 %if 0%{?el8}
-BuildRequires:	gcc-toolset-10-toolchain
+BuildRequires:	gcc-toolset-12
 %else
 BuildRequires:	gcc
 BuildRequires:	gcc-c++ >= 10
@@ -75,7 +71,7 @@ rm -r third-party/{mimalloc,xxhash,zlib,zstd}
 
 %build
 %if 0%{?el8}
-. /opt/rh/gcc-toolset-10/enable
+. /opt/rh/gcc-toolset-12/enable
 %endif
 %cmake -DMOLD_USE_SYSTEM_MIMALLOC=ON
 %cmake_build
@@ -95,7 +91,7 @@ fi
 
 %check
 %if 0%{?el8}
-. /opt/rh/gcc-toolset-10/enable
+. /opt/rh/gcc-toolset-12/enable
 %endif
 %ctest
 
@@ -111,6 +107,12 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Fri Nov 18 2022 Christoph Erhardt <fedora@sicherha.de> - 1.7.0-1
+- Bump version to 1.7.0
+- Drop upstreamed patches
+- Move from `ExclusiveArch` to `ExcludeArch` as only MIPS remains unsupported
+- Build with GCC 12 on el8
+
 * Sat Oct 22 2022 Christoph Erhardt <fedora@sicherha.de> - 1.6.0-1
 - Bump version to 1.6.0
 - Add new supported architectures

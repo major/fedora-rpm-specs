@@ -3,7 +3,7 @@ Version:       3.4.0
 Release:       6%{?dist}
 Summary:       A front-end to tesseract-ocr
 
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           https://github.com/manisandro/gimagereader
 Source0:       https://github.com/manisandro/gimagereader/releases/download/v%{version}/%{name}-%{version}.tar.xz
 

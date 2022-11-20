@@ -12,7 +12,7 @@ Summary:        MinGW Windows Qwt library
 Version:        6.1.5
 Release:        6%{?dist}
 URL:            http://qwt.sourceforge.net
-License:        LGPLv2 with exceptions
+License:        LGPL-2.0-or-later WITH FLTK-exception
 Source:         http://downloads.sourceforge.net/%{name1}/%{name1}-%{version}.tar.bz2
 # fix pkgconfig support
 Patch50:        qwt-6.1.1-pkgconfig.patch

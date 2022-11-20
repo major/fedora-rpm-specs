@@ -5,7 +5,7 @@ Version:        1.2.12
 Release:        2%{?dist}
 Summary:        MinGW Windows zlib compression library
 
-License:        zlib
+License:        Zlib
 URL:            http://www.zlib.net/
 Source0:        http://www.zlib.net/zlib-%{version}.tar.xz
 # Use UNIX naming convention for libraries

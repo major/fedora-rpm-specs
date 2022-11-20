@@ -4,10 +4,10 @@
 
 Name:           python-keyring
 Version:        23.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Store and access your passwords safely
 
-License:        MIT and Python
+License:        MIT AND Python-2.0.1
 URL:            https://github.com/jaraco/keyring
 Source0:        %{pypi_source keyring}
 
@@ -99,6 +99,9 @@ rm -vrf *.egg-info *.dist-info
 
 
 %changelog
+* Fri Nov 18 2022 Christopher Tubbs <ctubbsii@fedoraproject.org> - 23.9.3-2
+- Convert license to SPDX
+
 * Sat Sep 24 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.9.3-1
 - Update to 23.9.3 (close RHBZ#2127652)
 

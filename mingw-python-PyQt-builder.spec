@@ -8,7 +8,7 @@ Version:        1.13.0
 Release:        2%{?dist}
 BuildArch:      noarch
 
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only OR GPL-3.0-only
 Url:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        %{pypi_source}
 # Assorted mingw fixes

@@ -2,7 +2,7 @@ Name:           perl-Pod-Constants
 Version:        0.19
 Release:        21%{?dist}
 Summary:        Include constants from POD
-License:        Artistic 2.0
+License:        Artistic-2.0
 
 URL:            https://metacpan.org/release/Pod-Constants
 Source0:        https://cpan.metacpan.org/authors/id/M/MG/MGV/Pod-Constants-%{version}.tar.gz

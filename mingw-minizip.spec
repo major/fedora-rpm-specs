@@ -3,14 +3,14 @@
 %global pkgname minizip
 
 Name:          mingw-%{pkgname}
-Version:       3.0.2
-Release:       6%{?dist}
+Version:       3.0.7
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
-License:       zlib
-URL:           https://github.com/nmoinvaz/%{pkgname}
-Source0:       https://github.com/nmoinvaz/%{pkgname}/archive/%{version}/%{pkgname}-%{version}.tar.gz
+License:       Zlib
+URL:           https://github.com/zlib-ng/minizip-ng
+Source0:       https://github.com/zlib-ng/minizip-ng/archive/%{version}/%{pkgname}-%{version}.tar.gz
 # Add a library version
 Patch0:        mingw-minizip_libver.patch
 
@@ -72,7 +72,7 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 %files -n mingw32-%{pkgname}
 %license LICENSE
-%{mingw32_bindir}/lib%{pkgname}-3.0.dll
+%{mingw32_bindir}/lib%{pkgname}-3.dll
 %{mingw32_libdir}/lib%{pkgname}.dll.a
 %{mingw32_libdir}/cmake/%{pkgname}/
 %{mingw32_libdir}/pkgconfig/%{pkgname}.pc
@@ -80,7 +80,7 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 %files -n mingw64-%{pkgname}
 %license LICENSE
-%{mingw64_bindir}/lib%{pkgname}-3.0.dll
+%{mingw64_bindir}/lib%{pkgname}-3.dll
 %{mingw64_libdir}/lib%{pkgname}.dll.a
 %{mingw64_libdir}/cmake/%{pkgname}/
 %{mingw64_libdir}/pkgconfig/%{pkgname}.pc
@@ -88,6 +88,9 @@ MINGW64_CMAKE_ARGS="-DINSTALL_INC_DIR=%{mingw64_includedir}/%{pkgname}" \
 
 
 %changelog
+* Wed Nov 16 2022 Sandro Mani <manisandro@gmail.com> - 3.0.7-1
+- Update to 3.0.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

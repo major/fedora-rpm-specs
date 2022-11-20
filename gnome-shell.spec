@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        43.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -13,6 +13,10 @@ Source0:        https://download.gnome.org/sources/gnome-shell/43/%{name}-%{tarb
 # https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6066
 # Fix layout switching in password entry boxes
 Patch1:     2534.patch
+
+# Backport broken screen cast fix if gstreamer1-vaapi was installed.
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2533
+Patch2:     post-43.1-fixes.patch
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch10001: gnome-shell-favourite-apps-firefox.patch
@@ -236,6 +240,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Thu Nov 17 2022 Jonas Ådahl <jadahl@redhat.com> - 43.1-3
+- Backport missing screencast if gstreamer1-vaapi is installed
+
 * Wed Nov 16 2022 Adam Williamson <awilliam@redhat.com> - 43.1-2
 - Backport MR #2534 to fix layout switching in password entries
 

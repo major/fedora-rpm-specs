@@ -8,13 +8,14 @@
 
 Name:		tcl-%{realname}
 Version:	2.0.1
-Release:	0.30.svn40%{?dist}
+Release:	0.31.svn40%{?dist}
 Summary:	Tcl extension for zlib support
 License:	MIT
 URL:		http://svn.scheffers.net/
 # Snapshot of SVN40 downloaded on June 26, 2008
 # Originally found at http://svn.scheffers.net/zlib.tar.gz
 Source0:	%{realname}.tar.gz
+Patch0:	tcl-zlib-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:	tcl-devel, tk-devel, zlib-devel
@@ -33,7 +34,7 @@ Provides:	tcl-%{realname}-static = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -q -n %{realname}
+%autosetup -p1 -n %{realname}
 
 %build
 %configure --with-tcl=%{_libdir}
@@ -58,6 +59,9 @@ chmod -x %{buildroot}%{tcl_sitearch}/%{realname}%{version}/libzlibstub*.a
 %{_includedir}/*.h
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 2.0.1-0.31.svn40
+- Avoid implicit declaration of exit in configure script
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-0.30.svn40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

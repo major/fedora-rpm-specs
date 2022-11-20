@@ -5,7 +5,7 @@ Version:        2.5.7
 Release:        1%{?dist}
 Summary:        Text-mode interface for the git revision control system
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://jonas.github.io/tig/
 Source0:        https://github.com/jonas/tig/releases/download/tig-%version/tig-%version.tar.gz
 

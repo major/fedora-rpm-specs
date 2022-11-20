@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-postgresql
-Version:        11.5
-Release:        13%{?dist}
+Version:        14.3
+Release:        1%{?dist}
 Summary:        MinGW Windows PostgreSQL library
 
 License:        PostgreSQL
@@ -26,8 +26,7 @@ Patch4:         postgresql_libs.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gettext
 BuildRequires:  mingw32-libxml2
@@ -38,7 +37,7 @@ BuildRequires:  mingw32-readline
 BuildRequires:  mingw32-winpthreads
 BuildRequires:  mingw32-zlib
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gettext
 BuildRequires:  mingw64-libxml2
@@ -49,7 +48,7 @@ BuildRequires:  mingw64-tcl
 BuildRequires:  mingw64-winpthreads
 BuildRequires:  mingw64-zlib
 
-BuildRequires:  bison flex gettext pkgconfig tcl
+BuildRequires:  bison flex gettext make pkgconfig tcl
 
 
 %description
@@ -170,8 +169,10 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw32_libdir}/libecpg_compat.a
 %{mingw32_libdir}/libpq.a
 %{mingw32_libdir}/libpgcommon.a
+%{mingw32_libdir}/libpgcommon_shlib.a
 %{mingw32_libdir}/libpgfeutils.a
 %{mingw32_libdir}/libpgport.a
+%{mingw32_libdir}/libpgport_shlib.a
 %{mingw32_libdir}/libpgtypes.a
 
 
@@ -202,12 +203,17 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{mingw64_libdir}/libecpg_compat.a
 %{mingw64_libdir}/libpq.a
 %{mingw64_libdir}/libpgcommon.a
+%{mingw64_libdir}/libpgcommon_shlib.a
 %{mingw64_libdir}/libpgfeutils.a
 %{mingw64_libdir}/libpgport.a
+%{mingw64_libdir}/libpgport_shlib.a
 %{mingw64_libdir}/libpgtypes.a
 
 
 %changelog
+* Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 14.3-1
+- Update to 14.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

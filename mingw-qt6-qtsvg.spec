@@ -20,7 +20,7 @@ Version:        6.4.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSvg component
 
-License:        LGPLv3 or GPLv2
+License:        LGPL-3.0-only OR GPL-2.0-only
 URL:            http://qt.io/
 
 %if 0%{?commit:1}

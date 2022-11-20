@@ -1,13 +1,12 @@
-%global cinnamon_desktop_version 5.4.0
+%global cinnamon_desktop_version 5.6.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 5.4.0
-Release: 3%{?dist}
+Version: 5.6.0
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:  %{url}/pull/153.patch#/1.5_desktop_spec.patch
 
 ExcludeArch: %{ix86}
 
@@ -80,6 +79,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 
 %changelog
+* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
+- Update to 5.6.0 release
+
 * Sat Sep 03 2022 Leigh Scott <leigh123linux@gmail.com> - 5.4.0-3
 - Accept Desktop Entry Specification v1.5
 

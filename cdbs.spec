@@ -4,7 +4,7 @@ Release:        5%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://salsa.debian.org/build-common-team/cdbs
 Source0:        http://ftp.de.debian.org/debian/pool/main/c/%{name}/%{name}_%{version}.tar.xz
 

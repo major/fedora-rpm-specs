@@ -3,16 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.15
-Release: 3%{?dist}
+Version: 2022.16
+Release: 1%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-
-Patch0: 0001-util-Fix-fpermissive-warning.patch
-Patch1: 0001-libpriv-postprocess-work-around-semanage-bug.patch
 
 ExclusiveArch: %{rust_arches}
 
@@ -29,6 +26,13 @@ BuildRequires: rust
 %bcond_with sanitizers
 # Embedded unit tests
 %bcond_with bin_unit_tests
+
+# This is copied from the libdnf spec
+%if 0%{?rhel} && ! 0%{?centos}
+%bcond_without rhsm
+%else
+%bcond_with rhsm
+%endif
 
 # RHEL (8,9) doesn't ship zchunk today.  Keep this in sync
 # with libdnf: https://gitlab.com/redhat/centos-stream/rpms/libdnf/-/blob/762f631e36d1e42c63a794882269d26c156b68c1/libdnf.spec#L45
@@ -98,6 +102,9 @@ BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.46.0
 BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:  rpm-devel >= 4.15.0
+%if %{with rhsm}
+BuildRequires:  pkgconfig(librhsm) >= 0.0.3
+%endif
 %if %{with zchunk}
 BuildRequires:  pkgconfig(zck) >= 0.9.11
 %endif
@@ -108,11 +115,6 @@ BuildRequires:  pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
 BuildRequires:  pkgconfig(smartcols)
 BuildRequires:  gettext
 BuildRequires:  gpgme-devel
-%if 0%{?rhel} <= 8
-# In current Fedora, this is a dependency of gpgme-devel, but
-# not in RHEL8.  Missing this package breaks -znow.
-BuildRequires:  libassuan-devel
-%endif
 
 Requires:       libmodulemd%{?_isa} >= %{libmodulemd_version}
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
@@ -121,6 +123,12 @@ Requires:       librepo%{?_isa} >= %{librepo_version}
 #########################################################################
 #                     end of libdnf build deps                          #
 #########################################################################
+
+%if 0%{?rhel} <= 8
+# In current Fedora, this is a dependency of gpgme-devel, but
+# not in RHEL8.  Missing this package breaks -znow.
+BuildRequires:  libassuan-devel
+%endif
 
 # For now...see https://github.com/projectatomic/rpm-ostree/pull/637
 # and https://github.com/fedora-infra/fedmsg-atomic-composer/pull/17
@@ -171,7 +179,8 @@ env NOCONFIGURE=1 ./autogen.sh
 %if 0%{?build_rustflags:1}
 export RUSTFLAGS="%{build_rustflags}"
 %endif
-%configure --disable-silent-rules --enable-gtk-doc %{?rpmdb_default} %{?with_sanitizers:--enable-sanitizers}  %{?with_bin_unit_tests:--enable-bin-unit-tests}
+%configure --disable-silent-rules --enable-gtk-doc %{?rpmdb_default} %{?with_sanitizers:--enable-sanitizers}  %{?with_bin_unit_tests:--enable-bin-unit-tests} \
+  %{?with_rhsm:--enable-featuresrs=rhsm}
 
 %make_build
 
@@ -236,7 +245,11 @@ $PYTHON autofiles.py > files.devel \
 %files libs -f files.lib
 
 %files devel -f files.devel
+
 %changelog
+* Fri Nov 18 2022 Jonathan Lebon <jonathan@jlebon.com> - 2022.16-1
+- https://github.com/coreos/rpm-ostree/releases/tag/v2022.16
+
 * Wed Nov 02 2022 Jonathan Lebon <jonathan@jlebon.com> - 2022.15-3
 - Backport semanage bug workaround
   https://github.com/coreos/rpm-ostree/pull/4122

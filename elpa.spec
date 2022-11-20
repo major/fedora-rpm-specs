@@ -9,7 +9,7 @@
 Summary: High-performance library for parallel solution of eigenvalue problems
 Name: elpa
 Version: 2021.05.002
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL: https://elpa.mpcdf.mpg.de/software
 Source0: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz
 Source1: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz.asc
@@ -343,6 +343,9 @@ done
 %{_fmoddir}/openmpi*/*.mod
 
 %changelog
+* Fri Nov 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2021.05.002-5
+- Rebuild for new papi
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.05.002-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

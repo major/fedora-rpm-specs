@@ -2,7 +2,7 @@ Name:           perl-Path-Iterator-Rule
 Version:        1.015
 Release:        4%{?dist}
 Summary:        Iterative, recursive file finder
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://metacpan.org/release/Path-Iterator-Rule
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Path-Iterator-Rule-%{version}.tar.gz

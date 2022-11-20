@@ -4,7 +4,7 @@ Release:        6%{?dist}
 Summary:        debhelper add-on to call autoreconf and clean up after the build
 
 BuildArch:      noarch
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/dh-autoreconf
 Source0:        http://ftp.de.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
 

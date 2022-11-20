@@ -2,7 +2,7 @@ Name:           perl-Array-IntSpan
 Version:        2.004
 Release:        9%{?dist}
 Summary:        Handles arrays of scalars or objects using integer ranges
-License:        Artistic 2.0
+License:        Artistic-2.0
 
 URL:            https://metacpan.org/release/Array-IntSpan
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDUMONT/Array-IntSpan-%{version}.tar.gz

@@ -3,7 +3,7 @@ Version:        1.0.1
 Release:        6%{?dist}
 Summary:        Spell checking for Qt text widgets
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/manisandro/qtspell
 Source0:        https://github.com/manisandro/qtspell/archive/%{version}/%{name}-%{version}.tar.gz
 

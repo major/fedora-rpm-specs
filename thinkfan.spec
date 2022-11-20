@@ -3,7 +3,7 @@ Version:       1.3.1
 Release:       3%{?dist}
 Summary:       A simple fan control program
 
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           https://github.com/vmatare/thinkfan
 Source0:       https://github.com/vmatare/thinkfan/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       thinkfan.modprobe

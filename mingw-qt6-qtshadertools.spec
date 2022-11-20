@@ -20,7 +20,7 @@ Version:        6.4.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            http://qt.io/
 
 %if 0%{?commit:1}

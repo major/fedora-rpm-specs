@@ -2,7 +2,7 @@ Name:           perl-String-Copyright
 Version:        0.003013
 Release:        4%{?dist}
 Summary:        Representation of text-based copyright statements
-License:        GPLv3+
+License:        GPL-3.0-or-later
 
 URL:            https://metacpan.org/release/String-Copyright
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/String-Copyright-%{version}.tar.gz

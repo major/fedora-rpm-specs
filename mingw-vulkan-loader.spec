@@ -10,7 +10,7 @@ Version:       1.3.231.1
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
-License:       ASL 2.0
+License:       Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
 Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}/%{srcname}-%{version}.tar.gz

@@ -8,7 +8,7 @@ Release:        3%{?snap}%{?dist}
 Summary:        SIP-based VoIP client
 
 # Incorrect FSF addresses: https://github.com/LubosD/twinkle/issues/71
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/LubosD/%{name}
 %if 0%{?commit:1}
 Source0:        https://github.com/LubosD/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz

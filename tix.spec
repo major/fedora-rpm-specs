@@ -8,7 +8,7 @@ Summary: A set of extension widgets for Tk
 Name: tix
 Epoch: 1
 Version: %{tixmajor}.3
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: TCL
 URL: http://tix.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/Tix%{version}-src.tar.gz
@@ -16,6 +16,8 @@ Source0: http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/Tix
 Patch0: tix-8.4.2-link.patch
 Patch1: tix-8.4.3-tcl86.patch
 Patch2: tix-8.4.3-covscan-fixes.patch
+Patch3: tix-implicit-int.patch
+Patch4: tix-configure-c99.patch
 Requires: tcl(abi) = 8.6
 Requires: tcl >= %{tcltkver}, tk >= %{tcltkver}
 Requires: /etc/ld.so.conf.d
@@ -60,6 +62,8 @@ This package contains the tix documentation
 %patch0 -p1 -b .link
 %patch1 -p1 -b .tcl86
 %patch2 -p1 -b .covscan-fixes
+%patch3 -p1 -b .implicit-int
+%patch4 -p1 -b .configure-c99
 
 # Remove executable permission of images in html documentation
 chmod ugo-x docs/html/gif/tix/*.png docs/html/gif/tix/*.gif \
@@ -128,6 +132,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/Tix%{tixmajor}/license.terms
 %doc %{tcl_sitelib}/Tix%{tixmajor}
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1:8.4.3-35
+- Remove implicit ints and implicit function declarations
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.4.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

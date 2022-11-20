@@ -153,9 +153,6 @@ PYTHON=python3 stestr-3 --test-path ./openstack/tests/unit run --black-regex '(t
 * Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 0.101.0-1
 - Update to upstream version 0.101.0
 
-* Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 0.101.0-1
-- Update to upstream version 0.101.0
-
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.61.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

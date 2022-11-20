@@ -13,7 +13,7 @@ Version:       7.0.0
 Release:       19%{?dist}
 Summary:       Portable C++ framework for threads and sockets
 
-License:       LGPLv3+
+License:       LGPL-3.0-or-later
 URL:           http://www.gnu.org/software/commoncpp
 Source0:       https://ftpmirror.gnu.org/commoncpp/ucommon-%{version}.tar.gz
 

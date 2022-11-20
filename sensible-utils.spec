@@ -4,7 +4,7 @@ Release:        4%{?dist}
 Summary:        Utilities for sensible alternative selection
 
 BuildArch:      noarch
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://packages.debian.org/unstable/admin/%{name}
 Source0:        http://ftp.de.debian.org/debian/pool/main/s/%{name}/%{name}_%{version}.tar.xz
 

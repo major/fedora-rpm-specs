@@ -5,7 +5,7 @@ Version:        2.17.0
 Release:        2%{?dist}
 Summary:        PNG quantization tool for reducing image file size
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 
 URL:            http://%{name}.org
 Source0:        https://github.com/pornel/%{name}/archive/%{version}/%{name}-%{version}.tar.gz

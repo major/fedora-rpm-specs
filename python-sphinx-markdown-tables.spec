@@ -4,7 +4,7 @@ Name:           python-%{srcname}
 Version:        0.0.17
 Release:        1%{?dist}
 Summary:        Sphinx extension for rendering markdown tables
-License:        GPLv3
+License:        GPL-3.0-only
 
 URL:            https://github.com/ryanfox/%{srcname}
 Source0:        %{pypi_source %srcname}

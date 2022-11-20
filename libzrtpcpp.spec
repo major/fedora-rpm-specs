@@ -3,7 +3,7 @@ Version:        4.6.6
 Release:        14%{?dist}
 Summary:        ZRTP support library for the GNU ccRTP stack
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/wernerd/ZRTPCPP
 Source0:        https://github.com/wernerd/ZRTPCPP/archive/V%{version}/%{name}-%{version}.tar.gz
 # Look. Don't put #warning statements in header files that every application

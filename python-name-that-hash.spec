@@ -1,16 +1,13 @@
 %global pypi_name name-that-hash
 
-
 Name:           python-%{pypi_name}
-Version:        1.10
+Version:        1.11.0
 Release:        %autorelease
 Summary:        The Modern Hash Identification System
 
 License:        GPLv3+
 URL:            https://github.com/HashPals/Name-That-Hash
 Source0:        https://github.com/HashPals/Name-That-Hash/archive/%{version}/Name-That-Hash-%{version}.tar.gz
-# Partial patch from upstream PR#135 to enable >=rich-12 support
-Patch0:         135.patch
 
 BuildArch:      noarch
 

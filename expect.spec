@@ -5,7 +5,7 @@
 Summary: A program-script interaction and testing utility
 Name: expect
 Version: %{majorver}
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: Public Domain
 URL: https://core.tcl.tk/expect/index
 Source: http://downloads.sourceforge.net/%{name}/%{name}%{version}.tar.gz
@@ -46,6 +46,7 @@ Patch103: expect-5.45-passmass-su-full-path.patch
 Patch104: expect-5.45-mkpasswd-man.patch
 # Patch105: Fix error with -Werror=format-security
 Patch105: expect-5.45-format-security.patch
+Patch106: expect-configure-c99.patch
 
 %description
 Expect is a tcl application for automating and testing
@@ -102,6 +103,7 @@ of expectk.
 %patch103 -p1 -b .passmass-su-full-path
 %patch104 -p1 -b .mkpasswd-man
 %patch105 -p0 -b .format-security
+%patch106 -p1 -b .configure-c99
 # -pkgpath.patch touch configure.in
 aclocal
 autoconf
@@ -184,6 +186,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libexpect%{version}.so
 %{_mandir}/man1/tknewsbiff.1*
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 5.45.4-17
+- Update configure for building in strict C99 mode
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.45.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

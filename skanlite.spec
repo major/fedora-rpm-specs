@@ -3,7 +3,7 @@ Version:        22.08.3
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only OR GPL-3.0-only
 URL:            https://www.kde.org/applications/graphics/%{name}/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
 

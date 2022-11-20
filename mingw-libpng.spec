@@ -5,7 +5,7 @@ Version:        1.6.37
 Release:        9%{?dist}
 Summary:        MinGW Windows Libpng library
 
-License:        zlib
+License:        Zlib
 URL:            http://www.libpng.org/pub/png/
 Source0:        http://downloads.sourceforge.net/libpng/libpng-%{version}.tar.xz
 

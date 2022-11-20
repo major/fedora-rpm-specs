@@ -1,7 +1,7 @@
 Summary: A file compression and packaging utility compatible with PKZIP
 Name: zip
 Version: 3.0
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: BSD
 Source: http://downloads.sourceforge.net/infozip/zip30.tar.gz
 URL: http://www.info-zip.org/Zip.html
@@ -16,6 +16,7 @@ Patch3: zip-3.0-time.patch
 Patch4: man.patch
 Patch5: zip-3.0-format-security.patch
 Patch6: zipnote.patch
+Patch7: zip-gnu89-build.patch
 BuildRequires: make
 BuildRequires: bzip2-devel, gcc
 Requires: unzip
@@ -37,9 +38,10 @@ program.
 %patch4 -p1 -b .man
 %patch5 -p1 -b .format-security
 %patch6 -p1 -b .zipnote
+%patch7 -p1 -b .gnu89-build
 
 %build
-%{make_build} -f unix/Makefile prefix=%{_prefix} "CFLAGS_NOOPT=-I. -DUNIX -std=gnu89 $RPM_OPT_FLAGS" generic
+%{make_build} -f unix/Makefile prefix=%{_prefix} "CFLAGS_NOOPT=-I. -DUNIX $RPM_OPT_FLAGS" generic_gcc
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -62,6 +64,9 @@ mkdir -p $RPM_BULD_ROOT%{_mandir}/man1
 %{_mandir}/man1/zipsplit.1*
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 3.0-35
+- Really build with -std=gnu89 (#2143565)
+
 * Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 3.0-34
 - Build with -std=gnu89 (#2143565)
 

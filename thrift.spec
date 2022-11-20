@@ -76,7 +76,7 @@
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
 Version: 0.14.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -86,7 +86,7 @@ Summary: Software framework for cross-language services development
 # Here's the breakdown:
 # ./lib/py/compat/win32/stdint.h is 2-clause BSD
 # ./compiler/cpp/src/md5.[ch] are zlib
-License: ASL 2.0 and BSD and zlib
+License: Apache-2.0 AND BSD-3-Clause AND Zlib
 URL:     https://thrift.apache.org/
 
 Source0: https://archive.apache.org/dist/%{name}/%{version}/%{name}-%{version}.tar.gz
@@ -383,7 +383,7 @@ mv %{buildroot}/usr/lib/perl5/* %{buildroot}/%{perl_vendorlib}
 # Move arch-independent php files into the appropriate place
 mkdir -p %{buildroot}/%{_datadir}/php/
 mv %{buildroot}/%{php_extdir}/Thrift %{buildroot}/%{_datadir}/php/
-%endif # want_php
+%endif
 
 # Fix permissions on Thread.h
 find %{buildroot} -name Thread.h -exec chmod a-x '{}' \;
@@ -456,6 +456,9 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Fri Nov 18 2022 Christopher Tubbs <ctubbsii@fedoraproject.org> - 0.14.0-12
+- Convert license tags to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,11 +5,11 @@
 #global pre beta
 
 Name:           qcustomplot
-Version:        2.1.0
-Release:        4%{?pre:.%pre}%{?dist}
+Version:        2.1.1
+Release:        1%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.qcustomplot.com/
 Source0:        http://www.qcustomplot.com/release/%{version}%{?pre:-%pre}/QCustomPlot.tar.gz
 Source1:        %{name}.pro
@@ -119,10 +119,6 @@ Cflags: -I\${includedir}
 Libs: -L\${libdir} -lqcustomplot-qt5
 EOF
 
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets qt5
-
 
 %files
 %license GPL.txt
@@ -150,6 +146,9 @@ EOF
 
 
 %changelog
+* Wed Nov 09 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-1
+- Update to 2.1.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

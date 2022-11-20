@@ -3,7 +3,7 @@ Version:        1.5.0
 Release:        22%{?dist}
 Summary:        A Quality Tetrahedral Mesh Generator
 
-License:        AGPLv3+
+License:        AGPL-3.0-or-later
 URL:            http://wias-berlin.de/software/tetgen/
 Source0:        http://www.tetgen.org/1.5/src/%{name}%{version}.tar.gz
 Source1:        http://www.tetgen.org/1.5/doc/manual/manual.pdf

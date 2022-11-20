@@ -2,7 +2,7 @@ Name:           perl-Regexp-Pattern
 Version:        0.2.14
 Release:        10%{?dist}
 Summary:        Collection of regexp patterns
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Regexp-Pattern
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Regexp-Pattern-%{version}.tar.gz

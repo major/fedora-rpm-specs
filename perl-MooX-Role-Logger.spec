@@ -2,7 +2,7 @@ Name:           perl-MooX-Role-Logger
 Version:        0.005
 Release:        11%{?dist}
 Summary:        Universal logging via Log::Any
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://metacpan.org/release/MooX-Role-Logger
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/MooX-Role-Logger-%{version}.tar.gz

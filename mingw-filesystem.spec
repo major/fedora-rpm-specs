@@ -13,7 +13,7 @@ Version:        142
 Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://fedoraproject.org/wiki/MinGW
 BuildArch:      noarch
 
@@ -219,6 +219,8 @@ for target in i686-w64-mingw32 x86_64-w64-mingw32 x86_64-w64-mingw32ucrt; do
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/locale
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/pkgconfig
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/xml
+  mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/icons
+  mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/metainfo
 
   mkdir -p %{buildroot}%{_prefix}/lib/debug/%{_prefix}/$target
 done

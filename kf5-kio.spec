@@ -33,7 +33,7 @@ Patch101: kio-no-help-protocol.patch
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros
 %if 0%{?rhel} && 0%{?rhel} < 9
-BuildRequires: gcc-toolset-9
+BuildRequires: gcc-toolset-12
 %endif
 # core
 BuildRequires:  kf5-karchive-devel >= %{majmin}
@@ -184,7 +184,7 @@ KIONTLM provides support for NTLM authentication mechanism in KIO
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 9    
-. /opt/rh/gcc-toolset-9/enable    
+. /opt/rh/gcc-toolset-12/enable    
 %endif 
 %cmake_kf5
 

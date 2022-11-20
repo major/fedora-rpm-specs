@@ -28,7 +28,7 @@ Release:       3%{?pre:.%pre}%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
-License:       Python
+License:       Python-2.0.1
 URL:           https://www.python.org/
 Source0:       http://www.python.org/ftp/python/%{version}/Python-%{version}%{?pre}.tar.xz
 

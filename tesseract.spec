@@ -5,7 +5,7 @@ Version:       5.2.0
 Release:       5%{?dist}
 Summary:       Raw OCR Engine
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://github.com/tesseract-ocr/%{name}
 Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 

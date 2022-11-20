@@ -5,7 +5,7 @@ Summary:        A set of useful CLI tools for SpatiaLite
 # Add missing -lxml2
 Patch0:         spatialite-tools_lxml2.patch
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Source0:        http://www.gaia-gis.it/gaia-sins/%{name}-%{version}.tar.gz
 URL:            https://www.gaia-gis.it/fossil/spatialite-tools
 

@@ -5,9 +5,9 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.41.4
+%global real_version 1.41.5
 %global rpm_version %{real_version}
-%global release_version 2
+%global release_version 1
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -188,7 +188,7 @@ Source5: 20-connectivity-redhat.conf
 Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
 
-Patch1: 0001-all-fix-generating-UUIDs-for-string.patch
+#Patch1: 0001-some.patch
 
 Requires(post): systemd
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -1224,6 +1224,9 @@ fi
 
 
 %changelog
+* Fri Nov 18 2022 Thomas Haller <thaller@redhat.com> - 1:1.41.5-1
+- Update to 1.41.5 release (development)
+
 * Thu Nov  3 2022 Thomas Haller <thaller@redhat.com> - 1:1.41.4-2
 - fix generating stable UUIDs for keyfile (gitlab#1130)
 

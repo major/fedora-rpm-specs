@@ -15,7 +15,7 @@ Summary:       A secure peer-to-peer VoIP server for the SIP protocol
 Version:       1.9.15
 Release:       18%{?dist}
 
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           http://www.gnu.org/software/sipwitch
 Source:        https://ftp.gnu.org/gnu/sipwitch/%{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
 Name:           python-xapp
-Version:        2.2.2
-Release:        4%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Python bindings for xapps
 
 License:        LGPLv2
@@ -16,8 +16,8 @@ BuildArch:      noarch
 %package -n python3-xapp
 Summary:       %{summary}
 
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: meson
+BuildRequires: python3-rpm-macros
 
 Requires:      gtk3
 Requires:      python3-gobject-base
@@ -33,21 +33,24 @@ Requires:      xapps
 
 
 %build
-%py3_build
+%meson
+%meson_build
 
 
 %install
-%py3_install
+%meson_install
 
 
 %files -n python3-xapp
 %license COPYING debian/copyright
 %doc PKG-INFO debian/changelog
 %{python3_sitelib}/xapp/
-%{python3_sitelib}/python_xapp-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 2.4.0-1
+- Update to 2.4.0 release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

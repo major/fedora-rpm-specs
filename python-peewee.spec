@@ -6,7 +6,7 @@
 %endif
 
 Name:           python-peewee
-Version:        3.15.3
+Version:        3.15.4
 Release:        1%{?dist}
 Summary:        A simple and small ORM
 
@@ -107,6 +107,9 @@ psql -c "CREATE EXTENSION hstore" peewee_test
 
 
 %changelog
+* Fri Nov 18 2022 Viliam Krizan <vkrizan@redhat.com> - 3.15.4-1
+- Update to 3.15.4 (#2142291)
+
 * Fri Sep 23 2022 Carl George <carl@george.computer> - 3.15.3-1
 - Latest upstream, resolves rhbz#2129202
 

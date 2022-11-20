@@ -5,7 +5,7 @@ Version:        3.0.6
 Release:        2%{?dist}
 Summary:        MinGW Windows Jasper library
 
-License:        JasPer
+License:        JasPer-2.0
 
 URL:            http://www.ece.uvic.ca/~frodo/jasper/
 Source0:        https://github.com/mdadams/jasper/archive/version-%{version}/jasper-%{version}.tar.gz

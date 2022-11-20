@@ -10,7 +10,7 @@ Version:       2022.2
 Release:       6%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
-License:       ASL 2.0
+License:       Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
 Source0:       %url/archive/sdk-%{sdkver}.tar.gz#/%{srcname}-sdk-%{sdkver}.tar.gz

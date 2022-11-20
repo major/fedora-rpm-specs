@@ -9,7 +9,7 @@ Summary:       German hunspell dictionaries
 Version:       20161207
 Release:       4%{?dist}
 
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only OR GPL-3.0-only
 URL:           https://www.j3e.de/ispell/igerman98/
 Source:        https://www.j3e.de/ispell/igerman98/dict/igerman98-%{version}.tar.bz2
 BuildArch:     noarch

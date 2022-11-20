@@ -6,7 +6,7 @@ Version:        2.12.1
 Release:        2%{?dist}
 Summary:        Free and portable font rendering engine
 
-License:        FTL or GPLv2+
+License:        FTL OR GPL-2.0-or-later
 URL:            http://www.freetype.org
 Source0:        http://download.savannah.gnu.org/releases/freetype/freetype-%{version}.tar.xz
 

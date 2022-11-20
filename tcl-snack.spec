@@ -8,7 +8,7 @@
 
 Name:		tcl-%{realname}
 Version:	2.2.10
-Release:	52%{?dist}
+Release:	53%{?dist}
 Summary:	Sound toolkit
 # generic/snackDecls.h, generic/snackStubInit.c and generic/snackStubLib.c 
 # are under the TCL "license.terms", a copy of which can be found in the tcl package.
@@ -34,6 +34,8 @@ Patch5:		snack2.2.10-format-security.patch
 # Credit to Sergei Golovan, patches taken from Debian
 Patch6:		tcl-snack-2.2.10-python3.patch
 Patch7:		snack2.2.10-seektell-fix.patch
+Patch8:		tcl-snack-configure-c99.patch
+Patch9:		tcl-snack-sigproc2-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:	tcl-devel, tk-devel, libogg-devel, libvorbis-devel
@@ -85,6 +87,8 @@ Tkinter are also required to use Snack.
 %patch5 -p1 -b .format-security
 %patch6 -p1 -b .py3
 %patch7 -p1 -b .seektell
+%patch8 -p1 -b .configure-c99
+%patch9 -p1 -b .sigproc2-c99
 cp %{SOURCE1} .
 cp %{SOURCE2} generic/
 chmod -x generic/*.c generic/*.h unix/*.c COPYING README demos/python/*
@@ -138,6 +142,9 @@ install -p unix/snackConfig.sh %{buildroot}%{_libdir}
 %{python3_sitelib}/__pycache__/tkSnack*
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 2.2.10-53
+- Fixes for building in strict C99 mode (#2143895)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.10-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

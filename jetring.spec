@@ -3,7 +3,7 @@ Version:        0.31
 Release:        1%{?dist}
 Summary:        GPG keyring maintenance using changesets
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://joeyh.name/code/jetring/
 Source0:        http://ftp.debian.org/debian/pool/main/j/%{name}/%{name}_%{version}.tar.xz
 

@@ -2,7 +2,7 @@ Name:           perl-String-Trim-More
 Version:        0.03
 Release:        12%{?dist}
 Summary:        Various string trimming utilities
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/String-Trim-More
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/String-Trim-More-%{version}.tar.gz

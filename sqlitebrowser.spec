@@ -6,7 +6,7 @@ Version:        3.13.0
 Release:        0.5%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Create, design, and edit SQLite database files
 
-License:        GPLv3+ or MPLv2.0
+License:        GPL-3.0-or-later OR MPL-2.0
 URL:            https://github.com/%{name}/%{name}
 %if 0%{?commit:1}
 Source0:        https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz

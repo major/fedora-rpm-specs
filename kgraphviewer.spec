@@ -5,7 +5,7 @@ Release:        9%{?dist}
 # Bit of a mess. README states it's GPLv2+, however the source files
 # indicate it's GPLv2. FDL is included in COPYING.DOC, but does not
 # apply to anything.
-License:        GPLv2
+License:        GPL-2.0-only
 Url:            https://projects.kde.org/projects/extragear/graphics/kgraphviewer
 Source0:        http://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
 

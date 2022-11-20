@@ -1,12 +1,12 @@
 # remirepo/Fedora spec file for php-laminas-recaptcha
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f3bdb2fcaf859b9f725f397dc1bc38b4a7696a71
+%global gh_commit    64c72f1f941c15df07b4ab0985b2f7cc1d492ba9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-recaptcha
@@ -17,8 +17,8 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        3.4.0
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -29,36 +29,35 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-json
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-json)                 >= 3.3    with php-autoloader(%{gh_owner}/laminas-json)                 < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.10.1 with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer.json, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.3.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-config": "^3.7",
 #        "laminas/laminas-validator": "^2.15",
-#        "phpunit/phpunit": "^9.5.4"
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^4.29.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7    with php-autoloader(%{gh_owner}/laminas-config)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15   with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.4
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-json": "*",
 #        "laminas/laminas-http": "^2.15",
-#        "laminas/laminas-json": "^3.3",
-#        "laminas/laminas-stdlib": "^3.6"
-Requires:       php(language) >= 7.3
+#        "laminas/laminas-stdlib": "^3.10.1"
+Requires:       php(language) >= 8.0
 Requires:       php-json
 Requires:      (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15   with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
-Requires:      (php-autoloader(%{gh_owner}/laminas-json)                 >= 3.3    with php-autoloader(%{gh_owner}/laminas-json)                 < 4)
-Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.10.1 with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
 #        "laminas/laminas-validator": "~2.0, if using ReCaptcha's Mailhide API"
@@ -95,7 +94,6 @@ phpab --template fedora --output src/autoload.php src
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/%{namespace}/Http/autoload.php',
-    '%{php_home}/%{namespace}/Json/autoload.php',
     '%{php_home}/%{namespace}/Stdlib/autoload.php',
 ]);
 \Fedora\Autoloader\Dependencies::optional([
@@ -144,7 +142,7 @@ exit (class_exists("\\ZendService\\%{library}\\ReCaptcha") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --exclude online --verbose || ret=1
@@ -166,6 +164,11 @@ exit $ret
 
 
 %changelog
+* Fri Nov 18 2022 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+- raise dependency on PHP 8.0
+- drop dependency on laminas-json
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

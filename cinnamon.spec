@@ -5,17 +5,17 @@
 
 %global __requires_exclude ^lib%{name}.so|^lib%{name}-js.so
 
-%global cjs_version 5.4.0
-%global cinnamon_desktop_version 5.4.0
-%global cinnamon_translations_version 5.4.0
+%global cjs_version 5.6.0
+%global cinnamon_desktop_version 5.6.0
+%global cinnamon_translations_version 5.6.0
 %global gobject_introspection_version 1.38.0
-%global muffin_version 5.4.7
+%global muffin_version 5.6.0
 %global json_glib_version 0.13.2
 
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.4.12
+Version:        5.6.1
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
@@ -328,6 +328,9 @@ EOF
 %endif
 
 %changelog
+* Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
+- Update to 5.6.1 release
+
 * Tue Sep 06 2022 Leigh Scott <leigh123linux@gmail.com> - 5.4.12-1
 - Update to 5.4.12 release
 

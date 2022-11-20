@@ -6,13 +6,14 @@
 Summary: XML parsing library for the Tcl scripting language
 Name:    tcl-%{realname}
 Version: 3.2
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: BSD
 URL:     http://tclxml.sourceforge.net/
 Source0: http://downloads.sourceforge.net/tclxml/tclxml-%{version}.tar.gz
 Source1: pkgIndex.tcl.in.gui
 Patch0:  tclxml-3.2-sgmlparser.patch
 Patch1:  tclxml-3.2-xmlGenericError.patch
+Patch2:  tcl-tclxml-libxml2-init.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  tcl-devel libxml2-devel libxslt-devel
@@ -54,6 +55,7 @@ This package provides some useful widgets for manipulating a DOM tree.
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # Fix a few spurious execute permissions
 chmod -x ChangeLog doc/xsltsl/cmp.xsl *.c
@@ -103,6 +105,9 @@ install -p -m 0644 examples/tcldom/domtree.tcl \
 %{tcl_sitelib}/%{realname}-gui%{version}/*.tcl
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 3.2-32
+- Avoid call to undeclared Tcldom_libxml2_Init function
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

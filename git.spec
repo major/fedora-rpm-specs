@@ -39,12 +39,6 @@
 %global use_perl_interpreter 0
 %endif
 
-# Settings for Fedora and EL >= 7
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%global bashcompdir         %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
-%global bashcomproot        %(dirname %{bashcompdir} 2>/dev/null)
-%endif
-
 # Allow cvs subpackage to be toggled via --with/--without
 # Disable cvs subpackage by default on EL >= 8
 %if 0%{?rhel} >= 8
@@ -69,6 +63,9 @@
 %global _hardened_build     1
 %endif
 
+# Define %%bash_completions_dir for EL <= 9
+%{?!bash_completions_dir:%global bash_completions_dir %{_datadir}/bash-completion/completions}
+
 # Define for release candidates
 #global rcrev   .rc0
 
@@ -77,9 +74,9 @@
 
 Name:           git
 Version:        2.38.1
-Release:        1%{?rcrev}%{?dist}
+Release:        3%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
-License:        GPLv2
+License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
 Source0:        https://www.kernel.org/pub/software/scm/git/%{?rcrev:testing/}%{name}-%{version}%{?rcrev}.tar.xz
 Source1:        https://www.kernel.org/pub/software/scm/git/%{?rcrev:testing/}%{name}-%{version}%{?rcrev}.tar.sign
@@ -650,6 +647,10 @@ install -Dpm 0755 contrib/diff-highlight/diff-highlight \
     %{buildroot}%{_datadir}/git-core/contrib/diff-highlight
 rm -rf contrib/diff-highlight/{Makefile,diff-highlight,*.perl,t}
 
+# Remove contrib/persistent-https; a) this code requires compilation; and b) it
+# is licensed differently than git
+rm -rf contrib/persistent-https
+
 # Remove contrib/scalar to avoid cruft in the git-core-doc docdir
 rm -rf contrib/scalar
 
@@ -696,8 +697,8 @@ perl -p \
     %{SOURCE15} > %{buildroot}%{_unitdir}/git@.service
 
 # Setup bash completion
-install -Dpm 644 contrib/completion/git-completion.bash %{buildroot}%{bashcompdir}/git
-ln -s git %{buildroot}%{bashcompdir}/gitk
+install -Dpm 644 contrib/completion/git-completion.bash %{buildroot}%{bash_completions_dir}/git
+ln -s git %{buildroot}%{bash_completions_dir}/gitk
 
 # Install tcsh completion
 mkdir -p %{buildroot}%{_datadir}/git-core/contrib/completion
@@ -901,7 +902,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %exclude %{_datadir}/git-core/templates/hooks/fsmonitor-watchman.sample
 %exclude %{_datadir}/git-core/templates/hooks/pre-rebase.sample
 %exclude %{_datadir}/git-core/templates/hooks/prepare-commit-msg.sample
-%{bashcomproot}
+%{bash_completions_dir}/git
 %{_datadir}/git-core/
 
 %files core-doc -f man-doc-files-core
@@ -947,6 +948,7 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{_pkgdocdir}/*gitk*.txt
 %{_bindir}/*gitk*
 %{_datadir}/gitk
+%{bash_completions_dir}/gitk
 %{?with_docs:%{_mandir}/man1/*gitk*.1*}
 %{?with_docs:%{_pkgdocdir}/*gitk*.html}
 
@@ -1006,6 +1008,13 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Sat Nov 12 2022 Todd Zullinger <tmz@pobox.com> - 2.38.1-3
+- use %%bash_completions_dir
+
+* Mon Nov 07 2022 Todd Zullinger <tmz@pobox.com> - 2.38.1-2
+- don't ship contrib/persistent-https as documentation
+- update license data and convert to SPDX format
+
 * Tue Oct 18 2022 Todd Zullinger <tmz@pobox.com> - 2.38.1-1
 - update to 2.38.1 (CVE-2022-39253, CVE-2022-39260)
 

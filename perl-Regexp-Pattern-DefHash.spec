@@ -2,7 +2,7 @@ Name:           perl-Regexp-Pattern-DefHash
 Version:        0.001
 Release:        5%{?dist}
 Summary:        Regexp patterns related to DefHash
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/dist/Regexp-Pattern-DefHash
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Regexp-Pattern-DefHash-%{version}.tar.gz

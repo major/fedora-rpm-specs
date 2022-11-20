@@ -5,7 +5,7 @@ Version:        4.0.0
 Release:        2%{?dist}
 Summary:        Library for Limited Error Raster Compression
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/Esri/lerc
 Source0:        https://github.com/Esri/lerc/archive/v%{version}/lerc-%{version}.tar.gz
 # Add version suffix to mingw dll

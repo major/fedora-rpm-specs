@@ -3,7 +3,7 @@ Version:        4.1.0
 Release:        10%{?dist}
 Summary:        Library to exchange meshed data
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            http://www.salome-platform.org/user-section/about/med
 Source0:        http://files.salome-platform.org/Salome/other/%{name}-%{version}.tar.gz
 

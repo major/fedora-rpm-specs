@@ -2,7 +2,7 @@ Name:           perl-Test-Roo
 Version:        1.004
 Release:        22%{?dist}
 Summary:        Composable, reusable tests with roles and Moo
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://metacpan.org/release/Test-Roo/
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Test-Roo-%{version}.tar.gz

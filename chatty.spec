@@ -1,16 +1,16 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
 %global libgd_commit c7c7ff4e05d3fe82854219091cf116cce6b19de0
-%global libcmatrix_commit a40a84e51219264f43bef05c187540420a1d64d9
+%global libcmatrix_commit e9854d058068df258e7c0a60979e611ad2dc7a25
 
 Name: chatty
-Version: 0.7.0~rc3
+Version: 0.7.0~rc4
 Release: 0%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+
 URL: https://source.puri.sm/Librem5/chatty
-Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.7.0_rc3/%{name}-v0.7.0_rc3.tar.gz
+Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.7.0_rc4/%{name}-v0.7.0_rc4.tar.gz
 Source1: https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.gz
 Source2: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
 
@@ -72,7 +72,7 @@ works best with the phosh mobile DE.
 # Copy private libjabber library in so we can build against it
 cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
-%setup -a1 -a2 -n %{name}-v0.7.0_rc3
+%setup -a1 -a2 -n %{name}-v0.7.0_rc4
 %patch0 -p1
 
 rm -rf subprojects/libcmatrix
@@ -130,6 +130,9 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
+* Fri Nov 18 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc4-1
+- Update to 0.7.0~rc4
+
 * Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc3-1
 - Update to 0.7.0~rc3
 

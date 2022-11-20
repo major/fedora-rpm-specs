@@ -3,7 +3,7 @@ Version:       1.1.1
 Release:       5%{?dist}
 Summary:       Opensource implementation of the G.729 codec
 
-License:       GPLv3+
+License:       GPL-3.0-or-later
 URL:           https://github.com/BelledonneCommunications/bcg729
 Source0:       https://github.com/BelledonneCommunications/bcg729/archive/%{version}/%{name}-%{version}.tar.gz
 # Test data is not redistributible

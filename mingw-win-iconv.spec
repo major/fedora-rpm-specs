@@ -7,7 +7,7 @@ Version:       0.0.8
 Release:       8%{?dist}
 Summary:       Iconv implementation using Win32 API
 
-License:       Public Domain
+License:       LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/win-iconv/win-iconv
 Source0:       https://github.com/win-iconv/win-iconv/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 BuildArch:     noarch

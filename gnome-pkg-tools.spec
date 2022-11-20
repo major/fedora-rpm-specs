@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        Tools for the Debian GNOME Packaging Team
 
 BuildArch:      noarch
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://packages.debian.org/unstable/%{name}
 Source0:        http://ftp.de.debian.org/debian/pool/main/g/%{name}/%{name}_%{version}.tar.xz
 

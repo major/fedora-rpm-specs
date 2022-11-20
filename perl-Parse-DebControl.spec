@@ -3,7 +3,7 @@ Version:        2.005
 Release:        27%{?dist}
 Summary:        Easy OO parsing of debian control-like files
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-DebControl
 Source0:        https://cpan.metacpan.org/authors/id/J/JA/JAYBONCI/Parse-DebControl-%{version}.tar.gz
 

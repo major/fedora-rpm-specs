@@ -7,7 +7,7 @@ Version:        0.16.1
 Release:        1%{?dist}
 Summary:        Python port of Browserscope's user agent parser
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/ua-parser/uap-python
 BuildArch:      noarch
 Source0:        %{pypi_source ua-parser}

@@ -8,7 +8,7 @@ Version:       2.28.1
 Release:       3%{?dist}
 BuildArch:     noarch
 
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://requests.readthedocs.io/
 Source0:       %{pypi_source}
 

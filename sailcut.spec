@@ -3,7 +3,7 @@ Version:       1.4.1
 Release:       13%{?dist}
 Summary:       A sail design and plotting software
 
-License:       GPLv2
+License:       GPL-2.0-only
 URL:           http://www.sailcut.com/
 Source0:       https://github.com/sailcut/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:       sailcut.desktop

@@ -3,7 +3,7 @@ Version:        2.22.2
 Release:        3%{?dist}
 Summary:        Scripts for Debian Package maintainers
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://packages.debian.org/sid/%{name}
 Source0:        http://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
 # Fixes path to xsl-stylesheet manpages docbook.xsl

@@ -9,7 +9,7 @@ Version:        12.11.0
 Release:        2%{?dist}
 BuildArch:      noarch
 
-License:        GPLv2 or GPLv3
+License:        GPL-2.0-only OR GPL-3.0-only
 Url:            https://www.riverbankcomputing.com/software/sip/
 Source0:        %{pypi_source}
 

@@ -9,7 +9,7 @@ Version:       2.13.0
 Release:       13%{?dist}
 BuildArch:     noarch
 
-License:       GPLv3
+License:       GPL-3.0-only
 Url:           http://www.riverbankcomputing.com/software/qscintilla/
 Source0:       https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{version}/QScintilla_src-%{version}.tar.gz
 

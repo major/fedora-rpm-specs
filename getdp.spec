@@ -9,7 +9,7 @@ Version:        3.5.0
 Release:        4%{?dist}
 Summary:        General Environment for the Treatment of Discrete Problems
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.geuz.org/getdp/
 Source0:        http://www.geuz.org/getdp/src/%{name}-%{version}-source.tgz
 

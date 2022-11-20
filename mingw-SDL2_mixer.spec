@@ -5,7 +5,7 @@ Version:        2.0.4
 Release:        10%{?dist}
 Summary:        MinGW Windows port of Simple DirectMedia Layer's Sample Mixer Library
 
-License:        zlib
+License:        Zlib
 URL:            http://www.libSDL.org/projects/SDL_mixer/
 Source0:        http://www.libSDL.org/projects/SDL_mixer/release/SDL2_mixer-%{version}.tar.gz
 

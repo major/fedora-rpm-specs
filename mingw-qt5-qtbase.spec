@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -812,6 +812,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-2
+- Rebuild (mingw-postgresql)
+
 * Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-1
 - Update to 5.15.7
 

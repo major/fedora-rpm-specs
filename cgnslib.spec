@@ -9,7 +9,7 @@ Name:           cgnslib
 Version:        4.3.0
 Release:        3%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
-License:        zlib
+License:        Zlib
 URL:            http://www.cgns.org/
 Source0:        https://github.com/CGNS/CGNS/archive/v%{version}/%{name}-%{version}.tar.gz
 # Allow overriding all BIN/LIB/INCLUDE install dirs

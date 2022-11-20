@@ -21,7 +21,7 @@ BuildArch:     noarch
 #  - quazip/zip.c
 #  - quazip/zip.h
 # Rest is LGPLv2 with a static linking exception, see COPYING
-License:       (LGPLv2+ with exceptions) and zlib
+License:       ( LGPL-2.1-or-later WITH Qwt-exception-1.0 ) AND Zlib
 URL:           https://stachenov.github.io/quazip/
 Source:        https://github.com/stachenov/quazip/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 

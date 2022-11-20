@@ -7,7 +7,7 @@
 
 Name:           mingw-%{name1}
 Version:        %{vyear}%{vmonth}%{vday}
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        MinGW Windows abstraction API for reading and writing compressed files
 
 License:        LGPLv2+
@@ -21,6 +21,8 @@ Source1:        %{name1}-autotools.tar.gz
 # that the patch had been integrated into his personal tree, but apparently
 # he has not gotten around to release a new version.
 Patch1:         %{name1}-zip.patch
+# Fix build against minizip-3.0.7
+Patch2:         %{name1}-minizip.patch
 
 BuildArch:      noarch
 
@@ -66,6 +68,7 @@ MinGW zfstream C++ compressed I/O abstraction library
 %prep
 %setup -q -n libs11n_%{name1}-%{vyear}.%{vmonth}.%{vday} -a 1
 %patch1 -p0 -b .zip
+%patch2 -p1
 touch NEWS README AUTHORS
 aclocal
 autoconf
@@ -100,6 +103,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/pkgconfig/zfstream.pc
 
 %changelog
+* Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 20041202-38
+- Rebuild (mingw-minizip)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20041202-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

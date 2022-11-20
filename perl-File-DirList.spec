@@ -3,7 +3,7 @@ Version:        0.05
 Release:        7%{?dist}
 Summary:        Provide a sorted list of directory content
 # Standard perl license, see README.md
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/File-DirList
 Source0:        https://cpan.metacpan.org/authors/id/T/TP/TPABA/File-DirList/File-DirList-%{version}.tar.gz
