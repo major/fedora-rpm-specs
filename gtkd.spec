@@ -4,19 +4,13 @@
 %global sover 0
 
 Name:           gtkd
-Version:        3.9.0
-Release:        10%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 Summary:        D binding and OO wrapper of GTK+
 
 License:        LGPLv3+ with exceptions
 URL:            https://github.com/gtkd-developers/GtkD/
 Source0:        https://github.com/gtkd-developers/GtkD/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         gtkd-fix-pkgconfig-prefix.patch
-
-# Fix the build with ldc 1.27
-# https://github.com/gtkd-developers/GtkD/pull/332
-Patch1:         332.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -28,7 +22,7 @@ Requires:       gdk-pixbuf2%{?_isa}
 Requires:       gstreamer1%{?_isa}
 Requires:       gstreamer1-plugins-base%{?_isa}
 Requires:       gtk3%{?_isa}
-Requires:       gtksourceview3%{?_isa}
+Requires:       gtksourceview4%{?_isa}
 Requires:       libcurl%{?_isa}
 Requires:       libpeas%{?_isa}
 Requires:       libpeas-gtk%{?_isa}
@@ -64,7 +58,7 @@ Summary:        Support for enable autocompletion in geany
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 BuildRequires:  geany
-BuildRequires: make
+BuildRequires:  make
 Requires:       geany
 
 %description geany-tags
@@ -75,6 +69,9 @@ Active l'autocompletion pour pour la bibliothèque gtkd dans geany (IDE)
 
 %prep
 %autosetup -n GtkD-%{version} -p1
+
+# Fedora's pkgconfig for gtksourceview is 4, not 4.0
+sed -i 's/gtksourceview-4.0/gtksourceview-4/g' GNUmakefile
 
 # temp geany config directory for allow geany to generate tags
 mkdir geany_config
@@ -127,6 +124,9 @@ make %{?_smp_mflags} DC=ldc2 libdir=%{?_lib} DCFLAGS="%{_d_optflags}" LDFLAGS=""
 %{_datadir}/geany/tags/gtkd.d.tags
 
 %changelog
+* Sat Nov 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.10.0-1
+- Update to 3.10.0
+
 * Wed Jul 27 2022 Kalev Lember <klember@redhat.com> - 3.9.0-10
 - Rebuilt for ldc 1.30
 

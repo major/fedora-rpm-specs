@@ -11,7 +11,7 @@
 %ifarch x86_64
 %bcond_without vmaf
 %endif
-%bcond_with jpegxl
+%bcond_without jpegxl
 %endif
 
 Name:       aom
@@ -19,7 +19,7 @@ Version:    3.5.0
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
-License:    BSD
+License:    BSD-3-Clause
 URL:        http://aomedia.org/
 Source0:    https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

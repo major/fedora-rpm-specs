@@ -16,6 +16,7 @@ Summary:        Routines for plotting area-weighted two- and three-circle venn d
 License:        MIT
 URL:            https://github.com/konstantint/%{pypi_name}
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Patch:          https://github.com/konstantint/matplotlib-venn/pull/70.patch
 
 BuildArch:      noarch
 
@@ -34,7 +35,7 @@ BuildRequires:  python3dist(pytest)
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -55,6 +56,9 @@ BuildRequires:  python3dist(pytest)
 %doc README.rst DEVELOPER-README.rst CHANGELOG.txt
 
 %changelog
+* Sat Aug 20 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.11.7-3
+- Fix compatibility with Matplotlib 3.6.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

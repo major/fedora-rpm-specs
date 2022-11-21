@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.20.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPLv2+
 URL: https://www.valgrind.org/
@@ -82,6 +82,8 @@ Patch3: valgrind-3.16.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.16.0-some-Wl-z-now.patch
+
+Patch5: valgrind-faultstatus-implicit-int.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -218,6 +220,7 @@ Valgrind User Manual for details.
 %if 0%{?fedora} || 0%{?rhel} >= 7
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 %endif
 
 %build
@@ -448,6 +451,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1:3.20.0-2
+- Avoid using implicit int C89 feature
+
 * Mon Oct 24 2022 Mark Wielaard <mjw@fedoraproject.org> - 3.20.0-1
 - Upgrade to valgrind 3.20.0. Drop old patches.
 

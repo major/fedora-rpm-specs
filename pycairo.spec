@@ -1,16 +1,14 @@
-Name:    pycairo
-Version: 1.21.0
-Release: 3%{?dist}
+Name: pycairo
+Version: 1.22.0
+Release: 1%{?dist}
 Summary: Python bindings for the cairo library
 
-License: MPLv1.1 or LGPLv2
-URL:     https://www.cairographics.org/pycairo
+License: LGPL-2.1-only OR MPL-1.1
+URL: https://www.cairographics.org/pycairo
 Source0: https://github.com/pygobject/pycairo/releases/download/v%{version}/pycairo-%{version}.tar.gz
-# https://github.com/pygobject/pycairo/pull/264
-Patch0:  pycairo-1.21.0-cairo-1.17.6-tests.patch
 
-BuildRequires: pkgconfig(cairo)
 BuildRequires: gcc
+BuildRequires: pkgconfig(cairo)
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-setuptools
@@ -58,6 +56,10 @@ libraries so that they interoperate with py3cairo.
 %{_libdir}/pkgconfig/py3cairo.pc
 
 %changelog
+* Sat Nov 19 2022 Kalev Lember <klember@redhat.com> - 1.22.0-1
+- Update to 1.22.0
+- Convert license tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

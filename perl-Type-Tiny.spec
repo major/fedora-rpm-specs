@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
 Version:        2.000001
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -132,8 +132,9 @@ BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Type::Tie)
 %endif
 # N/A in Fedora: BuildRequires:  perl(Types::ReadOnly)
-BuildRequires:  perl(Type::Tiny::XS)
 %if !%{defined perl_bootstrap}
+# Build-cycle: perl-Type-Tiny-XS → perl-Type-Tiny
+BuildRequires:  perl(Type::Tiny::XS)
 # Build-cycle: perl-Types-Path-Tiny → perl-Type-Tiny
 BuildRequires:  perl(Types::Path::Tiny)
 # Build-cycle: perl-Validation-Class → perl-Hash-Flatten → perl-Log-Trace
@@ -196,6 +197,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Sat Nov 19 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-3
+- Don't BR: perl(Type::Tiny::XS) if bootstrapping.
+
 * Wed Nov 16 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-2
 - Add perl(Type::Tiny::XS)
 

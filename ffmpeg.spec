@@ -243,7 +243,7 @@ BuildRequires:  librtmp-devel
 BuildRequires:  pkgconfig(libmfx) < 2.0
 %endif
 %if %{with svtav1}
-BuildRequires:  pkgconfig(SvtAv1Enc) >= 0.8.4
+BuildRequires:  pkgconfig(SvtAv1Enc) >= 0.9.0
 %endif
 %if %{with x264}
 BuildRequires:  pkgconfig(x264)

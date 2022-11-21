@@ -1,6 +1,8 @@
 %define release_name Rawhide
 %define is_rawhide 1
 
+%define eol_date 2024-05-14
+
 %define dist_version 38
 %define rhel_dist_version 10
 
@@ -34,6 +36,7 @@
 %bcond_with workstation
 %bcond_with xfce
 %bcond_with i3
+%bcond_with lxqt
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -54,6 +57,7 @@
 %bcond_without workstation
 %bcond_without xfce
 %bcond_without i3
+%bcond_without lxqt
 %endif
 
 %global dist %{?eln:.eln%{eln}}
@@ -861,6 +865,43 @@ itself as Fedora i3.
 %endif
 
 
+%if %{with lxqt}
+%package lxqt
+Summary:        Base package for Fedora LXQt specific default configurations
+
+RemovePathPostfixes: .lxqt
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-lxqt if nothing else is already doing so.
+Recommends:     fedora-release-identity-lxqt
+
+
+%description lxqt
+Provides a base package for Fedora LXQt specific configuration files to
+depend on as well as LXQt system defaults.
+
+
+%package identity-lxqt
+Summary:        Package providing the identity for Fedora LXQt Spin
+
+RemovePathPostfixes: .lxqt
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+
+
+%description identity-lxqt
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora LXQt.
+%endif
+
+
 %prep
 sed -i 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2}
 
@@ -932,6 +973,7 @@ REDHAT_BUGZILLA_PRODUCT="Fedora"
 REDHAT_BUGZILLA_PRODUCT_VERSION=%{bug_version}
 REDHAT_SUPPORT_PRODUCT="Fedora"
 REDHAT_SUPPORT_PRODUCT_VERSION=%{bug_version}
+SUPPORT_END=%{eol_date}
 EOF
 
 # Create the common /etc/issue
@@ -1193,6 +1235,16 @@ sed -i -e "s|(%{release_name}%{?prerelease})|(i3%{?prerelease})|g" %{buildroot}%
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/i3/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.i3
 %endif
 
+%if %{with lxqt}
+# LXQt
+cp -p os-release \
+      %{buildroot}%{_prefix}/lib/os-release.lxqt
+echo "VARIANT=\"LXQt\"" >> %{buildroot}%{_prefix}/lib/os-release.lxqt
+echo "VARIANT_ID=lxqt" >> %{buildroot}%{_prefix}/lib/os-release.lxqt
+sed -i -e "s|(%{release_name}%{?prerelease})|(LXQt%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.lxqt
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/LXQt/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxqt
+%endif
+
 # Create the symlink for /etc/os-release
 ln -s ../usr/lib/os-release %{buildroot}%{_sysconfdir}/os-release
 
@@ -1446,6 +1498,15 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %{_prefix}/lib/os-release.i3
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.i3
 %endif
+
+
+%if %{with lxqt}
+%files lxqt
+%files identity-lxqt
+%{_prefix}/lib/os-release.lxqt
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.lxqt
+%endif
+
 
 %changelog
 %autochangelog

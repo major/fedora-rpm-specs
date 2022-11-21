@@ -18,10 +18,8 @@
 %global __brp_mangle_shebangs_exclude_from ^%{python3_sitelib}/ansible_collections/[^/]+/[^/]+/roles/[^/]+/(files|templates)/.*$
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{__brp_mangle_shebangs_exclude_from}
 
-%global filelist %{_builddir}%{?buildsubdir:/%{buildsubdir}}/files.list
-
 %if 0%{?rhel} == 8
-# RHEL 8's ansible-core package is built using Python 3.8, which is not the default version.
+# RHEL 8's ansible-core package is built using Python 3.9, which is not the default version.
 %define python3_pkgversion 39
 BuildRequires:  python%{python3_pkgversion}-rpm-macros
 
@@ -31,7 +29,7 @@ Requires:       %{ansible_core_requires}
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.0.0~b1
+Version:        7.0.0~rc1
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -157,6 +155,8 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %install
 %py3_install
 
+%global filelist %{_builddir}/%{buildsubdir}/files.list
+
 # Install docs and licenses
 (
     mkdir -p "%{buildroot}%{ansible_docdir}" "%{buildroot}%{ansible_licensedir}"
@@ -164,18 +164,17 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
     # This finds the license file for each collection, moves it to
     # `%%{ansible_licensedir}/collection_namespace/collection_name`, and then adds
     # `%%license /path/to/license` to the %%files list.
-    # `-printf '%%P\n'` removes the trailing `./`.
     for f in $(find . -mindepth 3 -type f \( -iname '*LICENSE*' -o -iname '*COPYING*' \) -not -name '*.py' -not -name '*.pyc' -printf '%%P\n' | grep -v '\.license$'); do
         dirname="$(dirname %{buildroot}%{ansible_licensedir}/${f})"
         mkdir -p "${dirname}"
         mv "${f}" "${dirname}"
-        tee -a %{_builddir}/files.list << EOF
+        tee -a %{filelist} << EOF
 %%license %%{ansible_licensedir}/${f}
 EOF
     done
     for f in $(find -mindepth 3 -iname 'LICENSES' -type d); do
         cp -rfp --parents ${f} %{buildroot}%{ansible_licensedir}
-        echo "%%license %%{ansible_licensedir}/${f}" >> %{_builddir}/files.list
+        echo "%%license %%{ansible_licensedir}/${f}" >> %{filelist}
     done
 
     # This does the same thing, but for READMEs.
@@ -183,7 +182,7 @@ EOF
         dirname="$(dirname %{buildroot}%{ansible_docdir}/${f})"
         mkdir -p "${dirname}"
         mv "${f}" "${dirname}"
-        tee -a %{_builddir}/files.list << EOF
+        tee -a %{filelist} << EOF
 %%doc %%{ansible_docdir}/${f}
 EOF
     done
@@ -196,7 +195,7 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 # TODO: Run tests
 %endif
 
-%files -f %{filelist}
+%files -f files.list
 %license COPYING
 %doc README.rst PKG-INFO porting_guide_?.rst CHANGELOG-v?.rst
 %{_bindir}/ansible-community
@@ -209,6 +208,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Nov 18 2022 Maxwell G <gotmax@e.email> - 7.0.0~rc1-1
+- Update to 7.0.0~rc1.
+
 * Tue Nov 08 2022 Maxwell G <gotmax@e.email> - 7.0.0~b1-1
 - Update to 7.0.0~b1.
 

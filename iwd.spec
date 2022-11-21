@@ -1,5 +1,5 @@
 Name:           iwd
-Version:        1.29
+Version:        2.0
 Release:        1%{?dist}
 Summary:        Wireless daemon for Linux
 License:        LGPLv2+
@@ -73,6 +73,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/ead
 
 
 %changelog
+* Sat Nov 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-1
+- Update to 2.0
+
 * Thu Jul 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.29-1
 - Update to 1.29
 

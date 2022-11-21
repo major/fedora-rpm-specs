@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -144,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Sat Nov 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.5-5
+- Rebuild for gtkd-3.10.0
+
 * Tue Aug 09 2022 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 1.9.5-4
 - License review
 - Switch to SPDX license ids

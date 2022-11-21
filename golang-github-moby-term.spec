@@ -4,7 +4,7 @@
 
 # https://github.com/moby/term
 %global goipath         github.com/moby/term
-%global commit          39b0c02b01ae42267247a54c2bd47c43672d3315
+%global commit          4eb28fa6025cda41e89946b05e0b531ec0e6ac62
 
 %gometa
 

@@ -1,5 +1,5 @@
 Name:           libell
-Version:        0.52
+Version:        0.54
 Release:        1%{?dist}
 Summary:        Embedded Linux library
 License:        LGPLv2+
@@ -56,6 +56,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Sat Nov 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.54-1
+- Update to 0.54
+
 * Thu Jul 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.52-1
 - Update to 0.52
 

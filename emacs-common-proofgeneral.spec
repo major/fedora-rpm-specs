@@ -2,10 +2,13 @@
 
 Name:           emacs-common-%{pkg}
 Version:        4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Emacs mode for standard interaction interface for proof assistants
 
-License:        GPLv3+
+# The code is GPL-3.0-or-later.
+# The icons are CC-BY-SA-3.0, except for the search icon.
+# The search icon is CC-BY-SA-2.0.
+License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC-BY-SA-2.0
 URL:            https://proofgeneral.github.io/
 Source0:        https://github.com/ProofGeneral/PG/archive/v%{version}/PG-%{version}.tar.gz
 Source1:        io.github.%{pkg}.metainfo.xml
@@ -22,10 +25,13 @@ Patch0:         pg-4.2-Makefile.patch
 # Bring the desktop file up to date with current standards.
 Patch1:         pg-4.2-desktop.patch
 
+# Silence a warning about an 81-character docstring.
+Patch2:         pg-4.5-emacs-warning.patch
+
 BuildArch:      noarch
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  tex-cm-super
@@ -144,6 +150,10 @@ install -Dpm 644 %{SOURCE4} \
 %{_emacs_sitelispdir}/%{pkg}/
 
 %changelog
+* Sat Nov 19 2022 Jerry James <loganjerry@gmail.com> - 4.5-3
+- Add patch to silence warnings about an overly long docstring
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

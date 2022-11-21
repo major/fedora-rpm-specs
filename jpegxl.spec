@@ -3,10 +3,6 @@
 %global sover_old 0.6
 %global sover 0.7
 
-# %%global commit          980c90f65f41066cc4959b4eb80eba906867103b
-# %%global snapshotdate    20220918
-# %%global shortcommit     %%(c=%%{commit}; echo ${c:0:7})
-
 %global gdk_pixbuf_moduledir $(pkgconf gdk-pixbuf-2.0 --variable=gdk_pixbuf_moduledir)
 
 %if 0%{?fedora}
@@ -19,7 +15,6 @@ This package contains a reference implementation of JPEG XL (encoder and
 decoder).}
 
 Name:           jpegxl
-Epoch:          1
 Version:        0.7.0
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation
@@ -28,7 +23,7 @@ Summary:        JPEG XL image format reference implementation
 # lodepng: zlib
 # sjpeg: ASL 2.0
 # skcms: BSD
-License:        BSD and ASL 2.0 and zlib
+License:        BSD-3-Clause AND Apache-2.0 AND Zlib
 URL:            https://jpeg.org/jpegxl/
 VCS:            https://github.com/libjxl/libjxl
 Source0:        %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -104,8 +99,6 @@ Requires:       libjxl%{?_isa} = %{epoch}:%{version}-%{release}
 
 Development tools for JPEG-XL
 
-
-
 %package        doc
 Summary:        Documentation for JPEG-XL
 BuildArch:      noarch
@@ -135,8 +128,6 @@ Obsoletes:      jpegxl-devel < 0.3.7-5
 
 %description -n libjxl-devel
 %{common_description}
-
-Development files for JPEG-XL.
 
 Development files for JPEG-XL.
 

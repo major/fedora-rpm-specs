@@ -1,5 +1,5 @@
 Name:           texstudio
-Version:        4.3.1
+Version:        4.4.0
 Release:        1%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
@@ -14,6 +14,7 @@ Patch1:         texstudio-use-system-qtsingleapplication-instead-of-bundled-on.p
 Patch2:         texstudio-disable-update-check.patch
 # don't muck with default build flags
 Patch3:         texstudio-wtf_flags.patch
+Patch4:         texstudio-use-system-hunspell-instead-of-bundled-one.patch
 
 BuildRequires: make
 BuildRequires:  qt5-qtbase-devel
@@ -58,6 +59,7 @@ all necessary LaTeX tools.
 %patch1 -p1 -b .qtsingle
 %patch2 -p1 -b .update_check
 %patch3 -p1 -b .wtf_flags
+%patch4 -p1 -b .hunspell
 
 rm -rf {hunspell,qtsingleapplication,quazip}
 
@@ -105,7 +107,6 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_bindir}/texstudio
 %dir %{_datadir}/texstudio/
 %{_datadir}/texstudio/*.png
-%{_datadir}/texstudio/usermanual.css
 %{_datadir}/texstudio/latex2e.*
 %{_datadir}/texstudio/*.stopWords
 %{_datadir}/texstudio/*.stopWords.level2
@@ -115,7 +116,10 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/texstudio/*.json
 %{_datadir}/texstudio/*.js
 %{_datadir}/texstudio/th_*.dat
-%{_datadir}/texstudio/usermanual_*.html
+%{_datadir}/texstudio/*.html
+%{_datadir}/texstudio/_sphinx_design_static/
+%{_datadir}/texstudio/_images/*.png
+%{_datadir}/texstudio/_static/
 %{_datadir}/applications/texstudio.desktop
 %{_datadir}/metainfo/texstudio.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/*.png
@@ -124,6 +128,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %doc utilities/AUTHORS utilities/COPYING utilities/manual/CHANGELOG.txt
 
 %changelog
+* Sat Nov 19 2022 Johannes Lips <hannes@fedoraproject.org> 4.4.0-1
+- Update to latest upstream release 4.4.0
+
 * Fri Aug 26 2022 Johannes Lips <hannes@fedoraproject.org> 4.3.1-1
 - Update to latest upstream release 4.3.1
 

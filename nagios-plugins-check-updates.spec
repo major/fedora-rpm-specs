@@ -5,11 +5,11 @@
 %define debug_package %{nil}
 
 Name:          nagios-plugins-check-updates
-Version:       1.8.5
+Version:       2.0.3
 Release:       2%{?dist}
 Summary:       A Nagios plugin to check if Red Hat or Fedora system is up-to-date
 
-License:       GPL-3.0-or-later
+License:       GPLv3+
 URL:           https://github.com/matteocorti/check_updates
 Source:        https://github.com/matteocorti/check_updates/releases/download/v%{version}/check_updates-%{version}.tar.gz
 
@@ -49,8 +49,6 @@ Requires:      yum-plugin-security
 
 Requires:      perl(Monitoring::Plugin)
 
-Obsoletes:     check_updates < 1.4.11
-
 %description
 %{summary}.
 
@@ -78,12 +76,19 @@ make test
 
 %files
 %license COPYING COPYRIGHT
-%doc AUTHORS Changes NEWS README.md
+%doc AUTHORS.md Changes NEWS README.md
 %{nagiospluginsdir}/*
 %{_mandir}/man1/*.1*
 
 
 %changelog
+* Sat Nov 19 2022 piotr1212@gmail.com - 2.0.3-2
+- Fix licensing shortcode
+- Remove obsoletes
+
+* Tue Nov 15 2022 Alexander Acevedo <alex.acevedo@netfire.net> - 2.0.3-1
+- Update to 2.0.3
+
 * Sat Sep 10 2022 Carl George <carl@george.computer> - 1.8.5-2
 - Fix license handling
 

@@ -114,8 +114,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	4.0
-Release:	9%{?dev:%{dev}}%{?dist}
+Version:	4.1
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -160,7 +160,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc-c++
 %if ( %{with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 4.0
+BuildRequires:	libntirpc-devel >= 4.1
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -701,7 +701,6 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/ganesha
 %dir %{_sysconfdir}/ganesha/
 %config(noreplace) %{_sysconfdir}/ganesha/ganesha.conf
-%doc src/ChangeLog
 %dir %{_rundir}/ganesha
 %dir %{_libexecdir}/ganesha/
 %{_libexecdir}/ganesha/nfs-ganesha-config.sh
@@ -792,9 +791,6 @@ exit 0
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.ganesha.main.conf
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.ganesha.log.conf
 %config(noreplace) %{_sysconfdir}/ganesha/gpfs.ganesha.exports.conf
-%if %{with utils}
-%{_libexecdir}/ganesha/gpfs-epoch
-%endif
 %if %{with man_page}
 %{_mandir}/*/ganesha-gpfs-config.8.gz
 %endif
@@ -901,6 +897,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 18 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.1-1
+- NFS-Ganesha 4.1 GA
+
 * Fri Nov 11 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com>
 - SPDX migration
 

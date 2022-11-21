@@ -5,13 +5,15 @@
 
 Summary:        Open Source IRC server
 Name:           unrealircd
-Version:        6.0.4.1
+Version:        6.0.4.2
 Release:        1%{?dist}
-# UnrealIRCd itself is GPLv2 but uses other source codes, breakdown:
-# BSD: include/mempool.h and src/mempool.c
+# UnrealIRCd declares itself as GPL-2.0-or-later as it's the common denominator for
+# a GPL-1.0-or-later and GPL-2.0-or-later mixture, breakdown of other source codes:
+# BSD-3-Clause: include/mempool.h and src/mempool.c
 # ISC: src/openssl_hostname_validation.c
+# LicenseRef-Fedora-Public-Domain: include/crypt_blowfish.h and src/crypt_blowfish.c
 # MIT: include/openssl_hostname_validation.h
-License:        GPLv2 and BSD and ISC and MIT
+License:        GPL-1.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause AND ISC AND LicenseRef-Fedora-Public-Domain AND MIT
 URL:            https://www.unrealircd.org/
 Source0:        https://www.unrealircd.org/downloads/%{name}-%{version}.tar.gz
 Source1:        https://www.unrealircd.org/downloads/%{name}-%{version}.tar.gz.asc
@@ -224,6 +226,9 @@ fi
 %endif
 
 %changelog
+* Sat Nov 19 2022 Robert Scheck <robert@fedoraproject.org> 6.0.4.2-1
+- Upgrade to 6.0.4.2 (#2143921)
+
 * Mon Aug 29 2022 Robert Scheck <robert@fedoraproject.org> 6.0.4.1-1
 - Upgrade to 6.0.4.1 (#2122120)
 

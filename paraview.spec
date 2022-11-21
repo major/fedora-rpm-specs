@@ -2,17 +2,17 @@
 %undefine _lto_cflags
 
 %global __cmake_in_source_build 1
-%if 0%{?fedora} > 31
+%if 0%{?fedora}
 %define _legacy_common_support 1
 %endif
 
 %{!?build_openmpi:%global build_openmpi 1}
 %{!?build_mpich:%global build_mpich 1}
 %global pv_maj 5
-%global pv_min 10
+%global pv_min 11
 %global pv_patch 0
 %global pv_majmin %{pv_maj}.%{pv_min}
-#global rcsuf RC2
+#global rcsuf RC1
 %{?rcsuf:%global relsuf .%{rcsuf}}
 %{?rcsuf:%global versuf -%{rcsuf}}
 
@@ -81,8 +81,8 @@
 %endif
 
 Name:           paraview
-Version:        5.10.1
-Release:        6%{?dist}
+Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
+Release:        1%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -97,10 +97,6 @@ Patch0:         paraview-cmakedir.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
-
-# VTK Patches
-# Fix build with netcdf 4.9.0
-Patch10:        vtk-netcdf.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
@@ -169,14 +165,17 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libXt-devel
 BuildRequires:  netcdf-cxx-devel
+BuildRequires:  cmake(nlohmann_json)
 BuildRequires:  patchelf
 BuildRequires:  PEGTL-devel
+BuildRequires:  proj-devel
 %if %{with protobuf}
 BuildRequires:  protobuf-devel
 %endif
 %if %{system_pugixml}
 BuildRequires:  pugixml-devel >= 1.9
 %endif
+BuildRequires:  sqlite-devel
 BuildRequires:  utf8cpp-devel
 # For validating desktop and appdata files
 BuildRequires:  desktop-file-utils
@@ -256,6 +255,7 @@ Provides: bundled(ioss) = 20210512
 Provides: bundled(libharu)
 Provides: bundled(libproj4)
 Provides: bundled(qttesting)
+Provides: bundled(verdict) = 1.4.0
 Provides: bundled(xdmf2)
 
 # Do not provide anything in paraview's library directory
@@ -307,6 +307,7 @@ Provides: bundled(xdmf2)
         -DVTK_MODULE_USE_EXTERNAL_VTK_libharu=OFF \\\
         %{?vtk_use_system_protobuf} \\\
         %{?vtk_use_system_pugixml} \\\
+        -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
         -DBUILD_EXAMPLES:BOOL=ON \\\
         -DBUILD_TESTING:BOOL=OFF \\\
         -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
@@ -521,9 +522,6 @@ developing applications that use %{name}-mpich.
 %setup -q -n ParaView-v%{version}%{?versuf}
 %patch0 -p1
 %patch3 -p1 -b .freetype
-cd VTK
-%patch10 -p1 -b .netcdf
-cd -
 
 %if %{with VisitBridge}
 cp -p Utilities/VisItBridge/README.md Utilities/VisItBridge/README-VisItBridge.md
@@ -543,6 +541,7 @@ done
 rm -r VTK/ThirdParty/pugixml/vtkpugixml
 %endif
 # TODO - loguru
+# TODO - verdict - This is a kitware library so low priority
 for x in vtk{cli11,doubleconversion,eigen,expat,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}glew,hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,ogg,pegtl,png,sqlite,theora,tiff,zfp,zlib}
 do
   rm -r VTK/ThirdParty/*/${x}
@@ -768,6 +767,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Sat Nov 19 2022 Orion Poplawski <orion@nwra.com> - 5.11.0-1
+- Update to 5.11.0
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 5.10.1-6
 - Rebuild (gdal)
 

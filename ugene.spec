@@ -2,24 +2,24 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20220815
-%global	gitcommit		8b6c9d5487227e26e414d93442a5083c3e705091
+%global	gitdate		20221114
+%global	gitcommit		cd5510d9a89ba264bf258532046ec3154088f928
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		94307b664095fb0e88062f570c8c765d8cbf5cc5
+%global	gitcommit_free		f4cfeaae3ba653c5000e8b25e803371375f81f35
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
 %global	gitcommit		2d776cc668bc5019452e25ecc330c88093e75c48
 # New git commit with non-free part using "git filter-branch"
-%global	gitcommit_free		02c04596cd6543ab44cc212ac1b383f825998b0e
+%global	gitcommit_free		f995e33068c5959c1bab249cd04ed3776e9b2d96
 %endif
 
 
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	D%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20220817
-%global	tarballtime	1514
+%global	tarballdate	20221114
+%global	tarballtime	2249
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -49,7 +49,7 @@
 Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
-Version:	44.0
+Version:	45.0
 Release:	%{fedorarel}%{?dist}
 
 #The entire source code is GPLv2+ except:
@@ -71,7 +71,7 @@ Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
 # Currently distro-specific
-Patch102:	ugene-42.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
+Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
 Patch104:	ugene-42.0-plugins_3rdparty-hmm2-nosse-arch.patch
 Patch105:	ugene-40.1-libs_3rdparty-breakpad-arch-port.patch
@@ -250,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Nov 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.0-1
+- 45.0
+
 * Sun Aug 21 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44.0-1
 - 44.0
 

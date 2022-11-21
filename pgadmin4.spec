@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.15
-Release:        3%{?dist}
+Version:        6.16
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -75,7 +75,7 @@ Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
 Requires: python3dist(pytz) >= 2021
 Requires: (python3dist(simplejson) >= 3 with python3dist(simplejson) < 4)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
-Requires: (python3dist(psutil) >= 5 with python3dist(psutil) < 6)
+Requires: python3dist(psutil) >= 5.9.2
 Requires: (python3dist(psycopg2) >= 2.9 with python3dist(psycopg2) < 2.10)
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: (python3dist(sqlalchemy) >= 1.4 with python3dist(sqlalchemy) < 1.5)
@@ -83,7 +83,7 @@ Requires: (python3dist(bcrypt) >= 3 with python3dist(bcrypt) < 4)
 Requires: python3dist(cryptography) >= 3
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
-Requires: (python3dist(gssapi) >= 1.7 with python3dist(gssapi) < 1.8)
+Requires: python3dist(gssapi) >= 1.7
 Requires: (python3dist(eventlet) >= 0.33 with python3dist(eventlet) < 0.34)
 Requires: (python3dist(httpagentparser) >= 1.9 with python3dist(httpagentparser) < 1.10)
 Requires: python3dist(user-agents) = 2.2
@@ -100,7 +100,7 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
-Requires: python3dist(ua-parser) >= 0.15
+
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -245,6 +245,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Nov 19 2022 Sandro Mani <manisandro@gmail.com> - 6.16-1
+- Update to 6.16
+
 * Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 6.15-3
 - Fix window icon on Wayland
 

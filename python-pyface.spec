@@ -4,7 +4,7 @@
 %global modname pyface
 
 Name:           python-%{modname}
-Version:        7.4.2
+Version:        7.4.3
 Release:        1%{?dist}
 Summary:        Generic User Interface objects
 
@@ -151,6 +151,9 @@ done
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Sat Nov 19 2022 Orion Poplawski <orion@nwra.com> - 7.4.3-1
+- Update to 7.4.3
+
 * Mon Aug 15 2022 Orion Poplawski <orion@nwra.com> - 7.4.2-1
 - Update to 7.4.2
 

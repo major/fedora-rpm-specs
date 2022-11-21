@@ -19,13 +19,13 @@
 # Assets
 # * https://github.com/libretro/retroarch-assets
 # * https://github.com/libretro/retroarch-assets/issues/414
-%global commit1     ee33f8ef693b42a8e23ca3fd48f43f345e7cd087
-%global date        20220806
+%global commit1     4ec80faf1b5439d1654f407805bb66141b880826
+%global date        20221024
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.12.0
-Release:        4%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -509,6 +509,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Sun Nov 20 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.13.0-1
+- chore: Update to 1.13.0
+
 * Mon Nov 14 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.12.0-4
 - build: Use ffmpeg-free only for >= f37
 
