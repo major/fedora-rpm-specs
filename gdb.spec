@@ -1186,6 +1186,10 @@ fi
 %endif
 
 %changelog
+* Fri Nov 18 2022 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.3-test-movedir-20050125.patch.  Upstream test
+  gdb.base/fullname.exp provides coverage for this case and more.
+
 * Thu Nov  3 2022 Keith Seitz <keiths@redhat.com> - 12.1-9
 - Add patch to fix ODR violations on powerpc and
   enable LTO builds. (Keith Seitz, sw build/23395)

@@ -1,8 +1,8 @@
 %global pkgname utils
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.77
-Release:        2%{?dist}
+Version:        0.78
+Release:        1%{?dist}
 Summary:        Utility functions for GAP
 
 License:        GPL-2.0-or-later
@@ -15,10 +15,6 @@ BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
 BuildRequires:  gap-pkg-curlinterface-doc
 BuildRequires:  gap-pkg-io-doc
-BuildRequires:  gap-pkg-polycyclic
-
-Requires:       gap-pkg-autodoc
-Requires:       gap-pkg-polycyclic
 
 Recommends:     gap-pkg-curlinterface
 
@@ -75,6 +71,10 @@ cp -p tst/download.tst %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sat Nov 19 2022 Jerry James <loganjerry@gmail.com> - 0.78-1
+- Version 0.78
+- Drop dependency on gap-pkg-polycyclic
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.77-2
 - Clarify license of the doc subpackage
 

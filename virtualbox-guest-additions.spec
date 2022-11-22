@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.0.2
-Release:    2%{?dist}
+Version:    7.0.4
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -184,6 +184,9 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Mon Nov 21 2022 Sérgio Basto <sergio@serjux.com> - 7.0.4-1
+- Update virtualbox-guest-additions to 7.0.4
+
 * Sat Nov 05 2022 Sérgio Basto <sergio@serjux.com> - 7.0.2-1
 - Update to 7.0.2
 - Add mount.vboxsf script wrapper

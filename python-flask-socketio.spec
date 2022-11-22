@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-flask-socketio
-Version:        5.3.1
+Version:        5.3.2
 Release:        %autorelease
 Summary:        Socket.IO integration for Flask applications
 

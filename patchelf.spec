@@ -2,7 +2,7 @@
 %undefine _hardened_build
 
 Name:           patchelf
-Version:        0.16.1
+Version:        0.17.0
 Release:        1%{?dist}
 Summary:        A utility for patching ELF binaries
 
@@ -51,6 +51,9 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_mandir}/man1/patchelf.1*
 
 %changelog
+* Sun Nov 20 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 0.17.0-1
+- Update to 0.17.0 (#2141392)
+
 * Sat Oct 29 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 0.16.1-1
 - Update to 0.16.1 (#2138243)
 

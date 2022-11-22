@@ -12,7 +12,7 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	3.3.0.1
+Version:	3.3.0.4
 Release:	%autorelease
 Summary:	A cross-platform curses-based monitoring tool
 

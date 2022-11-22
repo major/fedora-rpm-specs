@@ -20,7 +20,7 @@
 #global gver .%%{gitdate}git%%{shortcommit}
 
 Name:           mlt
-Version:        7.10.0
+Version:        7.12.0
 Release:        1%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
@@ -245,6 +245,9 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Sun Nov 20 2022 Sérgio Basto <sergio@serjux.com> - 7.12.0-1
+- Update mlt to 7.12.0
+
 * Fri Nov 04 2022 Sérgio Basto <sergio@serjux.com> - 7.10.0-1
 - Update mlt to 7.10.0 (#2137811 2139196)
 

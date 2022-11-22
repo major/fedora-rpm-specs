@@ -2,10 +2,10 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.0.25
+Version:        1.0.26
 Release:        %autorelease
 Summary:        An API for writing VR and AR software
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/KhronosGroup/%{pkgname}
 Source:         %{url}/archive/refs/tags/release-%{version}.tar.gz
 
@@ -79,7 +79,7 @@ rm -fr %{buildroot}%{_libdir}/*.a
 %files
 %license LICENSE
 # Include license in doc otherwise build complains
-%doc CHANGELOG.SDK.md LICENSE README.md specification/README.md
+%doc CHANGELOG.SDK.md LICENSE README.md
 %{_bindir}/*
 %{_datadir}/%{name}
 %{_libdir}/lib*.so

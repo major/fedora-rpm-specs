@@ -31,13 +31,16 @@ hardware.
 
 
 %build
-%configure                      \
-        --enable-external-ell   \
-        --enable-sim-hardcoded  \
-        --enable-ofono          \
-        --enable-wired          \
-        --enable-hwsim          \
-        --enable-tools
+%configure			\
+	--enable-external-ell	\
+	--enable-sim-hardcoded	\
+	--enable-ofono		\
+	--enable-wired		\
+	--enable-hwsim		\
+	--enable-tools		\
+	--with-systemd-unitdir=%{_unitdir} \
+	--with-systemd-networkdir=%{_systemd_util_dir}/network \
+	--with-systemd-modloaddir=%{_modulesloaddir}
 
 %make_build V=1
 

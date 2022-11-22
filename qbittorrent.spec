@@ -1,7 +1,12 @@
 %if 0%{?fedora} >= 36
 %ifnarch s390x
 %global _with_qt6 1
+%global _qtver Qt6
+%else
+%global _qtver Qt5
 %endif
+%else
+%global _qtver Qt5
 %endif
 
 Name:    qbittorrent
@@ -56,7 +61,7 @@ Requires:   qt5-qtsvg%{?_isa}
 %endif
 
 %description
-A Bittorrent client using rb_libtorrent and a Qt4 Graphical User Interface.
+A Bittorrent client using rb_libtorrent and a %{_qtver} Graphical User Interface.
 It aims to be as fast as possible and to provide multi-OS, unicode support.
 
 %package nox

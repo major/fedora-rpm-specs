@@ -1,5 +1,5 @@
 Name:           rednotebook
-Version:        2.26
+Version:        2.27.1
 Release:        1%{?dist}
 Summary:        Daily journal with calendar, templates and keyword searching
 
@@ -16,7 +16,7 @@ Requires:       webkitgtk4
 Requires:       python3-chardet
 Requires:       python3-enchant
 Requires:       hicolor-icon-theme
-Requires:       gtksourceview3
+Requires:       gtksourceview4
 
 %description
 RedNotebook is a modern desktop journal. It lets you format, tag and
@@ -60,6 +60,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Sun Nov 20 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.27.1-1
+- New upstream version 2.27.1
+
 * Wed Sep 28 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.26-1
 - New upstream version 2.26
 

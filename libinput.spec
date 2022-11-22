@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.21.0
-Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.22.0
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 License:        MIT
@@ -151,6 +151,9 @@ pathfix.py -i %{__python3} -p -n $(git grep -l  '#!/usr/bin/.*python3')
 
 
 %changelog
+* Mon Nov 21 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.22.0-1git58abea394}
+- libinput 1.22.0
+
 * Wed Aug 31 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.21.0-3
 - Add udev to BuildRequires for udevdir to resolve againt
 

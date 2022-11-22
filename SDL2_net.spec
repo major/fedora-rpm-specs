@@ -1,6 +1,6 @@
 Name:		SDL2_net
-Version:	2.0.1
-Release:	16%{?dist}
+Version:	2.2.0
+Release:	1%{?dist}
 Summary:	SDL portable network library
 License:	zlib
 URL:		http://www.libsdl.org/projects/SDL_net/
@@ -26,7 +26,7 @@ networked applications.
 %prep
 %autosetup
 # Fix end-of-line encoding
-sed -i 's/\r//' README.txt CHANGES.txt COPYING.txt
+sed -i 's/\r//' README.txt CHANGES.txt LICENSE.txt
 
 %build
 %configure --disable-static --disable-gui
@@ -39,16 +39,20 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %ldconfig_scriptlets
 
 %files
-%license COPYING.txt
+%license LICENSE.txt
 %doc README.txt CHANGES.txt
 %{_libdir}/lib*.so.*
 
 %files devel
 %{_libdir}/lib*.so
 %{_includedir}/SDL2/*
+%{_libdir}/cmake/SDL2_net/
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sun Nov 13 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.0-1
+- Update to v2.2.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

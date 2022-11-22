@@ -1,13 +1,7 @@
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond_without doc_pdf
-
-Name:           python-pytest-bdd
-Version:        6.1.1
+Name:           python-pytest-bdd5
+Version:        5.0.0
 Release:        %autorelease
-Summary:        BDD library for the py.test runner
+Summary:        BDD library for the py.test runner (version 5 compat package)
 
 # SPDX
 License:        MIT
@@ -17,9 +11,7 @@ Source0:        %{forgeurl}/archive/%{version}/pytest-bdd-%{version}.tar.gz
 
 # Downstream man page, written for Fedora in groff_man(7) format based on the
 # command’s --help output.
-Source10:       pytest-bdd.1
-Source11:       pytest-bdd-generate.1
-Source12:       pytest-bdd-migrate.1
+Source1:        pytest-bdd.1
 
 BuildArch:      noarch
  
@@ -27,15 +19,6 @@ BuildRequires:  python3-devel
 
 # Required for: tests/feature/test_report.py::test_complex_types
 BuildRequires:  python3dist(pytest-xdist)
-
-# Documentation
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-BuildRequires:  tex-xetex-bin
-%endif
 
 %global common_description %{expand:
 pytest-bdd implements a subset of the Gherkin language to enable automating
@@ -49,28 +32,31 @@ configuration and allows the reuse of test setups.
 Pytest fixtures written for unit tests can be reused for setup and actions
 mentioned in feature steps with dependency injection. This allows a true BDD
 just-enough specification of the requirements without maintaining any context
-object containing the side effects of Gherkin imperative declarations.}
+object containing the side effects of Gherkin imperative declarations.
+
+This compatibility package provides major version 5 of pytest-bdd. It is not
+parallel-installable with the main package.}
 
 %description %{common_description}
 
 
-%package -n     python3-pytest-bdd
+%package -n     python3-pytest-bdd5
 Summary:        %{summary}
 
-%description -n python3-pytest-bdd %{common_description}
+# Renaming the Python package from pytest_bdd to pytest_bdd5 requires too many
+# invasive and nontrivial changes to be practical. Instead we resort to an
+# explicit Conflict with the main package. See:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
+#
+# Note that because this is a testing package, it is used in Fedora only as a
+# BuildRequires, which reduces the impact of the conflict.
+Conflicts:      python3-pytest-bdd
 
-
-%package        doc
-Summary:        Documentation for pytest-bdd
-
-%description    doc %{common_description}
+%description -n python3-pytest-bdd5 %{common_description}
 
 
 %prep
 %autosetup -n pytest-bdd-%{version}
-
-# Since pdflatex cannot handle Unicode inputs in general:
-echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 
 %generate_buildrequires
@@ -79,17 +65,12 @@ echo "latex_engine = 'xelatex'" >> docs/conf.py
 
 %build
 %pyproject_wheel
-%if %{with doc_pdf}
-PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
 %pyproject_install
 %pyproject_save_files pytest_bdd
-install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
-    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
+install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 
 %check
@@ -97,22 +78,15 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # https://github.com/pytest-dev/pytest-bdd/issues/453
 mkdir -p _empty && cp -rp tests *.ini _empty && cd _empty
 
-%tox
+%pytest -n %{?_smp_build_ncpus}
 
 
-%files -n python3-pytest-bdd -f %{pyproject_files}
-%{_bindir}/pytest-bdd
-%{_mandir}/man1/pytest-bdd*.1*
-
-
-%files doc
-%license LICENSE.txt
+%files -n python3-pytest-bdd5 -f %{pyproject_files}
 %doc AUTHORS.rst
 %doc CHANGES.rst
 %doc README.rst
-%if %{with doc_pdf}
-%doc docs/_build/latex/Pytest-BDD.pdf
-%endif
+%{_bindir}/pytest-bdd
+%{_mandir}/man1/pytest-bdd.1*
 
 
 %changelog

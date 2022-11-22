@@ -1,7 +1,7 @@
 %global srcname branca
 
 Name:           python-%{srcname}
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Generate complex HTML+JS pages with Python
 
@@ -35,11 +35,12 @@ BuildRequires:  python3dist(pytest)
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-
 
 %install
 %pyproject_install

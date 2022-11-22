@@ -2,15 +2,15 @@
 
 # There is a build dependency loop when built with tests.
 # It involves libpysal, mapclassify, networkx.
-# This bcons allows to bootstrap it.
+# This bcond allows to bootstrap it.
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        0.11.1
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Geographic Pandas extensions
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://github.com/%{srcname}/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 

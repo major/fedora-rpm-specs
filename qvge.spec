@@ -1,13 +1,12 @@
-%global commit 2a44063de864bb401b7fe8f50c3f3a0088309155
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:		qvge
 Version:	0.6.3
-Release:	0.4git%{shortcommit}%{?dist}
+Release:	1%{?dist}
 License:	MIT and LGPLv3 and BSD
 Summary:	Graph editor
 URL:		https://arsmasiuk.github.io/qvge/
-Source0:	https://github.com/ArsMasiuk/qvge/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:	https://github.com/ArsMasiuk/qvge/archive/refs/tags/%{name}-%{version}.tar.gz
+# https://github.com/ArsMasiuk/qvge/issues/164
+Patch0:		%{name}-%{version}-0.patch
 BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	desktop-file-utils
@@ -36,7 +35,7 @@ simple and intuitive way.
 
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -p0
 
 
 %build
@@ -73,6 +72,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sun Nov 20 2022 TI_Eugene <ti.eugene@gmail.com> - 0.6.3-1
+- Release bump
+- Fixed #2139751
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-0.4git2a44063
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

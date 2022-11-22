@@ -36,7 +36,7 @@ ExclusiveArch: x86_64
 
 Name:		gnome-boxes
 Version:	43.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 License:	LGPLv2+
@@ -80,20 +80,18 @@ Requires:	libvirt-daemon-qemu
 # Pulls in the libvirtd NAT 'default' network
 # Original request: https://bugzilla.redhat.com/show_bug.cgi?id=1081762
 #
-# However, the 'default' network does not mix well with the Fedora livecd
-# when it is run inside a VM. The whole saga is documented here:
+# Historically, the 'default' network does not mix well with the
+# Fedora livecd when it is run inside a VM. The whole saga is
+# documented here:
 #
 #   boxes: https://bugzilla.redhat.com/show_bug.cgi?id=1164492
 #   libvirt: https://bugzilla.redhat.com/show_bug.cgi?id=1146232
 #
-# Until a workable solution has been determined and implemented, this
-# dependency should stay disabled in rawhide and fedora development
-# branches so it does not end up on the livecd. Once a Fedora GA is
-# released, a gnome-boxes update can be pushed with this dependency
-# re-enabled. crobinso will handle this process, see:
-#
-#    https://bugzilla.redhat.com/show_bug.cgi?id=1164492#c71
-#Requires:	libvirt-daemon-config-network
+# Nowadays, default Fedora libvirt config delays starting virtual
+# networks until VM launch time. This should avoid the 'livecd has
+# no network issue', so this dep can be used unconditionally.
+# If that proves correct, let's delete this comment in F40 timeframe.
+Requires:	libvirt-daemon-config-network
 
 # Needed for unattended installations
 Requires:	mtools
@@ -156,6 +154,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_datadir}/metainfo/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Sun Nov 20 2022 Cole Robinson <crobinso@redhat.com> - 43.1-2
+- Re-enable libvirt-daemon-config-network dep unconditionally
+
 * Thu Oct 27 2022 David King <amigadave@amigadave.com> - 43.1-1
 - Update to 43.1
 

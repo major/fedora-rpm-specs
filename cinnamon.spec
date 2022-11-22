@@ -178,6 +178,9 @@ Requires:       wget%{?_isa}
 # required for printer applet
 Requires:       cups-client%{?_isa}
 
+# required for spice
+Requires:       gettext
+
 Provides:       desktop-notification-daemon
 Provides:       bundled(libcroco) = 0.6.12
 
