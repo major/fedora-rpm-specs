@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 License:        BSD
@@ -75,7 +75,6 @@ methods and related documentation.
 # Executables.
 %package bin
 Summary:        Command-line executables for mlpack (machine learning library)
-Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-licenses
 Requires:       armadillo
 
@@ -91,7 +90,6 @@ methods and related documentation.
 # Development headers.
 %package devel
 Summary:    Development headers for mlpack (C++ machine learning library)
-Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   %{name}-licenses
 Requires:   armadillo-devel >= 9.800.0
 Requires:	ensmallen-devel >= 2.10.0
@@ -115,7 +113,6 @@ mlpack.
 
 %package python3
 Summary:	Python 3 bindings for mlpack (C++ machine learning library)
-Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   %{name}-licenses
 Requires:	python3
 Requires:	python3-numpy
@@ -290,6 +287,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Mon Nov 21 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-7
+- Fix incorrect Requires again (oops) :).
+
 * Thu Nov 17 2022 Benson Muite <benson_muite@emailplus.org> - 4.0.0-6
 - Use license package
 

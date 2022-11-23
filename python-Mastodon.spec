@@ -3,7 +3,7 @@
 %global modname Mastodon
 
 Name:               python-Mastodon
-Version:            1.6.1
+Version:            1.6.3
 Release:            1%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Mon Nov 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.6.3-1
+- 1.6.3
+
 * Thu Nov 17 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.6.1-1
 - 1.6.1
 

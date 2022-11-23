@@ -1,13 +1,13 @@
 Name:           latexmk
-Version:        4.77
-Release:        2%{?dist}
+Version:        4.78
+Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
 %global upstreamver %(sed 's/\\.//' <<< %{version})
 
-License:        GPLv2+
-URL:            http://personal.psu.edu/jcc8/software/latexmk-jcc/
-Source0:        http://personal.psu.edu/jcc8/software/latexmk-jcc/%{name}-%{upstreamver}.zip
+License:        GPL-2.0-or-later
+URL:            https://personal.psu.edu/jcc8/software/latexmk-jcc/
+Source0:        https://personal.psu.edu/jcc8/software/latexmk-jcc/%{name}-%{upstreamver}.zip
 Source1:        latexmkrc
 Source2:        latexmk-README.fedora
 
@@ -29,7 +29,7 @@ version of the original version of latexmk.
 Before using a previewer, read the file README.fedora.
 
 %prep
-%autosetup -p0 -n %{name}
+%autosetup -n %{name}
 
 fixtimestamp() {
   touch -r $1.orig $1
@@ -55,14 +55,18 @@ install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
 rm -f extra-scripts/*.bat
 
 %files
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/latexmk
+%{_mandir}/man1/latexmk.1*
 %config(noreplace) %{_sysconfdir}/latexmkrc
 %doc CHANGES README README.fedora extra-scripts example_rcfiles
 %doc latexmk.pdf
 %license COPYING
 
 %changelog
+* Mon Nov 21 2022 Jerry James <loganjerry@gmail.com> - 4.78-1
+- Version 4.78
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.77-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

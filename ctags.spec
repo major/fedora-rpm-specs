@@ -1,4 +1,4 @@
-%define upstreamversion 20221016.0
+%define upstreamversion 20221120.0
 
 Summary: A C programming language indexing and/or cross-reference tool
 Name: ctags
@@ -64,6 +64,9 @@ Install ctags if you are going to use your system for C programming.
 %{_mandir}/man7/*
 
 %changelog
+* Mon Nov 21 2022 Than Ngo <than@redhat.com> - 5.9-9.20221120.0
+- update to 5.9.20221120.0
+
 * Tue Oct 18 2022 Than Ngo <than@redhat.com> - 5.9-9.20221016.0
 - update to 5.9.20221016.0
 

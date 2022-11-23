@@ -1,5 +1,5 @@
 Name:           typescript
-Version:        4.8.4
+Version:        4.9.3
 Release:        %autorelease
 Summary:        A language for application scale JavaScript development
 License:        Apache-2.0
@@ -40,7 +40,7 @@ ln -s ../lib/node_modules/typescript/bin/tsserver %{buildroot}%{_bindir}/tsserve
 
 
 %files
-%license LICENSE.txt CopyrightNotice.txt
+%license LICENSE.txt
 %{nodejs_sitelib}/typescript
 %{_bindir}/tsc
 %{_bindir}/tsserver

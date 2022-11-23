@@ -1,9 +1,9 @@
 Name: writerperfect
 Version: 0.9.6
-Release: 11%{?dist}
+Release: %autorelease
 Summary: A collection of tools to transform various file formats into ODF
 
-License: MPLv2.0 or LGPLv2+
+License: LGPL-2.1-or-later OR MPL-2.0
 URL: http://sourceforge.net/p/libwpd/wiki/writerperfect/
 Source: http://downloads.sourceforge.net/libwpd/%{name}-%{version}.tar.xz
 
@@ -210,123 +210,4 @@ install -m 0644 *2abw.1 *2epub.1 *2od?.1 %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/wps2abw.1*
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Dec 14 2017 David Tardon <dtardon@redhat.com> - 0.9.6-1
-- new upstream release
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 0.9.5-3
-- Rebuilt for Boost 1.63
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 0.9.5-2
-- Rebuilt for Boost 1.63
-
-* Thu Mar 03 2016 David Tardon <dtardon@redhat.com> - 0.9.5-1
-- new upstream release
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Sat Jan 16 2016 Jonathan Wakely <jwakely@redhat.com> - 0.9.4-7
-- Rebuilt for Boost 1.60
-
-* Thu Aug 27 2015 Jonathan Wakely <jwakely@redhat.com> - 0.9.4-6
-- Rebuilt for Boost 1.59
-
-* Wed Jul 29 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Changes/F23Boost159
-
-* Wed Jul 22 2015 David Tardon <dtardon@redhat.com> - 0.9.4-4
-- rebuild for Boost 1.58
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon May 25 2015 David Tardon <dtardon@redhat.com> - 0.9.4-2
-- enable AbiWord export
-
-* Wed May 20 2015 David Tardon <dtardon@redhat.com> - 0.9.4-1
-- new upstream release
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.9.2-5
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Mon Jan 26 2015 Petr Machata <pmachata@redhat.com> - 0.9.2-4
-- Rebuild for boost 1.57.0
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jul 26 2014 David Tardon <dtardon@redhat.com> - 0.9.2-2
-- put EPUB export tools into a separate subpackage
-
-* Sun Jul 06 2014 David Tardon <dtardon@redhat.com> - 0.9.2-1
-- new upstream release
-- enable EPUB export
-
-* Fri Jun 27 2014 David Tardon <dtardon@redhat.com> - 0.9.1-3
-- enable support for Adobe PageMaker documents
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Tue Jun 03 2014 David Tardon <dtardon@redhat.com> - 0.9.1-1
-- new upstream release
-
-* Thu May 29 2014 David Tardon <dtardon@redhat.com> - 0.9.0-2
-- fix libe-book integration
-
-* Mon May 26 2014 David Tardon <dtardon@redhat.com> - 0.9.0-1
-- new upstream release
-
-* Wed Apr 09 2014 David Tardon <dtardon@redhat.com> - 0.8.4-1
-- new upstream release
-
-* Sat Nov 02 2013 David Tardon <dtardon@redhat.com> - 0.8.3-1
-- new release
-
-* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Thu May 16 2013 David Tardon <dtardon@redhat.com> - 0.8.2-2
-- package license files
-
-* Sun May 12 2013 David Tardon <dtardon@redhat.com> - 0.8.2-1
-- initial import
+%autochangelog

@@ -1,7 +1,7 @@
 %global srcname libpysal
 
 Name:           python-%{srcname}
-Version:        4.6.2
+Version:        4.7.0
 %global tag     v%{version}
 Release:        %autorelease
 Summary:        Python Spatial Analysis Library core components
@@ -14,10 +14,15 @@ Source0:        https://github.com/pysal/libpysal/archive/%{tag}/%{srcname}-%{ve
 Source1:        https://geodacenter.github.io/data-and-lab//data/ncovr.zip
 Source2:        https://github.com/sjsrey/newHaven/archive/master/newHaven.zip
 Source3:        https://github.com/sjsrey/rio_grande_do_sul/archive/master/rio_grande_do_sul.zip
+Source4:        https://github.com/sjsrey/taz/archive/master/taz.zip
 # Hard-code the list of datasets to not use the network.
 Patch:          0001-Hard-code-list-of-example-datasets.patch
 # We just use pytest directly.
 Patch:          0002-Drop-use-of-pytest-runner.patch
+# https://github.com/pysal/libpysal/pull/491
+Patch:          0003-Fix-Linux-user-path-test.patch
+# https://github.com/pysal/libpysal/pull/492
+Patch:          0004-Fix-warnings-from-Sphinx.patch
 
 BuildArch:      noarch
 
@@ -74,6 +79,7 @@ mkdir -p pysal_data/pysal
 unzip %SOURCE1 -d pysal_data/pysal/NCOVR
 unzip %SOURCE2 -d pysal_data/pysal/newHaven
 unzip %SOURCE3 -d pysal_data/pysal/Rio_Grande_do_Sul
+unzip %SOURCE4 -d pysal_data/pysal/taz
 
 %generate_buildrequires
 %pyproject_buildrequires -x docs

@@ -1,16 +1,19 @@
-%define libsepolver 3.4-1
-%define libselinuxver 3.4-1
+%define libsepolver 3.4-4
+%define libselinuxver 3.4-6
 
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/libsemanage-3.4.tar.gz
 # fedora-selinux/selinux: git format-patch -N 3.4 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-libsemanage-always-write-kernel-policy-when-check_ex.patch
+Patch0002: 0002-libsemanage-Allow-user-to-set-SYSCONFDIR.patch
+Patch0003: 0003-docs-provide-a-top-level-LICENSE-file.patch
+Patch0004: 0004-libsemanage-Remove-dependency-on-the-Python-module-d.patch
 # Patch list end
 URL: https://github.com/SELinuxProject/selinux/wiki
 Source1: semanage.conf
@@ -23,6 +26,7 @@ BuildRequires: bison flex bzip2-devel
 
 BuildRequires: python3
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 
 Requires: bzip2-libs audit-libs
 Requires: libselinux%{?_isa} >= %{libselinuxver}
@@ -125,7 +129,7 @@ InstallPythonWrapper \
 cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 
 %files
-%license COPYING
+%license LICENSE
 %dir %{_sysconfdir}/selinux
 %config(noreplace) %{_sysconfdir}/selinux/semanage.conf
 %{_libdir}/libsemanage.so.2
@@ -154,6 +158,9 @@ cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-6
+- Rebase on upstream f56a72ac9e86
+
 * Mon Jul 25 2022 Petr Lautrbach <plautrba@redhat.com> - 3.4-5
 - Always write kernel policy when check_ext_changes is specified (#2104935)
 

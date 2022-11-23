@@ -5,7 +5,7 @@ Summary:        Arbitrary-precision floating point ball arithmetic
 
 License:        LGPL-2.1-or-later
 URL:            https://arblib.org/
-Source0:        https://github.com/fredrik-johansson/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/fredrik-johansson/arb/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  flint-devel
 BuildRequires:  gcc-c++
@@ -35,14 +35,19 @@ Summary:        Documentation for arb
 BuildArch:      noarch
 # In addition to the project license, the Javascript and CSS bundled with the
 # documentation has the following licenses:
-# - searchindex.js: MIT
+# - searchindex.js: BSD-2-Clause
+# - _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
 # - _static/basic.css: BSD-2-Clause
 # - _static/classic.css: BSD-2-Clause
 # - _static/doctools.js: BSD-2-Clause
+# - _static/documentation_options.js: BSD-2-Clause
+# - _static/file.png: BSD-2-Clause
 # - _static/jquery*.js: MIT
 # - _static/language_data.js: BSD-2-Clause
-# - _static/pygments.css: BSD-2-Clause
+# - _static/minus.png: BSD-2-Clause
+# - _static/plus.png: BSD-2-Clause
 # - _static/searchtools.js: BSD-2-Clause
+# - _static/sidebar.js: BSD-2-Clause
 # - _static/underscore*.js: MIT
 License:        LGPL-2.1-or-later AND MIT AND BSD-2-Clause
 Provides:       bundled(js-jquery)

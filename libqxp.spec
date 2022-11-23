@@ -2,10 +2,10 @@
 
 Name: libqxp
 Version: 0.0.2
-Release: 15%{?dist}
+Release: %autorelease
 Summary: Library for import of QuarkXPress documents
 
-License: MPLv2.0
+License: MPL-2.0
 URL: http://wiki.documentfoundation.org/DLP/Libraries/libqxp
 Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
 
@@ -103,69 +103,4 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/qxp2text.1*
 
 %changelog
-* Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.0.2-15
-- Rebuilt for ICU 71.1
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu May 20 2021 Pete Walter <pwalter@fedoraproject.org> - 0.0.2-11
-- Rebuild for ICU 69
-
-* Wed May 19 2021 Pete Walter <pwalter@fedoraproject.org> - 0.0.2-10
-- Rebuild for ICU 69
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 16 2020 Pete Walter <pwalter@fedoraproject.org> - 0.0.2-7
-- Rebuild for ICU 67
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Nov 01 2019 Pete Walter <pwalter@fedoraproject.org> - 0.0.2-5
-- Rebuild for ICU 65
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan 23 2019 Pete Walter <pwalter@fedoraproject.org> - 0.0.2-2
-- Rebuild for ICU 63
-
-* Sat Dec 29 2018 David Tardon <dtardon@redhat.com> - 0.0.2-1
-- new upstream release
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jul 10 2018 Pete Walter <pwalter@fedoraproject.org> - 0.0.1-4
-- Rebuild for ICU 62
-
-* Mon Apr 30 2018 Pete Walter <pwalter@fedoraproject.org> - 0.0.1-3
-- Rebuild for ICU 61.1
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Jan 02 2018 David Tardon <dtardon@redhat.com> - 0.0.1-1
-- new upstream release
-
-* Thu Nov 30 2017 Pete Walter <pwalter@fedoraproject.org> - 0.0.0-2
-- Rebuild for ICU 60.1
-
-* Sun Aug 27 2017 David Tardon <dtardon@redhat.com> - 0.0.0-1
-- initial import
-
+%autochangelog

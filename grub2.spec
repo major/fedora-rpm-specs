@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	63%{?dist}
+Release:	64%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -209,6 +209,9 @@ git commit -m "After making subdirs"
 %endif
 %if 0%{with_emu_arch}
 %{expand:%do_emu_build}
+%endif
+%ifarch ppc64le
+%{expand:%do_ieee1275_build_images %%{grublegacyarch} %{grubelfname} %{sb_cer} %{sb_key}}
 %endif
 makeinfo --info --no-split -I docs -o docs/grub-dev.info \
 	docs/grub-dev.texi
@@ -529,6 +532,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Mon Nov 21 2022 Robbie Harwood <rharwood@redhat.com> - 1:2.06-64
+- Forward-port ppc64le image creation (with nerfed signing)
+
 * Tue Nov 08 2022 Robbie Harwood <rharwood@redhat.com> - 1:2.06-63
 - Font fixes (CVE-2022-2601 batch)
 

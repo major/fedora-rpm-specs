@@ -103,6 +103,16 @@ Twisted Plugin to interact with TeamCity
 - Update commit status publisher token (Mikhail Kidiankin)
 - flake8 formatter, not extension (itsb)
 
+* Wed Oct 26 2022 Maja Massarini <mmassari@redhat.com> - 1.32-1
+- 1.32 (Mikhail Kidiankin)
+- Skip test for pytest-flake8 1.1 for unsupported Python versions (Mikhail Kidiankin)
+- Fix tests for pytest-flake8 new 1.1 version (Mikhail Kidiankin)
+- Fix tests for pylint > 2.13 as pylint now is not reporting negative score values (Mikhail Kidiankin)
+- Update virtualenv to 20.16.5 (#267) (Mikhail Kidyankin)
+- Remove Python 3.9 Windows tests as there are no compatible docker container (Mikhail Kidiankin)
+- Update commit status publisher token (Mikhail Kidiankin)
+- flake8 formatter, not extension (itsb)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

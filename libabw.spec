@@ -2,10 +2,10 @@
 
 Name: libabw
 Version: 0.1.3
-Release: 8%{?dist}
+Release: %autorelease
 Summary: A library for import of AbiWord files
 
-License: MPLv2.0
+License: MPL-2.0
 URL: https://wiki.documentfoundation.org/DLP/Libraries/libabw
 Source: http://dev-www.libreoffice.org/src/%{name}/%{name}-%{version}.tar.xz
 
@@ -99,112 +99,4 @@ install -m 0644 abw2*.1 %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/abw2html.1*
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 14 2020 Tom Stellard <tstellar@redhat.com> - 0.1.3-3
-- Use make macros
-- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Aug 17 2019 David Tardon <dtardon@redhat.com> - 0.1.3-1
-- new upstream release
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Jan 02 2018 David Tardon <dtardon@redhat.com> - 0.1.2-1
-- new upstream release
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Jul 03 2017 Jonathan Wakely <jwakely@redhat.com> - 0.1.1-14
-- Rebuilt for Boost 1.64
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 0.1.1-12
-- Rebuilt for Boost 1.63
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Fri Jan 15 2016 Jonathan Wakely <jwakely@redhat.com> - 0.1.1-10
-- Rebuilt for Boost 1.60
-
-* Sun Aug 30 2015 Jonathan Wakely <jwakely@redhat.com> - 0.1.1-9
-- Rebuilt for Boost 1.59
-
-* Sun Aug 30 2015 David Tardon <dtardon@redhat.com> - 0.1.1-8
-- Resolves: rhbz#1258125 fix build with boost 1.59
-
-* Wed Jul 29 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Changes/F23Boost159
-
-* Wed Jul 22 2015 David Tardon <dtardon@redhat.com> - 0.1.1-6
-- rebuild for Boost 1.58
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon May 04 2015 David Tardon <dtardon@redhat.com> - 0.1.1-4
-- fix two potential crashes
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.1.1-3
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Mon Jan 26 2015 Petr Machata <pmachata@redhat.com> - 0.1.1-2
-- Rebuild for boost 1.57.0
-
-* Sat Dec 20 2014 David Tardon <dtardon@redhat.com> - 0.1.1-1
-- new upstream release
-
-* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Mon May 26 2014 David Tardon <dtardon@redhat.com> - 0.1.0-1
-- new upstream release
-
-* Thu May 22 2014 Petr Machata <pmachata@redhat.com> - 0.0.2-2
-- Rebuild for boost 1.55.0
-
-* Mon Feb 10 2014 David Tardon <dtardon@redhat.com> - 0.0.2-1
-- new upstream release 0.0.2
-- generate man pages for the tools
-
-* Wed Jan 15 2014 David Tardon <dtardon@redhat.com> - 0.0.1-1
-- new upstream release
-
-* Mon Jan 13 2014 David Tardon <dtardon@redhat.com> - 0.0.0-1
-- initial import
+%autochangelog

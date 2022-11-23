@@ -193,6 +193,10 @@
 
 %global _systemd_extra "Environment=KRB5CCNAME=FILE:/run/samba/krb5cc_samba"
 
+# Make a copy of this variable to prevent repeated evaluation of the
+# embedded shell command.  Avoid recursive macro definition if undefined.
+%{?python3_sitearch: %global python3_sitearch %{python3_sitearch}}
+
 Name:           samba
 Version:        %{samba_version}
 Release:        %{samba_release}%{?dist}

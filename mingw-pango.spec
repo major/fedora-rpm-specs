@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-pango
-Version:        1.50.11
+Version:        1.50.12
 Release:        1%{?dist}
 Summary:        MinGW Windows Pango library
 
@@ -171,6 +171,9 @@ mkdir -p %{buildroot}%{mingw64_sysconfdir}/pango/
 
 
 %changelog
+* Mon Nov 21 2022 Sandro Mani <manisandro@gmail.com> - 1.50.12-1
+- Update to 1.50.12
+
 * Fri Oct 07 2022 Sandro Mani <manisandro@gmail.com> - 1.50.11-1
 - Update to 1.50.11
 

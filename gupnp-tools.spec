@@ -1,21 +1,22 @@
 Name:          gupnp-tools
-Version:       0.10.3
-Release:       2%{?dist}
+Version:       0.12.0
+Release:       1%{?dist}
 Summary:       A collection of dev tools utilising GUPnP and GTK+
 
 License:       GPLv2+
 URL:           https://wiki.gnome.org/Projects/GUPnP
-Source0:       https://download.gnome.org/sources/%{name}/0.10/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/0.12/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: meson
-BuildRequires: pkgconfig(gupnp-1.2)
+BuildRequires: pkgconfig(gupnp-1.6)
 BuildRequires: pkgconfig(gupnp-av-1.0)
-BuildRequires: pkgconfig(gssdp-1.2) >= 1.2.0
+BuildRequires: pkgconfig(gssdp-1.6)
 BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: pkgconfig(gtksourceview-4)
+BuildRequires: pkgconfig(libsoup-3.0)
 
 Requires: hicolor-icon-theme
 
@@ -52,9 +53,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gupnp-universal-cp.de
 %dir %{_datadir}/gupnp-tools/pixmaps/
 %dir %{_datadir}/gupnp-tools/xml/
 %{_bindir}/gssdp-discover
+%{_bindir}/gupnp-av-cp
+%{_bindir}/gupnp-event-dumper
 %{_bindir}/gupnp-network-light
 %{_bindir}/gupnp-universal-cp
-%{_bindir}/gupnp-av-cp
 %{_bindir}/gupnp-upload
 %{_datadir}/applications/gupnp-av-cp.desktop
 %{_datadir}/applications/gupnp-network-light.desktop
@@ -66,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gupnp-universal-cp.de
 %{_datadir}/icons/hicolor/*/apps/universal-cp.png
 
 %changelog
+* Mon Nov 21 2022 David King <amigadave@amigadave.com> - 0.12.0-1
+- Update to 0.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

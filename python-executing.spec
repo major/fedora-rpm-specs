@@ -1,5 +1,5 @@
 Name:           python-executing
-Version:        1.1.1
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        Python library for inspecting the current frame run footprint
 
@@ -50,6 +50,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 1.2.0-1
+- Update to 1.2.0
+Resolves: rhbz#2138547
+
 * Sun Oct 09 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-1
 - Update to 1.1.1
 Resolves: rhbz#2133192

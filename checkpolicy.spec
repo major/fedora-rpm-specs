@@ -1,10 +1,10 @@
-%define libselinuxver 3.4-1
-%define libsepolver 3.4-1
+%define libselinuxver 3.4-6
+%define libsepolver 3.4-4
 
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 3.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/checkpolicy-3.4.tar.gz
 # $ git clone https://github.com/fedora-selinux/selinux.git
@@ -12,6 +12,10 @@ Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/checkpo
 # $ git format-patch -N 3.4 -- checkpolicy
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
+Patch0001: 0001-checkpolicy-error-out-if-required-permission-would-e.patch
+Patch0002: 0002-checkpolicy-use-strict-function-prototype-for-defini.patch
+Patch0003: 0003-checkpolicy-avoid-passing-NULL-pointer-to-memset.patch
+Patch0004: 0004-docs-provide-a-top-level-LICENSE-file.patch
 # Patch list end
 BuildRequires: gcc
 BuildRequires: make
@@ -50,7 +54,7 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 
 %files
 %{!?_licensedir:%global license %%doc}
-%license COPYING
+%license LICENSE
 %{_bindir}/checkpolicy
 %{_bindir}/checkmodule
 %{_mandir}/man8/checkpolicy.8.gz
@@ -61,6 +65,9 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
+* Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-4
+- Rebase on upstream f56a72ac9e86
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

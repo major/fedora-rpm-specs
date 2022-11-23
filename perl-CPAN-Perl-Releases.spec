@@ -1,8 +1,8 @@
 Name:           perl-CPAN-Perl-Releases
-Version:        5.20221020
+Version:        5.20221120
 Release:        1%{?dist}
 Summary:        Mapping Perl releases on CPAN to the location of the tarballs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Perl-Releases
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/CPAN-Perl-Releases-%{version}.tar.gz
 BuildArch:      noarch
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.20221120-1
+- 5.20221120 bump
+
 * Fri Oct 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.20221020-1
 - 5.20221020 bump
 

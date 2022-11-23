@@ -17,7 +17,9 @@ Source99:       flnet.appdata.xml
 
 BuildRequires:  gcc-c++ make
 BuildRequires:  fltk-devel >= 1.3.4
+%if ! %{?fedora}
 BuildRequires:  flxmlrpc-devel >= 0.1.0
+%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 

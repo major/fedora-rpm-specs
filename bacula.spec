@@ -3,7 +3,7 @@
 
 Name:               bacula
 Version:            13.0.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -16,6 +16,9 @@ Source3:            quickstart_mysql.txt
 Source4:            quickstart_sqlite3.txt
 Source5:            README.Redhat
 Source6:            %{name}.logrotate
+# Firewalld cumulative (bacula.xml) and fd (bacula-client.xml) services are in firewalld:
+Source7:            %{name}-storage.xml
+Source8:            %{name}-director.xml
 Source10:           %{name}-fd.service
 Source11:           %{name}-dir.service
 Source12:           %{name}-sd.service
@@ -45,6 +48,7 @@ BuildRequires:      sed
 
 BuildRequires:      autoconf
 BuildRequires:      automake
+BuildRequires:      firewalld-filesystem
 BuildRequires:      gcc
 BuildRequires:      gcc-c++
 BuildRequires:      glibc-devel
@@ -79,6 +83,8 @@ BuildRequires:      libpq-devel
 %else
 BuildRequires:      postgresql-devel
 %endif
+
+Requires(post):     firewalld-filesystem
 
 %description
 Bacula is a set of programs that allow you to manage the backup, recovery, and
@@ -389,6 +395,10 @@ install -p -m 644 -D %{SOURCE17} %{buildroot}%{_sysconfdir}/sysconfig/bacula-sd
 # Spool directory
 mkdir -p %{buildroot}%{_localstatedir}/spool/bacula
 
+# Firewalld rules
+install -p -m 644 -D %{SOURCE7} %{buildroot}%{_prefix}/lib/firewalld/services/bacula-storage.xml
+install -p -m 644 -D %{SOURCE8} %{buildroot}%{_prefix}/lib/firewalld/services/bacula-director.xml
+
 # Remove stuff we do not need
 rm -f %{buildroot}%{_libexecdir}/bacula/{bacula,bacula-ctl-*,startmysql,stopmysql,bconsole,make_catalog_backup}
 rm -f %{buildroot}%{_sbindir}/bacula
@@ -437,6 +447,9 @@ getent group %username >/dev/null || groupadd -g %uid -r %username &>/dev/null |
 getent passwd %username >/dev/null || useradd -u %uid -r -s /sbin/nologin \
     -d /var/spool/bacula -M -c 'Bacula Backup System' -g %username %username &>/dev/null || :
 exit 0
+
+%post common
+%firewalld_reload
 
 %post client
 %systemd_post %{name}-fd.service
@@ -501,6 +514,8 @@ exit 0
 %{_libexecdir}/%{name}/bacula_config
 %{_libexecdir}/%{name}/btraceback.mdb
 %{_mandir}/man8/btraceback.8*
+%{_prefix}/lib/firewalld/services/bacula-director.xml
+%{_prefix}/lib/firewalld/services/bacula-storage.xml
 %{_sbindir}/btraceback
 
 %files director
@@ -625,6 +640,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Mon Nov 21 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-2
+- Add separate firewall rules for storage/director only.
+
 * Fri Aug 19 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-1
 - Update to 13.0.1.
 

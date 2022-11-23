@@ -2,9 +2,9 @@
 
 Name:           sysusage
 Version:        5.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        System monitoring based on Perl, rrdtool, and sysstat
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://sysusage.darold.net/
 Source0:        https://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{pkgname}-%{version}.tar.gz
 Source1:        %{name}-httpd.conf
@@ -140,6 +140,9 @@ find %{buildroot} -name .packlist -type f -delete
 %{_bindir}/rsysusage
 
 %changelog
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.7-17
+- SPDX license update
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

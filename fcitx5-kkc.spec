@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-kkc
-Version:        5.0.10
+Version:        5.0.11
 Release:        %autorelease
 Summary:        Libkkc input method support for Fcitx5
 License:        GPLv3+

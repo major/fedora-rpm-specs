@@ -8,7 +8,7 @@
 %endif
 
 Name: heimdal
-Version: 7.7.1
+Version: 7.8.0
 Release: 1%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 License: BSD and MIT
@@ -336,11 +336,11 @@ ln -s mech.5.gz %{buildroot}%{_mandir}/man5/qop.5.gz
 
 %postun server
 %if 0%{?_with_systemd}
-  %systemd_postun heimdal-kdc.service
-  %systemd_postun heimdal-ipropd-master.service
-  %systemd_postun heimdal-ipropd-slave.service
-  %systemd_postun heimdal-kadmind.service
-  %systemd_postun heimdal-kpasswdd.service
+  %systemd_postun_with_restart heimdal-kdc.service
+  %systemd_postun_with_restart heimdal-ipropd-master.service
+  %systemd_postun_with_restart heimdal-ipropd-slave.service
+  %systemd_postun_with_restart heimdal-kadmind.service
+  %systemd_postun_with_restart heimdal-kpasswdd.service
 %else
   if [ $1 -eq 1 ] ; then
      /sbin/service heimdal-kdc condrestart >/dev/null 2>&1 || :
@@ -502,6 +502,15 @@ fi
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Mon Nov 21 2022 Alexander Boström <abo@root.snowtree.se> - 7.8.0-1
+- Update to 7.8.0 (#2143478)
+
+* Mon Nov 21 2022 Alexander Boström <abo@root.snowtree.se> - 7.7.1-3
+- Restart services on upgrade
+
+* Mon Nov 21 2022 Alexander Boström <abo@root.snowtree.se> - 7.7.1-2
+- Delay service starts until after network is online (rhbz#2005501)
+
 * Wed Nov 16 2022 Alexander Boström <abo@root.snowtree.se> - 7.7.1-1
 - Update to 7.7.1
 - Remove upstreamed patch

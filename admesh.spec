@@ -1,12 +1,12 @@
 Name:           admesh
-Version:        0.98.4
-Release:        8%{?dist}
+Version:        0.98.5
+Release:        1%{?dist}
 Summary:        Diagnose and/or repair problems with STereo Lithography files
 License:        GPLv2+
 URL:            http://github.com/admesh/admesh/
-Source0:        http://github.com/admesh/admesh/releases/download/v%{version}/admesh-%{version}.tar.gz
+Source:         http://github.com/admesh/admesh/releases/download/v%{version}/admesh-%{version}.tar.gz
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -36,24 +36,22 @@ Summary:        Runtime library for the %{name} application
 This package contains the %{name} runtime library.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
 # Pass the -v option to libtool so we can better see what's going on
-make %{?_smp_mflags} CFLAGS="%{optflags}" LIBTOOLFLAGS="-v"
+%make_build CFLAGS="%{optflags}" LIBTOOLFLAGS="-v"
 
 %install
-%{make_install}
+%make_install
 # Remove the documentation installed by "make install" (rpm will handle that)
 rm -rf %{buildroot}%{_defaultdocdir}/%{name}
 # Remove the libtool archive installed by "make install"
 rm -f %{buildroot}%{_libdir}/lib%{name}.la
 
-%ldconfig_scriptlets libs
-
 %files
-%doc ChangeLog ChangeLog.old COPYING README.md AUTHORS
+%doc ChangeLog ChangeLog.old README.md
 %doc %{name}-doc.txt block.stl
 %{_bindir}/%{name}
 %{_mandir}/man1/*
@@ -65,10 +63,14 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.la
 %{_libdir}/pkgconfig/*
 
 %files libs
-%doc COPYING AUTHORS
+%doc AUTHORS
+%license COPYING
 %{_libdir}/lib%{name}.so.1*
 
 %changelog
+* Mon Nov 21 2022 Miro Hrončok <mhroncok@redhat.com> - 0.98.5-1
+- Update to 0.98.5
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.98.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

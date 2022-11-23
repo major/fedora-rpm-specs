@@ -81,7 +81,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		7.0.1
+Version:		7.0.2
 Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
@@ -728,6 +728,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Nov 21 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.2-1
+- New version
+  Resolves: rhbz#2144128
+
 * Mon Nov 14 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.1-1
 - New version
   Resolves: rhbz#2141409

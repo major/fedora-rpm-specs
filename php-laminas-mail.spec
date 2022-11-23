@@ -8,7 +8,7 @@
 #
 %bcond_without tests
 
-%global gh_commit    edf3832c05165775589af2fc698b5f9984d4c5f1
+%global gh_commit    0516586f6bf4d47f855cbef040870ac3a324a9a8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mail
@@ -18,7 +18,7 @@
 %global library      Mail
 
 Name:           php-%{gh_project}
-Version:        2.19.0
+Version:        2.20.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -46,14 +46,14 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 BuildRequires: (php-composer(webmozart/assert)                           >= 1.11.0 with php-composer(webmozart/assert)                           < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "laminas/laminas-crypt": "^3.8.0",
+#        "laminas/laminas-crypt": "^3.9.0",
 #        "laminas/laminas-db": "^2.15.0",
 #        "laminas/laminas-servicemanager": "^3.19",
 #        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "psalm/plugin-phpunit": "^0.18.0",
 #        "symfony/process": "^6.0.11",
 #        "vimeo/psalm": "^4.29"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.8.0  with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.9.0  with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15.0 with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 # ignore min version
@@ -210,6 +210,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.20.0-1
+- update to 2.20.0
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
 - update to 2.19.0
 

@@ -1,6 +1,6 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.4.3
+Version:        5.6.0
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -17,7 +17,7 @@ Requires:       gvfs-goa%{?_isa}
 Requires:       xapps%{?_isa} >= 2.2.0
 # required for for gtk-stock fallback
 Requires:       adwaita-icon-theme
-Requires:       cinnamon-translations >= 5.4.0
+Requires:       cinnamon-translations >= 5.6.0
 Recommends:     nemo-search-helpers
 
 BuildRequires:  meson
@@ -25,7 +25,7 @@ BuildRequires:  intltool
 BuildRequires:  python3-gobject-base
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  pkgconfig(cinnamon-desktop) >= 5.4.0
+BuildRequires:  pkgconfig(cinnamon-desktop) >= 5.6.0
 BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(libexif)
 BuildRequires:  pkgconfig(libgsf-1)
@@ -148,6 +148,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Mon Nov 21 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
+- Update to 5.6.0 release
+
 * Mon Aug 15 2022 Leigh Scott <leigh123linux@gmail.com> - 5.4.3-1
 - Update to 5.4.3 release
 

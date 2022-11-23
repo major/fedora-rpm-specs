@@ -2,8 +2,8 @@
 %global _cmake_shared_libs %{nil}
 
 Name:           warzone2100
-Version:        4.2.7
-Release:        2%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
@@ -27,6 +27,7 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  openssl-devel
+BuildRequires:  opus-devel
 BuildRequires:  p7zip
 BuildRequires:  physfs-devel
 BuildRequires:  rubygem-asciidoctor
@@ -68,21 +69,18 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
 %find_lang %{name}
 install -p -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/warzone2100/sequences.wz
 
-# Don't use portable (Windows) install
-rm $RPM_BUILD_ROOT%{_bindir}/.portable
-
 # Fix icon install path
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps
-mv $RPM_BUILD_ROOT%{_datadir}/icons/warzone2100.png \
-   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/warzone2100.png
+mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
+   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/128x128/apps/net.wz2100.warzone2100.png
 
 %files -f %{name}.lang
 %license COPYING COPYING.NONGPL COPYING.README
 %doc AUTHORS ChangeLog
 %{_bindir}/warzone2100
-%{_datadir}/applications/warzone2100.desktop
-%{_datadir}/icons/hicolor/128x128/apps/warzone2100.png
-%{_datadir}/metainfo/warzone2100.appdata.xml
+%{_datadir}/applications/net.wz2100.warzone2100.desktop
+%{_datadir}/icons/hicolor/128x128/apps/net.wz2100.warzone2100.png
+%{_datadir}/metainfo/net.wz2100.warzone2100.appdata.xml
 %{_datadir}/warzone2100/
 %exclude %{_datadir}/warzone2100/sequences.wz
 %{_mandir}/man6/warzone2100.6*
@@ -91,6 +89,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Mon Nov 21 2022 Pete Walter <pwalter@fedoraproject.org> - 4.3.2-1
+- Update to 4.3.2 (#2134915)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

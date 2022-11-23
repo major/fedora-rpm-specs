@@ -3,8 +3,8 @@
 
 # https://github.com/OpenPrinting/ipp-usb
 %global goipath         github.com/OpenPrinting/ipp-usb
-Version:                0.9.22
-%global tag             0.9.22
+Version:                0.9.23
+%global tag             0.9.23
 
 %gometa
 
@@ -24,7 +24,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -114,6 +114,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Mon Nov 21 2022 Zdenek Dohnal <zdohnal@redhat.com> - 0.9.23-1
+- 2143482 - golang-github-openprinting-ipp-usb-0.9.23 is available
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

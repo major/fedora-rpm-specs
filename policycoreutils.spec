@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.4-1
-%global libsemanagever  3.4-1
-%global libselinuxver   3.4-1
+%global libsepolver     3.4-4
+%global libsemanagever  3.4-6
+%global libselinuxver   3.4-6
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.4
-Release: 6%{?dist}
+Release: 7.1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/selinux-3.4.tar.gz
@@ -31,20 +31,33 @@ Source23: sandbox-po.tgz
 # $ git format-patch -N 3.4 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
-Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
-Patch0002: 0002-Fix-STANDARD_FILE_CONTEXT-section-in-man-pages.patch
-Patch0003: 0003-If-there-is-no-executable-we-don-t-want-to-print-a-p.patch
-Patch0004: 0004-Simplication-of-sepolicy-manpage-web-functionality.-.patch
-Patch0005: 0005-We-want-to-remove-the-trailing-newline-for-etc-syste.patch
-Patch0006: 0006-Fix-title-in-manpage.py-to-not-contain-online.patch
-Patch0007: 0007-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
-Patch0008: 0008-sepolicy-generate-Handle-more-reserved-port-types.patch
-Patch0009: 0009-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
-Patch0010: 0010-Use-SHA-2-instead-of-SHA-1.patch
-Patch0011: 0011-sepolicy-Drop-old-interface-file_type_is_executable-.patch
-Patch0012: 0012-gettext-handle-unsupported-languages-properly.patch
-Patch0013: 0013-semodule-rename-rebuild-if-modules-changed-to-refres.patch
-Patch0014: 0014-python-Split-semanage-import-into-two-transactions.patch
+Patch0001: 0001-libselinux-declare-return-value-of-context_str-3-con.patch
+Patch0002: 0002-semodule-avoid-toctou-on-output-module.patch
+Patch0003: 0003-python-Split-semanage-import-into-two-transactions.patch
+Patch0004: 0004-python-audit2allow-close-file-stream-on-error.patch
+Patch0005: 0005-gettext-handle-unsupported-languages-properly.patch
+Patch0006: 0006-semodule-rename-rebuild-if-modules-changed-to-refres.patch
+Patch0007: 0007-python-remove-IOError-in-certain-cases.patch
+Patch0008: 0008-restorecond-use-strict-function-prototype-for-defini.patch
+Patch0009: 0009-Ignore-egg-info-directories-and-clean-them.patch
+# Patch0010: 0010-Update-translations.patch
+Patch0011: 0011-docs-provide-a-top-level-LICENSE-file.patch
+Patch0012: 0012-gui-Fix-export-file-chooser-dialog.patch
+Patch0013: 0013-python-Do-not-query-the-local-database-if-the-fconte.patch
+Patch0014: 0014-sandbox-Do-not-try-to-remove-tmpdir-twice-if-uid-0.patch
+Patch0015: 0015-sandbox-Use-temporary-directory-for-XDG_RUNTIME_DIR.patch
+Patch0016: 0016-python-Remove-dependency-on-the-Python-module-distut.patch
+Patch0017: 0017-python-Harden-tools-against-rogue-modules.patch
+Patch0018: 0018-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
+Patch0019: 0019-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
+Patch0020: 0020-sepolicy-generate-Handle-more-reserved-port-types.patch
+Patch0021: 0021-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
+Patch0022: 0022-Use-SHA-2-instead-of-SHA-1.patch
+Patch0023: 0023-python-Fix-typo-in-audit2allow.1-example.patch
+Patch0024: 0024-python-sepolicy-Fix-sepolicy-manpage-w.patch
+Patch0025: 0025-python-sepolicy-Use-distro-module-to-get-os-version.patch
+Patch0026: 0026-python-sepolicy-Simplify-generation-of-man-pages.patch
+Patch0027: 0027-Fix-E275-missing-whitespace-after-keyword.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -57,7 +70,7 @@ Provides: /sbin/restorecon
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
 BuildRequires: desktop-file-utils dbus-devel dbus-glib-devel
-BuildRequires: python3-devel
+BuildRequires: python3-devel python3-setuptools
 BuildRequires: systemd
 BuildRequires: git-core
 Requires: util-linux grep gawk diffutils rpm sed
@@ -241,6 +254,7 @@ Requires:python3-libsemanage >= %{libsemanagever} python3-libselinux
 Requires:audit-libs-python3 >=  %{libauditver}
 Requires: checkpolicy
 Requires: python3-setools >= 4.4.0
+Requires: python3-distro
 BuildArch: noarch
 
 %description -n python3-policycoreutils
@@ -432,7 +446,7 @@ system-config-selinux is a utility for managing the SELinux environment
 %dir %{_datadir}/bash-completion
 %{_datadir}/bash-completion/completions/setsebool
 %{!?_licensedir:%global license %%doc}
-%license policycoreutils/COPYING
+%license policycoreutils/LICENSE
 %doc %{_usr}/share/doc/%{name}
 
 %package restorecond
@@ -454,7 +468,7 @@ The policycoreutils-restorecond package contains the restorecond service.
 %{_mandir}/ru/man8/restorecond.8*
 
 %{!?_licensedir:%global license %%doc}
-%license policycoreutils/COPYING
+%license policycoreutils/LICENSE
 
 %post
 %systemd_post selinux-autorelabel-mark.service
@@ -472,6 +486,12 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-7.1
+- Rebase on upstream f56a72ac9e86
+- sepolicy: fix sepolicy manpage -w
+- sandbox: add -R option to alternate XDG_RUNTIME_DIR
+- Remove dependency on the Python module distutils
+
 * Tue Aug  2 2022 Petr Lautrbach <plautrba@redhat.com> - 3.4-6
 - Run autorelabel in parallel by default
   https://fedoraproject.org/wiki/Changes/SELinux_Parallel_Autorelabel

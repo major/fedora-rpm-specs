@@ -858,6 +858,12 @@ sed -r -i 's/(std=c\+\+)14/\1%{cpp_std}/g' \
 %build
 # ~~~~ C (core) and C++ (cpp) ~~~~
 
+# Length of the prefix (e.g. /usr), plus a trailing slash (or newline), plus
+# one, to get the index of the first relative path character after the prefix.
+# This is needed because gRPC_INSTALL_*DIR options expect paths relative to the
+# prefix, and supplying absolute paths causes certain subtle problems.
+%global rmprefix %(echo $(($(wc -c <<<'%{_prefix}')+1)))
+
 echo '===== Building C (core) and C++ components =====' 2>&1
 # We could use either make or ninja as the backend; ninja is faster and has no
 # disadvantages (except a small additional BR, given we already need Python)
@@ -867,11 +873,11 @@ echo '===== Building C (core) and C++ components =====' 2>&1
     -DgRPC_INSTALL:BOOL=ON \
     -DCMAKE_CXX_STANDARD:STRING=%{cpp_std} \
     -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
-    -DgRPC_INSTALL_BINDIR:PATH=%{_bindir} \
-    -DgRPC_INSTALL_LIBDIR:PATH=%{_libdir} \
-    -DgRPC_INSTALL_INCLUDEDIR:PATH=%{_includedir} \
-    -DgRPC_INSTALL_CMAKEDIR:PATH=%{_libdir}/cmake/grpc \
-    -DgRPC_INSTALL_SHAREDIR:PATH=%{_datadir}/grpc \
+    -DgRPC_INSTALL_BINDIR:PATH=%(cut -b %{rmprefix}- <<<'%{_bindir}') \
+    -DgRPC_INSTALL_LIBDIR:PATH=%(cut -b %{rmprefix}- <<<'%{_libdir}') \
+    -DgRPC_INSTALL_INCLUDEDIR:PATH=%(cut -b %{rmprefix}- <<<'%{_includedir}') \
+    -DgRPC_INSTALL_CMAKEDIR:PATH=%(cut -b %{rmprefix}- <<<'%{_libdir}/cmake/grpc') \
+    -DgRPC_INSTALL_SHAREDIR:PATH=%(cut -b %{rmprefix}- <<<'%{_datadir}/grpc') \
     -DgRPC_BUILD_TESTS:BOOL=%{?with_core_tests:ON}%{?!with_core_tests:OFF} \
     -DgRPC_BUILD_CODEGEN:BOOL=ON \
     -DgRPC_BUILD_CSHARP_EXT:BOOL=ON \

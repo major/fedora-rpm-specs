@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    83c3ff8d5d35afd2b1287d5a80ece9eb9164f639
+%global gh_commit    7070769de9b3d94270154c4bf24d4884e65c29f3
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-paginator
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.15.0
+Version:        2.15.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -188,6 +188,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.15.1-1
+- update to 2.15.1
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 2.15.0-1
 - update to 2.15.0
 - raise dependency on PHP 8.0

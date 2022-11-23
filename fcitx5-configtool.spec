@@ -1,7 +1,7 @@
 %global translation_domain org.fcitx.fcitx5.kcm
 
 Name:           fcitx5-configtool
-Version:        5.0.15
+Version:        5.0.16
 Release:        %autorelease
 Summary:        Configuration tools used by fcitx5
 License:        GPLv2+

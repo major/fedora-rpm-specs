@@ -10,12 +10,10 @@
 %bcond_without slow_tests
 # When running tests, run ones that cannot be run in parallel?
 %bcond_without single_tests
-# When running tests, run ones that require a lot of memory?
-%bcond_without high_memory_tests
 
 Name:           python-pandas
-Version:        1.3.5
-Release:        4%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD and covered by LICENSE, except:
@@ -79,34 +77,6 @@ License:        BSD and (BSD or ASL 2.0) and (BSD and ASL 2.0) and (BSD and MIT)
 URL:            https://pandas.pydata.org/
 # The GitHub archive contains tests; the PyPI sdist does not.
 Source0:        https://github.com/pandas-dev/pandas/archive/v%{version}/pandas-%{version}.tar.gz
-
-# Partial backport of upstream commit d437902f46acbff4a03d748b30620bc75fa5ea1f:
-# “CI: Migrate Python 3.10 testing to Posix GHA/Azure Pipelines (#45120)”
-#
-# Fixes error in TestDataFramePlots.test_raise_error_on_datetime_time_data
-Patch:          pandas-1.3.5-d437902.patch
-
-# Partial backport of upstream commit 560172832922594fe9e75ca4a6060ff0cb7f7089
-# “CI: Merge database workflow into posix workflow (#45060)”
-#
-# Fixes error in TestToDatetime.test_to_datetime_tz_psycopg2
-Patch:          pandas-1.3.5-5601728.patch
-
-# Partial backport of upstream commit 2dd75ca5e04a18db9d79d9bed01726b40b6268e9
-# “TST: Ensure tm.network has pytest.mark.network (#45732)”
-#
-# Fixes error in test_wrong_url[lxml] when the “network” mark is deselected
-Patch:          pandas-1.3.5-2dd75ca.patch
-
-# Fix a few test failues on big-endian systems
-# https://github.com/pandas-dev/pandas/pull/46681
-# (PR is for main branch; this version of the patch is for 1.3.5)
-Patch:          pandas-1.3.5-pr-46681.patch
-
-# Do not install C sources in binary distributions
-# https://github.com/pandas-dev/pandas/pull/46739
-# (PR is for main branch; this version of the patch is for 1.3.5)
-Patch:          pandas-1.3.5-pr-46739.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -254,10 +224,10 @@ BuildRequires:  python3dist(numpy)
 # doc/source/getting_started/install.rst “Recommended dependencies”
 # Since these provide large speedups, we make them hard dependencies except
 # during bootstrapping.
-BuildRequires:  python3dist(numexpr) >= 2.7
-Requires:       python3dist(numexpr) >= 2.7
-BuildRequires:  python3dist(bottleneck) >= 1.2.1
-Requires:       python3dist(bottleneck) >= 1.2.1
+BuildRequires:  python3dist(numexpr) >= 2.7.3
+Requires:       python3dist(numexpr) >= 2.7.3
+BuildRequires:  python3dist(bottleneck) >= 1.3.2
+Requires:       python3dist(bottleneck) >= 1.3.2
 
 # doc/source/getting_started/install.rst “Optional dependencies”
 # We BR all weak dependencies to ensure they are installable.
@@ -265,63 +235,61 @@ Requires:       python3dist(bottleneck) >= 1.2.1
 # Visualization
 BuildRequires:  python3dist(setuptools) >= 38.6
 Recommends:     python3dist(setuptools) >= 38.6
-BuildRequires:  python3dist(matplotlib) >= 2.2.3
-Recommends:     python3dist(matplotlib) >= 2.2.3
-BuildRequires:  python3dist(jinja2) >= 2.10
-Recommends:     python3dist(jinja2) >= 2.10
-BuildRequires:  python3dist(tabulate) >= 0.8.7
-Recommends:     python3dist(tabulate) >= 0.8.7
+BuildRequires:  python3dist(matplotlib) >= 3.3.2
+Recommends:     python3dist(matplotlib) >= 3.3.2
+BuildRequires:  python3dist(jinja2) >= 3.0.0
+Recommends:     python3dist(jinja2) >= 3.0.0
+BuildRequires:  python3dist(tabulate) >= 0.8.9
+Recommends:     python3dist(tabulate) >= 0.8.9
 
 # Computation
-# Documented minimum SciPy version is 1.12, but this is a typo since that
-# version does not exist yet.
-BuildRequires:  python3dist(scipy)
-Recommends:     python3dist(scipy)
+BuildRequires:  python3dist(scipy) >= 1.7.1
+Recommends:     python3dist(scipy) >= 1.7.1
 # python-numba is not currently packaged:
 # BuildRequires:  python3dist(numba) >= 0.46
 # Recommends:     python3dist(numba) >= 0.46
-BuildRequires:  python3dist(xarray) >= 1.12.3
-Recommends:     python3dist(xarray) >= 1.12.3
+BuildRequires:  python3dist(xarray) >= 1.19.0
+Recommends:     python3dist(xarray) >= 1.19.0
 
 # Excel files
-BuildRequires:  python3dist(xlrd) >= 1.2
-Recommends:     python3dist(xlrd) >= 1.2
+BuildRequires:  python3dist(xlrd) >= 2.0.1
+Recommends:     python3dist(xlrd) >= 2.0.1
 BuildRequires:  python3dist(xlwt) >= 1.3
 Recommends:     python3dist(xlwt) >= 1.3
-BuildRequires:  python3dist(xlsxwriter) >= 1.0.2
-Recommends:     python3dist(xlsxwriter) >= 1.0.2
-BuildRequires:  python3dist(openpyxl) >= 3
-Recommends:     python3dist(openpyxl) >= 3
+BuildRequires:  python3dist(xlsxwriter) >= 1.4.3
+Recommends:     python3dist(xlsxwriter) >= 1.4.3
+BuildRequires:  python3dist(openpyxl) >= 3.0.7
+Recommends:     python3dist(openpyxl) >= 3.0.7
 # python-pyxlsb is not currently packaged:
 # BuildRequires:  python3dist(pyxlsb) >= 1.0.6
 # Recommends:     python3dist(pyxlsb) >= 1.0.6
 # Not in doc/source/getting_started/install.rst, but in environment.yml and in
 # some doc-strings:
-BuildRequires:  python3dist(odfpy)
-Recommends:     python3dist(odfpy)
+BuildRequires:  python3dist(odfpy) >= 1.4.1
+Recommends:     python3dist(odfpy) >= 1.4.1
 
 # HTML
-BuildRequires:  python3dist(beautifulsoup4) >= 4.6
-Recommends:     python3dist(beautifulsoup4) >= 4.6
-BuildRequires:  python3dist(html5lib) >= 1.0.1
-Recommends:     python3dist(html5lib) >= 1.0.1
+BuildRequires:  python3dist(beautifulsoup4) >= 4.9.3
+Recommends:     python3dist(beautifulsoup4) >= 4.9.3
+BuildRequires:  python3dist(html5lib) >= 1.1
+Recommends:     python3dist(html5lib) >= 1.1
 # lxml handled below:
 
 # XML
-BuildRequires:  python3dist(lxml) >= 4.3
-Recommends:     python3dist(lxml) >= 4.3
+BuildRequires:  python3dist(lxml) >= 4.6.3
+Recommends:     python3dist(lxml) >= 4.6.3
 
 # SQL databases
-BuildRequires:  python3dist(sqlalchemy) >= 1.3
-Recommends:     python3dist(sqlalchemy) >= 1.3
-BuildRequires:  python3dist(psycopg2) >= 2.7
-Recommends:     python3dist(psycopg2) >= 2.7
-BuildRequires:  python3dist(pymysql) >= 0.8.1
-Recommends:     python3dist(pymysql) >= 0.8.1
+BuildRequires:  python3dist(sqlalchemy) >= 1.4.16
+Recommends:     python3dist(sqlalchemy) >= 1.4.16
+BuildRequires:  python3dist(psycopg2) >= 2.8.6
+Recommends:     python3dist(psycopg2) >= 2.8.6
+BuildRequires:  python3dist(pymysql) >= 1.0.2
+Recommends:     python3dist(pymysql) >= 1.0.2
 
 # Other data sources
-BuildRequires:  python3dist(tables) >= 3.5.1
-Recommends:     python3dist(tables) >= 3.5.1
+BuildRequires:  python3dist(tables) >= 3.6.1
+Recommends:     python3dist(tables) >= 3.6.1
 # Dependencies on blosc and zlib are indirect, via PyTables, so we do not
 # encode them here. Note also that the minimum blosc version in the
 # documentation seems to be that of the blosc C library, not of the blosc PyPI
@@ -329,18 +297,17 @@ Recommends:     python3dist(tables) >= 3.5.1
 # python-fastparquet is not currently packaged:
 # BuildRequires:  python3dist(fastparquet) >= 0.4
 # Recommends:     python3dist(fastparquet) >= 0.4
-# python-pyarrow is not currently packaged:
-# BuildRequires:  python3dist(pyarrow) >= 0.17
-# Recommends:     python3dist(pyarrow) >= 0.17
+BuildRequires:  python3dist(pyarrow) >= 1.0.1
+Recommends:     python3dist(pyarrow) >= 1.0.1
 # python-pyreadstat is not currently packaged:
 # BuildRequires:  python3dist(pyreadstat)
 # Recommends:     python3dist(pyreadstat)
 
 # Access data in the cloud
-BuildRequires:  python3dist(fsspec) >= 0.7.4
-Recommends:     python3dist(fsspec) >= 0.7.4
-BuildRequires:  python3dist(gcsfs) >= 0.6
-Recommends:     python3dist(gcsfs) >= 0.6
+BuildRequires:  python3dist(fsspec) >= 2021.07.0
+Recommends:     python3dist(fsspec) >= 2021.07.0
+#BuildRequires:  python3dist(gcsfs) >= 2021.07.0
+#Recommends:     python3dist(gcsfs) >= 2021.07.0
 # python-pandas-gbq is not currently packaged:
 # BuildRequires:  python3dist(pandas-gbq) >= 0.12
 # Recommends:     python3dist(pandas-gbq) >= 0.12
@@ -598,7 +565,7 @@ export PYTHONHASHSEED="$(
 
 %ifarch %{ix86} %{arm32}
 # Limit parallelism in tests to prevent memory exhaustion
-%global testn_max 4
+%global testn_max 8
 %if 0%{?fedora} > 35
 %constrain_build -c %{testn_max}
 %else
@@ -610,14 +577,13 @@ export PYTHONHASHSEED="$(
 %endif
 
 # Fallback parallelism of 4 is from upstream CI
-%pytest '%{buildroot}%{python3_sitearch}/pandas' \
+%pytest -v '%{buildroot}%{python3_sitearch}/pandas' \
     %{?!with_slow_tests:--skip-slow} \
     --skip-network \
     --skip-db \
-    %{?with_high_memory_tests:--run-high-memory} \
     -m "${m-}" \
     -k "${k-}" \
-    -n %{?_smp_build_ncpus}%{?!_smp_build_ncpus:4} \
+    -n %{?testn_max}%{!?testn_max:4} \
     -r sxX
 
 %else
@@ -649,6 +615,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 1.5.1-1
+- Update to 1.5.1 rhbz#2014890
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

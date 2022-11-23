@@ -1,6 +1,6 @@
 Name:           pychromecast
-Version:        12.0.0
-Release:        3%{?dist}
+Version:        13.0.1
+Release:        1%{?dist}
 Summary:        Python library to communicate with the Google Chromecast
 
 License:        MIT
@@ -62,6 +62,12 @@ currently supports:
 %{python3_sitelib}/PyChromecast-*/
 
 %changelog
+* Mon Nov 21 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 13.0.1-1
+- Update to 13.0.1
+
+* Mon Nov 21 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 12.1.4-1
+- Update to 12.1.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

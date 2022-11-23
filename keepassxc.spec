@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -38,7 +38,7 @@ Patch1:         appdata.patch
 BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
 BuildRequires:  desktop-file-utils
-%if %{defined el8}
+%if 0%{?el8}
 BuildRequires:  gcc-toolset-11-gcc-c++
 BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
 %else
@@ -54,11 +54,13 @@ BuildRequires:  libusb1-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libyubikey-devel
-%if %{defined el8}
+%if 0%{?el8}
 BuildRequires:  minizip1.2-devel
-%elif 0%{?fedora} >= 38
+%endif
+%if (%{defined fedora} && 0%{?fedora} >= 38)
 BuildRequires:  minizip-compat-devel
-%else
+%endif
+%if (0%{?el9}) || (%{defined fedora} && 0%{?fedora} < 38)
 BuildRequires:  minizip-devel
 %endif
 BuildRequires:  pcsc-lite-devel
@@ -115,8 +117,14 @@ information can be considered as quite safe.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
+# Older version of appstream-util can't parse some url types
+%if (%{defined fedora} && 0%{?fedora} < 36) || (%{defined rhel} && 0%{?rhel} <= 9)
+sed -i '/type="vcs-browser"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
+sed -i '/type="contribute"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
+%endif
+
 %build
-%if %{defined el8}
+%if 0%{?el8}
 . /opt/rh/gcc-toolset-11/enable
 %endif
 # -DWITH_XC_DOCS=OFF is needed on EL due missing rubygem-asciidoctor
@@ -153,7 +161,7 @@ EOF
 install -D -m 644 -p x-keepassxc.desktop \
     %{buildroot}%{_datadir}/mimelnk/application/x-keepassxc.desktop
 
-#install appdata files
+
 
 %find_lang %{name} --with-qt
 
@@ -181,6 +189,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Nov 21 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.4-3
+- Fix builds for EPEL and F35
+
 * Thu Nov 17 2022 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-2
 - rebuilt for RHEL 9.1
 

@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.0
-Release:       3%{?pre:.%pre}%{?dist}
+Release:       4%{?pre:.%pre}%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -64,6 +64,9 @@ Patch10:       mingw-python3_posix-layout.patch
 Patch11:       mingw-python3_win-modules.patch
 # Enable the socket module
 Patch12:       mingw-python3_module-socket.patch
+
+# Backport patch for CVE-2022-45061
+Patch100:      https://github.com/python/cpython/commit/a6f6c3a3d6f2b580f2d87885c9b8a9350ad7bf15.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -494,6 +497,9 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Mon Nov 21 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-4
+- Backport patch for CVE-2022-45061
+
 * Tue Nov 01 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-3
 - Enable socket and mmap modules, enable missing pieces of os and ctypes modules
 

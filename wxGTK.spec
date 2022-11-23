@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -314,6 +314,9 @@ fi
 %doc html
 
 %changelog
+* Tue Nov 22 2022 Scott Talbert <swt@techie.net> - 3.2.1-3
+- Rebuild (again) with wxGLCanvas GLX support (resolves many OpenGL issues)
+
 * Thu Nov 17 2022 Scott Talbert <swt@techie.net> - 3.2.1-2
 - Rebuild with wxGLCanvas GLX support (resolves many OpenGL issues)
 

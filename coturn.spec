@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TURN/STUN & ICE Server
 License:        BSD
 URL:            https://github.com/coturn/coturn/
@@ -265,6 +265,10 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
 
 
 %changelog
+* Tue Nov 22 2022 Robert Scheck <robert@fedoraproject.org> - 4.6.0-2
+- Include CAP_NET_BIND_SERVICE in the ambient capability set (to
+  bind to privileged ports due to restrictive corporate firewalls)
+
 * Wed Sep 14 2022 Robert Scheck <robert@fedoraproject.org> - 4.6.0-1
 - Upgrade to 4.6.0 (#2126875)
 

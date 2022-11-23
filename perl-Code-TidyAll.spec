@@ -1,16 +1,16 @@
 Name:           perl-Code-TidyAll
-Version:        0.82
-Release:        3%{?dist}
+Version:        0.83
+Release:        1%{?dist}
 Summary:        Engine for tidyall, your all-in-one code tidier and validator
-# lib/Test/Code/TidyAll.pm:     GPL+ or Artistic
-# LICENSE:                      GPL+ or Artistic
+# lib/Test/Code/TidyAll.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:                      GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in the binary package
-# etc/editors/tidyall.el:       GPLv2+
+# etc/editors/tidyall.el:       GPL-2.0-or-later
 # node_modules/jshint/node_modules/cli/node_modules/glob/LICENSE:   BSD
 # node_modules/js-beautify/node_modules/mkdirp/node_modules/minimist/LICENSE:  MIT
 # php5/usr/share/php/PHP/CodeSniffer/Standards/PEAR/Docs/Commenting/FileCommentStandard.xml: MIT
 # php5/usr/share/php/test/PHP_CodeSniffer/CodeSniffer/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.js: PHP
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Code-TidyAll
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Code-TidyAll-%{version}.tar.gz
 Source1:        README.nodejs_plugins
@@ -126,6 +126,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.83-1
+- 0.83 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

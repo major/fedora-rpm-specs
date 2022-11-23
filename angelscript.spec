@@ -3,8 +3,8 @@
 %global _vpath_srcdir sdk/%{name}/projects/meson/
 
 Name:           angelscript
-Version:        2.32.0
-Release:        14%{?dist}
+Version:        2.35.1
+Release:        1%{?dist}
 Summary:        Flexible cross-platform scripting library
 
 License:        zlib
@@ -52,6 +52,9 @@ developing applications that use %{name}.
 %{_includedir}/%{name}.h
 
 %changelog
+* Mon Nov 21 2022 Pete Walter <pwalter@fedoraproject.org> - 2.35.1-1
+- Update to 2.35.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

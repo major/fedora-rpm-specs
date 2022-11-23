@@ -6,6 +6,8 @@ Summary:	HDF5 Based Raster File Format as a GDAL plugin
 License:	MIT
 URL:		http://kealib.org/
 Source0:	https://github.com/ubarsc/kealib/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+# Proposed patch for gdal-3.6.0 compatibility
+Patch0:         https://github.com/ubarsc/kealib/pull/27.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -31,7 +33,7 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 KEA development headers
 
 %prep
-%setup -q
+%autosetup -p1
 
 # fix wrong lib entry
 sed -i 's+set (PROJECT_LIBRARY_DIR lib)+set (PROJECT_LIBRARY_DIR %{_lib})+g' %{_builddir}/%{name}-%{version}/CMakeLists.txt

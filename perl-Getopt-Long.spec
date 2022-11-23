@@ -1,6 +1,6 @@
 Name:           perl-Getopt-Long
 Epoch:          1
-Version:        2.53
+Version:        2.54
 Release:        1%{?dist}
 Summary:        Extended processing of command line options
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.54-1
+- 2.54 bump
+
 * Wed Nov 16 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.53-1
 - 2.53 bump
 - Package tests

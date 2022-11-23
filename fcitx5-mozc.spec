@@ -4,7 +4,7 @@
 
 Name:           fcitx5-mozc
 %global forgeurl https://github.com/fcitx/mozc
-%global commit ed9c27947fd3ce3aa2326e40acce785fd85eb7a2
+%global commit 0cd24273e73ab360c8dbb6e2a94acb135743ee13
 %global archivename %{name}-%{commit}
 %forgemeta 
 

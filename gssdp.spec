@@ -1,20 +1,20 @@
 Name:          gssdp
-Version:       1.4.0.1
-Release:       3%{?dist}
+Version:       1.6.2
+Release:       1%{?dist}
 Summary:       Resource discovery and announcement over SSDP
 
 License:       LGPLv2+
 URL:           http://www.gupnp.org/
-Source0:       http://download.gnome.org/sources/%{name}/1.4/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
 
+BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: gi-docgen
-BuildRequires: glib2-devel
 BuildRequires: gobject-introspection-devel >= 1.36
-BuildRequires: gtk4-devel
-BuildRequires: libsoup-devel
 BuildRequires: meson
-BuildRequires: pkgconfig
 BuildRequires: vala >= 0.20
+BuildRequires: /usr/bin/pandoc
 
 %description
 GSSDP implements resource discovery and announcement over SSDP and is part 
@@ -45,7 +45,7 @@ BuildArch: noarch
 This package contains developer documentation for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson -Dgtk_doc=true
@@ -60,27 +60,31 @@ This package contains developer documentation for %{name}.
 %files
 %license COPYING
 %doc AUTHORS NEWS README.md
-%{_libdir}/libgssdp-1.2.so.0*
+%{_libdir}/libgssdp-1.6.so.0*
 %dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/GSSDP-1.2.typelib
+%{_libdir}/girepository-1.0/GSSDP-1.6.typelib
 
 %files devel
-%{_includedir}/gssdp-1.2/
-%{_libdir}/libgssdp-1.2.so
-%{_libdir}/pkgconfig/gssdp-1.2.pc
+%{_includedir}/gssdp-1.6/
+%{_libdir}/libgssdp-1.6.so
+%{_libdir}/pkgconfig/gssdp-1.6.pc
 %dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/GSSDP-1.2.gir
+%{_datadir}/gir-1.0/GSSDP-1.6.gir
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/gssdp*
 
 %files utils
 %{_bindir}/gssdp-device-sniffer
+%{_mandir}/man1/gssdp-device-sniffer.1*
 
 %files docs
-%{_datadir}/doc/gssdp-1.2/
+%{_docdir}/gssdp-1.6/
 
 %changelog
+* Mon Nov 21 2022 David King <amigadave@amigadave.com> - 1.6.2-1
+- Update to 1.6.2 (#2078238)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

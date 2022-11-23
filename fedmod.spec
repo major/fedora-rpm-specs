@@ -2,12 +2,15 @@
 
 Name:           fedmod
 Version:        0.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utilities for generating & maintaining modulemd files
 
 License:        GPLv2+ and GPLv3+ and MIT
 URL:            https://pagure.io/modularity/fedmod
 Source0:        https://pagure.io/modularity/fedmod/archive/%{name}-%{version}-1/%{name}-%{version}.tar.gz
+
+Patch:          0001-fedora.yaml-Drop-armhfp-arch.patch
+Patch:          0002-Update-the-dataset-for-Fedora-37.patch
 
 BuildArch:      noarch
 
@@ -76,6 +79,10 @@ fi
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Nov 21 2022 Kalev Lember <klember@redhat.com> - 0.6.5-5
+- Update the dataset for Fedora 37
+- fedora.yaml: Drop armhfp arch
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -162,7 +162,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -180,6 +180,7 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 
 # Patch 6000 - 9999: Downstream patches.
 
+BuildRequires:  coreutils
 BuildRequires:  fipscheck
 BuildRequires:  gcc
 BuildRequires:  glibc-devel                  >= %{glibc_minver}
@@ -204,7 +205,6 @@ BuildRequires:  perl(warnings)
 %if %{without bootstrap}
 # Possibly not available during bootstrap.
 BuildRequires:  gnupg2
-BuildRequires:  %{_bindir}/sha256sum
 %endif
 
 # We do not need to keep this forever.
@@ -265,8 +265,10 @@ that have been provided by glibc's libcrypt.so.1.
 %package        compat
 Summary:        Compatibility library providing legacy API functions
 
+%if %{without bootstrap}
 # For testing the glibc compatibility symbols.
 BuildRequires:  libxcrypt-compat
+%endif
 
 Requires:       %{name}%{?_isa}        = %{version}-%{release}
 
@@ -322,10 +324,10 @@ discouraged.
 %if %{without bootstrap}
 # Omitted during bootstrap.
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%endif
 pushd %{_sourcedir}
 sha256sum -c %{SOURCE3}
 popd
-%endif
 
 %autosetup -p 1
 
@@ -573,6 +575,10 @@ done
 
 
 %changelog
+* Mon Nov 21 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-2
+- Do not BR the compat package during bootstrap
+- Use BR: coreutils instead of %%{_bindir}/sha256sum
+
 * Fri Nov 18 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-1
 - New upstream release
 

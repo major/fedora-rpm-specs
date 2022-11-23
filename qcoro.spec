@@ -14,8 +14,8 @@ coroutine is co_awaiting, the Qt event loop runs as usual, meaning that your
 application remains responsive.}
 
 Name: qcoro
-Version: 0.6.0
-Release: 2%{?dist}
+Version: 0.7.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -26,18 +26,27 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5DBus)
+BuildRequires: cmake(Qt5Network)
+BuildRequires: cmake(Qt5Qml)
+BuildRequires: cmake(Qt5Quick)
 BuildRequires: cmake(Qt5Test)
 BuildRequires: cmake(Qt5WebSockets)
 BuildRequires: cmake(Qt5Widgets)
+BuildRequires: qt5-qtbase-private-devel
 %endif
 
 %if 0%{?use_qt6}
 BuildRequires: cmake(Qt6Concurrent)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6Test)
 BuildRequires: cmake(Qt6WebSockets)
 BuildRequires: cmake(Qt6Widgets)
+BuildRequires: pkgconfig(xkbcommon)
+BuildRequires: qt6-qtbase-private-devel
 %endif
 
 BuildRequires: cmake
@@ -79,7 +88,6 @@ Requires: qt6-qtbase-devel%{?_isa}
 
 %prep
 %autosetup -p1
-sed -e '/-Werror/d' -i CMakeLists.txt
 
 %build
 %if 0%{?use_qt5}
@@ -91,8 +99,11 @@ mkdir %{qt5_build_dir} && pushd %{qt5_build_dir}
     -DBUILD_TESTING:BOOL=ON \
     -DQCORO_BUILD_EXAMPLES:BOOL=ON \
     -DQCORO_ENABLE_ASAN:BOOL=OFF \
+    -DQCORO_WITH_QML:BOOL=ON \
     -DQCORO_WITH_QTDBUS:BOOL=ON \
-    -DQCORO_WITH_QTNETWORK:BOOL=ON
+    -DQCORO_WITH_QTNETWORK:BOOL=ON \
+    -DQCORO_WITH_QTQUICK:BOOL=ON \
+    -DQCORO_WITH_QTWEBSOCKETS:BOOL=ON
 %cmake_build
 popd
 %endif
@@ -106,8 +117,11 @@ mkdir %{qt6_build_dir} && pushd %{qt6_build_dir}
     -DBUILD_TESTING:BOOL=ON \
     -DQCORO_BUILD_EXAMPLES:BOOL=ON \
     -DQCORO_ENABLE_ASAN:BOOL=OFF \
+    -DQCORO_WITH_QML:BOOL=ON \
     -DQCORO_WITH_QTDBUS:BOOL=ON \
-    -DQCORO_WITH_QTNETWORK:BOOL=ON
+    -DQCORO_WITH_QTNETWORK:BOOL=ON \
+    -DQCORO_WITH_QTQUICK:BOOL=ON \
+    -DQCORO_WITH_QTWEBSOCKETS:BOOL=ON
 %cmake_build
 popd
 %endif
@@ -128,13 +142,13 @@ popd
 %check
 %if 0%{?use_qt5}
 pushd %{qt5_build_dir}
-%ctest --timeout 3600
+%ctest --timeout 3600 --exclude-regex 'qcoroimageprovider'
 popd
 %endif
 
 %if 0%{?use_qt6}
 pushd %{qt6_build_dir}
-%ctest --timeout 3600
+%ctest --timeout 3600 --exclude-regex 'qcoroimageprovider'
 popd
 %endif
 
@@ -165,6 +179,9 @@ popd
 %endif
 
 %changelog
+* Mon Nov 21 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.0-1
+- Updated to version 0.7.0.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

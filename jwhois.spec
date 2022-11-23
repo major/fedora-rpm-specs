@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 68%{?dist}
+Release: 69%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -130,6 +130,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Mon Nov 21 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 4.0-69
+- Jisc UK jwhois.conf updates
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,10 +1,10 @@
-%global DATE 20221103
-%global gitrev fa08f2733eed2cb77bf0d6bd86a74399be68b5a2
+%global DATE 20221121
+%global gitrev b3f5a0d53b84ed27cf00cfa2b9c3e2c78935c07d
 %global gcc_version 12.2.1
 %global gcc_major 12
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev 472b6e78b3ba918d727698f79911360b7c808247
 %global newlib_cygwin_gitrev a8526cb52bedabd4d6ba4b227a5185627f871aa1
 %global _unpackaged_files_terminate_build 0
@@ -275,6 +275,7 @@ Patch8: gcc12-no-add-needed.patch
 Patch9: gcc12-Wno-format-security.patch
 Patch10: gcc12-rh1574936.patch
 Patch11: gcc12-d-shared-libphobos.patch
+Patch12: gcc12-pr107468.patch
 
 Patch100: gcc12-fortran-fdec-duplicates.patch
 Patch101: gcc12-fortran-flogical-as-integer.patch
@@ -802,6 +803,7 @@ so that there cannot be any synchronization problems.
 %patch10 -p0 -b .rh1574936~
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
+%patch12 -p0 -b .pr107468~
 
 %if 0%{?rhel} >= 9
 %patch100 -p1 -b .fortran-fdec-duplicates~
@@ -3213,6 +3215,15 @@ end
 %endif
 
 %changelog
+* Mon Nov 21 2022 Jakub Jelinek <jakub@redhat.com> 12.2.1-4
+- update from releases/gcc-12 branch
+  - PRs c++/104066, c++/105774, c++/106829, c++/107358, c/41041, c/106981,
+	c/107001, libstdc++/95048, libstdc++/103295, target/104688,
+	target/107183, target/107304, target/107404, target/107713,
+	target/107748, tree-optimization/107121, tree-optimization/107206
+- fix up std::from_chars behavior in rounding modes other than FE_TONEAREST
+  (PR libstdc++/107468)
+
 * Thu Nov  3 2022 Jakub Jelinek <jakub@redhat.com> 12.2.1-3
 - update from releases/gcc-12 branch
   - PRs c++/93259, c++/105774, c++/106759, c++/106829, c++/106893, c++/106925,

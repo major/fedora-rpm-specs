@@ -1,5 +1,5 @@
 Name:           mrack
-Version:        1.11.0
+Version:        1.12.0
 Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
@@ -28,6 +28,7 @@ Requires:       python3-%{name}-virt = %{version}-%{release}
 # so it is not forcing installation of missing dependencies in Fedora
 # Once python3-AsyncOpenStackClient is in fedora we can drop this line
 %global __requires_exclude asyncopenstackclient
+%{?python_disable_dependency_generator}
 
 %description
 mrack is a provisioning tool and a library for CI and local multi-host
@@ -43,6 +44,7 @@ Requires:       python3-click
 %package -n     python3-%{name}lib
 Summary:        Core mrack libraries
 Requires:       python3-pyyaml
+Recommends:     python3-gssapi
 Requires:       sshpass
 
 %{?python_provide:%python_provide python3-%{name}lib}
@@ -175,6 +177,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Mon Nov 14 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.0-1
+- Released upstream version 1.12.0
+
 * Thu Nov 03 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.11.0-1
 - Released upstream version 1.11.0
 

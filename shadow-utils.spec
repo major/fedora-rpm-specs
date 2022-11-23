@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -31,6 +31,7 @@ Patch4: shadow-4.11.1-audit-update.patch
 Patch5: shadow-4.5-usermod-unlock.patch
 # Additional SElinux related changes - upstreamability unknown
 Patch6: shadow-4.12.3-selinux-perms.patch
+Patch7: shadow-utils-configure-gshadow.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -98,6 +99,7 @@ Development files for shadow-utils-subid.
 %patch4 -p1 -b .audit-update
 %patch5 -p1 -b .unlock
 %patch6 -p1 -b .selinux-perms
+%patch7 -p1
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -271,6 +273,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2:4.13-2
+- Fix gshadow configure check (switching to glibc implementation)
+
 * Wed Nov  9 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-1
 - Rebase to version 4.13
 - SPDX license migration

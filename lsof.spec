@@ -1,7 +1,7 @@
 Summary: A utility which lists open files on a Linux/UNIX system
 Name: lsof
 Version: 4.96.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Sendmail .. lib/snpf.c
 # LGPLv2+  .. lib/regex.c, regex.h
 License: zlib and Sendmail and LGPLv2+
@@ -19,6 +19,7 @@ Source1: upstream2downstream.sh
 
 # BZ#1260300 - move lsof man page to section 1
 Patch0: lsof-man-page-section.patch
+Patch1: lsof-Configure.patch
 
 BuildRequires: gcc
 BuildRequires: libselinux-devel
@@ -33,6 +34,7 @@ about files that are open by the processes running on a UNIX system.
 %prep
 %setup -q -n %{lsofrh}
 %patch0 -p1 -b .man-page-section
+%patch1 -p1
 
 %build
 ./Configure -n linux
@@ -52,6 +54,9 @@ install -p -m 0644 lsof.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/lsof.1
 %{_mandir}/man*/*
 
 %changelog
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 4.96.3-2
+- Fix C89isms in Configure
+
 * Tue Sep 20 2022 Jan Rybar <jrybar@redhat.com> - 4.96.3-1
 - rebase to 4.96.3
 

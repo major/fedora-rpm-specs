@@ -1,24 +1,24 @@
-%global apiver 1.2
+%global apiver 1.6
 
-%global gssdp_version 1.3.0
+%global gssdp_version 1.6.0
 
 Name:          gupnp
-Version:       1.4.3
-Release:       3%{?dist}
+Version:       1.6.2
+Release:       1%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
 License:       LGPLv2+
 URL:           https://www.gupnp.org/
-Source0:       https://download.gnome.org/sources/%{name}/1.4/%{name}-%{version}.tar.xz
-Patch0:        gupnp-1.4.2-revert-man-page.patch
+Source0:       https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
 
 BuildRequires: docbook-style-xsl
-BuildRequires: gtk-doc
+BuildRequires: gi-docgen
 BuildRequires: gobject-introspection-devel
 BuildRequires: meson
 BuildRequires: vala
-BuildRequires: pkgconfig(gssdp-1.2) >= %{gssdp_version}
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: /usr/bin/xsltproc
+BuildRequires: pkgconfig(gssdp-1.6) >= %{gssdp_version}
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(uuid)
 
@@ -65,7 +65,7 @@ This package contains developer documentation for %{name}.
 %files
 %license COPYING
 %doc AUTHORS README.md
-%{_libdir}/libgupnp-%{apiver}.so.1*
+%{_libdir}/libgupnp-%{apiver}.so.0*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GUPnP-%{apiver}.typelib
 
@@ -82,11 +82,12 @@ This package contains developer documentation for %{name}.
 %{_mandir}/man1/gupnp-binding-tool-%{apiver}.1*
 
 %files docs
-%dir %{_datadir}/gtk-doc
-%dir %{_datadir}/gtk-doc/html
-%doc %{_datadir}/gtk-doc/html/gupnp
+%{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Mon Nov 21 2022 David King <amigadave@amigadave.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

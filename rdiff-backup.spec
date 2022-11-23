@@ -3,14 +3,14 @@
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
 # Patch for python3.11 as per BZ#2021946
 Patch0: rdiff-backup--py3.11-bpo-39573.patch
 
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: python3-devel >= 3.5, librsync-devel >= 1.0.0
 BuildRequires: python3-setuptools
 BuildRequires: python3-setuptools_scm
@@ -63,6 +63,9 @@ differences from the previous backup will be transmitted.
 %license COPYING
 
 %changelog
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.0.5-10
+- SPDX license update
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

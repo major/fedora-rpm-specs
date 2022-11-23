@@ -2,8 +2,8 @@
 %global __provides_exclude ^perl\\(vboxService\\)
 
 Name:           RemoteBox
-Version:        2.6
-Release:        14%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Open Source VirtualBox Client with Remote Management
 License:        GPLv2
 
@@ -20,7 +20,7 @@ BuildRequires:  sed
 
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(SOAP::Lite)
-Requires:       perl-Gtk2
+Requires:       perl-Gtk3
 Requires:       perl-libwww-perl
 Requires:       rdesktop
 Requires:       xdg-utils
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/remotebox.desktop
 
 
 %changelog
+* Mon Nov 21 2022 Pete Walter <pwalter@fedoraproject.org> - 3.1-1
+- Update to 3.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

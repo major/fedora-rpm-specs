@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -130,6 +130,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 7.7-3
+- SPDX license update - type MIT:Modern Style with sublicense
+
 * Sun Sep 04 2022 Frank Crawford <frank@crawford.emu.id.au> - 7.7-2
 - Add patches for F36 that missed latest release
 

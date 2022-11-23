@@ -1,13 +1,13 @@
-%global apiver  2.6
+%global apiver  2.8
 
 Name:          rygel
-Version:       0.40.4
-Release:       2%{?dist}
+Version:       0.42.0
+Release:       1%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPLv2+
 URL:           https://wiki.gnome.org/Projects/Rygel
-Source0:       https://download.gnome.org/sources/%{name}/0.40/%{name}-%{version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/0.42/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
 BuildRequires: docbook-style-xsl
@@ -23,11 +23,11 @@ BuildRequires: pkgconfig(gst-editing-services-1.0)
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(gupnp-1.2)
+BuildRequires: pkgconfig(gupnp-1.6)
 BuildRequires: pkgconfig(gupnp-av-1.0)
 BuildRequires: pkgconfig(gupnp-dlna-2.0)
 BuildRequires: pkgconfig(libmediaart-2.0)
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(systemd)
 BuildRequires: pkgconfig(tracker-sparql-3.0)
@@ -76,16 +76,16 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS NEWS TODO
+%doc AUTHORS NEWS README.md
 %config(noreplace) %{_sysconfdir}/rygel.conf
 %{_bindir}/rygel
 %{_bindir}/rygel-preferences
-%{_libdir}/librygel-core-%{apiver}.so.2*
-%{_libdir}/librygel-db-%{apiver}.so.2*
-%{_libdir}/librygel-renderer-%{apiver}.so.2*
-%{_libdir}/librygel-renderer-gst-%{apiver}.so.2*
-%{_libdir}/librygel-ruih-2.0.so.1*
-%{_libdir}/librygel-server-%{apiver}.so.2*
+%{_libdir}/librygel-core-%{apiver}.so.0*
+%{_libdir}/librygel-db-%{apiver}.so.0*
+%{_libdir}/librygel-renderer-%{apiver}.so.0*
+%{_libdir}/librygel-renderer-gst-%{apiver}.so.0*
+%{_libdir}/librygel-ruih-%{apiver}.so.0*
+%{_libdir}/librygel-server-%{apiver}.so.0*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/RygelCore-%{apiver}.typelib
 %{_libdir}/girepository-1.0/RygelRenderer-%{apiver}.typelib
@@ -140,6 +140,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Mon Nov 21 2022 David King <amigadave@amigadave.com> - 0.42.0-1
+- Update to 0.42.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

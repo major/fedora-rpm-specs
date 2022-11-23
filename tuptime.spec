@@ -1,9 +1,9 @@
 Name:		tuptime
 Version:	5.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Report historical system real time
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildArch:	noarch
 URL:		https://github.com/rfmoz/tuptime/
 Source0:	https://github.com/rfmoz/tuptime/archive/%{version}.tar.gz
@@ -102,10 +102,13 @@ su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -x)"
 
 
 %changelog
-* Sat Sep 17 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.1-2
-- New upstream URL
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.1-3
+- SPDX license update
 
 * Sat Aug 27 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.1-1
+- New upstream release
+
+* Sat Aug 20 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.0-1
 - New upstream release
 
 * Sat Aug 20 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.0-1

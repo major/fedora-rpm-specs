@@ -22,12 +22,6 @@
 %global numthreads %{?_smp_build_ncpus}
 %endif
 
-%global modname graph-tool
-%global pymodname graph_tool
-
-# Builds fail with LTO
-%global _lto_cflags %{nil}
-
 %global _description %{expand:
 Graph-tool is an efficient Python module for manipulation and statistical
 analysis of graphs (a.k.a. networks). Contrary to most other python modules
@@ -40,28 +34,50 @@ C/C++ library.
 Please refer to https://graph-tool.skewed.de/static/doc/index.html for
 documentation.}
 
-Name:           python-%{modname}
-Version:        2.43
+Name:           python-graph-tool
+Version:        2.45
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 
-License:        LGPLv3+
+# The entire source is LGPL-3.0-or-later, except:
+#   - BSL-1.0: src/boost-workaround/
+#              src/graph/graphml.cpp
+#              src/graph/read_graphviz_new.cpp
+# Additionally, the following are under other licenses but do not contribute to
+# the licenses of the binary RPMs:
+#   - FSFULLR: aclocal.m4
+#   - FSFUL (or perhaps FSFUL AND LGPL-3.0-or-later): configure
+#   - GPL-2.0-or-later: build-aux/compile
+#                       build-aux/depcomp
+#                       build-aux/ltmain.sh
+#                       build-aux/py-compile
+#                       m4/ax_boost_python.m4
+#   - GPL-3.0-or-later: build-aux/config.guess
+#                       build-aux/config.sub
+#                       m4/ax_create_pkgconfig_info.m4
+#                       m4/ax_openmp.m4
+#                       m4/ax_python_devel.m4
+#   - X11: build-aux/install-sh
+#   - FSFAP: m4/ax_boost_base.m4
+#            m4/ax_boost_context.m4
+#            m4/ax_boost_coroutine.m4
+#            m4/ax_boost_graph.m4
+#            m4/ax_boost_iostreams.m4
+#            m4/ax_boost_regex.m4
+#            m4/ax_boost_thread.m4
+#            m4/ax_cxx_compile_stdcxx.m4,
+#            m4/ax_cxx_compile_stdcxx_17.m4
+#            m4/ax_lib_cgal_core.m4
+#            m4/ax_python_module.m4
+License:        LGPL-3.0-or-later AND BSL-1.0
 URL:            https://graph-tool.skewed.de/
-Source0:        https://downloads.skewed.de/%{modname}/%{modname}-%{version}.tar.bz2
-# Remove the compilation flags upstream sets
-Patch0:         0001-remove-upstream-compilation-flags.patch
-
-# Need to reduce debugging symbols to make compiling possible on these
-# architectures at all. See:
-#   https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/GIBNORLNGSUHAMX6PZ7XUPQ2SQUK7AX4/
+Source0:        https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
+# Remove upstream compiler flags
 #
-# Works around:
-# Fails on armv7hl:
-#   virtual memory exhausted
-# https://bugzilla.redhat.com/show_bug.cgi?id=1771024
-%ifarch armv7hl
-%global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
-%endif
+# We can leave those controlling warnings and dynamic symbol visibility;
+# we must remove any that hard-code the optimization settings or otherwise
+# fail to respect the distribution defaults.
+Patch:          0001-Remove-upstream-compiler-flags.patch
 
 # Fails on i686, armv7hl
 #   ../../../src/pcg-cpp/include/pcg_random.hpp:1247:40: error: call to
@@ -86,6 +102,10 @@ Patch0:         0001-remove-upstream-compilation-flags.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1771023
 # https://bugzilla.redhat.com/show_bug.cgi?id=1771024
 #
+# Beginning with F37, armv7hl is not a supported primary architecture and
+# EncourageI686LeafRemoval is approved, so we do not need to justify excluding
+# these architectures.
+#
 # Takes ~23 hours on x86_64 if we get unlucky and get a 6 core 16gig machine,
 #   ~4 hours if we get a 48 core 128gig machine
 # Takes ~45 hours on aarch64
@@ -101,7 +121,7 @@ BuildRequires:  gawk
 %description %_description
 
 
-%package -n python3-%{modname}
+%package -n python3-graph-tool
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
@@ -128,13 +148,13 @@ BuildRequires:  pcg-cpp-static
 
 Provides:       graph-tool%{?_isa} = %{version}-%{release}
 
-%description -n python3-%{modname} %_description
+%description -n python3-graph-tool %_description
 
 
-%package -n python3-%{modname}-devel
+%package -n python3-graph-tool-devel
 Summary:        %{summary}
 
-Requires:       python3-%{modname}%{?_isa} = %{version}-%{release}
+Requires:       python3-graph-tool%{?_isa} = %{version}-%{release}
 # Since this header-only package is re-exposed as part of the extension API,
 # dependent packages should ideally also BuildRequire pcg-cpp-static for
 # tracking, per guidelines.
@@ -142,11 +162,11 @@ Requires:       pcg-cpp-devel
 
 Provides:       graph-tool-devel%{?_isa} = %{version}-%{release}
 
-%description -n python3-%{modname}-devel %_description
+%description -n python3-graph-tool-devel %_description
 
 
 %prep
-%autosetup -S git -n %{modname}-%{version}
+%autosetup -S git -n graph-tool-%{version}
 # Remove shebangs from non-script sources
 #
 # The pattern of selecting files before modifying them with sed keeps us from
@@ -174,8 +194,19 @@ echo 'intersphinx_mapping.clear()' >> doc/conf.py
 
 
 %build
+%if 0%{?fc38}
+# Workaround for CGAL/mpfr issue:
+#   Apparent incompatibility with mpfr 4.1.1 (compiler error)
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2144197
+%set_build_flags
+export CPPFLAGS="${CPPFLAGS} -fpermissive"
+%endif
+
 ./autogen.sh
-%configure --with-python-module-path=%{python3_sitearch} --with-boost-libdir=%{_libdir} --enable-debug
+%configure \
+    --with-python-module-path=%{python3_sitearch} \
+    --with-boost-libdir=%{_libdir} \
+    --enable-debug
 echo "Building with %{numthreads} of %{?_smp_build_ncpus} available CPUs"
 # Uses the latest value set by -j
 %make_build -j%{numthreads}
@@ -185,7 +216,7 @@ echo "Building with %{numthreads} of %{?_smp_build_ncpus} available CPUs"
 %make_install
 
 # Remove installed doc sources
-rm -rf %{buildroot}/%{_datadir}/doc/%{modname}
+rm -rf %{buildroot}/%{_datadir}/doc/graph-tool
 
 # Remove static objects
 find %{buildroot} -name '*.la' -print -delete
@@ -195,19 +226,19 @@ ln -svf \
     '%{_includedir}/pcg_extras.hpp' \
     '%{_includedir}/pcg_random.hpp' \
     '%{_includedir}/pcg_uint128.hpp' \
-    '%{buildroot}%{python3_sitearch}/%{pymodname}/include/pcg-cpp/'
+    '%{buildroot}%{python3_sitearch}/graph_tool/include/pcg-cpp/'
 
 
-%files -n python3-%{modname}
-%license COPYING
+%files -n python3-graph-tool
+%license COPYING src/boost-workaround/LICENSE_1_0.txt
 %doc README.md ChangeLog AUTHORS
-%{python3_sitearch}/%{pymodname}
-%exclude %{python3_sitearch}/%{pymodname}/include
+%{python3_sitearch}/graph_tool/
+%exclude %{python3_sitearch}/graph_tool/include/
 
 
-%files -n python3-%{modname}-devel
-%{python3_sitearch}/%{pymodname}/include
-%{_libdir}/pkgconfig/%{modname}-py%{python3_version}.pc
+%files -n python3-graph-tool-devel
+%{python3_sitearch}/graph_tool/include/
+%{_libdir}/pkgconfig/graph-tool-py%{python3_version}.pc
 
 
 %changelog

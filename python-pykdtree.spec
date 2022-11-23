@@ -1,11 +1,11 @@
 %global srcname pykdtree
 
 Name:           python-%{srcname}
-Version:        1.3.5
+Version:        1.3.6
 Release:        %autorelease
 Summary:        Fast kd-tree implementation with OpenMP-enabled queries
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/storpipfugl/pykdtree
 Source0:        %pypi_source %srcname
 

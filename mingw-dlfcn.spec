@@ -1,19 +1,21 @@
-%?mingw_package_header
+%{?mingw_package_header}
 
 %global realname dlfcn-win32
 
 Name:          mingw-dlfcn
-Version:       1.2.0
-Release:       8%{?dist}
+Version:       1.3.1
+Release:       1%{?dist}
 Summary:       Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 
 License:       LGPLv2+
 URL:           https://github.com/%{realname}/%{realname}
-Source0:       https://github.com/%{realname}/%{realname}/archive/v%{version}.tar.gz
+Source0:       https://github.com/%{realname}/%{realname}/archive/v%{version}/%{realname}-%{version}.tar.gz
 
 BuildArch:     noarch
 
+BuildRequires: cmake
 BuildRequires: make
+
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-binutils
@@ -21,8 +23,6 @@ BuildRequires: mingw32-binutils
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-binutils
-
-BuildRequires: cmake
 
 
 %description
@@ -38,12 +38,14 @@ Summary:        Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 This library implements a wrapper for dlfcn, as specified in POSIX and SUS,
 around the dynamic link library functions found in the Windows API.
 
+
 %package -n mingw32-dlfcn-static
 Summary:        Static version of the MinGW Windows dlfcn library
 Requires:       mingw32-dlfcn = %{version}-%{release}
 
 %description -n mingw32-dlfcn-static
 Static version of the MinGW Windows dlfcn library.
+
 
 # Win64
 %package -n mingw64-dlfcn
@@ -53,6 +55,7 @@ Summary:        Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 This library implements a wrapper for dlfcn, as specified in POSIX and SUS,
 around the dynamic link library functions found in the Windows API.
 
+
 %package -n mingw64-dlfcn-static
 Summary:        Static version of the MinGW Windows dlfcn library
 Requires:       mingw64-dlfcn = %{version}-%{release}
@@ -61,11 +64,11 @@ Requires:       mingw64-dlfcn = %{version}-%{release}
 Static version of the MinGW Windows dlfcn library.
 
 
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
-%setup -q -n %{realname}-%{version}
+%autosetup -p1 -n %{realname}-%{version}
 
 for f in README.md COPYING; do
     %{__sed} -i 's/\r//' "${f}";
@@ -73,37 +76,31 @@ done
 
 
 %build
+# Shared
+export MINGW_BUILDDIR_SUFFIX=-shared
 %mingw_cmake
+%mingw_make_build
 
-%mingw_make %{?_smp_mflags}
-
-# Build static win32 lib
-mkdir -p build_win32_static
-pushd build_win32_static
-%mingw32_cmake -DBUILD_SHARED_LIBS:BOOL=OFF
-popd
-# Build static win64 lib
-mkdir -p build_win64_static
-pushd build_win64_static
-%mingw64_cmake -DBUILD_SHARED_LIBS:BOOL=OFF
-popd
+# Static
+export MINGW_BUILDDIR_SUFFIX=-static
+%mingw_cmake -DBUILD_SHARED_LIBS:BOOL=OFF
+%mingw_make_build
 
 
 %install
-%mingw_make DESTDIR=$RPM_BUILD_ROOT install
-# Install static win32 lib
-pushd build_win32_static
-%mingw32_make DESTDIR=$RPM_BUILD_ROOT install
-popd
-# Install static win64 lib
-pushd build_win64_static
-%mingw64_make DESTDIR=$RPM_BUILD_ROOT install
-popd
+# Shared
+export MINGW_BUILDDIR_SUFFIX=-shared
+%mingw_make_install
+
+# Static
+export MINGW_BUILDDIR_SUFFIX=-static
+%mingw_make_install
 
 
 # Win32
 %files -n mingw32-dlfcn
-%doc README.md COPYING
+%doc README.md
+%license COPYING
 %{mingw32_bindir}/libdl.dll
 %{mingw32_libdir}/libdl.dll.a
 %{mingw32_includedir}/dlfcn.h
@@ -114,7 +111,8 @@ popd
 
 # Win64
 %files -n mingw64-dlfcn
-%doc README.md COPYING
+%doc README.md
+%license COPYING
 %{mingw64_bindir}/libdl.dll
 %{mingw64_libdir}/libdl.dll.a
 %{mingw64_includedir}/dlfcn.h
@@ -125,6 +123,9 @@ popd
 
 
 %changelog
+* Mon Nov 21 2022 Sandro Mani <manisandro@gmail.com> - 1.3.1-1
+- Update to 1.3.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

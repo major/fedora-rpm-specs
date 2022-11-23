@@ -6,10 +6,10 @@
 
 Name:           s3cmd
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://s3tools.org/s3cmd
 Source0:        https://github.com/s3tools/s3cmd/releases/download/v%{version}/s3cmd-%{version}.tar.gz
 BuildArch:      noarch
@@ -80,6 +80,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 s3cmd.1
 %endif
 
 %changelog
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0-2
+- SPDX license update
+
 * Tue Oct 04 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0-1
 - New upstream release.
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    8eebc51715188032161fbafeae22a618af16bdb3
+%global gh_commit    9e8ff3a6d7ccaad0865581ef672a7c48260b65d9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-file
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.11.0
-Release:        2%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -34,13 +34,13 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-fileinfo
 BuildRequires:  php-hash
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-tokenizer
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.1     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.15    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~1.0.0",
@@ -64,11 +64,11 @@ BuildRequires:  phpunit9 >= 9.5.10
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
-#        "laminas/laminas-stdlib": "^2.7.7 || ^3.1"
-Requires:       php(language) >= 7.3
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+#        "laminas/laminas-stdlib": "^2.7.7 || ^3.15.0"
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
-Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.1     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.15    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
 #        "laminas/laminas-filter": "Laminas\\Filter component",
@@ -166,12 +166,10 @@ exit (class_exists("\\Zend\\%{library}\\PhpClassFile") ? 0 : 1);
 
 : upstream test suite
 ret=0
-# testIgnoresMethodsNamedAfterKeywords : array order issue
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
-      --filter '^((?!(testIgnoresMethodsNamedAfterKeywords)).)*$' \
       --verbose || ret=1
   fi
 done
@@ -190,6 +188,11 @@ exit $ret
 
 
 %changelog
+* Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0
+- raise dependency on PHP 8.0
+- raise dependency on zend-stdlib 3.15
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

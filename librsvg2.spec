@@ -1,3 +1,5 @@
+%bcond_without check
+
 # https://github.com/rust-lang/rust/issues/47714
 %undefine _strict_symbol_defs_build
 
@@ -6,18 +8,25 @@
 
 # Use bundled deps as we don't ship the exact right versions for all the
 # required rust libraries
-%global bundled_rust_deps 1
+%global bundled_rust_deps 0
 
 %global cairo_version 1.16.0
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.54.5
-Release:        1%{?dist}
+Version:        2.55.1
+Release:        2%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
 Source0:        https://download.gnome.org/sources/librsvg/2.54/librsvg-%{version}.tar.xz
+
+%if ! 0%{?bundled_rust_deps}
+# Patches to build with Fedora-packaged rust crates
+Patch:          0001-Update-the-nalgebra-crate.patch
+Patch:          0002-Fedora-Drop-dependencies-required-for-benchmarking.patch
+Patch:          0003-Update-the-lopdf-crate.patch
+%endif
 
 BuildRequires:  chrpath
 BuildRequires:  gcc
@@ -75,6 +84,7 @@ This package provides extra utilities based on the librsvg library.
 %else
 # No bundled deps
 rm -vrf vendor .cargo Cargo.lock
+sed -i Makefile.am -e 's/$(CARGO) --locked/$(CARGO)/'
 %cargo_prep
 %endif
 
@@ -84,6 +94,7 @@ rm -vrf vendor .cargo Cargo.lock
 %endif
 
 %build
+export CARGO="%__cargo"
 %configure --disable-static  \
            --enable-gtk-doc \
            --docdir=%{_pkgdocdir} \
@@ -128,6 +139,12 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Mon Nov 21 2022 Kalev Lember <klember@redhat.com> - 2.55.1-2
+- Switch to packaged rust deps
+
+* Tue Sep 06 2022 Kalev Lember <klember@redhat.com> - 2.55.1-1
+- Update to 2.55.1
+
 * Sun Aug 28 2022 Kalev Lember <klember@redhat.com> - 2.54.5-1
 - Update to 2.54.5
 

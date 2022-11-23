@@ -2,7 +2,7 @@
 Name: yubikey-manager-qt
 Summary: Application for configuring any YubiKey over all USB interfaces
 Version: 1.2.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://developers.yubico.com/yubikey-manager-qt/
 Source0: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
@@ -21,7 +21,7 @@ BuildRequires: qt5-qtquickcontrols qt5-qtgraphicaleffects pyotherside
 BuildRequires: desktop-file-utils
 Requires:      pyotherside 
 Requires:      qt5-qtquickcontrols
-Requires:      python3-yubikey-manager
+Requires:      python3-yubikey-manager < 5
 
 %description
 Cross-platform application for configuring any YubiKey over all USB interfaces.
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications resources/%{bnam
 %{_datadir}/pixmaps/ykman.png
 
 %changelog
+* Mon Nov 21 2022 Jakub Jelen <jjelen@redhat.com> - 1.2.4-6
+- Prevent update to yubikey-manager 5 which breaks API for now (#2143324)
+
 * Wed Aug 03 2022 Jakub Jelen <jjelen@redhat.com> - 1.2.4-5
 - Remove unneeded dependency (#2114566)
 

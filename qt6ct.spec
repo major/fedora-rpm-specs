@@ -1,5 +1,5 @@
 #For git snapshots, set to 0 to use release instead:
-%global usesnapshot 1
+%global usesnapshot 0
 %if 0%{?usesnapshot}
 %global commit0 4e881ab49b26f82eb3e66e1ffe73f4f23af7b4a3
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -12,7 +12,7 @@ Version: 0.7
 %if 0%{?usesnapshot}
 Release: 0.1%{?snapshottag}%{?dist}
 %else
-Release: 3%{?dist}
+Release: 1%{?dist}
 %endif
 
 # The entire source code is under BSD-2-Clause License
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/qss/*.qss
 
 %changelog
+* Mon Nov 21 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7-1
+- Update to 0.7-1
+
 * Sat Oct 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7-0.1.git4e881ab
 - Fix crash with a segmentation fault when closing the tool
 

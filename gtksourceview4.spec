@@ -2,8 +2,8 @@
 %global gtk_version 3.22
 
 Name:           gtksourceview4
-Version:        4.8.3
-Release:        3%{?dist}
+Version:        4.8.4
+Release:        1%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -99,6 +99,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/gtksourceview-4/
 
 %changelog
+* Thu Nov 03 2022 David King <amigadave@amigadave.com> - 4.8.4-1
+- Update to 4.8.4
+
 * Tue Jul 26 2022 Adam Williamson <awilliam@redhat.com> - 4.8.3-3
 - Backport fix from main branch for regexes with pcre2
 

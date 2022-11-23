@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-chinese-addons
-Version:        5.0.15
+Version:        5.0.16
 Release:        %autorelease
 Summary:        Chinese related addon for fcitx5
 License:        LGPLv2+

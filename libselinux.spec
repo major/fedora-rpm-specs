@@ -1,10 +1,10 @@
 %define ruby_inc %(pkg-config --cflags ruby)
-%define libsepolver 3.4-1
+%define libsepolver 3.4-4
 
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/libselinux-3.4.tar.gz
@@ -16,12 +16,30 @@ Url: https://github.com/SELinuxProject/selinux/wiki
 # $ git format-patch -N 3.4 -- libselinux
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
-Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
+Patch0001: 0001-libselinux-declare-return-value-of-context_str-3-con.patch
 Patch0002: 0002-Revert-libselinux-restorecon-pin-file-to-avoid-TOCTO.patch
+Patch0003: 0003-libselinux-do-not-return-the-cached-prev_current-val.patch
+Patch0004: 0004-libselinux-simplify-policy-path-logic-to-avoid-unini.patch
+Patch0005: 0005-libselinux-add-header-guard-for-internal-header.patch
+Patch0006: 0006-libselinux-introduce-strlcpy.patch
+Patch0007: 0007-libselinux-check-for-truncations.patch
+Patch0008: 0008-libselinux-add-man-page-redirections.patch
+Patch0009: 0009-libselinux-enclose-macro-definition-in-parenthesis.patch
+Patch0010: 0010-libselinux-name-parameters-in-context.h.patch
+Patch0011: 0011-libselinux-declare-parameter-of-security_load_policy.patch
+Patch0012: 0012-libselinux-restorecon-avoid-printing-NULL-pointer.patch
+Patch0013: 0013-libselinux-set-errno-to-EBADF-on-O_PATH-emulation-EN.patch
+Patch0014: 0014-libselinux-avoid-newline-in-avc-message.patch
+Patch0015: 0015-Ignore-egg-info-directories-and-clean-them.patch
+Patch0016: 0016-libselinux-support-objname-in-compute_create.patch
+Patch0017: 0017-libselinux-Remove-dependency-on-the-Python-module-di.patch
+Patch0018: 0018-libselinux-Ignore-missing-directories-when-i-is-used.patch
+Patch0019: 0019-libselinux-ignore-invalid-class-name-lookup.patch
+Patch0020: 0020-Use-SHA-2-instead-of-SHA-1.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel xz-devel
-BuildRequires: python3 python3-devel
+BuildRequires: python3 python3-devel python3-setuptools
 BuildRequires: systemd
 Requires: libsepol%{?_isa} >= %{libsepolver} pcre2
 Conflicts: filesystem < 3, selinux-policy-base < 3.13.1-138
@@ -214,6 +232,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-6
+- Rebase on upstream f56a72ac9e86
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

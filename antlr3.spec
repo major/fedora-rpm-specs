@@ -146,6 +146,36 @@ Release:        %{antlr_version}.%{baserelease}%{?dist}
 Header files for the C bindings for ANTLR-generated parsers
 
 %package        C-docs
+# The content is BSD-3-Clause.  Other licenses are due to files installed by
+# doxygen.
+# api/bc_s.png: GPL-1.0-or-later
+# api/bdwn.png: GPL-1.0-or-later
+# api/closed.png: GPL-1.0-or-later
+# api/doc.png: GPL-1.0-or-later
+# api/doxygen.css: GPL-1.0-or-later
+# api/doxygen.svg: GPL-1.0-or-later
+# api/dynsections.js: MIT
+# api/folderclosed.png: GPL-1.0-or-later
+# api/folderopen.png: GPL-1.0-or-later
+# api/jquery.js: MIT
+# api/menu.js: MIT
+# api/menudata.js: MIT
+# api/nav_f.png: GPL-1.0-or-later
+# api/nav_g.png: GPL-1.0-or-later
+# api/nav_h.png: GPL-1.0-or-later
+# api/navtree.css: GPL-1.0-or-later
+# api/navtree.js: MIT
+# api/open.png: GPL-1.0-or-later
+# api/resize.js: MIT
+# api/splitbar.png: GPL-1.0-or-later
+# api/sync_off.png: GPL-1.0-or-later
+# api/sync_on.png: GPL-1.0-or-later
+# api/tab_a.png: GPL-1.0-or-later
+# api/tab_b.png: GPL-1.0-or-later
+# api/tab_h.png: GPL-1.0-or-later
+# api/tab_s.png: GPL-1.0-or-later
+# api/tabs.css: GPL-1.0-or-later
+License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
 Summary:        API documentation for the C run-time support for ANTLR-generated parsers
 BuildArch:      noarch
 BuildRequires:  graphviz
@@ -231,7 +261,7 @@ autoreconf -i
     %{nil}
 %endif
 
-sed -i "s#CFLAGS = .*#CFLAGS = $RPM_OPT_FLAGS#" Makefile
+sed -i 's#CFLAGS = .*#CFLAGS = %{build_cflags}#' Makefile
 %make_build
 doxygen -u # update doxygen configuration file
 doxygen # build doxygen documentation
@@ -298,16 +328,17 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %{_libdir}/libantlr3c.so
 
 %files C-devel
-%{_mandir}/man3/*
-%{_includedir}/*.h
+%{_mandir}/man3/ANTLR3*
+%{_mandir}/man3/antlr3*
+%{_includedir}/antlr3*.h
 
 %files C-docs
 %doc runtime/C/api
 
 %files C++-devel
 %doc tool/LICENSE.txt
-%{_includedir}/*.hpp
-%{_includedir}/*.inl
+%{_includedir}/antlr3*.hpp
+%{_includedir}/antlr3*.inl
 
 %files java -f .mfiles-java
 %doc tool/LICENSE.txt

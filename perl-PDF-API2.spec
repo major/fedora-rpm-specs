@@ -1,16 +1,16 @@
 Name:           perl-PDF-API2
-Version:        2.043
-Release:        4%{?dist}
+Version:        2.044
+Release:        1%{?dist}
 Summary:        Perl module for creation and modification of PDF files
-# lib/PDF/API2.pm:  LGPLv2+
-# lib/PDF/API2/Resource/XObject/Image/PNM.pm:   GPL+ or Artistic (taken from
-#                                               Image::PBMLib)
-# lib/PDF/API2/Basic/PDF/Null.pm:   Artistic or MIT (MIT grant in
+# lib/PDF/API2.pm:  LGPL-2.1-or-later
+# lib/PDF/API2/Resource/XObject/Image/PNM.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
+#                                             (taken from Image::PBMLib)
+# lib/PDF/API2/Basic/PDF/Null.pm:   Artistic-1.0-Perl OR MIT (MIT grant in
 #                                   COPYING-PDF_API2_Basic_PDF-Martin_Hosken)
-# lib/PDF/API2/Matrix.pm:   GPL+ or Artistic
-# LICENSE:          LGPLv2 text
-# README:           LGPLv2+
-License:        LGPLv2+ and (GPL+ or Artistic) and (MIT or Artistic)
+# lib/PDF/API2/Matrix.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:          LGPL-2.1 text
+# README:           LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND (MIT OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/PDF-API2
 Source0:        https://cpan.metacpan.org/authors/id/S/SS/SSIMMS/PDF-API2-%{version}.tar.gz 
 # MIT license grant from Marin Hosken, CPAN RT#133691
@@ -165,6 +165,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.044-1
+- 2.044 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.043-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -26,7 +26,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.49.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -42,6 +42,9 @@ Source0:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 %if 0%{verify_tarball_signature}
 Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/%{name}-%{version}.tar.gz.sig
 %endif
+
+# https://github.com/libguestfs/libguestfs/issues/99
+Patch:         0001-builder-Disable-opensuse-repository.patch
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
@@ -425,6 +428,9 @@ end
 
 
 %changelog
+* Mon Nov 21 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.5-2
+- Disable opensuse repository
+
 * Wed Oct 12 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.5-1
 - New upstream development version 1.49.5
 

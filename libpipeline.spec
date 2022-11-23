@@ -2,8 +2,8 @@
 
 Summary: A pipeline manipulation library
 Name: libpipeline
-Version: 1.5.6
-Release: 2%{?dist}
+Version: 1.5.7
+Release: 1%{?dist}
 License: GPLv3+
 URL: http://libpipeline.nongnu.org/
 Source: http://download.savannah.gnu.org/releases/libpipeline/libpipeline-%{version}.tar.gz
@@ -58,6 +58,9 @@ rm $RPM_BUILD_ROOT/%{_libdir}/libpipeline.la
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 21 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.5.7-1
+- Rebase to version 1.5.7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

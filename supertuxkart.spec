@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Nov 22 2022 Pete Walter <pwalter@fedoraproject.org> - 1.4-3
+- Rebuild for angelscript 2.35.1
+
 * Mon Nov 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-2
 - Patch to fix soccer ball rolling.
 

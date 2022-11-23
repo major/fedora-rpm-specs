@@ -1,10 +1,11 @@
 Name:           rzip
 Version:        2.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A large-file compression program
 License:        GPLv2+
 URL:            http://rzip.samba.org
 Source0:        http://rzip.samba.org/ftp/rzip/%{name}-%{version}.tar.gz
+Patch0:         rzip-configure.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -17,7 +18,7 @@ files, which can sometimes allow rzip to produce much better
 compression ratios than other programs.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 export CFLAGS="${RPM_OPT_FLAGS} -fPIE -pie"
@@ -34,6 +35,9 @@ make install INSTALL_BIN=$RPM_BUILD_ROOT%{_bindir} INSTALL_MAN=$RPM_BUILD_ROOT%{
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2.1-30
+- Avoid C89isms in configure
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

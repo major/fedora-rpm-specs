@@ -5,7 +5,7 @@
 %global         forgeurl https://github.com/osbuild/koji-osbuild
 
 Name:           koji-osbuild
-Version:        10
+Version:        11
 Release:        1%{?dist}
 Summary:        Koji integration for osbuild composer
 
@@ -161,15 +161,27 @@ Integration tests for koji-osbuild. To be run on a dedicated system.
 
 
 %changelog
+* Mon Nov 21 2022 Packit <hello@packit.dev> - 11-1
+Changes with 11
+----------------
+  * Print more log messages to enable tracking of SLIs (#110)
+  * Various fixes (#108)
+
+Contributions from: Simon Steinbeiss, Thomas Lavocat, Tomáš Hozza
+
+— Somewhere on the Internet, 2022-11-21
+
+
+
 * Fri Sep 02 2022 Packit <hello@packit.dev> - 10-1
 Changes with 10
 ----------------
   * Hub: support `image_type` being an array for backwards compatibility (#107)
   * packit: Enable Bodhi updates workflow (#106)
-
 Contributions from: Tomas Hozza
-
 — Somewhere on the Internet, 2022-09-02
+
+
 
 
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    0337d9265bc2e6376babad8c511500821620cb30
+%global gh_commit    91aabc066d5620428120800c0eafc0411e441a62
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-code
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}%{major}
-Version:        4.7.0
+Version:        4.7.1
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -123,7 +123,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}%{major}/autoload.p
 EOF
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -143,6 +143,9 @@ exit $ret
 
 
 %changelog
+* Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 4.7.1-1
+- update to 4.7.1
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 4.7.0-1
 - update to 4.7.0
 

@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        43.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -17,6 +17,12 @@ Patch1:     2534.patch
 # Backport broken screen cast fix if gstreamer1-vaapi was installed.
 # https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2533
 Patch2:     post-43.1-fixes.patch
+
+# Backport fix for keyboard shortcut inhibit permissions
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6107
+# https://gitlab.gnome.org/GNOME/gnome-boxes/-/issues/872
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2548
+Patch3:     0001-inhibitShorcutsDialog-Fix-permission-check.patch
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch10001: gnome-shell-favourite-apps-firefox.patch
@@ -240,6 +246,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Mon Nov 21 2022 Adam Williamson <awilliam@redhat.com> - 43.1-4
+- Backport MR #2548 to fix keyboard shortcut inhibiting
+
 * Thu Nov 17 2022 Jonas Ådahl <jadahl@redhat.com> - 43.1-3
 - Backport missing screencast if gstreamer1-vaapi is installed
 

@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: compat-readline5
 Version: 5.2
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: GPLv2+
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
@@ -23,6 +23,8 @@ Patch20: readline-5.2-shlib.patch
 # fixed in readline-6.0
 Patch21: readline-5.2-redisplay-sigint.patch
 Patch22: readline-5.2-config.patch
+Patch23: compat-readline5-wcwidth.patch
+Patch24: compat-readline5-configure-c99.patch
 BuildRequires: gcc ncurses-devel
 BuildRequires: make
 
@@ -71,6 +73,8 @@ library.
 %patch20 -p1 -b .shlib
 %patch21 -p1 -b .redisplay-sigint
 %patch22 -p1
+%patch23 -p1
+%patch24 -p1
 
 %build
 export CPPFLAGS="-I%{_includedir}/ncurses"
@@ -110,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}
 %{_libdir}/readline5/lib*.a
 
 %changelog
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 5.2-43
+- Avoid C89isms in configure and the source code
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

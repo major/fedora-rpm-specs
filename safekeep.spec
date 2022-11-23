@@ -1,6 +1,6 @@
 %define name    safekeep
 %define version 1.5.1
-%define release 5
+%define release 6
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -8,7 +8,7 @@ Version:        %{version}
 Release:        %{release}%{?dist}
 Summary:        The SafeKeep backup system
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://%{name}.sourceforge.net
 Source0:        https://github.com/dimipaun/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        README.Fedora
@@ -103,6 +103,9 @@ id %{name} >/dev/null 2>&1 || \
 %doc samples/sample.backup
 
 %changelog
+* Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 1.5.1-6
+- SPDX license update
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

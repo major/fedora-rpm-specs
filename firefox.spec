@@ -172,7 +172,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        107.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -947,6 +947,7 @@ ln -s %{_datadir}/myspell %{buildroot}%{mozappdir}/dictionaries
 
 # Enable crash reporter for Firefox application
 %if %{enable_mozilla_crashreporter}
+./mach buildsymbols
 sed -i -e "s/\[Crash Reporter\]/[Crash Reporter]\nEnabled=1/" %{buildroot}/%{mozappdir}/application.ini
 # Add debuginfo for crash-stats.mozilla.com
 %{__mkdir_p} %{buildroot}/%{moz_debug_dir}
@@ -1124,6 +1125,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Nov 21 2022 Jan Horak <jhorak@redhat.com> - 107.0-2
+- Enabled mozilla crashreporter again
+
 * Mon Nov 14 2022 Martin Stransky <stransky@redhat.com>- 107.0-1
 - Update to 107.0
 

@@ -130,6 +130,8 @@
 # https://www.chromium.org/developers/testing/addresssanitizer
 %global asan 0
 
+%global use_qt 0
+
 %if 0
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
@@ -162,7 +164,7 @@ BuildRequires:  libicu-devel >= 5.4
 %global gtk3 1
 
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
-%global dts_version 11
+%global dts_version 12
 
 %global bundleopus 1
 %global bundlelibusbx 1
@@ -220,15 +222,15 @@ BuildRequires:  libicu-devel >= 5.4
 %global chromoting_client_id %nil
 %endif
 
-%global majorversion 105
+%global majorversion 107
 
 %if %{freeworld}
 Name:		chromium%{chromium_channel}%{nsuffix}
 %else
 Name:		chromium%{chromium_channel}
 %endif
-Version:	%{majorversion}.0.5195.125
-Release:	2%{?dist}
+Version:	%{majorversion}.0.5304.110
+Release:	1%{?dist}
 %if %{?freeworld}
 %if %{?shared}
 # chromium-libs-media-freeworld
@@ -248,11 +250,9 @@ Patch0:		chromium-70.0.3538.67-sandbox-pie.patch
 # Use /etc/chromium for initial_prefs
 Patch1:		chromium-91.0.4472.77-initial_prefs-etc-path.patch
 # Use gn system files
-Patch2:		chromium-105.0.5195.52-gn-system.patch
+Patch2:		chromium-107.0.5304.110-gn-system.patch
 # Do not prefix libpng functions
 Patch3:		chromium-60.0.3112.78-no-libpng-prefix.patch
-# Do not mangle libjpeg
-Patch4:		chromium-60.0.3112.78-jpeg-nomangle.patch
 # Do not mangle zlib
 Patch5:		chromium-77.0.3865.75-no-zlib-mangle.patch
 # Do not use unrar code, it is non-free
@@ -275,8 +275,6 @@ Patch12:	chromium-101.0.4951.41-fedora-user-agent.patch
 Patch51:	chromium-96.0.4664.45-gcc-remoting-constexpr.patch
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
 Patch52:	chromium-81.0.4044.92-unbundle-zlib.patch
-# https://github.com/stha09/chromium-patches/blob/master/chromium-78-protobuf-RepeatedPtrField-export.patch
-# Patch55:	chromium-78-protobuf-RepeatedPtrField-export.patch
 # ../../third_party/perfetto/include/perfetto/base/task_runner.h:48:55: error: 'uint32_t' has not been declared
 Patch56:	chromium-96.0.4664.45-missing-cstdint-header.patch
 # Missing <cstring> (thanks c++17)
@@ -286,23 +284,16 @@ Patch57:	chromium-96.0.4664.45-missing-cstring.patch
 Patch58:	chromium-53-ffmpeg-no-deprecation-errors.patch
 # https://github.com/stha09/chromium-patches/blob/master/chromium-103-VirtualCursor-std-layout.patch
 Patch59:	chromium-103-VirtualCursor-std-layout.patch
-# https://github.com/stha09/chromium-patches/blob/master/chromium-105-AdjustMaskLayerGeometry-ceilf.patch
-Patch60:	chromium-105-AdjustMaskLayerGeometry-ceilf.patch
 
 # Fix headers to look for system paths when we are using system minizip
-Patch61:	chromium-104.0.5112.101-system-minizip-header-fix.patch
+Patch61:	chromium-107.0.5304.101-system-minizip-header-fix.patch
 
 # Update bundled copy of wayland-client-core.h
 Patch62:	chromium-105.0.5195.52-update-wayland-client-core.patch
 
-# Extra CXXFLAGS for aarch64
-Patch64:	chromium-91.0.4472.77-aarch64-cxxflags-addition.patch
 # Fix issue where closure_compiler thinks java is only allowed in android builds
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1192875
 Patch65:	chromium-91.0.4472.77-java-only-allowed-in-android-builds.patch
-
-# Python3.9 or later no longer support the 'U' mode
-Patch66:	chromium-103.0.5060.53-python3-do-not-use-deprecated-mode-U.patch
 
 # Fix missing cstring in remoting code
 Patch67:	chromium-98.0.4758.80-remoting-cstring.patch
@@ -315,33 +306,14 @@ Patch69:	chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
 # Update six to 1.16.0
 Patch70:	chromium-105.0.5195.52-python-six-1.16.0.patch
 
-# https://github.com/stha09/chromium-patches/blob/master/chromium-105-Bitmap-include.patch
-Patch71:	chromium-105-Bitmap-include.patch
-
-# https://github.com/stha09/chromium-patches/blob/master/chromium-105-browser_finder-include.patch
-Patch72:	chromium-105-browser_finder-include.patch
-
-# https://github.com/stha09/chromium-patches/blob/master/chromium-105-raw_ptr-noexcept.patch
-Patch73:	chromium-105-raw_ptr-noexcept.patch
-
-# https://github.com/stha09/chromium-patches/blob/master/chromium-105-Trap-raw_ptr.patch
-Patch74:	chromium-105-Trap-raw_ptr.patch
-
 # Do not download proprietary widevine module in the background (thanks Debian)
 Patch79:	chromium-99.0.4844.51-widevine-no-download.patch
 
 # Fix crashes with components/cast_*
 # Thanks to Gentoo
 Patch80:	chromium-98.0.4758.80-EnumTable-crash.patch
-# Fix build issues with gcc12
-Patch81:	chromium-98.0.4758.102-gcc-12-subzero-fix.patch
 # Disable tests on remoting build
 Patch82:	chromium-98.0.4758.102-remoting-no-tests.patch
-
-# Fix Wayland menu issue
-# https://bugs.chromium.org/p/chromium/issues/detail?id=13506
-# https://chromium-review.googlesource.com/c/chromium/src/+/3831855
-Patch83:	chromium-105.0.5195.125-fix-wayland-menu.patch
 
 # Add missing cmath header
 Patch84:	chromium-94.0.4606.71-remoting-missing-cmath-header.patch
@@ -358,19 +330,13 @@ Patch87:	chromium-99.0.4844.84-markdownsafe-soft_str.patch
 Patch88:	chromium-105.0.5195.125-arm64-gcc-fix.patch
 
 # Fix extra qualification error
-Patch97:	chromium-103.0.5060.53-remoting-extra-qualification.patch
+Patch97:	chromium-107.0.5304.110-remoting-extra-qualification.patch
 # From gentoo
 Patch98:	chromium-94.0.4606.71-InkDropHost-crash.patch
 # Enable WebRTCPPipeWireCapturer by default
 Patch99:	chromium-96.0.4664.110-enable-WebRTCPipeWireCapturer-byDefault.patch
-# Add include <utility> for std::exchange
-Patch100:	chromium-100.0.4896.60-missing-utility-for-std-exchange.patch
 
 
-# Use lstdc++ on EPEL7 only
-Patch101:	chromium-75.0.3770.100-epel7-stdc++.patch
-# el7 only patch
-Patch102:	chromium-80.0.3987.132-el7-noexcept.patch
 # Work around old and missing headers on EPEL7
 Patch103:	chromium-99.0.4844.51-epel7-old-headers-workarounds.patch
 # Use old cups (chromium's code workaround breaks on gcc)
@@ -379,15 +345,6 @@ Patch104:	chromium-99.0.4844.51-epel7-old-cups.patch
 # Need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC
 Patch105:	chromium-102.0.5005.115-el7-memfd-include.patch
 
-# Still not wrong, but it seems like only EL needs it
-Patch106:	chromium-77-clang.patch
-# ARM failures on el8 related to int clashes
-# error: incompatible types when initializing type 'int64_t' {aka 'long int'} using type 'int64x1_t'
-# note: expected 'int8x16_t' but argument is of type 'uint8x16_t'
-# Patch107:	chromium-84.0.4147.89-el8-arm-incompatible-ints.patch
-# libdrm on EL7 is rather old and chromium assumes newer
-# This gets us by for now
-Patch108:	chromium-85.0.4183.83-el7-old-libdrm.patch
 # error: no matching function for call to 'std::basic_string<char>::erase(std::basic_string<char>::const_iterator, __gnu_cxx::__normal_iterator<const char*, std::basic_string<char> >&)'
 #   33 |   property_name.erase(property_name.cbegin(), cur);
 # Not sure how this EVER worked anywhere, but it only seems to fail on EPEL-7.
@@ -397,7 +354,10 @@ Patch109:	chromium-98.0.4758.80-epel7-erase-fix.patch
 Patch110:	chromium-90.0.4430.93-epel8-aarch64-libpng16-symbol-prefixes.patch
 # Add additional operator== to make el7 happy.
 Patch111:	chromium-99.0.4844.51-el7-extra-operator==.patch
-
+# missing F_GET_SEALS, F_SEAL_SHRINK
+Patch112: chromium-107.0.5304.110-wayland-fcntl.patch
+# memset was not declared in this scope
+Patch113: chromium-107.0.5304.110-cstring-memset.patch
 
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
@@ -407,6 +367,9 @@ Patch205:	chromium-86.0.4240.75-fix-vaapi-on-intel.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300:	chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
+
+# Apply this patch to work around EPEL9 issues
+Patch350:   chromium-107.0.5304.110-neon_2_sse.patch
 
 # And fixes for new compilers
 Patch400:       %{name}-gcc11.patch
@@ -1026,8 +989,6 @@ udev.
 %patch1 -p1 -b .etc
 %patch2 -p1 -b .gnsystem
 %patch3 -p1 -b .nolibpngprefix
-# Upstream accidentally made the same change in 89, but they've already reverted it for 90+ so this patch will return
-# %%patch4 -p1 -b .nolibjpegmangle
 %patch5 -p1 -b .nozlibmangle
 %patch6 -p1 -b .nounrar
 %patch7 -p1 -b .widevine-hack
@@ -1041,34 +1002,24 @@ udev.
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch52 -p1 -b .unbundle-zlib
 %endif
-# %%patch55 -p1 -b .protobuf-export
 %patch56 -p1 -b .missing-cstdint
 %patch57 -p1 -b .missing-cstring
 %patch58 -p1 -b .ffmpeg-deprecations
 %patch59 -p1 -b .VirtualCursor-std-layout
-%patch60 -p1 -b .AdjustMaskLayerGeometry-ceilf
 
 %if ! 0%{?bundleminizip}
 %patch61 -p1 -b .system-minizip
 %endif
 %patch62 -p1 -b .update-wayland-client-core
 
-%patch64 -p1 -b .aarch64-cxxflags-addition
 %patch65 -p1 -b .java-only-allowed
-%patch66 -p1 -b .python3-do-not-use-deprecated-mode-U
 %patch67 -p1 -b .remoting-cstring
 %patch68 -p1 -b .i686-textrels
 %patch69 -p1 -b .update-rjsmin-to-1.2.0
 %patch70 -p1 -b .update-six-to-1.16.0
-%patch71 -p1 -b .Bitmap-include
-%patch72 -p1 -b .browser_finder-include
-%patch73 -p1 -b .raw_ptr-noexcept
-%patch74 -p1 -b .Trap-raw_ptr
 %patch79 -p1 -b .widevine-no-download
 %patch80 -p1 -b .EnumTable-crash
-# %%patch81 -p1 -b .gcc12fix
 %patch82 -p1 -b .remoting-no-tests
-%patch83 -p1 -b .fix-wayland-menu
 %patch84 -p1 -b .remoting-missing-cmath-header
 %patch86 -p1 -b .clang-format-py3
 %if 0%{?fedora} >= 37
@@ -1078,27 +1029,25 @@ udev.
 %patch97 -p1 -b .remoting-extra-qualification
 %patch98 -p1 -b .InkDropHost-crash
 %patch99 -p1 -b .enable-WebRTCPipeWireCapturer-byDefault
-%patch100 -p1 -b .missing-utility-for-std-exchange
 
 # Fedora branded user agent
 %if 0%{?fedora}
 %patch12 -p1 -b .fedora-user-agent
 %endif
 
+%patch113 -p1 -b .memset
+
 # EPEL specific patches
 %if 0%{?rhel} == 7
-# %%patch101 -p1 -b .epel7
-# %%patch102 -p1 -b .el7-noexcept
 %patch103 -p1 -b .epel7-header-workarounds
 %patch104 -p1 -b .el7cups
 %patch105 -p1 -b .el7-memfd-include
-%patch108 -p1 -b .el7-old-libdrm
 %patch109 -p1 -b .el7-erase-fix
 %patch111 -p1 -b .el7-extra-operator-equalequal
+%patch112 -p1 -b .fcntl
 %endif
 
 %if 0%{?rhel} == 8
-# %%patch107 -p1 -b .el8-arm-incompatible-ints
 %patch110 -p1 -b .el8-aarch64-libpng16-symbol-prefixes
 %endif
 
@@ -1113,6 +1062,11 @@ udev.
 
 %if 0%{?rhel} >= 8
 %patch300 -p1 -b .disblegnomekeyring
+%endif
+
+# rhel9 support
+%if 0%{?rhel} >= 9
+%patch350 -p1 -b .neon_2_sse-gcc
 %endif
 
 %patch400 -p1 -b .gcc11
@@ -1274,6 +1228,12 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=false'
 %if 0%{?fedora}
 CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true rtc_link_pipewire=true'
 %endif
+%if 0%{?use_qt}
+  CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true'
+%else
+  CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=false'
+%endif
+CHROMIUM_BROWSER_GN_DEFINES+=' use_system_libffi=true'
 export CHROMIUM_BROWSER_GN_DEFINES
 
 CHROMIUM_HEADLESS_GN_DEFINES=""
@@ -1281,7 +1241,7 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' use_ozone=true ozone_auto_platforms=false ozone_
 CHROMIUM_HEADLESS_GN_DEFINES+=' headless_use_embedded_resources=false icu_use_data_file=false v8_use_external_startup_data=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' enable_nacl=false enable_print_preview=false enable_remoting=false use_alsa=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_cups=false use_dbus=true use_gio=false use_kerberos=false use_libpci=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' use_pulseaudio=false use_udev=false use_gtk=false use_glib=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_pulseaudio=false use_udev=false use_gtk=false use_glib=false use_qt=false'
 export CHROMIUM_HEADLESS_GN_DEFINES
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
@@ -1337,6 +1297,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/axe-core' \
 	'third_party/blanketjs' \
 	'third_party/blink' \
+	'third_party/bidimapper' \
 	'third_party/boringssl' \
 	'third_party/boringssl/src/third_party/fiat' \
 	'third_party/breakpad' \
@@ -1359,7 +1320,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/catapult/tracing/third_party/mannwhitneyu' \
 	'third_party/catapult/tracing/third_party/oboe' \
 	'third_party/catapult/tracing/third_party/pako' \
-        'third_party/ced' \
+	'third_party/ced' \
 	'third_party/cld_3' \
 	'third_party/closure_compiler' \
 	'third_party/content_analysis_sdk' \
@@ -1403,7 +1364,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/ffmpeg' \
 	'third_party/fft2d' \
 	'third_party/flac' \
-        'third_party/flatbuffers' \
+	'third_party/flatbuffers' \
 	'third_party/fontconfig' \
 	'third_party/fp16' \
 	'third_party/freetype' \
@@ -1422,6 +1383,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/iccjpeg' \
 	'third_party/icu' \
 	'third_party/inspector_protocol' \
+	'third_party/ipcz' \
 	'third_party/jinja2' \
 	'third_party/jsoncpp' \
 	'third_party/jstemplate' \
@@ -1443,7 +1405,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/libphonenumber' \
 	'third_party/libpng' \
 	'third_party/libsecret' \
-        'third_party/libsrtp' \
+	'third_party/libsrtp' \
 	'third_party/libsync' \
 	'third_party/libudev' \
 	'third_party/liburlpattern' \
@@ -1474,9 +1436,9 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/modp_b64' \
 	'third_party/nasm' \
 	'third_party/nearby' \
-        'third_party/neon_2_sse' \
+	'third_party/neon_2_sse' \
 	'third_party/node' \
-	'third_party/node/node_modules/polymer-bundler/lib/third_party/UglifyJS2' \
+	'third_party/omnibox_proto' \
 	'third_party/one_euro_filter' \
 %if %{freeworld}
 	'third_party/openh264' \
@@ -1493,13 +1455,13 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/pdfium/third_party/freetype' \
 	'third_party/pdfium/third_party/lcms' \
 	'third_party/pdfium/third_party/libopenjpeg' \
-        'third_party/pdfium/third_party/libpng16' \
-        'third_party/pdfium/third_party/libtiff' \
+	'third_party/pdfium/third_party/libpng16' \
+	'third_party/pdfium/third_party/libtiff' \
 	'third_party/pdfium/third_party/skia_shared' \
 	'third_party/perfetto' \
 	'third_party/perfetto/protos/third_party/chromium' \
 	'third_party/pffft' \
-        'third_party/ply' \
+	'third_party/ply' \
 	'third_party/polymer' \
 	'third_party/pthreadpool' \
 	'third_party/private-join-and-compute' \
@@ -1521,9 +1483,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/sinonjs' \
 	'third_party/six' \
 	'third_party/skia' \
-	'third_party/skia/include/third_party/skcms' \
 	'third_party/skia/include/third_party/vulkan' \
-	'third_party/skia/third_party/skcms' \
 	'third_party/skia/third_party/vulkan' \
 	'third_party/smhasher' \
 	'third_party/snappy' \
@@ -1543,7 +1503,7 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/tflite/src/third_party/eigen3' \
 	'third_party/tflite/src/third_party/fft2d' \
 	'third_party/ukey2' \
-        'third_party/usb_ids' \
+	'third_party/usb_ids' \
 	'third_party/utf' \
 	'third_party/vulkan' \
 	'third_party/wayland' \
@@ -1559,14 +1519,14 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/webrtc/rtc_base/third_party/base64' \
 	'third_party/webrtc/rtc_base/third_party/sigslot' \
 	'third_party/widevine' \
-        'third_party/woff2' \
+	'third_party/woff2' \
 	'third_party/wuffs' \
 	'third_party/x11proto' \
 	'third_party/xcbproto' \
-        'third_party/xdg-utils' \
+	'third_party/xdg-utils' \
 	'third_party/xnnpack' \
 	'third_party/zxcvbn-cpp' \
-        'third_party/zlib' \
+	'third_party/zlib' \
 	'third_party/zlib/google' \
 	'tools/gn/src/base/third_party/icu' \
 	'url/third_party/mozilla' \
@@ -1704,6 +1664,10 @@ FILE=chrome/common/channel_info_posix.cc
 sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' $FILE
 
 %build
+# utf8 issue in epel7
+# Internal parsing error 'ascii' codec can't decode byte 0xe2 in position 474: ordinal not in range(128)
+export LC_CTYPE=en_US.UTF-8
+
 # Turning the buildsystem up to 11.
 ulimit -n 4096
 
@@ -2217,6 +2181,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Fri Nov 11 2022 Than Ngo <than@redhat.com> - 107.0.5304.110-1
+- update to 107.0.5304.110
+
 * Fri Sep 23 2022 Tom Callaway <spot@fedoraproject.org> - 105.0.5195.125-2
 - apply upstream fix for wayland menu misplacement bug
 

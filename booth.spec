@@ -28,7 +28,7 @@
 # This will be used to fill booth_ver, booth_numcomm and booth_sha1.
 # It is important to keep abbrev to get full length sha1! When updating source use
 # `spectool -g booth.spec` to download source.
-%global git_describe_str v1.0-272-g7acb75787196c25e66a0f749f690888bad066bf4
+%global git_describe_str v1.0-283-g9d4029aa14323a7f3b496215d25e40bd14f33632
 
 # Set this to 1 when rebasing (changing git_describe_str) and increase otherwise
 %global release 1
@@ -310,6 +310,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Mon Nov 21 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-283.1.9d4029a.git
+- Rebase to newest upstream snapshot
+
 * Fri Sep 30 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-272.1.7acb757.git
 - Rebase to newest upstream snapshot
 

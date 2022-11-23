@@ -2,10 +2,10 @@
 
 Name: libstaroffice
 Version: 0.0.7
-Release: 6%{?dist}
+Release: %autorelease
 Summary: A library for import of binary StarOffice documents
 
-License: MPLv2.0 or LGPLv2+
+License: LGPL-2.1-or-later OR MPL-2.0
 URL: https://github.com/fosnola/libstaroffice/wiki
 Source: https://github.com/fosnola/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -99,69 +99,4 @@ install -m 0644 sd2*.1 sd?2*.1 %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/sdc2csv.1*
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Apr 05 2020 David Tardon <dtardon@redhat.com> - 0.0.7-1
-- new upstream release
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Apr 26 2018 David Tardon <dtardon@redhat.com> - 0.0.6-1
-- new upstream release
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Nov 07 2017 David Tardon <dtardon@redhat.com> - 0.0.5-1
-- new upstream release
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sun Jul 16 2017 David Tardon <dtardon@redhat.com> - 0.0.4-1
-- new upstream release
-
-* Tue Jun 06 2017 David Tardon <dtardon@redhat.com> - 0.0.3-3
-- Resolves: rhbz#1458800 CVE-2017-9432 Stack-buffer overflow in the
-  StarWriterStruct::DatabaseName::read
-
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
-
-* Wed Feb 22 2017 David Tardon <dtardon@redhat.com> - 0.0.3-1
-- new upstream release
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Aug 11 2016 David Tardon <dtardon@redhat.com> - 0.0.2-1
-- new upstream release
-
-* Thu Feb 11 2016 David Tardon <dtardon@redhat.com> - 0.0.1-1
-- initial import
+%autochangelog

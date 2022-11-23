@@ -2,11 +2,11 @@
 
 Name: librevenge
 Version: 0.0.4
-Release: 23%{?dist}
+Release: %autorelease
 Summary: A base library for writing document import filters
 
 # src/lib/RVNGOLEStream.{h,cpp} are BSD
-License: (LGPLv2+ or MPLv2.0) and BSD
+License: ( LGPL-2.1-or-later OR MPL-2.0 ) AND BSD-3-Clause
 URL: http://sourceforge.net/p/libwpd/wiki/librevenge/
 Source: http://downloads.sourceforge.net/libwpd/%{name}-%{version}.tar.xz
 
@@ -110,120 +110,4 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PA
 %endif
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 14 2020 Tom Stellard <tstellar@redhat.com> - 0.0.4-18
-- Use make macros
-- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jan 17 2020 Sergio Durigan Junior <sergiodj@redhat.com> - 0.0.4-16
-- Resolves: rhbz#1786466 Do not use %%{?_isa} for GDB dependency.
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jun 19 2019 Kalev Lember <klember@redhat.com> - 0.0.4-14
-- Disable gdb pretty printers when building for flatpak
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Tue Jan 23 2018 Jonathan Wakely <jwakely@redhat.com> - 0.0.4-10
-- Rebuilt for Boost 1.66
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Jul 03 2017 Jonathan Wakely <jwakely@redhat.com> - 0.0.4-7
-- Rebuilt for Boost 1.64
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 0.0.4-5
-- Rebuilt for Boost 1.63
-
-* Fri Jan 27 2017 Jonathan Wakely <jwakely@redhat.com> - 0.0.4-4
-- Rebuilt for Boost 1.63
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Fri Jan 15 2016 Jonathan Wakely <jwakely@redhat.com> - 0.0.4-2
-- Rebuilt for Boost 1.60
-
-* Tue Jan 12 2016 David Tardon <dtardon@redhat.com> - 0.0.4-1
-- new upstream release
-
-* Sat Dec 26 2015 David Tardon <dtardon@redhat.com> - 0.0.3-3
-- fix packaging
-
-* Sat Dec 26 2015 David Tardon <dtardon@redhat.com> - 0.0.3-2
-- fix gdb pretty printers
-
-* Fri Dec 25 2015 David Tardon <dtardon@redhat.com> - 0.0.3-1
-- new upstream release
-
-* Sun Aug 30 2015 Jonathan Wakely <jwakely@redhat.com> - 0.0.2-8
-- Rebuilt for Boost 1.59
-
-* Sun Aug 30 2015 David Tardon <dtardon@redhat.com> - 0.0.2-7
-- Resolves: rhbz#1258128 fix build with boost 1.59
-
-* Wed Jul 29 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Changes/F23Boost159
-
-* Wed Jul 22 2015 David Tardon <dtardon@redhat.com> - 0.0.2-5
-- rebuild for Boost 1.58
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.0.2-3
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Tue Jan 27 2015 Petr Machata <pmachata@redhat.com> - 0.0.2-2
-- Rebuild for boost 1.57.0
-
-* Wed Dec 24 2014 David Tardon <dtardon@redhat.com> - 0.0.2-1
-- new upstream release
-
-* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Tue Jun 03 2014 David Tardon <dtardon@redhat.com> - 0.0.1-1
-- new upstream release
-
-* Tue May 27 2014 David Tardon <dtardon@redhat.com> - 0.0.0-2
-- remove extra dirs from filelist
-
-* Fri May 23 2014 David Tardon <dtardon@redhat.com> - 0.0.0-1
-- initial import
+%autochangelog
