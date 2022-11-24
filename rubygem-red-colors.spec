@@ -3,13 +3,16 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.3.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 
 Summary:	Red Colors provides a wide array of features for dealing with colors
 License:	MIT
 
 URL:		https://github.com/red-data-tools/red-colors
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/red-data-tools/red-colors/pull/17
+# The above contains 2 commits
+Patch0:	%{name}-0.3.0-pr17-suppress-warnings.patch
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby
@@ -38,6 +41,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch0 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 # rubygem(matrix) is provided by system-default
 # On Fedora <= 35, this was in ruby-libs, removing dependency
@@ -84,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Tue Nov 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.0-7
+- Backport upstream patch to suppress unused variables warnings
+
 * Wed Nov  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.0-6
 - Explicitly require rubygem(json)
 

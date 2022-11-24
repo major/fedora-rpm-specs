@@ -10,7 +10,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.24.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -37,6 +37,9 @@ Source25:       91-zipl.install
 Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
+# upstream fixes/updates
+Patch100:       s390utils-%{version}-fedora.patch
+
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
 Requires:       s390utils-base = %{epoch}:%{version}-%{release}
 Requires:       s390utils-osasnmpd = %{epoch}:%{version}-%{release}
@@ -62,6 +65,9 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 # Fedora/RHEL changes
 %patch0 -p1 -b .zipl-invert-script-options
 %patch1 -p1 -b .blscfg-rpm-nvr-sort
+
+# upstream fixes/updates
+%patch100 -p1
 
 # drop -Werror from genprotimg to allow building with GCC 12
 sed -i.bak -e 's/-Werror//g' genprotimg/src/Makefile genprotimg/boot/Makefile
@@ -896,6 +902,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Tue Nov 22 2022 Dan Horák <dan[at]danny.cz> - 2:2.24.0-2
+- update for Transparent DASD PPRC (Peer-to-Peer Remote Copy) handling
+
 * Thu Nov 10 2022 Dan Horák <dan[at]danny.cz> - 2:2.24.0-1
 - rebased to 2.24.0
 

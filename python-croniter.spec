@@ -2,8 +2,8 @@
 %global pypi_name croniter
 
 Name:           python-%{pypi_name}
-Version:        1.3.4
-Release:        3%{?dist}
+Version:        1.3.8
+Release:        1%{?dist}
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
@@ -49,13 +49,16 @@ find -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 py.test -v
 
 %files -n python3-%{pypi_name}
-%license docs/LICENSE
+%license LICENSE
 %doc README.rst
 
 %{python3_sitelib}/%{pypi_name}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Nov 22 2022 Alfredo Moralejo <amoralej@redhat.com> - 1.3.8-1
+- Update to 1.3.8
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

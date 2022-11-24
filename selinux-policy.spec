@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit c0f6c3be2b0059221dfc086ceb0632ad726fa34d
+%global commit 3c80e8b26a1ff6f8f282169e0971e705daddb01a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 37.14
+Version: 38.1
 Release: 1%{?dist}
 License: GPLv2+
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -143,7 +143,7 @@ and some additional files.
 %dir %{_datadir}/selinux/devel
 %dir %{_datadir}/selinux/devel/include
 %{_datadir}/selinux/devel/include/*
-%exclude %{_datadir}/selinux/devel/include/container.if
+%exclude %{_datadir}/selinux/devel/include/contrib/container.if
 %dir %{_datadir}/selinux/devel/html
 %{_datadir}/selinux/devel/html/*html
 %{_datadir}/selinux/devel/html/*css
@@ -816,6 +816,35 @@ exit 0
 %endif
 
 %changelog
+* Mon Nov 21 2022 Zdenek Pytela <zpytela@redhat.com> - 38.1-1
+- Revert "Allow sysadm_t read raw memory devices"
+- Allow systemd-socket-proxyd get attributes of cgroup filesystems
+- Allow rpc.gssd read network sysctls
+- Allow winbind-rpcd get attributes of device and pty filesystems
+- Allow insights-client domain transition on semanage execution
+- Allow insights-client create gluster log dir with a transition
+- Allow insights-client manage generic locks
+- Allow insights-client unix_read all domain semaphores
+- Add domain_unix_read_all_semaphores() interface
+- Allow winbind-rpcd use the terminal multiplexor
+- Allow mrtg send mails
+- Allow systemd-hostnamed dbus chat with init scripts
+- Allow sssd dbus chat with system cronjobs
+- Add interface to watch all filesystems
+- Add watch_sb interfaces
+- Add watch interfaces
+- Allow dhcpd bpf capability to run bpf programs
+- Allow netutils and traceroute bpf capability to run bpf programs
+- Allow pkcs_slotd_t bpf capability to run bpf programs
+- Allow xdm bpf capability to run bpf programs
+- Allow pcscd bpf capability to run bpf programs
+- Allow lldpad bpf capability to run bpf programs
+- Allow keepalived bpf capability to run bpf programs
+- Allow ipsec bpf capability to run bpf programs
+- Allow fprintd bpf capability to run bpf programs
+- Allow systemd-socket-proxyd get filesystems attributes
+- Allow dirsrv_snmp_t to manage dirsrv_config_t & dirsrv_var_run_t files
+
 * Mon Oct 31 2022 Zdenek Pytela <zpytela@redhat.com> - 37.14-1
 - Allow rotatelogs read httpd_log_t symlinks
 - Add winbind-rpcd to samba_enable_home_dirs boolean

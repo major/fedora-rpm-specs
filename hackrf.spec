@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2022.09.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0
@@ -50,27 +50,25 @@ Static libraries for libhackrf.
 %autosetup -p1
 
 # Fix "plugdev" nonsense
-%if 0%{?fedora} >= 20
 sed -i -e 's/GROUP="@HACKRF_GROUP@"/ENV{ID_SOFTWARE_RADIO}="1"/g' host/libhackrf/53-hackrf.rules.in
 sed -i -e 's/GROUP="plugdev"/ENV{ID_SOFTWARE_RADIO}="1"/g' host/libhackrf/53-hackrf.rules
-%else
-sed -i -e 's/GROUP="@HACKRF_GROUP@"/TAG+="uaccess"/g' host/libhackrf/53-hackrf.rules.in
-sed -i -e 's/GROUP="plugdev"/TAG+="uaccess"/g' host/libhackrf/53-hackrf.rules
-%endif
 
 
 %build
+pushd host
 %cmake \
   -DINSTALL_UDEV_RULES=on \
   -DUDEV_RULES_PATH:PATH=%{_udevrulesdir} \
-  -DUDEV_RULES_GROUP=plugdev \
-  host
+  -DUDEV_RULES_GROUP=plugdev
 
 %cmake_build
+popd
 
 
 %install
+pushd host
 %cmake_install
+popd
 
 
 %post
@@ -102,6 +100,10 @@ sed -i -e 's/GROUP="plugdev"/TAG+="uaccess"/g' host/libhackrf/53-hackrf.rules
 
 
 %changelog
+* Tue Nov 22 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-2
+- Remove F19 (and older) support
+- Push/pop dirs for cmake
+
 * Thu Nov 17 2022 Richard Shaw <hobbes1069@gmail.com> - 2022.09.1-1
 - Update to 2022.09.1.
 - Update license tag to SPDX format.

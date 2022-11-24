@@ -1,18 +1,15 @@
-%global py_interp %{__python3}
-
 Name:           mint-y-icons
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        The Mint-Y icon theme
 
 License:        CC-BY-SA
-URL:            http://linuxmint.com
-Source0:        http://packages.linuxmint.com/pool/main/m/%{name}/%{name}_%{version}.tar.xz
+URL:            https://github.com/linuxmint/%{name}
+Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  fdupes
-BuildRequires:  python3-devel
 
 Requires:       filesystem
 Requires:       mint-x-icons
@@ -24,21 +21,14 @@ Requires:       hicolor-icon-theme
 
 
 %prep
-%autosetup -n %{name}
+%autosetup
 
 
 %build
-# Add links for some additional programs.
-#pushd %%{name}
-#{py_interp} ./create-links src.png dest.png
-#popd
-
 
 %install
-#pushd %%{name}
 %{__cp} -pr ${PWD}%{_prefix} %{buildroot}
 %fdupes -s %{buildroot}
-#popd
 
 
 %transfiletriggerin -- %{_datadir}/icons/Mint-Y
@@ -61,6 +51,9 @@ done
 
 
 %changelog
+* Tue Nov 22 2022 Leigh Scott <leigh123linux@gmail.com> - 1.6.2-1
+- New upstream release
+
 * Sun Aug 21 2022 Leigh Scott <leigh123linux@gmail.com> - 1.6.1-1
 - New upstream release
 

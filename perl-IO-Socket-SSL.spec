@@ -6,7 +6,7 @@
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
 
 Name:		perl-IO-Socket-SSL
-Version:	2.076
+Version:	2.077
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
@@ -126,6 +126,11 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Mon Nov 21 2022 Paul Howarth <paul@city-fan.org> - 2.077-1
+- Update to 2.077
+  - Fix memory leak in session cache (GH#118)
+  - More race conditions in tests fixed (GH#97)
+
 * Mon Nov 14 2022 Paul Howarth <paul@city-fan.org> - 2.076-1
 - Update to 2.076
  - Added curl like tracing (based on GH#117)

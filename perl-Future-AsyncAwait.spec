@@ -13,17 +13,19 @@
 %endif
 
 Name:           perl-Future-AsyncAwait
-Version:        0.59
-Release:        1%{?dist}
+Version:        0.61
+Release:        2%{?dist}
 Summary:        Deferred subroutine syntax for futures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Future-AsyncAwait
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Future-AsyncAwait-%{version}.tar.gz
+Source1:        macros.perl-Future-AsyncAwait
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Config)
 %if %{with perl_Future_AsyncAwait_enables_Devel_MAT}
 BuildRequires:  perl(Devel::MAT::Dumper::Helper) >= 0.44
@@ -37,7 +39,6 @@ BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_min_ver}
 %define xs_parse_sublike_min_ver 0.14
 BuildRequires:  perl(XS::Parse::Sublike::Builder) >= %{xs_parse_sublike_min_ver}
 # Run-time:
-BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 %define future_min_ver 0.48
@@ -111,6 +112,11 @@ Requires:       perl(XS::Parse::Sublike) >= %{xs_parse_sublike_min_ver}
 # The ABI is defined in XSPARSESUBLIKE_ABI_VERSION of XSParseSublike.h
 Requires:       %{perl_XS_Parse_Sublike_ABI}
 %endif
+# This module maintains an ABI compiled into the users of this module and
+# checked at run-time in boot_future_asyncawait().
+# The ABI range is defined with Future::AsyncAwait/ABIVERSION_MIN and
+# Future::AsyncAwait/ABIVERSION_MAX in Future/AsyncAwait.xs.
+Provides:       perl(:Future_AsyncAwait_ABI) = 1
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Future|Syntax::Keyword::Try|Test::More)\\)$
@@ -120,6 +126,19 @@ This Perl module provides syntax for deferring and resuming subroutines while
 waiting for Futures to complete. This syntax aims to make code that performs
 asynchronous operations using futures look neater and more expressive than
 simply using then chaining and other techniques on the futures themselves.
+
+%package ExtensionBuilder
+Summary:        Build script for Future::AsyncAwait extensions
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# An RPM macro executes perl
+Requires:       perl-interpreter
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+# For the macro file
+Requires:       rpm
+
+%description ExtensionBuilder
+These Perl modules suppports building XS extensions for Future::AsyncAwait
+module.
 
 %package Test
 Summary:        Conformance tests for Future::AsyncAwait::Awaitable role
@@ -191,12 +210,13 @@ perl Build.PL --installdirs=vendor --optimize="$RPM_OPT_FLAGS"
 ./Build
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+install -D -m 0644 -t %{buildroot}%{_rpmmacrodir} %{SOURCE1}
 # Move Test subpackage content to a noarch location
-install -m 0755 -d ${RPM_BUILD_ROOT}%{perl_vendorlib}
-mv ${RPM_BUILD_ROOT}%{perl_vendorarch}/Test ${RPM_BUILD_ROOT}%{perl_vendorlib}
+install -m 0755 -d %{buildroot}%{perl_vendorlib}
+mv %{buildroot}%{perl_vendorarch}/Test %{buildroot}%{perl_vendorlib}
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -216,20 +236,39 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Future*
-%{_mandir}/man3/Future::*
+%dir %{perl_vendorarch}/auto/Future
+%{perl_vendorarch}/auto/Future/AsyncAwait
+%dir %{perl_vendorarch}/Future
+%{perl_vendorarch}/Future/AsyncAwait.pm
+%dir %{perl_vendorarch}/Future/AsyncAwait
+%{perl_vendorarch}/Future/AsyncAwait/Awaitable.pm
+%{_mandir}/man3/Future::AsyncAwait.*
+%{_mandir}/man3/Future::AsyncAwait::Awaitable.*
+
+%files ExtensionBuilder
+%{perl_vendorarch}/Future/AsyncAwait/ExtensionBuilder.pm
+%{perl_vendorarch}/Future/AsyncAwait/ExtensionBuilder_data.pm
+%{_mandir}/man3/Future::AsyncAwait::ExtensionBuilder.*
+%{_rpmmacrodir}/macros.%{name}
 
 %files Test
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/Test
-%{_mandir}/man3/Test::*
+%dir %{perl_vendorlib}/Test
+%dir %{perl_vendorlib}/Test/Future
+%{perl_vendorlib}/Test/Future/AsyncAwait
+%{_mandir}/man3/Test::Future::AsyncAwait::Awaitable.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 22 2022 Petr Pisar <ppisar@redhat.com> - 0.61-2
+- perl-Future-AsyncAwait-ExtensionBuilder requires perl-interpreter
+
+* Tue Nov 22 2022 Petr Pisar <ppisar@redhat.com> - 0.61-1
+- 0.61 bump
+
 * Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 0.59-1
 - 0.59 bump
 

@@ -2,7 +2,7 @@
 %global uuid        %{extension}@RensAlthuis.github.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        9
+Version:        10
 Release:        %autorelease
 Summary:        GNOME Shell extension for vertical overview and workspaces
 License:        GPLv3+

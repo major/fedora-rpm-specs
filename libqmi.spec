@@ -1,20 +1,21 @@
 Name: libqmi
-Version: 1.30.6
-Release: 2%{?dist}
+Version: 1.32.2
+Release: 1%{?dist}
 Summary: Support library to use the Qualcomm MSM Interface (QMI) protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libqmi
-Source: http://freedesktop.org/software/libqmi/%{name}-%{version}.tar.xz
+Source: https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
+BuildRequires: meson >= 0.53
 BuildRequires: gcc
-BuildRequires: glib2-devel >= 2.48.0
+BuildRequires: glib2-devel >= 2.56
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk-doc
 BuildRequires: pkgconfig(gudev-1.0) >= 147
 BuildRequires: libmbim-devel >= 1.18.0
 BuildRequires: libqrtr-glib-devel
-BuildRequires: make
 BuildRequires: python3
+BuildRequires: help2man
 
 %description
 This package contains the libraries that make it easier to use QMI functionality
@@ -24,7 +25,7 @@ from applications that use glib.
 %package devel
 Summary: Header files for adding QMI support to applications that use glib
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: glib2-devel
+Requires: glib2-devel%{?_isa}
 Requires: pkgconfig
 
 %description devel
@@ -47,14 +48,23 @@ from the command line.
 
 
 %build
-%configure --disable-static --enable-gtk-doc --enable-mbim-qmux
-%{make_build} V=1
+# Let's avoid BuildRequiring bash-completion because it changes behavior
+# of shell, at least until the .pc file gets into the -devel subpackage.
+# We'll just install the bash-completion file ourselves.
+%meson -Dgtk_doc=true -Dbash_completion=false
+%meson_build
 
 
 %install
-%make_install
-find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference configure.ac
+%meson_install
+find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
 find %{buildroot} -type f -name "*.la" -delete
+mkdir -p %{buildroot}%{_datadir}/bash-completion
+cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion
+
+
+%check
+%meson_test
 
 
 %ldconfig_scriptlets
@@ -62,7 +72,7 @@ find %{buildroot} -type f -name "*.la" -delete
 
 %files
 %license COPYING.LIB
-%doc NEWS AUTHORS README
+%doc NEWS AUTHORS README.md
 %{_libdir}/libqmi-glib.so.*
 %{_libdir}/girepository-1.0/Qmi-1.0.typelib
 
@@ -86,6 +96,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-1
+- Update to 1.32.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

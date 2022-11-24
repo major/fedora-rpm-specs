@@ -100,7 +100,7 @@ Version: 9.4.3
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -124,6 +124,7 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 # https://gitlab.haskell.org/ghc/ghc/-/issues/21485
 Patch5: https://gitlab.haskell.org/ghc/ghc/-/commit/6e12e3c178fe9ad16131eb3c089bd6578976f5d6.patch
 Patch7: ghc-compiler-enable-build-id.patch
+Patch8: ghc-configure-c99.patch
 
 # arm patches
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
@@ -416,6 +417,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %if 0%{?fedora} >= 37
 %patch7 -p1 -b .orig
 %endif
+%patch8 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -963,6 +965,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Tue Nov 22 2022 Florian Weimer <fweimer@redhat.com> - 9.4.3-14
+- Avoid implicit declaration of exit in configure check
+
 * Fri Nov  4 2022 Jens Petersen <petersen@redhat.com> - 9.4.3-12
 - https://www.haskell.org/ghc/blog/20221103-ghc-9.4.3-released.html
 - https://downloads.haskell.org/~ghc/9.4.3/docs/users_guide/9.4.3-notes.html

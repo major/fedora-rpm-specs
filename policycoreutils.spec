@@ -166,10 +166,10 @@ install -m 755 -p %{SOURCE19} %{buildroot}/%{generatorsdir}/
 install -m 755 -p %{SOURCE15} %{buildroot}/%{_libexecdir}/selinux/
 
 # change /usr/bin/python to %%{__python3} in policycoreutils-python3
-pathfix.py -i "%{__python3} -Es" -p %{buildroot}%{python3_sitelib}
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p %{buildroot}%{python3_sitelib}
 
 # change /usr/bin/python to %%{__python3} in policycoreutils-python-utils
-pathfix.py -i "%{__python3} -Es" -p \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p \
     %{buildroot}%{_sbindir}/semanage \
     %{buildroot}%{_bindir}/chcat \
     %{buildroot}%{_bindir}/sandbox \

@@ -1,5 +1,5 @@
-%global giacver 1.5.0.85
-%global module  giacpy
+%global giacver 1.9.0.29
+%global pypi_name  giacpy
 
 %global with_check  1
 
@@ -7,13 +7,13 @@
 # http://xcas.e.ujf-grenoble.fr/XCAS/viewtopic.php?f=19&t=1723
 ExcludeArch: aarch64 %{power64} s390x
 
-Name:           python-%{module}
-Version:        0.7.0
-Release:        13%{?dist}
+Name:           python-%{pypi_name}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Python binding for Giac
 License:        GPLv2+
 URL:            http://webusers.imj-prg.fr/~frederic.han/xcas/giacpy/
-Source0:        https://files.pythonhosted.org/packages/source/g/%{module}/%{module}-%{version}.tar.gz
+Source0:        %pypi_source
 BuildRequires:  giac-devel >= %{giacver}
 BuildRequires:  giac-doc   >= %{giacver}
 BuildRequires:  gmp-devel, qt5-qtsvg-devel
@@ -24,9 +24,9 @@ Patch0:         %{name}-skip_math_sin.patch
 %description
 A Cython frontend to the c++ library Giac (Computer Algebra System).
 
-%package -n     python3-%{module}
+%package -n     python3-%{pypi_name}
 Summary:        Python3 binding for Giac
-%{?python_provide:%python_provide python3-%{module}}
+%{?python_provide:%python_provide python3-%{pypi_name}}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -34,20 +34,20 @@ BuildRequires:  %{_bindir}/cython
 Requires:       python3-Cython%{?_isa}
 BuildRequires:  libqcas-devel
 Requires:       giac-doc >= %{giacver}
-Obsoletes:      python2-%{module} < 0:%{version}
+Obsoletes:      python2-%{pypi_name} < 0:%{version}
 
-%description -n python3-%{module}
+%description -n python3-%{pypi_name}
 A Cython frontend to the c++ library Giac (Computer Algebra System).
 
-%package -n     python3-%{module}-devel
-Summary:        Development libraries of python3-%{module}
-Requires:       python3-%{module}%{?_isa}
+%package -n     python3-%{pypi_name}-devel
+Summary:        Development libraries of python3-%{pypi_name}
+Requires:       python3-%{pypi_name}%{?_isa}
 
-%description -n python3-%{module}-devel
-Development libraries of Python3 %{module}.
+%description -n python3-%{pypi_name}-devel
+Development libraries of Python3 %{pypi_name}.
 
 %prep
-%autosetup -n %{module}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version} -p1
 
 rm -rf *.egg-info
 
@@ -60,34 +60,36 @@ export CFLAGS="%{optflags} %(pkg-config --cflags Qt5Xml Qt5Widgets)"
 
 %install
 %py3_install
-rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{module}/giacpy.cpp
-rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{module}/GPL-2
+rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{pypi_name}/giacpy.cpp
+rm -f $RPM_BUILD_ROOT%{python3_sitearch}/%{pypi_name}/GPL-2
 
 %if 0%{?with_check}
 %check
 pushd build/lib.linux-*
 export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
-%{__python3} -m doctest ../../%{module}/%{module}.pyx -v
+%{__python3} -m doctest ../../%{pypi_name}/%{pypi_name}.pyx -v
 popd
 %endif
 
-%files -n python3-%{module}
+%files -n python3-%{pypi_name}
 %doc README.txt
-%license %{module}/GPL-2
-%{python3_sitearch}/%{module}/
-%exclude %{python3_sitearch}/%{module}/*.h
-%{python3_sitearch}/%{module}*.egg-info/
+%license %{pypi_name}/GPL-2
+%{python3_sitearch}/%{pypi_name}/
+%exclude %{python3_sitearch}/%{pypi_name}/*.h
+%{python3_sitearch}/%{pypi_name}*.egg-info/
 
-%files -n python3-%{module}-devel
-%{python3_sitearch}/%{module}/*.h
+%files -n python3-%{pypi_name}-devel
+%{python3_sitearch}/%{pypi_name}/*.h
 
 %changelog
+* Fri Nov 18 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.7.1-1
+- Release 0.7.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Wed Jun 22 2022 Charalampos Stratakis <cstratak@redhat.com> - 0.7.0-12
-- Fix FTBFS with setuptools >= 62.1
-Resolves: rhbz#2097111
+- Fix FTBFS with setuptools >= 62.1 Resolves: rhbz#2097111
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.7.0-11
 - Rebuilt for Python 3.11

@@ -1,8 +1,8 @@
 %global forgeurl    https://github.com/musicbrainz/picard/
-%global commit      0862755af5c285cf7dd89e14c140d40a4a5e17f9
+%global commit      ce094582c8f498c1d52e968d7a0d37e254e8a88e
 
 Name:           picard
-Version:        2.8.3
+Version:        2.8.4
 Summary:        MusicBrainz-based audio tagger
 License:        GPLv2+
 Release:        1%{?dist}
@@ -70,6 +70,9 @@ desktop-file-install \
 %{python3_sitearch}/picard/
 
 %changelog
+* Tue Nov 22 2022 Gerald Cox <gbcox@member.fsf.org> - 2.8.4-1
+- Upstream release - rhbz#2144889
+
 * Wed Aug 17 2022 Gerald Cox <gbcox@member.fsf.org> - 2.8.3-1
 - Upstream release - rhbz#2119178
 

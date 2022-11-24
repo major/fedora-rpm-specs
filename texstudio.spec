@@ -1,6 +1,6 @@
 Name:           texstudio
 Version:        4.4.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
 # texstudio binary: GPLv3 due to static linkage of bundled qcodeedit
@@ -10,13 +10,11 @@ URL:            https://www.texstudio.org
 
 Source0:        https://github.com/texstudio-org/texstudio#/archive/%{name}-%{version}.tar.gz
 Source1:        texstudio.desktop
-Patch1:         texstudio-use-system-qtsingleapplication-instead-of-bundled-on.patch
-Patch2:         texstudio-disable-update-check.patch
-# don't muck with default build flags
-Patch3:         texstudio-wtf_flags.patch
-Patch4:         texstudio-use-system-hunspell-instead-of-bundled-one.patch
+Patch1:         texstudio-disable-update-check.patch
 
-BuildRequires: make
+
+BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  qt5-qttools-devel
@@ -56,31 +54,19 @@ all necessary LaTeX tools.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1 -b .qtsingle
-%patch2 -p1 -b .update_check
-%patch3 -p1 -b .wtf_flags
-%patch4 -p1 -b .hunspell
+%patch1 -p1 -b .update_check
 
 rm -rf {hunspell,qtsingleapplication,quazip}
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{qmake_qt5} \
+%cmake \
 %ifnarch %{ix86} x86_64 %{arm}
-    NO_CRASH_HANDLER=1 \
+    -DTEXSTUDIO_ENABLE_CRASH_HANDLER=OFF \
 %endif
-    USE_SYSTEM_HUNSPELL=1 \
-    USE_SYSTEM_QTSINGLEAPPLICATION=1 \
-    INTERNAL_TERMINAL=1 \
-    USE_SYSTEM_QUAZIP=1 QUAZIP_LIB=-lquazip5 QUAZIP_INCLUDE=%{_includedir}/quazip5/ \
-    ../texstudio.pro
-popd
-
-make %{?_smp_mflags} -C %{_target_platform}
+%cmake_build
 
 %install
-make install INSTALL_ROOT=$RPM_BUILD_ROOT -C %{_target_platform}
+%cmake_install
 
 install -Dp -m 0644 utilities/texstudio16x16.png \
     $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/16x16/apps/texstudio.png
@@ -107,7 +93,6 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_bindir}/texstudio
 %dir %{_datadir}/texstudio/
 %{_datadir}/texstudio/*.png
-%{_datadir}/texstudio/latex2e.*
 %{_datadir}/texstudio/*.stopWords
 %{_datadir}/texstudio/*.stopWords.level2
 %{_datadir}/texstudio/de_DE.badWords
@@ -117,17 +102,25 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/texstudio/*.js
 %{_datadir}/texstudio/th_*.dat
 %{_datadir}/texstudio/*.html
+%{_datadir}/texstudio/latex2e.css
 %{_datadir}/texstudio/_sphinx_design_static/
 %{_datadir}/texstudio/_images/*.png
 %{_datadir}/texstudio/_static/
+%{_datadir}/texstudio/README_*
 %{_datadir}/applications/texstudio.desktop
-%{_datadir}/metainfo/texstudio.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/*/apps/*.svg
 
 %doc utilities/AUTHORS utilities/COPYING utilities/manual/CHANGELOG.txt
 
 %changelog
+* Tue Nov 22 2022 Johannes Lips <hannes@fedoraproject.org> 4.4.0-3
+- removed patches 
+
+* Tue Nov 22 2022 Johannes Lips <hannes@fedoraproject.org> 4.4.0-2
+- switch to cmake build
+- build patches are not necessary any more
+
 * Sat Nov 19 2022 Johannes Lips <hannes@fedoraproject.org> 4.4.0-1
 - Update to latest upstream release 4.4.0
 

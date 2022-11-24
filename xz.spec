@@ -3,7 +3,7 @@
 
 Summary:	LZMA compression utilities
 Name:		xz
-Version:	5.2.7
+Version:	5.2.8
 Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
@@ -130,7 +130,7 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_bindir}/*xz*
 %{_mandir}/man1/*xz*
 %{_mandir}/de/man1/*xz*
-%{_mandir}/fr_FR/man1/*xz*
+%{_mandir}/fr/man1/*xz*
 %{profiledir}/*
 
 
@@ -157,10 +157,13 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_bindir}/*lz*
 %{_mandir}/man1/*lz*
 %{_mandir}/de/man1/*lz*
-%{_mandir}/fr_FR/man1/*lz*
+%{_mandir}/fr/man1/*lz*
 
 
 %changelog
+* Tue Nov 22 2022 Matej Mužila <mmuzila@redhat.com> - 5.2.8-1
+- Rebase to version 5.2.8 (#2142405)
+
 * Tue Aug 30 2022 Matej Mužila <mmuzila@redhat.com> - 5.2.7-1
 - Rebase to version 5.2.7 (#2131313)
 

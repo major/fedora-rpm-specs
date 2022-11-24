@@ -9,7 +9,7 @@
 %global libdecor_majver 0
 
 Name:           SDL2
-Version:        2.24.0
+Version:        2.26.0
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        zlib and MIT
@@ -19,10 +19,8 @@ Source1:        SDL_config.h
 Source2:        SDL_revision.h
 
 Patch0:         multilib.patch
-# ptrdiff_t is not the same as khronos defines on 32bit arches
-Patch1:         SDL2-2.0.9-khrplatform.patch
 # Prefer Wayland by default
-Patch2:         SDL2-2.0.22-prefer-wayland.patch
+Patch1:         SDL2-2.0.22-prefer-wayland.patch
 
 BuildRequires:  git-core
 BuildRequires:  cmake
@@ -171,6 +169,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2staticTargets*.cmake
 
 %changelog
+* Tue Nov 22 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.26.0-1
+- Update to 2.26.0
+
 * Fri Aug 19 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.24.0-1
 - Update to 2.24.0
 - Drop backported patches included in this release

@@ -13,7 +13,7 @@ Release:        4%{?dist}
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
-URL:            https://cocoa.dima.unige.it/cocoa/%{name}/
+URL:            https://cocoa.dima.unige.it/cocoa/cocoalib/
 Source0:        %{url}/tgz/CoCoALib-%{version}.tgz
 # Build a shared library instead of a static library
 Patch0:         %{name}-shared.patch
@@ -59,8 +59,11 @@ Requires:       libgfan-devel%{?_isa}
 Headers and library links for developing applications that use %{name}.
 
 %package doc
+# The content is GFDL-1.2-no-invariants-only.  The remaining licenses cover the
+# various fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GFDL-1.2-no-invariants-only AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        Documentation for %{name}
-License:        GFDL-1.2-only
 BuildArch:      noarch
 
 %description doc
@@ -80,6 +83,14 @@ sed -e 's,-lblas -llapack,-lflexiblas,' \
 # Do not suppress compiler command lines
 sed -i 's/\$(MAKE) -s/\$(MAKE)/' Makefile doc/Makefile src/Makefile \
     src/AlgebraicCore/Makefile src/AlgebraicCore/TmpFactorDir/Makefile
+
+# Avoid warnings:
+# "fgrep: warning: fgrep is obsolescent; using grep -F"
+# "egrep: warning: egrep is obsolescent; using grep -E"
+sed -i 's/fgrep/grep -F/g' configure configuration/normaliz-with-openmp.sh \
+  configuration/fixed_part2 doc/Makefile include/CoCoA/MakeUnifiedHeader.sh
+sed -i 's/egrep/grep -E/g' include/CoCoA/MakeUnifiedHeader.sh \
+  src/AlgebraicCore/CheckSourceFiles.sh
 
 %build
 # Use Fedora's linker flags

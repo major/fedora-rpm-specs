@@ -1,6 +1,6 @@
 Name:           libfprint
 
-Version:        1.94.4
+Version:        1.94.5
 Release:        %autorelease
 Summary:        Toolkit for fingerprint scanner
 

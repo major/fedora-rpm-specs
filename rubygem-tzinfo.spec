@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Daylight savings aware timezone library
 License: MIT
 URL: https://tzinfo.github.io
@@ -12,6 +12,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/tzinfo/tzinfo.git --no-checkout
 # cd tzinfo && git archive -v -o tzinfo-2.0.5-tests.txz v2.0.5 test/
 Source1: %{gem_name}-%{version}-tests.txz
+# https://github.com/tzinfo/tzinfo/commit/f76bc7fc824a831a159f080ea2fdeade47dc1e38
+# Ruby 3.2 changes how includes are handled
+Patch0:  %{name}-2.0.5-fix-include-issues-ruby32.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -35,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}/test
+%patch0 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -81,6 +88,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Nov 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.5-2
+- Fix include issue on test with ruby32
+
 * Tue Sep 06 2022 Vít Ondruch <vondruch@redhat.com> - 2.0.5-1
 - Update to TZInfo 2.0.5.
   Resolves: rhbz#2108737

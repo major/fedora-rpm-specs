@@ -27,8 +27,33 @@ canonical forms of graphs.  It has both a command line user interface as
 well as C++ and C programming language APIs.
 
 %package devel
-# The doxygen-generated content contains MIT-licensed files
-License:        LGPL-3.0-only AND MIT
+# The content is LGPL-3.0-only.  Other licenses are due to files installed by
+# doxygen.
+# html/bc_s.png: GPL-1.0-or-later
+# html/bdwn.png: GPL-1.0-or-later
+# html/closed.png: GPL-1.0-or-later
+# html/doc.png: GPL-1.0-or-later
+# html/doxygen.css: GPL-1.0-or-later
+# html/doxygen.svg: GPL-1.0-or-later
+# html/dynsections.js: MIT
+# html/folderclosed.png: GPL-1.0-or-later
+# html/folderopen.png: GPL-1.0-or-later
+# html/jquery.js: MIT
+# html/menu.js: MIT
+# html/menudata.js: MIT
+# html/nav_f.png: GPL-1.0-or-later
+# html/nav_g.png: GPL-1.0-or-later
+# html/nav_h.png: GPL-1.0-or-later
+# html/open.png: GPL-1.0-or-later
+# html/splitbar.png: GPL-1.0-or-later
+# html/sync_off.png: GPL-1.0-or-later
+# html/sync_on.png: GPL-1.0-or-later
+# html/tab_a.png: GPL-1.0-or-later
+# html/tab_b.png: GPL-1.0-or-later
+# html/tab_h.png: GPL-1.0-or-later
+# html/tab_s.png: GPL-1.0-or-later
+# html/tabs.css: GPL-1.0-or-later
+License:        LGPL-3.0-only AND MIT AND GPL-1.0-or-later
 Summary:        Headers and library files for developing with bliss
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}

@@ -1,4 +1,4 @@
-%if 0%{?fedora} < 36 && 0%{?rhel} < 10
+%if 0%{?fedora} < 36 && 0%{?rhel} < 9
 %bcond_with gtk4
 %else
 %bcond_without gtk4

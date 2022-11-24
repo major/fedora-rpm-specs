@@ -62,8 +62,15 @@ Header files and library links for developing applications that use %{name}.
 
 %package doc
 # The project as a whole is LGPL-2.0-or-later.
-# Doxygen adds some MIT license files.
-License:        LGPL-2.0-or-later AND MIT
+# Doxygen adds files with other licenses.
+# GPL-1.0-or-later: bc_s.png, bc_sd.png, bdwn.png, closed.png, doc.png,
+#   docd.png, doxygen.css, doxygen.svg, folderclosed.png, folderopen.png,
+#   nav_f.png, nav_fd.png, nav_g.png, nav_h.png, nav_hd.png, navtree.css,
+#   open.png, splitbar.png, splitbard.png, sync_off.png, sync_on.png, tab_a.png,
+#   tab_ad.png, tab_b.png, tab_bd.png, tab_h.png, tab_hd.png, tab_s.png,
+#   tab_sd.png, tabs.css
+# MIT: dynsections.js, jquery.js, menu.js, menudata.js, navtree.js, resize.js
+License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT
 Summary:        API documentation for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       bundled(js-jquery)
@@ -194,7 +201,7 @@ make toolboxtest_dyn
 %{_libdir}/lib%{name}.so
 
 %files doc
-%doc docu/apidoc docu/images
+%doc docu/apidoc
 
 %changelog
 * Wed Aug 31 2022 Jerry James <loganjerry@gmail.com> - 2.5.4-21

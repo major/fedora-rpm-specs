@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Exporter-Tiny
-Version:	1.004004
+Version:	1.006000
 Release:	1%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,11 +25,15 @@ BuildRequires:	sed
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
+# Optional Functionality
+# Note: Lexical::Var and Lexical::Sub both come from the perl-Lexical-Var package
+# Not needed from 5.37.2 onwards, which have experimental lexical export support
+# So we should be able to drop this (and the runtime dep) for F-38 later
+BuildRequires:	perl(Lexical::Var)
 # Test Suite
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.47
-BuildRequires:	perl(Test::Requires)
 # Optional Tests
 BuildRequires:	perl(Test::Fatal)
 %if ! %{no_test_warnings}
@@ -38,6 +42,7 @@ BuildRequires:	perl(Test::Warnings)
 # Runtime
 Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
+Recommends:	perl(Lexical::Var)
 
 # Avoid doc-file dependency on perl(base)
 %{?perl_default_filter}
@@ -61,7 +66,7 @@ overridden to provide interesting behavior.
 %setup -q -n Exporter-Tiny-%{version}
 
 # Remove bundled modules Test::Fatal, Test::Requires, Test::Simple and Try::Tiny
-rm -r ./inc/
+rm -rv ./inc/
 sed -i -e '/^inc\//d' MANIFEST
 
 %build
@@ -88,6 +93,12 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Mon Nov 21 2022 Paul Howarth <paul@city-fan.org> - 1.006000-1
+- Update to 1.006000
+  - Introduced lexical exporter support on Perl 5.11.2+ using the Lexical::Var
+    module
+  - Refactored the Perl 5.37.2+ lexical exporter support
+
 * Sat Oct 15 2022 Paul Howarth <paul@city-fan.org> - 1.004004-1
 - Update to 1.004004
   - Minor corrections to QuickStart page in the manual

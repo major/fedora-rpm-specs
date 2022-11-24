@@ -4,12 +4,12 @@
 
 %bcond_without flexiblas
 
-%global subversion .19
+%global subversion .29
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       3%{?dist}
+Release:       1%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -36,11 +36,8 @@ Patch3:        %{name}-cocoalib.patch
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=3&t=2724
 Patch4:        %{name}-fix_graphe_file.patch
 
-# https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2792
-Patch5:        %{name}-1.9.0-bug2792.patch
-
 # Adapt to pari 2.15.0
-Patch6:        %{name}-pari2.15.patch
+Patch5:        %{name}-pari2.15.patch
 
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
@@ -166,10 +163,7 @@ with Giac computations.
 %patch2 -p0 -b .backup
 %patch3 -p0 -b .backup
 %patch4 -p1 -b .backup
-%ifarch s390x
 %patch5 -p1 -b .backup
-%endif
-%patch6 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -213,7 +207,9 @@ autoupdate -vf
 autoreconf -ivf
 
 %build
-export CXXFLAGS="-std=gnu++14 %build_cxxflags"
+# https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
+OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
+export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
 export CFLAGS="%build_cflags"
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=yes \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
@@ -228,7 +224,9 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Fix unused-direct-shlib-dependency with libgslcblas.so.0 and libgfortran.so.3
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
-export CXXFLAGS="-std=gnu++14 %build_cxxflags"
+# https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
+OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
+export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
 export CFLAGS_FEDORA="%build_cflags"
 export LDFLAGS_FEDORA="%build_ldflags"
 %make_build V=1
@@ -456,6 +454,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Fri Nov 18 2022 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.29-1
+- Update to 1.9.0 sub-29
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.9.0.19-3
 - Rebuild for pari 2.15.0
 

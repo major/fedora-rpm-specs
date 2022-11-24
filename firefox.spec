@@ -52,7 +52,7 @@ ExcludeArch: i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=1951606
 %global enable_mozilla_crashreporter 0
 %ifarch x86_64 %{ix86}
-%global enable_mozilla_crashreporter 1
+%global enable_mozilla_crashreporter 0
 %endif
 %if %{build_with_asan}
 %global enable_mozilla_crashreporter 0
@@ -172,7 +172,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        107.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -598,6 +598,10 @@ echo "ac_add_options --disable-debug" >> .mozconfig
 # Second arches fail to start with jemalloc enabled
 %ifnarch %{ix86} x86_64
 echo "ac_add_options --disable-jemalloc" >> .mozconfig
+%endif
+
+%if !%{enable_mozilla_crashreporter}
+echo "ac_add_options --disable-crashreporter" >> .mozconfig
 %endif
 
 %if 0%{?build_tests}
@@ -1101,11 +1105,13 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/firefox.png
 %{_datadir}/icons/hicolor/48x48/apps/firefox.png
 %{_datadir}/icons/hicolor/symbolic/apps/firefox-symbolic.svg
+%if %{enable_mozilla_crashreporter}
 %{mozappdir}/crashreporter
 %{mozappdir}/crashreporter.ini
 %{mozappdir}/minidump-analyzer
 %{mozappdir}/Throbber-small.gif
 %{mozappdir}/browser/crashreporter-override.ini
+%endif
 %{mozappdir}/*.so
 %{mozappdir}/defaults/pref/channel-prefs.js
 %{mozappdir}/dependentlibs.list
@@ -1125,6 +1131,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Nov 21 2022 Martin Stransky <stransky@redhat.com>- 107.0-3
+- Disabled crashreporter
+
 * Mon Nov 21 2022 Jan Horak <jhorak@redhat.com> - 107.0-2
 - Enabled mozilla crashreporter again
 

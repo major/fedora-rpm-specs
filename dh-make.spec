@@ -1,6 +1,6 @@
 Name:           dh-make
 # Squeeze
-Version:        2.202203
+Version:        2.202204
 
 Release:        1%{?dist}
 Summary:        Tool that converts source archives into Debian package source
@@ -52,6 +52,9 @@ install -m 644 -p dh_make.1 %{buildroot}/%{_mandir}/man1
 %{_datadir}/debhelper/dh_make
 
 %changelog
+* Tue Nov 22 2022 Sérgio Basto <sergio@serjux.com> - 2.202204-1
+- Update dh-make to 2.202204 (#2135135)
+
 * Thu Sep 29 2022 Sérgio Basto <sergio@serjux.com> - 2.202203-1
 - Update dh-make to 2.202203 (#2127660)
 

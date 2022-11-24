@@ -5,12 +5,13 @@ Summary: Turn an image into sound whose spectrogram looks like the image
 License: MIT
 
 Version: 0.9.3
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 URL: https://github.com/LeviBorodenko/%{pypi_name}
 Source0: %{pypi_source}
 
 Patch0: 0000-remove-pyscaffold-max-version-constraint.patch
+Patch1: 0001-add-version-metadata.patch
 
 BuildRequires: make
 BuildRequires: python3-devel
@@ -50,8 +51,8 @@ for the %{pypi_name} program.
 
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1
+sed -e 's/\b__RPM_PACKAGE_VERSION__\b/%{version}/g' -i setup.cfg
 
 
 %build
@@ -83,6 +84,9 @@ install -m 644 build/sphinx/man/%{name}.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Nov 22 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.3-11
+- Fix python package metadata containing no version information
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

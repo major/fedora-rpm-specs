@@ -1,13 +1,12 @@
 Summary:        A straightforward implementation of DBM
 Name:           kyotocabinet
-Version:        1.2.78
+Version:        1.2.79
 Release:        1%{?dist}
 License:        GPLv3
 URL:            https://dbmx.net/%{name}/
 Source:         https://dbmx.net/%{name}/pkg/%{name}-%{version}.tar.gz
 Patch0:         kyotocabinet-1.2.76-cflags.patch
 Patch1:         kyotocabinet-1.2.76-8-byte-atomics.patch
-Patch2:         kyotocabinet-1.2.78-random-failures.patch
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  gcc-c++, zlib-devel, lzo-devel, xz-devel
 
@@ -52,7 +51,6 @@ applications that use Kyoto Cabinet.
 %setup -q
 %patch0 -p1 -b .cflags
 %patch1 -p1 -b .8-byte-atomics
-%patch2 -p1 -b .random-failures
 
 %build
 %configure --disable-opt --enable-lzo --enable-lzma
@@ -142,6 +140,9 @@ make check
 %doc COPYING doc/api/* kyotocabinet.idl
 
 %changelog
+* Tue Nov 22 2022 Peng Wu <pwu@redhat.com> - 1.2.79-1
+- Update to 1.2.79
+
 * Wed Sep 23 2020 Robert Scheck <robert@fedoraproject.org> 1.2.78-1
 - Update to 1.2.78 (#1858682)
 - Added patch to ignore randomly failing tests (#1863664)

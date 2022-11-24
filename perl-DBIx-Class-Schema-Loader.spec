@@ -1,12 +1,13 @@
 Name:           perl-DBIx-Class-Schema-Loader
 Summary:        Dynamic definition of a DBIx::Class::Schema
-Version:        0.07049
-Release:        15%{?dist}
-License:        GPL+ or Artistic
-Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/DBIx-Class-Schema-Loader-%{version}.tar.gz
+Version:        0.07050
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+Source0:        https://cpan.metacpan.org/authors/id/V/VE/VEESH/DBIx-Class-Schema-Loader-%{version}.tar.gz
 URL:            https://metacpan.org/release/DBIx-Class-Schema-Loader
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -14,7 +15,6 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  sed
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -85,28 +85,65 @@ Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Provides:       perl(DBIx::Class::Schema::Loader::Utils)
 Requires:       perl(Hash::Merge)
 
-
 %{?perl_default_filter}
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(dbixcsl_.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(make_dbictest_db.*\\)
 
 %description
 DBIx::Class::Schema::Loader automates the definition of a
 DBIx::Class::Schema by scanning database table definitions
 and setting up the columns, primary keys, and relationships.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(DBD::SQLite)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n DBIx-Class-Schema-Loader-%{version}
-find t -type f -print0 | xargs -0 sed -i '1s,#!.*perl,#!%{__perl},'
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t -o -name *.pl` t/bin/simple_filter; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/script
+ln -s %{_bindir}/dbicdump %{buildroot}%{_libexecdir}/%{name}/script
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 export SCHEMA_LOADER_TESTS_BACKCOMPAT=1
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -115,7 +152,14 @@ make test
 %{_mandir}/man[13]/*
 %{_bindir}/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.07050-1
+- 0.07050 bump
+- Package tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07049-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

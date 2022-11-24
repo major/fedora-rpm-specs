@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,7 @@ programming much safer and easier than using other thread models.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -166,6 +167,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 22 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.570-9
+- Fix license for tests package
+
 * Tue Nov 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.570-8
 - Package tests
 - Update license to SPDX format

@@ -1,63 +1,63 @@
 %global srcname pytest-rerunfailures
 
 Name:           python-%{srcname}
-Version:        10.2
-Release:        4%{?dist}
+Version:        10.3
+Release:        1%{?dist}
 Summary:        A py.test plugin that re-runs failed tests to eliminate flakey failures
 
-License:        MPLv2.0
-URL:            https://github.com/pytest-dev/%{srcname}
-Source0:        https://github.com/pytest-dev/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+License:        MPL-2.0
+URL:            https://github.com/pytest-dev/pytest-rerunfailures
+Source0:        https://github.com/pytest-dev/pytest-rerunfailures/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 pytest-rerunfailures is a plugin for py.test that re-runs tests to eliminate
-intermittent failures.
+intermittent failures.}
+
+%description %_description
 
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pytest >= 5.3
-BuildRequires:  python%{python3_pkgversion}-setuptools >= 40.0
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-pytest >= 5.3
-Requires:       python%{python3_pkgversion}-setuptools >= 40.0
-%endif
-
-%description -n python%{python3_pkgversion}-%{srcname}
-pytest-rerunfailures is a plugin for py.test that re-runs tests to eliminate
-intermittent failures.
+%description -n python%{python3_pkgversion}-%{srcname} %_description
 
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pytest_rerunfailures
 
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest test_pytest_rerunfailures.py
+%tox
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc CHANGES.rst README.rst
-%{python3_sitelib}/pytest_rerunfailures.py
-%{python3_sitelib}/__pycache__/pytest_rerunfailures.cpython-*
-%{python3_sitelib}/pytest_rerunfailures-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Tue Nov 22 2022 Scott K Logan <logans@cottsay.net> - 10.3-1
+- Update to 10.3 (rhbz#2144871)
+- Define _description variable to reduce duplication
+- Drop macro from URL to improve ergonomics
+- Use modern packaging macros
+- Switch to SPDX license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

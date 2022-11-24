@@ -1,6 +1,6 @@
 Name:           execstack
 Version:        0.5.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Utility to set/clear/query executable stack bit
 
 %global commit 4c79120bcdbde0616f592458ccde7035e92ca3d8
@@ -11,6 +11,7 @@ License: GPLv2+
 Source0: https://github.com/keszybz/prelink/archive/%{commit}.tar.gz#/prelink-%{shortcommit}.tar.gz
 
 Patch0:  Add-PL_ARCH-for-AArch64.patch
+Patch1: execstack-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -58,6 +59,9 @@ install -Dm0644 doc/execstack.8 %{buildroot}%{_mandir}/man8/execstack.8
 %{_mandir}/man8/execstack.8.*
 
 %changelog
+* Tue Nov 22 2022 Florian Weimer <fweimer@redhat.com> - 0.5.0-24
+- Avoid implicit function declarations in configure (#2144890)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

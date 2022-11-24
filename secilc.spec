@@ -1,8 +1,8 @@
-%global libsepolver 3.4-1
+%global libsepolver 3.4-4
 
 Name:           secilc
 Version:        3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
@@ -11,6 +11,10 @@ Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.4/
 # fedora-selinux/selinux: git format-patch -N 3.4 -- secilc
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
+Patch0001: 0001-secilc-docs-fix-syntax-highlighting.patch
+Patch0002: 0002-secilc-docs-disable-pandoc-default-css-for-html-docs.patch
+Patch0003: 0003-secilc-doc-classmap-is-also-allowed-in-permissionx.patch
+Patch0004: 0004-docs-provide-a-top-level-LICENSE-file.patch
 # Patch list end
 Requires:       libsepol >= %{libsepolver}
 BuildRequires:  gcc
@@ -58,14 +62,17 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %{_mandir}/man8/secilc.8.gz
 %{_mandir}/man8/secil2conf.8.gz
 %{_mandir}/man8/secil2tree.8.gz
-%license COPYING
+%license LICENSE
 
 %files doc
 %doc docs/html
 %doc docs/pdf
-%license COPYING
+%license LICENSE
 
 %changelog
+* Tue Nov 22 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-4
+- Rebase on upstream f56a72ac9e86
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

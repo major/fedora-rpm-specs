@@ -2,8 +2,8 @@ Name:           check
 Version:        0.15.2
 Release:        7%{?dist}
 Summary:        A unit test framework for C
-Source0:        https://github.com/libcheck/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-License:        LGPLv2+
+Source0:        https://github.com/libcheck/check/archive/%{version}/%{name}-%{version}.tar.gz
+License:        LGPL-2.1-or-later
 URL:            https://libcheck.github.io/check/
 # Only needed for autotools in Fedora
 Patch0:         %{name}-0.11.0-info-in-builddir.patch
@@ -43,7 +43,7 @@ Static libraries of check.
 
 %package checkmk
 Summary:        Translate concise versions of test suites into C programs
-License:        BSD
+License:        checkmk
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
@@ -148,6 +148,9 @@ cd -
 %{_mandir}/man1/checkmk.1*
 
 %changelog
+* Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 0.15.2-7
+- Convert License tags to SPDX
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

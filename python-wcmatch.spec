@@ -2,16 +2,13 @@
 %global pypi_name wcmatch
 
 Name:           python-%{pypi_name}
-Version:        8.1.2
-Release:        10%{?dist}
+Version:        8.4.1
+Release:        1%{?dist}
 Summary:        Wildcard/glob file name matcher
 
 License:        MIT
 URL:            https://github.com/facelessuser/wcmatch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/facelessuser/wcmatch/pull/177.patch
-Patch0:         python-3.10-test-fix.patch
 
 BuildArch:      noarch
 
@@ -47,22 +44,27 @@ globmatch which functions like fnmatch, but for paths.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
 %pytest -vv -k "not test_tilde_user"
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md
 %doc README.md
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Nov 22 2022 Parag Nemade <pnemade AT redhat DOT com> - 8.4.1-1
+- Update to new version 8.4.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

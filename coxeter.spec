@@ -1,5 +1,4 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global owner    tscrim
 %global gittag   7b5a1f0039511326aeb616afb132a5065886b9d8
 %global shorttag %(cut -b -7 <<< %{gittag})
 %global gitdate  20180226
@@ -9,8 +8,11 @@ Version:        3.1
 Release:        8.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Combinatorial aspects of Coxeter group theory
 
-License:        GPL-1.0-or-later
-URL:            https://github.com/%{owner}/%{name}
+# The content is GPL-1.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GPL-1.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+URL:            https://github.com/tscrim/coxeter
 Source0:        %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # See https://github.com/tscrim/coxeter/pull/14
 Source1:        sage.h
@@ -57,10 +59,9 @@ a direct C++ implementation of the concept of a Coxeter group.
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 %build
-%make_build optimize=true libdir=%{_libdir} \
-  CXX=g++ CXXFLAGS='%{build_cxxflags}' LDFLAGS='%{build_ldflags}'
-pdflatex INTRO.tex
-pdflatex INTRO.tex
+%make_build optimize=true libdir=%{_libdir}
+pdflatex -interaction=batchmode INTRO.tex
+pdflatex -interaction=batchmode INTRO.tex
 
 %install
 # Install the library
@@ -89,7 +90,7 @@ fi
 
 %files
 %doc INTRO.pdf README
-%{_libdir}/libcoxeter3.so.*
+%{_libdir}/libcoxeter3.so.0*
 %{_datadir}/%{name}/
 
 %files devel

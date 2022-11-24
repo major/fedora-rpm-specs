@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	64%{?dist}
+Release:	66%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -38,22 +38,37 @@ Source12:	sbat.csv.in
 
 %include %{SOURCE1}
 
-BuildRequires:	gcc efi-srpm-macros
-BuildRequires:	flex bison binutils python3
-BuildRequires:	ncurses-devel xz-devel bzip2-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	binutils
+BuildRequires:	bison
+BuildRequires:	bzip2-devel
+BuildRequires:	dejavu-sans-fonts
+BuildRequires:	device-mapper-devel
+BuildRequires:	efi-srpm-macros
+BuildRequires:	flex
+BuildRequires:	freetype-devel
 BuildRequires:	freetype-devel
 BuildRequires:	fuse-devel
-BuildRequires:	rpm-devel rpm-libs
-BuildRequires:	autoconf automake device-mapper-devel
-BuildRequires:	freetype-devel gettext-devel git
-BuildRequires:	texinfo
-BuildRequires:	dejavu-sans-fonts
+BuildRequires:	gcc
+BuildRequires:	gettext-devel
+BuildRequires:	git
 BuildRequires:	help2man
+BuildRequires:	ncurses-devel
+BuildRequires:	python3
+BuildRequires:	rpm-devel
+BuildRequires:	rpm-libs
+BuildRequires:	squashfs-tools
+BuildRequires:	texinfo
+BuildRequires:	xz-devel
+
 # For %%_userunitdir macro
 BuildRequires:	systemd
+
 %ifarch %{efi_arch}
 BuildRequires:	pesign >= 0.99-8
 %endif
+
 %if %{?_with_ccache: 1}%{?!_with_ccache: 0}
 BuildRequires:	ccache
 %endif
@@ -94,7 +109,6 @@ subpackages.
 
 %package tools
 Summary:	Support tools for GRUB.
-Obsoletes:	grub2-tools < %{evr}
 Requires:	grub2-common = %{epoch}:%{version}-%{release}
 Requires:	gettext-runtime os-prober file
 Requires(pre):	dracut
@@ -110,7 +124,6 @@ This subpackage provides tools for support of all platforms.
 Summary:	Support tools for GRUB.
 Requires:	gettext-runtime os-prober file
 Requires:	grub2-common = %{epoch}:%{version}-%{release}
-Obsoletes:	grub2-tools < %{evr}
 
 %description tools-efi
 %{desc}
@@ -133,7 +146,6 @@ Requires:	gettext-runtime os-prober file
 Requires:	grub2-tools-minimal = %{epoch}:%{version}-%{release}
 Requires:	grub2-common = %{epoch}:%{version}-%{release}
 Requires:	mtools
-Obsoletes:	grub2-tools < %{evr}
 
 %description tools-extra
 %{desc}
@@ -532,6 +544,14 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Nov 22 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-66
+- Bundle unicode.pf2 with images
+- Resolves: #2143725
+- Resolves: #2144113
+
+* Tue Nov 22 2022 Robbie Harwood <rharwood@redhat.com> - 1:2.06-65
+- Don't obsolete the tools package with extra/efi (pbrobinson)
+
 * Mon Nov 21 2022 Robbie Harwood <rharwood@redhat.com> - 1:2.06-64
 - Forward-port ppc64le image creation (with nerfed signing)
 

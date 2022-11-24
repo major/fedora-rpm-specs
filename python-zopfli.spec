@@ -2,10 +2,10 @@
 %global pypi_name zopfli
 
 Name:           python-zopfli
-Version:        0.2.1
-Release:        3%{?dist}
+Version:        0.2.2
+Release:        2%{?dist}
 Summary:        Zopfli module for python
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/obp/py-zopfli
 Source0:        %{pypi_source %{pypi_name} %{version} zip}
 
@@ -13,7 +13,6 @@ BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  zopfli-devel
-
 
 %description
 cPython bindings for zopfli.
@@ -38,24 +37,25 @@ rm -rf zopfli
 export USE_SYSTEM_ZOPFLI=1
 %pyproject_wheel
 
-
 %install
 %pyproject_install
-
+%pyproject_save_files zopfli
 
 %check
 export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}}"
 %{python3} tests/test_zopfli.py
 
-
-%files -n  python3-%{pypi_name}
+%files -n  python3-%{pypi_name} -f %{pyproject_files}
 %license COPYING
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}-%{version}.dist-info/
-
 
 %changelog
+* Tue Nov 22 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.2.2-2
+- Update license to SPDX expression
+
+* Tue Nov 22 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.2.2-1
+- Update to 0.2.2 version (#2143025)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

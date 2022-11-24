@@ -16,7 +16,7 @@
 %global with_i915   1
 %global with_iris   1
 %global with_xa     1
-%global platform_vulkan ,intel
+%global platform_vulkan ,intel,intel_hasvk
 %endif
 
 %ifarch aarch64
@@ -64,6 +64,9 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 # Source1 contains email correspondence clarifying the license terms.
 # Fedora opts to ignore the optional part of clause 2 and treat that code as 2 clause BSD.
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
+
+# fix some radeonsi issues
+Patch0:	0001-st-mesa-suppress-async-glthread-flushing-for-GLX_EXT.patch
 
 BuildRequires:  meson >= 0.61.4
 BuildRequires:  gcc
@@ -609,6 +612,8 @@ popd
 %ifarch %{ix86} x86_64
 %{_libdir}/libvulkan_intel.so
 %{_datadir}/vulkan/icd.d/intel_icd.*.json
+%{_libdir}/libvulkan_intel_hasvk.so
+%{_datadir}/vulkan/icd.d/intel_hasvk_icd.*.json
 %endif
 %ifarch aarch64
 %{_libdir}/libvulkan_broadcom.so

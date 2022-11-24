@@ -1,9 +1,9 @@
-%global commit0 c7cdf0cc4395b57563294d1f340b6bb1b95366a0
+%global commit0 b05bbcdaeb9b700cf7877e6d66f8fc3ac952295b
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 
 Name:           libglvnd
-Version:        1.5.0
+Version:        1.6.0
 Release:        1%{?dist}
 # Provide an upgrade path from the negativo17.org pkgs which have Epoch 1
 Epoch:          1
@@ -240,6 +240,9 @@ xvfb-run -s '-screen 0 640x480x24' -d make check V=1 || \
 
 
 %changelog
+* Tue Nov 22 2022 Nicolas Chauvet <kwizart@gmail.com> - 1:1.6.0-1
+- Update to 1.6.0
+
 * Tue Aug 23 2022 Nicolas Chauvet <kwizart@gmail.com> - 1:1.5.0-1
 - Update to 1.5.0
 

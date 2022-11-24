@@ -3,12 +3,12 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.18.8
-Release: 2%{?dist}
+Version: 1.20.2
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+Source: https://gitlab.com/linux-mobile-broadband/ModemManager/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
@@ -35,10 +35,11 @@ BuildRequires: glib2-devel >= 2.56
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: gtk-doc
 BuildRequires: libgudev1-devel >= 232
-BuildRequires: libmbim-devel >= 1.26.0
-BuildRequires: libqmi-devel >= 1.30.0
+BuildRequires: libmbim-devel >= 1.28.0
+BuildRequires: libqmi-devel >= 1.32.0
 BuildRequires: libqrtr-glib-devel >= 1.0.0
 BuildRequires: make
+BuildRequires: systemd
 BuildRequires: systemd-devel >= 209
 BuildRequires: vala
 BuildRequires: polkit-devel
@@ -176,6 +177,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.20.2-1
+- Update to 1.20.2
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

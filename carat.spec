@@ -1,16 +1,23 @@
-# Development has moved to github, but no releases have been made yet.
-%global commit      a66628fa2805feb47f8cc7a229f3b6fe6f6e63e8
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# Get post-release bug fixes
+%global commit      fd0b757974c491203e050912c09ac0bd504c7700
+%global date        20211018
+%global forgeurl    https://github.com/lbfm-rwth/carat
 
 Name:           carat
-Version:        2.1b1.2020.06.04
-Release:        4%{?dist}
+Epoch:          1
+Version:        2.1
 Summary:        Crystallographic AlgoRithms And Tables
 
-License:        GPLv3+
-URL:            https://github.com/lbfm-rwth/%{name}
-Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%forgemeta
+
+Release:        1%{?dist}
+License:        GPL-2.0-or-later
+URL:            https://lbfm-rwth.github.io/carat/
+Source0:        %{forgesource}
 Source1:        %{name}.module.in
+# Fix 2 use-after-free situations
+# https://github.com/lbfm-rwth/carat/pull/107
+Patch0:         %{name}-use-after-free.patch
 
 BuildRequires:  environment(modules)
 BuildRequires:  gcc
@@ -20,7 +27,7 @@ BuildRequires:  make
 BuildRequires:  tex(latex)
 BuildRequires:  tex(epic.sty)
 
-Requires:       %{name}-tables = %{version}-%{release}
+Requires:       %{name}-tables = 1:%{version}-%{release}
 Requires:       environment(modules)
 
 %description
@@ -39,6 +46,12 @@ BuildArch:      noarch
 Tables for CARAT binaries to consume.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 Summary:        Documentation and examples for CARAT
 BuildArch:      noarch
 
@@ -46,7 +59,8 @@ BuildArch:      noarch
 Documentation and examples for CARAT.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%forgesetup
+%autopatch -p1
 
 # Don't ship XV thumbnails with the examples
 rm -fr tex/examples/.xvpics
@@ -60,7 +74,7 @@ rm -fr tex/examples/.xvpics
 
 # Build the documentation
 cd tex
-pdflatex manual
+pdflatex -interaction=batchmode manual
 cd -
 
 %install
@@ -77,10 +91,10 @@ touch -r %{SOURCE1} %{buildroot}%{_modulesdir}/%{name}-%{_arch}
 # Install the tables
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -a tables %{buildroot}%{_datadir}/%{name}
-rm -f %{buildroot}%{_datadir}/%{name}/tables/*.tar.gz
-rm -f %{buildroot}%{_datadir}/%{name}/tables/lattices/{README.lattice,*.sh}
-rm -f %{buildroot}%{_datadir}/%{name}/tables/qcatalog/*.sh
-rm -f %{buildroot}%{_datadir}/%{name}/tables/symbol/{Makefile,README}
+rm %{buildroot}%{_datadir}/%{name}/tables/*.tar.gz
+rm %{buildroot}%{_datadir}/%{name}/tables/lattices/{README.lattice,*.sh}
+rm %{buildroot}%{_datadir}/%{name}/tables/qcatalog/*.sh
+rm %{buildroot}%{_datadir}/%{name}/tables/symbol/{Makefile,README}
 
 %check
 cd tst
@@ -88,7 +102,7 @@ cd tst
 cd -
 
 %files
-%doc CHANGES.md README.md tex/README.short tex/manual.pdf
+%doc CHANGES.md README.md tex/README.short
 %{_modulesdir}/%{name}-%{_arch}
 %{_libexecdir}/%{name}/
 
@@ -98,10 +112,16 @@ cd -
 %{_datadir}/%{name}
 
 %files doc
-%doc tex/Graph tex/*.html tex/examples tex/progs
+%doc tex/Graph tex/*.html tex/examples tex/manual.pdf tex/progs
 %license LICENSE
 
 %changelog
+* Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 1:2.1-1.20211018gitfd0b757
+- Version 2.1 plus bug fixes from git
+- Bump epoch to fix broken upgrade path
+- License change from GPLv3+ to GPL-2.0-or-later
+- Move manual into the doc subpackage
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1b1.2020.06.04-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

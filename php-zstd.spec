@@ -16,15 +16,15 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.11.0
-Release:       5%{?dist}
+Version:       0.12.0
+Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel
+BuildRequires: php-devel >= 7.0
 BuildRequires: php-pecl-apcu-devel
 BuildRequires: php-pear
 BuildRequires: pkgconfig(libzstd)
@@ -195,6 +195,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Nov 22 2022 Remi Collet <remi@remirepo.net> - 0.12.0-1
+- update to 0.12.0
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.11.0-5
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

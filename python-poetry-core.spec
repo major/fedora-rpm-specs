@@ -1,6 +1,6 @@
 Name:           python-poetry-core
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Poetry PEP 517 Build Backend
 
 # We bundle a lot of libraries with poetry, which itself is under MIT license.
@@ -37,6 +37,7 @@ BuildRequires:  python3-build
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 BuildRequires:  python3-pep517
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-virtualenv
 BuildRequires:  gcc
 BuildRequires:  git-core
@@ -102,6 +103,9 @@ Provides:       bundled(python3dist(typing-extensions)) = 4.3.0
 
 
 %changelog
+* Wed Nov 16 2022 Lumír Balhar <lbalhar@redhat.com> - 1.2.0-2
+- Add missing buildrequire - setuptools (#2142040)
+
 * Fri Sep 30 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.0-1
 - Update to 1.2.0
 

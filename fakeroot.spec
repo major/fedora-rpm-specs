@@ -2,15 +2,15 @@
 
 Summary: Gives a fake root environment
 Name: fakeroot
-Version: 1.29
-Release: 2%{?dist}
+Version: 1.30.1
+Release: 1%{?dist}
 # setenv.c: LGPLv2+
 # contrib/Fakeroot-Stat-1.8.8: Perl (GPL+ or Artistic)
 # the rest: GPLv3+
 License: GPLv3+ and LGPLv2+ and (GPL+ or Artistic)
 # Source code: https://salsa.debian.org/clint/fakeroot/-/tree/upstream
 URL: https://tracker.debian.org/pkg/fakeroot
-Source0: https://cdn-aws.deb.debian.org/debian/pool/main/f/fakeroot/%{name}_%{version}.orig.tar.gz
+Source0: https://ftp.debian.org/debian/pool/main/f/fakeroot/%{name}_%{version}.orig.tar.gz
 
 # Debian package patches, from debian.tar.xz
 Patch2: debian_fix-shell-in-fakeroot.patch
@@ -18,10 +18,7 @@ Patch2: debian_fix-shell-in-fakeroot.patch
 Patch4: fakeroot-inttypes.patch
 # Fix LD_LIBRARY_PATH for multilib: https://bugzilla.redhat.com/show_bug.cgi?id=1241527
 Patch5: fakeroot-multilib.patch
-Patch6: relax_autoconf.patch
 Patch7: relax_tartest.patch
-Patch8: debian_also-wrap-stat-library-call.patch
-#Patch9: debian_fix-prototype-generation.patch
 
 
 BuildRequires: make
@@ -60,6 +57,7 @@ This package contains the libraries required by %{name}.
 
 %prep
 %autosetup -p1
+sed -i 's#AC_PREREQ(\[2.71\])#AC_PREREQ([2.69])#' configure.ac
 
 %build
 %if %{with autoconf}
@@ -167,6 +165,9 @@ fi
 %ghost %{_libdir}/libfakeroot/libfakeroot-0.so
 
 %changelog
+* Wed Nov 23 2022 Sérgio Basto <sergio@serjux.com> - 1.30.1-1
+- Update fakeroot to 1.30.1 (#2139595)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

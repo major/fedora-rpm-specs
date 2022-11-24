@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -39,8 +39,8 @@ BuildRequires:  botan2-devel
 BuildRequires:  cmake >= 3.1
 BuildRequires:  desktop-file-utils
 %if 0%{?el8}
-BuildRequires:  gcc-toolset-11-gcc-c++
-BuildRequires:  gcc-toolset-11-annobin-plugin-gcc
+BuildRequires:  gcc-toolset-12-gcc-c++
+BuildRequires:  gcc-toolset-12-annobin-plugin-gcc
 %else
 BuildRequires:  gcc-c++
 %endif
@@ -94,6 +94,14 @@ BuildRequires:  gnupg2
 # non-YubiKey keys (ie, OnlyKey).
 Provides: bundled(ykcore)
 
+# Unsupported CPU architectures on EPEL8
+# filled https://bugzilla.redhat.com/show_bug.cgi?id=2144863
+# to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
+%if 0%{?el8}
+ExcludeArch: s390x
+%endif
+
 %description
 KeePassXC is a community fork of KeePassX
 KeePassXC is an application for people with extremely high demands on secure
@@ -125,7 +133,7 @@ sed -i '/type="contribute"/d' ./share/linux/org.keepassxc.KeePassXC.appdata.xml
 
 %build
 %if 0%{?el8}
-. /opt/rh/gcc-toolset-11/enable
+. /opt/rh/gcc-toolset-12/enable
 %endif
 # -DWITH_XC_DOCS=OFF is needed on EL due missing rubygem-asciidoctor
 # For EL8 missing rubygem-asciidoctor read
@@ -189,6 +197,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Nov 22 2022 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-4
+- Updates gcc-toolset version from 11 to 12
+- Removes s390x from EPEL 8
+
 * Mon Nov 21 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.7.4-3
 - Fix builds for EPEL and F35
 

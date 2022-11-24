@@ -1,17 +1,17 @@
 Name: libqrtr-glib
-Version: 1.0.0
-Release: 4%{?dist}
+Version: 1.2.2
+Release: 1%{?dist}
 Summary: Support library to use and manage the QRTR (Qualcomm IPC Router) bus.
 License: LGPLv2+
 URL: http://freedesktop.org/software/libqrtr-glib
-Source: http://freedesktop.org/software/libqmi/libqrtr-glib/%{name}-%{version}.tar.xz
+Source: https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
+BuildRequires: meson >= 0.53
 BuildRequires: gcc
-BuildRequires: glib2-devel >= 2.48.0
+BuildRequires: glib2-devel >= 2.56
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk-doc
 BuildRequires: pkgconfig(gudev-1.0) >= 147
-BuildRequires: make
 BuildRequires: python3
 
 %description
@@ -34,22 +34,25 @@ applications using QRTR functionality from applications that use glib.
 
 
 %build
-%configure --enable-gtk-doc
-%make_build V=1
+%meson
+%meson_build
 
 
 %install
-%make_install
-find %{buildroot} -type f -name "*.la" -delete
-find %{buildroot} -type f -name "*.a" -delete
+%meson_install
+find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
+
+
+%check
+%meson_test
 
 
 %ldconfig_scriptlets
 
 
 %files
-%license COPYING.LIB
-%doc NEWS AUTHORS README
+%license LICENSES/LGPL-2.1-or-later.txt
+%doc NEWS AUTHORS README.md
 %{_libdir}/libqrtr-glib.so.*
 %{_libdir}/girepository-1.0/Qrtr-1.0.typelib
 
@@ -63,6 +66,9 @@ find %{buildroot} -type f -name "*.a" -delete
 
 
 %changelog
+* Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.2.2-1
+- Update to 1.2.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

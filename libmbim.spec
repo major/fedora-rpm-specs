@@ -1,18 +1,19 @@
 Name: libmbim
-Version: 1.26.4
-Release: 2%{?dist}
+Version: 1.28.2
+Release: 1%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libmbim
-Source: http://freedesktop.org/software/libmbim/%{name}-%{version}.tar.xz
+Source: https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires: automake autoconf libtool
+BuildRequires: meson >= 0.53
 BuildRequires: gcc
-BuildRequires: glib2-devel >= 2.48.0
+BuildRequires: glib2-devel >= 2.56
+BuildRequires: gobject-introspection-devel
 BuildRequires: gtk-doc
-BuildRequires: make
 BuildRequires: pkgconfig
 BuildRequires: python3
+BuildRequires: help2man
 
 
 %description
@@ -24,6 +25,7 @@ functionality from applications that use glib.
 Summary: Header files for adding MBIM support to applications that use glib
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: glib2-devel%{?_isa}
+Requires: pkgconfig
 
 %description devel
 This package contains the header and pkg-config files for developing
@@ -44,35 +46,45 @@ functionality from the command line.
 
 
 %build
-%configure --disable-static --enable-gtk-doc
-%{make_build}
+# Let's avoid BuildRequiring bash-completion because it changes behavior
+# of shell, at least until the .pc file gets into the -devel subpackage.
+# We'll just install the bash-completion file ourselves.
+%meson -Dgtk_doc=true -Dbash_completion=false
+%meson_build
+
 
 %install
-%{make_install}
-find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference configure.ac
+%meson_install
+find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
 find %{buildroot} -type f -name "*.la" -delete
+mkdir -p %{buildroot}%{_datadir}/bash-completion
+cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion
 
 
 %check
-make check
+%meson_test
 
 
 %ldconfig_scriptlets
 
 
 %files
-%license COPYING.LIB
-%doc NEWS AUTHORS README
+%license LICENSES/LGPL-2.1-or-later.txt
+%doc NEWS AUTHORS README.md
 %{_libdir}/libmbim-glib.so.4*
+%{_libdir}/girepository-1.0/Mbim-1.0.typelib
+
 
 %files devel
 %{_includedir}/libmbim-glib/
 %{_libdir}/pkgconfig/mbim-glib.pc
 %{_libdir}/libmbim-glib.so
 %{_datadir}/gtk-doc/html/libmbim-glib/
+%{_datadir}/gir-1.0/Mbim-1.0.gir
+
 
 %files utils
-%license COPYING
+%license LICENSES/GPL-2.0-or-later.txt
 %{_bindir}/mbimcli
 %{_bindir}/mbim-network
 %{_datadir}/bash-completion
@@ -81,6 +93,9 @@ make check
 
 
 %changelog
+* Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.28.2-1
+- Update to 1.28.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

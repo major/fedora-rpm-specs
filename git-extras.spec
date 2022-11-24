@@ -1,6 +1,6 @@
 Name:       git-extras
-Version:    6.4.0
-Release:    2%{?dist}
+Version:    6.5.0
+Release:    1%{?dist}
 Summary:    Little git extras
 
 License:    MIT
@@ -44,22 +44,24 @@ EOF
 
 
 %install
-%make_install PREFIX=%{_prefix} SYSCONFDIR=%{_sysconfdir}
-mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d \
-    html md
+%make_install PREFIX=%{_prefix} SYSCONFDIR=%{_datadir}
+mkdir -p html md
 install -pm 0644 man/*.html html
 install -pm 0644 man/*.md md
 
 
 %files
-%config(noreplace) %{_sysconfdir}/bash_completion.d
 %doc AUTHORS Commands.md History.md Readme.md html/ md/
 %license LICENSE
+%config(noreplace) %{bash_completions_dir}
 %{_bindir}/*
 %{_mandir}/man*/*
 
 
 %changelog
+* Tue Nov 22 2022 Sérgio Basto <sergio@serjux.com> - 6.5.0-1
+- Update git-extras to 6.5.0 (#2132833)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

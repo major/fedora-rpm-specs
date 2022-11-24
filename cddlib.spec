@@ -1,11 +1,13 @@
 Name:           cddlib
 Epoch:          1
 Version:        0.94m
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library for generating all vertices in convex polyhedrons
 License:        GPL-2.0-or-later
 URL:            https://people.inf.ethz.ch/fukudak/cdd_home/
 Source0:        https://github.com/cddlib/cddlib/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Fix a segfault in blockelimination
+Patch0:         https://github.com/cddlib/cddlib/commit/f83bdbc.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -32,6 +34,11 @@ a linear function over P.
 
 
 %package devel
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        Headers for cddlib
 Requires:       gmp-devel%{?_isa}
 Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
@@ -56,7 +63,7 @@ Sample binaries that use cddlib.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Fix the FSF's address
 for f in `find . -type f -print0 | xargs -0 grep -Fl '675 Mass'`; do
@@ -85,7 +92,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 # Need one more invocation of pdflatex to get cross references correct
 pushd doc
-pdflatex cddlibman
+pdflatex -interaction=batchmode cddlibman
 popd
 
 
@@ -118,10 +125,40 @@ rm -fr %{buildroot}%{_pkgdocdir}
 
 
 %files tools
-%{_bindir}/*
-
+%{_bindir}/adjacency
+%{_bindir}/adjacency_gmp
+%{_bindir}/allfaces
+%{_bindir}/allfaces_gmp
+%{_bindir}/cddexec
+%{_bindir}/cddexec_gmp
+%{_bindir}/fourier
+%{_bindir}/fourier_gmp
+%{_bindir}/lcdd
+%{_bindir}/lcdd_gmp
+%{_bindir}/projection
+%{_bindir}/projection_gmp
+%{_bindir}/redcheck
+%{_bindir}/redcheck_gmp
+%{_bindir}/scdd
+%{_bindir}/scdd_gmp
+%{_bindir}/testcdd1
+%{_bindir}/testcdd1_gmp
+%{_bindir}/testcdd2
+%{_bindir}/testcdd2_gmp
+%{_bindir}/testlp1
+%{_bindir}/testlp1_gmp
+%{_bindir}/testlp2
+%{_bindir}/testlp2_gmp
+%{_bindir}/testlp3
+%{_bindir}/testlp3_gmp
+%{_bindir}/testshoot
+%{_bindir}/testshoot_gmp
 
 %changelog
+* Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 1:0.94m-5
+- Add patch to fix a segfault in blockelimination
+- Clarify documentation-related licenses
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 1:0.94m-4
 - Convert License tag to SPDX
 

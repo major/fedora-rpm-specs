@@ -4,7 +4,7 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	4.1
+Version:	4.2
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
@@ -83,6 +83,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Tue Nov 22 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.2-1
+- ntirpc-4.2 GA
+
 * Fri Nov 18 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.1-1
 - ntirpc-4.1 GA
 

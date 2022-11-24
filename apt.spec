@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.5.3
+Version:        2.5.4
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -309,6 +309,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Nov 23 2022 Sérgio Basto <sergio@serjux.com> - 2.5.4-1
+- Update apt to 2.5.4 (#2138830)
+
 * Mon Oct 03 2022 Sérgio Basto <sergio@serjux.com> - 2.5.3-1
 - Update apt to 2.5.3 (#2130611)
 

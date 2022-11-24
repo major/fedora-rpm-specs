@@ -5,7 +5,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -28,6 +28,7 @@ BuildRequires: gstreamer1-plugins-base-devel
 BuildRequires: gtest-devel
 BuildRequires: libxml++-devel >= 2.14.0
 BuildRequires: doxygen graphviz m4
+%if 0%{?fedora}
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw32-glibmm24
@@ -38,6 +39,7 @@ BuildRequires: mingw32-gstreamer1
 BuildRequires: mingw64-gstreamer1
 BuildRequires: mingw32-gstreamer1-plugins-base
 BuildRequires: mingw64-gstreamer1-plugins-base
+%endif
 
 
 %description
@@ -69,6 +71,7 @@ library. Gstreamermm is the C++ API for the GStreamer library.
 The documentation can be viewed either through the devhelp
 documentation browser or through a web browser.
 
+%if 0%{?fedora}
 %package -n mingw32-gstreamermm
 Summary: MingwGW Windows C++ wrapper for GStreamer library
 BuildArch: noarch
@@ -104,6 +107,7 @@ The mingw64-%{name}-devel package contains libraries and header files for
 developing applications that use mingw64-%{name}.
 
 %{?mingw_debug_package}
+%endif
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -120,8 +124,11 @@ mkdir -p gstreamer/src
 %configure
 %make_build
 popd
+
+%if 0%{?fedora}
 %mingw_configure
 %mingw_make_build
+%endif
 
 
 %install
@@ -129,10 +136,13 @@ pushd %{_target_os}
 %make_install
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 popd
+
+%if 0%{?fedora}
 %mingw_make_install
 %mingw_debug_install_post
 
 rm -rv %{buildroot}{%{mingw32_docdir},%{mingw64_docdir}}/%{name}-%{api_ver}
+%endif
 
 %check
 pushd %{_target_os}
@@ -156,6 +166,7 @@ popd
 %doc %{_docdir}/%{name}-%{api_ver}/
 %doc %{_datadir}/devhelp/books/%{name}-%{api_ver}/
 
+%if 0%{?fedora}
 %files -n mingw32-gstreamermm
 %doc AUTHORS ChangeLog NEWS README
 %{mingw32_bindir}/libgstreamermm-1.0-1.dll
@@ -177,8 +188,12 @@ popd
 %{mingw64_libdir}/pkgconfig/gstreamermm-1.0.pc
 %{mingw64_includedir}/%{name}-%{api_ver}
 %{mingw64_datadir}/devhelp/books/%{name}-%{api_ver}
+%endif
 
 %changelog
+* Tue Nov 22 2022 Robert Scheck <robert@fedoraproject.org> - 1.10.0-16
+- Build mingw32/64 packages only on Fedora branches (#2144671)
+
 * Fri Nov 04 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-15
 - put mingw devel files in corresponding -devel subpackages
 

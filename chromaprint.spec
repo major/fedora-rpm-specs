@@ -6,15 +6,14 @@
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 License:        GPLv2+
 URL:            http://www.acoustid.org/chromaprint
 Source:         https://github.com/acoustid/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-# From: https://github.com/acoustid/chromaprint/pull/108
-Patch:          chromaprint-PR108-Port-to-ffmpeg-5.patch
+Patch1:          https://github.com/acoustid/chromaprint/commit/8ccad6937177b1b92e40ab8f4447ea27bac009a7.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -107,6 +106,9 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Tue Nov 22 2022 Sérgio Basto <sergio@serjux.com> - 1.5.1-6
+- Backport oficial ffmpeg 5 support
+
 * Mon Aug 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.5.1-5
 - Rebuild for ffmpeg 5.1 (#2121070)
 

@@ -6,7 +6,7 @@ Version:	1.2.9
 Release:	6%{?dist}
 License:	EPL-1.0
 URL:		https://www.coin-or.org/download/pkgsource/Data
-Source0:	https://www.coin-or.org/download/pkgsource/Data/%{module}-%{version}.tgz
+Source0:	%{url}/%{module}-%{version}.tgz
 BuildArch:	noarch
 BuildRequires:	gcc-c++
 BuildRequires:	make
@@ -19,6 +19,12 @@ Research (COIN-OR) models from netlib for testing.
 
 %prep
 %autosetup -n %{module}-%{version}
+
+# We cannot regenerate the configure script due to missing macro definitions.
+# However, the existing configure script will soon stop working due to
+# https://fedoraproject.org/wiki/Changes/PortingToModernC
+# Munge the script for now until we can get upstream to fix the issue.
+sed -i '/ctype\.h/i#include <stdlib.h>' configure
 
 %build
 %configure

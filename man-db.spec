@@ -2,7 +2,7 @@
 
 Summary: Tools for searching and reading man pages
 Name: man-db
-Version: 2.11.0
+Version: 2.11.1
 Release: 1%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
@@ -210,6 +210,7 @@ fi
 %lang(id)       %{_datadir}/man/id/man*/*
 %lang(it)       %{_datadir}/man/it/man*/*
 %lang(ja)       %{_datadir}/man/ja/man*/*
+%lang(ko)	%{_datadir}/man/ko/man*/*
 %lang(nl)       %{_datadir}/man/nl/man*/*
 %lang(pl)       %{_datadir}/man/pl/man*/*
 %lang(pt)       %{_datadir}/man/pt/man*/*
@@ -225,6 +226,11 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Fri Nov 18 2022 Lukas Javorsky <ljavorsk@redhat.com> - 2.11.1-1
+- Rebase to version 2.11.1
+- Add Korean translations
+- Resolves: #2142761
+
 * Fri Oct 14 2022 Lukas Javorsky <ljavorsk@redhat.com> - 2.11.0-1
 - Rebase to version 2.11.0
 

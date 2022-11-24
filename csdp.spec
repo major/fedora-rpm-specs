@@ -5,7 +5,10 @@ Version:        6.2.0
 Release:        14%{?dist}
 Summary:        C library for SemiDefinite Programming
 
-License:        CPL-1.0
+# The content is CPL-1.0.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        CPL-1.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/coin-or/Csdp/wiki
 Source0:        http://www.coin-or.org/download/source/Csdp/Csdp-%{version}.tgz
 # Written by Jerry James for Octave
@@ -37,6 +40,7 @@ matrices.
 
 %package devel
 Summary:        Header files for CSDP
+License:        CPL-1.0
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       coin-or-Csdp-devel = %{version}-%{release}
 
@@ -46,6 +50,7 @@ that use the CSDP library.
 
 %package tools
 Summary:        Command line tools for working with CSDP
+License:        CPL-1.0
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       coin-or-Csdp-tools = %{version}-%{release}
 
@@ -59,6 +64,7 @@ the generic nature of the names.
 
 %package octave
 Summary:        Octave interface to CSDP
+License:        CPL-1.0
 Requires:       %{name}-tools = %{version}-%{release}, octave
 BuildArch:      noarch
 
@@ -67,8 +73,7 @@ This package contains an Octave interface to the C library for
 SemiDefinite Programming.
 
 %prep
-%setup -q -n Csdp-%{version}
-%patch0
+%autosetup -n Csdp-%{version} -p0
 
 %build
 # We can't use the shipped build system.  First, a static library is built,
@@ -136,7 +141,7 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %files
 %doc AUTHORS README doc/csdpuser.pdf
 %license LICENSE
-%{_libdir}/libsdp.so.*
+%{_libdir}/libsdp.so.6*
 
 %files devel
 %doc doc/example.c
@@ -145,8 +150,8 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 
 %files tools
 %doc theta/README
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/csdp*
+%{_mandir}/man1/csdp*
 
 %files octave
 %doc matlab/README

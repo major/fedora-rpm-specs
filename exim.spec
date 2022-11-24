@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -54,6 +54,8 @@ Patch5: exim-4.96-build-fix.patch
 Patch6: exim-4.96-CVE-2022-3559.patch
 # https://git.exim.org/exim.git/patch/12fb3842f81bcbd4a4519d5728f2d7e0e3ca1445
 Patch7: exim-4.96-CVE-2022-3620.patch
+# https://git.exim.org/exim.git/commitdiff/e7ec503729970a03d4509921342bc81313976126
+Patch8: exim-4.96-malformed-address-exit-fix.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -501,6 +503,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Nov 22 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-6
+- Fixed exit on attempt to rewrite malformed address
+  Resolves: rhbz#2143283
+
 * Tue Nov  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-5
 - Fixed use after free in dmarc_dns_lookup
   Resolves: CVE-2022-3620

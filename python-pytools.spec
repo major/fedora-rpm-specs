@@ -1,8 +1,8 @@
 %global srcname pytools
 
 Name:           python-%{srcname}
-Version:        2022.1.12
-Release:        2%{?dist}
+Version:        2022.1.13
+Release:        1%{?dist}
 Summary:        Collection of tools for Python
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Tue Nov 22 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2022.1.13-1
+- Update to 2022.1.13 (fixes rhbz#2144223)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
