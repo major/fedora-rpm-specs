@@ -18,12 +18,12 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 
-%global libmongo    1.22.2
+%global libmongo    1.23.1
 %global libcrypt    1.5.2
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.14.2
+%global upstream_version 1.15.0
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
 Version:        %{upstream_version}%{?upstream_lower}
@@ -171,6 +171,10 @@ cd ../ZTS
 
 
 %changelog
+* Wed Nov 23 2022 Remi Collet <remi@remirepo.net> - 1.15.0-1
+- update to 1.15.0
+- raise dependency on libbson and libmongoc 1.23.1
+
 * Fri Oct 21 2022 Remi Collet <remi@remirepo.net> - 1.14.2-1
 - update to 1.14.2
 

@@ -30,9 +30,9 @@
 %global github_owner    os-autoinst
 %global github_name     os-autoinst
 %global github_version  4.6
-%global github_commit   436f134262416559c5b7248d4246cbfed67ae835
+%global github_commit   5a76fb8e636ccc4fdf22b7738caae6aa40895920
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20220923
+%global github_date     20221122
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 Name:           os-autoinst
@@ -42,9 +42,6 @@ Summary:        OS-level test automation
 License:        GPLv2+
 URL:            https://os-autoinst.github.io/openQA/
 Source0:        https://github.com/%{github_owner}/%{github_name}/archive/%{github_commit}/%{github_name}-%{github_commit}.tar.gz
-# Refactor video device output handling for qemu
-# https://github.com/os-autoinst/os-autoinst/pull/2177
-Patch0:         0001-Consolidate-qemu-video-device-setting-deprecate-QEMU.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -248,6 +245,9 @@ rm tools/lib/perlcritic/Perl/Critic/Policy/*.pm
 %files devel
 
 %changelog
+* Wed Nov 23 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221122git5a76fb8-1
+- Update to latest git, drop merged patch
+
 * Fri Sep 23 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20220923git436f134-1
 - Update to latest git
 - Backport PR #2177 to clean up video device handling

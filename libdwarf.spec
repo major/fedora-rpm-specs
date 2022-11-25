@@ -1,6 +1,6 @@
 Name:          libdwarf
 Epoch:         1
-Version:       0.4.2
+Version:       0.5.0
 Release:       1%{?dist}
 Summary:       Library to access the DWARF Debugging file format 
 
@@ -63,7 +63,8 @@ TZ=:America/Los_Angeles %__make check
 %files
 %doc src/lib/libdwarf/ChangeLog src/lib/libdwarf/README
 %license src/lib/libdwarf/COPYING src/lib/libdwarf/LIBDWARFCOPYRIGHT src/lib/libdwarf/LGPL.txt
-%{_libdir}/libdwarf.so.*
+%{_libdir}/libdwarf.so.0
+%{_libdir}/libdwarf.so.0.*
 
 
 %files static
@@ -85,6 +86,9 @@ TZ=:America/Los_Angeles %__make check
 
 
 %changelog
+* Wed Nov 23 2022 Tom Hughes <tom@compton.nu> - 1:0.5.0-1
+- Update to 0.5.0 upstream release
+
 * Tue Sep 13 2022 Tom Hughes <tom@compton.nu> - 1:0.4.2-1
 - Update to 0.4.2 upstream release
 

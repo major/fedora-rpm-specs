@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   9%{?gitdate:.%{gitdate}}%{?dist}
+Release:   10%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -92,6 +92,12 @@ Patch5: 0001-autobind-GPUs-to-the-screen.patch
 # because the display-managers are not ready yet, do not upstream
 Patch6: 0001-Fedora-hack-Make-the-suid-root-wrapper-always-start-.patch
 
+# Not sure anyone else cares about this so let's keep this Fedora-only for now
+# Upstream PR for the meson.build equivalent is here, so we can drop this patch
+# when we start building with meson.
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1001`
+Patch7: 0001-configure.ac-search-for-the-fontrootdir-ourselves.patch
+
 # Backports from current stable "server-1.20-branch":
 # <empty>
 
@@ -118,7 +124,6 @@ BuildRequires: automake autoconf libtool pkgconfig
 BuildRequires: xorg-x11-util-macros >= 1.17
 
 BuildRequires: xorg-x11-proto-devel >= 7.7-10
-BuildRequires: xorg-x11-font-utils >= 7.2-11
 
 BuildRequires: dbus-devel libepoxy-devel systemd-devel
 BuildRequires: xorg-x11-xtrans-devel >= 1.3.2
@@ -525,6 +530,10 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Nov 23 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-10
+- Drop dependency on xorg-x11-font-utils, it was only there for on
+  build-time variable that's always the same value anyway (#2145088)
+
 * Tue Nov  8 2022 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-9
 - Fix CVE-2022-3550, CVE-2022-3551
 

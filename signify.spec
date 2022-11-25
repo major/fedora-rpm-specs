@@ -1,9 +1,16 @@
 Name:     signify
-Version:  30
-Release:  7%{?dist}
+Version:  31
+Release:  1%{?dist}
 Summary:  Sign and verify signatures on files
 
-License:  ISC and MIT and BSD and Public Domain
+# signify itself is ISC but uses other source codes, breakdown:
+# Beerware: helper.c
+# BSD-3-Clause: blf.h and blowfish.c and sha2.[ch]
+# MIT: explicit_bzero.h
+# LicenseRef-Fedora-Public-Domain: crypto_api.[ch] and explicit_bzero.c and
+#                                  {fe,sc}25519.[ch] ge25519{.h,_base.data}
+#                                  and mod_{ed,ge}25519.c
+License:  ISC AND Beerware AND BSD-3-Clause AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:      https://github.com/aperezdc/%{name}
 Source0:  %url/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:  %url/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -15,6 +22,7 @@ BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig(libbsd)
+BuildRequires:  pkgconfig(libmd)
 
 %description
 The signify utility creates and verifies cryptographic signatures, as used
@@ -23,8 +31,8 @@ by the OpenBSD release maintainers.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-# remove upstream bundled optional library libwaive from source
-rm -rf libwaive
+# Remove upstream bundled optional libraries from source
+rm -rf libbsd libwaive
 
 %build
 %set_build_flags
@@ -43,6 +51,9 @@ make check
 %{_mandir}/man1/signify.*
 
 %changelog
+* Thu Nov 24 2022 Robert Scheck <robert@fedoraproject.org> - 31-1
+- Update to release v31
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 30-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

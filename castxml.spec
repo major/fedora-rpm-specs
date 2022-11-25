@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.4.7
+Version:	0.4.8
 Release:	1%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
@@ -61,6 +61,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 23 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.8-1
+- Update to version 0.4.8
+
 * Fri Nov 11 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.4.7-1
 - Update to version 0.4.7
 

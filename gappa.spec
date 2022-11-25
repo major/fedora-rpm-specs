@@ -36,13 +36,18 @@ Summary:	Documentation for gappa
 BuildArch:	noarch
 # In addition to the project license, the Javascript and CSS bundled with the
 # documentation has the following licenses:
-# - searchindex.js: MIT
+# - searchindex.js: BSD-2-Clause
+# - _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
 # - _static/alabaster.css: BSD-3-Clause
 # - _static/basic.css: BSD-2-Clause
+# - _static/custom.css: BSD-3-Clause
 # - _static/doctools.js: BSD-2-Clause
+# - _static/documentation_options.js: BSD-2-Clause
+# - _static/file.png: BSD-2-Clause
 # - _static/jquery*.js: MIT
 # - _static/language_data.js: BSD-2-Clause
-# - _static/pygments.css: BSD-2-Clause
+# - _static/minus.png: BSD-2-Clause
+# - _static/plus.png: BSD-2-Clause
 # - _static/searchtools.js: BSD-2-Clause
 # - _static/underscore*.js: MIT
 License:	(GPL-3.0-only OR CECILL-2.1) AND MIT AND BSD-2-Clause AND BSD-3-Clause

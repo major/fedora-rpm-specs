@@ -9,18 +9,18 @@
 # disabled for https://fedoraproject.org/wiki/Changes/MongoDB_Removal
 %bcond_with          tests
 
-%global gh_commit    0b8555705d2f9c12ab2e5cebee6b594cdfe6b4e0
+%global gh_commit    3a681a3b2f2c0ebac227a3b86bb9057d0e6eb8f8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     mongodb
 #global gh_date      20151102
 %global gh_project   mongo-php-library
 %global psr0         MongoDB
 
-%global upstream_version 1.13.1
+%global upstream_version 1.15.0
 #global upstream_prever  alpha1
 #global upstream_lower   alpha1
 
-%global ext_version      1.14.0
+%global ext_version      1.15.0
 
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
@@ -52,10 +52,10 @@ BuildRequires: (php-composer(symfony/polyfill-php80) >= 1.19 with php-composer(s
 BuildRequires:  mongodb-server >= 2.4
 BuildRequires:  php-pecl(mongodb) >= %{ext_version}
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^6.4 || ^8.3",
-#        "sebastian/comparator": "^2.0 || ^3.0",
-#        "squizlabs/php_codesniffer": "^3.5, <3.5.5",
-#        "symfony/phpunit-bridge": "^5.x@dev"
+#        "squizlabs/php_codesniffer": "^3.6",
+#        "doctrine/coding-standard": "^9.0",
+#        "symfony/phpunit-bridge": "^5.2",
+#        "vimeo/psalm": "^4.28"
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 %global phpunit %{_bindir}/phpunit9
 %else
@@ -67,10 +67,10 @@ BuildRequires:  %{phpunit}
 BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
-#        "php": "^7.0 || ^8.0"
+#        "php": "^7.2 || ^8.0"
 #        "ext-hash": "*",
 #        "ext-json": "*",
-#        "ext-mongodb": "^1.14.0"
+#        "ext-mongodb": "^1.15.0"
 #        "jean85/pretty-package-versions": "^1.2 || ^2.0.1"
 #        "symfony/polyfill-php80": "^1.19"
 Requires:       php(language) >= 7.2
@@ -193,6 +193,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 23 2022 Remi Collet <remi@remirepo.net> - 1.15.0-1
+- update to 1.15.0
+- raise dependency on mongodb extension version 1.15
+
 * Fri Sep 16 2022 Remi Collet <remi@remirepo.net> - 1.13.1-1
 - update to 1.13.1
 

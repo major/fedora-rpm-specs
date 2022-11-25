@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	4%{?dist}
+Release:	5%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -271,6 +271,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Wed Nov 23 2022 Kalev Lember <klember@redhat.com> - 0.0.26-5
+- Rebuild for wxGLCanvas ABI change
+
 * Thu Oct 20 2022 Scott Talbert <swt@techie.net> - 0.0.26-4
 - Rebuild with wxWidgets 3.2
 

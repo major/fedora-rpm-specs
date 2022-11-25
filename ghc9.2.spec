@@ -61,11 +61,7 @@
 %bcond_with testsuite
 
 # 9.2 needs llvm 9-12
-%if 0%{?fedora}
 %global llvm_major 12
-%else
-%global llvm_major 13
-%endif
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -92,6 +88,10 @@ Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsui
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2142238
+ExcludeArch: armv7hl
+
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
@@ -940,7 +940,8 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 - https://downloads.haskell.org/~ghc/9.2.5/docs/html/users_guide/9.2.5-notes.html
 - base-4.16.4.0 and process-1.6.16.0
 - backport packaging changes from ghc9.4
-- enable hadrian also for epel9
+- epel9: enable hadrian
+- F35,F36: disable armv7hl due to failing (#2142238)
 
 * Fri Jul 29 2022 Jens Petersen <petersen@redhat.com> - 9.2.4-13
 - https://downloads.haskell.org/~ghc/9.2.4/docs/html/users_guide/9.2.4-notes.html

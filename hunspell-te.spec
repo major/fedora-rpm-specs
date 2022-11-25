@@ -7,10 +7,10 @@
 Name: hunspell-te
 Summary: Telugu hunspell dictionaries
 Version: 1.0.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Epoch:   1
 ##Upstream is unresponsive so unable to verify license version
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
 Source0:        http://anishpatil.fedorapeople.org/te_in.%{version}.tar.gz
 BuildArch:      noarch
@@ -37,6 +37,9 @@ cp -p te_IN/*.dic te_IN/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-20
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

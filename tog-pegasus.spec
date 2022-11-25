@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        67%{?dist}
+Release:        68%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -446,7 +446,8 @@ rm $RPM_BUILD_ROOT/usr/share/Pegasus/test/testtracer4.trace.0
 %files libs
 %{_sysusersdir}/tog-pegasus.conf
 %defattr(0755, root, pegasus, 0755)
-%{_libdir}/*
+%{_libdir}/*.so*
+%{_libdir}/Pegasus
 %exclude /usr/lib/debug
 %exclude /usr/lib/systemd
 %exclude %{_tmpfilesdir}
@@ -568,6 +569,9 @@ fi
 
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 2:2.14.1-68
+- Avoid tog-pegasus-libs file conflict on i686 (#2145172)
+
 * Tue Aug 02 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.14.1-67
 - Use systemd-sysusers for the 'pegasus' user and group creation
   Resolves: #2095477

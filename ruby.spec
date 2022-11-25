@@ -22,7 +22,7 @@
 %endif
 
 
-%global release 170
+%global release 171
 %{!?release_string:%define release_string %{?development_release:0.}%{release}%{?development_release:.%{development_release}}%{?dist}}
 
 # The RubyGems library has to stay out of Ruby directory tree, since the
@@ -91,6 +91,10 @@
 %if 0%{?fedora}
 %bcond_without hardening_test
 %endif
+
+# The additional linker flags break binary rubygem- packages.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2043092
+%undefine _package_note_flags
 
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
@@ -1549,6 +1553,10 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
 
 
 %changelog
+* Tue Nov 22 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.2-171
+- Re-disable package notes. It causes additional issues with installing binary
+  gems.
+
 * Thu Sep 29 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.2-170
 - Re-enable package notes.
 

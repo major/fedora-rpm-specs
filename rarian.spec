@@ -1,8 +1,8 @@
 
 Name: rarian
 Version: 0.8.1
-Release: 31%{?dist}
-License: LGPLv2+
+Release: 32%{?dist}
+License: LGPL-2.1-or-later AND Zlib
 Summary: Documentation meta-data library
 URL: http://rarian.freedesktop.org/
 Source: http://download.gnome.org/sources/rarian/0.8/rarian-%{version}.tar.bz2
@@ -34,7 +34,7 @@ Rarian is a documentation meta-data library that allows access to documents,
 man pages and info pages.  It was designed as a replacement for scrollkeeper.
 
 %package compat
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Extra files for compatibility with scrollkeeper
 Requires: rarian = %{version}-%{release}
 Requires(post): rarian
@@ -49,6 +49,7 @@ scrollkeeper.
 
 %package devel
 Summary: Development files for Rarian
+License: LGPL-2.1-or-later AND Zlib
 Requires: rarian = %{version}-%{release}
 Requires: pkgconfig
 
@@ -117,6 +118,9 @@ fi
 %{_libdir}/pkgconfig/rarian.pc
 
 %changelog
+* Tue Nov 22 2022 Troy Curtis, Jr <troycurtisjr@fedoraproject.org> - 0.8.1-32
+- SPDX migration.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

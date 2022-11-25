@@ -1,8 +1,8 @@
 Name:          jackson-parent
-Version:       2.11
-Release:       9%{?dist}
+Version:       2.14
+Release:       1%{?dist}
 Summary:       Parent pom for all Jackson components
-License:       ASL 2.0
+License:       Apache-2.0
 
 URL:           https://github.com/FasterXML/jackson-parent
 Source0:       %{url}/archive/%{name}-%{version}.tar.gz
@@ -36,6 +36,10 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Tue Nov 08 2022 Chris Kelley <ckelley@redhat.com> - 2.14-1
+- Update to version 2.14
+- Update to use SPDX licence
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

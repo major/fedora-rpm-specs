@@ -1,13 +1,14 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.11.4
-Release:        9%{?dist}
+Version:        2.14.1
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-modules-base
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Patch1:         0001-Expose-javax.security.auth-from-JDK-internals.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(cglib:cglib)
@@ -41,8 +42,10 @@ framework to read and write XML.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch1 -p1
 
-%pom_remove_dep org.glassfish.jaxb:jaxb-runtime jaxb
+%pom_remove_dep -r org.glassfish.jaxb:jaxb-runtime
+%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
 
 # no need for Java 9 module stuff
 %pom_remove_plugin -r :moditect-maven-plugin
@@ -68,6 +71,9 @@ cp -p mrbean/src/main/resources/META-INF/{LICENSE,NOTICE} .
 %pom_disable_module mrbean
 %pom_disable_module osgi
 %pom_disable_module paranamer
+%pom_disable_module jakarta-xmlbind
+%pom_disable_module blackbird
+%pom_disable_module no-ctor-deser
 
 # Allow javax,activation to be optional
 %pom_add_plugin "org.apache.felix:maven-bundle-plugin" jaxb "
@@ -97,6 +103,13 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 23 2022 Chris Kelley <ckelley@redhat.com> - 2.14.1-1
+- Update to version 2.14.1
+
+* Tue Nov 08 2022 Chris Kelley <ckelley@redhat.com> - 2.14.0-1
+- Update to version 2.14
+- Update to use SPDX licence
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

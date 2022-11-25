@@ -10,7 +10,7 @@
 
 Name: gnustep-base
 Version: 1.28.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+ and LGPLv2+
 Summary: GNUstep Base library package
 URL: http://www.gnustep.org/
@@ -18,6 +18,7 @@ Source0: ftp://ftp.gnustep.org/pub/gnustep/core/%{name}-%{version}.tar.gz
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1179297
 Patch0: %{name}-use_system-wide_crypto-policies.patch
+Patch1: gnustep-base-config-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-objc
@@ -168,6 +169,9 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.28.0-8
+- Avoid C89-only constructs during the config stage
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.28.0-7
 - Rebuilt for ICU 71.1
 

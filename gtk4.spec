@@ -2,7 +2,7 @@
 %global with_broadway 1
 %endif
 
-%global glib2_version 2.66.0
+%global glib2_version 2.72.0
 %global pango_version 1.50.0
 %global cairo_version 1.14.0
 %global gdk_pixbuf_version 2.30.0
@@ -16,28 +16,18 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.8.2
-Release:        2%{?dist}
+Version:        4.9.1
+Release:        1%{?dist}
 Summary:        GTK graphical user interface library
 
 License:        LGPLv2+
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.8/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.9/gtk-%{version}.tar.xz
 Source1:        settings.ini
 # Temporarily revert this until we figure out how to best restore
 # private requires that are needed for rpm automatic dep extraction.
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
 Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5189
-# https://gitlab.gnome.org/GNOME/nautilus/-/issues/2574
-# Fix a problem which could lead to no element being focused
-# (so keyboard shortcuts don't work) in some cases
-Patch1:         0001-focus-fall-back-to-old-behaviour-if-we-didn-t-focus-.patch
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5071
-# https://gitlab.gnome.org/GNOME/gtk/-/issues/5192
-# Avoids app widgets potentially becoming unexpectedly narrower
-Patch2:         0001-Revert-treepopover-Do-not-propagate-natural-width-of.patch
-
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
@@ -249,6 +239,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gtk4-widget-factory.1*
 
 %changelog
+* Mon Nov 21 2022 David King <amigadave@amigadave.com> - 4.9.1-1
+- Update to 4.9.1
+
 * Tue Nov 01 2022 Adam Williamson <awilliam@redhat.com> - 4.8.2-2
 - Attempt to fix a focus issue introduced in 4.8.2 (nautilus gl2574)
 - Backport MR #5091 to fix a width problem (gtk gl5192)

@@ -11,10 +11,10 @@ Summary:        Modular in-buffer completion framework for Emacs
 
 License:        GPL-3.0-or-later
 URL:            https://company-mode.github.io/
-Source0:        https://github.com/%{srcname}/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/company-mode/company-mode/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 

@@ -1,13 +1,13 @@
 Name:           perl-Convert-BER
 Epoch:          1
 Version:        1.32
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        ASN.1 Basic Encoding Rules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-BER
 Source0:        http://archive.cpan.cz//authors/id/G/GB/GBARR/Convert-BER-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -19,8 +19,26 @@ the ASN.1 Basic Encoding Rules (BER), a platform independent way of
 encoding structured binary data together with the structure.
 
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(bytes)
+Requires:       perl(IO::Socket)
+
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+
 %prep
 %setup -q -n Convert-BER-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 
 %build
@@ -33,6 +51,15 @@ make pure_install PERL_INSTALL_ROOT=%{buildroot}
 
 find %{buildroot} -type f -name .packlist -exec rm -f {} \;
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %{_fixperms} %{buildroot}/*
 
@@ -47,7 +74,16 @@ make test
 %{_mandir}/man3/*
 
 
+%files tests
+%{_libexecdir}/%{name}
+
+
 %changelog
+* Wed Nov 23 2022 Michal Josef Špaček <mspacek@redhat.com> - 1:1.32-27
+- Fix white space
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.32-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

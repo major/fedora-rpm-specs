@@ -4,8 +4,8 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        8.6.0
-Release:        8%{?dist}
+Version:        9.0.0
+Release:        1%{?dist}
 Summary:        Highly-optimized, pure-python HTTP server
 
 License:        BSD
@@ -31,6 +31,7 @@ BuildRequires:  python3dist(portend)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(pytest-forked)
+BuildRequires:  python3dist(pytest-rerunfailures)
 BuildRequires:  python3dist(requests-toolbelt)
 
 %if 0%{?el8}
@@ -73,14 +74,13 @@ sed -i '/setuptools_scm_git_archive/d' setup.cfg
 # doctor a few tests because of unpackaged deps in fedora
 # pypytools
 sed -i '/pypytools/d' cheroot/test/test_server.py
-sed -i '371d;372d;373d;374d;375d;' cheroot/test/test_server.py
 sed -i "/getfixturevalue('_garbage_bin')/d" cheroot/test/test_server.py
 # jaraco.context
 sed -i '/jaraco.context/d' cheroot/test/test_wsgi.py
 sed -i '39 i @pytest.mark.skip()' cheroot/test/test_wsgi.py
-# pytest-7 / pytest-forked issue: https://github.com/pytest-dev/pytest/issues/9621
-# the line number is one less than the code because we already deleted a line for pypytools
-sed -i '365d;366d;367d;368d' cheroot/test/test_server.py
+# rerunfailures is incompatble with pytest 7
+# so skip builtin ssl adapter type
+sed -i '199 i @pytest.skip("Incompatible with pytest 7 because of rerunfailures", allow_module_level=True)' cheroot/test/test_ssl.py
 
 %build
 %py3_build
@@ -110,6 +110,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning
 %endif
 
 %changelog
+* Wed Nov 23 2022 Dan Radez <dradez@redhat.com> - 9.0.0-1
+- update to 9.0.0 (rhbz#2144238)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

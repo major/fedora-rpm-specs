@@ -16,8 +16,8 @@ than all other static analysis frameworks for Python.}
 %global typeshed_commit     ae9d4f4b21bb5e1239816c301da7b1ea904b44c3
 
 Name:           python-jedi
-Version:        0.18.1
-Release:        7%{?dist}
+Version:        0.18.2
+Release:        1%{?dist}
 Summary:        An auto completion tool for Python that can be used for text editors
 
 # jedi is MIT
@@ -97,6 +97,9 @@ sed -e 's/pytest<7.0.0/pytest/' \
 
 
 %changelog
+* Tue Nov 22 2022 Lumír Balhar <lbalhar@redhat.com> - 0.18.2-1
+- Update to 0.18.2 (rhbz#2144681)
+
 * Tue Aug 02 2022 Lumír Balhar <lbalhar@redhat.com> - 0.18.1-7
 - Fix FTBFS with Python 3.11 by disabling some tests
 

@@ -1,18 +1,26 @@
 Name:           libbsd
-Version:        0.10.0
-Release:        10%{?dist}
+Version:        0.11.7
+Release:        1%{?dist}
 Summary:        Library providing BSD-compatible functions for portability
-URL:            http://libbsd.freedesktop.org/
-License:        BSD and ISC and Copyright only and Public Domain
+URL:            https://libbsd.freedesktop.org/
+# Breakdown in COPYING file of libbsd release tarball, see also:
+# - https://gitlab.com/fedora/legal/fedora-license-data/-/issues/71
+# - https://gitlab.com/fedora/legal/fedora-license-data/-/issues/73
+License:        Beerware AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND libutil-David-Nugent AND MIT AND LicenseRef-Fedora-Public-Domain
 
-Source0:        http://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
-Patch1:         %{name}-0.8.3-deprecated.patch
-Patch2:         %{name}-0.8.6-compat.patch
-Patch3:         %{name}-symver.patch
+Source0:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
+Source1:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz.asc
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/4F3E74F436050C10F5696574B972BF3EA4AE57A3
+# https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/14: Revert breaking commit in explicit_bzero test
+Patch0:         https://gitlab.freedesktop.org/libbsd/libbsd/-/commit/d5865759f8698f1c75339451a26fa3ae00276a51.patch#/libbsd-0.11.7-test-explicit_bzero.patch
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  autoconf automake libtool
-BuildRequires: make
+BuildRequires:  gnupg2
+BuildRequires:  libmd-devel
+BuildRequires:  libtool
+BuildRequires:  make
 
 %description
 libbsd provides useful functions commonly found on BSD systems, and
@@ -40,12 +48,8 @@ configured using "pkg-config --libs libbsd-ctor".
 
 %prep
 %setup -q
-%if 0%{?rhel} && 0%{?rhel} < 7
-%patch1 -p1 -b .deprecated
-%patch2 -p1 -b .compat
-%endif
-
-%patch3 -p1 -b .symver
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%patch0 -p1 -R -b .test-explicit_bzero
 
 %build
 autoreconf -fiv
@@ -86,6 +90,9 @@ rm %{buildroot}%{_mandir}/man3/explicit_bzero.3bsd
 %{_libdir}/pkgconfig/%{name}-ctor.pc
 
 %changelog
+* Thu Nov 24 2022 Robert Scheck <robert@fedoraproject.org> - 0.11.7-1
+- Update to 0.11.7 (#1742611)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

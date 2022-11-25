@@ -8,7 +8,7 @@
 
 Summary: Qt6 - QtImageFormats component
 Name:    qt6-%{qt_module}
-Version: 6.4.0
+Version: 6.4.1
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for details
@@ -84,6 +84,9 @@ rm -rv src/3rdparty
 
 
 %changelog
+* Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
+- 6.4.1
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
 - 6.4.0
 

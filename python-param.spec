@@ -96,7 +96,7 @@ sed -r -i '/\b(flake8|pytest-cov)\b/d' setup.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests%{?with_pdf_doc:,doc}
+%pyproject_buildrequires -x tests%{?with_doc_pdf:,doc}
 
 
 %build

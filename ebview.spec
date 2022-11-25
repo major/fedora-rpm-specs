@@ -1,6 +1,6 @@
 Name:		ebview
 Version:	0.3.6.2
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	EPWING CD-ROM dictionary viewer
 
 License:	GPLv2+
@@ -20,6 +20,8 @@ Source1:	%{name}.desktop
 Patch101:	https://sources.debian.org/data/main/e/ebview/0.3.6.2-2/debian/patches/dont-use-pangox.patch
 # And link to libX11
 Patch102:	https://sources.debian.org/data/main/e/ebview/0.3.6.2-2/debian/patches/link-ebview.diff
+# Port to c99, -Werror=implicit-int -Werror=implicit-function-declaration
+Patch103:	ebview-0.3.6.2-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:	eb-devel
@@ -31,7 +33,7 @@ BuildRequires:	pkgconfig(pango)
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
-BuildRequires: make
+BuildRequires:	make
 
 #Requires:	VLGothic-fonts
 
@@ -44,6 +46,7 @@ EBView is a EPWING dictionary browser.
 %patch1 -p1 -b .inline
 %patch101 -p1 -b .pango
 %patch102 -p1 -b .link
+%patch103 -p1 -b .c99
 
 rm -f m4/glib-gettext.m4
 autoreconf -i
@@ -121,6 +124,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6.2-32
+- Port for strict c99, -Werror=implicit-int -Werror=implicit-function-declaration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

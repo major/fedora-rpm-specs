@@ -1,12 +1,11 @@
 Name:           jackson-core
-Version:        2.11.4
-Release:        9%{?dist}
+Version:        2.14.1
+Release:        1%{?dist}
 Summary:        Core part of Jackson
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-core
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
-Patch1:         0001-Change-compilation-source-target-to-Java-11.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
@@ -22,14 +21,13 @@ as basic shared abstractions.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-%patch1 -p1
 
 # Remove plugins unnecessary for RPM builds
 %pom_remove_plugin ":maven-enforcer-plugin"
 %pom_remove_plugin "org.jacoco:jacoco-maven-plugin"
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
+%pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
 
-cp -p src/main/resources/META-INF/LICENSE .
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 
@@ -46,6 +44,13 @@ sed -i 's/\r//' LICENSE NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 23 2022 Chris Kelley <ckelley@redhat.com> - 2.14.1-1
+- Update to version 2.14.1
+
+* Tue Nov 08 2022 Chris Kelley <ckelley@redhat.com> - 2.14.0-1
+- Update to version 2.14
+- Update to use SPDX licence
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

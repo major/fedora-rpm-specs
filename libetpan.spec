@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.9.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 License:        BSD
@@ -18,6 +18,9 @@ Patch101:       libetpan-1.9.4-0001-Detect-extra-data-after-STARTTLS-response-an
 # Detect extra data after STARTTLS responses in SMTP and POP3 and exit
 # https://github.com/dinhvh/libetpan/pull/388
 Patch102:       libetpan-1.9.4-0002-Detect-extra-data-after-STARTTLS-responses-in-SMTP-a.patch
+# https://github.com/dinhvh/libetpan/issues/420
+# Workaround, "formal" fix is under discussion
+Patch103:       libetpan-1.9.4-mailbox_data_status-info_list-invalid-free.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  liblockfile-devel
@@ -27,7 +30,7 @@ BuildRequires:  gnutls-devel
 BuildRequires:  libtool
 BuildRequires:  zlib-devel
 BuildRequires:  autoconf automake
-BuildRequires: make
+BuildRequires:  make
 # disabled by default in configure.ac accidentally
 # https://github.com/dinhviethoa/libetpan/issues/221
 # libcurl and libexpat not needed by Claws Mail:
@@ -56,6 +59,7 @@ sed -i.flags libetpan.pc.in \
 %patch10 -p1 -b .crypto-policy
 %patch101 -p1 -b .CVE-2020-15953-1
 %patch102 -p1 -b .CVE-2020-15953-2
+%patch103 -p1 -b .CVE-2022-4121.tmp
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -97,6 +101,9 @@ iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv C
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.4-9
+- Workaround for CVE-2022-4121 (bug 2144914)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

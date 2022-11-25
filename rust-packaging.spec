@@ -14,6 +14,13 @@ Source:         %{url}/archive/v%{version}/rust2rpm-v%{version}.tar.gz
 # https://pagure.io/fedora-rust/rust2rpm/pull-request/221
 Patch:          0001-Adjust-build-flags-to-allow-the-new-implementation-u.patch
 
+# patches for backporting upstream bug fixes
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/09a496c.patch
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/1869f5a.patch
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/6a5931b.patch
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/3dec94d.patch
+Patch:          https://pagure.io/fedora-rust/rust2rpm/c/d9aa58b.patch
+
 ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  python3-devel

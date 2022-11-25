@@ -7,8 +7,8 @@ dependencies. The tool was first developed in py2pack but is now it's own \
 module to be useful for others, too.
 
 Name:           python-%{srcname}
-Version:        1.0.8
-Release:        4%{?dist}
+Version:        1.0.9
+Release:        1%{?dist}
 Summary:        Metaextract is a tool to collect metadata for Python modules
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ python3 -m pytest metaextract
 %doc doc/build/html/*
 
 %changelog
+* Wed Nov 23 2022 Sandipan Roy <bytehackr@fedoraproject.org> - 1.0.9-1
+ - Version update to 1.0.9
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 %global tag %{version}
 
 Name:           python-niapy
-Version:        2.0.3
+Version:        2.0.4
 %forgemeta
 Release:        1%{?dist}
 Summary:        Microframework for building nature-inspired algorithms
@@ -136,6 +136,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %doc CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 %changelog
+* Wed Nov 23 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.0.4-1
+- Upgrade to 2.0.4
+
 * Sun Sep 4 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.0.3-1
 - Upgrade to 2.0.3
 

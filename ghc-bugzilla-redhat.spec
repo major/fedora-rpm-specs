@@ -7,8 +7,8 @@
 %bcond_without tests
 
 Name:           ghc-%{pkg_name}
-Version:        1.0.0
-Release:        3%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        A Haskell interface to the Bugzilla native REST API
 
 License:        BSD
@@ -130,6 +130,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Wed Nov 23 2022 Jens Petersen <petersen@redhat.com> - 1.0.1-1
+- Red Hat bugzilla bugs no longer have a 'see_also' field (#18)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

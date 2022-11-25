@@ -2,13 +2,14 @@
 
 Name: python-%{srcname}
 Version: 0.6.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Python library to work with countries and languages
 License: BSD
 URL: https://babelfish.readthedocs.org/
 Source: https://github.com/Diaoul/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch: noarch
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 BuildRequires: python3-pytest
 
 %generate_buildrequires
@@ -55,6 +56,9 @@ can be extended to use custom converters and data.
 
 
 %changelog
+* Wed Nov 23 2022 Juan Orti Alcaine <jortialc@redhat.com> - 0.6.0-6
+- Add BR: python3-setuptools (RHBZ#2142047)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,12 +7,12 @@
 Name: hunspell-ne
 Summary: Nepali hunspell dictionaries
 Version: 20080425
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Upstream Source and URL is down now, please don't report FTBFS bugs
 Source: http://nepalinux.org/downloads/ne_NP_dict.zip
 URL: http://nepalinux.org/downloads
 # License is given in README_ne_NP.txt file
-License: LGPLv2
+License: LGPL-2.1-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -48,6 +48,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 20080425-28
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20080425-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -64,7 +64,6 @@ Source4:	lit.fedora.cfg.py
 
 Patch0:     0001-PATCH-llvm-Make-source-interleave-prefix-test-case-c.patch
 
-# RHEL-specific patches
 Patch101:	0001-Deactivate-markdown-doc.patch
 
 BuildRequires:	gcc
@@ -181,9 +180,9 @@ LLVM's modified googletest sources.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{llvm_srcdir}
-%patch0 -p2
-%if %{undefined fedora}
-%patch101 -p2
+%autopatch -M 99 -p2
+%if %{defined el9}
+%patch101 -p2 -b .orig
 %endif
 
 pathfix.py -i %{__python3} -pn \
@@ -394,6 +393,13 @@ touch %{buildroot}%{_bindir}/llvm-config%{exec_suffix}
 # TODO: Fix the failures below
 %ifarch %{arm}
 rm test/tools/llvm-readobj/ELF/dependent-libraries.test
+%endif
+
+%if %{defined el9}
+%ifarch s390x
+rm test/tools/llvm-objcopy/ELF/compress-debug-sections-zlib-gnu.test
+rm test/tools/llvm-objcopy/ELF/compress-debug-sections-zlib.test
+%endif
 %endif
 
 # non reproducible errors

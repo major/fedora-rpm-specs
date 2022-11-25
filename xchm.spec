@@ -1,18 +1,18 @@
 Summary:        A GUI front-end to CHMlib
 Name:           xchm
-Version:        1.23
-Release:        23%{?dist}
+Version:        1.33
+Release:        1%{?dist}
 License:        GPLv2+
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source1:        %{name}.desktop
-Patch0:         wxwidgets-3.0.patch
-URL:            http://xchm.sourceforge.net/
-BuildRequires: make
+URL:            https://github.com/rzvncj/xCHM
+Source0:        %{url}/releases/download/%{version}/xchm-%{version}.tar.gz
+
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  chmlib-devel
 BuildRequires:  wxGTK-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 %description
 xCHM is a wxWidgets-based .chm viewer. xCHM can show the contents tree if 
@@ -24,41 +24,32 @@ found inside indexed .chm archives, and it can be customized to search in
 content or just the topics' titles.
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup
 
 %build
-#export CFLAGS="-g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -m64 -mtune=generic"
 %configure --disable-dependency-tracking
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/applications/
-desktop-file-install  \
-        %if 0%{?fedora} < 19
-          --vendor fedora \
-        %endif
-          --dir ${RPM_BUILD_ROOT}%{_datadir}/applications         \
-        %{SOURCE1}
-for resolution in 16 32 48 128; do
-  dir=${RPM_BUILD_ROOT}%{_datadir}/icons/hicolor/${resolution}x${resolution}/
-  mkdir -p $dir/apps $dir/mimetypes
-  install -p -m644 art/xchm-${resolution}.xpm $dir/apps/xchm.xpm
-  install -p -m644 art/xchmdoc-${resolution}.xpm $dir/mimetypes/application-x-chm.xpm
-  ln -s application-x-chm.xpm $dir/mimetypes/gnome-mime-application-x-chm.xpm
-done
-rm -rf ${RPM_BUILD_ROOT}%{_datadir}/pixmaps
+%make_install
+desktop-file-validate %{buildroot}%{_datadir}/applications/xchm.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/xchm.appdata.xml
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING ChangeLog README
+%doc ChangeLog README
+%license AUTHORS COPYING
 %{_bindir}/xchm
-%{_datadir}/icons/hicolor/
-%{_datadir}/applications/*
+%{_datadir}/applications/xchm.desktop
+%{_datadir}/icons/hicolor/*/apps/xchm*
+%{_datadir}/metainfo/xchm.appdata.xml
+%{_mandir}/man1/xchm.1*
 
 %changelog
+* Wed Nov 23 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 1.33-1
+- Update to 1.33
+- Modernize spec
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 1.23-23
 - Rebuild with wxWidgets 3.2
 

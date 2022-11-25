@@ -7,8 +7,8 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2022.6
-Release: 1%{?dist}
+Version: 2022.7
+Release: 2%{?dist}
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPLv2+
 URL: https://ostree.readthedocs.io/en/latest/
@@ -169,6 +169,9 @@ find %{buildroot} -name '*.la' -delete
 %endif
 
 %changelog
+* Wed Nov 23 2022 Colin Walters <walters@verbum.org> - 2022.7-2
+- https://github.com/ostreedev/ostree/releases/tag/v2022.7
+
 * Mon Oct 10 2022 Luca BRUNO <lucab@lucabruno.net> - 2022.6-1
 - New upstream version
   https://github.com/ostreedev/ostree/releases/tag/v2022.6

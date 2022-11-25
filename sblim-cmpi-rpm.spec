@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-rpm
 Version:        1.0.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        CIM access to installed software packages (currently RPMs)
 
 License:        CPL
@@ -9,6 +9,7 @@ Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz
 Patch0:         sblim_cmpi_rpm_ldl_library.patch
 Patch1:         sblim-cmpi-rpm-1.0.1-docdir.patch
 Patch2:         sblim-cmpi-rpm-1.0.1-page-size.patch
+Patch3:         sblim-cmpi-rpm-configure-c99.patch
 BuildRequires: make
 BuildRequires:  sblim-cmpi-base-devel sblim-cmpi-devel rpm-devel
 BuildRequires:  gcc
@@ -27,6 +28,7 @@ and provide some more details about them.
 %patch0
 %patch1 -p1 -b .docdir
 %patch2 -p1 -b .page-size
+%patch3 -p1 -b .configure-c99
 
 
 %build
@@ -164,6 +166,9 @@ fi
 
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-33
+- Avoid undeclared exit function in configure
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

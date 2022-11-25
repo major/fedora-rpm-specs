@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        71
+Version:        72
 
 %forgemeta
 
@@ -251,6 +251,25 @@ fi
 
 
 %changelog
+* Wed Nov 23 2022 Packit <hello@packit.dev> - 72-1
+Changes with 72
+----------------
+  * UKI: Add support for building unified kernel images (#1167)
+  * Update snapshots to 20221115 (#1177)
+  * `objectstore`: use direct path input/output for `Object` (#1179)
+  * `stages/containers.storage.conf`: ability to specify a base file  (#1173)
+  * devices: tolerate existing device nodes (#1181)
+  * grub2.iso: add timeout option (#1175)
+  * ignition: fix ignition_network_kcmdline (#1172)
+  * test/data: persist the journal for ostree images (#1178)
+  * ❌ 🐮 Remove copy-on-write support for `Object` (no-cow) (#1169)
+
+Contributions from: Antonio Murdaca, Christian Kellner, Thomas Lavocat, schutzbot
+
+— Somewhere on the Internet, 2022-11-23
+
+
+
 * Wed Nov 09 2022 Packit <hello@packit.dev> - 71-1
 Changes with 71
 ----------------
@@ -264,10 +283,10 @@ Changes with 71
   * osbuild-mpp: recognize manifest without mediaType and with manifests fields as a list (#1168)
   * stages/ostree.preptree: link to rpm-ostree code (#1151)
   * stages: add new cpio.out stage (#1164)
-
 Contributions from: Antonio Murdaca, Christian Kellner, Colin Walters, David Rheinsberg, Irene Diez, Jan Macku, Simon de Vlieger, Ygal Blum, schutzbot
-
 — Somewhere on the Internet, 2022-11-09
+
+
 
 
 

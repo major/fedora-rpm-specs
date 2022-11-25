@@ -4,7 +4,8 @@ Release:        4%{?dist}
 Summary:        Libraries for foreign function call interfaces
 
 # The project as a whole is GPL-2.0-or-later.
-# The man pages and HTML documentation are GFDL-1.2-or-later.
+# The man pages and HTML documentation are GPL-2.0-or-later OR
+# GFDL-1.2-no-invariants-or-later.
 License:        GPL-2.0-or-later
 URL:            https://www.gnu.org/software/libffcall/
 Source0:        https://ftp.gnu.org/gnu/libffcall/lib%{name}-%{version}.tar.gz
@@ -26,7 +27,7 @@ packages are:
 
 %package devel
 Summary:        Files needed to develop programs with %{name}
-License:        GPL-2.0-or-later AND GFDL-1.2-or-later
+License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -86,9 +87,16 @@ popd
 %doc callback/trampoline_r/trampoline_r.html
 %doc trampoline/trampoline.html
 %doc vacall/vacall.html
-%{_includedir}/*
-%{_libdir}/lib*.so
-%{_mandir}/man*/*
+%{_includedir}/avcall.h
+%{_includedir}/callback.h
+%{_includedir}/ffcall*.h
+%{_includedir}/trampoline.h
+%{_includedir}/vacall*.h
+%{_libdir}/libavcall.so
+%{_libdir}/libcallback.so
+%{_libdir}/libffcall.so
+%{_libdir}/libtrampoline.so
+%{_mandir}/man3/ffcall*
 %{_rpmconfigdir}/macros.d/macros.%{name}
 
 %files static

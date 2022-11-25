@@ -9,6 +9,7 @@ Version:        5.7.2
 Release:        %autorelease
 Summary:        Socket.IO server
 
+# SPDX
 License:        MIT
 URL:            https://github.com/miguelgrinberg/python-socketio
 Source0:        %{url}/archive/v%{version}/python-socketio-%{version}.tar.gz
@@ -57,6 +58,11 @@ Summary:        Documentation for python-socketio
 %autosetup
 # Fix “/usr/bin/env python” shebangs in the examples
 %py3_shebang_fix examples
+# Don’t ship package-lock.json files with the examples. Overzealous bug-filing
+# scripts will file issues on this project for CVE’s in the recursive
+# dependencies mentioned there even though they are not present in or used by
+# this package at all.
+find examples -type f -name package-lock.json -print -delete
 
 
 %generate_buildrequires

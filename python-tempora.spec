@@ -3,8 +3,8 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.0.2
-Release:        2%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
 License:        MIT
@@ -34,6 +34,7 @@ BuildRequires:  python3dist(wheel)
 BuildConflicts: python3dist(pytest) = 3.7.3
 BuildRequires:  python3dist(pytest) >= 3.4
 BuildRequires:  python3-more-itertools
+
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -56,7 +57,7 @@ Documentation for tempora
 %autosetup -n %{pypi_name}-%{version}
 # Remove test that requires pytest-freezer.
 # there's only one and the dep is not packaged in Fedora
-sed -i 206,214d tempora/__init__.py
+sed -i 217,225d tempora/__init__.py
 
 %build
 LANG=C.utf-8 %{__python3} -m build --no-isolation
@@ -88,6 +89,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Wed Nov 23 2022 Dan Radez <dradez@redhat.com> - 5.1.0-1
+- update to 5.1.0 (rhbz#2144174)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,20 +16,20 @@ Release:        2%{?dist}
 
 # The project as a whole is GPL-3.0-or-later.  Exceptions:
 # - README and doc/intro.texi are FSFAP
-# - doc/auctex* and doc/preview* are GFDL-1.3-or-later
-License:        GPL-3.0-or-later AND FSFAP AND GFDL-1.3-or-later
+# - doc/auctex* and doc/preview* are GFDL-1.3-no-invariants-or-later
+License:        GPL-3.0-or-later AND FSFAP AND GFDL-1.3-no-invariants-or-later
 URL:            https://www.gnu.org/software/auctex/
 Source0:        http://ftp.gnu.org/pub/gnu/auctex/auctex-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 BuildRequires:  ghostscript
 BuildRequires:  make
 BuildRequires:  tex(latex)
 BuildRequires:  texinfo-tex
 
 Requires:       dvipng
-Requires:       emacs(bin) >= %{_emacs_version}
+Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 Requires:       ghostscript
 Requires:       tex(dvips)
 Requires:       tex(latex)
@@ -57,8 +57,11 @@ in the source buffer.
 This package is for GNU Emacs.
 
 %package doc
+# The content is GFDL-1.3-no-invariants-or-later.  The remaining licenses cover
+# the various fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GFDL-1.3-no-invariants-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        Documentation in various formats for AUCTeX
-License:        GFDL-1.3-or-later
 
 %description doc
 Documentation for the AUCTeX package for emacs in various formats,
@@ -66,8 +69,11 @@ including HTML and PDF.
 
 %if %{separate_preview}
 %package -n tex-preview
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        Preview style files for LaTeX
-License:        GPL-3.0-or-later
 Requires:       tex(latex)
 Provides:       tex(preview.sty) = %{version}-%{release}
 # This is the latest build we accidentally provided from texlive

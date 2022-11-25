@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -24,6 +24,10 @@ Summary:        Tiling terminal emulator
 License:        MPL-2.0 AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LGPL-3.0-only AND GPL-3.0-or-later AND (LGPL-3.0-or-later OR CC-BY-SA-3.0)
 URL:            https://github.com/gnunn1/tilix
 Source0:        https://github.com/gnunn1/tilix/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Fix compatibility with Nautilus 43
+# https://github.com/gnunn1/tilix/pull/2115
+Patch:          2115.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -144,6 +148,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Wed Nov 23 2022 Kalev Lember <klember@redhat.com> - 1.9.5-6
+- Backport upstream patch to fix compatibility with nautilus 43
+
 * Sat Nov 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.9.5-5
 - Rebuild for gtkd-3.10.0
 

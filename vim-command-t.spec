@@ -4,7 +4,7 @@
 
 Name: vim-command-t
 Version: 5.0.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: An extremely fast, intuitive mechanism for opening files in VIM
 License: BSD
 URL: https://github.com/wincent/command-t
@@ -18,6 +18,9 @@ Patch1: vim-command-t-5.0.3-Use-rspec-mock-for-stubbing.patch
 # Fix `CommandT::Scanner::BufferScanner` test.
 # https://github.com/wincent/command-t/commit/52adb808e2db85035e9a5a214cb147280c2f10e0
 Patch2: vim-command-t-5.0.3-fix-tests.patch
+# https://github.com/wincent/command-t/commit/5147a93a4b6cdb60cfa0ed1b792de711f44cd7b4
+# Ruby3.2 finally removes Fixnum
+Patch3: vim-command-t-5.0.3-ruby32-Fixnum-removal.patch
 Requires: ruby(release)
 # Although command-t does not depend on rubygems directly, the RubyGems are
 # required by Ruby, but not always (rhbz#845011). So it is necessary to enforce
@@ -52,6 +55,7 @@ more weight.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 pushd ./ruby/command-t/ext/command-t
@@ -103,6 +107,9 @@ rspec -Iruby spec
 
 
 %changelog
+* Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.0.3-6
+- Patch from upstream for ruby3.2 Fixnum removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

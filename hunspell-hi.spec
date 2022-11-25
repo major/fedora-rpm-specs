@@ -7,11 +7,11 @@
 Name: hunspell-hi
 Summary: Hindi hunspell dictionaries
 Version: 1.0.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Epoch:   1
 Source:  http://anishpatil.fedorapeople.org/hi_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -37,6 +37,9 @@ cp -p hi_IN/*.dic hi_IN/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-20
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

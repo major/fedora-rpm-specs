@@ -39,7 +39,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?name_cross}%{?_with_debug:-debug}
 Version: 2.39
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -306,6 +306,10 @@ Patch21: binutils-CVE-38128-dwarf-abbrev-parsing.patch
 # Purpose:  Stop readelf from incorrectly decoding ELF files with no sections.
 # Lifetime: Fixed in 2.40
 Patch22: binutils-readelf-no-sections.patch
+
+# Purpose:  Stop compile time warnings from configure test files in the libiberty directory.
+# Lifetime: Fixed in 2.40
+Patch23: binutils-libiberty-configure-compile-warnings.patch
 
 #----------------------------------------------------------------------------
 
@@ -963,6 +967,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Nov 23 2022 Nick Clifton  <nickc@redhat.com> - 2.39-6
+- Fix compile time warnings of the configure test files in the libiberty directory.  (#2144041)
+
 * Wed Nov 02 2022 Nick Clifton  <nickc@redhat.com> - 2.39-5
 - Fix configuration of s390x binutils so that it does not include support for extraneous targets.  (#2139143)
 

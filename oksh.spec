@@ -1,6 +1,6 @@
 Name:           oksh
 Version:        6.8.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Portable OpenBSD ksh, based on the Public Domain Korn Shell
 
 # The main license is "public domain", with some support files
@@ -17,6 +17,8 @@ Source1:        ksh.kshrc
 # This patch has been incorporate to upstream, and
 # will get removed in the next stable release.
 Patch0:         v6.8.1-stop-executable-strip.diff
+
+Patch1:         oksh-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -61,6 +63,9 @@ fi
 %config(noreplace) %{_sysconfdir}/ksh.kshrc
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 6.8.1-6
+- Avoid implicit int in configure
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

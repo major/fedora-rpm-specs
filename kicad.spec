@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        6.0.9
-Release:        1%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -24,6 +24,7 @@ BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
+BuildRequires:  glew-devel
 BuildRequires:  glm-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libappstream-glib
@@ -40,12 +41,8 @@ BuildRequires:  zlib-devel
 # For F37 and up, use wxGTK-devel instead of wxGTK3-devel.  Once F36 becomes
 # obsolete, we can remove the conditional.
 %if 0%{?fedora} >= 37
-%define EGL_FLAG ON
-Provides: bundled(libGLEW) = 2.2.0
 BuildRequires:  wxGTK-devel
 %else
-%define EGL_FLAG OFF
-BuildRequires:  glew-devel
 BuildRequires:  wxGTK3-devel
 %endif
 
@@ -104,7 +101,7 @@ Documentation for KiCad.
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
     -DKICAD_PCM=ON \
-    -DKICAD_USE_EGL=%{EGL_FLAG} \
+    -DKICAD_USE_EGL=OFF \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DPYTHON_SITE_PACKAGE_PATH=%{python3_sitearch}
@@ -222,6 +219,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.9-3
+- Remove EGL flag
+
+* Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.9-2
+- Rebuild for wxWidgets wxGLCanvas
+
 * Fri Oct 28 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.9-1
 - Update to 6.0.9
 

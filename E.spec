@@ -2,7 +2,13 @@ Name:		E
 Version:	2.6
 Release:	4%{?dist}
 Summary:	Equational Theorem Prover
-License:	GPL-2.0-or-later OR LGPL-2.1-or-later
+
+# The content is GPL-2.0-or-later OR LGPL-2.1-or-later.  The remaining licenses
+# cover the various fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:	(GPL-2.0-or-later OR LGPL-2.1-or-later) AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 URL:		https://www.eprover.org/
 Source0:	https://wwwlehre.dhbw-stuttgart.de/~sschulz/WORK/E_DOWNLOAD/V_%{version}/%{name}.tgz
 # Bibliography file, courtesy of Debian, with modifications by Jerry James
@@ -95,8 +101,30 @@ diff -u test-results test-expected-results
 %doc DOC/TODO
 %doc DOC/TSTP_Syntax.txt
 %doc DOC/WISHLIST
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/checkproof
+%{_bindir}/e_axfilter
+%{_bindir}/e_deduction_server
+%{_bindir}/e_ltb_runner
+%{_bindir}/e_stratpar
+%{_bindir}/eground
+%{_bindir}/ekb_create
+%{_bindir}/ekb_delete
+%{_bindir}/ekb_ginsert
+%{_bindir}/ekb_insert
+%{_bindir}/epclextract
+%{_bindir}/eprover
+%{_mandir}/man1/checkproof.1*
+%{_mandir}/man1/e_axfilter.1*
+%{_mandir}/man1/e_deduction_server.1*
+%{_mandir}/man1/e_ltb_runner.1*
+%{_mandir}/man1/e_stratpar.1*
+%{_mandir}/man1/eground.1*
+%{_mandir}/man1/ekb_create.1*
+%{_mandir}/man1/ekb_delete.1*
+%{_mandir}/man1/ekb_ginsert.1*
+%{_mandir}/man1/ekb_insert.1*
+%{_mandir}/man1/epclextract.1*
+%{_mandir}/man1/eprover.1*
 
 %changelog
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.6-4

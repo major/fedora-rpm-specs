@@ -1,12 +1,14 @@
 Name:           devio
 Version:        1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Read and write utility for block devices
 
 License:        MIT
 URL:            http://devio.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.man
+Patch0:         devio-configure-c99.patch
+
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -19,7 +21,7 @@ the object rather than reading and writing a stream of data.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -40,6 +42,9 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.2-26
+- Increase C99 compatibility of the configure script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,17 +2,18 @@
 %global sum Sphinx extension that automatically documents argparse commands and options
 
 Name:           python-%{srcname}
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        %{sum}
 BuildArch:      noarch
 
 License:        MIT
 Url:            https://github.com/ashb/sphinx-argparse
-Source0:        https://github.com/ashb/sphinx-argparse/archive/%{version}.tar.gz
+Source0:        %{url}/releases/download/v%{version}/sphinx_argparse-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3dist(pytest)
 
 %description
 Sphinx extension that automatically documents argparse commands and options
@@ -24,7 +25,7 @@ Summary:        %{sum}
 Sphinx extension that automatically documents argparse commands and options
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n sphinx_argparse-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -36,10 +37,12 @@ Sphinx extension that automatically documents argparse commands and options
 %pyproject_install
 %pyproject_save_files sphinxarg
 
+%check
+%pytest
+
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/*
 
 %changelog
 %autochangelog

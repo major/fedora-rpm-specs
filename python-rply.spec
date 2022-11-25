@@ -31,6 +31,8 @@ Python 3 version.
 
 %prep
 %autosetup -n %{modname}-%{version}
+sed -i "s/import py/import pytest/" tests/test_*
+sed -i "s/py\.test/pytest/" tests/test_*
 
 %build
 %py3_build

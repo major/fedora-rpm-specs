@@ -1,5 +1,5 @@
-%global date    20220423
-%global commit  43fce1ce1975e9911913d5ce72f9ad00bfaf9fe4
+%global date    20221019
+%global commit  cbd29151d263c901ff2d7b7d6dd64af8f1ee9e23
 %global forgeurl https://github.com/marijnheule/drat-trim
 
 Name:           drat-trim
@@ -8,7 +8,7 @@ Summary:        Proof checker for DIMACS proofs
 
 %forgemeta
 
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -18,6 +18,8 @@ Patch0:         %{name}-library.patch
 # Drat2er and CVC4 do not want to see commentary.  Apply a patch from the
 # drat2er developers to optionally make it shut up.
 Patch1:         %{name}-silent.patch
+# Eliminate maybe-uninitialized warnings
+Patch2:         %{name}-uninit.patch
 
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -50,20 +52,23 @@ This package contains a command line interface to %{name}.
 %autopatch -p1
 
 %build
+CFLAGS='%{build_cflags} -DLONGTYPE %{build_ldflags}'
+
 # Build the library
-gcc %{build_cflags} %{build_ldflags} -fPIC -shared -Wl,-h,lib%{name}.so.0 \
-  -o lib%{name}.so.0.0.0 %{name}.c
+gcc $CFLAGS -fPIC -shared -Wl,-h,lib%{name}.so.0 -o lib%{name}.so.0.0.0 \
+  %{name}.c
 ln -s lib%{name}.so.0.0.0 lib%{name}.so.0
 ln -s lib%{name}.so.0 lib%{name}.so
 
 # Build the command line interface
-gcc %{build_cflags} %{build_ldflags} -o %{name} %{name}-main.c -L. -l%{name}
+gcc $CFLAGS -o %{name} %{name}-main.c -L. -l%{name}
 export LD_LIBRARY_PATH=$PWD
 
 # Build the other tools
-gcc %{build_cflags} %{build_ldflags} -o lrat-check lrat-check.c
-gcc %{build_cflags} %{build_ldflags} -o drat-compress compress.c
-gcc %{build_cflags} %{build_ldflags} -o drat-decompress decompress.c
+gcc $CFLAGS -o lrat-check lrat-check.c
+gcc $CFLAGS -o drat-compress compress.c
+gcc $CFLAGS -o drat-decompress decompress.c
+gcc $CFLAGS -o drat-gapless gapless.c
 
 # Make man page for the command line interface
 help2man --version-string=%{gitdate} -N -o %{name}.1 ./%{name}
@@ -79,15 +84,19 @@ cp -p %{name}.h %{buildroot}%{_includedir}
 
 # Install the binaries
 mkdir -p %{buildroot}%{_bindir}
-cp -p drat-compress drat-decompress drat-trim lrat-check %{buildroot}%{_bindir}
+cp -p drat-compress drat-decompress drat-gapless drat-trim lrat-check \
+   %{buildroot}%{_bindir}
 
 # Install the man page
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p drat-trim.1 %{buildroot}%{_mandir}/man1
 
 %check
+# Do not rebuild the binaries without Fedora flags
+sed -i '/make/d' run-examples
+
 export LD_LIBRARY_PATH=$PWD
-./run-examples
+sh ./run-examples
 
 %files
 %license LICENSE
@@ -102,11 +111,15 @@ export LD_LIBRARY_PATH=$PWD
 %doc README.md
 %{_bindir}/drat-compress
 %{_bindir}/drat-decompress
+%{_bindir}/drat-gapless
 %{_bindir}/drat-trim
 %{_bindir}/lrat-check
 %{_mandir}/man1/drat-trim.1*
 
 %changelog
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 0-0.18
+- Update for drat-gapless and minor bug fixes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

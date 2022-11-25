@@ -1,10 +1,10 @@
 %global srcname oss-parent
 
 Name:          fasterxml-oss-parent
-Version:       41
-Release:       7%{?dist}
+Version:       49
+Release:       1%{?dist}
 Summary:       FasterXML parent pom
-License:       ASL 2.0
+License:       Apache-2.0
 
 URL:           https://github.com/FasterXML/oss-parent
 Source0:       %{url}/archive/%{srcname}-%{version}.tar.gz
@@ -36,7 +36,6 @@ This package contains the parent pom file for FasterXML.com projects.
 %pom_remove_plugin :maven-pmd-plugin
 %pom_remove_plugin :maven-scm-plugin
 %pom_remove_plugin :maven-site-plugin
-%pom_remove_plugin :nexus-maven-plugin
 %pom_remove_plugin :jdepend-maven-plugin
 %pom_remove_plugin :taglist-maven-plugin
 %pom_xpath_remove "pom:build/pom:extensions"
@@ -52,6 +51,13 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Wed Nov 23 2022 Chris Kelley <ckelley@redhat.com> - 49-1
+- Update to version 49
+
+* Tue Nov 08 2022 Chris Kelley <ckelley@redhat.com> - 48-1
+- Update to version 48
+- Update to use SPDX licence
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 41-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

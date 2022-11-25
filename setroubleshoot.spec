@@ -3,8 +3,8 @@
 
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
-Version: 3.3.30
-Release: 2%{?dist}
+Version: 3.3.31
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -15,7 +15,7 @@ Source2: %{name}.sysusers
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
-BuildRequires: intltool gettext python3 python3-devel
+BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-pip
 BuildRequires: desktop-file-utils dbus-glib-devel libnotify-devel libselinux-devel polkit-devel
 BuildRequires: audit-libs-devel >= 3.0.1
 BuildRequires: python3-libselinux python3-dasbus python3-gobject gtk3-devel
@@ -179,6 +179,7 @@ to user preference. The same tools can be run on existing log files.
 %{_mandir}/man8/sedispatch.8.gz
 %{_mandir}/man8/setroubleshootd.8.gz
 %config /etc/audit/plugins.d/sedispatch.conf
+%{_unitdir}/setroubleshootd.service
 %{_datadir}/dbus-1/system-services/org.fedoraproject.Setroubleshootd.service
 %{_datadir}/dbus-1/system-services/org.fedoraproject.SetroubleshootPrivileged.service
 %{_datadir}/polkit-1/actions/org.fedoraproject.setroubleshootfixit.policy
@@ -190,6 +191,14 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Nov 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.3.31-1
+- Add a screen reader label to the icon
+- seapplet: avoid ValueError when parsing sealert.conf
+- doc: Document performance related changes
+- Decrease setroubleshootd priority and limit RAM utilization to 1GB
+- Use setup from setuptools
+- Use `pip install` instead of `setup.py install`
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

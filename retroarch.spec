@@ -1,3 +1,6 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 # Free/Freeworld/Non-Free version
 %bcond_with freeworld
 %bcond_with nonfree

@@ -15,7 +15,7 @@
 
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
-Version:    9.3
+Version:    9.4
 Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-openstack
@@ -24,6 +24,7 @@ BuildArch:  noarch
 
 BuildRequires: %pythonpfx-devel
 BuildRequires: %pythonpfx-setuptools
+BuildRequires: %python-argparse-manpage
 
 Requires: %pythonpfx-cinderclient
 Requires: %pythonpfx-glanceclient
@@ -77,6 +78,9 @@ general might be used separately.
 
 
 %changelog
+* Wed Nov 23 2022 Pavel Raiskup <praiskup@redhat.com> - 9.4-1
+- new upstream release, compat fix for F37
+
 * Tue Sep 20 2022 Pavel Raiskup <praiskup@redhat.com> - 9.3-1
 - new upstream release
 - adjust cleaning-up with the new `cmd_list` Resalloc feature

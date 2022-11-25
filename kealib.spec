@@ -1,13 +1,11 @@
 Name:		kealib
-Version:	1.4.15
-Release:	3%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 Summary:	HDF5 Based Raster File Format as a GDAL plugin
 
 License:	MIT
 URL:		http://kealib.org/
 Source0:	https://github.com/ubarsc/kealib/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Proposed patch for gdal-3.6.0 compatibility
-Patch0:         https://github.com/ubarsc/kealib/pull/27.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -33,7 +31,7 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 KEA development headers
 
 %prep
-%autosetup -p1
+%setup -q
 
 # fix wrong lib entry
 sed -i 's+set (PROJECT_LIBRARY_DIR lib)+set (PROJECT_LIBRARY_DIR %{_lib})+g' %{_builddir}/%{name}-%{version}/CMakeLists.txt
@@ -75,6 +73,9 @@ mv %{buildroot}%{_prefix}/lib/gdalplugins/* %{buildroot}%{_libdir}/gdalplugins/
 %{_includedir}/libkea
 
 %changelog
+* Wed Nov 23 2022 Markus Neteler <neteler@mundialis.de> - 1.5.0-1
+- New upstream version kealib 1.5.0 with GDAL 3.6.0 support
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.4.15-3
 - Rebuild (gdal)
 

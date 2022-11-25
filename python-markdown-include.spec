@@ -1,13 +1,16 @@
-
 Name:           python-markdown-include
-Version:        0.6.0
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Syntax for Python-Markdown to include other Markdown documents
+Summary:        A Python-Markdown extension which provides an 'include' function
 
-License:        GPLv3
+# The overall license is GPL-3.0-only, based on the trove classifier “License
+# :: OSI Approved :: GNU General Public License v3 (GPLv3)” in setup.py and on
+# the contents of LICENSE.txt. However, the primary source file
+# markdown_include/include.py is clearly GPL-2.0-or-later based on its comment
+# header.
+License:        GPL-3.0-only AND GPL-2.0-or-later
 URL:            https://github.com/cmacmackin/markdown-include
-# We use the GitHub tarball because the PyPI archive is missing LICENSE.txt.
-Source0:        %{url}/archive/v%{version}/markdown-include-%{version}.tar.gz
+Source0:        %{pypi_source markdown-include}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -33,7 +36,7 @@ sed -r -i '1{/^#!/d}' markdown_include/include.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x tests
 
 
 %build
@@ -46,12 +49,11 @@ sed -r -i '1{/^#!/d}' markdown_include/include.py
 
 
 %check
-# There are no tests.
-%pyproject_check_import
+%pytest
 
 
 %files -n python3-markdown-include -f %{pyproject_files}
-%doc README.*
+%doc README.md
 
 
 %changelog

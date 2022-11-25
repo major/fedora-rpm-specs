@@ -1,7 +1,7 @@
 Summary: C library for multiple-precision floating-point computations
 Name: mpfr
 Version: 4.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.mpfr.org/
 
 License: LGPL-3.0-or-later
@@ -11,6 +11,10 @@ BuildRequires: make
 BuildRequires: texinfo
 
 Source0: https://www.mpfr.org/%{name}-%{version}/%{name}-%{version}.tar.xz
+
+# Upstream post-release patches.  This currently contains:
+# - mpfr_custom_get_kind.patch
+Patch0: https://www.mpfr.org/%{name}-%{version}/allpatches
 
 %description
 The MPFR library is a C library for multiple-precision floating-point
@@ -91,6 +95,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_infodir}/mpfr.info*
 
 %changelog
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 4.1.1-2
+- Update to MPFR 4.1.1-p1
+
 * Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 4.1.1-1
 - Update to MPFR version 4.1.1
 - Drop all patches

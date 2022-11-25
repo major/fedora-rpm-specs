@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.4.0
-Release:        2%{?dist}
+Version:        6.4.1
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -474,6 +474,9 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 
 %changelog
+* Wed Nov 23 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-1
+- Update to 6.4.1
+
 * Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-2
 - Rebuild (mingw-postgresql)
 

@@ -10,15 +10,15 @@
 %global subpkgs %{bodhi} %{coprapi} %{cachedjsonfile} %{pdc} %{fedoradists} %{pagure}
 
 Name:           fbrnch
-Version:        1.2
+Version:        1.2.1
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
 # copr-api, fedora-dists: GPLv3+
 # fbrnch, pagure-hs: GPLv2+
-License:        GPLv2+ and MIT and GPLv3+
+License:        GPL-2.0-or-later and MIT and GPL-3.0-or-later
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -62,9 +62,10 @@ BuildRequires:  ghc-text-static
 BuildRequires:  ghc-time-static
 BuildRequires:  ghc-typed-process-static
 BuildRequires:  ghc-unix-static
-BuildRequires:  ghc-unordered-containers-static
 BuildRequires:  ghc-utf8-string-static
 BuildRequires:  ghc-xdg-basedir-static
+# for missing dep 'copr-api':
+BuildRequires:  ghc-unordered-containers-prof
 # End cabal-rpm deps
 # for missing dep 'bodhi'/'copr-api'/'pagure'/'pdc'
 BuildRequires:  ghc-aeson-prof
@@ -106,9 +107,9 @@ and many more commands.
 %if %{defined ghclibdir}
 %ghc_lib_subpackage -l MIT %{bodhi}
 %ghc_lib_subpackage -l BSD %{cachedjsonfile}
-%ghc_lib_subpackage -l GPLv3+ %{coprapi}
-%ghc_lib_subpackage -l GPLv3+ %{fedoradists}
-%ghc_lib_subpackage -l GPLv2+ %{pagure}
+%ghc_lib_subpackage -l GPL-3.0-or-later %{coprapi}
+%ghc_lib_subpackage -l GPL-3.0-or-later %{fedoradists}
+%ghc_lib_subpackage -l GPL-2.0-or-later %{pagure}
 %ghc_lib_subpackage -l MIT %{pdc}
 %endif
 
@@ -151,6 +152,24 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Nov 23 2022 Jens Petersen <petersen@redhat.com> - 1.2.1-8
+- 'install': if dnf install fails, include command in error message
+- 'override': check for kerberos ticket
+- 'override': new --list and --expire option subcommands
+- 'parallel': print package header for merge
+- 'parallel': wait for sidetag update to transition to request testing
+- 'request-branches': check package owner and admins: drop unordered-containers
+- 'sidetags': ensure krb ticket
+- 'update-version': now commits sources too
+- 'update-version': prompt rather than warn if not updating rawhide
+- Git: fix conflictPrompt to handle long hashes correctly
+- Prompt: use show for unprintable characters
+- mergeBranch: print package branch header
+- require bugzilla-redhat-1.0.1 since b.r.c dropped Bug see_also field (juhp/hsbugzilla#18)
+- use logMsg when waiting for repo
+- https://hackage.haskell.org/package/fbrnch-1.2.1/changelog
+- fbrnch.spec: SPDX migration of license tags
+
 * Sat Nov 12 2022 Jens Petersen <petersen@redhat.com> - 1.2-7
 - improvements to the branch merging logic
 - no more gratuitous merge rebasing

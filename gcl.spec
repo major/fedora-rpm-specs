@@ -17,7 +17,7 @@
 %global _lto_cflags %{nil}
 
 # Upstream prerelease number
-%global prerel 126
+%global prerel 129
 
 Name:           gcl
 Version:        2.6.13
@@ -194,6 +194,8 @@ Patch136:       Version_2.6.13pre121.patch
 Patch137:       Version_2_6_13pre124.patch
 Patch138:       Version_2_6_13pre125.patch
 Patch139:       Version_2_6_13pre126.patch
+Patch140:       Version_2_6_13pre128.patch
+Patch141:       Version_2_6_13pre129.patch
 
 ### Fedora patches
 
@@ -235,6 +237,9 @@ Patch509:       %{name}-2.6.12-infrastructure.patch
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
 Patch510:       %{name}-2.6.12-extension.patch
+# Changes needed for the Modern C initiative.  See
+# https://fedoraproject.org/wiki/Changes/PortingToModernC
+Patch511:       %{name}-2.6.12-modern-c.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
@@ -250,7 +255,7 @@ BuildRequires:  tex(latex)
 BuildRequires:  tex-ec
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 
 Requires:       gcc
 Requires:       util-linux%{?_isa}
@@ -290,6 +295,11 @@ sed -i 's/"-fomit-frame-pointer"/""/' configure
 
 # Fix a path in the launch script
 sed -i 's|/usr/lib/tk|%{_datadir}/tk|' debian/gcl.sh
+
+# Silence warnings about the obsolescence of egrep and fgrep
+sed -i 's/egrep/grep -E/' o/egrep-def
+sed -i 's/fgrep/grep -F/' configure.in configure mp/makefile o/unexec.c \
+    o/unexec-19.29.c xbin/notify
 
 # Get a version of texinfo.tex that works with the installed version of texinfo
 cp -p %{_texmf_main}/tex/texinfo/texinfo.tex info
@@ -381,6 +391,11 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 2.6.13-0.129
+- Update to 2.6.13pre129
+- Add patch for https://fedoraproject.org/wiki/Changes/PortingToModernC
+- Silence warnings about the obsolescence of egrep and fgrep
+
 * Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 2.6.13-0.126
 - Update to 2.6.13pre126
 - Convert License tag to SPDX

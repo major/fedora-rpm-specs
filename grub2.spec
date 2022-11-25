@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	66%{?dist}
+Release:	67%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Nov 23 2022 Tomas Hrcka <thrcka@redhat.com> - 1:2.06-67
+- install unicode.pf2 into place so lorax works
+
 * Tue Nov 22 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-66
 - Bundle unicode.pf2 with images
 - Resolves: #2143725

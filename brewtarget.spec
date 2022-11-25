@@ -2,8 +2,6 @@
 %undefine __cmake_in_source_build
 
 %global forgeurl https://github.com/Brewtarget/brewtarget
-%global tag v3.0.3
-%forgemeta
 
 %global _description %{expand:
 Brewtarget is an open source beer recipe creation tool. It automatically
@@ -12,27 +10,27 @@ drop ingredients into the recipe. Brewtarget also has many other tools such as
 priming sugar calculators, OG correction help, and a unique mash designing tool.
 It also can export and import recipes in BeerXML.}
 
-Name:		brewtarget
-Version:	3.0.3
-Release:	1%{?dist}
-Summary:	An open source beer recipe creation tool 🍺
-
+Name:           brewtarget
+Version:        3.0.3
+Release:        1%{?dist}
+Summary:        An open source beer recipe creation tool 🍺
+%forgemeta
 # BSD-2-Clause: cmake/modules/FindPhonon.cmake
 # WTFPL: images/flag* images/bubbles.svg images/convert.svg images/grain2glass.svg
 # CC-BY-SA-3.0 OR LGPL-3.0-only: images/edit-copy.png images/document-print-preview.png
 #     images/merge.png images/preferences-other.png images/printer.png
 #     images/server-database.png images/kbruch.png images/help-contents.png
 # LGPL-2.1-only: images/backup.png
-License:	GPL-3.0-or-later AND BSD-2-Clause AND WTFPL AND (CC-BY-SA-3.0 OR LGPL-3.0-only) AND LGPL-2.1-only
-URL:		%{forgeurl}
-Source0:	%{forgesource}
+License:    GPL-3.0-or-later AND BSD-2-Clause AND WTFPL AND (CC-BY-SA-3.0 OR LGPL-3.0-only) AND LGPL-2.1-only
+URL:        %{forgeurl}
+Source0:    %{forgesource}
 
-BuildRequires:	gcc-c++
-BuildRequires:	qt5-qtbase-devel, qt5-qtwebkit-devel, qt5-qtsvg-devel
-BuildRequires:	qt5-qtmultimedia-devel, qt5-linguist
-BuildRequires:	boost-devel, xerces-c-devel, xalan-c-devel
-BuildRequires:	desktop-file-utils
-Requires:		sqlite
+BuildRequires:  gcc-c++
+BuildRequires:  qt5-qtbase-devel, qt5-qtwebkit-devel, qt5-qtsvg-devel
+BuildRequires:  qt5-qtmultimedia-devel, qt5-linguist
+BuildRequires:  boost-devel, xerces-c-devel, xalan-c-devel
+BuildRequires:  desktop-file-utils
+Requires:       sqlite
 
 %description %_description
 

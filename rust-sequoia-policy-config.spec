@@ -4,7 +4,7 @@
 %global crate sequoia-policy-config
 
 Name:           rust-sequoia-policy-config
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Configure Sequoia using a configuration file
 

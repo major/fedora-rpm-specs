@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2022.09.1
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0
@@ -13,6 +13,10 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libusbx-devel
 BuildRequires:  systemd
+
+# Documentation
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
 
 %description
 Hardware designs and software for HackRF, a project to produce a low cost, open
@@ -32,6 +36,8 @@ Files needed to develop software against libhackrf.
 Summary:        Supplemental documentation for HackRF
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
+Requires:       python3-sphinx
+Requires:       python3-sphinx_rtd_theme
 
 %description doc
 Supplemental documentation for HackRF. For more information, visit the wiki at
@@ -64,11 +70,18 @@ pushd host
 %cmake_build
 popd
 
+pushd docs
+make html
+popd
 
 %install
 pushd host
 %cmake_install
 popd
+
+# Documentation doesn't have a "make install", so do it manually.
+mkdir -p %{buildroot}%{_docdir}/%{name}
+cp -a docs/build/html %{buildroot}%{_docdir}/%{name}
 
 
 %post
@@ -96,10 +109,16 @@ popd
 %{_libdir}/libhackrf.a
 
 %files doc
-%doc docs/*
+%{_docdir}/%{name}/*
 
 
 %changelog
+* Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-4
+- Doc requires theme to bring in fonts, etc.
+
+* Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-3
+- Build doc package
+
 * Tue Nov 22 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-2
 - Remove F19 (and older) support
 - Push/pop dirs for cmake

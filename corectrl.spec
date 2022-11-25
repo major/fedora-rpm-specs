@@ -1,3 +1,6 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %undefine __cmake_in_source_build
 %global uuid    org.%{name}.%{name}
 

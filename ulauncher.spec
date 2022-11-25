@@ -4,7 +4,7 @@ Release:        %{autorelease}
 Summary:        Linux Application Launcher
 BuildArch:      noarch
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/Ulauncher/Ulauncher
 Source0:        %{url}/releases/download/%{version}/%{name}_%{version}.tar.gz
 

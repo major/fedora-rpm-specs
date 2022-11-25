@@ -1,13 +1,13 @@
 %global srcname fuckit
 
 Name:           python-%{srcname}
-Version:        4.8.0
-Release:        29%{?dist}
+Version:        4.8.1
+Release:        1%{?dist}
 Summary:        The Python Error Steamroller
 
 License:        WTFPL
 URL:            https://github.com/ajalt/fuckitpy
-Source0:        https://pypi.python.org/packages/source/f/fuckit/fuckit-4.8.0.zip
+Source0:        https://pypi.python.org/packages/source/f/fuckit/fuckit-4.8.1.zip
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -53,6 +53,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Wed Nov 23 2022 Sandipan Roy <bytehackr@fedoraproject.org> - 4.8.1-1
+- Bumped to new version 4.8.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

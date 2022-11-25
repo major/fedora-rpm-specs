@@ -7,8 +7,8 @@ Name: hunspell-or
 Summary: Odia hunspell dictionaries
 Version: 1.0.0
 Epoch:   1
-Release: 19%{?dist}
-License:        GPLv2+
+Release: 20%{?dist}
+License:        GPL-2.0-or-later
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
 Source0: http://anishpatil.fedorapeople.org/or_in.%{version}.tar.gz
 BuildRequires:  hunspell-devel
@@ -39,6 +39,9 @@ cp -p or_IN/*.dic or_IN/*.aff %{buildroot}%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-20
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

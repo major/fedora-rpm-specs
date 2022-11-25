@@ -10,7 +10,7 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.4.0
+Version: 6.4.1
 Release: 1%{?dist}
 
 License: LGPLv3 or LGPLv2
@@ -32,7 +32,6 @@ Patch1: qttools-run-qttools-with-qt6-suffix.patch
 Patch2: qttools-add-libatomic.patch
 
 ## upstream patches
-Patch50: lupdate-clang-15.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -161,8 +160,6 @@ Requires: %{name}-common = %{version}-%{release}
 %ifarch %{mips32}
 %patch2 -p1 -b .libatomic
 %endif
-
-%patch50 -p1 -b .lupdate-clang-15
 
 %build
 %cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
@@ -377,6 +374,9 @@ popd
 
 
 %changelog
+* Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
+- 6.4.1
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
 - 6.4.0
 

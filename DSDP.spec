@@ -3,7 +3,11 @@ Version:        5.8
 Release:        31%{?dist}
 Summary:        Software for semidefinite programming
 
-License:        DSDP
+# The content is DSDP.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 URL:            https://www.mcs.anl.gov/hs/software/DSDP/
 Source0:        https://www.mcs.anl.gov/hs/software/DSDP/%{name}%{version}.tar.gz
 # Man pages written by Jerry James using text from the sources.
@@ -42,14 +46,20 @@ truss topology design, and semidefinite relaxations of combinatorial and
 global optimization problems. 
 
 %package devel
+# The content is DSDP.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
 Summary:        Headers and libraries for developing with DSDP
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description devel
 Headers and libraries for developing with DSDP.
 
 %package examples
+License:        DSDP
 Summary:        Example programs that use DSDP
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -57,13 +67,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Examples programs that use the DSDP library.
 
 %prep
-%autosetup -p0 -n %{name}%{version}
-%setup -q -n %{name}%{version} -T -D -a 1
+%autosetup -p0 -n %{name}%{version} -a 1
 
-sed -e "s|@RPM_OPT_FLAGS@|${RPM_OPT_FLAGS}|" \
-    -e "s|@RPM_LD_FLAGS@|${RPM_LD_FLAGS}|" \
-    -e "s|@libdir@|%{_libdir}|" \
-    -e "s|@version@|%{version}|" \
+sed -e 's|@RPM_OPT_FLAGS@|%{build_cflags}|' \
+    -e 's|@RPM_LD_FLAGS@|%{build_ldflags}|' \
+    -e 's|@libdir@|%{_libdir}|' \
+    -e 's|@version@|%{version}|' \
     %{SOURCE2} > Makefile
 
 %build
@@ -102,7 +111,7 @@ done
 %files
 %doc docs/DSDP5-Exe-UserGuide.pdf docs/DSDP5-P1289-0905.pdf
 %license dsdp-license
-%{_libdir}/libdsdp.so.*
+%{_libdir}/libdsdp.so.5*
 
 %files devel
 %doc docs/DSDP5-API-UserGuide.pdf docs/dox
@@ -111,10 +120,14 @@ done
 
 %files examples
 %doc examples/Contents
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/dsdp*
+%{_mandir}/man1/dsdp*
 
 %changelog
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 5.8-31
+- Add SPDX License identifiers for PDF documentation
+- Minor spec file cleanups
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.8-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

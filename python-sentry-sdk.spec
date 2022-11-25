@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.11.0
+Version:        1.11.1
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -89,6 +89,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Nov 23 2022 Roman Inflianskas <rominf@aiven.io> - 1.11.1-1
+- Update to 1.11.1 (resolve rhbz#2144826)
+
 * Mon Nov 21 2022 Roman Inflianskas <rominf@aiven.io> - 1.11.0-1
 - Update to 1.11.0 (resolve rhbz#2142588)
 

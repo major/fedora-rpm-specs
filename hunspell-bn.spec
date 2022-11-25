@@ -7,11 +7,11 @@
 Name: hunspell-bn
 Summary: Bengali hunspell dictionaries
 Version: 1.0.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Epoch: 1
 Source: http://anishpatil.fedorapeople.org/bn_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -45,6 +45,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-21
+- Update license tag to SPDX format
+
 * Mon Sep 05 2022 Mike FABIAN <mfabian@redhat.com> - 1:1.0.0-20
 - Add symlinks from bn_IN.{dic,aff} -> bn_BD.{dic,aff}
 

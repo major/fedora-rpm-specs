@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.13
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -273,6 +273,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Wed Nov 23 2022 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-3
+- Change SUB_UID_MIN and SUB_GID_MIN to 524288. Resolves: #2144558
+
 * Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2:4.13-2
 - Fix gshadow configure check (switching to glibc implementation)
 

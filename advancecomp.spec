@@ -1,5 +1,5 @@
 Name:           advancecomp
-Version:        2.3
+Version:        2.4
 Release:        %autorelease
 Summary:        Recompression utilities for .png, .mng, .zip and .gz files
 

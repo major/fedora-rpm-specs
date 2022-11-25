@@ -4,7 +4,7 @@
 Summary: 	Open Fingerprint Architecture library	
 Name:		libofa	
 Version:	0.9.3	
-Release:	42%{?dist}
+Release:	43%{?dist}
 
 License:	GPLv2
 Url:		http://code.google.com/p/musicip-libofa/
@@ -16,6 +16,7 @@ Patch2: libofa-0.9.3-pkgconfig.patch
 Patch3: libofa-0.9.3-gcc44.patch
 Patch4: libofa-0.9.3-curl.patch
 Patch5: libofa-0.9.3-gcc47.patch
+Patch6: libofa-configure-c99.patch
 
 BuildRequires:	findutils
 BuildRequires:  gcc-c++
@@ -52,6 +53,7 @@ find . -name README -or -name \*.cpp -or -name \*.h | xargs --no-run-if-empty se
 %patch3 -p1 -b .gcc43
 %patch4 -p1 -b .curl
 %patch5 -p1 -b .gcc47
+%patch6 -p1 -b .configure-c99
 
 ## pkg-config < 0.20.0 (apparently?) doesn't grok URL
 %if "%(pkg-config --version 2>/dev/null)" < "0.20.0"
@@ -93,6 +95,9 @@ rm -rf examples/.deps examples/Makefile examples/*.gcc43
 
 
 %changelog
+* Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 0.9.3-43
+- Avoid undeclared exit function in configure (#2145212)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

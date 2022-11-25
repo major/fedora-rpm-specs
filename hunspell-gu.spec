@@ -7,11 +7,11 @@
 Name: hunspell-gu
 Summary: Gujarati hunspell dictionaries
 Version: 1.0.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Epoch: 1
 Source: http://anishpatil.fedorapeople.org/gu_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -35,6 +35,9 @@ cp -p gu_IN/gu_IN.dic gu_IN/gu_IN.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-20
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

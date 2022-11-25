@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.4.0
+Version: 6.4.1
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -234,6 +234,9 @@ popd
 %endif
 
 %changelog
+* Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
+- 6.4.1
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.0-1
 - 6.4.0
 
