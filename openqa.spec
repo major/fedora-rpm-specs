@@ -23,9 +23,9 @@
 %global github_owner    os-autoinst
 %global github_name     openQA
 %global github_version  4.6
-%global github_commit   8ea2059dfcd6f84740bfb4e61ee8209535bad135
+%global github_commit   b93eb7f4b04494cf3c7128a6db7ddb9b689a748b
 # if set, will be a post-release snapshot build, otherwise a 'normal' build
-%global github_date     20220615
+%global github_date     20221123
 %global shortcommit     %(c=%{github_commit}; echo ${c:0:7})
 
 # can't use linebreaks here!
@@ -46,7 +46,7 @@
 # Diff from SUSE: we use 'perl-interpreter' where they use 'perl',
 # our 'perl' is a metapackage and we don't want all of it
 # The following line is generated from dependencies.yaml (upstream)
-%define common_requires perl-interpreter >= 5.20.0 perl(Archive::Extract) > 0.7 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.22 perl(Mojolicious) >= 9.20 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
+%define common_requires perl-interpreter >= 5.20.0 perl(Archive::Extract) > 0.7 perl(Carp::Always) >= 0.14.02 perl(Config::IniFiles) perl(Config::Tiny) perl(Cpanel::JSON::XS) >= 4.09 perl(Cwd) perl(Data::Dump) perl(Data::Dumper) perl(Digest::MD5) perl(Filesys::Df) perl(Getopt::Long) perl(Minion) >= 10.25 perl(Mojolicious) >= 9.20 perl(Regexp::Common) perl(Storable) perl(Time::Moment) perl(Try::Tiny)
 # runtime requirements for the main package that are not required by other sub-packages
 # The following line is generated from dependencies.yaml (upstream)
 %define main_requires %assetpack_requires git-core hostname perl(BSD::Resource) perl(Carp) perl(CommonMark) perl(Config::Tiny) perl(DBD::Pg) >= 3.7.4 perl(DBI) >= 1.632 perl(DBIx::Class) >= 0.082801 perl(DBIx::Class::DeploymentHandler) perl(DBIx::Class::DynamicDefault) perl(DBIx::Class::OptimisticLocking) perl(DBIx::Class::ResultClass::HashRefInflator) perl(DBIx::Class::Schema::Config) perl(DBIx::Class::Storage::Statistics) perl(Date::Format) perl(DateTime) perl(DateTime::Duration) perl(DateTime::Format::Pg) perl(Exporter) perl(Fcntl) perl(File::Basename) perl(File::Copy) perl(File::Copy::Recursive) perl(File::Path) perl(File::Spec) perl(FindBin) perl(Getopt::Long::Descriptive) perl(IO::Handle) perl(IPC::Run) perl(JSON::Validator) perl(LWP::UserAgent) perl(Module::Load::Conditional) perl(Module::Pluggable) perl(Mojo::Base) perl(Mojo::ByteStream) perl(Mojo::IOLoop) perl(Mojo::JSON) perl(Mojo::Pg) perl(Mojo::RabbitMQ::Client) >= 0.2 perl(Mojo::URL) perl(Mojo::Util) perl(Mojolicious::Commands) perl(Mojolicious::Plugin) perl(Mojolicious::Static) perl(Net::OpenID::Consumer) perl(POSIX) perl(Pod::POM) perl(SQL::Translator) perl(Scalar::Util) perl(Sort::Versions) perl(Text::Diff) perl(Time::HiRes) perl(Time::ParseDate) perl(Time::Piece) perl(Time::Seconds) perl(URI::Escape) perl(YAML::PP) >= 0.026 perl(YAML::XS) perl(aliased) perl(base) perl(constant) perl(diagnostics) perl(strict) perl(warnings)
@@ -55,7 +55,7 @@
 # Diff from SUSE 1: case (they have openQA-client, we have openqa-client)
 # Diff from SUSE 2: we have 'sqlite' not 'sqlite3'
 # The following line is generated from dependencies.yaml (upstream)
-%define worker_requires openqa-client optipng os-autoinst < 5 perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.1 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
+%define worker_requires openqa-client optipng os-autoinst < 5 perl(Capture::Tiny) perl(File::Map) perl(Minion::Backend::SQLite) >= 5.0.7 perl(Mojo::IOLoop::ReadWriteProcess) >= 0.26 perl(Mojo::SQLite) psmisc sqlite >= 3.24.0
 # The following line is generated from dependencies.yaml (upstream)
 %define build_requires %assetpack_requires rubygem(sass)
 
@@ -92,7 +92,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -119,15 +119,6 @@ Source4:        23-fedora-messaging.t
 # this is an ugly hack that should be removed if it becomes possible
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
-# https://github.com/os-autoinst/openQA/pull/4710
-# Fix perl 5.36 warnings on use of @_ in signed subs
-Patch0:         0001-Fix-perl-5.36-warnings-on-use-of-_-in-functions-with.patch
-# https://github.com/os-autoinst/openQA/pull/4784
-# Fix a missed log function import which could break worker startup
-Patch1:         0001-Don-t-try-and-log-without-importing-the-log-function.patch
-# https://github.com/os-autoinst/openQA/pull/4785
-# Support gitlab.gnome.org and pagure.io issue trackers
-Patch2:         0002-Add-support-for-pagure.io-and-gitlab.gnome.org-track.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -425,6 +416,7 @@ export OPENQA_TEST_TIMEOUT_SCALE_CI=15
 # docker-compose. Also, these tests are less relevant (or not relevant) for
 # packaging
 export CONTAINER_TEST=0
+export HELM_TEST=0
 # GIT_CEILING_DIRECTORIES here avoids a case where git error handling
 # can differ when you run the build in mock and cause 16-utils-runcmd
 # to fail
@@ -677,6 +669,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Nov 24 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221123gitb93eb7f-1
+- Update to latest git, re-sync spec, drop merged patches
+
 * Sat Aug 27 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20220615git8ea2059-3
 - Backport PR #4784 to fix a worker startup bug
 - Backport PR #4785 to add pagure.io and GNOME gitlab trackers

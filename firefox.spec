@@ -172,7 +172,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        107.0
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -251,6 +251,7 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
+Patch416:        D161724.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -529,6 +530,7 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
+%patch416 -p1 -b .D161724
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1131,6 +1133,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Nov 24 2022 Martin Stransky <stransky@redhat.com>- 107.0-4
+- Added fix for mozbz#1779186 - fix VA-API playback artifacts
+
 * Mon Nov 21 2022 Martin Stransky <stransky@redhat.com>- 107.0-3
 - Disabled crashreporter
 

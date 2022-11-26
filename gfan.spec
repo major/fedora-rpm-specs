@@ -2,7 +2,7 @@ Name:           gfan
 Version:        0.6.2
 Release:        14%{?dist}
 Summary:        Software for Computing Gröbner Fans and Tropical Varieties
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://math.au.dk/~jensen/software/gfan/gfan.html
 Source0:        https://math.au.dk/~jensen/software/%{name}/%{name}%{version}.tar.gz
 # Sent upstream 2011 Apr 27.  Fix warnings that could indicate runtime
@@ -26,7 +26,9 @@ BuildRequires:  TOPCOM
 
 Requires:       libgfan%{_isa} = %{version}-%{release}
 
-Suggests:       TOPCOM
+Recommends:     TOPCOM
+
+%global _docdir_fmt %{name}
 
 %description
 The software computes all marked reduced Gröbner bases of an ideal.
@@ -39,6 +41,12 @@ initial ideals and tropical geometry. Among these are an interactive
 traversal program for Gröbner fans and programs for graphical renderings.
 
 %package        doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 Summary:        Gfan examples and documentation files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -80,18 +88,18 @@ rm -f homepage/Makefile
 
 %build
 %make_build CC=gcc CXX=g++ \
-  OPTFLAGS="%{optflags} -DGMPRATIONAL -I%{_includedir}/cddlib" \
+  OPTFLAGS='%{build_cxxflags} -DGMPRATIONAL -I%{_includedir}/cddlib' \
   PREFIX=%{_prefix} \
-  SOPLEX_LINKOPTIONS="-Wl,--as-needed $RPM_LD_FLAGS"
+  SOPLEX_LINKOPTIONS='%{build_ldflags}'
 
 # Build the manual
-pushd doc
+cd doc
 latex manual.tex
 bibtex manual
 latex manual.tex
 latex manual.tex
 dvipdf manual.dvi manual.pdf
-popd
+cd -
 
 %install
 # Install the library
@@ -114,9 +122,9 @@ done
 # Install the binaries
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 make install PREFIX=%{buildroot}%{_prefix}
-pushd %{buildroot}%{_bindir}
+cd %{buildroot}%{_bindir}
     ./%{name} installlinks
-popd
+cd -
 
 
 %check
@@ -131,24 +139,31 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %files
-%doc README doc/manual.pdf
+%doc README
 %license COPYING LICENSE
-%{_bindir}/*
+%{_bindir}/gfan*
 
-%files          doc
+%files doc
+%doc doc/manual.pdf
 %doc examples
 %doc homepage
 
 %files -n libgfan
 %doc gfanlib/README.txt
-%{_libdir}/*.so.*
+%{_libdir}/libgfan.so.0*
 
 %files -n libgfan-devel
 %{_includedir}/gfanlib/
-%{_libdir}/*.so
+%{_libdir}/libgfan.so
 
 
 %changelog
+* Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 0.6.2-14
+- Convert License tag to SPDX
+- Recommend, rather than suggest, TOPCOM
+- Move manual to the doc subpackage
+- Minor spec file cleanups
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

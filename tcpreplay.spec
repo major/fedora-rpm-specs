@@ -10,12 +10,13 @@
 
 Name:           tcpreplay
 Version:        4.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Replay captured network traffic
 
 License:        GPLv3
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
+Patch0: tcpreplay-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -39,7 +40,8 @@ capture files.
 %configure --enable-dynamic-link \
            --enable-tcpreplay-edit \
            --enable-local-libopts \
-           --disable-libopts-install
+           --disable-libopts-install \
+           --disable-maintainer-mode
 
 # make sure we use proper CFLAGS
 %{__sed} -i \
@@ -64,6 +66,9 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 4.4.2-2
+- Avoid implicit int, implicit function declarations in configure
+
 * Sat Aug 27 2022 Bojan Smojver <bojan@rexursive com> - 4.4.2-1
 - bump up to 4.4.2
 - CVE-2022-27939, CVE-2022-27940, CVE-2022-27941, CVE-2022-27942,

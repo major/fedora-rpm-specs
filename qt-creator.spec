@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        9.0.0
-Release:        0.3%{?dist}
+Release:        0.4%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -211,6 +211,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Nov 24 2022 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 9.0.0-0.3
 - Rebuild for yaml-cpp 0.7.0.
 

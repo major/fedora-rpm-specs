@@ -1,9 +1,9 @@
 Name:           pcm
-Version:        202207
-Release:        1%{?dist}
-Summary:        Processor Counter Monitor
+Version:        202211
+Release:        0%{?dist}
+Summary:        Intel(r) Performance Counter Monitor
 License:        BSD
-Url:            https://github.com/opcm/pcm
+Url:            https://github.com/intel/pcm
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -13,11 +13,11 @@ ExclusiveArch:  %{ix86} x86_64
 
 %description
 
-Processor Counter Monitor (PCM) is an application programming
-interface (API) and a set of tools based on the API to monitor
-performance and energy metrics of Intel(r) Core(tm), Xeon(r), Atom(tm)
-and Xeon Phi(tm) processors. PCM works on Linux, Windows, Mac OS X,
-FreeBSD and DragonFlyBSD operating systems.
+Intel(r) Performance Counter Monitor (Intel(r) PCM) is an application
+programming interface (API) and a set of tools based on the API to
+monitor performance and energy metrics of Intel(r) Core(tm), Xeon(r),
+Atom(tm) and Xeon Phi(tm) processors. PCM works on Linux, Windows,
+Mac OS X, FreeBSD and DragonFlyBSD operating systems.
 
 %prep
 %autosetup
@@ -43,6 +43,7 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_sbindir}/%{name}-msr
 %{_sbindir}/%{name}-mmio
 %{_sbindir}/%{name}-numa
+%{_sbindir}/%{name}-accel
 %{_sbindir}/%{name}-pcicfg
 %{_sbindir}/%{name}-pcie
 %{_sbindir}/%{name}-power
@@ -57,6 +58,10 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Nov 24 2022 Roman Dementiev <roman.dementiev@intel.com> 0.1-10
+- Update to new upstream repository location and the name
+- Update to version 202211
+
 * Tue Jul 26 2022 Roman Dementiev <roman.dementiev@intel.com> 0.1-9
 - Update to version 202207
 

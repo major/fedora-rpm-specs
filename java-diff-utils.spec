@@ -3,7 +3,7 @@ Version:        4.12
 Release:        1%{?dist}
 Summary:        Java library to create and apply patches
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://java-diff-utils.github.io/java-diff-utils/
 Source0:        https://github.com/%{name}/%{name}/archive/%{name}-parent-%{version}.tar.gz
 
@@ -67,6 +67,9 @@ difference algorithms.
 %files jgit -f .mfiles-java-diff-utils-jgit
 
 %changelog
+* Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 4.12-1
+- Convert License tag to SPDX
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 4.12-1
 - Version 4.12
 

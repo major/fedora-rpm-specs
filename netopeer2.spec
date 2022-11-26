@@ -1,11 +1,13 @@
 Name: netopeer2
 Version: 2.1.42
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source2: netopeer2-server.service
 License: BSD-3-Clause
+
+Patch1: fix-scripts.patch
 
 BuildRequires: gcc
 BuildRequires: cmake
@@ -120,6 +122,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Thu Nov 24 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.42-2
+- Add patch to fix post scripts
+
 * Tue Nov 15 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.42-1
 - New version (Resolves: rhbz#2088450)
 

@@ -51,7 +51,7 @@ applications
 %autosetup -N
 
 %patch0 -p1
-%if 0%{?fedora} > 35
+%if 0%{?fedora} > 35 || 0%{?rhel} > 9
 %patch1 -p1
 %endif
 

@@ -1,20 +1,24 @@
 Name: libphonenumber
-Version: 8.12.11
-Release: 15%{?dist}
+Version: 8.12.57
+Release: 1%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
 URL: https://github.com/google/libphonenumber/
 Source0: https://github.com/google/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires: abseil-cpp-devel
 BuildRequires: boost-devel
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gtest-devel
+BuildRequires: java-devel
 BuildRequires: libicu-devel
 BuildRequires: protobuf-compiler
 BuildRequires: protobuf-devel
 BuildRequires: re2-devel
+
+ExclusiveArch:  %{java_arches}
 
 %description
 Google's common C++ library for parsing, formatting, storing and validating
@@ -36,10 +40,10 @@ developing applications that use %{name}.
 
 %build
 pushd cpp
-%cmake
+# CXX_STANDARD=17 fixes undefined reference to `absl::lts_20210324::StrReplaceAll(std::initializer_list<std::pair<absl::lts_20210324::string_view
+%cmake -DCMAKE_CXX_STANDARD=17
 %cmake_build
 popd
-
 
 %install
 pushd cpp
@@ -63,6 +67,9 @@ popd
 
 
 %changelog
+* Thu Nov 03 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-1
+- Update libphonenumber to 8.12.57 (#1893839)
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 8.12.11-15
 - Rebuilt for ICU 71.1
 

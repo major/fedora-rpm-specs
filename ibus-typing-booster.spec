@@ -1,8 +1,8 @@
 Name:       ibus-typing-booster
 Version:    2.19.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A completion input method
-License:    GPLv3+ and ASL 2.0
+License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
 Source0:    https://github.com/mike-fabian/ibus-typing-booster/releases/download/%{version}/ibus-typing-booster-%{version}.tar.gz
 Requires:   ibus >= 1.5.3
@@ -248,6 +248,9 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Thu Nov 24 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.8-2
+- Migrate license tag to SPDX
+
 * Mon Nov 07 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.8-1
 - Update to 2.19.8
 - Do not show automatic emoji predictions when OSK (on-screen-keyboard) is visible

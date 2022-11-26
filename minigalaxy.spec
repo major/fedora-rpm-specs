@@ -25,6 +25,7 @@ Requires:       webkit2gtk3
 
 Recommends:     dosbox
 Recommends:     gamemode
+Recommends:     innoextract
 Recommends:     mangohud
 Recommends:     wine
 Recommends:     wine-dxvk

@@ -19,7 +19,7 @@ Version:        1.12.2
 Release:        %autorelease
 Summary:        Make your Python code clearer and more reliable by declaring Parameters
 
-License:        BSD
+License:        BSD-3-Clause
 # The GitHub tarball contains documentation, examples, and tests; the PyPI
 # tarball does not. See:
 # https://github.com/holoviz/param/issues/219

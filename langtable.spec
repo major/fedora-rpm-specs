@@ -1,12 +1,12 @@
 Name:           langtable
-Version:        0.0.60
+Version:        0.0.61
 Release:        1%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
 # short name for this license is "MIT", see:
 # https://fedoraproject.org/wiki/Licensing:MIT?rd=Licensing/MIT#Modern_Style_without_sublicense_.28Unicode.29
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/mike-fabian/langtable
 Source0:        https://github.com/mike-fabian/langtable/releases/download/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -75,6 +75,14 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Thu Nov 24 2022 Mike FABIAN <mfabian@redhat.com> - 0.0.61-1
+- Update to 0.0.61
+- Add mnw_MM.UTF-8 and ckb_IQ.UTF-8
+- Do not run test cases using Python2 anymore
+- Add bih
+- Add more translations from CLDR
+- Migrate license tag to SPDX
+
 * Wed Sep 21 2022 Mike FABIAN <mfabian@redhat.com> - 0.0.60-1
 - Update to 0.0.60
 - Add list_common_locales() function

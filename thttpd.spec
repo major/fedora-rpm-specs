@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 License:        BSD
@@ -17,6 +17,7 @@ Source12:       poweredby.png
 Patch0:         thttpd-2.25b-CVE-2005-3124.patch
 Patch1:         thttpd-2.25b-CVE-2012-5640-check_crypt_return_value.patch
 Patch2:         thttpd-fix-world-readable-log.patch
+Patch3:         thttpd-c99.patch
 BuildRequires: make
 BuildRequires:  systemd gcc
 %{?systemd_requires}
@@ -34,6 +35,7 @@ Advanced features include the ability to throttle traffic.
 %patch0 -p1 -b .CVE-2005-3124
 %patch1 -p1 -b .CVE-2012-5640
 %patch2 -p1 -b .rhbz924857
+%patch3 -p1 -b .c99
 # Convert man pages to UTF8
 for man in *.8 */*.8 */*.1; do
     iconv -f iso8859-1 -t utf-8 -o tmp ${man}
@@ -143,6 +145,9 @@ EOF
 %dir /var/www
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 2.29-13
+- Port to C99 (#2147555)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

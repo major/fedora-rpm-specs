@@ -1,19 +1,10 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global with_python3 1
-%endif
-
-%if 0%{?python3_version_nodots} == 38
 %global with_check 1
-%else
-%global with_check 1
-%endif
-
 %global pypi_name biopython
 %global module %{pypi_name}
 
 Name:             python-%{pypi_name}
-Version:          1.79
-Release:          4%{?dist}
+Version:          1.80
+Release:          1%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 
@@ -24,71 +15,37 @@ License:          MIT and BSD
 URL:              https://biopython.org/
 BuildRequires:    gcc
 
-%if 0%{?with_python3_other}
-BuildRequires:  python%{python3_other_pkgversion}-devel
-%endif
-
 %description
 A set of freely available Python tools for computational molecular
 biology.
 
-%package -n python%{python3_pkgversion}-%{module}
+%package -n python3-%{module}
 Summary: Python3 tools for computational molecular biology
 
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{module}}
+%{?python_provide:%python_provide python3-%{module}}
 
-BuildRequires:    python%{python3_pkgversion}-devel
-BuildRequires:    python%{python3_pkgversion}-setuptools
-BuildRequires:    python%{python3_pkgversion}-reportlab
-BuildRequires:    python%{python3_pkgversion}-numpy
-BuildRequires:    python%{python3_pkgversion}-mysql
-BuildRequires:    python%{python3_pkgversion}-psycopg2
-BuildRequires:    python%{python3_pkgversion}-rdflib
-BuildRequires:    mysql-connector-python%{python3_pkgversion}
-Requires:         python%{python3_pkgversion}-networkx
-Requires:         python%{python3_pkgversion}-pygraphviz
-Requires:         mysql-connector-python%{python3_pkgversion}
-Requires:         python%{python3_pkgversion}-reportlab
-Requires:         python%{python3_pkgversion}-numpy
-Requires:         python%{python3_pkgversion}-mysql
-Requires:         python%{python3_pkgversion}-psycopg2
+BuildRequires:    python3-devel
+BuildRequires:    python3-setuptools
+BuildRequires:    python3-reportlab
+BuildRequires:    python3-numpy
+BuildRequires:    python3-mysql
+BuildRequires:    python3-psycopg2
+BuildRequires:    python3-rdflib
+BuildRequires:    mysql-connector-python3
+Requires:         python3-networkx
+Requires:         python3-pygraphviz
+Requires:         mysql-connector-python3
+Requires:         python3-reportlab
+Requires:         python3-numpy
+Requires:         python3-mysql
+Requires:         python3-psycopg2
 Requires:         wise2%{?_isa}
 Requires:         flex%{?_isa}
-Requires:         python%{python3_pkgversion}-rdflib
+Requires:         python3-rdflib
 
-%description -n python%{python3_pkgversion}-%{module}
+%description -n python3-%{module}
 A set of freely available Python3 tools for computational molecular
 biology.
-
-%if 0%{?with_python3_other}
-%package -n python%{python3_other_pkgversion}-%{module}
-Summary: Python3 tools for computational molecular biology
-
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{module}}
-
-BuildRequires:    python%{python3_other_pkgversion}-devel
-BuildRequires:    python%{python3_other_pkgversion}-reportlab
-BuildRequires:    python%{python3_other_pkgversion}-numpy
-BuildRequires:    python%{python3_other_pkgversion}-mysql
-BuildRequires:    python%{python3_other_pkgversion}-psycopg2
-BuildRequires:    python%{python3_other_pkgversion}-rdflib
-BuildRequires:    mysql-connector-python%{python3_other_pkgversion}
-Requires:         python%{python3_other_pkgversion}-networkx
-Requires:         python%{python3_other_pkgversion}-pygraphviz
-Requires:         mysql-connector-python%{python3_other_pkgversion}
-Requires:         python%{python3_other_pkgversion}-reportlab
-Requires:         python%{python3_other_pkgversion}-numpy
-Requires:         python%{python3_other_pkgversion}-mysql
-Requires:         python%{python3_other_pkgversion}-psycopg2
-Requires:         wise2%{?_isa}
-Requires:         flex%{?_isa}
-Requires:         python%{python3_other_pkgversion}-rdflib
-
-%description -n python%{python3_other_pkgversion}-%{module}
-A set of freely available Python3 tools for computational molecular
-biology.
-%endif
-# with_python3_other
 
 %package doc
 Summary: PDF and HTML documentation of %{module}
@@ -112,10 +69,6 @@ find Bio -type f -name "*.py" -exec sed -i '/^#![ ]*\/usr\/bin\/.*$/ d' {} 2>/de
 popd
 
 cp -a %{module}-%{version} python3
-
-%if 0%{?with_python3_other}
-cp -a %{module}-%{version} python%{python3_other_pkgversion}
-%endif
 # with_python3_other
 
 %build
@@ -123,27 +76,12 @@ pushd python3
 %py3_build
 popd
 
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%py3_other_build
-popd
-%endif
-# with_python3_other
-
 %install
 pushd python3
 %{__python3} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT --install-data=%{_datadir}/python-biopython
 
 find Scripts -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 popd
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%{__python3_other} setup.py install -O1 --skip-build --root=$RPM_BUILD_ROOT --install-data=%{_datadir}/python-biopython
-
-find Scripts -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3_other}"
-popd
-%endif
 
 %if 0%{?with_check}
 %check
@@ -164,24 +102,10 @@ export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
 %{__python3} run_tests.py --offline -v ${test}
 done
 popd
-
-# See https://github.com/biopython/biopython/issues/855
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}/Tests
-find . -name 'run_tests.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3_other}"
-find ../ -name '__init__.py' | xargs rm -f
-for test in `ls test_*.py | grep -v Nexus | grep -v Phylo | grep -v Tutorial | grep -v bgzf`; do
-echo $LANG
-export PYTHONPATH=$RPM_BUILD_ROOT%{python3_other_sitearch}
-%{__python3_other} run_tests.py --offline -v ${test}
-done
-popd
-%endif
-# with_python3_other
 %endif
 # with_check
 
-%files -n python%{python3_pkgversion}-%{module}
+%files -n python3-%{module}
 %doc python3/Scripts
 %doc python3/CONTRIB.rst python3/DEPRECATED.rst python3/NEWS.rst python3/README.rst
 %license python3/LICENSE.rst
@@ -189,24 +113,14 @@ popd
 %{python3_sitearch}/Bio/
 %{python3_sitearch}/BioSQL/
 
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-%{module}
-%doc python%{python3_other_pkgversion}/Scripts
-%doc python%{python3_other_pkgversion}/CONTRIB.rst
-%doc python%{python3_other_pkgversion}/DEPRECATED.rst
-%doc python%{python3_other_pkgversion}/NEWS.rst
-%doc python%{python3_other_pkgversion}/README.rst
-%license python%{python3_other_pkgversion}/LICENSE.rst
-%{python3_other_sitearch}/*egg-info
-%{python3_other_sitearch}/Bio/
-%{python3_other_sitearch}/BioSQL/
-%endif
-
 %files doc
 %doc %{module}-%{version}/Doc
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Thu Nov 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.80-1
+- Release 1.80
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.79-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

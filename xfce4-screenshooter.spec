@@ -2,11 +2,11 @@
 # Successor of the xfce4-screenshooter-plugin, which was reviewed at
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=179202
 
-%global minorversion 1.9
+%global minorversion 1.10
 %global xfceversion 4.16
 
 Name:           xfce4-screenshooter
-Version:        1.9.11
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Screenshot utility for the Xfce desktop
 

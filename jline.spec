@@ -2,7 +2,7 @@ Name:           jline
 Version:        3.21.0
 Release:        6%{?dist}
 Summary:        Java library for handling console input
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/jline/jline3
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -181,6 +181,9 @@ This package contains a telnet client.
 %files remote-telnet -f .mfiles-jline-remote-telnet
 
 %changelog
+* Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 3.21.0-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

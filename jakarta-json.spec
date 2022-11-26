@@ -3,7 +3,7 @@ Version:        1.1.6
 Release:        9%{?dist}
 Summary:        Jakarta JSON Processing
 
-License:        EPL-2.0 or GPLv2 with exceptions
+License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://eclipse-ee4j.github.io/jsonp/
 Source0:        https://github.com/eclipse-ee4j/jsonp/archive/1.1-%{version}-RELEASE.tar.gz
 # Update deprecated method calls
@@ -109,6 +109,9 @@ This package contains the default provider for Jakarta JSON Processing.
 %files impl -f .mfiles-jakarta.json
 
 %changelog
+* Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 1.1.6-9
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

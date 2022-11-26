@@ -23,7 +23,9 @@ BuildRequires:  libarchive-devel
 BuildRequires:  libXmu-devel
 BuildRequires:  make
 #https://bugzilla.redhat.com/show_bug.cgi?id=1998742
-#BuildRequires:  minizip-devel
+%if 0%{?fedora} >= 38
+BuildRequires:  minizip-devel
+%endif
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtscript-devel
 BuildRequires:  qt5-qtsvg-devel
@@ -34,7 +36,9 @@ BuildRequires:  SDL2-devel
 Requires:       games-menus
 Provides:       bundled(lzma-sdk) = 21.07
 #https://bugzilla.redhat.com/show_bug.cgi?id=1998742
+%if 0%{?fedora} < 38
 Provides:       bundled(minizip) = 3.0.5
+%endif
 Provides:       PDF.js = 3f320f0b
 
 %description
@@ -73,9 +77,21 @@ sed -i s@doc/html/@doc/@ src/qmc2main.cpp
 %build
 #https://bugzilla.redhat.com/show_bug.cgi?id=1998742
 %make_build DISTCFG=1 CC_FLAGS="$RPM_OPT_FLAGS" CXX_FLAGS="$RPM_OPT_FLAGS" \
-    L_FLAGS="$RPM_LD_FLAGS" SYSTEM_MINIZIP=0 SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
+    L_FLAGS="$RPM_LD_FLAGS" \
+%if 0%{?fedora} >= 38
+    SYSTEM_MINIZIP=1 \
+%else
+    SYSTEM_MINIZIP=0 \
+%endif
+    SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
 %make_build arcade DISTCFG=1 CC_FLAGS="$RPM_OPT_FLAGS" CXX_FLAGS="$RPM_OPT_FLAGS" \
-    L_FLAGS="$RPM_LD_FLAGS" SYSTEM_MINIZIP=0 SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
+    L_FLAGS="$RPM_LD_FLAGS"  \
+%if 0%{?fedora} >= 38
+    SYSTEM_MINIZIP=1 \
+%else
+    SYSTEM_MINIZIP=0 \
+%endif
+    SYSTEM_ZLIB=1 LIBARCHIVE=1 GIT_REV=0
 %make_build qchdman DISTCFG=1 CXX_FLAGS="$RPM_OPT_FLAGS" L_FLAGS="$RPM_LD_FLAGS" \
     GIT_REV=0
 %make_build doc DISTCFG=1

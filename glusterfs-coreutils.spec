@@ -2,13 +2,14 @@
 Summary:          Core Utilities for the Gluster Distributed File System
 Name:             glusterfs-coreutils
 Version:          0.3.1
-Release:          10%{?dist}
+Release:          11%{?dist}
 License:          GPL-3.0-only
 URL:              https://github.com/gluster/glusterfs-coreutils
 # The source for this package was created from upstream source using the
 # following command:
 #       make dist
 Source0:          https://github.com/gluster/glusterfs-coreutils/archive/v%{version}/%{name}-v%{version}.tar.gz
+Patch0: glusterfs-coreutils-truncate-c99.patch
 
 Provides:         bundled(gnulib)
 
@@ -25,7 +26,7 @@ gluster-coreutils provides a set of basic utilities such as cat, mkdir, ls,
 stat, rm and tail that are implemented specifically using the GlusterFS API.
 
 %prep
-%setup -q -n %{name}-%{version}%{?prereltag}
+%autosetup -p1
 
 %build
 sed -i 's|m4_esyscmd.*|0.3.0,|' configure.ac
@@ -41,7 +42,10 @@ make
 %{_mandir}/man1/*
 
 %changelog
-* Fri Nov 18 2021  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 0.3.1-11
+- Avoid C89 implicit int in glfs-truncate
+
+* Fri Nov 18 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
 - SPDX migration
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10

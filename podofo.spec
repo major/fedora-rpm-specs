@@ -1,3 +1,9 @@
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 Name:           podofo
 Version:        0.9.8
 Release:        2%{?dist}
@@ -36,6 +42,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  texlive-epstopdf-bin
 BuildRequires:  zlib-devel
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-fontconfig
@@ -57,6 +64,7 @@ BuildRequires: mingw64-libpng
 BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-openssl
 BuildRequires: mingw64-zlib
+%endif
 
 
 %description
@@ -98,6 +106,7 @@ BuildArch:     noarch
 MinGW Windows %{name} library.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}-tools
 Summary:       Tools for the MinGW Windows %{name} library
 BuildArch:     noarch
@@ -120,6 +129,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 Tools for the MinGW Windows %{name} library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -145,9 +155,11 @@ rm cmake/modules/FindZLIB.cmake
 -DPODOFO_BUILD_SHARED=1
 %cmake_build
 
+%if %{with mingw}
 # MinGW build
 %mingw_cmake -DPODOFO_BUILD_SHARED=1
 %mingw_make_build
+%endif
 
 # Doc build
 doxygen
@@ -157,12 +169,14 @@ find doc/html -exec touch -r %{SOURCE0} {} \;
 
 %install
 %cmake_install
+
+%if %{with mingw}
 %mingw_make_install
 rm -rf %{buildroot}%{mingw32_datadir}
 rm -rf %{buildroot}%{mingw64_datadir}
 
-
 %mingw_debug_install_post
+%endif
 
 
 %check
@@ -186,6 +200,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/lib%{name}.pc
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING.LIB COPYING.exception
 %{mingw32_bindir}/libpodofo.dll
@@ -205,6 +220,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+%endif
 
 
 %changelog

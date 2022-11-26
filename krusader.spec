@@ -1,41 +1,42 @@
-%undefine __cmake_in_source_build
-
 Name:		krusader
-Version:	2.7.2
-Release:	7%{?dist}
+Version:	2.8.0
+Release:	2%{?dist}
 Summary:	An advanced twin-panel (commander-style) file-manager for KDE
 
 License:	GPLv2+
 URL:		https://www.krusader.org/
 Source0:	https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
 
-
+BuildRequires:	bzip2-devel
 BuildRequires:	cmake
-BuildRequires:	qt5-qtbase-devel
-BuildRequires:	kf5-kio-devel >= 5.23.0
+BuildRequires:	desktop-file-utils
+BuildRequires:	extra-cmake-modules
 BuildRequires:	kf5-karchive-devel
 BuildRequires:	kf5-kbookmarks-devel
 BuildRequires:	kf5-kcodecs-devel
 BuildRequires:	kf5-kcompletion-devel
-BuildRequires:	kf5-kcoreaddons-devel
 BuildRequires:	kf5-kconfig-devel
+BuildRequires:	kf5-kcoreaddons-devel
 BuildRequires:	kf5-kdoctools-devel
+BuildRequires:	kf5-kguiaddons-devel
 BuildRequires:	kf5-ki18n-devel
 BuildRequires:	kf5-kiconthemes-devel
+BuildRequires:	kf5-kio-devel >= 5.23.0
 BuildRequires:	kf5-kitemviews-devel
 BuildRequires:	kf5-knotifications-devel
 BuildRequires:	kf5-kparts-devel
-BuildRequires:	kf5-solid-devel
 BuildRequires:	kf5-ktextwidgets-devel
 BuildRequires:	kf5-kwallet-devel
 BuildRequires:	kf5-kwidgetsaddons-devel
 BuildRequires:	kf5-kwindowsystem-devel
 BuildRequires:	kf5-kxmlgui-devel
-BuildRequires:	kf5-kguiaddons-devel
-BuildRequires:	libattr-devel libacl-devel
-BuildRequires:	extra-cmake-modules
-BuildRequires:	zlib-devel bzip2-devel
-BuildRequires:	desktop-file-utils
+BuildRequires:	kf5-solid-devel
+BuildRequires:	libacl-devel
+BuildRequires:	libappstream-glib
+BuildRequires:	libattr-devel
+BuildRequires:	ninja-build
+BuildRequires:	qt5-qtbase-devel
+BuildRequires:	zlib-devel
 
 %description
 Krusader is an advanced twin panel (commander style) file manager for KDE and
@@ -49,68 +50,44 @@ such as smb or fish. It is (almost) completely customizable, very user
 friendly, fast and looks great on your desktop! You should give it a try.
 
 %prep
-%setup -q -n %{name}-%{version}%{?beta:-%{beta}}
+%autosetup
 
 %build
-%{cmake_kf5}
+%cmake_kf5 -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
 
 %install
 %cmake_install
-
-# Merge applications into one software center item
-mkdir -p %{buildroot}%{_datadir}/metainfo
-cat > %{buildroot}%{_datadir}/metainfo/org.kde.krusader.root-mode.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
-<component type="desktop">
-  <metadata_license>CC0-1.0</metadata_license>
-  <id>org.kde.krusader.root-mode.desktop</id>
-  <metadata>
-    <value key="X-Merge-With-Parent">krusader.desktop</value>
-  </metadata>
-</component>
-EOF
-
-# Make symlink relative and remove wrong EOL
-pushd %{buildroot}%{_docdir}/HTML/
-for i in *
-do
-	pushd %{buildroot}%{_docdir}/HTML/$i/krusader/
-	for j in *.docbook
-	do
-		tr -d '\r' < $j > ${j}.tmp
-		mv -f ${j}.tmp $j
-	done
-	ln -sf ../common
-	popd
-done
-popd
-
 %find_lang %{name} --with-kde
 
 %check
-for i in %{buildroot}%{_datadir}/applications/org.kde.krusader*.desktop ; do
-	desktop-file-validate $i
-done
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
-%doc doc-extras/actions_tutorial.txt
-%doc AUTHORS ChangeLog COPYING FAQ README NEWS TODO
-%{_sysconfdir}/xdg/kio_isorc
-%{_bindir}/*
-%{_libdir}/qt5/plugins/*.so
-%{_datadir}/metainfo/org.kde.%{name}*.appdata.xml
-%{_datadir}/applications/org.kde.krusader*.desktop
-%{_datadir}/doc/HTML/*/krusader/*
+%doc AUTHORS ChangeLog README README.md NEWS TODO
+%license LICENSES/*
+%{_bindir}/%{name}
+%{_datadir}/%{name}/
+%{_datadir}/applications/*.desktop
+%{_datadir}/doc/HTML/*/%{name}/
 %{_datadir}/icons/hicolor/*/apps/*.png
-%{_datadir}/krusader/*
-%{_datadir}/kservices5/*.protocol
-%{_datadir}/kxmlgui5/krusader/*.rc
-%{_mandir}/man1/krusader.1.gz
-%{_mandir}/*/man1/krusader.1.gz
+%{_datadir}/kxmlgui5/%{name}/
+%{_libdir}/qt5/plugins/kf5/kio/kio*.so
+%{_mandir}/*/man1/%{name}.1*
+%{_mandir}/man1/%{name}.1*
+%{_metainfodir}/*.appdata.xml
+%{_sysconfdir}/xdg/kio_isorc
 
 %changelog
+* Thu Nov 24 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.8.0-2
+- Fixed metadata manifest. Enabled validator.
+- Fixed directories ownership.
+- Disabled HTML patching.
+
+* Thu Nov 24 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.8.0-1
+- Updated to version 2.8.0.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPLv2+
 URL:            https://cockpit-project.org/
 
-Version:        280
+Version:        280.1
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -322,8 +322,6 @@ troubleshooting, interactive command-line sessions, and more.
 Summary: Cockpit bridge server-side component
 Requires: glib-networking
 Provides: cockpit-ssh = %{version}-%{release}
-# PR #10430 dropped workaround for ws' inability to understand x-host-key challenge
-Conflicts: cockpit-ws < 181.x
 # 233 dropped jquery.js, pages started to bundle it (commit 049e8b8dce)
 Conflicts: cockpit-dashboard < 233
 Conflicts: cockpit-networkmanager < 233
@@ -617,8 +615,8 @@ The Cockpit component for managing storage.  This package uses udisks.
 
 %package -n cockpit-tests
 Summary: Tests for Cockpit
-Requires: cockpit-bridge >= 138
-Requires: cockpit-system >= 138
+Requires: cockpit-bridge >= %{required_base}
+Requires: cockpit-system >= %{required_base}
 Requires: openssh-clients
 Provides: cockpit-test-assets = %{version}-%{release}
 
@@ -664,6 +662,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Nov 24 2022 Packit <hello@packit.dev> - 280.1-1
+- Exclude kpatch test on RHEL gating
+
+
 * Wed Nov 16 2022 Packit <hello@packit.dev> - 280-1
 - tools: Disallow root login by default
 

@@ -2,7 +2,7 @@
 Name: aprsd
 Summary: Internet gateway and client access to amateur radio APRS packet data
 Version: 2.2.5
-Release: %{uprel}.6%{?dist}.29
+Release: %{uprel}.6%{?dist}.30
 License: GPLv2+
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}-%{uprel}.tar.gz
 Source1: aprsd.conf
@@ -15,6 +15,7 @@ Source7: aprsd.logrotate
 Patch0: aprsd-2.2.5-15-compile.patch
 Patch1: aprsd-2.2.5-15-gcc43-port.patch
 Patch2: aprsd-2.2.5-15-sysconfdir.patch
+Patch3: aprsd-configure-c99.patch
 URL: http://sourceforge.net/projects/aprsd/
 BuildRequires:  gcc-c++
 BuildRequires: libax25-devel
@@ -39,6 +40,7 @@ real-time data in an easy to use package.
 %patch0 -p1 -b compile
 %patch1 -p1 -b gccport
 %patch2 -p1 -b sysconfdir
+%patch3 -p1 -b configure-c99
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
@@ -117,6 +119,9 @@ fi
 %doc doc/qalgorithm.html
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 2.2.5-15.6.30
+- Avoid C89 constructs in configure
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-15.6.29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

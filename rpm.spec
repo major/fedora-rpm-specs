@@ -26,13 +26,13 @@
 # build with bdb_ro support?
 %bcond_without bdb_ro
 # build with sequoia crypto?
-%bcond_with sequoia
+%bcond_without sequoia
 
 %define rpmhome /usr/lib/rpm
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 6
+%global baserelease 7
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -152,6 +152,10 @@ the package like its version, a description, etc.
 Summary:  Libraries for manipulating RPM packages
 License: GPLv2+ and LGPLv2+ with exceptions
 Requires(meta): %{name} = %{version}-%{release}
+%if %{with sequoia}
+# >= 1.2.0 required for v3 signature support
+Requires: rpm-sequoia%{_isa} >= 1.2.0
+%endif
 
 %description libs
 This package contains the RPM shared libraries.
@@ -619,6 +623,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Thu Nov 24 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-7
+- Require rpm-sequoia >= 1.2.0 for V3 signature support, re-enable (#2141686)
+
 * Thu Nov 10 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-6
 - Revert back to internal OpenPGP parser for V3 signature support (#2141686)
 

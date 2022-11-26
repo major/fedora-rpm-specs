@@ -25,7 +25,7 @@ Summary: SELinux policy configuration
 Name: selinux-policy
 Version: 38.1
 Release: 1%{?dist}
-License: GPLv2+
+License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
 Source31: modules-targeted-contrib.conf

@@ -3,19 +3,19 @@
 
 # SUSE guys use OBS to automatically handle release numbers,
 # when rebasing check what they are using on
-# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_36/src/
+# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_37/src/
 # update the obsrel to match the upstream release number
-%global obsrel 398.1
+%global obsrel 405.2
 
 # Actual release
 %global baserelease 1
 
 Name:           obs-build
-Version:        20220927
+Version:        20221118
 Release:        %{obsrel}.%{baserelease}%{?dist}
 Summary:        A generic package build script
 
-License:        (GPLv2 or GPLv3) and GPLv2+
+License:        (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later
 URL:            https://github.com/openSUSE/obs-build
 
 # Tarball retrieved from
@@ -142,6 +142,10 @@ sed -e "s|#!/usr/bin/python|#!%{__python3}|" \
 
 
 %changelog
+* Thu Nov 24 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20221118-405.2.1
+- New upstream release 20221118, fixes rhbz#2144039
+- Switch to SPDX license identifiers
+
 * Tue Sep 27 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220927-398.1.1
 - New upstream release 20220927, fixes rhbz#2130176
 

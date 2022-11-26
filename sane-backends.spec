@@ -14,7 +14,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.1.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+, docs are public domain
 # see LICENSE for details
@@ -37,9 +37,14 @@ Patch1: sane-backends-1.0.23-soname.patch
 # Fedora-specific (for now): make installed sane-config multi-lib aware again
 Patch2: sane-backends-1.0.23-sane-config-multilib.patch
 # 2042316 - genesys: backend crashes because it attempts to access a member outside of vector
+# sent upstream as https://gitlab.com/sane-project/backends/-/merge_requests/688
 Patch3: sane-genesys-gl845-crash.patch
 # 2043092 - ldflags that only make sense during build are exposed in pkgconf file
+# sent upstream as https://gitlab.com/sane-project/backends/-/merge_requests/768
 Patch4: sane-backends-pkgconfig-misunderstanding.patch
+# 2139882 - Plustek 8100 scanner not detected
+# sent upstream as https://gitlab.com/sane-project/backends/-/merge_requests/767
+Patch5: sane-genesys-plustek7600i-8100-support.patch
 
 URL: http://www.sane-project.org
 
@@ -167,6 +172,7 @@ access image acquisition devices available on the local host.
 # 2042316 - genesys: backend crashes because it attempts to access a member outside of vector
 %patch3 -p1 -b .genesys-gl845-crash
 %patch4 -p1
+%patch5 -p1 -b .genesys-plustek7600i-8100-support
 
 %build
 CFLAGS="%optflags -fno-strict-aliasing"
@@ -452,6 +458,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Thu Nov 24 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-9
+- 2139882 - Plustek 8100 and 7600i VID:PID are missing in genesys.conf
+
 * Tue Oct 04 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-8
 - 2130997 - rpm -Va reports error on /etc/sane.d/epsonds.conf
 

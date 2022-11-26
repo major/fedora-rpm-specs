@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    324e5895235fe40bfd5a4e2a0337bd7bf9a97a50
+%global gh_commit    76de9008f889bc7088f85a41d0d2b06c2b59c53d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-http
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.17.1
+Version:        2.18.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Thu Nov 24 2022 Remi Collet <remi@remirepo.net> - 2.18.0-1
+- update to 2.18.0
+
 * Mon Nov 14 2022 Remi Collet <remi@remirepo.net> - 2.17.1-1
 - update to 2.17.1
 

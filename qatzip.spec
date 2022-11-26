@@ -4,7 +4,7 @@
 %global libqatzip_soversion 3
 
 Name:           qatzip
-Version:        1.0.9
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD
@@ -13,7 +13,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc >= 4.8.5
 BuildRequires:  zlib-devel >= 1.2.7
-BuildRequires:  qatlib-devel >= 22.07.0
+BuildRequires:  qatlib-devel >= 22.07.2
 BuildRequires:  autoconf automake libtool make lz4-devel
 # The purpose of the package is to support hardware that only exists on x86_64 platforms
 # https://bugzilla.redhat.com/show_bug.cgi?id=1987280
@@ -85,6 +85,9 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/libqatzip.so
 
 %changelog
+* Thu Nov 24 2022 Vladis Dronov <vdronov@redhat.com> - 1.1.0-1
+- Rebuild for qatzip v1.1.0
+
 * Mon Aug 08 2022 Vladis Dronov <vdronov@redhat.com> - 1.0.9-1
 - Rebuild for qatzip v1.0.9
 - Update to require qatlib-devel >= 22.07.0 due to soversion bump

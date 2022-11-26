@@ -12,7 +12,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(sphinx-gallery)
 BuildRequires:  python3dist(numpydoc)

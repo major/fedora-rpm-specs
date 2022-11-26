@@ -3,7 +3,9 @@ Version:        5.0
 Release:        5%{?dist}
 Summary:        GNU Linear Programming Kit
 
-License:        GPLv3+
+# GPL-3.0-or-later: the project as a whole
+# MIT: the bundled minisat2 code
+License:        GPL-3.0-or-later AND MIT
 URL:            https://www.gnu.org/software/glpk/glpk.html
 Source0:        https://ftp.gnu.org/gnu/glpk/glpk-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/glpk/glpk-%{version}.tar.gz.sig
@@ -49,6 +51,14 @@ The GLPK package includes the following main components:
  * Stand-alone LP/MIP solver. 
 
 %package        doc
+# The content is GFDL-1.3-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+# Latin Modern: LPPL-1.0
+# XY: GPL-1.0-or-later
+License:        GFDL-1.3-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0
 Summary:        Documentation for %{name}
 
 %description    doc
@@ -128,6 +138,9 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 5.0-5
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

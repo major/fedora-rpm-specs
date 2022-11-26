@@ -1,11 +1,12 @@
 Name:           deletemail
 Version:        0.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A non-interactive tool for deleting mails
 
 License:        MIT
 URL:            http://www.jhweiss.de/software/deletemail.html
 Source0:        ftp://ftp.jhweiss.de/pub/users/weiss/%{name}/%{name}-%{version}.tar.bz2
+Patch0:         deletemail-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
@@ -23,7 +24,7 @@ handle the removal of mail. Currently, the IMAP4 and IMAP4rev1 protocols
 are supported, optionally using SSL/TLS for secure IMAP connections.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build 
 %configure
@@ -39,6 +40,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 0.5-31
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

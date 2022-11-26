@@ -14,12 +14,25 @@ Version:        0.12.0
 Release:        %autorelease
 Summary:        The successor to nose, based on unittest2
 
-License:        BSD
+# The entire source is BSD-2-Clause, except that unspecified portions are
+# derived from unittest2:
+#   Portions derived from unittest2. unittest2 is Copyright (c) 2001-2012
+#   Python Software Foundation; All Rights Reserved. See:
+#   http://docs.python.org/license.html
+# Research indicates unittest2 was distributed under a BSD-3-Clause license,
+# the text of which is included for the time being as an additional source
+# file. Upstream has been asked to clarify the situation and include the actual
+# license text:
+#   https://github.com/nose-devs/nose2/issues/553
+License:        BSD-2-Clause AND BSD-3-Clause
 URL:            https://nose2.io/
 %global forgeurl https://github.com/nose-devs/nose2
 Source0:        %{forgeurl}/archive/%{version}/nose2-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        nose2.1
+# We believe this to be the correct license text for unittest2; see the comment
+# above the License field.
+Source2:        LICENSE-unittest2
 
 # Keep the tox config from pulling in the dev extra. This makes sense upstream
 # (so the patch is not offered there), but for us it brings in unwanted
@@ -92,6 +105,7 @@ Summary:        Documentation for %{name}
 
 %prep
 %autosetup -n nose2-%{version} -p1
+cp -p '%{SOURCE2}' .
 
 # Patch out unnecessary documentation dependency on sphinx-issues, used
 # upstream for changelog generation.
@@ -130,7 +144,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files -n python3-nose2 -f %{pyproject_files}
-%license license.txt
+%license license.txt LICENSE-unittest2
 %doc AUTHORS
 %doc README.rst
 
@@ -139,7 +153,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 
 %files doc
-%license license.txt
+%license license.txt LICENSE-unittest2
 %doc AUTHORS
 %doc README.rst
 %doc docs/changelog.rst

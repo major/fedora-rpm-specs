@@ -1,13 +1,15 @@
 Summary: A tool for converting XML files to various formats
 Name: xmlto
 Version: 0.0.28
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPLv2+
 #Older versions up to xmlto-0.0.20
 #URL: http://cyberelk.net/tim/xmlto/
 #Source0: http://cyberelk.net/tim/data/xmlto/stable/%{name}-%{version}.tar.bz2
 URL: https://pagure.io/xmlto/
 Source0: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
+Patch0: xmlto-c99-1.patch
+Patch1: xmlto-c99-2.patch
 
 BuildRequires: make
 BuildRequires: docbook-xsl
@@ -52,7 +54,7 @@ This subpackage contains xmlto backend scripts for processing
 xhtml1 source format.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure BASH=/bin/bash
@@ -86,6 +88,9 @@ make check
 %{_datadir}/xmlto/format/xhtml1/*
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 0.0.28-19
+- Apply upstream patches to support building in stricer C99 mode
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.28-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

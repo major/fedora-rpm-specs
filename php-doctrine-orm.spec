@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      orm
-%global github_version   2.13.3
-%global github_commit    e750360bd52b080c4cbaaee1b48b80f7dc873b36
+%global github_version   2.13.4
+%global github_commit    a5a6cc6630ce497290396d5f206887227820a634
 
 %global composer_vendor  doctrine
 %global composer_project orm
@@ -322,7 +322,7 @@ rm tests/Doctrine/Tests/ORM/Functional/Ticket/DDC742Test.php
 
 : Upstream tests
 RETURN_CODE=0
-for CMDARG in "php %{phpunit}" php74 php80 php81 php82; do
+for CMDARG in "php %{phpunit}" php80 php81 php82; do
     if which $CMDARG; then
         set $CMDARG
         $1 ${2:-%{_bindir}/phpunit9} \
@@ -347,6 +347,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Nov 24 2022 Remi Collet <remi@remirepo.net> - 2.13.4-1
+- update to 2.13.4
+
 * Fri Oct  7 2022 Remi Collet <remi@remirepo.net> - 2.13.3-1
 - update to 2.13.3
 

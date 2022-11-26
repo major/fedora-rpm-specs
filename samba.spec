@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.3
-%global baserelease 0
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -230,6 +230,9 @@ Source17:       samba-usershares-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
+Patch0: samba-waf18.patch
+Patch1: samba-sysmacros.patch
+Patch2: samba-wscript-c99.patch
 
 Requires(pre): /usr/sbin/groupadd
 
@@ -4313,6 +4316,10 @@ fi
 %endif
 
 %changelog
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2:4.17.3-%{baserelease}
+- Remove C89-specific language constructs from configure checks
+- Fix feature detection for major/minor macros
+
 * Tue Nov 15 2022 Guenther Deschner <gdeschner@redhat.com> - 4.17.3-0
 - resolves: #2142959 - Update to version 4.17.3
 - resolves: #2140960, #2143117 - Security fixes for CVE-2022-42898

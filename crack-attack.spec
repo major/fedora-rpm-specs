@@ -1,7 +1,7 @@
 Summary:        Puzzle action game
 Name:           crack-attack
 Version:        1.1.14
-Release:        47%{?dist}
+Release:        48%{?dist}
 License:        GPLv2+
 URL:            http://www.nongnu.org/crack-attack/
 Source0:        http://savannah.nongnu.org/download/%{name}/%{name}-%{version}.tar.bz2
@@ -14,6 +14,7 @@ Patch3:         crack-attack-1.1.14-gcc43.patch
 Patch4:         crack-attack-1.1.14-audio-ppc.patch
 Patch5:         crack-attack-1.1.14-format-security.patch
 Patch6:         crack-attack-1.1.14-rhbz1065649.patch
+Patch7:         crack-attack-configure-c99.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  libstdc++-devel desktop-file-utils ImageMagick
@@ -37,6 +38,7 @@ longest!? Playable both online and off.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 # fixup provided desktop file
 sed -i -e 's/%{name}\.xpm/%{name}\.png/' \
   -e 's/Application;Games/Game;BlocksGame/' data/%{name}.desktop
@@ -82,6 +84,9 @@ convert $RPM_BUILD_ROOT%{_datadir}/%{name}/logo.tga \
 
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.1.14-48
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.14-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

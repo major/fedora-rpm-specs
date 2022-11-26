@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        SQL relational database management system
 License:        Interbase
@@ -32,7 +32,7 @@ Patch205:       cloop-honour-build-flags.patch
 # from upstream
 Patch301:       c++17.patch
 Patch302:       noexcept.patch
-
+Patch303:       autoconf.patch
 Patch401:       btyacc-honour-build-flags.patch
 
 BuildRequires: autoconf
@@ -197,6 +197,7 @@ in production systems, under a variety of names, since 1981.
 %patch205 -p1
 %patch301 -p1
 %patch302 -p1
+%patch303 -p1
 %patch401 -p1
 
 
@@ -373,6 +374,9 @@ fi
 
 
 %changelog
+* Thu Nov 24 2022 Philippe Makowski <makowski@fedoraproject.org> - 4.0.2.2816-2
+- Patch for autoconf 2.72 (#2144802)
+
 * Fri Aug 12 2022 Philippe Makowski <makowski@fedoraproject.org> - 4.0.2.2816-1
 - Update to 4.0.2 (#2033945)
 

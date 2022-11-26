@@ -1,13 +1,9 @@
 %bcond_without openmpi
 %bcond_without mpich
-# binutils bug in EL9 - https://bugzilla.redhat.com/show_bug.cgi?id=2095926
-%if 0%{?el9}
-%global _lto_cflags %nil
-%endif
 
 Name:           cgnslib
 Version:        4.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -243,8 +239,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH
 %{_openmpi_load}
 %define _vpath_builddir %{_target_platform}-openmpi
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
-# FIXME parallel tests hang
-#ctest || :
+ctest || :
 %{_mpich_unload}
 )
 %endif
@@ -255,8 +250,7 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
 %{_mpich_load}
 %define _vpath_builddir %{_target_platform}-mpich
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
-# FIXME parallel tests hang
-#ctest || :
+ctest || :
 %{_mpich_unload}
 )
 %endif
@@ -376,6 +370,10 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$LD_LIBRARY_PATH
 
 
 %changelog
+* Wed Nov 16 2022 Orion Poplawski <orion@nwra.com> - 4.3.0-4
+- Re-enable parallel tests
+- Drop EL9 workaround
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 4.3.0-3
 - Fix invalid Icon and Exec paths in desktop files
 

@@ -6,8 +6,8 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.22.6
-Release: 5%{?dist}
+Version: 3.22.10
+Release: 2%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -171,25 +171,19 @@ Patch53: hplip-revert-plugins.patch
 # non-sudoers cannot authenticate
 # reported upstream https://bugs.launchpad.net/hplip/+bug/1904888
 Patch54: hplip-check-userperms.patch
-# 1919556 - hp-fab crashed: QFileDialog.getOpenFileName is not used correctly
-# getOpenFileName returns a tuple, but hp-fab expects a simple variable
-# reported upstream as https://bugs.launchpad.net/hplip/+bug/1914743
-Patch55: hplip-fab-import.patch
 # if an user tries to install scanner via hp-setup (printer/fax utility)
 # it fails further down - break out earlier with a message
 # reported upstream as https://bugs.launchpad.net/hplip/+bug/1916114
-Patch56: hplip-hpsetup-noscanjets.patch
+Patch55: hplip-hpsetup-noscanjets.patch
 # 1963114 - patch for hplip firmware load timeout fix
 # reported upstream https://bugs.launchpad.net/hplip/+bug/1922404
-Patch57: hplip-hpfirmware-timeout.patch
+Patch56: hplip-hpfirmware-timeout.patch
 # 1985251 - Incorrect permission for gpg directory
 # reported upstream https://bugs.launchpad.net/hplip/+bug/1938442
-Patch58: hplip-gpgdir-perms.patch
+Patch57: hplip-gpgdir-perms.patch
 # 1987141 - hp-plugin installs malformed udev files
 # reported upstream https://bugs.launchpad.net/hplip/+bug/1847477
-Patch59: hplip-plugin-udevissues.patch
-# reported upstream https://bugs.launchpad.net/hplip/+bug/1938504
-Patch60: hplip-osname-mismatch.patch
+Patch58: hplip-plugin-udevissues.patch
 # 2080235 - Misleading errors about missing shared libraries when scanning
 # downstream patch to prevent errors:
 # - when loading libhpmud.so - unversioned .so files belong into devel packages,
@@ -198,16 +192,24 @@ Patch60: hplip-osname-mismatch.patch
 #   package (if libhpmud.so had been moved to -devel) the dlopen on unversioned .so file was
 #   removed
 # - /lib64/libm.so is not symlink but ld script, which cannot be used in dlopen()
-Patch61: hplip-no-libhpmud-libm-warnings.patch
+Patch59: hplip-no-libhpmud-libm-warnings.patch
 # hplip 3.22.6 doesn't use the correct arguments for snprintf
 # reported as https://bugs.launchpad.net/hplip/+bug/1982185
-Patch62: hplip-snprintf-format.patch
-Patch63: hplip-plugin-script.patch
+Patch60: hplip-snprintf-format.patch
+Patch61: hplip-plugin-script.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
 Patch1000: hplip-fedora-gui.patch
 %endif
+
+# C99 compatibility fixes.
+# Submitted uostream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch1001: hplip-pserror-c99.patch
+Patch1002: hplip-scan-hpaio-include.patch
+Patch1003: hplip-scan-orblite-c99.patch
+Patch1004: hplip-pcardext-disable.patch
+Patch1005: hplip-sclpml-strcasestr.patch
 
 # uses automatic creation of configure
 BuildRequires: autoconf
@@ -510,29 +512,31 @@ done
 %patch53 -p1 -b .revert-plugins
 # 1899410 - non-sudoers cannot authenticate because of bad username in prompt
 %patch54 -p1 -b .check-userperms
-# 1919556 - hp-fab crashed: QFileDialog.getOpenFileName is not used correctly
-%patch55 -p1 -b .fab-import
 # if an user tries to install scanner via hp-setup (printer/fax utility)
 # it fails further down - break out earlier with a message
-%patch56 -p1 -b .hpsetup-noscanjets
+%patch55 -p1 -b .hpsetup-noscanjets
 # 1963114 - patch for hplip firmware load timeout fix
-%patch57 -p1 -b .hpfirmware-timeout
+%patch56 -p1 -b .hpfirmware-timeout
 # 1985251 - Incorrect permission for gpg directory
-%patch58 -p1 -b .gpgdir-perms
+%patch57 -p1 -b .gpgdir-perms
 # 1987141 - hp-plugin installs malformed udev files
-%patch59 -p1 -b .hpplugin-udevperms
-# upstream bug https://bugs.launchpad.net/hplip/+bug/1938504
-%patch60 -p1 -b .osname-mismatch
+%patch58 -p1 -b .hpplugin-udevperms
 # 2080235 - Misleading errors about missing shared libraries when scanning
-%patch61 -p1 -b .no-libm-libhpmud-warn
+%patch59 -p1 -b .no-libm-libhpmud-warn
 # hplip 3.22.6 doesn't use proper arguments for snprintf
-%patch62 -p1 -b .snprintf-format
-%patch63 -p1 -b .plugin-patch
+%patch60 -p1 -b .snprintf-format
+%patch61 -p1 -b .plugin-patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui should be installed if you want GUI
 %patch1000 -p1 -b .fedora-gui
 %endif
+
+%patch1001 -p1
+%patch1002 -p1
+%patch1003 -p1
+%patch1004 -p1
+%patch1005 -p1
 
 sed -i.duplex-constraints \
     -e 's,\(UIConstraints.* \*Duplex\),//\1,' \
@@ -889,6 +893,13 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 3.22.10-2
+- C99 compatibility fixes
+- Stop building the pcardext Python extension because it unusable (#2148210)
+
+* Wed Nov 23 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.10-1
+- 2139309 - hplip-3.22.10 is available
+
 * Wed Oct 19 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.6-5
 - distutils will be removed in Python3.12, use setuptools now
 

@@ -1,6 +1,3 @@
-
-%define _default_patch_fuzz 2
-
 %define multilib_arches %{ix86} x86_64 ppc ppc64 s390 s390x sparcv9 sparc64
 # This package ships .la files
 %global __brp_remove_la_files %nil
@@ -11,7 +8,7 @@ Name:    arts
 Summary: aRts (analog realtime synthesizer) - the KDE sound system 
 Epoch:   8
 Version: 1.5.10
-Release: 54%{?dist}
+Release: 55%{?dist}
 
 License: LGPLv2+
 Url: http://www.kde.org
@@ -34,6 +31,7 @@ Patch50: arts-1.5.4-dlopenext.patch
 Patch51: kde-3.5-libtool-shlibext.patch
 Patch52: arts-1.5.8-glibc-libio.patch
 Patch53: arts-autoconf-2.7x.patch
+Patch54: arts-c99.patch
 
 # upstream patches
 
@@ -114,6 +112,7 @@ Install %{name}-devel if you intend to write applications using aRts.
 %patch51 -p1 -b .libtool-shlibext
 %patch52 -p1 -b .glibc-libio
 %patch53 -p1 -b .autoconf2.7x
+%patch54 -p1 -b .c99
 
 %patch200 -p1 -b .CVE-2009-3736
 %patch201 -p1 -b .CVE-2015-7543
@@ -221,6 +220,9 @@ test -z "$(chrpath --list %{buildroot}%{_bindir}/artsd 2>/dev/null | grep RPATH=
 
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 8:1.5.10-55
+- Port to C99 (#2147552)
+
 * Tue Nov 08 2022 Kevin Kofler <Kevin@tigcc.ticalc.org> - 8:1.5.10-54
 - Disable LTO because it breaks ALSA versioned symbol use, crashing (#1910437)
 

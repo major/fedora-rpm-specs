@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 7.86.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -104,6 +104,10 @@ BuildRequires: stunnel
 # using an older version of libcurl could result in CURLE_UNKNOWN_OPTION
 Requires: libcurl%{?_isa} >= %{version}-%{release}
 
+# require at least the version of libnghttp2 that we were built against,
+# to ensure that we have the necessary symbols available (#2144277)
+%global libnghttp2_version %(pkg-config --modversion libnghttp2 2>/dev/null || echo 0)
+
 # require at least the version of libpsl that we were built against,
 # to ensure that we have the necessary symbols available (#1631804)
 %global libpsl_version %(pkg-config --modversion libpsl 2>/dev/null || echo 0)
@@ -127,6 +131,7 @@ resume, proxy tunneling and a busload of other useful tricks.
 
 %package -n libcurl
 Summary: A library for getting files from web servers
+Requires: libnghttp2%{?_isa} >= %{libnghttp2_version}
 Requires: libpsl%{?_isa} >= %{libpsl_version}
 Requires: libssh%{?_isa} >= %{libssh_version}
 Requires: openssl-libs%{?_isa} >= 1:%{openssl_version}
@@ -172,6 +177,7 @@ be installed.
 
 %package -n libcurl-minimal
 Summary: Conservatively configured build of libcurl for minimal installations
+Requires: libnghttp2%{?_isa} >= %{libnghttp2_version}
 Requires: openssl-libs%{?_isa} >= 1:%{openssl_version}
 Provides: libcurl = %{version}-%{release}
 Provides: libcurl%{?_isa} = %{version}-%{release}
@@ -425,6 +431,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Nov 24 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-3
+- enforce versioned libnghttp2 dependency for libcurl (#2144277)
+
 * Mon Oct 31 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-2
 - fix regression in noproxy matching
 

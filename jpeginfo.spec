@@ -1,12 +1,13 @@
 
 Name:		jpeginfo
 Version:	1.6.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Error-check and generate informative listings from JPEG files
 
 License:	GPLv2+
 URL:		http://www.kokkonen.net/tjko/projects.html
 Source0:	http://www.kokkonen.net/tjko/src/%{name}-%{version}.tar.gz
+Patch0:	jpeginfo-configure-c99.patch
 
 Provides:	bundled(md5-plumb)
 
@@ -23,7 +24,7 @@ them for errors (and optionally delete broken files).
 
 
 %prep
-%setup -q
+%autosetup -p1
 rm getopt*.*
 
 
@@ -45,6 +46,9 @@ install -Dpm 0644 jpeginfo.1 %{buildroot}/%{_mandir}/man1/jpeginfo.1
 
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.6.1-20
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

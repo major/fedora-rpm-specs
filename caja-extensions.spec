@@ -16,7 +16,7 @@ Name:           caja-extensions
 Summary:        Set of extensions for caja file manager
 Version:        %{branch}.1
 %if 0%{?rel_build}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Release:        0.19%{?git_rel}%{?dist}
 %endif
@@ -32,13 +32,16 @@ URL:            http://mate-desktop.org
 Source1:       caja-share-setup-instructions
 Source2:       caja-share-smb.conf.example
 
+# rhbz (2145142)
+Patch1:        caja-extensions_0001-build-without-gupnp.patch
+
 BuildRequires: make
 BuildRequires: mate-common
 BuildRequires: caja-devel
 BuildRequires: mate-desktop-devel
 BuildRequires: dbus-glib-devel
 BuildRequires: gtk3-devel
-BuildRequires: gupnp-devel
+# BuildRequires: gupnp-devel
 BuildRequires: dbus-glib-devel
 
 %if 0%{?rhel} <= 7 || 0%{?fedora}
@@ -138,6 +141,9 @@ cp %{SOURCE1} SETUP
 NOCONFIGURE=1 ./autogen.sh
 %endif # 0%{?rel_build}
 
+# patch 1
+NOCONFIGURE=1 ./autogen.sh
+
 %build
 %configure \
      --disable-schemas-compile \
@@ -147,7 +153,7 @@ NOCONFIGURE=1 ./autogen.sh
 %if 0%{?rhel} > 7
      --with-sendto-plugins=emailclient,caja-burn,pidgin,removable-devices,upnp \
 %else
-      --with-sendto-plugins=all \
+     --with-sendto-plugins=emailclient,gajim,caja-burn,pidgin,removable-devices \
 %endif
      --enable-share            \
      --enable-gksu             \
@@ -188,7 +194,7 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 %{_libdir}/caja-sendto/plugins/libnstemailclient.so
 %{_libdir}/caja-sendto/plugins/libnstpidgin.so
 %{_libdir}/caja-sendto/plugins/libnstremovable_devices.so
-%{_libdir}/caja-sendto/plugins/libnstupnp.so
+#%{_libdir}/caja-sendto/plugins/libnstupnp.so
 %if 0%{?rhel} <= 7 || 0%{?fedora}
 %{_libdir}/caja-sendto/plugins/libnstgajim.so
 %endif
@@ -224,6 +230,9 @@ cp %{SOURCE2} %{buildroot}/%{_sysconfdir}/samba/
 
 
 %changelog
+* Thu Nov 24 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-2
+- disable gupnp for sendto-plugin
+
 * Sat Aug 20 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

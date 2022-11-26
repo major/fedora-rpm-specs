@@ -1,14 +1,14 @@
 %global gem_name treetop
 
 Name: rubygem-%{gem_name}
-Version: 1.6.10
-Release: 8%{?dist}
+Version: 1.6.12
+Release: 1%{?dist}
 Summary: A Ruby-based text parsing and interpretation DSL
 License: MIT
 URL: https://github.com/cjheath/treetop
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/cjheath/treetop.git && cd treetop
-# git archive -v -o treetop-1.6.10-specs.tar.gz 725eb7f9e5e80105f3b39424b40ad014addd9035 spec/
+# git archive -v -o treetop-%%{version}-specs.tar.gz v%%{version} spec/
 Source1: %{gem_name}-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -87,6 +87,10 @@ popd
 %{gem_instdir}/treetop.gemspec
 
 %changelog
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.12-1
+- Update to 1.6.12
+  - Contains https://github.com/cjheath/treetop/pull/48 , for ruby32 fix
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

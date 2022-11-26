@@ -1,11 +1,14 @@
 Name:      python-typing-extensions
-Version:   4.2.0
-Release:   5%{?dist}
+Version:   4.4.0
+Release:   1%{?dist}
 Summary:   Python Typing Extensions
 
 License:   Python
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
+
+# https://github.com/python/typing_extensions/pull/97
+Source1:   https://github.com/python/typing_extensions/raw/4.4.0/src/_typed_dict_test_helper.py
 
 BuildArch: noarch
 
@@ -50,6 +53,7 @@ Summary:       %{summary}
 
 %prep
 %autosetup -n typing_extensions-%{version}
+cp -v %{SOURCE1} src/
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -70,10 +74,13 @@ Summary:       %{summary}
 
 %files -n python3-typing-extensions -f %{pyproject_files}
 %license LICENSE
-%doc CHANGELOG
-%doc README.rst
+%doc CHANGELOG.md
+%doc README.md
 
 %changelog
+* Thu Nov 24 2022 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-1
+- Updated to version 4.4.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

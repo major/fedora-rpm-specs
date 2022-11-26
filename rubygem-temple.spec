@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Template compilation framework in Ruby
 License: MIT
 URL: https://github.com/judofyr/temple
@@ -11,6 +11,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Replace Erubi by Erubis.
 # https://github.com/judofyr/temple/pull/132
 Patch0: rubygem-temple-0.8.2-Use-Erubi-instead-of-Erubis.patch
+# https://github.com/judofyr/temple/pull/129
+# Ruby3.2 removes Object#=~
+Patch1: rubygem-temple-0.9.0-object-regexp-removal-ruby32.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -39,6 +42,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -79,6 +83,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Nov 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.2-6
+- Backport upstream patch for ruby32 Object#=~ removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

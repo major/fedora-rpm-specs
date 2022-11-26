@@ -1186,6 +1186,11 @@ fi
 %endif
 
 %changelog
+* Wed Nov 23 2022 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.3-inheritancetest-20050726.patch.  Upstream testcase
+  gdb.cp/impl-this.exp tests the printing of an instance variable from
+  an inherited class in the "print c" test. 
+
 * Fri Nov 18 2022 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.3-test-movedir-20050125.patch.  Upstream test
   gdb.base/fullname.exp provides coverage for this case and more.

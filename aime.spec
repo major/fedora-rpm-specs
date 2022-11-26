@@ -1,7 +1,7 @@
 %global libname libaime
 
 Name:            aime
-Version:         8.20221031
+Version:         8.20221121
 Release:         1%{?dist}
 Summary:         An application embeddable programming language interpreter
 License:         GPLv3+
@@ -53,6 +53,9 @@ rm -frv %{buildroot}%{_infodir}/dir
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Nov 24 2022 Filipe Rosset <rosset.filipe@gmail.com> - 8.20221121-1
+- Update to 8.20221121 fixes rhbz#2145128
+
 * Tue Nov 15 2022 Filipe Rosset <rosset.filipe@gmail.com> - 8.20221031-1
 - Update to 8.20221031 fixes rhbz#2138951
 

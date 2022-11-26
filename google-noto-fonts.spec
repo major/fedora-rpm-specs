@@ -22,16 +22,16 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL
 URL:            https://github.com/googlefonts/noto-fonts/
 #Source0:        https://github.com/googlefonts/noto-fonts/archive/v20201206-phase3.tar.gz#/noto-fonts-%%{srcver}.tar.gz
-Source0:	noto-fonts-%{snapver}.tar.xz
-Source1:	google-noto-sans-math-vf.conf
-Source2:	google-noto-sans-math.conf
-Source3:	google-noto-naskh-arabic-ex.conf
-Source4:	NotoSansSinhala-v2.006.zip
+Source0:        noto-fonts-%{snapver}.tar.xz
+Source1:        google-noto-sans-math-vf.conf
+Source2:        google-noto-sans-math.conf
+Source3:        google-noto-naskh-arabic-ex.conf
+Source4:        NotoSansSinhala-v2.006.zip
 
 BuildArch:      noarch
 BuildRequires:  fonts-rpm-macros
@@ -75,10 +75,8 @@ local subpackages = {
     { alias="sans-serif", family="Looped Thai UI", lang={ "th" },
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
-    { alias="sans-serif", family="Sans" },
-    { alias="sans-serif", family="Sans Display",
-      priority=rpm.expand('%{lprio}'),
-      obsoletes={ "sans-ui" }, nogroup=1
+    { alias="sans-serif", family="Sans",
+      obsoletes={ "sans-ui", "sans-display" }
     },
     { alias="sans-serif", family="Sans Adlam" },
     { alias="sans-serif", family="Sans Adlam Unjoined" },
@@ -372,7 +370,9 @@ local subpackages = {
     { alias="serif",      family="Naskh Arabic UI",
       priority=rpm.expand('%{lprio}')
     },
-    { alias="serif",      family="Serif" },
+    { alias="serif",      family="Serif",
+      obsoletes={ "serif-display" }
+    },
     { alias="serif",      family="Serif Ahom" },
     { alias="serif",      family="Serif Armenian", lang={ "hy" } },
     { alias="serif",      family="Serif Balinese", lang={ "ban" },
@@ -380,9 +380,6 @@ local subpackages = {
     },
     { alias="serif",      family="Serif Bengali", lang={ "bn" } },
     { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
-    { alias="serif",      family="Serif Display",
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="serif",      family="Serif Dives Akuru" },
     { alias="serif",      family="Serif Dogra" },
     { alias="serif",      family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
@@ -436,6 +433,7 @@ local subpackages = {
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="sans-serif", variable=true, family="Sans",
+      obsoletes={ "sans-display-vf" },
       priority=rpm.expand('%{hprio}')
     },
     { alias="sans-serif", variable=true, family="Sans Adlam" },
@@ -456,9 +454,6 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Cham", lang={ "cjm" } },
     { alias="sans-serif", variable=true, family="Sans Cherokee", lang={ "chr" } },
     { alias="sans-serif", variable=true, family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
-    { alias="sans-serif", variable=true, family="Sans Display",
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
     { alias="sans-serif", variable=true, family="Sans Georgian", lang={ "ka" } },
     { alias="sans-serif", variable=true, family="Sans Gujarati", lang={ "gu" } },
@@ -546,14 +541,12 @@ local subpackages = {
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="serif",      variable=true, family="Serif",
+      obsoletes={ "serif-display-vf" },
       priority=rpm.expand('%{hprio}')
     },
     { alias="serif",      variable=true, family="Serif Armenian", lang={ "hy" } },
     { alias="serif",      variable=true, family="Serif Bengali", lang={ "bn" } },
     { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
-    { alias="serif",      variable=true, family="Serif Display",
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="serif",      variable=true, family="Serif Dogra" },
     { alias="serif",      variable=true, family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
     { alias="serif",      variable=true, family="Serif Georgian", lang={ "ka" } },
@@ -1033,6 +1026,12 @@ for f in NotoSansSinhala/hinted/ttf/*; do
 done
 install -m 0644 -p NotoSansSinhala/unhinted/slim-variable-ttf/NotoSansSinhala\[wght\].ttf %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansSinhala-VF.ttf
 
+# remove display fonts. this isn't shipped in upstream anymore.
+rm %{buildroot}%{_fontbasedir}/google-noto/NotoSansDisplay*.ttf \
+   %{buildroot}%{_fontbasedir}/google-noto/NotoSerifDisplay*.ttf \
+   %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansDisplay*.ttf \
+   %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSerifDisplay*.ttf
+
 # fc-scan in script expects fonts are already installed
 %{notobuild_metainfo}
 
@@ -1057,7 +1056,7 @@ for f in $(echo %{noto_fcconflist}); do
     xmllint --loaddtd --valid --nonet %{buildroot}%{_fontconfig_templatedir}/$f
 done
 for f in $(echo %{noto_metafilelist}); do
-    appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/$f
+    appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/$f || (cat $f; exit 1)
 done
 
 %files common
@@ -1066,7 +1065,12 @@ done
 
 
 %changelog
-* Fri Sep 30 2022 Akira TAGOH <tagoh@redhat.com> - 20201606-1.git0c78c8329-5
+* Thu Nov 24 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-6
+- Drop Noto Sans Display and Noto Serif Display fonts.
+  These fonts isn't shipped from upstream anymore.
+  Resolves: rhbz#2143521
+
+* Fri Sep 30 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-5
 - Update Noto Sinhala fonts to the latest to fix some rendering issue in Sinhala scripts.
   Resolves: rhbz#2129619
 
@@ -1211,7 +1215,7 @@ done
 
 * Mon Nov 07 2016 Pravin Satpute <psatpute@redhat.com> - 20161022-1
 - Resolves #1321685 - Added Noto Mono font.
-- License changed from ASL 2.0 to OFL. 
+- License changed from ASL 2.0 to OFL.
 - New package addition: Mono, Serif Bengali, Serif Devanagari
 - Serif Gujarari, Serif Malayalam, Serif Tamil and Serif Telugu.
 
@@ -1238,7 +1242,7 @@ done
 * Fri Apr 17 2015 Pravin Satpute <psatpute@redhat.com> - 20150417-1
 - Updating to git snapshot d47480343178.
 - Remove Thaana and Oriya from under-development list.
-- Add Syriac requirements from Unicode Core Specification. 
+- Add Syriac requirements from Unicode Core Specification.
 
 * Fri Mar 27 2015 Pravin Satpute <psatpute@redhat.com> - 20150325-1
 - Updating to git snapshot 762640379a51.
@@ -1289,17 +1293,17 @@ done
 * Wed Oct 01 2014 Pravin Satpute <psatpute@redhat.com> - 20141001-1
 - Google stops release tarball. Zip file derived from git Download zip.
 - 45 new packages added as follows.
-- kufi-arabic-fonts, naskh-arabic-fonts, naskh-arabic-ui-fonts, sans-balinese-fonts, 
-- sans-bamum-fonts, sans-batak-fonts, sans-buginese-fonts, sans-buhid-fonts, 
-- sans-canadian-aboriginal-fonts, sans-cham-fonts, sans-cuneiform-fonts, sans-cypriot-fonts, 
-- sans-gothic-fonts, sans-gurmukhi-fonts, sans-gurmukhi-ui-fonts, 
-- sans-inscriptional-pahlavi-fonts, sans-inscriptional-parthian-fonts, sans-javanese-fonts, 
-- sans-lepcha-fonts, sans-limbu-fonts, sans-linearb-fonts, sans-mongolian-fonts, 
-- sans-myanmar-fonts, sans-myanmar-ui-fonts, sans-new-tai-lue-fonts, sans-ogham-fonts, 
-- sans-ol-chiki-fonts, sans-old-italic-fonts, sans-old-persian-fonts, sans-phags-pa-fonts, 
-- sans-rejang-fonts, sans-runic-fonts, sans-samaritan-fonts, sans-saurashtra-fonts, 
-- sans-sinhala-fonts, sans-sundanese-fonts, sans-syloti-nagri-fonts, sans-syriac-eastern-fonts, 
-- sans-syriac-estrangela-fonts, sans-syriac-western-fonts, sans-tagbanwa-fonts, 
+- kufi-arabic-fonts, naskh-arabic-fonts, naskh-arabic-ui-fonts, sans-balinese-fonts,
+- sans-bamum-fonts, sans-batak-fonts, sans-buginese-fonts, sans-buhid-fonts,
+- sans-canadian-aboriginal-fonts, sans-cham-fonts, sans-cuneiform-fonts, sans-cypriot-fonts,
+- sans-gothic-fonts, sans-gurmukhi-fonts, sans-gurmukhi-ui-fonts,
+- sans-inscriptional-pahlavi-fonts, sans-inscriptional-parthian-fonts, sans-javanese-fonts,
+- sans-lepcha-fonts, sans-limbu-fonts, sans-linearb-fonts, sans-mongolian-fonts,
+- sans-myanmar-fonts, sans-myanmar-ui-fonts, sans-new-tai-lue-fonts, sans-ogham-fonts,
+- sans-ol-chiki-fonts, sans-old-italic-fonts, sans-old-persian-fonts, sans-phags-pa-fonts,
+- sans-rejang-fonts, sans-runic-fonts, sans-samaritan-fonts, sans-saurashtra-fonts,
+- sans-sinhala-fonts, sans-sundanese-fonts, sans-syloti-nagri-fonts, sans-syriac-eastern-fonts,
+- sans-syriac-estrangela-fonts, sans-syriac-western-fonts, sans-tagbanwa-fonts,
 - sans-tai-le-fonts, sans-tifinagh-fonts, sans-yi-fonts
 - Resolves #1148413
 
@@ -1316,10 +1320,10 @@ done
 - Added new package google-noto-serif-khmer-fonts
 
 * Mon Jun 24 2013 Pravin Satpute <psatpute@redhat.com> - 20130411-5
-- Resolved #971886 :- Georgian Serif fontconfig file error  
+- Resolved #971886 :- Georgian Serif fontconfig file error
 
 * Mon Jun 10 2013 Pravin Satpute <psatpute@redhat.com> - 20130411-4
-- Resolved #971886 :- Georgian fontconfig file error 
+- Resolved #971886 :- Georgian fontconfig file error
 
 * Mon May 06 2013 Pravin Satpute <psatpute@redhat.com> - 20130411-3
 - Initial import

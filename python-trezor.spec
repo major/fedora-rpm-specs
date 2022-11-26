@@ -1,6 +1,3 @@
-%global bashcompdir  %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
-%global bashcomproot %(dirname %{bashcompdir} 2>/dev/null)
-
 Name:           python-trezor
 Version:        0.13.4
 Release:        1%{?dist}
@@ -28,6 +25,7 @@ Requires:       trezor-common >= 2.3.6
 BuildRequires:  python3-pytest
 BuildRequires:  python3-typing-extensions
 BuildRequires:  python3-requests
+BuildRequires:  %{py3_dist construct-classes}
 
 %description -n python3-trezor
 %{summary}.
@@ -47,7 +45,7 @@ sed -i '/^simple-rlp/d' requirements.txt
 %install
 %py3_install
 
-install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bashcompdir}/trezorctl
+install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_dir}/trezorctl
 
 
 %check
@@ -69,7 +67,7 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bashcompdir}/trezo
 %{python3_sitelib}/trezor-*.egg-info/
 %{python3_sitelib}/trezorlib/
 %{_bindir}/trezorctl
-%{bashcomproot}
+%{bash_completions_dir}/trezorctl
 
 
 %changelog

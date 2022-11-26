@@ -194,14 +194,6 @@ echo 'intersphinx_mapping.clear()' >> doc/conf.py
 
 
 %build
-%if 0%{?fc38}
-# Workaround for CGAL/mpfr issue:
-#   Apparent incompatibility with mpfr 4.1.1 (compiler error)
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2144197
-%set_build_flags
-export CPPFLAGS="${CPPFLAGS} -fpermissive"
-%endif
-
 ./autogen.sh
 %configure \
     --with-python-module-path=%{python3_sitearch} \

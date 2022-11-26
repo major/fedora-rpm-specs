@@ -45,16 +45,12 @@
 %global _bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo %{_sysconfdir}/bash_completion.d)
 
 Name:		nordugrid-arc
-Version:	6.16.1
-Release:	2%{?dist}
+Version:	6.17.0
+Release:	1%{?dist}
 Summary:	Advanced Resource Connector Middleware
 License:	ASL 2.0
 URL:		http://www.nordugrid.org/
 Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-#		Support SWIG 4.1
-#		Patch by Jitka Plesnikova <jplesnik@redhat.com> from RHBZ:
-#		https://bugzilla.redhat.com/show_bug.cgi?id=2128189
-Patch0:		nordugrid-arc-swig-4.1.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-chelonia < 2.0.0
@@ -800,7 +796,6 @@ management features on the worker nodes (WN).
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 if pkg-config --atleast-version 2.6 sigc++-2.0 ; then
@@ -1758,6 +1753,10 @@ fi
 %attr(4755,root,root) %{_bindir}/arc-job-cgroup
 
 %changelog
+* Thu Nov 24 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.17.0-1
+- Update to version 6.17.0
+- Drop swig 4.1 patch accepted upstream
+
 * Thu Oct 27 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.16.1-2
 - Support SWIG 4.1
 - Patch by Jitka Plesnikova <jplesnik@redhat.com> from RHBZ 2128189

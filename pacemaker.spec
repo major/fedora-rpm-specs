@@ -32,10 +32,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.5
-%global specversion 0.2.rc2
+%global specversion 3.rc3
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit d3699a6216bdf59de6f416ed73bc1bc9ca727dc2
+%global commit 631339ca5aa334d69906a932abb2b6886ede7cd0
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -100,24 +100,14 @@
 
 # Define globals for convenient use later
 
-## Workaround to use parentheses in other globals
-%global lparen (
-%global rparen )
-
-## Whether this is a tagged release (final or release candidate)
-%define tag_release %(c=%{commit}; case ${c} in Pacemaker-*%{rparen} echo 1 ;;
-                      *%{rparen} echo 0 ;; esac)
-
 ## Portion of export/dist tarball name after "pacemaker-", and release version
-%if 0%{tag_release}
-%define archive_version %(c=%{commit}; echo ${c:10})
-%define archive_github_url %{commit}#/%{name}-%{archive_version}.tar.gz
-%else
 %define archive_version %(c=%{commit}; echo ${c:0:%{commit_abbrev}})
 %define archive_github_url %{archive_version}#/%{name}-%{archive_version}.tar.gz
-%endif
-### Always use a simple release number
+%if %{with pre_release}
+%define pcmk_release 0.%{specversion}
+%else
 %define pcmk_release %{specversion}
+%endif
 
 ## Base GnuTLS cipher priorities (presumably only the initial, required keyword)
 ## overridable with "rpmbuild --define 'pcmk_gnutls_priorities PRIORITY-SPEC'"
@@ -808,6 +798,12 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu Nov 24 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.3.rc3
+- Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc3,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.5-rc3
+- remove unused parts of upstream release-magic
+
 * Wed Nov 16 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.2.rc2
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc2,
   for full details, see included ChangeLog file or

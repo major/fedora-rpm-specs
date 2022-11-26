@@ -4,7 +4,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Rich client application platform for Java
 
 License:        GPL v2 with exceptions and BSD
@@ -43,7 +43,7 @@ Source29:       build.xml
 
 ExclusiveArch:  %{java_arches}
 
-Requires:       java-11-openjdk	
+Requires:       (java-11-openjdk or java-17-openjdk or java-latest-openjdk)
 
 BuildRequires:  javapackages-tools
 BuildRequires:  java-11-openjdk-devel
@@ -162,6 +162,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Thu Nov 24 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.0.1-5
+- Conditional requires between openjdk 11, 17 or latest packages
+
 * Sat Jul 30 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.0.1-4
 - Build for all java arches
 

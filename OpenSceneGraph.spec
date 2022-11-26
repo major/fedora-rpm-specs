@@ -22,6 +22,12 @@
 # Collada support: Default on
 %bcond_without  Collada
 
+%if 0%{?fedora}
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 Name:           OpenSceneGraph
 Version:        3.6.5
 Release:        11%{?dist}
@@ -86,6 +92,22 @@ BuildRequires:  SDL2-devel
 # Used by SDL-examples
 BuildRequires:  SDL-devel
 
+# Optional
+%{?with_OpenEXR:BuildRequires:    cmake(OpenEXR)}
+%{?with_Collada:BuildRequires:    pkgconfig(collada-dom)}
+%{?with_jasper:BuildRequires:     jasper-devel}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-base-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-app-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-audio-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-fft-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)}
+%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-video-1.0)}
+%{?with_gdal:BuildRequires:       gdal-devel}
+%{?with_Inventor:BuildRequires:   Inventor-devel}
+%{?with_Coin4:BuildRequires:      Coin4-devel}
+
+%if %{with mingw}
 BuildRequires: mingw32-cairo
 BuildRequires: mingw32-curl
 BuildRequires: mingw32-filesystem >= 95
@@ -97,6 +119,12 @@ BuildRequires: mingw32-libtiff
 BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-openal-soft
 BuildRequires: mingw32-poppler-glib
+
+# Optional
+%{?with_OpenEXR:BuildRequires:    mingw32-openexr}
+%{?with_jasper:BuildRequires:     mingw32-jasper}
+%{?with_gstreamer:BuildRequires:  mingw32-gstreamer1}
+%{?with_gdal:BuildRequires:       mingw32-gdal}
 
 BuildRequires: mingw64-cairo
 BuildRequires: mingw64-curl
@@ -111,28 +139,11 @@ BuildRequires: mingw64-openal-soft
 BuildRequires: mingw64-poppler-glib
 
 # Optional
-%{?with_OpenEXR:BuildRequires:    cmake(OpenEXR)}
-%{?with_OpenEXR:BuildRequires:    mingw32-openexr}
 %{?with_OpenEXR:BuildRequires:    mingw64-openexr}
-%{?with_Collada:BuildRequires:    pkgconfig(collada-dom)}
-%{?with_jasper:BuildRequires:     jasper-devel}
-%{?with_jasper:BuildRequires:     mingw32-jasper}
 %{?with_jasper:BuildRequires:     mingw64-jasper}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-base-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-app-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-audio-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-fft-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)}
-%{?with_gstreamer:BuildRequires:  pkgconfig(gstreamer-video-1.0)}
-%{?with_gstreamer:BuildRequires:  mingw32-gstreamer1}
 %{?with_gstreamer:BuildRequires:  mingw64-gstreamer1}
-%{?with_gdal:BuildRequires:       gdal-devel}
-%{?with_gdal:BuildRequires:       mingw32-gdal}
 %{?with_gdal:BuildRequires:       mingw64-gdal}
-%{?with_Inventor:BuildRequires:   Inventor-devel}
-%{?with_Coin4:BuildRequires:      Coin4-devel}
-
+%endif
 
 Requires:       OpenSceneGraph-libs%{?_isa} = %{version}-%{release}
 
@@ -260,6 +271,7 @@ Requires:       OpenThreads%{?_isa} = %{version}-%{release}
 Development files for OpenThreads.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -290,6 +302,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 Tools for the MinGW Windows %{name} library.
+%endif
 
 
 %{?mingw_debug_package}
@@ -321,22 +334,25 @@ make -C %{_vpath_builddir} doc_openscenegraph doc_openthreads
 
 # MinGW build
 # We are cross-compiling and TryRun fails
-
+%if %{with mingw}
 %mingw_cmake \
   -DOSG_AGGRESSIVE_WARNING_FLAGS=OFF \
   -DOSG_DETERMINE_WIN_VERSION=OFF
 %mingw_make_build
+%endif
 
 
 %install
 %cmake_install
-%mingw_make_install
-
 # Supposed to take OpenSceneGraph data
 mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 
+%if %{with mingw}
+%mingw_make_install
 
 %mingw_debug_install_post
+
+%endif
 
 
 %files
@@ -728,6 +744,7 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %{_libdir}/libOpenThreads.so
 %{_includedir}/OpenThreads
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.txt
 %{mingw32_bindir}/libOpenThreads.dll
@@ -759,6 +776,7 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+%endif
 
 %changelog
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 3.6.5-11

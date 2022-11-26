@@ -11,8 +11,8 @@
 
 Name:           python-%{pypi_name}
 Epoch:          1
-Version:        5.15.2.1
-Release:        7%{?dist}
+Version:        5.15.7
+Release:        1%{?dist}
 Summary:        Python bindings for the Qt 5 cross-platform application and UI framework
 
 License:        BSD and GPLv2 and GPLv3 and LGPLv3
@@ -22,15 +22,9 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 
 # PySide2 tools are "reinstalled" for pip installs but breaks distro builds.
 Patch0:         pyside2-tools-obsolete.patch
-# Don't abort the build on Python 3.8/3.9
-#Patch1:         python_ver_classifier.patch
 # setuptools --reuse-build option was broken in 5.15.2
 Patch2:         python-pyside2-options_py.patch
 
-# A (possibly incomplete) patch with Python 3.10 compatibility
-# Backported from https://codereview.qt-project.org/c/pyside/pyside-setup/+/348390
-# Inlined _Py_Mangle from CPython sources
-Patch3:         python3.10.patch
 # Work around clang assumptions on header types, .h==c, not c++.
 Patch4:         https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/development/python-modules/shiboken2/nix_compile_cflags.patch
 
@@ -49,7 +43,7 @@ Patch5:         python3.11.patch
 # This also adds known test failures to blacklist.txt
 Patch:          build-tests.patch
 
-%if 0%{?rhel} == 7
+%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  llvm-toolset-7-clang-devel llvm-toolset-7-llvm-devel
 BuildRequires:  cmake3
 %endif
@@ -74,9 +68,7 @@ BuildRequires:  cmake(Qt5X11Extras) >= %{qt5ver}
 # PySide2
 BuildRequires:  qt5-qtbase-private-devel >= %{qt5ver}
 BuildRequires:  cmake(Qt5Charts) >= %{qt5ver}
-%if 0%{?fedora} > 32
 BuildRequires:  cmake(Qt5DataVisualization) >= %{qt5ver}
-%endif
 BuildRequires:  cmake(Qt5Multimedia) >= %{qt5ver}
 BuildRequires:  cmake(Qt5QuickControls2) >= %{qt5ver}
 BuildRequires:  cmake(Qt5RemoteObjects) >= %{qt5ver}
@@ -188,20 +180,20 @@ the previous versions (without the 2) refer to Qt 4.
 
 
 %prep
-%autosetup -p1 -n pyside-setup-opensource-src-5.15.2
+%autosetup -p1 -n pyside-setup-opensource-src-%{version}
 
 
 %build
 # Use cmake3 on EL
 %if 0%{?rhel}
 %global cmake %cmake3
-%endif
 
-%if 0%{?rhel} == 7
+%if 0%{?rhel} < 8
 . /opt/rh/devtoolset-7/enable
 . /opt/rh/llvm-toolset-7/enable
 %else
 export CXX=$(which clang++)
+%endif
 %endif
 
 %cmake -DUSE_PYTHON_VERSION=3 -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DBUILD_TESTS:BOOL=ON
@@ -297,6 +289,9 @@ xvfb-run %{__python3} testrunner.py test
 
 
 %changelog
+* Thu Nov 24 2022 Richard Shaw <hobbes1069@gmail.com> - 1:5.15.7-1
+- Update to 5.15.7.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.15.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

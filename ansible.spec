@@ -29,7 +29,7 @@ Requires:       %{ansible_core_requires}
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.0.0~rc1
+Version:        7.0.0
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -137,7 +137,12 @@ find ansible_collections/lowlydba/sqlserver/ -executable -type f -print -exec ch
 # Remove shebangs instead of hardocding to %%__python3 to avoid unexpected issues
 # from https://github.com/ansible/ansible/commit/9142be2f6cabbe6597c9254c5bb9186d17036d55.
 # Upstream, ansible-core has also removed shebangs from its modules.
-find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' \;
+#
+# XXX: Print out the files before they're replaced
+find -type f ! -executable -name '*.py' | tee non_exec
+# xargs is noticably faster than find -exec, because it spawns one sed process
+# instead of ~13 thousand!
+xargs -a non_exec -d'\n' sed -i -e '1{\@^#!.*@d}'
 
 # This ensures that %%ansible_core_requires is set properly, when %%pyproject_buildrequires is defined.
 # It also ensures that dependencies remain consistent.
@@ -208,6 +213,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 23 2022 Maxwell G <gotmax@e.email> - 7.0.0-1
+- Update to 7.0.0.
+
 * Fri Nov 18 2022 Maxwell G <gotmax@e.email> - 7.0.0~rc1-1
 - Update to 7.0.0~rc1.
 

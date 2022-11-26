@@ -3,11 +3,16 @@ Version:        1.3.0
 Release:        8%{?dist}
 Summary:        Polynomial multiplication over the binary field
 
-License:        GPLv2+
+# GPL-3.0-or-later: the project as a whole
+# LGPL-2.1-or-later: fft/gf2x-cantor-fft.h
+License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.inria.fr/gf2x/gf2x
 Source0:        %{url}/-/archive/%{name}-%{version}/%{name}-%{name}-%{version}.tar.bz2
 # Fix mismatched declarations and definitions
 Patch0:         %{name}-mismatched-decls.patch
+# Change configure due to the Modern C initiative.  See
+# https://fedoraproject.org/wiki/Changes/PortingToModernC
+Patch1:         %{name}-modern-c.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -99,6 +104,10 @@ LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-8
+- Convert License tag to SPDX
+- Add patch to fix configure step for the Modern C initiative
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

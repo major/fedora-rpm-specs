@@ -68,7 +68,7 @@
 
 Name:		erlang
 Version:	25.1.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	ASL 2.0
@@ -1915,6 +1915,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 25.1.2-2
+- Fix C99 compatibility issues in configure checks
+
 * Tue Oct 25 2022 Peter Lemenkov <lemenkov@gmail.com> - 25.1.2-1
 - Ver. 25.1.2
 

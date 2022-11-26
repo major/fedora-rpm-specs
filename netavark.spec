@@ -19,7 +19,9 @@ URL: https://github.com/containers/%{name}
 Source0: %{url}/archive/%{built_tag}.tar.gz
 Source1: %{url}/releases/download/%{built_tag}/%{name}-%{built_tag}-vendor.tar.gz
 BuildRequires: cargo
+%ifarch %{golang_arches}
 BuildRequires: go-md2man
+%endif
 Recommends: aardvark-dns >= 1.2.0
 Requires: (aardvark-dns >= 1.2.0 if fedora-release-identity-server)
 Provides: container-network-stack = 2
@@ -211,17 +213,26 @@ EOF
 %build
 %{__make} build
 
+%ifarch %{golang_arches}
 cd docs
 go-md2man -in %{name}.1.md -out %{name}.1
+%endif
 
 %install
+%ifarch %{golang_arches}
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install
+%else
+# no manpage, install only the binary
+install -D -m0755 bin/netavark %{buildroot}%{_libexecdir}/podman/%{name}
+%endif
 
 %files
 %license LICENSE
 %dir %{_libexecdir}/podman
 %{_libexecdir}/podman/%{name}
+%ifarch %{golang_arches}
 %{_mandir}/man1/%{name}.1*
+%endif
 
 %changelog
 %autochangelog

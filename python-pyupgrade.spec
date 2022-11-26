@@ -1,5 +1,5 @@
 Name:           python-pyupgrade
-Version:        3.0.0
+Version:        3.2.2
 Release:        1%{?dist}
 Summary:        A tool to upgrade syntax of Python code for newer versions of the language
 
@@ -47,11 +47,14 @@ Summary:        %{summary}
 
 
 %files -n python3-pyupgrade -f %{pyproject_files}
-%doc README.md
+%doc README.md LICENSE
 %{_bindir}/pyupgrade
 
 
 %changelog
+* Thu Nov 24 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.2.2-1
+- Update to 3.2.2 (resolves rhbz#2133584)
+
 * Tue Oct 04 2022 Roman Inflianskas <rominf@aiven.io> - 3.0.0-1
 - Update to 3.0.0 (resolves rhbz#2129567)
 

@@ -4,13 +4,14 @@
 %global debug_package %{nil}
 
 Name:    arm-trusted-firmware
-Version: 2.7
-Release: 2%{?candidate:.%{candidate}}%{?dist}
+Version: 2.8
+Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD
 URL:     https://github.com/ARM-software/arm-trusted-firmware/wiki
-Source0: https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz
+Source0: https://github.com/ARM-software/arm-trusted-firmware/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{name}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
+Patch0:  atf-2.8-fix-linking.patch
 
 # At the moment we're only building on aarch64
 ExclusiveArch: aarch64
@@ -99,6 +100,9 @@ done
 %endif
 
 %changelog
+* Thu Nov 24 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.8-1
+- Update to 2.8
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

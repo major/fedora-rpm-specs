@@ -1,6 +1,6 @@
 Name:           nbtscan
 Version:        1.5.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Tool to gather NetBIOS info from Windows networks
 
 License:        GPLv2+
@@ -8,6 +8,11 @@ URL:            http://www.inetcat.net/software/nbtscan.html
 Source0:        http://www.inetcat.net/software/%{name}-%{version}.tar.gz
 #add $DESTDIR to make install
 Patch0:         nbtscan-1.5.1-makefile.patch
+Patch1:         nbtscan-configure-c99.patch
+Patch2:         nbtscan-missing-unistd.patch
+Patch3:         nbtscan-print_banner-implicit-int.patch
+Patch4:         nbtscan-statusq-ctype.patch
+Patch5:         nbtscan-prototypes.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -21,6 +26,11 @@ received information in human readable form.
 %prep
 %setup -qn %{name}-%{version}a
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %configure
@@ -41,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.5.1-29
+- Port to C99 (#2148247)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

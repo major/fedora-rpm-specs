@@ -4,11 +4,11 @@
 
 Name: wxmacmolplt
 Version: 7.7.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A graphics program for plotting 3-D molecular structures and normal modes
 License: GPLv2+
 URL: http://brettbode.github.io/wxmacmolplt/
-Source0: https://github.com/brettbode/wxmacmolplt/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0: https://github.com/brettbode/wxmacmolplt/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -35,7 +35,7 @@ MacMolPlt is:
   file support and MDL MolFile support is included.
 
 %prep
-%setup -q -n %{name}-%{commit}
+%setup -q
 chmod -x MacMolPlt_Manual.html
 rm -rv src/glew.{cpp,h}
 
@@ -64,6 +64,10 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_datadir}/wxmacmolplt
 
 %changelog
+* Thu Nov 24 2022 Dominik Mierzejewski <dominik@greysector.net> - 7.7.2-8
+- switch to tagged tarball source URL
+- rebuild for wxGLCanvas change
+
 * Mon Jul 25 2022 Scott Talbert <swt@techie.net> - 7.7.2-7
 - Rebuild for wxGTK 3.2.0
 

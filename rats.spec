@@ -1,6 +1,6 @@
 Name:           rats
 Version:        2.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Rough Auditing Tool for Security
 License:        GPLv2
 URL:            https://code.google.com/p/rough-auditing-tool-for-security/
@@ -9,6 +9,7 @@ Patch1:         0002-Fix-engine-output-and-php-extension.patch
 Patch2:         0003-Fix-report-layout.patch
 Patch3:         rats-2.4-gtk-vuln.patch
 Patch4:         rats-2.4-hash.patch
+Patch5:		rats-configure-c99.patch
 BuildRequires: make
 BuildRequires:  expat-devel
 BuildRequires:  flex
@@ -47,6 +48,9 @@ sed -e 's/$(BINDIR)/$(DESTDIR)$(BINDIR)/g' \
 %{_mandir}/man1/rats.1*
 
 %changelog
+* Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 2.4-22
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
