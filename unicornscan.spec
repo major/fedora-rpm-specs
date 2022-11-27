@@ -4,7 +4,7 @@
 Summary:        Scalable, accurate, flexible and efficient network probing
 Name:           unicornscan
 Version:        0.4.7
-Release:        31%{?dist}
+Release:        32%{?dist}
 License:        GPLv2+
 URL:            https://sourceforge.net/projects/osace/
 Source0:        https://downloads.sourceforge.net/sourceforge/osace/unicornscan/unicornscan%20-%200.4.7%20source/%{name}-%{version}-2.tar.bz2
@@ -16,6 +16,7 @@ Patch0:         unicornscan-0.4.7-lib64.patch
 Patch1:         unicornscan-0.4.7-maxminddb.patch
 Patch2:         unicornscan-0.4.7-config.patch
 Patch3:         unicornscan-0.4.7-gcc5.patch
+Patch4:         unicornscan-configure-c99.patch
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  flex
@@ -68,6 +69,7 @@ can be easily interpreted and visualized.
 %patch1 -p1 -b .maxminddb
 %patch2 -p1 -b .config
 %patch3 -p1 -b .gcc5
+%patch4 -p1 -b .configure-c99
 
 cp -pf %{SOURCE3} README.fedora
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -171,6 +173,9 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/web/
 %endif
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.4.7-32
+- Port configure script to C99
+
 * Sun Jul 31 2022 Robert Scheck <robert@fedoraproject.org> 0.4.7-31
 - Added sysusers.d file to achieve user() and group() provides
 

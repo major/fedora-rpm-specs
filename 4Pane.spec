@@ -7,8 +7,8 @@
 %define	_docdir_fmt	%{NAME}
 
 Name:			4Pane
-Version:		7.0
-Release:		6%{?dist}
+Version:		8.0
+Release:		2%{?dist}
 Summary:		Multi-pane, detailed-list file manager
 
 License:		GPLv3
@@ -39,7 +39,6 @@ tools.
 
 %prep
 %setup -q -n 4pane-%{version}
-%patch0 -p1
 
 %if 0
 cat > .gitignore <<EOF
@@ -61,7 +60,7 @@ sed -i.cflags configure \
 	-e '\@[ \t]\{5,\}C.*FLAGS[ \t]*=[ \t]*$@d'
 
 %build
-export WX_CONFIG_NAME=wx-config-3.2
+export WX_CONFIG_NAME=$(ls -1 %{_bindir}/wx-config-3.* | sort | tail -n 1)
 export EXTRA_CXXFLAGS="%{optflags}"
 
 # --without-builtin_bzip2 means using system bzip2
@@ -112,6 +111,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}*
 
 %changelog
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0-2
+- 8.0
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 7.0-6
 - Rebuild with wxWidgets 3.2
 

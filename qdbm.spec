@@ -1,6 +1,6 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	53%{?dist}
+Release:	54%{?dist}
 License:	LGPLv2+
 
 URL:		http://fallabs.com/qdbm/
@@ -10,6 +10,8 @@ Patch0:		qdbm-ruby-1.9-compat.patch
 # Java 13 introduced yield keyword and the original yield()
 # must be called with explicit receiver
 Patch1:		qdbm-1.8.78-java17-yield-usage.patch
+# ruby module: conformant for c99, -Werror=implicit-int
+Patch2:		qdbm-1.8.78-ruby-module-c99-conformant.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -373,6 +375,9 @@ popd
 
 
 %changelog
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-54
+- Patch for ruby module for c99 conformant: -Werror=implicit-int
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

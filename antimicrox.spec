@@ -1,33 +1,19 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-# % global snap       20200911
-# % global gitcommit  9b383805b7967884a8b602c5a43be415c3427fe4
-# % global shortcommit % (c=% {gitcommit}; echo $ {c:0:5})
-
 %global appname io.github.antimicrox.antimicrox
-%global libname libantilib
 
 Name:         antimicrox
-Version:      3.3.1
-Release:      2%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Version:      3.3.2
+Release:      1%{?dist}
 Summary:      Graphical program used to map keyboard buttons and mouse controls to a gamepad
 
-License:  GPLv3+
+License:  GPL-3.0-or-later AND Zlib AND LGPL-3.0-or-later AND LGPL-2.1-or-later
 URL:      https://github.com/AntiMicroX/%{name}
 
-%if 0%{?snap}
-%global archivename %{name}-%{gitcommit}
-%else
 %global archivename %{name}-%{version}
-%endif
 
-%if 0%{?snap}
-Source0:        %{url}/archive/%{gitcommit}/%{archivename}.tar.gz
-%else
 Source0:        %{url}/archive/%{version}/%{archivename}.tar.gz
-%endif
-Patch0:         big-endian.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -56,7 +42,6 @@ AntiMicro which was inspired by QJoyPad but has additional features.
 
 %prep
 %setup -n %{archivename} -q
-%patch0 -p1
 
 %build
 %cmake3
@@ -94,6 +79,9 @@ AntiMicro which was inspired by QJoyPad but has additional features.
 %{_bindir}/appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 %changelog
+* Fri Nov 25 2022 Gergely Gombos <gombosg@disroot.org> - 3.3.2-1
+- 3.3.2
+
 * Fri Nov 04 2022 Gergely Gombos <gombosg@disroot.org> - 3.3.1-2
 - 3.3.1, add big-endian patch with upstream PR
 

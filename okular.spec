@@ -14,7 +14,7 @@
 Name:    okular
 Summary: A document viewer
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -189,8 +189,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 %{_kf5_datadir}/okular/
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/kconf_update/okular.upd
-%{_kf5_datadir}/qlogging-categories5/%{name}*
 %{_mandir}/man1/okular.1*
+%_qt5_settingsdir/%{name}.categories
 
 %if 0%{?mobile}
 %files mobile
@@ -227,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 
 
 %changelog
+* Fri Nov 25 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.3-2
+- Rebuild((frameworks)
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

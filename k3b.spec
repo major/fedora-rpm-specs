@@ -10,7 +10,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     http://www.k3b.org/
@@ -144,7 +144,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 %{_kf5_metainfodir}/org.kde.k3b.appdata.xml
 %{_kf5_datadir}/applications/org.kde.k3b.desktop
 %{_kf5_datadir}/knotifications5/k3b.*
-%{_kf5_datadir}/knsrcfiles/k3btheme.knsrc
+%{_qt5_settingsdir}/k3btheme.knsrc
 %{_kf5_datadir}/konqsidebartng/virtual_folders/services/*.desktop
 %{_kf5_datadir}/kservices5/*
 %{_kf5_datadir}/kservicetypes5/*
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Fri Nov 25 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.3-2
+- Rebuild
+
 * Thu Nov 03 2022 Than Ngo <than@redhat.com> - 22.08.3-1
 - 22.08.3
 

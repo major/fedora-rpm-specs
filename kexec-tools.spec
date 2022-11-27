@@ -5,15 +5,15 @@
 
 Name: kexec-tools
 Version: 2.0.25
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Summary: The kexec/kdump userspace component
 
 Source0: http://kernel.org/pub/linux/utils/kernel/kexec/%{name}-%{version}.tar.xz
 Source1: kdumpctl
 Source3: gen-kdump-sysconfig.sh
+Source4: gen-kdump-conf.sh
 Source7: mkdumprd
-Source8: kdump.conf
 Source9: https://github.com/makedumpfile/makedumpfile/archive/%{mkdf_ver}/makedumpfile-%{mkdf_shortver}.tar.gz
 Source10: kexec-kdump-howto.txt
 Source11: fadump-howto.txt
@@ -147,6 +147,7 @@ cp %{SOURCE34} .
 
 # Generate sysconfig file
 %{SOURCE3} %{_target_cpu} > kdump.sysconfig
+%{SOURCE4} %{_target_cpu} > kdump.conf
 
 make
 %ifarch %{ix86} x86_64 ppc64 s390x ppc64le aarch64
@@ -180,7 +181,7 @@ install -m 644 build/man/man8/kexec.8  $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 build/man/man8/vmcore-dmesg.8  $RPM_BUILD_ROOT%{_mandir}/man8/
 
 install -m 755 %{SOURCE7} $RPM_BUILD_ROOT/usr/sbin/mkdumprd
-install -m 644 %{SOURCE8} $RPM_BUILD_ROOT%{_sysconfdir}/kdump.conf
+install -m 644 kdump.conf $RPM_BUILD_ROOT%{_sysconfdir}/kdump.conf
 install -m 644 kdump.sysconfig $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/kdump
 install -m 644 kexec/kexec.8 $RPM_BUILD_ROOT%{_mandir}/man8/kexec.8
 install -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_mandir}/man8/mkdumprd.8
@@ -413,7 +414,34 @@ fi
 %endif
 
 %changelog
-* Thu Oct 27 2022 Coiby <coxu@redhat.com> - 2.0.25-1
+* Fri Nov 25 2022 Coiby <coxu@redhat.com> - 2.0.25-3
+- kdumpctl: Optimize _find_kernel_path_by_release regex string
+- unit tests: adapt check_config to gen-kdump-conf.sh
+- kdump.conf: use a simple generator script to maintain
+- Don't run kdump_check_setup_iscsi in a subshell in order to collect needed network interfaces
+- Simplify setup_znet by copying connection profile to initrd
+- Wait for the network to be truly ready before dumping vmcore
+- Address the cases where a NIC has a different name in kdump kernel
+- Reduce kdump memory consumption by only installing needed NIC drivers
+- Reduce kdump memory consumption by not letting NetworkManager manage unneeded network interfaces
+- Set up kdump network by directly copying NM connection profile to initrd
+- Stop dracut 35network-manager from running nm-initrd-generator
+- Apply the timeout configuration of nm-initrd-generator
+- Determine whether IPv4 or IPv6 is needed
+- Add functions to copy NetworkManage connection profiles to the initramfs
+- Fix error for vlan over team network interface
+- Skip reset_crashkernel_after_update during package install
+- Don't check fs modified when dump target is lvm2 thinp
+- tests: use .nmconnection to set up test network
+- fadump: preserve file modification time to help with hardlinking
+- fadump: do not use squash to reduce image size
+- selftest: Add lvm2 thin provision for kdump test
+- selftest: Only iterate the .sh files for test execution
+- Add dependency of dracut lvmthinpool-monitor module
+- lvm.conf should be check modified if lvm2 thinp enabled
+- Add lvm2 thin provision dump target checker
+
+* Thu Oct 27 2022 Coiby <coxu@redhat.com> - 2.0.25-2
 - Update makedumpfile to 1.7.2
 - Skip reading /etc/defaut/grub for s390x
 - Include the memory overhead cost of cryptsetup when estimating the memory requirement for LUKS-encrypted target

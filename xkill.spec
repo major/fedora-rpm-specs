@@ -1,11 +1,11 @@
 Name:       xkill
-Version:    1.0.5
-Release:    5%{?dist}
+Version:    1.0.6
+Release:    1%{?dist}
 Summary:    Utility to force-close an X client's connection
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -37,6 +37,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Nov 25 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.6-1
+- xkill 1.0.6
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

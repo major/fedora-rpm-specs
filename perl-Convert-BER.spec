@@ -1,7 +1,7 @@
 Name:           perl-Convert-BER
 Epoch:          1
 Version:        1.32
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        ASN.1 Basic Encoding Rules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-BER
@@ -10,6 +10,21 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
+# Run time
+BuildRequires:  perl(bytes)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(integer)
+BuildRequires:  perl(Math::BigInt)
+# Math::BigInteger donesn't exist in Fedora
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Socket)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(vars)
+# Tests
+BuildRequires:  perl(IO::Socket)
+# lib not used
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
@@ -22,6 +37,8 @@ encoding structured binary data together with the structure.
 %package tests
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       bash
+Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(bytes)
 Requires:       perl(IO::Socket)
@@ -42,25 +59,28 @@ done
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
-
 %{_fixperms} %{buildroot}/*
 
 
@@ -79,6 +99,11 @@ make test
 
 
 %changelog
+* Thu Nov 24 2022 Michal Josef Špaček <mspacek@redhat.com> - 1:1.32-28
+- Fix BuildRequires
+- Fix test package, one test writes to the local directory
+- Simplify build
+
 * Wed Nov 23 2022 Michal Josef Špaček <mspacek@redhat.com> - 1:1.32-27
 - Fix white space
 - Package tests

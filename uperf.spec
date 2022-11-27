@@ -1,11 +1,12 @@
 Summary:        Network performance tool with modelling and replay support
 Name:           uperf
 Version:        1.0.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPLv3
 URL:            http://www.uperf.org/
 Source0:        https://github.com/uperf/uperf/archive/%{version}.tar.gz
 Patch1:         uperf-1.0.6-ssl-crash.patch
+Patch2:         uperf-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  lksctp-tools-devel
@@ -17,11 +18,14 @@ networking patterns.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1
+%patch2 -p1
 find src -type f -print0 | xargs --null chmod 0644
 find workloads -type f -print0 | xargs --null chmod 0644
 chmod 0644 AUTHORS ChangeLog COPYING README
 
 %build
+# Prevent rebuilding of the configure script (for uperf-configure-c99.patch).
+touch aclocal.m4 Makefile.in config.h.in configure
 %configure           \
     --enable-cpc     \
     --enable-netstat \
@@ -46,6 +50,9 @@ rm -rf %{buildroot}%{_datadir}/*.xml %{buildroot}%{_datadir}/doc
 %{_datadir}/uperf
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.0.7-8
+- Fix sendfilev configure glitch with C99 compilers
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

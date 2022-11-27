@@ -1,6 +1,6 @@
 Name:           python-x3dh
 Version:        0.5.9~beta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python implementation of the X3DH key agreement protocol
 
 License:        MIT
@@ -15,6 +15,7 @@ Patch0:         XEdDSA-version-bump.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-xeddsa
 # For tests
@@ -73,6 +74,9 @@ secrecy and cryptographic deniability.
 
 
 %changelog
+* Fri Nov 25 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.5.9~beta-10
+- Add explicit build dependancy on python3-setuptools (RHBZ#2142043)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9~beta-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

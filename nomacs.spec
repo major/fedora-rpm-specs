@@ -5,7 +5,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.16
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{build}.tar.gz/%{name}-%{version}.%{git_build}.tar.gz
@@ -38,6 +38,7 @@ BuildRequires:	quazip-qt5-devel
 # libheif-devel (rpmfusion-free)
 # BuildRequires:	pkgconfig(libheif)
 BuildRequires:	lcov
+Recommends:	qt5-qtimageformats
 
 %description
 nomacs is image viewer based on Qt5 library.
@@ -116,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Nov 26 2022 TI_Eugene <ti.eugene@gmail.com> - 3.16-11
+- Webp support recommended (close fedora#2148526)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.16-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

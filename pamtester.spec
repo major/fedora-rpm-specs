@@ -1,10 +1,11 @@
 Summary:        Utility to test Pluggable Authentication Modules (PAM)
 Name:           pamtester
 Version:        0.1.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 License:        BSD
 URL:            http://pamtester.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
+Patch0:         pamtester-configure-c99.patch
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  pam-devel
@@ -19,7 +20,7 @@ administrators interested in building a centralised authentication system
 using common standards such as NIS, SASL and LDAP.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -35,6 +36,9 @@ using common standards such as NIS, SASL and LDAP.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.1.2-22
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

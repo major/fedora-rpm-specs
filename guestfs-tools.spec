@@ -25,8 +25,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.5
-Release:       2%{?dist}
+Version:       1.49.6
+Release:       1%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -42,9 +42,6 @@ Source0:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 %if 0%{verify_tarball_signature}
 Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/%{name}-%{version}.tar.gz.sig
 %endif
-
-# https://github.com/libguestfs/libguestfs/issues/99
-Patch:         0001-builder-Disable-opensuse-repository.patch
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
@@ -102,8 +99,9 @@ BuildRequires: gnupg2
 %endif
 
 # Ensure a minimum version of libguestfs is installed.  This contains
-# a workaround for openssl bug RHBZ#2133884
-Requires:      libguestfs >= 1.49.5-2
+# a workaround for openssl bug RHBZ#2133884 and the hang where we
+# called setenv between fork and exec.
+Requires:      libguestfs >= 1.49.6-1
 
 # For virt-builder:
 Requires:      curl
@@ -428,6 +426,10 @@ end
 
 
 %changelog
+* Fri Nov 25 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.6-1
+- New upstream development version 1.49.6
+- Enable opensuse repository again
+
 * Mon Nov 21 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.5-2
 - Disable opensuse repository
 

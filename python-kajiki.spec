@@ -1,8 +1,8 @@
 %global modname kajiki
 
 Name:               python-kajiki
-Version:            0.9.1
-Release:            3%{?dist}
+Version:            0.9.2
+Release:            1%{?dist}
 Summary:            Really fast well-formed xml templates
 
 License:            MIT
@@ -57,6 +57,9 @@ speed! Don't delay! Pick up your copy of Kajiki today!
 %{python3_sitelib}/kajiki-%{version}-*
 
 %changelog
+* Fri Nov 25 2022 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.9.2-1
+- Update to upstream (bz#2148280).
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

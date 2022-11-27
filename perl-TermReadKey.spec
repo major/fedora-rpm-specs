@@ -1,10 +1,11 @@
 Name:           perl-TermReadKey
 Version:        2.38
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A perl module for simple terminal control
 License:        (Copyright only) and (Artistic or GPL+)
 URL:            https://metacpan.org/release/TermReadKey
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSTOWE/TermReadKey-%{version}.tar.gz
+Patch0: perl-TermReadKey-configure-c99.patch
 # Build
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -41,7 +42,7 @@ can just plug in "use Term::ReadKey" on any architecture and have a
 good likelyhood of it working.
 
 %prep
-%setup -q -n TermReadKey-%{version} 
+%autosetup -p1 -n TermReadKey-%{version}
 
 %build
 CFLAGS="%{optflags}" perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -62,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 2.38-15
+- Port Configure.pm to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

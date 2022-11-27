@@ -5,8 +5,8 @@
 
 Name:           mingw-python-%{pkgname}
 Summary:        MinGW Python %{pypi_name} library
-Version:        3.7.1
-Release:        2%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
 
 
 %changelog
+* Fri Nov 25 2022 Sandro Mani <manisandro@gmail.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 3.7.1-2
 - Use flit bootstrapping logic
 

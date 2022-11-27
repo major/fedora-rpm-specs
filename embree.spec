@@ -5,10 +5,10 @@
 #%%global		prerelease	beta
 #%%global		commit		40b9aca2668f443cae6bfbfa7cc5a354f1087011
 #%%global		shortcommit	%%(c=%%{commit}; echo ${c:0:7})
-%bcond_with	ispc
+%bcond_without	ispc
 
 Name:		embree
-Version:	3.13.3
+Version:	3.13.5
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
@@ -19,6 +19,10 @@ Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.
 %else
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-prerelease}.0}.tar.gz#/%{name}-%{version}%{?prerelease:-%{prerelease}.0}.tar.gz
 %endif
+
+#[PATCH] Fix Linux aarch64 support on GCC with lax vector conversions
+# https://github.com/embree/embree/pull/408/commits/ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a
+Patch:		ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -39,8 +43,8 @@ BuildRequires:	pkgconfig(OpenImageIO)
 %endif
 BuildRequires:	pkgconfig(tbb)
 
-# Exclude architectures failing to support SSE2 and up
-ExcludeArch:	armv7hl i686 ppc64le s390x
+# Embree only supports these architectures with SSE2 and up enabled
+ExclusiveArch:	aarch64 x86_64
 
 %description
 A collection of high-performance ray tracing kernels intended to graphics 
@@ -67,14 +71,13 @@ The %{name}-examples package contains sample binaries using %{name}.
 %if %{with_snapshot}
 %autosetup -n %{name}-%{commit}
 %else 
-%autosetup -n %{name}-%{version}%{?prerelease:-%{prerelease}.0}
+%autosetup -p1 -n %{name}-%{version}%{?prerelease:-%{prerelease}.0}
 %endif
 
 %build
-export CXXFLAGS="%{optflags}"
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_CXX_STANDARD=17 \
+	-DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
 	-DCMAKE_INSTALL_LIBDIR=%{_libdir} \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DEMBREE_COMPACT_POLYS=ON \

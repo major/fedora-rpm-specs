@@ -1,12 +1,12 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.0.5
+Version:        2.0.6
 Release:        1%{?dist}
 Summary:        Mint themes
 
 License:        GPLv3+
 URL:            https://github.com/linuxmint/%{name}
-Source0:        http://packages.linuxmint.com/pool/main/m/%{name}/%{name}_%{version}.tar.xz
+Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -55,7 +55,7 @@ Collection of the best themes available for Cinnamon
 
 
 %prep
-%autosetup -p1 -n %{name}
+%autosetup -p1
 
 %{__sed} -i -e 's@Ubuntu@Noto Sans@g' files/usr/share/themes/Linux\ Mint/cinnamon/cinnamon.css
 
@@ -111,6 +111,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Fri Nov 25 2022 Leigh Scott <leigh123linux@gmail.com> - 1:2.0.6-1
+- New upstream release
+
 * Sun Aug 21 2022 Leigh Scott <leigh123linux@gmail.com> - 1:2.0.5-1
 - New upstream release
 

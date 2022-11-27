@@ -1,14 +1,13 @@
 Name:           waybar
-Version:        0.9.13
-Release:        4%{?dist}
+Version:        0.9.16
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # MIT for main package, Boost for bundled clara.hpp
 License:        MIT and Boost
 URL:            https://github.com/Alexays/Waybar
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{url}/commit/3c182c9.patch#/waybar-0.9.13-add-gamemode-man-file-to-meson.patch
-# Fix build with fmt 9, upstream PR Alexays/Waybar#1617
-Patch1:         0001-fix-adapt-to-fmt-9.0.0-breaking-changes.patch
+
+Patch0:         waybar-0.9.16-Revert-catch2-update.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -19,11 +18,12 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(catch2)
 BuildRequires:  pkgconfig(date)
 BuildRequires:  pkgconfig(dbusmenu-gtk3-0.4)
-BuildRequires:  pkgconfig(fmt) >= 7.0.0
+BuildRequires:  pkgconfig(fmt) >= 8.1.1
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gtkmm-3.0)
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(jsoncpp)
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libinput)
@@ -33,11 +33,12 @@ BuildRequires:  pkgconfig(libnl-genl-3.0)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(sigc++-2.0)
-BuildRequires:  pkgconfig(spdlog) >= 1.8.5
+BuildRequires:  pkgconfig(spdlog) >= 1.10.0
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols)
+BuildRequires:  pkgconfig(wireplumber-0.4)
 BuildRequires:  pkgconfig(xkbregistry)
 
 Enhances:       sway
@@ -79,6 +80,9 @@ Suggests:       font(fontawesome5free)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Thu Nov 24 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.16-1
+- Update to 0.9.16 (#2139998)
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.13-4
 - Rebuilt due to spdlog update.
 

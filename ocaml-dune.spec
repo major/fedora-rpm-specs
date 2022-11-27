@@ -10,7 +10,7 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.6.0
+Version:        3.6.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -557,6 +557,9 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Fri Nov 25 2022 Jerry James <loganjerry@gmail.com> - 3.6.1-1
+- Version 3.6.1
+
 * Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 3.6.0-1
 - Version 3.6.0
 - Convert License tag to SPDX

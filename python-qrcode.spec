@@ -8,6 +8,8 @@ Summary:        Python QR Code image generator
 License:        BSD
 URL:            https://github.com/lincolnloop/python-qrcode
 Source0:        https://pypi.python.org/packages/source/q/qrcode/qrcode-%{version}.tar.gz
+# skip all PIL-dependent tests on RHEL
+Patch0:         qrcode-7.3.1-image-tests.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -43,7 +45,7 @@ Summary:        Python 3 QR Code image generator (core library)
 Core Python 3 module for QR code generation. Does not contain image rendering.
 
 %prep
-%autosetup -n qrcode-%{version}
+%autosetup -n qrcode-%{version} -p1
 
 # The pure plugin requires pymaging which is not packaged in Fedora.
 rm qrcode/image/pure.py*
@@ -69,10 +71,6 @@ rm -r %{buildroot}%{python3_sitelib}/%{pkgname}/tests
 ln -s qr %{buildroot}%{_bindir}/qrcode
 
 %check
-%if 0%{?rhel}
-# test method requires PIL
-sed -i s/test_render_pil/disabled_render_pil/g qrcode/tests/test_qrcode.py
-%endif
 PYTHONPATH=%{buildroot}%{python3_sitelib} \
     %{__python3} -m unittest -v qrcode.tests.test_qrcode.QRCodeTests
 

@@ -3,7 +3,7 @@
 
 Name:       ibus-hangul
 Version:    1.5.4
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    The Hangul engine for IBus input platform
 License:    GPLv2+
 URL:        https://github.com/libhangul/ibus-hangul
@@ -90,6 +90,9 @@ make check \
 %{_datadir}/installed-tests/ibus-hangul
 
 %changelog
+* Fri Nov 25 2022 Peng Wu <pwu@redhat.com> - 1.5.4-14
+- Update ibus-hangul-gtk4-sync.patch
+
 * Tue Aug 23 2022 Peng Wu <pwu@redhat.com> - 1.5.4-13
 - Rebuild the package
 

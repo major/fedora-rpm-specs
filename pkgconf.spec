@@ -24,7 +24,7 @@
 
 Name:           pkgconf
 Version:        1.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -52,6 +52,7 @@ BuildRequires:  atf-tests
 
 # pkgconf uses libpkgconf internally
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
+Requires:       system-rpm-config
 
 # This is defined within pkgconf code as a virtual pc (just like in pkgconfig)
 Provides:       pkgconfig(pkgconf) = %{version}
@@ -211,6 +212,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 %endif
 
 %changelog
+* Tue Nov 01 2022 Amit Shah <amitshah@fedoraproject.org> - 1.8.0-4
+- Depend on system-rpm-config
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

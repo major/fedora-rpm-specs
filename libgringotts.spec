@@ -1,20 +1,25 @@
 Name:           libgringotts
 Version:        1.2.1
-Release:        32%{?dist}
+Release:        34%{?dist}
 Summary:        A backend for managing encrypted data files on the disk
 Summary(pl):    Zaplecze do zarządzania zaszyfrowanymi plikami danych na dysku
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://gringotts.shlomifish.org/
 Source0:        http://download.berlios.de/gringotts/%{name}-%{version}.tar.bz2
-Patch0:         libgringotts-1.2.1-aarch64.patch
+# Patch for bzip2 algo size fix for big endian
+Patch0:         libgringotts-1.2.1-bzip2-algo-bigendian-sizefix.patch
 
 BuildRequires:  gcc
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
+BuildRequires:  make
+
 BuildRequires:  bzip2-devel
 BuildRequires:  libmcrypt-devel
 BuildRequires:  mhash-devel
 BuildRequires:  zlib-devel
-BuildRequires: make
 
 
 %description
@@ -41,7 +46,7 @@ oraz by zapewnić użytkownikowi pełną kontrolę nad nimi.
 %package        devel
 Summary:        Development files for libgringotts
 Summary(pl):    Pliki deweloperskie dla libgringotts
-Requires:       libgringotts = %{version}-%{release} pkgconfig
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 The libgringotts-devel package contains libraries and header files for
@@ -54,35 +59,60 @@ niezbędne do tworzenia aplikacji, które używają libgringotts.
 
 %prep
 %setup -q
-%patch0 -p1 -b .aarch64
+%patch0 -p1 -b .bigendian
+
+# For check
+sed -i src/Makefile.am \
+	-e 's|\(^[ \t][ \t]*\)@|\1|' \
+	-e 's|test.c .libs/libgringotts.a|test.c -L.libs -lgringotts|' \
+	-e 's|./libgrgtest|env LD_LIBRARY_PATH=.libs ./libgrgtest|' \
+	%{nil}
+
+autoreconf -fi
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT libgringottsdocdir=%{_pkgdocdir}
-#pcdir="%{RPM_BUILD_ROOT}%{_libdir}/pkgconfig/"
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+%make_install
 
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+# Clean up documentation directory
+rm -rf $RPM_BUILD_ROOT%{_docdir}
+
+%check
+make check
 
 %ldconfig_scriptlets
 
-
 %files
-%{_pkgdocdir}
-%exclude %{_pkgdocdir}/manual.htm
-%{_libdir}/*.so.*
+%license	COPYING
+%doc	AUTHORS
+%doc	ChangeLog
+%doc	NEWS
+%doc	README
+%doc	TODO
+
+%{_libdir}/%{name}.so.2{,.*}
 
 %files devel
-%{_pkgdocdir}/manual.htm
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*
+%doc	docs/manual.htm
+%{_includedir}/libgringotts.h
+%{_libdir}/%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-34
+- Fix for big endian for bzip2 compression
+
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-33
+- Call autoconf to remove huge patch for config.guess
+- Execute check (rescue for big endian for now)
+- Use SPDX license tag
+- Avoid glob for %%files entry where preferable
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

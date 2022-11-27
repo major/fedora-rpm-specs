@@ -1,6 +1,6 @@
 Name:           discount
 Version:        2.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A command-line utility for converting Markdown files into HTML
 License:        BSD
 URL:            http://www.pell.portland.or.us/~orc/Code/%{name}
@@ -8,6 +8,7 @@ Source0:        https://github.com/Orc/%{name}/archive/v%{version}.tar.gz
 Patch0:         discount-dont-run-ldconfig.patch
 Patch1:         define_destructor.patch
 Patch2:         set_deps.patch
+Patch3: discount-c99.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -43,6 +44,7 @@ libmarkdown.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 
 %build
@@ -100,6 +102,9 @@ done
 
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 2.2.7-3
+- Fix building in C99 mode
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

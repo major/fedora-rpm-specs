@@ -2,7 +2,7 @@
 %global clientversion 3.0.8.2
 Name: argus
 Version: 3.0.8.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Network transaction audit tool
 License: GPLv2+
 Url: http://qosient.com/argus
@@ -13,6 +13,7 @@ Source3: README.fedora
 Source4: argus.logrotate
 Patch0: argus-tirpc.patch
 Patch1: common.patch
+Patch2: argus-configure-c99.patch
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -47,6 +48,10 @@ Header files for argus.
 %setup -a1 -q
 %patch0 -p0
 %patch1 -p0
+%patch2 -p1
+pushd %{name}-clients-%{clientversion}
+%patch2 -p1
+popd
 %{__install} -p -m 0644 %{SOURCE3} .
 
 %build
@@ -124,6 +129,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 %{_includedir}/argus/
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 3.0.8.2-20
+- Port configure scripts to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

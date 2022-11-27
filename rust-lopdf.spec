@@ -5,7 +5,7 @@
 %global crate lopdf
 
 Name:           rust-lopdf
-Version:        0.27.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Rust library for PDF document manipulation
 

@@ -1,8 +1,8 @@
 Name:           perl-Convert-Base64
 Version:        0.001
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Encoding and decoding of Base64 strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Base64
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBN/Convert-Base64-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,13 +28,12 @@ encoding as described in RFC 4648.
 %setup -q -n Convert-Base64-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -46,6 +45,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Nov 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.001-20
+- Simplify build in spec file
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

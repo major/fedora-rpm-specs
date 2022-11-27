@@ -20,7 +20,7 @@
 
 Name:           dnsmasq
 Version:        2.87
-Release:        2%{?extraversion:.%{extraversion}}%{?dist}
+Release:        3%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 License:        GPL-2.0-only or GPL-3.0-only
@@ -41,6 +41,9 @@ Patch1:         dnsmasq-2.77-underflow.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1852373
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2148301
+# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=930428fb970f4991e5c2933fd5a5d2504c18a551
+Patch4:         dnsmasq-2.87-dbus-file-reload.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2009975
 # replaces/enhances http://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=d290630d31f4517ab26392d00753d1397f9a4114
@@ -187,6 +190,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %{_mandir}/man1/dhcp_*
 
 %changelog
+* Fri Nov 25 2022 Petr Menšík <pemensik@redhat.com> - 2.87-3
+- Fix regression removing config statements on DBus change (#2148301)
+
 * Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 2.87-2
 - Update License tag to SPDX identifier
 

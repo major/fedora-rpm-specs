@@ -1,7 +1,7 @@
 Summary:        Intrusion detection environment
 Name:           aide
 Version:        0.16
-Release:        20%{?dist}
+Release:        21%{?dist}
 URL:            http://sourceforge.net/projects/aide
 License:        GPLv2+
 
@@ -36,6 +36,9 @@ Patch4: aide-0.15-syslog-format.patch
 Patch5: aide-0.16-crypto-disable-haval-and-others.patch
 Patch6: coverity.patch
 Patch7: aide-0.16-crash-elf.patch
+Patch8: aide-configure-c99-1.patch
+Patch9: aide-configure-c99-2.patch
+Patch10: aide-configure-c99-3.patch
 
 %description
 AIDE (Advanced Intrusion Detection Environment) is a file integrity
@@ -80,6 +83,9 @@ mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 %dir %attr(0700,root,root) %{_localstatedir}/log/aide
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.16-21
+- Apply upstream patches to port configure to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

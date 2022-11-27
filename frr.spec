@@ -6,7 +6,7 @@
 %bcond_without selinux
 
 Name:           frr
-Version:        8.4
+Version:        8.4.1
 Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPLv2+
@@ -108,7 +108,7 @@ autoreconf -ivf
     --sysconfdir=%{_sysconfdir}/frr \
     --libdir=%{_libdir}/frr \
     --libexecdir=%{_libexecdir}/frr \
-    --localstatedir=%{_localstatedir}/run/frr \
+    --localstatedir=/run/frr \
     --enable-multipath=64 \
     --enable-vtysh=yes \
     --disable-ospfclient \
@@ -267,6 +267,10 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Fri Nov 25 2022 Michal Ruprich <mruprich@redhat.com> - 8.4.1-1
+- New version 8.4.1
+- Fix for rhbz #2140705
+
 * Thu Nov 10 2022 Michal Ruprich <mruprich@redhat.com> - 8.4-1
 - New version 8.4
 

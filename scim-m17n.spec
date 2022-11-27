@@ -1,6 +1,6 @@
 Name:           scim-m17n
 Version:        0.2.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        SCIM IMEngine for m17n-lib
 
 License:        GPLv2+
@@ -16,6 +16,7 @@ Requires:       scim >= 1.4.4
 
 Patch0:         %{name}-no-M17N-prefix.patch
 Patch1:         %{name}-aarch64.patch
+Patch2: scim-m17n-configure-c99.patch
 
 %description
 scim-m17n provides a SCIM IMEngine for m17n-lib, which allows
@@ -44,6 +45,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/IMEngine/m17n.la
 
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.2.3-30
+- Port configure to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

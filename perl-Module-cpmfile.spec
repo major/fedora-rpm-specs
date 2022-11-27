@@ -2,7 +2,7 @@ Name:           perl-Module-cpmfile
 Version:        0.006
 Release:        3%{?dist}
 Summary:        Parse cpmfile
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-cpmfile
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Module-cpmfile-%{version}.tar.gz
 BuildArch:      noarch

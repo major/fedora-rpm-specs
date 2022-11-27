@@ -3,7 +3,7 @@
 
 Name:           tinyfugue
 Version:        5.0
-Release:        0.105.b8%{?dist}
+Release:        0.107.b8%{?dist}
 Summary:        A MU* client
 License:        GPLv2+
 URL:            http://tinyfugue.sourceforge.net/
@@ -24,6 +24,9 @@ Patch9:         0006-Fix-library-install-path.patch
 Patch10:        0007-Fix-spelling-errors.patch
 Patch11:        0008-Fix-duplicate-world_decl-definitions.patch
 Patch12:        0009-Fix-spelling-error-in-manual-page.patch
+Patch13:        tinyfigue-configure-c99.patch
+Patch14:        tinyfugue-malloc-c99.h
+Patch15:        tinyfugue-tfio-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -67,6 +70,9 @@ install -D -p -m 644 src/tf.1.nroffman %{buildroot}%{_mandir}/man1/tf.1
 %{_mandir}/man1/tf.1*
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 5.0-0.107.b8
+- Port to C99 (mostly)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.105.b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

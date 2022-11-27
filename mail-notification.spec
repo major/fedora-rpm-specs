@@ -5,7 +5,7 @@
 
 Name:           mail-notification
 Version:        5.4
-Release:        104.git.%{git_revision}%{?dist}
+Release:        105.git.%{git_revision}%{?dist}
 Summary:        Status icon that informs you if you have new mail
 
 License:        GPLv3+
@@ -37,6 +37,8 @@ Patch4:         mail-notification-eds3_23_2.patch
 
 # Use gstreamer-1.0 to play sound
 Patch5:		mail-notification-gstreamer1.patch
+
+Patch6:		mail-notification-jb-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -103,6 +105,7 @@ Evolution support for Mail Notification.
 %patch3 -p0
 %patch4 -p1 -b .eds3_23_2
 %patch5 -p1
+%patch6 -p1
 
 # update config.{guess,sub} manually
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} jbsrc/tools/
@@ -220,6 +223,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 5.4-105.git.9ae8768
+- Port jb build tool to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-104.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@ Version:        1.3.5
 Release:        %autorelease
 Summary:        The smartest command line arguments parser in the world
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/ialbert/plac
 # GitHub archive contains full documentation sources; PyPI sdist does not
 Source0:        %{url}/archive/v%{version}/plac-%{version}.tar.gz

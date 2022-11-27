@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.0
+Version:        6.4.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
@@ -131,6 +131,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Fri Nov 25 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-1
+- Update to 6.4.1
+
 * Thu Nov 03 2022 Sandro Mani <manisandro@gmail.com> - 6.4.0-1
 - Update to 6.4.0
 

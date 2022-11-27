@@ -15,7 +15,7 @@
 Name:           librsvg2
 Summary:        An SVG library based on cairo
 Version:        2.55.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
@@ -26,6 +26,8 @@ Source0:        https://download.gnome.org/sources/librsvg/2.54/librsvg-%{versio
 Patch:          0001-Update-the-nalgebra-crate.patch
 Patch:          0002-Fedora-Drop-dependencies-required-for-benchmarking.patch
 Patch:          0003-Update-the-lopdf-crate.patch
+Patch:          0004-Update-the-yeslogic-fontconfig-sys-crate-to-4.0.1.patch
+Patch:          0005-Update-the-lopdf-crate-to-0.29.0.patch
 %endif
 
 BuildRequires:  chrpath
@@ -139,6 +141,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Fri Nov 25 2022 Kalev Lember <klember@redhat.com> - 2.55.1-3
+- Build against rust-lopdf 0.29.0 and rust-yeslogic-fontconfig-sys 4.0.1
+
 * Mon Nov 21 2022 Kalev Lember <klember@redhat.com> - 2.55.1-2
 - Switch to packaged rust deps
 

@@ -2,7 +2,7 @@ Name:           perl-Parallel-Pipes
 Version:        0.102
 Release:        4%{?dist}
 Summary:        Parallel processing using pipes for communication and synchronization
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Pipes
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Parallel-Pipes-%{version}.tar.gz
 BuildArch:      noarch

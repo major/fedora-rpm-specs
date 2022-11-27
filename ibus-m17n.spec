@@ -2,9 +2,9 @@
 
 Name:       ibus-m17n
 Version:    1.4.17
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The M17N engine for IBus platform
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/ibus/ibus-m17n
 Source0:    https://github.com/ibus/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -62,6 +62,9 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Sat Nov 26 2022 Mike FABIAN <mfabian@redhat.com> - 1.4.17-2
+- Migrate license tag to SPDX
+
 * Sat Sep 17 2022 Mike FABIAN <mfabian@redhat.com> - 1.4.17-1
 - Update to 1.4.17
 - Fix problem that sa-IAST input method cannot be activated and make settings of sa-IAST work

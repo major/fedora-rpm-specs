@@ -19,7 +19,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.0
+Version:        6.4.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
@@ -409,6 +409,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/qml/Qt/labs/settings
 %{mingw32_libdir}/qt6/qml/Qt/labs/sharedimage/
 %{mingw32_libdir}/qt6/qml/Qt/labs/wavefrontmesh/
+%dir %{mingw32_libdir}/qt6/qml/Qt/test/
+%{mingw32_libdir}/qt6/qml/Qt/test/controls/
 %{mingw32_libdir}/qt6/qml/QtCore/
 %{mingw32_libdir}/qt6/qml/QtQml/
 %{mingw32_libdir}/qt6/qml/QtQuick/
@@ -733,6 +735,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/qml/Qt/labs/settings
 %{mingw64_libdir}/qt6/qml/Qt/labs/sharedimage/
 %{mingw64_libdir}/qt6/qml/Qt/labs/wavefrontmesh/
+%dir %{mingw64_libdir}/qt6/qml/Qt/test/
+%{mingw64_libdir}/qt6/qml/Qt/test/controls/
 %{mingw64_libdir}/qt6/qml/QtCore/
 %{mingw64_libdir}/qt6/qml/QtQml/
 %{mingw64_libdir}/qt6/qml/QtQuick/
@@ -772,6 +776,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Fri Nov 25 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-1
+- Update to 6.4.1
+
 * Mon Aug 08 2022 Jan Grulich <jgrulich@redhat.com> - 6.3.1-4
 - Backport upstream fix needed for Fedora MediaWriter on Windows
 

@@ -1,6 +1,6 @@
 Name:		tgif
 Version:	4.2.5
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	2-D drawing tool
 
 License:	QPL
@@ -11,6 +11,7 @@ Patch10:	tgif-textcursor-a-urasim.patch
 # Check below later
 Patch101:	tgif-QPL-4.1.45-size-debug.patch
 Patch102:	tgif-QPL-4.2.5-format-security.patch
+Patch103: tgif-c99.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -39,6 +40,7 @@ the World-Wide-Web.
 # Check later
 #%%patch101 -p1 -b .size
 %patch102 -p1 -b .format
+%patch103 -p1
 
 %{__perl} -pi \
 	-e 's,JISX-0208-1983-0,EUC-JP,g' \
@@ -158,6 +160,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 4.2.5-26
+- Avoid implicit int for C99 compatibility (#2148487)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

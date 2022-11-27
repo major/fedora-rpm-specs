@@ -1,7 +1,7 @@
 Summary: Interactive educational geometry software
 Name: drgeo
 Version: 1.1.0
-Release: 46%{?dist}
+Release: 47%{?dist}
 License: GPLv2+
 URL: http://www.ofset.org/drgeo
 
@@ -10,6 +10,7 @@ Patch0: drgeo-1.1.0-htmlview.patch
 Patch1: drgeo.patch
 Patch2: drgeo-1.1.0-anonymous-type.patch
 Patch4: drgeo-1.1.0-format-security.patch
+Patch5: drgeo-configure-c99.patch
 
 #The following are necessary if using Guile 1.9 or later
 #Patch3: drgeo-1.1.0-guile-fixups.patch
@@ -38,6 +39,7 @@ situation with students from primary or secondary level.
 %patch1 -p1 -b .general
 %patch2 -p1 -b .anonymous-type
 %patch4 -p1 -b .format-security
+%patch5 -p1 -b .configure-c99
 
 # patches for Guile 2 compatibility:
 # compile time:
@@ -78,6 +80,9 @@ rmdir %{buildroot}%{_datadir}/texmacs/
 %{_datadir}/applications/drgeo.desktop
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.1.0-47
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

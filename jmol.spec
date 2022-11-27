@@ -1,5 +1,5 @@
 Name:           jmol
-Version:        14.32.77
+Version:        14.32.81
 Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
@@ -28,9 +28,6 @@ Patch2:         %{name}-java9.patch
 Patch3:         %{name}-javadoc.patch
 # Avoid deprecated interfaces
 Patch4:         %{name}-deprecated.patch
-# Fix incorrect lock usage that can lead to a hang
-# https://sourceforge.net/p/jmol/bugs/626/
-Patch5:         %{name}-lock.patch
 
 BuildRequires:  ant
 BuildRequires:  ant-junit
@@ -215,6 +212,10 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Fri Nov 25 2022 Jerry James <loganjerry@gmail.com> - 14.32.81-1
+- Version 14.32.81
+- Drop -lock patch
+
 * Thu Oct 13 2022 Jerry James <loganjerry@gmail.com> - 14.32.77-1
 - Version 14.32.77
 

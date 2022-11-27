@@ -1,5 +1,5 @@
 Name:           nativefiledialog-extended
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Native file dialog library with C and C++ bindings
 
@@ -9,11 +9,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  git
 BuildRequires:  gtk3-devel
-
-# https://github.com/btzy/nativefiledialog-extended/pull/76
-Patch:          generate_shared_lib.patch
 
 %global _description %{expand:
 A small C library with that portably invokes native file open, folder
@@ -39,7 +35,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -S git
+%autosetup
 
 
 %build
@@ -70,5 +66,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Nov 25 2022 Jonathan Wright <jonathan@almalinux.org> - 1.0.1-1
+- Update to 1.0.1 rhbz#2148493
+
 * Sat Aug 13 2022 Jonathan Wright <jonathan@almalinux.org> - 1.0.0-1
 - Initial package build

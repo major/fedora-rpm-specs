@@ -1,12 +1,14 @@
 Name:		jam
 Version:	2.5
-Release:	32%{?dist}
+Release:	33%{?dist}
 License:	Copyright only
 Summary:	Program construction tool, similar to make
 URL:		http://public.perforce.com/public/jam/index.html
 Source0:	ftp://ftp.perforce.com/jam/%{name}-%{version}.zip
 # Submitted upstream by e-mail
 Patch0:         jam-2.5-overflow.patch
+Patch1: jam-missing-includes.patch
+Patch2: jam-implicit-int.patch
 BuildRequires:  gcc
 BuildRequires:	byacc
 BuildRequires: make
@@ -22,6 +24,8 @@ targets and sources.
 %prep
 %setup -q -c
 %patch0 -p1 -b .overflows
+%patch1 -p1
+%patch2 -p1
 
 %build
 make CFLAGS="$RPM_OPT_FLAGS" CCFLAGS="$RPM_OPT_FLAGS" %{?_smp_mflags}
@@ -38,6 +42,9 @@ install -m0755 bin.linux*/mkjambase $RPM_BUILD_ROOT/%{_bindir}
 %{_bindir}/mkjambase
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 2.5-33
+- Fixes for building in strict(e)r C99 mode (#2148378)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	50%{?dist}
+Release:	51%{?dist}
 Summary:	A full-text search system
 
 License:	LGPLv2+
@@ -15,6 +15,9 @@ Source0:	http://hyperestraier.sourceforge.net/%{name}-%{version}.tar.gz
 # Taken from Debian:
 # http://packages.debian.org/testing/ruby/libestraier-ruby1.9.1
 Patch0:		huperestraier-1.4.13-ruby-19-compat.patch
+# Make javanative/configure c99 compat manually
+# instead of rerunning autoupdate -> autoconf
+Patch1:		hyperestraier-1.4.13-javanative-configure-c99-compat.patch
 
 BuildRequires:	gcc
 BuildRequires:	bzip2-devel zlib-devel
@@ -80,6 +83,7 @@ This package contains a Ruby interface for Hyper Estraier.
 %setup -q
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 ## 0. First:
@@ -263,6 +267,9 @@ popd
 
 
 %changelog
+* Sat Nov 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-51
+- Patch for javanative module for c99 conformant: -Werror=implicit-int
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.13-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

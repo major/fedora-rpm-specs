@@ -1,11 +1,13 @@
 Name:           perl-Curses
 Version:        1.41
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl bindings for ncurses
 
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Curses
 Source0:        https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-%{version}.tar.gz
+Patch0: perl-Curses-implicit-int.patch
+Patch1: perl-Curses-test-syms-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  coreutils
@@ -32,7 +34,7 @@ handling capabilities to Perl.
 
 
 %prep
-%setup -q -n Curses-%{version}
+%autosetup -p1 -n Curses-%{version}
 test -f hints/c-linux.ncursesw.h || cp hints/c-linux.ncurses.h hints/c-linux.ncursesw.h
 sed -i -e 's|/usr/local/bin/perl|%{__perl}|' demo*
 sed -i -e 's|/usr//bin/perl|%{__perl}|' demo*
@@ -78,6 +80,9 @@ make test
 
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.41-2
+- Port feature probing to C99 (#2148210)
+
 * Sun Aug 28 2022 Steve Traylen <steve.traylen@cern.ch> - 1.41-1
 - 1.41 bump
 

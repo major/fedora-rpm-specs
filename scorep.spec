@@ -22,9 +22,9 @@
 
 Name:           scorep
 Version:        7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
 # Recommended by developers
@@ -479,6 +479,9 @@ make -C serial check V=1
 
 
 %changelog
+* Wed Sep 21 2022 Dave Love <loveshack@fedoraproject.org> - 7.1-6
+- Use SPDX licence tag
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 7.1-5
 - Rebuild for clang 15
 

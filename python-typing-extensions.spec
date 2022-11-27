@@ -14,7 +14,6 @@ BuildArch: noarch
 
 BuildRequires: python3-devel
 BuildRequires: python3-test
-BuildRequires: python3-pytest
 
 
 %global _description %{expand:
@@ -70,7 +69,8 @@ cp -v %{SOURCE1} src/
 
 
 %check
-%pytest
+cd src
+%{python3} -m unittest discover
 
 %files -n python3-typing-extensions -f %{pyproject_files}
 %license LICENSE

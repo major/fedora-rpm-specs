@@ -199,7 +199,7 @@ The %{name} package contains the command-line tools included with Teem.
 
 
 %package libs
-Summary:        Libraries files for %{name}
+Summary:        Libraries for %{name}
 
 %description libs %{common_description}
 

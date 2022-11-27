@@ -1,8 +1,8 @@
 Name:       ibus-table
 Version:    1.16.14
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The Table engine for IBus platform
-License:    LGPLv2+
+License:    LGPL-2.1-or-later
 URL:        https://github.com/mike-fabian/ibus-table
 Source0:    https://github.com/mike-fabian/ibus-table/releases/download/%{version}/%{name}-%{version}.tar.gz
 Requires:       ibus > 1.3.0
@@ -150,6 +150,9 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Fri Nov 25 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.14-2
+- Migrate license tag to SPDX
+
 * Thu Nov 10 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.14-1
 - Update to 1.16.14
 - Fix a problem in C/POSIX and invalid locales:

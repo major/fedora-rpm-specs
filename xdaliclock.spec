@@ -1,11 +1,12 @@
 Summary: A clock for the X Window System
 Name: xdaliclock
 Version: 2.43
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: BSD
 URL: http://www.jwz.org/xdaliclock/
 Source0: http://www.jwz.org/xdaliclock/xdaliclock-%{version}.tar.gz
 Source1: xdaliclock.desktop
+Patch0: xdaliclock-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: desktop-file-utils
@@ -21,7 +22,7 @@ button down over it. It also can be configured to do colormap cycling, and
 for window transparency.
 
 %prep
-%setup
+%autosetup -p1
 
 %build
 # easier than patching configure to read those files from own directory
@@ -58,6 +59,9 @@ desktop-file-install  \
 %{_datadir}/applications/*
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 2.43-16
+- Port configure scripts to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.43-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

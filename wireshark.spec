@@ -199,7 +199,6 @@ fi
 %{_datadir}/icons/hicolor/*/mimetypes/*
 %{_bindir}/wireshark
 %{_mandir}/man1/wireshark.*
-%{_sysusersdir}/%{name}.conf
 
 %files cli
 %license COPYING
@@ -267,6 +266,7 @@ fi
 %endif
 %dir %{_datadir}/wireshark
 %{_datadir}/wireshark/*
+%{_sysusersdir}/%{name}.conf
 
 %files devel
 %doc doc/README.* ChangeLog

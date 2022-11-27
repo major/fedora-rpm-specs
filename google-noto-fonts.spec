@@ -22,7 +22,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL
 URL:            https://github.com/googlefonts/noto-fonts/
@@ -32,6 +32,9 @@ Source1:        google-noto-sans-math-vf.conf
 Source2:        google-noto-sans-math.conf
 Source3:        google-noto-naskh-arabic-ex.conf
 Source4:        NotoSansSinhala-v2.006.zip
+Source5:        google-noto-sans-symbols-ex.conf
+Source6:        google-noto-sans-symbols2-ex.conf
+Source7:        google-noto-sans-symbols-vf-ex.conf
 
 BuildArch:      noarch
 BuildRequires:  fonts-rpm-macros
@@ -60,8 +63,12 @@ local subpackages = {
     { alias="cursive",    family="Rashi Hebrew", lang={ "he" } },
 
     { alias="fantasy",    family="Music" },
-    { alias="fantasy",    family="Sans Symbols" },
-    { alias="fantasy",    family="Sans Symbols2" },
+    { alias="fantasy",    family="Sans Symbols",
+      fcconfexfile=rpm.expand('%{SOURCE5}')
+    },
+    { alias="fantasy",    family="Sans Symbols2",
+      fcconfexfile=rpm.expand('%{SOURCE6}')
+    },
 
     { alias="sans-serif", family="Looped Lao", lang={ "lo" }, nogroup=1,
       obsoletes={ "sans-lao-looped" }
@@ -418,7 +425,9 @@ local subpackages = {
     { alias="cursive",    variable=true, family="Nastaliq Urdu", lang={ "ur" } },
     { alias="cursive",    variable=true, family="Rashi Hebrew", lang={ "he" } },
 
-    { alias="fantasy",    variable=true, family="Sans Symbols" },
+    { alias="fantasy",    variable=true, family="Sans Symbols",
+      fcconfexfile=rpm.expand('%{SOURCE7}')
+    },
 
     { alias="sans-serif", variable=true, family="Looped Lao", lang={ "lo" }, nogroup=1,
       obsoletes={ "sans-lao-looped-vf" }
@@ -792,9 +801,9 @@ local function txt2xml(text)
 end
 
 local function genmetainfo(table)
-    local xmlfontname = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "echo \\\\\"    <font>%{fullname[0]}</font>\\\\\";"; done); if test x"$cmd" != x; then echo "echo \\\\\"  <provides>\\\\\"; $cmd echo \\\\\"  </provides>\\\\\""|sh; fi|grep -v "font></font")'
-    local xmlfontlang = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "%{[]lang{echo \\\\\"    <lang>%{lang}</lang>\\\\\";}}"; done); if test x"$cmd" != x; then echo "echo \\\\\"  <languages>\\\\\"; ($cmd)|sort -u; echo \\\\\"  </languages>\\\\\""|sh; fi)'
-    local xml = [[
+local xmlfontname = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "echo \\\\\"    <font>%{fullname[0]}</font>\\\\\";"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <provides>\\\\\"; $cmd echo \\\\\"  </provides>\\\\\""|sh; fi|grep -v "font></font")'
+local xmlfontlang = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "%{[]lang{echo \\\\\"    <lang>%{lang}</lang>\\\\\";}}"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <languages>\\\\\"; ($cmd)|sort -u; echo \\\\\"  </languages>\\\\\""|sh; fi)'
+local xml = [[
 <?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 <!-- $PDX-License-Identifier: MIT -->\
 <component type=\"font\">\
@@ -1028,6 +1037,7 @@ install -m 0644 -p NotoSansSinhala/unhinted/slim-variable-ttf/NotoSansSinhala\[w
 
 # remove display fonts. this isn't shipped in upstream anymore.
 rm %{buildroot}%{_fontbasedir}/google-noto/NotoSansDisplay*.ttf \
+   %{buildroot}%{_fontbasedir}/google-noto/NotoSans-Display*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto/NotoSerifDisplay*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansDisplay*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSerifDisplay*.ttf
@@ -1065,6 +1075,10 @@ done
 
 
 %changelog
+* Fri Nov 25 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-7
+- Add an alias for Symbol font to Noto Sans Symbols/Symbols2.
+  Resolves: rhbz#2088665
+
 * Thu Nov 24 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-6
 - Drop Noto Sans Display and Noto Serif Display fonts.
   These fonts isn't shipped from upstream anymore.

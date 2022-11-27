@@ -2,13 +2,16 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Fake file system that can be used for tests
 License: MIT
 URL: http://github.com/simonc/memfs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/simonc/memfs/commit/d8e61aba482fe3167e6399a888763ce2a796b30d
 Patch0: 0001_file_extname_27_behavior.patch
+# https://github.com/simonc/memfs/pull/40
+# Fix handling of kwargs with rspec-mocks 3.12+
+Patch1: 0002-kwargs-handling-fix.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -32,6 +35,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n  %{gem_name}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -78,6 +82,9 @@ popd
 %{gem_instdir}/Guardfile
 
 %changelog
+* Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.0-18
+- Fix handling of kwargs with rspec-mocks 3.12+
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

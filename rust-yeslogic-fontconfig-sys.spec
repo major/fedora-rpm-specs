@@ -5,15 +5,13 @@
 %global crate yeslogic-fontconfig-sys
 
 Name:           rust-yeslogic-fontconfig-sys
-Version:        2.11.2
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Raw bindings to Fontconfig
 
 License:        MIT
 URL:            https://crates.io/crates/yeslogic-fontconfig-sys
 Source:         %{crates_source}
-# Add missing LICENSE file from upstream
-Source1:        https://raw.githubusercontent.com/yeslogic/fontconfig-rs/master/LICENSE
 
 BuildRequires:  rust-packaging >= 21
 
@@ -33,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENCE
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,9 +47,20 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+dlopen-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+dlopen-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "dlopen" feature of the "%{crate}" crate.
+
+%files       -n %{name}+dlopen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp %{SOURCE1} LICENCE
 %cargo_prep
 
 %generate_buildrequires

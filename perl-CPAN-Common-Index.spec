@@ -2,11 +2,12 @@ Name:           perl-CPAN-Common-Index
 Version:        0.010
 Release:        17%{?dist}
 Summary:        Common library for searching CPAN modules, authors and distributions
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/CPAN-Common-Index
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Common-Index-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -53,11 +54,11 @@ core modules as possible.
 %setup -q -n CPAN-Common-Index-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check

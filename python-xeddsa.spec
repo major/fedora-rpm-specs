@@ -1,6 +1,6 @@
 Name:           python-xeddsa
 Version:        0.6.0~beta
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
@@ -10,6 +10,7 @@ Source0:        https://github.com/Syndace/%{name}/archive/v%{version_no_tilde}.
 %global version_main %(c=%version; echo $c|cut -d~ -f1)
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-cffi
 BuildRequires:  python3-pynacl
 # Required by setup.py
@@ -72,6 +73,9 @@ and X448 elliptic curve Diffie-Hellman functions.
 
 
 %changelog
+* Fri Nov 25 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.6.0~beta-9
+- Add explicit build dependancy on python3-setuptools (RHBZ#2142039)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0~beta-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

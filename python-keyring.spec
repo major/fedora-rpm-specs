@@ -3,8 +3,8 @@
 %bcond_with xvfb_tests
 
 Name:           python-keyring
-Version:        23.9.3
-Release:        2%{?dist}
+Version:        23.11.0
+Release:        1%{?dist}
 Summary:        Store and access your passwords safely
 
 License:        MIT AND Python-2.0.1
@@ -78,11 +78,6 @@ ln -s keyring %{buildroot}%{_bindir}/keyring-python3
 
 %check
 %if %{with tests}
-# If we don’t do this, then test_entry_point fails because it finds two
-# EntryPoint instances.
-# See upstream issue: https://github.com/jaraco/keyring/issues/526
-rm -vrf *.egg-info *.dist-info
-
 %if %{with xvfb_tests}
 %global __pytest /usr/bin/xvfb-run -a /usr/bin/pytest
 %endif
@@ -99,6 +94,9 @@ rm -vrf *.egg-info *.dist-info
 
 
 %changelog
+* Mon Nov 21 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.11.0-1
+- Update to 23.11.0 (close RHBZ#2140241)
+
 * Fri Nov 18 2022 Christopher Tubbs <ctubbsii@fedoraproject.org> - 23.9.3-2
 - Convert license to SPDX
 

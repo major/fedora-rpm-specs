@@ -1,11 +1,12 @@
 Summary: Utilities for creating compressed CD-ROM filesystems
 Name: zisofs-tools
 Version: 1.0.8
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL+
 URL: http://www.kernel.org/pub/linux/utils/fs/zisofs/
 #Source: http://www.kernel.org/pub/linux/utils/fs/zisofs/zisofs-tools-%{version}.tar.bz2
 Source: http://mirror.linux.org.au/linux/utils/fs/zisofs/zisofs-tools-%{version}.tar.bz2
+Patch0: zisofs-tools-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: zlib-devel
@@ -16,7 +17,7 @@ version of mkisofs to allow the creation of compressed CD-ROM
 filesystems.
 
 %prep
-%setup -q 
+%autosetup -p1
 
 %build
 %configure
@@ -32,6 +33,9 @@ make install INSTALLROOT="$RPM_BUILD_ROOT"
 %{_mandir}/man1/mkzftree.1*
 
 %changelog
+* Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.0.8-29
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
