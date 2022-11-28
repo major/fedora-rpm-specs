@@ -10,7 +10,7 @@
 
 Name:           visualboyadvance-m
 Version:        %{upstreamtag}
-Release:        4%{?rctagfedora:.%{rctagfedora}}%{?dist}.4
+Release:        4%{?rctagfedora:.%{rctagfedora}}%{?dist}.5
 Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 
 License:        GPLv2
@@ -113,6 +113,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/%{shortname}
 
 %changelog
+* Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.4-4.5
+- Rebuild due to wxGLCanvas ABI change
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 2.1.4-4.4
 - Rebuild with wxWidgets 3.2
 

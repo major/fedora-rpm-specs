@@ -1,11 +1,13 @@
 Name:		maradns
-Version:	3.5.0024
+Version:	3.5.0030
 Release:	1%{?dist}
 Summary:	Authoritative and recursive DNS server made with security in mind
 
 Source0:	http://www.maradns.org/download/3.5/%{version}/%{name}-%{version}.tar.xz
 # http://maradns.samiam.org/download/patches/3rd_party/Thomasz-Torcz-systemd-2013-10-14.patch
 Patch0:		%{name}-0001-add-systemd-unit-files.patch
+# parts of MaraDNS – the files in coLunacyDNS/lunacy – are under MIT (Lua) license,
+# but we don't package them
 License:	BSD-2-Clause
 URL:		http://www.maradns.org/
 
@@ -27,11 +29,6 @@ essential internet service. MaraDNS has the following advantages:
 %prep
 %setup -q
 %autopatch -p1
-
-# wrong permissions
-chmod 0644 doc/en/man/make.pdf
-chmod 0644 doc/en/tutorial/make.index
-chmod 0644 doc/en/webpage/make.page
 
 %build
 
@@ -90,7 +87,7 @@ install -p -D -m 0644 -t %{buildroot}%{_unitdir}/ \
 	build/maradns-deadwood.service
 
 %files
-%doc doc/en/changelog.txt doc/en/credits.txt doc/en/faq.txt doc/en/{examples,tutorial,webpage}
+%doc doc/en/credits.txt doc/en/faq.txt doc/en/{examples,tutorial,html}
 %license COPYING
 %config(noreplace) %{_sysconfdir}/mararc
 %config(noreplace) %{_sysconfdir}/dwood3rc
@@ -149,6 +146,8 @@ fi
 
 
 %changelog
+* Sat Nov 26 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0030-1
+- new version (fixes rhbz#2138939)
 
 * Tue Oct 25 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.5.0024-1
 - new version (fixes rhbz#2135365)

@@ -5,7 +5,7 @@
 Summary:	Font configuration and customization library
 Name:		fontconfig
 Version:	2.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code
 # fc-case/CaseFolding.txt is in the UCD
@@ -15,11 +15,13 @@ Source:		http://fontconfig.org/release/%{name}-%{version}.tar.xz
 URL:		http://fontconfig.org
 Source1:	25-no-bitmap-fedora.conf
 Source2:	fc-cache
+Source3:	10-sub-pixel-rgb-for-kde.conf
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=140335
 Patch0:		%{name}-sleep-less.patch
 Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch5:		%{name}-disable-network-required-test.patch
+Patch6:		%{name}-desktop-property.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}
@@ -91,6 +93,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 ln -s %{_fontconfig_templatedir}/25-unhint-nonlatin.conf $RPM_BUILD_ROOT%{_fontconfig_confdir}/
+
+# Use conditional conf instead
+rm $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d/10-sub-pixel-*.conf
+install -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/fonts/conf.d
 
 # move installed doc files back to build directory to package them
 # in the right place
@@ -187,6 +193,10 @@ fi
 %doc fontconfig-devel.txt fontconfig-devel
 
 %changelog
+* Sat Nov 26 2022 Akira TAGOH <tagoh@redhat.com> - 2.14.1-2
+- Enable RGB stripes layout for sub-pixel rendering on KDE only.
+  Resolves: rhbz#2137825
+
 * Fri Oct 21 2022 Akira TAGOH <tagoh@redhat.com> - 2.14.1-1
 - New upstream release.
 

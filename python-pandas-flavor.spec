@@ -9,6 +9,7 @@ Version:        0.3.0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 Summary:        The easy way to write your own flavor of Pandas
 
+# SPDX
 License:        MIT
 URL:            https://github.com/Zsailer/pandas_flavor
 Source0:        %{url}/archive/%{commit}/pandas_flavor-%{commit}.tar.gz

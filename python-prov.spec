@@ -3,8 +3,8 @@
 %global modname prov
 
 Name:           python-%{modname}
-Version:        1.5.2
-Release:        16%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        W3C Provenance Data Model supporting PROV-JSON and PROV-XML import/export
 
 License:        MIT
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-1
+- update to 2.0.0 rhbz#1893550
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

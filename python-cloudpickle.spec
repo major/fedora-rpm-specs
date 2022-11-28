@@ -9,7 +9,7 @@ interactively in the __main__ module.
 
 Name:           python-%{pypi_name}
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extended pickling support for Python objects
 
 License:        BSD
@@ -21,7 +21,7 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
 
 # Test requirements
-BuildRequires:  %{py3_dist mock pytest tornado psutil}
+BuildRequires:  %{py3_dist pytest tornado psutil}
 
 %description
 %{desc}
@@ -64,6 +64,9 @@ PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_hand
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 2.2.0-3
+- Update BRs for compatibility with EPEL9
+
 * Wed Nov 16 2022 Lumír Balhar <lbalhar@redhat.com> - 2.2.0-2
 - Fix compatibility with pytest 7.2 (#2142057)
 

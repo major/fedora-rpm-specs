@@ -1,7 +1,7 @@
 %global pypi_name tldextract
 
 Name:           python-%{pypi_name}
-Version:        3.3.1
+Version:        3.4.0
 Release:        1%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
@@ -67,6 +67,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 3.4.0-1
+- update to 3.4.0 rhbz#2132165
+
 * Tue Jul 26 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 3.3.1-1
 - update to 3.3.1
 

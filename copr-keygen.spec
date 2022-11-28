@@ -1,12 +1,13 @@
 %global with_test 1
+%global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    1.85
+Version:    1.86
 Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPLv2+
-URL:        https://pagure.io/copr/copr
+URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
 # git clone %%url && cd copr
@@ -18,6 +19,7 @@ BuildRequires: util-linux
 BuildRequires: systemd
 
 BuildRequires: python3-devel
+BuildRequires: python3-copr-common >= %copr_common_version
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
 BuildRequires: python3-flask
@@ -37,6 +39,7 @@ Requires:   obs-signd
 Requires:   passwd
 
 Recommends: logrotate
+Requires:   python3-copr-common >= %copr_common_version
 Requires:   python3-setuptools
 Requires:   python3-six
 Requires:   python3-flask
@@ -174,6 +177,11 @@ systemctl condrestart httpd &>/dev/null || :
 
 
 %changelog
+* Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 1.86-1
+- move to GitHub home page
+- logging shouldn't affect stdout
+- add logging for the gpg-copr script
+
 * Tue Sep 20 2022 Jakub Kadlcik <frostyx@email.cz> 1.85-1
 - temporarily disable documentation to avoid FTBFS for F37/Rawhide
 

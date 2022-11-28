@@ -1,6 +1,6 @@
 Name:           alsa-ucm-asahi
 Version:        1
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        ALSA Use Case Manager configuration (and topologies) for Apple silicon devices
 License:        BSD-3-Clause
 
@@ -27,5 +27,4 @@ cp -a ucm2/conf.d/macaudio/ %{buildroot}%{_datadir}/alsa/ucm2/conf.d/
 %{_datadir}/alsa/ucm2/conf.d/macaudio/
 
 %changelog
-* Fri Nov 18 2022 Leif Liddy <leif.liddy@gmail.com> - 1-1
-- Initial version
+%autochangelog

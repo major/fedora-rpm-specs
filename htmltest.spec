@@ -4,7 +4,7 @@
 
 # https://github.com/wjdp/htmltest
 %global goipath         github.com/wjdp/htmltest
-Version:                0.16.0
+Version:                0.17.0
 
 %gometa
 

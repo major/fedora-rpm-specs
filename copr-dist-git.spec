@@ -1,12 +1,12 @@
-%global copr_common_version 0.14.1.dev
+%global copr_common_version 0.16.4.dev
 
 Name:       copr-dist-git
-Version:    0.57
+Version:    0.58
 Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPLv2+
-URL:        https://pagure.io/copr/copr
+URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
 # git clone %%url && cd copr
@@ -23,6 +23,7 @@ BuildRequires: python3-rpkg
 BuildRequires: python3-pytest
 BuildRequires: python3-copr-common >= %copr_common_version
 BuildRequires: python3-oslo-concurrency
+BuildRequires: python3-redis
 BuildRequires: python3-setproctitle
 
 Recommends: logrotate
@@ -37,9 +38,12 @@ Requires: python3-rpkg >= 1.63-5
 Requires: python3-munch
 Requires: python3-oslo-concurrency
 Requires: python3-setproctitle
+Requires: python3-daemon
+Requires: python3-redis
 Requires: findutils
 Requires: (copr-selinux if selinux-policy-targeted)
 Requires: crontabs
+Requires: redis
 
 Recommends: python3-copr
 
@@ -136,6 +140,12 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
+* Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.58-1
+- require redis.service to be started
+- move to GitHub home page
+- fair processing of task from multiple sandboxes
+- use dispatcher and background workers
+
 * Tue Aug 16 2022 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 0.57-1
 - log the URL that got us new tasks
 

@@ -9,12 +9,12 @@
 # install the package and run "remake check" manually before committing.
 
 %global gappadir %{ocamldir}/coq/user-contrib/Gappa
-%global coqver  8.16.0
+%global coqver  8.16.1
 %global commit  a21720330ab26166150d88a95689f755bb135480
 
 Name:           gappalib-coq
 Version:        1.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -100,6 +100,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-5
+- Rebuild for coq 8.16.1
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-4
 - Rebuild for coq 8.16.0
 

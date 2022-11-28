@@ -63,6 +63,11 @@ find py%{python3_version}/examples/ -name "*" -exec sed -i 's/\r$//' '{}' \;
 # remove shebang
 sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' py%{python3_version}/multiprocess/tests/__main__.py
 
+# Upstream pretends not to be a pure-Python package to “force python-, abi-,
+# and platform-specific naming of bdist_wheel”; this isn’t needed here, and we
+# don’t want the RPM package to have to be arched.
+sed -r -i 's/^([[:blank:]]*)(distclass=BinaryDistribution,)/\1# \2/' setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 

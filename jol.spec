@@ -3,7 +3,13 @@ Version:        0.16
 Release:        6%{?dist}
 Summary:        Java Object Layout
 
-License:        GPLv2 with exceptions
+# GPL-2.0-only: the project as a whole
+# GPL-2.0-only WITH Classpath-exception-2.0:
+#   Every file containing the following text: "Oracle designates this
+#   particular file as subject to the "Classpath" exception as provided by
+#   Oracle in the LICENSE file that accompanied this code.
+# BSD-3-Clause: jol-samples/ (not shipped in any binary RPM)
+License:        GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://openjdk.java.net/projects/code-tools/jol/
 Source0:        https://github.com/openjdk/jol/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -86,6 +92,9 @@ sed -i 's/1\.7/1.8/' pom.xml
 %files cli -f .mfiles-jol-cli
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 0.16-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

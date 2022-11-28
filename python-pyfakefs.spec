@@ -1,7 +1,7 @@
 %global package_name pyfakefs
 
 Name:           python-%{package_name}
-Version:        4.6.3
+Version:        5.0.0
 Release:        1%{?dist}
 Summary:        pyfakefs implements a fake file system that mocks the Python file system modules.
 License:        ASL 2.0
@@ -21,7 +21,7 @@ work with pyfakefs.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{package_name}}
 
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
@@ -53,6 +53,9 @@ rm -f {,test-}requirements.txt
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Sun Aug 14 2022 Orion Poplawski <orion@nwra.com> - 5.0.0-1
+- Update to 5.0.0 rhbz#2127704
+
 * Sun Aug 14 2022 Orion Poplawski <orion@nwra.com> - 4.6.3-1
 - Update to 4.6.3
 

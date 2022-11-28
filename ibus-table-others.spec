@@ -1,8 +1,8 @@
 Name:       ibus-table-others
-Version:    1.3.13
-Release:    2%{?dist}
+Version:    1.3.14
+Release:    1%{?dist}
 Summary:    Various tables for IBus-Table
-License:    GPLv3
+License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
 URL:        http://github.com/moebiuscurve/ibus-table-others
 Source0:    http://mfabian.fedorapeople.org/ibus-table-others/%{name}-%{version}.tar.gz
 BuildArch:  noarch
@@ -18,6 +18,7 @@ Latin-America, Europe, Southeast Asia, as well as math and other symbols
 %package -n ibus-table-code
 Requires:  ibus-table
 Summary:   Ibus-Tables for Latex, CNS11643 & Emoji
+License:   LGPL-2.1-or-later
 
 %description -n ibus-table-code
 The package contains ibus-tables for Latex, CNS11643, Emoji. 
@@ -25,6 +26,7 @@ The package contains ibus-tables for Latex, CNS11643, Emoji.
 %package -n ibus-table-cyrillic
 Requires:  ibus-table
 Summary:   Ibus-Tables for Cyrillic
+License:   LGPL-2.1-or-later
 
 %description -n ibus-table-cyrillic
 The Cyrillic rustrad & yawerty tables for IBus Table.
@@ -32,6 +34,7 @@ The Cyrillic rustrad & yawerty tables for IBus Table.
 %package -n ibus-table-latin
 Requires:  ibus-table
 Summary:   Ibus-Tables for Latin
+License:   LGPL-2.1-or-later AND GPL-3.0-or-later
 
 %description -n ibus-table-latin
 The Latin compose & ipa-x-sampa tables for Ibus-Table.
@@ -39,6 +42,7 @@ The Latin compose & ipa-x-sampa tables for Ibus-Table.
 %package -n ibus-table-translit
 Requires:  ibus-table
 Summary:   Ibus-Tables for Russian Translit
+License:   LGPL-2.1-or-later
 
 %description -n ibus-table-translit
 The Cyrillic translit & translit-ua tables for IBus-Table.
@@ -46,6 +50,7 @@ The Cyrillic translit & translit-ua tables for IBus-Table.
 %package -n ibus-table-tv
 Requires:  ibus-table
 Summary:   Ibus-Tables for Thai and Viqr (Vietnamese)
+License:   LGPL-2.1-or-later
 
 %description -n ibus-table-tv
 The Thai and Viqr (Vietnamese) tables for IBus-Table.
@@ -53,6 +58,7 @@ The Thai and Viqr (Vietnamese) tables for IBus-Table.
 %package -n ibus-table-mathwriter
 Requires:  ibus-table
 Summary:  Ibus-Tables for Unicode mathematics symbols
+License:  LGPL-2.1-or-later
 
 %description -n ibus-table-mathwriter
 The package contains table for writing Unicode mathematics symbols.
@@ -60,6 +66,7 @@ The package contains table for writing Unicode mathematics symbols.
 %package -n ibus-table-mongol
 Requires:  ibus-table
 Summary:  Ibus-Tables for Mongol Script
+License:  WTFPL
 
 %description -n ibus-table-mongol
 The package contains a table for transliterating Latin Script to Mongol Script
@@ -102,6 +109,7 @@ cat > $RPM_BUILD_ROOT%{_datadir}/appdata/emoji-table.appdata.xml <<EOF
 <component type="inputmethod">
   <id>emoji-table.db</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1-or-later</project_license>
   <name>Emoji</name>
   <summary>Emoji input method</summary>
   <description>
@@ -139,6 +147,7 @@ cat > $RPM_BUILD_ROOT%{_datadir}/appdata/ipa-x-sampa.appdata.xml <<EOF
 <component type="inputmethod">
   <id>ipa-x-sampa.db</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <name>International Phonetic Alphabet</name>
   <summary>IPA X-SAMPA input method</summary>
   <description>
@@ -170,6 +179,7 @@ cat > $RPM_BUILD_ROOT%{_datadir}/appdata/mathwriter-ibus.appdata.xml <<EOF
 <component type="inputmethod">
   <id>mathwriter-ibus.db</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-2.1-or-later</project_license>
   <name>Mathwriter</name>
   <summary>Math symbols input method</summary>
   <description>
@@ -193,6 +203,7 @@ cat > $RPM_BUILD_ROOT%{_datadir}/appdata/mongol_bichig.appdata.xml <<EOF
 <component type="inputmethod">
   <id>mongol_bichig.db</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <project_license>WTFPL</project_license>
   <name>Mongol Bichig</name>
   <summary>Transliteration to Mongol Script</summary>
   <description>
@@ -268,10 +279,14 @@ EOF
 %{_datadir}/ibus-table/icons/mongol_bichig.svg
 
 %changelog
+* Sat Nov 26 2022 Mike FABIAN <mfabian@redhat.com> - 1.3.14-1
+- Update to latest upstream 1.3.14
+- Migrate license tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Mon Apr 25 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-1
+* Mon Apr 25 2022 Mike FABIAN <mfabian@redhat.com> - 1.3.13-1
 - \langle and \rangle were previously U+2329, U+232A from Miscellaneous Technical.
   Changing them to U+27E8, U+27E9 from Miscellaneous Mathematical Symbols-A makes
   more sense and lets us also add the double angle brackets U+27EA, U+27EB.

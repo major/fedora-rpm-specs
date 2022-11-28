@@ -19,7 +19,7 @@ system.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
 License:        MIT
@@ -29,11 +29,18 @@ URL:            https://github.com/firefly-cpp/%{pretty_name}
 Source0:        %{url}/archive/%{version}/%{pretty_name}-%{version}.tar.gz
 
 BuildArch:      noarch
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_noarch_with_unported_dependencies
+#
+# This package requires python3dist(pyqtwebengine).
+ExclusiveArch: %{qt5_qtwebengine_arches} noarch
 
 %description %_description
 
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
+
+# For qt5_qtwebengine_arches macro:
+BuildRequires:  qt5-srpm-macros
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist toml-adapt}
@@ -100,6 +107,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc examples/
 
 %changelog
+* Sat Nov 26 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.0-2
+- Exclude architectures that lack qtwebengine
+
 * Thu Sep 15 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.0-1
 - Update to the latest release
 

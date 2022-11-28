@@ -1,6 +1,6 @@
 Name:		lightdm-settings
-Version:	1.5.9
-Release:	1%{?dist}
+Version:	1.5.10
+Release:	2%{?dist}
 Summary:	Configuration tool for the LightDM display manager
 
 License:	GPLv3+
@@ -76,6 +76,9 @@ f=".%{_bindir}/%{name}"
 
 
 %changelog
+* Sun Jul 24 2022 Jonathan Wright <jonathan@almalinux.org> - 1.5.10-2
+- Update to 1.5.10 rhbz#2144745
+
 * Sun Jul 24 2022 Leigh Scott <leigh123linux@gmail.com> - 1.5.9-1
 - Update to 1.5.9 release
 

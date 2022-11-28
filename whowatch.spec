@@ -1,11 +1,12 @@
 Summary: Display information about users currently logged on 
 Name: whowatch
 Version: 1.8.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv2
 URL: http://wizard.ae.krakow.pl/~mike/
 
 Source0: https://github.com/mtsuszycki/whowatch/archive/whowatch-%{version}.tar.gz
+Patch0: whowatch-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -20,10 +21,12 @@ idle time. You can watch processes tree, navigate in it and send INT and KILL
 signals.
 
 %prep
-
-%setup -q
+%autosetup -p1
 
 %build
+# Avoid regenerating configure script because whowatch-configure-c99.patch
+# updates it directly.
+touch aclocal.m4 Makefile.in src/config.h.in
 %configure
 %{__make} %{?_smp_mflags}
 
@@ -39,6 +42,9 @@ signals.
 %{_bindir}/whowatch
 
 %changelog
+* Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 1.8.6-13
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

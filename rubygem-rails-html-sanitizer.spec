@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: This gem is responsible to sanitize HTML fragments in Rails applications
 License: MIT
 URL: https://github.com/rails/rails-html-sanitizer
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/rails/rails-html-sanitizer/pull/143
+# libxml2 2.10.x changes incorrectly opened comments parsing
+Patch0:  %{name}-1.4.3-tests-libxml2-2_10_0-parsing-comments-change.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -30,6 +33,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -60,6 +64,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sat Nov 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.3-2
+- Backport upstream patch for tests wrt libxml2 comment parsing change
+
 * Fri Aug 05 2022 Vít Ondruch <vondruch@redhat.com> - 1.4.3-1
 - Update to rails-html-sanitizer 1.4.3.
   Resolves: rhbz#2095592

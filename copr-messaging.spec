@@ -7,12 +7,12 @@ Package also provides several convenience methods for working with \
 copr messages.
 
 Name:       copr-messaging
-Version:    0.6
-Release:    2%{?dist}
+Version:    0.7
+Release:    1%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPLv2+
-URL:        https://pagure.io/copr/copr
+URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
 # git clone %%url && cd copr
@@ -71,7 +71,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %check
-./runtests.sh -vv
+./run_tests.sh -vv
 
 
 %files -n python3-%name
@@ -86,8 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.7-1
+- move to GitHub home page
+- sync tooling with other sub-projects
 
 * Tue Jun 21 2022 Jakub Kadlcik <frostyx@email.cz> 0.6-1
 - Adapt to the changed stomppy API

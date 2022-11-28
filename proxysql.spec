@@ -1,13 +1,15 @@
 Summary:       A high-performance MySQL proxy
 Name:          proxysql
-Version:       2.3.2
-Release:       5%{?dist}
+Version:       2.4.4
+Release:       1%{?dist}
 # Proxysql Google group for free community support: https://groups.google.com/g/proxysql
 URL:           http://www.proxysql.com/
-# The entire source code is GPLv3+ except deps/re2 and deps/jemalloc which is BSD
-# and deps/mariadb-connector-c which is LGPLv2+
-# and prometheus-cpp which is MIT
-License:       GPLv3+ and LGPLv2+ and BSD and MIT
+# GPL-3.0-or-later
+# deps/jemalloc: BSD-2-Clause
+# deps/mariadb-connector-c: LGPL-2.1-or-later
+# deps/prometheus-cpp: MIT
+# deps/re2: BSD-3-Clause
+License:       GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause AND BSD-2-Clause AND MIT
 
 BuildRequires: make, automake
 BuildRequires: cmake, gcc-c++
@@ -22,10 +24,13 @@ BuildRequires: sqlite-devel
 BuildRequires: openssl-devel
 BuildRequires: libcurl-devel
 BuildRequires: libdaemon-devel
-BuildRequires: libconfig-devel, lz4-devel
+BuildRequires: libconfig-devel
+BuildRequires: lz4-devel
+BuildRequires: libuuid-devel
 
 # Used by provided (scripts) tools
 BuildRequires: perl
+BuildRequires: python3
 
 # Specific dependency for Fedora/RHEL/Centos
 BuildRequires: gnutls-devel
@@ -43,20 +48,18 @@ ExcludeArch:   %{power64} s390x
 Provides:      bundled(jemalloc) = 5.2.0
 Provides:      bundled(mariadb-connector-c) = 3.1.9
 Provides:      bundled(re2) = 20200706
-# Provided source package for clickhouse-cpp was not officially versioned.
-Provides:      bundled(clickhouse-cpp)
-Provides:      bundled(prometheus-cpp) = v9.0
+Provides:      bundled(clickhouse-cpp) = 2.1.0
+Provides:      bundled(prometheus-cpp) = 0.9.0
 Provides:      bundled(cityhash) = 1.1.1
 Provides:      bundled(libhttpserver) = 0.18.1
 Provides:      bundled(libmicrohttpd) = 0.9.68
 
 # There is inconsistency between name and URL of file and main unpacked source folder
-Source0:       https://github.com/sysown/proxysql/archive/refs/tags/v%{version}.tar.gz
-Source1:       proxysql.service
+Source0:       https://github.com/sysown/proxysql/archive/v%{version}/%{name}-%{version}.tar.gz
 # Manpage for binary is missing. Instead we provide it manually.
 # Link for tracking current status in upstream:
 # https://github.com/sysown/proxysql/issues/3564
-Source2:       proxysql.1
+Source1:       proxysql.1
 
 # The upstream code bundles multiple libraries: libconfig, libdaemon, sqlite3, re2,
 # mariadb-connector-c, pcre, clickhouse-cpp, prometheus-cpp, lz4, cityhash, microhttpd, curl
@@ -68,19 +71,9 @@ Source2:       proxysql.1
 # Other remaining libraries are not maintained in Fedora (clickhouse-cpp,
 # cityhash, prometheus-cpp)
 
-# Provides debundling bundled libraries
-Patch0: proxysql_debundle.patch
-# Provides lininject convertion to python3
-Patch1: libinjection_python2_to_3.patch
-# Provides fixes for gcc compiler
-Patch2: %{name}_gcc11.patch
-# Provides fixes for cmake scheme
-Patch3: %{name}_mariadb_cmake.patch
-# OpenSSL 3.x
-Patch5: https://github.com/sysown/proxysql/commit/fd16e583ac1a9db5af62079c349a2df80eac6557.patch#/0001-Removed-call-to-deprecated-memory-leak-checking-API-.patch
-Patch6: https://github.com/sysown/proxysql/commit/84d36bc943b0e2dd591aa852290c2451e5794e9d.patch#/0002-Changed-own-DH-parameters-in-favor-of-built-in-auto-.patch
-# Compatibility for gcc12
-Patch7: %{name}_gcc12.patch
+Patch0001: 0001-Unbundle-system-deps.patch
+Patch0002: 0002-Enable-tcp_fastopen-in-bundled-libhttpserver.patch
+Patch0003: 0003-Simplify-proxysql.service.patch
 
 %description
 ProxySQL is a high performance, high availability, protocol aware proxy for
@@ -88,11 +81,11 @@ MySQL and forks (like Percona Server and MariaDB).
 
 %prep
 %autosetup -p1
-
-# Remove sources of debundled libraries from v2.2.0
+# Remove sources of debundled libraries
 rm -r deps/{libssl,pcre,curl,lz4,libev,libconfig,libdaemon,sqlite3}
 
 %build
+export GIT_VERSION=%{version}
 %global _configure :
 %configure help
 export CPPFLAGS=$CXXFLAGS
@@ -103,13 +96,14 @@ install -p -D -m 0755 src/proxysql %{buildroot}%{_bindir}/proxysql
 install -p -D -m 0640 etc/proxysql.cnf %{buildroot}%{_sysconfdir}/proxysql.cnf
 install -p -D -m 0755 tools/proxysql_galera_checker.sh %{buildroot}%{_datadir}/%{name}/tools/proxysql_galera_checker.sh
 install -p -D -m 0755 tools/proxysql_galera_writer.pl %{buildroot}%{_datadir}/%{name}/tools/proxysql_galera_writer.pl
-install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -p -D -m 0644 systemd/system/proxysql.service %{buildroot}%{_unitdir}/proxysql.service
+install -p -D -m 0644 systemd/system/proxysql-initial.service %{buildroot}%{_unitdir}/proxysql-initial.service
 install -p -D -m 0644 README.md %{buildroot}%{_docdir}/proxysql/README.md
 install -p -D -m 0644 RUNNING.md %{buildroot}%{_docdir}/proxysql/RUNNING.md
 install -p -D -m 0644 FAQ.md %{buildroot}%{_docdir}/proxysql/FAQ.md
 install -p -D -m 0644 doc/release_notes/*.md -t %{buildroot}%{_docdir}/proxysql
 install -p -D -m 0644 doc/internal/*.txt -t %{buildroot}%{_docdir}/proxysql
-install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 
 %pre
@@ -127,21 +121,24 @@ install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 %systemd_postun_with_restart proxysql.service
 
 %files
-%defattr(-,root,root,-)
-%{_bindir}/*
-%{_unitdir}/*
-%{_datadir}/%{name}
-%{_docdir}/%{name}
-%{_mandir}/man1/*
 %license LICENSE
-%attr(-,proxysql,proxysql) %{_sharedstatedir}/%{name}
-%attr(-,proxysql,root) %config(noreplace) %{_sysconfdir}/%{name}.cnf
+%{_bindir}/proxysql
+%{_unitdir}/proxysql.service
+%{_unitdir}/proxysql-initial.service
+%{_datadir}/proxysql/
+%{_docdir}/proxysql/
+%{_mandir}/man1/proxysql.1*
+%attr(-,proxysql,proxysql) %{_sharedstatedir}/proxysql/
+%attr(-,proxysql,root) %config(noreplace) %{_sysconfdir}/proxysql.cnf
 
 %changelog
+* Fri Nov 25 2022 Igor Raits <igor@gooddata.com> - 2.4.4-1
+- Update to 2.4.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Mon Feb 14 2021 Marek Kulik <mkulik@redhat.com> - 2.3.2-4
+* Mon Feb 14 2022 Marek Kulik <mkulik@redhat.com> - 2.3.2-4
 - Fix FTBFS for gcc12 (Resolves: #2053629)
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-3

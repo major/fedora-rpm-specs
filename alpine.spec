@@ -6,7 +6,7 @@
 Summary: powerful, easy to use console email client
 Name: alpine
 Version: 2.26
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: ASL 2.0
 URL:     http://alpine.x10host.com/
@@ -15,6 +15,7 @@ Source1: README.fedora
 
 Patch1: alpine-2.24-useragent.patch
 Patch2: alpine-2.23-gcc10.patch
+Patch3: alpine-configure-c99.patch
 
 # Using "Conflicts" instead of Obsoletes because while alpine is substantially
 # compatible with pine the change to Unicode breaks important user
@@ -74,6 +75,7 @@ GNU Build System's autotools.
 %setup -q -n alpine-%{version}
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 install -m644 -p %{SOURCE1} .
 
@@ -124,6 +126,9 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf.fixed
 
 
 %changelog
+* Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 2.26-3
+- Port configure script to C99 (#2148656)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

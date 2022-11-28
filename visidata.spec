@@ -1,7 +1,7 @@
 %global srcname visidata
 
 Name:           %{srcname}
-Version:        2.8
+Version:        2.10.2
 Release:        %autorelease
 Summary:        Terminal interface for exploring and arranging tabular data
 
@@ -74,6 +74,9 @@ a lightweight utility which can handle millions of rows with ease.
 %pyproject_save_files %{srcname}
 
 %check
+mkdir HOME
+touch HOME/.visidatarc  # Needed for TestCommands.test_baseCommands
+export HOME=$PWD/HOME
 %{pytest}
 
 %files

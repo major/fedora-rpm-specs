@@ -4,7 +4,7 @@ Release:        7%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
-License:        MPLv1.1 or GPLv2+ or LGPLv2+
+License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 URL:            https://github.com/albfernandez/juniversalchardet
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -49,6 +49,9 @@ rm README.md.orig
 %license LICENSE
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-7
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

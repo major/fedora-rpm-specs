@@ -31,7 +31,7 @@ Requires:      glib2%{?_isa} >= %{glib_version}
 Recommends:    pipewire >= %{pipewire_version}
 Requires:      pipewire-libs%{?_isa} >= %{pipewire_version}
 # Required for the document portal.
-Requires:      /usr/bin/fusermount
+Requires:      /usr/bin/fusermount3
 # Required for the GMemoryMonitor GIO API
 Requires:      low-memory-monitor >= %{low_memory_monitor_version}
 

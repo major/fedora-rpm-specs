@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mocking and stubbing library
 License:        MIT or Ruby or BSD
 URL: https://mocha.jamesmead.org
@@ -10,6 +10,13 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/freerange/mocha.git && cd mocha
 # git archive -v -o mocha-1.15.0-test.tar.gz v1.15.0 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
+# https://github.com/freerange/mocha/commit/ae9fed4a9f2ef6267302494ae0edf515d4a8a921
+# To apply Patch1 cleanly:
+Patch0:  %{name}-2.0.2-dry-up-regexp-test.patch
+# https://github.com/freerange/mocha/issues/590
+# https://github.com/freerange/mocha/commit/26b106a540ad57cd73401461451aa2711c541e9d
+# Fix regexp test, ruby3.2 removes Object#=~
+Patch1:  %{name}-2.0.2-ruby32-fix-regexp-test.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -33,6 +40,11 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}/test
+%patch0 -p2
+%patch1 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -75,6 +87,9 @@ popd
 
 
 %changelog
+* Sat Nov 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.15.0-2
+- Backport upstream fix for ruby3.2 Object#=~ removal
+
 * Tue Oct 11 2022 Vít Ondruch <vondruch@redhat.com> - 1.15.0-1
 - Update to Mocha 1.1.0.
   Resolves: rhbz#1778907

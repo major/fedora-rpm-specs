@@ -16,6 +16,7 @@ Patch3:			Maelstrom-3.0.6-install.patch
 Patch4:			Maelstrom-open.patch
 Patch5:			Maelstrom-3.0.6-DESTDIR.patch
 Patch6:                 Maelstrom-3.0.6-gcc5.patch
+Patch7:                 Maelstrom-netd-c99.patch
 URL:			http://www.libsdl.org/projects/Maelstrom/
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -38,6 +39,7 @@ at the same time.
 %patch4 -p1 -b .open
 %patch5 -p1 -b .destdir
 %patch6 -p1
+%patch7 -p1
 cp %{SOURCE3} .
 
 
@@ -79,6 +81,9 @@ find %{buildroot} -name "Makefile*" -exec rm -f {} \;
 
 
 %changelog
+* Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 3.0.6-44
+- Fixes for building in strict(er) C99 mode (#2148634)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

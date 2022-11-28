@@ -11,7 +11,7 @@
 
 Name:           why3
 Version:        1.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -309,6 +309,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-3
+- Rebuild for coq 8.16.1
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-2
 - Rebuild for ocaml-ppxlib 0.28.0
 

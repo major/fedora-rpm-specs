@@ -29,7 +29,7 @@ BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-pkg-browse-doc
 %if %{without bootstrap}
 BuildRequires:  gap-pkg-ctbllib-doc
-#BuildRequires:  gap-pkg-standardff-doc
+BuildRequires:  gap-pkg-standardff-doc
 BuildRequires:  gap-pkg-tomlib
 %endif
 BuildRequires:  gap-pkg-utils-doc
@@ -67,7 +67,7 @@ Requires:       GAPDoc-doc
 Requires:       gap-pkg-browse-doc
 %if %{without bootstrap}
 Requires:       gap-pkg-ctbllib-doc
-#Requires:       gap-pkg-standardff-doc
+Requires:       gap-pkg-standardff-doc
 %endif
 Requires:       gap-pkg-utils-doc
 

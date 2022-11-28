@@ -18,8 +18,8 @@
 %bcond_with doc
 
 Name:           coq
-Version:        8.16.0
-Release:        2%{?dist}
+Version:        8.16.1
+Release:        1%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -403,6 +403,9 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %endif
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 8.16.1-1
+- Version 8.16.1
+
 * Thu Oct  6 2022 Jerry James <loganjerry@gmail.com> - 8.16.0-2
 - Remove the manual, which has a non-free license (bz 2132567)
 

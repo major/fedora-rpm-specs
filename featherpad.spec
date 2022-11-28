@@ -1,28 +1,13 @@
-# For release builds set to 1, for snapshots set to 0
-%global relbuild 1 
-
-%if !0%{?relbuild}
-%global commit 73252293ca720d7783372b477f34ca9fad0ad8f6
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20170401
-%global git_ver -git%{gitdate}.%{shortcommit}
-%global git_rel .git%{gitdate}.%{shortcommit}
-%endif # !0%%{?relbuild}
-
 %global github_name FeatherPad
 
 Name:           featherpad
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 Summary:        Lightweight Qt5 Plain-Text Editor
 
 License:        GPLv3+
 URL:            https://github.com/tsujan/%{github_name}
-%if 0%{?relbuild}
 Source0:        %{url}/archive/V%{version}.tar.gz#/%{github_name}-%{version}.tar.gz
-%else  # 0%%{?relbuild}
-Source0:        %{url}/archive/%{commit}.tar.gz#/%{github_name}-%{version}%{?git_ver}.tar.gz
-%endif # 0%%{?relbuild}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -57,11 +42,7 @@ of any desktop environment and has:
 * Appropriate but non-interrupting prompts;
 
 %prep
-%if 0%{?relbuild}
 %autosetup -n %{github_name}-%{version} -p 1
-%else  
-%autosetup -n %{github_name}-%{commit} -p 1
-%endif 
 
 %build
 %cmake
@@ -87,6 +68,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 1.3.3-1
+- Update to 1.3.3 rhbz#2038534
+
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 1.1.1-1
+- Update to 1.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

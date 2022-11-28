@@ -1,6 +1,6 @@
 Name: ipcalc
-Version: 1.0.1
-Release: 4%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 Summary: IP network address calculator
 License: GPLv2+
 URL: https://gitlab.com/ipcalc/ipcalc
@@ -43,6 +43,9 @@ or check the validity of an address.
 %{_mandir}/man1/ipcalc.1*
 
 %changelog
+* Sat Nov 26 2022 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.0.2-1
+- Updated to 1.0.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

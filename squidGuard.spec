@@ -11,7 +11,7 @@
 
 Name:			squidGuard
 Version:		1.4
-Release:		42%{?dist}
+Release:		43%{?dist}
 Summary:		Filter, redirector and access controller plugin for squid
 
 License:		GPLv2
@@ -48,6 +48,8 @@ Patch8:			squidGuard-1.4-20091019.patch
 Patch9:			squidGuard-1.4-db5.patch
 Patch10:		squidGuard-1.4-helper-protocol.patch
 Patch11:                squidGuard-1.4-setuserinfo.patch
+Patch12:                squidGuard-configure-c99.patch
+Patch13:                squidGuard-htunescape-c99.patch
 
 URL:			http://www.squidguard.org/
 
@@ -103,11 +105,17 @@ Neither squidGuard nor Squid can be used to
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
+%patch13 -p1
 
 %{__cp} %{SOURCE100} ./squidGuard.conf.k12ltsp.template
 %{__cp} %{SOURCE101} ./update_squidguard_blacklists.k12ltsp.sh
 
 %build
+# LDAP_DEPRECATED ensures that ldap_init is declared in <ldap.h>.
+%set_build_flags
+CFLAGS="$CFLAGS -DLDAP_DEPRECATED"
+
 %configure \
 	--with-sg-config=%{_sysconfdir}/squid/squidGuard.conf \
 	--with-sg-logdir=%{_var}/log/squidGuard \
@@ -258,6 +266,9 @@ fi
 %attr(0755,squid,squid) %{_localstatedir}/log/squid/squidGuard.log
 
 %changelog
+* Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 1.4-43
+- Fixes for building in strict(er) C99 mode (#2148639)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

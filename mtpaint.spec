@@ -3,7 +3,7 @@
 Summary:       Painting program for creating icons and pixel-based artwork
 Name:          mtpaint
 Version:       3.50
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       GPLv3+
 URL:           http://mtpaint.sourceforge.net/
 Source0:       http://downloads.sf.net/mtpaint/mtpaint-%{version}.tar.bz2
@@ -12,6 +12,7 @@ Patch0:        mtpaint-3.50-xdg-open.patch
 Patch1:        mtpaint-3.31-png.patch
 Patch2:        mtpaint-3.40-strip.patch
 Patch3:        mtpaint-3.40-yad.patch
+Patch4:        mtpaint-configure-c99.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: giflib-devel
@@ -121,6 +122,9 @@ EOF
 %license %{name}_handbook-%{version}/COPYING
 
 %changelog
+* Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 3.50-7
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.50-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

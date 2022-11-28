@@ -1,7 +1,7 @@
 %global pkgname flufl-lock
 
 Name:           python-%{pkgname}
-Version:        6.0
+Version:        7.1.1
 Release:        1%{?dist}
 Summary:        NFS-safe file locking with timeouts for POSIX systems
 
@@ -60,10 +60,17 @@ rm -f conftest.py
 %files -n python3-%{pkgname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst docs/
-%{python3_sitelib}/flufl.lock-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 7.1.1-1
+- Update to 7.1.1
+- rhbz#1852603
+
+* Thu Aug 25 2022 Jonathan Wright <jonathan@almalinux.org> - 7.1-1
+- Update to 7.1
+- rhbz#1852603
+
 * Thu Aug 25 2022 Jonathan Wright <jonathan@almalinux.org> - 6.0-1
 - Updated to 6.0-1
 - Spec file modernization

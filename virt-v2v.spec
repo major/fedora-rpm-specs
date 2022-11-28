@@ -15,7 +15,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.1.9
+Version:       2.1.10
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -282,6 +282,7 @@ make -C test-data/phony-guests fedora.img
 %if !0%{?rhel}
 %{_bindir}/virt-v2v-in-place
 %endif
+%{_bindir}/virt-v2v-inspector
 %{_mandir}/man1/virt-v2v.1*
 %{_mandir}/man1/virt-v2v-hacking.1*
 %{_mandir}/man1/virt-v2v-input-vmware.1*
@@ -289,6 +290,7 @@ make -C test-data/phony-guests fedora.img
 %if !0%{?rhel}
 %{_mandir}/man1/virt-v2v-in-place.1*
 %endif
+%{_mandir}/man1/virt-v2v-inspector.1*
 %{_mandir}/man1/virt-v2v-output-local.1*
 %{_mandir}/man1/virt-v2v-output-openstack.1*
 %{_mandir}/man1/virt-v2v-output-rhv.1*
@@ -314,6 +316,10 @@ make -C test-data/phony-guests fedora.img
 
 
 %changelog
+* Sat Nov 26 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.10-1
+- New upstream development version 2.1.10
+- New tool: virt-v2v-inspector
+
 * Tue Oct 11 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.9-1
 - New upstream development version 2.1.9
 

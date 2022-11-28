@@ -5,7 +5,7 @@ Version:        0.8
 Release:        6%{?dist}
 Summary:        International Chemical Identifiers for Java
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            http://jni-inchi.sourceforge.net/
 Source0:        https://github.com/SureChEMBL/jni-inchi/archive/v%{version}-%{debver}-deb/%{name}-%{version}.tar.gz
 # Generate JNI headers with "javac -h" instead of javah.  Do not use jnati,
@@ -104,6 +104,9 @@ cp -p target/native/*.so %{buildroot}%{_libdir}/%{name}
 %{_libdir}/%{name}/
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 0.8-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

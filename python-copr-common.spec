@@ -16,12 +16,12 @@
 %endif
 
 Name:       python-copr-common
-Version:    0.15
-Release:    2%{?dist}
+Version:    0.17
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPLv2+
-URL:        https://pagure.io/copr/copr
+URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
 # git clone %%url && cd copr
@@ -115,8 +115,21 @@ version=%version %py2_install
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.17-1
+- move to GitHub home page
+- logging shouldn't affect stdout
+- move dispatcher and background workers to copr-common
+- scripts should log also timestamps etc when logging into file
+- move setup_script_logger to copr-common
+
+* Thu Oct 27 2022 Jakub Kadlcik <frostyx@email.cz> - 0.16.2.dev-1
+- Add background_worker.py from backend
+- Add get_redis_connection function
+- Add Dispatcher, WorkerManager, and QueueTask classes
+- Add WorkerLimit, PredicateWorkerLimit, and GroupWorkerLimit classes
+
+* Sun Oct 02 2022 Jakub Kadlcik <frostyx@email.cz> - 0.16-1
+- Add setup_script_logger function
 
 * Tue Jun 21 2022 Jakub Kadlcik <frostyx@email.cz> 0.15-1
 - Allow SafeRequest's timeout to be specified

@@ -19,7 +19,7 @@
 
 Name:           ocaml-menhir
 Version:        20220210
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -101,10 +101,10 @@ make -C coq-menhirlib
 # Build the manual
 cd doc
 rm manual.pdf
-pdflatex manual
+pdflatex -interaction=batchmode manual
 bibtex manual
-pdflatex manual
-pdflatex manual
+pdflatex -interaction=batchmode manual
+pdflatex -interaction=batchmode manual
 cd -
 %endif
 
@@ -145,6 +145,9 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %endif
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 20220210-10
+- Rebuild for coq 8.16.1
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 20220210-9
 - Rebuild for coq 8.16.0
 
