@@ -2,7 +2,7 @@
 
 Name:      mrpt
 Version:   1.4.0
-Release:   33%{?dist}
+Release:   34%{?dist}
 License:   BSD
 Summary:   Libraries and programs for mobile robot SLAM and navigation
 URL:       http://www.mrpt.org
@@ -477,6 +477,9 @@ rm -fr $RPM_BUILD_ROOT/%{_usr}/lib/python*
 %{_libdir}/*.so.*
 
 %changelog
+* Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-34
+- Rebuild due to wxGLCanvas ABI change
+
 * Mon Sep 12 2022 Scott Talbert <swt@techie.net> - 1.4.0-33
 - Rebuild with wxWidgets 3.2
 

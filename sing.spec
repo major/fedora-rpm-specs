@@ -1,13 +1,14 @@
 Summary:	Sends fully customized ICMP packets from command line
 Name:		sing
 Version:	1.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	GPLv2+
 URL:		http://www.sourceforge.net/projects/%{name}/
 Source:		http://downloads.sourceforge.net/%{name}/SING-%{version}.tgz
 Patch0:		sing-1.1-fedora.patch
 Patch1:		sing-1.1-suid_log.patch
 Patch2:		sing-1.1-sys_errlist.patch
+Patch3: sing-c99.patch
 BuildRequires: make
 BuildRequires:	gcc, libpcap-devel, libnet10-devel, automake, autoconf
 
@@ -33,6 +34,7 @@ certain enhancements as:
 %patch0 -p1 -b .fedora
 %patch1 -p1 -b .sing_suid
 %patch2 -p1 -b .sys_errlist
+%patch3 -p1 -b .c99
 
 # Rebuilding of configure file is needed for Patch0
 autoconf
@@ -60,6 +62,9 @@ mv -f LEEME.utf8 LEEME
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 1.1-26
+- Add <stdlib.h> for the exit function, to avoid C99 compiler errors
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

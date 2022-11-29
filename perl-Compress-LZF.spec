@@ -1,6 +1,6 @@
 Name:           perl-Compress-LZF
 Version:        3.8
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extremely light-weight Lempel-Ziv-Free compression
 License:        GPL+ or Artistic
 ## Not in the binary packages
@@ -12,6 +12,7 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-LZ
 Patch0:         Compress-LZF-3.8-Unbundle-liblzf.patch
 # Unbundle perlmulticore.h
 Patch1:         Compress-LZF-3.8-Unbundle-perlmulticore.patch
+Patch2:         perl-Compress-LZF-c99.patch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -38,6 +39,7 @@ This is Perl binding to the LZF compression library.
 %setup -q -n Compress-LZF-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
@@ -60,6 +62,9 @@ make test
 %{_mandir}/man3/Compress::LZF.3*
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 3.8-24
+- Avoid implicit function declarations for C99 compatibility (#2148767)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

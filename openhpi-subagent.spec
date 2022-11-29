@@ -1,6 +1,6 @@
 Name:           openhpi-subagent
 Version:        2.3.4
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        NetSNMP subagent for OpenHPI
 
 License:        BSD
@@ -14,6 +14,8 @@ Patch1:         %{name}-2.3.4-format.patch
 Patch2:         %{name}-2.3.4-dso.patch
 # disable -Werror as gcc >= 4.6 is too strict for our code
 Patch3:         %{name}-2.3.4-no-werror.patch
+
+Patch4: openhpi-subagent-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -35,6 +37,7 @@ Hardware Platform Interface SNMP sub-agent.
 %patch1 -p1 -b .format
 %patch2 -p1 -b .dso
 %patch3 -p1 -b .werror
+%patch4 -p1 -b .configure-c99
 
 # set timestamps back
 touch -r configure.ac.dso configure.ac
@@ -84,6 +87,9 @@ fi
 %{_datadir}/snmp/mibs/*.mib
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.3.4-47
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

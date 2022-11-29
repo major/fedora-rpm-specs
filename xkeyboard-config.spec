@@ -7,7 +7,7 @@
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
 Version:    2.36
-Release:    2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:    3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License:    MIT
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 
@@ -22,6 +22,9 @@ Source0:    http://xorg.freedesktop.org/archive/individual/data/%{name}/%{name}-
 # Both upstream already
 Patch01:    0001-rules-use-backslashes-instead-of-slashes-for-line-co.patch
 Patch02:    0002-rules-remove-two-rules-that-reference-two-sections-t.patch
+
+# Add apple:jp_oadg109a and apple:jp_pc106 variants
+Patch03:    https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/merge_requests/447.patch
 
 BuildArch:  noarch
 
@@ -82,6 +85,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Sat Nov 26 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 2.36-3
+- Backport upstream MR to allow Apple MacBook keyboards to type \ properly
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

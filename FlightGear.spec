@@ -3,7 +3,7 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2020.3.16
+Version:        2020.3.17
 Release:        1%{?dist}
 License:        GPLv2+
 Source0:        https://sourceforge.net/projects/flightgear/files/release-2020.3/flightgear-%{version}.tar.bz2
@@ -81,6 +81,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Sat Nov 26 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.17-1
+- new upstream release
+
 * Thu Oct 20 2022 Fabrice Bellet <fabrice@bellet.info> - 2020.3.16-1
 - new upstream release
 - Fix crash on METAR without cloud coverage set

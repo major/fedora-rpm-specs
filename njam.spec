@@ -1,6 +1,6 @@
 Name:           njam
 Version:        1.25
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Maze-game, eat all the cookies while avoiding the badguys
 License:        GPLv2+
 URL:            http://njam.sourceforge.net/
@@ -16,6 +16,7 @@ Patch2:         njam-1.25-leveledit.patch
 Patch3:         njam-1.25-gcc45.patch
 Patch4:         njam-1.25-rhbz767015.patch
 Patch5:         njam-1.25-format-security.patch
+Patch6: njam-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
@@ -39,6 +40,7 @@ level skins, many different levels and an integrated level editor.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 
 %build
@@ -88,6 +90,9 @@ install -p -m 644 %{name}.png \
 
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 1.25-40
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

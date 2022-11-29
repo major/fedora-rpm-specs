@@ -3,11 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Simple depth first Ruby testing
 License: MIT
 URL: http://github.com/geemus/shindo
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/geemus/shindo/pull/29
+# ruby3.2 removes File.exists? already deprecated since ruby2.1
+Patch0:  %{name}-0.3.10-ruby32-File-exists-removal.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -28,6 +31,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -75,6 +79,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.10-5
+- Backport upstream patch for ruby32 File.exists? removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

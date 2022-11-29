@@ -1,6 +1,6 @@
 Name:           aterm
 Version:        1.0.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 
 Summary:        Afterstep XVT, VT102 emulator for the X Window system
 License:        GPLv2+
@@ -10,6 +10,7 @@ Source1:        aterm.desktop
 Patch0:         aterm-debuginfo.patch
 Patch1:         aterm-stropts.patch
 Patch2:         aterm-dpy.patch
+Patch3:         aterm-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -36,6 +37,7 @@ advantage on a machine serving many X sessions.
 %patch0 -b.debuginfo
 %patch1 -b.stropts
 %patch2 -p1 -b.dpy
+%patch3 -p1 -b.configure-c99
 
 %build
 %configure --enable-fading --enable-background-image \
@@ -63,6 +65,9 @@ chrpath --delete %{buildroot}%{_bindir}/aterm
 
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-37
+- Port configure script to C99 (#2148747)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

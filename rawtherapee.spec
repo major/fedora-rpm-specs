@@ -11,7 +11,7 @@ Version:        5.9~20221002git%{shortcommit}
 Release:        %autorelease
 Summary:        Raw image processing software
 
-License:        GPLv3 and MIT and IJG
+License:        GPL-3.0-or-later and AGPL-3.0-or-later and MIT-open-group and IJG and BSL-1.0 and Apache-2.0
 URL:            http://www.rawtherapee.com/
 
 %if 0%{?development}
@@ -108,7 +108,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/com.%{na
 
 
 %files
-%doc AUTHORS.txt LICENSE RELEASE_NOTES.txt
+%doc AUTHORS.txt RELEASE_NOTES.txt
+%license LICENSE licenses/DroidSansMonoDotted.txt licenses/sleef_LICENSE.txt licenses/jdatasrc
 %{_mandir}/man1/%{name}.1.gz
 %{_bindir}/%{name}
 %{_bindir}/%{name}-cli

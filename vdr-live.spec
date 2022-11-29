@@ -12,7 +12,7 @@
 %endif
 
 Name:           vdr-live
-Version:        3.1.8
+Version:        3.1.9
 #Release:        0.4.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
@@ -67,7 +67,7 @@ iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 %if 0%{?fedora} > 35
 %make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
 %else
-%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -std=gnu++11 -fPIC"
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -std=gnu++14 -fPIC"
 %endif
 
 %install
@@ -89,6 +89,12 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Sun Nov 27 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.9-1
+- Updatae to 3.1.9
+
+* Thu Nov 17 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.8-2
+- Rebuilt due undefined symbol: _ZN7vdrlive6cUsers14logged_in_userB5cxx11E
+
 * Mon Oct 10 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.8-1
 - Updatae to 3.1.8
 

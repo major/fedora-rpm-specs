@@ -8,6 +8,7 @@ Version:        0.8.0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 Summary:        Allow testing gRPC with pytest
 
+# SPDX
 License:        MIT
 URL:            https://github.com/kataev/pytest-grpc
 Source0:        %{url}/archive/%{commit}/pytest-grpc-%{commit}.tar.gz
@@ -42,7 +43,7 @@ rm -vf example/src/stub/.keepdir
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

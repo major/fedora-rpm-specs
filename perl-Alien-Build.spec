@@ -8,7 +8,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.73
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -22,6 +22,7 @@ Patch0:         Alien-Build-2.65-Remove-redundant-pkgconfig-implementations.patc
 # Support only the most commog SHA implementation,
 # the files are deleted in prep section
 Patch1:         Alien-Build-2.65-Remove-redundant-SHA-implementations.patch
+Patch2:         perl-Alien-Build-hide-c99-errors.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -303,6 +304,7 @@ rm t/alien_build_plugin_pkgconfig_{commandline,pp}.t
 # Alien::Build::Plugin::Digest::SHA, MANIFEST is updated by
 # Alien-Build-2.59-Remove-redundant-SHA-implementations.patch.
 %patch1 -p1
+%patch2 -p1
 rm lib/Alien/Build/Plugin/Digest/SHAPP.pm
 rm t/alien_build_plugin_digest_shapp.t
 # Remove unused tests
@@ -436,6 +438,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.73-2
+- Avoid triggering C99 implit int/function declaration errors
+
 * Mon Nov 21 2022 Petr Pisar <ppisar@redhat.com> - 2.73-1
 - 2.73 bump
 

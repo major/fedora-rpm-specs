@@ -15,8 +15,8 @@
 %endif
 
 Name:           slurm
-Version:        22.05.3
-Release:        2%{?dist}
+Version:        22.05.6
+Release:        1%{?dist}
 Summary:        Simple Linux Utility for Resource Management
 License:        GPLv2 and BSD
 URL:            https://slurm.schedmd.com/
@@ -71,7 +71,11 @@ BuildRequires:  libssh2-devel
 BuildRequires:  lz4-devel
 BuildRequires:  mariadb-devel
 BuildRequires:  munge-devel
+# numctl-devel not available in el9 for arch s390x (#2099483);
+# task/affinity plugin won't be available in el9 for arch s390x
+%if (0%{?epel} != 9) || ("%{_arch}" != "s390x")
 BuildRequires:  numactl-devel
+%endif
 BuildRequires:  pam-devel
 BuildRequires:  pmix-devel
 BuildRequires:  rdma-core-devel
@@ -95,6 +99,7 @@ BuildRequires:  libyaml-devel
 ExcludeArch:    armv7hl
 ExcludeArch:    i686
 
+Requires:       mailx
 Requires:       munge
 Requires:       pmix
 %if 0%{?fedora} && %{with ucx}

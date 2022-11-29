@@ -1,13 +1,15 @@
 Summary:       Enlightened terminal emulator
 Name:          eterm
 Version:       0.9.6
-Release:       30%{?dist}
+Release:       31%{?dist}
 License:       BSD
 Source0:       http://www.eterm.org/download/Eterm-%{version}.tar.gz
 Source1:       http://www.eterm.org/download/Eterm-bg-%{version}.tar.gz
 Source2:       eterm.png
 Patch0:        eterm-0.9.6-gcc10.patch
 Patch1:        eterm-0.9.6-query-graphics.patch
+Patch2:        eterm-configure-c99.patch
+Patch3:        eterm-c99-headers.patch
 URL:           http://www.eterm.org/
 Requires:      xorg-x11-fonts-misc
 Requires:      xorg-x11-fonts-ISO8859-1-75dpi
@@ -35,6 +37,8 @@ philosophy of Enlightenment.
 %setup -a 1 -q -n Eterm-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 for f in ChangeLog ; do
     mv $f $f.iso88591
     iconv -o $f -f iso88591 -t utf8 $f.iso88591
@@ -94,6 +98,9 @@ rm -f %{buildroot}/%{_libdir}/libEterm.{a,la,so}
 %{_datadir}/pixmaps/eterm.png
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 0.9.6-31
+- Fixes for building with strict(er) C99 compilers
+
 * Wed Oct 26 2022 Terje Rosten <terje.rosten@ntnu.no> - 0.9.6-30
 - Rebuild to remove pcre deps
 

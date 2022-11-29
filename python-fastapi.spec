@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.87.0
+Version:        0.88.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -348,9 +348,6 @@ sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
 #   course. Note that this is only a *test* dependency.
 sed -r -i 's/("((sqlalchemy)\b)[^<"]*),[[:blank:]]*<[^"]*/\1/' \
     pyproject.toml
-
-# Use starlette 0.22.0 instead of 0.21.0
-sed -r -i 's/(starlette==0\.)21(\.0)/\122\2/' pyproject.toml
 
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:

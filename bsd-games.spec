@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 68%{?dist}
+Release: 69%{?dist}
 License: BSD and BSD with advertising
 URL: ftp://metalab.unc.edu/pub/Linux/games/
 Source0: ftp://metalab.unc.edu/pub/Linux/games/bsd-games-%{version}.tar.gz
@@ -40,6 +40,7 @@ Patch20: bsd-games-2.17-backgammonrecursion.patch
 Patch21: bsd-games-2.17-huntversion.patch
 Patch22: bsd-games-2.17-getrandom.patch
 Patch23: bsd-games-2.17-printf.patch
+Patch24: bsd-games-2.17-printw.patch
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -89,6 +90,7 @@ popd
 %patch21 -p1 -b .huntversion
 %patch22 -p1 -b .getrandom
 %patch23 -p1 -b .printf
+%patch24 -p1 -b .printw
 
 %build
 # We include a templatized configuration settings file to set
@@ -216,6 +218,10 @@ exit 0
 %doc AUTHORS COPYING ChangeLog ChangeLog.0 THANKS YEAR2000 README.hunt trek/USD.doc/trek.me
 
 %changelog
+* Sun Nov 27 2022 Jeff Makey <jeff@makey.net> - 2.17-69
+- Add rpmlintrc file to suppress spurious warning.
+- Use printw() format string where needed to satisfy -Werror=format-security.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

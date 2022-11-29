@@ -3,10 +3,9 @@ Version:        0.4.8
 Release:        %autorelease
 Summary:        Python packaging Common Tasks
 
-# The entire source is BSD, except for pyct/cmd.py, which is (BSD and ISC).
-# Since the ISC license is the same as BSD but with fewer terms, (BSD and ISC)
-# is effectively BSD, and so the overall effective license is just BSD.
-License:        BSD
+# The entire source is BSD-3-Clause, except for pyct/cmd.py, which is
+# (BSD-3-Clause and ISC).
+License:        BSD-3-Clause AND ISC
 URL:            https://github.com/pyviz-dev/pyct
 # The PyPI archive lacks tox.ini, but it was not exactly suitable for testing
 # in the RPM build environment anyway, so we just re-created the needed tests

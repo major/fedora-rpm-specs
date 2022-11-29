@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2021.0.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 URL: http://hugin.sourceforge.net/
@@ -169,6 +169,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2021.0.0-8
+- Rebuild due to wxGLCanvas ABI change
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 2021.0.0-7
 - Rebuild with wxWidgets 3.2
 

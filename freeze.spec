@@ -1,6 +1,6 @@
 Name:    freeze
 Version: 2.5.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: freeze/melt/fcat compression utilities
 
 # Confirmed with upstream, see email text in Source1
@@ -28,6 +28,11 @@ cp -a %{SOURCE1} .
 %patch2 -p1 -b .deffile
 
 %build
+# freeze is written in an old C dialect that uses implicit ints and
+# implicit function declarations, and is not compatible with C99.
+# Lower the language mode to C89.
+%set_build_flags
+CC="$CC -std=gnu89"
 chmod u+x configure
 %configure
 %make_build CFLAGS="$RPM_OPT_FLAGS -Dputc=putc"
@@ -50,6 +55,9 @@ done
 %{_mandir}/man?/*
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.5.0-34
+- Build in C89 mode (#2148750)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

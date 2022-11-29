@@ -1,10 +1,10 @@
-%global snap 20221009
-%global dir_snap 20221009
+%global snap 20221030
+%global dir_snap 20221030
 
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	43.%{snap}cvs%{?dist}
+Release:	44.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -83,8 +83,11 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 
 %files devel
 %doc examples/fileman.c examples/tc1.c examples/wtc1.c
-%{_mandir}/man3/*
-%{_mandir}/man7/*
+%{_mandir}/man3/editline.3*
+%{_mandir}/man3/el_*.3*
+%{_mandir}/man3/history_*.3*
+%{_mandir}/man3/tok_*.3*
+%{_mandir}/man7/editline.7*
 %{_includedir}/histedit.h
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
@@ -92,6 +95,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 %{_includedir}/editline/readline.h
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 3.1-44.20221030cvs
+- New version (20221030-3.1)
+
 * Mon Oct 10 2022 Jerry James <loganjerry@gmail.com> - 3.1-43.20221009cvs
 - New version (20221009-3.1)
 - Convert License tag to SPDX

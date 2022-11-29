@@ -2,8 +2,8 @@
 
 Summary: Network monitoring tools including ping
 Name: iputils
-Version: 20211215
-Release: 3%{?dist}
+Version: 20221126
+Release: 1%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD and GPLv2+
@@ -11,8 +11,6 @@ URL: https://github.com/iputils/iputils
 
 Source0: https://github.com/iputils/iputils/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: ifenslave.tar.gz
-Source2: rdisc.service
-Source3: ninfod.service
 # Taken from ping.c on 2014-07-12
 Source4: bsd.txt
 Source5: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
@@ -34,22 +32,12 @@ BuildRequires: iproute
 Provides: /bin/ping
 Provides: /bin/ping6
 Provides: /sbin/arping
-Provides: /sbin/rdisc
 
 %description
 The iputils package contains basic utilities for monitoring a network,
 including ping. The ping command sends a series of ICMP protocol
 ECHO_REQUEST packets to a specified network host to discover whether
 the target machine is alive and receiving network traffic.
-
-%package ninfod
-Summary: Node Information Query Daemon
-Requires: %{name} = %{version}-%{release}
-Provides: %{_sbindir}/ninfod
-
-%description ninfod
-Node Information Query (RFC4620) daemon. Responds to IPv6 Node Information
-Queries.
 
 %prep
 %setup -q -a 1 -n %{name}-%{version}
@@ -59,22 +47,15 @@ cp %{SOURCE4} %{SOURCE5} .
 %patch101 -p1
 
 %build
-%ifarch s390 s390x
-  export CFLAGS="-fPIE"
-%else
-  export CFLAGS="-fpie"
-%endif
-export LDFLAGS="-pie -Wl,-z,relro,-z,now"
-
 %meson
 %meson_build
-gcc -Wall $RPM_OPT_FLAGS $CFLAGS $RPM_LD_FLAGS $LDFLAGS ifenslave.c -o ifenslave
+gcc $RPM_OPT_FLAGS $CFLAGS $RPM_LD_FLAGS $LDFLAGS ifenslave.c -o ifenslave
 
 %install
 %meson_install
 %find_lang %{name}
 
-mkdir -p ${RPM_BUILD_ROOT}%{_bindir}
+mkdir -p ${RPM_BUILD_ROOT}%{_sbindir}
 ln -sf ../bin/ping ${RPM_BUILD_ROOT}%{_sbindir}/ping
 ln -sf ../bin/ping ${RPM_BUILD_ROOT}%{_sbindir}/ping6
 ln -sf ../bin/tracepath ${RPM_BUILD_ROOT}%{_sbindir}/tracepath
@@ -85,33 +66,13 @@ ln -sf tracepath.8.gz ${RPM_BUILD_ROOT}%{_mandir}/man8/tracepath6.8.gz
 install -cp ifenslave ${RPM_BUILD_ROOT}%{_sbindir}/
 install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 
-%post
-%systemd_post rdisc.service
-
-%preun
-%systemd_preun rdisc.service
-
-%postun
-%systemd_postun_with_restart rdisc.service
-
-%post ninfod
-%systemd_post ninfod.service
-
-%preun ninfod
-%systemd_preun ninfod.service
-
-%postun ninfod
-%systemd_postun_with_restart ninfod.service
-
 %files -f %{name}.lang
 %doc README.bonding
 %license bsd.txt gpl-2.0.txt
-%{_unitdir}/rdisc.service
 %attr(0755,root,root) %caps(cap_net_raw=p) %{_bindir}/clockdiff
 %attr(0755,root,root) %caps(cap_net_raw=p) %{_bindir}/arping
 %attr(0755,root,root) %{_bindir}/ping
 %{_sbindir}/ifenslave
-%{_sbindir}/rdisc
 %{_bindir}/tracepath
 %{_sbindir}/ping
 %{_sbindir}/ping6
@@ -122,17 +83,17 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/arping.8.gz
 %attr(644,root,root) %{_mandir}/man8/ping.8.gz
 %{_mandir}/man8/ping6.8.gz
-%attr(644,root,root) %{_mandir}/man8/rdisc.8.gz
 %attr(644,root,root) %{_mandir}/man8/tracepath.8.gz
 %{_mandir}/man8/tracepath6.8.gz
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8.gz
 
-%files ninfod
-%attr(0755,root,root) %caps(cap_net_raw=ep) %{_sbindir}/ninfod
-%{_unitdir}/ninfod.service
-%attr(644,root,root) %{_mandir}/man8/ninfod.8.gz
-
 %changelog
+* Sun Nov 27 2022 Kevin Fenzi <kevin@scrye.com> - 20221126-1
+- Update to 20221126. Fixes rhbz#2148690
+
+* Fri Nov 25 2022 Jan Macku <jamacku@redhat.com> - 20211215-4
+- Build iputils and ifenslave with correct flags provided by Fedora
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20211215-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

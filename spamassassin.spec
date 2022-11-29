@@ -60,7 +60,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 3.4.6
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: ASL 2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -90,6 +90,7 @@ Source17: sa-update.timer
 # Switch to using gnupg2 instead of gnupg1
 Patch0: spamassassin-3.3.2-gnupg2.patch
 Patch1: spamassassin-3.4.1-add-logfile-homedir-options.patch
+Patch2: spamassassin-configure-c99.patch
 # end of patches
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %if %{use_systemd} == 0
@@ -209,6 +210,7 @@ To filter spam for all users, add that line to /etc/procmailrc
 # Patches 0-99 are RH specific
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 # end of patches
 
 echo "RHEL=%{?rhel} FEDORA=%{?fedora}"
@@ -388,6 +390,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 3.4.6-8
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

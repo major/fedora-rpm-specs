@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           bochs
 Version:        2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Portable x86 PC emulator
 License:        LGPLv2+
 URL:            http://bochs.sourceforge.net/
@@ -14,6 +14,7 @@ Patch7: %{name}-nonet-build.patch
 Patch8: bochs-aarch64.patch
 Patch10: bochs-usb.patch
 Patch11: bochs-2.6.10-slirp-include.patch
+Patch12: bochs-configure-c99.patch
 
 ExcludeArch:    s390x i686
 
@@ -86,6 +87,7 @@ Header and source files from bochs source.
 %patch4 -p1
 %patch7 -p0 -z .nonet
 %patch11 -p0
+%patch12 -p1
 
 # Fix up some man page paths.
 sed -i -e 's|/usr/local/share/|%{_datadir}/|' doc/man/*.*
@@ -205,6 +207,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.7-4
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

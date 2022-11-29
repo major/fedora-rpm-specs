@@ -7,6 +7,7 @@ Summary:        Classes implementing the SARIF 2.1.0 object model
 Version:        1.0.4
 Release:        %autorelease
 
+# SPDX
 License:        MIT
 URL:            https://github.com/microsoft/sarif-python-om
 Source0:        %{pypi_source sarif_om}
@@ -46,7 +47,7 @@ find . -type f -exec dos2unix '{}' '+'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

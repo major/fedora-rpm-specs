@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        52%{?dist}
+Release:        53%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            http://www.mpqc.org/
 Source0:        http://downloads.sourceforge.net/mpqc/%{name}-%{version}.tar.bz2
@@ -77,6 +77,8 @@ sed -i -r -e 's/AC_DEFINE_UNQUOTED\(([^,]*),([^)]*)\)/AC_DEFINE_UNQUOTED([\1],\2
 sed -i -r -e 's/AC_DEFINE_DIR\(([^,]*),([^)]*)\)/AC_DEFINE_DIR([\1],\2,[\1])/g' configure.ac
 sed -i -r -e 's/AC_CANONICAL_SYSTEM/AC_CANONICAL_SYSTEM\nAC_DEFINE([SHMTYPE], [void *], [data type for shmat])/g' configure.ac
 sed -i -r -e 's/AC_DEFINE\(\[CXX_RESTRICT\],1,\[CXX_RESTRICT\]\)/AC_DEFINE([restrictxx],[restrict],[have restrict keyword]),AC_DEFINE([restrictxx],[],[do not have restrict keyword])/g' configure.ac
+# Make configure.ac c99 conformant, -Werror=implicit-int -Werror=implicit-function-declaration
+sed -i -e '\@main.*FF@s|main|extern void FF(void); int main|' configure.ac
 rm -f lib/autoconf/libtool.m4
 # end autoreconf fixup
 cat >molrender.desktop << EOF
@@ -188,6 +190,10 @@ done
 
 
 %changelog
+* Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-53
+- Make configure (wrt Fortran symbol detection) c99 conformant
+  for -Werror=implicit-int -Werror=implicit-function-declaration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

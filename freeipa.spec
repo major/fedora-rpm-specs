@@ -72,19 +72,24 @@
 %global python_netaddr_version 0.7.19
 # Require 4.14.5-11 which brings CVE-2020-25717 fixes
 %global samba_version 4.14.5-11
-%global selinux_policy_version 3.14.3-52
 %global slapi_nis_version 0.56.4
 %global python_ldap_version 3.1.0-1
 %if 0%{?rhel} < 9
 # Bug 1929067 - PKI instance creation failed with new 389-ds-base build
 %global ds_version 1.4.3.16-12
+%global selinux_policy_version 3.14.3-107
 %else
 %global ds_version 2.0.3-3
+# TBD update selinux_policy_version when BZ#2114902 is fixed
+%global selinux_policy_version 3.14.3-52
 %endif
 
 # Fix for TLS 1.3 PHA, RHBZ#1775158
 %global httpd_version 2.4.37-21
 %global bind_version 9.11.20-6
+
+# Fix for https://github.com/SSSD/sssd/issues/6331
+%global sssd_version 2.8.0
 
 %else
 # Fedora
@@ -96,7 +101,12 @@
 %global samba_version 2:4.15.7
 
 # 3.14.5-45 or later includes a number of interfaces fixes for IPA interface
+# 36.16-1 fixes BZ#2115691
+%if 0%{?fedora} < 36
 %global selinux_policy_version 3.14.5-45
+%else
+%global selinux_policy_version 36.16-1
+%endif
 %global slapi_nis_version 0.56.5
 
 %global krb5_kdb_version 8.0
@@ -109,11 +119,26 @@
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
 
-%global bind_version 9.16.29-1
+# Fix for RHBZ#2117342
+%if 0%{?fedora} < 37
+%global bind_version 9.16.33-1
+%else
+%global bind_version 32:9.18.8-1
+%endif
+
 # Don't use Fedora's Python dependency generator on Fedora 30/rawhide yet.
 # Some packages don't provide new dist aliases.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/
 %{?python_disable_dependency_generator}
+
+%if 0%{?fedora} < 37
+# F35+, adds IdP integration
+%global sssd_version 2.7.4
+%else
+# Fix for https://github.com/SSSD/sssd/issues/6331
+%global sssd_version 2.8.1
+%endif
+
 # Fedora
 %endif
 
@@ -175,7 +200,7 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.10.0
+%define IPA_VERSION 4.10.1
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version %%nil
 %define AT_SIGN @
@@ -188,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        6%{?rc_version:.%rc_version}%{?dist}
+Release:        1%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPLv3+
@@ -204,12 +229,6 @@ Source1:        https://releases.pagure.org/freeipa/freeipa-%{version}%{?rc_vers
 # header-logo.png, login-screen-background.jpg, login-screen-logo.png,
 # product-name.png
 # RHEL spec file only: END: Change branding to IPA and Identity Management
-
-Patch0001:      0001-Only-calculate-LDAP-password-grace-when-the-password.patch
-Patch0002:      0002-Disabling-gracelimit-does-not-prevent-LDAP-binds.patch
-Patch0003:      0003-webui-Allow-grace-login-limit.patch
-Patch0004:      0004-DNSResolver-Fix-use-of-nameservers-with-ports.patch
-Patch0005:      0005_Set_passwordgracelimit_to_match_global_policy_on_group_pw_policies_#6419.patch
 
 # RHEL spec file only: START
 %if %{NON_DEVELOPER_BUILD}
@@ -1717,11 +1736,14 @@ fi
 %if %{with selinux}
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{modulename}.pp.*
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 # with selinux
 %endif
 
 %changelog
+* Sun Nov 27 2022 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-1
+- Upstream release FreeIPA 4.10.1
+
 * Wed Sep 14 2022 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.0-6
 - Rebuild against final samba 4.17.0 release
 

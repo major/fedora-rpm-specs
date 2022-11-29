@@ -4,12 +4,13 @@
 Summary:   5250 Telnet protocol and Terminal
 Name:      tn5250
 Version:   0.17.4
-Release:   31%{?dist}
+Release:   32%{?dist}
 License:   LGPLv2+
 Source:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:   xt5250.desktop
 # https://github.com/sharkcz/tn5250/tree/fedora
 Patch0:    tn5250-0.17.4-fedora.patch
+Patch1:    tn5250-c99.patch
 URL:       http://tn5250.sourceforge.net/
 Requires:  dialog
 Requires:  xterm
@@ -40,6 +41,7 @@ Libraries and header files to use with lib5250.
 %prep
 %setup -q
 %patch0 -p1 -b .fedora
+%patch1 -p1 -b .c99
 
 autoreconf -vfi
 
@@ -90,6 +92,9 @@ cp -pf linux/README README.Linux
 
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 0.17.4-32
+- Port sources to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

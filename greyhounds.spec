@@ -1,6 +1,6 @@
 Name:           greyhounds
 Version:        0.8
-Release:        0.36.prealpha%{?dist}
+Release:        0.37.prealpha%{?dist}
 Summary:        Greyhounds is a greyhounds racing and breeding game
 Summary(pl):    Greyhounds to wyścigi i hodowla chartów
 License:        GPLv2
@@ -13,6 +13,8 @@ Patch1:		greyhound-in.patch
 Patch2:		greyhound-save.patch
 Patch3:		greyhound-gcc10.patch
 Patch4:		greyhound-names.patch
+Patch5:		greyhounds-configure-c99.patch
+Patch6:		greyhounds-c99-headers.patch
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils gtk2-devel ImageMagick
 BuildRequires: make
@@ -40,6 +42,8 @@ czasowe.
 %patch2
 %patch3
 %patch4
+%patch5 -p1
+%patch6 -p1
 
 # Create icons and make appropriate dir structure
 mkdir icons
@@ -56,6 +60,7 @@ iconv --from=ISO-8859-1 --to=UTF-8 AUTHORS > AUTHORS.utf8
 mv AUTHORS.utf8 AUTHORS
 
 %build
+
 %configure
 make %{?_smp_mflags}
 
@@ -78,6 +83,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 0.8-0.37.prealpha
+- Apply fixes to build with C99 compilers
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-0.36.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

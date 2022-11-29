@@ -3,7 +3,7 @@
 
 # https://github.com/alecthomas/repr
 %global goipath         github.com/alecthomas/repr
-%global commit          bb82daffcca269896bba419bb7e8260f66fed1b4
+Version:        0.1.1
 
 %gometa
 
@@ -19,8 +19,7 @@ represented directly in Go. These values will be represented as &<value>. eg.
 %global godocs          README.md
 
 Name:           %{goname}
-Version:        0
-Release:        0.16%{?dist}
+Release:        1%{?dist}
 Summary:        Python's repr() for Go
 
 License:        MIT
@@ -46,6 +45,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Sat Nov 26 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.1.1-1
+- Update to latest tagged version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,6 +8,7 @@ Version:        1.0.0
 Release:        %autorelease
 Summary:        Overload functions based on their call signature and type annotations
 
+# SPDX
 License:        MIT
 URL:            https://github.com/kalekundert/signature_dispatch
 Source0:        %{pypi_source signature_dispatch}

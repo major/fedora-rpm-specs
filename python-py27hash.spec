@@ -6,6 +6,7 @@ Version:        1.1.0
 Release:        %autorelease
 Summary:        Python 2.7 hashing and iteration in Python 3+
 
+# SPDX
 License:        MIT
 URL:            https://github.com/neuml/py27hash
 # The GitHub tarball contains tests; the PyPI sdist does not.
@@ -38,11 +39,11 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup -n py27hash-%{version} -p1
+%autosetup -n py27hash-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

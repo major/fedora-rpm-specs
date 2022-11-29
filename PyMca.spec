@@ -22,6 +22,7 @@ Source5:        peakidentifier.desktop
 Source6:        pymcabatch.desktop
 Source7:        pymcapostbatch.desktop
 Source8:        pymcaroitool.desktop
+Patch0:         PyMca-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils

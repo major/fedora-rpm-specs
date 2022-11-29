@@ -5,6 +5,7 @@ Version:        0.1.4
 Release:        %autorelease
 Summary:        Pure python RFC3339 validator
 
+# SPDX
 License:        MIT
 URL:            https://github.com/naimetti/rfc3339-validator
 Source0:        %{pypi_source rfc3339_validator}

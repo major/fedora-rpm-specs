@@ -1,8 +1,8 @@
 Name:           perl-Authen-Simple-Passwd
 Version:        0.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Simple Passwd authentication
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-Simple-Passwd
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHANSEN/Authen-Simple-Passwd-%{version}.tar.gz
 BuildArch:      noarch
@@ -46,6 +46,9 @@ TEST_POD=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.6-35
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -145,5 +148,5 @@ TEST_POD=1 ./Build test
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Wed Dec 22 2010 Ralf Corsépius <corsepiu@fedoraproject.org> 0.6-1
+* Wed Dec 22 2010 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.6-1
 - Initial Fedora package.

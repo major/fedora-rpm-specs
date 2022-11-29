@@ -1,7 +1,7 @@
 Name:		xloadimage
 Summary: 	Image viewer and processor
 Version:	4.1
-Release:	33%{?dist}
+Release:	34%{?dist}
 License:	MIT
 Source0:	ftp://ftp.x.org/R5contrib/%{name}.%{version}.tar.gz
 # Patches 0-18 come from Debian 4.1-16.1
@@ -32,6 +32,7 @@ Patch22:	xloadimage-4.1-libtiff4.patch
 Patch23:	xloadimage-4.1-png-1.5.patch
 Patch24:	xloadimage-4.1-fix-mem-leak.patch
 Patch25:	xloadimage-4.1-sub-second-delay.patch
+Patch26:	xloadimage-c99.patch
 URL:		http://www.frostbytes.com/~jimf/xloadimage.html
 %if 0%{?fedora} >= 18
 BuildRequires:  gcc
@@ -86,6 +87,7 @@ dithered automatically).
 %patch23 -p1 -b .png15
 %patch24 -p1 -b .fix-mem-leak
 %patch25 -p1 -b .sub-second-delay
+%patch26 -p1
 
 chmod +x configure
 
@@ -125,6 +127,9 @@ cp -a %{buildroot}%{_mandir}/man1/xloadimage.1x %{buildroot}%{_mandir}/man1/xvie
 %{_mandir}/man1/*
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 4.1-34
+- Port to strict(er) C99 compilers (#2148739)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

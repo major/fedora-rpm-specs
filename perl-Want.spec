@@ -1,14 +1,15 @@
 Name:		perl-Want
 Version:	0.29
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Perl module implementing a generalisation of wantarray
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Want
 Source0:	https://cpan.metacpan.org/authors/id/R/RO/ROBIN/Want-%{version}.tar.gz
 
 Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:	gcc
-BuildRequires:	make
+BuildRequires:	%{__make}
+
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
@@ -35,15 +36,15 @@ how its return value is going to be immediately used.
 %setup -q -n Want-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="${RPM_OPT_FLAGS}" NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="${RPM_OPT_FLAGS}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} "$RPM_BUILD_ROOT"/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -52,6 +53,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 27 2022 Fedora Release Engineering <corsepiu@fedoraproject.org> - 0.29-23
+- Modernize spec.
+- Update sources to use sha512.
+- Convert licence to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.29-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

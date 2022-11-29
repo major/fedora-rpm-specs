@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.22.0
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 License:        MIT
@@ -17,6 +17,8 @@ Source2:        commitid
 %else
 Source0:        https://gitlab.freedesktop.org/libinput/libinput/-/archive/%{version}/libinput-%{version}.tar.bz2
 %endif
+# Apple MTP touchpad quirk for Apple M2 laptops
+Patch0:         0001-quirks-Add-Apple-MTP-touchpad-quirk.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc
@@ -64,9 +66,9 @@ The %{name}-test package contains the libinput test suite. It is not
 intended to be run by users.
 
 %prep
-%autosetup -S git
+%autosetup -S git -p1
 # Replace whatever the source uses with the approved call
-pathfix.py -i %{__python3} -p -n $(git grep -l  '#!/usr/bin/.*python3')
+%py3_shebang_fix $(git grep -l  '#!/usr/bin/.*python3')
 
 %build
 %meson -Ddebug-gui=false \
@@ -151,6 +153,9 @@ pathfix.py -i %{__python3} -p -n $(git grep -l  '#!/usr/bin/.*python3')
 
 
 %changelog
+* Sat Nov 26 2022 Davide Cavalca <dcavalca@fedoraproject.org> 1.22.0-2
+- Backport upstream patch to add Apple MTP touchpad quirk for Apple M2 laptops
+
 * Mon Nov 21 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.22.0-1git58abea394}
 - libinput 1.22.0
 

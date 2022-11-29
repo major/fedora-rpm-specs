@@ -12,33 +12,34 @@
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        25.0
-Release:        7%{?dist}
+Version:        26.0
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
-%global pkgversion %{version}-Manganese
+%global pkgversion %{version}-Iron
 
-# Licensing breakdown in source file frama-c-1.6.licensing
-License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0
+# Licensing breakdown in source file frama-c.licensing
+License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0
 URL:            https://frama-c.com/
 Source0:        https://frama-c.com/download/%{name}-%{pkgversion}.tar.gz
 Source1:        https://frama-c.com/download/%{name}-%{pkgversion}-api.tar.gz
-Source2:        frama-c-1.6.licensing
-Source3:        com.%{name}.%{name}-gui.desktop
-Source4:        com.%{name}.%{name}-gui.metainfo.xml
-Source5:        acsl.el
+Source2:        https://frama-c.com/download/%{name}-server-%{pkgversion}-api.tar.gz
+Source3:        https://frama-c.com/download/user-manual-%{pkgversion}.pdf
+Source4:        https://frama-c.com/download/plugin-development-guide-%{pkgversion}.pdf
+Source5:        https://frama-c.com/download/acsl-implementation-%{pkgversion}.pdf
+Source6:        https://frama-c.com/download/aorai-manual-%{pkgversion}.pdf
+Source7:        https://frama-c.com/download/e-acsl/e-acsl-manual-%{pkgversion}.pdf
+Source8:        https://frama-c.com/download/e-acsl/e-acsl-implementation-%{pkgversion}.pdf
+Source9:        https://frama-c.com/download/eva-manual-%{pkgversion}.pdf
+Source10:       https://frama-c.com/download/metrics-manual-%{pkgversion}.pdf
+Source11:       https://frama-c.com/download/rte-manual-%{pkgversion}.pdf
+Source12:       https://frama-c.com/download/wp-manual-%{pkgversion}.pdf
 # Icons created with gimp from the official upstream icon
-Source6:        %{name}-icons.tar.xz
-Source7:        https://frama-c.com/download/user-manual-%{pkgversion}.pdf
-Source8:        https://frama-c.com/download/plugin-development-guide-%{pkgversion}.pdf
-Source9:        https://frama-c.com/download/acsl-implementation-%{pkgversion}.pdf
-Source10:       https://frama-c.com/download/aorai-manual-%{pkgversion}.pdf
-Source11:       https://frama-c.com/download/e-acsl/e-acsl-manual-%{pkgversion}.pdf
-Source12:       https://frama-c.com/download/e-acsl/e-acsl-implementation-%{pkgversion}.pdf
-Source13:       https://frama-c.com/download/eva-manual-%{pkgversion}.pdf
-Source14:       https://frama-c.com/download/metrics-manual-%{pkgversion}.pdf
-Source15:       https://frama-c.com/download/rte-manual-%{pkgversion}.pdf
-Source16:       https://frama-c.com/download/wp-manual-%{pkgversion}.pdf
+Source13:       %{name}-icons.tar.xz
+Source14:       com.%{name}.%{name}-gui.desktop
+Source15:       com.%{name}.%{name}-gui.metainfo.xml
+Source16:       acsl.el
+Source17:       frama-c.licensing
 
 # why3 is unavailable on i686.  We could build without why3 support, but
 # choose to forego i686 support entirely.
@@ -48,32 +49,34 @@ ExclusiveArch:  %{java_arches}
 BuildRequires:  alt-ergo
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
-BuildRequires:  dos2unix
 BuildRequires:  doxygen
-BuildRequires:  emacs
+BuildRequires:  emacs-nox
 BuildRequires:  flamegraph
 BuildRequires:  graphviz
 BuildRequires:  libgnomecanvas-devel
-BuildRequires:  libtool
-BuildRequires:  ltl2ba
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.08.1
+BuildRequires:  ocaml >= 4.11.1
 BuildRequires:  ocaml-apron-devel
+BuildRequires:  ocaml-dune >= 3.2.0
+BuildRequires:  ocaml-dune-configurator-devel
+BuildRequires:  ocaml-dune-private-libs-devel
+BuildRequires:  ocaml-dune-site-devel
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-lablgtk3-devel >= 3.1.0
 BuildRequires:  ocaml-lablgtk3-sourceview3-devel
-BuildRequires:  ocaml-mlgmpidl-devel
-BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-mlmpfr-devel
 BuildRequires:  ocaml-ocamlgraph-devel >= 1.8.8
 BuildRequires:  ocaml-ocp-indent-devel
+BuildRequires:  ocaml-ppx-deriving-devel
 BuildRequires:  ocaml-ppx-deriving-yojson-devel
 BuildRequires:  ocaml-ppx-import-devel
-BuildRequires:  ocaml-why3-devel >= 1.4.0
+BuildRequires:  ocaml-why3-devel >= 1.5.1
 BuildRequires:  ocaml-yojson-devel >= 1.6.0
 BuildRequires:  ocaml-zarith-devel >= 1.5
 BuildRequires:  ocaml-zmq-devel
 BuildRequires:  python3-devel
 BuildRequires:  time
+BuildRequires:  unix2dos
 BuildRequires:  why3
 BuildRequires:  z3
 
@@ -82,7 +85,7 @@ Requires:       flamegraph
 Requires:       gcc
 Requires:       graphviz
 Requires:       hicolor-icon-theme
-Requires:       ltl2ba
+Requires:       ocaml-ppx-import
 Requires:       why3
 
 Recommends:     bash-completion
@@ -90,10 +93,12 @@ Recommends:     bash-completion
 Suggests:       z3
 
 # Do not Require private ocaml interfaces that we don't Provide
-%global __requires_exclude ocaml\\\((Callgraph_api|Cg|Driver_ast|Flags|Generator|Marks|Services|Uses|Why3Provers)\\\)
+%global __requires_exclude ocaml\\\(Driver_ast\\\)
 
 # This can be removed when Fedora 38 reaches EOL
 Obsoletes:      frama-c-xemacs < 23.1-2
+
+%global _docdir_fmt %{name}
 
 %description
 Frama-C is a suite of tools dedicated to the analysis of the source
@@ -115,7 +120,7 @@ Large documentation files for %{name}.
 
 %package emacs
 Summary:        Emacs support file for ACSL markup
-License:        LGPLv2
+License:        LGPL-2.1-only
 Requires:       %{name} = %{version}-%{release}
 Requires:       emacs(bin)
 BuildArch:      noarch
@@ -125,9 +130,10 @@ This package contains an Emacs support file for working with C source
 files marked up with ACSL.
 
 %prep
-%autosetup -n %{name}-%{pkgversion} -p1
+%autosetup -n %{name}-%{pkgversion}
 %setup -q -T -D -a 1 -n %{name}-%{pkgversion}
-%setup -q -T -D -a 6 -n %{name}-%{pkgversion}
+%setup -q -T -D -a 2 -n %{name}-%{pkgversion}
+%setup -q -T -D -a 13 -n %{name}-%{pkgversion}
 
 fixtimestamp() {
   touch -r $1.orig $1
@@ -136,62 +142,44 @@ fixtimestamp() {
 
 # Copy in the manuals
 mkdir doc/manuals
-cp -p %{SOURCE7} %{SOURCE8} %{SOURCE9} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
-   %{SOURCE13} %{SOURCE14} %{SOURCE15} %{SOURCE16} doc/manuals
-
-# Link with the Fedora LDFLAGS, generate debuginfo, and fix an underlinked
-# plugin
-sed -e "/OLINKFLAGS/s|-linkall|& -runtime-variant _pic -ccopt '%{build_ldflags}'|" \
-    -e '/OCAMLMKLIB/s/\$(OPT_LIBS).*/& -lm/' \
-    -e 's/\$(OCAMLMKLIB)/& -g/' \
-    -i Makefile
+cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{SOURCE8} \
+   %{SOURCE9} %{SOURCE10} %{SOURCE11} %{SOURCE12} doc/manuals
 
 # Preserve timestamps when installing
 sed -ri 's/^CP[[:blank:]]+=.*/& -p/' share/Makefile.common
 
-# Build buckx with the right flags
-sed -i 's|-O3 -Wall|%{build_cflags} -fPIC|' Makefile
-
 # Do not use env
-for fil in share/analysis-scripts/{build,detect_recursion,estimate_difficulty,find_fun,heuristic_list_functions,list_files,make_wrapper,normalize_jcdb,print_callgraph,summary}.py; do
+for fil in share/analysis-scripts/{build,detect_recursion,estimate_difficulty,find_fun,heuristic_list_functions,list_files,make_wrapper,normalize_jcdb,print_callgraph,summary}.py src/plugins/e-acsl/scripts/e-acsl-gcc.sh src/plugins/eva/gen-api.sh; do
   sed -i.orig 's,%{_bindir}/env python3,%{_bindir}/python3,' $fil
   fixtimestamp $fil
 done
 
-# Do not apply DESTDIR twice
-sed -i 's/\$(DESTDIR)//' share/Makefile.dynamic
-
 %build
-# This option prints the actual make commands so we can see what's
-# happening (eg: for debugging the spec file)
-%configure --enable-verbosemake
-make
+%make_build RELEASE=yes DUNE_DISPLAY=verbose VERBOSEMAKE=yes
 
 %install
-%make_install
+# Upstream's installation method leaves the buildroot path in many installed
+# files.  Substitute our preferred installation method.
+sed -i 's|\(dune install\) --prefix.*|\1 --destdir=%{buildroot} --verbose --release %{_smp_mflags}|' share/Makefile.installation
 
-%ifarch %{ocaml_native_compiler}
-mv -f %{buildroot}%{_bindir}/ptests.opt %{buildroot}%{_bindir}/ptests
-%else
-mv -f %{buildroot}%{_bindir}/frama-c.byte %{buildroot}%{_bindir}/frama-c
-mv -f %{buildroot}%{_bindir}/frama-c-gui.byte %{buildroot}%{_bindir}/frama-c-gui
-mv -f %{buildroot}%{_bindir}/ptests.byte %{buildroot}%{_bindir}/ptests
-%endif
+# Install
+%make_install PREFIX=%{buildroot}%{_prefix} RELEASE=yes DUNE_DISPLAY=verbose \
+  VERBOSEMAKE=yes
+
+# Move the doc directory to the right place
+mv %{buildroot}%{_prefix}/doc %{buildroot}%{_datadir}
 
 # Two of the man pages are duplicates, so make one a link to the other.
 cat > %{buildroot}%{_mandir}/man1/frama-c-gui.1 << EOF
 .so man1/frama-c.1
 EOF
 
-# Install the opam file
-cp -p opam/opam %{buildroot}%{_libdir}/frama-c
-
 # Install the desktop file
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE3}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications/ %{SOURCE14}
 
 # Install the AppData file
 mkdir -p %{buildroot}%{_metainfodir}
-install -pm 644 %{SOURCE4} %{buildroot}%{_metainfodir}
+install -pm 644 %{SOURCE15} %{buildroot}%{_metainfodir}
 appstreamcli validate --no-net \
   %{buildroot}%{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
 
@@ -206,69 +194,76 @@ cp -p share/autocomplete_frama-c \
 
 # Install and bytecompile the Emacs file
 mkdir -p %{buildroot}%{_emacs_sitelispdir}
-mv %{buildroot}%{_datadir}/frama-c/emacs/*.el %{buildroot}%{_emacs_sitelispdir}
-rmdir %{buildroot}%{_datadir}/frama-c/emacs
+mv %{buildroot}%{_datadir}/frama-c/share/emacs/*.el %{buildroot}%{_emacs_sitelispdir}
+rmdir %{buildroot}%{_datadir}/frama-c/share/emacs
 chmod a-x %{buildroot}%{_emacs_sitelispdir}/*.el
 cd %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_bytecompile} *.el
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
-cp -p %{SOURCE5} %{buildroot}%{_emacs_sitestartdir}
+cp -p %{SOURCE16} %{buildroot}%{_emacs_sitestartdir}
 cd -
 
 # Remove files we don't actually want
-rm -f %{buildroot}%{_datadir}/frama-c/{autocomplete_frama-c,configure.ac}
-rm -f %{buildroot}%{_libdir}/frama-c/*.{cmo,cmx,o}
-%ifarch %{ocaml_native_compiler}
-rm -f %{buildroot}%{_bindir}/frama-c{,-gui}.byte
-%endif
+rm -f %{buildroot}%{_datadir}/frama-c/share/autocomplete_frama-c
+find %{buildroot}%{_libdir} -name \*.cmo -o -name \*.cmx -o -name \*.o -delete
+rm -fr %{buildroot}%{_docdir}/frama-c{,-{dive,e-acsl,instantiate,loop-analysis,markdown-report,nonterm}}
 
-# The install step adds lots of spurious executable bits
-chmod a-x %{buildroot}%{_libdir}/frama-c/*.{a,cm{a,i,xa}} \
-          %{buildroot}%{_libdir}/frama-c/META* \
-          %{buildroot}%{_libdir}/frama-c/e-acsl/*.a \
-          %{buildroot}%{_libdir}/frama-c/plugins/*.cmi \
-          %{buildroot}%{_libdir}/frama-c/plugins/META* \
-          %{buildroot}%{_libdir}/frama-c/plugins/gui/*.cm{i,o} \
-          %{buildroot}%{_libdir}/frama-c/plugins/top/*.cm{i,o,x} \
-          %{buildroot}%{_mandir}/man1/*
-find %{buildroot}%{_datadir}/frama-c -type f -perm /0111 -exec chmod a-x {} +
+# Rename documentation files so we can have them all
+cp -p src/plugins/dive/README.md README.dive.md
+cp -p src/plugins/e-acsl/README README.e-acsl
+cp -p src/plugins/instantiate/README.md README.instantiate.md
+cp -p src/plugins/loop_analysis/README.org README.loop-analysis.org
+cp -p src/plugins/markdown-report/README.md README.markdown-report.md
+cp -p src/plugins/nonterm/README.md README.nonterm.md
 
-# But put back the correct executable bits
-chmod 0755 %{buildroot}%{_datadir}/frama-c/analysis-scripts/*.{pl,py,sh}
-
-# Remove spurious executable bits on generated files
-chmod 0644 src/plugins/value/domains/apron/*.ml
+# We can't ship ivette until Fedora can support Electron apps
+rm %{buildroot}%{_bindir}/ivette
+if [ "%{_lib}" = "lib" ]; then
+  rm %{buildroot}%{_prefix}/lib/frama-c/ivette.tgz
+else
+  rm -fr %{buildroot}%{_prefix}/lib
+fi
 
 # Unbundle flamegraph
-rm -f %{buildroot}%{_datadir}/frama-c/analysis-scripts/flamegraph.pl
-ln -s %{_bindir}/flamegraph.pl %{buildroot}%{_datadir}/frama-c/analysis-scripts
+rm -f %{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts/flamegraph.pl
+ln -s %{_bindir}/flamegraph.pl \
+   %{buildroot}%{ocamldir}/frama-c/lib/analysis-scripts
 
 # Fix a path in e-acsl-gcc.sh
 if [ "%{_lib}" != "lib" ]; then
     sed -i '/EACSL_LIB/s,/lib/,/%{_lib}/,' %{buildroot}%{_bindir}/e-acsl-gcc.sh
 fi
 
-# FIXME: tests only pass on x86_64
-%ifarch x86_64
+# FIXME: tests fail on ppc6le due to redefinition of bool
+%ifnarch ppc64le
 %check
+why3 config detect
 # Parallel testing sometimes fails
-make PTESTS_OPTS=-error-code tests
+make run-ptests PTESTS_OPTS=-error-code
+make default-tests PTESTS_OPTS=-error-code
 %endif
 
 %files
-%doc VERSION
+%doc README.md VERSION
 %license licenses/*
-%{_bindir}/*
-%{_libdir}/frama-c/
+%{_bindir}/e-acsl-gcc.sh
+%{_bindir}/frama-c*
+%{ocamldir}/frama-c*
+%{ocamldir}/qed/
+%{ocamldir}/stublibs/dllframa_c_kernel_stubs.so
 %{_datadir}/frama-c/
+%{_datadir}/frama-c-e-acsl/
 %{_datadir}/applications/com.%{name}.%{name}-gui.desktop
-%{_datadir}/bash-completion/completions/e-acsl-gcc.sh
 %{_datadir}/bash-completion/completions/frama-c
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_metainfodir}/com.%{name}.%{name}-gui.metainfo.xml
-%{_mandir}/man1/*
+%{_mandir}/man1/e-acsl-gcc.sh.1*
+%{_mandir}/man1/frama-c.1*
+%{_mandir}/man1/frama-c-gui.1*
 
 %files doc
+%doc README.dive.md README.e-acsl README.instantiate.md
+%doc README.loop-analysis.org README.markdown-report.md README.nonterm.md
 %doc doc/manuals/acsl-implementation-%{pkgversion}.pdf
 %doc doc/manuals/aorai-manual-%{pkgversion}.pdf
 %doc doc/manuals/e-acsl-implementation-%{pkgversion}.pdf
@@ -280,12 +275,17 @@ make PTESTS_OPTS=-error-code tests
 %doc doc/manuals/user-manual-%{pkgversion}.pdf
 %doc doc/manuals/wp-manual-%{pkgversion}.pdf
 %doc frama-c-api
+%doc frama-c-server-api
 
 %files emacs
 %{_emacs_sitelispdir}/*.el*
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 26.0-1
+- Version 26.0
+- Add Requires on ppx_import (bz 2148391)
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 25.0-7
 - Rebuild for ocaml-ppxlib 0.28.0
 

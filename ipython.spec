@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.5.0
+Version:        8.6.0
 Release:        1%{?dist}
 Summary:        An enhanced interactive Python shell
 
@@ -36,6 +36,7 @@ BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-ipykernel
 BuildRequires:  python3-matplotlib
 BuildRequires:  python3-numpy
+BuildRequires:  python3-typing-extensions
 %endif
 
 %if %{with check}
@@ -255,6 +256,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Wed Nov 23 2022 Lumír Balhar <lbalhar@redhat.com> - 8.6.0-1
+- Update to 8.6.0 (rhbz#2138766)
+
 * Thu Sep 08 2022 Lumír Balhar <lbalhar@redhat.com> - 8.5.0-1
 - Update to 8.5.0
 Resolves: rhbz#2124923

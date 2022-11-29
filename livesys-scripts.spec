@@ -1,6 +1,6 @@
 Name:           livesys-scripts
-Version:        0.2.1
-Release:        2%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Scripts for auto-configuring live media during boot
 
 License:        GPLv3+
@@ -27,6 +27,11 @@ BuildArch:      noarch
 %install
 %make_install
 
+# Make ghost files
+mkdir -p %{buildroot}%{_sharedstatedir}/livesys
+touch %{buildroot}%{_sharedstatedir}/livesys/livesys-session-extra
+touch %{buildroot}%{_sharedstatedir}/livesys/livesys-session-late-extra
+
 
 %preun
 %systemd_preun livesys.service livesys-late.service
@@ -46,9 +51,15 @@ BuildArch:      noarch
 %config(noreplace) %{_sysconfdir}/sysconfig/livesys
 %{_libexecdir}/livesys/
 %{_unitdir}/livesys*
+%dir %{_sharedstatedir}/livesys
+%ghost %{_sharedstatedir}/livesys/livesys-session-extra
+%ghost %{_sharedstatedir}/livesys/livesys-session-late-extra
 
 
 %changelog
+* Sun Nov 27 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

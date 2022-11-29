@@ -3,7 +3,7 @@
 Name:           FlightGear-Atlas
 Summary:        Flightgear map tools
 Version:        0.5.0
-Release:        0.79%{snapshot}%{?dist}
+Release:        0.80%{snapshot}%{?dist}
 
 License:        GPLv2+
 Source0:        Atlas-%{version}%{snapshot}.tar.bz2
@@ -74,6 +74,9 @@ install -m 0644 src/data/airplane_image.png \
 %{_datadir}/flightgear/Atlas
 
 %changelog
+* Sat Nov 26 2022 Fabrice Bellet <fabrice@bellet.info> - 0.5.0-0.80.cvs20141002
+- rebuild with newer SimGear
+
 * Thu Oct 20 2022 Fabrice Bellet <fabrice@bellet.info> - 0.5.0-0.79.cvs20141002
 - rebuild with newer SimGear
 

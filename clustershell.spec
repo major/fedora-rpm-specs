@@ -24,8 +24,8 @@
 %global srcname ClusterShell
 
 Name:           clustershell
-Version:        1.8.4
-Release:        4%{?dist}
+Version:        1.9
+Release:        2%{?dist}
 Summary:        Python framework for efficient cluster administration
 
 %if 0%{?suse_version}
@@ -204,12 +204,15 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{_mandir}/man5/clush.conf.5*
 %{_mandir}/man5/groups.conf.5*
 %dir %{_sysconfdir}/clustershell
+%dir %{_sysconfdir}/clustershell/clush.conf.d
 %dir %{_sysconfdir}/clustershell/groups.d
 %dir %{_sysconfdir}/clustershell/groups.conf.d
 %config(noreplace) %{_sysconfdir}/clustershell/clush.conf
 %config(noreplace) %{_sysconfdir}/clustershell/groups.conf
 %ghost %{_sysconfdir}/clustershell/groups
 %config(noreplace) %{_sysconfdir}/clustershell/groups.d/local.cfg
+%doc %{_sysconfdir}/clustershell/clush.conf.d/README
+%doc %{_sysconfdir}/clustershell/clush.conf.d/*.conf.example
 %doc %{_sysconfdir}/clustershell/groups.conf.d/README
 %doc %{_sysconfdir}/clustershell/groups.conf.d/*.conf.example
 %doc %{_sysconfdir}/clustershell/groups.d/README
@@ -220,6 +223,10 @@ install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadi
 %{vimdatadir}/syntax/groupsconf.vim
 
 %changelog
+* Sat Nov 26 2022 Stephane Thiell <sthiell@stanford.edu> 1.9-2
+- update to 1.9
+- fix source tarball
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

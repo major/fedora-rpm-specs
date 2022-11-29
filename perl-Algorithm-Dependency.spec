@@ -1,8 +1,8 @@
 Name: 		perl-Algorithm-Dependency
 Version: 	1.112
-Release: 	4%{?dist}
+Release: 	5%{?dist}
 Summary: 	Algorithmic framework for implementing dependency trees
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Algorithm-Dependency
 Source0:	https://cpan.metacpan.org/authors/id/E/ET/ETHER/Algorithm-Dependency-%{version}.tar.gz
 
@@ -38,7 +38,7 @@ items in the set, and require actions on them as well.
 %{make_build}
 
 %install
-%{make_install} DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -51,6 +51,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.112-5
+- Convert licence to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.112-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+ and GPLv3+
 Url: http://www.networkupstools.org/
 Source: http://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -32,6 +32,9 @@ Patch9: nut-2.6.5-rmpidf.patch
 Patch10: nut-2.7.4-cloexec.patch
 Patch11: nut-2.7.4-nutscanner-FTBFS.patch
 Patch12: nut-2.7.4-scratchdes.patch
+Patch13: nut-c99-c_attribute.patch
+Patch14: nut-c99-ax_c_printf_null.patch
+Patch15: nut-c99-strdup.patch
 
 Requires(pre): shadow-utils
 Requires(post): coreutils systemd
@@ -143,6 +146,9 @@ necessary to develop NUT client applications.
 #%patch10 -p1 -b .cloexec
 #%patch11 -p1 -b .nutscanner-FTBFS
 #%patch12 -p1 -b .scratchdes
+%patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
 sed -i "s|sys.argv\[0\]|'%{_datadir}/%{name}/nut-monitor/nut-monitor'|" scripts/python/app/NUT-Monitor-py3qt5.in
@@ -475,6 +481,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.8.0-6
+- Port configure script to C99
+
 * Wed Aug 31 2022 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-5
 - update pid path
 

@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
-Version:    1.3.1
-Release:    2%{?dist}
+Version:    1.4.1
+Release:    1%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
 
 %global foundry RIT
-%global fontlicense OFL
+%global fontlicense OFL-1.1
 %global fontlicenses LICENSE.txt
 %global fontdocs *.md
 
@@ -51,6 +51,10 @@ make otf
 
 
 %changelog
+* Sun Nov 27 2022 Rajeesh K V <rajeeshknambiar@gmail.com> - 1.4.1-1
+- New version with many improvements (Unicode 15.0, size reduction, shaping...)
+- Spec update for SPDX license tag
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
