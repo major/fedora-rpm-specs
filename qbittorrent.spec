@@ -1,4 +1,4 @@
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 38
 %ifnarch s390x
 %global _with_qt6 1
 %global _qtver Qt6
@@ -12,7 +12,7 @@
 Name:    qbittorrent
 Summary: A Bittorrent Client
 Epoch:   1
-Version: 4.4.5
+Version: 4.5.0
 Release: 1%{?dist}
 License: GPLv2+
 URL:     https://www.qbittorrent.org
@@ -79,7 +79,7 @@ mv %{name}-%{version} build
 
 pushd build
 sed -i -e 's@Exec=qbittorrent %U@Exec=env TMPDIR=/var/tmp qbittorrent %U@g' dist/unix/org.qbittorrent.qBittorrent.desktop
-cp README.md NEWS AUTHORS TODO Changelog COPYING ..
+cp README.md AUTHORS Changelog COPYING ..
 popd
 
 cp -p %{SOURCE3} .
@@ -132,7 +132,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 
 %files
 %license COPYING
-%doc README.md NEWS AUTHORS TODO Changelog
+%doc README.md AUTHORS Changelog
 %{_bindir}/qbittorrent
 %{_metainfodir}/org.qbittorrent.qBittorrent.appdata.xml
 %{_datadir}/applications/org.qbittorrent.qBittorrent.desktop
@@ -142,13 +142,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.qbittorren
 
 %files nox
 %license COPYING
-%doc qbittorrent-nox.README NEWS AUTHORS TODO Changelog
+%doc qbittorrent-nox.README AUTHORS Changelog
 %{_bindir}/qbittorrent-nox
 %{_bindir}/qbittorrent-nox-bin
 %{_unitdir}/qbittorrent-nox@.service
 %{_mandir}/man1/qbittorrent-nox.1*
 
 %changelog
+* Mon Nov 28 2022 Leigh Scott <leigh123linux@gmail.com> - 1:4.5.0-1
+- Update to 4.5.0
+- Use qt5 for f36+ due to broken qt6-qtbase-devel
+
 * Tue Nov 01 2022 Leigh Scott <leigh123linux@gmail.com> - 1:4.4.5-1
 - Update to 4.4.5
 

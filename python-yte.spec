@@ -3,6 +3,7 @@ Version:        1.5.1
 Release:        %autorelease
 Summary:        YAML template engine with Python expressions
 
+# SPDX
 License:        MIT
 URL:            https://github.com/yte-template-engine/yte
 # GitHub archive contains tests; PyPI sdist does not

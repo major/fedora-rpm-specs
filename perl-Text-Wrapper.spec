@@ -1,12 +1,12 @@
 Name: 		perl-Text-Wrapper
 Version: 	1.05
-Release: 	26%{?dist}
+Release: 	27%{?dist}
 Summary:	Simple word wrapping perl module
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Text-Wrapper
 Source0: 	https://cpan.metacpan.org/modules/by-module/Text/Text-Wrapper-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
 BuildRequires:  perl(Carp)
@@ -26,15 +26,15 @@ more sophisticated text formatting, try the Text::Format module.
 %setup -q -n Text-Wrapper-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
-make test RELEASE_TESTING=1
+%{__make} test RELEASE_TESTING=1
 
 %files
 %doc Changes README
@@ -43,6 +43,11 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.05-27
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global major_version 2
 
 Name:           botan2
-Version:        2.19.2
-Release:        2%{?dist}
+Version:        2.19.3
+Release:        1%{?dist}
 Summary:        Crypto and TLS for C++11
 
 License:        BSD
@@ -131,6 +131,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./botan-test
 
 
 %changelog
+* Mon Nov 28 2022 Ben Kircher <bkircher@0xadd.de> - 2.19.3-1
+- Bump botan2 to 2.19.3 (RHBZ #2143417, #2143418)
+
 * Wed Aug 17 2022 Ben Kircher <bkircher@0xadd.de> - 2.19.2-2
 - Drop support for OpenSSL provider
 

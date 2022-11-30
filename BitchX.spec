@@ -1,7 +1,7 @@
 Summary: IrcII chat client
 Name: BitchX
 Version: 1.2.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: BSD and GPLv2+
 URL: http://www.bitchx.org
 Source0: http://www.bitchx.ca/%{name}-%{version}.tar.gz
@@ -10,6 +10,10 @@ Patch0: format-security.patch
 Patch1: configure_openssl_SSLeay.patch
 Patch2: remove-duplicate-symbols.patch
 Patch3: expr2_static_inline.patch
+Patch4: BitchX-configure-c99.patch
+Patch5: BitchX-aim-c99.patch
+Patch6: BitchX-arcfourc-c99.patch
+Patch7: BitchX-possum-c99.patch
 BuildRequires:  gcc
 BuildRequires: ncurses-devel openssl-devel glib2-devel libxcrypt-devel
 BuildRequires: make
@@ -23,6 +27,10 @@ BitchX: The ultimate IRC client
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 %configure --with-plugins --with-ssl --enable-ipv6
@@ -40,6 +48,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 1.2.1-30
+- Fixes for building in strict(er) C99 mode (#2148940)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

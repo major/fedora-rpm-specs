@@ -1,8 +1,8 @@
 Name:           perl-File-Find-Rule-Perl
 Version:        1.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Common rules for searching for Perl things
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Find-Rule-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/File-Find-Rule-Perl-%{version}.tar.gz
 # Filter out the files rpm generates in sourcedir.
@@ -48,6 +48,9 @@ Common rules for searching for Perl things.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.16-4
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

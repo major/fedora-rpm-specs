@@ -64,7 +64,16 @@ Version:        0.0.11%{?grpc_commit:^%{grpc_snapdate}git%{grpc_commit}}
 Release:        %autorelease -b 9
 Summary:        ProtoBuf generated Python files for xDS protos
 
-License:        ASL 2.0
+# The entire source (after removing unused non-.proto files in %%prep) is Apache-2.0, except:
+#
+# - The following .proto files are BSD-3-Clause. However, they are for
+#   benchmarks and are not used to generate the proto bindings in this package,
+#   so do not affect the license of the binary RPMs.
+#
+#   third_party/upb/benchmarks/descriptor.proto
+#   third_party/upb/benchmarks/descriptor_sv.proto
+
+License:        Apache-2.0
 URL:            https://pypi.org/project/xds-protos
 %global grpc_version %(echo '%{grpc_tag}' | sed -r 's/^v//')
 Source0:        %{grpc_url}/archive/%{grpc_tag}/grpc-%{grpc_version}.tar.gz
@@ -221,7 +230,7 @@ find 'tools/distrib/python' -mindepth 1 -maxdepth 1 ! -name 'xds_protos' \
 
 %generate_buildrequires
 cd %{py_cwd}
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

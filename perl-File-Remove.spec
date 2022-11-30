@@ -1,8 +1,8 @@
 Name:		perl-File-Remove
 Version:	1.61
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Convenience module for removing files and directories
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:		https://metacpan.org/release/File-Remove
 Source0:	https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/File-Remove-%{version}.tar.gz
@@ -55,6 +55,9 @@ BuildArch:	noarch
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.61-3
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.6.0~rc0
+Version: 2.6.0
 Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL: https://gitlab.com/cryptsetup/cryptsetup
@@ -117,6 +117,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/*.la
 %{_sbindir}/cryptsetup-ssh
 
 %changelog
+* Mon Nov 28 2022 Ondrej Kozina <okozina@redhat.com> - 2.6.0-1
+- Update to cryptsetup 2.6.0.
+
 * Mon Nov 21 2022 Ondrej Kozina <okozina@redhat.com> - 2.6.0~rc0-1
 - Update to cryptsetup 2.6.0-rc0.
 

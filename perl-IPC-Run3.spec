@@ -1,13 +1,13 @@
 Name:           perl-IPC-Run3
 Version:        0.048
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Run a subprocess in batch mode
-License:        GPL+ or Artistic or BSD
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR BSD-2-Clause
 URL:            https://metacpan.org/release/IPC-Run3
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/IPC-Run3-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
@@ -45,15 +45,15 @@ API and none of the bloat and rarely used features of IPC::Run.
 find -type f -exec chmod -x {} \;
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test RELEASE_TESTING=1
+%{__make} test RELEASE_TESTING=1
 
 %files
 %doc Changes README
@@ -62,6 +62,11 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.048-27
+- Convert License to SPDX.
+- Modernize spec.
+- Update sources sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.048-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

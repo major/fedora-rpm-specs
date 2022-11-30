@@ -1,15 +1,15 @@
 Name:		perl-Class-Inspector
 Version:	1.36
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Get information about a class and its structure
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Inspector
 Source0:	https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Class-Inspector-%{version}.tar.gz
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: noarch
 
-BuildRequires: make
+BuildRequires:	%{__make}
 BuildRequires:	perl-generators
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(Test::More)
@@ -29,16 +29,16 @@ provide an easier, more friendly interface to this information.
 %setup -q -n Class-Inspector-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -47,6 +47,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.36-12
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

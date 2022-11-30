@@ -4,7 +4,7 @@
 #%%global	profiling 0
 
 Name:           xournalpp
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Handwriting note-taking software with PDF annotation support
 License:	GPLv2+
@@ -36,9 +36,7 @@ BuildRequires:  pkgconfig(lua) >= 5.3
 BuildRequires:  pkgconfig(poppler-glib) >= 0.41.0
 BuildRequires:  pkgconfig(portaudiocpp) >= 12
 BuildRequires:  pkgconfig(sndfile) >= 1.0.25
-Recommends:     texlive-scheme-basic
-Recommends:     texlive-dvipng
-Recommends:     texlive-standalone
+Recommends:     texlive-latex-bin
 Requires:       hicolor-icon-theme
 Requires:       %{name}-plugins = %{version}-%{release}
 Requires:       %{name}-ui = %{version}-%{release}

@@ -1,6 +1,6 @@
 Name:			maim
-Version:		5.6.3
-Release:		9%{?dist}
+Version:		5.7.4
+Release:		1%{?dist}
 Summary:		Command-line screen capture tool
 
 License:		GPLv3
@@ -16,6 +16,7 @@ BuildRequires:	libXrandr-devel
 BuildRequires:	libXcomposite-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
+BuildRequires:	libwebp-devel
 BuildRequires:	mesa-libGL-devel
 BuildRequires:	glm-devel
 BuildRequires:	libslopy-devel >= 7.5
@@ -46,6 +47,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Mon Nov 28 2022 Alois Mahdal <netvor@vornet.cz> - 5.7.4-1
+- Update to upstream release 5.7.4 (RHBZ#1823039)
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.6.3-9
 - Rebuilt for ICU 71.1
 

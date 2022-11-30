@@ -5,8 +5,8 @@
 Name:           help2man
 Summary:        Create simple man pages from --help output
 Version:        1.49.2
-Release:        2%{?dist}
-License:        GPLv3+
+Release:        3%{?dist}
+License:        GPL-3.0-or-later
 URL:            https://www.gnu.org/software/help2man/
 Source:         https://ftp.gnu.org/gnu/help2man/help2man-%{version}.tar.xz
 
@@ -58,6 +58,9 @@ still providing some useful information.
 %endif
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.49.2-3
+- Convert license to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           perl-Data-GUID
 Version:        0.050
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Globally unique identifiers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-GUID
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Data-GUID-%{version}.tar.gz
 BuildArch:      noarch
@@ -51,6 +51,9 @@ unique identifiers.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.050-5
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.050-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

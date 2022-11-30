@@ -16,12 +16,12 @@ URL:            http://LFPy.readthedocs.io
 Source0:        %{pypi_source LFPy}
 
 # Requires NEURON, so limited to arches that NEURON and Random123 support
-#ExcludeArch:    mips64r2 mips32r2 s390
+ExcludeArch:    mips64r2 mips32r2
 # Upstream does not support powerpc or 32bit arches
 # https://github.com/LFPy/LFPy/issues/173
 # Bug: ppc: https://bugzilla.redhat.com/show_bug.cgi?id=1838565
 # Bug: armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=1838564
-#ExcludeArch:    %{power64} %{ix86} armv7hl
+ExcludeArch:    %{power64} %{ix86} armv7hl
 
 
 BuildRequires:  python3-devel
@@ -84,11 +84,6 @@ done
 %install
 %pyproject_install
 
-# Remove unneeded test files: they include objects and libraries generated from neuron.
-#rm -rf %{buildroot}/%{python3_sitearch}/LFPy/test/
-# Remove associated debuginfo files
-#rm -rf %{buildroot}/usr/lib/debug/%{python3_sitearch}/LFPy/test/
-
 %pyproject_save_files LFPy
 
 
@@ -96,19 +91,18 @@ done
 # https://github.com/LFPy/LFPy/blob/master/continuous_integration/test_script.sh#L16
 %{_mpich_load}
 %{pytest} LFPy/test/
+
+%pyproject_check_import -e *x86_64* -e *test*
 %{_mpich_unload}
 
 %{_openmpi_load}
 %{pytest} LFPy/test/
+
+%pyproject_check_import -e *x86_64* -e *test*
 %{_openmpi_unload}
-
-
 
 %files -n python3-lfpy -f %{pyproject_files}
 %doc README.md
-# temporary files generated for test
-%exclude %{python3_sitearch}/LFPy/test/x86_64
-%exclude %{python3_sitearch}/LFPy/test/
 
 %changelog
 %autochangelog

@@ -2,7 +2,7 @@ Summary:	Perl extension to create simple calendars
 Name:		perl-Calendar-Simple
 Version:	2.0.1
 Release:	4%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Calendar-Simple
 Source0:	https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/Calendar-Simple-v%{version}.tar.gz
 BuildArch:	noarch
@@ -40,7 +40,7 @@ chmod -x lib/*/Simple.pm
 
 
 %install
-%{make_install} DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -53,6 +53,10 @@ chmod -x lib/*/Simple.pm
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.0.1-5
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

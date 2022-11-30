@@ -3,9 +3,9 @@ Version:        0.1.11
 Release:        4%{?dist}
 Summary:        C library for manipulating polynomials
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://sri-csl.github.io/libpoly/
-Source0:        https://github.com/SRI-CSL/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/SRI-CSL/libpoly/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -78,6 +78,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %{python3_sitearch}/polypy.so
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.1.11-4
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

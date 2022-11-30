@@ -1,13 +1,13 @@
 Name:           perl-Digest-JHash
 Version:        0.10
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl extension for 32 bit Jenkins Hashing Algorithm
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Digest-JHash
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Digest-JHash-%{version}.tar.gz
 
 BuildRequires:  gcc
-BuildRequires:  make
+BuildRequires:  %{__make}
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -41,15 +41,15 @@ input a message of arbitrary length and produces as output a 32-bit
 %setup -q -n Digest-JHash-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test RELEASE_TESTING=1
+%{__make} test RELEASE_TESTING=1
 
 %files
 %doc Changes README
@@ -58,6 +58,11 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.10-22
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

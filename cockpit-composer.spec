@@ -1,5 +1,5 @@
 Name:           cockpit-composer
-Version:        41
+Version:        42
 Release:        1%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
@@ -8,7 +8,6 @@ URL:            http://weldr.io/
 Source0:        https://github.com/osbuild/cockpit-composer/releases/download/%{version}/cockpit-composer-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  libappstream-glib
 
 Requires:       cockpit
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 8
@@ -30,10 +29,9 @@ the cloud. It integrates into Cockpit as a frontend for osbuild.
 
 %install
 mkdir -p %{buildroot}/%{_datadir}/cockpit/composer
-cp -a public/dist/* %{buildroot}/%{_datadir}/cockpit/composer
+cp -a public/* %{buildroot}/%{_datadir}/cockpit/composer
 mkdir -p %{buildroot}/%{_datadir}/metainfo/
-appstream-util validate-relax --nonet io.weldr.cockpit-composer.metainfo.xml
-cp -a io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/
+cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/ 
 
 %files
 %doc README.md
@@ -42,6 +40,14 @@ cp -a io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/metainfo/
 %{_datadir}/metainfo/*
 
 %changelog
+* Mon Nov 28 2022 Packit <hello@packit.dev> - 42-1
+- Update most components to use React 17 and PF4
+- Update store to user redux-toolkit
+- Update all style, build, and translations config
+- Update all NPM dependencies
+- Readd edge-simplified-installer image type
+
+
 * Mon Sep 05 2022 Packit <hello@packit.dev> - 41-1
 - Update translations
 

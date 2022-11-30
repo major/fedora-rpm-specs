@@ -1,12 +1,14 @@
 Summary: 	CVS Utilities
 Name: 		cvsutils
 Version: 	0.2.6
-Release: 	15%{?dist}
-License: 	GPLv3+
+Release: 	16%{?dist}
+License: 	GPL-3.0-or-later
 URL: 		http://www.red-bean.com/cvsutils
 Source: 	http://www.red-bean.com/cvsutils/releases/cvsutils-%{version}.tar.gz
-BuildRequires: 	perl-generators
-BuildRequires: make
+
+BuildRequires:	perl-generators
+BuildRequires:	make
+
 Requires: 	cvs
 BuildArch:	noarch
 
@@ -19,10 +21,10 @@ Concurrent Versions System (CVS).
 
 %build
 %configure
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR="${RPM_BUILD_ROOT}"
+%{make_install}
 
 for f in ${RPM_BUILD_ROOT}%{_bindir}/*; do
   echo ".so man1/cvsutils.1" > \
@@ -36,6 +38,11 @@ done
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.2.6-16
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

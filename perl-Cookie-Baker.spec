@@ -1,8 +1,8 @@
 Name:           perl-Cookie-Baker
 Version:        0.11
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Cookie string generator / parser
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cookie-Baker
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZEBURO/Cookie-Baker-%{version}.tar.gz
 BuildArch:      noarch
@@ -50,6 +50,9 @@ Cookie::Baker provides simple cookie string generator and parser.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.11-12
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

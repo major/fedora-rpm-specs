@@ -6,7 +6,7 @@ Epoch:          0
 Version:        1.11.1
 Release:        3%{?dist}
 Summary:        Content generation framework
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://maven.apache.org/doxia/
 Source0:        https://repo1.maven.org/maven2/org/apache/maven/doxia/doxia/%{version}/doxia-%{version}-source-release.zip
@@ -243,6 +243,9 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0:1.11.1-3
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 Name:           perl-File-NCopy
 Version:        0.36
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Copy files to directories, or a single file to another file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-NCopy
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/File-NCopy-%{version}.tar.gz
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Cwd)
@@ -34,16 +34,16 @@ You can use File::Copy::Recursive instead.
 %setup -q -n File-NCopy-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes
@@ -51,6 +51,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.36-41
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,10 +1,11 @@
 Name:           perl-Thread-SigMask
 Version:        0.004
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Thread specific signal masks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Thread-SigMask
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Thread-SigMask-%{version}.tar.gz
+
 BuildRequires:  perl-interpreter >= 0:5.006
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -52,6 +53,10 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.004-31
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

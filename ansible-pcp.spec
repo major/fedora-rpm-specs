@@ -1,5 +1,5 @@
 Name:             ansible-pcp
-Version:          2.2.7
+Version:          2.2.8
 Release:          1%{?dist}
 Summary:          Ansible Metric collection for Performance Co-Pilot
 License:          MIT
@@ -7,9 +7,10 @@ URL:              https://github.com/performancecopilot/ansible-pcp
 Source:           https://github.com/performancecopilot/ansible-pcp/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:        noarch
 
-%if 0%{?rhel}
+%if %{defined rhel}
 %global collection_namespace redhat
 %global collection_name rhel_metrics
+%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}
 %else
 %global collection_namespace performancecopilot
 %global collection_name metrics
@@ -19,36 +20,17 @@ BuildArch:        noarch
 Requires: (ansible-core >= 2.11.0 or ansible >= 2.9.0)
 %endif
 
-# NOTE: Even though ansible-core is in 8.6, it is only available
-# at *runtime*, not at *buildtime* - so we can't have
-# ansible-core as a build_dep on RHEL8
-%if 0%{?fedora} || 0%{?rhel} >= 9
-%global have_ansible 0
-%global ansible_build_dep ansible-core >= 2.11.0
-%else
-%if 0%{?rhel} && ! 0%{?epel}
-%global have_ansible 1
-%else
-%global have_ansible 0
-%global ansible_build_dep ansible >= 2.9.10
-%endif
-%endif
-
-%if %{have_ansible}
-BuildRequires:    %{ansible_build_dep}
-# package has been removed from RHEL9
 %if 0%{?rhel} >= 9
-%global have_ansible_lint 0
-%else
-%global have_ansible_lint 1
-%endif
-%else
-%global have_ansible_lint 0
-%global ansible_collection_files %{_datadir}/ansible/collections/ansible_collections/%{collection_namespace}
+BuildRequires:  ansible-core
+%global ansible_collection_build ansible-galaxy collection build .
+%global ansible_collection_install ansible-galaxy collection install -n -p %{buildroot}%{_datadir}/ansible/collections %{collection_namespace}-%{collection_name}-%{version}.tar.gz
 %endif
 
-%if %{have_ansible_lint}
-BuildRequires:    python3-ansible-lint
+%if %{defined fedora}
+BuildRequires:  ansible-packaging
+BuildRequires:  ansible-packaging-tests
+# There's ansible-lint errors that need to be addressed
+# BuildRequires: python3-ansible-lint
 %endif
 
 %description
@@ -87,13 +69,10 @@ values (and metadata) to ElasticSearch for the indexing and querying
 of performance data.
 
 %prep
-%autosetup
-mv .yamllint.yml yamllint.yml
-mv .yamllint_defaults.yml yamllint_defaults.yml
+%autosetup -p1
 %if 0%{?rhel}
 rm -vr roles/repository tests/*repository* tests/*/*repository* docs/repository
 %endif
-rm -vr .github .gitignore .ansible-lint .*.yml
 sed -i \
     -e 's/^name: .*/name: %{collection_name}/g' \
     -e 's/^namespace: .*/namespace: %{collection_namespace}/g' \
@@ -105,25 +84,28 @@ find . -name \*.yml -o -name \*.md | while read file; do
 done
 
 %build
-%if %{have_ansible}
-%ansible_collection_build
-%else
+# NOTE: Even though ansible-core is in 8.6, it is only available
+# at *runtime*, not at *buildtime* - so we can't have
+# ansible-core as a build_dep on RHEL8
+%if %{defined rhel} && 0%{?rhel} <= 8
 tar -cf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz .
+%else
+%ansible_collection_build
 %endif
 
 %install
-%if %{have_ansible}
-%ansible_collection_install
-%else
+%if %{defined rhel} && 0%{?rhel} <= 8
 mkdir -p %{buildroot}%{ansible_collection_files}/%{collection_name}
 cd %{buildroot}%{ansible_collection_files}/%{collection_name}
 tar -xf %{_tmppath}/%{collection_namespace}-%{collection_name}-%{version}.tar.gz
+%else
+%ansible_collection_install
 %endif
 
 %check
-mv yamllint.yml .yamllint.yml
-mv yamllint_defaults.yml .yamllint_defaults.yml
-%if %{have_ansible_lint}
+# There's outstanding ansible-lint failures that need to be addressed.
+# %%if %%{defined fedora}
+%if 0
 ansible-lint `find roles -name \*.yml`
 %endif
 
@@ -133,6 +115,17 @@ ansible-lint `find roles -name \*.yml`
 %{ansible_collection_files}
 
 %changelog
+* Mon Nov 28 2022 Nathan Scott <nathans@redhat.com> 2.2.8-1
+- Latest upstream release
+
+* Sat Nov 19 2022 Maxwell G <gotmax@e.email> - 2.2.7-2
+- BuildRequire ansible-packaging on Fedora
+- Resolves: rhbz#2126889
+- Fix inverted conditionals and build/install the collection using ansible-galaxy
+- Keep ansible-lint disabled for now
+- Remove unnecessary macros
+- Exclude files with galaxy.yml build_ignore
+
 * Fri Oct 28 2022 Nathan Scott <nathans@redhat.com> 2.2.7-1
 - Latest upstream release
 

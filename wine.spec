@@ -1,12 +1,6 @@
 # Compiling the preloader fails with hardening enabled
 %undefine _hardened_build
 
-# Parallel build broken (fails with
-# /usr/bin/x86_64-w64-mingw32-dlltool: dlls/winmm/libwinmm.{cross,delay}.a: No such file or directory
-# /usr/bin/x86_64-w64-mingw32-dlltool: dlls/oleaut32/liboleaut32.{cross,delay}.a: No such file or directory
-# /usr/bin/x86_64-w64-mingw32-dlltool: dlls/oleaut32/libwintrust.{cross,delay}.a: No such file or directory
-%global _smp_mflags -j1
-
 %global no64bit   0
 %global winegecko 2.47.3
 %global winemono  7.4.0
@@ -46,8 +40,8 @@
 %endif
 
 Name:           wine
-Version:        7.20
-Release:        1%{?dist}
+Version:        7.22
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
@@ -92,8 +86,8 @@ Source501:      wine-tahoma.conf
 # and provide a readme
 Source502:      wine-README-tahoma
 
-# fix configure macros for cross-compiling
-Patch100:       wine-7.5-cross.patch
+# Autoconf 2.72 support - https://bugzilla.redhat.com/show_bug.cgi?id=2143724
+Patch100:       wine-7.22-autoconf-2.72.patch
 
 Patch511:       wine-cjk.patch
 
@@ -104,7 +98,12 @@ Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.
 %endif
 
 %if !%{?no64bit}
+%if 0%{fedora} > 36
 ExclusiveArch:  %{ix86} x86_64 aarch64
+%else
+# Fedora 36 Clang doesn't build PE binaries on ARM at the moment
+ExclusiveArch:  %{ix86} x86_64
+%endif
 %else
 ExclusiveArch:  %{ix86}
 %endif
@@ -183,7 +182,6 @@ BuildRequires:  libva-devel
 # 0%%{?wine_staging}
 
 %if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
-BuildRequires:  openal-soft-devel
 BuildRequires:  icoutils
 %endif
 
@@ -220,9 +218,6 @@ Requires:       wine-cms(x86-32) = %{version}-%{release}
 Requires:       wine-ldap(x86-32) = %{version}-%{release}
 Requires:       wine-twain(x86-32) = %{version}-%{release}
 Requires:       wine-pulseaudio(x86-32) = %{version}-%{release}
-%if 0%{?fedora} >= 10 || 0%{?rhel} == 6
-Requires:       wine-openal(x86-32) = %{version}-%{release}
-%endif
 %if 0%{?fedora}
 Requires:       wine-opencl(x86-32) = %{version}-%{release}
 %endif
@@ -248,9 +243,6 @@ Requires:       wine-cms(x86-64) = %{version}-%{release}
 Requires:       wine-ldap(x86-64) = %{version}-%{release}
 Requires:       wine-twain(x86-64) = %{version}-%{release}
 Requires:       wine-pulseaudio(x86-64) = %{version}-%{release}
-%if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
-Requires:       wine-openal(x86-64) = %{version}-%{release}
-%endif
 %if 0%{?fedora}
 Requires:       wine-opencl(x86-64) = %{version}-%{release}
 %endif
@@ -273,7 +265,6 @@ Requires:       wine-cms = %{version}-%{release}
 Requires:       wine-ldap = %{version}-%{release}
 Requires:       wine-twain = %{version}-%{release}
 Requires:       wine-pulseaudio = %{version}-%{release}
-Requires:       wine-openal = %{version}-%{release}
 %if 0%{?fedora}
 Requires:       wine-opencl = %{version}-%{release}
 %endif
@@ -288,7 +279,6 @@ Requires:       wine-cms(aarch-64) = %{version}-%{release}
 Requires:       wine-ldap(aarch-64) = %{version}-%{release}
 Requires:       wine-twain(aarch-64) = %{version}-%{release}
 Requires:       wine-pulseaudio(aarch-64) = %{version}-%{release}
-Requires:       wine-openal(aarch-64) = %{version}-%{release}
 Requires:       wine-opencl(aarch-64) = %{version}-%{release}
 Requires:       mingw64-wine-gecko = %winegecko
 Requires:       mesa-dri-drivers(aarch-64)
@@ -400,12 +390,9 @@ Provides:       bundled(libjpeg) = 9e
 Provides:       bundled(mpg123-libs) = 1.29.3
 Provides:       bundled(libtiff) = 4.3.0
 
-# removed as of 1.7.35
-Obsoletes:      wine-wow < 1.7.35
-Provides:       wine-wow = %{version}-%{release}
-# library is now directly linked
-Obsoletes:      wine-capi < 6.21
-Provides:       wine-capi = %{version}-%{release}
+# removed as of 7.21
+Obsoletes:      wine-openal < 7.21
+Provides:       wine-openal = %{version}-%{release}
 
 %description core
 Wine core package includes the basic wine stuff needed by all other packages.
@@ -701,15 +688,6 @@ Requires: wine-core = %{version}-%{release}
 %description alsa
 This package adds an alsa driver for wine.
 
-%if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
-%package openal
-Summary: Openal support for wine
-Requires: wine-core = %{version}-%{release}
-
-%description openal
-This package adds an openal driver for wine.
-%endif
-
 %if 0%{?fedora}
 %package opencl
 Summary: OpenCL support for wine
@@ -721,7 +699,7 @@ This package adds the opencl driver for wine.
 
 %prep
 %setup -qn wine-%{version}
-%patch100 -p1 -b.cross
+%patch100 -p1 -b.autoconf
 %patch511 -p1 -b.cjk
 
 %if 0%{?wine_staging}
@@ -745,13 +723,17 @@ patches/patchinstall.sh DESTDIR="`pwd`" --all
 # disable fortify as it breaks wine
 # http://bugs.winehq.org/show_bug.cgi?id=24606
 # http://bugs.winehq.org/show_bug.cgi?id=25073
-export CFLAGS="`echo $RPM_OPT_FLAGS | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//'` -Wno-error"
-
-%ifarch %{ix86}
-# remove extra linker flag on 32-bit on native LDFLAGS
-sed -i 's/CFLAGS="$CFLAGS -Wl,--disable-stdcall-fixup"//' configure
-sed -i 's/CFLAGS="$CFLAGS $EXTRACROSSCFLAGS -nostartfiles -nodefaultlibs -Wl,--disable-stdcall-fixup"/CFLAGS="$CFLAGS $EXTRACROSSCFLAGS -nostartfiles -nodefaultlibs"/' configure
-sed -i 's/CROSSLDFLAGS="$CROSSLDFLAGS -Wl,--disable-stdcall-fixup"/CROSSLDFLAGS="$CROSSLDFLAGS"/' configure
+# Disable Red Hat specs for package notes (Fedora 38+) and annobin.
+# MinGW GCC does not support these options.
+%if 0%{?fedora_version} == 36
+export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,--build-id=sha1//' -e 's/-Wl,-dT,\/home\/abuild\/rpmbuild\/BUILD\/wine.*//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
+%else
+export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,--build-id=sha1//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-package-notes//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
+%endif
+%ifarch x86_64
+export CFLAGS="$(echo "%{optflags}" | sed -e 's/-O2//' -e 's/-Wp,-D_FORTIFY_SOURCE=2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//') -O2"
+%else
+export CFLAGS="$(echo "%{optflags}" | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
 %endif
 
 %ifarch  %{arm} aarch64
@@ -806,6 +788,10 @@ unset PKG_CONFIG_PATH
 
 # setup for alternatives usage
 %ifarch x86_64 aarch64
+%ifarch aarch64
+mv %{buildroot}%{_bindir}/wine %{buildroot}%{_bindir}/wine64
+mv %{buildroot}%{_bindir}/wine-preloader %{buildroot}%{_bindir}/wine64-preloader
+%endif
 mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver64
 %endif
 %ifarch %{ix86} %{arm}
@@ -1127,10 +1113,6 @@ fi
 
 %ldconfig_scriptlets alsa
 
-%if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
-%ldconfig_scriptlets openal
-%endif
-
 %files
 # meta package
 
@@ -1193,6 +1175,7 @@ fi
 %{_libdir}/wine/%{winepedir}/arp.exe
 %{_libdir}/wine/%{winepedir}/aspnet_regiis.exe
 %{_libdir}/wine/%{winepedir}/cacls.exe
+%{_libdir}/wine/%{winepedir}/certutil.exe
 %{_libdir}/wine/%{winepedir}/conhost.exe
 %{_libdir}/wine/%{winepedir}/cscript.exe
 %{_libdir}/wine/%{winepedir}/dism.exe
@@ -1232,6 +1215,7 @@ fi
 %{_libdir}/wine/%{winepedir}/secedit.exe
 %{_libdir}/wine/%{winepedir}/servicemodelreg.exe
 %{_libdir}/wine/%{winepedir}/services.exe
+%{_libdir}/wine/%{winepedir}/setx.exe
 %{_libdir}/wine/%{winepedir}/start.exe
 %{_libdir}/wine/%{winepedir}/tasklist.exe
 %{_libdir}/wine/%{winepedir}/termsv.exe
@@ -1582,10 +1566,10 @@ fi
 %{_libdir}/wine/%{winepedir}/ntdsapi.dll
 %{_libdir}/wine/%{winepedir}/ntprint.dll
 %if 0%{?wine_staging}
-%{_libdir}/wine/%{winepedir}/nvcuda.dll
-%{_libdir}/wine/%{winesodir}/nvcuda.dll.so
-%{_libdir}/wine/%{winepedir}/nvcuvid.dll
-%{_libdir}/wine/%{winesodir}/nvcuvid.dll.so
+#%%{_libdir}/wine/%%{winepedir}/nvcuda.dll
+#%%{_libdir}/wine/%%{winesodir}/nvcuda.dll.so
+#%%{_libdir}/wine/%%{winepedir}/nvcuvid.dll
+#%%{_libdir}/wine/%%{winesodir}/nvcuvid.dll.so
 %endif
 %{_libdir}/wine/%{winepedir}/objsel.dll
 %{_libdir}/wine/%{winesodir}/odbc32.so
@@ -1735,11 +1719,13 @@ fi
 %{_libdir}/wine/%{winepedir}/win32k.sys
 %{_libdir}/wine/%{winepedir}/win32u.dll
 %{_libdir}/wine/%{winepedir}/windows.devices.enumeration.dll
+%{_libdir}/wine/%{winepedir}/windows.gaming.ui.gamebar.dll
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedir}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedir}/windows.globalization.dll
 %{_libdir}/wine/%{winepedir}/windows.media.speech.dll
 %endif
+%{_libdir}/wine/%{winepedir}/windows.media.dll
 %{_libdir}/wine/%{winepedir}/windows.media.devices.dll
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
@@ -1761,6 +1747,7 @@ fi
 %{_libdir}/wine/%{winepedir}/wininet.dll
 %{_libdir}/wine/%{winepedir}/winmm.dll
 %{_libdir}/wine/%{winepedir}/winnls32.dll
+%{_libdir}/wine/%{winepedir}/winprint.dll
 %{_libdir}/wine/%{winepedir}/winspool.drv
 %{_libdir}/wine/%{winesodir}/winspool.so
 %{_libdir}/wine/%{winepedir}/winsta.dll
@@ -1815,8 +1802,8 @@ fi
 %{_libdir}/wine/%{winepedir}/d3d8thk.dll
 %ghost %{_libdir}/wine/%{winepedir}/d3d9.dll
 %{_libdir}/wine/%{winepedir}/wine-d3d9.dll
+%{_libdir}/wine/%{winesodir}/opengl32.so
 %{_libdir}/wine/%{winepedir}/opengl32.dll
-%{_libdir}/wine/%{winesodir}/opengl32.dll.so
 %{_libdir}/wine/%{winepedir}/wined3d.dll
 %{_libdir}/wine/%{winepedir}/dnsapi.dll
 %{_libdir}/wine/%{winesodir}/dnsapi.so
@@ -1864,6 +1851,7 @@ fi
 %{_libdir}/wine/%{winepedir}/xinput1_3.dll
 %{_libdir}/wine/%{winepedir}/xinput1_4.dll
 %{_libdir}/wine/%{winepedir}/xinput9_1_0.dll
+%{_libdir}/wine/%{winepedir}/xinputuap.dll
 %{_libdir}/wine/%{winepedir}/xmllite.dll
 %{_libdir}/wine/%{winepedir}/xolehlp.dll
 %{_libdir}/wine/%{winepedir}/xpsprint.dll
@@ -1871,16 +1859,16 @@ fi
 
 %if 0%{?wine_staging}
 %ifarch x86_64 aarch64
-%{_libdir}/wine/%{winepedir}/nvapi64.dll
-%{_libdir}/wine/%{winepedir}/nvencodeapi64.dll
-%{_libdir}/wine/%{winesodir}/nvencodeapi64.dll.so
+#%%{_libdir}/wine/%%{winepedir}/nvapi64.dll
+#%%{_libdir}/wine/%%{winepedir}/nvencodeapi64.dll
+#%%{_libdir}/wine/%%{winesodir}/nvencodeapi64.dll.so
 %else
-%{_libdir}/wine/%{winepedir}/nvapi.dll
+#%%{_libdir}/wine/%%{winepedir}/nvapi.dll
 %ifarch %{arm}
-%{_libdir}/wine/%{winesodir}/nvapi.dll.so
+#%%{_libdir}/wine/%%{winesodir}/nvapi.dll.so
 %endif
-%{_libdir}/wine/%{winepedir}/nvencodeapi.dll
-%{_libdir}/wine/%{winesodir}/nvencodeapi.dll.so
+#%%{_libdir}/wine/%%{winepedir}/nvencodeapi.dll
+#%%{_libdir}/wine/%%{winesodir}/nvencodeapi.dll.so
 %endif
 %endif
 
@@ -2353,6 +2341,7 @@ fi
 %{_libdir}/wine/%{winesodir}/olesvr32.dll.so
 %{_libdir}/wine/%{winesodir}/olethk32.dll.so
 %{_libdir}/wine/%{winesodir}/opcservices.dll.so
+%{_libdir}/wine/%{winesodir}/opengl32.dll.so
 %{_libdir}/wine/%{winesodir}/packager.dll.so
 %{_libdir}/wine/%{winesodir}/pdh.dll.so
 %{_libdir}/wine/%{winesodir}/photometadatahandler.dll.so
@@ -2482,11 +2471,13 @@ fi
 %{_libdir}/wine/%{winesodir}/win32k.sys.so
 %{_libdir}/wine/%{winesodir}/win32u.dll.so
 %{_libdir}/wine/%{winesodir}/windows.devices.enumeration.dll.so
+%{_libdir}/wine/%{winesodir}/windows.gaming.ui.gamebar.dll.so
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winesodir}/windows.gaming.input.dll.so
 %{_libdir}/wine/%{winesodir}/windows.globalization.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.speech.dll.so
 %endif
+%{_libdir}/wine/%{winesodir}/windows.media.dll.so
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
@@ -2505,6 +2496,7 @@ fi
 %{_libdir}/wine/%{winesodir}/wininet.dll.so
 %{_libdir}/wine/%{winesodir}/winmm.dll.so
 %{_libdir}/wine/%{winesodir}/winnls32.dll.so
+%{_libdir}/wine/%{winesodir}/winprint.dll.so
 %{_libdir}/wine/%{winesodir}/winspool.drv.so
 %{_libdir}/wine/%{winesodir}/winsta.dll.so
 %{_libdir}/wine/%{winesodir}/wmasf.dll.so
@@ -2579,6 +2571,7 @@ fi
 %{_libdir}/wine/%{winesodir}/xinput1_3.dll.so
 %{_libdir}/wine/%{winesodir}/xinput1_4.dll.so
 %{_libdir}/wine/%{winesodir}/xinput9_1_0.dll.so
+%{_libdir}/wine/%{winesodir}/xinputuap.dll.so
 %{_libdir}/wine/%{winesodir}/xmllite.dll.so
 %{_libdir}/wine/%{winesodir}/xolehlp.dll.so
 %{_libdir}/wine/%{winesodir}/xpsprint.dll.so
@@ -2741,7 +2734,6 @@ fi
 
 # ldap subpackage
 %files ldap
-%{_libdir}/wine/%{winesodir}/wldap32.so
 %{_libdir}/wine/%{winepedir}/wldap32.dll
 %ifarch %{arm}
 %{_libdir}/wine/%{winesodir}/wldap32.dll.so
@@ -2811,12 +2803,6 @@ fi
 %{_libdir}/wine/%{winesodir}/winealsa.drv.so
 %endif
 
-%if 0%{?fedora} >= 10 || 0%{?rhel} >= 6
-%files openal
-%{_libdir}/wine/%{winepedir}/openal32.dll
-%{_libdir}/wine/%{winesodir}/openal32.dll.so
-%endif
-
 %if 0%{?fedora}
 %files opencl
 %{_libdir}/wine/%{winepedir}/opencl.dll
@@ -2827,6 +2813,13 @@ fi
 %endif
 
 %changelog
+* Mon Nov 28 2022 Michael Cronenworth <mike@cchtml.com> - 7.22-2
+- fix typo in openal obsoletes
+
+* Sun Nov 27 2022 Michael Cronenworth <mike@cchtml.com> - 7.22-1
+- version update
+- drop openal package
+
 * Mon Oct 31 2022 Michael Cronenworth <mike@cchtml.com> - 7.20-1
 - version update
 
@@ -2972,197 +2965,3 @@ fi
 * Tue Dec 08 2020 Michael Cronenworth <mike@cchtml.com> 6.0-0.1rc1
 - version update
 
-* Sat Nov 21 2020 Michael Cronenworth <mike@cchtml.com> 5.22-1
-- version update
-
-* Tue Nov 10 2020 Michael Cronenworth <mike@cchtml.com> 5.21-1
-- version update
-
-* Sat Oct 24 2020 Michael Cronenworth <mike@cchtml.com> 5.20-1
-- version update
-
-* Sat Oct 10 2020 Michael Cronenworth <mike@cchtml.com> 5.19-1
-- version update
-
-* Mon Sep 28 2020 Michael Cronenworth <mike@cchtml.com> 5.18-2
-- Enable vkd3d shader support
-
-* Mon Sep 28 2020 Michael Cronenworth <mike@cchtml.com> 5.18-1
-- version update
-
-* Tue Sep 15 2020 Michael Cronenworth <mike@cchtml.com> 5.17-1
-- version update
-
-* Tue Sep 01 2020 Michael Cronenworth <mike@cchtml.com> 5.16-1
-- version update
-
-* Sun Aug 16 2020 Michael Cronenworth <mike@cchtml.com> 5.15-1
-- version update
-
-* Mon Aug 10 2020 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.14-2
-- Recommend wine-dxvk as part of https://fedoraproject.org/wiki/Changes/DXVKwined3d
-
-* Mon Aug 03 2020 Michael Cronenworth <mike@cchtml.com> 5.14-1
-- version update
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 20 2020 Michael Cronenworth <mike@cchtml.com> 5.13-1
-- version update
-
-* Tue Jul 14 2020 Michael Cronenworth <mike@cchtml.com> 5.12-1
-- version update
-
-* Wed Jul 01 2020 Jeff Law <law@redhat.com> 5.10-2
-- Disable LTO
-
-* Sun Jun 07 2020 Michael Cronenworth <mike@cchtml.com> 5.10-1
-- version update
-
-* Tue Jun 02 2020 Michael Cronenworth <mike@cchtml.com> 5.9-2
-- drop typelibs from 32-bit devel package
-- add patch for wine bug 49208
-
-* Fri May 29 2020 Michael Cronenworth <mike@cchtml.com> 5.9-1
-- version update
-
-* Sat May 02 2020 Michael Cronenworth <mike@cchtml.com> 5.7-2
-- fix crash in wineserver affecting many apps and games (RHBZ#1829956)
-
-* Sun Apr 26 2020 Michael Cronenworth <mike@cchtml.com> 5.7-1
-- version update
-
-* Sat Apr 11 2020 Michael Cronenworth <mike@cchtml.com> 5.6-1
-- version update
-
-* Sun Mar 29 2020 Michael Cronenworth <mike@cchtml.com> 5.5-1
-- version update
-
-* Mon Mar 16 2020 Michael Cronenworth <mike@cchtml.com> 5.4-1
-- version update
-
-* Mon Mar 02 2020 Michael Cronenworth <mike@cchtml.com> 5.3-1
-- version update
-
-* Tue Feb 18 2020 Michael Cronenworth <mike@cchtml.com> 5.2-1
-- version update
-
-* Mon Feb 03 2020 Michael Cronenworth <mike@cchtml.com> 5.1-1
-- version update
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jan 22 2020 Michael Cronenworth <mike@cchtml.com> 5.0-1
-- version update
-
-* Mon Jan 13 2020 Michael Cronenworth <mike@cchtml.com> 5.0-0.rc5.0
-- version update
-
-* Mon Jan 06 2020 Michael Cronenworth <mike@cchtml.com> 5.0-0.rc4.0
-- version update
-
-* Mon Dec 30 2019 Michael Cronenworth <mike@cchtml.com> 5.0-0.rc3.0
-- version update
-
-* Sat Nov 30 2019 Michael Cronenworth <mike@cchtml.com> 4.21-1
-- version update
-
-* Sat Nov 16 2019 Michael Cronenworth <mike@cchtml.com> 4.20-1
-- version and wine-mono update
-
-* Sat Nov 02 2019 Michael Cronenworth <mike@cchtml.com> 4.19-1
-- version update
-
-* Mon Oct 21 2019 Michael Cronenworth <mike@cchtml.com> 4.18-1
-- version update
-
-* Sun Sep 29 2019 Michael Cronenworth <mike@cchtml.com> 4.17-2
-- sync wine-mono version
-
-* Sat Sep 28 2019 Michael Cronenworth <mike@cchtml.com> 4.17-1
-- version update
-
-* Thu Sep 26 2019 Michael Cronenworth <mike@cchtml.com> 4.16-2
-- Drop isdn4k-utils BR (RHBZ#1756118)
-
-* Sat Sep 14 2019 Michael Cronenworth <mike@cchtml.com> 4.16-1
-- version update
-
-* Sun Sep 01 2019 Michael Cronenworth <mike@cchtml.com> 4.15-1
-- version update
-
-* Mon Aug 19 2019 Michael Cronenworth <mike@cchtml.com> 4.14-2
-- sync wine-mono version
-
-* Mon Aug 19 2019 Michael Cronenworth <mike@cchtml.com> 4.14-1
-- version update
-
-* Sun Aug 11 2019 Michael Cronenworth <mike@cchtml.com> 4.13-5
-- remove correct dlls on upgrade
-
-* Thu Aug 08 2019 Michael Cronenworth <mike@cchtml.com> 4.13-4
-- support upgrades in new alternatives
-
-* Wed Aug 07 2019 Michael Cronenworth <mike@cchtml.com> 4.13-3
-- fix slave alternatives for d3d dlls
-
-* Mon Aug 05 2019 Michael Cronenworth <mike@cchtml.com> 4.13-2
-- fix alternatives for d3d dlls
-
-* Sun Aug 04 2019 Michael Cronenworth <mike@cchtml.com> 4.13-1
-- version update
-- add alternatives for d3d dlls to play with dxvk
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jul 10 2019 Michael Cronenworth <mike@cchtml.com> 4.12.1-1
-- version update
-
-* Sun Jun 23 2019 Michael Cronenworth <mike@cchtml.com> 4.11-1
-- version update
-
-* Thu Jun 13 2019 Michael Cronenworth <mike@cchtml.com> 4.10-1
-- version update
-- compile with MinGW support
-
-* Sun May 26 2019 Michael Cronenworth <mike@cchtml.com> 4.9-1
-- version update
-
-* Wed May 15 2019 Michael Cronenworth <mike@cchtml.com> 4.8-2
-- Fix default wine svg (RHBZ#1598994)
-
-* Tue May 14 2019 Michael Cronenworth <mike@cchtml.com> 4.8-1
-- version update
-
-* Sun Apr 28 2019 Michael Cronenworth <mike@cchtml.com> 4.7-1
-- version update
-
-* Sun Apr 14 2019 Michael Cronenworth <mike@cchtml.com> 4.6-1
-- version update
-
-* Tue Apr 02 2019 Michael Cronenworth <mike@cchtml.com> 4.5-1
-- version update
-
-* Tue Mar 19 2019 Michael Cronenworth <mike@cchtml.com> 4.4-1
-- version update
-
-* Sun Mar 03 2019 Michael Cronenworth <mike@cchtml.com> 4.3-1
-- version update
-
-* Tue Feb 19 2019 Kalev Lember <klember@redhat.com> - 4.2-3
-- Rebuilt against fixed atk (#1626575)
-
-* Tue Feb 19 2019 Björn Esser <besser82@fedoraproject.org> - 4.2-2
-- Fix version requirement on wine-mono
-
-* Sun Feb 17 2019 Michael Cronenworth <mike@cchtml.com> 4.2-1
-- version update
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan 23 2019 Michael Cronenworth <mike@cchtml.com> 4.0-1
-- version update

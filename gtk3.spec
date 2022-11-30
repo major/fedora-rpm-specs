@@ -19,7 +19,7 @@
 
 Name:    gtk3
 Version: 3.24.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPLv2+
@@ -90,6 +90,8 @@ Recommends: libcanberra-gtk3%{?_isa}
 
 # For Tracker search in the file chooser.
 Recommends: tracker-miners
+
+Recommends: (ibus-gtk3 if ibus)
 
 %description
 GTK+ is a multi-platform toolkit for creating graphical user
@@ -294,6 +296,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Nov 28 2022 Jens Petersen <petersen@redhat.com> - 3.24.35-2
+- Recommend ibus-gtk3 if ibus is installed
+
 * Tue Nov 22 2022 David King <amigadave@amigadave.com> - 3.24.35-1
 - Update to 3.24.35
 

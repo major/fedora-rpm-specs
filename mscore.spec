@@ -5,11 +5,14 @@ Name:          mscore
 Summary:       Music Composition & Notation Software
 Version:       %{shortver}.2
 Release:       12%{?dist}
-# The MuseScore project itself is GPLv2.  Other licenses in play:
-# - rtf2html is LGPLv2+
-# - paper4.png and paper5.png are LGPLv3
+# The MuseScore project itself is GPL-2.0-only WITH Font-exception-2.0.  Other
+# licenses in play:
+# - rtf2html is LGPL-2.1-or-later
+# - mscore/svggenerator.{cpp,h} is
+#   (LGPL-2.1-only WITH Nokia-Qt-exception-1.1.txt OR GPL-3.0-only)
+# - paper4.png and paper5.png are LGPL-3.0-only
 # - Soundfont is MIT
-License:       GPLv2 and LGPLv2+ and LGPLv3 and MIT
+License:       GPL-2.0-only WITH Font-exception-2.0 AND LGPL-2.1-or-later AND (LGPL-2.1-only WITH Nokia-Qt-exception-1.1.txt OR GPL-3.0-only) AND LGPL-3.0-only AND MIT
 URL:           https://musescore.org/
 
 %global foundry         %{name}
@@ -18,7 +21,7 @@ URL:           https://musescore.org/
 
 %global fontfamily1     MScore
 %global fontsummary1    MuseScore base music font
-%global fontlicense1    GPLv3+ with exceptions
+%global fontlicense1    GPL-3.0-or-later WITH Font-exception-2.0
 %global fonts1          fonts/mscore/mscore.ttf
 %global fontconfs1      %{SOURCE11}
 %global fontdescription1 %{expand:
@@ -28,7 +31,7 @@ MuseScore.}
 
 %global fontfamily2     MScoreText
 %global fontsummary2    MuseScore base text font
-%global fontlicense2    OFL
+%global fontlicense2    OFL-1.1-RFN
 %global fonts2          fonts/mscore/MScoreText.ttf
 %global fontconfs2      %{SOURCE12}
 %global fontdescription2 %{expand:
@@ -36,7 +39,7 @@ This package contains the base MuseScore text font.}
 
 %global fontfamily3     Gootville
 %global fontsummary3    Derivative of the Gonville font
-%global fontlicense3    OFL
+%global fontlicense3    OFL-1.1
 %global fonts3          fonts/gootville/*.otf
 %global fontdocs3       fonts/gootville/readme.txt
 %global fontconfs3      %{SOURCE13}
@@ -48,7 +51,7 @@ modified for MuseScore.}
 
 %global fontfamily4     MScore-BC
 %global fontsummary4    Font with Basso Continuo digits and symbols
-%global fontlicense4    OFL
+%global fontlicense4    OFL-1.1-RFN
 %global fonts4          fonts/mscore-BC.ttf
 %global fontconfs4      %{SOURCE14}
 %global fontdescription4 %{expand:
@@ -57,7 +60,7 @@ symbols, matching glyphs in the main MuseScore font.}
 
 %global fontfamily5     MScoreTab
 %global fontsummary5    Font with Renaissance-style tablatures
-%global fontlicense5    OFL
+%global fontlicense5    OFL-1.1-RFN
 %global fonts5          fonts/mscoreTab.ttf
 %global fontconfs5      %{SOURCE15}
 %global fontdescription5 %{expand:
@@ -65,7 +68,7 @@ This package contains a MuseScore font with Renaissance-style tablatures.}
 
 %global fontfamily6     MuseJazz
 %global fontsummary6    Handwritten font for text, chord names, and so forth
-%global fontlicense6    OFL
+%global fontlicense6    OFL-1.1
 %global fontlicenses6   fonts/musejazz/OFL.txt
 %global fonts6          fonts/musejazz/*.otf
 %global fontconfs6      %{SOURCE16}
@@ -75,7 +78,7 @@ chord names, etc.}
 
 %global fontfamily7     Edwin
 %global fontsummary7    Font derived from URW for use with MuseScore
-%global fontlicense7    OFL
+%global fontlicense7    OFL-1.1
 %global fontlicenses7   fonts/edwin/COPYING.txt fonts/edwin/GPL_LICENSE.txt fonts/edwin/LICENSE.md
 %global fontdocs7       fonts/edwin/README.md fonts/edwin/FONTLOG.txt
 %global fonts7          fonts/edwin/*.otf
@@ -85,7 +88,7 @@ This package contains a MuseScore font derived from URW C059.}
 
 %global fontfamily8     Leland
 %global fontsummary8    Music font for use with MuseScore
-%global fontlicense8    OFL
+%global fontlicense8    OFL-1.1-RFN
 %global fontlicenses8   fonts/leland/LICENSE.txt
 %global fontdocs8       fonts/leland/README.md fonts/leland/FONTLOG.txt
 %global fonts8          fonts/leland/*.otf
@@ -93,7 +96,7 @@ This package contains a MuseScore font derived from URW C059.}
 %global fontdescription8 %{expand:
 This package contains a MuseScore music font.}
 
-Source0:       https://github.com/musescore/%{upname}/archive/v%{version}/%{upname}-%{version}.tar.gz
+Source0:       https://github.com/musescore/MuseScore/archive/v%{version}/%{upname}-%{version}.tar.gz
 Source1:       https://ftp.osuosl.org/pub/musescore/soundfont/MuseScore_General/VERSION
 Source2:       https://ftp.osuosl.org/pub/musescore/soundfont/MuseScore_General/MuseScore_General.sf3
 Source3:       https://ftp.osuosl.org/pub/musescore/soundfont/MuseScore_General/MuseScore_General_License.md
@@ -199,7 +202,7 @@ highlights:
 
 %package       doc
 Summary:       MuseScore documentation
-License:       CC-BY
+License:       GPL-2.0-only WITH Font-exception-2.0
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
 
@@ -221,7 +224,7 @@ rm -rf thirdparty/{freetype,openssl,poppler,portmidi,singleapp}
 rm -rf fonts/{bravura,campania,FreeS*}
 
 # Force Fedora specific flags:
-find . -name CMakeLists.txt -exec sed -i -e 's|-O3|%{optflags}|' {} \+
+find . -name CMakeLists.txt -exec sed -i -e 's|-O3|%{build_cxxflags}|' {} \+
 
 # Fix EOL encoding
 for fil in thirdparty/rtf2html/README{,.ru} \
@@ -256,8 +259,8 @@ cd -
 # Build the actual program
 %cmake \
     -DCMAKE_BUILD_TYPE=RELEASE         \
-    -DCMAKE_CXX_FLAGS="%{optflags} -fsigned-char"    \
-    -DCMAKE_CXX_FLAGS_RELEASE="%{optflags} -fPIC -DNDEBUG -DQT_NO_DEBUG -fsigned-char" \
+    -DCMAKE_CXX_FLAGS="%{build_cxxflags} -fsigned-char"    \
+    -DCMAKE_CXX_FLAGS_RELEASE="%{build_cxxflags} -fPIC -DNDEBUG -DQT_NO_DEBUG -fsigned-char" \
     -DCMAKE_SKIP_RPATH=ON \
     -DAEOLUS=ON \
 %if 0%{?__isa_bits} == 32
@@ -415,12 +418,14 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_bindir}/musescore
 %{_datadir}/%{name}-%{shortver}/
 %exclude %{_datadir}/%{name}-%{shortver}/manual/
-%{_datadir}/icons/hicolor/*/*/*
+%{_datadir}/icons/hicolor/*/apps/mscore.png
+%{_datadir}/icons/hicolor/*/mimetypes/*.png
 %{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/*.appdata.xml
 %exclude %{_datadir}/mime/packages/musescore.xml
 %{_datadir}/mime/packages/%{name}.xml
-%{_mandir}/man1/*
+%{_mandir}/man1/mscore.1*
+%{_mandir}/man1/musescore.1*
 %{_datadir}/soundfonts/aeolus/
 %{_datadir}/soundfonts/MuseScore_General.sf3
 
@@ -450,6 +455,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_datadir}/fonts/mscore-leland-fonts/metadata.json
 
 %changelog
+* Tue Nov 29 2022 Jerry James <loganjerry@gmail.com> - 3.6.2-12
+- Convert License tags to SPDX
+
 * Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 3.6.2-12
 - Bring back dependencies on qtquickcontrols
 

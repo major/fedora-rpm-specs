@@ -8,9 +8,9 @@ Version:        1.0
 Release:        24.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Data structures for Groebner basis computations
 
-License:        LGPLv2+
-URL:            https://github.com/%{user}/%{name}
-Source0:        https://github.com/%{user}/%{name}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
+License:        LGPL-2.0-or-later
+URL:            https://github.com/Macaulay2/mathic
+Source0:        %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
 
 # Upstream wants to download gtest and compile it in; we don't
 Patch0:         %{name}-gtest.patch
@@ -105,6 +105,9 @@ make check
 %{_bindir}/pqsim
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0-24.20220426.git18ff8de
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24.20220426.git18ff8de
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

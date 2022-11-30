@@ -5,11 +5,11 @@
 
 # https://github.com/google/go-github
 %global goipath         github.com/google/go-github
-Version:                45.2.0
+Version:                48.1.0
 
 %gometa
 
-%global goaltipaths     github.com/google/go-github/v45
+%global goaltipaths     github.com/google/go-github/v48
 
 %global common_description %{expand:
 Package Github provides a client for using the GitHub API.}

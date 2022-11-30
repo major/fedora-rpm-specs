@@ -5,7 +5,7 @@
 %endif
 
 Name:           ansible-collection-netbox-netbox
-Version:        3.8.1
+Version:        3.9.0
 Release:        1%{?dist}
 Summary:        Netbox modules for Ansible
 
@@ -47,6 +47,9 @@ sed -i -e '1{\@^#!.*@d}' plugins/modules/*.py
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Mon Nov 28 2022 Igor Raits <igor@gooddata.com> - 3.9.0-1
+- Update to 3.9.0
+
 * Mon Oct 24 2022 Maxwell G <gotmax@e.email> - 3.8.1-1
 - Update to 3.8.1. Fixes rhbz#2128028.
 

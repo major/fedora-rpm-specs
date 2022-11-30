@@ -6,7 +6,19 @@ Version:        1.1.0a
 Release:        %autorelease
 Summary:        Library to extract valid data from within an Open Street Map input file
 
-License:        MPLv1.1 or GPLv2+ or LGPLv2+
+# The entire source is (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) (the
+# “MPL-tri-license”), except for certain build-system files that do not affect
+# the license of the binary RPMs:
+# • FSFULLR: aclocal.m4, m4/ltoptions.m4, m4/ltsugar.m4, m4/ltversion.m4,
+#            m4/lt~obsolete.m4
+# • FSFULLR AND GPL-2.0-or-later WITH Libtool-exception: m4/libtool.m4
+# • GPL-2.0-or-later: compile, config.guess, config.sub, depcomp, ltmain.sh,
+#                     missing, test-driver
+# • FSFUL (or possibly (FSFUL AND (MPL-1.1 OR GPL-2.0-or-later OR
+#   LGPL-2.1-or-later)), considering it is generated from configure.ac):
+#   configure
+# • X11: install-sh
+License:        MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 Source0:        https://www.gaia-gis.it/gaia-sins/readosm-sources/readosm-%{version}.tar.gz
 URL:            https://www.gaia-gis.it/fossil/readosm
 
@@ -63,8 +75,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %license COPYING
 %doc AUTHORS
 
-%{_libdir}/libreadosm.so.%{so_version}
-%{_libdir}/libreadosm.so.%{so_version}.*
+%{_libdir}/libreadosm.so.%{so_version}{,.*}
 
 
 %files devel

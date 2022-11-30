@@ -3,7 +3,7 @@ Version:        2.1.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A non-linear least squares minimizer
 
 License:        BSD
@@ -96,6 +96,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       eigen3-devel
 Requires:       gflags-devel
 Requires:       glog-devel
+Requires:       suitesparse-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -145,6 +146,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 2.1.0-4
+- Add Requires: suitesparse-devel to ceres-solver-devel
+
 * Sat Sep 17 2022 Tom Rix <trix@redhat.com> - 2.1.0-3
 - Workaround a build problem on ppc and epel9
 

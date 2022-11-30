@@ -2,7 +2,7 @@
 
 # https://github.com/junegunn/fzf
 %global goipath         github.com/junegunn/fzf
-Version:                0.34.0
+Version:                0.35.1
 %global tag             %{version}
 
 %gometa
@@ -18,11 +18,11 @@ Source1:        README.Fedora
 
 BuildRequires:  golang(github.com/gdamore/tcell/v2) >= 2.5.3
 BuildRequires:  golang(github.com/gdamore/tcell/v2/encoding)
-BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.14
-BuildRequires:  golang(github.com/mattn/go-runewidth) >= 0.0.13
+BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.16
+BuildRequires:  golang(github.com/mattn/go-runewidth) >= 0.0.14
 BuildRequires:  golang(github.com/mattn/go-shellwords) >= 1.0.12
-BuildRequires:  golang(github.com/rivo/uniseg) >= 0.2.0
-BuildRequires:  golang(github.com/saracen/walker) >= 0.1.2
+BuildRequires:  golang(github.com/rivo/uniseg) >= 0.4.2
+BuildRequires:  golang(github.com/saracen/walker) >= 0.1.3
 BuildRequires:  golang(golang.org/x/term)
 
 %description

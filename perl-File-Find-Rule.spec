@@ -1,13 +1,14 @@
 Name: 		perl-File-Find-Rule
 Version: 	0.34
-Release: 	22%{?dist}
+Release: 	23%{?dist}
 Summary: 	Perl module implementing an alternative interface to File::Find
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Find-Rule
 Source0: 	https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/File-Find-Rule-%{version}.tar.gz
 
 BuildArch: 	noarch
-BuildRequires: make
+
+BuildRequires:	%{__make}
 BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -27,11 +28,11 @@ you to build rules which specify the desired files and directories.
 %setup -q -n File-Find-Rule-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -45,6 +46,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-23
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

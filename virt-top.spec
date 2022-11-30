@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           virt-top
 Version:        1.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPLv2+
 
@@ -23,7 +23,10 @@ Source4:        libguestfs.keyring
 
 # Adds a link to processcsv to the man page.  This patch is only
 # included in RHEL builds.
-Patch0:         virt-top-1.0.9-processcsv-documentation.patch
+Patch1:         virt-top-1.0.9-processcsv-documentation.patch
+
+# Fix "Input/output error" in journal (RHBZ#2148798)
+Patch2:         0001-virt-top-fix-to-explicitly-disconnect-from-libvirtd.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -62,8 +65,9 @@ different virtualization systems.
 %setup -q
 
 %if 0%{?rhel} >= 6
-%patch0 -p1
+%patch1 -p1
 %endif
+%patch2 -p1
 
 
 %build
@@ -112,6 +116,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Mon Nov 28 2022 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-7
+- Fix "Input/output error" in journal (RHBZ#2148798)
+
 * Tue Oct 18 2022 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-6
 - Check tarball signature
 

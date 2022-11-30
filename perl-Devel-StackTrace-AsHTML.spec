@@ -1,13 +1,13 @@
 Name:           perl-Devel-StackTrace-AsHTML
 Summary:        Displays a stack trace in HTML
 Version:        0.15
-Release:        20%{?dist}
-License:        GPL+ or Artistic
+Release:        21%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Devel-StackTrace-AsHTML-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Devel-StackTrace-AsHTML
 BuildArch:      noarch
 
-BuildRequires:  make
+BuildRequires:  %{__make}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.75
@@ -39,15 +39,15 @@ variables of each stack frame.
 %setup -q -n Devel-StackTrace-AsHTML-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{__make} test
 
 %files
 %license LICENSE
@@ -56,6 +56,10 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.15-21
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,18 +6,19 @@
 
 Name:           qcustomplot
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
 License:        GPL-3.0-or-later
 URL:            http://www.qcustomplot.com/
 Source0:        http://www.qcustomplot.com/release/%{version}%{?pre:-%pre}/QCustomPlot.tar.gz
-Source1:        %{name}.pro
+Source1:        CMakeLists.txt
 
+BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
-BuildRequires:  make
-BuildRequires:  qt4-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
 
 
 %description
@@ -27,15 +28,6 @@ plots, graphs and charts, as well as offering high performance for realtime
 visualization applications.
 
 This package contains the Qt4 version.
-
-
-%package        devel
-Summary:        Development files for %{name} (Qt4)
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}  (Qt4).
 
 
 %package        qt5
@@ -57,7 +49,29 @@ Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
 
 %description    qt5-devel
 The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}  (Qt5).
+developing applications that use %{name} (Qt5).
+
+
+%package        qt6
+Summary:        Qt widget for plotting and data visualization
+Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
+
+%description    qt6
+QCustomPlot is a Qt C++ widget for plotting and data visualization.
+This plotting library focuses on making good looking, publication quality 2D
+plots, graphs and charts, as well as offering high performance for realtime
+visualization applications.
+
+This package contains the Qt6 version.
+
+
+%package        qt6-devel
+Summary:        Development files for %{name} (Qt6)
+Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
+
+%description    qt6-devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name} (Qt6).
 
 
 %package        doc
@@ -75,28 +89,27 @@ cp -a %{SOURCE1} .
 
 
 %build
-mkdir qt4
-(
-cd qt4
-LDFLAGS="%{__global_ldflags} -Wl,--as-needed" %qmake_qt4 SOVERSION=%{so_ver} LIBDIR=%{_libdir} ..
-%make_build
-)
+%define _vpath_builddir %{_target_platform}-qt5
+%cmake -DQT_VER=5 -DSO_VER=%{so_ver}
+%cmake_build
 
-mkdir qt5
-(
-cd qt5
-LDFLAGS="%{__global_ldflags} -Wl,--as-needed" %qmake_qt5 SOVERSION=%{so_ver} QTSUFFIX=-qt5 LIBDIR=%{_libdir} ..
-%make_build
-)
+%define _vpath_builddir %{_target_platform}-qt6
+%cmake -DQT_VER=6 -DSO_VER=%{so_ver}
+%cmake_build
 
 
 %install
-make -C qt4 INSTALL_ROOT=%{buildroot} install
-make -C qt5 INSTALL_ROOT=%{buildroot} install
+%define _vpath_builddir %{_target_platform}-qt5
+%cmake_install
 
-# pkg-config file
+%define _vpath_builddir %{_target_platform}-qt6
+%cmake_install
+
+# pkg-config files
+for qtver in -qt5 -qt6; do
+
 install -d %{buildroot}%{_libdir}/pkgconfig/
-cat > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc <<EOF
+cat > %{buildroot}%{_libdir}/pkgconfig/%{name}$qtver.pc <<EOF
 libdir=%{_libdir}
 includedir=%{_includedir}
 
@@ -104,35 +117,14 @@ Name: %{name}
 Description: %{summary}
 Version: %{version}
 Cflags: -I\${includedir}
-Libs: -L\${libdir} -lqcustomplot
+Libs: -L\${libdir} -lqcustomplot$qtver
 EOF
 
-install -d %{buildroot}%{_libdir}/pkgconfig/
-cat > %{buildroot}%{_libdir}/pkgconfig/%{name}-qt5.pc <<EOF
-libdir=%{_libdir}
-includedir=%{_includedir}
+done
 
-Name: %{name}-qt5
-Description: %{summary}
-Version: %{version}
-Cflags: -I\${includedir}
-Libs: -L\${libdir} -lqcustomplot-qt5
-EOF
-
-
-%files
-%license GPL.txt
-%doc changelog.txt
-%{_libdir}/libqcustomplot.so.*
-
-%files devel
-%{_includedir}/qcustomplot.h
-%{_libdir}/libqcustomplot.so
-%{_libdir}/pkgconfig/%{name}.pc
 
 %files qt5
 %license GPL.txt
-%doc changelog.txt
 %{_libdir}/libqcustomplot-qt5.so.*
 
 %files qt5-devel
@@ -140,12 +132,28 @@ EOF
 %{_libdir}/libqcustomplot-qt5.so
 %{_libdir}/pkgconfig/%{name}-qt5.pc
 
+%files qt6
+%license GPL.txt
+%{_libdir}/libqcustomplot-qt6.so.*
+
+%files qt6-devel
+%{_includedir}/qcustomplot.h
+%{_libdir}/libqcustomplot-qt6.so
+%{_libdir}/pkgconfig/%{name}-qt6.pc
+
 %files doc
 %license GPL.txt
+%doc changelog.txt
 %doc documentation examples
 
 
 %changelog
+* Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-3
+- Fix lib version
+
+* Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-2
+- Add Qt6 build, drop Qt4 build
+
 * Wed Nov 09 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-1
 - Update to 2.1.1
 

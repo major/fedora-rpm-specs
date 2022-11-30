@@ -9,10 +9,10 @@ Version:        0.7.6
 Release:        18%{?dist}
 Summary:        Library to manipulate tensors on a GPU
 
-# All files are ISC except src/util/xxhash.{c,h}, which are BSD
-License:        ISC and BSD
+# All files are ISC except src/util/xxhash.{c,h}, which are BSD-2-Clause
+License:        ISC AND BSD-2-Clause
 URL:            http://deeplearning.net/software/libgpuarray/
-Source0:        https://github.com/Theano/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Theano/libgpuarray/archive/v%{version}/%{name}-%{version}.tar.gz
 # Be compatible with Sphinx 4.x
 Patch0:         %{name}-sphinx4.patch
 # Update versioneer for python 3.11
@@ -56,6 +56,26 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %package        doc
+# The content is ISC.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/css: MIT
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/fix_rtd.css: ISC
+# _static/jquery*.js: MIT
+# _static/js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# _static/version_switch.js: ISC
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        ISC AND BSD-2-Clause AND MIT
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 Requires:       font(fontawesome)
@@ -155,6 +175,9 @@ make test
 %{python3_sitearch}/pygpu/*.h
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.7.6-18
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

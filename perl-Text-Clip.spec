@@ -1,12 +1,13 @@
 Name:           perl-Text-Clip
 Version:        0.0014
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Clip and extract text in clipboard-like way
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Clip
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROKR/Text-Clip-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Any::Moose)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -23,15 +24,15 @@ you to slurp up the text "clipped" between the marks.
 %setup -q -n Text-Clip-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -39,6 +40,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.0014-26
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

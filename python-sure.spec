@@ -9,7 +9,7 @@ Version:        2.0.0
 Release:        %autorelease
 Summary:        Idiomatic assertion toolkit with human-friendly failure messages
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/gabrielfalcao/sure
 Source0:        %{url}/archive/%{version}/sure-%{version}.tar.gz
 
@@ -77,7 +77,7 @@ sed -r -i 's/[[:blank:]]--cov=[^[:blank:]]+//' setup.cfg
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

@@ -1,16 +1,18 @@
 Name:           perl-Set-IntSpan
 Version:        1.19
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Perl module for managing sets of integers
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Set-IntSpan
 Source0:        https://cpan.metacpan.org/authors/id/S/SW/SWMCD/Set-IntSpan-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
+
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
@@ -23,18 +25,17 @@ have long runs of consecutive integers.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %check
-make test
+%{__make} test
 
 
 %files
@@ -44,6 +45,11 @@ make test
 
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.19-29
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

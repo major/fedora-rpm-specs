@@ -52,10 +52,10 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Request tracker
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://bestpractical.com/request-tracker
 Source0:	https://download.bestpractical.com/pub/rt/release/rt-%{version}.tar.gz
 # Notes on running the testsuite
@@ -648,6 +648,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.3-2
+- Convert license to SPDX.
+
 * Wed Jul 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.3-1
 - Upgrade to 5.0.3.
 

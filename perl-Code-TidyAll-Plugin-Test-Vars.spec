@@ -1,12 +1,12 @@
 Name:           perl-Code-TidyAll-Plugin-Test-Vars
 Version:        0.04
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Provides Test::Vars plugin for Code::TidyAll
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Code-TidyAll-Plugin-Test-Vars
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAXMIND/Code-TidyAll-Plugin-Test-Vars-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
 BuildRequires:  perl-interpreter >= 0:5.006
 BuildRequires:  perl-generators
 
@@ -40,12 +40,11 @@ This module uses Test::Vars to detect unused variables in Perl modules.
 %setup -q -n Code-TidyAll-Plugin-Test-Vars-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -58,6 +57,10 @@ This module uses Test::Vars to detect unused variables in Perl modules.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.04-20
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

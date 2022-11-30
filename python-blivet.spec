@@ -19,11 +19,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storageapis.wordpress.com/projects/blivet
-Version: 3.6.0
+Version: 3.6.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -83,16 +83,16 @@ Requires: python3-blockdev >= %{libblockdevver}
 Recommends: libblockdev-btrfs >= %{libblockdevver}
 Recommends: libblockdev-crypto >= %{libblockdevver}
 Recommends: libblockdev-dm >= %{libblockdevver}
-Recommends: libblockdev-fs >= %{libblockdevver}
-Recommends: libblockdev-kbd >= %{libblockdevver}
 Recommends: libblockdev-loop >= %{libblockdevver}
 Recommends: libblockdev-lvm >= %{libblockdevver}
 Recommends: libblockdev-mdraid >= %{libblockdevver}
 Recommends: libblockdev-mpath >= %{libblockdevver}
-Recommends: libblockdev-nvdimm >= %{libblockdevver}
-Recommends: libblockdev-part >= %{libblockdevver}
 Recommends: libblockdev-swap >= %{libblockdevver}
+
+%ifarch s390 s390x
 Recommends: libblockdev-s390 >= %{libblockdevver}
+%endif
+
 Requires: python3-bytesize >= %{libbytesizever}
 Requires: util-linux >= %{utillinuxver}
 Requires: lsof
@@ -196,6 +196,21 @@ configuration.
 %endif
 
 %changelog
+* Mon Nov 28 2022 Vojtech Trefny <vtrefny@redhat.com> - 3.6.1-1
+- misc: Remove "warn: false" from Ansible "command" (vtrefny)
+- spec: Change license string to the SPDX format required by Fedora (vtrefny)
+- Catch BlockDevNotImplementedError for btrfs plugin calls (vtrefny)
+- tests: document how to use the VM tests (berrange)
+- tests: allow filtering tests to run in VM (berrange)
+- tests: don't start/stop VM if it was already running (berrange)
+- tests: use correct password arg for SSH to VM (berrange)
+- tests: add logging to runvmtests.py (berrange)
+- Fix potential AttributeError when getting stratis blockdev info (vtrefny)
+- spec: Fix recommended libblockdev plugins (vtrefny)
+- tests: remove unused global variables (berrange)
+- Backport total_memory improvements from anaconda (vslavik)
+- Fix regex for checking e2fsprogs version (vtrefny)
+
 * Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 3.6.0-2
 - Change license string to the SPDX format required by Fedora
 

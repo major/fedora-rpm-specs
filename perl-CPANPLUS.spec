@@ -1,12 +1,12 @@
 %global cpan_version 0.9914
 Name:           perl-CPANPLUS
 Version:        0.991.400
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Ameliorated interface to the Comprehensive Perl Archive Network
-# Other files:                              GPL+ or Artistic
+# Other files:                              GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Unbundled, not used
 # inc/bundle/Locale/Maketext/Simple.pm:     MIT
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPANPLUS
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/CPANPLUS-%{cpan_version}.tar.gz
 BuildArch:      noarch
@@ -116,6 +116,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.991.400-5
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.991.400-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

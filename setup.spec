@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.14.2
+Version: 2.14.3
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -13,8 +13,6 @@ BuildRequires: make
 BuildRequires: bash tcsh perl-interpreter systemd-rpm-macros
 #require system release for saner dependency order
 Requires: system-release
-Conflicts: filesystem < 3
-Conflicts: initscripts < 4.26, bash <= 2.0.4-21
 
 %description
 The setup package contains a set of important system configuration and
@@ -51,7 +49,6 @@ echo "#Add any required envvar overrides to this file, is sourced from /etc/csh.
 mkdir -p %{buildroot}/etc/motd.d
 mkdir -p %{buildroot}/run/motd.d
 mkdir -p %{buildroot}/usr/lib/motd.d
-touch %{buildroot}/run/motd
 touch %{buildroot}/usr/lib/motd
 #tmpfiles needed for files in /run
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -102,7 +99,7 @@ end
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts
 %verify(not md5 size mtime) %config(noreplace) /etc/motd
 %dir /etc/motd.d
-%verify(not md5 size mtime) %config(noreplace) /run/motd
+%ghost /run/motd
 %dir /run/motd.d
 %verify(not md5 size mtime) %config(noreplace) /usr/lib/motd
 %dir /usr/lib/motd.d
@@ -123,8 +120,15 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
 %{_tmpfilesdir}/%{name}.conf
 %{_sysusersdir}/20-setup-groups.conf
+%{_sysusersdir}/20-setup-users.conf
 
 %changelog
+* Sun Nov 27 2022 Martin Osvald <mosvald@redhat.com> - 2.14.3-1
+- sysusers.d: add script and generate configuration fragment for users
+- Add fallback to hostname determination for csh.login (rhbz#2079768)
+- Remove ancient Conflicts
+- files: mark /run/motd as an ephemeral ghost entry
+
 * Thu Sep 08 2022 Martin Osvald <mosvald@redhat.com> - 2.14.2-1
 - sysusers.d: add script and configuration fragments for groups
 - passwd: align 'nologin' shell path with systemd defaults

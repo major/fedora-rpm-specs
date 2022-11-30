@@ -1,6 +1,6 @@
 Name:           perl-Locale-Maketext-Lexicon
 Version:        1.00
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Extract translatable strings from source
 License:        MIT
 
@@ -22,7 +22,7 @@ Requires:       perl(YAML::Loader) >= 0.66
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) > 6.76
@@ -82,15 +82,15 @@ MO files, or from databases via the "Tie" interface.
 %setup -q -n Locale-Maketext-Lexicon-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=${RPM_BUILD_ROOT}
+%{make_install}
 chmod -R u+w ${RPM_BUILD_ROOT}/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc AUTHORS Changes README
@@ -101,6 +101,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.00-29
+- Modernize spec.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

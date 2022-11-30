@@ -3,8 +3,8 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.1.1
-Release:        2%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 License:        MIT
@@ -65,6 +65,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Nov 22 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.1.2-1
+- Update to 1.1.2
+- Fixes: rhbz#2140314
+
 * Mon Oct 10 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.1.1-2
 - Disable bootstrap
 

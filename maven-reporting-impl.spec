@@ -1,14 +1,14 @@
 Name:           maven-reporting-impl
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Abstract classes to manage report generation
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-impl/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://www.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
-Source1:        https://www.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
+Source0:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
+Source1:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
 # Apache Maven public key
 Source2:        https://www.apache.org/dist/maven/KEYS
 # Fedora does not have junit-addons
@@ -41,6 +41,11 @@ Abstract classes to manage report generation, which can be run both:
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1
 
+# Fix end of line encoding
+sed -i.orig 's/\\r//' README.md
+touch -r README.md.orig README.md
+rm README.md.orig
+
 # integration tests try to download stuff from the internet
 # and therefore they don't work in Koji
 %pom_remove_plugin :maven-invoker-plugin
@@ -56,6 +61,10 @@ Abstract classes to manage report generation, which can be run both:
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 3.2.0-1
+- Version 3.2.0
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

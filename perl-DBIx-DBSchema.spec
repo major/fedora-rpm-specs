@@ -1,9 +1,9 @@
 Name:           perl-DBIx-DBSchema
 Version:        0.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Database-independent schema objects
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-DBSchema
 Source0:	https://cpan.metacpan.org/authors/id/I/IV/IVAN/DBIx-DBSchema-%{version}.tar.gz
 
@@ -52,7 +52,7 @@ find -name '*.pm' -exec chmod -x {} \;
 
 
 %install
-%{make_install} DESTDIR="$RPM_BUILD_ROOT"
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 
@@ -67,6 +67,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.47-2
+- Remove DESTDIR in call to %%{make_install}.
+- Convert license to SPDX.
+
 * Fri Sep 09 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.47-1
 - Modernize spec.
 - Upstream update.

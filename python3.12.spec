@@ -1070,7 +1070,7 @@ CheckPython() {
   #  we don't ship it in the RPM package.
 
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
-    -wW --slowest -j0 --timeout=1800 \
+    -wW --slowest %{_smp_mflags} --timeout=1800 \
     -i test_freeze_simple_script \
     %ifarch %{mips64}
     -x test_ctypes \

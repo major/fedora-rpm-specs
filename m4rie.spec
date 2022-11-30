@@ -2,7 +2,7 @@ Name:           m4rie
 Version:        20200125
 Release:        7%{?dist}
 Summary:        Linear Algebra over F_2^e
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://bitbucket.org/malb/%{name}
 Source0:        https://bitbucket.org/malb/%{name}/downloads/%{name}-%{version}.tar.gz
 # Fix compiler warnings that may indicate runtime / test-time problems
@@ -24,6 +24,33 @@ with dense matrices over F_2.  M4RIE is used by the Sage mathematics
 software.
 
 %package        devel
+# The content of the HTML documentation is GPL-2.0-or-later.  The other licenses
+# are for files copied into the documentation by doxygen.
+# bc_s.png: GPL-1.0-or-later
+# bdwn.png: GPL-1.0-or-later
+# closed.png: GPL-1.0-or-later
+# doc.png: GPL-1.0-or-later
+# doxygen.css: GPL-1.0-or-later
+# doxygen.svg: GPL-1.0-or-later
+# dynsections.js: MIT
+# folderclosed.png: GPL-1.0-or-later
+# folderopen.png: GPL-1.0-or-later
+# jquery.js: MIT
+# menu.js: MIT
+# menudata.js: MIT
+# nav_f.png: GPL-1.0-or-later
+# nav_g.png: GPL-1.0-or-later
+# nav_h.png: GPL-1.0-or-later
+# open.png: GPL-1.0-or-later
+# splitbar.png: GPL-1.0-or-later
+# sync_off.png: GPL-1.0-or-later
+# sync_on.png: GPL-1.0-or-later
+# tab_a.png: GPL-1.0-or-later
+# tab_b.png: GPL-1.0-or-later
+# tab_h.png: GPL-1.0-or-later
+# tab_s.png: GPL-1.0-or-later
+# tabs.css: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND GPL-1.0-or-later AND MIT
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       m4ri-devel%{?_isa}
@@ -78,6 +105,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 20200125-7
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200125-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,10 @@
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %global uname OpenRGB
 
 Name:           openrgb
-Version:        0.7
+Version:        0.8
 Release:        %autorelease
 Summary:        Open source RGB lighting control
 
@@ -12,10 +15,6 @@ License:        GPLv2 and GPLv3+
 URL:            https://gitlab.com/CalcProgrammer1/OpenRGB
 Source0:        %{url}/-/archive/release_%{version}/%{uname}-release_%{version}.tar.gz
 
-# Crash on loading JSON due to LTO (Link Time Optimizations)
-# https://gitlab.com/CalcProgrammer1/OpenRGB/-/issues/1654
-Patch0:         https://gitlab.com/CalcProgrammer1/OpenRGB/-/commit/59732ed47e6c1392ba5236c07410dca13d4d721f.patch
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
@@ -24,7 +23,10 @@ BuildRequires:  systemd-rpm-macros
 
 BuildRequires:  pkgconfig(hidapi-libusb)
 BuildRequires:  pkgconfig(libusb)
-BuildRequires:  pkgconfig(Qt5)
+
+BuildRequires:  cmake
+BuildRequires:  cmake(Qt5)
+BuildRequires:  cmake(Qt5LinguistTools)
 
 Requires:       %{name}-udev-rules = %{version}-%{release}
 Requires:       hicolor-icon-theme

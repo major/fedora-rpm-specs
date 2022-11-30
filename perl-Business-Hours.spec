@@ -1,8 +1,8 @@
 Summary: 	Calculate business hours in a time period
 Name: 		perl-Business-Hours
 Version: 	0.13
-Release: 	13%{?dist}
-License: 	GPL+ or Artistic
+Release: 	14%{?dist}
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Business-Hours
 
 Source0: https://cpan.metacpan.org/authors/id/B/BP/BPS/Business-Hours-%{version}.tar.gz
@@ -11,7 +11,6 @@ BuildArch: 	noarch
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Set::IntSpan) >= 1.12
 
-BuildRequires: make
 BuildRequires:	%{__perl}
 BuildRequires:	%{__make}
 
@@ -41,12 +40,12 @@ number of business hours between arbitrary dates.
 %setup -q -n Business-Hours-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -59,6 +58,10 @@ number of business hours between arbitrary dates.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.13-14
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,14 +1,13 @@
 %undefine _package_note_flags
 
 Name:           ocaml-parmap
-Version:        1.2.4
-Release:        6%{?dist}
+Version:        1.2.5
+Release:        1%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
-# The usual OCaml linking exception applies
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://rdicosmo.github.io/parmap/
-Source0:        https://github.com/rdicosmo/parmap/releases/download/%{version}/parmap-%{version}.tbz
+Source0:        https://github.com/rdicosmo/parmap/archive/%{version}/parmap-%{version}.tar.gz
 
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-dune >= 2.7
@@ -62,6 +61,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.2.5-1
+- Version 1.2.5
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

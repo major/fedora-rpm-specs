@@ -3,7 +3,7 @@ Version:        0.198
 Release:        3%{?dist}
 Summary:        Construct mathematics from basic axioms
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://us.metamath.org/
 Source0:        https://us.metamath.org/downloads/%{name}.tar.bz2
 Source1:        https://us.metamath.org/latex/%{name}.tex
@@ -29,16 +29,21 @@ Summary:        Existing mathematical theories in the metamath format
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
-# peano.mm is GPLv2+; all other theory files are CC0
-License:        GPLv2+ and CC0
+# peano.mm is GPL-2.0-or-later; all other theory files are CC0
+License:        GPL-2.0-or-later AND CC0-1.0
 
 %description    theories
 This package contains metamath theory files for several branches of
 mathematics, such as ZFC set theory, HOL, and Peano arithmetic.
 
 %package        doc
+# The content is CC0-1.0.  The remaining licenses cover the various fonts
+# embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:        CC0-1.0 AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 Summary:        The Metamath book
-License:        CC0
 BuildArch:      noarch
 
 %description    doc
@@ -63,18 +68,18 @@ sed -i '/Try to optimize/,/^$/d' configure.ac
 autoreconf -fi
 
 %build
-%configure CFLAGS="%{optflags} -DINLINE=inline -fwrapv"
+%configure CFLAGS="%{build_cflags} -DINLINE=inline -fwrapv"
 %make_build
 
 # Build the manual
 touch metamath.ind
-pdflatex metamath
-pdflatex metamath
+pdflatex -interaction=batchmode metamath
+pdflatex -interaction=batchmode metamath
 bibtex metamath
 makeindex metamath.idx
-pdflatex metamath
-pdflatex metamath
-pdflatex metamath
+pdflatex -interaction=batchmode metamath
+pdflatex -interaction=batchmode metamath
+pdflatex -interaction=batchmode metamath
 
 %install
 %make_install
@@ -116,6 +121,9 @@ done
 %{_docdir}/metamath/metamath.pdf
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.198-3
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.198-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

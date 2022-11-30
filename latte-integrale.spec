@@ -7,7 +7,13 @@ Summary:        Lattice point enumeration
 %global lidiaver 2.3.0
 %global lidiadate 2014-10-04
 
-License:        GPLv2+
+# The LattE code is GPL-2.0-or-later.
+# The bundled gnulib code is GPL-3.0-or-later.
+# The bundled LiDIA code was relicensed GPL-2.0-or-later at the time it was
+# abandoned by upstream.  See:
+# - https://groups.google.com/g/sage-devel/c/kTxgPSqrbUM/m/5Txj3_IKhlQJ
+# - https://lists.debian.org/debian-legal/2007/07/msg00120.html
+License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://www.math.ucdavis.edu/~latte/software.php
 Source0:        https://github.com/latte-int/latte/releases/download/version_%{tarver}/latte-int-%{version}.tar.gz
 Source1:        https://github.com/latte-int/latte-distro/raw/master/lidia-FF-%{lidiaver}+latte-patches-%{lidiadate}.tar.gz
@@ -98,8 +104,8 @@ ln -s lidia local%{_includedir}/LiDIA
 # Build LiDia
 cd lidia-%{lidiaver}+latte-patches-%{lidiadate}
 %configure --disable-nf --disable-ec --disable-eco --disable-gec \
-  CFLAGS="%{optflags} -fPIC -fno-strict-aliasing" \
-  CXXFLAGS="%{optflags} -fPIC -fno-strict-aliasing"
+  CFLAGS='%{build_cflags} -fPIC -fno-strict-aliasing' \
+  CXXFLAGS='%{build_cxxflags} -fPIC -fno-strict-aliasing'
 sed -i 's/-m64/& -fPIC -fno-strict-aliasing/' libtool library/Makefile \
   library/base/Makefile library/linear_algebra/Makefile \
   library/finite_fields/Makefile
@@ -114,7 +120,7 @@ cd -
 %configure --enable-DATABASE --enable-shared --disable-static \
   --with-4ti2=%{_prefix} --with-lidia=$PWD/../local/%{_prefix} \
   CPPFLAGS="-I%{_includedir}/4ti2 -I%{_includedir}/cddlib -D_GNU_SOURCE=1 -DNTL_STD_CXX" \
-  LDFLAGS="-L$PWD/../local%{_libdir} $RPM_LD_FLAGS"
+  LDFLAGS="-L$PWD/../local%{_libdir} %{build_ldflags}"
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
 # -Wl,--as-needed after all the libraries.
@@ -153,13 +159,32 @@ make check
 %files
 %doc AUTHORS NEWS README doc/manual.pdf
 %license COPYING
-%{_bindir}/*
+%{_bindir}/ConvertCDDextToLatte
+%{_bindir}/ConvertCDDineToLatte
+%{_bindir}/count-linear-forms-from-polynomial
+%{_bindir}/ehrhart
+%{_bindir}/ehrhart3
+%{_bindir}/hilbert-from-rays
+%{_bindir}/hilbert-from-rays-symm
+%{_bindir}/latte-count
+%{_bindir}/latte-integrate
+%{_bindir}/latte-maximize
+%{_bindir}/latte-minimize
+%{_bindir}/latte-triangulate
+%{_bindir}/latte2ext
+%{_bindir}/latte2ine
+%{_bindir}/polyhedron-to-cones
+%{_bindir}/top-ehrhart-knapsack
 %{_libdir}/liblatte.so.0
 %{_libdir}/liblatte.so.0.*
 %{_libdir}/libnormalize.so.0
 %{_libdir}/libnormalize.so.0.*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.7.6-5
+- Convert License tag to SPDX
+- Minor spec file cleanups
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Version:        2.4.0
 Release:        3%{?dist}
 Summary:        Execute other plugins within a maven plugin
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://mojo-executor.github.io/mojo-executor/
 Source0:        https://github.com/mojo-executor/mojo-executor/archive/%{name}-parent-%{version}.tar.gz
 # Remove dependency on ant-contrib, which no longer builds successfully
@@ -84,6 +84,9 @@ This package contains %{summary}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-3
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

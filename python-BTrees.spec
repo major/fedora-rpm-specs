@@ -7,7 +7,7 @@
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        4.11.1
+Version:        4.11.3
 Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
@@ -59,6 +59,26 @@ Summary:        Scalable persistent object containers
 %description -n python3-BTrees %{common_desc}
 
 %package        doc
+# The content is ZPL-2.1.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/css: MIT
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/sphinx_highlight.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        ZPL-2.1 AND BSD-2-Clause AND BSD-3-Clause AND MIT
 Summary:        Documentation for BTrees
 BuildArch:      noarch
 Requires:       font(fontawesome)
@@ -120,6 +140,10 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.11.3-1
+- Version 4.11.3
+- Clarify license of the doc subpackage
+
 * Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 4.11.1-1
 - Version 4.11.1
 

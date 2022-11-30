@@ -20,15 +20,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-six
 
-# docs need sphinx >= 3
-# docs need towncrier and that is not yet available when bootstrapping Python
-%bcond_with docs
-%if %{with docs}
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  python3-towncrier
-%endif
-
 %bcond_without tests
 %if %{with tests}
 BuildRequires:  fish
@@ -83,15 +74,6 @@ written by Ian Bicking, and sponsored by the Open Planning Project. It is
 licensed under an MIT-style permissive license
 
 
-%if %{with docs}
-%package -n     python-virtualenv-doc
-Summary:        Documentation for python virtualenv
-
-%description -n python-virtualenv-doc
-Documentation for python virtualenv.
-%endif
-
-
 %prep
 %autosetup -p1 -n virtualenv-%{version}
 sed -i -e "1s|#!/usr/bin/env python||" tasks/update_embedded.py
@@ -110,12 +92,6 @@ sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/pat
 %build
 # Build code
 %{py3_build}
-
-# Build docs
-%if %{with docs}
-PYTHONPATH=src %{python3} setup.py build_sphinx
-rm -f build/sphinx/html/.buildinfo
-%endif
 
 %install
 %{py3_install}
@@ -159,11 +135,6 @@ rm -r tmp_path
 %{_bindir}/virtualenv
 %{python3_sitelib}/virtualenv/
 %{python3_sitelib}/virtualenv-*.egg-info/
-
-%if %{with docs}
-%files -n python-virtualenv-doc
-%doc build/sphinx/*
-%endif
 
 
 %changelog

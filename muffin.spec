@@ -1,11 +1,12 @@
 Name:          muffin
 Version:       5.6.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           https://github.com/linuxmint/%{name}
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:        %{url}/pull/649.patch#/window_placement.patch
 
 ExcludeArch:   %{ix86}
 
@@ -91,6 +92,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Mon Nov 28 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-2
+- Readd lost window placement modes
+
 * Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
 - Update to 5.6.0 release
 

@@ -1,13 +1,13 @@
 Name:           perl-Net-LDAP-Server
 Version:        0.43
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Net::LDAP::Server Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-LDAP-Server
 Source0:        https://cpan.metacpan.org/authors/id/A/AA/AAR/Net-LDAP-Server-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 
@@ -27,8 +27,6 @@ BuildRequires:  perl(fields)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-BuildRequires:  %{__make}
-
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
@@ -43,11 +41,11 @@ connection with the client.
 %setup -q -n Net-LDAP-Server-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -60,6 +58,11 @@ connection with the client.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.43-21
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

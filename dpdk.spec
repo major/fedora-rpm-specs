@@ -10,7 +10,7 @@
 
 Name: dpdk
 Version: 21.11.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 URL: http://dpdk.org
 Source: https://fast.dpdk.org/rel/dpdk-%{version}.tar.xz
@@ -191,6 +191,9 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 %endif
 
 %changelog
+* Sun Oct 23 2022 Jiri Olsa <jolsa@kernel.org> - 2:21.11.2-2
+- Rebuild for libbpf 1.0.0
+
 * Fri Sep 09 2022 Timothy Redaelli <tredaelli@redhat.com> - 2:21.11.2-1
 - Update to 21.11.2 (CVE-2022-28199: bz2123550) (CVE-2022-2132: bz2122335)
 

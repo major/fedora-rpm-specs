@@ -1,10 +1,10 @@
 Name:           yices
 Version:        2.6.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SMT solver
 
-# The yices code is GPLv3+.  The cudd code is BSD.
-License:        GPLv3+ and BSD
+# The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
+License:        GPL-3.0-or-later and BSD-3-Clause
 URL:            http://yices.csl.sri.com/
 Source0:        https://github.com/SRI-CSL/yices2/archive/Yices-%{version}.tar.gz
 # The CUDD web site disappeared in 2018.  The Fedora package was retired in 2019
@@ -13,6 +13,8 @@ Source0:        https://github.com/SRI-CSL/yices2/archive/Yices-%{version}.tar.g
 Source1:        https://github.com/ivmai/cudd/archive/cudd-3.0.0.tar.gz
 # Adapt to newer versions of cryptominisat
 Patch0:         %{name}-cryptominisat.patch
+# Get rid of an implicit-int function declaration in a configure check.
+Patch1:         implicit-int.patch
 
 BuildRequires:  cadical-devel
 BuildRequires:  cryptominisat-devel
@@ -76,8 +78,11 @@ sed -i 's/@NO_STACK_PROTECTOR@//' make.include.in
 # Do not override our build flags
 sed -i 's/ -O3//;s/ -fomit-frame-pointer//' src/Makefile tests/unit/Makefile
 
-# Generate the configure script
+# Generate the configure scripts
 autoreconf -fi
+cd cudd-cudd-3.0.0
+autoreconf -fi
+cd -
 
 # Fix end of line encodings
 sed -i 's/\r//' examples/{jinpeng,problem_with_input}.ys
@@ -93,11 +98,11 @@ cd cudd-cudd-3.0.0
 cd -
 
 #bv64_interval_abstraction depends on wrapping for signed overflow
-%global optflags %{optflags} -fwrapv
-
+export CFLAGS='%{build_cflags} -fwrapv'
+export CXXFLAGS='%{build_cxxflags} -fwrapv'
 export CPPFLAGS="-I$PWD/cudd-cudd-3.0.0/cudd -DHAVE_CADICAL -DHAVE_CRYPTOMINISAT -DHAVE_KISSAT"
-export LDFLAGS="$RPM_LD_FLAGS -L$PWD/cudd-cudd-3.0.0/cudd/.libs"
-export LIBS="-lcadical -lcryptominisat5 -lkissat"
+export LDFLAGS="%{build_ldflags} -L$PWD/cudd-cudd-3.0.0/cudd/.libs"
+export LIBS='-lcadical -lcryptominisat5 -lkissat'
 %configure --enable-mcsat
 
 guess=$(./config.guess)
@@ -127,24 +132,34 @@ make check MODE=debug
 %files
 %doc doc/SMT-LIB-LANGUAGE doc/YICES-LANGUAGE
 %license copyright.txt LICENSE.txt
-%{_libdir}/*.so.2*
+%{_libdir}/libyices.so.2*
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/*.so
+%{_libdir}/libyices.so
 
 %files tools
 %{_bindir}/yices
 %{_bindir}/yices-sat
 %{_bindir}/yices-smt
 %{_bindir}/yices-smt2
-%{_mandir}/man1/*
+%{_mandir}/man1/yices.1*
+%{_mandir}/man1/yices-sat.1*
+%{_mandir}/man1/yices-smt.1*
+%{_mandir}/man1/yices-smt2.1*
 
 %files doc
 %doc doc/manual/manual.pdf doc/sphinx/build/html examples
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.6.4-5
+- Regenerate the cudd configure script to fix FTBFS
+- Convert License tag to SPDX
+
+* Mon Nov 28 2022 Timm Bäder <tbaeder@redhat.com> - 2.6.4-5
+- Get rid of an implicit int function declaration in a configure check
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

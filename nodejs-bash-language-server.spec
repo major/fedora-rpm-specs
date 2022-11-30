@@ -3,7 +3,7 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        3.0.5
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        A language server for Bash
 License:        MIT
@@ -11,7 +11,6 @@ Url:            https://github.com/bash-lsp/bash-language-server
 Source0:        %{url}/archive/server-%{version}/%{pkg_name}-%{version}.tar.gz
 # Create with `bash prepare_vendor.sh`
 Source1:        %{pkg_name}-%{version}-vendor.tar.xz
-Patch0:         bashls-fix-CVE-2022-0613.patch
 BuildRequires:  fdupes
 BuildRequires:  nodejs-typescript
 BuildRequires:  nodejs-packaging

@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
-Version:    2.19.8
-Release:    2%{?dist}
+Version:    2.19.9
+Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -248,6 +248,16 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Mon Nov 28 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.9-1
+- Update to 2.19.9
+- Emoji search: If search strings contain whitespace count as an exact match if
+  all words match in any order
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/405)
+- emoji-picker: If a search string contains non-whitespace characters, strip whitespace
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/404)
+- emoji-picker: Put the first match in a search always into the clipboards automatically
+  Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/402)
+
 * Thu Nov 24 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.8-2
 - Migrate license tag to SPDX
 

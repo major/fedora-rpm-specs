@@ -2,7 +2,12 @@ Name:           mpfi
 Version:        1.5.4
 Release:        2%{?dist}
 Summary:        An interval arithmetic library based on MPFR
-License:        LGPLv2+
+
+# Most files have an LGPL-2.1-or-later notice.  Exceptions:
+# src/clears.c: LGPL-3.0-or-later
+# src/inits.c: LGPL-3.0-or-later
+# src/inits2.c: LGPL-3.0-or-later
+License:        LGPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://perso.ens-lyon.fr/nathalie.revol/software.html
 Source0:        https://perso.ens-lyon.fr/nathalie.revol/softwares/%{name}-%{version}.tar.xz
 # Fix possible use of initialized variables
@@ -90,7 +95,7 @@ make check
 %files
 %doc AUTHORS NEWS TODO
 %license COPYING COPYING.LESSER
-%{_libdir}/libmpfi.so.*
+%{_libdir}/libmpfi.so.0*
 
 %files devel
 %{_includedir}/mpfi.h
@@ -103,6 +108,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.5.4-2
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

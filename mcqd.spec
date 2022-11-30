@@ -8,7 +8,7 @@ Version:        1.0.0
 Release:        8.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Maximum clique in an undirected graph
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://insilab.org/maxclique/
 Source0:        https://gitlab.com/janezkonc/mcqd/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Sagemath patch to reduce verbosity
@@ -45,13 +45,13 @@ sed -i 's/\r//' *.{cpp,h}
 
 %build
 # Build the library
-g++ -fPIC -shared %{optflags} $RPM_LD_FLAGS -Wl,-h,lib%{name}.so.0 \
+g++ -fPIC -shared %{build_cxxflags} %{build_ldflags} -Wl,-h,lib%{name}.so.0 \
     -o lib%{name}.so.0.0.0 %{name}.cpp
 ln -s lib%{name}.so.0.0.0 lib%{name}.so.0
 ln -s lib%{name}.so.0 lib%{name}.so
 
 # Build the binary
-g++ %{optflags} $RPM_LD_FLAGS -o %{name} %{name}-main.cpp -L. -lmcqd
+g++ %{build_cxxflags} %{build_ldflags} -o %{name} %{name}-main.cpp -L. -lmcqd
 
 %install
 # Install the library
@@ -85,6 +85,9 @@ LD_LIBRARY_PATH=$PWD ./mcqd test.clq > test.log 2>&1
 %{_bindir}/%{name}
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-8.20160901.9ab9717
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8.20160901.9ab9717
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

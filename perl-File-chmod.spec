@@ -1,14 +1,15 @@
 Name:           perl-File-chmod
 Version:        0.42
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Implements symbolic and ls chmod modes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-chmod
 Source0:        https://cpan.metacpan.org/authors/id/X/XE/XENO/File-chmod-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  coreutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(autodie)
@@ -39,15 +40,15 @@ Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %setup -q -n File-chmod-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+%{make_install}
 chmod -R u+w %{buildroot}/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes
@@ -55,6 +56,11 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.42-26
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

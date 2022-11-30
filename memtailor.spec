@@ -9,9 +9,9 @@ Version:        1.0
 Release:        20.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
-License:        BSD
-URL:            https://github.com/%{user}/%{name}
-Source0:        https://github.com/%{user}/%{name}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/Macaulay2/memtailor
+Source0:        %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
 
 # Upstream wants to download gtest and compile it in; we don't
 Patch0:         %{name}-gtest.patch
@@ -54,6 +54,9 @@ Files for developing applications that use memtailor.
 # Remove spurious executable bits
 chmod a-x src/test/*.cpp
 
+# Fix the URL in the pkgconfig file
+sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
+
 # Upstream doesn't generate the configure script
 autoreconf -fi
 
@@ -83,7 +86,7 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %files
 %doc README.md
 %license license.txt
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.0*
 
 %files devel
 %{_includedir}/%{name}/
@@ -92,6 +95,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0-20.20220104.git95dbac7
+- Fix URL in the pkgconfig file
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20.20220104.git95dbac7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

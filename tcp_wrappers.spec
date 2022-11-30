@@ -1,7 +1,7 @@
 Summary: A security tool which acts as a wrapper for TCP daemons
 Name: tcp_wrappers
 Version: 7.6
-Release: 101%{?dist}
+Release: 102%{?dist}
 
 %global LIB_MAJOR 0
 %global LIB_MINOR 7
@@ -39,6 +39,7 @@ Patch29: tcp_wrappers-7.6-uchart_fix.patch
 Patch30: tcp_wrappers-7.6-altformat.patch
 # RFE: rhbz#1181815
 Patch31: tcp_wrappers-7.6-aclexec.patch
+Patch32: tcp_wrappers-inetcf-c99.patch
 # required by sin_scope_id in ipv6 patch
 BuildRequires: make
 BuildRequires: glibc-devel >= 2.2
@@ -93,6 +94,7 @@ tcp_wrappers-libs contains the libraries of the tcp_wrappers package.
 %patch30 -p1 -b .altformat
 %patch28 -p1 -b .warnings
 %patch31 -p1 -b .aclexec
+%patch32 -p1
 
 %build
 make \
@@ -149,6 +151,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man3/*
 
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 7.6-102
+- Fix pointer truncation issue and C99 compatibility (#2148869)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

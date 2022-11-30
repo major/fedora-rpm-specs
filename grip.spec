@@ -1,6 +1,6 @@
 Summary: Front-end for CD rippers and Ogg Vorbis encoders
 Name: grip
-Version: 4.2.3
+Version: 4.2.4
 Release: %autorelease
 Epoch: 1
 License: GPLv2+

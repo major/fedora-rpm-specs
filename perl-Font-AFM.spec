@@ -1,9 +1,9 @@
 Name:           perl-Font-AFM
 Version:        1.20
-Release: 	41%{?dist}
+Release: 	42%{?dist}
 Summary:        Perl interface to Adobe Font Metrics files
 
-License:	(GPL+ or Artistic) and Copyright only
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Font-AFM
 Source0:	https://cpan.metacpan.org/authors/id/G/GA/GAAS/Font-AFM-%{version}.tar.gz
 
@@ -11,7 +11,7 @@ Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -31,17 +31,17 @@ sed -i -e 's,Helvetica,NimbusSans-Bold,g' t/afm.t
 sed -i -e 's,4279,4558,g' t/afm.t
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %check
-make test METRICS=%{_fontbasedir}/urw-base35
+%{__make} test METRICS=%{_fontbasedir}/urw-base35
 
 
 %files
@@ -50,6 +50,11 @@ make test METRICS=%{_fontbasedir}/urw-base35
 %{_mandir}/man3/Font*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.20-42
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,6 +3,7 @@ Version:        1.8.0
 Release:        %autorelease
 Summary:        Cross-platform tool for adding locations to the user PATH
 
+# SPDX
 License:        MIT
 URL:            https://github.com/ofek/userpath
 Source0:        %{pypi_source userpath}

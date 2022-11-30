@@ -1,13 +1,13 @@
 Name:           maven-reporting-api
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        API to manage report generation
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-api
-Source0:        https://www.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
+Source0:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip
 # Source file signature
-Source1:        https://www.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
+Source1:        https://archive.apache.org/dist/maven/reporting/%{name}-%{version}-source-release.zip.asc
 # Apache Maven public key
 Source2:        https://www.apache.org/dist/maven/KEYS
 
@@ -30,6 +30,11 @@ achieve report decoupling from the Maven 3 core.
 %{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup
 
+# Fix end of line encoding
+sed -i.orig 's/\\r//' README.md
+touch -r README.md.orig README.md
+rm README.md.orig
+
 %build
 %mvn_build
 
@@ -41,6 +46,10 @@ achieve report decoupling from the Maven 3 core.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1:3.1.1-1
+- Version 3.1.1
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

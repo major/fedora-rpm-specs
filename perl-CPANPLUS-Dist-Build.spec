@@ -1,8 +1,8 @@
 Name:           perl-CPANPLUS-Dist-Build
 Version:        0.90
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Module::Build extension for CPANPLUS
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPANPLUS-Dist-Build
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/CPANPLUS-Dist-Build-%{version}.tar.gz
 BuildArch:      noarch
@@ -78,12 +78,12 @@ Module::Build-based perl modules by calling CPANPLUS::Dist methods.
 %setup -q -n CPANPLUS-Dist-Build-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -95,6 +95,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.90-16
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

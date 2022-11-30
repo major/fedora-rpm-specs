@@ -27,12 +27,10 @@ ExcludeArch:    %{ix86}
 # Rebased on 1.2.1
 Patch:          0001-BUG-Work-around-ppc64le-bugs-11284.patch
 
-# The combination of an arched package with only noarch binary packages makes
-# it easier for us to detect arch-dependent test failures, since the tests will
-# always be run on every platform, and easier for us to skip failing tests if
-# necessary, since we can be sure that %%ifarch macros work as expected. It
-# also allows BuildRequires that enable extra tests but do not affect the
-# contents of the “binary” RPMs to be conditional on architecture.
+# The base package is arched to make it easier for us to detect arch-dependent
+# test failures, since the tests will always be run on every platform, and
+# easier for us to skip failing tests if necessary, since we can be sure that
+# %%ifarch macros work as expected.
 #
 # Since the package still contains no compiled machine code, we still have no
 # debuginfo.
@@ -50,7 +48,8 @@ statistics.}
 %package -n python3-mne
 Summary:        %{summary}
 
-BuildArch:      noarch
+# This package is now arched because some dependencies are not available on
+# every architecture.
 
 Provides:       bundled(bootstrap)
 Provides:       bundled(js-jquery)
@@ -72,7 +71,10 @@ BuildRequires:  python3-matplotlib
 BuildRequires:  python3-pandas
 BuildRequires:  python3-h5py
 BuildRequires:  python3-decorator
+%ifnarch s390x
+# https://bugzilla.redhat.com/show_bug.cgi?id=2116690
 BuildRequires:  python3-pymatreader
+%endif
 BuildRequires:  python3-h5io
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-scikit-learn
@@ -99,7 +101,9 @@ Requires:       python3-h5io
 Requires:       python3-six
 Requires:       python3-tempita
 Requires:       python3-tqdm
+%ifnarch s390x
 Requires:       python3-pymatreader
+%endif
 Recommends:     python3-scikit-learn
 Recommends:     python3-pandas
 Recommends:     python3-patsy

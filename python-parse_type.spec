@@ -1,7 +1,7 @@
 %global srcname parse_type
 
 Name:           python-%{srcname}
-Version:        0.5.2
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Simplifies to build parse types based on the parse module
 
@@ -38,7 +38,10 @@ Python 3 version.
 
 %prep
 %autosetup -n %{srcname}-%{version}
-sed -i -e '/use_2to3/s/\S.*/pass/' setup.py
+
+# remove deps on pytest-html
+sed -i -e '/^\s*pytest-html >= /d' tox.ini
+sed -i -e '/^\s*pytest-html >= /d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -51,6 +54,13 @@ sed -i -e '/use_2to3/s/\S.*/pass/' setup.py
 %pyproject_save_files %{srcname}
 
 %check
+# we don't care about html output from pytest, plus pytest-html isn't in fedora
+sed -i \
+  -e '/^addopts = --metadata PACKAGE_UNDER_TEST parse_type/d' \
+  -e '/^    --metadata PACKAGE_VERSION [0-9].[0-9].[0-9]/d' \
+  -e '\%    --html=build/testing/report.html --self-contained-html%d' \
+  -e '\%    --junit-xml=build/testing/report.xml%d' \
+  pytest.ini
 %tox
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -5,7 +5,7 @@
 #  1) Build --without tests (the default)
 #     (e.g. fedpkg mockbuild)
 #  2) Install the built package
-#     (e.g. mock install ./results_python-tox/.../python3-tox-...rpm)
+#     (e.g. mock install ./results_python-tox/.../tox-...rpm)
 #  3) Build again --with tests (and internet connection)
 #     (e.g. fedpkg mockbuild --enable-network --no-clean-all --with tests)
 # The Fedora CI tests do this.
@@ -17,7 +17,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-tox
-Version:        3.26.0
+Version:        3.27.1
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -122,6 +122,9 @@ sed -i 's/tomli>=2.0.1/tomli>=1.2.3/' setup.cfg
 
 
 %changelog
+* Fri Nov 25 2022 Miro Hrončok <mhroncok@redhat.com> - 3.27.1-1
+- Update to 3.27.1
+
 * Wed Sep 14 2022 Miro Hrončok <mhroncok@redhat.com> - 3.26.0-1
 - Update to 3.26.0
 

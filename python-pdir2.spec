@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        0.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -30,8 +30,11 @@ Summary: %{summary}
 
 %prep
 %autosetup -n pdir2-%{version} -p 1
+# We can’t respect preemptive upper bounds on dependency versions. At least
+# convert them into lower bounds.
+sed -r -i 's/=(=[[:digit:]])/>\1/' pyproject.toml
 
-#%generate_buildrequires
+%generate_buildrequires
 %pyproject_buildrequires
 
 %build
@@ -49,6 +52,11 @@ Summary: %{summary}
 %doc README.md
 
 %changelog
+* Mon Nov 28 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.6-2
+- Fix a stray comment
+- Remove version upper-bounds; in particular, allow typing-extensions ≥4.3
+  (fix RHBZ#2148950)
+
 * Fri Nov 11 2022 Simon de Vlieger <cmdr@supakeen.com> - 0.3.6-1
 - New upstream version
 

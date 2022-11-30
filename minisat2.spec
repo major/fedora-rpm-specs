@@ -73,8 +73,7 @@ cp -p %{SOURCE2} .
 
 %build
 # %%{?_smp_mflags} leads to sporadic build failures
-make lsh sh prefix=%{_prefix} libdir=%{_libdir} \
-  CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" VERB=
+make lsh sh prefix=%{_prefix} libdir=%{_libdir} VERB=
 
 # Test "minisat2-test.in" is a brief quote from
 # http://www.satcompetition.org/2004/format-solvers2004.html
@@ -119,13 +118,16 @@ fi
 
 %files libs
 %license LICENSE
-%{_libdir}/lib%{myname}.so.*
+%{_libdir}/lib%{myname}.so.2*
 
 %files devel
 %{_includedir}/%{myname}/
 %{_libdir}/lib%{myname}.so
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.2.1-15
+- Do not glob the library name
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

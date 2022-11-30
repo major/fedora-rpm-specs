@@ -1,9 +1,9 @@
 Name:           perl-Test-WWW-Mechanize
 Version:        1.58
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Testing-specific WWW::Mechanize subclass
 
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-WWW-Mechanize
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/Test-WWW-Mechanize-%{version}.tar.gz
 
@@ -78,6 +78,9 @@ sed -i -e 's|use Carp::Assert::More|use Carp::Assert::More 1.16|' Mechanize.pm
 
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.58-5
+- Convert license to SPDX.
+
 * Wed Jul 27 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.58-4
 - Add 0001-Fix-Odd-number-of-elements-in-hash-assignment-warnin.patch (RHBZ#2111408).
 

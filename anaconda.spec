@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.9
+Version: 38.10
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 28 2022 Packit <hello@packit.dev> - 38.10-1
+- infra: Fix the condition for bumping a release version (vponcova)
+- infra: Fetch all tags before tagging the release (vponcova)
+- Web UI: Add a payload to ks.cfg (ozobal)
+- infra: Set up the access token during the code checkout (vponcova)
+- infra: Don't release periodically on forks (vponcova)
+- Make text in custom_storage_helper more accurate (ozobal)
+- test: Update pixel references to current Fedora (martin)
+- Fix infobar colors in GTK GUI (ozobal)
+
 * Wed Nov 16 2022 Packit <hello@packit.dev> - 38.9-1
 - Progress step improvements (mkolman)
 - makebumpver: Ignore all infra, not just bumps (vslavik)

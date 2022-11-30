@@ -3,14 +3,13 @@
 
 Name:           perl-gettext
 Version:        1.07
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Interface to gettext family of functions
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/gettext
 Source0:        https://cpan.metacpan.org/authors/id/P/PV/PVANDRY/%{tarname}-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  %{__make}
 BuildRequires:  %{__perl}
@@ -49,12 +48,12 @@ internationalize software.
 %setup -q -n %{tarname}-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
@@ -70,6 +69,11 @@ internationalize software.
 
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.07-25
+- Convert license to SPDX.
+- Modernize spec.
+- Update sources to sha215.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

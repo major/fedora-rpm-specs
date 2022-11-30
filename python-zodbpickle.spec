@@ -1,5 +1,5 @@
 Name:           python-zodbpickle
-Version:        2.5
+Version:        2.6
 Release:        1%{?dist}
 Summary:        Fork of Python 2 pickle module for ZODB
 
@@ -70,6 +70,9 @@ sed -ri '/pickle(tester|tools)?_2/d;/\.c$/d' %{pyproject_files}
 %doc CHANGES.html README.html
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.6-1
+- Version 2.6
+
 * Sun Nov  6 2022 Jerry James <loganjerry@gmail.com> - 2.5-1
 - Version 2.5
 

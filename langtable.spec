@@ -1,6 +1,6 @@
 Name:           langtable
 Version:        0.0.61
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Guessing reasonable defaults for locale, keyboard layout, territory, and language.
 # the translations in languages.xml and territories.xml are (mostly)
 # imported from CLDR and are thus under the Unicode license, the
@@ -23,7 +23,7 @@ already known.
 
 %package -n python3-langtable
 Summary:        Python module to query the langtable-data
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      %{name}-data < %{version}-%{release}
 Provides:       %{name}-data = %{version}-%{release}
@@ -75,6 +75,9 @@ xmllint --noout --relaxng \
 %{python3_sitelib}/langtable-*.egg-info/*
 
 %changelog
+* Mon Nov 28 2022 Mike FABIAN <mfabian@redhat.com> - 0.0.61-2
+- Migrate license tag of python3-langtable to SPDX as well
+
 * Thu Nov 24 2022 Mike FABIAN <mfabian@redhat.com> - 0.0.61-1
 - Update to 0.0.61
 - Add mnw_MM.UTF-8 and ckb_IQ.UTF-8

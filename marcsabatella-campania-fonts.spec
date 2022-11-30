@@ -3,7 +3,7 @@ Release:        6%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 
 %global foundry           MarcSabatella
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1-RFN
 %global fontlicenses      LICENSE
 %global fontdocs          README.md
 %global fontfamily        Campania
@@ -41,8 +41,7 @@ fontforge -lang=ff -c 'Open($1); Generate($2)' Campania.sfd Campania.otf
 metainfo=%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,OFL,OFL-1.1-RFN,' \
-    -e 's,updatecontact,update_contact,g' \
+sed -e 's,updatecontact,update_contact,g' \
     -e 's,<!\[CDATA\[\(.*\)\]\]>,\1,' \
     -i $metainfo
 
@@ -57,6 +56,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %fontfiles
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.009-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname howdoi
 
 Name:           python-%{srcname}
-Version:        2.0.16
-Release:        6%{?dist}
+Version:        2.0.20
+Release:        %autorelease
 Summary:        Instant coding answers via the command line
 
 License:        MIT
@@ -12,6 +12,8 @@ URL:            https://github.com/gleitz/howdoi
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 Sherlock, your neighborhood command-line sloth sleuth.
@@ -28,18 +30,14 @@ console and ask howdoi:
 
 %description %_description
 
-%package -n python3-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(appdirs)
-BuildRequires:  python3dist(cachelib)
-BuildRequires:  python3dist(keep)
-BuildRequires:  python3dist(pygments)
-BuildRequires:  python3dist(pyquery)
 
-%description -n python3-%{srcname} %_description
+%package -n %{srcname}
+Summary:        %{summary}
+Provides:       python3-%{srcname} = %{version}-%{release}
+Obsoletes:      python3-%{srcname} < 2.0.20-2
+
+%description -n %{srcname} %_description
+
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
@@ -47,53 +45,35 @@ BuildRequires:  python3dist(pyquery)
 sed -i.shebang '1d' howdoi/howdoi.py
 touch -r howdoi/howdoi.py.shebang howdoi/howdoi.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files %srcname
+
 
 %check
-# some tests fail if run at once with
-#   OSError: [Errno 24] Too many open files
-# ``ulimit -n unlimited`` is not an option
 TEST_CLASS=test_howdoi.py::HowdoiTestCase
-skipped_tests=(multiple_answers position unicode_answer)
+skipped_tests=(colorize)
 DESELECT=
 for testcase in "${skipped_tests[@]}"; do
   DESELECT+=" --deselect ${TEST_CLASS}::test_${testcase}"
 done
 %pytest -v ${DESELECT}
-for testcase in "${skipped_tests[@]}"; do
-  SELECT+=" ${TEST_CLASS}::test_${testcase}"
-done
-%pytest -v ${SELECT}
 
-%files -n python3-%{srcname}
+
+%files -n %{srcname} -f %{pyproject_files}
 %license LICENSE.txt
-%doc CHANGES.txt README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%doc CHANGES.txt README.md
 %{_bindir}/%{srcname}
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 2.0.16-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.16-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 30 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.0.16-2
-- Escape %%s in description
-- fix shebang in non-executable file
-- Use `--deselect` to temporarily skip expensive tests
-
-* Tue Jun 29 2021 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.0.16-1
-- Initial package
+%autochangelog

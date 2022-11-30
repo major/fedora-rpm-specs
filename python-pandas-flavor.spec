@@ -61,10 +61,14 @@ custom plot functionality? Maybe something else?}
 %{common_description}
 
 
-%package -n python3-pandas_flavor
+%package -n python3-pandas-flavor
 Summary:        %{summary}
 
-%description -n python3-pandas_flavor
+# Renamed binary package to match project canonical name.
+Provides:       python3-pandas_flavor = %{version}-%{release}
+Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
+
+%description -n python3-pandas-flavor
 %{common_description}
 
 
@@ -91,7 +95,7 @@ Summary:        %{summary}
 %pyproject_check_import
 
 
-%files -n python3-pandas_flavor -f %{pyproject_files}
+%files -n python3-pandas-flavor -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
 %doc README.md
 %doc docs/_images/example.png

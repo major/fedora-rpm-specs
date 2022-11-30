@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -137,7 +137,7 @@ The %{name}-tcl package includes RRDtool bindings for Tcl.
 %endif
 
 %if %{with_ruby}
-%{!?ruby_vendorarchdir: %global ruby_vendorarchdir %(ruby -rrbconfig -e 'puts Config::CONFIG["vendorarchdir"]')}
+%{!?ruby_vendorarchdir: %global ruby_vendorarchdir %(ruby -rrbconfig -e 'puts RbConfig::CONFIG["vendorarchdir"]')}
 
 %package ruby
 Summary: Ruby RRDtool bindings
@@ -355,10 +355,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %{_unitdir}/rrdcached.socket
 %{_datadir}/%{name}
 %{_mandir}/man1/*
+%{_mandir}/man3/lib*.3*
 
 %files devel
 %{_includedir}/*.h
-%exclude %{_libdir}/*.la
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 
@@ -368,7 +368,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 
 %files perl
 %doc doc3/html
-%{_mandir}/man3/*
+%{_mandir}/man3/*.3pm*
 %{perl_vendorarch}/*.pm
 %attr(0755,root,root) %{perl_vendorarch}/auto/RRDs/
 
@@ -401,11 +401,15 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %if %{with_lua}
 %files lua
 %doc bindings/lua/README
-%exclude %{lualibdir}/*.la
 %{lualibdir}/*
 %endif
 
 %changelog
+* Thu Nov 24 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.8.0-5
+- Remove excludes for nonexistent .la files
+- Fix Ruby directory lookup
+- Move librrd(3) man page from -perl subpackage to main package
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

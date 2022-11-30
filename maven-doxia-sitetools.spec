@@ -7,7 +7,7 @@ Name:           %{parent}-%{subproj}
 Version:        1.11.1
 Release:        3%{?dist}
 Summary:        Doxia content generation framework
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://maven.apache.org/doxia/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -116,6 +116,9 @@ rm -r doxia-doc-renderer/src/main/java/org/apache/maven/doxia/docrenderer/pdf/fo
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.11.1-3
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

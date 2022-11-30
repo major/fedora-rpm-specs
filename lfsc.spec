@@ -1,7 +1,6 @@
 # NOTE: upstream does not make releases and has no version numbering scheme.
 # We check the code out of git and use the date of the last commit as the
 # version number.
-%global owner    CVC4
 %global gittag   15f53d6feb84e4ddb41deaf2b5630f5c1303b06d
 %global shorttag %(cut -b -7 <<< %{gittag})
 
@@ -10,9 +9,9 @@ Version:        0.20210305
 Release:        4%{?dist}
 Summary:        SMT proof checker
 
-License:        BSD
-URL:            https://github.com/%{owner}/LFSC
-Source0:        https://github.com/%{owner}/LFSC/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/cvc5/LFSC
+Source0:        %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # The next few sources contain commonly used proof definitions
 Source1:        http://clc.cs.uiowa.edu/lfsc/euf_interpolation.plf
 Source2:        http://clc.cs.uiowa.edu/lfsc/sat.plf
@@ -99,7 +98,7 @@ cd -
 %doc AUTHORS README.md
 %{_bindir}/lfscc
 %{_datadir}/%{name}/
-%{_libdir}/liblfscc.so.*
+%{_libdir}/liblfscc.so.0*
 %{_mandir}/man1/lfscc.1*
 
 %files devel
@@ -107,6 +106,10 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.20210305-4
+- New project URL
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210305-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

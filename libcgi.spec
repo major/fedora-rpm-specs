@@ -13,7 +13,7 @@
 
 Name:           libcgi
 Version:        1.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        CGI easy as C
 License:        LGPLv2+
 URL:            http://libcgi.sourceforge.net/
@@ -21,6 +21,7 @@ Source:         http://prdownloads.sourceforge.net/libcgi/libcgi-%{version}.tar.
 Patch0:         libcgi-1.0-Makefile.in.patch
 Patch1:         libcgi-1.0-cgi.c-hextable.patch
 Patch2:         libcgi-1.0-string.c-make_string.patch
+Patch3:         libcgi-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -53,6 +54,7 @@ to develop programs that use the LibCGI library.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 find examples/ -name "Makefile.am" -delete
 
 
@@ -99,6 +101,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcgi.a
 
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 1.0-35
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

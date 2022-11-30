@@ -1,8 +1,10 @@
-Summary: Open source version of IBM's Visualization Data Explorer
 Name: dx
 Version: 4.4.4
-Release: 59%{?dist}
+Release: 60%{?dist}
+Summary: Open source version of IBM's Visualization Data Explorer
+License: IPL-1.0
 URL: http://www.opendx.org/
+
 Source0: http://opendx.informatics.jax.org/source/dx-%{version}.tar.gz
 Source1: %{name}.desktop
 Patch1: 0001-dx-rpm.patch
@@ -22,7 +24,6 @@ Patch8: 0008-dx-narrowing.patch
 # fix gcc-7.0 incompatibilites
 Patch9: 0009-gcc7.0-compatibility.patch
 
-License: IBM
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: bison
@@ -131,6 +132,11 @@ rm     $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.4-60
+- Spec file cosmetics.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.4-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

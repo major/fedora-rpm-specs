@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-Schema-Loader
 Summary:        Dynamic definition of a DBIx::Class::Schema
-Version:        0.07050
+Version:        0.07051
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/V/VE/VEESH/DBIx-Class-Schema-Loader-%{version}.tar.gz
@@ -156,6 +156,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 28 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.07051-1
+- 0.07051 bump
+
 * Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.07050-1
 - 0.07050 bump
 - Package tests

@@ -1,6 +1,6 @@
 Name:           perl-grpc-xs
 Version:        0.37
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl binding to a client part of the gRPC library
 # examples/route_guide/route_guide.proto:   BSD-3-Clause
 # LICENSE:      Apache-2.0 text
@@ -8,6 +8,7 @@ Summary:        Perl binding to a client part of the gRPC library
 License:        Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 URL:            https://metacpan.org/release/grpc-xs
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOYREX/grpc-xs-%{version}.tar.gz
+Patch0: perl-grpc-xs-Makefile.PL-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -95,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 0.37-6
+- Do not call undeclared exit function in Makefile.PL for C99 compatibility
+
 * Tue Aug 23 2022 Petr Pisar <ppisar@redhat.com> - 0.37-5
 - Rebuilt for abseil-cpp 20220623.0 and grpc 1.48.0
 

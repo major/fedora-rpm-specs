@@ -162,12 +162,12 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
 # LICENSING file in the source tarball.
-License:        LGPLv2+ and BSD and Public Domain
+License:        LGPL-2.1-or-later AND BSD-3-Clause AND BSD-2-Clause AND BSD-2-Clause-FreeBSD AND 0BSD AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/besser82/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -175,6 +175,7 @@ Source2:        %{url}/releases/download/v%{version}/%{name}-gpgkey.gpg
 Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.sha256sum
 
 # Patch 0000 - 2999: Backported patches from upstream.
+Patch0000:      %{url}/commit/9d5e7b7307f2.patch#/%{name}-4.4.33-yescrypt_platform_cast_performance.patch
 
 # Patch 3000 - 5999: Backported patches from pull requests.
 
@@ -575,6 +576,10 @@ done
 
 
 %changelog
+* Mon Nov 28 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-3
+- Convert License to SPDX expression
+- Add upstream patch to improve performance on some type-cast operations
+
 * Mon Nov 21 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-2
 - Do not BR the compat package during bootstrap
 - Use BR: coreutils instead of %%{_bindir}/sha256sum

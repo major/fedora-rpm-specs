@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -87,6 +87,7 @@ Patch0013: 0013-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
 Patch0014: 0014-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 Patch0015: 0015-Tweak-the-tools_def-to-support-cross-compiling.patch
 Patch0016: 0016-tools_def-add-fno-omit-frame-pointer-to-GCC48_-IA32-.patch
+Patch0017: 0017-Revert-ArmVirtPkg-make-EFI_LOADER_DATA-non-executabl.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -587,6 +588,9 @@ done
 
 
 %changelog
+* Mon Nov 28 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-2
+- add workaround for broken grub
+
 * Tue Sep 20 2022 Gerd Hoffmann <kraxel@redhat.com> - 20220826gitba0e0e4c6a17-1
 - update edk2 to 2022-08 stable tag.
 - update openssl bundle to rhel-8.7 level.

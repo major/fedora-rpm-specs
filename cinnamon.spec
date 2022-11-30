@@ -15,7 +15,7 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.6.1
+Version:        5.6.3
 Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
@@ -34,6 +34,7 @@ Patch1:         set_wheel.patch
 #Patch2:         revert_25aef37.patch
 Patch3:         default_panal_launcher.patch
 Patch4:         remove_crap_from_menu.patch
+Patch5:         window_placement.patch
 
 ExcludeArch:    %{ix86}
 
@@ -331,6 +332,9 @@ EOF
 %endif
 
 %changelog
+* Mon Nov 28 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.3-1
+- Readd lost window placement modes
+
 * Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
 - Update to 5.6.1 release
 

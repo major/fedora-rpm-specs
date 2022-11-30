@@ -4,7 +4,7 @@ Name: sox
 # This workaround will go away with rebase to 14.4.3
 # it affects Source, %%prep and Version
 Version: 14.4.2.0
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT
 # Modified source tarball with libgsm license, without unlicensed liblpc10:
 # _Source: http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.gz
@@ -66,6 +66,7 @@ Patch1006: sox-14.4.2-bug_1480678_fix.patch
 Patch1007: sox-14.4.2-bug_1545867_fix.patch
 # 9000 - 9999: Tests:
 Patch9000: sox-14.4.2-installcheck_fix.patch
+Patch9001: sox-sample_tes-t-c99.patch
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/IJFYI5Q2BYZKIGDFS2WLOBDUSEGWHIKV/
 BuildRequires: make
 BuildRequires: gcc
@@ -104,6 +105,7 @@ which will use the SoX sound file format converter.
 %patch1006 -p1
 %patch1007 -p1
 %patch9000 -p1
+%patch9001 -p1
 #regenerate scripts from older autoconf to support aarch64
 autoreconf -vfi
 
@@ -148,6 +150,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/sox/*.a
 
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 14.4.2.0-35
+- Fix C99 compatibile issue in src/sox_sample_test.h
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 14.4.2.0-34
 - Rebuilt for flac 1.4.0
 

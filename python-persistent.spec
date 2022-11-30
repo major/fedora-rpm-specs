@@ -1,5 +1,5 @@
 Name:           python-persistent
-Version:        4.9.2
+Version:        4.9.3
 Release:        1%{?dist}
 Summary:        Translucent persistent python objects
 
@@ -113,6 +113,9 @@ cp -p src/persistent/_compat.h %{buildroot}%{_includedir}/python3.*/persistent
 %doc docs/_build/html/*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.9.3-1
+- Version 4.9.3
+
 * Sun Nov  6 2022 Jerry James <loganjerry@gmail.com> - 4.9.2-1
 - Version 4.9.2
 

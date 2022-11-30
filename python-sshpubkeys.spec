@@ -3,7 +3,7 @@ Version:        3.3.1
 Release:        %autorelease
 Summary:        OpenSSH public key parser for Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ojarva/sshpubkeys
 Source0:        %{url}/archive/%{version}/sshpubkeys-%{version}.tar.gz
 BuildArch:      noarch
@@ -31,7 +31,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

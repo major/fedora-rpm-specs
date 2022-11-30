@@ -3,7 +3,7 @@
 %endif
 
 Name:           seabios
-Version:        1.16.0
+Version:        1.16.1
 Release:        2%{?dist}
 Summary:        Open-source legacy BIOS implementation
 
@@ -32,7 +32,7 @@ Source23:       config.seabios-microvm
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: python3 iasl
+BuildRequires: python3
 %if 0%{?cross:1}
 BuildRequires: binutils-x86_64-linux-gnu gcc-x86_64-linux-gnu
 Buildarch:     noarch
@@ -160,6 +160,12 @@ install -m 0644 binaries/vgabios*.bin $RPM_BUILD_ROOT%{_datadir}/seavgabios
 
 
 %changelog
+* Mon Nov 28 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.16.1-2
+- remove unneeded iasl build dependency
+
+* Mon Nov 28 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.16.1-1
+- Update to 1.16.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

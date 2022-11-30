@@ -3,7 +3,7 @@ Version:	1.3
 Release:	6%{?dist}
 Summary:	Fast translation from LTL formulas to Buchi automata
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://www.lsv.fr/~gastin/ltl2ba/
 Source0:	%{url}/%{name}-%{version}.tar.gz
 
@@ -56,6 +56,9 @@ cp -p ltl2ba.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/ltl2ba.1*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.3-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

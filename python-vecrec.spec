@@ -8,6 +8,7 @@ Version:        0.3.1
 Release:        %autorelease
 Summary:        2D vector and rectangle library
 
+# SPDX
 License:        MIT
 URL:            https://github.com/kxgames/vecrec
 Source0:        %{pypi_source vecrec}

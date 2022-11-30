@@ -16,7 +16,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.1
+Version:        2.39.2
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -28,12 +28,6 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
-
-# https://bugs.webkit.org/show_bug.cgi?id=248032
-# https://bugs.webkit.org/show_bug.cgi?id=248074
-Patch0:         epoxy.patch
-
-Patch1:         angle-build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -296,18 +290,17 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 
 %build
 # Increase the DIE limit so our debuginfo packages can be size-optimized.
-# Decreases the size for x86_64 from ~5G to ~1.1G.
+# Decreases the size for x86_64 from ~5G to ~1.1G. This requires lots of
+# RAM on the builders, so only do this for x86_64 because other architectures
+# have underpowered builders that cannot handle a higher limit.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1456261
-%global _dwz_max_die_limit 250000000
-
-# On x86_64, the _dwz_max_die_limit is overridden by the arch-specific limit
-# from redhat-rpm-config.
 %global _dwz_max_die_limit_x86_64 250000000
 
-# Require 8 GB of RAM per vCPU for debuginfo processing
-%global _find_debuginfo_opts %limit_build -m 8192
+# Require 16 GB of RAM per vCPU for debuginfo processing.
+%global _find_debuginfo_opts %limit_build -m 16384
 
-# Remove debuginfo from 32-bit builds to reduce memory consumption:
+# Remove debuginfo from 32-bit builds to reduce memory consumption even more.
+# No amount of optimizing is going to work here.
 # https://bugs.webkit.org/show_bug.cgi?id=140176
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/I6IVNA52TXTBRQLKW45CJ5K4RA4WNGMI/
 %ifarch %{ix86}

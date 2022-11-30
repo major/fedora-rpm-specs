@@ -3,7 +3,7 @@
 
 # https://github.com/mattn/go-runewidth
 %global goipath         github.com/mattn/go-runewidth
-Version:                0.0.13
+Version:                0.0.14
 
 %gometa
 
@@ -14,8 +14,6 @@ string.}
 %global golicenses      LICENSE
 %global godocs          README.md
 
-%global gosupfiles glide.lock glide.yaml
-
 Name:           %{goname}
 Release:        %autorelease
 Summary:        Functions for getting fixed width of a character or string
@@ -23,8 +21,6 @@ Summary:        Functions for getting fixed width of a character or string
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
-Source1:        glide.yaml
-Source2:        glide.lock
 
 BuildRequires:  golang(github.com/rivo/uniseg) >= 0.2
 
@@ -35,7 +31,6 @@ BuildRequires:  golang(github.com/rivo/uniseg) >= 0.2
 
 %prep
 %goprep
-cp %{S:1} %{S:2} .
 
 %install
 %gopkginstall

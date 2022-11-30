@@ -1,12 +1,13 @@
 Name:           wol
 Version:        0.7.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Wake On Lan client
 
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/wake-on-lan/
 Source0:        http://downloads.sourceforge.net/wake-on-lan/%{name}-%{version}.tar.gz
 Patch0:         wol-0.7.1-binding.patch
+Patch1:         wol-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -20,6 +21,7 @@ hardware that is Magic Packet compliant. SecureON is supported by wol too.
 %prep
 %setup -q
 %patch0 -p1 -b .binding
+%patch1 -p1 -b .configure-c99
 
 %build
 %configure --disable-static
@@ -40,6 +42,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_bindir}/%{name}*
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 0.7.1-30
+- Port configure script to C99 (#2148875)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

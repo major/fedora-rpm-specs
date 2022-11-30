@@ -7,13 +7,13 @@
 
 Name:           perl-Compress-Bzip2
 Version:        2.28
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Interface to Bzip2 compression library
 # bzlib-src/win-tst-dlltest.c (unbundled):  Public Domain
-# bzlib-src/LICENSE (unbundled):            BSD
+# bzlib-src/LICENSE (unbundled):            BSD-4-Clause
 # bzlib-src/manual.ps (unbundled):          GPL+ with exception and OFL
-# other files:                              GPL+ or Artistic
-License:        GPL+ or Artistic
+# other files:                              GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Compress-Bzip2
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Compress-Bzip2-%{version}.tar.gz
 BuildRequires:  bzip2-devel >= 1.0.5
@@ -63,12 +63,30 @@ library. A relevant subset of the functionality provided by Bzip2 is available
 in Compress::Bzip2. Compress::Bzip2 is not well integrated into PerlIO, use
 the preferred IO::Compress::Bzip2 instead.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       bash
+Requires:       bzip2
+Requires:       coreutils
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Compress-Bzip2-%{version}
 # Remove bundled bzip2 library
 find bzlib-src -mindepth 1 -type f \! -name 'sample*' -delete
 perl -i -ne 'print $_ unless m{^bzlib-src/}' MANIFEST
 find bzlib-src -type f >>MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
@@ -77,7 +95,31 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
 
 %install
 %make_install
-find %{buildroot} -type f -name '*.bs' -empty -delete
+# Install tests
+mkdir -p %{buildroot}/%{_libexecdir}/%{name}
+cp -a t %{buildroot}/%{_libexecdir}/%{name}
+# Remove author tests
+rm -f %{buildroot}/%{_libexecdir}/%{name}/t/900*
+# Remove memory usage test
+rm -f %{buildroot}/%{_libexecdir}/%{name}/t/090-memory-usage.pl
+mkdir -p %{buildroot}/%{_libexecdir}/%{name}/bzlib-src
+for F in sample0.bz2 sample0.ref sample1.bz2 sample1.ref sample2.bz2 sample2.ref sample3.bz2 sample3.ref; do
+    cp "bzlib-src/$F" %{buildroot}/%{_libexecdir}/%{name}/bzlib-src/
+done
+cp -a config.in %{buildroot}/%{_libexecdir}/%{name}/
+cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}
 
 %check
@@ -90,7 +132,15 @@ make test
 %{perl_vendorarch}/auto/Compress/
 %{_mandir}/man3/*.3pm*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Nov 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.28-11
+- Cleanup build in spec file
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

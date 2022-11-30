@@ -1,8 +1,8 @@
 Name:           perl-WWW-Form-UrlEncoded
 Version:        0.26
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parser and builder for application/x-www-form-urlencoded
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Form-UrlEncoded
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZEBURO/WWW-Form-UrlEncoded-%{version}.tar.gz
 
@@ -56,6 +56,9 @@ BREAK_BACKWARD_COMPAT=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.26-12
+- Convert licence to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

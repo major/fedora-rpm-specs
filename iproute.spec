@@ -1,7 +1,7 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
 Version:            6.0.0
-Release:            1%{?dist}%{?buildid}
+Release:            2%{?dist}%{?buildid}
 %if 0%{?rhel}
 Group:              Applications/System
 %endif
@@ -140,6 +140,9 @@ cat %{SOURCE1} >>%{buildroot}%{_sysconfdir}/iproute2/rt_dsfield
 %{_includedir}/iproute2/bpf_elf.h
 
 %changelog
+* Tue Nov 01 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.0-2
+- libbpf 1.0 support
+
 * Thu Oct 06 2022 Andrea Claudi <aclaudi@redhat.com> - 6.0.0-1
 - New version 6.0.0 [2114514]
 

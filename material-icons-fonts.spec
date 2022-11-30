@@ -2,7 +2,7 @@ Version:        4.0.0
 Release:        7%{?dist}
 URL:            https://google.github.io/material-design-icons/
 
-%global fontlicense     ASL 2.0
+%global fontlicense     Apache-2.0
 %global fontlicenses    LICENSE
 %global fontdocs        README.md
 %global fontfamily      Material Icons
@@ -33,8 +33,7 @@ BuildRequires:  appstream
 metainfo=%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,ASL 2\.0,Apache-2.0,' \
-    -e 's,updatecontact,update_contact,g' \
+sed -e 's,updatecontact,update_contact,g' \
     -e 's,<!\[CDATA\[\(.*\)\]\]>,\1,' \
     -e 's,<font></font>,<font>Material Icons Outlined Regular</font>\n    <font>Material Icons Round Regular</font>\n    <font>Material Icons Sharp Regular</font>\n    <font>Material Icons Two Tone Regular</font>,' \
     -i $metainfo
@@ -50,6 +49,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %fontfiles
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.0.0-7
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

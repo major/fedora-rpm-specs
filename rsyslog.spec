@@ -7,8 +7,8 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2204.0
-Release: 3%{?dist}
+Version: 8.2210.0
+Release: 1%{?dist}
 License: (GPLv3+ and ASL 2.0)
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -22,7 +22,7 @@ Source5: rsyslog.service
 Source6: qpid-proton-0.34.0.tar.gz
 
 Patch0: openssl3-compatibility.patch
-Patch1: rsyslog-8.2204.0-rhbz2082302-CVE-heap-based-buffer-overflow.patch
+Patch1: rsyslog-8.2210.0-rhbz2127403-drop-capabilities.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -42,6 +42,7 @@ BuildRequires: python3-docutils
 BuildRequires: systemd-devel >= 204-8
 BuildRequires: zlib-devel
 BuildRequires: openssl-devel
+BuildRequires: libcap-ng-devel
 
 Requires: openssl-libs
 Recommends: %{name}-logrotate = %version-%release
@@ -300,7 +301,7 @@ pushd ..
 %patch0 -p1 -b .openssl-compatibility
 popd
 
-%patch1 -p1 -b .CVE-buffer-overflow
+%patch1 -p1 -b .libcap-ng
 
 %build
 %ifarch sparc64
@@ -350,6 +351,7 @@ autoreconf -if
 	--enable-clickhouse \
 	--enable-imdocker \
 	--enable-improg \
+	--enable-libcap-ng \
 	--enable-libdbi \
 	--enable-omamqp1 \
 	--enable-omhiredis \
@@ -586,6 +588,12 @@ done
 
 
 %changelog
+* Wed Nov 09 2022 Attila Lakatos <alakatos@redhat.com> - 8.2210.0-1
+- rebase to 8.2210.0
+  resolves: rhbz#2097173
+- Drop capabilities to the necessary set via libcap-ng
+  resolves: rhbz#2127403
+
 * Wed Jul 27 2022 Attila Lakatos <alakatos@redhat.com> - 8.2204.0-3
 - Restore default omfile template
   resolves: rhbz#2088618

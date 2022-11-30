@@ -3,7 +3,7 @@ Version:        2.0.3
 Release:        %autorelease
 Summary:        Utilities for testing.* packages
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/tk0miya/testing.common.database
 Source0:        %{pypi_source testing.common.database}
 
@@ -32,7 +32,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

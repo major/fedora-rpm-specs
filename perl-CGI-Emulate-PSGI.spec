@@ -1,13 +1,14 @@
 Name:           perl-CGI-Emulate-PSGI
 Version:        0.23
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        PSGI adapter for CGI applications
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CGI-Emulate-PSGI
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOKUHIROM/CGI-Emulate-PSGI-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-generators
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -30,15 +31,15 @@ in a PSGI environment, and thus on any of the back-ends that PSGI supports.
 %setup -q -n CGI-Emulate-PSGI-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -47,6 +48,10 @@ make test
 %{_mandir}/man3/CGI*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.23-24
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           perl-HTML-Format
 Version:        2.16
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        HTML formatter modules
 
 %if "%{version}" > "2.12"
@@ -12,14 +12,16 @@ Summary:        HTML formatter modules
 %global tarname HTML-Format
 %endif
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{tarname}
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NIGELM/%{tarname}-%{version}.tar.gz
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildArch:      noarch
-BuildRequires:  make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
+
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(bytes)
@@ -90,11 +92,11 @@ A collection of modules that formats HTML as plaintext, PostScript or RTF.
 %setup -q -n %{tarname}-%{version}
 
 %build
-%{__perl} Makefile.PL installdirs=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL installdirs=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -107,6 +109,11 @@ A collection of modules that formats HTML as plaintext, PostScript or RTF.
 %{_mandir}/man3/HTML*
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.16-21
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

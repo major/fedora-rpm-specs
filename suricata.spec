@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 6.0.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -21,6 +21,8 @@ Patch3: suricata-4.1.4-socket.patch
 Patch4: suricata-5.0.4-geolite-path-fixup.patch
 # The log path has an extra '/' at the end
 Patch5: suricata-6.0.3-log-path-fixup.patch
+# update deprecated API calls
+Patch6: suricata-6.0.6-ebpf-update-deprecated-API-calls.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -79,6 +81,7 @@ install -m 644 %{SOURCE2} doc/
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -188,6 +191,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.6-3
+- libbpf 1.0.0 build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

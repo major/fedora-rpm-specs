@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        37.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PyCA's cryptography library
 
 License:        ASL 2.0 or BSD
@@ -32,7 +32,6 @@ BuildRequires:  python%{python3_pkgversion}-cffi >= 1.7
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.3
-BuildRequires:  python%{python3_pkgversion}-six >= 1.4.1
 # Cargo.toml requires asn1 0.6, but package FTBFS with 0.6.1
 BuildRequires:  rust-asn1-devel >= 0.6.4
 
@@ -58,8 +57,6 @@ Summary:        PyCA's cryptography library
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 Requires:       openssl-libs
-Requires:       python%{python3_pkgversion}-six >= 1.4.1
-Requires:       python%{python3_pkgversion}-cffi >= 1.7
 %if 0%{?fedora} >= 35 || 0%{?rhel} >= 9
 # Can be safely removed in Fedora 37
 Obsoletes: python%{python3_pkgversion}-cryptography-vectors < 3.4.7
@@ -120,6 +117,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Wed Aug 17 2022 Miro Hrončok <mhroncok@redhat.com> - 37.0.2-5
+- Drop unused requirement of python3-six
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 37.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

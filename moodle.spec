@@ -6,13 +6,13 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.0.5
-Release:       	2%{?dist}
+Version:        4.1
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPLv2+
-URL:            http://moodle.org/
-Source0:        http://download.moodle.org/stable400/%{name}-%{version}.tgz
+URL:            https://moodle.org/
+Source0:        https://download.moodle.org/stable401/%{name}-%{version}.tgz
 Source1:        moodle.conf
 Source2:        moodle-config.php
 Source3:        moodle.cron
@@ -178,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Mon Nov 28 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.1.0-1
+- 4.1.0
+
 * Wed Nov 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.0.5-2
 - Fix php-google-apiclient1 requirements.
 

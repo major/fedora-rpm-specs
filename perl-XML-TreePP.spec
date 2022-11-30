@@ -1,8 +1,8 @@
 Name:           perl-XML-TreePP
 Version:        0.43
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pure Perl implementation for parsing/writing XML documents
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-TreePP
 Source0:        https://cpan.metacpan.org/modules/by-module/XML/XML-TreePP-%{version}.tar.gz
 BuildArch:      noarch
@@ -48,24 +48,30 @@ Pure Perl implementation for parsing/writing XML documents
 chmod -c a-x Changes lib/XML/TreePP.pm
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%doc README Changes
-%dir %{perl_vendorlib}/XML/
+%doc README README.md Changes
+%dir %{perl_vendorlib}/XML
 %{perl_vendorlib}/XML/TreePP.pm
-%{_mandir}/man3/XML::TreePP.3*
+%{_mandir}/man3/XML::TreePP.3pm{,.*}
 
 %changelog
+* Mon Nov 28 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.43-24
+- Update license to SPDX format
+- spec file tidy/modernization
+  - follow perl best practices for build and install
+  - include README.md in doc
+  - don't glob man base filename
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

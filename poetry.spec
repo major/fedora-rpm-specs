@@ -8,8 +8,8 @@ projects, ensuring you have the right stack everywhere.}
 
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
-Version:        1.2.1
-Release:        4%{?dist}
+Version:        1.2.2
+Release:        2%{?dist}
 
 License:        MIT
 
@@ -40,6 +40,7 @@ BuildRequires:  git-core
 BuildRequires:  /usr/bin/python
 BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist pytest-mock
+BuildRequires:  %py3_dist pytest-xdist
 BuildRequires:  %py3_dist httpretty
 BuildRequires:  %py3_dist virtualenv
 
@@ -85,7 +86,7 @@ for i in bash,bash-completion/completions,poetry fish,fish/vendor_completions.d,
     %{buildroot}%{_bindir}/poetry completions $1 | sed 's|%{buildroot}||g' > %{buildroot}%{_datadir}/$2/$3
 done
 
-%if %{without bootstap}
+%if %{without bootstrap}
 %check
 # don't use %%tox here because tox.ini runs "poetry install"
 # test_lock_no_update, test_uninstall_git_package_nspkg_pth_cleanup: attempts a network connection to pypi
@@ -126,6 +127,12 @@ not editable_builder" \
 
 
 %changelog
+* Tue Nov 22 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.2-2
+- Update to 1.2.2 - without bootstrap
+
+* Mon Nov 14 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.2-1
+- Update to 1.2.2 - with bootstrap
+
 * Tue Nov 08 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.2.1-4
 - Add patch to return correct wheels
 - Backport upstream patch to fix some failing tests

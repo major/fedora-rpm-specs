@@ -25,10 +25,10 @@ fi \
 
 Name:           mpsolve
 Version:        3.2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Multiprecision polynomial solver
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://numpi.dm.unipi.it/software/mpsolve
 Source0:        https://github.com/robol/MPSolve/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix mutex and condvar leaks
@@ -46,6 +46,10 @@ Patch2:         %{name}-coefficient-leak.patch
 Patch3:         %{name}-octave.patch
 # Fix LTO warnings about mismatched types
 Patch4:         %{name}-lto.patch
+# Fix configure tests with Modern C
+# See https://fedoraproject.org/wiki/Changes/PortingToModernC
+# https://github.com/robol/MPSolve/pull/33
+Patch5:         %{name}-modern-c.patch
 
 BuildRequires:  bison
 BuildRequires:  doxygen-latex
@@ -279,6 +283,10 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 3.2.1-14
+- Add modern-c patch
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

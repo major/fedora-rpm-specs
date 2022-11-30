@@ -1,7 +1,7 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.10.0
+Version:        3.11.0
 Release:        1%{?dist}
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
@@ -54,6 +54,9 @@ sed -i "/func_timeout/d" tests/test_zipp.py
 %doc README.rst
 
 %changelog
+* Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 3.11.0-1
+- Update to 3.11.0 (rhbz#2148541)
+
 * Mon Oct 24 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.0-1
 - Update to 3.10.0
 Resolves: rhbz#2137172

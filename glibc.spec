@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-314-g94628de778
+%global glibcsrcdir glibc-2.36.9000-323-gf704192911
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 14
+%global baserelease 15
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,19 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-15
+- Auto-sync with upstream branch master,
+  commit f704192911c6c7b65a54beab3ab369fca7609a5d:
+- x86/fpu: Factor out shared avx2/avx512 code in svml_{s|d}_wrapper_impl.h
+- x86/fpu: Cleanup code in svml_{s|d}_wrapper_impl.h
+- x86/fpu: Reformat svml_{s|d}_wrapper_impl.h
+- x86/fpu: Fix misspelled evex512 section in variety of svml files
+- x86/fpu: Add missing ISA sections to variety of svml files
+- stdio-common: Add missing dependencies (bug 29780)
+- i386: Avoid rely on linker optimization to avoid relocation
+- elf: Fix rtld-audit trampoline for aarch64
+- Define in_int32_t_range to check if the 64 bit time_t syscall should be used
+
 * Mon Nov 14 2022 Arjun Shankar <arjun@redhat.com> - 2.36.9000-14
 - Auto-sync with upstream branch master,
   commit 94628de77888c3292fc103840731ff85f283368e:

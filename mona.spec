@@ -6,7 +6,7 @@ Version:        %{upver}r%{uprel}
 Release:        7%{?dist}
 Summary:        A decision procedure for the WS1S and WS2S logics
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.brics.dk/mona/
 Source0:        https://www.brics.dk/mona/download/%{name}-%{upver}-%{uprel}.tar.gz
 Source1:        https://www.brics.dk/mona/mona14.pdf
@@ -32,12 +32,22 @@ determines whether the formula is valid and, if the formula is not valid,
 generates a counterexample.
 
 %package libs
+# GPL-2.0-or-later: the project as a whole
+# LicenseRef-Fedora-Public-Domain: Mem/dlmalloc.{c,h}
+License:        GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 Summary:        Supporting libraries for Mona
 
 %description libs
 Supporting libraries for Mona.
 
 %package devel
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# Nimbus: AGPL-3.0-only
+# URW: AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
 Summary:        Header files for developing applications with Mona
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -56,7 +66,7 @@ programs that access the Mona library interfaces.
 %package emacs
 Summary:        Emacs mode for editing Mona files
 Requires:       %{name}-libs = %{version}-%{release}
-Requires:       emacs(bin) >= %{_emacs_version}
+Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 BuildArch:      noarch
 
 %description emacs
@@ -66,9 +76,10 @@ Emacs mode for editing Mona files.
 %autosetup -n %{name}-%{upver} -p1
 cp -p %{SOURCE1} .
 
+# Do not override Fedora build flags
+sed -i 's/ -O3//g' configure
+
 %build
-export CFLAGS="%{build_cflags} -DNDEBUG"
-export CXXFLAGS="%{build_cxxflags} -DNDEBUG"
 %configure --disable-static
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -100,15 +111,15 @@ mv $RPM_BUILD_ROOT%{_datadir}/mona-mode.el .
 %_emacs_bytecompile mona-mode.el
 
 %files
-%doc mona14.pdf
 %{_bindir}/mona
 %{_bindir}/dfa2dot
 %{_bindir}/gta2dot
-%{_mandir}/man1/*
+%{_mandir}/man1/mona.1*
 
 %files devel
+%doc mona14.pdf
 %{_includedir}/mona
-%{_libdir}/*.so
+%{_libdir}/libmona*.so
 
 %files examples
 %doc Examples/*.mona Examples/bdd_volatility
@@ -120,13 +131,18 @@ mv $RPM_BUILD_ROOT%{_datadir}/mona-mode.el .
 %files libs
 %doc AUTHORS ChangeLog NEWS README
 %license COPYING
-%{_libdir}/*.so.*
+%{_libdir}/libmona*.so.1*
 
 %files emacs
 %dir %{_emacs_sitelispdir}/mona
 %{_emacs_sitelispdir}/mona/mona-mode.el*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.4r18-7
+- Move the manual to the devel subpackage
+- Convert License tags to SPDX
+- Do not override Fedora build flags
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4r18-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           pyhunspell
-Version:        0.5.4
-Release:        18%{?dist}
+Version:        0.5.5
+Release:        1%{?dist}
 Summary:        Python bindings for hunspell
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/blatinier/pyhunspell
 Source0:        https://github.com/blatinier/pyhunspell/archive/pyhunspell-%{version}.tar.gz
 
@@ -13,8 +13,8 @@ BuildRequires:  hunspell-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-# make it build with hunspell-1.5:
-Patch0: pyhunspell-0.5.0-hunspell15.patch
+# make it build with hunspell-1.7:
+Patch0: pyhunspell-fix-build.patch
 
 %global _description\
 These are python bindings for hunspell, that allow to use the hunspell library\
@@ -45,6 +45,10 @@ from Python3.
 %{python3_sitearch}/*
 
 %changelog
+* Mon Nov 28 2022 Mike FABIAN <mfabian@redhat.com> - 0.5.5-1
+- Update to 0.5.5
+- Migrate license tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

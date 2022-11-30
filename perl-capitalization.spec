@@ -1,16 +1,17 @@
 Name:           perl-capitalization
 Version:        0.03
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        No capitalization on method names
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/capitalization
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/capitalization-%{version}.tar.gz
 
 BuildArch:      noarch
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
-BuildRequires: make
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Devel::Symdump)
@@ -24,18 +25,18 @@ BuildRequires:	perl(Test::More)
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %check
-make test
+%{__make} test
 
 
 %files
@@ -45,6 +46,11 @@ make test
 
 
 %changelog
+* Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.03-45
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

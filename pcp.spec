@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 6.0.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPLv2+ and LGPLv2+ and CC-BY
 URL:     https://pcp.io
@@ -3371,6 +3371,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.1-3
+- rebuilt for libbpf 1.0
+
 * Fri Nov 11 2022 Nathan Scott <nathans@redhat.com> - 6.0.1-2
 - Resolve an issue with installing sysusers entries
 - Fix RPM spec file scriptlet relating to pmieconf (BZ 2139720)

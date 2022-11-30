@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.23.81
+Version:	2.23.82
 Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
@@ -84,7 +84,7 @@ make %{?_smp_mflags} bytecode
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT package_infodir=%{_infodir} \
+make install-bytecode DESTDIR=$RPM_BUILD_ROOT package_infodir=%{_infodir} \
 	vimdir=%{_datadir}/vim/vim90
 
 # Symlink lilypond-init.el in emacs' site-start.d directory
@@ -110,6 +110,7 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %{_datadir}/lilypond
 %{_datadir}/emacs/site-lisp
 %{_datadir}/vim/vim*
+%{_libdir}/%{name}/%{version}/ccache/lily/
 
 %_font_pkg -n emmentaler emmentaler*otf
 
@@ -117,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Mon Nov 28 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.23.82-1
+- 2.23.82
+
 * Mon Nov 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.23.81-1
 - 2.23.81
 

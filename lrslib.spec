@@ -7,7 +7,7 @@ Summary:        Reverse search for vertex enumeration/convex hull problems
 
 %global upver 0%(sed 's/\\.//' <<< %{version})
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://cgm.cs.mcgill.ca/~avis/C/lrs.html
 Source0:        http://cgm.cs.mcgill.ca/~avis/C/%{name}/archive/%{name}-%{upver}.tar.gz
 # This patch was sent upstream on 31 May 2011.  It fixes some miscellaneous
@@ -150,11 +150,10 @@ cp -p lrslong.h lrsmp.h lrsnashlib.h lrsrestart.h \
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_mandir}/man5
 cd man/man1
-cp -p {checkpred,lrs,lrsnash,mplrs}.1 %{buildroot}%{_mandir}/man1
-echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/fel.1
-echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/hvref.1
-echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/redund.1
-echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/xvref.1
+cp -p checkpred.1 %{buildroot}%{_mandir}/man1/lrs-checkpred.1
+cp -p {lrs,lrsnash}.1 %{buildroot}%{_mandir}/man1
+echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/lrs-hvref.1
+echo '.so man1/lrs' > %{buildroot}%{_mandir}/man1/lrsredund.1
 cd ../man5
 cp -p *.5 %{buildroot}%{_mandir}/man5
 cd ../..
@@ -169,13 +168,17 @@ cd ../..
 %doc chdemo.c lpdemo.c lpdemo1.c lpdemo2.c nashdemo.c vedemo.c
 %{_includedir}/%{name}
 %{_libdir}/liblrs.so
-%{_mandir}/man5/*
+%{_mandir}/man5/lrs*
 
 %files utils
 %{_bindir}/lrs*
-%{_mandir}/man1/*
+%{_mandir}/man1/lrs*
 
 %changelog
+* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 7.2-2
+- Fix a few man page names
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
