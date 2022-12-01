@@ -13,7 +13,7 @@
 
 Name:           antlr4-project
 Version:        4.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parser generator (ANother Tool for Language Recognition)
 
 License:        BSD-3-Clause
@@ -31,6 +31,7 @@ BuildRequires:  make
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.ibm.icu:icu4j)
 BuildRequires:  mvn(com.webguys:string-template-maven-plugin)
+BuildRequires:  mvn(jakarta.json:jakarta.json-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.abego.treelayout:org.abego.treelayout.core)
 BuildRequires:  mvn(org.antlr:ST4)
@@ -49,7 +50,6 @@ BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
-BuildRequires:  mvn(org.glassfish:javax.json)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
@@ -205,6 +205,9 @@ sed -i 's,\\>,>,g' tool/resources/org/antlr/v4/tool/templates/unicodedata.st
 # Missing test dep:
 # io.takari.maven.plugins:takari-plugin-testing
 %pom_remove_dep -r :takari-plugin-testing
+
+# Adapt to jakarta-json 2.x
+%pom_change_dep org.glassfish:javax.json jakarta.json:jakarta.json-api tool
 
 # Missing plugins
 # io.takari.maven.plugins:takari-lifecycle-plugin
@@ -378,6 +381,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Tue Nov 29 2022 Jerry James <loganjerry@gmail.com> - 4.10.1-6
+- Adapt to jakarta-json 2.x
+
 * Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 4.10.1-5
 - BR nodejs-packaging to fix FTBFS
 

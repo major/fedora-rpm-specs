@@ -31,14 +31,14 @@
 # simplify cut and pasting.
 #
 Version: 1.002
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-mono/
 
 # The identifier of the entity, that released the font family.
 %global foundry           adobe
 # The font family license identifier. Adjust as necessary. The OFL is our
 # recommended font license.
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 #
 # The following directives are lists of space-separated shell globs
 #   – matching files associated with the font family,
@@ -98,6 +98,9 @@ cp %{SOURCE21} .
 %fontfiles
 
 %changelog
+* Tue Nov 29 2022 Akira TAGOH <tagoh@redhat.com> - 1.002-12
+- Convert License tag to SPDX.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

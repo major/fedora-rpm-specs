@@ -25,12 +25,13 @@ Version:        22.05b
 Release:        %autorelease -b 9
 Summary:        3D VFX pipeline interchange file format
 
-# The entire source is ASL 2.0 except:
+# The entire source is Apache-2.0 except:
 #
-# BSD:
+# BSD-3-Clause:
 #   - pxr/base/gf/ilmbase_*
 #   - pxr/base/js/rapidjson/msinttypes/
 #   - pxr/base/tf/pxrDoubleConversion/
+# BSD-2-Clause:
 #   - pxr/base/tf/pxrLZ4/
 # MIT:
 #   - pxr/imaging/garch/khrplatform.h
@@ -38,20 +39,16 @@ Summary:        3D VFX pipeline interchange file format
 #   - third_party/renderman-24/plugin/rmanArgsParser/pugixml/
 #   - pxr/base/tf/pxrTslRobinMap/
 #   - pxr/imaging/hgiVulkan/vk_mem_alloc.h
-# MIT or Unlicense:
+# MIT OR Unlicense:
 #   - pxr/imaging/hio/stb/
-#
-# (Certain build system files are also under licenses other than ASL 2.0, but
-# do not contribute their license terms to the built RPMs.)
-#
-# The following files mention GPLv3+, but are distributed under ASL 2.0 due to
-# the special exception for Bison parser skeletons. See the comments in their
-# headers for details.
-#
+# Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2:
 #   - pxr/usd/sdf/path.tab.{cpp,h}
 #   - pxr/usd/sdf/textFileFormat.tab.{cpp,h}
 #   - third_party/renderman-24/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
-License:        ASL 2.0 and BSD and MIT and (MIT or Unlicense)
+#
+# (Certain build system files are also under licenses other than Apache-2.0, but
+# do not contribute their license terms to the built RPMs.)
+License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND (MIT OR Unlicense) AND (Apache-2.0 AND GPL-3.0-or-later WITH Bison-exception-2.2)
 URL:            http://www.openusd.org/
 %global forgeurl https://github.com/PixarAnimationStudios/%{name}
 Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz

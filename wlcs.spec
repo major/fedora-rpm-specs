@@ -1,5 +1,5 @@
 # List copied from gcc.spec
-# Current as of 12.0.1 (line 60)
+# Current as of 12.2.1 (line 60)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond_without asan
@@ -8,7 +8,7 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 12.0.1 (line 75)
+# Current as of 12.2.1 (line 75)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond_without ubsan
@@ -17,8 +17,8 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 12.0.1 (line 65)
-%ifarch x86_64 ppc64 ppc64le aarch64
+# Current as of 12.2.1 (line 65)
+%ifarch x86_64 ppc64 ppc64le aarch64 s390x
 %bcond_without tsan
 %else
 %bcond_with tsan
@@ -29,21 +29,21 @@ Version:        1.4.0
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 
-# The entire source is GPLv3, except:
+# The entire source is GPL-3.0-only, except:
 #
-# (GPLv2 or GPLv3):
+# (GPL-2.0-only OR GPL-3.0-only):
 #   - CMakeLists.txt
 # > Build system file that does not contribute to the licenses of the binary
 #   RPMs
 #
-# (LGPLv2 or LGPLv3):
+# (LGPL-2.0-only OR LGPL-3.0-only):
 #   - include/mutex.h
 #   - include/shared_library.h
 #   - src/helpers.cpp
 #   - src/shared_library.cpp
 # > Since (L)GPLv2-only code is not compatible with (L)GPLv3 or (L)GPLv3+ code,
 #   and these sources are combined with GPLv3 code, the LGPLv3 option is used
-#   in this package.
+#   in this package. However, we encode both options in the SPDX expression.
 #
 # GPLv2+:
 #   - debian/*
@@ -70,10 +70,7 @@ Summary:        Wayland Conformance Test Suite
 #   contribute to the licenses of the binary RPMs). Files in src/protocol/ are
 #   used as inputs to “wayland-scanner” to generate C source files and headers,
 #   and are not directly included in the binary RPMs.
-#
-# Thus, files under GPLv3 and (LGPLv2 or LGPLv3) licenses contribute to the
-# installed binaries, and the effective license remains GPLv3.
-License:        GPLv3
+License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only)
 URL:            https://github.com/MirServer/wlcs
 Source0:        %{url}/releases/download/v%{version}/wlcs-%{version}.tar.xz
 

@@ -1,7 +1,7 @@
 %global forgeurl    https://github.com/bluesabre/menulibre
 
 Name:           menulibre
-Version:        2.2.3
+Version:        2.3.0
 Release:        %autorelease
 Summary:        FreeDesktop.org compliant menu editor
 
@@ -62,6 +62,8 @@ Features:
 
 
 %build
+rm uninstall.py
+
 %pyproject_wheel
 
 

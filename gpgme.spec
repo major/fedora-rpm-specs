@@ -1,15 +1,16 @@
-%bcond_with check
+%bcond check 1
+%bcond qt 1
 
 %global gnupg2_min_ver 2.2.24
 %global libgpg_error_min_ver 1.36
 
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        1.17.0
-Release:        %autorelease -b3
+Version:        1.17.1
+Release:        %autorelease
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
-License:        LGPLv2+ and MIT
+License:        LGPL-2.1-or-later AND MIT
 URL:            https://gnupg.org/related_software/gpgme/
 Source0:        https://gnupg.org/ftp/gcrypt/gpgme/gpgme-%{version}.tar.bz2
 Source2:        gpgme-multilib.h
@@ -21,6 +22,17 @@ Patch1001:      0001-don-t-add-extra-libraries-for-linking.patch
 Patch1002:      gpgme-1.3.2-largefile.patch
 # Let's fix stupid AX_PYTHON_DEVEL
 Patch1003:      0001-fix-stupid-ax_python_devel.patch
+
+## upstream patches dealing with date and time overflow on 32-bit machines
+# Before gpgme 1.18.0
+Patch2001:      0001-qt-Prevent-u32-overflow-when-calculating-expiration.patch
+Patch2002:      0002-qt-tests-Allow-1-day-offset-for-expiration-date.patch
+# After gpgme 1.18.0
+Patch2003:      0003-qt-Make-sure-expiration-time-is-interpreted-as-unsigned.patch
+Patch2004:      0004-qt-tests-Log-the-actual-error-code-if-the-assertion-fails.patch
+Patch2005:      0005-qt-tests-Make-sure-expiration-time-is-interpreted-as-unsigned.patch
+Patch2006:      0006-qt-tests-Make-test-pass-on-32-bit-systems.patch
+Patch2007:      0007-cpp-Fix-handling-of-no-key-or-invalid-time-situation.patch
 
 #BuildRequires:  autoconf
 #BuildRequires:  automake
@@ -84,6 +96,7 @@ BuildRequires:  cmake
 %description -n %{name}pp-devel
 %{summary}
 
+%if %{with qt}
 %package -n q%{name}
 Summary:        Qt API bindings/wrapper for GPGME
 Requires:       %{name}pp%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -104,11 +117,13 @@ BuildRequires:  cmake
 
 %description -n q%{name}-devel
 %{summary}.
+%endif
 
 %package -n python3-gpg
 Summary:        %{name} bindings for Python 3
-%{?python_provide:%python_provide python3-gpg}
 BuildRequires:  python3-devel
+# Needed since Python 3.12+ drops distutils
+BuildRequires:  python3-setuptools
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      platform-python-gpg < %{version}-%{release}
 
@@ -140,7 +155,7 @@ export CXXFLAGS='%{optflags} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 
-%configure --disable-static --disable-silent-rules --enable-languages=cpp,qt,python
+%configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt,}python
 %make_build
 
 %install
@@ -165,7 +180,9 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_includedir}/gpgme.h
 chrpath -d %{buildroot}%{_bindir}/%{name}-tool
 chrpath -d %{buildroot}%{_bindir}/%{name}-json
 chrpath -d %{buildroot}%{_libdir}/lib%{name}pp.so*
+%if %{with qt}
 chrpath -d %{buildroot}%{_libdir}/libq%{name}.so*
+%endif
 
 # autofoo installs useless stuff for uninstall
 rm -vf %{buildroot}%{python2_sitelib}/gpg/install_files.txt
@@ -204,20 +221,26 @@ make check
 %{_libdir}/lib%{name}pp.so
 %{_libdir}/cmake/Gpgmepp/
 
+%if %{with qt}
 %files -n q%{name}
 %doc lang/qt/README
-%{_libdir}/libq%{name}.so.7*
+%{_libdir}/libq%{name}.so.15*
 
 %files -n q%{name}-devel
 %{_includedir}/q%{name}/
 %{_includedir}/QGpgME/
 %{_libdir}/libq%{name}.so
 %{_libdir}/cmake/QGpgme/
+%endif
 
 %files -n python3-gpg
 %doc lang/python/README
+%if 0%{?python3_version_nodots} < 311
 %{python3_sitearch}/gpg-*.egg-info
 %{python3_sitearch}/gpg/
+%else
+%{python3_sitearch}/gpg-*.egg/
+%endif
 
 %changelog
 %autochangelog

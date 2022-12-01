@@ -6,10 +6,10 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.140
-Release:	8%{?dist}
+Version:	1.142
+Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
 Source0:	https://cpan.metacpan.org/modules/by-module/Perl/Perl-Critic-%{version}.tar.gz
 Patch0:		0001-Change-default-spell-check-tool-from-aspell-to-hunsp.patch
@@ -43,7 +43,7 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(File::Which)
 BuildRequires:	perl(Getopt::Long)
 BuildRequires:	perl(IO::String)
-BuildRequires:	perl(List::MoreUtils) >= 0.19
+BuildRequires:	perl(List::SomeUtils) >= 0.55
 BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Module::Pluggable) >= 3.1
 BuildRequires:	perl(Perl::Tidy)
@@ -163,6 +163,38 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Tue Nov 29 2022 Paul Howarth <paul@city-fan.org> - 1.142-1
+- Update to 1.142 (rhbz#2149154)
+  - This is the last version of Perl::Critic that will run on Perl 5.6.1; the
+    next release will require Perl 5.10.1
+  New Features
+  - Add new policy InputOutput::ProhibitBarewordDirHandles, comparable to
+    ProhibitBarewordFilehanles (GH#912)
+  - References::ProhibitDoubleSigils policy now allows for Perl's postfix
+    dereference syntax and does not report a policy violation (GH#578)
+  - Added Test::Class::Moose and MooseX::MethodAttributes::Role to the list of
+    modules that are equivalent to "use strict" (GH#808, GH#886)
+  - Subroutines::RequireArgUnpacking now detects anonymous subroutines with
+    attributes, prototypes or signatures (GH#684)
+  - ProhibitVoidMap and ProhibitVoidGrep now detect void context inside subs
+    (GH#905), such as: sub { map { foo($_) } @list; return }
+  - RequireArgUnpacking now allows a closure to be recognized as a way that
+    subroutine arguments can be unpacked; this is specified with an optional
+    allow_closures configuration option (GH#737)
+  - ProhibitTwoArgOpen now disallows one-arg opens as well; also, it no longer
+    allows two-arg opening of STDIN/STDOUT/STDERR (GH#652, GH#653)
+  Fixes
+  - ProhibitLeadingZeros would not handle sysopen and lexical variables
+    correctly; this has been fixed (GH#789)
+  Documentation
+  - We note that the any() function is available in both List::MoreUtils and
+    List::SomeUtils
+  - Added instructions to perlcritic on how to integrate with Visual Studio
+    Code
+  Internals
+  - Switch to using List::SomeUtils instead of List::MoreUtils
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.140-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 
 Name:           gtk4
 Version:        4.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK graphical user interface library
 
 License:        LGPLv2+
@@ -28,6 +28,11 @@ Source1:        settings.ini
 # private requires that are needed for rpm automatic dep extraction.
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
 Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5189
+# https://gitlab.gnome.org/GNOME/nautilus/-/issues/2574
+# Fix a problem which could lead to no element being focused
+# (so keyboard shortcuts don't work) in some cases
+Patch1:         0001-focus-fall-back-to-old-behaviour-if-we-didn-t-focus-.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
@@ -239,6 +244,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gtk4-widget-factory.1*
 
 %changelog
+* Tue Nov 29 2022 Adam Williamson <awilliam@redhat.com> - 4.9.1-2
+- Bring back focus fix (MR #5189), it wasn't in 4.9.1
+
 * Mon Nov 21 2022 David King <amigadave@amigadave.com> - 4.9.1-1
 - Update to 4.9.1
 

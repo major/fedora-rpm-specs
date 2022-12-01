@@ -1,23 +1,33 @@
-# override default value to allow build both qt4 and qt5 versions
-%define _vpath_srcdir ..
+%global use_qt4 1
+%global use_qt5 1
 
-Name:           jdns
-Version:        2.0.6
-Release:        8%{?dist}
-Summary:        A simple DNS queries library
+%global wrpname q%{name}
+%global qt4_build_dir release-qt4
+%global qt5_build_dir release-qt5
 
-License:        MIT
-URL:            https://github.com/psi-im/jdns
-Source0:        https://github.com/psi-im/jdns/archive/v%{version}/%{name}-%{version}.tar.gz
+Name: jdns
+Version: 2.0.6
+Release: 9%{?dist}
 
-## upstream patches
+License: MIT
+Summary: A simple DNS queries library
+URL: https://github.com/psi-im/%{name}
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-## upstreamable patches
+BuildRequires: cmake
+BuildRequires: doxygen
+BuildRequires: gcc-c++
+BuildRequires: ninja-build
 
-BuildRequires:  cmake
-BuildRequires:  pkgconfig(QtCore) pkgconfig(QtNetwork)
-BuildRequires:  pkgconfig(Qt5Core) pkgconfig(Qt5Network)
-BuildRequires:  doxygen
+%if 0%{?use_qt4}
+BuildRequires: pkgconfig(QtCore)
+BuildRequires: pkgconfig(QtNetwork)
+%endif
+
+%if 0%{?use_qt5}
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5Network)
+%endif
 
 %description
 JDNS is a simple DNS implementation that can perform normal DNS
@@ -30,167 +40,159 @@ dependencies, and is licensed under the MIT license. Your application
 must supply functionality to JDNS, such as UDP sending/receiving, via
 callbacks.
 
-Qt-based command-line tool called ‘jdns’ that can be used to test
-functionality.
+%package devel
+Summary: Development files for %{name}
+Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+%description devel
+This package contains contains libraries and header files for developing
+applications that use %{name}.
 
-%package        doc
-Summary:        %{name} API documentation
-BuildArch:      noarch
-%description    doc
-This package includes %{name} API documentation in HTML.
+%package doc
+Summary: %{name} API documentation
+Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+BuildArch: noarch
 
-%package -n     qjdns-qt4
-Summary:        Qt4-wrapper for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Obsoletes:      qjdns < %{version}-%{release}
-Provides:       qjdns = %{version}-%{release}
+%description doc
+This package includes %{name} API documentation in HTML format.
 
-# avoid abi breaking
-%if 0%{?__isa_bits} == 64
-Provides:       libqjdns.so.2()(64bit)
-%else
-Provides:       libqjdns.so.2
-%endif
+%if 0%{?use_qt4}
+%package -n %{wrpname}-qt4
+Summary: Qt4-wrapper for %{name}
+Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides: %{wrpname} = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes: %{wrpname} < %{?epoch:%{epoch}:}%{version}-%{release}
 
-%description -n qjdns-qt4
+%description -n %{wrpname}-qt4
 For Qt4 users there is a wrapper available called QJDns and a very
 high-level wrapper called QJDnsShared (under its original name
 JDnsShared).
 
-Qt-based command-line tool called ‘jdns’ that can be used to test
-functionality.
+%package -n %{wrpname}-qt4-devel
+Summary: Development files for %{wrpname}-qt4
+Requires: %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: %{wrpname}-qt4%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Provides: %{wrpname}-devel = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes: %{wrpname}-devel < %{?epoch:%{epoch}:}%{version}-%{release}
 
-%package -n     qjdns-qt4-devel
-Summary:        Development files for qjdns-qt4
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Obsoletes:      qjdns-devel < %{version}-%{release}
-Provides:       qjdns-devel = %{version}-%{release}
-Requires:       qjdns-qt4%{?_isa} = %{version}-%{release}
-%description -n qjdns-qt4-devel
-The qjdns-qt4-devel package contains libraries and header files for
-developing applications that use qjdns-qt4.
+%description -n %{wrpname}-qt4-devel
+This package contains libraries and header files for developing applications
+that use %{wrpname}-qt4.
+%endif
 
-%package -n     qjdns-qt5
-Summary:        Qt5-wrapper for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-%description -n qjdns-qt5
+%if 0%{?use_qt5}
+%package -n %{wrpname}-qt5
+Summary: Qt5-wrapper for %{name}
+Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description -n %{wrpname}-qt5
 For Qt5 users there is a wrapper available called QJDns and a very
 high-level wrapper called QJDnsShared (under its original name
 JDnsShared).
 
-%package -n     qjdns-qt5-devel
-Summary:        Development files for qjdns-qt5
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-Requires:       qjdns-qt5%{?_isa} = %{version}-%{release}
-%description -n qjdns-qt5-devel
-The qjdns-qt5-devel package contains libraries and header files for
-developing applications that use qjdns-qt5.
+%package -n %{wrpname}-qt5-devel
+Summary: Development files for %{wrpname}-qt5
+Requires: %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires: %{wrpname}-qt5%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
+%description -n %{wrpname}-qt5-devel
+This package contains libraries and header files for developing applications
+that use %{wrpname}-qt5.
+
+%package -n %{wrpname}-qt5-tools
+Summary: Qt-based command-line tool %{name}
+
+%description -n %{wrpname}-qt5-tools
+This package contains Qt-based command-line tool called %{name} that can
+be used to test functionality.
+%endif
 
 %prep
-%setup -q
-
+%autosetup -p1
 
 %build
-mkdir %{_target_platform}-qt5
-pushd %{_target_platform}-qt5
-# FIXME: JDNS_TOOL FTBFS due to -fPIC/-fPIE wierdness, omit for now -- rex
-%{cmake} %_vpath_srcdir \
-  -DBUILD_JDNS_TOOL:BOOL=OFF \
-  -DCMAKE_BUILD_TYPE:STRING="Release"
-
+%if 0%{?use_qt4}
+mkdir %{qt4_build_dir} && pushd %{qt4_build_dir}
+%cmake -G Ninja \
+    -S'..' \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_JDNS_TOOL:BOOL=OFF \
+    -DQT4_BUILD:BOOL=ON
 %cmake_build
 popd
+%endif
 
-mkdir %{_target_platform}-qt4
-pushd %{_target_platform}-qt4
-%{cmake} %_vpath_srcdir \
-  -DCMAKE_BUILD_TYPE:STRING="Release" \
-  -DQT4_BUILD:BOOL=ON
-
+%if 0%{?use_qt5}
+mkdir %{qt5_build_dir} && pushd %{qt5_build_dir}
+%cmake -G Ninja \
+    -S'..' \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_JDNS_TOOL:BOOL=ON \
+    -DQT4_BUILD:BOOL=OFF
 %cmake_build
 popd
-
+%endif
 
 %install
-pushd %{_target_platform}-qt5
+%if 0%{?use_qt4}
+pushd %{qt4_build_dir}
 %cmake_install
 popd
+%endif
 
-pushd %{_target_platform}-qt4
+%if 0%{?use_qt5}
+pushd %{qt5_build_dir}
 %cmake_install
 popd
-
-# Avoid api/abi breaking wich introduced with jdns-2.0.3
-ln -s libqjdns-qt4.so.2 %{buildroot}%{_libdir}/libqjdns.so.2
-ln -s qjdns-qt4.pc %{buildroot}%{_libdir}/pkgconfig/qjdns.pc
-
-%check
-export PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig
-# The pkg-config versions should match the tarball version
-test "$(pkg-config --modversion jdns)" = "%{version}"
-test "$(pkg-config --modversion qjdns)" = "%{version}"
-test "$(pkg-config --modversion qjdns-qt4)" = "%{version}"
-test "$(pkg-config --modversion qjdns-qt5)" = "%{version}"
-
-
-%ldconfig_scriptlets
+%endif
 
 %files
-%doc COPYING README.md
-%{_libdir}/libjdns.so.2*
-## HACK alert, quirk of recycling default %%_docdir below in -doc subpkg -- rex
-%exclude %{_docdir}/jdns/html/
+%license COPYING
+%doc README.md
+%{_libdir}/lib%{name}.so.2*
 
 %files devel
-%dir %{_includedir}/jdns/
-%{_includedir}/jdns/jdns.h
-%{_includedir}/jdns/jdns_export.h
-%{_libdir}/libjdns.so
-%{_libdir}/cmake/jdns/
-%{_libdir}/pkgconfig/jdns.pc
-
-%ldconfig_scriptlets -n qjdns-qt4
+%dir %{_includedir}/%{name}/
+%{_includedir}/%{name}/%{name}.h
+%{_includedir}/%{name}/%{name}_export.h
+%{_libdir}/lib%{name}.so
+%{_libdir}/cmake/%{name}/
+%{_libdir}/pkgconfig/%{name}.pc
 
 %files doc
-%{_docdir}/jdns/html/
+%{_docdir}/%{name}/html/
 
-%files -n qjdns-qt4
-%{_bindir}/jdns
-%{_libdir}/libqjdns.so.2
-%{_libdir}/libqjdns-qt4.so.2*
+%files -n %{wrpname}-qt4
+%{_libdir}/lib%{wrpname}-qt4.so.2*
 
-%files -n qjdns-qt4-devel
-%{_includedir}/jdns/qjdns.h
-%{_includedir}/jdns/qjdnsshared.h
-%{_libdir}/libqjdns-qt4.so
-%{_libdir}/cmake/qjdns/
-%{_libdir}/cmake/qjdns-qt4/
-%{_libdir}/pkgconfig/qjdns.pc
-%{_libdir}/pkgconfig/qjdns-qt4.pc
+%files -n %{wrpname}-qt4-devel
+%{_includedir}/%{name}/%{wrpname}.h
+%{_includedir}/%{name}/%{wrpname}shared.h
+%{_libdir}/lib%{wrpname}-qt4.so
+%{_libdir}/cmake/%{wrpname}/
+%{_libdir}/cmake/%{wrpname}-qt4/
+%{_libdir}/pkgconfig/%{wrpname}-qt4.pc
 
-%ldconfig_scriptlets -n qjdns-qt5
+%files -n %{wrpname}-qt5
+%{_libdir}/lib%{wrpname}-qt5.so.2*
 
-%files -n qjdns-qt5
-%{_libdir}/libqjdns-qt5.so.2*
+%files -n %{wrpname}-qt5-devel
+%{_includedir}/%{name}/%{wrpname}.h
+%{_includedir}/%{name}/%{wrpname}shared.h
+%{_libdir}/lib%{wrpname}-qt5.so
+%{_libdir}/cmake/%{wrpname}/
+%{_libdir}/cmake/%{wrpname}-qt5/
+%{_libdir}/pkgconfig/%{wrpname}-qt5.pc
 
-%files -n qjdns-qt5-devel
-%{_includedir}/jdns/qjdns.h
-%{_includedir}/jdns/qjdnsshared.h
-%{_libdir}/libqjdns-qt5.so
-%{_libdir}/cmake/qjdns/
-%{_libdir}/cmake/qjdns-qt5/
-%{_libdir}/pkgconfig/qjdns-qt5.pc
-
+%files -n %{wrpname}-qt5-tools
+%{_bindir}/%{name}
 
 %changelog
+* Tue Nov 29 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.6-9
+- Fixed FTBFS on Fedora 37+.
+- Performed major SPEC cleanup.
+- Switched jdns tool to Qt 5.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

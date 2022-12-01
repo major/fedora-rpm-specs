@@ -1,13 +1,16 @@
 Name:           perl-HTML-Mason-PSGIHandler
 Version:        0.53
-Release:        28%{?dist}
+Release:        30%{?dist}
 Summary:        PSGI handler for HTML::Mason
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Mason-PSGIHandler
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RUZ/HTML-Mason-PSGIHandler-%{version}.tar.gz
+
 BuildArch:      noarch
+
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+BuildRequires:  %{__perl}
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
@@ -24,6 +27,7 @@ BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
+
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
@@ -35,17 +39,15 @@ web servers that support PSGI.
 %setup -q -n HTML-Mason-PSGIHandler-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -54,6 +56,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.53-29
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

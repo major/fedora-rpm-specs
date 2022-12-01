@@ -1,6 +1,6 @@
 Name:           perl-Module-Mask
 Version:        0.06
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Pretend certain modules are not installed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Mask
@@ -43,7 +43,6 @@ to @INC and blocks require calls to restricted modules.
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -56,6 +55,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.006-31
+- Spec file cosmetics.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.006-30
 - Convert license to SPDX.
 - Update sources to sha512.

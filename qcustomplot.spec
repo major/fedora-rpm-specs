@@ -1,12 +1,12 @@
 # Bump this as appropriate when doing release updates, check i.e. with abi_compliance_checker
 # First digit: major, bump when incompatible changes were performed
 # Second digit: minor, bump when interface was extended
-%global so_ver 2.0.0
+%global lib_ver 2.0.0
 #global pre beta
 
 Name:           qcustomplot
 Version:        2.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
 License:        GPL-3.0-or-later
@@ -90,11 +90,11 @@ cp -a %{SOURCE1} .
 
 %build
 %define _vpath_builddir %{_target_platform}-qt5
-%cmake -DQT_VER=5 -DSO_VER=%{so_ver}
+%cmake -DQT_VER=5 -DLIB_VER=%{lib_ver}
 %cmake_build
 
 %define _vpath_builddir %{_target_platform}-qt6
-%cmake -DQT_VER=6 -DSO_VER=%{so_ver}
+%cmake -DQT_VER=6 -DLIB_VER=%{lib_ver}
 %cmake_build
 
 
@@ -148,6 +148,10 @@ done
 
 
 %changelog
+* Tue Nov 29 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-4
+- Set CMAKE_AUTOMOC to ON
+- Fix lib version take two
+
 * Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-3
 - Fix lib version
 

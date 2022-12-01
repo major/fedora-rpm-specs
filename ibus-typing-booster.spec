@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.9
+Version:    2.19.10
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -248,6 +248,11 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Tue Nov 29 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.10-1
+- Update to 2.19.10
+- Save space when displaying compose completion in horizontal lookup tables
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/407)
+
 * Mon Nov 28 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.9-1
 - Update to 2.19.9
 - Emoji search: If search strings contain whitespace count as an exact match if

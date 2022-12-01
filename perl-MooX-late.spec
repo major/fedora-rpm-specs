@@ -1,8 +1,8 @@
 Name:           perl-MooX-late
 Version:        0.100
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Easily translate Moose code to Moo
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-late
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/MooX-late-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,7 +59,7 @@ classes can extend Moo classes, and so forth.
 %{make_build}
 
 %install
-%{make_install} DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -72,6 +72,10 @@ classes can extend Moo classes, and so forth.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.100-4
+- Spec file cosmetics.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.100-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

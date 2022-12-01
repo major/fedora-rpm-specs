@@ -3,6 +3,7 @@ Version:        4.0.0
 Release:        %autorelease
 Summary:        AMD ROCm System Management Interface
 
+# SPDX
 License:        MIT
 URL:            https://github.com/RadeonOpenCompute/ROC-smi
 Source0:        https://github.com/RadeonOpenCompute/ROC-smi/archive/rocm-%{version}.tar.gz

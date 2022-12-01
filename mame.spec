@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 249
+%global baseversion 250
 
 %undefine _auto_set_build_flags
 
@@ -36,7 +36,7 @@ ExcludeArch:    %{arm} %{ix86}
 ExcludeArch:    %{power64}
 %endif
 
-%if 0%{?fedora} >= 38
+%if 0%{?fedora} >= 37
 BuildRequires:  asio-devel
 %endif
 BuildRequires:  expat-devel
@@ -64,7 +64,7 @@ BuildRequires:  utf8proc-devel
 BuildRequires:  zlib-devel
 Requires:       %{name}-data = %{version}-%{release}
 
-%if 0%{?fedora} < 38
+%if 0%{?fedora} < 37
 Provides:       bundled(asio) = 1.20.0
 %endif
 Provides:       bundled(asmjit)
@@ -147,7 +147,7 @@ HTML documentation for MAME.
 #remove system libs or document themes to ensure system ones are used
 #remove 3rdparty code not needed on Linux
 rm -rf \
-%if 0%{?fedora} >= 38
+%if 0%{?fedora} >= 37
     3rdparty/asio \
 %endif
     3rdparty/compat \
@@ -236,7 +236,7 @@ RPM_OPT_FLAGS=$(echo $RPM_OPT_FLAGS | sed "s@ -Wp,-D_GLIBCXX_ASSERTIONS@@")
     OPTIMIZE=2 \
     PYTHON_EXECUTABLE=python3 \
     VERBOSE=1 \
-%if 0%{?fedora} >= 38
+%if 0%{?fedora} >= 37
     USE_SYSTEM_LIB_ASIO=1 \
 %endif
     USE_SYSTEM_LIB_EXPAT=1 \

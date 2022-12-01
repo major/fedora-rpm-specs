@@ -4,7 +4,7 @@
 
 Name:           postsrsd
 Version:        1.12
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Sender Rewriting Scheme (SRS) provider
 
 License:        GPLv2+
@@ -71,7 +71,7 @@ sed -ri -e 's/postsrsd\/default/postsrsd.default/' \
 %files
 %license LICENSE
 %ghost %{_sysconfdir}/postsrsd.secret
-%{_sysconfdir}/default/%{name}
+%config(noreplace) %{_sysconfdir}/default/%{name}
 %{_unitdir}/postsrsd.service
 %{_sbindir}/postsrsd
 %{_docdir}/%{name}
@@ -109,6 +109,12 @@ fi
 
 
 %changelog
+* Tue Nov 29 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.12-3
+- fix changelog entry
+
+* Tue Nov 29 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.12-2
+- mark /etc/default/postsrsd as conffile
+
 * Wed Oct 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.12-1
 - NUR
 

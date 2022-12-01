@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.6.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 1
+%global baserelease 2
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -25,9 +25,10 @@ Release:        %{baserelease}%{?dist}
 License:        MIT and CC0 and BSD
 URL:            http://rr-project.org
 
-Source: https://github.com/mozilla/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
+Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
 Patch1: rr-mount.patch
 Patch2: rr-time.patch
+Patch3: rr-ethtool-struct.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -68,10 +69,7 @@ rr-testsuite includes compiled test binaries and other files
 which are used to test the functionality of rr.
  
 %prep
-%setup -q -n rr-%{gittag}
-
-%patch1 -p1 -b .mount
-%patch2 -p1 -b .time
+%autosetup -p1 -n rr-%{gittag}
 
 %build
 %if  0%{?rhel} == 7
@@ -128,6 +126,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.6.0-2
+- Rebuild for capnproto 0.10.2
+
 * Mon Aug 8 2022 William Cohen <wcohen@redhat.com> - 5.6.0-1
 - Rebase to rr-5.6.0.
 

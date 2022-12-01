@@ -1,13 +1,13 @@
 Name:           perl-Test-HTTP-Server-Simple-StashWarnings
 Version:        0.04
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Catch your forked server's warnings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HTTP-Server-Simple-StashWarnings
 Source0:        https://cpan.metacpan.org/authors/id/J/JE/JESSE/Test-HTTP-Server-Simple-StashWarnings-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(HTTP::Server::Simple) >= 0.34
@@ -32,17 +32,15 @@ should warn the user when something is amiss.
 rm -r inc
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes
@@ -50,6 +48,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.04-39
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

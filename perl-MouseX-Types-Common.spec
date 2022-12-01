@@ -1,8 +1,8 @@
 Name:           perl-MouseX-Types-Common
 Version:        0.001000
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Set of commonly-used type constraints
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://metacpan.org/dist/MouseX-Types-Common/
 Source0:        http://cpan.metacpan.org/authors/id/G/GF/GFUJI/MouseX-Types-Common-%{version}.tar.gz
 BuildArch:      noarch
@@ -45,7 +45,7 @@ rm -r inc
 %{make_build}
 
 %install
-%{make_install} DESTDIR="$RPM_BUILD_ROOT"
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -57,6 +57,10 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.001000-4
+- Spec file cosmetics.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.001000-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,13 +1,12 @@
 Name:           perl-Parallel-Scoreboard
 Version:        0.08
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Scoreboard for monitoring status of many processes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Scoreboard
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Parallel-Scoreboard-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
@@ -46,12 +45,12 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -63,6 +62,10 @@ sed -i -e '/^inc\/.*$/d' MANIFEST
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.08-20
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

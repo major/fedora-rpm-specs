@@ -1,6 +1,6 @@
 Name: 		perl-File-Find-Rule
 Version: 	0.34
-Release: 	23%{?dist}
+Release: 	24%{?dist}
 Summary: 	Perl module implementing an alternative interface to File::Find
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Find-Rule
@@ -36,7 +36,7 @@ you to build rules which specify the desired files and directories.
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-24
+- Spec files cosmetics.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.34-23
 - Modernize spec.
 - Convert license to SPDX.

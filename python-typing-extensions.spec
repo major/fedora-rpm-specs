@@ -1,9 +1,9 @@
 Name:      python-typing-extensions
 Version:   4.4.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Python Typing Extensions
 
-License:   Python
+License:   PSF-2.0
 URL:       https://pypi.org/project/typing-extensions/
 Source0:   %{pypi_source typing_extensions}
 
@@ -78,6 +78,9 @@ cd src
 %doc README.md
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.4.0-2
+- Update License to SPDX
+
 * Thu Nov 24 2022 Jonny Heggheim <hegjon@gmail.com> - 4.4.0-1
 - Updated to version 4.4.0
 

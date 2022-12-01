@@ -4,13 +4,13 @@ Version:        1.11.0
 Release:        %autorelease -b 13
 Summary:        Libraries for processing and visualizing scientific raster data
 
-# The entire source is LGPLv2+, except files noted at the License fields of
-# certain subpackages.
-License:        LGPLv2+
+# The entire source is LGPL-2.1-or-later, except files noted at the License
+# fields of certain subpackages.
+License:        LGPL-2.1-or-later
 # Additionally, the following are removed in %%prep to assert that they do not
 # contribute to the built package:
 #
-# zlib:
+# Zlib:
 #   arch/win32/include/zlib.h
 # MIT:
 #   python/ctypes/Nrrd.py
@@ -220,13 +220,13 @@ applications that use Teem.
 
 %package examples
 Summary:        Examples for developing with for %{name}
-# The entire contents of this subpackage are LGPLv2+, except:
+# The entire contents of this subpackage are LGPL-2.1-or-later, except:
 #
-# zlib:
+# Zlib:
 #   UseTeemCMakeDemo/sanity.c
-# BSD:
+# BSD-3-Clause:
 #   Examples/sanity/sanity.c
-License:        LGPLv2+ and zlib and BSD
+License:        LGPL-2.1-or-later AND Zlib AND BSD-3-Clause
 BuildArch:      noarch
 
 %description examples %{common_description}

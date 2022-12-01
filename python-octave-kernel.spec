@@ -2,11 +2,11 @@
 %global srcname_ octave_kernel
 
 Name:           python-%{srcname}
-Version:        0.34.2
+Version:        0.35.1
 Release:        %autorelease
 Summary:        A Jupyter kernel for Octave
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname_}
 Source0:        %pypi_source %{srcname_}
 

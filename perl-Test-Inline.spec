@@ -1,8 +1,8 @@
 Name: 		perl-Test-Inline
 Version: 	2.214
-Release: 	7%{?dist}
+Release: 	8%{?dist}
 Summary: 	Test::Inline Perl module
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Test-Inline
 Source0: 	https://cpan.metacpan.org/authors/id/E/ET/ETHER/Test-Inline-%{version}.tar.gz
 
@@ -64,12 +64,11 @@ Test::Inline allows you to inline your tests next to the code being tested.
 %setup -q -n Test-Inline-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -84,6 +83,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.214-8
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.214-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

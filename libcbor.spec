@@ -1,6 +1,6 @@
 Name:		libcbor
 Version:	0.7.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A CBOR parsing library
 
 License:	MIT
@@ -14,7 +14,7 @@ BuildRequires:	gcc-c++
 BuildRequires:	python3-breathe
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-sphinx_rtd_theme
-BuildRequires: make
+BuildRequires:	make
 
 %description
 libcbor is a C library for parsing and generating CBOR.
@@ -24,41 +24,45 @@ Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-The %{name}-devel contains libraries and header files for %{name}.
+%{name}-devel contains development libraries and header files for %{name}.
 
 %prep
 %setup -q
 
 
 %build
-%cmake -B . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFFIX="/usr" ./
-%make_build cbor_shared
+%cmake -DCMAKE_BUILD_TYPE=Release
+%cmake_build
 cd doc
 make man
 
 
 %install
-%make_install
+%cmake_install
 mkdir -p %{buildroot}%{_mandir}/man1
-cp doc/build/man/* %{buildroot}%{_mandir}/man1
-
-%ldconfig_scriptlets
+cp doc/build/man/* %{buildroot}%{_mandir}/man1/
 
 
 %files
 %license LICENSE.md
 %doc README.md
-%{_libdir}/libcbor.so.0*
-%{_mandir}/man1/libcbor.1*
+%{_libdir}/libcbor.so.0{,.*}
+%{_mandir}/man1/libcbor.1{,.*}
 
 %files devel
 %{_includedir}/cbor.h
-%{_includedir}/cbor/*.h
-%{_includedir}/cbor/internal/*.h
+%{_includedir}/cbor
 %{_libdir}/libcbor.so
 %{_libdir}/pkgconfig/libcbor.pc
 
 %changelog
+* Mon Nov 28 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.7.0-8
+- Update license to SPDX format
+- spec file tidy/modernization
+  - use modern cmake build and install
+  - properly own include directories in the devel package
+  - de-glob some files to follow packaging guidelines
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

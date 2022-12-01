@@ -1,6 +1,6 @@
 Name: 		perl-Test-ClassAPI
 Version: 	1.07
-Release: 	22%{?dist}
+Release: 	23%{?dist}
 Summary: 	Provides basic first-pass API testing for large class trees
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Test-ClassAPI
@@ -54,7 +54,7 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
 %if !%{defined perl_bootstrap}
-make test AUTOMATED_TESTING=1
+%{__make} test AUTOMATED_TESTING=1
 %endif
 
 %files
@@ -64,6 +64,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.07-23
+- Spec file cosmetics.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.07-22
 - Modernize spec.
 - Convert license to SPDX.

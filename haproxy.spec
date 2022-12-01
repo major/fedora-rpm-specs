@@ -8,13 +8,13 @@
 
 Name:           haproxy
 Version:        2.6.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPLv2+
 
 URL:            http://www.haproxy.org/
-Source0:        %{url}/download/2.4/src/haproxy-%{version}.tar.gz
+Source0:        %{url}/download/2.6/src/haproxy-%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        %{name}.cfg
 Source3:        %{name}.logrotate
@@ -127,6 +127,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Tue Nov 29 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-4
+- Fix Source0 URL (#2139126)
+
 * Tue Oct 11 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-3
 - Use systemd-sysusers (#2134206)
 

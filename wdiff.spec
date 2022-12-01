@@ -5,9 +5,9 @@ Version:        1.2.2
 Release:        %autorelease
 Summary:        Compare files on a word per word basis
 
-# Entire source is GPLv3+, except wdiff.texi and the documentation built from
-# it, including info, HTML, and PDF documentation, which is Latex2e.
-License:        GPLv3+ and Latex2e
+# Entire source is GPL-3.0-or-later, except wdiff.texi and the documentation
+# built from it, including info, HTML, and PDF documentation, which is Latex2e.
+License:        GPL-3.0-or-later AND Latex2e
 URL:            https://www.gnu.org/software/wdiff/
 Source0:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz.sig

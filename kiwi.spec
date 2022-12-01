@@ -11,16 +11,13 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        9.24.48
-Release:        2%{?dist}
+Version:        9.24.50
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPLv3+
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
-
-# Backports from upstream
-Patch1002:      https://github.com/OSInside/kiwi/pull/2195.patch#/0001-Stop-copying-dev-files-statically-into-the-OCI-conta.patch
 
 # Fedora-specific patches
 ## Use buildah instead of umoci by default for OCI image builds
@@ -541,6 +538,10 @@ done
 # Empty metapackage
 
 %changelog
+* Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 9.24.50-1
+- Update to 9.24.50 (RH#2137048)
+- Drop patch included in this release
+
 * Sat Oct 22 2022 Igor Raits <igor@gooddata.com> - 9.24.48-2
 - Backport patch for being able to build OCI containers in Mock (nspawn)
 

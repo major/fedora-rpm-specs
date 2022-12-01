@@ -3,11 +3,15 @@
 
 Name:           polyclipping
 Version:        6.4.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 %global so_version 22
 Summary:        Polygon clipping library
 
-License:        Boost
+# The entire source is BSL-1.0, except:
+# - The contents of Documentation/Scripts/SyntaxHighlighter/ are “Dual licensed
+#   under the MIT and GPL licenses“. These sources do not contribute to the
+#   binary RPMs and are removed in %%prep.
+License:        BSL-1.0
 URL:            https://sourceforge.net/projects/polyclipping
 Source0:        https://downloads.sourceforge.net/%{name}/clipper_ver%{version}.zip
 
@@ -39,6 +43,10 @@ developing applications that use %{name}.
 
 # Delete binaries
 find . \( -name "*.exe" -o -name "*.dll" \) -delete
+
+# Delete bundled(js-syntaxhighlighter),
+# https://github.com/syntaxhighlighter/syntaxhighlighter.
+rm -rvf Documentation/Scripts/SyntaxHighlighter
 
 # Correct line ends and encodings
 find . -type f -exec dos2unix -k {} \;
@@ -79,6 +87,9 @@ popd
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 6.4.2-16
+- Update License to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,17 +4,13 @@
 %global modulename %{name}-c++
 
 Name:           capnproto
-Version:        0.9.1
-Release:        3%{?dist}
+Version:        0.10.2
+Release:        1%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
 URL:            https://capnproto.org
 Source0:        https://capnproto.org/%{modulename}-%{version}.tar.gz
-
-# Configure tests properly
-# Fixed upstream already for 0.10.x
-Patch10001:     capnproto-0.9.1-fix-enabling-tests.diff
 
 # We need C++
 BuildRequires:  gcc-c++
@@ -92,6 +88,10 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.10.2-1
+- Rebase to 0.10.2
+- Drop backported patch
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

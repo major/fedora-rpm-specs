@@ -1,9 +1,9 @@
 Name:           perl-Lingua-EN-Sentence
 Version:        0.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Module for splitting text into sentences
 # "same as perl", cf. lib/Lingua/EN/Sentence.pm
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Sentence
 Source0:        https://cpan.metacpan.org/authors/id/K/KI/KIMRYAN/Lingua-EN-Sentence-%{version}.tar.gz
 BuildArch:      noarch
@@ -54,6 +54,9 @@ mv Changes~ Changes
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.33-3
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

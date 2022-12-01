@@ -11,7 +11,7 @@ priming sugar calculators, OG correction help, and a unique mash designing tool.
 It also can export and import recipes in BeerXML.}
 
 Name:           brewtarget
-Version:        3.0.3
+Version:        3.0.4
 Release:        1%{?dist}
 Summary:        An open source beer recipe creation tool 🍺
 %forgemeta
@@ -54,11 +54,13 @@ ln -s ../doc/%{name}/manual-en.pdf .
 popd
 
 %check
-desktop-file-validate %buildroot%{_datadir}/%{name}/applications/%{name}.desktop
+desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 
 %files
 %{_bindir}/%{name}
 %{_datadir}/%{name}
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_mandir}/man1/brewtarget*
 %doc CHANGES.markdown README.markdown doc/manual-en.pdf
 %license COPYRIGHT COPYING.GPLv3 COPYING.WTFPL

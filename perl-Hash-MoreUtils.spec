@@ -1,13 +1,12 @@
 Name:           perl-Hash-MoreUtils
 Version:        0.06
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Provide the stuff missing in Hash::Util
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-MoreUtils
 Source0:        https://cpan.metacpan.org/authors/id/R/RE/REHSACK/Hash-MoreUtils-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__make}
 BuildRequires:  %{__perl}
 BuildRequires:  perl-generators
@@ -23,11 +22,11 @@ used functionality for hashes.
 %setup -q -n Hash-MoreUtils-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 
 %check
 %{__make} test
@@ -38,6 +37,10 @@ used functionality for hashes.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.06-16
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

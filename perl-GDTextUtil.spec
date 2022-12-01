@@ -1,15 +1,17 @@
 Name:           perl-GDTextUtil
 Version:        0.86
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Text utilities for use with GD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GDTextUtil
 Source0:        https://cpan.metacpan.org/modules/by-module/GD/GDTextUtil-%{version}.tar.gz
 BuildArch:      noarch
+
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -42,7 +44,7 @@ provides some utility in aligning and wrapping your string.
 %setup -q -n GDTextUtil-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -50,7 +52,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} -c %{buildroot}
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README demo/
@@ -60,6 +62,11 @@ make test
 %{_mandir}/man3/GD::Text::Wrap.3*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.86-52
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -25,8 +25,8 @@
     vi:    "Vietnamese"
 
 Name:           man-pages-l10n
-Version:        4.15.0
-Release:        2%{?dist}
+Version:        4.16.0
+Release:        1%{?dist}
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
 
 # original man pages are under various licenses, translations are GPLv3+
@@ -40,7 +40,7 @@ Summary:        Translated man pages from the Linux Documentation Project and ot
 License:        Artistic Licence 2.0 and BSD and BSD with advertising and Copyright only and GFDL and GPL+ and GPLv2 and GPLv2+ and (GPLv2+ or Artistic) and GPLv2 with exceptions and GPLv2+ with exceptions and GPLv3+ and (GPLv3+ and BSD) and (GPLv3+ or BSD) and IJG and ISC and LGPLv2+ and LGPLv3+ and (LGPLv3+ or BSD) and MIT and psutils and Public Domain and Sendmail and Verbatim
 
 URL:            https://manpages-l10n-team.pages.debian.net/manpages-l10n/
-Source0:        https://salsa.debian.org/manpages-l10n-team/%{upstream_name}/-/archive/%{version}/%{upstream_name}-%{version}.tar.bz2
+Source0:        https://salsa.debian.org/manpages-l10n-team/%{upstream_name}/-/archive/%{version}/%{upstream_name}-v%{version}.tar.bz2
 
 BuildArch:      noarch
 
@@ -73,7 +73,7 @@ end}
 
 
 %prep
-%autosetup -p1 -n %{upstream_name}-%{version}
+%autosetup -p1 -n %{upstream_name}-v%{version}
 
 
 %build
@@ -97,6 +97,9 @@ end}
 
 
 %changelog
+* Fri Nov 25 2022 Lukas Javorsky <ljavorsk@redhat.com> - 4.16.0-1
+- Rebase to version 4.16.0
+
 * Sat Aug 13 2022 Nikola Forró <nforro@redhat.com> - 4.15.0-2
 - Prevent conflict with net-tools
 

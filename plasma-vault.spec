@@ -2,7 +2,7 @@
 
 Name:    plasma-vault
 Summary: Plasma Vault offers strong encryption features in a user-friendly way
-Version: 5.26.3
+Version: 5.26.4
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -70,6 +70,9 @@ prying eyes even when the user is logged in.
 
 
 %changelog
+* Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
+- 5.26.4
+
 * Wed Nov 09 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.3-1
 - 5.26.3
 

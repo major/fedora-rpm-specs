@@ -4,7 +4,7 @@
 
 Summary: A library for text mode user interfaces
 Name: newt
-Version: 0.52.22
+Version: 0.52.23
 Release: 1%{?dist}
 License: LGPLv2
 URL: https://pagure.io/newt
@@ -110,6 +110,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libnewt.a
 %{python3_sitearch}/__pycache__/*.py*
 
 %changelog
+* Tue Nov 29 2022 Miroslav Lichvar <mlichvar@redhat.com> - 0.52.23-1
+- update to 0.52.23
+
 * Mon Nov 21 2022 Miroslav Lichvar <mlichvar@redhat.com> - 0.52.22-1
 - update to 0.52.22
 

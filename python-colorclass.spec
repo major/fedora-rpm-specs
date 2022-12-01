@@ -2,16 +2,17 @@
 %global sum Yet another ANSI color text library for Python
 
 Name:           python-%{srcname}
-Version:        2.2.0
-Release:        19%{?dist}
+Version:        2.2.2
+Release:        1%{?dist}
 Summary:        Yet another ANSI color text library for Python
 
 License:        MIT
-URL:            https://pypi.python.org/pypi/%{srcname}
+URL:            https://pypi.python.org/pypi/colorclass
+VCS:            https://github.com/matthewdeanmartin/colorclass
+# was           https://github.com/Robpol86/colorclass
 Source0:        https://files.pythonhosted.org/packages/source/c/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://github.com/Robpol86/colorclass/blob/master/LICENSE
 
-Patch0:         https://github.com/Robpol86/colorclass/commit/f8bbe9fdcff1d97b1d0e5dcb94680923cc43a507.patch#/%{name}-2.2.0-python39.patch
 
 BuildArch:      noarch
 
@@ -47,10 +48,13 @@ rm -rf colorclass.egg-info
 
 %files -n python3-%{srcname}
 %license LICENSE
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/colorclass*
 
 %changelog
+* Tue Nov 29 2022 Michal Ambroz <rebus _AT seznam.cz> - 2.2.2-1
+- bump to 2.2.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

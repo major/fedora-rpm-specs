@@ -129,7 +129,11 @@ install -Dp -m0644 storage.conf -t %{buildroot}%{_datadir}/containers
 install -Dp -m0644 registries.conf -t %{buildroot}%{_sysconfdir}/containers
 install -Dp -m0644 000-shortnames.conf -t %{buildroot}%{_sysconfdir}/containers/registries.conf.d
 install -Dp -m0644 policy.json -t %{buildroot}%{_sysconfdir}/containers
+# RPM-GPG-KEY-redhat-release already exists on rhel envs, install only on
+# fedora and centos
+%if 0%{?fedora} || 0%{?centos}
 install -Dp -m0644 RPM-GPG-KEY-redhat-release -t %{buildroot}%{_sysconfdir}/pki/rpm-gpg
+%endif
 install -Dp -m0644 registry.access.redhat.com.yaml -t %{buildroot}%{_sysconfdir}/containers/registries.d
 install -Dp -m0644 registry.redhat.io.yaml -t %{buildroot}%{_sysconfdir}/containers/registries.d
 
@@ -161,7 +165,9 @@ ln -s %{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/rhel/secret
 %config(noreplace) %{_sysconfdir}/containers/policy.json
 %config(noreplace) %{_sysconfdir}/containers/registries.conf
 %config(noreplace) %{_sysconfdir}/containers/registries.conf.d/000-shortnames.conf
+%if 0%{?fedora} || 0%{?centos}
 %{_sysconfdir}/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+%endif
 %config(noreplace) %{_sysconfdir}/containers/registries.d/default.yaml
 %{_sysconfdir}/containers/registries.d/registry.redhat.io.yaml
 %{_sysconfdir}/containers/registries.d/registry.access.redhat.com.yaml

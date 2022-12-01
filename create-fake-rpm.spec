@@ -1,7 +1,7 @@
 Name:           create-fake-rpm
-Version:        4
-Release:        5%{?dist}
-License:        GPLv2+
+Version:        5
+Release:        1%{?dist}
+License:        GPL-2.0-or-later
 Summary:        Generate fake (S)RPM
 BuildArch:      noarch
 # Sources can be obtained by
@@ -62,17 +62,13 @@ cp -a template/template.spec %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Tue Nov 29 2022 Miroslav Suchý <msuchy@redhat.com> 5-1
+- use SPDX format for license
+- accept empty requires
+- Document --requires option (pgreco@centosproject.org)
+- Allow fake-rpm to require a real one (pgreco@centosproject.org)
+- Fix argument name in docs (pgreco@centosproject.org)
+- Make srpm self contained (pgreco@centosproject.org)
 
 * Sun Nov 08 2020 Miroslav Suchý <msuchy@redhat.com> 4-1
 - print error when there is no params

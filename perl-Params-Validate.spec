@@ -1,9 +1,9 @@
 Summary:        Params-Validate Perl module
 Name:           perl-Params-Validate
 Version:        1.31
-Release:        1%{?dist}
-# One file is GPL+ or Artistics (c/ppport.h)
-License:        Artistic 2.0 and (GPL+ or Artistic)
+Release:        2%{?dist}
+# One file is GPL-1.0-or-later OR Artistic-1.0-Perl (c/ppport.h)
+License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Params-Validate
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Params-Validate-%{version}.tar.gz
 
@@ -58,8 +58,7 @@ certain methods, or applying validation callbacks to arguments.
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-
+find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -73,6 +72,10 @@ find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.31-2
+- Convert license to SPDX.
+- Remove empty installed *.bs.
+
 * Sun Oct 23 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.31-1
 - Upgrade to 1.31.
 

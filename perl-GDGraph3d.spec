@@ -1,15 +1,17 @@
 Name:           perl-GDGraph3d
 Version:        0.63
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        3D graph generation package for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GD-Graph3d
 Source0:        https://cpan.metacpan.org/authors/id/W/WA/WADG/GD-Graph3d-%{version}.tar.gz
+
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+BuildRequires:  %{__perl}
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -44,17 +46,17 @@ perl -pi -e 's/\r//g' Changes
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT
 
 
 %check
-make test
+%{__make} test
 
 
 %files
@@ -64,6 +66,11 @@ make test
 
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.63-50
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

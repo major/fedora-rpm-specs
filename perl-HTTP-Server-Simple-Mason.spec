@@ -1,15 +1,14 @@
 Name: 		perl-HTTP-Server-Simple-Mason
 Version: 	0.14
-Release: 	34%{?dist}
+Release: 	35%{?dist}
 Summary:	HTTP::Server::Simple::Mason Perl module
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/HTTP-Server-Simple-Mason
 Source: 	https://cpan.metacpan.org/authors/id/J/JE/JESSE/HTTP-Server-Simple-Mason-%{version}.tar.gz
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: noarch
 
-BuildRequires: make
 BuildRequires:	%{__make}
 BuildRequires:	%{__perl}
 BuildRequires:	perl-generators
@@ -47,12 +46,11 @@ An abstract baseclass for a standalone mason server
 rm -r inc
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -64,6 +62,11 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.14-35
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

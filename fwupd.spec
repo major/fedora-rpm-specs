@@ -36,11 +36,6 @@
 %global have_msr 1
 %endif
 
-# libsmbios is only available on x86
-%ifarch x86_64
-%global have_dell 1
-%endif
-
 # Until we actually have seen it outside x86
 %ifarch i686 x86_64
 %global have_thunderbolt 1
@@ -54,7 +49,7 @@
 Summary:   Firmware update daemon
 Name:      fwupd
 Version:   1.8.7
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
@@ -111,11 +106,6 @@ BuildRequires: freetype
 BuildRequires: fontconfig
 BuildRequires: google-noto-sans-cjk-ttc-fonts
 BuildRequires: tpm2-tss-devel >= 2.2.3
-%endif
-
-%if 0%{?have_dell}
-BuildRequires: efivar-devel >= 33
-BuildRequires: libsmbios-devel >= 2.3.0
 %endif
 
 Requires(post): systemd
@@ -244,11 +234,7 @@ or server machines.
     -Dplugin_uefi_pk=disabled \
     -Dplugin_tpm=disabled \
 %endif
-%if 0%{?have_dell}
-    -Dplugin_dell=enabled \
-%else
     -Dplugin_dell=disabled \
-%endif
 %if 0%{?have_modem_manager}
     -Dplugin_modem_manager=enabled \
 %else
@@ -323,9 +309,6 @@ done
 %dir %{_sysconfdir}/fwupd/bios-settings.d
 %config%(noreplace)%{_sysconfdir}/fwupd/bios-settings.d/README.md
 %dir %{_sysconfdir}/fwupd/remotes.d
-%if 0%{?have_dell}
-%config(noreplace)%{_sysconfdir}/fwupd/remotes.d/dell-esrt.conf
-%endif
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs-testing.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/vendor.conf
@@ -342,9 +325,6 @@ done
 %{_datadir}/bash-completion/completions/fwupdagent
 %{_datadir}/fish/vendor_completions.d/fwupdmgr.fish
 %{_datadir}/fwupd/metainfo/org.freedesktop.fwupd*.metainfo.xml
-%if 0%{?have_dell}
-%{_datadir}/fwupd/remotes.d/dell-esrt/metadata.xml
-%endif
 %{_datadir}/fwupd/remotes.d/vendor/firmware/README.md
 %{_datadir}/dbus-1/interfaces/org.freedesktop.fwupd.xml
 %{_datadir}/polkit-1/actions/org.freedesktop.fwupd.policy
@@ -431,6 +411,9 @@ done
 %endif
 
 %changelog
+* Tue Nov 29 2022 Richard Hughes <richard@hughsie.com> 1.8.7-3
+- Disable the libsmbios requirement as it is now unmaintained in Fedora.
+
 * Wed Nov 09 2022 Richard Hughes <richard@hughsie.com> 1.8.7-2
 - Fix the lvfs-testing remote
 

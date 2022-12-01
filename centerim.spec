@@ -1,6 +1,6 @@
 Name:           centerim
 Version:        4.22.10
-Release:        38%{?dist}
+Release:        39%{?dist}
 Epoch:          1
 
 Summary:        Text mode menu- and window-driven IM
@@ -17,6 +17,7 @@ Patch1:         centerim-gcc46.patch
 # canonicalization unexpectedly shrank by one character
 # https://bugzilla.redhat.com/show_bug.cgi?id=304121
 Patch2:         centerim-double-slash.patch
+Patch3:         centerim-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -51,6 +52,7 @@ Internal RSS reader and a client for LiveJournal are provided.
 %patch0 -p1 -b .url-escape-fedora
 %patch1 -p1 -b .gcc46
 %patch2 -p1 -b .dblslash
+%patch3 -p1 -b .c99
 
 iconv -f iso8859-1 -t utf8 ChangeLog >ChangeLog.utf8
 touch -r ChangeLog ChangeLog.utf8
@@ -101,6 +103,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE2}
 
 
 %changelog
+* Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 1:4.22.10-39
+- Improve compatibility with C99 compilers (#2149217)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.22.10-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

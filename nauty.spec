@@ -5,9 +5,13 @@ Summary:        Graph canonical labeling and automorphism group computation
 
 %global nautytarver %(tr . _ <<< %{version})
 
+# The projects as a whole is Apache-2.0.
 # The bundled cliquer code in nautycliquer.c is GPL-2.0-or-later, but we patch
 # it out.
-License:        Apache-2.0
+# Other licenses are due to embedded fonts in the PDF manual.
+# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM-Super: GPL-1.0-or-later
+License:        Apache-2.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
 URL:            https://pallini.di.uniroma1.it/
 Source0:        https://pallini.di.uniroma1.it/%{name}%{nautytarver}.tar.gz
 
@@ -66,6 +70,7 @@ multigraphs, and programs for manipulating files of graphs in a compact
 format.
 
 %package -n libnauty
+License:        Apache-2.0
 Summary:        Library for graph automorphism
 
 %description -n libnauty
@@ -74,6 +79,7 @@ automorphism groups of graphs and digraphs.  This package contains a
 library of nauty procedures.
 
 %package -n libnauty-devel
+License:        Apache-2.0
 Summary:        Development files for libnauty
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 

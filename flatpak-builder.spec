@@ -4,14 +4,14 @@
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.2.2
-Release:        4%{?dist}
+Version:        1.2.3
+Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
 # the rest is LGPLv2+
 License:        LGPLv2+ and GPLv2+
-URL:            http://flatpak.org/
+URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gettext
@@ -57,7 +57,7 @@ Recommends:     ccache
 %description
 Flatpak-builder is a tool for building flatpaks from sources.
 
-See http://flatpak.org/ for more information.
+See https://flatpak.org/ for more information.
 
 
 %prep
@@ -86,6 +86,9 @@ See http://flatpak.org/ for more information.
 
 
 %changelog
+* Tue Nov 29 2022 David King <amigadave@amigadave.com> - 1.2.3-1
+- Update to 1.2.3 (#2149163)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

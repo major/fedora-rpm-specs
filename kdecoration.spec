@@ -11,7 +11,7 @@
 
 Name:    kdecoration
 Summary: A plugin-based library to create window decorations
-Version: 5.26.3
+Version: 5.26.4
 Release: 1%{?dist}
 
 License: LGPLv2
@@ -98,6 +98,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
+- 5.26.4
+
 * Wed Nov 09 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.3-1
 - 5.26.3
 

@@ -1,8 +1,8 @@
 %global udevdir %(pkg-config --variable=udevdir udev)
 
 Name:           libratbag
-Version:        0.16
-Release:        4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        0.17
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Programmable input device library
 License:        MIT
 URL:            https://github.com/libratbag/libratbag
@@ -78,7 +78,6 @@ developing applications that use liblur.
 %{_bindir}/ratbagctl
 %{_bindir}/ratbagd
 %dir %{_datadir}/libratbag
-%dir %{_datadir}/libratbag
 %{_datadir}/libratbag/*.device
 %{_mandir}/man1/ratbagctl.1*
 %{_mandir}/man8/ratbagd.8*
@@ -98,6 +97,9 @@ developing applications that use liblur.
 %{_libdir}/pkgconfig/liblur.pc
 
 %changelog
+* Wed Nov 30 2022 Peter Hutterer <peter.hutterer@redhat.com> - 0.17-1
+- libratbag 0.17
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

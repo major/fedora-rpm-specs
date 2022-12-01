@@ -1,12 +1,13 @@
 Name:           perl-HTML-Quoted
 Version:        0.04
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Extract structure of quoted HTML mail message
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Quoted
 Source0:        https://cpan.metacpan.org/authors/id/T/TS/TSIBLEY/HTML-Quoted-0.04.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(HTML::Parser) >= 3.0
@@ -29,17 +30,15 @@ Extract structure of quoted HTML mail message.
 rm -r inc
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -47,6 +46,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.04-30
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

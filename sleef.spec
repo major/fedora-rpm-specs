@@ -22,7 +22,17 @@ Version:        3.5.1
 Release:        %autorelease
 Summary:        Vectorized math library
 
-License:        Boost
+# The entire source is BSL-1.0, except the following gencoef tool sources,
+# which are CC-BY-4.0:
+#   src/gencoef/dp.h
+#   src/gencoef/gencoef.c
+#   src/gencoef/ld.h
+#   src/gencoef/qp.h
+#   src/gencoef/simplexfr.c
+#   src/gencoef/sp.h
+# Since CC-BY-4.0 is allowed for content but not for code, these are removed in
+# %%prep to prove that they are not used in the build.
+License:        BSL-1.0
 URL:            https://sleef.org
 Source0:        https://github.com/shibatch/sleef/archive/%{version}/sleef-%{version}.tar.gz
 
@@ -159,6 +169,9 @@ developing applications that use sleef-quad.
 
 %prep
 %autosetup
+# The gencoef tool sources are licensed CC-BY-4.0, which is allowed for content
+# but not for code. Remove them to prove that they are not used in the build.
+rm -vrf src/gencoef
 
 
 %build
@@ -200,7 +213,7 @@ skips="${skips}|iuty?purecfma_scalar"
 skips="${skips}|iuty?purec_scalar"
 %endif
 %ifarch s390x
-skips="${skips}|iutyzvector2(nofma)?"
+skips="${skips}|iuty?zvector2(nofma)?"
 %endif
 
 %if %{with dft}
@@ -249,8 +262,7 @@ skips="${skips})$"
 %ifarch %{gnuabi_arches}
 %files gnuabi
 %license LICENSE.txt
-%{_libdir}/libsleefgnuabi.so.%{so_version}
-%{_libdir}/libsleefgnuabi.so.%{so_version}.*
+%{_libdir}/libsleefgnuabi.so.%{so_version}{,.*}
 
 
 %files gnuabi-devel
@@ -260,8 +272,7 @@ skips="${skips})$"
 
 %if %{with dft}
 %files dft
-%{_libdir}/libsleefdft.so.%{so_version}
-%{_libdir}/libsleefdft.so.%{so_version}.*
+%{_libdir}/libsleefdft.so.%{so_version}{,.*}
 
 
 %files dft-devel
@@ -273,8 +284,7 @@ skips="${skips})$"
 %if %{with quad}
 %files quad
 %license LICENSE.txt
-%{_libdir}/libsleefquad.so.%{so_version}
-%{_libdir}/libsleefquad.so.%{so_version}.*
+%{_libdir}/libsleefquad.so.%{so_version}{,.*}
 
 
 %files quad-devel

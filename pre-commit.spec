@@ -5,6 +5,7 @@ Version:        2.20.0
 Release:        2%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
+# SPDX
 License:        MIT
 URL:            https://pre-commit.com
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz

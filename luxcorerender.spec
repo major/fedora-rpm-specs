@@ -5,7 +5,7 @@
 
 Name:		luxcorerender
 Version:	2.6
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	LuxCore Renderer, an unbiased rendering system
 
 License:	ASL 2.0
@@ -106,7 +106,7 @@ The %{name}-core package contains core binaries for using %{name}.
 %package        -n blender-%{name}
 Summary:        Blender export plugin to %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       blender(ABI)%{?blender_api: = %{blender_api}}
+#Requires:       blender(ABI)%%{?blender_api: = %%{blender_api}}
 Obsoletes:      LuxRender-blender < 2.0
 Provides:       LuxRender-blender = 2.0
 
@@ -250,6 +250,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 %{_includedir}/{luxcore,luxrays,slg}
 
 %changelog
+* Tue Nov 29 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.6-9
+- Drop blender(ABI)
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.6-8
 - Rebuilt due to spdlog update.
 

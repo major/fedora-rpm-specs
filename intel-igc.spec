@@ -1,4 +1,4 @@
-%global vc_commit 984bb27baacce6ee5c716c2e64845f2a1928025b
+%global vc_commit 782fbf7301dc73acaa049a4324c976ad94f587f7
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 %global toolchain clang
 %global optflags %{optflags} -Wno-everything -Qunused-arguments
@@ -9,14 +9,19 @@
 %endif
 
 Name: intel-igc
-Version: 1.0.12149
-Release: 2%{?dist}
+Version: 1.0.12812.4
+Release: 1%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
+
+# LLVM 15
+Patch01: e09e752949e7af0231884d1b11ea907e3e8b1611.patch
+Patch02: c707d1e2244aec988bdd5d2a7473ef3a32a5bac7.patch
+Patch03: 0001-BiF-Wno-int-conversion.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -64,7 +69,7 @@ Library files for Intel Graphics Compiler for OpenCL.
 %prep
 tar -xf %{SOURCE1}
 
-%setup -q -n intel-graphics-compiler-igc-%{version}
+%autosetup -n intel-graphics-compiler-igc-%{version} -p1
 
 %build
 %cmake \
@@ -118,8 +123,15 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Tue Nov 29 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.12812.4-1
+- intel-igc-1.0.12812.4
+- LLVM 15 Support (fixes RHBZ#2127746 )
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 1.0.12149-2
 - Rebuild for llvm 15
+
+* Fri Sep 16 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.12149.1-1
+- intel-igc-1.0.12149.1
 
 * Thu Sep 08 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.12149-1
 - intel-igc-1.0.12149

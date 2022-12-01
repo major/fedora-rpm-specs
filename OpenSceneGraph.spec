@@ -10,8 +10,13 @@
 
 # Inventor support: Default to Coin4
 # These are mutually exclusive
+%if 0%{?fedora}
 %bcond_with     Inventor
 %bcond_without  Coin4
+%else
+%bcond_with  Inventor
+%bcond_with  Coin4
+%endif
 
 # Jasper support: Default on
 %bcond_without  jasper
@@ -21,6 +26,13 @@
 
 # Collada support: Default on
 %bcond_without  Collada
+
+# Build wxWidgets example: Default on
+%if 0%{?fedora}
+%bcond_without wxWidgets
+%else
+%bcond_with wxWidgets
+%endif
 
 %if 0%{?fedora}
 %bcond_without mingw
@@ -85,7 +97,6 @@ BuildRequires:  pkgconfig(gtkglext-x11-1.0)
 BuildRequires:  pkgconfig(poppler-glib)
 BuildRequires:  pkgconfig(librsvg-2.0) >= 2.35
 BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  wxGTK-devel
 
 # Used by osgmovie
 BuildRequires:  SDL2-devel
@@ -106,6 +117,7 @@ BuildRequires:  SDL-devel
 %{?with_gdal:BuildRequires:       gdal-devel}
 %{?with_Inventor:BuildRequires:   Inventor-devel}
 %{?with_Coin4:BuildRequires:      Coin4-devel}
+%{?with_wxWidgets:BuildRequires:  wxGTK-devel}
 
 %if %{with mingw}
 BuildRequires: mingw32-cairo
@@ -702,7 +714,7 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %{_bindir}/osguserstats
 %{_bindir}/osgvertexattributes
 %{_bindir}/osgvertexprogram
-%{_bindir}/osgviewerWX
+%{?with_wxWidgets:%{_bindir}/osgviewerWX}
 %{_bindir}/osgvirtualprogram
 %{_bindir}/osgvnc
 %{_bindir}/osgvolume

@@ -1,7 +1,7 @@
 %global modname toot
 
 Name:           %{modname}
-Version:        0.29.0
+Version:        0.30.0
 Release:        1%{?dist}
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
@@ -15,7 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist pytest} %{py3_dist requests} %{py3_dist wcwidth} %{py3_dist beautifulsoup4}
-BuildRequires:  %{py3_dist urwid}
+BuildRequires:  %{py3_dist urwid} %{py3_dist psycopg2}
 
 %description
 Toot is a CLI and TUI tool for interacting with Mastodon instances
@@ -43,6 +43,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %license LICENSE
 
 %changelog
+* Tue Nov 29 2022 Alessio <alciregi@fedoraproject.org> - 0.30.0-1
+- Update to 0.30.0
+
 * Mon Nov 21 2022 Alessio <alciregi@fedoraproject.org> - 0.29.0-1
 - Update to 0.29.0
 

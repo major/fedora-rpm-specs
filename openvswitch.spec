@@ -44,8 +44,8 @@ Epoch:   1
 Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
-Version: 2.17.0
-Release: 6%{?dist}
+Version: 3.0.1
+Release: 1%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -485,9 +485,8 @@ fi
 %{_includedir}/openvswitch/*
 %{_includedir}/openflow/*
 %exclude %{_libdir}/*.a
-%exclude %{_libdir}/*.la
 
-%if 0%{?rhel} > 7 || 0%{?fedora} > 28
+%if 0%{?rhel} == 8 || 0%{?fedora} > 28
 %files -n network-scripts-%{name}
 %{_sysconfdir}/sysconfig/network-scripts/ifup-ovs
 %{_sysconfdir}/sysconfig/network-scripts/ifdown-ovs
@@ -528,6 +527,7 @@ fi
 %{_datadir}/openvswitch/scripts/ovs-ctl
 %{_datadir}/openvswitch/scripts/ovs-kmod-ctl
 %{_datadir}/openvswitch/scripts/ovs-systemd-reload
+%config %{_datadir}/openvswitch/local-config.ovsschema
 %config %{_datadir}/openvswitch/vswitch.ovsschema
 %config %{_datadir}/openvswitch/vtep.ovsschema
 %{_bindir}/ovs-appctl
@@ -546,6 +546,7 @@ fi
 %{_mandir}/man1/ovsdb-server.1*
 %{_mandir}/man1/ovsdb-tool.1*
 %{_mandir}/man5/ovsdb.5*
+%{_mandir}/man5/ovsdb.local-config.5*
 %{_mandir}/man5/ovsdb-server.5.*
 %{_mandir}/man5/ovs-vswitchd.conf.db.5*
 %{_mandir}/man5/vtep.5*
@@ -575,6 +576,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Mon Nov 14 2022 Timothy Redaelli <tredaelli@redhat.com> - 3.0.1-1
+- Update to 3.0.1 (#2073644)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

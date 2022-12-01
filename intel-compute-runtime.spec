@@ -1,6 +1,6 @@
 %global neo_major 22
-%global neo_minor 34
-%global neo_build 24023
+%global neo_minor 43
+%global neo_build 24558
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
@@ -13,8 +13,6 @@ Summary: Compute API support for Intel graphics
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
-
-Patch01: 670295e697ef0e0bfef535b29eb5173eecff64ba.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -69,8 +67,7 @@ intel-ocloc (a tool for managing Intel Compute GPU device binary format).
 %package -n    intel-opencl
 Summary:       OpenCL support implementation for Intel GPUs
 Requires:      intel-igc-libs%{?_isa}
-# Manually verify gmmlib version against the compute-runtime release notes and bump accordingly!
-Requires:      intel-gmmlib%{?_isa} >= 22.1.3, intel-gmmlib%{?_isa} < 22.2
+Requires:      intel-gmmlib%{?_isa}
 
 %description -n intel-opencl
 Implementation for the Intel GPUs of the OpenCL specification - a generic
@@ -104,7 +101,7 @@ rm -rv third_party/sse2neon
     -DNEO_OCL_VERSION_MINOR=%{neo_minor} \
     -DNEO_VERSION_BUILD=%{neo_build} \
     -DSUPPORT_DG1=ON \
-    -DSKIP_UNIT_TESTS=0 \
+    -DSKIP_UNIT_TESTS=1 \
     -DNEO_DISABLE_LD_GOLD=1 \
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
     -DKHRONOS_HEADERS_DIR="/usr/include/CL/" \
@@ -136,6 +133,9 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Tue Nov 29 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 22.43.24558-1
+- intel-compute-runtime-22.43.24558 (fixes RHBZ#2135350 )
+
 * Tue Aug 30 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 22.34.24023-1
 - intel-compute-runtime-22.34.24023
 

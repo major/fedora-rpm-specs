@@ -1,13 +1,13 @@
 Name:           perl-Parallel-Prefork
 Version:        0.18
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Simple prefork server framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parallel-Prefork
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Parallel-Prefork-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(Class::Accessor::Lite) >= 0.04
 BuildRequires:  perl(Fcntl)
@@ -39,15 +39,15 @@ rm -r inc
 sed -i -e '/^inc\/*$/d' MANIFEST
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -55,6 +55,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.18-21
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

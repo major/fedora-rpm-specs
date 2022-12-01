@@ -1,8 +1,8 @@
 Name:           perl-Text-Haml
 Version:        0.990118
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Haml Perl implementation
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Text-Haml
 Source0:        https://cpan.metacpan.org/authors/id/V/VT/VTI/Text-Haml-%{version}.tar.gz
 
@@ -59,6 +59,9 @@ specification.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.990118-20
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.990118-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

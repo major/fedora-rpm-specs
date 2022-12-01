@@ -2,7 +2,7 @@
 %global  wayland_min_version 1.3
 
 Name:    kwayland-integration
-Version: 5.26.3
+Version: 5.26.4
 Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
@@ -63,6 +63,9 @@ Requires:       kf5-filesystem
 
 
 %changelog
+* Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
+- 5.26.4
+
 * Wed Nov 09 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.3-1
 - 5.26.3
 

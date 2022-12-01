@@ -1,13 +1,12 @@
 Name:           perl-Net-LDAP-SID
 Version:        0.001
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Net::LDAP::SID Perl module
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-LDAP-SID
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARMAN/Net-LDAP-SID-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  perl-interpreter >= 0:5.008003
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -28,11 +27,11 @@ Active Directory Security Identifier manipulation
 %setup -q -n Net-LDAP-SID-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -44,6 +43,11 @@ Active Directory Security Identifier manipulation
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.001-20
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.001-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

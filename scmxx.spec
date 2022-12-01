@@ -1,10 +1,11 @@
 Summary: Exchange data with Siemens mobile phones
 Name: scmxx
 Version: 0.9.0
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: GPLv2+
 URL: http://www.hendrik-sattler.de/scmxx
 Source0: http://dl.sourceforge.net/scmxx/scmxx-%{version}.tar.bz2
+Patch0: scmxx-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: libxslt-devel, gettext
@@ -17,7 +18,7 @@ messages. Other actions like setting the time and dialling a number are also
 possible.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure \
@@ -42,6 +43,9 @@ make install DESTDIR=%{buildroot}
 %lang(ru) %{_mandir}/ru/man1/scmxx.1.gz
 
 %changelog
+* Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 0.9.0-28
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

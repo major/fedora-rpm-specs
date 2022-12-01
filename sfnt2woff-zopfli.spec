@@ -21,6 +21,10 @@ License:        MPL-1.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:            https://github.com/bramstein/sfnt2woff-zopfli
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Fix a possible double free in woffEncode()
+# https://github.com/bramstein/sfnt2woff-zopfli/pull/18
+Patch:          %{url}/pull/18.patch
+
 # Note that the URL http://people.mozilla.org/~jkew/woff/, where the original
 # WOFF reference implementation sources were published, is no longer available.
 # A copy of that page can be found at
@@ -43,7 +47,7 @@ A corresponding version of the woff2sfnt utility is also provided.
 
 
 %prep
-%autosetup
+%autosetup -p1
 # Strip out bundled Zopfli sources
 rm -rvf zopfli
 

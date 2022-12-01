@@ -7,9 +7,9 @@
 
 Name:           perl-Pod-Parser
 Version:        1.65
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Basic perl modules for handling Plain Old Documentation (POD)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Parser
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Parser-%{version}.tar.gz
 BuildArch:      noarch
@@ -68,7 +68,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -81,6 +81,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.65-4
+- Rewrite to use of %{buildroot} macro
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.65-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

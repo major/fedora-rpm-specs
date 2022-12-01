@@ -1,8 +1,8 @@
 Name:		perl-Params-Util
 Version:	1.102
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Simple standalone parameter-checking functions
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Params-Util
 Source0:	https://cpan.metacpan.org/authors/id/R/RE/REHSACK/Params-Util-%{version}.tar.gz
 
@@ -10,7 +10,6 @@ Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(Scalar::Util) >= 1.18
 Requires:       perl(XSLoader) >= 0.22
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 BuildRequires:  gcc
@@ -50,13 +49,12 @@ makes checking parameters a hell of a lot easier.
 rm -rf inc/latest* inc/inc_*
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -71,6 +69,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.102-9
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

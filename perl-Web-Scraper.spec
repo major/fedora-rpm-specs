@@ -7,7 +7,7 @@
 
 Name:           perl-Web-Scraper
 Version:        0.38
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Web Scraping Toolkit using HTML and CSS Selectors or XPath expressions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Web-Scraper
@@ -71,8 +71,6 @@ sed -i '/ExtUtils::MakeMaker/d' META.*
 install -m 755 -d ${RPM_BUILD_ROOT}%{_bindir}
 install -m 755 bin/scraper ${RPM_BUILD_ROOT}%{_bindir}
 
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -85,6 +83,9 @@ LEAK_TEST=1 %{?with_live_test:LIVE_TEST=1} ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.38-26
+- Spec file cosmetics.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.38-25
 - Convert licence to SPDX.
 - Update sources to sha512.

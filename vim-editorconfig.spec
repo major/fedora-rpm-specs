@@ -25,11 +25,12 @@ Release:        %autorelease
 %global plugin_tests_commit cb7ae15d16ab3d72a1139f7a629b11cfe16d972f
 %global plugin_tests_url https://github.com/editorconfig/editorconfig-plugin-tests/
 
-# The entire source is BSD, except that the following files are (BSD and
-# Python) since they are derived from the Python standard library:
+# The entire source is BSD-2-Clause, except that the following files are
+# (BSD-2-Clause AND PSF-2.0) since they are derived from the Python standard
+# library:
 #   - autoload/editorconfig_core/fnmatch.vim
 #   - autoload/editorconfig_core/ini.vim
-License:        BSD and (BSD and Python)
+License:        BSD-2-Clause AND (BSD-2-Clause AND PSF-2.0)
 URL:            https://github.com/editorconfig/%{srcname}
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{core_tests_url}/archive/v%{core_tests_version}/editorconfig-core-test-%{core_tests_version}.tar.gz

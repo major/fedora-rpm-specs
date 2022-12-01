@@ -9,10 +9,10 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A cross-platform clipboard module for Python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/asweigart/%{pypi_name}
 Source0:        %{pypi_source %{pypi_name}}
 BuildArch:      noarch
@@ -154,6 +154,9 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %endif
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.2-3
+- Update License to SPDX
+
 * Fri Aug 12 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.2-2
 - Enable running most of the graphical tests
 - Switch Sphinx documentation to PDF to sidestep guidelines issues

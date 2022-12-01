@@ -7,8 +7,8 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	43%{?dist}
-License:	GPLv2+
+Release:	44%{?dist}
+License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
 BuildRequires:	systemd
@@ -198,6 +198,9 @@ exit 0
 
 
 %changelog
+* Tue Nov 29 2022 Akira TAGOH <tagoh@redhat.com> - 1.0-44
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

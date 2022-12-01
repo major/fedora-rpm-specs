@@ -1,5 +1,5 @@
 Name:           stratis-cli
-Version:        3.3.0
+Version:        3.4.0
 Release:        1%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
@@ -11,7 +11,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{_bindir}/a2x
 # It runs without, but totally useless
-Requires:       (stratisd >= 3.3.0 with stratisd < 4.0.0)
+Requires:       (stratisd >= 3.4.0 with stratisd < 4.0.0)
 
 # stratisd only available on certain arches
 ExclusiveArch:  %{rust_arches} noarch
@@ -62,6 +62,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Tue Nov 29 2022 Bryan Gurney <bgurney@redhat.com> - 3.4.0-1
+- Update to 3.4.0
+
 * Tue Oct 18 2022 Bryan Gurney <bgurney@redhat.com> - 3.3.0-1
 - Update to 3.3.0
 

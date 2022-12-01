@@ -1,31 +1,11 @@
 Name:           src
-Version:        1.28
-Release:        5%{?dist}
+Version:        1.29
+Release:        1%{?dist}
 Summary:        Simple Revision Control
 
 License:        BSD
 URL:            https://gitlab.com/esr/src
 Source0:        https://gitlab.com/esr/src/-/archive/%{version}/%{name}-%{version}.tar.bz2
-
-# Backport upstream commit 1bbebb4a34a4d76a769fe4d70ed735af599add71:
-#
-# Stop issuing branch-tip resets when fast-exporting.
-# 
-# At some point git-fast-export stopped issuing branch-tip resets.
-# Synchronize with it.
-#
-# Fixes test failure:
-#  --- Expected
-#  +++ Actual
-#  @@ -45,6 +45,3 @@
-#   from :4
-#   M 100644 :5 testfile1
-#  
-#  -reset refs/heads/master
-#  -from :6
-#  -
-#  srctest (/usr/bin/python3 rcs): fast-export roundtrip: filename failed'
-Patch0:         src-1.28-backport-1bbebb4a.patch
     
 BuildRequires:  asciidoc
 BuildRequires:  git-core
@@ -74,6 +54,10 @@ echo "${result}"
 %{_mandir}/man1/src.1*
 
 %changelog
+* Tue Nov 29 2022 Bob Hepple <bob.hepple@gmail.com> - 1.29-1
+- new version
+- remove Patch0:src-1.28-backport-1bbebb4a.patch 
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

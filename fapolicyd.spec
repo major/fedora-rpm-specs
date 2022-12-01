@@ -30,8 +30,9 @@ Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
 
-Patch1: fapolicyd-uthash-bundle.patch
 Patch2: fapolicyd-rpm-backend-c99.patch
+# RHEL-specific patches
+Patch100: fapolicyd-uthash-bundle.patch
 
 %description
 Fapolicyd (File Access Policy Daemon) implements application whitelisting
@@ -58,14 +59,13 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 
 # selinux
 %setup -q -D -T -a 1
+%patch2 -p1 -b .c99
 
 %if 0%{?rhel} != 0
 # uthash
 %setup -q -D -T -a 2
-%patch1 -p1 -b .uthash
+%patch100 -p1 -b .uthash
 %endif
-
-%patch2 -p1 -b .c99
 
 # generate rules for python
 sed -i "s/%python2_path%/`readlink -f %{__python2} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules

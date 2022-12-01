@@ -15,7 +15,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 22.08.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -28,6 +28,9 @@ Patch3:  poppler-21.01.0-glib-introspection.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2124527
 Patch4:  poppler-22.08.0-jbig-symbol-overflow.patch
+
+Patch5:  poppler-22.08.0-update-font-after-restore.patch
+Patch6:  poppler-22.08.0-provide-unicode-marker.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -279,6 +282,10 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Tue Nov 29 2022 Marek Kasik <mkasik@redhat.com> - 22.08.0-4
+- Update font after restore in Cairo
+- Provide Unicode marker when ensuring fonts
+
 * Wed Oct 05 2022 Marek Kasik <mkasik@redhat.com> - 22.08.0-3
 - Check for overflow when computing number of symbols
 - in JBIG2 text region

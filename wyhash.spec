@@ -14,9 +14,10 @@ Summary:        No hash function is perfect, but some are useful
 Version:        final1^%{snapdate}git%{tag}
 Release:        %autorelease
 
+# SPDX
+License:        Unlicense
 URL:            https://github.com/wangyi-fudan/wyhash
 Source0:        %{url}/archive/%{tag}/wyhash-%{tag}.tar.gz
-License:        Unlicense
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

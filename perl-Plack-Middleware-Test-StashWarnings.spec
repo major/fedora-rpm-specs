@@ -1,13 +1,12 @@
 Name:           perl-Plack-Middleware-Test-StashWarnings
 Version:        0.08
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Test your application's warnings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack-Middleware-Test-StashWarnings
 Source0:        https://cpan.metacpan.org/authors/id/A/AL/ALEXMV/Plack-Middleware-Test-StashWarnings-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__make}
 BuildRequires:  %{__perl}
 
@@ -35,11 +34,11 @@ make sure your application complains about the right things.
 rm -r inc/
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -51,6 +50,11 @@ rm -r inc/
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.08-28
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

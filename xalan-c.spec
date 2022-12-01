@@ -10,7 +10,10 @@ Version:        1.12.0
 Release:        %autorelease
 Summary:        Xalan XSLT processor for C/C++
 
-License:        ASL 2.0
+# The entire source is Apache-2.0, except cmake/RunTest.cmake, which is
+# libtiff, but is a build-system file that does not contribute to the licenses
+# of the binary RPMs.
+License:        Apache-2.0
 URL:            http://xalan.apache.org/xalan-c/
 %global tag Xalan-C_%(echo '%{version}' | tr . _)
 %global tar_name xalan_c-%(echo %{version} | cut -d . -f -2)

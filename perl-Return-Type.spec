@@ -1,13 +1,12 @@
 Name:           perl-Return-Type
 Version:        0.007
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Specify a return type for a function
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Return-Type
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Return-Type-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
@@ -39,12 +38,11 @@ library are supported.
 %setup -q -n Return-Type-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -57,6 +55,10 @@ library are supported.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.007-8
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

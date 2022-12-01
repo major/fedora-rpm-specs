@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:               greenboot
-Version:            0.15.2
-Release:            2%{?dist}
+Version:            0.15.3
+Release:            1%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPLv2+
 
@@ -11,11 +11,7 @@ License:            LGPLv2+
 %global repo_tag    v%{version}
 
 URL:                https://github.com/%{repo_owner}/%{repo_name}
-Source0:            https://github.com/%{repo_owner}/%{repo_name}/archive/%{repo_tag}.tar.g#/%{name}-%{version}.tar.gz
-# https://github.com/fedora-iot/greenboot/pull/84
-# https://bugzilla.redhat.com/show_bug.cgi?id=2121944
-# Ensure /boot is mounted before greenboot-grub2-set-counter.service runs
-Patch0:             0001-greenboot-grub2-set-counter.service-ensure-boot-is-m.patch
+Source0:            https://github.com/%{repo_owner}/%{repo_name}/archive/%{repo_tag}.tar.gz
 
 ExcludeArch: s390x
 BuildRequires:      systemd-rpm-macros
@@ -54,7 +50,7 @@ Obsoletes:          greenboot-update-platforms-check <= 0.12.0
 %{summary}.
 
 %prep
-%autosetup -p1
+%setup -q
 
 %build
 
@@ -93,7 +89,6 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %systemd_post greenboot-grub2-set-success.service
 %systemd_post greenboot-rpm-ostree-grub2-check-fallback.service
 %systemd_post redboot-auto-reboot.service
-%systemd_post greenboot-service-monitor.service
 
 %post default-health-checks
 %systemd_post greenboot-loading-message.service
@@ -108,7 +103,6 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %systemd_preun greenboot-grub2-set-counter.service
 %systemd_preun greenboot-grub2-set-success.service
 %systemd_preun greenboot-rpm-ostree-grub2-check-fallback.service
-%systemd_preun greenboot-service-monitor.service
 
 %preun default-health-checks
 %systemd_preun greenboot-loading-message.service
@@ -123,7 +117,6 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %systemd_postun greenboot-grub2-set-counter.service
 %systemd_postun greenboot-grub2-set-success.service
 %systemd_postun greenboot-rpm-ostree-grub2-check-fallback.service
-%systemd_postun greenboot-service-monitor.service
 
 %postun default-health-checks
 %systemd_postun greenboot-loading-message.service
@@ -164,8 +157,6 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_unitdir}/greenboot-rpm-ostree-grub2-check-fallback.service
 %{_libexecdir}/%{name}/redboot-auto-reboot
 %{_unitdir}/redboot-auto-reboot.service
-%{_libexecdir}/%{name}/greenboot-service-monitor
-%{_unitdir}/greenboot-service-monitor.service
 %{_sysconfdir}/%{name}/greenboot.conf
 
 %files default-health-checks
@@ -175,6 +166,21 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Tue Nov 29 2022 Packit <hello@packit.dev> - 0.15.3-1
+- Release 0.15.3 (Paul Whalen)
+- packit: add koji, bodhi jobs, upstream url (Paul Whalen)
+- packit.yaml: Fix deprecated and renamed keys. (Paul Whalen)
+- greenboot: fix exit status with unknown argument (Paul Whalen)
+- greenboot-grub2-set-counter.service: ensure /boot is mounted (Adam Williamson)
+- check-fallbback: ShellCheck fix (Micah Abbott)
+- greenboot-grub2-set-counter: ShellCheck fix (Micah Abbott)
+- greenboot-status: fix or statements to default to true (Micah Abbott)
+- update_platforms_check: quote array for ShellCheck fix (Micah Abbott)
+- watchdog.sh: ShellCheck fixes (Micah Abbott)
+- add shellcheck GH action (Micah Abbott)
+- Revert "disable DefaultDependencies to fix cycle error" (Antonio Murdaca)
+- Revert "Add greenboot-service-monitor.service for service health checking" (Antonio Murdaca)
+
 * Fri Sep 23 2022 Adam Williamson <awilliam@redhat.com> - 0.15.2-2
 - Backport PR #84 to fix RHBZ #2121944
 

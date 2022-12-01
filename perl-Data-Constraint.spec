@@ -1,6 +1,6 @@
 Name:           perl-Data-Constraint
 Version:        1.203
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Prototypical value checking
 License:        Artistic-2.0
 
@@ -52,7 +52,7 @@ chmod -x lib/Data/Constraint.pm
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%__make test
+%{__make} test
 
 %files
 %license LICENSE
@@ -61,6 +61,9 @@ chmod -x lib/Data/Constraint.pm
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.203-3
+- Spec file cosmetics.
+
 * Sat Aug 20 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.203-2
 - Reflect feedback from review.
 

@@ -1,6 +1,6 @@
 Name:           ifm
 Version:        5.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Interactive Fiction Mapper
 
 License:        GPLv2+
@@ -10,6 +10,7 @@ Source1:        ifm.sh
 Patch1:         ifm-5.4-destdir.patch
 Patch2:         0001-Fix-variable-name-clash.patch
 Patch3:         0003-Rename-dumb-frotz-to-dfrotz.patch
+Patch4:         ifm-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -32,7 +33,8 @@ the tasks you need to perform in order to solve the game.
 
 %prep
 %autosetup -p1
-
+# Do not attempt to run bison/yacc.
+touch src/ifm-parse.c
 
 %build
 %configure
@@ -61,6 +63,9 @@ install -p -D -m 0755 contrib/rec2scr.pl %{buildroot}%{_bindir}/%{name}-rec2scr.
 %{vimfiles_root}/syntax/%{name}.vim
 
 %changelog
+* Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 5.4-7
+- Port to C99 (#2149238)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

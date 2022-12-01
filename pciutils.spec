@@ -1,6 +1,6 @@
 Name:		pciutils
-Version:	3.8.0
-Release:	2%{?dist}
+Version:	3.9.0
+Release:	1%{?dist}
 Summary:	PCI bus related utilities
 License:	GPLv2+
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -99,6 +99,9 @@ install -p -m 644 lib/libpci.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 %{_mandir}/man7/*
 
 %changelog
+* Tue Nov 29 2022 Michal Hlavinka <mhlavink@redhat.com> - 3.9.0-1
+- updated to 3.9.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pwsafe
 Version:        0.2.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A unix commandline program that manages encrypted password databases
 
 License:        GPLv2+
@@ -9,6 +9,7 @@ Source0:        http://nsd.dyndns.org/pwsafe/releases/pwsafe-%{version}.tar.gz
 
 Patch0:         pwsafe-0.2.0-paste-gnome-terminal.patch
 Patch1:         pwsafe-0.2.0-aarch64.patch
+Patch2:         pwsafe-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -25,6 +26,7 @@ Compatible with CounterPane's PasswordSafe Win32 program versions 2.x and 1.x.
 %setup -q
 %patch0 -p0 -b .paste-gnome-terminal
 %patch1 -p1 -b .aarch64
+%patch2 -p1 -b .configure.c99
 
 
 %build
@@ -50,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 0.2.0-38
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

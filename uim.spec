@@ -6,7 +6,7 @@
 
 Name:		uim
 Version:	1.8.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
@@ -34,6 +34,7 @@ Source0:	https://github.com/uim/uim/releases/download/%{version}/uim-%{version}.
 Source1:	xinput.d-uim
 Source2:	uim-init.el
 Patch1:		uim-emacs-utf8.patch
+Patch2:		uim-configure-c99.patch
 
 
 Summary:	A multilingual input method library
@@ -495,6 +496,9 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 1.8.9-2
+- Port configure script to C99
+
 * Thu Aug 25 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.9-1
 - New upstream release.
   Resolves: rhbz#2119935

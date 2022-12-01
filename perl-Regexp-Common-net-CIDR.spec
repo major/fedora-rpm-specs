@@ -1,18 +1,20 @@
 Name:           perl-Regexp-Common-net-CIDR
 Version:        0.03
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Provide patterns for CIDR blocks
-License:        GPLv2
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Regexp-Common-net-CIDR
 Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Regexp-Common-net-CIDR-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Regexp::Common)
+
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
@@ -36,15 +38,15 @@ done
 %build
 # --skipdeps causes ExtUtils::AutoInstall not to try auto-installing
 # missing modules
-%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc README
@@ -52,6 +54,11 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.03-23
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

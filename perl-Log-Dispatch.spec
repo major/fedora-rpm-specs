@@ -16,9 +16,9 @@
 
 Name:           perl-Log-Dispatch
 Version:        2.70
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Dispatches messages to one or more outputs
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Log-Dispatch
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Log-Dispatch-%{version}.tar.gz
 
@@ -134,7 +134,7 @@ represented by the Apache::Log class.
 %setup -q -n Log-Dispatch-%{version}
 
 %build
-perl Makefile.PL installdirs=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{__perl} Makefile.PL installdirs=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -142,7 +142,7 @@ perl Makefile.PL installdirs=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test %{?with_release_tests:RELEASE_TESTING=1} \
+%{__make} test %{?with_release_tests:RELEASE_TESTING=1} \
     %{?with_email_tests:LOG_DISPATCH_TEST_EMAIL="root@localhost.localdomain"}
 
 %files
@@ -160,6 +160,10 @@ make test %{?with_release_tests:RELEASE_TESTING=1} \
 %endif
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.70-9
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.70-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:               bacula
 Version:            13.0.1
-Release:            2%{?dist}
+Release:            4%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -41,6 +41,7 @@ Patch8:             %{name}-docker-plugin.patch
 # required by the daemons.
 # http://bugs.bacula.org/view.php?id=2084
 Patch9:             %{name}-autoconf.patch
+Patch10:            %{name}-scripts.patch
 
 BuildRequires:      desktop-file-utils
 BuildRequires:      perl-generators
@@ -183,6 +184,7 @@ Requires:           bacula-libs%{?_isa} = %{version}-%{release}
 Requires:           bacula-libs-sql%{?_isa} = %{version}-%{release}
 Requires:           mt-st
 Requires:           mtx
+Requires:           sdparm
 # Storage backends merged into core.
 Provides:           bacula-storage-common = %{version}-%{release}
 Obsoletes:          bacula-storage-common < 5.2.2-2
@@ -640,6 +642,12 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-4
+- Fix isworm script.
+
+* Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-3
+- Require sdparm in storage subpackage. It's required for WORM tapes.
+
 * Mon Nov 21 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-2
 - Add separate firewall rules for storage/director only.
 

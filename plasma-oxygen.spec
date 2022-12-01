@@ -3,8 +3,8 @@
 %global         base_name oxygen
 
 Name:    plasma-%{base_name}
-Version: 5.26.3
-Release: 2%{?dist}
+Version: 5.26.4
+Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma 5 and KDE 4
 
 License: GPLv2+
@@ -200,6 +200,9 @@ rm -rfv %{buildroot}%{_kf5_datadir}/plasma/look-and-feel/org.kde.oxygen/
 
 
 %changelog
+* Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
+- 5.26.4
+
 * Mon Nov 14 2022 Marc Deop marcdeop@fedoraproject.org - 5.26.3-2
 - Relax version dependency on oxygen-sound-theme
 

@@ -2,10 +2,10 @@
 
 Name:           tomoe-gtk
 Version:        %{tomoe_ver}
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Gtk library for tomoe for Japanese and Chinese handwritten input
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://sourceforge.net/projects/tomoe/
 Source0:        http://downloads.sourceforge.net/project/tomoe/%{name}/%{name}-%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-0.6.0-rpath.patch
@@ -87,6 +87,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gtk-doc/html/lib%{name}/
 
 %changelog
+* Mon Nov 28 2022 Takao Fujiwara <tfujiwar@redhat.com> - 0.6.0-41
+- Migrate license tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

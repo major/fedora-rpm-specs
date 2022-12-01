@@ -2,7 +2,7 @@
 
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.26.3
+Version: 5.26.4
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -77,6 +77,9 @@ pieces of KDE infrastructure.
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
+- 5.26.4
+
 * Wed Nov 09 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.3-1
 - 5.26.3
 

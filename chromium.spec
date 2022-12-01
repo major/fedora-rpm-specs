@@ -164,7 +164,7 @@ BuildRequires:  libicu-devel >= 5.4
 %global gtk3 1
 
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
-%global dts_version 12
+%global dts_version 11
 
 %global bundleopus 1
 %global bundlelibusbx 1
@@ -229,7 +229,7 @@ Name:		chromium%{chromium_channel}%{nsuffix}
 %else
 Name:		chromium%{chromium_channel}
 %endif
-Version:	%{majorversion}.0.5304.110
+Version:	%{majorversion}.0.5304.121
 Release:	1%{?dist}
 %if %{?freeworld}
 %if %{?shared}
@@ -1666,7 +1666,7 @@ sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' $FILE
 %build
 # utf8 issue in epel7
 # Internal parsing error 'ascii' codec can't decode byte 0xe2 in position 474: ordinal not in range(128)
-export LC_CTYPE=en_US.UTF-8
+export LC_CTYPE=C.UTF-8
 
 # Turning the buildsystem up to 11.
 ulimit -n 4096
@@ -2181,6 +2181,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 
 
 %changelog
+* Tue Nov 29 2022 Than Ngo <than@redhat.com> - 107.0.5304.121-1
+- update to 107.0.5304.121
+
 * Fri Nov 11 2022 Than Ngo <than@redhat.com> - 107.0.5304.110-1
 - update to 107.0.5304.110
 

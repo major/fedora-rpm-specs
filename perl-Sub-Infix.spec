@@ -1,13 +1,12 @@
 Name:           perl-Sub-Infix
 Version:        0.004
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Create a fake infix operator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Infix
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Sub-Infix-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
@@ -36,16 +35,15 @@ source filters, or Devel::Declare, or any of that magic.
 %setup -q -n Sub-Infix-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README CREDITS
@@ -54,6 +52,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.004-19
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

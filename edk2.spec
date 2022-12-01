@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -588,6 +588,9 @@ done
 
 
 %changelog
+* Tue Nov 29 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-3
+- fix build script
+
 * Mon Nov 28 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-2
 - add workaround for broken grub
 

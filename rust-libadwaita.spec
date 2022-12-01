@@ -5,15 +5,13 @@
 %global crate libadwaita
 
 Name:           rust-libadwaita
-Version:        0.1.1
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Rust bindings for libadwaita
 
 License:        MIT
 URL:            https://crates.io/crates/libadwaita
 Source:         %{crates_source}
-# Add missing LICENSE file from upstream
-Source:         https://gitlab.gnome.org/World/Rust/libadwaita-rs/-/raw/master/LICENCE
 
 BuildRequires:  rust-packaging >= 21
 
@@ -33,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENCE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -95,9 +94,32 @@ use the "gtk_v4_6" feature of the "%{crate}" crate.
 %files       -n %{name}+gtk_v4_6-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp %{SOURCE1} LICENCE
 %cargo_prep
 
 %generate_buildrequires

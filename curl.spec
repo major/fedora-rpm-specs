@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 7.86.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -431,6 +431,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Nov 29 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-4
+- noproxy: tailmatch like in 7.85.0 and earlier (#2149224)
+
 * Thu Nov 24 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-3
 - enforce versioned libnghttp2 dependency for libcurl (#2144277)
 

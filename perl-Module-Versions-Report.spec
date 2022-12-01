@@ -1,16 +1,18 @@
 Name:           perl-Module-Versions-Report
 Version:        1.06
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Report versions of all modules in memory
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Versions-Report
 Source0:        https://cpan.metacpan.org/authors/id/J/JE/JESSE/Module-Versions-Report-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+BuildRequires:  %{__perl}
+
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(:VERSION) >= 5.4
@@ -43,18 +45,17 @@ detailing the all modules in memory, and noting the version of each
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 
 %check
-make test
+%{__make} test
 
 
 %files
@@ -64,6 +65,10 @@ make test
 
 
 %changelog
+* Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.06-42
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

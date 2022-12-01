@@ -3,7 +3,16 @@ Version:        1.1.0
 Release:        %autorelease
 Summary:        Tool to list X11 core protocol fonts
 
-License:        MIT
+# The entire source is X11, except the following files that are not installed
+# or belong to the build system and therefore do not contribute to the license
+# of the binary RPMs:
+#   - FSFAP: INSTALL
+#   - HPND-sell-variant: Makfile.am, Makefile.in, configure.ac
+#   - FSFULLR: aclocal.m4
+#   - GPL-2.0-or-later: compile, depcomp, missing
+#   - GPL-3.0-or-later: config.guess, config,sub
+#   - FSFUL, or perhaps (X11 AND HPND-sell-variant): configure
+License:        X11
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz
 Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig

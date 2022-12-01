@@ -1,6 +1,6 @@
 Name:		kpcli	
 Version:	3.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KeePass Command Line Interface (CLI) / interactive shell
 License:	GPL+ or Artistic
 BuildArch:	noarch
@@ -39,6 +39,9 @@ install -p -m0755 %{name}-%{version}.pl %{buildroot}%{_bindir}/%{name}
 %{_bindir}/kpcli
 
 %changelog
+* Tue Nov 29 2022 Charles R. Anderson <cra@alum.wpi.edu> - 3.8.1-2
+- Bump to build/update older branches
+
 * Sat Jul 23 2022 Charles R. Anderson <cra@alum.wpi.edu> - 3.8.1-1
 - Update to 3.8.1
 - Rename README to README.txt to match upstream
