@@ -1,6 +1,6 @@
 Name:    kdepim-addons
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: GPLv2 and LGPLv2+
@@ -19,7 +19,11 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 ## upstream patches (master)
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
-%{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
+# libphonenumber is not build for i686 anymore (i686 is not in
+# %%{java_arches}), see https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
+# Since libphonenumber is a transitive dependency of this package, we must
+# drop i686 support as well
+%{?qt5_qtwebengine_arches:ExclusiveArch: %(echo %{qt5_qtwebengine_arches} | sed -e 's/i686//g')}
 
 BuildRequires:  extra-cmake-modules >= 5.39.0
 BuildRequires:  kf5-rpm-macros
@@ -179,6 +183,12 @@ Supplements:    korganizer
 
 
 %changelog
+* Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-3
+- Drop i686
+
+* Wed Nov 30 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
+- Rebuild for gpgme 1.17.1
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

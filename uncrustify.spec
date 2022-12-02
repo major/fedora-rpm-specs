@@ -1,5 +1,5 @@
 Name:		uncrustify
-Version:	0.75.1
+Version:	0.76.0
 Release:	%autorelease
 Summary:	Reformat Source
 

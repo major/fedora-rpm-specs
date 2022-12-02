@@ -1,23 +1,29 @@
 Name:               girara
-Version:            0.3.7
-Release:            2%{?dist}
+Version:            0.3.8
+Release:            1%{?dist}
 Summary:            Simple user interface library
-License:            zlib
+License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
 Source0:            https://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
 
-BuildRequires:      binutils
+#BuildRequires:      binutils
 BuildRequires:      gcc
 BuildRequires:      gettext
 BuildRequires:      glib2-devel >= 2.50
 BuildRequires:      gtk3-devel >= 3.20
 BuildRequires:      intltool
-BuildRequires:      json-c-devel
-BuildRequires:      libnotify-devel >= 0.7.0
 BuildRequires:      meson >= 0.56
 BuildRequires:      pango-devel >= 1.14
+
+%if 0%{?fedora}
+BuildRequires:      pkgconfig(json-glib-1.0)
 # Tests
-BuildRequires:      check-devel
+#BuildRequires:      pkgconfig(check) >= 0.11
+%endif
+
+# from Upstream: Mark girara_libnotify as deprecated
+#BuildRequires:      libnotify-devel >= 0.7.0
+
 
 %global girara_locales  lib%{name}-gtk3-3
 
@@ -38,7 +44,7 @@ developing applications that use %{name}.
 %setup -q
 
 %build
-%meson -Dnotify=enabled -Ddocs=disabled
+%meson -Ddocs=disabled -Dtests=disabled
 %meson_build
 
 %install
@@ -57,7 +63,15 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/girara-gtk3.pc
 %{_libdir}/libgirara-gtk3.so
 
+
 %changelog
+* Tue Nov 29 2022 Alain Vigne <avigne@fedoraproject.org> - 0.3.8-1
+- 0.3.8 bump (rhbz#2148740)
+- Switch to json-glib, where available
+- Disable notify
+- Tests are disabled
+- SPDX license identifier
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

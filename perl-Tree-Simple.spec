@@ -1,8 +1,8 @@
 Name: 		perl-Tree-Simple
 Version: 	1.34
-Release: 	6%{?dist}
+Release: 	7%{?dist}
 Summary: 	Tree::Simple Perl module
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Tree-Simple
 Source0: 	https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Tree-Simple-%{version}.tgz
 BuildArch: 	noarch
@@ -29,11 +29,11 @@ A simple tree object.
 %setup -q -n Tree-Simple-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -46,6 +46,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.34-7
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

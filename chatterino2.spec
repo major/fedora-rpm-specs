@@ -2,7 +2,7 @@
 ExcludeArch: %{ix86}
 
 %global uuid com.chatterino.chatterino
-%global chatterino_git_commit 82797898c12e173e8300941eee04d4038fd01352
+%global chatterino_git_commit a0f9310062721e742ccd1cc869e4cc40ef626c0f
 %global tarball_version %%(echo %{version} | tr '~' '-')
 
 # Git submodules
@@ -36,7 +36,7 @@ ExcludeArch: %{ix86}
 
 
 Name:           chatterino2
-Version:        2.4.0~beta
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 

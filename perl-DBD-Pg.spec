@@ -4,7 +4,7 @@
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
 Version:        3.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -100,6 +100,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.16.0-2
+- Rebuild for new PostgreSQL 15
+
 * Mon Aug 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.16.0-1
 - 3.16.0 bump
 

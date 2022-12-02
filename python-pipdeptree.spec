@@ -6,7 +6,7 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.3.1
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        Command line utility to show dependency tree of packages
 
@@ -57,6 +57,10 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %{_bindir}/pipdeptree
 
 %changelog
+* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 2.3.3-1
+- Update to 2.3.3
+Resolves: rhbz#2138912
+
 * Wed Sep 07 2022 Lumír Balhar <lbalhar@redhat.com> - 2.3.1-1
 - Update to 2.3.1
 Resolves: rhbz#2124639

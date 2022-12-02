@@ -1,8 +1,8 @@
 Name: 		perl-Text-Quoted
 Version: 	2.10
-Release: 	13%{?dist}
+Release: 	14%{?dist}
 Summary: 	Extract the structure of a quoted mail message
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Text-Quoted
 Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Text-Quoted-%{version}.tar.gz
 
@@ -10,7 +10,6 @@ BuildArch: 	noarch
 
 Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
-BuildRequires: make
 BuildRequires: %{__perl}
 BuildRequires: %{__make}
 
@@ -34,16 +33,15 @@ different levels of quoting, and turns the text into a nested data structure.
 rm -rf inc
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README
@@ -51,6 +49,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.10-14
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

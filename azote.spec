@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.9.5
-Release:   4%{?dist}
+Version:   1.9.7
+Release:   1%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
@@ -53,6 +53,11 @@ desktop-file-edit --set-icon %{_datadir}/%{name}/%{name}.svg dist/%{name}.deskto
 install -p -D -m 0644 -t %{buildroot}/%{_datadir}/applications dist/%{name}.desktop
 install -p -D -m 0644 -t %{buildroot}/%{_datadir}/%{name} dist/*.png dist/*.svg
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+for lib in %{buildroot}%{python3_sitelib}/%{name}/*.py; do
+ sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
+ touch -r $lib $lib.new &&
+ mv $lib.new $lib
+done
 
 %files
 %{python3_sitelib}/%{name}/
@@ -66,14 +71,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Wed Nov 30 2022 Bob Hepple <bob.hepple@gmail.com> - 1.9.7-1
+- new version
+- remove shebangs from library files
 
-* Wed Jul 13 2022 James Harmison <jharmison@gmail.com> - 1.9.5-3
+* Wed Jul 13 2022 James Harmison <jharmison@gmail.com> - 1.9.5-2
 - Fix for Python library path
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.9.5-2
-- Rebuilt for Python 3.11
 
 * Wed Jun 01 2022 Bob Hepple <bob.hepple@gmail.com> - 1.9.5-1
 - new version

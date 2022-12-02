@@ -1,15 +1,15 @@
 %define __cmake_in_source_build 1
 
 Name: libfm-qt
-Version: 1.1.0
-Release: 4%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: Companion library for PCManFM
 License: GPLv2+
-URL: http://lxqt.org
+URL: https://lxqt-project.org
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires: lxqt-build-tools >= 0.10.0
+BuildRequires: lxqt-build-tools >= 0.12.0
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: qt5-qtbase-private-devel
@@ -19,7 +19,7 @@ BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0)
 BuildRequires: pkgconfig(libfm)
-BuildRequires: pkgconfig(lxqt) >= 1.0.0
+BuildRequires: pkgconfig(lxqt) >= 1.2.0
 BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: pkgconfig(libmenu-cache) >= 0.3.0
 BuildRequires: libexif-devel
@@ -88,8 +88,8 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt.so.11
-%{_libdir}/libfm-qt.so.11.0.0
+%{_libdir}/libfm-qt.so.12
+%{_libdir}/libfm-qt.so.12.0.0
 %{_datadir}/libfm-qt
 
 %files devel
@@ -108,6 +108,9 @@ sed -i "s/Requires:.*/Requires: Qt5Widgets Qt5X11Extras/" %{buildroot}/%{_libdir
 %dir %{_datadir}/libfm-qt/translations
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Fri Sep 23 2022 Jan Grulich <jgrulich@redhat.com> - 1.1.0-4
 - Drop hardcoded Qt version requirement
 

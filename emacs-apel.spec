@@ -3,10 +3,10 @@
 
 Name:		emacs-%{pkg}
 Version:	10.8
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A Portable Emacs Library
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://cvs.m17n.org/elisp/APEL/index.en.html
 Source0:	http://kanji.zinbun.kyoto-u.ac.jp/~tomo/lemi/dist/apel/%{pkg}-%{version}.tar.gz
 
@@ -49,6 +49,9 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 %dir %{_emacs_sitelispdir}/%{pkg}
 
 %changelog
+* Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 10.8-24
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

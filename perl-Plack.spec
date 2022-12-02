@@ -36,9 +36,9 @@
 
 Name:           perl-Plack
 Version:        1.0050
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Plack-%{version}.tar.gz
 # Adapt tests to Fedora's httpd 2.4
@@ -363,6 +363,9 @@ export TEST_APACHE2=0
 %{perl_vendorlib}/auto/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.0050-2
+- Convert license to SPDX.
+
 * Mon Sep 12 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.0050-1
 - Upstream update.
 - Modernize spec.

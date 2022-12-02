@@ -1,10 +1,10 @@
 Name:           perl-Test-Exports
 Version:        1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Test that modules export the right symbols
 # 2-clause BSD with advertising
 # c.f. lib/Test/Exports.pm
-License:        BSD
+License:        BSD-2-Clause
 
 URL:            http://metacpan.org/dist/Test-Exports/
 Source0:        http://cpan.metacpan.org/authors/id/B/BM/BMORROW/Test-Exports-%{version}.tar.gz
@@ -52,6 +52,9 @@ been imported.
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1-3
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

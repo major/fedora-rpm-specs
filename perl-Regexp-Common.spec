@@ -1,16 +1,15 @@
 Name:		perl-Regexp-Common
 Version:	2017060201
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Regexp::Common Perl module
 # Old Artistic 1.0 is also valid, but we won't list it here since it is non-free.
 # Also, it would throw off the automated license check and flag this package.
-License:	Artistic 2.0 or MIT or BSD
+License:	Artistic-2.0 OR MIT OR BSD-3-Clause
 URL:		https://metacpan.org/release/Regexp-Common
 Source0:	https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-%{version}.tar.gz
 
 BuildArch: noarch
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
@@ -38,11 +37,11 @@ Regexp::Common - Provide commonly requested regular expressions
 %setup -q -n Regexp-Common-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -54,6 +53,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2017060201-20
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2017060201-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,16 +2,16 @@
 
 Name:           python-%{srcname}
 Version:        0.2.9.post1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
-# The entire source is ASL 2.0, except the following, which are OFL (but are
-# not packaged, so they do not contribute to the overall package License
-# field):
-#   - tests/data/SourceSansPro-Regular.subset.ttx
-#   - tests/data/SourceSansVariable-Regular.subset.ttx
+# The entire source is Apache-2.0, except:
+# - These are derived from fonts licened OFL-1.1, but are not packaged, so they
+#   do not contribute to the licenses of the binary RPMs:
+#   • tests/data/SourceSansPro-Regular.subset.ttx
+#   • tests/data/SourceSansVariable-Regular.subset.ttx
 # See NOTICE.
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.org/project/%{srcname}
 Source0:        %{pypi_source %{srcname}}
 # Written for Fedora in groff_man(7) format based on the output of “cffsubr --help”
@@ -97,6 +97,9 @@ k="${k-}${k+ and }not (TestSubroutinize and test_non_standard_upem_mute_font_mat
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.9.post1-5
+- Update License to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.post1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

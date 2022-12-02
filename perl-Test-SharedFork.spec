@@ -2,14 +2,16 @@ Name:           perl-Test-SharedFork
 Summary:        Fork test
 Version:        0.35
 Release:        23%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-SharedFork-%{version}.tar.gz
 URL:            https://metacpan.org/release/Test-SharedFork
 
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
-BuildRequires:  make
+BuildRequires:  %{__perl}
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(App::Prove)
@@ -42,15 +44,15 @@ by keeping the test count consistent between parent and child processes.
 %setup -q -n Test-SharedFork-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes
@@ -59,6 +61,10 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.35-24
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

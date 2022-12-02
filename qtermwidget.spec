@@ -2,8 +2,8 @@
 %global SOVERSION 5
 
 Name:		qtermwidget
-Version:	1.1.0
-Release:	2%{?dist}
+Version:	1.2.0
+Release:	1%{?dist}
 License:	GPLv2+
 Summary:	Qt5 terminal widget
 URL:		https://github.com/lxqt/%{name}/
@@ -71,7 +71,7 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_libdir}/lib%{name}%{SOVERSION}.so.1
-%{_libdir}/lib%{name}%{SOVERSION}.so.1.1.0
+%{_libdir}/lib%{name}%{SOVERSION}.so.1.2.0
 %{_datadir}/%{name}%{SOVERSION}
 
 %files devel
@@ -87,6 +87,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %dir %{_datadir}/qtermwidget5/translations
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

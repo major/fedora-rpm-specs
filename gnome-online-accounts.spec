@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.46.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPLv2+
@@ -17,6 +17,8 @@ Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.46/%{name}-%
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
+Patch1:         112.patch
+
 
 BuildRequires:	pkgconfig(gcr-3)
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib2_version}
@@ -61,6 +63,8 @@ developing applications that use %{name}.
 %if 0%{?rhel} >= 9
 %patch0 -p1
 %endif
+
+%patch1 -p1
 
 %build
 %meson \
@@ -115,6 +119,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Wed Nov 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.46.0-2
+- Patch for multiple credential cache issues.
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.46.0-1
 - 3.46.0
 

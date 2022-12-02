@@ -45,7 +45,7 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.17
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -277,7 +277,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgs
 %{_sbindir}/vgscan
 %{_sbindir}/vgsplit
-%{_libexecdir}/lvresize_fs_helper
+%{attr(755, -, -)} %{_libexecdir}/lvresize_fs_helper
 %{_mandir}/man5/lvm.conf.5.gz
 %{_mandir}/man7/lvmautoactivation.7.gz
 %{_mandir}/man7/lvmcache.7.gz
@@ -656,6 +656,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Wed Nov 30 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.17-2
+- Fix permission issue.
+
 * Wed Nov 16 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.17-1
 - Update to upstream version 2.03.17.
 - Add new options (--fs, --fsmode) for FS handling when resizing LVs.

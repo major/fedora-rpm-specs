@@ -1,13 +1,13 @@
 Name: 		perl-Text-Glob
 Version: 	0.11
-Release: 	18%{?dist}
+Release: 	19%{?dist}
 Summary: 	Perl module to match globbing patterns against text
-License: 	GPL+ or Artistic
+License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Text-Glob
 Source0: 	https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Text-Glob-%{version}.tar.gz
 
 BuildArch: noarch
-BuildRequires: make
+
 BuildRequires:  perl-generators
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
@@ -29,11 +29,11 @@ want to do full file globbing use the File::Glob module instead.
 %setup -q -n Text-Glob-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %check
@@ -45,6 +45,10 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.11-19
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

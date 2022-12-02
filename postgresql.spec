@@ -63,9 +63,9 @@
 
 Summary: PostgreSQL client programs
 Name: postgresql
-%global majorversion 14
-Version: %{majorversion}.3
-Release: 10%{?dist}
+%global majorversion 15
+Version: %{majorversion}.0
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -76,8 +76,8 @@ Url: http://www.postgresql.org/
 # in-place upgrade of an old database.  In most cases it will not be critical
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
-%global prevmajorversion 13
-%global prevversion %{prevmajorversion}.7
+%global prevmajorversion 14
+%global prevversion %{prevmajorversion}.3
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -118,10 +118,8 @@ Patch10: postgresql-datalayout-mismatch-on-s390.patch
 Patch12: postgresql-no-libecpg.patch
 # This patch disables deprecated ciphers in the test suite
 Patch14: postgresql-pgcrypto-openssl3-tests.patch
-# Fix compatibility with Python 3.11
-Patch15: postgresql-SPI-s-handling-of-errors-during-transaction-comm.patch
-# Fix compatibility with Perl 5.36
-Patch16: postgresql-pl-perl-test-case.patch
+# This patch enables to build PostgreSQL 15 with llvm 15
+Patch15: postgresql-15.0-llvm_pointer.patch
 
 BuildRequires: make
 BuildRequires: lz4-devel
@@ -129,6 +127,7 @@ BuildRequires: gcc
 BuildRequires: perl(ExtUtils::MakeMaker) glibc-devel bison flex gawk
 BuildRequires: perl(ExtUtils::Embed), perl-devel
 BuildRequires: perl(Opcode)
+BuildRequires: perl-FindBin
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: perl-generators
 %endif
@@ -444,7 +443,6 @@ goal of accelerating analytics queries.
 %patch10 -p1
 %patch14 -p1
 %patch15 -p1
-%patch16 -p1
 # We used to run autoconf here, but there's no longer any real need to,
 # since Postgres ships with a reasonably modern configure script.
 
@@ -1001,6 +999,7 @@ make -C postgresql-setup-%{setup_version} check
 %{_datadir}/pgsql/extension/pg_surgery*
 %{_datadir}/pgsql/extension/pg_trgm*
 %{_datadir}/pgsql/extension/pg_visibility*
+%{_datadir}/pgsql/extension/pg_walinspect*
 %{_datadir}/pgsql/extension/pgcrypto*
 %{_datadir}/pgsql/extension/pgrowlocks*
 %{_datadir}/pgsql/extension/pgstattuple*
@@ -1059,6 +1058,9 @@ make -C postgresql-setup-%{setup_version} check
 %{_libdir}/pgsql/pg_surgery.so
 %{_libdir}/pgsql/pg_trgm.so
 %{_libdir}/pgsql/pg_visibility.so
+%{_libdir}/pgsql/basebackup_to_shell.so
+%{_libdir}/pgsql/basic_archive.so
+%{_libdir}/pgsql/pg_walinspect.so
 %{_libdir}/pgsql/pgcrypto.so
 %{_libdir}/pgsql/pgrowlocks.so
 %{_libdir}/pgsql/pgstattuple.so
@@ -1265,6 +1267,12 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Sep 27 2022 Ondrej Sloup <osloup@redhat.com> - 15.1-1
+- Update to v15
+- Add llvm pointer patch
+- Add new build require for perl-FindBin
+- Resolves: https://fedoraproject.org/wiki/Changes/PostgreSQL_15
+
 * Thu Sep 01 2022 Ondrej Sloup <osloup@redhat.com> - 14.3-10
 - Add dependency on util-linux to make runuser available (rhbz#2071437)
 

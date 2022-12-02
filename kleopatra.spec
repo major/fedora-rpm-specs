@@ -1,6 +1,6 @@
 Name:    kleopatra
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
 # code: GPLv2+
@@ -102,6 +102,9 @@ rm -fv %{buildroot}%{_kf5_libdir}/libkleopatraclientgui.so
 %{_kf5_qtplugindir}/pim5/kcms/kleopatra/kleopatra_config_gnupgsystem.so
 
 %changelog
+* Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
+- Rebuild for gpgme 1.17.1
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

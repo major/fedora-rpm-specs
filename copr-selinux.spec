@@ -10,18 +10,17 @@
 %global selinuxvariants targeted
 
 Name:       copr-selinux
-Version:    1.53
-Release:    7%{?dist}
+Version:    1.54
+Release:    1%{?dist}
 Summary:    SELinux module for COPR
 
 License:    GPLv2+
-URL:        https://pagure.io/copr/copr
+URL:        https://github.com/fedora-copr/copr
+
 # Source is created by:
-# git clone https://pagure.io/copr/copr.git
-# git checkout copr-selinux-1.53
-# cd copr/selinux
-# rpkg spec --sources
-Source0:    copr-selinux-1.53.tar.gz
+# git clone %%url && cd copr
+# tito build --tgz --tag %%name-%%version-%%release
+Source0:    %name-%version.tar.gz
 
 BuildArch:  noarch
 BuildRequires: asciidoc
@@ -111,23 +110,9 @@ done
 %{_mandir}/man8/%{name}-relabel.8*
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.53-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+* Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 1.54-1
+- new package built with tito
+- httpd_t on copr-frontend has the rights to link copr_data_t files (uploaded stuff)
 
 * Mon Feb 11 2019 Jakub Kadlčík <frostyx@email.cz> 1.53-1
 - Add more rules for keygen (follow-up to 4f689743)

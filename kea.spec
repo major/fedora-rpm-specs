@@ -6,7 +6,7 @@
 
 Name:           kea
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
 License:        MPLv2.0 and Boost
@@ -225,6 +225,9 @@ EOF
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 2.2.0-2
+- Rebuild for new PostgreSQL 15
+
 * Wed Jul 27 2022 Martin Osvald <mosvald@redhat.com> - 2.2.0-1
 - New version 2.2.0
 - Add source code signature verification

@@ -33,7 +33,7 @@ find . -type f -exec dos2unix '{}' '+'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

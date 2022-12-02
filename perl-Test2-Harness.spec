@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000133
-Version:        1.0.133
+%global cpan_version 1.000136
+Version:        1.0.136
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -86,6 +86,7 @@ BuildRequires:  perl(Test2::Util::Times)
 BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(Time::HiRes)
 # Win32::Console::ANSI not used on Linux
+BuildRequires:  perl(YAML::Tiny)
 # Tests:
 BuildRequires:  perl(base)
 BuildRequires:  perl(lib)
@@ -219,7 +220,8 @@ ln -s $(realpath --relative-to %{buildroot}%{_libexecdir}/%{name} \
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/bash
 set -e
-# t/integration/test.t writes into CWD
+# t/integration/test.t writes into CWD,
+# <https://github.com/Test-More/Test2-Harness/issues/259>
 DIR=$(mktemp -d)
 cp -a %{_libexecdir}/%{name}/* "$DIR"
 pushd "$DIR"
@@ -227,9 +229,11 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     FAILURE_DO_PASS GIT_BRANCH GIT_COMMAND GIT_LONG_SHA GIT_SHORT_SHA GIT_STATUS \
     HARNESS_IS_VERBOSE NESTED_YATH RESOURCE_TEST \
     T2_HARNESS_IS_VERBOSE T2_HARNESS_JOB_IS_TRY T2_HARNESS_JOB_FILE \
-    T2_HARNESS_STAGE \
-    TEST2_HARNESS_LOG_FORMAT TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_LOG_FILE_FORMAT
+    T2_HARNESS_MY_JOB_CONCURRENCY T2_HARNESS_MY_JOB_COUNT \
+    T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
+    T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
+    TEST2_HARNESS_NO_WRITE_TEST_INFO \
+    YATH_LOG_FILE_FORMAT YATH_SELF_TEST
 export AUTOMATED_TESTING=1
 T2_HARNESS_JOB_COUNT="$(getconf _NPROCESSORS_ONLN)" ./test.pl
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r ./t
@@ -243,9 +247,11 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     FAILURE_DO_PASS GIT_BRANCH GIT_COMMAND GIT_LONG_SHA GIT_SHORT_SHA GIT_STATUS \
     HARNESS_IS_VERBOSE NESTED_YATH RESOURCE_TEST \
     T2_HARNESS_IS_VERBOSE T2_HARNESS_JOB_IS_TRY T2_HARNESS_JOB_FILE \
-    T2_HARNESS_STAGE \
-    TEST2_HARNESS_LOG_FORMAT TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_LOG_FILE_FORMAT
+    T2_HARNESS_MY_JOB_CONCURRENCY T2_HARNESS_MY_JOB_COUNT \
+    T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
+    T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
+    TEST2_HARNESS_NO_WRITE_TEST_INFO \
+    YATH_LOG_FILE_FORMAT YATH_SELF_TEST
 export AUTOMATED_TESTING=1
 export T2_HARNESS_JOB_COUNT=$(perl -e \
     'for (@ARGV) { $j=$1 if m/\A-j(\d+)\z/; }; $j=1 unless $j; print "$j"' -- \
@@ -259,14 +265,30 @@ make test
 %license LICENSE
 %doc Changes README TODO
 %{_bindir}/yath
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/Yath
+%{perl_vendorlib}/App/Yath.pm
+%dir %{perl_vendorlib}/Test2
+%{perl_vendorlib}/Test2/Formatter
+%{perl_vendorlib}/Test2/Harness
+%{perl_vendorlib}/Test2/Harness.pm
+%dir %{perl_vendorlib}/Test2/Tools
+%{perl_vendorlib}/Test2/Tools/HarnessTester.pm
+%{_mandir}/man1/yath.*
+%{_mandir}/man3/App::Yath.*
+%{_mandir}/man3/App::Yath::*
+%{_mandir}/man3/Test2::Formatter*
+%{_mandir}/man3/Test2::Harness.*
+%{_mandir}/man3/Test2::Harness::*
+%{_mandir}/man3/Test2::Tools::HarnessTester.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 1.0.136-1
+- 1.000136 bump
+
 * Thu Sep 08 2022 Petr Pisar <ppisar@redhat.com> - 1.0.133-1
 - 1.000133 bump
 

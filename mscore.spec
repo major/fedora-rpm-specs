@@ -4,7 +4,7 @@
 Name:          mscore
 Summary:       Music Composition & Notation Software
 Version:       %{shortver}.2
-Release:       12%{?dist}
+Release:       13%{?dist}
 # The MuseScore project itself is GPL-2.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
 # - rtf2html is LGPL-2.1-or-later
@@ -131,6 +131,8 @@ Patch3:        %{name}-3.5.0-aeolus.patch
 Patch4:        %{name}-3.6.2-qt-deprecation.patch
 # Update the AppData file to fix validation errors
 Patch5:        %{name}-3.6.2-appdata.patch
+# Fix failure to cleanup audio drivers (bz 2055986)
+Patch6:        %{name}-3.6.2-audio-driver-cleanup.patch
 
 BuildRequires: appstream
 BuildRequires: cmake
@@ -312,22 +314,7 @@ metainfo="%{buildroot}%{_metainfodir}/%{fontorg}.mscore-bc-fonts.metainfo.xml \
 %{buildroot}%{_metainfodir}/%{fontorg}.mscore-musejazz-fonts.metainfo.xml"
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,OFL,OFL-1.1,' \
-    -e 's,updatecontact,update_contact,g' \
-    -i %{buildroot}%{_metainfodir}/%{fontorg}.mscore-bc-fonts.metainfo.xml \
-       %{buildroot}%{_metainfodir}/%{fontorg}.mscore-edwin-fonts.metainfo.xml \
-       %{buildroot}%{_metainfodir}/%{fontorg}.mscore-gootville-fonts.metainfo.xml
-
-sed -e 's,GPLv3+ with exceptions,GPL-3.0-or-later WITH Font-exception-2.0,' \
-    -e 's,updatecontact,update_contact,g' \
-    -i %{buildroot}%{_metainfodir}/%{fontorg}.mscore-fonts.metainfo.xml
-
-sed -e 's,OFL,OFL-1.1-RFN,' \
-    -e 's,updatecontact,update_contact,g' \
-    -i %{buildroot}%{_metainfodir}/%{fontorg}.mscore-leland-fonts.metainfo.xml \
-       %{buildroot}%{_metainfodir}/%{fontorg}.mscore-mscoretab-fonts.metainfo.xml \
-       %{buildroot}%{_metainfodir}/%{fontorg}.mscore-mscoretext-fonts.metainfo.xml \
-       %{buildroot}%{_metainfodir}/%{fontorg}.mscore-musejazz-fonts.metainfo.xml
+sed -i 's,updatecontact,update_contact,g' $metainfo
 
 # Install SMuFL metadata
 cp -p fonts/mscore/metadata.json %{buildroot}%{_datadir}/fonts/mscore-fonts
@@ -418,6 +405,8 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_bindir}/musescore
 %{_datadir}/%{name}-%{shortver}/
 %exclude %{_datadir}/%{name}-%{shortver}/manual/
+%{_datadir}/icons/hicolor/scalable/apps/mscore.svg
+%{_datadir}/icons/hicolor/scalable/mimetypes/*.svg
 %{_datadir}/icons/hicolor/*/apps/mscore.png
 %{_datadir}/icons/hicolor/*/mimetypes/*.png
 %{_datadir}/applications/%{name}.desktop
@@ -455,6 +444,11 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_datadir}/fonts/mscore-leland-fonts/metadata.json
 
 %changelog
+* Wed Nov 30 2022 Jerry James <loganjerry@gmail.com> - 3.6.2-13
+- Fix 100% CPU after restarting sound devices (bz 2055986)
+- Fix Aeolus crash at exit
+- Do not swizzle license names after SPDX conversion
+
 * Tue Nov 29 2022 Jerry James <loganjerry@gmail.com> - 3.6.2-12
 - Convert License tags to SPDX
 

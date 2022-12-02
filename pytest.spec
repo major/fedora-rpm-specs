@@ -1,5 +1,5 @@
 Name:           pytest
-%global base_version 7.1.3
+%global base_version 7.2.0
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
 Release:        1%{?dist}
@@ -111,7 +111,7 @@ done
 
 %install
 %pyproject_install
-%pyproject_save_files _pytest pytest
+%pyproject_save_files _pytest pytest py
 
 mv %{buildroot}%{_bindir}/pytest %{buildroot}%{_bindir}/pytest-%{python3_version}
 ln -snf pytest-%{python3_version} %{buildroot}%{_bindir}/pytest-3
@@ -161,6 +161,10 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 7.2.0-1
+- Update to 7.2.0
+Resolves: rhbz#2137514
+
 * Sat Sep  3 2022 Thomas Moschny <thomas.moschny@gmx.de> - 7.1.3-1
 - Update to 7.1.3
 - Fixes: rhbz#2123701

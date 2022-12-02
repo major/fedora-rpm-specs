@@ -1,8 +1,8 @@
 %global pypi_name tosca-parser
 
 Name:           python-%{pypi_name}
-Version:        2.6.0
-Release:        3%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Parser for TOSCA Simple Profile in YAML
 
 License:        ASL 2.0
@@ -74,7 +74,7 @@ rm -rf html/.{doctrees,buildinfo}
 %check
 # Ignore test results for now, they are trying to access external URLs
 # which are not accessible in Koji
-PYTHON=python3 %{__python3} setup.py test || :
+PYTHON=python3 %{__python3} setup.py test || true
 # Cleanup test repository
 rm -rf .testrepository
 
@@ -85,16 +85,11 @@ rm -rf .testrepository
 find %{buildroot}/%{python3_sitelib}/toscaparser/tests -name '*.sh' -execdir chmod +x '{}' \;
 # Fix shebang on some test scripts
 find %{buildroot}/%{python3_sitelib}/toscaparser/tests -name '*.py' -exec sed -i 's/^#!\/usr\/bin\/python/#!\/usr\/bin\/python3/' {} \;
-mv %{buildroot}%{_bindir}/tosca-parser %{buildroot}%{_bindir}/tosca-parser-%{python3_version}
-ln -s ./tosca-parser-%{python3_version} %{buildroot}%{_bindir}/tosca-parser-3
-ln -s ./tosca-parser-3 %{buildroot}%{_bindir}/tosca-parser
 
 %files -n python3-%{pypi_name}
 %doc README.rst
 %license LICENSE
 %{_bindir}/tosca-parser
-%{_bindir}/tosca-parser-3
-%{_bindir}/tosca-parser-%{python3_version}
 %{python3_sitelib}/toscaparser
 %{python3_sitelib}/tosca_parser-%{version}-py%{python3_version}.egg-info
 
@@ -103,6 +98,10 @@ ln -s ./tosca-parser-3 %{buildroot}%{_bindir}/tosca-parser
 %license LICENSE
 
 %changelog
+* Wed Nov 30 2022 Alfredo Moralejo <amoralej@redhat.com> - 2.7.0-1
+- Update to 2.7.0
+- Removed -3 sufixed binaries as it's only python3 packaged.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

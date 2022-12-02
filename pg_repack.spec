@@ -1,6 +1,6 @@
 Name:           pg_repack
 Version:        1.4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD
@@ -62,6 +62,9 @@ make
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.4.8-2
+- Rebuild for new PostgreSQL 15
+
 * Tue Oct 25 2022 Ondrej Sloup <osloup@redhat.com> - 1.4.8-1
 -  Rebase to the latest upstream version
 -  PostgreSQL 15 support

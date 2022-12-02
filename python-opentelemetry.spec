@@ -592,7 +592,7 @@ done
     if [[ "${pkgdir}" = 'exporter/opentelemetry-exporter-otlp' ]]
     then
       # No “test” extra:
-      %pyproject_buildrequires -r
+      %pyproject_buildrequires
     else
       # Typical subpackage:
       %pyproject_buildrequires -x test "${reqs}"

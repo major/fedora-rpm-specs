@@ -1,7 +1,7 @@
 %global modname boxsdk
 
 Name:               python-boxsdk
-Version:            3.5.0
+Version:            3.5.1
 Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Wed Nov 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.5.1-1
+- 3.5.1
+
 * Fri Sep 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.5.0-1
 - 3.5.0
 

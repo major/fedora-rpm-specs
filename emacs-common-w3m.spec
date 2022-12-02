@@ -4,10 +4,11 @@
 
 Name:			emacs-common-%{pkg}
 Version:		1.4.631
-Release:		0.11.%{archivedate}%{?dist}
+Release:		0.12.%{archivedate}%{?dist}
 Summary:		W3m interface for Emacsen
 
-License:		BSD
+# GPLv3+ bookmark-w3m.el
+License:		GPL-2.0-or-later AND GPL-3.0-or-later
 URL:			http://emacs-w3m.namazu.org/
 ## No real archives available since this version is a snapshot from CVS.
 #Source0:		http://emacs-w3m.namazu.org/emacs-w3m-%%{version}.tar.gz
@@ -142,6 +143,10 @@ rm -rf $RPM_BUILD_ROOT%{_xemacs_sitelispdir}/%{pkg}/{ChangeLog,ChangeLog.1,sChan
 %endif
 
 %changelog
+* Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 1.4.631-0.12.20180618cvs
+- Correct License tag
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.631-0.11.20180618cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -423,4 +428,3 @@ rm -rf $RPM_BUILD_ROOT%{_xemacs_sitelispdir}/%{pkg}/{ChangeLog,ChangeLog.1,sChan
 
 * Wed Jun 20 2001 SATO Satoru <ssato@redhat.com>
 - Initial release (separated from w3m)
-

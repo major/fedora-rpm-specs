@@ -7,7 +7,7 @@
 
 Summary: osinfo database files
 Name: osinfo-db
-Version: 20221018
+Version: 20221130
 Release: 1%{?dist}
 License: LGPLv2+
 Source0: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz
@@ -93,6 +93,9 @@ osinfo-db-import --root %{buildroot} --dir %{mingw64_datadir}/osinfo %{SOURCE0}
 %endif
 
 %changelog
+* Wed Nov 30 2022 Victor Toso <victortoso@redhat.com> - 20221130-1
+- Update to new release (v20221130)
+
 * Tue Oct 18 2022 Victor Toso <victortoso@redhat.com> - 20221018-1
 - Update to new release (v20221018)
 

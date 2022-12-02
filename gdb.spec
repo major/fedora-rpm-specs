@@ -1186,6 +1186,11 @@ fi
 %endif
 
 %changelog
+* Wed Nov 30 2022 Keith Seitz <keiths@redhat.com>
+- Backport "libiberty: Fix C89-isms in configure tests" and do likewise in
+  gdb-6.6-buildid-locate-rpm.patch.
+  (Florian Weimer, RHBZ 2143992)
+
 * Wed Nov 23 2022 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.3-inheritancetest-20050726.patch.  Upstream testcase
   gdb.cp/impl-this.exp tests the printing of an instance variable from

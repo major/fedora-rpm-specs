@@ -16,7 +16,6 @@ BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: kf5-kdbusaddons-devel
 BuildRequires: kwin-devel
-BuildRequires: libphonenumber-devel
 BuildRequires: qt5-qtdeclarative-devel
 BuildRequires: telepathy-qt5-devel
 

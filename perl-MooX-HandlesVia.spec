@@ -1,14 +1,16 @@
 Name:           perl-MooX-HandlesVia
 Version:        0.001009
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        NativeTrait-like behavior for Moo
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-HandlesVia
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/MooX-HandlesVia-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+
+BuildRequires:  %{__make}
 BuildRequires:  perl-generators
+
 BuildRequires:  perl(Class::Method::Modifiers)
 BuildRequires:  perl(Data::Perl) >= 0.002006
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
@@ -51,15 +53,15 @@ code, for which there was no Moo alternative.
 %setup -q -n MooX-HandlesVia-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes TODO
@@ -68,6 +70,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.001009-8
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.001009-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

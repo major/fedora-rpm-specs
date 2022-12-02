@@ -1,6 +1,6 @@
 Name:           perl-File-Edit-Portable
-Version:        1.25
-Release:        7%{?dist}
+Version:        1.26
+Release:        1%{?dist}
 Summary:        Read and write files while keeping the original line-endings intact
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Edit-Portable
@@ -69,6 +69,9 @@ make test AUTHOR_TESTING=1
 
 
 %changelog
+* Wed Nov 30 2022 Denis Fateyev <denis@fateyev.com> - 1.26-1
+- Update to 1.26 release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

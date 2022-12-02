@@ -22,6 +22,8 @@ Patch1001:      0001-don-t-add-extra-libraries-for-linking.patch
 Patch1002:      gpgme-1.3.2-largefile.patch
 # Let's fix stupid AX_PYTHON_DEVEL
 Patch1003:      0001-fix-stupid-ax_python_devel.patch
+# Allow extra options to be passed to setup.py during installation
+Patch1004:      0002-setup_py_extra_opts.patch
 
 ## upstream patches dealing with date and time overflow on 32-bit machines
 # Before gpgme 1.18.0
@@ -159,6 +161,12 @@ export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
 %make_build
 
 %install
+%if 0%{?python3_version_nodots} >= 311
+# When using distutils from setuptools on Python 3.11+, ./setup.py install
+# use .egg format. This forces setuptools to use .egg-info format.
+# SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
+export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
+%endif
 %make_install
 
 # unpackaged files
@@ -237,10 +245,10 @@ make check
 %doc lang/python/README
 %if 0%{?python3_version_nodots} < 311
 %{python3_sitearch}/gpg-*.egg-info
-%{python3_sitearch}/gpg/
 %else
-%{python3_sitearch}/gpg-*.egg/
+%{python3_sitearch}/gpg-*.egg-info/
 %endif
+%{python3_sitearch}/gpg/
 
 %changelog
 %autochangelog

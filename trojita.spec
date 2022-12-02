@@ -14,7 +14,7 @@
 
 Name:           trojita
 Version:        0.7.0.1
-Release:        0.15.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        0.16.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 Source0:        %{srcurl}/archive/%{commit0}.tar.gz#/%{name}-%{commit0}.tar.gz
 
 # run the script that calls svn to get latest po files:
@@ -206,6 +206,9 @@ xvfb-run -a %ctest
 
 
 %changelog
+* Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 0.7.0.1-0.16.20220904git5295175
+- Rebuild for gpgme 1.17.1
+
 * Sun Nov 13 2022 Jiri Kucera <jkucera@redhat.com> - 0.7.0.1-0.15.20220904git5295175
 - New git snapshot, up to gpgme[>=1.18.0] fix (gpgme is not rebased yet)
   Note that no new strings have been added from commit 5295175 to now so it is save

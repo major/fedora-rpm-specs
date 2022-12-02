@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-zopeext
 Version:        0.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -35,12 +35,8 @@ interfaces.
 %prep
 %autosetup -n sphinxcontrib-zopeext-%{version}
 
-# Work around what appears to be a python-packaging bug.  Try removing this
-# on the next release.
-sed -i 's/!=3.5\.\*,!=4\.0\.\*,!=4\.1\.\*,//' PKG-INFO pyproject.toml setup.py
-
 # Allow use of importlib_metadata 5.x
-sed -i '/importlib-metadata/s/5\.0\.0/6.0.0/' PKG-INFO
+sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<6/' pyproject.toml
 
 %build
 %pyproject_wheel
@@ -54,6 +50,12 @@ sed -i '/importlib-metadata/s/5\.0\.0/6.0.0/' PKG-INFO
 %license LICENSE
 
 %changelog
+* Wed Nov 30 2022 Jerry James <loganjerry@gmail.com> - 0.3.3-3
+- Drop unnecessary python-packaging workaround
+
+* Wed Nov 30 2022 Miro Hrončok <mhroncok@redhat.com> - 0.3.3-3
+- Actually permit use of importlib-metadata 5.x (rhbz#2149582)
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.3.3-2
 - Permit use of importlib-metadata 5.x (rhbz#2148951)
 

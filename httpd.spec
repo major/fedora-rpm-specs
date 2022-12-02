@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.54
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -104,6 +104,7 @@ Patch60: httpd-2.4.43-enable-sslv3.patch
 Patch61: httpd-2.4.48-r1878890.patch
 Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
 Patch65: httpd-2.4.51-r1894152.patch
+Patch66: httpd-2.4.54-proxy-util-loglevel.patch
 
 # Security fixes
 
@@ -270,6 +271,7 @@ written in the Lua programming language.
 %patch61 -p1 -b .r1878890
 %patch63 -p1 -b .htcacheclean-dont-break
 %patch65 -p1 -b .r1894152
+%patch66 -p1 -b .proxyutil-loglevel
 
 # Patch in the vendor string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
@@ -837,6 +839,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Wed Nov 30 2022 Luboš Uhliarik <luhliari@redhat.com> - 2.4.54-7
+- reduce AH03408 level to INFO in proxy_util.c
+
 * Thu Oct 13 2022 Luboš Uhliarik <luhliari@redhat.com> - 2.4.54-6
 - Provide a sysusers.d file to get user() and group() provides (#2134430)
 

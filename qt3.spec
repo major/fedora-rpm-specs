@@ -6,7 +6,7 @@
 Name: qt3
 Summary: The shared library for the Qt 3 GUI toolkit
 Version: 3.3.8b
-Release: 92%{?dist}
+Release: 93%{?dist}
 License: QPL or GPLv2 or GPLv3
 Url: http://www.troll.no
 Source0: ftp://ftp.trolltech.com/qt/source/qt-x11-free-%{version}.tar.gz
@@ -646,6 +646,9 @@ mkdir -p %{buildroot}%{qtdir}/plugins/styles
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.3.8b-93
+- Rebuild for new PostgreSQL 15
+
 * Fri Sep 09 2022 Than Ngo <than@redhat.com> - 3.3.8b-92
 - fixed bz#2120316 - qt3 shouldn't require postgresql-private-devel
 

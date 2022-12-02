@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.9.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -28,6 +28,7 @@ Summary:        Elastic Python Deployment
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-py
 BuildRequires:  python3-pytest
 #BuildRequires:  python3-eventlet -- not yet ready for Python 3.10
 BuildRequires:  python3-gevent
@@ -88,6 +89,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Wed Nov 30 2022 Lumír Balhar <lbalhar@redhat.com> - 1.9.0-8
+- Fix compatibility with pytest 7.2 (#2142053)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

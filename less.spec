@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 590
-Release: 5%{?dist}
+Version: 608
+Release: 1%{?dist}
 License: GPLv3+ or BSD
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 Source1: lesspipe.sh
@@ -10,17 +10,10 @@ Source3: less.csh
 Patch4: less-394-time.patch
 Patch5: less-475-fsync.patch
 Patch6: less-436-manpage-add-old-bot-option.patch
-Patch7: less-436-help.patch
 Patch8: less-458-lessecho-usage.patch
 Patch9: less-458-less-filters-man.patch
 Patch10: less-458-lesskey-usage.patch
 Patch11: less-458-old-bot-in-help.patch
-# Backported version of upstream commit d21820c
-# https://github.com/gwsw/less/commit/d21820c9d8501b5814d33d4fb8a621c6c563e102 
-Patch12: less-590-hyperlink-bleed.patch
-# Backported version of upstream commit 31a14b8
-# https://github.com/gwsw/less/commit/31a14b8124e551f9028c5a2785fbbcb5839c491d
-Patch13: less-590-memory-leak.patch
 URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
@@ -41,13 +34,10 @@ files, and you'll use it frequently.
 %patch4 -p1 -b .time
 %patch5 -p1 -b .fsync
 %patch6 -p1 -b .manpage-add-old-bot-option
-%patch7 -p1 -b .help
 %patch8 -p1 -b .lessecho-usage
 %patch9 -p1 -b .less-filters-man
 %patch10 -p1 -b .lesskey-usage
 %patch11 -p1 -b .old-bot
-%patch12 -p1 -b .hyperlinks
-%patch13 -p1 -b .memory-leak
 
 
 %build
@@ -71,6 +61,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 %{_mandir}/man1/*
 
 %changelog
+* Thu Nov 24 2022 Matej Mužila <mmuzila@redhat.com> - 608-1
+- Update to new upstream release
+
 * Mon Jul 25 2022 Daan De Meyer <daan.j.demeyer@gmail.com> - 590-5
 - Backport patch from upstream to fix memory leak
 

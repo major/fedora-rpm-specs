@@ -1,58 +1,65 @@
-%global pypi_name aiomysql
-
-Name:           python-%{pypi_name}
-Version:        0.0.20
-Release:        13%{?dist}
+Name:           python-aiomysql
+Version:        0.1.1
+Release:        2%{?dist}
 Summary:        MySQL driver for asyncio
 
 License:        MIT
 URL:            https://github.com/aio-libs/aiomysql
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-Patch0:         fix-requirements.patch
+Source0:        %{url}/archive/v%{version}/aiomysql-%{version}.tar.gz
 BuildArch:      noarch
 
-%description
-aiomysql is a "driver" for accessing a MySQL database from the asyncio 
-(PEP-3156/tulip) framework. It depends on and reuses most parts of PyMySQL.
-aiomysql tries to be like awesome aiopg library and preserve same api, look
-and feel.
+%global _description %{expand:
+aiomysql is a “driver” for accessing a MySQL database from the asyncio
+(PEP-3156/tulip) framework. It depends on and reuses most parts of PyMySQL .
+aiomysql tries to be like awesome aiopg library and preserve same api, look and
+feel.}
 
-%package -n     python3-%{pypi_name}
+%description %{_description}
+
+%package -n     python3-aiomysql
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-aiomysql is a "driver" for accessing a MySQL database from the asyncio 
-(PEP-3156/tulip) framework. It depends on and reuses most parts of PyMySQL.
-aiomysql tries to be like awesome aiopg library and preserve same api, look
-and feel.
+%description -n python3-aiomysql %{_description}
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/*.egg-info sa}
+%pyproject_extras_subpkg -n python3-aiomysql sa rsa
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
-rm -rf %{pypi_name}.egg-info
+%autosetup -n aiomysql-%{version}
+# Upstream has pinned setuptools_scm due to the generated wheel version being wrong:
+# https://github.com/aio-libs/aiomysql/commit/fb85893635d7f9c0da3b1ff8c6d0fc436357633a
+# We must work with what we have.
+sed -r -i 's/("setuptools_scm.*), <.*"/\1/' pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires -x sa,rsa
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files aiomysql
 
-# Testing is done with a Docker container
-#%check
-#PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests/
+%check
+%pyproject_check_import
+# Upstream testing is done with a Docker container. Setting up a MySQL server
+# for testing might be possible, but not trivial. See the python-asyncmy
+# package for inspiration.
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-aiomysql -f %{pyproject_files}
+# LICENSE is handled by pyproject_files; verify with “rpm -qL -p …”
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Aug 12 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.1-2
+- Add metapackage for “rsa” extra
+
+* Thu Aug 11 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.1.1-1
+- Update to 0.1.1 (close RHBZ#2105059)
+- Switch to pyproject-rpm-macros (mandatory, since there is no more setup.py)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

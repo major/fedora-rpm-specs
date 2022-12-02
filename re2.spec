@@ -1,16 +1,14 @@
-%global longver 2021-11-01
+%global longver 2022-06-01
 %global shortver %(echo %{longver}|sed 's|-||g')
 
 Name:           re2
 Version:        %{shortver}
 Epoch:          1
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        C++ fast alternative to backtracking RE engines
 License:        BSD
 URL:            http://github.com/google/%{name}/
 Source0:        https://github.com/google/re2/archive/%{longver}.tar.gz
-# https://github.com/google/re2/commit/cb5bbb250e07e7621a5cfe3818f8141e33967f0e
-Patch0:         0001-Fix-CMake-packaging-for-installation.patch
 
 BuildRequires: cmake
 BuildRequires:  gcc-c++
@@ -38,7 +36,6 @@ you will need to install %{name}-devel.
 
 %prep
 %setup -q -n %{name}-%{longver}
-%patch0 -p1
 
 %build
 # The RPM macro for the linker flags does not exist on EPEL
@@ -83,6 +80,9 @@ install -m 0644 re2.pc %{buildroot}%{_libdir}/pkgconfig/
 %{_libdir}/cmake/re2/*.cmake
 
 %changelog
+* Wed Nov 30 2022 Denis Arnaud <denis.arnaud_fedora@m4x.org>  - 1:20220601-1
+- Upgrade to 2022-06-01
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:20211101-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

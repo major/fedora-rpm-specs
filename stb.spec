@@ -101,9 +101,18 @@ Patch:          %{url}/pull/1236.patch
 #
 # ----
 #
-# Additional stb_image fixes for bugs from ossfuzz and issues 1289, 1291, 1292, and 1293
+# Additional stb_image fixes for bugs from ossfuzz and issues 1289, 1291, 1292,
+# and 1293
 # https://github.com/nothings/stb/pull/1297
 Patch:          %{url}/pull/1297.patch
+
+# stb_image PNG reader: Adds checks for invalid DEFLATE codes, fixing an
+# infinite loop found by ossfuzz.
+# https://github.com/nothings/stb/pull/1230
+#   Fixes:
+# Issue 24232: stb:stb_png_read_fuzzer: Timeout in stb_png_read_fuzzer
+# https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=24232&q=proj%3Dstb
+Patch:          %{url}/pull/1230.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96

@@ -1,6 +1,6 @@
 Name:		pgaudit
 Version:	1.7.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	PostgreSQL Audit Extension
 
 License:	PostgreSQL
@@ -55,6 +55,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.7.0-3
+- Rebuild for new PostgreSQL 15
+
 * Mon Oct 17 2022 Ondrej Sloup <osloup@redhat.com> - 1.7.0-2
 - Allow PostgreSQL server 15 build requirement
 

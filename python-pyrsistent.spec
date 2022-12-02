@@ -88,7 +88,7 @@ sed -r \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements-filtered.txt
+%pyproject_buildrequires requirements-filtered.txt
 
 
 %build

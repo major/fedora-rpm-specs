@@ -4,12 +4,16 @@ Release:        %autorelease
 Summary:        Verifies the integrity of PNG, JNG and MNG files
 
 # Note that the main package contains only pngcheck, compiled from a single
-# source file, pngcheck.c, under a minimal MIT license. The new utilities
-# licensed under GPLv2+ are compiled from the gpl/ subdirectory and packaged in
-# the extras subpackage.
-License:        MIT
+# source file, pngcheck.c, under a minimal MIT-style license that matches SPDX
+# HPND:
+#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/85
+#   https://tools.spdx.org/app/license_requests/187/
+#   https://github.com/spdx/license-list-XML/issues/1725
+# The new utilities licensed under GPL-2.0-or-later are compiled from the gpl/
+# subdirectory and packaged in the extras subpackage.
+License:        HPND
 URL:            http://www.libpng.org/pub/png/apps/pngcheck.html
-Source0:        http://www.libpng.org/pub/png/src/%{name}-%{version}.tar.gz
+Source0:        http://www.libpng.org/pub/png/src/pngcheck-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib)
@@ -31,8 +35,8 @@ of the images in Chris Nokleberg's brokensuite-20061204.
 
 
 %package extras
-Summary:        Helper utilities distributed with %{name}
-License:        GPLv2+
+Summary:        Helper utilities distributed with pngcheck
+License:        GPL-2.0-or-later
 
 %description extras
 Included with pngcheck (since version 2.1.0) are two helper utilities:

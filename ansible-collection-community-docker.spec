@@ -8,7 +8,7 @@
 # released.
 # %%if (%%{defined fedora} || 0%%{?rhel} >= 9)
 
-%if %{defined fedora}
+%if %{defined fedora} || 0%{?rhel} >= 9
 %bcond_without tests
 %else
 %bcond_with tests
@@ -16,8 +16,8 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -117,6 +117,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Tue Nov 29 2022 Maxwell G <gotmax@e.email> - 3.2.2-1
+- Update to 3.2.2.
+
 * Thu Nov 03 2022 Maxwell G <gotmax@e.email> - 3.2.0-2
 - Remove unexpanded macros from %description
 - Handle .reuse/dep5

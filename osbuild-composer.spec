@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        68
+Version:        69
 
 %gometa
 
@@ -480,8 +480,9 @@ The worker for osbuild-composer
 %preun worker
 # systemd_preun uses systemctl disable --now which doesn't work well with template services.
 # See https://github.com/systemd/systemd/issues/15620
-# The following lines mimicks its behaviour by running two commands:
-if [ -d /run/systemd/system ]; then
+# The following lines mimicks its behaviour by running two commands.
+# The scriptlet is supposed to run only when the package is being removed.
+if [ $1 -eq 0 ] && [ -d /run/systemd/system ]; then
     # disable and stop all the worker services
     systemctl --no-reload disable osbuild-worker@.service osbuild-remote-worker@.service
     systemctl stop "osbuild-worker@*.service" "osbuild-remote-worker@*.service"
@@ -581,6 +582,27 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Nov 30 2022 Packit <hello@packit.dev> - 69-1
+Changes with 69
+----------------
+  * Add /blueprints/change/NAME/COMMIT route and save blueprint changes in the store (#3121)
+  * CloudAPI: add description for `Repository` definition (#3158)
+  * Rewrite RHEL 9 and CS9 image definitions using the new framework (#3120)
+  * SPEC: run the %preun commands in worker package only on removal (#3149)
+  * Update snapshots to 20221115 (#3136)
+  * azure-sap image (#3074)
+  * ci: update Fedora 37 runners to GA (#3157)
+  * cloudapi/v2: pass rhsm requirement to ostree resolve job (#3142)
+  * disk: align LVM2 volumes to the extent size  (#3137)
+  * image: create image-installer image type for fedora (#3077)
+  * tools: silence version comparison in get_build_info() (#3150)
+
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Brian C. Lane, Christian Kellner, Ondřej Budai, Sanne Raymaekers, Sarita Mahajan, Simon de Vlieger, Tomáš Hozza, Xiaofeng Wang, fkolwa, schutzbot
+
+— Somewhere on the Internet, 2022-11-30
+
+
+
 * Wed Nov 16 2022 Packit <hello@packit.dev> - 68-1
 Changes with 68
 ----------------

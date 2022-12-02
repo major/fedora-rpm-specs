@@ -1,8 +1,8 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
 Version:    1.8.0
-Release:    27%{?dist}
-License:    LGPLv2+
+Release:    28%{?dist}
+License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
 Source0:    http://download-mirror.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icon
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Wed Nov 30 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.0-28
+- Migrate license tag to SPDX
+
 * Fri Aug 19 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.0-27
 - Add bn-national-jatiya.{mim,png}
 - Add improved unicode.mim

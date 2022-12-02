@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.9.1
+Version:        0.10.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -58,7 +58,7 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 %pyproject_save_files specfile
 
 
-%if 0%{?with_tests}
+%if %{with tests}
 %check
 %pytest
 %endif
@@ -69,6 +69,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Wed Nov 30 2022 Packit <hello@packit.dev> - 0.10.0-1
+- Fixed an issue that caused empty lines originally inside changelog entries to appear at the end. (#140)
+- Renamed the `ignore_missing_includes` option to a more general `force_parse`. If specified, it allows to attempt to parse the spec file even if one or more sources required to be present at parsing time are not available. Such sources include sources referenced from shell expansions in tag values and sources included using the `%include` directive. (#137)
+
 * Sat Nov 12 2022 Packit <hello@packit.dev> - 0.9.1-1
 - `specfile` now supports localized tags (e.g. `Summary(fr)`) and tags with qualifiers (e.g. `Requires(post)`).
   It also follows more closely rpm parsing logic and doesn't fail on invalid section names. (#132)

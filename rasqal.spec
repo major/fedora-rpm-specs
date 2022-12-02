@@ -1,6 +1,6 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        RDF Query Library
 
 License:        LGPLv2+ or ASL 2.0
@@ -11,13 +11,11 @@ BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  libxml2-devel
 BuildRequires:  mpfr-devel
-BuildRequires:  pcre-devel
 BuildRequires:  raptor2-devel
 BuildRequires:  libgcrypt-devel
 # for the testsuite
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(XML::DOM)
-#BuildRequires:  %{_bindir}/rapper
 
 %description
 Rasqal is a library providing full support for querying Resource
@@ -44,6 +42,7 @@ sed -i -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' configure
 %build
 %configure \
   --with-digest-library=gcrypt\
+  --disable-pcre \
   --disable-static\
   --enable-release
 
@@ -94,6 +93,12 @@ fi
 
 
 %changelog
+* Wed Nov 30 2022 Caolán McNamara <caolanm@redhat.com> - 0.9.33-21
+- Resolves: rhbz#2128363 disable-pcre
+
+* Wed Nov 30 2022 Caolán McNamara <caolanm@redhat.com> - 0.9.33-20
+- rebuild for F38
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

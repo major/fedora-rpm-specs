@@ -1,0 +1,61 @@
+Name:           jakarta-activation1
+Version:        1.2.2
+Release:        1%{?dist}
+Summary:        Jakarta Activation Specification and Implementation
+License:        BSD
+URL:            https://jakartaee.github.io/jaf-api/
+BuildArch:      noarch
+ExclusiveArch:  %{java_arches} noarch
+
+Source0:        https://github.com/eclipse-ee4j/jaf/archive/%{version}/jaf-%{version}.tar.gz
+
+BuildRequires:  maven-local
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+
+%description
+Jakarta Activation lets you take advantage of standard services to:
+determine the type of an arbitrary piece of data; encapsulate access to
+it; discover the operations available on it; and instantiate the
+appropriate bean to perform the operation(s).
+
+%prep
+%setup -q -n jaf-api-%{version}
+
+%pom_remove_parent
+%pom_disable_module demo
+
+%pom_remove_plugin -r :maven-enforcer-plugin
+
+%pom_remove_plugin :directory-maven-plugin
+sed -i 's/${main.basedir}/${basedir}/' pom.xml
+
+# Remove custom doclet configuration
+%pom_remove_plugin :maven-javadoc-plugin activation
+
+# Set bundle version manually instead of with osgiversion-maven-plugin
+# (the plugin is only used to strip off -SNAPSHOT or -Mx qualifiers)
+%pom_remove_plugin :osgiversion-maven-plugin
+sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
+
+%mvn_compat_version 'com.sun.activation:jakarta.activation' %{version}
+%mvn_compat_version 'jakarta.activation:jakarta.activation-api' %{version}
+
+%build
+# Javadoc fails:
+# /builddir/build/BUILD/jaf-api-1.2.2/activation/src/main/java/module-info.java:11: error: duplicate module: jakarta.activation
+%mvn_build -j
+
+%install
+%mvn_install
+
+%files -f .mfiles
+%doc README.md
+%license LICENSE.md NOTICE.md
+
+%changelog
+* Wed Nov 30 2022 Marian Koncek <mkoncek@redhat.com> - 1.2.2-1
+- Initial package renamed from jakarta-activation

@@ -1,9 +1,9 @@
 Name: fonts-tweak-tool
 Version: 0.4.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tool for customizing fonts per language
 
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: https://gitlab.com/tagoh/%{name}/
 Source0: https://gitlab.com/api/v4/projects/tagoh%2F%{name}packages/generic/%{name}/%{version}/%{name}-%{version}.tar.bz2
 
@@ -55,6 +55,9 @@ rm -f %{buildroot}%{_datadir}/gir-*/FontsTweak-*.gir
 
 
 %changelog
+* Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 0.4.6-2
+- Convert License tag to SPDX.
+
 * Thu Nov 17 2022 Akira TAGOH <tagoh@redhat.com> - 0.4.6-1
 - New upstream release.
 - Fix runtime error around gettext.

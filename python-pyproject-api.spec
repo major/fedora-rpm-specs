@@ -1,5 +1,5 @@
 Name:           python-pyproject-api
-Version:        1.1.1
+Version:        1.1.2
 Release:        1%{?dist}
 Summary:        API to interact with the python pyproject.toml based projects
 
@@ -43,6 +43,10 @@ sed -i "/covdefaults/d;/pytest-cov/d" pyproject.toml
 %doc README.md
 
 %changelog
+* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.2-1
+- Update to 1.1.2
+Resolves: rhbz#2138752
+
 * Tue Sep 13 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-1
 - Update to 1.1.1
 Resolves: rhbz#2126242

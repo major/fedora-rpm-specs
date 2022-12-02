@@ -5,9 +5,9 @@
 
 Name:       perl-POE
 Version:    1.370
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Portable multitasking and networking framework for event loops
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/POE
 Source0:    https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-%{version}.tar.gz
 BuildArch:  noarch
@@ -137,6 +137,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Tue Nov 29 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.370-5
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.370-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

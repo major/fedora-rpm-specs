@@ -1,6 +1,6 @@
 Name:           perl-Role-Basic
 Version:        0.13
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Just roles. Nothing else
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Role-Basic
@@ -33,7 +33,6 @@ mv Changes~ Changes
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -46,6 +45,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.13-27
+- Modernize spec.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.13-26
 - Convert license to SPDX.
 - Update sources to sha512.

@@ -1,9 +1,9 @@
 Name:		fedora-upgrade
-Version:	37.1
+Version:	37.2
 Release:	1%{?dist}
 Summary:	Upgrade Fedora to next version using dnf upgrade (unofficial tool)
 
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		https://github.com/xsuchy/fedora-upgrade
 # Sources can be obtained by
 # git clone git://github.com/xsuchy/fedora-upgrade.git
@@ -38,6 +38,8 @@ https://fedoraproject.org/wiki/Upgrading
 
 %package -n remove-retired-packages
 Summary: Remove retired distribution's packages
+Requires: curl
+Requires: python3-dnf
 
 %description -n remove-retired-packages
 Script that removes packages removed from
@@ -53,6 +55,7 @@ done
 
 %install
 mkdir -p %{buildroot}%{_sbindir}
+mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man8
 mkdir -p %{buildroot}%{_datadir}/%{name}
 install -m755 fedora-upgrade %{buildroot}%{_sbindir}
@@ -61,6 +64,7 @@ install -m755 remove-retired-packages %{buildroot}%{_sbindir}
 install -m644 remove-retired-packages.8 %{buildroot}/%{_mandir}/man8/
 install -m755 fedora-remove-old-gpg-keys %{buildroot}%{_sbindir}/
 install -m644 fedora-remove-old-gpg-keys.8 %{buildroot}/%{_mandir}/man8/
+install -m755 rpm-print-name-from-filename.py %{buildroot}%{_bindir}/rpm-print-name-from-filename
 
 %files
 %license LICENSE
@@ -72,11 +76,18 @@ install -m644 fedora-remove-old-gpg-keys.8 %{buildroot}/%{_mandir}/man8/
 %files -n remove-retired-packages
 %{_sbindir}/remove-retired-packages
 %{_sbindir}/fedora-remove-old-gpg-keys
+%{_bindir}/rpm-print-name-from-filename
 %doc %{_mandir}/man8/remove-retired-packages.8*
 %doc %{_mandir}/man8/fedora-remove-old-gpg-keys.8*
 %license LICENSE
 
 %changelog
+* Wed Nov 30 2022 Miroslav Suchý <msuchy@redhat.com> 37.2-1
+- do not check if f37 is prerelease
+- use spdx license
+- 2142229 - reference for log what executed /usr/bin/true
+- report reason of the retirement
+
 * Thu Aug 25 2022 Miroslav Suchý <msuchy@redhat.com> 37.1-1
 - bump up version
 

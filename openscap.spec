@@ -5,6 +5,7 @@ Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPLv2+
 URL:            http://www.open-scap.org/
+VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch1:         openscap-1.3.7-pr-1841-fix-shellcheck-warning.patch
 Patch2:         openscap-1.3.7-pr-1843-prevent-fails-of-epoch-test.patch
@@ -152,7 +153,7 @@ ctest -V %{?_smp_mflags}
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 # fix python shebangs
-pathfix.py -i %{__python3} -p -n $RPM_BUILD_ROOT%{_bindir}/scap-as-rpm
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n $RPM_BUILD_ROOT%{_bindir}/scap-as-rpm
 
 %ldconfig_scriptlets
 

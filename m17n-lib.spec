@@ -7,10 +7,10 @@
 
 Name:           m17n-lib
 Version:        1.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Multilingual text library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.nongnu.org/m17n/
 Source0:        http://download.savannah.gnu.org/releases/m17n/%{name}-%{version}.tar.gz
 Patch0:         %{name}-1.8.0-multilib.patch
@@ -127,6 +127,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libm17n-gui.so.*
 
 %changelog
+* Wed Nov 30 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.0-14
+- Migrate license tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Text-vFile-asData
 Version:        0.08
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Parse vFile formatted files into data structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-vFile-asData
@@ -33,8 +33,6 @@ vCalendar (RFC 2445).
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -46,6 +44,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.08-32
+- Modernize spec.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.08-31
 - Modernize spec.
 - Convert license to SPDX.

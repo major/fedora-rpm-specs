@@ -33,16 +33,17 @@
 
 
 Name:           perl-Prima
-Version:        1.66
-Release:        2%{?dist}
+Version:        1.67
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
-# img/codec_jpeg.c:     EXIF parser is based on io-jpeg.c from gdk-pixbuf
-#                       (LGPL-2.0-or-later)
+# img/codec_jpeg.c:     LGPL-2.0-or-later (EXIF parser is based on io-jpeg.c
+#                       from gdk-pixbuf)
 # img/codec_X11.c:      MIT-open-group
-# img/imgscale.c:       Resizing filters are based on magick/resize.c from
-#                       ImageMagick (ImageMagick)
+# img/imgscale.c:       ImageMagick (resizing filters are based on magick/resize.c
+#                       from ImageMagick)
+# img/region.c:         MIT-open-group AND HPND
 # include/unix/queue.h: BSD-4-Clause
 # LICENSE:              BSD-2-Clause text and (AGPL-3.0-or-later notice for examples/tiger.eps file)
 # pod/Prima/Widget/pack.pod:    TCL
@@ -51,12 +52,11 @@ Summary:        Perl graphic toolkit
 # Prima.pm:             "under the BSD License"
 # Prima/PS/Unicode.pm:  BSD-3-Clause
 # unix/render.c:        HPND-sell-variant
-License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
+License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
-# Fix a crash when activating a menu, bug #2119963, CPAN RT#144080,
-# in upstream after 1.66.
-Patch0:         Prima-1.66-RT-144080-coredump-fix.patch
+# Correct XRandr detection, in upstream after 1.67
+Patch0:         Prima-1.67-properly-detect-xrandr-version.patch
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc
@@ -121,7 +121,7 @@ BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xft)
 %endif
 BuildRequires:  pkgconfig(xpm)
-BuildRequires:  pkgconfig(xrandr)
+BuildRequires:  pkgconfig(xrandr) >= 1.5
 BuildRequires:  pkgconfig(xrender)
 # Run-time:
 BuildRequires:  perl(base)
@@ -228,13 +228,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
     CYGWIN_WINAPI=0 \
     DEBUG=0 \
     VERBOSE=1 \
+    WITH_COCOA=0 \
     WITH_FRIBIDI=%{with perl_Prima_enables_fribidi} \
     WITH_GTK2=%{use_gtk2} \
     WITH_GTK3=%{use_gtk3} \
     WITH_HARFBUZZ=%{with perl_Prima_enables_harfbuzz} \
     WITH_ICONV=1 \
-    WITH_OPENMP=1 \
     WITH_LIBTHAI=%{with perl_Prima_enables_libthai} \
+    WITH_OPENMP=1 \
     WITH_XFT=%{with perl_Prima_enables_xft}
 %{make_build}
 
@@ -281,15 +282,23 @@ unset DISPLAY XDG_SESSION_TYPE
 %license Copying LICENSE AGPLv3
 # "examples" directory is installed into perl_vendorarch
 %doc Changes README.md
-%{_bindir}/*
-%{perl_vendorarch}/auto/*
+%{_bindir}/podview
+%{_bindir}/prima-*
+%{_bindir}/VB
+%{perl_vendorarch}/auto/Prima
 %{perl_vendorarch}/prima-gencls.pod
-%{perl_vendorarch}/Prima*
+%{perl_vendorarch}/Prima.pm
+%{perl_vendorarch}/Prima
 %exclude %{perl_vendorarch}/Prima/Stress.*
 %exclude %{perl_vendorarch}/Prima/sys/Test.*
 %{perl_vendorarch}/vb-large.png
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/podview.*
+%{_mandir}/man1/prima-*.*
+%{_mandir}/man1/VB.*
+%{_mandir}/man3/pod::Prima::*
+%{_mandir}/man3/pod::prima-gencls.*
+%{_mandir}/man3/Prima.*
+%{_mandir}/man3/Prima::*
 %exclude %{_mandir}/man3/Prima::Stress.*
 %exclude %{_mandir}/man3/Prima::sys::Test.*
 
@@ -303,6 +312,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 1.67-1
+- 1.67 bump
+
 * Wed Sep 21 2022 Petr Pisar <ppisar@redhat.com> - 1.66-2
 - perl-Prima-Test package to require the same version of perl-Prima
 

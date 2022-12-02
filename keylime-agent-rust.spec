@@ -8,6 +8,7 @@
 %if 0%{?rhel}
 # RHEL: Use bundled deps as it doesn't ship Rust libraries
 %global bundled_rust_deps 1
+%global __brp_mangle_shebangs_exclude_from ^/usr/src/debug/.*$
 %else
 # Fedora: Use only system Rust libraries
 %global bundled_rust_deps 0
@@ -52,10 +53,14 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 #       --exclude-crate-path "libloading#tests"
 #   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
 Source1:        rust-keylime-%{version}-vendor.tar.xz
+## Patches for building from system Rust libraries (Fedora)
 # Fix version requirement for clap to avoid FTBFS in Fedora
 Patch1:         rust-keylime-metadata.patch
 # Use API available on rust-config-0.12.0
 Patch2:         rust-keylime-config-separator.patch
+## Patches for building from bundled Rust libraries (RHEL)
+# Build tss-esapi extension from source (upstream commit)
+Patch100:       rust-keylime-metadata-bundled.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -72,6 +77,8 @@ BuildRequires:  openssl-devel
 BuildRequires:  libarchive-devel
 BuildRequires:  tpm2-tss-devel
 %if 0%{?bundled_rust_deps}
+BuildRequires:  clang
+BuildRequires:  pkgconfig(libzmq) >= 4.1
 BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging >= 21-2
@@ -85,11 +92,13 @@ Conflicts:      keylime-agent
 Rust agent for Keylime
 
 %prep
-%autosetup -n rust-keylime-%{version} -p1
+%autosetup -n rust-keylime-%{version} -N
 %if 0%{?bundled_rust_deps}
+%autopatch -m 100 -p1
 # Source1 is vendored dependencies
 %cargo_prep -V 1
 %else
+%autopatch -M 99 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires

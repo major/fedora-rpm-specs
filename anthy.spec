@@ -10,9 +10,9 @@
 
 Name:  anthy
 Version: 9100h
-Release: 48%{?dist}
+Release: 49%{?dist}
 # The entire source code is LGPLv2+ and dictionaries is GPLv2. the corpus data is under Public Domain.
-License: LGPL-2.1-or-later and GPL-2.0-only and LicenseRef-Fedora-Public-Domain
+License: LGPL-2.1-or-later AND GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
 URL:  http://sourceforge.jp/projects/anthy/
 BuildRequires: emacs
 BuildRequires: gcc
@@ -177,13 +177,13 @@ popd
 
 
 %changelog
-* Tue Nov 29 2022 Akira TAGOH <tagoh@redhat.com> - 9100h-48
+* Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 9100h-49
 - Convert License tag to SPDX.
 
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Tue May 31 Stewart Smith <trawets@amazon.com> - 9100h-46
+* Tue May 31 2022 Stewart Smith <trawets@amazon.com> - 9100h-46
 - Switch xemacs build condition to bcond
 
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9100h-45
@@ -545,4 +545,3 @@ popd
 
 * Tue Jun 01 2004 Akira TAGOH <tagoh@redhat.com> 5330-1
 - Initial package.
-

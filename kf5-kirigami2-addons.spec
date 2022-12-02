@@ -1,8 +1,8 @@
 %global orig_name kirigami-addons
 
 Name:           kf5-kirigami2-addons
-Version:        0.4
-Release:        2%{?dist}
+Version:        0.6
+Release:        1%{?dist}
 Epoch:          1
 License:        LGPLv3
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -50,8 +50,9 @@ Tree view Kirigami addon, which is useful for listing files.
 
 %install
 %cmake_install
+%find_lang %{orig_name} --all-name
 
-%files
+%files -f %{orig_name}.lang
 %doc README.md
 %license LICENSES/
 %dir %{_kf5_qmldir}/org/kde
@@ -67,6 +68,9 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf5_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Wed Nov 30 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:0.6-1
+- 0.6
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 0.4-1
 - Update to 0.4
 

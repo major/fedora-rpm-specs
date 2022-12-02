@@ -1,10 +1,10 @@
 %define __cmake_in_source_build 1
 
 Name:       pavucontrol-qt
-Version:    1.1.0
-Release:    2%{?dist}
+Version:    1.2.0
+Release:    1%{?dist}
 License:    GPLv2+
-URL:        http://lxqt.org/
+URL:        https://lxqt-project.org/
 Source0:    https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Summary:    Qt port of volume control pavucontrol
@@ -14,7 +14,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  kf5-kwindowsystem-devel
 BuildRequires:  qt5-linguist
-BuildRequires:  pkgconfig(lxqt) >= 1.0.0
+BuildRequires:  pkgconfig(lxqt) >= 1.2.0
 BuildRequires:  pkgconfig(Qt5Xdg) >= 2.0.0
 BuildRequires:  pkgconfig(libpulse) >= 5.0
 BuildRequires:  pkgconfig(glib-2.0) >= 2.0
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

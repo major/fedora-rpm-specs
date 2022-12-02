@@ -1,15 +1,14 @@
 %define __cmake_in_source_build 1
 
 Name:           lxqt-build-tools
-Version:        0.11.0
-Release:        3%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD
 URL:            http://lxqt.org/
 Source0:        https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Upstream: https://github.com/lxqt/lxqt-build-tools/pull/79
-Patch0:         0001-FindGLIB.cmake-Use-gdesktopappinfo.h-to-find-gio-uni.patch
 
 BuildArch:      noarch
 
@@ -32,7 +31,7 @@ Various packaging tools and scripts for LXQt applications.
 scl enable devtoolset-7 - <<\EOF
 %endif
 
-%autosetup -p1
+%autosetup
 
 %if 0%{?el7}
 EOF
@@ -69,6 +68,9 @@ cd build
 
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 0.12.0-1
+- Update version to 0.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

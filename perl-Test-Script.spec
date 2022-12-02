@@ -1,8 +1,8 @@
 Name:           perl-Test-Script
 Version:        1.29
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Cross-platform basic tests for scripts
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Script
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Test-Script-%{version}.tar.gz
 BuildArch:      noarch
@@ -56,6 +56,9 @@ in the bin directory of your Perl distribution.
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.29-7
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           libbluray
-Version:        1.3.3
+Version:        1.3.4
 Release:        1%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPLv2+
@@ -125,6 +125,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 30 2022 Xavier Bachelot <xavier@bachelot.org> - 1.3.4-1
+- Update to 1.3.4 (RHBZ#2149455)
+
 * Mon Sep 26 2022 Xavier Bachelot <xavier@bachelot.org> - 1.3.3-1
 - Update to 1.3.3 (RHBZ#2128242, RHBZ#2120442)
 

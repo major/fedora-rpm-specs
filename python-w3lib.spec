@@ -1,22 +1,17 @@
-%{?python_enable_dependency_generator}
 %global srcname w3lib
 
 Name:           python-%{srcname}
-Version:        1.17.0
-Release:        21%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Library of web-related functions
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/scrapy/w3lib
-Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/%{srcname}-%{version}.tar.gz
-# Usually pypi packages does not include license boilerplate.
-# so, I've downloaded it from the project github repository
-# wget -N https://raw.githubusercontent.com/scrapy/w3lib/master/LICENSE -O LICENSE-w3lib
-Source1:        LICENSE-w3lib
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 
-%description
+%global _desc %{expand:
 This is a Python library of web-related functions, such as:
 - Remove comments, or tags from HTML snippets
 - Extract base url from HTML snippets
@@ -27,7 +22,10 @@ This is a Python library of web-related functions, such as:
 - Converting HTML pages to unicode
 - RFC-compliant url joining
 - Sanitize urls (like browsers do)
-- Extract arguments from urls
+- Extract arguments from urls}
+
+
+%description %_desc
 
 
 %package -n python3-%{srcname}
@@ -36,45 +34,39 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n python3-%{srcname}
-This is a Python3 library of web-related functions, such as:
-- Remove comments, or tags from HTML snippets
-- Extract base url from HTML snippets
-- Translate entites on HTML strings
-- Encoding mulitpart/form-data
-- Convert raw HTTP headers to dicts and vice-versa
-- Construct HTTP auth header
-- Converting HTML pages to unicode
-- RFC-compliant url joining
-- Sanitize urls (like browsers do)
-- Extract arguments from urls
+%description -n python3-%{srcname} %_desc
 
 
 %prep
 %setup -qn %{srcname}-%{version}
-# Remove bundled egg
-rm -rf w3lib.egg-info
-# copy LICENSE-w3lib file to sources as well.
-cp -a %{SOURCE1} .
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-rm -rf %{buildroot}
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
+ 
+%check 
+%tox 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE-w3lib
-%{python3_sitelib}/w3lib/
-%{python3_sitelib}/w3lib-*.egg-info
+%license LICENSE
 
 
 %changelog
+* Sun Nov 27 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 2.0.1-1
+- Rebased to new version
+- Resolves bz#2148631
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Version:        1.7.0
 Release:        %autorelease
 Summary:        Fast random access of gzip files in Python
 
-License:        zlib
+License:        Zlib
 URL:            https://github.com/pauldmccarthy/indexed_gzip
 Source0:        %{pypi_source indexed_gzip}
 
@@ -35,7 +35,7 @@ decompress (on average) 512KB of data to read from any location in the file.}
 
 %description %{desc}
 
-%package -n python3-indexed_gzip
+%package -n python3-indexed-gzip
 Summary:        %{summary}
 BuildRequires:  python3-devel
 
@@ -51,10 +51,17 @@ BuildRequires:  %{py3_dist nibabel}
 BuildRequires:  %{py3_dist pytest-xdist}
 %endif
 
-%description -n python3-indexed_gzip %{desc}
+# The binary subpackage was renamed to match the project canonical name
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_canonical_project_name).
+# Ideally, the whole package would be renamed to python-indexed-gzip. This
+# provides a clean upgrade path.
+%py_provides python3-indexed_gzip
+Obsoletes:      python3-indexed_gzip < 1.7.0-4
+
+%description -n python3-indexed-gzip %{desc}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %prep
 %autosetup -n indexed_gzip-%{version}
@@ -80,7 +87,7 @@ find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -v
 %pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n %{?_smp_build_ncpus}
 %endif
 
-%files -n python3-indexed_gzip -f %{pyproject_files}
+%files -n python3-indexed-gzip -f %{pyproject_files}
 %doc README.md
 
 %changelog

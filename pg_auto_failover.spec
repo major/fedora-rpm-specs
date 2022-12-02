@@ -4,7 +4,7 @@
 
 Name:           pg_auto_failover
 Version:        1.6.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 License:        ASL 1.0
@@ -128,6 +128,9 @@ install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
 %endif
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.6.3-6
+- Rebuild for new PostgreSQL 15
+
 * Thu Aug 04 2022 Ondrej Sloup <osloup@redhat.com> - 1.6.3-5
 - Add patch to fix format arguments in mvprintw (watch.c)
 - Add lz4-devel as build requirement

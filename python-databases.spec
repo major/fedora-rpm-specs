@@ -26,6 +26,10 @@ Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
 %global with_asyncmy 1
 %endif
 
+# Fixes breaking changes in SQLAlchemy cursor
+# https://github.com/encode/databases/pull/513
+Patch:          %{forgeurl}/pull/513.patch
+
 BuildRequires:  python3-devel
 
 # Additional BR’s for testing, from requirements.txt only (therefore not
@@ -228,6 +232,10 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 %prep
 %autosetup -n databases-%{version} -p1
+
+# The patch for sqlalchemy >=1.4.42 is not backwards-compatible.
+sed -r -i 's/(sqlalchemy>=1\.4),/\1\.42,/' setup.py
+
 %if !0%{?with_asyncmy}
 sed -r -i \
     -e 's/^([[:blank:]]*)(.*import AsyncMyBackend.*)$/# \1\2\n\1pass/' \
@@ -293,7 +301,7 @@ MYSQL_PID_FILE="${PWD}/mysql.pid"
 mkdir "${MYSQL_DATA_DIR}"
 mysql_install_db --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}"
 
-%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --ssl \
+%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --skip-ssl \
     --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}" \
     --socket="${MYSQL_SOCKET}" --pid-file="${MYSQL_PID_FILE}" & :
 

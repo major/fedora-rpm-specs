@@ -1,9 +1,3 @@
-# This package buildrequires flit_core to build the wheel, but flit_core requires tomli.
-# To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
-# Note that as a pure Python package, the wheel contains no pre-built binary stuff.
-# When bootstrap is enabled, we don't run tests either, just an import check.
-%bcond_with     bootstrap
-
 Name:           python-tomli
 Version:        2.0.1
 Release:        5%{?dist}
@@ -16,11 +10,9 @@ Source0:        https://github.com/hukkin/tomli/archive/%{version}/%{name}-%{ver
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-%if %{without bootstrap}
 # The test suite uses the stdlib's unittest framework, but we use %%pytest
 # as the test runner.
 BuildRequires:  python3-pytest
-%endif
 
 %global _description %{expand:
 Tomli is a Python library for parsing TOML.
@@ -39,47 +31,22 @@ Summary:        %{summary}
 %autosetup -p1 -n tomli-%{version}
 
 
-%if %{without bootstrap}
 %generate_buildrequires
 %pyproject_buildrequires -r
-%endif
 
 
 %build
-%if %{without bootstrap}
 %pyproject_wheel
-%else
-%global distinfo tomli-%{version}+rpmbootstrap.dist-info
-mkdir %{distinfo}
-cat > %{distinfo}/METADATA << EOF
-Metadata-Version: 2.2
-Name: tomli
-Version: %{version}+rpmbootstrap
-EOF
-%endif
 
 
 %install
-%if %{without bootstrap}
 %pyproject_install
 %pyproject_save_files tomli
-%else
-mkdir -p %{buildroot}%{python3_sitelib}
-cp -a src/tomli %{distinfo} %{buildroot}%{python3_sitelib}
-echo '%{python3_sitelib}/tomli/' > %{pyproject_files}
-echo '%{python3_sitelib}/%{distinfo}/' >> %{pyproject_files}
-%endif
 
 
 %check
 %py3_check_import tomli
-%if %{without bootstrap}
-# assert the properly built package has no runtime requires
-# if it does, we need to change the bootstrap metadata
-test -f %{buildroot}%{python3_sitelib}/tomli-%{version}.dist-info/METADATA
-grep '^Requires-Dist:' %{buildroot}%{python3_sitelib}/tomli-%{version}.dist-info/METADATA && exit 1 || true
 %pytest
-%endif
 
 
 %files -n python3-tomli -f %{pyproject_files}

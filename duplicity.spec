@@ -8,6 +8,7 @@ Summary:        Encrypted bandwidth-efficient backup using rsync algorithm
 License:        GPLv2+
 URL:            http://www.nongnu.org/duplicity/
 Source0:        https://launchpad.net/duplicity/1.0/%{version}/+download/duplicity-%{version}.tar.gz
+Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6
@@ -52,7 +53,7 @@ unix permissions, directories, symbolic links, fifos, device files,
 but not hard links.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

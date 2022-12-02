@@ -1,13 +1,15 @@
 Name:           perl-Test-TCP
 Version:        2.22
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Testing TCP program
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-TCP
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Test-TCP-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  %{__make}
+BuildRequires:  %{__perl}
+
 BuildRequires:  perl-interpreter >= 0:5.008001
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
@@ -39,15 +41,15 @@ Test::TCP is test utilities for TCP/IP program.
 sed -i -e 's,use Test::SharedFork 0.12;,use Test::SharedFork 0.29;,' lib/Test/TCP.pm
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README*
@@ -55,6 +57,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.22-11
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

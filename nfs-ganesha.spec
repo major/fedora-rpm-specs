@@ -114,7 +114,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	4.1
+Version:	4.2
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -160,7 +160,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc-c++
 %if ( %{with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 4.1
+BuildRequires:	libntirpc-devel >= 4.2
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -897,6 +897,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Nov 30 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.2-1
+- NFS-Ganesha 4.2 GA
+
 * Fri Nov 18 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.1-1
 - NFS-Ganesha 4.1 GA
 

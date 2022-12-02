@@ -1,6 +1,6 @@
 Name:           perl-Test-WWW-Mechanize-PSGI
 Version:        0.39
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Test PSGI programs using WWW::Mechanize
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-WWW-Mechanize-PSGI
@@ -43,7 +43,6 @@ PSGI applications.
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -57,6 +56,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.39-13
+- Modernize spec.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.39-12
 - Modernize spec.
 - Convert license to SPDX.

@@ -90,7 +90,7 @@ cp -p '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements.test.txt
+%pyproject_buildrequires requirements.test.txt
 
 
 %build

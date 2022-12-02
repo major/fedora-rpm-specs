@@ -1,6 +1,6 @@
 Name:           opensc
-Version:        0.22.0
-Release:        7%{?dist}
+Version:        0.23.0
+Release:        1%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPLv2+
@@ -8,18 +8,8 @@ URL:            https://github.com/OpenSC/OpenSC/wiki
 Source0:        https://github.com/OpenSC/OpenSC/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
-# https://github.com/OpenSC/OpenSC/pull/2241/
-Patch5:         %{name}-gcc11.patch
-Patch6:         %{name}-32b-arch.patch
 # File caching by default (#2000626)
-Patch8:         %{name}-%{version}-file-cache.patch
-# https://github.com/OpenSC/OpenSC/pull/2414 (#2007029)
-Patch9:         %{name}-%{version}-detect-empty.patch
-# https://github.com/OpenSC/OpenSC/pull/2512 (#2046792)
-Patch10:        %{name}-%{version}-realloc-pointer.patch
-Patch11:        %{name}-%{version}-init-var.patch
-# https://github.com/OpenSC/OpenSC/pull/2371 (#2080783)
-Patch12:        %{name}-%{version}-support-itacns-2048.patch
+Patch8:         %{name}-0.22.0-file-cache.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -32,6 +22,7 @@ BuildRequires:  bash-completion
 BuildRequires:  zlib-devel
 # For tests
 BuildRequires:  libcmocka-devel
+BuildRequires:  vim-common
 %if ! 0%{?rhel}
 BuildRequires:  softhsm
 %endif
@@ -57,17 +48,11 @@ every software/card that does so, too.
 %prep
 %setup -q
 %patch1 -p1 -b .pinpad
-%patch5 -p1 -b .gcc11
-%patch6 -p1 -b .32b
 %patch8 -p1 -b .file-cache
-%patch9 -p1 -b .detect-empty
-%patch10 -p1 -b .realloc-pointer
-%patch11 -p1 -b .init-var
-%patch12 -p1 -b .support-itacns-2048
 
 # The test-pkcs11-tool-allowed-mechanisms already works in Fedora
 sed -i -e '/XFAIL_TESTS/,$ {
-  s/XFAIL_TESTS.*/XFAIL_TESTS=test-pkcs11-tool-test-threads.sh/
+  s/XFAIL_TESTS.*/XFAIL_TESTS=test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh/
   q
 }' tests/Makefile.am
 
@@ -86,7 +71,7 @@ sed -i -e 's/opensc.conf/opensc-%{_arch}.conf/g' src/libopensc/Makefile.in
 sed -i -e 's|"/lib /usr/lib\b|"/%{_lib} %{_libdir}|' configure # lib64 rpaths
 %set_build_flags
 CFLAGS="$CFLAGS -Wstrict-aliasing=2 -Wno-deprecated-declarations"
-%configure  --disable-static \
+%configure --disable-static \
   --disable-autostart-items \
   --disable-notify \
   --disable-assert \
@@ -99,7 +84,6 @@ CFLAGS="$CFLAGS -Wstrict-aliasing=2 -Wno-deprecated-declarations"
 
 %check
 make check
-
 
 %install
 %make_install
@@ -130,9 +114,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libopensc.so
 # remove the .pc file so we do not confuse users #1673139
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/*.pc
 rm -f $RPM_BUILD_ROOT%{_libdir}/libsmm-local.so
-%if 0%{?rhel} && 0%{?rhel} < 7
-rm -rf %{buildroot}%{_datadir}/bash-completion/
-%endif
 
 # the npa-tool builds to nothing since we do not have OpenPACE library
 rm -rf %{buildroot}%{_bindir}/npa-tool
@@ -143,7 +124,6 @@ rm -rf %{buildroot}%{_bindir}/pkcs11-register
 rm -rf %{buildroot}%{_mandir}/man1/pkcs11-register.1*
 
 # Remove the notification files
-rm %{buildroot}%{_bindir}/opensc-notify
 rm %{buildroot}%{_datadir}/applications/org.opensc.notify.desktop
 rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
@@ -151,9 +131,7 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 %files
 %doc COPYING NEWS README*
 
-%if ! 0%{?rhel} || 0%{?rhel} >= 7
 %{_datadir}/bash-completion/*
-%endif
 
 %ifarch %{ix86}
 %{_mandir}/man5/opensc-%{_arch}.conf.5*
@@ -191,7 +169,7 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 %{_libdir}/opensc-pkcs11.so
 %{_libdir}/pkcs11-spy.so
 %{_libdir}/onepin-opensc-pkcs11.so
-%%dir %{_libdir}/pkcs11
+%dir %{_libdir}/pkcs11
 %{_libdir}/pkcs11/opensc-pkcs11.so
 %{_libdir}/pkcs11/onepin-opensc-pkcs11.so
 %{_libdir}/pkcs11/pkcs11-spy.so
@@ -220,6 +198,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Wed Nov 30 2022 Jakub Jelen <jjelen@redhat.com> - 0.23.0-1
+- New upstream release (#2134076)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

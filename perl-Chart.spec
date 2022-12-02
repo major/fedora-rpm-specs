@@ -1,5 +1,5 @@
 Name:           perl-Chart
-Version:        2.403.8
+Version:        2.403.9
 Release:        1%{?dist}
 Summary:        Series of charting modules
 # lib/Chart.pm:         GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -84,13 +84,18 @@ make test
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Chart.pm
+%{perl_vendorlib}/Chart
+%{_mandir}/man3/Chart.*
+%{_mandir}/man3/Chart::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 2.403.9-1
+- 2.403.9 bump
+
 * Mon Oct 24 2022 Petr Pisar <ppisar@redhat.com> - 2.403.8-1
 - 2.403.8 bump
 

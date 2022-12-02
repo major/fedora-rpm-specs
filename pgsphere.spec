@@ -1,7 +1,7 @@
 Summary: Spherical data types, functions, and operators for PostgreSQL
 Name: pgsphere
 Version: 1.1.1
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: BSD
 
 # https://github.com/akorotkov/pgsphere/issues/15
@@ -50,6 +50,9 @@ install -m 644 pg_sphere.sql %{buildroot}%{_datadir}/%{name}/
 %{_libdir}/pgsql/pg_sphere.so
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.1.1-36
+- Rebuild for new PostgreSQL 15
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

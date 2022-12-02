@@ -10,7 +10,6 @@ URL:           https://github.com/FasterXML/oss-parent
 Source0:       %{url}/archive/%{srcname}-%{version}.tar.gz
 
 BuildRequires: maven-local
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 BuildArch:     noarch
@@ -39,6 +38,11 @@ This package contains the parent pom file for FasterXML.com projects.
 %pom_remove_plugin :jdepend-maven-plugin
 %pom_remove_plugin :taglist-maven-plugin
 %pom_xpath_remove "pom:build/pom:extensions"
+%pom_remove_plugin "org.apache.felix:maven-bundle-plugin"
+%pom_remove_plugin "org.apache.maven.plugins:maven-compiler-plugin"
+%pom_remove_plugin "org.apache.maven.plugins:maven-jar-plugin"
+%pom_remove_plugin "org.apache.maven.plugins:maven-surefire-plugin"
+%pom_remove_plugin "org.codehaus.mojo:build-helper-maven-plugin"
 
 %build
 %mvn_build

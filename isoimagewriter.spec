@@ -1,6 +1,6 @@
 Name:           isoimagewriter
 Version:        0.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        KDE ISO Image Writer, a tool to write a .iso file to a USB disk
 
 License:        GPLv3+
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 0.8-10
+- Rebuild for gpgme 1.17.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

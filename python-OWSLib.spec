@@ -86,7 +86,7 @@ echo 'nbsphinx_allow_errors = True' >> docs/conf.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements-dev-filtered.txt
+%pyproject_buildrequires requirements-dev-filtered.txt
 
 
 %build

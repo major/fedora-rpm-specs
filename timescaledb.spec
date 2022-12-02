@@ -2,7 +2,7 @@
 
 Name:           %{core_name}db
 Version:        2.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open-source time-series database powered by PostgreSQL
 
 License:        ASL 2.0
@@ -53,6 +53,9 @@ rm -rf tsl
 
 
 %changelog
+* Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 2.8.1-2
+- Rebuild for new PostgreSQL 15
+
 * Thu Sep 01 2022 Ondrej Sloup <osloup@redhat.com> - 2.8.0-1
 - Rebase to the latest upstream version (rhbz#2123172)
 

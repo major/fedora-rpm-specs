@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mail applications support library
 
 License: GPLv2
@@ -109,6 +109,9 @@ Requires:       cmake(KF5PimCommon)
 
 
 %changelog
+* Wed Nov 30 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
+- Rebuild for gpgme 1.17.1
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

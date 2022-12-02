@@ -6,7 +6,7 @@
 %global goipath         github.com/osbuild/weldr-client/v2
 
 Name:      weldr-client
-Version:   35.8
+Version:   35.9
 Release:   1%{?dist}
 # Upstream license specification: Apache-2.0
 License:   ASL 2.0
@@ -22,6 +22,8 @@ Source2:   https://keys.openpgp.org/vks/v1/by-fingerprint/117E8C168EFE3A7F#/gpg-
 
 Obsoletes: composer-cli < 35.0
 Provides: composer-cli = %{version}-%{release}
+
+Requires: diffutils
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 %if 0%{?fedora}
@@ -126,13 +128,20 @@ composer-cli package.
 
 
 %changelog
-* Fri Sep 30 2022 Brian C. Lane <bcl@redhat.com> - 35.8-1
-- New release: 35.8 (bcl)
-- completion: Remove providers from bash completion script (bcl)
-- completion: Filter out new headers from compose list (bcl)
-- docs: Remove unneeded Long descriptions (bcl)
-- docs: Use a custom help template (bcl)
-- docs: Add more command documentation (bcl)
-- cmdline: Add package glob support to modules list command (bcl)
-- workflow: Add govulncheck on go v1.18 (bcl)
-- tests: Update to use golangci-lint 1.49.0 (bcl)
+* Wed Nov 30 2022 Brian C. Lane <bcl@redhat.com> - 35.9-1
+- New release: 35.9 (bcl)
+- tests: Replace os.MkdirTemp with t.TempDir (bcl)
+- blueprint save: Allow overriding bad blueprint names (bcl)
+- tests: Clean up checking err in tests (bcl)
+- composer-cli: Implement blueprints diff (bcl)
+- saveBlueprint: Return the filename to the caller (bcl)
+- composer-cli: Add tests for using --commit with old servers (bcl)
+- weldr: Return error about the blueprints change route (bcl)
+- weldr: Save the http status code as part of APIResponse (bcl)
+- Add --commit support to blueprints save (bcl)
+- Add --commit to blueprints show (bcl)
+- gitleaks: Exclude the test password used in tests (bcl)
+- ci: add tags to AWS instances (tlavocat)
+- build(deps): bump github.com/BurntSushi/toml from 1.2.0 to 1.2.1 (49699333+dependabot[bot])
+- build(deps): bump github.com/stretchr/testify from 1.8.0 to 1.8.1 (49699333+dependabot[bot])
+- build(deps): bump github.com/spf13/cobra from 1.5.0 to 1.6.1 (49699333+dependabot[bot])

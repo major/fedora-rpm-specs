@@ -103,7 +103,7 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires %{?with_doc_pdf:docs/requirements.txt}
 
 
 %build

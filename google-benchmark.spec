@@ -3,9 +3,9 @@
 
 Name: google-benchmark
 Version: 1.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
-License: ASL 2.0
+License: Apache-2.0
 Summary: A microbenchmark support library
 URL: https://github.com/google/%{intname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -74,6 +74,9 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 %{_docdir}/%{intname}/
 
 %changelog
+* Wed Nov 30 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.1-2
+- Update License to SPDX
+
 * Fri Nov 11 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7.1-1
 - Updated to version 1.7.1.
 

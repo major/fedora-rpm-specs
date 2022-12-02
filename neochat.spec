@@ -22,8 +22,10 @@ BuildRequires: cmake(KF5Config)
 BuildRequires: cmake(KF5CoreAddons)
 BuildRequires: cmake(KF5DBusAddons)
 BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5ItemModels)
 BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(KF5Kirigami2)
+BuildRequires: cmake(KF5KirigamiAddons)
 BuildRequires: cmake(KF5Notifications)
 BuildRequires: cmake(KF5QQC2DesktopStyle)
 BuildRequires: cmake(KF5Sonnet)
@@ -47,7 +49,6 @@ BuildRequires: ninja-build
 Requires: breeze-icon-theme
 Requires: hicolor-icon-theme
 Requires: kf5-kirigami2%{?_isa}
-Requires: kf5-kitemmodels%{?_isa}
 Requires: kf5-syntax-highlighting%{?_isa}
 Requires: kquickimageeditor%{?_isa}
 Requires: qqc2-breeze-style%{?_isa}

@@ -1,7 +1,7 @@
 Name:    kget
 Summary: Download manager
 Version: 22.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://invent.kde.org/network/%{name}
@@ -132,6 +132,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
+- Rebuild for gpgme 1.17.1
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

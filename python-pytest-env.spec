@@ -9,6 +9,7 @@ Version:        0.6.2^%{snapdate}git%(echo '%{commit}' | cut -b -7)
 Release:        %autorelease
 Summary:        Plugin for pytest that allows you to add environment variables
 
+# SPDX
 License:        MIT
 URL:            https://github.com/MobileDynasty/pytest-env
 Source0:        %{url}/archive/%{commit}/pytest-env-%{commit}.tar.gz
@@ -35,7 +36,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build

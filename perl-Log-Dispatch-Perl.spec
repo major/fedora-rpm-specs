@@ -1,15 +1,16 @@
 Name:           perl-Log-Dispatch-Perl
 Version:        0.05
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Use core Perl functions for logging
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatch-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Log-Dispatch-Perl-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
-BuildRequires:  make
+BuildRequires:  %{__make}
+
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(base)
@@ -34,17 +35,16 @@ with "die" and "croak".
 %setup -q -n Log-Dispatch-Perl-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
+%{make_install}
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %doc Changes README LICENCE
@@ -52,6 +52,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.05-10
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

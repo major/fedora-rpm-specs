@@ -3,12 +3,14 @@
 
 Name:            stockfish
 Version:         15
-Release:         2%{?dist}
+Release:         3%{?dist}
 #Source0:        %%{url}/files/%%{name}-%%{version}-linux.zip
 Source0:         https://github.com/official-%{name}/%{srcname}/archive/sf_%{version}.zip
 Summary:         Powerful open source chess engine
-# CC0 is for the NNUE network file (see https://tests.stockfishchess.org/nns)
-License:         GPLv3+ and CC0
+# The entire source is GPL-3.0-or-later, except the NNUE network file (see
+# https://tests.stockfishchess.org/nns), which is CC0-1.0 and can be considered
+# content.
+License:         GPL-3.0-or-later AND CC0-1.0
 URL:             http://%{name}chess.org
 
 # the NN file
@@ -122,6 +124,9 @@ cp -p polyglot.ini %{buildroot}%{_sysconfdir}/%{name}
 
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 15-3
+- Update License to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

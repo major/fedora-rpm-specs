@@ -1,14 +1,13 @@
 Name:           perl-Types-Path-Tiny
 Version:        0.006
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Path::Tiny types and coercions for Moose and Moo
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Types-Path-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Types-Path-Tiny-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
@@ -38,11 +37,11 @@ This module provides Path::Tiny types for Moose, Moo, etc.
 %setup -q -n Types-Path-Tiny-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-%{__make} %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -55,6 +54,10 @@ This module provides Path::Tiny types for Moose, Moo, etc.
 %{_mandir}/man3/*
 
 %changelog
+* Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.006-16
+- Modernize spec.
+- Convert license to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

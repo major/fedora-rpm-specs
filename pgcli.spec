@@ -2,10 +2,10 @@
 
 Name:           %{pypi_name}
 Version:        3.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.pgcli.com/
 Source0:        %{pypi_source}
 
@@ -50,6 +50,9 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-2
+- Update License to SPDX
+
 * Thu Nov 03 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-1
 - Update to 3.5.0
 

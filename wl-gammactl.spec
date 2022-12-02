@@ -1,6 +1,6 @@
 # -*-Mode: rpm-spec -*-
 
-%global commit       611846ce8f5f6e7fe1afb100416cceb8af54afb2
+%global commit       e2385950d97a3baf1b6e2f064dd419ccec179586
 %global shortcommit  %(c=%{commit}; echo ${c:0:7})
 
 %global proto_name   wlr-protocols
@@ -9,7 +9,7 @@
 
 Name:     wl-gammactl
 Version:  0.1
-Release:  0.9.20200406git%{shortcommit}%{?dist}
+Release:  0.10.20221130git%{shortcommit}%{?dist}
 Summary:  Set contrast, brightness and gamma for wayland compositors
 License:  MIT
 URL:      https://github.com/mischw/wl-gammactl
@@ -74,6 +74,9 @@ desktop-file-install --dir %{buildroot}/%{_datadir}/applications \
 %license LICENSE
 
 %changelog
+* Wed Nov 30 2022 Bob Hepple <bob.hepple@gmail.com> - 0.1-0.10.20221130gite238595
+- rebuilt to latest
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.9.20200406git611846c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

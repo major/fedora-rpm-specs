@@ -23,7 +23,7 @@
 %endif
 
 Name:           freerdp
-Version:        2.8.1
+Version:        2.9.0
 Release:        1%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
@@ -297,6 +297,10 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Wed Nov 30 2022 Ondrej Holy <oholy@redhat.com> - 2:2.9.0-1
+- Update to 2.9.0 (CVE-2022-39316, CVE-2022-39317, CVE-2022-39318,
+CVE-2022-39319, CVE-2022-39320, CVE-2022-41877, CVE-2022-39347).
+
 * Mon Nov 14 2022 Ondrej Holy <oholy@redhat.com> - 2:2.8.1-1
 - Update to 2.8.1 (CVE-2022-39282, CVE-2022-39283).
 

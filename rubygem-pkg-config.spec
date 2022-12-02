@@ -1,12 +1,11 @@
 # Generated from pkg-config-1.0.3.gem by gem2rpm -*- rpm-spec -*-
 %global	gem_name	pkg-config
 
-%undefine	_changelog_trimtime
 %undefine	__brp_mangle_shebangs
 
 Summary:	A pkg-config implementation by Ruby
 Name:		rubygem-%{gem_name}
-Version:	1.4.9
+Version:	1.5.1
 Release:	1%{?dist}
 License:	LGPLv2+
 URL:		http://github.com/rcairo/pkg-config
@@ -88,6 +87,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Wed Nov 30 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.1-1
+- 1.5.1
+
 * Sun Jul 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.9-1
 - 1.4.9
 

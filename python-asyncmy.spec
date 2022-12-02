@@ -69,7 +69,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -103,7 +103,7 @@ MYSQL_PID_FILE="${PWD}/mysql.pid"
 mkdir "${MYSQL_DATA_DIR}"
 mysql_install_db --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}"
 
-%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --ssl \
+%{_libexecdir}/mysqld --port="${MYSQL_PORT}" --skip-ssl \
     --datadir="${MYSQL_DATA_DIR}" --log-error="${MYSQL_LOG}" \
     --socket="${MYSQL_SOCKET}" --pid-file="${MYSQL_PID_FILE}" & :
 

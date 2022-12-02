@@ -1,5 +1,5 @@
 Name:           python-glymur
-Version:        0.12.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Interface to the OpenJPEG library for working with JPEG 2000 files
 
@@ -53,7 +53,6 @@ Recommends:     python3dist(gdal)
 
 
 %prep
-# Upstream forgot to tag the 0.11.6^post2 release.
 %autosetup -n glymur-%{version}
 
 

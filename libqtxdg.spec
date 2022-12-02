@@ -2,10 +2,10 @@
 
 Name:           libqtxdg
 Summary:        QtXdg, a Qt5 implementation of XDG standards
-Version:        3.9.0
-Release:        3%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 License:        LGPLv2+
-URL:            http://lxqt.org
+URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
@@ -68,12 +68,11 @@ cd build
 %doc AUTHORS
 %license COPYING
 %{_libdir}/libQt5Xdg.so.3
-%{_libdir}/libQt5Xdg.so.3.9.0
+%{_libdir}/libQt5Xdg.so.3.10.0
 %{_libdir}/libQt5XdgIconLoader.so.3
-%{_libdir}/libQt5XdgIconLoader.so.3.9.0
-%{_bindir}/qtxdg-mat
-%{_datadir}/lxqt/lxqt-qtxdg.conf
-%{_datadir}/lxqt/qtxdg.conf
+%{_libdir}/libQt5XdgIconLoader.so.3.10.0
+%{_sysconfdir}/xdg/lxqt-qtxdg.conf
+%{_sysconfdir}/xdg/qtxdg.conf
 
 %files devel
 %{_libdir}/libQt5Xdg.so
@@ -87,6 +86,9 @@ cd build
 %{_qt5_archdatadir}/plugins/iconengines/libQt5XdgIconPlugin.so
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 3.10.0-1
+- Update version to 3.10.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
