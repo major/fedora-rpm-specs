@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.16.4
+Version:        3.17.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -252,6 +252,7 @@ RleTest::test_brle_logical_not
 RleTest::test_brle_to_dense
 RleTest::test_brle_to_rle
 RleTest::test_rle_encode_decode
+SubdivideTest::test_loop_correct
 VoxelGridTest::test_local
 VoxelGridTest::test_roundtrip
 %endif

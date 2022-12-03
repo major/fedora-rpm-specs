@@ -1,21 +1,18 @@
-%global commit 68683d3811a803aa087c38a2063cf64c8d084d49
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20220831
-
 Name:    libcamera
-Version: 0.0.0~git.%{commitdate}.%{shortcommit}
-Release: 5%{?dist}
+Version: 0.0.2
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
 URL:     http://libcamera.org/
 
-# Upstream is still under development so they are not tagging releases
-# yet (https://git.linuxtv.org/libcamera.git). Use the following to do
-# a rebase to a new snapshot:
+# Upstream is still under development and does not release tarballs,
+# but they do tag releases (https://git.linuxtv.org/libcamera.git).
 #
-# git archive --format=tar --prefix=%%{name}-%%{shortcommit}/ %%{shortcommit} | xz > %%{name}-%%{shortcommit}.tar.xz
-Source0: %{name}-%{shortcommit}.tar.xz
+# For use the following to do generate a tarball from a git tag:
+#
+# git archive --format=tar --prefix=%%{name}-%%{version}/ %%{version} | xz > %%{name}-%%{version}.tar.xz
+Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 
@@ -98,7 +95,7 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 GSTreamer plugins for %{name}
 
 %prep
-%autosetup -p1 -n %{name}-%{shortcommit}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 # cam/qcam crash with LTO
@@ -166,6 +163,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_bindir}/lc-compliance
 
 %changelog
+* Thu Dec 01 2022 Javier Martinez Canillas <javierm@redhat.com> - 0.0.2-1
+- Update to version 0.0.2
+
 * Wed Aug 31 2022 Javier Martinez Canillas <javierm@redhat.com> - 0.0.0~git.20220831.68683d3-1
 - Update to snapshot 68683d3
 

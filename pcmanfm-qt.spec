@@ -1,13 +1,12 @@
 %define __cmake_in_source_build 1
 
 Name: pcmanfm-qt
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: LxQt file manager PCManFM
 License: GPLv2+
-URL: http://lxqt.org
+URL: https://lxqt-project.org
 Source0: https://github.com/lxde/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-Patch1:  0001-Customize-default-appearance.patch
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
 BuildRequires: pkgconfig(lxqt) >= 1.0.0
@@ -44,7 +43,7 @@ Obsoletes: pcmanfm-qt-common <= 0.9.0
 # gvfs is optional depencency at runtime, so we add a weak dependency here
 Recommends:    gvfs
 # configuration patched to use qterminal instead as the default terminal emulator but allow to use others
-Recommends:    qterminal
+Requires:    qterminal
 %endif
 
 %description
@@ -82,7 +81,7 @@ This package provides translations for the pcmanfm-qt package.
 
 %prep
 %setup -q
-%patch1 -p1
+sed '/Wallpaper=/c\Wallpaper=\/usr\/share\/backgrounds\/default.png' config/pcmanfm-qt/lxqt/settings.conf.in
 
 %build
 %if 0%{?el7}
@@ -130,6 +129,9 @@ done
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

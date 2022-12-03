@@ -1,9 +1,9 @@
-%define byaccdate 20220128
+%define byaccdate 20221106
 
 Summary: Berkeley Yacc, a parser generator
 Name: byacc
 Version: 2.0.%{byaccdate}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Public Domain
 URL: http://invisible-island.net/byacc/byacc.html
 Source: ftp://invisible-island.net/byacc/byacc-%{byaccdate}.tgz
@@ -51,6 +51,9 @@ echo ====================TESTING END=====================
 %{_mandir}/man1/byacc.1*
 
 %changelog
+* Tue Nov 29 2022 Arjun Shankar <arjun@redhat.com> - 2.0.20221106-1
+- Rebase to byacc-2.0-20221106 (#2141488)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20220128-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.1.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
 License: MIT
 URL: https://github.com/net-ssh/net-ssh
@@ -21,6 +21,11 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(mocha)
+# rubygem-ed25519 support
+BuildRequires: rubygem(bcrypt_pbkdf)
+BuildRequires: rubygem(ed25519)
+Recommends: rubygem(bcrypt_pbkdf)
+Recommends: rubygem(ed25519)
 BuildArch: noarch
 
 %description
@@ -63,12 +68,13 @@ ln -s %{_builddir}/test test
 # only partially.
 # Without patches there are "28 failures, 449 errors".
 
-# ed25519 is not yet in Fedora.
+# This requires rubygem-x25519 which is not yet in Fedora.
+mv test/transport/kex/test_curve25519_sha256.rb{,.disable}
+
 # Logger used to be loaded by some dependency (probably RDoc?)
 # but it it not loaded anymore, so require it explicitly.
-NET_SSH_NO_ED25519=true \
-  ruby -Ilib:test -rlogger test/test_all.rb 2>&1 | tee test.out
-  grep "4 failures, 381 errors" test.out
+ruby -Ilib:test -rlogger test/test_all.rb 2>&1 | tee test.out
+grep "4 failures, 381 errors" test.out
 popd
 
 %files
@@ -95,6 +101,10 @@ popd
 %exclude %{gem_instdir}/net-ssh-public_cert.pem
 
 %changelog
+* Thu Dec 01 2022 Jarek Prokop <jprokop@redhat.com> - 6.1.0-6
+- Support ed25519 cipher.
+  Resolves: rhbz#2087076
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

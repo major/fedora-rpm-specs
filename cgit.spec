@@ -34,10 +34,10 @@
 
 Name:           cgit
 Version:        1.2.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A fast web interface for git
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://git.zx2c4.com/cgit/about/
 Source0:        https://git.zx2c4.com/cgit/snapshot/%{name}-%{version}.tar.xz
 Source1:        https://www.kernel.org/pub/software/scm/git/git-%{gitver}.tar.xz
@@ -230,6 +230,9 @@ install -Dp -m0644 httpd.conf %{buildroot}%{httpdconfd}/%{name}.conf
 
 
 %changelog
+* Thu Dec 01 2022 Todd Zullinger <tmz@pobox.com> - 1.2.3-11
+- convert license to SPDX
+
 * Mon Aug 01 2022 Todd Zullinger <tmz@pobox.com> - 1.2.3-11
 - update cgit homepage
 - set path to linker script in %%_package_note_file

@@ -1,13 +1,14 @@
 Summary:    Small test program for liba52
 Name:       a52dec
 Version:    0.7.4
-Release:    43%{?dist}
+Release:    44%{?dist}
 License:    GPLv2
 URL:        http://liba52.sourceforge.net
 Source0:    %{url}/files/%{name}-%{version}.tar.gz
 Patch0:     a52dec-configure-optflags.patch
 Patch1:     a52dec-0.7.4-rpath64.patch
 Patch2:     liba52-silence.patch
+Patch3:     a52dec-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -90,6 +91,9 @@ done
 
 
 %changelog
+* Wed Nov 30 2022 Peter Fordham <peter.fordham@gmail.com> - 0.7.4-44
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

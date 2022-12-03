@@ -2,7 +2,7 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.2.6
+Version:        3.2.7
 Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
@@ -17,12 +17,14 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-devel
 # Needed for tests
+# BuildRequires:  gtk4
 BuildRequires:  gtk3
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-xvfb}
 # Runtime dependencies are not declared in setup.py (except pygobject) but are
 # actually required (see doc/DEPENDENCIES.md)
 Requires:       gspell
+# Requires:       (gtk4 or gtk3)
 Requires:       gtk3
 Requires:       hicolor-icon-theme
 BuildArch:      noarch
@@ -73,6 +75,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Thu Dec 01 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.7-1
+- Update to 3.2.7
+
 * Mon Oct 24 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.6-1
 - Update to 3.2.6
 

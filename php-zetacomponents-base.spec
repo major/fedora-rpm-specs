@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    2f432f4117a5aa2164d4fb1784f84db91dbdd3b8
+%global gh_commit    b6ae5f6177f6e51c5fc3514800e1c3fb076ec4be
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zetacomponents
 %global gh_project   Base
@@ -23,8 +23,8 @@
 %endif
 
 Name:           php-%{gh_owner}-%{cname}
-Version:        1.9.3
-Release:        5%{?dist}
+Version:        1.9.4
+Release:        1%{?dist}
 Summary:        Zeta Base Component
 
 Group:          Development/Libraries
@@ -43,7 +43,7 @@ BuildRequires:  %{_bindir}/phpab
 %if %{with tests}
 BuildRequires:  phpunit9
 BuildRequires:  %{_bindir}/convert
-BuildRequires:  php-composer(%{gh_owner}/unit-test) >= 1.2.0
+BuildRequires:  php-composer(%{gh_owner}/unit-test) >= 1.2.3
 BuildRequires:  php-posix
 %endif
 
@@ -106,7 +106,7 @@ EOF
 
 : Run test test suite
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 || ret=1
   fi
@@ -130,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  1 2022 Remi Collet <remi@remirepo.net> - 1.9.4-1
+- update to 1.9.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

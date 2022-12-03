@@ -1,5 +1,5 @@
 Name:           python-virtualenv
-Version:        20.16.7
+Version:        20.17.0
 Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
@@ -138,6 +138,9 @@ rm -r tmp_path
 
 
 %changelog
+* Thu Dec 01 2022 Lumír Balhar <lbalhar@redhat.com> - 20.17.0-1
+- Update to 20.17.0 (rhbz#2148907)
+
 * Mon Nov 14 2022 Lumír Balhar <lbalhar@redhat.com> - 20.16.7-1
 - Update to 20.16.7 (#2142311)
 

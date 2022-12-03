@@ -5,9 +5,9 @@
 
 Name:    kasumi
 Version: 2.5
-Release: 38%{?dist}
+Release: 39%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     http://kasumi.sourceforge.jp/
 %if 0%{?fedora}
 BuildRequires: anthy-devel
@@ -112,6 +112,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 2.5-39
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

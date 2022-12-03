@@ -12,10 +12,10 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.46%{?revision:.%{revision}git}%{?dist}
+Release:	0.47%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://gyp.gsrc.io
 # No released tarball avaiable. so the tarball was generated
 # from svn as following:
@@ -91,6 +91,9 @@ done
 
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.1-0.47.fcd686f1git
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.46.fcd686f1git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -228,4 +231,3 @@ done
 
 * Wed Aug  4 2010 Akira TAGOH <tagoh@redhat.com> - 0.1-0.1.839svn
 - Initial packaging.
-

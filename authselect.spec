@@ -2,15 +2,13 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
 License:        GPLv3+
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0001: 0001-cli-fix-memory-handling-with-new-popt-library.patch
 
 %global makedir %{_builddir}/%{name}-%{version}
 
@@ -343,6 +341,9 @@ fi
 exit 0
 
 %changelog
+* Thu Dec 1 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.1-1
+- Rebase to 1.4.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

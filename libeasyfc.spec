@@ -1,9 +1,9 @@
 Name:		libeasyfc
 Version:	0.14.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Easy configuration generator interface for fontconfig
 
-License:	LGPLv3+
+License:	LGPL-3.0-or-later
 URL:		http://tagoh.bitbucket.org/libeasyfc/
 Source0:	https://bitbucket.org/tagoh/libeasyfc/downloads/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-freetype.patch
@@ -95,6 +95,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gir-*/Easyfc-*.gir
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.14.0-13
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

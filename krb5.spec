@@ -1,27 +1,3 @@
-%bcond_without check
-%if %{without check}
-%global skipcheck 1
-%endif
-
-# COPR doesn't work right with the tests.  I suspect keyring issues,
-# but can't actually debug, so...
-%if 0%{?copr_username:1}
-%global skipcheck 1
-%endif
-
-# There are 0 test machines for this architecture, very few builders, and
-# they're not very well provisioned / maintained.  I can't support it.
-# Patches welcome, but there's nothing I can do - it fails more than half the
-# for "infrastructure issues" that I can't hope to debug.
-%ifarch s390x
-%global skipcheck 1
-%endif
-
-# RHEL runs upstream's test suite in a separate pass after build.
-%if 0%{?rhel}
-%global skipcheck 1
-%endif
-
 # Set this so that find-lang.sh will recognize the .po files.
 %global gettext_domain mit-krb5
 # Guess where the -libs subpackage's docs are going to go.
@@ -34,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 13
+%global baserelease 2
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -46,9 +22,9 @@
 %endif
 
 %global krb5_version_major 1
-%global krb5_version_minor 19
+%global krb5_version_minor 20
 # For a release without a patch number set to %%nil
-%global krb5_version_patch 2
+%global krb5_version_patch 1
 
 %global krb5_version_major_minor %{krb5_version_major}.%{krb5_version_minor}
 %global krb5_version %{krb5_version_major_minor}
@@ -57,7 +33,7 @@
 %endif
 
 # Should be in form 5.0, 6.1, etc.
-%global kdbversion 8.0
+%global kdbversion 9.0
 
 Summary: The Kerberos network authentication system
 Name: krb5
@@ -68,59 +44,33 @@ Release: %{krb5_release}%{?dist}
 Source0: https://web.mit.edu/kerberos/dist/krb5/%{krb5_version_major_minor}/krb5-%{krb5_version}%{?krb5_pre_release}.tar.gz
 Source1: https://web.mit.edu/kerberos/dist/krb5/%{krb5_version_major_minor}/krb5-%{krb5_version}%{?krb5_pre_release}.tar.gz.asc
 
-# Numbering is a relic of old init systems etc.  It's easiest to just leave.
 Source2: kprop.service
-Source4: kadmin.service
-Source5: krb5kdc.service
-Source6: krb5.conf
-Source10: kdc.conf
-Source11: kadm5.acl
-Source19: krb5kdc.sysconfig
-Source20: kadmin.sysconfig
-Source21: kprop.sysconfig
-Source29: ksu.pamd
-Source33: krb5kdc.logrotate
-Source34: kadmind.logrotate
-Source39: krb5-krb5kdc.conf
+Source3: kadmin.service
+Source4: krb5kdc.service
+Source5: krb5.conf
+Source6: kdc.conf
+Source7: kadm5.acl
+Source8: krb5kdc.sysconfig
+Source9: kadmin.sysconfig
+Source10: kprop.sysconfig
+Source11: ksu.pamd
+Source12: krb5kdc.logrotate
+Source13: kadmind.logrotate
+Source14: krb5-krb5kdc.conf
+Source15: %{name}-tests
 
-Patch0: downstream-ksu-pam-integration.patch
-Patch1: downstream-SELinux-integration.patch
-Patch4: downstream-fix-debuginfo-with-y.tab.c.patch
-Patch5: downstream-Remove-3des-support.patch
-Patch7: downstream-FIPS-with-PRNG-and-RADIUS-and-MD4.patch
-Patch8: Add-APIs-for-marshalling-credentials.patch
-Patch9: Add-hostname-canonicalization-helper-to-k5test.py.patch
-Patch10: Support-host-based-GSS-initiator-names.patch
-Patch11: Add-KCM_OP_GET_CRED_LIST-for-faster-iteration.patch
-Patch12: Fix-KCM-flag-transmission-for-remove_cred.patch
-Patch13: Make-KCM-iteration-fallback-work-with-sssd-kcm.patch
-Patch14: Use-KCM_OP_RETRIEVE-in-KCM-client.patch
-Patch15: Fix-KCM-retrieval-support-for-sssd.patch
-Patch17: Move-some-dejagnu-kadmin-tests-to-Python-tests.patch
-Patch18: Fix-some-principal-realm-canonicalization-cases.patch
-Patch19: Allow-kinit-with-keytab-to-defer-canonicalization.patch
-Patch20: Fix-kadmin-k-with-fallback-or-referral-realm.patch
-Patch21: Fix-softpkcs11-build-issues-with-openssl-3.0.patch
-Patch22: Remove-deprecated-OpenSSL-calls-from-softpkcs11.patch
-Patch23: Fix-k5tls-module-for-OpenSSL-3.patch
-Patch24: Fix-leaks-on-error-in-kadm5-init-functions.patch
-Patch25: Clean-up-context-after-failed-open-in-libkdb5.patch
-Patch26: Use-asan-in-one-of-the-CI-builds.patch
-Patch29: Clean-up-gssapi_krb5-ccache-name-functions.patch
-Patch30: Fix-KDC-null-deref-on-TGS-inner-body-null-server.patch
-Patch32: Add-buildsystem-detection-of-the-OpenSSL-3-KDF-inter.patch
-Patch33: Use-OpenSSL-s-SSKDF-in-PKINIT-when-available.patch
-Patch34: Use-OpenSSL-s-KBKDF-and-KRB5KDF-for-deriving-long-te.patch
-Patch35: Handle-OpenSSL-3-s-providers.patch
-Patch36: Remove-TCL-based-libkadm5-API-tests.patch
-Patch37: Use-SHA256-instead-of-SHA1-for-PKINIT-CMS-digest.patch
-Patch38: krb5-krad-remote.patch
-Patch39: krb5-krad-larger-attrs.patch
-Patch40: Try-harder-to-avoid-password-change-replay-errors.patch
-Patch41: Add-configure-variable-for-default-PKCS-11-module.patch
-Patch42: downstream-Allow-krad-UDP-TCP-localhost-connection-with-FIPS.patch
-Patch43: Read-GSS-configuration-files-with-mtime-0.patch
-Patch44: Fix-integer-overflows-in-PAC-parsing.patch
+Patch1:  0001-downstream-ksu-pam-integration.patch
+Patch2:  0002-downstream-SELinux-integration.patch
+Patch3:  0003-downstream-fix-debuginfo-with-y.tab.c.patch
+Patch4:  0004-downstream-Remove-3des-support.patch
+Patch5:  0005-downstream-FIPS-with-PRNG-and-RADIUS-and-MD4.patch
+Patch6:  0006-downstream-Allow-krad-UDP-TCP-localhost-connection-w.patch
+Patch7:  0007-Add-configure-variable-for-default-PKCS-11-module.patch
+Patch8:  0008-Set-reasonable-supportedCMSTypes-in-PKINIT.patch
+Patch9:  0009-Simplify-plugin-loading-code.patch
+Patch10: 0010-Update-error-checking-for-OpenSSL-CMS_verify.patch
+Patch11: 0011-downstream-Catch-SHA-1-digest-disallowed-error-for-P.patch
+Patch12: 0012-Add-and-use-ts_interval-helper.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -142,19 +92,18 @@ BuildRequires: perl-interpreter
 # For autosetup
 BuildRequires: git
 
-%if 0%{?skipcheck}
-%else
-BuildRequires: dejagnu
-BuildRequires: net-tools, rpcbind
-BuildRequires: hostname
-BuildRequires: iproute
-BuildRequires: python3-pyrad
-BuildRequires: procps-ng
-BuildRequires: resolv_wrapper
-%endif
-
+%if 0%{?fedora} > 35
 # Need KDFs.  This is the "real" version
 BuildRequires: openssl-devel => 1:3.0.0
+%else
+# Need KDFs.  This is the backported version
+BuildRequires: openssl-devel >= 1:1.1.1d-4
+BuildRequires: openssl-devel < 1:3.0.0
+%endif
+
+# Enable compilation of optional tests
+BuildRequires: resolv_wrapper
+BuildRequires: libcmocka-devel
 
 %description
 Kerberos V5 is a trusted-third-party network authentication system,
@@ -180,7 +129,12 @@ to install this package.
 
 %package libs
 Summary: The non-admin shared libraries used by Kerberos 5
+%if 0%{?fedora} > 35
 Requires: openssl-libs >= 1:3.0.0
+%else
+Requires: openssl-libs >= 1:1.1.1d-4
+Requires: openssl-libs < 1:3.0.0
+%endif
 Requires: coreutils, gawk, sed
 Requires: keyutils-libs >= 1.5.8
 Requires: /etc/crypto-policies/back-ends/krb5.config
@@ -260,6 +214,53 @@ Kerberos is a network authentication system. The libkadm5 package
 contains only the libkadm5clnt and libkadm5serv shared objects. This
 interface is not considered stable.
 
+%package tests
+Summary: Test sources for krb5 build
+
+# Build dependencies
+Requires: coreutils, gawk, sed
+Requires: gcc-c++
+Requires: gettext
+Requires: libcom_err-devel
+Requires: libselinux-devel
+Requires: libss-devel
+Requires: libverto-devel
+Requires: lmdb-devel
+Requires: openldap-devel
+Requires: pam-devel
+Requires: redhat-rpm-config
+%if 0%{?fedora} > 35
+Requires: openssl-devel => 1:3.0.0
+%else
+Requires: openssl-devel >= 1:1.1.1d-4
+Requires: openssl-devel < 1:3.0.0
+%endif
+
+# Test dependencies
+Requires: dejagnu
+Requires: hostname
+Requires: iproute
+Requires: keyutils, keyutils-libs-devel >= 1.5.8
+Requires: libcmocka-devel
+Requires: libverto-module-base
+Requires: logrotate
+Requires: net-tools, rpcbind
+Requires: perl-interpreter
+Requires: procps-ng
+Requires: python3-kdcproxy
+Requires: python3-pyrad
+Requires: resolv_wrapper
+Requires: /etc/crypto-policies/back-ends/krb5.config
+Requires: /usr/share/dict/words
+#Requires: openldap-servers, openldap-clients
+
+# sssd_krb5_locator_plugin.so conflicts with t_discover_uri.py
+Conflicts: sssd-client
+
+%description tests
+FOR TESTING PURPOSE ONLY
+Test sources for krb5 build, with pre-defined compilation parameters
+
 %prep
 %autosetup -S git_am -n %{name}-%{version}%{?dashpre}
 ln NOTICE LICENSE
@@ -295,6 +296,13 @@ sed -i -e s,8886,`expr "$PORT" - 2`,g $cfg
 PORT=`expr 7777 + $LONG_BIT - 48`
 sed -i -e s,7777,`expr "$PORT" + 0`,g $cfg
 sed -i -e s,7778,`expr "$PORT" + 1`,g $cfg
+
+# Fix kadmind port hard-coded in tests
+PORT=`expr 61000 + $LONG_BIT - 48`
+sed -i -e \
+    "s,params.kadmind_port = 61001;,params.kadmind_port = $((PORT + 1));," \
+    src/lib/kadm5/t_kadm5.c
+
 
 %build
 # Go ahead and supply tcl info, because configure doesn't know how to find it.
@@ -363,31 +371,20 @@ sphinx-build -a -b man   -t pathsubs doc build-man
 sphinx-build -a -b html  -t pathsubs doc build-html
 rm -fr build-html/_sources
 
-%if 0%{?skipcheck}
-%else
-%check
-pushd src
-
-# The build system may give us a revoked session keyring, so run affected
-# tests with a new one.
-keyctl session - make check OFFLINE=yes TMPDIR=%{_tmppath}
-popd
-%endif
-
 %install
 [ "$RPM_BUILD_ROOT" != '/' ] && rm -rf -- "$RPM_BUILD_ROOT"
 
 # Sample KDC config files (bundled kdc.conf and kadm5.acl).
 mkdir -p $RPM_BUILD_ROOT%{_var}/kerberos/krb5kdc
-install -pm 600 %{SOURCE10} $RPM_BUILD_ROOT%{_var}/kerberos/krb5kdc/
-install -pm 600 %{SOURCE11} $RPM_BUILD_ROOT%{_var}/kerberos/krb5kdc/
+install -pm 600 %{SOURCE6} $RPM_BUILD_ROOT%{_var}/kerberos/krb5kdc/
+install -pm 600 %{SOURCE7} $RPM_BUILD_ROOT%{_var}/kerberos/krb5kdc/
 
 # Where per-user keytabs live by default.
 mkdir -p $RPM_BUILD_ROOT%{_var}/kerberos/krb5/user
 
 # Default configuration file for everything.
 mkdir -p $RPM_BUILD_ROOT/etc
-install -pm 644 %{SOURCE6} $RPM_BUILD_ROOT/etc/krb5.conf
+install -pm 644 %{SOURCE5} $RPM_BUILD_ROOT/etc/krb5.conf
 
 # Default include on this directory
 mkdir -p $RPM_BUILD_ROOT/etc/krb5.conf.d
@@ -407,16 +404,16 @@ mkdir -m 755 -p $RPM_BUILD_ROOT/etc/gss/mech.d
 export DEFCCNAME="%{configured_default_ccache_name}"
 awk '{print}
      /^#    default_realm/{print "    default_ccache_name =", ENVIRON["DEFCCNAME"]}' \
-     %{SOURCE6} > $RPM_BUILD_ROOT/etc/krb5.conf
-touch -r %{SOURCE6} $RPM_BUILD_ROOT/etc/krb5.conf
+     %{SOURCE5} > $RPM_BUILD_ROOT/etc/krb5.conf
+touch -r %{SOURCE5} $RPM_BUILD_ROOT/etc/krb5.conf
 grep default_ccache_name $RPM_BUILD_ROOT/etc/krb5.conf
 %endif
 
 # Server init scripts (krb5kdc,kadmind,kpropd) and their sysconfig files.
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 for unit in \
-    %{SOURCE5}\
-     %{SOURCE4} \
+    %{SOURCE4}\
+     %{SOURCE3} \
      %{SOURCE2} ; do
     # In the past, the init script was supposed to be named after the service
     # that the started daemon provided.  Changing their names is an
@@ -424,11 +421,11 @@ for unit in \
     install -pm 644 ${unit} $RPM_BUILD_ROOT%{_unitdir}
 done
 mkdir -p $RPM_BUILD_ROOT/%{_tmpfilesdir}
-install -pm 644 %{SOURCE39} $RPM_BUILD_ROOT/%{_tmpfilesdir}/
+install -pm 644 %{SOURCE14} $RPM_BUILD_ROOT/%{_tmpfilesdir}/
 mkdir -p $RPM_BUILD_ROOT/%{_localstatedir}/run/krb5kdc
 
 mkdir -p $RPM_BUILD_ROOT/etc/sysconfig
-for sysconfig in %{SOURCE19} %{SOURCE20} %{SOURCE21} ; do
+for sysconfig in %{SOURCE8} %{SOURCE9} %{SOURCE10} ; do
     install -pm 644 ${sysconfig} \
             $RPM_BUILD_ROOT/etc/sysconfig/`basename ${sysconfig} .sysconfig`
 done
@@ -436,15 +433,15 @@ done
 # logrotate configuration files
 mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d/
 for logrotate in \
-    %{SOURCE33} \
-     %{SOURCE34} ; do
+    %{SOURCE12} \
+     %{SOURCE13} ; do
     install -pm 644 ${logrotate} \
             $RPM_BUILD_ROOT/etc/logrotate.d/`basename ${logrotate} .logrotate`
 done
 
 # PAM configuration files.
 mkdir -p $RPM_BUILD_ROOT/etc/pam.d/
-for pam in %{SOURCE29} ; do
+for pam in %{SOURCE11} ; do
     install -pm 644 ${pam} \
             $RPM_BUILD_ROOT/etc/pam.d/`basename ${pam} .pamd`
 done
@@ -489,6 +486,39 @@ rm -- "$RPM_BUILD_ROOT/%{_docdir}/krb5-libs/examples/services.append"
 
 # This is only needed for tests
 rm -- "$RPM_BUILD_ROOT/%{_libdir}/krb5/plugins/preauth/test.so"
+
+# Generate tests launching script
+sed -e 's/{{ name }}/%{name}/' \
+    -e 's/{{ version }}/%{krb5_version}/' \
+    -e 's/{{ release }}/%{krb5_release}/' \
+    -e 's/{{ arch }}/%{_arch}/' \
+    -i %{SOURCE15}
+mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
+install -pm 755 %{SOURCE15} $RPM_BUILD_ROOT%{_libexecdir}/
+
+# Copy source files from build folder to system data folder
+install -pdm 755 $RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests
+pushd src
+cp -p --parents -t "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/" \
+    $(find . -type f -exec file -i "{}" + \
+          | sed -ne 's|^\./\([^:]\+\): \+text/.\+$|\1|p')
+popd
+
+# Copy binary test files
+install -pm 644 src/tests/pkinit-certs/*.p12 \
+    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/tests/pkinit-certs/"
+install -pm 644 src/tests/au_dict.json \
+    "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/tests/"
+
+# Unset executable bit if no shebang in script
+for f in $(find "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/" -type f -executable)
+do
+    head -n1 "$f" | grep -Eq '^#!' || chmod a-x "$f"
+done
+
+# Remove broken shebang Perl scripts
+rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/config/wconfig.pl"
+rm -- "$RPM_BUILD_ROOT%{_datarootdir}/%{name}-tests/kadmin/kdbkeys/do-test.pl"
 
 %find_lang %{gettext_domain}
 
@@ -675,7 +705,25 @@ exit 0
 %{_libdir}/libkadm5clnt_mit.so.*
 %{_libdir}/libkadm5srv_mit.so.*
 
+%files tests
+%{_libexecdir}/%{name}-tests
+%{_datarootdir}/%{name}-tests/
+
 %changelog
+* Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 1.20.1-2
+- Bump KDB ABI version provide to 9.0
+
+* Wed Nov 23 2022 Julien Rische <jrische@redhat.com> - 1.20.1-1
+- New upstream version (1.20.1)
+- Resolves: rhbz#2124463
+- Restore "supportedCMSTypes" attribute in PKINIT preauth requests
+- Set SHA-512 or SHA-256 with RSA as preferred CMS signature algorithms
+- Resolves: rhbz#2114766
+- Update error checking for OpenSSL CMS_verify
+- Resolves: rhbz#2119704
+- Remove invalid password expiry warning
+- Resolves: rhbz#2129113
+
 * Wed Nov 09 2022 Julien Rische <jrische@redhat.com> - 1.19.2-13
 - Fix integer overflows in PAC parsing (CVE-2022-42898)
 - Resolves: rhbz#2143011

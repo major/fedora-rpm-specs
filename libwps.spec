@@ -1,7 +1,7 @@
 %global apiversion 0.4
 
 Name:		libwps
-Version:	0.4.12
+Version:	0.4.13
 Release:	%autorelease
 Summary:	A library for import of Microsoft Works documents
 

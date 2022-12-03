@@ -3,9 +3,9 @@
 
 Name:		%{fontname}-fonts
 Version:	0.983
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	16x16 JIS X 0212:1990 Bitmap font
-License:	Public Domain
+License:	LicenseRef-Fedora-Public-Domain
 
 URL:		http://kanji.zinbun.kyoto-u.ac.jp/~yasuoka/ftp/fonts/
 Source0:	http://kanji.zinbun.kyoto-u.ac.jp/~yasuoka/ftp/fonts/jisksp16-1990.bdf.Z
@@ -48,6 +48,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{name}
 %{catalogue}/*
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.983-28
+- Convert License tag to SPDX.
+
 * Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.983-27
 - Drop old Dependencies.
 

@@ -3,7 +3,7 @@
 %global	mainver	3.12.0
 %undefine	prever
 
-%global	mainrel	1
+%global	mainrel	2
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -21,6 +21,10 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{mainver}%{?prever}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
+# https://github.com/rspec/rspec-support/pull/553
+# ruby 3.2.0 / 3.1.3 changes fiber deadlock treatment
+# Tweaked for ruby 3.1.3
+Patch0:	rubygem-rspec-support-3.12.0-ReentrantMutex-insider-Fiber.patch
 # tweak regex for search path
 Patch100:	rubygem-rspec-support-3.2.1-callerfilter-searchpath-regex.patch
 
@@ -58,6 +62,7 @@ Documentation for %{name}
 %setup -q -T -n %{gem_name}-%{version} -b 1
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
+%patch0 -p1
 %patch100 -p1
 
 %build
@@ -106,6 +111,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Dec  2 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-2
+- Pull upstream patch (under review) for ruby filer deadlock treatment
+
 * Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-1
 - 3.12.0
 

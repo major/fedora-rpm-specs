@@ -4,10 +4,10 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   26%{?dist}
+Release:   27%{?dist}
 Summary:   Langpacks meta-package
 
-License:   GPLv2+
+License:   GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: python3 fontconfig
 # Below Source was available on https://people.freedesktop.org/~hughsient/temp/
@@ -1428,7 +1428,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
-* Mon Aug 03 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.0-26
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.0-27
+- Update license tag to SPDX format
+
+* Wed Aug 03 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.0-26
 - langpacks-fa: use vazirmatn-vf-fonts as the default font and recommends Noto
   Naskh font
 

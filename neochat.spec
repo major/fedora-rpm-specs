@@ -1,5 +1,5 @@
 Name: neochat
-Version: 22.09
+Version: 22.11
 Release: 1%{?dist}
 
 License: GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and BSD
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

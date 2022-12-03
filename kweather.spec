@@ -1,6 +1,6 @@
 Name:           kweather 
-Version:        22.09
-Release:        2%{?dist}
+Version:        22.11
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
 Url:            https://invent.kde.org/plasma-mobile/kweather
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Rebuild against kweathercore 0.7
 

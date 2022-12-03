@@ -1,10 +1,10 @@
-%global vips_version_base 8.12
-%global vips_version %{vips_version_base}.2
+%global vips_version_base 8.13
+%global vips_version %{vips_version_base}.3
 %global vips_soname_major 42
 
 Name:		vips
 Version:	%{vips_version}
-Release:	4%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -207,6 +207,9 @@ make check
 
 
 %changelog
+* Thu Dec 01 2022 Philipp Trulson <philipp@trulson.de> - 8.13.3-1
+- Update to 8.13.3 (#2098477)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.12.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

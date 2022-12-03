@@ -84,8 +84,8 @@
 #global pre_rel b.2
 
 Name:        sympa
-Version:     6.2.68
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.1
+Version:     6.2.70
+Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -105,8 +105,6 @@ Source115:   aliases.sympa.postfix
 Source129:   sympa.service.d-dependencies.conf
 Source130:   sympa-sysconfig
 
-# Add path to MHonArc::UTF8 so that sympa_wizard won't miss it
-Patch5:      sympa-6.2.36-wizard-mhonarc.patch
 # RPM specific customization of site defaults
 Patch13:     sympa-6.2.57b.1-confdef.patch
 
@@ -181,6 +179,7 @@ BuildRequires: perl(MIME::Parser)
 BuildRequires: perl(MIME::Tools)
 BuildRequires: perl(Net::CIDR)
 BuildRequires: perl(Net::LDAP)
+BuildRequires: perl(Pod::Usage)
 BuildRequires: perl(POSIX)
 BuildRequires: perl(Scalar::Util)
 BuildRequires: perl(SOAP::Lite)
@@ -375,7 +374,7 @@ Summary(fr): Sympa avec Serveur HTTP Apache
 Summary(ja): SympaのApache HTTP Server対応
 Requires: %{name} = %{version}-%{release}
 Requires: httpd
-Requires: spawn-fcgi
+Requires: multiwatch
 Conflicts: %{name}-lighttpd, %{name}-nginx
 
 %description httpd
@@ -407,7 +406,7 @@ Summary(fr): Sympa avec nginx
 Summary(ja): Sympaのnginx対応
 Requires: %{name} = %{version}-%{release}
 Requires: nginx
-Requires: spawn-fcgi
+Requires: multiwatch
 Conflicts: %{name}-httpd, %{name}-lighttpd
 
 %description nginx
@@ -427,7 +426,6 @@ Sympa documentation for developers.
 
 %prep
 %setup -q -n %{name}-%{version}%{?pre_rel}
-%patch5 -p0 -b .mhonarc
 %patch13 -p0 -b .confdef
 
 
@@ -553,12 +551,26 @@ mkdir -p %{buildroot}%{_sysconfdir}/nginx/conf.d
 install -m 0644 %{SOURCE103} %{buildroot}%{_sysconfdir}/nginx/conf.d/sympa.conf
 
 # Copy init scripts or unit files for nginx/spawn-fcgi etc.
-install -m 0644 src/etc/script/wwsympa.service \
+install -m 0644 service/wwsympa-multiwatch.service \
     %{buildroot}%{_unitdir}/wwsympa.service
-install -m 0644 src/etc/script/sympasoap.service \
+install -m 0644 service/wwsympa-multiwatch.socket \
+    %{buildroot}%{_unitdir}/wwsympa.socket
+install -m 0644 service/sympasoap-multiwatch.service \
     %{buildroot}%{_unitdir}/sympasoap.service
+install -m 0644 service/sympasoap-multiwatch.socket \
+    %{buildroot}%{_unitdir}/sympasoap.socket
+mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d
+cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.conf << EOF
+[Socket]
+SocketUser=apache
+EOF
+mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d
+cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/sympasoap-httpd.conf << EOF
+[Socket]
+SocketUser=apache
+EOF
 mkdir -p %{buildroot}%{_tmpfilesdir}
-install -m 0644 src/etc/script/sympa-tmpfiles.conf \
+install -m 0644 service/sympa-tmpfiles.conf \
     %{buildroot}%{_tmpfilesdir}/sympa.conf
 mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/sympa.service.d
 install -m 0644 %{SOURCE129} \
@@ -584,7 +596,6 @@ ln -s %{_datadir}/doc/%{name}/README \
 ln -s %{_datadir}/doc/%{name}/README \
     %{buildroot}/%{_datadir}/sympa/default/README
 %endif
-mv %{buildroot}%{_sysconfdir}/sympa/sympa.conf-dist __doc/
 
 # Copy robot aliases.
 install -m 0644 %{SOURCE114} %{SOURCE115} %{buildroot}%{_sysconfdir}/sympa/
@@ -828,7 +839,13 @@ fi
 %files httpd
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/sympa.conf
 %{_unitdir}/wwsympa.service
+%{_unitdir}/wwsympa.socket
 %{_unitdir}/sympasoap.service
+%{_unitdir}/sympasoap.socket
+%dir %{_sysconfdir}/systemd/system/wwsympa.socket.d
+%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.conf
+%dir %{_sysconfdir}/systemd/system/sympasoap.socket.d
+%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/sympasoap-httpd.conf
 
 
 %files lighttpd
@@ -838,7 +855,9 @@ fi
 %files nginx
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/sympa.conf
 %{_unitdir}/wwsympa.service
+%{_unitdir}/wwsympa.socket
 %{_unitdir}/sympasoap.service
+%{_unitdir}/sympasoap.socket
 
 
 %files devel-doc
@@ -846,6 +865,9 @@ fi
 
 
 %changelog
+* Wed Nov 30 2022 Xavier Bachelot <xavier@bachelot.org> 6.2.70-1
+- Update to 6.2.70
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.68-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

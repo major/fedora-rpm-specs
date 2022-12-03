@@ -13,7 +13,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.30.0%{?pre:~%{pre}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -28,7 +28,7 @@ Patch0:         ldc-include-path.patch
 # Don't add rpath to standard libdir
 Patch1:         ldc-no-default-rpath.patch
 
-ExclusiveArch:  %{ldc_arches}
+ExclusiveArch:  %{ldc_arches} ppc64le
 
 BuildRequires:  bash-completion
 BuildRequires:  cmake
@@ -168,6 +168,9 @@ install -m0644 phobos.d.tags %{buildroot}/%{_datadir}/geany/tags/
 %{_datadir}/geany/tags/phobos.d.tags
 
 %changelog
+* Mon Sep 12 2022 Kalev Lember <klember@redhat.com> - 1:1.30.0-2
+- Bootstrap on ppc64le
+
 * Tue Jul 26 2022 Kalev Lember <klember@redhat.com> - 1:1.30.0-1
 - Update to 1.30.0
 - Build with llvm 14

@@ -32,6 +32,7 @@ This package contains API documentation for %{name}.
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "org.sonatype.plugins:nexus-staging-maven-plugin"
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
+%pom_remove_plugin "org.codehaus.mojo:build-helper-maven-plugin"
 
 sed -i 's/\r//' LICENSE
 

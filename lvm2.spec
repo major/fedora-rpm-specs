@@ -277,7 +277,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/vgs
 %{_sbindir}/vgscan
 %{_sbindir}/vgsplit
-%{attr(755, -, -)} %{_libexecdir}/lvresize_fs_helper
+%attr(755, -, -) %{_libexecdir}/lvresize_fs_helper
 %{_mandir}/man5/lvm.conf.5.gz
 %{_mandir}/man7/lvmautoactivation.7.gz
 %{_mandir}/man7/lvmcache.7.gz

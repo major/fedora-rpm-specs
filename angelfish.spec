@@ -1,5 +1,5 @@
 Name:           angelfish
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -79,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

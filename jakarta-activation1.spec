@@ -1,6 +1,6 @@
 Name:           jakarta-activation1
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jakarta Activation Specification and Implementation
 License:        BSD
 URL:            https://jakartaee.github.io/jaf-api/
@@ -41,8 +41,7 @@ sed -i 's/${main.basedir}/${basedir}/' pom.xml
 %pom_remove_plugin :osgiversion-maven-plugin
 sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
-%mvn_compat_version 'com.sun.activation:jakarta.activation' %{version}
-%mvn_compat_version 'jakarta.activation:jakarta.activation-api' %{version}
+%mvn_compat_version : 1
 
 %build
 # Javadoc fails:
@@ -57,5 +56,8 @@ sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Dec 01 2022 Marian Koncek <mkoncek@redhat.com> - 1.2.2-2
+- Use only the major version in maven compat version
+
 * Wed Nov 30 2022 Marian Koncek <mkoncek@redhat.com> - 1.2.2-1
 - Initial package renamed from jakarta-activation

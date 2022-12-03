@@ -29,7 +29,7 @@
 
 Name:           vdr
 Version:        2.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPLv2+
@@ -75,6 +75,8 @@ Patch12:        vdr-2.6.0-eit.patch
 # Sent upstream 2016-06-17
 Patch15:        %{name}-1.7.37-fedora-pkgconfig.patch
 Patch16:        %{name}-%{version}-remux.patch
+Patch17:        %{name}-%{version}-index-file-regeneration-failed.patch
+Patch18:        %{name}-%{version}-timer-still-recording.patch
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff/
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
 
@@ -203,6 +205,7 @@ sed \
 %patch12 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
 %patch99 -p1
 
 # Patch APIVERSION TO 2.4.8 to match VDRVERSION
@@ -550,6 +553,10 @@ systemctl daemon-reload
 
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.6.2-2
+- Add vdr-2.6.2-index-file-regeneration-failed.patch
+- Add vdr-2.6.2-timer-still-recording.patch
+
 * Wed Nov 30 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.6.2-1
 - Update to 2.6.2
 - Add vdr-2.6.2-remux.patch

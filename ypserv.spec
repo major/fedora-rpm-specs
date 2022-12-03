@@ -2,7 +2,7 @@ Summary: The NIS (Network Information Service) server
 Url: http://www.linux-nis.org/nis/ypserv/index.html
 Name: ypserv
 Version: 4.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 Source0: https://github.com/thkukuk/%{name}/archive/v%{version}.tar.gz
 Source1: ypserv.service
@@ -30,6 +30,7 @@ Patch8: ypserv-2.27-confpost.patch
 Patch10: ypserv-2.31-netgrprecur.patch
 Patch12: ypserv-4.0-headers.patch
 Patch14: ypserv-4.0-selinux-context.patch
+Patch15: ypserv-4.2-implicit-int.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -74,6 +75,7 @@ machines.
 %patch10 -p1 -b .netgrprecur
 %patch12  -b .headers
 %patch14 -p1 -b .selinux-context
+%patch15 -p1 -b .implicit-int
 
 # Delete generated man pages. They will be generated later from source.
 rm makedbm/makedbm.8
@@ -175,6 +177,10 @@ install -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/rpc.yppasswdd.env
 %{_includedir}/rpcsvc
 
 %changelog
+* Thu Dec 01 2022 Timm Bäder <tbaeder@redhat.com> - 4.2-6
+- Get rid of an implicit int during configure time
+- See https://fedoraproject.org/wiki/Changes/PortingToModernC
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

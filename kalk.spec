@@ -1,7 +1,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           kalk
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        GPLv3+
 Summary:        %{name} is a convergent calculator for Plasma.
@@ -53,13 +53,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_bindir}/%{name}
 
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %license LICENSES/*
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

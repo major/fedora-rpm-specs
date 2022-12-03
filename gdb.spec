@@ -1186,6 +1186,11 @@ fi
 %endif
 
 %changelog
+* Thu Dec 1  2022 Bruno Larsen <blarsen@redhat.com>
+- Remove gdb-rhbz1325795-framefilters-test.patch.  This test doesn't
+  pass in the curret state, and the code that introduced the original
+  problem has been changed beyong recognition at this point.
+
 * Wed Nov 30 2022 Keith Seitz <keiths@redhat.com>
 - Backport "libiberty: Fix C89-isms in configure tests" and do likewise in
   gdb-6.6-buildid-locate-rpm.patch.

@@ -4,11 +4,11 @@ Epoch: 1
 Version: 1.001
 %forgemeta
 
-Release:  7%{?dist}
+Release:  8%{?dist}
 URL:     https://github.com/huertatipografica/Caladea
 
 %global foundry           HT
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *txt *md
 %global fontdocsex        %{fontlicenses}
@@ -56,6 +56,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.001-8
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.001-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

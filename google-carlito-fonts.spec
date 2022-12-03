@@ -1,13 +1,13 @@
 %global archivename crosextrafonts-carlito-20130920
 
 Version:        1.103
-Release:        0.19.20130920%{?dist}
+Release:        0.20.20130920%{?dist}
 URL:            https://bugs.chromium.org/p/chromium/issues/detail?id=280557
 
 %global foundry           google
 # License added in font as "otfinfo -i Carlito-Regular.ttf | grep License"
 # also from http://code.google.com/p/chromium/issues/detail?id=280557
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 
 %global fontfamily        Carlito
 %global fontsummary       Carlito, a sans-serif font family metric-compatible with Calibri font family
@@ -45,6 +45,9 @@ Source2:        62-%{fontpkgname}.conf
 
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.103-0.20.20130920
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.103-0.19.20130920
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

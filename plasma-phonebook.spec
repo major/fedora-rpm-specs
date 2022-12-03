@@ -2,7 +2,7 @@
 %global kf5_min_version 5.88.0
 
 Name:           plasma-phonebook
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        CC0 and GPLv2 and GPLv3 and GPLv3+ and LGPLv2+
 Summary:        Convergent Plasma Mobile phonebook application
@@ -28,6 +28,7 @@ BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(KF5Kirigami2)     >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Contacts)      >= %{kf5_min_version}
 BuildRequires:  cmake(KF5CoreAddons)    >= %{kf5_min_version}
+BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5People)        >= %{kf5_min_version}
 BuildRequires:  cmake(KF5PeopleVCard)   >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Config)        >= %{kf5_min_version}
@@ -64,6 +65,9 @@ Contacts application which allows adding, modifying and removing contacts.
 %{_qt5_plugindir}/kpeople/actions/phonebook_kpeople_plugin.so
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

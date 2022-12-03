@@ -34,7 +34,7 @@ Summary:        A library for instantiating Java objects
 Name:           objenesis
 Version:        3.3
 Release:        1%{?dist}
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://objenesis.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch

@@ -1,18 +1,23 @@
 %bcond_without  tests
-# LTO causes builds to fail occasionally, so disable it.
-%global _lto_cflags %nil
 
 Name:           moolticute
-Version:        0.55.0
-Release:        2%{?dist}
+Version:        1.00.1
+Release:        1%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
-# The entire source code is GPLv3+ except: 
-# src/AnsiEscapeCodeHandler.[cpp|h] which is GPLv3,
-# src/QtAwesome/QtAwesome/ src/http-parser/ and src/qtcsv which are MIT,
-# src/QtAwesome/QtAwesome/fonts/ which is CC-BY,
-# src/CyoEncode/ src/SimpleCrypt/ and src/zxcvbn-c/ which are BSD.
-License:        GPLv3
+# The entire source code is GPL-3.0-or-later except:
+# src/AnsiEscapeCodeHandler.[cpp|h] which is GPL-3.0-only WITH Qt-GPL-exception-1.0,
+# src/CyoEncode/ which is BSD-2-Clause,
+# src/QtAwesome/ which is MIT AND OFL-1.1 AND CC-BY-3.0 (see src/QtAwesome/README.md for details),
+# src/SimpleCrypt/ which is BSD-3-Clause,
+# src/http-parser/ which is MIT,
+# src/qtcsv/ which is MIT,
+# src/qtcsv6/ which is MIT,
+# src/zxcvbn-c which is BSD-3-Clause.
+#
+# Note: src/qwinoverlappedionotifier.[cpp|h] is not compiled, and thus ignored.
+# Note: Missing license files are being added: https://github.com/mooltipass/moolticute/pull/1098
+License:        GPL-3.0-or-later AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AND BSD-2-Clause AND BSD-3-Clause AND MIT AND OFL-1.1 AND CC-BY-3.0
 URL:            https://github.com/mooltipass/moolticute
 Source0:        https://github.com/mooltipass/%{name}/archive/refs/tags/v%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/master/udev/69-mooltipass.rules
@@ -75,6 +80,15 @@ install -pm 0644 %{SOURCE1} .
 %make_install
 install -Dpm 0644 systemd/moolticuted.service %{buildroot}%{_unitdir}/moolticuted.service
 
+# Collect licenses
+mkdir LICENSES
+install -pm 0644 LICENSE LICENSES/LICENSE.GPL3
+install -pm 0644 src/AnsiEscapeCodeHandler/LICENSE.GPL3-EXCEPT LICENSES/LICENSE.AnsiEscapeCodeHandler
+install -pm 0644 src/QtAwesome/LICENSE.md LICENSES/LICENSE.QtAwesome
+install -pm 0644 src/http-parser/LICENSE-MIT LICENSES/LICENSE.http-parser
+install -pm 0644 src/qtcsv/LICENSE LICENSES/LICENSE.qtcsv
+install -pm 0644 src/qtcsv6/LICENSE LICENSES/LICENSE.qtcsv6
+
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/moolticute.desktop
@@ -96,7 +110,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %systemd_postun_with_restart moolticuted.service
 
 %files
-%license LICENSE
+%license LICENSES/*
 %doc README.md
 %{_bindir}/moolticute
 %{_bindir}/moolticuted
@@ -109,6 +123,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Thu Dec 01 2022 Arthur Bols <arthur@bols.dev> - 1.00.1-1
+- Upstream release 1.00.1
+- Update license field for SPDX change
+- Enable LTO
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.55.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

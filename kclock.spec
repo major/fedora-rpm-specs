@@ -2,7 +2,7 @@
 %global orig_name org.kde.kclock
 
 Name:           kclock
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2.1+ and CC-BY and GPLv3+
 Summary:        Clock app for Plasma Mobile
@@ -22,6 +22,7 @@ BuildRequires:  libsodium-devel
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5Kirigami2)
 BuildRequires:  cmake(KF5DBusAddons)
+BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5WindowSystem)
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Quick)
@@ -78,13 +79,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf5_bindir}/%{name}d
 %{_kf5_datadir}/applications/%{orig_name}.desktop
 %{_kf5_metainfodir}/%{orig_name}.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_sysconfdir}/xdg/autostart/%{klockd_name}-autostart.desktop
 %{_datadir}/dbus-1/services/org.kde.%{name}d.service
 %{_kf5_datadir}/knotifications5/%{name}d.notifyrc
 %{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.%{name}_1x2.desktop
 %{_kf5_datadir}/dbus-1/interfaces/*.xml
-
 
 %files plasma-applet
 %{_kf5_metainfodir}/org.kde.plasma.%{name}_1x2.appdata.xml
@@ -92,8 +92,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x2/
 %{_qt5_plugindir}/plasma/applets/plasma_applet_%{name}_1x2.so
 
-
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

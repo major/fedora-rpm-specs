@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -245,6 +245,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 4.0.1-6
+- Rebuild for new libavif
+
 * Mon Nov 14 2022 Germano Massullo <germano.massullo@gmail.com> - 4.0.1-5
 - rebuild against gmic-3.1.6-2.fc37
 

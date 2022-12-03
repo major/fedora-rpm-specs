@@ -1,7 +1,7 @@
 Name:		imsettings
 Version:	1.8.3
-Release:	6%{?dist}
-License:	LGPLv2+
+Release:	7%{?dist}
+License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
@@ -150,7 +150,7 @@ settings and applies the changes so they take effect
 immediately without any need to restart applications
 or the desktop.
 
-This package contains a module to get this working on Xfce.  
+This package contains a module to get this working on Xfce.
 
 %package	lxde
 Summary:	LXDE support on imsettings
@@ -316,6 +316,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.3-7
+- Convert License tag to SPDX.
+
 * Mon Oct  3 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.3-6
 - Disable GNOME support except setting QT_IM_MODULE and XMODIFIERS in xinput.sh
   Resolves: rhbz#2131673
@@ -861,4 +864,3 @@ fi
 
 * Wed Jun  4 2008 Akira TAGOH <tagoh@redhat.com> - 0.100.0-1
 - Initial package.
-

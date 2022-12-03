@@ -2,10 +2,10 @@ Name: hyphen-ml
 Summary: Malayalam hyphenation rules
 Epoch: 1
 Version: 0.7.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Source: http://download.savannah.gnu.org/releases/smc/hyphenation/patterns/%{name}-%{version}.tar.bz2
 URL: http://wiki.smc.org.in
-License: LGPLv3+
+License: LGPL-3.0-or-later
 BuildArch: noarch
 Requires: hyphen
 Supplements: (hyphen and langpacks-ml)
@@ -27,6 +27,9 @@ install -m644 -p *.dic %{buildroot}/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:0.7.0-21
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

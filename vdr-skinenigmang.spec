@@ -1,16 +1,13 @@
 %global pname   skinenigmang
 # version we want build against
-%global vdr_version 2.4.0
-%if 0%{?fedora} >= 36
 %global vdr_version 2.6.1
-%endif
-%if 0%{?fedora} == 35
-%global vdr_version 2.4.7
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL+
@@ -20,11 +17,11 @@ Source1:        http://andreas.vdr-developer.org/enigmang/download/skinenigmang-
 Source2:        %{name}.conf
 Patch0:         %{name}-config.patch
 
-BuildRequires:  make
+BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel
 BuildRequires:  GraphicsMagick-c++-devel
-BuildRequires:  vdr-devel >= 1.7.30
+BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description 
@@ -67,6 +64,9 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %{vdr_resdir}/icons
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org>  - 0.1.4-2
+- Rebuilt for new VDR API version
+
 * Mon Oct 10 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.1.4-1
 - Update to new URL
 - Update to 0.1.4

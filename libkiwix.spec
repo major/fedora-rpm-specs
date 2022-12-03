@@ -1,6 +1,6 @@
 Name: libkiwix
-Version: 11.0.0
-Release: 4%{?dist}
+Version: 12.0.0
+Release: 1%{?dist}
 
 License: GPLv3+
 Summary: Common code base for all Kiwix ports
@@ -51,7 +51,7 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %doc AUTHORS ChangeLog README.md
 %license COPYING
 %{_bindir}/kiwix-compile-*
-%{_libdir}/%{name}.so.11*
+%{_libdir}/%{name}.so.12*
 %{_mandir}/man1/kiwix*.1*
 
 %files devel
@@ -60,6 +60,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/kiwix.pc
 
 %changelog
+* Thu Dec 01 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 12.0.0-1
+- Updated to version 12.0.0.
+
 * Thu Sep 08 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 11.0.0-4
 - Rebuilt due to zimlib update.
 

@@ -1,9 +1,9 @@
 Name:           btrfs-assistant
 Version:        1.6.3
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        GUI management tool to make managing a Btrfs filesystem easier
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/%{name}/%{name}
 Source0:        https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -80,16 +80,4 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 
 %changelog
-* Thu Aug 25 2022 Arthur Bols <arthur@bols.dev> - 1.6.3-1
-- Update to 1.6.3 (#2120071)
-
-* Wed Aug 24 2022 Arthur Bols <arthur@bols.dev> - 1.6.2-1
-- Update to 1.6.2 (#2120071)
-- Add metainfo
-- Fix summary
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jun 04 2022 Arthur Bols <arthur@bols.dev> - 1.6.1-1
-- Initial package
+%autochangelog

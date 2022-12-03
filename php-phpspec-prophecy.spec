@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-phpspec-prophecy
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    bbcd7380b0ebf3961ee21409db7b38bc31d69a13
+%global gh_commit    be8cac52a0827776ff9ccda8c381ac5b71aeb359
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -14,8 +14,8 @@
 %bcond_without       tests
 
 Name:           php-phpspec-prophecy
-Version:        1.15.0
-Release:        3%{?dist}
+Version:        1.16.0
+Release:        1%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -41,7 +41,7 @@ BuildRequires:  %{phpunit}
 BuildRequires:  php-fedora-autoloader-devel
 
 # from composer.json, "requires": {
-#        "php":                               "^7.2 || ~8.0, <8.2",
+#        "php":                               "^7.2 || 8.0.* || 8.1.* || 8.2.*",
 #        "phpdocumentor/reflection-docblock": "^5.2",
 #        "sebastian/comparator":              "^3.0|^4.0",
 #        "doctrine/instantiator":             "^1.2",
@@ -123,7 +123,7 @@ phpspec --version
 
 ret=0
 # ignore it_can_not_double_an_enum on all version. Not ready
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  1 2022 Remi Collet <remi@remirepo.net> - 1.16.0-1
+- update to 1.16.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

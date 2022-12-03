@@ -2,12 +2,12 @@
 
 Name:           python-axolotl-curve25519
 Version:        0.4.1
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        Python wrapper for curve25519
 
-# The entire source code is GPLv3 except:
-# curve/curve25519-donna.[c|h] which is BSD (no advertising).
-License:        GPLv3 and BSD
+# The entire source code is GPL-3.0-only except:
+# curve/curve25519-donna.[c|h] which is BSD-3-Clause.
+License:        GPL-3.0-only and BSD-3-Clause
 URL:            https://github.com/tgalal/python-axolotl-curve25519
 Source0:        %{url}/archive/%{git_tag}/%{git_tag}.tar.gz
 # License file for curve/curve25519-donna.[c|h]
@@ -50,11 +50,4 @@ cp -p %{SOURCE1} LICENSE.curve25519-donna
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.4.1-2
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Arthur Bols <arthur@bols.dev> - 0.4.1-1
-- Initial package
+%autochangelog

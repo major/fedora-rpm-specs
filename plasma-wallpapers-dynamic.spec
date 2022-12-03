@@ -4,7 +4,7 @@
 
 Name:           plasma-%{component}
 Version:        4.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Dynamic wallpaper plugin for KDE Plasma
 
 License:        GPLv3 and LGPLv3 and BSD and CC0 and CC-BY-SA
@@ -124,6 +124,9 @@ desktop-file-validate %{buildroot}%{_datadir}/kservices5/plasma-wallpaper-com.gi
 %{_datadir}/zsh/site-functions/_kdynamicwallpaperbuilder
 
 %changelog
+* Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 4.4.0-7
+- Rebuild for new libavif
+
 * Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.4.0-6
 - Rebuild for new libavif
 

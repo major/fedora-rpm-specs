@@ -1,14 +1,20 @@
 %global         gem_name ruby-shadow
 
 Name:           rubygem-%{gem_name}
-Version:        2.5.0
-Release:        19%{?dist}
+Version:        2.5.1
+Release:        2%{?dist}
 Summary:        Ruby shadow password module
 License:        Public Domain
 URL:            https://github.com/apalmblad/ruby-shadow
 Source0:        http://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:        https://raw.githubusercontent.com/apalmblad/ruby-shadow/master/test/basic_test.rb
-Patch0:         ruby-shadow-2.5.0-cflags.patch
+Patch0:         ruby-shadow-2.5.1-cflags.patch
+# https://github.com/apalmblad/ruby-shadow/pull/29
+# Ruby3.2 completely removes taintedness function
+Patch1:         ruby-shadow-2.5.1-taintedness-ruby32-removal.patch
+# https://github.com/apalmblad/ruby-shadow/pull/31
+# Ruby3.2 mkmf CONFIG uses reference for other variables yet more
+Patch2:         ruby-shadow-2.5.1-extconf-ruby32-fix.patch
 BuildRequires:  gcc
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
@@ -29,15 +35,15 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
-%patch0 -p0
+%setup -q  -n  %{gem_name}-%{version}
+%patch1 -p1
+%patch2 -p1
+%patch0 -p1
 cp %{SOURCE1} .
 
 %build
-export CONFIGURE_ARGS="--with-cflags='%{optflags}'"
-gem build %{gem_name}.gemspec
+export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror=implicit-function-declaration'"
+gem build ../%{gem_name}-%{version}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -83,6 +89,13 @@ popd
 %doc %{gem_instdir}/README.euc
 
 %changelog
+* Thu Dec  1 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.1-2
+- Backport upstream pull request for ruby3.2 build issue
+- Add -Werror=implicit-function explicitly to detect such function
+
+* Thu Dec  1 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.1-1
+- 2.5.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

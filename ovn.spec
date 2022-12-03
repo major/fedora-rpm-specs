@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 22.09.0
-Release: 4%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 22%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -60,8 +60,8 @@ Source: https://github.com/openvswitch/ovs/archive/%{commit0}.tar.gz#/openvswitc
 Source: https://www.openvswitch.org/releases/ovn-%{version}.tar.gz
 %endif
 
-%define ovscommit 6f24c2bc769afde0a390ce344de1a7d9c592e5a6
-%define ovsshortcommit 6f24c2b
+%define ovscommit c9c602b6f332c6e76b273c607366185cf28ed156
+%define ovsshortcommit c9c602b
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -438,6 +438,66 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Thu Dec 01 2022 Numan Siddique <numans@ovn.org> - 22.09.0-22
+- Sync to upstream OVN branch-22.09 and also backport
+  Load balancer affinity patches.  These patches are not backported
+  to branch-22.09, but ovn-kubernetes need them.
+  Below are the commits since last update (22.09.0-4.
+
+- northd: rely on new actions for lb affinity
+[Upstream: 5b6223dcb6060205c6e9d4e8c092e96134bb032a]
+
+- actions: introduce chk_lb_aff action
+[Upstream: f74c418e3cd2079e7cae4d3ec293ffc387f5a660]
+
+- actions: introduce commit_lb_aff action
+[Upstream: 2d190e5c69c9440c720ab8412cc04e4096d4114a]
+
+- controller: Fixed ovs/ovn(features) connection lost when running more than 120 seconds (#2144084)
+[Upstream: db61b2e4f166092e5bc93f4cba7696a72037a069]
+
+- ovs: Bump submodule to include latest fixes.
+[Upstream: d62dde642879ffb7ff1eb8f4077b6224f977c6d7]
+
+- ovn-controller: Fixed missing flows after interface deletion (#2129866)
+[Upstream: 90c165fa5a6ecdd9bac606cf259ae88228b96208]
+
+- ovn-controller: Fix releasing wrong vif
+[Upstream: 4da7a269c9eb055b2cfa27d67593a77167b8c9a6]
+
+- tests: Fix flaky test "multi-vtep SB Chassis encap updates"
+[Upstream: ef15d5c22fa2255db69be2d6da822cefb099327c]
+
+- controller: Fix QoS for ports with undetected or too low link speed. (#2136716)
+[Upstream: ae96d5d753ccbee9b239178f56460e05169ac9f7]
+
+- ovn-controller: Fix some issues with CT zone assignment. (#2126406)
+[Upstream: 0fc041667031da20cd03c0b76de8de3dbe502d50]
+
+- ci: Update jobs to use numbers instead of test flags
+[Upstream: bc609bf148be3a38a0b8f38f049f30eb7e9b55f8]
+
+- ovs: Bump submodule to tip of branch-3.0 and add related test (#2126450)
+[Upstream: c18415d5ae7273c633190df4ac9e872a0a0f9709]
+
+- controller: fix ipv6 prefix delegation in gw router mode (#2129244 2129247)
+[Upstream: f2042a2e6aeb1a7fe266316337545331f5186dd0]
+
+- spec: require python3-openvswitch for ovn-detrace
+[Upstream: 29e4d43966fbf34d9707e31880c455f22a643bb3]
+
+- northd: Use separate SNAT for already-DNATted traffic.
+[Upstream: 51044dbfdba234a3f50d8c9c952335e41b72a39b]
+
+- controller: Restore MAC and vlan for DVR scenario (#2123837)
+[Upstream: 86e99bf95a2191ebdcd5d03335ff8add2a636f55]
+
+- northd: Fix multicast table full (#2094710)
+[Upstream: 40dd85eb8d2d2d88f9000b6be6fb263b4bd1a27f]
+
+- controller: Fix first ping from lsp to external through snat failing (#2130045)
+[Upstream: 76a01e53a9fcc3184211cca10787d462cb86a352]
+
 * Thu Sep 22 2022 Numan Siddique <numans@ovn.org> - 22.09.0-4
 - Sync to upstream OVN release 22.09.
 

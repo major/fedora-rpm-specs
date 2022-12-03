@@ -17,21 +17,20 @@
 %endif
 
 Name:           dispenso
-Version:        1.0.0
+Version:        1.1.0
 Release:        %{autorelease}
 Summary:        A library for working with sets of tasks in parallel
+
+%global major_ver %(c=%{version}; echo $c | cut -d. -f1)
 
 License:        MIT
 URL:            https://github.com/facebookincubator/dispenso
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# allow Dispenso to be installed and fix its version
-Patch0:         %{url}/commit/d00e7402ffcc780df11024f8d2285c153b7635b1.patch#/%{name}-1.0.0-add-install.patch
 # TODO: make toggleable and upstream
-Patch1:         %{name}-1.0.0-use-system-gtest.patch
-# being reviewed upstream
-Patch2:         %{name}-1.0.0-fix-32bit-build.patch
+Patch0:         %{name}-use-system-gtest.diff
 # TODO: make toggleable and upstream
-Patch3:         %{name}-1.0.0-use-system-moodycamel.patch
+Patch1:         %{name}-use-system-moodycamel.diff
+Patch2:         %{url}/pull/20.patch#/%{name}-fix-cmake-version.diff
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -99,7 +98,8 @@ rm -rf dispenso/third-party
 
 %files
 %license LICENSE
-%{_libdir}/*.so.*
+%{_libdir}/*.so.%{major_ver}
+%{_libdir}/*.so.%{version}
 
 %files devel
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md README.md

@@ -1,12 +1,12 @@
 Name:		xcb-util-cursor
-Version:	0.1.3
-Release:	15%{?dist}
+Version:	0.1.4
+Release:	1%{?dist}
 Summary:	Cursor library on top of libxcb
 License:	MIT
 URL:		http://xcb.freedesktop.org
-Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.bz2
-BuildRequires: make
-BuildRequires:  gcc
+Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.xz
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	pkgconfig(xcb-util) >= 0.3.8
 BuildRequires:	pkgconfig(xcb-render)
 BuildRequires:	pkgconfig(xcb-renderutil)
@@ -19,7 +19,7 @@ XCB util-cursor module provides the following libraries:
   - cursor: port of libxcursor
 
 
-%package 	devel
+%package	devel
 Summary:	Development and header files for xcb-util-cursos
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -52,7 +52,7 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %files
-%doc README
+%doc README.md
 %license COPYING
 %{_libdir}/*.so.*
 
@@ -65,6 +65,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Dec  1 2022 Thomas Moschny <thomas.moschny@gmx.de> - 0.1.4-1
+- Update to 0.1.4.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

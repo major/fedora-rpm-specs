@@ -50,7 +50,7 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.1.0
+Version: 4.1.1
 Release: 1%{?dist}
 License: GPLv3+ and BSD
 URL:     http://swig.sourceforge.net/
@@ -340,6 +340,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Thu Dec 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-1
+- Update to 4.1.1
+
 * Tue Oct 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.0-1
 - Update to 4.1.0
 

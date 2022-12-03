@@ -4,8 +4,10 @@
 %ifarch x86_64
 %bcond_without svt
 %endif
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 9
 %bcond_with rav1e
+%else
+%bcond_without rav1e
 %endif
 
 Name:           libavif

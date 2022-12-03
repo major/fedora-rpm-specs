@@ -1,10 +1,12 @@
 Name:           spacebar
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
 Url:            https://invent.kde.org/plasma-mobile/spacebar
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+
+ExclusiveArch:  %{java_arches}
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -16,6 +18,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  libappstream-glib
 BuildRequires:  libphonenumber-devel
 BuildRequires:  protobuf-devel
+BuildRequires:  abseil-cpp-devel
 
 BuildRequires:  cmake(KF5Codecs)
 BuildRequires:  cmake(KF5Config)
@@ -79,6 +82,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

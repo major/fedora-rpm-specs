@@ -5,10 +5,16 @@
 %global pname   scraper2vdr
 %global gitdate 20190128
 
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
+%endif
+
 Name:           vdr-scraper2vdr
 Version:        1.0.12
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL+
 URL:            https://github.com/horchi/scraper2vdr
@@ -26,7 +32,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  imlib2-devel
-BuildRequires:  vdr-devel >= 1.7.34
+BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description 
@@ -67,6 +73,9 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.12-5
+- Rebuilt for new VDR API version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

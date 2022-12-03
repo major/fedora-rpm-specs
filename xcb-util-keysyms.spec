@@ -1,12 +1,12 @@
 Name:		xcb-util-keysyms
-Version:	0.4.0
-Release:	18%{?dist}
+Version:	0.4.1
+Release:	1%{?dist}
 Summary:	Standard X key constants and keycodes conversion on top of libxcb
 License:	MIT
 URL:		http://xcb.freedesktop.org
-Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.bz2
-BuildRequires: make
-BuildRequires:  gcc
+Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.xz
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	pkgconfig(xcb-util) >= 0.3.8
 BuildRequires:	m4
 
@@ -16,7 +16,7 @@ XCB util-keysyms module provides the following library:
   - keysyms: Standard X key constants and conversion to/from keycodes.
 
 
-%package 	devel
+%package	devel
 Summary:	Development and header files for xcb-util-keysyms
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -49,7 +49,7 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %files
-%doc README
+%doc README.md
 %{_libdir}/*.so.*
 
 
@@ -61,6 +61,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Dec  1 2022 Thomas Moschny <thomas.moschny@gmx.de> - 0.4.1-1
+- Update to 0.4.1.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        57
+Version:        58
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
@@ -31,7 +31,7 @@ BuildRequires: gettext
 BuildRequires: libappstream-glib-devel
 %endif
 
-Requires:       cockpit-bridge >= 138
+Requires:       cockpit-bridge
 Requires:       podman >= 2.0.4
 
 %description
@@ -54,6 +54,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Dec 01 2022 Packit <hello@packit.dev> - 58-1
+- Performance and stability improvements
+
+
 * Wed Nov 16 2022 Packit <hello@packit.dev> - 57-1
 - Performance and stability improvements
 

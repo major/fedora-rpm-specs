@@ -16,8 +16,8 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.11
-Release:        5%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPLv3
@@ -27,7 +27,6 @@ Source1:        ipahealthcheck.conf
 
 Patch0001:      0001-Remove-ipaclustercheck.patch
 Patch0002:      0002-Disable-two-failing-tests.patch
-Patch0003:      0003-kdc-Don-t-return-a-WARNING-if-there-are-no-ARGS-and-.patch
 
 Requires:       %{name}-core = %{version}-%{release}
 Requires:       %{prefix}-server
@@ -157,6 +156,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Thu Dec  1 2022 Rob Crittenden <rcritten@redhat.com> - 0.12
+- Update to 0.12 release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

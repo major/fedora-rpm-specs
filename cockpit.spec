@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPLv2+
 URL:            https://cockpit-project.org/
 
-Version:        280.1
+Version:        281
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -72,6 +72,13 @@ Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{v
 %else
 %define build_basic 1
 %define build_optional 1
+%endif
+
+# Allow root login in Cockpit on RHEL 8 and lower as it also allows password login over SSH.
+%if 0%{?rhel} && 0%{?rhel} <= 8
+%define disallow_root 0
+%else
+%define disallow_root 1
 %endif
 
 # Ship custom SELinux policy (but not for cockpit-appstream)
@@ -481,7 +488,10 @@ if [ "$1" = 1 ]; then
     mkdir -p /etc/motd.d /etc/issue.d
     ln -s ../../run/cockpit/motd /etc/motd.d/cockpit
     ln -s ../../run/cockpit/motd /etc/issue.d/cockpit.issue
-    printf "# List of users which are not allowed to login to Cockpit\nroot\n" > /etc/cockpit/disallowed-users
+    printf "# List of users which are not allowed to login to Cockpit\n" > /etc/cockpit/disallowed-users
+%if 0%{?disallow_root}
+    printf "root\n" >> /etc/cockpit/disallowed-users
+%endif
     chmod 644 /etc/cockpit/disallowed-users
 fi
 
@@ -662,6 +672,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Dec 01 2022 Packit <hello@packit.dev> - 281-1
+- Dark theme switcher
+
+
 * Thu Nov 24 2022 Packit <hello@packit.dev> - 280.1-1
 - Exclude kpatch test on RHEL gating
 

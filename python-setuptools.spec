@@ -180,9 +180,9 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 cat pkg_resources/_vendor/vendored.txt setuptools/_vendor/vendored.txt > allvendor.txt
 %{_rpmconfigdir}/pythonbundles.py allvendor.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
 
-# Regression test, the wheel should not be larger than 900 KiB
+# Regression test, the wheel should not be larger than 900 kB
 # https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
-test $(du %{_pyproject_wheeldir}/%{python_wheel_name} | cut -f1) -lt 900
+test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 900000
 
 # Regression test, the tests are not supposed to be installed
 test ! -d %{buildroot}%{python3_sitelib}/pkg_resources/tests

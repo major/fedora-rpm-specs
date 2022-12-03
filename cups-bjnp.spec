@@ -1,9 +1,10 @@
 Summary		: CUPS backend for the Canon BJNP network printers 
 Name		: cups-bjnp
 Version		: 2.0.3
-Release		: 6%{?dist}
+Release		: 7%{?dist}
 License		: GPLv2+
 Source		: http://downloads.sourceforge.net/cups-bjnp/cups-bjnp-%{version}.tar.gz
+Patch0          : cups-bjnp-configure-c99.patch
 Group		: System Environment/Daemons
 URL		: https://sourceforge.net/projects/cups-bjnp/
 
@@ -20,7 +21,7 @@ This package contains a backend for CUPS for Canon printers using the
 proprietary BJNP network protocol.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --prefix=%{_exec_prefix} --with-cupsbackenddir=%{cups_backend_dir} --disable-Werror
@@ -35,6 +36,9 @@ make DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" install
 %doc COPYING ChangeLog TODO NEWS README README.levels
 
 %changelog
+* Thu Dec  1 2022 Florian Weimer <fweimer@redhat.com> - 2.0.3-7
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

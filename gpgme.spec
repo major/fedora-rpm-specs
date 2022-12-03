@@ -156,17 +156,17 @@ export CXXFLAGS='%{optflags} -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 # Explicit new lines in C(XX)FLAGS can break naive build scripts
 export CFLAGS="$(echo ${CFLAGS} | tr '\n\\' '  ')"
 export CXXFLAGS="$(echo ${CXXFLAGS} | tr '\n\\' '  ')"
+export SETUPTOOLS_USE_DISTUTILS=local
 
 %configure --disable-static --disable-silent-rules --enable-languages=cpp,%{?with_qt:qt,}python
 %make_build
 
 %install
-%if 0%{?python3_version_nodots} >= 311
-# When using distutils from setuptools on Python 3.11+, ./setup.py install
-# use .egg format. This forces setuptools to use .egg-info format.
+# When using distutils from setuptools 60+, ./setup.py install use
+# the .egg format. This forces setuptools to use .egg-info format.
 # SETUP_PY_EXTRA_OPTS is introduced by the Patch1004 above.
+export SETUPTOOLS_USE_DISTUTILS=local
 export SETUP_PY_EXTRA_OPTS="--single-version-externally-managed --root=/"
-%endif
 %make_install
 
 # unpackaged files
@@ -243,11 +243,7 @@ make check
 
 %files -n python3-gpg
 %doc lang/python/README
-%if 0%{?python3_version_nodots} < 311
-%{python3_sitearch}/gpg-*.egg-info
-%else
 %{python3_sitearch}/gpg-*.egg-info/
-%endif
 %{python3_sitearch}/gpg/
 
 %changelog

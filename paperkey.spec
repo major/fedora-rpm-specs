@@ -1,9 +1,9 @@
 Name:           paperkey
 Version:        1.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An OpenPGP key archiver
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.jabberwocky.com/software/paperkey/
 Source0:        https://www.jabberwocky.com/software/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://www.jabberwocky.com/software/%{name}/%{name}-%{version}.tar.gz.sig
@@ -51,6 +51,9 @@ restoring a key.
 
 
 %changelog
+* Thu Dec 01 2022 Todd Zullinger <tmz@pobox.com> - 1.6-10
+- convert license to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,14 +2,14 @@
 
 Name:    lxqt-globalkeys
 Summary: Global keys utility for LXQt desktop suite
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 License: LGPLv2+
-URL:     http://lxqt.org/
+URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.1.0
-BuildRequires: pkgconfig(lxqt) >= 1.0.0
+BuildRequires: pkgconfig(lxqt) >= 1.2.0
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5Xdg) >= 1.0.0
 BuildRequires: kf5-kwindowsystem-devel >= 5.5
@@ -70,9 +70,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_bindir}/lxqt-config-globalkeyshortcuts
 %{_datadir}/applications/lxqt-config-globalkeyshortcuts.desktop
 %{_libdir}/liblxqt-globalkeys.so.1
-%{_libdir}/liblxqt-globalkeys.so.1.1.0
+%{_libdir}/liblxqt-globalkeys.so.1.2.0
 %{_libdir}/liblxqt-globalkeys-ui.so.1
-%{_libdir}/liblxqt-globalkeys-ui.so.1.1.0
+%{_libdir}/liblxqt-globalkeys-ui.so.1.2.0
 %{_sysconfdir}/xdg/autostart/lxqt-globalkeyshortcuts.desktop
 %{_datadir}/lxqt/globalkeyshortcuts.conf
 
@@ -97,6 +97,9 @@ desktop-file-edit --remove-category=LXQt --add-category=X-LXQt \
 %{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts/lxqt-config-globalkeyshortcuts_arn.qm
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

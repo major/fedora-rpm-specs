@@ -3,7 +3,7 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.29.2
+Version:	0.29.3
 Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
@@ -17,27 +17,23 @@ BuildArch:	noarch
 BuildRequires:	make
 BuildRequires:	python3-devel >= 3.7
 BuildRequires:	python3-pip
-BuildRequires:	python3-flit-core >= 3.2
-#		python3-hatchling >= 1.5
-BuildRequires:	python3-hatchling
-#		python3-ipykernel >= 5.5.6
-BuildRequires:	python3-ipykernel
-#		python3-jupyter-core >= 4.9.2
-BuildRequires:	python3-jupyter-core
-BuildRequires:	python3-pexpect >= 4.8
+BuildRequires:	python3dist(hatchling) >= 1.5
+BuildRequires:	python3dist(ipykernel) >= 5.5.6
+BuildRequires:	python3dist(jedi) >= 0.18
+BuildRequires:	python3dist(jupyter-core) >= 4.9.2
+BuildRequires:	python3dist(pexpect) >= 4.8
 #		For testing:
-BuildRequires:	python3-pytest
-BuildRequires:	python3-pytest-timeout
-BuildRequires:	python3-requests
-BuildRequires:	python3-ipyparallel
-BuildRequires:	python3-jedi >= 0.18
+BuildRequires:	python3dist(pytest)
+BuildRequires:	python3dist(pytest-timeout)
+BuildRequires:	python3dist(requests)
+BuildRequires:	python3dist(ipyparallel)
 BuildRequires:	man
 #		For documentation
-BuildRequires:	python3-sphinx
-BuildRequires:	python3-sphinx-bootstrap-theme
-BuildRequires:	python3-myst-parser
-BuildRequires:	python3-numpydoc
-BuildRequires:	python3-recommonmark
+BuildRequires:	python3dist(sphinx)
+BuildRequires:	python3dist(sphinx-bootstrap-theme)
+BuildRequires:	python3dist(myst-parser)
+BuildRequires:	python3dist(numpydoc)
+BuildRequires:	python3dist(recommonmark)
 
 %description
 A Jupyter/IPython kernel template which includes core magic functions
@@ -47,11 +43,6 @@ distributed processing, downloads, and much more).
 %package -n python3-metakernel
 Summary:	Metakernel for Jupyter
 %{?python_provide:%python_provide python3-metakernel}
-#		python3-ipykernel >= 5.5.6
-Requires:	python3-ipykernel
-#		python3-jupyter-core >= 4.9.2
-Requires:	python3-jupyter-core
-Requires:	python3-pexpect >= 4.8
 Obsoletes:	python3-metakernel-bash < 0.19.1-24
 
 %description -n python3-metakernel
@@ -64,10 +55,9 @@ Summary:	Tests for python3-metakernel
 %{?python_provide:%python_provide python3-metakernel-tests}
 Requires:	python3-metakernel = %{version}-%{release}
 Requires:	python3-metakernel-python
-Requires:	python3-pytest
-Requires:	python3-requests
-Requires:	python3-ipyparallel
-Requires:	python3-jedi >= 0.18
+Requires:	python3dist(pytest)
+Requires:	python3dist(requests)
+Requires:	python3dist(ipyparallel)
 Requires:	man
 
 %description -n python3-metakernel-tests
@@ -81,11 +71,10 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	54%{?dist}
+Release:	55%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %{?python_provide:%python_provide python3-metakernel-python}
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
-Requires:	python3-jedi >= 0.18
 Requires:	python-jupyter-filesystem
 
 %description -n python3-metakernel-python
@@ -93,7 +82,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	54%{?dist}
+Release:	55%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %{?python_provide:%python_provide python3-metakernel-echo}
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -104,19 +93,6 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 
 %prep
 %setup -q -n metakernel-%{pkgversion}
-
-%if %{fedora} == 35
-# Relax dependencies
-sed -e 's!ipykernel >=5.5.6!ipykernel >=5.5.0!' \
-    -e 's!jupyter_core >=4.9.2!jupyter_core >=4.7.0!' \
-    -i pyproject.toml
-%endif
-
-%if %{fedora} == 36
-# Relax dependencies
-sed -e 's!jupyter_core >=4.9.2!jupyter_core >=4.9.1!' \
-    -i pyproject.toml
-%endif
 
 %build
 %pyproject_wheel
@@ -152,7 +128,7 @@ PYTHONPATH=metakernel_echo \
 %check
 PYTHONPATH=metakernel_python ipcluster start -n=3 &
 pid=$!
-pytest -v --color=no metakernel
+pytest -v --color=no metakernel/tests metakernel/magics/tests
 ipcluster stop
 wait $pid
 
@@ -190,6 +166,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Thu Dec 01 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.3-1
+- Update to version 0.29.3
+
 * Tue Aug 09 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.2-1
 - Update to version 0.29.2
 
@@ -234,7 +213,7 @@ wait $pid
 
 * Tue Nov 10 2020 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.27.5-1
 - Update to version 0.27.5
-- Drop patches accepted upstrem
+- Drop patches accepted upstream
 
 * Sat Nov 07 2020 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.27.4-1
 - Update to version 0.27.4

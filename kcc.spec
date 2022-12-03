@@ -1,7 +1,7 @@
 Name:		kcc
 Version:	2.3
-Release:	55%{?dist}
-License:	GPLv2+
+Release:	56%{?dist}
+License:	GPL-2.0-or-later
 
 BuildRequires:	gcc
 BuildRequires: make
@@ -52,6 +52,9 @@ gzip -9 $RPM_BUILD_ROOT%{_mandir}/man1/kcc.1
 %{_mandir}/man1/kcc.1*
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 2.3-56
+- Convert License tag to SPDX.
+
 * Wed Oct 26 2022 Florian Weimer <fweimer@redhat.com> - 2.3-55
 - Updates for C99 compatibility (#2141799).
 - Build in C99 mode because of old-style function definitions.

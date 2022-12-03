@@ -92,7 +92,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -669,6 +669,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Thu Dec 01 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221123gitb93eb7f-2
+- FedoraMessaging: handle chunked ADVISORY_NVRS_N settings
+
 * Thu Nov 24 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221123gitb93eb7f-1
 - Update to latest git, re-sync spec, drop merged patches
 

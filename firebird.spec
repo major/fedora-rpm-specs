@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        SQL relational database management system
 License:        Interbase
@@ -34,6 +34,7 @@ Patch301:       c++17.patch
 Patch302:       noexcept.patch
 Patch303:       autoconf.patch
 Patch401:       btyacc-honour-build-flags.patch
+Patch402:       firebird-configure-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -199,6 +200,7 @@ in production systems, under a variety of names, since 1981.
 %patch302 -p1
 %patch303 -p1
 %patch401 -p1
+%patch402 -p1
 
 
 %build
@@ -374,6 +376,9 @@ fi
 
 
 %changelog
+* Thu Dec  1 2022 Florian Weimer <fweimer@redhat.com> - 4.0.2.2816-3
+- Port configure script to C99
+
 * Thu Nov 24 2022 Philippe Makowski <makowski@fedoraproject.org> - 4.0.2.2816-2
 - Patch for autoconf 2.72 (#2144802)
 

@@ -11,10 +11,14 @@
 %global _maindocdir %{_docdir}/%{name}
 %global _docdocdir %{_docdir}/%{name}-doc
 
+%global scanner_backends_list abaton agfafocus apple artec artec_eplus48u as6e avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3500 hp3900 hp4200 hp5400 hp5590 hpljm1005 hpsj5s hs2p ibm kodak kodakaio kvs1025 kvs20xx kvs40xx leo lexmark ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb mustek_usb2 nec net niash p5 pie pieusb pixma plustek plustek_pp ricoh ricoh2 rts8891 s9036 sceptre sharp sm3600 sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp
+%global camera_backends_list dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
+%global config_files_list abaton agfafocus apple artec artec_eplus48u avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3900 hp4200 hp5400 hpsj5s hs2p ibm kodak kodakaio kvs1025 leo lexmark ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb nec net p5 pie pieusb pixma plustek plustek_pp ricoh rts8891 s9036 sceptre sharp sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
+
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.1.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+, docs are public domain
 # see LICENSE for details
@@ -53,8 +57,10 @@ BuildRequires: autoconf
 BuildRequires: gettext
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
-# genesys backend is not written in C++, so it is needed as buildrequire
+# genesys backend is written in C++, so it is needed as buildrequire
 BuildRequires: gcc-c++
+# for autosetup
+BuildRequires: git-core
 BuildRequires: gphoto2-devel
 BuildRequires: texlive-base
 BuildRequires: libieee1284-devel
@@ -96,7 +102,6 @@ hand-held scanner, video and still cameras, frame-grabbers, etc.).
 %package doc
 Summary: SANE backends documentation
 BuildArch: noarch
-# Don't drag around obsoletes forever
 
 %description doc
 This package contains documentation for SANE backends.
@@ -164,15 +169,7 @@ This package contains saned which is the daemon that allows remote clients to
 access image acquisition devices available on the local host.
 
 %prep
-%setup -q
-
-%patch0 -p1 -b .udev
-%patch1 -p1 -b .soname
-%patch2 -p1 -b .sane-config-multilib
-# 2042316 - genesys: backend crashes because it attempts to access a member outside of vector
-%patch3 -p1 -b .genesys-gl845-crash
-%patch4 -p1
-%patch5 -p1 -b .genesys-plustek7600i-8100-support
+%autosetup -S git
 
 %build
 CFLAGS="%optflags -fno-strict-aliasing"
@@ -255,6 +252,32 @@ rm -f %{buildroot}%{_libdir}/sane/libsane-qcam.so
 
 %find_lang %name
 
+touch so_scanner_list
+for backend in %scanner_backends_list
+do
+  echo "%{_libdir}/sane/libsane-${backend}.so" >> so_scanner_list
+done
+
+touch so_camera_list
+for backend in %camera_backends_list
+do
+  if [ "$backend" == "qcam" ]
+  then
+    continue
+  fi
+  echo "%{_libdir}/sane/libsane-${backend}.so" >> so_camera_list
+done
+
+touch config_list
+for config in %config_files_list
+do
+  if [ "$config" == "epsonds" ] || [ "$config" == "qcam" ]
+  then
+    continue
+  fi
+  echo "%config(noreplace) %{_sysconfdir}/sane.d/${config}.conf" >> config_list
+done
+
 %post
 udevadm hwdb --update >/dev/null 2>&1 || :
 
@@ -283,7 +306,7 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %postun daemon
 %systemd_postun_with_restart saned.socket
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f config_list
 %dir %{_maindocdir}
 %doc %{_maindocdir}/AUTHORS
 %doc %{_maindocdir}/ChangeLog
@@ -294,12 +317,12 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %license %{_maindocdir}/LICENSE
 %dir %{_sysconfdir}/sane.d
 %dir %{_sysconfdir}/sane.d/dll.d
-%exclude %config(noreplace) %{_sysconfdir}/sane.d/saned.conf
-%exclude %config(noreplace) %{_sysconfdir}/sane.d/epsonds.conf
-%config(noreplace) %{_sysconfdir}/sane.d/*.conf
 # 2130997 - epsonds.conf is modified during %post scriptlet to disable autodiscovery for
 # security reasons, so disable RPM verification of it for size, md5 and modification time
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/sane.d/epsonds.conf
+%ifarch x86_64 i686
+%config(noreplace) %{_sysconfdir}/sane.d/qcam.conf
+%endif
 %{_udevrulesdir}/65-sane-backends.rules
 %{_udevhwdbdir}/20-sane-backends.hwdb
 %{_datadir}/pixmaps/sane.png
@@ -329,93 +352,11 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_libdir}/libsane.so
 %{_libdir}/pkgconfig/sane-backends.pc
 
-%files drivers-scanners
+%files drivers-scanners -f so_scanner_list
 # we need to specify all .so files for available backends because something like
 # #1761145 can happen - genesys did not compile because of lack gcc-c++ in buildroot
 # and configure printed only warning. So now we can figure out missing backend support
 # during build
-%{_libdir}/sane/libsane-abaton.so
-%{_libdir}/sane/libsane-agfafocus.so
-%{_libdir}/sane/libsane-apple.so
-%{_libdir}/sane/libsane-artec.so
-%{_libdir}/sane/libsane-artec_eplus48u.so
-%{_libdir}/sane/libsane-as6e.so
-%{_libdir}/sane/libsane-avision.so
-%{_libdir}/sane/libsane-bh.so
-%{_libdir}/sane/libsane-canon.so
-%{_libdir}/sane/libsane-canon630u.so
-%{_libdir}/sane/libsane-canon_dr.so
-%{_libdir}/sane/libsane-canon_lide70.so
-%{_libdir}/sane/libsane-canon_pp.so
-%{_libdir}/sane/libsane-cardscan.so
-%{_libdir}/sane/libsane-coolscan.so
-%{_libdir}/sane/libsane-coolscan2.so
-%{_libdir}/sane/libsane-coolscan3.so
-%{_libdir}/sane/libsane-dell1600n_net.so
-%{_libdir}/sane/libsane-dll.so
-%{_libdir}/sane/libsane-epjitsu.so
-%{_libdir}/sane/libsane-epson.so
-%{_libdir}/sane/libsane-epson2.so
-%{_libdir}/sane/libsane-epsonds.so
-%{_libdir}/sane/libsane-fujitsu.so
-%{_libdir}/sane/libsane-genesys.so
-%{_libdir}/sane/libsane-gt68xx.so
-%{_libdir}/sane/libsane-hp.so
-%{_libdir}/sane/libsane-hp3500.so
-%{_libdir}/sane/libsane-hp3900.so
-%{_libdir}/sane/libsane-hp4200.so
-%{_libdir}/sane/libsane-hp5400.so
-%{_libdir}/sane/libsane-hp5590.so
-%{_libdir}/sane/libsane-hpljm1005.so
-%{_libdir}/sane/libsane-hpsj5s.so
-%{_libdir}/sane/libsane-hs2p.so
-%{_libdir}/sane/libsane-ibm.so
-%{_libdir}/sane/libsane-kodak.so
-%{_libdir}/sane/libsane-kodakaio.so
-%{_libdir}/sane/libsane-kvs1025.so
-%{_libdir}/sane/libsane-kvs20xx.so
-%{_libdir}/sane/libsane-kvs40xx.so
-%{_libdir}/sane/libsane-leo.so
-%{_libdir}/sane/libsane-lexmark.so
-%{_libdir}/sane/libsane-ma1509.so
-%{_libdir}/sane/libsane-magicolor.so
-%{_libdir}/sane/libsane-matsushita.so
-%{_libdir}/sane/libsane-microtek.so
-%{_libdir}/sane/libsane-microtek2.so
-%{_libdir}/sane/libsane-mustek.so
-%{_libdir}/sane/libsane-mustek_pp.so
-%{_libdir}/sane/libsane-mustek_usb.so
-%{_libdir}/sane/libsane-mustek_usb2.so
-%{_libdir}/sane/libsane-nec.so
-%{_libdir}/sane/libsane-net.so
-%{_libdir}/sane/libsane-niash.so
-%{_libdir}/sane/libsane-p5.so
-%{_libdir}/sane/libsane-pie.so
-%{_libdir}/sane/libsane-pieusb.so
-%{_libdir}/sane/libsane-pixma.so
-%{_libdir}/sane/libsane-plustek.so
-%{_libdir}/sane/libsane-plustek_pp.so
-%{_libdir}/sane/libsane-ricoh.so
-%{_libdir}/sane/libsane-ricoh2.so
-%{_libdir}/sane/libsane-rts8891.so
-%{_libdir}/sane/libsane-s9036.so
-%{_libdir}/sane/libsane-sceptre.so
-%{_libdir}/sane/libsane-sharp.so
-%{_libdir}/sane/libsane-sm3600.so
-%{_libdir}/sane/libsane-sm3840.so
-%{_libdir}/sane/libsane-snapscan.so
-%{_libdir}/sane/libsane-sp15c.so
-%{_libdir}/sane/libsane-st400.so
-%{_libdir}/sane/libsane-tamarack.so
-%{_libdir}/sane/libsane-teco1.so
-%{_libdir}/sane/libsane-teco2.so
-%{_libdir}/sane/libsane-teco3.so
-%{_libdir}/sane/libsane-test.so
-%{_libdir}/sane/libsane-u12.so
-%{_libdir}/sane/libsane-umax.so
-%{_libdir}/sane/libsane-umax1220u.so
-%{_libdir}/sane/libsane-umax_pp.so
-%{_libdir}/sane/libsane-xerox_mfp.so
 %{_libdir}/sane/*.so.1
 %{_libdir}/sane/*.so.1.1.1
 
@@ -428,12 +369,7 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %exclude %{_libdir}/sane/*stv680.so*
 %exclude %{_libdir}/sane/*v4l.so*
 
-%files drivers-cameras
-%{_libdir}/sane/libsane-dc210.so
-%{_libdir}/sane/libsane-dc240.so
-%{_libdir}/sane/libsane-dc25.so
-%{_libdir}/sane/libsane-dmc.so
-%{_libdir}/sane/libsane-gphoto2.so
+%files drivers-cameras -f so_camera_list
 # qcam is not on aarch64, ppc64le and s390x. SANE needs
 # ioperm, inb and outb functions or portaccess function
 # to support qcam backend. Those functions are only in
@@ -443,8 +379,6 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %ifarch x86_64 i686
 %{_libdir}/sane/libsane-qcam.so
 %endif
-%{_libdir}/sane/libsane-stv680.so
-%{_libdir}/sane/libsane-v4l.so
 %{_libdir}/sane/*.so.1
 %{_libdir}/sane/*.so.1.1.1
 
@@ -458,6 +392,12 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Thu Dec 01 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-10
+- remove ldflags from pkgconfig file completely
+
+* Wed Nov 30 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-10
+- put epsonds.conf back to sane-backends
+
 * Thu Nov 24 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-9
 - 2139882 - Plustek 8100 and 7600i VID:PID are missing in genesys.conf
 

@@ -1,6 +1,6 @@
 Name:           python-Rtree
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        R-Tree spatial index for Python GIS
 
 # Since the package has a history of arch-dependent bugs (see RHBZ#2055249),
@@ -25,7 +25,8 @@ features include:
   • Custom storage implementation (to implement spatial indexing in ZODB, for
     example)}
 
-License:        LGPLv2
+# SPDX
+License:        MIT
 URL:            https://github.com/Toblerity/rtree
 Source0:        %{pypi_source Rtree}
 
@@ -90,6 +91,9 @@ Requires:       spatialindex
 
 
 %changelog
+* Wed Nov 30 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-5
+- Correct license from LGPLv2 to (SPDX) MIT
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

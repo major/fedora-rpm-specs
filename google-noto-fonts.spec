@@ -22,9 +22,9 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
-License:        OFL
+License:        OFL-1.1
 URL:            https://github.com/googlefonts/noto-fonts/
 #Source0:        https://github.com/googlefonts/noto-fonts/archive/v20201206-phase3.tar.gz#/noto-fonts-%%{srcver}.tar.gz
 Source0:        noto-fonts-%{snapver}.tar.xz
@@ -1075,6 +1075,9 @@ done
 
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-8
+- Convert License tag to SPDX.
+
 * Fri Nov 25 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-7
 - Add an alias for Symbol font to Noto Sans Symbols/Symbols2.
   Resolves: rhbz#2088665

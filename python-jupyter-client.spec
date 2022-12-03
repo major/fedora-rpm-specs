@@ -3,7 +3,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        7.4.2
+Version:        7.4.7
 Release:        1%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
@@ -107,6 +107,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 7.4.7-1
+- Update to 7.4.7 (rhbz#2133949)
+
 * Thu Oct 13 2022 Karolina Surma <ksurma@redhat.com> - 7.4.2-1
 - Update to 7.4.2
 

@@ -1,5 +1,5 @@
 Name:           plasma-settings 
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
@@ -22,6 +22,7 @@ BuildRequires:  cmake(KF5DBusAddons)
 BuildRequires:  cmake(KF5Declarative)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KIO)
+BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5ModemManagerQt)
 BuildRequires:  cmake(KF5NetworkManagerQt)
 BuildRequires:  cmake(KF5Plasma)
@@ -71,6 +72,9 @@ desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.mobile.p
 %{_qt5_plugindir}/kcms/*.so
  
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

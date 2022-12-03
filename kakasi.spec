@@ -1,8 +1,8 @@
 Name:		kakasi
 Version:	2.3.6
-Release:	22%{?dist}
+Release:	23%{?dist}
 URL:		http://kakasi.namazu.org/
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildRequires:	autoconf automake libtool gettext-devel
 BuildRequires: make
 
@@ -95,6 +95,9 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 2.3.6-23
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

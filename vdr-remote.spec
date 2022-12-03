@@ -3,7 +3,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Extended remote control plugin for VDR
 
 License:        GPL+
@@ -14,6 +14,7 @@ Source2:        %{name}-udev.rules
 # Status query mail sent to upstream and Debian patchkit maintainer 2008-10-25
 Patch0:         http://zap.tartarus.org/~ds/debian/dists/stable/main/source/vdr-plugin-remote_0.3.8-3.ds.diff.gz
 Patch1:         vdr-remote-gcc11.patch
+Patch2:         new-expresson-cLircRemote.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -65,6 +66,10 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-24
+- Rebuilt for new VDR API version
+- Add patch new-expresson-cLircRemote.patch
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

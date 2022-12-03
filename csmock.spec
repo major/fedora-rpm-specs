@@ -1,7 +1,9 @@
+# disable in source builds on EPEL <9
 %undefine __cmake_in_source_build
+%undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.3.4
+Version:    3.3.5
 Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
@@ -14,7 +16,7 @@ Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{versi
 # gpg --output kdudka.pgp --armor --export kdudka@redhat.com
 Source2:    kdudka.pgp
 
-BuildRequires: cmake
+BuildRequires: cmake3
 BuildRequires: gnupg2
 BuildRequires: help2man
 
@@ -40,7 +42,7 @@ Summary: Tool for plugging static analyzers into the build process
 Requires: cscppc
 Requires: csclng
 Requires: csdiff
-Requires: csmock-common(python3)
+Requires: csmock-common
 Requires: cswrap
 Requires: python%{python3_pkgversion}-GitPython
 
@@ -53,7 +55,6 @@ Requires: csdiff
 Requires: csgcca
 Requires: cswrap
 Requires: mock
-Provides: csmock-common(python3) = %{version}-%{release}
 
 %description -n csmock-common
 This package contains the csmock tool that allows to scan SRPMs by Static
@@ -61,7 +62,7 @@ Analysis tools in a fully automated way.
 
 %package -n csmock-plugin-bandit
 Summary: csmock plug-in providing the support for Bandit.
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-bandit
 This package contains the bandit plug-in for csmock.
@@ -69,7 +70,7 @@ This package contains the bandit plug-in for csmock.
 %package -n csmock-plugin-cbmc
 Summary: csmock plug-in providing the support for cbmc
 Requires: csexec
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-cbmc
 This package contains the cbmc plug-in for csmock.
@@ -77,7 +78,7 @@ This package contains the cbmc plug-in for csmock.
 %package -n csmock-plugin-clang
 Summary: csmock plug-in providing the support for Clang
 Requires: csclng
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-clang
 This package contains the clang plug-in for csmock.
@@ -85,7 +86,7 @@ This package contains the clang plug-in for csmock.
 %package -n csmock-plugin-cppcheck
 Summary: csmock plug-in providing the support for Cppcheck
 Requires: cscppc
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-cppcheck
 This package contains the cppcheck plug-in for csmock.
@@ -93,35 +94,35 @@ This package contains the cppcheck plug-in for csmock.
 %package -n csmock-plugin-divine
 Summary: csmock plug-in providing the support for divine
 Requires: csexec
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-divine
 This package contains the divine plug-in for csmock.
 
 %package -n csmock-plugin-gitleaks
 Summary: experimental csmock plug-in
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-gitleaks
 This package contains the gitleaks plug-in for csmock.
 
 %package -n csmock-plugin-infer
 Summary: csmock plug-in providing the support for Infer
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-infer
 This package contains the Infer plug-in for csmock.
 
 %package -n csmock-plugin-pylint
 Summary: csmock plug-in providing the support for Pylint.
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-pylint
 This package contains the pylint plug-in for csmock.
 
 %package -n csmock-plugin-shellcheck
 Summary: csmock plug-in providing the support for ShellCheck.
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-shellcheck
 This package contains the shellcheck plug-in for csmock.
@@ -130,7 +131,7 @@ This package contains the shellcheck plug-in for csmock.
 Summary: csmock plug-in providing the support for smatch
 Requires: csdiff
 Requires: csmatch
-Requires: csmock-common(python3)
+Requires: csmock-common
 Requires: cswrap
 
 %description -n csmock-plugin-smatch
@@ -139,7 +140,7 @@ This package contains the smatch plug-in for csmock.
 %package -n csmock-plugin-strace
 Summary: csmock plug-in providing the support for strace
 Requires: csexec
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-strace
 This package contains the strace plug-in for csmock.
@@ -147,7 +148,7 @@ This package contains the strace plug-in for csmock.
 %package -n csmock-plugin-symbiotic
 Summary: csmock plug-in providing the support for symbiotic
 Requires: csexec
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-symbiotic
 This package contains the symbiotic plug-in for csmock.
@@ -155,14 +156,14 @@ This package contains the symbiotic plug-in for csmock.
 %package -n csmock-plugin-valgrind
 Summary: csmock plug-in providing the support for valgrind
 Requires: csexec
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-valgrind
 This package contains the valgrind plug-in for csmock.
 
 %package -n csmock-plugin-unicontrol
 Summary: experimental csmock plug-in
-Requires: csmock-common(python3)
+Requires: csmock-common
 
 %description -n csmock-plugin-unicontrol
 This package contains the unicontrol plug-in for csmock.
@@ -171,18 +172,14 @@ This package contains the unicontrol plug-in for csmock.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
-# force using Python 3
-sed -e '1s/python$/python3/' -i py/cs{build,mock}
-
 %build
-%cmake \
+%cmake3                                       \
     -DVERSION='%{name}-%{version}-%{release}' \
-    -DPYTHON_EXECUTABLE='%{__python3}' \
-    %{nil}
-%cmake_build
+    -DPython3_EXECUTABLE='%{__python3}'
+%cmake3_build
 
 %install
-%cmake_install
+%cmake3_install
 
 # needed to create the csmock RPM
 %files
@@ -235,7 +232,6 @@ sed -e '1s/python$/python3/' -i py/cs{build,mock}
 %{python3_sitelib}/csmock/plugins/__pycache__/divine.*
 
 %files -n csmock-plugin-gitleaks
-%{_bindir}/gitleaks-convert-output
 %{python3_sitelib}/csmock/plugins/gitleaks.py*
 %{python3_sitelib}/csmock/plugins/__pycache__/gitleaks.*
 
@@ -277,6 +273,9 @@ sed -e '1s/python$/python3/' -i py/cs{build,mock}
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Thu Dec 01 2022 Kamil Dudka <kdudka@redhat.com> 3.3.5-1
+- update to latest upstream release
+
 * Tue Sep 06 2022 Kamil Dudka <kdudka@redhat.com> 3.3.4-1
 - update to latest upstream release
 

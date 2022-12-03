@@ -1,9 +1,9 @@
 Name:           langpacks-install
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tool to get auto installed langpacks on GNOME session startup
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://pagure.io/%{name}
 Source0:        http://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-12
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

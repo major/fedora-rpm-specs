@@ -8,8 +8,8 @@
 
 Name:		im-chooser
 Version:	1.7.4
-Release:	4%{?dist}
-License:	GPLv2+ and LGPLv2+
+Release:	5%{?dist}
+License:	GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:		http://pagure.io/im-chooser/
 %{?_with_gtk2:BuildRequires:	gtk2-devel}
 %{!?_with_gtk2:BuildRequires:	gtk3-devel}
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/im-chooser-panel.desktop
 %endif
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 1.7.4-5
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -553,4 +556,3 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/applications/im-chooser-panel.desktop
 
 * Wed Jun  7 2006 Akira TAGOH <tagoh@redhat.com> - 0.1.1-1
 - Initial package.
-

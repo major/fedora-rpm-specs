@@ -1,5 +1,5 @@
 Name:           qmlkonsole
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Terminal app for Plasma Mobile
@@ -14,6 +14,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  appstream
+BuildRequires:  abseil-cpp-devel
 
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Quick)
@@ -25,6 +26,8 @@ BuildRequires:  cmake(KF5Kirigami2)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5KirigamiAddons)
+BuildRequires:  cmake(KF5WindowSystem)
 
 Requires:       kf5-kirigami2
 Requires:       qmltermwidget
@@ -52,10 +55,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %license LICENSES/GPL-2.0-or-later.txt
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/config.kcfg/terminalsettings.kcfg
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

@@ -1,6 +1,6 @@
 Name:           SDL2_image
 Version:        2.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Image loading library for SDL
 
 # IMG_png.c is LGPLv2+ and zlib, rest is just zlib
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/SDL2_image.pc
 
 %changelog
+* Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 2.6.1-4
+- Rebuild for new libavif
+
 * Sun Oct 23 2022 Robert-André Mauchin <zebob.m@gmail.com> - 2.6.1-3
 - Rebuild for new libavif
 

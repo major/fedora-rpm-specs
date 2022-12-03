@@ -30,21 +30,14 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	9.0.0
-Release:	7%{?dist}
+Version:	10.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
 Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://dist.apache.org/repos/dist/release/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
-# ARROW-17389: [Python] Exclude conftest and tests when PYARROW_INSTALL_TESTS=0
-# https://github.com/apache/arrow/pull/13904
-#
-# Fixes https://issues.apache.org/jira/browse/ARROW-17389
-#
-# Patch squashed to apply cleanly to 9.0.0.
-Patch0001:	pr-13904-squashed.patch
-Patch0002:	cpp-cmake_modules-ThirdpartyToolchain.cmake.patch
+
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
 # package, and in turn the only consumer of this and liborc is Ceph, which
@@ -157,22 +150,22 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_includedir}/arrow/flight/
 %exclude %{_includedir}/arrow-flight-glib
 %endif
-%exclude %{_includedir}/arrow/python/
-%exclude %{_libdir}/cmake/arrow/FindBrotli.cmake
-%exclude %{_libdir}/cmake/arrow/Findlz4Alt.cmake
-%exclude %{_libdir}/cmake/arrow/FindORC.cmake
-%exclude %{_libdir}/cmake/arrow/FindSnappyAlt.cmake
-%exclude %{_libdir}/cmake/arrow/FindgRPCAlt.cmake
-%exclude %{_libdir}/cmake/arrow/Findre2Alt.cmake
-%exclude %{_libdir}/cmake/arrow/Findutf8proc.cmake
-%exclude %{_libdir}/cmake/arrow/Findzstd.cmake
-%exclude %{_libdir}/cmake/arrow/FindThrift.cmake
-%dir %{_libdir}/cmake/arrow/
-     %{_libdir}/cmake/arrow/ArrowConfig*.cmake
-     %{_libdir}/cmake/arrow/ArrowOptions.cmake
-     %{_libdir}/cmake/arrow/ArrowTargets*.cmake
-     %{_libdir}/cmake/arrow/FindArrow.cmake
-     %{_libdir}/cmake/arrow/arrow-config.cmake
+%exclude %{_libdir}/cmake/Arrow/FindBrotli.cmake
+%exclude %{_libdir}/cmake/Arrow/Findlz4Alt.cmake
+%exclude %{_libdir}/cmake/Arrow/FindORC.cmake
+%exclude %{_libdir}/cmake/Arrow/FindSnappyAlt.cmake
+%exclude %{_libdir}/cmake/Arrow/FindgRPCAlt.cmake
+%exclude %{_libdir}/cmake/Arrow/Findre2Alt.cmake
+%exclude %{_libdir}/cmake/Arrow/Findutf8proc.cmake
+%exclude %{_libdir}/cmake/Arrow/FindzstdAlt.cmake
+%exclude %{_libdir}/cmake/Arrow/FindThrift.cmake
+%exclude %{_libdir}/cmake/Arrow/FindOpenSSLAlt.cmake
+%exclude %{_libdir}/cmake/Arrow/FindProtobufAlt.cmake
+%dir %{_libdir}/cmake/Arrow/
+     %{_libdir}/cmake/Arrow/ArrowConfig*.cmake
+     %{_libdir}/cmake/Arrow/ArrowOptions.cmake
+     %{_libdir}/cmake/Arrow/ArrowTargets*.cmake
+     %{_libdir}/cmake/Arrow/arrow-config.cmake
 %{_libdir}/libarrow.so
 %{_libdir}/pkgconfig/arrow-compute.pc
 %{_libdir}/pkgconfig/arrow-csv.pc
@@ -209,9 +202,7 @@ Libraries and header files for Apache Arrow dataset.
 %files dataset-devel
 %dir %{_includedir}/arrow/dataset/
      %{_includedir}/arrow/dataset/*
-%{_libdir}/cmake/arrow/ArrowDatasetConfig*.cmake
-%{_libdir}/cmake/arrow/ArrowDatasetTargets*.cmake
-%{_libdir}/cmake/arrow/FindArrowDataset.cmake
+%{_libdir}/cmake/ArrowDataset/*.cmake
 %{_libdir}/libarrow_dataset.so
 %{_libdir}/pkgconfig/arrow-dataset.pc
 
@@ -248,9 +239,7 @@ Libraries and header files for Apache Arrow Flight.
      %{_includedir}/arrow/flight/*
 %dir %{_includedir}/arrow-flight-glib/
      %{_includedir}/arrow-flight-glib/*
-%{_libdir}/cmake/arrow/ArrowFlightConfig*.cmake
-%{_libdir}/cmake/arrow/ArrowFlightTargets*.cmake
-%{_libdir}/cmake/arrow/FindArrowFlight.cmake
+%{_libdir}/cmake/ArrowFlight/*.cmake
 %{_libdir}/libarrow_flight.so
 %{_libdir}/libarrow-flight-glib.so
 %{_libdir}/pkgconfig/arrow-flight.pc
@@ -285,9 +274,7 @@ Libraries and header files for Gandiva.
 %files -n gandiva-devel
 %dir %{_includedir}/gandiva/
      %{_includedir}/gandiva/
-%{_libdir}/cmake/arrow/GandivaConfig*.cmake
-%{_libdir}/cmake/arrow/GandivaTargets*.cmake
-%{_libdir}/cmake/arrow/FindGandiva.cmake
+%{_libdir}/cmake/Gandiva/*.cmake
 %{_libdir}/libgandiva.so
 %{_libdir}/pkgconfig/gandiva.pc
 %endif
@@ -305,7 +292,7 @@ Requires:	python3-numpy
 This package contains the Python integration library for Apache Arrow.
 
 %files python-libs
-%{_libdir}/libarrow_python.so.*
+%{python3_sitearch}/pyarrow/libarrow_python.so.*
 
 #--------------------------------------------------------------------
 
@@ -320,13 +307,12 @@ Requires:	python3-devel
 Libraries and header files for Python integration library for Apache Arrow.
 
 %files python-devel
-%dir %{_includedir}/arrow/python/
-     %{_includedir}/arrow/python/*
-%exclude %{_includedir}/arrow/python/flight.h
-%{_libdir}/cmake/arrow/ArrowPythonConfig*.cmake
-%{_libdir}/cmake/arrow/ArrowPythonTargets*.cmake
-%{_libdir}/cmake/arrow/FindArrowPython.cmake
-%{_libdir}/libarrow_python.so
+%dir %{python3_sitearch}/pyarrow/include/arrow/python
+     %{python3_sitearch}/pyarrow/include/arrow/python/*
+%exclude %{python3_sitearch}/pyarrow/include/arrow/python/flight.h
+%dir %{_libdir}/cmake/ArrowPython
+     %{_libdir}/cmake/ArrowPython/ArrowPython*.cmake
+%{python3_sitearch}/pyarrow/libarrow_python.so
 %{_libdir}/pkgconfig/arrow-python.pc
 
 #--------------------------------------------------------------------
@@ -343,7 +329,7 @@ Requires:	%{name}-doc = %{version}-%{release}
 This package contains the Python integration library for Apache Arrow Flight.
 
 %files python-flight-libs
-%{_libdir}/libarrow_python_flight.so.*
+%{python3_sitearch}/pyarrow/libarrow_python_flight.so.*
 
 #--------------------------------------------------------------------
 
@@ -359,11 +345,10 @@ Libraries and header files for Python integration library for
 Apache Arrow Flight.
 
 %files python-flight-devel
-%{_includedir}/arrow/python/flight.h
-%{_libdir}/cmake/arrow/ArrowPythonFlightConfig*.cmake
-%{_libdir}/cmake/arrow/ArrowPythonFlightTargets*.cmake
-%{_libdir}/cmake/arrow/FindArrowPythonFlight.cmake
-%{_libdir}/libarrow_python_flight.so
+%{python3_sitearch}/pyarrow/include/arrow/python/flight.h
+%dir %{_libdir}/cmake/ArrowPythonFlight
+     %{_libdir}/cmake/ArrowPythonFlight/ArrowPythonFlight*.cmake
+%{python3_sitearch}/pyarrow/libarrow_python_flight.so
 %{_libdir}/pkgconfig/arrow-python-flight.pc
 %endif
 
@@ -411,9 +396,7 @@ Libraries and header files for Plasma in-memory object store.
 %files -n plasma-libs-devel
 %dir %{_includedir}/plasma/
      %{_includedir}/plasma/*
-%{_libdir}/cmake/arrow/PlasmaConfig*.cmake
-%{_libdir}/cmake/arrow/PlasmaTargets*.cmake
-%{_libdir}/cmake/arrow/FindPlasma.cmake
+%{_libdir}/cmake/Arrow/Plasma*.cmake
 %{_libdir}/libplasma.so
 %{_libdir}/pkgconfig/plasma*.pc
 
@@ -447,9 +430,7 @@ Libraries and header files for Apache Parquet C++.
 %files -n parquet-libs-devel
 %dir %{_includedir}/parquet/
      %{_includedir}/parquet/*
-%{_libdir}/cmake/arrow/ParquetConfig*.cmake
-%{_libdir}/cmake/arrow/ParquetTargets*.cmake
-%{_libdir}/cmake/arrow/FindParquet.cmake
+%{_libdir}/cmake/Parquet/*.cmake
 %{_libdir}/libparquet.so
 %{_libdir}/pkgconfig/parquet*.pc
 
@@ -806,9 +787,10 @@ popd
 pushd cpp
 DESTDIR="/tmp" %__cmake --install "%{__cmake_builddir}"
 popd
+
 pushd python
 export \
-  ARROW_HOME=/tmp/usr \
+  CMAKE_PREFIX_PATH=/tmp/usr \
   PYARROW_BUNDLE_ARROW_CPP_HEADERS=1 \
   PYARROW_BUNDLE_PLASMA_EXECUTABLE=0 \
   PYARROW_WITH_DATASET=1 \
@@ -831,6 +813,21 @@ pushd python
 export PYARROW_INSTALL_TESTS=0
 %pyproject_install
 %pyproject_save_files pyarrow
+# I'm not sure why the above failed to install the following
+# perhaps someone how knows python/cmake/rpm packaging can figure out why
+mkdir -p %{buildroot}%{_libdir}/cmake/ArrowPython
+install build/dist/lib/cmake/ArrowPython/ArrowPythonConfig.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
+install build/dist/lib/cmake/ArrowPython/ArrowPythonConfigVersion.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
+install build/dist/lib/cmake/ArrowPython/ArrowPythonTargets.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
+install build/dist/lib/cmake/ArrowPython/ArrowPythonTargets-release.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
+mkdir -p %{buildroot}%{_libdir}/cmake/ArrowPythonFlight
+install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightConfig.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
+install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightConfigVersion.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
+install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightTargets.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
+install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightTargets-release.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+install build/dist/lib/pkgconfig/arrow-python.pc %{buildroot}%{_libdir}/pkgconfig/
+install build/dist/lib/pkgconfig/arrow-python-flight.pc %{buildroot}%{_libdir}/pkgconfig/
 popd
 
 pushd c_glib
@@ -855,11 +852,16 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
     -e 'pyarrow.orc' -e 'pyarrow._orc' \
     %{?!with_use_plasma:-e 'pyarrow.plasma' -e 'pyarrow._plasma'} \
     -e 'pyarrow.substrait' -e 'pyarrow._substrait' \
-    -e 'pyarrow.cuda'}
+    -e 'pyarrow.cuda' \
+    -e 'pyarrow.libarrow_python' -e 'pyarrow._libarrow_python' \
+    -e 'pyarrow.libarrow_python_flight' -e 'pyarrow._libarrow_python_flight'}
 
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Dec 1 2022  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 10.0.1-1
+- Arrow 10.0.1 GA
+
 * Fri Nov 11 2022  Kaleb S. KEITHLEY <kkeithle [at] redhat.com>
 - SPDX migration
 

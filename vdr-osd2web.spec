@@ -3,10 +3,15 @@
 %global pname   osd2web
 %global rname   vdr-plugin-osd2web
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
+%endif
 
 Name:           vdr-%{pname}
 Version:        0.2.54
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPLv2+
 URL:            https://github.com/horchi/vdr-plugin-osd2web
@@ -17,7 +22,7 @@ Patch1:         %{name}-ambiguous.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 2.2.0
+BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  libwebsockets-devel
 BuildRequires:  zlib-devel
 BuildRequires:  tinyxml2-devel
@@ -73,6 +78,9 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.2.54-15
+- Rebuilt for new VDR API version
+
 * Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 0.2.54-14
 - Rebuild for tinyxml2-9.0.0
 

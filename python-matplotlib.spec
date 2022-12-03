@@ -41,9 +41,9 @@ Version:        3.6.2
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT
-# ResizeObserver at end of lib/matplotlib/backends/web_backend/js/mpl.js is Public Domain
-License:        Python and MIT and Public Domain
-URL:            http://matplotlib.org
+# ResizeObserver at end of lib/matplotlib/backends/web_backend/js/mpl.js is CC0
+License:        PSF-2.0 and MIT and CC0-1.0
+URL:            https://matplotlib.org
 Source0:        %pypi_source matplotlib %{Version}
 Source1:        mplsetup.cfg
 
@@ -74,9 +74,7 @@ BuildRequires:  ghostscript
 %if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} < 8)
 BuildRequires:  ImageMagick
 %endif
-%ifnarch s390x
 BuildRequires:  inkscape
-%endif
 
 BuildRequires:  font(dejavusans)
 BuildRequires:  font(notosanscjkjp)
@@ -156,9 +154,9 @@ Obsoletes:      python-matplotlib-data < 3
 %if %{with bundled_fonts}
 %package -n python3-matplotlib-data-fonts
 Summary:        Fonts used by python-matplotlib
-# STIX and Computer Modern is OFL
+# Carlogo, STIX and Computer Modern is OFL
 # DejaVu is Bitstream Vera and Public Domain
-License:        OFL and Bitstream Vera and Public Domain
+License:        OFL-1.1 and Bitstream-Vera and LicenseRef-Fedora-Public-Domain
 BuildArch:      noarch
 Requires:       python3-matplotlib-data = %{version}-%{release}
 Obsoletes:      python-matplotlib-data-fonts < 3
@@ -170,22 +168,21 @@ Obsoletes:      python-matplotlib-data-fonts < 3
 %package -n     python3-matplotlib
 Summary:        Python 2D plotting library
 BuildRequires:  python3-devel
-BuildRequires:  python3-cairo
-BuildRequires:  python3-gobject
-BuildRequires:  python3-pytz
-BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(pycairo)
+BuildRequires:  python3dist(pytz)
+BuildRequires:  python3dist(sphinx)
 Requires:       dejavu-sans-fonts
 Recommends:     texlive-dvipng
 Requires:       (texlive-dvipng if texlive-base)
 Requires:       python3-matplotlib-data = %{version}-%{release}
-Requires:       python3-cairo
+Requires:       python3dist(pycairo)
 Requires:       python3-matplotlib-%{?backend_subpackage}%{!?backend_subpackage:tk}%{?_isa} = %{version}-%{release}
 %if %{with check}
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-rerunfailures
-BuildRequires:  python3-pytest-timeout
-BuildRequires:  python3-pytest-xdist
-BuildRequires:  python3-pikepdf
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-rerunfailures)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-xdist)
+BuildRequires:  python3dist(pikepdf)
 %endif
 %if %{without bundled_fonts}
 Requires:       stix-math-fonts
@@ -206,12 +203,25 @@ errorcharts, scatterplots, etc, with just a few lines of code.
 
 %package -n     python3-matplotlib-qt5
 Summary:        Qt5 backend for python3-matplotlib
-BuildRequires:  python3-qt5
+BuildRequires:  python3dist(cairocffi)
+BuildRequires:  python3dist(pyqt5)
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
-Requires:       python3-qt5
+Requires:       python3dist(cairocffi)
+Requires:       python3dist(pyqt5)
 Obsoletes:      python3-matplotlib-qt4 < 3.5.0-0
 
 %description -n python3-matplotlib-qt5
+%{summary}
+
+%package -n     python3-matplotlib-qt6
+Summary:        Qt6 backend for python3-matplotlib
+BuildRequires:  python3dist(cairocffi)
+BuildRequires:  python3dist(pyqt6)
+Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
+Requires:       python3dist(cairocffi)
+Requires:       python3dist(pyqt6)
+
+%description -n python3-matplotlib-qt6
 %{summary}
 
 %package -n     python3-matplotlib-gtk3
@@ -252,9 +262,9 @@ Requires:       python3-tkinter
 %if %{with wx}
 %package -n     python3-matplotlib-wx
 Summary:        WX backend for python3-matplotlib
-BuildRequires:  python3-wxpython4
+BuildRequires:  python3dist(wxpython)
 Requires:       python3-matplotlib%{?_isa} = %{version}-%{release}
-Requires:       python3-wxpython4
+Requires:       python3dist(wxpython)
 
 %description -n python3-matplotlib-wx
 %{summary}
@@ -265,7 +275,7 @@ Summary:        Documentation files for python-matplotlib
 %if %{with html}
 BuildRequires:  graphviz
 BuildRequires:  make
-BuildRequires:  python3-sphinx
+BuildRequires:  python3dist(sphinx)
 BuildRequires:  tex(latex)
 BuildRequires:  tex-preview
 %endif
@@ -410,6 +420,10 @@ MPLCONFIGDIR=$PWD \
 
 %files -n python3-matplotlib-qt5
 %pycached %{python3_sitearch}/matplotlib/backends/backend_qt5*.py
+
+# This is handled by backend_qt*.py (no number), so the package exists only for
+# the dependencies.
+%files -n python3-matplotlib-qt6
 
 %files -n python3-matplotlib-gtk3
 %pycached %{python3_sitearch}/matplotlib/backends/backend_gtk3*.py

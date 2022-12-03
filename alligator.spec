@@ -1,5 +1,5 @@
 Name:           alligator 
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        GPLv2 or GPLv3
 Summary:        Kirigami-based RSS reader
@@ -22,11 +22,12 @@ BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Sql)
 
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Syndication)
-BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Config)
+BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5KirigamiAddons)
+BuildRequires:  cmake(KF5Notifications)
+BuildRequires:  cmake(KF5Syndication)
 
 Requires:       kf5-kirigami2
 Requires:       hicolor-icon-theme
@@ -62,6 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

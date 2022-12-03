@@ -2,7 +2,7 @@
 
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
-Version: 7.0
+Version: 7.0.1
 Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/texinfo/
@@ -150,6 +150,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Thu Dec 01 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.1-1
+- Update to texinfo-7.0.1
+  Resolves: #2149772
+
 * Fri Nov 18 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0-1
 - Update to texinfo-7.0
   Resolves: #2140872

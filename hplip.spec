@@ -7,7 +7,7 @@
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
 Version: 3.22.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and MIT and BSD and IJG and GPLv2+ with exceptions and ISC
 
 Url: https://developers.hp.com/hp-linux-imaging-and-printing
@@ -197,19 +197,33 @@ Patch59: hplip-no-libhpmud-libm-warnings.patch
 # reported as https://bugs.launchpad.net/hplip/+bug/1982185
 Patch60: hplip-snprintf-format.patch
 Patch61: hplip-plugin-script.patch
+# C99 compatibility fixes by fweimer - use explicit int
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch62: hplip-pserror-c99.patch
+# C99 compatibility patch by fweimer - several undefined functions in hpaio
+# backend are declared in orblite.h
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch63: hplip-scan-hpaio-include.patch
+# C99 compatibility patch by fweimer - undefined _DBG() and dynamic linking funcs in orblite.c
+# - _DBG() looks like typo and new header is added for funcs
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch64: hplip-scan-orblite-c99.patch
+# C99 compatibility patch by fweimer:
+# PyString_AsStringAndSize is removed in Python3, remove its compilation for now
+# in case there is a request for compiling it again, there is a possible solution
+# for the function py3 alternative https://opendev.org/openstack/pyeclib/commit/19c8313986
+# - disabling removes hp-unload and /usr/share/hplip/pcard as well
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch65: hplip-pcardext-disable.patch
+# undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+Patch66: hplip-sclpml-strcasestr.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
 Patch1000: hplip-fedora-gui.patch
 %endif
 
-# C99 compatibility fixes.
-# Submitted uostream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch1001: hplip-pserror-c99.patch
-Patch1002: hplip-scan-hpaio-include.patch
-Patch1003: hplip-scan-orblite-c99.patch
-Patch1004: hplip-pcardext-disable.patch
-Patch1005: hplip-sclpml-strcasestr.patch
 
 # uses automatic creation of configure
 BuildRequires: autoconf
@@ -526,17 +540,29 @@ done
 # hplip 3.22.6 doesn't use proper arguments for snprintf
 %patch60 -p1 -b .snprintf-format
 %patch61 -p1 -b .plugin-patch
+# C99 compatibility fixes by fweimer - use explicit int
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+%patch62 -p1 -b .pserror-int
+# C99 compatibility patch by fweimer - several undefined functions in hpaio
+# backend are declared in orblite.h
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+%patch63 -p1 -b .hpaio-orblite-defs
+# C99 compatibility patch by fweimer - undefined _DBG() and dynamic linking funcs in orblite.c
+# - _DBG() looks like typo and new header is added for funcs
+# Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
+%patch64 -p1 -b .orblite-undefs
+# C99 compatibility patch by fweimer - python2 PyString_AsStringAndSize in python3 code
+# gives undefined reference - removed for now with dependent hp-unload
+%patch65 -p1 -b .pcardext-disable
+# C99 compatibility patch by fweimer - undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
+%patch66 -p1 -b .sclpml-strcasestr
 
+# Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui should be installed if you want GUI
 %patch1000 -p1 -b .fedora-gui
 %endif
 
-%patch1001 -p1
-%patch1002 -p1
-%patch1003 -p1
-%patch1004 -p1
-%patch1005 -p1
 
 sed -i.duplex-constraints \
     -e 's,\(UIConstraints.* \*Duplex\),//\1,' \
@@ -604,8 +630,9 @@ rm -rf  %{buildroot}%{_sysconfdir}/sane.d \
         %{buildroot}%{_docdir} \
         %{buildroot}%{_datadir}/hal/fdi \
         %{buildroot}%{_datadir}/hplip/pkservice.py \
-        %{buildroot}%{_bindir}/hp-pkservice \
-        %{buildroot}%{_datadir}/hplip/locatedriver* \
+        %{buildroot}%{_bindir}/hp-pkservice
+
+rm -rf  %{buildroot}%{_datadir}/hplip/locatedriver* \
         %{buildroot}%{_datadir}/hplip/dat2drv*
 
 rm -f   %{buildroot}%{_bindir}/hp-logcapture \
@@ -628,7 +655,32 @@ rm -f   %{buildroot}%{_bindir}/foomatic-rip \
         %{buildroot}%{_datadir}/applications/hplip.desktop \
         %{buildroot}%{_datadir}/ppd/HP/*.ppd
 
-install -p -m755 hp-plugin %{buildroot}%{_bindir}/hp-plugin-download
+rm -f %{buildroot}%{_datadir}/hplip/hpaio.desc
+
+rm -rf %{buildroot}%{_datadir}/hplip/install.* \
+       %{buildroot}%{_datadir}/hplip/uninstall.* \
+       %{buildroot}%{_bindir}/hp-uninstall \
+       %{buildroot}%{_datadir}/hplip/upgrade.* \
+       %{buildroot}%{_bindir}/hp-upgrade \
+       %{buildroot}%{_datadir}/hplip/hplip-install
+
+rm -f %{buildroot}%{_datadir}/hplip/hpijs.drv.in.template
+
+rm -f %{buildroot}%{_datadir}/cups/mime/pstotiff.types \
+      %{buildroot}%{_datadir}/hplip/fax/pstotiff*
+
+rm -f %{buildroot}%{_datadir}/hplip/hplip-install
+
+rm -f %{buildroot}%{_unitdir}/hplip-printer@.service
+
+rm -f %{buildroot}%{_datadir}/ipp-usb/quirks/HPLIP.conf
+
+rm -rf %{buildroot}%{_bindir}/hp-unload \
+       %{buildroot}%{_datadir}/%{name}/pcard
+
+# The systray applet doesn't work properly (displays icon as a
+# window), so don't ship the launcher yet.
+rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 
 %if 0%{?rhel} > 8
 rm -rf %{buildroot}%{_bindir}/hp-check \
@@ -667,6 +719,8 @@ rm -rf %{buildroot}%{_bindir}/hp-check \
        %{buildroot}%{_docdir}/hplip/hpscan.html \
        doc/hpscan.html
 %endif
+
+install -p -m755 hp-plugin %{buildroot}%{_bindir}/hp-plugin-download
 
 %if 0%{?rhel} <= 8 || 0%{?fedora}
 mkdir -p %{buildroot}%{_datadir}/metainfo
@@ -721,24 +775,6 @@ find doc/images -type f -exec chmod 644 {} \;
 # SELinux file context (bug #564551).
 %{__mkdir_p} %{buildroot}%{_datadir}/hplip/prnt/plugins
 
-# Remove files we don't want to package.
-rm -f %{buildroot}%{_datadir}/hplip/hpaio.desc
-rm -f %{buildroot}%{_datadir}/hplip/hplip-install
-rm -rf %{buildroot}%{_datadir}/hplip/install.*
-rm -f %{buildroot}%{_datadir}/hplip/uninstall.*
-rm -f %{buildroot}%{_bindir}/hp-uninstall
-rm -f %{buildroot}%{_datadir}/hplip/upgrade.*
-rm -f %{buildroot}%{_bindir}/hp-upgrade
-rm -f %{buildroot}%{_datadir}/hplip/hpijs.drv.in.template
-rm -f %{buildroot}%{_datadir}/cups/mime/pstotiff.types
-rm -f %{buildroot}%{_datadir}/hplip/fax/pstotiff*
-rm -f %{buildroot}%{_unitdir}/hplip-printer@.service
-rm -f %{buildroot}%{_datadir}/ipp-usb/quirks/HPLIP.conf
-
-# The systray applet doesn't work properly (displays icon as a
-# window), so don't ship the launcher yet.
-rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
-
 %post
 # timeout is to prevent possible freeze during update
 %{_bindir}/timeout 10m -k 15m %{_bindir}/hpcups-update-ppds &>/dev/null ||:
@@ -773,7 +809,6 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %{_bindir}/hp-setup
 %{_bindir}/hp-testpage
 %{_bindir}/hp-timedate
-%{_bindir}/hp-unload
 %{_cups_serverbin}/backend/hp
 %{_cups_serverbin}/backend/hpfax
 # ex-hpijs
@@ -820,7 +855,6 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %{_datadir}/hplip/data/pcl
 %{_datadir}/hplip/data/ps
 %{_datadir}/hplip/installer
-%{_datadir}/hplip/pcard
 %{_datadir}/hplip/prnt
 %if 0%{?rhel} <= 8 || 0%{?fedora}
 %{_datadir}/hplip/scan
@@ -893,6 +927,10 @@ rm -f %{buildroot}%{_sysconfdir}/xdg/autostart/hplip-systray.desktop
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Thu Dec 01 2022 Zdenek Dohnal <zdohnal@redhat.com> - 3.22.10-3
+- 2148210 - hplip: pcardext Python extension broken
+- stop shipping hp-unload, since it depends on pcardext
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 3.22.10-2
 - C99 compatibility fixes
 - Stop building the pcardext Python extension because it unusable (#2148210)

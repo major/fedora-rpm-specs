@@ -3,10 +3,15 @@
 %global commit  354f28b0112ba27f08f6509243b410899f74b6ed
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global gitdate 20180416
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
+%endif
 
 Name:           vdr-%{pname}
 Version:        0.3.1
-Release:        22.%{gitdate}git%{shortcommit}%{?dist}
+Release:        23.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        VDR plugin for doing extra fixing of EPG data
 
 License:        GPLv2+
@@ -16,7 +21,7 @@ Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 1.7.26
+BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  pcre-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -53,6 +58,9 @@ install -Dpm 644 %{SOURCE1} \
 %defattr(-,root,root,-)
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-23.20180416git354f28b
+- Rebuilt for new VDR API version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-22.20180416git354f28b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,10 +5,10 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	35%{?dist}
+Release:	36%{?dist}
 
 Summary:	12x12 JIS X 0208 Bitmap fonts
-License:	GPL+
+License:	GPL-1.0-or-later
 
 ## the following upstream URL is a dead link anymore.
 #URL:		http://www.din.or.jp/~storm/fonts/
@@ -61,6 +61,9 @@ ln -s -f %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{fontname}
 
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 1.1-36
+- Convert License tag to SPDX.
+
 * Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 1.1-35
 - Drop old dependencies.
 

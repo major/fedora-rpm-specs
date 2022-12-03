@@ -1,17 +1,14 @@
 %global pname   femon
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 # version we want build against
-%global vdr_version 2.4.0
-%if 0%{?fedora} >= 36
 %global vdr_version 2.6.1
-%endif
-%if 0%{?fedora} == 35
-%global vdr_version 2.4.7
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
 %endif
 
 Name:           vdr-%{pname}
 Version:        2.4.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        DVB frontend status monitor plugin for VDR
 License:        GPLv2+
 URL:            https://github.com/rofafor/vdr-plugin-femon
@@ -20,7 +17,7 @@ Source1:        %{name}.conf
 Patch0:         %{name}-gcc11.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 2.4.0
+BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -50,6 +47,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-20
+- Rebuilt for new VDR API version
+
 * Thu Aug 04 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-19
 - Update to new github address
 

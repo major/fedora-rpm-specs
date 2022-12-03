@@ -15,8 +15,8 @@
 
 Name:           %{fontname}-fonts
 Version:        0.20080710
-Release:        33%{?dist}
-License:        Public Domain and BSD and mplus
+Release:        34%{?dist}
+License:        LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND mplus
 BuildArch:      noarch
 BuildRequires:  xorg-x11-font-utils mkfontdir gawk fontpackages-devel
 BuildRequires:	gcc /usr/bin/perl
@@ -334,6 +334,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{cataloguedir}/%{fontname}
 %{cataloguedir}/*
 
 %changelog
+* Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.20080710-34
+- Convert License tag to SPDX.
+
 * Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.20080710-33
 - Drop old Provides/Obsoletes lines.
 

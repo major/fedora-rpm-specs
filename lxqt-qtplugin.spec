@@ -2,15 +2,15 @@
 
 Name:    lxqt-qtplugin
 Summary: Qt plugin framework for LXQt Desktop Suite
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 License: LGPLv2+
-URL:     http://lxqt.org/
+URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: pkgconfig(Qt5Help)
 BuildRequires: pkgconfig(Qt5Xdg)
-BuildRequires: pkgconfig(lxqt) >= 1.0.0
+BuildRequires: pkgconfig(lxqt) >= 1.2.0
 BuildRequires: pkgconfig(dbusmenu-qt5)
 BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: qt5-qtbase-devel
@@ -50,6 +50,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %{_libdir}/qt5/plugins/platformthemes/libqtlxqt.so
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

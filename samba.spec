@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.3
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -173,7 +173,7 @@
 %global tevent_version 0.13.0
 %global ldb_version 2.6.1
 
-%global required_mit_krb5 1.19
+%global required_mit_krb5 1.20.1
 
 # This is a network daemon, do a hardened build
 # Enables PIE and full RELRO protection
@@ -4316,7 +4316,10 @@ fi
 %endif
 
 %changelog
-* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2:4.17.3-%{baserelease}
+* Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 2:4.17.3-2
+- Rebuild against krb5 1.20.1, new KDB interface
+
+* Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 2:4.17.3-1
 - Remove C89-specific language constructs from configure checks
 - Fix feature detection for major/minor macros
 

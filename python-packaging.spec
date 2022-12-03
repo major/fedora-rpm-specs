@@ -58,9 +58,6 @@ dealing with versions, specifiers, markers etc.}
 %package -n python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
 
-# This is kept for compatibility with Fedora < 33 only:
-%py_provides    python%{python3_pkgversion}-%{pypi_name}
-
 %if %{with bootstrap}
 Provides:       python%{python3_pkgversion}dist(packaging) = %{version}
 Provides:       python%{python3_version}dist(packaging) = %{version}

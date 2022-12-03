@@ -5,7 +5,7 @@ Name:           resteasy
 Version:        3.0.26
 Release:        17%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
 Source0:        https://github.com/resteasy/Resteasy/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
 Patch1:         0001-RESTEASY-2559-Improper-validation-of-response-header.patch

@@ -1,12 +1,12 @@
 BuildArch: noarch
 
 Version:        1.31.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        ASL 2.0
 #URL:            
 
 %global foundry           google
-%global fontlicense       ASL 2.0
+%global fontlicense       Apache-2.0
 %global fontlicenses      LICENSE-2.0.txt
 
 %global common_description %{expand:
@@ -109,6 +109,9 @@ echo %{fontpkgname}
 %fontfiles -a
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.31.0-14
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

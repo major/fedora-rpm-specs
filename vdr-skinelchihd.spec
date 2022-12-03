@@ -1,8 +1,13 @@
 %global sname   skinelchihd
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
+%endif
 
 Name:           vdr-skinelchihd
 Version:        1.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 
 License:        GPLv2+
@@ -13,7 +18,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(GraphicsMagick++)
-BuildRequires:  vdr-devel >= 2.4.3
+BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -49,6 +54,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.0-3
+- Rebuilt for new VDR API version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

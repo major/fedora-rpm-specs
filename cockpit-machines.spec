@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        278
+Version:        279
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPLv2+ and MIT
@@ -84,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Dec 01 2022 Packit <hello@packit.dev> - 279-1
+- Autodetect file's format when attaching disk
+
+
 * Wed Nov 16 2022 Packit <hello@packit.dev> - 278-1
 - Stability and performance improvements
 

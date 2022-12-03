@@ -7,7 +7,7 @@ Patch001: 0001-Add-device-access-option.patch
 Patch002: 0002-Syntax-changes-after-running-black.patch
 Patch003: 0003-Add-unit-test-for-device-access.patch
 Patch004: 0004-Rename-device-access-to-devices.patch
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 Url: https://github.com/containers/udica
 %if 0%{?fedora} || 0%{?rhel} > 7

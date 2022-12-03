@@ -1,11 +1,11 @@
 %global commit0 90abd17b4f97671435798b6147b698aa9087612f
 
 Version:       1.100263
-Release:       0.18.20150923git%{?dist}
+Release:       0.19.20150923git%{?dist}
 URL:           https://www.google.com/fonts/specimen/Roboto+Slab
 
 %global foundry           google
-%global fontlicense       ASL 2.0
+%global fontlicense       Apache-2.0
 %global fontlicenses      LICENSE.txt
 
 %global fontfamily        Roboto Slab
@@ -49,6 +49,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 %fontfiles
 
 %changelog
+* Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.100263-0.19.20150923git
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.100263-0.18.20150923git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

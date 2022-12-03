@@ -1,22 +1,22 @@
 Name:              zathura
-Version:           0.4.9
+Version:           0.5.2
 Release:           1%{?dist}
 Summary:           A lightweight document viewer
-License:           zlib
+License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
 Source0:           http://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
 
 BuildRequires:     bash-completion
-BuildRequires:     binutils
+#BuildRequires:     binutils
 BuildRequires:     cairo-devel
-BuildRequires:     check
 BuildRequires:     cmake
 BuildRequires:     desktop-file-utils
+# Needed for mime-type detection : `libmagic` from file
 BuildRequires:     file-devel
 BuildRequires:     fish
 BuildRequires:     gcc
 BuildRequires:     gettext
-BuildRequires:     girara-devel >= 0.3.3
+BuildRequires:     girara-devel >= 0.3.7
 BuildRequires:     glib2-devel >= 2.50
 BuildRequires:     gtk3-devel >= 3.22
 BuildRequires:     intltool
@@ -24,12 +24,14 @@ BuildRequires:     intltool
 BuildRequires:     libappstream-glib
 BuildRequires:     librsvg2-tools
 BuildRequires:     libseccomp-devel
-BuildRequires:     meson >= 0.45
+BuildRequires:     meson >= 0.56
+# Needed to build man pages (/doc subdir)
 BuildRequires:     python3-sphinx
-BuildRequires:     sqlite-devel >= 3.5.9
+BuildRequires:     sqlite-devel >= 3.6.23
 BuildRequires:     texlive-lib-devel
 BuildRequires:     zsh
 # Tests
+#BuildRequires:     check
 BuildRequires:     check-devel
 
 Suggests:          zathura-cb
@@ -81,7 +83,7 @@ This package installs all available Zathura plugins.
 Summary:           bash-completion files for zathura
 BuildArch:         noarch
 Requires:          bash-completion
-Requires:          zathura = %{version}-%{release}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
 
 %description bash-completion
 This package provides %{summary}.
@@ -90,7 +92,7 @@ This package provides %{summary}.
 Summary:           fish-completion files for zathura
 BuildArch:         noarch
 Requires:          fish
-Requires:          zathura = %{version}-%{release}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
 
 %description fish-completion
 This package provides %{summary}.
@@ -99,7 +101,7 @@ This package provides %{summary}.
 Summary:           zsh-completion files for zathura
 BuildArch:         noarch
 Requires:          zsh
-Requires:          zathura = %{version}-%{release}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
 
 %description zsh-completion
 This package provides %{summary}.
@@ -108,7 +110,7 @@ This package provides %{summary}.
 %autosetup
 
 %build
-%meson -Dsynctex=enabled -Dsqlite=enabled -Dmagic=enabled -Dseccomp=enabled -Dtests=enabled
+%meson -Dsynctex=enabled -Dsqlite=enabled -Dseccomp=enabled -Dtests=enabled
 %meson_build
 
 %install
@@ -117,12 +119,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %find_lang zathura
 
+
 %files -f zathura.lang
 %license LICENSE
 %doc README.md
 %{_bindir}/*
 %{_mandir}/man*/*
 %{_datadir}/applications/*
+#Directories without known owners: /usr/share/dbus-1, /usr/share/dbus-1/interfaces.  Would Requires dbus ?
 %{_datadir}/dbus-1/interfaces/org.pwmt.zathura.xml
 %{_datadir}/icons/hicolor/*/apps/org.pwmt.zathura.png
 %{_datadir}/icons/hicolor/*/apps/org.pwmt.zathura.svg
@@ -143,7 +147,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %files zsh-completion
 %{_datadir}/zsh/site-functions/_zathura
 
+
 %changelog
+* Thu Dec 01 2022 Alain Vigne <avigne@fedoraproject.org> - 0.5.2-1
+- Update to 0.5.2 (rhbz#2125415)
+- SPDX license identifier
+
 * Tue Jul 26 2022 Alain Vigne <avigne@fedoraproject.org> - 0.4.9-1
 - Update to 0.4.9
 

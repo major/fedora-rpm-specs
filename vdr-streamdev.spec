@@ -5,6 +5,12 @@
 %global gitshort  %(echo %gitver | awk '{print substr($0,1,8)}')
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
+%endif
+
 %if 0%{?gitver:0}
   # Use vdr-streamdev-snapshot.sh contained in the source of the package to
   # generate new snapshots
@@ -21,9 +27,9 @@
 Name:           vdr-%{pname}
 Version:        0.6.3
 %if 0%{?gitver:0}
-Release:        0.34%{?gitver:.git%{gitshort}}%{?dist}
+Release:        0.35%{?gitver:.git%{gitshort}}%{?dist}
 %else
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Streaming plug-in for VDR
 License:        GPL+ and GPLv2+
@@ -39,7 +45,7 @@ Source3:        %{name}-snapshot.sh
 
 BuildRequires: make
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 1.6.0-41
+BuildRequires:  vdr-devel >= %{vdr_version}
 
 %description
 The streamdev plug-in adds streaming capabilities to your VDR.
@@ -104,6 +110,9 @@ install -Dpm 644 %{SOURCE2} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
 
 %changelog
+* Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.6.3-3
+- Rebuilt for new VDR API version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

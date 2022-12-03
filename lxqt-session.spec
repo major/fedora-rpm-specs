@@ -2,10 +2,10 @@
 
 Name:    lxqt-session
 Summary: Main session for LXQt desktop suite
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 License: LGPLv2+
-URL:     http://lxqt.org/
+URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
@@ -22,6 +22,7 @@ BuildRequires: kf5-kwindowsystem-devel >= 5.5
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(libprocps)
+BuildRequires: qtxdg-tools
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif
@@ -115,6 +116,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=Adwaita/g;/General/a window_manag
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
+- Update version to 1.2.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

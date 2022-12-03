@@ -95,7 +95,7 @@
 # Fedora
 %global package_name freeipa
 %global alt_name ipa
-%global krb5_version 1.19.2-11
+%global krb5_version 1.20.1-1
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.16
 %global samba_version 2:4.15.7
@@ -109,7 +109,7 @@
 %endif
 %global slapi_nis_version 0.56.5
 
-%global krb5_kdb_version 8.0
+%global krb5_kdb_version 9.0
 
 # fix for segfault in python3-ldap, https://pagure.io/freeipa/issue/7324
 %global python_ldap_version 3.1.0-1
@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        1%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPLv3+
@@ -1741,6 +1741,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-2
+- Rebuild against krb5-1.20.1-1
+
 * Sun Nov 27 2022 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-1
 - Upstream release FreeIPA 4.10.1
 

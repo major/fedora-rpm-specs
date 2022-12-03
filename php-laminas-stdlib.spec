@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    63b66bd4b696f024f42616b9d95cdb10e5109c27
+%global gh_commit    0880e3dd88eca01eeda9dfdb5a05c38e56902c2c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-stdlib
@@ -23,7 +23,7 @@
 %global library      Stdlib
 
 Name:           php-%{gh_project}
-Version:        3.15.0
+Version:        3.16.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -45,12 +45,12 @@ BuildRequires:  php-posix
 BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "phpbench/phpbench": "^1.2.6",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.28"
+#        "phpbench/phpbench": "^1.2.7",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0.0"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -158,6 +158,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  1 2022 Remi Collet <remi@remirepo.net> - 3.16.0-1
+- update to 3.16.0
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.15.0-1
 - update to 3.15.0
 - raise dependency on PHP 8.0

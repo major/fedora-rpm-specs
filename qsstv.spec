@@ -22,7 +22,6 @@ BuildRequires:  qwt-qt5-devel
 BuildRequires:  hamlib-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  openjpeg-devel
 BuildRequires:  openjpeg2-devel
 BuildRequires:  libv4l-devel
 

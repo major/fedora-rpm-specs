@@ -1,12 +1,14 @@
 %global kde_name org.kde.phone.dialer
 
 Name:           plasma-dialer
-Version:        22.09
+Version:        22.11
 Release:        1%{?dist}
 License:        BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3
 Summary:        Convergent Plasma Mobile dialer application
 Url:            https://invent.kde.org/plasma-mobile/plasma-dialer
 Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+
+ExclusiveArch:  %{java_arches}
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -16,6 +18,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  libappstream-glib
+BuildRequires:  abseil-cpp-devel
 
 BuildRequires:  cmake(KF5Codecs)
 BuildRequires:  cmake(KF5Config)
@@ -24,6 +27,7 @@ BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5DBusAddons)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KIO)
+BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5ModemManagerQt)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5People)
@@ -117,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{kde_name}.deskt
 %{_kf5_libdir}/libktelephonymetatypes.a
 
 %changelog
+* Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
+- Update to 22.11
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 22.09-1
 - Update to 22.09
 

@@ -1,12 +1,12 @@
 Name:           mujs
-Version:        1.2.0
-Release:        2%{?dist}
+Version:        1.3.2
+Release:        1%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
 Source0:        https://mujs.com/downloads/%{name}-%{version}.tar.gz
 
-BuildRequires:  coreutils
+#BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  grep
 BuildRequires:  make
@@ -18,6 +18,7 @@ other software to extend them with scripting capabilities.
 
 %package devel
 Summary:        MuJS development files
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
@@ -28,11 +29,12 @@ This package provides the MuJS static library.
 chmod a-x -v docs/*
 
 %build
-make debug %{?_smp_mflags} XCFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
+%make_build debug %{?_smp_mflags} XCFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
 
 %install
-make install DESTDIR=%{buildroot} prefix="%{_prefix}" libdir="%{_libdir}" \
+%make_install prefix="%{_prefix}" libdir="%{_libdir}" \
  XCFLAGS="%{optflags} -fPIC" LDFLAGS="%{?__global_ldflags}"
+
 
 %files
 %license COPYING
@@ -46,7 +48,14 @@ make install DESTDIR=%{buildroot} prefix="%{_prefix}" libdir="%{_libdir}" \
 %{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.a
 
+
 %changelog
+* Thu Dec 01 2022 Alain Vigne <avigne@fedoraproject.org> 1.3.2-1
+- upstream release 1.3.2
+- Fix CVE-2022-44789 (rhbz#2148261)
+- Fix CVE-2022-30975 (rhbz#2088596)
+- Fix CVE-2022-30974 (rhbz#2088591)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
