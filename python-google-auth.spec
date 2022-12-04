@@ -9,7 +9,7 @@
 %endif
 
 Name:       python-%{library}
-Version:    2.14.0
+Version:    2.15.0
 Release:    1%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
@@ -60,6 +60,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.pth
 
 %changelog
+* Fri Dec 02 2022 Jason Montleon <jmontleo@redhat.com> - 1:2.15.0-1
+- Update to 2.15.0
+
 * Tue Nov 01 2022 Jason Montleon <jmontleo@redhat.com> - 1:2.14.0-1
 - Update to 2.14.0
 

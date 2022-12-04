@@ -2,13 +2,13 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.1
+Version: 2.2
 Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
 License: ASL 2.0
 URL: https://sourceware.org/libabigail/
-Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.gz
+Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
 
 
 BuildRequires: binutils-devel
@@ -161,6 +161,10 @@ fi
 %endif
 
 %changelog
+* Fri Dec  2 2022 Dodji Seketeli <dodji@redhat.com> - 2.2-1
+- Update to upstream 2.2 release.
+- Switch to a tar.xz tarball.
+
 * Wed Sep 21 2022 Dodji Seketeli <dodji@redhat.com> - 2.1-1
 - Update to upstream 2.1
 - Add libabigail.so.1 and libabigail.so.1.0.0 to the package.

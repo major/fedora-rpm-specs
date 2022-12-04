@@ -3,7 +3,7 @@
 Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.0
-Release: %{devrel}.2%{?dist}.1
+Release: %{devrel}.2%{?dist}.2
 License: GPLv2
 Source: https://invisible-mirror.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
 URL: https://lynx.invisible-island.net/
@@ -22,6 +22,8 @@ Patch2: lynx-CVE-2008-4690.patch
 
 # add presentation type for xhtml
 Patch3: lynx-2.9.0dev.10-xhtml.patch
+
+Patch4: lynx-configure-c99.patch
 
 Provides: webclient
 Provides: text-www-browser
@@ -55,6 +57,7 @@ exits quickly and swiftly displays web pages.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 sed -e "s,^HELPFILE:.*,HELPFILE:file://localhost%{_pkgdocdir}/lynx_help/lynx_help_main.html,g" -i lynx.cfg
@@ -132,6 +135,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 2.9.0-dev.10.2.2
+- Port the configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-dev.10.2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

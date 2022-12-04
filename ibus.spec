@@ -39,7 +39,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -523,6 +523,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Dec 02 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-7
+-  Add GitHub action patches
+
 * Thu Nov 24 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-6
 -  Implement new process_key_event for ibus-x11
 

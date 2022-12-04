@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
 Version:         11.00.00
-Release:         1%{?dist}
+Release:         2%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -29,6 +29,7 @@ Patch14:         netpbm-pamtojpeg2k.patch
 Patch15:         netpbm-manfix.patch
 Patch16:         netpbm-jasper.patch
 Patch17:         netpbm-libdir-so.patch
+Patch18:         netpbm-c99.patch
 
 BuildRequires: make
 BuildRequires:   libjpeg-devel, libpng-devel, libtiff-devel, flex, gcc, jbigkit-devel
@@ -229,6 +230,9 @@ popd
 %doc userguide/*
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 11.00.00-2
+- Port downstream-specific patches to C99
+
 * Tue Oct 04 2022 Josef Ridky <jridky@redhat.com> - 11.00.00-1
 - New upstream release 11.00.00 (#2130384)
 

@@ -30,10 +30,10 @@
 # Declaration order is chosen to limit divergence between those templates, and
 # simplify cut and pasting.
 #
-%global	archivedate	20110406
+%global	archivedate 20110406
 %global	download_root	http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob_plain;f=data/fonts/
 Version: 1.00
-Release: 0.28.%{archivedate}git%{?dist}
+Release: 0.29.%{archivedate}git%{?dist}
 URL:     http://android.git.kernel.org/?p=platform/frameworks/base.git;a=tree;f=data/fonts
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -41,7 +41,7 @@ BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 %global foundry           Motoya
 # The font family license identifier. Adjust as necessary. The OFL is our
 # recommended font license.
-%global fontlicense       ASL 2.0
+%global fontlicense       Apache-2.0
 #
 # The following directives are lists of space-separated shell globs
 #   – matching files associated with the font family,
@@ -100,6 +100,9 @@ cp %{SOURCE21} .
 %fontfiles
 
 %changelog
+* Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 1.00-0.29.20110406git
+- Convert License tag to SPDX.
+
 * Wed Aug 24 2022 Akira TAGOH <tagoh@redhat.com> - 1.00-0.28.20110406git
 - Revise the spec file for new packaging guidelines.
 

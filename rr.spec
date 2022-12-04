@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.6.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 2
+%global baserelease 3
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -126,6 +126,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Fri Dec 02 2022 Fabio Valentini <decathorpe@gmail.com> - 5.6.0-3
+- Rebuild for capnproto 0.10.3 / CVE-2022-46149
+
 * Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.6.0-2
 - Rebuild for capnproto 0.10.2
 

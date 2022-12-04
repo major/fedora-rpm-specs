@@ -2,14 +2,14 @@
 
 Name:           libqb
 Version:        2.0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library providing high performance logging, tracing, ipc, and poll
 
 License:        LGPLv2+
 URL:            https://github.com/ClusterLabs/libqb
 Source0:        https://github.com/ClusterLabs/libqb/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
-#Patch0: sock-test-rootonly.patch
+Patch0: connretry-recv.patch
 
 BuildRequires:  autoconf automake libtool
 BuildRequires:  check-devel
@@ -31,7 +31,7 @@ and polling.
 
 %prep
 %setup -q -n %{name}-%{version}
-#%patch0 -p1 -b .sock-test-rootonly
+%patch0 -p1 -b .connretry-recv.patch
 
 %build
 ./autogen.sh
@@ -87,6 +87,9 @@ This package contains a program to create nicely-formatted man pages from Doxyge
 
 
 %changelog
+* Fri Dec 02 2022 Christine Caulfield <ccaulfie@redhat.com> 2.0.6-4
+  ipc: Retry receiving credentials if the the message is short
+
 * Wed Aug 03 2022 Christine Caulfield <ccaulfie@redhat.com> 2.0.6-3
   Don't run tests on Fedora. We have a local CI and it just loads
   up the Fedora build system (and occasionally fails for loading reasons)

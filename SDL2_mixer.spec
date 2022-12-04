@@ -1,13 +1,12 @@
 Name:           SDL2_mixer
-Version:        2.0.4
-Release:        11%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        zlib
 URL:            https://www.libsdl.org/projects/SDL_mixer/
 Source0:        https://www.libsdl.org/projects/SDL_mixer/release/%{name}-%{version}.tar.gz
 
-BuildRequires: make
 BuildRequires:  SDL2-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  flac-devel
@@ -15,6 +14,7 @@ BuildRequires:  chrpath
 BuildRequires:  pkgconfig(libmodplug) >= 0.8.8
 BuildRequires:  fluidsynth-devel
 BuildRequires:  libmikmod-devel
+BuildRequires:  make
 BuildRequires:  mpg123-devel
 BuildRequires:  opusfile-devel
 
@@ -34,13 +34,12 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
-sed -i -e 's/\r//g' README.txt CHANGES.txt COPYING.txt
+sed -i -e 's/\r//g' README.txt CHANGES.txt LICENSE.txt
 rm -vrf external/
 
 %build
 %configure --disable-dependency-tracking \
            --disable-static
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %make_build
 
 %install
@@ -56,19 +55,23 @@ find %{buildroot} -name '*.la' -print -delete
 %ldconfig_scriptlets
 
 %files
-%license COPYING.txt
+%license LICENSE.txt
 %doc CHANGES.txt
 %{_bindir}/playmus2
 %{_bindir}/playwave2
-%{_libdir}/libSDL2_mixer-2.0.so.*
+%{_libdir}/libSDL2_mixer-2.0.so.0*
 
 %files devel
 %doc README.txt
 %{_libdir}/libSDL2_mixer.so
+%{_libdir}/cmake/SDL2_mixer/
 %{_libdir}/pkgconfig/SDL2_mixer.pc
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Sat Dec 03 2022 Pete Walter <pwalter@fedoraproject.org> - 2.6.2-1
+- Update to 2.6.2
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

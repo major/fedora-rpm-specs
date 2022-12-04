@@ -1,5 +1,5 @@
 Name:           python-pyupgrade
-Version:        3.2.3
+Version:        3.3.0
 Release:        1%{?dist}
 Summary:        A tool to upgrade syntax of Python code for newer versions of the language
 
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Dec 02 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.3.0-1
+- Update to 3.3.0 (resolves rhbz#2150391)
+
 * Wed Nov 30 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.2.3-1
 - Update to 3.2.3 (resolves rhbz#2149341)
 

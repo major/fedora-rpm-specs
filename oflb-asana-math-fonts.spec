@@ -1,11 +1,11 @@
 Version:        0.954
-Release:        17%{?dist}
+Release:        18%{?dist}
 ## Note that upstream is dead and there is no download link available at this minute
 ## so please don't report FTBFS bugs for this package.
 URL:            http://www.ctan.org/tex-archive/fonts/Asana-Math/
 
 %global foundry           oflb
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      License.txt
 %global fontdocs          *.txt README.license
 %global fontdocsex        %{fontlicenses}
@@ -42,6 +42,9 @@ cp -p %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} .
 %fontfiles
 
 %changelog
+* Fri Dec 02 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.954-18
+- Update license tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.954-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

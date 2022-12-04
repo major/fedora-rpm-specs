@@ -1,12 +1,13 @@
 Name:           nox
-Version:        2022.8.7
+Version:        2022.11.21
 Release:        1%{?dist}
 Summary:        Flexible test automation
 
 License:        ASL 2.0
-URL:            https://nox.thea.codes
-Source0:        %{pypi_source}
-
+URL:            https://github.com/wntrblm/nox
+# Using github source files since PyPI doesn't contain "tests" folder anymore
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Patch0:		%{url}/commit/53c8d7c2a06bd460bb0377b06c316431516d5744.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-flask
@@ -32,8 +33,7 @@ file for configuration.
 %pyproject_save_files nox
 
 %check
-# Reported upstream: https://github.com/wntrblm/nox/issues/644
-%pytest --ignore=tests/test_action_helper.py
+%pytest
 
 %files -f %{pyproject_files}
 %{_bindir}/nox
@@ -47,6 +47,9 @@ file for configuration.
 %{_bindir}/tox-to-nox
 
 %changelog
+* Thu Dec 01 2022 ondaaak <ondaaak@gmail.com> - 2022.11.21-1
+- Update to 2022.11.21
+
 * Mon Aug 22 2022 ondaaak <ondaaak@gmail.com> - 2022.8.7-1
 - Update to 2022.8.7
 

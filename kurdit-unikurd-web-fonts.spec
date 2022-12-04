@@ -1,10 +1,11 @@
 Version:       20020502
-Release:       30%{?dist}
-# Below is only working Source URL
-URL:           http://www.kurditgroup.org/node/1337
+Release:       31%{?dist}
+# Below is only working Project URL
+URL:           https://www.kurditgroup.org/d/unikurd-web
 
 %global foundry           kurdit
-%global fontlicense       GPLv3
+# License tag determined based on gpl.txt and no information in fontfile itself
+%global fontlicense       GPL-3.0-only
 %global fontlicenses      gpl.txt
 
 %global fontfamily        Unikurd Web
@@ -36,6 +37,9 @@ Source1:       65-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Fri Dec 02 2022 Parag Nemade <pnemade AT redhat DOT com> - 20020502-31
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20020502-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

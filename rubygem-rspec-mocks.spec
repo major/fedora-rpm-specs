@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	2
+%global	fedorarel	3
 
 %global	gem_name	rspec-mocks
 
@@ -27,6 +27,9 @@ Source2:	rspec-related-create-full-tarball.sh
 Patch1:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes.patch
 # ... and related to the above, and commit 66250dc1819f9435e5f584064067e7f05a9afe72
 Patch2:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes-additional.patch
+# https://github.com/rspec/rspec-mocks/pull/1502
+# Fixup argument forwarding on ruby-3.2
+Patch3:	rubygem-rspec-mocks-3.12.0-fixup-argument-forwarding-ruby32.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -64,6 +67,7 @@ gem unpack %{SOURCE0}
 %patch1 -p1 -R
 %patch2 -p1 -R
 %endif
+%patch3 -p1
 
 # Cucumber 7 syntax change
 sed -i cucumber.yml -e "s|~@wip|not @wip|"
@@ -109,6 +113,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Fri Dec  2 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-3
+- Backport upstream reviewing patch for ruby32 ruby2_keywords treatment change
+
 * Thu Nov  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-2
 - On Fedora 37, remove "Display keyword hashes" feature for now
   (On Fedora 38, this is effective)

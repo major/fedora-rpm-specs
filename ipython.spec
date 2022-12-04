@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.6.0
+Version:        8.7.0
 Release:        1%{?dist}
 Summary:        An enhanced interactive Python shell
 
@@ -23,6 +23,7 @@ Summary:        An enhanced interactive Python shell
 License:        (BSD and MIT and Python) and GPLv2+
 URL:            http://ipython.org/
 Source0:        %pypi_source
+Patch0:         fix_entry_points.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -256,6 +257,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Tue Nov 29 2022 Lumír Balhar <lbalhar@redhat.com> - 8.7.0-1
+- Update to 8.7.0 (rhbz#2149289)
+
 * Wed Nov 23 2022 Lumír Balhar <lbalhar@redhat.com> - 8.6.0-1
 - Update to 8.6.0 (rhbz#2138766)
 

@@ -1,11 +1,13 @@
 Name:           hackrf
 Version:        2022.09.1
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        HackRF Utilities
 
-License:        GPL-2.0
-URL:            https://greatscottgadgets.com/hackrf/
-Source0:        https://github.com/mossmann/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+License:        GPL-2.0-or-later AND BSD-3-Clause
+URL:            https://greatscottgadgets.com/%{name}/
+Source0:        https://github.com/greatscottgadgets/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+Patch0:         shebang.patch
 
 BuildRequires:  cmake
 BuildRequires:  fftw3-devel
@@ -14,17 +16,20 @@ BuildRequires:  gcc-c++
 BuildRequires:  libusbx-devel
 BuildRequires:  systemd
 
-# Documentation
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
+# When the host software changes, we generally will also have to update the firmware.
+Recommends:     %{name}-firmware = %{version}-%{release}
 
 %description
 Hardware designs and software for HackRF, a project to produce a low cost, open
 source software radio platform.
 
+NOTE: To upgrade to this release, you must update libhackrf and hackrf-tools on
+your host computer.  You must also update firmware on your HackRF device.
+
 
 %package devel
 Summary:        Development files for %{name}
+License:        BSD-3-Clause
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libusbx-devel
 
@@ -34,22 +39,40 @@ Files needed to develop software against libhackrf.
 
 %package doc
 Summary:        Supplemental documentation for HackRF
+License:        GPL-2.0-only
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       python3-sphinx
-Requires:       python3-sphinx_rtd_theme
 
 %description doc
-Supplemental documentation for HackRF. For more information, visit the wiki at
-https://github.com/mossmann/hackrf/wiki
+Supplemental documentation for HackRF.  For more information, visit the project at
+https://greatscottgadgets.com/hackrf
 
 
 %package static
 Summary:        Static libraries for libhackrf
+License:        BSD-3-Clause
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description static
 Static libraries for libhackrf.
+
+
+%package firmware
+Summary:        Firmware for HackRF
+License:        GPL-2.0-or-later
+Requires:       %{name} = %{version}-%{release}
+
+%description firmware
+Firmware for HackRF.
+
+
+%package hardware
+Summary:        Hardware schematics / pcb layout for HackRF.
+License:        CERN-OHL-P-2.0 AND GPL-2.0-only
+Requires:       %{name} = %{version}-%{release}
+
+%description hardware
+Hardware schematics / pcb layout for HackRF.
 
 
 %prep
@@ -70,19 +93,21 @@ pushd host
 %cmake_build
 popd
 
-pushd docs
-make html
-popd
 
 %install
 pushd host
 %cmake_install
 popd
 
-# Documentation doesn't have a "make install", so do it manually.
-mkdir -p %{buildroot}%{_docdir}/%{name}
-cp -a docs/build/html %{buildroot}%{_docdir}/%{name}
-
+# Docs, schematics, and firmware don't have any "make install", so do that manually.
+mkdir -p %{buildroot}%{_docdir}/%{name} %{buildroot}%{_datadir}/%{name}
+cp -a doc/* %{buildroot}%{_docdir}/%{name}
+cp -a firmware-bin %{buildroot}%{_datadir}/%{name}
+cp -a hardware %{buildroot}%{_datadir}/%{name}
+(
+  echo "Please see https://hackrf.readthedocs.io/en/latest/updating_firmware.html for"
+  echo "instructions regarding updating the firmware on your HackRF device."
+) > %{buildroot}%{_datadir}/%{name}/README-Fedora
 
 %post
 %{?ldconfig}
@@ -94,8 +119,8 @@ cp -a docs/build/html %{buildroot}%{_docdir}/%{name}
 
 
 %files
-%license COPYING TRADEMARK
-%doc Readme.md
+%license COPYING
+%doc Readme.md RELEASENOTES
 %{_bindir}/hackrf_*
 %{_libdir}/libhackrf.so.*
 %{_udevrulesdir}/53-hackrf.rules
@@ -108,11 +133,25 @@ cp -a docs/build/html %{buildroot}%{_docdir}/%{name}
 %files static
 %{_libdir}/libhackrf.a
 
+%files firmware
+%{_datadir}/%{name}/README-Fedora
+%{_datadir}/%{name}/firmware-bin
+
+%files hardware
+%{_datadir}/%{name}/hardware
+
 %files doc
 %{_docdir}/%{name}/*
 
 
 %changelog
+* Fri Dec 02 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-6
+- Update License
+
+* Fri Dec 02 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-5
+- Correct URLs
+- Include fw / hw sub-packages
+
 * Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 2022.09.1-4
 - Doc requires theme to bring in fonts, etc.
 

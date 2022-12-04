@@ -1,6 +1,6 @@
 Name:           auriferous
 Version:        1.0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Game inspired by the classic Loderunner
 License:        GPLv2+
 URL:            http://auriferous.sourceforge.net/
@@ -20,6 +20,7 @@ Patch3:         auriferous-1.0.1-silence-looping-warn.patch
 Patch4:         auriferous-1.0.1-gcc8.patch
 Patch5:         auriferous-1.0.1-crash-on-exit-fix.patch
 Patch6:         auriferous-1.0.1-warnings-fixes.patch
+Patch7:         auriferous-configure-c99.patch
 BuildRequires:  gcc-c++
 BuildRequires:  ClanLib06-devel >= 0.6.5-16
 BuildRequires:  desktop-file-utils libappstream-glib
@@ -76,6 +77,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-38
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

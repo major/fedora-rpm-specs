@@ -1186,6 +1186,11 @@ fi
 %endif
 
 %changelog
+* Thu Dec 1 2022 Kevin Buettner <kevinb@redhat.com>
+- Remove gdb-6.3-threaded-watchpoints2-20050225.patch.  The test in this
+  patch is a tweaked version of upstream test gdb.threads/watchthreads.exp
+  from 2004.  It doesn't actually test anything new.
+
 * Thu Dec 1  2022 Bruno Larsen <blarsen@redhat.com>
 - Remove gdb-rhbz1325795-framefilters-test.patch.  This test doesn't
   pass in the curret state, and the code that introduced the original

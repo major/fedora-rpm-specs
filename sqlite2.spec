@@ -3,7 +3,7 @@
 
 Name:           sqlite2
 Version:        2.8.17
-Release:        38%{?dist}
+Release:        39%{?dist}
 
 Summary:        Embeddable SQL engine in a C library
 License:        Public Domain
@@ -28,6 +28,8 @@ Patch16:        sqlite-2.8.17-fix-sort-syntax.patch
 Patch17:        sqlite-2.8.17-ldflags.patch
 Patch18:        sqlite-2.8.17-fix-unsigned-FTBFS.patch
 Patch19:        sqlite-2.8.17-gcc10.patch
+Patch20:        sqlite2-configure-c99.patch
+Patch21:        sqlite2-lemon-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -92,6 +94,8 @@ find . -type d -name CVS -print0 | xargs -0 rm -r
 %patch17 -p1 -b .ldflags
 %patch18 -p1 -b .unsigned-fix
 %patch19 -p1 -b .gcc10
+%patch20 -p1
+%patch21 -p1
 sed -i.rpath 's!__VERSION__!%{version}!g' Makefile.in
 # Patch additional /usr/lib locations where we don't have $(libdir)
 # to substitute with.
@@ -141,6 +145,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/tclsqlite
 %{tcl_sitearch}/sqlite2/
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 2.8.17-39
+- Port to C99 (#2150360)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.17-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

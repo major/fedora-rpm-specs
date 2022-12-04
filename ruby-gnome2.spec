@@ -6,7 +6,7 @@
 # the new EVR won't be higher than the one of higher branch!!
 #
 # Until gem switch ends, we will use non-integer release
-%define         mainrel                10
+%define         mainrel                11
 # Note
 # Currently this spec file does not support libgda module.
 # libgda-2 is needed, API change for libgda-3 needs investigation
@@ -45,6 +45,16 @@ Patch2:         ruby-glib2-with-lang-c.patch
 Patch3:         ruby-gnome2-all-0.90.4-G_DEF_ERROR2-def-fix.patch
 # Fix for build error with gcc8 -O2 + ruby 2.5, rb_funcall argument number fix
 Patch4:         ruby-libart-arglength-fix.patch
+Patch5:         ruby-gnome2-extconf-librsvg.patch
+Patch6:         ruby-gnome2-rb_secure.patch
+Patch7:         ruby-gnome2-pango-shape_engine_type.patch
+Patch8:         ruby-gnome2-implicit-int-1.patch
+Patch9:         ruby-gnome2-implicit-int-2.patch
+Patch10:        ruby-gnome2-implicit-int-3.patch
+Patch11:        ruby-gnome2-implicit-int-4.patch
+Patch12:        ruby-gnome2-implicit-int-5.patch
+Patch13:        ruby-gnome2-implicit-int-6.patch
+Patch14:        ruby-gnome2-implicit-int-7.patch
 
 
 BuildRequires: make
@@ -588,13 +598,21 @@ This package provides libraries and header files for ruby-vte
 %prep
 %setup -q -n %{name}-all-%{version}
 #%%setup -q -n %{name}-all-%{version}-%{betaver}
-( cd gio2
 %patch0 -p1 -b .glibapi
-)
 %patch1 -p1 -b .newpng
 %patch2 -p1
 %patch3 -p1 -b .arg
 %patch4 -p1 -b .rb25
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
+%patch12 -p1
+%patch13 -p1
+%patch14 -p1
 
 # Fix /usr/local
 grep -rl /usr/local/bin . | grep -v ChangeLog | \
@@ -840,6 +858,9 @@ done
 
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 0.90.4-11
+- Port to C99
+
 * Wed Oct  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-10
 - Fix build with ruby3.2 wrt rb_cData removal
 

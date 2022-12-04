@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    0d88f430953fbcbce382f09090db28905b90d60f
+%global gh_commit    a13454dc3013cdcb388c95c418866e93dc781300
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-permissions-acl
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.12.0
+Version:        2.13.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library}/%{subproj} component
 
@@ -41,12 +41,12 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-servicemanager": "^3.19",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.29"
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.15.0",
+#        "vimeo/psalm": "^5.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -159,6 +159,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec  2 2022 Remi Collet <remi@remirepo.net> - 2.13.0-1
+- update to 2.13.0
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
 - update to 2.12.0
 - raise dependency on PHP 8.0

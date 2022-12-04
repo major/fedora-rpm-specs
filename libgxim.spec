@@ -1,7 +1,7 @@
 Name:		libgxim
 Version:	0.5.0
-Release:	23%{?dist}
-License:	LGPLv2+
+Release:	24%{?dist}
+License:	LGPL-2.1-or-later
 URL:		http://tagoh.bitbucket.org/libgxim/
 BuildRequires:	intltool gettext ruby rubygems
 BuildRequires:	glib2-devel >= 2.26, gtk2-devel
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/gtk-doc/html/libgxim
 
 %changelog
+* Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.5.0-24
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

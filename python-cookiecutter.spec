@@ -13,7 +13,7 @@ Version:   2.1.1
 %forgemeta
 Release:   %autorelease
 Summary:   CLI utility to create projects from templates
-License:   BSD
+License:   BSD-3-Clause
 URL:       %{forgeurl}
 Source0:   https://github.com/audreyr/%{srcname}/archive/%{version}.tar.gz
 BuildArch: noarch
@@ -34,11 +34,11 @@ Summary: %summary
 Recommends: python-%{srcname}-doc
 Requires: python3-binaryornot
 Requires: python3-click
-Requires: python3-future
 Requires: python3-jinja2
 Requires: python3-jinja2-time
-Requires: python3-poyo
+Requires: python3-pyyaml
 Requires: python3-requests
+Requires: python3-slugify
 
 %description -n python3-%{srcname} %{common_description}
 

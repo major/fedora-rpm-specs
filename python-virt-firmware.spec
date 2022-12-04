@@ -1,8 +1,8 @@
-%global pypi_version 1.6
+%global pypi_version 1.7
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
@@ -85,6 +85,9 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
+* Fri Dec 02 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.7-1
+- update to version 1.7
+
 * Thu Nov 10 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.6-2
 - add conflict declaration
 

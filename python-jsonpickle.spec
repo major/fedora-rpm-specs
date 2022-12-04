@@ -4,8 +4,8 @@ Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
-Version:        2.2.0
-Release:        4%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD
@@ -16,22 +16,10 @@ Source0:        %{pypi_source}
 #    https://github.com/jsonpickle/jsonpickle/issues/310
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/FA41BF59C1B48E8C5F3DA61C8CE26BF4A9F606B0
 
-# upstream ships a pytest.ini which also enables modules like cov/flake8.
-# Some of these plugins are not available in Fedora and/or are just useful for
-# developers (not distro releases).
-Patch1:         jsonpickle-remove-pytest-modules.patch
-
 # upstream relies on setuptools_scm >= 3.4.1 to get the version number from git
 # metadata but RHEL only ships python3-setuptools_scm = 1.15.7.
 # However we can just set the version explicitely with sed.
-Patch2:         jsonpickle-drop-setuptools_scm.patch
-
-# Ignore Python 3.11's default __getstate__ implementation
-# Makes things still work as expected with Python 3.11
-# https://bugzilla.redhat.com/show_bug.cgi?id=2098982
-# https://github.com/jsonpickle/jsonpickle/issues/395
-# https://github.com/jsonpickle/jsonpickle/pull/396
-Patch3:         396.patch
+Patch1:         jsonpickle-drop-setuptools_scm.patch
 
 %global _docdir_fmt %{name}
 
@@ -70,12 +58,14 @@ BuildRequires:  python3-bson
 # most of the test suite treats pandas as options but some test cases do not
 BuildRequires:  python3-pandas
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
 
 BuildRequires:  python3-pymongo
 BuildRequires:  python3-simplejson
 BuildRequires:  python3-sqlalchemy
 BuildRequires:  python3-toml
 BuildRequires:  python3-ujson
+BuildRequires:  python3-gmpy2
 %if 0%{?fedora}
 # not packaged for Fedora EPEL 8
 BuildRequires:  python3-demjson
@@ -98,16 +88,15 @@ This is the version for Python 3.
 %prep
 #%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
 %setup -q -n %{pypi_name}-%{version}
-%patch1 -p1
 
 rm -r *.egg-info
 %if 0%{?rhel} || 0%{?fedora} <= 32
-%patch2 -p1
+%patch1 -p1
 sed -i 's/@@VERSION@@/%{version}/' setup.cfg
 sed -i 's/setup_requires.*$//' setup.cfg
 %endif
 
-%patch3 -p1
+#%%patch3 -p1
 
 %build
 %py3_build
@@ -125,6 +114,9 @@ PYTHON=python3 make test
 %{python3_sitelib}/*
 
 %changelog
+* Fri Dec 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
+- 3.0.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

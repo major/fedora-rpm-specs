@@ -4,7 +4,7 @@
 %global modulename %{name}-c++
 
 Name:           capnproto
-Version:        0.10.2
+Version:        0.10.3
 Release:        1%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
@@ -88,6 +88,11 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Fri Dec 02 2022 Fabio Valentini <decathorpe@gmail.com> - 0.10.3-1
+- Update to version 0.10.3
+- Fixes RHBZ#2149787
+- Addresses CVE-2022-46149
+
 * Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.10.2-1
 - Rebase to 0.10.2
 - Drop backported patch

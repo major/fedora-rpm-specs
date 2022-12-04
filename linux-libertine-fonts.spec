@@ -14,10 +14,10 @@ proprietary standard fonts.
 
 Name:           %{fontname}-fonts
 Version:        5.3.0
-Release:        22.%{posttag}%{?dist}
+Release:        23.%{posttag}%{?dist}
 Summary:        Linux Libertine Open Fonts
 
-License:        GPLv2+ with exceptions or OFL
+License:        GPL-2.0-or-later WITH Font-exception-2.0 OR OFL-1.1
 URL:            http://linuxlibertine.sf.net
 Source0:        http://download.sourceforge.net/sourceforge/linuxlibertine/LinLibertineOTF_%{version}_%{posttag}.tgz
 Source1:        %{name}-libertine-fontconfig.conf
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/biolinum.metainfo.xml
 
 %changelog
+* Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 5.3.0-23.2012_07_02
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-22.2012_07_02
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

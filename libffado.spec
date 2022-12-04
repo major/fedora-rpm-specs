@@ -45,7 +45,7 @@ BuildRequires:  python3-scons >= 3.0.2
 BuildRequires:  python3-scons
 %endif
 ExcludeArch:    s390 s390x
-Requires:       udev
+
 
 %description
 The FFADO project aims to provide a generic, open-source solution for the

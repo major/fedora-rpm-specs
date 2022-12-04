@@ -15,7 +15,7 @@ License:       LGPLv2
 %endif
 
 Name:          calc
-Version:       2.14.1.0
+Version:       2.14.1.2
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 

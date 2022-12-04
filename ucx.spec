@@ -1,5 +1,3 @@
-%global __remake_config 1
-
 %{!?configure_options: %global configure_options %{nil}}
 %bcond_without cma
 %bcond_with    cuda
@@ -13,13 +11,13 @@
 %bcond_with    vfs
 
 Name: ucx
-Version: 1.12.0
+Version: 1.13.0
 Release: 3%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD
 URL: http://www.openucx.org
-Source: https://github.com/openucx/%{name}/releases/download/v1.12.0/ucx-1.12.0.tar.gz
+Source: https://github.com/openucx/%{name}/releases/download/v%{version}/ucx-%{version}.tar.gz
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Prefix: %{_prefix}
@@ -89,9 +87,6 @@ Provides header files and examples for developing with UCX.
 %setup -q
 
 %build
-%if %{__remake_config}
-./autogen.sh
-%endif
 %define _with_arg()   %{expand:%%{?with_%{1}:--with-%{2}}%%{!?with_%{1}:--without-%{2}}}
 %define _enable_arg() %{expand:%%{?with_%{1}:--enable-%{2}}%%{!?with_%{1}:--disable-%{2}}}
 %configure --disable-optimizations \
@@ -136,7 +131,7 @@ rm -f %{buildroot}%{_libdir}/ucx/lib*.a
 %files devel
 %{_includedir}/uc*
 %{_libdir}/lib*.so
-%{_libdir}/pkgconfig/ucx.pc
+%{_libdir}/pkgconfig/ucx*.pc
 %{_libdir}/cmake/ucx/*.cmake
 %{_datadir}/ucx/examples
 
@@ -294,6 +289,10 @@ library internals, protocol objects, transports status, and more.
 %endif
 
 %changelog
+* Wed Aug 03 2022 Michal Schmidt <mschmidt@redhat.com> - 1.13.0-3
+- Update to upstream release 1.13.0
+- Drop autogen.sh call. Upstream tarball does not have it anymore.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

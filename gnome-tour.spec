@@ -1,10 +1,12 @@
-%global debug_package %{nil}
-
 # Use bundled deps as we don't ship the exact right versions for all the
 # required rust libraries
 %global bundled_rust_deps 0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
+
+%if 0%{?bundled_rust_deps}
+%global debug_package %{nil}
+%endif
 
 Name:           gnome-tour
 Version:        43.0

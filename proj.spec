@@ -1,5 +1,5 @@
 %global proj_version 9.0.0
-%global data_version 1.11
+%global data_version 1.12
 
 # The name is special so that rpmdev-bumpspec will bump this rather than adding .1 to the end
 %global baserelease 3
@@ -12,7 +12,7 @@
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.1.0
+Version:        9.1.1
 Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
@@ -330,6 +330,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Dec 02 2022 Sandro Mani <manisandro@gmail.com> - 9.1.1-1
+- Update to 9.1.1
+
 * Sun Sep 04 2022 Sandro Mani <manisandro@gmail.com> - 9.1.0-1
 - Update to 9.1.0
 

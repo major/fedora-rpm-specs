@@ -5,8 +5,8 @@
 %global srcname nbformat
 
 Name:           python-%{srcname}
-Version:        5.4.0
-Release:        3%{?dist}
+Version:        5.7.0
+Release:        1%{?dist}
 Summary:        The Jupyter Notebook format
 
 License:        BSD
@@ -14,9 +14,9 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://files.pythonhosted.org/packages/source/n/%{srcname}/%{srcname}-%{version}.tar.gz
 # File missing from tarball https://github.com/jupyter/nbformat/issues/213
 Source1:        https://raw.githubusercontent.com/jupyter/nbformat/master/nbformat/tests/test4.ipynb
-# Do not run check-manifest/pre-commit tests
 # Add pytest asyncio_mode=strict option
-Patch0:         python-nbformat-tests.patch
+# Removed dependency on hatch-nodejs-version
+Patch0:         nbformat-build-test.patch
 
 BuildArch:      noarch
 
@@ -45,6 +45,14 @@ and Python APIs for working with notebooks.
 mkdir -p nbformat/tests
 cp -a %SOURCE1 nbformat/tests/
 
+# Remove useless test dependencies
+sed -i '/"pre-commit",/d' pyproject.toml
+sed -i '/"check-manifest",/d' pyproject.toml
+
+# Set version statically
+# {VERSION} is a part of Patch0
+sed -i "s/{VERSION}/%{version}/" pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -r -x test
 
@@ -66,6 +74,9 @@ cp -a %SOURCE1 nbformat/tests/
 %{_bindir}/jupyter-trust
 
 %changelog
+* Thu Dec 01 2022 Lumír Balhar <lbalhar@redhat.com> - 5.7.0-1
+- Update to 5.7.0 (rhbz#1909560)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

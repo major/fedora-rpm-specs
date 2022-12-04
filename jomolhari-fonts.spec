@@ -1,9 +1,9 @@
 Version:        0.003
-Release:        36%{?dist}
+Release:        37%{?dist}
 
 URL: https://fonts.google.com/specimen/Jomolhari
 
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 %global fontdocs          *.txt
 %global fontdocsex        %{fontlicenses}
@@ -40,6 +40,9 @@ Source1:        65-0-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Fri Dec 02 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.003-37
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

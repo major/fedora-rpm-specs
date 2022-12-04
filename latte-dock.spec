@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/KDE/latte-dock/
 
 Name:     latte-dock
-Version:  0.10.8
+Version:  0.10.9
 
 %forgemeta
 
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary:  Latte is a dock based on plasma frameworks
 License:  GPLv2+
 
@@ -104,6 +104,9 @@ echo %{_kf5_datadir}/plasma/plasmoids/org.kde.latte.containment/ > %{F36_FILES}
 %files lang -f %{name}.lang
 
 %changelog
+* Fri Dec 02 2022 Marc Deop <marcdeop@fedoraproject.org> - 0.10.9-1
+- 0.10.9
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

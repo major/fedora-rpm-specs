@@ -11,7 +11,7 @@ out of nbconvert (formerly ExecutePreprocessor). NBClient lets you execute noteb
 }
 
 Name:           python-%{pypi_name}
-Version:        0.6.8
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        A client library for executing notebooks
 
@@ -60,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Nov 30 2022 Lumír Balhar <lbalhar@redhat.com> - 0.7.2-1
+- Update to 0.7.2 (rhbz#2132802)
+
 * Mon Sep 12 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.8-1
 - Update to 0.6.8
 Resolves: rhbz#2125605

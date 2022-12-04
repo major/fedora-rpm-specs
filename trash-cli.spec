@@ -1,6 +1,6 @@
 Summary:        Command line interface to the freedesktop.org trashcan
 Name:           trash-cli
-Version:        0.22.8.21
+Version:        0.22.10.20
 Release:        1%{?dist}
 License:        GPLv2+
 URL  :          https://github.com/andreafrancia/trash-cli
@@ -32,6 +32,9 @@ compatible with rm and you can use trash-put as an alias to rm.
 %{_mandir}/man1/trash*
 
 %changelog
+* Fri Dec 02 2022 Ben Kircher <bkircher@0xadd.de> - 0.22.10.20-1
+- Update to 0.22.10.20
+
 * Mon Aug 22 2022 Ben Kircher <bkircher@0xadd.de> - 0.22.8.21-1
 - Update to 0.22.8.21
 

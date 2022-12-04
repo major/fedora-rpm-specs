@@ -3,8 +3,8 @@ BuildArch: noarch
 %global archivename All_KhmerOS_%{version}
 
 Version:        5.0
-Release:        36%{?dist}
-License:        LGPLv2+
+Release:        37%{?dist}
+License:        LGPL-2.1-or-later
 URL:            http://www.khmeros.info/en/fonts
 
 %global common_description %{expand:
@@ -213,6 +213,9 @@ install -p %{SOURCE9} %{SOURCE10} %{SOURCE11} .
 %fontfiles -a
 
 %changelog
+* Fri Dec 02 2022 Parag Nemade <pnemade AT redhat DOT com> - 5.0-37
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

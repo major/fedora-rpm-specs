@@ -8,13 +8,17 @@
 %bcond_without check
 
 Name:           python-%{pypi_name}
-Version:        6.5.3
+Version:        7.2.5
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 
 License:        BSD and MIT
 URL:            http://jupyter.org
 Source0:        %pypi_source
+# See
+# https://github.com/jupyter/nbconvert/blob/main/hatch_build.py
+# https://github.com/jupyter/nbconvert/issues/1896
+Source1:        https://cdn.jupyter.org/notebook/5.4.0/style/style.min.css
 
 BuildArch:      noarch
 
@@ -54,8 +58,13 @@ Documentation for nbconvert
 rm -rf %{pypi_name}.egg-info
 echo "nbsphinx_allow_errors = True" >> docs/source/conf.py
 # Packages not available in Fedora
-sed -i '/"pytest-dependency",/d' setup.py
-sed -i '/pyppeteer_req,/d' setup.py
+sed -i '/"pytest-dependency",/d' pyproject.toml
+sed -i '/pyppeteer/d' pyproject.toml
+sed -i 's/"sphinx==.*"/"sphinx"/' pyproject.toml
+sed -i 's/"mistune>=.*"/"mistune"/' pyproject.toml
+
+mkdir -p share/templates/classic/static/
+cp -v %{SOURCE1} share/templates/classic/static/style.css
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-x test} %{?with_doc:-x docs}
@@ -80,7 +89,8 @@ chmod 755 %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
 
 %if %{with check}
 %check
-# Some tests need pyppeteer and some fail on unclosed context zmq.asyncio.Context()
+# Some tests need pyppeteer, some fail on unclosed context zmq.asyncio.Context()
+# and some run in subprocess and therefore don't have "nbconvert.tests" in PYTHONPATH
 %{__python3} -m pytest -W ignore::DeprecationWarning -k "\
     not test_export and \
     not test_webpdf_without_chromium and \
@@ -89,7 +99,9 @@ chmod 755 %{buildroot}%{python3_sitelib}/%{pypi_name}/nbconvertapp.py
     not test_basic_execution and \
     not test_mixed_markdown_execution and \
     not test_populate_language_info and \
-    not test_preprocess_cell"
+    not test_preprocess_cell and \
+    not test_convert_full_qualified_name and \
+    not test_post_processor"
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

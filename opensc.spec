@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.23.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPLv2+
@@ -10,6 +10,8 @@ Source1:        opensc.module
 Patch1:         opensc-0.19.0-pinpad.patch
 # File caching by default (#2000626)
 Patch8:         %{name}-0.22.0-file-cache.patch
+# https://github.com/OpenSC/OpenSC/pull/2656
+Patch9:         %{name}-0.23.0-pkcs11-tool-import.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -49,6 +51,7 @@ every software/card that does so, too.
 %setup -q
 %patch1 -p1 -b .pinpad
 %patch8 -p1 -b .file-cache
+%patch9 -p1 -b .pkcs11-tool-import
 
 # The test-pkcs11-tool-allowed-mechanisms already works in Fedora
 sed -i -e '/XFAIL_TESTS/,$ {
@@ -77,8 +80,7 @@ CFLAGS="$CFLAGS -Wstrict-aliasing=2 -Wno-deprecated-declarations"
   --disable-assert \
   --enable-pcsc \
   --enable-cmocka \
-  --enable-sm \
-  --with-pcsc-provider=libpcsclite.so.1
+  --enable-sm
 %make_build
 
 
@@ -198,6 +200,10 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Fri Dec 02 2022 Jakub Jelen <jjelen@redhat.com> - 0.23.0-2
+- Remove needless configure option with hardcoded path to pcsclite
+- Fix import of RSA keys in pkcs11-tool (#2150010)
+
 * Wed Nov 30 2022 Jakub Jelen <jjelen@redhat.com> - 0.23.0-1
 - New upstream release (#2134076)
 

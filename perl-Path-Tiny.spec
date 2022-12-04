@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Path-Tiny
-Version:	0.142
+Version:	0.144
 Release:	1%{?dist}
 Summary:	File path utility
 License:	Apache-2.0
@@ -123,6 +123,10 @@ make test
 %{_mandir}/man3/Path::Tiny.3*
 
 %changelog
+* Fri Dec  2 2022 Paul Howarth <paul@city-fan.org> - 0.144-1
+- Update to 0.144
+  - Fixed tilde expansion tests where ~root expands to '/'
+
 * Wed Nov  9 2022 Paul Howarth <paul@city-fan.org> - 0.142-1
 - Update to 0.142
   Deprecations

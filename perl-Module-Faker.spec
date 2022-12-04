@@ -1,11 +1,12 @@
 Name:           perl-Module-Faker
-Version:        0.022
-Release:        12%{?dist}
+Version:        0.023
+Release:        1%{?dist}
 Summary:        Build fake dists for testing CPAN tools
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Faker
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Module-Faker-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -19,7 +20,7 @@ BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::OptList)
 BuildRequires:  perl(Encode)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(File::Next)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
@@ -51,11 +52,11 @@ instance, rather than a single distribution, for which see CPAN::Faker.
 %setup -q -n Module-Faker-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -70,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Dec 02 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.023-1
+- 0.023 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

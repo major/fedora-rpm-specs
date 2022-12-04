@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.7.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPLv3
@@ -82,6 +82,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Fri Dec 02 2022 Fabio Valentini <decathorpe@gmail.com> - 1.7.3-5
+- Rebuild for capnproto 0.10.3 / CVE-2022-46149
+
 * Tue Nov 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.7.3-4
 - Rebuild for capnproto 0.10.2
 

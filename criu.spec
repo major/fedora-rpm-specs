@@ -17,7 +17,7 @@
 
 Name: criu
 Version: 3.17.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPLv2
 URL: http://criu.org/
@@ -27,6 +27,9 @@ Source0: https://github.com/checkpoint-restore/criu/archive/v%{version}/criu-%{v
 # We use this patch because the protobuf-c package name
 # in RPM and DEB is different.
 Patch99: criu.pc.patch
+Patch100: criu-glibc-2.36-1.patch
+Patch101: criu-glibc-2.36-2.patch
+Patch102: criu-glibc-2.36-3.patch
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 BuildRequires: perl
@@ -38,7 +41,7 @@ Source3: criu-ns.1
 
 # The patch aio-fix.patch is needed as RHEL7
 # doesn't do "nr_events *= 2" in ioctx_alloc().
-Patch100: aio-fix.patch
+Patch199: aio-fix.patch
 %endif
 
 Source5: criu-tmpfiles.conf
@@ -123,9 +126,12 @@ This script can help to workaround the so called "PID mismatch" problem.
 %setup -q
 
 %patch99 -p1
+%patch100 -p1
+%patch101 -p1
+%patch102 -p1
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
-%patch100 -p1
+%patch199 -p1
 %endif
 
 %build
@@ -210,6 +216,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %doc %{_mandir}/man1/criu-ns.1*
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 3.17.1-4
+- Fix FTBFS with glibc 2.36
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

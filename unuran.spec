@@ -1,11 +1,12 @@
 Name:		unuran
 Version:	1.9.0
-Release: 	2%{?dist}
+Release: 	3%{?dist}
 Summary:	Universal Non-Uniform Random number generator
 
 License:	GPLv2+
 URL:		http://statistik.wu-wien.ac.at/unuran
 Source0:	http://statistik.wu-wien.ac.at/unuran/%{name}-%{version}.tar.gz
+Patch0:		unuran-configure-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -36,7 +37,7 @@ Summary: Header and object files for unuran
 Header and object files for unuran, and pdf docs.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --enable-shared --disable-static
@@ -85,6 +86,9 @@ fi
 SEED=2742664 make check
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 1.9.0-3
+- Port configure script to C99 (#2150308)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

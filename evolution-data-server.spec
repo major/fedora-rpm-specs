@@ -52,7 +52,7 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.46.1
+Version: 3.46.2
 Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
@@ -479,6 +479,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Dec 02 2022 Milan Crha <mcrha@redhat.com> - 3.46.2-1
+- Update to 3.46.2
+
 * Fri Oct 21 2022 Milan Crha <mcrha@redhat.com> - 3.46.1-1
 - Update to 3.46.1
 

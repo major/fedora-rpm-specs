@@ -2,7 +2,7 @@
 
 Name:           uread
 Version:        0
-Release:        0.27.%{stamp}%{?dist}
+Release:        0.28.%{stamp}%{?dist}
 Summary:        Utilities for unformatted fortran files
 
 License:        GPL+
@@ -16,6 +16,7 @@ Source0:        uread-%{stamp}.tar.gz
 # his work under the GPL
 Source1:        uread-licence.email
 #Patch0:         uread-include_stdlib.diff
+Patch1:         uread-c99.patch
 
 #BuildRequires:  
 #Requires:       
@@ -29,8 +30,7 @@ see the size of the data records, and to swap its endianess from big to
 little, or vis versa.
 
 %prep
-%setup -q -n uread
-#%patch0 -p1
+%autosetup -p1 -n uread
 
 cp -p %{SOURCE1} .
 
@@ -56,6 +56,9 @@ install -m0755 uread ustrip uswap $RPM_BUILD_ROOT%{_bindir}/
 %{_mandir}/man1/u*.1*
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 0-0.28.20081006
+- Port to C99 (#2150291)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27.20081006
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

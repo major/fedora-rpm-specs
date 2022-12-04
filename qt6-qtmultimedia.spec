@@ -18,7 +18,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -56,6 +56,12 @@ BuildRequires: pkgconfig(gstreamer-pbutils-%{gst})
 BuildRequires: pkgconfig(gstreamer-plugins-bad-%{gst})
 BuildRequires: pkgconfig(gstreamer-video-%{gst})
 BuildRequires: pkgconfig(libpulse) pkgconfig(libpulse-mainloop-glib)
+BuildRequires: ffmpeg-free-devel
+BuildRequires: libavcodec-free-devel
+BuildRequires: libavutil-free-devel
+BuildRequires: libavformat-free-devel
+BuildRequires: libswscale-free-devel
+BuildRequires: libswresample-free-devel
 %if 0%{?openal}
 BuildRequires: pkgconfig(openal)
 %endif
@@ -162,6 +168,7 @@ popd
 %{_qt6_datadir}/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 %{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
+%{_qt6_plugindir}/multimedia/libffmpegmediaplugin.so
 
 %if 0%{?examples}
 %files examples
@@ -170,6 +177,9 @@ popd
 
 
 %changelog
+* Fri Dec 02 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-2
+- Build FFmpeg plugin
+
 * Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
 - 6.4.1
 

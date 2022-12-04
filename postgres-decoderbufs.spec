@@ -1,8 +1,8 @@
 %global pre Final
 
 Name:		postgres-decoderbufs
-Version:	1.7.0
-Release:	3%{?pre:.%pre}%{?dist}
+Version:	1.9.7
+Release:	1%{?pre:.%pre}%{?dist}
 Summary:	PostgreSQL Protocol Buffers logical decoder plugin
 
 License:	MIT
@@ -33,18 +33,14 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Just-in-time compilation support for %{name}.
 %endif
 
-
 %prep
-%setup -qn postgres-decoderbufs-%{full_version}
-
+%autosetup -n %{name}-%{full_version} -p1
 
 %build
 %make_build
 
-
 %install
 %make_install
-
 
 %files
 %doc README.md
@@ -60,6 +56,11 @@ Just-in-time compilation support for %{name}.
 
 
 %changelog
+* Fri Dec 02 2022 Ondřej Sloup <osloup@redhat.com> - 1.9.7-1.Final
+- Rebase to the newest version
+- Fix compatibility with PostgreSQL 15
+- Use autosetup
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.7.0-3.Final
 - Rebuild for new PostgreSQL 15
 

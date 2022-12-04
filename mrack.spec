@@ -1,5 +1,5 @@
 Name:           mrack
-Version:        1.12.1
+Version:        1.12.2
 Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
@@ -177,6 +177,16 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Fri Dec 02 2022 Packit <hello@packit.dev> - 1.12.2-1
+- chore: Release version 1.12.2 (github-actions)
+- chore: Use python 3.10 in GH actions (Tibor Dudlák)
+- refactor: pylint fixes related to Python 3.10 (Tibor Dudlák)
+- test: Fix test_utils.py to be included in pytest run (Tibor Dudlák)
+- chore(pytest): add missing python_path when using pytest >=7.0.0 (Tibor Dudlák)
+- test: Add test for value_to_bool util function (Tibor Dudlák)
+- fix: Owner requirement boolean parsing from string (Tibor Dudlák)
+- chore(Packit): Add upstream_tag_template to .packit.yaml (Tibor Dudlák)
+
 * Thu Nov 24 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.1-1
 - Released upstream version 1.12.1
 

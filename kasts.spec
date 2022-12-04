@@ -6,7 +6,7 @@ Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
 Url:            https://apps.kde.org/%{name}
-Source:         https://download.kde.org/stable/plasma-mobile/22.09/%{name}-%{version}.tar.xz
+Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -17,17 +17,18 @@ BuildRequires:  gcc-c++
 BuildRequires:  taglib-devel
 
 BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Keychain)
+BuildRequires:  cmake(Qt5Multimedia)
 BuildRequires:  cmake(Qt5Quick)
 BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Multimedia)
-BuildRequires:  cmake(Qt5Keychain)
-
+BuildRequires:  cmake(Qt5Svg)
 
 BuildRequires:  kf5-rpm-macros          >= %{kf5_min_version}
 BuildRequires:  cmake(KF5CoreAddons)    >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Syndication)   >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Config)        >= %{kf5_min_version}
 BuildRequires:  cmake(KF5I18n)          >= %{kf5_min_version}
+BuildRequires: cmake(KF5Kirigami2)      >= %{kf5_min_version}
 BuildRequires:  cmake(KF5ThreadWeaver)  >= %{kf5_min_version}
 
 %description
@@ -57,7 +58,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_libdir}/libKastsSolidExtras.so
 %{_kf5_qmldir}/org/kde/%{name}/solidextras/qmldir
 %{_kf5_qmldir}/org/kde/%{name}/solidextras/libkasts-solidextrasqmlplugin.so
-
 
 %changelog
 * Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1

@@ -1,5 +1,5 @@
 %global link_tcmalloc 1
-%global development 1
+%global development 0
 
 %if 0%{?development}
 %global commit 4059ae5bcad8e18443bf8f37bcff84de1dcc0d03
@@ -7,7 +7,11 @@
 %endif
 
 Name:           rawtherapee
+%if 0%{?development}
 Version:        5.9~20221002git%{shortcommit}
+%else
+Version:        5.9
+%endif
 Release:        %autorelease
 Summary:        Raw image processing software
 
@@ -20,7 +24,7 @@ Source0:        https://github.com/Beep6581/RawTherapee/archive/%{commit}/RawThe
 Source1:        create_ReleaseInfo.sh
 Source2:        ReleaseInfo.cmake
 %else
-Source0:        https://github.com/Beep6581/RawTherapee/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://rawtherapee.com/shared/source/%{name}-%{version}.tar.xz
 %endif
 
 BuildRequires:  cmake
@@ -68,7 +72,7 @@ to some common image format.
 %autosetup -p1 -n RawTherapee-%{commit}
 cp -p %SOURCE2 .
 %else
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 %endif
 
 # remove bundled KLT, so we're sure to use system provided KLT

@@ -1,12 +1,13 @@
 Name:           dia
 Version:        0.97.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Epoch:          1
 Summary:        Diagram drawing program
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Dia
 Source0:        https://download.gnome.org/sources/dia/0.97/%{name}-%{version}.tar.xz
 Patch0:         dia-0.9.3-cve-2019-19451.patch
+Patch1:         dia-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -35,6 +36,7 @@ EPS, SVG, XFIG, PDF, PNG and others.
 %prep
 %setup -q
 %patch0 -p1 -b .cve-2019-19451
+%patch1 -p1 -b .configure-c99
 
 sed -i 's|libdia_la_LDFLAGS = -avoid-version|libdia_la_LDFLAGS = -avoid-version $(shell pkg-config --libs gtk+-2.0 libxml-2.0 libart-2.0)|' \
   lib/Makefile.*
@@ -138,6 +140,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 1:0.97.3-22
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.97.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

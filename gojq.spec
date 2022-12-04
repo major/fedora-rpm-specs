@@ -3,7 +3,7 @@
 
 # https://github.com/itchyny/gojq
 %global goipath         github.com/itchyny/gojq
-Version:                0.12.9
+Version:                0.12.10
 
 %gometa -f
 

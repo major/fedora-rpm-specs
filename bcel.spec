@@ -1,6 +1,6 @@
 Name:           bcel
 Version:        6.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Byte Code Engineering Library
 License:        ASL 2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
@@ -8,6 +8,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://archive.apache.org/dist/commons/bcel/source/bcel-%{version}-src.tar.gz
+
+Patch1:         0001-CVE-2022-42920.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
@@ -36,6 +38,7 @@ This package provides %{summary}.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+%patch1 -p1
 
 %pom_remove_plugin :maven-source-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
@@ -57,6 +60,10 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Dec 01 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.5.0-3
+- Fix arbitrary bytecode produced via out-of-bounds writing
+- Resolves: CVE-2022-42920
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

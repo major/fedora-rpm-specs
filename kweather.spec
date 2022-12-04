@@ -6,35 +6,35 @@ Summary:        Convergent KDE weather application
 Url:            https://invent.kde.org/plasma-mobile/kweather
 Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
+BuildRequires:  appstream
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
-BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
 
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5Test)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Charts)
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5QuickControls2)
+BuildRequires:  cmake(Qt5Svg)
+BuildRequires:  cmake(Qt5Test)
 
 BuildRequires:  cmake(KF5Config)
-BuildRequires:  cmake(KF5Kirigami2)
-BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5Plasma)
-BuildRequires:  cmake(KF5Notifications)
-BuildRequires:  cmake(KF5QuickCharts)
+BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KWeatherCore)
+BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  cmake(KF5KirigamiAddons)
+BuildRequires:  cmake(KF5Notifications)
+BuildRequires:  cmake(KF5Plasma)
+BuildRequires:  cmake(KF5QuickCharts)
 
 Requires:       kf5-kirigami2
 Requires:       hicolor-icon-theme
-
 
 %description
 Weather application for Plasma Mobile
@@ -61,7 +61,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_metainfodir}/org.kde.plasma.%{name}_1x4.appdata.xml
-%{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_datadir}/dbus-1/services/org.kde.%{name}.service
 %{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.%{name}_1x4.desktop
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/LocationSelector.qml
@@ -70,7 +70,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.desktop
 %{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/metadata.json
 %{_kf5_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
-
 
 %changelog
 * Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1

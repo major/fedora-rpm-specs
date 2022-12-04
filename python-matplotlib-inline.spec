@@ -1,5 +1,5 @@
 Name:           python-matplotlib-inline
-Version:        0.1.5
+Version:        0.1.6
 Release:        1%{?dist}
 Summary:        Inline Matplotlib backend for Jupyter
 
@@ -39,6 +39,9 @@ Inline Matplotlib backend for Jupyter
 %doc README.md
 
 %changelog
+* Wed Nov 30 2022 Christoph Junghans <junghans@lanl.gov> - 0.1.6-1
+- Version bump to v0.1.6
+
 * Mon Aug 22 2022 Lumír Balhar <lbalhar@redhat.com> - 0.1.5-1
 - Update to 0.1.5
 Resolves: rhbz#2119014

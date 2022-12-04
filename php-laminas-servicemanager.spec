@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    ed160729bb8721127efdaac799f9a298963345b1
+%global gh_commit    bc2c2cbe2dd90db8b9d16b0618f542692b76ab59
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-servicemanager
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.19.0
+Version:        3.20.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -45,18 +45,18 @@ BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "composer/package-versions-deprecated": "^1.11.99.5",
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "laminas/laminas-container-config-test": "^0.6",
+#        "laminas/laminas-container-config-test": "^0.8",
 #        "laminas/laminas-dependency-plugin": "^2.2",
 #        "mikey179/vfsstream": "^1.6.11@alpha",
 #        "ocramius/proxy-manager": "^2.14.1",
-#        "phpbench/phpbench": "^1.2.6",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.16.1",
-#        "vimeo/psalm": "^4.28"
+#        "phpbench/phpbench": "^1.2.7",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0"
 BuildRequires: (php-composer(mikey179/vfsstream)                >= 1.6.10 with php-composer(mikey179/vfsstream)                < 2)
 # ignore minimal version
 BuildRequires: (php-composer(ocramius/proxy-manager)            >= 2.2.3 with php-composer(ocramius/proxy-manager)            < 3)
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec  2 2022 Remi Collet <remi@remirepo.net> - 3.20.0-1
+- update to 3.20.0
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 3.19.0-1
 - update to 3.19.0
 - raise dependency on PHP 8.0

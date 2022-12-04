@@ -3,7 +3,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-jupyter-core
-Version:        4.11.1
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        The base package for Jupyter projects
 
@@ -16,6 +16,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinxcontrib-github-alt
+BuildRequires:  python3-myst-parser
 BuildRequires:  pyproject-rpm-macros
 
 %bcond_without tests
@@ -129,6 +130,9 @@ mkdir %{buildroot}%{_sysconfdir}/jupyter/nbconfig/tree.d
 
 
 %changelog
+* Wed Nov 30 2022 Lumír Balhar <lbalhar@redhat.com> - 5.1.0-1
+- Update to 5.1.0 (rhbz#2130602)
+
 * Wed Sep 14 2022 Charalampos Stratakis <cstratak@redhat.com> - 4.11.1-1
 - Update to 4.11.1
 Resolves: rhbz#2104974

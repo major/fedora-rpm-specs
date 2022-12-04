@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.63.1
+Version:        0.64.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,10 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Fri Dec 02 2022 Packit <hello@packit.dev> - 0.64.0-1
+- `packit propose-downstream` now uploads all remote sources (those specified as URLs) and the source specified by `spec_source_id` (whether remote or not) to lookaside. Previously, only Source0 was uploaded.
+Source0 is no longer treated specially, but as `spec_source_id` is `Source0` by default, Source0 is still being uploaded by default unless `spec_source_id` is overriden. (#1778)
+
 * Sat Nov 12 2022 Packit <hello@packit.dev> - 0.63.1-1
 - Packit now correctly finds SRPM when rpmbuild reports warnings when it parses the spec file. (#1772)
 - When packit.yaml is present in the repo but is empty, Packit now produces a better error message instead of an internal Python exception. (#1769)

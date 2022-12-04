@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.4.0.0
-Release: 55%{?dist}
+Release: 200%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
@@ -50,6 +50,7 @@ OPA_FEATURE_SET= CLOCAL='%build_cflags' CCLOCAL='%build_cxxflags' LDLOCAL='%buil
 BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_libdir} ./OpenIb_Host/ff_install.sh
 
 %files basic
+%{_sbindir}/ethbw
 %{_sbindir}/ethcapture
 %{_sbindir}/ethshmcleanup
 %{_prefix}/lib/eth-tools/setup_self_ssh
@@ -57,6 +58,7 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 %{_prefix}/lib/eth-tools/ethipcalc
 %{_prefix}/lib/eth-tools/stream
 %{_prefix}/lib/eth-tools/ethudstress
+%{_mandir}/man1/ethbw.1*
 %{_mandir}/man1/ethcapture.1*
 %{_mandir}/man1/ethshmcleanup.1*
 %{_datadir}/eth-tools/samples/mgt_config.xml-sample
@@ -65,6 +67,7 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 %files fastfabric
 %{_sbindir}/*
+%exclude %{_sbindir}/ethbw
 %exclude %{_sbindir}/ethcapture
 %exclude %{_sbindir}/ethshmcleanup
 %{_prefix}/lib/eth-tools/*
@@ -88,8 +91,49 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.3.0.0-131
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Thu Dec 1 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-198
+- Added Ubuntu support to INSTALL script
+- Updated man pages for FastFabric tools
+
+* Thu Dec 1 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-194
+- Changed FastFabric to setup PFC using software DCB (open lldp)
+- Enhanced host verify to check passive mode intel_pstate, loopback rping
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-144
+- Fixed MpiApps build script to allow building HPL with Intel MPI and MKL
+- Updated MpiApps scripts to pass exe params to commands
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-139
+- Removed dead code and unsupported tools
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-137
+- Introduced tool ethbw to monitor BW per NIC
+- Added support on Intel GPU
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-124
+- Improved to support RHEL 9.0
+- Improved FastFabric to support fabric plane
+- improved ethreport with below new features:
+-- -P/-H: include only persist or hardware data
+-- -A/-o otherports: include all or other (inactive) ports
+-- -s: include performance data
+- Improved node verification to check NIC firmware and driver version
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-81
+- Improved to support SLES 15.4
+- Improved performance on ethreport, rping and pfctest
+
+* Wed Nov 30 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-55
+- Improved ethreport to support more than 256 ports
+
+* Mon Jun 13 2022 Jijun Wang <jijun.wang@intel.com> - 11.3.0.0-130
+- Improved to support RHEL 8.6
+- Improved to enable almalinux and circle Linux
+- Added tool ethshmcleanup.sh for obsoleted shm file clean up
+- Update MpiApps to use OSU 5.9
+
+* Mon Jun 13 2022 Jijun Wang <jijun.wang@intel.com> - 11.2.0.0-259
+- Improved to support RHEL 8.5
 
 * Mon Jan 10 2022 Jijun Wang <jijun.wang@intel.com> - 11.1.0.1-7
 - Fixed false negative issue on ethfindgood

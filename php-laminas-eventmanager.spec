@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    3f1afbad86cd34a431fdc069f265cfe6f8fc8308
+%global gh_commit    b954c360182b9160026a8393d7b1b716dcae25d7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-eventmanager
@@ -23,7 +23,7 @@
 %global library      EventManager
 
 Name:           php-%{gh_project}
-Version:        3.6.0
+Version:        3.7.0
 Release:        1%{?dist}
 Summary:        Trigger and listen to events within a PHP application
 
@@ -42,15 +42,15 @@ BuildRequires:  php-spl
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-stdlib": "^3.15",
-#        "phpbench/phpbench": "^1.2.6",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "phpbench/phpbench": "^1.2.7",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
 #        "psr/container": "^1.1.2 || ^2.0.2",
-#        "vimeo/psalm": "^4.28"
+#        "vimeo/psalm": "^5.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)        >= 3.15  with php-autoloader(%{gh_owner}/laminas-stdlib)        < 4)
 BuildRequires: (php-composer(psr/container)                       >= 1.1.2 with php-composer(psr/container)                       < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec  2 2022 Remi Collet <remi@remirepo.net> - 3.7.0-1
+- update to 3.7.0
+
 * Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 3.6.0-1
 - update to 3.6.0
 - raise dependency on PHP 8.0

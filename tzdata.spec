@@ -1,8 +1,8 @@
 Summary: Timezone data
 Name: tzdata
-Version: 2022f
-%define tzdata_version 2022f
-%define tzcode_version 2022f
+Version: 2022g
+%define tzdata_version 2022g
+%define tzcode_version 2022g
 Release: 1%{?dist}
 License: Public Domain
 URL: https://www.iana.org/time-zones
@@ -153,6 +153,14 @@ install -p -m 644 tzdb.dat $RPM_BUILD_ROOT%{_datadir}/javazi-1.8/
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Dec 02 2022 Patsy Griffin <patsy@redhat.com> - 2022g-1
+- Rebase to tzdata-2022g
+  - The northern edge of the Mexican state of Chihuahua will
+    change time zone to agree with nearby US locations on
+    2022-11-30.
+  - Added a new Zone America/Ciudad_Juarez that splits from
+    America/Ojinaga.
+
 * Mon Oct 31 2022 Patsy Griffin <patsy@redhat.com> - 2022f-1
 - Rebase to tzdata-2022f
   - Mexico will stop observing DST except near the US border.

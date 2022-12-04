@@ -1,6 +1,4 @@
 %global pypi_name contextualbandits
-%global download_name david-cortes-contextualbandits-0.1.3.1-157-g8c935a2
-%global extract_name david-cortes-contextualbandits-8c935a2
 
 %global _description %{expand:
 This Python package contains implementations of methods from different papers
@@ -10,12 +8,12 @@ and compare ideas, to reproduce research papers that don't provide
 easily-available implementations of their proposed algorithms, and to
 serve as a guide in learning about contextual bandits.}
 
-%global commit          c8d2210bc1b22e2b6750a03d7cee89d844b8d848
-%global snapshotdate    20221014
+%global commit          e80477714d0d8a25b27341bc5a751c6560674aed
+%global snapshotdate    20221202
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}
-Version:        0.3.19
+Version:        0.3.20
 Release:        1%{?dist}
 Summary:        Python implementations of algorithms for contextual bandits
 
@@ -88,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc example/
 
 %changelog
+* Fri Dec 2 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.20-1
+- Update to the latest upstream's release
+
 * Fri Oct 14 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.19-1
 - Update to the latest upstream's release
 

@@ -1,6 +1,6 @@
 Name:             ipset
-Version:          7.15
-Release:          5%{?dist}
+Version:          7.16
+Release:          1%{?dist}
 Summary:          Manage Linux IP sets
 
 License:          GPLv2
@@ -9,9 +9,6 @@ Source0:          %{url}/%{name}-%{version}.tar.bz2
 Source1:          %{name}.service
 Source2:          %{name}.start-stop
 Source3:          %{name}-config
-Patch0:           0001-Fix-typo-in-ipset-translate-man-page.patch
-Patch1:           0002-Fix-IPv6-sets-nftables-translation.patch
-Patch2:           0003-ipset-translate-allow-invoking-with-a-path-name.patch
 
 BuildRequires:    libmnl-devel
 BuildRequires:    automake
@@ -174,6 +171,9 @@ fi
 
 
 %changelog
+* Fri Dec 02 2022 Nicolas Chauvet <kwizart@gmail.com> - 7.16-1
+- Update to 7.16
+
 * Tue Aug 23 2022 Nicolas Chauvet <kwizart@gmail.com> - 7.15-5
 - Backport upstream patches - rhbz#2117654
   ipset-translate does not work with IPv6 sets

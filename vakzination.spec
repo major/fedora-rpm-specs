@@ -6,6 +6,8 @@ Summary:        Vakzination manages your health certificates like vaccination, t
 Url:            https://invent.kde.org/plasma-mobile/vakzination
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/vakzination-%{version}.tar.xz
 
+ExclusiveArch:  %{java_arches}
+
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++

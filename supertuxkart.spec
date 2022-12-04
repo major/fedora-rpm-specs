@@ -5,7 +5,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -92,8 +92,8 @@ popd
 rm %{buildroot}%{_datadir}/icons/hicolor/1024x1024/apps/supertuxkart.png
 
 ln -s opengl-game-wrapper.sh %{buildroot}%{_bindir}/%{name}-wrapper
-ln -sf %{_fontbasedir}/abattis-cantarell/Cantarell-Regular.otf %{buildroot}%{_datadir}/%{name}/Cantarell-Regular.otf
-ln -sf %{_fontbasedir}/abattis-cantarell/Cantarell-Bold.otf %{buildroot}%{_datadir}/%{name}/Cantarell-Bold.otf
+ln -sf %{_fontbasedir}/abattis-cantarell-fonts/Cantarell-Regular.otf %{buildroot}%{_datadir}/%{name}/Cantarell-Regular.otf
+ln -sf %{_fontbasedir}/abattis-cantarell-fonts/Cantarell-Bold.otf %{buildroot}%{_datadir}/%{name}/Cantarell-Bold.otf
 ln -sf %{_fontbasedir}/gnu-free/FreeSans.ttf %{buildroot}%{_datadir}/%{name}/FreeSans.ttf
 ln -sf %{_fontbasedir}/gnu-free/FreeSansBold.ttf %{buildroot}%{_datadir}/%{name}/FreeSansBold.ttf
 
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Dec 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-4
+- Fix cantarell fonts symlinks.
+
 * Tue Nov 22 2022 Pete Walter <pwalter@fedoraproject.org> - 1.4-3
 - Rebuild for angelscript 2.35.1
 

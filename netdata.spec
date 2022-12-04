@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.36.1
+%global upver        1.37.0
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -67,10 +67,10 @@ Source5:        README-packager.md
 Source10:       https://github.com/protocolbuffers/protobuf/releases/download/v%{protobuf_cpp_ver}/protobuf-cpp-%{protobuf_cpp_ver}.tar.gz
 # Only for el8
 Source11:       https://github.com/netdata/libjudy/archive/v%{judy_ver}/libjudy-%{judy_ver}.tar.gz
-Patch0:         netdata-fix-shebang-1.36.0.patch
+Patch0:         netdata-fix-shebang-1.37.0.patch
 %if 0%{?fedora}
 # Remove embedded font
-Patch10:        netdata-remove-fonts-1.34.1.patch
+Patch10:        netdata-remove-fonts-1.37.0.patch
 %endif
 
 BuildRequires:  zlib-devel
@@ -282,6 +282,8 @@ mv %{buildroot}%{_libdir}/%{name}/conf.d %{buildroot}%{_sysconfdir}/%{name}/
 mv %{buildroot}%{_sysconfdir}/%{name}/edit-config %{buildroot}%{_libexecdir}/%{name}/edit-config
 # Fix EOL
 sed -i -e 's/\r//' %{buildroot}%{_datadir}/%{name}/web/lib/tableExport-1.6.0.min.js
+# Delete system dir with init scripts or unit files
+rm -rf %{buildroot}%{_libdir}/%{name}/system
 # Delete useless hidden dir
 rm -rf %{buildroot}%{_datadir}/%{name}/web/.well-known
 # Delete useless file (ubuntu)
@@ -378,6 +380,9 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Fri Dec 02 2022 Didier Fabert <didier.fabert@gmail.com> 1.37.0-1
+- Update from upstream
+
 * Sat Sep 10 2022 Didier Fabert <didier.fabert@gmail.com> 1.36.1-1
 - Update from upstream
 

@@ -1,23 +1,35 @@
-%global commit 5ff601a584b661e4bad9036026ce9e4f23fcbc4f
-%global shortcommit %(c=%{commit}; echo ${c:0:7}) 
-Name:           wlr-randr
-Version:        0
-Release:        9.20200408git%{shortcommit}%{?dist}
-Summary:        An xrandr clone for wlroots compositors
-License:        MIT
-URL:            https://github.com/emersion/wlr-randr
-Source0:        https://github.com/emersion/wlr-randr/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%global forgeurl https://git.sr.ht/~emersion/wlr-randr
 
-BuildRequires:  gcc-c++
+Name:           wlr-randr
+Version:        0.2.0
+Release:        1%{?dist}
+Summary:        An xrandr clone for wlroots compositors
+
+# Overall project license: MIT
+#
+# protocol/wlr-output-management-unstable-v1.xml:
+# The file is licensed under HPND-sell-variant; it is processed to C-compilable
+# files by the `wayland-scanner` binary during build and doesn't alter the main
+# license of the binary.
+License:        MIT
+URL:            https://sr.ht/~emersion/wlr-randr/
+Source0:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz.sig
+# 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
+Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
+
+BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  meson
-BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  pkgconfig(wayland-scanner)
 
 %description
 wlr-randr is an xrandr clone for wlroots compositors
 
 %prep
-%autosetup -n wlr-randr-%{commit}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup
 
 %build
 %meson
@@ -32,6 +44,12 @@ wlr-randr is an xrandr clone for wlroots compositors
 %{_bindir}/wlr-randr
 
 %changelog
+* Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
+- Update to 0.2.0
+- Convert License tag to SPDX
+- Update upstream URL
+- Verify source signature
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20200408git5ff601a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

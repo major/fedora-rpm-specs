@@ -9,13 +9,14 @@
 Name:    dbus-qt3
 Summary: Qt3 DBus Bindings
 Version: 0.9
-Release: 30%{?dist}
+Release: 31%{?dist}
 
 License: GPLv2+
 Url:     http://www.freedesktop.org/wiki/Software/DBusBindings
 Source0: http://people.freedesktop.org/~krake/dbus-1-qt3/dbus-1-qt3-%{version}.tar.gz
 
 Patch0:  dbus-1-qt3-0.9-libtool-aarch64.patch
+Patch1:  dbus-qt3-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -42,6 +43,7 @@ Requires: pkgconfig
 %prep
 %setup -q -n dbus-1-qt3-%{version}
 %patch0 -p1 -b .libtool-aarch64
+%patch1 -p1 -b .configure-c99
 
 
 %build
@@ -79,6 +81,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 0.9-31
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

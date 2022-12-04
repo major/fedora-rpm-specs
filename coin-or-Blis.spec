@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	BLIS (BiCePS Linear Integer Solver)
 Version:	0.94.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-BLIS
 Source0:	https://github.com/coin-or/CHiPPS-BLIS/archive/releases/%{version}/CHiPPS-BLIS-%{version}.tar.gz
@@ -18,6 +18,7 @@ BuildRequires:	make
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
+Patch1:		coin-or-Blis-configure-c99.patch
 
 %description
 BLIS (BiCePS Linear Integer Solver) is an application developed on top of
@@ -89,6 +90,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/blis_doxy.tag
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 0.94.8-9
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.94.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

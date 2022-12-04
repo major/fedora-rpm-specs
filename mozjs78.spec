@@ -24,7 +24,7 @@
 
 Name:           mozjs%{major}
 Version:        78.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPLv2.0 and MPLv1.1 and BSD and GPLv2+ and GPLv3+ and LGPLv2+ and AFL and ASL 2.0
@@ -283,6 +283,9 @@ PYTHONPATH=tests/lib %{__python3} jit-test/jit_test.py -s -t 2400 --no-progress 
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Fri Dec 02 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 78.15.0-8
+- Add few more test exceptions
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 78.15.0-7
 - Rebuilt for ICU 71.1
 

@@ -19,7 +19,7 @@
 %global modname numpy
 
 Name:           numpy
-Version:        1.23.4
+Version:        1.23.5
 Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
@@ -209,6 +209,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Fri Dec 02 2022 Charalampos Stratakis <cstratak@redhat.com> - 1:1.23.5-1
+- Update to 1.23.5
+
 * Fri Oct 21 2022 Miro Hrončok <mhroncok@redhat.com> - 1:1.23.4-1
 - Update to 1.23.4
 - Use distutils from setuptools to build the package

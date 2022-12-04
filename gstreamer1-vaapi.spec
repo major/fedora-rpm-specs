@@ -1,6 +1,6 @@
 Name:           gstreamer1-vaapi
 Version:        1.20.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer plugins to use VA API video acceleration
 
 License:        LGPLv2+
@@ -34,7 +34,9 @@ BuildRequires:  pkgconfig(wayland-egl)     >= 1.11.0
 BuildRequires:  pkgconfig(wayland-server)  >= 1.11.0
 %endif
 
-Requires:        mesa-va-drivers
+%ifnarch s390x
+Recommends:     mesa-va-drivers%{?_isa}
+%endif
 
 # We can't provide encoders or decoders unless we know what VA-API drivers
 # are on the system. Just filter them out, so they're not suggested by
@@ -88,6 +90,9 @@ for the GStreamer VA API video acceleration plugins
 %endif
 
 %changelog
+* Fri Dec 02 2022 Nicolas Chauvet <kwizart@gmail.com> - 1.20.4-2
+- Fix mesa-va-drivers no available on s390 - rhbz#2150324
+
 * Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
 - Update to 1.20.4
 

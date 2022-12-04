@@ -1,5 +1,5 @@
 Name:           perl-PAR-Packer
-Version:        1.056
+Version:        1.057
 Release:        1%{?dist}
 Summary:        PAR Packager
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -144,6 +144,9 @@ make test
 %{_datadir}/icons/hicolor/32x32/apps/tkpp.png
 
 %changelog
+* Fri Dec 02 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.057-1
+- 1.057 bump
+
 * Tue Sep 06 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.056-1
 - 1.056 bump
 

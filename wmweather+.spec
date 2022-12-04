@@ -3,13 +3,14 @@
 
 Name:           wmweather+
 Version:        2.18^20211125gitbe2f4b30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Weather status dockapp
 
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/wmweatherplus/
 #Source0:        https://downloads.sourceforge.net/project/wmweatherplus/%%{name}/%%{name}-%%{version}.tar.gz
 Source0:	https://sourceforge.net/code-snapshots/git/w/wm/wmweatherplus/git.git/wmweatherplus-git-%{commit}.zip
+Patch0: wmweather+-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -31,7 +32,7 @@ dockapp. Think wmweather with a smaller font, forecasts, a weather map, and a
 sky condition display.
 
 %prep
-%autosetup -n wmweatherplus-git-%{commit}
+%autosetup -p1 -n wmweatherplus-git-%{commit}
 
 autoreconf -fvi
 
@@ -48,6 +49,9 @@ autoreconf -fvi
 %{_mandir}/man1/*
 
 %changelog
+* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 2.18^20211125gitbe2f4b30-2
+- Port configure script to C99
+
 * Tue Sep 20 2022 Jani Juhani Sinervo <jani@sinervo.fi> - 2.18^20211125gitbe2f4b30-1
 - Update to latest upstream version
 - Change to PCRE2

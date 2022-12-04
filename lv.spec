@@ -2,8 +2,8 @@
 
 Name:		lv
 Version:	4.51
-Release:	46%{?dist}
-License:	GPLv2+
+Release:	47%{?dist}
+License:	GPL-2.0-or-later
 URL:		http://www.ff.iij4u.or.jp/~nrt/lv/
 BuildRequires:	ncurses-devel autoconf
 BuildRequires:	gcc
@@ -64,6 +64,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 4.51-47
+- Convert License tag to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.51-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

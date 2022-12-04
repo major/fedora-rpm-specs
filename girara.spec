@@ -1,6 +1,6 @@
 Name:               girara
 Version:            0.3.8
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
@@ -14,12 +14,9 @@ BuildRequires:      gtk3-devel >= 3.20
 BuildRequires:      intltool
 BuildRequires:      meson >= 0.56
 BuildRequires:      pango-devel >= 1.14
-
-%if 0%{?fedora}
 BuildRequires:      pkgconfig(json-glib-1.0)
 # Tests
-#BuildRequires:      pkgconfig(check) >= 0.11
-%endif
+BuildRequires:      pkgconfig(check) >= 0.11
 
 # from Upstream: Mark girara_libnotify as deprecated
 #BuildRequires:      libnotify-devel >= 0.7.0
@@ -44,12 +41,15 @@ developing applications that use %{name}.
 %setup -q
 
 %build
-%meson -Ddocs=disabled -Dtests=disabled
+%meson -Ddocs=disabled -Dtests=enabled
 %meson_build
 
 %install
 %meson_install
 %find_lang %{girara_locales}
+
+%check
+%meson_test
 
 
 %files -f %{girara_locales}.lang
@@ -65,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Dec 02 2022 Alain Vigne <avigne@fedoraproject.org> - 0.3.8-2
+- Re-enable tests
+
 * Tue Nov 29 2022 Alain Vigne <avigne@fedoraproject.org> - 0.3.8-1
 - 0.3.8 bump (rhbz#2148740)
 - Switch to json-glib, where available

@@ -8,7 +8,7 @@
 ### Abstract ###
 
 Name: evolution-mapi
-Version: 3.46.0
+Version: 3.46.1
 Release: 1%{?dist}
 Summary: Evolution extension for MS Exchange 2007 servers
 License: LGPL-2.1-or-later
@@ -110,6 +110,9 @@ export CFLAGS="$CFLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
+* Fri Dec 02 2022 Milan Crha <mcrha@redhat.com> - 3.46.1-1
+- Update to 3.46.1
+
 * Fri Sep 16 2022 Milan Crha <mcrha@redhat.com> - 3.46.0-1
 - Update to 3.46.0
 

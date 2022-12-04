@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.1.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: http://people.redhat.com/sgrubb/fapolicyd
 Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
@@ -207,6 +207,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Dec 02 2022 Radovan Sroka <rsroka@redhat.com> - 1.1.7-3
+- rebuild for eln
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 1.1.7-2
 - Avoid implicit declaration of rpmFreeCrypto
 
