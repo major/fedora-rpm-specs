@@ -2,7 +2,7 @@
 %global pypi_name yarl
 
 Name:           python-%{pypi_name}
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?dist}
 Summary:        Python module to handle URLs
 
@@ -53,6 +53,9 @@ sed -e '/addopts/d' -i setup.cfg
 %{python3_sitearch}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Sun Dec 04 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.8.2-1
+- Update to latest upstream release 1.8.2 (closes rhbz#2150499)
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.8.1-1
 - Update to latest upstream release 1.8.1 (closes rhbz#2112722)
 

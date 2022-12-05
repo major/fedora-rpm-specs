@@ -1,18 +1,13 @@
 Name:           rsvndump
-Version:        0.6
-Release:        23%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        Remote Subversion repository dumping tool
 
 License:        GPLv3+
 URL:            http://rsvndump.sourceforge.net
 Source0:        http://downloads.sourceforge.net/rsvndump/rsvndump-%{version}.tar.bz2
 
-# Fix the build with asciidoc 9
-Patch0:         rsvndump-asciidoc-detection.patch
-
 BuildRequires:  asciidoc
-# For patch0
-BuildRequires:  autoconf automake
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  make
@@ -29,8 +24,6 @@ imported into a new subversion repository.
 %autosetup -p1
 
 %build
-# For patch0
-autoreconf -fi
 %configure --enable-man
 %make_build
 
@@ -46,6 +39,9 @@ autoreconf -fi
 %{_mandir}/man1/rsvndump.1*
 
 %changelog
+* Sat Dec 03 2022 Kalev Lember <klember@redhat.com> - 0.6.1-1
+- Update to 0.6.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

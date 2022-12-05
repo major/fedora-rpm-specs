@@ -1,5 +1,5 @@
 Name:		perl-MCE-Shared
-Version:	1.878
+Version:	1.879
 Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -93,6 +93,12 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 1.879-1
+- Update to 1.879
+  - Update the error status if MCE::Hobo died due to receiving a signal
+  - Improved the timeout handler in MCE::Hobo and MCE::Shared::Condvar
+  - Fixed private functions _quit and _trap not setting the return value
+
 * Mon Oct 10 2022 Paul Howarth <paul@city-fan.org> - 1.878-1
 - Update to 1.878
   - Improved reliability on the Windows platform

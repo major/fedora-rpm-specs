@@ -1,7 +1,7 @@
 Summary:        Real-time software synthesizer
 Name:           zynaddsubfx
-Version:        3.0.5
-Release:        13%{?dist}
+Version:        3.0.6
+Release:        1%{?dist}
 # Source is a collective work, distributed by
 License:        GPLv2 and GPLv2+
 URL:            http://zynaddsubfx.sourceforge.net
@@ -97,7 +97,7 @@ This package includes the VST implementation of the synthesizer.
 %autosetup -p 1
 
 # Fix encoding
-for i in AUTHORS.txt ChangeLog; do
+for i in AUTHORS.txt; do
    iconv -f iso8859-1 -t utf8 $i -o tmpfile
    touch -r $i tmpfile
    mv -f tmpfile $i
@@ -107,7 +107,7 @@ done
 %build
 %cmake \
   -DDefaultOutput=jack -DPluginLibDir=%{_libdir} \
-  -DBASHCOMP_PKG_PATH=%{buildroot}%{_datadir}/bash-completion/completions \
+  -DBASHCOMP_PKG_PATH=%{_datadir}/bash-completion/completions \
 %ifarch %{ix86} x86_64
   -DX86Build=ON \
 %endif
@@ -144,10 +144,11 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_bindir}/*
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/pixmaps/zynaddsubfx.svg
+%{_datadir}/pixmaps/zynaddsubfx.png
 %{_datadir}/bash-completion/completions/%{name}
 
 %files common
-%doc AUTHORS.txt ChangeLog
+%doc AUTHORS.txt
 %license COPYING
 %{_datadir}/%{name}/
 
@@ -161,6 +162,9 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_libdir}/vst/*.so
 
 %changelog
+* Sat Dec 03 2022 Guido Aulisi <guido.aulisi@gmail.com> - 3.0.6-1
+- Update to 3.0.6
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

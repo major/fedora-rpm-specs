@@ -4,7 +4,7 @@
 # https://github.com/bugst/go-serial
 %global goipath         go.bug.st/serial
 %global forgeurl        https://github.com/bugst/go-serial
-Version:                1.4.0
+Version:                1.4.1
 
 %gometa
 

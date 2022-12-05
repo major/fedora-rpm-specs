@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 4
+%global baserelease 5
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -215,6 +215,9 @@ Provides: pypy3%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3 < 7.3.4-4
 # This is when pypy3 was provided by pypy3.8:
 Conflicts: pypy3 < %{version}-%{release}
+%if 0%{?fedora} >= 37
+Obsoletes: pypy3.7 < 7.3.9-20
+%endif
 %endif
 
 # This prevents ALL subpackages built from this spec to require
@@ -251,6 +254,9 @@ Requires: emacs-filesystem >= %{_emacs_version}
 Provides: pypy3-libs = %{version}-%{release}
 Provides: pypy3-libs%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-libs < 7.3.4-4
+%if 0%{?fedora} >= 37
+Obsoletes: pypy3.7-libs < 7.3.9-20
+%endif
 %endif
 
 %if %{with rpmwheels}
@@ -294,6 +300,9 @@ Requires: pypy%{pyversion}-libs%{?_isa} = %{version}-%{release}
 %if %{with main_pypy3}
 Provides: pypy3-test = %{version}-%{release}
 Provides: pypy3-test%{?_isa} = %{version}-%{release}
+%if 0%{?fedora} >= 37
+Obsoletes: pypy3.7-test < 7.3.9-20
+%endif
 %endif
 
 %description test
@@ -310,6 +319,9 @@ Requires: pypy%{pyversion}-libs%{?_isa} = %{version}-%{release}
 Provides: pypy3-devel = %{version}-%{release}
 Provides: pypy3-devel%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-devel < 7.3.4-4
+%if 0%{?fedora} >= 37
+Obsoletes: pypy3.7-devel < 7.3.9-20
+%endif
 %endif
 
 Supplements: tox
@@ -842,6 +854,9 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Fri Dec 02 2022 Miro Hrončok <mhroncok@redhat.com> - 7.3.9-5.3.9
+- On Fedora 37+, obsolete the pypy3.7 package which is no longer available
+
 * Mon Oct 10 2022 Lumír Balhar <lbalhar@redhat.com> - 7.3.9-4.3.9
 - Backport fix for CVE-2021-28861
 Resolves: rhbz#2120789

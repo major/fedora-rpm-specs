@@ -8,9 +8,9 @@
 Name: nrpe
 Version: 4.1.0
 %if 0%{?fromgit}
-Release: 2%{?fromgit:.%{commdate}git%{shortcommit}}%{?dist}
+Release: 3%{?fromgit:.%{commdate}git%{shortcommit}}%{?dist}
 %else
-Release: 2%{?dist}
+Release: 3%{?dist}
 %endif
 Summary: Host/service/network monitoring agent for Nagios
 
@@ -30,6 +30,7 @@ Source7: nrpe.service.epel
 
 Patch3: nrpe-0003-Include-etc-npre.d-config-directory.patch
 Patch5: nrpe-0005-systemd-service.patch
+Patch6: nrpe-configure-c99.patch
 
 # For reconfiguration
 BuildRequires: make
@@ -207,6 +208,9 @@ fi
 %endif
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 4.1.0-3
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

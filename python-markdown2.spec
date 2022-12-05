@@ -1,8 +1,8 @@
 %global srcname markdown2
 
 Name:           python-%{srcname}
-Version:        2.4.3
-Release:        3%{?dist}
+Version:        2.4.6
+Release:        1%{?dist}
 Summary:        A fast and complete Python implementation of Markdown
 License:        MIT
 URL:            https://github.com/trentm/python-%{srcname}/
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Sat Dec  3 2022 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.6-1
+- Update to 2.4.6.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

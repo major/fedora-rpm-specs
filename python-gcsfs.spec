@@ -1,78 +1,105 @@
-%global pypi_name gcsfs
-# Tests require internet access
-%bcond_with network
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
 
-Name:           python-%{pypi_name}
-Version:        0.6.2
-Release:        9%{?dist}
+Name:           python-gcsfs
+Version:        2022.11.0
+Release:        1%{?dist}
 Summary:        Convenient Filesystem interface over GCS
 
-License:        BSD
-URL:            https://github.com/dask/gcsfs
-Source0:        %{pypi_source}
+License:        BSD-3-Clause
+URL:            https://github.com/fsspec/gcsfs
+# We must use the GitHub archive rather than the PyPI sdist if we want to have
+# all the necessary files to build the Sphinx docs.
+Source0:        %{url}/archive/%{version}/gcsfs-%{version}.tar.gz
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+# Testing:
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(vcrpy)
+# Docs:
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+%endif
 
 %description
 Pythonic file-system for Google Cloud Storage.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-gcsfs
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-decorator
-BuildRequires:  python3-fsspec
-BuildRequires:  python3-fusepy
-BuildRequires:  python3-google-auth
-BuildRequires:  python3-google-auth-oauthlib
-BuildRequires:  python3-requests
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python3-vcrpy
-%{?python_provide:%python_provide python3-%{pypi_name}}
-
-%description -n python3-%{pypi_name}
+%description -n python3-gcsfs
 Pythonic file-system for Google Cloud Storage.
 
-%package -n python-%{pypi_name}-doc
-Summary:        Documentation for %{pypi_name}
+%pyproject_extras_subpkg -n python3-gcsfs gcsfuse,crc
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  python3-numpydoc
+%package -n python-gcsfs-doc
+Summary:        Documentation for gcsfs
 
-%description -n python-%{pypi_name}-doc
-Documentation for %{pypi_name}.
+%description -n python-gcsfs-doc
+Documentation for gcsfs.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n gcsfs-%{version}
+# We cannot respect version pins:
+sed -r -i 's/<.*//' docs/requirements.txt
+# Do not pin the exact corresponding version of fsspec; this makes sense on
+# PyPI since both are developed under the same organization and have
+# coordinated releases, but it’s unlikely we’ll be able to maintain this level
+# of coordination downstream, and it’s better to have “possible” breakage from
+# version skew than *guaranteed* breakage from version skew.
+sed -r -i 's/==.*//' requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -x gcsfuse,crc %{?with_doc_pdf:docs/requirements.txt}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-PYTHONPATH=%{buildroot}%{python3_sitelib} sphinx-build-3 docs/source html
-rm -rf html/.{doctrees,buildinfo}
-
-%if %{with network}
-%check
-# One test is failing
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v gcsfs/tests \
-  -k "not test_request_header"
+%pyproject_install
+%pyproject_save_files gcsfs
+%if %{with doc_pdf}
+PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
-%doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%check
+# The package has tests, but nearly all require network access and/or cloud
+# resources, so we do an import-only “smoke test” instead.
+#
+# gcsfs.cli.gcsfuse imports click (which is not otherwise required) and also
+# tries to import a nonexistent 'gcsfs.gcsfuse' module; this seems like a bug
+%pyproject_check_import -e 'gcsfs.cli.gcsfuse'
 
-%files -n python-%{pypi_name}-doc
-%doc html
+%files -n python3-gcsfs -f %{pyproject_files}
+%doc README.rst
+
+%files -n python-gcsfs-doc
+%if %{with doc_pdf}
+%doc docs/build/latex/GCSFs.pdf
+%endif
 %license LICENSE.txt
 
 %changelog
+* Wed Nov 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2022.11.0-1
+- Update to 2022.11.0 (close RHBZ#2130978, close RHBZ#2136233)
+
+* Wed Nov 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6.2-10
+- Convert to pyproject-rpm-macros
+- Properly package the Extras subpackage for gcsfuse
+- Update License to SPDX
+- Update URL
+- Build Sphinx docs as PDF instead of HTML due to issues of bundling, etc.
+- Fix spurious executable permission on pbr.json in dist-info
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

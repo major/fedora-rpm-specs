@@ -1,6 +1,6 @@
 Name:              zathura
 Version:           0.5.2
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
@@ -9,7 +9,7 @@ Source0:           http://pwmt.org/projects/%{name}/download/%{name}-%{version}.
 BuildRequires:     bash-completion
 #BuildRequires:     binutils
 BuildRequires:     cairo-devel
-BuildRequires:     cmake
+#BuildRequires:     cmake
 BuildRequires:     desktop-file-utils
 # Needed for mime-type detection : `libmagic` from file
 BuildRequires:     file-devel
@@ -83,7 +83,7 @@ This package installs all available Zathura plugins.
 Summary:           bash-completion files for zathura
 BuildArch:         noarch
 Requires:          bash-completion
-Requires:          %{name}%{?_isa} = %{version}-%{release}
+Requires:          %{name} = %{version}-%{release}
 
 %description bash-completion
 This package provides %{summary}.
@@ -92,7 +92,7 @@ This package provides %{summary}.
 Summary:           fish-completion files for zathura
 BuildArch:         noarch
 Requires:          fish
-Requires:          %{name}%{?_isa} = %{version}-%{release}
+Requires:          %{name} = %{version}-%{release}
 
 %description fish-completion
 This package provides %{summary}.
@@ -101,7 +101,7 @@ This package provides %{summary}.
 Summary:           zsh-completion files for zathura
 BuildArch:         noarch
 Requires:          zsh
-Requires:          %{name}%{?_isa} = %{version}-%{release}
+Requires:          %{name} = %{version}-%{release}
 
 %description zsh-completion
 This package provides %{summary}.
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Dec 03 2022 Alain Vigne <avigne@fedoraproject.org> - 0.5.2-2
+- Fix noarch build
+
 * Thu Dec 01 2022 Alain Vigne <avigne@fedoraproject.org> - 0.5.2-1
 - Update to 0.5.2 (rhbz#2125415)
 - SPDX license identifier

@@ -1,5 +1,5 @@
 %global tarname FreeFem-sources
-%global tarvers 4.11
+%global tarvers 4.12
 
 %bcond_without serial
 
@@ -24,7 +24,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 5%{?dist}
+Release: 1%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -54,12 +54,27 @@ Patch21: 0021-Modernize-autotools.patch
 # --disable-download doesn't work
 # Bundle hpddm.zip to prevent downloading during builds.
 # cf. hpddm in 3rdparty/getall
+%if "%{tarvers}" == "4.12"
+%global hpddm_gitcommit 7113b9a
+%global hpddm_gitdate 20210919
+
+%global htool_gitcommit b6e9169
+%global htool_gitdate 20220218
+
+%global bemtool_gitcommit 6042818
+%global bemtool_gitdate 20221012
+
+%global ffvers 4.12
+%endif
 %if "%{tarvers}" == "4.11"
 %global hpddm_gitcommit 7113b9a
 %global hpddm_gitdate 20210919
 
-%global htool_gitcommit f0a1542
+%global htool_gitcommit 7113b9a
 %global htool_gitdate 20210921
+
+%global bemtool_gitcommit 11a6545
+%global bemtool_gitdate 20210921
 
 %global ffvers 4.11
 %endif
@@ -68,12 +83,12 @@ Source1: https://github.com/hpddm/hpddm/archive/%{hpddm_gitcommit}/master.zip#/h
 # FreeFEM doesn't build docs anymore.
 # Use pre-build binary, d/l'ed from
 # https://doc.freefem.org/pdf/FreeFEM-documentation.pdf
-Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.8-20220401.pdf
+Source2: https://raw.githubusercontent.com/FreeFem/FreeFem-doc/pdf/FreeFEM-documentation.pdf#/FreeFEM-documentation-4.8-20221107.pdf
 
 # Bundled libraries
 Source3: https://www.ljll.math.upmc.fr/frey/ftp/archives/freeyams.2012.02.05.tgz
 Source4: https://github.com/htool-ddm/htool/archive/%{htool_gitcommit}/master.zip#/htool-%{htool_gitdate}git%{htool_gitcommit}.zip
-Source5: https://github.com/PierreMarchand20/BemTool/archive/11a6545/master.zip#/bemtool-20210921git11a65453b.zip
+Source5: https://github.com/PierreMarchand20/BemTool/archive/%{bemtool_gitcommit}/master.zip#/bemtool-%{bemtool_gitdate}git%{bemtool_gitcommit}.zip
 Source6: https://www.ljll.math.upmc.fr/frey/ftp/archives/mshmet.2012.04.25.tgz
 Source7: http://mumps.enseeiht.fr/MUMPS_5.4.0.tar.gz
 
@@ -379,6 +394,9 @@ done
 %endif
 
 %changelog
+* Sat Dec 03 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.12-1
+- Update to 4.12.
+
 * Thu Sep 08 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.11-5
 - Switch back to flexiblas (RHBZ#2121389).
 - Modernize autotools.

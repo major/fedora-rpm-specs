@@ -1,5 +1,5 @@
-%global svnversion 4486
-%global date 20220411
+%global svnversion 4558
+%global date 20221203
 %global maj_ver 4.3
 
 Name:       skychart
@@ -17,7 +17,7 @@ URL:        http://www.ap-i.net/skychart/
 # Download upstream tarball from
 # https://sourceforge.net/projects/skychart/files/0-beta/
 # in the same directory of the script and run:
-# ./generate-tarball.sh 4.3-4486
+# ./generate-tarball.sh 4.3-4558
 Source0:    %{name}-%{maj_ver}-%{svnversion}-src-nopatents.tar.xz
 Source1:    generate-tarball.sh
 # Source data for skychart-data-stars
@@ -33,6 +33,7 @@ Source9:    http://sourceforge.net/projects/skychart/files/4-source_data/catalog
 Source10:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_lbn.tgz
 Source11:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_ocl.tgz
 Source12:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_sh2.tgz
+Source13:   http://sourceforge.net/projects/skychart/files/4-source_data/catalog_vdb.tgz
 
 
 # Avoid stripping debuginfo from executables
@@ -161,6 +162,7 @@ find skychart -type f -print0 | xargs -0 chmod -x
 %{__cp} -p %SOURCE10 ./BaseData
 %{__cp} -p %SOURCE11 ./BaseData
 %{__cp} -p %SOURCE12 ./BaseData
+%{__cp} -p %SOURCE13 ./BaseData
 
 # Add directories to fix builds on arm and ppc architectures
 declare -a arches=("arm-linux-gtk2" "powerpc-linux-gtk2" "powerpc64-linux-gtk2")
@@ -256,6 +258,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/skychart/cat/gpn
 %{_datadir}/skychart/cat/barnard
 %{_datadir}/skychart/cat/sh2
+%{_datadir}/skychart/cat/vdb
 %{_datadir}/metainfo/net.ap_i.%{name}.%{name}_data_dso.metainfo.xml
 
 %files catgen

@@ -1,6 +1,6 @@
 Name:		gshutdown
 Version:	0.2        
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	GShutDown is an advanced shut down utility for GNOME
 
 License:	GPLv2+
@@ -16,6 +16,7 @@ Patch0: gshutdown-0.2.libnotify-api.patch
 Patch1: gshutdown-0.2.explicitlink.patch
 Patch2: gshutdown-0.2-glib.patch
 Patch3: gshutdown-0.2-format-security.patch
+Patch4: gshutdown-c99.patch
 
 %description
 GShutdown is an advanced shutdown utility which
@@ -29,6 +30,7 @@ Also can be use under Xfce and KDE.
 %patch1 -p1 -b .explicitlink
 %patch2 -p1 -b .glib
 %patch3 -p1
+%patch4 -p1
 
 %build
 %configure
@@ -60,6 +62,9 @@ desktop-file-install					\
 
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 0.2-34
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

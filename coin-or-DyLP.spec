@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Implementation of the dynamic simplex algorithm
 Version:	1.10.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -20,6 +20,8 @@ Patch0:		%{name}-docdir.patch
 
 # Fix a sequence point error
 Patch1:		%{name}-seqpoint.patch
+
+Patch2:		coin-or-DyLP-configure-c99.patch
 
 %description
 DyLP is an implementation of the dynamic simplex algorithm. Briefly, dynamic
@@ -108,6 +110,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test DYLP_ERRMSGDIR=$PWD/src/Dylp/
 %{_docdir}/%{name}/dylp_doxy.tag
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 1.10.4-9
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

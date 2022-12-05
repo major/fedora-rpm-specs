@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        AWS Signature Version 4 library
 
 License:        ASL 2.0
@@ -14,6 +14,10 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # cp -vp LICENSE.txt NOTICE.txt gems/aws-sigv4/
 # (cd gems/aws-sigv4; tar -czf ../../rubygem-aws-sigv4-1.0.2-repo.tgz spec/ *.txt)
 Source1:        %{name}-%{version}-repo.tgz
+# https://github.com/aws/aws-sdk-ruby/pull/2179
+# https://github.com/aws/aws-sdk-ruby/commit/9b37df5f8c656c9aaca3a8315b4afc685623e42c
+# ruby3.2 removes File.exists?
+Patch0:         %{name}-pr2179-ruby32-file_exists-removal.patch
 
 BuildArch:      noarch
 BuildRequires:  rubygems-devel
@@ -42,6 +46,7 @@ gem unpack %{SOURCE0}
 
 %setup -q -D -T -n %{gem_name}-%{version}
 tar -xzf %{SOURCE1}
+%patch0 -p3
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -78,6 +83,9 @@ popd
 
 
 %changelog
+* Sat Dec  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-12
+- Backport upstream patch for ruby32 File.exists? removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

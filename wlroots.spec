@@ -1,9 +1,9 @@
 # Version of the .so library
-%global abi_ver 10
+%global abi_ver 11
 
 Name:           wlroots
-Version:        0.15.1
-Release:        5%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -34,32 +34,35 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 # - only has targets for examples known to compile well (cf. "examples) global)
 Source3:        examples.meson.build
 
-# Following 3 patches are required for phoc.
-Patch0:         Revert-layer-shell-error-on-0-dimension-without-anch.patch
-Patch1:         wlroots-0.15.1-wlr_output_layout_contains_point-handle-outputs-that.patch
-Patch2:         wlroots-0.15.1-xdg-activation-Deduplicate-token-creation-code.patch
-# wlroots/wlroots!3601
-Patch3:         wlroots-0.15.1-wlr_output_commit_state-Make-sure-to-clear-the-back-.patch
+# Upstream patches
+# Backports for 0.16.1 bugfix release: git format-patch --stdout 0.16.0..0.16
+Patch0:         wlroots-0.16-backports.patch
+
+# Fedora patches
+# Following patch is required for phoc.
+Patch10:        Revert-layer-shell-error-on-0-dimension-without-anch.patch
+
+# Patches for compatibility with older Fedora releases (module or copr builds)
+Patch20:        wlroots-0.16-libdrm-2.4.109-compat.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
 BuildRequires:  gnupg2
-BuildRequires:  meson >= 0.58.1
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(glesv2)
-BuildRequires:  pkgconfig(libdrm) >= 2.4.109
-BuildRequires:  pkgconfig(libinput) >= 1.14.0
+BuildRequires:  pkgconfig(hwdata)
+BuildRequires:  pkgconfig(libdrm) >= 2.4.109    %dnl # 2.4.113 without the compat patch
+BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)
-BuildRequires:  pkgconfig(libsystemd) >= 237
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-egl)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.27
 BuildRequires:  pkgconfig(wayland-scanner)
-BuildRequires:  pkgconfig(wayland-server) >= 1.19
+BuildRequires:  pkgconfig(wayland-server) >= 1.21
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-icccm)
@@ -67,9 +70,13 @@ BuildRequires:  pkgconfig(xcb-renderutil)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xwayland)
 
-# only select examples are supported for being readily compilable (see SOURCE3)
-%global examples \
-    cat multi-pointer output-layout pointer rotation screencopy simple tablet touch
+# protocol files required to compile examples (see SOURCE3)
+%global example_protocols \
+    idle input-method-unstable-v2 wlr-export-dmabuf-unstable-v1 \
+    wlr-foreign-toplevel-management-unstable-v1 wlr-gamma-control-unstable-v1 \
+    wlr-input-inhibitor-unstable-v1 wlr-layer-shell-unstable-v1 \
+    wlr-output-power-management-unstable-v1 wlr-screencopy-unstable-v1 \
+    wlr-virtual-pointer-unstable-v1
 
 %description
 %{summary}.
@@ -82,8 +89,12 @@ Requires:       %{name}%{?_isa} == %{version}-%{release}
 Recommends:     pkgconfig(xcb-icccm)
 # for examples
 Suggests:       gcc
-Suggests:       meson >= 0.51.2
+Suggests:       meson >= 0.58.0
 Suggests:       pkgconfig(libpng)
+Suggests:       pkgconfig(libavutil)
+Suggests:       pkgconfig(libavcodec)
+Suggests:       pkgconfig(libavformat)
+Suggests:       pkgconfig(wayland-egl)
 
 %description    devel
 Development files for %{name}.
@@ -91,7 +102,13 @@ Development files for %{name}.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup -N
+# apply unconditional patches
+%autopatch -p1 -M19
+# apply conditional patches
+%if 0%{?fedora} && 0%{?fedora} < 37
+%patch20 -p1 -b .libdrm
+%endif
 
 
 %build
@@ -99,10 +116,6 @@ MESON_OPTIONS=(
     # Disable options requiring extra/unpackaged dependencies
     -Dexamples=false
     -Dxcb-errors=disabled
-%ifarch s390x
-    # Disable -Werror on s390x: https://github.com/swaywm/wlroots/issues/2018
-    -Dwerror=false
-%endif
 )
 
 %{meson} "${MESON_OPTIONS[@]}"
@@ -112,9 +125,10 @@ MESON_OPTIONS=(
 %install
 %{meson_install}
 
-EXAMPLES=( %{examples} )  # Normalize whitespace by creating an array
-for example in "${EXAMPLES[@]}"; do
-    install -pm0644 -Dt '%{buildroot}/%{_pkgdocdir}/examples' examples/"${example}".[ch]
+EXAMPLE_PROTOCOLS=( %{example_protocols} )  # Normalize whitespace by creating an array
+install -pm0644 -Dt '%{buildroot}/%{_pkgdocdir}/examples' examples/*.[ch]
+for proto in "${EXAMPLE_PROTOCOLS[@]}"; do
+    install -pm0644 -Dt '%{buildroot}/%{_pkgdocdir}/examples/protocol' "protocol/${proto}.xml"
 done
 install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build'
 
@@ -137,6 +151,11 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.0-1
+- Update to 0.16.0 (#2142159)
+- Add patch for compatibility with older libdrm
+- Sync examples.meson.build with upstream, include all available examples
+
 * Mon Nov 14 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.1-5
 - Backport upstream crash fix (#2142447)
 - Convert license to SPDX

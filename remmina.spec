@@ -1,11 +1,11 @@
-%global release_commit_hash 9d409a3556c8c2759a376b4f4ac5149db7aacf4f
+%global release_commit_hash 852ceab35b0feaba07124265d0e2fa8c629b9dc1
 
 # Use old cmake macro behaviour.
 %define __cmake_in_source_build 1
 
 Name: remmina
-Version: 1.4.27
-Release: 6%{?dist}
+Version: 1.4.28
+Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
 URL: https://remmina.org
@@ -17,10 +17,6 @@ Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{vers
 # use http://www.muflone.com/remmina-plugin-builder/ with remmina bundled source.
 # So we can't use it directly only as instructions.
 Source1: pluginBuild-CMakeLists.txt
-
-# Patches.
-Patch0: various_rdp_fixes_from_upstream.patch
-Patch1: libsoup_2_and_3_support.patch
 
 BuildRequires: cmake
 BuildRequires: cups-devel
@@ -338,6 +334,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1.*
 
 %changelog
+* Sat Dec 03 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.4.28-1
+- New upstream version 1.4.28.
+
 * Mon Oct 10 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.4.27-6
 - Add patch: libsoup_2_and_3_support.patch
 

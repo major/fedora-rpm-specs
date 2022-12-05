@@ -1,22 +1,19 @@
 ## This macro activates/deactivates debug option
 %global without_debug 1
 # version we want build against
-%global vdr_version 2.4.0
-%if 0%{?fedora} >= 36
 %global vdr_version 2.6.1
-%endif
-%if 0%{?fedora} == 35
-%global vdr_version 2.4.7
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.2
 %endif
 
 Name:           vdr-epg-daemon
-Version:        1.2.3
-Release:        4%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
 License:        GPL+ and GPLv2 and BSD
-URL:            http://projects.vdr-developer.org/projects/vdr-epg-daemon
-Source0:        https://projects.vdr-developer.org/git/%{name}.git/snapshot/%{name}-%{version}.tar.bz2
+URL:            https://github.com/horchi/vdr-epg-daemon
+Source0:        https://github.com/horchi/vdr-epg-daemon/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # fix: Optimization flags are not honored.
 Patch0:         %{name}-makefile.patch
 # fix: error: 'pthread_mutexattr_init' was not declared in this scope
@@ -138,6 +135,11 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Sat Dec 03 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-1
+- Update URL address
+- Update to 1.2.4
+- Rebuilt for new VDR API version
+
 * Wed Aug 03 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.2.3-4
 - Add %%{name}-pthread.patch fix (BZ#2113752)
 

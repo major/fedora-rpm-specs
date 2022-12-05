@@ -1,8 +1,8 @@
 %global pypi_name pytest-trio
 
 Name:           python-%{pypi_name}
-Version:        0.7.0
-Release:        7%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Pytest plugin for trio
 
 License:        MIT or ASL 2.0
@@ -67,6 +67,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE.MIT LICENSE LICENSE.APACHE2
 
 %changelog
+* Fri Nov 11 2022 Lumír Balhar <lbalhar@redhat.com> - 0.8.0-1
+- Update to 0.8.0 (#2142072)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,6 +16,10 @@ Patch:          0003-Drop-build-flags-e.g.-specs.-and-lto-from-mpi-wrappe.patch
 Patch:          0004-Make-mpich.module-useful.patch
 # TODO: submit ^ upstream
 
+Patch:          mpich-configure-max_align_t.patch
+Patch:          mpich-aclocal_cc-implicit-int.patch
+Patch:          mpich-json-configure-__thread.patch
+
 BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  automake

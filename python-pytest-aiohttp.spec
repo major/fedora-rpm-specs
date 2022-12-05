@@ -38,6 +38,9 @@ loading it like pytest_plugins = 'aiohttp.pytest_plugin'.
 sed -i 's/setuptools_scm >= 6.2/setuptools_scm >= 6.0/' setup.cfg
 sed -i 's/setuptools_scm>=6.2/setuptools_scm>=6.0/' pyproject.toml
 
+# Fixes https://github.com/aio-libs/pytest-aiohttp/issues/47
+sed -i 's/@pytest.mark.tryfirst/@pytest.hookimpl(tryfirst=True)/' pytest_aiohttp/plugin.py
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires

@@ -3,7 +3,7 @@
 %define gtk3_version 3.15.9
 
 Name:           gucharmap
-Version:        15.0.1
+Version:        15.0.2
 Release:        1%{?dist}
 Summary:        Unicode character picker and font browser
 
@@ -63,18 +63,6 @@ needed to use the libgucharmap library.
 %install
 %meson_install
 
-# Update the screenshot shown in the software center
-#
-# NOTE: It would be *awesome* if this file was pushed upstream.
-#
-# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
-#
-# Opened https://gitlab.gnome.org/GNOME/gucharmap/-/issues/491
-#
-appstream-util replace-screenshots %{buildroot}%{_metainfodir}/gucharmap.metainfo.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gucharmap/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gucharmap/b.png
-
 %find_lang gucharmap --with-gnome
 
 %check
@@ -103,6 +91,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Sat Dec 03 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.2-1
+- Update to 15.0.2 (#2150421)
+- Use upstream screenshots in AppStream metadata (commit 694e4420)
+
 * Fri Oct 21 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.1-1
 - Update to 15.0.1 (#2136883)
 - Add itstool BuildRequires

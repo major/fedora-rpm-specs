@@ -1,10 +1,12 @@
+%global __requires_exclude python.*dist\\((jupyter-kernel-test|pytest-cov|pytest-timeout)\\)
+
 Name:		python-metakernel
 #		The python and echo subpackages have their own version
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
 Version:	0.29.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -50,17 +52,15 @@ A Jupyter/IPython kernel template which includes core magic functions
 (including help, command and file path completion, parallel and
 distributed processing, downloads, and much more).
 
-%package -n python3-metakernel-tests
+%package -n python3-metakernel+test
 Summary:	Tests for python3-metakernel
-%{?python_provide:%python_provide python3-metakernel-tests}
+%{?python_provide:%python_provide python3-metakernel+test}
+Provides:	python3-metakernel-tests = %{version}-%{release}
+Obsoletes:	python3-metakernel-tests < 0.29.3-2
 Requires:	python3-metakernel = %{version}-%{release}
-Requires:	python3-metakernel-python
-Requires:	python3dist(pytest)
-Requires:	python3dist(requests)
-Requires:	python3dist(ipyparallel)
 Requires:	man
 
-%description -n python3-metakernel-tests
+%description -n python3-metakernel+test
 This package contains the tests of python3-metakernel.
 
 %package doc
@@ -71,7 +71,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	55%{?dist}
+Release:	56%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %{?python_provide:%python_provide python3-metakernel-python}
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -82,7 +82,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	55%{?dist}
+Release:	56%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %{?python_provide:%python_provide python3-metakernel-echo}
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -145,7 +145,8 @@ wait $pid
 %{python3_sitelib}/metakernel/magics/__pycache__
 %{python3_sitelib}/metakernel/utils
 
-%files -n python3-metakernel-tests
+%files -n python3-metakernel+test
+%ghost %{python3_sitelib}/metakernel-*.*-info
 %{python3_sitelib}/metakernel/tests
 %{python3_sitelib}/metakernel/magics/tests
 
@@ -166,6 +167,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Sat Dec 03 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.3-2
+- Rename tests subpackage to fix auto provides
+
 * Thu Dec 01 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.3-1
 - Update to version 0.29.3
 

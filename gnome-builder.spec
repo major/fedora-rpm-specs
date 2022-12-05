@@ -15,7 +15,7 @@
 %global sysprof_version 3.46.0
 
 Name:           gnome-builder
-Version:        43.3
+Version:        43.4
 Release:        1%{?dist}
 Summary:        IDE for writing GNOME-based software
 
@@ -73,7 +73,7 @@ BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  pkgconfig(sysprof-ui-5) >= %{sysprof_version}
 BuildRequires:  pkgconfig(template-glib-1.0) >= %{template_glib_version}
 BuildRequires:  pkgconfig(vte-2.91-gtk4)
-BuildRequires:  pkgconfig(webkit2gtk-5.0)
+BuildRequires:  pkgconfig(webkitgtk-6.0)
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Thu Dec 01 2022 David King <amigadave@amigadave.com> - 43.4-1
+- Update to 43.4 (#2149807)
+
 * Wed Nov 23 2022 David King <amigadave@amigadave.com> - 43.3-1
 - Update to 43.3
 

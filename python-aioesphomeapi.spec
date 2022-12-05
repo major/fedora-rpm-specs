@@ -1,7 +1,7 @@
 %global pypi_name aioesphomeapi
 
 Name:           python-%{pypi_name}
-Version:        11.1.0
+Version:        13.0.0
 Release:        1%{?dist}
 Summary:        Library to interact with devices flashed with esphome
 
@@ -51,8 +51,11 @@ sed -i 's/from mock/from unittest.mock/' tests/*.py
 %doc README.rst
 
 %changelog
+* Sat Dec 03 2022 Fabian Affolter <mail@fabian-affolter.ch> - 13.0.0-1
+- Update to latest upstream release 13.0.0 (closes rhbz#2132834)
+
 * Mon Oct 03 2022 Fabian Affolter <mail@fabian-affolter.ch> - 11.1.0-1
-- Update to latest upstream release 11.1.0 (closes rhbz#)
+- Update to latest upstream release 11.1.0 (closes rhbz#2132834)
 
 * Wed Sep 28 2022 Fabian Affolter <mail@fabian-affolter.ch> - 10.14.0-1
 - Update to latest upstream release 10.14.0 (closes rhbz#2130658)

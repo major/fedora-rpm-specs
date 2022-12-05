@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.3.0
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -11,6 +11,7 @@ Summary:       %{sum}
 License:       GPLv2+
 Url:           http://pygsl.sourceforge.net
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:        pygsl-swig-c99.patch
 BuildRequires: gcc
 BuildRequires: gsl-devel
 
@@ -56,7 +57,7 @@ Development files for pygsl
 
 
 %prep
-%setup
+%autosetup -p1
 
 %build
 # Only need if the generated sources are different from the version used in source
@@ -82,6 +83,9 @@ Development files for pygsl
 %doc testing tests
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 2.3.0-20
+- Avoid implicit function declarations in SWIG-generated code
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.0-19
 - Rebuild for gsl-2.7.1
 

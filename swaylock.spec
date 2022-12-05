@@ -1,5 +1,5 @@
 Name:       swaylock
-Version:    1.6
+Version:    1.7
 Release:    %{autorelease}
 Summary:    Screen locker for Wayland
 
@@ -15,12 +15,13 @@ Conflicts:      sway < 1.0
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
-BuildRequires:  meson >= 0.48.0
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-BuildRequires:  pkgconfig(wayland-client)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
+BuildRequires:  pkgconfig(wayland-client) >= 1.20.0
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.25
+BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  scdoc
 

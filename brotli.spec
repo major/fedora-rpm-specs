@@ -1,6 +1,6 @@
 Name:           brotli
 Version:        1.0.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Lossless compression algorithm
 
 License:        MIT
@@ -11,10 +11,12 @@ Patch0:        09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
+BuildRequires:  cmake3
+%else
+BuildRequires:  cmake
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires: lib%{name}%{?_isa} = %{version}-%{release}
@@ -75,18 +77,25 @@ chmod 644 c/tools/brotli.c
 %build
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
-%endif
+%cmake3 \
+    -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
+    -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
+%cmake3_build
+%else
 %cmake \
     -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
     -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %cmake_build
+%endif
 %py3_build
 
 %install
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
-%endif
+%cmake3_install
+%else
 %cmake_install
+%endif
 
 # I couldn't find the option to not build the static libraries
 rm "%{buildroot}%{_libdir}/"*.a
@@ -103,8 +112,10 @@ done
 %check
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
-%endif
+%ctest3
+%else
 %ctest
+%endif
 
 %files
 %{_bindir}/brotli
@@ -139,6 +150,9 @@ done
 
 
 %changelog
+* Sat Dec 03 2022 Jonathan Wright <jonathan@almalinux.org> - 1.0.9-10
+- Fix EL7 builds
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

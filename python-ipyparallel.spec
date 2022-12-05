@@ -1,6 +1,8 @@
+%global __requires_exclude python.*dist\\((ipython\\[test\\]|pytest-cov|testpath)\\)
+
 Name:		python-ipyparallel
 Version:	8.4.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD
@@ -12,36 +14,36 @@ Source1:	%{name}-labextension.tar.gz
 Patch0:		0001-More-backward-compatibility.patch
 #		https://github.com/ipython/ipyparallel/pull/730
 Patch1:		0001-Fix-warning-test.patch
+#		https://github.com/ipython/ipyparallel/pull/753
+Patch2:		0001-Handle-deprecation-in-Jupyter-Core-753.patch
 
 BuildArch:	noarch
 BuildRequires:	make
-BuildRequires:	python3-devel
+BuildRequires:	python3-devel >= 3.7
 BuildRequires:	python3-pip
-BuildRequires:	python3-hatchling >= 0.25
-BuildRequires:	python3-entrypoints
-BuildRequires:	python3-decorator
-BuildRequires:	python3-zmq >= 18
-BuildRequires:	python3-traitlets >= 4.3
-BuildRequires:	python3-ipython >= 4
-BuildRequires:	python3-jupyter-client
-BuildRequires:	python3-ipykernel >= 4.4
-BuildRequires:	python3-tornado >= 5.1
-BuildRequires:	python3-psutil
-BuildRequires:	python3-dateutil >= 2.1
-BuildRequires:	python3-tqdm
+BuildRequires:	python3dist(hatchling) >= 0.25
+BuildRequires:	python3dist(entrypoints)
+BuildRequires:	python3dist(decorator)
+BuildRequires:	python3dist(pyzmq) >= 18
+BuildRequires:	python3dist(traitlets) >= 4.3
+BuildRequires:	python3dist(ipython) >= 4
+BuildRequires:	python3dist(jupyter-client)
+BuildRequires:	python3dist(ipykernel) >= 4.4
+BuildRequires:	python3dist(tornado) >= 5.1
+BuildRequires:	python3dist(psutil)
+BuildRequires:	python3dist(python-dateutil) >= 2.1
+BuildRequires:	python3dist(tqdm)
 #		For testing:
-BuildRequires:	python3-pytest
-BuildRequires:	python3-pytest-asyncio
+BuildRequires:	python3dist(pytest)
+BuildRequires:	python3dist(pytest-asyncio)
 BuildRequires:	python3-zmq-tests
-#		IPython.testing.decorators uses numpy's decorators
-BuildRequires:	python3-numpy
 #		For documentation
-BuildRequires:	python3-sphinx
+BuildRequires:	python3dist(sphinx)
 BuildRequires:	python3-ipython-sphinx
-BuildRequires:	python3-matplotlib
-BuildRequires:	python3-myst-parser
-BuildRequires:	python3-nbsphinx
-BuildRequires:	python3-pydata-sphinx-theme
+BuildRequires:	python3dist(matplotlib)
+BuildRequires:	python3dist(myst-parser)
+BuildRequires:	python3dist(nbsphinx)
+BuildRequires:	python3dist(pydata-sphinx-theme)
 BuildRequires:	pandoc
 
 %description
@@ -52,17 +54,6 @@ the Jupyter protocol.
 %package -n python3-ipyparallel
 Summary:	Interactive Parallel Computing with IPython
 %{?python_provide:%python_provide python3-ipyparallel}
-Requires:	python3-entrypoints
-Requires:	python3-decorator
-Requires:	python3-zmq >= 18
-Requires:	python3-traitlets >= 4.3
-Requires:	python3-ipython >= 4
-Requires:	python3-jupyter-client
-Requires:	python3-ipykernel >= 4.4
-Requires:	python3-tornado >= 5.1
-Requires:	python3-psutil
-Requires:	python3-dateutil >= 2.1
-Requires:	python3-tqdm
 Requires:	python-jupyter-filesystem >= 4.7.0-5
 
 %description -n python3-ipyparallel
@@ -70,16 +61,15 @@ IPython Parallel (ipyparallel) is a Python package and collection of
 CLI scripts for controlling clusters of IPython processes, built on
 the Jupyter protocol.
 
-%package -n python3-ipyparallel-tests
+%package -n python3-ipyparallel+test
 Summary:	Tests for python3-ipyparallel
-%{?python_provide:%python_provide python3-ipyparallel-tests}
+%{?python_provide:%python_provide python3-ipyparallel+test}
+Provides:	python3-ipyparallel-tests = %{version}-%{release}
+Obsoletes:	python3-ipyparallel-tests < 8.4.1-3
 Requires:	python3-ipyparallel = %{version}-%{release}
-Requires:	python3-pytest
-Requires:	python3-pytest-asyncio
 Requires:	python3-zmq-tests
-Requires:	python3-numpy
 
-%description -n python3-ipyparallel-tests
+%description -n python3-ipyparallel+test
 This package contains the tests of python3-ipyparallel.
 
 %package doc
@@ -92,6 +82,7 @@ This package contains the documentation of python-ipyparallel.
 %setup -q -n ipyparallel-%{version} -a 1
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %pyproject_wheel
@@ -143,7 +134,8 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/ipyparallel.json
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/tree.d/ipyparallel.json
 
-%files -n python3-ipyparallel-tests
+%files -n python3-ipyparallel+test
+%ghost %{python3_sitelib}/ipyparallel-*.*-info
 %{python3_sitelib}/ipyparallel/tests
 
 %files doc
@@ -151,6 +143,10 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Sat Dec 03 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.4.1-3
+- Rename tests subpackage to fix auto provides
+- Ignore deprecation warnings from jupyter-core
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

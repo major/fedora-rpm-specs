@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -285,7 +285,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %package postgresql
 Summary: PostgreSQL driver for Qt6's SQL classes
-BuildRequires: postgresql-server-devel
+BuildRequires: libpq-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description postgresql
 %{summary}.
@@ -835,6 +835,9 @@ make check -k ||:
 
 
 %changelog
+* Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> - 6.4.1-2
+- rebuild for the new PostgreSQL 15
+
 * Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
 - 6.4.1
 

@@ -15,7 +15,7 @@ print(string.sub(hash, 0, 16))
 
 Name: libgcrypt
 Version: 1.10.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
@@ -26,6 +26,8 @@ Patch1: libgcrypt-1.10.1-annobin.patch
 # tests occasionally fail with "error generating RSA key: Number is not prime"
 # https://git.gnupg.org/cgi-bin/gitweb.cgi?p=libgcrypt.git;a=patch;h=cd30ed3c0
 Patch2: 0001-cipher-Change-the-bounds-for-RSA-key-generation-roun.patch
+
+Patch3: libgcrypt-configure-c99.patch
 
 %global gcrylibdir %{_libdir}
 %global gcrysoname libgcrypt.so.20
@@ -63,6 +65,7 @@ applications using libgcrypt.
 %setup -q
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 # This package has a configure test which uses ASMs, but does not link the
@@ -180,6 +183,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 1.10.1-6
+- Port configure script to C99
+
 * Tue Nov 08 2022 Todd Zullinger <tmz@pobox.com> - 1.10.1-5
 - enable brainpool by default (#1413618)
 - fix sporadic failures generating RSA keys in FIPS mode

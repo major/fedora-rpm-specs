@@ -14,7 +14,7 @@
 
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
-Version: 8.9.0
+Version: 8.10.0
 Release: 1%{?dist}
 Source0: https://libvirt.org/sources/python/%{name}-%{version}.tar.gz
 Url: https://libvirt.org
@@ -23,6 +23,7 @@ BuildRequires: libvirt-devel == %{version}
 BuildRequires: python3-devel
 BuildRequires: python3-pytest
 BuildRequires: python3-lxml
+BuildRequires: python3-setuptools
 BuildRequires: gcc
 
 # Don't want provides for python shared objects
@@ -86,6 +87,9 @@ exit 1
 
 
 %changelog
+* Sat Dec 03 2022 Cole Robinson <crobinso@redhat.com> - 8.10.0-1
+- Update to version 8.10.0
+
 * Sat Nov 05 2022 Cole Robinson <crobinso@redhat.com> - 8.9.0-1
 - Update to version 8.9.0
 

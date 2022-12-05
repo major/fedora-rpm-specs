@@ -1,11 +1,12 @@
 Name:          volpack
 Version:       1.0c7
-Release:       26%{?dist}
+Release:       27%{?dist}
 Summary:       Portable library for fast volume rendering
 License:       BSD
 URL:           http://amide.sourceforge.net
 Source0:       http://downloads.sourceforge.net/amide/%{name}/%{name}-%{version}.tgz
 Patch0:        volpack-aarch64.patch
+Patch1:        volpack-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -38,6 +39,7 @@ programs using the volpack volume rendering library.
 %prep
 %setup -q
 %patch0 -p1 -b .aarch64
+%patch1 -p1 -b .c99
 
 
 %build
@@ -80,6 +82,9 @@ popd
 
 
 %changelog
+* Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 1.0c7-27
+- Port to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0c7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

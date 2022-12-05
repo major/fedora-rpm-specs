@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.881
+Version:        1.882
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -170,6 +170,21 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 1.882-1
+- Update to 1.882 (rhbz#2150467)
+  - Added ABRT to the list of signals to trap in MCE::Signal
+  - Added a guard to MCE::Core::Worker for checking if exited prematurely
+  - Added init_relay and use_threads import options to MCE and MCE Models
+  - Separated input mutexes from the rest of IPC for lesser latency
+  - Auto-detect if init_relay is defined and set chunk_size to 1 in MCE::Grep,
+    MCE::Map, and MCE::Stream
+  - Update the import function in MCE models, detecting if the caller is
+    another MCE module, to not export model functions
+  - Update the error status if MCE::Child died due to receiving a signal
+  - Improved reaping in MCE::Child, before creating a new child
+  - Improved the timeout handler in MCE::Child and MCE::Mutex::Channel
+  - Fixed private functions _quit and _trap not setting the return value
+
 * Fri Oct 14 2022 Paul Howarth <paul@city-fan.org> - 1.881-1
 - Update to 1.881 (rhbz#2134723)
   - Improved the private _parse_chunk_size function for better utilization of

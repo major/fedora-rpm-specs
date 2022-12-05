@@ -17,8 +17,8 @@
 %endif
 
 Name:      etckeeper
-Version:   1.18.17
-Release:   3%{?dist}
+Version:   1.18.18
+Release:   1%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 License:   GPLv2+
 URL:       https://etckeeper.branchable.com/
@@ -30,11 +30,12 @@ Patch0:    etckeeper-makefile-remove-python-plugins.patch
 # see rhbz#1460461
 Patch1:    etckeeper-1.18.7-fix-rpm-ignores.patch
 # see rhbz#1480843
-Patch2:    etckeeper-1.18.7-fix-hg-warnings.patch
+Patch2:    etckeeper-1.18.18-fix-hg-warnings.patch
 # From https://bugs.launchpad.net/ubuntu/+source/etckeeper/+bug/1826855
 Patch3:    etckeeper-add-breezy-python3-plugin.patch
 # see rhbz#1762693 and https://github.com/ansible/ansible/issues/54949
-Patch4:    etckeeper-1.18.12-fix-output-for-ansible.patch
+# see also rhbz#1917461
+Patch4:    etckeeper-1.18.18-fix-output-for-ansible.patch
 BuildArch: noarch
 BuildRequires: %{_bindir}/markdown_py
 Requires:  git-core
@@ -85,6 +86,7 @@ etckeeper with bzr backend, install this package.
 %package brz
 Summary:  Support for bzr with etckeeper (via breezy)
 BuildRequires: python3-devel
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 BuildRequires: brz
 Requires: %{name} = %{version}-%{release}
 Requires: brz
@@ -99,6 +101,7 @@ etckeeper with (bzr) bazaar repositories, install this package.
 Summary:  DNF plugin for etckeeper support
 %if 0%{?dnf_uses_python3}
 BuildRequires: python3-devel
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 %else
 BuildRequires: python2-devel
 %endif # dnf_uses_python3
@@ -288,6 +291,12 @@ fi
 
 
 %changelog
+* Fri Dec  2 2022 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.18-1
+- Update to 1.18.18.
+- Rebase patches.
+- Update patch to fix logging with Ansible (#1917461).
+- BuilRequire setuptools when Python >= 3.12.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

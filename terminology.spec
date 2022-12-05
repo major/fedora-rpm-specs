@@ -1,6 +1,6 @@
 Name:           terminology
-Version:        1.12.1
-Release:        3%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 License:        BSD
 Summary:        EFL based terminal emulator
 Url:            http://www.enlightenment.org
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/terminology.desktop
 
 
 %changelog
+* Thu Dec 01 2022 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.13.0-1
+- Update to 1.13.0 (#2150085)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,6 +8,8 @@ Summary: Feature-rich header-only C++ testing framework
 License: MIT
 URL: https://github.com/doctest/%{name}
 Source0: %{url}/archive/refs/tags/v%{version}.tar.gz
+# https://github.com/doctest/doctest/pull/699
+Patch100: %{name}-pointers-compare-fix.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake3

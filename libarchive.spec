@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for handling streaming archive formats
 
 License:        BSD
@@ -37,6 +37,9 @@ BuildRequires: make
 # loaded, which breaks the RIPEMD-160 test. This patch disables the RIPEMD-160
 # support explicitly.
 Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
+
+# Source: https://github.com/libarchive/libarchive/commit/fd180c36036df7181a64931264732a10ad8cd024
+Patch2:                %{name}-3.6.1-Fix-CVE-2022-36227.patch
 
 
 %description
@@ -222,6 +225,9 @@ run_testsuite
 
 
 %changelog
+* Fri Dec 02 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.6.1-3
+- Resolves: CVE-2022-36227
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
