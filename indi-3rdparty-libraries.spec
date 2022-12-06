@@ -1,10 +1,10 @@
 %global libapogee_pkg indi-3rdparty-libapogee
 %global libfli_pkg indi-3rdparty-libfli
 
-%global indi_version 1.9.8
+%global indi_version 1.9.9
 
 Name:           indi-3rdparty-libraries
-Version:        1.9.8
+Version:        1.9.9
 Release:        %autorelease
 Summary:        INDI 3rdparty libraries
 License:        LGPLv2+
@@ -112,7 +112,7 @@ find . -mindepth 2 -name CMakeLists.txt \
     -DWITH_PENTAX=OFF \
     -DWITH_AHP_XC=OFF \
     -DWITH_TOUPBASE=OFF \
-    -DWITH_SV305=OFF \
+    -DWITH_SVBONY=OFF \
     -DWITH_PLAYERONE=OFF \
 
 %cmake_build

@@ -16,7 +16,7 @@
 Summary: Really Slick Screensavers
 Name: rss-glx
 Version: 0.9.1%{patchext}
-Release: 53%{?dist}
+Release: 55%{?dist}
 License: GPLv2
 URL: http://rss-glx.sourceforge.net/
 # We ship a tarball with one questionable hack patched out.
@@ -35,6 +35,10 @@ Patch10: rss-glx-0.9.1.p-6-autoreconf.patch.bz2
 Patch11: rss-glx-0.9.1.p-linker.patch
 Patch12: rss-glx-0.9.1.p-pixelcity.patch
 Patch13: rss-glx-gcc11.patch
+# Modified version from openSUSE: https://build.opensuse.org/package/view_file/X11:Utilities/rss-glx/rss-glx-ImageMagick7.patch?expand=1
+Patch14: rss-glx-ImageMagick7.patch
+# Autotools regeneration doesn't work
+Patch15: rss-glx-ImageMagick7-configure.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -107,18 +111,13 @@ Build settings:
 %endif
 EOF
 
-%setup -q -n rss-glx_%{version}
-%patch0 -p1 -b .optflags
-%patch10 -p1 -b .autoreconf
-%patch11 -p1 -b .linker
-%patch12 -p1 -b .pixelcity
-%patch13 -p1 -b .gcc11
+%autosetup -p1 -n rss-glx_%{version}
 
 %build
 %configure \
     --with-configdir=%{xssconfigdir} \
     --program-prefix=rss-glx-
-make %{?_smp_mflags}
+%make_build
 
 %install
 install -m 0644 "%SOURCE1" "%SOURCE2" "%SOURCE3" .
@@ -170,6 +169,12 @@ fi
 %{xssbindir}/*
 
 %changelog
+* Mon Dec 05 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.9.1.p-55
+- Patch pregenerated configure script since regeneration fails
+
+* Sun Dec 04 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.9.1.p-54
+- Add patch for ImageMagick 7 compatibility
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1.p-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

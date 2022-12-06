@@ -1,5 +1,5 @@
 Name:           python-mapbox-earcut
-Version:        1.0.0
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Python bindings to the mapbox earcut C++ library
 
@@ -16,7 +16,8 @@ BuildRequires:  cmake
 BuildRequires:  make
 
 # Header-only libraries; -static is for tracking, required by guidelines
-# Minimum version added downstream to ensure the latest bug fixes are present
+# Minimum version added downstream to ensure the latest bug fixes are present.
+# Note that upstream of this package bundles earcut.hpp 2.2.4 in release 1.0.1.
 BuildRequires:  earcut-hpp-devel >= 2.2.4
 BuildRequires:  earcut-hpp-static
 # An extension built with pybind11 uses the pybind11 C++ libraries, which are

@@ -1,13 +1,10 @@
-%global collection_namespace containers
-%global collection_name podman
-
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.9.4
-Release:        2%{?dist}
+Name:           ansible-collection-containers-podman
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        Podman Ansible collection for Podman containers
 
-License:        GPLv3+
-URL:            %{ansible_collection_url}
+License:        GPL-3.0-or-later
+URL:            %{ansible_collection_url containers podman}
 Source:         https://github.com/containers/ansible-podman-collections/archive/%{version}.tar.gz
 
 BuildRequires:  ansible-packaging
@@ -21,7 +18,7 @@ BuildArch:      noarch
 %autosetup -n ansible-podman-collections-%{version}
 sed -i -e 's/version:.*/version: %{version}/' galaxy.yml
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
-rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .github/ .gitignore
+rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .github/ .gitignore docs/
 
 %build
 %ansible_collection_build
@@ -29,12 +26,15 @@ rm -vr changelogs/ ci/ contrib/ tests/ ./galaxy.yml.in .github/ .gitignore
 %install
 %ansible_collection_install
 
-%files
+%files -f %{ansible_collection_filelist}
 %license COPYING
 %doc README.md
-%{ansible_collection_files}
 
 %changelog
+* Tue Nov 29 2022 Maxwell G <gotmax@e.email> - 1.10.1-1
+- Update to 1.10.1. Fixes rhbz#2143801.
+- Remove useless docs directory from collection artifact.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

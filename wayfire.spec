@@ -1,6 +1,6 @@
 # Git submodules
 #   * wf-utils
-%global commit1 889fdafa7b09fc6ce70313fd3f067cfc8c21a2ac
+%global commit1 25ed62f35c0b7810beee2009c6a419847f8f89fe
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 #   * wf-touch
@@ -8,7 +8,7 @@
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name:           wayfire
-Version:        0.7.4
+Version:        0.7.5
 Release:        %autorelease
 Summary:        3D wayland compositor
 
@@ -41,7 +41,7 @@ BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(wf-config) >= 0.7.0
-BuildRequires:  pkgconfig(wlroots) >= 0.15.0
+BuildRequires:  pkgconfig(wlroots) >= 0.16.0
 BuildRequires:  pkgconfig(xkbcommon)
 
 Recommends:     wayfire-config-manager

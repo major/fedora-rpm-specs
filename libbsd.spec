@@ -1,6 +1,6 @@
 Name:           libbsd
 Version:        0.11.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing BSD-compatible functions for portability
 URL:            https://libbsd.freedesktop.org/
 # Breakdown in COPYING file of libbsd release tarball, see also:
@@ -31,6 +31,7 @@ code over and over again on each project.
 %package devel
 Summary:        Development files for libbsd
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libmd-devel
 
 %description devel
 Development files for the libbsd library.
@@ -90,6 +91,9 @@ rm %{buildroot}%{_mandir}/man3/explicit_bzero.3bsd
 %{_libdir}/pkgconfig/%{name}-ctor.pc
 
 %changelog
+* Sun Dec 04 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.11.7-2
+- Add runtime requirement on libmd-devel to libbsd-devel (#2148612)
+
 * Thu Nov 24 2022 Robert Scheck <robert@fedoraproject.org> - 0.11.7-1
 - Update to 0.11.7 (#1742611)
 

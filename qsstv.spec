@@ -1,6 +1,6 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 License:        GPLv2+
@@ -10,6 +10,7 @@ Source0:        http://users.telenet.be/on4qz/qsstv/downloads/%{name}_%{version}
 Source1:        qsstv.desktop
 Source2:        qsstv.1
 Source3:        qsstv.appdata.xml
+Source4:        qsstv.png
 
 Patch0:         qsstv-install.patch
 
@@ -63,8 +64,8 @@ export INSTALL_ROOT=%{buildroot}
 make install 
 
 # Install icon
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
-cp -p icons/qsstv.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
+install -pm 0644 %{SOURCE4} %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
@@ -86,7 +87,7 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 %license COPYING
 %doc README.txt
 %{_bindir}/* 
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/applications/*%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 %{?fedora:%{_metainfodir}/*.appdata.xml}
@@ -96,6 +97,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Sun Dec 04 2022 Daniel Rusek <mail@asciiwolf.com> - 9.5.8-11
+- Use larger desktop icon
+
 * Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 9.5.8-10
 - Rebuild for updated hamlib 4.5.
 

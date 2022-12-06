@@ -1,6 +1,6 @@
 Name:               python-jira
 Version:            3.4.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD
@@ -23,6 +23,15 @@ Summary:        %{summary}
 %description -n python3-jira %_description
 
 
+%package -n jirashell
+Requires: python3-ipython
+Requires: python3-keyring
+Requires: python3-jira == %{version}
+Summary: Interactive Jira shell
+%description -n jirashell
+Interactive Jira shell using jira Python library.
+
+
 %prep
 %autosetup -p1 -n jira-%{version}
 
@@ -36,18 +45,28 @@ Summary:        %{summary}
 %pyproject_install
 %pyproject_save_files jira
 
+# clone file list to split off jirashell things (will be part of jirashell.rpm)
+grep -v -w 'jirashell' "%{pyproject_files}" >python3-jira.files
+grep    -w 'jirashell' "%{pyproject_files}" >jirashell.files
+
+
 %check
 # no useful tests to run from upstream; also the packaging is a bit
 # broken.  See https://github.com/pycontribs/jira/discussions/1263
 %pyproject_check_import
 
-%files -n python3-jira -f %{pyproject_files}
+%files -n python3-jira -f python3-jira.files
 %doc PKG-INFO
 %license LICENSE
+
+%files -n jirashell -f jirashell.files
 %{_bindir}/jirashell
 
 
 %changelog
+* Sun Dec 04 2022 Alois Mahdal <netvor@vornet.cz> - 3.4.1-2
+- Split jirashell to own sub-package with proper dependencies (close RHBZ#2149660)
+
 * Sun Nov 06 2022 Alois Mahdal <netvor@vornet.cz> - 3.4.1-1
 - Update to version 3.4.1
 

@@ -3,9 +3,9 @@
 
 Name:           perl-Inline
 Version:        0.86
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Inline Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Inline-%{version}.tar.gz
 BuildArch:      noarch
@@ -80,12 +80,28 @@ once. Code that is Inlined into distributed modules (like on the CPAN)
 will get compiled when the module is installed, so the end user will
 never notice the compilation time.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Inline-%{version}
 find example -type f -exec chmod 0644 {} +
 # Remove bundled modules
 rm -rf inc/lib
 perl -i -ne 'print $_ unless m{^inc/lib/}' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    if [ "$F" != "t/03errors.t" ] && [ "$F" != "t/09perl5lib.t" ]; then
+        perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    fi
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -93,6 +109,21 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/000*
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/author-pod-syntax.t
+# XXX Not running
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/03errors.t
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/09perl5lib.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset PERL_INLINE_DIRECTORY PERL5LIB PERL5OPT
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -105,7 +136,14 @@ make test
 %{perl_vendorlib}/Inline*
 %{_mandir}/man3/*.3*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Dec 02 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.86-11
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

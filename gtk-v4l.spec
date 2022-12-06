@@ -1,65 +1,54 @@
+%global commit d3bcbc7f74469b92162ca6995eb8506bf49188c0
+%global commitdate 20220522
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:		gtk-v4l
 Version:	0.4
-Release:	24%{?dist}
+Release:	25.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	Video4Linux Device Preferences
 License:	LGPLv2+
-URL:		http://fedorahosted.org/gtk-v4l
-Source0:	https://fedorahosted.org/releases/g/t/%{name}/%{name}-%{version}.tar.gz
-Patch0:         0001-gtk-v4l-device-remove-source-on-finalize.patch
-Patch1:         0002-gtk-v4l-Werror-format-security.patch
-BuildRequires:  gcc
+URL:		https://github.com/jwrdegoede/gtk-v4l/
+Source0:	https://github.com/jwrdegoede/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+BuildRequires:	meson gcc
 BuildRequires:	scrollkeeper
 BuildRequires:	libv4l-devel >= 0.6
 BuildRequires:	gtk3-devel >= 3.0
 BuildRequires:	libgudev1-devel >= 151
-BuildRequires: make
-
+# No users of the library ever materialized and the new meson buildsystem
+# no longer builds the library
+Obsoletes:	%{name}-devel < %{version}-%{release}
+# No provides since -devel is simply gone, not provided by the main pkg
 
 %description
 gtk-v4l is a Video4Linux Web camera control app
 
-%package devel
-Summary:        Development files for gtk-v4l
-Requires:       %{name} = %{version}-%{release}
-
-%description devel
-Contains library and header files for gtk-v4l
-
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -n %{name}-%{commit}
 
 
 %build
-%configure --disable-static
-make CFLAGS="$RPM_OPT_FLAGS"  %{?_smp_mflags}
+%meson
+%meson_build
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
+%meson_install
 
 
 %files
-%doc COPYING AUTHORS ChangeLog README
+%doc *.md
+%license COPYING
 %{_bindir}/gtk-v4l
 %{_datadir}/applications/gtk-v4l.desktop
-%{_libdir}/libgtkv4l.so.0.0.0
-%{_libdir}/libgtkv4l.so.0
-
-%files devel
-%doc COPYING
-%{_includedir}/gtk-v4l-widget.h
-%{_includedir}/gtk-v4l-device-list.h
-%{_libdir}/libgtkv4l.so
 
 
 %changelog
+* Sun Dec  4 2022 Hans de Goede <hdegoede@redhat.com> - 0.4-25.20220522gitd3bcbc7
+- Update to a git snapshot
+- This adds support for v4l-subdevs which is useful for MIPI cameras
+- Drop -devel subpackage since gtk-v4l now no longer includes a separate lib
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

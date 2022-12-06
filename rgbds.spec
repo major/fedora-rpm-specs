@@ -1,13 +1,12 @@
 Name:		rgbds
-Version:	0.6.0
-Release:	2%{?dist}
+Version:	0.6.1
+Release:	1%{?dist}
 Summary:	A development package for the Game Boy, including an assembler
 
 # See LICENSE for details
 License:	DWPL and ISC and MIT and BSD
 URL:		https://github.com/gbdev/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:		%{url}/commit/12ba057b4f74a6ef4989d0ceb4075ef74bcc6ea2.patch#/color_slot_non_empty.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -56,6 +55,9 @@ It consists of:
 %doc README.rst
 
 %changelog
+* Sat Dec 03 2022 Benjamin Lowry <ben@ben.gmbh> - 0.6.1-1
+- rgbds 0.6.1
+
 * Tue Oct 18 2022 Benjamin Lowry <ben@ben.gmbh> - 0.6.0-2
 - rgbds 0.6.0
 

@@ -4,13 +4,14 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Yet another shell
 
 License:	MIT
 URL:		http://ab25cq.wiki.fc2.com/
 Source0:	http://dl.sourceforge.jp/sash/%{repoid}/saphire-%{version}.tgz
 Patch0:	saphire-3.6.5-gcc10-fno-common.patch
+Patch1:	saphire-3.6.5-c99-port.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -36,6 +37,7 @@ developing applications that use %{name}.
 %setup -q
 # Patches
 %patch0 -p1 -b .gcc10
+%patch1 -p1 -b .c99
 
 # Don't strip binary
 sed -i.strip -e 's|\$(INSTALL) -s|\$(INSTALL) |' Makefile.in
@@ -152,6 +154,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sun Dec  4 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.5-28
+- Port to C99, -Werror=implicit-function-declaration -Werror=implicit-int
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

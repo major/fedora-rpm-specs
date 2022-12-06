@@ -15,8 +15,8 @@
 
 Summary:	IPv6 address format change and calculation utility
 Name:		ipv6calc
-Version:	4.0.1
-Release:	66%{?gittag}%{?dist}
+Version:	4.0.2
+Release:	67%{?gittag}%{?dist}
 URL:		http://www.deepspace6.net/projects/%{name}.html
 License:	GPLv2
 %if 0%{?gitcommit:1}
@@ -42,8 +42,6 @@ Provides:	ipv6calc-libs = %{version}-%{release}
 %else
 Conflicts:	ipv6calc-libs
 %endif
-
-Patch0:		ipv6calc-4.0.1-bz2072402.patch
 
 
 # mod_ipv6calc related
@@ -346,6 +344,9 @@ fi
 
 
 %changelog
+* Sun Dec 04 2022 Peter Bieringer <pb@bieringer.de> - 4.0.2-67
+- Final release 4.0.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

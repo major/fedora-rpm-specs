@@ -1,7 +1,7 @@
 %global builddocs 1
 
 Name:           nco
-Version:        5.1.1
+Version:        5.1.3
 Release:        1%{?dist}
 Summary:        Suite of programs for manipulating NetCDF/HDF4 files
 License:        GPLv3
@@ -126,6 +126,7 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 %{_mandir}/man1/ncremap.1*
 %{_mandir}/man1/ncrename.1*
 %{_mandir}/man1/ncwa.1*
+%{_mandir}/man1/ncz2psx.1*
 %{_infodir}/*
 %{_libdir}/libnco*[0-9]*.so
 
@@ -137,6 +138,9 @@ chrpath -d -k $RPM_BUILD_ROOT%{_bindir}/* || :
 
 
 %changelog
+* Sun Dec 04 2022 Orion Poplawski <orion@nwra.com> - 5.1.3-1
+- Update to 5.1.3
+
 * Sat Oct 29 2022 Orion Poplawski <orion@nwra.com> - 5.1.1-1
 - Update to 5.1.1
 

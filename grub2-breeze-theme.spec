@@ -3,7 +3,7 @@
 
 Name:           grub2-breeze-theme
 Version: 5.26.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        Breeze theme for GRUB
 
 License:        GPLv3
@@ -18,6 +18,8 @@ URL:            https://cgit.kde.org/%{base_name}.git
 Source0:        http://download.kde.org/%{stable}/plasma/%{version}/%{base_name}-%{version}.tar.xz
 
 Source10: README.fedora
+
+BuildRequires:  findutils
 
 # matches grub2 pkg archs
 ExcludeArch:    s390 s390x %{arm}
@@ -50,8 +52,9 @@ install -m644 -p %{SOURCE10} .
 
 
 %install
-mkdir -p %{buildroot}%{_grubthemedir}
-cp -r breeze %{buildroot}%{_grubthemedir}
+mkdir -p %{buildroot}%{_grubthemedir}/breeze
+find breeze/ -type f -and -not -iname \*.license -print0 \
+  | xargs -0 -n100 cp -v -t %{buildroot}%{_grubthemedir}/breeze
 
 
 %files
@@ -61,6 +64,9 @@ cp -r breeze %{buildroot}%{_grubthemedir}
 
 
 %changelog
+* Fri Dec 02 2022 FeRD (Frank Dana) - 5.26.4-2
+- Don't package .license files
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
 - 5.26.4
 

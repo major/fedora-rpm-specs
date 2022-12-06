@@ -16,7 +16,7 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        3.2.2
+Version:        3.3.0
 Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
@@ -117,6 +117,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Sat Dec 03 2022 Maxwell G <gotmax@e.email> - 3.3.0-1
+- Update to 3.3.0.
+
 * Tue Nov 29 2022 Maxwell G <gotmax@e.email> - 3.2.2-1
 - Update to 3.2.2.
 

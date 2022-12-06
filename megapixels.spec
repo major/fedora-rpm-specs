@@ -1,5 +1,5 @@
 Name:       megapixels
-Version:    1.5.2
+Version:    1.6.0
 Release:    1%{?dist}
 Summary:    GTK4 camera application that knows how to deal with the media request api
 
@@ -19,6 +19,7 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.62.0
 BuildRequires:	pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(epoxy)
+BuildRequires:	pkgconfig(libfeedback-0.0)
 BuildRequires:  inih-devel
 BuildRequires:	zbar-devel
 BuildRequires:	/usr/bin/xvfb-run
@@ -79,6 +80,9 @@ SH
 
 
 %changelog
+* Sun Dec 04 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.0-1
+- Update to 0.6.0
+
 * Thu Aug 25 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.5.2-1
 - Update to 1.5.2
 

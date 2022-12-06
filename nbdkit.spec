@@ -680,35 +680,63 @@ autoreconf -i
 # package into their vendor/ directory.
 export PYTHON=%{__python3}
 %configure \
-    --with-extra='%{name}-%{version}-%{release}' \
     --disable-static \
+    --with-extra='%{name}-%{version}-%{release}' \
+    --with-tls-priority=@NBDKIT,SYSTEM \
+    --with-bash-completions \
+    --with-curl \
+    --with-gnutls \
+    --with-liblzma \
+    --with-libnbd \
+    --with-manpages \
+    --with-selinux \
+    --with-ssh \
+    --with-zlib \
+    --enable-linuxdisk \
+    --enable-python \
     --disable-golang \
     --disable-rust \
+    --disable-valgrind \
 %if !0%{?rhel} && 0%{?have_ocaml}
     --enable-ocaml \
 %else
     --disable-ocaml \
 %endif
-%if 0%{?rhel}
+%if !0%{?rhel}
+    --enable-lua \
+    --enable-perl \
+    --enable-ruby \
+    --enable-tcl \
+    --enable-torrent \
+    --with-ext2 \
+    --with-iso \
+    --with-libvirt \
+%else
     --disable-lua \
     --disable-perl \
     --disable-ruby \
     --disable-tcl \
+    --disable-torrent \
     --without-ext2 \
     --without-iso \
     --without-libvirt \
+%endif
+%ifarch x86_64
+    --enable-vddk \
+%else
+    --disable-vddk \
 %endif
 %if !0%{?rhel} && 0%{?have_libguestfs}
     --with-libguestfs \
 %else
     --without-libguestfs \
 %endif
-%ifarch %{complete_test_arches}
+%ifarch !0%{?rhel} && 0%{?have_libguestfs} && %{complete_test_arches}
     --enable-libguestfs-tests \
 %else
     --disable-libguestfs-tests \
 %endif
-    --with-tls-priority=@NBDKIT,SYSTEM
+    %{nil}
 
 # Verify that it picked the correct version of Python
 # to avoid RHBZ#1404631 happening again silently.
@@ -729,7 +757,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/nbdkit-rust-plugin.3*
 
 %if 0%{?rhel}
 # In RHEL, remove some plugins we cannot --disable.
-for f in cc cdi torrent; do
+for f in cc cdi ; do
     rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/nbdkit-$f-plugin.so
     rm -f $RPM_BUILD_ROOT%{_mandir}/man?/nbdkit-$f-plugin.*
 done

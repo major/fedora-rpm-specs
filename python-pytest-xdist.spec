@@ -1,8 +1,8 @@
 %global pypi_name pytest-xdist
 
 Name:           python-%{pypi_name}
-Version:        3.0.2
-Release:        2%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Sun Dec 04 2022 Scott Talbert <swt@techie.net> - 3.1.0-1
+- Update to new upstream release 3.1.0 (#2150627)
+
 * Fri Oct 28 2022 Miro Hrončok <mhroncok@redhat.com> - 3.0.2-2
 - Drop unused runtime requirement on on the python3-py package
 - Package the pytest-xdist[psutil] and pytest-xdist[setproctitle] extras

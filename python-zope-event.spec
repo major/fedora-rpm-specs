@@ -1,15 +1,15 @@
 # Running the tests requires python3-zope-testrunner, which requires
 # python3-zope-interface, which requires this package.  Build in bootstrap
 # mode to avoid the circular dependency.
-%bcond_without bootstrap
-%bcond_with docs
+%bcond_with bootstrap
+%bcond_without docs
 
 # Install doc subpackage files into the main package doc directory
 %global _docdir_fmt %{name}
 
 Name:           python-zope-event
 Version:        4.5.0
-Release:        3%{?dist}.1
+Release:        4%{?dist}
 Summary:        Zope Event Publication
 License:        ZPLv2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -105,6 +105,10 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Tue Sep 20 2022 Miro Hrončok <mhroncok@redhat.com> - 4.5.0-4
+- Disable bootstrap
+- Enable docs
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

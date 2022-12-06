@@ -7,10 +7,10 @@
 %global sx_pkg indi-3rdparty-sx
 %global webcam_pkg indi-3rdparty-webcam
 
-%global indi_version 1.9.8
+%global indi_version 1.9.9
 
 Name:           indi-3rdparty-drivers
-Version:        1.9.8
+Version:        1.9.9
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
 License:        LGPLv2+
@@ -266,7 +266,7 @@ find . -mindepth 2 -name CMakeLists.txt \
     -DWITH_AVALON=OFF \
     -DWITH_PENTAX=OFF \
     -DWITH_AHP_XC=OFF \
-    -DWITH_SV305=OFF \
+    -DWITH_SVBONY=OFF \
     -DWITH_RPICAM=OFF \
     -DWITH_BRESSEREXOS2=OFF \
     -DWITH_ORION_SSG3=OFF \

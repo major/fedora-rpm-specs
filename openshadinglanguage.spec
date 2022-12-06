@@ -4,7 +4,7 @@
 %bcond_without  qt5
 
 Name:           openshadinglanguage
-Version:        1.12.7.0
+Version:        1.12.7.1
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD

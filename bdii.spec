@@ -10,9 +10,15 @@
 %global use_systemd 0
 %endif
 
+%if %{?fedora}%{!?fedora:0} >= 36 || %{?rhel}%{!?rhel:0} >= 9
+%global use_mdb 1
+%else
+%global use_mdb 0
+%endif
+
 Name:		bdii
 Version:	5.2.26
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	The Berkeley Database Information Index (BDII)
 
 License:	ASL 2.0
@@ -28,6 +34,9 @@ Patch0:		%{name}-py3.patch
 #		Update default paths (/var/run → /run, /var/lock → /run/lock)
 #		https://github.com/EGI-Federation/bdii/pull/31
 Patch1:		%{name}-update-default-paths.patch
+#		Use mdb slapd backend
+#		https://github.com/EGI-Federation/bdii/pull/42
+Patch2:		bdii-use-mdb-slapd-backend.patch
 BuildArch:	noarch
 BuildRequires:	make
 %if %{use_python3}
@@ -75,6 +84,9 @@ differences. This is then used to update the database.
 %patch0 -p1
 %endif
 %patch1 -p1
+%if %{use_mdb}
+%patch2 -p1
+%endif
 
 %build
 
@@ -172,6 +184,9 @@ fi
 %license COPYRIGHT LICENSE.txt
 
 %changelog
+* Sun Dec 04 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.26-10
+- Use mdb slapd backend (Fedors 36+, EPEL 9+)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.26-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

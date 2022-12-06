@@ -1,5 +1,5 @@
 Name:           xsimd
-Version:        9.0.1
+Version:        10.0.0
 Release:        1%{?dist}
 Summary:        C++ wrappers for SIMD intrinsics
 License:        BSD
@@ -9,7 +9,7 @@ Source0:        %{github}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  gtest-devel
+BuildRequires:  doctest-devel
 
 %ifarch %{arm}
 # Only used for testing, as it's a header-only package.
@@ -67,6 +67,9 @@ Provides:       %{name}-static = %{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Dec 2 2022 sguelton@redhat.com - 10.0.0-1
+- Update to 10.0.0
+
 * Tue Aug 30 2022 sguelton@redhat.com - 9.0.1-1
 - Update to 9.0.1
 - Fixes: rhbz#2120851

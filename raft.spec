@@ -1,9 +1,9 @@
 Name:           raft
-Version:        0.15.0
+Version:        0.16.0
 Release:        1%{?dist}
 Summary:        C implementation of the Raft consensus protocol
 
-License:        LGPLv3 with exceptions
+License:        LGPL-3.0-only WITH LGPL-3.0-linking-exception
 URL:            https://github.com/canonical/raft
 Source0:        %{URL}/archive/v%{version}.tar.gz
 # https://github.com/canonical/raft/issues/263
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_libdir}/libraft.la
 %doc docs/_build/html/
 
 %changelog
+* Sun Dec 04 2022 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.16.0-1
+- Update to 0.16.0
+
 * Sat Oct 01 2022 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> - 0.15.0-1
 - Update to 0.15.0
 

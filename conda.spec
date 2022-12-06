@@ -1,21 +1,20 @@
 %bcond_without tests
 
 Name:           conda
-Version:        4.14.0
+Version:        22.11.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
-License:        BSD and ASL 2.0 and LGPLv2+ and MIT
-# The conda code is BSD
-# progressbar is LGPLv2+
-# six is MIT/X11
-# adapters/ftp.py is ASL 2.0
+License:        BSD-3-Clause AND Apache-2.0 
+# The conda code is BSD-3-Clause
+# adapters/ftp.py is Apache-2.0
 
 URL:            http://conda.pydata.org/docs/
 Source0:        https://github.com/conda/conda/archive/%{version}/%{name}-%{version}.tar.gz
 # bash completion script moved to a separate project
 Source1:        https://raw.githubusercontent.com/tartansandal/conda-bash-completion/1.5/conda
 Patch0:         conda_sys_prefix.patch
+# https://github.com/conda/conda/pull/12151
 Patch1:         conda_gateways_disk_create.patch
 # Do not test with conda-build
 Patch2:         conda-conda-build.patch
@@ -24,17 +23,11 @@ Patch3:         conda-cpuinfo.patch
 # Fix tests on 32bit
 # https://github.com/conda/conda/pull/9759
 Patch4:         conda-32bit.patch
-# Fix mock import
-Patch5:         conda-mock.patch
-# Use new (0.15) ruamel-yaml API
-Patch6:         https://patch-diff.githubusercontent.com/raw/conda/conda/pull/11632.patch
 
-Patch10001:     0001-Fix-toolz-imports.patch
 Patch10004:     0004-Do-not-try-to-run-usr-bin-python.patch
 Patch10005:     0005-Fix-failing-tests-in-test_api.py.patch
 Patch10006:     0006-shell-assume-shell-plugins-are-in-etc.patch
 Patch10007:     0001-Add-back-conda-and-conda_env-entry-point.patch
-Patch10008:     0002-Go-back-to-ruamel_yaml.patch
 
 BuildArch:      noarch
 
@@ -92,6 +85,7 @@ BuildRequires:  python%{python3_pkgversion}-cytoolz >= 0.8.2
 # For tests
 BuildRequires:  python-unversioned-command
 BuildRequires:  python%{python3_pkgversion}-boto3
+BuildRequires:  python%{python3_pkgversion}-pytest-mock
 BuildRequires:  python%{python3_pkgversion}-pytest-rerunfailures
 BuildRequires:  python%{python3_pkgversion}-pytest-timeout
 BuildRequires:  python%{python3_pkgversion}-pytest-xprocess
@@ -103,10 +97,8 @@ Requires:       %py3_reqs
 Requires:       python%{python3_pkgversion}-cytoolz >= 0.8.2
 %endif
 Provides:       bundled(python%{python3_pkgversion}-appdirs) = 1.2.0
-Provides:       bundled(python%{python3_pkgversion}-auxlib)
+Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
 Provides:       bundled(python%{python3_pkgversion}-boltons) = 18.0.0
-Provides:       bundled(python%{python3_pkgversion}-six) = 1.10.0
-Provides:       bundled(python%{python3_pkgversion}-toolz) = 0.8.2
 
 %{?python_provide:%python_provide python%{python3_pkgversion}-conda}
 
@@ -130,14 +122,10 @@ rm -r conda/_vendor/cpuinfo
 # Replaced by cytools, byte compilation fails under python3.7
 %if 0%{?fedora} || 0%{?rhel} >= 8
 # EPEL does not have new enough cytoolz
-# We need to keep __init__.py which does the dispatch between vendored and non-vendored
-rm conda/_vendor/toolz/[a-zA-Z]*
+rm -r conda/_vendor/toolz
 %endif
 
 # Use system versions
-# TODO - urllib3 - results in test failures: https://github.com/conda/conda/issues/9512
-#rm -r conda/_vendor/{distro.py,frozendict.py,tqdm,urllib3}
-#find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\|tqdm\|urllib3\).*\) import/\1from \2 import/'
 rm -r conda/_vendor/{distro.py,frozendict,tqdm}
 find conda -name \*.py | xargs sed -i -e 's/^\( *\)from .*_vendor\.\(\(distro\|frozendict\|tqdm\).*\) import/\1from \2 import/'
 
@@ -174,7 +162,8 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/conda/pkgs/cache
 
 # install does not create the directory on EL7
 install -m 0644 -Dt %{buildroot}/etc/profile.d/ conda/shell/etc/profile.d/conda.{sh,csh}
-sed -r -i '1i CONDA_EXE=%{_bindir}/conda' %{buildroot}/etc/profile.d/conda.sh
+sed -r -i -e '1i [ -z "$CONDA_EXE" ] && CONDA_EXE=%{_bindir}/conda' \
+          -e '/PATH=.*condabin/s|PATH=|[ -d "$(dirname "$CONDA_EXE")/condabin" ] && PATH=|' %{buildroot}/etc/profile.d/conda.sh
 sed -r -i -e '1i set _CONDA_EXE=%{_bindir}/conda\nset _CONDA_ROOT=' \
           -e 's/CONDA_PFX=.*/CONDA_PFX=/' %{buildroot}/etc/profile.d/conda.csh
 install -m 0644 -Dt %{buildroot}/etc/fish/conf.d/ conda/shell/etc/fish/conf.d/conda.fish
@@ -201,23 +190,29 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # test_ProgressiveFetchExtract_prefers_conda_v2_format, test_subdir_data_prefers_conda_to_tar_bz2,
 # test_use_only_tar_bz2 fail in F31 koji, but not with mock --enablerepo=local. Let's disable
 # them for now.
+# tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
 # tests/cli/test_main_{clean,rename}.py tests require network access
+# tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands https://github.com/conda/conda/issues/12150
+# tests/test_misc.py::test_explicit_missing_cache_entries requires network access
 # tests/core/test_initialize.py tries to unlink /usr/bin/python3 and fails when python is a release candidate
 # tests/core/test_solve.py::test_cuda_fail_1 fails on non-x86_64
 py.test-%{python3_version} -vv -m "not integration" \
-    --ignore conda/auxlib/_vendor \
     --deselect=tests/test_cli.py::TestJson::test_list \
     --deselect=tests/test_cli.py::test_run_returns_int \
     --deselect=tests/test_cli.py::test_run_returns_nonzero_errorlevel \
     --deselect=tests/test_cli.py::test_run_returns_zero_errorlevel \
     --deselect=tests/test_cli.py::test_run_readonly_env \
+    --deselect=tests/test_misc.py::test_explicit_missing_cache_entries \
+    --deselect=tests/conda_env/test_create.py::test_create_update_remote_env_file \
     --deselect=tests/cli/test_main_clean.py \
+    --deselect=tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands \
     --deselect=tests/cli/test_main_rename.py \
     --deselect=tests/core/test_package_cache_data.py::test_ProgressiveFetchExtract_prefers_conda_v2_format \
     --deselect=tests/core/test_subdir_data.py::test_subdir_data_prefers_conda_to_tar_bz2 \
     --deselect=tests/core/test_subdir_data.py::test_use_only_tar_bz2 \
     --deselect=tests/core/test_initialize.py \
-    --deselect=tests/core/test_solve.py::test_cuda_fail_1
+    --deselect=tests/core/test_solve.py::test_cuda_fail_1 \
+    conda tests
 %endif
 
 %files

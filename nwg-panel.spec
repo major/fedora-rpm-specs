@@ -1,13 +1,13 @@
 %global sys_name nwg_panel
 
 Name:       nwg-panel
-Version:    0.7.13
+Version:    0.7.14
 Release:    %autorelease
 Summary:    GTK3-based panel for sway window manager
 BuildArch:  noarch
 
 License:    MIT
-URL:        https://github.com/nwg-piotr/%{name}
+URL:        https://github.com/nwg-piotr/nwg-panel
 Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: desktop-file-utils

@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass
 %global goipath         github.com/gopasspw/gopass
-Version:                1.14.10
+Version:                1.15.0
 
 %gometa
 %global goname gopass

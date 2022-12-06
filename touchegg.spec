@@ -1,6 +1,6 @@
 Name:           touchegg
-Version:        2.0.14
-Release:        2%{?dist}
+Version:        2.0.15
+Release:        1%{?dist}
 Summary:        Multi-touch gesture recognizer
 
 License:        GPLv3+
@@ -8,20 +8,21 @@ URL:            https://github.com/JoseExposito/touchegg
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(libinput)
-BuildRequires:  pkgconfig(pugixml)
-BuildRequires:  pkgconfig(cairo)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xtst)
-BuildRequires:  pkgconfig(xrandr)
-BuildRequires:  pkgconfig(xi)
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  systemd-rpm-macros
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(cairo)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libinput)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(pugixml)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xi)
+BuildRequires:  pkgconfig(xrandr)
+BuildRequires:  pkgconfig(xtst)
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  systemd-rpm-macros
 
 %description
 Touchégg is an app that runs in the background and transform the gestures you
@@ -77,6 +78,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Fri Nov 18 2022 Maxwell G <gotmax@e.email> - 2.0.15-1
+- Update to 2.0.15. Fixes rhbz#2143434.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

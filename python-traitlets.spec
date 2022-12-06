@@ -1,13 +1,13 @@
 %global srcname traitlets
 
 Name:           python-%{srcname}
-Version:        5.4.0
+Version:        5.6.0
 Release:        1%{?dist}
 Summary:        A lightweight derivative of Enthought Traits for configuring Python objects
 
 License:        BSD
 URL:            https://github.com/ipython/traitlets
-Source0:        https://github.com/ipython/traitlets/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/ipython/traitlets/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -57,6 +57,9 @@ This package powers the config system of IPython and Jupyter.
 
 
 %changelog
+* Sun Dec 04 2022 Orion Poplawski <orion@nwra.com> - 5.6.0-1
+- Update to 5.6.0
+
 * Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 5.4.0-1
 - Update to 5.4.0
 

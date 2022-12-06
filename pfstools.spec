@@ -1,27 +1,21 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPLv2+
 URL:		http://pfstools.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 Patch0:		pfstools-freeglut.patch
+# From https://sourceforge.net/p/pfstools/bugs/54
+Patch1:		0001-Prefer-upstream-CMake-Config-Mode-files-for-OpenEXR.patch
+# From openSUSE
+Patch2:		pfstools-ImageMagick7.patch
 
 BuildRequires:  make
 BuildRequires:	cmake
 BuildRequires:	libtiff-devel
-# As of OpenEXR 3 upstream has significantly reorganized the libraries
-# including splitting out imath as a standalone library (which this project may
-# or may not need). Please see
-# https://github.com/AcademySoftwareFoundation/Imath/blob/master/docs/PortingGuide2-3.md
-# for porting details and encourage upstream to support it. For now a 2.x
-# compat package is provided.
-%if 0%{?fedora} > 33
-BuildRequires:  cmake(OpenEXR) < 3
-%else
-BuildRequires:	OpenEXR-devel
-%endif
+BuildRequires:	cmake(OpenEXR)
 BuildRequires:	octave-devel
 BuildRequires:	libGL-devel
 BuildRequires:	ImageMagick-devel
@@ -313,6 +307,11 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %{_includedir}/pfs
 
 %changelog
+* Sun Dec 04 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.2.0-7
+- Add patches for upgraded dependency compatibility
+  + Add patch for ImageMagick 7 compatibility
+  + Add patch for OpenEXR 3+ compatibility
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-6
 - Rebuild for gsl-2.7.1
 

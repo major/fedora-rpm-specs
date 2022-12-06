@@ -1,5 +1,5 @@
 Name:       labwc
-Version:    0.5.3
+Version:    0.6.0
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
@@ -20,7 +20,7 @@ BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(scdoc)
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(wayland-server) >= 0.19.0
-BuildRequires: pkgconfig(wlroots) >= 0.15.0
+BuildRequires: pkgconfig(wlroots) >= 0.16.0
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xkbcommon)
 
@@ -66,14 +66,16 @@ It has the following aims:
 %install
 %meson_install
 install -Dpm0644 %{SOURCE1} -t %{buildroot}%{_datadir}/wayland-sessions/
+%find_lang %{name}
 
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc README.md NEWS.md
 %{_bindir}/%{name}
 %{_datadir}/wayland-sessions/%{name}.desktop
-%{_mandir}/man{1,5}/*.{1,5}*
+%{_mandir}/man1/*.1*
+%{_mandir}/man5/*.5*
 
 
 %changelog
