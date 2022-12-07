@@ -5,7 +5,7 @@ Name:           python-jsonpickle
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD
@@ -20,6 +20,8 @@ Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/FA41BF59C1B48E8C5
 # metadata but RHEL only ships python3-setuptools_scm = 1.15.7.
 # However we can just set the version explicitely with sed.
 Patch1:         jsonpickle-drop-setuptools_scm.patch
+
+Patch2:         unpin-setuptools.patch
 
 %global _docdir_fmt %{name}
 
@@ -96,7 +98,7 @@ sed -i 's/@@VERSION@@/%{version}/' setup.cfg
 sed -i 's/setup_requires.*$//' setup.cfg
 %endif
 
-#%%patch3 -p1
+%patch2 -p0
 
 %build
 %py3_build
@@ -114,6 +116,9 @@ PYTHON=python3 make test
 %{python3_sitelib}/*
 
 %changelog
+* Mon Dec 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-2
+- Unpin setuptools requirement.
+
 * Fri Dec 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-1
 - 3.0.0
 

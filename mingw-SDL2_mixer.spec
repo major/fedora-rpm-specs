@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2_mixer
-Version:        2.0.4
-Release:        10%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        MinGW Windows port of Simple DirectMedia Layer's Sample Mixer Library
 
 License:        Zlib
@@ -70,22 +70,27 @@ find %{buildroot} -name "*.la" -delete
 
 # Win32
 %files -n mingw32-SDL2_mixer
-%license COPYING.txt
+%license LICENSE.txt
 %{mingw32_bindir}/SDL2_mixer.dll
 %{mingw32_libdir}/libSDL2_mixer.dll.a
+%{mingw32_libdir}/cmake/SDL2_mixer/
 %{mingw32_libdir}/pkgconfig/SDL2_mixer.pc
 %{mingw32_includedir}/SDL2
 
 # Win64
 %files -n mingw64-SDL2_mixer
-%license COPYING.txt
+%license LICENSE.txt
 %{mingw64_bindir}/SDL2_mixer.dll
 %{mingw64_libdir}/libSDL2_mixer.dll.a
+%{mingw64_libdir}/cmake/SDL2_mixer/
 %{mingw64_libdir}/pkgconfig/SDL2_mixer.pc
 %{mingw64_includedir}/SDL2
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 2.6.2-1
+- Update to 2.6.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:           fntsample
 Version:        5.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A program for making font samples that show Unicode coverage of the font
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/eugmes/fntsample/releases
 Source0:        https://github.com/eugmes/fntsample/archive/release/%{version}/%{name}-%{version}.tar.gz
  
@@ -41,6 +41,9 @@ ctest -V %{?_smp_flags}
 %{_mandir}/man1/*.gz
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 5.3-13
+- Update license tag to SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -48,7 +48,7 @@
 
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
-Version:	42.5.0
+Version:	42.5.1
 Release:	1%{?dist}
 License:	BSD
 URL:		http://jdbc.postgresql.org/
@@ -119,9 +119,10 @@ find -type f \( -name "*.jar" -or -name "*.class" \) | xargs rm -f
 # remove tests that depend on the system-stubs-jupiter
 rm src/test/java/org/postgresql/test/jdbc2/DriverTest.java \
    src/test/java/org/postgresql/util/OSUtilTest.java \
-   src/test/java/org/postgresql/util/PGPropertyPasswordParserTest.java \
-   src/test/java/org/postgresql/util/PGPropertyServiceParserTest.java \
+   src/test/java/org/postgresql/jdbcurlresolver/PgServiceConfParserTest.java \
+   src/test/java/org/postgresql/jdbcurlresolver/PgPassParserTest.java \
    src/test/java/org/postgresql/util/StubEnvironmentAndProperties.java
+
 
 %build
 # Ideally we would run "sh update-translations.sh" here, but that results
@@ -173,6 +174,9 @@ opts="-f"
 
 
 %changelog
+* Mon Dec 05 2022 Zuzana Miklankova <zmiklank@redhat.com> - 42.5.1-1
+- rebase to version 42.5.1 (bz#2147486)
+
 * Mon Aug 29 2022 Zuzana Miklankova <zmiklank@redhat.com> - 42.5.0-1
 - rebase to version 42.5.0 (bz#2119382)
 

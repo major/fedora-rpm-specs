@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility belt for advanced users of python-requests
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://toolbelt.readthedocs.io
 Source0:        https://github.com/sigmavirus24/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -62,6 +62,9 @@ py.test-%{python3_version} -v --ignore=tests/test_x509_adapter.py -k "not test_s
 %{python3_sitelib}/%{altname}-*.egg-info/
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.10.1-2
+- Update license tag to SPDX format
+
 * Wed Oct 26 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.10.1-1
 - Update to 0.10.1 version (#2137927)
 

@@ -32,16 +32,16 @@ Summary(ru):    VNC-сервер для текущей сессии X11
 # misc/inet6to4:            GPL-2.0-or-later
 # misc/LICENSE:             GPL-2.0-or-later
 # misc/qt_tslib_inject.pl:  GPL-2.0-or-later
-# misc/turbovnc/apply_turbovnc:     Public Domain or "use this work without any conditions"
+# misc/turbovnc/apply_turbovnc:     LicenseRef-Fedora-Public-Domain
 #                                   This license has been approved
 #                                   <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/62>.
-# misc/turbovnc/convert:            Public Domain or "use this work without any conditions"
-# misc/turbovnc/convert_rfbserver:  Public Domain or "use this work without any conditions"
-# misc/turbovnc/Makefile.am:        Public Domain or "use this work without any conditions"
-# misc/turbovnc/README:             Public Domain or "use this work without any conditions"
+# misc/turbovnc/convert:            LicenseRef-Fedora-Public-Domain
+# misc/turbovnc/convert_rfbserver:  LicenseRef-Fedora-Public-Domain
+# misc/turbovnc/Makefile.am:        LicenseRef-Fedora-Public-Domain
+# misc/turbovnc/README:             LicenseRef-Fedora-Public-Domain
 # misc/turbovnc/tight.c:            GPL-2.0-or-later
 # misc/turbovnc/turbojpeg.h:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
-# misc/turbovnc/undo_turbovnc:      Public Domain or "use this work without any conditions"
+# misc/turbovnc/undo_turbovnc:      LicenseRef-Fedora-Public-Domain
 # misc/uinput.pl:           GPL-2.0-or-later
 # misc/ultravnc_repeater.pl:    GPL-2.0-or-later
 # misc/Xdummy.c:            GPL-2.0-or-later WITH x11vnc-openssl-exception

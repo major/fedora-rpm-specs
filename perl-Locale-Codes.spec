@@ -1,8 +1,8 @@
 Name:           perl-Locale-Codes
 Version:        3.72
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution of modules to handle locale codes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Codes
 Source0:        https://cpan.metacpan.org/authors/id/S/SB/SBECK/Locale-Codes-%{version}.tar.gz
 BuildArch:      noarch
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 05 2022 Michal Josef Špaček <mspacek@redhat.com> - 3.72-2
+- Update license to SPDX format
+
 * Fri Sep 02 2022 Michal Josef Špaček <mspacek@redhat.com> - 3.72-1
 - 3.72 bump
 

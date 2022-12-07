@@ -2,14 +2,13 @@
 %global sum Library that simplifies creating user interfaces with wxPython
 
 Name:           python-%{srcname}
-Version:        0.2.1
-Release:        23%{?dist}
+Version:        0.2.2
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3+
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://pypi.python.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
-Patch0:         humblewx-0.2.1-py39.patch
 
 BuildArch:      noarch
 
@@ -41,6 +40,9 @@ Library that simplifies creating user interfaces with wxPython.
 %{python3_sitelib}/%{srcname}*/
 
 %changelog
+* Mon Dec 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.2.2-1
+- 0.2.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  5.7
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -25,6 +25,7 @@ Source98: perl-requires-squid.sh
 # Upstream patches
 
 # Backported patches
+Patch101: squid-5.7-ip-bind-address-no-port.patch
 
 # Local patches
 # Applying upstream patches first makes it less likely that local patches
@@ -98,6 +99,7 @@ lookup program (dnsserver), a program for retrieving FTP data
 # Upstream patches
 
 # Backported patches
+%patch101 -p1 -b .ip-bind-address-no-port
 
 # Local patches
 %patch201 -p1 -b .config
@@ -331,6 +333,9 @@ fi
 
 
 %changelog
+* Mon Dec 05 2022 Tomas Korbar <tkorbar@redhat.com> - 7:5.7-3
+- Backport adding IP_BIND_ADDRESS_NO_PORT flag to outgoing connections
+
 * Wed Oct 12 2022 Luboš Uhliarik <luhliari@redhat.com> - 7:5.7-2
 - Provide a sysusers.d file to get user() and group() provides (#2134071)
 

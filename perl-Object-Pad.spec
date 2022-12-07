@@ -4,7 +4,7 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.72
+Version:        0.74
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,7 +24,7 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-%define xs_parse_keyword_min_ver 0.22
+%define xs_parse_keyword_min_ver 0.29
 BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_min_ver}
 %define xs_parse_sublike_min_ver 0.15
 BuildRequires:  perl(XS::Parse::Sublike::Builder) >= %{xs_parse_sublike_min_ver}
@@ -202,6 +202,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 05 2022 Petr Pisar <ppisar@redhat.com> - 0.74-1
+- 0.74 bump
+
 * Thu Dec 01 2022 Petr Pisar <ppisar@redhat.com> - 0.72-1
 - 0.72 bump
 

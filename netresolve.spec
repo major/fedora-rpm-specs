@@ -2,7 +2,7 @@
 
 Name: netresolve
 Version: 0.0.1
-Release: 0.34%{?snapshot_suffix}%{?dist}
+Release: 0.35%{?snapshot_suffix}%{?dist}
 Summary: Generic name resolution library
 License: BSD
 # https://github.com/crossdistro/netresolve , possibly?
@@ -15,6 +15,8 @@ Patch1: netresolve-0.0.1-strncpy.patch
 # https://github.com/crossdistro/netresolve/issues/3
 Patch2: netresolve-0.0.1-hosts.patch
 Patch3: netresolve-0.0.1-use-after-free.patch
+# https://github.com/crossdistro/netresolve/pull/5
+Patch4: netresolve-0.0.1-configure-as-if.patch
 
 BuildRequires: make
 BuildRequires: ldns-devel
@@ -205,14 +207,9 @@ make check || { cat ./test-suite.log; false; }
 
 %files devel
 %{_includedir}/netresolve-epoll.h
-%{_includedir}/netresolve-epoll.h
-%{_includedir}/netresolve-event.h
 %{_includedir}/netresolve-event.h
 %{_includedir}/netresolve-glib.h
-%{_includedir}/netresolve-glib.h
 %{_includedir}/netresolve-nonblock.h
-%{_includedir}/netresolve-nonblock.h
-%{_includedir}/netresolve-select.h
 %{_includedir}/netresolve-select.h
 %{_includedir}/netresolve.h
 %{_libdir}/libnetresolve-asyncns.so
@@ -220,11 +217,9 @@ make check || { cat ./test-suite.log; false; }
 %{_libdir}/libnetresolve-backend-aresdns.so
 %{_libdir}/libnetresolve-backend-asyncns.so
 %{_libdir}/libnetresolve-backend-avahi.so
-%{_libdir}/libnetresolve-backend-avahi.so
 %{_libdir}/libnetresolve-backend-exec.so
 %{_libdir}/libnetresolve-backend-hostname.so
 %{_libdir}/libnetresolve-backend-hosts.so
-%{_libdir}/libnetresolve-backend-libc.so
 %{_libdir}/libnetresolve-backend-libc.so
 %{_libdir}/libnetresolve-backend-loopback.so
 %{_libdir}/libnetresolve-backend-nss.so
@@ -238,6 +233,10 @@ make check || { cat ./test-suite.log; false; }
 %{_libdir}/libnss_netresolve.so
 
 %changelog
+* Fri Dec 02 2022 Petr Menšík <pemensik@redhat.com> - 0.0.1-0.35.20160317git
+- Remove duplicate file entries
+- Build with Autoconf 2.72 (#2144836)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.34.20160317git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

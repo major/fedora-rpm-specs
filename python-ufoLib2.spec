@@ -2,10 +2,10 @@
 
 Name:           python-%{srcname}
 Version:        0.7.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A library to deal with UFO font sources
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.org/project/ufoLib2
 Source0:        %{pypi_source %{srcname} %{version} zip}
 BuildArch:      noarch
@@ -57,6 +57,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest -v
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.7.1-11
+- Update license tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

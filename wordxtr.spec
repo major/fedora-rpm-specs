@@ -1,9 +1,9 @@
 Name:           wordxtr
 Version:        1.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Create hunspell dictionary from given plain text input data files
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pagure.io/wordxtr	
 Source0:        http://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 
@@ -35,6 +35,9 @@ input language and plain text unicode data files.
 %{python3_sitelib}/*
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.0.0-14
+- Update license tag to SPDX format
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

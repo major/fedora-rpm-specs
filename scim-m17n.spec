@@ -1,9 +1,9 @@
 Name:           scim-m17n
 Version:        0.2.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        SCIM IMEngine for m17n-lib
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/scim-im/scim-m17n
 Source0:        %{name}-%{version}.tar.gz
 
@@ -45,6 +45,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/IMEngine/m17n.la
 
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.2.3-31
+- Update license tag to SPDX format
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.2.3-30
 - Port configure to C99
 

@@ -18,7 +18,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -134,6 +134,8 @@ popd
 %{_qt6_libdir}/libQt6SpatialAudio.so.6*
 %{_qt6_archdatadir}/qml/QtMultimedia/
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets/
+%{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
+%{_qt6_plugindir}/multimedia/libffmpegmediaplugin.so
 
 %files devel
 %{_qt6_headerdir}/QtMultimedia/
@@ -167,8 +169,7 @@ popd
 %{_qt6_libdir}/metatypes/qt6*_metatypes.json
 %{_qt6_datadir}/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
-%{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
-%{_qt6_plugindir}/multimedia/libffmpegmediaplugin.so
+
 
 %if 0%{?examples}
 %files examples
@@ -177,6 +178,9 @@ popd
 
 
 %changelog
+* Mon Dec 05 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-3
+- Move plugins out of -devel subpackage
+
 * Fri Dec 02 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-2
 - Build FFmpeg plugin
 

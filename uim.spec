@@ -6,12 +6,12 @@
 
 Name:		uim
 Version:	1.8.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
 #   and qt/chardict/chardict-kseparator.{cpp,h} is licensed under LGPLv2+
 # pixmaps/*.{svg,png} is licensed under BSD or LGPLv2
-License:	BSD and LGPLv2+ and (BSD or LGPLv2)
+License:	BSD-3-Clause AND LGPL-2.1-or-later AND (BSD-3-Clause OR LGPL-2.1-or-later)
 URL:		https://github.com/uim/uim/
 
 BuildRequires:	libXft-devel libX11-devel libXext-devel libXrender-devel libXau-devel libXdmcp-devel libXt-devel
@@ -496,6 +496,9 @@ fi
 %dir %{_datadir}/uim
 
 %changelog
+* Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.9-3
+- Convert License tag to SPDX.
+
 * Tue Nov 29 2022 Florian Weimer <fweimer@redhat.com> - 1.8.9-2
 - Port configure script to C99
 

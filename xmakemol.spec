@@ -1,6 +1,6 @@
 Name:           xmakemol
 Version:        5.16
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Program for visualizing atomic and molecular systems
 License:        GPLv2+
 URL:            https://www.nongnu.org/xmakemol/
@@ -27,11 +27,7 @@ BuildRequires:  libXpm-devel
 BuildRequires:  libICE-devel
 BuildRequires:  zlib-devel
 BuildRequires:  motif-devel
-
-%if 0%{?rhel} != 9
-# freeglut is not yet available, https://bugzilla.redhat.com/show_bug.cgi?id=2051065
 BuildRequires:  freeglut-devel
-%endif
 
 %description
 XMakemol is a mouse-based program, written using the LessTif widget
@@ -70,6 +66,9 @@ bonds.  Features include:
 %{_bindir}/xmake_anim.pl
 
 %changelog
+* Mon Dec 05 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.16-15
+- Freeglut is now available in RHEL9.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

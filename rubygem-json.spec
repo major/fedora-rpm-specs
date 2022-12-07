@@ -1,8 +1,8 @@
 %global	gem_name	json
 
 Name:           rubygem-%{gem_name}
-Version:        2.6.2
-Release:        202%{?dist}
+Version:        2.6.3
+Release:        200%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -123,6 +123,9 @@ popd
 
 
 %changelog
+* Mon Dec  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.3-200
+- 2.6.3
+
 * Wed Oct  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.2-202
 - Remove no longer needed recompilation
 

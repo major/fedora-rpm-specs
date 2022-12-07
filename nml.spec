@@ -12,7 +12,7 @@
 
 
 Name:           nml
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?gitver:.git%{gitshort}}%{?dist}
 Summary:        NewGRF Meta Language compiler
 
@@ -57,6 +57,9 @@ rm docs/nmlc.1.gz
 
 
 %changelog
+* Mon Dec 05 2022 Felix Kaechele <felix@kaechele.ca> - 0.7.1-1
+- update to 0.7.1
+
 * Sat Sep 03 2022 Felix Kaechele <felix@kaechele.ca> - 0.7.0-1
 - update to 0.7.0
 

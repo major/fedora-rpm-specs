@@ -1,68 +1,62 @@
-%global pypi_name zeroconf
-
-Name:           python-%{pypi_name}
-Version:        0.38.7
+Name:           python-zeroconf
+Version:        0.39.4
 Release:        1%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
-License:        LGPLv2
+License:        LGPL-2.1-or-later
 URL:            https://github.com/jstasiak/python-zeroconf
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/zeroconf-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-xdist
-BuildRequires:  python3dist(ifaddr)
 
-# Integration tests work in mock but fail in Koji with PermissionError
-%bcond_with integration
 
 %description
 A pure Python implementation of multicast DNS service discovery
 supporting Bonjour/Avahi.
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-zeroconf
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name}
+%description -n python3-zeroconf
 A pure Python 3 implementation of multicast DNS service discovery
 supporting Bonjour/Avahi.
+
 
 %prep
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files zeroconf
 
 
 %check
 # IPv6 tests fail in Koji/mock, test_sending_unicast uses IPv6
-# test_ptr_optimization fails in Koji
-# with 0.33.4, running tests in parallel produces some failures, possibly race conditions
-%pytest -n 1 -v \
-%if %{with integration}
-  -k "not v6 and not test_sending_unicast" \
-%else %{without integration}
-  -k "not integration and not test_ptr_optimization and not v6 and not test_sending_unicast" \
-%endif
+%pytest -v -k "not test_sending_unicast and not test_integration_with_listener_ipv6"
 
 
-%files -n python3-%{pypi_name}
-%license COPYING
+%files -n python3-zeroconf -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Wed Nov 30 2022 Karolina Surma <ksurma@redhat.com> - 0.39.4-1
+- Update to 0.39.4
+Resolves: rhbz#2116022
+
 * Thu Jul 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.38.7-1
 - Update to 0.38.7
 

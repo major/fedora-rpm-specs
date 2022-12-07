@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	10.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -859,6 +859,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Dec 5 2022  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 10.0.1-2
+- Arrow 10.0.1, rebuild with xsimd-10, liborc-1.8.1
+
 * Thu Dec 1 2022  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 10.0.1-1
 - Arrow 10.0.1 GA
 

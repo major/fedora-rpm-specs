@@ -2,10 +2,10 @@
 %global gem_name addressable
 
 Name: rubygem-%{gem_name}
-Version: 2.8.0
-Release: 3%{?dist}
+Version: 2.8.1
+Release: 1%{?dist}
 Summary: URI Implementation
-License: ASL 2.0
+License: Apache-2.0
 URL: https://github.com/sporkmonger/addressable
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -46,9 +46,6 @@ pushd .%{gem_instdir}
 # Drop Bundler dependency.
 sed -i "/require 'bundler\/setup'/ s/^/#/" spec/spec_helper.rb
 
-# We don't care about code coverage.
-sed -i '/^begin$/,/^end$/ s/^/#/' spec/spec_helper.rb
-
 # Remove tests failing because of missing internet connection.
 mv spec/addressable/net_http_compat_spec.rb{,.disabled}
 
@@ -71,9 +68,12 @@ popd
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/spec
-%{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Mon Dec 05 2022 Vít Ondruch <vondruch@redhat.com> - 2.8.1-1
+- Update to Addressable 2.8.1.
+  Resolves: rhbz#2119778
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           pcb-rnd
 Version:        2.4.0
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Modular Printed Circuit Board layout tool
 
 # For a license breakdown info, please refer to https://metadata.ftp-master.debian.org/changelogs/main/p/pcb-rnd/pcb-rnd_2.4.0-1_copyright
@@ -17,6 +17,8 @@ URL:            http://repo.hu/projects/pcb-rnd/index.html
 #Source0:        %%{name}-%%{svn}.tar.gz
 #Source0:        pcb-rnd-%%{version}.tar.gz
 Source0:        http://repo.hu/projects/pcb-rnd/releases/pcb-rnd-%{version}.tar.gz
+Patch0:         pcb-rnd-librnd-implicit-int.patch
+Patch1:         pcb-rnd-librnd-scconfig-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -232,7 +234,7 @@ Requires:       %{name}-core = %{version}-%{release}
 Support library for alien file formats.
 
 %prep
-%setup -q
+%autosetup -p1
 #%%autosetup -n %%{name}-%%{svn} -p1
 
 %build
@@ -553,6 +555,9 @@ Support library for alien file formats.
 %{plugindir}/lib_netmap.so
 
 %changelog
+* Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 2.4.0-6
+- Port to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

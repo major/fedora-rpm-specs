@@ -13,6 +13,7 @@ Summary:        Expands root partition in Google Cloud instances
 License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
+Source1:        0001-Fedora-switched-to-the-btrfs-filesystem-since-Fedora.patch
 
 BuildArch:      noarch
 
@@ -22,6 +23,8 @@ Requires: gdisk
 Requires: grep
 Requires: parted
 Requires: util-linux
+Requires: gawk
+Requires: sed
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd

@@ -6,10 +6,10 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        VCR imitation for python-requests
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/sigmavirus24/%{srcname}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
@@ -61,6 +61,9 @@ py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.8.1-18
+- Update license tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

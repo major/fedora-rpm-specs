@@ -1,9 +1,9 @@
 Name:           perl-Text-Kakasi
 Version:        2.04
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Kakasi library module for perl
 
-License:        GPL+
+License:        GPL-2.0-or-later
 Url:            https://metacpan.org/release/Text-Kakasi
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/Text-Kakasi-2.04.tar.gz
 Patch:          Text-Kakasi-1.04-perl580.diff
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 2.04-50
+- Convert License tag to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

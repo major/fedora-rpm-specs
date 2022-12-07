@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -133,8 +133,6 @@ BuildRequires:  mingw32-libpng
 BuildRequires:  mingw32-libpng-static
 BuildRequires:  mingw32-openssl
 BuildRequires:  mingw32-openssl-static
-BuildRequires:  mingw32-pcre
-BuildRequires:  mingw32-pcre-static
 BuildRequires:  mingw32-pcre2
 BuildRequires:  mingw32-pcre2-static
 BuildRequires:  mingw32-postgresql
@@ -171,8 +169,6 @@ BuildRequires:  mingw64-libpng
 BuildRequires:  mingw64-libpng-static
 BuildRequires:  mingw64-openssl
 BuildRequires:  mingw64-openssl-static
-BuildRequires:  mingw64-pcre
-BuildRequires:  mingw64-pcre-static
 BuildRequires:  mingw64-pcre2
 BuildRequires:  mingw64-pcre2-static
 BuildRequires:  mingw64-postgresql
@@ -812,6 +808,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-3
+- Drop mingw-pcre BR (only keep mingw-pcre2)
+
 * Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-2
 - Rebuild (mingw-postgresql)
 

@@ -10,8 +10,10 @@ Summary:        Quick, precise tests for entire TCP/UDP/IPv4/IPv6 network stacks
 License:        GPL-2.0-only
 URL:            https://github.com/google/packetdrill
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+# PR#56: packetdrill: add test of tcp window clamp socket option
+Patch0:         %{url}/pull/56.patch
 # PR#62: Switch to Python3
-Patch:          %{url}/pull/62.patch
+Patch1:         %{url}/pull/62.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake

@@ -1,7 +1,7 @@
 %global pkgname utils
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.78
+Version:        0.81
 Release:        1%{?dist}
 Summary:        Utility functions for GAP
 
@@ -26,11 +26,11 @@ from many packages.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        GAP utils documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-curlinterface-doc
@@ -71,6 +71,9 @@ cp -p tst/download.tst %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Dec  5 2022 Jerry James <loganjerry@gmail.com> - 0.81-1
+- Version 0.81
+
 * Sat Nov 19 2022 Jerry James <loganjerry@gmail.com> - 0.78-1
 - Version 0.78
 - Drop dependency on gap-pkg-polycyclic

@@ -4,7 +4,7 @@ Version:        2.0.0
 %global prerel  rc8
 %global uver    %{version}%{?prerel}
 %global tag     %{name}-%{uver}
-Release:        0.23.%{prerel}%{?dist}
+Release:        0.24.%{prerel}%{?dist}
 
 Summary:        RepRap printer interface and tools
 # Only AppData is FSFAP
@@ -13,8 +13,9 @@ License:        GPLv3+ and FSFAP
 URL:            https://github.com/kliment/Printrun
 Source0:        https://github.com/kliment/Printrun/archive/%{tag}.tar.gz
 
-# Fix a crash on Python 3.10
+# Fix a crashes on Python 3.10
 Patch1:         %{url}/pull/1224.patch
+Patch2:         %{url}/pull/1262.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-Cython
@@ -192,6 +193,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license COPYING
 
 %changelog
+* Mon Dec 05 2022 Miro Hrončok <mhroncok@redhat.com> - 1:2.0.0-0.24.rc8
+- Fix another crash on Python 3.10
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-0.23.rc8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

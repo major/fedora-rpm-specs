@@ -192,7 +192,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
 # them for now.
 # tests/conda_env/test_create.py::test_create_update_remote_env_file requires network access
 # tests/cli/test_main_{clean,rename}.py tests require network access
-# tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands https://github.com/conda/conda/issues/12150
+# tests/cli/test_main_notices.py::test_notices_appear_once_when_running_decorated_commands needs a conda_build fixture that we remove
 # tests/test_misc.py::test_explicit_missing_cache_entries requires network access
 # tests/core/test_initialize.py tries to unlink /usr/bin/python3 and fails when python is a release candidate
 # tests/core/test_solve.py::test_cuda_fail_1 fails on non-x86_64

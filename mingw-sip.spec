@@ -3,16 +3,13 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.6.2
-Release:        6%{?dist}
+Version:        6.7.5
+Release:        1%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 License:        (GPLv2 or GPLv3) and (GPLv3+ with exceptions)
 Url:            http://www.riverbankcomputing.com/software/sip/intro
 Source0:        %{pypi_source}
-
-# Backport fix for the instantiation of template values
-Patch0:         323d39a2d602.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -20,11 +17,13 @@ BuildRequires:  python3-setuptools
 
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-dlfcn
 BuildRequires:  mingw32-python3
 BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-dlfcn
 BuildRequires:  mingw64-python3
 BuildRequires:  mingw64-python3-build
 
@@ -121,6 +120,9 @@ done
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 6.7.5-1
+- Update to 6.7.5
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 6.6.2-6
 - Switch to python3-build
 

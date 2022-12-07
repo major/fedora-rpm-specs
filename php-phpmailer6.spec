@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    8b6386d7417526d1ea4da9edb70b8352f7543627
+%global gh_commit    80fc8686fcd070267b98dae0ec228d5d67d94310
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.6.5
+Version:        6.7
 Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
@@ -57,7 +57,7 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php-parallel-lint/php-parallel-lint": "^1.3.1",
 #        "phpcompatibility/php-compatibility": "^9.3.5",
 #        "roave/security-advisories": "dev-latest",
-#        "squizlabs/php_codesniffer": "^3.6.2",
+#        "squizlabs/php_codesniffer": "^3.7.1",
 #        "yoast/phpunit-polyfills": "^1.0.0"
 %global phpunit %{_bindir}/phpunit7
 BuildRequires:  php-composer(yoast/phpunit-polyfills) >= 1.0.0
@@ -88,6 +88,7 @@ Requires:       php-openssl
 Requires:       php-pcre
 # From composer.json, "suggest": {
 #        "ext-mbstring": "Needed to send email in multibyte encoding charset",
+#        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
 #        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
 #        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
 #        "psr/log": "For optional PSR-3 debug logging",
@@ -182,7 +183,7 @@ popd
 
 : Run upstream test suite
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd  -d "sendmail_path=$PWD/test/fakesendmail.sh -t -i " \
       %{phpunit} --exclude slow,pop3,languages --verbose || ret=1
@@ -206,6 +207,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec  5 2022 Remi Collet <remi@remirepo.net> - 6.7-1
+- update to 6.7
+
 * Mon Oct 10 2022 Remi Collet <remi@remirepo.net> - 6.6.5-1
 - update to 6.6.5
 

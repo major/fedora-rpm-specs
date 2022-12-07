@@ -4,9 +4,9 @@
 
 Name:           alliance
 Version:        5.1.1
-Release:        26.%{snapdate}git%{shortcommit}%{?dist}
+Release:        27.%{snapdate}git%{shortcommit}%{?dist}
 Summary:        VLSI EDA System
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://soc-extras.lip6.fr/en/alliance-abstract-en/
 Source:         http://www-asim.lip6.fr/pub/alliance/distribution/latest/alliance-%{version}.tar.bz2
 Source1:        alliance.fedora
@@ -111,7 +111,7 @@ Summary:        Alliance VLSI CAD System - Documentations
 BuildArch:      noarch
 Requires:       gnuplot
 BuildRequires:  tetex-latex
-BuildRequires: make
+BuildRequires:  make
 
 %description    doc
 Documentation and tutorials for the Alliance VLSI CAD Sytem.
@@ -305,6 +305,9 @@ source %{_sysconfdir}/profile.d/alc_env.sh
 
 
 %changelog
+* Mon Dec 05 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.1.1-27.20160506gitd8c05cd
+- Convert license to SPDX.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-26.20160506gitd8c05cd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Log-Dispatchouli
-Version:        2.023
-Release:        5%{?dist}
+Version:        3.001
+Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Log-Dispatchouli
@@ -11,10 +11,12 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
+BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Log::Dispatch)
@@ -33,10 +35,12 @@ BuildRequires:  perl(Try::Tiny) >= 0.04
 BuildRequires:  perl(base)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(JSON::MaybeXS)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(utf8)
 Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Log::Dispatch::Array)
 Requires:       perl(Log::Dispatch::File)
@@ -106,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 02 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.001-1
+- 3.001 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.023-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

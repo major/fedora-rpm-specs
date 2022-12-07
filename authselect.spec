@@ -2,7 +2,7 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
@@ -341,6 +341,9 @@ fi
 exit 0
 
 %changelog
+* Mon Dec 5 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.2-1
+- Rebase to 1.4.2
+
 * Thu Dec 1 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.1-1
 - Rebase to 1.4.1
 

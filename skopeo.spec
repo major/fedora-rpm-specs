@@ -1,7 +1,3 @@
-%if "%{_vendor}" == "debbuild"
-%define gobuild(o:) GO111MODULE=off go build -buildmode pie -tags=" ${BUILDTAGS:-}" -a -v -x %{?**};
-%endif
-
 %global with_debug 1
 
 %if 0%{?with_debug}

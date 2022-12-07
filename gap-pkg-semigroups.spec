@@ -8,7 +8,7 @@
 %bcond_with bigtest
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.1.0
+Version:        5.2.0
 Release:        1%{?dist}
 Summary:        GAP methods for semigroups
 
@@ -70,12 +70,12 @@ drawing bipartitions.
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Semigraphs documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -149,6 +149,9 @@ cd -
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Mon Dec  5 2022 Jerry James <loganjerry@gmail.com> - 5.2.0-1
+- Version 5.2.0
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 5.1.0-1
 - Version 5.1.0
 - Clarify license of the doc subpackage

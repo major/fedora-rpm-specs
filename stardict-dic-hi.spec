@@ -1,9 +1,9 @@
 Name:           stardict-dic-hi
 Version:        3.0.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Hindi dictionary for stardict
 
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://stardict.sourceforge.net/
 # URL http://ltrc.iiit.net/downloads/shabdanjali-stardict/shabdanjali-fedora.tgz
 # usage: source generate-tarball.sh <version> <org-source-tarball> <initial-name-of-new-tarball>
@@ -34,6 +34,9 @@ chmod 644 README
 %{_datadir}/stardict/dic/*
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.0.1-28
+- Update license tag to SPDX format
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

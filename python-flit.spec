@@ -1,5 +1,12 @@
-# circular build dependency on requests-download and testpath
-%bcond_without tests
+# When bootstrapping new Python we need to build flit in bootstrap mode.
+# The Python RPM dependency generators and pip are not yet available.
+# When building in bootstrap mode, only flit-core is built.
+%bcond bootstrap 0
+
+# Tests are enabled by default, unless we bootstrap.
+# Disable them to avoid a circular build dependency on requests-download and testpath.
+%bcond tests %{without bootstrap}
+
 
 %global srcname flit
 
@@ -20,8 +27,10 @@ Source1:	https://pypi.org/pypi?%3Aaction=list_classifiers#/classifiers.lst
 
 BuildArch:	noarch
 BuildRequires:	python3-devel
+%if %{without bootstrap}
 BuildRequires:	pyproject-rpm-macros >= 0-40
 BuildRequires:	python3-pip
+%endif
 
 %if %{with tests}
 # Runtime deps, others
@@ -57,6 +66,7 @@ so long as they can be imported on Python 3.}
 %description %_description
 
 
+%if %{without bootstrap}
 %package -n python3-%{srcname}
 Summary:	%{summary}
 Requires:	python3-%{srcname}-core = %{version}-%{release}
@@ -69,11 +79,19 @@ Provides:	bundled(python3dist(tornado))
 Recommends:	python3-pygments
 
 %description -n python3-%{srcname} %_description
+%endif
 
 
 %package -n python3-%{srcname}-core
 Summary:	PEP 517 build backend for packages using Flit
 Conflicts:	python3-%{srcname} < 2.1.0-2
+
+# RPM generators are not yet available when we bootstrap
+%if %{with bootstrap}
+Provides:       python%{python3_pkgversion}dist(flit-core) = %{version}
+Provides:       python%{python3_version}dist(flit-core) = %{version}
+Requires:       python(abi) = %{python3_version}
+%endif
 
 %description -n python3-%{srcname}-core
 This provides a PEP 517 build backend for packages using Flit.
@@ -94,15 +112,26 @@ export FLIT_NO_NETWORK=1
 
 # first, build flit_core with self
 cd flit_core
+%if %{with bootstrap}
+%{python3} -m flit_core.wheel
+%else
 %pyproject_wheel
 cd -
 
 # build of the main flit (needs flit_core)
 export PYTHONPATH=$PWD:$PWD/flit_core
 %pyproject_wheel
+%endif
 
 %install
+%if %{with bootstrap}
+cd flit_core
+%{python3} bootstrap_install.py --install-root %{buildroot} dist/flit_core-%{version}-py3-none-any.whl
+# for consistency with %%pyproject_install:
+rm %{buildroot}%{python3_sitelib}/flit_core-*.dist-info/RECORD
+%else
 %pyproject_install
+%endif
 
 # don't ship tests in flit_core package
 # if upstream decides to change the installation, it can be removed:
@@ -121,12 +150,14 @@ export XDG_CACHE_HOME=$PWD/fake_cache
 %endif
 
 
+%if %{without bootstrap}
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/flit-*.dist-info/
 %{python3_sitelib}/flit/
 %{_bindir}/flit
+%endif
 
 
 %files -n python3-%{srcname}-core

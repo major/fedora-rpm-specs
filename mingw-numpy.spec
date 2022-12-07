@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.23.4
+Version:       1.23.5
 Release:       1%{?dist}
 BuildArch:     noarch
 
@@ -21,12 +21,14 @@ Patch1:        numpy_werror.patch
 
 BuildRequires: mingw32-filesystem >= 102
 BuildRequires: mingw32-gcc-c++
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-Cython
 BuildRequires: mingw32-python3-setuptools
 
 BuildRequires: mingw64-filesystem >= 102
 BuildRequires: mingw64-gcc-c++
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-Cython
 BuildRequires: mingw64-python3-setuptools
@@ -98,6 +100,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw6
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 1.23.5-1
+- Update to 1.23.5
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.23.4-1
 - Update to 1.23.4
 

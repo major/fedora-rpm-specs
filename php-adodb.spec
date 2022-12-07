@@ -2,8 +2,8 @@
 
 Name:           php-adodb
 Summary:        Database abstraction layer for PHP
-Version:        5.20.6
-Release:        14%{?dist}
+Version:        5.22.4
+Release:        1%{?dist}
 
 License:        BSD or LGPLv2+
 URL:            http://adodb.org
@@ -44,10 +44,7 @@ install -d $RPM_BUILD_ROOT%{_httpd_contentdir}/icons
 install -d $RPM_BUILD_ROOT%{_datadir}/php/adodb
 cp -pr * $RPM_BUILD_ROOT%{_datadir}/php/adodb/
 
-install -m644 cute_icons_for_site/* $RPM_BUILD_ROOT%{_httpd_contentdir}/icons
-
 # cleanup
-rm -rf $RPM_BUILD_ROOT%{_datadir}/php/adodb/cute_icons_for_site
 rm -rf $RPM_BUILD_ROOT%{_datadir}/php/adodb/docs
 rm -rf $RPM_BUILD_ROOT%{_datadir}/php/adodb/tests
 rm -f $RPM_BUILD_ROOT%{_datadir}/adodb/*.txt
@@ -57,10 +54,12 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/adodb/*.txt
 %license LICENSE.md
 %doc README.md docs/*
 %{_datadir}/php/adodb
-%{_httpd_contentdir}/icons/*
 
 
 %changelog
+* Mon Dec 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.22.4-1
+- 5.22.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.20.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

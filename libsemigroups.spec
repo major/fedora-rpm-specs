@@ -1,12 +1,12 @@
 Name:           libsemigroups
-Version:        2.3.2
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
 # libsemigroups itself is GPL-3.0-or-later.
 # TextFlow is BSL-1.0.
 # All other licenses are due to use of eigen3.
-License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND LGPL-2.0-or-later AND BSD-3-Clause AND Minpack
+License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -17,14 +17,14 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(catch2)
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(fmt)
-BuildRequires:  python3dist(beautifulsoup4)
-BuildRequires:  python3dist(breathe)
-BuildRequires:  python3dist(lxml)
-BuildRequires:  python3dist(pyyaml)
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(sphinx-copybutton)
-BuildRequires:  python3dist(sphinx-rtd-theme)
-BuildRequires:  python3dist(sphinxcontrib-bibtex)
+BuildRequires:  %{py3_dist beautifulsoup4}
+BuildRequires:  %{py3_dist breathe}
+BuildRequires:  %{py3_dist lxml}
+BuildRequires:  %{py3_dist pyyaml}
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-copybutton}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
 
 %description
 Libsemigroups is a C++ library for semigroups and monoids; it is partly
@@ -80,8 +80,6 @@ Libsemigroups also has some advantages over Semigroupe 2.01:
 %package devel
 Summary:        Headers files for developing with %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       eigen3-devel
-Requires:       fmt-devel%{?_isa}
 
 %description devel
 Header files for developing applications that use %{name}.
@@ -190,6 +188,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Mon Dec  5 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+- Refine License tag due to closer analysis of eigen3
+
 * Sat Oct 29 2022 Jerry James <loganjerry@gmail.com> - 2.3.2-1
 - Version 2.3.2
 

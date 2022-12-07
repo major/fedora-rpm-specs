@@ -7,10 +7,9 @@ License:        GPLv2+
 URL:            http://users.telenet.be/on4qz/
 
 Source0:        http://users.telenet.be/on4qz/qsstv/downloads/%{name}_%{version}.tar.gz
-Source1:        qsstv.desktop
-Source2:        qsstv.1
-Source3:        qsstv.appdata.xml
-Source4:        qsstv.png
+Source1:        qsstv.1
+Source2:        qsstv.appdata.xml
+Source3:        qsstv.png
 
 Patch0:         qsstv-install.patch
 
@@ -65,18 +64,18 @@ make install
 
 # Install icon
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
-install -pm 0644 %{SOURCE4} %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
+install -pm 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # Install man page borrowed from Debian
 mkdir -p %{buildroot}%{_mandir}/man1
-install -pm 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/
+install -pm 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
 # Install appdata file
 %if 0%{?fedora}
 mkdir -p %{buildroot}%{_metainfodir}
-install -pm 0644 %{SOURCE3} %{buildroot}%{_metainfodir}/
+install -pm 0644 %{SOURCE2} %{buildroot}%{_metainfodir}/
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %endif
 

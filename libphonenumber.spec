@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.12.57
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -28,6 +28,7 @@ international phone numbers.
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: abseil-cpp-devel
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -67,6 +68,9 @@ popd
 
 
 %changelog
+* Mon Dec 05 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-2
+- (#2150896) Add requires abseil-cpp-devel in the -devel package
+
 * Thu Nov 03 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-1
 - Update libphonenumber to 8.12.57 (#1893839)
 

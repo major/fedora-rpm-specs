@@ -5,7 +5,7 @@
 
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 4
+%global patch_ver 6
 #global rc_ver 3
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -608,6 +608,9 @@ false
 
 %endif
 %changelog
+* Mon Dec 05 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Thu Nov 03 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

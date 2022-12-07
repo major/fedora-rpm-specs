@@ -4,7 +4,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -130,7 +130,11 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
-* Tue Sep 27 2022 Ondrej Sloup <osloup@redhat.com> - 15.1-1
+* Mon Dec 05 2022 Filip Janus <fjansu@redhat.com> - 15.0-2
+- Revert versioning patch
+- There are no new symbols in libpq 15
+
+* Tue Sep 27 2022 Ondrej Sloup <osloup@redhat.com> - 15.0-1
 - Update to v15
 - Update patches
 - Resolves: https://fedoraproject.org/wiki/Changes/PostgreSQL_15

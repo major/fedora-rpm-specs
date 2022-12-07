@@ -3,11 +3,11 @@
 
 Name:		%{fontname}-fonts
 Version:	1.901
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Tibetan Machine Uni font for Tibetan, Dzongkha and Ladakhi
 
 # .ttf file now states GPLv3+ with fonts exceptions
-License:	GPLv3+ with exceptions
+License:	GPL-3.0-or-later WITH Font-exception-2.0
 URL:		http://www.thlib.org/tools/#wiki=/access/wiki/site/26a34146-33a6-48ce-001e-f16ce7908a6a/tibetan%20machine%20uni.html
 Source0:	https://collab.itc.virginia.edu/access/content/group/26a34146-33a6-48ce-001e-f16ce7908a6a/Tibetan%20fonts/Tibetan%20Unicode%20Fonts/%{zipname}.zip
 Source1:        %{fontname}.metainfo.xml
@@ -44,6 +44,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.901-30
+- Update license tag to SPDX format
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.901-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

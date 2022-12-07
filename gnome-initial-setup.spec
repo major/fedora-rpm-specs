@@ -16,6 +16,10 @@ URL:            https://wiki.gnome.org/Design/OS/InitialSetup
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
 
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/164
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/165
+Patch0:         webkitgtk-6.0.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  meson

@@ -19,7 +19,7 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -34,7 +34,7 @@ BuildRequires:  pkgconfig(gtk+-3.0) >= 3.0
 BuildRequires:  pkgconfig(gnutls) >= 2.2
 BuildRequires:  libgcrypt-devel
 BuildRequires:  openldap-devel >= 2.0.7
-BuildRequires:  pkgconfig(enchant) >= 1.4.0
+BuildRequires:  pkgconfig(enchant-2) >= 2.0.0
 %if !0%{?rhel}
 %ifnarch s390 s390x
 BuildRequires:  pilot-link-devel
@@ -657,6 +657,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Tue Dec  6 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-2
+- Use enchant2.
+
 * Tue Oct 25 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-1
 - Update to 4.1.1.
 

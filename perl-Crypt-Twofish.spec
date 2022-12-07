@@ -1,10 +1,11 @@
 Name:           perl-Crypt-Twofish
 Version:        2.18
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Twofish Encryption Algorithm
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-Twofish
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMS/Crypt-Twofish-%{version}.tar.gz
+Patch0:         perl-Crypt-Twofish-makefile-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -35,7 +36,7 @@ Twofish is a 128-bit symmetric block cipher with a variable length (128,
 free for all uses, as described at http://www.counterpane.com/twofish.html.
 
 %prep
-%setup -q -n Crypt-Twofish-%{version}
+%autosetup -p1 -n Crypt-Twofish-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -56,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 2.18-8
+- Port Makefile.PL to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

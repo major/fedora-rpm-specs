@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 7
+%global rcrev 8
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -534,6 +534,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Dec 05 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.1.0-0.rc8.git0.1
+- Linux v6.1-rc8
+
 * Mon Nov 28 2022 Justin M. Forbes <jforbes@fedoraproject.org> - 6.1.0-0.rc7.git0.1
 - Linux v6.1-rc7
 

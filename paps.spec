@@ -1,8 +1,8 @@
 Name:           paps
 Version:        0.7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://paps.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        paps.convs
@@ -135,6 +135,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 0.7.1-6
+- Convert License tag to SPDX.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

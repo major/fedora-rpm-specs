@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -57,10 +57,10 @@ Source20: 50-edk2-arm-verbose.json
 
 Source30: 30-edk2-ovmf-ia32-sb-enrolled.json
 Source31: 40-edk2-ovmf-ia32-sb.json
-Source32: 50-edk2-ovmf-ia32.json
+Source32: 50-edk2-ovmf-ia32-nosb.json
 
-Source40: 30-edk2-ovmf-x64-sb.json
-Source41: 40-edk2-ovmf-x64.json
+Source40: 30-edk2-ovmf-x64-sb-enrolled.json
+Source41: 40-edk2-ovmf-x64-sb.json
 Source42: 50-edk2-ovmf-x64-microvm.json
 Source43: 50-edk2-ovmf-x64-nosb.json
 Source44: 60-edk2-ovmf-x64-amdsev.json
@@ -384,8 +384,8 @@ ln -s OVMF_CODE.fd %{buildroot}%{_datadir}/%{name}/ovmf/OVMF_CODE.cc.fd
 # json description files
 mkdir -p %{buildroot}%{_datadir}/qemu/firmware
 install -m 0644 \
-        30-edk2-ovmf-x64-sb.json \
-        40-edk2-ovmf-x64.json \
+        30-edk2-ovmf-x64-sb-enrolled.json \
+        40-edk2-ovmf-x64-sb.json \
         50-edk2-ovmf-x64-nosb.json \
         60-edk2-ovmf-x64-amdsev.json \
         60-edk2-ovmf-x64-inteltdx.json \
@@ -395,7 +395,7 @@ install -m 0644 \
         50-edk2-ovmf-x64-microvm.json \
         30-edk2-ovmf-ia32-sb-enrolled.json \
         40-edk2-ovmf-ia32-sb.json \
-        50-edk2-ovmf-ia32.json \
+        50-edk2-ovmf-ia32-nosb.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %endif
 
@@ -483,8 +483,8 @@ done
 %{_datadir}/%{name}/ovmf/UefiShell.iso
 %{_datadir}/%{name}/ovmf/Shell.efi
 %{_datadir}/%{name}/ovmf/EnrollDefaultKeys.efi
-%{_datadir}/qemu/firmware/30-edk2-ovmf-x64-sb.json
-%{_datadir}/qemu/firmware/40-edk2-ovmf-x64.json
+%{_datadir}/qemu/firmware/30-edk2-ovmf-x64-sb-enrolled.json
+%{_datadir}/qemu/firmware/40-edk2-ovmf-x64-sb.json
 %{_datadir}/qemu/firmware/50-edk2-ovmf-x64-nosb.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-amdsev.json
 %{_datadir}/qemu/firmware/60-edk2-ovmf-x64-inteltdx.json
@@ -557,7 +557,7 @@ done
 %{_datadir}/%{name}/ovmf-ia32/UefiShell.iso
 %{_datadir}/qemu/firmware/30-edk2-ovmf-ia32-sb-enrolled.json
 %{_datadir}/qemu/firmware/40-edk2-ovmf-ia32-sb.json
-%{_datadir}/qemu/firmware/50-edk2-ovmf-ia32.json
+%{_datadir}/qemu/firmware/50-edk2-ovmf-ia32-nosb.json
 
 %files ovmf-experimental
 %common_files
@@ -596,6 +596,10 @@ done
 
 
 %changelog
+* Mon Dec 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-5
+- rename *.json files to be more consistent.
+- build script update
+
 * Fri Dec 02 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-4
 - apply dbx updates
 

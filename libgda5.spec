@@ -16,7 +16,7 @@
 Name:           libgda5
 Epoch:          1
 Version:        5.2.10
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPLv2+
@@ -31,6 +31,8 @@ Patch3:         0003-mdb-provider-Pass-MdbHandle-to-the-mdb_set_date_fmt-.patch
 # Upstream fix commit 9859479884fad5f39e6c37e8995e57c28b11b1b9
 Patch4:         libgda-5.2.10-mysql-bool-fix.patch
 Patch5:         bebdffb4de586fb43fd07ac549121f4b22f6812d.patch
+Patch6:         libgda5-configure-c99.patch
+Patch7:         libgda5-gtksourceview-c99.patch
 
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
@@ -387,6 +389,9 @@ rm %{buildroot}/%{_sysconfdir}/%{upstream}-%{apiver}/sales_test.db
 %endif
 
 %changelog
+* Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 1:5.2.10-13
+- Port to C99
+
 * Thu Aug 18 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:5.2.10-12
 0 Dep fix
 

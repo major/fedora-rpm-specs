@@ -8,7 +8,7 @@ They also contains some embedded Japanese bitmap fonts.
 
 Name:		%{fontname}-fonts
 Version:	0.20040629
-Release:	41%{?dist}
+Release:	42%{?dist}
 BuildArch:	noarch
 BuildRequires:	ttmkfdir >= 3.0.6
 BuildRequires:	mkfontdir xorg-x11-fonts-misc >= 7.5-11
@@ -26,7 +26,7 @@ Patch2:		uni7E6B-mincho.patch
 Patch3:		uni8449-mincho.patch
 
 Summary:	Sazanami Japanese TrueType fonts
-License:	BSD
+License:	BSD-3-Clause
 
 %description
 %common_desc
@@ -42,7 +42,6 @@ This package consists of files used by other %{name} packages.
 
 %package -n	%{fontname}-gothic-fonts
 Summary:	Sazanami Gothic Japanese TrueType font
-License:	BSD
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n	%{fontname}-gothic-fonts
@@ -52,7 +51,6 @@ This package contains Japanese TrueType font for Gothic type face.
 
 %package -n	%{fontname}-mincho-fonts
 Summary:	Sazanami Mincho Japanese TrueType font
-License:	BSD
 Requires:	%{name}-common = %{version}-%{release}
 
 %description -n	%{fontname}-mincho-fonts
@@ -132,6 +130,9 @@ ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
 %dir %{_fontdir}
 
 %changelog
+* Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 0.20040629-42
+- Convert License tag to SPDX.
+
 * Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 0.20040629-41
 - Drop old dependencies.
 - Fix validation error in fontconfig config files.

@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        9.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -148,7 +148,7 @@ popd
 %cmake -G Ninja \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
-    -DCLANG_FORMAT_LIB_PATH=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/libclangFormat.a \
+    -DCLANG_LIB_PATH=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/ \
     -DWITH_DOCS=ON \
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
@@ -211,6 +211,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri Dec 02 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-2
+- Fix broken clangFormat plugin
+
 * Thu Nov 24 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-1
 - Update to 9.0.0
 

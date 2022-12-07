@@ -1,10 +1,10 @@
 Summary:       A graphical interface for modifying the system language
 Name:          system-config-language
 Version:       3.5.0
-Release:       9%{?dist}
+Release:       10%{?dist}
 URL:           https://pagure.io/system-config-language
 Source0:       https://pagure.io/releases/%{name}/%{name}-%{version}.tar.xz
-License:       GPLv2+
+License:       GPL-2.0-or-later
 
 BuildArch:     noarch
 BuildRequires: make
@@ -58,6 +58,9 @@ desktop-file-install --vendor system --delete-original       \
 %{_datadir}/polkit-1/actions/org.fedoraproject.config.language.policy
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.5.0-10
+- Update license tag to SPDX format
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

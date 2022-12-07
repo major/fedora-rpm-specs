@@ -23,7 +23,7 @@
 
 Name:              redis
 Version:           7.0.5
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # redis, jemalloc, linenoise, lzf, hiredis are BSD
 # lua is MIT
@@ -46,6 +46,7 @@ Source10:          https://github.com/%{name}/%{name}-doc/archive/%{doc_commit}/
 # Update configuration for Fedora
 # https://github.com/redis/redis/pull/3491 - man pages
 Patch0001:         0001-1st-man-pageis-for-redis-cli-redis-benchmark-redis-c.patch
+Patch0002:         0002-deps-jemalloc-Do-not-force-building-in-gnu99-mode.patch
 
 BuildRequires: make
 BuildRequires:     gcc
@@ -134,6 +135,7 @@ administration and development.
 %setup -q
 mv ../%{name}-doc-%{doc_commit} doc
 %patch0001 -p1
+%patch0002 -p1
 
 mv deps/lua/COPYRIGHT    COPYRIGHT-lua
 mv deps/jemalloc/COPYING COPYING-jemalloc
@@ -306,6 +308,9 @@ fi
 
 
 %changelog
+* Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 7.0.5-2
+- Port makefile to C99 mode
+
 * Thu Sep 22 2022 Remi Collet <remi@remirepo.net> - 7.0.5-1
 - Upstream 7.0.5 security release.
 

@@ -7,6 +7,7 @@
 # final compiler that gets installed in the rpm.
 %bcond_with bootstrap
 
+%undefine _cmake_shared_libs
 %undefine _hardened_build
 %undefine _package_note_file
 
@@ -148,9 +149,13 @@ install -m0644 phobos.d.tags %{buildroot}/%{_datadir}/geany/tags/
 %dir %{_prefix}/lib/ldc/%{_target_platform}/include
 %{_prefix}/lib/ldc/%{_target_platform}/include/d/
 %{_libdir}/ldc_rt.dso.o
+%{_libdir}/libdruntime-ldc-debug.a
 %{_libdir}/libdruntime-ldc-debug-shared.so
+%{_libdir}/libdruntime-ldc.a
 %{_libdir}/libdruntime-ldc-shared.so
+%{_libdir}/libphobos2-ldc-debug.a
 %{_libdir}/libphobos2-ldc-debug-shared.so
+%{_libdir}/libphobos2-ldc.a
 %{_libdir}/libphobos2-ldc-shared.so
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions

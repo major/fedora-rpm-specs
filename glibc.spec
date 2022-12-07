@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-323-gf704192911
+%global glibcsrcdir glibc-2.36.9000-340-g8fb923ddc3
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 15
+%global baserelease 16
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,27 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Dec 05 2022 Arjun Shankar <arjun@redhat.com> - 2.36.9000-16
+- Auto-sync with upstream branch master,
+  commit 8fb923ddc38dd5f4bfac4869d70fd80483fdb87a:
+- hurd: Make getrandom cache the server port
+- powerpc64: Remove old strncmp optimization
+- x86-64 strncpy: Properly handle the length parameter [BZ# 29839]
+- x86-64 strncat: Properly handle the length parameter [BZ# 24097]
+- ARC: update definitions in elf/elf.h
+- scripts: Add "|" operator support to glibcpp's parsing
+- Apply asm redirections in syslog.h before first use [BZ #27087]
+- LoongArch: Add support for ilogb[f]
+- LoongArch: Add support for scalb[f]
+- LoongArch: Add support for scalbn[f]
+- LoongArch: Use __builtin_logb{,f} with GCC >= 13
+- Use GCC builtins for logb functions if desired.
+- LoongArch: Use __builtin_llrint{,f} with GCC >= 13
+- Use GCC builtins for llrint functions if desired.
+- LoongArch: Use __builtin_lrint{,f} with GCC >= 13
+- Use GCC builtins for lrint functions if desired.
+- LoongArch: Use __builtin_rint{,f} with GCC >= 13
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-15
 - Auto-sync with upstream branch master,
   commit f704192911c6c7b65a54beab3ab369fca7609a5d:

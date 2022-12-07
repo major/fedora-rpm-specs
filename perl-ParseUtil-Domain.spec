@@ -1,46 +1,54 @@
 Name:           perl-ParseUtil-Domain
 Summary:        Utility for parsing a domain name into its components
 Version:        2.427
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 # - ParseUtil::Domain is GPL+ or Artistic (the "Perl" license)
-# - data/effective_tld_names.txt is MPLv2.0
+# - data/effective_tld_names.txt is MPL-2.0
 # - ParseUtil::Domain::ConfigData is automatically generated during the build,
 #   based on the contents of data/effective_tld_names.txt
-License:        (GPL+ or Artistic) and MPLv2.0
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 
 URL:            https://metacpan.org/release/ParseUtil-Domain
 Source0:        https://cpan.metacpan.org/authors/id/H/HE/HEYTRAV/ParseUtil-Domain-%{version}.tar.gz
 
 BuildArch:      noarch
 
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(autobox)
 BuildRequires:  perl(autobox::Core)
-BuildRequires:  perl(base)
 BuildRequires:  perl(Carp) >= 1.17
+BuildRequires:  perl(English)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(Mock::Quick)
 BuildRequires:  perl(Modern::Perl)
-BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(Net::IDN::Encode) >= 2.003
 BuildRequires:  perl(Net::IDN::Nameprep) >= 1.101
 BuildRequires:  perl(Net::IDN::Punycode) >= 1.100
-BuildRequires:  perl(Perl6::Export::Attrs)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(Perl::Critic)
 BuildRequires:  perl(Regexp::Assemble::Compressed)
-BuildRequires:  perl(Smart::Comments)
+#BuildRequires:  perl(Smart::Comments) - not used
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Class)
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Deep)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Routine)
 BuildRequires:  perl(Test::Routine::Util)
-BuildRequires:  perl(Unicode::CharName) >= 1.07
+#BuildRequires:  perl(Unicode::CharName) >= 1.07 - not used
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(warnings)
 BuildRequires:  sed
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
@@ -67,8 +75,7 @@ make %{?_smp_mflags}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
+make pure_install DESTDIR=$RPM_BUILD_ROOT
 %{_fixperms} %{buildroot}/*
 
 
@@ -86,6 +93,10 @@ TEST_AUTHOR=1 make test
 
 
 %changelog
+* Mon Dec 05 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.427-17
+- Update list of dependencies
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.427-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

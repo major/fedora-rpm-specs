@@ -1,19 +1,20 @@
 %{?mingw_package_header}
 
 Name:           mingw-xerces-c
-Version:        3.2.1
-Release:        11%{?dist}
+Version:        3.2.4
+Release:        1%{?dist}
 Summary:        MingGW Windows validating XML parser
 
 License:        ASL 2.0
 URL:            http://xml.apache.org/xerces-c/
 Source0:        http://www.apache.org/dist/xerces/c/3/sources/xerces-c-%{version}.tar.gz
-Patch0:         xerces-c-3.0.1-fix-libtool-compatibility.patch
-Patch1:         xerces-c-cross-compile.patch
+# MinGW build fixes
+Patch0:         xerces-c_mingw.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  cmake
+
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
@@ -24,9 +25,6 @@ BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
 
 %description
 Xerces-C is a validating XML parser written in a portable subset of
@@ -49,6 +47,7 @@ generating, manipulating, and validating XML documents. Xerces-C is
 faithful to the XML 1.0 recommendation and associated standards (DOM
 1.0, DOM 2.0. SAX 1.0, SAX 2.0, Namespaces).
 
+
 %package -n mingw64-xerces-c
 Summary:        MingGW x64 Windows validating XML parser
 Requires:       pkgconfig
@@ -66,42 +65,38 @@ faithful to the XML 1.0 recommendation and associated standards (DOM
 
 
 %prep
-%setup -q -n xerces-c-%{version}
-%patch0 -p1 -b .libtool
-%patch1 -p1 -b .cross-compile
+%autosetup -p1 -n xerces-c-%{version}
 
 
 %build
-autoreconf -fi
-
-%mingw_configure \
-    --disable-static
-%mingw_make %{?_smp_mflags} V=1
+%mingw_cmake
+%mingw_make_build
 
 
 %install
-%mingw_make install DESTDIR=$RPM_BUILD_ROOT
+%mingw_make_install
 
-rm -f $RPM_BUILD_ROOT%{mingw32_bindir}/*.exe
-rm -f $RPM_BUILD_ROOT%{mingw64_bindir}/*.exe
-
-# Drop all .la files
-find $RPM_BUILD_ROOT -name "*.la" -delete
+rm -f %{buildroot}%{mingw32_bindir}/*.exe
+rm -f %{buildroot}%{mingw64_bindir}/*.exe
+rm -rf %{buildroot}%{mingw32_datadir}/doc/
+rm -rf %{buildroot}%{mingw64_datadir}/doc/
 
 
 %files -n mingw32-xerces-c
 %license LICENSE
 %{mingw32_includedir}/xercesc/
-%{mingw32_bindir}/libxerces-c-3-2.dll
+%{mingw32_bindir}/libxerces-c-3.2.dll
 %{mingw32_libdir}/libxerces-c.dll.a
 %{mingw32_libdir}/pkgconfig/xerces-c.pc
+%{mingw32_libdir}/cmake/XercesC/
 
 %files -n mingw64-xerces-c
 %license LICENSE
 %{mingw64_includedir}/xercesc/
-%{mingw64_bindir}/libxerces-c-3-2.dll
+%{mingw64_bindir}/libxerces-c-3.2.dll
 %{mingw64_libdir}/libxerces-c.dll.a
 %{mingw64_libdir}/pkgconfig/xerces-c.pc
+%{mingw64_libdir}/cmake/XercesC/
 
 
 %changelog

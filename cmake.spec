@@ -75,7 +75,7 @@
 %global orig_name cmake
 
 Name:           %{orig_name}%{?name_suffix}
-Version:        %{major_version}.%{minor_version}.0
+Version:        %{major_version}.%{minor_version}.1
 Release:        %{baserelease}%{?relsuf}%{?dist}
 Summary:        Cross-platform make system
 
@@ -525,6 +525,10 @@ popd
 
 
 %changelog
+* Mon Dec 05 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.1-1
+- cmake-3.25.1
+  Fixes rhbz#2149681
+
 * Wed Nov 16 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.0-1
 - cmake-3.25.0
   Fixes rhbz#2143345

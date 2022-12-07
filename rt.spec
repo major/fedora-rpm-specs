@@ -52,7 +52,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -297,6 +297,8 @@ Requires: rt-mailgate
 
 # Work-around rpm's depgenerator defect:
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(DBIx::SearchBuilder::Handle::\\)
+# Word-around RHBZ#2148952
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(.::t/lifecycles/utils.pl\\)
 
 # Filter redundant provides
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(RT\\)$
@@ -648,6 +650,10 @@ fi
 %endif
 
 %changelog
+* Mon Dec 05 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.3-3
+- Filter out ./t/lifecycles/utils.pl to work-around rpm bogusly adding
+  R: perl(.::t/lifecycles/utils.pl) (RHBZ#2148952).
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.3-2
 - Convert license to SPDX.
 

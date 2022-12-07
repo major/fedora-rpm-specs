@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-SDL2_image
-Version:        2.6.1
+Version:        2.6.2
 Release:        1%{?dist}
 Summary:        MinGW Windows port of the Image loading library for SDL2
 
@@ -106,6 +106,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 2.6.2-1
+- Update to 2.6.2
+
 * Thu Aug 04 2022 Sandro Mani <manisandro@gmail.com> - 2.6.1-1
 - Update to 2.6.1
 

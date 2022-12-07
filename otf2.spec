@@ -6,10 +6,10 @@
 
 Name:           otf2
 Version:        2.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Trace Format 2 library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://score-p.org
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/otf2/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
 # fedpkg new-sources apparently can't cope with both otf2-1.5.1 and
@@ -166,6 +166,9 @@ make check
 %endif
 
 %changelog
+* Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 2.3-7
+- Use SPDX licence TAG
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

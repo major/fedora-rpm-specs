@@ -7,14 +7,14 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.6.6
-Release:        4%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPLv2+
 
 URL:            http://www.haproxy.org/
-Source0:        %{url}/download/2.6/src/haproxy-%{version}.tar.gz
+Source0:        %{url}/download/2.7/src/haproxy-%{version}.tar.gz
 Source1:        %{name}.service
 Source2:        %{name}.cfg
 Source3:        %{name}.logrotate
@@ -127,6 +127,9 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Mon Dec 05 2022 Ryan O'Hara <rohara@redhat.com> - 2.7.0-1
+- Update to 2.7.0 (#2150028)
+
 * Tue Nov 29 2022 Ryan O'Hara <rohara@redhat.com> - 2.6.6-4
 - Fix Source0 URL (#2139126)
 

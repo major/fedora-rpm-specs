@@ -3,10 +3,10 @@
 
 Name:           python-%{module_name}
 Version:        1.0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A reading text analysis tool
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/riverrun/drat
 Source0:        %{pypi_source %{module_name}}
 
@@ -61,6 +61,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{module_name}-*.egg-info/
 
 %changelog
+* Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.0.3-14
+- Update license tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

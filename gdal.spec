@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.6.0
-Release:       2%{?pre:.%pre}%{?dist}
+Release:       4%{?pre:.%pre}%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -149,7 +149,7 @@ BuildRequires: mingw32-libtiff
 BuildRequires: mingw32-libwebp
 BuildRequires: mingw32-openexr
 BuildRequires: mingw32-openjpeg2
-BuildRequires: mingw32-pcre
+BuildRequires: mingw32-pcre2
 BuildRequires: mingw32-poppler
 BuildRequires: mingw32-postgresql
 BuildRequires: mingw32-proj
@@ -179,7 +179,7 @@ BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-libwebp
 BuildRequires: mingw64-openexr
 BuildRequires: mingw64-openjpeg2
-BuildRequires: mingw64-pcre
+BuildRequires: mingw64-pcre2
 BuildRequires: mingw64-poppler
 BuildRequires: mingw64-postgresql
 BuildRequires: mingw64-proj
@@ -568,6 +568,12 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 3.6.0-4
+- Rebuild (mingw-xerces-c)
+
+* Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 3.6.0-3
+- Switch to pcre2 for mingw build
+
 * Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 3.6.0-2
 - Rebuild (mingw-postgresql)
 
