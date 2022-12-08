@@ -63,7 +63,7 @@ BuildRequires:  kf5-kirigami2-devel
 BuildRequires:  pkgconfig(ModemManager) >= 1.0.0
 %endif
 BuildRequires:  pkgconfig(libnm) >= 1.0.0
-%if 0%{?fedora} || 0%{?epel}
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:  pkgconfig(openconnect) >= 4.00
 %endif
 
@@ -98,7 +98,7 @@ Provides:       kde-plasma-nm-mobile = %{version}-%{release}
 %description    mobile
 %{summary}.
 
-%if 0%{?fedora} || 0%{?epel}
+%if 0%{?fedora} || 0%{?rhel}
 %package        openvpn
 Summary:        OpenVPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -283,7 +283,7 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui
 ###%{_kf5_datadir}/kservices5/wifisettings.desktop
 
 
-%if 0%{?fedora} || 0%{?epel}
+%if 0%{?fedora} || 0%{?rhel}
 %files openvpn -f plasmanetworkmanagement_openvpnui.lang
 %{_kf5_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_openvpnui.so
 

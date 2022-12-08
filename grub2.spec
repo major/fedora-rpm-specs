@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	68%{?dist}
+Release:	69%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Dec 06 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-69
+- Fix error handling in grub_file_open()
+
 * Mon Dec 05 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-68
 - Allow for xz'd symvers file (prarit)
 

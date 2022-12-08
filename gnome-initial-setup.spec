@@ -51,7 +51,7 @@ BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
 BuildRequires:  pkgconfig(rest-1.0)
-BuildRequires:  pkgconfig(webkit2gtk-5.0)
+BuildRequires:  pkgconfig(webkitgtk-6.0)
 
 # gnome-initial-setup is being run by gdm
 Requires: gdm

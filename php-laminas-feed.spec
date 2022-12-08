@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    4d0a7a536b48f698914156ca6633104b3aef2f3b
+%global gh_commit    508ebef6e622f2f2ce3dd0559739ffd0dfa3b938
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-feed
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.19.0
+Version:        2.20.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -48,12 +48,12 @@ BuildRequires:  php-tidy
 #        "laminas/laminas-cache-storage-adapter-memory": "^1.1.0 || ^2.1",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "laminas/laminas-db": "^2.15",
-#        "laminas/laminas-http": "^2.16",
+#        "laminas/laminas-http": "^2.17.0",
 #        "laminas/laminas-validator": "^2.26",
 #        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "psalm/plugin-phpunit": "^0.18.0",
 #        "psr/http-message": "^1.0.1",
-#        "vimeo/psalm": "^4.29"
+#        "vimeo/psalm": "^5.1.0"
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5.25
 BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1   with php-composer(psr/http-message)                           < 2)
@@ -63,7 +63,7 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6 
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-cache)                >= 2.7.2   with php-autoloader(%{gh_owner}/laminas-cache)                < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-db)                   >= 2.15    with php-autoloader(%{gh_owner}/laminas-db)                   < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.16    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.17    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.26    with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 %endif
 # Autoloader
@@ -209,6 +209,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.20.0-1
+- update to 2.20.0
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
 - update to 2.19.0
 - raise dependency on PHP 8.0

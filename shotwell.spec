@@ -1,6 +1,6 @@
 Name:           shotwell
-Version:        0.31.5
-Release:        3%{?dist}
+Version:        0.31.7
+Release:        1%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -40,6 +40,7 @@ BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libexif) >= 0.6.16
 BuildRequires:  pkgconfig(libgdata)
 BuildRequires:  pkgconfig(libgphoto2) >= 2.5.0
+BuildRequires:  pkgconfig(libportal-gtk3) >= 0.5
 BuildRequires:  pkgconfig(libraw) >= 0.13.2
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(libwebp)
@@ -101,6 +102,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 %exclude %{_libdir}/libshotwell-plugin-dev-1.0.so
 %{_libexecdir}/shotwell
 %{_datadir}/applications/org.gnome.Shotwell.desktop
+%{_datadir}/applications/org.gnome.Shotwell-Profile-Browser.desktop
 %{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Shotwell.png
@@ -110,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Tue Dec 06 2022 David King <amigadave@amigadave.com> - 0.31.7-1
+- Update to 0.31.7
+
 * Sat Sep 17 2022 Kalev Lember <klember@redhat.com> - 0.31.5-3
 - Drop unneeded libchamplain buildrequires
 

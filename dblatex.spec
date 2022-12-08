@@ -1,6 +1,6 @@
 Name:       dblatex
 Version:    0.3.12
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    DocBook to LaTeX/ConTeXt Publishing
 BuildArch:  noarch
 # Most of package is GPLv2+, except:
@@ -9,7 +9,7 @@ BuildArch:  noarch
 # latex/misc/enumitem.sty, multirow2.sry and ragged2e.sty are LPPL
 # latex/misc/lastpage.sty is GPLv2 (no +)
 # latex/misc/passivetex is MIT (not included in binary RPM so not listed)
-License:    GPLv2+ and GPLv2 and LPPL and DMIT and Public Domain
+License:    GPL-2.0-or-later AND GPL-2.0-only AND LPPL-1.3a AND LicenseRef-DMIT AND LicenseRef-Fedora-Public-Domain
 URL:        http://dblatex.sourceforge.net/
 Source0:    http://downloads.sourceforge.net/%{name}/%{name}3-%{version}.tar.bz2
 # Source1 is from http://docbook.sourceforge.net/release/xsl/current/COPYING
@@ -135,6 +135,9 @@ cp -p %{SOURCE1} COPYING-docbook-xsl
 %postun -p /usr/bin/texhash
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 0.3.12-8
+- SPDX migration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

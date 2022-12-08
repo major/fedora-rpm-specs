@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-pear-Net-Sieve
 #
-# Copyright (c) 2008-2021 Remi Collet
+# Copyright (c) 2008-2022 Remi Collet
 # Copyright (c) 2006-2008 Brandon Holbrook
 #
 # License: MIT
@@ -12,8 +12,8 @@
 %global pear_name Net_Sieve
 
 Name:           php-pear-Net-Sieve
-Version:        1.4.5
-Release:        4%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        Handles talking to a sieve server
 
 License:        BSD
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 1.4.6-1
+- update to 1.4.6
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

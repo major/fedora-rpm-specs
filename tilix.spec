@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -123,6 +123,8 @@ install -m 755 tilix-flatpak-toolbox $RPM_BUILD_ROOT%{_bindir}
 
 
 %check
+%meson_test
+
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/com.gexperts.Tilix.appdata.xml
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix.desktop
 
@@ -148,6 +150,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Tue Dec 06 2022 Kalev Lember <klember@redhat.com> - 1.9.5-7
+- Run self tests as part of the package build
+
 * Wed Nov 23 2022 Kalev Lember <klember@redhat.com> - 1.9.5-6
 - Backport upstream patch to fix compatibility with nautilus 43
 

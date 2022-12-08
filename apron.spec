@@ -2,7 +2,7 @@
 
 Name:           apron
 Version:        0.9.13
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Numerical abstract domain library
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -12,7 +12,7 @@ Summary:        Numerical abstract domain library
 # OCaml-LGPL-linking-exception.
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later
 URL:            https://antoinemine.github.io/Apron/doc/
-Source0:        https://github.com/antoinemine/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/antoinemine/apron/archive/v%{version}/%{name}-%{version}.tar.gz
 # This patch has not been sent upstream as it is GCC-specific.  Certain
 # symbols are defined in both libpolkaMPQ and libpolkaRll, with different
 # implementations.  This patch makes references to those symbols in
@@ -74,7 +74,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 Requires:       mpfr-devel%{?_isa}
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -155,6 +155,10 @@ export JAVA_TOOL_OPTIONS='-Dfile.encoding=UTF8'
 
 # Put back a flag that the configure script strips out
 sed -i 's/-Wp,-D_FORTIFY_SOURCE=2/-Werror=format-security &/' Makefile.config
+
+# Generate dependency lists
+touch apron/depend
+make -C apron depend
 
 # Parallel builds fail intermittently
 make
@@ -257,6 +261,9 @@ test/ctest1
 %endif
 
 %changelog
+* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 0.9.13-14
+- Work around build failure with make 4.4 (rhbz#2150171)
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 0.9.13-13
 - Convert License tag to SPDX
 

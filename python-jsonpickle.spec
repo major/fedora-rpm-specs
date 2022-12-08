@@ -1,121 +1,102 @@
-%global pypi_name jsonpickle
-
 Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
-License:        BSD
-URL:            https://pypi.io/project/jsonpickle/
-Source0:        %{pypi_source}
-#Source1:        %%{pypi_source}.asc
-# upstream mentioned the signing key in
-#    https://github.com/jsonpickle/jsonpickle/issues/310
-Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/FA41BF59C1B48E8C5F3DA61C8CE26BF4A9F606B0
+License:        BSD-3-Clause
+URL:            https://github.com/jsonpickle/jsonpickle
+Source0:        %{pypi_source jsonpickle}
+Source1:        %{pypi_source jsonpickle}.asc
+# Downloaded 2022-12-06. See:
+# https://github.com/jsonpickle/jsonpickle/issues/310
+Source2:        https://github.com/Theelx.gpg
 
-# upstream relies on setuptools_scm >= 3.4.1 to get the version number from git
-# metadata but RHEL only ships python3-setuptools_scm = 1.15.7.
-# However we can just set the version explicitely with sed.
-Patch1:         jsonpickle-drop-setuptools_scm.patch
-
-Patch2:         unpin-setuptools.patch
+Patch:          unpin-setuptools.patch
+# Use stdlib datetime.timezone instead of pytz in tests
+#
+# This removes an implicit test dependency (satisfied via pandas) on pytz.
+# https://github.com/jsonpickle/jsonpickle/pull/421
+Patch:          %{url}/pull/421.patch
 
 %global _docdir_fmt %{name}
 
 BuildArch:      noarch
 
-%description
-This module allows python objects to be serialized to JSON in a similar fashion
-to the pickle module.
+BuildRequires:  gnupg2
+
+BuildRequires:  python3-devel
+
+%global _description %{expand:
+jsonpickle is a library for the two-way conversion of complex Python objects
+and JSON. jsonpickle builds upon the existing JSON encoders, such as
+simplejson, json, and ujson.}
+
+%description %{_description}
+
 
 %package -n python3-jsonpickle
 Summary:        A module that allows any object to be serialized into JSON
-%{?python_provide:%python_provide python3-jsonpickle}
 
-BuildRequires:  gnupg2
-%if 0%{?rhel} || 0%{?fedora} <= 31
-# Fedora 32+ uses Python 3.8
-BuildRequires:  python3-importlib-metadata
-%endif
-%if 0%{?fedora} && 0%{?fedora} >= 33
-# Upstream requires setuptools_scm[toml]>=3.4.1, that is:
-BuildRequires:  python3-setuptools_scm >= 3.4.1
-%else
-# RHEL 8, Fedora <= 32
-BuildRequires:  sed
-%endif
+%description -n python3-jsonpickle %{_description}
 
-BuildRequires:  make
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-
-# dependencies to test to run optional tests
-BuildRequires:  python3-ecdsa
-BuildRequires:  python3-numpy
-BuildRequires:  python3-bson
-# most of the test suite treats pandas as options but some test cases do not
-BuildRequires:  python3-pandas
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-
-BuildRequires:  python3-pymongo
-BuildRequires:  python3-simplejson
-BuildRequires:  python3-sqlalchemy
-BuildRequires:  python3-toml
-BuildRequires:  python3-ujson
-BuildRequires:  python3-gmpy2
-%if 0%{?fedora}
-# not packaged for Fedora EPEL 8
-BuildRequires:  python3-demjson
-BuildRequires:  python3-feedparser
-# https://bugzilla.redhat.com/show_bug.cgi?id=1238787
-# BuildRequires:  python3-ujson
-%endif
-
-%if 0%{?rhel} || 0%{?fedora} <= 31
-Requires:  python3-importlib-metadata
-%endif
-
-
-%description -n python3-jsonpickle
-This module allows python objects to be serialized to JSON in a similar fashion
-to the pickle module.
-
-This is the version for Python 3.
 
 %prep
-#%%{gpgverify} --keyring='%%{SOURCE2}' --signature='%%{SOURCE1}' --data='%%{SOURCE0}'
-%setup -q -n %{pypi_name}-%{version}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
-rm -r *.egg-info
-%if 0%{?rhel} || 0%{?fedora} <= 32
-%patch1 -p1
-sed -i 's/@@VERSION@@/%{version}/' setup.cfg
-sed -i 's/setup_requires.*$//' setup.cfg
+%autosetup -n jsonpickle-%{version} -p1
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i \
+    -e 's/^([[:blank:]]*)(pytest-(black|checkdocs|cov|flake8))/\1# \2/' \
+    setup.cfg
+sed -r -i 's/[[:blank:]]--cov[^[:blank:]]*//g' pytest.ini
+
+%if 0%{?el9}
+# Not yet packaged:
+# [RFE:EPEL9] EPEL9 branch for python-pandas
+# https://bugzilla.redhat.com/show_bug.cgi?id=2032550
+# (python-scikit-learn: no EPEL9 request yet)
+sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 %endif
 
-%patch2 -p0
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing,testing.libs
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files jsonpickle
 
 
 %check
-PYTHON=python3 make test
+%pytest %{?el9:--ignore=jsonpickle/ext/pandas.py}
 
-%files -n python3-jsonpickle
-%license LICENSE
-%{python3_sitelib}/*
+
+%files -n python3-jsonpickle -f %{pyproject_files}
+
 
 %changelog
+* Tue Dec 06 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.0-4
+- EPEL9 compatibility
+
+* Tue Dec 06 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.0-3
+- Switch URL to the GitHub project page
+- Stop using deprecated zero-argument form of pypi_source
+- Remove workarounds for EL7/8 and end-of-lifed Fedoras
+- Update description and stop implying there is a Python 2 version
+- Drop obsolete python_provide macro
+- Port to pyproject-rpm-macros
+- Re-enable GPG verification
+- Update License to SPDX
+
 * Mon Dec 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.0-2
 - Unpin setuptools requirement.
 

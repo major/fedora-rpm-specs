@@ -133,7 +133,7 @@ popd
 %{_qt6_libdir}/libQt6MultimediaWidgets.so.6*
 %{_qt6_libdir}/libQt6SpatialAudio.so.6*
 %{_qt6_archdatadir}/qml/QtMultimedia/
-%dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets/
+%dir %{_qt6_plugindir}/multimedia
 %{_qt6_plugindir}/multimedia/libgstreamermediaplugin.so
 %{_qt6_plugindir}/multimedia/libffmpegmediaplugin.so
 
@@ -156,7 +156,7 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/
 %{_qt6_libdir}/cmake/Qt6BundledResonanceAudio/*.cmake
 %dir  %{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate
-%{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate
+%{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Multimedia
 %{_qt6_libdir}/cmake/Qt6Multimedia/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets

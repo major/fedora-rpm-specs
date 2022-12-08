@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-ZConfig
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Structured Configuration Library
 
@@ -14,12 +14,6 @@ URL:            https://github.com/zopefoundation/ZConfig/
 Source0:        %{pypi_source ZConfig}
 
 BuildArch:      noarch
-
-# Fix issues with Python 3.2 ResourceWarning workaround
-# https://github.com/zopefoundation/ZConfig/pull/87
-#
-# Rebased to 3.6.0.
-Patch:          pr-87-rebased-3.6.0.patch
 
 BuildRequires:  python3-devel
 
@@ -85,7 +79,7 @@ This package contains the documentation for ZConfig.
 %autosetup -n ZConfig-%{version} -p1
 
 # We can’t cross-reference Internet documentation.
-echo 'intersphinx_mapping.clear()' >> doc/conf.py
+echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
 
 %generate_buildrequires
@@ -107,8 +101,8 @@ echo 'intersphinx_mapping.clear()' >> doc/conf.py
 # generated until the wheel is installed, so this is the “least-worst”
 # workaround.
 PYTHONPATH='%{buildroot}%{python3_sitelib}' PATH="${PATH}:%{buildroot}%{_bindir}" \
-    %make_build -C doc latex SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C doc/_build/latex LATEXMKOPTS='-quiet'
+    %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 
 # We can’t move the file ZConfig/schemaless.txt out of the package because
@@ -120,8 +114,8 @@ sed -r -i 's/^.*schemaless.txt/%doc &/' '%{pyproject_files}'
 install -p -m 0644 -t '%{buildroot}%{_pkgdocdir}' -D \
     CHANGES.rst \
     README.rst \
-    doc/schema.dtd \
-    %{?with_doc_pdf:doc/_build/latex/ZConfig.pdf}
+    docs/schema.dtd \
+    %{?with_doc_pdf:docs/_build/latex/ZConfig.pdf}
 # Make a relative symlink.
 ln -s '%{buildroot}%{python3_sitelib}/ZConfig/schemaless.txt' \
     '%{buildroot}%{_pkgdocdir}/schemaless.txt'

@@ -1,7 +1,7 @@
 %global toolchain clang
 
 %global maj_ver 15
-%global libomp_version %{maj_ver}.0.4
+%global libomp_version %{maj_ver}.0.6
 #global rc_ver 3
 %global libomp_srcdir openmp-%{libomp_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -160,6 +160,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

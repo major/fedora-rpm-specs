@@ -1,7 +1,7 @@
 Name:		opal
 Summary:	Open Phone Abstraction Library
 Version:	3.10.11
-Release:	12%{?dist}
+Release:	13%{?dist}
 URL:		http://www.opalvoip.org/
 License:	MPLv1.0
 
@@ -12,6 +12,7 @@ License:	MPLv1.0
 # Source0:	ftp://ftp.gnome.org/pub/gnome/sources/%{name}/3.10/%{name}-%{version}.tar.xz
 Source0:	%{name}-%{version}-clean.tar.xz
 Patch0:		opal-3.10-fix-cflags.patch
+Patch1:		opal-c99.patch
 
 BuildRequires: make
 BuildRequires:	expat-devel
@@ -43,6 +44,7 @@ header files for opal.
 %prep
 %setup -q 
 %patch0 -p1 -b.cf
+%patch1 -p1
 
 for file in dll so bin lib exe; do 
   find . -name "*.$file" -delete
@@ -94,6 +96,9 @@ EOF
 %{_libdir}/pkgconfig/opal.pc
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 3.10.11-13
+- Port to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

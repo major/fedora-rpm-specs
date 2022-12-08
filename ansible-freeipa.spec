@@ -7,7 +7,7 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.8.4
+Version: 1.9.0
 Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPLv3+
@@ -49,6 +49,7 @@ Features
 - Modules for hostgroup management
 - Modules for idrange management
 - Modules for location management
+- Modules for netgroup management
 - Modules for permission management
 - Modules for privilege management
 - Modules for pwpolicy management
@@ -85,8 +86,6 @@ Requirements
 
   Controller
   - Ansible version: 2.8+ (ansible-freeipa is an Ansible Collection)
-  - /usr/bin/kinit is required on the controller if a one time password (OTP)
-    is used
 
   Node
   - Supported FreeIPA version (see above)
@@ -118,13 +117,13 @@ to get the needed requrements to run the tests.
 # Fix python modules and module utils:
 # - Remove shebang
 # - Remove execute flag
-for i in roles/ipa*/library/*.py roles/ipa*/module_utils/*.py plugins/*/*.py; do
+for i in roles/ipa*/library/*.py roles/ipa*/module_utils/*.py plugins/*/*.py;
+do
     sed -i '1{/\/usr\/bin\/python*/d;}' $i
     chmod a-x $i
 done
 
-for i in utils/*.py utils/ansible-ipa-*-install utils/new_module \
-         utils/changelog utils/ansible-doc-test;
+for i in utils/*.py utils/new_module utils/changelog utils/ansible-doc-test;
 do
     sed -i '{s@/usr/bin/python*@%{python}@}' $i
 done
@@ -177,6 +176,17 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Tue Dec  6 2022 Thomas Woerner <twoerner@redhat.com> - 1.9.0-1
+- Update to version 1.9.0
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.9.0
+  Highlights:
+  - New netgroup management module
+  - sudorule: Add support for 'hostmask' parameter
+  - pwpolicy: Add support for password check and grace limit
+  - ipaclient: No kinit on controller for deployment using OTP
+  - ipaclient: Configure DNS resolver
+  - Support for ansible-core 2.14 tests
+
 * Mon Sep 12 2022 Thomas Woerner <twoerner@redhat.com> - 1.8.4-1
 - Update to version 1.8.4
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.8.4

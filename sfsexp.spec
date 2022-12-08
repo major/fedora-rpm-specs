@@ -3,10 +3,10 @@ Name:		sfsexp
 Version:	1.4.0
 %global soname	1
 %global sominor	0.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Small Fast S-Expression Library
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		https://github.com/mjsottile/sfsexp
 Source0:	%{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # included in the repo but not the distribution archive (until a new release is
@@ -58,6 +58,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.4.0-4
+- SPDX migration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

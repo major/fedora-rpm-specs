@@ -10,7 +10,7 @@
 
 Name:           prometheus-jmx-exporter
 Version:        0.16.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Prometheus JMX Exporter
 
 License:        ASL 2.0
@@ -19,6 +19,7 @@ URL:            https://github.com/prometheus/jmx_exporter/
 Source0:        https://github.com/prometheus/%{upstream_name}/archive/%{version_id}-%{version}.tar.gz
 Patch1:         properly_rewrite_namespace.patch
 Patch2:         0001-Fix-CVE-2017-18640-and-add-a-test.patch
+Patch3:         0001-Fix-CVE-2022-1471-and-add-a-test.patch
 
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -84,6 +85,7 @@ OpenJDK 17 binding package for %{name}
 
 %patch1 -p2
 %patch2 -p1
+%patch3 -p1
 
 %pom_remove_plugin org.vafer:jdeb jmx_prometheus_httpserver
 %pom_remove_plugin org.apache.maven.plugins:maven-enforcer-plugin
@@ -120,6 +122,9 @@ OpenJDK 17 binding package for %{name}
 # empty files for the binding package
 
 %changelog
+* Tue Dec 06 2022 Severin Gehwolf <sgehwolf@redhat.com> - 0.16.1-8
+- Add patch to fix CVE-2022-1471
+
 * Fri Sep 16 2022 Severin Gehwolf <sgehwolf@redhat.com> - 0.16.1-7
 - Rebuild with latest snakeyaml (1.32)
 

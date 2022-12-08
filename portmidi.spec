@@ -10,7 +10,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        48%{?dist}
+Release:        49%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -216,6 +216,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 217-49
+- SPDX migration
+
 * Tue Jul 26 2022 Michael J Gruber <mjg@fedoraproject.org> - 217-48
 - fix FTBFS caused by Drop_i686_JDKs
 

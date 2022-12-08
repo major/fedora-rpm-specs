@@ -42,7 +42,7 @@ ExcludeArch: s390x
 %global  _hardened_build 1
 
 # Build release candidate
-%global upver        1.37.0
+%global upver        1.37.1
 #global rcver        rc0
 
 # Last python 2 support (el7 only)
@@ -380,6 +380,9 @@ echo "Config should be edited with %{_libexecdir}/%{name}/edit-config"
 %caps(cap_setuid=ep) %attr(4750,root,netdata) %{_libexecdir}/%{name}/plugins.d/freeipmi.plugin
 
 %changelog
+* Tue Dec 06 2022 Didier Fabert <didier.fabert@gmail.com> 1.37.1-1
+- Update from upstream
+
 * Fri Dec 02 2022 Didier Fabert <didier.fabert@gmail.com> 1.37.0-1
 - Update from upstream
 

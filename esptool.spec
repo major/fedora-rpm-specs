@@ -1,9 +1,9 @@
 Name:           esptool
-Version:        4.3
+Version:        4.4
 Release:        1%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/espressif/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,6 +59,10 @@ done
 
 
 %changelog
+* Tue Nov 29 2022 Karolina Surma <ksurma@redhat.com> - 4.4-1
+- Update to 4.4
+Resolves: rhbz#2144654
+
 * Wed Sep 21 2022 Karolina Surma <ksurma@redhat.com> - 4.3-1
 - Update to 4.3
 Resolves: rhbz#2126964

@@ -6,7 +6,7 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
 Version:        3.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            http://linux.dell.com/dkms
 
@@ -17,6 +17,8 @@ Source0:        https://github.com/dell/%{name}/archive/v%{version}.tar.gz#/%{na
 %else
 Source0:        https://github.com/dell/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
+
+Patch0:         https://github.com/dell/dkms/commit/65d57133f1e87754520871ad98ef730fca66d1cc.patch
 
 BuildRequires:  make
 BuildRequires:  systemd
@@ -93,6 +95,9 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
+* Tue Dec 06 2022 Simone Caronni <negativo17@gmail.com> - 3.0.9-2
+- Fix modprobe_on_install variable.
+
 * Mon Dec 05 2022 Simone Caronni <negativo17@gmail.com> - 3.0.9-1
 - Update to 3.0.9.
 

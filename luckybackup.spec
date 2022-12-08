@@ -4,7 +4,7 @@ Version:	0.5.0
 Release:	%autorelease
 Summary:	A powerful, fast and reliable backup and sync tool
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://luckybackup.sourceforge.net/index.html
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{version}/source/%{name}-%{version}.tar.gz
 

@@ -1,7 +1,7 @@
 Summary: SGML and XML parser
 Name: opensp
 Version: 1.5.2
-Release: 40%{?dist}
+Release: 41%{?dist}
 Requires: sgml-common >= 0.5
 Provides: bundled(gettext) = 0.14.5
 URL: http://openjade.sourceforge.net/
@@ -10,6 +10,7 @@ Patch0: opensp-multilib.patch
 Patch1: opensp-nodeids.patch
 Patch2: opensp-sigsegv.patch
 Patch3: opensp-manpage.patch
+Patch4: opensp-configure-c99.patch
 License: MIT
 
 BuildRequires: make
@@ -39,6 +40,7 @@ Header files and libtool library for developing applications that use OpenSP.
 %patch1 -p1 -b .nodeids
 %patch2 -p1 -b .sigsegv
 %patch3 -p1 -b .manpage
+%patch4 -p1 -b .configure-c99
 # convert files to UTF-8
 iconv -f latin1 -t utf8 ChangeLog -o ChangeLog.tmp
 mv -f ChangeLog.tmp ChangeLog
@@ -117,6 +119,9 @@ make check || : # TODO: failures as of 1.5.2 :(
 
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 1.5.2-41
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

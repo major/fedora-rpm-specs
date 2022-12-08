@@ -1,7 +1,7 @@
 %global appname olm
 
 Name: libolm
-Version: 3.2.13
+Version: 3.2.14
 Release: 1%{?dist}
 
 Summary: Double Ratchet cryptographic library
@@ -80,6 +80,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Tue Dec 06 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.14-1
+- Updated to version 3.2.14.
+
 * Sun Oct 09 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.13-1
 - Updated to version 3.2.13.
 

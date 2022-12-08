@@ -1,34 +1,36 @@
 # we don't want to provide private python extension libs
 %global sum Python interface to sendmail milter API
 %global __provides_exclude_from ^(%{python2_sitearch})/.*\\.so$
-%if 0%{?epel} >= 7
-%global python3 python36
-%else
-%global python3 python3
-%endif
 %if 0%{?fedora} >= 32
 %bcond_with python2
 %global python2 python27
 %else
+%if 0%{?epel} < 8
 %bcond_without python2
+%else
+%bcond_with python2
+%endif
 %global python2 python2
 %endif
 
 Summary: %{sum}
 Name: python-pymilter
-Version: 1.0.4
-Release: 17%{?dist}
-Url: http://bmsi.com/pymilter
+Version: 1.0.5
+Release: 1%{?dist}
+Url:    https://github.com/sdgathman/pymilter
+# was   http://bmsi.com/pymilter
 Source: https://github.com/sdgathman/pymilter/archive/pymilter-%{version}.tar.gz
+#       https://github.com/sdgathman/pymilter/tags
 Source1: tmpfiles-python-pymilter.conf
 # remove unit tests that require network for check
-Patch: pymilter-check.patch
+Patch0: pymilter-check.patch
 License: GPLv2+
 Group: Development/Libraries
-BuildRequires: %{python3}-devel, sendmail-devel >= 8.13
+BuildRequires: python%{python3_pkgversion}-devel, sendmail-devel >= 8.13
 # python-2.6.4 gets RuntimeError: not holding the import lock
 # Need python2.6 specific pydns, not the version for system python
 BuildRequires:  gcc
+BuildRequires:  python%{python3_pkgversion}-bsddb3
 
 %global _description\
 This is a python extension module to enable python scripts to\
@@ -41,7 +43,7 @@ DSNs, and doing CBV.
 %if %{with python2}
 %package -n %{python2}-pymilter
 Summary: %{sum}
-%if 0%{?epel} >= 6
+%if 0%{?epel} >= 6 && 0%{?epel} < 8
 Requires: python-pydns
 %else
 Requires: %{python2}-pydns
@@ -53,15 +55,15 @@ BuildRequires: %{python2}-devel
 %description -n python2-pymilter %_description
 %endif
 
-%package -n %{python3}-pymilter
+%package -n python%{python3_pkgversion}-pymilter
 Summary: %{sum}
 %if 0%{?fedora} >= 26
-Requires: %{python3}-py3dns
+Requires: python%{python3_pkgversion}-py3dns
 %endif
 Requires: %{name}-common = %{version}-%{release}
-%{?python_provide:%python_provide %{python3}-pymilter}
+%{?python_provide:%python_provide python%{python3_pkgversion}-pymilter}
 
-%description -n %{python3}-pymilter %_description
+%description -n python%{python3_pkgversion}-pymilter %_description
 
 %package common
 Summary: Common files and directories for python milters
@@ -74,10 +76,10 @@ Common files and directories used for python milters
 Summary: SELinux policy module for pymilter
 Group: System Environment/Base
 Requires: policycoreutils, selinux-policy-targeted
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}-common = %{version}-%{release}
 BuildArch: noarch
 BuildRequires: policycoreutils, checkpolicy, selinux-policy-devel
-%if 0%{?epel} >= 6
+%if 0%{?epel} >= 6 && 0%{?epel} < 8
 BuildRequires: policycoreutils-python
 %else
 BuildRequires: policycoreutils-python-utils
@@ -89,8 +91,10 @@ with milters.
 
 %prep
 %setup -q -n pymilter-pymilter-%{version}
-#setup -q -n pymilter-%{version}
-%patch -p1 -b .check
+#setup -q -n pymilter-%%{version}
+%patch0 -p1 -b .check
+cp -p template.py milter-template.py
+
 
 %build
 %if %{with python2}
@@ -102,9 +106,9 @@ semodule_package -o pymilter.pp -m pymilter.mod
 
 %install
 %if %{with python2}
-%py2_install 
+%py2_install
 %endif
-%py3_install 
+%py3_install
 
 mkdir -p %{buildroot}/run/milter
 mkdir -p %{buildroot}%{_localstatedir}/log/milter
@@ -127,13 +131,13 @@ PYTHONPATH=${py3path}:. python3 test.py
 %if %{with python2}
 %files -n %{python2}-pymilter
 %license COPYING
-%doc README ChangeLog NEWS TODO CREDITS sample.py milter-template.py
+%doc README.md ChangeLog NEWS TODO CREDITS sample.py milter-template.py
 %{python2_sitearch}/*
 %endif
 
-%files -n %{python3}-pymilter
+%files -n python%{python3_pkgversion}-pymilter
 %license COPYING
-%doc README ChangeLog NEWS TODO CREDITS sample.py milter-template.py
+%doc README.md ChangeLog NEWS TODO CREDITS sample.py milter-template.py
 %{python3_sitearch}/*
 
 %files common
@@ -156,6 +160,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Mon Dec 05 2022 Stuart Gathman <stuart@gathman.org> - 1.0.5-1
+- New release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -327,7 +334,7 @@ Resolves: rhbz#2097108
 
 * Thu May 28 2009 Stuart Gathman <stuart@bmsi.com> 0.9.2-1
 - Add new callback support: data,negotiate,unknown
-- Auto-negotiate protocol steps 
+- Auto-negotiate protocol steps
 
 * Thu Feb 05 2009 Stuart Gathman <stuart@bmsi.com> 0.9.1-1
 - Fix missing address of optional param to addrcpt

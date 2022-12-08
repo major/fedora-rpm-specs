@@ -1,5 +1,5 @@
 %global toolchain clang
-%global lldb_version 15.0.4
+%global lldb_version 15.0.6
 #global rc_ver 3
 %global lldb_srcdir %{name}-%{lldb_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -14,10 +14,8 @@ Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_v
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{lldb_version}%{?rc_ver:-rc%{rc_ver}}/%{lldb_srcdir}.tar.xz.sig
 Source2:	release-keys.asc
 
-# Drop those three once 16.0.0 is out
-Patch0:		https://github.com/llvm/llvm-project/commit/f0a25fe0b746f56295d5c02116ba28d2f965c175.diff
-Patch1:		https://github.com/llvm/llvm-project/commit/81fc5f7909a4ef5a8d4b5da2a10f77f7cb01ba63.diff
-Patch2:		https://github.com/llvm/llvm-project/commit/6f59f302e4358b4dc869bc298c2b9c06aa716b60.diff
+# TODO: Drop once 16.0.0 is out
+Patch0:		https://github.com/llvm/llvm-project/commit/6f59f302e4358b4dc869bc298c2b9c06aa716b60.diff
 ##
 
 BuildRequires:	clang
@@ -132,6 +130,9 @@ rm -f %{buildroot}%{python3_sitearch}/six.*
 %{python3_sitearch}/lldb
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

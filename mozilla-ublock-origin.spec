@@ -5,10 +5,10 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit 3cd137904ffe979f337f8e0099a46ca2d0c41e5f
+%global uAssets_commit 12c220af91139b025d9793e733328a5f8358db8e
 
 Name:           mozilla-ublock-origin
-Version:        1.44.4
+Version:        1.45.2
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -32,6 +32,8 @@ BuildRequires:  binaryen
 BuildRequires:  libappstream-glib
 BuildRequires:  python3
 BuildRequires:  wabt
+# lib/csstree https://github.com/csstree/csstree MIT
+Provides:       bundled(npm-css-tree) = 2.2.1
 # img/fontawesome/fontawesome-defs.svg http://fontawesome.io/ OFL
 Provides:       bundled(fontawesome-fonts) = 4.7.0
 # css/fonts/Inter/Inter-*.woff2 https://github.com/rsms/inter OFL
@@ -101,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Mon Dec 05 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.45.2-1
+- update to 1.45.2 (#2141681)
+
 * Tue Oct 04 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.44.4-1
 - update to 1.44.4 (#2118741)
 - drop obsolete patch

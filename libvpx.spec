@@ -6,7 +6,7 @@
 Name:			libvpx
 Summary:		VP8/VP9 Video Codec SDK
 Version:		1.12.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		BSD
 Source0:		https://github.com/webmproject/libvpx/archive/v%{version}.tar.gz
 Source1:		vpx_config.h
@@ -22,6 +22,7 @@ BuildRequires:		yasm
 BuildRequires:		doxygen, php-cli, perl(Getopt::Long)
 # Do not disable FORTIFY_SOURCE=2
 Patch0:			libvpx-1.7.0-leave-fortify-source-on.patch
+Patch1: libvpx-configure-c99.patch
 
 %description
 libvpx provides the VP8/VP9 SDK, which allows you to integrate your applications 
@@ -47,6 +48,7 @@ and decoder.
 %prep
 %setup -q -n libvpx-%{version}
 %patch0 -p1 -b .leave-fs-on
+%patch1 -p1
 
 %build
 
@@ -233,6 +235,9 @@ rm -rf %{buildroot}%{_prefix}/src
 %{_bindir}/*
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 1.12.0-2
+- Backport upstream commit to improve C99 compatibility
+
 * Wed Aug 17 2022 Pete Walter <pwalter@fedoraproject.org> - 1.12.0-1
 - Update to 1.12.0
 

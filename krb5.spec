@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 2
+%global baserelease 3
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -710,6 +710,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Tue Dec 06 2022 Julien Rische <jrische@redhat.com> - 1.20.1-3
+- Enable TMT integration with Fedora CI
+
 * Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 1.20.1-2
 - Bump KDB ABI version provide to 9.0
 

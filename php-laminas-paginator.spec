@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    7070769de9b3d94270154c4bf24d4884e65c29f3
+%global gh_commit    d0fca60a32656fe095045d76af7ad3a3bfc297f9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-paginator
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.15.1
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -41,15 +41,15 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.10
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0.4   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-cache": "^3.6.0",
-#        "laminas/laminas-cache-storage-adapter-memory": "^2.1.0",
+#        "laminas/laminas-cache-storage-adapter-memory": "^2.2.0",
 #        "laminas/laminas-coding-standard": "^2.4.0",
 #        "laminas/laminas-config": "^3.8.0",
 #        "laminas/laminas-filter": "^2.23.0",
 #        "laminas/laminas-servicemanager": "^3.19.0",
 #        "laminas/laminas-view": "^2.24.0",
 #        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.29.0"
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0.0"
 # ignore cache min version for now
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-cache)                >= 2.9.0   with php-autoloader(%{gh_owner}/laminas-cache)                <  3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.8     with php-autoloader(%{gh_owner}/laminas-config)               <  4)
@@ -188,6 +188,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.17.0-1
+- update to 2.17.0
+
 * Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.15.1-1
 - update to 2.15.1
 

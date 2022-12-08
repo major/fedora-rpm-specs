@@ -5,7 +5,7 @@
 
 Name:           metslib
 Version:        0.5.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Metaheuristic modeling framework and optimization toolkit in modern C++
 
 License:        GPLv3+ or CPL
@@ -17,6 +17,9 @@ Patch0:         %{name}-0.5.3-noarch.patch
 # Based on https://github.com/PointCloudLibrary/pcl/commit/57ace9a92d1667eaa6193262032ff688e222ce0f
 # Not upstream
 Patch1:         %{name}-0.5.3-boost.patch
+# Update abstract-search.hpp to remove deprecated exception specification
+# Not upstream
+Patch2:         %{name}-0.5.3-cpp17.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -58,6 +61,7 @@ The %{name}-doc package provides documentation for the %{name} library.
 %setup -q
 %patch0 -p0
 %patch1 -p1 -b .boost
+%patch2 -p1 -b .cpp17
 # Disable -O3 optimization for unit tests
 sed -i 's| -O3||g' configure
 
@@ -86,6 +90,9 @@ make test
 %doc doxydoc/html COPYING
 
 %changelog
+* Tue Dec 06 2022 Rich Mattes <richmattes@gmail.com> - 0.5.3-26
+- Fix C++17 FTBFS
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

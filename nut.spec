@@ -14,15 +14,15 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+ and GPLv3+
-Url: http://www.networkupstools.org/
-Source: http://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
-Source3: nut-client.tmpfiles
+Url: https://www.networkupstools.org/
+Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
 Source4: libs.sh
 # Upstream support for OpenSSL-1.1.0, TLS > 1.0
 Patch0: https://patch-diff.githubusercontent.com/raw/networkupstools/nut/pull/504.patch
 Patch1: nut-2.6.3-tmpfiles.patch
+Patch2: nut-2.8.0-piddir-owner.patch
 
 #quick fix. TODO: fix it properly
 Patch5: nut-2.6.5-dlfix.patch
@@ -85,7 +85,7 @@ BuildRequires: libusb1-devel
 
 ExcludeArch: s390 s390x
 
-%global restart_flag /run/%{name}/%{name}-restart-after-rpm-install
+%global restart_flag %{piddir}/%{name}-restart-after-rpm-install
 
 %description
 These programs are part of a developing project to monitor the assortment 
@@ -139,6 +139,7 @@ necessary to develop NUT client applications.
 %setup -q
 #patch0 -p1 -b .openssl
 %patch1 -p1 -b .tmpfiles
+%patch2 -p1 -b .piddir-owner
 #patch5 -p1 -b .dlfix
 #%patch7 -p1 -b .foreground
 %patch8 -p1 -b .unreachable
@@ -178,9 +179,9 @@ export LDFLAGS="-Wl,-z,now"
     --datadir=%{_datadir}/%{name} \
     --with-user=%{name} \
     --with-group=dialout \
-    --with-statepath=/run/nut \
-    --with-pidpath=/run/nut \
-    --with-altpidpath=/run/nut \
+    --with-statepath=%{piddir} \
+    --with-pidpath=%{piddir} \
+    --with-altpidpath=%{piddir} \
     --sysconfdir=%{_sysconfdir}/ups \
     --with-cgipath=%{cgidir} \
     --with-drvpath=%{modeldir} \
@@ -208,10 +209,6 @@ mkdir -p %{buildroot}%{modeldir} \
          %{buildroot}%{_libexecdir}
 
 %make_install
-
-#if 0%{?fedora} || 0%{?rhel} > 6
-#  install -p -D -m 644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/nut-client.conf
-#endif
 
 mv %{buildroot}%{_tmpfilesdir}/nut-common.tmpfiles %{buildroot}%{_tmpfilesdir}/nut-common.conf
 
@@ -417,7 +414,6 @@ fi
 %dir %{_sysconfdir}/ups
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsmon.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upssched.conf
-#{_tmpfilesdir}/nut-client.conf
 %{_tmpfilesdir}/nut-common.conf
 %dir %attr(750,nut,nut) %{_localstatedir}/lib/ups
 # upsmon.pid is written as root, so root needs access for now
@@ -481,6 +477,13 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Nov 30 2022 Charles R. Anderson <cra@alum.wpi.edu> - 2.8.0-7
+- use piddir for specifying restart_flag location
+- use piddir for specifying configure --with-statepath/pidpath/altpidpath
+- add nut-2.8.0-piddir-owner.patch for upstream tmpfiles config creation to not append /nut and always use owner root
+- update nut-2.6.3-tmpfiles.patch to use correct tmpfiles config file name 
+- remove unused downstream tmpfiles source and code
+
 * Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.8.0-6
 - Port configure script to C99
 

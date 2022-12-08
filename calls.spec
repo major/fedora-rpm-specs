@@ -1,13 +1,13 @@
 %global libcall_ui_commit 619dd91561ad470db3d0e0e263ebc35d787afd2e
 
 Name:		calls
-Version:	43.0
+Version:	44~alpha.0
 Release:	1%{?dist}
 Summary:	A phone dialer and call handler
 
 License:	GPLv3+ and MIT
 URL:		https://gitlab.gnome.org/GNOME/calls
-Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v43.0/%{name}-v43.0.tar.gz
+Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v44_alpha.0/%{name}-v44_alpha.0.tar.gz
 Source1:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
 
 BuildRequires:	gcc
@@ -26,7 +26,7 @@ BuildRequires:	pkgconfig(gom-1.0)
 BuildRequires:	pkgconfig(libebook-contacts-1.2)
 BuildRequires:	pkgconfig(folks)
 BuildRequires:	pkgconfig(mm-glib)
-BuildRequires:	pkgconfig(libfeedback-0.0)
+BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.0.1
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	gstreamer1-plugins-good-gtk
 BuildRequires:	sofia-sip-glib-devel
@@ -43,7 +43,7 @@ Requires: hicolor-icon-theme
 A phone dialer and call handler.
 
 %prep
-%setup -a1 -q -n %{name}-v43.0
+%setup -a1 -q -n %{name}-v44_alpha.0
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 
@@ -128,6 +128,9 @@ SH
 %license COPYING
 
 %changelog
+* Tue Dec 06 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 44~alpha.0-1
+- Update to v44 alpha.0
+
 * Wed Sep 21 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 43.0-1
 - Update to v43.0
 

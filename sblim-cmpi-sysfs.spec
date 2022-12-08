@@ -2,7 +2,7 @@
 
 Name:           sblim-cmpi-sysfs
 Version:        1.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        SBLIM sysfs instrumentation
 
 License:        EPL
@@ -21,6 +21,7 @@ Patch2:         sblim-cmpi-sysfs-1.2.0-docdir.patch
 Patch3:         sblim-cmpi-sysfs-1.2.0-pegasus-interop.patch
 # Patch4: call systemctl in provider registration
 Patch4:         sblim-cmpi-sysfs-1.2.0-prov-reg-sfcb-systemd.patch
+Patch5:         sblim-cmpi-sysfs-c99.patch
 
 BuildRequires: make
 BuildRequires:  sblim-cmpi-devel sblim-cmpi-base-devel
@@ -45,6 +46,7 @@ SBLIM Base Params Testcase Files for SBLIM Testsuite
 %patch2 -p1 -b .docdir
 %patch3 -p1 -b .pegasus-interop
 %patch4 -p1 -b .prov-reg-sfcb-systemd
+%patch5 -p1
 sed -ri 's,-type d -maxdepth 1 -mindepth 1,-maxdepth 1 -mindepth 1 -type d,g' \
         ./test/system/linux/*.{sh,system}
 
@@ -107,6 +109,9 @@ mv $RPM_BUILD_ROOT/%{_libdir}/libLinux_SysfsDeviceUtil.so $RPM_BUILD_ROOT/%{prov
 
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 1.2.0-29
+- Port to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Summary: Modern asynchronous API to the DNS
 Name: getdns
 Version: 1.7.2
-Release: 1%{?extraver:.%{extraver}}%{?dist}
+Release: 2%{?extraver:.%{extraver}}%{?dist}
 License: BSD-3-Clause
 Url: http://www.getdnsapi.net
 Source: http://www.getdnsapi.net/dist/%{name}-%{upstream_version}.tar.gz
@@ -28,6 +28,7 @@ Requires: unbound-libs
 Source2: stubby.service
 %endif
 
+Patch0: getdns-sldns-pointer-truncation.patch
 
 %description
 getdns is a modern asynchronous DNS API. It implements DNS entry points
@@ -156,6 +157,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 1.7.2-2
+- Backport patch from upstream to fix pointer truncation
+
 * Thu Oct 13 2022 Petr Menšík <pemensik@redhat.com> - 1.7.2-1
 - Update to 1.7.2 (#1974450)
 

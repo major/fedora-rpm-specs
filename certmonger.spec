@@ -28,13 +28,15 @@
 
 Name:		certmonger
 Version:	0.79.17
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPLv3+
 URL:		http://pagure.io/certmonger/
 Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
 #Source1:	http://releases.pagure.org/certmonger/certmonger-%%{version}.tar.gz.sig
+
+Patch0001:	0001-Rename-DBus-service-and-conf-files-to-match-canonica.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -264,6 +266,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec  6 2022 Rob Crittenden <rcritten@redhat.com> - 0.79.17-2
+- Rename DBus service and conf files to match canonical name (#2151243)
+
 * Wed Nov 30 2022 Rob Crittenden <rcritten@redhat.com> - 0.79.17-1
 - Update to upstream 0.79.17
 

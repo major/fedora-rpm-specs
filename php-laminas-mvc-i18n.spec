@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    b073da7b27ec8a8e8cf6df770cd58c1ba38af096
+%global gh_commit    571f3e34afbff14351677c450f872a0dd19f9d28
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-mvc-i18n
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        1.6.0
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library}/%{subproj} component
 
@@ -46,13 +46,13 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.19
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.2    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "laminas/laminas-coding-standard": "~2.4.0",
-#        "phpspec/prophecy-phpunit": "^2.0",
-#        "phpunit/phpunit": "^9.5",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.29.0"
-BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0    with php-composer(phpspec/prophecy-phpunit)                   < 3)
+#        "phpspec/prophecy-phpunit": "^2.0.1",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0.0"
+BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0.1  with php-composer(phpspec/prophecy-phpunit)                   < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -189,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 1.7.0-1
+- update to 1.7.0
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update to 1.6.0
 - raise dependency on PHP 8.0

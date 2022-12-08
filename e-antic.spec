@@ -1,10 +1,10 @@
 Name:           e-antic
-Version:        1.2.3
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Real Embedded Algebraic Number Theory In C
 
 License:        LGPL-3.0-or-later
-URL:            https://github.com/flatsurf/%{name}
+URL:            https://github.com/flatsurf/e-antic
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # The e-antic sources contain patches to flint and antic, but those patches
 # have already been incorporated into the Fedora versions.  Make e-antic skip
@@ -105,6 +105,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make check
 %{_libdir}/libeanticxx.so
 
 %changelog
+* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-1
+- Version 1.3.0
+
 * Thu Oct 27 2022 Jerry James <loganjerry@gmail.com> - 1.2.3-1
 - Version 1.2.3
 

@@ -1,4 +1,4 @@
-%global lit_version 15.0.1
+%global lit_version 15.0.6
 #global rc_ver 1
 #global post_ver 0
 
@@ -57,6 +57,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Thu Nov 03 2022 Nikita Popov <npopov@redhat.com> - 15.0.1-1
 - Update to lit 15.0.1
 

@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        8.0.7
-Release:        2%{?dist}
+Version:        8.0.9
+Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache 2.0
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Fri Dec 02 2022 Philipp Trulson <philipp@trulson.de> - 8.0.9-1
+- Update to 8.0.9
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

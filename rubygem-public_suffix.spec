@@ -2,11 +2,11 @@
 %global gem_name public_suffix
 
 Name: rubygem-%{gem_name}
-Version: 4.0.6
-Release: 5%{?dist}
+Version: 5.0.0
+Release: 1%{?dist}
 Summary: Domain name parser based on the Public Suffix List
 # MPLv2.0: %%{gem_instdir}/data/list.txt
-License: MIT and MPLv2.0
+License: MIT AND MPL-2.0
 URL: https://simonecarletti.com/code/publicsuffix-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
@@ -23,8 +23,8 @@ domain and subdomains.
 
 %package doc
 Summary: Documentation for %{name}
-# Public Domain: %%{gem_instdir}/test/tests.txt
-License: MIT and Public Domain
+# CC0-1.0: %%{gem_instdir}/test/tests.txt
+License: MIT AND CC0-1.0
 Requires: %{name} = %{version}-%{release}
 BuildArch: noarch
 
@@ -32,7 +32,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n  %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version}
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -69,20 +69,23 @@ popd
 %exclude %{gem_instdir}/public_suffix.gemspec
 %exclude %{gem_cache}
 %{gem_spec}
-%exclude %{gem_instdir}/test/.empty
-%exclude %{gem_instdir}/codecov.yml
 
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/2.0-Upgrade.md
 %doc %{gem_instdir}/CHANGELOG.md
-%doc %{gem_instdir}/SECURITY.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
+%doc %{gem_instdir}/SECURITY.md
 %{gem_instdir}/test
+%exclude %{gem_instdir}/test/.empty
 
 %changelog
+* Tue Dec 06 2022 Vít Ondruch <vondruch@redhat.com> - 5.0.0-1
+- Update to PublicSuffix 5.0.0.
+  Resolves: rhbz#2074427
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,11 +1,13 @@
 Name:		xournal
 Version:	0.4.8.2016
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Notetaking, sketching, PDF annotation and general journal
 
 License:	GPLv2
 URL:		http://xournal.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/xournal/%{name}-%{version}.tar.gz
+Patch0:		xournal-c99-1.patch
+Patch1:		xournal-c99-2.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -31,7 +33,7 @@ annotating PDFs. Xournal aims to provide superior graphical quality (subpixel
 resolution) and overall functionality.
 
 %prep
-%setup -q
+%autosetup -p1
 
 NOCONFIGURE=1 ./autogen.sh
 
@@ -85,6 +87,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 0.4.8.2016-12
+- Port to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8.2016-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -241,7 +246,7 @@ desktop-file-install \
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
 * Sun Sep 21 2008 Ville Skyttä <ville.skytta at iki.fi> - 0.4.2.1-2
-- Fix Patch0:/%%patch mismatch (#463069)
+- Fix Patch0:/patch mismatch (#463069)
 
 * Mon Apr  7 2008 Jeremy Katz <katzj@redhat.com> - 0.4.2.1-1
 - Update to 0.4.2.1 to fix problems with newer xorg

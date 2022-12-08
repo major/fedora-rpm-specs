@@ -1,7 +1,7 @@
 %global pkgname sonata
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.9.5
+Version:        2.9.6
 Release:        1%{?dist}
 Summary:        GAP package for systems of nearrings
 
@@ -60,8 +60,8 @@ finite nearrings.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
 Summary:        SONATA documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -113,6 +113,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 2.9.6-1
+- Version 2.9.6
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.9.5-1
 - Clarify license of the doc subpackage
 

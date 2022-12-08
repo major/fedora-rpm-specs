@@ -171,13 +171,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        107.0
-Release:        4%{?pre_tag}%{?dist}
+Version:        107.0.1
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20221114.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20221206.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1133,6 +1133,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Dec 6 2022 Martin Stransky <stransky@redhat.com>- 107.0.1-1
+- Update to 107.0.1
+
 * Thu Nov 24 2022 Martin Stransky <stransky@redhat.com>- 107.0-4
 - Added fix for mozbz#1779186 - fix VA-API playback artifacts
 

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	5%{?dist}
+Release:	6%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -101,7 +101,6 @@ BuildRequires:	miniupnpc-devel
 BuildRequires:	nvidia-texture-tools-devel
 %endif
 BuildRequires:	openal-soft-devel
-BuildRequires:	openjpeg-devel
 BuildRequires:	pkgconfig
 BuildRequires:	SDL2-devel
 BuildRequires:	subversion
@@ -271,6 +270,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Dec 06 2022 Kalev Lember <klember@redhat.com> - 0.0.26-6
+- Drop unused openjpeg-devel build dep
+
 * Wed Nov 23 2022 Kalev Lember <klember@redhat.com> - 0.0.26-5
 - Rebuild for wxGLCanvas ABI change
 

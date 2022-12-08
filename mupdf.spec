@@ -4,8 +4,8 @@
 %global jbig2dec_version 0.19
 
 Name:           mupdf
-Version:        1.20.3
-%global upversion 1.20.3
+Version:        1.21.0
+%global upversion 1.21.0
 Release:        %autorelease
 Summary:        A lightweight PDF viewer and toolkit
 License:        AGPLv3+
@@ -25,14 +25,14 @@ Requires:       jbig2dec-libs = %{jbig2dec_version}
 # We need to build against the Artifex fork of lcms2 so that we are thread safe
 # (see bug #1553915). Artifex make sure to rebase against upstream, who refuse
 # to integrate Artifex's changes. 
-Provides:       bundled(lcms2-devel) = 2.12^85.g558b336
+Provides:       bundled(lcms2-devel) = 2.14~rc1^59-g88b6a72
 # We need to build against the Artifex fork of freeglut so that we are unicode safe.
 Provides:       bundled(freeglut-devel) = 3.0.0^11.g13ae6aa
 # muPDF needs the muJS sources for the build even if we build against the system
 # version so bundling them is the safer choice.
-Provides:       bundled(mujs-devel) = 1.2.0
+Provides:       bundled(mujs-devel) = 1.3.2
 # muPDF builds only against in-tree extract which is versioned along with ghostpdl.
-Provides:       bundled(extract) = 9.56.0^4.g10c442d
+Provides:       bundled(extract) = 9.56.0^53-gc18d9f3
 
 %description
 MuPDF is a lightweight PDF viewer and toolkit written in portable C.

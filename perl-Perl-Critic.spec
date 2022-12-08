@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.142
+Version:	1.144
 Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,6 +28,7 @@ BuildRequires:	perl(Task::Weaken)
 # Module requirements
 BuildRequires:	hunspell >= 1.2.12
 BuildRequires:	hunspell-en
+BuildRequires:	perl(:VERSION) >= 5.10.1
 BuildRequires:	perl(B::Keywords) >= 1.05
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
@@ -163,6 +164,31 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Tue Dec  6 2022 Paul Howarth <paul@city-fan.org> - 1.144-1
+- Update to 1.144 (rhbz#2151095)
+  - Perl::Critic now requires Perl 5.10.1
+  New features
+  - The ProhibitAugmentedAssignmentInDeclaration policy now allows augmented
+    assignments to "our" variables, if the allow_our option is enabled (GH#993)
+  - ProhibitExplicitISA now recommends "use parent" instead of "use base"
+    (GH#987)
+  - RequireUseWarnings now recognizes that "use v5.36" implies warnings (GH#984)
+  - Subroutines::ProhibitNestedSubs now allows that lexical subroutines can be
+    inside other subroutines (GH#946, GH#971, GH#972)
+  - RequireUseStrict now knows that Test::Spec enables it (GH#906)
+  - ProhibitUnusedCapture now understands @{^CAPTURE} and %%{^CAPTURE_ALL} that
+    were added in Perl 5.26.0 (GH#778)
+  - Allow numeric operators on special number strings 'NaN' and 'inf' (GH#803)
+  Fixes
+  - Miscellanea::ProhibitUselessNoCritic no longer filters out errors about
+    itself, just as Miscellanea::ProhibitUnrestrictedNoCritic cannot (GH#939)
+  - Fixed GH#878: bareword filehandle dies on "open(CHECK, '/foo');"
+  Internals
+  - Updated to using Perl 5.10.1; starting migrating to Perl 5.10-isms like
+    defined-or
+  Documentation
+  - Updated some outdated docs in Perl::Critic::Utils (GH#951)
+
 * Tue Nov 29 2022 Paul Howarth <paul@city-fan.org> - 1.142-1
 - Update to 1.142 (rhbz#2149154)
   - This is the last version of Perl::Critic that will run on Perl 5.6.1; the

@@ -1,11 +1,11 @@
 Name:       xset
-Version:    1.2.4
-Release:    5%{?dist}
+Version:    1.2.5
+Release:    1%{?dist}
 Summary:    User preference utility for X
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Dec 06 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.2.5-1
+- xset 1.2.5
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

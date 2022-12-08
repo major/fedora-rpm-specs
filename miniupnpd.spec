@@ -1,12 +1,13 @@
 Name:       miniupnpd
-Version:    2.3.0
-Release:    2%{?dist}
+Version:    2.3.1
+Release:    1%{?dist}
 Summary:    Daemon to offer UPnP-IGD and NAT-PMP support
 
 License:    BSD
 URL:        http://miniupnp.free.fr/
 Source0:    http://miniupnp.free.fr/files/%{name}-%{version}.tar.gz
 Source1:    miniupnpd.service
+Patch0:     miniupnpd-init-selinux.patch
 
 BuildRequires:  gcc
 %{?systemd_requires}
@@ -31,7 +32,7 @@ benefit from a NAT router supporting UPnP and/or NAT-PMP.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -87,6 +88,9 @@ rm -f %{buildroot}/etc/init.d/%{name}
 
 
 %changelog
+* Mon Dec 05 2022 - Michael Cronenworth <mike@cchtml.com> - 2.3.1-1
+- Version update
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

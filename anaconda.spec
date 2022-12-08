@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.10
+Version: 38.12
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 06 2022 Packit <hello@packit.dev> - 38.12-1
+- Web UI: Tests should ignore the volatile space requirement message (skobyda)
+- webui: Upgrade to react 18 and enable the new concurrent renderer (kkoukiou)
+- Add a block of history about the name of the installer (dcantrell)
+
+* Tue Dec 06 2022 Packit <hello@packit.dev> - 38.11-1
+- Fix the installation message about the payload installation (vponcova)
+
 * Mon Nov 28 2022 Packit <hello@packit.dev> - 38.10-1
 - infra: Fix the condition for bumping a release version (vponcova)
 - infra: Fetch all tags before tagging the release (vponcova)

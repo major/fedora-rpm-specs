@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    0880e3dd88eca01eeda9dfdb5a05c38e56902c2c
+%global gh_commit    f4f773641807c7ccee59b758bfe4ac4ba33ecb17
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-stdlib
@@ -23,7 +23,7 @@
 %global library      Stdlib
 
 Name:           php-%{gh_project}
-Version:        3.16.0
+Version:        3.16.1
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -158,6 +158,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 3.16.1-1
+- update to 3.16.1
+
 * Thu Dec  1 2022 Remi Collet <remi@remirepo.net> - 3.16.0-1
 - update to 3.16.0
 

@@ -6,7 +6,7 @@
 %global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 4
+%global patch_ver 6
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -22,7 +22,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -109,6 +109,7 @@ sed 's/add_subdirectory(tools\/lld)//' -i CMakeLists.txt
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
 	-DPYTHON_EXECUTABLE=%{__python3} \
 %if %{with compat_build}
+	-DLLVM_CMAKE_DIR=%{install_libdir}/cmake/llvm \
 	-DLLVM_INCLUDE_TESTS=OFF \
 %else
 	-DLLVM_INCLUDE_TESTS=ON \
@@ -176,6 +177,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Mon Nov 14 2022 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.4-2
 - Enable LTO.
 

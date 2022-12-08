@@ -5,7 +5,7 @@ Version:        3.47
 Release:        %autorelease
 Summary:        An extensible i3status wrapper written in python
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ultrabug/py3status
 Source0:        https://github.com/ultrabug/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

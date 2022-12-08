@@ -1,14 +1,14 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 License:        GPLv2+
-URL:            http://users.telenet.be/on4qz/
+URL:            https://www.qsl.net/on4qz/
 
-Source0:        http://users.telenet.be/on4qz/qsstv/downloads/%{name}_%{version}.tar.gz
+Source0:        https://www.qsl.net/o/on4qz/qsstv/downloads/%{name}_%{version}.tar.gz
 Source1:        qsstv.1
-Source2:        qsstv.appdata.xml
+Source2:        net.qsl.QSSTV.metainfo.xml
 Source3:        qsstv.png
 
 Patch0:         qsstv-install.patch
@@ -72,11 +72,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 mkdir -p %{buildroot}%{_mandir}/man1
 install -pm 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/
 
-# Install appdata file
+# Install metainfo file
 %if 0%{?fedora}
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 0644 %{SOURCE2} %{buildroot}%{_metainfodir}/
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
@@ -89,13 +89,16 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/applications/*%{name}.desktop
 %{_mandir}/man1/%{name}.1*
-%{?fedora:%{_metainfodir}/*.appdata.xml}
+%{?fedora:%{_metainfodir}/*.metainfo.xml}
 
 %files doc
 %{_pkgdocdir}/
 
 
 %changelog
+* Tue Dec 06 2022 Daniel Rusek <mail@asciiwolf.com> - 9.5.8-12
+- Use new QSSTV homepage url
+
 * Sun Dec 04 2022 Daniel Rusek <mail@asciiwolf.com> - 9.5.8-11
 - Use larger desktop icon
 

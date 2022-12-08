@@ -31,6 +31,7 @@ Requires:       python3-beautifulsoup4
 Requires:       python3-brotli
 Requires:       python3-cloudscraper
 Requires:       python3-dateparser
+Requires:       python3-emoji
 Requires:       python3-gobject
 Requires:       python3-keyring
 Requires:       python3-lxml

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    336b7571820c1d1d2443c34fa46f39884885e67c
+%global gh_commit    166e28123d19ebab7edddb9671a8376143c543c7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.28.1
+Version:        2.29.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -49,7 +49,7 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 #        "phpunit/phpunit": "^9.5.26",
 #        "psalm/plugin-phpunit": "^0.18.3",
 #        "psr/http-factory": "^1.0.1",
-#        "vimeo/psalm": "^4.30"
+#        "vimeo/psalm": "^5.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.9   with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10  with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0.1 with php-composer(psr/http-factory)                           < 2)
@@ -198,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.29.0-1
+- update to 2.29.0
+
 * Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.28.1-1
 - update to 2.28.1 (no change)
 

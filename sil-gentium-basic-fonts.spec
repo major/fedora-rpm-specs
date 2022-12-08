@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
 Version: 1.102
-Release: 4%{?dist}
+Release: 5%{?dist}
 URL:     https://software.sil.org/gentium/
 
 %global foundry           SIL
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1
 %global fontlicenses      OFL.txt
 
 %global common_description %{expand:
@@ -78,6 +78,9 @@ This package provides optional documentation files shipped with
 %doc FONTLOG.txt GENTIUM-FAQ.txt OFL-FAQ.txt
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.102-5
+- SPDX migration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

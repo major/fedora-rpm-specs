@@ -1,7 +1,7 @@
 Summary:        A Tool for manipulating BibTeX data bases
 Name:           BibTool
 Version:        2.68
-Release:        7%{?dist}
+Release:        8%{?dist}
 Source0:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz
 Source1:        https://github.com/ge-ne/bibtool/releases/download/BibTool_2_68/BibTool-%{version}.tar.gz.asc
 # Imported from public key servers; author provides no fingerprint!
@@ -12,7 +12,7 @@ Patch1:         0001-old-font-commands-added.patch
 Patch2:         0001-make-doc-work-with-LuaTeX-0.85.patch
 Patch3:         0001-fix-duplicate-case-fix.patch
 Patch4:         0001-support-for-make-check-fixed.patch
-License:        GPL+
+License:        GPL-2.0-or-later AND CC-BY-SA-3.0
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  tex(latex) tex-bibtex tex-makeindex tex(luatex85.sty)
@@ -63,6 +63,9 @@ make install-man INSTALLPREFIX=$RPM_BUILD_ROOT INSTALL='install -p -m 644'
 %{_mandir}/man1/bibtool.1*
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 2.68-8
+- SPDX migration
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.68-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

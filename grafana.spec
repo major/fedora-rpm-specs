@@ -2,7 +2,7 @@
 # is attached as a webpack tarball (in case of an unsuitable nodejs version on the build system)
 %define compile_frontend 0
 
-%if 0%{?rhel}
+%if 0%{?rhel} && ! 0%{?eln}
 %define enable_fips_mode 1
 %else
 %define enable_fips_mode 0

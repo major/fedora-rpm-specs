@@ -3,7 +3,7 @@
 %global maj_ver 15
 %global min_ver 0
 #global rc_ver 1
-%global patch_ver 0
+%global patch_ver 6
 %global bolt_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global bolt_srcdir llvm-project-%{bolt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -12,7 +12,7 @@ Version: %{bolt_version}%{?rc_ver:~rc%{rc_ver}}
 Release: 1%{?dist}
 Summary: a post-link optimizer developed to speed up large applications
 
-License: Apache-2.0-WITH-LLVM-exception
+License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/llvm/llvm-project/tree/main/bolt
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{bolt_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{bolt_srcdir}.tar.xz.sig
@@ -243,6 +243,9 @@ export DESTDIR=%{buildroot}
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Mon Jul 11 2022 sguelton@redhat.com - 15.0.0-1
 - Initial version.
 

@@ -1,15 +1,15 @@
 %define _hardened_build 1
 Name:           stress
-Version:        1.0.4
-Release:        31%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        A tool to put given subsystems under a specified load
 
 License:        GPLv2+
-URL:            http://people.seas.harvard.edu/~apw/stress/
-Source0:        http://people.seas.harvard.edu/~apw/stress/%{name}-%{version}.tar.gz
+URL:            https://github.com/resurrecting-open-source-projects/stress
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:  texinfo
+BuildRequires: gcc
+BuildRequires: autoconf automake
 
 %description
 stress is not a benchmark, but is rather a tool designed to put given
@@ -20,10 +20,10 @@ service possibilities, etc.
 
 %prep
 %setup -q
-chmod -x README TODO AUTHORS doc/Makefile.am doc/mdate-sh NEWS src/stress.c
-rm INSTALL
+chmod -x README TODO AUTHORS NEWS src/stress.c
 
 %build
+./autogen.sh
 %configure
 %make_build
 
@@ -34,13 +34,15 @@ rm INSTALL
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %files
-%doc AUTHORS ChangeLog COPYING NEWS README TODO doc/stress.html
+%doc AUTHORS ChangeLog COPYING NEWS README TODO
 %{_bindir}/stress
-%{_infodir}/stress*
 %{_mandir}/man1/stress.1*
 
 
 %changelog
+* Tue Dec 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0.5-1
+- 1.0.5
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

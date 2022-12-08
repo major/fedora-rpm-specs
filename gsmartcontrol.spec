@@ -1,6 +1,6 @@
 Name:       gsmartcontrol
 Version:    1.1.4
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Graphical user interface for smartctl
 
 # Note that the "Whatever" license is effectively the MIT license.  See email
@@ -16,9 +16,10 @@ BuildRequires:  automake
 BuildRequires:  gtkmm30-devel
 BuildRequires:  pcre-devel
 BuildRequires:  desktop-file-utils
-BuildRequires: make
+BuildRequires:  make
 Requires:       smartmontools >= 5.43
 Requires:       hicolor-icon-theme
+Requires:       xterm
 
 %description
 GSmartControl is a graphical user interface for smartctl (from
@@ -61,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/gsmartcontrol.appdata.xml
 
 %changelog
+* Tue Dec 06 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.4-3
+- Added Requires xterm #2133082
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

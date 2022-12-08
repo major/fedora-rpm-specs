@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.12.0
+Version:        2.13.1
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -169,6 +169,12 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.13.1-1
+- update to 2.13.1
+
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.13.0-1
+- update to 2.13.0
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.12.0-1
 - update to 2.12.0 (no change)
 - raise dependency on PHP 8.0

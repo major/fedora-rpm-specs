@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    64c72f1f941c15df07b4ab0985b2f7cc1d492ba9
+%global gh_commit    ead14136a0ded44d1a72f4885df0f3333065d919
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-recaptcha
@@ -17,7 +17,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        3.5.0
+Version:        3.6.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -40,7 +40,7 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1 
 #        "laminas/laminas-validator": "^2.15",
 #        "phpunit/phpunit": "^9.5.26",
 #        "psalm/plugin-phpunit": "^0.18.0",
-#        "vimeo/psalm": "^4.29.0"
+#        "vimeo/psalm": "^5.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7    with php-autoloader(%{gh_owner}/laminas-config)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15   with php-autoloader(%{gh_owner}/laminas-validator)            < 3)
 %global phpunit %{_bindir}/phpunit9
@@ -164,6 +164,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 3.6.0-1
+- update to 3.6.0
+
 * Fri Nov 18 2022 Remi Collet <remi@remirepo.net> - 3.5.0-1
 - update to 3.5.0
 - raise dependency on PHP 8.0

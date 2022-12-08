@@ -1,5 +1,5 @@
 Name:       perl-RT-Client-REST 
-Version:    0.70
+Version:    0.71
 Release:    1%{?dist}
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Talk to RT using REST protocol 
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Dec 06 2022 Petr Pisar <ppisar@redhat.com> - 0.71-1
+- 0.71 bump
+
 * Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 0.70-1
 - 0.70 bump
 - Package the tests

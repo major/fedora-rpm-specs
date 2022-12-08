@@ -112,7 +112,7 @@ BuildRequires: pkgconfig(nspr)
 BuildRequires: pkgconfig(nss) >= %{nss_version}
 BuildRequires: pkgconfig(sqlite3) >= %{sqlite_version}
 BuildRequires: pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
-BuildRequires: pkgconfig(webkit2gtk-5.0) >= %{webkit2gtk4_version}
+BuildRequires: pkgconfig(webkitgtk-6.0) >= %{webkit2gtk4_version}
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libcanberra-gtk3)
 
@@ -152,7 +152,7 @@ Requires: pkgconfig(libsecret-unstable) >= %{libsecret_version}
 Requires: pkgconfig(libsoup-3.0) >= %{libsoup_version}
 Requires: pkgconfig(sqlite3) >= %{sqlite_version}
 Requires: pkgconfig(webkit2gtk-4.1) >= %{webkit2gtk_version}
-Requires: pkgconfig(webkit2gtk-5.0) >= %{webkit2gtk4_version}
+Requires: pkgconfig(webkitgtk-6.0) >= %{webkit2gtk4_version}
 Requires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %description devel

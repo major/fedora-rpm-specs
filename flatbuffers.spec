@@ -30,6 +30,10 @@ Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
 
+# [C++] Update to address comparator failure in big endian
+# https://github.com/google/flatbuffers/pull/7681
+Patch:          https://github.com/google/flatbuffers/pull/7681.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # The ninja backend should be slightly faster than make, with no disadvantages.
@@ -193,14 +197,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 %check
 %if %{with tests}
-%ifarch s390x
-# key_field_test failures on s390x [FlatBuffers 22.11.23]
-# https://github.com/google/flatbuffers/issues/7671
-# It’s not obvious how to skip part of the tests.
-%ctest || :
-%else
 %ctest
-%endif
 %endif
 # Upstream does not appear to provide any dedicated Python tests.
 %pyproject_check_import

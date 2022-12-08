@@ -1,6 +1,6 @@
 Name:           aiksaurus
 Version:        1.2.1
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        An English-language thesaurus library
 
 Epoch:          1
@@ -11,6 +11,7 @@ Source1:        %{name}.png
 Source2:        %{name}.desktop
 Patch0:         %{name}-1.2.1-gcc43.patch
 Patch1:         %{name}-security.patch
+Patch2:         %{name}-configure.c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -60,6 +61,7 @@ A standalone thesaurus program base on aiksaurus-gtk.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
@@ -111,6 +113,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE2}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 1:1.2.1-50
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.1-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

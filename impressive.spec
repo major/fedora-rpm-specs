@@ -3,7 +3,7 @@ Version:        0.13.1
 Release:        %autorelease
 Summary:        A program that displays presentation slides
 
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            http://impressive.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/Impressive-%{version}.tar.gz
 # Wrapper script for making sure hardware acceleration is available

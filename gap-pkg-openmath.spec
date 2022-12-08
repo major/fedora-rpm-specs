@@ -10,8 +10,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        11.5.1
-Release:        3%{?dist}
+Version:        11.5.2
+Release:        1%{?dist}
 Summary:        Import and export of OpenMath objects for GAP
 
 License:        GPL-2.0-or-later
@@ -40,10 +40,10 @@ For details about the OpenMath encoding, see https://openmath.org/.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        OpenMath documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -88,6 +88,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 11.5.2-1
+- Version 11.5.2
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-3
 - Clarify license of the doc subpackage
 

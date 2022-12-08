@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        1%{?libo_prerelease}%{?dist}
+Release:        2%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -115,6 +115,7 @@ BuildRequires: gettext
 BuildRequires: git
 BuildRequires: gnupg2
 BuildRequires: gperf
+BuildRequires: hunspell-en-US
 BuildRequires: icu
 BuildRequires: libtool-ltdl-devel
 BuildRequires: make
@@ -2265,6 +2266,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Tue Dec 06 2022 Caolán McNamara <caolanm@redhat.com> - 1:7.4.3.2-2
+- add BuildRequires on hunspell-en-US for testTdf124603
+
 * Thu Nov 17 2022 Caolán McNamara <caolanm@redhat.com> - 1:7.4.3.2-1
 - 7.4.3 release
 

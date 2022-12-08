@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.12.57
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -12,13 +12,13 @@ BuildRequires: boost-devel
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: gtest-devel
+%ifarch %{java_arches}
 BuildRequires: java-devel
+%endif
 BuildRequires: libicu-devel
 BuildRequires: protobuf-compiler
 BuildRequires: protobuf-devel
 BuildRequires: re2-devel
-
-ExclusiveArch:  %{java_arches}
 
 %description
 Google's common C++ library for parsing, formatting, storing and validating
@@ -42,7 +42,12 @@ developing applications that use %{name}.
 %build
 pushd cpp
 # CXX_STANDARD=17 fixes undefined reference to `absl::lts_20210324::StrReplaceAll(std::initializer_list<std::pair<absl::lts_20210324::string_view
+%ifarch %{java_arches}
 %cmake -DCMAKE_CXX_STANDARD=17
+%else
+touch src/phonenumbers/test_metadata.h
+%cmake -DCMAKE_CXX_STANDARD=17 -DREGENERATE_METADATA=OFF
+%endif
 %cmake_build
 popd
 
@@ -68,6 +73,9 @@ popd
 
 
 %changelog
+* Tue Dec 06 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-3
+- (#1893839#c53) use ifarch %%{java_arches} to build on i686
+
 * Mon Dec 05 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-2
 - (#2150896) Add requires abseil-cpp-devel in the -devel package
 

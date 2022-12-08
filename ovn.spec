@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 22.09.0
-Release: 22%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 25%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -438,11 +438,24 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Tue Dec 06 2022 Numan Siddique <numans@ovn.org> - 22.09.0-25
+- Backport the bug fixes related to load balancer affinity.
+  Below are the commits since the last update (22.09.0-22)
+
+- ovn-northd.at: Fix failing lb-affinity test.
+[Upstream: 60b856cfd55b8d636c5f8c1011781f587efe7cf5]
+
+- northd: Include VIP port in LB affinity learn flow matches. (#2150533)
+[Upstream: cc037c7538d635e7d014e98935a83bc15140674f]
+
+- northd: Improve the LB affinity code
+[Upstream: 11da2339668a024a05512ba2178046135b784825]
+
 * Thu Dec 01 2022 Numan Siddique <numans@ovn.org> - 22.09.0-22
 - Sync to upstream OVN branch-22.09 and also backport
   Load balancer affinity patches.  These patches are not backported
   to branch-22.09, but ovn-kubernetes need them.
-  Below are the commits since last update (22.09.0-4.
+  Below are the commits since last update (22.09.0-4).
 
 - northd: rely on new actions for lb affinity
 [Upstream: 5b6223dcb6060205c6e9d4e8c092e96134bb032a]

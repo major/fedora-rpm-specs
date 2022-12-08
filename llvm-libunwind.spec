@@ -1,7 +1,7 @@
 %global toolchain clang
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 4
+%global patch_ver 6
 #global rc_ver 3
 %global libunwind_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -129,6 +129,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
+- Update to LLVM 15.0.6
+
 * Mon Nov 07 2022 Nikita Popov <npopov@redhat.com> - 15.0.4-1
 - Update to LLVM 15.0.4
 

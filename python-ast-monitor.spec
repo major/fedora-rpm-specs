@@ -18,8 +18,8 @@ training sessions. AST-Monitor is a part of Artificial Sport Trainer (AST)
 system.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.0
-Release:        2%{?dist}
+Version:        0.3.1
+Release:        1%{?dist}
 Summary:        AST-Monitor is a wearable Raspberry Pi computer for cyclists
 
 License:        MIT
@@ -107,6 +107,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc examples/
 
 %changelog
+* Tue Dec 6 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.1-1
+- Update to the latest release
+
 * Sat Nov 26 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.0-2
 - Exclude architectures that lack qtwebengine
 

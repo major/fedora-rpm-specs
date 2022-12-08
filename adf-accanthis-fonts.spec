@@ -1,10 +1,10 @@
 # SPDX-License-Identifier: MIT
 Version: 1.8
-Release: 27%{?dist}
+Release: 28%{?dist}
 URL:     http://arkandis.tuxfamily.org/adffonts.html
 
 %global foundry           ADF
-%global fontlicense       GPLv2+ with exceptions
+%global fontlicense       GPL-2.0-or-later WITH Font-exception-2.0
 %global fontlicenses      OTF/COPYING
 %global fontdocs          NOTICE.txt
 
@@ -91,6 +91,9 @@ install -m 0644 -p %{SOURCE1} .
 %doc *.pdf
 
 %changelog
+* Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.8-28
+- SPDX migration
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

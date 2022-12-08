@@ -2,7 +2,7 @@
 %global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 
 Name:           liblouis
-Version:        3.23.0
+Version:        3.24.0
 Release:        1%{?dist}
 Summary:        Braille translation and back-translation library
 
@@ -148,6 +148,9 @@ done
 
 
 %changelog
+* Tue Dec 06 2022 Martin Gieseking <martin.gieseking@uos.de> - 3.24.0-1
+- Update to 3.24.0
+
 * Mon Sep 12 2022 Martin Gieseking <martin.gieseking@uos.de> - 3.23.0-1
 - Update to 3.23.0
 

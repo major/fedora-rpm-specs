@@ -1,12 +1,13 @@
 Name:           aggregate
 Version:        1.6
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        IPv4 CIDR prefix aggregator
 
 License:        ISC
 URL:            http://ftp.isc.org/isc/aggregate/
 Source0:        http://ftp.isc.org/isc/aggregate/aggregate-%{version}.tar.gz
 Patch0:         aggregate-fedora.patch
+Patch1:         aggregate-configure-c99.patch
 
 BuildRequires:         gcc
 BuildRequires:         perl-generators
@@ -31,6 +32,7 @@ any prefix filters found using aggregate.
 %setup -q
 chmod -x LICENSE
 %patch0 -p1 -b .fedora
+%patch1 -p1
 
 
 %build
@@ -53,6 +55,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 1.6-25
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
