@@ -5,7 +5,7 @@
 
 
 Name:           python-acme
-Version:        1.32.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Python library for the ACME protocol
 License:        Apache-2.0
@@ -95,6 +95,9 @@ rm -rf docs/_build/html/{.buildinfo,man,_sources}
 %endif
 
 %changelog
+* Wed Dec 07 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

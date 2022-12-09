@@ -7,7 +7,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.8.0
-Release:	1%{?candidate:.%{candidate}}%{?dist}
+Release:	2%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD
@@ -54,6 +54,7 @@ Summary: The tools required to setup and configure TPM2 for PKCS#11
 Requires:	python3-cryptography
 Requires:	python3-pyyaml
 Requires:	python3-pyasn1-modules
+Requires:	python3-tpm2-pytss
 
 %description tools
 The tools required to setup and configure TPM2 for PKCS#11.
@@ -102,6 +103,9 @@ cd tools
 
 
 %changelog
+* Wed Dec 07 2022 Jakub Jelen <jjelen@redhat.com> - 1.8.0-2
+- Add missing requires for the tools subpackage (#2148392)
+
 * Wed Oct 26 2022 Jakub Jelen <jjelen@redhat.com> - 1.8.0-1
 - New upstream release (#2064490)
 

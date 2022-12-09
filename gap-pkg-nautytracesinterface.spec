@@ -15,7 +15,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        25.%{gitdate}git%{shorttag}%{?dist}
+Release:        26.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
@@ -44,10 +44,10 @@ This GAP package provides an interface to nauty and Traces.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        NautyTracesInterface documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -98,6 +98,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 0.2-26.20221102git
+- Rebuild for nauty 2.8.6
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.2-25.20221102gitd54d393
 - Update to latest git snapshot for minor build system enhancements
 - Clarify license of the doc subpackage

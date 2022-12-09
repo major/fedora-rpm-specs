@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.15
+%global general_version %{pybasever}.16
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -386,33 +386,6 @@ Patch353: 00353-architecture-names-upstream-downstream.patch
 # https://bodhi.fedoraproject.org/updates/FEDORA-2021-e152ce5f31
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
-
-# 00382 # 9e275dcdf3934b827994ecc3247d583d5bab7985
-# CVE-2015-20107
-#
-# Make mailcap refuse to match unsafe filenames/types/params (GH-91993)
-#
-# Upstream: https://github.com/python/cpython/issues/68966
-#
-# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
-Patch382: 00382-cve-2015-20107.patch
-
-# 00391 # e6d12d8fca6afad3a56dc076c220f213b723a28e
-# Don't use Linux abstract sockets for multiprocessing
-#
-# Linux abstract sockets are insecure as they lack any form of filesystem
-# permissions so their use allows anyone on the system to inject code into
-# the process.
-#
-# This removes the default preference for abstract sockets in
-# multiprocessing introduced in Python 3.9+ via
-# https://github.com/python/cpython/pull/18866 while fixing
-# https://github.com/python/cpython/issues/84031.
-#
-# Explicit use of an abstract socket by a user now generates a
-# RuntimeWarning.  If we choose to keep this warning, it should be
-# backported to the 3.7 and 3.8 branches.
-Patch391: 00391-don-t-use-linux-abstract-sockets-for-multiprocessing.patch
 
 # (New patches go here ^^^)
 #
@@ -1829,6 +1802,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.9.16-1
+- Update to 3.9.16
+
 * Thu Nov 17 2022 Miro Hrončok <mhroncok@redhat.com> - 3.9.15-3
 - Rebuilt for infrastructure problems
 

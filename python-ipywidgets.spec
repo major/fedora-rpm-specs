@@ -1,7 +1,7 @@
 %global pypi_name ipywidgets
 
 Name:           python-%{pypi_name}
-Version:        8.0.2
+Version:        8.0.3
 Release:        1%{?dist}
 Summary:        IPython HTML widgets for Jupyter
 
@@ -46,6 +46,9 @@ sed -i "/jupyterlab_widgets/d" setup.cfg
 %doc README.md
 
 %changelog
+* Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 8.0.3-1
+- Update to 8.0.3 (rhbz#2151510)
+
 * Sat Sep 03 2022 Lumír Balhar <lbalhar@redhat.com> - 8.0.2-1
 - Update to 8.0.2
 Resolves: rhbz#2123852

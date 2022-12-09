@@ -1,11 +1,13 @@
 Name:		psiconv
 Version:	0.9.8
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	A conversion utility for Psion files
 License:	GPLv2+
 URL:		http://software.frodo.looijaard.name/psiconv/
 Source0:	http://software.frodo.looijaard.name/psiconv/files/%{name}-%{version}.tar.gz
 Patch0:	psiconv-0.9.8-gcc10.patch
+Patch1: psiconv-checkuid-stdlib.h
+Patch2: psiconv-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -25,6 +27,8 @@ Contains library and header files for psiconv
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -64,6 +68,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/%{name} _doc
 
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 0.9.8-39
+- Port to C99 (#2151481)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Name:          nmh
 Version:       1.7.1
-Release:       18%{?dist}
+Release:       19%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
 URL:           http://savannah.nongnu.org/projects/nmh
 Source0:       http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
 Patch0:        nmh-use-smtp-port.patch
+Patch1:        nmh-c99.patch
 BuildRequires: cyrus-sasl-devel
 BuildRequires: gcc
 BuildRequires: gdbm-devel
@@ -31,6 +32,10 @@ projects.  nmh is a descendant of the RAND MH, Mail Handler, project.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
+%patch1 -p1
+
+# Avoid regenerating autotools machinery.
+touch aclocal.m4 Makefile.in config.h.in configure
 
 %build
 CFLAGS="$RPM_OPT_FLAGS"
@@ -50,6 +55,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.7.1-19
+- Backport patch from upstream to fix detection of _GNU_SOURCE
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

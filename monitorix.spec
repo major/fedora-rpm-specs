@@ -2,8 +2,8 @@
 %global __provides_exclude perl\\(
 
 Name:              monitorix
-Version:           3.14.0
-Release:           4%{?dist}
+Version:           3.15.0
+Release:           2%{?dist}
 Summary:           A free, open source, lightweight system monitoring tool
 License:           GPLv2+
 URL:               http://www.monitorix.org
@@ -15,7 +15,9 @@ BuildRequires:     systemd
 Requires:          logrotate
 Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:          perl(DBD::mysql)
+Requires:          perl(DBD::Pg)
 Requires:          perl(IO::Socket::SSL)
+Requires:          perl(Time::HiRes)
 Requires(post):    systemd
 Requires(preun):   systemd
 Requires(postun):  systemd
@@ -100,6 +102,9 @@ install -pDm644 docs/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 %attr(755,root,root) %{_sharedstatedir}/%{name}/usage
 
 %changelog
+* Wed Dec 07 2022 Jordi Sanfeliu <jordi@fibranet.cat> - 3.15.0-1
+- Updated to 3.15.0.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

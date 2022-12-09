@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.16
-Release:        2%{?dist}
+Version:        6.17
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -245,6 +245,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Dec 07 2022 Sandro Mani <manisandro@gmail.com> - 6.17-1
+- Update to 6.17
+
 * Sun Nov 27 2022 Sandro Mani <manisandro@gmail.com> - 6.16-2
 - Fix incorrect path to log folder in pgadmin4-httpd
 

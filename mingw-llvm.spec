@@ -10,11 +10,10 @@
 
 
 %global pkgname llvm
-%global ffi_ver 3.4.2
 %global libver 15
 
 Name:          mingw-%{pkgname}
-Version:       15.0.4
+Version:       15.0.6
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
@@ -31,12 +30,12 @@ BuildRequires: gcc-c++
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-libffi = %{ffi_ver}
+BuildRequires: mingw32-libffi
 BuildRequires: mingw32-zlib
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-libffi = %{ffi_ver}
+BuildRequires: mingw64-libffi
 BuildRequires: mingw64-zlib
 
 
@@ -250,6 +249,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Wed Dec 07 2022 Sandro Mani <manisandro@gmail.com> - 15.0.6-1
+- Update to 15.0.6
+
 * Tue Nov 08 2022 Sandro Mani <manisandro@gmail.com> - 15.0.4-1
 - Update to 15.0.4
 

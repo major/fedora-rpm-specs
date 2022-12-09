@@ -2,7 +2,7 @@
 
 Name:           atop
 Version:        2.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPLv2+
@@ -60,6 +60,7 @@ install -Dp -m 0755 atopconvert $RPM_BUILD_ROOT%{_bindir}/atopconvert
 ln -s atop $RPM_BUILD_ROOT%{_bindir}/atopsar
 install -Dp -m 0644 man/atop.1 $RPM_BUILD_ROOT%{_mandir}/man1/atop.1
 install -Dp -m 0644 man/atopsar.1 $RPM_BUILD_ROOT%{_mandir}/man1/atopsar.1
+install -Dp -m 0644 man/atopacctd.8 $RPM_BUILD_ROOT%{_mandir}/man8/atopacctd.8
 install -Dp -m 0755 atop.daily $RPM_BUILD_ROOT%{_datadir}/atop/atop.daily
 install -Dp -m 0644 atop.default $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/atop
 install -Dp -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/atopd
@@ -106,6 +107,7 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 %{_bindir}/atopconvert
 %{_mandir}/man1/atop.1.gz
 %{_mandir}/man1/atopsar.1.gz
+%{_mandir}/man8/atopacctd.8.gz
 %attr(0755,root,root) %dir %{_localstatedir}/log/atop
 %{_unitdir}/atop*.service
 %{_unitdir}/atop*.timer
@@ -116,6 +118,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Wed Dec 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.7.1-4
+- Include atopacctd man page
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

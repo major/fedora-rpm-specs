@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
 Version:       1.34
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       DNS resolver modules for Perl
 # Other files:          MIT
 # demo/mresolv:         GPL+ or Artistic
@@ -97,6 +97,8 @@ Suggests:      perl(Scalar::Util) >= 1.25
 # Do not export under-specified provides
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\((Net::DNS::Text)\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\((Net::DNS::RR::OPT)\\)$
+# Remove private modules
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(NonFatal\\)$
 
 %description
 Net::DNS is a collection of Perl modules that act as a Domain Name System
@@ -182,6 +184,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.34-3
+- Fix provided packages in *tests package
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

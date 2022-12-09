@@ -5,7 +5,7 @@
 %bcond_with xdist
 %else
 %bcond_without xdist
-endif
+%endif
 
 %global srcname SQLAlchemy
 

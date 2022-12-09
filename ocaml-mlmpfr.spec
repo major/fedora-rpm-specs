@@ -1,18 +1,19 @@
 %undefine _package_note_flags
 
 # Uncomment this for bugfix releases
-%global bugfix bugfix2
+#%%global bugfix bugfix2
 
 Name:           ocaml-mlmpfr
-Version:        4.1.0
-Release:        14%{?dist}%{?bugfix:.%{bugfix}}
+Version:        4.1.1
+Release:        1%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://github.com/thvnx/mlmpfr
 Source0:        %{url}/archive/mlmpfr.%{version}%{?bugfix:-%{bugfix}}.tar.gz
-# Fix a race between 2 invocations of the same test rule
-Patch0:         %{name}-test.patch
+# The 4.1.1 release still checks for version 4.1.0
+# https://github.com/thvnx/mlmpfr/issues/26
+Patch0:         %{name}-compatibility.patch
 
 BuildRequires:  ocaml >= 4.04
 BuildRequires:  ocaml-dune >= 1.11.0
@@ -60,6 +61,12 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 4.1.1-1
+- Version 4.1.1
+- Drop upstreamed -test patch
+- Add -compatibility patch
+- Convert License tag to SPDX
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 4.1.0-14.bugfix2
 - Add -test patch to fix FTBFS
 

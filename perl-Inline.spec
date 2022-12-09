@@ -3,7 +3,7 @@
 
 Name:           perl-Inline
 Version:        0.86
-Release:        11%{?dist}
+Release:        13%{?dist}
 Summary:        Inline Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
@@ -60,6 +60,9 @@ Requires:       perl(version) >= 0.82
 
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Spec|version)\\)$
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Inline\\)$
+# Remove private modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((TestInlineSetup|TestML::Bridge)\\)$
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 The Inline module allows you to put source code from other programming
@@ -140,6 +143,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.86-13
+- Fix required packages in *-tests package
+
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.86-12
+- Remove provided packages in *-tests package
+
 * Fri Dec 02 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.86-11
 - Package tests
 - Update license to SPDX format

@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      DoctrineBundle
-%global github_version   2.7.1
-%global github_commit    a2dcad48741c9d12fd6040398cf075025030096e
+%global github_version   2.7.2
+%global github_commit    22d53b2c5ad03929628fb4a928b01135585b7179
 %global major            2
 
 %global composer_vendor  doctrine
@@ -289,7 +289,7 @@ rm Tests/DependencyInjection/Compiler/CacheCompatibilityPassTest.php
 
 : Upstream tests with SCLs if available
 RETURN_CODE=0
-for CMDARG in "php %{phpunit}" php74 php80 php81 php82; do
+for CMDARG in "php %{phpunit}" php80 php81 php82; do
     if which $CMDARG; then
         set $CMDARG
         $1 ${2:-%{_bindir}/phpunit9} \
@@ -318,6 +318,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Dec  7 2022 Remi Collet <remi@remirepo.net> - 2.7.2-1
+- update to 2.7.2
+
 * Tue Nov  8 2022 Remi Collet <remi@remirepo.net> - 2.7.1-1
 - update to 2.7.1
 - raise dependency on Symfony 4.4.22

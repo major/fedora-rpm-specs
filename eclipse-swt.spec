@@ -1,13 +1,13 @@
 Epoch:                  1
 
-%global swtdir          eclipse-platform-sources-I20220831-1800
+%global swtdir          eclipse-platform-sources-I20221123-1800
 %global eclipse_rel     %{version}
-%global eclipse_tag     R-%{eclipse_rel}-202208311800
+%global eclipse_tag     R-%{eclipse_rel}-202211231800
 %global swtsrcdir       eclipse.platform.swt/bundles/org.eclipse.swt
 %global eclipse_arch    %{_arch}
 
 Name:           eclipse-swt
-Version:        4.25
+Version:        4.26
 Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 
@@ -134,6 +134,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Wed Dec 07 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.26-1
+- Bump to 4.26
+
 * Thu Sep 22 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.25-1
 - Bump to 4.25
 

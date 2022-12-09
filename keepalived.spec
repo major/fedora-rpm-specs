@@ -10,12 +10,13 @@
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
 Version: 2.2.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: http://www.keepalived.org/
 
 Source0: http://www.keepalived.org/software/keepalived-%{version}.tar.gz
 Source1: keepalived.service
+Patch0: keepalived-configure-c99.patch
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -55,7 +56,10 @@ can be used independently or all together to provide resilient
 infrastructures.
 
 %prep
-%setup -q
+%autosetup -p1
+
+# Prevent re-running autotools.
+touch aclocal.m4 Makefile.in lib/config.h.in configure
 
 %build
 %configure \
@@ -107,6 +111,9 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %{_mandir}/man8/keepalived.8*
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 2.2.7-4
+- Fix spurious implicit function declaration in broken configure check
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.14.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An IRB alternative and runtime developer console
 License: MIT
 URL: http://pry.github.io
@@ -21,6 +21,7 @@ BuildRequires: rubygem(method_source) => 0.8.1
 BuildRequires: rubygem(rspec)
 # editor specs fail if no editor is available (soft requirement)
 BuildRequires: vi
+BuildRequires: rubygem(irb)
 # https://github.com/pry/pry/pull/1498
 Provides: bundled(rubygem-slop) = %{slop_version}
 BuildArch: noarch
@@ -93,6 +94,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Dec  7 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.14.1-2
+- Explicitly add BR: rubygem(irb) for %%check
+
 * Thu Oct 06 2022 Vít Ondruch <vondruch@redhat.com> - 0.14.1-1
 - Update to Pry 0.14.1.
   Resolves: rhbz#1926203

@@ -1186,6 +1186,11 @@ fi
 %endif
 
 %changelog
+* Mon Dec 5 2022 Keith Seitz <keiths@redhat.com>
+- Remove gdb-physname-pr11734-test.patch,
+  gdb-physname-pr12273-test.patch, gdb-runtest-pie-override.patch,
+  gdb-test-expr-cumulative-archer.patch.
+
 * Thu Dec 1 2022 Kevin Buettner <kevinb@redhat.com>
 - Remove gdb-6.3-threaded-watchpoints2-20050225.patch.  The test in this
   patch is a tweaked version of upstream test gdb.threads/watchthreads.exp

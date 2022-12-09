@@ -2,7 +2,7 @@
 %global uuid        %{extension}@G-dH.github.com
 
 Name:           gnome-shell-extension-%{extension}
-Version:        13
+Version:        18
 Release:        %autorelease
 Summary:        Vertical orientation of workspaces for GNOME 40+
 License:        GPL-3.0-only

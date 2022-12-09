@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.5.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD
 URL:            http://trac.edgewall.com/
@@ -11,6 +11,10 @@ Source3:        trac.ini-environment_sample
 Source4:        %{name}-README.fedora
 Source5:        trac.wsgi
 Patch0:         markupsafe.patch
+Patch1:         17541.diff
+Patch2:         changeset_17575.diff
+Patch3:         presentation.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -51,6 +55,9 @@ rm -f contrib/trac-post-commit-hook.cmd
 cp -a %{SOURCE4} README.fedora
 
 %patch0 -p0 
+%patch1 -p2
+%patch2 -p1
+%patch3 -p1
 
 %build
 %py3_build
@@ -92,6 +99,9 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 #%%{_var}/www/cgi-bin/trac.wsgi
 
 %changelog
+* Mon Nov 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5.3-8
+- Patch for soft_unicode->soft_str
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

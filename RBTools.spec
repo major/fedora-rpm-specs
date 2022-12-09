@@ -1,17 +1,20 @@
 Name:           RBTools
-Version:        2.0.1
-Release:        4%{?dist}
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        Tools for use with ReviewBoard
 
 License:        MIT
-URL:            http://www.reviewboard.org
-Source0:        http://downloads.reviewboard.org/releases/%{name}/2.0/%{name}-%{version}.tar.gz
+URL:            https://www.reviewboard.org/downloads/rbtools/
+Source:         https://github.com/reviewboard/%{name}/archive/release-%{version}/%{name}-%{version}.tar.gz
+
+Patch:          build_release.patch
 
 BuildArch:      noarch
 
 %if 0%{?rhel} == 7
 BuildRequires:  python36-devel
 BuildRequires:  python36-setuptools
+BuildRequires:  python36-pytest-env
 Requires:       python36-colorama
 Requires:       python36-setuptools
 Requires:       python36-simplejson
@@ -27,7 +30,14 @@ Requires:       python3-simplejson
 Requires:       python3-six >= 1.8.0
 Requires:       python3-tqdm
 Requires:       python3-texttable
-Recommends:     bash-completion
+# Test dependencies:
+BuildRequires:  cvs
+BuildRequires:  git
+BuildRequires:  mercurial
+BuildRequires:  python3-pytest-env
+BuildRequires:  python3-kgb
+BuildRequires:  python3-hglib
+BuildRequires:  subversion
 %endif
 
 ### Patches ###
@@ -40,16 +50,29 @@ RBTools provides client tools for interacting with a ReviewBoard
 code-review server.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -n rbtools-release-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 rm -Rf %{name}*.egg-info
 
+
 %build
-%{py3_build}
+%pyproject_wheel
+
+
+%check
+# skip svn tests
+rm -rf rbtools/clients/tests/test_svn.py \
+  rbtools/clients/tests/test_scanning.py \
+  rbtools/commands/tests/test_alias.py
+%pytest
 
 
 %install
-%{py3_install}
+%pyproject_install
+
 
 # Install bash and zsh completion scripts
 install -d -m 755 %{buildroot}%{_sysconfdir}/bash_completion.d/
@@ -60,16 +83,20 @@ install -d -m 755 %{buildroot}%{_datarootdir}/zsh/site-functions/
 cp rbtools/commands/conf/_rbt-zsh-completion \
    %{buildroot}%{_datarootdir}/zsh/site-functions/_rbt
 
- 
+
 %files
 %doc AUTHORS NEWS README.md
 %{_bindir}/rbt
 %{_sysconfdir}/bash_completion.d/
 %{_datarootdir}/zsh/site-functions/_rbt
 %{python3_sitelib}/rbtools/
-%{python3_sitelib}/RBTools*.egg-info/
+%{python3_sitelib}/%{name}-%{version}.dist-info/
 
 %changelog
+* Tue Aug 02 2022 Jonathan Wright - 3.1.1-1
+- Update to 3.1.1 rhbz#2103563
+- modernize spec
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

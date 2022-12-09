@@ -4,15 +4,14 @@
 %endif
 
 Name:           module-build-service
-Version:        3.6.1
-Release:        8%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
 URL:            https://pagure.io/fm-orchestrator
 Source0:        https://files.pythonhosted.org/packages/source/m/%{name}/%{name}-%{version}.tar.gz
-Patch0:         bz1968843.patch
-Patch1:         mbs_fedora_click.patch
+Patch0:         mbs_fedora_click.patch
 
 BuildArch:      noarch
 
@@ -207,7 +206,6 @@ for a number of tasks:
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 
 # Workaround because python2-koji has no egg-info file at the momement
@@ -262,7 +260,6 @@ done
 %{_bindir}/mbs-*
 %dir %{_sysconfdir}/module-build-service
 %config(noreplace) %{_sysconfdir}/module-build-service/koji.conf
-%config(noreplace) %{_sysconfdir}/module-build-service/cacert.pem
 %config(noreplace) %{_sysconfdir}/module-build-service/mock.cfg
 %config(noreplace) %{_sysconfdir}/module-build-service/yum.conf
 %config(noreplace) %{_sysconfdir}/fedmsg.d/mbs-scheduler.py
@@ -282,6 +279,9 @@ done
 %endif
 
 %changelog
+* Wed Dec 07 2022 Brendan Reilly <breilly@redhat.com> - 3.8.0-1
+- new version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

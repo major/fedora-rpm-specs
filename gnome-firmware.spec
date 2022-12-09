@@ -2,8 +2,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-firmware
-Version:        43.0
-Release:        2%{?dist}
+Version:        43.1
+Release:        1%{?dist}
 Summary:        Install firmware on devices
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 %{_metainfodir}/*.xml
 
 %changelog
+* Wed Dec 07 2022 Richard Hughes <rhughes@redhat.com> - 43.1-1
+- New upstream release
+
 * Fri Sep 16 2022 Richard Hughes <rhughes@redhat.com> - 43.0-1
 - New upstream release
 

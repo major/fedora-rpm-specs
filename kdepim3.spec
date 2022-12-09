@@ -2,7 +2,7 @@
 Name:    kdepim3
 Summary: Compatibility support for kdepim3 
 Version: 3.5.10
-Release: 37%{?dist}
+Release: 38%{?dist}
 
 License: GPLv2
 URL:     http://www.kde.org/
@@ -16,6 +16,7 @@ Patch2: kdepim3-gcc7.patch
 Patch3: kdepim-3.5.10-aarch64.patch
 # FTBFS with perl
 Patch4: kdepim3-perl.patch
+Patch5: kdepim3-configure-c99.patch
 
 BuildRequires: gcc-c++
 BuildRequires: bison flex flex-static
@@ -62,6 +63,12 @@ Conflicts: kdepimlibs-devel < 4.2.1-2
 %patch3 -p1 -b .linker
 %endif
 %patch4 -p1
+
+%patch5 -p1 -b .c99
+# Restore the timestamps to prevent autotools rebuilds.
+for p in *.c99; do
+    touch -r "$p" "`basename "$p" .c99`"
+done
 
 %build
 unset QTDIR || : ; . /etc/profile.d/qt.sh
@@ -130,6 +137,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 3.5.10-38
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

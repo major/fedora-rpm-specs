@@ -19,6 +19,7 @@ BuildRequires: make
 # This is debian's patch, taken 2013-04-01
 Patch0:		alsamixergui_0.9.0rc2-1-9.1.diff
 Patch1:		alsamixergui-strsignal.patch
+Patch2:		alsamixergui-autoconf-cxx.patch
 
 %description
 alsamixergui is a FLTK based frontend for alsamixer. It is written
@@ -31,6 +32,7 @@ graphical userinterface.
 %setup -q -n %{name}-%{version}rc2-1.orig
 %patch0 -p1 -b .debian
 %patch1 -p1 -b .strsignal
+%patch2 -p1
 autoreconf -i
 chmod +x configure
 

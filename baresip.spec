@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.9.0
-Release:        4%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,16 +11,14 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://github.com/baresip/baresip/commit/7ee4a769aaa1e3899b536b724cc854dd327ae865.patch#/baresip-2.9.0-gtk-dial-segfault.patch
-Patch1:         https://github.com/baresip/baresip/commit/6574b653af4e9c8284b6fbd902841a6fc22281bc.patch#/baresip-2.9.0-gtk-dial-history.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 2.9.0
-BuildRequires:  librem-devel >= 2.9.0
+BuildRequires:  libre-devel >= 2.10.0
+BuildRequires:  librem-devel >= 2.10.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -353,8 +351,6 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gtk-dial-segfault
-%patch1 -p1 -b .gtk-dial-history
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -429,7 +425,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.1*
+%{_libdir}/lib%{name}.so.2*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -565,6 +561,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Wed Dec 07 2022 Robert Scheck <robert@fedoraproject.org> 2.10.0-1
+- Upgrade to 2.10.0 (#2151456)
+
 * Thu Nov 17 2022 Robert Scheck <robert@fedoraproject.org> 2.9.0-4
 - Added upstream patch to fix GTK+ dial history space error
 

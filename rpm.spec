@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 7
+%global baserelease 8
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -135,6 +135,7 @@ rpm-4.9.90-no-man-dirs.patch
 
 # Patches already upstream:
 # ...
+0001-Fix-potential-uninitialized-variable-use-in-rpmtsImp.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -623,6 +624,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Wed Dec 07 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-8
+- Fix hang-up on failed key import (related to #2149762)
+
 * Thu Nov 24 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-7
 - Require rpm-sequoia >= 1.2.0 for V3 signature support, re-enable (#2141686)
 

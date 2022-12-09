@@ -1,6 +1,6 @@
 Name:           perl-Marpa-XS
 Version:        1.008000
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Language grammar parser module for Perl
 License:        LGPLv3+
 URL:            https://metacpan.org/release/Marpa-XS
@@ -78,6 +78,10 @@ find ./ -name config.guess -exec cp /usr/lib/rpm/redhat/config.guess {} ';'
 find ./ -name config.sub -exec cp /usr/lib/rpm/redhat/config.sub {} ';'
 
 %build
+# Switch to C89 mode because the implementation relies on implicit
+# function declarations.
+%set_build_flags
+CC="$CC -std=gnu89"
 %{__perl} Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build
 
@@ -101,6 +105,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.008000-36
+- Build in C89 mode (#2151502)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.008000-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

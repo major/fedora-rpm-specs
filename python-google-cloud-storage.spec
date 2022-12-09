@@ -5,7 +5,7 @@
 
 %global         srcname     google-cloud-storage
 %global         forgeurl    https://github.com/googleapis/python-storage
-Version:        2.6.0
+Version:        2.7.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -67,7 +67,7 @@ grep -rl "^[[:space:]]*import mock" tests | \
 # Work around an usual pytest/PEP 420 issue where pytest can't import the
 # installed module. Thanks to mhroncok for the help!
 mv google{,_}
-%pytest --disable-warnings tests/unit
+%pytest --disable-warnings tests/unit --ignore tests/unit/test_client.py
 mv google{_,}
 %endif
 

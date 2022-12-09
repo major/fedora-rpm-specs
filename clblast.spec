@@ -3,7 +3,7 @@
 
 Name:           clblast
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -12,14 +12,22 @@ Source0:        https://github.com/CNugteren/CLBlast/archive/%{version}/%{name}-
 # Fix name clashes between macros in altivec.h and standard types on ppc64le
 Patch0:         %{name}-altivec.patch
 
+%if 0%{?fedora}
+%bcond_without check
+%bcond_without pocl
+%else
+%bcond_with check
+%bcond_with pocl
+%endif
+
 BuildRequires:  cmake
-BuildRequires:  compiler-rt
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  ocl-icd-devel
 BuildRequires:  pkgconfig(flexiblas)
+%if %{with pocl}
 BuildRequires:  pocl-devel
+%endif
 
 %description
 CLBlast is a modern, lightweight, performant and tunable OpenCL BLAS
@@ -65,9 +73,11 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %install
 %cmake_install
 
+%if %{with check}
 %ifarch x86_64
 %check
 %ctest
+%endif
 %endif
 
 %files
@@ -84,9 +94,12 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files tuners
-%{_bindir}/*
+%{_bindir}/clblast*
 
 %changelog
+* Mon Nov 21 2022 Tom Rix <trix@redhat.com> - 1.5.3-2
+- Prepare for building on epel
+
 * Thu Sep 29 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-1
 - Version 1.5.3
 - Drop upstreamed -reference patch

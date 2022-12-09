@@ -1,7 +1,7 @@
 %global pkgname digraphs
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
@@ -43,11 +43,11 @@ digraphs, and multidigraphs.
 %package doc
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-3.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Digraphs documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -103,6 +103,9 @@ rm -fr ../pkg
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 1.6.1-1
+- Version 1.6.1
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.0-1
 - Clarify license of the doc subpackage
 

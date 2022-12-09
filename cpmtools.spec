@@ -1,12 +1,12 @@
 Name:		cpmtools
-Version:	2.22
-Release:	4%{?dist}
+Version:	2.23
+Release:	1%{?dist}
 Summary:	Programs for accessing CP/M disks
 
 License:	GPLv3+
 URL:		http://www.moria.de/~michael/cpmtools/
 Source0:	http://www.moria.de/~michael/cpmtools/files/cpmtools-%{version}.tar.gz
-Patch0:		cpmtools-2.22-nostrip.patch
+Patch0:		cpmtools-2.23-nostrip.patch
 
 BuildRequires:	gcc
 BuildRequires:	ncurses-devel, libdsk-devel
@@ -49,6 +49,9 @@ make install BINDIR=$RPM_BUILD_ROOT%{_bindir} MANDIR=$RPM_BUILD_ROOT%{_mandir} D
 
 
 %changelog
+* Wed Dec 07 2022 Lucian Langa <lucilanga@gnome.eu.org> - 2.23-1
+- update to latest upstream
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

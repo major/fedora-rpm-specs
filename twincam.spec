@@ -2,7 +2,7 @@
 
 Name:          twincam
 Version:       0.5.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A lightweight camera application
 
 License:       GPLv2
@@ -62,6 +62,9 @@ dracut -f
 %{_unitdir}/multi-user.target.wants/twincam-quit.service
 
 %changelog
+* Wed Dec 07 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.4-5
+- Rebuild for new libcamera
+
 * Tue Aug 23 2022 Eric Curtin <ecurtin@redhat.com> - 0.5-4
 - Remove dri dependancies
 

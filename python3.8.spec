@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.15
+%global general_version %{pybasever}.16
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -373,27 +373,6 @@ Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 # Python/importlib_external.h to this patch but it'd make rebasing
 # a nightmare because it's basically a binary file.
 Patch353: 00353-architecture-names-upstream-downstream.patch
-
-# 00382 # 9e275dcdf3934b827994ecc3247d583d5bab7985
-# CVE-2015-20107
-#
-# Make mailcap refuse to match unsafe filenames/types/params (GH-91993)
-#
-# Upstream: https://github.com/python/cpython/issues/68966
-#
-# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
-Patch382: 00382-cve-2015-20107.patch
-
-# 00392 # 033f82b975577a72218ce385b5333dcc5c88dfd5
-# CVE-2022-37454: Fix buffer overflows in _sha3 module
-#
-# This is a port of the applicable part of XKCP's fix [1] for
-# CVE-2022-37454 and avoids the segmentation fault and the infinite
-# loop in the test cases published in [2].
-#
-# [1]: https://github.com/XKCP/XKCP/commit/fdc6fef075f4e81d6b1bc38364248975e08e340a
-# [2]: https://mouha.be/sha-3-buffer-overflow/
-Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
 
 # (New patches go here ^^^)
 #
@@ -1724,6 +1703,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.16-1
+- Update to 3.8.16
+
 * Mon Nov 14 2022 Miro Hrončok <mhroncok@redhat.com> - 3.8.15-2
 - CVE-2022-37454: Fix buffer overflows in _sha3 module
   Related: rhbz#2140200

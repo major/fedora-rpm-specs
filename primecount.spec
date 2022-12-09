@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.4
-Release:        2%{?dist}
+Version:        7.6
+Release:        3%{?dist}
 Summary:        Fast prime counting function implementation
 
 License:        BSD
@@ -103,6 +103,20 @@ export CXXFLAGS="$CFLAGS"
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 7.6-3
+- Use primecount-7.6.tar.gz archive released on GitHub
+
+* Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 7.6-2
+- Use latest primecount archive from GitHub
+
+* Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 7.6-1
+- Version 7.6
+- Add missing <string_view> header in print.hpp
+
+* Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 7.5-1
+- Version 7.5
+- Requires libprimesieve-11
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

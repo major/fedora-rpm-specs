@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-iothub
 
 Name:           python-%{srcname}
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Microsoft Azure IoTHub Management Client Library for Python
 License:        MIT

@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcmisc
 Version:        1.4.8
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Miscellaneous PET functions
 
 License:        LGPLv2+
@@ -46,8 +46,7 @@ iconv -f ISO_8859-1 -t utf8 -o History.new History && mv -f History.new History
 
 
 %build
-# c99 standard since they use declarations in the for loops
-export CFLAGS="%{optflags} -std=c99 -fPIC -DPIC -D_POSIX_C_SOURCE=200112L"
+export CFLAGS="%{optflags} -fPIC -DPIC"
 export CXXFLAGS="%{optflags} -fPIC -DPIC"
 make %{?_smp_mflags}
 
@@ -88,6 +87,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.4.8-29
+- Do not override C language support level
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:		stress-ng
-Version:	0.14.05
+Version:	0.15.00
 Release:	1%{?dist}
 Summary:	Stress test a computer system in various ways
 
@@ -50,6 +50,9 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Dec 07 2022 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.15.00-1
+- Update to 0.15.00
+
 * Sat Sep 17 2022 Fabio Alessandro Locati <fale@fedoraproject.org> - 0.14.05-1
 - Update to 0.14.05
 

@@ -3,7 +3,7 @@
 
 %global         srcname     knack
 %global         forgeurl    https://github.com/microsoft/knack
-Version:        0.10.0
+Version:        0.10.1
 Epoch:          1
 %global         tag         v%{version}
 %forgemeta

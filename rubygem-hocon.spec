@@ -9,7 +9,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: HOCON Config Library
 License: ASL 2.0
 URL: https://github.com/puppetlabs/ruby-hocon
@@ -23,6 +23,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # However the rspec files were then removed again for a bizare reason.
 # https://tickets.puppetlabs.com/browse/PA-2942
 Source1: https://github.com/puppetlabs/ruby-hocon/archive/%{version}/ruby-hocon-%{version}.tar.gz
+# https://github.com/puppetlabs/ruby-hocon/pull/127
+# ruby3.2 removes File.exists? deprecated since ruby 2.1
+Patch0:  rubygem-hocon-1.3.1-replace-File_exists.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -49,6 +52,7 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+%patch0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 sed -i 's/\/usr\/bin\/env ruby/\/usr\/bin\/ruby/' bin/hocon
@@ -93,6 +97,9 @@ rspec spec/
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Dec  7 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-6
+- Apply upstreamed patch for ruby3.2 File.exists? removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

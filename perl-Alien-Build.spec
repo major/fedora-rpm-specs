@@ -8,7 +8,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.74
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -194,7 +194,7 @@ Provides:       perl-Test-Alien = %{version}-%{release}
 # Remove private redefinitions
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Alien::Build::rc\\)$
 # Remove private modules
-%global __provides_exclude %{__provides_exclude}|^perl\\(Alien::Build::Plugin::NesAdvantage::HelperTest|Alien::perlhelp|MyTest::.*\\)$
+%global __provides_exclude %{__provides_exclude}|^perl\\(Alien::Build::Plugin::(Download::Foo|Fetch::Corpus|Fetch::Foo|NesAdvantage::Controller|NesAdvantage::HelperTest|NesAdvantage::Negotiate|RogerRamjet)|Alien::Foo|Alien::Foo1|Alien::Foo1::ConfigData|Alien::Foo2|Alien::Foo2::ConfigData|Alien::foomake|Alien::libfoo1|Alien::libfoo2|Alien::libfoo3|Alien::perlhelp|Alien::SansShare|Foo::Bar::Baz|Foo::Bar::Baz1|MyTest::.*\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\(Alien::Build::Plugin::RogerRamjet|Alien::Foo|Alien::libfoo1|Alien::libfoo2|Alien::perlhelp|MyTest::.*\\)$
 
 # Some tests, e.g. t/alien_build_plugin_extract_negotiate.t, compare a script file
@@ -436,6 +436,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 2.74-2
+- Remove private provides from tests
+
 * Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 2.74-1
 - 2.74 bump
 

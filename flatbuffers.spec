@@ -10,7 +10,7 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        22.11.23
+Version:        22.12.06
 # The .so version is explicitly constructed from project version—search
 # CMakeLists.txt for FlatBuffers_Library_SONAME_MAJOR and
 # FlatBuffers_Library_SONAME_FULL—but we manually repeat the SOVERSION here,
@@ -29,10 +29,6 @@ URL:            https://google.github.io/flatbuffers
 Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
-
-# [C++] Update to address comparator failure in big endian
-# https://github.com/google/flatbuffers/pull/7681
-Patch:          https://github.com/google/flatbuffers/pull/7681.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

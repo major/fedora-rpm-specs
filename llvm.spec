@@ -19,6 +19,7 @@
 %global patch_ver 6
 %global llvm_srcdir llvm-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global cmake_srcdir cmake-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
+%global _lto_cflags -flto=thin
 
 %if %{with compat_build}
 %global pkg_name llvm%{maj_ver}
@@ -218,13 +219,6 @@ mv %{cmake_srcdir} cmake
 	utils/update_cc_test_checks.py
 
 %build
-
-%ifarch s390 s390x
-# Fails with "exceeded PCRE's backtracking limit"
-%global _lto_cflags %nil
-%else
-%global _lto_cflags -flto=thin
-%endif
 
 %ifarch s390 s390x %{arm} %ix86
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking

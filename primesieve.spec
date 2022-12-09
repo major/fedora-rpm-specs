@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  8.0
-Release:  3%{?dist}
+Version:  11.0
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -54,7 +54,7 @@ It also contains the API documentation of the library.
 
 %files -n primesieve-libs
 %license COPYING
-%{_libdir}/libprimesieve.so.10*
+%{_libdir}/libprimesieve.so.11*
 
 %files -n primesieve-devel
 %doc doc/C_API.md doc/CPP_API.md
@@ -71,6 +71,16 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 11.0-1
+- Update to primesieve-11.0
+- primesieve version now match libprimesieve version (.so version)
+- Added new primesieve::iterator::jump_to() method (C++ API)
+- Added new primesieve_jump_to() function (C API)
+- Mark primesieve_skipto() as deprecated
+- Fix use after free in primesieve::iterator::clear()
+- Fix use after free in primesieve_iterator_clear()
+- Fix potential memory leak in malloc_vector.hpp
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

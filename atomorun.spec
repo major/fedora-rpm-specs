@@ -2,7 +2,7 @@
 
 Name:           atomorun
 Version:        1.1
-Release:        0.37.%{prever}%{?dist}
+Release:        0.38.%{prever}%{?dist}
 Summary:        Jump & Run game where you have to flee an exploding nuclear bomb
 License:        GPL+
 URL:            http://atomorun.whosme.de/index.php
@@ -14,6 +14,7 @@ Source3:        %{name}.appdata.xml
 Patch0:         atomorun-1.1-missing-protos.patch
 Patch1:         atomorun-1.1-fcommon-fix.patch
 Patch2:         atomorun-1.1-warnings-fix.patch
+Patch3:         atomorun-1.1-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  SDL_mixer-devel SDL_image-devel libtiff-devel libvorbis-devel
 BuildRequires:  alsa-lib-devel desktop-file-utils libappstream-glib
@@ -64,6 +65,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Dec  7 2022 Peter Fordham <peter.fordham@gmail.com> - 1.1-0.38.pre2
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.37.pre2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

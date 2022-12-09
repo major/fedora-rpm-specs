@@ -1,8 +1,8 @@
 Name:           perl-Test-Pod-LinkCheck
 Version:        0.008
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Tests POD for invalid links
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod-LinkCheck
 Source0:        https://cpan.metacpan.org/authors/id/A/AP/APOCAL/Test-Pod-LinkCheck-%{version}.tar.gz
 BuildArch:      noarch
@@ -80,10 +80,9 @@ perl Build.PL --installdirs=vendor
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-mkdir -p %{buildroot}%{_libexecdir}/%{name}/Test/Pod
-ln -s $(realpath --relative-to=%{buildroot}%{_libexecdir}/%{name}/Test/Pod \
-    %{buildroot}%{perl_vendorlib}/Test/Pod/LinkCheck.pm) \
-    %{buildroot}%{_libexecdir}/%{name}/Test/Pod/LinkCheck.pm
+# Remove tests which requires symlinked modules. Symlinks would pollute RPM
+# dependencies.
+rm %{buildroot}%{_libexecdir}/%{name}/t/00-compile.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 unset AUTHOR_TESTING
@@ -107,6 +106,10 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.008-32
+- Do not provide symlinked modules by perl-Test-Pod-LinkCheck-tests
+- Convert a license tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

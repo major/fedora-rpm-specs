@@ -1,5 +1,5 @@
 Name:           qcint
-Version:        5.1.5
+Version:        5.1.7
 Release:        1%{?dist}
 Summary:        An optimized libcint branch for X86 platform with SSE3 intrinsics
 
@@ -56,6 +56,12 @@ export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
 %{_libdir}/libcint.so
 
 %changelog
+* Wed Dec 07 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.1.7-1
+- Update to 5.1.7.
+
+* Fri Sep 02 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.1.6-1
+- Update to 5.1.6.
+
 * Thu Aug 25 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.1.5-1
 - Update to 5.1.5.
 

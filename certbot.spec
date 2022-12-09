@@ -8,7 +8,7 @@
 %endif
 
 Name:           certbot
-Version:        1.32.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
@@ -136,6 +136,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %{_bindir}/certbot-3
 
 %changelog
+* Wed Dec 07 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

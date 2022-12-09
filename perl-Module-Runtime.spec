@@ -9,7 +9,7 @@
 
 Name:           perl-Module-Runtime
 Version:        0.016
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Runtime module handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Runtime
@@ -35,6 +35,8 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(t::Nested\\)$
+# Remove private modules
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 The functions exported by this module deal with runtime handling of Perl
@@ -86,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.016-18
+- Fix provided packages in *-tests package
+
 * Sun Dec 04 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.016-17
 - Package tests
 - Simplify build and install phases

@@ -4,8 +4,8 @@
 %global         srcname     azure-mgmt-sqlvirtualmachine
 
 Name:           python-%{srcname}
-Version:        1.0.0~b3
-%global         pypi_version    1.0.0b3
+Version:        1.0.0~b4
+%global         pypi_version    1.0.0b4
 Release:        %autorelease
 Summary:        Microsoft Azure SQL Virtual Machine Management Client Library for Python
 License:        MIT

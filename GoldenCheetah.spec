@@ -7,14 +7,14 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global snapshottag .git%{shortcommit0}
 %global commitdate 20220713
-%global gc_rc          -RC2
+%global gc_rc          -RC3
 %endif
 
 Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.6
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.21.RC2%{?dist}
+Release:        0.22.RC2%{?dist}
 %else
 Version:        3.5
 Release:        9%{?dist}
@@ -103,12 +103,10 @@ that use %{name}.
 
 %prep
 %if 0%{?usesnapshot}
-%setup -qn %{name}-%{version}%{?gc_rc}
+%autosetup -p1 -n %{name}-%{version}%{?gc_rc}
 %else
-%setup -qn %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 %endif
-%patch0 -p1
-%patch1 -p1
 
 # fixes W: spurious-executable-perm
 find . -type f  \( -name "*.cpp" -o -name "*.h" \) -exec chmod a-x {} \;
@@ -160,6 +158,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Wed Dec 07 2022 Martin Gansser <martinkg@fedoraproject.org> - 1:3.6-0.22.RC3
+- Update to 3.6-0.22.RC3
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.6-0.21.RC2
 - Rebuild for gsl-2.7.1
 

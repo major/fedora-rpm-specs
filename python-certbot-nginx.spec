@@ -1,7 +1,7 @@
 %global pypi_name certbot-nginx
 
 Name:       python-%{pypi_name}
-Version:    1.32.0
+Version:    2.1.0
 Release:    1%{?dist}
 Summary:    The nginx plugin for certbot
 
@@ -62,6 +62,9 @@ rm -rf %{pypi_name}.egg-info
 %exclude %{python3_sitelib}/certbot_nginx/tests
 
 %changelog
+* Wed Dec 07 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

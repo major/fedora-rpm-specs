@@ -3,7 +3,7 @@
 
 Name:           perl-FFI-CheckLib
 Version:        0.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check that a library is available for FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FFI-CheckLib
@@ -52,7 +52,7 @@ Requires:       perl(File::Basename)
 
 # Remove private modules
 %global __requires_exclude %{__requires_exclude}|^perl\\((Test2::Plugin::FauxOS|Test2::Tools::FauxDynaLoader|Test2::Tools::NoteStderr)\\)
-%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((Test2::Plugin::FauxOS|Test2::Tools::FauxDynaLoader|Test2::Tools::NoteStderr)\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((Alien::libbar|Test2::Plugin::FauxOS|Test2::Tools::FauxDynaLoader|Test2::Tools::NoteStderr)\\)
 
 %description
 This Perl module checks whether a particular dynamic library is available for
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.31-2
+- Remove a bogus Alien::libbar RPM provide from perl-FFI-CheckLib-tests
+
 * Fri Sep 30 2022 Petr Pisar <ppisar@redhat.com> - 0.31-1
 - 0.31 bump
 

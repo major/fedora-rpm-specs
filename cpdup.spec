@@ -1,6 +1,6 @@
 Name:           cpdup
 Version:        1.18
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Filesystem mirroring utility
 
 %if 0%{?el5}
@@ -9,6 +9,7 @@ License:        BSD
 URL:            http://apollo.backplane.com/FreeSrc/
 Source0:        http://apollo.backplane.com/FreeSrc/cpdup-%{version}.tgz
 Source1:        Makefile.linux
+Patch0:         cpdup-c99.patch
 
 BuildRequires:  gcc
 BuildRequires: make
@@ -27,7 +28,7 @@ destination directory with a file.
 
 
 %prep
-%autosetup -n %{name}
+%autosetup -p1 -n %{name}
 # we don't want this to get compiled
 mv md5.c{,.off}
 # make scripts non-executable for cleanliness
@@ -51,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT -f %{SOURCE1}
 
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.18-13
+- Add missing declaration of strlcpy for C99 compatibility (#2151452)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

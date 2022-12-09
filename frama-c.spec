@@ -13,7 +13,7 @@
 
 Name:           frama-c
 Version:        26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Iron
@@ -282,6 +282,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 26.0-2
+- Rebuild to fix ocaml-dune-site dependency
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 26.0-1
 - Version 26.0
 - Add Requires on ppx_import (bz 2148391)

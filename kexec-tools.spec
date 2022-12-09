@@ -5,7 +5,7 @@
 
 Name: kexec-tools
 Version: 2.0.25
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Summary: The kexec/kdump userspace component
 
@@ -38,6 +38,7 @@ Source33: 92-crashkernel.install
 Source34: crashkernel-howto.txt
 Source35: kdump-migrate-action.sh
 Source36: kdump-restart.sh
+Source37: 60-fadump.install
 
 #######################################
 # These are sources for mkdumpramfs
@@ -204,6 +205,7 @@ install -m 644 %{SOURCE13} $RPM_BUILD_ROOT%{_udevrulesdir}/98-kexec.rules
 %endif
 %ifarch ppc64 ppc64le
 install -m 644 %{SOURCE14} $RPM_BUILD_ROOT%{_udevrulesdir}/98-kexec.rules
+install -m 755 -D %{SOURCE37} $RPM_BUILD_ROOT%{_prefix}/lib/kernel/install.d/60-fadump.install
 %endif
 install -m 644 %{SOURCE15} $RPM_BUILD_ROOT%{_mandir}/man5/kdump.conf.5
 install -m 644 %{SOURCE16} $RPM_BUILD_ROOT%{_unitdir}/kdump.service
@@ -366,6 +368,7 @@ fi
 %endif
 %ifarch ppc64 ppc64le
 /usr/sbin/mkfadumprd
+%{_prefix}/lib/kernel/install.d/60-fadump.install
 %endif
 /usr/sbin/mkdumprd
 /usr/sbin/vmcore-dmesg
@@ -414,6 +417,13 @@ fi
 %endif
 
 %changelog
+* Wed Dec 07 2022 Coiby <coxu@redhat.com> - 2.0.25-4
+- dracut-module-setup.sh: stop overwriting dracut's trap handler
+- fadump: avoid status check while starting in fadump mode
+- fadump: add a kernel install hook to clean up fadump initramfs
+- fadump: fix default initrd backup and restore logic
+- fadump: use 'zstd' as the default compression method
+
 * Fri Nov 25 2022 Coiby <coxu@redhat.com> - 2.0.25-3
 - kdumpctl: Optimize _find_kernel_path_by_release regex string
 - unit tests: adapt check_config to gen-kdump-conf.sh

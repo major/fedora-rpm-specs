@@ -1,9 +1,9 @@
 Name:           python-gmpy2
-Version:        2.1.2
-Release:        4%{?dist}
+Version:        2.1.3
+Release:        1%{?dist}
 Summary:        Python interface to GMP, MPFR, and MPC
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://pypi.python.org/pypi/gmpy2
 Source0:        %pypi_source gmpy2
 
@@ -39,9 +39,19 @@ Summary:        Python 3 interface to GMP, MPFR, and MPC
 %description -n python3-gmpy2 %common_desc
 
 %package doc
+# The content is LGPL-3.0-or-later.  Files added by Sphinx have the following
+# licences:
+# _static/*: BSD-2-Clause, except for the following:
+# _static/jquery*.js: MIT
+# _static/pygments.css: LGPL-3.0-or-later
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        LGPL-3.0-or-later AND BSD-2-Clause AND MIT
 Summary:        Documentation for gmpy2
 BuildArch:      noarch
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description doc
 This package contains API documentation for gmpy2.
@@ -52,12 +62,8 @@ This package contains API documentation for gmpy2.
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
 
-# Symbols from the math library are also used
-sed -i "s/'mpfr','gmp'/&,'m'/" setup.py
-
 %build
 # Do not pass -pthread to the compiler or linker
-export CC=gcc
 export LDSHARED="gcc -shared"
 
 %pyproject_wheel
@@ -76,6 +82,10 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
 %doc docs/_build/html/*
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 2.1.3-1
+- Version 2.1.3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

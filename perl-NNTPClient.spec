@@ -1,8 +1,8 @@
 Name:           perl-NNTPClient
 Version:        0.37
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Perl 5 module to talk to NNTP (RFC977) server
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/NNTPClient
 Source0:        https://cpan.metacpan.org/authors/id/R/RV/RVA/NNTPClient-%{version}.tar.gz
 # Skip unportable tests whose command is not supported by a server,
@@ -32,19 +32,38 @@ This module implements a client interface to NNTP, enabling a Perl 5
 application to talk to NNTP servers. It uses the Object Oriented
 Programming interface.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n NNTPClient-%{version}
 %patch0 -p1
 %patch1 -p1
+perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "test.pl"
+chmod +x "test.pl"
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/t
+cp -a test.pl %{buildroot}%{_libexecdir}/%{name}/t/test.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -54,7 +73,15 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.37-20
+- Package tests
+- Simplify build and install phase
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

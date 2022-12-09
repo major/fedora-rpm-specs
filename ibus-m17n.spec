@@ -1,8 +1,8 @@
 %global require_ibus_version 1.4.0
 
 Name:       ibus-m17n
-Version:    1.4.17
-Release:    2%{?dist}
+Version:    1.4.18
+Release:    1%{?dist}
 Summary:    The M17N engine for IBus platform
 License:    GPL-2.0-or-later
 URL:        https://github.com/ibus/ibus-m17n
@@ -55,6 +55,7 @@ make check
 %{_datadir}/icons/hicolor/64x64/apps/ibus-m17n.png
 %{_datadir}/icons/hicolor/128x128/apps/ibus-m17n.png
 %{_datadir}/icons/hicolor/256x256/apps/ibus-m17n.png
+%{_datadir}/icons/hicolor/scalable/apps/ibus-m17n.svg
 %{_libexecdir}/ibus-engine-m17n
 %{_libexecdir}/ibus-setup-m17n
 %{_datadir}/ibus/component/*
@@ -62,6 +63,10 @@ make check
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.m17n.gschema.xml
 
 %changelog
+* Wed Dec 07 2022 Mike FABIAN <mfabian@redhat.com> - 1.4.18-1
+- Update to 1.4.18
+- Add new icon
+
 * Sat Nov 26 2022 Mike FABIAN <mfabian@redhat.com> - 1.4.17-2
 - Migrate license tag to SPDX
 

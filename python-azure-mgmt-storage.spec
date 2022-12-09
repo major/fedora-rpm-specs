@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-storage
 
 Name:           python-%{srcname}
-Version:        20.1.0
+Version:        21.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Management Client Library for Python
 License:        MIT

@@ -48,14 +48,11 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.7
-Release:   3%{?dist}
+Version:   1.8.8
+Release:   1%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
-
-Patch1:    0001-trivial-Fix-the-tests-on-s390x.patch
-Patch2:    0001-trivial-Fix-lvfs-testing-remote-file.patch
 
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -307,7 +304,7 @@ done
 %{_bindir}/fwupdagent
 %dir %{_sysconfdir}/fwupd
 %dir %{_sysconfdir}/fwupd/bios-settings.d
-%config%(noreplace)%{_sysconfdir}/fwupd/bios-settings.d/README.md
+%{_sysconfdir}/fwupd/bios-settings.d/README.md
 %dir %{_sysconfdir}/fwupd/remotes.d
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs.conf
 %config(noreplace)%{_sysconfdir}/fwupd/remotes.d/lvfs-testing.conf
@@ -411,6 +408,18 @@ done
 %endif
 
 %changelog
+* Wed Dec 07 2022 Richard Hughes <richard@hughsie.com> 1.8.8-1
+- New upstream release
+- Add BIOS rollback protection support for Dell and Lenovo systems
+- Ensure the device name is set for Intel USB4 devices
+- Fix a critical DFU CSR warning when deploying firmware
+- Fix a Synaptics RMI issue when updating non-secure devices
+- Generate OVAL rules for openSCAP evaluation
+- Match more device properties when using GetDetails
+- Show the signed reports from QA teams in client tools
+- Use the correct AppStream ID for the Key Manifest failure
+- Wait for the Intel GPU to come back after updating
+
 * Tue Nov 29 2022 Richard Hughes <richard@hughsie.com> 1.8.7-3
 - Disable the libsmbios requirement as it is now unmaintained in Fedora.
 

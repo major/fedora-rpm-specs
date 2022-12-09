@@ -8,7 +8,7 @@
 Name:           perl-Module-Pluggable
 Epoch:          2
 Version:        5.2
-Release:        22%{?dist}
+Release:        24%{?dist}
 Summary:        Automatically give your module the ability to have plugins
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Pluggable
@@ -56,6 +56,9 @@ Recommends:     perl(Module::Runtime) >= 0.012
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(File::Spec::Functions\\)$
+# Remove private modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(No::Middle\\)$
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 This package provides a simple but, hopefully, extensible way of having
@@ -109,6 +112,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 2:5.2-24
+- Fix required packages in *tests package
+
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 2:5.2-23
+- Fix list of provided packages in *tests package
+
 * Thu Dec 01 2022 Michal Josef Špaček <mspacek@redhat.com> - 2:5.2-22
 - Package tests
 - Simplify build and install phases

@@ -14,7 +14,7 @@ Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source:         %{metadata_forgeurl}/archive/%{metadata_commit}/flathub-%{metadata_commit}.tar.gz
 
 # checking for cpu... configure: error: Unsupported CPU.
-ExcludeArch:    ppc64le s390x
+ExcludeArch:    armv7hl ppc64le s390x
 
 BuildRequires:  autoconf
 BuildRequires:  automake

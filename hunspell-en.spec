@@ -1,13 +1,9 @@
-%if 0%{?fedora} > 35
 %global dict_dirname hunspell 
-%else
-%global dict_dirname myspell
-%endif
 Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20201207
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2020.12.07.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 #See http://mxr.mozilla.org/mozilla/source/extensions/spellcheck/locales/en-US/hunspell/mozilla_words.diff?raw=1
@@ -144,6 +140,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_GB.*
 
 %changelog
+* Wed Dec 07 2022 Caolán McNamara <caolanm@redhat.com> - 0.20201207-2
+- use dict_dirname of hunspell for future rhel, etc.
+
 * Tue Sep 20 2022 Caolán McNamara <caolanm@redhat.com> - 0.20201207-1
 - latest en-US version
 

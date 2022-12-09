@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        72
+Version:        73
 
 %forgemeta
 
@@ -251,6 +251,20 @@ fi
 
 
 %changelog
+* Wed Dec 07 2022 Packit <hello@packit.dev> - 73-1
+Changes with 73
+----------------
+  * cache: provide FsCache utility for concurrent caches (#1130)
+  * ci: use the latest terraform to fix missing images (#1185)
+  * mounts: use the options object for mountopts (#1182)
+  * schutzfile: update manifest-db ref 2022-12-05 (#1194)
+
+Contributions from: David Rheinsberg, SchutzBot, Thomas Lavocat
+
+— Somewhere on the Internet, 2022-12-07
+
+
+
 * Wed Nov 23 2022 Packit <hello@packit.dev> - 72-1
 Changes with 72
 ----------------

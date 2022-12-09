@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPLv2+
@@ -8,6 +8,7 @@ URL:            http://synfig.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         synfig-1.1.10-optflags.patch
 Patch1:         synfig-1.0.2-ltld.patch
+Patch2:         autoconf272.patch
 
 ExcludeArch: ppc64le
 
@@ -75,6 +76,7 @@ developing applications that use %{name}.
 %setup -q
 %patch0 -p0 -b .optflags
 %patch1 -p0 -b .ltdl
+%patch2 -p1 -b .autoconf272
 rm -rf libltdl
 
 
@@ -123,6 +125,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Wed Dec 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5.1-4
+- patch for autoconf 2.72
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

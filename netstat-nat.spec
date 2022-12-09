@@ -1,11 +1,12 @@
 Name:           netstat-nat
 Version:        1.4.10
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A tool that displays NAT connections
 
 License:        GPLv2+
 URL:            http://www.tweegy.nl/projects/netstat-nat/
 Source0:        http://www.tweegy.nl/download/%{name}-%{version}.tar.gz
+Patch0: netstat-nat-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 
@@ -16,7 +17,7 @@ The program reads its information from '/proc/net/nf_conntrack', which is
 the temporary conntrack-storage of netfilter.
 
 %prep
-%setup -q
+%autosetup -p1
 chmod a-x ChangeLog README netstat-nat*
 sed -i 's|install-docDATA install-man|install-man|g' Makefile.in
 
@@ -34,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.4.10-24
+- Port to C99 (#2151453)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

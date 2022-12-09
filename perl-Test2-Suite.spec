@@ -3,9 +3,9 @@
 
 Name:           perl-Test2-Suite
 Version:        0.000145
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Set of tools built upon the Test2 framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Suite
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Suite-%{version}.tar.gz
 Patch0:         Test2-Suite-0.000140-add_perl.patch
@@ -99,6 +99,8 @@ Obsoletes:      perl-Test2-Workflow < 0.000018-5
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Importer|Module::Pluggable|Sub::Info|Term::Table|Test2::API)\\)$
+# Remove private modules
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 Rich set of tools, plugins, bundles, etc. built upon the Test2 testing
@@ -154,6 +156,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.000145-4
+- Remove provided packages from *-tests package
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.000145-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

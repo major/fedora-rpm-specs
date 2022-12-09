@@ -3,7 +3,17 @@ Version:        3.9.4
 Release:        1%{?dist}
 Summary:        A tool for discrete convex geometry
 
-License:        GPL-3.0-or-later
+# The content is GPL-3.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# AMS: OFL-1.1-RFN
+# Bera: Bitstream-Vera
+# CM: Knuth-CTAN
+# CM-Super: GPL-1.0-or-later
+# DoubleStroke: LicenseRef-DoubleStroke
+# Nimbus: AGPL-3.0-only
+# RSFS: LicenseRef-Rsfs
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Bistream-Vera AND Knuth-CTAN AND GPL-1.0-or-later AND LicenseRef-DoubleStroke AND AGPL-3.0-only AND LicenseRef-Rsfs
 URL:            https://www.normaliz.uni-osnabrueck.de/
 Source0:        https://github.com/Normaliz/Normaliz/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
@@ -33,6 +43,7 @@ Documentation and examples can be found in %{?_pkgdocdir}%{!?_pkgdocdir:%{_docdi
 in particular you may find Normaliz%{version}Documentation.pdf useful.  
 
 %package -n libnormaliz
+License:        GPL-3.0-or-later
 Summary:        Normaliz internals as a library
 
 %description -n libnormaliz
@@ -40,6 +51,7 @@ This package contains the normaliz internals as a library, often called
 libnormaliz.
 
 %package -n libnormaliz-devel
+License:        GPL-3.0-or-later
 Summary:        Developer files for libnormaliz
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 Requires:       cocoalib-devel%{?_isa}
@@ -128,6 +140,9 @@ LD_LIBRARY_PATH=$PWD/source/.libs make check
 %{_includedir}/libnormaliz/
 
 %changelog
+* Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 3.9.4-1
+- Further refine the License tags
+
 * Sat Aug 27 2022 Jerry James <loganjerry@gmail.com> - 3.9.4-1
 - Version 3.9.4
 - Convert License tag to SPDX

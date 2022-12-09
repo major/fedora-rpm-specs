@@ -42,7 +42,7 @@ BuildRequires:  mvn(javax.servlet:servlet-api)
 BuildRequires:  pdfbox
 BuildRequires:  qdox
 BuildRequires:  xml-maven-plugin
-BuildRequires:  xmlgraphics-commons >= 1.5
+BuildRequires:  xmlgraphics-commons >= 2.8
 BuildRequires:  xmlunit
 BuildRequires:  xmlunit-assertj
 BuildRequires:  xmlunit-core

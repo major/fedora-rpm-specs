@@ -9,7 +9,7 @@
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       1%{?dist}
+Release:       2%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -38,6 +38,9 @@ Patch4:        %{name}-fix_graphe_file.patch
 
 # Adapt to pari 2.15.0
 Patch5:        %{name}-pari2.15.patch
+
+Patch6:        %{name}-alloca-c99.patch
+Patch7:        %{name}-delete-fenv.patch
 
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
@@ -164,6 +167,8 @@ with Giac computations.
 %patch3 -p0 -b .backup
 %patch4 -p1 -b .backup
 %patch5 -p1 -b .backup
+%patch6 -p1 -b .backup
+%patch7 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -454,6 +459,10 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.9.0.29-2
+- C99 compatibility fixes (#2151473)
+- Do not override the system <fenv.h> file.
+
 * Fri Nov 18 2022 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.29-1
 - Update to 1.9.0 sub-29
 

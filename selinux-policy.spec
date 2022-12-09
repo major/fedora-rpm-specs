@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 3c80e8b26a1ff6f8f282169e0971e705daddb01a
+%global commit 1e8688ea694393c9d918939322b72dfb44a01792
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.1
+Version: 38.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -816,6 +816,37 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec 06 2022 Zdenek Pytela <zpytela@redhat.com> - 38.2-1
+- Don't make kernel_t an unconfined domain
+- Don't allow kernel_t to execute bin_t/usr_t binaries without a transition
+- Allow kernel_t to execute systemctl to do a poweroff/reboot
+- Grant basic permissions to the domain created by systemd_systemctl_domain()
+- Allow kernel_t to request module loading
+- Allow kernel_t to do compute_create
+- Allow kernel_t to manage perf events
+- Grant almost all capabilities to kernel_t
+- Allow kernel_t to fully manage all devices
+- Revert "In domain_transition_pattern there is no permission allowing caller domain to execu_no_trans on entrypoint, this patch fixing this issue"
+- Allow pulseaudio to write to session_dbusd tmp socket files
+- Allow systemd and unconfined_domain_type create user_namespace
+- Add the user_namespace security class
+- Reuse tmpfs_t also for the ramfs filesystem
+- Label udf tools with fsadm_exec_t
+- Allow networkmanager_dispatcher_plugin work with nscd
+- Watch_sb all file type directories.
+- Allow spamc read hardware state information files
+- Allow sysadm read ipmi devices
+- Allow insights client communicate with cupsd, mysqld, openvswitch, redis
+- Allow insights client read raw memory devices
+- Allow the spamd_update_t domain get generic filesystem attributes
+- Dontaudit systemd-gpt-generator the sys_admin capability
+- Allow ipsec_t only read tpm devices
+- Allow cups-pdf connect to the system log service
+- Allow postfix/smtpd read kerberos key table
+- Allow syslogd read network sysctls
+- Allow cdcc mmap dcc-client-map files
+- Add watch and watch_sb dosfs interface
+
 * Mon Nov 21 2022 Zdenek Pytela <zpytela@redhat.com> - 38.1-1
 - Revert "Allow sysadm_t read raw memory devices"
 - Allow systemd-socket-proxyd get attributes of cgroup filesystems

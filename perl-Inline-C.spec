@@ -3,7 +3,7 @@
 
 Name:           perl-Inline-C
 Version:        0.82
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Write Perl subroutines in C
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-C
@@ -140,17 +140,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{opt
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a example t %{buildroot}%{_libexecdir}/%{name}
-# t/000-require-modules.t operates on modules in ./lib, symlink the tree
-find lib -type d -exec mkdir '%{buildroot}%{_libexecdir}/%{name}/{}' \;
-pushd lib
-for F in $(find -type f -name '*.pm'); do
-    ln -s \
-        $(realpath --relative-to \
-            "%{buildroot}%{_libexecdir}/%{name}/lib/$(dirname $F)" \
-            "%{buildroot}%{perl_vendorlib}/$F") \
-        "%{buildroot}%{_libexecdir}/%{name}/lib/$F"
-done
-popd
+# t/000-require-modules.t operates on modules in ./lib, do not symlink the tree
+# to prevent from generating RPM dependencies on them. Remove the test inestead.
+rm %{buildroot}%{_libexecdir}/%{name}/t/000-require-modules.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 unset ACTIVEPERL_CONFIG_SILENT AUTHOR_TESTING CPATH DEBUG INCLUDE MAKEFLAGS \
@@ -178,6 +170,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.82-5
+- Stop providing symlinked modules from perl-Inline-C-tests
+
 * Thu Sep 29 2022 Petr Pisar <ppisar@redhat.com> - 0.82-4
 - Convert a License tag to an SPDX format
 

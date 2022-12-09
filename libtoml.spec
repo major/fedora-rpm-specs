@@ -5,7 +5,7 @@
 
 Name:           lib%{libname}
 Version:        0
-Release:        23.20161213git%{shortcommit}%{?dist}
+Release:        24.20161213git%{shortcommit}%{?dist}
 Summary:        Fast C parser using Ragel to generate the state machine.
 
 License:        BSD
@@ -35,6 +35,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %autosetup -n %{name}-%{commit} -p1
 
 %build
+%set_build_flags
+# Provide a declaration of asprintf in <stdio.h>.
+CFLAGS="$CFLAGS -D__STDC_WANT_LIB_EXT2__"
 %meson
 %meson_build
 
@@ -56,6 +59,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Dec 07 2022 Florian Weimer <fweimer@redhat.com> - 0-24.20161213git03e8a3a
+- Arrange for asprintf declaration in <stdio.h> for C99 compatibility
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0-23.20161213git03e8a3a
 - Rebuilt for ICU 71.1
 

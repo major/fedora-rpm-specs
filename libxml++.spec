@@ -7,9 +7,9 @@ Version:        2.42.2
 Release:        1%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 
-License:        LGPLv2+
-URL:            http://libxmlplusplus.sourceforge.net/
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/libxml++/%{release_version}/libxml++-%{version}.tar.xz
+License:        LGPL-2.1-or-later
+URL:            https://libxmlplusplus.sourceforge.net/
+Source0:        https://download.gnome.org/sources/libxml++/%{release_version}/libxml++-%{version}.tar.xz
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  doxygen, graphviz
@@ -59,14 +59,14 @@ sed -i s'#\r##' examples/dom_parser/example_with_namespace.xml
 %files
 %license COPYING
 %doc AUTHORS NEWS README
-%{_libdir}/libxml++-%{api_ver}.so.2*
+%{_libdir}/%{name}-%{api_ver}.so.2*
 
 
 %files devel
-%{_includedir}/*
-%{_libdir}/libxml++-%{api_ver}.so
-%{_libdir}/pkgconfig/*
-%{_libdir}/%{name}-%{api_ver}
+%{_includedir}/%{name}-%{api_ver}/
+%{_libdir}/%{name}-%{api_ver}/
+%{_libdir}/%{name}-%{api_ver}.so
+%{_libdir}/pkgconfig/%{name}-%{api_ver}.pc
 
 
 %files doc

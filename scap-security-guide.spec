@@ -4,7 +4,7 @@
 %global _vpath_builddir build
 
 Name:		scap-security-guide
-Version:	0.1.64
+Version:	0.1.65
 Release:	1%{?dist}
 Summary:	Security guidance and baselines in SCAP formats
 License:	BSD
@@ -45,7 +45,7 @@ The %{name}-doc package contains HTML formatted documents containing
 hardening guidances that have been generated from XCCDF benchmarks
 present in %{name} package.
 
-%if ( %{defined rhel} && (! %{defined centos}) )
+%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 %package	rule-playbooks
 Summary:	Ansible playbooks per each rule.
 Group:		System Environment/Base
@@ -60,7 +60,7 @@ The %{name}-rule-playbooks package contains individual ansible playbooks per rul
 
 %define cmake_defines_common -DSSG_SEPARATE_SCAP_FILES_ENABLED=OFF -DSSG_BASH_SCRIPTS_ENABLED=OFF -DSSG_BUILD_SCAP_12_DS=OFF
 %define cmake_defines_specific %{nil}
-%if 0%{?rhel}
+%if 0%{?rhel} && ! %{defined eln}
 %define cmake_defines_specific -DSSG_PRODUCT_DEFAULT:BOOLEAN=FALSE -DSSG_PRODUCT_RHEL%{rhel}:BOOLEAN=TRUE -DSSG_SCIENTIFIC_LINUX_DERIVATIVES_ENABLED:BOOL=OFF -DSSG_CENTOS_DERIVATIVES_ENABLED:BOOL=OFF -DSSG_ANSIBLE_PLAYBOOKS_PER_RULE_ENABLED:BOOL=ON
 %endif
 %if 0%{?centos}
@@ -84,7 +84,7 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %{_datadir}/%{name}/tailoring
 %lang(en) %{_mandir}/man8/scap-security-guide.8.*
 %doc %{_docdir}/%{name}/LICENSE
-%if ( %{defined rhel} && (! %{defined centos}) )
+%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 %exclude %{_datadir}/%{name}/ansible/rule_playbooks
 %endif
 
@@ -92,13 +92,17 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %doc %{_docdir}/%{name}/guides/*.html
 %doc %{_docdir}/%{name}/tables/*.html
 
-%if ( %{defined rhel} && (! %{defined centos}) )
+%if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 %files rule-playbooks
 %defattr(-,root,root,-)
 %{_datadir}/%{name}/ansible/rule_playbooks
 %endif
 
 %changelog
+* Tue Dec 06 2022 Marcus Burghardt <maburgha@redhat.com> - 0.1.65-1
+- Update to latest upstream SCAP-Security-Guide-0.1.65 release:
+  https://github.com/ComplianceAsCode/content/releases/tag/v0.1.65
+
 * Tue Oct 04 2022 Watson Sato <wsato@redhat.com> - 0.1.64-1
 - Update to latest upstream SCAP-Security-Guide-0.1.64 release:
   https://github.com/ComplianceAsCode/content/releases/tag/v0.1.64

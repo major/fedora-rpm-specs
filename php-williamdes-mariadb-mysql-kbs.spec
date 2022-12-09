@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    f5c1b00d4bcfb27c06595ae172aa69da1815bfa9
+%global gh_commit    d829a96ad07d79065fbc818a3bd01f2266c3890b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     williamdes
 %global gh_project   mariadb-mysql-kbs
@@ -23,8 +23,8 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.2.13
-Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        1.2.14
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        An index of the MariaDB and MySQL Knowledge bases
 
 License:        MPLv2.0
@@ -36,14 +36,14 @@ Source1:        makesrc.sh
 Patch0:         %{name}-layout.patch
 
 BuildArch:      noarch
-%if %{with_tests}
+%if %{with tests}
 BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-json
 BuildRequires:  php-pcre
 # For tests, from composer.json "require-dev": {
 #        "phpunit/phpunit": "^7 || ^8 || ^9",
 #        "phpstan/phpstan": "^1.2",
-#        "wdes/coding-standard": "^3",
+#        "wdes/coding-standard": "^3.2.1",
 #        "swaggest/json-schema": "^0.12.29"
 BuildRequires:  phpunit9
 %global phpunit %{_bindir}/phpunit9
@@ -106,7 +106,7 @@ cp -pr schemas %{buildroot}%{_datadir}/%{name}/schemas
 
 
 %check
-%if %{with_tests}
+%if %{with tests}
 mkdir vendor
 cat << 'EOF' | tee vendor/autoload.php
 <?php
@@ -118,7 +118,7 @@ EOF
 export RPM_BUILDROOT=%{buildroot}
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
@@ -137,7 +137,7 @@ exit $ret
 %dir     %{_datadir}/php/%{ns_vendor}/
          %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}
 %exclude %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/merge.php
-%exclude %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/*.js
+%exclude %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/rust
 %dir     %{_datadir}/%{name}/
          %{_datadir}/%{name}/dist
 %doc     %{_datadir}/%{name}/data
@@ -145,6 +145,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec  7 2022 Remi Collet <remi@remirepo.net> - 1.2.14-1
+- update to 1.2.14
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

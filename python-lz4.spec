@@ -1,34 +1,24 @@
 %global srcname lz4
 
 Name:           python-%{srcname}
-Version:        3.0.2
-Release:        10%{?dist}
+Version:        4.0.2
+Release:        2%{?dist}
 URL:            https://github.com/%{name}/%{name}
 Summary:        LZ4 Bindings for Python
 License:        BSD
 Source:         https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
 
-# Add readall to LZ4FrameFile and use it on Python 3.10+
-# Fixes https://github.com/python-lz4/python-lz4/issues/219
-# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=1959006
-Patch1:         https://github.com/python-lz4/python-lz4/pull/220.patch
-
 BuildRequires:  lz4-devel
+BuildRequires:  python3-devel
 BuildRequires:  gcc
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-pkgconfig
-BuildRequires:  python3-future
 # For tests
 BuildRequires:  python3-psutil
 BuildRequires:  python3-pytest-cov
 # For docs
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-bootstrap-theme
+
 
 %description
 Python bindings for the lz4 compression library.
@@ -45,16 +35,19 @@ Python 3 bindings for the lz4 compression library.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Remove bundled lz4 as we're building against system lib
 rm lz4libs/lz4*.[ch]
 
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files lz4
 # Fix permissions on shared objects
 find %{buildroot}%{python3_sitearch} -name 'lz4*.so' \
     -exec chmod 0755 {} \;
@@ -67,25 +60,22 @@ mv docs/_build/html ./html
 
 
 %check
-# First we'll just try importing, then run the tests
-PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} %{__python3} -c "import lz4"
-
-# The test tries to allocate crazy amounts of memory and fails.
-# Let's use the same switch it uses in upstream CI to skip some tests.
-TRAVIS=1 %{__python3} setup.py test
-
-pushd docs
-PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} make doctest
-popd
+%tox
 
 
-%files -n python3-lz4
+%files -n python3-lz4 -f %{pyproject_files}
 %license LICENSE
 %doc README.rst html
-%{python3_sitearch}/lz4*
 
 
 %changelog
+* Wed Dec 07 2022 Jonathan Wright <jonathan@almalinux.org> - 4.0.2-2
+- build against system lz4
+
+* Wed Dec 07 2022 Jonathan Wright <jonathan@almalinux.org> - 4.0.2-1
+- update to 4.0.2 rhbz#1716085
+- use pyproject macros
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

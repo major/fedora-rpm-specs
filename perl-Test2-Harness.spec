@@ -2,15 +2,13 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000137
-Version:        1.0.137
+%global cpan_version 1.000138
+Version:        1.0.138
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Harness
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test2-Harness-%{cpan_version}.tar.gz
-# Fix resources output, in upstream after 1.000137
-Patch0:         Test2-Harness-1.000137-Fix-resources-output-for-shared-slots.patch
 # Help generators to recognize a Perl code
 Patch99:        Test2-Harness-1.000114-Adapt-tests-to-shebangs.patch
 BuildArch:      noarch
@@ -158,7 +156,7 @@ Requires:       perl(Test2::Util::Term) >= 0.000127
 Requires:       perl(Test::Builder::Formatter) >= 1.302170
 
 # Filter underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover|Test2::Require::Module)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((File::Path|goto::file|Importer|IO::Handle|List::Util|Long::Jump|Term::Table|Test2::API|Test2::Formatter|Test2::Util|Test2::Util::Term|Test2::V0|Test::Builder|Test::More|Test2::Plugin::Cover|Test2::Require::Module)\\)$
 # Filter private modules
 %global __requires_exclude %{__requires_exclude}|^perl\\((Ax|Bar|Baz|Bx|Cx|Foo|main::HBase|main::HBase::Wrapped)\\)
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((AAA|Ax|App::Yath::Command::(Broken|Fake|fake)|App::Yath::Plugin::(Options|SelfTest|Test|TestPlugin)|Bar|Baz|Bx|BBB|Broken|CCC|Cx|FAST|Foo|Manager|Plugin|Preload|Preload::[^)]*|Resource|SmokePlugin|TestPreload|TestSimplePreload)\\)
@@ -173,6 +171,7 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(FindBin)
+Requires:       perl(List::Util) >= 1.45
 Requires:       perl(Test::Builder) >= 1.302170
 Requires:       perl(Test::More) >= 1.302170
 %if %{with perl_Test2_Harness_enables_coverage}
@@ -187,7 +186,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test2-Harness-%{cpan_version}
-%patch0 -p1
 chmod -x t2/non_perl/test.c
 %if !%{with perl_Test2_Harness_enables_coverage}
 for T in t/integration/coverage{,2,3,4}.t; do
@@ -289,6 +287,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 1.0.138-1
+- 1.000138 bump
+
 * Tue Dec 06 2022 Petr Pisar <ppisar@redhat.com> - 1.0.137-1
 - 1.000137 bump
 

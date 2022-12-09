@@ -73,7 +73,6 @@ ExcludeArch: i686
 %global system_libvpx     0
 %endif
 %global system_jpeg       1
-%global disable_elfhack   1
 %global use_bundled_cbindgen  1
 %if %{debug_build}
 %global release_build     0
@@ -126,7 +125,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.84
+%global nss_version 3.85
 %global nss_build_version %{nss_version}
 %endif
 
@@ -171,7 +170,7 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        107.0.1
+Version:        108.0
 Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
@@ -214,7 +213,7 @@ Patch35:        build-ppc-jit.patch
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
 Patch38:        build-cacheFlush-missing.patch
 Patch40:        build-aarch64-skia.patch
-Patch41:        build-disable-elfhack.patch
+#Patch41:        build-disable-elfhack.patch
 Patch44:        build-arm-libopus.patch
 Patch46:        firefox-nss-version.patch
 Patch47:        fedora-shebang-build.patch
@@ -251,7 +250,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
-Patch416:        D161724.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -496,9 +494,6 @@ This package contains results of tests executed during build.
 # ignored during this compare.
 
 %patch40 -p1 -b .aarch64-skia
-%if 0%{?disable_elfhack}
-%patch41 -p1 -b .disable-elfhack
-%endif
 %patch3  -p1 -b .arm
 %patch44 -p1 -b .build-arm-libopus
 %patch47 -p1 -b .fedora-shebang
@@ -506,7 +501,7 @@ This package contains results of tests executed during build.
 %patch53 -p1 -b .firefox-gcc-build
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
-%patch77 -p1 -b .build-python-3.11
+#%patch77 -p1 -b .build-python-3.11
 %patch78 -p1 -b .firefox-i686
 
 # Test patches
@@ -530,7 +525,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
-%patch416 -p1 -b .D161724
 
 # PGO patches
 %if %{build_with_pgo}
@@ -1133,6 +1127,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Dec 6 2022 Martin Stransky <stransky@redhat.com>- 108.0-1
+- Update to 108.0
+
 * Tue Dec 6 2022 Martin Stransky <stransky@redhat.com>- 107.0.1-1
 - Update to 107.0.1
 

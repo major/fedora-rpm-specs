@@ -1,12 +1,12 @@
 %undefine __cmake_in_source_build
 # This package only contains header files.
 %global debug_package %{nil}
-%global ftest_commit 9c7e60cc1b7c76f59e2ffbbc3dad15bafc5cdac5
+%global ftest_commit bf75576064fce2e07f52cd63a3e410f12358728b
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    3.2.1
-Release:    4%{?dist}
+Version:    3.2.2
+Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    Boost
 URL:        https://github.com/nemtrif/utfcpp
@@ -83,6 +83,9 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Wed Dec 07 2022 Dominik 'Rathann' Mierzejewski <dominik@greysector.net> - 3.2.2-1
+- update to 3.2.2 (#2140879)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
