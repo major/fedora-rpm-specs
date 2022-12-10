@@ -1,12 +1,12 @@
 Name:       xkbcomp
-Version:    1.4.5
+Version:    1.4.6
 Release:    4%{?dist}
 Summary:    XKB keymap compiler
 
 License:    MIT
 URL:        https://www.x.org
 
-Source0:    https://www.x.org/pub/individual/app/xkbcomp-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/xkbcomp-%{version}.tar.xz
 
 BuildRequires: make gcc
 BuildRequires: libxkbfile-devel
@@ -45,6 +45,9 @@ X.Org XKB keymap compiler development files
 %{_libdir}/pkgconfig/xkbcomp.pc
 
 %changelog
+* Thu Dec 08 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.4.6-4
+- xkbcomp 1.4.6
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

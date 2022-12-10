@@ -1,12 +1,12 @@
 Name:           perl-Module-Install-AuthorRequires
 Version:        0.02
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Declare author-only dependencies
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-AuthorRequires
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/Module-Install-AuthorRequires-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install)
@@ -32,14 +32,12 @@ rm -r inc
 sed -i -e '/^inc/ d' MANIFEST 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -50,6 +48,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.02-30
+- Simplify build and install phase
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

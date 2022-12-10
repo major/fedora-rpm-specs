@@ -5,7 +5,7 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.0.1
+Version:	4.0.2
 Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
@@ -275,6 +275,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Dec 08 2022 Michal Ruprich <mruprich@redhat.com> - 1:4.0.2-1
+- New version 4.0.2
+
 * Thu Oct 27 2022 Michal Ruprich <mruprich@redhat.com> - 1:4.0.1-1
 - New version 4.0.1
 - Only compat-lua is supported, on Fedora only

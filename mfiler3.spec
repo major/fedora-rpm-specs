@@ -21,7 +21,8 @@ BuildRequires:	cmigemo-devel
 %if 0
 BuildRequires:	gc-devel
 %endif
-BuildRequires:	saphire-devel >= %{minver_saphire}
+# For -Werror=implicit-function-declaration, updated saphire header is needed.
+BuildRequires:	saphire-devel >= %{minver_saphire}-29
 BuildRequires:	ncurses-devel
 BuildRequires:	oniguruma-devel
 
@@ -49,8 +50,9 @@ sed -i.pager \
 	mfiler3.sa
 
 %build
+# -D_DEFAULT_SOURCE etc is for wcswidth
 %configure \
-	CC="gcc %{optflags}" \
+	CC="gcc %{optflags} -D_XOPEN_SOURCE=700 -D_DEFAULT_SOURCE" \
 	--sysconfdir=%{_libdir}/%{name} \
 	--bindir=%{_libexecdir}/%{name} \
 	--with-migemo \
@@ -95,6 +97,10 @@ rm -rf ./Trash
 
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 4.4.9-26
+- Build with -D_XOPEN_SOURCE=700 -D_DEFAULT_SOURCE for wcswidth
+- Build against newer saphire-devel for string_chomp declaration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

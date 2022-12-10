@@ -3,11 +3,11 @@
 # python2-tornado package is too old on EPEL
 
 Name:           python-%{srcname}
-Version:        0.17.0
-Release:        1%{?dist}
+Version:        0.17.1
+Release:        2%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/jupyter/terminado
 Source0:        https://github.com/jupyter/terminado/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -55,11 +55,16 @@ export INPUTRC=$PWD/.inputrc
  
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
-%doc README.rst
-%license LICENSE
+%doc CHANGELOG.md README.md
 
 
 %changelog
+* Fri Dec 09 2022 Orion Poplawski <orion@nwra.com> - 0.17.1-2
+- Use SPDX License tag
+
+* Thu Dec 08 2022 Orion Poplawski <orion@nwra.com> - 0.17.1-1
+- Update to 0.17.1
+
 * Thu Oct 27 2022 Orion Poplawski <orion@nwra.com> - 0.17.0-1
 - Update to 0.17.0
 

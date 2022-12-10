@@ -1,7 +1,7 @@
 #global candidate rc2
 
 Name:    tpm2-tools
-Version: 5.3
+Version: 5.4
 Release: 1%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
@@ -58,6 +58,9 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Thu Dec 08 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.4-1
+- Update to 5.4
+
 * Wed Sep 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.3-1
 - Update to 5.3
 

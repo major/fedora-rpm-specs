@@ -168,6 +168,8 @@ ExcludeArch: i686
 %global __provides_exclude_from ^%{mozappdir}
 %global __requires_exclude ^(%%(find %{buildroot}%{mozappdir} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
+%undefine _package_note_flags
+
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        108.0
@@ -213,7 +215,6 @@ Patch35:        build-ppc-jit.patch
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
 Patch38:        build-cacheFlush-missing.patch
 Patch40:        build-aarch64-skia.patch
-#Patch41:        build-disable-elfhack.patch
 Patch44:        build-arm-libopus.patch
 Patch46:        firefox-nss-version.patch
 Patch47:        fedora-shebang-build.patch
@@ -222,10 +223,9 @@ Patch53:        firefox-gcc-build.patch
 Patch54:        mozilla-1669639.patch
 Patch55:        firefox-testing.patch
 Patch61:        firefox-glibc-dynstack.patch
-Patch62:        build-python.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
-Patch77:        build-python-3.11.patch
 Patch78:        firefox-i686-build.patch
+Patch80:        D162136.diff
 
 # Test patches
 # Generate without context by
@@ -501,8 +501,8 @@ This package contains results of tests executed during build.
 %patch53 -p1 -b .firefox-gcc-build
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
-#%patch77 -p1 -b .build-python-3.11
 %patch78 -p1 -b .firefox-i686
+%patch80 -p1 -b .D162136
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell

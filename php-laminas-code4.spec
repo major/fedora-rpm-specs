@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    91aabc066d5620428120800c0eafc0411e441a62
+%global gh_commit    dd19fe8e07cc3f374308565667eecd4958c22106
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-code
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}%{major}
-Version:        4.7.1
+Version:        4.8.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -42,21 +42,21 @@ BuildRequires:  php-spl
 BuildRequires:  php-tokenizer
 # From composer, "require-dev": {
 #        "ext-phar": "*",
-#        "doctrine/annotations": "^1.13.2",
+#        "doctrine/annotations": "^1.13.3",
 #        "laminas/laminas-coding-standard": "^2.3.0",
 #        "laminas/laminas-stdlib": "^3.6.1",
-#        "phpunit/phpunit": "^9.5.10",
-#        "psalm/plugin-phpunit": "^0.16.1",
-#        "vimeo/psalm": "^4.13.1"
-BuildRequires: (php-composer(doctrine/annotations)                     >= 1.13.2 with php-composer(doctrine/annotations)                    < 2)
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.1.0"
+BuildRequires: (php-composer(doctrine/annotations)                     >= 1.13.3 with php-composer(doctrine/annotations)                    < 2)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)             >= 3.6.1  with php-autoloader(%{gh_owner}/laminas-stdlib)            < 4)
-BuildRequires:  phpunit9 >= 9.5.10
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "php": ">=7.4, <8.2"
+#        "php": "php": "~8.1.0 || ~8.2.0"
 Requires:       php(language) >= 7.4
 %if ! %{bootstrap}
 # From composer, "suggest": {
@@ -101,7 +101,6 @@ cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::optional([
     '%{php_home}/Doctrine/Common/Annotations/autoload.php',
     '%{php_home}/%{namespace}/Stdlib/autoload.php',
-    __DIR__ . '/polyfill/ReflectionEnumPolyfill.php',
 ]);
 EOF
 
@@ -110,7 +109,6 @@ EOF
 : Laminas library
 mkdir -p        %{buildroot}%{php_home}/%{namespace}/
 cp -pr src      %{buildroot}%{php_home}/%{namespace}/%{library}%{major}
-cp -pr polyfill %{buildroot}%{php_home}/%{namespace}/%{library}%{major}/polyfill
 
 
 %check
@@ -123,7 +121,7 @@ require_once '%{buildroot}%{php_home}/%{namespace}/%{library}%{major}/autoload.p
 EOF
 
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -143,6 +141,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec  8 2022 Remi Collet <remi@remirepo.net> - 4.8.0-1
+- update to 4.8.0
+- raise dependency on PHP 8.1
+
 * Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 4.7.1-1
 - update to 4.7.1
 

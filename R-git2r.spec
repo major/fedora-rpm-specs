@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Provides Access to Git Repositories
 
 License:          GPLv2
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 0.30.1-2
+- Rebuild for libgit2 1.4
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 0.30.1-1
 - update to 0.30.1
 - rebuild for R 4.2.1

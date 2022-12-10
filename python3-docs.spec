@@ -3,7 +3,7 @@ Summary:        Documentation for the Python 3 programming language
 
 # The Version should be in-sync with the python3 package:
 %global         pybasever 3.11
-%global         general_version %{pybasever}.0
+%global         general_version %{pybasever}.1
 #global         prerel ...
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
@@ -69,6 +69,9 @@ linkchecker \
 %doc Misc/NEWS Misc/HISTORY Misc/README Doc/build/html
 
 %changelog
+* Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.1-1
+- Update to 3.11.1
+
 * Mon Oct 24 2022 Miro Hrončok <mhroncok@redhat.com> - 3.11.0-1
 - Update to 3.11.0
 

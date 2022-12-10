@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -29,6 +29,9 @@ Patch2: rrdtool-1.4.7-php55.patch
 Patch3: rrdtool-1.6.0-ruby-2-fix.patch
 # enable php bindings on ppc
 Patch4: rrdtool-1.4.8-php-ppc-fix.patch
+# Fix BUILD_DATE in rrdtool help output
+# https://github.com/oetiker/rrdtool-1.x/commit/e59f703
+Patch5: rrdtool-1.8.0-BUILD_DATE-fix.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -177,6 +180,7 @@ The %{name}-lua package includes RRDtool bindings for Lua.
 %patch3 -p1 -b .ruby-2-fix
 %endif
 %patch4 -p1 -b .php-ppc-fix
+%patch5 -p1 -b .BUILD_DATE-fix
 
 # Fix to find correct python dir on lib64
 perl -pi -e 's|get_python_lib\(0,0,prefix|get_python_lib\(1,0,prefix|g' \
@@ -405,6 +409,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Fri Dec 02 2022 Wolfgang Stöggl <c72578@yahoo.de> - 1.8.0-6
+- Fix BUILD_DATE
+  Add patch: rrdtool-1.8.0-BUILD_DATE-fix.patch
+
 * Thu Nov 24 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.8.0-5
 - Remove excludes for nonexistent .la files
 - Fix Ruby directory lookup

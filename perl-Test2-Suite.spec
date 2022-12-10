@@ -3,7 +3,7 @@
 
 Name:           perl-Test2-Suite
 Version:        0.000145
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Set of tools built upon the Test2 framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Suite
@@ -100,6 +100,7 @@ Obsoletes:      perl-Test2-Workflow < 0.000018-5
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Importer|Module::Pluggable|Sub::Info|Term::Table|Test2::API)\\)$
 # Remove private modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MyTest::Target\\)$
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
@@ -156,6 +157,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.000145-5
+- Fix requires packages in *-tests package
+
 * Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.000145-4
 - Remove provided packages from *-tests package
 - Update license to SPDX format

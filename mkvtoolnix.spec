@@ -1,6 +1,6 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 71.1.0
+Version: 72.0.0
 Release: 1%{?dist}
 License: GPLv2+
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
@@ -18,7 +18,6 @@ BuildRequires: cmake(Qt6Svg)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: desktop-file-utils
 BuildRequires: docbook-style-xsl
-BuildRequires: flac-devel
 BuildRequires: fmt-devel >= 6.1.0
 BuildRequires: gcc-c++
 BuildRequires: gettext
@@ -30,6 +29,7 @@ BuildRequires: libappstream-glib
 BuildRequires: libvorbis-devel
 BuildRequires: po4a
 BuildRequires: pkgconfig(dvdread)
+BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(libcmark)
 BuildRequires: pkgconfig(libebml) >= 1.4.4
 BuildRequires: pkgconfig(libmatroska) >= 1.7.1
@@ -122,6 +122,9 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Wed Dec 07 2022 Dominik Mierzejewski <dominik@greysector.net> - 72.0.0-1
+- update to 72.0.0 (#2142390)
+
 * Thu Oct 13 2022 Dominik Mierzejewski <dominik@greysector.net> - 71.1.0-1
 - update to 71.1.0 (#2118106)
 - require libebml 1.4.4 and libmatroska 1.7.1

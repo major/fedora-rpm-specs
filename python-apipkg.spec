@@ -27,6 +27,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version}
+# https://github.com/pytest-dev/apipkg/issues/43
+sed -i '/distribution_version("py")/d' test_apipkg.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

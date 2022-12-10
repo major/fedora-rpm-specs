@@ -32,10 +32,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.5
-%global specversion 3.rc3
+%global specversion 3
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 631339ca5aa334d69906a932abb2b6886ede7cd0
+%global commit a3f44794f94e1571c6ba0042915ade369b4ce4b1
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -79,7 +79,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_without pre_release
+%bcond_with pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -798,6 +798,11 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu Dec 8 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-3
+- Update for new upstream release tarball: Pacemaker-2.1.5,
+  for full details, see included ChangeLog file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-2.1.5
+
 * Thu Nov 24 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-0.3.rc3
 - Update for new upstream tarball for release candidate: Pacemaker-2.1.5-rc3,
   for full details, see included ChangeLog file or

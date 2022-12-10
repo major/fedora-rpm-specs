@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Simple Git Client for R
 
 License:          MIT
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 1.9.0-2
+- Rebuild for libgit2 1.4
+
 * Sat Sep 17 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.9.0-1
 - Update to 1.9.0 (RHBZ #2127064)
 

@@ -1,12 +1,13 @@
 Summary: Utility to autorestart SSH tunnels
 Name: autossh
 Version: 1.4g
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 URL: https://www.harding.motd.ca/autossh/
 Source0: https://www.harding.motd.ca/autossh/autossh-1.4g.tgz
 Source1: autossh@.service
 Source2: README.service
+Patch0: autossh-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires: /usr/bin/ssh
 BuildRequires: systemd
@@ -21,6 +22,7 @@ dies or stops passing traffic, autossh will automatically restart it.
 
 %prep
 %setup -q
+%patch0 -p1
 cp -p %{SOURCE2} .
 
 %build
@@ -79,6 +81,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Wed Dec 07 2022 Peter Fordham <peter.fordham@gmail.com> - 1.4g-10
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4g-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

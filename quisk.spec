@@ -1,5 +1,5 @@
 Name:           quisk
-Version:        4.2.12
+Version:        4.2.13
 Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
@@ -59,13 +59,17 @@ done
 %files
 %license license.txt
 %doc docs.html defaults.html
-%doc help.html help_conf.html help_vna.html
+%doc help.html help_vna.html
 %{_bindir}/%{name}{,_vna}
 %{python3_sitearch}/%{name}
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Thu Dec  8 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.13-1
+- New version
+  Resolves: rhbz#2150654
+
 * Mon Nov 21 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.12-1
 - New version
   Resolves: rhbz#2144213

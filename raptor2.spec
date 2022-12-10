@@ -2,7 +2,7 @@
 Summary: RDF Parser Toolkit for Redland
 Name:    raptor2
 Version: 2.0.15
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 License: GPLv2+ or LGPLv2+ or ASL 2.0
 Source:  http://download.librdf.org/source/raptor2-%{version}.tar.gz
@@ -15,6 +15,7 @@ Patch1: 0001-Calcualte-max-nspace-declarations-correctly-for-XML-.patch
 Patch2: 0001-CVE-2020-25713-raptor2-malformed-input-file-can-lead.patch
 
 ## upstreamable patches
+Patch3: raptor2-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -101,6 +102,9 @@ make check
 
 
 %changelog
+* Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 2.0.15-35
+- Port configure script to C99
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0.15-34
 - Rebuilt for ICU 71.1
 

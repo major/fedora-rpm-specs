@@ -4,7 +4,7 @@
 
 Name:           ladvd
 Version:        1.1.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        CDP/LLDP sender for UNIX
 
 License:        ISC
@@ -145,6 +145,10 @@ fi
 
 
 %changelog
+* Thu Dec 08 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 1.1.2-16
+- verified SPDX license tag
+- allow using netlink generic socket in SELinux policy (patch from Zdenek Pytela)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

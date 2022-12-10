@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-zumba-json-serializer
 #
-# Copyright (c) 2021 Remi Collet
+# Copyright (c) 2021-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    d91d5a22bbbacbb1d6ad23302137a90e9a7dafd5
+%global gh_commit    421dcdd53d4b333303d984e9ebec557d3e37783b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
@@ -18,8 +18,8 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.0.1
-Release:        3%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
@@ -44,7 +44,7 @@ BuildRequires:  phpunit9
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": ">=7.0.0",
+#        "php": "^7.0 || ^8.0",
 #        "ext-mbstring": "*"
 Requires:       php(language) >= 7.0
 Requires:       php-mbstring
@@ -94,7 +94,7 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} \
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  8 2022 Remi Collet <remi@remirepo.net> - 3.0.2-1
+- update to 3.0.2 (no change)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

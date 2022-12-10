@@ -16,7 +16,7 @@
 
 Name:           gnome-builder
 Version:        43.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IDE for writing GNOME-based software
 
 # Note: Checked as of 3.20.2
@@ -150,6 +150,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %{_datadir}/gnome-builder/gir-1.0/
 
 %changelog
+* Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 43.4-2
+- Rebuild for libgit2 1.4
+
 * Thu Dec 01 2022 David King <amigadave@amigadave.com> - 43.4-1
 - Update to 43.4 (#2149807)
 

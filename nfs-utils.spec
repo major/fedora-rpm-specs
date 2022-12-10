@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.6.2
-Release: 2.rc4%{?dist}
+Release: 2.rc5%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -14,7 +14,7 @@ Source2: lockd.conf
 Source3: 24-nfs-server.conf
 Source4: 10-nfsv4.conf
 
-Patch001: nfs-utils.2.6.3-rc4.patch
+Patch001: nfs-utils.2.6.3-rc5.patch
 
 Patch100: nfs-utils-1.2.1-statdpath-man.patch
 Patch101: nfs-utils-1.2.1-exp-subtree-warn-off.patch
@@ -318,7 +318,7 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %config(noreplace) %{_sysconfdir}/modprobe.d/lockd.conf
 %config(noreplace) %{_sysconfdir}/nfs.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/gssproxy/24-nfs-server.conf
-%attr(0600,root,root) %config(noreplace) /usr/lib/modprobe.d/50-nfs.conf
+%attr(0600,root,root) %config(noreplace) /usr/lib/udev/rules.d/60-nfs.rules
 
 %doc linux-nfs/ChangeLog linux-nfs/KNOWNBUGS linux-nfs/NEW linux-nfs/README
 %doc linux-nfs/THANKS linux-nfs/TODO
@@ -418,7 +418,7 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %config(noreplace) %{_sysconfdir}/request-key.d/id_resolver.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/gssproxy/24-nfs-server.conf
 %attr(0600,root,root) %config(noreplace) %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
-%attr(0600,root,root) %config(noreplace) /usr/lib/modprobe.d/50-nfs.conf
+%attr(0600,root,root) %config(noreplace) /usr/lib/udev/rules.d/60-nfs.rules
 %{_sbindir}/rpc.gssd
 %{_sbindir}/nfsidmap
 %{_sbindir}/nfsstat
@@ -455,6 +455,9 @@ rm -rf /etc/systemd/system/rpc-*.requires
 %{_mandir}/*/nfsiostat.8.gz
 
 %changelog
+* Thu Dec  8 2022 Steve Dickson <steved@redhat.com> 2.6.2-2.rc5
+- Updated to the latest RC release: nfs-utils-2-6-3-rc5 (bz 2151279)
+
 * Mon Nov 28  2022 Steve Dickson <steved@redhat.com> 2.6.2-2.rc4
 - Updated to the latest RC release: nfs-utils-2-6-3-rc4 (bz 2144605)
 - Remove old nfsconvert dependencies (bz 2144179)

@@ -1,8 +1,8 @@
 Name:           perl-Log-Dispatchouli
-Version:        3.001
+Version:        3.002
 Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatchouli
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Log-Dispatchouli-%{version}.tar.gz
 BuildArch:      noarch
@@ -18,6 +18,7 @@ BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(experimental)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Log::Dispatch)
 BuildRequires:  perl(Log::Dispatch::Array)
@@ -110,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.002-1
+- 3.002 bump
+
 * Fri Dec 02 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.001-1
 - 3.001 bump
 

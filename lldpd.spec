@@ -10,7 +10,7 @@
 
 Name:     lldpd
 Version:  1.0.4
-Release:  10%{?dist}
+Release:  11%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -21,6 +21,7 @@ Source2:  %{name}-tmpfiles
 Source3:  %{name}-fedora.sysconfig
 Source4:  %{name}-el6.init
 Source5:  %{name}-el7.service
+Patch0: lldpd-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: readline-devel
@@ -62,7 +63,7 @@ Summary: %{summary}
 %{name} development libraries and headers
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -173,6 +174,9 @@ fi
 
 
 %changelog
+* Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 1.0.4-11
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

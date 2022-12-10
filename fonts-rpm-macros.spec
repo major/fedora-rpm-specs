@@ -18,10 +18,10 @@ Version: 2.0.5
 BuildArch: noarch
 
 Name:      fonts-rpm-macros
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   Build-stage rpm automation for fonts packages
 
-License:   GPLv3+
+License:   GPL-3.0-or-later
 URL:       https://docs.fedoraproject.org/en-US/packaging-guidelines/FontsPolicy/
 Source:    %{forgesource}
 Patch0:    %{name}-omit-foundry-in-family.patch
@@ -149,6 +149,9 @@ install -m 0755 -vp   bin/* %{buildroot}%{_bindir}
 %doc %{ftcgtemplatedir}/*txt
 
 %changelog
+* Thu Dec 08 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:2.0.5-10
+- Update license tag to SPDX format
+
 * Fri Aug 19 2022 Akira TAGOH <tagoh@redhat.com> - 1:2.0.5-9
 - Omit foundry name in family name.
 

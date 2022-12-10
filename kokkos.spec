@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:           kokkos
-Version:        3.7.00
+Version:        3.7.01
 %global         sover 3.7
 Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
@@ -79,6 +79,9 @@ This package contains the development files of %{name}.
 %{_bindir}/kokkos_launch_compiler
 
 %changelog
+* Thu Dec 08 2022 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 3.7.01-1
+- Version bump to v3.7.01 (bug #2151701)
+
 * Thu Sep 22 2022 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 3.7.00-1
 - Version bump to v3.7.00 (bug #2128805)
 

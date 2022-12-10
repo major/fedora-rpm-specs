@@ -14,7 +14,7 @@
 
 Name:           strongswan
 Version:        5.9.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 License:        GPLv2+
 URL:            http://www.strongswan.org/
@@ -56,7 +56,7 @@ BuildRequires:  python3-pytest
 %endif
 
 %if %{with perl}
-BuildRequires:  perl-devel perl-macros
+BuildRequires:  perl-devel perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 %endif
 
@@ -410,6 +410,10 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.9.8-2
+- Add BR perl-generators to automatically generates run-time dependencies
+  for installed Perl files
+
 * Sun Oct 16 2022 Arne Reiter <redhat@arnereiter.de> - 5.9.8-1
 - Resolves rhbz#2112274 strongswan-5.9.8 is available
 - Patch1 removes CFLAGS -Wno-format which interferes with -Werror=format-security

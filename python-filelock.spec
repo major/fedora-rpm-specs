@@ -8,7 +8,7 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        3.7.1
+Version:        3.8.2
 Release:        %autorelease
 Summary:        A platform independent file lock
 
@@ -66,6 +66,8 @@ Summary:        Documentation for %{srcname}, %{summary}
 %autosetup -n %{srcname}-%{version}
 # furo theme is not available in Fedora
 sed -i "/html_theme =.*/d" docs/conf.py
+# setuptools 65.6.3 is not yet in Fedora
+sed -i 's/"\(setuptools\)>=.*"/"\1"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -r

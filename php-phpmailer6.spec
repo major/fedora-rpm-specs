@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    80fc8686fcd070267b98dae0ec228d5d67d94310
+%global gh_commit    49cd7ea3d2563f028d7811f06864a53b1f15ff55
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.7
+Version:        6.7.1
 Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
@@ -51,14 +51,14 @@ BuildRequires:  php-openssl
 BuildRequires:  php-pcre
 BuildRequires:  php-fedora-autoloader-devel
 # From composer.json, "require-dev": {
-#        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-#        "doctrine/annotations": "^1.2",
+#        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+#        "doctrine/annotations": "^1.236 || ^1.13.3",
 #        "php-parallel-lint/php-console-highlighter": "^0.5.0",
 #        "php-parallel-lint/php-parallel-lint": "^1.3.1",
 #        "phpcompatibility/php-compatibility": "^9.3.5",
 #        "roave/security-advisories": "dev-latest",
 #        "squizlabs/php_codesniffer": "^3.7.1",
-#        "yoast/phpunit-polyfills": "^1.0.0"
+#        "yoast/phpunit-polyfills": "^1.0.4"
 %global phpunit %{_bindir}/phpunit7
 BuildRequires:  php-composer(yoast/phpunit-polyfills) >= 1.0.0
 BuildRequires:  %{phpunit}
@@ -89,6 +89,7 @@ Requires:       php-pcre
 # From composer.json, "suggest": {
 #        "ext-mbstring": "Needed to send email in multibyte encoding charset",
 #        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+#        "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
 #        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
 #        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
 #        "psr/log": "For optional PSR-3 debug logging",
@@ -207,6 +208,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  8 2022 Remi Collet <remi@remirepo.net> - 6.7.1-1
+- update to 6.7.1
+
 * Mon Dec  5 2022 Remi Collet <remi@remirepo.net> - 6.7-1
 - update to 6.7
 

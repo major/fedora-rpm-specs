@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.32.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Sakura Cloud DNS Authenticator plugin for Certbot
 
@@ -96,6 +96,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Dec 08 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.0
-Release:       4%{?pre:.%pre}%{?dist}
+Version:       3.11.1
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -64,9 +64,8 @@ Patch10:       mingw-python3_posix-layout.patch
 Patch11:       mingw-python3_win-modules.patch
 # Enable the socket module
 Patch12:       mingw-python3_module-socket.patch
-
-# Backport patch for CVE-2022-45061
-Patch100:      https://github.com/python/cpython/commit/a6f6c3a3d6f2b580f2d87885c9b8a9350ad7bf15.patch
+# MinGW fix for select module
+Patch13:       mingw-python3_module-select.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -497,6 +496,12 @@ rm -rf %{buildroot}%{_prefix}/lib/python%{py_ver}/site-packages/pip*
 
 
 %changelog
+* Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 3.11.1-2
+- Fix broken select and socket modules
+
+* Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 3.11.1-1
+- Update to 3.11.1
+
 * Mon Nov 21 2022 Sandro Mani <manisandro@gmail.com> - 3.11.0-4
 - Backport patch for CVE-2022-45061
 

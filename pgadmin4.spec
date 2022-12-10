@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        6.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -40,8 +40,10 @@ Patch1:         pgadmin4_sphinx_werror.patch
 Patch2:         pgadmin4-socketio.patch
 # Flask 2.2 compatibility
 Patch3:         pgadmin4_flask22.patch
+# Fix python-azure-mgmt-rdbms-10.2.0~b5+ compatibility
+Patch4:         pgadmin4_azure-mgmt-rdbms.patch
 # ??? FIXME Fix crash on None username, retest with 6.16
-Patch4:         pgadmin4_username.patch
+Patch10:        pgadmin4_username.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
@@ -245,6 +247,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 6.17-2
+- Fix python-azure-mgmt-rdbms-10.2.0~b5+ compatibility
+
 * Wed Dec 07 2022 Sandro Mani <manisandro@gmail.com> - 6.17-1
 - Update to 6.17
 

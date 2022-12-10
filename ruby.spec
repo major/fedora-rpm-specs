@@ -22,7 +22,7 @@
 %endif
 
 
-%global release 172
+%global release 173
 %{!?release_string:%define release_string %{?development_release:0.}%{release}%{?development_release:.%{development_release}}%{?dist}}
 
 # The RubyGems library has to stay out of Ruby directory tree, since the
@@ -190,6 +190,13 @@ Patch27: ruby-irb-1.4.1-drop-rdoc-hard-dep.patch
 # Set soft dependency on RDoc in input-method.rb in IRB.
 # https://github.com/ruby/irb/pull/395
 Patch28: ruby-irb-1.4.1-set-rdoc-soft-dep.patch
+# CGI is now too restrictive about leading '.' in domain, leading to failures
+# in Rack, rack-test or ActionPack.
+# https://github.com/ruby/ruby/commit/656f25987cf2885104d5b13c8d3f5b7d32f1b333
+Patch29: ruby-3.2.0-ruby-cgi-Fix-test_cgi_cookie_new_with_domain-to-pass.patch
+# https://github.com/ruby/cgi/pull/29
+# https://github.com/ruby/ruby/commit/745dcf5326ea2c8e2047a3bddeb0fbb7e7d07649
+Patch30: ruby-3.2.0-ruby-cgi-Loosen-the-domain-regex-to-accept.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Suggests: rubypick
@@ -661,6 +668,8 @@ rm -rf ext/fiddle/libffi*
 %patch24 -p1
 %patch27 -p1
 %patch28 -p1
+%patch29 -p1
+%patch30 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -978,6 +987,13 @@ mv test/fiddle/test_import.rb{,.disable}
 mv test/fiddle/test_closure.rb{,.disable}
 DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunc#test_qsort1/"
 DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
+
+%ifarch i686
+# The MJIT test cases are failing so often, that it is recently impossible
+# to get past the test cases :/
+# https://bugzilla.redhat.com/show_bug.cgi?id=2125026
+mv test/ruby/test_jit.rb{,.disable} || :
+%endif
 
 # Give an option to increase the timeout in tests.
 # https://bugs.ruby-lang.org/issues/16921
@@ -1531,6 +1547,10 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
 
 
 %changelog
+* Thu Dec 08 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.3-173
+- Disable MJIT test cases on i686 due to issues with PCH.
+- Fix CGI causing issue with leading '.' in domain names.
+
 * Thu Nov 24 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.3-172
 - Upgrade to Ruby 3.1.3.
 

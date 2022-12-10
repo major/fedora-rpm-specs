@@ -10,8 +10,8 @@
 %endif
 
 Name:           gnome-remote-desktop
-Version:        43.1
-Release:        2%{?dist}
+Version:        43.2
+Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPLv2+
@@ -111,6 +111,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Thu Dec 08 2022 David King <amigadave@amigadave.com> - 43.2-1
+- Update to 43.2
+
 * Tue Nov 08 2022 Stephen Gallagher <sgallagh@redhat.com> - 43.1-2
 - Fix build on RHEL 9+/ELN
 

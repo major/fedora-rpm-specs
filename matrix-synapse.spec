@@ -7,7 +7,7 @@ Name:       matrix-%{srcname}
 Version:    1.66.0
 Release:    1%{?dist}
 Summary:    A Matrix reference homeserver written in Python using Twisted
-License:    ASL 2.0
+License:    Apache-2.0
 URL:        https://github.com/matrix-org/%{srcname}
 Source0:    %{url}/archive/v%{version}%{rcx}/%{srcname}-%{version}%{rcx}.tar.gz
 Source1:    synapse.sysconfig

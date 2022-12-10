@@ -4,7 +4,7 @@
 Name:           koffice-kivio
 Epoch:          3
 Version:        1.6.3
-Release:        62%{?dist}
+Release:        63%{?dist}
 Summary:        A flowcharting application
 
 License:        GPLv2+
@@ -42,6 +42,7 @@ Patch303: kde3-libtool-aarch64.patch
 Patch304: kdelibs-3.5.10-configure.patch
 # autoconf 2.7x
 Patch305: kde3-autoconf-version.patch
+Patch306: koffice-kivio-configure-c99.patch
 
 BuildRequires:  gcc-c++
 # for kde-config --kde-version
@@ -125,6 +126,7 @@ echo "pics servicetypes lib kivio filters doc" >inst-apps
 %patch303 -p1 -b .libtool-aarch64
 %patch304 -p1 -b .configure
 %patch305 -p1 -b .autoconf2.7x
+%patch306 -p1 -b .c99
 make -f admin/Makefile.common cvs
 
 
@@ -227,6 +229,9 @@ mv -f kivio-unique.lang kivio.lang
 
 
 %changelog
+* Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 3:1.6.3-63
+- Port configure script to C99 (#2151969)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.6.3-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

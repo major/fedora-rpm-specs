@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -49,6 +49,8 @@ Patch10:	https://github.com/lua/lua/commit/42d40581dd919fb134c07027ca1ce0844c670
 Patch11:	https://github.com/lua/lua/commit/196bb94d66e727e0aec053a0276c3ad701500762.patch
 # 5.4.4 Bug 7
 Patch12:	https://github.com/lua/lua/commit/a1f77a234a053da46b06d5d4be00ffb30d3eb45b.patch
+# 5.4.4		http://lua-users.org/lists/lua-l/2022-02/msg00112.html
+Patch13:	%{name}-5.4.4-luac-doublefree.patch
 
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
@@ -110,6 +112,7 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch10 -p1 -b .5.4.4-bug4
 %patch11 -p1 -b .5.4.4-bug5
 %patch12 -p1 -b .5.4.4-bug7
+%patch13 -p1 -b .5.4.4-doublefree
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
@@ -226,6 +229,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Dec  8 2022 Charles R. Anderson <cra@alum.wpi.edu> - 5.4.4-7
+- Add patch for http://lua-users.org/lists/lua-l/2022-02/msg00112.html (#2111138)
+
 * Mon Oct 17 2022 Tom Callaway <spot@fedoraproject.org> - 5.4.4-6
 - add upstream fix for Bug 7
 

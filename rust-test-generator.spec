@@ -5,15 +5,14 @@
 %global crate test-generator
 
 Name:           rust-test-generator
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Generate test functions for all files matching a pattern
 
-License:        Apache-2.0
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/test-generator
 Source:         %{crates_source}
-# Add missing LICENSE-APACHE file from upstream
-Source:         https://raw.githubusercontent.com/frehberg/test-generator/master/LICENSE-APACHE
 
 BuildRequires:  rust-packaging >= 21
 
@@ -34,6 +33,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,7 +51,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

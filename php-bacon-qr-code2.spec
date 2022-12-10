@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    d70c840f68657ce49094b8d91f9ee0cc07fbf66c
+%global gh_commit    8674e51bb65af933a5ffaf1c308a660387c35c22
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Bacon
 %global gh_project   BaconQrCode
@@ -22,8 +22,8 @@
 %global major        2
 
 Name:           php-%{pk_project}%{major}
-Version:        2.0.7
-Release:        2%{?dist}
+Version:        2.0.8
+Release:        1%{?dist}
 Summary:        QR code generator for PHP
 
 Group:          Development/Libraries
@@ -129,7 +129,7 @@ require '%{buildroot}%{php_home}/%{ns_project}%{major}/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec  8 2022 Remi Collet <remi@remirepo.net> - 2.0.8-1
+- update to 2.0.8
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           libgit2-glib
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Git library for GLib
 
 License:        LGPLv2+
@@ -63,6 +63,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 1.1.0-2
+- Rebuild for libgit2 1.4
+
 * Mon Aug 08 2022 Kalev Lember <klember@redhat.com> - 1.1.0-1
 - Update to 1.1.0
 

@@ -1,12 +1,12 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.4.3
-Release:        4%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPLv3+ and Public Domain
-URL:            https://octave.sourceforge.io/%{octpkg}/
-Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+URL:            https://github.com/gnu-octave/%{octpkg}
+Source0:        https://github.com/gnu-octave/%{octpkg}/archive/refs/tags/release-%{version}/%{octpkg}-%{version}.tar.gz
 
 BuildRequires:  octave-devel
 BuildRequires:  octave-io
@@ -46,25 +46,24 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 %files
 %dir %{octpkgdir}
+%doc %{octpkgdir}/doc/
 %doc %{octpkgdir}/doc-cache
 %{octpkgdir}/PKG_ADD
 %{octpkgdir}/PKG_DEL
 %{octpkgdir}/*.m
-%{octpkgdir}/carbig.mat
-%{octpkgdir}/fisheriris.mat
+%{octpkgdir}/datasets/
 %{octpkgdir}/@cvpartition/
-%{octpkgdir}/base/
 %{octpkgdir}/distributions/
-%{octpkgdir}/fisheriris.txt
-%{octpkgdir}/models/
 %{octpkgdir}/private/*.m
 %{octpkgdir}/packinfo/
-%{octpkgdir}/test/
-%{octpkgdir}/tests/
-%{_metainfodir}/octave-%{octpkg}.metainfo.xml
+%{octpkgdir}/shadow/
+%{octpkglibdir}/
 
 
 %changelog
+* Tue Dec 07 2022 Orion Poplawski <orion@nwra.com> - 1.5.1-1
+- Update to 1.5.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

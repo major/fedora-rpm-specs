@@ -2,7 +2,7 @@ Name:           perl-Menlo-Legacy
 Version:        1.9022
 Release:        15%{?dist}
 Summary:        Legacy internal and client support for Menlo
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Menlo-Legacy
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Menlo-Legacy-%{version}.tar.gz
 BuildArch:      noarch
@@ -103,11 +103,11 @@ features and specific behaviors of cpanm.
 %setup -q -n Menlo-Legacy-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check

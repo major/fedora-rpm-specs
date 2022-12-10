@@ -1,6 +1,6 @@
 Name:    kf5
 Version: 5.100.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Filesystem and RPM macros for KDE Frameworks 5
 License: BSD
 URL:     http://www.kde.org
@@ -87,6 +87,9 @@ sed -i \
 
 
 %changelog
+* Wed Dec 07 2022 Marc Deop marcdeop@fedoraproject.org - 5.100.0-2
+- Add %%stable_kf5, %%majmin_ver_kf5 and helper macros.
+
 * Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
 - 5.100.0
 

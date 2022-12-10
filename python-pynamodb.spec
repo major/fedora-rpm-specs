@@ -6,7 +6,7 @@
 
 Name:           python-pynamodb
 Summary:        A pythonic interface to Amazon’s DynamoDB
-Version:        5.3.3
+Version:        5.3.4
 Release:        %autorelease
 
 # SPDX

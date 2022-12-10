@@ -38,7 +38,7 @@
 %endif
 
 Name:           xpra
-Version:        4.4.2
+Version:        4.4.3
 Release:        1%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
@@ -53,6 +53,8 @@ Patch0:         %{name}-find_py3cairo.patch
 
 # Install into /usr/libexec always	
 Patch1:         %{name}-force_always_libexec.patch
+
+Patch2:         %{name}-bug3693.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -166,6 +168,7 @@ Udev rules of xpra.
 %patch1 -p1 -b .backup
 sed -i 's|@@python3_sitearch@@|%{python3_sitearch}|' setup.py
 %endif
+%patch2 -p1 -b .backup
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}
@@ -310,6 +313,10 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Thu Dec 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4.3-1
+- Release 4.4.3
+- Disable CUDA rebuilds
+
 * Sun Nov 13 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4.2-1
 - Release 4.4.2
 

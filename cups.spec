@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: ASL 2.0
 Url: https://openprinting.github.io/cups/
 # Apple stopped uploading the new versions into github, use OpenPrinting fork
@@ -450,6 +450,19 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 grep '^\s*DigestOptions' %{_sysconfdir}/cups/client.conf &> /dev/null || echo 'DigestOptions DenyMD5' \
 >> %{_sysconfdir}/cups/client.conf
 
+# remove after CentOS Stream 10 is released
+# Require authentication for accessing /admin location
+# - needed for finding printers via Find New Printers button in Web UI
+# upstream PR https://github.com/OpenPrinting/cups/pull/518
+# Implementation: we need to get a scope for /admin location, which starts with <Location /admin>
+# and ends with the first </Location>, so once we find the opening tag via sed, we implement a sed loop,
+# which saves all lines which don't match the ending tag into pattern space, and once there is
+# the ending tag, print the whole pattern buffer. The buffer is checked for AuthType and Require directives.
+# If they already exist, we don't add anything. cupsd.conf.rpmsave is created as a backup.
+sed -ne '/^\s*<Location \/admin>/ { :loop; /<\/Location>/ ! {N; b loop}; p }' %{_sysconfdir}/cups/cupsd.conf \
+| grep -E '^\s*(AuthType|Require)' &> /dev/null || cp %{_sysconfdir}/cups/cupsd.conf{,.rpmsave} && \
+sed -i '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SYSTEM' %{_sysconfdir}/cups/cupsd.conf
+
 %post client
 %if %{use_alternatives}
 /usr/sbin/alternatives --install %{_bindir}/lpr print %{_bindir}/lpr.cups 40 \
@@ -666,6 +679,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Thu Dec 08 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-6
+- fix Find New Printers button in Web UI (upstream #518)
+
 * Mon Oct 03 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-5
 - 2066528 - use 'localhost' if the mDNS record shows your local hostname
 

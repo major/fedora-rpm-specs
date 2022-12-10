@@ -1,6 +1,6 @@
 Name:		nsdiff
 Version:	1.82
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	create an "nsupdate" script from DNS zone file differences
 
 License:	Public Domain
@@ -9,15 +9,18 @@ URL:		https://dotat.at/prog/nsdiff/
 #Source0:	https://github.com/fanf2/%%{name}/archive/%%{name}-%%{version}.tar.gz
 Source0:	https://dotat.at/prog/%{name}/DNS-%{name}-%{version}.tar.gz
 
-BuildRequires:	perl >= 5.10
-BuildRequires:	perl(Pod::Man) perl(Pod::Html)
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	coreutils
 BuildRequires:	make
+BuildRequires:	perl(:VERSION) >= 5.10
+BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(Pod::Man)
+BuildRequires:	perl(Pod::Html)
 BuildArch:	noarch
-Requires:	perl >= 5.10
 Requires:	bind-utils
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version+`"; echo $version))
-Provides:	perl(DNS::nsdiff)
+Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version+`"; echo $version))
+Requires:	perl(:VERSION) >= 5.10
 
 %description
 The nsdiff program examines the old and new versions of a DNS zone, and
@@ -33,16 +36,12 @@ The nsvi script makes it easy to edit a dynamic zone.
 %autosetup -n DNS-%{name}-%{version}
 
 %build
-%{__perl} Makefile.PL
-make INSTALLDIRS=vendor
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-%make_install INSTALLDIRS=vendor
-
-rm -f %{buildroot}%{perl_archlib}/perllocal.pod
-# .packlist
-rm -rf %{buildroot}%{perl_vendorarch}/auto/
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %files
 %doc README*
@@ -53,6 +52,9 @@ rm -rf %{buildroot}%{perl_vendorarch}/auto/
 
 
 %changelog
+* Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.82-5
+- Update dependencies due to Fedora Guidelines for Perl
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

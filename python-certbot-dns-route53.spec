@@ -1,7 +1,7 @@
 %global pypi_name certbot-dns-route53
 
 Name:           python-%{pypi_name}
-Version:        1.32.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Route53 DNS Authenticator plugin for Certbot
 
@@ -74,6 +74,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version}
 %{python3_sitelib}/certbot_dns_route53-%{version}*.egg-info
 
 %changelog
+* Thu Dec 08 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

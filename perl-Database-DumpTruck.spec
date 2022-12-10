@@ -1,8 +1,8 @@
 Name:           perl-Database-DumpTruck
 Version:        1.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Relaxing interface to SQLite
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Database-DumpTruck
 Source0:        https://cpan.metacpan.org/authors/id/L/LK/LKUNDRAK/Database-DumpTruck-%{version}.tar.gz
 # Adapt tests to SQLite 3.37.0, bug #2066618, CPAN RT#140749,
@@ -30,34 +30,57 @@ after Scraperwiki's Python dumptruck module. It allows for easy (and maybe
 inefficient) storage and retrieval of structured data to and from a
 database without interfacing with SQL.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Database-DumpTruck-%{version}
-
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 %{__perl} Build.PL installdirs=vendor
 ./Build
 
-
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
-
 
 %check
 ./Build test
-
 
 %files
 %doc META.json
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.2-26
+- Package tests
+- Update license to SPDX format
+
 * Tue Sep 06 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.2-25
 - Fix JSON comparison in tests (bug #2115214)
 

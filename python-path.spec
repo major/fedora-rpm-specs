@@ -1,7 +1,7 @@
 %global pypi_name path
 
 Name:           python-path
-Version:        16.5.0
+Version:        16.6.0
 Release:        1%{?dist}
 Summary:        Python module wrapper for os.path
 
@@ -52,6 +52,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Thu Dec 08 2022 Dan Radez <dradez@redhat.com> - 16.6.0-1
+- updating to 16.6.0 - rhbz#2149909
+
 * Fri Sep 30 2022 Dan Radez <dradez@redhat.com> - 16.5.0-1
 - Update to 16.5.0 - rhbz#2130356
 - removing rpm spec exclude, file is not in the source anymore

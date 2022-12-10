@@ -1,12 +1,14 @@
 Summary:        Open source cryptography library
 Name:           beecrypt
 Version:        4.2.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 License:        LGPLv2+
 URL:            http://beecrypt.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Patch0:         beecrypt-4.1.2-biarch.patch
 Patch1:         beecrypt-4.2.1-no-c++.patch
+Patch2:         beecrypt-4.2.1-c99.patch
+Patch3:         beecrypt-4.2.1-autoconf-c99.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -48,6 +50,8 @@ API documentation for developing applications with beecrypt.
 %setup -q
 %patch0 -p1 -b .biarch
 %patch1 -p1 -b .no-c++
+%patch2 -p1 -b .c99
+%patch3 -p1 -b .autoconf-c99
 libtoolize
 autoreconf -i
 
@@ -87,6 +91,9 @@ mv -f CONTRIBUTORS.utf8 CONTRIBUTORS
 %endif
 
 %changelog
+* Thu Dec 08 2022 Peter Fordham <peter.fordham@gmail.com> - 4.2.1-31
+- Fixes for C99 conformance issues.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           hddtemp
 Version:        0.3
-Release:        0.51.%{beta}%{?dist}
+Release:        0.52.%{beta}%{?dist}
 Summary:        Hard disk temperature tool
 License:        GPLv2+
 URL:            http://savannah.nongnu.org/projects/hddtemp/
@@ -26,6 +26,7 @@ Patch4:         fix-model-length.patch
 Patch5:         ru.po.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1801116
 Patch6:         %{name}-nvme.patch
+Patch7:         hddtemp-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -49,6 +50,7 @@ reading S.M.A.R.T. information.
 %patch4 -p1
 %patch5 -p0
 %patch6 -p1
+%patch7 -p1
 
 sed -i -e 's|/etc/hddtemp.db|%{_datadir}/misc/hddtemp.db|' doc/hddtemp.8
 chmod -x contribs/analyze/*
@@ -96,6 +98,9 @@ install -Dpm 644 %{S:5} %{buildroot}%{_sysconfdir}/security/console.apps/hddtemp
 
 
 %changelog
+* Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 0.3-0.52.beta15
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-0.51.beta15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

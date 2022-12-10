@@ -1,9 +1,9 @@
 Name:           opari2
-Version:        2.0.6
-Release:        4%{?dist}
+Version:        2.0.7
+Release:        1%{?dist}
 Summary:        An OpenMP runtime performance measurement instrumenter
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/opari2/tags/%{name}-%{version}/%{name}-%{version}.tar.gz
 
@@ -28,7 +28,11 @@ instrumentation of OpenMP 3.0 tied tasks.
 
 
 %build
-%configure --disable-static --disable-silent-rules --with-platform=linux
+# I don't immediately see why using %configure broke the check target
+# in 2.0.7, which worked before.
+./configure --disable-silent-rules --with-platform=linux --prefix=%_prefix \
+	    CFLAGS="%build_cflags" CXXFLAGS="%build_cxxflags" \
+	    LDFLAGS="%build_ldflags" FCFLAGS="%build_fcflags"
 %make_build
 
 
@@ -55,6 +59,13 @@ make check || ( cat */test-suite.log && exit 1 )
 
 
 %changelog
+* Thu Dec  8 2022 Dave Love <loveshack@fedoraproject.org> - 2.0.7-1
+- New version
+- New download location
+
+* Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 2.0.6-5
+- Use SPDX licence TAG
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

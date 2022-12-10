@@ -1,8 +1,8 @@
 Name:           perl-Pod-LaTeX
 Version:        0.61
-Release:        317%{?dist}
+Release:        318%{?dist}
 Summary:        Convert POD data to formatted LaTeX
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-LaTeX
 Source0:        https://cpan.metacpan.org/authors/id/T/TJ/TJENNESS/Pod-LaTeX-%{version}.tar.gz
 BuildArch:      noarch
@@ -33,8 +33,23 @@ Requires:       perl(Pod::ParseUtils) >= 0.3
 Pod::LaTeX is a module to convert documentation in the POD format into
 LaTeX. A pod2latex replacement command is provided.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Pod-LaTeX-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor
@@ -42,6 +57,22 @@ perl Build.PL installdirs=vendor
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -fr %{buildroot}%{_libexecdir}/%{name}/t/misc
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Test t/pod2latex.t and t/user.t write into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -54,7 +85,14 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man1/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.61-318
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-317
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

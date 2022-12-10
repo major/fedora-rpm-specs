@@ -3,7 +3,7 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 375
+Version: 377
 Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
@@ -11,7 +11,6 @@ BuildRequires: make
 BuildRequires: gcc pkgconfig ncurses-devel libutempter-devel
 BuildRequires: libXft-devel libXaw-devel libXext-devel desktop-file-utils
 BuildRequires: libxkbfile-devel pcre2-devel pkgconfig(libpcre2-posix)
-Requires: xterm-resize = %{version}-%{release}
 Recommends: xorg-x11-fonts-misc
 
 Source0: ftp://ftp.invisible-island.net/xterm/%{name}-%{version}.tgz
@@ -100,6 +99,12 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Thu Dec 08 2022 Tomas Korbar <tkorbar@redhat.com> - 377-1
+- Rebase to version 377
+- Remove unnecessary dependency on xterm-resize
+- Resolves: rhbz#2143618
+- Resolves: rhbz#2142751
+
 * Mon Oct 31 2022 Tomas Korbar <tkorbar@redhat.com> - 375-1
 - Rebase to version 375
 - Resolves: rhbz#2137784

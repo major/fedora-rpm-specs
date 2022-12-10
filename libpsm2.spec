@@ -103,13 +103,7 @@ Support for MPIs linked with PSM versions < 2
 %{make_build}
 
 %install
-%if 0%{?fedora}
-export DISTRO=fedora
-%endif
-%if 0%{?rhel}
-export DISTRO=rhel
-%endif
-%make_install
+%make_install DISTRO=%{?rhel:rhel}%{!?rhel:fedora}
 rm -f %{buildroot}%{_libdir}/*.a
 
 %ldconfig_scriptlets

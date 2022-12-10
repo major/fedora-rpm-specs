@@ -8,7 +8,7 @@
 
 Name:    qcad
 Version: 3.27.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -61,7 +61,7 @@ BuildRequires: fontpackages-devel
 
 Requires: hicolor-icon-theme
 Requires: wise2
-Requires: qgnomeplatform
+Requires: qgnomeplatform-qt5
 Requires: vlgothic-fonts
 Requires: dejavu-sans-fonts
 
@@ -86,9 +86,9 @@ You dont need any CAD experience to get started with QCAD immediately.
 %autosetup -n %{name}-%{version} -p0
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.6
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.6/qt-labs-qtscriptgenerator-5.15.3.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.6/qt-labs-qtscriptgenerator-5.15.6.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.7
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.3.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.7.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -225,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Thu Dec 08 2022 Marie Loise Nolden <loise@kde.org> - 3.27.8.0-2
+- build with Qt 5.15.7
+
 * Sat Oct 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.27.8.0-1
 - Release 3.27.8.0
 

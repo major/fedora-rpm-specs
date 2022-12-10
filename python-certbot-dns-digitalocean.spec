@@ -1,7 +1,7 @@
 %global pypi_name certbot-dns-digitalocean
 
 Name:           python-%{pypi_name}
-Version:        1.32.0
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        DigitalOcean DNS Authenticator plugin for Certbot
 
@@ -70,6 +70,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/certbot_dns_digitalocean-%{version}*.egg-info
 
 %changelog
+* Thu Dec 08 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
+- Update to 2.1.0
+
 * Wed Nov 09 2022 Nick Bebout <nb@fedoraproject.org> - 1.32.0-1
 - Update to 1.32.0
 

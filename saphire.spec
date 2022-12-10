@@ -4,7 +4,7 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Yet another shell
 
 License:	MIT
@@ -12,6 +12,7 @@ URL:		http://ab25cq.wiki.fc2.com/
 Source0:	http://dl.sourceforge.jp/sash/%{repoid}/saphire-%{version}.tgz
 Patch0:	saphire-3.6.5-gcc10-fno-common.patch
 Patch1:	saphire-3.6.5-c99-port.patch
+Patch2:	saphire-string_chomp-public.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -38,6 +39,7 @@ developing applications that use %{name}.
 # Patches
 %patch0 -p1 -b .gcc10
 %patch1 -p1 -b .c99
+%patch2 -p1 -b .string_chomp
 
 # Don't strip binary
 sed -i.strip -e 's|\$(INSTALL) -s|\$(INSTALL) |' Makefile.in
@@ -154,6 +156,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 3.6.5-29
+- Declare string_chomp in the installed header file (#2151172)
+
 * Sun Dec  4 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.5-28
 - Port to C99, -Werror=implicit-function-declaration -Werror=implicit-int
 

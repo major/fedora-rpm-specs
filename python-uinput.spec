@@ -6,13 +6,16 @@
 
 Name:           python-uinput
 Version:        0.11.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pythonic API to the Linux uinput kernel module
 
 License:        GPLv3
 URL:            http://pypi.python.org/pypi/python-uinput/
 Source0:        http://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 #http://pypi.python.org/packages/source/p/python-uinput/python-uinput-0.11.2.tar.gz
+
+# https://github.com/tuomasjjrasanen/python-uinput/pull/41
+Patch0:         python-uinput-add_python311_support.patch
 
 BuildRequires:  kernel-headers
 BuildRequires:  libudev-devel
@@ -37,7 +40,7 @@ allows attaching userspace device drivers into kernel.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
 
 # Use unversioned .so
 sed -i "s/libudev.so.0/libudev.so/" setup.py
@@ -63,6 +66,9 @@ chmod a-x examples/*
 
 
 %changelog
+* Sat Dec 03 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.11.2-4
+- Add Python 3.11 support (rhbz#2143909)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -19,7 +19,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.7.11
+Version:    0.4.7.12
 Release:    1%{?dist}
 License:    BSD
 Summary:    Anonymizing overlay network for TCP
@@ -184,6 +184,9 @@ fi
 
 
 %changelog
+* Thu Dec 08 2022 Marcel Härry <mh+fedora@scrit.ch> - 0.4.7.12-1
+- update to latest upstream release
+
 * Sun Nov 13 2022 Marcel Härry <mh+fedora@scrit.ch> - 0.4.7.11-1
 - update to latest upstream release
 

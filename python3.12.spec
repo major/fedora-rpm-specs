@@ -14,7 +14,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a2
+%global prerel a3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -1323,6 +1323,11 @@ CheckPython optimized
 
 %{pylibdir}/urllib
 %{pylibdir}/xml
+
+%dir %{pylibdir}/zipfile/
+%{pylibdir}/zipfile/*.py
+%{pylibdir}/zipfile/__pycache__/*%{bytecode_suffixes}
+
 %{pylibdir}/zoneinfo
 
 %dir %{pylibdir}/__phello__
@@ -1418,6 +1423,7 @@ CheckPython optimized
 %{dynload_dir}/_ctypes_test.%{SOABI_optimized}.so
 %{dynload_dir}/_testbuffer.%{SOABI_optimized}.so
 %{dynload_dir}/_testcapi.%{SOABI_optimized}.so
+%{dynload_dir}/_testclinic.%{SOABI_optimized}.so
 %{dynload_dir}/_testimportmultiple.%{SOABI_optimized}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_optimized}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_optimized}.so
@@ -1544,6 +1550,7 @@ CheckPython optimized
 %{dynload_dir}/_ctypes_test.%{SOABI_debug}.so
 %{dynload_dir}/_testbuffer.%{SOABI_debug}.so
 %{dynload_dir}/_testcapi.%{SOABI_debug}.so
+%{dynload_dir}/_testclinic.%{SOABI_debug}.so
 %{dynload_dir}/_testimportmultiple.%{SOABI_debug}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_debug}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_debug}.so
@@ -1576,6 +1583,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a3-1
+- Update to 3.12.0a3
+
 * Tue Nov 15 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a2-1
 - Update to 3.12.0a2
 - Fixes: rhbz#2133847

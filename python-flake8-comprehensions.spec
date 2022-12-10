@@ -1,0 +1,79 @@
+%global srcname flake8-comprehensions
+
+Name:           python-%{srcname}
+Version:        3.10.1
+Release:        3%{?dist}
+Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
+
+License:        MIT
+URL:            https://github.com/adamchainz/flake8-comprehensions
+Source0:        https://github.com/adamchainz/flake8-comprehensions/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+BuildArch:      noarch
+
+%global _description %{expand:
+A flake8 plugin to identify the following patterns:
+
+- C400-402: Unnecessary generator - rewrite as a <list/set/dict> comprehension.
+- C403-404: Unnecessary list comprehension - rewrite as a <set/dict>
+  comprehension.
+- C405-406: Unnecessary <list/tuple> literal - rewrite as a <set/dict> literal.
+- C408: Unnecessary <dict/list/tuple> call - rewrite as a literal.
+- C409-410: Unnecessary <list/tuple> passed to <list/tuple>() - (remove the
+  outer call to <list/tuple>``()/rewrite as a ``<list/tuple> literal).
+- C411: Unnecessary list call - remove the outer call to list().
+- C413: Unnecessary <list/reversed> call around sorted().
+- C414: Unnecessary <list/reversed/set/sorted/tuple> call within
+  <list/set/sorted/tuple>().
+- C415: Unnecessary subscript reversal of iterable within
+  <reversed/set/sorted>().
+- C416: Unnecessary <list/set> comprehension - rewrite using <list/set>().
+- C417: Unnecessary map usage - rewrite using a generator
+  expression/<list/set/dict> comprehension.}
+
+%description %_description
+
+
+%package -n python%{python3_pkgversion}-%{srcname}
+Summary:        %{summary}
+BuildRequires:  python%{python3_pkgversion}-devel
+
+%description -n python%{python3_pkgversion}-%{srcname} %_description
+
+
+%prep
+%autosetup -p1 -n %{srcname}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires requirements/requirements.in
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files flake8_comprehensions
+
+
+%check
+%pytest
+
+
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
+%doc HISTORY.rst README.rst
+
+
+%changelog
+* Mon Nov 21 2022 Scott K Logan <logans@cottsay.net> - 3.10.1-3
+- Install test dependencies using pyproject_buildrequires
+- Enable pytest check
+
+* Thu Nov 17 2022 Scott K Logan <logans@cottsay.net> - 3.10.1-2
+- Define _description variable to reduce duplication
+- Drop macro from URL to improve ergonomics
+
+* Thu Nov 10 2022 Scott K Logan <logans@cottsay.net> - 3.10.1-1
+- Initial package (rhbz#2141869)

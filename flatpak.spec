@@ -5,8 +5,8 @@
 %global ostree_version 2020.8
 
 Name:           flatpak
-Version:        1.14.0
-Release:        2%{?dist}
+Version:        1.14.1
+Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPLv2+
@@ -279,6 +279,9 @@ fi
 
 
 %changelog
+* Thu Dec 08 2022 David King <amigadave@amigadave.com> - 1.14.1-1
+- Update to 1.14.1 (#2151850)
+
 * Thu Sep 15 2022 Michael Catanzaro <mcatanzaro@redhat.com> - 1.14.0-2
 - Refresh gssproxy patch to use new socket path
 

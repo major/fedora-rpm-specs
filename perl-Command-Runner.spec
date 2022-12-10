@@ -2,7 +2,7 @@ Name:           perl-Command-Runner
 Version:        0.200
 Release:        3%{?dist}
 Summary:        Run external commands and Perl code references
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Command-Runner
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/Command-Runner-%{version}.tar.gz
 # Update Command::Runner::Quote to not load Win32::ShellQuote on
