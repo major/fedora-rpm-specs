@@ -1,12 +1,13 @@
 Name:           perl-Goo-Canvas
 Version:        0.06
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Perl interface to the GooCanvas
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Goo-Canvas
 Source0:        https://cpan.metacpan.org/authors/id/Y/YE/YEWENBIN/Goo-Canvas-%{version}.tar.gz
 Source1:        Changes.20090614
 Patch0:         perltetris_pl-undefined.diff
+Patch1:         perl-Goo-Canvas-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -38,9 +39,11 @@ in the source distribution in both perl-Goo::Canvas and GooCanvas.
 
 %prep
 %setup -q -n Goo-Canvas-%{version}
-cd bin/
+pushd bin
 %patch0 -p0 -b .warning
-cp -f %{SOURCE1} ../Changes
+popd
+%patch1 -p1
+cp -f %{SOURCE1} Changes
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
@@ -68,6 +71,9 @@ make test
 %{perl_vendorarch}/auto/*
 
 %changelog
+* Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 0.06-48
+- Add goocanvas private function declarations for C99 compatibility
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

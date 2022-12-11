@@ -4,8 +4,8 @@
 Name:           perl-POE-Test-Loops
 Summary:        Reusable tests for POE::Loop authors
 Version:        1.360
-Release:        24%{?dist}
-License:        GPL+ or Artistic
+Release:        25%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCAPUTO/POE-Test-Loops-%{version}.tar.gz 
 URL:            https://metacpan.org/release/POE-Test-Loops
 BuildArch:      noarch
@@ -120,6 +120,9 @@ make test
 %{_mandir}/man1/poe-gen-tests.1.gz
 
 %changelog
+* Fri Dec 09 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.360-25
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.360-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

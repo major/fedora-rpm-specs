@@ -3,7 +3,7 @@
 
 Name:           cgnslib
 Version:        4.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -44,6 +44,13 @@ BuildArch:      noarch
 Common files for %{name}.
 
 
+%package libs
+Summary:       %{name} library
+
+%description libs
+%{name} library.
+
+
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -68,6 +75,13 @@ BuildRequires:  hdf5-openmpi-devel
 %{name} compiled against openmpi.
 
 
+%package openmpi-libs
+Summary:       %{name} library
+
+%description openmpi-libs
+%{name} library.
+
+
 %package        openmpi-devel
 Summary:        Development files for %{name} compiled against openmpi
 # Require explicitly for dir ownership
@@ -89,6 +103,13 @@ BuildRequires:  hdf5-mpich-devel
 
 %description    mpich
 %{name} compiled against mpich.
+
+
+%package mpich-libs
+Summary:       %{name} library
+
+%description mpich-libs
+%{name} library.
 
 
 %package        mpich-devel
@@ -273,6 +294,8 @@ ctest || :
 %{_bindir}/cgnsview
 %{_bindir}/hdf2adf
 %{_bindir}/unitconv
+
+%files libs
 %{_libdir}/libcgns.so.4.3
 
 %files devel
@@ -316,6 +339,8 @@ ctest || :
 %{_libdir}/openmpi/bin/cgnsview
 %{_libdir}/openmpi/bin/hdf2adf
 %{_libdir}/openmpi/bin/unitconv
+
+%files openmpi-libs
 %{_libdir}/openmpi/lib/libcgns.so.4.3
 
 %files openmpi-devel
@@ -351,6 +376,8 @@ ctest || :
 %{_libdir}/mpich/bin/cgnsview
 %{_libdir}/mpich/bin/hdf2adf
 %{_libdir}/mpich/bin/unitconv
+
+%files mpich-libs
 %{_libdir}/mpich/lib/libcgns.so.4.3
 
 %files mpich-devel
@@ -370,6 +397,9 @@ ctest || :
 
 
 %changelog
+* Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 4.3.0-5
+- Split lib to separate subpackage
+
 * Wed Nov 16 2022 Orion Poplawski <orion@nwra.com> - 4.3.0-4
 - Re-enable parallel tests
 - Drop EL9 workaround

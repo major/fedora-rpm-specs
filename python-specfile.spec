@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.10.0
+Version:        0.11.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,9 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Fri Dec 09 2022 Packit <hello@packit.dev> - 0.11.0-1
+- Context managers (`Specfile.sections()`, `Specfile.tags()` etc.) can now be nested and combined together (with one exception - `Specfile.macro_definitions()`), and it is also possible to use tag properties (e.g. `Specfile.version`, `Specfile.license`) inside them. It is also possible to access the data directly, avoiding the `with` statement, by using the `content` property (e.g. `Specfile.tags().content`), but be aware that no modifications done to such data will be preserved. You must use `with` to make changes. (#153)
+
 * Wed Nov 30 2022 Packit <hello@packit.dev> - 0.10.0-1
 - Fixed an issue that caused empty lines originally inside changelog entries to appear at the end. (#140)
 - Renamed the `ignore_missing_includes` option to a more general `force_parse`. If specified, it allows to attempt to parse the spec file even if one or more sources required to be present at parsing time are not available. Such sources include sources referenced from shell expansions in tag values and sources included using the `%include` directive. (#137)

@@ -2,11 +2,11 @@
 %global _hardened_build	1
 
 # version revision
-%global revision	10442
+%global revision	10816
 
 Name:		yadifa
-Version:	2.5.4
-Release:	2%{?dist}
+Version:	2.6.2
+Release:	1%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD
@@ -94,10 +94,10 @@ sed -i 's|^include "keys.conf"|#include "keys.conf"|' etc/yadifad.conf.example
 sed -i '/^<\/key>/a \ \n<key>\n \ name \ abroad-admin-key\n \ algorithm \ hmac-md5\n \ secret \ AbroadAdminTSIGKey==\n<\/key>' \
     etc/yadifad.conf.example
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # config
 for conf in yadifad yakeyrolld; do
@@ -176,15 +176,18 @@ exit 0
 %{_includedir}/dnscore
 %{_includedir}/dnsdb
 %{_includedir}/dnslg
-%{_includedir}/dnscore-config-features.h
-%{_includedir}/dnslg-config-features.h
-%{_includedir}/zdb-config-features.h
 %{_libdir}/libdnscore.so
 %{_libdir}/libdnsdb.so
 %{_libdir}/libdnslg.so
 
 
 %changelog
+* Fri Dec 09 2022 Denis Fateyev <denis@fateyev.com> - 2.6.2-1
+- Update to 2.6.2 release
+
+* Fri Oct 07 2022 Denis Fateyev <denis@fateyev.com> - 2.6.0-1
+- Update to 2.6.0 release
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

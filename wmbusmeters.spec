@@ -4,7 +4,7 @@ Name:                  wmbusmeters
 %global forgeurl       https://github.com/weetmuts/%{name}
 
 %if %{with_tag}
-%global tag            1.9.0
+%global tag            1.10.1
 Version:               %{tag}
 %else
 %global date           20210813
@@ -102,6 +102,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Fri Dec 09 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.10.1-1
+- Update to 1.10.1 (rhbz#2151407)
+
 * Wed Sep 14 2022 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.9.0-1
 - Update to 1.9.0 (rhbz#2124324)
 - Drop patch merged upstream

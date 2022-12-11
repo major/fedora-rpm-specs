@@ -1,11 +1,13 @@
 Name:           libnice
 Version:        0.1.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPLv2 and MPLv1.1
 URL:            https://nice.freedesktop.org/wiki/
 Source0:        https://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz
+# Build against the new gupnp-igd
+Patch0:         libnice-gupnp-1.6.patch
 
 BuildRequires:  glib2-devel
 BuildRequires:  gnutls-devel >= 2.12.0
@@ -47,7 +49,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 # disable tests that don't work in koji environment
 sed \
@@ -97,6 +99,9 @@ sed \
 
 
 %changelog
+* Fri Dec 09 2022 David King <amigadave@amigadave.com> - 0.1.19-3
+- Rebuild against gupnp-igd
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

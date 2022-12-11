@@ -11,6 +11,7 @@ Source1:        clevis.sysusers
 Patch0001: 0001-sss-use-BN_set_word-x-0-instead-of-BN_zero.patch
 Patch0002: 0002-systemd-account-for-unlocking-failures-in-clevis-luk.patch
 Patch0003: 0003-feat-rename-the-test-pin-to-null-pin.patch
+Patch0004: 0004-clevis-external-token-id.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc

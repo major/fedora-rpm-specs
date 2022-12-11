@@ -15,7 +15,7 @@ Name:           python-param
 # in the PyPI release tarball, or check the commit hash corresponding to the
 # release tag on GitHub.
 %global shortcommit 1046229
-Version:        1.12.2
+Version:        1.12.3
 Release:        %autorelease
 Summary:        Make your Python code clearer and more reliable by declaring Parameters
 
@@ -28,19 +28,6 @@ URL:            https://github.com/holoviz/param
 Source0:        %{url}/archive/v%{version}/param-%{version}.tar.gz
 
 BuildArch:      noarch
-
-# Preserve existing Random seed behavior in Python 3.11
-# https://github.com/holoviz/param/pull/638
-#
-# Fixes:
-#
-# numbergen - DeprecationWarning: Seeding based on hashing is deprecated since
-#   Python 3.9
-# https://github.com/holoviz/param/issues/602
-# python-param fails to build with Python 3.11: TypeError: The only supported
-#   seed types are: None, int, float, str, bytes, and bytearray.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2093926
-Patch:          %{url}/pull/638.patch
 
 BuildRequires:  python3-devel
 
@@ -84,7 +71,7 @@ Summary:        Documentation and examples for param
 
 
 %prep
-%autosetup -n param-%{version} -p1
+%autosetup -n param-%{version}
 
 # Imitate the PyPI release process.
 cat > param/.version <<EOF
@@ -115,12 +102,7 @@ sphinx-build -b latex %{?_smp_mflags} docs %{_vpath_builddir}/_latex
 
 
 %check
-# Async functionality is broken in Python 3.11 because it relies on the
-# asyncio.coroutine decorator, which is removed in Python 3.11.
-#
-# https://github.com/holoviz/param/issues/640
-k="${k-}${k+ and }not test_async"
-%pytest -k "${k-}"
+%pytest
 
 
 %files -n python3-param -f %{pyproject_files}

@@ -1,5 +1,5 @@
 Name:           asahi-scripts
-Version:        20221129
+Version:        20221206
 Release:        %autorelease
 Summary:        Miscellaneous admin scripts for Asahi Linux
 
@@ -13,6 +13,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  sed
 
+Requires:       bash
 Requires:       coreutils
 Requires:       grep
 Requires:       sed
@@ -86,6 +87,7 @@ install -Dpm0644 %SOURCE1 %{buildroot}%{_sysconfdir}/sysconfig/update-m1n1
 %files
 %license LICENSE
 %{_datadir}/%{name}/
+%{_sbindir}/asahi-diagnose
 
 %files -n asahi-fwextract
 %license LICENSE

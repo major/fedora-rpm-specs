@@ -1,14 +1,13 @@
 %{?python_enable_dependency_generator}
 
 Name:           pungi
-Version:        4.3.6
-Release:        2%{?dist}
+Version:        4.3.7
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPLv2
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
-Patch:          https://pagure.io/pungi/pull-request/1641.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -139,6 +138,23 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Fri Dec 09 2022 Ondřej Nosek <onosek@redhat.com> - 4.3.7-1
+- osbuild: test passing of rich repos from configuration (lsedlar)
+- osbuild: support specifying `package_sets` for repos (thozza)
+- osbuild: don't use `util.get_repo_urls()` (thozza)
+- osbuild: update schema and config documentation (thozza)
+- Speed up tests by 30 seconds (lsedlar)
+- Stop sending compose paths to CTS (lsedlar)
+- Report errors from CTS (lsedlar)
+- createiso: Create Joliet tree with xorriso (lsedlar)
+- init: Filter comps for modular variants with tags (lsedlar)
+- Retry failed cts requests (hlin)
+- Ignore existing kerberos ticket for CTS auth (lsedlar)
+- osbuild: support specifying upload_options (thozza)
+- osbuild: accept only a single image type in the configuration (thozza)
+- Add Jenkinsfile for CI (hlin)
+- profiler: Flush stdout before printing (lsedlar)
+
 * Mon Nov 07 2022 Lubomír Sedlář <lsedlar@redhat.com> - 4.3.6-2
 - Stop including comps in modular repos
 

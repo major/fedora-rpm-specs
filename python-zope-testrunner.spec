@@ -5,7 +5,7 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        5.5.1
+Version:        5.6
 Release:        1%{?dist}
 Summary:        Zope testrunner script
 
@@ -122,6 +122,9 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 5.6-1
+- Version 5.6
+
 * Wed Sep  7 2022 Jerry James <loganjerry@gmail.com> - 5.5.1-1
 - Version 5.5.1
 - Convert License tag to SPDX

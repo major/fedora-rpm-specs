@@ -1,10 +1,10 @@
 Name:           libusb-compat-0.1
 Version:        0.1.8
-Release:        1.rc1%{?dist}
+Release:        %autorelease -b 0
 Summary:        Compatibility shim around libusb-1.0 offering the old 0.1 API
 License:        LGPLv2+
 URL:            https://github.com/libusb/libusb-compat-0.1
-Source0:        https://github.com/libusb/libusb-compat-0.1/releases/download/v%{version}-rc1/libusb-compat-0.1-%{version}-rc1.tar.bz2
+Source0:        https://github.com/libusb/libusb-compat-0.1/releases/download/v%{version}/libusb-compat-%{version}.tar.bz2
 Patch0:         libusb-config-multilib.patch
 BuildRequires:  gcc libtool
 BuildRequires:  libusb1-devel
@@ -46,7 +46,7 @@ This package contains tests and examples for %{name}.
 
 
 %prep
-%autosetup -n libusb-compat-0.1-%{version}-rc1
+%autosetup -n libusb-compat-%{version}
 autoreconf -ivf
 
 

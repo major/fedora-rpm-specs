@@ -36,6 +36,16 @@ Patch:          geomdl-5.3.1-unconditional-Cython.patch
 BuildRequires:  python3-devel
 BuildRequires:  gcc
 
+# Upstream uses weird tox environments for testing:
+#  https://github.com/orbingol/NURBS-Python/blob/v5.3.1/tox.ini#L5
+# The default py3X environment fails with InterpreterNotFound:
+#  https://github.com/orbingol/NURBS-Python/pull/145
+# And even when everything works, the tox environment builds the extension again.
+# It also measures coverage.
+# Instead, we BuildRequire the only remaining tests dependency manually:
+BuildRequires:  python3dist(pytest)
+
+
 %if %{with doc_pdf}
 BuildRequires:  make
 BuildRequires:  python3dist(sphinx)
@@ -97,7 +107,7 @@ sed -r -i 's/==/>=/' 'requirements.txt'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t requirements.txt
+%pyproject_buildrequires requirements.txt
 
 
 %build
@@ -115,7 +125,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 
 
 %check
-%tox
+%pytest
 
 
 %files -n python3-geomdl -f %{pyproject_files}

@@ -1,7 +1,7 @@
 
 Name:    umbrello
 Summary: UML modeler and UML diagram tool
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv2+
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.umbrello.
 
 
 %changelog
+* Fri Dec 09 2022 Than Ngo <than@redhat.com> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

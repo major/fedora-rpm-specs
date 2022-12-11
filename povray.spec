@@ -2,12 +2,12 @@
 
 Name:           povray
 Version:        3.7.0.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        The Persistence of Vision Ray Tracer
 
 # Examples below distribution/ are CC-BY-SA
 # The sources are AGPLv3+
-License:        AGPLv3+
+License:        AGPL-3.0-or-later
 URL:            https://povray.org
 Source0:        https://github.com/POV-Ray/povray/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -26,6 +26,12 @@ BuildRequires:  OpenEXR-devel
 BuildRequires:  SDL-devel
 BuildRequires:  libXpm-devel
 BuildRequires:  autoconf automake
+
+# FIXME: packaging bug in libEGL?
+# Work-around to running povray issuing
+# libEGL warning: MESA-LOADER: failed to open swrast: /usr/lib64/dri/swrast_dri.so: cannot open shared object file
+# during "make check"
+BuildRequires:  mesa-dri-drivers
 
 %description
 POV-Ray is a free, full-featured ray tracer.
@@ -49,7 +55,12 @@ rm -rf libraries
 
 cd unix
 sed -i \
-  -e 's,automake --add-missing --warnings=all,automake -a -f,' \
+  -e 's,advanced/biscuit.pov -f +d +p +v +w320 +h240 +a0.3,advanced/biscuit.pov -f +d -p +v +w320 +h240 +a0.3,' \
+  prebuild.sh
+
+# Add -p in call to povray to "make check" non-interactive
+sed -i \
+  -e 's,advanced/biscuit.pov -f +d +p +v +w320 +h240 +a0.3,advanced/biscuit.pov -f +d -p +v +w320 +h240 +a0.3,' \
   prebuild.sh
 
 ./prebuild.sh
@@ -86,13 +97,13 @@ sed -i \
   -e 's,SYSCONFDIR=\$DEFAULT_DIR/etc,SYSCONFDIR=%{_sysconfdir},' \
   unix/scripts/{allanim,allscene,portfolio}.sh
 
-make %{?_smp_mflags}
+%{make_build}
 
 %check
-make check
+%{__make} check
 
 %install
-%make_install povdocdir=%{_pkgdocdir}
+%{make_install} povdocdir=%{_pkgdocdir}
 
 # Fixup permissions
 chmod +x %{buildroot}%{_datadir}/povray-%{api_vers}/scenes/camera/mesh_camera/bake.sh
@@ -112,6 +123,10 @@ chmod +x %{buildroot}%{_datadir}/povray-%{api_vers}/scenes/camera/mesh_camera/ba
 %{_datadir}/povray-%{api_vers}/scenes
 
 %changelog
+* Fri Dec 09 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.7.0.10-8
+- Convert license to SPDX.
+- Work-around make check having become interactive (FTBS RHBZ#2152106).
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

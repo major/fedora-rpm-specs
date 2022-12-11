@@ -42,12 +42,12 @@
 %global samba_package_version %(rpm -q samba-devel --queryformat %{version}-%{release})
 
 Name: sssd
-Version: 2.8.1
+Version: 2.8.2
 Release: 1%{?dist}
 Summary: System Security Services Daemon
 License: GPLv3+
 URL: https://github.com/SSSD/sssd/
-Source0: https://github.com/SSSD/sssd/releases/download/2.8.1/sssd-2.8.1.tar.gz
+Source0: https://github.com/SSSD/sssd/releases/download/2.8.2/sssd-2.8.2.tar.gz
 
 ### Patches ###
 
@@ -135,6 +135,7 @@ BuildRequires: samba-winbind
 BuildRequires: selinux-policy-targeted
 # required for p11_child smartcard tests
 BuildRequires: softhsm >= 2.1.0
+BuildRequires: bc
 BuildRequires: systemd-devel
 BuildRequires: systemtap-sdt-devel
 BuildRequires: uid_wrapper
@@ -1058,6 +1059,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Dec 9 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.2-1
+- Rebase to SSSD 2.8.2
+
 * Fri Nov 4 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.1-1
 - Rebase to SSSD 2.8.1
 

@@ -24,7 +24,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.18
+Version:        1.8.19
 Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
@@ -89,10 +89,10 @@ other types of applications:
 %package doc
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-3.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Gap browser documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -145,6 +145,9 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_dir}/pkg/%{upname}
 %{gap_dir}/pkg/%{upname}/doc/
 
 %changelog
+* Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 1.8.19-1
+- Version 1.8.19
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.8.18-1
 - Clarify license of the doc subpackage
 

@@ -2,7 +2,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        22.08.3
+Version:        22.12.0
 Release:        1%{?dist}
 License:        GPLv2
 URL:            http://www.kdevelop.org/
@@ -192,7 +192,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{_datadir}/metainfo/org.kde.kdevelop.appdata.xml
 %{_datadir}/qlogging-categories5/kdevelop.categories
 %{_datadir}/qlogging-categories5/kdevplatform.categories
-# %{_datadir}/bash-completion/completions/kdevelop
+# %%{_datadir}/bash-completion/completions/kdevelop
 %{_datadir}/knsrcfiles/kdev*.knsrc
 %{_docdir}/HTML/*/kdevelop/
 %{_kf5_datadir}/kservicetypes5/kdevelopplugin.desktop
@@ -222,6 +222,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Fri Dec 09 2022 Than Ngo <than@redhat.com> - 22.12.0-1
+- 22.12.0
+
 * Thu Nov 03 2022 Than Ngo <than@redhat.com> - 22.08.3-1
 - 22.08.3
 

@@ -1,12 +1,12 @@
 %global forgeurl https://github.com/ming1/ubdsrv
-%global commit ca8baff898868f2ee6f5cdda9c16cf8d94435262
+%global commit 483d710ab8630304d13b59c2776f7386a566c467
 # Upstream has not tagged any versions so far.
 Version:       1.0
 %forgemeta
 
 Summary:       Userspace block driver server and ublk tool
 Name:          ubdsrv
-Release:       2%{?dist}
+Release:       3.rc6%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 License:       LGPLv2+ or MIT
@@ -29,7 +29,7 @@ be used to create, list and delete ublk devices.
 %package devel
 Summary:       Development tools for %{name}
 Requires:      %{name}%{_isa} = %{version}-%{release}
-
+Provides:      ublksrv = %{version}-%{release}
 
 %description devel
 This package contains development tools for %{name}.
@@ -65,11 +65,15 @@ rm %{buildroot}%{_libdir}/*.la
 %{_includedir}/ublksrv_aio.h
 %{_includedir}/ublksrv.h
 %{_includedir}/ublk_cmd.h
+%{_includedir}/ublksrv_utils.h
 %{_libdir}/libublksrv.so
 %{_libdir}/pkgconfig/ublksrv.pc
 
 
 %changelog
+* Fri Dec 09 2022 Ming Lei <minlei@redhat.com> - 1.0-3.rc6
+- Move to a newer tag (1.0-rc6 + a couple of upstream patches)
+
 * Thu Nov 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.0-2
 - Move to a newer tag (1.0-rc3 + a couple of upstream patches)
 

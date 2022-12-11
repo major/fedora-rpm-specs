@@ -25,7 +25,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  python3
 BuildRequires:  zlib-devel
-BuildRequires:  libgit2
 Provides:       bundled(libxdiff)
 
 %description
@@ -73,8 +72,6 @@ rm -vr deps
 
 %install
 %cmake_install
-# Include previous ABI version for temporary binary compatibility
-cp -a %{_libdir}/libgit2.so.1.3* %{buildroot}%{_libdir}
 
 %check
 %ctest
@@ -82,7 +79,6 @@ cp -a %{_libdir}/libgit2.so.1.3* %{buildroot}%{_libdir}
 %files
 %license COPYING
 %{_libdir}/libgit2.so.1.4*
-%{_libdir}/libgit2.so.1.3*
 
 %files devel
 %doc AUTHORS docs examples README.md

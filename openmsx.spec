@@ -1,11 +1,16 @@
+%define pkgverdir %(echo %version|sed s/\\\\\./_/)
+
 Name:           openmsx
-Version:        17.0
-Release:        3%{?dist}
+Version:        18.0
+Release:        1%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPLv2
 URL:            https://openmsx.org/
-Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_17_0/%{name}-%{version}.tar.gz
-Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_17_0/%{name}-catapult-%{version}.tar.gz
+Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-catapult-%{version}.tar.gz
+# Fix XRC warnings in wxWidgets 3.2.0. Whilst keeping things working with 3.0.
+# https://github.com/openMSX/wxcatapult/pull/44
+Patch0:         %{name}-18.0-wx32.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -48,7 +53,10 @@ to read the documentation of openMSX.
 
 
 %prep
-%autosetup -p1 -a 1
+%autosetup -N -a 1
+pushd %{name}-catapult-%{version}
+  %autopatch -p1 -m 0
+popd
 
 
 %build
@@ -90,6 +98,8 @@ EOF
 %configure
 make %{?_smp_mflags} OPENMSX_FLAVOUR=rpm V=1
 pushd %{name}-catapult-%{version}
+  # Make config.h first to fix parallel build issue
+  make CATAPULT_FLAVOUR=rpm derived/linux-rpm/config/config.h
   make %{?_smp_mflags} CATAPULT_FLAVOUR=rpm V=1
 popd
 
@@ -217,6 +227,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Nov 06 2022 Andrea Musuruane <musuruan@gmail.com> - 18.0-1
+- New upstream version 18.0 (rhbz#2096090)
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 17.0-3
 - Rebuild with wxWidgets 3.2
 

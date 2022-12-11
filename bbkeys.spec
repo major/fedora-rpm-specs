@@ -1,7 +1,7 @@
 Summary: Completely configurable key-combo grabber for blackbox
 Name: bbkeys
 Version: 0.9.0
-Release: 41%{?dist}
+Release: 42%{?dist}
 License: MIT
 URL: http://bbkeys.sourceforge.net/
 Source: http://downloads.sf.net/bbkeys/bbkeys-%{version}.tar.gz
@@ -11,6 +11,7 @@ BuildRequires:  gcc
 BuildRequires: blackbox-devel, perl-interpreter
 BuildRequires: libX11-devel, libXext-devel
 BuildRequires: make
+BuildRequires: autoconf automake
 
 %description
 bbkeys is a configurable key-grabber designed for the blackbox window manager
@@ -25,6 +26,7 @@ as well.  bbkeys is easily configurable via directly hand-editing the user's
 
 
 %build
+autoreconf -vi
 %configure --datadir=%{_sysconfdir}
 %make_build
 
@@ -47,6 +49,9 @@ as well.  bbkeys is easily configurable via directly hand-editing the user's
 
 
 %changelog
+* Thu Dec 08 2022 Peter Fordham <peter.fordham@gmail.com> - 0.9.0-42
+- Add autoreconf step to build to flush non C99 compatible checks from configure.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

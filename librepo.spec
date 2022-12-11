@@ -11,11 +11,11 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.14.4
+Version:        1.15.1
 Release:        1%{?dist}
 Summary:        Repodata downloading library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librepo
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -23,7 +23,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  check-devel
 BuildRequires:  doxygen
-BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(glib-2.0) >= 2.28
 BuildRequires:  gpgme-devel
 BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel >= %{libcurl_version}
@@ -96,6 +96,12 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Fri Dec 09 2022 Jaroslav Rohel <jrohel@redhat.com> - 1.15.1-1
+- Update to 1.15.1
+- Adds API support for waiting on network in an event driven manner (new API function lr_handle_network_wait)
+- OpenPGP API extension and fixes (new API functions lr_gpg_*)
+- Update license format to "LGPL-2.1-or-later"
+
 * Tue Aug 23 2022 Jaroslav Rohel <jrohel@redhat.com> - 1.14.4-1
 - Update to 1.14.4
 - Use nanosec precision for timestamp of checksum cache (RhBug:2077864)

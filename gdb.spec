@@ -37,6 +37,12 @@ ExcludeArch: aarch64
 %global _build_minimal 1
 %endif
 
+# Include support for Guile? This is enabled on RHEL 8 and
+# Fedora < 38.
+%if (0%{?fedora:1} && 0%{?fedora} < 38) || (0%{?rhel:1} && 0%{?rhel} == 8)
+%define use_guile
+%endif
+
 Name: %{?scl_prefix}gdb
 
 # Freeze it when GDB gets branched
@@ -48,7 +54,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -251,14 +257,17 @@ BuildRequires: texlive-collection-latexrecommended
 BuildRequires: /usr/bin/pod2man
 %if 0%{!?rhel:1} || 0%{?rhel} > 7
 BuildRequires: libbabeltrace-devel%{buildisa}
-%if 0%{!?rhel:1}
+    %if %{defined use_guile}
+        %if 0%{!?rhel:1}
 BuildRequires: guile22-devel%{buildisa}
-%endif
-# Guile is only supported prior to RHEL9, where it was called "guile".
-%if 0%{?rhel:1} && 0%{?rhel} < 9
+        %endif
+        # Guile is only supported prior to RHEL9, where it was called "guile".
+        %if 0%{?rhel:1} && 0%{?rhel} < 9
 BuildRequires: guile-devel%{buildisa}
+        %endif
+    %endif
 %endif
-%endif
+
 %global have_libipt 0
 %if 0%{!?rhel:1} || 0%{?rhel} > 7 || (0%{?rhel} == 7 && 0%{?scl:1})
 %ifarch %{ix86} x86_64
@@ -714,7 +723,7 @@ $(: ppc64 host build crashes on ppc variant of libexpat.so )	\
 %else
 	--without-python					\
 %endif
-%if 0%{!?rhel:1} || 0%{?rhel} == 8
+%if %{defined use_guile}
 	--with-guile						\
 %else
 	--without-guile						\
@@ -1186,6 +1195,20 @@ fi
 %endif
 
 %changelog
+* Fri Dec 9 2022 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-fortran-frame-string.patch, a version of this test has
+  now been upstreamed.
+
+* Fri Dec 9 2022 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-bfd-aliasing.patch.
+
+* Fri Dec 9 2022 Andrew Burgess <aburgess@redhat.com>
+- Remove gdb-entryval-crash-1of3.patch, gdb-entryval-crash-2of3.patch,
+  and gdb-entryval-crash-3of3.patch.
+
+* Wed Dec 7 2022 Keith Seitz <keiths@redhat.com> - 12.1-10
+- Disable Guile support for F38+, RHBZ 2151328.
+
 * Mon Dec 5 2022 Keith Seitz <keiths@redhat.com>
 - Remove gdb-physname-pr11734-test.patch,
   gdb-physname-pr12273-test.patch, gdb-runtest-pie-override.patch,

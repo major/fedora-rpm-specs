@@ -14,7 +14,7 @@
 %global liblzfse_majver 1
 
 Name:           asahi-installer
-Version:        0.5pre9
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Asahi Linux installer
 
@@ -51,6 +51,9 @@ rm asahi_firmware/asn1.py
 sed -i asahi_firmware/img4.py \
   -e 's/from . import asn1/import asn1/' \
   -e 's/liblzfse.so/liblzfse.so.%{liblzfse_majver}/'
+
+# Remove bundled macOS libraries we don't need
+rm -r vendor
 
 %generate_buildrequires
 %pyproject_buildrequires -r

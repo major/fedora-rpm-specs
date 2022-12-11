@@ -28,7 +28,7 @@ instrumentation of OpenMP 3.0 tied tasks.
 
 
 %build
-# I don't immediately see why using %configure broke the check target
+# I don't immediately see why using %%configure broke the check target
 # in 2.0.7, which worked before.
 ./configure --disable-silent-rules --with-platform=linux --prefix=%_prefix \
 	    CFLAGS="%build_cflags" CXXFLAGS="%build_cxxflags" \

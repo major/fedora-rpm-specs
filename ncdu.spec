@@ -1,6 +1,6 @@
 Name:           ncdu
-Version:        1.17
-Release:        2%{?dist}
+Version:        1.18
+Release:        1%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
@@ -32,6 +32,9 @@ make install DESTDIR=%{buildroot}
 %{_bindir}/ncdu
 
 %changelog
+* Fri Dec 09 2022 Richard Fearn <richardfearn@gmail.com> - 1.18-1
+- Update to 1.18 (#2151357)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -40,9 +40,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/libbpf/LICENSE
-%license %{crate_instdir}/libbpf/LICENSE.BSD-2-Clause
-%license %{crate_instdir}/libbpf/LICENSE.LGPL-2.1
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -96,6 +93,8 @@ use the "static" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{upstream_version} -p1
+# Remove bundled libbpf
+rm -r libbpf
 %cargo_prep
 
 %generate_buildrequires

@@ -1,11 +1,12 @@
 Name:           libmodelfile
 Version:        0.1.92
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Library for accessing various model file formats
 
 License:        zlib
 URL:            http://www.worldforge.org
 Source0:        http://downloads.sourceforge.net/worldforge/%{name}-%{version}.tar.gz
+Patch0:         libmodelfile-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  SDL_image-devel libGL-devel libGLU-devel
@@ -26,7 +27,7 @@ that use libmodelfile.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -56,6 +57,9 @@ make %{?_smp_mflags} check
 
 
 %changelog
+* Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 0.1.92-31
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

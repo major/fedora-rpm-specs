@@ -4,7 +4,7 @@
 
 Name:           prelude-lml
 Version:        5.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Log analyzer sensor with IDMEF output
 # Prelude is GPL-2.0+
 # libmissing is LGPL-2.1+
@@ -23,6 +23,7 @@ Patch3:         prelude-lml-5.2.0-fix-test_rwlock1.patch
 Patch4:         prelude-lml-5.2.0-fix_thread_create.patch
 Patch5:         prelude-lml-5.2.0-fix_gnutls_deps.patch
 Patch6:         prelude-lml-5.2.0-fix_test_perror2.patch
+Patch7:         prelude-lml-configure-c99.patch
 %{?systemd_requires}
 BuildRequires: make
 BuildRequires:  gcc
@@ -149,6 +150,9 @@ make check
 %doc ChangeLog README NEWS AUTHORS
 
 %changelog
+* Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 5.2.0-12
+- Port configure script to C99
+
 * Thu Aug 04 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.0-11
 - ppc64le: update cdefs.h for __LDBL_REDIR1_DECL
 

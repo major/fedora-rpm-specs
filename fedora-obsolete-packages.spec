@@ -138,7 +138,7 @@ Source0:    README
 # This allows a rebuild with a bumped Release: to be installed.
 
 # Template:
-# Remove in F39
+# Remove in F40
 # %%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # %%obsolete foo 3.5-7
 
@@ -438,7 +438,13 @@ Source0:    README
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2126391
 %obsolete gnome-books 40.0-6
 
+# Remove in F39
+# libquvi-0.9.4-16.fc32 blocks upgrades: libquvi-0.9.4-16.fc32.x86_64 requires liblua-5.3.so()(64bit), but none of the providers can be installed
+%obsolete_ticket https://src.fedoraproject.org/rpms/libquvi/c/559014b4bf8fcf774f0bb644530b4d1e264219a3?branch=rawhide
+%obsolete libquvi 0.9.4-17
+%obsolete libquvi-devel 0.9.4-17
 
+# Remove in F39
 # python26-2.6.9-22.fc32 blocks upgrades: python26-2.6.9-21.fc31.x86_64 requires libnsl.so.2()(64bit)
 %obsolete python26 2.6.9-23
 

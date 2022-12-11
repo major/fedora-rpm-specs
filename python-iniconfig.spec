@@ -1,6 +1,6 @@
 Name:               python-iniconfig
 Version:            1.1.1
-Release:            9%{?dist}
+Release:            10%{?dist}
 Summary:            Brain-dead simple parsing of ini files
 License:            MIT
 URL:                http://github.com/RonnyPfannschmidt/iniconfig
@@ -34,6 +34,9 @@ Summary:            %{summary}
 
 %prep
 %autosetup -n iniconfig-%{version}
+# Remove undeclared dependency on python-py
+# Merged upstream https://github.com/pytest-dev/iniconfig/pull/47
+sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 
 %generate_buildrequires
@@ -61,6 +64,9 @@ Summary:            %{summary}
 
 
 %changelog
+* Thu Dec 08 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-10
+- Fix build with pytest 7.2 and tox 4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global blender_api 3.3
+%global blender_api 3.4
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 #/usr/bin/ld.gold: error: /builddir/build/BUILD/blender-3.0.0/.package_note-blender-3.0.0-3.fc36.x86_64.ld:42:8: syntax error, unexpected STRING
@@ -23,12 +23,14 @@
 %bcond_without  hidapi
 %ifarch x86_64
 %bcond_without  oidn
+#%%bcond_without  opgl
 %endif
 %bcond_without  usd
 %else
 %bcond_with     embree
 %bcond_with     hidapi
 %bcond_with     oidn
+%bcond_with     opgl
 %bcond_with     usd
 %endif
 %else
@@ -37,12 +39,12 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.3.1
+Version:        3.4.0
 Release:        %autorelease
 
 
 Summary:        3D modeling, animation, rendering and post-production
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://www.blender.org
 
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
@@ -71,6 +73,7 @@ BuildRequires:  pkgconfig(blosc)
 %if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
 %endif
+BuildRequires:  pkgconfig(epoxy) >= 1.5.10
 BuildRequires:  pkgconfig(expat)
 BuildRequires:  pkgconfig(gmp)
 %if %{with hidapi}
@@ -83,7 +86,7 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(python3) >= 3.7
 %if %{with wayland}
-BuildRequires:	pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libdecor-0) >= 0.1.0
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols)
@@ -107,14 +110,17 @@ BuildRequires:  cmake(ceres)
 %if %{with embree}
 BuildRequires:  cmake(embree)
 %endif
-BuildRequires:  opensubdiv-devel
+BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
 # Use oslc compiler
-BuildRequires:  openshadinglanguage-common-headers
+BuildRequires:  openshadinglanguage-common-headers >= 1.12.6.2
 BuildRequires:  pkgconfig(oslcomp)
 %endif
 %if %{with oidn}
 BuildRequires:  cmake(OpenImageDenoise)
+%endif
+%if %{with opgl}
+BuildRequires:  openpgl
 %endif
 BuildRequires:  openCOLLADA-devel >= svn825
 BuildRequires:  pkgconfig(fftw3)
@@ -137,7 +143,7 @@ BuildRequires:  pkgconfig(xproto)
 # Picture/Video stuff
 BuildRequires:  cmake(Alembic)
 %if %{with ffmpeg}
-BuildRequires:  ffmpeg-free-devel
+BuildRequires:  ffmpeg-free-devel >= 5.1.2
 BuildRequires:  libavdevice-free-devel
 BuildRequires:	libavformat-free-devel
 %endif
@@ -261,11 +267,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %endif
     -DWITH_DOC_MANPAGE=ON \
 %if %{with wayland}
-    -DWITH_GHOST_WAYLAND=ON \
     -DWITH_GL_EGL=ON \
     -DWITH_GHOST_WAYLAND_DBUS=ON \
-    -DWITH_GHOST_WAYLAND_DYNLOAD=ON \
-    -DWITH_GHOST_WAYLAND_LIBDECOR=ON \
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \

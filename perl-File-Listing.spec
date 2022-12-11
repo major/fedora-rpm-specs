@@ -1,8 +1,8 @@
 Name:           perl-File-Listing
 Version:        6.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parse directory listing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Listing
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/File-Listing-%{version}.tar.gz
 BuildArch:      noarch
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 09 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.15-4
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
-%define ver 8_10
+%define ver 8_20
 
 Name:           quake2
-Version:        8.10
+Version:        8.20
 Release:        1%{?dist}
 Summary:        Quake II (Yamagi version)
 
@@ -126,6 +126,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Fri Dec 09 2022 Kalev Lember <klember@redhat.com> - 8.20-1
+- Update to 8.20
+
 * Sun Aug 28 2022 Kalev Lember <klember@redhat.com> - 8.10-1
 - Update to 8.10
 - Drop armv7hl excludearch

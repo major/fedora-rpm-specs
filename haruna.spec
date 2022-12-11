@@ -1,6 +1,6 @@
 Name:    haruna
-Version: 0.9.1
-Release: 2%{?dist}
+Version: 0.9.3
+Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
 License: BSD and CC-BY and CC-BY-SA and GPLv2+ and LGPLv2+ and GPLv3+
@@ -100,9 +100,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
-* Sun Nov 13 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.1-2
-- Rebuilt due to mpv update.
-
-* Mon Sep 05 2022 Yaroslav Sidlovsky <zawertun@gmail.com> - 0.9.1-1
-- first spec for version 0.9.1
-
+%autochangelog

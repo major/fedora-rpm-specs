@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 61
+%global microversion 62
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -616,6 +616,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Dec 09 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.62-1
+- Update version to 0.3.62
+
 * Wed Dec 07 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.61-2
 - Rebuild for new libcamera
 

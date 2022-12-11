@@ -1,24 +1,20 @@
 Name:           gupnp-igd
 Version:        1.2.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library to handle UPnP IGD port mapping
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/GUPnP
 Source0:        https://download.gnome.org/sources/%{name}/1.2/%{name}-%{version}.tar.xz
+# https://gitlab.gnome.org/GNOME/gupnp-igd/-/merge_requests/7
+# https://gitlab.gnome.org/GNOME/gupnp-igd/-/merge_requests/9
+Patch0:         gupnp-igd-1.2.0-gupnp-1.6.patch
 
-BuildRequires:  glib2-devel
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gupnp-1.6)
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
-BuildRequires:  gupnp-devel
 BuildRequires:  meson
-
-Provides: %{name}-python = %{version}-%{release}
-Provides: %{name}-python%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-python < %{version}-%{release}
-Provides: %{name}-python2 = %{version}-%{release}
-Provides: %{name}-python2%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-python2 < %{version}-%{release}
 
 %description
 %{name} is a library to handle UPnP IGD port mapping.
@@ -48,24 +44,29 @@ developing applications that use %{name}.
 
 %files
 %license COPYING
-%doc README
-%{_libdir}/libgupnp-igd-1.0.so.4*
+%doc NEWS README
+%{_libdir}/libgupnp-igd-1.6.so.0*
 %dir %{_libdir}/girepository-1.0
-%{_libdir}/girepository-1.0/GUPnPIgd-1.0.typelib
+%{_libdir}/girepository-1.0/GUPnPIgd-1.6.typelib
 
 
 %files devel
 %{_includedir}/*
-%{_libdir}/libgupnp-igd-1.0.so
-%{_libdir}/pkgconfig/%{name}-1.0*.pc
+%{_libdir}/libgupnp-igd-1.6.so
+%{_libdir}/pkgconfig/%{name}-1.6*.pc
 %dir %{_datadir}/gtk-doc
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/%{name}/
 %dir %{_datadir}/gir-1.0
-%{_datadir}/gir-1.0/GUPnPIgd-1.0.gir
+%{_datadir}/gir-1.0/GUPnPIgd-1.6.gir
 
 
 %changelog
+* Tue Nov 22 2022 David King <amigadave@amigadave.com> - 1.2.0-7
+- Use pkgconfig for BuildRequires
+- Remove old python provides and obsoletes
+- Use GUPnP 1.6 API
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

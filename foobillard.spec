@@ -1,6 +1,6 @@
 Name:           foobillard
 Version:        3.0a
-Release:        41%{?dist}
+Release:        42%{?dist}
 
 Summary:        OpenGL billard game
 
@@ -36,7 +36,8 @@ iconv -f iso-8859-1 -t utf-8 < ChangeLog > _
 mv _ ChangeLog
 ./configure --prefix=%{_prefix} --disable-nvidia --enable-SDL CFLAGS="${RPM_OPT_FLAGS} -DUSE_SOUND" LDFLAGS="${RPM_LD_FLAGS}"
 make %{?_smp_mflags}
-convert -resize 48 data/foobillard.png foobillard.png
+convert -resize 48x48 -background transparent -gravity center -extent 48x48 data/foobillard.png foobillard.png
+convert -resize 256x256 -background transparent -gravity center -extent 256x256 data/foobillard.png foobillard-256x256.png
 
 
 %install
@@ -52,6 +53,9 @@ install -D -p -m 644 foobillard.png \
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
 install -p -m 644 foobillard.png \
   %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
+install -p -m 644 foobillard-256x256.png \
+  %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 
 
 
@@ -63,10 +67,15 @@ install -p -m 644 foobillard.png \
 %{_datadir}/foobillard
 %{_datadir}/pixmaps/foobillard.png
 %{_datadir}/icons/hicolor/48x48/apps/*
+%{_datadir}/icons/hicolor/256x256/apps/*
 %{_mandir}/man6/*
 
 
 %changelog
+* Fri Dec 09 2022 Kalev Lember <klember@redhat.com> - 3.0a-42
+- Make sure the installed icon is square
+- Install an additional 256x256 px sized icon
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0a-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

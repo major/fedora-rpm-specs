@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    851867efcbb6a1b992ec515c71cdcf20d895e9d2
+%global gh_commit    a2bc7ffdca99f92d959b3f2270529334030bba38
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 %global ver_minor    5
 
-%global upstream_version 9.5.26
+%global upstream_version 9.5.27
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -227,7 +227,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -244,6 +244,9 @@ exit $ret
 
 
 %changelog
+* Fri Dec  9 2022 Remi Collet <remi@remirepo.net> - 9.5.27-1
+- update to 9.5.27
+
 * Fri Oct 28 2022 Remi Collet <remi@remirepo.net> - 9.5.26-1
 - update to 9.5.26
 

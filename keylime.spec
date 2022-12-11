@@ -18,6 +18,8 @@ Source1:        %{srcname}.sysusers
 # The selinux policy for keylime is distributed via this repo: https://github.com/RedHat-SP-Security/keylime-selinux
 Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
 
+Patch: 0001-Proper-exception-handling-in-tornado_requests.patch
+
 # Main program: BSD
 # Icons: MIT
 License: ASL 2.0 and MIT

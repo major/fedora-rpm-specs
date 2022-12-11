@@ -15,6 +15,7 @@ Source0:        https://github.com/IntelRealSense/librealsense/archive/%{commit}
 Patch0:         librealsense.remove-cflags.patch
 Patch1:         librealsense.v1-paths.patch
 Patch2:         librealsense.do-not-throw-on-usberror.patch
+Patch3:         librealsense1-cmake-c99.patch
 
 Obsoletes:      librealsense < 1.12.1-11
 

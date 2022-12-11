@@ -4,9 +4,11 @@
 
 Summary: C library for multiple precision complex arithmetic
 Name: libmpc
-Version: 1.2.1
-Release: 5%{?dist}
-License: LGPLv3+
+Version: 1.3.0
+Release: 1%{?dist}
+# LGPL-3.0-or-later: the library
+# FSFAP: README and NEWS
+License: LGPL-3.0-or-later AND FSFAP
 URL: http://www.multiprecision.org/mpc/
 Source0: https://ftp.gnu.org/gnu/mpc/mpc-%{version}.tar.gz
 %if 0%{?bootstrap}
@@ -17,10 +19,6 @@ BuildRequires: gcc
 BuildRequires: gmp-devel >= 5.0.0
 BuildRequires: mpfr-devel >= 4.1.0
 BuildRequires: make
-
-# This can be removed when F32 reaches EOL
-Obsoletes: libmpc-mpfr3 < 1.1.0-7
-Provides: libmpc-mpfr3 = %{version}-%{release}
 
 %if 0%{?bootstrap} == 0
 Obsoletes: compat-libmpc < %{version}-1
@@ -38,16 +36,12 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: gmp-devel%{?_isa}
 Requires: mpfr-devel%{?_isa}
 
-# This can be removed when F32 reaches EOL
-Obsoletes: libmpc-mpfr3-devel < 1.1.0-7
-Provides: libmpc-mpfr3-devel = %{version}-%{release}
-
 %description devel
 Header files and shared library symlinks for the MPC library.
 
 %package doc
 Summary: Documentation for the MPC library
-License: GFDL
+License: GFDL-1.3-no-invariants-or-later
 BuildArch: noarch
 
 %description doc
@@ -127,6 +121,10 @@ make check
 %endif
 
 %changelog
+* Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-1
+- Upgrade to libmpc version 1.3.0 (rhbz#2152180)
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

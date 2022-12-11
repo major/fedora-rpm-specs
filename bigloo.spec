@@ -37,7 +37,7 @@
 
 Name:           bigloo
 Version:        4.4c
-Release:        8%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
+Release:        9%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
@@ -74,6 +74,9 @@ Patch8:         %{name}-return.patch
 Patch9:         %{name}-java-signum.patch
 # Allow building with Emacs 28
 Patch10:        %{name}-emacs28.patch
+
+Patch11:        %{name}-configure-c99.patch
+Patch12:        %{name}-bde-bmem-c99.patch
 
 BuildRequires:  emacs
 BuildRequires:  gcc
@@ -327,6 +330,9 @@ make test
 
 
 %changelog
+* Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 4.4c-9.4
+- Minor fixes for C99 compatibility
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 4.4c-8.4
 - Rebuilt for flac 1.4.0
 

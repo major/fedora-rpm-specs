@@ -12,7 +12,7 @@
 
 Name:           libnbd
 Version:        1.15.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPLv2+
@@ -27,6 +27,9 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
+
+# Upstream fix for changed ubdsrv API.
+Patch:          0001-ublk-Update-for-ubdsrv-changing-API.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -48,7 +51,7 @@ BuildRequires:  fuse3, fuse3-devel
 
 # For nbdublk
 BuildRequires:  liburing-devel >= 2.2
-BuildRequires:  ubdsrv-devel >= 1.0-2
+BuildRequires:  ubdsrv-devel >= 1.0-3.rc6
 
 # For the Python 3 bindings.
 BuildRequires:  python3-devel
@@ -346,6 +349,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Dec 09 2022 Richard W.M. Jones <rjones@redhat.com> - 1.15.8-2
+- Rebuild against new ubdsrv API
+
 * Fri Nov 25 2022 Richard W.M. Jones <rjones@redhat.com> - 1.15.8-1
 - New upstream development version 1.15.8
 

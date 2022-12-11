@@ -221,7 +221,7 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
-* Fri Jun 24 2022 Tom Stellard <tstellar@redhat.com> - 234-1
+* Fri Nov  4 2022 Tom Stellard <tstellar@redhat.com> - 234-1
 - Remove unsupported arches from rpmrc
 
 * Fri Nov  4 2022 Florian Weimer <fweimer@redhat.com> - 233-1

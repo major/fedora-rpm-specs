@@ -9,7 +9,7 @@
 
 Name:           evince
 Version:        43.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
@@ -91,6 +91,10 @@ This package contains shared libraries needed for evince
 %package devel
 Summary: Support for developing backends for the evince document viewer
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 
 %description devel
 This package contains libraries and header files needed for evince
@@ -277,6 +281,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Thu Dec 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 43.1-2
+- Ensure correct fonts are installed for HTML docs
+
 * Thu Oct 27 2022 David King <amigadave@amigadave.com> - 43.1-1
 - Update to 43.1
 

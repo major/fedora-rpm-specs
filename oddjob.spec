@@ -22,9 +22,10 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
+Patch1: oddjob-override-mask-fix.patch
 Summary: A D-Bus service which runs odd jobs on behalf of client applications
 License: BSD
 BuildRequires: make
@@ -88,6 +89,7 @@ This package contains a trivial sample oddjob service.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 sample_flag=
@@ -247,6 +249,10 @@ fi
 exit 0
 
 %changelog
+* Fri Dec 09 2022 Alexander Bokovoy <abokovoy@redhat.com> - 0.34.7-7
+- Provide a switch to restore pre-CVE-2020-10737 behavior
+- Always set the home directory permissions according to HOME_MODE
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

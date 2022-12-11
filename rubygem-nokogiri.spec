@@ -1,7 +1,7 @@
-%global	mainver		1.13.9
+%global	mainver		1.13.10
 #%%global	prever		.rc4
 
-%global	mainrel		2
+%global	mainrel		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -274,6 +274,10 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Fri Dec  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-1
+- 1.13.10
+- Address CVE-2022-23476
+
 * Thu Oct 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.9-2
 - s390x: change GC_LEVEL to major on ruby3.2 for now
 

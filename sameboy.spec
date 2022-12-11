@@ -1,6 +1,6 @@
 
 Name:           sameboy
-Version:        0.15.6
+Version:        0.15.8
 Release:        1%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
@@ -70,6 +70,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Dec 09 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.15.8-1
+- Update to 0.15.8
+
 * Mon Sep 26 2022 Jan Drögehoff <sentrycraft123@gmail.com> - 0.15.6-1
 - Update to 0.15.6
 
