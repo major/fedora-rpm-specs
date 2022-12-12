@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.4.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -45,6 +45,7 @@ Patch11: nagios-0011-remove-rpmbuild.patch
 Patch12: nagios-0012-fix-spool.patch
 Patch13: nagios-0013-fix-plugin.patch
 Patch14: nagios-0014-fix-uidgid.patch
+Patch15: nagios-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  doxygen
@@ -469,6 +470,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 4.4.9-2
+- Port configure script to C99
+
 * Thu Nov 17 2022 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.9-1
 - Update to 4.4.9
 

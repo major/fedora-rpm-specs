@@ -1,6 +1,6 @@
 Name:           fityk
 Version:        1.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Non-linear curve fitting and data analysis
 License:        GPL-2.0-or-later
 URL:            http://fityk.nieto.pl/
@@ -132,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sat Dec 10 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 1.3.2-3
+- Rebuild for cmpfit v1.5
+
 * Wed Oct 19 2022 Scott Talbert <swt@techie.net> - 1.3.2-2
 - Rebuild with wxWidgets 3.2
 

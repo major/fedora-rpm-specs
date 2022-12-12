@@ -1,5 +1,5 @@
 Name:           eccodes
-Version:        2.27.0
+Version:        2.27.1
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -30,7 +30,7 @@ Summary:        WMO data format decoding and encoding
 # contain a special exception clause that allows them to be
 # relicensed if they are included in a larger project
 
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            https://confluence.ecmwf.int/display/ECC/ecCodes+Home
 Source0:        https://confluence.ecmwf.int/download/attachments/45757960/eccodes-%{version}-Source.tar.gz
@@ -278,10 +278,11 @@ cp examples/F90/*.f90 %{buildroot}%{_datadir}/doc/%{name}/examples/F90
 
 # create man pages for the tools that support the --help option
 # since upstream does not provide them.
+# Source2 points to the script eccodes_create_man_pages.sh
+# used to generate the man pages.
 LD_LIBRARY_PATH=%{buildroot}/%{_libdir} \
-%{_sourcedir}/eccodes_create_man_pages.sh \
-    %{_vpath_builddir}/bin \
-    %{_vpath_builddir}/man
+%{SOURCE2} %{_vpath_builddir}/bin \
+           %{_vpath_builddir}/man
 
 # copy the created man pages to the install directory
 mkdir -p %{buildroot}%{_datadir}/man/man1
@@ -357,6 +358,12 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sat Dec 10 2022 Jos de Kloe <josdekloe@gmail.com> - 2.27.1-1
+- Upgrade to upstream version 2.27.1 and SPDX migration
+
+* Wed Sep 14 2022 Jos de Kloe <josdekloe@gmail.com> - 2.27.0-2
+- fix problem with use of _sourcedir
+
 * Mon Aug 29 2022 Jos de Kloe <josdekloe@gmail.com> - 2.27.0-1
 - Upgrade to upstream version 2.27.0
 - Added generation of man pages for tools that support the --help option

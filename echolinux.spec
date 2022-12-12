@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:		echolinux
 Version:	0.17a
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Linux echoLink client
 
 License:	GPL+
@@ -22,6 +22,7 @@ Patch2:		echolinux-0.17a-nostatic.patch
 #prefer -O2 instead of -O3
 Patch3:		echolinux-0.17a-gcc.patch
 Patch4:		echolinux-0.17a-optflags.patch
+Patch5:		echolinux-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:	xforms-devel, libXpm-devel, gsm-devel, desktop-file-utils
@@ -41,6 +42,7 @@ the audio stream.
 %patch2 -p1 -b .nostatic
 %patch3 -p1 -b .gcc
 %patch4 -p1 -b .optflags
+%patch5 -p1 -b .c99
 %{__sed} -i 's/\r//' Using_EchoLinux.txt
 %{__sed} -i 's/Encoding=UTF-8//g' %{name}.desktop
 %{__sed} -i 's/.png//g' %{name}.desktop
@@ -77,6 +79,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 0.17a-31
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17a-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

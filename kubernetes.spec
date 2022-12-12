@@ -15,7 +15,7 @@
 
 %global provider_prefix         %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path             k8s.io/kubernetes
-%global commit                  872a965c6c6526caa949f0c6ac028ef7aff3fb78
+%global commit                  b46a3f887ca979b1a5d14fd39cb1af43e7e5d12d
 %global shortcommit              %(c=%{commit}; echo ${c:0:7})
 
 # Needed otherwise "version_ldflags=$(kube::version_ldflags)" doesn't work
@@ -24,7 +24,7 @@
 
 ##############################################
 Name:           kubernetes
-Version:        1.25.4
+Version:        1.26.0
 Release:        %autorelease
 Summary:        Container cluster management
 License:        ASL 2.0

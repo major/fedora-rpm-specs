@@ -2,7 +2,7 @@
 
 %bcond_without  ldap
 %bcond_without  mysql
-%bcond_without  pcre
+%bcond_without  pcre2
 %bcond_without  tre
 %bcond_without  sqlite
 %bcond_without  gnutls
@@ -10,7 +10,7 @@
 
 Summary:        IRC services designed for flexibility and ease of use
 Name:           anope
-Version:        2.0.11
+Version:        2.0.12
 Release:        1%{?dist}
 # Anope itself is GPL-2.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: include/pstdint.h and modules/encryption/enc_sha256.cpp
@@ -95,17 +95,19 @@ further modules for IRC channel statistics or to log the IRC services' logs
 into a MariaDB or MySQL database.
 %endif
 
-%if %{with pcre}
-%package pcre
+%if %{with pcre2}
+%package pcre2
 Summary:        PCRE regular expression module Anope IRC services
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       %{name}-pcre = %{version}-%{release}
+Obsoletes:      %{name}-pcre < 2.0.12-1
 
-%description pcre
+%description pcre2
 Anope is a set of IRC services designed for flexibility and ease of use.
 
-This package provides an Anope module to support for Perl Compatible Regular
-Expressions (PCRE).
+This package provides an Anope module to support regular expressions using
+the Perl Compatible Regular Expressions (PCRE) library in version 2.
 %endif
 
 %if %{with tre}
@@ -187,7 +189,7 @@ EXTRA_LIBS+=";%{_libdir}/openssl11"
 mv -f modules/extra/{m_regex_posix,m_sql_authentication,m_sql_log,m_sql_oper}.cpp modules/
 %{?with_ldap:mv -f modules/extra/{m_ldap,m_ldap_authentication,m_ldap_oper}.cpp modules/}
 %{?with_mysql:mv -f modules/extra/{m_mysql.cpp,stats} modules/}
-%{?with_pcre:mv -f modules/extra/m_regex_pcre.cpp modules/}
+%{?with_pcre2:mv -f modules/extra/m_regex_pcre2.cpp modules/}
 %{?with_tre:mv -f modules/extra/m_regex_tre.cpp modules/}
 %{?with_sqlite:mv -f modules/extra/m_sqlite.cpp modules/}
 %{?with_gnutls:mv -f modules/extra/m_ssl_gnutls.cpp modules/}
@@ -292,7 +294,7 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %exclude %{_libdir}/%{name}/modules/cs_fantasy_top.so
 %exclude %{_libdir}/%{name}/modules/irc2sql.so
 %endif
-%{?with_pcre:%exclude %{_libdir}/%{name}/modules/m_regex_pcre.so}
+%{?with_pcre2:%exclude %{_libdir}/%{name}/modules/m_regex_pcre2.so}
 %{?with_tre:%exclude %{_libdir}/%{name}/modules/m_regex_tre.so}
 %{?with_sqlite:%exclude %{_libdir}/%{name}/modules/m_sqlite.so}
 %{?with_gnutls:%exclude %{_libdir}/%{name}/modules/m_ssl_gnutls.so}
@@ -321,9 +323,9 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %{_libdir}/%{name}/modules/irc2sql.so
 %endif
 
-%if %{with pcre}
-%files pcre
-%{_libdir}/%{name}/modules/m_regex_pcre.so
+%if %{with pcre2}
+%files pcre2
+%{_libdir}/%{name}/modules/m_regex_pcre2.so
 %endif
 
 %if %{with tre}
@@ -347,6 +349,10 @@ rm -rf $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/modules/
 %endif
 
 %changelog
+* Sat Dec 10 2022 Robert Scheck <robert@fedoraproject.org> 2.0.12-1
+- Upgrade to 2.0.12 (#2152287)
+- Switch from deprecated pcre to pcre2 (#2128270)
+
 * Tue Sep 20 2022 Robert Scheck <robert@fedoraproject.org> 2.0.11-1
 - Upgrade to 2.0.11
 

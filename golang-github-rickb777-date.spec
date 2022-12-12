@@ -3,7 +3,7 @@
 
 # https://github.com/rickb777/date
 %global goipath         github.com/rickb777/date
-Version:                1.20.0
+Version:                1.20.1
 
 %gometa
 

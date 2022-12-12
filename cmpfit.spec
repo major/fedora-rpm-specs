@@ -3,11 +3,11 @@
 %global libshortver 0
 
 Name:           cmpfit
-Version:        1.4
-Release:        6%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        A MINPACK-1 Least Squares Fitting Library in C
 
-License:        BSD
+License:        BSD-2-Clause-FreeBSD
 URL:            http://cow.physics.wisc.edu/~craigm/idl/cmpfit.html
 Source0:        http://cow.physics.wisc.edu/~craigm/idl/down/%{name}-%{version}.tar.gz
 
@@ -57,6 +57,10 @@ popd
 %{_libdir}/libmpfit.so
 
 %changelog
+* Sat Dec 10 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 1.5-1
+- Update to version 1.5
+- Switch to SPDX license identifier
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

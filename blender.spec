@@ -23,7 +23,7 @@
 %bcond_without  hidapi
 %ifarch x86_64
 %bcond_without  oidn
-#%%bcond_without  opgl
+%bcond_without  opgl
 %endif
 %bcond_without  usd
 %else
@@ -120,7 +120,7 @@ BuildRequires:  pkgconfig(oslcomp)
 BuildRequires:  cmake(OpenImageDenoise)
 %endif
 %if %{with opgl}
-BuildRequires:  openpgl
+BuildRequires:  openpgl-devel
 %endif
 BuildRequires:  openCOLLADA-devel >= svn825
 BuildRequires:  pkgconfig(fftw3)

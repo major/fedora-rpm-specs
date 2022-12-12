@@ -1,5 +1,5 @@
 Name:           gearmand
-Version:        1.1.19.1
+Version:        1.1.20
 Release:        %autorelease
 Summary:        A distributed job system
 
@@ -10,7 +10,6 @@ Source1:        gearmand.init
 Source2:        gearmand.sysconfig
 Source3:        gearmand.service
 Patch0:         gearmand-1.1.12-ppc64le.patch
-Patch1:         https://github.com/gearman/gearmand/pull/273.patch
 # Fails to build on PPC.
 # See https://bugzilla.redhat.com/987104 and https://bugzilla.redhat.com/987109
 ExcludeArch:    ppc
@@ -26,10 +25,7 @@ BuildRequires:  libmemcached-devel, memcached
 # https://src.fedoraproject.org/rpms/libmemcached-awesome/pull-request/1
 # libmemcached-awesome-devel needs cyrus-sasl-devel
 BuildRequires:  cyrus-sasl-devel
-%if 0%{?rhel} < 9
-# not available in EPEL 9 yet
 BuildRequires:  hiredis-devel
-%endif
 BuildRequires:  gperf
 BuildRequires:  mariadb-connector-c-devel openssl-devel
 BuildRequires:  libpq-devel
@@ -37,15 +33,12 @@ BuildRequires:  zlib-devel
 BuildRequires:  systemd
 
 # For %%check
-# https://github.com/gearman/gearmand/issues/278
+# https://github.com/gearman/gearmand/issues/277
 #BuildRequires:  curl-devel
 
 # google perftools available only on these
 %ifarch %{ix86} x86_64 ppc64 ppc64le aarch64 %{arm}
-%if 0%{?rhel} < 9
-# not available in EPEL 9 yet
 BuildRequires:  gperftools-devel
-%endif
 %endif
 BuildRequires: make
 Requires(pre):  shadow-utils
@@ -81,9 +74,7 @@ Obsoletes:      libgearman-1.0-devel < %{version}-%{release}
 Development headers for %{name}.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 %build
 %configure --disable-static --disable-silent-rules --enable-ssl
@@ -103,7 +94,6 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %check
-# https://github.com/gearman/gearmand/issues/279
 # https://github.com/gearman/gearmand/issues/277
 #make test
 
@@ -129,7 +119,7 @@ exit 0
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog HACKING THANKS
+%doc AUTHORS ChangeLog CONTRIBUTING.md README.md THANKS
 %config(noreplace) %{_sysconfdir}/sysconfig/gearmand
 %{_sbindir}/gearmand
 %{_bindir}/gearman
@@ -145,8 +135,7 @@ exit 0
 
 %files -n libgearman-devel
 %license COPYING
-%doc AUTHORS ChangeLog HACKING THANKS
-%dir %{_includedir}/libgearman
+%doc AUTHORS ChangeLog CONTRIBUTING.md README.md THANKS
 %{_includedir}/libgearman/
 %{_libdir}/pkgconfig/gearmand.pc
 %{_libdir}/libgearman.so

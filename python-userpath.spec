@@ -18,8 +18,6 @@ Source13:       userpath-verify.1
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-# RHBZ#1985340, RHBZ#2076994
-BuildRequires:  pyproject-rpm-macros >= 1.2.0
 
 %global common_description %{expand:
 Cross-platform tool for adding locations to the user PATH, no elevated
@@ -37,9 +35,9 @@ Summary:        %{summary}
 %prep
 %autosetup -n userpath-%{version}
 
-# Dev requirements include test requirements; but we want to filter out
-# coverage, linting, etc.
-sed -r '/^(coverage)$/d' requirements-dev.txt > requirements-dev.filtered.txt
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r '/^(coverage)$/d' requirements-dev.txt |
+  tee requirements-dev.filtered.txt
 
 
 %generate_buildrequires
@@ -65,7 +63,6 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 
 
 %files -n python3-userpath -f %{pyproject_files}
-%license LICENSE.txt
 %doc HISTORY.rst
 %doc README.md
 

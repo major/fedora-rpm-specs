@@ -3,9 +3,9 @@
 
 Name:           perl-PPIx-Regexp
 Version:        0.085
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Represent a regular expression of some sort
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-Regexp
 Source0:        https://cpan.metacpan.org/authors/id/W/WY/WYANT/PPIx-Regexp-%{version}.tar.gz
 BuildArch:      noarch
@@ -92,7 +92,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -122,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Dec 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.085-4
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.085-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,13 +1,15 @@
-%global apiver  2.8
+%global apiver 2.8
 
 Name:          rygel
 Version:       0.42.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPLv2+
 URL:           https://wiki.gnome.org/Projects/Rygel
 Source0:       https://download.gnome.org/sources/%{name}/0.42/%{name}-%{version}.tar.xz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2152302
+Patch0:        rygel-0.42.0-fix-pkgconfig.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: docbook-style-xsl
@@ -140,6 +142,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Sat Dec 10 2022 David King <amigadave@amigadave.com> - 0.42.0-2
+- Fix devel subpackage installation (#2152302)
+
 * Mon Nov 21 2022 David King <amigadave@amigadave.com> - 0.42.0-1
 - Update to 0.42.0
 

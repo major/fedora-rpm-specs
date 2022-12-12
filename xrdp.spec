@@ -16,7 +16,7 @@
 Summary:   Open source remote desktop protocol (RDP) server
 Name:      xrdp
 Epoch:     1
-Version:   0.9.20
+Version:   0.9.21
 Release:   1%{?dist}
 License:   ASL 2.0 and GPLv2+ and MIT
 URL:       http://www.xrdp.org/
@@ -288,6 +288,11 @@ fi
 %{_datadir}/selinux/*/%{name}.pp
 
 %changelog
+* Sun Dec 11 2022 Bojan Smojver <bojan@rexurive.com> - 1:0.9.21-1
+- Bump up to 0.9.21
+- CVE-2022-23468 CVE-2022-23477 CVE-2022-23478 CVE-2022-23479 CVE-2022-23480
+- CVE-2022-23481 CVE-2022-23483 CVE-2022-23482 CVE-2022-23484 CVE-2022-23493
+
 * Thu Sep 15 2022 Bojan Smojver <bojan@rexurive.com> - 1:0.9.20-1
 - Bump up to 0.9.20
 

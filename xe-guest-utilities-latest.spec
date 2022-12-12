@@ -8,19 +8,14 @@
 
 Summary: XAPI Virtual Machine Monitoring Scripts
 Name:    %{upstream_name}-latest
-Version: 7.30.0
+Version: 7.31.0
 Release: %autorelease
 License: BSD
 URL:     https://github.com/xenserver/%{upstream_name}
 Source0: %{url}/archive/v%{version}.tar.gz#/%{upstream_name}-%{version}.tar.gz
 # Follow upstream to enable net.ipv4.conf.all.arp_notify
 Patch0:  enable_net.ipv4.conf.all.arp_notify.patch
-# applied in upstream git3947aa5
-Patch1:  0001-include-vendor-directory-with-go-mod-vendor-and-have.patch
-# applied in upstream gitf89f95d
-Patch2:  0001-Support-generic-distributions-using-os-release.patch
-# applied in upstream git4ea1b235 (RHBZ#2106909)
-Patch3:  0001-Fix-archlinux-guestmetric-for-ip-interfaces.patch
+
 # XAPI project only supports ix86 and x86_64 virtual machine
 ExclusiveArch: %{ix86} x86_64
 BuildRequires: make
@@ -40,8 +35,9 @@ This package follows the latest version of %{upstream_name} upstream.
 
 %prep
 %autosetup -p1 -n %{upstream_name}-%{version}
-# use system golang.org/x/sys/unix
-ln -s %{gopath}/src/golang.org vendor
+ln -s ../ vendor/%{upstream_name}-%{version}
+ln -s vendor src
+
 sed -i -e 's:/usr/share/oem/xs:%{_sbindir}:' mk/%{service_name}.service
 # move xenstore utilities provided by this package to a private directory
 # to prevent conflict with xen-runtime
@@ -54,7 +50,7 @@ sed -i -e "s/@PRODUCT_MAJOR_VERSION@/%{upstream_major}/g" \
     guestmetric/guestmetric_linux.go
 
 %build
-make \
+GOPATH=$PWD:%{gopath} %{gomodulesmode} make \
      GO_FLAGS='-a -ldflags "${LDFLAGS:-}%{?currentgoldflags} -B 0x$$(head -c20 /dev/urandom|od -An -tx1|tr -d '"'"' \n'"'"') -extldflags '"'"'%__global_ldflags %{?__golang_extldflags}'"'"' -compressdwarf=false" -v -x'
 
 %install

@@ -9,15 +9,20 @@
 Summary: High-performance library for parallel solution of eigenvalue problems
 Name: elpa
 Version: 2021.05.002
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL: https://elpa.mpcdf.mpg.de/software
 Source0: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz
 Source1: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz.asc
 Source2: gpg-keyring-26BC8F899C6A2698BDD6EF6A69260748A5F870B5.gpg
+
 # drop _onenode suffix from non-MPI builds
 Patch1: elpa-onenode.patch
+
+Patch2: elpa-configure-c99.patch
+
 # disable two tests hanging with MPICH
-Patch2: elpa-tests.patch
+Patch3: elpa-tests.patch
+
 License: LGPLv3+
 BuildRequires: flexiblas-devel
 BuildRequires: gcc-c++
@@ -146,13 +151,14 @@ gpgv2 --keyring %{S:2} %{S:1} %{S:0}
 mv elpa-%{version} mpich
 pushd mpich
 %patch1 -p1 -b .onenode
+%patch2 -p1 -b .c99
 autoreconf -vifs
 popd
 cp -pr mpich openmpi
 cp -pr mpich serial
 mkdir _openmp
 cp -pr mpich openmpi serial _openmp/
-%patch2 -p0 -b .tests
+%patch3 -p0 -b .tests
 
 %build
 %global defopts --disable-silent-rules --disable-static --docdir=%{_pkgdocdir}
@@ -343,6 +349,9 @@ done
 %{_fmoddir}/openmpi*/*.mod
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 2021.05.002-6
+- Port configure script to C99
+
 * Fri Nov 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2021.05.002-5
 - Rebuild for new papi
 

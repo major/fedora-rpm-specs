@@ -15,8 +15,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.1.10
-Release:       1%{?dist}
+Version:       2.1.11
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPLv2+
@@ -58,7 +58,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.04
 
-BuildRequires: libguestfs-devel >= 1:1.44
+BuildRequires: libguestfs-devel >= 1:1.49.8-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion
 BuildRequires: file-devel
@@ -101,8 +101,8 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.42
-Requires:      guestfs-tools >= 1.42
+Requires:      libguestfs%{?_isa} >= 1:1.49.8-1
+Requires:      guestfs-tools >= 1.49.7-1
 
 # XFS is the default filesystem in Fedora and RHEL.
 Requires:      libguestfs-xfs
@@ -316,6 +316,9 @@ make -C test-data/phony-guests fedora.img
 
 
 %changelog
+* Sat Dec 10 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.11-2
+- New upstream development version 2.1.11
+
 * Sat Nov 26 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.10-1
 - New upstream development version 2.1.10
 - New tool: virt-v2v-inspector

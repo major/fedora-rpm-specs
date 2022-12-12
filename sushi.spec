@@ -4,12 +4,15 @@
 
 Name:           sushi
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A quick previewer for Nautilus
 
 License:        GPLv2+ with exceptions
 URL:            https://gitlab.gnome.org/GNOME/sushi
 Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{version}.tar.xz
+
+# Submitted upstream: https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/39
+Patch0:         0001-Evince-Don-t-use-GFile-for-file-paths.patch
 
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
@@ -56,6 +59,9 @@ file manager.
 
 
 %changelog
+* Thu Dec 08 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 43.0-2
+- Add patch to fix local previewing of some Evince types
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

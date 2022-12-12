@@ -1,8 +1,8 @@
 %global pkgname grape
 
 Name:           gap-pkg-%{pkgname}
-Version:        4.8.5
-Release:        5%{?dist}
+Version:        4.9.0
+Release:        1%{?dist}
 Summary:        GRaph Algorithms using PErmutation groups
 
 License:        GPL-2.0-or-later
@@ -12,8 +12,6 @@ URL:            https://gap-packages.github.io/grape/
 Source0:        https://github.com/gap-packages/grape/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fedora-only patch: unbundle nauty
 Patch0:         %{name}-nauty.patch
-# Fix a multiple citation
-Patch1:         %{name}-citation.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  nauty
@@ -31,10 +29,10 @@ groups, finite geometries, and designs.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        GRAPE documentation and examples
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -49,7 +47,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 sed -i '/UseReferences.*ext/d' doc/manual.tex
 
 # Remove nauty sources so we use the system version
-rm -fr nauty22
+rm -fr nauty2_8_6
 
 %build
 export LC_ALL=C.UTF-8
@@ -85,6 +83,10 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Sat Dec 10 2022 Jerry James <loganjerry@gmail.com> - 4.9.0-1
+- Version 4.9.0
+- Drop obsolete -citation patch
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.8.5-5
 - Clarify license of the doc subpackage
 

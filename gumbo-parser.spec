@@ -1,10 +1,10 @@
 Name:           gumbo-parser
 Epoch:          1
 Version:        0.10.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A HTML5 parser
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/google/gumbo-parser
 
 Source0:        https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz#/gumbo-parser-0.10.1.tar.gz
@@ -76,7 +76,7 @@ sed -i -e 's,{{VERSION}},%version,' setup.py
 
 %build
 %configure --disable-static --disable-silent-rules --docdir=%{_pkgdocdir}
-make %{?_smp_mflags}
+%{make_build}
 
 # Build doxgen docs
 doxygen Doxyfile
@@ -88,7 +88,7 @@ doxygen Doxyfile
 make check
 
 %install
-%make_install
+%{make_install}
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 install -m 755 -d ${RPM_BUILD_ROOT}%{_mandir}/man3
@@ -122,6 +122,9 @@ install -m 644 {COPYING,*.md} ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %{python3_sitelib}/*
 
 %changelog
+* Sat Dec 10 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1:0.10.1-26
+- Convert license to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -130,7 +133,6 @@ install -m 644 {COPYING,*.md} ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 

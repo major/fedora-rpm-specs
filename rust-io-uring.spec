@@ -5,7 +5,7 @@
 %global crate io-uring
 
 Name:           rust-io-uring
-Version:        0.5.8
+Version:        0.5.9
 Release:        %autorelease
 Summary:        Low-level io_uring userspace interface for Rust
 

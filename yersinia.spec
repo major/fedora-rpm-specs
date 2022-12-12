@@ -1,11 +1,14 @@
 Name:           yersinia
 Version:        0.8.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Network protocols tester and attacker
 
 License:        GPLv2+
 URL:            http://www.yersinia.net/
 Source0:        https://github.com/tomac/yersinia/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         yersinia-format-strings.patch
+Patch1:         yersinia-configure-c99-1.patch
+Patch2:         yersinia-configure-c99-2.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -34,12 +37,12 @@ implementing new ones):
 * VLAN Trunking Protocol (VTP)
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 # Don't override CFLAGS in configure* (RHBZ#1240089)
 sed -i -e "s,^\(\s*CFLAGS=\".*\"\),:\1," configure*
 # Avoid rerunning the autotools
-touch -r aclocal.m4 configure*
+touch -r aclocal.m4 acinclude.m4 configure*
 
 # Convert to utf-8
 for file in THANKS; do
@@ -62,6 +65,12 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -fcommon"
 %{_bindir}/%{name}
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 0.8.2-13
+- Port configure script to C99
+
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 0.8.2-12
+- Apply upstream patch to fix FTBFS (#2113771)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

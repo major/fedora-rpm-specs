@@ -2,10 +2,14 @@
 %define __soversion %{__soversion_major}.3
 %define __tclversion 8.6
 
+# The SQLite configure script does not support --runstatedir and is not
+# regenerated.
+%undefine _configure_use_runstatedir
+
 Summary: The Berkeley DB database library for C
 Name: libdb
 Version: 5.3.28
-Release: 53%{?dist}
+Release: 54%{?dist}
 Source0: http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 Source1: http://download.oracle.com/berkeley-db/db.1.85.tar.gz
 # For mt19937db.c
@@ -58,6 +62,11 @@ Patch39: libdb-5.3.21-trickle_cpu.patch
 Patch40: db-5.3.28_cve-2019-2708.patch
 # Prevents high CPU usage
 Patch41: db-5.3.28-mmap-high-cpu-usage.patch
+
+Patch42: libdb-1.85-c99.patch
+Patch43: libdb-c99.patch
+Patch44: libdb-configure-c99.patch
+Patch45: libdb-sqlite-c99.patch
 
 URL: http://www.oracle.com/database/berkeley-db/
 License: BSD and LGPLv2 and Sleepycat
@@ -253,6 +262,10 @@ popd
 %patch39 -p1
 %patch40 -p1 -b .cve-2019-2708
 %patch41 -p1
+%patch42 -p1
+%patch43 -p1
+%patch44 -p1
+%patch45 -p1
 
 cd dist
 ./s_config
@@ -413,6 +426,9 @@ mv man/* ${RPM_BUILD_ROOT}%{_mandir}/man1
 %{_includedir}/%{name}/dbsql.h
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 5.3.28-54
+- Various changes to improve C99 compatibility (#2152303)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.28-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

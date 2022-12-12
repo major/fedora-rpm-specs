@@ -16,10 +16,12 @@ Source0:	ftp://ftp.gnu.org/gnu/gcal/%{name}-%{version}.tar.xz
 #     xz > gcal-man-v${gcalmantag}.tar.xz
 Source1:	gcal-man-v%{gcalmantag}.tar.xz
 Patch:		gcal-glibc-no-libio.patch
+Patch:		gcal-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:	gettext, ncurses-devel
 BuildRequires:  libunistring-devel
 BuildRequires: make
+BuildRequires: autoconf automake gettext-devel
 
 # Gnulib is granted exception of "no bundled libraries" packaging guideline:
 # https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
@@ -31,14 +33,12 @@ displays hybrid and proleptic Julian and Gregorian calendar sheets.
 It also displays holiday lists for many countries around the globe.
 
 %prep
-%setup -q
-%patch -p1
+%autosetup -p1
 tar xf %{SOURCE1}
 
 
 %build
-CFLAGS="%{optflags}"
-export CFLAGS
+autoreconf -ifv
 export LIBS=-lunistring
 %configure --enable-unicode
 make %{?_smp_mflags}

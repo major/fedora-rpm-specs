@@ -1,33 +1,37 @@
-%global pypi_name tox-current-env
-%global pypi_under tox_current_env
-
-Name:           python-%{pypi_name}
+Name:           python-tox-current-env
 Version:        0.0.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tox plugin to run tests in current Python environment
 
 License:        MIT
 URL:            https://github.com/fedora-python/tox-current-env
-Source0:        %{pypi_source}
+Source0:        %{pypi_source tox-current-env}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
 
+# test dependencies extracted from tox.ini
+# TODO use [tests] extra with the next release
+# https://github.com/fedora-python/tox-current-env/pull/53
+BuildRequires:  python%{python3_pkgversion}-packaging
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-pytest-xdist
+
 %description
 The tox-current-env plugin allows to run tests in current Python environment.
 
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python%{python3_pkgversion}-tox-current-env
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-tox-current-env}
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python%{python3_pkgversion}-tox-current-env
 The tox-current-env plugin allows to run tests in current Python environment.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n tox-current-env-%{version}
 
 
 %generate_buildrequires
@@ -41,22 +45,25 @@ The tox-current-env plugin allows to run tests in current Python environment.
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_under}
+%pyproject_save_files tox_current_env
 
 
 %check
-# the tests currently only work within actual tox and with various Python
-# versions installed, so we skip them and do an import check only instead.
 # hooks[34].py are imported in hooks.py based on tox version so we have to
 # exclude them here.
 %pyproject_check_import -e '*.hooks?'
+# deselected tests run tox without the options for this plugin and hence they need internet
+%pytest -k "not regular and not noquiet_installed_packages[None]"
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
+%files -n python%{python3_pkgversion}-tox-current-env -f %{pyproject_files}
 %doc README.rst
 
 
 %changelog
+* Wed Dec 07 2022 Miro Hrončok <mhroncok@redhat.com> - 0.0.8-4
+- Run tests during the package build
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

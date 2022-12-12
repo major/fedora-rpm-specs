@@ -1,13 +1,13 @@
 %global srcname ytmusicapi
-%{?python_enable_dependency_generator}
 
 Name:           python-%{srcname}
-Version:        0.22.0
-Release:        1%{?dist}
+Version:        0.24.1
+Release:        2%{?dist}
 License:        MIT
 Summary:        Unofficial API for YouTube Music
 Url:            https://github.com/sigma67/%{srcname}
 Source:         %{pypi_source}
+Patch0:         001-setuptools-version.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -28,24 +28,31 @@ Recommends:     python3-%{srcname}
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
-
+%generate_buildrequires
+%pyproject_buildrequires -r
+ 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
-
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}/
+%doc README.rst CONTRIBUTING.rst PKG-INFO
 
 
 %changelog
+* Sat Dec 10 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.24.1-2
+- build fix for pyproject.toml
+- Remove old source files
+
+* Sat Dec 10 2022 Justin Zobel <justin@1707.io> - 0.24.1-1
+- v0.24.1
+
 * Thu Aug 25 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.22.0-1
 - v0.22.0
 

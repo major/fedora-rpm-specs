@@ -1,9 +1,13 @@
 Name:           librtprocess
 Version:        0.12.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        RawTherapee's processing algorithms
 
-License:        GPLv3
+# The entire source is GPL-3.0-or-later, except:
+# - BSL-1.0: src/include/helpersse2.h
+#            src/include/sleef.h
+#            src/include/sleefsseavx.h
+License:        GPL-3.0-or-later AND BSL-1.0
 URL:            https://github.com/CarVac/librtprocess
 Source0:        %{url}/archive/%{version}/librtprocess-%{version}.tar.gz
 
@@ -56,6 +60,9 @@ These are the files needed to develop an application using librtprocess.
 
 
 %changelog
+* Thu Dec 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.0-6
+- Update License to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

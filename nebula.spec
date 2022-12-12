@@ -35,6 +35,8 @@ Conflicts:      nebula < 1.0
 
 %prep
 %goprep
+# https://github.com/slackhq/nebula/pull/791
+sed -i 's/\(Wants=.*\)$/\1 nss-lookup.target/' dist/fedora/nebula.service
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -51,7 +53,7 @@ install -m 0755 -vd                             %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/*         %{buildroot}%{_bindir}/
 install -m 0755 -vd                             %{buildroot}%{_sysconfdir}/%{name}
 install -m 0640 -vp examples/config.yml         %{buildroot}%{_sysconfdir}/%{name}
-install -m 0644 -vDp dist/arch/nebula.service   %{buildroot}%{_unitdir}/%{name}.service
+install -m 0644 -vDp dist/fedora/nebula.service %{buildroot}%{_unitdir}/%{name}.service
 
 %if %{with check}
 %check

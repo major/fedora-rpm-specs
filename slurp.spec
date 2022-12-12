@@ -1,6 +1,6 @@
 Name:		slurp
-Version:	1.3.2
-Release:	4%{?dist}
+Version:	1.4.0
+Release:	1%{?dist}
 Summary:	Select a region in Sway
 
 License:	MIT
@@ -39,6 +39,9 @@ and prints it to the standard output.
 %{_mandir}/man1/slurp.1*
 
 %changelog
+* Sat Dec 10 2022 Benjamin Lowry <ben@ben.gmbh> - 1.4.0-1
+- Slurp 1.4.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

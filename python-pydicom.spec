@@ -21,7 +21,7 @@ data cannot easily be modified.
 Documentation is available at https://pydicom.github.io/pydicom}
 
 Name:           python-%{modname}
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Read, modify and write DICOM files with python code
 
@@ -29,9 +29,6 @@ Summary:        Read, modify and write DICOM files with python code
 License:        MIT and BSD
 URL:            https://github.com/darcymason/%{modname}
 Source0:        https://github.com/darcymason/%{modname}/archive/v%{version}/%{modname}-%{version}.tar.gz
-# Fixes for Python 3.11
-# https://github.com/pydicom/pydicom/pull/1659/
-Patch0:		1659.patch
 
 BuildArch:      noarch
 
@@ -86,6 +83,9 @@ Recommends:     python3-pillow
 %{_bindir}/pydicom
 
 %changelog
+* Thu Nov 17 2022 Alessio <alciregi@fedoraproject.org> - 2.3.1-1
+- 2.3.1 release
+
 * Sat Aug 06 2022 Alessio <alciregi@fedoraproject.org> - 2.3.0-1
 - 2.3.0 release
 

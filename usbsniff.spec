@@ -3,12 +3,13 @@
 
 Name:           usbsniff
 Version:        0
-Release:        17.20170624git%{shortcommit}%{?dist}
+Release:        18.20170624git%{shortcommit}%{?dist}
 Summary:        USB traffic capture and replay tools
 
 License:        GPLv3+
 URL:            https://github.com/vdudouyt/usbsniff
 Source0:        https://github.com/vdudouyt/usbsniff/archive/%{commit}/usbsniff-%{shortcommit}.tar.gz
+Patch0:         usbsniff-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -24,7 +25,7 @@ the device. Useful for debugging USB devices or reverse-engineering protocols.
 
 
 %prep
-%setup -q -n usbsniff-%{commit}
+%autosetup -p1 -n usbsniff-%{commit}
 
 
 %build
@@ -44,6 +45,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 0-18.20170624gitb4ba3c8
+- Port to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-17.20170624gitb4ba3c8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

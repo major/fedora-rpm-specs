@@ -16,7 +16,7 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        3.3.0
+Version:        3.3.2
 Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
@@ -117,6 +117,12 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 
 %changelog
+* Sat Dec 10 2022 Maxwell G <gotmax@e.email> - 3.3.2-1
+- Update to 3.3.2. Fixes rhbz#2150678.
+
+* Fri Dec 09 2022 Maxwell G <gotmax@e.email> - 3.3.1-1
+- Update to 3.3.1. Fixes rhbz#2150678.
+
 * Sat Dec 03 2022 Maxwell G <gotmax@e.email> - 3.3.0-1
 - Update to 3.3.0.
 
@@ -124,7 +130,7 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 - Update to 3.2.2.
 
 * Thu Nov 03 2022 Maxwell G <gotmax@e.email> - 3.2.0-2
-- Remove unexpanded macros from %description
+- Remove unexpanded macros from %%description
 - Handle .reuse/dep5
 
 * Wed Nov 02 2022 Maxwell G <gotmax@e.email> - 3.2.0-1

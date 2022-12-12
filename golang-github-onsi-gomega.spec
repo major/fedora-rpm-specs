@@ -9,7 +9,7 @@
 
 # https://github.com/onsi/gomega
 %global goipath         github.com/onsi/gomega
-Version:                1.19.0
+Version:                1.24.1
 
 %gometa
 

@@ -1,5 +1,5 @@
 # Let’s try to build this as early as we can, since it’s a dependency for
-# python-userpath.
+# some important libraries, such as python-platformdirs.
 %bcond_with bootstrap
 %if %{without bootstrap}
 %bcond_without tests
@@ -8,7 +8,7 @@
 %endif
 
 Name:           python-hatch-vcs
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Hatch plugin for versioning with your preferred VCS
 
@@ -19,18 +19,7 @@ Source0:        %{pypi_source hatch_vcs}
 
 BuildArch:      noarch
 
-# Fix test compatibility with setuptools_scm 7
-# https://github.com/ofek/hatch-vcs/pull/9
-#
-# Fixes:
-#
-# Compatibility with setuptools_scm 7
-# https://github.com/ofek/hatch-vcs/issues/8
-Patch:          %{url}/pull/9.patch
-
 BuildRequires:  python3-devel
-# RHBZ#1985340, RHBZ#2076994
-BuildRequires:  pyproject-rpm-macros >= 1.2.0
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
@@ -51,7 +40,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n hatch_vcs-%{version} -p1
+%autosetup -n hatch_vcs-%{version}
 
 
 %generate_buildrequires
@@ -76,7 +65,6 @@ Summary:        %{summary}
 
 
 %files -n python3-hatch-vcs -f %{pyproject_files}
-%license LICENSE.txt
 %doc HISTORY.md
 %doc README.md
 

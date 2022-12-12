@@ -47,7 +47,7 @@
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.49.7
+Version:       1.49.8
 Release:       1%{?dist}
 License:       LGPLv2+
 
@@ -81,10 +81,6 @@ Source7:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source8:       copy-patches.sh
-
-# Workaround for openssl bug RHBZ#2133884
-# Upstream in libguestfs
-Patch:         0001-appliance-Copy-in-etc-crypto-policies-back-ends-file.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
@@ -1126,6 +1122,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Sat Dec 10 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.8-1
+- New upstream development version 1.49.8
+
 * Mon Nov 28 2022 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.7-1
 - New upstream development version 1.49.7
 

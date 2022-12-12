@@ -1,8 +1,8 @@
 Name:           perl-Perl-Critic-More
 Version:        1.003
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Supplemental policies for Perl::Critic
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-More
 Source0:        https://cpan.metacpan.org/authors/id/T/TH/THALJEF/Perl-Critic-More-%{version}.tar.gz
 BuildArch:      noarch
@@ -44,8 +44,23 @@ Requires:       perl(Readonly) >= 1.03
 This is a collection of Perl::Critic policies that are not included in the
 Perl::Critic core for a variety of reasons.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(ExtUtils::Manifest)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Perl-Critic-More-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor
@@ -53,17 +68,39 @@ perl Build.PL installdirs=vendor
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm %{buildroot}%{_libexecdir}/%{name}/t/98*
+rm %{buildroot}%{_libexecdir}/%{name}/t/99*
+# MANIFEST file is used in test
+cp -a MANIFEST %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 ./Build test
 
 %files
-%doc Changes LICENSE README TODO.pod
+%license LICENSE
+%doc Changes README TODO.pod
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Sat Dec 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.003-26
+- Package tests
+- Update license to SPDX format
+- Use %license macro
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

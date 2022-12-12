@@ -1,10 +1,10 @@
 Name:           lib3ds
 Version:        1.3.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 
 Summary:        3D Studio file format library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://lib3ds.sourceforge.net
 Source:         http://downloads.sourceforge.net/lib3ds/lib3ds-%{version}.zip
 # Extracted from Debian's lib3ds_1.3.0-1.diff.gz
@@ -63,7 +63,7 @@ autoreconf -fi
 %build
 %configure  --disable-static
 
-make %{?_smp_mflags}
+%{make_build}
 
 sed -e 's,@prefix@,%{_prefix},' \
   -e 's,@exec_prefix@,%{_exec_prefix},' \
@@ -73,7 +73,7 @@ sed -e 's,@prefix@,%{_prefix},' \
   lib3ds.pc.in > lib3ds.pc
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 
 install -d ${RPM_BUILD_ROOT}%{_libdir}/pkgconfig
 install lib3ds.pc -m 0644 ${RPM_BUILD_ROOT}%{_libdir}/pkgconfig
@@ -99,6 +99,10 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/aclocal/*
 
 %changelog
+* Sat Dec 10 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.3.0-39
+- Modernize spec.
+- Convert license to SPDX.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
