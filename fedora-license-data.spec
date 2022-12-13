@@ -1,7 +1,12 @@
 %global forgeurl https://gitlab.com/fedora/legal/fedora-license-data
+%if 0%{?fedora} || 0%{?rhel} >= 10
+%bcond_without  rpmlint
+%else
+%bcond_with     rpmlint
+%endif
 
 Name:           fedora-license-data
-Version:        1.8
+Version:        1.9
 Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
@@ -20,7 +25,10 @@ BuildRequires:  (python%{python3_pkgversion}-tomli if python%{python3_pkgversion
 %else
 BuildRequires:  python%{python3_pkgversion}-tomli
 %endif
+
+%if %{with rpmlint}
 BuildRequires:  python%{python3_pkgversion}-tomli-w
+%endif
 
 %description
 This project contains information about licenses used in the Fedora
@@ -37,7 +45,7 @@ package checking tools.
 The Fedora Legal team is responsible for this project.
 
 
-%if 0%{?fedora} || 0%{?rhel} >= 10
+%if %{with rpmlint}
 %package -n rpmlint-%{name}
 Summary:        Rpmlint configuration with valid license expressions
 # this package does not need to depend on the main one
@@ -59,11 +67,11 @@ The Fedora Legal team is responsible for the content.
 
 
 %build
-%make_build
+%make_build spec-validate json %{?with_rpmlint:rpmlint}
 cp LICENSES/* ./
 
 %install
-%make_install
+make DESTDIR=%{buildroot} install-json %{?with_rpmlint:install-rpmlint}
 
 
 %files
@@ -72,17 +80,28 @@ cp LICENSES/* ./
 %{_datadir}/%{name}/
 
 
-%if 0%{?fedora} || 0%{?rhel} >= 10
+%if %{with rpmlint}
 %files -n rpmlint-%{name}
 %license CC0-1.0.txt
 %doc AUTHORS README.md
 %config(noreplace) %{_sysconfdir}/xdg/rpmlint/*.toml
-%else
-%exclude %{_sysconfdir}/xdg/rpmlint/*.toml
 %endif
 
 
 %changelog
+* Sun Dec 11 2022 Miroslav Suchý <msuchy@redhat.com> 1.9-1
+- Add ibus-table-chinese FRWR statement to UltraPermissive
+  (rfontana@redhat.com)
+- Update UltraPermissive.txt (jlovejoy@redhat.com)
+- Add new file for collecting Freely Redistributable (jlovejoy@redhat.com)
+- Add BSD-3-Clause-Modification (code@musicinmybrain.net)
+- Add public domain license in perl-IO-HTML (mspacek@redhat.com)
+- Add GPL-3.0-only WITH Qt-GPL-exception-1.0 (arthur@bols.dev)
+- packaging: Don't unnecessarily generate rpmlint data (gotmax@e.email)
+- Add public domain text found in .NET 7 source code (omajid@redhat.com)
+- data: add HSNCL license (dcavalca@fedoraproject.org)
+- Add the OCaml LGPL linking exception (loganjerry@gmail.com)
+
 * Thu Nov 24 2022 Miroslav Suchý <msuchy@redhat.com> 1.8-1
 - Add Public Domain license text used in libselinux (plautrba@redhat.com)
 - Make LicenseRef for GPLv2 with UPX exception more SPDX-confrmant

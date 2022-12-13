@@ -1,6 +1,6 @@
 Name:           scim-fcitx
 Version:        3.1.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        FCITX Input Method Engine for SCIM
 
 License:        GPLv2+
@@ -14,6 +14,7 @@ Requires:	scim
 
 Patch0:         scim-fcitx-3.1.1-gcc43.patch
 Patch1:         scim-fcitx-3.1.1-gcc47.patch
+Patch2:         scim-fcitx-configure-c99.patch
 
 %description
 scim-fcitx is a port of the fcitx Chinese input method for the SCIM input
@@ -31,6 +32,7 @@ This package contains input table tools from fcitx.
 %setup -q -n fcitx
 %patch0 -p1 -b .gcc43
 %patch1 -p1 -b .gcc47
+%patch2 -p1 -b .c99
 
 
 %build
@@ -62,6 +64,9 @@ popd
 
 
 %changelog
+* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 3.1.1-36
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

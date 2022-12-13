@@ -1,11 +1,11 @@
 Name:           amtk
-Version:        5.3.1
-Release:        4%{?dist}
+Version:        5.6.1
+Release:        1%{?dist}
 Summary:        Actions, Menus and Toolbars Kit for GTK+ applications
 
-License:        LGPLv2+
+License:        LGPL-3.0-or-later
 URL:            https://wiki.gnome.org/Projects/Amtk
-Source0:        https://download.gnome.org/sources/amtk/5.3/amtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/amtk/5.6/amtk-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -49,7 +49,7 @@ developing applications that use %{name}.
 
 
 %files -f amtk-5.lang
-%license COPYING
+%license LICENSES/LGPL-3.0-or-later.txt
 %doc NEWS README.md
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Amtk-5.typelib
@@ -67,6 +67,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 12 2022 Kalev Lember <klember@redhat.com> - 5.6.1-1
+- Update to 5.6.1
+- Switch to SPDX license tags
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pkgname primgrp
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.4.2
-Release:        3%{?dist}
+Version:        3.4.3
+Release:        1%{?dist}
 Summary:        Primitive permutation groups library
 
 License:        GPL-2.0-or-later
@@ -12,8 +12,7 @@ URL:            https://gap-packages.github.io/primgrp/
 Source0:        https://github.com/gap-packages/primgrp/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
 BuildRequires:  gap-devel
-BuildRequires:  GAPDoc-latex
-BuildRequires:  parallel
+BuildRequires:  gap-pkg-autodoc
 
 Requires:       gap-core
 
@@ -27,10 +26,10 @@ degree < 4096.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Primitive permutation groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -43,16 +42,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 export LC_ALL=C.UTF-8
-
-# Link to main GAP documentation.
-ln -s %{gap_dir}/doc ../../doc
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedoc.g
-rm -fr ../../doc ../pkg
-
-# Compress large group files
-parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.g
+gap --bare makedoc.g
 
 %install
 mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
@@ -74,6 +64,11 @@ gap -l "%{buildroot}%{gap_dir};" --bare tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 3.4.3-1
+- Version 3.4.3
+- Upstream now builds documentation with AutoDoc
+- Data files are now compressed by upstream
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.4.2-3
 - Use upstream's method of bootstrapping
 - Clarify license of the doc subpackage

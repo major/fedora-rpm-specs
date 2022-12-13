@@ -1,7 +1,7 @@
 Summary:	Automated text file generator
 Name:		autogen
 Version:	5.18.16
-Release:	11%{?dist}
+Release:	12%{?dist}
 # Some files are licensed under GPLv2+.
 # We redistribute them under GPLv3+.
 License:	GPLv3+
@@ -12,6 +12,7 @@ Source0:	ftp://ftp.gnu.org/gnu/autogen/rel%{version}/%{name}-%{version}.tar.xz
 Patch0:		autogen-multilib.patch
 # Fix gcc error on overlapping strings
 Patch1:		autogen-overlap.patch
+Patch2:		autogen-configure-c99.patch
 
 Requires:	%{name}-libopts%{?_isa} = %{version}-%{release}
 
@@ -68,6 +69,7 @@ This package contains development files for libopts.
 %setup -q
 %patch0 -p1 -b .multilib
 %patch1 -p1 -b .overlap
+%patch2 -p1
 
 # Disable failing test
 sed -i 's|errors.test||' autoopts/test/Makefile.in
@@ -144,6 +146,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_includedir}/autoopts/usage-txt.h
 
 %changelog
+* Wed Dec 07 2022 Peter Fordham <peter.fordham@gmail.com> - 5.18.16-12
+- Patch in fix for https://sourceforge.net/p/autogen/bugs/213/, C99 compliance.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.18.16-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

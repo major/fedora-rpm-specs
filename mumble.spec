@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # The main source code is BSD licensed.
 # The bundled libraries used are licensed as follows:
@@ -269,7 +269,7 @@ if [ -f %{_sysconfdir}/murmur/murmur.ini.rpmsave ]; then
 fi
 rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
-%sysusers_create_compat %{SOURCE3}
+%sysusers_create_compat %{SOURCE2}
 
 
 %post server
@@ -325,6 +325,9 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Sun Dec 11 2022 spike <spike@fedoraproject.org> - 1.4.274-3
+- Fix non-existent source when calling sysusers_create_compat macro
+
 * Tue Oct 25 2022 Carl George <carl@george.computer> - 1.4.274-2
 - Rebuilt for poco 1.12.3
 

@@ -33,7 +33,7 @@ BuildRequires:  perl(XML::Parser)
 BuildRequires:  pkgconfig(gstreamer-webrtc-1.0)
 BuildRequires:  pkgconfig(gst-editing-services-1.0)
 
-Requires:       enchant
+Requires:       enchant2
 Requires:       gstreamer1-plugins-good-gtk
 Requires:       hicolor-icon-theme
 Requires:       mono-locale-extras

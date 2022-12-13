@@ -14,6 +14,7 @@ The slightly more awesome standard unix password manager for teams.}
 %global golicenses      LICENSE
 %global godocs          docs CONTRIBUTING.md GOVERNANCE.md README.md\\\
                         ARCHITECTURE.md CHANGELOG.md
+%global gosupfiles      tests/can/gnupg/*
 
 Name:           %{goname}
 Release:        %autorelease

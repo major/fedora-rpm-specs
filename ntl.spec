@@ -5,7 +5,9 @@ Name:    ntl
 Version: 11.5.1
 Release: 4%{?dist}
 
-License: LGPLv2+
+# LGPL-2.1-or-later: the project as a whole
+# BSD-2-Clause: src/FFT.cpp
+License: LGPL-2.1-or-later AND BSD-2-Clause
 URL:     https://libntl.org/
 
 Source0: https://libntl.org/%{name}-%{version}.tar.gz
@@ -50,19 +52,21 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p0
 
+# Remove an unused file with an unacceptable license (CC-BY-3.0)
+rm src/GetTime0.cpp
 
 %build
 # TODO: Once we can assume z15, add TUNE=linux-s390x to the flags for s390x
 pushd src
 ./configure \
   CXX="${CXX-g++}" \
-  CXXFLAGS="%{optflags} -fPIC" \
-  LDFLAGS="$RPM_LD_FLAGS" \
+  CXXFLAGS='%{build_cxxflags} -fPIC' \
+  LDFLAGS='%{build_ldflags}' \
   DEF_PREFIX=%{_prefix} \
   DOCDIR=%{_docdir} \
   INCLUDEDIR=%{_includedir} \
   LIBDIR=%{_libdir} \
-  LDLIBS="-lpthread -lm" \
+  LDLIBS='-lpthread -lm' \
   NATIVE=off \
   NTL_GF2X_LIB=on \
   NTL_STD_CXX14=on \
@@ -124,6 +128,9 @@ done
 
 
 %changelog
+* Sat Dec 10 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-4
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

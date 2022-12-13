@@ -1,6 +1,6 @@
 Name:           zzuf
 Version:        0.15
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Transparent application input fuzzer
 
 License:        WTFPL
@@ -12,6 +12,7 @@ Patch0:         %{name}-0.13-optflags.patch
 # Causes package to produce broken configure results
 Patch1:         %{name}-0.13-Remove-AC_TRY_CFLAGS.patch
 Patch2:		zzuf-0.15-glibc.patch
+Patch3: zzuf-zzat-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc autoconf automake libtool
@@ -27,6 +28,7 @@ bugs.
 %patch0 -p0
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
 touch -r aclocal.m4 configure.*
 
 
@@ -55,6 +57,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/zzuf/libzzuf.la
 
 
 %changelog
+* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 0.15-18
+- Port to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

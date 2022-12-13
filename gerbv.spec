@@ -1,16 +1,12 @@
 # gerbv Package description for Fedora/Free Electronic Lab
 #
 Name:             gerbv
-Version:          2.9.2
-Release:          2%{?dist}
+Version:          2.9.5
+Release:          1%{?dist}
 Summary:          Gerber file viewer from the gEDA toolkit
-License:          GPLv2
+License:          GPL-2.0-only
 URL:              https://github.com/gerbv/gerbv
-Source:           https://github.com/gerbv/gerbv/archive/refs/tags/v%{version}.tar.gz
-# Report upstream about bad tag version naming. Should be :
-#Source:           https://github.com/gerbv/gerbv/archive/refs/tags/%%{name}-%%{version}.tar.gz
-# Report upstream about bad tag version naming : WARNING: Cannot download url: https://github.com/gerbv/gerbv/archive/refs/tags/gerbv-2.9.2.tar.gz
-
+Source:           https://github.com/gerbv/gerbv/archive/refs/tags/%{name}-%{version}.tar.gz
 
 BuildRequires:    gcc-c++
 BuildRequires:    make
@@ -137,6 +133,10 @@ popd
 
 
 %Changelog
+* Sun Dec 11 2022 Alain Vigne <avigne@fedoraproject.org> - 2.9.5-1
+- new upstream release
+- SPDX license identifier
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 
 Name:           python-pycares
-Version:        4.2.2
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        Python interface for c-ares
 
@@ -106,6 +106,9 @@ chmod 755 %{buildroot}%{python3_sitearch}/%{srcname}/_cares.cpython-*.so
 
 
 %changelog
+* Sun Dec 11 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 4.3.0-1
+- Update to 4.3.0
+
 * Thu Sep 22 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 4.2.2-1
 - Update to 4.2.2
 

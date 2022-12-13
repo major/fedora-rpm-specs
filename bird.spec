@@ -1,11 +1,11 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          2.0.10
-Release:          3%{?dist}
+Version:          2.0.11
+Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://bird.network.cz/
 Source0:          https://bird.network.cz/download/bird-%{version}.tar.gz
 Source1:          bird.service
@@ -108,6 +108,9 @@ make test
 %endif
 
 %changelog
+* Mon Dec 12 2022 Robert Scheck <robert@fedoraproject.org> - 2.0.11-1
+- Upgrade to 2.0.11 (#2152447)
+
 * Sat Jul 30 2022 Robert Scheck <robert@fedoraproject.org> - 2.0.10-3
 - Added sysusers.d file to achieve user() and group() provides
 

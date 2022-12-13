@@ -2,7 +2,7 @@
 
 Name:           c2esp
 Version:        2.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        CUPS driver for Kodak AiO printers
 
 License:        GPLv2+
@@ -11,6 +11,7 @@ Source0:        http://downloads.sourceforge.net/cupsdriverkodak/c2esp-%{version
 
 Patch01: c2esp-ftbfs-gcc7.patch
 Patch02: c2esp-gcc10.patch
+Patch3: c2esp-c99.patch
 
 # _cups_serverbin macro
 BuildRequires: cups-devel
@@ -39,6 +40,7 @@ CUPS filters and drivers for Kodak ESP and Hero all in one printers.
 %setup -q -n c2esp-%{version_no_dot}
 %patch01 -p1 -b .ftbfs-gcc7
 %patch02 -p1 -b .gcc10
+%patch3 -p1
 
 %build
 %configure
@@ -57,6 +59,9 @@ make -C src/ install DESTDIR=%{buildroot}
 %{_datadir}/cups/drv/c2esp
 
 %changelog
+* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 2.7-26
+- Port to C99 (#2152430)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

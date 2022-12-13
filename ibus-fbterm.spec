@@ -1,15 +1,17 @@
 Name:       ibus-fbterm
 Version:    1.0.1
-Release:    16%{?dist}
+Release:    17%{?dist}
 Summary:    IBus front-end for fbterm
 License:    GPL-3.0-only
 URL:        https://github.com/fujiwarat/ibus-fbterm
 Source0:    https://github.com/fujiwarat/ibus-fbterm/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0:     ibus-fbterm-c99.patch
 
 Requires:         ibus >= 1.5, fbterm >= 1.6
 BuildRequires:    gcc
 BuildRequires:    ibus >= 1.5, ibus-devel >= 1.5
 BuildRequires: make
+BuildRequires: autoconf automake
 
 %description
 ibus-fbterm is a input method for FbTerm based on IBus.
@@ -18,9 +20,10 @@ ibus-fbterm is a input method for FbTerm based on IBus.
   fbterm-udevrules package.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
+autoreconf -iv
 %configure \
     --prefix=%{_prefix}
 %__make %{?_smp_mflags}
@@ -35,6 +38,10 @@ ibus-fbterm is a input method for FbTerm based on IBus.
 %{_mandir}/man1/*
 
 %changelog
+* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-17
+- Port to C99
+- Run autoreconf during the build.
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.0.1-16
 - Migrate license tag to SPDX
 

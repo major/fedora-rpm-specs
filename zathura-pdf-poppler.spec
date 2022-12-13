@@ -1,11 +1,12 @@
 Name:             zathura-pdf-poppler
-Version:          0.3.0
-Release:          6%{?dist}
+Version:          0.3.1
+Release:          1%{?dist}
 Summary:          PDF support for zathura via poppler
-License:          zlib
-URL:              http://pwmt.org/projects/zathura/plugins/%{name}
-Source0:          http://pwmt.org/projects/zathura/plugins/download/%{name}-%{version}.tar.xz
-BuildRequires:    binutils
+License:          Zlib
+URL:              http://pwmt.org/projects/%{name}
+Source0:          http://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
+
+#BuildRequires:    binutils
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc
@@ -13,10 +14,11 @@ BuildRequires:    girara-devel
 BuildRequires:    glib2-devel
 # Needed to validate appdata
 BuildRequires:    libappstream-glib
-BuildRequires:    meson >= 0.43
+BuildRequires:    meson >= 0.56
 BuildRequires:    poppler-glib-devel >= 0.18
-BuildRequires:    zathura-devel >= 0.4.4
-Requires:         zathura >= 0.4.4
+BuildRequires:    zathura-devel >= 0.5.2
+
+Requires:         zathura >= 0.5.2
 # Old plugins used alternatives
 Conflicts:        zathura-pdf-mupdf < 0.3.3
 
@@ -48,6 +50,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-poppler.metainfo.xml
 
 %changelog
+* Sun Dec 11 2022 Alain Vigne <avigne@fedoraproject.org> - 0.3.1-1
+- Update to 0.3.1
+- SPDX license identifier
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -128,7 +134,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 * Wed Mar 05 2014 François Cami <fcami@fedoraproject.org> - 0.2.5-1
 - Update to 0.2.5
 
-* Sat Dec 28 2013 François Cami <fcami@fedoraproject.org> - 0.2.4-1 
+* Sat Dec 28 2013 François Cami <fcami@fedoraproject.org> - 0.2.4-1
 - Update to latest upstream.
 
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.3-3

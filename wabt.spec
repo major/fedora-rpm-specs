@@ -2,14 +2,14 @@
 %bcond_without check
 %global commit 3e8207aabe969098d2b4941142a1973008c63033
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global ts_commit 4f77306bb63151631d84f58dedf67958eb9911b9
+%global ts_commit 3a04b2cf93bd8fce277458d419eea8d9c326345c
 %global ts_shortcommit %(c=%{ts_commit}; echo ${c:0:7})
 %global wc_commit d9a80099d496b5cdba6f3fe8fc77586e0e505ddc
 %global wc_shortcommit %(c=%{wc_commit}; echo ${c:0:7})
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.30
+Version: 1.0.31
 Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
@@ -17,6 +17,8 @@ Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-t
 Source2: https://github.com/WebAssembly/wasm-c-api/archive/%{wc_commit}/%{name}-wasm-c-api-%{wc_shortcommit}.tar.gz
 # https://github.com/WebAssembly/wabt/issues/1885
 Patch0: wabt-tests.patch
+# https://github.com/WebAssembly/wabt/issues/2099
+Patch1: wabt-32bit.patch
 License: ASL 2.0
 BuildRequires: cmake3
 BuildRequires: gcc-c++
@@ -39,13 +41,15 @@ with the spec (e.g. 1:1 round-trips with no changes to instructions).
 
 %prep
 %setup -q
-%if %{with check}
-rmdir third_party/{testsuite,wasm-c-api}
-tar xzf %{S:1} -C third_party
-mv third_party/testsuite{-%{ts_commit},}
+rmdir third_party/wasm-c-api
 tar xzf %{S:2} -C third_party
 mv third_party/wasm-c-api{-%{wc_commit},}
+%if %{with check}
+rmdir third_party/testsuite
+tar xzf %{S:1} -C third_party
+mv third_party/testsuite{-%{ts_commit},}
 %patch0 -p1 -b .orig
+%patch1 -p1 -b .32bit
 pushd test
 # https://github.com/WebAssembly/wabt/issues/1044
 %ifarch i686
@@ -56,13 +60,12 @@ rm spec/simd_f32x4_arith.txt
 rm spec/simd_f32x4_pmin_pmax.txt
 rm spec/simd_f64x2_arith.txt
 rm spec/simd_f64x2_pmin_pmax.txt
-rm wasm2c/old-spec/select.txt
 rm wasm2c/spec/conversions.txt
-rm wasm2c/spec/float_literals.txt
 rm wasm2c/spec/float_memory.txt
 rm wasm2c/spec/float_misc.txt
 rm wasm2c/spec/float_exprs.txt
 rm wasm2c/spec/local_tee.txt
+rm wasm2c/spec/select.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1045
 %ifarch ppc64le
@@ -107,8 +110,8 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %{_bindir}/wast2json
 %{_bindir}/wat-desugar
 %{_bindir}/wat2wasm
+%{_datadir}/wabt
 %{_includedir}/wabt
-%{_includedir}/wasm-rt-impl.h
 %{_includedir}/wasm-rt.h
 %{_libdir}/cmake/wabt
 %{_libdir}/libwabt.a
@@ -127,6 +130,11 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Fri Dec 09 2022 Dominik Mierzejewski <dominik@greysector.net> 1.0.31-1
+- update to 1.0.31 (#2143772)
+- fix build on 32-bit
+- fix build --without check
+
 * Sat Oct 15 2022 Dominik Mierzejewski <dominik@greysector.net> 1.0.30-1
 - update to 1.0.30 (#2132095)
 - increase timeout to fix tests on ARM

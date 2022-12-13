@@ -3,8 +3,8 @@
 %global usrname gapd
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.3.1
-Release:        8%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Symbolic Computation Software Composability Protocol in GAP
 
 License:        GPL-2.0-or-later
@@ -45,10 +45,10 @@ OpenMath dictionaries scscp1 and scscp2.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        SCSCP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-io-doc
@@ -167,6 +167,9 @@ rm -fr ../pkg
 %{gap_dir}/pkg/%{upname}/example/
 
 %changelog
+* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-8
 - Clarify license of the doc subpackage
 

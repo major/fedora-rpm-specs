@@ -5,8 +5,8 @@
 
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
-Version:           0.11.13
-Release:           4%{?dist}
+Version:           0.12.1
+Release:           1%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -18,10 +18,7 @@ Source5:           prosody.tmpfilesd
 Source6:           prosody.sysusersd
 Source7:           prosody-localhost.cfg.lua
 Source8:           prosody-example.com.cfg.lua
-Patch0:            prosody-0.11.0-config.patch
-Patch1:            prosody-0.11.4-lua53.patch
-Patch2:            prosody-0.11.8-lua54.patch
-Patch3:            prosody-0.11.8-libicu.patch
+Patch0:            prosody-0.12.1-config.patch
 BuildRequires:     gnupg2
 BuildRequires:     gcc
 BuildRequires:     make
@@ -37,7 +34,12 @@ Requires:          lua-filesystem
 Requires:          lua-expat
 Requires:          lua-socket
 Requires:          lua-sec
-%if 0%{?rhel} && 0%{?rhel} < 8
+%if 0%{?fedora} || 0%{?rhel} >= 8
+Recommends:        lua-unbound
+Recommends:        lua-readline
+%else
+Requires:          lua-unbound
+Requires:          lua-readline
 Requires:          lua-bitop
 %endif
 %{?systemd_requires}
@@ -48,6 +50,7 @@ BuildRequires:     lua-filesystem
 BuildRequires:     lua-expat
 BuildRequires:     lua-socket
 BuildRequires:     lua-sec
+BuildRequires:     lua-unbound
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:     lua-bitop
 %endif
@@ -64,9 +67,6 @@ added functionality, or prototype new protocols.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch0 -p1 -b .config
-%patch1 -p1 -b .lua53
-%patch2 -p1 -b .lua54
-%patch3 -p1 -b .libicu
 
 %build
 ./configure \
@@ -126,9 +126,12 @@ done
 # Prepare test environment
 mkdir -p tests/data/
 cp -prf $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/{*.cfg.lua,conf.d/} certs/ tests/
+sed -e '/^log = {/,/}/d' -e '/^\(certificates\|pidfile\) =/d' -i tests/%{name}.cfg.lua  # Avoid 'duplicate option' warnings
 echo 'certificates = "certs"' >> tests/%{name}.cfg.lua  # Relative to configuration
 echo 'log = { "*console" }' >> tests/%{name}.cfg.lua  # Create no log files
 echo 'pidfile = "'$(pwd)'/tests/prosody.pid"' >> tests/%{name}.cfg.lua  # Absolute path
+echo 'unbound = { resolvconf = false, hoststxt = false }' >> tests/%{name}.cfg.lua  # Disable /etc/{resolv.conf,hosts} usage
+echo 'admin_socket = "prosody.sock"' >> tests/%{name}.cfg.lua  # Avoid bind error for /run/prosody/prosody.sock
 (. ./config.unix 2> /dev/null && sed -e "1s| lua\$| ${RUNWITH}|" -i %{name} %{name}ctl)
 sed -e 's/^keysize=.*/keysize=4096/' -i tests/certs/{GNUmakefile,makefile}
 make -C tests/certs localhost.crt
@@ -141,9 +144,9 @@ export PROSODY_DATADIR="$(pwd)/tests/data"
 ./%{name}ctl about
 ./%{name}ctl start
 ./%{name}ctl status
-while [ ${cnt:-0} -lt 5 ]; do ss -lnpt | grep :5222 && ss -lnpt | grep :5269 && cnt=5 || { sleep 1; cnt=$((${cnt:-0} + 1)); }; done
-echo 'QUIT' | openssl s_client -connect localhost:5222 -starttls xmpp
-echo 'QUIT' | openssl s_client -connect localhost:5269 -starttls xmpp-server
+for cnt in $(seq 1 5); do ss -lnpt | grep :5222 && ss -lnpt | grep :5269 && break || sleep 1; done
+echo 'QUIT' | openssl s_client -connect localhost:5222 -starttls xmpp -name localhost -CAfile tests/certs/localhost.crt
+echo 'QUIT' | openssl s_client -connect localhost:5269 -starttls xmpp-server -name localhost -CAfile tests/certs/localhost.crt
 ./%{name}ctl stop
 echo -e 'Fish\nFish' | ./%{name}ctl adduser tux@localhost
 ls -l tests/data/localhost/accounts/tux.dat
@@ -194,7 +197,7 @@ fi
 %config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/*.cfg.lua
 %dir %attr(0750,root,%{name}) %{_sysconfdir}/%{name}/conf.d/
 %config(noreplace) %attr(0640,root,%{name}) %{_sysconfdir}/%{name}/conf.d/*.cfg.lua
-%attr(0750,root,%{name}) %{_sysconfdir}/%{name}/certs
+%{_sysconfdir}/%{name}/certs
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_unitdir}/%{name}.service
 %{_sysusersdir}/%{name}.conf
@@ -202,9 +205,15 @@ fi
 %dir %attr(0755,%{name},%{name}) /run/%{name}/
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
-%{_mandir}/man1/%{name}*.1*
+%{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Sun Dec 11 2022 Robert Scheck <robert@fedoraproject.org> 0.12.1-1
+- Upgrade to 0.12.1 (#2063943)
+
+* Sun Aug 14 2022 Robert Scheck <robert@fedoraproject.org> 0.12.0-1
+- Upgrade to 0.12.0 (#2063943)
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.11.13-4
 - Rebuilt for ICU 71.1
 

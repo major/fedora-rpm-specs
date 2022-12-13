@@ -5,7 +5,7 @@
 
 Name:           bionetgen
 Version:        2.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Software for rule-based modeling of biochemical systems
 # Bionetgen binary file is compiled against bundled muparser (MIT) and sundials-2.6.0 (BSD) libraries
 License:        GPLv3 and BSD and MIT
@@ -14,6 +14,7 @@ Source0:        https://github.com/RuleWorld/bionetgen/archive/BioNetGen-%{versi
 
 Patch0:         %{name}-fix_linker.patch
 Patch1:         %{name}-fix_cmake_minimum.patch
+Patch2:         bionetgen-cmake-c99.patch
 
 %if 0%{without bundled_sundials}
 BuildRequires:  sundials-devel
@@ -154,6 +155,7 @@ tar -xvf bng2/libsource/cvode-2.6.0.tar.gz -C bng2/Network3
 tar -xvf bng2/libsource/muparser_v2_2_4.tar.gz -C bng2/Network3
 %patch0 -p1 -b .backup
 %patch1 -p1 -b .backup
+%patch2 -p1 -b .c99
 rm -f bng2/libsource/*
 %endif
 popd
@@ -284,6 +286,9 @@ echo "Tests finished."
 %endif
 
 %changelog
+* Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 2.8.4-3
+- Port bundled CVODE CMake script to C99
+
 * Fri Sep 09 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.8.4-2
 - Switch to CMake method (rhbz#2124489)
 

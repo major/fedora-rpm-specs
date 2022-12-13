@@ -6,15 +6,11 @@
 
 Name: algol68g
 Summary: Algol 68 Genie compiler-interpreter
-Version: 3.0.3
-Release: 4%{?dist}
+Version: 3.1.0
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://jmvdveer.home.xs4all.nl/en.algol-68-genie.html
 Source: https://jmvdveer.home.xs4all.nl/%{name}-%{version}.tar.gz
-Patch0: algol68g-cflags.patch
-Patch1: algol68g-includedir.patch
-Patch2: algol68g-libpq-include.patch
-Patch3: algol68g-configure-linux.patch
 BuildRequires: gcc
 BuildRequires: autoconf
 BuildRequires: automake
@@ -63,6 +59,9 @@ autoreconf
 %exclude %{_pkgdocdir}/LICENSE
 
 %changelog
+* Sun Dec 11 2022 Oleg Girko <ol@infoserver.lv> - 3.1.0-1
+- Update to 3.1.0
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.3-4
 - Rebuild for gsl-2.7.1
 

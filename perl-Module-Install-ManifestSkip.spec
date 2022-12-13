@@ -1,12 +1,12 @@
 Name:           perl-Module-Install-ManifestSkip
 Version:        0.24
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Generate a MANIFEST.SKIP file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-ManifestSkip
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Module-Install-ManifestSkip-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
@@ -33,23 +33,28 @@ want in their MANIFEST files. The SKIP file is generated each time that you
 %setup -q -n Module-Install-ManifestSkip-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc Changes CONTRIBUTING LICENSE README
+%license LICENSE
+%doc Changes CONTRIBUTING README
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Dec 11 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.24-25
+- Simplify build and install phases
+- Update license to SPDX format
+- Use %license macro
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

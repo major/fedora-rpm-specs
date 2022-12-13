@@ -1,6 +1,6 @@
 Name:           abe
 Version:        1.1
-Release:        44%{?dist}
+Release:        45%{?dist}
 
 Summary:        Scrolling, platform-jumping, ancient pyramid exploring game
 License:        GPL+
@@ -22,6 +22,7 @@ Patch2:         %{name}-1.1-format.patch
 Patch3:         %{name}-1.1-aarch64.patch
 # Fix build failure with -Werror=format-security
 Patch4:         %{name}-1.1-format-security.patch
+Patch5:         %{name}-1.1-configure-c99.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -44,6 +45,7 @@ vaguely in the style of similar games for the Commodore+4.
 %patch2
 %patch3
 %patch4
+%patch5
 
 # Fix the FSF's address
 sed 's/59 Temple Place, Suite 330, Boston, MA  02111-1307/51 Franklin Street, Suite 500, Boston, MA  02110-1335/' COPYING > COPYING.new
@@ -90,6 +92,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT/%{_datadir}/applications/ %{name}.des
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 1.1-45
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
