@@ -2,19 +2,20 @@
 %undefine __cmake_in_source_build
 
 # Use soversion
-%global soversion 9.1
+%global soversion 10.0
 
 # Set to 1 to enable testsuite. Fails everywhere with GCC 8+.
 %global with_tests 0
 
-# Optional OpenEXR support
-%global with_openexr 0
+# Optional supports
+%global with_openexr 1
+%global with_ax      0
 
 Name:           openvdb
-Version:        9.1.0
+Version:        10.0.1
 Release:        %autorelease
 Summary:        C++ library for sparse volumetric data discretized on three-dimensional grids
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            http://www.openvdb.org/
 
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -31,6 +32,10 @@ BuildRequires:  doxygen >= 1.8.11
 BuildRequires:  gcc-c++
 BuildRequires:  ghostscript >= 8.70
 BuildRequires:  libstdc++-devel
+%if 0%{?with_ax}
+BuildRequires:	llvm-devel
+BuildRequires:	pkgconfig(libffi)
+%endif
 BuildRequires:  pkgconfig(blosc) >= 1.5.0
 BuildRequires:  pkgconfig(cppunit) >= 1.10
 # RHEL and CentOS only have that build requirement for x86_64
@@ -112,11 +117,9 @@ sed -i \
 # https://bugzilla.redhat.com/show_bug.cgi?id=2021376
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
-%if 0%{?rhel}
-%ifarch ppc64le s390x
+%ifarch ppc64le
 %undefine _smp_mflags
-%endif
-%endif
+%endif 
 export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 
 # Ignore versions (python 3, etc.)
@@ -134,11 +137,19 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
     -DOPENVDB_ENABLE_RPATH=OFF \
     -DOPENVDB_INSTALL_CMAKE_MODULES=OFF \
     -DPYOPENVDB_INSTALL_DIRECTORY=%{python3_sitearch} \
+%if 0%{?with_ax}
+    -DHAVE_FFI_CALL=ON \
+    -DUSE_AX=ON \
+%endif
 %if 0%{?with_openexr}
     -DUSE_EXR=ON \
 %endif
     -DUSE_NANOVDB=ON
+%ifarch ppc64le && %if 0%{?fedora} >= 38
+%cmake_build -j1
+%else
 %cmake_build
+%endif
 
 %if 0%{?with_tests}
 %check

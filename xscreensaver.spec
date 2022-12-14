@@ -1,7 +1,7 @@
 %define name          xscreensaver
 
-%define mainversion   6.05
-%define extratarver   1
+%define mainversion   6.06
+#%%undefine extratarver   1
 #%%define beta_ver      b2
 %undefine beta_ver
 
@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define fedora_rel    3
+%define fedora_rel    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -97,17 +97,7 @@ Patch1:          xscreensaver-5.45-0001-barcode-glsnake-sanitize-the-names-of-mo
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 # See bug 472061
-Patch21:         xscreensaver-6.05-webcollage-default-nonet.patch
-# demo-Gtk.c/main: enable localization again
-Patch501:        xscreensaver-6.05-0001-demo-Gtk.c-main-enable-localization-again.patch
-# demo-Gtk.c/populate_prefs_page: use correct pointer for pref_changed_cb
-Patch502:        xscreensaver-6.05-0002-demo-Gtk.c-populate_prefs_page-use-correct-pointer-f.patch
-# hacks/fonts: fix installation on out-of-source build
-Patch503:        xscreensaver-6.05-0003-hacks-fonts-fix-installation-on-out-of-source-build.patch
-# driver/Makefile.in: fix GLIB_COMPILE_RESOURCES source
-Patch504:        xscreensaver-6.05-0004-driver-Makefile.in-fix-GLIB_COMPILE_RESOURCES-source.patch
-# hacks/Makefile.in: fix driver/prefs.o output location
-Patch505:        xscreensaver-6.05-0005-hacks-Makefile.in-fix-driver-prefs.o-output-location.patch
+Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 # misc: kill gcc warn_unused_result warnings
 Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
 # Fedora specific
@@ -389,11 +379,6 @@ find . -name \*.c -exec chmod ugo-x {} \;
 
 %__cat %PATCH1 | %__git am
 %__cat %PATCH21 | %__git am
-%__cat %PATCH501 | %__git am
-%__cat %PATCH502 | %__git am
-%__cat %PATCH503 | %__git am
-%__cat %PATCH504 | %__git am
-%__cat %PATCH505 | %__git am
 
 #%%__cat %PATCH3607 | %__git am
 %__cat %PATCH10001 | %__git am
@@ -1172,6 +1157,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Dec 12 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-1
+- Update to 6.06
+
 * Sun Nov  6 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.05-3
 - Kill no longer needed workaround stuff
 - hacks/fonts: fix installation on out-of-source build

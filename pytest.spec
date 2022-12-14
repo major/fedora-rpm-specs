@@ -2,13 +2,18 @@ Name:           pytest
 %global base_version 7.2.0
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
 Source:         %{pypi_source pytest %{base_version}%{?prerelease}}
 # see https://github.com/pytest-dev/pytest/issues/10042#issuecomment-1237132867
 Patch:          pytest-7.1.3-fix-xfails.patch
+
+# Remove -s from Python shebang,
+# ensure that packages installed with pip to user locations are testable
+# https://bugzilla.redhat.com/2152171
+%undefine _py3_shebang_s
 
 # When building pytest for the first time with new Python version
 # we might not yet have all the BRs, those conditionals allow us to do that.
@@ -161,6 +166,11 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Sat Dec 10 2022 Miro Hrončok <mhroncok@redhat.com> - 7.2.0-2
+- Remove -s from Python shebang,
+  ensure that packages installed with pip to user locations are testable
+- Fixes: rhbz#2152171
+
 * Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 7.2.0-1
 - Update to 7.2.0
 Resolves: rhbz#2137514

@@ -1,11 +1,13 @@
 Name:           dfu-programmer
 Version:        0.7.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Device Firmware Update based USB programmer for Atmel chips
 
 License:        GPLv2+
 URL:            http://dfu-programmer.github.io/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         dfu-programmer-configure-c99.patch
+Patch1:         dfu-programmer-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libusb-1.0) >= 1.0.0
@@ -18,7 +20,7 @@ bootloader supporting ISP. This is a mostly Device Firmware Update
 Atmel chips with USB support.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -34,6 +36,9 @@ Atmel chips with USB support.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.7.2-12
+- Port to C99 (#2152666)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

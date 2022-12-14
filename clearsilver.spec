@@ -2,7 +2,7 @@
 
 Name:           clearsilver
 Version:        0.10.5
-Release:        69%{?dist}
+Release:        70%{?dist}
 Summary:        Fast and powerful HTML templating system
 # Technically, the license is "Neotonic ClearSilver", but it is a copy of 
 # ASL 1.1 with the trademarks as the only difference.
@@ -16,6 +16,7 @@ Patch3:		clearsilver-ruby-1.9.patch
 Patch4:		clearsilver-ruby-2.2.patch
 # GCC 5 compatibility, bug #1190760
 Patch5:		clearsilver-0.10.5-gcc5.patch
+Patch6:		clearsilver-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
 BuildRequires:  httpd-devel
@@ -84,6 +85,7 @@ Provides:       %{name}-java = %{version}-%{release}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p2
+%patch6 -p1
 touch configure
 sed -i -r 's|(\$\(RUBY\) install.rb config) (--.*)|\1 --rb-dir="$(DESTDIR)%{ruby_vendorlibdir}" --so-dir="$(DESTDIR)%{ruby_vendorarchdir}" \2|' ruby/Makefile
 
@@ -157,6 +159,9 @@ ln -s clearsilver-%{version}.jar $RPM_BUILD_ROOT%{_libdir}/java/clearsilver.jar
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.10.5-70
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

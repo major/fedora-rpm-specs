@@ -14,7 +14,7 @@
 
 Name:           ipython
 Version:        8.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An enhanced interactive Python shell
 
 # See bug #603178 for a quick overview for the choice of licenses
@@ -24,6 +24,7 @@ License:        (BSD and MIT and Python) and GPLv2+
 URL:            http://ipython.org/
 Source0:        %pypi_source
 Patch0:         fix_entry_points.patch
+Patch1:         relax-pytest-version-requirement.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -129,16 +130,16 @@ Requires:       python3-sphinx
 This package contains the ipython sphinx extension.
 
 %if %{with check}
-%package -n python3-ipython-tests
+%package -n python3-ipython+test
 Summary:        Tests for %{name}
+Provides:       python3-ipython-tests = %{version}-%{release}
+Obsoletes:      python3-ipython-tests < 8.7.0-2
 %{?python_provide:%python_provide python3-ipython-tests}
+%{?python_provide:%python_provide python3-ipython+test}
 Requires:       python3-ipykernel
 Requires:       python3-ipython = %{version}-%{release}
 Requires:       python3-jupyter-client
 Requires:       python3-nbformat
-Requires:       python3-pytest
-Requires:       python3-pytest-asyncio
-Requires:       python3-testpath
 Requires:       python3-zmq-tests
 # For latex
 Requires:       /usr/bin/dvipng
@@ -147,7 +148,7 @@ Requires:       tex(amssymb.sty)
 Requires:       tex(amsthm.sty)
 Requires:       tex(bm.sty)
 
-%description -n python3-ipython-tests
+%description -n python3-ipython+test
 This package contains the tests of %{name}.
 You can check this way, if ipython works on your platform.
 %endif
@@ -246,7 +247,8 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 %{python3_sitelib}/IPython/sphinxext/
 
 %if %{with check}
-%files -n python3-ipython-tests
+%files -n python3-ipython+test
+%ghost %{python3_sitelib}/ipython-%{version}-py%{python3_version}.egg-info/
 %{python3_sitelib}/IPython/*/tests
 %endif
 
@@ -257,6 +259,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Wed Dec  7 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.7.0-2
+- Rename tests subpackage to fix auto provides
+
 * Tue Nov 29 2022 Lumír Balhar <lbalhar@redhat.com> - 8.7.0-1
 - Update to 8.7.0 (rhbz#2149289)
 

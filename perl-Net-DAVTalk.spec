@@ -1,8 +1,8 @@
 Name:           perl-Net-DAVTalk
 Version:        0.22
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Client for DAV servers
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-DAVTalk
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRONG/Net-DAVTalk-%{version}.tar.gz
 BuildArch:      noarch
@@ -49,8 +49,6 @@ This is a Perl library for accessing DAV servers.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Encode)
-Requires:       perl(Test::More)
 
 %description tests
 Tests from %{name}. Execute them
@@ -102,6 +100,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 12 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.22-4
+- Simplify spec file
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

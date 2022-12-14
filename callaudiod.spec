@@ -1,5 +1,5 @@
 Name:       callaudiod
-Version:    0.1.5
+Version:    0.1.6
 Release:    1%{?dist}
 Summary:    Daemon for dealing with audio routing during phone calls
 
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 %license COPYING
 
 %changelog
+* Mon Dec 12 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.6-1
+- Update to 0.1.6
+
 * Thu Dec 08 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.5-1
 - Update to 0.1.5
 

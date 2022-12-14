@@ -3,15 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.16
+Version: 2022.17
 Release: 2%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-
-Patch0: 0001-composepost-Handle-existing-absolute-symlinks.patch 
 
 ExclusiveArch: %{rust_arches}
 
@@ -249,6 +247,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Mon Dec 12 2022 Colin Walters <walters@verbum.org> - 2022.17-2
+- https://github.com/coreos/rpm-ostree/releases/tag/v2022.17
+
 * Mon Nov 28 2022 Colin Walters <walters@verbum.org> - 2022.16-2
 - Cherry pick https://github.com/coreos/rpm-ostree/pull/4166
 

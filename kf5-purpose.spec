@@ -2,7 +2,7 @@
 
 Name:    kf5-purpose
 Summary: Framework for providing abstractions to get the developer's purposes fulfilled
-Version: 5.100.0
+Version: 5.101.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -11,12 +11,7 @@ License: GPLv2 or GPLv3
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
+%global stable %stable_kf5
 Source0: https://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 Obsoletes:  kf5-purpose-twitter < 5.68.0
@@ -127,6 +122,10 @@ rm -fv %{buildroot}%{_datadir}/icons/hicolor/*/actions/kipiplugin_youtube.png
 
 
 %changelog
+* Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
+- 5.101.0
+- use new macros to simplify code
+
 * Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
 - 5.100.0
 

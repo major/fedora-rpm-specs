@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Summary: A Tier 3 KDE Frameworks 5 module that provides indexing and search functionality
-Version: 5.100.0
+Version: 5.101.0
 Release: 1%{?dist}
 
 # libs are LGPL, tools are GPL
@@ -19,12 +19,7 @@ URL:     https://community.kde.org/Baloo
 #URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
+%global stable %stable_kf5
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 Source1:        97-kde-baloo-filewatch-inotify.conf
@@ -211,6 +206,10 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
+- 5.101.0
+- use new macros to simplify code
+
 * Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
 - 5.100.0
 

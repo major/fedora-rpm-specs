@@ -1,10 +1,11 @@
 Name:           librep
 Version:        0.92.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A lightweight Lisp environment
 License:        GPLv2+
 URL:            http://sawfish.wikia.com/
 Source0:        http://download.tuxfamily.org/%{name}/%{name}_%{version}.tar.bz2
+Patch0:         librep-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  gdbm-devel
@@ -41,7 +42,7 @@ Link libraries and C header files for librep development.
 
 
 %prep
-%setup -q -n %{name}_%{version}
+%autosetup -p1 -n %{name}_%{version}
 
 
 %build
@@ -90,6 +91,9 @@ find %{buildroot}%{_libdir} -name \*.la -exec rm '{}' \;
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.92.7-18
+- Apply upstream patch to port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

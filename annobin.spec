@@ -1,11 +1,12 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.94
+Version: 10.95
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
+# Web Page: https://sourceware.org/annobin/
 # Watermark Protocol: https://fedoraproject.org/wiki/Toolchain/Watermark
 
 #---------------------------------------------------------------------------------
@@ -508,6 +509,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Dec 12 2022 Nick Clifton  <nickc@redhat.com> - 10.95-1
+- Annocheck: Avoid using debug filename when parsing notes in a debuginfo file.  (#2152280)
+
 * Wed Nov 30 2022 Nick Clifton  <nickc@redhat.com> - 10.94-1
 - Annocheck: Better detection of binaries which do not contain code.  (#2144533)
 

@@ -8,7 +8,7 @@ Summary:        Read and write OCaml values in a type-safe binary protocol
 
 # The project as a whole is MIT.
 # Code in the src subdirectory is BSD-3-Clause.
-License:        MIT and BSD-3-Clause
+License:        MIT AND BSD-3-Clause
 URL:            https://github.com/janestreet/bin_prot
 Source0:        %{url}/archive/v%{version}/bin_prot-%{version}.tar.gz
 

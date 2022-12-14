@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -90,6 +90,8 @@ Patch0014: 0014-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 Patch0015: 0015-Tweak-the-tools_def-to-support-cross-compiling.patch
 Patch0016: 0016-tools_def-add-fno-omit-frame-pointer-to-GCC48_-IA32-.patch
 Patch0017: 0017-Revert-ArmVirtPkg-make-EFI_LOADER_DATA-non-executabl.patch
+Patch0018: 0018-Revert-OvmfPkg-PlatformDxe-Handle-all-requests-in-Ex.patch
+Patch0019: 0019-OvmfPkg-SmbiosPlatformDxe-use-PcdFirmware.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -596,6 +598,10 @@ done
 
 
 %changelog
+* Mon Dec 12 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-6
+- fix ovmf platform config (revert broken commit).
+- show version information in smbios (backport).
+
 * Mon Dec 05 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-5
 - rename *.json files to be more consistent.
 - build script update

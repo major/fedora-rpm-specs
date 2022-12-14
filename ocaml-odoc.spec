@@ -9,7 +9,9 @@ Version:        2.1.1
 Release:        2%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
-License:        ISC
+# ISC: The project as a whole
+# BSD-3-Clause: src/vendor/highlight.pack.js
+License:        ISC AND BSD-3-Clause
 URL:            https://github.com/ocaml/odoc
 Source0:        %{url}/archive/%{version}/odoc-%{version}.tar.gz
 
@@ -43,6 +45,7 @@ offers a good opportunity to improve HTML output compared to ocamldoc,
 but this is very much a work in progress.
 
 %package        devel
+License:        ISC
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-fmt-devel%{?_isa}
@@ -56,6 +59,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 %package        doc
+License:        ISC
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 
@@ -80,7 +84,7 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 
 %files -f .ofiles
 %doc CHANGES.md README.md
-%license LICENSE.md
+%license LICENSE.md src/vendor/LICENSE
 %{_mandir}/man1/odoc.1*
 
 %files devel -f .ofiles-devel
@@ -90,6 +94,9 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE.md
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-2
+- Convert License tags to SPDX
+
 * Thu Sep 15 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-2
 - Rebuild for ocaml-cmdliner 1.1.1
 

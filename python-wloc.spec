@@ -9,13 +9,13 @@ locate user by using global Wi-Fi database (no GPS required).
 It supports different geolocation backends.}
 
 Name: python-%{pypi_name}
-Version: 0.9.2
+Version: 1.0.0
 Release: 1%{?dist}
 
-# Main code - GPLv3+.
+# Main code - GPL-3.0-or-later.
 # pywifi - MIT.
-# Icon - Apache 2.0.
-License: GPLv3+ and MIT and ASL 2.0
+# Icon - Apache-2.0.
+License: GPL-3.0-or-later AND MIT AND Apache-2.0
 Summary: Simple Wi-Fi geolocation library and tool
 URL: https://github.com/xvitaly/%{pypi_name}
 Source0: %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
@@ -65,6 +65,10 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Mon Dec 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.0-1
+- Updated to version 1.0.0.
+- Converted license tag to SPDX.
+
 * Mon Aug 08 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.2-1
 - Updated to version 0.9.2.
 

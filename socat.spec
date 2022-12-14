@@ -3,12 +3,13 @@
 Summary: Bidirectional data relay between two data channels ('netcat++')
 Name: socat
 Version: 1.7.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
 
 Patch1: socat-1.7.3.3-warn.patch
+Patch2: socat-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -30,6 +31,7 @@ line editor (readline), a program, or a combination of two of these.
 iconv -f iso8859-1 -t utf-8 CHANGES > CHANGES.utf8
 mv CHANGES.utf8 CHANGES
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure  \
@@ -73,6 +75,9 @@ export OD_C=/usr/bin/od
 %doc %{_mandir}/man1/*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.7.4.2-4
+- Port configure script to C99 (#2152488)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

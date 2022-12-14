@@ -1,11 +1,11 @@
 Name:       xhost
-Version:    1.0.8
-Release:    4%{?dist}
+Version:    1.0.9
+Release:    1%{?dist}
 Summary:    Manage hosts or users allowed to connect to the X server
 
 License:    MIT
 URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
+Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
 BuildRequires:  gcc make
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Dec 13 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.9-1
+- xhost 1.0.9
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

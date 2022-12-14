@@ -11,6 +11,7 @@ Source1:        https://github.com/p11-glue/p11-kit/releases/download/%{version}
 Source2:        gpgkey-462225C3B46F34879FC8496CD605848ED7E69871.gpg
 Source3:        trust-extract-compat
 Source4:        p11-kit-client.service
+Patch0:         p11-kit-meson-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtasn1-devel >= 2.3

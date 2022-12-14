@@ -2,20 +2,15 @@
 %global framework kimageformats
 
 Name:           kf5-%{framework}
-Version: 5.100.0
-Release: 2%{?dist}
+Version: 5.101.0
+Release: 1%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
 URL:            https://invent.kde.org/frameworks/%{framework}
 
 %global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
+%global stable %stable_kf5
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
@@ -77,6 +72,10 @@ image formats.
 
 
 %changelog
+* Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
+- 5.101.0
+- use new macros to simplify code
+
 * Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 5.100.0-2
 - Rebuild for new libavif
 

@@ -1,6 +1,6 @@
 Name:           gcolor2
 Version:        0.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A simple color selector for GTK+2
 
 License:        GPLv2
@@ -15,6 +15,8 @@ Patch0:         %{name}-0.4-missing-includes.patch
 Patch1:         %{name}-0.4-ftbfs.patch
 # fix for default -fno-common in GCC10
 Patch2:         %{name}-0.4-gcc10.patch
+Patch3:         gcolor2-configure-c99.patch
+Patch4:         gcolor2-c99.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -51,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.4-26
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

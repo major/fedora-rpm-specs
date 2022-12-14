@@ -1,6 +1,6 @@
 Name:           libusb-compat-0.1
 Version:        0.1.8
-Release:        %autorelease -b 0
+Release:        %autorelease
 Summary:        Compatibility shim around libusb-1.0 offering the old 0.1 API
 License:        LGPLv2+
 URL:            https://github.com/libusb/libusb-compat-0.1

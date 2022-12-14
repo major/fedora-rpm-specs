@@ -1,7 +1,7 @@
 %global srcname bottle-sqlite
 Name:           python-%{srcname}
-Version:        0.1.3
-Release:        21%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        SQLite3 integration for Bottle WSGI framework
 
 License:        MIT
@@ -50,13 +50,16 @@ need a database connection.
 %py3_install
 
 %files -n python3-%{srcname}
-%doc PKG-INFO
+%doc PKG-INFO README.rst
 %{python3_sitelib}/bottle_sqlite.py*
 %{python3_sitelib}/__pycache__/bottle_sqlite*
 %{python3_sitelib}/bottle_sqlite*.egg-info
 
 
 %changelog
+* Mon Dec 12 2022 Federico Pellegrin <fede@evolware.org> - 0.2.0-1
+- Update to 0.2.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

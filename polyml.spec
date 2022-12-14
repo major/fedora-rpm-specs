@@ -6,9 +6,9 @@ Version:        5.9
 Release:        4%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://www.polyml.org/
-Source0:        https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/polyml/polyml/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix Overflow exception packet in Real.toInt in the interpreter
 # See https://github.com/polyml/polyml/issues/164
 Patch0: https://github.com/%{name}/%{name}/commit/020d4d7.patch
@@ -110,6 +110,9 @@ make check
 %{_libdir}/libpolyml.so.13*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 5.9-4
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,11 +1,5 @@
-# when bootstrapping Python, pytest-xdist is not yet available
-
-%if 0%{?fedora} >= 38 || 0%{?rhel} > 9
-# on Fedora 38, tests crash when being run by xdist right now
+# Tests crash when being run by pytest-xdist
 %bcond_with xdist
-%else
-%bcond_without xdist
-%endif
 
 %global srcname SQLAlchemy
 
@@ -22,7 +16,7 @@
     aiosqlite
 
 Name:           python-sqlalchemy
-Version:        1.4.44
+Version:        1.4.45
 # cope with pre-release versions containing tildes
 %global srcversion %{lua: srcversion, num = rpm.expand("%{version}"):gsub("~", ""); print(srcversion);}
 Release:        %autorelease
@@ -31,8 +25,6 @@ Summary:        Modular and flexible ORM library for Python
 License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{srcname} %{srcversion}}
-# Upstream fix for failing test
-Patch0:         0001-Repair-test-in-32bit-python-builds.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel >= 3.6

@@ -3,7 +3,9 @@ Version:        7.6
 Release:        3%{?dist}
 Summary:        Fast prime counting function implementation
 
-License:        BSD
+# BSD-2-Clause: the project as a whole
+# Zlib OR BSL-1.0: due to including libdivide headers
+License:        BSD-2-Clause AND (Zlib OR BSL-1.0)
 URL:            https://github.com/kimwalisch/%{name}/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -66,8 +68,8 @@ ln -s %{_includedir}/libdivide.h include/libdivide.h
 # - ppc64le has __float128; it is the same as long double
 # - No other architecture has libquadmath
 %ifarch %{ix86} x86_64
-export CFLAGS="%{optflags} -DLIBDIVIDE_SSE2"
-export CXXFLAGS="$CFLAGS"
+export CFLAGS='%{build_cflags} -DLIBDIVIDE_SSE2'
+export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %endif
 %cmake -DBUILD_LIBPRIMESIEVE=OFF \
        -DBUILD_MANPAGE=ON \
@@ -103,6 +105,9 @@ export CXXFLAGS="$CFLAGS"
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 7.6-3
+- Convert License tag to SPDX
+
 * Wed Dec 07 2022 Kim Walisch <walki@fedoraproject.org> - 7.6-3
 - Use primecount-7.6.tar.gz archive released on GitHub
 

@@ -5,7 +5,7 @@
 %global crate memfd
 
 Name:           rust-memfd
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Pure-Rust library to work with Linux memfd and sealing
 

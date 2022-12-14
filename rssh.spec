@@ -1,6 +1,6 @@
 Name:           rssh
 Version:        2.3.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Restricted shell for use with OpenSSH, allowing only scp and/or sftp
 License:        BSD 
 URL:            http://www.pizzashack.org/rssh/
@@ -17,6 +17,7 @@ Patch3:         rssh-2.3.4-Verify-rsync-command-options.patch
 Patch4:         rssh-2.3.4-Verify-scp-command-options.patch
 # 010
 Patch5:         rssh-2.3.4-Check-command-line-after-chroot.patch
+Patch6:         rssh-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -43,6 +44,7 @@ access, you can use rssh to do that. It is a alternative to scponly.
 %patch3 -p1 -b .rsync_opts
 %patch4 -p1 -b .scp_opts
 %patch5 -p1 -b .chroot_cmd
+%patch6 -p1 -b .c99
 
 chmod 644 conf_convert.sh
 chmod 644 mkchroot.sh
@@ -77,6 +79,9 @@ exit 0
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 2.3.4-24
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

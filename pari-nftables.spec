@@ -4,7 +4,7 @@ Release:        3%{?dist}
 Summary:        PARI/GP Computer Algebra System number field tables
 
 # See http://pari.math.u-bordeaux.fr/packages.html for license information.
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/packages.html
 Source0:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nftables.tgz
 Source1:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nftables.tgz.asc
@@ -43,6 +43,9 @@ cp -a nftables %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20080929-3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20080929-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

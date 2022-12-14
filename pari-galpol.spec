@@ -2,7 +2,7 @@ Name:		pari-galpol
 Version:	20180625
 Release:	10%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois polynomials
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
 Source0:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galpol.tgz
 Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galpol.tgz.asc
@@ -19,11 +19,11 @@ representing all abstract groups of order up to 143 for all signatures
 (3657 groups, 7194 polynomials).
 
 %prep
-%setup -cq
-mv data/galpol/README .
-
 # Verify the source file
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+
+%setup -cq
+mv data/galpol/README .
 
 %build
 
@@ -37,6 +37,9 @@ cp -a data/galpol %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20180625-10
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20180625-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

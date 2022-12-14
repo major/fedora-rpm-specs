@@ -5,7 +5,7 @@ Version:        1.0
 Release:        3%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://c-cube.github.io/gen/
 Source0:        https://github.com/c-cube/gen/archive/v%{version}/gen-%{version}.tar.gz
 # Fedora does not need the seq forward compatibility shim
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 1.0-3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

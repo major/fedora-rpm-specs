@@ -1,12 +1,13 @@
 Name:    pcp
 Version: 6.0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPLv2+ and LGPLv2+ and CC-BY
 URL:     https://pcp.io
 
 %global  artifactory https://performancecopilot.jfrog.io/artifactory
 Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
+Patch0: pcp-configure-c99.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -2286,7 +2287,7 @@ updated policy package.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 # the buildsubdir macro gets defined in %%setup and is apparently only available in the next step (i.e. the %%build step)
@@ -3371,6 +3372,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 6.0.1-4
+- Port configure script to C99
+
 * Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.1-3
 - rebuilt for libbpf 1.0
 

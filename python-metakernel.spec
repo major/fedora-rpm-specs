@@ -5,8 +5,8 @@ Name:		python-metakernel
 #		and release numbers - update below in each package section
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
-Version:	0.29.3
-Release:	2%{?dist}
+Version:	0.29.4
+Release:	1%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -44,7 +44,7 @@ distributed processing, downloads, and much more).
 
 %package -n python3-metakernel
 Summary:	Metakernel for Jupyter
-%{?python_provide:%python_provide python3-metakernel}
+%py_provides	python3-metakernel
 Obsoletes:	python3-metakernel-bash < 0.19.1-24
 
 %description -n python3-metakernel
@@ -54,8 +54,8 @@ distributed processing, downloads, and much more).
 
 %package -n python3-metakernel+test
 Summary:	Tests for python3-metakernel
-%{?python_provide:%python_provide python3-metakernel+test}
-Provides:	python3-metakernel-tests = %{version}-%{release}
+%py_provides	python3-metakernel+test
+%py_provides	python3-metakernel-tests
 Obsoletes:	python3-metakernel-tests < 0.29.3-2
 Requires:	python3-metakernel = %{version}-%{release}
 Requires:	man
@@ -71,9 +71,9 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	56%{?dist}
+Release:	57%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
-%{?python_provide:%python_provide python3-metakernel-python}
+%py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
 Requires:	python-jupyter-filesystem
 
@@ -82,9 +82,9 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	56%{?dist}
+Release:	57%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
-%{?python_provide:%python_provide python3-metakernel-echo}
+%py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
 Requires:	python-jupyter-filesystem
 
@@ -128,7 +128,7 @@ PYTHONPATH=metakernel_echo \
 %check
 PYTHONPATH=metakernel_python ipcluster start -n=3 &
 pid=$!
-pytest -v --color=no metakernel/tests metakernel/magics/tests
+pytest -v --color=no
 ipcluster stop
 wait $pid
 
@@ -167,6 +167,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Mon Dec 12 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.4-1
+- Update to version 0.29.4
+
 * Sat Dec 03 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.29.3-2
 - Rename tests subpackage to fix auto provides
 

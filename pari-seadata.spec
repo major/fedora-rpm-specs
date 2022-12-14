@@ -2,7 +2,7 @@ Name:		pari-seadata
 Version:	20090618
 Release:	22%{?dist}
 Summary:	PARI/GP Computer Algebra System modular polynomials
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://pari.math.u-bordeaux.fr/packages.html
 Source0:	https://pari.math.u-bordeaux.fr/pub/pari/packages/seadata.tgz
 Source1:	https://pari.math.u-bordeaux.fr/pub/pari/packages/seadata.tgz.asc
@@ -37,13 +37,13 @@ This package contains extra modular polynomials of prime level between
 1100 bits.
 
 %prep
+# Verify the source files
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE4}
+%{gpgverify} --data=%{SOURCE2} --signature=%{SOURCE3} --keyring=%{SOURCE5}
+
 %setup -cq
 %setup -q -T -D -a 2
 mv data/seadata/README* .
-
-# Verify the source files
-%{gpgverify} --keyring=%{SOURCE4} --signature=%{SOURCE1} --data=%{SOURCE0}
-%{gpgverify} --keyring=%{SOURCE5} --signature=%{SOURCE3} --data=%{SOURCE2}
 
 %build
 # Pari can read compressed data files, so save space
@@ -72,6 +72,9 @@ cp -a data/seadata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/seadata/sea7*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20090618-22
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20090618-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname xmlsec
 
 Name:           python-%{srcname}
-Version:        1.3.12
-Release:        3%{?dist}
+Version:        1.3.13
+Release:        1%{?dist}
 Summary:        Python bindings for the XML Security Library
 
 License:        MIT
@@ -57,6 +57,9 @@ Requires: xmlsec1-openssl
 
 
 %changelog
+* Mon Dec 12 2022 Martin Kutlak <mkfedora@outlook.com> - 1.3.13-1
+- Update to upstream version 1.3.13 (rhbz#2120027)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Name:		coin-or-%{module}
 Summary:	Basic Open-source Nonlinear Mixed INteger programming
 Version:	1.8.8
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -56,6 +56,8 @@ Patch5:		%{name}-assertions.patch
 
 # https://github.com/coin-or/Bonmin/issues/24
 Patch6:         %{name}-bug24.patch
+
+Patch7:         coin-or-Bonmin-configure-c99.patch
 
 %description
 Bonmin (Basic Open-source Nonlinear Mixed INteger programming) is an
@@ -181,6 +183,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/bonmin_doxy.tag
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.8.8-10
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

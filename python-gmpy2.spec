@@ -1,5 +1,5 @@
 Name:           python-gmpy2
-Version:        2.1.3
+Version:        2.1.4
 Release:        1%{?dist}
 Summary:        Python interface to GMP, MPFR, and MPC
 
@@ -82,6 +82,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
 %doc docs/_build/html/*
 
 %changelog
+* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 2.1.4-1
+- Version 2.1.4
+
 * Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 2.1.3-1
 - Version 2.1.3
 - Convert License tag to SPDX

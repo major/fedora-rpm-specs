@@ -1,6 +1,6 @@
 Name:           libst2205
 Version:        1.4.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library for accessing the display of hacked st2205 photo frames
 License:        GPLv3+
 URL:            http://picframe.spritesserver.nl/wiki/index.php
@@ -11,6 +11,7 @@ URL:            http://picframe.spritesserver.nl/wiki/index.php
 Source0:        http://www.neophob.com/files/st2205tool-1.4.3.tar.gz
 Patch0:         st2205tool-1.4.3-no-exit.patch
 Patch1:         st2205tool-1.4.3-width-height-swap.patch
+Patch2:         libst2205-c99.patch
 BuildRequires:  gcc
 BuildRequires:  gd-devel
 BuildRequires: make
@@ -44,10 +45,12 @@ display a (properly sized) PNG file on a supported picture frames display.
 %setup -q -n st2205tool
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 
 %build
-make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -fPIC" -C libst2205
+# -D_GNU_SOURCE to define the O_DIRECT macro.
+make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -fPIC -D_GNU_SOURCE" -C libst2205
 make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -I../libst2205" -C setpic
 
 
@@ -81,6 +84,9 @@ install -p -m 644 libst2205/st2205.h $RPM_BUILD_ROOT%{_includedir}
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.4.3-25
+- Port to C99 (#2152699)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

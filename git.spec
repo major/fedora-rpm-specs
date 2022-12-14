@@ -73,8 +73,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.38.1
-Release:        3%{?rcrev}%{?dist}
+Version:        2.39.0
+Release:        1%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -184,6 +184,8 @@ BuildRequires:  acl
 %if 0%{?fedora} || 0%{?rhel} >= 8
 # Needed by t5540-http-push-webdav.sh
 BuildRequires: apr-util-bdb
+# Needed by t5559-http-fetch-smart-http2.sh
+BuildRequires: mod_http2
 %endif
 # endif fedora or rhel >= 8
 BuildRequires:  bash
@@ -255,6 +257,7 @@ BuildRequires:  subversion-perl
 BuildRequires:  tar
 BuildRequires:  time
 BuildRequires:  zip
+BuildRequires:  zstd
 %endif
 # endif with tests
 
@@ -793,7 +796,17 @@ find %{buildroot}%{_pkgdocdir} -name "*.html" -print0 | xargs -r0 linkchecker
 # endif with docs && with linkcheck
 
 # Tests to skip on all releases and architectures
-GIT_SKIP_TESTS=""
+#
+# t5559-http-fetch-smart-http2 runs t5551-http-fetch-smart with
+# HTTP_PROTO=HTTP/2.  Unfortunately, it fails quite regularly.
+# https://lore.kernel.org/git/Y4fUntdlc1mqwad5@pobox.com/
+GIT_SKIP_TESTS="t5559"
+
+%if 0%{?rhel} && 0%{?rhel} < 8
+# Skip tests which require mod_http2 on el7
+GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5559"
+%endif
+# endif rhel < 8
 
 %ifarch aarch64 %{arm} %{power64}
 # Skip tests which fail on aarch64, arm, and ppc
@@ -852,7 +865,7 @@ export GIT_TEST_SVN_HTTPD=true
 
 # Create tmpdir for test output and update GIT_TEST_OPTS
 # Also update GIT-BUILD-OPTIONS to keep make from any needless rebuilding
-testdir=$(mktemp -d -p /tmp git-t.XXXX)
+export testdir=$(mktemp -d -p /tmp git-t.XXXX)
 sed -i "s@^GIT_TEST_OPTS = .*@& --root=$testdir@" config.mak
 touch -r GIT-BUILD-OPTIONS ts
 sed -i "s@\(GIT_TEST_OPTS='.*\)'@\1 --root=$testdir'@" GIT-BUILD-OPTIONS
@@ -1008,6 +1021,19 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Mon Dec 12 2022 Todd Zullinger <tmz@pobox.com> - 2.39.0-1
+- update to 2.39.0
+
+* Mon Dec 05 2022 Todd Zullinger <tmz@pobox.com> - 2.39.0-0.2.rc2
+- update to 2.39.0-rc2
+
+* Wed Nov 30 2022 Todd Zullinger <tmz@pobox.com> - 2.39.0-0.1.rc1
+- update to 2.39.0-rc1
+
+* Wed Nov 23 2022 Todd Zullinger <tmz@pobox.com> - 2.39.0-0.0.rc0
+- update to 2.39.0-rc0
+- add mod_http2 BuildRequires for tests
+
 * Sat Nov 12 2022 Todd Zullinger <tmz@pobox.com> - 2.38.1-3
 - use %%bash_completions_dir
 

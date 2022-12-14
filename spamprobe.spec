@@ -2,7 +2,7 @@ Summary: A Bayesian spam filter
 Name: spamprobe
 # upstream uses letters for patch version numbers
 Version: 1.4d
-Release: 25%{?dist}
+Release: 26%{?dist}
 
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Compile fixes for EL6, F16, F17 -- Tracker 3557020
@@ -13,6 +13,7 @@ Patch1: 64bit.patch
 Patch2: example-swapped.patch
 Patch3: spamprobe-gcc11.patch
 Patch4: spamprobe-libpng.patch
+Patch5: spamprobe-configure-c99.patch
 
 License: QPL
 URL: http://spamprobe.sourceforge.net/
@@ -39,6 +40,7 @@ Perl Mail::Procmail.
 %patch2 -p1 -b .examples-swapped
 %patch3 -p1 -b .gcc11
 %patch4 -p1 -b .libpng
+%patch5 -p1 -b .c99
 
 %build
 %configure
@@ -54,6 +56,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.4d-26
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4d-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

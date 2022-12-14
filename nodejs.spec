@@ -140,6 +140,26 @@ Source3: https://github.com/unicode-org/icu/releases/download/release-%{icu_majo
 Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-l.zip
 Source100: nodejs-sources.sh
 
+# These are full sources for dependencies included as WASM blobs in the source of Node itself.
+# Note: These sources would also include pre-compiled WASM blobs… so they are adjusted not to.
+# Recipes for creating these blobs are included in the sources.
+
+# Version: jq '.version' deps/cjs-module-lexer/package.json
+# Original: https://github.com/nodejs/cjs-module-lexer/archive/refs/tags/1.2.2.tar.gz
+# Adjustments: rm -f cjs-module-lexer-1.2.2/lib/lexer.wasm
+Source101: cjs-module-lexer-1.2.2.tar.gz
+# The WASM blob was made using wasi-sdk v11; compiler libraries are linked in.
+# Version source: Makefile
+Source102: https://github.com/WebAssembly/wasi-sdk/archive/wasi-sdk-11/wasi-sdk-wasi-sdk-11.tar.gz
+
+# Version: jq '.version' deps/undici/src/package.json
+# Original: https://github.com/nodejs/undici/archive/refs/tags/v5.11.0.tar.gz
+# Adjustments: rm -f undici-5.11.0/lib/llhttp/llhttp*.wasm*
+Source111: undici-5.11.0.tar.gz
+# The WASM blob was made using wasi-sdk v14; compiler libraries are linked in.
+# Version source: build/Dockerfile
+Source112: https://github.com/WebAssembly/wasi-sdk/archive/wasi-sdk-14/wasi-sdk-wasi-sdk-14.tar.gz
+
 # Disable running gyp on bundled deps we don't use
 Patch1: 0001-Disable-running-gyp-on-shared-deps.patch
 
@@ -401,6 +421,22 @@ rm -rf deps/zlib
 rm -rf deps/brotli
 rm -rf deps/v8/third_party/jinja2
 rm -rf tools/inspector_protocol/jinja2
+
+# check for correct versions of dependencies we are bundling
+check_wasm_dep() {
+  local -r name="$1" source="$2" packagejson="$3"
+  local -r expected_version="$(jq -r '.version' "${packagejson}")"
+
+  if ls "${source}"|grep -q --fixed-strings "${expected_version}"; then
+    printf '%s version matches\n' "${name}" >&2
+  else
+    printf '%s version MISMATCH: %s !~ %s\n' "${name}" "${expected_version}" "${source}" >&2
+    return 1
+  fi
+}
+
+check_wasm_dep cjs-module-lexer '%{SOURCE101}' deps/cjs-module-lexer/package.json
+check_wasm_dep undici           '%{SOURCE111}' deps/undici/src/package.json
 
 # Replace any instances of unversioned python with python3
 pfiles=( $(grep -rl python) )

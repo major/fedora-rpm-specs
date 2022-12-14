@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    24.0
+Version:    24.0.1
 Release:    1%{?dist}
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -336,6 +336,9 @@ exit 0
 %{_userunitdir}/%{project_name}.service
 
 %changelog
+* Mon Dec 12 2022 Simone Caronni <negativo17@gmail.com> - 24.0.1-1
+- Update to 24.0.1
+
 * Mon Nov 21 2022 Simone Caronni <negativo17@gmail.com> - 24.0-1
 - Update to 24.0.
 

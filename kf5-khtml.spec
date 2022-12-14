@@ -1,7 +1,7 @@
 %global framework khtml
 
 Name:    kf5-%{framework}
-Version: 5.100.0
+Version: 5.101.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 solution with KHTML, a HTML rendering engine
 
@@ -9,12 +9,7 @@ License: LGPLv2+ and GPLv3 and MIT and BSD
 URL:     https://invent.kde.org/frameworks/%{framework}
 
 %global versiondir %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
+%global stable %stable_kf5
 Source0:        http://download.kde.org/%{stable}/frameworks/%{versiondir}/portingAids/%{framework}-%{version}.tar.xz
 
 # filter plugin provides
@@ -106,6 +101,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
+- 5.101.0
+- use new macros to simplify code
+
 * Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.100.0-1
 - 5.100.0
 

@@ -13,7 +13,7 @@
 
 Name:    ga
 Version: 5.7.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Global Arrays Toolkit
 License: BSD
 Source: https://github.com/GlobalArrays/ga/releases/download/v%{version}/ga-%{version}.tar.gz
@@ -21,6 +21,8 @@ URL: http://github.com/GlobalArrays/ga
 Patch0:        elempatch_test.patch
 Patch1:        ga572_version.patch
 Patch2:        dereferencing_fix.patch
+Patch3:        ga-c99-1.patch
+Patch4:        ga-c99-2.patch
 ExclusiveArch: %{ix86} x86_64 %{arm} aarch64 ppc64le 
 BuildRequires: openmpi-devel, %{mpich_name}-devel, gcc-c++, gcc-gfortran
 BuildRequires: %{blaslib}-devel, openssh-clients, dos2unix
@@ -113,6 +115,8 @@ Requires: %{blaslib}-devel, %{name}-common = %{version}, %{name}-openmpi = %{ver
 %patch0 -p0
 %patch1 -p0
 %patch2 -p0
+%patch3 -p0
+%patch4 -p0
 
 pushd %{name}-%{ga_version}
 
@@ -234,6 +238,9 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 5.7.2-11
+- Apply upstream patches to port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

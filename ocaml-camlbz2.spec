@@ -5,8 +5,7 @@ Version:        0.7.0
 Release:        7%{?dist}
 Summary:        OCaml bindings for bzip2
 
-# The usual OCaml linking exception applies
-License:        LGPLv2+ with exceptions
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://gitlab.com/irill/camlbz2
 Source0:        %{url}/-/archive/%{version}/camlbz2-%{version}.tar.gz
 # Generate useful debuginfo
@@ -74,6 +73,9 @@ make install DESTDIR=$OCAMLFIND_DESTDIR INSTALL='%{_bindir}/install -p'
 %doc doc/*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-7
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

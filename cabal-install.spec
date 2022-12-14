@@ -3,7 +3,7 @@
 
 Name:           cabal-install
 Version:        3.2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The command-line interface for Cabal and Hackage
 
 License:        BSD
@@ -61,7 +61,7 @@ Requires:       filesystem
 Requires:       bind-utils
 # for /etc/profile.d/
 Requires:       setup
-Recommends:     (ghc or ghc8.10 or ghc9.0 or ghc9.2)
+Recommends:     ghc
 Recommends:     zlib-devel
 # added for F26
 Obsoletes:      %{name}-common < %{version}-%{release}
@@ -113,6 +113,9 @@ install -pm 644 -D -t %{buildroot}%{_sysconfdir}/profile.d/ %{SOURCE10}
 
 
 %changelog
+* Fri Sep 16 2022 Jens Petersen <petersen@redhat.com> - 3.2.0.0-9
+- revert recommending ghcX.Y
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

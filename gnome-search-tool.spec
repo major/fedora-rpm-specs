@@ -1,12 +1,13 @@
 Name:           gnome-search-tool
 Version:        3.6.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Utility for finding files for GNOME
 
 License:        GPLv2+ and GFDL
 #No URL for the package specifically, as of now
 URL:            http://www.gnome.org/gnome-3/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gnome-search-tool/3.6/%{name}-%{version}.tar.xz
+Patch0:         gnome-search-tool-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gtk3-devel
@@ -32,7 +33,7 @@ find, grep, and locate commands support the -i option, all searches are
 case-insensitive.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -95,6 +96,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 3.6.0-23
+- Port configure script to C99 (#2152560)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

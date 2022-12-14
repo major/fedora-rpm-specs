@@ -2,7 +2,7 @@ Summary: A GNU implementation of Scheme for application extensibility
 Name: guile
 %define mver 2.0
 Version: 2.0.14
-Release: 29%{?dist}
+Release: 30%{?dist}
 Epoch: 5
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.xz
 URL: http://www.gnu.org/software/guile/
@@ -20,6 +20,8 @@ Patch3: guile-threadstest.patch
 Patch4: guile-2.0.14-gc_pkgconfig_private.patch
 Patch5: guile-ieeetest.patch
 Patch6: guile-configure.patch
+Patch7: guile-configure-c99.patch
+Patch8: guile-configure-tz-c99.patch
 
 %description
 GUILE (GNU's Ubiquitous Intelligent Language for Extension) is a library
@@ -54,6 +56,8 @@ install the guile package.
 %patch5 -p1 -b .ieeetest
 %endif
 %patch6 -p1 -b .configure
+%patch7 -p1
+%patch8 -p1
 
 %build
 autoreconf -fiv
@@ -169,6 +173,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 5:2.0.14-30
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.0.14-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

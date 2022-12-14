@@ -1,6 +1,6 @@
 Name:           libbsd
 Version:        0.11.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library providing BSD-compatible functions for portability
 URL:            https://libbsd.freedesktop.org/
 # Breakdown in COPYING file of libbsd release tarball, see also:
@@ -13,6 +13,7 @@ Source1:        https://libbsd.freedesktop.org/releases/libbsd-%{version}.tar.xz
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/4F3E74F436050C10F5696574B972BF3EA4AE57A3
 # https://gitlab.freedesktop.org/libbsd/libbsd/-/issues/14: Revert breaking commit in explicit_bzero test
 Patch0:         https://gitlab.freedesktop.org/libbsd/libbsd/-/commit/d5865759f8698f1c75339451a26fa3ae00276a51.patch#/libbsd-0.11.7-test-explicit_bzero.patch
+Patch1:         libbsd-configure-c99.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -51,6 +52,7 @@ configured using "pkg-config --libs libbsd-ctor".
 %setup -q
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %patch0 -p1 -R -b .test-explicit_bzero
+%patch1 -p1 -b .c99
 
 %build
 autoreconf -fiv
@@ -91,6 +93,9 @@ rm %{buildroot}%{_mandir}/man3/explicit_bzero.3bsd
 %{_libdir}/pkgconfig/%{name}-ctor.pc
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.11.7-3
+- Port configure script to C99
+
 * Sun Dec 04 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0.11.7-2
 - Add runtime requirement on libmd-devel to libbsd-devel (#2148612)
 

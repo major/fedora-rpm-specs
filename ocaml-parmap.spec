@@ -5,7 +5,7 @@ Version:        1.2.5
 Release:        1%{?dist}
 Summary:        OCaml library for exploiting multicore architectures
 
-License:        LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://rdicosmo.github.io/parmap/
 Source0:        https://github.com/rdicosmo/parmap/archive/%{version}/parmap-%{version}.tar.gz
 
@@ -61,6 +61,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 1.2.5-1
+- Update SPDX License tag
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.2.5-1
 - Version 1.2.5
 

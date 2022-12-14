@@ -4,7 +4,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Free Bible Software Project
 License:        GPLv2
 URL:            http://www.crosswire.org/sword/
@@ -22,7 +22,7 @@ BuildRequires:  cppunit-devel
 BuildRequires:  swig
 BuildRequires:  python3-devel
 BuildRequires:  perl-devel
-BuildRequires:  perl-macros
+BuildRequires:  perl-generators
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 
@@ -151,6 +151,10 @@ make tests
 
 
 %changelog
+* Mon Dec 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9.0-14
+- Add BR perl-generators to automatically generates run-time dependencies
+  for installed Perl files
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:1.9.0-13
 - Rebuilt for ICU 71.1
 

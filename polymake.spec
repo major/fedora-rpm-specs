@@ -24,8 +24,12 @@ Name:           polymake
 Version:        %(tr r . <<< %{upver})
 Release:        3%{?dist}
 
+# GPL-2.0-or-later: the project as a whole
+# MIT: external/js/three.js
+# BSD-3-Clause: due to including permlib headers
+# MPL-2.0 AND BSD-3-Clause AND Apache-2.0: Due to including eigen3 headers
+License:        GPL-2.0-or-later AND MIT AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 Summary:        Algorithms on convex polytopes and polyhedra
-License:        GPLv2+
 URL:            https://polymake.org/
 Source0:        https://polymake.org/lib/exe/fetch.php/download/%{name}-%{upver}-minimal.tar.bz2
 # Man page written by Jerry James from text found in the sources.  Therefore,
@@ -196,6 +200,10 @@ installed.  Install one or more of the tools from the following list:
 evince, geomview, graphviz, gv, and okular.
 
 %package        doc
+# GPL-2.0-or-later: the project as whole.  Other licenses are due to doxygen.
+# GPL-1.0-or-later: *.{css,png,svg}
+# MIT: *.js
+License:        GPL-2.0-or-later AND GPL-1.0-or-later AND MIT
 Summary:        Documentation for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -311,6 +319,9 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %doc doc/*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - %(tr r . <<< %{upver})-3
+- Convert License tags to SPDX
+
 * Sat Aug 27 2022 Jerry James <loganjerry@gmail.com> - 4.7-3
 - Rebuild for normaliz 3.9.4
 

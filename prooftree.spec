@@ -9,7 +9,7 @@ Version:        0.13
 Release:        21%{?dist}
 Summary:        Proof tree visualization for Proof General
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://askra.de/software/prooftree/
 Source0:        https://askra.de/software/prooftree/releases/%{name}-%{version}.tar.gz
 
@@ -61,6 +61,9 @@ sed -i 's/cp /cp -p /' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.13-21
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

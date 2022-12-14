@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Epoch:   1
-Version: 5.100.0
+Version: 5.101.0
 Release: 1%{?dist}
 Summary: The KContacts Library
 
@@ -17,12 +17,7 @@ License: LGPLv2+
 URL:     https://projects.kde.org/%{framework}
 
 %global majmin %(echo %{version} | cut -d. -f1-2)
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
+%global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
@@ -96,6 +91,10 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:5.101.0-1
+- 5.101.0
+- use new macros to simplify code
+
 * Sun Nov 06 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:5.100.0-1
 - 5.100.0
 

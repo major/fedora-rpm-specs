@@ -9,7 +9,9 @@ Version:        0.15.1
 Release:        1%{?dist}
 Summary:        Jane Street standard library for OCaml
 
-License:        MIT
+# MIT: The project as a whole
+# Apache-2.0: src/map.ml, src/random.mli, src/set.ml
+License:        MIT AND Apache-2.0
 URL:            https://opensource.janestreet.com/base/
 Source0:        https://github.com/janestreet/base/archive/v%{version}/base-%{version}.tar.gz
 # Adapt to changes in the OCaml 4.13 standard library
@@ -84,6 +86,9 @@ popd
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-1
+- Add Apache-2.0 to the License tag while converting to SPDX
+
 * Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-1
 - Version 0.15.1
 

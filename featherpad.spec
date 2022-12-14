@@ -1,7 +1,7 @@
 %global github_name FeatherPad
 
 Name:           featherpad
-Version:        1.3.3
+Version:        1.3.4
 Release:        1%{?dist}
 Summary:        Lightweight Qt5 Plain-Text Editor
 
@@ -27,9 +27,9 @@ FeatherPad is a lightweight Qt5 plain-text editor for Linux. It is independent
 of any desktop environment and has:
 
 * Drag-and-drop support, including tab detachment and attachment;
-* X11 virtual desktop awareness (using tabs on current desktop but opening a 
+* X11 virtual desktop awareness (using tabs on current desktop but opening a
   new window on another);
-* An optionally permanent search-bar with a different search entry 
+* An optionally permanent search-bar with a different search entry
   for each tab;
 * Instant highlighting of found matches when searching;
 * A docked window for text replacement;
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Mon Dec 12 2022 Jonathan Wright <jonathan@almalinux.org> - 1.3.4-1
+- Update to 1.3.4 rhbz#2149791
+
 * Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 1.3.3-1
 - Update to 1.3.3 rhbz#2038534
 

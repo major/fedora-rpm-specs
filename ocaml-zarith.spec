@@ -5,8 +5,7 @@ Version:        1.12
 Release:        7%{?dist}
 Summary:        OCaml interface to GMP
 
-# The license has a static linking exception
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/Zarith/
 Source0:        %{url}/archive/release-%{version}.tar.gz
 
@@ -95,6 +94,9 @@ make tests
 %doc Changes html
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 1.12-7
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

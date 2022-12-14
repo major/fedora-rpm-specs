@@ -9,7 +9,7 @@ Version:        2.0.5
 Release:        9%{?dist}
 Summary:        Maps over integers implemented as Patricia trees
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/backtracking/ptmap
 Source0:        %{url}/releases/download/%{version}/ptmap-%{version}.tbz
 # Fedora does not need the seq and stdlib-shims forward compatibility modules
@@ -59,6 +59,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 2.0.5-9
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           firewalk
 Version:        5.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Active reconnaissance network security tool
 
 License:        BSD
@@ -8,6 +8,7 @@ URL:            http://www.packetfactory.net/projects/firewalk/
 Source0:        http://www.packetfactory.net/firewalk/dist/%{name}.tar.gz
 #gcc patch stolen from Dag Wieers, thanks Dag
 Patch0:         firewalk-5.0-gcc.patch
+Patch1: firewalk-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel, libdnet-devel, libnet-devel, automake
@@ -20,6 +21,7 @@ to determine what layer 4 protocols a given IP forwarding device will pass.
 %prep
 %setup -qn Firewalk
 %patch0 -p0
+%patch1 -p1
 # Needed for x86_64, automake can't be run here
 cp -f %{_datadir}/automake-*/config.* .
 
@@ -37,6 +39,9 @@ install -Dp -m 0644 man/firewalk.8 $RPM_BUILD_ROOT%{_mandir}/man8/firewalk.8
 %{_mandir}/man?/*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 5.0-30
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

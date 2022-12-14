@@ -1,6 +1,6 @@
 Name:           perl-Inline-Python
 Version:        0.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write Perl subs and classes in Python
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Inline-Python
@@ -8,6 +8,7 @@ Source0:        https://cpan.metacpan.org/authors/id/N/NI/NINE/Inline-Python-%{v
 #               Fix makefile logic
 #               https://github.com/niner/inline-python-pm/pull/38
 Patch0:         %{name}-makefile.patch
+Patch1:         perl-Inline-Python-c99.patch
 BuildRequires:  gcc
 BuildRequires:  findutils
 BuildRequires:  make
@@ -59,6 +60,7 @@ name-space is cached, and subsequent calls use the cached version.
 %prep
 %setup -q -n Inline-Python-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 INLINE_PYTHON_EXECUTABLE=/usr/bin/python3 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
@@ -81,6 +83,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.57-2
+- Port to C99
+
 * Mon Oct 17 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.57-1
 - 0.57 bump
 

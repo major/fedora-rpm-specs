@@ -5,7 +5,7 @@ Version:        2.0.0
 Release:        9%{?dist}
 Summary:        OCaml library for arc and node graphs
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://backtracking.github.io/ocamlgraph/
 Source0:        https://github.com/backtracking/ocamlgraph/releases/download/%{version}/ocamlgraph-%{version}.tbz
 
@@ -110,9 +110,14 @@ install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
 %files gtk-devel -f .ofiles-ocamlgraph_gtk-devel
 
 %files tools
-%{_bindir}/*
+%{_bindir}/dGraphViewer
+%{_bindir}/graphEdGTK
+%{_bindir}/ocamlgraph*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 2.0.0-9
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

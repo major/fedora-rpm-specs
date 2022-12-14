@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -336,6 +336,15 @@ This package contains an LD_PRELOAD library that redirects v4l2 applications to
 PipeWire.
 %endif
 
+%package module-x11
+Summary:        PipeWire media server x11 support
+License:        MIT
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-x11
+This package contains X11 bell support for PipeWire.
+
 %prep
 %autosetup -p1 %{?snapdate:-n %{name}-%{gitcommit}}
 
@@ -491,7 +500,38 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %license LICENSE COPYING
 %doc README.md
 %{_libdir}/libpipewire-%{apiversion}.so.*
-%{_libdir}/pipewire-%{apiversion}/libpipewire-*.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-access.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-adapter.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-avb.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-client-device.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-client-node.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-link-factory.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-loopback.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-metadata.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-pipe-tunnel.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-portal.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-profiler.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-native.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-pulse.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-protocol-simple.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-pulse-tunnel.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-discover.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-sink.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtkit.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sink.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-source.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-rt.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-session-manager.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-device-factory.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-device.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-node-factory.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-spa-node.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-zeroconf-discover.so
 %dir %{_datadir}/alsa-card-profile/
 %dir %{_datadir}/alsa-card-profile/mixer/
 %{_datadir}/alsa-card-profile/mixer/paths/
@@ -615,7 +655,14 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/v4l2/libpw-v4l2.so
 %endif
 
+%files module-x11
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
+
 %changelog
+* Mon Dec 12 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.62-2
+- Package X11 bell support separately
+  Fixes rhbz#2152385
+
 * Fri Dec 09 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.62-1
 - Update version to 0.3.62
 

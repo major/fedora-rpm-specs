@@ -1,6 +1,6 @@
 Name:		ffsb
 Version:	6.0
-Release:	0.23.rc2%{?dist}
+Release:	0.24.rc2%{?dist}
 Summary:	The Flexible Filesystem Benchmark
 
 License:	GPLv2+
@@ -10,6 +10,7 @@ BuildRequires:	gcc
 BuildRequires: make
 
 Patch0:		getu32random.patch
+Patch1:		ffsb-c99.patch
 
 
 %description
@@ -21,6 +22,7 @@ across multiple filesystems.
 %prep
 %setup -q -n ffsb-6.0-rc2
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure
@@ -40,6 +42,9 @@ rm -f examples/profile_smallfile_reads~
 %{_bindir}/ffsb
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 6.0-0.24.rc2
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-0.23.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,18 +5,18 @@
 %global crate rustix
 
 Name:           rust-rustix
-Version:        0.35.13
+Version:        0.36.5
 Release:        %autorelease
 Summary:        Safe Rust bindings to POSIX/Unix/Linux/Winsock2-like syscalls
 
 License:        Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 URL:            https://crates.io/crates/rustix
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          rustix-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * drop dependencies on compiler internals
 # * make cc build-dependency non-optional
-# * drop Windows-specific dependencies
 Patch:          rustix-fix-metadata.diff
 # * unconditionally rebuild static objects from Assembly
 Patch:          0001-Unconditionally-compile-C-code-from-source.patch
@@ -83,18 +83,6 @@ This package contains library source intended for building other packages which
 use the "all-impls" feature of the "%{crate}" crate.
 
 %files       -n %{name}+all-impls-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+cc-devel
@@ -191,18 +179,6 @@ This package contains library source intended for building other packages which
 use the "libc_errno" feature of the "%{crate}" crate.
 
 %files       -n %{name}+libc_errno-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+mio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+mio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "mio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+mio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+mm-devel
@@ -313,18 +289,6 @@ use the "runtime" feature of the "%{crate}" crate.
 %files       -n %{name}+runtime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+socket2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+socket2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "socket2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+socket2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -371,18 +335,6 @@ This package contains library source intended for building other packages which
 use the "time" feature of the "%{crate}" crate.
 
 %files       -n %{name}+time-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tokio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tokio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+use-libc-devel

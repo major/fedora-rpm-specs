@@ -1,11 +1,12 @@
 Name:           wmapmload
 Version:        0.3.4
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Wmapmload monitors your apm status in an lcd display fashion
 
 License:        GPLv2+
 URL:     	http://tnemeth.free.fr/projets/dockapps.html
 Source0:        http://tnemeth.free.fr/projets/programmes/wmapmload-0.3.4.tar.gz
+Patch0:         wmapmload-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -18,7 +19,7 @@ BuildRequireS:  libXpm-devel
 %{summary}
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -35,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.3.4-33
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Name:           pari-nflistdata
 Version:        20220326
 Release:        2%{?dist}
 Summary:        PARI/GP Computer Algebra System nflist extensions
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/packages.html
 Source0:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nflistdata.tgz
 
@@ -37,6 +37,9 @@ cp -a nflistdata %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20220326-2
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220326-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

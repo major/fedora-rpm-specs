@@ -9,7 +9,9 @@ Version:        4.9
 Release:        3%{?dist}
 Summary:        Opam file for caml-mode
 
-License:        GPLv2+
+# GPL-2.0-or-later: the project as a whole
+# GPL-1.0-or-later: camldebug.el
+License:        GPL-2.0-or-later AND GPL-1.0-or-later
 URL:            https://github.com/ocaml/caml-mode
 Source0:        %{url}/releases/download/%{version}/%{srcname}-%{version}.tgz
 # Opam file omitted from recent releases
@@ -73,6 +75,9 @@ cd -
 %{_emacs_sitestartdir}/caml-mode-site-file.el
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 4.9-3
+- Convert the License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

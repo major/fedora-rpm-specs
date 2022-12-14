@@ -9,8 +9,8 @@ Version:        0.4.0
 Release:        5%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
-License:        ASL 2.0
-URL:            https://github.com/OCamlPro-Coquera/psmt2-frontend
+License:        Apache-2.0
+URL:            https://github.com/ACoquereau/psmt2-frontend
 Source0:        %{url}/archive/%{version}/psmt2-frontend-%{version}.tar.gz
 
 BuildRequires:  make
@@ -68,6 +68,10 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.4.0-5
+- New URL
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

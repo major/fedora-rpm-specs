@@ -1,8 +1,8 @@
 %bcond_without minizip
 
 Name:    zlib
-Version: 1.2.12
-Release: 5%{?dist}
+Version: 1.2.13
+Release: 1%{?dist}
 Summary: Compression and decompression library
 # /contrib/dotzlib/ have Boost license
 License: zlib and Boost
@@ -12,30 +12,21 @@ Source: https://www.zlib.net/zlib-%{version}.tar.xz
 # https://github.com/madler/zlib/pull/210
 Patch0: zlib-1.2.5-minizip-fixuncrypt.patch
 # resolves: #805113
-Patch1: zlib-1.2.11-optimized-s390.patch
+Patch1: zlib-1.2.13-optimized-s390.patch
+# IBM optimized crc32 for Power 8+ processors
+# ref: https://github.com/madler/zlib/pull/750
+Patch18: zlib-1.2.13-power-optimizations.patch
 # IBM Z hardware-accelerated deflate
 # ref: https://github.com/madler/zlib/pull/410
-Patch18: zlib-1.2.12-IBM-Z-hw-accelerated-deflate.patch
-# IBM optimized crc32 for Power 8+ processors
-# ref: https://github.com/madler/zlib/pull/478
-Patch19: zlib-1.2.12-power-optimizations.patch
+Patch19: zlib-1.2.13-IBM-Z-hw-accelerated-deflate.patch
 # Patch for s390x crc32vx
 # ref: https://github.com/iii-i/zlib/releases/tag/crc32vx-v3
-Patch20: zlib-1.2.12-s390x-vectorize-crc32.patch
-# Fix for configure
-# ref: https://github.com/madler/zlib/pull/607/commits/80d086357a55b94a13e43756cf3e131f25eef0e4
-Patch21: zlib-1.2.12-fix-configure.patch
+Patch20: zlib-1.2.13-s390x-vectorize-crc32.patch
 # fixed covscan issues
 Patch22: zlib-1.2.11-covscan-issues.patch
 # fixed issues found by covscan for rhel-9
 # ref: https://github.com/madler/zlib/pull/554
 Patch23: zlib-1.2.11-covscan-issues-rhel9.patch
-# Correct incorrect inputs provided to the CRC functions.
-# ref: https://github.com/madler/zlib/commit/ec3df00224d4b396e2ac6586ab5d25f673caa4c2
-Patch24: zlib-1.2.12-correct-inputs-provided-to-crc-func.patch
-# Fix for CVE-2022-37434
-# ref: https://github.com/madler/zlib/commit/1eb7682f845ac9e9bf9ae35bbfb3bad5dacbd91d
-Patch25: zlib-1.2.12-fix-CVE-2022-37434.patch
 
 BuildRequires: make
 BuildRequires: automake, autoconf, libtool
@@ -94,11 +85,8 @@ developing applications which use minizip.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
-%patch21 -p1
 %patch22 -p1
 %patch23 -p1
-%patch24 -p1
-%patch25 -p1
 # Patch19 conflicts with Patch1, so the Patch1 has to be applied after,
 # because it is arch specific
 %ifarch s390 s390x
@@ -181,6 +169,10 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Mon Oct 17 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.2.13-1
+- Rebase to version 1.2.13
+- Patches 21,24,25 has been upstreamed
+
 * Tue Aug 09 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.2.12-5
 - Fix heap-based buffer over-read or buffer overflow in inflate in inflate.c
 - Resolves: CVE-2022-37434

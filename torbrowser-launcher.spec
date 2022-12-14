@@ -1,12 +1,13 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
 Version:	0.3.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		0001-Fix-strict-parameters-for-gui.move.patch
+Patch1:         661.patch
 BuildArch:	noarch
 ExclusiveArch: %{ix86} x86_64
 BuildRequires:	desktop-file-utils
@@ -41,6 +42,7 @@ from your distribution's package manager and it handles everything else:
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 # We need to specify the distro we are building on, Fedora!
 sed -i 's#distro = .*#distro = "Fedora"#g' setup.py
@@ -87,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Dec 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.3.5-7
+- URL patch
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

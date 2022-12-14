@@ -4,10 +4,16 @@
 
 Name:           python-keyring
 Version:        23.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Store and access your passwords safely
 
-License:        MIT AND Python-2.0.1
+# Upstream was asked to clarify the applicability of the Python-2.0.1 license.
+# In summary, the license was meant to be OR rather than AND, and the Python
+# license was applied with the intent of possibly contributing the package to
+# the Python standard library, which is no longer planned. In later releases,
+# the license will be simply MIT. See:
+#   https://github.com/jaraco/keyring/issues/607#issuecomment-1341618763
+License:        MIT OR Python-2.0.1
 URL:            https://github.com/jaraco/keyring
 Source0:        %{pypi_source keyring}
 
@@ -94,6 +100,9 @@ ln -s keyring %{buildroot}%{_bindir}/keyring-python3
 
 
 %changelog
+* Thu Dec 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.11.0-2
+- Correct dual license expression from AND to OR
+
 * Mon Nov 21 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 23.11.0-1
 - Update to 23.11.0 (close RHBZ#2140241)
 

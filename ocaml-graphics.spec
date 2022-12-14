@@ -5,7 +5,7 @@ Version:        5.1.2
 Release:        7%{?dist}
 Summary:        Portable drawing primitives for OCaml
 
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/graphics
 Source0:        %{url}/releases/download/%{version}/graphics-%{version}.tbz
 
@@ -59,6 +59,9 @@ The %{name}-doc package contains developer documentation for
 %doc examples
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 5.1.2-7
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

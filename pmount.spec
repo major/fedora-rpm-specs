@@ -3,7 +3,7 @@
 
 Name:           pmount
 Version:        0.9.23
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Enable normal user mount
 
 # realpath.c is GPLv2+. Others are GPL+;
@@ -16,6 +16,7 @@ Patch0:         pmount-0.9.17-nosetuid.patch
 # Add exfat support
 # https://bugs.launchpad.net/ubuntu/+source/pmount/+bug/1524523
 Patch1:         pmount.exfat.patch
+Patch2:         pmount-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -61,6 +62,9 @@ Be warned that pmount is installed setuid root.
 %{_mandir}/man1/p*mount*.1*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.9.23-25
+- Port to C99 (#2152707)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

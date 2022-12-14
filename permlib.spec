@@ -3,7 +3,7 @@ Version:        0.2.9
 Release:        17%{?dist}
 Summary:        Library for permutation computations
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/tremlin/PermLib
 Source0:        https://github.com/tremlin/PermLib/archive/v%{version}/%{name}-%{version}.tar.gz
 # Doxygen config file written by Jerry James <loganjerry@gmail.com>
@@ -32,9 +32,14 @@ automorphisms of symmetric matrices and finds the lexicographically
 smallest set in an orbit of sets.
 
 %package devel
+# The code is BSD-3-Clause.  Other licenses are due to files added by doxygen.
+# GPL-1.0-or-later: html/*.{css,png,svg}
+# MIT: html/*.js
+License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
 Summary:        Header files for developing programs that use PermLib
 Requires:       boost-devel
-Provides:       bundled(jquery)
+Provides:       %{name}-static = %{version}-%{release}
+Provides:       bundled(js-jquery)
 
 %description devel
 PermLib is a callable C++ library for permutation computations.
@@ -77,6 +82,10 @@ cp -a include/%{name} $RPM_BUILD_ROOT%{_includedir}
 %{_includedir}/permlib
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.2.9-17
+- Convert License tag to SPDX
+- Provide permlib-static
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

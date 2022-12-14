@@ -18,7 +18,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        102.5.0
+Version:        102.6.0
 Release:        1%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
@@ -226,6 +226,9 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Mon Dec 12 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.6.0-1
+- mozjs102-102.6.0 (fixes RHBZ#2152654)
+
 * Tue Nov 15 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.5.0-1
 - mozjs102-102.5.0
 

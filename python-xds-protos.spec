@@ -287,46 +287,49 @@ PYTHONPATH="${PWD}/testlib" %{python3} < %{py_cwd}/generated_file_import_test.py
 %files -n python3-xds-protos
 %license LICENSE
 
-%{python3_sitelib}/envoy
+%{python3_sitelib}/envoy/
 
 # Commented-out directories are owned (or co-owned as namespace package
 # directories) by python3dist(googleapis-common-protos); since we depend on it,
 # we do not need to (co-)own them.
 #%%dir %%{python3_sitelib}/google/
-#%%dir %%{python3_sitelib}/google/api
-%{python3_sitelib}/google/api/expr
-%{python3_sitelib}/google/api/servicecontrol
-%{python3_sitelib}/google/api/servicemanagement
-%{python3_sitelib}/google/api/serviceusage
-#%%dir %%{python3_sitelib}/google/logging
-#%%dir %%{python3_sitelib}/google/logging/type
-%{python3_sitelib}/google/logging/v2
-#%%dir %%{python3_sitelib}/google/longrunning
-#%%dir %%{python3_sitelib}/google/rpc
-#%%dir %%{python3_sitelib}/google/type
+#%%dir %%{python3_sitelib}/google/api/
+%{python3_sitelib}/google/api/expr/
+%{python3_sitelib}/google/api/servicecontrol/
+%{python3_sitelib}/google/api/servicemanagement/
+%{python3_sitelib}/google/api/serviceusage/
+#%%dir %%{python3_sitelib}/google/logging/
+#%%dir %%{python3_sitelib}/google/logging/type/
+%{python3_sitelib}/google/logging/v2/
+#%%dir %%{python3_sitelib}/google/longrunning/
+#%%dir %%{python3_sitelib}/google/rpc/
+#%%dir %%{python3_sitelib}/google/type/
 
 # Commented-out directories are owned (or co-owned as namespace package
 # directories) by python3dist(opencensus-proto); since we depend on it,
 # we do not need to (co-)own them.
-#%%dir %%{python3_sitelib}/opencensus
-#%%{python3_sitelib}/opencensus/proto
+#%%dir %%{python3_sitelib}/opencensus/
+#%%{python3_sitelib}/opencensus/proto/
 
 # Commented-out directories are owned (or co-owned as namespace package
 # directories) by python3dist(opentelemetry-proto); since we depend on it,
 # we do not need to (co-)own them.
 #%%dir %%{python3_sitelib}/opentelemetry
 #%%{python3_sitelib}/opentelemetry/proto
+# Dropped from python-opentelemetry in v1.15, so it now comes from this
+# package:
+%{python3_sitelib}/opentelemetry/proto/metrics/experimental/
 
-# This is a namespace package; other package could (but probably will not)
-# co-own the directory
-%{python3_sitelib}/udpa
+# This is a namespace package; another package could (but probably will not)
+# co-own the directory.
+%{python3_sitelib}/udpa/
 
-%{python3_sitelib}/validate
+%{python3_sitelib}/validate/
 
-%{python3_sitelib}/xds
+%{python3_sitelib}/xds/
 
 # Note that there is no importable package or module named xds_protos!
-%{python3_sitelib}/xds_protos-%(echo '%{version}' | cut -d '^' -f 1).dist-info
+%{python3_sitelib}/xds_protos-%(echo '%{version}' | cut -d '^' -f 1).dist-info/
 
 
 %changelog

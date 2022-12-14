@@ -1,13 +1,15 @@
 Summary:        Generates barcodes from text strings
 Name:           barcode
 Version:        0.98
-Release:        43%{?dist}
+Release:        44%{?dist}
 License:        GPLv2+
 URL:            https://www.gnu.org/software/barcode/
 Source0:        https://ftp.gnu.org/gnu/barcode/%{name}-%{version}.tar.gz
 Patch0:         barcode-configure.patch
 Patch1:         barcode-install-info.patch
 Patch2:         barcode-0.98-format-security.patch
+Patch3:         barcode-configure-c99.patch
+Patch4:         barcode-c99.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  %{_bindir}/texindex
@@ -40,6 +42,8 @@ to develop programs that use the %{name} library.
 %patch0 -p1 -b .directories
 %patch1 -p1 -b .categories
 %patch2 -p1 -b .format-security
+%patch3 -p1
+%patch4 -p1
 
 %build
 # fix definition of INFOTOHTML
@@ -80,6 +84,9 @@ fi
 %{_mandir}/man3/barcode.3*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.98-44
+- Port to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.98-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

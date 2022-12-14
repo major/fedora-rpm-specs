@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass
 %global goipath         github.com/gopasspw/gopass
-Version:                1.15.0
+Version:                1.15.1
 
 %gometa
 %global goname gopass
@@ -28,6 +28,7 @@ Requires:       git-core
 Requires:       gnupg2
 BuildRequires:  git-core
 BuildRequires:  gnupg2
+BuildRequires:  vim
 
 %description
 %{common_description}

@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.19.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -25,6 +25,7 @@ Source1:       https://github.com/micropython/axtls/archive/%{axtls_commit}/axtl
 
 %global berkley_commit 35aaec4418ad78628a3b935885dd189d41ce779b
 Source2:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
+Patch0:        micropython-c99.patch
 
 # Other arches need active porting
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -108,6 +109,9 @@ install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.19.1-3
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

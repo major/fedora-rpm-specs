@@ -9,9 +9,8 @@ Version:        0.4
 Release:        28%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
-# The same exception to clause 6 as provided by ocaml applies to this package.
-License:        LGPLv2 with exceptions
-URL:            https://github.com/OriginLabs-Iguernlala/ocplib-simplex
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
+URL:            https://github.com/OCamlPro/ocplib-simplex
 Source0:        %{url}/archive/v%{version}/ocplib-simplex-%{version}.tar.gz
 # Upstream patch to fix the tests
 Patch0:         %{name}-tests.patch
@@ -73,6 +72,10 @@ make local-tests
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.4-28
+- New URL
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

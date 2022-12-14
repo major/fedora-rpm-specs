@@ -12,13 +12,17 @@ Release:        3%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
-# - QPL: src/ocaml/driver/pparse.ml{,i}
-# - QPL: src/ocaml/preprocess/lexer_ident.mll
-# - QPL: src/ocaml/preprocess/lexer_raw.ml{i,l}
-# - LGPLv2 with exceptions: src/ocaml/preprocess/parser_raw.mly
-# - LGPLv2 with exceptions: upstream/ocaml_413/parsing/parser.mly
-# - LGPLv2 with exceptions: upstream/ocaml_414/parsing/parser.mly
-License:        MIT and QPL and LGPLv2 with exceptions
+# QPL:
+# - src/ocaml/driver/pparse.ml{,i}
+# - src/ocaml/preprocess/lexer_ident.mll
+# - src/ocaml/preprocess/lexer_raw.ml{i,l}
+# LGPL-2.1-only WITH OCaml-LGPL-linking-exception
+# - src/ocaml/preprocess/parser_raw.mly
+# - upstream/ocaml_413/parsing/parser.mly
+# - upstream/ocaml_413/utils/domainstate.ml{,i}.c
+# - upstream/ocaml_414/parsing/parser.mly
+# - upstream/ocaml_414/utils/domainstate.ml{,i}.c
+License:        MIT AND QPL-1.0 AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocaml.github.io/merlin/
 Source0:        https://github.com/ocaml/merlin/releases/download/v%{version}-%{ocamlver}/merlin-%{version}-%{ocamlver}.tbz
 
@@ -55,6 +59,7 @@ You should also install a package that integrates with your editor of
 choice, such as emacs-merlin or vim-merlin.
 
 %package     -n dot-merlin-reader
+License:        MIT
 Summary:        Merlin configuration file reader
 
 %description -n dot-merlin-reader
@@ -62,6 +67,7 @@ This package contains a helper process that reads .merlin files and gives
 the normalized content to merlin.
 
 %package     -n emacs-merlin
+License:        MIT
 Summary:        Context sensitive completion for OCaml in Emacs
 BuildArch:      noarch
 Requires:       ocaml-merlin = %{version}-%{release}
@@ -77,6 +83,7 @@ Recommends:     emacs-iedit
 This package contains the Emacs interface to merlin.
 
 %package     -n vim-merlin
+License:        MIT
 Summary:        Context sensitive completion for OCaml in Vim
 BuildArch:      noarch
 Requires:       ocaml-merlin = %{version}-%{release}
@@ -132,6 +139,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 4.5-3
+- Convert License tags to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPLv2: pcs
@@ -50,6 +50,8 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 # pcs patches: <= 200
 # Patch0: name.patch
 Patch0: bz2123389-01-fix-ruby-socket-permissions.patch
+# https://github.com/ClusterLabs/pcs/pull/607
+Patch1: 02-pr607-pcsd-ruby-adjust-to-json-2_6_3-error-message-change.patch
 
 # ui patches: >200
 # Patch201: name.patch
@@ -423,6 +425,9 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Mon Dec 12 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.3-5
+- Backport upstream patch for rubygem-json 2.6.3 error message format change
+
 * Wed Sep 07 2022 Miroslav Lisik <mlisik@redhat.com> - 0.11.3-4
 - Fixed ruby socket permissions
 - Resolves: rhbz#2123389

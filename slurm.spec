@@ -16,7 +16,7 @@
 
 Name:           slurm
 Version:        22.05.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Linux Utility for Resource Management
 License:        GPLv2 and BSD
 URL:            https://slurm.schedmd.com/
@@ -50,7 +50,7 @@ BuildRequires:  man2html
 BuildRequires:  perl-devel
 BuildRequires:  perl-ExtUtils-MakeMaker
 BuildRequires:  perl-interpreter
-BuildRequires:  perl-macros
+BuildRequires:  perl-generators
 BuildRequires:  perl-podlators
 %if (0%{?epel} != 7)
 BuildRequires:  pkgconf

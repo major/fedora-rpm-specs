@@ -2,7 +2,7 @@ Name:		pari-galdata
 Version:	20080411
 Release:	22%{?dist}
 Summary:	PARI/GP Computer Algebra System Galois resolvents
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://pari.math.u-bordeaux.fr/packages.html
 Source0:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz.asc
@@ -33,6 +33,9 @@ cp -a data/galdata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20080411-22
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20080411-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

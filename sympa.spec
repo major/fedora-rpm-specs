@@ -85,7 +85,7 @@
 
 Name:        sympa
 Version:     6.2.70
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}
+Release:     %{?pre_rel:0.}2%{?pre_rel:.%pre_rel}%{?dist}
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -564,10 +564,18 @@ cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.c
 [Socket]
 SocketUser=apache
 EOF
+cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-nginx.conf << EOF
+[Socket]
+SocketUser=nginx
+EOF
 mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d
-cat > %{buildroot}%{_sysconfdir}/systemd/system/wwsympa.socket.d/sympasoap-httpd.conf << EOF
+cat > %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-httpd.conf << EOF
 [Socket]
 SocketUser=apache
+EOF
+cat > %{buildroot}%{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-nginx.conf << EOF
+[Socket]
+SocketUser=nginx
 EOF
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 service/sympa-tmpfiles.conf \
@@ -845,7 +853,7 @@ fi
 %dir %{_sysconfdir}/systemd/system/wwsympa.socket.d
 %config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-httpd.conf
 %dir %{_sysconfdir}/systemd/system/sympasoap.socket.d
-%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/sympasoap-httpd.conf
+%config(noreplace) %{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-httpd.conf
 
 
 %files lighttpd
@@ -858,6 +866,10 @@ fi
 %{_unitdir}/wwsympa.socket
 %{_unitdir}/sympasoap.service
 %{_unitdir}/sympasoap.socket
+%dir %{_sysconfdir}/systemd/system/wwsympa.socket.d
+%config(noreplace) %{_sysconfdir}/systemd/system/wwsympa.socket.d/wwsympa-nginx.conf
+%dir %{_sysconfdir}/systemd/system/sympasoap.socket.d
+%config(noreplace) %{_sysconfdir}/systemd/system/sympasoap.socket.d/sympasoap-nginx.conf
 
 
 %files devel-doc
@@ -865,6 +877,10 @@ fi
 
 
 %changelog
+* Sun Dec 11 2022 Xavier Bachelot <xavier@bachelot.org> 6.2.70-2
+- Fix sympasoap socket ownership for httpd (RHBZ#2152381)
+- Fix both wwwsympa and sympasoap socket ownership for nginx
+
 * Wed Nov 30 2022 Xavier Bachelot <xavier@bachelot.org> 6.2.70-1
 - Update to 6.2.70
 

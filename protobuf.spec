@@ -1,12 +1,8 @@
 # Build -python subpackage
 %bcond_without python
-# Build -python subpackage with C++
-# Not compatible with Python 3.11
-%if 0%{?fedora} >= 37
-%bcond_with python_cpp
-%else
+# Build -python subpackage with C++. This significantly improves performance
+# compared to the pure-Python implementation.
 %bcond_without python_cpp
-%endif
 # Build -java subpackage
 %ifarch %{java_arches}
 %bcond_without java
@@ -18,15 +14,57 @@
 
 Summary:        Protocol Buffers - Google's data interchange format
 Name:           protobuf
-Version:        3.19.4
-Release:        6%{?dist}
-License:        BSD
+Version:        3.19.6
+%global so_version 30
+Release:        1%{?dist}
+
+# The entire source is BSD-3-Clause, except the following files, which belong
+# to the build system; are unpackaged maintainer utility scripts; or are used
+# only for building tests that are not packaged—and so they do not affect the
+# licenses of the binary RPMs:
+#
+# FSFAP:
+#   m4/ax_cxx_compile_stdcxx.m4
+#   m4/ax_prog_cc_for_build.m4
+#   m4/ax_prog_cxx_for_build.m4
+# Apache-2.0:
+#   python/mox.py
+#   python/stubout.py
+#   third_party/googletest/
+#     except the following, which are BSD-3-Clause:
+#       third_party/googletest/googletest/test/gtest_pred_impl_unittest.cc
+#       third_party/googletest/googletest/include/gtest/gtest-param-test.h
+#       third_party/googletest/googletest/include/gtest/gtest-param-test.h.pump
+#       third_party/googletest/googletest/include/gtest/internal/gtest-param-util-generated.h
+#       third_party/googletest/googletest/include/gtest/internal/gtest-param-util-generated.h.pump
+#       third_party/googletest/googletest/include/gtest/internal/gtest-type-util.h
+#       third_party/googletest/googletest/include/gtest/internal/gtest-type-util.h.pump
+# MIT:
+#   conformance/third_party/jsoncpp/json.h
+#   conformance/third_party/jsoncpp/jsoncpp.cpp
+License:        BSD-3-Clause
 URL:            https://github.com/protocolbuffers/protobuf
-Source:         https://github.com/protocolbuffers/protobuf/archive/v%{version}%{?rcver}/%{name}-%{version}%{?rcver}-all.tar.gz
+Source0:        %{url}/archive/v%{version}%{?rcver}/%{name}-%{version}%{?rcver}-all.tar.gz
+
 Source1:        ftdetect-proto.vim
 Source2:        protobuf-init.el
+
+# We bundle a copy of the exact version of gtest that is used by upstream in
+# the source RPM rather than using the system copy. This is to be discouraged,
+# but necessary in this case.  It is not treated as a bundled library because
+# it is used only at build time, and contributes nothing to the installed
+# files.  We take measures to verify this in %%check. See
+# https://github.com/protocolbuffers/protobuf/tree/v%%{version}/third_party to
+# check the correct commit hash.
+%global gtest_url https://github.com/google/googletest
+%global gtest_commit 5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081
+%global gtest_dir googletest-%{gtest_commit}
 # For tests (using exactly the same version as the release)
-Source3:        https://github.com/google/googletest/archive/5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081.zip
+Source3:        %{gtest_url}/archive/%{gtest_commit}/%{gtest_dir}.tar.gz
+
+# Man page hand-written for Fedora in groff_man(7) format based on “protoc
+# --help” output.
+Source4:        protoc.1
 
 # https://github.com/protocolbuffers/protobuf/issues/8082
 Patch1:         protobuf-3.14-disable-IoTest.LargeOutput.patch
@@ -37,14 +75,31 @@ Patch2:         disable-tests-on-32-bit-systems.patch
 # throws java.lang.ClassFormatError accessible: module java.base does not "opens java.lang" to unnamed module @12d5624a
 #	at com.google.protobuf.ServiceTest.testGetPrototype(ServiceTest.java:107)
 Patch3:         protobuf-3.19.4-jre17-add-opens.patch
+# Backport upstream commit da973aff2adab60a9e516d3202c111dbdde1a50f:
+#   Fix build with Python 3.11
+#
+#   The PyFrameObject structure members have been removed from the public C API.
+Patch4:         protobuf-3.19.4-python3.11.patch
 
-BuildRequires:  make
+# A bundled copy of jsoncpp is included in the conformance tests, but the
+# result is not packaged, so we do not treat it as a formal bundled
+# dependency—thus the virtual Provides below is commented out. The bundling is
+# removed in a later release:
+#   Make jsoncpp a formal dependency
+#   https://github.com/protocolbuffers/protobuf/pull/10739
+# The bundled version number is obtained from JSONCPP_VERSION_STRING in
+# conformance/third_party/jsoncpp/json.h.
+# Provides:       bundled(jsoncpp) = 1.6.5
+
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  emacs
-BuildRequires:  gcc-c++
 BuildRequires:  libtool
+
 BuildRequires:  pkgconfig
+BuildRequires:  make
+BuildRequires:  gcc-c++
+
+BuildRequires:  emacs
 BuildRequires:  zlib-devel
 
 %ifnarch %{java_arches}
@@ -130,12 +185,11 @@ which only depends libprotobuf-lite, which is much smaller than libprotobuf but
 lacks descriptors, reflection, and some other features.
 
 %if %{with python}
-%package -n python%{python3_pkgversion}-%{name}
-Summary:        Python 3 bindings for Google Protocol Buffers
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-wheel
-Requires:       python%{python3_pkgversion}-six >= 1.9
+%package -n python3-%{name}
+Summary:        Python bindings for Google Protocol Buffers
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(wheel)
 %if %{with python_cpp}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %else
@@ -144,16 +198,18 @@ BuildArch:      noarch
 Conflicts:      %{name}-compiler > %{version}
 Conflicts:      %{name}-compiler < %{version}
 Provides:       %{name}-python3 = %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
-%description -n python%{python3_pkgversion}-%{name}
-This package contains Python 3 libraries for Google Protocol Buffers
+%description -n python3-%{name}
+This package contains Python libraries for Google Protocol Buffers
 %endif
 
 %package vim
 Summary:        Vim syntax highlighting for Google Protocol Buffers descriptions
 BuildArch:      noarch
-Requires:       vim-enhanced
+# We don’t really need vim or vim-enhanced to be already installed in order to
+# install a plugin for it. We do need to depend on vim-filesystem, which
+# provides the necessary directory structure.
+Requires:       vim-filesystem
 
 %description vim
 This package contains syntax highlighting for Google Protocol Buffers
@@ -240,7 +296,13 @@ descriptions in the Emacs editor.
 %patch2 -p0
 %endif
 %patch3 -p1 -b .jre17
-mv googletest-5ec7f0c4a113e2f18ac2c6cc7df51ad6afc24081/* third_party/googletest/
+%patch4 -p1 -b .python311
+
+# Copy in the needed gtest/gmock implementations.
+%setup -q -T -D -b 3 -n %{name}-%{version}%{?rcver}
+rm -rvf 'third_party/googletest'
+mv '../%{gtest_dir}' 'third_party/googletest'
+
 find -name \*.cc -o -name \*.h | xargs chmod -x
 chmod 644 examples/*
 %if %{with java}
@@ -321,6 +383,9 @@ fail=1
 %make_install %{?_smp_mflags} STRIPBINARIES=no INSTALL="%{__install} -p" CPPROG="cp -p"
 find %{buildroot} -type f -name "*.la" -exec rm -f {} +
 
+# protoc.1 man page
+install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' '%{SOURCE4}'
+
 %if %{with python}
 pushd python
 %py3_install %{?with_python_cpp:-- --cpp_implementation}
@@ -342,20 +407,17 @@ install -p -m 0644 editors/protobuf-mode.elc %{buildroot}%{_emacs_sitelispdir}/%
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
-%ldconfig_scriptlets
-%ldconfig_scriptlets lite
-%ldconfig_scriptlets compiler
-
 %files
 %doc CHANGES.txt CONTRIBUTORS.txt README.md
 %license LICENSE
-%{_libdir}/libprotobuf.so.30*
+%{_libdir}/libprotobuf.so.%{so_version}{,.*}
 
 %files compiler
 %doc README.md
 %license LICENSE
 %{_bindir}/protoc
-%{_libdir}/libprotoc.so.30*
+%{_mandir}/man1/protoc.1*
+%{_libdir}/libprotoc.so.%{so_version}{,.*}
 
 %files devel
 %dir %{_includedir}/google
@@ -366,6 +428,7 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %doc examples/add_person.cc examples/addressbook.proto examples/list_people.cc examples/Makefile examples/README.md
 
 %files emacs
+%license LICENSE
 %{_emacs_sitelispdir}/%{name}/
 %{_emacs_sitestartdir}/protobuf-init.el
 
@@ -374,7 +437,8 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_libdir}/libprotoc.a
 
 %files lite
-%{_libdir}/libprotobuf-lite.so.30*
+%license LICENSE
+%{_libdir}/libprotobuf-lite.so.%{so_version}{,.*}
 
 %files lite-devel
 %{_libdir}/libprotobuf-lite.so
@@ -384,13 +448,14 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_libdir}/libprotobuf-lite.a
 
 %if %{with python}
-%files -n python%{python3_pkgversion}-protobuf
+%files -n python3-protobuf
 %if %{with python_cpp}
 %dir %{python3_sitearch}/google
 %{python3_sitearch}/google/protobuf/
 %{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
 %{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
 %else
+%license LICENSE
 %dir %{python3_sitelib}/google
 %{python3_sitelib}/google/protobuf/
 %{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
@@ -401,6 +466,7 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %endif
 
 %files vim
+%license LICENSE
 %{_datadir}/vim/vimfiles/ftdetect/proto.vim
 %{_datadir}/vim/vimfiles/syntax/proto.vim
 
@@ -411,6 +477,7 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %license LICENSE
 
 %files java-util -f .mfiles-protobuf-java-util
+%license LICENSE
 
 %files javadoc -f .mfiles-javadoc
 %license LICENSE
@@ -427,6 +494,28 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Dec 07 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.6-1
+- Update to 3.19.6; fix CVE-2022-3171
+
+* Wed Dec 07 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.5-1
+- Update to 3.19.5; fix CVE-2022-1941
+
+* Sun Dec 04 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.19.4-7
+- Update License to SPDX
+- Improved handling of gtest sources
+- Update/correct gtest commit hash to match upstream
+- Simplify the Source0 URL with a macro
+- Drop manual dependency on python3-six, no longer needed
+- Drop obsolete python_provide macro
+- Drop python3_pkgversion macro
+- Update summary and description to refer to “Python” instead of “Python 3”
+- Re-enable compiled Python extension on Python 3.11
+- Ensure all subpackages always have LICENSE, or depend on something that does
+- Remove obsolete ldconfig_scriptlets macros
+- The -vim subpackage now depends on vim-filesystem, no longer on vim-enhanced
+- Add a man page for protoc
+- Use a macro to avoid repeating the .so version, and improve .so globs
+
 * Sun Aug 14 2022 Orion Poplawski <orion@nwra.com> - 3.19.4-6
 - Build python support with C++ (bz#2107921)
 

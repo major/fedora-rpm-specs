@@ -1,11 +1,12 @@
 Name:           monit
 Version:        5.32.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Manages and monitors processes, files, directories and devices
 
 License:        AGPLv3
 URL:            https://mmonit.com/monit/
 Source0:        https://mmonit.com/monit/dist/%{name}-%{version}.tar.gz
+Patch0:         monit-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -30,7 +31,11 @@ and can execute meaningful causal actions in error situations.
 
 
 %prep
-%setup -q
+%autosetup -p1
+
+# Prevent-rerunning autoconf.
+touch -r aclocal.m4 configure*
+touch -r libmonit/aclocal.m4 libmonit/configure*
 
 %build
 %configure --disable-static
@@ -79,6 +84,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/monit.d
 %{_mandir}/man1/monit.1*
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 5.32.0-3
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.32.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

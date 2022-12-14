@@ -1,6 +1,6 @@
 Name:           Ri-li
 Version:        2.0.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Arcade game where you drive a toy wood engine
 License:        GPLv2 or GPLv3
 URL:            http://ri-li.sourceforge.net/index.html
@@ -10,6 +10,7 @@ Source2:        %{name}.appdata.xml
 Patch0:         Ri-li-2.0.1-build-fix.patch
 Patch1:         Ri-li-2.0.1-gcc43.patch
 Patch2:         Ri-li-gcc11.patch
+Patch3:         Ri-li-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  SDL_mixer-devel desktop-file-utils libappstream-glib
@@ -26,6 +27,7 @@ to win. Full-featured: 18 languages, Colorful animated wood engine, 50 levels,
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 sed -i 's/\r//g' README COPYING AUTHORS NEWS
 
 
@@ -63,6 +65,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 2.0.1-35
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

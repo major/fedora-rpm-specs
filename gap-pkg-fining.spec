@@ -1,7 +1,7 @@
 %global pkgname fining
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5.2
+Version:        1.5.3
 Release:        1%{?dist}
 Summary:        Finite incidence geometry
 
@@ -90,6 +90,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Sun Dec 11 2022 Jerry James <loganjerry@gmail.com> - 1.5.3-1
+- Version 1.5.3
+
 * Sat Dec 10 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-1
 - Version 1.5.2
 

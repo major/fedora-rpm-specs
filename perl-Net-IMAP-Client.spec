@@ -1,13 +1,12 @@
 Name:           perl-Net-IMAP-Client
 Version:        0.9505
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        IMAP client library for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IMAP-Client
 Source0:        http://www.cpan.org/authors/id/G/GA/GANGLION/Net-IMAP-Client-%{version}.tar.gz
-
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(vars)
@@ -31,32 +30,60 @@ provide a simple and clean API, while employing a rigorous parser for IMAP
 responses in order to create Perl data structures from them. The code is
 simple, clean and extensible.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Net-IMAP-Client-%{version}
-
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/boilerplate.t
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
-
 
 %files
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 %doc Changes META.json README
-%exclude %{perl_vendorarch}/auto/Net/IMAP/Client/.packlist
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Dec 12 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.9505-14
+- Fix trailing whitespace
+- Package tests
+- Simplify and fix build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9505-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

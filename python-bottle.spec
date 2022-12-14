@@ -1,29 +1,25 @@
 %global srcname bottle
 
 Name:           python-%{srcname}
-Version:        0.12.21
-Release:        4%{?dist}
+Version:        0.12.23
+Release:        1%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
 URL:            http://bottlepy.org
 Source0:        https://github.com/bottlepy/%{srcname}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 
-# Python 3.11 compatibility, implement getargspec using inspect.Signature
-# https://github.com/bottlepy/bottle/commit/6fd2aae7fd3d3ee6782c603628e6ec48fc0579e5
-Patch0:		0001-Implement-getargspec-using-inspect.Signature.patch
-Patch1:		test_delete_cookie.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3dist(pytest)
 
 %description
-Bottle is a fast and simple micro-framework for small web-applications. 
-It offers request dispatching (Routes) with URL parameter support, Templates, 
-a built-in HTTP Server and adapters for many third party WSGI/HTTP-server and 
-template engines. All in a single file and with no dependencies other than the 
+Bottle is a fast and simple micro-framework for small web-applications.
+It offers request dispatching (Routes) with URL parameter support, Templates,
+a built-in HTTP Server and adapters for many third party WSGI/HTTP-server and
+template engines. All in a single file and with no dependencies other than the
 Python Standard Library.
 
 %package -n python%{python3_pkgversion}-%{srcname}
@@ -31,10 +27,10 @@ Summary:        Fast and simple WSGI-framework for small web-applications
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
-Bottle is a fast and simple micro-framework for small web-applications. 
-It offers request dispatching (Routes) with URL parameter support, Templates, 
-a built-in HTTP Server and adapters for many third party WSGI/HTTP-server and 
-template engines. All in a single file and with no dependencies other than the 
+Bottle is a fast and simple micro-framework for small web-applications.
+It offers request dispatching (Routes) with URL parameter support, Templates,
+a built-in HTTP Server and adapters for many third party WSGI/HTTP-server and
+template engines. All in a single file and with no dependencies other than the
 Python Standard Library.
 
 %prep
@@ -49,16 +45,19 @@ sed -i '/^#!/d' bottle.py
 rm %{buildroot}%{_bindir}/bottle.py
 
 %check
-%__python3 test/testall.py verbose || :
+%{pytest} test
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
-%doc AUTHORS README.rst
+%doc AUTHORS README.rst docs/*
 %{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/*.py
 
 %changelog
+* Mon Dec 12 2022 Federico Pellegrin <fede@evolware.org> - 0.12.23-1
+- Update to 0.12.23, drop upstreamed patches and add full test run
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Name:           python-%{srcname}
 Version:        1.0.3
 Release:        %autorelease
 Summary:        Framework for fast, easy and documented API development with Flask
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/python-restx/flask-restx
 Source0:        %{pypi_source %srcname}
 BuildArch:      noarch
