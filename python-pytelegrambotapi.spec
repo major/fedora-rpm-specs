@@ -11,7 +11,7 @@ Name: python-%{appname}
 Version: 4.8.0
 Release: 1%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Python Telegram Bot API implementation
 URL: https://github.com/eternnoir/%{richname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz

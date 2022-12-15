@@ -2,14 +2,13 @@
 %global sum     An SVG scrubber
 
 Name:               python-scour
-Version:            0.38.1
-%global	gitversion  038.1
-Release:            7%{?dist}
+Version:            0.38.2
+Release:            1%{?dist}
 Summary:            %{sum}
 
 License:            ASL 2.0
 URL:                https://github.com/scour-project/scour
-Source0:            %{url}/archive/v%{gitversion}.tar.gz#/%{modname}-%{version}.tar.gz
+Source0:            %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildRequires:      python3-devel
 BuildRequires:      python3-setuptools
@@ -25,14 +24,14 @@ BuildArch:          noarch
 %package -n python3-%{modname}
 Summary:            %{sum}
 %{?python_provide:%python_provide python3-%{modname}}
-
+Requires: python3-packaging
 
 %description -n python3-%{modname}
 %{sum}.
 
 
 %prep
-%autosetup -n %{modname}-%{gitversion}
+%autosetup -n %{modname}-%{version}
 
 # Better safe than sorry
 find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
@@ -59,6 +58,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Tue Dec 13 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.38.2-1
+- 0.38.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

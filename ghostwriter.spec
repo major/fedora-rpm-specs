@@ -2,9 +2,9 @@ Name: ghostwriter
 Version: 2.2.0
 Release: 1%{?dist}
 
-License: GPLv3+ and CC-BY and CC-BY-SA and MPLv1.1 and BSD and LGPLv3 and MIT and ISC
+License: GPL-3.0-or-later AND Apache-2.0 AND CC-BY-4.0 AND CC-BY-SA-4.0 AND MPL-1.1 AND BSD AND LGPL-3.0-only AND MIT AND ISC
 Summary: Cross-platform, aesthetic, distraction-free Markdown editor
-URL: https://github.com/wereturtle/%{name}
+URL: https://github.com/KDE/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake(Qt5Concurrent)

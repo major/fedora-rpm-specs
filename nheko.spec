@@ -2,11 +2,11 @@ Name: nheko
 Version: 0.10.2
 Release: 2%{?dist}
 
-# Main source - GPLv3+
-# cpp-httplib - bundled - MIT
-# blurhash - bundled - Boost
-# qtsingleapplication-qt5 - bundled - MIT
-License: GPLv3+ and MIT and Boost
+# Main source - GPL-3.0-or-later.
+# cpp-httplib - bundled - MIT.
+# blurhash - bundled - BSL-1.0.
+# qtsingleapplication-qt5 - bundled - MIT.
+License: GPL-3.0-or-later AND MIT AND BSL-1.0
 Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

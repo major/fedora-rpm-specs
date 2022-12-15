@@ -1,6 +1,6 @@
 Name:           mint-themes
 Epoch:          1
-Version:        2.0.6
+Version:        2.0.8
 Release:        1%{?dist}
 Summary:        Mint themes
 
@@ -111,6 +111,9 @@ make
 %{_datadir}/themes/Mint-Y*/cinnamon/
 
 %changelog
+* Tue Dec 13 2022 Leigh Scott <leigh123linux@gmail.com> - 1:2.0.8-1
+- New upstream release
+
 * Fri Nov 25 2022 Leigh Scott <leigh123linux@gmail.com> - 1:2.0.6-1
 - New upstream release
 

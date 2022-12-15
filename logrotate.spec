@@ -1,7 +1,7 @@
 Summary: Rotates, compresses, removes and mails system log files
 Name: logrotate
-Version: 3.20.1
-Release: 3%{?dist}
+Version: 3.21.0
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://github.com/logrotate/logrotate
 Source0: https://github.com/logrotate/logrotate/releases/download/%{version}/logrotate-%{version}.tar.xz
@@ -12,9 +12,6 @@ Source1: https://github.com/logrotate/logrotate/releases/download/%{version}/log
 Source2: kdudka.pgp
 
 Source3: rwtab
-
-# lockState: do not print `error:` when exit code is unaffected (#2090926)
-Patch:   0001-logrotate-3.20.1-lock-state-msg.patch
 
 BuildRequires: acl
 BuildRequires: automake
@@ -118,6 +115,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rwtab.d/logrotate
 
 %changelog
+* Tue Dec 13 2022 Kamil Dudka <kdudka@redhat.com> - 3.21.0-1
+- new upstream version 3.21.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

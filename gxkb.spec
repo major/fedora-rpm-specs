@@ -1,6 +1,6 @@
 Name: gxkb
-Version: 0.9.3
-Release: 3%{?dist}
+Version: 0.9.4
+Release: %autorelease
 Summary: X11 keyboard indicator and switcher
 
 License: GPLv2+
@@ -41,6 +41,8 @@ uses GTK+ library and therefore does not depend on any GNOME components.
 # Move license file in proper location
 mkdir -p %{buildroot}%{_licensedir}/%{name}/
 mv %{buildroot}%{_docdir}/%{name}/COPYING %{buildroot}%{_licensedir}/%{name}/
+# Copy README.md to bypass "file listed twice" by rpm %doc macros
+cp -p README.md %{buildroot}%{_docdir}/%{name}/
 
 
 %check
@@ -48,7 +50,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files
-%doc README.md
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
@@ -59,26 +60,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Oct 23 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.3-1
-- chore(update): 0.9.3
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue May 04 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.2-1
-- build(update): 0.9.2
-
-* Sat Apr 24 2021 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.1-1
-- build(update): 0.9.1
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Dec 12 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 0.9.0-1
-- Initial package
+%autochangelog

@@ -3,7 +3,7 @@ Version: 0.9.5.0
 Release: 5%{?dist}
 Epoch: 1
 
-License: BSD
+License: BSD-3-Clause
 Summary: Portable SCTP userland stack
 URL: https://github.com/sctplab/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz

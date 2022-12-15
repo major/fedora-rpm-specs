@@ -39,7 +39,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?name_cross}%{?_with_debug:-debug}
 Version: 2.39
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -310,6 +310,10 @@ Patch22: binutils-readelf-no-sections.patch
 # Purpose:  Stop compile time warnings from configure test files in the libiberty directory.
 # Lifetime: Fixed in 2.40
 Patch23: binutils-libiberty-configure-compile-warnings.patch
+
+# Purpose:  Fix a potential reference of a NULL pointer.
+# Lifetime: Fixed in 2.40
+Patch24: binutils-CVE-2022-4285.patch
 
 #----------------------------------------------------------------------------
 
@@ -967,6 +971,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Dec 13 2022 Nick Clifton  <nickc@redhat.com> - 2.39-7
+- Fix a potential dereference of a NULL pointer.  (#2152946)
+
 * Wed Nov 23 2022 Nick Clifton  <nickc@redhat.com> - 2.39-6
 - Fix compile time warnings of the configure test files in the libiberty directory.  (#2144041)
 

@@ -1,5 +1,5 @@
 Name:           python-networkx
-Version:        2.8.7
+Version:        2.8.8
 Release:        1%{?dist}
 Summary:        Creates and Manipulates Graphs and Networks
 License:        BSD-3-Clause
@@ -88,8 +88,37 @@ study of the structure, dynamics, and functions of complex networks.
 %if %{without bootstrap}
 %if 0%{?rhel} == 0
 %package doc
-# Sphinx adds MIT-licensed files
-License:        BSD-3-Clause AND MIT
+# The content is BSD-3-Clause.  Other licenses are due to files copied in by
+# Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/binder_badge_logo.svg: BSD-3-Clause
+# _static/broken_example.png: BSD-3-Clause
+# _static/copybutton.js
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/no_image.png: BSD-3-Clause
+# _static/opensearch.xml: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/scripts/pydata-sphinx-theme.js: BSD-3-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/sg_gallery.css: BSD-3-Clause
+# _static/sg_gallery-binder.css: BSD-3-Clause
+# _static/sg_gallery-dataframe.css: BSD-3-Clause
+# _static/sg_gallery-rendered-html.css: BSD-3-Clause
+# _static/sphinx_highlight.js: BSD-2-Clause
+# _static/styles/pydata-sphinx-theme.css: BSD-3-Clause
+# _static/styles/theme.css: BSD-3-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        BSD-3-Clause AND BSD-2-Clause AND MIT
 Summary:        Documentation for networkx
 Requires:       fontawesome5-fonts-all
 Provides:       bundled(js-jquery)
@@ -159,6 +188,10 @@ done
 %endif
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2.8.8-1
+- Version 2.8.8
+- Clarify license of the doc subpackage
+
 * Sat Oct  1 2022 Jerry James <loganjerry@gmail.com> - 2.8.7-1
 - Version 2.8.7
 - Drop upstreamed matplotlib patch

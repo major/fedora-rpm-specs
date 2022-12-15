@@ -1,5 +1,5 @@
 Name:		tucnak
-Version:	4.38
+Version:	4.39
 Release:	1%{?dist}
 Summary:	VHF contest logging program
 License:	GPLv2
@@ -71,6 +71,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Tue Dec 13 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.39-1
+- New version
+  Resolves: rhbz#2152850
+
 * Thu Dec  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.38-1
 - New version
   Resolves: rhbz#2148552

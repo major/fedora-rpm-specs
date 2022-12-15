@@ -3,7 +3,7 @@ Version:        2.1.0
 Release:        14%{?dist}
 Summary:        File editor/viewer/analyzer for executables
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://hte.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/hte/ht-%{version}.tar.bz2
 

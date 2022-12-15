@@ -9,7 +9,7 @@
 
 Name:           date
 Version:        3.0.1^%{date}git%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Date and time library based on the C++11/14/17 <chrono> header
 
 License:        MIT
@@ -18,6 +18,8 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{version}.tar.gz
 # add pkg-config support to make the package compatible with meson
 # https://github.com/HowardHinnant/date/pull/538
 Patch0:         output-date-pc-for-pkg-config.patch
+# Adjust default value of USE_OS_TZDB macro to match Fedora build.
+Patch1:         date-macro.patch
 
 BuildRequires:  cmake >= 3.7
 BuildRequires:  gcc-c++
@@ -40,7 +42,7 @@ This is actually several separate C++11/C++14/C++17 libraries:
    on leap seconds, and this library provides utilities to compute
    with that information as well.
 Slightly modified versions of "date.h" and "tz.h" were voted into
-the C++20 working draft.}
+the C++20 standard.}
 
 %description %{_description}
 
@@ -110,6 +112,9 @@ export CTEST_OUTPUT_ON_FAILURE=ON
 
 
 %changelog
+* Tue Dec 13 2022 Jonathan Wakely <jwakely@redhat.com> - 3.0.1^20210518git052eeba-5
+- Add patch to set USE_OS_TZDB so it matches the Fedora package
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1^20210518git052eeba-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

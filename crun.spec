@@ -50,7 +50,8 @@ BuildRequires: protobuf-c-devel
 %ifnarch %ix86
 BuildRequires: criu-devel >= 3.17.1-2
 %endif
-Requires: criu >= 3.17.1
+Recommends: criu >= 3.17.1
+Recommends: criu-libs
 Provides: oci-runtime
 
 %description

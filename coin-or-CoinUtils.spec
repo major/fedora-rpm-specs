@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or Utilities
 Version:	2.11.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -32,6 +32,7 @@ Patch0:		%{name}-docdir.patch
 
 # Prevent a segfault when a problem's status has not been set
 Patch1:		%{name}-status.patch
+Patch2:		coin-or-CoinUtils-configure-c99.patch
 
 %description
 CoinUtils (Coin-or Utilities) is an open-source collection of classes
@@ -114,6 +115,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/coinutils_doxy.tag
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 2.11.4-8
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

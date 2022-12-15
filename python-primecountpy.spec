@@ -5,7 +5,9 @@ Version:        0.1.0
 Release:        6%{?dist}
 Summary:        Python Primecount wrapper
 
-License:        GPLv3
+# GPL-3.0-only: setup.py
+# GPL-2.0-or-later: primecountpy/primecount.pyx
+License:        GPL-3.0-only AND GPL-2.0-or-later
 URL:            https://github.com/dimpase/primecountpy
 Source0:        %{url}/archive/v%{version}/primecountpy-%{version}.tar.gz
 
@@ -31,9 +33,26 @@ Summary:        Python 3 Primecount wrapper
 This package provides a Cython interface to the C++ library primecount.
 
 %package        doc
+# The content is GPL-3.0-only AND GPL-2.0-or-later.  Other licenses are due to
+# files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        GPL-3.0-only AND GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND MIT
 Summary:        API documentation for %{name}
-# The docs are GPLv3.  The bundled jquery and underscore are MIT.
-License:        GPLv3 and MIT
 BuildArch:      noarch
 Requires:       font(fontawesome)
 Requires:       font(lato)
@@ -78,6 +97,9 @@ rm docs/build/html/.buildinfo
 %license LICENSE
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.1.0-6
+- Convert License tags to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

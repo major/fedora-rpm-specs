@@ -13,9 +13,9 @@ Name: python-%{pypi_name}
 Version: 8.0.0
 Release: 1%{?dist}
 
-# Main code - GPLv3+.
-# Icon - Apache 2.0.
-License: GPLv3+ and ASL 2.0
+# Main code - GPL-3.0-or-later.
+# Icon - Apache-2.0.
+License: GPL-3.0-or-later AND Apache-2.0
 Summary: HUD Manager
 URL: https://github.com/xvitaly/%{pypi_name}
 Source0: %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz

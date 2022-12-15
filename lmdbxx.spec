@@ -2,7 +2,7 @@ Name: lmdbxx
 Version: 1.0.0
 Release: 4%{?dist}
 
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: C++ wrapper for the LMDB embedded B+ tree database library
 URL: https://github.com/hoytech/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz

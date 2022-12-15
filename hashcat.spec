@@ -19,7 +19,7 @@ Name: hashcat
 Version: 6.2.6
 Release: 1%{?dist}
 
-License: MIT and Public Domain
+License: MIT AND LicenseRef-Fedora-Public-Domain
 URL: https://github.com/%{name}/%{name}
 Summary: Advanced password recovery utility
 

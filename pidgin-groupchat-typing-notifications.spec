@@ -3,7 +3,7 @@ Version: 3
 Release: 9%{?dist}
 
 Summary: Adds typing notifications for group chats in Pidgin
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://github.com/EionRobb/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

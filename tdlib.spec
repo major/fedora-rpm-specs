@@ -2,7 +2,7 @@ Name: tdlib
 Version: 1.8.0
 Release: 2%{?dist}
 
-License: Boost
+License: BSL-1.0
 URL: https://github.com/%{name}/td
 Summary: Cross-platform library for building Telegram clients
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

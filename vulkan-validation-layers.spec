@@ -57,7 +57,7 @@ developing applications that use %{name}.
         -DUSE_ROBIN_HOOD_HASHING:BOOL=OFF \
         -DSPIRV_HEADERS_INSTALL_DIR=%{_prefix} \
         -DVULKAN_HEADERS_INSTALL_DIR=%{_prefix} \
-        -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/vulkan/
+        -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}
 %cmake_build
 
 

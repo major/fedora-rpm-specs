@@ -3,11 +3,11 @@
 %global debug_package %{nil}
 
 Name: tweeny
-Summary: Modern C++ tweening library
 Version: 3.2.0
 Release: 4%{?dist}
 
 License: MIT
+Summary: Modern C++ tweening library
 URL: https://github.com/mobius3/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -1,7 +1,7 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/sourcextractorplusplus
 Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{version}/%{name}-%{version}.tar.gz
@@ -67,6 +67,7 @@ Requires: cmake%{?_isa}
 %else
 Requires: cmake-filesystem%{?_isa}
 %endif
+Requires:      python3-astropy%{?_isa}
 
 %global cmakedir %{_libdir}/cmake/ElementsProject
 
@@ -202,6 +203,9 @@ make test -C "%{_vpath_builddir}"
 %{_docdir}/sourcextractor++
 
 %changelog
+* Mon Dec 12 2022 aalvarez - 0.19-2
+- Requires python3-astropy
+
 * Thu Oct 20 2022 Alejandro Alvarez Ayllon <aalvarez@fedoraproject.org> - 0.19-1
 - SourceXtractor++ 0.19
 

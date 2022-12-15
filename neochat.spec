@@ -2,7 +2,7 @@ Name: neochat
 Version: 22.11
 Release: 1%{?dist}
 
-License: GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and BSD
+License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
 Summary: Client for matrix, the decentralized communication protocol
 Source0: https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
@@ -57,6 +57,9 @@ Requires: qt5-qtquickcontrols2%{?_isa}
 
 Recommends: google-noto-emoji-color-fonts
 Recommends: google-noto-emoji-fonts
+
+Provides: spectral = %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes: spectral < 0-19.20201224gitfba0df0
 
 %description
 Neochat is a client for Matrix, the decentralized communication protocol for

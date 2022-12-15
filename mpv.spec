@@ -2,7 +2,7 @@ Name:           mpv
 Version:        0.35.0
 Release:        1%{?dist}
 
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz

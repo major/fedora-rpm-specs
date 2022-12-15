@@ -2,7 +2,7 @@ Name: kiwix-tools
 Version: 3.4.0
 Release: 1%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
 
 URL: https://github.com/kiwix/%{name}

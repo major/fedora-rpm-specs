@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.6
-Release: 3%{?dist}
+Version: 6.0.9
+Release: 1%{?dist}
 License: GPLv2
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -23,6 +23,8 @@ Patch4: suricata-5.0.4-geolite-path-fixup.patch
 Patch5: suricata-6.0.3-log-path-fixup.patch
 # update deprecated API calls
 Patch6: suricata-6.0.6-ebpf-update-deprecated-API-calls.patch
+# Build fails with ambiguous python shebang
+Patch7: suricata-6.0.9-python.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -40,7 +42,7 @@ BuildRequires: clang llvm libbpf-devel
 %endif
 %endif
 BuildRequires: autoconf automake libtool
-BuildRequires: systemd
+BuildRequires: systemd-devel
 BuildRequires: hiredis-devel
 BuildRequires: libevent-devel
 # Prelude is disabled pending resolution of bz 1908783
@@ -82,6 +84,7 @@ install -m 644 %{SOURCE2} doc/
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -169,13 +172,12 @@ fi
 %license COPYING
 %attr(644,root,root) %{_mandir}/man1/*
 %{_sbindir}/suricata
-%{_bindir}/suricatasc
-%{_bindir}/suricatactl
-%{_bindir}/suricata-update
+%{_sbindir}/suricatasc
+%{_sbindir}/suricatactl
+%{_sbindir}/suricata-update
 %{_libdir}/libhtp*
-%{python3_sitelib}/suricatasc/*
-%{python3_sitelib}/suricata/*
-%{python3_sitelib}/*egg-info
+/usr/lib/suricata/python/suricata/*
+/usr//lib/suricata/python/suricatasc
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/suricata.yaml
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/*.config
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/rules/*.rules
@@ -191,6 +193,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Tue Dec 13 2022 Steve Grubb <sgrubb@redhat.com> 6.0.9-1
+- New security and bugfix release
+
 * Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.6-3
 - libbpf 1.0.0 build
 

@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.7
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 License: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+
 Source: https://ftp.gnu.org/gnu/guile/guile-%{version}.tar.gz
@@ -49,6 +49,8 @@ Patch3: guile-3.0.7-configure.patch
 
 # Disable unstable stack overflow test
 Patch4: guile-3.0.7-disable-stackoverflow-test.patch
+
+Patch5: guile30-configure-tz-c99.patch
 
 %description
 GUILE (GNU's Ubiquitous Intelligent Language for Extension) is a library
@@ -211,6 +213,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 3.0.7-7
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

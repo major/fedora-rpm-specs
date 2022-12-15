@@ -2,10 +2,10 @@ Name:           psi
 Version:        1.5
 Release:        9%{?dist}
 
-# GPLv2+ - core project.
-# LGPLv2.1+ - iris library, widgets, several tools.
-# zlib/libpng - bundled minizip library.
-License:        GPLv2+ and LGPLv2+ and zlib
+# GPL-2.0-or-later - core project.
+# LGPL-2.1-or-later - iris library, widgets, several tools.
+# Zlib - bundled minizip library.
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib
 Summary:        Jabber client based on Qt
 URL:            https://psi-im.org
 

@@ -3,7 +3,24 @@ Version:        1.0.2
 Release:        3%{?dist}
 Summary:        Docutils backend for pybtex
 
-License:        MIT
+# The content is MIT.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/classic.css: BSD-2-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/sidebar.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        MIT AND BSD-2-Clause
 URL:            https://github.com/mcmtroffaes/pybtex-docutils
 Source0:        %pypi_source pybtex-docutils
 # The tests now expect docutils 0.18+.  Until we update the Fedora package,
@@ -30,7 +47,7 @@ into python documentation to be rendered by docutils.}
 
 %package -n python3-pybtex-docutils
 Summary:        Docutils backend for pybtex
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
 
 %description -n python3-pybtex-docutils %common_desc
@@ -64,6 +81,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html doc/_build/html/*
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.0.2-3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

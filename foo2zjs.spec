@@ -6,10 +6,10 @@ Name:           foo2zjs
 Version:        0.%{foo2zjs_ver}
 Release:        20%{?dist}
 
-# Main code - GPLv2.
-# Some PPD files - GPLv3+
-# icc2ps - MIT
-License:        GPLv2 and GPLv3+ and MIT
+# Main code - GPL-2.0-only.
+# Some PPD files - GPL-3.0-or-later.
+# icc2ps - MIT.
+License:        GPL-2.0-only AND GPL-3.0-or-later AND MIT
 Summary:        Linux printer driver for ZjStream protocol
 URL:            https://www.openprinting.org/driver/%{name}/
 Source0:        %{name}-%{foo2zjs_ver}.tar.gz

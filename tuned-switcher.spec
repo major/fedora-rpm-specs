@@ -2,9 +2,9 @@ Name: tuned-switcher
 Version: 0.7.1
 Release: 1%{?dist}
 
-# Main code - GPLv3+.
-# Icon - Apache 2.0.
-License: GPLv3+ and ASL 2.0
+# Main code - GPL-3.0-or-later.
+# Icon - Apache-2.0.
+License: GPL-3.0-or-later AND Apache-2.0
 Summary: Simple utility to manipulate the Tuned service
 URL: https://github.com/EasyCoding/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

@@ -6,7 +6,7 @@ Version: 1.14
 Release: 18%{?dist}
 Summary: Toolbar and status bar for Pidgin
 
-License: GPLv2+
+License: GPL-2.0-or-later
 Source0: http://vayurik.ru/wordpress/wp-content/uploads/toobars/%{version}/%{name}-%{version}.tar.gz
 Patch0: 0001-Fix-incorrect-FSF-address.patch
 URL: http://vayurik.ru/en/toobars

@@ -2,14 +2,16 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.4.%{prerel}%{?dist}
+Release:        0.5.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
-# src/sphinx_theme_builder/_internal/passthrough.py is BSD 3-Clause.
-License:        MIT and BSD
+# src/sphinx_theme_builder/_internal/passthrough.py is BSD-3-Clause.
+License:        MIT and BSD-3-Clause
 URL:            https://github.com/pradyunsg/sphinx-theme-builder
 Source0:        %{url}/archive/%{version}%{prerel}/sphinx-theme-builder-%{version}%{prerel}.tar.gz
+# Use the builtin tomllib instead of deprecated tomli package
+Patch0:         https://github.com/pradyunsg/sphinx-theme-builder/commit/1e44d47.patch
 
 BuildArch:      noarch
 
@@ -32,7 +34,6 @@ BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-autobuild}
 BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-inline-tabs}
-BuildRequires:  %{py3_dist tomli}
 BuildRequires:  %{py3_dist wheel}
 
 %description
@@ -45,7 +46,7 @@ Summary:        Streamline the Sphinx theme development workflow
 A tool for authoring Sphinx themes with a simple (opinionated) workflow.
 
 %prep
-%autosetup -n sphinx-theme-builder-%{version}%{prerel}
+%autosetup -n sphinx-theme-builder-%{version}%{prerel} -p1
 
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
@@ -75,6 +76,10 @@ help2man -N --version-string=%{version}%{prerel} %{buildroot}%{_bindir}/stb > \
 %{_mandir}/man1/stb.1*
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.2.0-0.5.b1
+- Drop dependency on tomli
+- Convert License tag to SPDX
+
 * Fri Jul 29 2022 Jerry James <loganjerry@gmail.com> - 0.2.0-0.4.b1
 - Version 0.2.0b1
 - Depend on pyproject-metadata instead of pep621

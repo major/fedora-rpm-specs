@@ -3,7 +3,7 @@
 
 # https://github.com/ulikunitz/xz
 %global goipath         github.com/ulikunitz/xz
-Version:                0.5.10
+Version:                0.5.11
 
 %gometa
 
@@ -17,7 +17,7 @@ code.}
 %global godocs          doc README.md TODO.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        Pure golang package for reading and writing xz-compressed files
 
 # Upstream license specification: BSD-3-Clause
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Tue Dec 13 2022 Dominik Mierzejewski <dominik@greysector.net> - 0.5.11-1
+- update to 0.5.11 (#2152794)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

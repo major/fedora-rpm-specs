@@ -5,12 +5,12 @@ Version:        1.5.1644
 Release:        1%{?dist}
 Epoch:          1
 
-# GPLv2+ - core project.
-# LGPLv2.1+ - iris library, widgets, several tools.
-# zlib/libpng - bundled minizip library.
+# GPL-2.0-or-later - core project.
+# LGPL-2.1-or-later - iris library, widgets, several tools.
+# Zlib - bundled minizip library.
 # MIT - bundled http-parser and qhttp libraries.
-# ASL 2.0 - bundled libqite library.
-License:        GPLv2+ and LGPLv2+ and zlib and MIT and ASL 2.0
+# Apache-2.0 - bundled libqite library.
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib AND MIT AND Apache-2.0
 Summary:        Jabber client based on Qt
 URL:            https://%{name}.com
 

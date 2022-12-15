@@ -3,7 +3,7 @@ Version:        0.6.7
 Release:        3%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/matthew-brett/texext
 Source0:        %pypi_source texext
 
@@ -47,6 +47,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.6.7-3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 Name:             zathura-cb
 Version:          0.1.10
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Comic book support for zathura
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}
 Source0:          https://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
 
-BuildRequires:    binutils
+#BuildRequires:    binutils
 BuildRequires:    cairo-devel
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
@@ -17,6 +17,7 @@ BuildRequires:    libappstream-glib
 BuildRequires:    libarchive-devel
 BuildRequires:    meson >= 0.43
 BuildRequires:    zathura-devel >= 0.3.8
+
 Requires:         zathura >= 0.3.8
 
 %description
@@ -41,7 +42,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/applications/org.pwmt.zathura-cb.desktop
 %{_datadir}/metainfo/org.pwmt.zathura-cb.metainfo.xml
 
+
 %changelog
+* Sun Dec 11 2022 Alain Vigne <avigne@fedoraproject.org> - 0.1.10-2
+- Rebuilt for zathura 0.5.2
+
 * Sun Aug 28 2022 Alain Vigne <avigne@fedoraproject.org> - 0.1.10-1
 - 0.1.10 bump
 - Update URLs and SPDX license

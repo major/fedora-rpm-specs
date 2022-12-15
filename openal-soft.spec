@@ -3,7 +3,7 @@ Version:        1.22.2
 Release:        3%{?dist}
 Summary:        Open Audio Library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later AND BSD-3-Clause
 URL:            http://openal-soft.org/
 Source0:        http://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
 Patch0:         openal-soft-arm_neon-only-for-32bit.patch
@@ -88,7 +88,8 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
   %{buildroot}%{_sysconfdir}/openal/alsoft.conf
 
 %files
-%doc COPYING
+%license COPYING BSD-3Clause
+%doc README.md ChangeLog
 %{_bindir}/openal-info
 %{_libdir}/libopenal.so.*
 %dir %{_sysconfdir}/openal

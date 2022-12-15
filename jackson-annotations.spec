@@ -6,6 +6,7 @@ License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-annotations
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
+Patch1:         0001-Add-extensions-true-to-build-helper-maven-plugin.patch
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.14
 BuildRequires:  mvn(junit:junit)
@@ -26,6 +27,7 @@ This package contains API documentation for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
+%patch1 -p1
 
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "org.sonatype.plugins:nexus-staging-maven-plugin"

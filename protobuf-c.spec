@@ -3,7 +3,7 @@ Version:        1.4.1
 Release:        %autorelease
 Summary:        C bindings for Google's Protocol Buffers
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/%{name}/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 

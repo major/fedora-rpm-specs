@@ -3,7 +3,7 @@ Version:        0.8.7
 Release:        8%{?dist}
 Summary:        Python PPL wrapper
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://pypi.org/project/pplpy/
 Source0:        %pypi_source pplpy
 # Fix the Cython include path and set the language level to 3
@@ -39,6 +39,26 @@ This package provides a Python 3 wrapper to the C++ Parma Polyhedra
 Library (PPL).
 
 %package     -n python3-pplpy-devel
+# The content is GPL-3.0-or-later.  Other licenses are due to files copied in
+# by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/classic.css: BSD-2-Clause
+# _static/default.css: BSD-2-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/sidebar.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT
 Summary:        Development files for the python 3 PPL wrapper
 Requires:       python3-pplpy%{?_isa} = %{version}-%{release}
 
@@ -66,15 +86,20 @@ rst2html --no-datestamp README.rst README.html
 %tox
 
 %files -n python3-pplpy -f %{pyproject_files}
-%doc CHANGES.txt README.html docs/build/html/*
+%doc CHANGES.txt README.html
 %exclude %{python3_sitearch}/ppl/*.hh
 %exclude %{python3_sitearch}/ppl/*.pxd
 
 %files -n python3-pplpy-devel
+%doc docs/build/html/*
 %{python3_sitearch}/ppl/*.hh
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.8.7-8
+- Move API documentation to the devel subpackage
+- Convert License tags to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

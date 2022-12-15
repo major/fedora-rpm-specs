@@ -5,7 +5,7 @@ Name: libscn
 Version: 1.1.2
 Release: 3%{?dist}
 
-License: ASL 2.0
+License: Apache-2.0
 Summary: Library for replacing scanf and std::istream
 URL: https://github.com/eliaskosunen/%{upname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

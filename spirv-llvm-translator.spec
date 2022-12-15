@@ -1,10 +1,10 @@
 
-%global commit 6b53fe69e60b555e40c77a5c2b8529a55a0db3e2
+%global commit 78ad93b9952cb78889b86e9aa390d013c49dca0b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
 Version:        15.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
@@ -18,6 +18,7 @@ BuildRequires:  ninja-build
 BuildRequires:  llvm-devel
 BuildRequires:  llvm-static
 BuildRequires:  spirv-headers-devel
+BuildRequires:  spirv-tools-devel
 
 %description
 Khronos LLVM to SPIRV Translator. This is a library
@@ -70,6 +71,10 @@ This package contains the standalone llvm to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Wed Dec 14 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-2
+- Bump to a later llvm 15 branch commit including backported fixes
+- Add spirv-tools dep
+
 * Fri Sep 16 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-1
 - update to llvm 15
 

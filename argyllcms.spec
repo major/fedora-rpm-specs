@@ -2,12 +2,12 @@ Name: argyllcms
 Version: 2.3.1
 Release: 2%{?dist}
 
-# Main code - AGPLv3+
-# spectro, xml - GPLv2+
-# xicc - GPLv3+
+# Main code - AGPL-3.0-or-later
+# spectro, xml - GPL-2.0-or-later
+# xicc - GPL-3.0-or-later
 # cgats, icc - MIT
-# documentation - GFDL
-License: AGPLv3+ and GPLv2+ and GPLv3+ and MIT and GFDL
+# documentation - GFDL-1.3-or-later
+License: AGPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND GFDL-1.3-or-later
 Summary: ICC compatible color management system
 URL: https://www.argyllcms.com
 Source0: %{url}/Argyll_V%{version}_src.zip#/%{name}-%{version}.zip

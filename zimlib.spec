@@ -4,7 +4,7 @@ Name: zimlib
 Version: 8.1.0
 Release: 1%{?dist}
 
-License: GPLv2 and ASL 2.0 and BSD
+License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
 Summary: Reference implementation of the ZIM specification
 
 URL: https://github.com/openzim/%{appname}

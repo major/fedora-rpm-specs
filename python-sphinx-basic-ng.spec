@@ -47,18 +47,30 @@ Summary:        Modernized skeleton for Sphinx themes
 Summary:        Documentation for %{name}
 # This project is MIT.  Other files bundled with the documentation have the
 # following licenses:
-# - searchindex.js: MIT
-# - _static/basic.css: BSD-2-Clause
-# - _static/clipboard.min.js: MIT
-# - _static/copy*: MIT
-# - _static/doctools.js: BSD-2-Clause
-# - _static/jquery*.js: MIT
-# - _static/language_data.js: BSD-2-Clause
-# - _static/pygments.css: BSD-2-Clause
-# - _static/scripts/*: MIT
-# - _static/searchtools.js: BSD-2-Clause
-# - _static/styles/*: MIT
-# - _static/underscore*.js: MIT
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/check-solid.svg: MIT
+# _static/clipboard.min.js: MIT
+# _static/copy-button.svg: MIT
+# _static/copybutton.css: MIT
+# _static/copybutton.js: MIT
+# _static/copybutton_funcs.js: MIT
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/scripts/furo*: MIT
+# _static/searchtools.js: BSD-2-Clause
+# _static/styles/furo*: MIT
+# _static/tabs.css: MIT
+# _static/tabs.js: MIT
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
 License:        MIT AND BSD-2-Clause
 
 %description    doc
@@ -100,6 +112,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1%{?dist}
+- Verify that license tags are valid SPDX
+
 * Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-0.1.beta1%{?dist}
 - Version 1.0.0.beta1
 - Drop upstreamed -sphinx patch

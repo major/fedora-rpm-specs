@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   10%{?gitdate:.%{gitdate}}%{?dist}
+Release:   11%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -116,6 +116,21 @@ Patch112: 0003-xkb-add-request-length-validation-for-XkbSetGeometry.patch
 Patch113: 0001-xkb-proof-GetCountedString-against-request-length-at.patch
 # CVE-2022-3551
 Patch114: 0001-xkb-fix-some-possible-memleaks-in-XkbGetKbdByName.patch
+
+# CVE-2022-46340
+Patch115: 0001-Xtest-disallow-GenericEvents-in-XTestSwapFakeInput.patch
+# related to CVE-2022-46344
+Patch116: 0002-Xi-return-an-error-from-XI-property-changes-if-verif.patch
+# CVE-2022-46344
+Patch117: 0003-Xi-avoid-integer-truncation-in-length-check-of-ProcX.patch
+# CVE-2022-46341
+Patch118: 0004-Xi-disallow-passive-grabs-with-a-detail-255.patch
+# CVE-2022-46343
+Patch119: 0005-Xext-free-the-screen-saver-resource-when-replacing-i.patch
+# CVE-2022-46342
+Patch120: 0006-Xext-free-the-XvRTVideoNotify-when-turning-off-from-.patch
+# CVE-2022-46283
+Patch121: 0007-xkb-reset-the-radio_groups-pointer-to-NULL-after-fre.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -530,6 +545,10 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Dec 14 2022 Peter Hutterer <peter.hutterer@redhat.com> 1.20.14-11
+- CVE fix for: CVE-2022-4283, CVE-2022-46340, CVE-2022-46341,
+  CVE-2022-46342, CVE-2022-46343, CVE-2022-46344
+
 * Wed Nov 23 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-10
 - Drop dependency on xorg-x11-font-utils, it was only there for on
   build-time variable that's always the same value anyway (#2145088)

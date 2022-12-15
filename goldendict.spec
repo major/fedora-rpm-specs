@@ -5,7 +5,7 @@ Name: goldendict
 Version: 1.5
 Release: 0.35.RC2%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: A feature-rich dictionary lookup program
 URL: http://goldendict.org
 Source0: https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz

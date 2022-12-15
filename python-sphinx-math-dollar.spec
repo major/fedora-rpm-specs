@@ -28,6 +28,24 @@ Summary:        Sphinx extension to enable LaTeX math with $$
 %description -n python3-sphinx-math-dollar %_desc
 
 %package        doc
+# The content is MIT.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Summary:        Documentation for sphinx-math-dollar
 
 %description    doc
@@ -60,6 +78,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.2.1-3
+- Convert License tags to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

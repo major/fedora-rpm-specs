@@ -5,7 +5,7 @@ Name: kimageannotator
 Version: 0.6.0
 Release: 2%{?dist}
 
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Summary: Library and a tool for annotating images
 URL: https://github.com/ksnip/%{appname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

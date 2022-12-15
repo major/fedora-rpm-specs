@@ -3,10 +3,28 @@ Version:        0.1
 Release:        16%{?dist}
 Summary:        Utility for testing command line scripts
 
-License:        BSD
+# The code is BSD-2-Clause.  Other licenses are due to files copied in by
+# Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 URL:            https://pypi.org/project/scripttester/
 Source0:        https://github.com/matthew-brett/scripttester/archive/%{version}/scripttester-%{version}.tar.gz
-# Update version to fix FTBFS with python 3.11
+# Update versioneer to fix FTBFS with python 3.11
 # https://github.com/matthew-brett/scripttester/issues/1
 Patch0:         %{name}-versioneer.patch
 
@@ -64,6 +82,9 @@ rm -f doc/_build/html/.{buildinfo,nojekyll}
 %doc README.html doc/_build/html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.1-16
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

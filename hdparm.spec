@@ -1,7 +1,7 @@
 Summary: A utility for displaying and/or setting hard disk parameters
 Name: hdparm
-Version: 9.62
-Release: 4%{?dist}
+Version: 9.63
+Release: 1%{?dist}
 License: BSD
 URL:    https://sourceforge.net/projects/%{name}/
 Source: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ install -c -m 644 hdparm.8 $RPM_BUILD_ROOT%{_mandir}/man8
 %{_mandir}/man8/hdparm.8*
 
 %changelog
+* Tue Dec 13 2022 Vojtech Trefny <vtrefny@redhat.com> - 9.63-1
+- New upstream version 9.63
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.62-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -281,22 +284,22 @@ install -c -m 644 hdparm.8 $RPM_BUILD_ROOT%{_mandir}/man8
 - update to 5.9
 - build with gcc-4
 
-* Mon Jan 03 2005 Karsten Hopp <karsten@redhat.de> 5.8-2 
+* Mon Jan 03 2005 Karsten Hopp <karsten@redhat.de> 5.8-2
 - add --help option (#143916)
 
-* Fri Nov 26 2004 Karsten Hopp <karsten@redhat.de> 5.8-1 
+* Fri Nov 26 2004 Karsten Hopp <karsten@redhat.de> 5.8-1
 - update
 
 * Tue Sep 21 2004 Than Ngo <than@redhat.com> 5.7-2
 - rebuilt
 
-* Mon Sep 06 2004 Karsten Hopp <karsten@redhat.de> 5.7-1 
+* Mon Sep 06 2004 Karsten Hopp <karsten@redhat.de> 5.7-1
 - update to latest stable version
 
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
-* Thu Feb 19 2004 Karsten Hopp <karsten@redhat.de> 5.5-1 
+* Thu Feb 19 2004 Karsten Hopp <karsten@redhat.de> 5.5-1
 - update to latest stable version
 - rename variable to avoid name clash with readahead function
 
@@ -375,7 +378,7 @@ install -c -m 644 hdparm.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 * Tue Jun 27 2000 Trond Eivind Glomsrød <teg@redhat.com>
 - use %%{_tmppath}
-- add /etc/sysconfig/harddisks, a new file for hardisk 
+- add /etc/sysconfig/harddisks, a new file for hardisk
   optimization parameters
 
 * Mon Jun 19 2000 Bernhard Rosenkränzer <bero@redhat.com>
@@ -407,7 +410,7 @@ install -c -m 644 hdparm.8 $RPM_BUILD_ROOT%{_mandir}/man8
 * Wed Mar 24 1999 Cristian Gafton <gafton@redhat.com>
 - added patches from UP
 
-* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com> 
+* Sun Mar 21 1999 Cristian Gafton <gafton@redhat.com>
 - auto rebuild in the new build environment (release 4)
 
 * Tue Dec 29 1998 Cristian Gafton <gafton@redhat.com>

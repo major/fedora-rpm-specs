@@ -1,6 +1,6 @@
 Name:      zint
-Version:   2.11.0
-Release:   2%{?dist}
+Version:   2.12.0
+Release:   1%{?dist}
 Summary:   Barcode generator library
 License:   GPLv3+
 URL:       http://www.zint.org.uk
@@ -16,7 +16,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: libpng-devel
 BuildRequires: zlib-devel
+BuildRequires: mesa-libGL-devel
 BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qtsvg-devel
+BuildRequires: qt5-qttools-devel
 BuildRequires: qt5-qttools-static
 BuildRequires: desktop-file-utils
 
@@ -90,6 +93,7 @@ install -D -p -m 644 docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 install -D -p -m 644 cmake/modules/FindZint.cmake %{buildroot}%{_datadir}/cmake/Modules/FindZint.cmake
 install -D -p -m 644 %{name}-qt.png %{buildroot}/usr/share/pixmaps/%{name}-qt.png
 install -D -p -m 644 %{name}-qt.desktop %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
+mv %{buildroot}%{_datadir}/%{name} %{buildroot}%{_datadir}/cmake/%{name}
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
@@ -99,7 +103,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 %files
 %doc docs/manual.txt README TODO
-%license COPYING
+%license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_libdir}/libzint.so.*
@@ -107,6 +111,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 %files devel
 %{_includedir}/%{name}.h
 %{_libdir}/libzint.so
+%{_datadir}/cmake/%{name}/
 %{_datadir}/cmake/Modules/*.cmake
 
 %files qt
@@ -121,6 +126,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-qt.desktop
 
 
 %changelog
+* Tue Dec 13 2022 Martin Gieseking <martin.gieseking@uos.de> - 2.12.0-1
+- Update to 2.12.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

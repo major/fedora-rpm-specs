@@ -1,6 +1,6 @@
 Name:       xhost
 Version:    1.0.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Manage hosts or users allowed to connect to the X server
 
 License:    MIT
@@ -8,7 +8,7 @@ URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
 BuildRequires:  automake libtool
-BuildRequires:  gcc make
+BuildRequires:  gcc make gettext
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(xau)
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Dec 13 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.9-2
+- add xgettext to build requires
+
 * Tue Dec 13 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.9-1
 - xhost 1.0.9
 

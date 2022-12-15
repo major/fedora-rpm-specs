@@ -3,7 +3,7 @@ Version:        0.9.7
 Release:        12%{?dist}
 Summary:        Python interface to Singular
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/PySingular
 Source0:        %{url}/archive/v%{version}/PySingular-%{version}.tar.gz
 
@@ -43,6 +43,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.9.7-12
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

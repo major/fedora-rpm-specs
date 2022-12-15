@@ -5,7 +5,7 @@ Version: 1.7
 Release: 5%{?dist}
 Summary: Adds support for Skype to Pidgin
 
-License: GPLv3
+License: GPL-3.0-or-later
 URL: https://github.com/EionRobb/skype4pidgin
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

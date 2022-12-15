@@ -45,6 +45,25 @@ This package contains tools for converting from Jupyter notebooks to
 ReST for Sphinx, and vice versa.
 
 %package -n     python3-nb2plots
+# The content is BSD-2-Clause.  Other licenses are due to files copied in by
+# Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 Summary:        Convert between Jupyter notebooks and sphinx docs
 Requires:       pandoc
 Requires:       %{py3_dist ipykernel}
@@ -108,12 +127,21 @@ cp -a man1 %{buildroot}%{_mandir}
 %{_bindir}/sphinx2nb
 %{_bindir}/sphinx2pxml
 %{_bindir}/sphinx2py
-%{_mandir}/man1/*
+%{_mandir}/man1/nb2plots.1*
+%{_mandir}/man1/rst2md.1*
+%{_mandir}/man1/sphinx2md.1*
+%{_mandir}/man1/sphinx2nb.1*
+%{_mandir}/man1/sphinx2pxml.1*
+%{_mandir}/man1/sphinx2py.1*
 
 %files docs
 %doc doc/_build/html/*
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.6.1-4
+- Analyze License tag for the docs subpackage
+- Use less aggressive globbing for the man pages
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.6.1-4
 - Use %%py3_shebang_fix instead of invoking pathfix.py directly
 - Convert License tag to SPDX

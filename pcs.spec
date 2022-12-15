@@ -1,24 +1,24 @@
 Name: pcs
-Version: 0.11.3
-Release: 5%{?dist}
+Version: 0.11.4
+Release: 1%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
-# GPLv2: pcs
+# GPL-2.0-only: pcs
 # MIT: dacite, ember, handlebars, jquery, jquery-ui
-# (GPLv2 or Ruby) and BSD: thin
+# (GPL-2.0-only or Ruby) and BSD-2-Clause: thin
 
-License: GPLv2 and MIT and (GPLv2 or Ruby) and BSD
+License: GPL-2.0-only AND MIT AND (GPL-2.0-only OR Ruby) AND BSD-2-Clause
 URL: https://github.com/ClusterLabs/pcs
 Group: System Environment/Base
 Summary: Pacemaker Configuration System
 
-%global version_or_commit %{version}
-# %%global version_or_commit %%{version}.210-9862
+# %%global version_or_commit %%{version}
+%global version_or_commit %{version}.15-f7301
 %global pcs_source_name %{name}-%{version_or_commit}
 
 # ui_commit can be determined by hash, tag or branch
-%global ui_commit 0.1.14
-%global ui_modules_version 0.1.14
+%global ui_commit 0.1.16
+%global ui_modules_version 0.1.16
 %global ui_src_name pcs-web-ui-%{ui_commit}
 
 %global pcs_snmp_pkg_name  pcs-snmp
@@ -49,9 +49,6 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 
 # pcs patches: <= 200
 # Patch0: name.patch
-Patch0: bz2123389-01-fix-ruby-socket-permissions.patch
-# https://github.com/ClusterLabs/pcs/pull/607
-Patch1: 02-pr607-pcsd-ruby-adjust-to-json-2_6_3-error-message-change.patch
 
 # ui patches: >200
 # Patch201: name.patch
@@ -81,6 +78,7 @@ BuildRequires: python3-distro
 BuildRequires: ruby >= 2.5.0
 BuildRequires: ruby-devel
 BuildRequires: rubygem-backports
+BuildRequires: rubygem-childprocess
 BuildRequires: rubygem-daemons
 BuildRequires: rubygem-ethon
 BuildRequires: rubygem-eventmachine
@@ -88,7 +86,6 @@ BuildRequires: rubygem-ffi
 BuildRequires: rubygem-io-console
 BuildRequires: rubygem-json
 BuildRequires: rubygem-mustermann
-BuildRequires: rubygem-open4
 BuildRequires: rubygem-rack
 BuildRequires: rubygem-rack-protection
 BuildRequires: rubygem-rack-test
@@ -134,13 +131,13 @@ Requires: python3-tornado
 # ruby and gems for pcsd
 Requires: ruby >= 2.5.0
 Requires: rubygem-backports
+Requires: rubygem-childprocess
 Requires: rubygem-daemons
 Requires: rubygem-ethon
 Requires: rubygem-eventmachine
 Requires: rubygem-ffi
 Requires: rubygem-json
 Requires: rubygem-mustermann
-Requires: rubygem-open4
 Requires: rubygem-rack
 Requires: rubygem-rack-protection
 Requires: rubygem-rack-test
@@ -182,9 +179,9 @@ easily view, modify and create pacemaker based clusters.
 Group: System Environment/Base
 Summary: Pacemaker cluster SNMP agent
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
-# GPLv2: pcs
+# GPL-2.0-only: pcs
 # BSD-2-Clause: pyagentx
-License: GPLv2 and BSD-2-Clause
+License: GPL-2.0-only AND BSD-2-Clause
 URL: https://github.com/ClusterLabs/pcs
 
 # tar for unpacking pyagetx source tar ball
@@ -251,7 +248,7 @@ update_times_patch(){
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
 %autopatch -p1 -M 200
-update_times_patch %{PATCH0}
+# update_times_patch %%{PATCH0}
 
 # prepare dirs/files necessary for building all bundles
 # -----------------------------------------------------
@@ -267,9 +264,15 @@ cp -f %SOURCE42 rpm/
 
 %build
 %define debug_package %{nil}
+# Booth authfile fix support
+%if 0%{?fedora} >= 37
+  %define booth_build_options --enable-booth-enable-authfile-unset
+%elif 0%{?fedora} >= 35
+  %define booth_build_options --enable-booth-enable-authfile-set --enable-booth-enable-authfile-unset
+%endif
 
 ./autogen.sh
-%{configure} --enable-local-build --enable-use-local-cache-only --enable-individual-bundling PYTHON=%{__python3} ruby_CFLAGS="%{optflags}" ruby_LIBS="%{build_ldflags}"
+%{configure} --enable-local-build --enable-use-local-cache-only --enable-individual-bundling %{booth_build_options} PYTHON=%{__python3} ruby_CFLAGS="%{optflags}" ruby_LIBS="%{build_ldflags}"
 make all
 
 # build pcs-web-ui
@@ -425,6 +428,12 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Mon Dec 12 2022 Michal Pospisil <mpospisi@redhat.com> - 0.11.4-1
+- Rebased to latest upstream sources (see CHANGELOG.md)
+- Updated pcs-web-ui
+- Added dependency rubygem-childprocess
+- Removed dependency rubygem-open4
+
 * Mon Dec 12 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.3-5
 - Backport upstream patch for rubygem-json 2.6.3 error message format change
 

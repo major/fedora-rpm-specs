@@ -32,6 +32,24 @@ Summary:        Autobuild a Sphinx directory when a change is detected
 Rebuild Sphinx documentation on changes, with live-reload in the browser.
 
 %package        doc
+# The content is MIT.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Summary:        Documentation for sphinx-autobuild
 Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
@@ -74,6 +92,9 @@ help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
 %doc html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2021.3.14-3
+- Convert License tags to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

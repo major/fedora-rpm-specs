@@ -6,12 +6,13 @@
 
 Name:           libowfat
 Version:        0.30
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Reimplementation of libdjb 
 License:        GPLv2
 URL:            http://www.fefe.de/libowfat/
 Source0:        http://www.fefe.de/%{name}/%{name}-%{version}.tar.xz
 Patch0:         libowfat-0.30-fix-pure-attribute-usage.patch
+Patch1:         libowfat-c99.patch
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -39,6 +40,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1 -b .pure
+%patch1 -p1
 sed -i '/^CFLAGS/d;s/install -m/install -pm/g' GNUmakefile
 
 %build
@@ -59,6 +61,9 @@ make -f GNUmakefile install \
 %{_mandir}/man3/**
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 0.30-21
+- Apply C99 compatibility fixes (#2153016)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

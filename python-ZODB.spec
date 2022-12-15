@@ -46,6 +46,24 @@ Summary:        Zope Object Database and persistence
 %{common_desc}
 
 %package doc
+# The content is ZPL-2.1.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/css: MIT
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        ZPL-2.1 AND BSD-2-Clause AND MIT
 Summary:        Documentation for ZODB
 
 %description doc
@@ -91,6 +109,9 @@ rst2html --no-datestamp CHANGES.rst CHANGES.html
 %doc docs/build/html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-1
+- Add License tag to the doc subpackage
+
 * Wed Nov  9 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-1
 - Version 5.8.0
 - Convert License tag to SPDX

@@ -6,7 +6,7 @@ Version:        0.12
 Release:        16%{?dist}
 Summary:        A fast power user calculator
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.speedcrunch.org
 Source0:        https://bitbucket.org/heldercorreia/%{name}/get/release-%{version}.0.tar.bz2
 

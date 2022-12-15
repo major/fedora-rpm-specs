@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    3768ee566399572da524e2e0930624bbc143b016
+%global gh_commit    5c07f08c91ea2d7f6b58b1aeb32aa4bb281b81cd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-json-server
@@ -23,7 +23,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.6.0
+Version:        3.7.0
 Release:        1%{?dist}
 Summary:        %{namespace} Json-Server is a JSON-RPC server implementation
 
@@ -35,7 +35,7 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-pcre
 BuildRequires:  php-reflection
 BuildRequires:  php-spl
@@ -45,23 +45,23 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-server)               >= 2.11
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "ext-json": "*",
-#        "laminas/laminas-coding-standard": "^2.3",
-#        "phpunit/phpunit": "^9.5.11",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.18.0"
+#        "laminas/laminas-coding-standard": "^2.4.0",
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0.0"
 BuildRequires:  php-json
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.11
+BuildRequires:  phpunit9 >= 9.5.26
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+#        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "laminas/laminas-http": "^2.15.1",
 #        "laminas/laminas-json": "^3.3.0",
 #        "laminas/laminas-server": "^2.11.0",
-Requires:       php(language) >= 7.3
+Requires:       php(language) >= 7.4
 Requires:      (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15.1 with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-json)                 >= 3.3    with php-autoloader(%{gh_owner}/laminas-json)                 < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-server)               >= 2.11   with php-autoloader(%{gh_owner}/laminas-server)               < 4)
@@ -143,7 +143,7 @@ exit (class_exists("\\Zend\\%{library}\\%{subproj}\\Response") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -164,6 +164,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 3.7.0-1
+- update to 3.7.0
+
 * Tue Sep 20 2022 Remi Collet <remi@remirepo.net> - 3.6.0-1
 - update to 3.6.0
 

@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -73,6 +73,7 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
+Patch0001:	0001-audioconvert-fix-distorted-audio-on-AVX2.patch
 
 ## upstreamable patches
 
@@ -659,6 +660,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Tue Dec 13 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.62-3
+- Add patch to fix distorted sound on AVX2 in some cases.
+
 * Mon Dec 12 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.62-2
 - Package X11 bell support separately
   Fixes rhbz#2152385

@@ -2,7 +2,7 @@ Name:           python-jupyter-sphinx
 Version:        0.4.0
 Release:        2%{?dist}
 Summary:        Jupyter Sphinx extensions
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://jupyter-sphinx.readthedocs.io/
 Source0:        https://github.com/jupyter/jupyter-sphinx/archive/v%{version}/jupyter-sphinx-%{version}.tar.gz
 
@@ -36,6 +36,26 @@ Summary:        %{summary}
 %description -n python3-jupyter-sphinx %_desc
 
 %package        doc
+# The content is BSD-3-Clause.  Other licenses are due to files copied in by
+# Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        BSD-3-Clause AND BSD-2-Clause AND MIT
 Summary:        Documentation for %{name}
 
 %description    doc
@@ -65,6 +85,9 @@ rm doc/build/html/.buildinfo
 %doc doc/build/html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.4.0-2
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

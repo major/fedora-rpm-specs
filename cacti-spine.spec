@@ -1,10 +1,11 @@
 Name: cacti-spine
 Version: 1.2.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Threaded poller for Cacti written in C
 License: LGPLv2+
 URL: https://cacti.net
 Source0: https://www.cacti.net/downloads/spine/%{name}-%{version}.tar.gz
+Patch0: cacti-spine-configure-c99.patch
 
 BuildRequires: gcc
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
@@ -28,7 +29,7 @@ Spine is a supplemental poller for Cacti that makes use of pthreads to achieve
 excellent performance.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 autoreconf -fiv
@@ -48,6 +49,9 @@ autoreconf -fiv
 %{_mandir}/man1/spine.1.*
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 1.2.22-2
+- Port configure script to C99
+
 * Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 1.2.22-1
 - Update to 1.2.22
 

@@ -1,9 +1,9 @@
 Name: aircrack-ng
 Version: 1.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Tools for auditing 802.11 (wireless) networks
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/%{name}/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -90,6 +90,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %doc test/*.cap test/*.pcap test/password.lst test/*.py
 
 %changelog
+* Tue Dec 13 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7-3
+- Converted to SPDX.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           iperf3
-Version:        3.11
-Release:        3%{?dist}
+Version:        3.12
+Release:        1%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 License:        BSD
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Mon Dec 12 2022 Jonathan Wright <jonathan@almalinux.org> - 3.12-1
+- Update to 3.12 rhbz#2131418
+
 * Tue Sep 27 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 3.11-3
 - Backport PR#1278: Report number of reorder_seen. Fixes: rhbz#2063959
 

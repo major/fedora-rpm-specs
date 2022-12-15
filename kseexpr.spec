@@ -4,7 +4,7 @@ Name: kseexpr
 Version: 4.0.4.0
 Release: 1%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: The embeddable expression engine fork for Krita
 URL: https://invent.kde.org/graphics/%{name}
 Source0: %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz

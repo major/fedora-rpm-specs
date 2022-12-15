@@ -47,6 +47,22 @@ Provides:       bundled(js-underscore)
 %description -n python3-pybtex %common_desc
 
 %package doc
+# The content is MIT.  Other licenses are due to files copied in by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        MIT AND BSD-2-Clause
 Summary:        Documentation for python-pybtex
 
 %description doc
@@ -117,6 +133,9 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.24.0-8
+- Convert License tags to SPDX
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 0.24.0-8
 - Add workaround for pygments 2.13 (rhbz#2127371)
 

@@ -162,7 +162,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.33
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -176,6 +176,7 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 
 # Patch 0000 - 2999: Backported patches from upstream.
 Patch0000:      %{url}/commit/9d5e7b7307f2.patch#/%{name}-4.4.33-yescrypt_platform_cast_performance.patch
+Patch0001:      %{url}/commit/59823543d095.patch#/%{name}-4.4.33-SHA512_Maj_optimization.patch
 
 # Patch 3000 - 5999: Backported patches from pull requests.
 
@@ -576,6 +577,9 @@ done
 
 
 %changelog
+* Tue Dec 13 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-4
+- Add upstream patch to improve performance on SHA512 computation
+
 * Mon Nov 28 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-3
 - Convert License to SPDX expression
 - Add upstream patch to improve performance on some type-cast operations

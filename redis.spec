@@ -15,15 +15,15 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit e50ea1872e4efaf2a7174700050b7ce1c47dc2a8
+%global doc_commit bc8218eb481cc5d095ee7c274388a44dc09942e9
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:              redis
-Version:           7.0.5
-Release:           2%{?dist}
+Version:           7.0.6
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # redis, jemalloc, linenoise, lzf, hiredis are BSD
 # lua is MIT
@@ -308,6 +308,9 @@ fi
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 7.0.6-1
+- Upstream 7.0.6 release.
+
 * Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 7.0.5-2
 - Port makefile to C99 mode
 

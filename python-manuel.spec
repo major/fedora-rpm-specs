@@ -3,7 +3,31 @@ Version:        1.12.4
 Release:        2%{?dist}
 Summary:        Build tested documentation
 
-License:        ASL 2.0
+# The content is Apache-2.0.  Other licenses are due to files copied in by
+# Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/alabaster.css: BSD-3-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/check-solid.svg: MIT
+# _static/clipboard.min.js: MIT
+# _static/copy-button.svg: MIT
+# _static/copybutton.css: MIT
+# _static/copybutton.js: MIT
+# _static/copybutton_funcs.js: MIT
+# _static/custom.css: BSD-3-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT
 URL:            https://pypi.python.org/pypi/manuel
 Source0:        https://github.com/benji-york/manuel/archive/%{version}/manuel-%{version}.tar.gz
 # Work around a test failure due to more explicit names in python 3.11
@@ -29,7 +53,7 @@ You can also create your own plug-ins.
 
 %package -n python3-manuel
 Summary:        Build tested documentation
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description -n python3-manuel
 Manuel lets you mix and match traditional doctests with custom test
@@ -60,6 +84,9 @@ cp -p src/manuel/myst-markdown.md build/lib/manuel
 %license COPYRIGHT.rst
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.12.4-2
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

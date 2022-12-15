@@ -1,5 +1,5 @@
 Name:           python-furo
-Version:        2022.09.29
+Version:        2022.12.07
 Release:        1%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
@@ -127,6 +127,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2022.12.07-1
+- Version 2022.12.07
+
 * Fri Sep 30 2022 Jerry James <loganjerry@gmail.com> - 2022.09.29-1
 - Version 2022.09.29
 

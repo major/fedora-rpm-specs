@@ -14,7 +14,7 @@ supported for compatibility with CJK standards. \
 
 Name:           google-noto-cjk-fonts
 Version:        20201206
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Google Noto Sans CJK Fonts
 
 License:        OFL
@@ -237,6 +237,11 @@ ln -s %{_fontconfig_templatedir}/%{fontconf2} \
 
 
 %changelog
+* Mon Dec 12 2022 Mike FABIAN <mfabian@redhat.com> - 20201206-6
+- Update 65-google-noto-cjk-fonts.conf for the languages recently added to fontconfig:
+  cmn, hak, lzh, nan, yue.
+- Resolves: rhbz#2152125
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20201206-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

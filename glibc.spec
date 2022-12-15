@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-340-g8fb923ddc3
+%global glibcsrcdir glibc-2.36.9000-377-g5dcd2d0ad0
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 16
+%global baserelease 17
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,47 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Dec 12 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-17
+- Auto-sync with upstream branch master,
+  commit 5dcd2d0ad02ff12c76355ef4f40947c1857ac482.
+- stdlib: Move _IO_cleanup to call_function_static_weak
+- elf: Do not assume symbol order on tst-audit25{a,b}
+- time: Use 64 bit time on tzfile
+- nscd: Use 64 bit time_t on libc nscd routines (BZ# 29402)
+- nis: Build libnsl with 64 bit time_t
+- realloc: Return unchanged if request is within usable size
+- Linux: Consolidate typesizes.h
+- Linux: Make generic fcntl.h the default one
+- Linux: make generic xstatver.h the default one
+- Linux: Remove generic sysdep
+- Linux: Assume and consolidate shutdown wire-up syscall
+- Linux: Assume and consolidate listen wire-up syscall
+- Linux: Assume and consolidate socketpair wire-up syscall
+- Linux: Assume and consolidate socket wire-up syscall
+- Linux: Assume and consolidate bind wire-up syscall
+- Linux: consolidate ____longjmp_chk
+- Linux: consolidate sendfile implementation
+- Linux: consolidate unlink implementation
+- Linux: consolidate symlink implementation
+- Linux: consolidate rmdir implementation
+- Linux: consolidate readlink implementation
+- Linux: consolidate mkdir implementation
+- Linux: consolidate link implementation
+- Linux: consolidate lchown implementation
+- Linux: consolidate inotify_init implementation
+- Lninux: consolidate epoll_create implementation
+- Linux: consolidate dup2 implementation
+- Linux: consolidate chown implementation
+- Linux: consolidate chmod implementation
+- linux: Consolidate dl-origin.c
+- linux: Use long int for syscall return value
+- LoongArch: Use medium cmodel build libc_nonshared.a.
+- x86_64: State assembler is being tested on sysdeps/x86/configure
+- configure: Remove AS check
+- configure: Remove check if ld is GNU
+- configure: Remove check if as is GNU
+- configure: Move locale tools early
+
 * Mon Dec 05 2022 Arjun Shankar <arjun@redhat.com> - 2.36.9000-16
 - Auto-sync with upstream branch master,
   commit 8fb923ddc38dd5f4bfac4869d70fd80483fdb87a:

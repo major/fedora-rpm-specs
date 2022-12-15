@@ -2,7 +2,7 @@ Name: piper
 Version: 0.7
 Release: 2%{?dist}
 
-License: GPLv2+ and LGPLv2+
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://github.com/libratbag/%{name}
 Summary: GTK application to configure gaming mice
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz

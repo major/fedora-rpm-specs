@@ -31,15 +31,15 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.1.3
+%global package_version 1.1.4
 
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
 
 Summary: Application and environment virtualization
 Name: apptainer
-Version: 1.1.3
-Release: 2%{?dist}
+Version: 1.1.4
+Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -52,7 +52,7 @@ Source: https://github.com/%{name}/%{name}/releases/download/v%{package_version}
 Source10: https://github.com/vasi/squashfuse/archive/%{squashfuse_version}/squashfuse-%{squashfuse_version}.tar.gz
 Patch10: https://github.com/vasi/squashfuse/pull/70.patch
 Patch11: https://github.com/vasi/squashfuse/pull/77.patch
-Patch12: squashfuse-fuse_unmount-c99.patch
+Patch12: https://github.com/vasi/squashfuse/pull/81.patch
 %endif
 # The singularity package was renamed to apptainer after version 3.8.x.
 # The apptainer package reset numbering at 1.0.0, and some singularity
@@ -111,7 +111,7 @@ Provides the optional setuid-root portion of Apptainer.
 
 %prep
 %if "%{?squashfuse_version}" != ""
-# the default directory for other steps is where the %prep section ends
+# the default directory for other steps is where the %%prep section ends
 # so do main package last
 %setup -b 10 -n squashfuse-%{squashfuse_version}
 %patch -P 10 -p1
@@ -223,6 +223,9 @@ rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || tru
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Dec 13 2022 Dave Dykstra <dwd@fedoraproject.org> - 1.1.4
+- Update to upstream 1.1.4.
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.1.3-2
 - Port squashfuse configure script to C99
 

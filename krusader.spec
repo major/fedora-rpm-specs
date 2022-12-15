@@ -3,7 +3,7 @@ Version:	2.8.0
 Release:	2%{?dist}
 Summary:	An advanced twin-panel (commander-style) file-manager for KDE
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://www.krusader.org/
 Source0:	https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
 

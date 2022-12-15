@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -56,6 +56,7 @@ Patch6: exim-4.96-CVE-2022-3559.patch
 Patch7: exim-4.96-CVE-2022-3620.patch
 # https://git.exim.org/exim.git/commitdiff/e7ec503729970a03d4509921342bc81313976126
 Patch8: exim-4.96-malformed-address-exit-fix.patch
+Patch9: exim-localscan-c99.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -503,6 +504,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 4.96-7
+- Fix pointer truncation bug in DLOPEN_LOCAL_SCAN extension (#2152978)
+
 * Tue Nov 22 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.96-6
 - Fixed exit on attempt to rewrite malformed address
   Resolves: rhbz#2143283

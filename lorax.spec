@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        38.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPLv2+
@@ -168,6 +168,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Tue Dec 13 2022 Brian C. Lane <bcl@redhat.com> - 38.4-2
+- Run user test with --skip-mkefiboot
+
 * Mon Dec 12 2022 Brian C. Lane <bcl@redhat.com> 38.4-1
 - runtime-cleanup: drop old versions of qed firmware (awilliam@redhat.com)
 - runtime-cleanup: drop Mediatek SoC firmwares (awilliam@redhat.com)

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    c249f0638c8bdd67305509b7173bd535c21d109d
+%global gh_commit    11fe2af8dd3c2a350f903b2f2d0536ec3842a7f4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-server
@@ -22,7 +22,7 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.13.1
+Version:        2.14.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
@@ -39,11 +39,11 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-reflection
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~1.0.0",
+#        "laminas/laminas-coding-standard": "~2.4.0",
 #        "phpunit/phpunit": "^9.5.5",
 #        "psalm/plugin-phpunit": "^0.15.1",
 #+        "vimeo/psalm": "^4.6.4"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-code)                 >= 3.5.1 with php-autoloader(%{gh_owner}/laminas-code)                 < 5)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-code)                 >= 4.7.1 with php-autoloader(%{gh_owner}/laminas-code)                 < 5)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.3.1 with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.2.0 with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %global phpunit %{_bindir}/phpunit9
@@ -54,12 +54,12 @@ BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
 #        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
-#        "laminas/laminas-code": "^3.5.1 || ^4.0.0",
+#        "laminas/laminas-code": "^4.7.1",
 #        "laminas/laminas-stdlib": "^3.3.1",
 #        "laminas/laminas-zendframework-bridge": "^1.2.0"
 Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
-Requires:      (php-autoloader(%{gh_owner}/laminas-code)                 >= 3.5.1 with php-autoloader(%{gh_owner}/laminas-code)                 < 5)
+Requires:      (php-autoloader(%{gh_owner}/laminas-code)                 >= 4.7.1 with php-autoloader(%{gh_owner}/laminas-code)                 < 5)
 Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.3.1 with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.2.0 with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %endif
@@ -101,10 +101,7 @@ phpab --template fedora --output src/autoload.php src
 cat << 'EOF' | tee -a src/autoload.php
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/%{namespace}/Stdlib/autoload.php',
-    [
-        '%{php_home}/%{namespace}/Code4/autoload.php',
-        '%{php_home}/%{namespace}/Code/autoload.php',
-    ],
+    '%{php_home}/%{namespace}/Code4/autoload.php',
 ]);
 EOF
 
@@ -169,6 +166,10 @@ exit $ret
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0
+- raise dependency on laminas/code 4.7.1
+
 * Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.13.1-1
 - update to 2.13.1
 

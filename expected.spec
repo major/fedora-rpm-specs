@@ -2,7 +2,7 @@ Name: expected
 Version: 1.0.0
 Release: 7%{?dist}
 
-License: CC0
+License: CC0-1.0
 Summary: C++11/14/17 std::expected with functional-style extensions
 URL: https://github.com/TartanLlama/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

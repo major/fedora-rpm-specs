@@ -1,7 +1,7 @@
 %global AName GitQlient
 
 Name:       gitqlient
-Version:    1.5.0
+Version:    1.6.1
 Release:    %autorelease
 Summary:    Multi-platform Git client written with Qt
 
@@ -21,8 +21,6 @@ BuildRequires: pkgconfig(Qt5)
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
 BuildRequires: pkgconfig(Qt5Network)
-BuildRequires: pkgconfig(Qt5WebChannel)
-BuildRequires: pkgconfig(Qt5WebEngineWidgets)
 BuildRequires: pkgconfig(Qt5Widgets)
 
 Requires:   git-core

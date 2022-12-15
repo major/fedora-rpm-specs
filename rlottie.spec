@@ -4,10 +4,10 @@ Release: 7%{?dist}
 
 # Main source: MIT
 # rapidjson (base) - MIT
-# rapidjson (msinttypes) - BSD
+# rapidjson (msinttypes) - BSD-3-Clause
 # freetype rasterizer - FTL
-# vector (vinterpolator) - MPLv1.1
-License: MIT and FTL and BSD and MPLv1.1
+# vector (vinterpolator) - MPL-1.1
+License: MIT AND FTL AND BSD-3-Clause AND MPL-1.1
 Summary: Platform independent standalone library that plays Lottie Animation
 
 URL: https://github.com/Samsung/%{name}

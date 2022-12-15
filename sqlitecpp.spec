@@ -1,8 +1,8 @@
 %global richname SQLiteCpp
 
 Name: sqlitecpp
-Version: 3.2.0
-Release: 1%{?dist}
+Version: 3.2.1
+Release: %autorelease
 
 License: MIT
 Summary: Smart and easy to use C++ SQLite3 wrapper
@@ -65,35 +65,4 @@ rm -rf {sqlite3,googletest}
 %{_datadir}/%{richname}
 
 %changelog
-* Mon Sep 19 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.2.0-1
-- Updated to version 3.2.0.
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Aug 20 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1.1-1
-- Updated to version 3.1.1.
-
-* Thu Aug 13 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 3.1.0-1
-- Updated to version 3.1.0.
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 21 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 3.0.0-1
-- Updated to version 3.0.0.
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Nov 23 2019 Vitaly Zaitsev <vitaly@easycoding.org> - 2.4.0-1
-- Initial SPEC release.
+%autochangelog

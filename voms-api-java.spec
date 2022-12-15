@@ -4,7 +4,7 @@
 
 Name:		voms-api-java
 Version:	3.3.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	ASL 2.0
@@ -21,6 +21,8 @@ Patch0:		%{name}-disable-some-tests.patch
 Patch1:		%{name}-expired-2022-09-24.patch
 #		2022-10-08 (test_host_cnaf_infn_it.cert.pem)
 Patch2:		%{name}-expired-2022-10-08.patch
+#		2022-12-12 (test_host_2_cnaf_infn_it.cert.pem)
+Patch3:		%{name}-expired-2022-12-12.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -53,6 +55,7 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # Remove unused dependency
 %pom_remove_dep net.jcip:jcip-annotations
@@ -91,6 +94,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Tue Dec 13 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-11
+- Disable tests that fail due to more expired certificates
+
 * Mon Oct 17 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.2-10
 - Disable tests that fail due to expired certificates
 

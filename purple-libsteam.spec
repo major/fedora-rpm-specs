@@ -6,7 +6,7 @@ Name: purple-%{plugin_name}
 Version: 1.7.1
 Release: 3%{?dist}
 
-License: GPLv3
+License: GPL-3.0-or-later
 URL: https://github.com/EionRobb/%{repo_name}
 Summary: Steam plugin for Pidgin/Adium/libpurple
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz

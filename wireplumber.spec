@@ -1,5 +1,5 @@
 Name:       wireplumber
-Version:    0.4.12
+Version:    0.4.13
 Release:    1%{?dist}
 Summary:    A modular session/policy manager for PipeWire
 
@@ -13,6 +13,7 @@ Source0:    https://gitlab.freedesktop.org/pipewire/%{name}/-/archive/%{version}
 
 ## fedora patches
 
+BuildRequires:  gettext
 BuildRequires:  meson gcc pkgconfig
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -75,6 +76,8 @@ managing PipeWire.
 # Create local config skeleton
 mkdir -p %{buildroot}%{_sysconfdir}/wireplumber/{bluetooth.lua.d,common,main.lua.d,policy.lua.d}
 
+%find_lang %{name}
+
 %posttrans
 %systemd_user_post %{name}.service
 
@@ -101,7 +104,7 @@ fi
 %{_userunitdir}/wireplumber.service
 %{_userunitdir}/wireplumber@.service
 
-%files libs
+%files libs -f %{name}.lang
 %license LICENSE
 %dir %{_libdir}/wireplumber-0.4/
 %{_libdir}/wireplumber-0.4/libwireplumber-*.so
@@ -115,6 +118,9 @@ fi
 %{_datadir}/gir-1.0/Wp-0.4.gir
 
 %changelog
+* Tue Dec 13 2022 Wim Taymans <wim.taymans@redhat.com> - 0.4.13-1
+- wireplumber 0.4.13
+
 * Fri Oct 07 2022 Wim Taymans <wim.taymans@redhat.com> - 0.4.12-1
 - wireplumber 0.4.12
 

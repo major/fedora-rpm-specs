@@ -5,7 +5,7 @@ Name: libqtolm
 Version: 3.0.1
 Release: 5%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://gitlab.com/b0/%{name}
 Summary: Qt wrapper for libolm
 Source0: %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz

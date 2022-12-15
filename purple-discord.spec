@@ -8,7 +8,7 @@ Name: purple-%{plugin_name}
 Version: 0
 Release: 35.%{date}git%{shortcommit0}%{?dist}
 
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Discord plugin for libpurple
 URL: https://github.com/EionRobb/%{name}
 Source0: %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz

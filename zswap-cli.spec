@@ -2,8 +2,8 @@ Name: zswap-cli
 Version: 0.9.1
 Release: 1%{?dist}
 
-Summary: Command-line tool to control zswap options
 License: MIT
+Summary: Command-line tool to control zswap options
 URL: https://github.com/xvitaly/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -50,12 +50,12 @@
 %endif
 
 # Hypervisor ABI
-%define hv_abi  4.16
+%define hv_abi  4.17
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.16.2
-Release: 4%{?dist}
+Version: 4.17.0
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -106,71 +106,9 @@ Patch38: qemu.trad.CVE-2017-8309.patch
 Patch39: qemu.trad.CVE-2017-9330.patch
 Patch40: xen.drop.brctl.patch
 Patch41: xen.gcc9.fixes.patch
-Patch42: xen.gcc10.fixes.patch
 Patch43: xen.gcc11.fixes.patch
-Patch44: xsa376.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
-Patch47: xsa410-4.16-01.patch
-Patch48: xsa410-4.16-02.patch
-Patch49: xsa410-4.16-03.patch
-Patch50: xsa410-4.16-04.patch
-Patch51: xsa410-4.16-05.patch
-Patch52: xsa410-4.16-06.patch
-Patch53: xsa410-4.16-07.patch
-Patch54: xsa410-4.16-08.patch
-Patch55: xsa410-4.16-09.patch
-Patch56: xsa410-4.16-10.patch
-Patch57: xsa409-4.13-0001-libxl-docs-Use-arch-specific-default-paging-memory.patch
-Patch58: xsa409-4.13-0002-xen-arm-Construct-the-P2M-pages-pool-for-guests.patch
-Patch59: xsa409-4.13-0003-xen-arm-libxl-Implement-XEN_DOMCTL_shadow_op-for-Arm.patch
-Patch60: xsa409-4.13-0004-xen-arm-Allocate-and-free-P2M-pages-from-the-P2M-poo.patch
-Patch61: xsa411.patch
-Patch62: xsa412-4.16.patch
-Patch63: xsa414.patch
-Patch64: xsa415.patch
-Patch65: xsa326-4.16-oxenstored-01.patch
-Patch66: xsa326-4.16-oxenstored-02.patch
-Patch67: xsa326-4.16-oxenstored-03.patch
-Patch68: xsa326-4.16-oxenstored-04.patch
-Patch69: xsa326-4.16-oxenstored-05.patch
-Patch70: xsa326-4.16-oxenstored-06.patch
-Patch71: xsa326-4.16-oxenstored-07.patch
-Patch72: xsa326-4.16-oxenstored-08.patch
-Patch73: xsa326-4.16-xenstored-01.patch
-Patch74: xsa326-4.16-xenstored-02.patch
-Patch75: xsa326-4.16-xenstored-03.patch
-Patch76: xsa326-4.16-xenstored-04.patch
-Patch77: xsa326-4.16-xenstored-05.patch
-Patch78: xsa326-4.16-xenstored-06.patch
-Patch79: xsa326-4.16-xenstored-07.patch
-Patch80: xsa326-4.16-xenstored-08.patch
-Patch81: xsa326-4.16-xenstored-09.patch
-Patch82: xsa326-4.16-xenstored-10.patch
-Patch83: xsa326-4.16-xenstored-11.patch
-Patch84: xsa326-4.16-xenstored-12.patch
-Patch85: xsa326-4.16-xenstored-13.patch
-Patch86: xsa326-4.16-xenstored-14.patch
-Patch87: xsa326-4.16-xenstored-15.patch
-Patch88: xsa326-4.16-xenstored-16.patch
-Patch89: xsa416-4.16.patch
-Patch90: xsa417.patch
-Patch91: xsa418-4.16-01.patch
-Patch92: xsa418-4.16-02.patch
-Patch93: xsa418-4.16-03.patch
-Patch94: xsa418-4.16-04.patch
-Patch95: xsa418-4.16-05.patch
-Patch96: xsa418-4.16-06.patch
-Patch97: xsa418-4.16-07.patch
-Patch98: xsa419-oxenstored.patch
-Patch99: xsa419-xenstored-01.patch
-Patch100: xsa419-xenstored-02.patch
-Patch101: xsa419-xenstored-03.patch
-Patch102: xsa420.patch
-Patch103: xsa421-01.patch
-Patch104: xsa421-02.patch
-Patch105: xsa422-4.16-1.patch
-Patch106: xsa422-4.16-2.patch
 
 
 %if %build_qemutrad
@@ -378,71 +316,9 @@ manage Xen virtual machines.
 %patch37 -p1
 %patch40 -p1
 %patch41 -p1
-%patch42 -p1
 %patch43 -p1
-%patch44 -p1
 %patch45 -p1
 %patch46 -p1
-%patch47 -p1
-%patch48 -p1
-%patch49 -p1
-%patch50 -p1
-%patch51 -p1
-%patch52 -p1
-%patch53 -p1
-%patch54 -p1
-%patch55 -p1
-%patch56 -p1
-%patch57 -p1
-%patch58 -p1
-%patch59 -p1
-%patch60 -p1
-%patch61 -p1
-%patch62 -p1
-%patch63 -p1
-%patch64 -p1
-%patch65 -p1
-%patch66 -p1
-%patch67 -p1
-%patch68 -p1
-%patch69 -p1
-%patch70 -p1
-%patch71 -p1
-%patch72 -p1
-%patch73 -p1
-%patch74 -p1
-%patch75 -p1
-%patch76 -p1
-%patch77 -p1
-%patch78 -p1
-%patch79 -p1
-%patch80 -p1
-%patch81 -p1
-%patch82 -p1
-%patch83 -p1
-%patch84 -p1
-%patch85 -p1
-%patch86 -p1
-%patch87 -p1
-%patch88 -p1
-%patch89 -p1
-%patch90 -p1
-%patch91 -p1
-%patch92 -p1
-%patch93 -p1
-%patch94 -p1
-%patch95 -p1
-%patch96 -p1
-%patch97 -p1
-%patch98 -p1
-%patch99 -p1
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
-%patch105 -p1
-%patch106 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -846,7 +722,6 @@ fi
 %{_sysconfdir}/bash_completion.d/xl
 
 %{_unitdir}/proc-xen.mount
-%{_unitdir}/var-lib-xenstored.mount
 %{_unitdir}/xenstored.service
 %{_unitdir}/xenconsoled.service
 %{_unitdir}/xen-watchdog.service
@@ -929,8 +804,6 @@ fi
 %dir %{_localstatedir}/lib/%{name}
 %dir %{_localstatedir}/lib/%{name}/dump
 %dir %{_localstatedir}/lib/%{name}/images
-# Xenstore persistent state
-%dir %{_localstatedir}/lib/xenstored
 # Xenstore runtime state
 %ghost %{_localstatedir}/run/xenstored
 
@@ -1058,6 +931,12 @@ fi
 %endif
 
 %changelog
+* Tue Dec 13 2022 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-1
+- update to xen-4.17.0
+  rebase xen.fedora.systemd.patch and xen.canonicalize.patch
+  remove or adjust patches now included or superceded upstream
+  /var/lib/xenstored has moved to /run/xenstored
+
 * Tue Nov 08 2022 Michael Young <m.a.young@durham.ac.uk> - 4.16.2-4
 - x86: Multiple speculative security issues [XSA-422, CVE-2022-23824]
 

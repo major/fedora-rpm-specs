@@ -8,7 +8,9 @@ Version:        0.9.2
 Release:        5.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Tree decomposition algorithms
 
-License:        GPLv2+
+# Project files are a mix of GPL-3.0-or-later and GPL-2.0-or-later.
+# BSL-1.0: src/bucket_sorter.hpp, src/minimum_degree_ordering.hpp
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0
 URL:            https://github.com/freetdi/tdlib
 Source0:        %{url}/archive/%{gittag}/tdlib-%{shorttag}.tar.gz
 # Fix a broken test to find the python header files
@@ -96,6 +98,9 @@ rm -f %{buildroot}%{python3_sitearch}/tdlib/*.la
 %{_includedir}/treedec/
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-5.20210929.%{shorttag}%{?dist}
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-5.20210929.e8ec911
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

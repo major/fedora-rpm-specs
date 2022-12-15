@@ -1,6 +1,6 @@
 Name:		ibp
 Version:	0.21
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	A tool to show which IBP beacons are transmitting
 
 License:	GPLv2
@@ -8,6 +8,7 @@ URL:		http://wwwhome.cs.utwente.nl/~ptdeboer/ham/ibp.html
 Source0:	http://wwwhome.cs.utwente.nl/~ptdeboer/ham/ibp-0.21.tgz
 Source1:	ibp.desktop
 Source2:	ibp.png
+Patch0:		ibp-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:	imake, ncurses-devel, libX11-devel, desktop-file-utils
@@ -23,7 +24,7 @@ Much more information can be found on http://www.ncdxf.org/beacons.html
 
 
 %prep
-%setup -q
+%autosetup -p1
 xmkmf
 
 
@@ -55,6 +56,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 0.21-28
+- Port to C99 (#2152968)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

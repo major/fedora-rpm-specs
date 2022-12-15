@@ -5,7 +5,7 @@ Name:		qd
 Version:	2.3.23
 Release:	3%{?dist}
 Summary:	Double-Double and Quad-Double Arithmetic
-License:	LBNL BSD
+License:	BSD-3-Clause-LBNL
 URL:		https://www.davidhbailey.com/dhbsoftware/
 Source0:	https://www.davidhbailey.com/dhbsoftware/%{name}-%{version}.tar.gz
 # Fix LTO warnings about type mismatches
@@ -57,16 +57,15 @@ rm -f docs/qd.pdf
 
 %build
 %ifarch s390x aarch64 ppc64le
-%global optflags %{optflags} -ffp-contract=off
+export CFLAGS='%{build_cflags} -ffp-contract=off'
+export CXXFLAGS='%{build_cxxflags} -ffp-contract=off'
 %endif
 # FIXME: This should not be necessary!
 %ifarch aarch64
-%global optflags %{optflags} -mabi=lp64
+export CFLAGS='%{build_cflags} -mabi=lp64'
+export CXXFLAGS='%{build_cxxflags} -mabi=lp64'
 %endif
-export CC=gcc
-export CXX=g++	
 export FC=gfortran
-export FCFLAGS="%{optflags}"
 
 %configure --enable-shared --disable-static
 
@@ -119,6 +118,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs:$PWD/fortran/.libs make check
 %{_libdir}/pkgconfig/qd.pc
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.3.23-3
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

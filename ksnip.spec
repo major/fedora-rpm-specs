@@ -2,7 +2,7 @@ Name: ksnip
 Version: 1.10.0
 Release: 2%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Qt based cross-platform screenshot tool
 URL: https://github.com/%{name}/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

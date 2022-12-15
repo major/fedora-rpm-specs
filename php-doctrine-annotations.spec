@@ -14,8 +14,8 @@
 
 %global github_owner     doctrine
 %global github_name      annotations
-%global github_version   1.13.3
-%global github_commit    648b0343343565c4a056bfc8392201385e8d89f0
+%global github_version   1.14.1
+%global github_commit    9e034d7a70032d422169f27d8759e8d84abb4f51
 
 %global composer_vendor  doctrine
 %global composer_project annotations
@@ -25,10 +25,10 @@
 # "doctrine/cache": "^1.11 || ^2."
 %global cache_min_ver    1.11
 %global cache_max_ver    3
-# "doctrine/lexer": "1.*"
+# "doctrine/lexer": "^1 || ^2"
 #     NOTE: Min version not 1.0 because autoloader required
 %global lexer_min_ver    1.0.1
-%global lexer_max_ver    2.0
+%global lexer_max_ver    3
 # "psr/cache": "^1 || ^2 || ^3"
 %global psr_cache_min_ver 1
 # only v1 is available for now
@@ -42,7 +42,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       PHP docblock annotations parser library
 
 License:       MIT
@@ -62,9 +62,9 @@ BuildRequires:(php-composer(doctrine/cache) >= %{cache_min_ver} with php-compose
 BuildRequires:(php-composer(doctrine/lexer) >= %{lexer_min_ver} with php-composer(doctrine/lexer) < %{lexer_max_ver})
 BuildRequires:(php-composer(psr/cache) >= %{psr_cache_min_ver} with php-composer(psr/cache) < %{psr_cache_max_ver})
 BuildRequires:(php-composer(symfony/cache) >= %{symfony_min_ver} with php-composer(symfony/cache) < %{symfony_max_ver})
-# "phpunit/phpunit": "^7.5 || ^8.0 || ^9.1.5"
+# "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires: phpunit9 >= 9.1.5
+BuildRequires: phpunit9 >= 9.5
 
 ## phpcompatinfo (computed from version 1.10.0)
 BuildRequires: php-ctype
@@ -123,7 +123,10 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('Doctrine\\Common\\Annotations\\', __DIR__);
 
 \Fedora\Autoloader\Dependencies::required([
-    '%{phpdir}/Doctrine/Common/Lexer/autoload.php',
+    [
+        '%{phpdir}/Doctrine/Common/Lexer2/autoload.php',
+        '%{phpdir}/Doctrine/Common/Lexer/autoload.php',
+    ],
     '%{phpdir}/Psr/Cache/autoload.php',
 ]);
 AUTOLOAD
@@ -157,7 +160,7 @@ BOOTSTRAP
 
 : Upstream tests
 RETURN_CODE=0
-for CMD in "php %{phpunit}" php74 php80 php81 php82; do
+for CMD in "php %{phpunit}" php80 php81 php82; do
     if which $CMD; then
         set $CMD
         $1 ${2:-%{_bindir}/phpunit9} --verbose \
@@ -181,6 +184,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 1.14.1-1
+- update to 1.14.1
+- allow doctrine/lexer v2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

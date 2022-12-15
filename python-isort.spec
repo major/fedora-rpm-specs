@@ -2,8 +2,8 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            5.10.1
-Release:            5%{?dist}
+Version:            5.11.1
+Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -57,6 +57,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Tue Dec 13 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.11.1-1
+- 5.11.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

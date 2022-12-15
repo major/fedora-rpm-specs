@@ -5,7 +5,7 @@ Version: 3.2.14
 Release: 1%{?dist}
 
 Summary: Double Ratchet cryptographic library
-License: ASL 2.0
+License: Apache-2.0
 URL: https://gitlab.matrix.org/matrix-org/%{appname}
 Source0: https://gitlab.matrix.org/matrix-org/%{appname}/-/archive/%{version}/%{appname}-%{version}.tar.bz2
 

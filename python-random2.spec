@@ -3,7 +3,7 @@ Version:        1.0.1
 Release:        27%{?dist}
 Summary:        Python 2 compatible random module
 
-License:        Python
+License:        Python-2.0.1
 URL:            http://pypi.python.org/pypi/random2
 Source0:        %{pypi_source random2 %version zip}
 BuildArch:      noarch
@@ -55,6 +55,9 @@ sed -i '/self\.gen\.getrandbits, 0/d' src/tests.py
 %doc CHANGES.txt README.txt
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.0.1-27
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

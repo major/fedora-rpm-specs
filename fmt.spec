@@ -2,7 +2,7 @@ Name:           fmt
 Version:        9.1.0
 Release:        1%{?dist}
 
-License:        BSD
+License:        MIT
 Summary:        Small, safe and fast formatting library for C++
 URL:            https://github.com/fmtlib/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz

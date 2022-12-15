@@ -1,13 +1,14 @@
 Name:             zathura-djvu
 Version:          0.2.9
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          DjVu support for zathura
-License:          zlib
-URL:              http://pwmt.org/projects/zathura/plugins/%{name}
-Source0:          http://pwmt.org/projects/zathura/plugins/download/%{name}-%{version}.tar.xz
-BuildRequires:    binutils
+License:          Zlib
+URL:              http://pwmt.org/projects/%{name}
+Source0:          http://pwmt.org/projects/%{name}/download/%{name}-%{version}.tar.xz
+
+#BuildRequires:    binutils
 BuildRequires:    cairo-devel
-BuildRequires:    coreutils
+#BuildRequires:    coreutils
 BuildRequires:    djvulibre-devel
 # Needed to validate the desktop file
 BuildRequires:    desktop-file-utils
@@ -18,6 +19,7 @@ BuildRequires:    libappstream-glib
 BuildRequires:    meson >= 0.43
 BuildRequires:    gcc
 BuildRequires:    zathura-devel >= 0.3.8
+
 Requires:         zathura >= 0.3.8
 
 %description
@@ -43,7 +45,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/applications/org.pwmt.zathura-djvu.desktop
 %{_datadir}/metainfo/org.pwmt.zathura-djvu.metainfo.xml
 
+
 %changelog
+* Sun Dec 11 2022 Alain Vigne <avigne@fedoraproject.org> - 0.2.9-7
+- Update URLs and SPDX license
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

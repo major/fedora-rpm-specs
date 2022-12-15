@@ -4,7 +4,7 @@ Name: mustache
 Version: 4.1
 Release: 6%{?dist}
 
-License: Boost
+License: BSL-1.0
 Summary: Mustache text templates for modern C++
 
 URL: https://github.com/kainjow/%{appname}

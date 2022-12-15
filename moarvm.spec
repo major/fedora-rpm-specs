@@ -10,6 +10,7 @@ Summary:        Meta-model On A Runtime Virtual Machine
 License:        Artistic 2.0
 URL:            http://moarvm.org
 Source0:        http://moarvm.org/releases/MoarVM-%{year}.%{month}.tar.gz
+Patch0:         moarvm-probe-c99.patch
 
 BuildRequires: make
 # sha-devel
@@ -62,7 +63,7 @@ This package contains header files for developing applications that use
 
 
 %prep
-%setup -q -n MoarVM-%{year}.%{month}
+%autosetup -p1 -n MoarVM-%{year}.%{month}
 
 
 %build

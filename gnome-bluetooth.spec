@@ -2,8 +2,8 @@
 
 Name:		gnome-bluetooth
 Epoch:		1
-Version:	42.4
-Release:	3%{?dist}
+Version:	42.5
+Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
 License:	GPLv2+
@@ -96,6 +96,9 @@ for writing applications that require a Bluetooth device selection widget.
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Dec 13 2022 Bastien Nocera <bnocera@redhat.com> - 42.5-1
+- Update to 42.5
+
 * Tue Nov 08 2022 Bastien Nocera <bnocera@redhat.com> - 42.4-3
 - Require bluez-obexd (#2090443)
 

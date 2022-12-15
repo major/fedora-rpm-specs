@@ -9,7 +9,7 @@ Version:        0.9
 Release:        20.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/sebasguts/JuPyMake
 Source0:        %{url}/archive/%{commit}/JuPyMake-%{shortcommit}.tar.gz
 
@@ -54,6 +54,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.9-20.20190509.031cc3a
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-20.20190509.031cc3a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

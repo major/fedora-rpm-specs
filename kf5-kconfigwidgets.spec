@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.101.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
 License: GPLv2+ and LGPLv2+ and MIT
@@ -11,6 +11,8 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %global majmin %(echo %{version} | cut -d. -f1-2)
 %global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
+
+Patch0:  kconfigwidgets-properly-restore-default-palette.patch
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-kauth-devel >= %{majmin}
@@ -47,7 +49,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{version}
+%autosetup -n %{framework}-%{version} -p1
 
 
 %build
@@ -84,6 +86,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Dec 13 2022 Jan Grulich <jgrulich@redhat.com> - 5.101.0-2
+- KColorSchemeManager: properly restore default palette
+
 * Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
 - 5.101.0
 - use new macros to simplify code
@@ -97,7 +102,7 @@ developing applications that use %{name}.
 * Thu Sep 15 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.98.0-1
 - 5.98.0
 
-* Fri Aug 18 2022 Jan Grulich <jgrulich@redhat.com> - 5.97.0-2
+* Thu Aug 18 2022 Jan Grulich <jgrulich@redhat.com> - 5.97.0-2
 - Requires: plasma-breeze-common
 
 * Sat Aug 13 2022 Justin Zobel <justin@1707.io> - 5.97.0-1

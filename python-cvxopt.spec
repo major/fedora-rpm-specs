@@ -2,9 +2,9 @@
 
 Name:           python-cvxopt
 Version:        1.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python Package for Convex Optimization
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://cvxopt.org/
 Source0:        https://github.com/cvxopt/cvxopt/archive/%{version}/cvxopt-%{version}.tar.gz
 # Use the flexiblas library instead of the system BLAS.
@@ -48,9 +48,33 @@ on the strengths of Python as a high-level programming language.}
 
 %package -n     python3-cvxopt
 Summary:        A Python3 Package for Convex Optimization
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description -n python3-cvxopt %_desc
+
+%package        doc
+# The content is GPL-3.0-or-later.  Other licenses are due to files copied in
+# by Sphinx.
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/css: MIT
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT
+Summary:        API documentation for python3-cvxopt
+
+%description    doc
+API documentation for python3-cvxopt.
 
 %package        examples
 Summary:        Examples of using %{name}
@@ -92,13 +116,19 @@ rm -f doc/build/html/.buildinfo
 %pytest
 
 %files -n python3-cvxopt -f %{pyproject_files}
-%doc doc/build/html/
 %license LICENSE
+
+%files doc
+%doc doc/build/html/
 
 %files examples
 %doc examples/
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-5
+- Split documentation out into separate doc subpackage
+- Convert License tags to SPDX
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.0-4
 - Rebuild for gsl-2.7.1
 

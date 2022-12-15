@@ -8,7 +8,7 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    154bba45ffc9c2a049aa9e21501d02472b24deb4
+%global gh_commit    a336b531f6f6b5487fca0caf034a671d4e60df5c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
 #global gh_date      20201209
@@ -17,7 +17,7 @@
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.6.0
+Version:        6.6.1
 Release:        1%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
 
 URL:            http://www.tcpdf.org
@@ -194,6 +194,9 @@ This package allow to use system GNU FreeFont serif font faces in TCPDF.
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
 
+: Fix version
+sed -e '/tcpdf_version/s/6.6.0/%{version}/' -i include/tcpdf_static.php
+
 : Check version
 grep tcpdf_version include/tcpdf_static.php | grep %{version}
 
@@ -314,6 +317,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 6.6.1-1
+- update to 6.6.1
+
 * Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 6.6.0-1
 - update to 6.6.0
 

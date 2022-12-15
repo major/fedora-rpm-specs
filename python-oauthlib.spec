@@ -1,6 +1,6 @@
 Name:               python-oauthlib
 Version:            3.2.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
 License:            BSD
@@ -48,12 +48,18 @@ very little effort.
 %pyproject_save_files oauthlib
 
 %check
+# enable SHA-1 signatures for RSA tests
+# also see https://github.com/pyca/cryptography/pull/6931 and rhbz#2060343
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %{pytest}
 
 %files -n python3-oauthlib -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Tue Dec 13 2022 Major Hayden <major@redhat.com> - 3.2.1-2
+- Add SHA1 signature fix for ELN from yselkowitz. 👏
+
 * Mon Sep 12 2022 Dariusz Smigiel <dsmigiel@redhat.com) - 3.2.1-1
 - Update spec file and sources for 3.2.1
 - Fixes CVE-2022-36087

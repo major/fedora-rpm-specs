@@ -6,7 +6,7 @@ Name: libquotient
 Version: 0.6.11
 Release: 4%{?dist}
 
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
 Summary: Qt5 library to write cross-platform clients for Matrix
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz

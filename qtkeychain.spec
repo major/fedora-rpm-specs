@@ -1,7 +1,7 @@
 
 Name:           qtkeychain
 Version:        0.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A password store library
 
 License:        BSD
@@ -12,20 +12,9 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(libsecret-1)
-BuildRequires:  qt-devel
 
 %description
 The qtkeychain library allows you to store passwords easily and securely.
-
-%package devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       pkgconfig(QtDBus)
-# deps referenced in QtKeychainLibraryDepends-relwithdebinfo.cmake:  IMPORTED_LINK_INTERFACE_LIBRARIES_RELWITHDEBINFO "/usr/lib64/libQtCore.so;secret-1;gio-2.0;gobject-2.0;glib-2.0;/usr/lib64/libQtDBus.so"
-# *probably* overlinking and can be pruned, but requires closer inspection
-Requires:       pkgconfig(libsecret-1)
-%description devel
-This package contains development files for qtkeychain.
 
 %package qt5
 Summary:        %{summary}
@@ -76,6 +65,9 @@ grep %{_datadir}/qt5keychain/translations %{name}.lang > %{name}-qt5.lang
 %{_libdir}/qt5/mkspecs/modules/qt_Qt5Keychain.pri
 
 %changelog
+* Tue Dec 13 2022 Troy Dawson <tdawson@redhat.com> - 0.13.2-2
+- Clean up qt4 build dependencies
+
 * Sat Aug 20 2022 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 0.13.2-1
 - Update to 0.13.2
 

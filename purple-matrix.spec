@@ -4,7 +4,7 @@ Name: purple-%{plugin_name}
 Version: 0.1.0
 Release: 3%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Matrix plugin for libpurple
 URL: https://github.com/matrix-org/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

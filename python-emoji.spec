@@ -13,7 +13,7 @@ Name: python-%{pypi_name}
 Version: 2.2.0
 Release: 1%{?dist}
 
-License: BSD
+License: BSD-3-Clause
 Summary: Emoji library for Python
 URL: https://pypi.python.org/pypi/%{pypi_name}
 Source0: %{pypi_source %{pypi_name}}

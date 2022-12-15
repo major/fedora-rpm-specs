@@ -7,7 +7,7 @@ Summary: C++17 std::variant for C++11/14/17
 Version: 1.4.0
 Release: 8%{?dist}
 
-License: Boost
+License: BSL-1.0
 URL: https://github.com/mpark/variant
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

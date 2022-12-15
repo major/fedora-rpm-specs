@@ -4,7 +4,7 @@ Name:           purple-plugin_pack
 Version:        2.8.0
 Release:        5%{?dist}
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Summary:        A set of plugins for libpurple, pidgin, and finch
 URL:            https://keep.imfreedom.org/pidgin/%{intname}
 Source0:        https://dl.bintray.com/pidgin/releases/%{intname}-%{version}.tar.xz

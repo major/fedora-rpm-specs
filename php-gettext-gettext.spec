@@ -3,8 +3,8 @@
 
 
 Name:       php-gettext-gettext
-Version:    5.6.1
-Release:    3%{?dist}
+Version:    5.7.0
+Release:    1%{?dist}
 BuildArch:  noarch
 
 License:    MIT
@@ -68,6 +68,8 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Autoload::addPsr4('Gettext\\', __DIR__);
 
+\Fedora\Autoloader\Autoload::addPsr4('Gettext\\Tests\\', 'tests');
+
 \Fedora\Autoloader\Dependencies::required(array(
     '%{_datadir}/php/Gettext/Languages/autoloader.php'
 ));
@@ -95,7 +97,7 @@ cp -ar src/* %{buildroot}/%{_datadir}/php/Gettext/
 ret=0
 for cmd in php php71 php72 php73 php74; do
   if which $cmd; then
-    $cmd %{_bindir}/phpunit8 --bootstrap %{buildroot}/%{_datadir}/php/Gettext/autoload.php tests
+    $cmd %{_bindir}/phpunit8 --bootstrap %{buildroot}/%{_datadir}/php/Gettext/autoload.php tests --exclude-group default
   fi
 done
 exit $ret
@@ -110,6 +112,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec 12 2022 Sundeep Anand <suanand@fedoraproject.org> - 5.7.0-1
+- update to 5.7.0 (#2111800)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

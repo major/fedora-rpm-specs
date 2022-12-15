@@ -1,6 +1,6 @@
 Name:           perl-Module-Manifest-Skip
 Version:        0.23
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        MANIFEST.SKIP Manangement for Modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Manifest-Skip
@@ -35,8 +35,6 @@ Requires:       perl(warnings)
 
 # Remove under-speficied dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Moo\\)$
-# Remove depdendency for test, which is no packaged
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::Pod\\)$
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TestModuleManifestSkip\\)$
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(TestModuleManifestSkip\\)$
@@ -111,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Dec 13 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.23-27
+- Remove obsolete code
+
 * Sun Dec 11 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.23-26
 - Package tests
 - Update license to SPDX format

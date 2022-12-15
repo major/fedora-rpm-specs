@@ -5,7 +5,7 @@ Name: kcolorpicker
 Version: 0.2.0
 Release: 2%{?dist}
 
-License: LGPLv3+
+License: LGPL-3.0-or-later
 Summary: QToolButton control with color popup menu
 URL: https://github.com/ksnip/%{appname}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

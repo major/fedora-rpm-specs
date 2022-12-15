@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    4907ef1e384dbb7d3100c897925e7dc071a419a3
+%global gh_commit    bc9153c2f9e27de5915d008b4fc3943d48ab6869
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,8 +15,8 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.14
-Release:        2%{?dist}
+Version:        1.17.15
+Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
 License:        LGPLv3+
@@ -123,7 +123,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} \
@@ -145,6 +145,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 1.17.15-1
+- update to 1.17.15
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

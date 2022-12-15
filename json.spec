@@ -7,8 +7,8 @@ Version:        3.11.2
 Release:        1%{?dist}
 
 # The entire source is MIT except
-# include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0
-License:        MIT and CC0
+# include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
+License:        MIT AND CC0-1.0
 Summary:        JSON for Modern C++
 URL:            https://github.com/nlohmann/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

@@ -5,7 +5,7 @@ Summary: Experimental range library for C++11/14/17
 Version: 0.12.0
 Release: 2%{?dist}
 
-License: Boost
+License: BSL-1.0
 URL: https://github.com/ericniebler/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

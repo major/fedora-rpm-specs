@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 117%{?dist}
+Release: 118%{?dist}
 
 License: LGPLv2
 Url: http://www.kde.org/
@@ -173,6 +173,7 @@ Patch303: kde3-libtool-aarch64.patch
 Patch304: kdelibs-3.5.10-configure.patch
 # autoconf 2.7x
 Patch305: kde3-autoconf-version.patch
+Patch306: kdelibs3-c99.patch
 
 Requires: ca-certificates
 Requires: hicolor-icon-theme
@@ -368,6 +369,7 @@ This package includes tools kgrantpty and kpac_dhcp_helper.
 %patch303 -p1 -b .libtool-aarch64
 %patch304 -p1 -b .configure
 %patch305 -p1 -b .autoconf2.7x
+%patch306 -p1
 
 make -f admin/Makefile.common cvs
 
@@ -704,6 +706,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 3.5.10-118
+- Port to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-117
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
