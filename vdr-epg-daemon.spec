@@ -3,12 +3,12 @@
 # version we want build against
 %global vdr_version 2.6.1
 %if 0%{?fedora} >= 38
-%global vdr_version 2.6.2
+%global vdr_version 2.6.3
 %endif
 
 Name:           vdr-epg-daemon
 Version:        1.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
 License:        GPL+ and GPLv2 and BSD
@@ -135,6 +135,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-2
+- Rebuilt for new VDR API version
+
 * Sat Dec 03 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.2.4-1
 - Update URL address
 - Update to 1.2.4

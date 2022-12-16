@@ -71,11 +71,40 @@ Requires:       z3-libs%{?_isa} = %{version}-%{release}
 Header files for build applications that use z3.
 
 %package doc
-Summary:        API documentation for Z3
+# The content is MIT.
 # Two files in examples are GPL-3.0-or-later WITH Bison-exception 2.2:
 # examples/tptp/tptp5.tab.c
 # examples/tptp/tptp5.tab.c
-License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2
+# Other licenses are due to files installed by doxygen.
+# html/bc_s.png: GPL-1.0-or-later
+# html/bdwn.png: GPL-1.0-or-later
+# html/closed.png: GPL-1.0-or-later
+# html/doc.png: GPL-1.0-or-later
+# html/doxygen.css: GPL-1.0-or-later
+# html/doxygen.svg: GPL-1.0-or-later
+# html/dynsections.js: MIT
+# html/folderclosed.png: GPL-1.0-or-later
+# html/folderopen.png: GPL-1.0-or-later
+# html/jquery.js: MIT
+# html/nav_f.png: GPL-1.0-or-later
+# html/nav_g.png: GPL-1.0-or-later
+# html/nav_h.png: GPL-1.0-or-later
+# html/open.png: GPL-1.0-or-later
+# html/search/search.css: GPL-1.0-or-later
+# html/search/search.js: MIT
+# html/search/search_l.png: GPL-1.0-or-later
+# html/search/search_m.png: GPL-1.0-or-later
+# html/search/search_r.png: GPL-1.0-or-later
+# html/splitbar.png: GPL-1.0-or-later
+# html/sync_off.png: GPL-1.0-or-later
+# html/sync_on.png: GPL-1.0-or-later
+# html/tab_a.png: GPL-1.0-or-later
+# html/tab_b.png: GPL-1.0-or-later
+# html/tab_h.png: GPL-1.0-or-later
+# html/tab_s.png: GPL-1.0-or-later
+# html/tabs.css: GPL-1.0-or-later
+License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND GPL-1.0-or-later
+Summary:        API documentation for Z3
 # FIXME: this should be noarch, but we end up with different numbers of inheritance
 # graphs on different architectures.  Why?
 
@@ -255,6 +284,9 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 4.11.2-1
+- Further clarify license of the doc subpackage (SPDX)
+
 * Sun Sep  4 2022 Jerry James <loganjerry@gmail.com> - 4.11.2-1
 - Version 4.11.2
 

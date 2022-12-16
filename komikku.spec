@@ -4,7 +4,7 @@
 %global libadwaita_version  1.2
 
 Name:           komikku
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -30,10 +30,10 @@ Requires:       libnotify
 Requires:       python3-beautifulsoup4
 Requires:       python3-brotli
 Requires:       python3-cloudscraper
-Requires:       python3-dateparser
+Requires:       python3-dateparser >= 1.1.4
 Requires:       python3-emoji
 Requires:       python3-gobject
-Requires:       python3-keyring
+Requires:       python3-keyring >= 21.6.0
 Requires:       python3-lxml
 Requires:       python3-natsort
 # The conflict between python-magic and python-file-magic should be brought to

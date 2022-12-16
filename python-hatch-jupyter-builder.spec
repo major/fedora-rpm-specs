@@ -1,5 +1,5 @@
 Name:           python-hatch-jupyter-builder
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        A hatch plugin to help build Jupyter packages
 License:        BSD-3-Clause
@@ -54,5 +54,8 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Dec 14 2022 Lumír Balhar <lbalhar@redhat.com> - 0.8.2-1
+- Update to 0.8.2 (rhbz#2152911)
+
 * Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 0.8.1-1
 - Initial package

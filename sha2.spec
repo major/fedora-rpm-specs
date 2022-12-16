@@ -1,12 +1,13 @@
 Name:		sha2
 Version:	1.0.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	SHA Implementation Library
 License:	BSD
 URL:		http://www.aarongifford.com/computers/sha.html
 Source0:	http://www.aarongifford.com/computers/%{name}-%{version}.tgz
 # Makefile to build the binaries. Sent upstream via email
 Source1:	%{name}-Makefile
+Patch0:		sha2-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  perl-interpreter
@@ -31,7 +32,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 cp -a %{SOURCE1} Makefile
 
 %build
@@ -64,6 +65,9 @@ LD_PRELOAD=./libsha2.so ./sha2test.pl
 
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-23
+- Port to C99 (#2153561)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

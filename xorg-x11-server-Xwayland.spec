@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   22.1.5
+Version:   22.1.6
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -124,6 +124,11 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Dec 14 2022 Peter Hutterer <peter.hutterer@redhat.com> - 22.1.6-1
+- xwayland 22.1.6
+  Fixes CVE-2022-46340, CVE-2022-46341, CVE-2022-46342, CVE-2022-46343,
+  CVE-2022-46344, CVE-2022-4283
+
 * Wed Nov  2 2022 Olivier Fourdan <ofourdan@redhat.com> - 22.1.5-1
 - xwayland 22.1.5 (#2139387)
 

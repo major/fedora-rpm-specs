@@ -2,7 +2,7 @@ Name:           stringtemplate4
 Version:        4.3.3
 Release:        3%{?dist}
 Summary:        A Java template engine
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ xvfb-run -d %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 4.3.3-3
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

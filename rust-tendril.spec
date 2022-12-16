@@ -101,7 +101,9 @@ use the "encoding_rs" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip test for exact size of a struct / enum that fails with Rust 1.64+:
+#   https://github.com/servo/tendril/issues/66
+%cargo_test -- -- --skip assert_sizes
 %endif
 
 %changelog

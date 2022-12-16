@@ -2,7 +2,7 @@ Name: dnstwist
 Summary: Domain name permutation engine
 License: ASL 2.0
 
-Version: 20221022
+Version: 20221213
 Release: 1%{?dist}
 
 URL:     https://github.com/elceef/%{name}/
@@ -71,6 +71,9 @@ install -m 644 -p docs/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Dec 14 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20221213-1
+- Update to v20221213
+
 * Sat Oct 22 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20221022-1
 - Update to v20221022
 

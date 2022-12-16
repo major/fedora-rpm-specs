@@ -1,8 +1,8 @@
 Name:           perl-Mail-IMAPTalk
 Version:        4.04
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        IMAP client interface with lots of features
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-IMAPTalk
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBN/Mail-IMAPTalk-%{version}.tar.gz
 BuildArch:      noarch
@@ -44,13 +44,12 @@ mapped to a method of this object.
 chmod -x lib/Mail/IMAPTalk.pm
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -62,6 +61,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Dec 14 2022 Michal Josef Špaček <mspacek@redhat.com> - 4.04-20
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.04-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

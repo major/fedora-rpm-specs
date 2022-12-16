@@ -47,7 +47,7 @@ suite can be run with any compiler, not just clang.
 %prep
 %autosetup -n %{test_suite_srcdir} -p1
 
-pathfix.py -i %{__python3} -pn \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
 	ParseMultipleResults \
 	utils/*.py \
 	CollectDebugInfoUsingLLDB.py \

@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    51e73899f14026fdf2626569a7ff04ae93554b0b
+%global gh_commit    74c091fb0da37744e7d215ef5bd3564c77f6385e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-eventmanager
@@ -23,7 +23,7 @@
 %global library      EventManager
 
 Name:           php-%{gh_project}
-Version:        3.8.0
+Version:        3.9.0
 Release:        1%{?dist}
 Summary:        Trigger and listen to events within a PHP application
 
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 3.9.0-1
+- update to 3.9.0
+
 * Mon Dec  5 2022 Remi Collet <remi@remirepo.net> - 3.8.0-1
 - update to 3.8.0
 

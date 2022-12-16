@@ -11,13 +11,13 @@
 %undefine __brp_mangle_shebangs
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    e2bc72e017addab11d68e4733d84c77d3ff30b19
+%global gh_commit    d3e93196393b6efe6f359d128ed3638d40687574
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20151005
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  6.5.3
+%global upstream_version  6.5.4
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
@@ -57,13 +57,13 @@ Requires:       php-xmlreader
 
 # Bundled libraries
 # License BSD-3-Clause
-Provides: bundled(php-bartlett-php-compatinfo-db) = 4.8.0
-Provides: bundled(php-nikic-php-parser) = v4.15.1
+Provides: bundled(php-bartlett-php-compatinfo-db) = 4.10.0
+Provides: bundled(php-nikic-php-parser) = v4.15.2
 # License MIT
 Provides: bundled(php-bartlett-sarif-php-sdk) = 1.0.1
 Provides: bundled(php-brick-math) = 0.9.3
 Provides: bundled(php-composer-semver) = 3.3.2
-Provides: bundled(php-doctrine-annotations) = 1.13.3
+Provides: bundled(php-doctrine-annotations) = 1.14.1
 Provides: bundled(php-doctrine-cache) = 2.2.0
 Provides: bundled(php-doctrine-collections) = 1.8.0
 Provides: bundled(php-doctrine-common) = 3.4.3
@@ -73,8 +73,8 @@ Provides: bundled(php-doctrine-event-manager) = 1.2.0
 Provides: bundled(php-doctrine-inflector) = 2.0.6
 Provides: bundled(php-doctrine-instantiator) = 1.4.1
 Provides: bundled(php-doctrine-lexer) = 1.2.3
-Provides: bundled(php-doctrine-orm) = 2.13.3
-Provides: bundled(php-doctrine-persistence) = 3.0.4
+Provides: bundled(php-doctrine-orm) = 2.13.4
+Provides: bundled(php-doctrine-persistence) = 3.1.1
 Provides: bundled(php-psr-cache) = 1.0.1
 Provides: bundled(php-psr-container) = 1.1.2
 Provides: bundled(php-psr-event-dispatcher) = 1.0.0
@@ -85,25 +85,25 @@ Provides: bundled(php-symfony-amqp-messenger) = v5.4.15
 Provides: bundled(php-symfony-cache) = v5.4.15
 Provides: bundled(php-symfony-cache-contracts) = v2.5.2
 Provides: bundled(php-symfony-config) = v5.4.11
-Provides: bundled(php-symfony-console) = v5.4.15
-Provides: bundled(php-symfony-dependency-injection) = v5.4.13
+Provides: bundled(php-symfony-console) = v5.4.16
+Provides: bundled(php-symfony-dependency-injection) = v5.4.16
 Provides: bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides: bundled(php-symfony-doctrine-messenger) = v5.4.12
+Provides: bundled(php-symfony-doctrine-messenger) = v5.4.16
 Provides: bundled(php-symfony-event-dispatcher) = v5.4.9
 Provides: bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
 Provides: bundled(php-symfony-filesystem) = v5.4.13
 Provides: bundled(php-symfony-finder) = v5.4.11
-Provides: bundled(php-symfony-http-client) = v5.4.15
+Provides: bundled(php-symfony-http-client) = v5.4.16
 Provides: bundled(php-symfony-http-client-contracts) = v2.5.2
-Provides: bundled(php-symfony-messenger) = v5.4.14
-Provides: bundled(php-symfony-polyfill-ctype) = v1.26.0
-Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.26.0
-Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.26.0
-Provides: bundled(php-symfony-polyfill-mbstring) = v1.26.0
-Provides: bundled(php-symfony-polyfill-php72) = v1.26.0
-Provides: bundled(php-symfony-polyfill-php73) = v1.26.0
-Provides: bundled(php-symfony-polyfill-php80) = v1.26.0
-Provides: bundled(php-symfony-polyfill-php81) = v1.26.0
+Provides: bundled(php-symfony-messenger) = v5.4.16
+Provides: bundled(php-symfony-polyfill-ctype) = v1.27.0
+Provides: bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
+Provides: bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
+Provides: bundled(php-symfony-polyfill-mbstring) = v1.27.0
+Provides: bundled(php-symfony-polyfill-php72) = v1.27.0
+Provides: bundled(php-symfony-polyfill-php73) = v1.27.0
+Provides: bundled(php-symfony-polyfill-php80) = v1.27.0
+Provides: bundled(php-symfony-polyfill-php81) = v1.27.0
 Provides: bundled(php-symfony-process) = v5.4.11
 Provides: bundled(php-symfony-redis-messenger) = v5.4.15
 Provides: bundled(php-symfony-requirements-checker) = v2.0.1
@@ -197,6 +197,10 @@ install -D -p -m 755 %{SOURCE1}          %{buildroot}%{_datadir}/%{name}/fedora-
 
 
 %changelog
+* Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 6.5.4-1
+- update to 6.5.4
+- update bundled bartlett/php-compatinfo-db to 4.10.0
+
 * Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 6.5.3-1
 - update to 6.5.3
 - update bundled bartlett/php-compatinfo-db to 4.8.0

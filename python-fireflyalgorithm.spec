@@ -5,7 +5,7 @@
 Implementation of Firefly Algorithm (FA) for optimization.}
 
 Name:           python-%{new_name}
-Version:        0.3.3
+Version:        0.3.4
 Release:        1%{?dist}
 Summary:        Implementation of Firefly Algorithm in Python
 
@@ -57,6 +57,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc README.md examples/
 
 %changelog
+* Wed Dec 14 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.4-1
+- Update to the latest upstream's release
+
 * Wed Nov 2 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.3-1
 - Update to the latest upstream's release
 

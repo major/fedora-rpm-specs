@@ -2,12 +2,12 @@
 # version we want build against
 %global vdr_version 2.6.1
 %if 0%{?fedora} >= 38
-%global vdr_version 2.6.2
+%global vdr_version 2.6.3
 %endif
 
 Name:           vdr-%{pname}
 Version:        1.1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -67,6 +67,9 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.8-3
+- Rebuilt for new VDR API version
+
 * Fri Dec 02 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.8-2
 - Rebuilt for new VDR API version
 

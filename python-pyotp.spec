@@ -1,7 +1,7 @@
 %global srcname pyotp
 
 Name:           python-%{srcname}
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        Python One Time Password library
 BuildArch:      noarch
@@ -14,8 +14,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
 %description
-A Python library for generating one time passwords according to
-RFC 4226 and the HOTP RFC.
+PyOTP is a Python library for generating and verifying one-time passwords. It
+can be used to implement two-factor (2FA) or multi-factor (MFA) authentication
+methods in web applications and in other systems that require users to log in.
 
 
 %package -n python3-%{srcname}

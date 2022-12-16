@@ -5,12 +5,12 @@
 %global ostree_version 2020.8
 
 Name:           flatpak
-Version:        1.14.1
+Version:        1.15.1
 Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPLv2+
-URL:            http://flatpak.org/
+URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 %if 0%{?fedora}
@@ -22,12 +22,12 @@ Source1:        flatpak-add-fedora-repos.service
 # with the config from upstream sources.
 Source2:        flatpak.sysusers.conf
 
-# https://github.com/flatpak/flatpak/pull/4914
-Patch0:         flatpak-1.13.3-add-gssproxy-support.patch
+# https://github.com/flatpak/flatpak/pull/5217
+Patch0:         flatpak-1.15.1-install-selinux.patch
 
 BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
-BuildRequires:  pkgconfig(fuse)
+BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.40.0
@@ -42,7 +42,6 @@ BuildRequires:  pkgconfig(malcontent-0)
 BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(xau)
-BuildRequires:  autoconf automake libtool
 BuildRequires:  bison
 BuildRequires:  bubblewrap >= %{bubblewrap_version}
 BuildRequires:  docbook-dtds
@@ -51,9 +50,12 @@ BuildRequires:  gettext-devel
 BuildRequires:  gpgme-devel
 BuildRequires:  gtk-doc
 BuildRequires:  libcap-devel
+BuildRequires:  meson
 BuildRequires:  python3-pyparsing
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  /usr/bin/pkcheck
+BuildRequires:  /usr/bin/socat
 BuildRequires:  /usr/bin/xdg-dbus-proxy
 BuildRequires:  /usr/bin/xmlto
 BuildRequires:  /usr/bin/xsltproc
@@ -142,24 +144,15 @@ This package contains installed tests for %{name}.
 
 
 %build
-rm configure
-(if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; CONFIGFLAGS=--enable-gtk-doc; fi;
- # Generate consistent IDs between runs to avoid multilib problems.
- export XMLTO_FLAGS="--stringparam generate.consistent.ids=1"
- %configure \
-            --enable-docbook-docs \
-            --enable-installed-tests \
-            --enable-selinux-module \
-            --with-curl \
-            --with-priv-mode=none \
-            --with-system-bubblewrap \
-            --with-system-dbus-proxy \
-            $CONFIGFLAGS)
-%make_build V=1
+%meson \
+    -Dinstalled_tests=true \
+    -Dsystem_bubblewrap=/usr/bin/bwrap \
+    -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
@@ -279,6 +272,9 @@ fi
 
 
 %changelog
+* Tue Dec 13 2022 David King <amigadave@amigadave.com> - 1.15.1-1
+- Update to 1.15.1
+
 * Thu Dec 08 2022 David King <amigadave@amigadave.com> - 1.14.1-1
 - Update to 1.14.1 (#2151850)
 

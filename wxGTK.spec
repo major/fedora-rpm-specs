@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -16,6 +16,7 @@ Source10:       wx-config
 # remove abort when ABI check fails
 # Backport from wxGTK
 Patch0:         %{name}-3.1.6-abicheck.patch
+Patch1:         wxGTK-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -314,6 +315,9 @@ fi
 %doc html
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 3.2.1-4
+- Port configure script to C99
+
 * Tue Nov 22 2022 Scott Talbert <swt@techie.net> - 3.2.1-3
 - Rebuild (again) with wxGLCanvas GLX support (resolves many OpenGL issues)
 

@@ -1,7 +1,7 @@
 Summary: Murrine GTK2 engine
 Name: gtk-murrine-engine
 Version: 0.98.2
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: LGPLv2 or LGPLv3
 URL: http://www.cimitan.com/murrine/
 Source0: https://download.gnome.org/sources/murrine/0.98/murrine-%{version}.tar.xz
@@ -14,6 +14,7 @@ Source15: http://cimi.netsons.org/media/download_gallery/MurrineThemePack.tar.bz
 
 #rhbz 130313
 Patch0: %{name}_possible-wnck-applet-crash.patch
+Patch1: gtk-murrine-engine-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gtk2-devel
@@ -29,6 +30,7 @@ Venetian glass artworks, and is extremely customizable.
 %prep
 %setup -q -n murrine-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --enable-animation --enable-animationrtl
@@ -60,6 +62,9 @@ find $RPM_BUILD_ROOT%{_datadir}/themes -type f | xargs chmod 0644 || true
 %{_datadir}/themes/*
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 0.98.2-25
+- C99 port (#2153599)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.98.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

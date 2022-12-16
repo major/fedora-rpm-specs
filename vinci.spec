@@ -3,7 +3,7 @@ Version:        1.0.5
 Release:        23%{?dist}
 Summary:        Algorithms for volume computation
 
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            https://www.multiprecision.org/vinci/
 Source0:        https://www.multiprecision.org/downloads/%{name}-%{version}.tar.gz
 # Man page written by Jerry James using text found in the sources.  Therefore,
@@ -43,8 +43,8 @@ ETH Zürich, in collaboration with Benno Büeler and Komei Fukuda.
 sed -i 's|-o vinci|& %{build_ldflags}|' makefile
 
 %make_build OPT='%{build_cflags}'
-pdflatex manual.tex
-pdflatex manual.tex
+pdflatex -interaction=batchmode manual.tex
+pdflatex -interaction=batchmode manual.tex
 
 %install
 mkdir -p %{buildroot}%{_bindir}
@@ -59,9 +59,12 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 %doc ChangeLog manual.pdf
 %license COPYING
 %{_bindir}/%{name}
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-23
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

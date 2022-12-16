@@ -1,179 +1,208 @@
 # Don't attempt to build -docs, -tests and -server on rhel/centos until
 # missing packages are available.
-%if 0%{?rhel}
-%global with_docs 0
-%global with_tests 0
-%global with_server 0
-%else
-%global with_docs 1
-%global with_tests 1
-%global with_server 1
-%endif
+%global with_docs %{undefined rhel}
+%global with_tests %{undefined rhel}
+%global with_server %{undefined rhel}
+# python3-dynaconf doesn't provide the yaml extra
+%global _python_no_extras_requires 1
 
-%global srcname ara
-
-Name:           %{srcname}
-Version:        1.5.7
-Release:        5%{?dist}
+Name:           ara
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/ansible-community/ara
-Source0:        https://pypi.io/packages/source/a/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source ara}
+# Maintain compatability with older versions of tzlocal
+Patch:          tzlocal-compat.patch
 BuildArch:      noarch
 
-BuildRequires:  git
+BuildRequires:  git-core
+BuildRequires:  python3-devel
 
-Requires:       python3-%{srcname} = %{version}-%{release}
+%if 0%{?with_tests}
+BuildRequires:  python3-factory-boy
+BuildRequires:  python3-faker
+%endif
+
+%if 0%{?with_docs}
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  python3-sphinxcontrib-programoutput
+%endif
+
 
 %description
-%{summary}
+%{summary}.
 
-%package -n python3-%{srcname}
+
+%package -n python3-ara
 Summary:        %{summary}
+# ara used to be a blank package.
+Obsoletes:      ara < 1.6.1-1
+Provides:       ara = %{version}-%{release}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
 
-Requires:       python3-requests
-Requires:       python3-cliff
-Requires:       python3-pbr
-
-%description -n python3-%{srcname}
-%{summary}
+%description -n python3-ara
+%{summary}.
 
 This package installs the python files and Ansible plugins
 
+
 %if 0%{?with_server}
-%package -n python3-%{srcname}-server
+# Ending this with +server tells the Python extras dependency generator
+# to add dependencies for the 'server' extra as defined in setup.cfg
+#
+# We can't use %%pyproject_extras_subpkg, because we need more control over
+# included Requires/Provides/Obsoletes and files.
+%package -n python3-ara+server
 Summary:        %{summary}
 
-Provides:       %{srcname}-server = %{version}-%{release}
+# Convenience alias
+Provides:       ara-server = %{version}-%{release}
+# Obsolete the old name
+%py_provides    python3-ara-server
+Obsoletes:      python3-ara-server < 1.6.1-1
 
-# Test dependencies for check macro
-BuildRequires:  python3-django
-BuildRequires:  python3-django-cors-headers
-BuildRequires:  python3-django-health-check
-BuildRequires:  python3-django-filter
-BuildRequires:  python3-django-rest-framework
-BuildRequires:  python3-dynaconf
-BuildRequires:  python3-factory-boy
-BuildRequires:  python3-faker
-BuildRequires:  python3-pygments
-BuildRequires:  python3-ruamel-yaml
-BuildRequires:  python3-requests
-BuildRequires:  python3-tzlocal
-BuildRequires:  python3-whitenoise
-
-Requires:       python3-%{srcname}
-Requires:       python3-django
-Requires:       python3-django-cors-headers
-Requires:       python3-django-health-check
-Requires:       python3-django-filter
-Requires:       python3-django-rest-framework
-Requires:       python3-dynaconf
-Requires:       python3-pygments
+Requires:       python3-ara = %{version}-%{release}
 Requires:       python3-ruamel-yaml
-Requires:       python3-tzlocal
-Requires:       python3-whitenoise
 
-%description -n python3-%{srcname}-server
-%{summary}
+%description -n python3-ara+server
+%{summary}.
 
 This package installs the API server dependencies
+
+
+%package -n python3-ara+postgresql
+Summary:        %{summary}.
+Requires:       python3-ara+server = %{version}-%{release}
+
+
+%description -n python3-ara+postgresql
+%{summary}.
+
+This package installs the needed dependencies for the API server to use a
+PostgreSQL database.
+
+
+%package -n python3-ara+mysql
+Summary:        %{summary}
+
+
+%description -n python3-ara+mysql
+%{summary}.
+
+This package installs the needed dependencies for the API server to use a
+MySQL database.
 %endif
 
 %if 0%{?with_tests}
-%package -n python3-%{srcname}-tests
+%package -n python3-ara-tests
 Summary:        %{summary}
 
-Requires:       python3-%{srcname}-server = %{version}-%{release}
+Requires:       python3-ara+server = %{version}-%{release}
 Requires:       python3-factory-boy
 Requires:       python3-faker
 
-%description -n python3-%{srcname}-tests
-%{summary}
+%description -n python3-ara-tests
+%{summary}.
 
 This package installs the test dependencies
 %endif
+
 
 %if 0%{?with_docs}
 %package doc
 Summary:        %{summary}
 
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
-BuildRequires:  python3-sphinxcontrib-programoutput
-# The API server dependencies need to be installed so the snippets from
-# sphinxcontrib-programoutput can be generated
-BuildRequires:  python3-%{srcname}-server
-
 %description doc
-%{summary}
+%{summary}.
 
 This package installs the documentation
 %endif
 
+
+
 %prep
-%autosetup -n %{srcname}-%{version} -S git
+%autosetup -n ara-%{version} -S git
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x server
+
 
 %build
-# Substitute python3 shebang for the one provided by the distribution
-sed -i -e 's|/usr/bin/env python3|/usr/bin/python3|' ara/server/__main__.py
+%pyproject_wheel
 
-%py3_build
 %if 0%{?with_docs}
+# XXX: The docs build needs to execute `ara` and 'ara-manage'
+%{python3} -m venv dummy_install --system-site-packages
+. ./dummy_install/bin/activate
+pip install %{_pyproject_wheeldir}/ara-%{version}-*.whl
 sphinx-build -b html doc/source doc/build/html
 # Remove sphinx build leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
+
 %install
-%py3_install
+%pyproject_install
+
 
 %if 0%{?with_tests}
 %check
 # Run unit tests
-cd %{_builddir}/%{srcname}-%{version}
 # Set time zone to UTC -- buildsystem's timezone is "local" which isn't valid
-ARA_TIME_ZONE=UTC %{__python3} manage.py test %{srcname}
+ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 %endif
 
-%files
-%doc README.rst
-%license LICENSE
 
-%files -n python3-%{srcname}
-%doc README.rst
+%files -n python3-ara
+%doc README.md
 %license LICENSE
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-*.egg-info
-%exclude %{python3_sitelib}/%{srcname}/api/tests
 %{_bindir}/ara
-# TODO: ara-manage probably shouldn't get set up if django isn't installed
-%exclude %{_bindir}/ara-manage
+%{python3_sitelib}/ara/
+%exclude %{python3_sitelib}/ara/api/tests/
+%{python3_sitelib}/ara-*.dist-info/
+
 
 %if 0%{?with_server}
-%files -n python3-%{srcname}-server
-%doc README.rst
-%license LICENSE
+%files -n python3-ara+server
 %{_bindir}/ara-manage
+# This is needed for the python extras dependency generator
+%ghost %{python3_sitelib}/ara-*.dist-info/
+
+
+%files -n python3-ara+postgresql
+%ghost %{python3_sitelib}/ara-*.dist-info/
+
+
+%files -n python3-ara+mysql
+%ghost %{python3_sitelib}/ara-*.dist-info/
 %endif
 
+
 %if 0%{?with_tests}
-%files -n python3-%{srcname}-tests
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/%{srcname}/api/tests
+%files -n python3-ara-tests
+%{python3_sitelib}/ara/api/tests/
 %endif
+
 
 %if 0%{?with_docs}
 %files doc
-%doc README.rst doc/build/html
+%doc README.md doc/build/html
 %license LICENSE
 %endif
 
+
 %changelog
+* Tue Dec 13 2022 Maxwell G <gotmax@e.email> - 1.6.1-1
+- Update to 1.6.1.
+
+* Tue Dec 06 2022 Maxwell G <gotmax@e.email> - 1.6.0-1
+- Update to 1.6.0.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

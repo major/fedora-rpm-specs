@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPLv2+
 URL:            https://cockpit-project.org/
 
-Version:        281
+Version:        282
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -672,6 +672,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Dec 14 2022 Packit <hello@packit.dev> - 282-1
+- Add right-to-left language support
+- Accounts: Redesign and include groups
+
+
 * Thu Dec 01 2022 Packit <hello@packit.dev> - 281-1
 - Dark theme switcher
 

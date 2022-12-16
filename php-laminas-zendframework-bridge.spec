@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    e112dd2c099f4f6142c16fc65fda89a638e06885
+%global gh_commit    5ef52e26392777a26dbb8f20fe24f91b406459f6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-zendframework-bridge
@@ -21,11 +21,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        1.6.1
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        Alias legacy ZF class names to Laminas Project equivalents
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -36,22 +36,22 @@ Patch0:         %{name}-rpm.patch
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.4
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "phpunit/phpunit": "^9.5.14",
-#        "psalm/plugin-phpunit": "^0.15.2",
-#        "squizlabs/php_codesniffer": "^3.6.2",
-#        "vimeo/psalm": "^4.21.0"
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "squizlabs/php_codesniffer": "^3.7.1",
+#        "vimeo/psalm": "^4.29.0"
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.14
+BuildRequires:  phpunit9 >= 9.5.26
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.1
 %endif
 
 # From composer, "require": {
-#        "php": ">=7.4, <8.2"
-Requires:       php(language) >= 7.4
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+Requires:       php(language) >= 8.0
 # From phpcompatinfo report for version 1.0.0
 Requires:       php-spl
 # Autoloader
@@ -185,6 +185,10 @@ exit $ret
 
 
 %changelog
+* Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 1.7.0-1
+- update to 1.7.0 (no change)
+- raise dependency on PHP 8.0
+
 * Mon Aug  1 2022 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 

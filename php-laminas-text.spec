@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-text
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    8879e75d03e09b0d6787e6680cfa255afd4645a7
+%global gh_commit    40f7acdb284d41553d32db811e704d6e15e415b4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-text
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.9.0
-Release:        4%{?dist}
+Version:        2.10.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -34,30 +34,32 @@ Source1:        makesrc.sh
 BuildArch:      noarch
 # Tests
 %if %{with_tests}
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.0
 BuildRequires:  php-ctype
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~1.0.0",
-#        "phpunit/phpunit": "^9.3"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.4    with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "phpunit/phpunit": "^9.5",
+#        "psalm/plugin-phpunit": "^0.18.4",
+#        "vimeo/psalm": "^5.1"
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.7.1  with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3
+BuildRequires:  phpunit9 >= 9.5
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer, "require": {
-#        "php": "^7.3 || ~8.0.0 || ~8.1.0",
-#        "laminas/laminas-servicemanager": "^3.4",
-#        "laminas/laminas-stdlib": "^3.6"
-Requires:       php(language) >= 7.3
+#        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+#        "laminas/laminas-servicemanager": "^3.19.0",
+#        "laminas/laminas-stdlib": "^3.7.1"
+Requires:       php(language) >= 8.0
 %if ! %{bootstrap}
-Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.4    with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
-Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.19   with php-autoloader(%{gh_owner}/laminas-servicemanager)       < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.7.1  with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 %endif
 # Autoloader
@@ -147,11 +149,10 @@ exit (class_exists("\\Zend\\%{library}\\MultiByte") ? 0 : 1);
 
 : upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
-      --filter '^((?!(testWordWrapTriggersDeprecatedError|testStrPadTriggersDeprecatedError)).)*$' \
       --verbose || ret=1
   fi
 done
@@ -170,6 +171,12 @@ exit $ret
 
 
 %changelog
+* Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
+- update to 2.10.0
+- raise dependency on PHP 8.0
+- raise dependency on laminas-servicemanager 3.19
+- raise dependency on zend-stdlib >= 3.7.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

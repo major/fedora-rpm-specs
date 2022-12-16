@@ -6,7 +6,11 @@ Version:        0.1.9
 Release:        30%{?dist}
 Summary:        Symmetric polyhedra tool
 
-License:        GPLv2+
+# GPL-2.0-or-later: the code
+# MPL-2.0 AND BSD-3-Clause AND Apache-2.0: inlined eigen3 code
+# BSD-3-Clause: inlined permlib code
+# Knuth-CTAN: the Computer Modern fonts in the PDF manual
+License:        GPL-2.0-or-later AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0 AND Knuth-CTAN
 URL:            http://www.math.uni-rostock.de/~rehn/software/sympol.html
 Source0:        https://github.com/tremlin/SymPol/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        http://www.math.uni-rostock.de/~rehn/software/%{name}-manual-0.1.pdf
@@ -91,13 +95,17 @@ done
 %files libs
 %doc AUTHORS
 %license COPYING
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.0.1*
 
 %files devel
 %{_libdir}/lib%{name}.so
 %{_includedir}/%{name}/
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.1.9-30
+- Use more specific globs in %%files
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Version:        1.0.1
 Release:        2%{?dist}
 Summary:        Matrix representations over finite fields
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://users.fmi.uni-jena.de/~king/SharedMeatAxe/
 Source0:        https://github.com/simon-king-jena/SharedMeatAxe/releases/download/v%{version}/shared_meataxe-%{version}.tar.bz2
 # Template for an environment modules file
@@ -63,6 +63,36 @@ functions for working with matrix representations over finite fields.
 Permutation representations are supported to some extent, too.
 
 %package        doc
+# The content is GPL-2.0-or-later.  Other licenses are due to files installed
+# by doxygen.
+# html/bc_s.png: GPL-1.0-or-later
+# html/bdwn.png: GPL-1.0-or-later
+# html/closed.png: GPL-1.0-or-later
+# html/doc.png: GPL-1.0-or-later
+# html/doxygen.css: GPL-1.0-or-later
+# html/doxygen.svg: GPL-1.0-or-later
+# html/dynsections.js: MIT
+# html/folderclosed.png: GPL-1.0-or-later
+# html/folderopen.png: GPL-1.0-or-later
+# html/jquery.js: MIT
+# html/menu.js: MIT
+# html/menudata.js: MIT
+# html/nav_f.png: GPL-1.0-or-later
+# html/nav_g.png: GPL-1.0-or-later
+# html/nav_h.png: GPL-1.0-or-later
+# html/navtree.css: GPL-1.0-or-later
+# html/navtree.js: MIT
+# html/open.png: GPL-1.0-or-later
+# html/resize.js: MIT
+# html/splitbar.png: GPL-1.0-or-later
+# html/sync_off.png: GPL-1.0-or-later
+# html/sync_on.png: GPL-1.0-or-later
+# html/tab_a.png: GPL-1.0-or-later
+# html/tab_b.png: GPL-1.0-or-later
+# html/tab_h.png: GPL-1.0-or-later
+# html/tab_s.png: GPL-1.0-or-later
+# html/tabs.css: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND GPL-1.0-or-later AND MIT
 Summary:        API documentation for %{name}
 BuildArch:      noarch
 
@@ -133,12 +163,64 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 %doc NEWS
 %{_modulesdir}/%{name}-%{_arch}
 %{_libdir}/%{name}/
-%{_mandir}/man1/*
+%{_mandir}/man1/cfcomp.1*
+%{_mandir}/man1/chop.1*
+%{_mandir}/man1/decomp.1*
+%{_mandir}/man1/genmod.1*
+%{_mandir}/man1/mkcycl.1*
+%{_mandir}/man1/mkdotl.1*
+%{_mandir}/man1/mkgraph.1*
+%{_mandir}/man1/mkhom.1*
+%{_mandir}/man1/mkhom_old.1*
+%{_mandir}/man1/mkinc.1*
+%{_mandir}/man1/mksub.1*
+%{_mandir}/man1/mktree.1*
+%{_mandir}/man1/orbrep.1*
+%{_mandir}/man1/precond.1*
+%{_mandir}/man1/pseudochop.1*
+%{_mandir}/man1/pwkond.1*
+%{_mandir}/man1/rad.1*
+%{_mandir}/man1/soc.1*
+%{_mandir}/man1/symnew.1*
+%{_mandir}/man1/tcond.1*
+%{_mandir}/man1/tuc.1*
+%{_mandir}/man1/zad.1*
+%{_mandir}/man1/zbl.1*
+%{_mandir}/man1/zcf.1*
+%{_mandir}/man1/zcl.1*
+%{_mandir}/man1/zcp.1*
+%{_mandir}/man1/zct.1*
+%{_mandir}/man1/zcv.1*
+%{_mandir}/man1/zef.1*
+%{_mandir}/man1/zev.1*
+%{_mandir}/man1/zfr.1*
+%{_mandir}/man1/ziv.1*
+%{_mandir}/man1/zkd.1*
+%{_mandir}/man1/zmo.1*
+%{_mandir}/man1/zmu.1*
+%{_mandir}/man1/zmw.1*
+%{_mandir}/man1/znu.1*
+%{_mandir}/man1/zor.1*
+%{_mandir}/man1/zpo.1*
+%{_mandir}/man1/zpr.1*
+%{_mandir}/man1/zpt.1*
+%{_mandir}/man1/zqt.1*
+%{_mandir}/man1/zro.1*
+%{_mandir}/man1/zsc.1*
+%{_mandir}/man1/zsi.1*
+%{_mandir}/man1/zsp.1*
+%{_mandir}/man1/zsy.1*
+%{_mandir}/man1/ztc.1*
+%{_mandir}/man1/zte.1*
+%{_mandir}/man1/ztr.1*
+%{_mandir}/man1/zts.1*
+%{_mandir}/man1/zuk.1*
+%{_mandir}/man1/zvp.1*
 
 %files          libs
 %doc AUTHORS README
 %license COPYING
-%{_libdir}/libmtx.so.*
+%{_libdir}/libmtx.so.0*
 
 %files          devel
 %doc ChangeLog
@@ -149,6 +231,10 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 %doc html
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0.1-2
+- Use more explicit man and library globs in %%files
+- Convert License tags to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

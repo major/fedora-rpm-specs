@@ -10,9 +10,10 @@ Version:    5.5.14
 Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
-URL:        http://www.linux.it/~md/software/
+URL:        https://www.linux.it/~md/software/
+VCS:        https://github.com/rfc1036/whois
 # Source0:    http://ftp.debian.org/debian/pool/main/w/%%{name}/%%{name}_%%{version}.tar.xz
-Source0:    https://github.com/rfc1036/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:    %{VCS}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gettext

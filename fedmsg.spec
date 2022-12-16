@@ -2,9 +2,9 @@
 
 Name:           fedmsg
 Version:        1.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tools for Fedora Infrastructure real-time messaging
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/fedora-infra/fedmsg
 BuildArch:      noarch
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
@@ -276,6 +276,9 @@ chmod 0644 %{buildroot}/%{_sysconfdir}/logrotate.d/%{modname}
 
 
 %changelog
+* Wed Dec 14 2022 msuchy <msuchy@redhat.com> 1.1.2-10
+- migrate to SPDX license
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

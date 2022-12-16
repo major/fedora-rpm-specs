@@ -1,62 +1,56 @@
-%bcond_without tests
-
 Name:           python-daemon
-Version:        2.3.1
+Version:        2.3.2
 Release:        %autorelease
 Summary:        Library to implement a well-behaved Unix daemon process
 
-# Some build scripts and test franework are licensed GPLv3+ but those aren't shipped
-License:        ASL 2.0
+# Some build scripts and test framework are licensed GPL-3.0-or-later but those aren't shipped
+License:        Apache-2.0
 URL:            https://pagure.io/python-daemon
-Source0:        %pypi_source
-# Downstream-only patch, twine is unnecessary to build
-# https://pagure.io/python-daemon/c/cc9e6a0321a547aacd568aa1e8c7d94a000d5d11
-Patch0:         remove-twine-dependency.patch
+Source:         %{pypi_source python-daemon}
 
 BuildArch:      noarch
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-docutils
+BuildRequires:  python3-devel
 
-%if %{with tests}
-BuildRequires:  python%{python3_pkgversion}-testscenarios
-BuildRequires:  python%{python3_pkgversion}-lockfile
-BuildRequires:  python%{python3_pkgversion}-testtools
-%endif
+%global _description %{expand:
+This library implements the well-behaved daemon specification of PEP 3143,
+"Standard daemon process library".}
 
-%global _description\
-This library implements the well-behaved daemon specification of PEP 3143,\
-"Standard daemon process library".\
 
 %description %_description
 
-%package -n python%{python3_pkgversion}-daemon
-Summary:        Library to implement a well-behaved Unix daemon process
 
-%description -n python%{python3_pkgversion}-daemon %_description
+%package -n python3-daemon
+Summary:        %{summary}
 
-This is the python3 version of the library.
+
+%description -n python3-daemon %_description
+
 
 %prep
 %autosetup -p1
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -e '/"coverage"/d' -i setup.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-rm -fr %{buildroot}%{python3_sitelib}/tests
+%pyproject_install
+%pyproject_save_files daemon
 
-%if %{with tests}
-# Test suite requires minimock and lockfile
+
 %check
-PYTHONPATH=$(pwd) %{__python3} -m unittest discover
-%endif
+PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m setup test
 
-%files -n python%{python3_pkgversion}-daemon
-%license LICENSE.ASF-2
-%{python3_sitelib}/daemon/
-%{python3_sitelib}/python_daemon-%{version}-py%{python3_version}.egg-info/
+
+%files -n python3-daemon -f %{pyproject_files}
+
 
 %changelog
 %autochangelog

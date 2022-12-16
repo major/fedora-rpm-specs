@@ -1,11 +1,12 @@
 Name:           flac123
 Version:        0.0.12 
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Command-line program for playing FLAC audio files
 
 License:        GPLv2+
 URL:            http://flac-tools.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/flac-tools/%{name}-%{version}-release.tar.gz
+Patch0:         flac123-c99.patch
 
 
 BuildRequires:  gcc, automake, autoconf, intltool, make
@@ -23,7 +24,7 @@ This is useful if you're writing a frontend to flac123 which needs a
 consistent, reliable interface to control playback.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 aclocal && autoconf && automake --add-missing
@@ -41,6 +42,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 0.0.12-23
+- Port to C99
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.0.12-22
 - Rebuilt for flac 1.4.0
 

@@ -1,11 +1,13 @@
 Name:           bygfoot
 Version:        2.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Football management game
 License:        GPLv2
 URL:            http://www.bygfoot.com
 Source0:        https://gitlab.com/bygfoot/bygfoot/-/archive/2.3.4/bygfoot-2.3.4.tar.bz2
 Source1:        bygfoot.desktop
+Patch0:         bygfoot-c99-1.patch
+Patch1:         bygfoot-c99-2.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -29,7 +31,7 @@ BuildArch:	noarch
 bygfoot country definitions and other game files.
 
 %prep
-%autosetup -n %{name}-%{version} -p0
+%autosetup -n %{name}-%{version} -p1
 
 %build
 #This package requires -fcommon to build.
@@ -59,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/bygfoot
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 2.3.4-3
+- Apply upstream patches to improve C99 compatibility
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

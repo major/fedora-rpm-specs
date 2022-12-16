@@ -1,16 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.5.0
+Version:	0.5.1
 Release:	1%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	ASL 2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	https://github.com/CastXML/CastXML/archive/v%{version}/%{name}-%{version}.tar.gz
-#		Fix tests on 32 bit architectures (offset="64" vs. offset="32")
-#		https://github.com/CastXML/CastXML/pull/230
-Patch0:		%{name}-32bit.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -33,7 +30,6 @@ may support alternative output formats.
 
 %prep
 %setup -q -n CastXML-%{version}
-%patch0 -p1
 
 %build
 %cmake -DCastXML_INSTALL_DOC_DIR:STRING=share/doc/%{name} \
@@ -65,6 +61,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Dec 14 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-1
+- Update to version 0.5.1
+
 * Wed Dec 07 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.0-1
 - Update to version 0.5.0
 

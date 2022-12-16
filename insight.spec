@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -86,6 +86,8 @@ Patch112:	gdb-libexec-add-index.patch
 #	Additional patches.
 
 Patch201:	insight-13.0-symtab_no_format_overflow.patch
+Patch202:	insight-13.0-bfd-CVE-2022-4285,patch
+Patch203:	insight-13.0-print-check-value.patch
 
 
 %description
@@ -117,6 +119,8 @@ the latest GDB version.
 %patch112 -p1
 
 %patch201 -p1
+%patch202 -p1
+%patch203 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -312,13 +316,18 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Wed Dec 14 2022 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-4
+- Patch "print-check-value" avoids segfault when printing ghost variable.
+- Patch "bfd-CVE-2022-4285" fixes CVE-2022-4285.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2152948
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 13.0.50.20220502-2
 - Rebuilt for Python 3.11
-
-#-------------------------------------------------------------------------------
 
 * Mon May  2 2022 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-1
 - New upstream snapshot.

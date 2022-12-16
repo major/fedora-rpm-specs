@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: vkBasalt
-Version: 0.3.2.6
+Version: 0.3.2.8
 Release: %autorelease
 Summary: Vulkan post processing layer
 
@@ -36,11 +36,11 @@ games.
 
 Currently, the build in effects are:
 
-- Contrast Adaptive Sharpening
-- Denoised Luma Sharpening
-- Fast Approximate Anti-Aliasing
-- Enhanced Subpixel Morphological Anti-Aliasing
-- 3D color LookUp Table
+  - Contrast Adaptive Sharpening
+  - Denoised Luma Sharpening
+  - Fast Approximate Anti-Aliasing
+  - Enhanced Subpixel Morphological Anti-Aliasing
+  - 3D color LookUp Table
 
 It is also possible to use Reshade Fx shaders.
 
@@ -58,9 +58,8 @@ It is also possible to use Reshade Fx shaders.
 %install
 %meson_install
 
-
 # Configuration file
-install -Dpm0644 config/%{name}.conf -t %{buildroot}%{_sysconfdir}/
+install -Dpm 0644 config/%{name}.conf -t %{buildroot}%{_sysconfdir}/
 
 
 %files

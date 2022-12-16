@@ -25,16 +25,16 @@
 %global vdr_user  vdr
 %global vdr_group video
 # From APIVERSION in config.h
-%global apiver    2.6.2
+%global apiver    2.6.3
 
 Name:           vdr
-Version:        2.6.2
-Release:        2%{?dist}
+Version:        2.6.3
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPLv2+
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.2;sf=tbz2
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.3;sf=tbz2
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -74,9 +74,6 @@ Patch11:        opt-42-x_MainMenuHooks-v1.0.3.patch
 Patch12:        vdr-2.6.0-eit.patch
 # Sent upstream 2016-06-17
 Patch15:        %{name}-1.7.37-fedora-pkgconfig.patch
-Patch16:        %{name}-%{version}-remux.patch
-Patch17:        %{name}-%{version}-index-file-regeneration-failed.patch
-Patch18:        %{name}-%{version}-timer-still-recording.patch
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff/
 Patch99:        %{name}-2.4.6-ClearObsoleteChannels2.diff
 
@@ -204,8 +201,6 @@ sed \
 %patch11 -p1
 %patch12 -p1
 %patch15 -p1
-%patch16 -p1
-%patch17 -p1
 %patch99 -p1
 
 # Patch APIVERSION TO 2.4.8 to match VDRVERSION
@@ -553,9 +548,13 @@ systemctl daemon-reload
 
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.6.3-1
+- Update to 2.6.3
+- Dropped vdr-2.6.2-remux.patch
+- Dropped vdr-2.6.2-index-file-regeneration-failed.patch
+
 * Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.6.2-2
 - Add vdr-2.6.2-index-file-regeneration-failed.patch
-- Add vdr-2.6.2-timer-still-recording.patch
 
 * Wed Nov 30 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.6.2-1
 - Update to 2.6.2

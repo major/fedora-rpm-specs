@@ -3,7 +3,8 @@ Version:        2.1.0
 Release:        4%{?dist}
 Summary:        ROot Certified COntinuator
 
-License:        GPLv2+
+# See https://github.com/miguelmarco/SIROCCO2/issues/1
+License:        GPL-3.0-only
 URL:            https://github.com/miguelmarco/SIROCCO2
 Source0:        %{url}/releases/download/%{version}/lib%{name}-%{version}.tar.gz
 # Fix some mixed signed/unsigned expressions
@@ -37,8 +38,8 @@ developing applications that use %{name}.
 %autosetup -p0 -n lib%{name}-%{version}
 
 %build
-export CFLAGS="%{optflags} -frounding-math"
-export CXXFLAGS="%{optflags} -frounding-math"
+export CFLAGS="%{build_cflags} -frounding-math"
+export CXXFLAGS="%{build_cxxflags} -frounding-math"
 %configure --disable-static --disable-silent-rules
 
 # Work around libtool reordering -Wl,--as-needed after all the libraries.
@@ -70,6 +71,10 @@ make check
 %{_libdir}/libsirocco.so
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.1.0-4
+- Upstream states that the license is GPL-3.0-only
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

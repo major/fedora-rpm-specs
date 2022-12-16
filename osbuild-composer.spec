@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        69
+Version:        70
 
 %gometa
 
@@ -582,6 +582,35 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Dec 14 2022 Packit <hello@packit.dev> - 70-1
+Changes with 70
+----------------
+  * Bugfix: Add RHSM Fact (APIType) to RHEL 9 image definitions (#3160)
+  * Create and add Journald stage to rhel8/9 pipeline (#3118)
+  * Enable isolinux only for x86_64 (#3171)
+  * Enable isolinux only for x86_64 (removed stage) (#3182)
+  * Extend firewall customizations to add sources (#3055)
+  * Measure 5xx errors on all requests for image-builder-composer/worker (#3147)
+  * RHEL 9 & Fedora: Anaconda boot arguments (#3180)
+  * RHEL 9: Do not enable user module in Anaconda Edge Installer when no users are specified (#3187)
+  * RHEL 9: update edge-simplified-installer to new definitions (#3166)
+  * Schutzfile: bump osbuild dependency (#3177)
+  * `internal/rpmmd` cleanup 🧹 (#3159)
+  * cloudapi/v2: set ostree rhsm option on image options (#3172)
+  * distro/rhel9: add consumer certificates on ostree rhsm option (#3176)
+  * gcp: Cross-reference to coreos-assembler code (#3163)
+  * metrics: update status metrics label (#3165)
+  * re-enable cs9 runner for simplified installer (#3145)
+  * rhel8/9: make edge images properly sysroot.readonly=true (#3178)
+  * templates/packer: increase polling delay (#3183)
+  * worker: fix reporting the import error to composer (#3162)
+
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Brian C. Lane, Colin Walters, Gianluca Zuccarelli, Irene Diez, Mario Cattamo, Ondřej Budai, Sanne Raymaekers, Sayan Paul, Tomáš Hozza, Xiaofeng Wang
+
+— Somewhere on the Internet, 2022-12-14
+
+
+
 * Wed Nov 30 2022 Packit <hello@packit.dev> - 69-1
 Changes with 69
 ----------------

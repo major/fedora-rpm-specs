@@ -2,14 +2,14 @@
 %global abiver  3
 # Upstream suggests to pick bugfixes directly from master
 # Currently we do that to pick fixes for HowardHinnant/date#671
-%global date    20210518
-%global commit  052eebaf0086e6bbc5ead01c3f1a8f02496aa701
+%global date    20221213
+%global commit  c9169ea31021127d2acde79c0a838480602a5539
 
 %global shortcommit  %(c=%{commit}; echo ${c:0:7})
 
 Name:           date
 Version:        3.0.1^%{date}git%{shortcommit}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Date and time library based on the C++11/14/17 <chrono> header
 
 License:        MIT
@@ -51,7 +51,6 @@ the C++20 standard.}
 %package -n     libdate-tz
 Summary:        Timezone library built on top of the date library
 Requires:       tzdata
-Obsoletes:      libtz = 2.4.1
 
 %description -n libdate-tz
 Timezone library built on top of the date library. This timezone library
@@ -112,6 +111,11 @@ export CTEST_OUTPUT_ON_FAILURE=ON
 
 
 %changelog
+* Tue Dec 13 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.1^20221213gitc9169ea-1
+- Update to new snapshot
+- Convert License tag to SPDX
+- Drop outdated Obsoletes: libtz
+
 * Tue Dec 13 2022 Jonathan Wakely <jwakely@redhat.com> - 3.0.1^20210518git052eeba-5
 - Add patch to set USE_OS_TZDB so it matches the Fedora package
 

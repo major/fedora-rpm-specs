@@ -89,7 +89,7 @@ find extlibs/ -type f ! -name 'stb_image*' -print0 | xargs -0 rm
 %ldconfig_scriptlets
 
 %files
-%doc %{_datadir}/%{name}/license.md 
+%license %{_datadir}/%{name}/license.md
 %doc %{_datadir}/%{name}/readme.md
 %{_libdir}/*.so.*
 
@@ -104,6 +104,7 @@ find extlibs/ -type f ! -name 'stb_image*' -print0 | xargs -0 rm
 %changelog
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.5.1-12
 - Rebuilt for flac 1.4.0
+- Add license tag
 
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

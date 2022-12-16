@@ -1,6 +1,6 @@
 Name:           efitools
 Version:        1.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tools to manipulate EFI secure boot keys and signatures
 License:        GPLv2 and LGPLv2 and BSD
 
@@ -8,6 +8,8 @@ License:        GPLv2 and LGPLv2 and BSD
 # https://github.com/vathpela/efitools/issues/2
 URL:            https://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git
 Source0:        %{url}/snapshot/%{name}-%{version}.tar.gz
+Patch1:         efitools-c99-1.patch
+Patch2:         efitools-c99-2.patch
 
 # same as gnu-efi
 ExclusiveArch:  %{efi}
@@ -34,7 +36,7 @@ The tools provide access to the keys and certificates stored in the
 secure variables of the UEFI firmware, usually in the NVRAM area.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %set_build_flags
@@ -63,6 +65,9 @@ rm -v %{buildroot}%{_docdir}/%{name}/COPYING
 %{_bindir}/sign-efi-sig-list
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 1.9.2-9
+- C99 port
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -673,7 +673,7 @@ a number of significant features and is now developed independently.
 
 %prep
 %setup -q -n %{toplev_dirname}
-find ./boost -name '*.hpp' -perm /111 | xargs chmod a-x
+find ./boost -name '*.hpp' -perm /111 | xargs --no-run-if-empty chmod a-x
 
 %patch15 -p0
 %patch51 -p1

@@ -1,9 +1,10 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2021.0.0
-Release: 8%{?dist}
+Release: 10%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
+Patch0: hugin-fix-crash-wx3.2.patch
 URL: http://hugin.sourceforge.net/
 Requires: shared-mime-info
 Requires: webclient
@@ -39,7 +40,7 @@ src/hugin_script_interface/*.py \
 src/hugin_script_interface/plugins/*.py
 
 %build
-%cmake -DBUILD_HSI=1
+%cmake -DBUILD_HSI=1 -DUSE_GDKBACKEND_X11=ON
 %cmake_build
 
 %install
@@ -169,6 +170,12 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Wed Dec 14 2022 Scott Talbert <swt@techie.net> - 2021.0.0-10
+- Rebuild with X11 backend due to wxGL now not supporting Wayland
+
+* Wed Dec 14 2022 Scott Talbert <swt@techie.net> - 2021.0.0-9
+- Fix crash with wxWidgets 3.2 (#2152749)
+
 * Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2021.0.0-8
 - Rebuild due to wxGLCanvas ABI change
 

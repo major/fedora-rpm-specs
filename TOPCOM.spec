@@ -5,7 +5,7 @@ Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.wm.uni-bayreuth.de/de/team/rambau_joerg/TOPCOM/
 Source0:        https://www.wm.uni-bayreuth.de/de/team/rambau_joerg/TOPCOM-Downloads/%{name}-%{upver}.tgz
 # Man pages, written by Jerry James using text from the sources.  Therefore,
@@ -81,16 +81,16 @@ sed "s|// \(q\.canonicalize\)|\1|" %{_includedir}/gmpxx.h > \
 # in our own evilly constructed Makefile to build a single shared library
 # containing all of the object files in both libTOPCOM.a and libCHECKREG.a,
 # and link the binaries against that and the system gmp and cddlib libraries.
-sed -e "s|@RPM_OPT_FLAGS@|${RPM_OPT_FLAGS}|" \
-    -e "s|@RPM_LD_FLAGS@|${RPM_LD_FLAGS}|" \
-    -e "s|@bindir@|%{_bindir}|" \
-    -e "s|@libdir@|%{_libdir}|" \
-    -e "s|@mandir@|%{_mandir}|" \
-    -e "s|@includedir@|%{_includedir}|" \
-    -e "s|@version@|%{version}|" \
-    -e "s|@major@|%{topcom_major}|" \
-    -e "s|@minor@|%{topcom_minor}|" \
-    -e "s|#version#|@version@|" \
+sed -e 's|@RPM_OPT_FLAGS@|%{build_cxxflags}|' \
+    -e 's|@RPM_LD_FLAGS@|%{build_ldflags}|' \
+    -e 's|@bindir@|%{_bindir}|' \
+    -e 's|@libdir@|%{_libdir}|' \
+    -e 's|@mandir@|%{_mandir}|' \
+    -e 's|@includedir@|%{_includedir}|' \
+    -e 's|@version@|%{version}|' \
+    -e 's|@major@|%{topcom_major}|' \
+    -e 's|@minor@|%{topcom_minor}|' \
+    -e 's|#version#|@version@|' \
     %{SOURCE2} > Makefile
 %make_build
 
@@ -106,23 +106,43 @@ for bin in cross cube cyclic hypersimplex lattice; do
 done
 
 %files
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man7/*
+%{_bindir}/B_A
+%{_bindir}/B_A_center
+%{_bindir}/B_D
+%{_bindir}/TOPCOM*
+%{_bindir}/checkregularity
+%{_bindir}/chiro2*
+%{_bindir}/cocircuits2facets
+%{_bindir}/points2*
+%{_bindir}/santos_*
+%{_mandir}/man1/B_A.1*
+%{_mandir}/man1/B_A_center.1*
+%{_mandir}/man1/B_D.1*
+%{_mandir}/man1/TOPCOM*
+%{_mandir}/man1/checkregularity.1*
+%{_mandir}/man1/chiro2*
+%{_mandir}/man1/cocircuits2facets.1*
+%{_mandir}/man1/points2*
+%{_mandir}/man1/santos_*
+%{_mandir}/man7/TOPCOM.7*
 
 %files devel
 %{_includedir}/%{name}/
-%{_libdir}/*.so
+%{_libdir}/libTOPCOM.so
 
 %files libs
 %doc AUTHORS ChangeLog README
 %license COPYING
-%{_libdir}/*.so.*
+%{_libdir}/libTOPCOM.so.0*
 
 %files examples
 %doc examples
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.17.10-2
+- Use more specific globs in %%files
+- Convert License tag to SPDX
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

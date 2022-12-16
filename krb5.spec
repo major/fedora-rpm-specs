@@ -92,9 +92,9 @@ BuildRequires: perl-interpreter
 # For autosetup
 BuildRequires: git
 
-%if 0%{?fedora} > 35
+%if 0%{?fedora} > 35 || 0%{?rhel} >= 9
 # Need KDFs.  This is the "real" version
-BuildRequires: openssl-devel => 1:3.0.0
+BuildRequires: openssl-devel >= 1:3.0.0
 %else
 # Need KDFs.  This is the backported version
 BuildRequires: openssl-devel >= 1:1.1.1d-4
@@ -129,7 +129,7 @@ to install this package.
 
 %package libs
 Summary: The non-admin shared libraries used by Kerberos 5
-%if 0%{?fedora} > 35
+%if 0%{?fedora} > 35 || 0%{?rhel} >= 9
 Requires: openssl-libs >= 1:3.0.0
 %else
 Requires: openssl-libs >= 1:1.1.1d-4
@@ -229,8 +229,8 @@ Requires: lmdb-devel
 Requires: openldap-devel
 Requires: pam-devel
 Requires: redhat-rpm-config
-%if 0%{?fedora} > 35
-Requires: openssl-devel => 1:3.0.0
+%if 0%{?fedora} > 35 || 0%{?rhel} >= 9
+Requires: openssl-devel >= 1:3.0.0
 %else
 Requires: openssl-devel >= 1:1.1.1d-4
 Requires: openssl-devel < 1:3.0.0

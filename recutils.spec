@@ -1,6 +1,6 @@
 Name:		recutils
 Version:	1.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A set of tools to access GNU recfile databases
 
 License:	GPLv3+
@@ -14,6 +14,7 @@ Source2:	gpgkey-BDFA5717FC1DD35C2C3832A23EF90523B304AF08.gpg
 Source3:	rec-mode-v1.8.3.tar.gz
 Source4:	rec-mode-init.el
 Patch1:		recutils-1.9-mdbtools-0.9.patch
+Patch2:		recutils-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -25,6 +26,7 @@ BuildRequires:	help2man
 BuildRequires:	mdbtools-devel
 BuildRequires:	texinfo
 BuildRequires:	gnupg2
+BuildRequires:  bison flex
 Requires:	emacs(bin) >= %{_emacs_version}
 # Gnulib is granted exception of "no bundled libraries" packaging guideline:
 # https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
@@ -100,6 +102,9 @@ chrpath --delete %{buildroot}%{_bindir}/*
 
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 1.9-3
+- C99 compatibility fix
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

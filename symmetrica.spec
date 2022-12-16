@@ -6,7 +6,7 @@ Release:        6%{?dist}
 Summary:        A Collection of Routines for Solving Symmetric Groups
 # Note: they claim it's 'public domain' but then provide this:
 # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/copyright_engl.html
-License:        MIT
+License:        ISC
 URL:            https://gitlab.com/sagemath/symmetrica/
 Source0:        %{url}/uploads/%{gittag}/%{name}-%{version}.tar.xz
 # Will not be sent upstream, as it is GCC-specific.  Add function attributes
@@ -88,6 +88,9 @@ cd -
 
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 3.0.1-6
+- Correct license from MIT to ISC (SPDX)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

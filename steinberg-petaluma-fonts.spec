@@ -18,7 +18,7 @@ Release:        5%{?dist}
 
 %global foundry          steinberg
 %global fontorg          org.smufl
-%global fontlicense      OFL
+%global fontlicense      OFL-1.1-RFN
 %global fontlicenses     redist/OFL*.txt
 %global fontdocs         README.md redist/FONTLOG.txt
 %global fontdocsex       %{fontlicenses}
@@ -96,9 +96,7 @@ metainfo="%{buildroot}%{_metainfodir}/%{fontorg}.%{name}.metainfo.xml \
 %{buildroot}%{_metainfodir}/%{fontorg}.steinberg-petalumatext-fonts.metainfo.xml"
 
 # The Fedora font macros generate invalid metainfo; see bz 1943727.
-sed -e 's,OFL,OFL-1.1-RFN,' \
-    -e 's,updatecontact,update_contact,g' \
-    -i $metainfo
+sed -i 's,updatecontact,update_contact,g' $metainfo
 
 appstreamcli validate --no-net $metainfo
 
@@ -122,6 +120,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %files          all
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.065-5
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.065-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

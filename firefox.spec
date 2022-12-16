@@ -6,6 +6,11 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2129720
 ExcludeArch: i686
 
+# Disabled due to build failures:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2153213
+ExcludeArch: s390x
+ExcludeArch: armv7hl
+
 # Run Mozilla test suite as a part of compile rpm section. Turn off when
 # building locally and don't want to spend 24 hours waiting for results.
 %global run_firefox_tests 0
@@ -173,12 +178,12 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        108.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20221206.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20221214.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -571,7 +576,7 @@ echo "ac_add_options --with-system-libevent" >> .mozconfig
 echo "ac_add_options --enable-system-ffi" >> .mozconfig
 %endif
 
-%ifarch %{arm}
+%ifarch %{arm} aarch64
 echo "ac_add_options --disable-elf-hack" >> .mozconfig
 %endif
 
@@ -1127,6 +1132,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Dec 14 2022 Martin Stransky <stransky@redhat.com>- 108.0-2
+- Update to 108.0 Build 2
+
 * Tue Dec 6 2022 Martin Stransky <stransky@redhat.com>- 108.0-1
 - Update to 108.0
 

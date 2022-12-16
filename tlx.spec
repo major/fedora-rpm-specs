@@ -1,13 +1,13 @@
 # Upstream has only made 1 release tarball, so we build from git
-%global gittag   d59c325fb31812047e61aba3d75cc037f92c2b3d
+%global gittag   b2f9251e794567992b1f5ba189576be4d85c24db
 %global shorttag %(cut -b -7 <<< %{gittag})
 
 Name:           tlx
-Version:        0.5.20200222
-Release:        6%{?dist}
+Version:        0.5.20210401
+Release:        1%{?dist}
 Summary:        Sophisticated C++ data structures, algorithms, and helpers
 
-License:        Boost
+License:        BSL-1.0
 URL:            https://panthema.net/tlx
 Source0:        https://github.com/tlx/tlx/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 
@@ -43,6 +43,10 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 Headers and library links to build with tlx.
 
 %package       doc
+# The content is BSL-1.0.  Other licenses are due to files installed by doxygen.
+# doxygen-html/*.png: GPL-1.0-or-later
+# doxygen-html/*.js: MIT
+License:       BSL-1.0 AND GPL-1.0-or-later AND MIT
 Summary:       Doxygen documentation for tlx
 BuildArch:     noarch
 
@@ -84,6 +88,10 @@ doxygen
 %doc doxygen-html
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.5.20210401-1
+- Version 0.5.20210401
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20200222-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

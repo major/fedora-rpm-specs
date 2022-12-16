@@ -4,7 +4,7 @@
 
 Name: libtdb
 Version: 1.4.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The tdb library
 License: LGPLv3+
 URL: http://tdb.samba.org/
@@ -16,6 +16,7 @@ Source2: tdb.keyring
 # Patches
 Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
 Patch0002: libtdb-revert-breaking-tdb.h.patch
+Patch0003: libtdb-waf18-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -102,6 +103,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 1.4.7-4
+- C99 compatibility fix
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

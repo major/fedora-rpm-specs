@@ -3,9 +3,12 @@
 
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
-Version:        1.9.3
+Version:        1.9.4
 Release:        1%{?dist}
-License:        GPLv2+
+# Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# BSD-3-Clause: src/compat/inet_aton.c
+# ISC: src/compat/{base64,explicit_bzero,inet_aton,strlcpy}.c
+License:        GPL-2.0-or-later AND BSD-3-Clause AND ISC
 URL:            https://www.eggheads.org/
 Source0:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz
 Source1:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz.asc
@@ -84,6 +87,9 @@ done
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Dec 15 2022 Robert Scheck <robert@fedoraproject.org> 1.9.4-1
+- Upgrade to 1.9.4 (#2142049)
+
 * Sat Aug 13 2022 Robert Scheck <robert@fedoraproject.org> 1.9.3-1
 - Upgrade to 1.9.3 (#2106485)
 

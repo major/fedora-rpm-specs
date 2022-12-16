@@ -26,7 +26,7 @@
 
 Name:           clipit
 Version:        %{main_ver}
-Release:        %{rel}.2
+Release:        %{rel}.3
 Summary:        A lightweight, fully featured GTK+ clipboard manager
 
 License:        GPLv3+
@@ -42,7 +42,7 @@ Source1:        %{name}.appdata.xml
 Patch0:         0001-Autostart-in-MATE.patch
 # Force GDK_BACKEND to x11
 Patch1:         clipit-1.4.5-force-gdk_backend-x11.patch
-
+Patch2:         clipit-c99.patch
 
 %if 0%{?use_gitbare} >= 1
 BuildRequires:  git
@@ -87,6 +87,7 @@ git config user.email "%{name}-maintainer@fedoraproject.org"
 
 %patch0 -p1 -b .mate
 %patch1 -p1 -b .nowayland
+%patch2 -p1
 
 sed -i data/clipit.desktop.in -e '\@_Comment.*hr@d'
 sed -i data/clipit-startup.desktop.in -e '\@_Comment.*hr@d'
@@ -150,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}-startup.desktop
 
 %changelog
+* Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 1.4.5-4.D20210513gite5fa64c.3
+- C99 compatibility fixes
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-4.D20210513gite5fa64c.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

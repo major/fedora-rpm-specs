@@ -1,25 +1,25 @@
 %global         srcname level-zero
 Name:           oneapi-%{srcname}
-Version:        1.8.8
+Version:        1.8.12
 Release:        %{autorelease}
-Summary:        OneAPI Level Zero Specification Headers and Loader 
+Summary:        OneAPI Level Zero Specification Headers and Loader
 
 License:        MIT
 URL:            https://github.com/oneapi-src/%{srcname}
-Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz        
+Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  gcc-c++
-BuildRequires:  cmake 
-BuildRequires:  make 
+BuildRequires:  cmake
+BuildRequires:  make
 BuildRequires:  opencl-headers
 
 %description
 The objective of the oneAPI Level-Zero Application Programming Interface
-(API) is to provide direct-to-metal interfaces to offload accelerator 
-devices. Its programming interface can be tailored to any device needs 
-and can be adapted to support broader set of languages features such as 
+(API) is to provide direct-to-metal interfaces to offload accelerator
+devices. Its programming interface can be tailored to any device needs
+and can be adapted to support broader set of languages features such as
 function pointers, virtual functions, unified memory,
 and I/O capabilities.
 
@@ -28,7 +28,7 @@ Summary:        The oneAPI Level Zero Specification Headers and Loader developme
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
-The %{name}-devel package contains library and header files for 
+The %{name}-devel package contains library and header files for
 developing applications that use %{name}.
 
 %prep

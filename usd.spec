@@ -118,6 +118,7 @@ BuildRequires:  graphviz
 
 # For imaging and usd imaging
 %if %{with imaging}
+
 %if %{with embree}
 BuildRequires:  embree-devel
 %endif
@@ -140,12 +141,9 @@ BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  pkgconfig(OpenImageIO)
 %endif
 BuildRequires:  cmake(OpenEXR)
-%if 0%{?fedora} < 35
-BuildRequires:  pkgconfig(IlmBase) >= 2.0
-%else
 BuildRequires:  cmake(Imath) >= 2.0
-%endif
 BuildRequires:  pkgconfig(Ptex)
+
 %endif
 %if %{with alembic}
 BuildRequires:  cmake(Alembic)

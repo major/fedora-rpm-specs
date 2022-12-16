@@ -2,7 +2,7 @@
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        4.0.2
+Version:        4.1.0
 Release:        1%{?dist}
 Epoch:          1
 Summary:        A multiprocessing pool extensions
@@ -52,6 +52,9 @@ py.test-3
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Dec 14 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:4.1.0-1
+- billiard 4.1.0 (closes RHBZ#2153206)
+
 * Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:4.0.2-1
 - billiard 4.0.2 (closes RHBZ#2078183)
 

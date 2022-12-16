@@ -1,4 +1,4 @@
-%global nativever 2.1.1
+%global nativever 2.1.2
 %global baserelease 2
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}

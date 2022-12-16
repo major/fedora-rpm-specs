@@ -1,11 +1,11 @@
-%global opencsd_tag a74fa026d7101f5f254f39bbaa27b3d5ab9cd124
+%global opencsd_tag 691efce6ab357a35d16eb719498ca9aec72885d5
 
 Name:           opencsd
-Version:        1.3.2
-Release:        1%{?dist}
+Version:        1.3.3
+Release:        0%{?dist}
 Summary:        An open source CoreSight(tm) Trace Decode library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Linaro/OpenCSD
 Source0:        https://github.com/Linaro/OpenCSD/archive/%{opencsd_tag}.tar.gz
 
@@ -58,6 +58,9 @@ PREFIX=%{buildroot}%{_prefix} LIB_PATH=%{_lib} make install DISABLE_STATIC=1 DEF
 
 #------------------------------------------------------------------------------
 %changelog
+* Wed Dec 14 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.3.3-0
+- Update to upstream 1.3.3, and SPDX migration
+
 * Fri Oct 14 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.3.2-1
 - Update to upstream 1.3.2
 

@@ -16,7 +16,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.2
+Version:        2.39.3
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -28,10 +28,6 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
-# https://bugs.webkit.org/show_bug.cgi?id=246743
-# https://github.com/WebKit/WebKit/pull/7531
-# ruby3.2 removes File.exists? deprecated since ruby2.1
-Patch0:        webkitgtk-pr7531-ruby32-File_exists_removal.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -209,6 +205,7 @@ Summary:        Documentation files for webkit2gtk5.0
 BuildArch:      noarch
 Requires:       webkitgtk6.0 = %{version}-%{release}
 Obsoletes:      webkit2gtk5.0-doc < %{version}-%{release}
+Recommends:     gi-docgen-fonts
 
 %description -n webkitgtk6.0-doc
 This package contains developer documentation for webkitgtk6.0.
@@ -217,6 +214,7 @@ This package contains developer documentation for webkitgtk6.0.
 Summary:        Documentation files for webkit2gtk4.1
 BuildArch:      noarch
 Requires:       webkit2gtk4.1 = %{version}-%{release}
+Recommends:     gi-docgen-fonts
 
 %description -n webkit2gtk4.1-doc
 This package contains developer documentation for webkit2gtk4.1.
@@ -229,6 +227,7 @@ Obsoletes:      webkitgtk4-doc < %{version}-%{release}
 Provides:       webkitgtk4-doc = %{version}-%{release}
 Obsoletes:      webkit2gtk3-doc < %{version}-%{release}
 Provides:       webkit2gtk3-doc = %{version}-%{release}
+Recommends:     gi-docgen-fonts
 
 %description -n webkit2gtk4.0-doc
 This package contains developer documentation for webkit2gtk4.0.

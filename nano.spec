@@ -7,7 +7,7 @@
 
 Summary:         A small text editor
 Name:            nano
-Version:         7.0
+Version:         7.1
 Release:         1%{?dist}
 License:         GPLv3+
 URL:             https://www.nano-editor.org
@@ -132,6 +132,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Wed Dec 14 2022 Lukáš Zaoral <lzaoral@redhat.com> - 7.1-1
+- new upstream release (#2153268)
+
 * Tue Nov 15 2022 Lukáš Zaoral <lzaoral@redhat.com> - 7.0-1
 - new upstream release (#2142885)
 - update GPG signature key

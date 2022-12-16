@@ -1,6 +1,6 @@
 Name:           python-tox-current-env
-Version:        0.0.8
-Release:        4%{?dist}
+Version:        0.0.10
+Release:        1%{?dist}
 Summary:        Tox plugin to run tests in current Python environment
 
 License:        MIT
@@ -10,13 +10,6 @@ BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
-
-# test dependencies extracted from tox.ini
-# TODO use [tests] extra with the next release
-# https://github.com/fedora-python/tox-current-env/pull/53
-BuildRequires:  python%{python3_pkgversion}-packaging
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 
 %description
 The tox-current-env plugin allows to run tests in current Python environment.
@@ -36,7 +29,7 @@ The tox-current-env plugin allows to run tests in current Python environment.
 
 %generate_buildrequires
 # Don't use %%pyproject_buildrequires -t/-e to avoid a build dependency loop
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x tests
 
 
 %build
@@ -61,6 +54,9 @@ The tox-current-env plugin allows to run tests in current Python environment.
 
 
 %changelog
+* Wed Dec 14 2022 Miro Hrončok <mhroncok@redhat.com> - 0.0.10-1
+- Update to 0.0.10 with tox 4 support
+
 * Wed Dec 07 2022 Miro Hrončok <mhroncok@redhat.com> - 0.0.8-4
 - Run tests during the package build
 

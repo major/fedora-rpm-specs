@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.12.2
-Release:        1%{?dist}
+Version:        1.12.3
+Release:        3%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -177,6 +177,23 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-3
+- chore: Add fmf/version and allowed users to run packit (Tibor Dudlák)
+
+* Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-2
+- chore: Add ci.fmf to the repo (Tibor Dudlák)
+
+* Tue Dec 13 2022 Packit <hello@packit.dev> - 1.12.3-1
+- chore: Release version 1.12.3 (github-actions)
+- chore(Packit): Enable copr build for commit to main only. (Tibor Dudlák)
+- chore(Packit): Enable TF tests job to run on pull request. (Tibor Dudlák)
+- chore(Packit): Add fedora gating.yaml to synced files. (Tibor Dudlák)
+- chore(TestingFarm): Add gating for fedora workflow (Tibor Dudlák)
+- fix: Add cache decorator for older python versions. (Tibor Dudlák)
+- fix(mrack.spec): Missing dependency in c8s for beaker-client (Tibor Dudlák)
+- chore(Packit): enable epel-8 and epel-9 updates and tests (Tibor Dudlák)
+- fix(AWS): refactor sources to be py3.6 compatible (Tibor Dudlák)
+
 * Fri Dec 02 2022 Packit <hello@packit.dev> - 1.12.2-1
 - chore: Release version 1.12.2 (github-actions)
 - chore: Use python 3.10 in GH actions (Tibor Dudlák)

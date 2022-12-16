@@ -3,7 +3,7 @@ Version:        2.2.8
 Release:        4%{?dist}
 Summary:        Computer algebra library
 
-License:        MIT
+License:        ISC
 URL:            https://www.usna.edu/Users/cs/wcbrown/qepcad/B/QEPCAD.html
 Source0:        https://www.usna.edu/Users/cs/wcbrown/qepcad/INSTALL/%{name}%{version}.tgz
 # The sources include system-dependent definitions.  The Linux versions support
@@ -25,6 +25,12 @@ SACLIB is a library of C programs for computer algebra derived from the
 SAC2 system.  Hoon Hong was the primary author of that earlier system.
 
 %package devel
+# The content is ISC.  The remaining licenses cover the various fonts embedded
+# in PDFs.
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN
+# CM-Super: GPL-1.0-or-later
+License:        ISC AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 Summary:        Development files for saclib
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
@@ -47,19 +53,18 @@ sed -e 's/saclib\${EXTENSION}\.a/libsaclib.so/' \
 
 %build
 export saclib=$PWD
-export CC=gcc
-export CFLAGS="%{optflags} -frounding-math"
+export CFLAGS='%{build_cflags} -frounding-math'
 %make_build -C lib/objo SACFLAG="$CFLAGS -fPIC" AR=true \
-  RANLIB="gcc -shared $CFLAGS $RPM_LD_FLAGS -Wl,-h,libsaclib.so.%{major} -o"
+  RANLIB="gcc -shared $CFLAGS %{build_ldflags} -Wl,-h,libsaclib.so.%{major} -o"
 
 # Build the documentation
 cd doc/user_guide
-pdflatex saclocal
-pdflatex sackwic
-pdflatex saclib
+pdflatex -interaction=batchmode saclocal
+pdflatex -interaction=batchmode sackwic
+pdflatex -interaction=batchmode saclib
 makeindex saclib
-pdflatex saclib
-pdflatex saclib
+pdflatex -interaction=batchmode saclib
+pdflatex -interaction=batchmode saclib
 
 %install
 # Install the library
@@ -72,8 +77,6 @@ ln -s libsaclib.so.%{major} %{buildroot}%{_libdir}/libsaclib.so
 mkdir -p %{buildroot}%{_includedir}/%{name}
 cp -p include/*.h %{buildroot}%{_includedir}/%{name}
 
-%ldconfig_scriptlets
-
 %files
 %doc README
 %license LICENSE
@@ -85,6 +88,9 @@ cp -p include/*.h %{buildroot}%{_includedir}/%{name}
 %{_libdir}/libsaclib.so
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2.2.8-4
+- Convert License tag to SPDX and correct it to ISC
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Version:        1.74
 Release:        4%{?dist}
 Summary:        Quantifier elimination tool
 
-License:        MIT
+License:        ISC
 URL:            https://www.usna.edu/Users/cs/wcbrown/qepcad/B/QEPCAD.html
 Source0:        https://www.usna.edu/Users/cs/wcbrown/qepcad/INSTALL/%{name}.%{version}.tgz
 # Don't require users to set the "qe" or "SINGULARPATH" environment variables.
@@ -64,18 +64,17 @@ sed -i 's,\${saclib}/lib/saclib.\.a,-lsaclib,' source/Makefile cad2d/Makefile
 sed -i 's,@LIBDIR@,%{_libdir},' source/main/BEGINQEPCAD.c
 
 # Use the right build flags
-sed -i "s|-O4|%{optflags} -Wno-unused-label $RPM_LD_FLAGS|" plot2d/Makefile
+sed -i 's|-O4|%{build_cxxflags} -Wno-unused-label %{build_ldflags}|' plot2d/Makefile
 
 %build
 # FIXME: %%{?_smp_mflags} doesn't work
 export saclib=%{_prefix}
 export qe=$PWD
-export CC=g++
 export CCo=g++
-export FLAGS="%{optflags} -I%{_includedir}/saclib -Wno-unused-label"
+export FLAGS='%{build_cxxflags} -I%{_includedir}/saclib -Wno-unused-label'
 export FLAGSo="$FLAGS"
 export SPECIFLAGS="-I%{_includedir}/saclib"
-export SPECLFLAGS="$RPM_LD_FLAGS"
+export SPECLFLAGS='%{build_ldflags}'
 make -C extensions/sfext
 make -C extensions/adj2d
 make -C extensions/rend
@@ -114,6 +113,9 @@ ln -s %{_bindir}/qepcad %{buildroot}%{_datadir}/qepcad/bin
 %{_datadir}/qepcad/
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.74-4
+- Convert License tag to SPDX and correct it to ISC
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.74-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

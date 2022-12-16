@@ -1,9 +1,13 @@
 Name:		stp
 Version:	2.3.3
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Constraint solver/decision procedure
 
-License:	MIT
+# MIT: the project as a whole
+# MIT-Modern-Variant: lib/extlib-abc
+# LGPL-2.0-or-later: lib/extlib-constbv
+# BSD-3-Clause: include/stp/Simplifier/constantBitP/MersenneTwister.h
+License:	MIT AND MIT-Modern-Variant AND LGPL-2.0-or-later AND BSD-3-Clause
 URL:		http://stp.github.io/
 Source0:	https://github.com/stp/stp/archive/%{version}/%{name}-%{version}.tar.gz
 # Fix some format specifier problems
@@ -11,6 +15,9 @@ Patch0:		%{name}-format.patch
 # Do not declare cryptominisat and minisat as public libs
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1981466
 Patch1:         %{name}-private-libs.patch
+# Distutils has been deprecated.  Use sysconfig instead.
+# https://github.com/stp/stp/pull/450
+Patch2:         %{name}-distutils.patch
 
 BuildRequires:	bison
 BuildRequires:	boost-devel
@@ -44,6 +51,7 @@ input formula.
 Additional information can be found at https://stp.readthedocs.io/.
 
 %package devel
+License:	MIT
 Summary:	Development files for STP constraint solver/decision procedure
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -53,6 +61,7 @@ a constraint solver (also referred to as a decision procedure
 or automated prover).  Provides a static library.
 
 %package -n python3-%{name}
+License:	MIT
 Summary:	Python 3 interface to STP
 Requires:	%{name} = %{version}-%{release}
 BuildArch:	noarch
@@ -61,7 +70,7 @@ BuildArch:	noarch
 Python 3 interface to STP.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 # We do not want to know about the order of member initializers
 sed -i "s/-Wno-deprecated/-Wno-reorder/" CMakeLists.txt
@@ -80,8 +89,8 @@ sed -e '/CMAKE_SKIP_BUILD_RPATH/s/FALSE/TRUE/' \
     -i CMakeLists.txt
 
 %build
-export CFLAGS="%{optflags} -I %{_includedir}/minisat"
-export CXXFLAGS="%{optflags} -I %{_includedir}/minisat"
+export CFLAGS='%{build_cflags} -I %{_includedir}/minisat'
+export CXXFLAGS='%{build_cxxflags} -I %{_includedir}/minisat'
 %cmake -DPYTHON_EXECUTABLE:FILEPATH=%{_bindir}/python%{python3_version} \
        -DPYTHON_LIBRARY:FILEPATH=%{_libdir}/libpython%{python3_version}.so \
        -DPYTHON_INCLUDE_DIR:FILEPATH=%{_includedir}/python%{python3_version}
@@ -100,8 +109,9 @@ mkdir -p %{buildroot}%{_datadir}
 mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 
 %files
-%{_bindir}/*
-%{_libdir}/libstp.so.*
+%{_bindir}/stp
+%{_bindir}/stp_simple
+%{_libdir}/libstp.so.2*
 %{_mandir}/man1/stp.1*
 %doc AUTHORS README.markdown papers
 %license LICENSE LICENSE_COMPONENTS
@@ -115,6 +125,11 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.3.3-23
+- Add distutils patch
+- Use more specific globs in %%files
+- Convert License tags to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

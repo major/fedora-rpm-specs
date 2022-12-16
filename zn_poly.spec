@@ -6,7 +6,7 @@ Summary:        C library for polynomial arithmetic
 # All files released under "GPLv2 or GPLv3", except:
 # - include/wide_arith.h is part LGPLv2+ and part GPLv2+
 # - include/profiler.h is part GPLv2+
-License:        (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+
+License:        (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.com/sagemath/%{name}
 Source0:        https://gitlab.com/sagemath/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
@@ -48,12 +48,12 @@ sed -i "s|typedef unsigned long  ulong;|\/\/typedef unsigned long  ulong;|g" inc
 
 
 %build
-python3 makemakefile.py --cflags="%{optflags} -fPIC" --prefix=%{_prefix} \
+python3 makemakefile.py --cflags="%{build_cflags} -fPIC" --prefix=%{_prefix} \
     --gmp-prefix=%{_prefix} \
     --disable-tuning \
     > makefile
 
-%make_build all libzn_poly.so libzn_poly-%{version}.so LDFLAGS="$RPM_LD_FLAGS"
+%make_build all libzn_poly.so libzn_poly-%{version}.so LDFLAGS='%{build_ldflags}'
 
 
 %install
@@ -67,7 +67,7 @@ ln -s libzn_poly-%{version}.so %{buildroot}%{_libdir}/libzn_poly-0.9.so
 ln -s libzn_poly-0.9.so %{buildroot}%{_libdir}/libzn_poly.so
 
 %check
-make test LDFLAGS="$RPM_LD_FLAGS"
+make test LDFLAGS='%{build_ldflags}'
 ./test/test all
 
 
@@ -88,6 +88,9 @@ make test LDFLAGS="$RPM_LD_FLAGS"
 
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-8
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

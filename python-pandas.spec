@@ -12,71 +12,71 @@
 %bcond_without single_tests
 
 Name:           python-pandas
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
-# The entire source is BSD and covered by LICENSE, except:
+# The entire source is BSD-3-Clause and covered by LICENSE, except:
 #
-# - pandas/util/version/__init__.py is (ASL 2.0 or BSD): see
+# - pandas/util/version/__init__.py is (Apache-2.0 OR BSD-2-Clause): see
 #   LICENSES/PACKAGING_LICENSE
-# - pandas/_libs/src/headers/portable.h is (BSD and MIT), because it contains
-#   some trivial content under the overall BSD license but also some macros
-#   from MUSL libc under the MIT license: see LICENSES/MUSL_LICENSE
-# - pandas/_libs/src/parser/tokenizer.c is (BSD and Python): see
+# - pandas/_libs/src/headers/portable.h is (BSD-3-Clause AND MIT), because it
+#   contains some trivial content under the overall BSD-3-Clause license but
+#   also some macros from MUSL libc under the MIT license: see
+#   LICENSES/MUSL_LICENSE
+# - pandas/_libs/src/parser/tokenizer.c is (BSD-3-Clause AND Python-2.0.1): see
 #   LICENSES/PSF_LICENSE
-# - pandas/io/sas/sas7bdat.py is (BSD and MIT), because it is mostly under the
-#   overall BSD license but is also based on
+# - pandas/io/sas/sas7bdat.py is (BSD-3-Clause and MIT), because it is mostly
+#   under the overall BSD-3-Clause license but is also based on
 #   https://bitbucket.org/jaredhobbs/sas7bdat: see LICENSES/SAS7BDAT_LICENSE
-# - pandas/core/accessor.py is (BSD and ASL 2.0), because it is partially under
-#   the overall BSD license but is also based on xarray: see
-#   LICENSES/XARRAY_LICENSE
-# - pandas/_libs/src/klib/khash.h is MIT; compiled extension libraries
-#   including it along with BSD code will be (BSD and MIT); see
-#   https://github.com/pandas-dev/pandas/pull/46741 “Add a license file for
-#   klib (khash)”
+# - pandas/core/accessor.py is (BSD-3-Clause AND Apache-2.0), because it is
+#   partially under the overall BSD-3-Clause license but is also based on
+#   xarray: see LICENSES/XARRAY_LICENSE
+# - pandas/_libs/src/klib/khash.h is MIT: see LICENSES/KLIB_LICENSE
+# - pandas/_libs/window/aggregations.pyx is (BSD-3-Clause AND BSD-2-Clause):
+#   see “Bottleneck license” in LICENSES/OTHER
 #
 # In the python3-pandas+tests subpackage:
 #
 # - pandas/tests/io/data/spss/*.sav are MIT: see LICENSES/HAVEN_LICENSE and
 #   LICENSES/HAVEN_MIT
+# - pandas/tests/window/test_rolling.py is (BSD-3-Clause AND BSD-2-Clause)
+#   since test_rolling_std_neg_sqrt is from Bottleneck: see “Bottleneck license”
+#   in LICENSES/OTHER
 #
 # Additionally:
 #
-# - pandas/tests/window/moments/test_moments_rolling.py is still BSD, but see
-#   also “Bottleneck license” in LICENSES/OTHER
-# - pandas/_libs/window/aggregations.pyx and (in the python3-pandas+tests
-#   subpackage) pandas/tests/window/moments/test_moments_rolling.py are still
-#   BSD, but see also “Bottleneck license” in LICENSES/OTHER
-# - pandas/_libs/tslibs/parsing.pyx is either BSD or
-#   (BSD and (BSD or ASL 2.0)), depending on whether all of the code from
-#   dateutil in the dateutil_parse() function is by contributors who have
-#   agreed to re-license their previously submitted code under ASL 2.0—a
-#   question we have not attempted to resolve, and which is not particularly
-#   important here: see LICENSES/DATEUTIL_LICENSE. We consider that the
-#   effective license of any compiled extensions containing this code can be
-#   simplified to “BSD” in either case. See:
-#   https://fedoraproject.org/wiki/Licensing:FAQ
+# - pandas/_libs/tslibs/parsing.pyx is BSD-3-Clause rather than
+#   (BSD-3-Clause AND (BSD-3-Clause OR Apache-2.0)), because it appears that at
+#   least some trivial content in the code copied from dateutil in the
+#   dateutil_parse() function (as of
+#   https://github.com/dateutil/dateutil/pull/732) is by dateutil contributors
+#   who have not agreed to re-license their previously submitted code: see
+#   LICENSES/DATEUTIL_LICENSE.
 # - LICENSES/OTHER suggests that some code may be derived from
-#   google-api-python-client under ASL 2.0, but a search for attribution
+#   google-api-python-client under Apache-2.0, but a search for attribution
 #   comments did not turn up anything specific
-# - pandas/_libs/tslibs/src/datetime/np_datetime.{h,c} are still BSD, but see
-#   also LICENSES/NUMPY_LICENSE
-# - pandas/io/clipboard/ is still BSD, but see also “Pyperclip v1.3 license” in
-#   LICENSES/OTHER
-# - pandas/_testing/__init__.py is still BSD, but see also
+# - pandas/_libs/tslibs/src/datetime/np_datetime.{h,c} are still BSD-3-Clause,
+#   but see also LICENSES/NUMPY_LICENSE
+# - pandas/io/clipboard/ is still BSD-3-Clause, but see also “Pyperclip v1.3
+#   license” in LICENSES/OTHER
+# - pandas/_testing/__init__.py is still BSD-3-Clause, but see also
 #   LICENSES/SCIPY_LICENSE
-# - pandas/_libs/src/ujson/lib/ is still BSD, but under
+# - pandas/_libs/src/ujson/lib/ is still BSD-3-Clause, but under
 #   LICENSES/ULTRAJSON_LICENSE
 #
 # Additionally, the following are not packaged and so do not affect the overall
 # License field:
 #
 # - scripts/no_bool_in_generic.py is MIT: see LICENSES/PYUPGRADE_LICENSE
-License:        BSD and (BSD or ASL 2.0) and (BSD and ASL 2.0) and (BSD and MIT) and (BSD and Python)
+License:        BSD-3-Clause AND (Apache-2.0 OR BSD-2-Clause) AND (BSD-3-Clause AND Apache-2.0) AND (BSD-3-Clause AND MIT) AND (BSD-3-Clause AND Python-2.0.1) AND MIT AND (BSD-3-Clause AND BSD-2-Clause)
 URL:            https://pandas.pydata.org/
 # The GitHub archive contains tests; the PyPI sdist does not.
 Source0:        https://github.com/pandas-dev/pandas/archive/v%{version}/pandas-%{version}.tar.gz
+
+# Fix some little-endian assumptions in the tests
+# https://github.com/pandas-dev/pandas/pull/49913
+Patch:          https://github.com/pandas-dev/pandas/pull/49913.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -232,13 +232,15 @@ Requires:       python3dist(bottleneck) >= 1.3.2
 # doc/source/getting_started/install.rst “Optional dependencies”
 # We BR all weak dependencies to ensure they are installable.
 
+# Timezones
+BuildRequires:  tzdata >= 2022a
+Recommends:     tzdata >= 2022a
+
 # Visualization
-BuildRequires:  python3dist(setuptools) >= 38.6
-Recommends:     python3dist(setuptools) >= 38.6
 BuildRequires:  python3dist(matplotlib) >= 3.3.2
 Recommends:     python3dist(matplotlib) >= 3.3.2
-BuildRequires:  python3dist(jinja2) >= 3.0.0
-Recommends:     python3dist(jinja2) >= 3.0.0
+BuildRequires:  python3dist(jinja2) >= 3
+Recommends:     python3dist(jinja2) >= 3
 BuildRequires:  python3dist(tabulate) >= 0.8.9
 Recommends:     python3dist(tabulate) >= 0.8.9
 
@@ -248,8 +250,8 @@ Recommends:     python3dist(scipy) >= 1.7.1
 # python-numba is not currently packaged:
 # BuildRequires:  python3dist(numba) >= 0.46
 # Recommends:     python3dist(numba) >= 0.46
-BuildRequires:  python3dist(xarray) >= 1.19.0
-Recommends:     python3dist(xarray) >= 1.19.0
+BuildRequires:  python3dist(xarray) >= 1.19
+Recommends:     python3dist(xarray) >= 1.19
 
 # Excel files
 BuildRequires:  python3dist(xlrd) >= 2.0.1
@@ -261,8 +263,8 @@ Recommends:     python3dist(xlsxwriter) >= 1.4.3
 BuildRequires:  python3dist(openpyxl) >= 3.0.7
 Recommends:     python3dist(openpyxl) >= 3.0.7
 # python-pyxlsb is not currently packaged:
-# BuildRequires:  python3dist(pyxlsb) >= 1.0.6
-# Recommends:     python3dist(pyxlsb) >= 1.0.6
+# BuildRequires:  python3dist(pyxlsb) >= 1.0.8
+# Recommends:     python3dist(pyxlsb) >= 1.0.8
 # Not in doc/source/getting_started/install.rst, but in environment.yml and in
 # some doc-strings:
 BuildRequires:  python3dist(odfpy) >= 1.4.1
@@ -297,23 +299,32 @@ Recommends:     python3dist(tables) >= 3.6.1
 # python-fastparquet is not currently packaged:
 # BuildRequires:  python3dist(fastparquet) >= 0.4
 # Recommends:     python3dist(fastparquet) >= 0.4
+# libarrow does not support 32-bit architectures:
+%if 0%{?__isa_bits} != 32
 BuildRequires:  python3dist(pyarrow) >= 1.0.1
 Recommends:     python3dist(pyarrow) >= 1.0.1
+%endif
 # python-pyreadstat is not currently packaged:
-# BuildRequires:  python3dist(pyreadstat)
-# Recommends:     python3dist(pyreadstat)
+# BuildRequires:  python3dist(pyreadstat) >= 1.1.2
+# Recommends:     python3dist(pyreadstat) >= 1.1.2
 
 # Access data in the cloud
-BuildRequires:  python3dist(fsspec) >= 2021.07.0
-Recommends:     python3dist(fsspec) >= 2021.07.0
-#BuildRequires:  python3dist(gcsfs) >= 2021.07.0
-#Recommends:     python3dist(gcsfs) >= 2021.07.0
+BuildRequires:  python3dist(fsspec) >= 2021.7
+Recommends:     python3dist(fsspec) >= 2021.7
+# python-gcsfs is packaged, but is badly out of date in F37 and older:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2136233
+# Since we will not package pandas 1.5.x for F36 and older, the conditional
+# checks for F37 only.
+%if !0%{?fc37}
+BuildRequires:  python3dist(gcsfs) >= 2021.7
+Recommends:     python3dist(gcsfs) >= 2021.7
+%endif
 # python-pandas-gbq is not currently packaged:
-# BuildRequires:  python3dist(pandas-gbq) >= 0.12
-# Recommends:     python3dist(pandas-gbq) >= 0.12
+# BuildRequires:  python3dist(pandas-gbq) >= 0.15
+# Recommends:     python3dist(pandas-gbq) >= 0.15
 # python-s3fs is not currently packaged:
-# BuildRequires:  python3dist(s3fs) >= 0.4
-# Recommends:     python3dist(s3fs) >= 0.4
+# BuildRequires:  python3dist(s3fs) >= 2021.8
+# Recommends:     python3dist(s3fs) >= 2021.8
 
 # Clipboard
 BuildRequires:  python3dist(pyqt5)
@@ -324,6 +335,14 @@ BuildRequires:  xclip
 Recommends:     xclip
 BuildRequires:  xsel
 Recommends:     xsel
+
+# Compression
+BuildRequires:  python3dist(brotli) >= 0.7
+Recommends:     python3dist(brotli) >= 0.7
+BuildRequires:  python3dist(python-snappy) >= 0.6
+Recommends:     python3dist(python-snappy) >= 0.6
+BuildRequires:  python3dist(zstandard) >= 0.15.2
+Recommends:     python3dist(zstandard) >= 0.15.2
 
 # This is just an “ecosystem” package in the upstream documentation, but there
 # is an integration test for it. This package historically had a weak
@@ -341,7 +360,7 @@ Recommends:     python3dist(pandas-datareader)
 Summary:        Tests and test extras for Pandas
 
 # See comment above base package License tag for licensing breakdown.
-License:        BSD and MIT
+License:        BSD-3-Clause AND MIT
 
 Requires:       python3-pandas%{?_isa} = %{version}-%{release}
 
@@ -412,7 +431,7 @@ Recommends:     python3dist(ipython) >= 7.11.1
 # From Haven
 Provides:       bundled(R-haven)
 
-# pandas/tests/window/moments/test_moments_rolling.py: test_rolling_std_neg_sqrt()
+# pandas/tests/window/test_rolling.py: test_rolling_std_neg_sqrt()
 #
 #   unit test from Bottleneck
 #
@@ -438,6 +457,12 @@ rm -vf $(grep -rl '/\* Generated by Cython')
 
 # We just want to build with the numpy in Fedora:
 sed -r -i '/\boldest-supported-numpy\b/d' pyproject.toml
+%if 0%{?fc37}
+# We have Python 3.11, but we do not have the numpy version that Pandas upstrem
+# wants for Python 3.11.
+sed -r -i "s/(numpy>=)1\\.23\\.2(; python_version>='3\\.11')/\\11.22.0\\2/" \
+    setup.cfg
+%endif
 
 
 %generate_buildrequires
@@ -463,52 +488,10 @@ m="${m-}${m+ and }not clipboard"
 m="${m-}${m+ and }not single"
 %endif
 
-%ifarch %{arm32}
-# worker 'gw2' crashed while running '…'
-k="${k-}${k+ and }not test_append_frame_column_oriented"
-%endif
-
-%ifarch %{ix86} %{arm32}
-# This “high-memory” test is just not appropriate for 32-bit platforms:
-# E       OverflowError: join() result is too long for a Python string
-k="${k-}${k+ and }not test_bytes_exceed_2gb[c_high]"
-%endif
-
-%ifarch ppc64le s390x %{arm32}
-# TODO: Why does this fail?
-# >       with pytest.raises(TypeError, match=msg):
-# E       Failed: DID NOT RAISE <class 'TypeError'>
-k="${k-}${k+ and }not (TestFloatSubtype and test_subtype_integer_errors)"
-%endif
-
-%ifarch %{ix86} %{arm32}
-# TODO: Why does this fail?
-# E           assert 243.164 == 243.16400000000002
-# Fails for both [c_high] and [c_low].
-k="${k-}${k+ and }not test_float_precision_options"
-%endif
-
-%ifarch s390x
-# TODO: Why does this fail?
-#
-# >                   os.fsync(self._handle.fileno())
-# E                   OverflowError: Python int too large to convert to C int
-k="${k-}${k+ and }not test_flush"
-%endif
-
-%ifarch %{arm64} %{arm32}
-# TODO: Why does this fail?
-# >           with pytest.raises(ValueError, match="external reference.*"):
-# E           Failed: DID NOT RAISE <class 'ValueError'>
-k="${k-}${k+ and }not (TestHashTable and test_vector_resize[True-UInt64HashTable-UInt64Vector-uint64-False-10])"
-%endif
-
-%ifarch ppc64le
-# TODO: Why does this fail?
-# >           with pytest.raises(ValueError, match="external reference.*"):
-# E           Failed: DID NOT RAISE <class 'ValueError'>
-k="${k-}${k+ and }not (TestHashTable and test_vector_resize[False-UInt64HashTable-UInt64Vector-uint64-False-10])"
-%endif
+# This test allocates a huge amount of memory (~12GB), which causes flaky OOM
+# failures on some builders. It’s not worth it.
+# https://github.com/pandas-dev/pandas/issues/45223#issuecomment-1250912663
+k="${k-}${k+ and }not test_bytes_exceed_2gb"
 
 # This test (only) expects the current working directory to be the
 # site-packages directory containing the built pandas. This is not how we run
@@ -518,34 +501,109 @@ k="${k-}${k+ and }not (TestHashTable and test_vector_resize[False-UInt64HashTabl
 # easier just to skip it.
 k="${k-}${k+ and }not test_html_template_extends_options"
 
-# TODO: Why does this fail? This also seems to have to do with fsspec.
-k="${k-}${k+ and }not test_markdown_options"
-
-# TODO: Why does this fail?
-# >           assert res_deep == res == expected
-# E           assert 0 == 108
-k="${k-}${k+ and }not test_memory_usage[series-with-empty-index]"
-
-%ifarch %{ix86} %{arm32}
-# TODO: Why does this fail?
-# E   AssertionError: DataFrame.iloc[:, 2] (column name="C") are different
-# E
-# E   DataFrame.iloc[:, 2] (column name="C") values are different (11.57513 %)
-k="${k-}${k+ and }not (TestMerge and test_int64_overflow_issues)"
-%endif
-
-# TODO: Why does this fail? An fsspec.implementations.memory.MemoryFile does
-# not seem to work as expected.
-k="${k-}${k+ and }not test_read_csv"
-
 %ifarch ppc64le s390x
 # TODO: Why does this fail? The differences are large!
 k="${k-}${k+ and }not test_rolling_var_numerical_issues"
 %endif
 
-%ifarch %{arm32}
-# worker 'gw4' crashed while running '…'
-k="${k-}${k+ and }not test_select_filter_corner"
+%ifarch %{ix86}
+# These failures are i686-specific; most are likely 32-bit issues. It’s not
+# really worth trying to fix them.
+
+# This “high-memory” test is just not appropriate for 32-bit platforms:
+# E       OverflowError: join() result is too long for a Python string
+k="${k-}${k+ and }not test_bytes_exceed_2gb[c_high]"
+
+# E           assert 243.164 == 243.16400000000002
+# Fails for both [c_high] and [c_low].
+k="${k-}${k+ and }not test_float_precision_options"
+
+# E   AssertionError: DataFrame.iloc[:, 2] (column name="C") are different
+# E
+# E   DataFrame.iloc[:, 2] (column name="C") values are different (11.66363 %)
+# E   [index]: [0, 1, …
+# Fails for [left], [right], [outer], and [inner]
+k="${k-}${k+ and }not (TestMerge and test_int64_overflow_how_merge)"
+
+# E           AssertionError: Attributes of DataFrame.iloc[:, 1] (column name="b") are different
+# E
+# E           Attribute "dtype" are different
+# E           [left]:  int32
+# E           [right]: int64
+k="${k-}${k+ and }not test_frame_setitem_dask_array_into_new_col"
+
+# E       IndexError: index 0 is out of bounds for axis 0 with size 0
+k="${k-}${k+ and }not (TestPivotTable and test_pivot_number_of_levels_larger_than_int32)"
+k="${k-}${k+ and }not (TestStackUnstackMultiLevel and test_unstack_number_of_levels_larger_than_int32)"
+
+# E       OverflowError: timestamp out of range for platform time_t
+# These fail only for the [tzlocal()] case, but it’s not clear how to validly
+# name those in a pytest keyword expression due to the parentheses in tzlocal()
+k="${k-}${k+ and }not (TestTimestampProperties and test_is_leap_year)"
+k="${k-}${k+ and }not (TestBusinessDay and test_apply_out_of_range)"
+k="${k-}${k+ and }not (TestBusinessHour and test_apply_out_of_range)"
+k="${k-}${k+ and }not (TestCustomBusinessDay and test_apply_out_of_range)"
+k="${k-}${k+ and }not (TestCustomBusinessHour and test_apply_out_of_range)"
+k="${k-}${k+ and }not (TestWeek and test_apply_out_of_range)"
+
+# E       AssertionError: Index are different
+# E
+# E       Index length are different
+k="${k-}${k+ and }not (TestDateRanges and test_date_range_int64_overflow_stride_endpoint_different_signs)"
+%endif
+
+%ifarch s390x
+# Note that pandas does not test big-endian support but will happily accept
+# patches to improve it:
+# https://github.com/pandas-dev/pandas/issues/4737#issuecomment-1090931741
+
+# TODO: Why does this fail?
+#
+# >                   os.fsync(self._handle.fileno())
+# E                   OverflowError: Python int too large to convert to C int
+k="${k-}${k+ and }not test_flush"
+
+# These are a cluster of similar pyarrow/parquet tests with apparent endianness
+# issues. It is not immediately obvious where the bug is—in the library or in
+# the tests?
+k="${k-}${k+ and }not (TestBasic and test_write_index[pyarrow])"
+k="${k-}${k+ and }not (TestBasic and test_multiindex_with_columns)"
+k="${k-}${k+ and }not (TestBasic and test_write_column_multiindex_string)"
+k="${k-}${k+ and }not (TestBasic and test_write_column_index_string)"
+k="${k-}${k+ and }not (TestBasic and test_use_nullable_dtypes[pyarrow])"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_basic)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_to_bytes_without_path_or_buf_provided)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_categorical)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_additional_extension_arrays)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_pyarrow_backed_string_array[python])"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_pyarrow_backed_string_array[pyarrow])"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_additional_extension_types)"
+k="${k-}${k+ and }not (TestParquetPyArrow and test_timezone_aware_index[timezone_aware_date_list0])"
+k="${k-}${k+ and }not test_to_read_gcs[parquet]"
+
+# Similarly, there are a cluster of similar stata test failures for which the
+# root cause is not immediately obvious.
+k="${k-}${k+ and }not (TestStata and test_writer_117)"
+k="${k-}${k+ and }not (TestStata and test_convert_strl_name_swap)"
+k="${k-}${k+ and }not (TestStata and test_strl_latin1)"
+# Fails for [118], [119], and [None]
+k="${k-}${k+ and }not (TestStata and test_utf8_writer)"
+%endif
+
+%if 0%{?fedora} > 37
+# The text of an error message has changed in libarrow/pyarrow 10, which is
+# harmless but breaks one test. Disable it until a patch is available upstream.
+#   CI: pyarrow 10 broke our ci
+#   https://github.com/pandas-dev/pandas/issues/50058
+k="${k-}${k+ and }not test_arrow_array"
+%endif
+
+%if 0%{?fc37}
+# TODO: Why do these fail on F37 but not on F38?
+
+# E       AssertionError: Did not use numexpr as expected.
+# E       assert []
+k="${k-}${k+ and }not (TestExpressions and test_run_binary)"
 %endif
 
 # Ensure pytest doesn’t find the “un-built” library. We can get away with this
@@ -563,27 +621,23 @@ export PYTHONHASHSEED="$(
   %{python3} -c 'import random; print(random.randint(1, 4294967295))'
 )"
 
-%ifarch %{ix86} %{arm32}
-# Limit parallelism in tests to prevent memory exhaustion
-%global testn_max 8
-%if 0%{?fedora} > 35
-%constrain_build -c %{testn_max}
-%else
-%if %{?_smp_build_ncpus}%{?!_smp_build_ncpus:4} > %{testn_max}
-%global _smp_build_ncpus %{testn_max}
-%endif
-%endif
+# Previously, we ran tests in parallel. Upstream seems to support this;
+# however, in practice, there were still some flaky test failures that seem to
+# be fixed by eschewing parallelism.
+#
+# If we start running tests in parallel again in the future, note that on
+# 32-bit platforms (%%if 0%%{?__isa_bits} == 32) it may be necessary to limit
+# the number of concurrent tests to e.g. 8 in order to prevent memory
+# exhaustion.
+%constrain_build -c 1
 
-%endif
-
-# Fallback parallelism of 4 is from upstream CI
 %pytest -v '%{buildroot}%{python3_sitearch}/pandas' \
     %{?!with_slow_tests:--skip-slow} \
     --skip-network \
     --skip-db \
     -m "${m-}" \
     -k "${k-}" \
-    -n %{?testn_max}%{!?testn_max:4} \
+    -n %{_smp_build_ncpus} \
     -r sxX
 
 %else
@@ -615,6 +669,23 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Sun Dec 04 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.2-1
+- Update to 1.5.2
+- Re-enable python-gcsfs BR/weak-dep. on F38 and later
+- Work around a harmless test failure with libarrow/pyarrow 10
+- Allow a slightly older numpy version for F37
+- Skip a test that sometimes hangs on aarch64 and ppc64le
+- Additional test skips for F37
+- Drop some test skips that are no longer needed
+- Fix several flaky test failures by no longer running tests in parallel
+
+* Wed Nov 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-2
+- Update license breakdown and convert to SPDX
+- Fully update optional dependencies and their versions
+- Do not BR/Recommend pyarrow on 32-bit arches, where it is unavailable
+- Drop accommodations for 32-bit ARM and Fedoras older than 36
+- Update test skips for i686
+
 * Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 1.5.1-1
 - Update to 1.5.1 rhbz#2014890
 

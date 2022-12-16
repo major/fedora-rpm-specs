@@ -1,12 +1,13 @@
 Name:           abcMIDI
-Version:        2020.06.29
-Release:        7%{?dist}
+Version:        2022.12.09
+Release:        1%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
 License:        GPLv2+
 URL:            https://ifdo.ca/~seymour/runabc/top.html
 Source0:        https://ifdo.ca/~seymour/runabc/%{name}-%{version}.zip
+
 BuildRequires:  gcc dos2unix
 BuildRequires: make
 
@@ -59,6 +60,12 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Dec 13 2022 Stuart Gathman <stuart@gathman.org> - 2022.12.09-1
+- New upstream release, removes compiled binaries :-{
+
+* Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 2022.12.05-8
+- New upstream release, fixes C99 issues
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.06.29-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

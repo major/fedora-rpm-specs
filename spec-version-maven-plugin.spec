@@ -2,7 +2,7 @@ Name:           spec-version-maven-plugin
 Version:        2.1
 Release:        3%{?dist}
 Summary:        Spec Version Maven Plugin
-License:        EPL-2.0 or GPLv2 with exceptions
+License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
 
 URL:            https://projects.eclipse.org/projects/ee4j.glassfish
 Source0:        https://github.com/eclipse-ee4j/glassfish-%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -50,6 +50,9 @@ chmod a+x src/main/resources/checkVersion.sh
 %doc README.md
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.1-3
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

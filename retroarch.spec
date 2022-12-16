@@ -27,7 +27,7 @@ ExcludeArch: %{ix86}
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.13.0
+Version:        1.14.0
 Release:        1%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
@@ -512,6 +512,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Tue Dec 13 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.14.0-1
+- chore: Update to 1.14.0
+
 * Sun Nov 20 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.13.0-1
 - chore: Update to 1.13.0
 

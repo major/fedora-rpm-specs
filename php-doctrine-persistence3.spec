@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    2a9c70a5e21f8968c5a46b79f819ea52f322080b
+%global gh_commit    d87426f07dd66f97cfdcf5210925e483b6c993b5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.0
+Version:        3.1.1
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -149,7 +149,7 @@ find tests -type f -exec grep -q PHPStan {} \; -delete -print
 
 : Run test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 3.1.1-1
+- update to 3.1.1
+
 * Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 3.1.0-1
 - update to 3.1.0
 

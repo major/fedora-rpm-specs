@@ -2,9 +2,13 @@
 %undefine _auto_set_build_flags
 
 %global linux_version fedora
-%global swift_version 5.7.1-RELEASE
+
+# Make sure these are changed for every release!
+%global swift_version 5.7.2-RELEASE
 %global fedora_release 1
-%global package_version 5.7.1
+%global package_version 5.7.2
+
+# Set to the right version per the json file
 %global swift_source_location swift-source
 %global sap_version 0.4.3
 %global icu_version 65-1
@@ -222,6 +226,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Dec 14 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-1
+- Updated to Swift 5.7.2-RELEASE
+  Resolves: rhbz#2153189
 * Wed Nov 02 2022 Ron Olson <tachoknight@gmail.com> - 5.7.1-1
 - Updated to Swift 5.7.1-RELEASE
   Resolves: rhbz#2139320

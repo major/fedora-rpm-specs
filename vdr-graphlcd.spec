@@ -3,13 +3,13 @@
 # version we want build against
 %global vdr_version 2.6.1
 %if 0%{?fedora} >= 38
-%global vdr_version 2.6.2
+%global vdr_version 2.6.3
 %endif
 
 
 Name:           vdr-graphlcd
 Version:        1.0.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        VDR plugin: Output to graphic LCD
 License:        GPLv2+
 URL:            https://github.com/vdr-projects/vdr-plugin-graphlcd
@@ -78,6 +78,9 @@ install -Dpm 644 %{SOURCE3} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf.sample
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.6-9
+- Rebuilt for new VDR API version
+
 * Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.6-8
 - Rebuilt for new VDR API version
 

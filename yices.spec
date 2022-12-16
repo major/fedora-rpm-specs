@@ -63,6 +63,35 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Command line tools that use the yices library.
 
 %package doc
+# The content is GPL-3.0-or-later.  Other licenses are due to files copied in
+# by Sphinx and due to fonts embedded in PDFs.
+# Sphinx file licenses:
+# _static/_sphinx_javascript_frameworks_compat.js: BSD-2-Clause
+# _static/basic.css: BSD-2-Clause
+# _static/classic.css: BSD-2-Clause
+# _static/default.css: BSD-2-Clause
+# _static/doctools.js: BSD-2-Clause
+# _static/documentation_options.js: BSD-2-Clause
+# _static/epub.css: BSD-2-Clause
+# _static/file.png: BSD-2-Clause
+# _static/jquery*.js: MIT
+# _static/language_data.js: BSD-2-Clause
+# _static/minus.png: BSD-2-Clause
+# _static/plus.png: BSD-2-Clause
+# _static/searchtools.js: BSD-2-Clause
+# _static/sidebar.js: BSD-2-Clause
+# _static/underscore*.js: MIT
+# genindex.html: BSD-2-Clause
+# search.html: BSD-2-Clause
+# searchindex.js: BSD-2-Clause
+#
+# Font licenses:
+# AMS: OFL-1.1-RFN
+# CM: Knuth-CTAN
+# DejaVu: LPPL-1.0
+# LaTeX: LPPL-1.0
+# Nimbus: AGPL-3.0-only
+License:        GPL-3.0-or-later AND BSD-2-Clause AND MIT AND OFL-1.1-RFN AND Knuth-CTAN AND LPPL-1.0 AND AGPL-3.0-only
 Summary:        Documentation for yices
 BuildArch:      noarch
 

@@ -2,12 +2,12 @@
 # version we want build against
 %global vdr_version 2.6.1
 %if 0%{?fedora} >= 38
-%global vdr_version 2.6.2
+%global vdr_version 2.6.3
 %endif
 
 Name:           vdr-%{pname}
 Version:        0.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL+
@@ -64,6 +64,9 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %{vdr_resdir}/icons
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.1.4-3
+- Rebuilt for new VDR API version
+
 * Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org>  - 0.1.4-2
 - Rebuilt for new VDR API version
 

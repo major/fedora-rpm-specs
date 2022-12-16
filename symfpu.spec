@@ -1,19 +1,22 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global owner    martin-cs
 %global gittag   c3acaf62b137c36aae5eb380f1d883bfa9095f60
 %global shorttag %(cut -b -7 <<< %{gittag})
 %global gitdate  20190517
 
 Name:           symfpu
 Version:        0
-Release:        0.11.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.12.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/martin-cs/symfpu
-Source0:        https://github.com/%{owner}/%{name}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
+Source0:        %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # Fedora-only patch: build a shared library instead of a static library
 Patch0:         %{name}-shared.patch
+# Fix an infinite recursion
+Patch1:         %{name}-infinite-recursion.patch
+# Upstream PR to fix invalid creation of a zero-size bitvector
+Patch2:         %{url}/pull/9.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -38,12 +41,12 @@ This package contains header files and library links for developing
 applications that use %{name}.
 
 %prep
-%autosetup -p0 -n %{name}-%{gittag}
+%autosetup -p1 -n %{name}-%{gittag}
 
 # Use Fedora build flags
 sed -e 's/ -Wall -W//' \
     -e 's/ -msse2 -mfpmath=sse//' \
-    -e "s|-mfma -mno-fma4|-I. %{optflags} -fno-strict-aliasing $RPM_LD_FLAGS|" \
+    -e 's|-mfma -mno-fma4|-I. %{build_cxxflags} -fno-strict-aliasing %{build_ldflags}|' \
     -i flags
 
 # Fix header file include paths
@@ -80,13 +83,18 @@ export LD_LIBRARY_PATH=$PWD
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.0*
 
 %files devel
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0-0.12.20190517gitc3acaf6
+- Add upstream patch to fix creation of zero-size bitvector
+- Add patch to avoid infinite recursion
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11.20190517gitc3acaf6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

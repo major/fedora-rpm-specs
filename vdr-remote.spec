@@ -1,9 +1,14 @@
 %global pname   remote
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
+# version we want build against
+%global vdr_version 2.6.1
+%if 0%{?fedora} >= 38
+%global vdr_version 2.6.3
+%endif
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Extended remote control plugin for VDR
 
 License:        GPL+
@@ -19,7 +24,7 @@ Patch2:         new-expresson-cLircRemote.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= 1.7.38
+BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  gettext
 BuildRequires:  systemd
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
@@ -66,6 +71,9 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-25
+- Rebuilt for new VDR API version
+
 * Thu Dec 01 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-24
 - Rebuilt for new VDR API version
 - Add patch new-expresson-cLircRemote.patch

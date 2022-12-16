@@ -3,7 +3,7 @@ Version:        0.14
 Release:        6%{?dist}
 Summary:        Build system that bridges the gap between make and redo
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/silene/%{name}
 Source0:        https://github.com/silene/%{name}/archive/%{name}-%{version}.tar.gz
 # Find out which test is hanging
@@ -21,10 +21,37 @@ Remake is a build system with features of both make and redo.  See the
 documentation for details on usage and control file syntax.
 
 %package doc
+# The content is GPL-3.0-or-later.  Other licenses are due to files installed by
+# doxygen.
+# html/bc_s.png: GPL-1.0-or-later
+# html/bdwn.png: GPL-1.0-or-later
+# html/closed.png: GPL-1.0-or-later
+# html/doc.png: GPL-1.0-or-later
+# html/doxygen.css: GPL-1.0-or-later
+# html/doxygen.svg: GPL-1.0-or-later
+# html/dynsections.js: MIT
+# html/folderclosed.png: GPL-1.0-or-later
+# html/folderopen.png: GPL-1.0-or-later
+# html/jquery.js: MIT
+# html/menu.js: MIT
+# html/menudata.js: MIT
+# html/nav_f.png: GPL-1.0-or-later
+# html/nav_g.png: GPL-1.0-or-later
+# html/nav_h.png: GPL-1.0-or-later
+# html/open.png: GPL-1.0-or-later
+# html/splitbar.png: GPL-1.0-or-later
+# html/sync_off.png: GPL-1.0-or-later
+# html/sync_on.png: GPL-1.0-or-later
+# html/tab_a.png: GPL-1.0-or-later
+# html/tab_b.png: GPL-1.0-or-later
+# html/tab_h.png: GPL-1.0-or-later
+# html/tab_s.png: GPL-1.0-or-later
+# html/tabs.css: GPL-1.0-or-later
+License:        GPL-3.0-or-later AND GPL-1.0-or-later AND MIT
 Summary:        Documentation for %{name}
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
-Provides:       bundled(jquery)
+Provides:       bundled(js-jquery)
 
 %description doc
 Documentation for using and developing %{name}.
@@ -33,8 +60,8 @@ Documentation for using and developing %{name}.
 %autosetup -p0 -n %{name}-%{name}-%{version}
 
 %build
-g++ $RPM_OPT_FLAGS -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -o remake remake.cpp \
-    $RPM_LD_FLAGS
+g++ %{build_cxxflags} -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -o remake \
+    remake.cpp %{build_ldflags}
 doxygen
 
 %install
@@ -60,6 +87,9 @@ cd testsuite
 %exclude %{_docdir}/%{name}/README.md
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.14-6
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

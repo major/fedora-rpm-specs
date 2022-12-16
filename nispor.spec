@@ -2,13 +2,12 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
 URL:            https://github.com/nispor/nispor
 Source:         https://github.com/nispor/nispor/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch1:         use-clap-3.patch
 ExclusiveArch:  %{rust_arches}
 BuildRequires:  make
 BuildRequires:  pkg-config

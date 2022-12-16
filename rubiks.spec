@@ -4,7 +4,7 @@ Release:        5%{?dist}
 Summary:        Rubiks cube solvers
 
 # See the description for the licensing breakdown
-License:        GPL+ and GPLv2+ and MIT
+License:        GPL-1.0-or-later AND GPL-2.0-or-later AND MIT
 URL:            https://git.sagemath.org/sage.git/plain/build/pkgs/rubiks/
 Source0:        http://mirrors.xmission.com/sage/spkg/upstream/%{name}/%{name}-%{version}.tar.bz2
 # Man pages courtesy of Debian
@@ -38,7 +38,7 @@ Provides:       sagemath-rubiks = %{version}-%{release}
 This package contains several different Rubik's cube solvers.  They can
 be invoked from the command line or used through sagemath.
 
-Michael Reid (GPLv2+)
+Michael Reid (GPL-2.0-or-later)
 
 -  optimal - uses many pre-computed tables to find an optimal
    solution to the 3x3x3 Rubik's cube
@@ -49,7 +49,7 @@ Dik T. Winter (MIT)
    solution to the 3x3x3 Rubik's cube
 -  size222 - solves a 2x2x2 Rubik's cube
 
-Eric Dietz (GPL+)
+Eric Dietz (GPL-1.0-or-later)
 
 -  cu2 - A fast, non-optimal 2x2x2 solver
 -  cubex - A fast, non-optimal 3x3x3 solver
@@ -119,6 +119,9 @@ done
 %{_mandir}/man1/rubiks_optimal.1*
 
 %changelog
+* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 20070912-5
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20070912-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

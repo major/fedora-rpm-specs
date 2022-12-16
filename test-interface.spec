@@ -6,7 +6,7 @@ Version:        %{test_interface_version}
 Release:        22%{?dist}
 Summary:        Uniform interface to Scala and Java test frameworks
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/sbt/test-interface
 Source0:        https://github.com/sbt/test-interface/archive/v%{test_interface_version}.tar.gz
 %if !%{build_with_sbt}
@@ -100,6 +100,9 @@ cp pom.xml target/%{name}-%{version}.pom
 %doc LICENSE
 
 %changelog
+* Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0-22
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

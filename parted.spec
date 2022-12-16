@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv3+
 URL:     http://www.gnu.org/software/parted
 
@@ -16,12 +16,16 @@ Patch0002: 0002-parted-add-type-command.patch
 Patch0003: 0003-libparted-add-swap-flag-for-DASD-label.patch
 Patch0004: 0004-parted-Reset-the-filesystem-type-when-changing-the-i.patch
 Patch0005: 0005-tests-t3200-type-change-now-passes.patch
-Patch0006: 0006-disk.in.h-Remove-use-of-enums-with-define.patch
-Patch0007: 0007-libparted-Fix-handling-of-gpt-partition-types.patch
-Patch0008: 0008-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
-Patch0009: 0009-libparted-Fix-handling-of-msdos-partition-types.patch
+Patch0006: 0006-libparted-Fix-check-for-availability-of-_type_id-fun.patch
+Patch0007: 0007-parted-Simplify-code-for-json-output.patch
+Patch0008: 0008-disk.in.h-Remove-use-of-enums-with-define.patch
+Patch0009: 0009-libparted-Fix-handling-of-gpt-partition-types.patch
 Patch0010: 0010-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
-
+Patch0011: 0011-libparted-Fix-handling-of-msdos-partition-types.patch
+Patch0012: 0012-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
+Patch0013: 0013-show-GPT-UUIDs-in-JSON-output.patch
+Patch0014: 0014-gpt-Add-no_automount-partition-flag.patch
+Patch0015: 0015-tests-XFS-requires-a-minimum-size-of-300M.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -126,7 +130,14 @@ make check
 
 
 %changelog
-* Mon Aug 08 2022 Brian C. Lane <bcl@redhat.com> - 3.5-5.bcl.1
+* Wed Dec 14 2022 Brian C. Lane <bcl@redhat.com> - 3.5-7
+- libparted: Fix handling of msdos partition types
+- tests: Add a libparted test for ped_partition_set_system on msdos
+- parted: Add display of GPT UUIDs in JSON output
+- Add no_automount flag support
+- increase xfs size to 300M
+
+* Mon Aug 08 2022 Brian C. Lane <bcl@redhat.com> - 3.5-6
 - Fix ped_partition_set_system handling of existing flags
 
 * Thu Aug 04 2022 Brian C. Lane <bcl@redhat.com> - 3.5-5
