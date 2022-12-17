@@ -1,6 +1,6 @@
 Name:           hedgewars
-Version:        1.0.0
-Release:        27%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL+
 URL:            http://www.hedgewars.org/
@@ -14,18 +14,15 @@ Source101:      hedgewars.sysconfig
 Source102:      hedgewars.xml
 
 # Prevent use of rpath
-Patch6:         rpath-fix.patch
-# cmake check for mask failing with ghc8
-# https://issues.hedgewars.org/show_bug.cgi?id=152
-Patch8:         hedgewars-cmake-ghc8-mask.patch
-# Tweak CFLAGS for clang
-Patch9:         hedgewars-clang.patch
-# Use haskell network version 3
-Patch10:        hedgewars-%{version}-server-network3.patch
-# Install hwengine.desktop
-Patch11:        hedgewars-%{version}-install-hwengine.patch
+Patch0:         rpath-fix.patch
 
-Patch12:        hedgewars-qt-5.15.patch
+# Tweak CFLAGS for clang
+Patch1:         hedgewars-clang.patch
+
+# Install hwengine.desktop
+Patch2:        hedgewars-1.0.0-install-hwengine.patch
+
+Patch3:        0a8921bf167481045830095c731eb3c67af913e4.patch
 
 BuildRequires:  cmake gcc-c++ fpc desktop-file-utils
 BuildRequires:  libatomic
@@ -40,7 +37,7 @@ Requires:       dejavu-sans-fonts wqy-zenhei-fonts hicolor-icon-theme
 Requires:       hedgewars-data = %{version}-%{release}
 
 ExclusiveArch:  %{fpc_arches}
-
+ExcludeArch: ppc64le
 
 %description
 Hedgewars is a turn based strategy game but the real buzz is from watching the
@@ -208,6 +205,9 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 
 
 %changelog
+* Thu Dec 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-1
+- 1.0.2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

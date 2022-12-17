@@ -1,9 +1,9 @@
 Name:          gpsbabel
 Version:       1.8.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           http://www.gpsbabel.org
 # Upstream's website hides tarball behind some ugly php script
 # Original repo is at https://github.com/gpsbabel/gpsbabel
@@ -35,7 +35,7 @@ to another.
 %if 0%{?build_gui}
 %package gui
 Summary:        Qt GUI interface for GPSBabel
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 
 %description gui
@@ -102,6 +102,9 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Thu Dec 15 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.8.0-4
+- Convert license to SPDX.
+
 * Tue Aug 02 2022 Fedora Release Engineering <corsepiu@fedoraproject.org> - 1.8.0-3
 - Build against libusb1 instead of libusb (F37FTBS, RHBZ#2113432).
 

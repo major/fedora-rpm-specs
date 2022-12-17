@@ -1,5 +1,5 @@
 Name:           archlinux-keyring
-Version:        20221123
+Version:        20221213
 Release:        %autorelease
 Url:            https://archlinux.org/packages/core/any/archlinux-keyring/
 Source0:        https://gitlab.archlinux.org/archlinux/archlinux-keyring/-/archive/%{version}/archlinux-keyring-%{version}.tar.gz
@@ -31,6 +31,9 @@ installation on Fedora systems.
 %setup -q
 
 %build
+
+%check
+make check
 
 %install
 %make_install PREFIX=%{_prefix}

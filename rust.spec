@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.64.0
-%global bootstrap_channel 1.64.0
-%global bootstrap_date 2022-09-22
+%global bootstrap_version 1.65.0
+%global bootstrap_channel 1.65.0
+%global bootstrap_date 2022-11-03
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -35,7 +35,7 @@
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 # (updated per https://github.com/rust-lang/rust/pull/96907)
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-16
+%global wasi_libc_ref wasi-sdk-17
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -46,7 +46,7 @@
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 12.0+.
 %global min_llvm_version 13.0.0
-%global bundled_llvm_version 15.0.0
+%global bundled_llvm_version 15.0.2
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.5, and not the next minor soname change.
@@ -83,7 +83,7 @@
 %endif
 
 Name:           rust
-Version:        1.65.0
+Version:        1.66.0
 Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
@@ -106,11 +106,14 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
 
-# https://github.com/rust-lang/rust/pull/102076
-Patch3:         0001-rustc_transmute-fix-big-endian-discriminants.patch
-
 # https://github.com/rust-lang/rust/pull/103072
-Patch4:         0001-compiletest-set-the-dylib-path-when-gathering-target.patch
+Patch3:         0001-compiletest-set-the-dylib-path-when-gathering-target.patch
+
+# https://github.com/rust-lang/rust/pull/104001
+Patch4:         0001-Improve-generating-Custom-entry-function.patch
+
+# https://github.com/rust-lang/rust/pull/105468
+Patch5:         0001-Mangle-main-as-__main_void-on-wasm32-wasi.patch
 
 ### RHEL-specific patches below ###
 
@@ -528,7 +531,7 @@ BuildArch:      noarch
 %if 0%{?rhel} && 0%{?rhel} < 8
 Requires:       %{name}-std-static = %{version}-%{release}
 %else
-Supplements:    %{name}-std-static = %{version}-%{release}
+Recommends:     %{name}-std-static = %{version}-%{release}
 %endif
 
 %description src
@@ -541,7 +544,7 @@ Summary:        Compiler analysis data for the Rust standard library
 %if 0%{?rhel} && 0%{?rhel} < 8
 Requires:       %{name}-std-static%{?_isa} = %{version}-%{release}
 %else
-Supplements:    %{name}-std-static%{?_isa} = %{version}-%{release}
+Recommends:     %{name}-std-static%{?_isa} = %{version}-%{release}
 %endif
 
 %description analysis
@@ -588,6 +591,7 @@ test -f '%{local_rust_root}/bin/rustc'
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %if %with disabled_libssh2
 %patch100 -p1
@@ -1052,6 +1056,9 @@ end}
 
 
 %changelog
+* Thu Dec 15 2022 Josh Stone <jistone@redhat.com> - 1.66.0-1
+- Update to 1.66.0.
+
 * Thu Nov 03 2022 Josh Stone <jistone@redhat.com> - 1.65.0-1
 - Update to 1.65.0.
 - rust-analyzer now obsoletes rls.

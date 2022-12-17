@@ -135,7 +135,7 @@ pieces of KDE infrastructure.
 * Thu Mar 31 2022 Justin Zobel <justin@1707.io> - 5.24.4-1
 - Update to 5.24.4
 
-Thu Mar 10 2022 Marc Deop <marcdeop@fedoraproejct.org> - 5.24.3-2
+* Thu Mar 10 2022 Marc Deop <marcdeop@fedoraproejct.org> - 5.24.3-2
 - Rebuild (qt5)
 
 * Tue Mar 08 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.24.3-1

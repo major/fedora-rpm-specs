@@ -1,6 +1,6 @@
 Name:           jakarta-activation1
 Version:        1.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jakarta Activation Specification and Implementation
 License:        BSD
 URL:            https://jakartaee.github.io/jaf-api/
@@ -41,21 +41,29 @@ sed -i 's/${main.basedir}/${basedir}/' pom.xml
 %pom_remove_plugin :osgiversion-maven-plugin
 sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
-%mvn_compat_version : 1
+%mvn_compat_version jakarta*: %{version} 1.2.1
+%mvn_file javax.activation:activation JAVAX-ACTIVATION
 
 %build
 # Javadoc fails:
 # /builddir/build/BUILD/jaf-api-1.2.2/activation/src/main/java/module-info.java:11: error: duplicate module: jakarta.activation
 %mvn_build -j
+%mvn_artifact javax.activation:activation:%{version} activationapi/target/jakarta.activation-api.jar
 
 %install
 %mvn_install
+rm %{buildroot}%{_javadir}/JAVAX-ACTIVATION.jar
+sed -i /JAVAX-ACTIVATION/d .mfiles
+sed -i s/JAVAX-ACTIVATION/jakarta.activation-api-%{version}/ %{buildroot}%{_datadir}/maven-metadata/*
 
 %files -f .mfiles
 %doc README.md
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Dec 08 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.2-3
+- Add non-compat javax.activation:activation alias
+
 * Thu Dec 01 2022 Marian Koncek <mkoncek@redhat.com> - 1.2.2-2
 - Use only the major version in maven compat version
 

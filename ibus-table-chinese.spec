@@ -2,12 +2,12 @@
 %global ibus_tables_dir %{_datadir}/ibus-table/tables
 %global ibus_icons_dir %{_datadir}/ibus-table/icons
 Name:           ibus-table-chinese
-Version:        1.8.11
+Version:        1.8.12
 Release:        1%{?dist}
 Summary:        Chinese input tables for IBus
 Summary(zh_CN): 中文码表输入法
 Summary(zh_TW): 中文碼表輸入法
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/mike-fabian/ibus-table-chinese
 Source0:        https://github.com/mike-fabian/ibus-table-chinese/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -32,7 +32,7 @@ ibus-table-chinese 提供了中文碼表輸入法的基礎架構。
 Summary:       Array input methods
 Summary(zh_CN): 行列输入法
 Summary(zh_TW): 行列輸入法
-License:       Freely redistributable without restriction
+License:        LicenseRef-Fedora-UltraPermissive
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-array30 = %{version}-%{release}
 Obsoletes:      ibus-table-array30 < 1.3
@@ -58,7 +58,7 @@ array30-big: 27489 characters + Unicode ExtB.
 Summary:       Cangjie based input methods
 Summary(zh_TW): 倉頡輸入法
 Summary(zh_CN): 仓颉输入法
-License:       Freely redistributable without restriction
+License:        LicenseRef-Fedora-UltraPermissive AND GPL-2.0-only
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-cangjie = %{version}-%{release}
 Obsoletes:      ibus-table-cangjie < 1.3
@@ -74,7 +74,7 @@ Cangjie3, Canjie5, and Cangjie big tables.
 %package cantonese
 Summary:        Cantonese input methods
 Summary(zh_TW): 粵語輸入法
-License:       GPLv2 and GPLv3+ and Freely redistributable without restriction
+License:        GPL-2.0-only AND GPL-3.0-or-later AND MIT
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-cantonese = %{version}-%{release}
 Obsoletes:      ibus-table-cantonese < 1.3
@@ -93,7 +93,7 @@ and jyutping.
 Summary:        Easy input method
 Summary(zh_CN): 轻松输入法
 Summary(zh_TW): 輕鬆輸入法
-License:        GPLv2
+License:        GPL-2.0-only
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-easy = %{version}-%{release}
 Obsoletes:      ibus-table-easy < 1.3
@@ -111,7 +111,7 @@ Easy phrase-wise input method.
 Summary: Erbi input method
 Summary(zh_CN): 二笔输入法
 Summary(zh_TW): 二筆輸入法
-License:       GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-erbi = %{version}-%{release}
 Obsoletes:      ibus-table-erbi < 1.3
@@ -135,7 +135,7 @@ and  Erbi Qin-Song (erbi-qs)
 Summary:       Quick-to-learn input methods
 Summary(zh_CN): 速成输入法
 Summary(zh_TW): 速成輸入法
-License:       Freely redistributable without restriction
+License:        LicenseRef-Fedora-UltraPermissive
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-quick = %{version}-%{release}
 Obsoletes:      ibus-table-quick < 1.3
@@ -159,7 +159,7 @@ Quick3, Quick5 and Quick-Classic.
 Summary: Smart Cangjie
 Summary(zh_CN): 快速仓颉输入法
 Summary(zh_TW): 快速倉頡輸入法
-License:       GPLv3+
+License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-cangjie = %{version}-%{release}
 Obsoletes:      ibus-table-cangjie < 1.3
@@ -196,7 +196,7 @@ This package includes the Smart Cangjie 6.
 Summary: Stroke 5 input method
 Summary(zh_CN): 笔顺五码输入法
 Summary(zh_TW): 筆順五碼輸入法
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-stroke5 = %{version}-%{release}
 Obsoletes:      ibus-table-stroke5 < 1.3
@@ -215,7 +215,7 @@ Stroke5 input method.
 Summary: Wu pronunciation input method
 Summary(zh_CN): 上海吳语注音输入法
 Summary(zh_TW): 上海吳語注音輸入法
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wu = %{version}-%{release}
 Obsoletes:      ibus-table-wu < 1.3
@@ -237,7 +237,7 @@ URL: http://input.foruto.com/wu/
 Summary: Haifeng Wubi input method
 Summary(zh_CN): 海峰五笔输入法
 Summary(zh_TW): 海峰五筆輸入法
-License:        BSD
+License:        0BSD
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wubi = %{version}-%{release}
 Obsoletes:      ibus-table-wubi < 1.3
@@ -256,7 +256,7 @@ Haifeng Wubi 86.
 Summary: Jidian Wubi 86 input method, JiShuang 6.0
 Summary(zh_CN): 极点五笔86输入法 极爽词库 6.0
 Summary(zh_TW): 極點五筆86輸入法 極爽詞庫 6.0
-License:       Freely redistributable without restriction
+License:        LicenseRef-Fedora-UltraPermissive
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-wubi = %{version}-%{release}
 Obsoletes:      ibus-table-wubi < 1.3
@@ -275,7 +275,7 @@ Wubi 86.
 Summary: YongMa input method
 Summary(zh_CN): 永码输入法
 Summary(zh_TW): 永碼輸入法
-License:        GPLv3
+License:        GPL-3.0-only
 Requires:       %{name} = %{version}-%{release}
 Provides:       ibus-table-yong = %{version}-%{release}
 Obsoletes:      ibus-table-yong < 1.3
@@ -291,7 +291,7 @@ YongMa input method.
 
 %package cantonyale
 Summary:        Cantonese input method based on yale romanization
-License:        GPLv2
+License:        GPL-2.0-only
 Requires:       %{name} = %{version}-%{release}
 
 %description cantonyale
@@ -309,407 +309,8 @@ rm -rf %{buildroot}
 make -C build-noarch install DESTDIR=%{buildroot}
 
 # Register as AppStream components to be visible in the software center
-#
-# NOTE: It would be *awesome* if these files were maintained by the upstream
-# project, translated and installed into the right place during `make install`.
-#
-# See http://www.freedesktop.org/software/appstream/docs/ for more details.
-#
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-array.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.array</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Array input methods</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Array input method is a free, open-minded character-structured
-      input method. Includes: array30 (27489 characters) and 
-      array30-big (27489 characters + Unicode ExtB).
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-cangjie.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.cangjie</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Cangjie input methods</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Cangjie based input methods, includes:
-      Cangjie3, Canjie5, and Cangjie big tables.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-cantonese.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.cantonese</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Cantonese input methods</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Cantonese input methods, includes:
-      Cantonese, Hong-Kong version of Cantonese,
-      and jyutping.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-easy.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.easy</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Easy input method</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Easy phrase-wise input method.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-erbi.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.erbi</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Erbi input method</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Erbi input methods. Includes:
-      Super Erbi (as erbi)
-      and  Erbi Qin-Song (erbi-qs)
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-quick.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.quick</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Quick-to-learn input methods</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Quick-to-learn is based on Cangjie input method,
-      but only need Canjie's first and last word-root
-      to form a character. Includes: Quick3, Quick5 and Quick-Classic.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-scj.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.scj</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Smart Cangjie</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Smart Cangjie is an improved Cangjie base input method
-      which handles Cangjie, Quick, Cantonese, Chinese punctuation,
-      Japanese, 3000 frequent words by Hong Kong government,
-      both Traditional and Simplified Chinese.
-      
-      This package includes the Smart Cangjie 6.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-stroke5.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.stroke5</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Stroke 5</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Stroke 5 is a very simple stroke-based Chinese input method.
-      It was designed specifically for people with limited hand mobility or computer
-      literacy, like the elderly or disabled.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-wu.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.wu</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Wu pronunciation input method</name>
-  <summary>Chinese input method</summary>
-  <description>
-    <p>
-      Wu pronunciation input method.
-      URL: http://input.foruto.com/wu/
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-wubi-haifeng86.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.wubi-haifeng86</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>HaiFeng Wubi 86 input method</name>
-  <summary>Simplified Chinese input method</summary>
-  <description>
-    <p>
-      The HaiFeng Wubi 86 input method is designed for entering Simplified Chinese text.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-wubi-jidian86.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.wubi-jidian86</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>Jidian Wubi 86 input method, JiShuang 6.0</name>
-  <summary>Simplified Chinese input method</summary>
-  <description>
-    <p>
-      The Jidian Wubi 86 input method is designed for entering Simplified Chinese text.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-yong.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.yong</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>YongMa input method</name>
-  <summary>YongMa Chinese input method</summary>
-  <description>
-    <p>
-      YongMa input method.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/ibus-table-chinese-cantonyale.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="inputmethod">
-  <id>org.freedesktop.ibus.engine.table.cantonyale</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <name>cantonyale</name>
-  <summary>Cantonese input method based on yale romanization</summary>
-  <description>
-    <p>
-      The cantonyale input method is designed to enter Chinese text using yale romanization.
-    </p>
-    <p>
-      Input methods are typing systems allowing users to input complex languages.
-      They are necessary because these contain too many characters to simply be laid
-      out on a traditional keyboard.
-    </p>
-  </description>
-  <url type="homepage">https://github.com/mike-fabian/ibus-table</url>
-  <url type="bugtracker">https://github.com/mike-fabian/ibus-table/issues</url>
-  <url type="help">http://mike-fabian.github.io/ibus-table</url>
-  <languages>
-    <lang percentage="100">zh_CN</lang>
-    <lang percentage="100">zh_HK</lang>
-    <lang percentage="100">zh_SG</lang>
-    <lang percentage="100">zh_TW</lang>
-  </languages>
-  <update_contact><!-- upstream-contact_at_email.com --></update_contact>
-</component>
-EOF
+cp metainfo/*.appdata.xml $RPM_BUILD_ROOT%{_datadir}/metainfo
 
 # We install document using doc 
 rm -fr %{buildroot}%{_docdir}/*
@@ -800,6 +401,11 @@ rm -fr %{buildroot}%{_docdir}/*
 %{ibus_tables_dir}/cantonyale.db
 
 %changelog
+* Mon Dec 12 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.12-1
+- Update to 1.8.12
+- appdata.xml files are now included upstream, remove from the .spec file
+- Migrate license tags to SPDX format
+
 * Sun Oct 30 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.11-1
 - Update to 1.8.11
 - Improve punctuation support in jyutping.txt, cantonese.txt, cantonhk.txt, cantonyale.txt

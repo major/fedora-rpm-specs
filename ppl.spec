@@ -1,6 +1,6 @@
 Name:			ppl
 Version:		1.2
-Release:		24%{?dist}
+Release:		25%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
 License:		GPLv3+
 URL:			http://www.bugseng.com/ppl
@@ -92,10 +92,6 @@ of the Parma Polyhedra Library.
 Summary:	The SWI-Prolog interface of the Parma Polyhedra Library
 BuildRequires:	pl >= 5.10.2-3, pl-devel >= 5.10.2-3
 Requires:	%{name}%{?_isa} = %{version}-%{release}, pl%{?_isa} >= 5.10.2-3
-
-# This can be removed when F35 reaches EOL
-Obsoletes:      swiprolog-static < 1.2-13
-Provides:       swiprolog-static = %{version}-%{release}
 
 %description swiprolog
 This package adds SWI-Prolog support to the Parma Polyhedra Library.
@@ -296,6 +292,9 @@ mv \
 %endif
 
 %changelog
+* Fri Dec 16 2022 Jerry James <loganjerry@gmail.com> - 1.2-25
+- Rebuild for pl 9.0.2
+
 * Mon Jul 25 2022 Jerry James <loganjerry@gmail.com> - 1.2-24
 - Do not build the Java interface on i686 (rhbz#2104091)
 - Build the gprolog interface on aarch64

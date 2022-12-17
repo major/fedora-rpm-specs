@@ -1,3 +1,5 @@
+%bcond_without i18n
+
 %define testrelease 0
 %define releasecandidate 0
 %if 0%{testrelease}
@@ -15,12 +17,13 @@
 # tag of selected version
 %global gittag v%{version}%{?extraversion}
 
+
 # Attempt to prepare source-git with downstream repos
 %bcond_with sourcegit
 
 Name:           dnsmasq
 Version:        2.88
-Release:        1%{?extraversion:.%{extraversion}}%{?dist}
+Release:        2%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 License:        GPL-2.0-only or GPL-3.0-only
@@ -60,6 +63,9 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  git-core
 %endif
 BuildRequires: make
+%if %{with i18n}
+BuildRequires: gettext
+%endif
 
 %description
 Dnsmasq is lightweight, easy to configure DNS forwarder and DHCP server.
@@ -78,6 +84,17 @@ Summary:        Utilities for manipulating DHCP server leases
 Utilities that use the standard DHCP protocol to query/remove a DHCP
 server's leases.
 
+%if %{with i18n}
+%package        langpack
+Summary:        Translations for few languages
+Requires:       %{name} = %{version}-%{release}
+# Will not do separate packages for every single language, those translations are small enough
+Supplements:    (%{name} = %{version}-%{release} and (langpacks-de or langpacks-es or langpacks-fi or langpacks-fr or langpacks-id or langpacks-it or langpacks-ka or langpacks-no or langpacks-pl or langpacks-pt_BR or langpacks-ro) )
+
+%description    langpack
+Translations for few languages on dnsmasq.
+
+%endif
 
 %prep
 %if 0%{?fedora}
@@ -116,7 +133,9 @@ sed -i 's|^COPTS[[:space:]]*=|\0 -DHAVE_DBUS -DHAVE_LIBIDN2 -DHAVE_DNSSEC -DHAVE
 %build
 %make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 %make_build -C contrib/lease-tools CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
-
+%if %{with i18n}
+%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" all-i18n
+%endif
 
 %install
 # normally i'd do 'make install'...it's a bit messy, though
@@ -148,6 +167,11 @@ rm -rf %{buildroot}%{_initrddir}
 
 #install systemd sysuser file
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+
+%if %{with i18n}
+%make_install PREFIX=/usr install-i18n
+%find_lang %{name}
+%endif
 
 %pre
 #precreate users so that rpm can install files owned by that user
@@ -181,7 +205,15 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %{_bindir}/dhcp_*
 %{_mandir}/man1/dhcp_*
 
+%if %{with i18n}
+%files langpack -f %{name}.lang
+%{_mandir}/{es,fr}/man8/dnsmasq*
+%endif
+
 %changelog
+* Thu Dec 08 2022 Petr Menšík <pemensik@redhat.com> - 2.88-2
+- Create dnsmasq-langpack subpackage with translations (#2131681)
+
 * Tue Dec 06 2022 Petr Menšík <pemensik@redhat.com> - 2.88-1
 - Update to 2.88 (#2150667)
 

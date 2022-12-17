@@ -28,6 +28,8 @@ as basic shared abstractions.
 %pom_remove_plugin "org.moditect:moditect-maven-plugin"
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
 
+%pom_add_plugin "org.apache.felix:maven-bundle-plugin" . "<extensions>true</extensions>"
+
 cp -p src/main/resources/META-INF/NOTICE .
 sed -i 's/\r//' LICENSE NOTICE
 

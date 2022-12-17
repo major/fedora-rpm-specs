@@ -2,12 +2,15 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       110
+Version:       111
 Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
+Patch1:        https://github.com/WebAssembly/binaryen/pull/5317.patch
+# backported from https://github.com/WebAssembly/binaryen/pull/5349
+Patch2:        5349.patch
 License:       ASL 2.0
 
 # tests fail on big-endian
@@ -53,6 +56,8 @@ effective:
 %prep
 %setup -q -n %{name}-version_%{version}
 %patch0 -p1 -b .gtest
+%patch1 -p1
+%patch2 -p1
 
 %build
 %cmake3 \
@@ -69,6 +74,10 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 
 %if %{with check}
 %check
+# https://github.com/WebAssembly/binaryen/issues/5353
+%ifarch i686
+rm -v test/passes/multi_unit_abbrev_noprint.{bin.txt,passes,wasm}
+%endif
 install -pm755 %{__cmake_builddir}/bin/binaryen-{lit,unittests} %{buildroot}%{_bindir}
 ./check.py \
     --binaryen-bin %{buildroot}%{_bindir} \
@@ -96,6 +105,11 @@ rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Tue Dec 13 2022 Dominik Mierzejewski <dominik@greysector.net> 111-1
+- update to 111 (#2144160)
+- backport upstream fixes for OOB reads in string_view
+- disable multi_unit_abbrev_noprint.wasm test running out of memory on i686
+
 * Wed Sep 21 2022 Dominik Mierzejewski <rpm@greysector.net> 110-1
 - update to 110 (#2081423)
 - fix building with external gtest

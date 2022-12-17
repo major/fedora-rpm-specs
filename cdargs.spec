@@ -12,6 +12,7 @@ Source1:    %{name}-%{version}_emacs-init.el
 Patch0:     %{name}-%{version}_shebangs.patch
 Patch1:     %{name}-%{version}_format_security.patch
 Patch2:     %{name}-%{version}_fix_fsf_address.patch
+Patch3:     %{name}-%{version}_configure_c99.patch
 
 BuildRequires:    gcc-c++
 BuildRequires:    ncurses-devel

@@ -4,7 +4,7 @@
 %global libadwaita_version  1.2
 
 Name:           komikku
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        A manga reader for GNOME
 BuildArch:      noarch
@@ -30,7 +30,7 @@ Requires:       libnotify
 Requires:       python3-beautifulsoup4
 Requires:       python3-brotli
 Requires:       python3-cloudscraper
-Requires:       python3-dateparser >= 1.1.4
+Requires:       python3-dateparser  %dnl >= 1.1.4 | https://bugzilla.redhat.com/show_bug.cgi?id=2115204
 Requires:       python3-emoji
 Requires:       python3-gobject
 Requires:       python3-keyring >= 21.6.0

@@ -16,64 +16,137 @@
 %endif
 
 Name:       pl
-Version:    8.4.3
-Release:    4%{?dist}
+Version:    9.0.2
+Release:    1%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
-#LICENSE:                               BSD
-#library/qsave.pl                       BSD
-#library/dialect/iso/iso_predicates.pl  BSD and (GPLv2+ with SWI-Prolog extra
-#                                       clause or Artistic 2.0)
-#library/ugraphs.pl                     BSD and (GPLv2+ with SWI-Prolog extra
-#                                       clause or Artistic 2.0)
-#packages/clib/uri.c                    BSD
-#packages/clib/sha1/hmac.c              BSD or GPL
-#packages/nlp/snowball.c                BSD
-#packages/nlp/double_metaphone.c        GPL+ or Artistic (as Perl)
-#packages/protobufs/protobufs.c         BSD
-#packages/xpce/src/ari/expression.c     BSD
-#packages/RDF/online.pl                 BSD
-#library/unicode/blocks.pl              BSD and UCD
-#packages/utf8proc/utf8proc_data.c      UCD
-#packages/utf8proc/LICENSE              MIT and UCD
-#packages/http/examples/calc.pl         Public Domain
-#packages/xpce/src/gnu/getdate.c        Public Domain
-#packages/jpl/src/java/org/jpl7/fli/ObjectHolder.java   BSD
-#packages/xpce/prolog/contrib/rubik     BSD
-#packages/xpce/src/img/gifwrite.c       Part is free for any purpose
-#packages/xpce/src/rgx/COPYRIGHT        BSD and TCL
-#packages/clib/bsd-crypt.c              BSD
-#packages/clib/clib.doc                 BSD
-#packages/clib/md5.c                    BSD
-#packages/clib/sha1/sha1.c              BSD
-#packages/pengines/web/js/pengines.js   BSD
-#packages/tipc/tipcutils/tipc-config.c  BSD
-#library/prolog_metainference.pl        BSD
+#LICENSE:                               BSD-2-Clause
+#library/dialect/iso/iso_predicates.pl  BSD-2-Clause AND (GPL-2.0-or-later WITH
+#                                       SWI-Prolog extra clause or Artistic-2.0)
+#library/ugraphs.pl                     BSD-2-Clause AND (GPL-2.0-or-later WITH
+#                                       SWI-Prolog extra clause or Artistic-2.0)
+#library/unicode/blocks.pl              BSD-2-Clause AND Unicode-DFS-2016
+#man/main.doc                           CC-BY-SA-3.0
+#man/swipl.cls                          LPPL-1.2
+#packages/bdb/bdb4pl.doc                Sleepycat (due to linking with libdb)
+#packages/clib/bsd-crypt.c              BSD-3-Clause
+#packages/clib/clib.doc                 (BSD-3-Clause OR GPL-1.0-or-later) AND
+#                                       BSD-3-Clause
+#packages/clib/md5.c                    Zlib
+#packages/clib/md5.h                    Zlib
+#packages/clib/md5passwd.c              Beerware
+#packages/clib/sha1/brg_endian.h        BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/brg_types.h         BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/hmac.c              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/hmac.h              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/pwd2key.c           BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/pwd2key.h           BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha1.c              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha1.h              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha1b.c             BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha2.c              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha2.h              BSD-like (?) OR GPL-1.0-or-later
+#packages/clib/sha1/sha2b.c             BSD-like (?) OR GPL-1.0-or-later
+#packages/clpqr/clpq.pl                 GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/bb_q.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/bv_q.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/fourmotz_q.pl      GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/ineq_q.pl          GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/itf_q.pl           GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/nf_q.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpq/store_q.pl         GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/class.pl          GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/clpq.pl           GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/dump.pl           GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/geler.pl          GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/itf.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/ordering.pl       GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/project.pl        GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpqr/redund.pl         GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr.pl                 GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/bb_r.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/bv_r.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/fourmotz_r.pl      GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/ineq_r.pl          GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/itf_r.pl           GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/nf_r.pl            GPL-2.0-or-later with SWI exception
+#packages/clpqr/clpr/store_r.pl         GPL-2.0-or-later with SWI exception
+#packages/mqi/python/                   MIT
+#packages/nlp/double_metaphone.c        GPL-1.0-or-later OR Artistic-1.0-Perl
+#packages/nlp/isub.c                    LGPL-2.0-or-later
+#packages/plunit/swi.pl                 BSD-2-Clause and (GPL-2.0-or-later WITH
+#                                       SWI-Prolog extra clause OR Artistic-2.0)
+#packages/protobufs/interop/google/     BSD-3-Clause
+#packages/semweb/md5.c                  Zlib
+#packages/semweb/md5.h                  Zlib
+#packages/semweb/murmur.c               LicenseRef-Fedora-Public-Domain
+#packages/semweb/murmur.h               LicenseRef-Fedora-Public-Domain
+#packages/tipc/tipcutils/tipc-config.c  BSD-3-Clause
+#packages/utf8proc/pgsql/utf8proc_pgsql.c MIT
+#packages/utf8proc/ruby/utf8proc_native.c MIT
+#packages/utf8proc/ruby/utf8proc_rb.c   MIT
+#packages/utf8proc/utf8proc.c           MIT
+#packages/utf8proc/utf8proc.doc         MIT AND Unicode-DFS-2015
+#packages/utf8proc/utf8proc.h           MIT
+#packages/utf8proc/utf8proc_data.c      Unicode-DFS-2015
+#packages/xpce/src/gnu/getdate-source.y LicenseRef-Fedora-Public-Domain
+#packages/xpce/src/gnu/getdate.c        LicenseRef-Fedora-Public-Domain AND
+#                                      GPL-2.0-or-later WITH Bison-exception-2.2
+#packages/xpce/src/gnu/y.tab            LicenseRef-Fedora-Public-Domain
+#packages/xpce/src/img/gifwrite.c       Part is free for any purpose (?)
+#packages/xpce/src/rgx/                 Spencer-99 AND TCL
+#packages/xpce/src/x11/xdnd.h           GPL-2.0-or-later
+#scripts/swipl-bt                       LicenseRef-Fedora-Public-Domain
+#src/minizip/                           Zlib
+#src/os/dtoa.c                          MIT-like (?)
+#src/pl-hash.c                          LicenseRef-Fedora-Public-Domain
+#src/pl-hash.h                          LicenseRef-Fedora-Public-Domain
+#src/swipl-ld.1                         LGPL-2.0-or-later
+#src/tools/functions.pm                 LicenseRef-Fedora-Public-Domain
+
 # Not compiled into a binary package:
-#External: JavaConfig.java              GPLv3+
-#External: repackage.sh                 GPLv2+
-#packages/http/web/js/jquery-1.11.3.min.js  MIT
-#packages/utf8proc/data_generator.rb    MIT and UCD
-#packages/xpce/man/info/texinfo.tex     GPLv2+
-#packages/xpce/src/msw/simx.h           MIT
-#packages/xpce/src/msw/xpm.h            MIT
-#packages/xpce/TeX/name.bst             Bibtex
+#External: JavaConfig.java              GPL-3.0-or-later
+#External: repackage.sh                 GPL-2.0-or-later
+#bench/chat_parser.pl                   MIT
+#packages/RDF/configure                 FSFUL
 #packages/clib/configure                FSFUL
+#packages/clpqr/.fileheader             GPL-2.0-or-later with SWI exception
 #packages/clpqr/configure               FSFUL
 #packages/cpp/configure                 FSFUL
+#packages/http/examples/calc.pl         LicenseRef-Fedora-Public-Domain
+#packages/http/web/js/jquery*           MIT
 #packages/nlp/configure                 FSFUL
+#packages/pcre/cmake/FindPCRE.cmake     MIT
 #packages/protobufs/configure           FSFUL
-#packages/RDF/configure                 FSFUL
 #packages/sgml/configure                FSFUL
 #packages/ssl/configure                 FSFUL
-#packages/xpce/src/aclocal.m4           LGPLv3+
+#packages/stomp/examples/ping.pl        LicenseRef-Fedora-Public-Domain
+#packages/stomp/examples/pong.pl        LicenseRef-Fedora-Public-Domain
+#packages/stomp/examples/simple.pl      LicenseRef-Fedora-Public-Domain
+#packages/swipl-win/README.md           LGPL-2.1-only
+#packages/utf8proc/LICENSE              MIT AND Unicode-DFS-2015
+#packages/utf8proc/data_generator.rb    MIT AND Unicode-DFS-2015
+#packages/utf8proc/ruby/gem/LICENSE     MIT AND Unicode-DFS-2015
+#packages/xpce/TeX/name.bst             LicenseRef-Bibtex
+#packages/xpce/man/info/texinfo.tex     GPL-2.0-or-later
 #packages/xpce/src/configure            FSFUL
+#packages/xpce/src/msw/simx.h           SGI-B-2.0
+#packages/xpce/src/msw/xpm.h            SGI-B-2.0
 #packages/zlib/configure                FSFUL
+#src/libbf/cutils.c                     MIT
+#src/libbf/cutils.h                     MIT
+#src/libbf/libbf.c                      MIT
+#src/libbf/libbf.h                      MIT
+#src/libbf/mersenne-twister.c           BSD-3-Clause
+#src/libbf/mersenne-twister.h           BSD-3-Clause
+#src/Tests/                             BSD-2-Clause AND GPL-2.0-or-later WITH
+#                                       SWI-Prolog extra clause
+#src/tools/update-deps                  LicenseRef-Fedora-Public-Domain
 # Removed from repackaged tar ball, see
 # <https://github.com/SWI-Prolog/issues/issues/16>:
 #bench/unify.pl                         Free for non-commercial
 #bench/simple_analyzer.pl               Free for non-commercial
 #man/txt/dvi2tty/dvi2tty.c              Free for non-commercial
-License:    (GPLv2+ with exceptions or Artistic 2.0) and (GPL+ or Artistic) and (BSD or GPL+) and TCL and UCD and MIT and BSD and Public Domain
+License:    BSD-2-Clause AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.2 AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib
 URL:        https://www.swi-prolog.org/
 # Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
 # To create the repackaged archive, use ./repackage.sh %%{version}
@@ -81,10 +154,10 @@ Source0:    swipl-%{version}_repackaged.tar.gz
 Source1:    %{url}download/xpce/doc/userguide/userguide.html.tgz
 Source2:    JavaConfig.java
 Source3:    repackage.sh
-# Upstream installation paths differ from distribution ones
-Patch0:     swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 # Use JNI for Java binding
-Patch1:     swipl-8.2.1-Fix-JNI.patch
+Patch0:     swipl-8.2.1-Fix-JNI.patch
+# Upstream installation paths differ from distribution ones
+Patch1:     swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 # Unbundle libstemmer
 Patch2:     swipl-8.2.0-unbundle-libstemmer.patch
 
@@ -96,7 +169,7 @@ BuildRequires:  ninja-build
 BuildRequires:  gmp-devel
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(libedit)
-BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libpcre2-posix)
 BuildRequires:  pkgconfig(libtcmalloc)
 BuildRequires:  pkgconfig(ncurses)
 %if 0%{?el8}
@@ -127,6 +200,11 @@ BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(xrender)
 # bdb
 BuildRequires:  libdb-devel
+# mqi / swiplserver
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist wheel}
 # ODBC
 BuildRequires:  pkgconfig(odbc)
 # SSL
@@ -160,6 +238,9 @@ Requires:       js-jquery
 # Old version of minizip is bundled
 Provides:       bundled(minizip) = 1.2.11
 
+# See https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
+Provides:       bundled(md5-deutsch)
+
 # This can be removed when F40 reaches EOL
 %ifnarch %{java_arches}
 Obsoletes: pl-java < 8.4.3-2
@@ -181,7 +262,7 @@ source-level debugger) is included.
 
 
 %package devel
-Summary: Development files for SWI Prolog
+Summary:  Development files for SWI Prolog
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: gcc
 Requires: pkgconfig%{?_isa}
@@ -192,8 +273,8 @@ Development files for SWI Prolog.
 
 
 %package compat-yap-devel
-Summary: Development files building YAP application against SWI Prolog
-License: GPLv2+ with exceptions
+Summary:  Development files building YAP application against SWI Prolog
+License:  BSD-2-Clause
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 
 %description compat-yap-devel
@@ -202,11 +283,8 @@ Prolog implementation.
 
 
 %package doc
-Summary: Documentation for SWI Prolog
-#SWI-Prolog-*.pdf                       CC-BY-SA
-#man/Manual/index.html                  CC-BY-SA
-#userguide.html.tgz is from xpce        LGPLv2+
-License: CC-BY-SA and LGPLv2+
+Summary:  Documentation for SWI Prolog
+License:  BSD-2-Clause
 # This must be architecture dependent because some files live in %%{_libdir}
 # because they are used by built-in documentation system.
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -216,7 +294,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %package odbc
-Summary: SWI-Prolog ODBC interface
+Summary:  SWI-Prolog ODBC interface
+License:  BSD-2-Clause
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description odbc
@@ -237,7 +316,8 @@ given the RDMS independency constraint.
 
 %if %{separate_xpce}
 %package xpce
-Summary: A toolkit for developing graphical applications in Prolog
+License:  BSD-2-Clause AND AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND Spencer-99 AND TCL
+Summary:  A toolkit for developing graphical applications in Prolog
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description xpce
@@ -254,7 +334,8 @@ approach of for developing GUI applications, as follows:
 
 %ifarch %{java_arches}
 %package jpl
-Summary: A bidirectional Prolog/Java interface for SWI Prolog
+License:  BSD-2-Clause
+Summary:  A bidirectional Prolog/Java interface for SWI Prolog
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: java-headless
 Requires: javapackages-tools
@@ -270,9 +351,8 @@ in Prolog. In both setups it provides a re-entrant bidirectional interface.
 %prep
 %global docdir doc-install
 %autosetup -N -n swipl-%{version}
-%patch0 -p1
-%patch1 -p1 -b .jni
-%patch2 -p1
+%patch0 -p1 -b .jni
+%autopatch -p1 -m1
 
 # Fix the installation path on 64-bit systems
 if [ "%{_lib}" = "lib64" ]; then
@@ -302,11 +382,8 @@ sed --in-place 's,\(%{_datadir}/java/junit\)4\.jar,\1.jar,' \
 
 # Build documentation with the original jpl.pl, since the new version refers
 # to install paths that don't exist yet; then switch before installing.
-mv packages/jpl/jpl.pl packages/jpl/jpl.pl.install
-mv packages/jpl/jpl.pl.jni packages/jpl/jpl.pl
-
-# Remove CVS files
-find . -name ".cvsignore" -delete
+cp -p packages/jpl/jpl.pl packages/jpl/jpl.pl.install
+cp -p packages/jpl/jpl.pl.jni packages/jpl/jpl.pl
 
 # Do not use the bundled libstemmer
 rm -fr packages/nlp/libstemmer_c
@@ -350,8 +427,7 @@ done
 %cmake_build
 
 # Switch back before installing; see above
-mv packages/jpl/jpl.pl.install packages/jpl/jpl.pl
-
+cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 %install
 # See <http://www.swi-prolog.org/build/guidelines.html> for file layout
@@ -369,14 +445,19 @@ cp -p packages/xpce/man/*.1 %{buildroot}%{_mandir}/man1
 # say it should be
 jpl_ver=$(sed -n 's/.*JPL_VERSION \([.[:digit:]]*\).*/\1/p' packages/jpl/CMakeLists.txt)
 
-pushd %{buildroot}%{_libdir}
-mkdir -p swipl-jpl
-mv swipl-%{version}/lib/%{swipl_arch}/libjpl.so swipl-jpl/
-mv swipl-%{version}/lib/jpl.jar swipl-jpl/
+mkdir -p %{buildroot}%{_libdir}/swipl-jpl
+mv %{buildroot}%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libjpl.so \
+   %{buildroot}%{_libdir}/swipl-jpl
+
+mkdir -p %{buildroot}%{_jnidir}
+mv %{buildroot}%{_libdir}/swipl-%{version}/lib/jpl.jar %{buildroot}%{_jnidir}
+ln -s ../lib/jpl.jar %{buildroot}%{_libdir}/swipl-jpl
+
 # Original locations are referenced by internal libraries and examples
+cd %{buildroot}%{_libdir}
 ln -s ../../../swipl-jpl/libjpl.so swipl-%{version}/lib/%{swipl_arch}/libjpl.so
 ln -s ../../swipl-jpl/jpl.jar swipl-%{version}/lib/jpl.jar
-popd
+cd -
 %endif
 
 # Remove stuff we do not want to package
@@ -384,6 +465,15 @@ rm %{buildroot}%{_libdir}/swipl-%{version}/{LICENSE,README.md}
 rm %{buildroot}%{_libdir}/swipl-%{version}/customize/README.md
 rm %{buildroot}%{_libdir}/swipl-%{version}/lib/swiplserver/LICENSE
 
+# FIXME: src/Tests/transaction/test_transaction_constraints.pl fails on 32-bit
+%if 0%{?__isa_bits} == 64
+%check
+# Test with the original jpl.pl, since the new version refers to paths that
+# don't exist; then switch back.
+cp -p packages/jpl/jpl.pl.jni packages/jpl/jpl.pl
+%ctest
+cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
+%endif
 
 %files
 %license LICENSE
@@ -432,6 +522,7 @@ rm %{buildroot}%{_libdir}/swipl-%{version}/lib/swiplserver/LICENSE
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/readutil.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/redis4pl.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/rlimit.so
+%{_libdir}/swipl-%{version}/lib/%{swipl_arch}/sched.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/sgml2pl.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/sha4pl.so
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/snowball.so
@@ -477,7 +568,8 @@ rm %{buildroot}%{_libdir}/swipl-%{version}/lib/swiplserver/LICENSE
 %endif
 
 %files devel
-%dir %{_libdir}/swipl-%{version}/include
+%{_libdir}/swipl-%{version}/cmake/
+%dir %{_libdir}/swipl-%{version}/include/
 %{_libdir}/swipl-%{version}/include/sicstus/
 %{_libdir}/swipl-%{version}/include/SWI*
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libswipl.so
@@ -501,7 +593,8 @@ rm %{buildroot}%{_libdir}/swipl-%{version}/lib/swiplserver/LICENSE
 
 %ifarch %{java_arches}
 %files jpl
-%doc packages/jpl/docs/*
+%doc packages/jpl/docs/* packages/jpl/src/examples
+%{_jnidir}/jpl.jar
 %{_libdir}/swipl-%{version}/lib/jpl*jar
 %{_libdir}/swipl-%{version}/lib/%{swipl_arch}/libjpl.so
 %{_libdir}/swipl-%{version}/library/jpl.pl
@@ -510,6 +603,11 @@ rm %{buildroot}%{_libdir}/swipl-%{version}/lib/swiplserver/LICENSE
 
 
 %changelog
+* Thu Dec 15 2022 Jerry James <loganjerry@gmail.com> - 9.0.2-1
+- Version 9.0.2
+- Convert License tag to SPDX (with some licenses pending review)
+- Add %%check script for 64-bit architectures
+
 * Wed Aug 24 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 8.4.3-4
 - Make it buildable for EPEL
 

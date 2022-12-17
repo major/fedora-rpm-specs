@@ -1,32 +1,26 @@
 %global srcname ansible-compat
 %global pkgname python-ansible-compat
-%global forgeurl https://github.com/ansible/ansible-compat
 
 %bcond_without tests
 
 Name:    %{pkgname}
-Version: 2.2.6
-%forgemeta
+Version: 2.2.7
 Release: %autorelease
 Summary: Ansible python helper functions
 
-URL:       %{forgeurl}
-Source0:   %{pypi_source}
+URL:       https://github.com/ansible/ansible-compat
+Source0:   %{pypi_source ansible-compat}
 License:   MIT
 BuildArch: noarch
 
 BuildRequires: pyproject-rpm-macros
 BuildRequires: ansible-core
+
+%if %{with tests}
 BuildRequires: python3dist(flaky)
 BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(pytest-mock)
-
-# This patch skips the tests requiring a connection to
-# ansible galaxy
-Patch0: 0001_skip_tests_requiring_network_connectivity.patch
-
-Requires: python3dist(pyyaml)
-Requires: python3dist(subprocess-tee)
+%endif
 
 %global common_description %{expand:
 A python package containing functions that help interacting with
@@ -43,7 +37,6 @@ Documentation for python-ansible-compat
 %package -n python3-%{srcname}
 Summary: %summary
 
-%py_provides python3-%{srcname}
 
 %description -n python3-%{srcname} %{common_description}
 
@@ -51,7 +44,7 @@ Summary: %summary
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_tests:-x testing}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -63,15 +56,28 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
+%pyproject_save_files ansible_compat
 
 %if %{with tests}
 %check
-PYTHONPATH=src %{python3} -m pytest -vv test
+%pytest -vv test -k \
+    %{shrink:
+        '
+        not test_prepare_environment_with_collections
+        and not test_prerun_reqs_v1
+        and not test_prerun_reqs_v2
+        and not test_require_collection_wrong_version
+        and not test_require_collection
+        and not test_install_collection
+        and not test_install_collection_dest
+        and not test_upgrade_collection
+        and not test_require_collection_no_cache_dir
+        and not test_runtime_run
+        '
+    }
 %endif
 
-%files -n python3-%{srcname}
-%{python3_sitelib}/ansible_compat/
-%{python3_sitelib}/ansible_compat-*.dist-info/
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 
 %if %{with doc}

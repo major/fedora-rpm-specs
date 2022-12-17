@@ -1,3 +1,6 @@
+# https://bugs.webkit.org/show_bug.cgi?id=249368
+%global _lto_cflags %{nil}
+
 ## NOTE: Lots of files in various subdirectories have the same name (such as
 ## "LICENSE") so this short macro allows us to distinguish them by using their
 ## directory names (from the source tree) as prefixes for the files.

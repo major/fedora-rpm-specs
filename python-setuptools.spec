@@ -197,7 +197,7 @@ rm pyproject.toml
 # --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py
 # -k "not test_pip_upgrade_from_source"
 #   the tests require internet connection
-# --ignore=setuptools/tests/test_develop.py
+# --ignore=setuptools/tests/test_editable_install.py
 #   the tests require pip-run which we don't have in Fedora
 PRE_BUILT_SETUPTOOLS_WHEEL=%{_pyproject_wheeldir}/%{python_wheel_name} \
 PYTHONPATH=$(pwd) %pytest \

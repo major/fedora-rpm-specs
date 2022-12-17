@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    df8c7f9e11d854269f4aa7c06ffa38caa42e4405
+%global gh_commit    a738cecb420e3bcff34c33177f1ce9f68902695c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -20,8 +20,8 @@
 # https://github.com/php-http/psr7-integration-tests/tags
 %global gh_psr7_owner     php-http
 %global gh_psr7_name      psr7-integration-tests
-%global gh_psr7_version   1.1.1
-%global gh_psr7_commit    dbc81e59655c3d927ba62b2cd38be9af334590fc
+%global gh_psr7_version   1.2.0
+%global gh_psr7_commit    d11c83205562b7a4701873e496ec8d0b71946e36
 %global gh_psr7_short     %(c=%{gh_psr7_commit}; echo ${c:0:7})
 
 # https://github.com/http-interop/http-factory-tests/tags
@@ -37,11 +37,11 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.22.0
+Version:       2.23.0
 Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
 # GitHub export does not include tests.
@@ -204,6 +204,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Dec 15 2022 Remi Collet <remi@remirepo.net> - 2.23.0-1
+- update to 2.23.0
+
 * Tue Nov 22 2022 Remi Collet <remi@remirepo.net> - 2.22.0-1
 - update to 2.22.0
 

@@ -3,7 +3,7 @@
 
 Name:		tlf
 Version:	1.4.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Ham radio contest logger
 # GPLv3+ are some m4 macros
 License:	GPLv2+ and GPLv3+
@@ -33,6 +33,7 @@ Patch1:		tlf-1.4.1-fsf-address-fix.patch
 # Already fixed upstream, but different way which is not easily backportable,
 # no upstream release yet
 Patch2:		tlf-1.4.1-format-security-fix.patch
+Patch3:		tlf-c99.patch
 
 %description
 Tlf is a console (ncurses) mode general purpose CW/VOICE keyer,
@@ -69,6 +70,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Dec 15 2022 Florian Weimer <fweimer@redhat.com> - 1.4.1-11
+- Apply upstream patch to improve C99 compatibility
+
 * Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 1.4.1-10
 - Rebuild for updated hamlib 4.5.
 

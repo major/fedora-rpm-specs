@@ -1,6 +1,6 @@
 Name:           cdbs
-Version:        0.4.163
-Release:        5%{?dist}
+Version:        0.4.164
+Release:        1%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
 
@@ -8,8 +8,7 @@ License:        GPL-2.0-or-later
 URL:            https://salsa.debian.org/build-common-team/cdbs
 Source0:        http://ftp.de.debian.org/debian/pool/main/c/%{name}/%{name}_%{version}.tar.xz
 
-# waf-unpack python3 fixes
-Patch0:         cdbs_py3.patch
+BuildRequires:  automake autoconf libtool autoconf-archive
 BuildRequires:  make
 BuildRequires:  perl-generators
 
@@ -20,13 +19,11 @@ In other words, CDBS provides a sane set of default rules upon which packages
 can build; any or all rules may be overridden as needed.
 
 %prep
-%setup -q -n %{name}-%{version}
-%if 0%{?fedora} >= 25 || 0%{?rhel} >= 8
-%patch0 -p1
-%endif
+%autosetup -p1 -n %{name}
 
 
 %build
+./autogen.sh
 %configure
 %make_build
 
@@ -49,6 +46,9 @@ can build; any or all rules may be overridden as needed.
 %{_mandir}/man1/cdbs-edit-patch.1*
 
 %changelog
+* Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 0.4.164-1
+- Update to 0.4.164
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.163-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

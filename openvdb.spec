@@ -145,11 +145,9 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
     -DUSE_EXR=ON \
 %endif
     -DUSE_NANOVDB=ON
-%ifarch ppc64le && %if 0%{?fedora} >= 38
-%cmake_build -j1
-%else
-%cmake_build
-%endif
+# Increase memory usage to 8GB for a successful
+# build on ppc64le architecture
+%cmake_build %limit_build -m 8192
 
 %if 0%{?with_tests}
 %check

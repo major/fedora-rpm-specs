@@ -1,10 +1,10 @@
-%global pipewire_version 0.2.90
 %global geoclue_version 2.5.2
 %global glib_version 2.69.1
 %global low_memory_monitor_version 2.0
+%global pipewire_version 0.2.90
 
 Name:    xdg-desktop-portal
-Version: 1.15.0
+Version: 1.16.0
 Release: %autorelease
 Summary: Portal frontend service to flatpak
 
@@ -13,7 +13,8 @@ URL:     https://github.com/flatpak/xdg-desktop-portal/
 Source0: https://github.com/flatpak/xdg-desktop-portal/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: gcc
-BuildRequires: make
+BuildRequires: gettext
+BuildRequires: meson
 BuildRequires: systemd-rpm-macros
 BuildRequires: pkgconfig(flatpak)
 BuildRequires: pkgconfig(fuse3)
@@ -22,6 +23,7 @@ BuildRequires: pkgconfig(gio-unix-2.0) >= %{glib_version}
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libgeoclue-2.0) >= %{geoclue_version}
 BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
+BuildRequires: pkgconfig(libportal)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: /usr/bin/xmlto
 
@@ -54,12 +56,12 @@ The pkg-config file for %{name}.
 
 
 %build
-%configure --enable-docbook-docs --disable-libportal
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 install -dm 755 %{buildroot}/%{_pkgdocdir}
 install -pm 644 README.md %{buildroot}/%{_pkgdocdir}
 # This directory is used by implementations such as xdg-desktop-portal-gtk.

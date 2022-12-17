@@ -2,25 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate deser-hjson
+%global crate cargo_metadata
 
-Name:           rust-deser-hjson
-Version:        1.0.2
+Name:           rust-cargo_metadata0.12
+Version:        0.12.3
 Release:        %autorelease
-Summary:        Hjson deserializer for Serde
+Summary:        Structured access to the output of `cargo metadata`
 
 License:        MIT
-URL:            https://crates.io/crates/deser-hjson
+URL:            https://crates.io/crates/cargo_metadata
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only glassbench dev-dependency
-# * disable LTO to work around LLVM crashes on ppc64le
-Patch:          deser-hjson-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Hjson deserializer for Serde.}
+Structured access to the output of `cargo metadata`.}
 
 %description %{_description}
 
@@ -34,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -66,7 +61,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip tests that depend on fixtures which are not included in published crates
+%cargo_test -a -- -- --skip advanced_feature_configuration --skip all_the_fields --skip current_dir
 %endif
 
 %changelog

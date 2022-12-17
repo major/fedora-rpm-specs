@@ -9,7 +9,7 @@ locate user by using global Wi-Fi database (no GPS required).
 It supports different geolocation backends.}
 
 Name: python-%{pypi_name}
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 
 # Main code - GPL-3.0-or-later.
@@ -57,7 +57,7 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%license COPYING licenses/*
+%license LICENSE licenses/*
 %{_bindir}/%{pypi_name}
 %{_mandir}/man1/%{pypi_name}.1*
 
@@ -65,6 +65,9 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Thu Dec 15 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.1-1
+- Updated to version 1.0.1.
+
 * Mon Dec 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.0-1
 - Updated to version 1.0.0.
 - Converted license tag to SPDX.

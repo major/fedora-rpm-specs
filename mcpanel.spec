@@ -6,6 +6,7 @@ Summary:        Library that provides a scope interface for displaying multichan
 License:        GPLv3+
 URL:            https://opensource.mindmaze.com/
 Source0:        https://github.com/nbourdau/mcpanel/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         mcpanel-c99.patch
 #Patch0:         mcpanel-automake.patch
 
 BuildRequires:  make
@@ -29,7 +30,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 autoreconf -vfi

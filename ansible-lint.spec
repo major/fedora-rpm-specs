@@ -3,14 +3,14 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        6.9.1
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
 License:        GPL-3.0-only
 URL:            https://github.com/ansible/ansible-lint
-Source0:        https://github.com/ansible/%{archive_name}/archive/v%{version}.tar.gz
+Source0:        %{pypi_source ansible-lint}
 
 BuildArch:      noarch
 BuildRequires:	pyproject-rpm-macros
@@ -22,7 +22,6 @@ Checks playbooks for practices and behavior that could potentially be improved.
 
 %package -n python3-%{archive_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{archive_name}}
 Obsoletes:      python2-%{archive_name} < 3.4.23-6
 Provides:       %{archive_name} = %{version}-%{release}
 
@@ -34,6 +33,14 @@ Python3 module for ansible-lint.
 
 %prep
 %autosetup -n %{archive_name}-%{version}
+
+# There's nothing special in setuptools 63.0 that's needed here.
+# Fedora 36's setuptools version is actually too old;
+# it does not support PEP 621.
+%if %{defined fc37}
+sed 's|setuptools >= 63.0.0|setuptools >= 62.0.0|' -i pyproject.toml
+grep -F 'setuptools >= 62.0.0' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -59,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Wed Dec 14 2022 Maxwell G <gotmax@e.email> - 1:6.10.0-1
+- Update to 6.10.0.
+
 * Sun Dec 04 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:6.9.1-1
 - Update to 6.9.1 version (#2147469)
 

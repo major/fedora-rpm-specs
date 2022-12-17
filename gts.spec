@@ -2,9 +2,9 @@
 
 Name:           gts
 Version:        0.7.6
-Release:        42.20%{snapshot}%{?dist}
+Release:        43.20%{snapshot}%{?dist}
 Summary:        GNU Triangulated Surface Library
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://gts.sourceforge.net/index.html
 Source0:        http://gts.sourceforge.net/tarballs/gts-snapshot-%{snapshot}.tar.gz
 # Misc accumulated patches
@@ -15,7 +15,7 @@ Patch1:         0002-Add-gts2xyz-manpage.patch
 BuildRequires:  gcc
 BuildRequires:  glib2-devel
 BuildRequires:  netpbm-devel
-BuildRequires: make
+BuildRequires:  make
 
 %package devel
 Summary:        Development files for gts
@@ -42,10 +42,10 @@ chmod +x test/*/*.sh
 
 %build
 %configure --disable-static --disable-dependency-tracking
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # File names are too general, rename ...
@@ -97,6 +97,11 @@ make check ||:
 %{_mandir}/man1/gts-config.1*
 
 %changelog
+* Thu Dec 15 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.7.6-43.20121130
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-42.20121130
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

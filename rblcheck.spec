@@ -4,7 +4,7 @@ Name:		rblcheck
 Summary:	Command-line interface to RBL-style listings
 
 Version:	1.5
-Release:	41%{?dist}
+Release:	42%{?dist}
 
 Source0:	https://github.com/logic/rblcheck/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:	rblcheckrc
@@ -30,6 +30,8 @@ Patch2:		rblcheck-names.patch
 # Compile fix for x86_64 systems
 Patch3:		rblcheck-1.5-res_query.patch
 
+Patch4:		rblcheck-configure-c99.patch
+
 BuildRequires: make
 BuildRequires:	docbook-utils, gcc
 
@@ -45,6 +47,7 @@ operated by the MAPS (http://www.mail-abuse.org/) and ORBL
 %patch1 -p0 -b .txt
 %patch2 -p0 -b .names
 %patch3 -p1 -b .res_query
+%patch4 -p1 -b .c99
 
 %build
 %configure
@@ -64,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rblcheckrc
 
 %changelog
+* Thu Dec 15 2022 Florian Weimer <fweimer@redhat.com> - 1.5-42
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -44,8 +44,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 16
-%global nodejs_minor 18
-%global nodejs_patch 1
+%global nodejs_minor 19
+%global nodejs_patch 0
 %global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 93
@@ -111,7 +111,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 8.19.2
+%global npm_version 8.19.3
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -153,9 +153,7 @@ Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_majo
 Source100: nodejs-sources.sh
 
 # Disable running gyp on bundled deps we don't use
-Patch1: 0001-Disable-running-gyp-on-shared-deps.patch
-
-Patch2: 0002-build-fix-bad-upstream-merge.patch
+Patch: 0001-Disable-running-gyp-on-shared-deps.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs

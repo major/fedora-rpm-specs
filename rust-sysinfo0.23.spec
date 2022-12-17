@@ -4,8 +4,8 @@
 
 %global crate sysinfo
 
-Name:           rust-sysinfo
-Version:        0.24.7
+Name:           rust-sysinfo0.23
+Version:        0.23.13
 Release:        %autorelease
 Summary:        Library to get system information
 
@@ -21,8 +21,8 @@ Patch:          sysinfo-fix-metadata.diff
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Library to get system information such as processes, CPUs, disks, components
-and networks.}
+Library to get system information such as processes, processors, disks,
+components and networks.}
 
 %description %{_description}
 
@@ -118,7 +118,7 @@ use the "rayon" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests that fail when run on VMs, on tmpfs, or in systemd-nspawn
-%cargo_test -- -- --skip test::check_processes_cpu_usage --skip test::check_cpus_number --skip test_disks
+%cargo_test -- -- --skip test::check_processes_cpu_usage --skip test::check_processors_number --skip test_disks
 %endif
 
 %changelog

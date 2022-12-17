@@ -4,7 +4,7 @@
 %global crate pulldown-cmark
 
 Name:           rust-pulldown-cmark
-Version:        0.8.0
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Pull parser for CommonMark
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          pulldown-cmark-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Pull parser for CommonMark.}
@@ -24,11 +24,17 @@ Pull parser for CommonMark.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        MIT
+# LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
 %license LICENSE
+%license LICENSE.dependencies
 %doc CONTRIBUTING.md
 %doc README.md
 %{_bindir}/pulldown-cmark
@@ -84,6 +90,18 @@ use the "getopts" feature of the "%{crate}" crate.
 %files       -n %{name}+getopts-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -101,10 +119,12 @@ use the "simd" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
 %cargo_build
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install

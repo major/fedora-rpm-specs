@@ -44,9 +44,9 @@ Summary:        GNU Common Lisp
 # - gcl-tk/tkMain.c
 # - gcl-tk/tkXAppInit.c
 # - gcl-tk/tkXshell.c
-# HPND (see https://gitlab.com/fedora/legal/fedora-license-data/-/issues/93)
+# LOOP:
 # - lsp/gcl_loop.lsp
-License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND HPND
+License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND LOOP
 URL:            https://www.gnu.org/software/gcl/
 Source0:        ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-2.6.12.tar.gz
 Source1:        gcl.el

@@ -7,6 +7,7 @@ Summary:        Like ldd but as a tree
 License:        MIT
 URL:            https://github.com/haampie/libtree
 Source0:        %{url}/archive/v%{version}/libtree-%{version}.tar.gz
+Patch0: libtree-ldd-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -17,7 +18,7 @@ A tool that:
 - explains why shared libraries are found and why not
 
 %prep
-%autosetup -n libtree-%{version}
+%autosetup -p1 -n libtree-%{version}
 
 %build
 %set_build_flags

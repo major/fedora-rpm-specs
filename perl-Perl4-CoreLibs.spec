@@ -1,8 +1,8 @@
 Name:           perl-Perl4-CoreLibs
 Version:        0.004
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Libraries historically supplied with Perl 4
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl4-CoreLibs
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Perl4-CoreLibs-%{version}.tar.gz
 # Adjust tests to pass 4-digit years to Time::Local, CPAN RT#131341
@@ -80,20 +80,43 @@ new code.  Functionally, most have been directly superseded by modules in the
 Perl 5 style. This collection exists to support old Perl programs that
 predates satisfactory replacements.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Perl4-CoreLibs-%{version}
 %patch0 -p1
 # newgetopt.pl is distributed by Getopt-Long, CPAN RT#102212
 rm lib/newgetopt.pl
 sed -i -e '/^lib\/newgetopt\.pl/d' MANIFEST
-
 %build
 perl Build.PL installdirs=vendor
 ./Build
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install destdir=%{buildroot} create_packlist=0
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 ./Build test
@@ -103,7 +126,14 @@ perl Build.PL installdirs=vendor
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Dec 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.004-19
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

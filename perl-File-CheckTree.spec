@@ -1,8 +1,8 @@
 Name:           perl-File-CheckTree
 Version:        4.42
-Release:        315%{?dist}
+Release:        316%{?dist}
 Summary:        Run many file-test checks on a tree
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-CheckTree
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/File-CheckTree-%{version}.tar.gz
 BuildArch:      noarch
@@ -38,16 +38,42 @@ opposite condition. If you do a cd and then list some relative file names, you
 may want to indent them slightly for readability. If you supply your own die()
 or warn() message, you can use $file to interpolate the file name.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n File-CheckTree-%{version}
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests.
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/release*
+# CheckTree.pm for tests
+cp -a lib %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+%{_fixperms} %{buildroot}/*
 
 %check
 unset RELEASE_TESTING
@@ -59,7 +85,15 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Thu Dec 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 4.42-316
+- Package tests
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.42-315
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

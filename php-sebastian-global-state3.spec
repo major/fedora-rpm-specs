@@ -1,13 +1,13 @@
 # spec file for php-sebastian-global-state3
 #
-# Copyright (c) 2014-2021 Remi Collet
+# Copyright (c) 2014-2022 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    474fb9edb7ab891665d3bfc6317f42a0a150454b
+%global gh_commit    de036ec91d55d2a9e0db2ba975b512cdb1c23921
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
@@ -24,11 +24,11 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.1
-Release:        6%{?dist}
+Version:        3.0.2
+Release:        2%{?dist}
 Summary:        Snapshotting of global state
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -112,7 +112,8 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80 php81; do
+# testCanExportGlobalVariablesToCode reports our autoloader
+for cmd in php php80 php81 php82; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit8 \
@@ -135,6 +136,10 @@ exit $ret
 
 
 %changelog
+* Thu Dec 15 2022 Remi Collet <remi@remirepo.net> - 3.0.2-2
+- update to 3.0.2
+- use SPDX License id
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -92,6 +92,18 @@ Patch0016: 0016-tools_def-add-fno-omit-frame-pointer-to-GCC48_-IA32-.patch
 Patch0017: 0017-Revert-ArmVirtPkg-make-EFI_LOADER_DATA-non-executabl.patch
 Patch0018: 0018-Revert-OvmfPkg-PlatformDxe-Handle-all-requests-in-Ex.patch
 Patch0019: 0019-OvmfPkg-SmbiosPlatformDxe-use-PcdFirmware.patch
+Patch0020: 0020-OvmfPkg-PlatformPei-AmdSev-stop-using-mPlatformInfoH.patch
+Patch0021: 0021-OvmfPkg-PlatformPei-PeiFv-stop-using-mPlatformInfoHo.patch
+Patch0022: 0022-OvmfPkg-PlatformPei-Q35-SMM-helpers-stop-using-mPlat.patch
+Patch0023: 0023-OvmfPkg-PlatformPei-PeiMemory-stop-using-mPlatformIn.patch
+Patch0024: 0024-OvmfPkg-PlatformPei-MemTypeInfo-stop-using-mPlatform.patch
+Patch0025: 0025-OvmfPkg-PlatformPei-NoExec-stop-using-mPlatformInfoH.patch
+Patch0026: 0026-OvmfPkg-PlatformPei-Verification-stop-using-mPlatfor.patch
+Patch0027: 0027-OvmfPkg-PlatformPei-remove-mPlatformInfoHob.patch
+Patch0028: 0028-OvmfPkg-PlatformPei-remove-mFeatureControlValue.patch
+Patch0029: 0029-OvmfPkg-DebugLibIoPort-use-Rom-version-for-PEI.patch
+Patch0030: 0030-OvmfPkg-QemuFwCfgLib-rewrite-fw_cfg-probe.patch
+Patch0031: 0031-OvmfPkg-QemuFwCfgLib-remove-mQemuFwCfgSupported-mQem.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -598,6 +610,9 @@ done
 
 
 %changelog
+* Thu Dec 15 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-7
+- backport https://github.com/tianocore/edk2/pull/3770
+
 * Mon Dec 12 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-6
 - fix ovmf platform config (revert broken commit).
 - show version information in smbios (backport).

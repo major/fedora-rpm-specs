@@ -13,7 +13,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    bbeb10f73c02bfa11d92159ad9d3e75abc3faa69
+%global gh_commit    7e44b188e8e01f9c9a8ca6cb0d7aceaabcea2133
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   phpspec
@@ -26,8 +26,8 @@
 %global symfony_max 5
 
 Name:           php-phpspec
-Version:        7.2.0
-Release:        2%{?dist}
+Version:        7.3.0
+Release:        1%{?dist}
 Summary:        Specification-oriented BDD framework for PHP
 
 License:        MIT
@@ -65,7 +65,7 @@ BuildRequires:  %{phpunit}
 BuildRequires:  php-composer(fedora/autoloader) >= 1
 
 # From composer.json, require
-#        "php":                      "^7.3 || 8.0.* || 8.1.*",
+#        "php":                      "^7.3 || 8.0.* || 8.1.* || 8.2.*",
 #        "phpspec/prophecy":         "^1.9",
 #        "phpspec/php-diff":         "^1.0.0",
 #        "sebastian/exporter":       "^3.0 || ^4.0",
@@ -145,7 +145,7 @@ rm spec/PhpSpec/Message/CurrentExampleTrackerSpec.php
 # Ignore this test which rely on composer installation
 rm spec/PhpSpec/NamespaceProvider/ComposerPsrNamespaceProviderSpec.php
 
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d memory_limit=1G -d include_path=.:%{buildroot}%{_datadir}/php \
@@ -170,6 +170,9 @@ done
 
 
 %changelog
+* Thu Dec 15 2022 Remi Collet <remi@remirepo.net> - 7.3.0-1
+- update to 7.3.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

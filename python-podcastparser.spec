@@ -2,8 +2,8 @@
 %global sum     Simplified, fast RSS parsing library
 
 Name:               python-%{modname}
-Version:            0.6.8
-Release:            4%{?dist}
+Version:            0.6.9
+Release:            1%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -52,6 +52,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Thu Dec 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.6.9-1
+- 0.6.9
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

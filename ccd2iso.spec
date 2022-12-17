@@ -1,6 +1,6 @@
 Name:           ccd2iso
 Version:        0.3
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        CloneCD image to ISO image file converter
 
 License:        GPLv2+
@@ -12,6 +12,7 @@ Patch0:         %{name}-%{version}-compilerWarnings.patch
 # Add a manual page from debian distro.
 # Sent upstream via email 20121201
 Patch1:         %{name}-%{version}-manual.patch
+Patch2:         %{name}-%{version}-configure-c99.patch
 
 #BuildRequires:  
 #Requires:       
@@ -27,6 +28,7 @@ program to a format understood by most Free Software CD writing programs.
 %setup -q
 %patch0
 %patch1
+%patch2 -p1
 sed 's/\r//' TODO > TODO.tmp
 touch -r TODO TODO.tmp
 mv TODO.tmp TODO
@@ -55,6 +57,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man1/ccd2iso.1
 
 
 %changelog
+* Thu Dec 15 2022 Peter Fordham <peter.fordham@gmail.com> - 0.3-30
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,21 +2,28 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate beef
+%global crate ahash
 
-Name:           rust-beef
-Version:        0.5.2
+Name:           rust-ahash0.7
+Version:        0.7.6
 Release:        %autorelease
-Summary:        More compact Cow
+Summary:        Non-cryptographic hash function using AES-NI for high performance
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/beef
+URL:            https://crates.io/crates/ahash
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          ahash-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# - remove criterion dependency
+Patch:          ahash-fix-metadata.diff
+# Remove benchmark tests that use criterion
+Patch:          ahash-no-criterion.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-More compact Cow.}
+Non-cryptographic hash function using AES-NI for high performance.}
 
 %description %{_description}
 
@@ -32,6 +39,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/FAQ.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,28 +55,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const_fn-devel
+%package     -n %{name}+compile-time-rng-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const_fn-devel %{_description}
+%description -n %{name}+compile-time-rng-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const_fn" feature of the "%{crate}" crate.
+use the "compile-time-rng" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const_fn-devel
+%files       -n %{name}+compile-time-rng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+impl_serde-devel
+%package     -n %{name}+const-random-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+impl_serde-devel %{_description}
+%description -n %{name}+const-random-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "impl_serde" feature of the "%{crate}" crate.
+use the "const-random" feature of the "%{crate}" crate.
 
-%files       -n %{name}+impl_serde-devel
+%files       -n %{name}+const-random-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel
@@ -81,6 +89,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -98,11 +118,7 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * struct size assumptions wrong on 32-bit architectures:
-#   https://github.com/maciejhirsz/beef/issues/43
-# * struct size assumptions wrong with Rust 1.65+:
-#   https://github.com/maciejhirsz/beef/issues/52
-%cargo_test -- -- --skip src/lib.rs
+%cargo_test
 %endif
 
 %changelog

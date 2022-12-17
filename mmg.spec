@@ -1,11 +1,16 @@
 Name:           mmg
-Version:        5.6.0
-Release:        3%{?dist}
+Version:        5.7.0
+Release:        1%{?dist}
 Summary:        Surface and volume remeshers
 
 License:        LGPL-3.0-or-later
 URL:            https://www.mmgtools.org/
 Source0:        https://github.com/MmgTools/mmg/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Fix install of non-existing header
+Patch0:         mmg_cmake.patch
+# Don't generate latex doc output, place html output to subdir
+Patch1:         mmg_doc.patch
 
 BuildRequires:  doxygen
 BuildRequires:  cmake
@@ -35,32 +40,20 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-###############################################################################
 
-%package -n mmg2d
-Summary:        Surface remesher
-
-%description -n mmg2d
-The mmg2d application and library: adaptation and optimization of a
-bidimensional triangulation.
-
-
-%package -n mmg2d-devel
-Summary:        Development files for mmg2d
-Requires:       mmg2d%{?_isa} = %{version}-%{release}
-
-%description -n mmg2d-devel
-The mmg2d-devel package contains libraries and header files for
-developing applications that use mmg2d.
-
-
-%package -n mmg2d-devel-doc
-Summary:        Development documentation for mmg2d
+%package doc
+Summary:        Development documentation for mmg
+Obsoletes:      mmgs-devel-doc < 5.7.0
+Provides:       mmgs-devel-doc = %{version}-%{release}
+Obsoletes:      mmg2d-devel-doc < 5.7.0
+Provides:       mmg2d-devel-doc = %{version}-%{release}
+Obsoletes:      mmg3d-devel-doc < 5.7.0
+Provides:       mmg3d-devel-doc = %{version}-%{release}
 BuildArch:      noarch
 
-%description -n mmg2d-devel-doc
-The mmg2d-devel-doc package contains the documentation for developing
-applications that use mmg2d.
+%description doc
+This package contains the documentation for developing
+applications that use mmg.
 
 ###############################################################################
 
@@ -75,19 +68,30 @@ triangulation and isovalue discretization.
 %package -n mmgs-devel
 Summary:        Development files for mmgs
 Requires:       mmgs%{?_isa} = %{version}-%{release}
+Requires:       mmg-devel%{?_isa} = %{version}-%{release}
 
 %description -n mmgs-devel
 The mmgs-devel package contains libraries and header files for
 developing applications that use mmgs.
 
+###############################################################################
 
-%package -n mmgs-devel-doc
-Summary:        Development documentation for mmgs
-BuildArch:      noarch
+%package -n mmg2d
+Summary:        Surface remesher
 
-%description -n mmgs-devel-doc
-The mmgs-devel-doc package contains the documentation for developing
-applications that use mmgs.
+%description -n mmg2d
+The mmg2d application and library: adaptation and optimization of a
+bidimensional triangulation.
+
+
+%package -n mmg2d-devel
+Summary:        Development files for mmg2d
+Requires:       mmg2d%{?_isa} = %{version}-%{release}
+Requires:       mmg-devel%{?_isa} = %{version}-%{release}
+
+%description -n mmg2d-devel
+The mmg2d-devel package contains libraries and header files for
+developing applications that use mmg2d.
 
 ###############################################################################
 
@@ -104,18 +108,11 @@ tetrahedral mesh and implicit domain meshing.
 %package -n mmg3d-devel
 Summary:        Development files for mmg3d
 Requires:       mmg3d%{?_isa} = %{version}-%{release}
+Requires:       mmg-devel%{?_isa} = %{version}-%{release}
 
 %description -n mmg3d-devel
 The mmg3d-devel package contains libraries and header files for
 developing applications that use mmg3d
-
-%package -n mmg3d-devel-doc
-Summary:        Development documentation for mmg3d
-Requires:       mmg3d%{?_isa} = %{version}-%{release}
-
-%description -n mmg3d-devel-doc
-The mmg3d-devel-doc package contains the documentation for developing
-applications that use mmg3d
 
 ###############################################################################
 
@@ -125,15 +122,9 @@ applications that use mmg3d
 
 
 %build
-LDFLAGS="%{__global_ldflags} -Wl,--as-needed" %cmake \
-    -DBUILD_SHARED_LIBS=ON \
-    -Dlibmmg2d_so_SOVER=%{mmg2d_sover} \
-    -Dlibmmg3d_so_SOVER=%{mmg3d_sover} \
-    -Dlibmmgs_so_SOVER=%{mmgs_sover} \
-    -Dlibmmg_so_SOVER=%{mmg_sover}
-
+%cmake -DBUILD_SHARED_LIBS=ON -DBUILD_DOC=ON
 %cmake_build
-make doc -C %{__cmake_builddir}
+%cmake_build -- doc
 
 
 %install
@@ -150,12 +141,6 @@ install -Dpm 0644 doc/man/mmgs.1.gz %{buildroot}%{_mandir}/man1/mmgs.1.gz
 install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 
 
-%ldconfig_scriptlets
-%ldconfig_scriptlets -n mmg2d
-%ldconfig_scriptlets -n mmgs
-%ldconfig_scriptlets -n mmg3d
-
-
 %files
 %doc AUTHORS README.md
 %license LICENSE COPYING COPYING.LESSER
@@ -163,10 +148,14 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 
 %files devel
 %dir %{_includedir}/mmg
+%{_includedir}/mmg/common/
 %{_includedir}/mmg/libmmg.h
 %{_includedir}/mmg/libmmgf.h
 %{_libdir}/libmmg.so
 %{_libdir}/cmake/mmg/
+
+%files doc
+%doc %{__cmake_builddir}/doc/html
 
 %files -n mmg2d
 %doc AUTHORS README.md
@@ -181,9 +170,6 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 %{_includedir}/mmg/mmg2d/
 %{_libdir}/libmmg2d.so
 
-%files -n mmg2d-devel-doc
-%doc %{__cmake_builddir}/doc/mmg2d/html
-
 %files -n mmgs
 %doc AUTHORS README.md
 %license LICENSE COPYING COPYING.LESSER
@@ -196,9 +182,6 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 %dir %{_includedir}/mmg
 %{_includedir}/mmg/mmgs/
 %{_libdir}/libmmgs.so
-
-%files -n mmgs-devel-doc
-%doc %{__cmake_builddir}/doc/mmgs/html
 
 %files -n mmg3d
 %doc AUTHORS README.md
@@ -213,11 +196,11 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 %{_includedir}/mmg/mmg3d/
 %{_libdir}/libmmg3d.so
 
-%files -n mmg3d-devel-doc
-%doc %{__cmake_builddir}/doc/mmg3d/html
-
 
 %changelog
+* Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 5.7.0-1
+- Update to 5.7.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

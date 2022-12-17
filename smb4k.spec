@@ -10,7 +10,7 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    3.1.5
+Version:    3.1.6
 Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %{_kf5_qmldir}/org/kde/smb4k/
 
 %changelog
+* Thu Dec 15 2022 Sérgio Basto <sergio@serjux.com> - 3.1.6-1
+- Update smb4k to 3.1.6
+
 * Sun Dec 04 2022 Sérgio Basto <sergio@serjux.com> - 3.1.5-1
 - Update smb4k to 3.1.5
 

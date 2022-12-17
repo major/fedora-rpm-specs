@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.11
+Version:        0.5.12
 Release:        1%{?dist}
 Summary:        Install and play any video game easily
 
@@ -88,6 +88,18 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/metainfo/
 
 %changelog
+* Thu Dec 15 2022 Steve Cossette <farchord@gmail.com> - 0.5.12-1
+- Update to 0.5.12:
+- Add support for Xbox games with the xemu runner
+- Fix authentication issue with Origin
+- Fix authentication issue with EGS
+- Fix authentication issue with Ubisoft Connect when 2FA is enabled
+- Fix integration issue with GOG
+- Add Discord Rich Presence integration
+- Add ability to extract icons from Windows executables
+- Allow setting custom cover art
+- Re-style configuration dialogs
+
 * Thu Aug 25 2022 Steve Cossette <farchord@gmail.com> - 0.5.11-1
 - Update to 0.5.11:
 - Fix for some installers commands exiting with return code 256

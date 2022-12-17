@@ -10,7 +10,7 @@ This product can operate in two modes: anonymous and authorized.
 Please read manpage for additional information.}
 
 Name: python-%{pypi_name}
-Version: 8.0.0
+Version: 9.0.0
 Release: 1%{?dist}
 
 # Main code - GPL-3.0-or-later.
@@ -66,6 +66,9 @@ install -D -p -m 0644 packaging/assets/%{pypi_name}.1 %{buildroot}%{_mandir}/man
 %doc docs/html/*
 
 %changelog
+* Thu Dec 15 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 9.0.0-1
+- Updated to version 9.0.0.
+
 * Thu Sep 15 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 8.0.0-1
 - Updated to version 8.0.0.
 

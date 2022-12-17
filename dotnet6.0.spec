@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.11
-%global runtime_version 6.0.11
+%global host_version 6.0.12
+%global runtime_version 6.0.12
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.111
+%global sdk_version 6.0.112
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -86,12 +86,6 @@ Source11:       dotnet.sh.in
 Patch100:       runtime-arm64-lld-fix.patch
 # Mono still has a dependency on (now unbuildable) ILStrip which was removed from CoreCLR: https://github.com/dotnet/runtime/pull/60315
 Patch101:       runtime-mono-remove-ilstrip.patch
-# https://github.com/dotnet/runtime/pull/66594
-Patch102:       runtime-66594-s390x-debuginfo.patch
-# https://github.com/dotnet/runtime/pull/73065
-Patch103:       runtime-clang15-support.patch
-# https://github.com/dotnet/runtime/pull/60675
-Patch104:       runtime-strerror.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -400,9 +394,6 @@ sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/
 pushd src/runtime
 %patch100 -p1
 %patch101 -p1
-%patch102 -p1
-%patch103 -p1
-%patch104 -p1
 popd
 
 pushd src/fsharp
@@ -648,6 +639,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Dec 14 2022 Omair Majid <omajid@redhat.com> - 6.0.112-1
+- Update to .NET SDK 6.0.112 and Runtime 6.0.12
+
 * Thu Nov 10 2022 Omair Majid <omajid@redhat.com> - 6.0.111-1
 - Update to .NET SDK 6.0.111 and Runtime 6.0.11
 

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 1e8688ea694393c9d918939322b72dfb44a01792
+%global commit 4343b56750c77ff3fc562c1dddc24ad5da115a12
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.2
+Version: 38.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -816,6 +816,24 @@ exit 0
 %endif
 
 %changelog
+* Wed Dec 14 2022 Zdenek Pytela <zpytela@redhat.com> - 38.3-1
+- Allow insights-client dbus chat with various services
+- Allow insights-client tcp connect to various ports
+- Allow insights-client run lpr and allow the proper role
+- Allow insights-client work with pcp and manage user config files
+- Allow redis get user names
+- Allow kernel threads to use fds from all domains
+- Allow systemd-modules-load load kernel modules
+- Allow login_userdomain watch systemd-passwd pid dirs
+- Allow insights-client dbus chat with abrt
+- Grant kernel_t certain permissions in the system class
+- Allow systemd-resolved watch tmpfs directories
+- Allow systemd-timedated watch init runtime dir
+- Make `bootc` be `install_exec_t`
+- Allow systemd-coredump create user_namespace
+- Allow syslog the setpcap capability
+- donaudit virtlogd and dnsmasq execmem
+
 * Tue Dec 06 2022 Zdenek Pytela <zpytela@redhat.com> - 38.2-1
 - Don't make kernel_t an unconfined domain
 - Don't allow kernel_t to execute bin_t/usr_t binaries without a transition

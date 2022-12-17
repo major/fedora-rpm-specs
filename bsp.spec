@@ -1,6 +1,6 @@
 Name:           bsp
 Version:        5.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        The most popular node builder for Doom
 
 License:        GPLv2+
@@ -8,6 +8,7 @@ URL:            http://games.moria.org.uk/doom/bsp/
 Source0:        http://games.moria.org.uk/doom/bsp/download/%{name}-%{version}.tar.bz2
 BuildRequires:  gcc
 BuildRequires: make
+Patch0:         bsp-configure-c99.patch
 
 %description
 Before you can play a level that you have created, you must use a node
@@ -29,7 +30,7 @@ editing craze in the mid 1990s.
 %setup -q
 iconv -f ISO_8859-2 -t UTF8 bsp.6 > bsp.6.tmp
 mv bsp.6.tmp bsp.6
-
+%patch0 -p1
 
 %build
 %configure
@@ -49,6 +50,9 @@ install -D -p -m 644 bsp.6 $RPM_BUILD_ROOT/%{_mandir}/man6/bsp.6
 
 
 %changelog
+* Thu Dec 15 2022 Peter Fordham <peter.fordham@gmail.com> - 5.2-31
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

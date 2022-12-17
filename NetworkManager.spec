@@ -5,7 +5,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.41.6
+%global real_version 1.41.7
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -1224,6 +1224,9 @@ fi
 
 
 %changelog
+* Thu Dec 15 2022 Lubomir Rintel <lkundrak@v3.sk> - 1:1.41.7-1
+- Update to 1.41.7 release (development)
+
 * Wed Nov 30 2022 Thomas Haller <thaller@redhat.com> - 1:1.41.6-1
 - Update to 1.41.6 release (development)
 

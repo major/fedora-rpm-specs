@@ -8,7 +8,24 @@ Version:        21.2.1
 Release:        6%{?dist}
 Summary:        Embeddable Common-Lisp
 
-License:        LGPLv2+ and BSD and MIT and Public Domain
+# The project as a whole is LGPL-2.0-or-later.  Other licenses in play:
+# BSD-2-Clause:
+# - contrib/ecl-curl
+# MIT:
+# - contrib/asdf
+# - contrib/cl-simd
+# - contrib-quicklisp
+# X11:
+# - contrib/deflate
+# HPND:
+# - contrib/rt
+# LOOP:
+# - src/lsp/loop.lsp
+# LicenseRef-Fedora-Public-Domain:
+# - src/lsp/cmuutil.lsp
+# - src/lsp/format.lsp
+# - src/lsp/pprint.lsp
+License:        LGPL-2.0-or-later AND BSD-2-Clause AND MIT AND X11 AND HPND AND LOOP AND LicenseRef-Fedora-Public-Domain
 URL:            https://common-lisp.net/project/ecl/
 Source0:        https://common-lisp.net/project/ecl/static/files/release/%{name}-%{version}.tgz
 Source1:        %{name}.desktop
@@ -35,7 +52,6 @@ Patch2:         %{name}-20.4.24-fenv-access.patch
 Patch3:         %{name}-20.4.24-write-error.patch
 # Fix bogus test compromised by LTO.
 Patch4:         %{name}-20.4.24-configure.patch
-
 
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
@@ -135,13 +151,17 @@ appstreamcli validate --no-net \
 %{_libdir}/libecl.so.21*
 %{_libdir}/libecl.so
 %{_includedir}/ecl/
-%{_mandir}/man1/*
+%{_mandir}/man1/ecl.1*
+%{_mandir}/man1/ecl-config.1*
 %doc examples CHANGELOG README.md build/doc/manual/html
 %doc src/doc/amop.txt src/doc/types-and-classes
 %license COPYING LICENSE
 
 
 %changelog
+* Thu Dec 15 2022 Jerry James <loganjerry@gmail.com> - 21.2.1-6
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

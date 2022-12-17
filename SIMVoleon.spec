@@ -6,20 +6,19 @@
 
 Summary: Volume rendering library for Coin
 Name: SIMVoleon
-Version: 2.0.3
-Release: 9%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 
-License: GPLv2
+# Older releases had been licensed GPLv2
+License: BSD-3-Clause
 URL: http://www.coin3d.org
 
-Source: https://bitbucket.org/Coin3D/simvoleon/downloads/simvoleon-%{version}-src.zip
-
-# bash-4 compatibility bugfix
-Patch0: SIMVoleon-2.0.1-bash4.0.diff
+Source: https://github.com/coin3d/simvoleon/releases/download/simvoleon-%{version}/simvoleon-%{version}-src.tar.gz
 
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++
+BuildRequires: /usr/bin/iconv
 BuildRequires: Coin4-devel
 BuildRequires: SoQt-devel
 BuildRequires: doxygen
@@ -41,28 +40,40 @@ Development files for SIMVoleon.
 
 
 %prep
-%autosetup -p1 -n simvoleon
+%setup -n simvoleon
 
-chmod +x cfg/doxy4win.pl
+# Some sources are ISO-8859-1 encoded
+# We want doxygen to generate utf-8 encoded docs from them
+for nonUTF8 in \
+  lib/VolumeViz/readers/VRVolFileReader.cpp \
+; do \
+  %{_bindir}/iconv -f ISO-8859-1 -t utf-8 $nonUTF8 > $nonUTF8.conv
+  mv -f $nonUTF8.conv $nonUTF8
+done
+
+# No timestamps in doxygen generated docs!
+sed -i -e 's,HTML_TIMESTAMP.*= YES,HTML_TIMESTAMP = NO,' \
+  docs/simvoleon.doxygen.cmake.in
 
 
 %build
-mkdir build-%{_build_arch} && pushd build-%{_build_arch}
+mkdir -p build-%{_build_arch}
+pushd build-%{_build_arch}
 %cmake -DSIMVOLEON_BUILD_DOCUMENTATION=TRUE \
        -DSIMVOLEON_BUILD_TESTS=FALSE \
        -DSIMVOLEON_BUILD_DOC_MAN=TRUE \
        -S .. -B .
 
 %make_build
-
+popd
 
 %install
-cd build-%{_build_arch}
+pushd build-%{_build_arch}
 %make_install
 
-
-%ldconfig_scriptlets
-
+# Remove stray files
+rm -rf %{buildroot}/usr/share/info/SIMVoleon2/
+popd
 
 %files
 %doc AUTHORS ChangeLog README NEWS
@@ -77,8 +88,14 @@ cd build-%{_build_arch}
 %{_libdir}/cmake/%{name}-%{version}/
 %{_mandir}/man3/*.gz
 
-
 %changelog
+* Thu Dec 15 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.1.0-1
+- Upgrade to 2.1.0.
+- Convert license to SPDX.
+- Remove bogusly installed /usr/share/info/SIMVoleon2.
+- Fix broken handling of non-utf8 sources.
+- Switch off HTML_TIMESTAMPs.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

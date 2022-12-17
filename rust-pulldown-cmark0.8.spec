@@ -2,21 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate beef
+%global crate pulldown-cmark
 
-Name:           rust-beef
-Version:        0.5.2
+Name:           rust-pulldown-cmark0.8
+Version:        0.8.0
 Release:        %autorelease
-Summary:        More compact Cow
+Summary:        Pull parser for CommonMark
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/beef
+License:        MIT
+URL:            https://crates.io/crates/pulldown-cmark
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop pulldown-cmark binary from compat package
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+Patch:          pulldown-cmark-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-More compact Cow.}
+Pull parser for CommonMark.}
 
 %description %{_description}
 
@@ -30,8 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,40 +51,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+const_fn-devel
+%package     -n %{name}+gen-tests-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+const_fn-devel %{_description}
+%description -n %{name}+gen-tests-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "const_fn" feature of the "%{crate}" crate.
+use the "gen-tests" feature of the "%{crate}" crate.
 
-%files       -n %{name}+const_fn-devel
+%files       -n %{name}+gen-tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+impl_serde-devel
+%package     -n %{name}+getopts-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+impl_serde-devel %{_description}
+%description -n %{name}+getopts-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "impl_serde" feature of the "%{crate}" crate.
+use the "getopts" feature of the "%{crate}" crate.
 
-%files       -n %{name}+impl_serde-devel
+%files       -n %{name}+getopts-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+simd-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+simd-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "simd" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+simd-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -98,11 +102,7 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * struct size assumptions wrong on 32-bit architectures:
-#   https://github.com/maciejhirsz/beef/issues/43
-# * struct size assumptions wrong with Rust 1.65+:
-#   https://github.com/maciejhirsz/beef/issues/52
-%cargo_test -- -- --skip src/lib.rs
+%cargo_test
 %endif
 
 %changelog

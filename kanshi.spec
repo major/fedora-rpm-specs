@@ -1,10 +1,16 @@
 %global forgeurl https://git.sr.ht/~emersion/kanshi
 
 Name:           kanshi
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        Dynamic display configuration for Wayland
 
+# Overall project license: MIT
+#
+# protocol/wlr-output-management-unstable-v1.xml:
+# The file is licensed under HPND-sell-variant; it is processed to C-compilable
+# files by the `wayland-scanner` binary during build and doesn't alter the main
+# license of the binary.
 License:        MIT
 URL:            https://sr.ht/~emersion/kanshi
 Source0:        %{forgeurl}/refs/download/v%{version}/%{name}-%{version}.tar.gz
@@ -67,6 +73,10 @@ install -D -m 0644 -pv %{SOURCE3} %{buildroot}%{_userunitdir}/%{name}.service
 
 
 %changelog
+* Wed Dec 14 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.3.1-1
+- Update to 1.3.1 (#2153462)
+- Convert License tag to SPDX
+
 * Wed Aug 24 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.3.0-1
 - Update to 1.3.0 (#2121130)
 - Update upstream URL

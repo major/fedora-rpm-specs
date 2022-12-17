@@ -10,9 +10,10 @@
 
 Name:           SoQt
 Version:        1.6.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        High-level 3D visualization library
-License:        GPLv2
+# Old version had been licensed GPLv2
+License:        BSD-3-Clause
 
 URL:            http://www.coin3d.org
 Source0:        https://github.com/coin3d/soqt/archive/%{name}-%{version}.tar.gz
@@ -23,7 +24,7 @@ Source3:        https://github.com/coin3d/sogui/archive/%{sogui_hash}/coin3d-sog
 
 Patch1:         SoQt-1.6.0-cmake.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -62,13 +63,21 @@ tar --strip-components=1 -C cpack.d -xf %{SOURCE1}
 tar --strip-components=1 -C data -xf %{SOURCE2}
 tar --strip-components=1 -C src/Inventor/Qt/common -xf %{SOURCE3}
 
-# The sources are now ASCII, don't think we need this anymore.
-# The sources are ISO-8859-1 encoded
+# Some sources are ISO-8859-1 encoded
 # We want doxygen to generate utf-8 encoded docs from them
-#sed -i \
-# -e 's,^\(INPUT_FILTER.*=\).*$,\1 \"/usr/bin/iconv -f ISO-8859-1 -t utf-8\",' \
-#  src/Inventor/Qt/common/sogui.doxygen.in
+for nonUTF8 in \
+  src/Inventor/Qt/common/SoGuiRenderArea.cpp.in \
+  src/Inventor/Qt/common/viewers/SoGuiExaminerViewer.cpp.in \
+  src/Inventor/Qt/common/viewers/SoGuiFullViewer.h.in \
+  src/Inventor/Qt/common/viewers/SoGuiViewer.cpp.in \
+; do \
+  %{_bindir}/iconv -f ISO-8859-1 -t utf-8 $nonUTF8 > $nonUTF8.conv
+  mv -f $nonUTF8.conv $nonUTF8
+done
 
+# No timestamps in doxygen generated docs!
+sed -i -e 's,HTML_TIMESTAMP.*= YES,HTML_TIMESTAMP = NO,' \
+  src/Inventor/Qt/common/sogui.doxygen.cmake.in
 
 %build
 mkdir build-%{_build_arch} && cd build-%{_build_arch}
@@ -87,8 +96,8 @@ cd build-%{_build_arch}
 mkdir -p %{buildroot}%{_includedir}/Coin4
 mv %{buildroot}%{_includedir}/Inventor %{buildroot}%{_includedir}/Coin4/
 
-
-%ldconfig_scriptlets
+# Remove stray files
+rm -rf %{buildroot}/usr/share/info/SoQt1
 
 
 %files
@@ -100,7 +109,6 @@ mv %{buildroot}%{_includedir}/Inventor %{buildroot}%{_includedir}/Coin4/
 %{_docdir}/%{name}/html/
 %{_datadir}/%{name}/
 %{_includedir}/Coin4/Inventor/
-%{_infodir}/SoQt1/
 %{_libdir}/libSoQt.so
 %{_libdir}/pkgconfig/SoQt.pc
 %{_libdir}/cmake/%{name}-%{version}/
@@ -108,6 +116,14 @@ mv %{buildroot}%{_includedir}/Inventor %{buildroot}%{_includedir}/Coin4/
 
 
 %changelog
+* Thu Dec 15 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.6.0-11
+- Switch off HTML_TIMESTAMPs.
+
+* Thu Dec 15 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.6.0-10
+- Convert license to SPDX.
+- Remove bogusly installed /usr/share/info/SoQt1.
+- Fix broken handling of non-utf8 sources.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

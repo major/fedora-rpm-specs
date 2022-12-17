@@ -16,7 +16,7 @@ Name:        caja
 Summary:     File manager for MATE
 Version:     %{branch}.1
 %if 0%{?rel_build}
-Release:     2%{?dist}
+Release:     3%{?dist}
 %else
 Release:     0.17%{?git_rel}%{?dist}
 %endif
@@ -29,7 +29,7 @@ URL:         http://mate-desktop.org
 # Source for snapshot-builds.
 %{!?rel_build:Source0:    http://git.mate-desktop.org/%{name}/snapshot/%{name}-%{commit}.tar.xz#/%{git_tar}}
 
-Patch0:        caja_add-xfce-to-desktop-file-1.26.patch
+Patch0:        Enable-showing-in-Budgie-Desktop-and-XFCE.patch
 
 BuildRequires: dbus-glib-devel
 BuildRequires: desktop-file-utils

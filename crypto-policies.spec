@@ -1,5 +1,5 @@
-%global git_date 20221110
-%global git_commit 87a75f462fa6c6e609e631f386b81df65b7aff2a
+%global git_date 20221215
+%global git_commit a4c31a34711325447363d87ba9fec5bb5535903a
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -207,6 +207,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Dec 15 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221215-1.gita4c31a3
+- bind: expand the list of disableable algorithms
+
 * Thu Nov 10 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221110-1.git87a75f4
 - sequoia: introduce new backend
 - migrate license tag to SPDX

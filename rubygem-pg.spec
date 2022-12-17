@@ -2,19 +2,14 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.3.5
-Release: 2%{?dist}
+Version: 1.4.5
+Release: 1%{?dist}
 Summary: A Ruby interface to the PostgreSQL RDBMS
-# Upstream license clarification (https://bitbucket.org/ged/ruby-pg/issue/72/)
-#
-# The portions of the code that are BSD-licensed are licensed under
-# the BSD 3-Clause license; the contents of the BSD file are incorrect.
-#
-License: (BSD or Ruby) and PostgreSQL
+License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git -C ruby-pg archive -v -o pg-1.3.5-spec.tar.gz v1.3.5 spec/
+# git -C ruby-pg archive -v -o pg-1.4.5-spec.tar.gz v1.4.5 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
@@ -76,21 +71,6 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 pushd .%{gem_instdir}
 ln -s %{_builddir}/spec .
 
-# Test failures with disabled netwrok.
-# https://github.com/ged/ruby-pg/issues/421
-sed -i -r 's|\\d\+\\\.\\d\+\\\.\\d\+\\\.\\d\+|(\0)?|' spec/pg/connection_spec.rb
-
-%ifarch ppc64le
-# This test case should be ignored in theory, but it is not in practice:
-# https://bugs.ruby-lang.org/issues/18560
-# https://github.com/ged/ruby-pg/issues/423
-mv spec/pg/gc_compact_spec.rb{,.disable}
-%endif
-
-# Disable flaky test. This is problematic on most architectures.
-# https://github.com/ged/ruby-pg/issues/424
-sed -i -e '/it "needs to flush data after send_query" do/a\			skip' spec/pg/connection_spec.rb
-
 # Set --verbose to show detail log by $VERBOSE.
 # See https://github.com/ged/ruby-pg/blob/master/spec/helpers.rb $VERBOSE
 # Assign a random port to consider a case of multi builds in parallel in a host.
@@ -133,6 +113,10 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Thu Dec 15 2022 Vít Ondruch <vondruch@redhat.com> - 1.4.5-1
+- Update to pg 1.4.5.
+  Resolves: rhbz#2099059
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

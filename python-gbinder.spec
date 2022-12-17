@@ -9,6 +9,9 @@ License:        GPL-3.0-only
 URL:            https://github.com/erfanoabdi/%{proj_name}
 Source:         %{url}/archive/%{version}/%{proj_name}-%{version}.tar.gz
 
+# bugzilla 2153760
+ExcludeArch: s390x
+
 %global libgbinder_version 1.1.20
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython

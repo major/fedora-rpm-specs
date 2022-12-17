@@ -22,7 +22,7 @@ BuildArch: noarch
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man
 Provides: skopeo-containers = %{epoch}:%{version}-%{release}
-Requires: (container-selinux >= 2:2.162.1 if selinux-policy)
+Recommends: (container-selinux >= 2:2.162.1 if selinux-policy)
 Recommends: fuse-overlayfs
 Requires: (fuse-overlayfs if fedora-release-identity-server)
 # SourceN files fetched from upstream
@@ -151,9 +151,9 @@ install -m0644 containers.conf %{buildroot}%{_datadir}/containers/containers.con
 # install secrets patch directory
 install -d -p -m 755 %{buildroot}/%{_datadir}/rhel/secrets
 # rhbz#1110876 - update symlinks for subscription management
-ln -s %{_sysconfdir}/pki/entitlement %{buildroot}%{_datadir}/rhel/secrets/etc-pki-entitlement
-ln -s %{_sysconfdir}/rhsm %{buildroot}%{_datadir}/rhel/secrets/rhsm
-ln -s %{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/rhel/secrets/redhat.repo
+ln -s ../../../..%{_sysconfdir}/pki/entitlement %{buildroot}%{_datadir}/rhel/secrets/etc-pki-entitlement
+ln -s ../../../..%{_sysconfdir}/rhsm %{buildroot}%{_datadir}/rhel/secrets/rhsm
+ln -s ../../../..%{_sysconfdir}/yum.repos.d/redhat.repo %{buildroot}%{_datadir}/rhel/secrets/redhat.repo
 
 %files
 %dir %{_sysconfdir}/containers

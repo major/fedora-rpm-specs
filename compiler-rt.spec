@@ -1,8 +1,4 @@
-# Fails to build due to https://bugzilla.redhat.com/show_bug.cgi?id=2140618.
-%ifnarch ppc64le
 %global toolchain clang
-%endif
-
 %global compiler_rt_version 15.0.6
 #global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -15,7 +11,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -115,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Thu Dec 15 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
+- Remove ppc64le ieeelongdouble workaround
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

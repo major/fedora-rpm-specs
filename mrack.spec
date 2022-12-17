@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.12.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -177,6 +177,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-4
+- chore: Add add tmt tests and plans and add them to sync (Tibor Dudlák)
+
 * Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-3
 - chore: Add fmf/version and allowed users to run packit (Tibor Dudlák)
 
