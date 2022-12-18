@@ -1,14 +1,11 @@
-%global collection_namespace chocolatey
-%global collection_name chocolatey
-
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.3.0
-Release:        2%{?dist}
+Name:           ansible-collection-chocolatey-chocolatey
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Ansible collection for Chocolatey
 
-License:        GPLv3+
-URL:            %{ansible_collection_url}
-Source:         https://github.com/chocolatey/chocolatey-ansible/archive/v%{version}/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            %{ansible_collection_url chocolatey chocolatey}
+Source:         https://github.com/chocolatey/chocolatey-ansible/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  ansible-packaging
 
@@ -20,10 +17,18 @@ as manage packages on Windows using Chocolatey.
 
 %prep
 %autosetup -n chocolatey-ansible-%{version}
-rm -vr azure-pipelines.yml
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
-find -type f -name '.gitignore' -print -delete
 sed -i -e 's/{{ REPLACE_VERSION }}/%{version}/' chocolatey/galaxy.yml
+cat >> chocolatey/galaxy.yml << EOF
+build_ignore:
+  # Remove unnecessary development files from the built package.
+  - tests
+  - azure-pipelines.yml
+  - .gitignore
+  # Licenses and docs are installed with %%doc and %%license
+  - LICENSE
+  - README.md
+EOF
 
 %build
 cd chocolatey
@@ -32,14 +37,19 @@ cd chocolatey
 %install
 cd chocolatey
 %ansible_collection_install
-rm -vr %{buildroot}%{ansible_collection_files}/%{collection_name}/tests
 
-%files
+# No unit tests
+
+%files -f %{ansible_collection_filelist}
 %license LICENSE
 %doc README.md
-%{ansible_collection_files}
 
 %changelog
+* Fri Dec 16 2022 Orion Poplawski <orion@nwra.com> - 1.4.0-1
+- Update to 1.4.0
+- Use current ansible collection packaging style
+- Use SPDX License tag
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

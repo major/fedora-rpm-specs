@@ -4,7 +4,7 @@
 
 Summary: C library for multiple precision complex arithmetic
 Name: libmpc
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 # LGPL-3.0-or-later: the library
 # FSFAP: README and NEWS
@@ -121,6 +121,9 @@ make check
 %endif
 
 %changelog
+* Fri Dec 16 2022 Jerry James <loganjerry@gmail.com> - 1.3.1-1
+- Upgrade to libmpc version 1.3.1 (rhbz#2154360)
+
 * Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-1
 - Upgrade to libmpc version 1.3.0 (rhbz#2152180)
 - Convert License tags to SPDX

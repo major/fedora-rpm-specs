@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        2%{?libo_prerelease}%{?dist}
+Release:        3%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -66,7 +66,7 @@ Release:        2%{?libo_prerelease}%{?dist}
 # writerperfect/source/common/DirectoryStream.cxx: MPLv2 or LGPLv2+
 # extras/source/autocorr/lang/hr/license.md: GPL 2.0 or LGPL2 or MPLv1.1
 # odk/examples/java/...: 3 clause BSD
-License:        MPL-2.0 and Apache-2.0 and LGPL-3.0-only and LGPL-3.0-or-later and CC0-1.0 and BSD-3-Clause and (LGPL-2.1-only or SISSL) and (MPL-2.0 or LGPL-3.0-or-later) and (MPL-2.0 or LGPL-2.1-or-later) and (MPL-1.1 or GPL-2.0-only or LGPL-2.1-only)
+License:        MPL-2.0 AND Apache-2.0 AND LGPL-3.0-only AND LGPL-3.0-or-later AND CC0-1.0 AND BSD-3-Clause AND (LGPL-2.1-only OR SISSL) AND (MPL-2.0 OR LGPL-3.0-or-later) AND (MPL-2.0 OR LGPL-2.1-or-later) AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.1-only)
 URL:            http://www.libreoffice.org/
 
 Source0:        %{source_url}/libreoffice-%{version}%{?libo_prerelease}%{?libo_buildfix}.tar.xz
@@ -2266,6 +2266,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Fri Dec 16 2022 Caolán McNamara <caolanm@redhat.com> - 1:7.4.3.2-3
+- fix License syntax "and/or" -> "AND/OR"
+
 * Tue Dec 06 2022 Caolán McNamara <caolanm@redhat.com> - 1:7.4.3.2-2
 - add BuildRequires on hunspell-en-US for testTdf124603
 

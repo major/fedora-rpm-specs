@@ -1,7 +1,7 @@
 %define _hardened_build 1
 
 Name:           freeciv
-Version:        3.0.4
+Version:        3.0.5
 Release:        1%{?dist}
 Summary:        A multi-player strategy game
 
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Fri Dec 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.5-1
+- 3.0.5
+
 * Mon Oct 10 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.4-1
 - 3.0.4
 

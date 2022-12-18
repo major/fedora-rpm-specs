@@ -3,7 +3,7 @@
 Name:           up-imapproxy
 Summary:        University of Pittsburgh IMAP Proxy
 Version:        1.2.8
-Release:        0.24.20171022svn14722%{?dist}
+Release:        0.25.20171022svn14722%{?dist}
 License:        GPLv2+
 URL:            http://www.imapproxy.org
 # The source for this package was pulled from upstream's vcs.  Use the
@@ -15,6 +15,8 @@ Source1:        imapproxy.service
 # handle aarch64 per RH BZ 926684
 Patch0:         http://ausil.fedorapeople.org/aarch64/up-imapproxy/up-imapproxy-aarch64.patch
 Patch1:         up-imapproxy-ssl.patch
+Patch2:         up-imapproxy-configure-c99.patch
+Patch3:         up-imapproxy-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  openssl-devel ncurses-devel
@@ -40,6 +42,8 @@ if possible.
 # handle aarch64
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 # Fixes/changes in default config
 # - strip trailing spaces
@@ -98,6 +102,9 @@ exit 0
 %dir /var/lib/imapproxy
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 1.2.8-0.25.20171022svn14722
+- C99 port
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-0.24.20171022svn14722
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

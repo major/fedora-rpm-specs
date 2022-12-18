@@ -6,8 +6,8 @@
 %endif
 
 Name:           python-requests-mock
-Version:        1.9.3
-Release:        3%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        A requests mocking tool for python
 
 License:        ASL 2.0
@@ -46,6 +46,7 @@ BuildRequires:  python%{python3_pkgversion}-fixtures
 BuildRequires:  python%{python3_pkgversion}-mock
 BuildRequires:  python%{python3_pkgversion}-testtools
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python-requests-futures
 %endif
 
 
@@ -86,6 +87,9 @@ rm -rf requests_mock.egg-info
 
 
 %changelog
+* Thu Dec 15 2022 Joel Capitao <jcapitao@redhat.com> - 1.10.0-1
+- Update to 1.10.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

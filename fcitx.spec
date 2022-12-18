@@ -5,11 +5,12 @@
 Name:			fcitx
 Summary:		An input method framework
 Version:		4.2.9.9
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		GPLv2+
 URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
 Source1:		xinput-%{name}
+Patch0: fcitx-exports-for-fbterm.patch
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel, opencc-devel
 BuildRequires:		wget, intltool, chrpath, sysconftool, opencc
@@ -134,7 +135,7 @@ This package contains table engine for Fcitx.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %cmake -DENABLE_GTK3_IM_MODULE=On -DENABLE_QT_IM_MODULE=On -DENABLE_OPENCC=On -DENABLE_LUA=On -DENABLE_GIR=On -DENABLE_XDGAUTOSTART=Off
@@ -298,6 +299,9 @@ fi
 %{_libdir}/qt4/plugins/inputmethods/qtim-fcitx.so
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 4.2.9.9-2
+- Declare functions used by fcitx-fbterm in public header file (#2153024)
+
 * Thu Dec  1 2022 Peng Wu <pwu@redhat.com> - 4.2.9.9-1
 - Update to 4.2.9.9
 

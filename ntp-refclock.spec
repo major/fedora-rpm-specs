@@ -2,7 +2,7 @@
 
 Name:		ntp-refclock
 Version:	0.5
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Drivers for hardware reference clocks
 # MIT is the primary license of ntp and ntp-refclock, but some drivers
 # are licensed under BSD or BSD with advertising
@@ -10,6 +10,7 @@ License:	MIT and BSD and BSD with advertising
 URL:		https://github.com/mlichvar/ntp-refclock
 Source0:	https://github.com/mlichvar/ntp-refclock/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-%{ntp_version}.tar.gz
+Patch0:		ntp-reflock-configure-c99.patch
 
 BuildRequires:	gcc make systemd pps-tools-devel
 
@@ -33,6 +34,20 @@ the system clock.
 %prep
 %setup -q -a 1
 ln -s ntp-%{ntp_version} ntp
+# Avoid re-generating the configure scripts.
+pushd ntp
+preserve_timestamps="configure configure.ac sntp/configure sntp/m4/ntp_ipv6.m4"
+for p in $preserve_timestamps ; do
+    touch -r $p $p.timestamp
+done
+popd
+%patch0 -p1 -b .c99
+pushd ntp
+for p in $preserve_timestamps ; do
+    touch -r $p.timestamp $p
+    rm $p.timestamp
+done
+popd
 
 # Refer to packaged documentation for drivers
 sed -i 's|<https:.*refclock.html>|in %{_pkgdocdir}/drivers/|' ntp-refclock.8
@@ -107,6 +122,9 @@ getent passwd %{name} >/dev/null || \
 %{_unitdir}/*.service
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 0.5-5
+- Port configure scripts to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

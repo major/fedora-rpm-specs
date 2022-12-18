@@ -12,6 +12,14 @@ Patch0001: 0001-sss-use-BN_set_word-x-0-instead-of-BN_zero.patch
 Patch0002: 0002-systemd-account-for-unlocking-failures-in-clevis-luk.patch
 Patch0003: 0003-feat-rename-the-test-pin-to-null-pin.patch
 Patch0004: 0004-clevis-external-token-id.patch
+Patch0005: 0005-luks-define-max-entropy-bits-for-pwmake.patch
+Patch0006: 0006-luks-ignore-empty-and-comment-lines-in-crypttab.patch
+Patch0007: 0007-luks-fix-typo-when-adding-a-pending-device.patch
+Patch0008: 0008-notify-error-url-on-server-connect-fail.patch
+Patch0009: 0009-improve-boot-performance-by-removing-key-check.patch
+Patch0010: 0010-fix-typo-in-error-messages.patch
+Patch0011: 0011-avoid-invalid-message-for-clevis-command.patch
+Patch0012: 0012-luks-edit-remove-unnecessary-2-dev-null.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc

@@ -12,7 +12,7 @@
 
 
 Name:           centpkg
-Version:        0.6.8
+Version:        0.6.9
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
@@ -92,6 +92,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Fri Dec 16 2022 Troy Dawson <tdawson@redhat.com> - 0.6.9-1
+- Latest upstream
+
 * Tue Nov 01 2022 Troy Dawson <tdawson@redhat.com> - 0.6.8-1
 - Latest upstream
 

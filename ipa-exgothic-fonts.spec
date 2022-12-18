@@ -1,61 +1,121 @@
-%global		priority	68
-%global		fontname	ipa-ex-gothic
-%global		fontconf	%{priority}-%{fontname}.conf
-%global		archiveversion	00401
-%global		archivename	ipaexg%{archiveversion}
+# Packaging template: basic single-family fonts packaging.
+#
+# SPDX-License-Identifier: MIT
+#
+# This template documents the minimal set of spec declarations, necessary to
+# package a single font family, from a single dedicated source archive.
+#
+# It is part of the following set of packaging templates:
+# “fonts-0-simple”: basic single-family fonts packaging
+# “fonts-1-full”:   less common patterns for single-family fonts packaging
+# “fonts-2-multi”:  multi-family fonts packaging
+# “fonts-3-sub”:    packaging fonts, released as part of something else
+#
+# A font family is composed of font files, that share a single design, and
+# differ ONLY in:
+# — Weight        Bold, Black…
+# – Width∕Stretch Narrow, Condensed, Expanded…
+# — Slope/Slant   Italic, Oblique
+# Optical sizing  Caption…
+#
+# Those parameters correspond to the default axes of OpenType variable fonts:
+# https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg#registered-axis-tags
+# The variable fonts model is an extension of the WWS model described in the
+# WPF Font Selection Model whitepaper (2007):
+# https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Components.PostAttachments/00/02/24/90/36/WPF%20Font%20Selection%20Model.pdf
+#
+# Do not rely on the naming upstream chose, to define family boundaries, it
+# will often be wrong.
+#
+# Declaration order is chosen to limit divergence between those templates, and
+# simplify cut and pasting.
+#
+%global archivever 00401
 
-Name:		%{fontname}-fonts
-Version:	004.01
-Release:	9%{?dist}
-Summary:	Japanese Gothic-typeface OpenType font by IPA
+Version: 004.01
+Release: 13%{?dist}
+URL:     https://moji.or.jp/ipafont/
+BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
-License:	IPA
-URL:		http://ossipedia.ipa.go.jp/ipafont/
-Source0:	https://oscdl.ipa.go.jp/IPAexfont/%{archivename}.zip
-Source1:	%{name}-fontconfig.conf
-Source2:	%{fontname}.metainfo.xml
+# The identifier of the entity, that released the font family.
+%global foundry           IPA 
+# The font family license identifier. Adjust as necessary. The OFL is our
+# recommended font license.
+%global fontlicense       IPA
+#
+# The following directives are lists of space-separated shell globs
+#   – matching files associated with the font family,
+#   – as they exist in the build root,
+#   — at the end of the %build stage:
+# – legal files (licensing…)
+%global fontlicenses      IPA_Font_License_Agreement_v1.0.txt
+# – documentation files
+%global fontdocs          Readme_ipaexg00401.txt
+# – exclusions from the ”fontdocs” list
+%global fontdocsex        %{fontlicenses}
 
-BuildArch:	noarch
-BuildRequires:	fontpackages-devel libappstream-glib
-Requires:	fontpackages-filesystem
-
-%description
+# The human-friendly font family name, whitespace included, restricted to the
+# the Basic Latin Unicode block.
+%global fontfamily        IPAexGothic
+%global fontsummary       Japanese Gothic-typeface OpenType font by IPA
+%global fontpkgheader     %{expand:
+Obsoletes: ipa-ex-gothic-fonts < %{version}-%{release}
+Provides:  ipa-ex-gothic-fonts = %{version}-%{release}
+}
+#
+# More shell glob lists:
+# – font family files
+%global fonts             ipaexg.ttf
+# – fontconfig files
+%global fontconfs         %{SOURCE10}
+#
+# A multi-line description block for the generated package.
+%global fontdescription   %{expand:
 IPAex Font is a Japanese OpenType fonts that is JIS X 0213:2004
 compliant, provided by Information-technology Promotion Agency, Japan.
 
 This package contains Gothic (sans-serif) style font.
+}
+
+# https://oscdl.ipa.go.jp/IPAexfont/%{archivename}.zip
+Source0:  https://moji.or.jp/wp-content/ipafont/IPAexfont/ipaexg%{archivever}.zip
+# Adjust as necessary. Keeping the filename in sync with the package name is a good idea.
+# See the fontconfig templates in fonts-rpm-templates for information on how to
+# write good fontconfig files and choose the correct priority [number].
+Source10: 68-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
-%setup -q -n %{archivename}
+%setup -q -n ipaexg00401
+chmod 0644 Readme_ipaexg%{archivever}.txt
+sed -ie 's/\r//g' Readme_ipaexg%{archivever}.txt
 
 %build
+%fontbuild
 
 %install
-install -m 0755 -d $RPM_BUILD_ROOT%{_fontdir}
-install -m 0644 -p *.ttf $RPM_BUILD_ROOT%{_fontdir}
-
-install -m 0755 -d	$RPM_BUILD_ROOT%{_fontconfig_templatedir}	\
-			$RPM_BUILD_ROOT%{_fontconfig_confdir}
-install -m 0644 -p	%{SOURCE1}	\
-			$RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{fontconf}
-
-install -m 0755 -d $RPM_BUILD_ROOT%{_metainfodir}
-install -m 0644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_metainfodir}
-
-ln -s	%{_fontconfig_templatedir}/%{fontconf}	\
-	$RPM_BUILD_ROOT%{_fontconfig_confdir}/%{fontconf}
+%fontinstall
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+%fontcheck
 
-%_font_pkg -f %{fontconf} *.ttf
-
-%doc Readme_%{archivename}.txt
-%license IPA_Font_License_Agreement_v1.0.txt
-%{_metainfodir}/%{fontname}.metainfo.xml
-
+%fontfiles
 
 %changelog
+* Fri Dec 16 2022 Akira TAGOH <tagoh@redhat.com> - 004.01-13
+- Replace old ipa-ex-gothic-fonts.
+
+* Thu Dec 15 2022 Akira TAGOH <tagoh@redhat.com> - 004.01-12
+- Fix the wrong-file-end-of-line-encoding in doc.
+- Add Japanese family name in config.
+
+* Fri Dec  9 2022 Akira TAGOH <tagoh@redhat.com> - 004.01-11
+- Update URL and Source URL.
+
+* Wed Dec  7 2022 Akira TAGOH <tagoh@redhat.com> - 004.01-10
+- Revise the spec file for new packaging guidelines
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 004.01-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -153,4 +213,3 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 * Mon Mar  1 2010 Akira TAGOH <tagoh@redhat.com> - 001.01-1
 - Initial package.
-

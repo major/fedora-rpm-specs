@@ -6,7 +6,7 @@
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
 Version:          7.0.11
-Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}.2
+Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}.3
 License:          GPLv2+
 Summary:          Packet radio mailbox and utilities
 BuildRequires:    gcc
@@ -41,6 +41,7 @@ Patch4:           fbb-7.0.11-non-interactive.patch
 Patch5:           fbb-7.0.9-write-port-errors.patch
 Patch6:           fbb-7.0.9-stdout.patch
 Patch7:           fbb-7.0.11-ncurses-fix.patch
+Patch8:           fbb-remove-XmGrabTheFocus.patch
 
 %description
 F6FBB BBS software for bulletins and messages distribution via Packet Radio
@@ -69,6 +70,7 @@ GUI for fbb.
 %patch5 -p1 -b .write-port-errors
 %patch6 -p1 -b .beta-stdout
 %patch7 -p1 -b .ncurses-fix
+%patch8 -p1
 
 cp %{SOURCE6} README.Fedora
 
@@ -209,6 +211,9 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 7.0.11-1.3
+- Remove call to obsolete _XmGrabTheFocus function (#2154201)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

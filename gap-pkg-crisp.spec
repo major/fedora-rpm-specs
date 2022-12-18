@@ -1,8 +1,8 @@
 %global pkgname crisp
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.4.5
-Release:        8%{?dist}
+Version:        1.4.6
+Release:        1%{?dist}
 Summary:        Computing subgroups of finite soluble groups
 
 License:        BSD-2-Clause
@@ -36,11 +36,11 @@ characteristic subgroups, and the socle and p-socles for given primes p.
 # The content is BSD-2-Clause.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
+License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        CRISP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -80,8 +80,8 @@ export LC_ALL=C.UTF-8
 gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 
 %files
-%doc README
-%license LICENSE
+%doc README.txt
+%license LICENSE.txt
 %{gap_dir}/pkg/%{pkgname}/
 %exclude %{gap_dir}/pkg/%{pkgname}/doc/
 %exclude %{gap_dir}/pkg/%{pkgname}/htm/
@@ -93,6 +93,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Fri Dec 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.6-1
+- Version 1.4.6
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.5-8
 - Clarify license of the doc subpackage
 

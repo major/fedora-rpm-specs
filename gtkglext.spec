@@ -3,9 +3,9 @@
 Summary:	OpenGL Extension to GTK
 Name:		gtkglext
 Version:	1.2.0
-Release:	42%{?dist}
+Release:	43%{?dist}
 
-License:	LGPLv2+ or GPLv2+
+License:	GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:		http://gtkglext.sourceforge.net/
 Source0:	ftp://ftp.gnome.org/pub/gnome/sources/gtkglext/1.2/gtkglext-%{version}.tar.bz2
 # Upstream changes, addressing BZ 677457
@@ -35,7 +35,7 @@ make GTK+ widgets OpenGL-capable.
 
 %package libs
 Summary:	OpenGL Extension to GTK
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 
 %description libs
 GtkGLExt is an OpenGL extension to GTK. It provides the GDK objects
@@ -44,7 +44,7 @@ make GTK+ widgets OpenGL-capable.
 
 %package devel
 Summary:	Development tools for GTK-based OpenGL applications
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:	gtk2-devel
@@ -67,17 +67,11 @@ and developer docs for GtkGLExt.
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-make
+%{make_build}
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%{make_install}
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-
-%post libs
-/sbin/ldconfig
-
-%postun libs
-/sbin/ldconfig
 
 %files libs
 %doc AUTHORS ChangeLog README TODO
@@ -94,6 +88,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Dec 16 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.2.0-43
+- Modernize spec.
+- Convert license to SPDX.
+- Update sources to sha512.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname wikitcms
 
 Name:           python-%{srcname}
-Version:        2.6.6
-Release:        3%{?dist}
+Version:        2.6.7
+Release:        1%{?dist}
 Summary:        Fedora QA wiki test management Python library
 
 License:        GPLv3+
@@ -65,6 +65,9 @@ sed -i -e 's., "setuptools-git"..g' pyproject.toml
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Dec 16 2022 Adam Williamson <awilliam@redhat.com> - 2.6.7-1
+- New release 2.6.7: treat matrix templates as result pages
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

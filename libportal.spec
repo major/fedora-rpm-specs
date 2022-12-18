@@ -1,6 +1,6 @@
 Name:           libportal
 Version:        0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -92,6 +92,10 @@ This package provides files for development with Qt 5 and %name.
 
 %package devel-doc
 Summary: Development documentation for libportal
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 BuildArch: noarch
 
 %description devel-doc
@@ -159,6 +163,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Thu Dec 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6-4
+- Ensure correct fonts are installed for HTML docs
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,3 @@
-%if %{?fedora}%{!?fedora:0} >= 31 || %{?rhel}%{!?rhel:0} >= 8
-%global use_python3 1
-%else
-%global use_python3 0
-%endif
-
 %if %{?fedora}%{!?fedora:0} >= 25 || %{?rhel}%{!?rhel:0} >= 8
 %global use_systemd 1
 %else
@@ -17,35 +11,18 @@
 %endif
 
 Name:		bdii
-Version:	5.2.26
-Release:	10%{?dist}
+Version:	6.0.0
+Release:	1%{?dist}
 Summary:	The Berkeley Database Information Index (BDII)
 
 License:	ASL 2.0
 URL:		https://github.com/EGI-Federation/bdii
 Source:		https://github.com/EGI-Federation/bdii/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:	%{name}.service
-Source2:	%{name}-slapd.service
-Source3:	%{name}-slapd-start
-#		Python 3 support (from upstream pull requests)
-#		https://github.com/EGI-Federation/bdii/pull/25
-#		https://github.com/EGI-Federation/bdii/pull/39
-Patch0:		%{name}-py3.patch
-#		Update default paths (/var/run → /run, /var/lock → /run/lock)
-#		https://github.com/EGI-Federation/bdii/pull/31
-Patch1:		%{name}-update-default-paths.patch
-#		Use mdb slapd backend
-#		https://github.com/EGI-Federation/bdii/pull/42
-Patch2:		bdii-use-mdb-slapd-backend.patch
 BuildArch:	noarch
 BuildRequires:	make
-%if %{use_python3}
 BuildRequires:	python3-devel
-%else
-BuildRequires:	python2-devel
-%endif
 %if %{use_systemd}
-BuildRequires:	systemd
+BuildRequires:	systemd-rpm-macros
 %endif
 
 Requires:	openldap-clients
@@ -80,12 +57,9 @@ differences. This is then used to update the database.
 
 %prep
 %setup -q
-%if %{use_python3}
-%patch0 -p1
-%endif
-%patch1 -p1
 %if %{use_mdb}
-%patch2 -p1
+# Use mdb on recent systems
+patch -p1 -f < 0001-Use-mdb-slapd-backend.patch
 %endif
 
 %build
@@ -94,21 +68,17 @@ differences. This is then used to update the database.
 make install prefix=%{buildroot}
 
 # Don't use /usr/bin/env shebang
-%if %{use_python3}
 sed 's!%{_bindir}/env .*!%{__python3}!' -i %{buildroot}%{_sbindir}/bdii-update
-%else
-sed 's!%{_bindir}/python!%{__python2}!' -i %{buildroot}%{_sbindir}/bdii-update
-%endif
-
-rm -rf %{buildroot}%{_docdir}/%{name}
 
 %if %{use_systemd}
 rm %{buildroot}%{_initrddir}/%{name}
 mkdir -p %{buildroot}%{_unitdir}
-install -m 644 -p %SOURCE1 %SOURCE2 %{buildroot}%{_unitdir}
+install -m 644 -p etc/systemd/bdii.service etc/systemd/bdii-slapd.service %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_datadir}/%{name}
-install -p %SOURCE3 %{buildroot}%{_datadir}/%{name}
+install -p etc/systemd/bdii-slapd-start %{buildroot}%{_datadir}/%{name}
 %endif
+
+rm -rf %{buildroot}%{_docdir}/%{name}
 
 %if %{use_systemd}
 %pre
@@ -180,10 +150,16 @@ fi
 %endif
 %{_sbindir}/bdii-update
 %{_mandir}/man1/bdii-update.1*
-%doc AUTHORS README.md
+%doc AUTHORS.md README.md
 %license COPYRIGHT LICENSE.txt
 
 %changelog
+* Fri Dec 16 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.0.0-1
+- Version 6.0.0
+- Drop previously backported patches
+- Use python3 also for EPEL 7 (following upstream)
+- Use systemd unit files from upstream
+
 * Sun Dec 04 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.26-10
 - Use mdb slapd backend (Fedors 36+, EPEL 9+)
 
@@ -212,7 +188,7 @@ fi
 - Revert use of python3 for EPEL 7
 
 * Wed Jan 06 2021 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.26-2
-- Use python3 also for EPEL 7 (following upsteam)
+- Use python3 also for EPEL 7 (following upstream)
 
 * Tue Dec 01 2020 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.2.26-1
 - Version 5.2.26

@@ -1,12 +1,14 @@
 Name:		surf-geometry
 Version:	1.0.6
 Summary:	Tool to visualize some real algebraic geometry
-Release:	33%{?dist}
+Release:	34%{?dist}
 Source0:	http://downloads.sourceforge.net/surf/surf-%{version}.tar.gz
 Source1:	%{name}.module.in
 Patch0:		%{name}-min-max.patch
 # Update from gtk+ 1.2 to 2.0
 Patch1:		%{name}-gtk2.patch
+Patch2:		surf-geometry-configure-c99.patch
+Patch3:		surf-geometry-c99.patch
 URL:		http://surf.sourceforge.net/
 License:	GPLv2+
 BuildRequires:	gcc
@@ -74,6 +76,9 @@ mv $RPM_BUILD_ROOT%{_mandir}/man1/surf.1 \
 %{_datadir}/modulefiles/%{name}-%{_arch}
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 1.0.6-34
+- C99 port
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

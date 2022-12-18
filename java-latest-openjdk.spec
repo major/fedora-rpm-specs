@@ -1175,8 +1175,8 @@ Requires: ca-certificates
 # Require javapackages-filesystem for ownership of /usr/lib/jvm/ and macros
 Requires: javapackages-filesystem
 # Require zone-info data provided by tzdata-java sub-package
-# 2022e required as of JDK-8295173
-Requires: tzdata-java >= 2022e
+# 2022g required as of JDK-8297804
+Requires: tzdata-java >= 2022g
 # for support of kernel stream control
 # libsctp.so.1 is being `dlopen`ed on demand
 Requires: lksctp-tools%{?_isa}
@@ -1439,6 +1439,12 @@ Patch2001: jdk8293834-kyiv_cldr_update.patch
 Patch2002: jdk8294357-tzdata2022d.patch
 # JDK-8295173: (tz) Update Timezone Data to 2022e
 Patch2003: jdk8295173-tzdata2022e.patch
+# JDK-8296108: (tz) Update Timezone Data to 2022f
+Patch2004: jdk8296108-tzdata2022f.patch
+# JDK-8296715: CLDR v42 update for tzdata 2022f
+Patch2005: jdk8296715-cldr2022f.patch
+# JDK-8297804: (tz) Update Timezone Data to 2022g
+Patch2006: jdk8297804-tzdata2022g.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -1472,8 +1478,8 @@ BuildRequires: java-latest-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022e required as of JDK-8295173
-BuildRequires: tzdata-java >= 2022e
+# 2022g required as of JDK-8297804
+BuildRequires: tzdata-java >= 2022g
 # Earlier versions have a bug in tree vectorization on PPC
 BuildRequires: gcc >= 4.8.3-8
 
@@ -1883,6 +1889,9 @@ pushd %{top_level_dir_name}
 %patch2001 -p1
 %patch2002 -p1
 %patch2003 -p1
+%patch2004 -p1
+%patch2005 -p1
+%patch2006 -p1
 popd # openjdk
 
 # Extract systemtap tapsets
@@ -2425,10 +2434,14 @@ if ! nm $JAVA_HOME/bin/%{alt_java_name} | grep set_speculation ; then true ; els
 $JAVA_HOME/bin/javac -d . %{SOURCE16}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE16})|sed "s|\.java||") "%{oj_vendor}" "%{oj_vendor_url}" "%{oj_vendor_bug_url}" "%{oj_vendor_version}"
 
-# Check translations are available for new timezones
+%if ! 0%{?flatpak}
+# Check translations are available for new timezones (during flatpak builds, the
+# tzdb.dat used by this test is not where the test expects it, so this is
+# disabled for flatpak builds)
 $JAVA_HOME/bin/javac -d . %{SOURCE18}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE18})|sed "s|\.java||") JRE
 $JAVA_HOME/bin/java -Djava.locale.providers=CLDR $(echo $(basename %{SOURCE18})|sed "s|\.java||") CLDR
+%endif
 
 %if %{include_staticlibs}
 # Check debug symbols in static libraries (smoke test)
@@ -2697,6 +2710,13 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Dec 16 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:19.0.1.0.10-3.rolling
+- Update in-tree tzdata & CLDR to 2022g with JDK-8296108, JDK-8296715 & JDK-8297804
+- Update TestTranslations.java to test the new America/Ciudad_Juarez zone
+
+* Wed Dec 07 2022 Stephan Bergmann <sbergman@redhat.com> - 1:19.0.1.0.10-3.rolling
+- Fix flatpak builds by disabling TestTranslations test due to missing tzdb.dat
+
 * Wed Oct 26 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:19.0.1.0.10-2.rolling
 - Update in-tree tzdata to 2022e with JDK-8294357 & JDK-8295173
 - Update CLDR data with Europe/Kyiv (JDK-8293834)

@@ -1,22 +1,15 @@
-%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %global dict_dirname hunspell
-%else
-%global dict_dirname myspell
-%endif
 
 Name: hunspell-ga
 Summary: Irish hunspell dictionaries
-Version: 5.0
-Release: 12%{?dist}
-Source0: https://github.com/kscanne/gaelspell/releases/download/v%{version}/ispell-gaeilge-%{version}.tar.gz
-Source1: myspell-header
-Source2: hunspell-header
-URL: http://borel.slu.edu/ispell/index.html
-License: GPLv2+
+Version: 5.1
+Release: 1%{?dist}
+Source: https://github.com/kscanne/gaelspell/releases/download/v%{version}/hunspell-ga-%{version}.zip
+URL: https://cadhan.com/gaelspell/
+License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: hunspell-devel
-Patch1: ispell-gaeilge-5.0-buildhunspell.patch
 
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-ga)
@@ -25,14 +18,9 @@ Supplements: (hunspell and langpacks-ga)
 Irish hunspell dictionaries.
 
 %prep
-%autosetup -n ispell-gaeilge-%{version}
+%autosetup -c
 
 %build
-make
-cat %{SOURCE1} %{SOURCE2} > header
-export LANG=C.UTF-8
-iconv -f utf-8 -t iso-8859-1 < gaeilge.aff > gaeilge.aff.iso-8859-1
-ispellaff2myspell gaeilge.aff.iso-8859-1 --myheader header | sed -e "s/\"\"/0/g" | sed -e "s/\"//g" > ga_IE.aff
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -40,11 +28,13 @@ cp -p ga_IE.dic ga_IE.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 
 
 %files
-%doc README ChangeLog
-%license COPYING
+%doc README_ga_IE.txt
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Fri Dec 16 2022 Caolán McNamara <caolanm@redhat.com> - 5.1-1
+- latest release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,11 +1,10 @@
 Name:           duktape
-Version:        2.6.0
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Embeddable Javascript engine
 License:        MIT
 Url:            http://duktape.org/
 Source0:        http://duktape.org/%{name}-%{version}.tar.xz
-Source1:        duktape.pc.in
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  make
@@ -27,25 +26,11 @@ application that use %{name}.
 %prep
 %setup -q
 
-sed -e's|@prefix@|%{_prefix}|' \
-    -e's|@libdir@|%{_lib}|' \
-    -e's|@PACKAGE_VERSION@|%{version}|' \
-    < %{SOURCE1} > %{name}.pc.in
-
 %build
-sed -e '/^INSTALL_PREFIX/s|[^=]*$|%{_prefix}|' \
-    -e '/install\:/a\\tinstall -d $(DESTDIR)$(INSTALL_PREFIX)/%{_lib}\n\tinstall -d $(DESTDIR)$(INSTALL_PREFIX)/include' \
-    -e 's/\(\$.INSTALL_PREFIX.\)/$(DESTDIR)\1/g' \
-    -e 's/\/lib\b/\/%{_lib}/g' \
-     < Makefile.sharedlibrary > Makefile
-%make_build
+%make_build -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDIR=/%{_lib}
 
 %install
-%make_install
-
-install -Dm0644 %{name}.pc.in %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
-
-%ldconfig_scriptlets
+%make_install -f Makefile.sharedlibrary INSTALL_PREFIX=%{_prefix} LIBDIR=/%{_lib}
 
 %files
 %license LICENSE.txt

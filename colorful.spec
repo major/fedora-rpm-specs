@@ -1,29 +1,32 @@
-%global repo_name LD25
-%global repo_commit e5ecbe39b719f12a1268bcc641eae9ba364221c9 
-
 Name:          colorful
-Version:       1.3
-Release:       15%{?dist}
+Version:       2.0
+Release:       1%{?dist}
 Summary:       Side-view shooter game
-License:       zlib with acknowledgement
+
+# The game itself is GPLv3.
+# The source archive also inluces Pascal units for SDL2.
+# Said units are dual-licensed: MPLv2 or zlib.
+License:       GPL-3.0-only AND (MPL-2.0 OR Zlib)
 
 URL:           https://svgames.pl
-Source0:       https://github.com/suve/%{repo_name}/archive/%{repo_commit}.tar.gz#/%{repo_name}-%{repo_commit}.tar.gz
-
-# On 32-bit architectures, FPC defaults to generating stabs-format debuginfo.
-# This patch modifies the Makefile to explicitly ask the compiler
-# to generate debuginfo in DWARF format.
-Patch0:        colorful-DWARF.patch
+Source0:       https://github.com/suve/LD25/releases/download/release-%{version}/colorful-%{version}-source.zip
 
 Requires:      colorful-data = %{version}-%{release}
 Requires:      hicolor-icon-theme
-Requires:      opengl-games-utils
 
 # Needed for compilation
-BuildRequires: make, fpc >= 3.0, glibc-devel, SDL-devel, SDL_image-devel, SDL_mixer-devel, mesa-libGL-devel
+BuildRequires: fpc >= 3.0.0
+BuildRequires: glibc-devel
+BuildRequires: make
+BuildRequires: optipng
+BuildRequires: SDL2-devel
+BuildRequires: SDL2_image-devel
+BuildRequires: SDL2_mixer-devel
+BuildRequires: vorbis-tools
 
 # Needed to properly build the RPM
-BuildRequires: desktop-file-utils, libappstream-glib
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 
 # FPC is not available on all architectures
 ExclusiveArch:  %{fpc_arches}
@@ -35,86 +38,53 @@ travels a maze of caves and corridors in order to collect color artifacts.
 
 %package data
 Summary:       Game data for Colorful
+# The game uses separate licenses for code and assets
+License:       zlib-acknowledgement
 BuildArch:     noarch
-# BuildRequires: 
-# Requires:
 
 %description data
 Data files (graphics, maps, sounds) required to play Colorful.
 
 
 %prep
-%setup -q -n %{repo_name}-%{repo_commit}
-%patch0 -p1
+%setup -q
 
-# According to the readme, these files are only needed when
-# building with FPC < 3.0.0 and can otherwise be removed.
-rm src/jedi-sdl.inc src/sdl_mixer_bundled.pas
-
-# We're going to use the OpenGL Wrapper, so we have to edit the desktop file.
-sed -e 's/^Exec=colorful$/Exec=colorful-wrapper/' -i pkg/%{name}.desktop
 
 %build 
-cd src/
-make clean
-make package
+./configure.sh --assets=systemwide --flags="-g -gl -gw" --strip=false
+%make_build
+
 
 %install
-install -m 755 -d %{buildroot}/%{_bindir}/
-install -m 755 -d %{buildroot}/%{_mandir}/man6/
-install -m 755 -d %{buildroot}/%{_mandir}/pl/man6/
-install -m 755 -d %{buildroot}/%{_datadir}/applications/
-install -m 755 -d %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps/
-install -m 755 -d %{buildroot}/%{_datadir}/appdata/
-
-install -m 755 -p src/%{name} %{buildroot}/%{_bindir}/%{name}
-ln -s opengl-game-wrapper.sh %{buildroot}/%{_bindir}/%{name}-wrapper
-
-install -m 644 -p pkg/%{name}-english.man  %{buildroot}/%{_mandir}/man6/%{name}.6
-install -m 644 -p pkg/%{name}-polish.man   %{buildroot}/%{_mandir}/pl/man6/%{name}.6
-
-desktop-file-install                            \
-  --dir=%{buildroot}/%{_datadir}/applications/  \
-  pkg/%{name}.desktop
-
-appstream-util validate-relax --nonet pkg/%{name}.appdata.xml
-install -m 644 -p pkg/%{name}.appdata.xml %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
-
-install -m 644 -p pkg/%{name}-32x32.png %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%make_install
 
 
-# For the -data subpackage
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/gfx/
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/sfx/
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/intro/
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/map/org/
-install -m 755 -d %{buildroot}/%{_datadir}/suve/%{name}/map/tut/
-
-cp -a ./gfx/   %{buildroot}/%{_datadir}/suve/%{name}/
-cp -a ./sfx/   %{buildroot}/%{_datadir}/suve/%{name}/
-cp -a ./intro/ %{buildroot}/%{_datadir}/suve/%{name}/
-cp -a ./map/   %{buildroot}/%{_datadir}/suve/%{name}/
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %files
 %{_bindir}/%{name}
-%{_bindir}/%{name}-wrapper
 %{_mandir}/man6/%{name}.6*
 %{_mandir}/*/man6/%{name}.6*
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %doc README.md
-%license LICENCE.txt
+%license LICENCE-CODE.txt
 
 
 %files data
 %{_datadir}/suve/
-%license LICENCE.txt
+%license LICENCE-ASSETS.txt
 
 
 %changelog
+* Fri Dec 16 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0-1
+- Update to v2.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

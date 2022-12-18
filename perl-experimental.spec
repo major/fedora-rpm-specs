@@ -1,5 +1,5 @@
 Name:           perl-experimental
-Version:        0.029
+Version:        0.030
 Release:        1%{?dist}
 Summary:        Experimental features made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 16 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.030-1
+- 0.030 bump
+
 * Wed Oct 26 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.029-1
 - 0.029 bump
 

@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 122
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -161,6 +161,9 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Fri Dec 16 2022 František Zatloukal <fzatlouk@redhat.com> - 122-2
+- Rebuilt for duktape 2.7.0
+
 * Wed Oct 26 2022 Vincent Mihalkovic <vmihalko@redhat.com> - 122-1
 - rebase to 122
 

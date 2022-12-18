@@ -134,8 +134,8 @@
 
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
-%global samba_version 4.17.3
-%global baserelease 2
+%global samba_version 4.17.4
+%global baserelease 0
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -3111,6 +3111,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/__pycache__/as_canonicalization_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/as_req_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/compatability_tests.*.pyc
+%{python3_sitearch}/samba/tests/krb5/__pycache__/etype_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/fast_tests.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kcrypto.*.pyc
 %{python3_sitearch}/samba/tests/krb5/__pycache__/kdc_base_test.*.pyc
@@ -3141,6 +3142,7 @@ fi
 %{python3_sitearch}/samba/tests/krb5/as_canonicalization_tests.py
 %{python3_sitearch}/samba/tests/krb5/as_req_tests.py
 %{python3_sitearch}/samba/tests/krb5/compatability_tests.py
+%{python3_sitearch}/samba/tests/krb5/etype_tests.py
 %{python3_sitearch}/samba/tests/krb5/fast_tests.py
 %{python3_sitearch}/samba/tests/krb5/kcrypto.py
 %{python3_sitearch}/samba/tests/krb5/kdc_base_test.py
@@ -4316,6 +4318,12 @@ fi
 %endif
 
 %changelog
+* Fri Dec 16 2022 Guenther Deschner <gdeschner@redhat.com> - 4.17.4-0
+- resolves: #2153906 - Update to version 4.17.4
+- resolves: #2154362, #2154363 - Security fixes for CVE-2022-38023
+- resolves: #2154303, #2154304 - Security fixes for CVE-2022-37966
+- resolves: #2154320, #2154322 - Security fixes for CVE-2022-37967
+
 * Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 2:4.17.3-2
 - Rebuild against krb5 1.20.1, new KDB interface
 

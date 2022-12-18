@@ -1,8 +1,8 @@
 Name:           perl-Syntax-Keyword-Try
-Version:        0.27
-Release:        3%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        try/catch/finally syntax for perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Try/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -80,7 +80,7 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -99,6 +99,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Dec 16 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.28-1
+- 0.28 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

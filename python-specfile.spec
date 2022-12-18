@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.11.0
+Version:        0.11.1
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Wed Dec 14 2022 Packit <hello@packit.dev> - 0.11.1-1
+- Tags enclosed in conditional macro expansions are not ignored anymore. (#156)
+- Fixed context managers being shared between Specfile instances. (#157)
+
 * Fri Dec 09 2022 Packit <hello@packit.dev> - 0.11.0-1
 - Context managers (`Specfile.sections()`, `Specfile.tags()` etc.) can now be nested and combined together (with one exception - `Specfile.macro_definitions()`), and it is also possible to use tag properties (e.g. `Specfile.version`, `Specfile.license`) inside them. It is also possible to access the data directly, avoiding the `with` statement, by using the `content` property (e.g. `Specfile.tags().content`), but be aware that no modifications done to such data will be preserved. You must use `with` to make changes. (#153)
 

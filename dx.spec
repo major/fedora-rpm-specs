@@ -1,6 +1,6 @@
 Name: dx
 Version: 4.4.4
-Release: 60%{?dist}
+Release: 61%{?dist}
 Summary: Open source version of IBM's Visualization Data Explorer
 License: IPL-1.0
 URL: http://www.opendx.org/
@@ -23,6 +23,7 @@ Patch7: 0007-dx-format-security.patch
 Patch8: 0008-dx-narrowing.patch
 # fix gcc-7.0 incompatibilites
 Patch9: 0009-gcc7.0-compatibility.patch
+Patch10: dx-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -76,6 +77,7 @@ Editor, or in the scripting language, you will need this package.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 # fix debuginfo rpmlint warnings
 chmod a-x src/exec/{dxmods,dpexec,hwrender}/*.{c,h}
@@ -132,6 +134,9 @@ rm     $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 4.4.4-61
+- Port to C99 (#2154342)
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.4-60
 - Spec file cosmetics.
 - Convert license to SPDX.

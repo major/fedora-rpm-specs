@@ -1,6 +1,6 @@
 Name:		pciutils
 Version:	3.9.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	PCI bus related utilities
 License:	GPLv2+
 URL:		https://mj.ucw.cz/sw/pciutils/
@@ -13,6 +13,9 @@ Patch1:		pciutils-2.2.1-idpath.patch
 
 #add support for directory with another pci.ids, rejected by upstream, rhbz#195327
 Patch2:		pciutils-dir-d.patch
+
+#gcc optimizes-out some symbols when -flto is used ttps://gcc.gnu.org/bugzilla/show_bug.cgi?id=48200
+Patch3:		pciutils-3.9.0-extvisible.patch
 
 Requires:	hwdata
 Requires:	%{name}-libs = %{version}-%{release}
@@ -57,7 +60,6 @@ make clean
 
 %make_build SHARED="yes" ZLIB="no" LIBKMOD=yes STRIP="" OPT="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" PREFIX="/usr" LIBDIR="%{_libdir}" IDSDIR="/usr/share/hwdata" PCI_IDS="pci.ids"
 
-
 %install
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man{7,8},%{_libdir},%{_libdir}/pkgconfig,%{_includedir}/pci}
 
@@ -99,6 +101,9 @@ install -p -m 644 lib/libpci.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 %{_mandir}/man7/*
 
 %changelog
+* Thu Dec 15 2022 Michal Hlavinka <mhlavink@redhat.com> - 3.9.0-2
+- fix gcc optimizing-out versioned symbols when -flto is used (gccbz#48200)
+
 * Tue Nov 29 2022 Michal Hlavinka <mhlavink@redhat.com> - 3.9.0-1
 - updated to 3.9.0
 

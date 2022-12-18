@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 
 # Macro files
@@ -127,6 +127,9 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 %license LICENSE
 
 %changelog
+* Mon Nov 28 2022 Miro Hrončok <mhroncok@redhat.com> - 1.5.0-1
+- Use %%py3_test_envvars in %%tox when available
+
 * Mon Sep 19 2022 Python Maint <python-maint@redhat.com> - 1.4.0-1
 - %%pyproject_save_files: Support License-Files installed into the *Root License Directory* from PEP 369
 - Fixes: rhbz#2127946

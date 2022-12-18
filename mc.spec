@@ -1,37 +1,35 @@
+# NOTE: disabled sftp (needs to be ported to use libssh instead of libssh2)
 %bcond_without	slang
 
 Summary:	User-friendly text console file manager and visual shell
 Name:		mc
 Epoch:		1
-Version: 4.8.28
+Version: 	4.8.28
 Release:	3%{?dist}
-License:	GPLv3+
-URL:		http://www.midnight-commander.org/
-Source0:	https://github.com/MidnightCommander/mc/archive/%{version}.tar.gz
-Patch1:		%{name}-spec.syntax.patch
-Patch3:		%{name}-python3.patch
-Patch4:		%{name}-default_setup.patch
-Patch5:		%{name}-tmpdir.patch
-Patch6:		https://github.com/MidnightCommander/mc/commit/34d3726b79d35481e96f5fabe8e34e3439e6d9d9.patch
-# deps for autogen.sh
-BuildRequires: make
+License:	GPL-3.0-or-later
+URL:		https://midnight-commander.org/
+VCS:		https://github.com/MidnightCommander/mc/
+Source:		%{VCS}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:		%{name}-spec.syntax.patch
+Patch:		%{name}-python3.patch
+Patch:		%{name}-default_setup.patch
+Patch:		%{name}-tmpdir.patch
+Patch:		%{VCS}/commit/34d3726b.patch#/%{name}-Ticket-4374-fix-file-sort-by-version.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
-BuildRequires:	libtool
-# other build deps
-BuildRequires:	e2fsprogs-devel
 BuildRequires:	gcc
-BuildRequires:	glib2-devel
+BuildRequires:	gettext-devel
 BuildRequires:	gpm-devel
 BuildRequires:	groff-base
-# disabled (needs to be ported to use libssh instead of libssh2)
-#BuildRequires:	libssh2-devel	>= 1.2.5
-# (configure line was also changed from --enable-vfs-sftp to --disable-vfs-sftp
-# - this is the only part of mc which uses libssh2)
-BuildRequires:	%{?with_slang:slang-devel}%{!?with_slang:ncurses-devel}
-BuildRequires:	pkgconfig
+BuildRequires:	libtool
+BuildRequires:	make
 BuildRequires:	perl-generators
+BuildRequires:	pkgconfig
+BuildRequires:	pkgconfig(ext2fs)
+BuildRequires:	pkgconfig(glib-2.0)
+BuildRequires:	pkgconfig(gmodule-2.0)	>= 2.30
+#BuildRequires:	pkgconfig(libssh2)	>= 1.2.8
+BuildRequires:	%[%{?with_slang}?"pkgconfig(slang) >= 2.0":"ncurses-devel"]
 Suggests:	mc-python
 
 %description
@@ -53,11 +51,13 @@ Midnight Commander s3+ and UC1541 EXTFS backend scripts.
 %autosetup -p1
 
 %build
-sed -i "s,PREV_MC_VERSION=\"unknown\",PREV_MC_VERSION=\"%{version}\"," version.sh
+%__sed -i "s,PREV_MC_VERSION=\"unknown\",PREV_MC_VERSION=\"%{version}\"," version.sh
 ./autogen.sh
 %configure \
-	PYTHON=%{__python3} \
+	PYTHON=%__python3 \
 	--disable-rpath \
+	--disable-vfs-sftp \
+	--disable-vfs-smb \
 	--enable-charset \
 	--enable-largefile \
 	--enable-vfs-cpio \
@@ -65,12 +65,10 @@ sed -i "s,PREV_MC_VERSION=\"unknown\",PREV_MC_VERSION=\"%{version}\"," version.s
 	--enable-vfs-fish \
 	--enable-vfs-ftp \
 	--enable-vfs-sfs \
-	--disable-vfs-sftp \
-	--disable-vfs-smb \
 	--enable-vfs-tar \
-	--with-x \
 	--with-gpm-mouse \
-	--with-screen=%{?with_slang:slang}%{!?with_slang:ncurses} \
+	--with-screen=%[%{?with_slang}?"slang":"ncurses"] \
+	--with-x \
 	%{nil}
 %make_build
 

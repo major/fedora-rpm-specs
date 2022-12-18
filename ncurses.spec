@@ -2,7 +2,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.3
-Release: 4.%{revision}%{?dist}
+Release: 5.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -129,18 +129,17 @@ common_options="\
 
 abi=6
 
-for opts in "-novs" ""; do
+if true; then
     for char in narrowc widec; do
-        mkdir "$char$abi$opts"
-        pushd "$char$abi$opts"
+        mkdir $char$abi
+        pushd $char$abi
         ln -s ../configure .
 
-        [ $char = widec ] && ! [[ $opts =~ -novs ]] && progs=yes || progs=no
+        [ $char = widec ] && progs=yes || progs=no
 
         %configure $(
             echo $common_options --with-abi-version=$abi
             [ $char = widec ] && echo --enable-widec
-            [[ $opts =~ -novs ]] || echo --with-versioned-syms
             [ $progs = yes ] || echo --without-progs
         )
 
@@ -149,20 +148,9 @@ for opts in "-novs" ""; do
 
         popd
     done
-done
+fi
 
 %install
-# libraries with unversioned symbols will be used for building other
-# applications to keep compatibility with distributions that don't enable
-# the ncurses symbol versioning (following the upstream default)
-make -C narrowc6-novs DESTDIR=$RPM_BUILD_ROOT install.libs
-make -C widec6-novs DESTDIR=$RPM_BUILD_ROOT install.libs
-rm -f ${RPM_BUILD_ROOT}%{_libdir}/lib{*.a,ncurses++*.*}
-chmod 755 ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.*.*
-mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/ncurses-novs
-mv ${RPM_BUILD_ROOT}%{_libdir}/lib*.so.* \
-    ${RPM_BUILD_ROOT}%{_libdir}/ncurses-novs
-
 make -C narrowc6 DESTDIR=$RPM_BUILD_ROOT install.libs
 rm ${RPM_BUILD_ROOT}%{_libdir}/lib{tic,tinfo}.so.6*
 make -C widec6 DESTDIR=$RPM_BUILD_ROOT install.{libs,progs,data,includes,man}
@@ -207,19 +195,12 @@ for l in $RPM_BUILD_ROOT%{_includedir}/*.h; do
     ln -s ../$(basename $l) $RPM_BUILD_ROOT%{_includedir}/ncursesw
 done
 
-# redirect ld to libraries with unversioned symbols
-for l in $RPM_BUILD_ROOT%{_libdir}/lib{{form,menu,ncurses,panel}{,w},tic,tinfo}.so; do
+# don't require -ltinfo when linking with --no-add-needed
+for l in $RPM_BUILD_ROOT%{_libdir}/libncurses{,w}.so; do
     soname=$(basename $(readlink $l))
     rm -f $l
-    # don't require -ltinfo when linking with --no-add-needed
-    [[ "$soname" =~ ^libncurses ]] && extra=" -ltinfo" || extra=""
-    echo "INPUT(%{_libdir}/ncurses-novs/$soname$extra)" > $l
+    echo "INPUT($soname -ltinfo)" > $l
 done
-
-# and filter the generated provides/requires
-%global __provides_exclude \\(NCURSES
-%global __requires_exclude \\(NCURSES
-%global __provides_exclude_from ^%{_libdir}/ncurses-novs
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/libcurses{,w}.so
 echo "INPUT(-lncurses)" > $RPM_BUILD_ROOT%{_libdir}/libcurses.so
@@ -265,7 +246,6 @@ xz NEWS
 %doc c++/README*
 %doc misc/ncurses.supp
 %{_bindir}/ncurses*-config
-%{_libdir}/ncurses-novs/lib*.so.6*
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 %dir %{_includedir}/ncurses
@@ -280,6 +260,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Fri Dec 16 2022 Miroslav Lichvar <mlichvar@redhat.com> 6.3-5.20221126
+- revert "enable symbol versioning for dynamic linker (#1875587)"
+
 * Thu Dec 01 2022 Miroslav Lichvar <mlichvar@redhat.com> 6.3-4.20221126
 - update to 6.3-20221126
 - enable symbol versioning for dynamic linker (#1875587)

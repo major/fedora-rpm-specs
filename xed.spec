@@ -3,7 +3,7 @@
 
 
 Name:		xed
-Version:	3.2.7
+Version:	3.2.8
 Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
@@ -86,8 +86,7 @@ This package contains the documentation files for %{name}.
 %meson_install
 %{__sed} -i -e '/.*<project_group>.*/d'				\
 	%{buildroot}%{_metainfodir}/%{name}.appdata.xml
-%{_bindir}/find %{buildroot} -name '*.a' -print -delete
-%{_bindir}/find %{buildroot} -name '*.la' -print -delete
+
 %find_lang %{name} --with-gnome 
 
 
@@ -129,6 +128,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Fri Dec 16 2022 Leigh Scott <leigh123linux@gmail.com> - 3.2.8-1
+- Update to 3.2.8 release
+
 * Sun Jul 24 2022 Leigh Scott <leigh123linux@gmail.com> - 3.2.7-1
 - Update to 3.2.7 release
 

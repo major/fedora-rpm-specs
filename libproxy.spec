@@ -3,7 +3,7 @@
 
 Name:           libproxy
 Version:        0.4.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPLv2+
@@ -208,6 +208,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/proxy.1
 
 
 %changelog
+* Fri Dec 16 2022 František Zatloukal <fzatlouk@redhat.com> - 0.4.18-4
+- Rebuilt for duktape 2.7.0
+
 * Wed Jul 20 2022 Michael Catanzaro <mcatanzaro@redhat.com> - 0.4.18-3
 - Replace WebKitGTK pacrunner backend with duktape
 

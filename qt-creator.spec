@@ -7,8 +7,8 @@
 %global clangver 15.0.6
 
 Name:           qt-creator
-Version:        9.0.0
-Release:        3%{?dist}
+Version:        9.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -148,7 +148,8 @@ popd
 %cmake -G Ninja \
     -DBUILD_PLUGIN_CLANGREFACTORING=ON \
     -DBUILD_PLUGIN_CLANGPCHMANAGER=ON \
-    -DCLANG_LIB_PATH=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/ \
+    -DCLANG_FORMAT_INC_DIR=$PWD/clang-%{clangver}.src/include/ \
+    -DCLANG_FORMAT_LIB_DIR=$PWD/clang-%{clangver}.src/%{_vpath_builddir}/%{_lib}/ \
     -DWITH_DOCS=ON \
     -Djournald=ON \
     -DBUILD_DEVELOPER_DOCS=ON \
@@ -211,6 +212,12 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 9.0.1-1
+- Update to 9.0.1
+
+* Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 9.0.0-4
+- Ensure headers from bundled clang are used for clangFormat plugin
+
 * Wed Dec 07 2022 Nikita Popov <npopov@redhat.com> - 9.0.0-3
 - Rebuild against Clang 15.0.6
 

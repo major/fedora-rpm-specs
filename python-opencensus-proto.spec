@@ -17,7 +17,7 @@ Version:        0.4.1
 Release:        %autorelease
 Summary:        Language Independent Interface Types For OpenCensus
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/census-instrumentation/%{srcname}/
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 

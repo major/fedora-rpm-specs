@@ -6,16 +6,13 @@
 %endif
  
 Name:           libfabric
-Version:        1.16.1
-Release:        3%{?dist}
+Version:        1.17.0
+Release:        0.1.rc2%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD or GPLv2
 URL:            https://github.com/ofiwg/libfabric
-Source0:        https://github.com/ofiwg/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-# Upstream patch to fix deadlock with no network
-# https://github.com/ofiwg/libfabric/pull/8227
-Patch0:         https://patch-diff.githubusercontent.com/raw/ofiwg/libfabric/pull/8227.patch
+Source0:        https://github.com/ofiwg/%{name}/releases/download/v%{version}rc2/%{name}-%{version}rc2.tar.bz2
 
 %if %{__remake_config}
 BuildRequires:  automake
@@ -63,7 +60,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}rc2
 
 %build
 %if %{__remake_config}
@@ -102,6 +99,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Dec 15 2022 Orion Poplawski <orion@nwra.com> - 1.17.0-0.1.rc2
+- Update to 1.70.0rc2
+
 * Fri Nov 11 2022 Orion Poplawski <orion@nwra.com> - 1.16.1-3
 - Actually apply patch
 

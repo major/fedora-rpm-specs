@@ -41,7 +41,7 @@ URL:            https://www.docker.com
 
 ExclusiveArch:  %{golang_arches}
 
-BuildRequires:  golang(github.com/docker/libnetwork)
+BuildRequires:  golang(github.com/docker/docker/libnetwork)
 BuildRequires:  pkgconfig(libbtrfsutil)
 BuildRequires:  pkgconfig(devmapper)
 BuildRequires:  golang
@@ -142,7 +142,7 @@ mkdir -p _build/bin
         # Build binary using `golang-github-docker-libnetwork-devel`
         # (github.com/docker/libnetwork) installed in system GOPATH.
         export GOPATH="%{_datadir}/gocode"
-        %gobuild -o _build/bin/docker-proxy github.com/docker/libnetwork/cmd/proxy
+        %gobuild -o _build/bin/docker-proxy github.com/docker/docker/cmd/docker-proxy
 )
 
 # build tini (installed as docker-init)
@@ -281,6 +281,7 @@ done
 %changelog
 * Wed Dec 14 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20.10.21-1
 - Update to 20.10.21
+- Fix build, use libnetwork from golang-github-docker-0:22.06.0~beta
 
 * Thu Oct 20 2022 Jan Kuparinen <copperi@fedoraproject.org> - 20.10.20-1
 - Update to 20.10.20.

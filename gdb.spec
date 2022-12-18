@@ -672,11 +672,6 @@ export LDFLAGS="%{?__global_ldflags} %{?_with_asan:-fsanitize=address}"
 CFLAGS="$CFLAGS -DDNF_DEBUGINFO_INSTALL"
 %endif
 
-# Patch833: gdb-6.6-buildid-locate-rpm-scl.patch
-%if 0%{?el6:1} && 0%{?scl:1}
-CFLAGS="$CFLAGS -DGDB_INDEX_VERIFY_VENDOR"
-%endif
-
 %if 0%{have_libipt} && 0%{?el7:1} && 0%{?scl:1}
 (
  mkdir libipt-%{libipt_version}-root
@@ -1195,6 +1190,10 @@ fi
 %endif
 
 %changelog
+* Fri Dec 16 2022 Keith Seitz <keiths@redhat.com>
+- Remove gdb-6.6-buildid-locate-rpm-scl.patch and
+  gdb-bz601887-dwarf4-rh-test.patch.
+
 * Fri Dec 9 2022 Andrew Burgess <aburgess@redhat.com>
 - Remove gdb-fortran-frame-string.patch, a version of this test has
   now been upstreamed.

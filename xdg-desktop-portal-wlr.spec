@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
 Version:        0.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -8,6 +8,8 @@ URL:            https://github.com/emersion/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
+
+Patch0:         %{url}/commit/c83b3cc.patch#/xdg-desktop-portal-wlr-0.6.0-screenshot-Announce-version-property.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -21,6 +23,7 @@ BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libspa-0.2)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(scdoc)
+BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
 BuildRequires:  pkgconfig(wayland-scanner)
@@ -29,9 +32,10 @@ Requires:       dbus
 # required for Screenshot portal implementation
 Requires:       grim
 Requires:       xdg-desktop-portal
-# required for Screencast output selection
-Recommends:     slurp
-Recommends:     wofi
+# required for Screencast output selection.
+# xdpw will try to use first available of the 3 utilities
+Recommends:     (slurp or wofi or bemenu)
+Suggests:       slurp
 
 Enhances:       sway
 Supplements:    (sway and (flatpak or snapd))
@@ -75,6 +79,12 @@ remote-desktop xdg-desktop-portal interfaces for wlroots based compositors.
 
 
 %changelog
+* Tue Dec 13 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.6.0-3
+- Recommend only one chooser of 3 supported, prefer slurp.
+- Add missing BR: pkgconfig(systemd)
+- Add upstream patch for screenshot portal version
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

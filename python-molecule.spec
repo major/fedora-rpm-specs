@@ -21,15 +21,13 @@ testing of Ansible roles.
 %bcond_without tests
 
 Name:           %{pkgname}
-Version:        4.0.3
-%forgemeta
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Molecule is designed to aid in the development and testing of Ansible roles
 URL:            %{forgeurl}
-Source:         %{forgesource}
-Patch:          0001_remove_sphinx_version_pinning.patch
-Patch:          0002_skiping_tests_requiring_connectivity.patch
-Patch:          0003_adding_data_files_to_setup_cfg.patch
+Source:         %{pypi_source molecule}
+# Remove unnecessary test deps and sphinx pinning
+Patch:          0001-Remove-Sphinx-pinning-and-unneeded-test-deps.patch
 BuildArch:      noarch
 
 ########################################################################
@@ -39,7 +37,7 @@ BuildArch:      noarch
 # - molecule-2.7/molecule/interpolation.py                             #
 # - molecule-2.7/test/unit/test_interpolation.py                       #
 ########################################################################
-License: MIT and ASL 2.0
+License: MIT AND Apache-2.0
 
 BuildRequires: python3-devel
 BuildRequires: pyproject-rpm-macros
@@ -62,18 +60,17 @@ Summary: %summary
 ########################################################################
 %package -n python3-%{srcname}
 Summary: %summary
+Provides: molecule = %{version}-%{release}
 
 Requires:   ansible-core
 Recommends: python-molecule-doc
-Recommends: python3dist(docker)
-Recommends: python3dist(docker)
 Recommends: python3dist(molecule-docker)
 Recommends: python3dist(molecule-podman)
 
 %description -n python3-%{srcname} %{common_description}
 
 %prep
-%forgeautosetup -p1
+%autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test} %{?with_doc:-x docs}
@@ -88,37 +85,29 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
 
 %if %{with tests}
 %check
-cat <<EOF > %{buildroot}/molecule
-#! /usr/bin/python3 -s
-# -*- coding: utf-8 -*-
-import re
-import sys
-from molecule.__main__ import main
-if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(main())
-EOF
-
-chmod +x %{buildroot}/molecule
-
-sed -i 's@\["molecule"@\["%{buildroot}/molecule"@g' src/molecule/test/functional/conftest.py
-sed -i 's@"molecule"@"%{buildroot}/molecule"@g'     src/molecule/test/functional/test_command.py
-sed -i 's@"molecule"@"%{buildroot}/molecule"@g'     src/molecule/test/unit/command/test_base.py
-
-PYTHONPATH=$(pwd)/src %{python3} -m pytest -vv src/molecule/test
-rm -f  %{buildroot}/molecule
+# Python 3.11.1 and later emit a deprecation warning when
+# asyncio.get_event_loop() is used to implicitly create an event loop.
+# Disable this warning until the issue is resolved upstream
+# (https://github.com/pycontribs/subprocess-tee/pull/86).
+%pytest \
+    -vv \
+    -n auto \
+    -k 'not test_command_dependency' \
+    -W "ignore:There is no current event loop:DeprecationWarning" \
+    src/molecule/test
 %endif
 
 ########################################################################
 # Python package files                                                 #
 ########################################################################
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-%{srcname}
 %license LICENSE
 %{_bindir}/%{srcname}
+%{python3_sitelib}/molecule/
+%{python3_sitelib}/molecule-%{version}.dist-info/
 
 ########################################################################
 # Documentation package files                                          #

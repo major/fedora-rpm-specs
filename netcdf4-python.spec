@@ -1,5 +1,5 @@
 Name:           netcdf4-python
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 Summary:        Python/numpy interface to netCDF
 
@@ -166,6 +166,9 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 
 
 %changelog
+* Fri Dec 16 2022 Orion Poplawski <orion@nwra.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 1.6.1-1
 - Update to 1.6.1
 

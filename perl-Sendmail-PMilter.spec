@@ -1,6 +1,6 @@
 Summary:	Perl binding of Sendmail Milter protocol
 Name:		perl-Sendmail-PMilter
-Version:	1.23
+Version:	1.24
 Release:	1%{?dist}
 License:	BSD-3-Clause
 URL:		https://metacpan.org/release/Sendmail-PMilter
@@ -89,6 +89,11 @@ make test
 %{_mandir}/man3/Sendmail::PMilter::Context.3*
 
 %changelog
+* Fri Dec 16 2022 Paul Howarth <paul@city-fan.org> - 1.24-1
+- Update to 1.24
+  - Make no reply to MTA from the abort callback: such replies seem to cause
+    problems for Postfix (CPAN RT#145263)
+
 * Mon Oct 31 2022 Paul Howarth <paul@city-fan.org> - 1.23-1
 - Update to 1.23
   - Replace deprecated IO::Socket::INET6 with IO::Socket::IP (CPAN RT#144401)

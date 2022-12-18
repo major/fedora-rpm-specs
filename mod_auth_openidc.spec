@@ -14,8 +14,8 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.11.2
-Release:	3%{?dist}
+Version:	2.4.12.2
+Release:	1%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
 License:	ASL 2.0
@@ -96,6 +96,11 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
+* Fri Dec 16 2022 Tomas Halman <thalman@redhat.com> - 2.4.12.2-1
+  Rebase to 2.4.12.2 version
+- Resolves: rhbz#2153658 - CVE-2022-23527 mod_auth_openidc: Open Redirect in
+  oidc_validate_redirect_url() using tab character
+
 * Thu Sep 22 2022 Tomas Halman <thalman@redhat.com> - 2.4.11.2-3
 - Resolves: rhbz#2128328 - Port pcre dependency to pcre2
 

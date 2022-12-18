@@ -2,7 +2,7 @@
 
 Name:           sysusage
 Version:        5.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        System monitoring based on Perl, rrdtool, and sysstat
 License:        GPL-3.0-or-later
 URL:            https://sysusage.darold.net/
@@ -10,7 +10,7 @@ Source0:        https://downloads.sourceforge.net/project/%{name}/%{name}/%{vers
 Source1:        %{name}-httpd.conf
 Source2:        %{name}.cron
 BuildRequires: make
-BuildRequires:  perl-macros
+BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Need them during building to determine the path.
 %if 0%{?fedora} || 0%{?rhel} > 6
@@ -140,6 +140,9 @@ find %{buildroot} -name .packlist -type f -delete
 %{_bindir}/rsysusage
 
 %changelog
+* Mon Dec 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.7-18
+- Add BR perl-generators to automatically generates run-time dependencies
+
 * Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.7-17
 - SPDX license update
 

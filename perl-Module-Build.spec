@@ -1,5 +1,5 @@
 %global cpan_version_major 0.42
-%global cpan_version_minor 31
+%global cpan_version_minor 32
 %global cpan_version %{cpan_version_major}%{?cpan_version_minor}
 
 # Run optional tests
@@ -12,9 +12,9 @@
 Name:           perl-Module-Build
 Epoch:          2
 Version:        %{cpan_version_major}%{?cpan_version_minor:.%cpan_version_minor}
-Release:        15%{?dist}
+Release:        1%{?dist}
 Summary:        Build and install Perl modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-%{cpan_version}.tar.gz
 # Do not require a compiler if c_source is an empty list, bug #1547165,
@@ -25,9 +25,9 @@ Patch0:         Module-Build-0.4224-Do-not-need-a-compiler-if-c_source-is-an-emp
 Patch1:         Module-Build-0.4231-Do-not-die-on-missing-ExtUtils-CBuilder-in-have_c_co.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(AutoSplit)
 BuildRequires:  perl(base)
@@ -161,6 +161,9 @@ LANG=C TEST_SIGNATURE=1 MB_TEST_EXPERIMENTAL=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Dec 16 2022 Jitka Plesnikova <jplesnik@redhat.com> -2:0.42.32-1
+- 0.4232 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.42.31-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

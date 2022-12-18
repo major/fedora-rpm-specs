@@ -1,57 +1,60 @@
-%global srcname molecule-podman
-%global setup_flags SKIP_PIP_INSTALL=1 PBR_VERSION=%{version}
-
 Name: python-molecule-podman
-Version: 1.0.1
-Release: 4%{?dist}
+Version: 2.0.3
+Release: 1%{?dist}
 Summary: Molecule Podman plugin
 License: MIT
 
 URL: https://github.com/ansible-community/molecule-podman
-Source0: %{pypi_source}
+Source0: %{pypi_source molecule-podman}
 
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3dist(toml)
-BuildRequires: python3dist(setuptools)
-BuildRequires: python3dist(setuptools-scm)
-BuildRequires: python3dist(setuptools-scm-git-archive)
+
 
 %description
 Molecule Podman Plugin is designed to allow use podman containers for
 provisioning test resources.
 
+
 %package -n python3-molecule-podman
 Summary: %summary
 
-Requires: python3dist(podman)
-Requires: python3dist(molecule) >= 3.4
-Requires: python3dist(ansible-compat) >= 0.5
 
-
-%{?python_disable_dependency_generator}
-%{?python_provide:%python_provide python3-%{srcname}}
 %description -n python3-molecule-podman
 Molecule Podman Plugin is designed to allow use podman containers for
 provisioning test resources.
 
+
 %prep
-%setup -q -n %{srcname}-%{version}
+%autosetup -n molecule-podman-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%{py3_build}
+%pyproject_wheel
+
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files molecule_podman
 
-%files -n python3-molecule-podman
+
+%check
+%pyproject_check_import -e 'molecule_podman.test.*'
+
+
+%files -n python3-molecule-podman -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/molecule_podman-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/molecule_podman/
 %doc *.rst
 
 %changelog
+* Fri Dec 16 2022 Maxwell G <gotmax@e.email> - 2.0.3-1
+- Update to 2.0.3.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

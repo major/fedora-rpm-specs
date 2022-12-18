@@ -1,10 +1,10 @@
 Name:           perl-B-Hooks-AtRuntime
 Version:        8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lower blocks from compile time to runtime
 # 2-clause BSD licence
 # cf. lib/B/Hooks/AtRuntime.pm
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://metacpan.org/dist/B-Hooks-AtRuntime/
 Source0:        https://cpan.metacpan.org/authors/id/B/BM/BMORROW/B-Hooks-AtRuntime-%{version}.tar.gz
 
@@ -70,6 +70,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Dec 16 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 8-2
+- Convert license to SPDX.
+
 * Sun Aug 14 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 8-1
 - Upstream update to 8.
 

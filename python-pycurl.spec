@@ -22,18 +22,16 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.45.1
-Release:        4%{?dist}
+Version:        7.45.2
+Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        LGPLv2+ or MIT
 URL:            http://pycurl.io/
-Source0:        https://files.pythonhosted.org/packages/47/f9/c41d6830f7bd4e70d5726d26f8564538d08ca3a7ac3db98b325f94cdcb7f/pycurl-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/a8/af/24d3acfa76b867dbd8f1166853c18eefc890fc5da03a48672b38ea77ddae/pycurl-7.45.2.tar.gz
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
-# https://github.com/pycurl/pycurl/pull/753
-Patch2:         0002-python-pycurl-7.45.1-curl-7.83-compatibility.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -163,6 +161,9 @@ rm -fvr tests/__pycache__
 %endif
 
 %changelog
+* Fri Dec 16 2022 Kamil Dudka <kdudka@redhat.com> - 7.45.2-1
+- update to 7.45.2 (#2154427)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

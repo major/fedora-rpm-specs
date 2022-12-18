@@ -5,11 +5,12 @@
 
 %global crate enum-map-derive
 
-Name:           rust-enum-map-derive
-Version:        0.10.0
+Name:           rust-enum-map-derive0.6
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Macros 1.1 implementation of #[derive(Enum)]
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/enum-map-derive
 Source:         %{crates_source}
@@ -37,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

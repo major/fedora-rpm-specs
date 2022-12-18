@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPLv2+
@@ -14,7 +14,7 @@ Source4:        dnf__plugin.py
 BuildArch:         noarch
 BuildRequires: make
 BuildRequires:     perl
-BuildRequires:     perl-macros
+BuildRequires:     perl-generators
 BuildRequires:     gettext
 BuildRequires:     perl(ExtUtils::MakeMaker)
 BuildRequires:     debconf
@@ -26,22 +26,19 @@ Requires:          python3-dnf
 Requires:          yum
 Requires:          python2-subprocess32
 %endif
-Requires:          perl(Module::Find)
-Requires:          perl(Module::ScanDeps)
-Requires:          perl(Locale::TextDomain)
-Requires:          perl(Proc::ProcessTable)
-Requires:          perl(Sort::Naturally)
-Requires:          perl(Term::ReadKey)
 Requires:          xz
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends:        perl(Debconf::Client::ConfModule)
 Recommends:        iucode-tool
 %else
-Requires:          perl(Debconf::Client::ConfModule)
 Requires:          iucode-tool
 %endif
 
 %{?perl_default_filter}
+
+%if 0%{?fedora} || 0%{?rhel} >= 8
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Debconf::Client::ConfModule\\)
+%endif
 
 
 %description
@@ -115,19 +112,23 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.6-6
+- Add BR perl-generators to automatically generates run-time dependencies
+  for installed Perl files
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.6-4
 - Rebuilt for Python 3.11
 
-* Wed May 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-3
+* Thu May 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-3
 - fix changelog
 
-* Wed May 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-2
+* Thu May 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-2
 - Fix debconf template
 
-* Wed May 19 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-1
+* Thu May 19 2022 Marc Dequènes (Duck) <duck@redhat.com> - 3.6-1
 - NUR
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-9
@@ -142,7 +143,7 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.5-6
 - Rebuilt for Python 3.10
 
-* Mon Mar 16 2021 Marc Dequènes (Duck) <duck@redhat.com> - 3.5-5
+* Mon Mar 15 2021 Marc Dequènes (Duck) <duck@redhat.com> - 3.5-5
 - move 'iucode-tool' to Recommends as it is not available in all
   architectures
 

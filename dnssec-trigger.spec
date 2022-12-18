@@ -5,7 +5,7 @@
 Summary: Tool for dynamic reconfiguration of validating resolver Unbound
 Name: dnssec-trigger
 Version: 0.17
-Release: 8%{?snapshot:.%{snapshot}git}%{?dist}
+Release: 9%{?snapshot:.%{snapshot}git}%{?dist}
 License: BSD
 Url: https://www.nlnetlabs.nl/projects/dnssec-trigger/
 
@@ -26,6 +26,7 @@ Source6: ssh_config.conf
 Patch3: 0003-Move-the-NetworkManager-dispatcher-script-out-of-etc.patch
 # https://github.com/NLnetLabs/dnssec-trigger/pull/7
 Patch4: 0004-Add-options-edns0-and-trust-ad.patch
+Patch5: dnssec-trigger-configure-c99.patch
 
 # to obsolete the version in which the panel was in main package
 Obsoletes: %{name} < 0.12-22
@@ -201,6 +202,9 @@ fi
 
 
 %changelog
+* Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 0.17-9
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

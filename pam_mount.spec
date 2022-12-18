@@ -1,6 +1,6 @@
 Name:           pam_mount
-Version:        2.18
-Release:        5%{?dist}
+Version:        2.19
+Release:        1%{?dist}
 Summary:        A PAM module that can mount volumes for a user session
 
 # The library and binaries are LGPLv2+ with these Exceptions:
@@ -37,6 +37,7 @@ BuildRequires:  xz
 Requires:       libHX%{?_isa} >= 3.12.1
 Requires:       hxtools
 Requires:       pam%{?_isa}
+Requires:       libcryptmount = %{version}
 
 
 %description
@@ -90,7 +91,7 @@ xzcat %{SOURCE0} | gpgv --quiet --keyring %{SOURCE2} %{SOURCE1} -
 
 
 %files
-%doc doc/bugs.txt doc/faq.txt doc/news.txt doc/options.txt doc/todo.txt
+%doc doc/bugs.txt doc/faq.txt doc/options.txt doc/todo.txt
 # generated from manpage, no need to package it twice:
 #doc/pam_mount.txt
 %doc config/pam_mount.conf.xml
@@ -101,35 +102,57 @@ xzcat %{SOURCE0} | gpgv --quiet --keyring %{SOURCE2} %{SOURCE1} -
 %{_sbindir}/pmt-ehd
 %{_sbindir}/mount.crypt
 %{_sbindir}/umount.crypt
-%exclude %{_sbindir}/mount.crypt_LUKS
-%exclude %{_sbindir}/umount.crypt_LUKS
+%{_sbindir}/mount.crypt_LUKS
+%{_sbindir}/umount.crypt_LUKS
 %{_sbindir}/mount.crypto_LUKS
 %{_sbindir}/umount.crypto_LUKS
 %{_mandir}/man5/pam_mount.conf.5*
 %{_mandir}/man8/mount.crypt.8*
-%exclude %{_mandir}/man8/mount.crypt_LUKS.8*
+%{_mandir}/man8/mount.crypt_LUKS.8*
 %{_mandir}/man8/mount.crypto_LUKS.8*
 %{_mandir}/man8/pam_mount.8*
 %{_mandir}/man8/pmt-ehd.8*
 %{_mandir}/man8/pmvarrun.8*
 %{_mandir}/man8/umount.crypt.8*
-%exclude %{_mandir}/man8/umount.crypt_LUKS.8*
+%{_mandir}/man8/umount.crypt_LUKS.8*
 %{_mandir}/man8/umount.crypto_LUKS.8*
 %ghost %{_localstatedir}/run/pam_mount
 %dir %{_datadir}/xml/pam_mount/
 %dir %{_datadir}/xml/pam_mount/dtd/
 %{_datadir}/xml/pam_mount/dtd/pam_mount.conf.xml.dtd
 
-# move to separate package if requested
-%exclude %{_includedir}/libcryptmount.h
-%exclude %{_libdir}/libcryptmount.la
-%exclude %{_libdir}/libcryptmount.so
+%package -n libcryptmount
+Summary: Library to mount crypto images and handle key files
+%description -n libcryptmount
+libcryptmount takes care of the many steps involved in making a
+crypto image (file) available as a mountable block device, including
+supplemental key file decryption, loop device setup and crypto device
+setup. It supports pam_mount style plain EHD2/OpenSSL images and LUKS
+and transparent use of the OS's crypto layer.
+%files -n libcryptmount
+%{_libdir}/libcryptmount.so
 %{_libdir}/libcryptmount.so.0
 %{_libdir}/libcryptmount.so.0.0.0
-%exclude %{_libdir}/pkgconfig/libcryptmount.pc
+
+%package -n libcryptmount-devel
+Summary: Development files for libcryptmount
+Requires: libcryptmount = %{version}
+%description -n libcryptmount-devel
+libcryptmount takes care of the many steps involved in making a
+crypto image (file) available as a mountable block device, including
+supplemental key file decryption, loop device setup and crypto device
+setup. It supports pam_mount style plain EHD2/OpenSSL images and LUKS
+and transparent use of the OS's crypto layer.
+%files -n libcryptmount-devel
+%{_includedir}/libcryptmount.h
+%exclude %{_libdir}/libcryptmount.la
+%{_libdir}/pkgconfig/libcryptmount.pc
 
 
 %changelog
+* Fri Dec 16 2022 Chen Chen <aflyhorse@hotmail.com> - 2.19-1
+- Update to 2.19
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

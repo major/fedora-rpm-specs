@@ -2,7 +2,7 @@
 
 Name:           libpeas
 Version:        1.34.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plug-ins implementation convenience library
 
 License:        LGPLv2+
@@ -51,6 +51,10 @@ run Python 3 plugins that use libpeas.
 Summary:        Development files for libpeas
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-gtk%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 
 %description devel
 This package contains development libraries and header files
@@ -103,6 +107,9 @@ that are needed to write applications that use libpeas.
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %changelog
+* Thu Dec 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.34.0-2
+- Ensure correct fonts are installed for HTML docs
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 1.34.0-1
 - Update to 1.34.0
 
