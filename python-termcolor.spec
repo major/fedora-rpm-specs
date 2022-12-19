@@ -12,6 +12,7 @@ Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 
 %description

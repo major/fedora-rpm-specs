@@ -1,11 +1,11 @@
 %global pypi_name PyMuPDF
 
 Name:           python-%{pypi_name}
-Version:        1.21.0
-Release:        1%{?dist}
+Version:        1.21.1
+Release:        2%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
-License:        AGPLv3+
+License:        AGPL-3.0-or-later
 URL:            https://github.com/pymupdf/PyMuPDF
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 Patch0:         0001-fix-FTBFS-against-system-mupdf.patch
@@ -81,6 +81,12 @@ rm -f %{buildroot}%{_prefix}/README.md
 %doc docs_built/* README.md
 
 %changelog
+* Sat Dec 17 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.21.1-2
+- SPDX migration
+
+* Tue Dec 13 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.21.1-1
+- Update to new upstream release 1.21.1 (rhbz#2152969)
+
 * Tue Nov 08 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.21.0-1
 - Update to new upstream release 1.21.0 (rhbz#2139246)
 

@@ -2,7 +2,7 @@
 
 
 Name:           cinnamon-translations
-Version:        5.6.0
+Version:        5.6.1
 Release:        1%{?dist}
 Summary:        Translations for Cinnamon and Nemo
 
@@ -49,6 +49,9 @@ Translations for Cinnamon, Nemo and Mintlocale.
 
 
 %changelog
+* Sat Dec 17 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
+- Update to 5.6.1 release
+
 * Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
 - Update to 5.6.0 release
 

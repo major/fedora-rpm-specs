@@ -7,10 +7,11 @@
 Name:    kdeaddons
 Summary: K Desktop Environment - Plugins
 Version: 3.5.10
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: GPLv2
 Url: http://www.kde.org/
 Source0: ftp://ftp.kde.org/pub/kde/stable/%{version}/src/%{name}-%{version}.tar.bz2
+Patch0: kdeaddons-configure-c99.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires: kdelibs3-devel >= %{version}
@@ -33,7 +34,11 @@ Obsoletes: kdeaddons-extras < %{version}-%{release}
 This package includes a game board designer for Atlantik.
 
 %prep
-%setup -q -n kdeaddons-%{version}
+%autosetup -p1 -n kdeaddons-%{version}
+
+# Prevent rerunning autotools.
+touch -r aclocal.m4 acinclude.m4 configure*
+
 sed -i -e 's/-lkdegames//g' atlantikdesigner/designer/Makefile.in
 
 
@@ -70,6 +75,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 3.5.10-31
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

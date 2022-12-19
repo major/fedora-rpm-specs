@@ -16,7 +16,7 @@
 
 Name:           slurm
 Version:        22.05.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple Linux Utility for Resource Management
 License:        GPLv2 and BSD
 URL:            https://slurm.schedmd.com/
@@ -99,7 +99,7 @@ BuildRequires:  libyaml-devel
 ExcludeArch:    armv7hl
 ExcludeArch:    i686
 
-Requires:       mailx
+Requires:       /bin/mailx
 Requires:       munge
 Requires:       pmix
 %if 0%{?fedora} && %{with ucx}

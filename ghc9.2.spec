@@ -76,7 +76,7 @@ Version: 9.2.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -122,6 +122,8 @@ Patch18: Disable-unboxed-arrays.patch
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
+
+Patch27: ghc-configure-c99.patch
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
@@ -413,6 +415,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 #debian
 #%%patch24 -p1 -b .orig
 %patch26 -p1 -b .orig
+
+%patch27 -p1 -b .c99
 
 %if %{with haddock} && %{without hadrian}
 %global gen_contents_index gen_contents_index.orig
@@ -935,6 +939,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 9.2.5-15
+- Port configure script to C99
+
 * Mon Nov  7 2022 Jens Petersen <petersen@redhat.com> - 9.2.5-14
 - https://www.haskell.org/ghc/blog/20221107-ghc-9.2.5-released.html
 - https://downloads.haskell.org/~ghc/9.2.5/docs/html/users_guide/9.2.5-notes.html

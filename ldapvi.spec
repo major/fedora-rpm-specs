@@ -1,6 +1,6 @@
 Name:           ldapvi
 Version:        1.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        An interactive LDAP client
 
 License:        GPLv2+
@@ -20,6 +20,10 @@ Patch3:         ldapvi-1.7-fix-use-after-free-in-sasl-code.patch
 Patch4:         ldapvi-1.7-incorrect-FSF-address.patch
 # http://lists.askja.de/pipermail/ldapvi/2017-December/000120.html
 Patch5:         0001-Don-t-switch-off-canonical-mode.patch
+Patch6:         ldapvi-c99-1.patch
+Patch7:         ldapvi-c99-2.patch
+Patch8:         ldapvi-c99-3.patch
+Patch9:         ldapvi-c99-4.patch
 
 
 BuildRequires: make
@@ -45,8 +49,15 @@ it as vipw(1) for LDAP.
 %patch3 -p2 -b .doubleFree
 %patch4 -p1 -b .FSFaddress
 %patch5 -p1 -b .nopassword
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 %build
+%set_build_flags
+# Declare additional historic OpenLDAP functions in header files.
+CFLAGS="$CFLAGS -DLDAP_DEPRECATED"
 %configure
 make %{?_smp_mflags}
 cd manual
@@ -67,6 +78,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.7-42
+- C99 port
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

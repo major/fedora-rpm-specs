@@ -1,6 +1,6 @@
 Name:           zssh
 Version:        1.5c
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        SSH and Telnet client with ZMODEM file transfer capability
 License:        GPLv3
 URL:            http://zssh.sourceforge.net/
@@ -14,6 +14,7 @@ Patch4:         https://sources.debian.org/data/main/z/zssh/1.5c.debian.1-7/debi
 Patch5:         https://sources.debian.org/data/main/z/zssh/1.5c.debian.1-7/debian/patches/0006-replace-CPPFunction-call-with-rl_completion_func_t.patch
 Patch6:         https://sources.debian.org/data/main/z/zssh/1.5c.debian.1-7/debian/patches/0007-Fix-typo-in-man-page-zssh.1.patch
 Patch7:         https://sources.debian.org/data/main/z/zssh/1.5c.debian.1-7/debian/patches/0008-Strip-build-date-from-version-string-to-enable-repro.patch
+Patch8:         zssh-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  readline-devel
@@ -46,6 +47,9 @@ rm %{buildroot}%{_mandir}/man1/ztelnet.1*
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.5c-13
+- Improve C99 compatibility
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5c-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,10 @@
 Name:		cocot
 Version:	20080315
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	BSD
 URL:		http://vmi.jp/software/cygwin/cocot.html
 Source0:	http://vmi.jp/software/cygwin/%{name}-%{version}.tar.bz2
+Patch0:		cocot-c99.patch
 
 Summary:	COde COnverter on Tty
 
@@ -15,7 +16,7 @@ a terminal (tty) and a process running on it.  Cocot can be used with
 ssh or telnet.
 
 %prep
-%setup -q
+%autosetup -p1
 iconv -f EUC-JP -t UTF-8 --output README.ja.UTF-8 README.ja
 mv README.ja.UTF-8 README.ja
 
@@ -32,6 +33,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/cocot
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 20080315-26
+- C99 compatibility fix
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20080315-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 #
 
 Name:		perl-DBIx-SearchBuilder
-Version:	1.71
-Release:	5%{?dist}
+Version:	1.74
+Release:	1%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -17,6 +17,8 @@ Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:	noarch
 
 BuildRequires:	%{__make}
+
+BuildRequires:	perl(:VERSION) >= 5.10.1
 BuildRequires:	perl-generators
 
 BuildRequires:	perl(Cache::Simple::TimedExpiry) >= 0.21
@@ -27,7 +29,7 @@ BuildRequires:	perl(DBD::SQLite)
 BuildRequires:	perl(DBI)
 BuildRequires:	perl(Encode) >= 1.99
 BuildRequires:	perl(Exporter)
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.59
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.52
@@ -96,6 +98,9 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Sat Dec 17 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.74-1
+- Update to 1.74.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.71-5
 - Convert license to SPDX.
 

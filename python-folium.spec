@@ -1,5 +1,5 @@
 Name:           python-folium
-Version:        0.13.0
+Version:        0.14.0
 Release:        1%{?dist}
 Summary:        Python library for visualizing data on a Leaflet map
 
@@ -44,15 +44,19 @@ Summary:        %{summary}
 
 
 %check
-# No checks here since quite a few packages for testing are not yet in Fedora
+%pyproject_check_import
+
+# No tests here since quite a few packages for testing are not yet in Fedora
 # repositories; also, tests for this package depend on an internet connection.
 # $ sudo dnf install [BUILT_PACKAGE]
 # $ git clone https://github.com/python-visualization/folium
 # $ cd folium
-# $ git checkout v%{version}
-# $ # Install as much as possible from Fedora repositories
-# $ echo chromedriver 'python3dist(cartopy)' 'python3dist(check-manifest)' 'python3dist(fiona)' 'python3dist(ipykernel)' 'python3dist(matplotlib)' 'python3dist(nbconvert)' 'python3dist(nbsphinx)' 'python3dist(owslib)' 'python3dist(pandas)' 'python3dist(pillow)' 'python3dist(pytest)' 'python3dist(pytest-cov)' 'python3dist(pytest-xdist)' 'python3dist(scipy)' 'python3dist(selenium)' 'python3dist(wheel)' | xargs -n1 sudo dnf install -y
+# $ git checkout v[VERSION]
+# $ sudo dnf install -y chromedriver conda
+# $ conda create --name FOLIUM -c conda-forge python=3 --file requirements.txt --file requirements-dev.txt
+# $ pip install -r requirements.txt
 # $ pip install -r requirements-dev.txt
+# $ pip install -e . --no-deps
 # $ cd tests
 # $ pytest
 
@@ -62,6 +66,11 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Dec 17 2022 Roman Inflianskas <rominf@aiven.io> - 0.14.0-1
+- Update to 0.14.0 (resolves rhbz#2152748)
+- Add importability checks
+- Update testing instructions
+
 * Sat Oct 08 2022 Roman Inflianskas <rominf@aiven.io> - 1.3.0-1
 - Update to 1.3.0 (resolves rhbz#2133104)
 - Update testing instructions

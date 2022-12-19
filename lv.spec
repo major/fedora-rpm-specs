@@ -2,7 +2,7 @@
 
 Name:		lv
 Version:	4.51
-Release:	47%{?dist}
+Release:	48%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.ff.iij4u.or.jp/~nrt/lv/
 BuildRequires:	ncurses-devel autoconf
@@ -18,6 +18,7 @@ Patch5:		lv-lfs.patch
 Patch6:		%{name}-aarch64.patch
 Patch7:		%{name}-no-sigvec.patch
 Patch8:		%{name}-inline.patch
+Patch9:		lv-c99.patch
 
 Summary:	A Powerful Multilingual File Viewer
 %description
@@ -40,6 +41,7 @@ for text decoration.
 %patch6 -p1 -b .6-aarch64
 %patch7 -p1 -b .7-sigvec
 %patch8 -p1 -b .inline
+%patch9 -p1 -b .c99
 
 %build
 cd src
@@ -64,6 +66,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 4.51-48
+- C99 port (#2154600)
+
 * Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 4.51-47
 - Convert License tag to SPDX.
 

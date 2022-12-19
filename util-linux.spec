@@ -2,7 +2,7 @@
 Summary: Collection of basic system utilities
 Name: util-linux
 Version: 2.38.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2 and GPLv2+ and LGPLv2+ and BSD with advertising and Public Domain
 URL: https://en.wikipedia.org/wiki/Util-linux
 
@@ -38,10 +38,10 @@ BuildRequires: librtas-devel
 %endif
 
 # enable if make changes to build-system
-#BuildRequires: autoconf
-#BuildRequires: automake
-#BuildRequires: libtool
-#BuildRequires: bison
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
+BuildRequires: bison
 
 ### Sources
 Source0: https://www.kernel.org/pub/linux/utils/util-linux/v%{upstream_major}/util-linux-%{upstream_version}.tar.xz
@@ -93,6 +93,7 @@ Patch0: login-lastlog-create.patch
 # Add `/run/motd.d` to the hardcoded MOTD_FILE
 # https://github.com/coreos/console-login-helper-messages/issues/60
 Patch1: login-default-motd-file.patch
+Patch2: util-linux-kill-c99.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -288,7 +289,7 @@ chfn and chsh utilities with dependence on libuser.
 unset LINGUAS || :
 
 # enable only when make a change to the build-system
-#./autogen.sh
+./autogen.sh
 
 
 export CFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 $RPM_OPT_FLAGS"
@@ -909,6 +910,9 @@ fi
 %{_libdir}/python*/site-packages/libmount/
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 2.38.1-3
+- Backport upstream patch to fix C99 issue in kill
+
 * Mon Aug 22 2022 Karel Zak <kzak@redhat.com> - 2.38.1-2
 - improve tmpfiles.d use in spec file
 

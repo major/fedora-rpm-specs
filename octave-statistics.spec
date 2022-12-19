@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPLv3+ and Public Domain
@@ -61,6 +61,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Sat Dec 17 2022 Orion Poplawski <orion@nwra.com> - 1.5.2-1
+- Update to 1.5.2
+
 * Tue Dec 07 2022 Orion Poplawski <orion@nwra.com> - 1.5.1-1
 - Update to 1.5.1
 

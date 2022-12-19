@@ -9,11 +9,11 @@
 %endif
 
 Name:           krita
-Version:        5.1.3
+Version:        5.1.4
 Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://krita.org
 Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?pre:-%{pre}}/krita-%{version}%{?pre:-%{pre}}.tar.xz
 
@@ -172,6 +172,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Sat Dec 17 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.4-1
+- Updated to version 5.1.4.
+
 * Tue Nov 08 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.3-1
 - Updated to version 5.1.3.
 

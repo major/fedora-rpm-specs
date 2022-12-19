@@ -2,7 +2,7 @@
 
 Name:       rpm-git-tag-sort
 Version:    1.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    Sorts merged git annotated tags according to topology and rpm version sorting.
 License:    GPLv2+
 URL:        https://pagure.io/rpm-git-tag-sort
@@ -18,6 +18,7 @@ VCS: git+ssh://git@pagure.io/rpm-git-tag-sort.git#518db2f75cbd20679d0522604aa35e
 # ./rpkg spec --sources
 Source0:    rpm-git-tag-sort-518db2f7.tar.gz
 Source1:    rpm-git-tag-sort-c-vector-518db2f7.tar.gz
+Patch0:     rpm-git-tag-sort-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -37,6 +38,7 @@ current HEAD).
 
 %prep
 %setup -T -b 0 -b 1 -q -n rpm-git-tag-sort
+%patch0 -p2
 # move c-vector sources to the correct place
 mv ../rpm-git-tag-sort-c-vector/* c-vector/
 
@@ -57,6 +59,9 @@ mv ../rpm-git-tag-sort-c-vector/* c-vector/
 /usr/bin/rpm-git-tag-sort
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.0-10
+- Fix C99 compatibility issue
+
 * Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 1.0-9
 - Rebuild for libgit2 1.4
 

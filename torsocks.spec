@@ -1,6 +1,6 @@
 Name:              torsocks
 Version:           2.4.0
-Release:           2%{?dist}
+Release:           3%{?dist}
 
 Summary:           Use SOCKS-friendly applications with Tor
 License:           GPLv2+
@@ -9,6 +9,7 @@ URL:               https://gitweb.torproject.org/torsocks.git
 Source0:           https://gitlab.torproject.org/tpo/core/%{name}/-/archive/v2.4.0/%{name}-v%{version}.tar.gz
 
 Patch0:            %{name}-2.2.0-Do-not-run-tests-that-require-network-access.patch
+Patch1:            torsocks-c99.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: automake
@@ -63,6 +64,9 @@ popd
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 2.4.0-3
+- Improve C99 compatibility (#2154535)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

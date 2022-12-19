@@ -1,6 +1,6 @@
 # Variables for if/when I need to source a commit instead of a release tag.
-%global  commit_date   20220710
-%global  commit_long   dab42ffc5c8405a74f835316acb38c32474d2243
+%global  commit_date   20221109
+%global  commit_long   f2c0c94d8915353a35d94e7bbc72dfd93da2412f
 %global  commit_short  %(c=%{commit_long}; echo ${c:0:7})
 
 
@@ -8,8 +8,7 @@ Name:       gnome-shell-extension-freon
 Summary:    GNOME Shell extension to display system temperature, voltage, and fan speed
 Epoch:      2
 Version:    45
-Release:    2.%{commit_date}git%{commit_short}%{?dist}
-# Release:    XX.%{commit_date}git%{commit_short}%{?dist}
+Release:    3.%{commit_date}git%{commit_short}%{?dist}
 URL:        https://github.com/UshakovVasilii/gnome-shell-extension-freon/wiki
 License:    GPLv2
 BuildArch:  noarch
@@ -30,7 +29,6 @@ Requires: lm_sensors
 Recommends: ( gnome-extensions-app  or  %{_bindir}/gnome-shell-extension-prefs )
 Recommends: ( gnome-tweaks  or  gnome-tweak-tool )
 Recommends: nvme-cli
-Recommends: ( udisks2  or  smartmontools  or ( nc and hddtemp ))
 
 
 %description
@@ -45,11 +43,10 @@ and they will appear in the GNOME Shell top bar.
 install the vendor's driver and any related packages. (Nouveau
 unfortunately won't work for Nvidia cards.)
 
-* hard drive temperatures requires udisks2, or smartmontools, or both
-  hddtemp and GNU netcat. (udisks2 should already be installed by
-  default on Fedora Workstation, but if you want to use hddtemp instead,
-  you will need to install it and netcat yourself, and enable the
-  hddtemp daemon.)
+* hard drive temperatures requires that you probe the `drivetemp.ko`
+  kernel module. One way is to add the file
+  /etc/modules-load.d/drivetemp.conf with a single line saying
+  drivetemp
 * Nvidia GPU temperatures require the `nvidia-settings` application,
   typically installed with the proprietary Nvidia drivers.
 * Bumblebee + Nvidia requires `optirun`.
@@ -72,11 +69,10 @@ cat > ./README-fedora.md << EOF
 install the vendor's official driver and any related packages. (Nouveau
 unfortunately won't work for Nvidia cards.)
 
-- hard drive temperatures requires udisks2, or smartmontools, or both
-  hddtemp and GNU netcat. (udisks2 should already be installed by
-  default on Fedora Workstation, but if you want to use hddtemp instead,
-  you will need to install it and netcat yourself, and enable the
-  hddtemp daemon.)
+- hard drive temperatures requires that you probe the `drivetemp.ko`
+  kernel module. One way is to add the file
+  /etc/modules-load.d/drivetemp.conf with a single line saying
+  drivetemp
 - Nvidia GPU temperatures require the `nvidia-settings` application,
   typically installed with the proprietary Nvidia drivers
 - AMD GPU temperatures requires `aticonfig`, part of AMD Radeon Software
@@ -136,6 +132,10 @@ mv  %{final_install_dir}/locale  %{buildroot}/%{_datadir}/
 
 
 %changelog
+* Sat Dec 17 2022 Linus Walleij <triad@df.lth.se> - 2:45-3
+- Obtain a new git snapshot so that Fedora 37 can work.
+- Point out in docs that we want to use the drivetemp.ko kernel module.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:45-2.20220710gitdab42ff
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

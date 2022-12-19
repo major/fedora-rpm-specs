@@ -7,7 +7,7 @@ Release:        6%{?dist}
 Epoch:          1
 Summary:        Library for reading OriginLab OPJ project files
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://sourceforge.net/projects/liborigin/
 Source0:        https://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.gz
 

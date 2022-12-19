@@ -1,5 +1,5 @@
 Name:		lightdm-settings
-Version:	1.6.0
+Version:	1.6.1
 Release:	1%{?dist}
 Summary:	Configuration tool for the LightDM display manager
 
@@ -29,39 +29,22 @@ This tool currently lets users configure slick-greeter.
 %prep
 %autosetup -p 1
 
-# Clean she-bangs.
-for f in .%{_prefix}/lib/%{name}/*.py ; do
-	%{__sed} -e '/^#!.*/d' < ${f} > ${f}.new
-	/bin/touch -r ${f} ${f}.new
-	%{__mv} -f ${f}.new ${f}
-done
-
-# Use pkexec.
-f=".%{_bindir}/%{name}"
-%{__sed} -e 's!support_pkexec=False!support_pkexec=True!g'		\
-	< ${f} > ${f}.new
-/bin/touch -r ${f} ${f}.new
-%{__mv} -f ${f}.new ${f}
-
-
 %build
 %make_build
-
 
 %install
 # No install-target in Makefile.
 %{__cp} -pr .%{_prefix} %{buildroot}
 
 # Set exec-permissions where needed.
-%{__chmod} -c 0755 %{buildroot}%{_bindir}/%{name}			\
+%{__chmod} -c 0755 %{buildroot}%{_bindir}/%{name} \
 	 %{buildroot}%{_prefix}/lib/%{name}/%{name}
 
 # Find localizations and build manifest.
 %find_lang %{name}
 
-
 %check
-%{_bindir}/desktop-file-validate					\
+%{_bindir}/desktop-file-validate \
 	%{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -76,6 +59,9 @@ f=".%{_bindir}/%{name}"
 
 
 %changelog
+* Sat Dec 17 2022 Leigh Scott <leigh123linux@gmail.com> - 1.6.1-1
+- Update to 1.6.1 release
+
 * Mon Dec 05 2022 Leigh Scott <leigh123linux@gmail.com> - 1.6.0-1
 - Update to 1.6.0 release
 

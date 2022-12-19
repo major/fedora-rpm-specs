@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        1%{?svn_date:.%{svn_date}}%{?dist}
+Release:        2%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -18,6 +18,8 @@ Patch6:         kbuild-dummy_noreturn.diff
 Patch8:         kBuild-0.1.9998-portme.patch
 Patch10:        assert.patch
 Patch11:        relax_automake_version.patch
+Patch12:        kBuild-configure-c99.patch
+Patch13:        kBuild-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -58,7 +60,8 @@ repository.
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %patch11 -p1
 %endif
-
+%patch12 -p1
+%patch13 -p1
 
 %build
 echo KBUILD_SVN_URL := http://svn.netlabs.org/repos/kbuild/trunk  >  SvnInfo.kmk
@@ -102,6 +105,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 0.1.9998.r3572-2.20221024
+- C99 compatibility fixes (#2154544)
+
 * Mon Oct 24 2022 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3572-2.20221024
 - Update to r3572.20221024
 - Allow build with automake 1.13.4 on epel7

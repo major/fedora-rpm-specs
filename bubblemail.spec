@@ -3,7 +3,7 @@ Version:        1.8
 Release:        %autorelease
 Summary:        Extensible mail notification service
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://bubblemail.free.fr/
 Source0:        https://framagit.org/razer/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 

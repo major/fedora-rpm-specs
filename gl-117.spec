@@ -1,12 +1,13 @@
 Name:           gl-117
 Version:        1.3.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Action flight simulator
 License:        GPLv2
 URL:            http://www.heptargon.de/gl-117/gl-117.htm
 Source0:        http://dl.sf.net/sourceforge/gl-117/gl-117-%{version}-src.tar.bz2
 Source1:        gl-117.desktop
 Source2:        gl-117.png
+Patch0:         gl-117-configure-c99.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
 BuildRequires:  SDL-devel, SDL_mixer-devel
@@ -23,7 +24,7 @@ perfectly adjust the game to the performance of your system. Joystick,
 mouse, sound effects, music...
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%autosetup -p1 -n %{name}-%{version}-src
 
 sed -i -e 's/\r//' AUTHORS ChangeLog FAQ NEWS
 
@@ -60,6 +61,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/%{name}-wrapper
 %{_mandir}/man6/*
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.3.2-35
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

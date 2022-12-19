@@ -4,14 +4,18 @@
 
 %global crate cursive
 
-Name:           rust-cursive
-Version:        0.20.0
+Name:           rust-cursive0.16
+Version:        0.16.3
 Release:        %autorelease
 Summary:        TUI (Text User Interface) library focused on ease-of-use
 
 License:        MIT
 URL:            https://crates.io/crates/cursive
 Source:         %{crates_source}
+# PR to add license to the crates: https://github.com/gyscos/cursive/pull/702
+Source1:        https://raw.githubusercontent.com/gyscos/cursive/main/LICENSE
+# Manually created patch for downstream crate metadata changes
+Patch:          cursive-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -30,8 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
-%doc %{crate_instdir}/Readme.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,16 +49,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ansi-devel
+%package     -n %{name}+bear-lib-terminal-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ansi-devel %{_description}
+%description -n %{name}+bear-lib-terminal-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ansi" feature of the "%{crate}" crate.
+use the "bear-lib-terminal" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ansi-devel
+%files       -n %{name}+bear-lib-terminal-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+blt-backend-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+blt-backend-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "blt-backend" feature of the "%{crate}" crate.
+
+%files       -n %{name}+blt-backend-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+crossterm-devel
@@ -80,18 +95,6 @@ This package contains library source intended for building other packages which
 use the "crossterm-backend" feature of the "%{crate}" crate.
 
 %files       -n %{name}+crossterm-backend-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+doc-cfg-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+doc-cfg-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "doc-cfg" feature of the "%{crate}" crate.
-
-%files       -n %{name}+doc-cfg-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+maplit-devel
@@ -228,6 +231,7 @@ use the "unstable_scroll" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

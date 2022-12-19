@@ -12,7 +12,7 @@
 %global commitdate 20210522
 %global owner gbm19
 
-Name:    qwt5-qt5
+Name:    LGPL-2.1-or-later WITH Qwt-exception-1.0
 Version: 5.2.3a
 Release: 15.%{commitdate}git%{shortcommit0}%{?dist}
 Summary: Qt Widgets for Technical Applications adapted to Qt5

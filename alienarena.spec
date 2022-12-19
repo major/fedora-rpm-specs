@@ -4,7 +4,7 @@
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
 Version:	7.71.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	GPLv2+
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
 # svn co svn://svn.icculus.org/alienarena/trunk
@@ -23,6 +23,7 @@ Patch5:		alienarena-7.71.2-svn5674-system-ode-double.patch
 # ... but there are a lot of misused globals here. A LOT.
 # So I just added -fcommon.
 Patch6:		alienarena-7.71.1-gcc10.patch
+Patch7:		alienarena-c99.patch
 URL:		http://red.planetarena.org/
 BuildRequires:  gcc
 BuildRequires:	libX11-devel, libXext-devel, libXxf86vm-devel, libjpeg-devel
@@ -80,6 +81,7 @@ This is the game data.
 %patch3 -p1 -b .no-qglBlitFramebufferEXT
 %patch5 -p1 -b .ode-double
 %patch6 -p1 -b .gcc10
+%patch7 -p1 -b .c99
 
 # We don't want the bundled ode code.
 rm -rf source/unix/ode
@@ -137,6 +139,9 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 7.71.2-7
+- C99 compatibility fix (#2154541)
+
 * Sun Jul 24 2022 Robert-André Mauchin <zebob.m@gmail.com> - 7.71.2-6
 - Rebuilt for Ode soname bump
 

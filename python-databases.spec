@@ -5,15 +5,24 @@
 # to do this, but leave a build conditional in case it breaks.
 %bcond_without mysql_tests
 
+# Post-release snapshot
+#
+# Includes upstream PR#513 “Fixes breaking changes in SQLAlchemy cursor”
+%global commit 81cc6fdb1ce4e78875960a8a262a4b134745946e
+%global snapdate 20221217
+
 Name:           python-databases
 Summary:        Async database support for Python
-Version:        0.6.1
+Version:        0.6.2%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
+
+%{?!commit:%global srcversion %{version}}
+%{?commit:%global srcversion %{commit}}
 
 License:        BSD-3-Clause
 URL:            https://www.encode.io/databases/
 %global forgeurl https://github.com/encode/databases
-Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
+Source0:        %{forgeurl}/archive/%{srcversion}/databases-%{srcversion}.tar.gz
 
 # This package contains no compiled code and should be inherently noarch, but
 # the asyncmy dependency for the mysql_asyncmy/mysql+asyncmy extra is
@@ -25,10 +34,6 @@ Source0:        %{forgeurl}/archive/%{version}/databases-%{version}.tar.gz
 %if 0%{?__isa_bits} != 32
 %global with_asyncmy 1
 %endif
-
-# Fixes breaking changes in SQLAlchemy cursor
-# https://github.com/encode/databases/pull/513
-Patch:          %{forgeurl}/pull/513.patch
 
 BuildRequires:  python3-devel
 
@@ -231,7 +236,7 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 
 %prep
-%autosetup -n databases-%{version} -p1
+%autosetup -n databases-%{srcversion} -p1
 
 # The patch for sqlalchemy >=1.4.42 is not backwards-compatible.
 sed -r -i 's/(sqlalchemy>=1\.4),/\1\.42,/' setup.py

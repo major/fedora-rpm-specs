@@ -1,5 +1,14 @@
+%define bcond_feature() %{lua:do
+    local name = rpm.expand("%{1}")
+    local value = rpm.expand("%{?with_" .. name:gsub('-', '_') .. "}")
+    print(value ~= '' and "enabled" or "disabled")
+end}
+
+%bcond_without  backend_wayland
+%bcond_without  backend_x11
+
 Name:           yambar
-Version:        1.8.0
+Version:        1.9.0
 Release:        1%{?dist}
 Summary:        Modular status panel for X11 and Wayland
 
@@ -16,9 +25,11 @@ License:        MIT
 URL:            https://codeberg.org/dnkl/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc
-BuildRequires:  meson >= 0.53
+BuildRequires:  bison
 BuildRequires:  desktop-file-utils
+BuildRequires:  flex
+BuildRequires:  gcc
+BuildRequires:  meson >= 0.59
 
 BuildRequires:  pkgconfig(fcft) >= 3.0.0
 BuildRequires:  pkgconfig(fontconfig)
@@ -28,24 +39,29 @@ BuildRequires:  pkgconfig(tllist) >= 1.0.1
 BuildRequires:  pkgconfig(yaml-0.1)
 # require *-static for header-only library
 BuildRequires:  tllist-static
-# backend-wayland
+%if %{with backend_wayland}
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
-# backend-x11
+%endif
+%if %{with backend_x11}
 BuildRequires:  pkgconfig(xcb-aux)
 BuildRequires:  pkgconfig(xcb-cursor)
 BuildRequires:  pkgconfig(xcb-event)
 BuildRequires:  pkgconfig(xcb-ewmh)
 BuildRequires:  pkgconfig(xcb-randr)
 BuildRequires:  pkgconfig(xcb-render)
+# XKB plugin
+BuildRequires:  pkgconfig(xcb-xkb)
+%endif
 # modules
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libmpdclient)
+BuildRequires:  pkgconfig(libpipewire-0.3)
+BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  pkgconfig(xcb-xkb)
 
 %description
 yambar is a lightweight and configurable status panel (bar, for short)
@@ -68,7 +84,10 @@ chmod -x examples/scripts/*
 
 
 %build
-%meson
+%meson \
+    -Dbackend-wayland=%{bcond_feature backend-wayland} \
+    -Dbackend-x11=%{bcond_feature backend-x11} \
+    -Dplugin-xkb=%{bcond_feature backend-x11}
 %meson_build
 
 
@@ -99,5 +118,10 @@ desktop-file-validate \
 %{_includedir}/%{name}
 
 %changelog
+* Sat Dec 17 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9.0-1
+- Update to 1.9.0 (#2154516)
+- Add bcond for backends
+- Convert License tag to SPDX
+
 * Fri Aug 26 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.0-1
 - Initial import (#2051066)

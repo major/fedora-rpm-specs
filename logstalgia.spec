@@ -1,10 +1,11 @@
 Summary:        Web server access log visualizer
 Name:           logstalgia
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv3+
 URL:            http://code.google.com/p/logstalgia/
 Source0:        https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
+Patch0:         logstalgia-configure-c99.patch
 BuildRequires:  SDL2-devel
 BuildRequires:  SDL2_image-devel
 BuildRequires:  boost-devel
@@ -24,7 +25,9 @@ Logstalgia (aka ApachePong) replays or streams a standard website
 access log (eg access.log) as a retro arcade game-like simulation.
 
 %prep
-%autosetup
+%autosetup -p1
+# Prevent re-running autotools.
+touch -r aclocal.m4 m4/* configure*
 
 %build
 %configure \
@@ -45,6 +48,9 @@ access log (eg access.log) as a retro arcade game-like simulation.
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.1.3-4
+- Port configure script to C99
+
 * Mon Oct 24 2022 Terje Rosten <terje.rosten@ntnu.no> - 1.1.3-3
 - Switch to pcre2
 

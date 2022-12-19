@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	30
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Linux kernel module management utilities
 
 License:	GPLv2+
@@ -24,6 +24,7 @@ URL:		https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git
 Source0:	https://www.kernel.org/pub/linux/utils/kernel/kmod/%{name}-%{version}.tar.xz
 Source1:	weak-modules
 Source2:	depmod.conf.dist
+Patch0:		kmod-configure-c99.patch
 Exclusiveos:	Linux
 
 BuildRequires:  gcc
@@ -69,6 +70,8 @@ applications that wish to load or unload Linux kernel modules.
 
 %prep
 %autosetup -p1
+# Avoid rebuilding the autoconf scripts.
+touch -r aclocal.m4 configure*
 
 %build
 %configure \
@@ -147,6 +150,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 30-3
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

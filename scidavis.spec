@@ -8,7 +8,7 @@ Version:        2.9.0
 Release:        5%{?dist}
 Summary:        Application for Scientific Data Analysis and Visualization
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://scidavis.sourceforge.net/
 #Source0:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.gz
 # Main upstream development repository (master, snapshots, releases not yet in sf)

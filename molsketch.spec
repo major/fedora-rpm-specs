@@ -2,7 +2,7 @@ Name:           molsketch
 Version:        0.7.3
 Release:        1%{?dist}
 Summary:        Molecular Structures Editor
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://molsketch.sourceforge.net
 # Mask while using test builds
 Source0:        https://downloads.sourceforge.net/molsketch/Molsketch-%{version}-src.tar.gz

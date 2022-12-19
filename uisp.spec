@@ -1,6 +1,6 @@
 Name:           uisp
 Version:        20050207
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Universal In-System Programmer for Atmel AVR and 8051
 
 
@@ -9,6 +9,7 @@ URL:            http://www.nongnu.org/uisp
 Source0:        http://savannah.nongnu.org/download/%{name}/%{name}-%{version}.tar.gz
 Patch0:         uisp_Werror.patch
 Patch1:         uisp-20050207-m168-stk500-extendedFuseSupport.patch
+Patch2:         uisp-configure-c99.patch
 
 
 BuildRequires: make
@@ -36,6 +37,7 @@ For use with the following hardware to program the devices:
 %setup -q
 %patch0 -p0
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure
@@ -53,6 +55,9 @@ make install DESTDIR=$RPM_BUILD_ROOT DOC_INST_DIR=$RPM_BUILD_ROOT/%{_pkgdocdir}
 
 
 %changelog
+* Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 20050207-33
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20050207-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

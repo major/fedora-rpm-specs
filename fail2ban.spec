@@ -1,6 +1,6 @@
 Name: fail2ban
-Version: 1.0.1
-Release: 2%{?dist}
+Version: 1.0.2
+Release: 1%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPLv2+
@@ -11,6 +11,7 @@ Source1: fail2ban.fc
 Source2: fail2ban.if
 Source3: fail2ban.te
 Source4: Makefile
+
 # Give up being PartOf iptables and ipset for now
 # https://bugzilla.redhat.com/show_bug.cgi?id=1379141
 # https://bugzilla.redhat.com/show_bug.cgi?id=1573185
@@ -18,7 +19,7 @@ Patch0: fail2ban-partof.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2034205
 Patch1: fail2ban-python311.patch
 # Patch for dovecot jail eating 100% CPU
-Patch2: https://github.com/fail2ban/fail2ban/commit/ca2b94c5229bd474f612b57b67d796252a4aab7a.patch
+#Patch2: https://github.com/fail2ban/fail2ban/commit/ca2b94c5229bd474f612b57b67d796252a4aab7a.patch
 
 
 BuildArch: noarch
@@ -227,6 +228,7 @@ sed -i "/use_2to3/d" setup.py
 %endif
 make -f %SOURCE4
 
+
 %install
 %if 0%{?rhel} && 0%{?rhel} < 8
 %py2_install
@@ -291,6 +293,7 @@ COMPLETIONDIR=%{buildroot}$(pkg-config --variable=completionsdir bash-completion
 %__mkdir_p $COMPLETIONDIR
 %__install -p -m 644 files/bash-completion $COMPLETIONDIR/fail2ban
 
+
 %check
 %if 0%{?rhel} && 0%{?rhel} < 8
 %python2 bin/fail2ban-testcases --verbosity=2 --no-network
@@ -351,7 +354,7 @@ fi
 %{_mandir}/man1/fail2ban-regex.1*
 %{_mandir}/man1/fail2ban-server.1*
 %{_mandir}/man5/*.5*
-%config(noreplace) %{_sysconfdir}/fail2ban
+%config(noreplace) %{_sysconfdir}/fail2ban/
 %exclude %{_sysconfdir}/fail2ban/action.d/complain.conf
 %exclude %{_sysconfdir}/fail2ban/action.d/hostsdeny.conf
 %exclude %{_sysconfdir}/fail2ban/action.d/mail.conf
@@ -405,6 +408,9 @@ fi
 
 
 %changelog
+* Sat Dec 17 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.2-1
+- Update to 1.0.2.
+
 * Wed Nov 02 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-2
 - Add patch for dovecot eating 100% CPU.
 

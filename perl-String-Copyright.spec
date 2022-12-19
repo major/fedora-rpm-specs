@@ -1,6 +1,6 @@
 Name:           perl-String-Copyright
-Version:        0.003013
-Release:        4%{?dist}
+Version:        0.003014
+Release:        1%{?dist}
 Summary:        Representation of text-based copyright statements
 License:        GPL-3.0-or-later
 
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Sat Dec 17 2022 Sandro Mani <manisandro@gmail.com> - 0.003014-1
+- Update to 0.003014
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003013-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
