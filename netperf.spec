@@ -15,6 +15,8 @@ Source1:        netserver.service
 # PR#63: netserver: do not chmod("/dev/null", 0644) when suppress_debug==1
 Patch1:         %{forgeurl}/pull/63.patch
 
+Patch2:         netperf-c99.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc

@@ -3,7 +3,7 @@ Version:        3.5.1
 Release:        2%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
-License:        CeCILL or CeCILL-B or CeCILL-C
+License:        CECILL-2.0 OR CECILL-B OR CECILL-C
 URL:            https://www.imcce.fr/inpop/calceph
 Source0:        https://www.imcce.fr/content/medias/recherche/equipes/asd/%{name}/%{name}-%{version}.tar.gz
 
@@ -18,7 +18,7 @@ such INPOPxx, JPL DExxx and SPICE ephemeris files.
 
 %package        libs
 Summary:        %{name} shared libraries
-License:        CeCILL or CeCILL-B or CeCILL-C
+License:        CECILL-2.0 OR CECILL-B OR CECILL-C
 
 %description    libs
 Calceph shared libraries.

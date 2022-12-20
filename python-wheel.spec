@@ -14,11 +14,11 @@
 %bcond_without main_python
 
 %global pypi_name wheel
-%global python_wheel_name %{pypi_name}-%{version}-py2.py3-none-any.whl
+%global python_wheel_name %{pypi_name}-%{version}-py3-none-any.whl
 
 Name:           python-%{pypi_name}
-Version:        0.37.1
-Release:        4%{?dist}
+Version:        0.38.4
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
@@ -58,7 +58,7 @@ It has two different roles:
 # Actual version can be found in git history:
 # https://github.com/pypa/wheel/commits/master/src/wheel/vendored/packaging/tags.py
 %global bundled %{expand:
-Provides:       bundled(python3dist(packaging)) = 20.9
+Provides:       bundled(python3dist(packaging)) = 21.3
 }
 
 
@@ -129,6 +129,9 @@ rm setup.cfg  # to drop pytest coverage options configured there
 %endif
 
 %changelog
+* Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 1:0.38.4-1
+- Update to 0.38.4 (rhbz#2136627)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.37.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

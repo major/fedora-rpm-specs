@@ -17,7 +17,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-tox
-Version:        3.27.1
+Version:        3.28.0
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -122,6 +122,9 @@ sed -i 's/tomli>=2.0.1/tomli>=1.2.3/' setup.cfg
 
 
 %changelog
+* Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 3.28.0-1
+- Update to 3.28.0
+
 * Fri Nov 25 2022 Miro Hrončok <mhroncok@redhat.com> - 3.27.1-1
 - Update to 3.27.1
 

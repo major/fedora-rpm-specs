@@ -5,7 +5,7 @@ Version:        3.5.1
 Release:        3%{?dist}
 Summary:        Astronomical library to access planetary ephemeris files
 
-License:        CeCILL or CeCILL-B or CeCILL-C
+License:        CECILL-2.0 OR CECILL-B OR CECILL-C
 URL:            https://pypi.python.org/pypi/calcephpy
 Source0:        %{pypi_source}
 

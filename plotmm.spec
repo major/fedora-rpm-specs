@@ -9,6 +9,7 @@ Source0:        https://download.sourceforge.net/plotmm/plotmm-%{version}.tar.gz
 # Upstream:
 # https://sourceforge.net/tracker/?func=detail&atid=632478&aid=2082337&group_id=102665
 Patch0:         plotmm-0.1.2-libsigc++20.patch
+Patch1:         plotmm-configure-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -58,6 +59,7 @@ Plotmm sample applications: plotmm-curves, plotmm-simple
 %prep
 %setup -q -n plotmm-%{version}
 %patch0 -p1 -b .libsigc++20
+%patch1 -p1 -b .c99
 
 %build
 %configure --disable-rpath --disable-static

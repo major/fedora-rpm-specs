@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.17.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -66,6 +66,10 @@ Provides:       virtualenv = %{version}-%{release}
 Requires:       %{python_wheel_pkg_prefix}-pip-wheel
 Requires:       %{python_wheel_pkg_prefix}-setuptools-wheel
 Requires:       %{python_wheel_pkg_prefix}-wheel-wheel
+# Pythons < 3.7 need an older version of wheel:
+Requires:       (%{python_wheel_pkg_prefix}-wheel0.37-wheel if python2.7)
+Requires:       (%{python_wheel_pkg_prefix}-wheel0.37-wheel if pypy2.7)
+Requires:       (%{python_wheel_pkg_prefix}-wheel0.37-wheel if python3.6)
 
 %description -n python3-virtualenv
 virtualenv is a tool to create isolated Python environments. virtualenv
@@ -138,6 +142,9 @@ rm -r tmp_path
 
 
 %changelog
+* Mon Dec 12 2022 Miro Hrončok <mhroncok@redhat.com> - 20.17.1-2
+- Require python-wheel0.37-wheel for older Pythons
+
 * Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 20.17.1-1
 - Update to 20.17.1 (rhbz#2151044)
 

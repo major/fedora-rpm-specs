@@ -1,15 +1,12 @@
 Name:		glue-schema
 Version:	2.0.11
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	LDAP schema files for the GLUE 1.3 and GLUE 2.0 Schema
 License:	ASL 2.0
-URL:		http://forge.ogf.org/sf/projects/glue-wg
-#		The source tarball is created from a svn checkout:
-#		svn export http://svn.cern.ch/guest/gridinfo/glue-schema/tags/R_2_0_11 glue-schema-2.0.11
-#		tar -z -c -f glue-schema-2.0.11.tar.gz glue-schema-2.0.11
-Source:		%{name}-%{version}.tar.gz
-Source1:	http://www.ogf.org/documents/GFD.147.pdf
+URL:		https://github.com/EGI-Foundation/%{name}
+Source:		https://github.com/EGI-Foundation/%{name}/archive/R_2_0_11/%{name}-%{version}.tar.gz
 BuildArch:	noarch
+BuildRequires:	make
 
 %description
 The GLUE specification is an information model for Grid entities such
@@ -20,33 +17,26 @@ several concrete data models such as XML Schema, LDAP Schema or SQL.
 
 This package provides LDAP schema files for the GLUE 1.3 and GLUE 2.0 Schema.
 
-%package doc
-Summary:	The GLUE Schema version 2.0 specification
-
-%description doc
-The GLUE Schema version 2.0 specification (GFD.147)
-
 %prep
-%setup -q
+%setup -q -n %{name}-R_2_0_11
 
 %build 
 # Nothing to build
 
-install -m 644 -p %{SOURCE1} .
-
 %install
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_sysconfdir}/ldap/schema
-install -m 644 -p etc/ldap/schema/* %{buildroot}/%{_sysconfdir}/ldap/schema
+make prefix=%{buildroot} install
 
 %files
-%config(noreplace) %{_sysconfdir}/ldap
-%doc debian/copyright
-
-%files doc
-%doc GFD.147.pdf
+%dir %{_sysconfdir}/ldap
+%dir %{_sysconfdir}/ldap/schema
+%config(noreplace) %{_sysconfdir}/ldap/schema/*
+%license debian/copyright
 
 %changelog
+* Sun Dec 18 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.11-16
+- New upstream location on github
+- Drop doc sub-package
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

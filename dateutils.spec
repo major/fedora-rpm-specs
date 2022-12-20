@@ -7,8 +7,17 @@ License:        BSD
 URL:            http://www.fresse.org/dateutils/
 Source0:        https://github.com/hroptatyr/dateutils/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
+# https://github.com/hroptatyr/dateutils/issues/148
+# issue related to tzdata-2022g and change to Singapore timezone
+# This patch is from upstream. See:
+Patch0:         841c635bf283e4b023bd98fbff9ebda1f340b024.patch
+
 BuildRequires:  gcc
 BuildRequires: make
+
+# Tests won't pass woth older tzdata!
+Requires: tzdata
+Conflicts: tzdata < tzdata-2022g
 
 %description
 Tools which revolve around fiddling with dates and times on the command

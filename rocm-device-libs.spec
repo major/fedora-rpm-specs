@@ -5,7 +5,7 @@
 %global upstreamname ROCm-Device-Libs
 
 Name:           rocm-device-libs
-Version:        5.3.0
+Version:        5.4.1
 Release:        1%{?dist}
 Summary:        AMD ROCm LLVM bit code libraries
 
@@ -15,6 +15,9 @@ Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/ref
 # Upstream is working on a solution, patch is adapted from debian:
 #https://salsa.debian.org/rocm-team/rocm-device-libs/-/blob/master/debian/patches/cmake-amdgcn-bitcode.patch
 Patch0:         0001-Use-FHS-compliant-install.patch
+# I think this change requires LLVM 16, revert for now:
+#https://github.com/RadeonOpenCompute/ROCm-Device-Libs/commit/85f95b94960c6f7ff4ff0242a399deb4a204fb6a
+Patch1:         0001-Revert-Update-counters-for-gfx11.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -55,6 +58,9 @@ libraries in the form of bit code. Specifically:
 %{_libdir}/amdgcn
 
 %changelog
+* Sun Dec 18 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-1
+- Update to 5.4.1
+
 * Mon Oct 03 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
 - Update to 5.3.0
 

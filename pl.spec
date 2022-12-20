@@ -16,7 +16,7 @@
 %endif
 
 Name:       pl
-Version:    9.0.2
+Version:    9.0.3
 Release:    1%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
@@ -145,7 +145,6 @@ Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 # <https://github.com/SWI-Prolog/issues/issues/16>:
 #bench/unify.pl                         Free for non-commercial
 #bench/simple_analyzer.pl               Free for non-commercial
-#man/txt/dvi2tty/dvi2tty.c              Free for non-commercial
 License:    BSD-2-Clause AND BSD-3-Clause AND (BSD-3-Clause OR GPL-1.0-or-later) AND Beerware AND CC-BY-SA-3.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR Artistic-2.0) AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LPPL-1.2 AND MIT AND Sleepycat AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND Zlib
 URL:        https://www.swi-prolog.org/
 # Source0: %%{url}download/stable/src/swipl-%%{version}.tar.gz
@@ -603,6 +602,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 9.0.3-1
+- Version 9.0.3
+
 * Thu Dec 15 2022 Jerry James <loganjerry@gmail.com> - 9.0.2-1
 - Version 9.0.2
 - Convert License tag to SPDX (with some licenses pending review)

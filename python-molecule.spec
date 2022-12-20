@@ -88,15 +88,10 @@ rm -rf html/.{doctrees,buildinfo}
 
 %if %{with tests}
 %check
-# Python 3.11.1 and later emit a deprecation warning when
-# asyncio.get_event_loop() is used to implicitly create an event loop.
-# Disable this warning until the issue is resolved upstream
-# (https://github.com/pycontribs/subprocess-tee/pull/86).
 %pytest \
     -vv \
     -n auto \
     -k 'not test_command_dependency' \
-    -W "ignore:There is no current event loop:DeprecationWarning" \
     src/molecule/test
 %endif
 

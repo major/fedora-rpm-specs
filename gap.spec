@@ -30,7 +30,7 @@
 %bcond_with bootstrap
 
 Name:           gap
-Version:        4.12.1
+Version:        4.12.2
 Release:        1%{?dist}
 Summary:        Computational discrete algebra
 
@@ -55,8 +55,6 @@ Source10:       gap-testdata.tar.xz
 Patch0:         %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
 Patch1:         %{name}-popcount.patch
-# Avoid unused definitions.  See https://github.com/gap-system/gap/pull/5027.
-Patch2:         %{name}-unused.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -131,12 +129,12 @@ This package contains the core GAP system.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Online help for GAP
 Requires:       %{name}-core = %{version}-%{release}
 BuildArch:      noarch
@@ -196,10 +194,6 @@ Requires:       gap-pkg-polycyclic
 Requires:       gap-pkg-resclasses
 Requires:       gap-pkg-sophus
 Requires:       gap-pkg-tomlib
-
-# This can be removed when Fedora 35 reaches EOL
-Obsoletes:      libgap-devel < 4.11.0-4
-Provides:       libgap-devel = %{version}-%{release}
 
 %description -n libgap
 Library containing core GAP logic
@@ -511,6 +505,10 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 4.12.2-1
+- Version 4.12.2
+- Drop upstreamed unused patch
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 4.12.1-1
 - Version 4.12.1
 - Drop builtin-mul-overflow patch

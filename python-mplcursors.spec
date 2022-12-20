@@ -42,14 +42,11 @@ Documentation for mplcursors
 %endif
 
 %build
-%if 0%{fedora} && 0%{fedora} < 36
-export PIP_USE_FEATURE="in-tree-build"
-%endif
 %pyproject_wheel
 
 %if %{with doc}
 # generate html docs
-PYTHONPATH=${PWD}/build/lib sphinx-build-3 doc/source html
+PYTHONPATH="%{pyproject_build_lib}" sphinx-build-3 doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 %endif

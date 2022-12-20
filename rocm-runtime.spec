@@ -2,13 +2,13 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 5.3
-%global rocm_patch 0
+%global rocm_release 5.4
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocm-runtime
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -80,6 +80,9 @@ sed -i "s|\({CLANG_ARG_LIST}\)|\1 --hip-device-lib-path=%{_libdir}/amdgcn/bitcod
 %{_libdir}/cmake/hsa-runtime64/
 
 %changelog
+* Sun Dec 18 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-1
+- Update to 5.4.1
+
 * Tue Oct 04 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-2
 - Fix cmake path bug
 

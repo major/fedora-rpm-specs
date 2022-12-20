@@ -1,6 +1,6 @@
 %global upstreamname ROCm-CompilerSupport
-%global rocm_release 5.3
-%global rocm_patch 0
+%global rocm_release 5.4
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm-compilersupport
@@ -11,9 +11,6 @@ Summary:        Various AMD ROCm LLVM related services
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
 License:        NCSA
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-#https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/commit/ec7df87560359d70559c214f102cce02358b7369
-Patch4:         0004-remove-references-to-GNU-for-compression-type-per-up.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel >= 15.0.0
@@ -91,6 +88,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Sun Dec 18 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-1
+- Update to 5.4.1
+
 * Tue Oct 04 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.0-1
 - Update to 5.3.0
 

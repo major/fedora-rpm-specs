@@ -10,14 +10,14 @@ the output while still printing it in real time, just the way tee does.
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        0.4.0
+Version:        0.4.1
 %forgemeta
 Release:        %autorelease
 Summary:        A subprocess.run that works like tee, being able to display output in real time while still capturing it
 URL:            %{forgeurl}
 Source:         %{pypi_source}
+Patch:          0001-Remove-unnecessary-test-deps.patch
 License:        MIT
-Patch0:         0003_removing_pytest_plus_dependency.patch
 BuildArch:      noarch
 
 BuildRequires: python3-devel
@@ -49,6 +49,7 @@ Summary: %summary
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
+%doc README.md
 
 %changelog
 %autochangelog

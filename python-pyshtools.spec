@@ -19,6 +19,9 @@ Patch:          0001-Add-default-include-path-for-FFTW.patch
 # We don't need these requirements as Cartopy is already built.
 Patch:          0002-Remove-cartopy-build-time-dependencies.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
 BuildRequires:  fftw3-devel

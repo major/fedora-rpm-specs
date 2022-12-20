@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        6.0.9
-Release:        3%{?dist}
+Version:        6.0.10
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -219,6 +219,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sun Dec 18 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.10-1
+- Update to 6.0.10
+
 * Wed Nov 23 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.9-3
 - Remove EGL flag
 

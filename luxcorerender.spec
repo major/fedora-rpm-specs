@@ -5,10 +5,10 @@
 
 Name:		luxcorerender
 Version:	2.6
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	LuxCore Renderer, an unbiased rendering system
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://luxcorerender.org/
 Source0:	https://github.com/%{name}/LuxCore/archive/%{name}_v%{version}%{?prerelease}.tar.gz
 Source1:	https://github.com/%{name}/BlendLuxCore/archive/blendluxcore_v%{version}%{?prerelease}.tar.gz
@@ -250,6 +250,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.bl
 %{_includedir}/{luxcore,luxrays,slg}
 
 %changelog
+* Sat Dec 17 2022 Luya Tshimbalanga <luya@fedoraproject.org>  - 2.6-10
+- Rebuild for Blender 3.4.0
+- Convert license to SPDX format
+
 * Tue Nov 29 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.6-9
 - Drop blender(ABI)
 

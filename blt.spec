@@ -5,7 +5,7 @@
 Summary: Widget extension to the Tcl/Tk scripting language
 Name: blt
 Version: 2.4
-Release: 63.z%{?dist}
+Release: 64.z%{?dist}
 
 License: MIT
 URL: http://sourceforge.net/projects/blt/
@@ -21,6 +21,7 @@ Patch6: blt2.4z-zoomstack.patch
 Patch7: blt2.4z-tk8.5.6-patch
 Patch8: blt2.4z-tcl8.6.patch
 Patch9: blt2.4z-tk8.6.patch
+Patch10: blt-configure-c99.patch
 
 
 Provides: tk-blt = %{version}-%{release}
@@ -75,6 +76,7 @@ This package provides the html documentation for BLT
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 # Fix bad interpreter path
 sed -i -e 's#/usr/local/bin/tclsh#/usr/bin/tclsh#' demos/scripts/page.tcl
@@ -128,6 +130,9 @@ rm -rf %{buildroot}%{_mandir}/
 %{_includedir}/%{name}
 
 %changelog
+* Sun Dec 18 2022 Florian Weimer <fweimer@redhat.com> - 2.4-64.z
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-63.z
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

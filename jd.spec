@@ -11,25 +11,25 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.8.0
+%define         main_ver      0.9.0
 #%%define         strtag        20200118
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20220709
-#%%global         gitcommit     2e5d386ece56e67194959f59addd6996f190fdc4
-%global         gitcommit     JDim-v%{main_ver}
+%global         gitdate       20221218
+%global         gitcommit     3f6cf6508e8dba4eee63bfda5533008bb6b69f96
+#%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20220718
-%global         tarballtime   1607
+%global         tarballdate   20221218
+%global         tarballtime   1108
 
 ##########################################
 # Defined by vendor
 #
-%define         vendor_rel    1
+%define         vendor_rel    0.1.beta
 %define         extra_rel     %{nil}
-%define         use_gitcommit_as_rel  0
+%define         use_gitcommit_as_rel  1
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -209,6 +209,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sun Dec 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-0.1.beta.D20221218git3f6cf65
+- 0.9.0 beta
+
 * Wed Jul 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.8.0-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

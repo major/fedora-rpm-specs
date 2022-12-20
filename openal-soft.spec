@@ -1,6 +1,6 @@
 Name:           openal-soft
 Version:        1.22.2
-Release:        3%{?dist}
+Release:        6%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -17,8 +17,8 @@ BuildRequires:  ninja-build
 BuildRequires:  fluidsynth-devel
 BuildRequires:  portaudio-devel
 %endif
-%if 0%{?fedora} || 0%{?rhel} < 9
-BuildRequires:  SDL_sound-devel
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  pipewire-devel
 %endif
 BuildRequires:  libmysofa-devel
 BuildRequires:  libsndfile-devel
@@ -106,7 +106,6 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_libdir}/cmake/OpenAL
 
 %files examples
-%if 0%{?fedora} || 0%{?rhel} < 9
 %{_bindir}/alhrtf
 %{_bindir}/allatency
 %{_bindir}/alloopback
@@ -114,15 +113,6 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alplay
 %{_bindir}/alreverb
 %{_bindir}/alstream
-%else
-%exclude %{_bindir}/alhrtf
-%exclude %{_bindir}/allatency
-%exclude %{_bindir}/alloopback
-%exclude %{_bindir}/almultireverb
-%exclude %{_bindir}/alplay
-%exclude %{_bindir}/alreverb
-%exclude %{_bindir}/alstream
-%endif
 %{_bindir}/alrecord
 %{_bindir}/altonegen
 
@@ -130,6 +120,16 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alsoft-config
 
 %changelog
+* Sun Dec 18 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.22.2-6
+- Fixed examples build on RHEL and ELN.
+
+* Sun Dec 18 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.22.2-5
+- Enabled PipeWire native backend also on RHEL 9+.
+
+* Sun Dec 18 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.22.2-4
+- Enabled PipeWire native backend on Fedora.
+- Switched to SPDX.
+
 * Fri Sep 30 2022 Troy Dawson <tdawson@redhat.com> - 1.22.2-3
 - Fix ELN build failures
 

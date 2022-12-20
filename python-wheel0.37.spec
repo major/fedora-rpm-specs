@@ -1,6 +1,6 @@
 Name:           python-wheel0.37
 Version:        0.37.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A built-package format for Python
 
 License:        MIT
@@ -33,7 +33,12 @@ virtualenv to create virtual environments for Python < 3.7.}
 
 %package -n     %{python_wheel_pkg_prefix}-wheel0.37-wheel
 Summary:        The Python wheel 0.37.x module packaged as a wheel
-Conflicts:      %{python_wheel_pkg_prefix}-wheel-wheel < 0.38
+Conflicts:      %{python_wheel_pkg_prefix}-wheel-wheel < 1:0.38
+# Virtual provides for the packages bundled by wheel.
+# Actual version can be found in git history:
+# https://github.com/pypa/wheel/commits/master/src/wheel/vendored/packaging/tags.py
+Provides:       bundled(python2dist(packaging)) = 20.9
+Provides:       bundled(python3dist(packaging)) = 20.9
 
 %description -n %{python_wheel_pkg_prefix}-wheel0.37-wheel
 A Python wheel of wheel 0.37.x to use with virtualenv
@@ -74,5 +79,9 @@ export PYTHONPATH=%{buildroot}%{python_wheel_dir}/%{python_wheel_name}
 
 
 %changelog
+* Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 0.37.1-2
+- Add missing bundled() Provides
+- Include RPM epoch int the Conflict with python-wheel-wheel
+
 * Mon Dec 12 2022 Miro Hrončok <mhroncok@redhat.com> - 0.37.1-1
 - Initial compatibility package

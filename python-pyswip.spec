@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
@@ -27,6 +27,10 @@ Summary:        %summary
 # we need to require pl-devel because pyswip uses the unversioned libswipl.so
 Requires:       pl-devel
 
+# Patch for SWI-Prolog Version > 8.5.2
+# See https://github.com/yuce/pyswip/pull/133
+Patch0:        pyswip-version.patch
+
 %description -n python3-%{srcname}
 PySWIP is a Python - SWI-Prolog bridge enabling to query SWI-Prolog in your
 Python programs. It features an (incomplete) SWI-Prolog foreign language
@@ -35,7 +39,7 @@ Pythonic interface.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 
 %build
@@ -57,6 +61,9 @@ pytest-3 tests
 
 
 %changelog
+* Sun Dec 18 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.2.10-8
+- Patch for SWI-Prolog Version > 8.5.2
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

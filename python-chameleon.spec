@@ -1,7 +1,7 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        3.10.1
+Version:        3.10.2
 Release:        1%{?dist}
 Summary:        XML-based template compiler
 
@@ -62,6 +62,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Sun Dec 18 2022 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.2-1
+- Update to upstream.
+
 * Sun Sep 18 2022 Kevin Fenzi <kevin@scrye.com> - 3.10.1-1
 - Update to 3.10.1. Fixes rhbz#2072607
 

@@ -3,13 +3,14 @@
 
 Name:           nmstate
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+
 URL:            https://github.com/%{srcname}/%{srcname}
 Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
+Patch1:         0001-iface-Include-VRF-as-support-type.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools

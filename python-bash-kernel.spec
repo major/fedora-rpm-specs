@@ -1,5 +1,5 @@
 Name:           python-bash-kernel
-Version:        0.8
+Version:        0.9.0
 Release:        1%{?dist}
 Summary:        Bash kernel for Jupyter
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ cd -
 %{_datadir}/jupyter/kernels/bash/
 
 %changelog
+* Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 0.9.0-1
+- Version 0.9.0
+
 * Mon Aug 22 2022 Jerry James <loganjerry@gmail.com> - 0.8-1
 - Version 0.8
 - Convert License tag to SPDX

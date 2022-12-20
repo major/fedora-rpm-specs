@@ -6,14 +6,12 @@
 %bcond_without mysql_tests
 
 # Post-release snapshot
-#
-# Includes upstream PR#513 “Fixes breaking changes in SQLAlchemy cursor”
-%global commit 81cc6fdb1ce4e78875960a8a262a4b134745946e
-%global snapdate 20221217
+# %%global commit xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# %%global snapdate ########
 
 Name:           python-databases
 Summary:        Async database support for Python
-Version:        0.6.2%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        0.7.0%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 
 %{?!commit:%global srcversion %{version}}
@@ -237,9 +235,6 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 %prep
 %autosetup -n databases-%{srcversion} -p1
-
-# The patch for sqlalchemy >=1.4.42 is not backwards-compatible.
-sed -r -i 's/(sqlalchemy>=1\.4),/\1\.42,/' setup.py
 
 %if !0%{?with_asyncmy}
 sed -r -i \

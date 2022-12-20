@@ -1,5 +1,5 @@
 Name:           python-reretry
-Version:        0.11.2
+Version:        0.11.8
 Release:        %autorelease
 Summary:        Easy to use retry decorator
 
@@ -63,12 +63,10 @@ Recommends:     python3dist(decorator)
 
 
 %generate_buildrequires
-export PBR_VERSION='%{version}'
 %pyproject_buildrequires tests/test-requirements.txt
 
 
 %build
-export PBR_VERSION='%{version}'
 %pyproject_wheel
 
 

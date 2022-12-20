@@ -1,6 +1,6 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	25%{?dist}
+Release: 	26%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
 License:	LGPLv2
@@ -10,6 +10,7 @@ Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.g
 # MikMod-related fixes from trunk
 Patch0:         SDL_mixer-MikMod-1.patch
 Patch1:         SDL_mixer-MikMod-2.patch
+Patch2:         SDL_mixer-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -45,6 +46,7 @@ developing applications that use %{name}.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure --disable-dependency-tracking	\
@@ -79,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/SDL
 
 %changelog
+* Sun Dec 18 2022 Florian Weimer <fweimer@redhat.com> - 1.2.12-26
+- C99 compatibility fix
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

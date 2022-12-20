@@ -10,7 +10,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	6.8.0p2
-Release:	9%{?prerelease:.%{prerelease}}%{?dist}
+Release:	10%{?prerelease:.%{prerelease}}%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -32,7 +32,7 @@ BuildRequires:	libdb-devel
 %if 0%{?el7}
 BuildRequires:	openssl11-devel
 %else
-BuildRequires:	openssl-devel
+BuildRequires:	openssl1.1-devel
 %endif
 
 BuildRequires:	libasr-devel >= 1.0.4
@@ -261,6 +261,9 @@ exit 0
 
 
 %changelog
+* Fri Dec 16 2022 Denis Fateyev <denis@fateyev.com> - 6.8.0p2-10
+- Rebuild against openssl1.1 in Fedora
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0p2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

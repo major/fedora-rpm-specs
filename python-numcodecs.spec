@@ -1,7 +1,7 @@
 %global srcname numcodecs
 
 Name:           python-%{srcname}
-Version:        0.10.2
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 
@@ -14,6 +14,8 @@ Patch:          0002-Unbundle-zstd.patch
 Patch:          0003-Unbundle-lz4.patch
 # Fedora is not missing Snappy support in Blosc.
 Patch:          0004-Re-add-Snappy-to-tests.patch
+# We don't need coverage reports.
+Patch:          0005-Remove-coverage-from-testing-requirements.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(blosc)
@@ -85,11 +87,11 @@ ln -s ../fixture
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
+%license LICENSE.txt
 
 %files -n python-%{srcname}-doc
 %doc html
-%license LICENSE
+%license LICENSE.txt
 
 
 %changelog

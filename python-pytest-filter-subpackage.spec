@@ -1,18 +1,20 @@
 %global srcname pytest-filter-subpackage
-%global pythonicname pytest_filter_subpackage
+%global modname pytest_filter_subpackage
 %global sum Pytest plugin for filtering based on sub-packages
 
 
 Name:           python-%{srcname}
-Version:        0.1.1
-Release:        8%{?dist}
+Version:        0.1.2
+Release:        %autorelease
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
 
 %global _description %{expand:
 This package contains a simple plugin for the pytest framework that provides
@@ -24,12 +26,6 @@ a shortcut to testing all code and documentation for a given sub-package.}
 %package -n python3-%{srcname}
 Summary:        %{sum}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-
-%py_provides python3-%{srcname}
-
 %description -n python3-%{srcname} %_description
 
 
@@ -37,45 +33,29 @@ BuildRequires:  python3-setuptools_scm
 %autosetup -n %{srcname}-%{version}
 
 # Remove egg files from source
-rm -r %{pythonicname}.egg-info
+rm -rf %{pythonicname}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
-%files -n python3-%{srcname}
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.rst
 %doc README.rst CHANGES.rst
-%{python3_sitelib}/%{pythonicname}/
-%{python3_sitelib}/*.egg-info/
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1.1-7
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.1-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Dec 01 2020 Mattia Verga <mattia.verga@protonmail.com> - 0.1.1-2
-- Correct Provides - fixes rhbz#1902785
-
-* Sun Nov 15 2020 Mattia Verga <mattia.verga@protonmail.com> - 0.1.1-1
-- Initial packaging
+%autochangelog

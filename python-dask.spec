@@ -20,6 +20,8 @@ URL:            https://github.com/dask/dask
 Source0:        %{pypi_source %{srcname}}
 # https://github.com/dask/dask/issues/6725
 Patch:          0001-Skip-test_encoding_gh601-on-big-endian-machines.patch
+# https://github.com/dask/dask/pull/9775
+Patch:          0002-TST-Reduce-size-of-expected-DoK-sparse-matrix.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.
@@ -45,8 +47,14 @@ BuildRequires:  python3dist(fastavro)
 %endif
 BuildRequires:  python3dist(h5py)
 BuildRequires:  python3dist(psutil)
+# libarrow does not support 32 bit architectures and is ExcludeArch.
+# Tests don't pass on s390x either.
+%ifnarch %{arm} %{ix86} s390x
+BuildRequires:  python3dist(pyarrow)
+%endif
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(sqlalchemy)
+BuildRequires:  python3dist(tables)
 BuildRequires:  python3dist(zarr)
 
 Recommends:     python3-%{srcname}+array = %{version}-%{release}
@@ -104,6 +112,9 @@ Documentation for dask.
 %autosetup -n %{srcname}-%{version} -p1
 # we don't use pre-commit when running tests
 sed -i '/"pre-commit"/d' setup.py
+
+# https://github.com/dask/dask/pull/9774
+chmod -x dask/dataframe/io/orc/utils.py
 
 
 %generate_buildrequires
