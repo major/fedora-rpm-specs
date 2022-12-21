@@ -49,7 +49,7 @@
 
 Name:           kobo
 Version:        0.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv2
 Summary:        Python modules for tools development
 URL:            https://github.com/release-engineering/kobo
@@ -61,6 +61,7 @@ BuildRequires:  python2-devel >= 2.4
 %endif
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
 %endif
 
 %description
@@ -186,6 +187,7 @@ Kobo is a set of python modules designed for rapid tools development.
 Summary:        Django components
 Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
 Requires:       python%{python3_pkgversion}-django >= 1.6
+Requires:       python%{python3_pkgversion}-setuptools
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-django}
 
 %description -n python%{python3_pkgversion}-%{name}-django
@@ -221,6 +223,7 @@ Worker daemon processing tasks submitted to the hub.
 Summary:        Xml-rpc and web interface to a task database
 Requires:       python%{python3_pkgversion}-kobo = %{version}-%{release}
 Requires:       python%{python3_pkgversion}-django >= 1.6
+Requires:       python%{python3_pkgversion}-setuptools
 Requires:       gzip
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}-hub}
 
@@ -255,6 +258,7 @@ Python library for kobo-admin command.
 
 %prep
 %autosetup
+%py3_shebang_fix kobo/admin/kobo-admin kobo/admin/templates/*/*
 
 
 %build
@@ -419,6 +423,10 @@ rm -rf $RPM_BUILD_ROOT/%{python2_sitelib}/kobo/hub
 
 
 %changelog
+* Tue Dec 20 2022 Rohan McGovern <rohanpm@fedoraproject.org> - 0.25.0-2
+- Declare dependencies on python3-setuptools (#2155008)
+- Apply pathfix.py for ambiguous shebangs
+
 * Thu Sep 01 2022 Rohan McGovern <rohanpm@fedoraproject.org> - 0.25.0-1
 - New upstream release 0.25.0
 

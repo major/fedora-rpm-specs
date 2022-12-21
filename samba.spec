@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.4
-%global baserelease 0
+%global baserelease 1
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -242,6 +242,7 @@ Requires: %{name}-common-libs = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
+Requires: %{name}-dcerpc = %{samba_depver}
 Requires: libnetapi = %{samba_depver}
 %if %{with libwbclient}
 Requires(post): libwbclient = %{samba_depver}
@@ -539,6 +540,20 @@ Provides: bundled(libreplace)
 %description common-tools
 The samba-common-tools package contains tools for Samba servers and
 SMB/CIFS clients.
+
+### RPC
+%package dcerpc
+Summary: DCE RPC binaries
+Requires: samba-common-libs = %{samba_depver}
+Requires: samba-client-libs = %{samba_depver}
+Requires: samba-libs = %{samba_depver}
+Requires: libnetapi = %{samba_depver}
+%if %{with libwbclient}
+Requires: libwbclient = %{samba_depver}
+%endif
+
+%description dcerpc
+The samba-dcerpc package contains binaries that serve DCERPC over named pipes.
 
 ### DC
 %if %{with dc} || %{with testsuite}
@@ -970,6 +985,7 @@ Requires: %{name}-winbind-modules = %{samba_depver}
 Requires(post): libwbclient = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 %endif
+Requires: %{name}-dcerpc = %{samba_depver}
 
 Provides: samba4-winbind = %{samba_depver}
 Obsoletes: samba4-winbind < %{samba_depver}
@@ -1753,15 +1769,6 @@ fi
 
 %dir %{_libexecdir}/samba
 %{_libexecdir}/samba/samba-bgqd
-%{_libexecdir}/samba/samba-dcerpcd
-%{_libexecdir}/samba/rpcd_classic
-%{_libexecdir}/samba/rpcd_epmapper
-%{_libexecdir}/samba/rpcd_fsrvp
-%{_libexecdir}/samba/rpcd_lsad
-%{_libexecdir}/samba/rpcd_mdssvc
-%{_libexecdir}/samba/rpcd_rpcecho
-%{_libexecdir}/samba/rpcd_spoolss
-%{_libexecdir}/samba/rpcd_winreg
 
 %dir %{_datadir}/samba
 %dir %{_datadir}/samba/mdssvc
@@ -1775,7 +1782,6 @@ fi
 %{_mandir}/man1/smbstatus.1*
 %{_mandir}/man8/eventlogadm.8*
 %{_mandir}/man8/samba-bgqd.8*
-%{_mandir}/man8/samba-dcerpcd.8*
 %{_mandir}/man8/smbd.8*
 %{_mandir}/man8/nmbd.8*
 %{_mandir}/man8/vfs_acl_tdb.8*
@@ -2082,6 +2088,20 @@ fi
 %{_mandir}/man8/samba-tool.8*
 %{_mandir}/man8/smbpasswd.8*
 
+### RPC
+%files dcerpc
+%dir %{_libexecdir}/samba
+%{_libexecdir}/samba/samba-dcerpcd
+%{_libexecdir}/samba/rpcd_classic
+%{_libexecdir}/samba/rpcd_epmapper
+%{_libexecdir}/samba/rpcd_fsrvp
+%{_libexecdir}/samba/rpcd_lsad
+%{_libexecdir}/samba/rpcd_mdssvc
+%{_libexecdir}/samba/rpcd_rpcecho
+%{_libexecdir}/samba/rpcd_spoolss
+%{_libexecdir}/samba/rpcd_winreg
+%{_mandir}/man8/samba-dcerpcd.8*
+
 ### DC
 %if %{with dc} || %{with testsuite}
 %files dc
@@ -2096,7 +2116,6 @@ fi
 %{_libdir}/krb5/plugins/kdb/samba.so
 
 %{_libdir}/samba/auth/samba4.so
-%{_libdir}/samba/libpac-samba4.so
 %dir %{_libdir}/samba/gensec
 %{_libdir}/samba/gensec/krb5.so
 %{_libdir}/samba/ldb/acl.so
@@ -2160,7 +2179,9 @@ fi
 
 ### DC-LIBS
 %files dc-libs
+%{_libdir}/samba/libauth4-samba4.so
 %{_libdir}/samba/libdb-glue-samba4.so
+%{_libdir}/samba/libpac-samba4.so
 %{_libdir}/samba/libprocess-model-samba4.so
 %{_libdir}/samba/libservice-samba4.so
 
@@ -2379,7 +2400,6 @@ fi
 %{_libdir}/libdcerpc-samr.so.*
 
 %{_libdir}/samba/libLIBWBCLIENT-OLD-samba4.so
-%{_libdir}/samba/libauth4-samba4.so
 %{_libdir}/samba/libauth-unix-token-samba4.so
 %{_libdir}/samba/libdcerpc-samba4.so
 %{_libdir}/samba/libdnsserver-common-samba4.so
@@ -4318,6 +4338,10 @@ fi
 %endif
 
 %changelog
+* Mon Dec 19 2022 Pavel Filipenský <pfilipen@redhat.com> - 4.17.4-1
+- Create a samba-dcerpc sub-package
+- Fix package installation without samba and samba-dc package
+
 * Fri Dec 16 2022 Guenther Deschner <gdeschner@redhat.com> - 4.17.4-0
 - resolves: #2153906 - Update to version 4.17.4
 - resolves: #2154362, #2154363 - Security fixes for CVE-2022-38023

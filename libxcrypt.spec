@@ -1,5 +1,5 @@
 # Build with new api?
-%if 0%{?fedora} >= 30 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} > 8
 %bcond_without new_api
 %else
 %bcond_with    new_api
@@ -15,7 +15,7 @@
 
 
 # Replace obsolete functions with a stub?
-%if (0%{?fedora} >= 30 || 0%{?rhel} >= 9) && %{with compat_pkg}
+%if %{with new_api} && %{with compat_pkg}
 %bcond_without enosys_stubs
 %else
 %bcond_with    enosys_stubs
@@ -63,6 +63,12 @@
 # The libxcrypt-devel package conflicts with out-dated manuals
 # shipped with the man-pages packages *before* this EVR.
 %global man_pages_minver 4.15-3
+
+
+# Need versioned requires on glibc and man-pages?
+%if !(0%{?fedora} || 0%{?rhel} > 9)
+%global trans_pkg        1
+%endif
 
 
 # Hash methods and API supported by libcrypt.
@@ -162,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.33
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -185,9 +191,14 @@ Patch0001:      %{url}/commit/59823543d095.patch#/%{name}-4.4.33-SHA512_Maj_opti
 BuildRequires:  coreutils
 BuildRequires:  fipscheck
 BuildRequires:  gcc
+%if %{without bootstrap}
+BuildRequires:  gnupg2
+%endif
+%if 0%{?trans_pkg}
 BuildRequires:  glibc-devel                  >= %{glibc_minver}
+%endif
 BuildRequires:  make
-BuildRequires:  perl-interpreter             >= %{perl_minver}
+BuildRequires:  perl(:VERSION)               >= %{perl_minver}
 BuildRequires:  perl(Class::Struct)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Exporter)
@@ -201,16 +212,11 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(:VERSION)               >= %{perl_minver}
 BuildRequires:  perl(warnings)
-
-%if %{without bootstrap}
-# Possibly not available during bootstrap.
-BuildRequires:  gnupg2
-%endif
+BuildRequires:  perl-interpreter
 
 # We do not need to keep this forever.
-%if !(0%{?fedora} > 31 || 0%{?rhel} > 9)
+%if 0%{?trans_pkg}
 # Inherited from former libcrypt package.
 Obsoletes:      libcrypt-nss           < %{glibc_minver}
 Provides:       libcrypt-nss           = %{glibc_minver}
@@ -226,18 +232,16 @@ Provides:       libcrypt%{?_isa}       = %{glibc_minver}
 # Obsolete former libxcrypt-common properly.
 Obsoletes:      %{name}-common         < 4.3.3-4
 Provides:       %{name}-common         = %{version}-%{release}
+
+# We need a version of glibc, that doesn't build libcrypt anymore.
+Requires:       glibc%{?_isa}         >= %{glibc_minver}
 %endif
 
 %if %{with new_api} && %{without compat_pkg}
 Obsoletes:      %{name}-compat         < %{version}-%{release}
 %endif
 
-%if !(0%{?fedora} > 34 || 0%{?rhel} > 9)
-# We need a version of glibc, that doesn't build libcrypt anymore.
-Requires:       glibc%{?_isa}         >= %{glibc_minver}
-%endif
-
-%if 0%{?fedora} >= 30
+%if 0%{?fedora}
 Recommends:     mkpasswd
 %endif
 
@@ -274,11 +278,6 @@ BuildRequires:  libxcrypt-compat
 
 Requires:       %{name}%{?_isa}        = %{version}-%{release}
 
-%if !(0%{?fedora} > 34 || 0%{?rhel} > 9)
-# We need a version of glibc, that doesn't build libcrypt anymore.
-Requires:       glibc%{?_isa}         >= %{glibc_minver}
-%endif
-
 %description    compat
 This package contains the library providing the compatibility API
 for applications that are linked against glibc's libxcrypt, or that
@@ -295,10 +294,12 @@ work unmodified with the library supplied by this package.
 %package        devel
 Summary:        Development files for %{name}
 
-Conflicts:      man-pages              < %{man_pages_minver}
-
 Requires:       %{name}%{?_isa}        = %{version}-%{release}
+Requires:       glibc-devel%{?_isa}
+%if 0%{?trans_pkg}
+Conflicts:      man-pages              < %{man_pages_minver}
 Requires:       glibc-devel%{?_isa}   >= %{glibc_minver}
+%endif
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -310,8 +311,10 @@ developing applications that use %{name}.
 Summary:        Static library for -static linking with %{name}
 
 Requires:       %{name}-devel%{?_isa}  = %{version}-%{release}
-Requires:       glibc-devel%{?_isa}   >= %{glibc_minver}
+Requires:       glibc-static%{?_isa}
+%if 0%{?trans_pkg}
 Requires:       glibc-static%{?_isa}  >= %{glibc_minver}
+%endif
 
 %description    static
 This package contains the libxcrypt static library for -static
@@ -355,12 +358,12 @@ EOF
 %if %{with enosys_stubs}
 cat << EOF >> README.posix
 This version of the libcrypt.so.1 library has entirely removed
-the functionality of the encrypt, encrypt_r, setkey, setkey_r,
-and fcrypt functions, while keeping fully binary compatibility
-with existing (third-party) applications possibly still using
-those funtions.  If such an application attemps to call one of
-these functions, the corresponding function will indicate that
-it is not supported by the system in a POSIX-compliant way.
+the functionality of the encrypt, encrypt_r, setkey, and setkey_r
+functions, while keeping fully binary compatibility with existing
+(third-party) applications possibly still using those funtions.
+If such an application attemps to call one of these functions, the
+corresponding function will indicate that it is not supported by
+the system in a POSIX-compliant way.
 
 For security reasons, the encrypt and encrypt_r functions will
 also overwrite their data-block argument with random bits.
@@ -577,6 +580,11 @@ done
 
 
 %changelog
+* Mon Dec 19 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-5
+- Simplify transitional Requires and Obsoletes for legacy packages
+- Drop versioned BR on perl-interpreter
+- Fix README.posix file, as the fcrypt function is still available
+
 * Tue Dec 13 2022 Björn Esser <besser82@fedoraproject.org> - 4.4.33-4
 - Add upstream patch to improve performance on SHA512 computation
 

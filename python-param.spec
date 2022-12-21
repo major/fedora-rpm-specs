@@ -29,6 +29,9 @@ Source0:        %{url}/archive/v%{version}/param-%{version}.tar.gz
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 
 %if %{with doc_pdf}
@@ -107,7 +110,7 @@ sphinx-build -b latex %{?_smp_mflags} docs %{_vpath_builddir}/_latex
 
 %files -n python3-param -f %{pyproject_files}
 # pyproject-rpm-macros handles LICENSE.txt; verify with “rpm -qL -p …”
-%{python3_sitelib}/numbergen
+%{python3_sitelib}/numbergen/
 
 
 %files doc

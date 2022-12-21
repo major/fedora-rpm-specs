@@ -1,7 +1,7 @@
 Summary:                A SMTP virus scanning system
 Name:                   clamsmtp
 Version:                1.10
-Release:                37%{?dist}
+Release:                38%{?dist}
 License:                BSD
 URL:                    http://memberwebs.com/stef/software/clamsmtp/
 
@@ -16,9 +16,10 @@ Source8:                clamsmtp-tmpfile.conf
 Patch0:                 clamsmtp-man.patch
 Patch1:                 clamsmtp-readme.patch
 Patch2:                 clamsmtp-include_order.patch
+Patch3:                 clamsmtp-autoconf-c99.patch
 
 BuildRequires:          clamav-devel gcc gcc-c++ systemd
-BuildRequires: make
+BuildRequires:          make autoconf automake
 
 Requires(pre):          shadow-utils
 Requires(preun):        systemd
@@ -50,8 +51,10 @@ SMTP traffic at the router.
 %patch0 -p0 -b .man
 %patch1 -p0 -b .readme
 %patch2 -p1 -b .include_order
+%patch3 -p1 -b .autoconf-c99
 
 %build
+autoreconf -vi
 %configure 
 %{make_build}
 
@@ -104,6 +107,10 @@ exit 0
 %{_mandir}/man8/clamsmtpd.8.gz
 
 %changelog
+* Sat Dec 17 2022 Peter Fordham <peter.fordham@gmail.com> - 1.10-38
+- Fix check in acsite.m4 to be C99 compatible.
+- Add autoreconf step to build to flush non C99 compatible checks from configure.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

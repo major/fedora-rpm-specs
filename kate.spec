@@ -11,7 +11,7 @@
 
 Name:    kate
 Summary: Advanced Text Editor
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 # kwrite LGPLv2+
@@ -136,7 +136,6 @@ cat all.lang plugins.lang kwrite.lang | sort | uniq -u > kate.lang
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kate.appdata.xml ||:
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.plasma.katesessions.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kate.desktop
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kwrite.desktop
 %if 0%{?tests}
@@ -152,16 +151,12 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_bindir}/kate
 %{_kf5_datadir}/applications/org.kde.kate.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/kate.*
+%{_kf5_datadir}/kconf_update/katesession_migration.upd
+%{_kf5_datadir}/kconf_update/migrate_kate_sessions_applet_to_kdeplasma-addons.sh
 %{_kf5_metainfodir}/org.kde.kate.appdata.xml
 %{_kf5_qtplugindir}/ktexteditor/cmaketoolsplugin.so
 %{_mandir}/man1/kate.1*
 
-# katesessions applet
-%{_kf5_datadir}/kservices5/plasma-applet-org.kde.plasma.katesessions.desktop
-%{_kf5_datadir}/kservices5/plasma-dataengine-katesessions.desktop
-%{_kf5_datadir}/plasma/plasmoids/org.kde.plasma.katesessions/
-%{_kf5_datadir}/plasma/services/org.kde.plasma.katesessions.operations
-%{_kf5_metainfodir}/org.kde.plasma.katesessions.appdata.xml
 
 %files libs
 %{_kf5_libdir}/libkateprivate.so.%{version}
@@ -189,13 +184,13 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_qtplugindir}/ktexteditor/katesymbolviewerplugin.so
 %{_kf5_qtplugindir}/ktexteditor/katexmlcheckplugin.so
 %{_kf5_qtplugindir}/ktexteditor/katexmltoolsplugin.so
+%{_kf5_qtplugindir}/ktexteditor/keyboardmacrosplugin.so
 %{_kf5_qtplugindir}/ktexteditor/ktexteditorpreviewplugin.so
 %{_kf5_qtplugindir}/ktexteditor/latexcompletionplugin.so
 %{_kf5_qtplugindir}/ktexteditor/lspclientplugin.so
 %{_kf5_qtplugindir}/ktexteditor/rainbowparens.so
 %{_kf5_qtplugindir}/ktexteditor/tabswitcherplugin.so
 %{_kf5_qtplugindir}/ktexteditor/textfilterplugin.so
-%{_kf5_qtplugindir}/plasma/dataengine/plasma_engine_katesessions.so
 
 %files -n kwrite -f kwrite.lang
 %{_kf5_bindir}/kwrite
@@ -205,6 +200,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

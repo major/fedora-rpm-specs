@@ -1,6 +1,6 @@
 %global upstreamname ROCm-OpenCL-Runtime
-%global rocm_release 5.3
-%global rocm_patch 2
+%global rocm_release 5.4
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 #Set enable_ocltst to enable HW OCL test suite
@@ -18,9 +18,6 @@ Url:            https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime
 License:        MIT
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/ROCm-Developer-Tools/ROCclr/archive/refs/tags/rocm-%{version}.tar.gz#/ROCclr-%{version}.tar.gz
-
-# https://github.com/ROCm-Developer-Tools/ROCclr/commit/197ea6f76f34e0b3c8ab46d96c2fa5014e467e37
-Patch1:         0001-SWDEV-350289-Fix-build-warnings-due-to-file-re-org.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -88,6 +85,8 @@ pushd ROCclr-rocm-%{version}
 sed -i 's/\(ROC_ENABLE_PRE_VEGA.*\)false/\1true/' utils/flags.hpp
 popd
 %autopatch -p1 -m 100
+#Disable RPATH in clinfo:
+sed -i "/RPATH/d" tools/clinfo/CMakeLists.txt
 
 #Add soname to amdocl and cltrace:
 # Upstream doesn't want this because they don't guarentee ABI.
@@ -169,6 +168,9 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Sun Dec 18 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-1
+- Update to 5.4.1
+
 * Thu Nov 10 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 5.3.2-1
 - Update to 5.3.2
 

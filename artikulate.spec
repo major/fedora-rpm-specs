@@ -1,7 +1,7 @@
 
 Name:    artikulate
 Summary: Improve your pronunciation by listening to native speakers
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 # artwork: LGPL3
@@ -92,10 +92,12 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_libdir}/libartikulatecore.so.0*
 %{_kf5_libdir}/libartikulatelearnerprofile.so.0*
 %{_kf5_libdir}/libartikulatesound.so.0*
-%{_kf5_qtplugindir}/artikulate/
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

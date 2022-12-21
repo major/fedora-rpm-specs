@@ -1,6 +1,6 @@
 Name: gnucash
 Summary: Finance management application
-Version: 4.12
+Version: 4.13
 URL: https://gnucash.org/
 Release: 1%{?dist}
 License: GPLv2+
@@ -105,6 +105,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Dec 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.13-1
+- 4.13
+
 * Mon Sep 26 2022 Gwyn Ciesla <gwync@protonmail.com> - 4.12-1
 - 4.12
 

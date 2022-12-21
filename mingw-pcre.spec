@@ -1,32 +1,44 @@
 %?mingw_package_header
 
-Name:		mingw-pcre
-Version:	8.43
-Release:	9%{?dist}
+%global name1 pcre
+# Is this a stable/testing release:
+#%%global rcversion RC1
+
+Name:		mingw-%{name1}
+Version:	8.45
+%global myversion %{version}%{?rcversion:-%rcversion}
+Release:	1%{?dist}
 Summary:	MinGW Windows pcre library
 
 License:	BSD
 URL:		http://www.pcre.org/
-Source0:	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-%{version}.tar.bz2
+Source0:        https://ftp.pcre.org/pub/%{name1}/%{?rcversion:Testing/}%{name1}-%{myversion}.tar.bz2
+Source1:        https://ftp.pcre.org/pub/%{name1}/%{?rcversion:Testing/}%{name1}-%{myversion}.tar.bz2.sig
+Source2:        https://ftp.pcre.org/pub/pcre/Public-Key
 
 # Refused by upstream, bug #675477
-Patch1:     pcre-8.32-refused_spelling_terminated.patch
+Patch1:         pcre-8.32-refused_spelling_terminated.patch
 # Fix recursion stack estimator, upstream bug #2173, refused by upstream
-Patch2:     pcre-8.41-fix_stack_estimator.patch
+Patch2:         pcre-8.41-fix_stack_estimator.patch
 # Link applications to PCRE-specific symbols when using POSIX API, bug #1667614,
 # upstream bug 1830, partially borrowed from PCRE2, proposed to upstream,
 # This amends ABI, application built with this patch cannot run with
 # previous libpcreposix builds.
-Patch3:     pcre-8.42-Declare-POSIX-regex-function-names-as-macros-to-PCRE.patch
-# Add (*LF) to a list of start-of-pattern options in the C++ wrapper,
-# upstream bug #2400, in upstream after 8.43
-Patch4:     pcre-8.43-Fix-omission-of-LF-from-list-in-the-C-wrapper.patch
+Patch3:         pcre-8.42-Declare-POSIX-regex-function-names-as-macros-to-PCRE.patch
+# Fix reading an uninitialized memory when populating a name table,
+# upstream bug #2661, proposed to the upstream
+Patch4:         pcre-8.44-Inicialize-name-table-memory-region.patch
+# Implement CET, bug #1909554, proposed to the upstream
+# <https://lists.exim.org/lurker/message/20201220.222016.d8cd6d61.en.html>
+Patch5:         pcre-8.44-JIT-compiler-update-for-Intel-CET.patch
+Patch6:         pcre-8.44-Pass-mshstk-to-the-compiler-when-Intel-CET-is-enable.patch
 
 BuildArch:	noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  git
 BuildRequires:	redhat-rpm-config
+BuildRequires:  gnupg2
 
 BuildRequires:	mingw32-filesystem >= 95
 BuildRequires:	mingw32-gcc
@@ -98,6 +110,7 @@ Static version of the mingw64-pcre library.
 
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am -n pcre-%{version}
 
 
@@ -190,6 +203,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Mon Dec 19 2022 Thomas Sailer <fedora@tsailer.ch> - 8.45-1
+- Update to 8.45 to match native version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.43-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

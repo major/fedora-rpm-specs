@@ -1,4 +1,8 @@
+%if 0%{?rhel}
+#global llvm_version 14
+%else
 %global llvm_version 14
+%endif
 %global soversion 100
 
 # bootstrapping is used for updating LDC to a newer version: it relies on an
@@ -14,7 +18,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.30.0%{?pre:~%{pre}}
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -28,6 +32,12 @@ Source3:        macros.%{name}
 Patch0:         ldc-include-path.patch
 # Don't add rpath to standard libdir
 Patch1:         ldc-no-default-rpath.patch
+%if 0%{?rhel} && 0%{?rhel} <= 9
+# Keep on using ld.gold on RHEL 8 and 9 where using ldc with ld.bfd breaks gtkd
+# and leads to crashing tilix.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2134875
+Patch2:         0001-Revert-Linux-Don-t-default-to-ld.gold-linker.patch
+%endif
 
 ExclusiveArch:  %{ldc_arches} ppc64le
 
@@ -173,6 +183,9 @@ install -m0644 phobos.d.tags %{buildroot}/%{_datadir}/geany/tags/
 %{_datadir}/geany/tags/phobos.d.tags
 
 %changelog
+* Mon Dec 19 2022 Kalev Lember <klember@redhat.com> - 1:1.30.0-4
+- Use ld.gold on RHEL 8 and 9 (#2134875)
+
 * Mon Sep 12 2022 Kalev Lember <klember@redhat.com> - 1:1.30.0-2
 - Bootstrap on ppc64le
 

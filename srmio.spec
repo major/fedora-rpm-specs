@@ -2,12 +2,13 @@
 
 Name:           srmio
 Version:        0.1.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Schoberer Radmesstechnik (SRM) PowerControl access
 
 License:        MIT
 URL:            http://www.zuto.de/project/srmio/
 Source0:        https://github.com/rclasen/%{name}/archive/v%{realver}.tar.gz#/%{name}-%{realver}.tar.gz
+Patch0:         srmio-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -35,7 +36,7 @@ This package contains the header files and development documentation
 for %{name}.
 
 %prep
-%autosetup -n %{name}-%{realver}
+%autosetup -p1 -n %{name}-%{realver}
 
 
 %build
@@ -67,6 +68,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 0.1.1.1-8
+- C99 port and fix FTBFS due to autoconf change (#1999484)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

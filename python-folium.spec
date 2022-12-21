@@ -1,6 +1,6 @@
 Name:           python-folium
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for visualizing data on a Leaflet map
 
 License:        MIT
@@ -11,6 +11,9 @@ URL:            https://python-visualization.github.io/folium/
 Source0:        %{pypi_source folium}
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 
 %global _description %{expand:
@@ -66,6 +69,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.14.0-2
+- Drop support for i686
+
 * Sat Dec 17 2022 Roman Inflianskas <rominf@aiven.io> - 0.14.0-1
 - Update to 0.14.0 (resolves rhbz#2152748)
 - Add importability checks

@@ -7,7 +7,12 @@ Summary:        A (new) cairo backend for Matplotlib
 
 License:        MIT
 URL:            https://github.com/matplotlib/mplcairo
-Source0:        %pypi_source
+Source0:        %pypi_source %{srcname}
+# Make pth-generation PEP517-compatible.
+Patch:          https://github.com/matplotlib/mplcairo/commit/bf3b69ceec82b09350e725d310e3a324afc0c3ff.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  gcc-c++
 

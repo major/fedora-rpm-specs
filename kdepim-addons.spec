@@ -1,6 +1,6 @@
 Name:    kdepim-addons
-Version: 22.08.3
-Release: 3%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 Summary: Additional plugins for KDE PIM applications
 
 License: GPLv2 and LGPLv2+
@@ -183,6 +183,9 @@ Supplements:    korganizer
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-3
 - Drop i686
 

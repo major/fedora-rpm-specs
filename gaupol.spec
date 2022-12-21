@@ -17,13 +17,23 @@ Source0:        https://github.com/otsaloma/gaupol/archive/%{version}/gaupol-%{v
 # be no debug packages.
 %global debug_package %{nil}
 
+# We cannot use dynamic BuildRequires or automatic Requires generation, as
+# setup.py does not have the relevant metadata. We must do it the old-fashioned
+# way, by perusing READMEs, plus grepping source and inspecting imports.
 BuildRequires:  python3-devel
-# Note that this package does not (yet) require python3dist(setuptools)!
+
+# This package still uses distutils (with heavy customization, so it cannot be
+# trivially ported to setuptools).
 #
-# Note also that we cannot use dynamic BuildRequires or automatic Requires
-# generation, as setup.py does not have the relevant metadata. We must do it
-# the old-fashioned way, by perusing READMEs, plus grepping source and
-# inspecting imports.
+# In Python 3.12, distutils is removed from the standard library:
+#
+#   Remove the distutils package. It was deprecated in Python 3.10 by PEP 632
+#   “Deprecate distutils module”. For projects still using distutils and cannot
+#   be updated to something else, the setuptools project can be installed: it
+#   still provides distutils. (Contributed by Victor Stinner in gh-92584.)
+#
+# We must therefore BuildRequire python3dist(setuptools) to get distutils.
+BuildRequires:  python3dist(setuptools)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -271,10 +281,10 @@ appstreamcli validate --nonet \
 
 %{_bindir}/gaupol
 
-%{python3_sitelib}/gaupol
-%{python3_sitelib}/gaupol-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/gaupol/
+%{python3_sitelib}/gaupol-%{version}-py%{python3_version}.egg-info/
 
-%{_datadir}/gaupol
+%{_datadir}/gaupol/
 %{_metainfodir}/%{app_id}.appdata.xml
 %{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/%{app_id}-symbolic.svg
@@ -288,8 +298,8 @@ appstreamcli validate --nonet \
 %doc README.aeidon.md
 %doc NEWS.md
 
-%{python3_sitelib}/aeidon
-%{python3_sitelib}/aeidon-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/aeidon/
+%{python3_sitelib}/aeidon-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog

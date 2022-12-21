@@ -2,7 +2,7 @@
 
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
@@ -53,8 +53,12 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %dir %{_kf5_libdir}/cmake/
 %dir %{_kf5_libdir}/cmake/KQtQuickCharts/
 %{_kf5_libdir}/cmake/KQtQuickCharts/KQtQuickChartsVersion.cmake
+%{_kf5_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

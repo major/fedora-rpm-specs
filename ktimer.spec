@@ -2,12 +2,11 @@
 
 Name:    ktimer
 Summary: Task Scheduler 
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
-#URL:     http://utils.kde.org/projects/%{name}
-URL:     https://cgit.kde.org/%{name}.git
+URL:     https://invent.kde.org/utilities/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -17,8 +16,6 @@ URL:     https://cgit.kde.org/%{name}.git
 %endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
-# https://invent.kde.org/utilities/ktimer/-/merge_requests/4
-Patch100: fix_appdata.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -85,21 +82,16 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 %files -f %{name}.lang
 %license COPYING*
-#doc README
 %{_kf5_bindir}/%{name}
-#{_sysconfdir}/xdg/%{name}.knsrc
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-#{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kconf_update/%{name}*
-#{_kf5_datadir}/knotifications5/%{name}.notifyrc
-#{_kf5_datadir}/kxmlgui5/%{name}/
-#{_kf5_datadir}/sounds/%{name}/
-#{_kf5_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

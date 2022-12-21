@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.8.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Light-weight Python computational pipeline management
 
 License:        MIT
@@ -14,6 +14,9 @@ Patch0001:      use_libjs-mathjax.patch
 Patch0002:      0001-Fix-doc-build-with-Sphinx-4.patch
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -105,6 +108,9 @@ popd
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.8.4-11
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

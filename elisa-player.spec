@@ -1,6 +1,6 @@
 
 Name:       elisa-player
-Version:    22.08.3
+Version:    22.12.0
 Release:    %autorelease
 Summary:    Elisa music player
 

@@ -1,7 +1,7 @@
 Summary:        Tar file manipulation API
 Name:           libtar
 Version:        1.2.20
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        MIT
 URL:            http://repo.or.cz/libtar.git
 Source:         http://repo.or.cz/libtar.git/snapshot/refs/tags/v1.2.20.tar.gz#/libtar-v1.2.20.tar.gz
@@ -78,6 +78,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Mon Dec 19 2022 Kamil Dudka <kdudka@redhat.com> - 1.2.20-26
+- fix use-after-free bugs introduced by incorrect memleak fixes (CVE-2021-33640)
+
 * Fri Aug 26 2022 Kamil Dudka <kdudka@redhat.com> - 1.2.20-25
 - fix memory leaks through gnu_long{name,link} (CVE-2021-33645 CVE-2021-33646)
 - fix out-of-bounds read in gnu_long{name,link} (CVE-2021-33643 CVE-2021-33644)

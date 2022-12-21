@@ -163,7 +163,7 @@ install -t '%{buildroot}%{_bindir}' -D -p e00conv
 %files devel
 # Examples:
 %doc ex_*.c
-%{_includedir}/e00compr
+%{_includedir}/e00compr/
 %{_libdir}/libe00compr.so
 
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A heap with decrease-key and increase-key operations
 
 License:        BSD
@@ -11,6 +11,9 @@ URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source %{pkgname}
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description \
 HeapDict is designed to be used as a priority queue, where items are added and \
@@ -56,6 +59,9 @@ BuildRequires:  python3-test
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-11
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

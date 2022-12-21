@@ -1,5 +1,5 @@
 Name:           mrchem
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPLv3+
@@ -114,6 +114,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Mon Dec 19 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.1-1
+- Update to 1.1.1.
+
 * Wed Sep 28 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.0-1
 - Update to 1.1.0.
 

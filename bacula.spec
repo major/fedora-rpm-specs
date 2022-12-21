@@ -3,7 +3,7 @@
 
 Name:               bacula
 Version:            13.0.1
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -42,6 +42,7 @@ Patch8:             %{name}-docker-plugin.patch
 # http://bugs.bacula.org/view.php?id=2084
 Patch9:             %{name}-autoconf.patch
 Patch10:            %{name}-scripts.patch
+Patch11:            bacula-configure-c99.patch
 
 BuildRequires:      desktop-file-utils
 BuildRequires:      perl-generators
@@ -642,6 +643,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 13.0.1-5
+- Port configure script to C99
+
 * Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 13.0.1-4
 - Fix isworm script.
 

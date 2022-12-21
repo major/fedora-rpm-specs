@@ -3,12 +3,14 @@
 
 Name:       python-%{sname}
 Version:    1.3.16
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    VAT validation and calculation for Python
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
 URL:        https://github.com/%{owner}/%{sname}
 BuildArch:  noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 Requires:       python3
@@ -49,6 +51,9 @@ Iconfinder's marketplace to handle just this problem.
 %doc README.rst
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.16-2
+- Drop support for i686
+
 * Mon Sep 19 2022 Roman Inflianskas <rominf@aiven.io> - 1.3.16-1
 - Update to 1.3.16
 

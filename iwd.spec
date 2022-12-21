@@ -1,6 +1,6 @@
 Name:           iwd
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wireless daemon for Linux
 License:        LGPLv2+
 URL:            https://iwd.wiki.kernel.org/
@@ -50,6 +50,9 @@ hardware.
 mkdir -p %{buildroot}%{_sharedstatedir}/iwd
 mkdir -p %{buildroot}%{_sharedstatedir}/ead
 
+# Don't let iwd adjust interface naming. It would break user configurations.
+rm %{buildroot}/usr/lib/systemd/network/80-iwd.link
+
 
 %files
 %license COPYING
@@ -71,11 +74,11 @@ mkdir -p %{buildroot}%{_sharedstatedir}/ead
 %{_sharedstatedir}/iwd
 %{_sharedstatedir}/ead
 
-# Don't let iwd adjust interface naming. It would break user configurations.
-%exclude /usr/lib/systemd/network/80-iwd.link
-
 
 %changelog
+* Sun Nov 20 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.0-2
+- Properly remove files intended to be excluded from the package
+
 * Sat Nov 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-1
 - Update to 2.0
 

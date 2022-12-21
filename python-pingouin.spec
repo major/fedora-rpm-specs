@@ -39,6 +39,9 @@ Source0:        https://github.com/raphaelvallat/pingouin/archive/v%{version}/pi
 # Rebased on 0.5.2.
 Patch:          pingouin-0.5.2-scikit-learn-1.1.2.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 
 # The odd combination of an arched package with only noarch binary packages

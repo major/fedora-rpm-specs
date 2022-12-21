@@ -3,14 +3,17 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Py.test plugin for testing of asynchronous tornado applications
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://github.com/eugeniy/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description \
 A py.test plugin providing fixtures and markers to simplify testing of \
@@ -56,6 +59,10 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" PYTHONDONTWRITEBYTECODE=1 \
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.8.1-9
+- Drop support for i686
+- Switch to SPDX license
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

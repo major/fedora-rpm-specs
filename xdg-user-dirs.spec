@@ -2,13 +2,13 @@
 
 
 Name:		xdg-user-dirs
-Version:	0.17
-Release:	11%{?dist}
+Version:	0.18
+Release:	1%{?dist}
 Summary:	Handles user special directories
 
 License:	GPLv2+ and MIT
-URL:		http://freedesktop.org/wiki/Software/xdg-user-dirs
-Source0:	http://user-dirs.freedesktop.org/releases/%{name}-%{version}.tar.gz
+URL:		https://freedesktop.org/wiki/Software/xdg-user-dirs
+Source0:	https://user-dirs.freedesktop.org/releases/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -28,10 +28,6 @@ homedirectory based on the defaults configured by the administrator.
 %configure
 %make_build
 
-cd po
-touch *.po
-make update-gmo
-
 %install
 %make_install
 
@@ -50,6 +46,9 @@ make update-gmo
 
 
 %changelog
+* Mon Dec 19 2022 David King <amigadave@amigadave.com> - 0.18-1
+- Update to 0.18 (#2135324)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

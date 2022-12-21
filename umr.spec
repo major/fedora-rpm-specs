@@ -1,17 +1,10 @@
-%global commit 02f162c927d729b4cb4513c784868f7a0b624d34
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20220107
-%global fgittag %{gitdate}git%{shortcommit}
-
 Summary: AMDGPU Userspace Register Debugger
 Name: umr
-Version: 1.0
-Release: 14%{?fgittag:.%{fgittag}}%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
-Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{shortcommit}/%{name}-%{shortcommit}.tar.gz
-#This will be sent to the mailing list, upstream already acked the issue
-Patch0: 0001-umr-gui-fix-ARM-build.patch
+Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 #Glibc is too old prior to EL7, enable rt linking to avoid compilation failure
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -53,7 +46,7 @@ Provides: %{name}-static = %{version}-%{release}
 AMDGPU Userspace Register Debugger header files and libraries
 
 %prep
-%autosetup -p1 -n %{name}-%{shortcommit}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %{!?cmake:%global cmake %%cmake3}
@@ -80,6 +73,9 @@ AMDGPU Userspace Register Debugger header files and libraries
 %{_libdir}/*.a
 
 %changelog
+* Mon Dec 19 2022 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.0.5-1
+- Update to 1.0.5
+
 * Mon Sep 19 2022 Pete Walter <pwalter@fedoraproject.org> - 1.0-14.20220107git02f162c
 - Rebuild for llvm 15
 
@@ -122,4 +118,4 @@ AMDGPU Userspace Register Debugger header files and libraries
 - Add missing static provides for devel
 
 * Thu Mar 21 2019 Jeremy Newton <alexjnewt AT hotmail DOT com> 1.0-1.20190322.git51112c7
-- Intial Package
+- Initial Package

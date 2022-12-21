@@ -1,8 +1,8 @@
 %global framework libkleo
 
 Name:    kf5-%{framework}
-Version: 22.08.3
-Release: 2%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 Summary: KDE PIM cryptographic library
 
 License: GPLv2+
@@ -101,6 +101,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Tue Nov 29 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
 - Rebuild for gpgme 1.17.1
 

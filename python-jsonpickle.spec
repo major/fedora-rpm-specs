@@ -2,8 +2,8 @@ Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
-Version:        3.0.0
-Release:        4%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
@@ -13,13 +13,6 @@ Source1:        %{pypi_source jsonpickle}.asc
 # Downloaded 2022-12-06. See:
 # https://github.com/jsonpickle/jsonpickle/issues/310
 Source2:        https://github.com/Theelx.gpg
-
-Patch:          unpin-setuptools.patch
-# Use stdlib datetime.timezone instead of pytz in tests
-#
-# This removes an implicit test dependency (satisfied via pandas) on pytz.
-# https://github.com/jsonpickle/jsonpickle/pull/421
-Patch:          %{url}/pull/421.patch
 
 %global _docdir_fmt %{name}
 
@@ -84,6 +77,9 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Fri Dec 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.1-1
+- 3.0.1
+
 * Tue Dec 06 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.0-4
 - EPEL9 compatibility
 

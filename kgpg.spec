@@ -1,6 +1,6 @@
 Name:    kgpg
 Summary: Manage GPG encryption keys 
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -93,7 +93,7 @@ desktop-file-edit \
 # support kde4 servicemenu
 mkdir -p %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus
 cp -alf \
-  %{buildroot}%{_kf5_datadir}/kservices5/ServiceMenus/*.desktop \
+  %{buildroot}%{_kf5_datadir}/kio/servicemenus/*.desktop \
   %{buildroot}%{_kde4_datadir}/kde4/services/ServiceMenus/
 
 
@@ -113,13 +113,16 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/config.kcfg/kgpg.kcfg
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.kgpg.Key.xml
 %{_kf5_datadir}/kgpg/
-%{_kf5_datadir}/kservices5/ServiceMenus/*.desktop
+%{_kf5_datadir}/kio/servicemenus/*.desktop
 %{_kde4_datadir}/kde4/services/ServiceMenus/*.desktop
 %{_kf5_datadir}/kxmlgui5/kgpg/
 %{_kf5_datadir}/icons/hicolor/*/*/*
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

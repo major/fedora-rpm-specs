@@ -92,7 +92,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level automated testing framework
 License:        GPLv2+
 Url:            http://os-autoinst.github.io/openQA/
@@ -119,6 +119,12 @@ Source4:        23-fedora-messaging.t
 # this is an ugly hack that should be removed if it becomes possible
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
+
+# Try and tweak parent restart behaviour to avoid orphaning
+# cockpit jobs when a FreeIPA child fails:
+# https://progress.opensuse.org/issues/112256
+# https://progress.opensuse.org/issues/110458
+Patch0:         0001-Don-t-restart-scheduled-or-running-chained-parents.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -669,6 +675,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Mon Dec 19 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221123gitb93eb7f-3
+- Backport #4498 (slightly rediffed) to solve a problem with retrying grouped tests
+
 * Thu Dec 01 2022 Adam Williamson <awilliam@redhat.com> - 4.6^20221123gitb93eb7f-2
 - FedoraMessaging: handle chunked ADVISORY_NVRS_N settings
 

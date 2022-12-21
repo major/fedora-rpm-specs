@@ -1,6 +1,6 @@
 Name:    kdesdk-thumbnailers
 Summary: Thumbnailers for KDE
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -56,12 +56,15 @@ gettext translation templates
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_qt5_plugindir}/pothumbnail.so
+%dir %{_qt5_plugindir}/kf5/thumbcreator
+%{_qt5_plugindir}/kf5/thumbcreator/pothumbnail.so
 %{_kf5_datadir}/config.kcfg/pocreatorsettings.kcfg
-%{_kf5_datadir}/kservices5/pothumbnail.desktop
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

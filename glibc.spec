@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-377-g5dcd2d0ad0
+%global glibcsrcdir glibc-2.36.9000-385-gc1c0dea388
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 17
+%global baserelease 18
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,18 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-18
+- Auto-sync with upstream branch master,
+  commit c1c0dea38833751f36a145c322ce53c9a08332e1:
+- Linux: Remove epoll_create, inotify_init from syscalls.list (#2154747)
+- Linux: Reflow and sort some Makefile variables
+- mach: Drop remnants of old_CFLAGS
+- mach: Fix passing -ffreestanding when checking for gnumach headers
+- Force use of -ffreestanding when checking for gnumach headers
+- elf: Fix tst-relro-symbols.py argument passing
+- x86: Prevent SIGSEGV in memcmp-sse2 when data is concurrently modified [BZ #29863]
+- Allow _Qp_fgt in sparc64 localplt.data
+
 * Mon Dec 12 2022 DJ Delorie <dj@redhat.com> - 2.36.9000-17
 - Auto-sync with upstream branch master,
   commit 5dcd2d0ad02ff12c76355ef4f40947c1857ac482.

@@ -4,7 +4,7 @@
 
 Name:    ark
 Summary: Archive manager
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -120,29 +120,32 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.ark.deskt
 
 %files -f %{name}.lang
 %license COPYING*
+%{_sysconfdir}/xdg/arkrc
 %{_kf5_datadir}/qlogging-categories5/%{name}*
 %{_kf5_bindir}/ark
 %{_kf5_datadir}/config.kcfg/ark.kcfg
 %{_kf5_metainfodir}/org.kde.ark.appdata.xml
 %{_kf5_datadir}/applications/org.kde.ark.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/ark.*
-#{_kf5_datadir}/mime/packages/kerfuffle.xml
 %{_mandir}/man1/ark.1*
+%{_kf5_datadir}/kconf_update/ark.upd
+%{_kf5_datadir}/kconf_update/ark_add_hamburgermenu_to_toolbar.sh
 
 %ldconfig_scriptlets
 
 %files libs
 %{_kf5_libdir}/libkerfuffle.so.*
 %{_kf5_plugindir}/parts/arkpart.so
-%{_kf5_datadir}/kservices5/ark_part.desktop
 %{_kf5_qtplugindir}/kerfuffle/
 %{_kf5_plugindir}/kio_dnd/extracthere.so
 %{_kf5_plugindir}/kfileitemaction/compressfileitemaction.so
 %{_kf5_plugindir}/kfileitemaction/extractfileitemaction.so
-%{_kf5_datadir}/kservicetypes5/kerfufflePlugin.desktop
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

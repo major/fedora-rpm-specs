@@ -1,23 +1,21 @@
 Name:		xdg-user-dirs-gtk
-Version:	0.10
-Release:	23%{?dist}
+Version:	0.11
+Release:	1%{?dist}
 Summary:	Gnome integration of special directories
 
-License:	GPL+
-URL:		http://freedesktop.org/wiki/Software/xdg-user-dirs
-Source0:	http://download.gnome.org/sources/xdg-user-dirs-gtk/%{version}/%{name}-%{version}.tar.xz
+License:	GPL-2.0-or-later
+URL:		https://gitlab.gnome.org/GNOME/xdg-user-dirs-gtk
+Source0:	https://download.gnome.org/sources/xdg-user-dirs-gtk/%{version}/%{name}-%{version}.tar.xz
 
-# upstream fix
-Patch0: 0001-Make-the-Don-t-ask-again-checkbox-work-properly.patch
+Patch0: show-in-mate.patch
 
-Patch1: show-in-mate.patch
-BuildRequires: make
-BuildRequires:  gcc
 BuildRequires:	desktop-file-utils
+BuildRequires:  gcc
 BuildRequires:	gettext
-BuildRequires:	gtk3-devel
 BuildRequires:	intltool
+BuildRequires:  make
 BuildRequires:	xdg-user-dirs
+BuildRequires:	pkgconfig(gtk+-3.0)
 
 Requires:	xdg-user-dirs
 
@@ -27,9 +25,7 @@ desktop, including creating default bookmarks and detecting
 locale changes.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
+%autosetup -p1
 
 %build
 %configure
@@ -45,12 +41,16 @@ desktop-file-validate $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/user-dirs-upda
 
 
 %files -f %{name}.lang
-%doc NEWS AUTHORS README ChangeLog COPYING
+%doc NEWS AUTHORS README ChangeLog
+%license COPYING
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/user-dirs-update-gtk.desktop
 
 
 %changelog
+* Mon Dec 19 2022 David King <amigadave@amigadave.com> - 0.11-1
+- Update to 0.11 (#2135328)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

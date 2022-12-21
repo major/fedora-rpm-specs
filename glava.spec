@@ -1,6 +1,6 @@
 Name:           glava
 Version:        1.6.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OpenGL audio spectrum visualizer
 
 License:        GPLv3 and MIT
@@ -8,6 +8,9 @@ URL:            https://github.com/jarcode-foss/glava
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fedora-specific
 Patch0001:      0001-Make-build-reproducible-and-verbose.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  glfw-devel >= 3.1
@@ -55,6 +58,9 @@ make PYTHON=%{python3} glad
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.6.3-11
+- Drop support for i686
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

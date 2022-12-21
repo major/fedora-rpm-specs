@@ -17,6 +17,9 @@ Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 
 %description %{_description}

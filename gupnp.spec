@@ -1,9 +1,9 @@
 %global apiver 1.6
 
-%global gssdp_version 1.6.0
+%global gssdp_version 1.6.2
 
 Name:          gupnp
-Version:       1.6.2
+Version:       1.6.3
 Release:       1%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
@@ -85,6 +85,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Mon Dec 19 2022 David King <amigadave@amigadave.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Mon Nov 21 2022 David King <amigadave@amigadave.com> - 1.6.2-1
 - Update to 1.6.2
 

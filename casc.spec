@@ -55,6 +55,9 @@ Patch2:         casc-1.0.5-innervisitor.patch
 # https://github.com/ctlee/casc/pull/16
 Patch3:         0001-Update-Free-Software-Foundation-postal-addresses.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # The make backend would work just as well; Ninja is our choice
@@ -147,7 +150,7 @@ cp -p %{_vpath_builddir}/latex/refman.pdf %{_vpath_builddir}/casc.pdf
 %files devel
 %license COPYING.md
 
-%{_includedir}/casc
+%{_includedir}/casc/
 
 
 %files doc

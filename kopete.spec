@@ -7,8 +7,8 @@
 
 Name:    kopete
 Summary: Instant messenger
-Version: 22.08.3
-Release: 2%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://www.kde.org/applications/internet/kopete/
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 25 2022 Marc Deop marcdeop@fedoraproject.org - 22.08.3-2
 - Rebuild(Frameworks)
 

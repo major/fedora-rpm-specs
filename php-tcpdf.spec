@@ -8,7 +8,7 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    a336b531f6f6b5487fca0caf034a671d4e60df5c
+%global gh_commit    e3cffc9bcbc76e89e167e9eb0bbda0cab7518459
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
 #global gh_date      20201209
@@ -17,11 +17,11 @@
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.6.1
+Version:        6.6.2
 Release:        1%{?gh_date:.%{gh_date}.%{gh_short}}%{?dist}
 
 URL:            http://www.tcpdf.org
-License:        LGPLv3
+License:        LGPL-3.0-or-later
 
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 # Disable opcache cahing for font metadata which may consume up to 90MB
@@ -317,6 +317,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Mon Dec 19 2022 Remi Collet <remi@remirepo.net> - 6.6.2-1
+- update to 6.6.2
+
 * Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 6.6.1-1
 - update to 6.6.1
 

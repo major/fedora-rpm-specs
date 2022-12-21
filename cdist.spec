@@ -12,6 +12,11 @@ License:	GPLv3
 URL:		https://www.cdi.st/
 Source0:	%pypi_source
 
+# Quick fix around argument parsing, which probably (?) blew up with python
+# 3.11.
+# TODO: investigate/report upstream.
+Patch:	fix-argparse-scan.patch
+
 BuildArch:	noarch
 BuildRequires:	sed
 BuildRequires:	findutils

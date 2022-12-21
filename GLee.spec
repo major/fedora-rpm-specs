@@ -2,12 +2,13 @@
 
 Name:           GLee
 Version:        %{major}.4.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        GL Easy Extension library
 
 License:        BSD
 URL:            http://elf-stone.com/glee.php
 Source0:        http://www.elf-stone.com/downloads/%{name}/%{name}-%{version}-src.tar.gz
+Patch0:         GLee-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  mesa-libGL-devel
@@ -29,7 +30,7 @@ Development headers for %{name}
 
 
 %prep
-%setup -q -c %{name}-%{version}
+%autosetup -p1 -c %{name}-%{version}
 
 sed -i "s|\r||g" *.h *.c *.txt
 chmod -x *.h *.c *.txt
@@ -70,6 +71,9 @@ ln -s lib%{name}.so.%{version} %{buildroot}%{_libdir}/lib%{name}.so
 
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 5.4.0-23
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

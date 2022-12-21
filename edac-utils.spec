@@ -15,6 +15,9 @@ URL:            https://github.com/grondo/edac-utils
 Source0:        %{url}/archive/%{version}/edac-utils-%{version}.tar.gz
 Source1:        edac.service
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # Update obsolete FSF postal addresses
 #
 # This version of https://github.com/grondo/edac-utils/pull/13 omits
@@ -148,8 +151,7 @@ install -d -m 0755 '%{buildroot}%{_sysconfdir}/edac/labels.d' \
 
 %files -n libedac
 %license AUTHORS COPYING DISCLAIMER
-%{_libdir}/libedac.so.%{so_version}
-%{_libdir}/libedac.so.%{so_version}.*
+%{_libdir}/libedac.so.%{so_version}{,.*}
 
 
 %files -n libedac-devel

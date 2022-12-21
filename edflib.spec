@@ -36,7 +36,9 @@ Source1:        Makefile
 #
 # edflib does not support big-endian architectures
 # https://bugzilla.redhat.com/show_bug.cgi?id=2135034
-ExcludeArch:    s390x
+#
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    s390x %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc

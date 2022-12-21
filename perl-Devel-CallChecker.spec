@@ -9,9 +9,9 @@
 
 Name:           perl-Devel-CallChecker
 Version:        0.008
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Custom op checking attached to subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallChecker
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-%{version}.tar.gz
 BuildRequires:  findutils
@@ -47,6 +47,10 @@ Requires:       perl(DynaLoader::Functions) >= 0.001
 
 %{?perl_default_filter}
 
+# Remove private modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((t::LoadXS|t::WriteHeader)\\)$
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+
 %description
 This module makes some new features of the Perl 5.14.0 C API available to
 XS modules running on older versions of Perl. The features are centered
@@ -58,8 +62,24 @@ available. (It is possible to achieve the effect of cv_set_call_checker
 from XS code on much earlier Perl versions, but it is painful to achieve
 without the centralized facility.)
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Devel-CallChecker-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
@@ -69,6 +89,22 @@ perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -fr %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Test t/rules-dbm.t write into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 ./Build test
@@ -79,7 +115,14 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{perl_vendorarch}/Devel*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Dec 16 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.008-18
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

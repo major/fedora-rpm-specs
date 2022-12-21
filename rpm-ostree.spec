@@ -3,7 +3,7 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.18
+Version: 2022.19
 Release: 2%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
@@ -247,6 +247,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Tue Dec 20 2022 Colin Walters <walters@verbum.org> - 2022.19-2
+- https://github.com/coreos/rpm-ostree/releases/tag/v2022.19
+
 * Tue Dec 13 2022 Colin Walters <walters@verbum.org> - 2022.18-2
 - https://github.com/coreos/rpm-ostree/releases/tag/v2022.18
 

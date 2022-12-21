@@ -1,7 +1,7 @@
 Summary: Maintains identical copies of files on multiple machines
 Name: rdist
 Version: 6.1.5
-Release: 77%{?dist}
+Release: 78%{?dist}
 Epoch: 1
 # On Feb 17, 2011, Michael A. Cooper gave permission via email for all of his
 # copyrighted work in rdist to be relicensed to the same BSD as the rest of
@@ -29,6 +29,7 @@ Patch13: rdist-6.1.5-re_args.patch
 Patch14: rdist-6.1.5-fix-msgsndnotify-loop.patch
 Patch15: rdist-6.1.5-license-fix.patch
 Patch16: rdist-6.1.5-fpic.patch
+Patch17: rdist-c99.patch
 URL: http://www.MagniComp.com/rdist
 BuildRequires: make
 BuildRequires: byacc bison gcc
@@ -66,6 +67,7 @@ cp %{SOURCE3} .
 %patch13 -p1 -b .re_args
 %patch14 -p1 -b .fix-msgsndnotify-loop
 %patch16 -p1 -b .pic
+%patch17 -p1 -b .c99
 
 %build
 make
@@ -94,6 +96,9 @@ install -m644 doc/rdistd.man ${RPM_BUILD_ROOT}%{_mandir}/man8/rdistd.8
 %{_mandir}/man8/rdistd.8*
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 1:6.1.5-78
+- C99 compatibility fix (#2154845)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.1.5-77
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

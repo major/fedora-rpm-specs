@@ -1,7 +1,7 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: GPLv2
 URL: http://www.jpilot.org/
 Source0: http://jpilot.org/jpilot-%{version}.tar.gz
@@ -9,6 +9,7 @@ Source1: jpilot.desktop
 
 Patch0: jpilot-0.99.7-conf.patch
 Patch1: jpilot-1.8.2-gcc10.patch
+Patch2: jpilot-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gettext, pilot-link-devel, perl-XML-Parser, libgcrypt-devel
@@ -28,6 +29,7 @@ well known rampant legacy operating system.
 %setup -q
 %patch0 -p1 -b .confp
 %patch1 -p1 -b .gcc10
+%patch2 -p1
 iconv -f windows-1252 -t utf-8 AUTHORS >AUTHORS.aux
 mv AUTHORS.aux AUTHORS
 
@@ -68,6 +70,9 @@ install -m 644 icons/jpilot-icon3.xpm $RPM_BUILD_ROOT%{_datadir}/pixmaps/
 %{_datadir}/applications/*
 
 %changelog
+* Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 1.8.2-22
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

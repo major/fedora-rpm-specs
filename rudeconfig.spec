@@ -4,11 +4,12 @@
 
 Name:           rudeconfig
 Version:        5.0.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library (C++ API) for reading and writing configuration/.ini files
 License:        GPLv2+
 URL:            http://www.rudeserver.com/config
 Source0:        https://github.com/mflood/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch0:         %{name}-%{commit}-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -54,6 +55,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Mon Dec 19 2022 Peter Fordham <peter.fordham@gmail.com> - 5.0.6-10
+- Port configure to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

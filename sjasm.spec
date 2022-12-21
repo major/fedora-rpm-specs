@@ -1,14 +1,17 @@
 Name:           sjasm
-Version:        0.39
-Release:        0.32.g1%{?dist}
+Version:        0.42c
+Release:        1%{?dist}
 Summary:        A z80 cross assembler
 License:        BSD
-# Upstream no longer appears to exist
 URL:            http://www.xl2s.tk
-Source0:        %{name}39g1.zip
-Patch0:         sjasm-0.39-fixmakefile.patch
-Patch1:         sjasm-0.39-64bitfix.patch
-BuildRequires: make
+Source0:        http://www.xl2s.tk/%{name}42c.zip
+Patch0:         sjasm-0.42c-fixmakefile.patch
+Patch1:         sjasm-0.42c-skipblanks.patch
+Patch2:         sjasm-0.42c-cxx11.patch
+Patch3:         sjasm-0.42c-cstring.patch
+Patch4:         sjasm-0.42c-signedness.patch
+
+BuildRequires:  make
 BuildRequires:  gcc-c++
 
 
@@ -17,9 +20,12 @@ SjASM is a two pass macro Z80 cross assembler
 
 
 %prep
-%setup -qcn %{name}-%{version}
-%patch0 -p0
-%patch1 -p0
+%setup -qc
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 sed -i 's/\r//' %{name}.txt
 
 # Convert to UTF8
@@ -28,12 +34,12 @@ iconv -f iso8859-1 %{name}.txt -t utf8 > %{name}.txt.conv \
 
 
 %build
-make -C sjasmsrc039g1 %{?_smp_mflags} CXXFLAGS="%{optflags} -DMAX_PATH=MAXPATHLEN"
+make -C sjasmsrc42c %{?_smp_mflags} CXXFLAGS="%{optflags} -DMAX_PATH=MAXPATHLEN"
 
 
 %install
 rm -rf %{buildroot}
-make -C sjasmsrc039g1 install DESTDIR=%{buildroot}
+make -C sjasmsrc42c install DESTDIR=%{buildroot}
 
 
 
@@ -43,6 +49,9 @@ make -C sjasmsrc039g1 install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.42c-1
+- Update to version 0.42c
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.39-0.32.g1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

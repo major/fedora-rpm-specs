@@ -24,6 +24,9 @@ Patch:          appeditor-1.1.3-fix-flickering-titlebar.patch
 # https://github.com/donadigo/appeditor/pull/122
 Patch:          %{url}/pull/122.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 

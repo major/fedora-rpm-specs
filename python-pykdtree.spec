@@ -9,6 +9,9 @@ License:        LGPL-3.0-or-later
 URL:            https://github.com/storpipfugl/pykdtree
 Source0:        %pypi_source %srcname
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  gcc
 
 %global _description \

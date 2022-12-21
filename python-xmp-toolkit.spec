@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python XMP Toolkit for working with metadata
 
 License:        BSD
@@ -15,6 +15,9 @@ Patch0001:      2f94011ab789d1d2cabc41db7a708a19a62bb573.patch
 Source1:        https://github.com/python-xmp-toolkit/python-xmp-toolkit/raw/e0f42af4a731ac1eea2977895f2c8dd0264304c3/test/samples/BlueSquare.gif
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  exempi
 BuildRequires:  python3-devel
@@ -84,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.1-16
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,11 +4,11 @@
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 # pam_timestamp, pam_loginuid, and pam_console modules are GPLv2+.
-License: BSD and GPLv2+
+License: BSD-3-Clause AND GPL-2.0-or-later
 URL: http://www.linux-pam.org/
 Source0: https://github.com/linux-pam/linux-pam/releases/download/v%{version}/Linux-PAM-%{version}.tar.xz
 Source1: https://github.com/linux-pam/linux-pam/releases/download/v%{version}/Linux-PAM-%{version}.tar.xz.asc
@@ -362,6 +362,9 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Mon Dec 19 2022 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.2-15
+- SPDX license migration
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

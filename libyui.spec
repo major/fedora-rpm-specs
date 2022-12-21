@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  6%{?dist}
+Release:  7%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -47,7 +47,7 @@ BuildRequires:  perl-devel
 BuildRequires:  rubygems
 BuildRequires:  swig
 BuildRequires:  fontconfig-devel
-BuildRequires:  perl-macros
+BuildRequires:  perl-generators
 
 
 BuildRequires:  pkgconfig(ruby)
@@ -346,6 +346,10 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Mon Dec 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.16-7
+- Add BR perl-generators to automatically generates run-time dependencies
+  for installed Perl files
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.16-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

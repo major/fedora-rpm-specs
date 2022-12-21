@@ -18,6 +18,9 @@ Version:        0.3.0
 Release:        %autorelease
 Summary:        C++ support for the HOCON configuration file format
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 License:        Apache-2.0
 URL:            https://github.com/puppetlabs/cpp-hocon
 Source0:        %{url}/archive/%{version}/cpp-hocon-%{version}.tar.gz
@@ -126,7 +129,7 @@ popd
 
 %files devel
 %{_libdir}/libcpp-hocon.so
-%{_includedir}/hocon
+%{_includedir}/hocon/
 
 
 %files doc

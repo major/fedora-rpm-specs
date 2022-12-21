@@ -3,8 +3,8 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        9.1.3
-Release:        3%{?dist}
+Version:        9.1.4
+Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        ASL 2.0
@@ -30,14 +30,10 @@ Patch1:         string-index-oob.patch
 # Define standard config layout for Fedora/RHEL systems
 # Upstream PR: https://github.com/apache/trafficserver/pull/8815
 Patch2:         config-layout-redhat.patch
-# Cherry-pick OpenSSL 3 compat (needed for EL9)
-# Upstream PR: https://github.com/apache/trafficserver/pull/8837
-# Upstream PR: https://github.com/apache/trafficserver/pull/8909
-Patch3:         openssl3-hkdf.patch
 # glibc 2.36 (Fedora 37) introduces mount.h conflict
 # Change doc: https://sourceware.org/glibc/wiki/Release/2.36#Usage_of_.3Clinux.2Fmount.h.3E_and_.3Csys.2Fmount.h.3E
 # Upstream PR: https://github.com/apache/trafficserver/pull/9027
-Patch4:         glibc-2.36.patch
+Patch3:         glibc-2.36.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
@@ -310,6 +306,9 @@ fi
 
 
 %changelog
+* Mon Dec 19 2022 Jered Floyd <jered@redhat.com> 9.1.4-1
+- Update to 9.1.4, resolves CVE-2022-32749, CVE-2022-37392, CVE-2022-40743
+
 * Sun Sep 11 2022 Jered Floyd <jered@redhat.com> 9.1.3-2
 - FTI on EL8 due to lack of libbrotli pkg; use RPM autodeps instead
 

@@ -445,6 +445,11 @@ Source0:    README
 %obsolete libquvi-devel 0.9.4-17
 
 # Remove in F39
+# cardpeek-0.8.4-15.fc32 blocks upgrades: cardpeek-0.8.4-15.fc32.x86_64 requires liblua-5.3.so()(64bit), but none of the providers can be installed
+%obsolete_ticket https://src.fedoraproject.org/rpms/cardpeek/c/7246f90aa6371294d2c0cd8fc14506ac78364afb?branch=rawhide
+%obsolete cardpeek 0.8.4-16
+
+# Remove in F39
 # python26-2.6.9-22.fc32 blocks upgrades: python26-2.6.9-21.fc31.x86_64 requires libnsl.so.2()(64bit)
 %obsolete python26 2.6.9-23
 

@@ -1,11 +1,14 @@
 Name:           libinsane
 Version:        1.0.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Cross-platform access to image scanners
 
 License:        LGPLv3+
 URL:            https://doc.openpaper.work/libinsane/latest/
 Source0:        https://gitlab.gnome.org/World/OpenPaperwork/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -118,6 +121,9 @@ Vala bindings for libinsane.
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.9-6
+- Drop support for i686
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

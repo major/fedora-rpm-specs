@@ -70,7 +70,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -86,7 +86,6 @@ Source5:	run-lit-tests
 Source6:	lit.fedora.cfg.py
 %endif
 
-Patch1:		0002-Disable-CrashRecoveryTest.DumpStackCleanup-test-on-a.patch
 Patch2:		0003-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
 
 # Needed to export clang-tblgen during the clang build, needed by the flang docs build.
@@ -550,6 +549,9 @@ fi
 %endif
 
 %changelog
+* Mon Dec 19 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
+- Remove workaround for rbhz#2048440
+
 * Mon Dec 05 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

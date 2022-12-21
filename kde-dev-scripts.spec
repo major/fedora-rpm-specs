@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kde-dev-scripts
 Summary: KDE SDK scripts
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+ and GPLv2+ and BSD
@@ -154,6 +154,9 @@ test -n "$(grep "/usr/bin/env" %{buildroot}%{_kf5_bindir}/* 2> /dev/null )" ||:
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

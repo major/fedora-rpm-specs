@@ -37,7 +37,7 @@ Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 # updated), we store the file directly in the repository with the spec file;
 # see the update-oui-csv script.
 #
-# File oui.csv last fetched 2022-08-03T18:59:17+00:00.
+# File oui.csv last fetched 2022-12-19T05:25:33+00:00.
 Source1:        oui.csv
 Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig
@@ -74,6 +74,9 @@ Patch8:         arpwatch-3.1-exitcode.patch
 # Additionally, handle the case where a device provides both supported and
 # unsupported datalink types.
 Patch9:         arpwatch-3.1-devlookup.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %global pkgstatedir %{_sharedstatedir}/arpwatch
 %global service_user arpwatch

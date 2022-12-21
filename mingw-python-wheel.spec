@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       0.37.1
-Release:       2%{?dist}
+Version:       0.38.4
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT AND (Apache-2.0 OR BSD-2-Clause)
@@ -81,6 +81,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Mon Dec 19 2022 Sandro Mani <manisandro@gmail.com> - 0.38.4-1
+- Update to 0.38.4
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 0.37.1-2
 - Fix license
 - Add host build

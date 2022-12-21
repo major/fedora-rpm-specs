@@ -3,7 +3,7 @@
 
 Name:           cvc4
 Version:        1.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Automatic theorem prover for SMT problems
 
 %global jar_version %{version}.0
@@ -59,6 +59,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  pkgconfig(readline)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
+BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  swig
 BuildRequires:  symfpu-devel
 
@@ -239,7 +240,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/lib%{name}.so
 %{_libdir}/lib%{name}parser.so
 %{_libdir}/cmake/CVC4/
-%{_mandir}/man3/*
+%{_mandir}/man3/SmtEngine.3cvc*
+%{_mandir}/man3/libcvc4*
+%{_mandir}/man3/options.3cvc*
 
 %files java
 %{_javadir}/%{name}/
@@ -253,6 +256,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{python3_sitearch}/pycvc4*
 
 %changelog
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 1.8-14
+- BR setuptools to fix FTBFS (rhbz#2154858)
+
 * Tue Oct 11 2022 Jerry James <loganjerry@gmail.com> - 1.8-13
 - Add -bash-patsub-replacement patch to fix build with bash 5.2 (bz 2133760)
 - Add -toml patch and drop python3-toml BR

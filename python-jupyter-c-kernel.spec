@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Minimalistic C kernel for Jupyter
 
 License:        MIT
@@ -16,6 +16,9 @@ Source2:        LICENSE.txt
 Patch0001:      0001-Use-tempfile-instead-of-IPython-to-get-a-temp-dir.patch
  
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description \
 %{summary}
@@ -66,6 +69,9 @@ rm %{buildroot}%{_bindir}/install_c_kernel
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.2-17
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

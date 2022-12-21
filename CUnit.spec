@@ -7,6 +7,7 @@ Summary:        Unit testing framework for C
 
 License:        LGPLv2+
 URL:            http://cunit.sourceforge.net/
+Provides:       cunit = %{version}-%{release}
 Source0:        http://downloads.sourceforge.net/cunit/%{name}-%{tarver}.tar.bz2
 
 BuildRequires:  automake
@@ -21,6 +22,7 @@ testing functionality with a flexible variety of user interfaces.
 %package devel
 Summary:        Header files and libraries for CUnit development
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       cunit-devel = %{version}-%{release}
 
 %description devel 
 The %{name}-devel package contains the header files

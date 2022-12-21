@@ -1,17 +1,20 @@
 Name:		coan
 Version:	6.0.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	A command line tool for simplifying the pre-processor conditionals in source code
 License:	BSD
 URL:		http://coan2.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/coan2/%{name}-%{version}.tar.gz
 # https://sourceforge.net/p/coan2/bugs/92/
 Patch0:         expression_parser.patch
+# https://sourceforge.net/p/coan2/bugs/95/
+Patch1:         coan-autoconf-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  perl-podlators
 BuildRequires:  perl-Pod-Html
+BuildRequires:  autoconf automake
 
 # removed python2 dependencies and asked upstream to port tests to python3
 # https://sourceforge.net/p/coan2/bugs/93/
@@ -48,6 +51,7 @@ done
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
+autoreconf -vi
 %configure
 %make_build
 
@@ -74,6 +78,9 @@ export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sun Dec 18 2022 Peter Fordham <peter.fordham@gmail.com> - 6.0.1-29
+- Fix c99 complaince isses in configure.ac and add autoreconf to build.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -14,6 +14,9 @@ Patch0001:      0001-Remove-unnecessary-dependencies.patch
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  ghostscript >= 9.50
 BuildRequires:  pngquant >= 2.0.0
 BuildRequires:  tesseract >= 4.1.1

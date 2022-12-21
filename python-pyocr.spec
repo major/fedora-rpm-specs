@@ -11,6 +11,9 @@ Source0:        %pypi_source
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  tesseract
 BuildRequires:  tesseract-osd
 BuildRequires:  tesseract-langpack-fra

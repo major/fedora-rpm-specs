@@ -176,23 +176,22 @@ install '%{_vpath_builddir}/docs/reference/latex/refman.pdf' -p -m 0644 \
 
 %files
 %license COPYING
-%{_libdir}/libcairomm-%{apiver}.so.%{so_version}
-%{_libdir}/libcairomm-%{apiver}.so.%{so_version}.*
+%{_libdir}/libcairomm-%{apiver}.so.%{so_version}{,.*}
 
 
 %files devel
-%{_includedir}/cairomm-%{apiver}
+%{_includedir}/cairomm-%{apiver}/
 %{_libdir}/libcairomm-%{apiver}.so
 %{_libdir}/pkgconfig/cairomm-%{apiver}.pc
 %{_libdir}/pkgconfig/cairomm-*-%{apiver}.pc
-%{_libdir}/cairomm-%{apiver}
+%{_libdir}/cairomm-%{apiver}/
 
 
 %files doc
 %license COPYING
 # Note: JavaScript has been removed from HTML reference manual, degrading the
 # browser experience. It is still needed for Devhelp support.
-%doc %{_docdir}/cairomm-%{apiver}
+%doc %{_docdir}/cairomm-%{apiver}/
 %doc %{_datadir}/devhelp/
 
 

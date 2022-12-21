@@ -17,12 +17,12 @@
 %global _lto_cflags %{nil}
 %endif
 
-%global upver   4.7
+%global upver   4.8
 %global majver  %(cut -dr -f1 <<< %{upver})
 
 Name:           polymake
 Version:        %(tr r . <<< %{upver})
-Release:        3%{?dist}
+Release:        1%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -312,14 +312,17 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.7
+%{_libdir}/lib%{name}*.so.4.8
 %{_mandir}/man1/%{name}.1*
 
 %files doc
 %doc doc/*
 
 %changelog
-* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - %(tr r . <<< %{upver})-3
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 4.8-1
+- Version 4.8
+
+* Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 4.7-3
 - Convert License tags to SPDX
 
 * Sat Aug 27 2022 Jerry James <loganjerry@gmail.com> - 4.7-3

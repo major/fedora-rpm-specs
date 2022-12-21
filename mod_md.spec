@@ -1,9 +1,11 @@
 # Module Magic Number
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
+# State directory
+%{!?_httpd_statedir: %global _httpd_statedir %{_localstatedir}/lib/httpd}
 
 Name:           mod_md
 Version:        2.4.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Certificate provisioning using ACME for the Apache HTTP Server
 License:        ASL 2.0
 URL:            https://icing.github.io/mod_md/
@@ -43,8 +45,8 @@ rm -rf %{buildroot}/etc/httpd/share/doc/
 rm -f %{buildroot}%{_httpd_moddir}/mod_md.so
 mv %{buildroot}%{_httpd_moddir}/mod_md.so.0.0.0 %{buildroot}%{_httpd_moddir}/mod_md.so
 
-# create configuration
-mkdir -p %{buildroot}%{_httpd_modconfdir}
+# create configuration and state directory
+mkdir -p %{buildroot}%{_httpd_modconfdir} %{buildroot}%{_httpd_statedir}/md
 echo "LoadModule md_module modules/mod_md.so" > %{buildroot}%{_httpd_modconfdir}/01-md.conf
 
 %files
@@ -54,8 +56,12 @@ echo "LoadModule md_module modules/mod_md.so" > %{buildroot}%{_httpd_modconfdir}
 %{_httpd_moddir}/mod_md.so
 %{_bindir}/a2md
 %{_mandir}/man1/*
+%dir %{_httpd_statedir}/md
 
 %changelog
+* Mon Dec 19 2022 Joe Orton <jorton@redhat.com> - 1:2.4.19-2
+- package the "md" directory (#2154348)
+
 * Thu Oct  6 2022 Joe Orton <jorton@redhat.com> - 1:2.4.19-1
 - update to 2.4.19
 

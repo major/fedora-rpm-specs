@@ -2,7 +2,7 @@
 
 Name:           netcdf
 Version:        4.9.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        NetCDF
@@ -10,6 +10,9 @@ URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
 # Fix plugins - https://github.com/Unidata/netcdf-c/pull/2431
 Patch0:         netcdf-plugin.patch
+# Fix infinite loop in file inferencing
+# https://github.com/Unidata/netcdf-c/pull/2574
+Patch1:         netcdf-file-inferencing.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -233,17 +236,16 @@ done
 
 %install
 make -C build install DESTDIR=${RPM_BUILD_ROOT}
-/bin/rm -f ${RPM_BUILD_ROOT}%{_libdir}/*.la
 chrpath --delete ${RPM_BUILD_ROOT}/%{_bindir}/nc{copy,dump,gen,gen3}
 /bin/rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   make -C $mpi install DESTDIR=${RPM_BUILD_ROOT}
-  rm $RPM_BUILD_ROOT/%{_libdir}/$mpi/lib/*.la
   chrpath --delete ${RPM_BUILD_ROOT}/%{_libdir}/$mpi/bin/nc{copy,dump,gen,gen3}
   module purge
 done
+find $RPM_BUILD_ROOT/%{_libdir} -name \*.la -delete
 
 
 %check
@@ -387,6 +389,9 @@ done
 
 
 %changelog
+* Mon Dec 19 2022 Orion Poplawski <orion@nwra.com> - 4.9.0-4
+- Apply upstream patch to fix infinite loop in file inferencing
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

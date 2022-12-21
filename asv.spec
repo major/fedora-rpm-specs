@@ -22,6 +22,9 @@ Patch0002:      0002-Unbundle-JSON-minify.patch
 Patch0003:      0003-Remove-unnecessary-shebang.patch
 Patch0004:      0004-Fix-pypy-version-environment-test-on-latest-pypy.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  web-assets-devel
 BuildRequires:  (js-jquery >= %{jquery_version} with js-jquery < 4)

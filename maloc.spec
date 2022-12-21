@@ -1,18 +1,21 @@
-Summary: Minimal Abstraction Layer for Object-oriented C
 Name: maloc
 Version: 1.5
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: GPLv2+
 URL: http://www.fetk.org
+Summary: Minimal Abstraction Layer for Object-oriented C
 Source0: http://www.fetk.org/codes/download/%{name}-%{version}.tar.gz
-# removes hardcoded libdir setting
-Patch0: maloc-makefile.am.patch
+
 BuildRequires: make
+BuildRequires: gcc
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: doxygen
 BuildRequires: libtool
 BuildRequires: readline-devel
+
+# removes hardcoded libdir setting
+Patch0: maloc-makefile.am.patch
 
 %description
 MALOC is a small, portable, abstract C environment library for
@@ -29,7 +32,7 @@ placed in MALOC.
 
 %package devel
 Summary: Header files and library for developing programs with maloc
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 
@@ -37,8 +40,8 @@ This package contains libraries and header files needed for program
 development using MALOC.
 
 %prep
-%setup -n %{name} -q
-%patch0 -p0
+%autosetup -n %{name} -p0
+
 aclocal
 libtoolize --automake
 autoconf
@@ -47,30 +50,29 @@ autoheader
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 make maloc_doc -C doc/doxygen
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%make_install
 
 # remove unpackaged files from the buildroot
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
 %files
-%{_libdir}/*.so.*
+%{_libdir}/*.so.1
+%{_libdir}/*.so.1.0.0
 
 %files devel
 %doc doc/api/html/*
 %{_libdir}/*.so
-%{_includedir}/maloc
+%{_includedir}/maloc/
 
 %changelog
+* Mon Dec 19 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.5-26
+- Update spec file
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

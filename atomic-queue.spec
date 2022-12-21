@@ -8,6 +8,9 @@ License:        MIT
 URL:            https://github.com/max0x7ba/atomic_queue
 Source0:        %{url}/archive/v%{version}/atomic_queue-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  boost-devel
@@ -109,7 +112,7 @@ cp -rvp include/atomic_queue '%{buildroot}%{_includedir}/'
 # We do NOT package “html”, which contains benchmark results, because it loads
 # a Google Analytics script.
 
-%{_includedir}/atomic_queue
+%{_includedir}/atomic_queue/
 
 
 %changelog

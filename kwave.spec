@@ -1,5 +1,5 @@
 Name:           kwave
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 Summary:        Sound Editor for KDE
 Summary(de):    Sound-Editor für KDE
@@ -104,7 +104,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/icons/hicolor/*/actions/%{name}*
 %{_kf5_datadir}/%{name}/
-%{_kf5_datadir}/kservicetypes5/%{name}-plugin.desktop
 %{_kf5_qtplugindir}/%{name}/
 %{_kf5_libdir}/lib%{name}.so.*
 %{_kf5_libdir}/lib%{name}gui.so.*
@@ -113,6 +112,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_docdir}/HTML/*/%{name}
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

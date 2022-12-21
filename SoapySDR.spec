@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 License:        Boost
@@ -13,6 +13,7 @@ BuildRequires:  swig
 BuildRequires:  doxygen
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 
 %description
 SoapySDR is an open-source generalized C/C++ API and runtime library
@@ -92,9 +93,10 @@ ctest -V %{?_smp_mflags}
 %license LICENSE_1_0.txt
 %{_pkgdocdir}/*
 
-
-
 %changelog
+* Mon Dec 19 2022 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.8.1-7
+- BZ 2154868 - Fix distutils dep for phyton 3.12
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

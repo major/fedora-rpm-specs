@@ -12,6 +12,9 @@ Source1:        cfn-lint.1
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 
 # Graph generation requires either pygraphviz or pydot; only the former is

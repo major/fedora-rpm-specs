@@ -5,7 +5,7 @@
 
 Name:           cryptominisat
 Version:        5.8.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
@@ -15,8 +15,11 @@ URL:            https://www.msoos.org/
 Source0:        https://github.com/msoos/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Change the CMake files to not change Fedora build flags
 Patch0:         %{name}-cmake.patch
+# Use setuptools instead of distutils (bz 2154857)
+Patch1:         %{name}-setuptools.patch
 
 BuildRequires:  boost-devel
+BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gperftools-devel
@@ -26,6 +29,7 @@ BuildRequires:  pkgconfig(m4ri)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist setuptools}
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -93,6 +97,9 @@ fi
 %install
 %cmake_install
 
+# Remove an unwanted rpath
+chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
+
 %files
 %doc README.markdown
 %{_bindir}/cryptominisat5
@@ -115,6 +122,9 @@ fi
 %{python3_sitearch}/pycryptosat*
 
 %changelog
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-11
+- Use setuptools instead of distutils (rhbz#2154857)
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-10
 - Convert License tag to SPDX
 

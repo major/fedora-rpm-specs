@@ -2,8 +2,8 @@
 %bcond_without tests
 
 Name:           pytz
-Version:        2022.6
-Release:        2%{?dist}
+Version:        2022.7
+Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Mon Dec 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.7-1
+- 2022.7
+
 * Thu Nov 10 2022 Miro Hrončok <mhroncok@redhat.com> - 2022.6-2
 - Run tests during build
 

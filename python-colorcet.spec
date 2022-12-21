@@ -32,6 +32,9 @@ Source0:        %{url}/archive/%{commit}/colorcet-%{commit}.tar.gz
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 # Strictly speaking, the build dependency on pyct should include its [build]
 # extra; see https://github.com/holoviz/colorcet/pull/76.

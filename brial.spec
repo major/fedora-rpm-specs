@@ -1,9 +1,9 @@
 Name:		brial
-Version:	1.2.10
-Release:	7%{?dist}
+Version:	1.2.11
+Release:	1%{?dist}
 Summary:	Framework for Boolean Rings
 # The entire source code is GPLv2+ except the Cudd directory that is BSD
-License:	GPLv2+ and BSD
+License:	GPL-2.0-or-later AND BSD-3-Clause
 URL:		https://github.com/BRiAl/BRiAl/
 Source0:	https://github.com/BRiAl/BRiAl/releases/download/%{version}/%{name}-%{version}.tar.bz2
 # The clock function has been removed from python 3.8.  See
@@ -18,6 +18,9 @@ BuildRequires:	make
 BuildRequires:	pkgconfig(gdlib)
 BuildRequires:	pkgconfig(m4ri)
 BuildRequires:	python3-devel
+BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist setuptools}
+BuildRequires:  %{py3_dist wheel}
 
 %description
 The core of BRiAl is a C++ library, which provides high-level data
@@ -62,7 +65,7 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 # Make the python interfaces
 pushd sage-brial
-%py3_build
+%pyproject_wheel
 popd
 
 %install
@@ -71,7 +74,8 @@ rm %{buildroot}%{_libdir}/*.la
 
 # Install the python interfaces
 pushd sage-brial
-%py3_install
+%pyproject_install
+%pyproject_save_files brial
 popd
 
 %check
@@ -88,11 +92,15 @@ make check
 %{_includedir}/polybori/
 %{_libdir}/lib%{name}*.so
 
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %doc sage-brial/README.md
-%{python3_sitelib}/%{name}*
 
 %changelog
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 1.2.11-1
+- Version 1.2.11 (rhbz#2112425)
+- Convert License tag to SPDX
+- Fix FTBFS with python 3.12 (rhbz#2154856)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

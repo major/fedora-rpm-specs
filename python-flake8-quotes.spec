@@ -1,8 +1,8 @@
 %global srcname flake8-quotes
 
 Name:           python-%{srcname}
-Version:        3.3.1
-Release:        2%{?dist}
+Version:        3.3.2
+Release:        1%{?dist}
 Summary:        Flake8 extension for checking quotes in python
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Mon Dec 19 2022 Scott K Logan <logans@cottsay.net> - 3.3.2-1
+- Update to 3.3.2
+
 * Tue Nov 15 2022 Scott K Logan <logans@cottsay.net> - 3.3.1-2
 - Define _description variable to reduce duplication
 - Drop macro from URL to improve ergonomics

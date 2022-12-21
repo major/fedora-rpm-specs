@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.54
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -488,6 +488,7 @@ cat > $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.httpd <<EOF
 %%_httpd_contentdir %{contentdir}
 %%_httpd_moddir %%{_libdir}/httpd/modules
 %%_httpd_requires Requires: httpd-mmn = %%{_httpd_mmn}
+%%_httpd_statedir %%{_localstatedir}/lib/httpd
 EOF
 
 # Handle contentdir
@@ -839,6 +840,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Mon Dec 19 2022 Joe Orton <jorton@redhat.com> - 2.4.54-8
+- define _httpd_statedir macro
+
 * Wed Nov 30 2022 Luboš Uhliarik <luhliari@redhat.com> - 2.4.54-7
 - reduce AH03408 level to INFO in proxy_util.c
 

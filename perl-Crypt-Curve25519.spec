@@ -1,11 +1,10 @@
 Name:		perl-Crypt-Curve25519
-Version:	0.06
-Release:	3%{?dist}
+Version:	0.07
+Release:	1%{?dist}
 Summary:	Generate shared secret using elliptic-curve Diffie-Hellman function
-License:	GPL+ or Artistic
+License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND BSD-3-Clause
 URL:		https://metacpan.org/release/Crypt-Curve25519
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-Curve25519-%{version}.tar.gz
-Patch0:		Crypt-Curve25519-0.06-fmul.patch
 # Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
@@ -23,10 +22,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 BuildRequires:	perl(XSLoader)
 # Test Suite
-BuildRequires:	perl(blib)
-BuildRequires:	perl(File::Spec)
-BuildRequires:	perl(IO::Handle)
-BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Test::More) >= 0.88
 # Runtime
 Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
@@ -44,10 +39,6 @@ users.
 %prep
 %setup -q -n Crypt-Curve25519-%{version}
 
-# Fix compile error with glibc
-# https://github.com/ajgb/crypt-curve25519/issues/6 and many others
-%patch0
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
 make %{?_smp_mflags}
@@ -62,13 +53,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%license LICENSE
-%doc Changes README
+%license curve25519-donna-license.md
+%doc Changes README.md
 %{perl_vendorarch}/auto/Crypt/
 %{perl_vendorarch}/Crypt/
 %{_mandir}/man3/Crypt::Curve25519.3*
 
 %changelog
+* Sun Dec 18 2022 Paul Howarth <paul@city-fan.org> - 0.07-1
+- Update to 0.07
+  - Fix compilation issues with fmul name clash
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

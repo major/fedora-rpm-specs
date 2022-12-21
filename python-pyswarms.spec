@@ -10,7 +10,7 @@ interaction with swarm optimizations.}
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Python-based Particle Swarm Optimization (PSO) library
 
 License:        MIT
@@ -23,6 +23,9 @@ Source0:        %{pypi_source %{pypi_name}}
 Patch0:         Patch1.patch
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  git-core
@@ -91,6 +94,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.0-12
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

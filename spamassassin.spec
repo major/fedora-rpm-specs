@@ -53,19 +53,19 @@
 %define real_name Mail-SpamAssassin
 %{!?perl_vendorlib: %define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)}
 
-%global saversion 3.004006
+%global saversion 4.000000
 #%%global prerev rc2
 
 Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
-Version: 3.4.6
+Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 8%{?dist}
+Release: 1%{?dist}
 License: ASL 2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
 #Source0: %%{real_name}-%%{version}-%%{prerev}.tar.bz2
-Source1: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1888502.tgz
+Source1: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1905950.tgz
 #Source1: %%{real_name}-rules-%%{version}.%%{prerev}.tgz
 Source2: redhat_local.cf
 Source3: spamassassin-default.rc
@@ -88,9 +88,8 @@ Source17: sa-update.timer
 # Patches 0-99 are RH specific
 # https://bugzilla.redhat.com/show_bug.cgi?id=1055593
 # Switch to using gnupg2 instead of gnupg1
-Patch0: spamassassin-3.3.2-gnupg2.patch
+Patch0: spamassassin-4.0.0-gnupg2.patch
 Patch1: spamassassin-3.4.1-add-logfile-homedir-options.patch
-Patch2: spamassassin-configure-c99.patch
 # end of patches
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %if %{use_systemd} == 0
@@ -209,8 +208,6 @@ To filter spam for all users, add that line to /etc/procmailrc
 %setup -q -n Mail-SpamAssassin-%{version}
 # Patches 0-99 are RH specific
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 # end of patches
 
 echo "RHEL=%{?rhel} FEDORA=%{?fedora}"
@@ -279,6 +276,7 @@ cd -
 find $RPM_BUILD_ROOT/usr -type f -print |
         sed "s@^$RPM_BUILD_ROOT@@g" |
         grep -v perllocal.pod |
+        grep -v %{_unitdir} |
         grep -v "\.packlist" > %{name}-%{version}-filelist
 if [ "$(cat %{name}-%{version}-filelist)X" = "X" ] ; then
     echo "ERROR: EMPTY FILE LIST"
@@ -390,6 +388,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Dec 17 2022 Kevin Fenzi <kevin@scrye.com> - 4.0.0-1
+- Update to 4.0.0. Fixes rhbz#2154501
+
 * Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 3.4.6-8
 - Port configure script to C99
 

@@ -1,11 +1,11 @@
-%bcond_with rc
+%bcond_without rc
 %if %{with rc}
-%global candidate rc3
+%global candidate rc2
 %endif
 
 Name:          tpm2-tss
-Version:       3.2.0
-Release:       3%{?candidate:.%{candidate}}%{?dist}
+Version:       4.0.0
+Release:       0.1%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
@@ -36,6 +36,7 @@ BuildRequires: openssl-devel
 BuildRequires: pkgconfig
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
+BuildRequires: libuuid-devel
 Requires(pre): shadow-utils
 
 %description
@@ -47,10 +48,6 @@ APIs for applications to access TPM module through kernel TPM drivers.
 %autosetup -n %{name}-%{version}%{?candidate:-%{candidate}} -p1
 
 %build
-%if %{with rc}
-./bootstrap
-%endif
-
 # Use built-in tpm-udev.rules, with specified installation path and prefix.
 %configure --disable-static --disable-silent-rules \
            --with-udevrulesdir=%{_udevrulesdir} --with-udevrulesprefix=%{udevrules_prefix} \
@@ -82,12 +79,14 @@ exit 0
 %{_libdir}/libtss2-sys.so.1*
 %{_libdir}/libtss2-esys.so.0*
 %{_libdir}/libtss2-fapi.so.1*
+%{_libdir}/libtss2-policy.so.0*
 %{_libdir}/libtss2-rc.so.0*
 %{_libdir}/libtss2-tctildr.so.0*
 %{_libdir}/libtss2-tcti-cmd.so.0*
 %{_libdir}/libtss2-tcti-device.so.0*
 %{_libdir}/libtss2-tcti-mssim.so.0*
 %{_libdir}/libtss2-tcti-pcap.so.0*
+%{_libdir}/libtss2-tcti-spi-helper.so.0*
 %{_libdir}/libtss2-tcti-swtpm.so.0*
 %{_sysusersdir}/tpm2-tss.conf
 %{_tmpfilesdir}/tpm2-tss-fapi.conf
@@ -107,23 +106,27 @@ use tpm2-tss.
 %{_libdir}/libtss2-sys.so
 %{_libdir}/libtss2-esys.so
 %{_libdir}/libtss2-fapi.so
+%{_libdir}/libtss2-policy.so
 %{_libdir}/libtss2-rc.so
 %{_libdir}/libtss2-tctildr.so
 %{_libdir}/libtss2-tcti-cmd.so
 %{_libdir}/libtss2-tcti-device.so
 %{_libdir}/libtss2-tcti-mssim.so
 %{_libdir}/libtss2-tcti-pcap.so
+%{_libdir}/libtss2-tcti-spi-helper.so
 %{_libdir}/libtss2-tcti-swtpm.so
 %{_libdir}/pkgconfig/tss2-mu.pc
 %{_libdir}/pkgconfig/tss2-sys.pc
 %{_libdir}/pkgconfig/tss2-esys.pc
 %{_libdir}/pkgconfig/tss2-fapi.pc
+%{_libdir}/pkgconfig/tss2-policy.pc
 %{_libdir}/pkgconfig/tss2-rc.pc
 %{_libdir}/pkgconfig/tss2-tctildr.pc
 %{_libdir}/pkgconfig/tss2-tcti-cmd.pc
 %{_libdir}/pkgconfig/tss2-tcti-device.pc
 %{_libdir}/pkgconfig/tss2-tcti-mssim.pc
 %{_libdir}/pkgconfig/tss2-tcti-pcap.pc
+%{_libdir}/pkgconfig/tss2-tcti-spi-helper.pc
 %{_libdir}/pkgconfig/tss2-tcti-swtpm.pc
 %{_mandir}/man3/*.3.gz
 %{_mandir}/man5/*.5.gz
@@ -131,6 +134,12 @@ use tpm2-tss.
 
 
 %changelog
+* Mon Dec 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.0-0.1.rc2
+- Update to 4.0.0 RC2
+
+* Mon Dec 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 3.2.1-1
+- Update to 3.2.1
+
 * Wed Jul 27 2022 Luca BRUNO <lucab@lucabruno.net> - 3.2.0-3
 - Align sysusers.d configuration to Fedora user/group allocation
   Resolves: rhbz#2103683

@@ -1,14 +1,25 @@
+%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%global blaslib flexiblas
+%global cmake_blas_flags -DBLAS_TYPE=FLEXIBLAS -DLAPACK_TYPE=FLEXIBLAS
+%else
+%global blaslib openblas
+%global blasvar o
+%global cmake_blas_flags -DBLAS_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so -DLAPACK_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so
+%endif
+
+# EPEL builds need this knob to build out-of-root
+%undefine __cmake_in_source_build
 %global soversion 1
 
 Name:           mopac
-Version:        22.0.5
+Version:        22.0.6
 Release:        1%{?dist}
 Summary:        A semiempirical quantum chemistry program
 License:        LGPLv3+
 URL:            http://openmopac.net
 Source0:        https://github.com/openmopac/mopac/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  flexiblas-devel
+BuildRequires:  %{blaslib}-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
 BuildRequires:  gcc-gfortran
@@ -44,7 +55,9 @@ This package contains MOPAC's development library.
 %patch1 -p1 -b .rpath
 
 %build
-%cmake -DENABLE_MKL=OFF -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
+%cmake -DENABLE_MKL=OFF -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF \
+       %{cmake_blas_flags}
+
 %cmake_build
 
 %install
@@ -69,6 +82,9 @@ export OMP_NUM_THREADS=1
 %{_libdir}/libmopac.so
 
 %changelog
+* Mon Dec 19 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.6-1
+- Update to 22.0.6.
+
 * Wed Nov 09 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.0.5-1
 - Update to 22.0.5.
 

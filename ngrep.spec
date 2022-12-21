@@ -11,6 +11,7 @@ URL:            https://github.com/jpr5/ngrep
 Source:         %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 # PR#27: Port to PCRE2 API and enable JIT compilation
 Patch:          %{url}/pull/27.patch
+Patch:          ngrep-tcpkill-c99.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

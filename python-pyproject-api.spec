@@ -1,5 +1,5 @@
 Name:           python-pyproject-api
-Version:        1.1.2
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        API to interact with the python pyproject.toml based projects
 
@@ -37,12 +37,16 @@ sed -i "/covdefaults/d;/pytest-cov/d" pyproject.toml
 %pyproject_save_files pyproject_api
 
 %check
-%pytest
+# We don't want to depend on Python 2
+%pytest -k "not test_can_build_on_python_2"
 
 %files -n python3-pyproject-api -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 1.2.1-1
+- Update to 1.2.1 (rhbz#2150693)
+
 * Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.2-1
 - Update to 1.1.2
 Resolves: rhbz#2138752

@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
@@ -118,6 +118,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKF5AkonadiMime.so
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

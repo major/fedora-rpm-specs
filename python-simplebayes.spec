@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.8
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A memory-based, optional-persistence naïve bayesian text classifier
 
 License:        MIT
@@ -13,6 +13,9 @@ URL:            https://github.com/hickeroar/simplebayes
 Source0:        https://github.com/hickeroar/simplebayes/archive/1.5.7/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description \
 A memory-based, optional-persistence naïve bayesian text classifier. This work \
@@ -63,6 +66,9 @@ nosetests-3
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.8-19
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

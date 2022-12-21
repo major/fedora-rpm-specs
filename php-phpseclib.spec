@@ -3,12 +3,12 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           f3a0e2b715c40cf1fd270d444901b63311725d63
+%global github_commit           5ef6f8376ddad21f3ce1da429950f7e00ec2292c
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.39
+Version:    2.0.40
 Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
@@ -111,7 +111,7 @@ sed -e '/require /d' -i tests/Unit/Crypt/Hash/SHA*_96Test.php
 
 # testAuthorityInfoAccess fails without internet access
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81 php82; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit9} \
@@ -131,6 +131,9 @@ exit $ret
 
 
 %changelog
+* Mon Dec 19 2022 Remi Collet <remi@remirepo.net> - 2.0.40-1
+- update to 2.0.40
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 2.0.39-1
 - update to 2.0.39
 

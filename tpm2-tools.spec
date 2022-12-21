@@ -1,8 +1,8 @@
-#global candidate rc2
+%global candidate rc1
 
 Name:    tpm2-tools
-Version: 5.4
-Release: 1%{?candidate:.%{candidate}}%{?dist}
+Version: 5.5
+Release: 0.1%{?candidate:.%{candidate}}%{?dist}
 Summary: A bunch of TPM testing toolS build upon tpm2-tss
 
 License: BSD
@@ -33,11 +33,6 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
 
 %build
-# LTO exposes a latent uninitialized variable "value" in the function # "nt".
-# This has been reported to the maintainer (Yunying), but they have not
-# responded and I am not comfortable enough with the code to know if a trivial
-# initialization to zero is appropriate/safe.  So LTO is disabled for now.
-%define _lto_cflags %{nil}
 %configure --prefix=/usr --disable-static --disable-silent-rules
 %make_build
 
@@ -58,6 +53,10 @@ tpm2-tools is a batch of tools for tpm2.0. It is based on tpm2-tss.
 %{_mandir}/man1/tss2_*.1.gz
 
 %changelog
+* Mon Dec 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.5-0.1.rc1
+- Update to 5.5-RC1
+- Enable LTO (RHBZ#1986628)
+
 * Thu Dec 08 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.4-1
 - Update to 5.4
 

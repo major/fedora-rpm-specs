@@ -4,13 +4,15 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python port of the JSON-minify utility
 
 License:        MIT
 URL:            https://github.com/getify/JSON.minify/tree/python
 Source0:        %pypi_source %{Srcname_}
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description
 JSON-minify minifies blocks of JSON-like content into valid JSON by removing
@@ -61,6 +63,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-15
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

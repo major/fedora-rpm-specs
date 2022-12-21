@@ -14,6 +14,9 @@ Patch0001:      0001-Skip-docx-duplicated-import-test-entirely.patch
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 

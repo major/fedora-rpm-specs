@@ -6,7 +6,7 @@
 
 Name:           python-jupymake
 Version:        0.9
-Release:        20.%{gitdate}.%{shortcommit}%{?dist}
+Release:        21.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 0.9-21.20190509.031cc3a
+- Rebuild for polymake 4.8
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.9-20.20190509.031cc3a
 - Convert License tag to SPDX
 

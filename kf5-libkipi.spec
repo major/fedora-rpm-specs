@@ -3,7 +3,7 @@
 
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -74,12 +74,14 @@ Requires: cmake(KF5XmlGui)
 
 %files devel
 %{_kf5_libdir}/libKF5Kipi.so
-%{_kf5_includedir}/libkipi_version.h
 %{_kf5_includedir}/KIPI/
 %{_kf5_libdir}/cmake/KF5Kipi/
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

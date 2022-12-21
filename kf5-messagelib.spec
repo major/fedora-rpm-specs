@@ -1,8 +1,8 @@
 %global framework messagelib
 
 Name:    kf5-%{framework}
-Version: 22.08.3
-Release: 2%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 Summary: KDE Message libraries
 
 License: GPLv2
@@ -173,6 +173,9 @@ Requires:       cmake(Qt5WebEngine)
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Wed Nov 30 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
 - Rebuild for gpgme 1.17.1
 

@@ -29,6 +29,9 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/ximion/appstream/commit/ad98bfd8db789c80507e82278d6d766acba4937c
 Patch:          %{url}/pull/148.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 

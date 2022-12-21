@@ -26,6 +26,10 @@ BuildArch:      noarch
 # Fix sql_app_py39 and py310 tests
 # https://github.com/tiangolo/fastapi/pull/4409
 Patch:          %{url}/pull/4409.patch
+# Upgrade databases and SQLAlchemy
+# https://github.com/tiangolo/fastapi/pull/5799
+# Rebased on 0.88.0
+Patch:          0001-Upgrade-databases-and-SQLAlchemy.patch
 
 BuildRequires:  python3-devel
 
@@ -341,14 +345,6 @@ sed -r -i \
 # auto-generated PEP 561 stub packages:
 sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
 
-# Selectively allow newer versions for certain tightly-pinned dependencies:
-# • Upstream has pinned SQLAlchemy to <=1.4.41 in FastAPI 0.85.2, with the
-#   note, “TODO: once removing databases from tutorial, upgrade SQLAlchemy
-#   probably when including SQLModel.” We can’t respect this version bound, of
-#   course. Note that this is only a *test* dependency.
-sed -r -i 's/("((sqlalchemy)\b)[^<"]*),[[:blank:]]*<[^"]*/\1/' \
-    pyproject.toml
-
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
 rm -rvf docs/*/docs/js docs/*/docs/css
@@ -368,14 +364,6 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 
 %check
-# tests/test_tutorial/test_async_sql_databases/test_tutorial001.py::test_create_read
-# fails with “ValueError: not enough values to unpack (expected 5, got 4)”
-# while unpacking context.result_column struct in sqlalchemy.engine.cursor.
-#
-# This may have to do with the sqlalchemy version upper-bound in the test
-# dependencies, which we are not able to respect.
-k="${k-}${k+ and }not test_create_read"
-
 # Requires orjson:
 k="${k-}${k+ and }not test_orjson_non_str_keys"
 

@@ -9,8 +9,8 @@
 
 Name:    kmail-account-wizard
 Summary: KMail Account Wizard
-Version: 22.08.3
-Release: 2%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://userbase.kde.org/Kmail/Account_Wizard
@@ -129,6 +129,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
+- 22.12.0
+
 * Thu Dec 01 2022 Jiri Kucera <jkucera@redhat.com> - 22.08.3-2
 - Rebuild for gpgme 1.17.1
 

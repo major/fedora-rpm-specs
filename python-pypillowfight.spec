@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Various image processing algorithms
 
 License:        GPLv2+
@@ -14,6 +14,9 @@ Source0:        https://gitlab.gnome.org/World/OpenPaperwork/libpillowfight/-/ar
 Source1:        images.tar.xz
 # Because Fedora 32-bit does not necessarily support SSE2.
 Patch0001:      0001-Do-not-override-compile-args.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %global _description \
 Library containing various image processing algorithms: Automatic Color \
@@ -68,6 +71,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-12
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

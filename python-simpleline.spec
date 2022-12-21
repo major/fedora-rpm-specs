@@ -4,13 +4,13 @@ Name: python-%{srcname}
 Summary: A Python library for creating text UI
 Url: https://github.com/rhinstaller/python-%{srcname}
 Version: 1.9.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # This tarball was created from upstream git:
 #   git clone https://github.com/rhinstaller/python-simpleline
 #   cd python-simpleline && make archive
 Source0: https://github.com/rhinstaller/python-%{srcname}/releases/download/%{version}/%{srcname}-%{version}.tar.gz
 
-License: LGPLv3+
+License: LGPL-3.0-or-later
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: python3-devel
@@ -60,6 +60,9 @@ make test
 %{python3_sitelib}/*
 
 %changelog
+* Mon Dec 19 2022 Jiri Konecny <jkonecny@redhat.com> - 1.9.0-5
+- Migrate to SPDX license: https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1#Detailed_Description
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
