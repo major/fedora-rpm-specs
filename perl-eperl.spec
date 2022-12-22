@@ -2,7 +2,7 @@ Name:           perl-eperl
 Version:        2.2.14
 Release:        55%{?dist}
 Summary:        Embedded Perl Language
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.ossp.org/pkg/tool/eperl/
 Source0:        ftp://ftp.ossp.org/pkg/tool/eperl/eperl-%{version}.tar.gz
 Patch0:         http://ftp.debian.org/pool/main/e/eperl/eperl_2.2.14-15.1.diff.gz

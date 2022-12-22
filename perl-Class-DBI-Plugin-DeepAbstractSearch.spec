@@ -1,7 +1,7 @@
 Name:           perl-Class-DBI-Plugin-DeepAbstractSearch
 Version:        0.08
 Release:        39%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        SQL::Abstract for Class::DBI
 Source:         https://cpan.metacpan.org/authors/id/S/SR/SRIHA/Class-DBI-Plugin-DeepAbstractSearch-%{version}.tar.gz
 Url:            https://metacpan.org/release/Class-DBI-Plugin-DeepAbstractSearch

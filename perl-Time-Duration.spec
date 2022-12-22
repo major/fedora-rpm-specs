@@ -2,7 +2,7 @@ Name:           perl-Time-Duration
 Summary:        Time-Duration - rounded or exact English expression of durations
 Version:        1.21
 Release:        12%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Time-Duration
 Buildarch:      noarch
 Source:         https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-%{version}.tar.gz

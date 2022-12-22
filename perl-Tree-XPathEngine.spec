@@ -2,7 +2,7 @@ Name:           perl-Tree-XPathEngine
 Version:        0.05
 Release:        31%{?dist}
 Summary:        Re-usable XPath engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-XPathEngine
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIROD/Tree-XPathEngine-%{version}.tar.gz
 # Fix POD syntax, CPAN RT#78638

@@ -2,7 +2,7 @@ Name:           perl-Sys-Info-Base
 Version:        0.7807
 Release:        13%{?dist}
 Summary:        Provides various system information
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Info-Base
 Source0:        https://cpan.metacpan.org/authors/id/B/BU/BURAK/Sys-Info-Base-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-File-ShareDir-PAR
 Version:        0.06
 Release:        37%{?dist}
 Summary:        File::ShareDir with PAR support
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ShareDir-PAR
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/File-ShareDir-PAR-%{version}.tar.gz
 BuildArch:      noarch

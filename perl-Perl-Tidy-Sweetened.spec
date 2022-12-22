@@ -2,7 +2,7 @@ Name:           perl-Perl-Tidy-Sweetened
 Version:        1.18
 Release:        6%{?dist}
 Summary:        Tweaks to Perl::Tidy to support some syntactic sugar
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Tidy-Sweetened
 Source0:        https://cpan.metacpan.org/authors/id/M/MG/MGRIMES/Perl-Tidy-Sweetened-%{version}.tar.gz
 BuildArch:      noarch

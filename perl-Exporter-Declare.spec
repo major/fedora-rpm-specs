@@ -2,7 +2,7 @@ Name:           perl-Exporter-Declare
 Version:        0.114
 Release:        21%{?dist}
 Summary:        Exporting done right
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter-Declare
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Exporter-Declare-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Devel-Hexdump
 Version:        0.02
 Release:        28%{?dist}
 Summary:        Print nice hex dump of binary data
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Hexdump
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-Hexdump-%{version}.tar.gz
 BuildRequires:  gcc

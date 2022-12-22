@@ -2,7 +2,7 @@ Name:           perl-B-Compiling
 Version:        0.06
 Release:        26%{?dist}
 Summary:        Expose PL_compiling to perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Compiling
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/B-Compiling-%{version}.tar.gz
 # Build

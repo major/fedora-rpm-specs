@@ -4,12 +4,12 @@
 
 %bcond_without check
 
-%global sover 15
+%global sover 17
 
 Summary: High-performance library for parallel solution of eigenvalue problems
 Name: elpa
-Version: 2021.05.002
-Release: 6%{?dist}
+Version: 2022.05.001
+Release: 1%{?dist}
 URL: https://elpa.mpcdf.mpg.de/software
 Source0: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz
 Source1: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz.asc
@@ -19,9 +19,6 @@ Source2: gpg-keyring-26BC8F899C6A2698BDD6EF6A69260748A5F870B5.gpg
 Patch1: elpa-onenode.patch
 
 Patch2: elpa-configure-c99.patch
-
-# disable two tests hanging with MPICH
-Patch3: elpa-tests.patch
 
 License: LGPLv3+
 BuildRequires: flexiblas-devel
@@ -158,7 +155,6 @@ cp -pr mpich openmpi
 cp -pr mpich serial
 mkdir _openmp
 cp -pr mpich openmpi serial _openmp/
-%patch3 -p0 -b .tests
 
 %build
 %global defopts --disable-silent-rules --disable-static --docdir=%{_pkgdocdir}
@@ -166,7 +162,7 @@ cp -pr mpich openmpi serial _openmp/
 %if %{with atlas}
 %global ldflags %{ldflags} -L%{_libdir}/atlas
 %endif
-%global fcflags %{optflags} -I%{_fmoddir} -ffree-line-length-none -fallow-argument-mismatch
+%global fcflags %(echo %{optflags} | sed -e 's/ -Werror=format-security//') -I%{_fmoddir} -ffree-line-length-none -fallow-argument-mismatch
 
 . /etc/profile.d/modules.sh
 
@@ -188,6 +184,11 @@ for mpi in '' mpich openmpi ; do
     if [ -n "$mpi" ]; then
       fmoddir="$MPI_FORTRAN_MOD_DIR"
       mpiflag="--libdir=$MPI_LIB"
+%ifarch i686
+      if [ -n "$s" -a "$mpi" = "openmpi" ]; then
+        mpiflag="$mpiflag --without-threading-support-check-during-build --enable-allow-thread-limiting"
+      fi
+%endif
     else
       fmoddir="%{_fmoddir}"
       mpiflag="--with-mpi=no"
@@ -251,13 +252,16 @@ for s in '' _openmp ; do
   done
 done
 echo ".so elpa2_print_kernels.1" > %{buildroot}%{_mandir}/man1/elpa2_print_kernels_openmp.1
-rm %{buildroot}%{_pkgdocdir}/USERS_GUIDE_DEPRECATED_LEGACY_API.md
 
 %if %{with check}
 %check
 . /etc/profile.d/modules.sh
 for s in '' _openmp ; do
+%ifarch i686
+  for mpi in '' mpich ; do
+%else
   for mpi in '' mpich openmpi ; do
+%endif
     pushd ${s:-.}/${mpi:-serial}
     if [ -n "$mpi" ]; then
       module load mpi/${mpi}-%{_arch}
@@ -267,9 +271,11 @@ for s in '' _openmp ; do
     fi
     if [ -n "$s" ]; then
       export OMP_NUM_THREADS=2
+      export ELPA_DEFAULT_omp_threads=2
       MFLAGS="-j$(expr \( $MTASKS + 1 \) / 2)"
     else
       unset OMP_NUM_THREADS
+      unset ELPA_DEFAULT_omp_threads
       MFLAGS="-j$MTASKS"
     fi
     make check V=1 TEST_FLAGS="150 50 16" $MFLAGS || cat ./test-suite.log
@@ -311,15 +317,14 @@ done
 %{_pkgdocdir}/PERFORMANCE_TUNING.md
 %{_pkgdocdir}/mpi_elpa1.png
 %{_pkgdocdir}/mpi_elpa2.png
-%{_pkgdocdir}/SWITCHING_TO_NEW_INTERFACE.md
 %{_pkgdocdir}/USERS_GUIDE.md
 %{_mandir}/man3/elpa_*.3*
 
 %files devel
 %{_libdir}/libelpa.so
 %{_libdir}/libelpa_openmp.so
-%{_libdir}/pkgconfig/elpa-%{version}.pc
-%{_libdir}/pkgconfig/elpa_openmp-%{version}.pc
+%{_libdir}/pkgconfig/elpa.pc
+%{_libdir}/pkgconfig/elpa_openmp.pc
 %{_fmoddir}/*.mod
 
 %files mpich
@@ -331,8 +336,8 @@ done
 %files mpich-devel
 %{_libdir}/mpich/lib/libelpa.so
 %{_libdir}/mpich/lib/libelpa_openmp.so
-%{_libdir}/mpich/lib/pkgconfig/elpa-%{version}.pc
-%{_libdir}/mpich/lib/pkgconfig/elpa_openmp-%{version}.pc
+%{_libdir}/mpich/lib/pkgconfig/elpa.pc
+%{_libdir}/mpich/lib/pkgconfig/elpa_openmp.pc
 %{_fmoddir}/mpich*/*.mod
 
 %files openmpi
@@ -344,11 +349,17 @@ done
 %files openmpi-devel
 %{_libdir}/openmpi/lib/libelpa.so
 %{_libdir}/openmpi/lib/libelpa_openmp.so
-%{_libdir}/openmpi/lib/pkgconfig/elpa-%{version}.pc
-%{_libdir}/openmpi/lib/pkgconfig/elpa_openmp-%{version}.pc
+%{_libdir}/openmpi/lib/pkgconfig/elpa.pc
+%{_libdir}/openmpi/lib/pkgconfig/elpa_openmp.pc
 %{_fmoddir}/openmpi*/*.mod
 
 %changelog
+* Tue Dec 20 2022 Dominik Mierzejewski <dominik@greysector.net> 2022.05.002-1
+- update to 2022.05.002 (ABI break) (#2027276)
+- re-enable all mpich tests
+- drop unsupported flag from FCFLAGS
+- skip OpenMPI tests on i686 (#2155197)
+
 * Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 2021.05.002-6
 - Port configure script to C99
 

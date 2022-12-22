@@ -224,7 +224,7 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 %find_lang hg
 
-pathfix.py -pni "%{python3}" %{buildroot}%{_bindir}/hg-ssh
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pni "%{python3}" %{buildroot}%{_bindir}/hg-ssh
 
 
 %files -f %{name}-base.files -f hg.lang

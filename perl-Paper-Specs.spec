@@ -2,7 +2,7 @@ Name:           perl-Paper-Specs
 Version:        0.10
 Release:        30%{?dist}
 Summary:        Size and layout information for paper stock, forms, and labels
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Paper-Specs
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONALLEN/Paper-Specs-%{version}.tar.gz
 # https://rt.cpan.org/Public/Bug/Display.html?id=78027

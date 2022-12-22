@@ -21,6 +21,9 @@ Patch:          harmonyseq-0.17-missing-include.patch
 # https://github.com/rafalcieslak/harmonySEQ/pull/8
 Patch:          harmonyseq-0.17-pr-8-metadata-improvements.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # The 'UNIX Makefiles' backend would have worked fine too; we choose ninja.
@@ -118,12 +121,12 @@ appstreamcli validate --nonet \
 %license LICENSE
 %doc CHANGELOG.md
 %doc README.md
-%doc examples
+%doc examples/
 
 %{_bindir}/harmonySEQ
 %{_mandir}/man1/harmonySEQ.1*
 
-%{_datadir}/harmonySEQ
+%{_datadir}/harmonySEQ/
 
 %{_datadir}/applications/%{app_id}.desktop
 %{_metainfodir}/%{app_id}.metainfo.xml

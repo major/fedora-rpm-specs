@@ -6,7 +6,7 @@ Name:           perl-File-ExtAttr
 Version:        1.09
 Release:        42%{?dist}
 Summary:        Perl extension for accessing extended attributes of files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ExtAttr
 Source0:        https://cpan.metacpan.org/authors/id/R/RI/RICHDAWE/File-ExtAttr-%{version}.tar.gz
 # 1/2 Do not use attr library because attr-2.4.48 removed the header files in

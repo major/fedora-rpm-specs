@@ -56,7 +56,114 @@ Name:    Macaulay2
 Version: 1.20
 Release: 2%{?dist}
 
-License: GPLv2 or GPLv3
+# GPL-2.0-only OR GPL-3.0-only:
+#   - the project as a whole
+#   - factory (bundled)
+# GPL-1.0-or-later:
+#   - Macaulay2/packages/FormalGroupLaws.m2
+#   - Macaulay2/packages/WeylGroups.m2
+# GPL-2.0-only:
+#   - Macaulay2/packages/ModuleDeformations.m2
+#   - Macaulay2/packages/QuillenSuslin.m2
+#   - Macaulay2/packages/Visualize.m2
+# GPL-2.0-or-later:
+#   - mathicgb (bundled)
+#   - Macaulay2/e/bibasis
+#   - Macaulay2/m2/computations.m2
+#   - Macaulay2/packages/AlgebraicSplines.m2
+#   - Macaulay2/packages/BIBasis.m2
+#   - Macaulay2/packages/Binomials.m2
+#   - Macaulay2/packages/Chordal.m2
+#   - Macaulay2/packages/Cremona.m2
+#   - Macaulay2/packages/Cyclotomic.m2
+#   - Macaulay2/packages/EdgeIdeals.m2
+#   - Macaulay2/packages/FourierMotzkin.m2
+#   - Macaulay2/packages/GKMVarieties.m2
+#   - Macaulay2/packages/GradedLieAlgebras.m2
+#   - Macaulay2/packages/GraphicalModels*
+#   - Macaulay2/packages/Graphics.m2
+#   - Macaulay2/packages/Graphs.m2
+#   - Macaulay2/packages/GroebnerWalk.m2
+#   - Macaulay2/packages/HyperplaneArrangements.m2
+#   - Macaulay2/packages/InvariantRing*
+#   - Macaulay2/packages/KustinMiller.m2
+#   - Macaulay2/packages/LieTypes.m2
+#   - Macaulay2/packages/MonomialAlgebras.m2
+#   - Macaulay2/packages/MultiprojectiveVarieties.m2
+#   - Macaulay2/packages/NAGtypes.m2
+#   - Macaulay2/packages/Nauty*
+#   - Macaulay2/packages/Normaliz.m2
+#   - Macaulay2/packages/NumericalAlgebraicGeometry.m2
+#   - Macaulay2/packages/PackageCitations.m2
+#   - Macaulay2/packages/Posets.m2
+#   - Macaulay2/packages/RationalPoints*
+#   - Macaulay2/packages/ResLengthThree.m2
+#   - Macaulay2/packages/ResolutionsOfStanleyReisnerRings.m2
+#   - Macaulay2/packages/Resultants.m2
+#   - Macaulay2/packages/RunExternalM2.m2
+#   - Macaulay2/packages/SLPexpressions.m2
+#   - Macaulay2/packages/SLnEquivariantMatrices.m2
+#   - Macaulay2/packages/SimplicialDecomposability.m2
+#   - Macaulay2/packages/SparseResultants.m2
+#   - Macaulay2/packages/SpecialFanoFourfolds.m2
+#   - Macaulay2/packages/StatGraphs.m2
+#   - Macaulay2/packages/TriangularSets.m2
+#   - Macaulay2/packages/VectorFields.m2
+# GPL-3.0-or-later:
+#   - normaliz, when it is bundled
+#   - Macaulay2/e/mpreal.h
+#   - Macaulay2/packages/BettiCharacters.m2
+#   - Macaulay2/packages/CodingTheory.m2
+#   - Macaulay2/packages/FGLM.m2
+#   - Macaulay2/packages/HighestWeights*
+#   - Macaulay2/packages/Jets.m2
+#   - Macaulay2/packages/LocalRings
+#   - Macaulay2/packages/MonomialIntegerPrograms.m2
+#   - Macaulay2/packages/MultiplierIdeals.m2
+#   - Macaulay2/packages/NormalToricVarieties.m2
+#   - Macaulay2/packages/NumericSolutions.m2
+#   - Macaulay2/packages/OldPolyhedra.m2
+#   - Macaulay2/packages/OldToricVectorBundles.m2
+#   - Macaulay2/packages/PieriMaps.m2
+#   - Macaulay2/packages/Polyhedra.m2
+#   - Macaulay2/packages/PositivityToricBundles.m2
+#   - Macaulay2/packages/SchurRings.m2
+#   - Macaulay2/packages/SchurVeronese.m2
+#   - Macaulay2/packages/Simplicial*
+#   - Macaulay2/packages/SpectralSequences.m2
+#   - Macaulay2/packages/TensorComplexes.m2
+#   - Macaulay2/packages/ToricTopology.m2
+#   - Macaulay2/packages/ToricVectorBundles.m2
+#   - Macaulay2/packages/VersalDeformations.m2
+# LGPL-2.0-or-later:
+#   - flint (bundled)
+#   - linbox (bundled)
+#   - mathic (bundled)
+# LGPL-3.0-or-later:
+#   - mpfr (bundled)
+# Apache-2.0:
+#   - Macaulay2/packages/OpenMath.m2
+#   - Macaulay2/packages/SCSCP.m2
+# BSD-3-Clause:
+#   - memtailor (bundled)
+# MIT:
+#   - Macaulay2/packages/Visualize/css
+#   - Macaulay2/packages/Visualize/js
+# MIT AND OFL-1.1-RFN:
+#   - Macaulay2/packages/Style
+# LicenseRef-Fedora-Public-Domain:
+#   - Macaulay2/e/localring*
+#   - Macaulay2/e/mutablecomplex*
+#   - Macaulay2/e/NAG*
+#   - Macaulay2/e/SLP*
+#   - Macaulay2/packages/Depth.m2
+#   - Macaulay2/packages/Divisor.m2
+#   - Macaulay2/packages/FastMinors.m2
+#   - Macaulay2/packages/LatticePolytopes.m2
+#   - Macaulay2/packages/NoetherNormalization.m2
+#   - Macaulay2/packages/RationalMaps.m2
+#   - Macaulay2/packages/SectionRing.m2
+License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND MIT AND OFL-1.1-RFN AND LicenseRef-Fedora-Public-Domain
 URL:     https://macaulay2.com/
 %if 0%{?snap:1}
 Source0: %{name}-%{version}-%{snap}.tar.xz
@@ -522,6 +629,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 1.20-2
+- Convert License tag to SPDX
+
 * Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 1.20-2
 - Rebuild for tinyxml2-9.0.0
 

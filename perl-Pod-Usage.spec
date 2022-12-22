@@ -5,7 +5,7 @@ Version:        2.03
 Release:        3%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Usage
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Pod-Usage-%{version}.tar.gz
 BuildArch:      noarch

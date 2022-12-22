@@ -2,7 +2,7 @@
 
 Name:           gegl04
 Version:        0.4.38
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graph based image processing framework
 
 # The binary is under the GPL, while the libs are under LGPL.
@@ -13,6 +13,7 @@ Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.
 
 Patch0:         gegl04-openexr.patch
 Patch1:         gegl04-gtk.patch
+Patch2:         libraw.patch
 
 BuildRequires:  chrpath
 BuildRequires:  enscript
@@ -175,6 +176,9 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.4.38-2
+- LibRaw rebuild
+
 * Mon Aug 01 2022 Josef Ridky <jridky@redhat.com> - 0.4.38-1
 - New upstream release 0.4.38
 

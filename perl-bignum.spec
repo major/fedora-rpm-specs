@@ -2,7 +2,7 @@ Name:           perl-bignum
 Version:        0.66
 Release:        5%{?dist}
 Summary:        Transparent big number support for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/bignum
 Source0:        https://cpan.metacpan.org/authors/id/P/PJ/PJACKLAM/bignum-%{version}.tar.gz
 BuildArch:      noarch

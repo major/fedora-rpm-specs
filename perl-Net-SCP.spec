@@ -2,7 +2,7 @@ Name:           perl-Net-SCP
 Version:        0.08
 Release:        41%{?dist}
 Summary:        Perl extension for secure copy protocol
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-SCP
 Source0:        https://cpan.metacpan.org/authors/id/I/IV/IVAN/Net-SCP-%{version}.tar.gz
 BuildArch:      noarch

@@ -12,7 +12,7 @@ Name:           perl-CPAN
 Version:        2.34
 Release:        4%{?dist}
 Summary:        Query, download and build perl modules from CPAN sites
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/CPAN-%{version}.tar.gz
 # Create site paths for the first time, bug #1158873, CPAN RT#99905

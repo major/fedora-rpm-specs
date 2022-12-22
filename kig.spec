@@ -7,7 +7,7 @@ Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/edu/%{name}
+URL:     https://invent.kde.org/education/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50

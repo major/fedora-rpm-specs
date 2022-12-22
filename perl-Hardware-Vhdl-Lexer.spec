@@ -2,7 +2,7 @@ Name:           perl-Hardware-Vhdl-Lexer
 Version:        1.00
 Release:        41%{?dist}
 Summary:        Split VHDL code into lexical tokens
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Hardware-Vhdl-Lexer
 Source0:        https://cpan.metacpan.org/authors/id/M/MY/MYKL/Hardware-Vhdl-Lexer-%{version}.tar.gz

@@ -9,7 +9,7 @@ Name:           perl-Test-Base
 Version:        0.89
 Release:        15%{?dist}
 Summary:        Data Driven Testing Framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Base
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Test-Base-%{version}.tar.gz
 BuildArch:      noarch

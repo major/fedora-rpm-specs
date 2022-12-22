@@ -5,7 +5,7 @@ Name:           perl-BDB
 Version:        %{cpan_version}
 Release:        18%{?dist}
 Summary:        Asynchronous Berkeley DB access
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BDB
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/BDB-%{cpan_version}.tar.gz
 BuildRequires:  findutils

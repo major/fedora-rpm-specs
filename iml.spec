@@ -104,14 +104,13 @@ LD_LIBRARY_PATH="${PWD}/src/.libs" %make_build check
 %license LICENSE iml-license-clarification.eml
 %doc AUTHORS
 %doc README
-%{_libdir}/libiml.so.%{so_version}
-%{_libdir}/libiml.so.%{so_version}.*
+%{_libdir}/libiml.so.%{so_version}{,.*}
 
 
 %files devel
 %doc doc/liblink
 %doc doc/libroutines
-%doc examples
+%doc examples/
 %{_includedir}/iml.h
 %{_libdir}/libiml.so
 

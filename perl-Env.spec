@@ -3,7 +3,7 @@ Name:           perl-Env
 Version:        1.05
 Release:        489%{?dist}
 Summary:        Perl module that imports environment variables as scalars or arrays
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/Env-%{base_version}.tar.gz
 BuildArch:      noarch

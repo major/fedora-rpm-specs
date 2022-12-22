@@ -2,7 +2,7 @@ Name:           perl-Capture-Tiny
 Version:        0.48
 Release:        15%{?dist}
 Summary:        Capture STDOUT and STDERR from Perl, XS or external programs
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Capture-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Capture-Tiny-%{version}.tar.gz
 BuildArch:      noarch

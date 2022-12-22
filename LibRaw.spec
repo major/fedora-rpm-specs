@@ -6,8 +6,8 @@
 
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
-Version: 0.20.2
-Release: 7%{?dist}
+Version: 0.21.0
+Release: 1%{?dist}
 License: BSD and (CDDL-1.0 or LGPLv2)
 URL: http://www.libraw.org
 
@@ -90,8 +90,8 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %files
 %doc Changelog.txt
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{_libdir}/libraw.so.20*
-%{_libdir}/libraw_r.so.20*
+%{_libdir}/libraw.so.23*
+%{_libdir}/libraw_r.so.23*
 
 %files static
 %{_libdir}/libraw.a
@@ -114,6 +114,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Mon Dec 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.21.0-1
+- 0.21.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

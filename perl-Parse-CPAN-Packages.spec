@@ -2,7 +2,7 @@ Name:           perl-Parse-CPAN-Packages
 Version:        2.40
 Release:        23%{?dist}
 Summary:        Parse 02packages.details.txt.gz
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-CPAN-Packages
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MITHALDU/Parse-CPAN-Packages-%{version}.tar.gz
 Patch0:         Parse-CPAN-Packages-2.40-Test::InDistDir.patch

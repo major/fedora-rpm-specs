@@ -5,7 +5,7 @@ Name:           perl-Parse-PMFile
 Version:        0.43
 Release:        7%{?dist}
 Summary:        Parses .pm file as PAUSE does
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-PMFile
 Source0:        https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/Parse-PMFile-%{version}.tar.gz
 # Remove useless dependency on ExtUtils::MakeMaker::CPANfile

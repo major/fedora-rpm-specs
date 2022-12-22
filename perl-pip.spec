@@ -2,7 +2,7 @@ Name:           perl-pip
 Summary:        Perl Installation Program, for scripted and distribution installation
 Version:        1.19
 Release:        34%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/pip-%{version}.tar.gz 
 URL:            https://metacpan.org/release/pip
 BuildArch:      noarch

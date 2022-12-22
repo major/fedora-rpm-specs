@@ -2,7 +2,7 @@ Name:          perl-XML-FeedPP
 Version:       0.95
 Release:       15%{?dist}
 Summary:       Parse/write/merge/edit RSS/RDF/Atom syndication feeds
-License:       GPL+ or Artistic
+License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/XML-FeedPP
 Source0:       https://cpan.metacpan.org/modules/by-module/XML/XML-FeedPP-%{version}.tar.gz
 

@@ -4,7 +4,7 @@ Name:           perl-Business-PayPal-API
 Version:        0.77
 Release:        16%{?dist}
 Summary:        PayPal API
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Business-PayPal-API
 Source0:        https://cpan.metacpan.org/modules/by-module/Business/Business-PayPal-API-%{version}.tar.gz
 BuildArch:      noarch

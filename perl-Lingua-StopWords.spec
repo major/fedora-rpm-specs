@@ -2,7 +2,7 @@ Name:           perl-Lingua-StopWords
 Version:        0.12
 Release:        6%{?dist}
 Summary:        Stop words for several languages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-StopWords
 Source0:        https://cpan.metacpan.org/authors/id/W/WO/WOLLMERS/Lingua-StopWords-%{version}.tar.gz
 BuildArch:      noarch

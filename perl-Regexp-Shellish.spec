@@ -2,7 +2,7 @@ Name:           perl-Regexp-Shellish
 Version:        0.93
 Release:        43%{?dist}
 Summary:        Shell-like regular expressions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-Shellish
 Source0:        https://cpan.metacpan.org/modules/by-module/Regexp/Regexp-Shellish-%{version}.tar.gz
 BuildArch:      noarch

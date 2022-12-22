@@ -2,7 +2,7 @@ Name:           perl-Sub-Attribute
 Version:        0.07
 Release:        12%{?dist}
 Summary:        Reliable subroutine attribute handlers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Attribute/
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCANTRELL/Sub-Attribute-%{version}.tar.gz
 BuildRequires:  findutils

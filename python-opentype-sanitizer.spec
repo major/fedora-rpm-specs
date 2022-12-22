@@ -20,6 +20,9 @@ BuildArch:      noarch
 
 Patch:          python-opentype-sanitizer-8.2.1-no-bundled-executable.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  opentype-sanitizer = %{version}
 

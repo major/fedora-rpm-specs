@@ -2,7 +2,7 @@ Name:           perl-Devel-LeakGuard-Object
 Version:        0.08
 Release:        21%{?dist}
 Summary:        Scoped checks for object leaks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-LeakGuard-Object
 Source0:        https://cpan.metacpan.org/authors/id/P/PT/PTC/Devel-LeakGuard-Object-%{version}.tar.gz
 BuildArch:      noarch

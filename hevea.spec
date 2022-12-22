@@ -8,7 +8,11 @@ Name:		hevea
 Version:	2.36
 Release:	2%{?dist}
 Summary:	LaTeX to HTML translator
-License:	QPL
+
+# QPL-1.0: the project as a whole
+# LPPL-1.3a: hrlang.hva, lstlang*.sty, examples/natbib.sty
+# GPL-2.0-or-later: html/mathpartir.hva, examples/mathpartir-test.tex
+License:	QPL-1.0 AND LPPL-1.3a AND GPL-2.0-or-later
 URL:		http://hevea.inria.fr/
 Source0:	http://hevea.inria.fr/distri/%{name}-%{version}.tar.gz
 Source1:	http://hevea.inria.fr/distri/%{name}-%{version}-manual.pdf
@@ -80,6 +84,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 2.36-2
+- Convert License tag to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

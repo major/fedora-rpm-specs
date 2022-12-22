@@ -1,12 +1,18 @@
 Name:           sympow
 Version:        2.023.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Special Values of Symmetric Power Elliptic Curve L-Functions
-License:        BSD
+
+# The License tag is a lie.  See
+# https://gitlab.com/rezozer/forks/sympow/-/issues/7
+License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            https://gitlab.com/rezozer/forks/sympow
 Source0:        https://gitlab.com/rezozer/forks/sympow/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 # Do not try to create the cachedir; RPM already created it
 Patch0:         sympow-2.023.5-cachedir.patch
+# Upstream patch to fix a crash
+# https://gitlab.com/rezozer/forks/sympow/-/merge_requests/4
+Patch1:         sympow-2.023.6-crash.patch
 BuildRequires:  autoconf
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -36,7 +42,6 @@ material, namely shared data and scripts.
 
 
 %build
-export CFLAGS="%{optflags}"
 export PREFIX="%{_prefix}"
 ./Configure
 
@@ -49,7 +54,7 @@ cat >> config.h << EOF
 EOF
 sed -i 's,%{_prefix}/lib/%{name},%{_libexecdir}/%{name},' Makefile
 
-%make_build LDFLAGS="$RPM_LD_FLAGS"
+%make_build
 
 
 %install
@@ -82,6 +87,10 @@ cp -a binfiles %{buildroot}%{_var}/cache/%{name}/datafiles
 
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 2.023.6-7
+- Add upstream patch to prevent a crash
+- Convert License tag to SPDX
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.023.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

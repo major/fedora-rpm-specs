@@ -6,7 +6,7 @@
 
 Name:           freeimage
 Version:        3.19.0
-Release:        0.11%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:        0.12%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:        Multi-format image decoder library
 
 # freeimage is tripple-licensed, see
@@ -28,6 +28,8 @@ Patch1:         FreeImage_doxygen.patch
 Patch2:         freeimage-openexr3.patch
 # Patch for libtiff-4.4.0 compatibility
 Patch3:         freeimage-libtiff44.patch
+# Patch for LibRaw 0.21.0 compatibility
+Patch4:         libraw.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -161,6 +163,9 @@ ldconfig -n %{buildroot}%{_libdir}
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.19.0-0.12.svn1889
+- LibRaw rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.11.svn1889
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

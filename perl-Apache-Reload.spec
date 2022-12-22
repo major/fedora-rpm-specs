@@ -1,8 +1,8 @@
 Name:           perl-Apache-Reload
 Version:        0.13
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Reload changed Perl modules
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Apache-Reload
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHAY/Apache-Reload-%{version}.tar.gz
 BuildArch:      noarch
@@ -60,12 +60,12 @@ This mod_perl extension allows to reload Perl modules that changed on the disk.
 # MOD_PERL_2_BUILD=1 requires MP_APXS variable set to the apxs executable.
 # Use MOD_PERL=2 argument instead.
 unset MOD_PERL_2_BUILD
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 MOD_PERL=2
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 MOD_PERL=2
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
 
 %check
 make test
@@ -78,6 +78,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.13-22
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

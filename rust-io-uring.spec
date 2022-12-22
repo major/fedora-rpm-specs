@@ -5,7 +5,7 @@
 %global crate io-uring
 
 Name:           rust-io-uring
-Version:        0.5.9
+Version:        0.5.10
 Release:        %autorelease
 Summary:        Low-level io_uring userspace interface for Rust
 
@@ -14,7 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/io-uring
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * temporarily downgrade bindgen from 0.60 to 0.59
+# * bump bindgen build-dependency from 0.61 to 0.63
 # * make bindgen build-dependency non-optional
 # * drop feature for making syscalls directly (not available on all arches)
 Patch:          io-uring-fix-metadata.diff

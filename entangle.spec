@@ -3,7 +3,7 @@
 Summary: Tethered shooting & control of digital cameras
 Name: entangle
 Version: 3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Source: https://entangle-photo.org/download/sources/%{name}-%{version}.tar.xz
 Patch: 0001-meson-fix-build-for-meson-0.60.0.patch
@@ -110,6 +110,9 @@ rm -f %{buildroot}%{_libdir}/libentangle_frontend.so
 %{_libdir}/girepository-1.0/Entangle-0.1.typelib
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0-2
+- LibRaw rebuild
+
 * Tue Aug  2 2022 Daniel P. Berrange <berrange@redhat.com> - 3.0-1
 - Update to 3.0 release
 

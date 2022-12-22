@@ -5,7 +5,7 @@ Name:           perl-Data-Peek
 Version:        0.51
 Release:        4%{?dist}
 Summary:        Collection of low-level debug facilities
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Peek
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/Data-Peek-%{version}.tgz
 BuildRequires:  coreutils

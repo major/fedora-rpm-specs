@@ -2,7 +2,7 @@ Name:           perl-Sort-Key
 Version:        1.33
 Release:        25%{?dist}
 Summary:        Fastest way to sort anything in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sort-Key
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SALVA/Sort-Key-%{version}.tar.gz
 # Build

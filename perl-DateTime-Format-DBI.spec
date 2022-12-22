@@ -2,7 +2,7 @@ Name:           perl-DateTime-Format-DBI
 Version:        0.041
 Release:        26%{?dist}
 Summary:        Find a parser class for a database connection
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-DBI
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/DateTime-Format-DBI-%{version}.tar.gz
 BuildArch:      noarch

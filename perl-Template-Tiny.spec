@@ -2,7 +2,7 @@ Name:           perl-Template-Tiny
 Version:        1.14
 Release:        6%{?dist}
 Summary:        Template Toolkit re-implemented in as little code as possible
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Template-Tiny-%{version}.tar.gz
 BuildArch:      noarch

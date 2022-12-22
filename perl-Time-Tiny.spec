@@ -2,7 +2,7 @@ Name:           perl-Time-Tiny
 Version:        1.08
 Release:        17%{?dist}
 Summary:        Time object, with as little code as possible
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Time-Tiny-%{version}.tar.gz
 BuildArch:      noarch

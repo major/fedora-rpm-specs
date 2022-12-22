@@ -2,7 +2,7 @@ Name:           perl-Parse-Method-Signatures
 Version:        1.003019
 Release:        18%{?dist}
 Summary:        Perl6 like method signature parser
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-Method-Signatures
 Source0:        https://cpan.metacpan.org/authors/id/K/KE/KENTNL/Parse-Method-Signatures-%{version}.tar.gz
 BuildArch:      noarch

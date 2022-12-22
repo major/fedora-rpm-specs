@@ -2,7 +2,7 @@ Name:           perl-Template-Provider-Encoding
 Version:        0.10
 Release:        41%{?dist}
 Summary:        Explicitly declare encodings of your templates
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Provider-Encoding
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Template-Provider-Encoding-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-File-ChangeNotify
 Summary:        Watch for changes to files, cross-platform style
 Version:        0.31
 Release:        13%{?dist}
-License:        Artistic 2.0
+License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-ChangeNotify-%{version}.tar.gz 
 URL:            https://metacpan.org/release/File-ChangeNotify
 BuildArch:      noarch

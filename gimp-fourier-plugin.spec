@@ -7,6 +7,9 @@ License:        GPL-3.0-or-later
 URL:            https://www.lprp.fr/gimp_plugin_en/
 Source0:        https://www.lprp.fr/files/old-web/soft/gimp/fourier-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 

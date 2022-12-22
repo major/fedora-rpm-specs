@@ -2,7 +2,7 @@ Name:           perl-MooseX-Configuration
 Version:        0.02
 Release:        21%{?dist}
 Summary:        Define attributes which come from configuration files
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/MooseX-Configuration
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-Configuration-%{version}.tar.gz
 BuildArch:      noarch

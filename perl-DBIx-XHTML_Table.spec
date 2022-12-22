@@ -8,7 +8,7 @@ Name:           perl-DBIx-XHTML_Table
 Version:        1.49
 Release:        20%{?dist}
 Summary:        SQL query result set to XHTML table
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/DBIx-XHTML_Table
 Source0:        https://cpan.metacpan.org/authors/id/J/JE/JEFFA/DBIx-XHTML_Table-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Test-Harness-Straps
 Version:        0.30
 Release:        40%{?dist}
 Summary:        Detailed analysis of test results
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Harness-Straps
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHWERN/Test-Harness-Straps-%{version}.tar.gz
 BuildArch:      noarch

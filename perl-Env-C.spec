@@ -2,7 +2,7 @@ Name:           perl-Env-C
 Version:        0.15
 Release:        16%{?dist}
 Summary:        Get/set/unset environment variables on the C level
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env-C
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHOUT/Env-C-%{version}.tar.gz
 # Obey to perl's PERL_USE_SAFE_PUTENV default

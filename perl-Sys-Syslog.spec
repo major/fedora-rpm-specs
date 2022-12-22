@@ -13,7 +13,7 @@ Summary:        Perl interface to the UNIX syslog(3) calls
 # Syslog.pm:            GPL+ or Artistic
 ## Unbundled
 # fallback/syslog.h:    BSD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Syslog
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SAPER/Sys-Syslog-%{version}.tar.gz
 BuildRequires:  coreutils

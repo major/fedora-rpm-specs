@@ -2,7 +2,7 @@ Name:           perl-Log-Dispatch-Array
 Version:        1.003
 Release:        23%{?dist}
 Summary:        Log events to an array (reference)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatch-Array
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Log-Dispatch-Array-%{version}.tar.gz
 BuildArch:      noarch

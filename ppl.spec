@@ -2,7 +2,7 @@ Name:			ppl
 Version:		1.2
 Release:		25%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
-License:		GPLv3+
+License:		GPL-3.0-or-later
 URL:			http://www.bugseng.com/ppl
 Source0:		http://www.bugseng.com/products/ppl/download/ftp/releases/%{version}/%{name}-%{version}.tar.bz2
 Source1:		ppl.hh
@@ -119,6 +119,7 @@ of the Parma Polyhedra Library.
 %endif
 
 %package docs
+License:	GFDL-1.2-no-invariants-or-later
 Summary:	Documentation for the Parma Polyhedra Library
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -292,6 +293,9 @@ mv \
 %endif
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 1.2-25
+- Convert License tags to SPDX
+
 * Fri Dec 16 2022 Jerry James <loganjerry@gmail.com> - 1.2-25
 - Rebuild for pl 9.0.2
 

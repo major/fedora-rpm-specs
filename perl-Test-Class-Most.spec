@@ -2,7 +2,7 @@ Name:           perl-Test-Class-Most
 Version:        0.08
 Release:        21%{?dist}
 Summary:        Test classes the easy way
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Class-Most
 Source0:        https://cpan.metacpan.org/authors/id/O/OV/OVID/Test-Class-Most-%{version}.tar.gz
 BuildArch:      noarch

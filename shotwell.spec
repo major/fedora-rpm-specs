@@ -1,6 +1,6 @@
 Name:           shotwell
 Version:        0.31.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.31.7-2
+- LibRaw rebuild
+
 * Tue Dec 06 2022 David King <amigadave@amigadave.com> - 0.31.7-1
 - Update to 0.31.7
 

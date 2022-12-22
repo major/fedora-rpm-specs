@@ -2,7 +2,7 @@ Name:           perl-Test-Identity
 Version:        0.01
 Release:        30%{?dist}
 Summary:        Assert the referential identity of a reference
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Identity
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Test-Identity-%{version}.tar.gz
 BuildArch:      noarch

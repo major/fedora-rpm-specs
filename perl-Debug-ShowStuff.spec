@@ -2,7 +2,7 @@ Name:           perl-Debug-ShowStuff
 Version:        1.16
 Release:        21%{?dist}
 Summary:        A collection of handy debugging routines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Debug-ShowStuff
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKO/Debug-ShowStuff-%{version}.tar.gz
 BuildArch:      noarch

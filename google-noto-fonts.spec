@@ -22,7 +22,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://github.com/googlefonts/noto-fonts/
@@ -619,9 +619,6 @@ local function genfcconf(table)
     </test>\
     <edit name=\"family\" mode=\"prepend\">\
       <string>Noto ]] .. table.family .. [[</string>\
-    </edit>\
-    <edit name=\"fonthashint\" mode=\"append\">\
-      <bool>]] .. (table.variable and "true" or "false") .. [[</bool>\
     </edit>\]]
     local xml = [[
 <?xml version=\"1.0\" encoding=\"UTF-8\"?>\
@@ -1075,6 +1072,9 @@ done
 
 
 %changelog
+* Tue Dec 20 2022 Akira TAGOH <tagoh@redhat.com> - 20201206^1.git0c78c8329-9
+- Drop unnecessary config.
+
 * Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 20201206-1.git0c78c8329-8
 - Convert License tag to SPDX.
 

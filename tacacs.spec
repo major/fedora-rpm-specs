@@ -16,6 +16,7 @@ Summary:        Daemon to run AAA via TACACS+ Protocol via IPv4 and IPv6
 License:        MIT and GPLv3
 URL:            https://github.com/facebook/tac_plus
 Source:         %{url}/archive/%{commit}/%{srcname}-%{commit}.tar.gz
+Patch0:         tacacs-c99.patch
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -58,7 +59,7 @@ This package contains additional tools and utilities for %{name} that pull in
 extra dependencies that aren't required for the main package.
 
 %prep
-%autosetup -n %{srcname}-%{commit}
+%autosetup -p1 -n %{srcname}-%{commit}
 
 # Fix Python shebang
 sed -i 's:#!/usr/bin/python:#!/usr/bin/python3:' %{srcdir}/do_auth.py

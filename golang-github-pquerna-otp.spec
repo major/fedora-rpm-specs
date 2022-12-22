@@ -3,7 +3,7 @@
 
 # https://github.com/pquerna/otp
 %global goipath         github.com/pquerna/otp
-Version:                1.3.0
+Version:                1.4.0
 
 %gometa
 
@@ -29,8 +29,6 @@ Summary:        TOTP library for Go
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
-# Backport of https://github.com/pquerna/otp/commit/c62dc589378ae5c364d36819ddfb03fe391635ad
-Patch0:         1.3.0_algs_digits.patch
 
 BuildRequires:  golang(github.com/boombuler/barcode)
 BuildRequires:  golang(github.com/boombuler/barcode/qr)
@@ -49,7 +47,6 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 
 %prep
 %goprep
-%patch0 -p1
 
 %install
 %gopkginstall

@@ -2,7 +2,7 @@ Name:           perl-Net-OpenID-Common
 Version:        1.20
 Release:        21%{?dist}
 Summary:        Libraries shared between Net::OpenID::Consumer and Net::OpenID::Server
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-OpenID-Common
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WROG/Net-OpenID-Common-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Lingua-EN-Words2Nums
 Version:        0.18
 Release:        23%{?dist}
 Summary:        Convert English text to numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Words2Nums
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JOEY/Lingua-EN-Words2Nums-%{version}.tar.gz
 BuildArch:      noarch

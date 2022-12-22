@@ -2,7 +2,7 @@
 
 Name:           gobject-introspection
 Version:        1.74.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPLv2+ and LGPLv2+ and MIT
@@ -48,6 +48,9 @@ Requires:       python3-markdown
 # This package only works with the Python version it was built with
 # https://bugzilla.redhat.com/show_bug.cgi?id=1691064
 Requires:       (python(abi) = %{python3_version} if python3)
+# The package uses distutils which is no longer part of Python 3.12+ standard library
+# https://bugzilla.redhat.com/show_bug.cgi?id=2135406
+Requires:       (python3-setuptools if python3 >= 3.12)
 
 %description devel
 Libraries and headers for gobject-introspection
@@ -87,6 +90,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Tue Dec 20 2022 Kalev Lember <klember@redhat.com> - 1.74.0-2
+- Require python3-distutils for Python 3.12+ support (#2135406)
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 1.74.0-1
 - Update to 1.74.0
 

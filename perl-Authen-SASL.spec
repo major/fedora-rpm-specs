@@ -2,7 +2,7 @@ Name:           perl-Authen-SASL
 Version:        2.16
 Release:        28%{?dist}
 Summary:        SASL Authentication framework for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-SASL
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBARR/Authen-SASL-%{version}.tar.gz
 # Update the function WRITE to properly handle string which is shorter than

@@ -15,7 +15,7 @@ Name:           perl-libnet
 Version:        3.14
 Release:        490%{?dist}
 Summary:        Perl clients for various network protocols
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libnet
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHAY/libnet-%{base_version}.tar.gz
 # Convert Changes to UTF-8

@@ -30,6 +30,9 @@ Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # The ninja backend should be slightly faster than make, with no disadvantages.

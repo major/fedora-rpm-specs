@@ -4,7 +4,7 @@ Name:           perl-Hash-Case
 Version:        1.50.0
 Release:        9%{?dist}
 Summary:        Base class for hashes with key-casing requirements
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-Case
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Hash-Case-%{cpan_version}.tar.gz
 BuildArch:      noarch

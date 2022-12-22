@@ -61,7 +61,7 @@ BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros >= 1.2.0
 BuildRequires:  git-core
 
-Requires:  git-core
+Requires:       git-core
 
 %description
 Hatch is a modern, extensible Python project manager.
@@ -77,29 +77,7 @@ Features:
 
 
 %prep
-%autosetup -n %{archivename} -p1
-# Loosen the minimum supported version of virtualenv. Upstream wants 20.16.2,
-# but, as of this writing, Fedora hasn’t updated past 20.15.1 because the
-# changes in subsequent releases would not had any effect on the RPM package:
-#
-#   python-virtualenv-20.16.0 is available
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2110822
-#   “The new version has new versions of embedded wheels and no longer supports
-#   Python 2. Neither is a reason for the upgrade.”
-#
-#   python-virtualenv-20.16.1 is available
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2111286
-#   “Features - 20.16.1↵Update Nushell activation scripts to version 0.67↵but
-#   we don't have nushell in Fedora.”
-#
-#   python-virtualenv-20.16.2 is available
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2111703
-#   “The latest version updates only the embedded pip, nothing else.”
-#
-#   python-virtualenv-20.16.3 is available
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2115427
-#   “Only embedded wheels have been updated.”
-sed -r -i 's/(virtualenv>=20\.)(16\.2)/\115\.1/' pyproject.toml
+%autosetup -n %{archivename}
 
 
 %generate_buildrequires

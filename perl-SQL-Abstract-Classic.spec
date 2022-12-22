@@ -2,7 +2,7 @@ Name:           perl-SQL-Abstract-Classic
 Version:        1.91
 Release:        10%{?dist}
 Summary:        Generate SQL from Perl data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SQL-Abstract-Classic/
 Source0:        https://cpan.metacpan.org/authors/id/R/RI/RIBASUSHI/SQL-Abstract-Classic-%{version}.tar.gz
 # Inhibit installing dependencies from CPAN, bug #1873016

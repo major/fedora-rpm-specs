@@ -4,7 +4,7 @@ Name:       perl-Data-TreeDumper-Renderer-GTK
 Version:    0.02
 Release:    44%{?dist}
 # see GTK.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Gtk2::TreeView renderer for Data::TreeDumper
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-Renderer-GTK-%{version}.tar.gz
 Url:        https://metacpan.org/release/Data-TreeDumper-Renderer-GTK

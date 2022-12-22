@@ -2,7 +2,7 @@ Name:           perl-Alien-Build-MB
 Version:        0.09
 Release:        1%{?dist}
 Summary:        Alien::Build installer class for Module::Build
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Build-MB
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-Build-MB-%{version}.tar.gz
 BuildArch:      noarch

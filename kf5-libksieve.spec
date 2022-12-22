@@ -91,7 +91,6 @@ Requires:       cmake(KF5SyntaxHighlighting)
 %{_kf5_libdir}/libKF5KManageSieve.so.*
 %{_kf5_libdir}/libKF5KSieve.so.*
 %{_kf5_libdir}/libKF5KSieveUi.so.*
-%{_kf5_plugindir}/kio/sieve.so
 
 %files devel
 %{_kf5_archdatadir}/mkspecs/modules/qt_KManageSieve.pri

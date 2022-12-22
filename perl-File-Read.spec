@@ -2,7 +2,7 @@ Name:           perl-File-Read
 Version:        0.0801
 Release:        37%{?dist}
 Summary:        Unique interface for reading one or more files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Read
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SAPER/File-Read-%{version}.tar.gz
 BuildArch:      noarch

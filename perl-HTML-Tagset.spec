@@ -8,7 +8,7 @@ Name:           perl-HTML-Tagset
 Version:        3.20
 Release:        52%{?dist}
 Summary:        HTML::Tagset - data tables useful in parsing HTML
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Tagset
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/HTML-Tagset-%{version}.tar.gz
 BuildArch:      noarch

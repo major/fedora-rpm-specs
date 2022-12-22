@@ -236,7 +236,6 @@ BuildRequires: python3-devel
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Provides: %{name}-python3 = %{version}-%{release}
 Obsoletes: %{name}-python3 < %{version}-%{release}
-Obsoletes: platform-python-%{name} < %{version}-%{release}
 
 %description -n python3-%{name}
 The python3-rpm package contains a module that permits applications

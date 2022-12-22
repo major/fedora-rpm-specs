@@ -1,10 +1,10 @@
 Name:           gmp-ecm
-Version:        7.0.4
-Release:        18%{?dist}
+Version:        7.0.5
+Release:        1%{?dist}
 Summary:        Elliptic Curve Method for Integer Factorization
-License:        GPLv3+
-URL:            https://github.com/sethtroisi/gmp-ecm
-Source0:        %{url}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
+License:        GPL-3.0-or-later
+URL:            https://gitlab.inria.fr/zimmerma/ecm
+Source0:        %{url}/-/archive/git-%{version}/ecm-git-%{version}.tar.bz2
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
@@ -24,7 +24,7 @@ integers (with GMP for arbitrary precision integers).
 
 %package        devel
 Summary:        Files useful for %{name} development
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
 
@@ -35,7 +35,7 @@ The libraries and header files for using %{name} for development.
 
 %package        libs
 Summary:        Elliptic Curve Method library
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 
 
 %description    libs
@@ -43,7 +43,7 @@ The %{name} elliptic curve method library.
 
 
 %prep
-%autosetup
+%autosetup -n ecm-git-%{version}
 
 fixtimestamp() {
   touch -r $1.orig $1
@@ -51,15 +51,11 @@ fixtimestamp() {
 }
 
 # Fix non-UTF-8 encodings
-for badfile in ChangeLog README AUTHORS ; do
+for badfile in AUTHORS ; do
   iconv -f iso-8859-1 -t utf-8 -o $badfile.UTF-8 $badfile 
   touch -r $badfile $badfile.UTF-8
   mv $badfile.UTF-8 $badfile
 done
-
-# ChangeLog had one UTF-8 string already, so now it is doubly encoded
-sed -i.orig 's/\xc3\x83\xc2\xb6/\xc3\xb6/' ChangeLog
-fixtimestamp ChangeLog
 
 # Fix the FSF's address
 for badfile in `grep -FRl 'Fifth Floor' .`; do
@@ -83,8 +79,8 @@ autoreconf -fi .
 %else
   --disable-sse2 \
 %endif
-  CFLAGS="$RPM_OPT_FLAGS -Wa,--noexecstack" \
-  LDFLAGS="$RPM_LD_FLAGS -Wl,-z,noexecstack -lgmp -lgomp"
+  CFLAGS='%{build_cflags} -Wa,--noexecstack' \
+  LDFLAGS='%{build_ldflags} -Wl,-z,noexecstack -lgmp -lgomp'
 
 # Eliminate hardcoded rpaths; workaround libtool reordering -Wl,--as-needed
 # after all the libraries.
@@ -135,6 +131,11 @@ make check
 
 
 %changelog
+* Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 7.0.5-1
+- Version 7.0.5
+- New URLs
+- Convert License tags to SPDX
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           perl-DateTime-Tiny
 Version:        1.07
 Release:        16%{?dist}
 Summary:        Date object, with as little code as possible
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/DateTime-Tiny-%{version}.tar.gz
 Patch0:         DateTime-Tiny-1.07-Fixed-test-for-DateTime-Locale-1.33.patch

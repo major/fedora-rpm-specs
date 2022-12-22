@@ -11,7 +11,7 @@ Version:        %(echo '%{cpan_version}' | tr '_' '.'})
 Release:        4%{?dist}
 Summary:        Perl module to work with International Standard Book Numbers
 
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISBN
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Business-ISBN-%{cpan_version}.tar.gz
 BuildArch:      noarch

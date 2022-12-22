@@ -2,7 +2,7 @@ Name:           perl-DateTime-Format-Pg
 Version:        0.16014
 Release:        6%{?dist}
 Summary:        Parse and format PostgreSQL dates and times
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Pg
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMAKI/DateTime-Format-Pg-%{version}.tar.gz
 BuildArch:      noarch

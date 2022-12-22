@@ -2,7 +2,7 @@ Name:           perl-Module-Compile
 Version:        0.38
 Release:        10%{?dist}
 Summary:        Perl Module Compilation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Compile
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Module-Compile-%{version}.tar.gz
 BuildArch:      noarch

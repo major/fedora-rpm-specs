@@ -2,7 +2,7 @@ Name:           perl-FreezeThaw
 Version:        0.5001
 Release:        40%{?dist}
 Summary:        Convert Perl structures to strings and back
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FreezeThaw
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILYAZ/modules/FreezeThaw-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Pod-Stripper
 Version:        0.22
 Release:        21%{?dist}
 Summary:        Strip all pod, and output what's left
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Stripper
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/PODMASTER/Pod-Stripper-%{version}.tar.gz
 BuildArch:      noarch

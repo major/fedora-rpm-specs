@@ -2,7 +2,7 @@ Name:           perl-MasonX-Interp-WithCallbacks
 Version:        1.19
 Release:        25%{?dist}
 Summary:        Mason callback support via Params::CallbackRequest
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MasonX-Interp-WithCallbacks
 Source0:        https://cpan.metacpan.org/authors/id/D/DW/DWHEELER/MasonX-Interp-WithCallbacks-%{version}.tar.gz
 BuildArch:      noarch

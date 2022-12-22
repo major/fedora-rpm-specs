@@ -2,7 +2,7 @@ Name:           perl-CPAN-Mini
 Summary:        Create a minimal mirror of CPAN
 Version:        1.111016
 Release:        25%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Mini-%{version}.tar.gz 
 URL:            https://metacpan.org/release/CPAN-Mini
 BuildArch:      noarch

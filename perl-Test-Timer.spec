@@ -2,7 +2,7 @@ Name:           perl-Test-Timer
 Version:        2.12
 Release:        5%{?dist}
 Summary:        Test module to test/assert response times
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Timer
 Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASBN/Test-Timer-%{version}.tar.gz
 BuildArch:      noarch

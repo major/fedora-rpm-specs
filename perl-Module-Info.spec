@@ -2,7 +2,7 @@ Name:           perl-Module-Info
 Version:        0.37
 Release:        21%{?dist}
 Summary:        Information about Perl modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Info
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Module-Info-%{version}.tar.gz
 BuildArch:      noarch

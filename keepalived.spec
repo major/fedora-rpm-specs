@@ -1,6 +1,7 @@
 %bcond_without snmp
 %bcond_without vrrp
 %bcond_without sha1
+%bcond_without json
 %bcond_without nftables
 %bcond_with profile
 %bcond_with debug
@@ -10,7 +11,7 @@
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
 Version: 2.2.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: http://www.keepalived.org/
 
@@ -68,6 +69,7 @@ touch aclocal.m4 Makefile.in lib/config.h.in configure
     %{!?with_vrrp:--disable-vrrp} \
     %{?with_snmp:--enable-snmp --enable-snmp-rfc} \
     %{?with_nftables:--enable-nftables --disable-iptables} \
+    %{?with_json:--enable-json} \
     %{?with_sha1:--enable-sha1} \
     --with-init=systemd
 %{__make} %{?_smp_mflags} STRIP=/bin/true
@@ -111,6 +113,9 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %{_mandir}/man8/keepalived.8*
 
 %changelog
+* Tue Dec 20 2022 Ryan O'Hara <rohara@redhat.com> - 2.2.7-5
+- Enable JSON support
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 2.2.7-4
 - Fix spurious implicit function declaration in broken configure check
 

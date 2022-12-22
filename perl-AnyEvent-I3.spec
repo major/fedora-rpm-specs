@@ -2,7 +2,7 @@ Name:           perl-AnyEvent-I3
 Version:        0.17
 Release:        18%{?dist}
 Summary:        Communicate with the i3 window manager
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/anyevent-i3
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTPLBG/AnyEvent-I3-%{version}.tar.gz
 BuildArch:      noarch

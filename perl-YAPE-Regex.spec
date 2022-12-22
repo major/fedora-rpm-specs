@@ -2,7 +2,7 @@ Name:           perl-YAPE-Regex
 Version:        4.00
 Release:        34%{?dist}
 Summary:        Yet Another Parser/Extractor for Regular Expressions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAPE-Regex
 Source0:        https://cpan.metacpan.org/authors/id/G/GS/GSULLIVAN/YAPE-Regex-%{version}.tar.gz
 BuildArch:      noarch

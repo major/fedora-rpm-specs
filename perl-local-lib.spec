@@ -1,7 +1,7 @@
 Name:           perl-local-lib
 Version:        2.000029
 Release:        3%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Create and use a local lib/ for perl modules
 Url:            https://metacpan.org/release/local-lib
 Source:         https://cpan.metacpan.org/authors/id/H/HA/HAARG/local-lib-%{version}.tar.gz
@@ -66,7 +66,7 @@ hasn't applied a patch to a module of theirs that you need for your
 application.
 
 %package -n perl-homedir
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Per-user Perl local::lib setup
 Requires:   %{name} = %{version}-%{release}
 Requires:   sed

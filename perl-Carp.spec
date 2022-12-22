@@ -3,7 +3,7 @@ Name:           perl-Carp
 Version:        1.52
 Release:        489%{?dist}
 Summary:        Alternative warn and die for modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/Carp-%{base_version}.tar.gz
 # Unbundled from perl 5.34.0

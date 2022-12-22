@@ -2,7 +2,7 @@ Name:           perl-ExtUtils-HasCompiler
 Version:        0.023
 Release:        7%{?dist}
 Summary:        Check for the presence of a compiler
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-HasCompiler
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/ExtUtils-HasCompiler-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Task-Kensho-Testing
 Version:        0.41
 Release:        5%{?dist}
 Summary:        A Glimpse at an Enlightened Perl (Testing)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Task-Kensho-Testing
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Task-Kensho-Testing-%{version}.tar.gz
 BuildArch:      noarch

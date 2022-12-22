@@ -10,7 +10,7 @@ Version:        0.15
 Release:        23%{?dist}
 Summary:        HTML to text conversion with links as footnotes
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-FormatText-WithLinks
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STRUAN/HTML-FormatText-WithLinks-%{version}.tar.gz
 

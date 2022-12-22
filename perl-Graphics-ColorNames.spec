@@ -2,7 +2,7 @@ Name:           perl-Graphics-ColorNames
 Version:        3.5.0
 Release:        12%{?dist}
 Summary:        Defines RGB values for common color names
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Graphics-ColorNames
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Graphics-ColorNames-v%{version}.tar.gz
 BuildArch:      noarch

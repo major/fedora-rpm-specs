@@ -5,6 +5,7 @@ Release:        %autorelease
 License:        BSD
 URL:            https://github.com/rpm-software-management/deltarpm
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          https://github.com/rpm-software-management/deltarpm/pull/17.patch#./Don_t-use-the-deprecated-Python-distutils-module-in-the-Makefile.patch
 BuildRequires:  gcc
 BuildRequires:  bzip2-devel
 BuildRequires:  libzstd-devel
@@ -64,7 +65,8 @@ Python 3 version.
     python
 
 %install
-%makeinstall pylibprefix=%{buildroot}
+# cannot use %%make_install here, as then prefix is not passed into the Makefile
+%make_build pylibprefix=%{buildroot} mandir=%{buildroot}%{_mandir} prefix=%{buildroot}%{_prefix} install
 
 %files
 %license LICENSE.BSD

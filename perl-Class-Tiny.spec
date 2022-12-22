@@ -9,7 +9,7 @@ Name:           perl-Class-Tiny
 Version:        1.008
 Release:        7%{?dist}
 Summary:        Minimalist class construction
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Class-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Class-Tiny-%{version}.tar.gz
 BuildArch:      noarch

@@ -9,7 +9,7 @@ Name:           perl-Class-Accessor-Grouped
 Version:        0.10014
 Release:        16%{?dist}
 Summary:        Build groups of accessors
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Accessor-Grouped
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Class-Accessor-Grouped-%{version}.tar.gz
 BuildArch:      noarch

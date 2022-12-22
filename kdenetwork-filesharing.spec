@@ -64,6 +64,7 @@ Conflicts: kde-l10n < 17.03
 %license LICENSES/*
 %dir %{_kf5_plugindir}/propertiesdialog/
 %{_kf5_plugindir}/propertiesdialog/sambausershareplugin.so
+%{_kf5_plugindir}/propertiesdialog/SambaAcl.so
 %{_kf5_metainfodir}/org.kde.kdenetwork-filesharing.metainfo.xml
 %{_kf5_libexecdir}/kauth/authhelper
 %{_kf5_datadir}/dbus-1/system-services/org.kde.filesharing.samba.service

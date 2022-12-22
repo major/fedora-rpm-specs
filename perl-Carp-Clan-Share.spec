@@ -2,7 +2,7 @@ Name:           perl-Carp-Clan-Share
 Version:        0.013
 Release:        39%{?dist}
 Summary:        Share your Carp::Clan settings with your whole Clan
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp-Clan-Share
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKRIMEN/Carp-Clan-Share-%{version}.tar.gz
 Patch0:         Carp-Clan-Share-0.013-Fix-building-on-Perl-without-dot-in-INC.patch

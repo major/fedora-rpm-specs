@@ -2,7 +2,7 @@ Name:       perl-Test-Block
 Version:    0.13
 Release:    31%{?dist}
 # see lib/Test/Block.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Specify fine granularity test plans
 Source:     https://cpan.metacpan.org/authors/id/A/AD/ADIE/Test-Block-%{version}.tar.gz
 Url:        https://metacpan.org/release/Test-Block

@@ -2,7 +2,7 @@ Name:           perl-Net-IRC
 Version:        0.79
 Release:        33%{?dist}
 Summary:        Perl interface to the Internet Relay Chat protocol
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IRC
 Source0:        https://cpan.metacpan.org/authors/id/A/AP/APEIRON/Net-IRC-%{version}.tar.gz
 # Avoid interactive build

@@ -5,7 +5,7 @@
 %global crate blake2
 
 Name:           rust-blake2
-Version:        0.10.5
+Version:        0.10.6
 Release:        %autorelease
 Summary:        BLAKE2 hash functions
 
@@ -94,6 +94,18 @@ This package contains library source intended for building other packages which
 use the "simd_opt" feature of the "%{crate}" crate.
 
 %files       -n %{name}+simd_opt-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+size_opt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+size_opt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "size_opt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+size_opt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

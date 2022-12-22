@@ -2,7 +2,7 @@ Name:           perl-File-ReadBackwards
 Version:        1.06
 Release:        6%{?dist}
 Summary:        Read a file backwards by lines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ReadBackwards
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/File-ReadBackwards-%{version}.tar.gz
 BuildArch:      noarch

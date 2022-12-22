@@ -2,7 +2,7 @@ Name:		rw
 Summary:	Program that calculates rank-width and rank-decompositions
 Version:	0.9
 Release:	4%{?dist}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://sourceforge.net/projects/rankwidth/
 Source0:	https://downloads.sourceforge.net/rankwidth/%{name}-%{version}.tar.gz
 # https://sourceforge.net/p/rankwidth/tickets/2/
@@ -58,6 +58,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.9-4
+- Convert License tag to SPDX
+
 * Wed Sep 14 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9-4
 - Proposal patch to support igraph 0.10 (on upstream) (#2125801)
 

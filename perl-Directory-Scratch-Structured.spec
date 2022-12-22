@@ -2,7 +2,7 @@ Name:       perl-Directory-Scratch-Structured
 Version:    0.04
 Release:    40%{?dist}
 # see lib/Directory/Scratch/Structured.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Creates temporary files and directories from a structured description
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Directory-Scratch-Structured-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Directory-Scratch-Structured

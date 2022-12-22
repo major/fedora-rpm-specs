@@ -2,7 +2,7 @@ Name:           perl-Mason-Tidy
 Version:        2.57
 Release:        23%{?dist}
 Summary:        Tidy HTML::Mason/Mason components
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mason-Tidy
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSWARTZ/Mason-Tidy-%{version}.tar.gz
 # Adapt to changes in Perl-Tidy-20180219, bug #1549515, CPAN RT#124604

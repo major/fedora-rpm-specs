@@ -1,6 +1,6 @@
 Name:		quodlibet
 Version:	4.5.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A music management program
 
 License:	GPLv2+
@@ -15,6 +15,7 @@ BuildRequires:	intltool
 BuildRequires:	desktop-file-utils
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 3.5
+BuildRequires:	(python3-setuptools if python3-devel >= 3.12)
 # needed for gtk-update-icon-cache
 BuildRequires:	gtk2 >= 2.6.0
 # needed for py_byte_compile
@@ -128,6 +129,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Dec 20 2022 Johannes Lips <hannes@fedoraproject.org> - 4.5.0-4
+- built without distutils for python 3.12
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

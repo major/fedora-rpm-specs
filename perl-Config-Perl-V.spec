@@ -2,7 +2,7 @@ Name:           perl-Config-Perl-V
 Version:        0.34
 Release:        1%{?dist}
 Summary:        Structured data retrieval of perl -V output
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-Perl-V
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/Config-Perl-V-%{version}.tgz
 # Correct example

@@ -2,7 +2,7 @@ Name:           perl-ORLite-Statistics
 Version:        0.03
 Release:        34%{?dist}
 Summary:        Statistics enhancement package for ORLite
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Statistics
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-Statistics-%{version}.tar.gz
 BuildArch:      noarch

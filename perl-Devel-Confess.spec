@@ -2,7 +2,7 @@ Name:           perl-Devel-Confess
 Version:        0.009004
 Release:        19%{?dist}
 Summary:        Include stack traces on all warnings and errors
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Confess
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Devel-Confess-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Module-Install-AutoManifest
 Version:        0.003
 Release:        31%{?dist}
 Summary:        The module generates MANIFEST automatically
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-AutoManifest
 Source0:        https://cpan.metacpan.org/authors/id/H/HD/HDP/Module-Install-AutoManifest-%{version}.tar.gz
 Patch0:         Module-Install-AutoManifest-0.003-Fix-building-on-Perl-without-dot-in-INC.patch

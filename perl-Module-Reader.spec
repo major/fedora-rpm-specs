@@ -2,7 +2,7 @@ Name:           perl-Module-Reader
 Version:        0.003003
 Release:        17%{?dist}
 Summary:        Read the source of a module like perl does
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Reader
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Module-Reader-%{version}.tar.gz
 BuildArch:      noarch

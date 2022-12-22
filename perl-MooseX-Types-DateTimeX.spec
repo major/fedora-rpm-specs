@@ -2,7 +2,7 @@ Name:           perl-MooseX-Types-DateTimeX
 Version:        0.10
 Release:        38%{?dist}
 Summary:        Extensions to MooseX::Types::DateTime::ButMaintained
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Types-DateTimeX
 Source0:        https://cpan.metacpan.org/authors/id/E/EC/ECARROLL/MooseX-Types-DateTimeX-%{version}.tar.gz
 # https://rt.cpan.org/Public/Bug/Display.html?id=73467

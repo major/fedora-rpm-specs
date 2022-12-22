@@ -132,7 +132,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kalzium_c
 %{_kf5_datadir}/icons/hicolor/*/*/kalzium.*
 %{_kf5_datadir}/kalzium/
 %{_kf5_datadir}/knsrcfiles/%{name}.knsrc
-%{_kf5_datadir}/kxmlgui5/kalzium/
 %{_kf5_datadir}/libkdeedu/data/
 %{_kf5_datadir}/qlogging-categories5/kalzium.categories
 %{_kf5_metainfodir}/org.kde.kalzium.appdata.xml

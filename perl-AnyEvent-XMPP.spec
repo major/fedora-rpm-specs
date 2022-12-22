@@ -2,7 +2,7 @@ Name:           perl-AnyEvent-XMPP
 Version:        0.55
 Release:        25%{?dist}
 Summary:        Implementation of the XMPP Protocol
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-XMPP
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTPLBG/AnyEvent-XMPP-%{version}.tar.gz
 Patch0:         AnyEvent-XMPP-0.51-timezone.patch

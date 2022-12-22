@@ -2,7 +2,7 @@ Name:           perl-Encode-Newlines
 Version:        0.05
 Release:        21%{?dist}
 Summary:        Normalize line ending sequences
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Encode-Newlines
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Encode-Newlines-%{version}.tar.gz
 BuildArch:      noarch

@@ -9,7 +9,7 @@ Name:           perl-strictures
 Version:        2.000006
 Release:        15%{?dist}
 Summary:        Turn on strict and make most warnings fatal
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/strictures
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/strictures-%{version}.tar.gz
 BuildArch:      noarch

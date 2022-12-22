@@ -2,7 +2,7 @@ Name:           perl-Net-SFTP
 Version:        0.12
 Release:        15%{?dist}
 Summary:        Secure File Transfer Protocol client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-SFTP
 Source0:        https://cpan.metacpan.org/authors/id/L/LK/LKINLEY/Net-SFTP-%{version}.tar.gz
 BuildArch:      noarch

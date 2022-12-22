@@ -2,7 +2,7 @@ Name:       perl-Sort-Naturally
 Version:    1.03
 Release:    31%{?dist}
 # see lib/Sort/Naturally.pm 
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Sort lexically, but sort numeral parts numerically 
 Source:     https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Sort-Naturally-%{version}.tar.gz
 Url:        https://metacpan.org/release/Sort-Naturally

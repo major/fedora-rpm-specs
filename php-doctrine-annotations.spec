@@ -14,8 +14,8 @@
 
 %global github_owner     doctrine
 %global github_name      annotations
-%global github_version   1.14.1
-%global github_commit    9e034d7a70032d422169f27d8759e8d84abb4f51
+%global github_version   1.14.2
+%global github_commit    ad785217c1e9555a7d6c6c8c9f406395a5e2882b
 
 %global composer_vendor  doctrine
 %global composer_project annotations
@@ -184,6 +184,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 1.14.2-1
+- update to 1.14.2
+
 * Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 1.14.1-1
 - update to 1.14.1
 - allow doctrine/lexer v2

@@ -2,7 +2,7 @@ Name:           perl-MooseX-Types-DateTime-ButMaintained
 Version:        0.16
 Release:        31%{?dist}
 Summary:        DateTime related constraints and coercions for Moose
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Types-DateTime-ButMaintained
 Source0:        https://cpan.metacpan.org/authors/id/E/EC/ECARROLL/MooseX-Types-DateTime-ButMaintained-%{version}.tar.gz
 # Accept DateTime::TimeZone::Tzfile object in place of DateTime::TimeZone,

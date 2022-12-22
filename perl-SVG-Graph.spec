@@ -2,7 +2,7 @@ Name:           perl-SVG-Graph
 Version:        0.04
 Release:        21%{?dist}
 Summary:        Visualize your data in Scalable Vector Graphics (SVG) format
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/SVG-Graph
 Source0:        https://cpan.metacpan.org/authors/id/C/CJ/CJFIELDS/SVG-Graph-%{version}.tar.gz
 BuildArch:      noarch

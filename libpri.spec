@@ -1,6 +1,6 @@
 Name:           libpri
 Version:        1.6.0
-%global so_version 1
+%global so_version 1.4
 Release:        %autorelease
 Summary:        An implementation of Primary Rate ISDN
 
@@ -101,7 +101,7 @@ find %{buildroot} -name '*.a' -print -delete
 %license LICENSE
 %doc ChangeLog
 %doc README
-%{_libdir}/libpri.so.%{so_version}.*
+%{_libdir}/libpri.so.%{so_version}
 
 
 %files devel

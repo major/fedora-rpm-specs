@@ -5,7 +5,7 @@
 
 Name:           cvechecker
 Version:        4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool for compare packages installed in your system with CVE database
 License:        GPLv3
 URL:            https://github.com/sjvermeu/cvechecker
@@ -13,6 +13,7 @@ URL:            https://github.com/sjvermeu/cvechecker
 #Source0:        %%{name}/archive/%%{version}/%%{name}-%%{version}.tar.gz
 # The developer marked the version "cvechecker-4.0" instead of 4.0, so we need to hack the URL
 Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+Patch0:         cvechecker-c99.patch
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -37,7 +38,7 @@ to detect the revision itself).
 %prep
 # The developer marked the version "cvechecker-4.0" instead of 4.0, so we need to specify the folder name
 # https://github.com/sjvermeu/cvechecker/issues/49
-%setup -q -n %{name}-%{name}-%{version}
+%autosetup -p1 -n %{name}-%{name}-%{version}
 
 %build
 autoreconf --force --install
@@ -70,6 +71,9 @@ make check
 %{_sharedstatedir}/cvechecker/*
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 4.0-7
+- Apply upstream patch to fix C99 compatibility issue
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

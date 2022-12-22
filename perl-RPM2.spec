@@ -2,7 +2,7 @@ Name:           perl-RPM2
 Version:        1.4
 Release:        21%{?dist}
 Summary:        Perl bindings for the RPM Package Manager API
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/RPM2
 Source0:        https://cpan.metacpan.org/authors/id/L/LK/LKUNDRAK/RPM2-%{version}.tar.gz
 BuildRequires:  coreutils

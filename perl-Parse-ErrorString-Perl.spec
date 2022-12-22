@@ -2,7 +2,7 @@ Name:           perl-Parse-ErrorString-Perl
 Version:        0.27
 Release:        18%{?dist}
 Summary:        Module for parsing error messages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-ErrorString-Perl
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MANWAR/Parse-ErrorString-Perl-%{version}.tar.gz
 BuildArch:      noarch

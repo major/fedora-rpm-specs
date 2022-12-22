@@ -96,8 +96,7 @@ rm -vf '%{buildroot}%{_libdir}/libfakekey.la'
 
 %files
 %license COPYING
-%{_libdir}/libfakekey.so.%{so_version}
-%{_libdir}/libfakekey.so.%{so_version}.*
+%{_libdir}/libfakekey.so.%{so_version}{,.*}
 
 
 %files devel

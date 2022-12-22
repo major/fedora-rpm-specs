@@ -1,17 +1,13 @@
 %bcond_without tests
 
 Name:           python-setuptools_scm
-Version:        7.0.5
+Version:        7.1.0
 Release:        1%{?dist}
 Summary:        Blessed package to manage your versions by SCM tags
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/setuptools_scm
 Source0:        %{pypi_source setuptools_scm}
-
-# Fix test_git_archhival_from_unfiltered assumptions
-# Resolved upstream: https://github.com/pypa/setuptools_scm/pull/757
-Patch0:         fix-test-assumptions.patch
 
 BuildArch:      noarch
 
@@ -72,6 +68,10 @@ It also handles file finders for the supported SCMs.
 
 
 %changelog
+* Sat Dec 17 2022 Miro Hrončok <mhroncok@redhat.com> - 7.1.0-1
+- Update to 7.1.0
+Resolves: rhbz#2154548
+
 * Sat Aug 06 2022 Charalampos Stratakis <cstratak@redhat.com> - 7.0.5-1
 - Update to 7.0.5
 Resolves: rhbz#2106018

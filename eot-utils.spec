@@ -17,6 +17,9 @@ License:        W3C
 URL:            https://www.w3.org/Tools/eot-utils/
 Source0:        %{url}/eot-utilities-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 

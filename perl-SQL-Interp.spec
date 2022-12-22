@@ -2,7 +2,7 @@ Name:           perl-SQL-Interp
 Version:        1.27
 Release:        7%{?dist}
 Summary:        Interpolate Perl variables into SQL statements
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SQL-Interp
 Source0:        https://cpan.metacpan.org/authors/id/Y/YO/YORHEL/SQL-Interp-%{version}.tar.gz
 BuildArch:      noarch

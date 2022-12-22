@@ -23,6 +23,9 @@ Patch:          %{url}/pull/136.patch
 # https://github.com/mechmotum/cyipopt/pull/137
 Patch:          %{url}/pull/137.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 
 # setup_requires:
@@ -142,7 +145,7 @@ done < <(
 %license LICENSE
 %doc CHANGELOG.rst
 %doc README.rst
-%doc examples
+%doc examples/
 %if %{with doc_pdf}
 %doc docs/build/latex/cyipopt.pdf
 %endif

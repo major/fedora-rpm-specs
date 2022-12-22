@@ -2,7 +2,7 @@ Name:           perl-IRC-Utils
 Version:        0.12
 Release:        32%{?dist}
 Summary:        Common utilities for IRC-related tasks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IRC-Utils
 Source0:        https://cpan.metacpan.org/authors/id/H/HI/HINRIK/IRC-Utils-%{version}.tar.gz
 BuildArch:      noarch

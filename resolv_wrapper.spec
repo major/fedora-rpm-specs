@@ -1,6 +1,6 @@
 Name:           resolv_wrapper
-Version:        1.1.7
-Release:        5%{?dist}
+Version:        1.1.8
+Release:        1%{?dist}
 
 Summary:        A wrapper for dns name resolving or dns faking
 License:        BSD
@@ -9,8 +9,6 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        resolv_wrapper.keyring
-
-Patch0:         https://gitlab.com/cwrap/resolv_wrapper/-/commit/c75587f858eb49e6b13ab610e63289df0485ddac.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -37,7 +35,7 @@ This package doesn't have a devel package because this project is for
 development/testing.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -67,6 +65,10 @@ LD_PRELOAD=%{__cmake_builddir}/src/libpam_wrapper.so bash -c '>/dev/null'
 %{_mandir}/man1/resolv_wrapper.1*
 
 %changelog
+* Tue Dec 20 2022 Andreas Schneider <asn@redhat.com> - 1.1.7-6
+ - Update to version 1.1.8
+   o https://gitlab.com/cwrap/resolv_wrapper/-/blob/resolv_wrapper-1.1.8/CHANGELOG
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

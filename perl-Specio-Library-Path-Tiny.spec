@@ -2,7 +2,7 @@ Name:           perl-Specio-Library-Path-Tiny
 Version:        0.05
 Release:        2%{?dist}
 Summary:        Path::Tiny types and coercions for Specio
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Specio-Library-Path-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Specio-Library-Path-Tiny-%{version}.tar.gz
 BuildArch:      noarch

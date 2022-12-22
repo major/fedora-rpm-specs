@@ -2,7 +2,7 @@ Name:           perl-Module-Math-Depends
 Version:        0.02
 Release:        40%{?dist}
 Summary:        Convenience object for manipulating module dependencies
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Math-Depends
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Module-Math-Depends-%{version}.tar.gz
 BuildArch:      noarch

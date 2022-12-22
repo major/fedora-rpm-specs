@@ -4,7 +4,7 @@ Epoch:          1
 Version:        0.36
 Release:        489%{?dist}
 Summary:        Run-time require of both modules and files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Load-%{version}.tar.gz
 BuildArch:      noarch

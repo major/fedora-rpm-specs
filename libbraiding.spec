@@ -55,8 +55,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libbraiding.so.%{so_version}
-%{_libdir}/libbraiding.so.%{so_version}.*
+%{_libdir}/libbraiding.so.%{so_version}{,.*}
 
 
 %files devel

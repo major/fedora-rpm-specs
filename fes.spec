@@ -1,9 +1,9 @@
 Name:		fes
 Version:	0.2
 Release:	8%{?dist}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 Summary:	Fast Exhaustive Search
-URL:		https://cbouilla.github.io/implementation.html
+URL:		https://www-almasty.lip6.fr/~bouillaguet/implementation.html
 Source0:	https://bitbucket.org/fes/fes/downloads/%{name}-%{version}.spkg
 ExclusiveArch:	%{ix86} x86_64
 # Fix various problems with the configure script and configuration headers
@@ -37,6 +37,9 @@ particularly efficient (in the good cases it tests 3 candidate
 solutions per CPU cycle on each core).
 
 %package	devel
+# GPL-2.0-or-later: fes-specific content
+# Knuth-CTAN: the Computer Modern fonts embedded in the manual
+License:	GPL-2.0-or-later AND Knuth-CTAN
 Summary:	Development files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
@@ -57,7 +60,7 @@ popd
 
 %build
 pushd src
-    export CCASFLAGS="%{optflags} -Wa,--noexecstack"
+    export CCASFLAGS="%{build_cflags} -Wa,--noexecstack"
     export PYTHON=%{__python3}
     %configure \
 %ifnarch %{ix86} x86_64
@@ -68,8 +71,8 @@ pushd src
     %make_build
 
     pushd doc
-	pdflatex doc.tex
-	pdflatex doc.tex
+	pdflatex -interaction=batchmode doc.tex
+	pdflatex -interaction=batchmode doc.tex
     popd
 popd
 
@@ -92,6 +95,10 @@ make -C src check
 %{_libdir}/libfes.so
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.2-8
+- Convert License tags to SPDX
+- New project URL
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

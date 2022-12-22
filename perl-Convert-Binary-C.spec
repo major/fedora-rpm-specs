@@ -2,7 +2,7 @@ Name:           perl-Convert-Binary-C
 Version:        0.84
 Release:        7%{?dist}
 Summary:        Binary data conversion using C types
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Binary-C
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-Binary-C-%{version}.tar.gz
 BuildRequires:  findutils

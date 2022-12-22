@@ -5,7 +5,7 @@ Summary:       Perl library for modifying TTF font files
 # other files:  Artistic 2.0
 ## not in binary packages
 # t/testfont.*: OFL
-License:       Artistic 2.0
+License:       Artistic-2.0
 URL:           https://metacpan.org/release/Font-TTF
 Source0:       http://cpan.org/authors/id/B/BH/BHALLISSY/Font-TTF-%{version}.tar.gz
 BuildArch:     noarch

@@ -2,7 +2,7 @@ Name:           perl-MooX-Singleton
 Version:        1.20
 Release:        17%{?dist}
 Summary:        Turn your Moo class into singleton
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Singleton
 Source0:        https://cpan.metacpan.org/authors/id/A/AJ/AJGB/MooX-Singleton-%{version}.tar.gz
 BuildArch:      noarch

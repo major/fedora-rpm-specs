@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -469,6 +469,21 @@ for file in %{buildroot}%{_datadir}/%{name}/*/*VARS.secboot*; do
     virt-fw-vars --input $file --print | grep "SecureBootEnable.*ON" || exit 1
 done
 
+%if %{build_aarch64}
+%post aarch64
+# make files sparse again
+for file in %{_datadir}/%{name}/aarch64/*.raw; do
+    fallocate --dig-holes "$file"
+done
+%if %{defined fedora}
+%post arm
+# make files sparse again
+for file in %{_datadir}/%{name}/arm/*.raw; do
+    fallocate --dig-holes "$file"
+done
+%endif
+%endif
+
 %global common_files \
   %%license License.txt License.OvmfPkg.txt License-History.txt LICENSE.openssl \
   %%dir %%{_datadir}/%%{name}/ \
@@ -610,6 +625,9 @@ done
 
 
 %changelog
+* Tue Dec 20 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-8
+- make files sparse again
+
 * Thu Dec 15 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-7
 - backport https://github.com/tianocore/edk2/pull/3770
 

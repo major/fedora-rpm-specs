@@ -1,10 +1,10 @@
 Summary:   GLib wrapper around libusb1
 Name:      libgusb
-Version:   0.4.2
+Version:   0.4.3
 Release:   1%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libgusb
-Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
+Source0:   https://github.com/hughsie/libgusb/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires: glib2-devel >= 2.38.0
 BuildRequires: json-glib-devel
@@ -57,6 +57,11 @@ GLib headers and libraries for gusb.
 %{_datadir}/vala/vapi/gusb.vapi
 
 %changelog
+* Tue Dec 20 2022 Richard Hughes <richard@hughsie.com> 0.4.3-1
+- New upstream version
+- Export g_usb_device_has_tag()
+- Work around a libusb issue which causes devices to appear twice
+
 * Tue Oct 18 2022 Richard Hughes <richard@hughsie.com> 0.4.2-1
 - New upstream version
 - Close the GUsbDevice objects in gusbcmd

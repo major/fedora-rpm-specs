@@ -2,7 +2,7 @@ Name:           perl-Convert-ASCII-Armour
 Version:        1.4
 Release:        47%{?dist}
 Summary:        Convert binary octets into ASCII armored messages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-ASCII-Armour
 Source0:        https://cpan.metacpan.org/authors/id/V/VI/VIPUL/Convert-ASCII-Armour-%{version}.tar.gz
 BuildArch:      noarch

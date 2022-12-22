@@ -2,7 +2,7 @@ Name:           perl-Pod-Wrap
 Version:        0.01
 Release:        21%{?dist}
 Summary:        Wrap pod paragraphs, leaving verbatim text and code alone
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Wrap
 Source0:        https://cpan.metacpan.org/authors/id/N/NU/NUFFIN/Pod-Wrap-%{version}.tar.gz
 BuildArch:      noarch

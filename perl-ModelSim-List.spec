@@ -3,7 +3,7 @@ Version:        0.06
 Release:        39%{?dist}
 Summary:        Analyse the 'list' output of the ModelSim simulator
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ModelSim-List
 
 Source0:        https://cpan.metacpan.org/authors/id/A/AG/AGENT/ModelSim-List-%{version}.tar.gz

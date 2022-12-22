@@ -3,7 +3,7 @@ Name:           perl-Unicode-Normalize
 Version:        1.31
 Release:        489%{?dist}
 Summary:        Unicode Normalization Forms
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-Normalize
 Source0:        https://cpan.metacpan.org/authors/id/K/KH/KHW/Unicode-Normalize-%{base_version}.tar.gz
 # Unbundled from perl 5.35.11

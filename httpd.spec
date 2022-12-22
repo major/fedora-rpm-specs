@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.54
-Release: 8%{?dist}
+Release: 10%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -86,7 +86,7 @@ Patch22: httpd-2.4.43-mod_systemd.patch
 Patch23: httpd-2.4.53-export.patch
 Patch24: httpd-2.4.43-corelimit.patch
 Patch25: httpd-2.4.54-selinux.patch
-Patch26: httpd-2.4.43-gettid.patch
+Patch26: httpd-2.4.54-gettid.patch
 Patch27: httpd-2.4.54-icons.patch
 Patch30: httpd-2.4.43-cachehardmax.patch
 Patch34: httpd-2.4.43-socket-activation.patch
@@ -150,7 +150,7 @@ The httpd-core package contains essential httpd binaries.
 %package devel
 Summary: Development interfaces for the Apache HTTP Server
 Requires: apr-devel, apr-util-devel, pkgconfig, libtool
-Requires: httpd-core = %{version}-%{release}
+Requires: httpd-core = 0:%{version}-%{release}
 
 %description devel
 The httpd-devel package contains the APXS binary and other files
@@ -254,7 +254,6 @@ written in the Lua programming language.
 %patch22 -p1 -b .mod_systemd
 %patch23 -p1 -b .export
 %patch24 -p1 -b .corelimit
-%patch25 -p1 -b .selinux
 %patch26 -p1 -b .gettid
 %patch27 -p1 -b .icons
 %patch30 -p1 -b .cachehardmax
@@ -266,6 +265,7 @@ written in the Lua programming language.
 %patch42 -p1 -b .r1828172+
 %patch45 -p1 -b .logjournal
 %patch46 -p1 -b .separatesystemd
+%patch25 -p1 -b .selinux
 
 %patch60 -p1 -b .enable-sslv3
 %patch61 -p1 -b .r1878890
@@ -338,6 +338,13 @@ autoheader && autoconf || exit 1
 # Hard-code path to links to avoid unnecessary builddep
 export LYNX_PATH=/usr/bin/links
 
+%ifarch aarch64
+# The configure check for epoll_create() is failing. httpd/apr only
+# actually uses epoll_create1() so this test could be smarter. Work
+# around it for now.
+export ac_cv_func_epoll_create=yes
+%endif
+
 # Build the daemon
 ./configure \
         --prefix=%{_sysconfdir}/httpd \
@@ -384,6 +391,13 @@ export LYNX_PATH=/usr/bin/links
         --disable-http2 \
         --disable-md \
         $*
+
+if grep -q ac_cv_have_threadsafe_pollset=no config.log; then
+   cat config.log
+   : Failed to find thread-safe APR.
+   exit 1
+fi
+
 %make_build
 
 %install
@@ -840,6 +854,13 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Dec 20 2022 Joe Orton <jorton@redhat.com> - 2.4.54-10
+- htcacheclean.service: add [Install] section, PrivateTmp=yes,
+  Environment=LANG=C (#2149714)
+
+* Mon Dec 19 2022 Joe Orton <jorton@redhat.com> - 2.4.54-9
+- move SELinux context logging to mod_systemd
+
 * Mon Dec 19 2022 Joe Orton <jorton@redhat.com> - 2.4.54-8
 - define _httpd_statedir macro
 

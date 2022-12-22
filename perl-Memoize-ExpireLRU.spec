@@ -2,7 +2,7 @@ Name:           perl-Memoize-ExpireLRU
 Version:        0.56
 Release:        19%{?dist}
 Summary:        Expiry plug-in for Memoize that adds LRU cache expiration
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Memoize-ExpireLRU
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Memoize-ExpireLRU-%{version}.tar.gz
 BuildArch:      noarch

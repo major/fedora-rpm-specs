@@ -11,7 +11,7 @@ Name:           perl-DBD-MariaDB
 Version:        1.22
 Release:        3%{?dist}
 Summary:        MariaDB and MySQL driver for the Perl5 Database Interface (DBI)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-MariaDB/
 Source0:        https://cpan.metacpan.org/authors/id/P/PA/PALI/DBD-MariaDB-%{version}.tar.gz
 Source1:        test-setup.t

@@ -9,7 +9,7 @@ Name:           perl-DB_File
 Version:        1.858
 Release:        4%{?dist}
 Summary:        Perl5 access to Berkeley DB version 1.x
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DB_File
 Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMQS/DB_File-%{version}.tar.gz
 BuildRequires:  coreutils

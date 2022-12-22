@@ -1,7 +1,7 @@
 Name:       perl-Directory-Scratch
 Version:    0.18
 Release:    23%{?dist}
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Self-cleaning scratch space for tests
 Source:     https://cpan.metacpan.org/authors/id/E/ET/ETHER/Directory-Scratch-%{version}.tar.gz
 Url:        https://metacpan.org/release/Directory-Scratch

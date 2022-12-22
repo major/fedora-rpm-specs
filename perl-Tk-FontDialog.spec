@@ -4,7 +4,7 @@ Name:           perl-Tk-FontDialog
 Version:        0.18
 Release:        18%{?dist}
 Summary:        Font dialog widget for perl/Tk
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-FontDialog
 Source0:        https://cpan.metacpan.org/authors/id/S/SR/SREZIC/Tk-FontDialog-%{version}.tar.gz
 BuildArch:      noarch

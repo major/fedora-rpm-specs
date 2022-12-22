@@ -2,7 +2,7 @@ Name:           perl-Test-Portability-Files
 Version:        0.10
 Release:        14%{?dist}
 Summary:        Check file names portability
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Portability-Files
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABRAXXA/Test-Portability-Files-%{version}.tar.gz
 BuildArch:      noarch

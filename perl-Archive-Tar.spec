@@ -9,7 +9,7 @@ Name:           perl-Archive-Tar
 Version:        2.40
 Release:        490%{?dist}
 Summary:        A module for Perl manipulation of .tar files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Tar
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Archive-Tar-%{version}.tar.gz
 # Remove annoying sleep after warnings in the build script

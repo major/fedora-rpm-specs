@@ -3,7 +3,7 @@ Version:        2.46
 Release:        12%{?dist}
 Summary:        Perl module for parsing XML documents
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/XML-Parser
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-%{version}.tar.gz
 

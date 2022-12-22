@@ -2,7 +2,7 @@ Name:           perl-XML-NamespaceSupport
 Version:        1.12
 Release:        18%{?dist}
 Summary:        A simple generic name space support class
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/XML-NamespaceSupport
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERIGRIN/XML-NamespaceSupport-%{version}.tar.gz
 BuildArch:      noarch

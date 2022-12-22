@@ -2,7 +2,7 @@ Name:           perl-System-Info
 Version:        0.062
 Release:        4%{?dist}
 Summary:        Factory for system specific information objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/System-Info
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/System-Info-%{version}.tgz
 BuildArch:      noarch

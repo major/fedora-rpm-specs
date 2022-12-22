@@ -2,7 +2,7 @@ Name:           perl-Test-Spec
 Version:        0.54
 Release:        16%{?dist}
 Summary:        Write tests in a declarative specification style
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Spec
 Source0:        https://cpan.metacpan.org/authors/id/A/AK/AKZHAN/Test-Spec-%{version}.tar.gz
 BuildArch:      noarch

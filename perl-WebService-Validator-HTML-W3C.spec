@@ -2,7 +2,7 @@ Name:           perl-WebService-Validator-HTML-W3C
 Version:        0.28
 Release:        31%{?dist}
 Summary:        Access the W3Cs online HTML validator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WebService-Validator-HTML-W3C
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STRUAN/WebService-Validator-HTML-W3C-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-YAML-PP-Ref
 Version:        0.02
 Release:        3%{?dist}
 Summary:        Generated Reference Parser backend for YAML::PP
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-PP-Ref
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-PP-Ref-%{version}.tar.gz
 BuildArch:      noarch

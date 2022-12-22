@@ -281,6 +281,8 @@ fi
 %{_kf5_libdir}/cmake/KF5Akonadi/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Akonadi*.pri
 %{_kf5_qtplugindir}/pim5/akonadi/akonadi_test_searchplugin.so
+%{_kf5_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
+%{_kf5_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
 
 %post mysql
 %{_sbindir}/update-alternatives \

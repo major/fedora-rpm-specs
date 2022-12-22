@@ -1,8 +1,8 @@
 Name:           palp
 Version:        2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Package for Analyzing Lattice Polytopes
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html
 Source0:        http://hep.itp.tuwien.ac.at/~kreuzer/CY/palp/palp-%{version}.tar.gz
 Source1:        https://export.arxiv.org/pdf/1205.4147
@@ -13,6 +13,10 @@ Patch0:         %{name}-buffer-overflow.patch
 Patch1:         %{name}-unlink.patch
 # Fedora changed the name of the latte-integrale "count" binary
 Patch2:         %{name}-latte.patch
+# Fix a use-after-free
+Patch3:         %{name}-use-after-free.patch
+
+%global _docdir_fmt %{name}
 
 BuildRequires:  gcc
 BuildRequires:  help2man
@@ -36,6 +40,16 @@ of reflexive subpolytopes, and applications to toric geometry and string
 theory, like the computation of Hodge data and fibration structures for
 toric Calabi-Yau varieties.
 
+%package doc
+# GPL-3.0-or-later: the content of the documentation
+# Knuth-CTAN: Computer Modern fonts embedded in the PDF documentation
+# OFL-1.1-RFN: AMS fonts embedded in the PDF documentation
+License:        GPL-3.0-or-later AND Knuth-CTAN AND OFL-1.1-RFN
+Summary:        Documentation for palp
+
+%description doc
+Documentation for palp.
+
 
 %prep
 %autosetup -p1
@@ -48,7 +62,7 @@ mv Global.h Global.h-template
 for dim in 4 5 6 11; do
     echo Building PALP optimized for $dim dimensions
     sed "s/^#define[^a-zA-Z]*POLY_Dmax.*/#define POLY_Dmax $dim/" Global.h-template > Global.h
-    make %{?_smp_mflags} CFLAGS="%{optflags}"
+    %make_build
     for file in poly class cws nef mori; do
         mv ${file}.x bin/${file}-${dim}d.x
         help2man -N --version-string=%{version} -h -h bin/${file}-${dim}d.x \
@@ -77,12 +91,20 @@ cp -p man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %files
 %license COPYING
-%doc 1205.4147v1.pdf
 %{_bindir}/*
 %{_mandir}/man1/*
 
+%files doc
+%doc 1205.4147v1.pdf
+
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 2.11-5
+- Fix a case of use-after-free
+- Get a valid PDF for Source1
+- Create a doc subpackage for the PDF
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

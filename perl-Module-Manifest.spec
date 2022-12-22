@@ -2,7 +2,7 @@ Name:           perl-Module-Manifest
 Version:        1.09
 Release:        17%{?dist}
 Summary:        Parse and examine a Perl distribution MANIFEST file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Manifest
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Manifest-%{version}.tar.gz
 BuildArch:      noarch

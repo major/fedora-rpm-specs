@@ -2,7 +2,7 @@ Name:           perl-ExtUtils-InferConfig
 Version:        1.04
 Release:        35%{?dist}
 Summary:        Infer Perl Configuration for non-running interpreters
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-InferConfig
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/ExtUtils-InferConfig-%{version}.tar.gz
 BuildArch:      noarch

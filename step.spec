@@ -82,7 +82,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
 
 %files -f %{name}.lang
-%license COPYING*
 %doc README
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/knsrcfiles/%{name}*.knsrc
@@ -91,9 +90,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/hicolor/*/actions/*
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}*
 %{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kconf_update/%{name}*
-#{_kf5_datadir}/knotifications5/%{name}.notifyrc
-%{_kf5_datadir}/kxmlgui5/%{name}/
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
 %{_datadir}/mime/packages/org.kde.%{name}.xml
 

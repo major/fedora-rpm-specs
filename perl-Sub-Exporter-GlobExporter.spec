@@ -2,7 +2,7 @@ Name:           perl-Sub-Exporter-GlobExporter
 Version:        0.005
 Release:        21%{?dist}
 Summary:        Export shared globs with Sub::Exporter collectors
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Exporter-GlobExporter
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Sub-Exporter-GlobExporter-%{version}.tar.gz
 BuildArch:      noarch

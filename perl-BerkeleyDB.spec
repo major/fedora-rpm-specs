@@ -20,7 +20,7 @@ Name:           perl-BerkeleyDB
 Version:        0.65
 Release:        3%{?dist}
 Summary:        Interface to Berkeley DB
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BerkeleyDB
 Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMQS/BerkeleyDB-%{version}.tar.gz
 # Module Build

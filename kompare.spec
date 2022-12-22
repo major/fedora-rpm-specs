@@ -92,9 +92,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kompare.deskt
 %{_datadir}/applications/org.kde.kompare.desktop
 %{_datadir}/icons/hicolor/*/apps/kompare.*
 %{_datadir}/kio/servicemenus/kompare.desktop
-%{_datadir}/kservices5/komparenavtreepart.desktop
-%{_datadir}/kservices5/komparepart.desktop
-%{_datadir}/kservicetypes5/kompare*.desktop
 %{_kf5_datadir}/qlogging-categories5/kompare.categories
 %{_kf5_metainfodir}/org.kde.kompare.appdata.xml
 

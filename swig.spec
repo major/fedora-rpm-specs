@@ -52,7 +52,7 @@ Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
 Release: 1%{?dist}
-License: GPLv3+ and BSD
+License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
 # Define the part of man page sections
@@ -135,7 +135,7 @@ testing and prototyping C/C++ software.
 %if %{with build_ccache_swig}
 %package -n ccache-swig
 Summary:   Fast compiler cache
-License:   GPLv2+
+License:   GPL-2.0-or-later
 Requires:  swig
 Conflicts: swig < 3.0.8-2
 
@@ -147,7 +147,7 @@ being done again. ccache-swig is ccache plus support for SWIG.
 
 %package doc
 Summary:   Documentation files for SWIG
-License:   BSD
+License:   BSD-3-Clause
 BuildArch: noarch
 
 %description doc
@@ -155,7 +155,7 @@ This package contains documentation for SWIG and useful examples
 
 %package gdb
 Summary:   Commands for easier debugging of SWIG
-License:   BSD
+License:   BSD-3-Clause
 Requires:  swig
 
 %description gdb

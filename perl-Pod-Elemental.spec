@@ -2,7 +2,7 @@ Name:           perl-Pod-Elemental
 Version:        0.103005
 Release:        10%{?dist}
 Summary:        Work with nestable Pod elements
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Elemental
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Pod-Elemental-%{version}.tar.gz
 BuildArch:      noarch

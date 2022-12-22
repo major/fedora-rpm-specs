@@ -2,7 +2,7 @@ Name:           perl-File-ShareDir-ProjectDistDir
 Version:        1.000009
 Release:        18%{?dist}
 Summary:        Simple set-and-forget using of a '/share' directory in your projects root
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-ShareDir-ProjectDistDir
 Source0:        https://cpan.metacpan.org/authors/id/K/KE/KENTNL/File-ShareDir-ProjectDistDir-%{version}.tar.gz
 BuildArch:      noarch

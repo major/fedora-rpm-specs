@@ -5,7 +5,7 @@ Name:           perl-Math-Base36
 Version:        0.14
 Release:        24%{?dist}
 Summary:        Encoding and decoding of base36 strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Base36
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRICAS/Math-Base36-%{version}.tar.gz
 BuildArch:      noarch

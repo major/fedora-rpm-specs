@@ -2,7 +2,7 @@ Name:           perl-Ace
 Version:        1.92
 Release:        42%{?dist}
 Summary:        Perl module for interfacing with ACE bioinformatics databases
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AcePerl
 Source0:        https://cpan.metacpan.org/modules/by-module/Ace/AcePerl-%{version}.tar.gz
 BuildArch:      noarch

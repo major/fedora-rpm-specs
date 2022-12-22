@@ -2,7 +2,7 @@ Name:           perl-Crypt-CAST5_PP
 Version:        1.04
 Release:        41%{?dist}
 Summary:        CAST5 block cipher in pure Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-CAST5_PP
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-CAST5_PP-%{version}.tar.gz
 BuildArch:      noarch

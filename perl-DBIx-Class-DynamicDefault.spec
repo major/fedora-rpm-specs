@@ -2,7 +2,7 @@ Name:       perl-DBIx-Class-DynamicDefault
 Version:    0.04
 Release:    32%{?dist}
 # lib/DBIx/Class/DynamicDefault.pm -> GPL+ or Artistic
-License:    GPL+ or Artistic 
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Automatically set and update fields 
 Url:        https://metacpan.org/release/DBIx-Class-DynamicDefault
 Source:     https://cpan.metacpan.org/authors/id/M/MS/MSTROUT/DBIx-Class-DynamicDefault-%{version}.tar.gz

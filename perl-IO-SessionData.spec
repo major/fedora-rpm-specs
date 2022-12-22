@@ -2,7 +2,7 @@ Name:           perl-IO-SessionData
 Version:        1.03
 Release:        26%{?dist}
 Summary:        IO::SessionData and IO::SessionSet modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-SessionData
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-SessionData-%{version}.tar.gz
 BuildArch:      noarch

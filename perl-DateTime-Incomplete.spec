@@ -2,7 +2,7 @@ Name:           perl-DateTime-Incomplete
 Version:        0.08
 Release:        22%{?dist}
 Summary:        Representing partial dates and times
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # patch to address https://fedoraproject.org/wiki/Common_Rpmlint_issues#incorrect-fsf-address has been sent upstream at https://rt.cpan.org/Ticket/Display.html?id=97520
 URL:            https://metacpan.org/release/DateTime-Incomplete
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Incomplete-%{version}.tar.gz

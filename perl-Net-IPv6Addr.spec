@@ -3,7 +3,7 @@ Version:        1.02
 Release:        6%{?dist}
 Summary:        Perl module to check validity of IPv6 addresses
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IPv6Addr
 Source0:        https://cpan.metacpan.org/authors/id/B/BK/BKB/Net-IPv6Addr-%{version}.tar.gz
 

@@ -2,7 +2,7 @@ Name:           perl-Math-Derivative
 Version:        1.01
 Release:        16%{?dist}
 Summary:        Numeric 1st and 2nd order differentiation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Derivative
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Derivative-%{version}.tar.gz
 BuildArch:      noarch

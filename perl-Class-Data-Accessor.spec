@@ -2,7 +2,7 @@ Name:           perl-Class-Data-Accessor
 Version:        0.04004
 Release:        39%{?dist}
 Summary:        Inheritable, overridable class and instance data accessor creation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Data-Accessor
 Source0:        https://cpan.metacpan.org/authors/id/C/CL/CLACO/Class-Data-Accessor-%{version}.tar.gz
 BuildArch:      noarch

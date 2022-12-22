@@ -39,6 +39,8 @@ BuildRequires:  make
 BuildRequires:  git
 BuildRequires:	redhat-rpm-config
 BuildRequires:  gnupg2
+BuildRequires:  autoconf
+BuildRequires:  automake
 
 BuildRequires:	mingw32-filesystem >= 95
 BuildRequires:	mingw32-gcc

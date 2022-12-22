@@ -2,7 +2,7 @@ Name:           perl-Context-Preserve
 Summary:        Run code after a subroutine call, preserving the context
 Version:        0.03
 Release:        17%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Context-Preserve-%{version}.tar.gz
 URL:            https://metacpan.org/release/Context-Preserve
 BuildArch:      noarch

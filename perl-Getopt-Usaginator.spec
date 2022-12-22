@@ -2,7 +2,7 @@ Name:           perl-Getopt-Usaginator
 Version:        0.0012
 Release:        34%{?dist}
 Summary:        Conjure up a usage function for your applications
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Usaginator
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROKR/Getopt-Usaginator-%{version}.tar.gz
 BuildArch:      noarch

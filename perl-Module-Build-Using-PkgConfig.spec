@@ -2,7 +2,7 @@ Name:           perl-Module-Build-Using-PkgConfig
 Version:        0.03
 Release:        10%{?dist}
 Summary:        Extend Module::Build to easily use platform libraries provided by pkg-config
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build-Using-PkgConfig/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Module-Build-Using-PkgConfig-%{version}.tar.gz
 BuildArch:      noarch

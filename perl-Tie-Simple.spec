@@ -2,7 +2,7 @@ Name:           perl-Tie-Simple
 Version:        1.04
 Release:        21%{?dist}
 Summary:        Variable ties made easier: much, much, much easier
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-Simple
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HANENKAMP/Tie-Simple-%{version}.tar.gz
 BuildArch:      noarch

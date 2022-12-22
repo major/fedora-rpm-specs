@@ -19,6 +19,10 @@ Source0:        %{pypi_source hatch_vcs}
 
 BuildArch:      noarch
 
+# Work with setuptools_scm 7.1 (fix #25)
+# https://github.com/ofek/hatch-vcs/pull/26
+Patch:          %{url}/pull/26.patch
+
 BuildRequires:  python3-devel
 
 %if %{with tests}
@@ -40,7 +44,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n hatch_vcs-%{version}
+%autosetup -n hatch_vcs-%{version} -p1
 
 
 %generate_buildrequires

@@ -2,7 +2,7 @@ Name:           perl-Text-Levenshtein-Damerau
 Version:        0.41
 Release:        21%{?dist}
 Summary:        Damerau Levenshtein edit distance
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Levenshtein-Damerau
 Source0:        https://cpan.metacpan.org/authors/id/U/UG/UGEXE/Text-Levenshtein-Damerau-%{version}.tar.gz
 BuildArch:      noarch

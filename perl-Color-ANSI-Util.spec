@@ -2,7 +2,7 @@ Name:           perl-Color-ANSI-Util
 Version:        0.164
 Release:        8%{?dist}
 Summary:        Routines for dealing with ANSI colors
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Color-ANSI-Util/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Color-ANSI-Util-%{version}.tar.gz
 BuildArch:      noarch

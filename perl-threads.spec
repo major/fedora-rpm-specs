@@ -4,7 +4,7 @@ Epoch:          1
 Version:        2.27
 Release:        489%{?dist}
 Summary:        Perl interpreter-based threads
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/threads
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDHEDDEN/threads-%{base_version}.tar.gz
 # Unbundled from perl 5.28.0

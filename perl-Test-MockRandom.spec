@@ -2,7 +2,7 @@ Name:           perl-Test-MockRandom
 Version:        1.01
 Release:        19%{?dist}
 Summary:        Replaces random number generation with non-random number generation
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Test-MockRandom
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Test-MockRandom-%{version}.tar.gz
 BuildArch:      noarch

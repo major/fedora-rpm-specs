@@ -1,7 +1,7 @@
 Name:           libss7
 Version:        2.0.1
 Release:        %autorelease
-%global so_version 2
+%global so_version 2.0
 Summary:        SS7 protocol services to applications
 
 License:        GPLv2
@@ -64,7 +64,7 @@ find %{buildroot} -name '*.a' -print -delete
 %doc README
 %doc libss7-%{version}-summary.*
 
-%{_libdir}/libss7.so.%{so_version}*
+%{_libdir}/libss7.so.%{so_version}
 
 
 %files devel

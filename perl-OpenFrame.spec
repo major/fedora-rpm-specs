@@ -2,7 +2,7 @@ Name:           perl-OpenFrame
 Version:        3.05
 Release:        48%{?dist}
 Summary:        Framework for network enabled applications
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/OpenFrame
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/OpenFrame-%{version}.tar.gz
 Source1:        README.LICENSE

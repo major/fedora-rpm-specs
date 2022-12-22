@@ -2,7 +2,7 @@ Name:           perl-Pipeline
 Version:        3.12
 Release:        44%{?dist}
 Summary:        Generic pipeline interface
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pipeline
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Pipeline-%{version}.tar.gz
 # Fix compatibility with Pod-Parser-1.51, CPAN RT #77896

@@ -2,7 +2,7 @@ Name:           perl-MouseX-StrictConstructor
 Version:        0.02
 Release:        23%{?dist}
 Summary:        Make your object constructors blow up on unknown attributes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MouseX-StrictConstructor
 Source0:        https://cpan.metacpan.org/authors/id/G/GF/GFUJI/MouseX-StrictConstructor-%{version}.tar.gz
 Patch0:         MouseX-StrictConstructor-0.02-Disable-author-tests.patch

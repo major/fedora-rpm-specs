@@ -2,7 +2,7 @@ Name:           perl-Devel-Declare-Parser
 Version:        0.020
 Release:        23%{?dist}
 Summary:        Higher level interface to Devel-Declare
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Declare-Parser
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Devel-Declare-Parser-%{version}.tar.gz
 Patch0:         perl-Devel-Declare-Parser-fix-dependencies.patch

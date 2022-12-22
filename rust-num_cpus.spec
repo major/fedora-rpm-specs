@@ -5,7 +5,7 @@
 %global crate num_cpus
 
 Name:           rust-num_cpus
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Get the number of CPUs on a machine
 

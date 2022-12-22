@@ -2,7 +2,7 @@ Name:           perl-Test-NeedsDisplay
 Version:        1.07
 Release:        33%{?dist}
 Summary:        Ensure that tests needing a display have one
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-NeedsDisplay
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Test-NeedsDisplay-%{version}.tar.gz
 # Prevent from races by using free display numbers, bug #1248968,

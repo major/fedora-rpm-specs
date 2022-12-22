@@ -2,7 +2,7 @@ Name:           perl-Lingua-EN-Inflect-Phrase
 Version:        0.20
 Release:        16%{?dist}
 Summary:        Inflect short English Phrases
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Inflect-Phrase
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/Lingua-EN-Inflect-Phrase-%{version}.tar.gz
 BuildArch:      noarch

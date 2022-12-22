@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -121,7 +121,7 @@ BuildRequires: seabios-bin ipxe-roms-qemu
 # for the VMX "bios"
 BuildRequires: dev86
 %endif
-BuildRequires: python3-devel ncurses-devel
+BuildRequires: python3-devel ncurses-devel python3-setuptools
 BuildRequires: perl-interpreter perl-generators
 %ifarch %{ix86} x86_64
 # so that x86_64 builds pick up glibc32 correctly
@@ -931,6 +931,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 20 2022 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-2
+-  python3-setuptools BuildRequires is needed for python 3.12
+
 * Tue Dec 13 2022 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-1
 - update to xen-4.17.0
   rebase xen.fedora.systemd.patch and xen.canonicalize.patch

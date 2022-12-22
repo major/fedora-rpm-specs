@@ -2,7 +2,7 @@ Name:           perl-Lingua-Stem-Ru
 Version:        0.04
 Release:        20%{?dist}
 Summary:        Porter's stemming algorithm for Russian (KOI8-R only)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-Stem-Ru
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Lingua-Stem-Ru-%{version}.tar.gz
 BuildArch:      noarch

@@ -159,6 +159,7 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 %{_kf5_datadir}/kxmlgui5/kopete*/
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/icons/oxygen/*/*/*
+%{_kf5_datadir}/qlogging-categories5/kopete.categories
 
 %ldconfig_scriptlets libs
 

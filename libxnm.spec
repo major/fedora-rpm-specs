@@ -1,11 +1,12 @@
 Name:           libxnm
 Version:        0.1.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A library for parsing the XNM format
 
 License:        GPLv2+
 URL:            http://xnm.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/xnm/%{name}-%{version}.tar.gz
+Patch0:         libxnm-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  glib2-devel
@@ -25,7 +26,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --enable-static=no
@@ -49,6 +50,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 0.1.3-29
+- Port to C99 (#2155143)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

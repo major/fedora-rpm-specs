@@ -2,7 +2,7 @@ Name:           perl-URI-Title
 Version:        1.902
 Release:        10%{?dist}
 Summary:        Get the titles of things on the web in a sensible way
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI-Title
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOOK/URI-Title-%{version}.tar.gz
 BuildArch:      noarch

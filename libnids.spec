@@ -1,13 +1,14 @@
 Summary:        Implementation of an E-component of Network Intrusion Detection System
 Name:           libnids
 Version:        1.24
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPLv2+
 URL:            http://libnids.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Source1:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz.asc
 Source2:        gpgkey-67E00C8AE6DEE3486468F6C6E20D29536F5C037F.gpg
 Patch0:         libnids-1.24-inline.patch
+Patch1:         libnids-configure-c99.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  make
@@ -37,6 +38,7 @@ the API documentation of the library, too.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch0 -p1 -b .inline
+%patch1 -p1
 
 %build
 %configure --enable-shared
@@ -60,6 +62,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libnids.a
 %{_mandir}/man3/libnids.3*
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 1.24-26
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

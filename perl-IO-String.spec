@@ -2,7 +2,7 @@ Name:           perl-IO-String
 Version:        1.08
 Release:        46%{?dist}
 Summary:        Emulate file interface for in-core strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-String
 Source0:        https://cpan.metacpan.org/authors/id/G/GA/GAAS/IO-String-%{version}.tar.gz
 BuildArch:      noarch

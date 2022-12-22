@@ -6,12 +6,17 @@
 
 Name:           Cython
 Version:        0.29.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        ASL 2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
+
+# Wrap the docstring of cython-default-compile-format to 80 characters
+# Upstream PR: https://github.com/cython/emacs-cython-mode/pull/1
+# Fixes https://bugzilla.redhat.com/2155090
+Patch:          emacs-docstring-wrap.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -128,6 +133,10 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Tue Dec 20 2022 Miro Hrončok <mhroncok@redhat.com> - 0.29.32-2
+- emacs-cython-mode: Wrap the docstring of cython-default-compile-format to 80 characters
+- Fixes: rhbz#2155090
+
 * Mon Aug 08 2022 Miro Hrončok <mhroncok@redhat.com> - 0.29.32-1
 - Update to 0.29.32
 

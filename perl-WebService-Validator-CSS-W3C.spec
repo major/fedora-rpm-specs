@@ -2,7 +2,7 @@ Name:           perl-WebService-Validator-CSS-W3C
 Version:        0.3
 Release:        27%{?dist}
 Summary:        Interface to the W3C CSS Validator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WebService-Validator-CSS-W3C
 Source0:        https://cpan.metacpan.org/authors/id/B/BJ/BJOERN/WebService-Validator-CSS-W3C-%{version}.tar.gz
 BuildArch:      noarch

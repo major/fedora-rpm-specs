@@ -2,7 +2,7 @@ Name:           perl-Algorithm-IncludeExclude
 Version:        0.01
 Release:        39%{?dist}
 Summary:        Build and evaluate include/exclude lists
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-IncludeExclude
 Source0:        https://cpan.metacpan.org/authors/id/J/JR/JROCKWAY/Algorithm-IncludeExclude-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Test-HexDifferences
 Version:        1.001
 Release:        17%{?dist}
 Summary:        Test binary as hexadecimal string
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-HexDifferences
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Test-HexDifferences-%{version}.tar.gz
 BuildArch:      noarch

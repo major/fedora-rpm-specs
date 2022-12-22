@@ -2,7 +2,7 @@ Name:           perl-ColorThemeUtil-ANSI
 Version:        0.002
 Release:        6%{?dist}
 Summary:        Utility routines related to color themes and ANSI code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ColorThemeUtil-ANSI/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/ColorThemeUtil-ANSI-%{version}.tar.gz
 BuildArch:      noarch

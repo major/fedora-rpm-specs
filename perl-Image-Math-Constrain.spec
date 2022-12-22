@@ -2,7 +2,7 @@ Name:           perl-Image-Math-Constrain
 Version:        1.02
 Release:        41%{?dist}
 Summary:        Scaling math used in image size constraining (such as thumbnails)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Math-Constrain
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Image-Math-Constrain-%{version}.tar.gz
 Patch0:         Image-Math-Constrain-1.02-Fix-building-on-Perl-without-dot-in-INC.patch

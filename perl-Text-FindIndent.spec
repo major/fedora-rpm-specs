@@ -2,7 +2,7 @@ Name:           perl-Text-FindIndent
 Version:        0.11
 Release:        21%{?dist}
 Summary:        Heuristically determine the indent style
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-FindIndent
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Text-FindIndent-%{version}.tar.gz
 # Remove using of use_ptar from Makefile. It is used to create correct

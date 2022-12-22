@@ -9,7 +9,7 @@
 
 Name:           omniORB
 Version:        4.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPLv2+
@@ -242,6 +242,9 @@ fi
 
 
 %changelog
+* Tue Dec 20 2022 Sandro Mani <manisandro@gmail.com> - 4.3.0-6
+- Remove last usage of distutils
+
 * Mon Dec 19 2022 Sandro Mani <manisandro@gmail.com> - 4.3.0-5
 - Add patch to fix build against python-3.12
 

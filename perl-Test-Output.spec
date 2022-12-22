@@ -5,7 +5,7 @@ Name:           perl-Test-Output
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
 Release:        6%{?dist}
 Summary:        Utilities to test STDOUT and STDERR messages
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Output
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Test-Output-%{cpan_version}.tar.gz
 BuildArch:      noarch

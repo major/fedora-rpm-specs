@@ -74,9 +74,9 @@ find . -type f -exec file '{}' '+' |
 %license include/lexertl/licence_1_0.txt
 %doc README.md
 
-%{_includedir}/lexertl
+%{_includedir}/lexertl/
 
-%{_libdir}/cmake/lexertl
+%{_libdir}/cmake/lexertl/
 
 
 %files examples

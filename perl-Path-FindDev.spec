@@ -3,7 +3,7 @@ Name:           perl-Path-FindDev
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
 Release:        18%{?dist}
 Summary:        Find a development path somewhere in an upper hierarchy
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Path-FindDev
 Source0:        https://cpan.metacpan.org/authors/id/K/KE/KENTNL/Path-FindDev-%{cpan_version}.tar.gz
 BuildArch:      noarch

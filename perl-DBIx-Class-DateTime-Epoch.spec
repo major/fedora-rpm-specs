@@ -5,7 +5,7 @@ Name:           perl-DBIx-Class-DateTime-Epoch
 Summary:        Automatic inflation/deflation of epoch-based DateTime objects for DBIx::Class
 Version:        0.10
 Release:        30%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-DateTime-Epoch
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRICAS/DBIx-Class-DateTime-Epoch-%{version}.tar.gz
 BuildArch:      noarch

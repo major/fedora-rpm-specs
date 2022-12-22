@@ -2,7 +2,7 @@ Name:           perl-Monitoring-Plugin
 Version:        0.40
 Release:        13%{?dist}
 Summary:        Family of modules to streamline writing plugins for various monitoring systems
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Monitoring-Plugin
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NIERLEIN/Monitoring-Plugin-%{version}.tar.gz
 BuildArch:      noarch

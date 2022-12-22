@@ -2,7 +2,7 @@ Name:           perl-Test-RandomResult
 Version:        0.001
 Release:        8%{?dist}
 Summary:        Test that results of a running code look random
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-RandomResult/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Test-RandomResult-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-File-Zglob
 Version:        0.11
 Release:        21%{?dist}
 Summary:        Provide extended Unix glob
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Zglob
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOKUHIROM/File-Zglob-%{version}.tar.gz
 Patch0:         File-Zglob-0.11-Disable-author-tests.patch

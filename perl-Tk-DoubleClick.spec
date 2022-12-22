@@ -2,7 +2,7 @@ Name:           perl-Tk-DoubleClick
 Version:        0.04
 Release:        21%{?dist}
 Summary:        Correctly handle single-click vs double-click events
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-DoubleClick
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDUMONT/Tk-DoubleClick-%{version}.tar.gz
 BuildArch:      noarch

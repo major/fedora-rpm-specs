@@ -2,7 +2,7 @@ Name:           perl-Pod-Coverage
 Version:        0.23
 Release:        28%{?dist}
 Summary:        Checks if the documentation of a module is comprehensive
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Coverage
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Pod-Coverage-%{version}.tar.gz
 # Make pod_cover more secure, CPAN RT#85540

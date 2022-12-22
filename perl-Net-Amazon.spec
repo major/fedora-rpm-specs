@@ -2,7 +2,7 @@ Name:           perl-Net-Amazon
 Version:        0.62
 Release:        28%{?dist}
 Summary:        Framework for accessing amazon.com via REST
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Amazon
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOUMENOT/Net-Amazon-%{version}.tar.gz
 BuildArch:      noarch

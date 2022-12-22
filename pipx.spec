@@ -17,6 +17,16 @@ BuildRequires:  python3dist(argparse-manpage)
 
 BuildRequires:  /usr/bin/register-python-argcomplete
 
+# The Markdown documentation is meant to be build with mkdocs. The HTML result
+# is unsuitable for packaging due to various bundled and pre-minified
+# JavaScript and CSS.  See https://bugzilla.redhat.com/show_bug.cgi?id=2006555
+# for discussion of similar problems with Sphinx and Doxygen.
+#
+# We used to choose to install the Markdown documentation sources, as they are
+# relatively readable without further processing but we’ve decided this isn’t
+# really worthwile.
+Obsoletes:      pipx-doc < 1.1.0-9
+
 %description
 pipx is a tool to help you install and run end-user applications written in
 Python. It’s roughly similar to macOS’s brew, JavaScript’s npx, and Linux’s
@@ -25,21 +35,6 @@ apt.
 It’s closely related to pip. In fact, it uses pip, but is focused on installing
 and managing Python packages that can be run from the command line directly as
 applications.
-
-
-%package doc
-Summary:        Documentation for pipx
-
-# The Markdown documentation is meant to be build with mkdocs. The HTML result
-# is unsuitable for packaging due to various bundled and pre-minified
-# JavaScript and CSS.  See https://bugzilla.redhat.com/show_bug.cgi?id=2006555
-# for discussion of similar problems with Sphinx and Doxygen.
-#
-# We choose to install the Markdown documentation sources, as they are quite
-# readable without further processing.
-
-%description doc
-Documentation for pipx.
 
 
 %prep
@@ -131,21 +126,16 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 %files -f %{pyproject_files}
 %license LICENSE
-%{_bindir}/pipx
 
+%doc README.md
+
+%{_bindir}/pipx
 %{_mandir}/man1/pipx.1*
 
 %{bash_completions_dir}/pipx.bash
 %{fish_completions_dir}/pipx.fish
-%{_datadir}/pipx
 
-
-%files doc
-%license LICENSE
-%doc CONTRIBUTING.md
-%doc README.md
-# Markdown
-%doc docs
+%{_datadir}/pipx/
 
 
 %changelog

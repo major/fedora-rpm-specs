@@ -2,7 +2,7 @@ Name:           perl-Regexp-Stringify
 Version:        0.06
 Release:        16%{?dist}
 Summary:        Stringify a Regexp object
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-Stringify
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Regexp-Stringify-%{version}.tar.gz
 BuildArch:      noarch

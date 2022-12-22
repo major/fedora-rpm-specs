@@ -9,7 +9,7 @@ Name:           perl-Term-ANSIColor
 Version:        5.01
 Release:        490%{?dist}
 Summary:        Color screen output using ANSI escape sequences
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ANSIColor
 Source0:        https://cpan.metacpan.org/modules/by-module/Term/Term-ANSIColor-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-XMLRPC-Lite
 Version:        0.717
 Release:        25%{?dist}
 Summary:        Client and server implementation of XML-RPC protocol
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XMLRPC-Lite
 Source0:        https://cpan.metacpan.org/authors/id/P/PH/PHRED/XMLRPC-Lite-%{version}.tar.gz
 BuildArch:      noarch

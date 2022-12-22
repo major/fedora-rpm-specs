@@ -171,13 +171,12 @@ install 'docs/reference/latex/refman.pdf' -p -m 0644 \
 
 %files
 %license COPYING COPYING.LIB
-%{_libdir}/libgconfmm-%{apiver}.so.%{so_version}
-%{_libdir}/libgconfmm-%{apiver}.so.%{so_version}.*
+%{_libdir}/libgconfmm-%{apiver}.so.%{so_version}{,.*}
 
 
 %files devel
-%{_includedir}/gconfmm-%{apiver}
-%{_libdir}/gconfmm-%{apiver}
+%{_includedir}/gconfmm-%{apiver}/
+%{_libdir}/gconfmm-%{apiver}/
 %{_libdir}/libgconfmm-%{apiver}.so
 %{_libdir}/pkgconfig/gconfmm-%{apiver}.pc
 

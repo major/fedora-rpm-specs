@@ -2,7 +2,7 @@ Name:           perl-Object-Signature
 Version:        1.08
 Release:        13%{?dist}
 Summary:        Cryptographically strong objects 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Signature
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Object-Signature-%{version}.tar.gz
 BuildArch:      noarch

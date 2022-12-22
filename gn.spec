@@ -52,6 +52,9 @@ Source2:        update-version
 # intentional on their part
 Patch:          gn-0153d369-no-O3.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
@@ -193,10 +196,10 @@ grep -E '^#define[[:blank:]]+LAST_COMMIT_POSITION[[:blank:]]+'\
 %if %{with html_docs}
 %doc README*.html
 %endif
-%doc docs
-%doc examples
-%doc infra
-%doc tools
+%doc docs/
+%doc examples/
+%doc infra/
+%doc tools/
 
 
 %changelog

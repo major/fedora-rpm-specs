@@ -2,7 +2,7 @@ Name:           perl-Class-ErrorHandler
 Version:        0.04
 Release:        23%{?dist}
 Summary:        Class::ErrorHandler Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-ErrorHandler
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOKUHIROM/Class-ErrorHandler-%{version}.tar.gz
 BuildArch:      noarch

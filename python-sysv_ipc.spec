@@ -5,7 +5,7 @@ semaphores, shared memory and message queues on systems that support them.
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 License:        GPLv3+
 URL:            http://semanchuk.com/philip/%{srcname}/
@@ -13,6 +13,7 @@ Source0:        https://pypi.python.org/packages/source/s/%{srcname}/%{srcname}-
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description
 %{desc}
@@ -53,6 +54,9 @@ chmod -x demos/*/*.{py,sh}
 %doc demos
 
 %changelog
+* Tue Dec 20 2022 Alfredo Moralejo <amoralej@redhat.com> - 1.1.0-6
+- Add python-setuptools as build requirement for python 3.12
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

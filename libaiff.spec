@@ -12,6 +12,9 @@ URL:            http://aifftools.sourceforge.net/libaiff/
 %global forgeurl https://github.com/mtszb/libaiff
 Source0:        %{forgeurl}/archive/v%{version}/libaiff-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  make
 

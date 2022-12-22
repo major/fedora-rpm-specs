@@ -5,7 +5,7 @@ Name:           perl-LWP-Online
 Version:        1.08
 Release:        35%{?dist}
 Summary:        Check whether your process has an access to the web
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Online
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/LWP-Online-%{version}.tar.gz
 BuildArch:      noarch

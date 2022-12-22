@@ -11,7 +11,7 @@ Version:        0.000003
 Release:        43%{?dist}
 Summary:        Create a module as recommended in "Perl Best Practices" 
 
-License:        GPL+ or Artistic        
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Starter-PBP
 
 # note different macro!

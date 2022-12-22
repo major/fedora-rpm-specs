@@ -2,7 +2,7 @@ Name:           perl-Locale-MO-File
 Version:        0.09
 Release:        13%{?dist}
 Summary:        Write and read gettext MO files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-MO-File
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-MO-File-%{version}.tar.gz
 BuildArch:      noarch

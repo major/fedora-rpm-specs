@@ -1,27 +1,25 @@
-%global gittag 2.0.5
+%global gittag 2.2.0
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 10%{?dist}
+Release: 2%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
-# Patch for python3.11 as per BZ#2021946
-Patch0: rdiff-backup--py3.11-bpo-39573.patch
 
 License: GPL-2.0-or-later
-BuildRequires: python3-devel >= 3.5, librsync-devel >= 1.0.0
+BuildRequires: python3-devel >= 3.6, librsync-devel >= 1.0.0
 BuildRequires: python3-setuptools
 BuildRequires: python3-setuptools_scm
 BuildRequires: gcc
-
-# Required to report version info from build with python3-setuptools_scm
-Requires: python3-setuptools
+#required to generate the manpages
+BuildRequires: rubygem-asciidoctor
 
 #recommended runtime dependencies
 Recommends: py3libacl
 Recommends: python3-pyxattr
+Recommends: python3-psutil
 
 %description
 rdiff-backup is a script, written in Python, that backs up one
@@ -44,25 +42,31 @@ differences from the previous backup will be transmitted.
 %install
 %py3_install
 
+# Remove doc files so we package them with rpmbuild
+rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
+
 %files
 %defattr(-,root,root)
 %{_bindir}/rdiff-backup
 %{_bindir}/rdiff-backup-statistics
 %{_bindir}/rdiff-backup-delete
 %{_mandir}/man1/rdiff-backup*
-%dir %{python3_sitearch}/rdiff_backup
-%{python3_sitearch}/rdiff_backup/*.py
-%dir %{python3_sitearch}/rdiff_backup/__pycache__
-%{python3_sitearch}/rdiff_backup/__pycache__/*.pyc
-%{python3_sitearch}/rdiff_backup/*.so
+%{python3_sitearch}/rdiff_backup/
 %{python3_sitearch}/rdiff_backup-*.egg-info
+%{python3_sitearch}/rdiffbackup/
 %{_datadir}/bash-completion/completions/rdiff-backup
-%doc CHANGELOG.md COPYING README.md
-%doc docs/FAQ.md docs/examples.md docs/DEVELOP.md
-%doc docs/Windows-README.md docs/Windows-DEVELOP.md
+%doc CHANGELOG.adoc README.adoc
+%doc docs/credits.adoc docs/DEVELOP.adoc docs/examples.adoc
+%doc docs/FAQ.adoc docs/migration.adoc
 %license COPYING
 
 %changelog
+* Tue Dec 20 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.0-2
+- Happy Holidays release v2.2.0 - Fedora Release
+
+* Sun Dec 18 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.0-1
+- Happy Holidays release v2.2.0 - COPR Release
+
 * Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.0.5-10
 - SPDX license update
 

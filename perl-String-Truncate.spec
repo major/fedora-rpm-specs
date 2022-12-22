@@ -2,7 +2,7 @@ Name:           perl-String-Truncate
 Version:        1.100602
 Release:        23%{?dist}
 Summary:        Simply truncate long strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Truncate
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/String-Truncate-%{version}.tar.gz
 BuildArch:      noarch

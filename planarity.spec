@@ -1,10 +1,12 @@
 Name:		planarity
 Summary:	Implementations of several planarity-related graph algorithms
-Version:	3.0.1.1
-Release:	4%{?dist}
-License:	BSD
+Version:	3.0.2.0
+Release:	1%{?dist}
+License:	BSD-3-Clause
 URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
 Source0:	%{url}/archive/Version_%{version}/%{name}-%{version}.tar.gz
+
+%global _docdir_fmt %{name}
 
 BuildRequires:	gcc
 BuildRequires:	make
@@ -34,11 +36,21 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 This package contains the header files and development documentation
 for %{name}.
 
+%package	samples
+Summary:	Sample files for %{name}
+BuildArch:	noarch
+Requires:	%{name} = %{version}-%{release}
+
+%description	samples
+This package contains sample files for planarity.  For example:
+
+planarity -test /usr/share/doc/planarity/samples
+
 %prep
 %autosetup -p0 -n edge-addition-%{name}-suite-Version_%{version}
 
 # Use unix line endings in installed headers and debugsource files
-for header in c/*.{c,h}; do
+for header in c/*.{c,h} c/samples/Makefile.am c/samples/*.txt; do
     sed -i.orig 's|\r$||g' $header
     # Preserve timestamps
     touch -r $header.orig $header
@@ -68,7 +80,7 @@ rm %{buildroot}%{_libdir}/*.la
 rm %{buildroot}%{_libdir}/libplanarity.so
 ln -s libplanarity.so.0 %{buildroot}%{_libdir}/libplanarity.so
 
-# We don't want the samples
+# We package the samples below
 rm -rf %{buildroot}%{_docdir}
 
 %files
@@ -82,7 +94,14 @@ rm -rf %{buildroot}%{_docdir}
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
 
+%files		samples
+%doc c/samples/
+
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 3.0.2.0-1
+- Version 3.0.2.0
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

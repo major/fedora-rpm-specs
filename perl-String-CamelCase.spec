@@ -2,7 +2,7 @@ Name:           perl-String-CamelCase
 Version:        0.04
 Release:        15%{?dist}
 Summary:        Convert underscore_text to CamelCase and back
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-CamelCase
 Source0:        https://cpan.metacpan.org/authors/id/H/HI/HIO/String-CamelCase-%{version}.tar.gz
 BuildArch:      noarch

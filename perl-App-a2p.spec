@@ -2,7 +2,7 @@ Name:           perl-App-a2p
 Version:        1.013
 Release:        8%{?dist}
 Summary:        Awk to Perl translator
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-a2p
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/App-a2p-%{version}.tar.gz
 # Current code will fail test tests if the code will run for more than 5

@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.4.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4.2-3
+- LibRaw rebuild
+
 * Tue Nov 15 2022 Richard Shaw <hobbes1069@gmail.com> - 2.4.4.2-2
 - Rebuild for yaml-cpp 0.7.0.
 

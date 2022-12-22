@@ -2,7 +2,7 @@ Name:           perl-SQL-Statement
 Version:        1.414
 Release:        9%{?dist}
 Summary:        SQL parsing and processing engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SQL-Statement
 Source0:        https://cpan.metacpan.org/authors/id/R/RE/REHSACK/SQL-Statement-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Crypt-DH-GMP
 Version:        0.00012
 Release:        27%{?dist}
 Summary:        Crypt::DH Using GMP Directly
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-DH-GMP
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMAKI/Crypt-DH-GMP-%{version}.tar.gz
 Patch0:         Crypt-DH-GMP-0.00012-Fix-building-on-Perl-with-bundled-library.patch

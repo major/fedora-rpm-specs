@@ -2,7 +2,7 @@ Name:           perl-Alien-SDL
 Version:        1.446
 Release:        25%{?dist}
 Summary:        Finding and using SDL binaries
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-SDL
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FROGGS/Alien-SDL-%{version}.tar.gz
 # Do not set unnecessary rpath, not suitable for an upstream

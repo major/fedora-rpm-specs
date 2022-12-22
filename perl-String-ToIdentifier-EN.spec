@@ -2,7 +2,7 @@ Name:           perl-String-ToIdentifier-EN
 Version:        0.12
 Release:        16%{?dist}
 Summary:        Convert Strings to English Program Identifiers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-ToIdentifier-EN
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/String-ToIdentifier-EN-%{version}.tar.gz
 BuildArch:      noarch

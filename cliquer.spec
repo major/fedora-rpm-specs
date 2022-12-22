@@ -3,7 +3,7 @@ Version:        1.22
 Release:        4%{?dist}
 Summary:        Find cliques in arbitrary weighted graphs
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://users.aalto.fi/~pat/cliquer.html
 Source0:        https://github.com/dimpase/autocliquer/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        http://users.aalto.fi/~pat/%{name}/%{name}_fm.pdf
@@ -95,6 +95,9 @@ LD_LIBRARY_PATH=. make test CFLAGS="%build_cflags"
 %{_libdir}/libcliquer.so
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 1.22-4
+- Convert License tag to SPDX
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

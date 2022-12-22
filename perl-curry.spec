@@ -2,7 +2,7 @@ Name:           perl-curry
 Version:        2.000001
 Release:        4%{?dist}
 Summary:        Create automatic curried method call closures for any class or object
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/curry
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTROUT/curry-%{version}.tar.gz
 BuildArch:      noarch

@@ -118,8 +118,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKF5MailTransport.so.*
 %{_kf5_datadir}/config.kcfg/mailtransport.kcfg
 %{_kf5_qtplugindir}/kcm_mailtransport.so
-%{_kf5_qtplugindir}/kf5/mailtransport/mailtransport_akonadiplugin.so
-%{_kf5_qtplugindir}/kf5/mailtransport/mailtransport_smtpplugin.so
+%dir %{_kf5_qtplugindir}/pim5
+%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_akonadiplugin.so
+%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_smtpplugin.so
 %{_kf5_datadir}/kservices5/kcm_mailtransport.desktop
 
 %ldconfig_scriptlets akonadi

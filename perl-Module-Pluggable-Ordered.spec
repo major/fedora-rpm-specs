@@ -2,7 +2,7 @@ Name:           perl-Module-Pluggable-Ordered
 Version:        1.5
 Release:        39%{?dist}
 Summary:        Call module plugins in a specified order
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Pluggable-Ordered
 Source0:        https://cpan.metacpan.org/authors/id/A/AP/APEIRON/Module-Pluggable-Ordered-%{version}.tar.gz
 BuildArch:      noarch

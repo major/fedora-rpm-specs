@@ -2,7 +2,7 @@ Name:           perl-XML-Generator-PerlData
 Version:        0.95
 Release:        19%{?dist}
 Summary:        Perl extension for generating SAX2 events from nested Perl data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Generator-PerlData
 Source0:        https://cpan.metacpan.org/authors/id/K/KH/KHAMPTON/XML-Generator-PerlData-%{version}.tar.gz
 BuildArch:      noarch

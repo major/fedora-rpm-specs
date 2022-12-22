@@ -2,7 +2,7 @@ Name:           perl-Hardware-Vhdl-Parser
 Version:        0.12
 Release:        41%{?dist}
 Summary:        Complete grammar for parsing VHDL code using perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hardware-Vhdl-Parser
 Source0:        https://cpan.metacpan.org/authors/id/G/GS/GSLONDON/Hardware-Vhdl-Parser-%{version}.tar.gz
 # rt#102452

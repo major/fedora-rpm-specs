@@ -2,7 +2,7 @@ Name:           perl-AutoXS-Header
 Version:        1.02
 Release:        38%{?dist}
 Summary:        Container for the AutoXS header files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AutoXS-Header
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/AutoXS-Header-%{version}.tar.gz
 BuildArch:      noarch

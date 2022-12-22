@@ -3,7 +3,7 @@
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
 Version: 22.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # libkdcraw is GPLv2+,
 # LibRaw(bundled) is LGPLv2
@@ -17,6 +17,8 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+
+Patch0: libraw.patch
 
 %if 0%{?rhel} == 8
 ExclusiveArch: x86_64 ppc64le %{arm}
@@ -75,6 +77,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 22.12.0-2
+- LibRaw rebuild
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

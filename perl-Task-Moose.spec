@@ -2,7 +2,7 @@ Name:           perl-Task-Moose
 Version:        0.03
 Release:        30%{?dist}
 Summary:        Moose in a box
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Task-Moose
 Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/Task-Moose-%{version}.tar.gz
 BuildArch:      noarch

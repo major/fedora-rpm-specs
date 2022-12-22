@@ -4,7 +4,7 @@ Epoch:          1
 Version:        0.48
 Release:        29%{?dist}
 Summary:        Interface to create per object accessors
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Accessor
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Object-Accessor-%{version}.tar.gz
 BuildArch:      noarch

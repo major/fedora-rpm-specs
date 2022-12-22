@@ -2,7 +2,7 @@ Name:           perl-Number-Format
 Version:        1.75
 Release:        21%{?dist}
 Summary:        Perl extension for formatting numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Format
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WRW/Number-Format-%{version}.tar.gz
 BuildArch:      noarch

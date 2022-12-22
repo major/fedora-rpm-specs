@@ -2,7 +2,7 @@ Name:           perl-Devel-GoFaster
 Version:        0.001
 Release:        19%{?dist}
 Summary:        Optimise executable Perl ops
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-GoFaster
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-GoFaster-%{version}.tar.gz
 # Build

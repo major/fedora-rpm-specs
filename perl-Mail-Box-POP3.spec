@@ -2,7 +2,7 @@ Name:           perl-Mail-Box-POP3
 Version:        3.005
 Release:        12%{?dist}
 Summary:        Handle POP3 folders as client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-POP3
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-POP3-%{version}.tar.gz
 Patch0:         Mail-Box-POP3-3.001-Use-IO-Socket-IP-to-support-IPv6.patch

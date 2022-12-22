@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -599,6 +599,15 @@ Patch387: 00387-cve-2020-10735-prevent-dos-by-very-large-int.patch
 # [1]: https://github.com/XKCP/XKCP/commit/fdc6fef075f4e81d6b1bc38364248975e08e340a
 # [2]: https://mouha.be/sha-3-buffer-overflow/
 Patch392: 00392-cve-2022-37454-fix-buffer-overflows-in-_sha3-module.patch
+
+# 00394 # 377cbc015f738fdea510969d0dbe266748b6bb09
+# CVE-2022-45061: CPU denial of service via inefficient IDNA decoder
+#
+# gh-98433: Fix quadratic time idna decoding.
+#
+# There was an unnecessary quadratic loop in idna decoding. This restores
+# the behavior to linear.
+Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.patch
 
 # (New patches go here ^^^)
 #
@@ -1849,6 +1858,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Dec 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-15
+- Security fix for CVE-2022-45061: CPU denial of service via inefficient IDNA decoder
+  Related: rhbz#2144072
+
 * Thu Nov 10 2022 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-14
 - CVE-2022-37454: Fix buffer overflows in _sha3 module
   Related: rhbz#2140200

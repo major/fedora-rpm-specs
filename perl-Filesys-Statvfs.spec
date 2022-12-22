@@ -2,7 +2,7 @@ Name:           perl-Filesys-Statvfs
 Version:        0.82
 Release:        22%{?dist}
 Summary:        Perl extension for statvfs() and fstatvfs()
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Filesys-Statvfs
 Source0:        https://cpan.metacpan.org/authors/id/I/IG/IGUTHRIE/Filesys-Statvfs-%{version}.tar.gz
 BuildRequires:  findutils

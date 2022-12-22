@@ -2,7 +2,7 @@ Name:           perl-Lingua-PT-Stemmer
 Version:        0.02
 Release:        20%{?dist}
 Summary:        Portuguese language stemming
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-PT-Stemmer
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Lingua-PT-Stemmer-%{version}.tar.gz
 BuildArch:      noarch

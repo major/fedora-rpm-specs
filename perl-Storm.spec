@@ -4,7 +4,7 @@ Name:           perl-Storm
 Version:        0.240
 Release:        27%{?dist}
 Summary:        Object-relational mapping
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Storm
 Source0:        https://cpan.metacpan.org/authors/id/J/JH/JHALLOCK/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch

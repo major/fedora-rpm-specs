@@ -2,7 +2,7 @@ Name:           perl-Net-CUPS
 Version:        0.64
 Release:        20%{?dist}
 Summary:        Perl bindings to the CUPS C API Interface
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CUPS
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NINE/Net-CUPS-%{version}.tar.gz
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))

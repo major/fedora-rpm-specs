@@ -1,11 +1,12 @@
 Name:		photoqt
 Version:	2.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A fast Qt image viewer
 
 License:	GPLv2+
 URL:		http://photoqt.org/
 Source0:	http://photoqt.org/pkgs/%{name}-%{version}.tar.gz
+Patch0:         libraw.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
@@ -71,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.%{name
 %{_datadir}/appdata/org.%{name}.PhotoQt.appdata.xml
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.8-2
+- LibRaw rebuild
+
 * Tue Aug 02 2022 Jiri Eischmann <eischmann@redhat.com> - 2.8-1
 - Update to 2.8
 - Removed desktop file of the standalone version

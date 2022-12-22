@@ -2,7 +2,7 @@ Name:           perl-JavaScript-Beautifier
 Version:        0.25
 Release:        16%{?dist}
 Summary:        Beautify Javascript (beautifier for javascript)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JavaScript-Beautifier
 Source0:        https://cpan.metacpan.org/authors/id/F/FA/FAYLAND/JavaScript-Beautifier-%{version}.tar.gz
 BuildArch:      noarch
@@ -34,7 +34,7 @@ http://github.com/einars/js-beautify/tree/master/beautify.js
 
 %package -n perl-Code-TidyAll-Plugin-JSBeautifier
 Summary:        Use JavaScript::Beautifier with tidyall
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{_bindir}/js_beautify.pl
 Requires:       perl(Code::TidyAll::Plugin)

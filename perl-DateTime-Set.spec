@@ -2,7 +2,7 @@ Name:           perl-DateTime-Set
 Version:        0.3900
 Release:        19%{?dist}
 Summary:        Datetime sets and set math
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Set
 Source0:        https://cpan.metacpan.org/authors/id/F/FG/FGLOCK/DateTime-Set-%{version}.tar.gz
 Patch0:         DateTime-Set-0.32-version.patch

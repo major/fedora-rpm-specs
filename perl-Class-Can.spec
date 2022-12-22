@@ -2,7 +2,7 @@ Name:           perl-Class-Can
 Version:        0.01
 Release:        38%{?dist}
 Summary:        Inspect a class/method and say what it can do (and why)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Can
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Can-%{version}.tar.gz
 BuildArch:      noarch

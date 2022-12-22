@@ -4,7 +4,7 @@ Name:           perl-Exporter
 Version:        5.77
 Release:        489%{?dist}
 Summary:        Implements default import method for modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Exporter-%{base_version}.tar.gz
 # Unbundled from perl 5.34.0

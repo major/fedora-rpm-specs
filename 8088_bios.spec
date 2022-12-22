@@ -7,6 +7,7 @@ License:        GPL-3.0-or-later
 URL:            https://github.com/skiselev/8088_bios
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  xtideuniversalbios
@@ -20,8 +21,8 @@ Micro 8088, Xi 8088 and Sergey's XT.
 %prep
 %autosetup
 
-# Replace bundled xtide bios with the packaged version
-ln -sf %{_datadir}/xtideuniversalbios/ide_xt.bin ide_xt.bin
+# Replace bundled xtide bios with the packaged version padded to 8 kB
+dd if=%{_datadir}/xtideuniversalbios/ide_xt.bin of=ide_xt.bin bs=8k count=1 conv=sync
 
 %build
 for machine in MACHINE_XI8088 MACHINE_FE2010A; do

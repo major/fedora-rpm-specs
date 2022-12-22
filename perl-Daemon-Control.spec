@@ -2,7 +2,7 @@ Name:           perl-Daemon-Control
 Version:        0.001010
 Release:        12%{?dist}
 Summary:        Create init scripts in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Daemon-Control
 Source0:        https://cpan.metacpan.org/authors/id/S/SY/SYMKAT/Daemon-Control-%{version}.tar.gz
 BuildArch:      noarch

@@ -10,7 +10,7 @@
 
 Name:           krita
 Version:        5.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -21,6 +21,7 @@ Source0:        https://download.kde.org/%{?pre:un}stable/krita/%{versiondir}%{?
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
 Patch1: krita-5.1.1-appstream_validate.patch
+Patch2: libraw.patch
 
 ## upstream patches
 
@@ -172,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.1.4-2
+- LibRaw rebuild
+
 * Sat Dec 17 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 5.1.4-1
 - Updated to version 5.1.4.
 

@@ -2,7 +2,7 @@ Name:           perl-Template-Plugin-Cycle
 Version:        1.06
 Release:        37%{?dist}
 Summary:        Cyclically insert into a Template from a sequence of values
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Plugin-Cycle
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Template-Plugin-Cycle-%{version}.tar.gz
 BuildArch:      noarch

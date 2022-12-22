@@ -79,37 +79,8 @@ Source0:        https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar
 # fail to respect the distribution defaults.
 Patch:          0001-Remove-upstream-compiler-flags.patch
 
-# Fails on i686, armv7hl
-#   ../../../src/pcg-cpp/include/pcg_random.hpp:1247:40: error: call to
-#       non-'constexpr' function 'pcg_extras::uint_x4<U, V>
-#       pcg_extras::operator-(const pcg_extras::uint_x4<U, V>&, const
-#       pcg_extras::uint_x4<U, V>&) [with UInt = unsigned int; UIntX2 = long
-#       long unsigned int]'
-#    1247 |         (state_type(1U) << table_pow2) - state_type(1U);
-#         |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
-#   In file included from ../../../src/pcg-cpp/include/pcg_extras.hpp:84,
-#                    from ../../../src/pcg-cpp/include/pcg_random.hpp:114,
-#                    from ../../../src/graph/random.hh:21,
-#                    from graph_motifs.hh:26,
-#                    from graph_motifs.cc:24:
-#   ../../../src/pcg-cpp/include/pcg_uint128.hpp:642:22: note:
-#       'pcg_extras::uint_x4<U, V> pcg_extras::operator-(const
-#       pcg_extras::uint_x4<U, V>&, const pcg_extras::uint_x4<U, V>&) [with
-#       UInt = unsigned int; UIntX2 = long long unsigned int]' declared here
-#     642 | uint_x4<UInt,UIntX2> operator-(const uint_x4<UInt,UIntX2>& a,
-#         |                      ^~~~~~~~
-# issue filed: https://git.skewed.de/count0/graph-tool/issues/617
-# https://bugzilla.redhat.com/show_bug.cgi?id=1771023
-# https://bugzilla.redhat.com/show_bug.cgi?id=1771024
-#
-# Beginning with F37, armv7hl is not a supported primary architecture and
-# EncourageI686LeafRemoval is approved, so we do not need to justify excluding
-# these architectures.
-#
-# Takes ~23 hours on x86_64 if we get unlucky and get a 6 core 16gig machine,
-#   ~4 hours if we get a 48 core 128gig machine
-# Takes ~45 hours on aarch64
-ExcludeArch:    %{ix86} armv7hl
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  git-core

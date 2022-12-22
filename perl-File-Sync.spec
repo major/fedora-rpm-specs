@@ -2,7 +2,7 @@ Name:           perl-File-Sync
 Version:        0.11
 Release:        28%{?dist}
 Summary:        Perl access to fsync() and sync() function calls
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Sync
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRIANSKI/File-Sync-%{version}.tar.gz
 Patch0:         File-Sync-UTF8.patch

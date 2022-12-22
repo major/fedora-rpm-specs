@@ -2,7 +2,7 @@ Name:           perl-AnyEvent-Handle-UDP
 Version:        0.050
 Release:        9%{?dist}
 Summary:        Client/server UDP handles for AnyEvent
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-Handle-UDP
 Source0:        https://cpan.metacpan.org/modules/by-module/AnyEvent/AnyEvent-Handle-UDP-%{version}.tar.gz
 BuildArch:      noarch

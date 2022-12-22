@@ -2,7 +2,7 @@ Name:           perl-HTTP-Thin
 Version:        0.006
 Release:        19%{?dist}
 Summary:        Thin Wrapper around HTTP::Tiny to play nice with HTTP::Message
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Thin
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERIGRIN/HTTP-Thin-%{version}.tar.gz
 BuildArch:      noarch

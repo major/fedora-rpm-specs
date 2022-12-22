@@ -8,7 +8,7 @@ Epoch:          2
 Version:        7.64
 Release:        490%{?dist}
 Summary:        Create a module Makefile
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/%{cpan_name}-%{version}.tar.gz
 # Do not set RPATH to perl shared-library modules by default. Bug #773622.
@@ -141,7 +141,7 @@ Dougherty and the perl5-porters.
 
 %package -n perl-ExtUtils-Command
 Summary:        Perl routines to replace common UNIX commands in Makefiles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
@@ -158,7 +158,7 @@ easier to deal with in Makefiles.
 
 %package -n perl-ExtUtils-MM-Utils
 Summary:        ExtUtils::MM methods without dependency on ExtUtils::MakeMaker
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 

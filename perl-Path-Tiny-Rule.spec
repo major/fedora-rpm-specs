@@ -2,7 +2,7 @@ Name:           perl-Path-Tiny-Rule
 Version:        0.02
 Release:        10%{?dist}
 Summary:        Path::Iterator::Rule subclass that returns Path::Tiny objects
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Path-Tiny-Rule
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Path-Tiny-Rule-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Module-Depends
 Version:        0.16
 Release:        15%{?dist}
 Summary:        Identify the dependencies of a distribution
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Depends
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCLAMP/Module-Depends-%{version}.tar.gz
 # Restore compatibility with Perl 5.26.0, CPAN RT#119324, CPAN RT#115053

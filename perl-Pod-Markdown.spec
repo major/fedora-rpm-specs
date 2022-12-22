@@ -2,7 +2,7 @@ Name:           perl-Pod-Markdown
 Version:        3.300
 Release:        7%{?dist}
 Summary:        Convert POD to Markdown
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Markdown
 Source0:        https://cpan.metacpan.org/authors/id/R/RW/RWSTAUNER/Pod-Markdown-%{version}.tar.gz
 BuildArch:      noarch

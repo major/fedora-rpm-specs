@@ -5,11 +5,12 @@ Name:             xskat
 # Upstream License requires to alter the version number
 # for re-distribution
 Version:          %{upstream_version}.0
-Release:          29%{?dist}
+Release:          30%{?dist}
 # https://fedoraproject.org/wiki/Licensing/XSkat_License
 License:          XSkat
 Source0:          http://www.xskat.de/xskat-%{upstream_version}.tar.gz
 Source1:          xskat.desktop
+Patch0:           xskat-c99.patch
 URL:              http://www.xskat.de/xskat.html
 # xskat requires an 10x20 font
 Requires:         xorg-x11-fonts-misc
@@ -36,7 +37,7 @@ Features:
     * Variations: Ramsch, Bock, Kontra & Re, ... 
 
 %prep
-%setup -q -n %{name}-%{upstream_version}
+%autosetup -p1 -n %{name}-%{upstream_version}
 
 # fix encoding
 iconv -f iso8859-1 -t utf-8 CHANGES-de > CHANGES-de.conv && \
@@ -112,6 +113,9 @@ EOF
 
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 4.0.0-30
+- Port to C99 (#2155178)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

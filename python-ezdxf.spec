@@ -4,15 +4,12 @@
 # We can generate PDF documentation as a substitute.
 %bcond_without doc_pdf
 
-# As of 2022-07-29, PySide6 (https://pypi.org/project/PySide6/) is not yet
+# As of 2022-12-12, PySide6 (https://pypi.org/project/PySide6/) is not yet
 # packaged in Fedora. When it is, we should use it.
-#
-# Review Request: python-pyqt6 - PyQt6 is Python bindings for Qt6
-# https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=2074709
 %bcond_with qt6
 
 Name:           python-ezdxf
-Version:        0.18.1
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Create/manipulate DXF drawings
 
@@ -64,10 +61,6 @@ Source18:       ezdxf-pp.1
 Source19:       ezdxf-strip.1
 Source20:       ezdxf-view.1
 
-# Fix typo in browse-command config example for gedit
-# https://github.com/mozman/ezdxf/pull/740
-Patch:          %{forgeurl}/pull/740.patch
-
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++
 
@@ -97,11 +90,11 @@ BuildRequires:  /usr/bin/rsvg-convert
 %endif
 
 %global common_description %{expand:
-A Python package to create and modify DXF drawings, independent of the DXF
-version. You can open/save every DXF file without losing any content (except
-comments). Unknown tags in the DXF file will be ignored but preserved for
-saving. With this behavior it is possible to open also DXF drawings that
-contains data from 3rd party applications.}
+This Python package is for creating and modifying DXF documents, regardless of
+the DXF version. The package supports loading and rewriting DXF file without
+losing any content except comments. Unknown DXF tags in the document are
+ignored but kept for rewriting. This behavior allows processing DXF documents
+that contain data from third-party applications without loosing information.}
 
 %description %{common_description}
 

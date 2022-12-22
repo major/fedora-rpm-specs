@@ -87,7 +87,7 @@ of the system. Perl strings are sequences of characters.
 %package -n perl-encoding
 Summary:        Write your Perl script in non-ASCII or non-UTF-8
 Version:        3.00
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Keeping this sub-package arch-specific because it installs files into
 # arch-specific directories.
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))

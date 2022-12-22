@@ -2,7 +2,7 @@ Name:           perl-Log-Contextual
 Version:        0.008001
 Release:        16%{?dist}
 Summary:        Simple logging interface with a contextual log
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Contextual
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FREW/Log-Contextual-%{version}.tar.gz
 BuildArch:      noarch

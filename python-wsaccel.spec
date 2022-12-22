@@ -1,8 +1,8 @@
 %global pypi_name wsaccel
 
 Name:           python-%{pypi_name}
-Version:        0.6.3
-Release:        8%{?dist}
+Version:        0.6.4
+Release:        1%{?dist}
 Summary:        Accelerator for ws4py and AutobahnPython
 
 License:        ASL 2.0
@@ -28,7 +28,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-%{srcname}}
+%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 * WSAccell is WebSocket accelerator for AutobahnPython, ws4py and Tornado.
@@ -67,6 +67,9 @@ PYTHONPATH="$(echo build/lib.linux-%{_arch}-cpython-%{python3_version_nodots} | 
 
 
 %changelog
+* Tue Dec 20 2022 Julien Enselme <jujens@jujens.eu> - 0.6.4-1
+- Update to 0.6.4
+
 * Fri Aug 12 2022 Julien Enselme <jujens@jujeuns.eu> - 0.6.3-8
 - Rebuild to update Python bytecode files (#2113662)
 

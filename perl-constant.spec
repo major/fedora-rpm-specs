@@ -11,7 +11,7 @@ Name:           perl-constant
 Version:        1.33
 Release:        490%{?dist}
 Summary:        Perl pragma to declare constants
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/constant
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SAPER/constant-%{cpan_version}.tar.gz
 # Update to 1.33

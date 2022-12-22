@@ -1,6 +1,6 @@
 Name:           filebench
 Version:        1.4.9.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A model based file system workload generator
 
 License:        CDDL
@@ -9,6 +9,7 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.
 Source1:        LICENSE
 Source2:        filebench.1
 Patch0:         make-dofile-global.patch
+Patch1:         filebench-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -24,6 +25,7 @@ for detailed workload specification.
 %prep
 %setup -q
 %patch0 -p1 -b .dofile
+%patch1 -p1 -b .c99
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} .
 
@@ -47,6 +49,9 @@ install -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 1.4.9.1-19
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

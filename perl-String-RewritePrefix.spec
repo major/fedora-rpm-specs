@@ -2,7 +2,7 @@ Name:           perl-String-RewritePrefix
 Summary:        Rewrite strings based on a set of known prefixes 
 Version:        0.008
 Release:        10%{?dist}
-License:        GPL+ or Artistic 
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-RewritePrefix
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/String-RewritePrefix-%{version}.tar.gz 
 BuildArch:      noarch

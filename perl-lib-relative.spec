@@ -2,7 +2,7 @@ Name:           perl-lib-relative
 Version:        1.001
 Release:        2%{?dist}
 Summary:        Add paths relative to the current file to @INC
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/lib-relative
 Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/lib-relative-%{version}.tar.gz
 BuildArch:      noarch

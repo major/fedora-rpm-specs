@@ -2,7 +2,7 @@ Name:           perl-Lingua-Stem
 Version:        2.31
 Release:        7%{?dist}
 Summary:        Stemming of words
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-Stem
 Source0:        https://cpan.metacpan.org/authors/id/S/SN/SNOWHARE/Lingua-Stem-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Hash-WithDefaults
 Version:        0.05
 Release:        30%{?dist}
 Summary:        Class for hashes with key-casing requirements supporting defaults
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-WithDefaults
 Source0:        https://cpan.metacpan.org/authors/id/J/JE/JENDA/Hash-WithDefaults-%{version}.tar.gz
 BuildArch:      noarch

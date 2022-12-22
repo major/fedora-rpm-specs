@@ -6,7 +6,7 @@ Epoch:		1
 Version:	0.31
 Release:	36%{?dist}
 # lib/DateTime/Format/Excel.pm -> GPL+ or Artistic
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/%{pkgname}
 Source:		https://cpan.metacpan.org/authors/id/A/AB/ABURS/%{pkgname}-%{version}.tar.gz
 Patch0:		perl-DateTime-Format-Excel-0.31-versioning.patch

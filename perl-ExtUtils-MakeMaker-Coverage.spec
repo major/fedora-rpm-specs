@@ -3,7 +3,7 @@ Version:        0.05
 Release:        44%{?dist}
 Summary:        Allows perl modules to check test coverage with Devel::Cover
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://backpan.perl.org/authors/id/S/SM/SMPETERS/
 Source0:        %{url}ExtUtils-MakeMaker-Coverage-%{version}.tar.gz
 

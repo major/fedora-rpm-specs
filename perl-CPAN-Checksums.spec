@@ -2,7 +2,7 @@ Name:           perl-CPAN-Checksums
 Version:        2.14
 Release:        4%{?dist}
 Summary:        Write a CHECKSUMS file for a directory as on CPAN
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Checksums
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/CPAN-Checksums-%{version}.tar.gz
 # Upstream's key to verify MANIFEST, bug #1083915

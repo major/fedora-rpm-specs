@@ -2,7 +2,7 @@
 
 Name:           python-phyghtmap
 Version:        2.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
 License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
@@ -12,6 +12,8 @@ Patch0:         0001-phyghtmap_numpy_arrays.patch
 # Compatibility fixes for newer version of matplotplib, not yet upstream
 Patch1:         0002-Fix_matplotlib_after_3_6_0.patch
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -56,6 +58,9 @@ install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 %{_mandir}/man1/%{modname}.1*
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.23-4
+- Drop support for i686
+
 * Mon Nov 14 2022 Federico Pellegrin <fede@evolware.org> - 2.23-3
 - Compatibility fixes for newer matplotlib > 3.6.0 (FC37 and future)
 

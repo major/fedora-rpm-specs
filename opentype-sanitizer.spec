@@ -40,6 +40,9 @@ Source1:        get-source.py
 # that possible.
 Source2:        ots-%{version}-excluded-font-checksums.txt
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  gcc-c++

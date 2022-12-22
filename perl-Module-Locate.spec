@@ -2,7 +2,7 @@ Name:           perl-Module-Locate
 Version:        1.80
 Release:        21%{?dist}
 Summary:        Locate Perl modules in the same fashion as "require" and "use"
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Locate
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Module-Locate-%{version}.tar.gz
 BuildArch:      noarch

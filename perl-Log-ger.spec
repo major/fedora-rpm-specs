@@ -2,7 +2,7 @@ Name:           perl-Log-ger
 Version:        0.040
 Release:        2%{?dist}
 Summary:        Lightweight, flexible logging framework
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-ger
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Log-ger-%{version}.tar.gz
 BuildArch:      noarch

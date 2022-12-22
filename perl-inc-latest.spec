@@ -3,7 +3,7 @@ Epoch:          2
 Version:        0.500
 Release:        23%{?dist}
 Summary:        Use modules bundled in inc/ if they are newer than installed ones
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/inc-latest
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/inc-latest-%{version}.tar.gz
 BuildArch:      noarch

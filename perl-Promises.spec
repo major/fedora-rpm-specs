@@ -2,7 +2,7 @@ Name:           perl-Promises
 Version:        1.04
 Release:        10%{?dist}
 Summary:        Implementation of Promises in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Promises
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Promises-%{version}.tar.gz
 BuildArch:      noarch

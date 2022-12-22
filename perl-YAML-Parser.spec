@@ -2,7 +2,7 @@ Name:           perl-YAML-Parser
 Version:        0.0.5
 Release:        3%{?dist}
 Summary:        Generated Reference Parser for YAML 1.2
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-Parser
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/YAML-Parser-%{version}.tar.gz
 BuildArch:      noarch

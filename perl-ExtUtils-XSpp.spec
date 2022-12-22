@@ -3,7 +3,7 @@ Epoch:          1
 Version:        0.18
 Release:        26%{?dist}
 Summary:        C++ variant of Perl's XS language
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-XSpp
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/ExtUtils-XSpp-%{version}.tar.gz
 BuildArch:      noarch

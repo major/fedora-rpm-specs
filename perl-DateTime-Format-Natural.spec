@@ -2,7 +2,7 @@ Name:           perl-DateTime-Format-Natural
 Version:        1.13
 Release:        3%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
 Source0:        https://cpan.metacpan.org/authors/id/S/SC/SCHUBIGER/DateTime-Format-Natural-%{version}.tar.gz
 BuildArch:      noarch

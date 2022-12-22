@@ -2,7 +2,7 @@ Name:           perl-CPS
 Version:        0.19
 Release:        12%{?dist}
 Summary:        CPS Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPS
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/CPS-%{version}.tar.gz
 BuildArch:      noarch

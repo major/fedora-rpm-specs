@@ -2,7 +2,7 @@ Name:           perl-Net-IP-Minimal
 Version:        0.06
 Release:        25%{?dist}
 Summary:        Minimal functions from Net::IP
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-IP-Minimal
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Net-IP-Minimal-%{version}.tar.gz
 BuildArch:      noarch

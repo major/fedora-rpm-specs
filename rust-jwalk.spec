@@ -5,7 +5,7 @@
 %global crate jwalk
 
 Name:           rust-jwalk
-Version:        0.6.0
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Filesystem walk performed in parallel with streamed and sorted results
 
@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/jwalk
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump rayon dependency from 1.5 to 1.6.1 to fix a deadlock in parallel code
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          jwalk-fix-metadata.diff
 

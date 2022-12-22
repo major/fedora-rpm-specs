@@ -2,7 +2,7 @@ Name:           perl-PerlIO-via-QuotedPrint
 Version:        0.10
 Release:        3%{?dist}
 Summary:        PerlIO layer for quoted-printable strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PerlIO-via-QuotedPrint
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHAY/PerlIO-via-QuotedPrint-%{version}.tar.gz
 BuildArch:      noarch

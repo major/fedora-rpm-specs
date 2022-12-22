@@ -2,7 +2,7 @@ Name:           perl-Module-Load-Conditional
 Version:        0.74
 Release:        489%{?dist}
 Summary:        Looking up module information / loading at run-time
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Load-Conditional
 Source0:        https://cpan.metacpan.org/modules/by-module/Module/Module-Load-Conditional-%{version}.tar.gz
 BuildArch:      noarch

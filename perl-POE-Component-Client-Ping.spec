@@ -1,8 +1,8 @@
 Name:           perl-POE-Component-Client-Ping
 Version:        1.177
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Non-blocking ICMP ping client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Client-Ping
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCAPUTO/POE-Component-Client-Ping-%{version}.tar.gz
 
@@ -29,41 +29,61 @@ Requires:       perl(POE) >= 1.007
 
 %{?perl_default_filter}
 
-
 %description
 POE::Component::Client::Ping is non-blocking ICMP ping client. It lets
 several other sessions ping through it in parallel, and it lets them
 continue doing other things while they wait for responses.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n POE-Component-Client-Ping-%{version}
-
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
-
 
 %check
 make test
-
 
 %files
 %doc CHANGES README eg
 %{perl_vendorlib}/POE
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.177-7
+- Package tests
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.177-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

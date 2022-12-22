@@ -2,7 +2,7 @@ Name:           perl-Number-Fraction
 Version:        3.0.4
 Release:        6%{?dist}
 Summary:        Perl extension to model fractions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Fraction
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/Number-Fraction-v%{version}.tar.gz
 BuildArch:      noarch

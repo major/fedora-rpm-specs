@@ -2,7 +2,7 @@ Name:           perl-Devel-GlobalPhase
 Version:        0.003003
 Release:        16%{?dist}
 Summary:        Detect perl's global phase on older perls
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-GlobalPhase
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Devel-GlobalPhase-%{version}.tar.gz
 BuildArch:      noarch

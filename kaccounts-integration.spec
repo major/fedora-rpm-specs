@@ -88,9 +88,8 @@ Headers, development libraries and documentation for %{name}.
 %files -f %{name}.lang
 %doc README*
 %license LICENSES/*
-%{_kf5_qtplugindir}/kcms/kcm_kaccounts.so
 %{_kf5_datadir}/kpackage/kcms/kcm_kaccounts/
-%{_kf5_datadir}/kservices5/kcm_kaccounts.desktop
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kaccounts.so
 %{_kf5_plugindir}/kded/kded_accounts.so
 %{_qt5_plugindir}/kaccounts/daemonplugins/kaccounts_kio_webdav_plugin.so
 %{_kf5_libdir}/libkaccounts.so.2

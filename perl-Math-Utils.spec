@@ -2,7 +2,7 @@ Name:           perl-Math-Utils
 Version:        1.14
 Release:        9%{?dist}
 Summary:        Useful mathematical functions not in Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Utils
 Source0:        https://cpan.metacpan.org/authors/id/J/JG/JGAMBLE/Math-Utils-%{version}.tar.gz
 BuildArch:      noarch

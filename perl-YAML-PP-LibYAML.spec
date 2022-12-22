@@ -2,7 +2,7 @@ Name:           perl-YAML-PP-LibYAML
 Version:        0.005
 Release:        6%{?dist}
 Summary:        Faster parsing for YAML::PP
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://search.cpan.org/dist/YAML-PP-LibYAML
 Source0:        http://www.cpan.org/authors/id/T/TI/TINITA/YAML-PP-LibYAML-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Getopt-ArgvFile
 Version:        1.11
 Release:        39%{?dist}
 Summary:        Interpolates script options from files into @ARGV or another array
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Getopt-ArgvFile
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSTENZEL/Getopt-ArgvFile-%{version}.tar.gz
 Source1:        license.txt

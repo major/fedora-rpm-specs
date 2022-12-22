@@ -9,13 +9,14 @@ fields are supported.
 
 Name:           python-%{pypi_name}
 Version:        0.99.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 License:        BSD
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://pypi.python.org/packages/source/d/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 Patch0:         prevent-synthax-error.patch
+Patch1:         remove-distutil.patch
 
 BuildArch:      noarch
 
@@ -26,6 +27,7 @@ BuildArch:      noarch
 %package -n     python3-%{pypi_name}
 Summary:        %{sum}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 Requires:       python3-aenum
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -35,6 +37,8 @@ Requires:       python3-aenum
 
 %prep
 %setup -qn %{pypi_name}-%{version}
+# Correct line endings for setup.py
+sed -i "s|\r||g" setup.py
 %autopatch -p1
 rm -rf *.egg-info
 rm -f dbf/ver_32.py
@@ -56,6 +60,9 @@ sed -i "s|\r||g" dbf/README.md
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Tue Dec 20 2022 Julien Enselme <jujens@jujens.eu> - 0.99.2-4
+- Remove dependency to distutil.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

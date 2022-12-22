@@ -2,7 +2,7 @@ Name:           perl-MouseX-NativeTraits
 Version:        1.09
 Release:        21%{?dist}
 Summary:        Extend your attribute interfaces for Mouse
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MouseX-NativeTraits
 Source0:        https://cpan.metacpan.org/authors/id/G/GF/GFUJI/MouseX-NativeTraits-%{version}.tar.gz
 Patch0:         MouseX-NativeTraits-1.09-Disable-author-tests.patch

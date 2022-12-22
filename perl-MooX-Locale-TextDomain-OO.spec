@@ -2,7 +2,7 @@ Name:           perl-MooX-Locale-TextDomain-OO
 Version:        0.001
 Release:        17%{?dist}
 Summary:        Provide API used in translator modules without translating
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Locale-TextDomain-OO
 Source0:        https://cpan.metacpan.org/authors/id/R/RE/REHSACK/MooX-Locale-TextDomain-OO-%{version}.tar.gz
 BuildArch:      noarch

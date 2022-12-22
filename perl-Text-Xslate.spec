@@ -4,7 +4,7 @@ Name:           perl-%{pkgname}
 Version:        3.5.9
 Release:        4%{?dist}
 Summary:        Scalable template engine
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://xslate.org/
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/%{pkgname}-v%{version}.tar.gz
 BuildRequires:  coreutils

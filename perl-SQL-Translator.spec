@@ -5,7 +5,7 @@ Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
 Version:        1.62
 Release:        8%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/SQL-Translator-%{version}.tar.gz
 URL:            https://metacpan.org/release/SQL-Translator
 BuildArch:      noarch

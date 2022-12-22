@@ -2,7 +2,7 @@ Name:           perl-CPANPLUS-Shell-Default-Plugins-Diff
 Version:        0.01
 Release:        39%{?dist}
 Summary:        Diff module versions from the CPANPLUS shell
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPANPLUS-Shell-Default-Plugins-Diff
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KANE/CPANPLUS-Shell-Default-Plugins-Diff-%{version}.tar.gz
 BuildArch:      noarch

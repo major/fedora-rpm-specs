@@ -2,7 +2,7 @@ Name:           perl-Locale-Utils-PlaceholderNamed
 Version:        1.004
 Release:        17%{?dist}
 Summary:        Utils to expand named placeholders
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Utils-PlaceholderNamed
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-Utils-PlaceholderNamed-%{version}.tar.gz
 BuildArch:      noarch

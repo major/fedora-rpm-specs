@@ -43,6 +43,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libindi) = %{version}
 BuildRequires:  pkgconfig(libraw)
 BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  gmock-devel
 
 # We want this metapackage to install all drivers at once.
 # Just use weak dependencies to avoid possible errors.

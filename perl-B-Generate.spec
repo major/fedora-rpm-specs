@@ -2,7 +2,7 @@ Name:           perl-B-Generate
 Version:        1.56
 Release:        17%{?dist}
 Summary:        Create your own op trees
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Generate
 Source0:        https://cpan.metacpan.org/authors/id/R/RU/RURBAN/B-Generate-%{version}.tar.gz
 # Build

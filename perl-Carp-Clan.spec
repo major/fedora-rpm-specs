@@ -3,7 +3,7 @@ Version:        6.08
 Release:        13%{?dist}
 Summary:        Perl module to print improved warning messages
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp-Clan
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Carp-Clan-%{version}.tar.gz
 

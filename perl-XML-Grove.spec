@@ -5,7 +5,7 @@ Version:        0.46
 Release:        0.18.alpha%{?dist}
 Summary:        Simple access to infoset of parsed XML, HTML, or SGML instances
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Grove
 Source0:        https://cpan.metacpan.org/authors/id/K/KM/KMACLEOD/XML-Grove-%{cpan_version}.tar.gz
 Patch1:         perl-XML-Grove-test.patch

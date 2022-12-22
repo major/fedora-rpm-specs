@@ -5,7 +5,7 @@ Epoch:          1
 Version:        %(echo %{cpan_version} | sed 's/\(\.....\)/\1./')
 Release:        2%{?dist}
 Summary:        Arbitrary-size integer and float mathematics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt
 Source0:        https://cpan.metacpan.org/authors/id/P/PJ/PJACKLAM/Math-BigInt-%{cpan_version}.tar.gz
 BuildArch:      noarch

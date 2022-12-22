@@ -2,7 +2,7 @@ Name:       perl-Module-Util
 Version:    1.09
 Release:    30%{?dist}
 # see lib/Module/Util.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Module name tools and transformations
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MATTLAW/Module-Util-%{version}.tar.gz
 Url:        https://metacpan.org/release/Module-Util

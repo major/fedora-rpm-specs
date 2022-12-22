@@ -8,7 +8,7 @@ Summary:        Localization support for DateTime.pm
 #                                       provided by the CLDR project)
 # LICENSE.cldr:         Unicode
 # other files:          GPL-1.0-or-later OR Artistic-1.0-Perl
-License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) and Unicode-DFS-2015
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND Unicode-DFS-2015
 URL:            https://metacpan.org/release/DateTime-Locale
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/DateTime-Locale-%{version}.tar.gz
 BuildArch:      noarch

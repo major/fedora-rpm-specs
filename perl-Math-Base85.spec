@@ -2,7 +2,7 @@ Name:           perl-Math-Base85
 Version:        0.5
 Release:        7%{?dist}
 Summary:        Perl extension for base 85 numbers, as referenced by RFC 1924
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Base85
 Source0:        https://cpan.metacpan.org/authors/id/P/PT/PTC/Math-Base85-%{version}.tar.gz
 BuildArch:      noarch

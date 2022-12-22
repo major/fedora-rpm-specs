@@ -2,7 +2,7 @@ Name:           perl-Verilog-Readmem
 Version:        0.05
 Release:        21%{?dist}
 Summary:        Parse Verilog $readmemh or $readmemb text file
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Verilog-Readmem
 Source0:        https://cpan.metacpan.org/authors/id/G/GS/GSULLIVAN/Verilog-Readmem-%{version}.tar.gz
 BuildArch:      noarch

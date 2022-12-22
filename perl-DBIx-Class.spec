@@ -2,7 +2,7 @@ Name:           perl-DBIx-Class
 Summary:        Extensible and flexible object <-> relational mapper
 Version:        0.082843
 Release:        3%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/R/RI/RIBASUSHI/DBIx-Class-%{version}.tar.gz
 URL:            https://metacpan.org/release/DBIx-Class
 # Do not use /usr/bin/env in shell bangs, upstream does not agree

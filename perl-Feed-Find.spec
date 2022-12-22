@@ -3,7 +3,7 @@ Version:        0.13
 Release:        1%{?dist}
 Summary:        Syndication feed auto-discovery
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Feed-Find
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/Feed-Find-%{version}.tar.gz
 

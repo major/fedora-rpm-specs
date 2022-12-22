@@ -2,7 +2,7 @@ Name:           perl-Devel-CallParser
 Version:        0.002
 Release:        29%{?dist}
 Summary:        Custom parsing attached to subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
 Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CallParser-%{version}.tar.gz
 # Build

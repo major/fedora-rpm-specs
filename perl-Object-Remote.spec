@@ -2,7 +2,7 @@ Name:           perl-Object-Remote
 Version:        0.004001
 Release:        10%{?dist}
 Summary:        Call methods on objects in other processes or on other hosts
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Remote
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Object-Remote-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Redis
 Version:        1.999
 Release:        5%{?dist}
 Summary:        Perl binding for Redis database
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Redis
 Source0:        https://cpan.metacpan.org/modules/by-module/Redis/Redis-%{version}.tar.gz
 # Fix tests for Redis 7.0.0, GH#154

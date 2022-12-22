@@ -157,7 +157,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 %files doc
 %{_infodir}/libIDL2.info*
 
-%{_pkgdocdir}
+%{_pkgdocdir}/
 
 
 %changelog

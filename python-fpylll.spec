@@ -4,7 +4,7 @@ Name:		python-%{modname}
 Version:	0.5.7
 Release:	2%{?dist}
 Summary:	A Python wrapper for fplll
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://github.com/fplll/%{modname}
 Source0:	https://github.com/fplll/%{modname}/releases/download/%{version}/%{modname}-%{version}.tar.gz
 # Adapt to mpfr 4
@@ -70,6 +70,9 @@ popd
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.5.7-2
+- Convert License tag to SPDX
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

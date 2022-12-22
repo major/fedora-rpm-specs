@@ -4,7 +4,7 @@ Name:           perl-Wx-Perl-DataWalker
 Version:        0.02
 Release:        41%{?dist}
 Summary:        Implement subclass that shows relatively simple structure
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Wx-Perl-DataWalker
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Wx-Perl-DataWalker-%{version}.tar.gz
 BuildArch:      noarch

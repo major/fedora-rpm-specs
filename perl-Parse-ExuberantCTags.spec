@@ -2,7 +2,7 @@ Name:           perl-Parse-ExuberantCTags
 Version:        1.02
 Release:        38%{?dist}
 Summary:        Efficiently parse exuberant ctags files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-ExuberantCTags
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Parse-ExuberantCTags-%{version}.tar.gz
 BuildRequires:  findutils

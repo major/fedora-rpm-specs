@@ -4,7 +4,7 @@ Name:           perl-Async-MergePoint
 Version:        0.04
 Release:        28%{?dist}
 Summary:        Resynchronize diverged control flow
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Async-MergePoint
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch

@@ -132,13 +132,18 @@ developing applications that use %{name}.
 
 %files akonadi
 %{_kf5_libdir}/libKF5PimCommonAkonadi.so.5*
+%{_kf5_libdir}/libKF5PimCommonAutoCorrection.so.5*
 %{_qt5_plugindir}/designer/pimcommonakonadiwidgets.so
 
 %files devel
 %{_kf5_libdir}/libKF5PimCommon.so
+%{_kf5_libdir}/libKF5PimCommonAutoCorrection.so
 %{_kf5_libdir}/cmake/KF5PimCommon/
+%{_kf5_libdir}/cmake/KF5PimCommonAutoCorrection/
 %{_kf5_includedir}/PimCommon/
+%{_kf5_includedir}/PimCommonAutoCorrection/
 %{_kf5_archdatadir}/mkspecs/modules/qt_PimCommon.pri
+%{_kf5_archdatadir}/mkspecs/modules/qt_PimCommonAutoCorrection.pri
 # akonadi
 %{_kf5_libdir}/libKF5PimCommonAkonadi.so
 %{_kf5_libdir}/cmake/KF5PimCommonAkonadi/

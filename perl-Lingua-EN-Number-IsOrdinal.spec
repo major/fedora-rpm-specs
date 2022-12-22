@@ -2,7 +2,7 @@ Name:           perl-Lingua-EN-Number-IsOrdinal
 Version:        0.05
 Release:        23%{?dist}
 Summary:        Detect if English number is ordinal or cardinal
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Number-IsOrdinal
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/Lingua-EN-Number-IsOrdinal-%{version}.tar.gz
 BuildArch:      noarch

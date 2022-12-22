@@ -2,7 +2,7 @@ Name:           perl-Pod-Abstract
 Version:        0.20
 Release:        35%{?dist}
 Summary:        Abstract document tree for Perl POD documents
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Abstract
 Source0:        https://cpan.metacpan.org/authors/id/B/BL/BLILBURNE/Pod-Abstract-%{version}.tar.gz
 BuildArch:      noarch

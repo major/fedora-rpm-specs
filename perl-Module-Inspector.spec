@@ -2,7 +2,7 @@ Name:           perl-Module-Inspector
 Version:        1.05
 Release:        41%{?dist}
 Summary:        Integrated API for inspecting Perl distributions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Inspector
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Module-Inspector-%{version}.tar.gz
 BuildArch:      noarch

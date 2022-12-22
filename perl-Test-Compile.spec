@@ -5,7 +5,7 @@ Name:           perl-Test-Compile
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
 Release:        2%{?dist}
 Summary:        Check whether Perl module files compile correctly
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Compile
 Source0:        https://cpan.metacpan.org/authors/id/E/EG/EGILES/Test-Compile-%{cpan_version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Devel-FastProf
 Version:        0.08
 Release:        41%{?dist}
 Summary:        Fast perl per-line profiler
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-FastProf
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SALVA/Devel-FastProf-%{version}.tar.gz
 # Build

@@ -3,7 +3,7 @@ Epoch:          1
 Version:        0.14
 Release:        17%{?dist}
 Summary:        Curate a repository of Perl modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pinto
 Source0:        https://cpan.metacpan.org/authors/id/T/TH/THALJEF/Pinto-%{version}.tar.gz
 Source1:        pintod.service

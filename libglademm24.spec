@@ -178,14 +178,13 @@ install 'docs/reference/latex/refman.pdf' -p -m 0644 \
 
 %files
 %license COPYING
-%{_libdir}/libglademm-%{apiver}.so.%{so_version}
-%{_libdir}/libglademm-%{apiver}.so.%{so_version}.*
+%{_libdir}/libglademm-%{apiver}.so.%{so_version}{,.*}
 
 
 %files devel
 %{_includedir}/libglademm-%{apiver}
 %{_libdir}/libglademm-%{apiver}.so
-%{_libdir}/libglademm-%{apiver}
+%{_libdir}/libglademm-%{apiver}/
 %{_libdir}/pkgconfig/libglademm-%{apiver}.pc
 
 
@@ -193,7 +192,7 @@ install 'docs/reference/latex/refman.pdf' -p -m 0644 \
 %license COPYING
 # Note: JavaScript has been removed from HTML reference manual, degrading the
 # browser experience. It is still needed for Devhelp support.
-%doc %{_pkgdocdir}
+%doc %{_pkgdocdir}/
 %doc %{_datadir}/devhelp/
 
 

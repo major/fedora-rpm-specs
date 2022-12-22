@@ -2,7 +2,7 @@ Name:           perl-Term-Prompt
 Version:        1.04
 Release:        38%{?dist}
 Summary:        Perl extension for prompting a user for information
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Prompt
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERSICOM/Term-Prompt-%{version}.tar.gz
 BuildArch:      noarch

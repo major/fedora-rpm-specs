@@ -2,7 +2,7 @@ Name:           perl-Object-Pluggable
 Version:        1.29
 Release:        34%{?dist}
 Summary:        Base class for creating plugin-enabled objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-Pluggable
 Source0:        https://cpan.metacpan.org/authors/id/H/HI/HINRIK/Object-Pluggable-%{version}.tar.gz
 BuildArch:      noarch

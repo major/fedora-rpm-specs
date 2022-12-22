@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.14.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
@@ -11,6 +11,9 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ohler55/ox && cd ox
 # git archive -v -o rubygem-ox-2.14.8-repo.tgz v2.14.8 test/ examples/
 Source1:        %{name}-%{version}-repo.tgz
+# https://github.com/ohler55/ox/pull/299
+# Ox.dump result differs on ruby3.2
+Patch0:         %{name}-2.14.11-ox-dump-order.patch
 
 BuildRequires:  gcc
 BuildRequires:  rubygems-devel
@@ -41,6 +44,7 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -a1
+%patch0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -95,6 +99,9 @@ popd
 
 
 %changelog
+* Tue Dec 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.11-3
+- Backport upstream patch for Ox.dump order change on ruby3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

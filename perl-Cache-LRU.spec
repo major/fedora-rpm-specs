@@ -2,7 +2,7 @@ Name:           perl-Cache-LRU
 Version:        0.04
 Release:        22%{?dist}
 Summary:        Simple, fast implementation of LRU cache in pure Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cache-LRU
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/Cache-LRU-%{version}.tar.gz
 BuildArch:      noarch

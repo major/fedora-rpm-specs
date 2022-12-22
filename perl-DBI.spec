@@ -36,7 +36,7 @@ Name:           perl-DBI
 Version:        1.643
 Release:        14%{?dist}
 Summary:        A database access API for perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://dbi.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TIMB/DBI-%{version}.tar.gz
 BuildRequires:  coreutils

@@ -2,7 +2,7 @@ Name:           perl-Data-HexDump-XXD
 Version:        0.1.1
 Release:        26%{?dist}
 Summary:        Format hexadecimal dump like xxd
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-HexDump-XXD
 Source0:        https://cpan.metacpan.org/authors/id/P/PO/POLETTIX/Data-HexDump-XXD-%{version}.tar.gz
 BuildArch:      noarch

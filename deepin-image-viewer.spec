@@ -6,6 +6,7 @@ License:        GPLv3
 URL:            https://github.com/linuxdeepin/deepin-image-viewer
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}-appdata.xml
+Patch0:         libraw.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  freeimage-devel

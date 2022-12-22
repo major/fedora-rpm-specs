@@ -2,7 +2,7 @@ Summary:        A Perl interface for making and serving XML-RPC calls
 Name:           perl-Frontier-RPC
 Version:        0.07b4p1
 Release:        45%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Frontier-RPC
 Source0:        https://cpan.metacpan.org/authors/id/R/RT/RTFIREFLY/Frontier-RPC-%{version}.tar.gz
 Patch0:         perl-frontier-raw-call.patch
@@ -33,13 +33,13 @@ Requires:       perl-Frontier-RPC-doc = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %package Client
 Summary:        Frontier-RPC-Client Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       perl-Frontier-RPC-doc = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # To solve conflicts between those two packages
 %package doc
 Summary:        Frontier-RPC-Client Perl module documentation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 %description
 Frontier::RPC implements UserLand Software's XML RPC (Remote

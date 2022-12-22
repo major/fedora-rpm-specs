@@ -2,7 +2,7 @@ Name: 		perl-Date-Pcalc
 Version:	6.1
 Release:	37%{?dist}
 Summary:	Gregorian calendar date calculations
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Date-Pcalc
 Source0: 	https://cpan.metacpan.org/authors/id/S/ST/STBEY/Date-Pcalc-%{version}.tar.gz
 # Perl 5.16 compatibility, CPAN RT #76442

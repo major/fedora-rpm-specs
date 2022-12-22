@@ -3,7 +3,7 @@ Name:           perl-Math-BigRat
 Version:        0.2624
 Release:        2%{?dist}
 Summary:        Arbitrary big rational numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigRat
 Source0:        https://cpan.metacpan.org/authors/id/P/PJ/PJACKLAM/Math-BigRat-%{version}.tar.gz
 BuildArch:      noarch

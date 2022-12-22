@@ -2,7 +2,7 @@ Name:           perl-CPAN-Uploader
 Version:        0.103016
 Release:        4%{?dist}
 Summary:        Upload things to the CPAN
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Uploader
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/CPAN-Uploader-%{version}.tar.gz
 BuildArch:      noarch

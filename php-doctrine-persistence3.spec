@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    d87426f07dd66f97cfdcf5210925e483b6c993b5
+%global gh_commit    b44d128311af55275dbed6a4558ca59a2b9f9387
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.1
+Version:        3.1.2
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -48,13 +48,11 @@ BuildRequires:  php-spl
 #        "phpstan/phpstan": "1.8.8",
 #        "phpstan/phpstan-phpunit": "^1",
 #        "phpstan/phpstan-strict-rules": "^1.1",
-#        "doctrine/annotations": "^1.7",
 #        "doctrine/coding-standard": "^10",
 #        "doctrine/common": "^3.0",
 #        "phpunit/phpunit": "^8.5 || ^9.5",
 #        "symfony/cache": "^4.4 || ^5.4 || ^6.0",
 #        "vimeo/psalm": "4.29.0"
-BuildRequires: (php-composer(doctrine/annotations)   >= 1.7   with php-composer(doctrine/annotations)   < 2)
 BuildRequires: (php-composer(doctrine/event-manager) >= 1     with php-composer(doctrine/event-manager) < 3)
 BuildRequires: (php-composer(doctrine/common)        >= 3.0   with php-composer(doctrine/common)        < 4)
 BuildRequires: (php-composer(symfony/cache)          >= 4.4   with php-composer(symfony/cache)          < 7)
@@ -104,6 +102,7 @@ mv src/%{ns_subproj} \
     --output src/%{ns_subproj}%{major}/autoload.php \
     --template fedora \
     src
+
 cat << 'EOF' | tee -a src/%{ns_subproj}%{major}/autoload.php
 
 // Dependencies
@@ -135,7 +134,6 @@ cat << 'EOF' | tee -a vendor/autoload.php
 require "%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_subproj}%{major}/autoload.php";
 \Fedora\Autoloader\Dependencies::required([
     '%{_datadir}/php/%{ns_vendor}/Common3/autoload.php',
-    '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations/autoload.php',
     [
         '%{_datadir}/php/Symfony6/Component/Cache/autoload.php',
         '%{_datadir}/php/Symfony5/Component/Cache/autoload.php',
@@ -171,6 +169,9 @@ exit $ret
 
 
 %changelog
+* Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 3.1.2-1
+- update to 3.1.2
+
 * Wed Dec 14 2022 Remi Collet <remi@remirepo.net> - 3.1.1-1
 - update to 3.1.1
 

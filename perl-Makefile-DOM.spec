@@ -2,7 +2,7 @@ Name:           perl-Makefile-DOM
 Version:        0.008
 Release:        24%{?dist}
 Summary:        Simple DOM parser for Makefiles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Makefile-DOM
 Source0:        https://cpan.metacpan.org/authors/id/A/AG/AGENT/Makefile-DOM-%{version}.tar.gz
 # Adjust to List-Moreutils-0.418, bug #1437790, CPAN RT#120809

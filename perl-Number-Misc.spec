@@ -2,7 +2,7 @@ Name:           perl-Number-Misc
 Version:        1.2
 Release:        21%{?dist}
 Summary:        Handy utilities for numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Misc
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKO/Number-Misc-%{version}.tar.gz
 BuildArch:      noarch

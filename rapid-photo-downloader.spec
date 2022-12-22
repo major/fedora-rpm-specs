@@ -1,6 +1,6 @@
 Name:           rapid-photo-downloader
 Version:        0.9.33
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Images downloader for external devices
 
 License:        GPLv3+
@@ -80,6 +80,9 @@ desktop-file-install                                        \
 %{_mandir}/man1/*
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.9.33-4
+- LibRaw rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

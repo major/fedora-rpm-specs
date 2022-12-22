@@ -3,7 +3,7 @@ Version:        0.56
 Release:        42%{?dist}
 Summary:        X11-Protocol - Raw interface to X Window System servers
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/X11-Protocol
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMCCAM/X11-Protocol-%{version}.tar.gz
 

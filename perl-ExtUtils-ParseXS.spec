@@ -5,7 +5,7 @@ Epoch:          1
 Version:        3.45
 Release:        489%{?dist}
 Summary:        Module and a script for converting Perl XS code into C code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-ParseXS
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/ExtUtils-ParseXS-%{base_version}.tar.gz
 # Added man page perlxs* which are missing in tarball

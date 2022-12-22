@@ -1,7 +1,7 @@
 Name:		lrcalc
 Version:	2.1
 Release:	3%{?dist}
-License:	GPLv2+
+License:	GPL-3.0-or-later
 Summary:	Littlewood-Richardson Calculator
 URL:		https://sites.math.rutgers.edu/~asbuch/lrcalc/
 Source0:	https://sites.math.rutgers.edu/~asbuch/lrcalc/%{name}-%{version}.tar.gz
@@ -72,6 +72,7 @@ sed 's#@BINDIR@#'%{_libdir}/%{name}'#g;' < %{SOURCE1} > \
 
 cd python
 %pyproject_install
+%pyproject_save_files lrcalc
 cd -
 
 %check
@@ -88,10 +89,13 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
 
-%files -n	python3-lrcalc
-%{python3_sitearch}/lrcalc*
+%files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 2.1-3
+- Convert License tag to SPDX
+- Use %%pyproject_save_files
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

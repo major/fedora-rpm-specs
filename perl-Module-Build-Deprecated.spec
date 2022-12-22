@@ -2,7 +2,7 @@ Name:           perl-Module-Build-Deprecated
 Version:        0.4210
 Release:        25%{?dist}
 Summary:        Collection of modules removed from Module-Build
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Build-Deprecated
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-Deprecated-%{version}.tar.gz
 BuildArch:      noarch

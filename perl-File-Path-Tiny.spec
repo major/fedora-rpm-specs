@@ -2,7 +2,7 @@ Name:           perl-File-Path-Tiny
 Version:        1.0
 Release:        6%{?dist}
 Summary:        Recursive versions of mkdir() and rmdir() without as much overhead as File::Path
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Path-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DM/DMUEY/File-Path-Tiny-%{version}.tar.gz
 BuildArch:      noarch

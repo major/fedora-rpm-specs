@@ -3,7 +3,7 @@ Name:           perl-Class-MakeMethods
 Version:        %{cpan_version}0
 Release:        2%{?dist}
 Summary:        Generate common types of methods
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-MakeMethods
 Source0:        https://cpan.metacpan.org/authors/id/E/EV/EVO/Class-MakeMethods-%{cpan_version}.tar.gz
 Patch0:         Class-MakeMethods-1.009-Fix-building-on-Perl-without-dot-in-INC.patch

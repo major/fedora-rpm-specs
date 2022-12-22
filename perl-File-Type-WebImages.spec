@@ -2,7 +2,7 @@ Name:           perl-File-Type-WebImages
 Version:        1.01
 Release:        35%{?dist}
 Summary:        Determine web image file types using magic
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Type-WebImages
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKSTOS/File-Type-WebImages-%{version}.tar.gz
 BuildArch:      noarch

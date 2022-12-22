@@ -1,40 +1,31 @@
 %global appname Quotient
 %global libname lib%{appname}
-%bcond_with e2ee
 
 Name: libquotient
-Version: 0.6.11
-Release: 4%{?dist}
+Version: 0.7.0
+Release: 1%{?dist}
 
 License: LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
 Summary: Qt5 library to write cross-platform clients for Matrix
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires: cmake(Olm)
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
 BuildRequires: cmake(Qt5Keychain)
 BuildRequires: cmake(Qt5LinguistTools)
 BuildRequires: cmake(Qt5Multimedia)
 BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Widgets)
-
-BuildRequires: ninja-build
-BuildRequires: gcc-c++
-BuildRequires: cmake
-BuildRequires: gcc
-
-%if %{with e2ee}
-BuildRequires: cmake(Olm)
 BuildRequires: cmake(Qt5Sql)
+BuildRequires: cmake(Qt5Widgets)
 BuildRequires: cmake(QtOlm)
 BuildRequires: pkgconfig(openssl)
-%endif
 
-%if 0%{?fedora} && 0%{?fedora} >= 34
-Provides: libqmatrixclient = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes: libqmatrixclient < %{?epoch:%{epoch}:}%{version}-%{release}
-%endif
+BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: ninja-build
 
 %description
 The Quotient project aims to produce a Qt5-based SDK to develop applications
@@ -45,18 +36,10 @@ older use the previous name - libQMatrixClient.
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%if %{with e2ee}
 Requires: cmake(Olm)
 Requires: cmake(Qt5Sql)
 Requires: cmake(QtOlm)
 Requires: pkgconfig(openssl)
-%endif
-
-%if 0%{?fedora} && 0%{?fedora} >= 34
-Provides: libqmatrixclient-devel = %{?epoch:%{epoch}:}%{version}-%{release}
-Obsoletes: libqmatrixclient-devel < %{?epoch:%{epoch}:}%{version}-%{release}
-%endif
 
 %description devel
 %{summary}.
@@ -68,17 +51,13 @@ rm -rf 3rdparty
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-%if %{with e2ee}
     -DQuotient_ENABLE_E2EE:BOOL=ON \
-%else
-    -DQuotient_ENABLE_E2EE:BOOL=OFF \
-%endif
     -DQuotient_INSTALL_TESTS:BOOL=OFF \
     -DQuotient_INSTALL_EXAMPLE:BOOL=OFF
 %cmake_build
 
 %check
-%ctest
+%ctest --exclude-regex 'testolmaccount|testkeyverification'
 
 %install
 %cmake_install
@@ -96,6 +75,11 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/%{libname}.so
 
 %changelog
+* Tue Dec 20 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.0-1
+- Updated to version 0.7.0.
+- Enabled E2EE support.
+- Switched to SPDX license tag.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

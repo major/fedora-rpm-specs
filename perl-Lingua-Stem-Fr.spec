@@ -2,7 +2,7 @@ Name:           perl-Lingua-Stem-Fr
 Version:        0.02
 Release:        36%{?dist}
 Summary:        Perl French Stemming
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-Stem-Fr
 Source0:        https://cpan.metacpan.org/authors/id/S/SD/SDP/Lingua-Stem-Fr-%{version}.tar.gz
 BuildArch:      noarch

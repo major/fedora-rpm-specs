@@ -2,7 +2,7 @@ Name:           perl-Algorithm-Merge
 Version:        0.08
 Release:        38%{?dist}
 Summary:        Three-way merge and diff
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Merge
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSMITH/Algorithm-Merge-%{version}.tar.gz
 BuildArch:      noarch

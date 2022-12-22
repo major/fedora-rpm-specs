@@ -2,7 +2,7 @@ Name:           perl-Perl-Version
 Version:        1.013
 Release:        23%{?dist}
 Summary:        Parse and manipulate Perl version strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Version
 Source0:        https://cpan.metacpan.org/authors/id/B/BD/BDFOY/Perl-Version-%{version}.tar.gz
 BuildArch:      noarch

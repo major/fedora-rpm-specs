@@ -3,7 +3,7 @@ Epoch:          1
 Version:        1.000
 Release:        5%{?dist}
 Summary:        Role for classes that can be thrown
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Throwable
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Throwable-%{version}.tar.gz
 BuildArch:      noarch

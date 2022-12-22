@@ -10,7 +10,7 @@ Name:           perl-Pod-Perldoc
 Version:        3.28.01
 Release:        490%{?dist}
 Summary:        Look up Perl documentation in Pod format
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Perldoc
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MALLEN/Pod-Perldoc-%{base_version}.tar.gz
 # Unbundled from perl 5.28.0-RC1

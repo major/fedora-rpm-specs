@@ -2,7 +2,7 @@ Name:           perl-Test-TempDir-Tiny
 Version:        0.018
 Release:        13%{?dist}
 Summary:        Temporary directories that stick around when tests fail
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/Test-TempDir-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Test-TempDir-Tiny-%{version}.tar.gz
 BuildArch:      noarch

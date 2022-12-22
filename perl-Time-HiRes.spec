@@ -5,7 +5,7 @@ Epoch:          4
 Version:        1.9770
 Release:        489%{?dist}
 Summary:        High resolution alarm, sleep, gettimeofday, interval timers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-HiRes
 Source0:        https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/Time-HiRes-%{base_version}.tar.gz
 # Unbundled from perl 5.34.0

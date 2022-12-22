@@ -12,7 +12,7 @@ Summary:        SQLite DBI Driver
 # sqlite3.c:                Public Domain (copied from sqlite)
 # sqlite3.h:                Public Domain (copied from sqlite)
 # sqlite3ext.h:             Public Domain (copied from sqlite)
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) and LicenseRef-Fedora-Public-Domain
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/DBD-SQLite
 Source0:        https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/DBD-SQLite-%{version}.tar.gz
 # Use system sqlite if it is available

@@ -165,7 +165,7 @@ NODE_ENV=test CLANG=gcc ./node_modules/.bin/mocha \
 %{_includedir}/llhttp.h
 %{_libdir}/libllhttp.so
 %{_libdir}/pkgconfig/libllhttp.pc
-%{_libdir}/cmake/llhttp
+%{_libdir}/cmake/llhttp/
 
 
 %changelog

@@ -2,7 +2,7 @@ Name:           perl-Git-CPAN-Patch
 Summary:        Patch CPAN modules using Git
 Version:        2.5.0
 Release:        3%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Git-CPAN-Patch-%{version}.tar.gz
 URL:            https://metacpan.org/release/Git-CPAN-Patch
 BuildArch:      noarch
@@ -85,7 +85,7 @@ commands, etc, please install the git-cpan-patch package.
 
 %package -n git-cpan-patch
 Summary:        Patch CPAN modules using Git
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Requires:       perl-Git-CPAN-Patch = %{version}-%{release}
 Requires:       git, git-email
 

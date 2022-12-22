@@ -3,7 +3,7 @@ Name:           perl-Math-BigInt-FastCalc
 Version:        0.501.300
 Release:        3%{?dist}
 Summary:        Math::BigInt::Calc with some XS for more speed
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-BigInt-FastCalc
 Source0:        https://cpan.metacpan.org/authors/id/P/PJ/PJACKLAM/Math-BigInt-FastCalc-%{cpan_version}.tar.gz
 BuildRequires:  coreutils

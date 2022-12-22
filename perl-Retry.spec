@@ -2,7 +2,7 @@ Name:           perl-Retry
 Version:        1.03
 Release:        18%{?dist}
 Summary:        Perl function wrapper providing exponential back-off and callbacks on failure
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Retry
 Source0:        https://cpan.metacpan.org/authors/id/T/TJ/TJC/Retry-%{version}.tar.gz
 BuildArch:      noarch

@@ -7,6 +7,7 @@ URL: http://www.tin.org/
 Source0: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz
 Source1: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz.sign
 Source2: tin-pgp-key-0x5A49550EB490B4D1.txt
+Patch0: tin-configure-c99.patch
 BuildRequires: make
 BuildRequires: %{_bindir}/ispell
 BuildRequires:  gcc-c++
@@ -31,7 +32,7 @@ workring=${workdir}/keyring.gpg
 gpg1 --homedir=${workdir} --pgp2 --yes --output="${workring}" --dearmor %{S:2}
 gpg1 --homedir=${workdir} --pgp2 --verify --keyring="${workring}" %{S:1} %{S:0}
 rm -r ${workdir}
-%setup -q
+%autosetup -p1
 
 %build
 %configure \

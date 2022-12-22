@@ -5,7 +5,7 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.16
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{build}.tar.gz/%{name}-%{version}.%{git_build}.tar.gz
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.16-12
+- LibRaw rebuild
+
 * Sat Nov 26 2022 TI_Eugene <ti.eugene@gmail.com> - 3.16-11
 - Webp support recommended (close fedora#2148526)
 

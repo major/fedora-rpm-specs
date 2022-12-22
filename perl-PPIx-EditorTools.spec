@@ -2,7 +2,7 @@ Name:           perl-PPIx-EditorTools
 Version:        0.21
 Release:        17%{?dist}
 Summary:        Utility methods and base class for manipulating Perl via PPI
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-EditorTools
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/PPIx-EditorTools-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Tk-CursorControl
 Version:        0.4
 Release:        32%{?dist}
 Summary:        Manipulate the mouse cursor programmatically
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-CursorControl
 Source0:        https://cpan.metacpan.org/authors/id/D/DU/DUNNIGANJ/Tk-CursorControl-%{version}.tar.gz
 # don't install cursor.pl demo - add to docs instead

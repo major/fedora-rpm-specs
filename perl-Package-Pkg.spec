@@ -2,7 +2,7 @@ Name:           perl-Package-Pkg
 Version:        0.0020
 Release:        31%{?dist}
 Summary:        Handy package munging utilities
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Package-Pkg
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROKR/Package-Pkg-%{version}.tar.gz
 BuildArch:      noarch

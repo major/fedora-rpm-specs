@@ -3,13 +3,14 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
 Version: 4.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPLv2+
 BuildArch: noarch
 Url: https://github.com/sosreport/sos
 BuildRequires: python3-devel
 BuildRequires: gettext
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 Requires: python3-rpm
 Requires: tar
 Requires: bzip2
@@ -62,6 +63,9 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Tue Dec 20 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 4.4-3
+- Workaround distutils removal in Python 3.12 (#2154961)
+
 * Wed Aug 24 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 4.4-2
 - Add missing python modules in minimal install (#2120953)
 

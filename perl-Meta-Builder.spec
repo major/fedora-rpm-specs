@@ -2,7 +2,7 @@ Name:           perl-Meta-Builder
 Version:        0.004
 Release:        13%{?dist}
 Summary:        Tools for creating Meta objects to track custom metrics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Meta-Builder
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Meta-Builder-%{version}.tar.gz
 BuildArch:      noarch

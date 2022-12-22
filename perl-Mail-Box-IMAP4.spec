@@ -2,7 +2,7 @@ Name:           perl-Mail-Box-IMAP4
 Version:        3.007
 Release:        11%{?dist}
 Summary:        Handle IMAP4 folders as client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box-IMAP4
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-IMAP4-%{version}.tar.gz
 BuildArch:      noarch
@@ -69,7 +69,7 @@ using the IMAP4 protocol.
 
 %package -n perl-Mail-Server-IMAP4
 Summary:        IMAP4 server implementation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mail::Box::Manage::User) >= 3

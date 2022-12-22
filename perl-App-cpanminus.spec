@@ -7,7 +7,7 @@ Summary:        Get, unpack, build and install CPAN modules
 # lib/App/cpanminus/fatscript.pm:   File::pushd:    ASL 2.0
 ## at build-time only
 # fatunpack:    GPL+
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpanminus
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/App-cpanminus-%{version}.tar.gz
 Source1:        fatunpack

@@ -5,7 +5,7 @@ Name:           perl-Locale-TextDomain-OO-Util
 Version:        4.002
 Release:        12%{?dist}
 Summary:        Lexical Utils for Locale::TextDomain::OO
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-TextDomain-OO-Util
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-TextDomain-OO-Util-%{version}.tar.gz
 BuildArch:      noarch

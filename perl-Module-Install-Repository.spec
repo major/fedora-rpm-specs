@@ -2,7 +2,7 @@ Name:           perl-Module-Install-Repository
 Version:        0.06
 Release:        31%{?dist}
 Summary:        Automatically sets repository URL from Svn/Svk/Git checkout
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-Repository
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Module-Install-Repository-%{version}.tar.gz
 Patch0:         Module-Install-Repository-0.06-Fix-building-on-Perl-without-dot-in-INC.patch

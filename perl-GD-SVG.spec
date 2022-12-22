@@ -3,7 +3,7 @@ Version:        0.33
 Release:        37%{?dist}
 Summary:        GD::SVG enables SVG output from scripts written using GD
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GD-SVG
 Source0:        https://cpan.metacpan.org/authors/id/T/TW/TWH/GD-SVG-%{version}.tar.gz
 

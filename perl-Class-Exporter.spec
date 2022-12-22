@@ -2,7 +2,7 @@ Name:           perl-Class-Exporter
 Version:        0.03
 Release:        39%{?dist}
 Summary:        Export class methods as regular subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Exporter
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Exporter-%{version}.tar.gz
 BuildArch:      noarch

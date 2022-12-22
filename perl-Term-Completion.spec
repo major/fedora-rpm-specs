@@ -1,7 +1,7 @@
 Name:       perl-Term-Completion 
 Version:    1.00
 Release:    28%{?dist}
-License:    GPL+ or Artistic 
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Read one line of user input, with convenience functions 
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Term-Completion-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Term-Completion

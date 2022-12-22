@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      orm
-%global github_version   2.13.4
-%global github_commit    a5a6cc6630ce497290396d5f206887227820a634
+%global github_version   2.14.0
+%global github_commit    f82485e651763fbd1b34879726f4d3b91c358bd9
 
 %global composer_vendor  doctrine
 %global composer_project orm
@@ -26,9 +26,9 @@
 # "doctrine/cache": "^1.12.1 || ^2.1.1"
 %global cache_min_ver 1.12.1
 %global cache_max_ver 3
-# "doctrine/collections": "^1.5"
+# "doctrine/collections": "^1.5 || ^2.0"
 %global collections_min_ver 1.5
-%global collections_max_ver 2
+%global collections_max_ver 3
 # "doctrine/common": "^3.0.3"
 %global common_min_ver 3.0.3
 %global common_max_ver 4
@@ -44,18 +44,19 @@
 # "doctrine/instantiator": "^1.3"
 %global instantiator_min_ver 1.3
 %global instantiator_max_ver 2
-# "doctrine/lexer": "^1.2.3"
+# "doctrine/lexer": "^1.2.3 || ^2"
 %global lexer_min_ver 1.2.3
-%global lexer_max_ver 2
+%global lexer_max_ver 3
 # "doctrine/persistence": "^2.4 || ^3"
 %global persistence_min_ver 2.4
 %global persistence_max_ver 4
-# "doctrine/event-manager": "^1.1"
-%global event_min_ver 1.1
-%global event_max_ver 2
-# "symfony/console": "^3.0 || ^4.0 || ^5.0 || ^6.0"
+# "doctrine/event-manager": "^1.2 || ^2.0"
+%global event_min_ver 1.2
+%global event_max_ver 3
+# "symfony/console": "^4.2 || ^5.0 || ^6.0"
 # "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0"
-%global symfony_min_ver 3.4
+# "symfony/var-exporter": "^4.4 || ^5.4 || ^6.2",
+%global symfony_min_ver 4.4
 %global symfony_max_ver 7
 # "symfony/cache": "^4.4 || ^5.4 || ^6.0",
 %global sym_cache_min_ver 4.4
@@ -112,6 +113,7 @@ BuildRequires: (php-composer(doctrine/event-manager) >= %{event_min_ver}        
 BuildRequires: (php-composer(doctrine/lexer)         >= %{lexer_min_ver}        with php-composer(doctrine/lexer)         < %{lexer_max_ver})
 BuildRequires: (php-composer(doctrine/persistence)   >= %{persistence_min_ver}  with php-composer(doctrine/persistence)   < %{persistence_max_ver})
 BuildRequires: (php-composer(symfony/console)        >= %{symfony_min_ver}      with php-composer(symfony/console)        < %{symfony_max_ver})
+BuildRequires: (php-composer(symfony/var-exporter)   >= %{symfony_min_ver}      with php-composer(symfony/var-exporter)   < %{symfony_max_ver})
 BuildRequires: (php-composer(symfony/yaml)           >= %{symfony_min_ver}      with php-composer(symfony/yaml)           < %{symfony_max_ver})
 BuildRequires: (php-composer(symfony/cache)          >= %{sym_cache_min_ver}    with php-composer(symfony/cache)          < %{sym_cache_max_ver})
 BuildRequires: (php-composer(symfony/polyfill-php80) >= %{sym_poly_min_ver}     with php-composer(symfony/polyfill-php80) < %{sym_poly_max_ver})
@@ -230,6 +232,9 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Dependencies::required([
     [
+        '%{phpdir}/Doctrine/Common/Lexer2/autoload.php',
+        '%{phpdir}/Doctrine/Common/Lexer/autoload.php',
+    ], [
         '%{phpdir}/Doctrine/Persistence3/autoload.php',
         '%{phpdir}/Doctrine/Persistence2/autoload.php',
     ],
@@ -238,16 +243,18 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
     [
         '%{phpdir}/Doctrine/Common/Cache2/autoload.php',
         '%{phpdir}/Doctrine/Common/Cache/autoload.php',
+    ], [
+        '%{phpdir}/Doctrine/Common/Collections2/autoload.php',
+        '%{phpdir}/Doctrine/Common/Collections/autoload.php',
     ],
-    '%{phpdir}/Doctrine/Common/Collections/autoload.php',
     '%{phpdir}/Doctrine/Deprecations/autoload.php',
     [
         '%{phpdir}/Doctrine/Inflector2/autoload.php',
         '%{phpdir}/Doctrine/Common/Inflector/autoload.php',
-    ],
-    '%{phpdir}/Doctrine/Common/EventManager/autoload.php',
-    '%{phpdir}/Doctrine/Common/Lexer/autoload.php',
-    [
+    ], [
+        '%{phpdir}/Doctrine/EventManager2/autoload.php',
+        '%{phpdir}/Doctrine/Common/EventManager/autoload.php',
+    ], [
         '%{phpdir}/Doctrine/DBAL3/autoload.php',
         '%{phpdir}/Doctrine/DBAL/autoload.php',
     ],
@@ -267,11 +274,17 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Dependencies::optional([
   [
+    '%{phpdir}/Symfony6/Component/VarExporter/autoload.php',
+    '%{phpdir}/Symfony5/Component/VarExporter/autoload.php',
+    '%{phpdir}/Symfony4/Component/VarExporter/autoload.php',
+    '%{phpdir}/Symfony3/Component/VarExporter/autoload.php',
+  ], [
     '%{phpdir}/Symfony6/Component/Yaml/autoload.php',
     '%{phpdir}/Symfony5/Component/Yaml/autoload.php',
     '%{phpdir}/Symfony4/Component/Yaml/autoload.php',
     '%{phpdir}/Symfony3/Component/Yaml/autoload.php',
   ],
+
 ]);
 AUTOLOAD
 
@@ -327,7 +340,7 @@ for CMDARG in "php %{phpunit}" php80 php81 php82; do
         set $CMDARG
         $1 ${2:-%{_bindir}/phpunit9} \
             --verbose -d memory_limit="512M" \
-            --filter '^((?!(testConfigureCache|testDecimal)).)*$' \
+            --filter '^((?!(testConfigureCache|testDecimal|testCacheNamespaceShouldBeGeneratedForApcu)).)*$' \
             --bootstrap bootstrap.php \
             || RETURN_CODE=1
     fi
@@ -347,6 +360,13 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0
+- allow doctrine/collections v2
+- allow doctrine/event-manager v2
+- allow doctrine/lexer v2
+- raise dependency on symfony/console 4.2
+
 * Thu Nov 24 2022 Remi Collet <remi@remirepo.net> - 2.13.4-1
 - update to 2.13.4
 

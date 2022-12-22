@@ -2,7 +2,7 @@ Name:           perl-Test-Smoke
 Version:        1.79
 Release:        3%{?dist}
 Summary:        Perl core test smoke suite
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Smoke
 Source0:        https://cpan.metacpan.org/authors/id/A/AB/ABELTJE/Test-Smoke-%{version}.tar.gz
 BuildArch:      noarch

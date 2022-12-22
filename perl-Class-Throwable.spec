@@ -4,7 +4,7 @@ Name:           perl-Class-Throwable
 Version:        0.13
 Release:        22%{?dist}
 Summary:        A minimal lightweight exception class
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Throwable
 Source0:        https://cpan.metacpan.org/authors/id/K/KM/KMX/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,8 +2,8 @@
 
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.5.9
-Release: 4%{?dist}
+Version: 3.6.2
+Release: 1%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -164,13 +164,16 @@ fi
 
 
 %changelog
+* Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.2-1
+- 3.6.2
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.5.9-4
 - Rebuild for gsl-2.7.1
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Thu Jun 08 2022 Mattia Verga <mattia.verga@proton.me> - 3.5.9-2
+* Thu Jun 09 2022 Mattia Verga <mattia.verga@proton.me> - 3.5.9-2
 - Rebuilt for stellarsolver 2.3
 
 * Mon May 30 2022 Than Ngo <than@redhat.com> - 3.5.9-1

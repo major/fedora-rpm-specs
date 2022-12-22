@@ -2,7 +2,7 @@ Name:           perl-Mixin-ExtraFields
 Version:        0.140002
 Release:        24%{?dist}
 Summary:        Add extra stashes of data to your objects
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mixin-ExtraFields
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Mixin-ExtraFields-%{version}.tar.gz
 BuildArch:      noarch

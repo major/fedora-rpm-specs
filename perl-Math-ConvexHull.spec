@@ -2,7 +2,7 @@ Name:           perl-Math-ConvexHull
 Version:        1.04
 Release:        30%{?dist}
 Summary:        Calculate convex hulls using Graham's scan (n*log(n))
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-ConvexHull
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Math-ConvexHull-%{version}.tar.gz
 BuildArch:      noarch

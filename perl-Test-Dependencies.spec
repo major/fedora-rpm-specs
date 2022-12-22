@@ -2,7 +2,7 @@ Name:           perl-Test-Dependencies
 Version:        0.30
 Release:        7%{?dist}
 # see lib/Test/Dependencies.pm
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Ensure that your Makefile.PL specifies all module dependencies
 Source:         https://cpan.metacpan.org/authors/id/E/EH/EHUELS/Test-Dependencies-%{version}.tar.gz
 Url:            https://metacpan.org/release/Test-Dependencies

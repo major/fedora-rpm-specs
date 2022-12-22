@@ -2,7 +2,7 @@ Name:           perl-Affix-Infix2Postfix
 Version:        0.03
 Release:        40%{?dist}
 Summary:        Perl extension for converting from infix notation to postfix notation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Affix-Infix2Postfix
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADDI/Affix-Infix2Postfix-%{version}.tar.gz
 BuildArch:      noarch

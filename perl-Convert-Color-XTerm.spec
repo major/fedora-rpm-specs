@@ -2,7 +2,7 @@ Name:           perl-Convert-Color-XTerm
 Version:        0.06
 Release:        5%{?dist}
 Summary:        Indexed colors used by XTerm
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Color-XTerm/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Convert-Color-XTerm-%{version}.tar.gz
 BuildArch:      noarch

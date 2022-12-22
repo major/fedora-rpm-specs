@@ -2,7 +2,7 @@ Name:           perl-Geo-ShapeFile
 Version:        3.01
 Release:        6%{?dist}
 Summary:        Perl extension for handling ESRI GIS Shapefiles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Geo-ShapeFile
 Source0:        https://cpan.metacpan.org/modules/by-module/Geo/Geo-ShapeFile-%{version}.tar.gz
 # Remove rlib dependency from test suite as rlib is not available in Fedora and does not have a license

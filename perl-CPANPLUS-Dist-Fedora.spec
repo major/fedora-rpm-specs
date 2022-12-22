@@ -7,7 +7,7 @@ Name:           perl-CPANPLUS-Dist-Fedora
 Version:        0.4.4
 Release:        4%{?dist}
 Summary:        CPANPLUS backend to build Fedora/RedHat RPMs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPANPLUS-Dist-Fedora
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch

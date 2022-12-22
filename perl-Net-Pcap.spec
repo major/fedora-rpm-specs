@@ -3,7 +3,7 @@ Version:        0.20
 Release:        4%{?dist}
 Summary:        Interface to pcap(3) LBL packet capture library
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Pcap
 Source0:        https://cpan.metacpan.org/authors/id/C/CO/CORION/Net-Pcap-%{version}.tar.gz
 

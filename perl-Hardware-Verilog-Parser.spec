@@ -2,7 +2,7 @@ Name:           perl-Hardware-Verilog-Parser
 Version:        0.13
 Release:        40%{?dist}
 Summary:        Complete grammar for parsing Verilog code using perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hardware-Verilog-Parser
 Source0:        https://cpan.metacpan.org/authors/id/G/GS/GSLONDON/Hardware-Verilog-Parser-%{version}.tar.gz
 Patch0:         Hardware-Verilog-Parser-0.13-grammar.patch

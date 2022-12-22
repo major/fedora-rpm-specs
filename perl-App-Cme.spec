@@ -2,7 +2,7 @@ Name:           perl-App-Cme
 Version:        1.038
 Release:        3%{?dist}
 Summary:        Check or edit configuration data with Config::Model
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/App-Cme
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDUMONT/App-Cme-%{version}.tar.gz
 BuildArch:      noarch

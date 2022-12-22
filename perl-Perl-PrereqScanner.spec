@@ -2,7 +2,7 @@ Name:           perl-Perl-PrereqScanner
 Version:        1.024
 Release:        5%{?dist}
 Summary:        Tool to scan your Perl code for its prerequisites
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-PrereqScanner
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Perl-PrereqScanner-%{version}.tar.gz
 BuildArch:      noarch

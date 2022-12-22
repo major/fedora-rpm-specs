@@ -2,7 +2,7 @@ Name:           perl-Locale-Utils-PlaceholderBabelFish
 Version:        0.006
 Release:        17%{?dist}
 Summary:        Utils to expand BabelFish placeholders
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Utils-PlaceholderBabelFish
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-Utils-PlaceholderBabelFish-%{version}.tar.gz
 BuildArch:      noarch

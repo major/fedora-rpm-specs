@@ -4,7 +4,7 @@ Release:        43%{?dist}
 Summary:        Define a dictionary of SQL statements in a POD dialect (POS)
 # There was some code that was taken from Class::Singleton, which was Artistic only at the time.
 # That code has since been relicensed to GPL+ or Artistic.
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-POS
 Source0:        https://cpan.metacpan.org/authors/id/M/MD/MDORMAN/DBIx-POS-%{version}.tar.gz
 BuildArch:      noarch

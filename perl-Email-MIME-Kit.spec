@@ -2,7 +2,7 @@ Name:           perl-Email-MIME-Kit
 Version:        3.000006
 Release:        15%{?dist}
 Summary:        Build e-mail messages from templates
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME-Kit
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-MIME-Kit-%{version}.tar.gz
 BuildArch:      noarch

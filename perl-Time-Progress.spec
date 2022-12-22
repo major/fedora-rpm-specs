@@ -2,7 +2,7 @@ Name:           perl-Time-Progress
 Version:        2.12
 Release:        18%{?dist}
 Summary:        Elapsed and estimated finish time reporting
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Progress
 Source0:        https://cpan.metacpan.org/modules/by-module/Time/Time-Progress-%{version}.tar.gz
 BuildArch:      noarch

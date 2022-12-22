@@ -2,7 +2,7 @@ Name:           perl-Test-Log-Log4perl
 Version:        0.32
 Release:        15%{?dist}
 Summary:        Test log4perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Log-Log4perl
 Source0:        https://cpan.metacpan.org/authors/id/C/CL/CLKAO/Test-Log-Log4perl-%{version}.tar.gz
 BuildArch:      noarch

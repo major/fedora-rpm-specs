@@ -15,6 +15,9 @@ Patch:          https://github.com/jpcima/fmidi/pull/4.patch
 # https://github.com/jpcima/fmidi/commit/20916421656e89a1303a85e76e89db8bd551a31e
 Patch:          %{url}/commit/20916421656e89a1303a85e76e89db8bd551a31e.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 # This is our choice; the makefile backend would work fine too

@@ -2,7 +2,7 @@ Name:           perl-DateTime-Format-W3CDTF
 Version:        0.08
 Release:        7%{?dist}
 Summary:        Parse and format W3CDTF datetime strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-W3CDTF
 Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/DateTime-Format-W3CDTF-%{version}.tar.gz
 # Simplify Makefile.PL to skip unwanted dependencies

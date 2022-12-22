@@ -2,7 +2,7 @@ Name:           perl-Term-ReadPassword
 Version:        0.11
 Release:        41%{?dist}
 Summary:        Asking the user for a password
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ReadPassword
 Source0:        https://cpan.metacpan.org/authors/id/P/PH/PHOENIX/Term-ReadPassword-%{version}.tar.gz
 BuildArch:      noarch

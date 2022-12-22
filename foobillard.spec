@@ -1,6 +1,6 @@
 Name:           foobillard
 Version:        3.0a
-Release:        42%{?dist}
+Release:        43%{?dist}
 
 Summary:        OpenGL billard game
 
@@ -13,6 +13,8 @@ Source2:        hobble-foobillard.sh
 Patch0:         foobillard-3.0a-nonv.patch
 Patch1:         foobillard-3.0a-no-fonts.patch
 Patch2:		foobillard-3.0a-clothtex.patch
+Patch3:         foobillard-configure-c99.patch
+Patch4:         foobillard-c99.patch
 Requires:       dejavu-sans-fonts
 BuildRequires:  gcc
 BuildRequires:  SDL-devel ImageMagick alsa-lib-devel
@@ -30,6 +32,8 @@ FooBillard is still under development but the main physics is implemented.
 %patch0 -p1
 %patch1 -p1 -b .no-fonts
 %patch2 -p0 -b .clothtex
+%patch3 -p1
+%patch4 -p1
 
 %build
 iconv -f iso-8859-1 -t utf-8 < ChangeLog > _
@@ -72,6 +76,9 @@ install -p -m 644 foobillard-256x256.png \
 
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 3.0a-43
+- Port to C99 (#2155183)
+
 * Fri Dec 09 2022 Kalev Lember <klember@redhat.com> - 3.0a-42
 - Make sure the installed icon is square
 - Install an additional 256x256 px sized icon

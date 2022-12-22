@@ -90,7 +90,6 @@ developing applications that use %{name}.
 
 %files -f %{name}.lang
 %license LICENSES/*
-%{_kf5_datadir}/kservicetypes5/calendardecoration.desktop
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKF5EventViews.so.*
 

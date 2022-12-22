@@ -3,7 +3,7 @@ Version:        1.08
 Release:        44%{?dist}
 Summary:        A thin wrapper around the shellwords.pl package
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Shellwords
 Source0:        https://cpan.metacpan.org/authors/id/L/LD/LDS/Text-Shellwords-1.08.tar.gz
 

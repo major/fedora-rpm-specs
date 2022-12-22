@@ -18,7 +18,6 @@ URL:     https://www.kde.org/applications/internet/ktorrent/
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
-Patch0: ce4aef3c1d0e83ae50e011eeac1695c56bd253ed.diff
 
 ## upstreamable patches
 

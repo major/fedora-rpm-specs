@@ -2,7 +2,7 @@ Name:           perl-Module-Used
 Version:        1.3.0
 Release:        24%{?dist}
 Summary:        Find modules loaded by Perl code without running it
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Used
 Source0:        https://cpan.metacpan.org/authors/id/E/EL/ELLIOTJS/Module-Used-v%{version}.tar.gz
 BuildArch:      noarch

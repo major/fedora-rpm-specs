@@ -4,7 +4,7 @@ Name:           perl-Data-Dumper
 Version:        2.184
 Release:        490%{?dist}
 Summary:        Stringify perl data structures, suitable for printing and eval
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper
 Source0:        https://cpan.metacpan.org/authors/id/N/NW/NWCLARK/Data-Dumper-%{base_version}.tar.gz
 # Upgrade to 2.184 based on perl-5.35.11

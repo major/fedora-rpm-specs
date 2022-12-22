@@ -74,6 +74,9 @@ Source0:        %{forgeurl}/archive/v.%{version}/luminance-hdr-%{version}.tar.gz
 Source1:        luminance-hdr.1
 Source2:        luminance-hdr-cli.1
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # https://github.com/LuminanceHDR/LuminanceHDR/issues/239
 Patch:          luminance-hdr-2.6.1.1-sleef-boost-license.patch
 
@@ -358,7 +361,7 @@ x="${x}|PoissonSolver"
 # A backed-up bundled hdrhtml directory from a previous upgrade may be present:
 %ghost %{_datadir}/luminance-hdr/hdrhtml.rpmmoved
 
-%{_datadir}/luminance-hdr/help
+%{_datadir}/luminance-hdr/help/
 
 # Contents of this directory are listed by %%find_lang
 %dir %{_datadir}/luminance-hdr/i18n

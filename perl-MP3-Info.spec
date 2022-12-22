@@ -2,7 +2,7 @@ Name:           perl-MP3-Info
 Version:        1.26
 Release:        16%{?dist}
 Summary:        Manipulate / fetch info from MP3 audio files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MP3-Info
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMERELO/MP3-Info-%{version}.tar.gz
 BuildArch:      noarch

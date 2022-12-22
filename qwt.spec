@@ -1,17 +1,13 @@
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
-# build qt4 support (or not)
-%if 0%{?rhel} <  8
-%global qt4 1
-%endif
-# build qt5 support (or not)
-%global qt5 1
+%bcond_without qt5
+%bcond_without qt6
 
 Name:    qwt
 Summary: Qt Widgets for Technical Applications
-Version: 6.1.5
-Release: 7%{?dist}
+Version: 6.2.0
+Release: 1%{?dist}
 
 License: LGPLv2 with exceptions
 URL:     http://qwt.sourceforge.net
@@ -20,33 +16,16 @@ Source:  http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 ## upstream patches
 
 ## upstreamable patches
-# fix pkgconfig support
-Patch50: qwt-6.1.1-pkgconfig.patch
-# use QT_INSTALL_ paths instead of custom prefix
-Patch51: qwt-6.1.5-qt_install_paths.patch
-# parallel-installable qt5 version
-Patch52: qwt-qt5.patch
-#
-Patch53: qwt-6.1.3-no_rpath.patch
+# Use QT_INSTALL_ paths instead of custom prefix
+Patch51: qwt-qt_install_paths.patch
+# Add qt suffix to libraries to make them parallel-installable
+Patch52: qwt-libsuffix.patch
+# Kill rpath
+Patch53: qwt-no_rpath.patch
+# Fix incorrect requires in pkgconfig files
+Patch54: qwt-pkgconfig.patch
 
 BuildRequires: make
-%if 0%{?qt5}
-BuildRequires: pkgconfig(Qt5Concurrent) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets)
-BuildRequires: pkgconfig(Qt5OpenGL) pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Designer)
-%endif
-%if 0%{?qt4}
-BuildRequires: pkgconfig(QtGui) pkgconfig(QtSvg)
-BuildRequires: pkgconfig(QtDesigner)
-%{?_qt4_version:Requires: qt4%{?_isa} >= %{_qt4_version}}
-%endif
-
-# silly buildsys quirk
-BuildConflicts: qwt-devel
-
-
-Provides: qwt6 = %{version}-%{release}
-Provides: qwt6%{_isa} = %{version}-%{release}
 
 %description
 The Qwt library contains GUI Components and utility classes which are primarily
@@ -55,13 +34,6 @@ Besides a 2D plot widget it provides scales, sliders, dials, compasses,
 thermometers, wheels and knobs to control or display values, arrays
 or ranges of type double.
 
-%package devel
-Summary:  Development files for %{name}
-Provides: qwt6-devel = %{version}-%{release}
-Provides: qwt6-devel%{_isa} = %{version}-%{release}
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%description devel
-%{summary}.
 
 %package doc
 Summary: Developer documentation for %{name}
@@ -69,9 +41,12 @@ BuildArch: noarch
 %description doc
 %{summary}.
 
-%if 0%{?qt5}
+%if %{with qt5}
 %package qt5
 Summary: Qt5 Widgets for Technical Applications
+BuildRequires: pkgconfig(Qt5Concurrent) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets)
+BuildRequires: pkgconfig(Qt5OpenGL) pkgconfig(Qt5Svg)
+BuildRequires: pkgconfig(Qt5Designer)
 Provides: qwt6-qt5 = %{version}-%{release}
 Provides: qwt6-qt5%{_isa} = %{version}-%{release}
 %description qt5
@@ -86,30 +61,45 @@ Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 %{summary}.
 %endif
 
+%if %{with qt6}
+%package qt6
+Summary: Qt6 Widgets for Technical Applications
+BuildRequires: pkgconfig(Qt6Concurrent) pkgconfig(Qt6PrintSupport) pkgconfig(Qt6Widgets)
+BuildRequires: pkgconfig(Qt6OpenGL) pkgconfig(Qt6Svg)
+BuildRequires: pkgconfig(Qt6Designer)
+Provides: qwt6-qt6 = %{version}-%{release}
+Provides: qwt6-qt6%{_isa} = %{version}-%{release}
+%description qt6
+%{summary}.
+
+%package qt6-devel
+Summary:  Development files for %{name}-qt6
+Provides: qwt6-qt6-devel = %{version}-%{release}
+Provides: qwt6-qt6-devel%{_isa} = %{version}-%{release}
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+%description qt6-devel
+%{summary}.
+%endif
+
 
 %prep
-%setup -q
-
-%patch50 -p1 -b .pkgconfig
-%patch51 -p1 -b .qt_install_paths
-%patch52 -p1 -b .qt5
-%patch53 -p1 -b .no_rpath
+%autosetup -p1
 
 
 %build
-%if 0%{?qt5}
+%if %{with qt5}
 mkdir %{_target_platform}-qt5
 pushd %{_target_platform}-qt5
-%{?qmake_qt5}%{?!qmake_qt5:%{_qt5_qmake}} QWT_CONFIG+=QwtPkgConfig ..
+%{qmake_qt5} QWT_CONFIG+=QwtPkgConfig ..
 
 %make_build
 popd
 %endif
 
-%if 0%{?qt4}
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{qmake_qt4} QWT_CONFIG+=QwtPkgConfig ..
+%if %{with qt6}
+mkdir %{_target_platform}-qt6
+pushd %{_target_platform}-qt6
+%{qmake_qt6} QWT_CONFIG+=QwtPkgConfig ..
 
 %make_build
 popd
@@ -117,95 +107,70 @@ popd
 
 
 %install
-%if 0%{?qt5}
+%if %{with qt5}
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}-qt5
 %endif
-%if 0%{?qt4}
-make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+%if %{with qt6}
+make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}-qt6
 %endif
 
-%if 0%{?qt4}
-# fixup doc path bogosity
-mv %{buildroot}%{_qt4_docdir}/html/html \
-   %{buildroot}%{_qt4_docdir}/html/qwt
-
+mkdir -p %{buildroot}%{_defaultdocdir}/%{name}
 mkdir -p %{buildroot}%{_mandir}
-mv %{buildroot}%{_qt4_docdir}/html/man/man3 \
-   %{buildroot}%{_mandir}/
 
-%if 0%{?qt5}
-# nuke qt5 docs, use copies from qt4 build instead 
-rm -rfv %{buildroot}%{_qt5_docdir}/html/*
+# Move docs to proper dirs
+%if %{with qt5}
+# Last build "wins"
+rm -rf %{buildroot}%{_defaultdocdir}/%{name}/html %{buildroot}%{_mandir}/*
+mv %{buildroot}%{_qt5_docdir}/html/html %{buildroot}%{_defaultdocdir}/%{name}/html
+mv %{buildroot}%{_qt5_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 
-cp -alf %{buildroot}%{_qt4_docdir}/html/qwt/ \
-        %{buildroot}%{_qt5_docdir}/html/qwt/
+%if %{with qt6}
+# Last build "wins"
+rm -rf %{buildroot}%{_defaultdocdir}/%{name}/html %{buildroot}%{_mandir}/*
+mv %{buildroot}%{_qt6_docdir}/html/html %{buildroot}%{_defaultdocdir}/%{name}/html
+mv %{buildroot}%{_qt6_docdir}/html/man/man3 %{buildroot}%{_mandir}/
 %endif
-%else
-# fixup doc path bogosity
-mv %{buildroot}%{_qt5_docdir}/html/html \
-   %{buildroot}%{_qt5_docdir}/html/qwt
-
-mkdir -p %{buildroot}%{_mandir}
-mv %{buildroot}%{_qt5_docdir}/html/man/man3 \
-   %{buildroot}%{_mandir}/
 %endif
 
-
-%if 0%{?qt4}
-%ldconfig_scriptlets
-
-%files
-%license COPYING
-%doc README
-%{_qt4_libdir}/libqwt.so.6*
-# subpkg ? -- rex
-%{_qt4_libdir}/libqwtmathml.so.6*
-
-%files devel
-%{_qt4_headerdir}/qwt/
-%{_qt4_libdir}/libqwt.so
-%{_qt4_libdir}/libqwtmathml.so
-%{_qt4_libdir}/qt4/mkspecs/features/qwt*
-%{_qt4_libdir}/pkgconfig/qwt.pc
-%{_qt4_libdir}/pkgconfig/qwtmathml.pc
-%endif
 
 %files doc
-%if 0%{?qt4}
-# own these to avoid needless dep on qt/qt-doc
-%dir %{_qt4_docdir}
-%dir %{_qt4_docdir}/html/
-%{_qt4_docdir}/html/qwt/
-%endif
-%if 0%{?qt5}
-%dir %{_qt5_docdir}
-%dir %{_qt5_docdir}/html/
-%{_qt5_docdir}/html/qwt/
-%endif
+%doc %{_defaultdocdir}/%{name}/
 %{_mandir}/man3/*
 
-
-%if 0%{?qt5}
-%ldconfig_scriptlets qt5
-
+%if %{with qt5}
 %files qt5
 %license COPYING
 %doc README
 %{_qt5_libdir}/libqwt-qt5.so.6*
 %{_qt5_plugindir}/designer/libqwt_designer_plugin.so
-%{_qt5_libdir}/libqwtmathml-qt5.so.6*
 
 %files qt5-devel
 %{_qt5_headerdir}/qwt/
 %{_qt5_libdir}/libqwt-qt5.so
-%{_qt5_libdir}/libqwtmathml-qt5.so
 %{_qt5_archdatadir}/mkspecs/features/qwt*
 %{_qt5_libdir}/pkgconfig/Qt5Qwt6.pc
-%{_qt5_libdir}/pkgconfig/qwtmathml-qt5.pc
+%endif
+
+%if %{with qt6}
+%files qt6
+%license COPYING
+%doc README
+%{_qt6_libdir}/libqwt-qt6.so.6*
+%{_qt6_plugindir}/designer/libqwt_designer_plugin.so
+
+%files qt6-devel
+%{_qt6_headerdir}/qwt/
+%{_qt6_libdir}/libqwt-qt6.so
+%{_qt6_archdatadir}/mkspecs/features/qwt*
+%{_qt6_libdir}/pkgconfig/Qt6Qwt6.pc
 %endif
 
 
 %changelog
+* Tue Nov 29 2022 Sandro Mani <manisandro@gmail.com> - 6.2.0-1
+- Update to 6.2.0
+- Add qt6 build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

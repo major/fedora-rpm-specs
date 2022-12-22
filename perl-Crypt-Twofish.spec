@@ -2,7 +2,7 @@ Name:           perl-Crypt-Twofish
 Version:        2.18
 Release:        8%{?dist}
 Summary:        Twofish Encryption Algorithm
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Twofish
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMS/Crypt-Twofish-%{version}.tar.gz
 Patch0:         perl-Crypt-Twofish-makefile-c99.patch

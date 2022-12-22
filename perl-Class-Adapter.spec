@@ -2,7 +2,7 @@ Name:           perl-Class-Adapter
 Version:        1.09
 Release:        15%{?dist}
 Summary:        Perl implementation of the "Adapter" Design Pattern
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Adapter
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-Adapter-%{version}.tar.gz
 BuildArch:      noarch

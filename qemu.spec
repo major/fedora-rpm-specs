@@ -6,7 +6,7 @@
 %global libfdt_version 1.6.0
 %global libseccomp_version 2.4.0
 %global libusbx_version 1.0.23
-%global meson_version 0.59.3
+%global meson_version 0.61.3
 %global usbredir_version 0.7.1
 %global ipxe_version 20200823-5.git4bd064de
 
@@ -310,11 +310,11 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 4
+%global baserelease 1
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 7.1.0
+Version: 7.2.0
 Release: %{baserelease}%{?rcrel}%{?dist}
 Epoch: 2
 License: GPLv2 and BSD and MIT and CC-BY
@@ -1409,6 +1409,7 @@ mkdir -p %{static_builddir}
   --disable-auth-pam               \\\
   --disable-avx2                   \\\
   --disable-avx512f                \\\
+  --disable-blkio                  \\\
   --disable-block-drv-whitelist-in-tools \\\
   --disable-bochs                  \\\
   --disable-bpf                    \\\
@@ -1442,6 +1443,7 @@ mkdir -p %{static_builddir}
   --disable-glusterfs              \\\
   --disable-gnutls                 \\\
   --disable-gtk                    \\\
+  --disable-gtk-clipboard          \\\
   --disable-guest-agent            \\\
   --disable-guest-agent-msi        \\\
   --disable-hax                    \\\
@@ -1497,6 +1499,7 @@ mkdir -p %{static_builddir}
   --disable-slirp-smbd             \\\
   --disable-smartcard              \\\
   --disable-snappy                 \\\
+  --disable-sndio                  \\\
   --disable-sparse                 \\\
   --disable-spice                  \\\
   --disable-spice-protocol         \\\
@@ -1642,7 +1645,7 @@ run_configure \
 %endif
   --enable-seccomp \
   --enable-selinux \
-  --enable-slirp=system \
+  --enable-slirp \
   --enable-slirp-smbd \
   --enable-snappy \
   --enable-system \
@@ -2741,6 +2744,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Mon Dec 19 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.2.0-1
+- Rebase to qemu 7.2.0
+
 * Fri Nov 11 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 7.1.0-4
 - Update libbpf dependency
 

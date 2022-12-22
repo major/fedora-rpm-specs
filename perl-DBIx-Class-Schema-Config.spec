@@ -2,7 +2,7 @@ Name:           perl-DBIx-Class-Schema-Config
 Version:        0.001014
 Release:        5%{?dist}
 Summary:        Credential Management for DBIx::Class
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-Schema-Config
 Source0:        https://cpan.metacpan.org/authors/id/S/SY/SYMKAT/DBIx-Class-Schema-Config-%{version}.tar.gz
 BuildArch:      noarch

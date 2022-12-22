@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-setuptools-rust
-Version:        1.2.0
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Setuptools Rust extension plugin
 
@@ -20,7 +20,6 @@ BuildRequires:  python3dist(setuptools) > 46.1
 BuildRequires:  python3dist(semantic-version) >= 2.8.2
 BuildRequires:  python3dist(typing-extensions) >= 3.7.4.4
 %if 0%{?fedora}
-BuildRequires:  python3dist(setuptools-scm) >= 3.4.3
 BuildRequires:  python3dist(wheel)
 BuildRequires:  rust-packaging >= 1.45
 %else

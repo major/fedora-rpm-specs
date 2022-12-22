@@ -2,7 +2,7 @@ Name:           perl-Mail-MboxParser
 Version:        0.55
 Release:        37%{?dist}
 Summary:        Read-only access to UNIX-mailboxes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-MboxParser
 Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPARSEVAL/Mail-MboxParser-%{version}.tar.gz
 # Bug #715505, submitted to upstream

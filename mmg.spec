@@ -1,5 +1,5 @@
 Name:           mmg
-Version:        5.7.0
+Version:        5.7.1
 Release:        1%{?dist}
 Summary:        Surface and volume remeshers
 
@@ -7,10 +7,8 @@ License:        LGPL-3.0-or-later
 URL:            https://www.mmgtools.org/
 Source0:        https://github.com/MmgTools/mmg/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# Fix install of non-existing header
-Patch0:         mmg_cmake.patch
 # Don't generate latex doc output, place html output to subdir
-Patch1:         mmg_doc.patch
+Patch0:         mmg_doc.patch
 
 BuildRequires:  doxygen
 BuildRequires:  cmake
@@ -198,6 +196,9 @@ install -Dpm 0644 doc/man/mmg3d.1.gz %{buildroot}%{_mandir}/man1/mmg3d.1.gz
 
 
 %changelog
+* Tue Dec 20 2022 Sandro Mani <manisandro@gmail.com> - 5.7.1-1
+- Update to 5.7.1
+
 * Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 5.7.0-1
 - Update to 5.7.0
 

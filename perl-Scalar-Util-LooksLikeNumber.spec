@@ -3,7 +3,7 @@ Version:        1.39.2
 Release:        23%{?dist}
 Summary:        Access to looks_like_number() perl API function
 # Defined in Makefile.PL, also mentioned in LooksLikeNumber.xs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Scalar-Util-LooksLikeNumber
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Scalar-Util-LooksLikeNumber-%{version}.tar.gz
 # Build

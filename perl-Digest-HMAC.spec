@@ -2,7 +2,7 @@ Name:           perl-Digest-HMAC
 Version:        1.04
 Release:        6%{?dist}
 Summary:        Keyed-Hashing for Message Authentication
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Digest-HMAC
 Source0:        https://cpan.metacpan.org/authors/id/A/AR/ARODLAND/Digest-HMAC-%{version}.tar.gz
 BuildArch:      noarch

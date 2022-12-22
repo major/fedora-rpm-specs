@@ -3,7 +3,7 @@ Version:        0.81
 Release:        45%{dist}
 Summary:        Perl module for dumping Perl objects from/to XML
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Dumper
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKEWONG/XML-Dumper-%{version}.tar.gz
 

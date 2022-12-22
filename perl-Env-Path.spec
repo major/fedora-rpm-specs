@@ -2,7 +2,7 @@ Name:           perl-Env-Path
 Version:        0.19
 Release:        26%{?dist}
 Summary:        Advanced operations on path variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env-Path
 Source0:        https://cpan.metacpan.org/authors/id/D/DS/DSB/Env-Path-%{version}.tar.gz
 BuildArch:      noarch

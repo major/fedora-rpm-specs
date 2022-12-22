@@ -71,7 +71,7 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %doc README
 %doc eg/
 %doc test.pl
-%{perl_vendorarch}/auto/%{modname}
+%{perl_vendorarch}/auto/%{modname}/
 %{perl_vendorarch}/%{modname}.pm
 %{_mandir}/man3/%{modname}.3pm*
 

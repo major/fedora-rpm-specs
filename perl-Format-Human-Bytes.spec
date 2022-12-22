@@ -2,7 +2,7 @@ Name:           perl-Format-Human-Bytes
 Version:        0.06
 Release:        35%{?dist}
 Summary:        Format a bytecount and make it human readable
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Format-Human-Bytes
 Source0:        https://cpan.metacpan.org/authors/id/S/SE/SEWI/Format-Human-Bytes-%{version}.tar.gz
 Patch0:         Format-Human-Bytes-no-autoinstall.patch

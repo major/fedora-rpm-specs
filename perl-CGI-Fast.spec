@@ -4,7 +4,7 @@ Release:        4%{?dist}
 Summary:        CGI Interface for Fast CGI
 # lib/CGI/Fast.pm probably qotes piece of Artistic license before declaring
 # "as Perl itself" <https://github.com/leejo/cgi-fast/issues/13>
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CGI-Fast
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-Fast-%{version}.tar.gz
 BuildArch:      noarch

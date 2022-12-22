@@ -2,7 +2,7 @@ Name:           perl-Net-Netmask
 Version:        2.0002
 Release:        1%{?dist}
 Summary:        Perl module for manipulating and looking up IP network blocks
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Netmask
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMASLAK/Net-Netmask-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Locale-PO
 Version:        0.27
 Release:        23%{?dist}
 Summary:        Perl module for manipulating .po entries from GNU gettext
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-PO
 Source0:        https://cpan.metacpan.org/authors/id/C/CO/COSIMO/Locale-PO-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-PDF-API2-XS
 Version:        1.002
 Release:        7%{?dist}
 Summary:        Optional PDF::API2 add-on using XS to speed up expensive operations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PDF-API2-XS
 Source0:        https://cpan.metacpan.org/authors/id/S/SS/SSIMMS/PDF-API2-XS-%{version}.tar.gz
 BuildRequires:  coreutils

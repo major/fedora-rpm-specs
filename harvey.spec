@@ -22,6 +22,9 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0
 URL:            https://github.com/danrabbit/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 

@@ -84,11 +84,13 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.6
-Release:	6%{?dist}
-# The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file
+Release:	7%{?dist}
+# The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
+# Note that many of the components listed in that file are not built in, but
+# are used as external libraries, and therefore do not affect the License tag.
 # Additionally, every $files section has a comment with the license name
 # before files with that license
-License:	ASL 2.0 and BSD and GPL+ and GPLv2+ and LGPLv2+ and MIT and Public Domain
+License:	GPL-3.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later
 URL:		http://www.sagemath.org
 Source0:	http://files.sagemath.org/src/sage-%{version}.tar.gz
 Source1:	https://github.com/JohnCremona/ecdata/archive/%{cremona_ver}/cremona-%{cremona_ver}.tar.gz
@@ -487,6 +489,7 @@ packages into a common Python-based interface.
 
 #------------------------------------------------------------------------
 %package	core
+License:	GPL-3.0-only AND GPL-2.0-or-later AND GPL-1.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-3-Clause AND BSD-2-Clause AND EPL-1.0 AND PSF-2.0
 Summary:	Open Source Mathematics Software
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	4ti2
@@ -547,7 +550,7 @@ Requires:	jmol
 Requires:	jsmol
 Requires:	jsmath-fonts
 Requires:	latte-integrale
-Requires:	libgap-devel
+Requires:	libgap
 Requires:	lrslib-utils
 Requires:	mathjax
 Requires:	maxima-runtime-ecl
@@ -664,6 +667,7 @@ Collection of databases and interface customization scripts for sagemath.
 
 #------------------------------------------------------------------------
 %package	data-combinatorial_designs
+License:	LicenseRef-Fedora-Public-Domain
 Summary:	Table of MOLS from the Handbook of Combinatorial Designs
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -674,6 +678,7 @@ Designs, 2nd edition.
 
 #------------------------------------------------------------------------
 %package	data-conway_polynomials
+License:	GPL-2.0-or-later
 Summary:	Conway Polynomials Database
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -683,6 +688,7 @@ Small database of Conway polynomials for sagemath.
 
 #------------------------------------------------------------------------
 %package	data-elliptic_curves
+License:	Artistic-2.0
 Summary:	Databases of elliptic curves
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -697,6 +703,7 @@ Includes two databases:
 
 #------------------------------------------------------------------------
 %package	data-elliptic_curves_large
+License:	Artistic-2.0
 Summary:	Large database of elliptic curves
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -709,6 +716,7 @@ http://johncremona.github.io/ecdata/.
 
 #------------------------------------------------------------------------
 %package	data-etc
+License:	GPL-2.0-or-later
 Summary:	Extcode for Sagemath
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -718,6 +726,7 @@ Collection of scripts and interfaces to sagemath.
 
 #------------------------------------------------------------------------
 %package	data-graphs
+License:	LicenseRef-Fedora-Public-Domain
 Summary:	Sagemath database of graphs
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -728,6 +737,7 @@ Grout. Since April 2012 it also contains the ISGCI graph database.
 
 #------------------------------------------------------------------------
 %package	data-polytopes_db
+License:	GPL-3.0-or-later
 Summary:	Lists of 2- and 3-dimensional reflexive polytopes
 Requires:	%{name}-data = %{version}-%{release}
 BuildArch:	noarch
@@ -744,6 +754,7 @@ ReflexivePolytope and ReflexivePolytopes commands.
 %if %{with docs}
 #------------------------------------------------------------------------
 %package	doc
+License:	CC-BY-SA-3.0
 Summary:	Documentation infrastructure files for %{name}
 Requires:	mathjax
 
@@ -752,6 +763,7 @@ This package contains the documentation infrastructure for %{name}.
 
 #------------------------------------------------------------------------
 %package	doc-ca
+License:	CC-BY-SA-3.0
 Summary:	Catalan documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -760,6 +772,7 @@ This package contains the Catalan %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-de
+License:	CC-BY-SA-3.0
 Summary:	German documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -768,6 +781,7 @@ This package contains the German %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-en
+License:	CC-BY-SA-3.0
 Summary:	English documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -776,6 +790,7 @@ This package contains the English %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-fr
+License:	CC-BY-SA-3.0
 Summary:	French documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -784,6 +799,7 @@ This package contains the French %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-hu
+License:	CC-BY-SA-3.0
 Summary:	Hungarian documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -792,6 +808,7 @@ This package contains the Hungarian %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-it
+License:	CC-BY-SA-3.0
 Summary:	Italian documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -800,6 +817,7 @@ This package contains the Italian %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-pt
+License:	CC-BY-SA-3.0
 Summary:	Portuguese documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -808,6 +826,7 @@ This package contains the Portuguese %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-ru
+License:	CC-BY-SA-3.0
 Summary:	Russian documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -816,6 +835,7 @@ This package contains the Russian %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	doc-tr
+License:	CC-BY-SA-3.0
 Summary:	Turkish documentation files for %{name}
 Requires:	%{name}-doc = %{version}-%{release}
 
@@ -826,6 +846,7 @@ This package contains the Turkish %{name} documentation.
 
 #------------------------------------------------------------------------
 %package	jupyter
+License:	GPL-2.0-or-later AND MIT
 Summary:	Jupyter integration for sagemath
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python-jupyter-filesystem
@@ -842,6 +863,7 @@ defunct notebook functionality.
 
 #------------------------------------------------------------------------
 %package	sagetex
+License:	GPL-2.0-or-later
 Summary:	Sagemath into LaTeX documents
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	%{py3_dist pillow}
@@ -996,6 +1018,9 @@ sed -e 's,local/bin/python,bin/python,' \
 sed -e "s|'%{_bindir}/env', 'which'|'%{_bindir}/which'|" \
     -i build/pkgs/ipython/src/IPython/utils/_process_posix.py
 %endif
+
+# Remove bogus executable bits
+chmod a-x src/sage/modules/fp_graded/{,steenrod/}*.py
 
 # GAP does not have enough memory to load the entire workspace
 sed -i 's/64m/256m/' src/sage/interfaces/gap.py
@@ -1763,7 +1788,7 @@ end
 
 
 %files
-# GPLv2+
+# GPL-2.0-or-later
 %license COPYING.txt
 %doc %{SAGE_ROOT}/COPYING.txt
 %dir %{SAGE_ROOT}
@@ -1780,7 +1805,6 @@ end
 %{SAGE_ROOT}/share
 %{SAGE_SRC}/
 %dir %{SAGE_PYTHONPATH}
-# GPLv2+
 %{_bindir}/sage
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_datadir}/applications/org.%{name}.sage.desktop
@@ -1792,19 +1816,22 @@ end
 
 #------------------------------------------------------------------------
 %files		core
-# GPLv2+
+# GPL-2.0-or-later
 %{python3_sitearch}/sage/
 %if %{without install_hack}
 %{python3_sitearch}/sage-*.egg-info
 %endif
 %if %{with bundled_ipython}
+# BSD-3-Clause
 %{SAGE_PYTHONPATH}/IPython
 %{SAGE_PYTHONPATH}/prompt_toolkit*
 %endif
 %if %{with bundled_jupyter_jsmol}
+# MIT AND BSD-3-Clause AND EPL-1.0
 %{SAGE_PYTHONPATH}/jupyter_jsmol*
 %endif
 %if %{with bundled_memory_allocator}
+# GPL-3.0-only AND LGPL-3.0-or-later
 %{SAGE_PYTHONPATH}/memory_allocator*
 %endif
 
@@ -1821,25 +1848,25 @@ end
 
 #------------------------------------------------------------------------
 %files		data-conway_polynomials
-# GPLv2+
+# GPL-2.0-or-later
 %{SAGE_SHARE}/conway_polynomials/
 
 #------------------------------------------------------------------------
 %files		data-elliptic_curves
-# GPLv2+
+# Artistic-2.0
 %dir %{SAGE_SHARE}/cremona/
 %{SAGE_SHARE}/cremona/cremona_mini.db
 %{SAGE_SHARE}/ellcurves/
 
 #------------------------------------------------------------------------
 %files		data-elliptic_curves_large
-# GPLv2+
+# Artistic-2.0
 %dir %{SAGE_SHARE}/cremona/
 %{SAGE_SHARE}/cremona/cremona.db
 
 #------------------------------------------------------------------------
 %files		data-etc
-# GPLv2+
+# GPL-2.0-or-later
 %{SAGE_ETC}/doctest/
 %{SAGE_ETC}/gap/
 %{SAGE_ETC}/kenzo/
@@ -1854,19 +1881,19 @@ end
 
 #------------------------------------------------------------------------
 %files		data-graphs
-# GPLv2+
+# Public Domain
 %{SAGE_ETC}/graphs/
 %{SAGE_SHARE}/graphs/
 
 #------------------------------------------------------------------------
 %files		data-polytopes_db
-# GPL+
+# GPL-3.0-or-later
 %{SAGE_SHARE}/reflexive_polytopes/
 
 %if %{with docs}
 #------------------------------------------------------------------------
 %files		doc
-# GPLv2+
+# CC-BY-SA-3.0
 %license COPYING.txt
 %dir %{SAGE_DOC}/
 %{SAGE_DOC}/index.html
@@ -1875,19 +1902,19 @@ end
 
 #------------------------------------------------------------------------
 %files		doc-ca
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/ca/
 %{SAGE_DOC}/html/ca/
 
 #------------------------------------------------------------------------
 %files		doc-de
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/de/
 %{SAGE_DOC}/html/de/
 
 #------------------------------------------------------------------------
 %files		doc-en
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/en/
 %{SAGE_DOC}/html/en/
 
@@ -1962,37 +1989,37 @@ end
 
 #------------------------------------------------------------------------
 %files		doc-fr
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/fr/
 %{SAGE_DOC}/html/fr/
 
 #------------------------------------------------------------------------
 %files		doc-hu
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/hu/
 %{SAGE_DOC}/html/hu/
 
 #------------------------------------------------------------------------
 %files		doc-it
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/it/
 %{SAGE_DOC}/html/it/
 
 #------------------------------------------------------------------------
 %files		doc-pt
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/pt/
 %{SAGE_DOC}/html/pt/
 
 #------------------------------------------------------------------------
 %files		doc-ru
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/ru/
 %{SAGE_DOC}/html/ru/
 
 #------------------------------------------------------------------------
 %files		doc-tr
-# GPLv2+
+# CC-BY-SA-3.0
 %{SAGE_DOC}/tr/
 %{SAGE_DOC}/html/tr/
 # with docs
@@ -2000,14 +2027,15 @@ end
 
 #------------------------------------------------------------------------
 %files		jupyter
+# GPL-2.0-or-later
 %{SAGE_ETC}/notebook-ipython/
-# LGPLv2+
 %{_datadir}/jupyter/kernels/sagemath/
+# MIT
 %{_datadir}/jupyter/nbextensions/threejs-sage
 
 #------------------------------------------------------------------------
 %files		sagetex
-# GPLv2+
+# GPL-2.0-or-later
 %{python3_sitearch}/sagetex*
 %{python3_sitearch}/__pycache__/sagetex*
 %{_texmf}/tex/latex/sagetex/
@@ -2015,6 +2043,11 @@ end
 
 ########################################################################
 %changelog
+* Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 9.6-7
+- Fix failure to install (bz 2154932)
+- Fix failure to find nauty binaries (bz 2125737)
+- Convert License tags to SPDX
+
 * Wed Sep 21 2022 Jerry James <loganjerry@gmail.com> - 9.6-6
 - Rebuild for gap 4.12.0 and pari 2.15.0
 

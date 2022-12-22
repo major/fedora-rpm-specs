@@ -1,6 +1,6 @@
 Name:           jakarta-activation1
 Version:        1.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta Activation Specification and Implementation
 License:        BSD
 URL:            https://jakartaee.github.io/jaf-api/
@@ -42,7 +42,7 @@ sed -i 's/${main.basedir}/${basedir}/' pom.xml
 sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
 %mvn_compat_version jakarta*: %{version} 1.2.1
-%mvn_file javax.activation:activation JAVAX-ACTIVATION
+%mvn_file javax.activation:activation %{name}/JAVAX-ACTIVATION
 
 %build
 # Javadoc fails:
@@ -52,7 +52,7 @@ sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
 %install
 %mvn_install
-rm %{buildroot}%{_javadir}/JAVAX-ACTIVATION.jar
+rm %{buildroot}%{_javadir}/%{name}/JAVAX-ACTIVATION.jar
 sed -i /JAVAX-ACTIVATION/d .mfiles
 sed -i s/JAVAX-ACTIVATION/jakarta.activation-api-%{version}/ %{buildroot}%{_datadir}/maven-metadata/*
 
@@ -61,6 +61,9 @@ sed -i s/JAVAX-ACTIVATION/jakarta.activation-api-%{version}/ %{buildroot}%{_data
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Dec 20 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.2-4
+- Fix incorrect Maven metadata
+
 * Thu Dec 08 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.2-3
 - Add non-compat javax.activation:activation alias
 

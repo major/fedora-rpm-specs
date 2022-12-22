@@ -3,7 +3,7 @@ Version:        0.80
 Release:        41%{?dist}
 Summary:        Perl extension for keeping data partially sorted
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Heap
 Source0:        https://cpan.metacpan.org/authors/id/J/JM/JMM/Heap-%{version}.tar.gz
 

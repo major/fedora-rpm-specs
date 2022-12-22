@@ -134,6 +134,8 @@ test -n "$(grep "/usr/bin/env" %{buildroot}%{_kf5_bindir}/* 2> /dev/null )" ||:
 %{_kf5_bindir}/draw_lib_dependencies
 %{_kf5_bindir}/reviewboard-am
 %{_kf5_bindir}/uncrustify-kf5
+%{_kf5_bindir}/clean-forward-declaration.sh
+%{_kf5_bindir}/clean-includes.sh
 %{_kf5_datadir}/uncrustify/
 %{_mandir}/man1/adddebug.1*
 %{_mandir}/man1/cheatmake.1*

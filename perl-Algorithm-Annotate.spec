@@ -2,7 +2,7 @@ Name:           perl-Algorithm-Annotate
 Version:        0.10
 Release:        45%{?dist}
 Summary:        Represent a series of changes in annotate form
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Annotate
 Source0:        https://cpan.metacpan.org/modules/by-module/Algorithm/Algorithm-Annotate-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Devel-StackTrace-WithLexicals
 Version:        2.01
 Release:        25%{?dist}
 Summary:        Generate stack traces with lexical variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-StackTrace-WithLexicals
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SARTAK/Devel-StackTrace-WithLexicals-%{version}.tar.gz
 BuildArch:      noarch

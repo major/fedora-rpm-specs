@@ -2,7 +2,7 @@ Name:           perl-IPC-Filter
 Version:        0.005
 Release:        16%{?dist}
 Summary:        Filter data through an external process
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IPC-Filter
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/IPC-Filter-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Gravatar-URL
 Version:        1.07
 Release:        19%{?dist}
 Summary:        Make URLs for Gravatars from an email address
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Gravatar-URL
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSCHWERN/Gravatar-URL-%{version}.tar.gz
 BuildArch:      noarch

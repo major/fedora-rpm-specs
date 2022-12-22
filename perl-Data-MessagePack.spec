@@ -4,7 +4,7 @@ Name:           perl-Data-MessagePack
 Version:        1.02
 Release:        3%{?dist}
 Summary:        MessagePack serialising/deserialising
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-MessagePack
 Source0:        https://cpan.metacpan.org/authors/id/S/SY/SYOHEX/%{pkgname}-%{version}.tar.gz
 BuildRequires:  coreutils

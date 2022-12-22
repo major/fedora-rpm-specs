@@ -2,7 +2,7 @@ Name:           perl-Linux-Inotify2
 Summary:        Scalable directory/file change notification 
 Version:        2.3
 Release:        4%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Linux-Inotify2-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Linux-Inotify2
 Patch0:         Linux-Inotify2-2.3-use-File-Temp-for-temporary-dir.patch

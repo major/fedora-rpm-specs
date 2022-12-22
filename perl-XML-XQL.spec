@@ -2,7 +2,7 @@ Name:           perl-XML-XQL
 Version:        0.68
 Release:        47%{?dist}
 Summary:        Perl module for querying XML tree structures with XQL
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-XQL
 Source0:        https://cpan.metacpan.org/authors/id/T/TJ/TJMATHER/XML-XQL-%{version}.tar.gz
 Patch0:         %{name}-tput-147465.patch

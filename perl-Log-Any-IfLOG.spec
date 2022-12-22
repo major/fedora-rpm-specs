@@ -5,7 +5,7 @@ Name:           perl-Log-Any-IfLOG
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
 Release:        13%{?dist}
 Summary:        Load Log::Any only if "logging is enabled"
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Any-IfLOG
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Log-Any-IfLOG-%{cpan_version}.tar.gz
 BuildArch:      noarch

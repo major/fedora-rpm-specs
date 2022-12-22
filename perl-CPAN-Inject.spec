@@ -2,7 +2,7 @@ Name:           perl-CPAN-Inject
 Version:        1.14
 Release:        32%{?dist}
 Summary:        Base class for injecting distributions into CPAN sources
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Inject
 Source0:        https://cpan.metacpan.org/authors/id/P/PS/PSHANGOV/CPAN-Inject-%{version}.tar.gz
 # Work around CPAN bug mangling working directory, bug #1084093, CPAN RT#94963

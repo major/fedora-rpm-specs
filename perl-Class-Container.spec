@@ -2,7 +2,7 @@ Name:           perl-Class-Container
 Version:        0.13
 Release:        16%{?dist}
 Summary:        Glues object frameworks together transparently
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Container
 Source0:        https://cpan.metacpan.org/authors/id/K/KW/KWILLIAMS/Class-Container-%{version}.tar.gz
 BuildArch:      noarch

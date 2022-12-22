@@ -3,7 +3,7 @@ Version:        2.01
 Release:        51%{?dist}
 Summary:        Dump data from a DBI datasource to file
 # see http://rt.cpan.org/Public/Bug/Display.html?id=27269
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBI-Dumper
 Source0:        https://cpan.metacpan.org/authors/id/W/WS/WSMITH/DBI-Dumper-%{version}.tar.gz
 # Perl 5.18 compatibility, CPAN RT#87243

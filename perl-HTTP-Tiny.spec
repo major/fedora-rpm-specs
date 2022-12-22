@@ -5,7 +5,7 @@ Name:           perl-HTTP-Tiny
 Version:        0.082
 Release:        1%{?dist}
 Summary:        Small, simple, correct HTTP/1.1 client
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Tiny
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/HTTP-Tiny-%{version}.tar.gz
 # Check for write failure, bug #1031096, refused by upstream,

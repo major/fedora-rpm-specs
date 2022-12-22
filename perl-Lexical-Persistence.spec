@@ -2,7 +2,7 @@ Name:           perl-Lexical-Persistence
 Version:        1.023
 Release:        23%{?dist}
 Summary:        Persistent lexical variable values for arbitrary calls
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lexical-Persistence
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCAPUTO/Lexical-Persistence-%{version}.tar.gz
 BuildArch:      noarch

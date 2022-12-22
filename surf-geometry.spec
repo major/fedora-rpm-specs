@@ -10,7 +10,7 @@ Patch1:		%{name}-gtk2.patch
 Patch2:		surf-geometry-configure-c99.patch
 Patch3:		surf-geometry-c99.patch
 URL:		http://surf.sourceforge.net/
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	flex-static
@@ -42,8 +42,8 @@ sed -i 's|/surf\(/surf\.xpm\)|\1|' gtkgui/showAbout.cc
 chmod -x gtkgui/PrintImageDialog.{cc,h}
 
 %build
-export CFLAGS="%{optflags} -fPIC"
-export CXXFLAGS="-std=c++14 $CFLAGS"
+export CFLAGS='%{build_cflags} -fPIC'
+export CXXFLAGS='%{build_cxxflags} -fPIC -std=c++14'
 
 %configure \
     --bindir=%{_libdir}/%{name} \
@@ -76,6 +76,9 @@ mv $RPM_BUILD_ROOT%{_mandir}/man1/surf.1 \
 %{_datadir}/modulefiles/%{name}-%{_arch}
 
 %changelog
+* Wed Dec 21 2022 Jerry James <loganjerry@gmail.com> - 1.0.6-34
+- Convert License tag to SPDX
+
 * Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 1.0.6-34
 - C99 port
 

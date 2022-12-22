@@ -2,7 +2,7 @@ Name:           perl-Imager
 Version:        1.019
 Release:        2%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TONYC/Imager-%{version}.tar.gz
 BuildRequires:  freetype-devel

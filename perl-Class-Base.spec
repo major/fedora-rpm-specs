@@ -2,7 +2,7 @@ Name:           perl-Class-Base
 Version:        0.09
 Release:        17%{?dist}
 Summary:        Useful base class for deriving other modules
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Base
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Class-Base-%{version}.tar.gz
 BuildArch:      noarch

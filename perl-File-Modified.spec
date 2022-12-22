@@ -2,7 +2,7 @@ Name:           perl-File-Modified
 Version:        0.10
 Release:        21%{?dist}
 Summary:        Checks intelligently if files have changed
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Modified
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/File-Modified-%{version}.tar.gz
 BuildArch:      noarch

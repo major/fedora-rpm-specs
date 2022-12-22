@@ -2,7 +2,7 @@ Name:          perl-Net-IMAP-Simple-SSL
 Version:       1.3
 Release:       36%{?dist}
 Summary:       Simple IMAP account handling with SSL
-License:       GPL+ or Artistic
+License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/Net-IMAP-Simple-SSL
 Source0:       https://cpan.metacpan.org/modules/by-module/Net/Net-IMAP-Simple-SSL-%{version}.tar.gz
 

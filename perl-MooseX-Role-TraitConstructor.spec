@@ -2,7 +2,7 @@ Name:           perl-MooseX-Role-TraitConstructor
 Version:        0.01
 Release:        31%{?dist}
 Summary:        Wrapper for new that can accept a traits parameter
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooseX-Role-TraitConstructor
 Source0:        https://cpan.metacpan.org/authors/id/N/NU/NUFFIN/MooseX-Role-TraitConstructor-%{version}.tar.gz
 BuildArch:      noarch

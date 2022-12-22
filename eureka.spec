@@ -1,27 +1,28 @@
 Name:       eureka
-Version:    1.27
-Release:    6%{?dist}
+Version:    1.27b
+Release:    1%{?dist}
 Summary:    A cross-platform map editor for the classic DOOM games
 
-%global nodotver %(echo %{version} | tr -d '.')
+%global numver %(echo "%{version}" | tr -d '[a-zA-Z]')
 
 License:    GPLv2
 URL:        http://eureka-editor.sourceforge.net
-Source0:    http://downloads.sourceforge.net/project/eureka-editor/Eureka/%{version}/%{name}-%{nodotver}-source.tar.gz
+Source0:    http://downloads.sourceforge.net/project/eureka-editor/Eureka/%{numver}/%{name}-%{version}-source.tar.gz
 Source1:    eureka.desktop
 
 BuildRequires:  gcc-c++
 BuildRequires:  fltk-devel
+BuildRequires:  libGL-devel
 BuildRequires:  libXft-devel
 BuildRequires:  libXinerama-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  zlib-devel
-BuildRequires:  xdg-utils
-BuildRequires:  libGL-devel
+
 BuildRequires:  desktop-file-utils
+BuildRequires:  make
 BuildRequires:  ImageMagick
-BuildRequires: make
+BuildRequires:  xdg-utils
 
 %description
 Eureka is a cross-platform map editor for the classic DOOM games.
@@ -35,11 +36,6 @@ work-flow and its own quirks.
 
 %prep
 %setup -q -n %{name}-%{version}-source
-# omit stripping the binaries and prevent installing as root
-%{__sed} -i \
-  -e "s|install: stripped|install:|" \
-  -e "s|-o root||g" \
-  Makefile
 
 
 %build
@@ -47,24 +43,35 @@ LIBS+=-lX11 make %{?_smp_mflags} OPTIMISE="$RPM_OPT_FLAGS"
 
 
 %install
-%{__mkdir_p} %{buildroot}%{_bindir}
-make install PREFIX="%{buildroot}%{_prefix}"
+install -m 755 -d %{buildroot}%{_bindir}
+%make_install PREFIX="%{_prefix}"
 
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
+install -m 755 -d %{buildroot}%{_datadir}/icons/hicolor/128x128/apps
 convert misc/eureka.ico %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/eureka.png
 
+install -m 755 -d %{buildroot}/%{_mandir}/man6/
+install -m 644 -p misc/eureka.6 %{buildroot}%{_mandir}/man6/%{name}.6
+
 desktop-file-install \
-        --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE1}
+        --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
+
+
 %files
 %license GPL.txt
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/128x128/apps/eureka.png
 %{_datadir}/applications/*.desktop
+%{_mandir}/man6/%{name}.6*
 %doc AUTHORS.txt CHANGES.txt README.txt TODO.txt
 
 
 %changelog
+* Mon Dec 19 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.27b-1
+- Update to v1.27b
+- Include man page in the package
+- Clean up the spec file
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

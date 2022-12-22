@@ -2,7 +2,7 @@ Name:       perl-Eval-Context
 Version:    0.09.11 
 Release:    30%{?dist}
 # see lib/Eval/Context.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Evalute perl code in context wraper 
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Eval-Context-%{version}.tar.gz 
 # Perl 5.18 comptability, CPAN RT#86017

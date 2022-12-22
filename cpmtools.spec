@@ -1,12 +1,13 @@
 Name:		cpmtools
 Version:	2.23
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Programs for accessing CP/M disks
 
 License:	GPLv3+
 URL:		http://www.moria.de/~michael/cpmtools/
 Source0:	http://www.moria.de/~michael/cpmtools/files/cpmtools-%{version}.tar.gz
 Patch0:		cpmtools-2.23-nostrip.patch
+Patch1: cpmtools-configure-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	ncurses-devel, libdsk-devel
@@ -22,6 +23,7 @@ exchange with a Z80-PC simulator, but it works on floppy devices as well.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .nostrip
+%patch1 -p1
 sed -i -e "s!@datarootdir@/diskdefs!\$\(DATADIR\)/diskdefs!" Makefile.in
 #modify path contained in man files
 sed -i -e "s!@DATADIR@!%{_datadir}/%{name}!" *.1.in
@@ -49,6 +51,9 @@ make install BINDIR=$RPM_BUILD_ROOT%{_bindir} MANDIR=$RPM_BUILD_ROOT%{_mandir} D
 
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 2.23-2
+- Port configure script to C99 (#2155164)
+
 * Wed Dec 07 2022 Lucian Langa <lucilanga@gnome.eu.org> - 2.23-1
 - update to latest upstream
 

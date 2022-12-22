@@ -3,7 +3,7 @@ Version:        1.01
 Release:        40%{?dist}
 Summary:        Object-Oriented Vector Math Methods in Perl
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Vec
 Source0:        https://cpan.metacpan.org/authors/id/E/EW/EWILHELM/Math-Vec-%{version}.tar.gz
 

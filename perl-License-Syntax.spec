@@ -2,7 +2,7 @@ Name:           perl-License-Syntax
 Version:        0.13
 Release:        23%{?dist}
 Summary:        Coding and decoding of license strings using SPDX and SUSE syntax
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/License-Syntax
 Source0:        https://cpan.metacpan.org/authors/id/J/JN/JNW/License-Syntax-%{version}.tar.gz
 BuildArch:      noarch

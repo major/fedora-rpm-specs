@@ -5,7 +5,7 @@ Name:           perl-autodie
 Version:        2.34
 Release:        490%{?dist}
 Summary:        Replace functions with ones that succeed or die
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autodie
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/autodie-%{version}.tar.gz
 BuildArch:      noarch

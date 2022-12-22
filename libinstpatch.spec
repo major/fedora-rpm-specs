@@ -146,12 +146,11 @@ find examples -type f -name '*.py' -print -delete
 
 %files
 %license COPYING
-%{_libdir}/%{name}-%{api_version}.so.%{so_version}
-%{_libdir}/%{name}-%{api_version}.so.%{so_version}.*
+%{_libdir}/%{name}-%{api_version}.so.%{so_version}{,.*}
 
 
 %files devel
-%{_includedir}/%{name}-%{so_version}
+%{_includedir}/%{name}-%{so_version}/
 %{_libdir}/%{name}-%{api_version}.so
 %{_libdir}/pkgconfig/%{name}-%{api_version}.pc
 

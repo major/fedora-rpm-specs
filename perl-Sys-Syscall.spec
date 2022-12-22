@@ -2,7 +2,7 @@ Name:           perl-Sys-Syscall
 Version:        0.25
 Release:        30%{?dist}
 Summary:        Access system calls that Perl doesn't normally provide access to
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Syscall
 Source0:        https://cpan.metacpan.org/modules/by-module/Sys/Sys-Syscall-%{version}.tar.gz
 # ghpr#6, rhbz#1288335

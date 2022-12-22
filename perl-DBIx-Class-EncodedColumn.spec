@@ -2,7 +2,7 @@ Name:           perl-DBIx-Class-EncodedColumn
 Version:        0.00020
 Release:        10%{?dist}
 Summary:        Automatically encode columns
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-EncodedColumn
 Source0:        https://cpan.metacpan.org/authors/id/W/WR/WREIS/DBIx-Class-EncodedColumn-%{version}.tar.gz
 BuildArch:      noarch

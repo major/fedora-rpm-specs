@@ -2,7 +2,7 @@ Name:           perl-Method-Signatures-Simple
 Version:        1.07
 Release:        23%{?dist}
 Summary:        Basic method declarations with signatures, without source filters
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Method-Signatures-Simple
 Source0:        https://cpan.metacpan.org/authors/id/R/RH/RHESA/Method-Signatures-Simple-%{version}.tar.gz
 BuildArch:      noarch

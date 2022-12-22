@@ -2,7 +2,7 @@ Name:           perl-XML-Parser-Lite-Tree
 Version:        0.14
 Release:        32%{?dist}
 Summary:        Lightweight XML tree builder
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/XML-Parser-Lite-Tree
 Source0:        https://cpan.metacpan.org/authors/id/I/IA/IAMCAL/XML-Parser-Lite-Tree-%{version}.tar.gz
 BuildArch:      noarch

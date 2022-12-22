@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 10.98
-Release: 1%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -38,7 +38,7 @@ URL: https://sourceware.org/annobin/
 # checking logic or when building on RHEL-7 or earlier.
 %global with_hard_gcc_version_requirement 1
 
-%bcond_with plugin_rebuild
+%bcond_without plugin_rebuild
 # Allow the building of annobin without using annobin itself.
 # This is because if we are bootstrapping a new build environment we can have
 # a new version of gcc installed, but without a new of annobin installed.
@@ -396,8 +396,12 @@ cp gcc-plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
-# Disable the standard annobin plugin so that we do get conflicts.
-OPTS="$(rpm --eval '%undefine _annotated_build %build_cflags %build_ldflags')"
+%if 0%{?_annotated_build} == 0
+OPTS="$(rpm --eval '%build_cflags %build_ldflags')"
+%else
+# Disable the standard annobin plugin so that we do not get conflicts.
+OPTS="$(rpm --undefine=_annotated_build --eval '%build_cflags %build_ldflags')"
+%endif
 
 # If building on systems with an assembler that does not support the
 # .attach_to_group pseudo op (eg RHEL-7) then enable the next line.
@@ -509,6 +513,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Dec 20 2022 Nick Clifton  <nickc@redhat.com> - 10.98-3
+- Spec File: Fix building with plugin_rebuild enabled.
+
 * Fri Dec 16 2022 Nick Clifton  <nickc@redhat.com> - 10.98-1
 - GCC plugin: Fix building with gcc-13.
 

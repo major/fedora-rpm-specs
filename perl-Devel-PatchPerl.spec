@@ -2,7 +2,7 @@ Name:           perl-Devel-PatchPerl
 Version:        2.08
 Release:        7%{?dist}
 Summary:        Patch perl source a la Devel::PPPort's buildperl.pl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-PatchPerl
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Devel-PatchPerl-%{version}.tar.gz
 BuildArch:      noarch

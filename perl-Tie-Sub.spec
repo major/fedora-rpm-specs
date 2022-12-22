@@ -2,7 +2,7 @@ Name:           perl-Tie-Sub
 Version:        1.001
 Release:        20%{?dist}
 Summary:        Tying a subroutine, function or method to a hash
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-Sub
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Tie-Sub-%{version}.tar.gz
 BuildArch:      noarch

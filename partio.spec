@@ -4,10 +4,10 @@
 
 Name:           partio
 Version:        1.14.6
-Release:        4%{?dist}
-Summary:        Library for reading/writing/manipulating common animation particle
+Release:        5%{?dist}
+Summary:        Library for manipulating common animation particle
 
-License:        BSD
+License:        BSD-3-Clause-Modification
 URL:            https://github.com/wdas/%{name}
 Source:         https://github.com/wdas/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Versioning libraries
@@ -47,7 +47,8 @@ BuildArch:      noarch
 Summary:        Core %{name} libraries
 
 %description    libs
-%{description}
+C++ (with python bindings) library for easily reading/writing/manipulating 
+common animation particle formats such as PDB, BGEO, PTC.
 
 %package -n python3-%{name}
 Summary:        %{summary}
@@ -66,7 +67,7 @@ The python3-%{name} contains Python 3 binning for the library.
 %autosetup -p1
 
 # Fix all Python shebangs recursively in .
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 %cmake \
@@ -111,6 +112,11 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 #%%{_datadir}/%%{name}/test/*
 
 %changelog
+* Tue Dec 20 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 1.14.6-5
+- Migrate to SPDX license
+- Use py3_shebang_fix macro (#2155193)
+- Shorten summary
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

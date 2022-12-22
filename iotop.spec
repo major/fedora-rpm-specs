@@ -1,6 +1,6 @@
 Name: iotop
 Version: 0.6
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Top like utility for I/O       
 License: GPLv2+
 URL: http://guichaz.free.fr/iotop/            
@@ -21,9 +21,11 @@ Patch3: iotop-0.3.2-batchprintutf8.patch
 Patch4: iotop-0.6-git9c49d59.patch
 # rhbz#1679201
 Patch5: iotop-0.6-delayacctmsg.patch
+Patch6: iotop-0.6-usesetuptools.patch
 
 #BuildArch: noarch
 BuildRequires:	python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  gcc
 
 %description
@@ -37,6 +39,7 @@ show of behalf of which process is the I/O going on.
 %patch3 -p1 -b .batchprintutf8
 %patch4 -p1 -b .git9c49d59
 %patch5 -p1 -b .delayacctmsg
+%patch6 -p1 -b .usesetuptools
 
 %build
 %py3_build
@@ -52,6 +55,9 @@ show of behalf of which process is the I/O going on.
 %{_mandir}/man8/iotop.*
 
 %changelog
+* Tue Dec 20 2022 Michal Hlavinka <mhlavink@redhat.com> - 0.6-34
+- use setuptools instead of distutils (#2155049)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

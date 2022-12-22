@@ -16,6 +16,9 @@ Source1:        compreffor.1
 # not packaged) in Fedora.
 Patch:          0001-Drop-the-setuptools_git_ls_files-dependency.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 
 BuildRequires:  make

@@ -2,7 +2,7 @@ Name:       perl-Check-ISA
 Version:    0.09
 Release:    19%{?dist}
 # see lib/Check/ISA.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    DWIM, correct checking of an object's class
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MANWAR/Check-ISA-%{version}.tar.gz
 Url:        https://metacpan.org/release/Check-ISA

@@ -1,7 +1,7 @@
 Name:       perl-Module-Install-ExtraTests 
 Version:    0.008
 Release:    29%{?dist}
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Ignorable, contextual test support for Module::Install
 Url:        https://metacpan.org/release/Module-Install-ExtraTests
 Source:     https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Module-Install-ExtraTests-%{version}.tar.gz 

@@ -2,7 +2,7 @@ Name:           perl-Test-Expect
 Version:        0.34
 Release:        19%{?dist}
 Summary:        Automated driving and testing of terminal-based programs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Expect
 Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Test-Expect-%{version}.tar.gz
 BuildArch:      noarch

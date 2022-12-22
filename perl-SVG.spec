@@ -2,7 +2,7 @@ Name:           perl-SVG
 Version:        2.87
 Release:        3%{?dist}
 Summary:        An extension to generate stand-alone or inline SGV
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SVG
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MANWAR/SVG-%{version}.tar.gz
 

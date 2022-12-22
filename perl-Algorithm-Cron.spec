@@ -2,7 +2,7 @@ Name:           perl-Algorithm-Cron
 Version:        0.10
 Release:        23%{?dist}
 Summary:        Abstract implementation of the cron(8) scheduling algorithm
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Algorithm-Cron
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Algorithm-Cron-%{version}.tar.gz
 BuildArch:      noarch

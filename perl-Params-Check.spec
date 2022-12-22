@@ -4,7 +4,7 @@ Epoch:          1
 Version:        0.38
 Release:        489%{?dist}
 Summary:        Generic input parsing/checking mechanism
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Params-Check
 Source0:        https://cpan.metacpan.org/modules/by-module/Params/Params-Check-%{version}.tar.gz
 BuildArch:      noarch

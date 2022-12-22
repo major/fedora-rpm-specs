@@ -2,7 +2,7 @@ Name:           perl-Olson-Abbreviations
 Version:        0.04
 Release:        28%{?dist}
 Summary:        Globally unique timezones abbreviation handling
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Olson-Abbreviations
 Source0:        https://cpan.metacpan.org/authors/id/E/EC/ECARROLL/Olson-Abbreviations-%{version}.tar.gz
 BuildArch:      noarch

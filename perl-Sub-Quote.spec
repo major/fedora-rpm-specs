@@ -2,7 +2,7 @@ Name:           perl-Sub-Quote
 Version:        2.006006
 Release:        10%{?dist}
 Summary:        Efficient generation of subroutines via string eval
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Quote
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Sub-Quote-%{version}.tar.gz
 BuildArch:      noarch

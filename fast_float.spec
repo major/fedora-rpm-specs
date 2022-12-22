@@ -101,9 +101,9 @@ ln -s "${PWD}/../supplemental_test_files-%{stf_commit}/" \
 %doc CONTRIBUTORS
 %doc README.md
 
-%{_includedir}/fast_float
+%{_includedir}/fast_float/
 
-%{_datadir}/cmake/FastFloat
+%{_datadir}/cmake/FastFloat/
 
 
 %changelog

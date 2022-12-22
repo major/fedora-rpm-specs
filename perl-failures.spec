@@ -2,7 +2,7 @@ Name:           perl-failures
 Version:        0.004
 Release:        20%{?dist}
 Summary:        Minimalist exception hierarchy generator
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://metacpan.org/release/failures
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/failures-%{version}.tar.gz
 BuildArch:      noarch

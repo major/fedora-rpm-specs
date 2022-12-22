@@ -2,7 +2,7 @@ Name:           perl-Lingua-KO-Hangul-Util
 Version:        0.28
 Release:        17%{?dist}
 Summary:        Utility functions for Hangul in Unicode
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-KO-Hangul-Util
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SADAHIRO/Lingua-KO-Hangul-Util-%{version}.tar.gz
 # Build

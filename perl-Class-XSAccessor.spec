@@ -2,7 +2,7 @@ Name:           perl-Class-XSAccessor
 Version:        1.19
 Release:        28%{?dist}
 Summary:        Generate fast XS accessors without run-time compilation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-XSAccessor
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Class-XSAccessor-%{version}.tar.gz
 # Build:

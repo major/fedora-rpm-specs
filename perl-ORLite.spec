@@ -2,7 +2,7 @@ Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
 Version:        1.98
 Release:        30%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-%{version}.tar.gz 
 URL:            https://metacpan.org/release/ORLite
 # Update tests to work for SQLite 3.15 and later CPAN RT#118460

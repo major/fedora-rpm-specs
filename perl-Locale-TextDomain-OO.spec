@@ -2,7 +2,7 @@ Name:           perl-Locale-TextDomain-OO
 Version:        1.036
 Release:        12%{?dist}
 Summary:        Perl object-oriented Interface to Uniforum Message Translation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-TextDomain-OO
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-TextDomain-OO-%{version}.tar.gz
 BuildArch:      noarch

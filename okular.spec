@@ -57,6 +57,7 @@ BuildRequires: cmake(KF5Wallet)
 BuildRequires: cmake(KF5KHtml)
 BuildRequires: cmake(KF5WindowSystem)
 
+BuildRequires: qt5-qtbase-private-devel
 BuildRequires: cmake(Qt5DBus)
 BuildRequires: cmake(Qt5Test)
 BuildRequires: cmake(Qt5Widgets)
@@ -181,7 +182,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 %files -f okular.lang
 %license LICENSES/*
 %{_kf5_bindir}/okular
-#{_kf5_sysconfdir}/xdg/%{name}*
 %{_kf5_datadir}/applications/org.kde.okular.desktop
 %{_kf5_metainfodir}/org.kde.okular.appdata.xml
 %{_kf5_datadir}/applications/okularApplication_*.desktop
@@ -190,7 +190,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/kconf_update/okular.upd
 %{_mandir}/man1/okular.1*
-%_qt5_settingsdir/%{name}.categories
+%{_kf5_datadir}/qlogging-categories5/okular.categories
 
 %if 0%{?mobile}
 %files mobile

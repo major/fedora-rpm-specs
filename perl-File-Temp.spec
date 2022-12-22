@@ -5,7 +5,7 @@ Epoch:          1
 Version:        0.231.100
 Release:        489%{?dist}
 Summary:        Return name and handle of a temporary file safely
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Temp
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/File-Temp-%{cpan_version}.tar.gz
 BuildArch:      noarch

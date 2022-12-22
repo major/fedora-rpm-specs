@@ -2,7 +2,7 @@ Name:           perl-Lingua-EN-Numbers-Ordinate
 Version:        1.05
 Release:        6%{?dist}
 Summary:        Perl functions for giving the ordinal form of a number given its cardinal value
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-EN-Numbers-Ordinate
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Lingua-EN-Numbers-Ordinate-%{version}.tar.gz
 BuildArch:      noarch

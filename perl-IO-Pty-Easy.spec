@@ -2,7 +2,7 @@ Name:           perl-IO-Pty-Easy
 Version:        0.10
 Release:        20%{?dist}
 Summary:        Easy interface to IO::Pty
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Pty-Easy
 Source0:        https://cpan.metacpan.org/modules/by-module/IO/IO-Pty-Easy-%{version}.tar.gz
 BuildArch:      noarch

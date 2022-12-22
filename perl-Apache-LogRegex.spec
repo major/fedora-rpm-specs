@@ -2,7 +2,7 @@ Name:           perl-Apache-LogRegex
 Version:        1.71
 Release:        21%{?dist}
 Summary:        Parse a line from an Apache logfile into a hash
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-LogRegex
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPACEBAT/Apache-LogRegex-%{version}.tar.gz
 BuildArch:      noarch

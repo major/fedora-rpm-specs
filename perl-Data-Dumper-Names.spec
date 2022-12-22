@@ -2,7 +2,7 @@ Name:           perl-Data-Dumper-Names
 Version:        0.03
 Release:        41%{?dist}
 Summary:        Data::Dumper like module for printing and eval data structures
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dumper-Names
 Source0:        https://cpan.metacpan.org/authors/id/O/OV/OVID/Data-Dumper-Names-%{version}.tar.gz
 BuildArch:      noarch

@@ -90,7 +90,6 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %license LICENSES/*
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_libdir}/libKF5KontactInterface.so.*
-%{_kf5_datadir}/kservicetypes5/kontactplugin.desktop
 
 %files devel
 %{_kf5_includedir}/KontactInterface/

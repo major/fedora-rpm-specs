@@ -2,7 +2,7 @@ Name:           perl-Convert-UU
 Version:        0.5201
 Release:        33%{?dist}
 Summary:        Perl module for uuencode and uudecode
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-UU
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/Convert-UU-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-MooX-StrictConstructor
 Version:        0.011
 Release:        9%{?dist}
 Summary:        Make your Moo-based object constructors blow up on unknown attributes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-StrictConstructor
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HARTZELL/MooX-StrictConstructor-%{version}.tar.gz
 BuildArch:      noarch

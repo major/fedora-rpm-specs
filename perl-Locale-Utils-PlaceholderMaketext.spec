@@ -2,7 +2,7 @@ Name:           perl-Locale-Utils-PlaceholderMaketext
 Version:        1.005
 Release:        17%{?dist}
 Summary:        Utils to expand maketext placeholders
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Utils-PlaceholderMaketext
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STEFFENW/Locale-Utils-PlaceholderMaketext-%{version}.tar.gz
 BuildArch:      noarch

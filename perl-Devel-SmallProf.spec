@@ -2,7 +2,7 @@ Name:           perl-Devel-SmallProf
 Version:        2.02
 Release:        44%{?dist}
 Summary:        Per-line Perl profiler
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-SmallProf
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SALVA/Devel-SmallProf-%{version}.tar.gz
 # defined() should not be used for array RT#98192

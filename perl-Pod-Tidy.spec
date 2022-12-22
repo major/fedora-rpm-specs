@@ -2,7 +2,7 @@ Name:           perl-Pod-Tidy
 Version:        0.10
 Release:        22%{?dist}
 Summary:        Reformatting Pod Processor
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Tidy
 Source0:        https://cpan.metacpan.org/authors/id/J/JH/JHOBLITT/Pod-Tidy-%{version}.tar.gz
 BuildArch:      noarch

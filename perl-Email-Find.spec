@@ -3,7 +3,7 @@ Version:        0.10
 Release:        41%{?dist}
 Summary:        Find RFC 822 email addresses in plain text
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Find
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Email-Find-%{version}.tar.gz
 

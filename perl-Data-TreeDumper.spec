@@ -2,7 +2,7 @@ Name:       perl-Data-TreeDumper
 Version:    0.40 
 Release:    31%{?dist}
 # see TreeDumper.pm
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Improved replacement for Data::Dumper
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Data-TreeDumper

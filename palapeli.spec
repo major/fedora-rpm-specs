@@ -106,23 +106,23 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/%{name}/
 %{_kf5_datadir}/knotifications5/%{name}*
-%{_kf5_datadir}/kservices5/*
 %{_kf5_datadir}/mime/packages/%{name}*.xml
 %{_kf5_datadir}/icons/hicolor/*/*/*
-#{_kf5_datadir}/kxmlgui5/%{name}*
 %{_kf5_sysconfdir}/xdg/palapeli-collectionrc
+%{_kf5_datadir}/kio/servicemenus/palapeli_servicemenu.desktop
 
 %ldconfig_scriptlets libs
 
 %files libs
 %{_kf5_libdir}/libpala.so.*
-%{_kf5_qtplugindir}/*.so
 %{_qt5_plugindir}/palapelislicers/
 
 %files devel
 %{_includedir}/Pala/
 %{_kf5_libdir}/libpala.so
 %{_kf5_libdir}/cmake/Pala/
+%dir %{_kf5_plugindir}/thumbcreator
+%{_kf5_plugindir}/thumbcreator/palathumbcreator.so
 
 
 %changelog

@@ -4,7 +4,7 @@ Name:           perl-Proc-Queue
 Version:        1.23
 Release:        26%{?dist}
 Summary:        Limit the number of child processes running
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Proc-Queue
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SALVA/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch

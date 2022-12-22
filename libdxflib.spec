@@ -119,19 +119,18 @@ EOF
 
 %files
 %license gpl-2.0greater.txt dxflib_commercial_license.txt
-%{_libdir}/libdxflib.so.%{so_version}
-%{_libdir}/libdxflib.so.%{so_version}.*
+%{_libdir}/libdxflib.so.%{so_version}{,.*}
 
 
 %files devel
-%{_includedir}/dxflib
+%{_includedir}/dxflib/
 %{_libdir}/libdxflib.so
 %{_libdir}/pkgconfig/dxflib.pc
 
 
 %files doc
 %license gpl-2.0greater.txt dxflib_commercial_license.txt
-%doc examples
+%doc examples/
 %if %{with doc_pdf}
 %doc doc/classref/latex/refman.pdf
 %endif

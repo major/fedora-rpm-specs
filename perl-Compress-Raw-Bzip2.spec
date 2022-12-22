@@ -12,7 +12,7 @@ Release:        2%{?dist}
 # Other files:  GPL+ or Artistic
 ## unbundled
 # bzip2-src:    BSD
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Compress-Raw-Bzip2
 Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-Raw-Bzip2-%{version}.tar.gz
 # Module Build

@@ -2,7 +2,7 @@ Name:           perl-Lingua-Flags
 Version:        0.07
 Release:        35%{?dist}
 Summary:        Provide small flag icons
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lingua-Flags
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/Lingua/Lingua-Flags-%{version}.tar.gz
 BuildArch:      noarch

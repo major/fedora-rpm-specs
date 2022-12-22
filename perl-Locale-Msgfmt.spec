@@ -2,7 +2,7 @@ Name:           perl-Locale-Msgfmt
 Version:        0.15
 Release:        34%{?dist}
 Summary:        Compile .po files to .mo files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Locale-Msgfmt
 Source0:        https://cpan.metacpan.org/authors/id/S/SZ/SZABGAB/Locale-Msgfmt-%{version}.tar.gz
 BuildArch:      noarch

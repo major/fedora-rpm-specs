@@ -3,7 +3,7 @@ Version:        1.00
 Release:        26%{?dist}
 Summary:        Read/Write/Modify Perl/XS typemap files
 # README says "as Perl..."
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Typemap
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/ExtUtils-Typemap-%{version}.tar.gz
 BuildArch:      noarch

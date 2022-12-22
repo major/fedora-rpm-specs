@@ -9,7 +9,7 @@ Release:    23%{?dist}
 # lib/Jemplate/Parser.pm -> GPL+ or Artistic
 # lib/Jemplate/Runtime.pm -> GPL+ or Artistic
 # lib/Jemplate/Runtime/Compact.pm -> GPL+ or Artistic
-License:    GPL+ or Artistic 
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    JavaScript Templating with Template Toolkit 
 Source:     https://cpan.metacpan.org/authors/id/I/IN/INGY/Jemplate-%{cpan_version}.tar.gz 
 # Do not prune INC, CPAN RT#87546

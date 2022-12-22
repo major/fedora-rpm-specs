@@ -2,7 +2,7 @@ Name:           perl-Module-Extract
 Version:        0.01
 Release:        40%{?dist}
 Summary:        Base class for working with Perl distributions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Extract
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Module-Extract-%{version}.tar.gz
 BuildArch:      noarch

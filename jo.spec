@@ -16,6 +16,9 @@ Source0:        %{url}/archive/%{version}/jo-%{version}.tar.gz
 # https://docs.fedoraproject.org/en-US/legal/update-existing-packages/#_public_domain
 License:        GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  meson
 # Rebuild jo.1 and jo.md; we can omit this if it ever breaks.

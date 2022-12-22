@@ -2,7 +2,7 @@ Name:           perl-Sub-Override
 Version:        0.09
 Release:        29%{?dist}
 Summary:        Perl extension for easily overriding subroutines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Override
 Source0:        https://cpan.metacpan.org/authors/id/O/OV/OVID/Sub-Override-%{version}.tar.gz
 BuildArch:      noarch

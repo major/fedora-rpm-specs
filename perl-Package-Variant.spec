@@ -2,7 +2,7 @@ Name:           perl-Package-Variant
 Version:        1.003002
 Release:        21%{?dist}
 Summary:        Parameterizable packages
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Package-Variant
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTROUT/Package-Variant-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Eval-WithLexicals
 Version:        1.003006
 Release:        17%{?dist}
 Summary:        Pure Perl eval with persistent lexical variables
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Eval-WithLexicals
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Eval-WithLexicals-%{version}.tar.gz
 BuildArch:      noarch

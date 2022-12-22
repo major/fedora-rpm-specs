@@ -15,6 +15,9 @@ License:        HPND
 URL:            http://www.libpng.org/pub/png/apps/pngcheck.html
 Source0:        http://www.libpng.org/pub/png/src/pngcheck-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  make

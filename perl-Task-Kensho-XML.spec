@@ -2,7 +2,7 @@ Name:           perl-Task-Kensho-XML
 Version:        0.41
 Release:        5%{?dist}
 Summary:        Glimpse at an Enlightened Perl (XML Development)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Task-Kensho-XML
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Task-Kensho-XML-%{version}.tar.gz
 BuildArch:      noarch

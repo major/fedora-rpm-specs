@@ -2,7 +2,7 @@ Name:           perl-IO-Stty
 Version:        0.04
 Release:        10%{?dist}
 Summary:        Change and print terminal line settings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Stty
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/IO-Stty-%{version}.tar.gz
 BuildArch:      noarch

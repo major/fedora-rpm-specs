@@ -10,7 +10,7 @@ Epoch:          1
 Version:        3.44
 Release:        490%{?dist}
 Summary:        Run Perl standard test scripts with statistics
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Harness
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Test-Harness-%{version}.tar.gz
 # Remove hard-coded shell bangs

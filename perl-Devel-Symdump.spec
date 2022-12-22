@@ -3,7 +3,7 @@ Epoch:          1
 Version:        2.18
 Release:        24%{?dist}
 Summary:        A Perl module for inspecting Perl's symbol table
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Devel-Symdump
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDK/Devel-Symdump-%{version}.tar.gz
 BuildArch:      noarch

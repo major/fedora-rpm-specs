@@ -3,7 +3,7 @@ Name:           perl-Thread-Queue
 Version:        3.14
 Release:        489%{?dist}
 Summary:        Thread-safe queues
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Thread-Queue
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDHEDDEN/Thread-Queue-%{base_version}.tar.gz
 # Unbundled from perl 5.32.0

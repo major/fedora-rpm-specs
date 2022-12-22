@@ -1,6 +1,6 @@
 Name:           usbguard-notifier
-Version:        0.0.6
-Release:        8%{?dist}
+Version:        0.1.0
+Release:        1%{?dist}
 Summary:        A tool for detecting usbguard policy and device presence changes
 
 License:        GPLv2+
@@ -17,10 +17,7 @@ BuildRequires: librsvg2-devel
 BuildRequires: libnotify-devel
 BuildRequires: asciidoc
 BuildRequires: catch1-devel
-BuildRequires: execstack
 BuildRequires: systemd-rpm-macros
-
-Patch0: usbguard-notifier-rhbz1972505-merge-notifications.patch
 
 %description
 USBGuard Notifier software framework detects usbguard policy modifications
@@ -28,8 +25,6 @@ as well as device presence changes and displays them as pop-up notifications.
 
 %prep
 %setup -q
-
-%patch0 -p1 -b .merge-notifications
 
 %build
 mkdir -p ./m4
@@ -50,8 +45,6 @@ make check
 
 %install
 make install INSTALL='install -p' DESTDIR=%{buildroot}
-execstack -c %{buildroot}%{_bindir}/usbguard-notifier
-execstack -c %{buildroot}%{_bindir}/usbguard-notifier-cli
 
 %post
 %systemd_user_post %{name}.service
@@ -73,6 +66,9 @@ execstack -c %{buildroot}%{_bindir}/usbguard-notifier-cli
 
 
 %changelog
+* Tue Dec 20 2022 Attila Lakatos <alakatos@redhat.com> - 0.1.0-1
+- Rebase to 0.1.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

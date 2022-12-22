@@ -2,7 +2,7 @@ Name:           perl-Test-LWP-UserAgent
 Version:        0.036
 Release:        4%{?dist}
 Summary:        LWP::UserAgent suitable for simulating and testing network calls
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-LWP-UserAgent
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Test-LWP-UserAgent-%{version}.tar.gz
 BuildArch:      noarch

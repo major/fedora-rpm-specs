@@ -2,7 +2,7 @@ Name:           perl-Net-SSH2
 Version:        0.73
 Release:        1%{?dist}
 Summary:        Support for the SSH 2 protocol via libSSH2
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-SSH2
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/Net-SSH2-%{version}.tar.gz
 # Build

@@ -151,9 +151,10 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %dir %{_kf5_datadir}/kglobalaccel/
 %{_kf5_datadir}/kglobalaccel/org.kde.dolphin.desktop
-%{_kf5_datadir}/kservicetypes5/fileviewversioncontrolplugin.desktop
 %lang(fi) %{_datadir}/locale/fi/LC_SCRIPTS/dolphin/
 %{_kf5_datadir}/kconf_update/dolphin_detailsmodesettings.upd
+%dir %{_kf5_datadir}/dolphin
+%{_kf5_datadir}/dolphin/dolphinpartactions.desktop
 
 %ldconfig_scriptlets libs
 
@@ -162,7 +163,6 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %{_kf5_libdir}/libdolphinvcs.so.*
 %{_kf5_qtplugindir}/dolphin/
 %{_kf5_plugindir}/parts/dolphinpart.so
-%{_kf5_datadir}/kservices5/dolphinpart.desktop
 
 %files devel
 %{_includedir}/Dolphin/

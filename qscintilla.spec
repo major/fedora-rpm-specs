@@ -1,9 +1,12 @@
 %global scintilla_ver 3.10.1
 
+%bcond_without qt5
+%bcond_without qt6
+
 Summary: A Scintilla port to Qt
 Name:    qscintilla
 Version: 2.13.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv3
 Url:     http://www.riverbankcomputing.com/software/qscintilla/
@@ -15,9 +18,6 @@ Source0: https://www.riverbankcomputing.com/static/Downloads/QScintilla/%{versio
 
 BuildRequires: make
 BuildRequires: gcc-c++
-BuildRequires: pkgconfig(Qt5Designer)
-BuildRequires: pkgconfig(Qt5Gui)
-BuildRequires: pkgconfig(Qt5Widgets)
 
 Provides: bundled(scintilla) = %{scintilla_ver}
 
@@ -26,10 +26,13 @@ QScintilla is a port of Scintilla to the Qt GUI toolkit.
 
 %{?scintilla_ver:This version of QScintilla is based on Scintilla v%{scintilla_ver}.}
 
-
+%if %{with qt5}
 %package qt5
 Summary: A Scintilla port to Qt5
 Provides: bundled(scintilla) = %{scintilla_ver}
+BuildRequires: pkgconfig(Qt5Designer)
+BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(Qt5Widgets)
 
 %description qt5
 %{summary}.
@@ -64,6 +67,51 @@ Requires: python3-qt5-devel
 
 %description -n python3-qscintilla-qt5-devel
 %{summary}.
+%endif
+
+
+%if %{with qt6}
+%package qt6
+Summary: A Scintilla port to Qt6
+Provides: bundled(scintilla) = %{scintilla_ver}
+BuildRequires: pkgconfig(Qt6Designer)
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6Widgets)
+
+%description qt6
+%{summary}.
+
+
+%package qt6-devel
+Summary:  QScintilla Development Files
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Requires: qt6-qtbase-devel
+
+%description qt6-devel
+%{summary}.
+
+
+%package -n python3-qscintilla-qt6
+Summary:  QScintilla-qt6 python3 bindings
+BuildRequires: python3-devel
+BuildRequires: python3-pyqt6
+BuildRequires: python3-pyqt6-devel
+BuildRequires: %{py3_dist sip} >= 5.3
+BuildRequires: %{py3_dist PyQt-builder} >= 1
+Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
+Requires: python3-pyqt6%{?pyqt6_version: >= %{pyqt6_version}}
+
+%description -n python3-qscintilla-qt6
+%{summary}.
+
+
+%package -n python3-qscintilla-qt6-devel
+Summary:  Development files for QScintilla-qt6 python3 bindings
+Requires: python3-pyqt6-devel
+
+%description -n python3-qscintilla-qt6-devel
+%{summary}.
+%endif
 
 
 
@@ -74,37 +122,76 @@ Requires: python3-qt5-devel
 %build
 export QMAKEFEATURES=$PWD/src/features;
 
-pushd src
+%if %{with qt5}
+cp -a src src-qt5
+pushd src-qt5
 %qmake_qt5 qscintilla.pro
 %make_build
 popd
 
-pushd designer
-%qmake_qt5 designer.pro INCLUDEPATH+=../src LIBS+=-L../src
+cp -a designer designer-qt5
+pushd designer-qt5
+%qmake_qt5 designer.pro INCLUDEPATH+=../src-qt5 LIBS+=-L../src-qt5
 %make_build
 popd
 
-pushd Python
+cp -a Python Python-qt5
+pushd Python-qt5
 ln -s pyproject-qt5.toml pyproject.toml
-LD_LIBRARY_PATH=$PWD/../src sip-build --no-make   --qmake=%{_qt5_qmake} --api-dir=%{_qt5_datadir}/qsci/api/python --verbose \
-    --qsci-include-dir=../src --qsci-library-dir=../src/ --qsci-features-dir=../src/features
+LD_LIBRARY_PATH=$PWD/../src-qt5 sip-build --no-make   --qmake=%{_qt5_qmake} --api-dir=%{_qt5_datadir}/qsci/api/python --verbose \
+    --qsci-include-dir=../src-qt5 --qsci-library-dir=../src-qt5/ --qsci-features-dir=../src-qt5/features
 %make_build -C build
 popd
+%endif
+
+%if %{with qt6}
+cp -a src src-qt6
+pushd src-qt6
+%qmake_qt6 qscintilla.pro
+%make_build
+popd
+
+cp -a designer designer-qt6
+pushd designer-qt6
+%qmake_qt6 designer.pro INCLUDEPATH+=../src-qt6 LIBS+=-L../src-qt6
+%make_build
+popd
+
+cp -a Python Python-qt6
+pushd Python-qt6
+ln -s pyproject-qt6.toml pyproject.toml
+LD_LIBRARY_PATH=$PWD/../src-qt6 sip-build --no-make   --qmake=%{_qt6_qmake} --api-dir=%{_qt6_datadir}/qsci/api/python --verbose \
+    --qsci-include-dir=../src-qt6 --qsci-library-dir=../src-qt6/ --qsci-features-dir=../src-qt6/features
+%make_build -C build
+popd
+%endif
 
 
 %install
-
-%make_install -C src INSTALL_ROOT=%{buildroot}
-%make_install -C designer INSTALL_ROOT=%{buildroot}
-%make_install -C Python/build INSTALL_ROOT=%{buildroot}
+%if %{with qt5}
+%make_install -C src-qt5 INSTALL_ROOT=%{buildroot}
+%make_install -C designer-qt5 INSTALL_ROOT=%{buildroot}
+%make_install -C Python-qt5/build INSTALL_ROOT=%{buildroot}
 
 # Drop Python api files
 rm -f %{buildroot}%{_qt5_datadir}/qsci/api/python/Python*.api
+%endif
+
+%if %{with qt6}
+%make_install -C src-qt6 INSTALL_ROOT=%{buildroot}
+%make_install -C designer-qt6 INSTALL_ROOT=%{buildroot}
+%make_install -C Python-qt6/build INSTALL_ROOT=%{buildroot}
+
+# Drop Python api files
+rm -f %{buildroot}%{_qt6_datadir}/qsci/api/python/Python*.api
+%endif
 
 %find_lang qscintilla --with-qt
 grep "%{_qt5_translationdir}" qscintilla.lang > qscintilla-qt5.lang
+grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 
 
+%if %{with qt5}
 %files qt5 -f qscintilla-qt5.lang
 %doc NEWS
 %license LICENSE
@@ -128,9 +215,39 @@ grep "%{_qt5_translationdir}" qscintilla.lang > qscintilla-qt5.lang
 %dir %{_qt5_datadir}/qsci/api/
 %dir %{_qt5_datadir}/qsci/api/python/
 %doc %{_qt5_datadir}/qsci/api/python/QScintilla.api
+%endif
+
+%if %{with qt6}
+%files qt6 -f qscintilla-qt6.lang
+%doc NEWS
+%license LICENSE
+%{_qt6_libdir}/libqscintilla2_qt6.so.15*
+%{_qt6_plugindir}/designer/libqscintillaplugin.so
+
+%files qt6-devel
+%doc doc/html doc/Scintilla example
+%{_qt6_headerdir}/Qsci/
+%{_qt6_libdir}/libqscintilla2_qt6.so
+%{_qt6_archdatadir}/mkspecs/features/qscintilla2.prf
+
+%files -n python3-qscintilla-qt6
+%{python3_sitearch}/PyQt6/Qsci.*
+%{_qt6_datadir}/qsci/
+%{python3_sitearch}/PyQt6_QScintilla-%{version}.dist-info/
+
+%files -n python3-qscintilla-qt6-devel
+%{python3_sitearch}/PyQt6/bindings/Qsci/
+%dir %{_qt6_datadir}/qsci/
+%dir %{_qt6_datadir}/qsci/api/
+%dir %{_qt6_datadir}/qsci/api/python/
+%doc %{_qt6_datadir}/qsci/api/python/PyQt6-QScintilla.api
+%endif
 
 
 %changelog
+* Tue Nov 29 2022 Sandro Mani <manisandro@gmail.com> - 2.13.0-5
+- Add qt6 build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

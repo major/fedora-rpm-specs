@@ -4,7 +4,7 @@ Name:           perl-App-cpm
 Version:        0.997.011
 Release:        3%{?dist}
 Summary:        Fast CPAN module installer
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-cpm
 Source0:        https://cpan.metacpan.org/authors/id/S/SK/SKAJI/App-cpm-%{cpan_version}.tar.gz
 BuildArch:      noarch

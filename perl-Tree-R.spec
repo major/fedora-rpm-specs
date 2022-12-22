@@ -2,7 +2,7 @@ Name:           perl-Tree-R
 Version:        0.072
 Release:        22%{?dist}
 Summary:        Perl extension for the R-tree data structure and algorithms
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Tree-R
 Source0:        https://cpan.metacpan.org/modules/by-module/Tree/Tree-R-%{version}.tar.gz
 BuildArch:      noarch

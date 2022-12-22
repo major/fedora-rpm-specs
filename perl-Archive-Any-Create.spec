@@ -2,7 +2,7 @@ Name:           perl-Archive-Any-Create
 Version:        0.03
 Release:        21%{?dist}
 Summary:        Abstract API to create archives (tar, tar.gz and zip)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Archive-Any-Create
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Archive-Any-Create-%{version}.tar.gz
 BuildArch:      noarch

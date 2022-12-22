@@ -5,7 +5,7 @@ Name:       perl-DBD-Multi
 Version:    1.02
 Release:    16%{?dist}
 # See Build.PL
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    DB Proxy with fail-over and load balancing
 Source:     https://cpan.metacpan.org/authors/id/D/DW/DWRIGHT/DBD-Multi-%{version}.tar.gz
 Url:        https://metacpan.org/release/DBD-Multi

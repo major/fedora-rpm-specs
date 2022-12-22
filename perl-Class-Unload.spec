@@ -2,7 +2,7 @@ Name:           perl-Class-Unload
 Version:        0.11
 Release:        18%{?dist}
 Summary:        Unload given class
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Unload
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/Class-Unload-%{version}.tar.gz
 BuildArch:      noarch

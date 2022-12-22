@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 144
+%global firmware_release 145
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20221109
+Version:	20221214
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -529,6 +529,17 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Tue Dec 20 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-145
+- Update to upstream 20221214 release
+- amdgpu: updated various generations to firmware for amd-5.4
+- amdgpu: add various new firmware for amd-5.4
+- sr150 : Add NXP SR150 UWB firmware
+- brcm: add/update firmware files for brcmfmac driver
+- rtl_bt: Update RTL8821C BT(USB I/F) FW to 0x75b8_f098
+- QCA: Add Bluetooth firmware 2.0.0-00515 for QCA WCN785x
+- update firmware for MT7916/MT7915/MT7986/MT7921
+- i915: Add DMC v2.08 for DG2, DMC v2.10 for MTL
+
 * Tue Nov 15 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-144
 - Fix regression in shipping iwlwifi firmware
 

@@ -2,7 +2,7 @@ Name:       perl-CPANPLUS-Shell-Default-Plugins-Changes
 Version:    0.02 
 Release:    38%{?dist}
 # lib/CPANPLUS/Shell/Default/Plugins/Changes.pm -> GPL+ or Artistic
-License:    GPL+ or Artistic 
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    View a module's Changes file from the CPANPLUS shell 
 Source:     https://cpan.metacpan.org/authors/id/A/AR/ARJEN/CPANPLUS-Shell-Default-Plugins-Changes-%{version}.tar.gz 
 Url:        https://metacpan.org/release/CPANPLUS-Shell-Default-Plugins-Changes

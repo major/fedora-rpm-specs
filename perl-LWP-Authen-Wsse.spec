@@ -3,7 +3,7 @@ Version:        0.05
 Release:        42%{?dist}
 Summary:        Library for enabling X-WSSE authentication in LWP
 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/LWP-Authen-Wsse
 Source0:        https://cpan.metacpan.org/authors/id/A/AU/AUTRIJUS/LWP-Authen-Wsse-%{version}.tar.gz
 # Make system Module::Install to work with this package, CPAN RT#58518

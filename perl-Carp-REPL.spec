@@ -2,7 +2,7 @@ Name:           perl-Carp-REPL
 Version:        0.18
 Release:        23%{?dist}
 Summary:        Read-eval-print-loop on die and/or warn
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Carp-REPL
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Carp-REPL-%{version}.tar.gz
 # Do not use broken Data::Dump::Streamer, bug #1231297, CPAN RT#105016

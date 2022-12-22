@@ -77,7 +77,7 @@ BuildRequires: systemd-devel
 %if %{with doh}
 BuildRequires: libnghttp2-devel
 %endif
-%if 0%{?fedora} >= 30
+%if 0%{?fedora} >= 30 || 0%{?rhel} >= 9
 BuildRequires: systemd-rpm-macros
 %else
 BuildRequires: systemd
@@ -239,6 +239,9 @@ pushd %{dir_primary}
 %endif
 %if %{with doh}
             --with-libnghttp2 \
+%endif
+%if 0%{?rhel}
+            --disable-sha1 \
 %endif
             %{configure_args}
 

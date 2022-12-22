@@ -2,7 +2,7 @@ Name:           perl-Authen-PAM
 Version:        0.16
 Release:        47%{?dist}
 Summary:        Authen::PAM Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-PAM
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NIKIP/Authen-PAM-%{version}.tar.gz
 Patch0:         Authen-PAM-0.16-Fix-building-on-Perl-without-dot-in-INC.patch

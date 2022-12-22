@@ -2,7 +2,7 @@ Name:           perl-DBD-MySQL
 Version:        4.050
 Release:        15%{?dist}
 Summary:        A MySQL interface for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBD-mysql
 Source0:        https://cpan.metacpan.org/authors/id/D/DV/DVEEDEN/DBD-mysql-%{version}.tar.gz
 # Remove a useless shebang, bug #1813195,

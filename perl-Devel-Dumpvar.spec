@@ -2,7 +2,7 @@ Name:           perl-Devel-Dumpvar
 Version:        1.06
 Release:        35%{?dist}
 Summary:        Pure-OO reimplementation of dumpvar.pl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Dumpvar
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Devel-Dumpvar-%{version}.tar.gz
 BuildArch:      noarch

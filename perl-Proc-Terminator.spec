@@ -2,7 +2,7 @@ Name:           perl-Proc-Terminator
 Version:        0.05
 Release:        21%{?dist}
 Summary:        Conveniently terminate processes
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Proc-Terminator
 Source0:        https://cpan.metacpan.org/authors/id/M/MN/MNUNBERG/Proc-Terminator-%{version}.tar.gz
 BuildArch:      noarch

@@ -1,7 +1,7 @@
 Name:           perl-Class-C3-Adopt-NEXT
 Version:        0.14
 Release:        23%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Reduce one's dependency on NEXT
 Source:         https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-C3-Adopt-NEXT-%{version}.tar.gz
 Url:            https://metacpan.org/release/Class-C3-Adopt-NEXT

@@ -63,12 +63,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 %files -f %{name}.lang
 %doc README
-%license COPYING*
 %{_kf5_bindir}/%{name}
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kxmlgui5/picmi/
 %{_kf5_datadir}/%{name}/
 %{_kf5_datadir}/qlogging-categories5/%{name}*
 

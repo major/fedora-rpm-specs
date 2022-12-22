@@ -2,7 +2,7 @@ Name:           perl-SQL-Library
 Version:        0.0.5
 Release:        31%{?dist}
 Summary:        Manage libraries of SQL easily 
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/SQL-Library
 Source0:        https://cpan.metacpan.org/authors/id/C/CH/CHRISV/SQL-Library-%{version}.tar.gz
 BuildArch:      noarch

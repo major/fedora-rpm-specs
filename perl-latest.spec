@@ -2,7 +2,7 @@ Name:           perl-latest
 Version:        0.03
 Release:        37%{?dist}
 Summary:        Use the latest Perl features
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/latest
 Source0:        https://cpan.metacpan.org/authors/id/A/AN/ANDYA/latest-%{version}.tar.gz
 BuildArch:      noarch

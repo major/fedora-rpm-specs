@@ -1,6 +1,6 @@
 Name:           penguin-command
 Version:        1.6.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Open source arcade game
 
 License:        GPLv2+
@@ -8,6 +8,7 @@ URL:            http://www.linux-games.com/penguin-command/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.xpm
 Source3:        %{name}.desktop
+Patch0:         penguin-command-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -20,7 +21,7 @@ better graphics and music. The gameplay has only been slightly modified.
 Penguin Command is licensed under the GPL.
 
 %prep
-%setup -q
+%autosetup -p1
 for f in penguin-command.ja.6; do
 iconv -f eucjp -t utf-8 $f -o $f.back
 mv $f.back $f
@@ -54,6 +55,9 @@ desktop-file-install \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 1.6.11-30
+- Port to C99 (#2155180)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

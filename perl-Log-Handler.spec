@@ -4,7 +4,7 @@ Name:           perl-Log-Handler
 Version:        0.90
 Release:        8%{?dist}
 Summary:        Log messages to several outputs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Log-Handler
 Source0:        https://cpan.metacpan.org/modules/by-module/Log/%{pkgname}-%{version}.tar.gz
 BuildRequires:  coreutils

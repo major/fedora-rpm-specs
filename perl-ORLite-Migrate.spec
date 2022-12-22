@@ -2,7 +2,7 @@ Name:           perl-ORLite-Migrate
 Version:        1.10
 Release:        31%{?dist}
 Summary:        Light weight SQLite-specific schema migration
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ORLite-Migrate
 Source0:        https://cpan.metacpan.org/authors/id/A/AD/ADAMK/ORLite-Migrate-%{version}.tar.gz
 Patch0:         perl-ORLite-Migrate-req.patch

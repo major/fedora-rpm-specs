@@ -2,7 +2,7 @@ Name:           perl-Math-Spline
 Version:        0.02
 Release:        21%{?dist}
 Summary:        Cubic Spline Interpolation of data
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Spline
 Source0:        https://cpan.metacpan.org/modules/by-module/Math/Math-Spline-%{version}.tar.gz
 BuildArch:      noarch

@@ -5,7 +5,7 @@ Name:           perl-TryCatch
 Version:        1.003002
 Release:        30%{?dist}
 Summary:        First class try catch semantics for Perl, without source filters
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TryCatch
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASH/TryCatch-%{version}.tar.gz
 BuildRequires:  coreutils

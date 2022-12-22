@@ -2,7 +2,7 @@ Name:           perl-ParseTemplate
 Version:        3.08
 Release:        25%{?dist}
 Summary:        Processor for templates containing Perl expressions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ParseTemplate
 Source0:        https://cpan.metacpan.org/authors/id/P/PS/PSCUST/ParseTemplate-%{version}.tar.gz
 BuildArch:      noarch

@@ -2,7 +2,7 @@ Name:           perl-Dir-Self
 Version:        0.11
 Release:        23%{?dist}
 Summary:        A __DIR__ constant for the directory your source file is in
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dir-Self
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAUKE/Dir-Self-%{version}.tar.gz
 BuildArch:      noarch

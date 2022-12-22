@@ -9,7 +9,7 @@ Name:           perl-Module-Install
 Version:        1.19
 Release:        23%{?dist}
 Summary:        Standalone, extensible Perl module installer
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Module-Install-%{version}.tar.gz
 # Fix a crash when looking up 5.010 Perl core modules, CPAN RT#71565, proposed

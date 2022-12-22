@@ -2,7 +2,7 @@ Name:       perl-CPANPLUS-Shell-Default-Plugins-RT
 Version:    0.01 
 Release:    38%{?dist}
 # see README 
-License:    GPL+ or Artistic
+License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Check for rt.cpan.org tickets from within the CPANPLUS shell 
 Source:     https://cpan.metacpan.org/authors/id/K/KA/KANE/CPANPLUS-Shell-Default-Plugins-RT-%{version}.tar.gz 
 Url:        https://metacpan.org/release/CPANPLUS-Shell-Default-Plugins-RT
