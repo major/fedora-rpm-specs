@@ -1,5 +1,5 @@
 Name:           python-importlib-metadata
-Version:        5.1.0
+Version:        5.2.0
 Release:        1%{?dist}
 Summary:        Library to access the metadata for a Python package
 
@@ -57,6 +57,9 @@ Python versions.
 %doc README.rst
 
 %changelog
+* Wed Dec 21 2022 Lumír Balhar <lbalhar@redhat.com> - 5.2.0-1
+- Update to 5.2.0 (rhbz#2154722)
+
 * Sun Nov 27 2022 Lumír Balhar <lbalhar@redhat.com> - 5.1.0-1
 - Update to 5.1.0 (rhbz#2148187)
 

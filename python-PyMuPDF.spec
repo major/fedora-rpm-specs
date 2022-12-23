@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.21.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python binding for MuPDF - a lightweight PDF and XPS viewer
 
 License:        AGPL-3.0-or-later
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{_prefix}/README.md
 %doc docs_built/* README.md
 
 %changelog
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 1.21.1-3
+- Rebuild (leptonica)
+
 * Sat Dec 17 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.21.1-2
 - SPDX migration
 

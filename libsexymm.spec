@@ -1,12 +1,13 @@
 Name:           libsexymm
 Version:        0.1.9
-Release:        34%{?dist}
+Release:        35%{?dist}
 
 Summary:        C++ wrapper for libsexy
 
 License:        LGPLv2+
 URL:            http://www.chipx86.com/wiki/Libsexy
 Source0:        http://releases.chipx86.com/libsexy/libsexymm/libsexymm-%{version}.tar.gz
+Patch0:         libsexymm-configure-c99.patch
 
 
 BuildRequires:  gcc-c++
@@ -33,7 +34,7 @@ develop applications which will use libsexymm.
 
 
 %prep
-%setup -q -n libsexymm-%{version}
+%autosetup -p1 -n libsexymm-%{version}
 
 
 %build
@@ -64,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 0.1.9-35
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

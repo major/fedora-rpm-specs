@@ -1,10 +1,9 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
-Version: 2021.0.0
-Release: 10%{?dist}
+Version: 2022.0.0
+Release: 1%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
-Patch0: hugin-fix-crash-wx3.2.patch
 URL: http://hugin.sourceforge.net/
 Requires: shared-mime-info
 Requires: webclient
@@ -16,6 +15,8 @@ BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel glew-devel
 BuildRequires: python3-devel swig flann-devel perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
+# contains deprecated distutils
+BuildRequires: python-setuptools
 
 %description
 hugin can be used to stitch multiple images together. The resulting image can
@@ -170,6 +171,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Wed Dec 21 2022 Bruno Postle <bruno@postle.net> - 2022.0.0-1
+- Upstream stable release
+
 * Wed Dec 14 2022 Scott Talbert <swt@techie.net> - 2021.0.0-10
 - Rebuild with X11 backend due to wxGL now not supporting Wayland
 

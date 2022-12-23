@@ -18,6 +18,9 @@ License:        MIT OR Apache-2.0
 URL:            https://github.com/imneme/pcg-cpp
 Source0:        %{url}/archive/%{commit}/pcg-cpp-%{commit}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 

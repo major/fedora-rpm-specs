@@ -1,6 +1,6 @@
 Name:           python-debian
-Version:        0.1.36
-Release:        12%{?dist}
+Version:        0.1.49
+Release:        1%{?dist}
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
@@ -14,6 +14,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  dpkg
 BuildRequires:  python3-six
 BuildRequires:  python3-chardet
+BuildRequires:  python3-pytest
 %if ! 0%{?rhel}
 BuildRequires:  python3-apt
 %endif
@@ -59,15 +60,12 @@ related files. Currently handled are:
 %prep
 %setup -q
 
-
 %build
 sed -e 's/__CHANGELOG_VERSION__/%{version}/' < lib/debian/_version.py.in > lib/debian/_version.py
 %py3_build
 
-
 %install
 %py3_install
-
 
 %check
 %if 0%{?rhel}
@@ -83,21 +81,27 @@ touch lib/debian/tests/test_debian_support.py.
 rm lib/debian/tests/test_debfile.py
 touch lib/debian/tests/test_debfile.py
 %endif
-python3 -m unittest discover lib
+%pytest
 
 %files -n python3-debian
 %dir %{python3_sitelib}/debian
 %dir %{python3_sitelib}/debian_bundle
 %{python3_sitelib}/*.py*
 %{python3_sitelib}/__pycache__
+%{python3_sitelib}/debian/py.typed
 %{python3_sitelib}/debian/*.py*
 %{python3_sitelib}/debian/__pycache__
+%{python3_sitelib}/debian/_deb822_repro/*.py*
+%{python3_sitelib}/debian/_deb822_repro/__pycache__
 %{python3_sitelib}/debian_bundle/__init__.py*
 %{python3_sitelib}/debian_bundle/__pycache__
 %{python3_sitelib}/python_debian*
 %doc README.rst HISTORY.deb822
 
 %changelog
+* Wed Dec 21 2022 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 0.1.49-1
+- version 0.1.49
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.36-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

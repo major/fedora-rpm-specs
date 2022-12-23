@@ -22,16 +22,10 @@ URL:            https://www.encode.io/databases/
 %global forgeurl https://github.com/encode/databases
 Source0:        %{forgeurl}/archive/%{srcversion}/databases-%{srcversion}.tar.gz
 
-# This package contains no compiled code and should be inherently noarch, but
-# the asyncmy dependency for the mysql_asyncmy/mysql+asyncmy extra is
-# ExcludeArch on 32-bit platforms (RHBZ#2060899), which unfortunately means
-# this package as a whole must be archful in order to drop that extra on the
-# affected platforms. We can still make the binary RPMs noarch, except for the
-# affected extra metapackage.
-%global debug_package %{nil}
-%if 0%{?__isa_bits} != 32
-%global with_asyncmy 1
-%endif
+BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
@@ -82,13 +76,10 @@ Community: https://discuss.encode.io/c/databases}
 #   [pymysql][pymysql] for MySQL.
 #
 # Therefore we manually write out the extras metapackages for PostgreSQL and
-# MySQL backends so that we can add these drivers as Recommends. We can still
-# handle the SQLite extras the easy way—but we don’t, because they would
-# inherit the archfulness of the base package, and we want them to be noarch.
+# MySQL backends so that we can add these drivers as weak dependencies
+# (Recommends). We can still handle the SQLite extras the easy way.
 %package -n python3-databases+postgresql
 Summary:        Metapackage for python3-databases: postgresql extras
-
-BuildArch:      noarch
 
 Requires:       python3-databases = %{version}-%{release}
 Recommends:     python3dist(psycopg2)
@@ -104,8 +95,6 @@ python3-databases. It makes sure the dependencies are installed.
 %package -n python3-databases+asyncpg
 Summary:        Metapackage for python3-databases: asyncpg extras
 
-BuildArch:      noarch
-
 Requires:       python3-databases = %{version}-%{release}
 Recommends:     python3dist(psycopg2)
 
@@ -119,8 +108,6 @@ python3-databases. It makes sure the dependencies are installed.
 
 %package -n python3-databases+aiopg
 Summary:        Metapackage for python3-databases: aiopg extras
-
-BuildArch:      noarch
 
 Requires:       python3-databases = %{version}-%{release}
 Recommends:     python3dist(psycopg2)
@@ -142,8 +129,6 @@ python3-databases. It makes sure the dependencies are installed.
 %package -n python3-databases+mysql
 Summary:        Metapackage for python3-databases: mysql extras
 
-BuildArch:      noarch
-
 Requires:       python3-databases = %{version}-%{release}
 Recommends:     python3dist(pymysql)
 
@@ -158,8 +143,6 @@ python3-databases. It makes sure the dependencies are installed.
 %package -n python3-databases+aiomysql
 Summary:        Metapackage for python3-databases: aiomysql extras
 
-BuildArch:      noarch
-
 Requires:       python3-databases = %{version}-%{release}
 Recommends:     python3dist(pymysql)
 
@@ -171,7 +154,6 @@ python3-databases. It makes sure the dependencies are installed.
 %ghost %{python3_sitelib}/*.dist-info
 
 
-%if 0%{?with_asyncmy}
 %package -n python3-databases+asyncmy
 Summary:        Metapackage for python3-databases: asyncmy extras
 Recommends:     python3dist(pymysql)
@@ -190,43 +172,13 @@ python3-databases. It makes sure the dependencies are installed.
 
 %files -n python3-databases+asyncmy
 %ghost %{python3_sitelib}/*.dist-info
-%endif
 
 
-%package -n python3-databases+sqlite
-Summary:        Metapackage for python3-databases: sqlite extras
-
-BuildArch:      noarch
-
-Requires:       python3-databases = %{version}-%{release}
-
-%description -n python3-databases+sqlite
-This is a metapackage bringing in sqlite extras requires for
-python3-databases. It makes sure the dependencies are installed.
-
-%files -n python3-databases+sqlite
-%ghost %{python3_sitelib}/*.dist-info
-
-
-%package -n python3-databases+aiosqlite
-Summary:        Metapackage for python3-databases: aiosqlite extras
-
-BuildArch:      noarch
-
-Requires:       python3-databases = %{version}-%{release}
-
-%description -n python3-databases+aiosqlite
-This is a metapackage bringing in aiosqlite extras requires for
-python3-databases. It makes sure the dependencies are installed.
-
-%files -n python3-databases+aiosqlite
-%ghost %{python3_sitelib}/*.dist-info
+%pyproject_extras_subpkg -n python3-databases sqlite aiosqlite
 
 
 %package -n     python3-databases
 Summary:        %{summary}
-
-BuildArch:      noarch
 
 Obsoletes:      python-databases-doc < 0.5.2-4
 
@@ -234,14 +186,7 @@ Obsoletes:      python-databases-doc < 0.5.2-4
 
 
 %prep
-%autosetup -n databases-%{srcversion} -p1
-
-%if !0%{?with_asyncmy}
-sed -r -i \
-    -e 's/^([[:blank:]]*)(.*import AsyncMyBackend.*)$/# \1\2\n\1pass/' \
-    -e 's/^def test_asyncmy_.*$/@pytest.mark.skip("asyncmy does not support 32-bit")\n&/' \
-    tests/test_connection_options.py
-%endif
+%autosetup -n databases-%{srcversion}
 
 
 %generate_buildrequires
@@ -251,7 +196,7 @@ sed -r -i \
     -x aiopg \
     -x mysql \
     -x aiomysql \
-    %{?with_asyncmy:-x asyncmy} \
+    -x asyncmy \
     -x sqlite \
     -x aiosqlite}
 
@@ -272,7 +217,7 @@ rm tests/test_integration.py
 
 # Since we won’t be able to test all of the backends, we start with an
 # import-only “smoke test”
-%{pyproject_check_import %{?!with_asyncmy:-e 'databases.backends.asyncmy'}}
+%pyproject_check_import
 
 # E   ModuleNotFoundError: No module named 'tests'
 touch tests/__init__.py

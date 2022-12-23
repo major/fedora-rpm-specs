@@ -82,9 +82,7 @@ find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -v
 
 %check
 %if %{with tests}
-# Consider running tests in parallel by default
-# https://github.com/pauldmccarthy/indexed_gzip/issues/101
-%pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n %{?_smp_build_ncpus}
+%pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n auto
 %endif
 
 %files -n python3-indexed-gzip -f %{pyproject_files}

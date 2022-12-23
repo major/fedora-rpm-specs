@@ -36,10 +36,10 @@
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
 
-Summary: Application and environment virtualization
+Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -54,17 +54,17 @@ Patch10: https://github.com/vasi/squashfuse/pull/70.patch
 Patch11: https://github.com/vasi/squashfuse/pull/77.patch
 Patch12: https://github.com/vasi/squashfuse/pull/81.patch
 %endif
-# The singularity package was renamed to apptainer after version 3.8.x.
-# The apptainer package reset numbering at 1.0.0, and some singularity
-#  packages are in epoch 1, so Provide corresponding singularity versions
-#  in epoch 2.
-Provides: singularity = 2:%{version}-%{release}
-Obsoletes: singularity < 1:4.0
+
 # In the singularity 2.x series there was a singularity-runtime package
 #  that could have been installed independently, but starting in 3.x
 #  there was only one package
-Provides: singularity-runtime = 2:%{version}-%{release}
 Obsoletes: singularity-runtime < 3.0
+
+# Multiple packages contain /usr/bin/singularity and /usr/bin/run-singularity,
+# which are necessary to run SIF images.  Use a pivot provides/conflicts to
+# avoid them all needing to conflict with each other.
+Provides: sif-runtime
+Conflicts: sif-runtime
 
 %if "%{_target_vendor}" == "suse"
 BuildRequires: binutils-gold
@@ -105,6 +105,15 @@ containers that can be used across host environments.
 %package suid
 Summary: Setuid component of Apptainer
 Requires: %{name} = %{version}-%{release}
+# The singularity package was renamed to apptainer.  However, this also brought
+# several incompatibilities, including defaulting to unprivileged user
+# namespaces.  Installing this subpackage allows apptainer to run without
+# unprivileged user namespaces, mitigating one of the incompatibilities.
+# Because of this, we'll put the renaming obsoletes in this subpackage instead
+# of at the top level.  The last shipped singularity EVR was 0:3.8.7-3.fc37,
+# therefore the obsoletes must be one release higher to not gratuitously
+# polluting the version space upwards.
+Obsoletes: singularity < 3.8.7-4
 
 %description suid
 Provides the optional setuid-root portion of Apptainer.
@@ -223,6 +232,13 @@ rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || tru
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed Dec 14 2022 Carl George <carl@george.computer> - 1.1.4-2
+- Add pivot provides/conflict of sif-runtime
+- Reduce singularity obsoletes upper bound
+- Remove singularity provides due to incompatibilities introduced in apptainer
+- Add the word singularity to the summary so it shows up in dnf search results
+- Move obsoletes to suid subpackage
+
 * Tue Dec 13 2022 Dave Dykstra <dwd@fedoraproject.org> - 1.1.4
 - Update to upstream 1.1.4.
 

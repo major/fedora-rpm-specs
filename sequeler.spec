@@ -17,6 +17,9 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND 
 URL:            https://github.com/Alecaddd/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 

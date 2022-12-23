@@ -8,13 +8,13 @@
 
 Name:           perl-Compress-Raw-Zlib
 Version:        2.202
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low-level interface to the zlib compression library
-# Zlib.xs:  (GPL+ or Artistic) and zlib
-# Others:   GPL+ or Artistic
+# Zlib.xs:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
+# Others:   GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used to produce binary packages
-# zlib-src: zlib
-License:        (GPL+ or Artistic) and zlib
+# zlib-src: Zlib
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Zlib
 URL:            https://metacpan.org/release/Compress-Raw-Zlib
 Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-Raw-Zlib-%{version}.tar.gz
 # Module Build
@@ -162,6 +162,9 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 21 2022 Paul Howarth <paul@city-fan.org> - 2.202-4
+- Rebuild for zlib 1.2.13
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.202-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

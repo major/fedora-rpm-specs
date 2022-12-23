@@ -12,6 +12,9 @@ Summary:        Structured Configuration Library
 License:        ZPL-2.1
 URL:            https://github.com/zopefoundation/ZConfig/
 Source0:        %{pypi_source ZConfig}
+# Man pages hand-written for Fedora in groff_man(7) format based on --help
+Source1:        zconfig.1
+Source2:        zconfig_schema2html.1
 
 BuildArch:      noarch
 
@@ -94,6 +97,9 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
 %pyproject_install
 %pyproject_save_files ZConfig
 
+install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
+    '%{SOURCE1}' '%{SOURCE2}'
+
 %if %{with doc_pdf}
 # Building documentation in the install section is “weird,” but the
 # documentation needs to incorporate the --help output from the command-line
@@ -137,6 +143,8 @@ symlinks -c '%{buildroot}%{_pkgdocdir}/schemaless.txt'
 
 %{_bindir}/zconfig
 %{_bindir}/zconfig_schema2html
+%{_mandir}/man1/zconfig.1*
+%{_mandir}/man1/zconfig_schema2html.1*
 
 
 %files -n python3-ZConfig+test

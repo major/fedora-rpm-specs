@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.4.0
-Release:	2%{?alphatag:.%{alphatag}}%{?dist}
+Release:	3%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -196,6 +196,9 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 3.10.4.0-3
+- Rebuild (qwt)
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.10.4.0-2
 - Rebuilt due to spdlog update.
 

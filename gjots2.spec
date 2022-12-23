@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:    gjots2
-Version: 3.1.9
-Release: 8%{?dist}
+Version: 3.2.0
+Release: 2%{?dist}
 Summary: A hierarchical note jotter - organize your ideas, notes, facts in a tree
 License: GPLv2
 URL:     http://bhepple.freeshell.org/gjots
@@ -13,6 +13,7 @@ BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
+BuildRequires: python3-setuptools
 
 Requires: python3-gobject
 Requires: gtk3
@@ -93,6 +94,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_mandir}/man1/docbook2gjots*
 
 %changelog
+* Wed Dec 21 2022 Bob Hepple <bob.hepple@gmail.com> - 3.2.0-2
+- rebuilt
+
+* Tue Dec 20 2022 Bob Hepple <bob.hepple@gmail.com> - 3.2.0-1
+- new version
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.4.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and LGPLv2+ and GFDL
 URL:     http://www.gnu.org/software/libtool/
 
@@ -38,6 +38,10 @@ Patch3: libtool-2.4.6-disable_non-pic_arm.patch
 # rhbz#2047389, patch sent upstream
 # https://lists.gnu.org/archive/html/libtool-patches/2022-02/msg00000.html
 Patch4: libtool-2.4.6-keep-compiler-deps.patch
+
+# Patch sent upstream
+# https://lists.gnu.org/archive/html/libtool-patches/2022-12/msg00004.html
+Patch5: 0001-tests-Fix-grep-warning-about-stray-before.patch
 
 %if ! 0%{?_module_build}
 Patch100: libtool-nodocs.patch
@@ -165,6 +169,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Wed Dec 21 2022 Frederic Berat <fberat@redhat.com> - 2.4.7-3
+- Fix test failure due to grep update
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

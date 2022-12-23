@@ -1,8 +1,8 @@
 Name:           perl-Tk-Text-SuperText
 Version:        0.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Improved text widget for perl/tk
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-Text-SuperText
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASB/Tk-Text-SuperText-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
-
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
@@ -31,32 +30,29 @@ Tk::Text::SuperText implements many new features over the standard Tk::Text
 widget while supporting all it's standard features. Its used simply as the
 Tk::Text widget.
 
-
 %prep
 %setup -q -n Tk-Text-SuperText-%{version}
-
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
-
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
 
-
 %check
 make test
-
 
 %files
 %doc README eg
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
-
 %changelog
+* Wed Dec 21 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.12-4
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:		zbar
 Version:	0.23.90
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Bar code reader
 
 License:	LGPLv2+
@@ -34,6 +34,7 @@ BuildRequires:	xmlto
 BuildRequires:	java-11-openjdk-devel
 %endif
 BuildRequires:	python3-devel
+BuildRequires:  python3-setuptools
 
 %description
 ZBar Bar Code Reader is an open source software suite for reading bar
@@ -214,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/zbar-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.23.90-6
+- BR setuptools
+
 * Fri Aug 26 2022 Kalev Lember <klember@redhat.com> - 0.23.90-5
 - Misc packaging cleanup
 - Sort BuildRequires and Requires and split them out one per line

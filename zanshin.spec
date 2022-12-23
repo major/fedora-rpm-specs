@@ -5,7 +5,7 @@
 ## * significantly increases build-time and there at least several failures
 ##   ping upstream if this is expected
 ## * FTBFS on arm (disable for now)
-#ifnarch %{arm}
+#ifnarch %%{arm}
 #global tests 1
 #endif
 %endif
@@ -111,13 +111,11 @@ time \
 %doc AUTHORS HACKING TODO
 %license LICENSES/*.txt
 %{_kf5_datadir}/icons/hicolor/*/*/zanshin.*
-%dir %{_kf5_datadir}/kservices5/kontact/
 
 %files
 %{_kf5_bindir}/zanshin*
 %{_kf5_metainfodir}/org.kde.zanshin.metainfo.xml
 %{_kf5_datadir}/applications/org.kde.zanshin.desktop
-%{_kf5_datadir}/kservices5/kontact/zanshin_plugin.desktop
 %{_kf5_datadir}/kservices5/plasma-runner-zanshin.desktop
 %{_kf5_datadir}/kservices5/zanshin_part.desktop
 %{_kf5_datadir}/kxmlgui5/zanshin/
@@ -156,7 +154,7 @@ time \
 * Wed Mar 02 2022 Marc Deop <marcdeop@fedoraproject.org> - 21.12.3-1
 - 21.12.3
 
-* Fhu Feb 04 2022 Yaroslav Sidlovsky <zawertun@gmail.com> - 21.12.2-1
+* Fri Feb 04 2022 Yaroslav Sidlovsky <zawertun@gmail.com> - 21.12.2-1
 - update to 21.12.2
 
 * Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.71-5

@@ -7,8 +7,8 @@
 Name:           mon
 Summary:        General-purpose resource monitoring system
 Version:        1.2.0
-Release:        33%{?dist}
-License:        GPLv2+
+Release:        34%{?dist}
+License:        GPL-2.0-or-later
 URL:            http://www.kernel.org/software/mon/
 
 Source0:        ftp://ftp.kernel.org/pub/software/admin/mon/mon-%{version}.tar.bz2
@@ -162,7 +162,8 @@ fi
 
 
 %files
-%doc CHANGES COPYING COPYRIGHT CREDITS README TODO doc/README.*
+%license COPYING COPYRIGHT
+%doc CHANGES CREDITS README TODO doc/README.*
 %doc KNOWN-PROBLEMS utils/ VERSION
 %doc alerts/*/*.README mon.cgi-1.52/
 %doc clients/{skymon,batch-example} etc/*.cf etc/example.m4 etc/example.monshowrc
@@ -194,6 +195,10 @@ fi
 
 
 %changelog
+* Wed Dec 21 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.2.0-34
+- Update license to SPDX format
+- Use %license macro
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate openssl-sys
 
 Name:           rust-openssl-sys
-Version:        0.9.79
+Version:        0.9.80
 Release:        %autorelease
 Summary:        FFI bindings to OpenSSL
 
@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip foreign dependencies
 Patch:          openssl-sys-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * temporarily downgrade bindgen dependency from 0.60.1 to 0.59
+# * bump optional bindgen dependency from 0.60.1 to 0.63
 # * drop feature and dependencies for unstable BoringSSL support
 # * drop feature and dependencies for building against vendored OpenSSL sources
 Patch:          openssl-sys-fix-metadata.diff
@@ -30,7 +30,7 @@ FFI bindings to OpenSSL.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(openssl) >= 1.1.1
+Requires:       pkgconfig(openssl) >= 1.0.1
 
 %description    devel %{_description}
 
@@ -73,7 +73,7 @@ use the "bindgen" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(openssl) >= 1.1.1'
+echo 'pkgconfig(openssl) >= 1.0.1'
 
 %build
 %cargo_build

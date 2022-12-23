@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    kubrick
 Summary: Puzzle cube solving game
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -78,20 +78,21 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %files -f %{name}.lang
-%license COPYING*
 %doc README
 %{_kf5_bindir}/%{name}*
 %{_kf5_datadir}/qlogging-categories5/%{name}*
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/kxmlgui5/%{name}/
 %{_kf5_datadir}/%{name}/
 #{_kf5_datadir}/config.kcfg/%{name}.kcfg
 #{_kf5_datadir}/knotifications5/%{name}.notifyrc
 
 
 %changelog
+* Wed Dec 21 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

@@ -60,7 +60,7 @@ Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
 Version: 4.0.0
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
@@ -89,7 +89,8 @@ Source17: sa-update.timer
 # https://bugzilla.redhat.com/show_bug.cgi?id=1055593
 # Switch to using gnupg2 instead of gnupg1
 Patch0: spamassassin-4.0.0-gnupg2.patch
-Patch1: spamassassin-3.4.1-add-logfile-homedir-options.patch
+# add a logfile and homedir for razor
+Patch1: spamassassin-4.0.0-add-logfile-homedir-options.patch
 # end of patches
 Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %if %{use_systemd} == 0
@@ -208,6 +209,7 @@ To filter spam for all users, add that line to /etc/procmailrc
 %setup -q -n Mail-SpamAssassin-%{version}
 # Patches 0-99 are RH specific
 %patch0 -p1
+%patch1 -p1
 # end of patches
 
 echo "RHEL=%{?rhel} FEDORA=%{?fedora}"
@@ -388,6 +390,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Dec 21 2022 Kevin Fenzi <kevin@scrye.com> - 4.0.0-2
+- Rebase razor homedir/logfile patch.
+
 * Sat Dec 17 2022 Kevin Fenzi <kevin@scrye.com> - 4.0.0-1
 - Update to 4.0.0. Fixes rhbz#2154501
 

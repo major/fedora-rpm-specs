@@ -9,31 +9,18 @@
 %global tests 1
 %endif
 
-Summary: Personal finance 
+Summary: Personal finance
 Name:    kmymoney
-Version: 5.1.2
-Release: 9%{?dist}
+Version: 5.1.3
+Release: 1%{?dist}
 
-# kmm itself is GPLv2+ 
+# kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
-License: GPLv2+
+License: GPL-2.0-or-later
 Url:     http://kmymoney.org/
 Source0: http://download.kde.org/stable/kmymoney/%{version}/src/kmymoney-%{version}.tar.xz
 
 ## backports from upstream
-
-# Fix Compile for Newer Akonadi Builds
-# https://invent.kde.org/office/kmymoney/-/commit/a06d2fe154f755c3af1e7f261cd631929b9da998
-Patch0:        https://invent.kde.org/office/kmymoney/-/commit/a06d2fe154f755c3af1e7f261cd631929b9da998.diff
-# Fix build with newer Gwenhywfar versions
-#
-# Use our own DEPRECATED definition
-# https://invent.kde.org/office/kmymoney/-/commit/4f8a333c2273c2564197dc622c77ad675ac73adc
-#
-# To backport to the current release, we must further change this from
-# KMYMONEY_DEPRECATED to KMM_MYMONEY_DEPRECATED, which we do using a “sed”
-# invocation in %prep.
-Patch1:        https://invent.kde.org/office/kmymoney/-/commit/4f8a333c2273c2564197dc622c77ad675ac73adc.diff
 
 ## upstreamable patches
 
@@ -181,7 +168,7 @@ sed -r -i 's/K(MYMONEY_DEPRECATED)/KMM_\1/g' \
 %find_lang kmymoney --with-man
 
 
-%check 
+%check
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kmymoney.appdata.xml
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kmymoney.desktop
 %if 0%{?tests}
@@ -192,7 +179,7 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %files -f kmymoney.lang
-%doc ChangeLog BUGS TODO README.ofx
+%doc README.md
 %license LICENSES/GPL-2.0-or-later.txt
 %{_kf5_bindir}/kmymoney
 %{_kf5_metainfodir}/org.kde.kmymoney.appdata.xml
@@ -238,6 +225,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Wed Dec 21 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 5.1.3-1
+- Update to 5.1.3
+
 * Mon Aug 29 2022 Carl George <carl@george.computer> - 5.1.2-9
 - Rebuild for sqlcipher soname bump
 

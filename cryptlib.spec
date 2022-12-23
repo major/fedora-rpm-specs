@@ -5,7 +5,7 @@
 
 Name:       cryptlib
 Version:    3.4.6  
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL     
@@ -29,6 +29,7 @@ Patch2:     configpatch
 Patch3:     errorpatch
 Patch4:     testpatch
 Patch5:     x86-64patch
+Patch6:     setuppatch
 
 ExclusiveArch: x86_64 aarch64 ppc64le
 
@@ -37,6 +38,7 @@ BuildRequires: libbsd-devel
 BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: python3-devel
+BuildRequires: python-setuptools
 BuildRequires: java-devel
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
@@ -159,6 +161,7 @@ cd %{name}-%{version}
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 # remove pre-build jar file
 rm %{_builddir}/%{name}-%{version}/bindings/cryptlib.jar
@@ -239,7 +242,8 @@ cp -r %{_builddir}/%{name}-%{version}/bindings/javadoc/* %{buildroot}%{_javadocd
 
 # install python3 module
 mkdir -p %{buildroot}%{python3_sitelib}
-cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*%{python3_version}/cryptlib_py%{python3_ext_suffix} %{buildroot}%{python3_sitelib}/cryptlib_py.so
+# cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*%{python3_version}/cryptlib_py%{python3_ext_suffix} %{buildroot}%{python3_sitelib}/cryptlib_py.so
+cp %{_builddir}/%{name}-%{version}/bindings/build/lib.linux-*/cryptlib_py%{python3_ext_suffix} %{buildroot}%{python3_sitelib}/cryptlib_py.so
 
 # install Perl module
 mkdir -p %{buildroot}/usr/local/lib64
@@ -346,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/claes.1  %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Dec 21 2022 Ralf Senderek <innovation@senderek.ie> - 3.4.6-13
+- Resolve Bug #2155050 python 3.12 setup.py
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

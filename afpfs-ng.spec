@@ -1,6 +1,6 @@
 Name:           afpfs-ng
 Version:        0.8.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Apple Filing Protocol client
 
 
@@ -17,6 +17,7 @@ Patch1:         afpfs-ng-0.8.1-pointer.patch
 # Sent by e-mail to Alex deVries <alexthepuffin@gmail.com>
 Patch2:         afpfs-ng-0.8.1-formatsec.patch
 Patch3:         afpfs-ng-0.8.1-longoptions.patch
+Patch4: afpfs-ng-c99.patch
 
 %{?with_fuse:BuildRequires: fuse-devel}
 BuildRequires: gcc
@@ -108,6 +109,9 @@ cp -p include/* %{buildroot}%{_includedir}/afpfs-ng
 %{_libdir}/*.so
 
 %changelog
+* Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 0.8.1-41
+- Port to C99
+
 * Tue Oct 25 2022 Michal Ambroz <rebus _AT seznam.cz> - 0.8.1-40
 - remove the libafpclient.la libtool file
 

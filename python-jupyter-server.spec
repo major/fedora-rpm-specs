@@ -1,17 +1,14 @@
 # Tests depend on pytest-jupyter and that depends back
 # on jupyter-server[test] so we might need to break this loop.
-%bcond_with tests
+%bcond_without tests
 
 Name:           python-jupyter-server
-Version:        2.0.0~rc8
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause
 URL:            https://jupyter-server.readthedocs.io
 Source:         %{pypi_source jupyter_server}
-# Removing useless steps from build process
-# See: https://github.com/jupyter-server/jupyter_server/issues/1107
-Patch:          build.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -32,7 +29,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n jupyter_server-2.0.0rc8
+%autosetup -n jupyter_server-%{version}
 sed -i '/"pre-commit"/d' pyproject.toml
 
 %generate_buildrequires
@@ -62,5 +59,8 @@ sed -i '/"pre-commit"/d' pyproject.toml
 
 
 %changelog
+* Wed Dec 21 2022 Lumír Balhar <lbalhar@redhat.com> - 2.0.2-1
+- Update to 2.0.2 (rhbz#2155288)
+
 * Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 2.0.0~rc8-1
 - Initial package

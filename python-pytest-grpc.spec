@@ -62,7 +62,7 @@ rm -vf example/src/stub/.keepdir
 
 %files -n python3-pytest-grpc -f %{pyproject_files}
 %doc README.md
-%doc example
+%doc example/
 
 
 %changelog

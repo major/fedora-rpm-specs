@@ -2,9 +2,9 @@ Name:       perl-Archive-RPM
 Version:    0.07
 Release:    32%{?dist}
 Summary:    Work with a RPM
-# lib/Archive/RPM.pm -> LGPLv2+
-# lib/Archive/RPM/ChangeLogEntry.pm -> LGPLv2+
-License:    LGPLv2+
+# lib/Archive/RPM.pm -> LGPL-2.1-or-later
+# lib/Archive/RPM/ChangeLogEntry.pm -> LGPL-2.1-or-later
+License:    LGPL-2.1-or-later
 Url:        https://metacpan.org/release/Archive-RPM
 Source:     https://cpan.metacpan.org/authors/id/R/RS/RSRCHBOY/Archive-RPM-%{version}.tar.gz
 # Restore compatibility with Moose > 2.1005, bug #1168859, CPAN RT#100701

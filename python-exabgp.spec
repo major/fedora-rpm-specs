@@ -37,7 +37,7 @@ The BGP swiss army knife of networking (exabgp systemd unit)
 
 %prep
 %autosetup -n %{srcname}-%{version}
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" etc/exabgp/run/*
+%py3_shebang_fix etc/exabgp/run/*
 
 %build
 %py3_build

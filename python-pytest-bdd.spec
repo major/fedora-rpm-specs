@@ -97,6 +97,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 # https://github.com/pytest-dev/pytest-bdd/issues/453
 mkdir -p _empty && cp -rp tests *.ini _empty && cd _empty
 
+export PYTEST_ADDOPTS='-n auto -v'
 %tox
 
 

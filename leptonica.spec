@@ -5,8 +5,8 @@
 %endif
 
 Name:          leptonica
-Version:       1.82.0
-Release:       8%{?dist}
+Version:       1.83.0
+Release:       1%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -142,7 +142,7 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %files
 %license leptonica-license.txt
 %doc README.html version-notes.html
-%{_libdir}/libleptonica.so.5*
+%{_libdir}/libleptonica.so.6*
 
 %files devel
 %{_includedir}/%{name}
@@ -157,7 +157,7 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %files -n mingw32-%{name}
 %license leptonica-license.txt
 %{mingw32_bindir}/*.exe
-%{mingw32_bindir}/libleptonica-5.dll
+%{mingw32_bindir}/libleptonica-6.dll
 %{mingw32_includedir}/leptonica/
 %{mingw32_libdir}/liblept.dll.a
 %{mingw32_libdir}/libleptonica.dll.a
@@ -168,7 +168,7 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %files -n mingw64-%{name}
 %license leptonica-license.txt
 %{mingw64_bindir}/*.exe
-%{mingw64_bindir}/libleptonica-5.dll
+%{mingw64_bindir}/libleptonica-6.dll
 %{mingw64_includedir}/leptonica/
 %{mingw64_libdir}/liblept.dll.a
 %{mingw64_libdir}/libleptonica.dll.a
@@ -177,6 +177,9 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 
 
 %changelog
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 1.83.0-1
+- Update to 1.83.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.82.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

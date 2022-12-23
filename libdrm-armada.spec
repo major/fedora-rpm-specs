@@ -2,7 +2,7 @@
 
 Name:		libdrm-armada
 Version:	2.0.0
-Release:	8.20190424git607c697%{?dist}
+Release:	9.20190424git607c697%{?dist}
 Summary:	DRM driver for Marvell Armada displays
 
 License:	GPLv2 and MIT
@@ -14,6 +14,7 @@ URL:		http://git.arm.linux.org.uk/cgit/libdrm-armada.git/
 # ./configure
 # make dist
 Source0:	libdrm_armada-%{version}.tar.bz2
+Patch0:		libdrm-armada-c99.patch
 
 BuildRequires:	pkgconfig(libdrm)
 BuildRequires:	gcc
@@ -32,7 +33,7 @@ Development files for libdrm-armada.
 
 
 %prep
-%setup -q -n libdrm_armada-%{version}
+%autosetup -p1 -n libdrm_armada-%{version}
 
 
 %build
@@ -57,6 +58,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 2.0.0-9.20190424git607c697
+- Port to C99 (#2155412)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8.20190424git607c697
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

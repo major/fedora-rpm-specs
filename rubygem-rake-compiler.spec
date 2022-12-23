@@ -4,8 +4,8 @@
 
 Summary:	Rake-based Ruby C Extension task generator
 Name:		rubygem-%{gem_name}
-Version:	1.2.0
-Release:	2%{?dist}
+Version:	1.2.1
+Release:	1%{?dist}
 License:	MIT
 URL:		http://rake-compiler.rubyforge.org/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -116,6 +116,9 @@ popd
 
 
 %changelog
+* Wed Dec 21 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-1
+- 1.2.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

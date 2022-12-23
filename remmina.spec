@@ -1,10 +1,10 @@
-%global release_commit_hash 852ceab35b0feaba07124265d0e2fa8c629b9dc1
+%global release_commit_hash fb19eb5f11f206ffb442a9e0c519cb0f2cb3fd8b
 
 # Use old cmake macro behaviour.
 %define __cmake_in_source_build 1
 
 Name: remmina
-Version: 1.4.28
+Version: 1.4.29
 Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
@@ -334,6 +334,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1.*
 
 %changelog
+* Wed Dec 21 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-1
+- New upstream version 1.4.29.
+
 * Sat Dec 03 2022 Phil Wyett <philip.wyett@kathenas.org> - 1.4.28-1
 - New upstream version 1.4.28.
 

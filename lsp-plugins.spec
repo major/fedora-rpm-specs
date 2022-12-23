@@ -1,9 +1,9 @@
 Name:           lsp-plugins
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
-License:        LGPLv3+ and zlib
+License:        LGPL-3.0-or-later and Zlib
 URL:            https://lsp-plug.in/
 Source0:        https://github.com/sadko4u/%{name}/releases/download/%{version}/%{name}-src-%{version}.tar.gz
 
@@ -119,7 +119,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.6.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.7.so
 
 %files -n liblsp-r3d-glx-devel
 %{_includedir}/lsp-plug.in/r3d/glx/*.h
@@ -152,6 +152,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Dec 21 2022 Vasiliy Glazov <vascom2@gmail.com> - 1.2.4-1
+- Update to 1.2.4
+
 * Mon Sep 19 2022 Vasiliy Glazov <vascom2@gmail.com> - 1.2.3-1
 - Update to 1.2.3
 

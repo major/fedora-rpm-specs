@@ -25,6 +25,9 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/bramstein/sfnt2woff-zopfli/pull/18
 Patch:          %{url}/pull/18.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 # Note that the URL http://people.mozilla.org/~jkew/woff/, where the original
 # WOFF reference implementation sources were published, is no longer available.
 # A copy of that page can be found at

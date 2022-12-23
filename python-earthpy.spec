@@ -8,7 +8,7 @@ EarthPy makes it easier to plot and manipulate spatial data in Python.}
 
 Name:           python-%{pypi_name}
 Version:        0.9.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A package built to support working with spatial data
 
 License:        BSD
@@ -16,6 +16,9 @@ URL:            https://github.com/earthlab/earthpy
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description %_description
 
@@ -90,6 +93,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.9.4-5
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

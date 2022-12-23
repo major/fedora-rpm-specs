@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    77a4b6d78445ae2f30625c5af09a05ad4e4434eb
+%global gh_commit    7c5a85fbdf6df06549279c14a46b841cfcd01e06
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-view
@@ -18,11 +18,11 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.25.0
+Version:        2.25.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -272,6 +272,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.25.1-1
+- update to 2.25.1 (no change)
+
 * Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 2.25.0-1
 - update to 2.25.0 (no change)
 

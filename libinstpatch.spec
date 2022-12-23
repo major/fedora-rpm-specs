@@ -128,9 +128,9 @@ find examples -type f -name '*.py' -print -delete
 # yet, which means we aren’t prepared to report the problem upstream.
 # Assistance is welcome.
 #
-# For now, the workaround is fine on Fedora 35–38 (although it does not work on
+# For now, the workaround is fine on Fedora (although it does not work on
 # EPEL7–EPEL9).
-%global _smp_build_ncpus 1
+%constrain_build -c 1
 
 %cmake \
     -DGTKDOC_ENABLED:BOOL=ON \

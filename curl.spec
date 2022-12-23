@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 7.86.0
-Release: 4%{?dist}
+Version: 7.87.0
+Release: 1%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -9,9 +9,6 @@ Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
-
-# fix regression in noproxy matching
-Patch1:   0001-curl-7.86.0-noproxy.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -96,8 +93,8 @@ BuildRequires: valgrind
 %endif
 
 # stunnel is used by upstream tests but it does not seem to work reliably
-# on s390x and occasionally breaks some tests (mainly 1561 and 1562)
-%ifnarch s390x
+# on aarch64/s390x and occasionally breaks some tests (mainly 1561 and 1562)
+%ifnarch aarch64 s390x
 BuildRequires: stunnel
 %endif
 
@@ -197,7 +194,6 @@ be installed.
 %setup -q
 
 # upstream patches
-%patch1 -p1
 
 # Fedora patches
 %patch101 -p1
@@ -431,6 +427,11 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Dec 21 2022 Kamil Dudka <kdudka@redhat.com> - 7.87.0-1
+- new upstream release, which fixes the following vulnerabilities
+    CVE-2022-43552 - HTTP Proxy deny use-after-free
+    CVE-2022-43551 - Another HSTS bypass via IDN
+
 * Tue Nov 29 2022 Kamil Dudka <kdudka@redhat.com> - 7.86.0-4
 - noproxy: tailmatch like in 7.85.0 and earlier (#2149224)
 

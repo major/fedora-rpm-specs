@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.5.1
-%global github_commit    f38ee8aaca2d58ee88653cb34a6a3880c23f38a5
+%global github_version   3.5.2
+%global github_commit    63e513cebbbaf96a6795e5c5ee34d205831bfc85
 %global major            3
 
 %global composer_vendor  doctrine
@@ -76,7 +76,7 @@ Patch0:        %{name}-bin.patch
 BuildArch: noarch
 # Tests
 %if %{with tests}
-BuildRequires: phpunit9 >= 9.5.25
+BuildRequires: phpunit9 >= 9.5.27
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires:(php-composer(doctrine/cache) >= %{doctrine_cache_min_ver} with php-composer(doctrine/cache) <  %{doctrine_cache_max_ver})
@@ -227,7 +227,7 @@ SKIP="--filter '^((?!(testFetchLongBlob)).)*$'"
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in php php74 php80 php81 php82; do
+for PHP_EXEC in php php80 php81 php82; do
     rm -f /tmp/test_nesting.sqlite
     if which $PHP_EXEC; then
         $PHP_EXEC %{_bindir}/phpunit9 \
@@ -251,6 +251,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 3.5.2-1
+- update to 3.5.2
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 3.5.1-1
 - update to 3.5.1
 - allow doctrine/event-manager 2

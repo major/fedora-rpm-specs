@@ -10,16 +10,18 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 %global with_python2 0
 %global with_python3 1
-%if 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 9
 %global with_python2 1
 %endif
 
 # toggle to avoid temporary docbook-utils and Tex Live dependency issues
+%if 0%{?fedora}
 %global build_manual 1
+%endif
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -58,7 +60,7 @@ BuildRequires:  NetworkManager-libnm-devel
 BuildRequires:  pkgconfig(dbus-1) >= 0.60
 BuildRequires:  pkgconfig(dbus-glib-1) >= 0.60
 BuildRequires:  libtool autoconf automake
-%if 0%{build_manual}
+%if 0%{?build_manual}
 BuildRequires:  docbook-utils docbook-utils-pdf
 %endif
 
@@ -80,7 +82,6 @@ BuildRequires:  python3 python3-devel pkgconfig(pygobject-3.0)
 %endif
 BuildRequires:  pkgconfig(libcanberra-gtk3) >= 0.6
 BuildRequires:  pkgconfig(libgdata) >= 0.17.2
-BuildRequires:  libgnome-devel
 BuildRequires:  pkgconfig(libical) >= 2.0
 
 BuildRequires:  gumbo-parser-devel
@@ -430,16 +431,14 @@ exporting of your meetings or all your calendars.
 SOURCEAPI=$(grep -A 1 VERSION_NUMERIC src/common/version.h | tr -d '\n' | perl -ne 's/[\\\s]//g; m/(\d+),(\d+),(\d+),(\d+)/; print("$1.$2.$3.$4");')
 [ "%pluginapi" == "$SOURCEAPI" ] || exit -1
 
-%if 0%{?fedora}
-cat << EOF > README.Fedora
-Firefox and Claws Mail
-
-    Be sure to set the TMPDIR environment variable, so both applications
-    always use the same directory for temporary files. Else the directory
-    would vary depending on whether or not Claws Mail is launched as mailer
-    from within Firefox. [ https://bugzilla.redhat.com/956380 ]
-EOF
-%endif
+#cat << EOF > README.Fedora
+#Firefox and Claws Mail
+#
+#    Be sure to set the TMPDIR environment variable, so both applications
+#    always use the same directory for temporary files. Else the directory
+#    would vary depending on whether or not Claws Mail is launched as mailer
+#    from within Firefox. [ https://bugzilla.redhat.com/956380 ]
+#EOF
 
 
 %build
@@ -461,8 +460,7 @@ autoreconf -f
 %else
            --disable-python-plugin \
 %endif
-           --enable-libetpan \
-           --enable-appdata
+           --enable-libetpan
 
 # change DEFAULT_INC_PATH for the optional external "inc" tool to match
 # Fedora's "nmh" package // unimportant fix, but add a grep guard, too
@@ -516,7 +514,7 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 find %{buildroot}%{_libdir}/claws-mail/plugins/ -type f -name \
 "*.a" -exec rm -f {} ';'
 
-%if 0%{build_manual}
+%if 0%{?build_manual}
 # we include the manual in the doc section
 rm -rf _tmp_manual && mkdir _tmp_manual
 mv %{buildroot}%{_datadir}/doc/claws-mail/manual _tmp_manual
@@ -539,8 +537,7 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 %files -f claws-mail.lang
 %license COPYING
 %doc ABOUT-NLS AUTHORS ChangeLog NEWS README RELEASE_NOTES TODO
-%doc README.Fedora
-%if 0%{build_manual}
+%if 0%{?build_manual}
 %doc _tmp_manual/manual
 %endif
 %{_bindir}/*
@@ -657,6 +654,10 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Wed Dec 21 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-3
+- /usr/bin/firefox no longer messes with $TMPDIR, so remove README.Fedora
+- Merge spec cleanups.
+
 * Tue Dec  6 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-2
 - Use enchant2.
 

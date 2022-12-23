@@ -137,7 +137,7 @@ Supplements:    korganizer
 %{_kf5_libdir}/libopenurlwithconfigure.so.5*
 %{_kf5_libdir}/libscamconfiguresettings.so.5*
 %{_kf5_qmldir}/org/kde/plasma/PimCalendars/
-%{_kf5_qtplugindir}/kf5/mailtransport/mailtransport_sendplugin.so
+%{_kf5_qtplugindir}/pim5/mailtransport/mailtransport_sendplugin.so
 %{_kf5_qtplugindir}/plasmacalendarplugins/pimevents.so
 %{_kf5_qtplugindir}/plasmacalendarplugins/pimevents/
 %{_kf5_qtplugindir}/pim5/webengineviewer/

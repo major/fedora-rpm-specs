@@ -1,5 +1,5 @@
 Name:           python-pytest-jupyter
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        A pytest plugin for testing Jupyter libraries and extensions
 # BSD for pytest-jupyter itself and
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-pytest-jupyter client
 
 %changelog
+* Wed Dec 21 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-1
+- Update to 0.6.1 (rhbz#2154849)
+
 * Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.0-1
 - Update to 0.6.0 (rhbz#2151397)
 

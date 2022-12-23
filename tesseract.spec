@@ -2,7 +2,7 @@
 
 Name:          tesseract
 Version:       5.2.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -226,6 +226,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-6
+- Rebuild (leptonica)
+
 * Fri Sep 23 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-5
 - Backport patch to restore equality between cmake and autotools generated
   pkgconfig file

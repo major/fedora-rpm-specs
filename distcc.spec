@@ -2,7 +2,7 @@
 
 Name:       distcc
 Version:    3.3.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPLv2+
 URL:        https://github.com/distcc/distcc
@@ -19,6 +19,7 @@ BuildRequires: popt-devel
 BuildRequires: gtk2-devel
 BuildRequires: pango-devel
 BuildRequires: python3-devel
+Buildrequires: python3-setuptools
 BuildRequires: desktop-file-utils
 BuildRequires: avahi-devel
 BuildRequires: krb5-devel
@@ -138,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.3.5-11
+- BR setuptools.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

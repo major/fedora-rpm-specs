@@ -152,7 +152,6 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 %{_kf5_datadir}/icons/hicolor/*
 %{_kf5_datadir}/knsrcfiles/korganizer.knsrc
 %{_kf5_datadir}/korganizer/
-%{_kf5_datadir}/kservicetypes5/korganizerpart.desktop
 %{_kf5_datadir}/qlogging-categories5/*%{framework}.*
 %{_kf5_metainfodir}/org.kde.korganizer.appdata.xml
 

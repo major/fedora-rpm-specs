@@ -23,6 +23,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  extra-cmake-modules >= %{kf5_min_version}
 BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
 
+BuildRequires:  cmake(QGpgme)
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Gui)
 BuildRequires:  cmake(Qt5Qml)
@@ -30,18 +31,21 @@ BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Location)
 
-BuildRequires:  cmake(KF5Kirigami2)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)          >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CalendarCore)  >= %{kf5_min_version}
-BuildRequires:  cmake(KF5ConfigWidgets) >= %{kf5_min_version}
-BuildRequires:  cmake(KF5WindowSystem)  >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5People)        >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Contacts)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5ItemModels)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5XmlGui)        >= %{kf5_min_version}
-BuildRequires:  cmake(KF5DBusAddons)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Service)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5CalendarCore)     >= %{kf5_min_version}
+BuildRequires:  cmake(KF5ConfigWidgets)    >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Contacts)         >= %{kf5_min_version}
+BuildRequires:  cmake(KF5CoreAddons)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5DBusAddons)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5I18n)             >= %{kf5_min_version}
+BuildRequires:  cmake(KF5ItemModels)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Kirigami2)        >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Libkdepim)
+BuildRequires:  cmake(KF5MailCommon)
+BuildRequires:  cmake(KF5People)           >= %{kf5_min_version}
+BuildRequires:  cmake(KF5PimCommonAkonadi)
+BuildRequires:  cmake(KF5Service)          >= %{kf5_min_version}
+BuildRequires:  cmake(KF5WindowSystem)     >= %{kf5_min_version}
+BuildRequires:  cmake(KF5XmlGui)           >= %{kf5_min_version}
 
 BuildRequires:  cmake(KF5Akonadi)
 BuildRequires:  cmake(KF5AkonadiContact)

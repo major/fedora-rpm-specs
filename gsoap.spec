@@ -1,7 +1,7 @@
 Summary: Generator Tools for Coding SOAP/XML Web Services in C and C++
 Name: gsoap
-Version: 2.8.117
-Release: 4%{?dist}
+Version: 2.8.124
+Release: 1%{?dist}
 
 # gsoap is licensed both under the gSOAP public license and under GPL version
 # 2 or later with an OpenSSL linking exception.
@@ -91,6 +91,7 @@ rm gsoap/VisualStudio2005/wsdl2h/wsdl2h/soapcpp2.exe
 
 # Remove pre-generated files
 rm gsoap/samples/webserver/opt{C.c,H.h,Stub.h}
+rm gsoap/VisualStudio2005/wsdl2h/wsdl2h/wsdl{C.cpp,H.h,Stub.h}
 
 # Remove .DS_Store files
 find . -name .DS_Store -exec rm {} ';'
@@ -101,7 +102,7 @@ autoreconf --install --force
 
 %configure --disable-static --enable-ipv6 --enable-samples
 
-# Dependencies are not declared properlycc -- no parallel build
+# Dependencies are not declared properly -- no parallel build
 # Add /usr/share/gsoap to soapcpp2's default import path
 %make_build -j1 SOAPCPP2_IMPORTPATH='-DSOAPCPP2_IMPORT_PATH="\"%{_datadir}/gsoap/import:%{_datadir}/gsoap\""'
 
@@ -372,6 +373,9 @@ install -m 644 -p %{SOURCE1} %{SOURCE2} %{buildroot}/%{_mandir}/man1
 %license LICENSE.txt GPLv2_license.txt
 
 %changelog
+* Wed Dec 21 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.8.124-1
+- Update to 2.8.124
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.117-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

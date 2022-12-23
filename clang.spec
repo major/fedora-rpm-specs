@@ -322,7 +322,7 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 # defaults used by Fedora's GCC.
 %cmake  -G Ninja \
 	-DCLANG_DEFAULT_PIE_ON_LINUX=OFF \
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 	-DPPC_LINUX_DEFAULT_IEEELONGDOUBLE=ON \
 %endif
 	-DLLVM_PARALLEL_LINK_JOBS=1 \

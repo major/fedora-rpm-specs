@@ -10,7 +10,7 @@
 
 %global gh_owner     laminas
 %global gh_project   laminas-diactoros
-%global gh_commit    a738cecb420e3bcff34c33177f1ce9f68902695c
+%global gh_commit    6028af6c3b5ced4d063a680d2483cce67578b902
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global php_home     %{_datadir}/php
 %global namespace    Laminas
@@ -37,7 +37,7 @@
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{gh_project}%{major}
-Version:       2.23.0
+Version:       2.24.0
 Release:       1%{?gh_release}%{?dist}
 Summary:       PSR HTTP Message implementations v%{major}
 
@@ -70,12 +70,12 @@ BuildRequires: (php-composer(psr/http-factory)                           >= 1.0 
 #        "http-interop/http-factory-tests": "^0.9.0",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "php-http/psr7-integration-tests": "^1.1.1",
-#        "phpunit/phpunit": "^9.5.26"
-#        "psalm/plugin-phpunit": "^0.18.0",
-#        "vimeo/psalm": "^4.29"
+#        "phpunit/phpunit": "^9.5.27"
+#        "psalm/plugin-phpunit": "^0.18.4",
+#        "vimeo/psalm": "^5.4"
 #    },
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.26
+BuildRequires:  phpunit9 >= 9.5.27
 BuildRequires:  php-curl
 BuildRequires:  php-dom
 BuildRequires:  php-gd
@@ -204,6 +204,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.24.0-1
+- update to 2.24.0
+
 * Thu Dec 15 2022 Remi Collet <remi@remirepo.net> - 2.23.0-1
 - update to 2.23.0
 

@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    932a4b95b4cbb64dc69fb56ad3cd5032d5995104
+%global gh_commit    a9c16bb161311553238b8989aa587bed4b518a7e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-log
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.16.0
+Version:        2.16.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -219,6 +219,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.16.1-1
+- update to 2.16.1 (no change)
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.16.0-1
 - update to 2.16.0 (no change)
 - raise dependency on PHP 8.0

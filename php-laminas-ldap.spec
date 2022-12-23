@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    4c1fefb3dad9b112e18a7d35245854dc77a04a1e
+%global gh_commit    cb66c477ec2fd2a7f38527c59d0635a9166b6597
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-ldap
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.16.0
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -43,15 +43,15 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1 
 #        "laminas/laminas-eventmanager": "^3.6.0",
 #        "laminas/laminas-stdlib": "^3.15.0",
 #        "php-mock/php-mock-phpunit": "^2.6.1",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
-#        "vimeo/psalm": "^4.29.0"
+#        "phpunit/phpunit": "^9.5.26",
+#        "psalm/plugin-phpunit": "^0.18.0",
+#        "vimeo/psalm": "^5.0.0"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.8    with php-autoloader(%{gh_owner}/laminas-config)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-eventmanager)         >= 3.6    with php-autoloader(%{gh_owner}/laminas-eventmanager)         < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.15   with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-composer(php-mock/php-mock-phpunit)                  >= 2.6.1  with php-composer(php-mock/php-mock-phpunit)                  < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.25
+BuildRequires:  phpunit9 >= 9.5.26
 BuildRequires:  php-date
 BuildRequires:  php-iconv
 BuildRequires:  php-json
@@ -177,6 +177,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.17.0-1
+- update to 2.17.0
+
 * Mon Oct 24 2022 Remi Collet <remi@remirepo.net> - 2.16.0-1
 - update to 2.16.0
 - raise dependency on PHP 8.0

@@ -1,6 +1,6 @@
 Name:           gpodder
 Version:        3.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Podcast receiver/catcher written in Python
 
 License:        GPLv3+ and LGPLv2+
@@ -10,7 +10,7 @@ Source0:        https://github.com/gpodder/gpodder/archive/%{version}/gpodder-%{
 Patch0:         rename-appdata.patch
 Patch1:         disable-auto-update-check.patch
 BuildArch:      noarch
-BuildRequires:  python3-devel, python3-feedparser
+BuildRequires:  python3-devel, python3-feedparser, python3-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  intltool
@@ -70,6 +70,9 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.11.0-2
+- BR setuptools.
+
 * Mon Aug 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.11.0-1
 - 3.11.0
 

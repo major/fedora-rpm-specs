@@ -13,7 +13,7 @@ any length.}
 
 Name:           python-%{srcname}
 Version:        6.2.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python 3 bindings for Berkeley DB
 
 License:        BSD
@@ -25,8 +25,9 @@ Source0:        %{pypi_source}
 # around this issue, so the package doesn't fail even without this patch.
 # As both patches may be removed in the future and it's possible to fix the
 # package directly, it's better to do it here.
-Patch:          dont-include-standard-paths-in-runtime-libdir.patch
-BuildRequires:  gcc libdb-devel
+Patch0:          dont-include-standard-paths-in-runtime-libdir.patch
+Patch1:          TextTestResult.patch
+BuildRequires:  gcc libdb-devel python3-setuptools
 
 %description    %{common_description}
 
@@ -120,6 +121,9 @@ rm -f %{buildroot}%{_includedir}/python3.*/%{srcname}/bsddb.h
 %endif
 
 %changelog
+* Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 6.2.9-9
+- BR setuptools.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

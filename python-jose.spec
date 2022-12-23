@@ -31,24 +31,6 @@ BuildRequires:  latexmk
 BuildRequires:  tex-xetex-bin
 %endif
 
-# Fedora packages pycryptodomex, but not pycryptodome (which conflicts with
-# pycrypto). Upstream refuses to switch to pycryptodomex for the pycryptodome
-# backend (https://github.com/mpdavis/python-jose/issues/26), so we disable the
-# corresponding extra because it will fail to install.
-#
-# We also obsolete the old backend subpackage that required pycryptodomex,
-# because it did not do what it claimed to do.
-%if 0%{?fedora} != 0 && 0%{?fedora} < 38
-Obsoletes:      python3-jose-pycryptodome < 3.2.0-3
-%endif
-
-# Upstream release 3.3.0, first packaged in Fedora 35, dropped the pycrypto
-# backend, so we obsolete the corresponding extra. The conditional reminds us
-# when the Obsoletes can be removed from the spec file.
-%if 0%{?fedora} != 0 && 0%{?fedora} < 38
-Obsoletes:      python3-jose+pycrypto < 3.3.0-1
-%endif
-
 # Upstream recommends the cryptography backend. We add it as a soft dependency
 # so that anyone who does not go out of their way to select a different backend
 # gets the best experience.
@@ -107,36 +89,17 @@ Summary:        %{summary}
 %description -n python3-jose %{common_description}
 
 
+# Fedora packages pycryptodomex, but not pycryptodome (which conflicts with
+# pycrypto). Upstream refuses to switch to pycryptodomex for the pycryptodome
+# backend (https://github.com/mpdavis/python-jose/issues/26), so we disable the
+# corresponding extra because it will fail to install.
+%pyproject_extras_subpkg -n python3-jose cryptography
+
+
 %package doc
 Summary:        Documentation for python-jose
 
 %description doc %{common_description}
-
-
-# We use the expansion of (on a single line):
-#
-#   %%python_extras_subpkg -n python3-jose
-#     -i %%{python3_sitelib}/*.dist-info cryptography
-#
-# but add Provides/Obsoletes for the old backend subpackages.
-
-
-%package -n python3-jose+cryptography
-Summary:        Metapackage for python3-jose: cryptography extras
-
-Requires:       python3-jose = %{version}-%{release}
-%if 0%{?fedora} != 0 && 0%{?fedora} < 38
-Provides:       python3-jose-cryptography = %{version}-%{release}
-Obsoletes:      python3-jose-cryptography < 3.2.0-3
-%endif
-
-%description -n python3-jose+cryptography
-This is a metapackage bringing in cryptography extras requires for
-python3-jose.
-It contains no code, just makes sure the dependencies are installed.
-
-%files -n python3-jose+cryptography
-%ghost %{python3_sitelib}/*.dist-info
 
 
 %prep

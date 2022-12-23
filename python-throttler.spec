@@ -48,7 +48,7 @@ sed -r -i 's/^(codecov|flake8|pytest-cov)/# &/' requirements-dev.txt
 
 
 %check
-%pytest -n %{_smp_build_ncpus} -v
+%pytest -n auto -v
 
 
 %files -n python3-throttler -f %{pyproject_files}

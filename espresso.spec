@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -14,6 +14,9 @@ URL:            https://espressomd.org
 Source0:        https://github.com/%{name}md/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 # skip fragile ICC python interface test on aarch64
 Patch0:         %{name}-aarch64.patch
+# fix deprecated histogram function arguments removed in numpy 1.24
+# https://github.com/espressomd/espresso/pull/4635
+Patch1:         %{name}-numpy.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -106,6 +109,7 @@ This package contains %{name} compiled against MPICH2.
 %ifarch aarch64
 %patch0 -p1
 %endif
+%patch1 -p1
 
 %build
 %global defopts \\\
@@ -163,6 +167,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Wed Dec 21 2022 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.0-5
+- Fix Python errors from numpy 1.24
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.0-4
 - Rebuild for gsl-2.7.1
 

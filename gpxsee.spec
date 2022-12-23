@@ -1,7 +1,7 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        11.8
+Version:        11.11
 Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
@@ -69,6 +69,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Dec 20 2022 Nikola Forró <nforro@redhat.com> - 11.11-1
+- Update to version 11.11
+  resolves: #2143883
+
 * Sat Nov 12 2022 Nikola Forró <nforro@redhat.com> - 11.8-1
 - Update to version 11.8
   resolves: #2141139

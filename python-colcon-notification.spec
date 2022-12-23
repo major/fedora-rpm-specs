@@ -1,7 +1,7 @@
 %global srcname colcon-notification
 
 Name:           python-%{srcname}
-Version:        0.2.14
+Version:        0.2.15
 Release:        1%{?dist}
 Summary:        Extension for colcon to provide status notifications
 
@@ -20,6 +20,7 @@ An extension for colcon-core to provide status notifications.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
+BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.3.7
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
@@ -63,6 +64,9 @@ BUILD_DEBIAN_PACKAGE=1 \
 
 
 %changelog
+* Wed Dec 21 2022 Scott K Logan <logans@cottsay.net> - 0.2.15-1
+- Update to 0.2.15 (rhbz#2155375)
+
 * Wed Aug 31 2022 Scott K Logan <logans@cottsay.net> - 0.2.14-1
 - Update to 0.2.14 (rhbz#2123069)
 

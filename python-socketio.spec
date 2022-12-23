@@ -97,7 +97,7 @@ PYTHONPATH="${PWD}/src" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %if %{with doc_pdf}
 %doc docs/_build/latex/python-socketio.pdf
 %endif
-%doc examples
+%doc examples/
 
 
 %changelog

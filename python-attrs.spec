@@ -9,7 +9,7 @@
 %endif
 
 Name:           python-attrs
-Version:        22.1.0
+Version:        22.2.0
 Release:        1%{?dist}
 Summary:        Python attributes without boilerplate
 
@@ -57,10 +57,13 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} py.test-3 -v
 
 %files -n python%{python3_pkgversion}-%{modname}
 %license LICENSE
-%doc AUTHORS.rst README.rst
+%doc README.md
 %{python3_sitelib}/*
 
 %changelog
+* Wed Dec 21 2022 Lumír Balhar <lbalhar@redhat.com> - 22.2.0-1
+- Update to 22.2.0 (rhbz#2155469)
+
 * Fri Jul 29 2022 Lumír Balhar <lbalhar@redhat.com> - 22.1.0-1
 - Update to 22.1.0
 Resolves: rhbz#2112006

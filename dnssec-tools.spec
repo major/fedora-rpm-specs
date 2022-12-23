@@ -1,23 +1,23 @@
 Summary: A suite of tools for managing dnssec aware DNS usage
 Name: dnssec-tools
 Version: 2.2.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: BSD
 URL: http://www.dnssec-tools.org/
-#Source0: https://www.dnssec-tools.org/download/%{name}-%{version}.tar.gz
+#Source0: https://www.dnssec-tools.org/download/%%{name}-%%{version}.tar.gz
 Source0: https://www.hardakers.net/software/%{name}-%{version}.tar.gz
 Source1: dnssec-tools-dnsval.conf
 Source2: libval-config
 # Require note: the auto-detection for perl-Net-DNS-SEC will not work since
 # the tools do run time tests for their existence.  But most of the tools
 # are much more useful with the modules in place, so we hand require them.
-Requires: perl(Net::DNS), perl(Net::DNS::SEC), dnssec-tools-perlmods, bind, perl(Getopt::GUI::Long) perl(Mail::Send)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires: dnssec-tools-perlmods, bind, perl(Getopt::GUI::Long)
+Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(GraphViz)
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: perl-devel
-BuildRequires: perl-macros
+BuildRequires: perl-generators
 BuildRequires: perl(Test) perl(ExtUtils::MakeMaker)
 BuildRequires: make
 # Makes the code installation linux filesystem friendly
@@ -39,7 +39,7 @@ help ease the deployment of DNSSEC-related technologies.
 
 %package perlmods
 Summary: Perl modules supporting DNSSEC (needed by the dnssec-tools)
-Requires: perl(Net::DNS), perl(Net::DNS::SEC)
+Requires: perl(Getopt::GUI::Long)
 
 %description perlmods
 
@@ -65,14 +65,14 @@ C-based libraries useful for developing dnssec aware tools.
 %setup -q
 
 %patch5 -p0 
-#%patch6 -p2
-#%patch12 -p2
-#%patch13 -p2
-#%patch14 -p2
-#%patch15 -p2
-#%patch16 -p2
-#%patch17 -p2
-#%patch18 -p2
+#%%patch6 -p2
+#%%patch12 -p2
+#%%patch13 -p2
+#%%patch14 -p2
+#%%patch15 -p2
+#%%patch16 -p2
+#%%patch17 -p2
+#%%patch18 -p2
 %patch19 -p2
 %patch20 -p1 -b .link-with-libs
 
@@ -83,7 +83,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' validator/libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' validator/libtool
 # makefile dependencies are broken; we can't use smp_mflags:
-#make %{?_smp_mflags} CCFLAGS="-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
+#make %%{?_smp_mflags} CCFLAGS="-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 make CCFLAGS="-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64"
 
 %install
@@ -128,7 +128,7 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 %{_bindir}/maketestzone
 %{_bindir}/mapper
 %{_bindir}/zonesigner
-# this doesn't use %{_datadir} because patch6 above uses this exact path
+# this doesn't use %%{_datadir} because patch6 above uses this exact path
 /usr/share/dnssec-tools
 #/usr/share/dnssec-tools/donuts
 #/usr/share/dnssec-tools/donuts/rules
@@ -155,7 +155,7 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 %{_bindir}/dt-libval_check_conf
 %{_bindir}/dt-validate
 # configure above 
-#%{_datadir}/dnssec-tools/validator-testcases
+#%%{_datadir}/dnssec-tools/validator-testcases
 %{_bindir}/dt-getaddr
 %{_bindir}/dt-gethost
 %{_bindir}/dt-getname
@@ -300,8 +300,8 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 %files libs
 %{_libdir}/*.so.*
 %config(noreplace) %{_sysconfdir}/dnssec-tools
-#%config(noreplace) %{_sysconfdir}/dnssec-tools/dnsval.conf
-#%config(noreplace) %{_sysconfdir}/dnssec-tools/root.hints
+#%%config(noreplace) %%{_sysconfdir}/dnssec-tools/dnsval.conf
+#%%config(noreplace) %%{_sysconfdir}/dnssec-tools/root.hints
 
 %files libs-devel
 %{_includedir}/validator
@@ -337,7 +337,7 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 %{_mandir}/man3/val_isvalidated.3.gz
 %{_mandir}/man3/val_res_query.3.gz
 %{_mandir}/man3/val_res_search.3.gz
-#%{_mandir}/man3/val_addrinfo.3.gz
+#%%{_mandir}/man3/val_addrinfo.3.gz
 %{_mandir}/man3/val_add_valpolicy.3.gz
 %{_mandir}/man3/val_context_setqflags.3.gz
 %{_mandir}/man3/val_does_not_exist.3.gz
@@ -363,6 +363,10 @@ install -m 755 %SOURCE2 ${RPM_BUILD_ROOT}/%{_bindir}/libval-config
 
 
 %changelog
+* Mon Dec 19 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.3-18
+- Add BR perl-generators to automatically generates run-time dependencies
+  for installed Perl files
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

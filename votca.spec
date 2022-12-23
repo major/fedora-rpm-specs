@@ -1,13 +1,12 @@
 Name:           votca
-Version:        2022
+Version:        2022.1
 %global         uversion %{version}
 %global         sover 2022
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
-Patch0:         994.patch
 
 %global with_xtp 1
 # libint2 used by xtp is broken on 32-bit archs
@@ -187,7 +186,6 @@ This package contains bash completion support for the VOTCA package.
 
 %prep
 %setup -q -n %{name}-%{uversion}
-%patch0 -p1
 
 # we don't have an espressopp package in Fedora yet
 rm -rf csg-tutorials/spce/ibi_espressopp
@@ -255,6 +253,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Wed Dec 21 2022 Christoph Junghans <junghans@votca.org> - 2022.1-1
+- Version bump to v2022.1
+
 * Tue Nov 29 2022 Christoph Junghans <junghans@votca.org> - 2022-11
 - Rebuild for libxc again
 

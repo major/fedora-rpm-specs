@@ -45,8 +45,8 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 22.09.0
-Release: 25%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 22.12.0
+Release: 0%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -60,14 +60,14 @@ Source: https://github.com/openvswitch/ovs/archive/%{commit0}.tar.gz#/openvswitc
 Source: https://www.openvswitch.org/releases/ovn-%{version}.tar.gz
 %endif
 
-%define ovscommit c9c602b6f332c6e76b273c607366185cf28ed156
-%define ovsshortcommit c9c602b
+%define ovscommit a787fbbf9dd6a108a53053afb45fb59a0b58b514
+%define ovsshortcommit a787fbb
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
 
 # ovn-patches
-Patch:     ovn.patch
+# Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -438,6 +438,9 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Wed Dec 21 2022 Numan Siddique <numans@ovn.org> - 22.12.0-0
+- Update to upstream OVN 22.12.0
+
 * Tue Dec 06 2022 Numan Siddique <numans@ovn.org> - 22.09.0-25
 - Backport the bug fixes related to load balancer affinity.
   Below are the commits since the last update (22.09.0-22)

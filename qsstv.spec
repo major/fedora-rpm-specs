@@ -1,6 +1,6 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 License:        GPLv2+
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 9.5.8-13
+- Rebuild (qwt)
+
 * Tue Dec 06 2022 Daniel Rusek <mail@asciiwolf.com> - 9.5.8-12
 - Use new QSSTV homepage url
 

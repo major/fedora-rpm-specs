@@ -78,7 +78,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 # https://github.com/pytest-dev/pytest-bdd/issues/453
 mkdir -p _empty && cp -rp tests *.ini _empty && cd _empty
 
-%pytest -n %{?_smp_build_ncpus}
+%pytest -n auto -v
 
 
 %files -n python3-pytest-bdd5 -f %{pyproject_files}

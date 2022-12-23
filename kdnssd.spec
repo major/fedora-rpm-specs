@@ -1,11 +1,11 @@
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
-Version: 22.04.3
+Version: 22.12.0
 Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
-URL:     https://invent.kde.org/network/zeroconf-ioslave
+URL:     https://invent.kde.org/network/kio-zeroconf
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -13,10 +13,10 @@ URL:     https://invent.kde.org/network/zeroconf-ioslave
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/zeroconf-ioslave-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kio-zeroconf-%{version}.tar.xz
 
 # new upstream name in 4.12.95
-Provides: zeroconf-ioslave = %{version}-%{release}
+Provides: kio-zeroconf = %{version}-%{release}
 
 BuildRequires: extra-cmake-modules
 BuildRequires: cmake(KF5DBusAddons)
@@ -29,6 +29,8 @@ BuildRequires: pkgconfig(avahi-compat-libdns_sd)
 # when split occurred
 Conflicts: kdenetwork-common < 7:4.10.80
 Obsoletes: kdenetwork-kdnssd < 7:4.10.80
+Conflicts: kdenetwork-common <= 22.04.3
+Obsoletes: kdenetwork-kdnssd <= 22.04.3
 Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
@@ -37,7 +39,7 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %prep
-%autosetup -n zeroconf-ioslave-%{version} -p1
+%autosetup -n kio-zeroconf-%{version} -p1
 
 
 %build
@@ -59,10 +61,13 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 %{_kf5_datadir}/dbus-1/interfaces/org.kde.kdnssd.xml
 %dir %{_kf5_datadir}/remoteview/
 %{_kf5_datadir}/remoteview/zeroconf.desktop
-%{_kf5_metainfodir}/org.kde.zeroconf-ioslave.metainfo.xml
+%{_kf5_metainfodir}/org.kde.kio_zeroconf.metainfo.xml
 
 
 %changelog
+* Thu Dec 22 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0 & package rename/obsolete https://community.kde.org/KDE_Gear/22.08_Release_notes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -64,6 +64,8 @@ Patch0:         0001-Disable-nest-extension-build-by-setup.patch
 # Merged upstream: https://github.com/NeuralEnsemble/PyNN/pull/744
 Patch1:         0002-fix-correct-sized-import.patch
 
+Patch2:         0003-Fix-errors-of-type-error-implicit-declaration-of-fun.patch
+
 # For extensions
 BuildRequires:  boost-devel
 BuildRequires:  cmake

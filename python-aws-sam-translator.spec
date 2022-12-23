@@ -91,7 +91,7 @@ k="${k-}${k+ and }not (TestPy27UniStr and test_py27_hash)"
 %endif
 # See Makefile target “test”. We cannot run the interaction tests because they
 # interact with AWS.
-AWS_DEFAULT_REGION=us-east-1 %pytest -k "${k-}" -n %{_smp_build_ncpus}
+AWS_DEFAULT_REGION=us-east-1 %pytest -k "${k-}" -n auto
 
 
 %files -n python3-aws-sam-translator -f %{pyproject_files}

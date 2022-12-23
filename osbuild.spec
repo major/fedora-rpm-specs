@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        73
+Version:        74
 
 %forgemeta
 
@@ -251,6 +251,30 @@ fi
 
 
 %changelog
+* Wed Dec 21 2022 Packit <hello@packit.dev> - 74-1
+Changes with 74
+----------------
+  * Clamp mtime to `source-epoch` if specified (#1207)
+  * New `ostree.encapsulate` for "native ostree containers" (#1091)
+  * [v2] util/fscache: introduce versioning (#1198)
+  * fscache: post-merge improvements (#1211)
+  * ostree.config: add aboot (Android) bootloader config option (#1204)
+  * runners: add AutoSD runner (#1210)
+  * schutzbot: set the cache size for the correct store (#1199)
+  * stages/users: accept identical uid for existing users (#1188)
+  * test/fscache: drop PathLike annotation (#1196)
+  * test/stages/users: ignore non-deterministic files (#1197)
+  * test: convert objectstore test to pytest (#1201)
+  * util/fscache: add cachedir-tag support (#1212)
+  * util: fix typo in get_consumer_secrets (#1200)
+  * 🗄Write and read metadata from the store and integrate `FsCache` into `ObjectStore` (#1187)
+
+Contributions from: Christian Kellner, David Rheinsberg, Eric Curtin, Sanne Raymaekers
+
+— Somewhere on the Internet, 2022-12-21
+
+
+
 * Wed Dec 07 2022 Packit <hello@packit.dev> - 73-1
 Changes with 73
 ----------------

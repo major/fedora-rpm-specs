@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.13.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+ and GPL+
 Url:		http://megaglest.org/
@@ -21,7 +21,6 @@ BuildRequires:	libjpeg-turbo-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	lua-devel
-BuildRequires:	openjpeg-devel
 BuildRequires:	openssl-devel
 BuildRequires:	xerces-c-devel
 BuildRequires:	wxGTK3-devel
@@ -104,6 +103,10 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Dec 21 2022 Sérgio Basto <sergio@serjux.com> - 3.13.0-15
+- Drop unneeded BuildRequires openjpeg because already use libjpeg-turbo and
+  openjpeg2
+
 * Mon Oct 17 2022 Tom Callaway <spot@fedoraproject.org> - 3.13.0-14
 - fix lua weighting so that it prefers the latest 5.4 over 5.3
 - fix err check on glewInit to ignore GLEW_ERROR_NO_GLX_DISPLAY

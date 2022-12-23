@@ -1,15 +1,15 @@
 Name:           perl-Lucy
 Version:        0.6.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Search engine library
-# other files:                              ASL 2.0
-# modules/unicode/ucd/WordBreak.tab:        MIT (Unicode variant)
+# other files:                              Apacge-2.0
+# modules/unicode/ucd/WordBreak.tab:        Unicode-DFS-2015
 # modules/unicode/utf8proc/utf8proc.c:      MIT
-# modules/unicode/utf8proc/utf8proc_data.h: MIT (Unicode variant)
+# modules/unicode/utf8proc/utf8proc_data.h: Unicode-DFS-2015
 ## Not distributed in binary package
-# devel/bin/gen_word_break_data.pl:         MIT (Unicode variant)
+# devel/bin/gen_word_break_data.pl:         Apache-2.0
 # sample/us_constitution:                   Public domain
-License:        ASL 2.0 and MIT
+License:        Apache-2.0 AND MIT AND Unicode-DFS-2015
 URL:            https://metacpan.org/release/Lucy
 # There is charmonizer.c which is becoming a separate project
 # <git://git.apache.org/lucy-charmonizer.git>. However, lucy-charmonizer has
@@ -129,6 +129,9 @@ rm -f $RPM_BUILD_ROOT/%{perl_vendorarch}/auto/Lucy/Lucy.bs
 %{_mandir}/man3/*
 
 %changelog
+* Wed Dec 21 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.6.2-16
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

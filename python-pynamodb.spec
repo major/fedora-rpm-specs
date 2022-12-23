@@ -96,7 +96,7 @@ sed -r -i 's/[-]rrequirements-dev\.txt//' tox.ini
 %files doc
 %license LICENSE
 %doc README.rst
-%doc examples
+%doc examples/
 %if %{with doc_pdf}
 %doc docs/_build/latex/PynamoDB.pdf
 %endif

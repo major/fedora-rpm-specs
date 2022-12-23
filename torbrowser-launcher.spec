@@ -1,7 +1,7 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
 Version:	0.3.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
@@ -13,6 +13,7 @@ BuildRequires:	python3-devel
 BuildRequires:	gettext
 BuildRequires:	libappstream-glib
 BuildRequires:  python3-distro
+BuildRequires:  python3-setuptools
 Requires:	python3
 Requires:	gnupg2
 Requires:	tor
@@ -85,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.3.6-2
+- BR setuptools.
+
 * Wed Dec 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.3.6-1
 - 0.3.6
 

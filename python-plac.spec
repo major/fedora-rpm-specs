@@ -16,6 +16,10 @@ Source0:        %{url}/archive/v%{version}/plac-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        plac_runner.py.1
 
+# Python 3.10: asyncore/asynchat are deprecated in favour of asyncio
+# https://github.com/ialbert/plac/issues/65
+Patch:          0001-Remove-server-functionality.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -56,7 +60,11 @@ Summary:        Documentation for plac
 
 
 %prep
-%autosetup -n plac-%{version}
+%autosetup -n plac-%{version} -N
+# This can be simplified once Python 3.12+ and F39+ are synonymous.
+%if v"%{python3_version}" >= v"3.12"
+%autopatch -p1
+%endif
 
 
 %generate_buildrequires

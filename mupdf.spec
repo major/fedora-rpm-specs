@@ -14,6 +14,7 @@ URL:            http://mupdf.com/
 Source0:        http://mupdf.com/downloads/archive/%{name}-%{upversion}-source.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}-gl.desktop
+Patch:          mupdf-1.21.1-fix-png_write_band.patch
 BuildRequires:  gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:  openjpeg2-devel desktop-file-utils
 BuildRequires:  libjpeg-devel freetype-devel libXext-devel curl-devel
@@ -60,7 +61,7 @@ The mupdf-devel package contains header files for developing
 applications that use mupdf and static libraries
 
 %prep
-%setup -q -n %{name}-%{upversion}-source
+%autosetup -p1 -n %{name}-%{upversion}-source
 for d in $(ls thirdparty | grep -v -e extract -e freeglut -e lcms2 -e mujs)
 do
   rm -rf thirdparty/$d

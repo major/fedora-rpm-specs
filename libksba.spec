@@ -1,6 +1,8 @@
+%bcond_with bootstrap
+
 Summary: CMS and X.509 library
 Name:    libksba
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}
 
 # The library is licensed under LGPLv3+ or GPLv2+,
@@ -9,11 +11,16 @@ License: (LGPLv3+ or GPLv2+) and GPLv3+
 URL:     https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libksba/libksba-%{version}.tar.bz2.sig
+Source2: https://gnupg.org/signature_key.asc
 
 Patch1: libksba-1.3.0-multilib.patch
 
 BuildRequires: gcc
 BuildRequires: gawk
+%if %{without bootstrap}
+# Require gnupg2 to verify sources, unless bootstrapping
+BuildRequires: gnupg2
+%endif
 BuildRequires: libgpg-error-devel >= 1.8
 BuildRequires: libgcrypt-devel >= 1.2.0
 BuildRequires: make
@@ -33,6 +40,9 @@ Requires: pkgconfig
 
 
 %prep
+%if %{without bootstrap}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %setup -q
 
 %patch1 -p1 -b .multilib
@@ -80,6 +90,9 @@ make check
 
 
 %changelog
+* Tue Dec 20 2022 Todd Zullinger <tmz@pobox.com> - 1.6.3-1
+- New upstream release (#2155172)
+
 * Fri Oct 07 2022 Jakub Jelen <jjelen@redhat.com> - 1.6.2-1
 - New upstream release (#2132953)
 

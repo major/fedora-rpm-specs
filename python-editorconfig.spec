@@ -102,7 +102,7 @@ export PYTHONPATH='%{buildroot}%{python3_sitelib}'
 %files doc
 %license COPYING LICENSE.BSD LICENSE.PSF
 %doc README.rst
-%doc docs/_build/text
+%doc docs/_build/text/
 %if %{with doc_pdf}
 %doc docs/_build/latex/EditorConfigPythonCore.pdf
 %endif

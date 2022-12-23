@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.27
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -21,7 +21,7 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.bouncycastle:bcmail-jdk15on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on)
 BuildRequires:  mvn(javax.xml.bind:jaxb-api)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(javax.activation:activation)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
 BuildRequires: dejavu-sans-mono-fonts
@@ -252,6 +252,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Dec 21 2022 Marian Koncek <mkoncek@redhat.com> - 2.0.27-3
+- Use correct BuildRequires on javax.activation
+
 * Tue Dec 20 2022 Marian Koncek <mkoncek@redhat.com> - 2.0.27-2
 - Rebuild with compat jakarta.activation version 1
 

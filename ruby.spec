@@ -22,7 +22,7 @@
 %endif
 
 
-%global release 173
+%global release 174
 %{!?release_string:%define release_string %{?development_release:0.}%{release}%{?development_release:.%{development_release}}%{?dist}}
 
 # The RubyGems library has to stay out of Ruby directory tree, since the
@@ -197,6 +197,10 @@ Patch29: ruby-3.2.0-ruby-cgi-Fix-test_cgi_cookie_new_with_domain-to-pass.patch
 # https://github.com/ruby/cgi/pull/29
 # https://github.com/ruby/ruby/commit/745dcf5326ea2c8e2047a3bddeb0fbb7e7d07649
 Patch30: ruby-3.2.0-ruby-cgi-Loosen-the-domain-regex-to-accept.patch
+# Fix Time Zone Database 2022g.
+# https://bugs.ruby-lang.org/issues/19187
+# https://github.com/ruby/ruby/commit/a1124dc162810f86cb0bff58cde24064cfc561bc
+Patch31: ruby-3.1.3-Fix-for-tzdata-2022g.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Suggests: rubypick
@@ -670,6 +674,7 @@ rm -rf ext/fiddle/libffi*
 %patch28 -p1
 %patch29 -p1
 %patch30 -p1
+%patch31 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1547,6 +1552,9 @@ mv test/ruby/test_jit.rb{,.disable} || :
 
 
 %changelog
+* Wed Dec 21 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.3-174
+- Fix for tzdata-2022g.
+
 * Thu Dec 08 2022 Vít Ondruch <vondruch@redhat.com> - 3.1.3-173
 - Disable MJIT test cases on i686 due to issues with PCH.
 - Fix CGI causing issue with leading '.' in domain names.

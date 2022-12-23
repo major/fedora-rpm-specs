@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -497,6 +497,9 @@ Requires: (pyproject-rpm-macros if rpm-build)
 # Python developers are very likely to need pip
 Recommends: %{pkgname}-pip
 %endif
+
+# tox users are likely to need the devel subpackage
+Supplements: tox
 
 %if %{without bootstrap}
 Requires: (python3-rpm-generators if rpm-build)
@@ -1579,6 +1582,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Dec 20 2022 Miro Hrončok <mhroncok@redhat.com> - 3.10.9-2
+- Supplement tox from the devel package
+
 * Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.9-1
 - Update to 3.10.9
 

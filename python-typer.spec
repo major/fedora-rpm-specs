@@ -91,7 +91,7 @@ export _TYPER_FORCE_DISABLE_TERMINAL=1
 #  - %%check -p /bin/bash
 # so we must simply skip the affected tests.
 k="${k-}${k+ and }not test_show_completion and not test_install_completion"
-%pytest -k "${k-}" -n %{_smp_build_ncpus}
+%pytest -k "${k-}" -n auto -v
 
 
 %files -n python3-typer -f %{pyproject_files}

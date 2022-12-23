@@ -1,5 +1,5 @@
 Name:           python-sphinx-sitemap
-Version:        2.2.1
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Sitemap generator for Sphinx
 
@@ -11,8 +11,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pip}
+BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist wheel}
 
@@ -40,12 +40,17 @@ rst2html --no-datestamp README.rst README.html
 %pyproject_save_files sphinx_sitemap
 
 %check
-%pyproject_check_import
+%pytest
 
 %files -n python3-sphinx-sitemap -f %{pyproject_files}
 %doc CHANGELOG.md README.html
+%exclude %{python3_sitelib}/tests
 
 %changelog
+* Wed Dec 21 2022 Jerry James <loganjerry@gmail.com> - 2.3.0-1
+- Version 2.3.0
+- Test with pytest
+
 * Sat Nov 12 2022 Jerry James <loganjerry@gmail.com> - 2.2.1-1
 - Version 2.2.1
 

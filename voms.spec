@@ -8,7 +8,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.25.rc2%{?dist}
+Release:	0.26.rc2%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	ASL 2.0
@@ -50,7 +50,7 @@ BuildRequires:	libxslt
 BuildRequires:	docbook-style-xsl
 BuildRequires:	doxygen
 %if %{use_systemd}
-BuildRequires:	systemd
+BuildRequires:	systemd-rpm-macros
 %endif
 
 %description
@@ -370,6 +370,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Wed Dec 21 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-0.26.rc2
+- Rebuild for gsoap 2.8.124 (Fedora 38)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.25.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

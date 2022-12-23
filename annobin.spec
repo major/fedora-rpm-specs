@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 10.98
-Release: 3%{?dist}
+Version: 10.99
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -396,10 +396,11 @@ cp gcc-plugin/.libs/annobin.so.0.0.0 %{_tmppath}/tmp_annobin.so
 make -C gcc-plugin clean
 BUILD_FLAGS="-fplugin=%{_tmppath}/tmp_annobin.so"
 
-%if 0%{?_annotated_build} == 0
-OPTS="$(rpm --eval '%build_cflags %build_ldflags')"
+# Disable the standard annobin plugin so that we do get conflicts.
+# Note - Fedora's rpm uses a different way of evaluating macros. 
+%if 0%{?fedora} == 0
+OPTS="$(rpm --eval '%undefine _annotated_build %build_cflags %build_ldflags')"
 %else
-# Disable the standard annobin plugin so that we do not get conflicts.
 OPTS="$(rpm --undefine=_annotated_build --eval '%build_cflags %build_ldflags')"
 %endif
 
@@ -513,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Dec 21 2022 Nick Clifton  <nickc@redhat.com> - 10.99-1
+- Annocheck: Improve handling of tool versions.
+
 * Tue Dec 20 2022 Nick Clifton  <nickc@redhat.com> - 10.98-3
 - Spec File: Fix building with plugin_rebuild enabled.
 

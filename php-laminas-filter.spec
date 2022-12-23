@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    166e28123d19ebab7edddb9671a8376143c543c7
+%global gh_commit    97e3ce0fa868567aa433ed34d6f57ee703d70d3e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,11 +18,11 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.29.0
+Version:        2.30.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -46,16 +46,16 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 
 #        "laminas/laminas-crypt": "^3.9",
 #        "laminas/laminas-uri": "^2.10",
 #        "pear/archive_tar": "^1.4.14",
-#        "phpunit/phpunit": "^9.5.26",
-#        "psalm/plugin-phpunit": "^0.18.3",
+#        "phpunit/phpunit": "^9.5.27",
+#        "psalm/plugin-phpunit": "^0.18.4",
 #        "psr/http-factory": "^1.0.1",
-#        "vimeo/psalm": "^5.0"
+#        "vimeo/psalm": "^5.3"
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-crypt)                >= 3.9   with php-autoloader(%{gh_owner}/laminas-crypt)                < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10  with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 BuildRequires: (php-composer(psr/http-factory)                           >= 1.0.1 with php-composer(psr/http-factory)                           < 2)
 BuildRequires:  php-composer(pear/archive_tar)                           >= 1.4.14
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.26
+BuildRequires:  phpunit9 >= 9.5.27
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -198,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.30.0-1
+- update to 2.30.0
+
 * Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 2.29.0-1
 - update to 2.29.0
 

@@ -3,7 +3,7 @@
 
 Name:				davix
 Version:			0.8.3
-Release:			1%{?dist}
+Release:			2%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
@@ -174,6 +174,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Wed Dec 21 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.3-2
+- Rebuild against gsoap-2.8.124 (bug #2155567)
+
 * Thu Dec 15 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.3-1
 - New upstream release 0.8.3
 - Fix CVE 2022-32221 in the bundled curl library (EPEL 7 and 8)

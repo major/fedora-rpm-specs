@@ -1,12 +1,13 @@
 Summary:        The GNU Portable Threads library extended with semaphore support
 Name:           pthsem
 Version:        2.0.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        LGPLv2+
 URL:            http://www.auto.tuwien.ac.at/~mkoegler/index.php/pth
 Source:         http://downloads.sourceforge.net/bcusdk/pthsem_%{version}.tar.gz
 Patch1:         pth-2.0.7-dont-remove-gcc-g.patch
 Patch2:         pth-2.0.7-config-script.patch
+Patch3:         pthsem-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/iconv
@@ -36,6 +37,7 @@ Development headers and libraries for pthsem.
 %setup -q
 %patch1 -p1 -b .dont-remove-gcc-g
 %patch2 -p1 -b .config-script
+%patch3 -p1
 for f in ChangeLog README THANKS; do
     iconv -f ISO-8859-1 -t UTF-8 $f -o $f.new && mv $f.new $f
 done
@@ -103,6 +105,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 2.0.7-26
+- Port configure script to C99 (#2155421)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
