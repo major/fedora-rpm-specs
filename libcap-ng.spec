@@ -2,7 +2,7 @@ Summary: Alternate posix capabilities library
 Name: libcap-ng
 Version: 0.8.3
 Release: 4%{?dist}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: https://people.redhat.com/sgrubb/libcap-ng/
 Source0: https://people.redhat.com/sgrubb/libcap-ng/%{name}-%{version}.tar.gz
 # This patch can be removed when 1899540 is resolved
@@ -97,6 +97,7 @@ make check
 %changelog
 * Tue Dec 20 2022 Steve Grubb <sgrubb@redhat.com> 0.8.3-4
 - BuildRequires python-setuptools
+- SPDX Migration
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

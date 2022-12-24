@@ -19,6 +19,9 @@ License:        Unlicense
 URL:            https://github.com/wangyi-fudan/wyhash
 Source0:        %{url}/archive/%{tag}/wyhash-%{tag}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
@@ -108,7 +111,7 @@ ln -s %{compat_name}/wyhash.h %{buildroot}%{_includedir}/wyhash.h
 %files devel
 %license LICENSE
 
-%{_includedir}/%{compat_name}
+%{_includedir}/%{compat_name}/
 %{_includedir}/wyhash.h
 
 

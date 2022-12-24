@@ -1,13 +1,14 @@
 Summary:        Command line tool that displays bandwidth usage on an interface
 Name:           iftop
 Version:        1.0
-Release:        0.28.pre4%{?dist}
+Release:        0.29.pre4%{?dist}
 License:        GPLv2+
 URL:            http://www.ex-parrot.com/~pdw/%{name}/
 Source0:        http://www.ex-parrot.com/~pdw/%{name}/download/%{name}-%{version}pre4.tar.gz
 Patch0:         iftop-1.0-ncursesw.patch
 Patch1:         iftop-1.0-git20181003.patch
 Patch2:         iftop-1.0-gcc10.patch
+Patch3:         iftop-configure-c99.patch
 BuildRequires:  gcc, make, ncurses-devel, libpcap-devel
 
 %description
@@ -22,6 +23,9 @@ so slow?".
 touch -c -r configure.ac{.ncursesw,}
 %patch1 -p1 -b .git20181003
 %patch2 -p1 -b .gcc10
+%patch3 -p1 -b .c99
+# Avoid re-running autoconf.
+touch -r aclocal.m4 configure*
 
 %build
 %configure
@@ -37,6 +41,9 @@ touch -c -r configure.ac{.ncursesw,}
 %{_mandir}/man8/%{name}.*
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 1.0-0.29.pre4
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.28.pre4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

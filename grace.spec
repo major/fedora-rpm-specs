@@ -8,7 +8,7 @@
 
 Name:           grace
 Version:        5.1.25
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Numerical Data Processing and Visualization Tool
 License:        GPLv2+
 # cephes is LGPL, see also Source3 and Source4
@@ -20,6 +20,9 @@ Source4:        LICENSE.cephes
 Source5:        http://ftp.de.debian.org/debian/pool/main/g/grace/grace_5.1.25-6.debian.tar.xz
 Source6:        FontDataBase
 Patch0:         grace-detect-netcdf.diff
+Patch1:         grace-configure-c99-1.patch
+Patch2:         grace-configure-c99-2.patch
+Patch3:         grace-c99.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  fftw2-devel
 BuildRequires:  gcc-gfortran
@@ -55,6 +58,9 @@ Install these files if you need to compile software that requires grace.
 %setup -q -D -a 5
 
 %patch0
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 # avoid duplicating debian patch
 patch -p1 < debian/patches/binary_nostrip.diff
 patch -p1 < debian/patches/gracerc.diff
@@ -188,6 +194,9 @@ rm __dist_doc/doc/Makefile __dist_doc/doc/*.sgml
 %{_datadir}/%{name}/lib
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 5.1.25-33
+- Port to C99 (#2155764)
+
 * Fri Sep 02 2022 Terje Rosten <terje.rosten@ntnu.no> - 5.1.25-32
 - No need for xterm on epel
 

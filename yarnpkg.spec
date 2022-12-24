@@ -11,8 +11,8 @@
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
 Name:           yarnpkg
-Version:        1.22.17
-Release:        3%{?dist}
+Version:        1.22.19
+Release:        1%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 URL:            https://github.com/yarnpkg/yarn
 # we need tarball with node_modules
@@ -24,7 +24,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{nodejs_arches} noarch
 
 BuildRequires:  nodejs-packaging
-BuildRequires:  npm
+BuildRequires:  nodejs-npm
 
 # Package was renamed when Fedora 33 was rawhide
 # Don't remove this before Fedora 35
@@ -83,6 +83,9 @@ if [[ $(%{buildroot}%{_bindir}/%{old_name} --version) == %{version} ]] ; then ec
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 1.22.19-1
+- Update to 1.22.19
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

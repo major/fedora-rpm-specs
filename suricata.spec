@@ -2,7 +2,7 @@ Summary: Intrusion Detection System
 Name: suricata
 Version: 6.0.9
 Release: 1%{?dist}
-License: GPLv2
+License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
 Source1: suricata.sysconfig
@@ -195,6 +195,7 @@ fi
 %changelog
 * Tue Dec 13 2022 Steve Grubb <sgrubb@redhat.com> 6.0.9-1
 - New security and bugfix release
+- SPDX migration
 
 * Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.6-3
 - libbpf 1.0.0 build

@@ -26,6 +26,8 @@ Source5:        %{name}-mime.xml
 Patch0:         %{name}-serverprefix.patch
 # Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
 Patch1:         %{name}-yarn-offline.patch
+# Fix build against qwt-6.2
+Patch2:         %{name}-qwt.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -177,6 +179,7 @@ gzip ChangeLog
       -D WITH_PDAL:BOOL=TRUE \
       -D WITH_QSPATIALITE:BOOL=TRUE \
       -D WITH_QWTPOLAR:BOOL=TRUE \
+      -D WITH_INTERNAL_QWTPOLAR:BOOL=FALSE \
       -D WITH_SERVER:BOOL=TRUE \
       -D WITH_3D:BOOL=TRUE \
       -D WITH_QSPATIALITE:BOOL=TRUE \

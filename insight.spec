@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -88,6 +88,7 @@ Patch112:	gdb-libexec-add-index.patch
 Patch201:	insight-13.0-symtab_no_format_overflow.patch
 Patch202:	insight-13.0-bfd-CVE-2022-4285,patch
 Patch203:	insight-13.0-print-check-value.patch
+Patch204:	insight-13.0-distutils.patch
 
 
 %description
@@ -121,6 +122,7 @@ the latest GDB version.
 %patch201 -p1
 %patch202 -p1
 %patch203 -p1
+%patch204 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -317,6 +319,10 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 #-------------------------------------------------------------------------------
 %changelog
 #-------------------------------------------------------------------------------
+
+* Fri Dec 23 2022 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-5
+- Patch "distutils" removes deprecated python 3.12 module use.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2155038
 
 * Wed Dec 14 2022 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-4
 - Patch "print-check-value" avoids segfault when printing ghost variable.

@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 3.0.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -52,8 +52,7 @@ developing applications that need to use the audit framework libraries.
 %package -n python3-audit
 Summary: Python3 bindings for libaudit
 License: LGPLv2+
-BuildRequires: python3-devel
-BuildRequires: make swig
+BuildRequires: python3-devel python-setuptools swig
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Provides: audit-libs-python3 = %{version}-%{release}
 Provides: audit-libs-python3%{?_isa} = %{version}-%{release}
@@ -261,6 +260,10 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Dec 22 2022 Steve Grubb <sgrubb@redhat.com> 3.0.9-2
+- BuildRequires python-setuptools
+- SPDX Migration
+
 * Mon Aug 29 2022 Steve Grubb <sgrubb@redhat.com> 3.0.9-1
 - New upstream bugfix release
 

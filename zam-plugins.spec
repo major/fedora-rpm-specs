@@ -1,22 +1,27 @@
-%global gittag 3.14
+%global gittag 4.1
 %global dpf DPF
 
 # Disable lto
 %define _lto_cflags %{nil}
 
 # DPF git submodule
-%global commit1 08669d1bc30c6e971fde800eade4ca40104ba8b2
+%global commit1 88180608a206b529fcb660d406ddf6f934002806
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
+
+# pugl git submodule
+%global commit2 844528e197c51603f6cef3238b4a48d23bf60eb7
+%global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name:           zam-plugins
 Version:        %{gittag}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A collection of LV2/LADSPA/JACK audio plugins
 
 License:        GPLv2+ and ISC
 URL:            http://www.zamaudio.com/
 Source0:        https://github.com/zamaudio/%{name}/archive/%{gittag}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/DISTRHO/DPF/archive/%{commit1}/%{dpf}-%{shortcommit1}.tar.gz
+Source2:        https://github.com/DISTRHO/pugl/archive/%{commit2}/pugl-%{shortcommit2}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -54,10 +59,14 @@ for sound processing developed in-house at ZamAudio.
 This is the LADSPA version.
 
 %prep
-%autosetup -a 1 -p 1
+%setup -q -a 1
+%setup -q -T -D -a 2
 # Move submodule DPF to main source directory
 rmdir dpf
 mv %{dpf}-%{commit1} dpf
+# Move submodule pugl to main source directory
+rmdir dpf/dgl/src/pugl-upstream
+mv pugl-%{commit2} dpf/dgl/src/pugl-upstream
 
 %build
 %set_build_flags
@@ -65,8 +74,8 @@ mv %{dpf}-%{commit1} dpf
 
 %install
 %make_install VERBOSE=true PREFIX=%{_prefix} LIBDIR=%{_lib} USE_SYSTEM_LIBS=1
-# We don't need VST and DSSI plugins
-rm -rf %{buildroot}%{_libdir}/vst %{buildroot}/*-dssi*
+# We don't need VST and for the moment CLAP
+rm -rf %{buildroot}%{_libdir}/vst %{buildroot}%{_libdir}/vst3 %{buildroot}%{_libdir}/clap
 # Remove executable bit from .ttl files
 chmod -x %{buildroot}%{_libdir}/lv2/*.lv2/*.ttl
 

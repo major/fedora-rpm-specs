@@ -23,7 +23,7 @@
 
 %global m2url       https://github.com/Macaulay2/M2
 
-%global emacscommit 01af405c5c92f90e4009ff580a1b1dcefe43a714
+%global emacscommit 86150290208bd9e468511b4b69a187ce870f303e
 %global emacsurl    https://github.com/Macaulay2/M2-emacs
 %global emacsshort  %(cut -b -7 <<< %{emacscommit})
 
@@ -37,8 +37,6 @@
 # use system normaliz
 %global system_normaliz 1
 #endif
-# standardize on gmp instead of mpir (mostly for pari/sagemath)
-%global gmp 1
 %global ISSUE %{?fedora:Fedora-%{fedora}}%{?rhel:RedHatEnterprise-%{rhel}}
 %global M2_machine %{_target_cpu}-Linux-%{ISSUE}
 
@@ -53,8 +51,8 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.20
-Release: 2%{?dist}
+Version: 1.21
+Release: 1%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -175,8 +173,8 @@ Source1: %{emacsurl}/tarball/%{emacscommit}/M2-emacs-%{emacsshort}.tar.gz
 # Various sizes of the planets icon from macaulay2.com.  See README.icons in
 # the tar file for details on how these icons were created.
 Source10: Macaulay2-icons.tar.xz
-Source11: Macaulay2.desktop
-Source12: Macaulay2.metainfo.xml
+Source11: com.macaulay2.macaulay2.desktop
+Source12: com.macaulay2.macaulay2.metainfo.xml
 Source20: etags.sh
 
 ## BUNDLED code
@@ -204,7 +202,7 @@ Provides:  bundled(factory) = %{factoryver}
 
 # MATHICGB is bundled because it must be built with different threading options
 %global mathicgbver 1.0
-%global mathicgbcommit 7c2bea4b6c7bd72a1b732663a9b01fa36dd9bf4f
+%global mathicgbcommit f3a05da1494843b5e4e7baa18e644cc6f32baeca
 Source104: https://github.com/Macaulay2/mathicgb/tarball/%{mathicgbcommit}/mathicgb-%{mathicgbver}.tar.gz
 Provides:  bundled(mathicgb) = %{mathicgbver}
 
@@ -234,8 +232,6 @@ Provides:  bundled(linbox) = %{linboxver}
 Source200: linbox-1.6.3.patch
 # MPFR bug fixes from mpfr upstream.
 Source201: mpfr-4.1.0.patch
-# Fix mathicgb build on big endian machines and with gcc 11
-Source202: mathicgb-1.0.patch
 
 ## FAKE library tarballs that convince Macaulay2 to use the system versions
 Source300: frobby_v0.9.0.tar.gz
@@ -268,15 +264,13 @@ Patch5: %{name}-1.17-configure.patch
 Patch6: %{name}-1.16-rightarrow.patch
 # Fix LTO warnings about mismatched declarations and definitions
 Patch7: %{name}-1.18-lto.patch
-# Fix a crash when building documentation
-Patch8: https://github.com/Macaulay2/M2/pull/2536.patch
 
 BuildRequires: 4ti2
+BuildRequires: appstream
 BuildRequires: autoconf
 BuildRequires: autoconf-archive
 BuildRequires: bison
 BuildRequires: boost-devel
-BuildRequires: cddlib-devel
 BuildRequires: chrpath
 BuildRequires: cohomCalg
 BuildRequires: csdp-tools
@@ -289,11 +283,8 @@ BuildRequires: doxygen
 BuildRequires: eigen3-static
 # etags
 BuildRequires: emacs
-BuildRequires: expat-devel
 BuildRequires: factory-gftables
-BuildRequires: fflas-ffpack-devel
 BuildRequires: flex
-BuildRequires: flexiblas-devel
 BuildRequires: gawk
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
@@ -304,45 +295,45 @@ BuildRequires: gfan
 BuildRequires: git-core
 BuildRequires: givaro-static
 BuildRequires: glpk-devel
-%if 0%{?gmp}
-BuildRequires: gmp-devel
-%else
-BuildRequires: mpir-devel
-%endif
-BuildRequires: gtest-devel
 BuildRequires: iml-devel
 BuildRequires: info
-BuildRequires: libappstream-glib
-BuildRequires: libgfan-devel
-BuildRequires: libtool
-BuildRequires: libatomic_ops-devel
 BuildRequires: libfplll-static
 BuildRequires: libfrobby-devel
-BuildRequires: libnauty-devel
+BuildRequires: libgfan-devel
 BuildRequires: libnormaliz-devel >= 3.9.2
 BuildRequires: libtool
 BuildRequires: lrslib-devel
 BuildRequires: lrslib-utils
-BuildRequires: m4ri-devel
-BuildRequires: m4rie-devel
 BuildRequires: make
-BuildRequires: mariadb-devel
-BuildRequires: mpfi-devel
 BuildRequires: mpsolve-devel
 BuildRequires: nauty
 BuildRequires: normaliz
 BuildRequires: ntl-devel
-BuildRequires: pkgconfig(bdw-gc) >= 7.6.2
+BuildRequires: pari-devel
+BuildRequires: pkgconfig(atomic_ops)
+BuildRequires: pkgconfig(bdw-gc) >= 8.0.4
+BuildRequires: pkgconfig(cddlib)
+BuildRequires: pkgconfig(expat)
+BuildRequires: pkgconfig(fflas-ffpack)
+BuildRequires: pkgconfig(flexiblas)
+BuildRequires: pkgconfig(gmp)
+BuildRequires: pkgconfig(gtest)
+BuildRequires: pkgconfig(libffi)
 BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(m4ri)
+BuildRequires: pkgconfig(m4rie)
+BuildRequires: pkgconfig(mariadb)
+BuildRequires: pkgconfig(mpfi)
+BuildRequires: pkgconfig(nauty)
 BuildRequires: pkgconfig(ncurses)
+BuildRequires: pkgconfig(qd)
+BuildRequires: pkgconfig(readline)
+BuildRequires: pkgconfig(tbb)
+BuildRequires: pkgconfig(tinyxml2)
 BuildRequires: polymake
 BuildRequires: python3-devel
-BuildRequires: qd-devel
-BuildRequires: readline-devel 
-BuildRequires: tbb-devel
 BuildRequires: texinfo
 BuildRequires: time
-BuildRequires: tinyxml2-devel
 BuildRequires: TOPCOM
 BuildRequires: transfig
 BuildRequires: valgrind
@@ -417,7 +408,6 @@ sed -e 's/\(VERSION = \).*/\1%{linboxver}/' \
     -e 's,--with-gmp.*,GIVARO_CFLAGS=-I$(LIBRARIESDIR) GIVARO_LIBS="%{_libdir}/libgivaro.a",' \
     -i libraries/linbox/Makefile.in
 tar -C submodules/mathicgb -xf %{SOURCE104} --strip-components=1
-patch -d submodules/mathicgb -p0 < %{SOURCE202}
 tar -C submodules/memtailor -xf %{SOURCE106} --strip-components=1
 tar -C submodules/mathic -xf %{SOURCE107} --strip-components=1
 
@@ -455,7 +445,6 @@ ln -s %{_datadir}/factory \
 %patch5 -p1 -b .configure
 %patch6 -p1 -b .rightarrow
 %patch7 -p1 -b .lto
-%patch8 -p2 -b .crash2536
 
 # repeatable builds: inject a node name
 sed -i 's,`uname -n`,build.fedoraproject.org,' configure.ac
@@ -525,11 +514,7 @@ LIBS="-lflexiblas" \
   --disable-strip \
   --enable-fplll \
   --enable-linbox \
-%if 0%{?gmp}
   --with-integer-package=gmp \
-%else
-  --with-integer-package=mpir \
-%endif
   --with-unbuilt-programs="cddplus nauty" \
   --enable-build-libraries="mpfr flint factory lapack fplll givaro linbox gtest"
   # The list of libraries and submodules above should include only those that:
@@ -583,9 +568,8 @@ desktop-file-install --vendor="" \
   %{SOURCE11}
 
 mkdir -p %{buildroot}%{_metainfodir}
-install -pm 644 %{SOURCE12} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
-appstream-util validate-relax --nonet \
-  %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+install -pm 644 %{SOURCE12} %{buildroot}%{_metainfodir}
+appstreamcli validate --nonet %{buildroot}%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
 
 # Byte compile the Emacs files, and move the documentation
 pushd %{buildroot}%{_emacs_sitelispdir}/macaulay2
@@ -619,9 +603,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 %files common
 %endif
 %{_datadir}/Macaulay2/
-%{_datadir}/applications/*Macaulay2.desktop
+%{_datadir}/applications/com.macaulay2.macaulay2.desktop
 %{_datadir}/icons/hicolor/*/*/*
-%{_metainfodir}/%{name}.metainfo.xml
+%{_metainfodir}/com.macaulay2.macaulay2.metainfo.xml
 %{_docdir}/Macaulay2/
 %{_infodir}/*.info*
 %{_mandir}/man1/*
@@ -629,6 +613,11 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu Dec 22 2022 Jerry James <loganjerry@gmail.com> - 1.21-1
+- Version 1.21
+- Drop upstreamed patch for crash when building documentation
+- Use rdns names for the desktop and metainfo files
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 1.20-2
 - Convert License tag to SPDX
 

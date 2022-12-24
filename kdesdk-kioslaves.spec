@@ -1,8 +1,9 @@
 %undefine __cmake_in_source_build
+%global base_name kdesdk-kio
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 22.04.3
-Release: 2%{?dist}
+Version: 22.12.0
+Release: 1%{?dist}
 
 License: GPLv2 and GPLv2+
 URL:     https://cgit.kde.org/%{name}.git
@@ -13,7 +14,7 @@ URL:     https://cgit.kde.org/%{name}.git
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/kdesdk-kio-%{version}.tar.xz
 
 BuildRequires: perl-generators
 
@@ -37,7 +38,7 @@ KDE SDK kioslaves:
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{base_name}-%{version}
 
 
 %build
@@ -47,15 +48,18 @@ KDE SDK kioslaves:
 %install
 %cmake_install
 
-%find_lang %{name} --all-name
+%find_lang %{base_name} --all-name
 
 
-%files -f %{name}.lang
+%files -f %{base_name}.lang
 %{_kf5_plugindir}/kio/perldoc.so
 %{_kf5_datadir}/kio_perldoc/
 
 
 %changelog
+* Thu Dec 22 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

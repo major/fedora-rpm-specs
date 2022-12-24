@@ -38,6 +38,8 @@ Patch14:        %{name}-10.1.0-boost173.patch
 # https://github.com/osrf/gazebo/commit/b4429a242c43e01c367bc02afa2c4a0e6b59dddd
 # https://github.com/kcat/openal-soft/commit/399dfca1e3352050a5289be6bcd7b7dce353ccf8
 Patch15:        %{name}-10.1.0-openal121.patch
+# Fix build against qwt-6.2
+Patch16:        %{name}-10.1.0-qwt.patch
 
 
 BuildRequires:  python3-pyopengl
@@ -185,6 +187,7 @@ Development documentation for %{name}
 # Fix boost::placeholders namespace for boost-1.73 (rhbz#1843110)
 %patch14 -p1 -b .boost173
 %patch15 -p1 -b .openal121
+%patch16 -p1 -b .qwt
 
 # These are either unused, or replaced by system versions
 rm -rf deps/ann

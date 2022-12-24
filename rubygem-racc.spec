@@ -1,7 +1,7 @@
 %global	gem_name	racc
 
 Name:		rubygem-%{gem_name}
-Version:	1.6.1
+Version:	1.6.2
 Release:	200%{?dist}
 
 Summary:	LALR(1) parser generator
@@ -125,6 +125,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Fri Dec 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-200
+- 1.6.2
+
 * Mon Dec  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.1-200
 - 1.6.1
 

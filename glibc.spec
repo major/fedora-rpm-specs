@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 18
+%global baserelease 19
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,6 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-rh2155825.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2193,6 +2194,9 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-19
+- Fix epoll_create regression (#2155825)
+
 * Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-18
 - Auto-sync with upstream branch master,
   commit c1c0dea38833751f36a145c322ce53c9a08332e1:

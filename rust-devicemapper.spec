@@ -5,16 +5,13 @@
 %global crate devicemapper
 
 Name:           rust-%{crate}
-Version:        0.32.2
+Version:        0.32.3
 Release:        1%{?dist}
 Summary:        Library for using Linux device mapper
 
-# Upstream license specification: MPL-2.0
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://crates.io/crates/devicemapper
 Source:         %{crates_source}
-
-ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  rust-packaging >= 21
 
@@ -69,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Dec 22 2022 Bryan Gurney <bgurney@redhat.com> - 0.32.3-1
+- Update to version 0.32.3
+
 * Thu Aug 25 2022 mulhern <amulhern@redhat.com> - 0.32.2-1
 - Update to version 0.32.2
 

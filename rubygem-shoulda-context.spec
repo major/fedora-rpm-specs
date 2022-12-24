@@ -2,11 +2,15 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Use `File.exist?` instead of removed `File.exists` for Ruby 3.2
+# compatibility.
+# https://github.com/thoughtbot/shoulda-context/pull/70
+Patch0: rubygem-shoulda-context-2.0.0-Use-File-exist.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -53,6 +57,7 @@ sed -i 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' bin/convert_to_should_syntax
 rm test/fake_rails_root/vendor/plugins/.keep
 sed -i -r 's|"test/fake_rails_root/vendor/plugins/\.keep"(\.freeze)?,||' %{gem_name}.gemspec
 
+%patch0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -128,6 +133,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Dec 22 2022 Vít Ondruch <vondruch@redhat.com> - 1.2.2-13
+- Fix Ruby 3.2 compatibility.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

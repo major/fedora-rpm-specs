@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.144
+Version:	1.146
 Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,16 +21,15 @@ BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
+BuildRequires:	perl(Fatal)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Module::Build) >= 0.42
-BuildRequires:	perl(Task::Weaken)
 
 # Module requirements
 BuildRequires:	hunspell >= 1.2.12
 BuildRequires:	hunspell-en
 BuildRequires:	perl(:VERSION) >= 5.10.1
-BuildRequires:	perl(B::Keywords) >= 1.05
-BuildRequires:	perl(base)
+BuildRequires:	perl(B::Keywords) >= 1.23
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Config::Tiny) >= 2
 BuildRequires:	perl(English)
@@ -43,17 +42,16 @@ BuildRequires:	perl(File::Spec::Unix)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(File::Which)
 BuildRequires:	perl(Getopt::Long)
-BuildRequires:	perl(IO::String)
 BuildRequires:	perl(List::SomeUtils) >= 0.55
 BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Module::Pluggable) >= 3.1
+BuildRequires:	perl(parent)
 BuildRequires:	perl(Perl::Tidy)
-BuildRequires:	perl(Pod::Parser)
 BuildRequires:	perl(Pod::PlainText)
 BuildRequires:	perl(Pod::Select)
 BuildRequires:	perl(Pod::Spell) >= 1
 BuildRequires:	perl(Pod::Usage)
-BuildRequires:	perl(PPI) >= 1.265
+BuildRequires:	perl(PPI) >= 1.271
 BuildRequires:	perl(PPIx::QuoteLike)
 BuildRequires:	perl(PPIx::Regexp) >= 0.010
 BuildRequires:	perl(PPIx::Regexp::Util) >= 0.068
@@ -73,7 +71,6 @@ BuildRequires:	perl(warnings)
 %if 0%{?fedora} > 23 || 0%{?rhel} > 7
 BuildRequires:	glibc-langpack-en
 %endif
-BuildRequires:	perl(Fatal)
 BuildRequires:	perl(File::Spec::Functions)
 BuildRequires:	perl(Test::Deep)
 BuildRequires:	perl(Test::Memory::Cycle)
@@ -96,10 +93,10 @@ BuildRequires:	perl(Test::Without::Module)
 # Optional/not automatically detected runtime dependencies
 Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	hunspell >= 1.2.12
+Requires:	perl(B::Keywords) >= 1.23
 Requires:	perl(File::Which)
 Requires:	perl(Module::Pluggable) >= 3.1
-Requires:	perl(Pod::Parser)
-Requires:	perl(PPI) >= 1.265
+Requires:	perl(PPI) >= 1.271
 Requires:	perl(Term::ANSIColor) >= 2.02
 
 %description
@@ -164,6 +161,32 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Thu Dec 22 2022 Paul Howarth <paul@city-fan.org> - 1.146-1
+- Update to 1.146 (rhbz#2155727)
+  New features
+  - ProhibitBarewordDirHandles now checks for sysopen as well as open (GH#732)
+  - Added a Dockerfile in the extras/ directory for those who want to run P::C
+    in a container (GH#832)
+  - Subroutines::ProhibitBuiltinHomonyms now can take an "allows" parameter to
+    specify subroutines that won't violate the policy (GH#14, GH#932)
+  - ProhibitStringyEval now allows package declarations in evals when
+    allow_includes = true; this is a common way packages are declared (GH#908)
+  Bug Fixes
+  - Fixed some problems with how Perl::Critic determined scope (GH#793)
+  - Fixed improper violation for lexical subroutines in
+    Subroutines::ProhibitBuiltinHomonyms (GH#973, GH#955, GH#546)
+  - ValuesAndExpressions::RequireNumberSeparators no longer complains if your
+    version numbers do not have number separators in them (GH#856, GH#904)
+  - Fixed a false positive with split() in ProhibitUnusedCapture (GH#888)
+  Internals
+  - We no longer use or need IO::String (GH#997)
+  - Removed requirements and mentions of modules no longer used:
+    - Fatal
+    - IO::String
+    - IPC::Open2
+    - Pod::Parser
+    - Task::Weaken
+
 * Tue Dec  6 2022 Paul Howarth <paul@city-fan.org> - 1.144-1
 - Update to 1.144 (rhbz#2151095)
   - Perl::Critic now requires Perl 5.10.1

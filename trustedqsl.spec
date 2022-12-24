@@ -5,7 +5,7 @@
 
 Name:           trustedqsl
 Version:        2.6.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 License:        BSD
 URL:            http://sourceforge.net/projects/trustedqsl/
@@ -121,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Thu Dec 22 2022 Richard Shaw <hobbes1069@gmail.com> - 2.6.5-2
+- Rebuild for updated wxGTK.
+
 * Tue Oct 11 2022 Richard Shaw <hobbes1069@gmail.com> - 2.6.5-1
 - Update to 2.6.5.
 

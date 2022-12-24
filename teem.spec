@@ -20,6 +20,9 @@ License:        LGPL-2.1-or-later
 URL:            http://teem.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/%{name}-%{version}-src.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 Source1:        gprobe.1
 Source2:        ilk.1
 Source3:        miter.1
@@ -330,8 +333,7 @@ install -t %{buildroot}%{_mandir}/man1 -p -m 0644 \
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libteem.so.%{so_version}
-%{_libdir}/libteem.so.%{so_version}.*
+%{_libdir}/libteem.so.%{so_version}{,.*}
 
 
 %files devel

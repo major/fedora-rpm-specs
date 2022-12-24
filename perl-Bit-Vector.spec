@@ -1,12 +1,13 @@
 Name:           perl-Bit-Vector
 Version:        7.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Efficient bit vector, set of integers and "big int" math library
 # Outdated FSF address reported, rt#85827
 # Clarified by a private mail from the author:
-License:        (GPLv2+ or Artistic) and LGPLv2+
+License:        ( GPL-2.0-or-later OR Artistic-1.0-Perl ) AND LGPL-2.0-or-later
 URL:            https://metacpan.org/release/Bit-Vector
 Source0:        https://cpan.metacpan.org/authors/id/S/ST/STBEY/Bit-Vector-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -41,13 +42,26 @@ The library is efficient (in terms of algorithmic complexity) and
 therefore fast (in terms of execution speed) for instance through the
 widespread use of divide-and-conquer algorithms.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Bit-Vector-%{version} 
 chmod -c 644 examples/*.pl
-perl -MConfig -pi -e 's|^#!/usr/local/bin/perl\b|$Config{startperl}|' \
-    examples/benchmk1.pl
-perl -MConfig -pi -e 's|^#!perl\b|$Config{startperl}|' \
-    examples/{benchmk{2,3},primes,SetObject}.pl
+perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' \
+    examples/{benchmk{1,2,3},primes,SetObject}.pl
+
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
@@ -59,7 +73,23 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" \
 find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
+
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -69,8 +99,13 @@ make test
 %{perl_vendorarch}/auto/Bit/
 %{_mandir}/man3/*.3*
 
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Dec 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 7.4-28
+- Package tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

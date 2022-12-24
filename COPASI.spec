@@ -131,6 +131,9 @@ Patch11: %{name}-porting_to_python310.patch
 
 Patch12: %{name}-find_raptor.patch
 
+# qwt-6.2 compatibility
+Patch13: %{name}-qwt62.patch
+
 %description
 COPASI is a software application for simulation and analysis of biochemical
 networks and their dynamics.
@@ -267,6 +270,7 @@ done
 %patch9 -p0 -b .find_libsedml
 %patch10 -p0 -b .find_sbw
 %patch12 -p1 -b .find_raptor
+%patch13 -p1 -b .qwt
 
 %if 0%{?with_python}
 %if 0%{?python3_version_nodots} > 39

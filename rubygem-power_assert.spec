@@ -2,7 +2,7 @@
 
 # Note: 1.1.7 -> 1.2.0: just the upstream URL changed
 Name:		rubygem-%{gem_name}
-Version:	2.0.2
+Version:	2.0.3
 Release:	200%{?dist}
 
 Summary:	Power Assert for Ruby
@@ -88,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Dec 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.3-200
+- 2.0.3
+
 * Mon Oct 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-200
 - 2.0.2
 

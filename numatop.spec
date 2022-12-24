@@ -2,7 +2,7 @@
 %undefine _ld_as_needed
 
 Name:           numatop
-Version:        2.2
+Version:        2.3
 Release:        %autorelease
 Summary:        Memory access locality characterization and analysis
 

@@ -1,26 +1,5 @@
-# Koji has two types of builders:
-# 16Gb + 6 cores
-# 128Gb + 48 cores
-# There's no way to choose either, so we rely on luck
-#
-# This needs about 15 gigs per thread, otherwise OOMs. So, we calculate the number of threads we can afford to use for make:
-# meminfo gives output in kB (1000 bytes)
-%global numthreads %(awk '/MemTotal:/ {print int($2/15e6)}' /proc/meminfo)
-# But make sure it is > 0
-%if 0%{numthreads} == 0
-%global numthreads 1
-%endif
-
-# If _smp_build_ncpus is not defined (on older rpms)
-# assume there's only one
-%if 0%{?_smp_build_ncpus} == 0
-%global _smp_build_ncpus 1
-%endif
-
-# Use the smaller number of threads
-%if 0%{numthreads} > 0%{?_smp_build_ncpus}
-%global numthreads %{?_smp_build_ncpus}
-%endif
+# This needs about 15 gigs per thread, otherwise OOMs.
+%constrain_build -m 15360
 
 %global _description %{expand:
 Graph-tool is an efficient Python module for manipulation and statistical
@@ -170,9 +149,7 @@ echo 'intersphinx_mapping.clear()' >> doc/conf.py
     --with-python-module-path=%{python3_sitearch} \
     --with-boost-libdir=%{_libdir} \
     --enable-debug
-echo "Building with %{numthreads} of %{?_smp_build_ncpus} available CPUs"
-# Uses the latest value set by -j
-%make_build -j%{numthreads}
+%make_build
 
 
 %install

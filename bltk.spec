@@ -1,6 +1,6 @@
 Name:		bltk
 Version:	1.1.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	The BLTK measures notebook battery life under any workload
 
 License:	BSD
@@ -28,6 +28,7 @@ Patch17: bltk-1.1.0-rm_sudo.patch
 Patch18: bltk-1.0.9-plot-path.patch
 Patch19: bltk-1.0.9-rpm.patch
 Patch20: bltk-1.1.0-cflags-override.patch
+Patch21: bltk-c99.patch
 
 
 BuildRequires:	gcc, libX11-devel
@@ -69,6 +70,7 @@ The following workloads are currently implemented:
 %patch18 -p1 -b .plot-path
 %patch19 -p1 -b .rpm
 %patch20 -p1 -b .cflags-override
+%patch21 -p1
 
 %build
 make CFLAGS="$RPM_OPT_FLAGS"
@@ -234,6 +236,9 @@ popd
 %{_libdir}/bltk/wl_reader/war_and_peace.html
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 1.1.0-27
+- Port to C99 (#2155784)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

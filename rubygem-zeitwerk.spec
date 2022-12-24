@@ -2,15 +2,15 @@
 %global gem_name zeitwerk
 
 Name: rubygem-%{gem_name}
-Version: 2.5.4
-Release: 2%{?dist}
+Version: 2.6.6
+Release: 1%{?dist}
 Summary: Efficient and thread-safe constant autoloader
 License: MIT
 URL: https://github.com/fxn/zeitwerk
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Test suite is not included in packaged gem
 # git clone https://github.com/fxn/zeitwerk.git --no-checkout
-# cd zeitwerk && git archive -v -o zeitwerk-2.5.4-tests.txz v2.5.4 test
+# cd zeitwerk && git archive -v -o zeitwerk-2.6.6-tests.txz v2.6.6 test
 Source2: %{gem_name}-%{version}-tests.txz
 
 BuildRequires: ruby(release)
@@ -77,6 +77,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Dec 22 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.6-1
+- 2.6.6
+  - ruby3.2 needs at least 2.6.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

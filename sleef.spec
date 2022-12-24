@@ -36,6 +36,9 @@ License:        BSL-1.0
 URL:            https://sleef.org
 Source0:        https://github.com/shibatch/sleef/archive/%{version}/sleef-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake >= 3.4.3
 BuildRequires:  gcc
 BuildRequires:  ninja-build
@@ -52,10 +55,8 @@ BuildRequires:  pkgconfig(fftw3)
 # library only applies to these architectures.
 %global gnuabi_arches %{ix86} x86_64 aarch64
 # See https://github.com/shibatch/sleef/pull/283.
-%ifnarch %{arm32}
 %if %{with static}
 %global inline_enabled 1
-%endif
 %endif
 
 %description
@@ -220,7 +221,7 @@ skips="${skips}|iuty?zvector2(nofma)?"
 # The DFT library has known test failures
 # (https://github.com/shibatch/sleef/issues/214).
 skips="${skips}|fftwtest2d[ds]p_(4_4|8_8|10_10|5_15)"
-%ifarch %{arm32} aarch64 s390x
+%ifarch aarch64 s390x
 # Plus, it uses illegal instructions:
 skips="${skips}|naivetest[ds]p_([2345]|10)"
 skips="${skips}|fftwtest(1d[ds]p_1[26]|2d[ds]p_2_2)"
@@ -234,8 +235,7 @@ skips="${skips})$"
 
 %files
 %license LICENSE.txt
-%{_libdir}/libsleef.so.%{so_version}
-%{_libdir}/libsleef.so.%{so_version}.*
+%{_libdir}/libsleef.so.%{so_version}{,.*}
 
 
 %files devel
@@ -256,7 +256,7 @@ skips="${skips})$"
 %doc CHANGELOG.md
 %doc CONTRIBUTORS.md
 %doc README.md
-%doc doc/html
+%doc doc/html/
 
 
 %ifarch %{gnuabi_arches}

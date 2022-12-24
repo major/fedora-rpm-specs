@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 4.0.1
-Release: 6%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -39,7 +39,7 @@ BuildRequires: gcc-toolset-11-annobin-plugin-gcc
 BuildRequires: gmic-devel
 %endif
 BuildRequires: GraphicsMagick-devel
-BuildRequires: gtk3-devel >= 3.22
+BuildRequires: gtk3-devel >= 3.24.15
 BuildRequires: intltool
 # iso-codes dependency not mandatory, just optional / recommended
 # in future please check if EL7 iso-codes version is >= 3.66
@@ -53,7 +53,7 @@ BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 # libavif is not available in EPEL 8
 %if (0%{?el} > 8) || (0%{?fedora} >= 33)
-BuildRequires: cmake(libavif) >= 0.8.2
+BuildRequires: cmake(libavif) >= 0.9.1
 %endif
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
@@ -61,6 +61,7 @@ BuildRequires: libgphoto2-devel >= 2.4.5
 # BuildRequires: libheif-devel >= 1.9.0
 BuildRequires: libjasper-devel
 BuildRequires: libjpeg-devel
+BuildRequires: libjxl-devel >= 0.7.0
 BuildRequires: libpng-devel
 BuildRequires: librsvg2-devel >= 2.26
 BuildRequires: libsecret-devel
@@ -245,6 +246,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Thu Dec 22 2022 Germano Massullo <germano.massullo@gmail.com> - 4.2.0-1
+- 4.2.0 release
+- adjusted dependencies
+
 * Thu Dec 01 2022 Kalev Lember <klember@redhat.com> - 4.0.1-6
 - Rebuild for new libavif
 

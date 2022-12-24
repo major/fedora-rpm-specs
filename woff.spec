@@ -23,6 +23,9 @@ Source2:        woff2sfnt.1
 # upstream to which this could be reported.
 Patch:          possible-double-free.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  make
 BuildRequires:  gcc
 

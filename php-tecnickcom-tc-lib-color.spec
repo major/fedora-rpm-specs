@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f9e45c59496418227184626ad31e83470153c11f
+%global gh_commit    c430e0b8a8847935a72bc5fcc334d1e4d029e23b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,11 +15,11 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.14.14
-Release:        2%{?dist}
+Version:        1.14.18
+Release:        1%{?dist}
 Summary:        PHP library to manipulate various color representations
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{?gh_short}.tar.gz
 
@@ -86,7 +86,7 @@ require '%{buildroot}%{php_project}/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
@@ -109,6 +109,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec 22 2022 Remi Collet <remi@remirepo.net> - 1.14.18-1
+- update to 1.14.18 (no change)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

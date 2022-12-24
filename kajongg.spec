@@ -26,7 +26,7 @@ BuildArch: noarch
 
 ## upstreamble patches
 # NEEDSWORK: KDEPython.cmake assumes relative paths
-#Patch1: kajongg-20.04.1-KDEPython_paths.patch
+Patch1: kajongg-20.04.1-KDEPython_paths.patch
 
 BuildRequires: extra-cmake-modules
 BuildRequires: cmake(KF5Config)

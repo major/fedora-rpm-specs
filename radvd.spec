@@ -1,13 +1,15 @@
 Summary: A Router Advertisement daemon
 Name: radvd
 Version: 2.19
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # The code includes the advertising clause, so it's GPL-incompatible
 License: BSD with advertising
 URL: http://www.litech.org/radvd/
 Source0: %{url}dist/%{name}-%{version}.tar.xz
 Source1: radvd.sysusers
+Patch0: radvd-c99-1.patch
+Patch1: radvd-c99-2.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -20,6 +22,8 @@ BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 %{?sysusers_requires_compat}
+BuildRequires: autoconf
+BuildRequires: automake
 
 %description
 radvd is the router advertisement daemon for IPv6.  It listens to router
@@ -42,6 +46,7 @@ for F in CHANGES; do
 done
 
 %build
+autoreconf -iv
 export CFLAGS="$RPM_OPT_FLAGS -fPIE " 
 export LDFLAGS='-pie -Wl,-z,relro,-z,now,-z,noexecstack,-z,nodlopen'
 %configure \
@@ -94,6 +99,10 @@ make check
 %{_sbindir}/radvdump
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 2.19-8
+- Apply upstream patches to fix C99 compatibility issue
+- Run autoconf/automake during the build
+
 * Thu Nov 03 2022 Martin Osvald <mosvald@redhat.com> - 2.19-7
 - Use systemd-sysusers for radvd user and group (rhbz#2139755)
 

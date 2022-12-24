@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Space arcade game for multiple players
 
 License:        GPLv2+
@@ -24,6 +24,8 @@ Source14:       xpilot-ng-server.metainfo.xml
 Patch0:         xpilot-ng-4.7.2-scoreassert.patch
 Patch1:         xpilot-ng-4.7.2-rhbz830640.patch
 Patch2:         xpilot-ng-4.7.3-fix-alut-detect.patch
+Patch3:         xpilot-ng-c99.patch
+Patch4:         xpilot-ng-SDL_window.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -216,6 +218,10 @@ exit 0
 
 
 %changelog
+* Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 4.7.3-27
+- C99 port (#2155781)
+- Fix build issue due to SDL_Window identifier conflict with newer SDL
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

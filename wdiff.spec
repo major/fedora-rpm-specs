@@ -108,7 +108,7 @@ cp -rp doc/wdiff.html %{buildroot}%{_pkgdocdir}/html
 
 %{_infodir}/wdiff.info.*
 
-%{_pkgdocdir}
+%{_pkgdocdir}/
 
 
 %changelog

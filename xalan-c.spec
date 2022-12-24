@@ -103,31 +103,36 @@ rm -rf %{buildroot}%{_prefix}/share/doc/xalan-c/api
 %doc KEYS
 %doc NOTICE
 %doc README.md
+
 %{_bindir}/Xalan
-%{_libdir}/libxalanMsg.so.%{so_version}
-%{_libdir}/libxalanMsg.so.%{so_version}.*
-%{_libdir}/libxalan-c.so.%{so_version}
-%{_libdir}/libxalan-c.so.%{so_version}.*
+
+%{_libdir}/libxalanMsg.so.%{so_version}{,.*}
+%{_libdir}/libxalan-c.so.%{so_version}{,.*}
 
 
 %files devel
 %{_libdir}/libxalanMsg.so
 %{_libdir}/libxalan-c.so
+
 %{_includedir}/xalanc/
+
 %dir %{_libdir}/cmake/XalanC
 %{_libdir}/cmake/XalanC/*.cmake
+
 %dir %{_libdir}/pkgconfig
 %{_libdir}/pkgconfig/xalan-c.pc
 
 
 %files doc
 %license LICENSE
+
 %doc CREDITS
 %doc KEYS
 %doc NOTICE
 %doc README.md
-%doc docs/*.md docs/images
-%doc samples
+%doc docs/*.md
+%doc docs/images/
+%doc samples/
 
 
 %changelog

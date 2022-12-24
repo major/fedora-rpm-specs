@@ -28,7 +28,7 @@
 %endif
 
 # htps://github.com/kata-containers/kata-containers
-Version: 2.5.2
+Version: 3.0.1
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -186,6 +186,7 @@ ExcludeArch: %{arm} %{ix86} s390 s390x
 
 %global kataagentdir            %{katalibexecdir}/agent
 %global kataosbuilderdir        %{katalibexecdir}/osbuilder
+%global rust_make_vars          LIBC=gnu
 
 %global runtime_make_vars       QEMUPATH=%{qemupath} \\\
                                 KERNELTYPE="compressed" \\\
@@ -203,9 +204,10 @@ ExcludeArch: %{arm} %{ix86} s390 s390x
                                 FEATURE_SELINUX="yes" \\\
                                 DEFENABLEANNOTATIONS=['\\\".*\\\"']
 
-%global agent_make_vars         LIBC=gnu \\\
+%global agent_make_vars         %{rust_make_vars} \\\
                                 DESTDIR=%{buildroot}%{kataagentdir}
-%global log_parser_vars         BINDIR=%{buildroot}%{_bindir}
+%global log_parser_vars         %{rust_make_vars} \\\
+                                BINDIR=%{buildroot}%{_bindir}
 
 %prep
 %autosetup -S git -p1 -n %{kata_build_dir}
@@ -372,6 +374,12 @@ fi
 
 
 %changelog
+* Thu Dec 22 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 3.0.1-1
+- kata-containers-3.0.1
+
+* Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 3.0.0-1
+- kata-containers-3.0.0
+
 * Wed Oct 26 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 2.5.2-1
 - kata-containers-2.5.2
 

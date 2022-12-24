@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        37.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PyCA's cryptography library
 
 License:        ASL 2.0 or BSD
@@ -101,6 +101,12 @@ rm -rf tests/hypothesis
 cat < %{SOURCE2} >> tests/conftest.py
 %endif
 
+%if 0%{?eln}
+# enable SHA-1 signatures for RSA tests
+# also see https://github.com/pyca/cryptography/pull/6931 and rhbz#2060343
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
+%endif
+
 # see https://github.com/pyca/cryptography/issues/4885 and
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1761194 for deselected tests
 # see rhbz#2042413 for memleak. It's unstable under Python 3.11 and makes
@@ -117,6 +123,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Dec 09 2022 Christian Heimes <cheimes@redhat.com> - 37.0.2-6
+- Enable SHA1 signatures in test suite (ELN-only)
+
 * Wed Aug 17 2022 Miro Hrončok <mhroncok@redhat.com> - 37.0.2-5
 - Drop unused requirement of python3-six
 

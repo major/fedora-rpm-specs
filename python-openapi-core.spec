@@ -10,6 +10,9 @@ License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source:         %{pypi_source openapi_core}
 
+# https://github.com/p1c2u/openapi-core/pull/450
+Patch:          openapi-core_0.16.4_avoid-dependency.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  poetry
@@ -34,7 +37,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{modname}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x django -x falcon -x flask -x requests -x starlette

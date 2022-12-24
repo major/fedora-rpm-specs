@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    bc9153c2f9e27de5915d008b4fc3943d48ab6869
+%global gh_commit    8dbed267c44cb95a903d1149b81752ec4401dab1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global c_vendor     tecnickcom
 %global gh_owner     tecnickcom
@@ -15,11 +15,11 @@
 %bcond_without       tests
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.17.15
+Version:        1.17.19
 Release:        1%{?dist}
 Summary:        PHP library to generate linear and bidimensional barcodes
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{?gh_short}.tar.gz
 
@@ -27,7 +27,7 @@ BuildArch:      noarch
 %if %{with tests}
 # For tests
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.0
+BuildRequires:  phpunit9 >= 9.5.27
 BuildRequires:  php(language) >= 5.4
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
 BuildRequires: (php-composer(%{c_vendor}/tc-lib-color) >= 1.14    with php-composer(%{c_vendor}/tc-lib-color) <  2)
@@ -51,7 +51,7 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "ext-date": "*",
 #        "ext-gd": "*",
 #        "ext-pcre": "*",
-#        "tecnickcom/tc-lib-color": "^1.12.15"
+#        "tecnickcom/tc-lib-color": "^1.14"
 Requires:       php(language) >= 5.4
 Requires:       php-bcmath
 Requires:       php-ctype
@@ -145,6 +145,9 @@ exit $ret
 
 
 %changelog
+* Thu Dec 22 2022 Remi Collet <remi@remirepo.net> - 1.17.19-1
+- update to 1.17.19 (no change)
+
 * Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 1.17.15-1
 - update to 1.17.15
 

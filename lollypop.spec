@@ -3,8 +3,8 @@
 %global provider org.gnome.Lollypop
 
 Name:           lollypop
-Version:        1.4.36
-Release:        2%{?dist}
+Version:        1.4.37
+Release:        1%{?dist}
 Summary:        Music player for GNOME
 License:        GPLv3+
 URL:            https://gitlab.gnome.org/World/lollypop
@@ -38,6 +38,7 @@ Requires:       pango
 Requires:       totem-pl-parser
 Requires:       gstreamer1-plugins-good
 Requires:       libhandy1 >= 1.5
+Requires:       yt-dlp
 # last.fm support
 BuildArch:      noarch
 Obsoletes:      lollypop-cli < 1.0.6
@@ -83,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Dec 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.37-1
+- Update to 1.4.37
+- Add RR yt-dlp
+
 * Wed Nov 16 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.4.36-2
 - replaced BR libsoup-2.4 by libsoup-3.0
 

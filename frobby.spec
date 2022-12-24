@@ -1,16 +1,17 @@
 Name:	 frobby
 Summary: Computations With Monomial Ideals
-Version: 0.9.0
-Release: 26%{?dist}
+Version: 0.9.5
+Release: 1%{?dist}
 
-License: GPLv2+
-URL:	 http://www.broune.com/frobby/
-Source0: http://www.broune.com/frobby/frobby_v%{version}.tar.gz
+# GPL-2.0-or-later: the frobby code
+# OFL-1.1-RFN: AMS fonts embedded in the PDF manual
+# Knuth-CTAN: Computer Modern fonts embedded in the PDF manual
+License: GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
+URL:	 https://github.com/Macaulay2/frobby
+Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://raw.githubusercontent.com/Macaulay2/M2/master/M2/libraries/frobby/patch-0.9.0
-Patch0: frobby-0.9.0-Macaulay2.patch
 # make makefile a wee bit more sane
-Patch1: frobby-0.9.0-makefile.patch
+Patch0:  frobby-0.9.0-makefile.patch
 
 BuildRequires: gcc-c++
 BuildRequires: gmp-devel
@@ -37,6 +38,7 @@ CoCoA4 and Singular. Thus Frobby can be used with any of those systems.
 
 
 %package -n libfrobby
+License:        GPL-2.0-or-later
 Summary:        Frobby internals as a library
 
 %description -n libfrobby
@@ -45,6 +47,7 @@ libfrobby.
 
 
 %package -n libfrobby-devel
+License:        GPL-2.0-or-later
 Summary:        Developer files for libfrobby
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 Requires:       gmp-devel%{?_isa}
@@ -55,24 +58,16 @@ Frobby internals as a library (libfrobby).
 
 
 %prep
-%setup -q -n frobby_v%{version}
-
-%patch0 -p1 -b .Macaulay2
-%patch1 -p1 -b .makefile
-
-# Remove all file executable bits and restore the few appropriate cases
-find . -type f -perm /0111 -exec chmod a-x {} +
-chmod a+x frobgrob test/run* test/*/make* test/*/run* test/bench/benchHelper \
-  test/testScripts/testhelper
+%autosetup
 
 
 %build
 %make_build \
   BIN_INSTALL_DIR=%{_bindir} \
-  CFLAGS="${CFLAGS:-%optflags}" \
-  CXXFLAGS="${CXXFLAGS:-%optflags}" \
+  CFLAGS="${CFLAGS:-%build_cflags}" \
+  CXXFLAGS="${CXXFLAGS:-%build_cxxflags}" \
   GMP_INC_DIR=%{_includedir} \
-  LDFLAGS="${LDFLAGS:-%__global_ldflags}" \
+  LDFLAGS="${LDFLAGS:-%build_ldflags}" \
   MODE=shared \
   library all
 
@@ -81,7 +76,7 @@ rm bin/frobby
 mv bin/libfrobby.so bin/libfrobby.so.0.0.0
 ln -s libfrobby.so.0.0.0 bin/libfrobby.so.0
 ln -s libfrobby.so.0 bin/libfrobby.so
-g++ bin/shared/main.o ${CFLAGS:-%optflags} ${LDFLAGS:-%__global_ldflags} \
+g++ bin/shared/main.o ${CFLAGS:-%build_cflags} ${LDFLAGS:-%build_ldflags} \
   -L$PWD/bin -lfrobby -o bin/frobby
 
 # generate docs
@@ -113,8 +108,6 @@ test/runTests
 %doc bin/manual.pdf
 %{_bindir}/frobby
 
-%ldconfig_scriptlets -n libfrobby
-
 %files -n libfrobby
 %doc COPYING
 %{_libdir}/*.so.0*
@@ -125,6 +118,13 @@ test/runTests
 
 
 %changelog
+* Thu Dec 22 2022 Jerry James <loganjerry@gmail.com> - 0.9.5-1
+- Version 0.9.5
+- New URLs
+- Drop upstreamed Macaulay2 patch
+- Convert License tag to SPDX
+- Minor spec file cleanups
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

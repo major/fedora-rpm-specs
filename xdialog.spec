@@ -3,7 +3,7 @@
 Name: xdialog
 Summary: X11 drop in replacement for cdialog
 Version: 2.3.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPL+
 URL: http://xdialog.free.fr
 
@@ -11,6 +11,7 @@ Source0: http://xdialog.free.fr/%{real_name}-%{version}.tar.bz2
 Patch0: xdialog-2.3.1-nostrip.patch
 # RHBZ #1037393: Fixes a format string vulnerability (via argv[0])
 Patch1: xdialog-2.3.1-secure-fprintf.diff
+Patch2: xdialog-2.3.1-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -36,6 +37,7 @@ touch -c -r ChangeLog ChangeLog.utf8
 mv ChangeLog.utf8 ChangeLog
 %patch0 -p1 -b .nostrip
 %patch1 -p0 -b .fprintf
+%patch2 -p1 -b .configure
 touch -c -r configure.nostrip configure
 touch -c -r configure.in.nostrip configure.in
 
@@ -68,6 +70,9 @@ ln -s ../samples __dist_html/html/samples
 %exclude %{_docdir}/%{real_name}-%{version}
 
 %changelog
+* Thu Dec 22 2022 Peter Fordham <peter.fordham@gmail.com> - 2.3.1-33
+- Port configure script to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

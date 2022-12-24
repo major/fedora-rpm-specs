@@ -1,6 +1,6 @@
 Name: cylindrix
 Version:  1.0
-Release: 38%{?dist}
+Release: 39%{?dist}
 Summary: A 3 degrees of freedom combat game
 
 License: LGPLv2        
@@ -15,6 +15,7 @@ Patch1: cylindrix-1.0-arch-independ-file-read.patch
 Patch2: cylindrix-1.0-use-int-not-long.patch
 Patch3: cylindrix-1.0-arch-independ-file-write.patch
 Patch4: cylindrix-1.0-object-fopen.patch
+Patch5: cylindrix-1.0-configure-c99.patch
 Requires: hicolor-icon-theme
 BuildRequires:  gcc-c++
 BuildRequires: allegro-devel, desktop-file-utils
@@ -42,6 +43,7 @@ is worth a try.
 %patch2 -p0
 %patch3 -p0
 %patch4 -p0
+%patch5 -p0
 
 %build
 
@@ -88,6 +90,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Thu Dec 22 2022 Peter Fordham <peter.fordham@gmail.com> - 1.0-39
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

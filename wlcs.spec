@@ -154,7 +154,7 @@ sed -r -i 's/-Werror //' CMakeLists.txt
 
 %files devel
 %doc README.rst
-%doc example
+%doc example/
 
 %{_includedir}/wlcs/
 %{_libdir}/pkgconfig/wlcs.pc

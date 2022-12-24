@@ -41,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -248,7 +248,7 @@ clang-format integration for git.
 
 %package -n python3-clang
 Summary:       Python3 bindings for clang
-Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:      %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:      python3
 %description -n python3-clang
 %{summary}.
@@ -612,6 +612,9 @@ false
 
 %endif
 %changelog
+* Wed Dec 21 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-3
+- Add clang-devel dep to python3-clang
+
 * Mon Dec 12 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
 - Backport patches for ucrt64 toolchain detection
 

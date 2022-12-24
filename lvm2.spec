@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.187
+%global device_mapper_version 1.02.189
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -44,8 +44,8 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.17
-Release: 2%{?dist}
+Version: 2.03.18
+Release: 1%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -656,6 +656,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Thu Dec 22 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.18-1
+- Update to upstream version 2.03.18.
+
 * Wed Nov 30 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.17-2
 - Fix permission issue.
 
