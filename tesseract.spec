@@ -1,8 +1,8 @@
 #global pre beta.4
 
 Name:          tesseract
-Version:       5.2.0
-Release:       6%{?dist}
+Version:       5.3.0
+Release:       1%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -14,8 +14,6 @@ Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?p
 # Honour TESSDATA_PREFIX
 # Build training libs statically
 Patch0:        tesseract_cmake.patch
-# Backport patch to restore equality between cmake and autotools generated pkgconfig file
-Patch1:        https://github.com/tesseract-ocr/tesseract/commit/aee19fcf8eb832.patch
 
 
 BuildRequires: cmake
@@ -156,13 +154,15 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %license LICENSE
 %doc AUTHORS ChangeLog README.md
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.5.2.0
+%{_libdir}/lib%{name}.so.5.3.0
 %{_datadir}/%{name}/
 %{_mandir}/man1/tesseract.1*
 
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/lib%{name}.so
+%{_libdir}/libcommon_training.a
+%{_libdir}/libunicharset_training.a
 %{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 
@@ -202,9 +202,11 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 %files -n mingw32-%{name}
 %license LICENSE
-%{mingw32_bindir}/libtesseract-52.dll
+%{mingw32_bindir}/libtesseract-53.dll
 %{mingw32_includedir}/tesseract/
 %{mingw32_libdir}/libtesseract.dll.a
+%{mingw32_libdir}/libcommon_training.a
+%{mingw32_libdir}/libunicharset_training.a
 %{mingw32_libdir}/pkgconfig/tesseract.pc
 %{mingw32_libdir}/cmake/%{name}/
 %{mingw32_datadir}/%{name}/
@@ -214,9 +216,11 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 %files -n mingw64-%{name}
 %license LICENSE
-%{mingw64_bindir}/libtesseract-52.dll
+%{mingw64_bindir}/libtesseract-53.dll
 %{mingw64_includedir}/tesseract/
 %{mingw64_libdir}/libtesseract.dll.a
+%{mingw64_libdir}/libcommon_training.a
+%{mingw64_libdir}/libunicharset_training.a
 %{mingw64_libdir}/pkgconfig/tesseract.pc
 %{mingw64_libdir}/cmake/%{name}/
 %{mingw64_datadir}/%{name}/
@@ -226,6 +230,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 5.3.0-1
+- Update to 5.3.0
+
 * Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 5.2.0-6
 - Rebuild (leptonica)
 

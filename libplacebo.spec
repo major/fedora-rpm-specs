@@ -1,7 +1,7 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        4.208.0
+Version:        5.229.1
 Release:        1%{?dist}
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
@@ -12,6 +12,7 @@ Source0:        %{url}/archive/v%{version}%{?prerelease}/%{name}-%{version}%{?pr
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
+BuildRequires:  glad2 >= 2.0.0
 BuildRequires:  lcms2-devel
 BuildRequires:  libepoxy-devel
 BuildRequires:  libunwind-devel
@@ -66,7 +67,7 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libplacebo.so.208
+%{_libdir}/libplacebo.so.229
 
 %files devel
 %{_includedir}/*
@@ -75,6 +76,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Nov 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 5.229.1-1
+- Update to 5.229.1
+
+* Tue Oct 18 2022 Nicolas Chauvet <kwizart@gmail.com> - 5.228.0-1
+- Update to 5.228.0
+
 * Wed Aug 10 2022 Nicolas Chauvet <kwizart@gmail.com> - 4.208.0-1
 - Update to 4.208.0
 

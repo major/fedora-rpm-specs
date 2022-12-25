@@ -1,12 +1,12 @@
 Summary:        Port of libtls from LibreSSL to OpenSSL
 Name:           libretls
-Version:        3.5.2
-Release:        2%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 # libretls itself is ISC but uses other source codes, breakdown:
-# BSD: compat/strsep.c
+# BSD-3-Clause: compat/strsep.c
 # MIT: compat/timegm.c
-# Public Domain: compat/{{explicit_bzero,ftruncate,pread,pwrite}.c,chacha_private.h}
-License:        ISC and BSD and MIT and Public Domain
+# LicenseRef-Fedora-Public-Domain: compat/{{explicit_bzero,ftruncate,pread,pwrite}.c,chacha_private.h}
+License:        ISC AND BSD-3-Clause AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            https://git.causal.agency/libretls/about/
 Source0:        https://causal.agency/libretls/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
@@ -70,7 +70,7 @@ install -D -p -m 0644 README.7 $RPM_BUILD_ROOT%{_mandir}/man7/libtls.7
 
 %files
 %doc README
-%{_libdir}/libtls.so.25*
+%{_libdir}/libtls.so.26*
 %{_mandir}/man7/libtls.7*
 
 %files devel
@@ -85,6 +85,9 @@ install -D -p -m 0644 README.7 $RPM_BUILD_ROOT%{_mandir}/man7/libtls.7
 %endif
 
 %changelog
+* Sat Dec 24 2022 Robert Scheck <robert@fedoraproject.org> 3.7.0-1
+- Upgrade to 3.7.0 (#2156116)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

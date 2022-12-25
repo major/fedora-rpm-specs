@@ -93,7 +93,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -836,6 +836,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 5.1.2-3
+- Rebuild (tesseract)
+
 * Wed Nov 09 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-2
 - Unconditionally enable Vulkan
 

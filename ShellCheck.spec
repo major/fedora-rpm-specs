@@ -8,8 +8,8 @@
 %bcond_with tests
 
 Name:           %{pkg_name}
-Version:        0.8.0
-Release:        3%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Shell script analysis tool
 
 License:        GPLv3+
@@ -30,6 +30,7 @@ BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-containers-prof
 BuildRequires:  ghc-deepseq-prof
 BuildRequires:  ghc-directory-prof
+BuildRequires:  ghc-fgl-prof
 BuildRequires:  ghc-filepath-prof
 BuildRequires:  ghc-mtl-prof
 BuildRequires:  ghc-parsec-prof
@@ -152,6 +153,9 @@ install -Dpm 0644 shellcheck.1 %{buildroot}%{_mandir}/man1/shellcheck.1
 
 
 %changelog
+* Fri Dec 23 2022 Dridi Boukelmoune <dridi@fedoraproject.org> - 0.9.0-1
+* Update to 0.9.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

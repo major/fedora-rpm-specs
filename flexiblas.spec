@@ -16,10 +16,11 @@
 %global major_version 3
 %global minor_version 2
 %global patch_version 1
+%global laapi_version 3.10.1
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3 with an exception for the BLAS/LAPACK interface
@@ -231,8 +232,8 @@ threading support with a 64-integer interface.
 rm -rf contributed
 %endif
 %cmake -B build \
-    -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %if %{with system_lapack}
+    -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas.a \
     -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack_pic.a \
 %endif
@@ -242,8 +243,8 @@ rm -rf contributed
 %make_build -C build
 %if 0%{?__isa_bits} == 64
 %cmake -B build64 \
-    -DCMAKE_INSTALL_PREFIX=%{_prefix} \
 %if %{with system_lapack}
+    -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas64.a \
     -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack_pic64.a \
 %endif
@@ -419,6 +420,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Fri Dec 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 3.2.1-3
+- Specify LAPACK API compatibility level
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

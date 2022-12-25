@@ -1,44 +1,24 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-# Enable python3 build by default
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
-%if 0%{?rhel} > 7 || 0%{?fedora} > 30
-# Disable python2 build by default
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
 Summary: A library for password generation and password quality checking
 Name: libpwquality
-Version: 1.4.4
-Release: 11%{?dist}
+Version: 1.4.5
+Release: 1%{?dist}
+URL: https://github.com/libpwquality/libpwquality/
+Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 # The package is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
 License: BSD or GPLv2+
-Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 
-%global _pwqlibdir %{_libdir}
 %global _moduledir %{_libdir}/security
 %global _secconfdir %{_sysconfdir}/security
 
-Requires: (cracklib-dicts >= 2.8 if passwd)
-Requires: (cracklib-dicts >= 2.8 if cryptsetup)
+# This allows minimal installs to not drag in the big wordlist package
+Suggests: cracklib-dicts >= 2.8
+
 BuildRequires: gcc make
 BuildRequires: cracklib-devel
 BuildRequires: gettext
 BuildRequires: pam-devel
-%if %{with python2}
-BuildRequires: python2-devel
-%endif
-%if %{with python3}
 BuildRequires: python3-devel
-%endif
-
-URL: https://github.com/libpwquality/libpwquality/
 
 %description
 This is a library for password quality checks and generation
@@ -56,20 +36,6 @@ Files needed for development of applications using the libpwquality
 library.
 See the pwquality.h header file for the API.
 
-%if %{with python2}
-%package -n python2-pwquality
-%{?python_provide:%python_provide python2-pwquality}
-Summary: Python bindings for the libpwquality library
-Requires: libpwquality%{?_isa} = %{version}-%{release}
-
-%description -n python2-pwquality
-This is pwquality Python module that provides Python bindings
-for the libpwquality library. These bindings can be used
-for easy password quality checking and generation of random
-pronounceable passwords from Python applications.
-%endif
-
-%if %{with python3}
 %package -n python3-pwquality
 Summary: Python bindings for the libpwquality library
 Requires: libpwquality%{?_isa} = %{version}-%{release}
@@ -79,39 +45,11 @@ This is pwquality Python module that provides Python bindings
 for the libpwquality library. These bindings can be used
 for easy password quality checking and generation of random
 pronounceable passwords from Python applications.
-%endif
 
 %prep
 %setup -q
 
-%if %{with python3} && %{with python2}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-%endif
-
 %build
-%if %{with python2}
-%configure \
-	--with-securedir=%{_moduledir} \
-	--with-pythonsitedir=%{python2_sitearch} \
-	--with-python-binary=%{__python2} \
-	--disable-static
-
-%make_build
-%endif
-%if %{with python3} && %{with python2}
-pushd %{py3dir}
-%endif
-%if %{with python3}
-# setuptools >= 60 changes the environment to use its bundled copy of distutils
-# by default, not the Python-bundled one. To run the Python's standard library
-# distutils, the environment variable must be set.
-# Although technically setuptools is not needed for this package, if it's
-# pulled by another package, it changes the environment and consequently,
-# the build fails. This was reported in:
-# https://github.com/pypa/setuptools/issues/3143
-export SETUPTOOLS_USE_DISTUTILS=stdlib
-
 %configure \
 	--with-securedir=%{_moduledir} \
 	--with-pythonsitedir=%{python3_sitearch} \
@@ -119,30 +57,13 @@ export SETUPTOOLS_USE_DISTUTILS=stdlib
 	--disable-static
 
 %make_build
-%endif
-%if %{with python3} && %{with python2}
-popd
-%endif
 
 %install
 %make_install
 
-%if %{with python3} && %{with python2}
-pushd %{py3dir}
-%make_install -C python
-popd
-%endif
-
-%if "%{_pwqlibdir}" != "%{_libdir}"
-pushd $RPM_BUILD_ROOT%{_libdir}
-mv libpwquality.so.* $RPM_BUILD_ROOT%{_pwqlibdir}
-ln -sf %{_pwqlibdir}/libpwquality.so.*.* libpwquality.so
-popd
-%endif
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -f $RPM_BUILD_ROOT%{_moduledir}/*.la
-
-mkdir $RPM_BUILD_ROOT%{_secconfdir}/pwquality.conf.d
+rm -f %{buildroot}%{_libdir}/*.la
+rm -f %{buildroot}%{_moduledir}/*.la
+mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 
 %find_lang libpwquality
 
@@ -158,7 +79,7 @@ mkdir $RPM_BUILD_ROOT%{_secconfdir}/pwquality.conf.d
 %{_bindir}/pwscore
 %dir %{_moduledir}
 %{_moduledir}/pam_pwquality.so
-%{_pwqlibdir}/libpwquality.so.*
+%{_libdir}/libpwquality.so.*
 %dir %{_secconfdir}
 %config(noreplace) %{_secconfdir}/pwquality.conf
 %dir %{_secconfdir}/pwquality.conf.d
@@ -172,19 +93,16 @@ mkdir $RPM_BUILD_ROOT%{_secconfdir}/pwquality.conf.d
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man3/*
 
-%if %{with python2}
-%files -n python2-pwquality
-%{python2_sitearch}/pwquality.so
-%{python2_sitearch}/*.egg-info
-%endif
-
-%if %{with python3}
 %files -n python3-pwquality
 %{python3_sitearch}/*.so
 %{python3_sitearch}/*.egg-info
-%endif
 
 %changelog
+* Thu Dec 22 2022 Paul Wouters <paul.wouters@aiven.io - 1.4.5-1
+- Resolves: rhbz#2154991 libpwquality fails to build with Python 3.12: ModuleNotFoundError: No module named 'distutils'
+- Resolves: rhbz#2006063 RFE: Support running without cracklib-dicts installed
+- Cleanup and remove python2/3 conditional macros
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,40 +1,15 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
-Version: 3.4
-Release: 4%{?dist}
+Version: 3.5
+Release: 0.rc1.1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/libsepol-3.4.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/libsepol-3.5-rc1.tar.gz
 URL: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N libsepol-3.4 -- libsepol
+# $ git format-patch -N libsepol-3.5-rc1 -- libsepol
 # $ i=1; for j in 0*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
-Patch0001: 0001-libsepol-Drop-unused-assignment.patch
-Patch0002: 0002-libsepol-fix-validation-of-user-declarations-in-modu.patch
-Patch0003: 0003-libsepol-avoid-potential-NULL-dereference-on-optiona.patch
-Patch0004: 0004-libsepol-initialize-s-in-constraint_expr_eval_reason.patch
-Patch0005: 0005-libsepol-utils-improve-wording.patch
-Patch0006: 0006-libsepol-do-not-modify-policy-during-write.patch
-Patch0007: 0007-libsepol-break-circular-include.patch
-Patch0008: 0008-libsepol-include-necessary-headers-in-headers.patch
-Patch0009: 0009-libsepol-enclose-macro-parameters-and-replacement-li.patch
-Patch0010: 0010-libsepol-tests-add-ebitmap-tests.patch
-Patch0011: 0011-libsepol-add-ebitmap_init_range.patch
-Patch0012: 0012-libsepol-cil-use-ebitmap_init_range.patch
-Patch0013: 0013-libsepol-optimize-ebitmap_not.patch
-Patch0014: 0014-libsepol-optimize-ebitmap_and.patch
-Patch0015: 0015-libsepol-optimize-ebitmap_xor.patch
-Patch0016: 0016-libsepol-skip-superfluous-memset-calls-in-ebitmap-op.patch
-Patch0017: 0017-libsepol-rename-validate_policydb-to-policydb_valida.patch
-Patch0018: 0018-libsepol-support-const-avtab_t-pointer-in-avtab_map.patch
-Patch0019: 0019-libsepol-operate-on-const-pointers-during-validation.patch
-Patch0020: 0020-libsepol-rename-parameter-name.patch
-Patch0021: 0021-libsepol-more-strict-validation.patch
-Patch0022: 0022-libsepol-refactor-ebitmap-conversion-in-link.c.patch
-Patch0023: 0023-libsepol-fix-missing-double-quotes-in-typetransition.patch
-Patch0024: 0024-docs-provide-a-top-level-LICENSE-file.patch
-Patch0025: 0025-libsepol-cil-restore-error-on-context-rule-conflicts.patch
 # Patch list end
 BuildRequires: make
 BuildRequires: gcc
@@ -81,7 +56,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 The libsepol-utils package contains the utilities
 
 %prep
-%autosetup -p 2 -n libsepol-%{version}
+%autosetup -p 2 -n libsepol-%{version}-rc1
 
 # sparc64 is an -fPIC arch, so we need to fix it here
 %ifarch sparc64
@@ -131,6 +106,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_mandir}/man8/chkcon.8.gz
 
 %changelog
+* Fri Dec 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
+- SELinux userspace 3.5-rc1 release
+
 * Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-4
 - Rebase on upstream f56a72ac9e86
 

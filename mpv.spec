@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.35.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -175,6 +175,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Dec 23 2022 Nicolas Chauvet <kwizart@gmail.com> - 0.35.0-2
+- Rebuilt for libplacebo
+
 * Sat Nov 12 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.35.0-1
 - Updated to version 0.35.0.
 - Enabled Wayland backend.

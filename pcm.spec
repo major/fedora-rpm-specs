@@ -1,5 +1,5 @@
 Name:           pcm
-Version:        202211
+Version:        202212
 Release:        0%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Dec 23 Roman Dementiev <roman.dementiev@intel.com> 0.1-11
+- Update to version 202212
+
 * Thu Nov 24 2022 Roman Dementiev <roman.dementiev@intel.com> 0.1-10
 - Update to new upstream repository location and the name
 - Update to version 202211

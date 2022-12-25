@@ -1,19 +1,15 @@
-%define libsepolver 3.4-4
-%define libselinuxver 3.4-6
+%define libsepolver 3.5-0
+%define libselinuxver 3.5-0
 
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
-Version: 3.4
-Release: 6%{?dist}
+Version: 3.5
+Release: 0.rc1.1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/libsemanage-3.4.tar.gz
-# fedora-selinux/selinux: git format-patch -N 3.4 -- libsemanage
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/libsemanage-3.5-rc1.tar.gz
+# fedora-selinux/selinux: git format-patch -N 3.5-rc1 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
-Patch0001: 0001-libsemanage-always-write-kernel-policy-when-check_ex.patch
-Patch0002: 0002-libsemanage-Allow-user-to-set-SYSCONFDIR.patch
-Patch0003: 0003-docs-provide-a-top-level-LICENSE-file.patch
-Patch0004: 0004-libsemanage-Remove-dependency-on-the-Python-module-d.patch
 # Patch list end
 URL: https://github.com/SELinuxProject/selinux/wiki
 Source1: semanage.conf
@@ -79,7 +75,7 @@ The libsemanage-python3 package contains the python 3 bindings for developing
 SELinux management applications.
 
 %prep
-%autosetup -n libsemanage-%{version} -p 2
+%autosetup -p 2 -n libsemanage-%{version}-rc1
 
 
 %build
@@ -158,6 +154,9 @@ cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Fri Dec 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
+- SELinux userspace 3.5-rc1 release
+
 * Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-6
 - Rebase on upstream f56a72ac9e86
 

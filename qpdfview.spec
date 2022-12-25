@@ -6,7 +6,7 @@ Name:		qpdfview
 Version:	0.5.0
 #Release:	1%%{?dist}
 # Use the following format for beta
-Release:	0.1.%{?prerelease}%{?dist}
+Release:	0.2.%{?prerelease}%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -184,6 +184,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 0.5.0-0.2.beta1
+- Rebuild (tesseract)
+
 * Sun Nov 13 2022 TI_Eugene <ti.eugene@gmail.com> - 0.5.0-0.1.beta1
 - Version bump
 - Enabled fitz plugin for Fedora (EPUB, FB2, CBR/CBZ etc support)

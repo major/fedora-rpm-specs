@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPLv3+ and CC0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -25,6 +25,8 @@ Patch1:        emacs-spellchecker.patch
 Patch2:        emacs-system-crypto-policies.patch
 Patch3:        emacs-libdir-vs-systemd.patch
 Patch4:        emacs-pdmp-fingerprint.patch
+Patch5:        emacs-configure-c99-1.patch
+Patch6:        emacs-configure-c99-2.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel
@@ -205,6 +207,8 @@ cp -p %{SOURCE3} lib/
 %patch2 -p1 -b .system-crypto-policies
 %patch3 -p1 -b .libdir-vs-systemd
 %patch4 -p1 -b .pdmp-fingerprint
+%patch5 -p1
+%patch6 -p1
 autoconf
 
 grep -v "tetris.elc" lisp/Makefile.in > lisp/Makefile.in.new \
@@ -512,6 +516,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Fri Dec 23 2022 Florian Weimer <fweimer@redhat.com> - 1:28.1-4
+- C99 compatibility fixes for the configure script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:28.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

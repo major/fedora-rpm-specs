@@ -4,7 +4,7 @@
 
 Name:           wise2
 Version:        2.4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Tools for comparison of bio-polymers
 
 ## Everything is licensed under a BSD-style license except for
@@ -21,6 +21,7 @@ Patch2:         %{name}-glib2.patch
 Patch3:         %{name}-getline.patch
 Patch4:         %{name}-ld--as-needed.patch
 Patch5:         %{name}-mayhem.patch
+Patch6:         %{name}-c99.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel, gcc, perl
@@ -54,6 +55,7 @@ Wise2 executables of course should be installed before.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch6 -p1
 
 # Remove spurious-executable-perm
 chmod a-x src/external/mott/mott_api.c
@@ -135,6 +137,9 @@ make -C src test
 %{_datadir}/wise2/examples/
 
 %changelog
+* Fri Dec 23 2022 Peter Fordham <peter.fordham@gmail.com> - 2.4.1-16
+- Fix build for C99 compliance by adding missing headers.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

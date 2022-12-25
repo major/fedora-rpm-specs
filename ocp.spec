@@ -1,11 +1,11 @@
 #global snapshot 0
-%global commit 47a2ba4563dcb07acb21e92073a43b63efc8ea2f
-%global commitdate 20220612
-%global gittag v0.2.100
+%global commit 30b272a5086730ab7f124302ec137ab1fb614e77
+%global commitdate 20221223
+%global gittag v0.2.101
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.100%{?snapshot:^%{commitdate}git%{shortcommit}}
+Version:	0.2.101%{?snapshot:^%{commitdate}git%{shortcommit}}
 Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
@@ -62,7 +62,7 @@ Requires:	unifont-fonts
 
 # Bundled code
 Provides:	bundled(timidity++) = 2.15.0
-Provides:	bundled(libsidplayfp) = 2.4.0a
+Provides:	bundled(libsidplayfp) = 2.5.0a
 Provides:	bundled(adplug) = 2.3.4-beta
 Provides:	bundled(libbinio) = 1.5
 Provides:	bundled(reSID) = 1.0-pre2
@@ -167,6 +167,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Fri Dec 23 2022 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.101-1
+- update to 0.2.101
+
 * Sun Sep 25 2022 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.100-1
 - update to 0.2.100
 

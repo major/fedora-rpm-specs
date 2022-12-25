@@ -1,13 +1,12 @@
-%global libzen_version  0.4.39
+%global libzen_version  0.4.40
 
 Name:           libmediainfo
-Version:        22.09
+Version:        22.12
 Release:        1%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
-Summary(ru):    Библиотека для предоставления полной информации о видео или аудио файле
 
-License:        BSD
-URL:            http://mediaarea.net/MediaInfo
+License:        BSD-2-Clause
+URL:            https://github.com/MediaArea/MediaInfo
 Source0:        http://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
 
 BuildRequires:  cmake
@@ -44,42 +43,13 @@ What format (container) does MediaInfo support?
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
 
-
-%description -l ru
-Данный пакет содержит разделяемую библиотеку для MediaInfo.
-MediaInfo предоставляет полную информацию о видео или аудио файле.
-
-Какая информация может быть получена MediaInfo?
-* Общее: title, author, director, album, track number, date, duration...
-* Видео: codec, aspect, fps, bitrate...
-* Аудио: codec, sample rate, channels, language, bitrate...
-* Текст: язык субтитров
-* Части: число частей, список частей
-
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
-
-Какой формат (контейнер) поддерживает MediaInfo?
-* Видео: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Аудио: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Субтитры: SRT, SSA, ASS, SAMI
-
-
 %package        devel
 Summary:        Include files and mandatory libraries for development
-Summary(ru):    Пакет с файлами для разработки %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libzen-devel%{?_isa} >= %{libzen_version}
 
 %description    devel
 Include files and mandatory libraries for development.
-
-%description    devel -l ru
-Файлы для разработки %{name}.
 
 %prep
 %autosetup -n MediaInfoLib
@@ -133,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Fri Dec 23 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.12-1
+- Update to 22.12
+
 * Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.09-1
 - Update to 22.09
 

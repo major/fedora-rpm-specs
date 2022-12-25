@@ -6,12 +6,16 @@ Version:       0.0.99.3
 %global goipath github.com/containers/%{name}
 %gometa
 
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+# RHEL package is built with vendored dependencies
+# created with gen-vendor-tarball.sh from SOURCE2
+Source1:       %{name}-%{version}-vendor.tar.xz
+Source2:       gen-vendor-tarball.sh
 
 # Fedora specific
 Patch100:      toolbox-Don-t-use-Go-s-semantic-import-versioning.patch
@@ -22,6 +26,7 @@ Patch103:      toolbox-cmd-root-Work-around-Cobra-1.1.2-s-handling-of-usage.patc
 BuildRequires: ShellCheck
 BuildRequires: go-md2man
 BuildRequires: golang >= 1.13
+%if ! 0%{?rhel}
 BuildRequires: golang(github.com/HarryMichal/go-version)
 BuildRequires: golang(github.com/acobaugh/osrelease)
 BuildRequires: golang(github.com/briandowns/spinner) >= 1.10.0
@@ -35,6 +40,7 @@ BuildRequires: golang(github.com/spf13/cobra) >= 0.0.5
 BuildRequires: golang(github.com/spf13/viper) >= 1.3.2
 BuildRequires: golang(golang.org/x/crypto/ssh/terminal)
 BuildRequires: golang(golang.org/x/sys/unix)
+%endif
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: systemd-rpm-macros
@@ -138,8 +144,10 @@ The %{name}-tests package contains system tests for %{name}.
 
 
 %prep
-%setup -q
+%setup -q %{?rhel:-a 1}
+%if ! 0%{?rhel}
 %patch100 -p1
+%endif
 
 %ifnarch ppc64
 %patch101 -p1
@@ -147,7 +155,9 @@ The %{name}-tests package contains system tests for %{name}.
 %patch102 -p1
 %endif
 
+%if ! 0%{?rhel}
 %patch103 -p1
+%endif
 
 %gomkdir
 
@@ -158,6 +168,9 @@ export GOPATH=%{gobuilddir}:%{gopath}
 export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 ln -s src/cmd cmd
 ln -s src/pkg pkg
+%if 0%{?rhel}
+ln -s src/vendor vendor
+%endif
 %meson --buildtype=plain -Dprofile_dir=%{_sysconfdir}/profile.d -Dtmpfiles_dir=%{_tmpfilesdir}
 %meson_build
 
@@ -172,7 +185,7 @@ ln -s src/pkg pkg
 
 %files
 %doc CODE-OF-CONDUCT.md NEWS README.md SECURITY.md
-%license COPYING
+%license COPYING %{?rhel:src/vendor/modules.txt}
 %{_bindir}/%{name}
 %{_datadir}/bash-completion
 %{_mandir}/man1/%{name}.1*
@@ -190,6 +203,9 @@ ln -s src/pkg pkg
 
 
 %changelog
+* Thu Dec 22 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.99.3-8
+- Use vendored dependencies for RHEL/ELN builds
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.99.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

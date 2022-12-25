@@ -24,7 +24,7 @@
 Summary:	Small libc implementation
 Name:		dietlibc
 Version:	0.34
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPLv2
 URL:		http://www.fefe.de/dietlibc/
 %if !0%{?prerelease:1}
@@ -37,6 +37,7 @@ Source0:	%{name}-%{version}.%prerelease.tar.xz
 ## CVS..master diff from https://github.com/ensc/dietlibc
 #Patch0:	dietlibc-github-%%githubref.patch.gz
 Patch1:         dietlibc-insecure-defpath.patch
+Patch2:         dietlibc-c99.patch
 #Requires:	dietlibc-lib = %%{version}-%%{release}}
 Obsoletes:	dietlibc-lib < %{version}-%{release}
 
@@ -83,6 +84,7 @@ This package contains the dynamic libraries for dietlibc.
 
 #%apply -n0 -p1
 %patch1 -p0
+%patch2 -p1
 
 %if %{without ssp}
 sed -i -e 's!^#define WANT_SSP$!// \0!g;
@@ -153,6 +155,9 @@ ulimit -m $[ 128*1024 ] -v $[ 256*1024 ] -d $[ 128*1024 ] -s 512
 %pkglibdir
 
 %changelog
+* Fri Dec 23 2022 Florian Weimer <fweimer@redhat.com> - 0.34-11
+- C99 compatibility fixes (#2156074)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

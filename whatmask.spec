@@ -1,12 +1,12 @@
 Name:           whatmask
 Version:        1.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Convert between different netmask types and show information
 
 License:        GPLv2+
 URL:            http://www.laffeycomputer.com/whatmask.html
 Source0:        http://downloads.laffeycomputer.com/current_builds/whatmask/whatmask-1.2.tar.gz
-
+Patch0:         whatmask-1.2-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 
@@ -18,6 +18,7 @@ interface.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure
@@ -36,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Fri Dec 23 2022 Peter Fordham <peter.fordham@gmail.com> - 1.2-31
+- Port configure script to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

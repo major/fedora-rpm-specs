@@ -28,13 +28,13 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.0.5
-Release: 7%{?dist}
+Version: 3.0.7
+Release: 1%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
 # The original openssl upstream tarball cannot be shipped in the .src.rpm.
-Source: openssl-%{version}-hobbled.tar.xz
+Source: openssl-%{version}-hobbled.tar.gz
 Source1: hobble-openssl
 Source2: Makefile.certificate
 Source3: genpatches
@@ -184,10 +184,10 @@ Patch77: 0077-FIPS-140-3-zeroization.patch
 Patch78: 0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2124845, https://github.com/openssl/openssl/pull/19182
 Patch79: 0079-Fix-AES-GCM-on-Power-8-CPUs.patch
-#CVE-2022-3602
-Patch80: 0080-CVE-2022-3602.patch
-#Provider interface fixes
-Patch81: 0081-EVP_PKEY_eq-regain-compatibility-with-the-3.0.0-FIPS.patch
+# #CVE-2022-3602
+# Patch80: 0080-CVE-2022-3602.patch
+# #Provider interface fixes
+# Patch81: 0081-EVP_PKEY_eq-regain-compatibility-with-the-3.0.0-FIPS.patch
 Patch82: 0082-Propagate-selection-all-the-way-on-key-export.patch
 Patch83: 0083-Update-documentation-for-keymgmt-export-utils.patch
 Patch84: 0084-Add-test-for-EVP_PKEY_eq.patch
@@ -340,7 +340,8 @@ export HASHBANGPERL=/usr/bin/perl
 	zlib enable-camellia enable-seed enable-rfc3779 enable-sctp \
 	enable-cms enable-md2 enable-rc5 ${ktlsopt} enable-fips\
 	no-mdc2 no-ec2m no-sm2 no-sm4 enable-buildtest-c++\
-	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\"" -DREDHAT_FIPS_VERSION="\"%{fips}\""'
+	shared  ${sslarch} $RPM_OPT_FLAGS '-DDEVRANDOM="\"/dev/urandom\"" -DREDHAT_FIPS_VERSION="\"%{fips}\""'\
+	-Wl,--allow-multiple-definition
 
 # Do not run this in a production package the FIPS symbols must be patched-in
 #util/mkdef.pl crypto update
@@ -529,6 +530,13 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Fri Dec 23 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.7-1
+- Rebase to upstream version 3.0.7
+- C99 compatibility in downstream-only 0032-Force-fips.patch
+  Resolves: rhbz#2152504
+- Adjusting include for the FIPS_mode macro
+  Resolves: rhbz#2083876
+
 * Wed Nov 16 2022 Simo sorce <simo@redhat.com> - 1:3.0.5-7
 - Backport patches to fix external providers compatibility issues
 

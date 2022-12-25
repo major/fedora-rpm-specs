@@ -1,10 +1,9 @@
 Name:           libzen
-Version:        0.4.39
-Release:        4%{?dist}
+Version:        0.4.40
+Release:        1%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
-Summary(ru):    Разделяемая библиотека для libmediainfo и medianfo*
 
-License:        zlib
+License:        Zlib
 URL:            https://github.com/MediaArea/ZenLib
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.bz2
 
@@ -17,31 +16,20 @@ BuildRequires:  pkgconfig(zlib)
 %description
 Files shared library for libmediainfo and medianfo-*.
 
-%description -l ru
-Файлы разделяемой библиотеки для libmediainfo и medianfo-*.
-
 %package        doc
 Summary:        Documentation for %{name}
-Summary(ru):    Пакет с документацией для %{name}
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
 %description    doc
 Documentation files.
 
-%description    doc -l ru
-Файлы документации %{name}.
-
 %package        devel
 Summary:        Include files and mandatory libraries for development
-Summary(ru):    Пакет с файлами для разработки %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel
 Include files and mandatory libraries for development.
-
-%description    devel -l ru
-Файлы для разработки %{name}.
 
 %prep
 %autosetup -n ZenLib
@@ -89,6 +77,9 @@ popd
 
 
 %changelog
+* Fri Dec 23 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 0.4.40-1
+- Update to 0.4.40
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

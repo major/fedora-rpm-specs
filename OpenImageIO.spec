@@ -208,7 +208,7 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
-* Sun Dec 22 2022 Richard Shaw <hobbes1069@gmail.com> - 2.4.6.1-1
+* Thu Dec 22 2022 Richard Shaw <hobbes1069@gmail.com> - 2.4.6.1-1
 - Update to 2.4.6.1.
 
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4.2-3

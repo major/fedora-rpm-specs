@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.0.2
+Version:        6.1
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -19,6 +19,7 @@ BuildRequires:  libacl-devel, lzo-devel
 BuildRequires:  pkgconfig(blkid)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(libgcrypt) >= 1.8.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libzstd) >= 1.0.0
 BuildRequires:  python3-sphinx
@@ -90,7 +91,7 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 
 %build
 ./autogen.sh
-%configure CFLAGS="%{optflags} -fno-strict-aliasing" --disable-python
+%configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=libgcrypt --disable-python
 %make_build
 
 pushd libbtrfsutil/python
@@ -145,6 +146,10 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Fri Dec 23 2022 Neal Gompa <ngompa@fedoraproject.org> - 6.1-1
+- Update to 6.1
+- Use libgcrypt for cryptographic hash functions
+
 * Fri Nov 25 2022 Neal Gompa <ngompa@fedoraproject.org> - 6.0.2-1
 - Update to 6.0.2
 

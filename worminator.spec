@@ -1,6 +1,6 @@
 Name:           worminator
 Version:        3.0R2.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Sidescrolling platform and shoot'em up action-game
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/worminator/
@@ -10,6 +10,7 @@ Source2:        worminator.desktop
 Source3:        %{name}.appdata.xml
 Patch0:         worminator-3.0R2.1-speed.patch
 Patch1:         worminator-3.0R2.1-format-security.patch
+Patch2:         worminator-3.0R2.1-c99.patch
 BuildRequires:  gcc
 BuildRequires:  allegro-devel desktop-file-utils libappstream-glib
 Requires:       worminator-data >= 3.0R2.1-2, hicolor-icon-theme
@@ -58,6 +59,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Dec 23 2022 Peter Fordham <peter.fordham@gmail.com> - 3.0R2.1-39
+- Add a missing int for C99 compliance.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

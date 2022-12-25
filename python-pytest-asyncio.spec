@@ -13,7 +13,7 @@ provides useful fixtures and markers to make testing easier.}
 %endif
 
 Name:           python-%{srcname}
-Version:        0.20.2
+Version:        0.20.3
 Release:        %autorelease
 Summary:        Pytest support for asyncio
 License:        ASL 2.0
@@ -37,8 +37,8 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 # disable code quality checks in "testing" extras
-sed -e '/coverage==/d' \
-    -e '/mypy ==/d' \
+sed -e '/coverage >=/d' \
+    -e '/mypy >=/d' \
     -i setup.cfg
 
 %if %{defined el9}

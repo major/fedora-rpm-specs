@@ -1,6 +1,6 @@
 Name:		gnudos
 Version:	1.11
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	The GnuDOS library for GNU/Linux
 
 License:	GPLv3+
@@ -37,6 +37,9 @@ corelib library of functions.
 %setup -q
 
 %build
+%set_build_flags
+# For declarations of fcloseall and strcasestr.
+CFLAGS="$CFLAGS -D_GNU_SOURCE"
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -65,6 +68,9 @@ install -m 0644 -p -D info/mino.info* %{buildroot}%{_infodir}/mino.info
 
 
 %changelog
+* Fri Dec 23 2022 Florian Weimer <fweimer@redhat.com> - 1.11-17
+- Build with -D_GNU_SOURCE (#2156071)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

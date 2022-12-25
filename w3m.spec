@@ -8,7 +8,7 @@
 
 Name:     w3m
 Version:  0.5.3
-Release:  57.git%{gitdate}%{?dist}
+Release:  58.git%{gitdate}%{?dist}
 # UCD is added for EastAsianWidth.txt source
 License:  MIT and UCD
 URL:      http://w3m.sourceforge.net/
@@ -38,6 +38,7 @@ Requires: perl(NKF)
 
 Source0: https://github.com/tats/%{name}/archive/v%{version}+git%{gitdate}/%{name}-%{version}+git%{gitdate}.tar.gz
 Source1: w3mconfig
+Patch0:  https://github.com/tats/w3m/commit/419ca82d57c72242817b55e2eaa4cdbf6916e7fa.patch#/w3m-0.5-3-cve-2022-38223.patch
 
 Summary:  Pager with Web browsing abilities
 Provides: webclient
@@ -110,6 +111,9 @@ rm -f doc*/w3m.1
 %{_libexecdir}/w3m/w3mimgdisplay
 
 %changelog
+* Fri Dec 23 2022 Robert Scheck <robert@fedoraproject.org> - 0.5.3-58.git20220429
+- Added upstream patch to address CVE-2022-38223 (#2126270)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-57.git20220429
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           crudini
-Version:        0.9.3
-Release:        8%{?dist}
+Version:        0.9.4
+Release:        1%{?dist}
 Summary:        A utility for manipulating ini files
 
 License:        GPLv2
@@ -24,7 +24,6 @@ Requires:       python3-iniparse >= 0.3.2
 Patch0:         crudini-el6.patch
 Patch1:         crudini-py2.patch
 Patch2:         crudini-py3.patch
-Patch3:         crudini-pipes.patch
 
 %description
 A utility for easily handling ini files from the command line and shell
@@ -40,12 +39,11 @@ scripts.
 %else
 %patch2 -p1
 %endif
-%patch3 -p1
 
 %build
 
 %install
-install -p -D -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
+install -p -D -m 0755 %{name}.py %{buildroot}%{_bindir}/%{name}
 install -p -D -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 %check
@@ -54,12 +52,15 @@ LC_ALL=en_US.utf8 ./test.sh
 popd
 
 %files
-%doc README COPYING TODO NEWS example.ini
+%doc README.md COPYING TODO NEWS example.ini
 %{_bindir}/%{name}
 %{_mandir}/man1/*
 
 
 %changelog
+* Fri Dec 23 2022 Pádraig Brady <P@draigBrady.com> - 0.9.4-1
+- Latest upstream
+
 * Thu Aug 11 2022 Pádraig Brady <P@draigBrady.com> - 0.9.3-8
 - Fix FTBFS on rawhide by avoiding pipes module warning
 

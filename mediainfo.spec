@@ -1,21 +1,20 @@
-%global libzen_version  0.4.39
+%global libzen_version  0.4.40
 
 Name:           mediainfo
-Version:        22.09
-Release:        1%{?dist}
+Version:        22.12
+Release:        3%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
-Summary(ru):    Предоставляет полную информацию о медиа файле (CLI)
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://mediaarea.net/MediaInfo
 Source0:        http://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
 Source1:        mediainfo-qt.desktop
 Source2:        mediainfo-qt.kde4.desktop
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  pkgconfig(libmediainfo) >= %{version}
 BuildRequires:  pkgconfig(libzen) >= %{libzen_version}
-BuildRequires:  wxGTK-devel
+BuildRequires:  wxWidgets-devel
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  libtool
 BuildRequires:  automake
@@ -50,31 +49,8 @@ What format (container) does MediaInfo support?
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, S-MI
 
-%description -l ru
-MediaInfo CLI (интерфейс командной строки).
-
-Какая информация может быть получена MediaInfo?
-* Общее: title, author, director, album, track number, date, duration...
-* Видео: codec, aspect, fps, bitrate...
-* Аудио: codec, sample rate, channels, language, bitrate...
-* Текст: язык субтитров
-* Части: число частей, список частей
-
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
-
-Какой формат (контейнер) поддерживает MediaInfo?
-* Видео: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Аудио: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Субтитры: SRT, SSA, ASS, SAMI
-
 %package gui
 Summary:    Supplies technical and tag information about a video or audio file (GUI)
-Summary(ru):Предоставляет полную информацию о медиа файле (GUI)
 Requires:   libzen%{?_isa} >= %{libzen_version}
 Requires:   libmediainfo%{?_isa} >= %{version}
 Requires:   hicolor-icon-theme
@@ -101,31 +77,8 @@ What format (container) does MediaInfo support?
 * Audio: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
 * Subtitles: SRT, SSA, ASS, SAMI
 
-%description gui -l ru
-MediaInfo (графический интерфейс пользователя).
-
-Какая информация может быть получена MediaInfo?
-* Общее: title, author, director, album, track number, date, duration...
-* Видео: codec, aspect, fps, bitrate...
-* Аудио: codec, sample rate, channels, language, bitrate...
-* Текст: язык субтитров
-* Части: число частей, список частей
-
-DivX, XviD, H263, H.263, H264, x264, ASP, AVC, iTunes, MPEG-1,
-MPEG1, MPEG-2, MPEG2, MPEG-4, MPEG4, MP4, M4A, M4V, QuickTime,
-RealVideo, RealAudio, RA, RM, MSMPEG4v1, MSMPEG4v2, MSMPEG4v3,
-VOB, DVD, WMA, VMW, ASF, 3GP, 3GPP, 3GP2
-
-Какой формат (контейнер) поддерживает MediaInfo?
-* Видео: MKV, OGM, AVI, DivX, WMV, QuickTime, Real, MPEG-1,
-  MPEG-2, MPEG-4, DVD (VOB) (Codecs: DivX, XviD, MSMPEG4, ASP,
-  H.264, AVC...)
-* Аудио: OGG, MP3, WAV, RA, AC3, DTS, AAC, M4A, AU, AIFF
-* Субтитры: SRT, SSA, ASS, SAMI
-
 %package qt
 Summary:    Supplies technical and tag information about a video or audio file (Qt GUI)
-Summary(ru):Предоставляет полную информацию о медиа файле (Qt GUI)
 Requires:   libzen%{?_isa} >= %{libzen_version}
 Requires:   libmediainfo%{?_isa} >= %{version}
 
@@ -256,6 +209,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Dec 23 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.12-3
+- Update to 22.12
+- Fix EPEL build
+
 * Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.09-1
 - Update to 22.09
 

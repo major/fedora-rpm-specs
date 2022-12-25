@@ -1,17 +1,16 @@
 %global githubname   libbpf
-%global githubver    1.0.0
+%global githubver    1.1.0
 %global githubfull   %{githubname}-%{githubver}
-%global libver       1.0.0
+%global libver       1.1.0
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Libbpf library
 
 License:        LGPLv2 or BSD
 URL:            https://github.com/%{githubname}/%{githubname}
 Source:         https://github.com/%{githubname}/%{githubname}/archive/v%{githubver}.tar.gz
-Patch1:         libbpf-Fix-null-pointer-dereference-in-find_prog_by_.patch
 BuildRequires:  gcc elfutils-libelf-devel elfutils-devel
 BuildRequires: make
 
@@ -71,6 +70,9 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
+* Thu Dec 22 2022 Jiri Olsa <olsajiri@gmail.com> - 2:1.1.0-1
+- release 1.1.0-1
+
 * Tue Dec 20 2022 Jiri Olsa <olsajiri@gmail.com> - 2:1.0.0-4
 - CVE-2022-3606 fix
 
