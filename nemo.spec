@@ -37,7 +37,7 @@ BuildRequires:  pkgconfig(xapp) >= 2.2.0
 
 # the main binary links against libnemo-extension.so
 # don't depend on soname, rather on exact version
-Requires:       nemo-extensions%{?_isa} = %{version}-%{release}
+Requires:       %{name}-extensions%{?_isa} = %{version}-%{release}
 
 %description
 Nemo is the file manager and graphical shell for the Cinnamon desktop
@@ -72,6 +72,7 @@ This package provides the search helpers used by nemo.
 Summary: Support for developing nemo extensions
 License: LGPLv2+
 Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   %{name}-extensions%{?_isa} = %{version}-%{release}
 
 
 %description devel

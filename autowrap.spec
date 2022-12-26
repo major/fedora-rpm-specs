@@ -2,7 +2,7 @@
 
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
-Version: 0.22.10
+Version: 0.22.11
 Release: 1%{?dist}
 License: BSD
 URL: https://pypi.org/project/autowrap/
@@ -13,10 +13,6 @@ BuildArch: noarch
 BuildRequires: boost-devel
 BuildRequires: gcc
 BuildRequires: gcc-c++
-
-%if 0%{?with_python3_other}
-BuildRequires:  python%{python3_other_pkgversion}-devel
-%endif
 
 %description
 This module uses the Cython "header" .pxd files to automatically generate
@@ -39,40 +35,16 @@ Obsoletes: python34-autowrap < 0:%{version}-%{release}
 %description -n python%{python3_pkgversion}-autowrap
 %{summary}.
 
-%if 0%{?with_python3_other}
-%package -n python%{python3_other_pkgversion}-autowrap
-Summary: Generates Python3 Extension modules from [Cython] PXD files
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{name}}
-BuildRequires: python%{python3_other_pkgversion}-devel
-BuildRequires: python%{python3_other_pkgversion}-setuptools
-BuildRequires: python%{python3_other_pkgversion}-pytest
-BuildRequires: python%{python3_other_pkgversion}-Cython
-Requires: python%{python3_other_pkgversion}-Cython%{?_isa}
-
-%description -n python%{python3_other_pkgversion}-autowrap
-%{summary}.
-%endif
-
 %prep
 %setup -qc
 
 ##Remove bundled files
 rm -rf %{name}-release-%{version}/autowrap/data_files/boost
 
-%if 0%{?with_python3_other}
-cp -a %{name}-release-%{version} python%{python3_other_pkgversion}
-%endif
-
 %build
 pushd %{name}-release-%{version}
 %py3_build
 popd
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%py3_other_build
-popd
-%endif
 
 %install
 
@@ -88,21 +60,6 @@ done
 popd
 popd
 
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%py3_other_install
-mv $RPM_BUILD_ROOT%{_bindir}/autowrap $RPM_BUILD_ROOT%{_bindir}/autowrap-%{__python3_other}
-
-mkdir exe && pushd exe
-for i in python%{__python3_other}-autowrap autowrap-v%{version}-%{__python3_other}; do
-  touch -r $RPM_BUILD_ROOT%{_bindir}/autowrap-%{__python3_other} $i
-  install -p $i $RPM_BUILD_ROOT%{_bindir}
-  ln -sf %{_bindir}/autowrap-%{__python3_other} $RPM_BUILD_ROOT%{_bindir}/$i
-done
-popd
-popd
-%endif
-
 %if 0%{?with_tests}
 %check
 pushd %{name}-release-%{version}
@@ -110,14 +67,6 @@ export CPPFLAGS="-I%{_includedir}/boost"
 export CXXFLAGS="-I%{_includedir}/boost"
 py.test-%{python3_version} -v tests
 popd
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-export CPPFLAGS="-I%{_includedir}/boost"
-export CXXFLAGS="-I%{_includedir}/boost"
-py.test-%{__python3_other} -v tests
-popd
-%endif
 %endif
 
 %files -n python%{python3_pkgversion}-autowrap
@@ -130,17 +79,10 @@ popd
 %exclude %{python3_sitelib}/tests
 %{python3_sitelib}/*.egg-info
 
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-autowrap
-%license python%{python3_other_pkgversion}/LICENSE
-%{_bindir}/autowrap-%{__python3_other}
-%{_bindir}/python%{__python3_other}-autowrap
-%{_bindir}/autowrap-v%{version}-%{__python3_other}
-%{python3_other_sitelib}/autowrap/
-%{python3_other_sitelib}/*.egg-info
-%endif
-
 %changelog
+* Sat Dec 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.22.11-1
+- Release 0.22.11
+
 * Sun Oct 30 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.22.10-1
 - Release 0.22.10
 

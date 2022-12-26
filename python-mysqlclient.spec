@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MySQL/mariaDB database connector for Python
 
 License:        GPLv2
@@ -20,10 +20,12 @@ the Python database API.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
+Provides: python3-mysql = %{version}-%{release}
+Obsoletes: python3-mysql < 2.0.0-1
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %if %{with mysqldb}
-%check
 BuildRequires:  python3-pytest
 %endif
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -67,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.1.1-2
+- Provide and Obsolete python3-mysql
+
 * Mon Sep 26 2022 Fabian Affolter <mail@fabian-affolter.ch> - 2.1.1-1
 - Update to latest upstream release 2.1.1 (closes rhbz#2100010)
 

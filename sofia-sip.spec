@@ -1,5 +1,5 @@
 Name:           sofia-sip
-Version:        1.13.9
+Version:        1.13.10
 Release:        1%{?dist}
 Summary:        Sofia SIP User-Agent library
 
@@ -109,6 +109,9 @@ find . -name installdox -delete
 
 
 %changelog
+* Sat Dec 24 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.13.10-1
+- Update for 1.13.10
+
 * Sat Sep 17 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.13.9-1
 - Update for 1.13.9
 

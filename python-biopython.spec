@@ -4,7 +4,7 @@
 
 Name:             python-%{pypi_name}
 Version:          1.80
-Release:          1%{?dist}
+Release:          3%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 
@@ -25,23 +25,22 @@ Summary: Python3 tools for computational molecular biology
 %{?python_provide:%python_provide python3-%{module}}
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-reportlab
-BuildRequires:    python3-numpy
-BuildRequires:    python3-mysql
-BuildRequires:    python3-psycopg2
-BuildRequires:    python3-rdflib
+BuildRequires:    python3dist(setuptools)
+BuildRequires:    python3dist(reportlab)
+BuildRequires:    python3dist(numpy)
+BuildRequires:    python3-mysqlclient
+BuildRequires:    python3dist(psycopg2)
+BuildRequires:    python3dist(rdflib)
 BuildRequires:    mysql-connector-python3
-Requires:         python3-networkx
-Requires:         python3-pygraphviz
+Requires:         python3dist(networkx)
+Requires:         python3dist(pygraphviz)
 Requires:         mysql-connector-python3
-Requires:         python3-reportlab
-Requires:         python3-numpy
-Requires:         python3-mysql
-Requires:         python3-psycopg2
+Requires:         python3dist(reportlab)
+Requires:         python3-mysqlclient
+Requires:         python3dist(psycopg2)
 Requires:         wise2%{?_isa}
 Requires:         flex%{?_isa}
-Requires:         python3-rdflib
+Requires:         python3dist(rdflib)
 
 %description -n python3-%{module}
 A set of freely available Python3 tools for computational molecular
@@ -69,7 +68,6 @@ find Bio -type f -name "*.py" -exec sed -i '/^#![ ]*\/usr\/bin\/.*$/ d' {} 2>/de
 popd
 
 cp -a %{module}-%{version} python3
-# with_python3_other
 
 %build
 pushd python3
@@ -118,6 +116,12 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Sat Dec 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.80-3
+- Use python3-mysqlclient
+
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.80-2
+- Use canonical dependency names
+
 * Thu Nov 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.80-1
 - Release 1.80
 

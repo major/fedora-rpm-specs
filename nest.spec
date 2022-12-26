@@ -93,6 +93,7 @@ BuildRequires:  libneurosim-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
+BuildRequires:  python3-setuptools
 BuildRequires:  readline-devel
 BuildRequires:  Random123-devel
 Requires:       %{name}-common

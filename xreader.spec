@@ -63,7 +63,7 @@ This package contains the shared library files for %{name}.
 
 %package devel
 Summary:	Development files for %{name}
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 This package contains the development files for %{name}.

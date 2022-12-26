@@ -2,7 +2,7 @@
 
 Name:    kf5-libksane
 Summary: SANE Library interface for KDE
-Version: 22.08.3
+Version: 22.12.0
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -15,15 +15,18 @@ URL:     https://invent.kde.org/graphics0/%{framework}
 %endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
 
+BuildRequires: cmake(Qt5Widgets)
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-ki18n-devel
+BuildRequires: kf5-ktextwidgets-devel
 BuildRequires: kf5-kwallet-devel
 BuildRequires: kf5-kwidgetsaddons-devel
-BuildRequires: kf5-ktextwidgets-devel
 BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(Qt5Widgets)
+
+BuildRequires: cmake(KSaneCore)
+
 BuildRequires: pkgconfig(sane-backends)
 
 # translations moved here
@@ -76,6 +79,9 @@ Requires: cmake(Qt5Widgets)
 
 
 %changelog
+* Wed Dec 21 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 

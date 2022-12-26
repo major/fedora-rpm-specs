@@ -1,5 +1,5 @@
 Name:           skanlite
-Version:        22.08.3
+Version:        22.12.0
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
@@ -8,18 +8,20 @@ URL:            https://www.kde.org/applications/graphics/%{name}/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake
-BuildRequires:  cmake(KF5CoreAddons)
-BuildRequires:  cmake(KF5DocTools)
-BuildRequires:  cmake(KF5I18n)
-BuildRequires:  cmake(KF5KIO)
-BuildRequires:  cmake(KF5Sane)
-BuildRequires:  cmake(KF5XmlGui)
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  libpng-devel
 BuildRequires:  qt5-qtbase-devel
+
+BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5DocTools)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5KIO)
+BuildRequires:  cmake(KF5Sane)
+BuildRequires:  cmake(KF5XmlGui)
+BuildRequires:  cmake(KSaneCore)
 
 Requires:       kde-filesystem
 Requires:       khotkeys
@@ -61,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Sun Dec 25 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0
+
 * Fri Nov 04 2022 Marc Deop i Argemí (Private) <marc@marcdeop.com> - 22.08.3-1
 - 22.08.3
 
@@ -195,7 +200,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 * Fri Feb 12 2010 Rex Dieter <rdieter@fedoraproject.org> - 0.4-1
 - skanlite-0.4-kde-4.4.0
 
-* Wed Nov 25 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.3-6 
+* Wed Nov 25 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.3-6
 - rebuild (kdegraphics)
 - use %%find_lang --with-kde
 
@@ -211,7 +216,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 * Tue Jun 23 2009 Sven Lankes <sven@lank.es> - 0.3-2
 - SPEC-Fixes from review
 
-* Mon Jun 22 2009 Sven Lankes <sven@lank.es> - 0.3-1 
+* Mon Jun 22 2009 Sven Lankes <sven@lank.es> - 0.3-1
 - Update to current upstream version
 - Update license tag
 

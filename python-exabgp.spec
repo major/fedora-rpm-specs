@@ -1,104 +1,135 @@
-%global srcname exabgp
-
 Name:           python-exabgp
-Version:        4.0.10
-Release:        14%{?dist}
+Version:        4.2.21
+Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Exa-Networks/exabgp
-Source0:        https://github.com/Exa-Networks/%{srcname}/archive/%{version}.tar.gz
+Source0:        https://github.com/Exa-Networks/exabgp/archive/%{name}-%{version}.tar.gz
+Source1:        exabgp.sysusers.exabgp.conf
+Source2:        exabgp.tmpfiles.exabgp.conf
+Source3:        exabgp.systemd.exabgp.service
+Source4:        exabgp.systemd.exabgp@.service
 
 BuildArch:      noarch
 
 %description
 ExaBGP python module
 
-
-%package -n python3-%{srcname}
+%package -n python3-exabgp
 Summary:        The BGP swiss army knife of networking
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-six
-Conflicts:      python2-%{srcname} < 4.0.10
-%{?python_provide:%python_provide python3-%{srcname}}
+Requires:       python3 >= 3.7
+Obsoletes:      python2-exabgp <= %{version}
+%{?python_provide:%python_provide python3-exabgp}
 
-%description -n python3-%{srcname}
+%description -n python3-exabgp
 The BGP swiss army knife of networking
 
 %package -n exabgp
 Summary:        The BGP swiss army knife of networking
-BuildRequires:  systemd-units
+BuildRequires:  systemd-rpm-macros
 Requires:       systemd
-Requires:       python3-%{srcname} = %{version}-%{release}
+Requires:       python3-exabgp = %{version}-%{release}
 
 %description -n exabgp
 The BGP swiss army knife of networking (exabgp systemd unit)
 
 %prep
-%autosetup -n %{srcname}-%{version}
-%py3_shebang_fix etc/exabgp/run/*
+%autosetup -p1 -n exabgp-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files exabgp
 
-# XXX: setup.py installs binaries in /usr/bin but systemd unit expects it to be in /usr/sbin
+# project installs binaries in /usr/bin but systemd unit expects it to be in /usr/sbin
 mkdir -p %{buildroot}%{_sbindir}
-mv %{buildroot}%{_bindir}/%{srcname} %{buildroot}%{_sbindir}/
+mv %{buildroot}%{_bindir}/exabgp %{buildroot}%{_sbindir}/
 
-# Install health check
-install -p -D -m 0755 bin/healthcheck %{buildroot}%{_sbindir}
-mv %{buildroot}%{_sbindir}/healthcheck %{buildroot}/%{_sbindir}/%{srcname}-healthcheck
+# Install health check with non-generic name
+install -p -m 0755 bin/healthcheck %{buildroot}%{_sbindir}/exabgp-healthcheck
 
 # Install exabgpcli
-install -p -D -m 0755 bin/exabgpcli %{buildroot}%{_bindir}
+install -p -m 0755 bin/exabgpcli %{buildroot}%{_bindir}/
 
 # Configure required directories for the exabgp service
 mkdir -p %{buildroot}/%{_sysconfdir}/exabgp
-mkdir -p %{buildroot}/%{_libdir}/exabgp
-# Install exabgp systemd unit
+
+# Install exabgp systemd unit files
 mkdir -p %{buildroot}/%{_unitdir}
-install -p -D -m 0644 etc/systemd/%{srcname}.service %{buildroot}/%{_unitdir}/%{srcname}.service
+install -p -m 0644 %{SOURCE3} %{buildroot}/%{_unitdir}/exabgp.service
+install -p -m 0644 %{SOURCE4} %{buildroot}/%{_unitdir}/exabgp@.service
 
 # Install man pages
 mkdir -p %{buildroot}/%{_mandir}/man1
-install doc/man/exabgp.1 %{buildroot}/%{_mandir}/man1
+install -p -m 0644 doc/man/exabgp.1 %{buildroot}/%{_mandir}/man1/
 mkdir -p %{buildroot}/%{_mandir}/man5
-install doc/man/exabgp.conf.5 %{buildroot}/%{_mandir}/man5
+install -p -m 0644 doc/man/exabgp.conf.5 %{buildroot}/%{_mandir}/man5/
+
+# Install sysusers.d files
+mkdir -p %{buildroot}%{_sysusersdir}
+install -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/exabgp.conf
+
+# Install tmpfiles.d files
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -p -m 0644 %{SOURCE2} %{buildroot}%{_tmpfilesdir}/exabgp.conf
+
+# Remove examples
+rm -rf %{buildroot}%{_usr}/etc
+
+%check
+%tox
+
+%pre -n exabgp
+%sysusers_create_package exabgp %{SOURCE1}
 
 %post -n exabgp
-%systemd_post %{srcname}.service
+%systemd_post exabgp.service
+# Default env
+[ -f %{_sysconfdir}/exabgp/exabgp.env ] || %{_sbindir}/exabgp --full-ini > %{_sysconfdir}/exabgp/exabgp.env
 
 %preun -n exabgp
-%systemd_preun %{srcname}.service
+%systemd_preun exabgp.service
 
 %postun -n exabgp
-%systemd_postun_with_restart %{srcname}.service
+%systemd_postun_with_restart exabgp.service
 
+%files -n python3-exabgp -f %{pyproject_files}
+%doc README.md
+%license LICENCE.txt
 
-%files -n python3-%{srcname}
-%doc CHANGELOG README.md
-%license COPYRIGHT
-%{python3_sitelib}/*
-
-# Let's split out exabgp service here
 %files -n exabgp
-%attr(755, root, root) %{_sbindir}/%{srcname}-healthcheck
-%attr(755, root, root) %{_sbindir}/%{srcname}
-%attr(755, root, root) %{_bindir}/exabgpcli
-%{_unitdir}/%{srcname}.service
-%dir %{_libdir}/%{srcname}
-%dir %{_datadir}/%{srcname}
-%dir %{_datadir}/%{srcname}/processes
-%dir %{_sysconfdir}/%{srcname}
-%attr(744, root, root) %{_datadir}/%{srcname}/processes/*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
+%{_bindir}/exabgp-healthcheck
+%{_bindir}/exabgpcli
+%{_bindir}/exabgp-cli
+%{_sbindir}/exabgp
+%{_sbindir}/exabgp-healthcheck
+%dir %attr(750,root,exabgp) %{_sysconfdir}/exabgp
+%{_unitdir}/exabgp.service
+%{_unitdir}/exabgp@.service
+%{_mandir}/man1/exabgp.1{,.*}
+%{_mandir}/man5/exabgp.conf.5{,.*}
+%{_sysusersdir}/exabgp.conf
+%{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Sat Dec 24 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-1
+- Update to upstream 4.2.21 (resolves rhbz#1721067)
+- Update license to SPDX format
+- spec file tidy/modernization
+  - derive from current upstream
+  - use modern python build macros
+  - de-glob some files to follow current packaging guidelines
+
+* Sat Dec 24 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.0.10-15
+- Rebuild after PR#5 for pathfix.py location changes (resolves: rhbz#2155194)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.10-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

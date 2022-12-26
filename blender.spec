@@ -39,7 +39,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        3.4.0
+Version:        3.4.1
 Release:        %autorelease
 
 

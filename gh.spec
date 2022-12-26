@@ -4,7 +4,7 @@
 # https://github.com/cli/cli
 %global forgeurl        https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.20.2
+Version:                2.21.1
 
 %gometa -f
 
@@ -26,8 +26,6 @@ Summary:        GitHub’s official command line tool
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
-# Downstream only patch to fix test failures with Go 1.16.
-Patch1:         0001-Remove-t.Setenv-to-restore-compat-with-Go-1.16.patch
 
 BuildRequires:  git-core
 BuildRequires:  sed
@@ -41,11 +39,6 @@ Requires:       git-core
 
 %prep
 %goprep
-
-# Only Fedora 35 still uses Go 1.16
-%if 0%{?fedora} && 0%{?fedora} <= 35
-%patch0 -p1
-%endif
 
 %generate_buildrequires
 %go_generate_buildrequires

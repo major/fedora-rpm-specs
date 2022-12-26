@@ -14,8 +14,8 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit 1d156897ab763d1442b0d6b0341c091f0c38b496
-%global commitdate 20221114
+%global commit 3e486499b9300ce8f9c62bd102e5119b27a2fad1
+%global commitdate 20221123
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
@@ -35,18 +35,16 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 ## upstreamable patches
 
-# Disable wayland sessions when /dev/dri doesn't exist
-# https://bugzilla.redhat.com/1952431
-# https://bugzilla.redhat.com/show_bug.cgi?id=2016788
-# https://bugzilla.redhat.com/show_bug.cgi?id=2016310
-# Submitted: https://github.com/sddm/sddm/pull/1489
-Patch10:       sddm-0.20.0-allow-hiding-wayland-sessions.patch
-
 # Fix race with logind restart, and start seat0 if !CanGraphical on timer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2011991
 # https://bugzilla.redhat.com/show_bug.cgi?id=2016310
 # Submmited: https://github.com/sddm/sddm/pull/1494
 Patch11:       0001-Delay-for-logind-and-fallback-to-seat0.patch
+
+# Support non-default "wayland-?" socket names
+# required for sway, weston, et al
+# Submitted: https://github.com/sddm/sddm/pull/1509
+Patch12:       sddm-0.20.0-support-non-default-wayland-socket-names.patch
 
 ## downstream patches
 Patch101:       sddm-0.20.0-fedora_config.patch
@@ -299,6 +297,11 @@ fi
 
 
 %changelog
+* Sat Dec 24 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221123.3e48649-1
+- Update to new snapshot
+- Add patch to support non-default wayland socket names for sway/weston/etc.
+- Refreshed patch for waiting on logind seat0 initialization
+
 * Mon Nov 14 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221114.1d15689-1
 - Update to new snapshot
 

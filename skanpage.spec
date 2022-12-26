@@ -1,7 +1,7 @@
 %global kf5_min_version 5.87.0
 
 Name:     skanpage
-Version:  22.04.3
+Version:  22.12.0
 Release:  3%{?dist}
 Summary:  Utility to scan images and multi-page documents
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -13,28 +13,29 @@ Source0:  https://download.kde.org/stable/release-service/%{version}/src/%{name}
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules >= %{kf5_min_version}
+BuildRequires:  gcc-c++
 BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
 
 
+BuildRequires:  cmake(Qt5Concurrent)
 BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Widgets)
+BuildRequires:  cmake(Qt5PrintSupport)
 BuildRequires:  cmake(Qt5Qml)
 BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5Concurrent)
-BuildRequires:  cmake(Qt5PrintSupport)
+BuildRequires:  cmake(Qt5Widgets)
 
 
-BuildRequires:  cmake(KF5Kirigami2)  >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)       >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Plasma)     >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Sane)       >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Crash)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Purpose)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons) >= %{kf5_min_version}
 BuildRequires:  cmake(KF5Config)     >= %{kf5_min_version}
+BuildRequires:  cmake(KF5CoreAddons) >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Crash)      >= %{kf5_min_version}
+BuildRequires:  cmake(KF5I18n)       >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Kirigami2)  >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Plasma)     >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Purpose)    >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Sane)       >= %{kf5_min_version}
+BuildRequires:  cmake(KSaneCore)
 
 Requires: qt5-qtquickcontrols2
 Requires: kf5-kirigami2              >= %{kf5_min_version}
@@ -76,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Sun Dec 25 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
+- Update to 22.12.0
+
 * Thu Jul 28 2022 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 22.04.3-3
 - sane-backends-drivers-scanners recommendation for additional scanner added.
 

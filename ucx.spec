@@ -11,8 +11,8 @@
 %bcond_with    vfs
 
 Name: ucx
-Version: 1.13.0
-Release: 3%{?dist}
+Version: 1.13.1
+Release: 1%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD
@@ -289,6 +289,9 @@ library internals, protocol objects, transports status, and more.
 %endif
 
 %changelog
+* Sat Dec 24 2022 Benson Muite <mschmidt@redhat.com> - 1.13.1-1
+- Update to upstream release 1.13.0
+
 * Wed Aug 03 2022 Michal Schmidt <mschmidt@redhat.com> - 1.13.0-3
 - Update to upstream release 1.13.0
 - Drop autogen.sh call. Upstream tarball does not have it anymore.

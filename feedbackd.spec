@@ -1,11 +1,16 @@
+%global gmobile_commit 1039e7808195d4de367ce2718481641ca8af2427
+
 Name:           feedbackd
-Version:        0.0.1
+Version:        0.0.2
 Release:        1%{?dist}
 Summary:        Feedback library for GNOME
 
 License:        GPLv3+
 URL:            https://source.puri.sm/Librem5/feedbackd
 Source0:        https://source.puri.sm/Librem5/feedbackd/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+Source1:		https://gitlab.gnome.org/guidog/gmobile/-/archive/%{gmobile_commit}/gmobile-%{gmobile_commit}.tar.gz
+
+Patch0:		0000-add-dbus-source-deps.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -46,8 +51,11 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%setup -a1 -q -n %{name}-v%{version}
+%patch0 -p1
 
+rmdir subprojects/gmobile
+mv gmobile-%{gmobile_commit} subprojects/gmobile
 
 %build
 %meson
@@ -65,6 +73,7 @@ install -D -m 644 debian/feedbackd.udev %{buildroot}%{_udevrulesdir}/90-feedback
 
 %files
 %{_bindir}/fbcli
+%{_bindir}/fbd-theme-validate
 %{_libexecdir}/feedbackd
 %{_libexecdir}/fbd-ledctrl
 %{_udevrulesdir}/90-feedbackd.rules
@@ -85,6 +94,9 @@ install -D -m 644 debian/feedbackd.udev %{buildroot}%{_udevrulesdir}/90-feedback
 %{_libdir}/pkgconfig/libfeedback-0.0.pc
 
 %changelog
+* Thu Dec 15 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.2-1
+- Update to 0.0.2
+
 * Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.1-1
 - Update to 0.0.1
 
