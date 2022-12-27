@@ -1,5 +1,5 @@
 Name:           perl-Mojolicious
-Version:        9.30
+Version:        9.31
 Release:        1%{?dist}
 Summary:        A next generation web framework for Perl
 License:        Artistic 2.0
@@ -143,6 +143,9 @@ mv README.md lib/Mojolicious/
 %{perl_vendorlib}/Test
 
 %changelog
+* Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 9.31-1
+- Update to 9.31
+
 * Mon Nov 28 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 9.30-1
 - Update to 9.30
 

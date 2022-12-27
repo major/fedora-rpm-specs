@@ -1,6 +1,6 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Gives a fake chroot environment
 License:        LGPLv2+
 URL:            https://github.com/dex4er/fakechroot
@@ -9,12 +9,9 @@ Patch1:         https://github.com/dex4er/fakechroot/commit/b42d1fb9538f680af2f3
 Patch2:         https://github.com/dex4er/fakechroot/pull/80.patch
 Patch3:         https://github.com/dex4er/fakechroot/pull/100.patch
 Patch4:         https://github.com/dex4er/fakechroot/pull/104.patch
-Patch5:         https://github.com/dex4er/fakechroot/pull/93.patch
-Patch9:         fix_test_on_32bits.patch
+Patch5:         https://github.com/dex4er/fakechroot/pull/93.diff
+#Patch9:         fix_test_on_32bits.patch
 
-
-
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libtool
@@ -22,9 +19,10 @@ BuildRequires:  make
 BuildRequires:  gcc
 # Required for manpage
 BuildRequires:  /usr/bin/pod2man
-BuildRequires:  gdbm-libs
+# BuildRequires:  gdbm-libs
 # ldd.fakechroot
 Requires:       /usr/bin/objdump
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 fakechroot runs a command in an environment were is additionally
@@ -83,6 +81,10 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Sun Dec 25 2022 Sérgio Basto <sergio@serjux.com> - 2.20.1-13
+- PR #104 have more 2 commits
+- Patch to fix test on 32bits is not needed anymore, maybe glibc was fixed (on 32 bits), I don't know
+
 * Sat Oct 29 2022 Sérgio Basto <sergio@serjux.com> - 2.20.1-12
 - All changes to fakechroot we carry in Debian for glibc >= 2.34 #104
   check return value of dladdr #70

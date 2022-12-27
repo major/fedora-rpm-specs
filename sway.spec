@@ -1,7 +1,7 @@
-%global tag     1.8-rc1
+%global tag     1.8
 
 Name:           sway
-Version:        1.8~rc1
+Version:        1.8
 Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
@@ -199,6 +199,9 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Sun Dec 25 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8-1
+- Update to 1.8
+
 * Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8~rc1-1
 - Update to 1.8-rc1
 - Create two sway-config- packages with different sets of dependencies.

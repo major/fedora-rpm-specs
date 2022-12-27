@@ -81,7 +81,7 @@ exit 0
 xvfb-run \
 	-s "-screen 0 640x480x24" \
 	ruby \
-		-Ilib:.:./ext \
+		-Ilib:.:%{buildroot}%{gem_extdir_mri} \
 		-e "Dir.glob('test/test_*.rb').each { |f| require f }"
 popd
 %endif
@@ -103,6 +103,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-22
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

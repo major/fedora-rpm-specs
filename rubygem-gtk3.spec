@@ -8,7 +8,7 @@
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
 Version:	4.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Various files in gem
 License:	LGPLv2+
@@ -149,7 +149,7 @@ xvfb-run \
 %if 0%{?fedora} >= 25
 	-s "-screen 0 640x480x24 $RANDR_OPTS" \
 %endif
-	ruby -I../lib:.:../ext/%{gem_name} run-test.rb
+	ruby -I../lib:.:%{buildroot}%{gem_extdir_mri} run-test.rb
 cd ..
 
 %ifarch %arm
@@ -188,6 +188,10 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Fri Sep 16 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-1
 - 4.0.3
 

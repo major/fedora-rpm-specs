@@ -3,7 +3,7 @@
 
 # https://github.com/leonelquinteros/gotext
 %global goipath         github.com/leonelquinteros/gotext
-Version:                1.5.0
+Version:                1.5.1
 
 %gometa
 
@@ -18,7 +18,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Golang GNU gettext utilities package
 
-License:        MIT
+License:        MIT AND BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

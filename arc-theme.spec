@@ -7,7 +7,7 @@ like Gnome, Cinnamon, Budgie, Pantheon, XFCE, Mate, etc.
 
 
 Name:		arc-theme
-Version:	20220405
+Version:	20221218
 Release:	%autorelease
 Summary:	Flat theme with transparent elements
 

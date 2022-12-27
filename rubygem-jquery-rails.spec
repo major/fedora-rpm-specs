@@ -8,7 +8,7 @@
 %global jquery2_version 2.2.4
 #%%global jquery2_system_version 2.2.4
 %global jquery3_version 3.5.1
-%global jquery3_system_version 3.6.0
+%global jquery3_system_version 3.6.3
 
 # In case bundled jQuery should be used, comment out appropriate line.
 # jQuery {1,2}.x were dropped from Fedora.
@@ -19,7 +19,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Use jQuery with Rails 4+
 License: MIT
 URL: https://github.com/rails/jquery-rails
@@ -135,6 +135,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-4
+- Bump jquery3_system_version to 3.6.3
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

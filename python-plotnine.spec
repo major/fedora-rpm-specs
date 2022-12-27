@@ -33,6 +33,8 @@ Version:        0.10.1
 Release:        %{autorelease}
 Summary:        Implementation of a grammar of graphics in Python, based on ggplot2
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 # BSD-3-Clause applies to plotnine/themes/seaborn_rcmod.py
 # GPL-2.0-only applies to plotnine/themes/theme_tufte.py

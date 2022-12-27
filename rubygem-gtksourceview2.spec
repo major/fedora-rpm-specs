@@ -11,7 +11,7 @@
 Summary:	Ruby binding of gtksourceview-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -129,7 +129,7 @@ popd
 sed -i test/run-test.rb \
 	-e '\@exit Test::Unit::AutoRunner@s|,[ \t]*File\.join(.*"test")||'
 xvfb-run \
-	ruby -Ilib:test:ext/%{gem_name} ./test/run-test.rb
+	ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb
 
 %files
 %dir	%{gem_instdir}
@@ -155,6 +155,10 @@ xvfb-run \
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-8
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global abi_ver 11
 
 Name:           wlroots
-Version:        0.16.0
+Version:        0.16.1
 Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
@@ -35,15 +35,10 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
-# Backports for 0.16.1 bugfix release: git format-patch --stdout 0.16.0..0.16
-Patch0:         wlroots-0.16-backports.patch
 
 # Fedora patches
 # Following patch is required for phoc.
 Patch10:        Revert-layer-shell-error-on-0-dimension-without-anch.patch
-
-# Patches for compatibility with older Fedora releases (module or copr builds)
-Patch20:        wlroots-0.16-libdrm-2.4.109-compat.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
@@ -106,9 +101,6 @@ Development files for %{name}.
 # apply unconditional patches
 %autopatch -p1 -M19
 # apply conditional patches
-%if 0%{?fedora} && 0%{?fedora} < 37
-%patch20 -p1 -b .libdrm
-%endif
 
 
 %build
@@ -151,6 +143,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sun Dec 25 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.1-1
+- Update to 0.16.1
+
 * Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.0-1
 - Update to 0.16.0 (#2142159)
 - Add patch for compatibility with older libdrm

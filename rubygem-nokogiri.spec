@@ -1,7 +1,7 @@
 %global	mainver		1.13.10
 #%%global	prever		.rc4
 
-%global	mainrel		1
+%global	mainrel		2
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -239,7 +239,7 @@ fi
 %endif
 
 env \
-	RUBYLIB=".:lib:test:ext" \
+	RUBYLIB=".:lib:test:%{buildroot}%{gem_extdir_mri}" \
 	ruby \
 	-e \
 	"require 'test/helper' ; Dir.glob('test/**/test_*.rb'){|f| require f}" || \
@@ -274,6 +274,10 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-2
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Fri Dec  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-1
 - 1.13.10
 - Address CVE-2022-23476

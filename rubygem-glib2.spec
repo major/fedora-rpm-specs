@@ -9,7 +9,7 @@
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -173,7 +173,7 @@ export PATH=$(pwd):$PATH
 popd
 
 # Currently Fedora 30 sees test failure, need reporting
-ruby -Ilib:test:ext/%{gem_name} ./test/run-test.rb
+ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb
 
 popd
 
@@ -227,6 +227,10 @@ popd
 
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Fri Sep 16 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-1
 - 4.0.3
 

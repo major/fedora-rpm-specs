@@ -1,11 +1,20 @@
+%global forgeurl https://github.com/flareteam/flare-engine
+
 %global shortname flare
+
 Name:       flare-engine
-Version:    1.13.04
-Release:    2%{?dist}
+Version:    1.14
+Release:    %autorelease
+
+%forgemeta
+
 Summary:    A single player, 2D-isometric, action Role-Playing Engine
-License:    GPLv3+
+
+# cmake/FindSDL2* is BSD-3-Clause
+# https://github.com/flareteam/flare-engine/commit/777b3da2179f3f39fa1b8afdd0cc284b2069d065
+License:    GPL-3.0-or-later AND BSD-3-Clause
 URL:        http://www.flarerpg.org
-Source0:    https://github.com/flareteam/flare-game/releases/download/v%{version}/%{name}-v%{version}.tar.gz
+Source0:    %{forgesource}
 
 Requires:   liberation-sans-fonts
 Requires:   unifont-fonts
@@ -23,8 +32,8 @@ BuildRequires: unifont-fonts
 
 %description
 Flare (Free Libre Action Roleplaying Engine) is a simple game engine built to
-handle a very specific kind of game: single-player 2D action RPGs. Flare is not 
-a re-implementation of an existing game or engine. It is a tribute to and 
+handle a very specific kind of game: single-player 2D action RPGs. Flare is not
+a re-implementation of an existing game or engine. It is a tribute to and
 exploration of the action RPG genre.
 
 Rather than building a very abstract, robust game engine, the goal of this
@@ -39,7 +48,7 @@ This package contains the engine only.
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -q -n %{name}-%{version}
 
 
 %build
@@ -78,7 +87,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{shortname}.desktop
 
 
 %files
-%doc COPYING README.engine.md CREDITS.engine.txt RELEASE_NOTES.txt
+%doc README.engine.md CREDITS.engine.txt RELEASE_NOTES.txt
+%license COPYING
 %{_bindir}/%{shortname}
 %{_datadir}/%{shortname}/
 %{_datadir}/applications/%{shortname}.desktop
@@ -87,82 +97,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{shortname}.desktop
 
 
 %changelog
-* Thu Aug 25 2022 Sandro <gui1ty@penguinpee.nl> - 1.13.04-2
-- Fixed issues in spec file
-
-* Mon Aug 22 2022 Sandipan Roy <bytehackr@fedoraproject.org> - 1.13.04-1
-- Update to 1.13.04
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jan 31 2022 Justin Jacobs <jajdorkster@gmail.com> - 1.13-1
-- Update to 1.13
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-6
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Sep 09 2018 Erik Schilling <ablu.erikschilling@googlemail.com> - 1.07-1
-- Updated to 1.07
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.19-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.19-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 0.19-4
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Wed Aug 06 2014 Erik Schilling <ablu.erikschilling@googlemail.com> - 0.19-3
-- Added -print to find call
-
-* Wed Jul 30 2014 Erik Schilling <ablu.erikschilling@googlemail.com> - 0.19-2
-- Actually apply system gfx patch
-- Disallow the project to override environment compiler flags
-- Delete bundeled ttf and use symlink
-- Added missing mail address to changelog
-
-* Sat Mar 01 2014 Erik Schilling <ablu.erikschilling@googlemail.com> - 0.19-1
-- Seperated out engine into a seperate package like upstream did
-- Previously this engine was part of the flare package
+%autochangelog

@@ -1,6 +1,6 @@
 Name:           perl-Data-Printer
-Version:        1.000004
-Release:        7%{?dist}
+Version:        1.001000
+Release:        1%{?dist}
 Summary:        Pretty printer for Perl data structures
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Printer
@@ -90,6 +90,9 @@ formatted to be inspected by a human.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.001000-1
+- Update to 1.001000
+
 * Mon Aug 01 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.000004-7
 - Rework dependencies
 

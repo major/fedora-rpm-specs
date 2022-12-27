@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ruby libcurl bindings
 License: Ruby
 URL: https://github.com/taf2/curb
@@ -59,6 +59,7 @@ pushd .%{gem_instdir}
 sed -i '/^  def test_connection_keepalive/ a omit' \
   tests/tc_curl_multi.rb
 
+export RUBYLIB=lib:%{buildroot}%{gem_extdir_mri}
 ruby -e 'Dir.glob "./tests/tc_*.rb", &method(:require)'
 popd
 
@@ -78,6 +79,10 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.1-2
+- Use %%gem_extdir_mri due to ruby3.2 change
+  for ext cleanup during build
+
 * Mon Aug 08 2022 Vít Ondruch <vondruch@redhat.com> - 1.0.1-1
 - Update to curb 1.0.1.
   Resolves: rhbz#2080496

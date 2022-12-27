@@ -22,6 +22,8 @@ Patch0:		%{name}-%{version}_relax_versions.patch
 License:	MIT
 URL:		https://www.spyder-ide.org/
 BuildArch:	noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 
 %description

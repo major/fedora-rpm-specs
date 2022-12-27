@@ -9,7 +9,7 @@
 Summary:	A Fast, Enjoyable HTML Parser for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.8.6
-Release:	38%{?dist}
+Release:	39%{?dist}
 # ext/fast_xs/FastXsService.java is licensed under ASL 2.0
 License:	MIT and ASL 2.0
 URL:		http://github.com/hpricot/hpricot
@@ -125,7 +125,7 @@ pushd .%{gem_instdir}
 # problem reported here: https://github.com/hpricot/hpricot/issues/52
 LANG=C.UTF-8
 ruby \
-	-Ilib:.:ext/hpricot_scan:ext/fast_xs:test \
+	-Ilib:.:%{buildroot}%{gem_extdir_mri}:test \
 	-e "gem 'test-unit' ; Dir.glob('test/test_*.rb').each { |f| require f }"
 
 popd
@@ -143,6 +143,10 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.6-39
+- Add %%gem_extdir_mri for RUBYLIB for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Mon Oct  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.6-38
 - Fix build with ruby3.2 (wrt removal of Fixnum)
 

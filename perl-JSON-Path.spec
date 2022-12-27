@@ -1,5 +1,5 @@
 Name:           perl-JSON-Path
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Search nested hashref/arrayref structures using JSONPath
 
@@ -79,6 +79,9 @@ like structures.
 
 
 %changelog
+* Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.3-1
+- Update to 1.0.3
+
 * Sun Sep 11 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.2-1
 - Update to 1.0.2
 

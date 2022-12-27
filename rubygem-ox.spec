@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.14.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
@@ -77,8 +77,8 @@ chmod -x %{buildroot}%{gem_instdir}/examples/*
 %check
 cp -pr test/ ./%{gem_instdir}
 pushd ./%{gem_instdir}
-ruby -Ilib:test test/tests.rb
-ruby -Ilib:test test/sax/sax_test.rb
+ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} test/tests.rb
+ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} test/sax/sax_test.rb
 rm -rf test/
 popd
 
@@ -99,6 +99,10 @@ popd
 
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.11-4
+- Add %%gem_extdir_mri for RUBYLIB for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Tue Dec 20 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.11-3
 - Backport upstream patch for Ox.dump order change on ruby3.2
 

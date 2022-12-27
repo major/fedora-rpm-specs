@@ -1,6 +1,6 @@
 Name:           atari++
-Version:        1.84
-Release:        3%{?dist}
+Version:        1.85
+Release:        1%{?dist}
 Summary:        Unix based emulator of the Atari 8-bit computers
 
 License:        TPL
@@ -89,6 +89,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Dec 25 2022 Dan Horák <dan[at]danny.cz> - 1.85-1
+- updated to version 1.85 (rhbz#2156202)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.84-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

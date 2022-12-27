@@ -10,7 +10,7 @@
 Summary:	Ruby binding of gio-2.0.x
 Name:		rubygem-%{gem_name}
 Version:	4.0.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -142,7 +142,7 @@ sed -i test/run-test.rb \
 	-e '\@exit Test::Unit::AutoRunner@s|,[ \t]*File\.join(.*"test")||'
 sed -i test/run-test.rb \
 	-e '\@run-test@s|require_relative "../../|require "|'
-ruby -rrubygems -Ilib:test:ext/%{gem_name} test/run-test.rb || \
+ruby -rrubygems -Ilib:test:%{buildroot}%{gem_extdir_mri} test/run-test.rb || \
 	false
 
 cd ..
@@ -176,6 +176,10 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Fri Sep 16 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-1
 - 4.0.3
 

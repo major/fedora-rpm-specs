@@ -1,23 +1,33 @@
+%global gitver 0
+
+%if 0%{?gitver}
 %global  commit      f0a089a12dca9e2fd9543c8e8086ac70f7058513
 %global  date        .20210630git
 %global  shortcommit %(c=%{commit}; echo ${c:0:8})
+%else
+%global  commit      %{nil}
+%global  date        %{nil}
+%global  shortcommit %{nil}
+%endif
 
 Name: python-dmidecode
 Summary: Python module to access DMI data
-Version: 3.12.2
-Release: 29%{date}%{shortcommit}%{?dist}
+Version: 3.12.3
+Release: 1%{date}%{shortcommit}%{?dist}
 License: GPLv2
 URL: https://github.com/nima/python-dmidecode
-Source0: %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-Patch0: python-dmidecode-use_python3.patch
+Patch0: python-dmidecode-rhbz2154949.patch
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libxml2-devel
-
 BuildRequires: python3-devel
 BuildRequires: libxml2-python3
+%if 0%{?python3_version_nodots} >= 312
+BuildRequires: python3-setuptools
+%endif
 
 %global _description\
 python-dmidecode is a python extension module that uses the\
@@ -36,15 +46,16 @@ Requires: libxml2-python3
 
 
 %prep
-%autosetup -n %{name}-%{commit} -N
+%autosetup -n %{name}-%{version} -N
 %patch0 -p1 -b .backup
 
 %build
 # -std=gnu89 is there to avoid `undefined symbol: dmixml_GetContent`
 export PYTHON_BIN=%{__python3}
-export PYTHON_VERSION=%{python3_version}
 export CFLAGS="%{build_cflags} -std=gnu89"
+export CXXFLAGS="%{build_cxxflags} -std=gnu89"
 export CC=gcc
+export CXX=g++
 %make_build
 
 %install
@@ -61,12 +72,15 @@ make -C unit-tests
 %license doc/LICENSE
 %doc README doc/AUTHORS doc/AUTHORS.upstream
 %{python3_sitearch}/dmidecodemod.cpython-%{python3_version_nodots}*.so
-%{python3_sitearch}/__pycache__/dmidecode.cpython-%{python3_version_nodots}*.py[co]
-%{python3_sitearch}/dmidecode.py
+%pycached %{python3_sitearch}/dmidecode.py
 %{python3_sitearch}/*.egg-info
-%{_datadir}/python-dmidecode/
+%{_datadir}/%{name}/
 
 %changelog
+* Sun Dec 25 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-1
+- Release 3.12.3
+- Temporary fix for rhbz#2154949
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.2-29.20210630gitf0a089a1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

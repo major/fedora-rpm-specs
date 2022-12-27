@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        58
+Version:        59
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
@@ -33,6 +33,10 @@ BuildRequires: libappstream-glib-devel
 
 Requires:       cockpit-bridge
 Requires:       podman >= 2.0.4
+# HACK https://github.com/containers/crun/issues/1091
+%if 0%{?fedora} == 36 || 0%{?fedora} == 37 || 0%{?centos} == 9
+Requires:       criu-libs
+%endif
 
 %description
 The Cockpit user interface for Podman containers.
@@ -54,6 +58,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Dec 22 2022 Packit <hello@packit.dev> - 59-1
+- Start using tabular fonts
+- Other UI fixes and improvements
+
+
 * Thu Dec 01 2022 Packit <hello@packit.dev> - 58-1
 - Performance and stability improvements
 

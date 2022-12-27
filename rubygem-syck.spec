@@ -3,7 +3,7 @@
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
 Version:	1.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # README.rdoc
 License:	MIT
@@ -88,7 +88,7 @@ require 'syck'
 EOF
 
 ruby \
-	-Ilib:test:.:ext/%{gem_name} \
+	-Ilib:test:.:%{buildroot}%{gem_extdir_mri} \
 	-Ilib:test:. \
 	-e 'Dir.glob( "test/test_*.rb" ).sort.each {|f| require f }' \
     %{nil}
@@ -108,6 +108,10 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-4
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

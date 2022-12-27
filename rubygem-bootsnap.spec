@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -81,7 +81,7 @@ sed -i -e "/^\s*assert(stable.stable?,/ s/^/#/g" \
        -e "/^\s*Bundler/ s/^/#/g" \
   test/load_path_cache/path_test.rb
 
-ruby -rpathname -rset -Ilib:test:ext -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+ruby -rpathname -rset -Ilib:test:%{buildroot}%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 
@@ -109,6 +109,10 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.7-8
+- Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
+  for ext cleanup during build
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
