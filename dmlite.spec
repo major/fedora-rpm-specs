@@ -105,7 +105,7 @@
 
 Name: dmlite
 Version: 1.15.2
-Release: 11%{?dist}%{?_with_asan:.asan}
+Release: 12%{?dist}%{?_with_asan:.asan}
 Summary: Lcgdm grid data management and storage framework
 Group: Applications/Internet
 License: ASL 2.0
@@ -1096,6 +1096,11 @@ install -p -d -m 755 %{buildroot}%{_localstatedir}/log/dpm-gsiftp
 
 
 %changelog
+* Mon Dec 26 2022 Petr Vokac <petr.vokac@cern.ch> - 1.15.2-12
+- Improve dCache migration
+- Replace python distiutils with sysconfig
+
+
 * Tue Oct 11 2022 Petr Vokac <petr.vokac@cern.ch> - 1.15.2-11
 - Support for DPM to dCache 8.2 migration
 

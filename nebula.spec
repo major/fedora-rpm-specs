@@ -36,7 +36,7 @@ Conflicts:      nebula < 1.0
 %prep
 %goprep
 # https://github.com/slackhq/nebula/pull/791
-sed -i 's/\(Wants=.*\)$/\1 nss-lookup.target/' dist/fedora/nebula.service
+sed -i 's/\(Wants=.*\)$/\1 nss-lookup.target time-sync.target/' dist/fedora/nebula.service
 
 %generate_buildrequires
 %go_generate_buildrequires

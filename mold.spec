@@ -2,7 +2,7 @@
 %undefine __cmake_in_source_build
 
 Name:		mold
-Version:	1.7.1
+Version:	1.8.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -19,9 +19,6 @@ Patch0:		tbb-strip-werror.patch
 
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# Fix out-of-bounds error on ARM (https://github.com/rui314/mold/pull/877)
-Patch2:		0002-Fix-out-of-bounds-error-on-aarch64-with-_GLIBCXX_ASS.patch
 
 # mold currently cannot produce native binaries for MIPS
 ExcludeArch:	%{mips}
@@ -103,13 +100,17 @@ fi
 %ghost %{_bindir}/ld
 %{_bindir}/mold
 %{_bindir}/ld.mold
-%{_bindir}/ld64.mold
 %{_libdir}/mold/mold-wrapper.so
 %{_libexecdir}/mold/ld
 %{_mandir}/man1/ld.mold.1*
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Mon Dec 26 2022 Christoph Erhardt <fedora@sicherha.de> - 1.8.0-1
+- Bump version to 1.8.0
+- Drop upstreamed patch
+- Refresh patch
+
 * Sat Nov 19 2022 Christoph Erhardt <fedora@sicherha.de> - 1.7.1-1
 - Bump version to 1.7.1
 

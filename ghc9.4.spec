@@ -95,12 +95,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.4.3
+Version: 9.4.4
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -143,7 +143,6 @@ Patch26: no-missing-haddock-file-warning.patch
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
-# and retired arches: alpha sparcv9 armv5tel
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
@@ -366,6 +365,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD parsec-3.1.15.0
 %ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
+# see below for rts
 %ghc_lib_subpackage -d -l BSD stm-2.5.1.0
 %ghc_lib_subpackage -d -l BSD template-haskell-2.19.0.0
 %ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
@@ -965,8 +965,16 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Dec 26 2022 Jens Petersen <petersen@redhat.com> - 9.4.4-15
+- https://www.haskell.org/ghc/blog/20221224-ghc-9.4.4-released.html
+- https://downloads.haskell.org/~ghc/9.4.4/docs/users_guide/9.4.4-notes.html
+
 * Tue Nov 22 2022 Florian Weimer <fweimer@redhat.com> - 9.4.3-14
 - Avoid implicit declaration of exit in configure check
+
+* Wed Nov  9 2022 Jens Petersen <petersen@redhat.com> - 9.4.3-13
+- epel9: disable hadrian for s390x (#2141054)
+- epel9: disable docs on s390x with make
 
 * Fri Nov  4 2022 Jens Petersen <petersen@redhat.com> - 9.4.3-12
 - https://www.haskell.org/ghc/blog/20221103-ghc-9.4.3-released.html

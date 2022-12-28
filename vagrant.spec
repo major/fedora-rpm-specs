@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.2.19
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -31,6 +31,15 @@ Patch1: vagrant-2.2.9-do-not-load-dependencies.patch
 # Fix spec test suite for new rspec-mocks.
 # https://github.com/hashicorp/vagrant/pull/12699
 Patch2: vagrant-2.2.19-fix-3.1-compatibility.patch
+# ruby3.2 removes Object#=~
+# https://github.com/hashicorp/vagrant/pull/13034 (currently under review)
+Patch3: vagrant-pr13034-ruby32-object-regex-match-removal.patch
+# ruby3.2 removes File.exists
+# https://github.com/hashicorp/vagrant/pull/12913
+Patch4: vagrant-pr12913-ruby32-File_exists-removal.patch
+# and also one more fix for File.exists-removal
+# https://github.com/hashicorp/vagrant/commit/2fe4056a7dcf96dd894875b02032a988777e05d4
+Patch5: vagrant-2.2.3-ruby32-File_exists-removal-zsh-test.patch
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -125,6 +134,9 @@ Documentation for %{name}.
 
 %patch0 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 # TODO: package vagrant_cloud, as it is not in Fedora yet
 %gemspec_remove_dep -s %{name}.gemspec -g vagrant_cloud
@@ -500,6 +512,10 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Mon Dec 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.19-6
+- Backport upstream fix for ruby3.2 File.exists? removal
+- Apply proposal fix for ruby3.2 Object#=~ removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

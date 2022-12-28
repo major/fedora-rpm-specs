@@ -3,14 +3,12 @@
 %global minimal_needed_proj_version 8.2.0
 
 Name:           pyproj
-Version:        3.4.0
+Version:        3.4.1
 Release:        1%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
-Source0:        https://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
-# the old source url still works, but if need be it can be replaced
-# with: https://files.pythonhosted.org/packages/source/p/%%{name}/%%{name}-%%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -160,8 +158,8 @@ cp -r ../pyproj-%{version}/pytest.ini .
 
 PATH="%{buildroot}%{_bindir}:$PATH" \
 PYTHONPATH="%{buildroot}%{python3_sitearch}" \
-py.test-3 -m "not network"
-#py.test-3 -m "not network and not grid"
+py.test-3 -m "not network and not grid"
+#py.test-3 -m "not network"
 # some notes on the test suite:
 # not network ==> deselects 24 tests
 # not cli     ==> deselects 22 tests
@@ -170,7 +168,14 @@ py.test-3 -m "not network"
 # network: 24 failures and errors for f36, f37
 # cli:        works fine on all fedora versions
 # grid:     1 failure for f36, f37 (test/test_transformer.py), fixed in rawhide
-
+# note on failing grid test:
+# this seems caused by an intentional change of behavior of the proj library.
+# between proj v9.0.1 and proj v9.1.0
+# The test suite of pyproj has adapted to the new behaviour but
+# it was forgotten to add compatibility code to allow use of the
+# older proj version as well.
+# Therefore it seems safe to just skip this test for now.
+# See: https://github.com/pyproj4/pyproj/issues/1141
 
 %files -n python3-%{name}
 %doc README.md
@@ -184,6 +189,9 @@ py.test-3 -m "not network"
 
 
 %changelog
+* Mon Dec 26 2022 Jos de Kloe <josdekloe@gmail.com> 3.4.1-1
+- Update to 3.4.1
+
 * Sat Sep 10 2022 Jos de Kloe <josdekloe@gmail.com> 3.4.0-1
 - Update to 3.4.0
 

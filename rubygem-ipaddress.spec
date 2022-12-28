@@ -2,11 +2,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: IPv4/IPv6 address manipulation library
 License: MIT
 URL: https://github.com/bluemonk/ipaddress
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/ipaddress-gem/ipaddress/pull/86
+# Integer unification on ruby2.4: ruby3.2 completely removes Fixnum
+Patch0:  %{name}-pr86-ruby24-integer-unification.patch
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(minitest)
 BuildArch: noarch
@@ -29,6 +32,7 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
+%patch0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -67,6 +71,9 @@ popd
 %{gem_instdir}/CHANGELOG.rdoc
 
 %changelog
+* Mon Dec 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.3-13
+- Backport upstream fix for ruby3.2 Fixnum removal
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

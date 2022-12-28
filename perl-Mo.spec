@@ -1,12 +1,10 @@
 Name:           perl-Mo
 Version:        0.40
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        Perl micro-object system
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mo
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TINITA/Mo-%{version}.tar.gz
-# required test libraries for EPEL6
-Patch1:         mo_required_test_libraries.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -24,55 +22,95 @@ BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Mouse::Role)
 BuildRequires:  perl(Mouse::Util::MetaRole)
 BuildRequires:  perl(PPI)
+BuildRequires:  perl(Test::More)
 BuildRequires:  perl(strict)
-%if 0%{?el6}
-%else
-BuildRequires:  perl(Test::More) >= 0.96
-%endif
 BuildRequires:  perl(warnings)
-Requires:       perl(Moose)
-Requires:       perl(Moose::Role)
-Requires:       perl(Mouse)
-Requires:       perl(Mouse::Util::MetaRole)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Mo provides the bare-minimum for a Perl object system, compared to other similar
 systems such as Moose, Mouse and Moo.
 
+%package Golf
+Summary:        Mo minimization support module
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description Golf
+%{summary}.
+
+%package Moose
+Summary:        Use Moose instead of Mo
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(Moose)
+Requires:       perl(Moose::Role)
+
+%description Moose
+%{summary}.
+
+%package Mouse
+Summary:        Use Mouse instead of Mo
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(Mouse)
+Requires:       perl(Mouse::Role)
+Requires:       perl(Mouse::Util::MetaRole)
+
+%description Mouse
+%{summary}.
+
 %prep
 %setup -q -n Mo-%{version}
-%if 0%{?el6}
-%patch1 -p1
-%endif
 
 %build
-%if 0%{?el6}
-export PERL5LIB=include_test_libs/lib
-%endif
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%if 0%{?el6}
-export PERL5LIB=include_test_libs/lib
-%endif
-make test
+%{make_build} test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/*
+%exclude %{perl_vendorlib}/Mo/Golf.pm
+%exclude %{perl_vendorlib}/Mo/Moose.pm
+%exclude %{perl_vendorlib}/Mo/Mouse.pm
 %{_mandir}/man3/*
+%exclude %{_mandir}/man3/Mo::Golf.3pm.*
+%exclude %{_mandir}/man3/Mo::Moose.3pm.*
+%exclude %{_mandir}/man3/Mo::Mouse.3pm.*
 %{_bindir}/*
 
+%files Golf
+%license LICENSE
+%{perl_vendorlib}/Mo/Golf.pm
+%{_mandir}/man3/Mo::Golf.3pm.*
+
+%files Moose
+%license LICENSE
+%{perl_vendorlib}/Mo/Moose.pm
+%{_mandir}/man3/Mo::Moose.3pm.*
+
+%files Mouse
+%license LICENSE
+%{perl_vendorlib}/Mo/Mouse.pm
+%{_mandir}/man3/Mo::Mouse.3pm.*
+
 %changelog
+* Mon Dec 26 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 0.40-21
+- Remove EL6 support (EL6 is EOL)
+- Use %%{make_build} and %%{make_install} macros
+- Replace %%{__perl} with /usr/bin/perl
++ Pass NO_PACKLIST and NO_PERLLOCAL to Makefile.PL
+
+* Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.40-20
+- Split Mouse/Moose and Golf parts to separate packages
+- Update license to SPDX format
+- Use %%license macro
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

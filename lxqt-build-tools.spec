@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD
-URL:            http://lxqt.org/
+URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Upstream: https://github.com/lxqt/lxqt-build-tools/pull/79
 

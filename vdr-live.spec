@@ -9,9 +9,9 @@
 %endif
 
 Name:           vdr-live
-Version:        3.1.9
+Version:        3.1.10
 #Release:        0.4.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPLv2+ except live/js/mootools/ which is MIT
@@ -82,6 +82,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Mon Dec 26 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.10-1
+- Update to 3.1.10
+
 * Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.1.9-3
 - Rebuilt for new VDR API version
 
