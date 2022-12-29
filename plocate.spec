@@ -1,5 +1,5 @@
 Name:           plocate
-Version:        1.1.16
+Version:        1.1.17
 Release:        %autorelease
 Summary:        Much faster locate
 
@@ -23,7 +23,7 @@ Conflicts:      mlocate
 Provides:       locate
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2052433
-Obsoletes:      mlocate < 0.26-300
+Obsoletes:      mlocate < 0.26-500
 
 %description
 plocate is a locate(1) based on posting lists, giving much faster

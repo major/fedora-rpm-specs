@@ -1,20 +1,16 @@
-%global libsepolver 3.4-4
+%global libsepolver 3.5-0
 
 Name:           secilc
-Version:        3.4
-Release:        4%{?dist}
+Version:        3.5
+Release:        0.rc1.1%{?dist}
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
 URL:            https://github.com/SELinuxProject/selinux/wiki
-Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.4/secilc-3.4.tar.gz
-# fedora-selinux/selinux: git format-patch -N 3.4 -- secilc
+Source0:        https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/secilc-3.5-rc1.tar.gz
+# fedora-selinux/selinux: git format-patch -N 3.5-rc1 -- secilc
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
-Patch0001: 0001-secilc-docs-fix-syntax-highlighting.patch
-Patch0002: 0002-secilc-docs-disable-pandoc-default-css-for-html-docs.patch
-Patch0003: 0003-secilc-doc-classmap-is-also-allowed-in-permissionx.patch
-Patch0004: 0004-docs-provide-a-top-level-LICENSE-file.patch
 # Patch list end
 Requires:       libsepol >= %{libsepolver}
 BuildRequires:  gcc
@@ -40,7 +36,7 @@ http://github.com/SELinuxProject/cil/wiki/
 for more information about the goals and features on the CIL language.
 
 %prep
-%autosetup -p 2 -n secilc-%{version}
+%autosetup -p 2 -n secilc-%{version}-rc1
 
 
 %build
@@ -70,6 +66,9 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Tue Dec 27 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
+- SELinux userspace 3.5-rc1 release
+
 * Tue Nov 22 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-4
 - Rebase on upstream f56a72ac9e86
 

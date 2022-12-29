@@ -3,10 +3,10 @@
 
 Name:           clide
 Version:        0.9
-Release:        30.20160305git%{shortcommit}%{?dist}
+Release:        31.20160305git%{shortcommit}%{?dist}
 Summary:        Color and style highlighting program for text
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://suso.suso.org/xulu/Clide
 Source0:        https://github.com/deltaray/clide/archive/%{commit}/clide-%{commit}.tar.gz
 
@@ -45,6 +45,9 @@ make BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir}/man1 rpminstall
 %{_mandir}/man1/clide.1*
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 0.9-31.20160305git11c0895
+- Use SPDX license identifier
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30.20160305git11c0895
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

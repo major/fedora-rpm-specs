@@ -1,10 +1,14 @@
+# RPM version needs 4 digits after the decimal to preserve upgrade path
+%global module_version 1.54
+%global RPM_version %(printf "%.4f" %{module_version})
+
 Name:           perl-Finance-Quote
-Version:        1.5301
+Version:        %{RPM_version}
 Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
-Source0:        https://cpan.metacpan.org/modules/by-module/Finance/Finance-Quote-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Finance/Finance-Quote-%{module_version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -22,6 +26,7 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Strptime)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(HTML::Entities)
 BuildRequires:  perl(HTML::TableExtract)
 BuildRequires:  perl(HTML::TokeParser)
 BuildRequires:  perl(HTML::TokeParser::Simple)
@@ -40,6 +45,7 @@ BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(LWP::UserAgent) >= 6.48
 BuildRequires:  perl(Module::Load)
 BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Spreadsheet::XLSX)
 BuildRequires:  perl(strict)
@@ -72,7 +78,7 @@ This module retrieves stock and mutual fund quotes from various exchanges
 using various source.
 
 %prep
-%setup -q -n Finance-Quote-%{version}
+%setup -q -n Finance-Quote-%{module_version}
 
 # Remove redundant exec permissions
 find lib/ -type f -name '*.pm' -exec chmod -c -x {} \;
@@ -134,19 +140,30 @@ make test
 %{_mandir}/man3/Finance::Quote::OnVista.3*
 %{_mandir}/man3/Finance::Quote::Oslobors.3*
 %{_mandir}/man3/Finance::Quote::SEB.3*
+%{_mandir}/man3/Finance::Quote::Sinvestor.3*
 %{_mandir}/man3/Finance::Quote::SIX.3*
 %{_mandir}/man3/Finance::Quote::TesouroDireto.3*
 %{_mandir}/man3/Finance::Quote::TMX.3*
+%{_mandir}/man3/Finance::Quote::Tradegate.3*
 %{_mandir}/man3/Finance::Quote::Tradeville.3*
 %{_mandir}/man3/Finance::Quote::TSP.3*
 %{_mandir}/man3/Finance::Quote::Tiaacref.3*
 %{_mandir}/man3/Finance::Quote::TreasuryDirect.3*
 %{_mandir}/man3/Finance::Quote::Troweprice.3*
 %{_mandir}/man3/Finance::Quote::Union.3*
+%{_mandir}/man3/Finance::Quote::XETRA.3*
 %{_mandir}/man3/Finance::Quote::YahooJSON.3*
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Tue Dec 27 2022 Paul Howarth <paul@city-fan.org> - 1.5400-1
+- Update to 1.54
+  - Fix to AEX.pm (GH#235, GH#244)
+  - New modules Sinvestor.pm, Tradegate.pm and XETRA.pm (GH#243)
+  - Updates to TMX.pm (Toronto Stock Exchange) (GH#248 and GH#253)
+  - Reverted API change (GH#230) in CurrencyRates/AlphaVantage.pm (GH#249)
+  - Fix to Fondsweb.pm (GH#250)
+
 * Wed Oct 12 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5301-1
 - 1.5301
 

@@ -1,5 +1,5 @@
 Name:       ddgr
-Version:    2.0
+Version:    2.1
 Release:    %autorelease
 Summary:    DuckDuckGo from the terminal
 

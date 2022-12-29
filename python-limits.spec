@@ -5,15 +5,9 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%if 0%{?fc35}
-# python3dist(sphinx-autobuild), python3dist(sphinx-copybutton), and
-# python3dist(sphinx-inline-tabs) are missing or too old
-%bcond_with doc_pdf
-%else
 %bcond_without doc_pdf
-%endif
 
-%if 0%{?fc36} || 0%{?fc35}
+%if 0%{?fc36}
 # python3dist(redis) is too old
 %bcond_with redis
 %else
@@ -34,7 +28,7 @@ limiting with commonly used storage backends
 (Redis, Memcached & MongoDB).}
 
 Name:           python-%{pypi_name}
-Version:        2.7.1
+Version:        2.8.0
 Release:        1%{?dist}
 Summary:        Utilities to implement rate limiting using various strategies
 
@@ -59,7 +53,6 @@ BuildRequires:  python3dist(redis)
 
 %description -n python3-%{pypi_name} %_description
 
-%if ! 0%{?fc35}
 %package doc
 Summary:        %{summary}
 
@@ -71,7 +64,6 @@ BuildRequires:  latexmk
 
 %description doc
 Documentation for %{name}.
-%endif
 
 %if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
 %pyproject_extras_subpkg -n python3-%{pypi_name} all
@@ -114,11 +106,16 @@ sed -r -i 's/^import redis/# &/' tests/conftest.py
 # - python3dist(sphinx-paramlinks)
 sed -r -e 's/==/>=/' \
     -e '/^[[:blank:]]*(furo|sphinx-paramlinks)/d' \
-    requirements/docs.txt | tee requirements/docs-filtered.txt
-%if 0%{?fc36} || 0%{?fc35}
-# Tolerate Sphinx 4 in addition to the Sphinx 5 desired by upstream.
-sed -r -i -e 's/(Sphinx>=)5/\14/' requirements/docs-filtered.txt
+    requirements/docs.txt |
+%if 0%{?fc36}
+    # Tolerate Sphinx 4 in addition to the Sphinx 5 desired by upstream.
+    sed -r -e 's/(Sphinx[>=]=)5/\14/' |
 %endif
+%if 0%{?fc36} || 0%{?fc37}
+    # Tolerate versions of sphinxext-opengraph older than upstream wants
+    sed -r -e 's/(sphinxext-opengraph)([>=]=.*)/\1/' |
+%endif
+  tee requirements/docs-filtered.txt
 sed -r -i '/(paramlinks)/d' doc/source/conf.py
 # Cannot use remote intersphinx inventories in offline build:
 echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
@@ -178,16 +175,18 @@ m="${m-}${m+ and }not memcached"
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 
-%if ! 0%{?fc35}
 %files doc
 %license LICENSE.txt
 %if %{with doc_pdf}
 %doc doc/build/latex/%{pypi_name}.pdf
 %endif
-%endif
 
 
 %changelog
+* Tue Dec 27 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
+- Drop F35 conditionals
+- Update to 2.8.0 (close RHBZ#2152428)
+
 * Sun Oct 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.7.1-1
 - Update to 2.7.1 (close RHBZ#2136594)
 

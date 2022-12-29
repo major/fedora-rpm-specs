@@ -1,7 +1,7 @@
 %global srcname borgbackup
 
 Name:           %{srcname}
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 License:        BSD and zlib
@@ -141,6 +141,9 @@ py.test-3 -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %changelog
+* Tue Dec 27 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.3-1
+- update to 1.2.3
+
 * Sun Aug 21 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.2-1
 - update to 1.2.2
 

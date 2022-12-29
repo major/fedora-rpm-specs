@@ -1,7 +1,7 @@
 Summary:       ALSA C++ library
 Name:          zita-alsa-pcmi
-Version:       0.4.0
-Release:       2%{?dist}
+Version:       0.5.1
+Release:       1%{?dist}
 License:       GPLv3+ 
 URL:           http://kokkinizita.linuxaudio.org
 Source0:       http://kokkinizita.linuxaudio.org/linuxaudio/downloads/%{name}-%{version}.tar.bz2
@@ -73,6 +73,10 @@ ln -sf lib%{name}.so.%{version} source/lib%{name}.so
 %{_bindir}/alsa_loopback
 
 %changelog
+* Tue Dec 27 2022 Guido Aulisi <guido.aulisi@gmail.com> - 0.5.1-1
+- Update to 0.5.1
+- Fix bug 2156573
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

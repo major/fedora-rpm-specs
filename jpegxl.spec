@@ -15,6 +15,7 @@ This package contains a reference implementation of JPEG XL (encoder and
 decoder).}
 
 Name:           jpegxl
+Epoch:          1
 Version:        0.7.0
 Release:        %autorelease %{?new_soname:-p -e 0~sonamebump}
 Summary:        JPEG XL image format reference implementation

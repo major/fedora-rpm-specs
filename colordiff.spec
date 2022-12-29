@@ -1,9 +1,9 @@
 Name:           colordiff
 Version:        1.0.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Color terminal highlighter for diff files
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.colordiff.org/
 Source0:        http://www.colordiff.org/%{name}-%{version}.tar.gz
 
@@ -46,6 +46,9 @@ pretty syntax highlighting.  Color schemes can be customized.
 
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 1.0.21-2
+- Use SPDX license identifier
+
 * Thu Dec 22 2022 Richard Fearn <richardfearn@gmail.com> - 1.0.21-1
 - Update to 1.0.21 (#2155860)
 

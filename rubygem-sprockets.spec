@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.0.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
@@ -12,6 +12,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rails/sprockets.git && cd sprockets/
 # git archive -v -o sprockets-4.0.2-tests.tar.gz v4.0.2 test/
 Source1: sprockets-%{version}-tests.tar.gz
+# https://github.com/rails/sprockets/commit/39490de3bdda3cb0b3aed16544b38b3771fbcca7
+# With ruby3.2 URI.split now returns empty string instead of nil
+Patch0: rubygem-sprockets-pr771-ruby32-URL_split-empty-string.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
@@ -46,6 +49,11 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+mv %{_builddir}/test .
+%patch0 -p1
+mv test %{_builddir}
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -140,6 +148,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Dec 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.2-6
+- Backport upstream fix for ruby3.2 URI.split behavior change for host
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

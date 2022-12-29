@@ -5,8 +5,8 @@ work-in-progress targeting performance levels applicable to both VOD and Live
 encoding / transcoding video applications.}
 
 Name:           svt-av1
-Version:        1.3.0
-%global commit  91b94efb2809e83d9bf041d8575b32f234dfef27
+Version:        1.4.1
+%global commit  018276d714ce65d9b586f6205ee016cbd8d5425d
 Release:        %autorelease
 Summary:        Scalable Video Technology for AV1 Encoder
 
@@ -17,7 +17,7 @@ Summary:        Scalable Video Technology for AV1 Encoder
 # Source/Lib/Common/Codec/vector.*: MIT
 # Source/Lib/Common/ASM_SSE2/x86inc.asm: ISC
 # Source/App/DecApp/EbMD5Utility.*: PublicDomain
-License:        BSD and MIT and ISC and Public Domain
+License:        BSD-3-Clause and MIT and ISC and Public Domain
 URL:            https://gitlab.com/AOMediaCodec/SVT-AV1
 Source0:        %url/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 

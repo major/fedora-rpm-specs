@@ -5,12 +5,12 @@
 
 Name:           flatpak-builder
 Version:        1.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
 # the rest is LGPLv2+
-License:        LGPLv2+ and GPLv2+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -86,6 +86,9 @@ See https://flatpak.org/ for more information.
 
 
 %changelog
+* Mon Dec 26 2022 msuchy <msuchy@redhat.com> - 1.2.3-2
+- migrate to SPDX license
+
 * Tue Nov 29 2022 David King <amigadave@amigadave.com> - 1.2.3-1
 - Update to 1.2.3 (#2149163)
 

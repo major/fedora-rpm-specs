@@ -1,15 +1,18 @@
 Name:       pdd
-Version:    1.6
+Version:    1.7
 Release:    %autorelease
 Summary:    Tiny date, time diff calculator
 
 License:    GPL-3.0-or-later
 URL:        https://github.com/jarun/pdd
 Source0:    %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1:     32.patch
 
 BuildArch:  noarch
 
 BuildRequires:  make
+BuildRequires:  python3-devel
+BuildRequires:  python3-dateutil
 Requires: python3-dateutil
 
 
@@ -24,12 +27,10 @@ program arguments are specified it shows the current date, time and timezone.
 %autosetup -p1 -n %{name}-%{version}
 sed -i '1s/env //' pdd
 
-
-%build
-# Nothing to do
-
-
 %install
+mkdir -p %{buildroot}%{_datadir}/bash-completion/compilations/
+mkdir -p %{buildroot}%{_datadir}/zsh/site-functions/
+mkdir -p %{buildroot}%{_datadir}/fish/vendor_completions.d/
 %make_install PREFIX=%{_prefix}
 
 
@@ -38,6 +39,10 @@ sed -i '1s/env //' pdd
 %license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
+%{_datadir}/bash-completion/compilations/pdd
+%{_datadir}/fish/vendor_completions.d/pdd.fish
+%{_datadir}/zsh/site-functions/_pdd
+
 
 
 %changelog

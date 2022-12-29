@@ -1,8 +1,8 @@
 Summary: Display information about users currently logged on 
 Name: whowatch
 Version: 1.8.6
-Release: 13%{?dist}
-License: GPLv2
+Release: 14%{?dist}
+License: GPL-2.0-only
 URL: http://wizard.ae.krakow.pl/~mike/
 
 Source0: https://github.com/mtsuszycki/whowatch/archive/whowatch-%{version}.tar.gz
@@ -42,6 +42,9 @@ touch aclocal.m4 Makefile.in src/config.h.in
 %{_bindir}/whowatch
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 1.8.6-14
+- Use SPDX license identifier
+
 * Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 1.8.6-13
 - Port configure script to C99
 

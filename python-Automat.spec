@@ -37,6 +37,9 @@ Documentation for Automat
 %prep
 %autosetup  -p1 -n %{srcname}-%{version}
 
+# Backport of https://github.com/glyph/automat/commit/2bf0abddd9b532ef9dd90707a10a09ce48c24f3d
+sed -i "s/py\.test/pytest/g" tox.ini
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

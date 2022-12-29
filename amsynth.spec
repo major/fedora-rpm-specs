@@ -1,13 +1,11 @@
 Name:           amsynth
-Version:        1.12.4
-Release:        3%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        A classic synthesizer with dual oscillators
 
 License:        GPLv2+
 URL:            http://amsynth.github.io/
 Source0:        https://github.com/%{name}/%{name}/releases/download/release-%{version}/%{name}-%{version}.tar.gz
-# Fix a compiler operator mismatch warning
-Patch0:         %{name}-free-mismatch.patch
 
 # https://fedoraproject.org/wiki/Packaging:C_and_C%2B%2B
 BuildRequires:  gcc
@@ -118,6 +116,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*%{name}.*
 
 
 %changelog
+* Tue Dec 27 2022 Guido Aulisi <guido.aulisi@gmail.com> - 1.13.0-1
+- Update to 1.13.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

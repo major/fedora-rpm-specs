@@ -1,21 +1,17 @@
-%define libselinuxver 3.4-6
-%define libsepolver 3.4-4
+%define libselinuxver 3.5-0
+%define libsepolver 3.5-0
 
 Summary: SELinux policy compiler
 Name: checkpolicy
-Version: 3.4
-Release: 4%{?dist}
+Version: 3.5
+Release: 0.rc1.1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/checkpolicy-3.4.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/checkpolicy-3.5-rc1.tar.gz
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.4 -- checkpolicy
+# $ git format-patch -N 3.5-rc1 -- checkpolicy
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
-Patch0001: 0001-checkpolicy-error-out-if-required-permission-would-e.patch
-Patch0002: 0002-checkpolicy-use-strict-function-prototype-for-defini.patch
-Patch0003: 0003-checkpolicy-avoid-passing-NULL-pointer-to-memset.patch
-Patch0004: 0004-docs-provide-a-top-level-LICENSE-file.patch
 # Patch list end
 BuildRequires: gcc
 BuildRequires: make
@@ -36,7 +32,7 @@ This package contains checkpolicy, the SELinux policy compiler.
 Only required for building policies. 
 
 %prep
-%autosetup -p 2 -n checkpolicy-%{version}
+%autosetup -p 2 -n checkpolicy-%{version}-rc1
 
 %build
 
@@ -65,6 +61,9 @@ install test/dispol ${RPM_BUILD_ROOT}%{_bindir}/sedispol
 %{_bindir}/sedispol
 
 %changelog
+* Tue Dec 27 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
+- SELinux userspace 3.5-rc1 release
+
 * Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-4
 - Rebase on upstream f56a72ac9e86
 

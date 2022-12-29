@@ -1,6 +1,6 @@
 Name:           ncdu
 Version:        1.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
@@ -32,6 +32,9 @@ make install DESTDIR=%{buildroot}
 %{_bindir}/ncdu
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 1.18-2
+- Use SPDX license identifier
+
 * Fri Dec 09 2022 Richard Fearn <richardfearn@gmail.com> - 1.18-1
 - Update to 1.18 (#2151357)
 

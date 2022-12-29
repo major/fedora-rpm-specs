@@ -4,10 +4,10 @@
 
 Name:           jFormatString
 Version:        0
-Release:        0.43.20131227git%{shortcommit}%{?dist}
+Release:        0.44.20131227git%{shortcommit}%{?dist}
 Summary:        Java format string compile-time checker
 
-License:        GPLv2 with exceptions
+License:        GPL-2.0-only WITH Classpath-exception-2.0
 URL:            http://code.google.com/p/j-format-string/
 
 Source0:        http://j-format-string.googlecode.com/archive/%{commit}.zip
@@ -81,6 +81,9 @@ end
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 0-0.44.20131227gitf159b88
+- Use SPDX license identifier
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.43.20131227gitf159b88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

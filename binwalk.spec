@@ -1,10 +1,12 @@
 Name:           binwalk
-Version:        2.3.2
-Release:        4%{?dist}
+Version:        2.3.3
+Release:        1%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         binwalk-2.3.3-tests.patch
+Patch1:         %{url}/pull/559/commits/6e7736869d998edb6384728c03a348cd9ab1f9ca.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -44,6 +46,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Tue Dec 27 2022 Scott Talbert <swt@techie.net> - 2.3.3-1
+- Update to new upstream release 2.3.3 (#2003337 #2156566)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

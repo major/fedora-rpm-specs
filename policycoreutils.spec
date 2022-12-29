@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.4-4
-%global libsemanagever  3.4-6
-%global libselinuxver   3.4-6
+%global libsepolver     3.5-0
+%global libsemanagever  3.5-0
+%global libselinuxver   3.5-0
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -10,11 +10,11 @@
 
 Summary: SELinux policy core utilities
 Name:    policycoreutils
-Version: 3.4
-Release: 7.1%{?dist}
+Version: 3.5
+Release: 0.rc1.1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.4/selinux-3.4.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/selinux-3.5-rc1.tar.gz
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -28,36 +28,14 @@ Source21: python-po.tgz
 Source22: gui-po.tgz
 Source23: sandbox-po.tgz
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.4 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.5-rc1 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
-Patch0001: 0001-libselinux-declare-return-value-of-context_str-3-con.patch
-Patch0002: 0002-semodule-avoid-toctou-on-output-module.patch
-Patch0003: 0003-python-Split-semanage-import-into-two-transactions.patch
-Patch0004: 0004-python-audit2allow-close-file-stream-on-error.patch
-Patch0005: 0005-gettext-handle-unsupported-languages-properly.patch
-Patch0006: 0006-semodule-rename-rebuild-if-modules-changed-to-refres.patch
-Patch0007: 0007-python-remove-IOError-in-certain-cases.patch
-Patch0008: 0008-restorecond-use-strict-function-prototype-for-defini.patch
-Patch0009: 0009-Ignore-egg-info-directories-and-clean-them.patch
-# Patch0010: 0010-Update-translations.patch
-Patch0011: 0011-docs-provide-a-top-level-LICENSE-file.patch
-Patch0012: 0012-gui-Fix-export-file-chooser-dialog.patch
-Patch0013: 0013-python-Do-not-query-the-local-database-if-the-fconte.patch
-Patch0014: 0014-sandbox-Do-not-try-to-remove-tmpdir-twice-if-uid-0.patch
-Patch0015: 0015-sandbox-Use-temporary-directory-for-XDG_RUNTIME_DIR.patch
-Patch0016: 0016-python-Remove-dependency-on-the-Python-module-distut.patch
-Patch0017: 0017-python-Harden-tools-against-rogue-modules.patch
-Patch0018: 0018-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
-Patch0019: 0019-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
-Patch0020: 0020-sepolicy-generate-Handle-more-reserved-port-types.patch
-Patch0021: 0021-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
-Patch0022: 0022-Use-SHA-2-instead-of-SHA-1.patch
-Patch0023: 0023-python-Fix-typo-in-audit2allow.1-example.patch
-Patch0024: 0024-python-sepolicy-Fix-sepolicy-manpage-w.patch
-Patch0025: 0025-python-sepolicy-Use-distro-module-to-get-os-version.patch
-Patch0026: 0026-python-sepolicy-Simplify-generation-of-man-pages.patch
-Patch0027: 0027-Fix-E275-missing-whitespace-after-keyword.patch
+Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
+Patch0002: 0002-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
+Patch0003: 0003-sepolicy-generate-Handle-more-reserved-port-types.patch
+Patch0004: 0004-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
+Patch0005: 0005-Use-SHA-2-instead-of-SHA-1.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -70,7 +48,7 @@ Provides: /sbin/restorecon
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
 BuildRequires: desktop-file-utils dbus-devel dbus-glib-devel
-BuildRequires: python3-devel python3-setuptools
+BuildRequires: python3-devel python3-setuptools python3-pip
 BuildRequires: systemd
 BuildRequires: git-core
 Requires: util-linux grep gawk diffutils rpm sed
@@ -93,7 +71,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%autosetup -n selinux-%{version} -p 1
+%autosetup -p 1 -n selinux-%{version}-rc1
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/
@@ -106,7 +84,7 @@ tar -xvf %{SOURCE14} -C python/sepolicy/
 # tar -x -f %{SOURCE20} -C policycoreutils -z
 # tar -x -f %{SOURCE21} -C python -z
 # tar -x -f %{SOURCE22} -C gui -z
-tar -x -f %{SOURCE23} -C sandbox -z
+# tar -x -f %{SOURCE23} -C sandbox -z
 
 %build
 %set_build_flags
@@ -164,27 +142,6 @@ install -m 644 -p %{SOURCE17} %{buildroot}/%{_unitdir}/
 install -m 644 -p %{SOURCE18} %{buildroot}/%{_unitdir}/
 install -m 755 -p %{SOURCE19} %{buildroot}/%{generatorsdir}/
 install -m 755 -p %{SOURCE15} %{buildroot}/%{_libexecdir}/selinux/
-
-# change /usr/bin/python to %%{__python3} in policycoreutils-python3
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p %{buildroot}%{python3_sitelib}
-
-# change /usr/bin/python to %%{__python3} in policycoreutils-python-utils
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i "%{__python3} -Es" -p \
-    %{buildroot}%{_sbindir}/semanage \
-    %{buildroot}%{_bindir}/chcat \
-    %{buildroot}%{_bindir}/sandbox \
-    %{buildroot}%{_datadir}/sandbox/start \
-    %{buildroot}%{_bindir}/audit2allow \
-    %{buildroot}%{_bindir}/sepolicy \
-    %{buildroot}%{_bindir}/sepolgen-ifgen \
-    %{buildroot}%{_datadir}/system-config-selinux/system-config-selinux.py \
-    %{buildroot}%{_datadir}/system-config-selinux/selinux_server.py \
-    %nil
-
-# clean up ~ files from pathfix - https://bugzilla.redhat.com/show_bug.cgi?id=1546990
-find %{buildroot}%{python3_sitelib} %{buildroot}%{python3_sitearch} \
-     %{buildroot}%{_sbindir} %{buildroot}%{_bindir} %{buildroot}%{_datadir} \
-     -type f -name '*~' | xargs rm -f
 
 # Manually invoke the python byte compile macro for each path that needs byte
 # compilation.
@@ -486,6 +443,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Fri Dec 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
+- SELinux userspace 3.5-rc1 release
+
 * Mon Nov 21 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.4-7.1
 - Rebase on upstream f56a72ac9e86
 - sepolicy: fix sepolicy manpage -w

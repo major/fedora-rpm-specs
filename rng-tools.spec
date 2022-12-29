@@ -12,7 +12,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv2+
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -97,6 +97,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Tue Dec 27 2022 Vladis Dronov <vdronov@redhat.com> - 6.15-5
+- Update to the upstream v6.15 + tip of origin/master @ cb8cc624
+
 * Wed Sep 21 2022 Vladis Dronov <vdronov@redhat.com> - 6.15-4
 - Update to the upstream v6.15 + tip of origin/master @ 6dcc9ec2
 - Do not require selinux-policy if it is not present

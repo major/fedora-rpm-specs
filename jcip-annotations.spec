@@ -1,9 +1,9 @@
 Name:           jcip-annotations
 Version:        1
-Release:        37.20060626%{?dist}
+Release:        38.20060626%{?dist}
 Summary:        Java annotations for multithreaded software
 
-License:        CC-BY
+License:        CC-BY-2.5
 URL:            http://www.jcip.net/
 Source0:        http://jcip.net.s3-website-us-east-1.amazonaws.com/%{name}-src.jar
 Source1:        http://mirrors.ibiblio.org/pub/mirrors/maven2/net/jcip/%{name}/1.0/%{name}-1.0.pom
@@ -71,6 +71,9 @@ cd ..
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 1-38.20060626
+- Use SPDX license identifier
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1-37.20060626
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

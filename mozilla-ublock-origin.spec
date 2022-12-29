@@ -5,10 +5,10 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit 12c220af91139b025d9793e733328a5f8358db8e
+%global uAssets_commit 3dfee87c164d9db69162ee75e0d15e39701e8217
 
 Name:           mozilla-ublock-origin
-Version:        1.45.2
+Version:        1.46.0
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -67,7 +67,10 @@ from hosts files.
 %prep
 # https://github.com/gorhill/uBlock/tree/master/dist#build-instructions-for-developers
 %setup -q -n uBlock-%{version}
-tar -xz -C submodules/uAssets --strip-components=1 -f %{SOURCE2}
+mkdir -p dist/build/uAssets/{main,prod}
+tar -xz -C dist/build/uAssets/main --strip-components=1 -f %{SOURCE2}
+ln -s ../main/thirdparties/easylist-downloads.adblockplus.org dist/build/uAssets/prod/thirdparties
+ln -s ../main/filters dist/build/uAssets/prod/filters
 %patch0 -p1
 rm src/{js/wasm,lib/{lz4,publicsuffixlist/wasm}}/*.wasm
 mv src/css/fonts/Inter/LICENSE.txt LICENSE.Inter.txt
@@ -103,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Tue Dec 27 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.46.0-1
+- update to 1.46.0 (#2156059)
+
 * Mon Dec 05 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.45.2-1
 - update to 1.45.2 (#2141681)
 

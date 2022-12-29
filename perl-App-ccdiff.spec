@@ -1,9 +1,9 @@
 Name:           perl-App-ccdiff
 Version:        0.31
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Colored Character diff
 
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/App-ccdiff
 Source0:        https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/App-ccdiff-%{version}.tgz
 
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 0.31-5
+- Use SPDX license identifier
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

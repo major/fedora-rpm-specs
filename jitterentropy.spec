@@ -1,6 +1,6 @@
 Name:	jitterentropy
 Version:	3.4.1
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	Library implementing the jitter entropy source
 
 License:	BSD or GPLv2
@@ -45,6 +45,10 @@ mkdir -p %{buildroot}/usr/include/
 %{_mandir}/man3/*
 
 %changelog
+* Tue Dec 27 2022 Vladis Dronov <vdronov@redhat.com> - 3.4.1-3
+- Update to the upstream v3.4.1 @ 7bf9f85d
+- Fix a stack corruption on s390x
+
 * Tue Sep 06 2022 Vladis Dronov <vdronov@redhat.com> - 3.4.1-1
 - Update to the upstream v3.4.1 @ 4544e113
 

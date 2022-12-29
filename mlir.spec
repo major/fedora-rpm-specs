@@ -7,7 +7,7 @@
 
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -65,6 +65,7 @@ find ../* -maxdepth 0 ! -name '%{name}' -exec rm -rf {} +
         -DLLVM_BUILD_LLVM_DYLIB=ON \
         -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/llvm/ \
         -DLLVM_EXTERNAL_LIT=%{_bindir}/lit \
+        -DLLVM_BUILD_TOOLS:BOOL=ON \
         -DLLVM_BUILD_UTILS:BOOL=ON \
         -DMLIR_INCLUDE_DOCS:BOOL=ON \
         -DMLIR_INCLUDE_TESTS:BOOL=ON \
@@ -89,9 +90,15 @@ export LD_LIBRARY_PATH=%{_builddir}/%{mlir_srcdir}/%{name}/%{_build}/%{_lib}
 # Remove tablegen tests, as they rely on includes from llvm/.
 rm -rf test/mlir-tblgen
 
-# TODO: Test currently fails on i686.
 %ifarch %{ix86}
+# TODO: Test currently fails on i686.
 rm test/IR/file-metadata-resources.mlir
+
+# TODO: There's two issues here (see https://github.com/llvm/llvm-project/issues/58357):
+# 1. The async dialect hardcodes a 64-bit assumption.
+# 2. The cpu runner tests call mlir-opt without awareness of the host index size.
+# For this reason, skip mlir-cpu-runner tests on 32-bit.
+rm -rf test/mlir-cpu-runner
 %endif
 
 # Test execution normally relies on RPATH, so set LD_LIBRARY_PATH instead.
@@ -109,7 +116,15 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/libMLIR*.a
 
 %files devel
+%{_bindir}/mlir-cpu-runner
+%{_bindir}/mlir-linalg-ods-yaml-gen
+%{_bindir}/mlir-lsp-server
+%{_bindir}/mlir-opt
+%{_bindir}/mlir-pdll-lsp-server
+%{_bindir}/mlir-reduce
 %{_bindir}/mlir-tblgen
+%{_bindir}/mlir-translate
+%{_bindir}/tblgen-lsp-server
 %{_libdir}/libMLIR*.so
 %{_libdir}/libmlir_async_runtime.so
 %{_libdir}/libmlir_c_runner_utils.so
@@ -119,6 +134,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Thu Dec 22 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
+- rhbz#2127916: Add mlir tools to mlir-devel
+
 * Mon Dec 05 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 
