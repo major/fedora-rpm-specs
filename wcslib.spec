@@ -1,13 +1,13 @@
 
 Name: wcslib
-Version: 7.10
-Release: 2%{?dist}
+Version: 7.12
+Release: 1%{?dist}
 Summary: An implementation of the FITS World Coordinate System standard
 
 # Library is under LGPLv3+ utils under GPLv3+
 License: LGPLv3+
 URL: http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/
-Source0: ftp://ftp.atnf.csiro.au/pub/software/wcslib/%{name}-%{version}.tar.bz2
+Source0: http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib-%{version}.tar.bz2
 
 # General stuff
 BuildRequires: make
@@ -74,6 +74,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Wed Dec 28 2022 Sergio Pascual <sergiopr@fedoraproject.org> 7.12-1
+- New upstream version (7.12)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

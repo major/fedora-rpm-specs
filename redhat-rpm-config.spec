@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 235
+%global baserelease 236
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -221,6 +221,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Wed Dec 28 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 236-1
+- Add conditional support for always including frame pointers
+
 * Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 235-1
 - Add %%_configure_use_runstatedir to disable --runstatedir configure option
 

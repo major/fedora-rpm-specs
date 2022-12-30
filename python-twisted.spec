@@ -6,7 +6,7 @@ It contains a web server, numerous chat clients, chat servers, mail servers
 and more.}
 
 Name:           python-%{srcname}
-Version:        22.4.0
+Version:        22.10.0
 Release:        %autorelease
 Summary:        Twisted is a networking engine written in Python
 

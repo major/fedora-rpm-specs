@@ -2,20 +2,20 @@
 
 # Set to 0 when upgrading to a new ICU release that contains up-to-date timezone data.
 # (or update the timezone data update..).
-%global use_tzdata_update 1
+%global use_tzdata_update 0
 # Adjust to version major; used in tzdata update.
-%global icu_major 71
+%global icu_major 72
 
 Name:      icu
-Version:   71.1
-Release:   2%{?dist}
+Version:   72.1
+Release:   1%{?dist}
 Summary:   International Components for Unicode
 
 License:   MIT and UCD and Public Domain
 URL:       http://site.icu-project.org/
-Source0:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-src.tgz
+Source0:   https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-src.tgz
 %if 0%{?use_tzdata_update}
-Source1:   https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-data.zip
+Source1:   https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-data.zip
 Source2:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/metaZones.txt
 Source3:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/timezoneTypes.txt
 Source4:   https://raw.githubusercontent.com/unicode-org/icu-data/main/tzdata/icunew/2022b/44/windowsZones.txt
@@ -31,7 +31,6 @@ Requires: lib%{name}%{?_isa} = %{version}-%{release}
 
 Patch4: gennorm2-man.patch
 Patch5: icuinfo-man.patch
-Patch10: timezone-update-2022b.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -154,12 +153,12 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 %{_bindir}/uconv
 %{_sbindir}/*
 %{_mandir}/man1/derb.1*
-%{_mandir}/man1/icuexportdata.1*
+%{_mandir}/man1/genbrk.1*
 %{_mandir}/man1/gencfu.1*
 %{_mandir}/man1/gencnval.1*
 %{_mandir}/man1/gendict.1*
 %{_mandir}/man1/genrb.1*
-%{_mandir}/man1/genbrk.1*
+%{_mandir}/man1/icuexportdata.1*
 %{_mandir}/man1/makeconv.1*
 %{_mandir}/man1/pkgdata.1*
 %{_mandir}/man1/uconv.1*
@@ -194,6 +193,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Wed Dec 28 2022 Pete Walter <pwalter@fedoraproject.org> - 72.1-1
+- Update to 72.1
+
 * Fri Sep 23 2022 Mike FABIAN <mfabian@redhat.com> - 71.1-2
 - Update timezone data to 2022b
 

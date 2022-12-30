@@ -1,9 +1,9 @@
 Name:           grib_api
 Version:        1.27.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        WMO FM-92 GRIB (v1,v2) interface accessible from C and FORTRAN programs
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://software.ecmwf.int/wiki/display/GRIB/Home
 Source0:        https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-%{version}-Source.tar.gz
 Source1:        http://download.ecmwf.org/test-data/grib_api/grib_api_test_data.tar.gz
@@ -131,6 +131,9 @@ make check
 %{_libdir}/*.a
 
 %changelog
+* Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.27.0-17
+- SPDX migration: change ASL 2.0 to Apache-2.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

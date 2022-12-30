@@ -1,6 +1,6 @@
 Summary: File system tree viewer
 Name: tree-pkg
-Version: 2.0.4
+Version: 2.1.0
 Release: 1%{?dist}
 
 # The entire source code is GPLv2+ except strverscmp.c which is LGPLv2+
@@ -62,6 +62,9 @@ sed -e 's/LINUX/__linux__/' -i tree.c
 %doc README
 
 %changelog
+* Wed Dec 28 2022 Kamil Dudka <kdudka@redhat.com> - 2.1.0-1
+- update to the latest upstream release
+
 * Wed Sep 07 2022 Kamil Dudka <kdudka@redhat.com> - 2.0.4-1
 - update to the latest upstream release
 

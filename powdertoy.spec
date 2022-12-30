@@ -1,4 +1,6 @@
 Name: powdertoy
+%global rtld_name uk.co.powdertoy.tpt
+
 Summary: Physics sandbox game
 URL: https://powdertoy.co.uk
 
@@ -7,18 +9,17 @@ URL: https://powdertoy.co.uk
 # src/json/ and src/lua/ are MIT
 License: GPLv3 and MIT and ASL 2.0
 
-Version: 96.2.350
-Release: 4%{?dist}
+Version: 97.0.351b
+Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
 Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/v%{version}/%{repo_name}-v%{version}.tar.gz
 
-# Before v96, the game stored user data (config etc.) in $PWD.
-# Fedora shipped a patch which put the user data in "$XDG_DATA_HOME/powdertoy".
-# Starting with v96, the game stores its user data in "$XDG_DATA_HOME/The Powder Toy".
-# This patch changes the data dir to preserve backwards-compatibility.
-Patch0: 0000-backwards-compatible-data-dir.patch
+# Upstream defaults to naming the executable just "powder",
+# but in Fedora we always used "powdertoy". This patch edits some files
+# which refer to "powder" and makes them use "powdertoy" instead.
+Patch0: 0000-use-powdertoy-instead-of-powder-as-name.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -27,7 +28,9 @@ BuildRequires: meson
 
 BuildRequires: bzip2-devel
 BuildRequires: fftw-devel
+BuildRequires: jsoncpp-devel
 BuildRequires: libcurl-devel
+BuildRequires: libpng-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: SDL2-devel
 BuildRequires: zlib-devel
@@ -59,24 +62,27 @@ thousands of different saves made by the community or upload your own!
 %prep
 %autosetup -p1 -n %{repo_name}-%{version}
 
-# We're gonna use "powdertoy" instead of just "powder"
-# for the executable name and icon names
-sed -e 's/=powder$/=%{name}/' -i resources/powder.desktop
-mv resources/powder.desktop resources/%{name}.desktop
-
-sed -e 's/powder.desktop/%{name}.desktop/' -i resources/powder.appdata.xml
-mv resources/powder.appdata.xml resources/%{name}.appdata.xml
-
 
 %build
+# -Dapp_exe:
+#   Upstream defaults to naming the executable file "powder",
+#   but in Fedora we always renamed it to "powdertoy".
+# -Dapp_data:
+#   Before v96, the game stored user data (config etc.) in $PWD.
+#   Fedora shipped a patch which put the user data in "$XDG_DATA_HOME/powdertoy".
+#   Starting with v96, the game stores its user data in "$XDG_DATA_HOME/The Powder Toy".
+#   We modify this value to preserve backwards-compatibility.
 %meson \
-	-Dstatic=none \
 	-Dignore_updates=true \
 	-Dinstall_check=false \
+	-Dapp_exe=powdertoy \
+	-Dapp_data=powdertoy \
+	-Dstatic=none \
+	-Dhttp=true \
+	-Denforce_https=true \
 	-Dgravfft=true \
 	-Dlua=%luaver \
-	-Dx86_sse=auto \
-	-Dnative=false
+	-Dx86_sse=auto
 %meson_build
 
 
@@ -85,50 +91,68 @@ mv resources/powder.appdata.xml resources/%{name}.appdata.xml
 # so we gotta do all of this manually.
 
 install -m 755 -d %{buildroot}%{_bindir}
-install -m 755 %{_vpath_builddir}/powder %{buildroot}%{_bindir}/%{name}
+install -m 755 %{_vpath_builddir}/powdertoy %{buildroot}%{_bindir}/%{name}
 
-# -- png icons
-for ICONSIZE in 128 256; do
-  ICONDIR="%{buildroot}%{_datadir}/icons/hicolor/${ICONSIZE}x${ICONSIZE}/apps"
-  install -m 755 -d "${ICONDIR}"
-  install -m 644 -p "resources/icon/new-unused/icon_${ICONSIZE}.png" "${ICONDIR}/%{name}.png"
+# -- icons: for the app and for the savefile mimetype
+for ICONSET in "icon_exe:apps:powdertoy" "icon_cps:mimetypes:application-vnd.powdertoy.save"; do
+	ICON_SRC="$(echo "${ICONSET}" | cut -d: -f1)"
+	ICON_CATEGORY="$(echo "${ICONSET}" | cut -d: -f2)"
+	ICON_DST="$(echo "${ICONSET}" | cut -d: -f3)"
+
+	# -- png icons
+	ln -sr "resources/generated_icons/${ICON_SRC}.png" "resources/generated_icons/${ICON_SRC}_256.png"
+	for ICON_SIZE in 16 32 48 256; do
+		ICON_DIR="%{buildroot}%{_datadir}/icons/hicolor/${ICON_SIZE}x${ICON_SIZE}/${ICON_CATEGORY}"
+		install -m 755 -d "${ICON_DIR}"
+		install -m 644 -p "resources/generated_icons/${ICON_SRC}_${ICON_SIZE}.png" "${ICON_DIR}/${ICON_DST}.png"
+	done
+
+	# -- svg icon
+	ICON_DIR="%{buildroot}%{_datadir}/icons/hicolor/scalable/${ICON_CATEGORY}"
+	install -m 755 -d "${ICON_DIR}"
+	install -m 644 -p "resources/${ICON_SRC}.svg" "${ICON_DIR}/${ICON_DST}.svg"
 done
-
-# -- svg icon
-ICONDIR="%{buildroot}%{_datadir}/icons/hicolor/scalable/apps"
-install -m 755 -d "${ICONDIR}"
-install -m 644 -p "resources/icon/new-unused/icon.svg" "${ICONDIR}/%{name}.svg"
 
 # -- .desktop and .appdata.xml file
 install -m 755 -d %{buildroot}%{_datadir}/applications
+install -m 644 -p "%{_vpath_builddir}/resources/powder.desktop" "%{buildroot}%{_datadir}/applications/%{rtld_name}.desktop"
+
 install -m 755 -d %{buildroot}%{_metainfodir}/
-
-desktop-file-install \
- --dir %{buildroot}/%{_datadir}/applications/ \
-  resources/%{name}.desktop
-
-install -m 644 -p resources/%{name}.appdata.xml %{buildroot}%{_metainfodir}/
+install -m 644 -p "%{_vpath_builddir}/resources/appdata.xml" "%{buildroot}%{_metainfodir}/%{rtld_name}.metainfo.xml"
 
 # -- savefile mimetype
 install -m 755 -d %{buildroot}%{_datadir}/mime/packages/
-install -m 644 resources/powdertoy-save.xml %{buildroot}%{_datadir}/mime/packages/
+install -m 644 resources/save.xml %{buildroot}%{_datadir}/mime/packages/powdertoy-save.xml
+
+# -- man page
+install -m 755 -d %{buildroot}%{_mandir}/man6/
+install -m 644 resources/powder.man %{buildroot}%{_mandir}/man6/powdertoy.6
 
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.metainfo.xml
 
 
 %files
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_metainfodir}/%{name}.appdata.xml
-%{_datadir}/icons/hicolor/**/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_datadir}/icons/hicolor/*/mimetypes/application-vnd.powdertoy.save.png
+%{_datadir}/icons/hicolor/scalable/mimetypes/application-vnd.powdertoy.save.svg
 %{_datadir}/mime/packages/%{name}*
+%{_datadir}/applications/%{rtld_name}.desktop
+%{_metainfodir}/%{rtld_name}.metainfo.xml
+%{_mandir}/man6/%{name}.6*
 
 
 %changelog
+* Wed Dec 28 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 97.0.351b-1
+- Update to v97.0.351b
+- Drop Patch0 (no longer needed, changes now done via config values)
+- Install icons for the savefile mimetype as well
+- Use a patch for renaming files instead of relying on sed
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 96.2.350-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

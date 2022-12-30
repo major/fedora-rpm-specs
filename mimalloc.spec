@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           mimalloc
-Version:        2.0.7
+Version:        2.0.9
 Release:        1%{?dist}
 Summary:        A general purpose allocator with excellent performance
 
@@ -58,6 +58,9 @@ rm -rf bin
 
 
 %changelog
+* Wed Dec 28 2022 Vasiliy Glazov <vascom2@gmail.com> - 2.0.9-1
+- Update to 2.0.9
+
 * Mon Nov 14 2022 Vasiliy Glazov <vascom2@gmail.com> - 2.0.7-1
 - Update to 2.0.7
 

@@ -9,7 +9,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           mingw-filesystem
-Version:        143
+Version:        144
 Release:        1%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
@@ -376,6 +376,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 144-1
+- Add mingw-qmake-qt6 macros, drop mingw-cmake-kde4 macros
+
 * Fri Dec 09 2022 Sandro Mani <manisandro@gmail.com> - 143-1
 - Prevent mingw-find-lang.sh from clobbering previous find-lang results
 

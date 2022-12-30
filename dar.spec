@@ -13,7 +13,7 @@
 # Basic descriptive tags for this package:
 #
 Name:           dar
-Version:        2.7.7
+Version:        2.7.8
 Release:        1%{?dist}
 Summary:        Software for making/restoring incremental CD/DVD backups
 
@@ -189,6 +189,9 @@ cp -a %{SOURCE1} .
 %endif
 
 %changelog
+* Wed Dec 28 2022 Luis Bazan <lbazan@fedoraproject.org> - 2.7.8-1
+- New Upstream version
+
 * Mon Aug 22 2022 Luis Bazan <lbazan@fedoraproject.org> - 2.7.7-1
 - New Upstream version
 

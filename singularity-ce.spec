@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 3.10.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -169,10 +169,11 @@ Provides: bundled(golang(github.com/yvasiyarov/newrelic_platform_go)) = v0.0.0_2
 Provides: bundled(golang(mvdan.cc/sh/v3)) = v3.5.1
 Provides: bundled(golang(oras.land/oras_go)) = v1.2.1
 
-# Conflicts with non-CE packages
-Conflicts: singularity
-# Conflicts with Apptainer, which installs the `/usr/bin/singularity` compatibility executable
-Conflicts: apptainer
+# Multiple packages contain /usr/bin/singularity and /usr/bin/run-singularity,
+# which are necessary to run SIF images.  Use a pivot provides/conflicts to
+# avoid them all needing to conflict with each other.
+Provides: sif-runtime
+Conflicts: sif-runtime
 
 %description
 SingularityCE is the Community Edition of Singularity, an open source
@@ -241,6 +242,8 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Tue Dec 13 2022 Carl George <carl@george.computer> - 3.10.4-2
+- Add pivot provides/conflict of sif-runtime
 
 * Mon Nov 28 2022 David Trudgian <dtrudg@sylabs.io> - 3.10.4-1
 - Initial packaging of SingularityCE 3.10.4

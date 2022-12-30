@@ -8,7 +8,7 @@ RPM is built. This module allows you to parse spec files and gives you simple
 access to various bits of information that is contained in the spec file.}
 
 Name:           python-%{srcname}
-Version:        0.12
+Version:        0.13
 Release:        %autorelease
 Summary:        Python module for parsing RPM spec files
 

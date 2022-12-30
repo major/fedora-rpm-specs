@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        70
+Version:        71
 
 %gometa
 
@@ -582,6 +582,19 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Dec 28 2022 Packit <hello@packit.dev> - 71-1
+Changes with 71
+----------------
+  * Enable Azure images for aarch64 (#3192)
+  * Ignition blueprint config support on rhel9 (#3161)
+  * Update building instructions (#3049)
+
+Contributions from: Achilleas Koutsou, Irene Diez, Lukáš Zapletal, Sanne Raymaekers, Tomáš Hozza
+
+— Somewhere on the Internet, 2022-12-28
+
+
+
 * Wed Dec 14 2022 Packit <hello@packit.dev> - 70-1
 Changes with 70
 ----------------

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2004-2018 Ralf Corsepius, Ulm, Germany.
+# Copyright (c) 2004-2018, 2022 Ralf Corsepius, Ulm, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -13,10 +13,10 @@
 Summary: High-level 3D visualization library
 Name: Coin2
 Version: 2.5.0
-Release: 42%{?dist}
+Release: 43%{?dist}
 
 # LICENSE.GPL says ".. or later" but source files tell "GPLv2"
-License: GPLv2
+License: GPL-2.0-only
 URL: http://www.coin3d.org
 
 Source0: ftp://ftp.coin3d.org/pub/coin/src/all/Coin-%{version}.tar.gz
@@ -108,7 +108,7 @@ sed -i -e 's,@LIBOPENAL_SONAME@,"%{libopenal_SONAME}",' \
 	--enable-3ds-import \
 	htmldir=%{coin_htmldir}/Coin \
 	CPPFLAGS="$(pkg-config --cflags freetype2)"
-make %{?_smp_mflags}
+%{make_build}
 
 # Strip the default libdir
 sed -i -e "s,\-L%{_libdir} ,," coin-default.cfg
@@ -117,7 +117,7 @@ sed -i -e "s,\-L%{_libdir} ,," coin-default.cfg
 sed -i -e "s,/share/Coin/conf/,/%{_lib}/Coin2/conf/,g" bin/coin-config
 
 %install
-make DESTDIR=$RPM_BUILD_ROOT install
+%{make_install}
 
 pushd $RPM_BUILD_ROOT%{_mandir} > /dev/null
 /usr/bin/rename .1 .1coin2 man1/*
@@ -178,6 +178,11 @@ fi
 %ghost %{_libdir}/pkgconfig/Coin.pc
 
 %changelog
+* Wed Dec 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.5.0-43
+- Convert license to SPDX.
+- Modernize spec.
+- Update sources to sha512.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

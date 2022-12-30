@@ -6,15 +6,13 @@ Automat is a library for concise, idiomatic Python expression of finite-state
 automata (particularly deterministic finite-state transducers).}
 
 Name:           python-%{srcname}
-Version:        20.2.0
+Version:        22.10.0
 Release:        %autorelease
 Summary:        Self-service finite-state machines for the programmer on the go
 
 License:        MIT
 URL:            https://github.com/glyph/automat
 Source0:        %pypi_source
-# https://github.com/glyph/automat/issues/135
-Patch0:         0001-Use-CodeType.replace-in-copycode-for-Python-3.8.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

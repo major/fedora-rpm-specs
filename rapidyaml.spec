@@ -3,10 +3,10 @@
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.4.1
+Version:        0.5.0
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.4.1
+%global so_version 0.5.0
 Release:        %autorelease
 
 # SPDX
@@ -22,6 +22,10 @@ Source0:        %{url}/archive/v%{version}/rapidyaml-%{version}.tar.gz
 Source1:        %{yamltest_url}/archive/%{yamltest_tag}/yaml-test-suite-%{yamltest_tag}.tar.gz
 # Helper script to patch out unconditional download of dependencies in CMake
 Source10:       patch-no-download
+
+# [fix] Add missing Python runtime dep. on deprecation
+# https://github.com/biojppm/rapidyaml/pull/347
+Patch:          %{url}/pull/347.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -87,7 +91,7 @@ The python3-rapidyaml package contains Python bindings for Rapid YAML.
 
 
 %prep
-%autosetup -p1
+%autosetup
 
 # Remove/unbundle additional dependencies
 

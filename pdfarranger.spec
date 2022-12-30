@@ -1,5 +1,5 @@
 Name:           pdfarranger
-Version:        1.9.1
+Version:        1.9.2
 Release:        1%{?dist}
 Summary:        PDF file merging, rearranging, and splitting
 
@@ -7,6 +7,8 @@ License:        GPLv3
 URL:            https://github.com/pdfarranger/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -84,6 +86,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %changelog
+* Wed Dec 28 2022 David Auer <dreua@posteo.de> - 1.9.2-1
+- Update to 1.9.2 (closes rhbz#2149537)
+
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.9.1-2
+- Drop support for i686
+
 * Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.1-1
 - Update to latest upstream release 1.9.1 (closes rhbz#2129599)
 

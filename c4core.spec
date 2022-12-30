@@ -3,10 +3,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.1.10%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
+Version:        0.1.11%{?commit:^%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.1.10
+%global so_version 0.1.11
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core
@@ -99,6 +99,13 @@ sed -r -i \
     -e 's/(c4_setup_testing\()DOCTEST\)/\1\)/' \
     test/CMakeLists.txt
 
+# Normally, in releases, the “current.md” changelog file is empty and
+# zero-length. When this is true, we remove it so it is not packaged.
+if [ "$(stat -c '%s' changelog/current.md)" = '0' ]
+then
+  rm -vf changelog/current.md
+fi
+
 # debugbreak
 rm -rvf src/c4/ext/debugbreak
 mkdir src/c4/ext/debugbreak
@@ -168,9 +175,9 @@ EOF
 
 
 %files devel
-%{_includedir}/c4
+%{_includedir}/c4/
 %{_libdir}/libc4core.so
-%{_libdir}/cmake/c4core
+%{_libdir}/cmake/c4core/
 
 
 %changelog

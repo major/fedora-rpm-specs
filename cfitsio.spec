@@ -1,5 +1,5 @@
 Name: cfitsio
-Version: 4.1.0
+Version: 4.2.0
 Release: 1%{?dist}
 Summary: Library for manipulating FITS data files
 
@@ -78,8 +78,8 @@ compression algorithm.
 %setup -q 
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1 -b .ldflags
-%patch4 -p1 -b .rpath
+%patch3 -p1 
+%patch4 -p1 
 
 %build
 %configure --enable-reentrant -with-bzip2
@@ -110,7 +110,7 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 
 %files
 %doc README License.txt docs/changes.txt
-%{_libdir}/libcfitsio.so.9*
+%{_libdir}/libcfitsio.so.10*
 
 %files devel
 %doc cookbook.*
@@ -131,6 +131,9 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %{_bindir}/funpack
 
 %changelog
+* Fri Nov 25 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 4.2.0-1
+- New upstream version 4.2.0
+
 * Wed Aug 24 2022 Orion Poplawski <orion@nwra.com> - 4.1.0-1
 - Update to 4.1.0
 

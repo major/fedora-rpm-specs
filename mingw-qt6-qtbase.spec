@@ -20,7 +20,7 @@
 
 Name:           mingw-qt6-qtbase
 Version:        6.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -40,6 +40,8 @@ Patch1:         qtbase-readlink.patch
 # Include toolchain file automatically if it exists
 # Rather than having to specify -DCMAKE_TOOLCHAIN_FILE="$toolchain_path" manually when invoking cmake...
 Patch2:         qtbase-include-toolchain.patch
+# Specify correct Header path in qmake config
+Patch3:         qtbase-qmakeconf.patch
 
 
 BuildRequires:  cmake
@@ -205,6 +207,10 @@ ln -s %{_prefix}/%{mingw32_target}/bin/qt6/qmake %{buildroot}%{_bindir}/%{mingw3
 ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qmake %{buildroot}%{_bindir}/%{mingw64_target}-qmake-qt6
 ln -s %{_prefix}/%{mingw32_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{mingw32_target}-qt6-cmake
 ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{mingw64_target}-qt6-cmake
+
+# Inject CROSS_COMPILE var to win32-g++ spec
+sed -i "1i CROSS_COMPILE=%{mingw32_target}-" %{buildroot}%{mingw32_libdir}/qt6/mkspecs/win32-g++/qmake.conf
+sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/mkspecs/win32-g++/qmake.conf
 
 
 # Win32
@@ -474,6 +480,9 @@ ln -s %{_prefix}/%{mingw64_target}/bin/qt6/qt-cmake %{buildroot}%{_bindir}/%{min
 
 
 %changelog
+* Wed Dec 28 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-2
+- Fix broken cross-target qmake
+
 * Wed Nov 23 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-1
 - Update to 6.4.1
 

@@ -3,8 +3,8 @@
 %global libgmobile_commit 3035e22ff124ca7b80ac5a21fe114be442e4dde6
 
 Name:		phosh
-Version:	0.22.0
-Release:	2%{?dist}
+Version:	0.23.0
+Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
@@ -43,8 +43,9 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.72.0
 BuildRequires:	pkgconfig(gnome-desktop-3.0) >= 3.26
 BuildRequires:	pkgconfig(gobject-2.0) >= 2.50.0
 BuildRequires:	pkgconfig(gudev-1.0)
-BuildRequires:	pkgconfig(gtk+-3.0) >= 3.22
+BuildRequires:	pkgconfig(gtk+-3.0) >= 3.24.30
 BuildRequires:	pkgconfig(gtk+-wayland-3.0) >= 3.22
+BuildRequires:	pkgconfig(libadwaita-1)
 BuildRequires:	pkgconfig(libhandy-1) >= 1.1.90
 BuildRequires:	pkgconfig(libnm) >= 1.14
 BuildRequires:	pkgconfig(libpulse) >= 2.0
@@ -149,11 +150,20 @@ SH
 %{_libdir}/phosh/plugins/ticket-box.plugin
 %{_datadir}/icons/hicolor/symbolic/apps/sm.puri.Phosh-symbolic.svg
 %{_datadir}/dbus-1/services/sm.puri.Phosh.CalendarServer.service
+%{_includedir}/phosh/phosh-plugin.h
+%{_libdir}/phosh/plugins/emergency-info.plugin
+%{_libdir}/phosh/plugins/libphosh-plugin-emergency-info.so
+%{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
+%{_libdir}/pkgconfig/phosh-plugins.pc
+
 
 %doc README.md
 %license COPYING
 
 %changelog
+* Wed Dec 28 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.23.0-1
+- Update to 0.23.0
+
 * Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.22.0-2
 - Requires gnome-shell
 

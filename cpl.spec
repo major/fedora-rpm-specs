@@ -1,6 +1,6 @@
 Name: cpl
-Version: 7.2.2
-Release: 2%{?dist}
+Version: 7.2.3
+Release: 1%{?dist}
 Summary: ESO library for automated astronomical data-reduction tasks
 
 License: GPLv2+
@@ -58,6 +58,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/pkgconfig/cext.pc
 
 %changelog
+* Wed Dec 28 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 7.2.3-1
+- New upstream source (7.2.3)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

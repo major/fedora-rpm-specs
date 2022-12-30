@@ -1,13 +1,12 @@
 #global pre_release .pre1
 
 Name:		libva-utils
-Version:	2.16.0
+Version:	2.17.0
 Release:	1%{?dist}
 Summary:	Tools for VAAPI (including vainfo)
 License:	MIT and BSD
 URL:		https://github.com/intel/libva-utils
 Source0:	%{url}/archive/%{version}%{?pre_release}/%{name}-%{version}%{?pre_release}.tar.gz
-Patch0:         meson-add-missing-tools.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc-c++
@@ -47,6 +46,7 @@ libva support is available on a system.
 %files
 %license COPYING
 %doc CONTRIBUTING.md README.md
+%{_bindir}/av1encode
 %{_bindir}/vainfo
 %{_bindir}/loadjpeg
 %{_bindir}/jpegenc
@@ -75,6 +75,9 @@ libva support is available on a system.
 
 
 %changelog
+* Wed Dec 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.17.0-1
+- Update to 2.17.0
+
 * Fri Oct 14 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.16.0-1
 - Update to 2.16.0
 

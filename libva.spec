@@ -1,7 +1,7 @@
 #global pre_release .pre1
 
 Name:		libva
-Version:	2.16.0
+Version:	2.17.0
 Release:	1%{?dist}
 Summary:	Video Acceleration (VA) API for Linux
 License:	MIT
@@ -76,6 +76,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libva*.pc
 
 %changelog
+* Wed Dec 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.17.0-1
+- Update to 2.17.0
+
 * Sun Oct 09 2022 Leigh Scott <leigh123linux@gmail.com> - 2.16.0-1
 - Update to 2.16.0
 - Use meson to build

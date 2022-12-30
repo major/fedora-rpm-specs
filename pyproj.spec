@@ -4,8 +4,9 @@
 
 Name:           pyproj
 Version:        3.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
+# this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
 URL:            https://github.com/jswhit/%{name}
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -189,6 +190,10 @@ py.test-3 -m "not network and not grid"
 
 
 %changelog
+* Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 3.4.1-2
+- SPDX migration: checked the license text, and concluded that MIT is the
+  correct SPDX license tag.
+
 * Mon Dec 26 2022 Jos de Kloe <josdekloe@gmail.com> 3.4.1-1
 - Update to 3.4.1
 

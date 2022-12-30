@@ -3,10 +3,12 @@
 
 Name: python-%{srcname}
 Version: 1.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: %{summary}
 
-License: BSD
+# This software uses the BSD-Source-Code license
+# (but without the second condition on use of names of contributors)
+License: BSD-Source-Code
 URL: https://github.com/python-metar/python-metar
 # note that development was moved to a new github account
 # the old account was: http://github.com/tomp/python-metar
@@ -70,6 +72,10 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
 %{python3_sitelib}/%{srcname}*egg-info
 
 %changelog
+
+* Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.9.0-3
+- SPDX migration: change BSD to BSD-Source-Code
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

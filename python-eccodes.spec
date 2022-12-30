@@ -2,7 +2,7 @@ Name:           python-eccodes
 Version:        1.5.0
 Release:        1%{?dist}
 Summary:        Python interface to the ecCodes GRIB and BUFR decoder/encoder
-License:        ASL 2.0
+License:        Apache-2.0
 # note: upstream has changed the name on pypi from eccodes-python to eccodes
 URL:            https://pypi.org/project/eccodes/
 Source0:        https://files.pythonhosted.org/packages/source/e/eccodes/eccodes-%{version}.tar.gz
@@ -105,6 +105,9 @@ rm build/sphinx/html/.buildinfo
 
 
 %changelog
+* Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.5.0-1
+- SPDX migration: change ASL 2.0 to Apache-2.0
+
 * Thu Sep 15 2022 Jos de Kloe <josdekloe@gmail.com> 1.5.0-1
 - new upstream release 1.5.0
 

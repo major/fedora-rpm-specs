@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
@@ -61,6 +61,9 @@ pytest-3 tests
 
 
 %changelog
+* Wed Dec 28 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.2.10-9
+- SPDX migration (checked, no change)
+
 * Sun Dec 18 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.2.10-8
 - Patch for SWI-Prolog Version > 8.5.2
 

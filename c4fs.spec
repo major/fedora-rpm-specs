@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit 3b5bafa198ba8c628cf599d0b955a1bf8a8b6ff2
-%global snapdate 20220819
+%global commit 0130061b804ae2af0d6cd5919275d552eb1f2414
+%global snapdate 20221129
 
 Name:           c4fs
 Summary:        C++ file system utilities

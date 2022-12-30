@@ -1,8 +1,8 @@
 # The project contains a version number, but a release has never been tagged.
 # The project is normally used as a git submodule and referred to by commit
 # hash.
-%global commit c9477dc2576031357d61c8ed0a77e43928cbfe99
-%global snapdate 20220818
+%global commit 00066ad7f624556f066f3d60766a2c33aeb3c6f0
+%global snapdate 20221005
 
 Name:           c4log
 Summary:        C++ type-safe logging, mean and lean

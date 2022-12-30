@@ -4,8 +4,8 @@ Release:        6%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
-URL:            http://openal-soft.org/
-Source0:        http://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
+URL:            https://openal-soft.org/
+Source0:        https://openal-soft.org/openal-releases/openal-soft-%{version}.tar.bz2
 Patch0:         openal-soft-arm_neon-only-for-32bit.patch
 
 BuildRequires:  alsa-lib-devel

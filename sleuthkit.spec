@@ -4,8 +4,8 @@
 
 
 Name:           sleuthkit
-Version:        4.11.1
-Release:        3%{?dist}
+Version:        4.12.0
+Release:        1%{?dist}
 Summary:        The Sleuth Kit (TSK)
 
 License:        CPL and IBM and GPLv2+
@@ -184,6 +184,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Dec 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 4.12.0-1
+- Update to 4.12.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

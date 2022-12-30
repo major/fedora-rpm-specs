@@ -3,9 +3,10 @@
 
 Name:       pygrib
 Version:    2.1.4
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
+# this software uses the "MIT:Modern Style with sublicense" license
 License:    MIT
 URL:        https://github.com/jswhit/%{name}
 Source0:    https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -26,7 +27,9 @@ BuildRequires: eccodes-devel
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
 BuildRequires: python3-Cython
-BuildRequires: python3-pyproj
+# no longer needed as direct BR without gribapi
+# (but still an indirect dependency through cartopy)
+# BuildRequires: python3-pyproj
 BuildRequires: python3-setuptools
 
 # these are used for pytest testing in the check section
@@ -155,6 +158,11 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 2.1.4-7
+- remove no longer needed BR for python3-pyproj
+- SPDX migration: checked the license text, and concluded that MIT is the
+  correct SPDX license tag.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
