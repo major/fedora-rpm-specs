@@ -2,7 +2,7 @@
 
 
 Name:           python-zope-testing
-Version:        4.10
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPLv2.1
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Thu Dec 29 2022 Dan Radez <dradez@redhat.com> - 5.0.1-1
+- update to 5.0.1 (rhbz#2155219)
+
 * Mon Aug 29 2022 Dan Radez <dradez@redhat.com> - 4.10-1
 - updating to 4.10 (rhbz#1912537)
 

@@ -5,8 +5,8 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic 2.0
-Version: 5.990
-Release: 2%{?dist}
+Version: 6.000
+Release: 1%{?dist}
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 URL: https://www.chordpro.org
 
@@ -229,6 +229,9 @@ update-mime-database %{_datadir}/mime
 gtk-update-icon-cache %{_datadir}/icons/hicolor
 
 %changelog
+* Thu Dec 29 2022 Johan Vromans <jvromans@squirrel.nl> - 6.000-1
+- Upgrade to upstream.
+
 * Tue Nov 08 2022 Johan Vromans <jvromans@squirrel.nl> - 5.990-2
 - Remove some experimental stuff from being installed.
 

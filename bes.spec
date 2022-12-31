@@ -8,7 +8,7 @@
 
 Name:           bes
 Version:        3.20.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
@@ -231,6 +231,9 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 3.20.13-3
+- Rebuild for cfitsio 4.2
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 3.20.13-2
 - Rebuild (gdal)
 

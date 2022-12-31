@@ -1,11 +1,15 @@
 Name: nss-mdns
 Version: 0.15.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: glibc plugin for .local name resolution
 
 License: LGPLv2+
 URL: https://github.com/lathiat/nss-mdns
 Source0: https://github.com/lathiat/nss-mdns/releases/download/v%{version}/nss-mdns-%{version}.tar.gz
+
+# https://github.com/lathiat/nss-mdns/pull/84
+Patch1:  nss-mdns-local-heuristic.patch
+Patch2:  nss-mdns-local-heuristic-unit.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -25,7 +29,7 @@ the local host name via mDNS (e.g. Avahi).
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure --libdir=/%{_lib}
@@ -58,6 +62,9 @@ authselect disable-feature with-mdns4 &> /dev/null || :
 
 
 %changelog
+* Tue Dec 06 2022 Petr Menšík <pemensik@redhat.com> - 0.15.1-7
+- Attempt to solve local heuristic (#2148500)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

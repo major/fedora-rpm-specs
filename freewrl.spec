@@ -7,9 +7,12 @@
 %bcond_without java
 %endif
 
+# probably never coming back. sorry.
+%bcond_with plugin
+
 Name:		freewrl
 Version:	%{majorrel}
-Release:	13.%{commitdate}git%{shortcommit}%{?dist}
+Release:	14.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPLv3+
 URL:		http://freewrl.sourceforge.net
@@ -46,8 +49,10 @@ BuildRequires:	liblo-devel, libcurl-devel, openal-soft-devel
 %if %{with java}
 BuildRequires:	java-devel
 %endif
-%ifnarch armv7hl s390x
+%if %{with plugin}
+%ifnarch armv7hl s390x i686
 BuildRequires:	firefox
+%endif
 %endif
 BuildRequires:	sox, doxygen
 BuildRequires:	ode-devel
@@ -91,6 +96,7 @@ Requires:	libEAI%{?_isa} = %{version}-%{release}
 %description -n libEAI-devel
 Development libraries and headers for libEAI.
 
+%if %{with plugin}
 %ifnarch armv7hl s390x
 %package plugin
 Summary:	Browser plugin for FreeWRL
@@ -100,6 +106,7 @@ Requires:	firefox
 %description plugin
 FreeWRL is an X3D / VRML visualization program. This package contains the
 browser plugin for Firefox (and other xulrunner compatible browsers).
+%endif
 %endif
 
 %prep
@@ -147,9 +154,11 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/
 install -p src/java/java.policy %{buildroot}%{_datadir}/%{name}/
 %endif
 
-# no firefox on armv7hl | s390x
-%ifarch armv7hl s390x
+%if %{with plugin}
+# no firefox on armv7hl | s390x | i686
+%ifarch armv7hl s390x i686
 rm -rf %{buildroot}%{_libdir}/mozilla/plugins/libFreeWRLplugin.so
+%endif
 %endif
 
 rm -rf %{buildroot}%{_libdir}/*.a
@@ -203,14 +212,17 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %{_libdir}/pkgconfig/libFreeWRLEAI.pc
 
 # Plugin is dead and gone, thanks to Mozilla.
-%if 0
-%ifnarch armv7hl s390x
+%if %{with plugin}
+%ifnarch armv7hl s390x i686
 %files plugin
 %{_libdir}/mozilla/plugins/libFreeWRLplugin.so
 %endif
 %endif
 
 %changelog
+* Thu Dec 29 2022 Tom Callaway <spot@fedoraproject.org> - 4.3.0-14.20200221gite99ab4a
+- disable plugin more completely with a conditional
+
 * Sun Jul 24 2022 Robert-André Mauchin <zebob.m@gmail.com> - 4.3.0-13.20200221gite99ab4a
 - Rebuilt for Ode soname bump
 

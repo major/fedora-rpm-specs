@@ -10,7 +10,7 @@
 
 Name:           healpix
 Version:        3.82
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hierarchical Equal Area isoLatitude Pixelization of a sphere
 
 License:        GPL-2.0-or-later
@@ -350,6 +350,9 @@ popd
 
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 3.82-3
+- Rebuild for cfitsio 4.2
+
 * Sun Jul 31 2022 Mattia Verga <mattia.verga@protonmail.com> - 3.82-2
 - Add zlib-devel as BR
 - Add libcurl-devel as BR

@@ -31,6 +31,10 @@ Patch5:         0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
 # which are not shipped as part of the jekyll gem:
 Patch6:         0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
 
+# https://github.com/jekyll/jekyll/pull/9237
+# ruby3.2 Struct constructor enables keyword_init: true by default
+Patch7:         0007-pr9237-ruby32-hash-for-Struct-initializer.patch
+
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby >= 2.4.0
@@ -112,6 +116,7 @@ popd && rm -r upstream
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec

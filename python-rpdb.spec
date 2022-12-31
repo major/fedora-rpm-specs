@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 0.1.6
-Release: 23%{?dist}
+Release: 24%{?dist}
 BuildArch: noarch
 
 Summary: A wrapper around pdb allowing remote debugging
@@ -12,6 +12,8 @@ URL:     https://github.com/tamentis/rpdb
 Source0: %{url}/%{srcname}/archive/%{srcname}-%{version}.tar.gz
 
 BuildRequires: python3-devel
+# This is needed for distutils until https://github.com/tamentis/rpdb/issues/31 is fixed.
+BuildRequires: python3-setuptools
 
 
 %description
@@ -52,6 +54,9 @@ debugging tools are available.
 
 
 %changelog
+* Wed Dec 28 2022 Randy Barlow <bowlofeggs@fedoraproject.org> - 0.1.6-24
+- BuildRequire setuptools for distutils (#2154984).
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

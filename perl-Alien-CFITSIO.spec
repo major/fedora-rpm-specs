@@ -1,6 +1,6 @@
 Name:           perl-Alien-CFITSIO
 Version:        4.1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build and Install the CFITSIO library
 License:        GPL-3.0-only
 Group:          Development/Libraries
@@ -64,5 +64,8 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 4.1.0.5-2
+- Rebuild for cfitsio 4.2
+
 * Tue Aug 23 2022 Orion Poplawski <orion@nwra.com> 4.1.0.5-1
 - Initial package

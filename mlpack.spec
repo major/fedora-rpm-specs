@@ -1,6 +1,6 @@
 Name:           mlpack
-Version:        4.0.0
-Release:        7%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 License:        BSD
@@ -139,6 +139,9 @@ margins.  This package provides the Python bindings for mlpack.
 %autosetup -p1
 
 %build
+# Make sure pip is available.
+python3 -m ensurepip --upgrade
+
 %if 0%{?rhel} && 0%{?rhel} <= 7
 # On RHEL6, the Boost CMake scripts fail for some reason.  I don't have the
 # time (or patience) to investigate, but if we force CMake to find Boost "the
@@ -287,6 +290,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Thu Dec 29 2022 Ryan Curtin <ryan@ratml.org> - 4.0.1-1
+- Update to latest stable version.
+
 * Mon Nov 21 2022 Ryan Curtin <ryan@ratml.org> - 4.0.0-7
 - Fix incorrect Requires again (oops) :).
 

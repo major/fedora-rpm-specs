@@ -21,7 +21,7 @@
 Summary: KDE 3 Libraries
 Name:    kdelibs3
 Version: 3.5.10
-Release: 118%{?dist}
+Release: 119%{?dist}
 
 License: LGPLv2
 Url: http://www.kde.org/
@@ -553,6 +553,11 @@ rm -f %{buildroot}%{_bindir}/preparetips
 # remove conflicts with kate-4.9.80+
 rm -fv %{buildroot}%{_datadir}/config/katesyntaxhighlightingrc
 
+# fix file conflict with leptonica-tools (#2156905)
+mv -f %{buildroot}%{_bindir}/imagetops %{buildroot}%{_bindir}/imagetops-kde3
+sed -i -e 's!exec:/imagetops!exec:/imagetops-kde3!g' %{buildroot}%{_datadir}/apps/kdeprint/filters/imagetops.desktop
+sed -i -e 's/imagetops /imagetops-kde3 /g' %{buildroot}%{_datadir}/apps/kdeprint/filters/imagetops.xml
+
 # don't show kresources
 sed -i -e "s,^OnlyShowIn=KDE;,OnlyShowIn=KDE3;," %{buildroot}%{_datadir}/applications/kde/kresources.desktop 
 
@@ -629,7 +634,7 @@ fi
 %{_bindir}/dcopstart
 %{_bindir}/filesharelist
 %{_bindir}/fileshareset
-%{_bindir}/imagetops
+%{_bindir}/imagetops-kde3
 %{_bindir}/kab2kabc
 %{_bindir}/kaddprinterwizard
 %{_bindir}/kbuildsycoca
@@ -706,6 +711,9 @@ fi
 %attr(4755,root,root) %{_bindir}/kpac_dhcp_helper
 
 %changelog
+* Thu Dec 29 2022 Kevin Kofler <Kevin@tigcc.ticalc.org> - 3.5.10-119
+- Fix file conflict with leptonica-tools (#2156905)
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 3.5.10-118
 - Port to C99
 

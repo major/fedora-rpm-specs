@@ -1,13 +1,8 @@
 %global __remake_config 0
 
-# LTO is running out of memory when building on x86_64
-%ifarch x86_64
-%global _lto_cflags %{nil}
-%endif
- 
 Name:           libfabric
 Version:        1.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD or GPLv2
@@ -19,8 +14,8 @@ BuildRequires:  automake
 BuildRequires:  autoconf
 BuildRequires:  libtool
 %endif
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  libnl3-devel
 # RDMA not available on 32-bit ARM: #1484155
 %ifnarch %{arm}
@@ -99,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Dec 29 2022 Orion Poplawski <orion@nwra.com> - 1.17.0-2
+- Re-enable LTO on x86_64
+
 * Wed Dec 21 2022 Orion Poplawski <orion@nwra.com> - 1.17.0-1
 - Update to 1.17.0
 

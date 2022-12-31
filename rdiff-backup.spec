@@ -1,4 +1,4 @@
-%global gittag 2.2.0
+%global gittag 2.2.2
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
@@ -13,8 +13,6 @@ BuildRequires: python3-devel >= 3.6, librsync-devel >= 1.0.0
 BuildRequires: python3-setuptools
 BuildRequires: python3-setuptools_scm
 BuildRequires: gcc
-#required to generate the manpages
-BuildRequires: rubygem-asciidoctor
 
 #recommended runtime dependencies
 Recommends: py3libacl
@@ -34,7 +32,7 @@ securely back a hard drive up to a remote location, and only the
 differences from the previous backup will be transmitted.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
+%autosetup -n %{name}-%{version}
 
 %build
 %py3_build
@@ -61,6 +59,18 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Thu Dec 29 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.2-2
+- Bugfix Oops release v2.2.2 - Fedora/EPEL Release
+
+* Thu Dec 29 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.2-1
+- Bugfix Oops release v2.2.2 - COPR Release
+
+* Wed Dec 28 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.1-1
+- Bugfix release v2.2.1 - COPR Release
+
+* Wed Dec 28 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.0-3
+- Patch to fix issue with function in debug mode
+
 * Tue Dec 20 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.2.0-2
 - Happy Holidays release v2.2.0 - Fedora Release
 

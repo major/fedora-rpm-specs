@@ -1,7 +1,7 @@
 %global apiversion 0.0
 
 Name: librevenge
-Version: 0.0.4
+Version: 0.0.5
 Release: %autorelease
 Summary: A base library for writing document import filters
 
@@ -15,6 +15,7 @@ BuildRequires: doxygen
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(cppunit)
 BuildRequires: pkgconfig(zlib)
+BuildRequires: python3-devel
 BuildRequires: make
 
 %description
@@ -57,7 +58,6 @@ debugging applications that use %{name}.
 %configure \
     --disable-silent-rules \
     --disable-static \
-    --disable-werror \
 %if ! 0%{?flatpak}
     --enable-pretty-printers
 %endif
@@ -70,9 +70,12 @@ sed -i \
 
 %install
 %make_install
-rm -f %{buildroot}/%{_libdir}/*.la
+
+rm -f %{buildroot}%{_libdir}/*.la
 # we install API docs directly from build
-rm -rf %{buildroot}/%{_docdir}/%{name}
+rm -rf %{buildroot}%{_docdir}/%{name}
+
+%py_byte_compile %{python3} %{buildroot}%{_datadir}
 
 %ldconfig_scriptlets
 
@@ -103,8 +106,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PA
 
 %if ! 0%{?flatpak}
 %files gdb
-%{_datadir}/gdb/auto-load%{_libdir}/%{name}-%{apiversion}.py*
-%{_datadir}/gdb/auto-load%{_libdir}/%{name}-stream-%{apiversion}.py*
+%{_datadir}/gdb/auto-load%{_libdir}/%{name}-%{apiversion}-gdb.py*
+%{_datadir}/gdb/auto-load%{_libdir}/%{name}-stream-%{apiversion}-gdb.py*
+%{_datadir}/gdb/auto-load%{_libdir}/__pycache__
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/python
 %endif

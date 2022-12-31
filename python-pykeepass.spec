@@ -1,56 +1,65 @@
-# Created by pyp2rpm-3.3.2
-%global pypi_name pykeepass
-
-Name:           python-%{pypi_name}
+Name:           python-pykeepass
 Version:        4.0.3
 Release:        %autorelease
 Epoch:          1
 Summary:        Python library to interact with keepass databases
 
-License:        GPLv3
+# The entire source is GPL-3.0-only, except:
+#
+# MIT:
+#   pykeepass/kdbx_parsing/twofish.py
+License:        GPL-3.0-only AND MIT
 URL:            https://github.com/libkeepass/pykeepass
-Source0:        %{pypi_source}
+# The GitHub archive has tests; the PyPI sdist does not.
+Source0:        %{url}/archive/v%{version}/pykeepass-%{version}.tar.gz
+
 BuildArch:      noarch
+# Tests fail on big-endian platform (s390x)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2156942
+# https://github.com/libkeepass/pykeepass/issues/332
+ExcludeArch:    s390x
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
-%description
-This library allows you to write entries to a KeePass database.
+%global common_description %{expand:
+This library allows you to write entries to a KeePass database.}
+
+%description %{common_description}
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-pykeepass
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
  
-%description -n python3-%{pypi_name}
-This library allows you to write entries to a KeePass database.
+%description -n python3-pykeepass %{common_description}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n pykeepass-%{version}
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+# Convert exact-version pins, which we cannot respect, to lower bounds.
+sed -r -i 's/==/>=/' requirements.txt
 
-sed -i 's|pycryptodomex==|pycryptodomex>=|' requirements.txt
-sed -i 's|construct==|construct>=|' requirements.txt
-sed -i 's|construct==|construct>=|' setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files pykeepass
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%{python3} -m unittest discover -s tests -v
+
+
+%files -n python3-pykeepass -f %{pyproject_files}
+%doc CHANGELOG.rst
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog

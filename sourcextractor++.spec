@@ -1,7 +1,7 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
 Version:        0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/sourcextractorplusplus
 Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{version}/%{name}-%{version}.tar.gz
@@ -203,6 +203,9 @@ make test -C "%{_vpath_builddir}"
 %{_docdir}/sourcextractor++
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 0.19-3
+- Rebuild for cfitsio 4.2
+
 * Mon Dec 12 2022 aalvarez - 0.19-2
 - Requires python3-astropy
 

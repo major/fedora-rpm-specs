@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 5.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD
 
@@ -151,6 +151,9 @@ popd
 %license LICENSE.rst
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 5.1-4
+- Rebuild for cfitsio 4.2
+
 * Thu Aug 25 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 5.1-3
 - New upstream source 5.1
 - Deselect some tests failling with Python 3.11 (https://github.com/astropy/astropy/issues/13522)

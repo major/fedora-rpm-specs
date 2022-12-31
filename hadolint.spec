@@ -15,7 +15,7 @@
 Name:           %{pkg_name}
 Version:        2.8.0
 # can only be reset when all subpkgs bumped
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPLv3+
@@ -192,6 +192,9 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Dec 29 2022 Jens Petersen <petersen@redhat.com> - 2.8.0-9
+- rebuild
+
 * Mon Dec 12 2022 Jens Petersen <petersen@redhat.com> - 2.8.0-8
 - rebuild
 

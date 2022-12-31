@@ -6,7 +6,7 @@
 %bcond_with docs 
 
 Name:           python-%{pkg_name}
-Version:        9.1.1
+Version:        9.1.2
 Release:        1%{?dist}
 Summary:        Tools to supplement packaging Python releases
 
@@ -93,6 +93,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Thu Dec 29 2022 Dan Radez <dradez@redhat.com> - 9.1.2-1
+- update to 9.1.2 rhbz#2156792
+
 * Fri Sep 30 2022 Dan Radez <dradez@redhat.com> - 9.1.1-1
 - Update to 9.1.1 rhbz#2131264
 

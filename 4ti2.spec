@@ -1,6 +1,6 @@
 Name:           4ti2
 Version:        1.6.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
@@ -16,6 +16,7 @@ Source0:        https://github.com/4ti2/4ti2/releases/download/Release_%{relver}
 Source1:        4ti2.module.in
 # Deal with a boolean variable that can somehow hold the value 2
 Patch0:         %{name}-maxnorm.patch
+Patch1:         %{name}-missing-include.patch
 
 BuildRequires:  environment(modules)
 BuildRequires:  gcc
@@ -142,6 +143,9 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Wed Dec 29 2022 Jeff Law <jlaw@ventanamicro.com> - 1.6.9-13
+- Add missing #include for gcc-13
+
 * Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.6.9-12
 - Silence "egrep is obsolescent" warnings from the scripts
 - Update license to reflect embedded fonts in the PDF manual

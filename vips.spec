@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -207,6 +207,9 @@ make check
 
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 8.13.3-2
+- Rebuild for cfitsio 4.2
+
 * Thu Dec 01 2022 Philipp Trulson <philipp@trulson.de> - 8.13.3-1
 - Update to 8.13.3 (#2098477)
 

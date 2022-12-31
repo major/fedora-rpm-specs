@@ -8,7 +8,7 @@
 
 Name:           astrometry
 Version:        0.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
 # Software is BSD with some GPL code
@@ -333,6 +333,9 @@ make test ARCH_FLAGS="%{optflags}"
 %{_bindir}/votabletofits
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 0.91-2
+- Rebuild for cfitsio 4.2
+
 * Tue Nov 01 2022 Mattia Verga <mattia.verga@proton.me> - 0.91-1
 - Update to 0.91 (fedora#2078037)
 

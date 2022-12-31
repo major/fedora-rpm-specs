@@ -11,6 +11,9 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
 # Patch to disable coverage reporting
 Patch0:         00-disable-simplecov.patch
+# https://github.com/toshimaru/jekyll-toc/pull/165
+# ruby3.2 Struct constructor enables keyword_init: true by default
+Patch1:         01-pr165-ruby32-hash-for-Struct-initializer.patch
 
 BuildRequires:  git-core
 BuildRequires:  ruby(release)

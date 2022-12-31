@@ -1,7 +1,7 @@
 
 Name:		nfdump
-Version:	1.6.24
-Release:	2%{?dist}
+Version:	1.7.1
+Release:	1%{?dist}
 Summary:	NetFlow collecting and processing tools
 
 License:	BSD and GPLv2+
@@ -67,6 +67,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %install
 %make_install
 chmod 0644 AUTHORS ChangeLog README.md
+rm -rf %{buildroot}/%{_sysconfdir}
 rm -f %{buildroot}%{_libdir}/*.la
 
 
@@ -75,7 +76,7 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 %files
 %license LICENSE
-%doc AUTHORS ChangeLog README.md
+%doc AUTHORS ChangeLog README.md src/conf/nfdump.conf.dist
 %{_bindir}/*
 %{_mandir}/man1/*.1*
 
@@ -85,6 +86,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Dec 29 2022 Denis Fateyev <denis@fateyev.com> - 1.7.1-1
+- Update to version 1.7.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

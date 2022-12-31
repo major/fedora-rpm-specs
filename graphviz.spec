@@ -81,7 +81,7 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		7.0.4
+Version:		7.0.5
 Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
@@ -180,6 +180,8 @@ Requires(post):		/sbin/ldconfig
 Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
 Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2155048
+Patch1:			graphviz-7.0.5-fix-python-3.12.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -728,6 +730,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Dec 29 2022 Tom Callaway <spot@fedoraproject.org> - 7.0.5-1
+- update to 7.0.5
+- patch out distutils usage to build with Python 3.12
+
 * Thu Dec 15 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.4-1
 - New version
   Resolves: rhbz#2150535

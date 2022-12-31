@@ -1,9 +1,9 @@
 Name:           klavaro
-Version:        3.13
-Release:        4%{?dist}
+Version:        3.14
+Release:        1%{?dist}
 Summary:        Typing tutor
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://klavaro.sourceforge.net/en/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 
@@ -21,7 +21,7 @@ BuildRequires:  gtkdatabox-devel
 Requires:       hicolor-icon-theme
 
 %description
-Klavaro  is a touch typing tutor that is very flexible and supports 
+Klavaro  is a touch typing tutor that is very flexible and supports
 customizable keyboard layouts. Users can edit and save new or unknown
 keyboard layouts, as the basic course provided by the program was
 designed to not depend on specific layouts.
@@ -47,7 +47,7 @@ mkdir -p %{buildroot}%{_localstatedir}/games/%{name}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
 
 %files -f %{name}.lang
 %license COPYING
@@ -58,9 +58,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*x*/apps/%{name}.png
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Thu Dec 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 3.14-1
+- Update to 3.14
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

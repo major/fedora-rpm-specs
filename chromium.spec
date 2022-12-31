@@ -23,18 +23,11 @@
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	ninja -j %{numjobs} -C '%1' '%2'
 
-# This was faster when it worked, but it didn't always.
-# As of chromium 80, it is no longer supported. RIP.
-%global use_jumbo 0
-
 # We usually want this.
-%global build_headless 1
+%global build_headless 0
 
 # This doesn't work and it doesn't even build as of Chromium 83
-%global build_remoting 1
-
-# This is finally possible with Chromium 93
-%global build_with_python3 1
+%global build_remoting 0
 
 # set nodejs_version
 %global nodejs_version v16.17.0
@@ -52,14 +45,10 @@
 %global toolset gcc-toolset
 %endif
 
-%if 0%{?build_with_python3}
 %if 0%{?rhel} == 7
 %global chromium_pybin /usr/bin/python3
 %else
 %global chromium_pybin %{__python3}
-%endif
-%else
-%global chromium_pybin %{__python2}
 %endif
 
 # We'd like to always have this on...
@@ -246,11 +235,7 @@ Patch7: chromium-71.0.3578.98-widevine-r3.patch
 Patch8: chromium-100.0.4896.60-widevine-other-locations.patch
 
 # Tell bootstrap.py to always use the version of Python we specify
-%if 0%{?build_with_python3}
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
-%else
-Patch11: chromium-92.0.4515.107-py2-bootstrap.patch
-%endif
 
 # Add "Fedora" to the user agent string
 Patch12:	chromium-101.0.4951.41-fedora-user-agent.patch
@@ -589,7 +574,7 @@ BuildRequires:	libxslt-devel
 BuildRequires:	libxshmfence-devel
 
 # Same here, it seems.
-# BuildRequires:	libyuv-devel
+# BuildRequires: libyuv-devel
 BuildRequires:	mesa-libGL-devel
 
 %if %{bundleopus}
@@ -607,15 +592,10 @@ BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gtk+-2.0)
 %endif
 
-%if %{build_with_python3}
 BuildRequires:	python3-devel
 BuildRequires: python3-zipp
-%else
-BuildRequires: python2-devel
-BuildRequires: python-zipp
-%endif
+BuildRequires: python3-simplejson
 
-%if 0%{?build_with_python3}
 %if 0%{?bundlepylibs}
 # Using bundled bits, do nothing.
 %else
@@ -626,31 +606,9 @@ BuildRequires: python3-markupsafe
 BuildRequires: python3-ply
 %else
 BuildRequires:	python-beautifulsoup4
-BuildRequires:	python-BeautifulSoup
 BuildRequires:	python-html5lib
 BuildRequires:	python-markupsafe
 BuildRequires:	python-ply
-%endif
-BuildRequires: python3-simplejson
-%endif
-%else
-%if 0%{?bundlepylibs}
-# Using bundled bits, do nothing.
-%else
-%if 0%{?fedora}
-BuildRequires: python2-beautifulsoup4
-BuildRequires: python2-beautifulsoup
-BuildRequires: python2-html5lib
-BuildRequires: python2-markupsafe
-BuildRequires: python2-ply
-%else
-BuildRequires: python-beautifulsoup4
-BuildRequires: python-BeautifulSoup
-BuildRequires: python-html5lib
-BuildRequires: python-markupsafe
-BuildRequires: python-ply
-%endif
-BuildRequires: python2-simplejson
 %endif
 %endif
 
@@ -911,11 +869,7 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 Requires: xorg-x11-server-Xvfb
-%if 0%{?build_with_python3}
 Requires: python3-psutil
-%else
-Requires: python2-psutil
-%endif
 Requires: chromium-common%{_isa} = %{version}-%{release}
 Summary: Remote desktop support for google-chrome & chromium
 
@@ -955,10 +909,7 @@ udev.
 %patch6 -p1 -b .nounrar
 %patch7 -p1 -b .widevine-hack
 %patch8 -p1 -b .widevine-other-locations
-
-%if 0%{?build_with_python3}
 %patch11 -p1 -b .py3
-%endif
 
 # Short term fixes (usually gcc and backports)
 %patch51 -p1 -b .gcc-remoting-constexpr
@@ -975,7 +926,6 @@ udev.
 %patch61 -p1 -b .system-minizip
 %endif
 
-# %%patch62 -p1 -b .update-wayland-client-core
 %patch65 -p1 -b .java-only-allowed
 %patch67 -p1 -b .remoting-cstring
 %patch68 -p1 -b .i686-textrels
@@ -1040,11 +990,7 @@ udev.
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
-%if 0%{?build_with_python3}
 find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
-%else
-find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python2}=' {} +
-%endif
 
 # Unpack fonts
 pushd third_party/test_fonts
@@ -1161,10 +1107,6 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 
 %build
-# utf8 issue on epel7
-# Internal parsing error 'ascii' codec can't decode byte 0xe2 in position 474: ordinal not in range(128)
-export LANG=C.UTF-8
-
 # Turning the buildsystem up to 11.
 ulimit -n 4096
 
@@ -1189,6 +1131,8 @@ export READELF="eu-readelf"
 
 # enable toolset on el7
 %if 0%{?rhel} == 7
+# utf8 issue on epel7, Internal parsing error 'ascii' codec can't decode byte 0xe2 in position 474: ordinal not in range(128)
+export LANG=en_US.UTF-8
 %if 0%{?clang}
 . /opt/rh/llvm-toolset-%{llvm_toolset_version}/enable
 %else
@@ -1252,10 +1196,6 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_js_type_check=false'
 
 %ifarch aarch64
   CHROMIUM_CORE_GN_DEFINES+=' target_cpu="arm64"'
-%endif
-
-%if %{?use_jumbo}
-  CHROMIUM_CORE_GN_DEFINES+=' use_jumbo_build=true jumbo_file_merge_limit=8'
 %endif
 
 %if 0%{?rhel} == 8
@@ -1363,13 +1303,8 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 	flac
 
 # Check that there is no system 'google' module, shadowing bundled ones:
-%if 0%{?build_with_python3}
 if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
     echo "Python 3 'google' module is defined, this will shadow modules of this build"; \
-%else
-if python2 -c 'import google ; print google.__path__' 2> /dev/null ; then \
-    echo "Python 2 'google' module is defined, this will shadow modules of this build"; \
-%endif
     exit 1 ; \
 fi
 
@@ -1413,7 +1348,7 @@ sed -e 's|${ICD_LIBRARY_PATH}|./libvk_swiftshader.so|g' third_party/swiftshader/
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{chromium_path}
+mkdir -p %{buildroot}%{chromium_path}/locales
 cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 
 export BUILD_TARGET=`cat /etc/redhat-release`
@@ -1432,11 +1367,12 @@ sed -i "s|@@CHROMIUM_BROWSER_CHANNEL@@|$CHROMIUM_BROWSER_CHANNEL|g" %{buildroot}
 	sed -i "s|@@EXTRA_FLAGS@@|$EXTRA_FLAGS|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 %endif
 
-ln -s ../%{chromium_path}/%{chromium_browser_channel}.sh %{buildroot}%{_bindir}/%{chromium_browser_channel}
+ln -s ..%{chromium_path}/%{chromium_browser_channel}.sh %{buildroot}%{_bindir}/%{chromium_browser_channel}
 mkdir -p %{buildroot}%{_mandir}/man1/
 
 pushd %{builddir}
-	cp -a chrom*.pak resources.pak locales resources icudtl.dat %{buildroot}%{chromium_path}
+	cp -a chrom*.pak resources.pak icudtl.dat %{buildroot}%{chromium_path}
+	cp -a locales/*.pak %{buildroot}%{chromium_path}/locales/
 	%ifarch x86_64 i686 aarch64
 		cp -a libvk_swiftshader.so %{buildroot}%{chromium_path}
 		strip %{buildroot}%{chromium_path}/libvk_swiftshader.so
@@ -1486,7 +1422,7 @@ pushd %{builddir}
 
 	# chromedriver
 	cp -a chromedriver %{buildroot}%{chromium_path}/chromedriver
-	ln -s ../%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
+	ln -s ..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
 
 	%if %{build_remoting}
 		# Remote desktop bits
@@ -1497,13 +1433,14 @@ popd
 %if %{build_remoting}
 	pushd %{remotingbuilddir}
 		# Hey, there is a library now.
-		cp -a libremoting_core.so* %{buildroot}%{crd_path}/
+		cp -a libremoting_core.so %{buildroot}%{crd_path}/
 		strip %{buildroot}%{crd_path}/libremoting_core.so
 
 		# See remoting/host/installer/linux/Makefile for logic
+		mkdir -p %{buildroot}%{crd_path}/remoting_locales
 		cp -a remoting_native_messaging_host %{buildroot}%{crd_path}/native-messaging-host
 		cp -a remote_assistance_host %{buildroot}%{crd_path}/remote-assistance-host
-		cp -a remoting_locales %{buildroot}%{crd_path}/
+		cp -a remoting_locales/*.pak %{buildroot}%{crd_path}/remoting_locales/
 		cp -a remoting_me2me_host %{buildroot}%{crd_path}/chrome-remote-desktop-host
 		cp -a remoting_start_host %{buildroot}%{crd_path}/start-host
 		cp -a remoting_user_session %{buildroot}%{crd_path}/user-session
@@ -1665,69 +1602,69 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/vk_swiftshader_icd.json
 %endif
 %dir %{chromium_path}/locales/
-%lang(af) %{chromium_path}/locales/af.pak*
-%lang(am) %{chromium_path}/locales/am.pak*
-%lang(ar) %{chromium_path}/locales/ar.pak*
-%lang(bg) %{chromium_path}/locales/bg.pak*
-%lang(bn) %{chromium_path}/locales/bn.pak*
-%lang(ca) %{chromium_path}/locales/ca.pak*
-%lang(cs) %{chromium_path}/locales/cs.pak*
-%lang(da) %{chromium_path}/locales/da.pak*
-%lang(de) %{chromium_path}/locales/de.pak*
-%lang(el) %{chromium_path}/locales/el.pak*
-%lang(en_GB) %{chromium_path}/locales/en-GB.pak*
+%lang(af) %{chromium_path}/locales/af.pak
+%lang(am) %{chromium_path}/locales/am.pak
+%lang(ar) %{chromium_path}/locales/ar.pak
+%lang(bg) %{chromium_path}/locales/bg.pak
+%lang(bn) %{chromium_path}/locales/bn.pak
+%lang(ca) %{chromium_path}/locales/ca.pak
+%lang(cs) %{chromium_path}/locales/cs.pak
+%lang(da) %{chromium_path}/locales/da.pak
+%lang(de) %{chromium_path}/locales/de.pak
+%lang(el) %{chromium_path}/locales/el.pak
+%lang(en_GB) %{chromium_path}/locales/en-GB.pak
 # Chromium _ALWAYS_ needs en-US.pak as a fallback
 # This means we cannot apply the lang code here.
 # Otherwise, it is filtered out on install.
-%{chromium_path}/locales/en-US.pak*
-%lang(es) %{chromium_path}/locales/es.pak*
-%lang(es) %{chromium_path}/locales/es-419.pak*
-%lang(et) %{chromium_path}/locales/et.pak*
-%lang(fa) %{chromium_path}/locales/fa.pak*
-%lang(fi) %{chromium_path}/locales/fi.pak*
-%lang(fil) %{chromium_path}/locales/fil.pak*
-%lang(fr) %{chromium_path}/locales/fr.pak*
-%lang(gu) %{chromium_path}/locales/gu.pak*
-%lang(he) %{chromium_path}/locales/he.pak*
-%lang(hi) %{chromium_path}/locales/hi.pak*
-%lang(hr) %{chromium_path}/locales/hr.pak*
-%lang(hu) %{chromium_path}/locales/hu.pak*
-%lang(id) %{chromium_path}/locales/id.pak*
-%lang(it) %{chromium_path}/locales/it.pak*
-%lang(ja) %{chromium_path}/locales/ja.pak*
-%lang(kn) %{chromium_path}/locales/kn.pak*
-%lang(ko) %{chromium_path}/locales/ko.pak*
-%lang(lt) %{chromium_path}/locales/lt.pak*
-%lang(lv) %{chromium_path}/locales/lv.pak*
-%lang(ml) %{chromium_path}/locales/ml.pak*
-%lang(mr) %{chromium_path}/locales/mr.pak*
-%lang(ms) %{chromium_path}/locales/ms.pak*
-%lang(nb) %{chromium_path}/locales/nb.pak*
-%lang(nl) %{chromium_path}/locales/nl.pak*
-%lang(pl) %{chromium_path}/locales/pl.pak*
-%lang(pt_BR) %{chromium_path}/locales/pt-BR.pak*
-%lang(pt_PT) %{chromium_path}/locales/pt-PT.pak*
-%lang(ro) %{chromium_path}/locales/ro.pak*
-%lang(ru) %{chromium_path}/locales/ru.pak*
-%lang(sk) %{chromium_path}/locales/sk.pak*
-%lang(sl) %{chromium_path}/locales/sl.pak*
-%lang(sr) %{chromium_path}/locales/sr.pak*
-%lang(sv) %{chromium_path}/locales/sv.pak*
-%lang(sw) %{chromium_path}/locales/sw.pak*
-%lang(ta) %{chromium_path}/locales/ta.pak*
-%lang(te) %{chromium_path}/locales/te.pak*
-%lang(th) %{chromium_path}/locales/th.pak*
-%lang(tr) %{chromium_path}/locales/tr.pak*
-%lang(uk) %{chromium_path}/locales/uk.pak*
-%lang(ur) %{chromium_path}/locales/ur.pak*
-%lang(vi) %{chromium_path}/locales/vi.pak*
-%lang(zh_CN) %{chromium_path}/locales/zh-CN.pak*
-%lang(zh_TW) %{chromium_path}/locales/zh-TW.pak*
+%{chromium_path}/locales/en-US.pak
+%lang(es) %{chromium_path}/locales/es.pak
+%lang(es) %{chromium_path}/locales/es-419.pak
+%lang(et) %{chromium_path}/locales/et.pak
+%lang(fa) %{chromium_path}/locales/fa.pak
+%lang(fi) %{chromium_path}/locales/fi.pak
+%lang(fil) %{chromium_path}/locales/fil.pak
+%lang(fr) %{chromium_path}/locales/fr.pak
+%lang(gu) %{chromium_path}/locales/gu.pak
+%lang(he) %{chromium_path}/locales/he.pak
+%lang(hi) %{chromium_path}/locales/hi.pak
+%lang(hr) %{chromium_path}/locales/hr.pak
+%lang(hu) %{chromium_path}/locales/hu.pak
+%lang(id) %{chromium_path}/locales/id.pak
+%lang(it) %{chromium_path}/locales/it.pak
+%lang(ja) %{chromium_path}/locales/ja.pak
+%lang(kn) %{chromium_path}/locales/kn.pak
+%lang(ko) %{chromium_path}/locales/ko.pak
+%lang(lt) %{chromium_path}/locales/lt.pak
+%lang(lv) %{chromium_path}/locales/lv.pak
+%lang(ml) %{chromium_path}/locales/ml.pak
+%lang(mr) %{chromium_path}/locales/mr.pak
+%lang(ms) %{chromium_path}/locales/ms.pak
+%lang(nb) %{chromium_path}/locales/nb.pak
+%lang(nl) %{chromium_path}/locales/nl.pak
+%lang(pl) %{chromium_path}/locales/pl.pak
+%lang(pt_BR) %{chromium_path}/locales/pt-BR.pak
+%lang(pt_PT) %{chromium_path}/locales/pt-PT.pak
+%lang(ro) %{chromium_path}/locales/ro.pak
+%lang(ru) %{chromium_path}/locales/ru.pak
+%lang(sk) %{chromium_path}/locales/sk.pak
+%lang(sl) %{chromium_path}/locales/sl.pak
+%lang(sr) %{chromium_path}/locales/sr.pak
+%lang(sv) %{chromium_path}/locales/sv.pak
+%lang(sw) %{chromium_path}/locales/sw.pak
+%lang(ta) %{chromium_path}/locales/ta.pak
+%lang(te) %{chromium_path}/locales/te.pak
+%lang(th) %{chromium_path}/locales/th.pak
+%lang(tr) %{chromium_path}/locales/tr.pak
+%lang(uk) %{chromium_path}/locales/uk.pak
+%lang(ur) %{chromium_path}/locales/ur.pak
+%lang(vi) %{chromium_path}/locales/vi.pak
+%lang(zh_CN) %{chromium_path}/locales/zh-CN.pak
+%lang(zh_TW) %{chromium_path}/locales/zh-TW.pak
 # These are psuedolocales, not real ones.
 # They only get generated when is_official_build=false
 %if ! %{official_build}
-%{chromium_path}/locales/ar-XB.pak*
-%{chromium_path}/locales/en-XA.pak*
+%{chromium_path}/locales/ar-XB.pak
+%{chromium_path}/locales/en-XA.pak
 %endif
 
 %if %{build_headless}

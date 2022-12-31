@@ -3,7 +3,7 @@
 Name:    kstars
 Summary: Desktop Planetarium
 Version: 3.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -164,6 +164,9 @@ fi
 
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 1:3.6.2-2
+- Rebuild for cfitsio 4.2
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.2-1
 - 3.6.2
 

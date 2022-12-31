@@ -1,8 +1,8 @@
 %global	gem_name	mini_portile2
 
 Name:		rubygem-%{gem_name}
-Version:	2.8.0
-Release:	2%{?dist}
+Version:	2.8.1
+Release:	1%{?dist}
 
 Summary:	Simplistic port-like solution for developers
 License:	MIT
@@ -86,6 +86,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Dec 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-1
+- 2.8.1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

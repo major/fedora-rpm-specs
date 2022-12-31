@@ -1,274 +1,182 @@
-%?mingw_package_header
+%{?mingw_package_header}
 
-%global name1 qwt
+%global pkgname qwt
 
-# build qt4 support (or not)
-%global qt4 0
-# build qt5 support (or not)
-%global qt5 1
+%bcond_without qt5
+%bcond_without qt6
 
-Name:           mingw-%{name1}
+Name:           mingw-%{pkgname}
 Summary:        MinGW Windows Qwt library
-Version:        6.1.5
-Release:        6%{?dist}
+Version:        6.2.0
+Release:        1%{?dist}
 URL:            http://qwt.sourceforge.net
 License:        LGPL-2.0-or-later WITH FLTK-exception
-Source:         http://downloads.sourceforge.net/%{name1}/%{name1}-%{version}.tar.bz2
-# fix pkgconfig support
-Patch50:        qwt-6.1.1-pkgconfig.patch
-# use QT_INSTALL_ paths instead of custom prefix
-Patch51:        qwt-6.1.5-qt_install_paths.patch
-# parallel-installable qt5 version
-Patch52:        qwt-qt5.patch
-
-BuildRequires: make
-BuildRequires:  mingw32-filesystem
-BuildRequires:  mingw64-filesystem
-BuildRequires:  mingw32-gcc-c++
-BuildRequires:  mingw64-gcc-c++
-BuildRequires:  perl
-%if 0%{?qt4}
-BuildRequires:  mingw32-qt
-BuildRequires:  mingw64-qt
-%endif
-%if 0%{?qt5}
-BuildRequires:  mingw32-qt5-qmake
-BuildRequires:  mingw64-qt5-qmake
-BuildRequires:  mingw32-qt5-qtbase
-BuildRequires:  mingw64-qt5-qtbase
-BuildRequires:  mingw32-qt5-qtbase-devel
-BuildRequires:  mingw64-qt5-qtbase-devel
-BuildRequires:  mingw32-qt5-qtsvg
-BuildRequires:  mingw64-qt5-qtsvg
-BuildRequires:  mingw32-qt5-qttools
-BuildRequires:  mingw64-qt5-qttools
-%endif
 BuildArch:      noarch
+Source:         http://downloads.sourceforge.net/%{pkgname}/%{pkgname}-%{version}.tar.bz2
+# Use QT_INSTALL_ paths instead of custom prefix
+Patch51:        qwt-qt_install_paths.patch
+# Add qt suffix to libraries to make them parallel-installable
+Patch52:        qwt-libsuffix.patch
+# Kill rpath
+Patch53:        qwt-no_rpath.patch
+# Fix incorrect requires in pkgconfig files
+Patch54:        qwt-pkgconfig.patch
+
+BuildRequires:  make
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc-c++
 
 %description
 MinGW Windows Qwt library.
 
 
-%if 0%{?qt4}
-%package -n mingw32-%{name1}
+%if %{with qt5}
+%package -n mingw32-%{pkgname}-qt5
 Summary:        MinGW Windows Qwt library
+BuildRequires:  mingw32-qt5-qtbase-devel
+BuildRequires:  mingw32-qt5-qtsvg
+BuildRequires:  mingw32-qt5-qttools
 
-%description -n mingw32-%{name1}
+%description -n mingw32-%{pkgname}-qt5
 MinGW Windows Qwt library.
 
-%package -n mingw64-%{name1}
+%package -n mingw64-%{pkgname}-qt5
 Summary:        MinGW Windows Qwt library
+BuildRequires:  mingw64-qt5-qtbase-devel
+BuildRequires:  mingw64-qt5-qtsvg
+BuildRequires:  mingw64-qt5-qttools
 
-%description -n mingw64-%{name1}
-MinGW Windows Qwt library.
-%endif
-
-%if 0%{?qt5}
-%package -n mingw32-%{name1}-qt5
-Summary:        MinGW Windows Qwt library
-
-%description -n mingw32-%{name1}-qt5
-MinGW Windows Qwt library.
-
-%package -n mingw64-%{name1}-qt5
-Summary:        MinGW Windows Qwt library
-
-%description -n mingw64-%{name1}-qt5
+%description -n mingw64-%{pkgname}-qt5
 MinGW Windows Qwt library.
 %endif
 
+%if %{with qt6}
+%package -n mingw32-%{pkgname}-qt6
+Summary:        MinGW Windows Qwt library
+BuildRequires:  mingw32-qt6-qtbase
+BuildRequires:  mingw32-qt6-qtsvg
+BuildRequires:  mingw32-qt6-qttools
 
-%?mingw_debug_package
+%description -n mingw32-%{pkgname}-qt6
+MinGW Windows Qwt library.
+
+%package -n mingw64-%{pkgname}-qt6
+Summary:        MinGW Windows Qwt library
+BuildRequires:  mingw64-qt6-qtbase
+BuildRequires:  mingw64-qt6-qtsvg
+BuildRequires:  mingw64-qt6-qttools
+
+%description -n mingw64-%{pkgname}-qt6
+MinGW Windows Qwt library.
+%endif
+
+
+%{?mingw_debug_package}
 
 %prep
-%setup -qcn %{name1}-%{version}
-pushd %{name1}-%{version}
-%patch50 -p1 -b .pkgconfig
-%patch51 -p1 -b .qt_install_paths
-%patch52 -p1 -b .qt5
-popd
-mv %{name1}-%{version} win32
-cp -r win32 win64
-%if 0%{?qt5}
-cp -r win32 win32qt5
-cp -r win64 win64qt5
-perl -i -pe 's,debug_and_release,release,' win32qt5/qwtbuild.pri
-perl -i -pe 's,debug_and_release,release,' win64qt5/qwtbuild.pri
-echo "CONFIG -= debug" >> win32qt5/qwtbuild.pri
-echo "CONFIG -= debug" >> win64qt5/qwtbuild.pri
-echo "CONFIG -= debug" >> win32qt5/src/src.pro
-echo "CONFIG -= debug" >> win64qt5/src/src.pro
-echo "CONFIG -= debug_and_release" >> win32qt5/src/src.pro
-echo "CONFIG -= debug_and_release" >> win64qt5/src/src.pro
-echo "CONFIG -= debug" >> win32qt5/textengines/mathml/mathml.pro
-echo "CONFIG -= debug" >> win64qt5/textengines/mathml/mathml.pro
-echo "CONFIG -= debug_and_release" >> win32qt5/textengines/mathml/mathml.pro
-echo "CONFIG -= debug_and_release" >> win64qt5/textengines/mathml/mathml.pro
-%endif
+%autosetup -p1 -n %{pkgname}-%{version}
+# Adjust config
+sed -Ei 's|QWT_CONFIG\s*\+= QwtExamples|#QWT_CONFIG += QwtExamples|' qwtconfig.pri
+sed -Ei 's|QWT_CONFIG\s*\+= QwtPlayground|#QWT_CONFIG += QwtPlayground|' qwtconfig.pri
+sed -Ei 's|QWT_CONFIG\s*\+= QwtTests|#QWT_CONFIG += QwtTests|' qwtconfig.pri
+sed -Ei 's|QWT_CONFIG\s*\+= QwtDesigner|#QWT_CONFIG += QwtDesigner|' qwtconfig.pri
 
 %build
-%if 0%{?qt5}
-%if 0%{?mingw_build_win32} == 1
-pushd win32qt5
-%mingw32_qmake_qt5 QWT_CONFIG+=QwtPkgConfig
-make %{?_smp_mflags}
-popd
-%endif
-%if 0%{?mingw_build_win64} == 1
-pushd win64qt5
-%mingw64_qmake_qt5 QWT_CONFIG+=QwtPkgConfig
-make %{?_smp_mflags}
-popd
-%endif
+%if %{with qt5}
+export MINGW_BUILDDIR_SUFFIX=qt5
+%{mingw_qmake_qt5} QWT_CONFIG+=QwtPkgConfig ..
+%mingw_make_build
 %endif
 
-%if 0%{?qt4}
-%if 0%{?mingw_build_win32} == 1
-pushd win32
-%mingw32_qmake_qt4 QWT_CONFIG+=QwtPkgConfig
-make qmake
-pushd textengines
-make qmake
-popd
-perl -i -pe 's,qwt4,qwt,' textengines/mathml/Makefile.Release
-perl -i -pe 's,qwt4d,qwtd,' textengines/mathml/Makefile.Debug
-make %{?_smp_mflags}
-popd
+%if %{with qt6}
+export MINGW_BUILDDIR_SUFFIX=qt6
+%{mingw_qmake_qt6} QWT_CONFIG+=QwtPkgConfig ..
+%mingw_make_build
 %endif
-%if 0%{?mingw_build_win64} == 1
-pushd win64
-%mingw64_qmake_qt4 QWT_CONFIG+=QwtPkgConfig
-make qmake
-pushd textengines
-make qmake
-popd
-perl -i -pe 's,qwt4,qwt,' textengines/mathml/Makefile.Release
-perl -i -pe 's,qwt4d,qwtd,' textengines/mathml/Makefile.Debug
-make %{?_smp_mflags}
-popd
-%endif
-%endif
+
 
 %install
-%if 0%{?qt5}
-%if 0%{?mingw_build_win32} == 1
-pushd win32qt5
-make INSTALL_ROOT=$RPM_BUILD_ROOT install
-popd
-rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/doc
-mkdir -p $RPM_BUILD_ROOT%{mingw32_bindir}
-mv $RPM_BUILD_ROOT%{mingw32_libdir}/*.dll $RPM_BUILD_ROOT%{mingw32_bindir}
-mv $RPM_BUILD_ROOT%{mingw32_libdir}/qt5/plugins/designer/%{name1}_designer_plugin.dll $RPM_BUILD_ROOT%{mingw32_bindir}/%{name1}_designer_plugin-qt5.dll
+%if %{with qt5}
+export MINGW_BUILDDIR_SUFFIX=qt5
+%mingw_make_install INSTALL_ROOT=%{buildroot}
 %endif
-%if 0%{?mingw_build_win64} == 1
-pushd win64qt5
-make INSTALL_ROOT=$RPM_BUILD_ROOT install
-popd
-rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/doc
-mkdir -p $RPM_BUILD_ROOT%{mingw64_bindir}
-mv $RPM_BUILD_ROOT%{mingw64_libdir}/*.dll $RPM_BUILD_ROOT%{mingw64_bindir}
-mv $RPM_BUILD_ROOT%{mingw64_libdir}/qt5/plugins/designer/%{name1}_designer_plugin.dll $RPM_BUILD_ROOT%{mingw64_bindir}/%{name1}_designer_plugin-qt5.dll
-%endif
+%if %{with qt6}
+# FIXME Fix incorrect install command generated by qmake
+sed -i 's|../build_win32qt6/lib/pkgconfig/Qt6Qwt6.pc|../lib/pkgconfig/Qt6Qwt6.pc|' build_win32qt6/src/Makefile.{Debug,Release}
+sed -i 's|../build_win64qt6/lib/pkgconfig/Qt6Qwt6.pc|../lib/pkgconfig/Qt6Qwt6.pc|' build_win64qt6/src/Makefile.{Debug,Release}
+export MINGW_BUILDDIR_SUFFIX=qt6
+%mingw_make_install INSTALL_ROOT=%{buildroot}
 %endif
 
-%if 0%{?qt4}
-%if 0%{?mingw_build_win32} == 1
-pushd win32
-make INSTALL_ROOT=$RPM_BUILD_ROOT install
-popd
-rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/doc
-mkdir -p $RPM_BUILD_ROOT%{mingw32_bindir}
-mv $RPM_BUILD_ROOT%{mingw32_libdir}/*.dll $RPM_BUILD_ROOT%{mingw32_bindir}
-mv $RPM_BUILD_ROOT%{mingw32_libdir}/qt4/plugins/designer/%{name1}_designer_plugin.dll $RPM_BUILD_ROOT%{mingw32_bindir}
-%endif
-%if 0%{?mingw_build_win64} == 1
-pushd win64
-make INSTALL_ROOT=$RPM_BUILD_ROOT install
-popd
-rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/doc
-mkdir -p $RPM_BUILD_ROOT%{mingw64_bindir}
-mv $RPM_BUILD_ROOT%{mingw64_libdir}/*.dll $RPM_BUILD_ROOT%{mingw64_bindir}
-mv $RPM_BUILD_ROOT%{mingw64_libdir}/qt4/plugins/designer/%{name1}_designer_plugin.dll $RPM_BUILD_ROOT%{mingw64_bindir}
-%endif
-%endif
+# Delete docs
+rm -rf %{buildroot}%{mingw32_prefix}/doc
+rm -rf %{buildroot}%{mingw64_prefix}/doc
+rm -rf %{buildroot}%{mingw32_docdir}
+rm -rf %{buildroot}%{mingw64_docdir}
 
-# Manually add version field to pkg-config file, it is impossible to do with qmake (setting VERSION also alters the library names)
-%if 0%{?qt4}
-echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/Qt4Qwt6.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/qwtmathml-qt4.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/Qt4Qwt6.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/qwtmathml-qt4.pc
-%endif
-%if 0%{?qt5}
-echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/Qt5Qwt6.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw32_libdir}/pkgconfig/qwtmathml-qt5.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/Qt5Qwt6.pc
-echo 'Version: %{version}' >> %{buildroot}%{mingw64_libdir}/pkgconfig/qwtmathml-qt5.pc
-%endif
+# Delete debug libs
+rm -f %{buildroot}%{mingw32_libdir}/qwt-qt{5,6}d.dll
+rm -f %{buildroot}%{mingw64_libdir}/qwt-qt{5,6}d.dll
+rm -f %{buildroot}%{mingw32_libdir}/libqwt-qt5d.dll.a
+rm -f %{buildroot}%{mingw64_libdir}/libqwt-qt5d.dll.a
+rm -f %{buildroot}%{mingw32_libdir}/libqwt-qt6d.a
+rm -f %{buildroot}%{mingw64_libdir}/libqwt-qt6d.a
+rm -f %{buildroot}%{mingw32_libdir}/pkgconfig/Qt5Qwt6d.pc
+rm -f %{buildroot}%{mingw64_libdir}/pkgconfig/Qt5Qwt6d.pc
 
-%if 0%{?qt4}
-%files -n mingw32-%{name1}
-%doc win32/COPYING
-%doc win32/README
-%{mingw32_bindir}/%{name1}.dll
-%{mingw32_bindir}/%{name1}d.dll
-%{mingw32_bindir}/%{name1}mathml.dll
-%{mingw32_bindir}/%{name1}mathmld.dll
-%{mingw32_bindir}/%{name1}_designer_plugin.dll
-%{mingw32_includedir}/%{name1}
-%{mingw32_libdir}/lib%{name1}.a
-%{mingw32_libdir}/lib%{name1}d.a
-%{mingw32_libdir}/lib%{name1}mathml.a
-%{mingw32_libdir}/lib%{name1}mathmld.a
-%{mingw32_datadir}/qt4/mkspecs/features/qwt*
-%{mingw32_libdir}/pkgconfig/*.pc
+# Fix import lib file extension
+mv %{buildroot}%{mingw32_libdir}/libqwt-qt6.a %{buildroot}%{mingw32_libdir}/libqwt-qt6.dll.a
+mv %{buildroot}%{mingw64_libdir}/libqwt-qt6.a %{buildroot}%{mingw64_libdir}/libqwt-qt6.dll.a
 
-%files -n mingw64-%{name1}
-%doc win64/COPYING
-%doc win64/README
-%{mingw64_bindir}/%{name1}.dll
-%{mingw64_bindir}/%{name1}d.dll
-%{mingw64_bindir}/%{name1}mathml.dll
-%{mingw64_bindir}/%{name1}mathmld.dll
-%{mingw64_bindir}/%{name1}_designer_plugin.dll
-%{mingw64_includedir}/%{name1}
-%{mingw64_libdir}/lib%{name1}.a
-%{mingw64_libdir}/lib%{name1}d.a
-%{mingw64_libdir}/lib%{name1}mathml.a
-%{mingw64_libdir}/lib%{name1}mathmld.a
-%{mingw64_datadir}/qt4/mkspecs/features/qwt*
-%{mingw64_libdir}/pkgconfig/*.pc
-%endif
+# Move binaries to correct location
+mkdir -p %{buildroot}%{mingw32_bindir}
+mkdir -p %{buildroot}%{mingw64_bindir}
+mv %{buildroot}%{mingw32_libdir}/*.dll %{buildroot}%{mingw32_bindir}
+mv %{buildroot}%{mingw64_libdir}/*.dll %{buildroot}%{mingw64_bindir}
 
-%if 0%{?qt5}
-%files -n mingw32-%{name1}-qt5
-%doc win32/COPYING
-%doc win32/README
-%{mingw32_bindir}/%{name1}-qt5.dll
-%{mingw32_bindir}/%{name1}mathml-qt5.dll
-%{mingw32_libdir}/lib%{name1}-qt5.dll.a
-%{mingw32_libdir}/lib%{name1}mathml-qt5.dll.a
-%{mingw32_bindir}/%{name1}_designer_plugin-qt5.dll
-%{mingw32_includedir}/qt5/%{name1}
+
+%if %{with qt5}
+%files -n mingw32-%{pkgname}-qt5
+%license COPYING
+%{mingw32_bindir}/%{pkgname}-qt5.dll
+%{mingw32_libdir}/lib%{pkgname}-qt5.dll.a
+%{mingw32_includedir}/qt5/%{pkgname}/
 %{mingw32_datadir}/qt5/mkspecs/features/qwt*
 %{mingw32_libdir}/pkgconfig/Qt5Qwt6.pc
-%{mingw32_libdir}/pkgconfig/qwtmathml-qt5.pc
 
-%files -n mingw64-%{name1}-qt5
-%doc win64/COPYING
-%doc win64/README
-%{mingw64_bindir}/%{name1}-qt5.dll
-%{mingw64_bindir}/%{name1}mathml-qt5.dll
-%{mingw64_libdir}/lib%{name1}-qt5.dll.a
-%{mingw64_libdir}/lib%{name1}mathml-qt5.dll.a
-%{mingw64_bindir}/%{name1}_designer_plugin-qt5.dll
-%{mingw64_includedir}/qt5/%{name1}
+%files -n mingw64-%{pkgname}-qt5
+%license COPYING
+%{mingw64_bindir}/%{pkgname}-qt5.dll
+%{mingw64_libdir}/lib%{pkgname}-qt5.dll.a
+%{mingw64_includedir}/qt5/%{pkgname}/
 %{mingw64_datadir}/qt5/mkspecs/features/qwt*
 %{mingw64_libdir}/pkgconfig/Qt5Qwt6.pc
-%{mingw64_libdir}/pkgconfig/qwtmathml-qt5.pc
+%endif
+
+%if %{with qt6}
+%files -n mingw32-%{pkgname}-qt6
+%license COPYING
+%{mingw32_bindir}/%{pkgname}-qt6.dll
+%{mingw32_libdir}/lib%{pkgname}-qt6.dll.a
+%{mingw32_includedir}/qt6/%{pkgname}/
+%{mingw32_libdir}/qt6/mkspecs/features/qwt*
+%{mingw32_libdir}/pkgconfig/Qt6Qwt6.pc
+
+%files -n mingw64-%{pkgname}-qt6
+%license COPYING
+%{mingw64_bindir}/%{pkgname}-qt6.dll
+%{mingw64_libdir}/lib%{pkgname}-qt6.dll.a
+%{mingw64_includedir}/qt6/%{pkgname}/
+%{mingw64_libdir}/qt6/mkspecs/features/qwt*
+%{mingw64_libdir}/pkgconfig/Qt6Qwt6.pc
 %endif
 
 %changelog
+* Thu Dec 29 2022 Sandro Mani <manisandro@gmail.com> - 6.2.0-1
+- Update to 6.2.0
+
 * Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 6.1.5-6
 - Fix missing version field in pkgconfig file
 

@@ -1,5 +1,5 @@
 Name:           python-xxhash
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 

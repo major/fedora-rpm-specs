@@ -1,11 +1,11 @@
-%global modname 2.4.6
+%global modname 3.0.0
 
 Summary: Open source Church presentation and lyrics projection application
 Name: OpenLP
-Version: 2.4.6
-Release: 18%{?dist}
+Version: 3.0.0
+Release: 1%{?dist}
 Source0: https://get.openlp.org/%{version}/OpenLP-%{version}.tar.gz
-License: GPLv2
+License: GPLv3
 BuildArch: noarch
 
 URL: http://openlp.org/
@@ -13,9 +13,9 @@ URL: http://openlp.org/
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest-runner
 
 Requires:       python3-qt5
-Requires:       python3-qt5-webkit
 Requires:       python3-beautifulsoup4
 Requires:       python3-chardet
 Requires:       python3-lxml
@@ -24,10 +24,23 @@ Requires:       python3-enchant
 Requires:       python3-mako
 Requires:       python3-openoffice
 Requires:       python3-alembic
+Requires:       python3-appdirs
+Requires:       python3-webob
+Requires:       python3-QtAwesome
+Requires:       python3-websockets
+Requires:       python3-waitress
+Requires:       python3-pymediainfo
+Requires:       python3-pyopengl
+Requires:       python3-qt5-webengine
+Requires:       python3-zeroconf
+Requires:       python3-flask
+Requires:       python3-flask-cors
 Requires:       hicolor-icon-theme
 Requires:       libreoffice-graphicfilter
 Requires:       libreoffice-impress
-Requires:       mupdf
+Requires:       python3-PyMuPDF
+Requires:       python3-qrcode 
+Requires:       python3-pillow-qt
 
 %description
 OpenLP is a church presentation software, for lyrics projection software,
@@ -59,7 +72,7 @@ desktop-file-install \
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/openlp.desktop
 
-mv %{buildroot}%{_bindir}/openlp.py %{buildroot}%{_bindir}/openlp
+#mv %{buildroot}%{_bindir}/openlp.py %{buildroot}%{_bindir}/openlp
 
 mkdir -p %{buildroot}%{_datadir}/openlp/i18n/
 mv resources/i18n/*.qm %{buildroot}%{_datadir}/openlp/i18n
@@ -78,6 +91,9 @@ cp -p resources/openlp.xml %{buildroot}%{_datadir}/mime/packages
 
 
 %changelog
+* Thu Dec 29 2022 Release 3.0 <Tim.Bentley@openlp.org> - 3.0.0-1
+- Rebuilt for Release 3.0.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

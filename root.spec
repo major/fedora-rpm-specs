@@ -65,7 +65,7 @@
 Name:		root
 Version:	6.26.10
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -3985,6 +3985,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 6.26.10-2
+- Rebuild for cfitsio 4.2
+
 * Wed Nov 16 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-1
 - Update to 6.26.10
 - Drop patches root-Fixes-for-garbage-collection-in-Python-3.11.patch

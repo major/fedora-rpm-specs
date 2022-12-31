@@ -1,6 +1,6 @@
 Name:           python-exabgp
 Version:        4.2.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
 License:        BSD-3-Clause
@@ -60,6 +60,7 @@ install -p -m 0755 bin/exabgpcli %{buildroot}%{_bindir}/
 
 # Configure required directories for the exabgp service
 mkdir -p %{buildroot}/%{_sysconfdir}/exabgp
+touch %{buildroot}/%{_sysconfdir}/exabgp/exabgp.env
 
 # Install exabgp systemd unit files
 mkdir -p %{buildroot}/%{_unitdir}
@@ -88,6 +89,7 @@ rm -rf %{buildroot}%{_usr}/etc
 
 %pre -n exabgp
 %sysusers_create_package exabgp %{SOURCE1}
+%tmpfiles_create_package exabgp %{SOURCE2}
 
 %post -n exabgp
 %systemd_post exabgp.service
@@ -110,7 +112,8 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_bindir}/exabgp-cli
 %{_sbindir}/exabgp
 %{_sbindir}/exabgp-healthcheck
-%dir %attr(750,root,exabgp) %{_sysconfdir}/exabgp
+%dir %{_sysconfdir}/exabgp
+%ghost %{_sysconfdir}/exabgp/exabgp.env
 %{_unitdir}/exabgp.service
 %{_unitdir}/exabgp@.service
 %{_mandir}/man1/exabgp.1{,.*}
@@ -119,6 +122,11 @@ rm -rf %{buildroot}%{_usr}/etc
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Wed Dec 28 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-2
+- Create run time tmpfiles in pre
+- Set file/directory permissions appropriately
+- Mark exabgp.env as a ghost file
+
 * Sat Dec 24 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 4.2.21-1
 - Update to upstream 4.2.21 (resolves rhbz#1721067)
 - Update license to SPDX format
