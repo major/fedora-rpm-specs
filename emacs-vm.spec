@@ -33,6 +33,8 @@ URL: https://launchpad.net/vm
 #  bzr branch lp:~markd-kermodei/vm/vm-emacs-28 emacs-vm-20220609
 Source0: %{name}-%{date}.tar.xz
 Source1: emacs-vm.metainfo.xml
+# https://bugs.launchpad.net/vm/+bug/1225162/comments/6
+Patch: marker-pointer.patch
 
 Requires: emacs(bin) >= %{_emacs_version}
 BuildRequires: autoconf
@@ -65,7 +67,7 @@ splittra upp eller skapa sammandrag, vidarebefordra meddelanden och
 organisera presentationen av meddelanden enligt olika kriterier.
 
 %prep
-%autosetup -n %{name}-%{date}
+%autosetup -n %{name}-%{date} -p 0
 
 %build
 autoupdate

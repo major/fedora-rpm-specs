@@ -36,7 +36,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -823,6 +823,9 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.2.2-6
+- Rebuild for ICU 72
+
 * Sun Nov 06 2022 Iñaki Úcar <iucar@fedoraproject.org> - 4.2.2-5
 - Revert inadvertent change to BLAS condition
 

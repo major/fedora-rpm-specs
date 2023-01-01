@@ -18,15 +18,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-3.0
 
 Name:    gtk3
-Version: 3.24.35
-Release: 2%{?dist}
+Version: 3.24.36
+Release: 1%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPLv2+
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk+/3.24/gtk+-%{version}.tar.xz
-# Missing from the tarball for some reason.
-Source1: wayland-cursor-meson.build
 
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
@@ -155,7 +153,6 @@ the functionality of the installed %{name} package.
 
 %prep
 %autosetup -n gtk+-%{version} -p1
-cp -p %{SOURCE1} gdk/wayland/cursor/meson.build
 
 %build
 export CFLAGS='-fno-strict-aliasing %optflags'
@@ -202,7 +199,7 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 
 %files -f gtk30.lang
 %license COPYING
-%doc AUTHORS NEWS README
+%doc NEWS README.md
 %{_bindir}/gtk-query-immodules-3.0*
 %{_bindir}/gtk-launch
 %{_libdir}/libgtk-3.so.*
@@ -296,6 +293,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Fri Dec 30 2022 David King <amigadave@amigadave.com> - 3.24.36-1
+- Update to 3.24.36
+
 * Mon Nov 28 2022 Jens Petersen <petersen@redhat.com> - 3.24.35-2
 - Recommend ibus-gtk3 if ibus is installed
 

@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global packname cli
-%global packver  3.4.1
+%global packver  3.5.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -16,7 +16,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-utils
-# Suggests:  R-callr, R-covr, R-digest, R-glue >= 1.6.0, R-grDevices, R-htmltools, R-htmlwidgets, R-knitr, R-methods, R-mockery, R-processx, R-ps >= 1.3.4.9000, R-rlang >= 1.0.2.9003, R-rmarkdown, R-projroot, R-rstudioapi, R-testthat, R-tibble, R-whoami, R-withr
+# Suggests:  R-callr, R-covr, R-crayon, R-digest, R-glue >= 1.6.0, R-grDevices, R-htmltools, R-htmlwidgets, R-knitr, R-methods, R-mockery, R-processx, R-ps >= 1.3.4.9000, R-rlang >= 1.0.2.9003, R-rmarkdown, R-rprojroot, R-rstudioapi, R-testthat, R-tibble, R-whoami, R-withr
 # LinkingTo:
 # Enhances:
 
@@ -26,6 +26,7 @@ BuildRequires:    R-glue >= 1.6.0
 BuildRequires:    R-utils
 %if %{with check}
 BuildRequires:    R-callr
+BuildRequires:    R-crayon
 BuildRequires:    R-digest
 BuildRequires:    R-glue >= 1.6.0
 BuildRequires:    R-grDevices
@@ -98,6 +99,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 3.5.0-1
+- update to 3.5.0
+
 * Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 3.4.1-1
 - update to 3.4.1
 

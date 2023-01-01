@@ -1,5 +1,5 @@
 Name:           i3-gaps
-Version:        4.21
+Version:        4.21.1
 Release:        %autorelease
 Summary:        i3 with more features
 License:        BSD

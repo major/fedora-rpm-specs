@@ -1,20 +1,19 @@
 %bcond_with suggests
 
 %global packname isoband
-%global packver  0.2.5
+%global packver  0.2.7
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((sf)\\)
 
 Name:             R-%{packname}
-Version:          0.2.5
+Version:          %{packver}
 Release:          1%{?dist}
 Summary:          Generate Isolines and Isobands from Regularly Spaced Elevation Grids
 
 License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
-Patch0001:        0001-Unbundle-catch1.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -23,7 +22,6 @@ Patch0001:        0001-Unbundle-catch1.patch
 # LinkingTo:
 # Enhances:
 
-BuildRequires:    catch1-devel
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-grid
@@ -46,10 +44,6 @@ polygons (isobands) from regularly spaced grids containing elevation data.
 
 %prep
 %setup -q -c -n %{packname}
-
-pushd %{packname}
-%patch0001 -p1
-popd
 
 
 %build
@@ -88,6 +82,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 0.2.7-1
+- update to 0.2.7
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 0.2.5-1
 - update to 0.2.5
 

@@ -39,7 +39,7 @@
 %endif
 
 Name:           neovim
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 
 License:        ASL 2.0
@@ -49,6 +49,8 @@ Url:            https://neovim.io
 Source0:        https://github.com/neovim/neovim/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        sysinit.vim
 Source2:        spec-template
+
+Patch0:         neovim-fix-fortify-source.patch
 
 Patch1000:      neovim-lua-bit32.patch
 
@@ -109,6 +111,7 @@ parts of Vim, without compromise, and more.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %if %{without luajit}
 %patch1000 -p1
@@ -421,6 +424,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/doc/job_control.txt
 %{_datadir}/nvim/runtime/doc/lsp-extension.txt
 %{_datadir}/nvim/runtime/doc/lsp.txt
+%{_datadir}/nvim/runtime/doc/lua-guide.txt
 %{_datadir}/nvim/runtime/doc/lua.txt
 %{_datadir}/nvim/runtime/doc/luaref.txt
 %{_datadir}/nvim/runtime/doc/luvref.txt
@@ -1184,6 +1188,7 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 
 %dir %{_datadir}/nvim/runtime/queries/help/
 %{_datadir}/nvim/runtime/queries/help/highlights.scm
+%{_datadir}/nvim/runtime/queries/help/injections.scm
 
 %dir %{_datadir}/nvim/runtime/queries/lua/
 %{_datadir}/nvim/runtime/queries/lua/highlights.scm
@@ -1887,6 +1892,10 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Fri Dec 30 2022 Andreas Schneider <asn@redhat.com> - 0.8.2-1
+- Update to version 0.8.2
+  * https://github.com/neovim/neovim/releases/tag/v0.8.2
+
 * Mon Nov 14 2022 Andreas Schneider <asn@redhat.com> - 0.8.1-1
 - Update to version 0.8.1
   * https://github.com/neovim/neovim/releases/tag/v0.8.1

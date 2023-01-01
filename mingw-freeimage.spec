@@ -10,7 +10,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.19.0
-Release:       0.10%{?svn_rev:.svn%svn_rev}%{?dist}
+Release:       0.11%{?svn_rev:.svn%svn_rev}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 # freeimage is tripple-licensed, see
@@ -31,6 +31,8 @@ Patch0:        FreeImage_unbundle.patch
 Patch1:        FreeImage_mingw.patch
 # Support openexr-3.x
 Patch2:        freeimage-openexr3.patch
+# Support LibRaw 0.21.0
+Patch3:        freeimage-libraw021.patch
 
 
 BuildRequires: make
@@ -102,7 +104,7 @@ Requires:      mingw64-%{pkgname} = %{version}-%{release}
 %if 0%{?svn_rev:1}
 %setup -q -n freeimage-svn-r%{svn_rev}-FreeImage-trunk
 %else
-%setuo -q -n FreeImage
+%setup -q -n FreeImage
 %endif
 
 # sanitize encodings / line endings
@@ -189,6 +191,9 @@ install -Dpm 0644 %{win64dir}/Dist/FreeImagePlus.h %{buildroot}%{mingw64_include
 
 
 %changelog
+* Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 3.19.0-0.11.svn1889
+- Rebuild (LibRaw)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-0.10.svn1889
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

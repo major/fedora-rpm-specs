@@ -4,8 +4,8 @@
 
 Name:           python-coverage
 Summary:        Code coverage testing module for Python
-Version:        6.4.2
-Release:        2%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 # jquery(MIT):
 #  coverage/htmlfiles/jquery.min.js
 # MIT or GPL:
@@ -120,6 +120,9 @@ popd
 %{python3_sitearch}/coverage*.egg-info/
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 7.0.1-1
+- update to 7.0.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

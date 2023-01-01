@@ -1,13 +1,13 @@
 %global packname highr
-%global packver  0.9
+%global packver  0.10
 %global rlibdir  %{_datadir}/R/library
 
 # Needs knitr (build loop)
 %bcond_with bootstrap
 
 Name:             R-%{packname}
-Version:          0.9
-Release:          7%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Syntax Highlighting for R Source Code
 
 License:          GPLv2+
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 0.10-1
+- update to 0.10
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 0.9-7
 - rebuild for R 4.2.1
 - bootstrap on

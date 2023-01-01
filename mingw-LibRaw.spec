@@ -3,8 +3,8 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.20.2
-Release:       7%{?dist}
+Version:       0.21.0
+Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
@@ -114,8 +114,8 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %files -n mingw32-%{pkgname}
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{mingw32_bindir}/libraw-20.dll
-%{mingw32_bindir}/libraw_r-20.dll
+%{mingw32_bindir}/libraw-23.dll
+%{mingw32_bindir}/libraw_r-23.dll
 %{mingw32_includedir}/libraw/
 %{mingw32_libdir}/libraw.dll.a
 %{mingw32_libdir}/libraw_r.dll.a
@@ -131,8 +131,8 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %files -n mingw64-%{pkgname}
 %license LICENSE.CDDL LICENSE.LGPL COPYRIGHT
-%{mingw64_bindir}/libraw-20.dll
-%{mingw64_bindir}/libraw_r-20.dll
+%{mingw64_bindir}/libraw-23.dll
+%{mingw64_bindir}/libraw_r-23.dll
 %{mingw64_includedir}/libraw/
 %{mingw64_libdir}/libraw.dll.a
 %{mingw64_libdir}/libraw_r.dll.a
@@ -148,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 0.21.0-1
+- Update to 0.21.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

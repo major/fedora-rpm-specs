@@ -3,7 +3,7 @@
 
 Name:		perl-JSON-PP
 Epoch:		1
-Version:	4.15
+Version:	4.16
 Release:	1%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -90,6 +90,10 @@ make test
 %{_mandir}/man3/JSON::PP::Boolean.3*
 
 %changelog
+* Fri Dec 30 2022 Paul Howarth <paul@city-fan.org> - 1:4.16-1
+- Update to 4.16
+  - Drop support for perls < 5.8 (GH#84)
+
 * Tue Dec 27 2022 Paul Howarth <paul@city-fan.org> - 1:4.15-1
 - Update to 4.15
   - Fix core bool test to not ignore errors (GH#82)

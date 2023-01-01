@@ -1,6 +1,6 @@
 Name:           libxlsxwriter
-Version:        1.1.4
-Release:        4%{?dist}
+Version:        1.1.5
+Release:        1%{?dist}
 Summary:        A C library for creating Excel XLSX files
 
 # BSD: Most files
@@ -64,6 +64,9 @@ rm -f include/xlsxwriter/third_party/zip.h
 
 
 %changelog
+* Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 1.1.5-1
+- Update to 1.1.5
+
 * Tue Nov 15 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.1.4-4
 - Rebuild for minizip-ng soname bump
 

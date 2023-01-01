@@ -2,7 +2,7 @@
 
 Name:      hunspell
 Summary:   A spell checker and morphological analyzer library
-Version:   1.7.1
+Version:   1.7.2
 Release:   1%{?dist}
 Source:    https://github.com/hunspell/hunspell/releases/download/v%{version}/hunspell-%{version}.tar.gz
 URL:       https://github.com/hunspell/hunspell
@@ -126,6 +126,9 @@ mkdir $RPM_BUILD_ROOT/%{_datadir}/myspell
 %{_datadir}/myspell
 
 %changelog
+* Fri Dec 30 2022 Caolán McNamara <caolanm@redhat.com> - 1.7.2-1
+- Resolves: rhbz#2157049 latest release
+
 * Mon Aug 22 2022 Caolán McNamara <caolanm@redhat.com> - 1.7.1-1
 - latest release
 

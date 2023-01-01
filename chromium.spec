@@ -23,10 +23,10 @@
 	export NINJA_STATUS="[%2:%f/%t] " ; \
 	ninja -j %{numjobs} -C '%1' '%2'
 
-# We usually want this.
+# enable|disable headless client build
 %global build_headless 0
 
-# This doesn't work and it doesn't even build as of Chromium 83
+# enable|disable chrome-remote-desktop build
 %global build_remoting 0
 
 # set nodejs_version
@@ -108,6 +108,9 @@
 
 # enable clang by default
 %global clang 1
+
+# enable system brotli
+%global bundlebrotli 0
 
 # set bundleffmpeg 0 to enable system ffmpeg-free
 %global bundleffmpeg 1
@@ -300,6 +303,13 @@ Patch87:	chromium-99.0.4844.84-markdownsafe-soft_str.patch
 
 # drop build dependency on python3-importlib-metadata
 Patch88: chromium-108-drop-python-importlib-metadata.patch
+
+# patch for using system brotli
+Patch89: chromium-108-system-brotli.patch
+
+# disable GlobalMediaControlsCastStartStop to avoid crash
+# when using the address bar media player button
+Patch90: chromium-108-disable-GlobalMediaControlsCastStartStop.patch
 
 # Fix extra qualification error
 Patch97:	chromium-107.0.5304.110-remoting-extra-qualification.patch
@@ -721,7 +731,9 @@ Provides: bundled(angle) = 2422
 Provides: bundled(bintrees) = 1.0.1
 # This is a fork of openssl.
 Provides: bundled(boringssl)
+%if 0%{?bundlebrotli}
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
+%endif
 Provides: bundled(bspatch)
 Provides: bundled(cacheinvalidation) = 20150720
 Provides: bundled(colorama) = 799604a104
@@ -942,6 +954,12 @@ udev.
 %endif
 
 %patch88 -p1 -b .drop-build-dep-on-python3-importlib-metadata
+
+%if ! 0%{?bundlebrotli}
+%patch89 -p1 -b .system-brotli
+%endif
+
+%patch90 -p1 -b .disable-GlobalMediaControlsCastStartStop
 %patch97 -p1 -b .remoting-extra-qualification
 %patch98 -p1 -b .InkDropHost-crash
 %patch99 -p1 -b .enable-WebRTCPipeWireCapturer-byDefault
@@ -953,9 +971,7 @@ udev.
 
 %patch113 -p1 -b .memset
 
-%if 0%{?bundleffmpeg}
-# nothing
-%else
+%if ! 0%{?bundleffmpeg}
 %patch114 -p1 -b .system-ffmppeg
 %patch115 -p1 -b .prop-codecs
 %endif
@@ -1243,62 +1259,51 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' use_pulseaudio=false use_udev=false use_gtk=fals
 export CHROMIUM_HEADLESS_GN_DEFINES
 
 build/linux/unbundle/replace_gn_files.py --system-libraries \
-%if 0%{?bundlefontconfig}
-%else
+%if ! 0%{?bundlebrotli}
+	brotli \
+%endif
+%if ! 0%{?bundlefontconfig}
 	fontconfig \
 %endif
-%if 0%{?bundlefreetype}
-%else
+%if ! 0%{?bundleffmpeg}
+	ffmpeg \
+%endif
+%if ! 0%{?bundlefreetype}
 	freetype \
 %endif
-%if 0%{?bundleharfbuzz}
-%else
+%if ! 0%{?bundleharfbuzz}
 	harfbuzz-ng \
 %endif
-%if 0%{?bundleicu}
-%else
+%if ! 0%{?bundleicu}
 	icu \
 %endif
-%if %{bundlelibdrm}
-%else
+%if ! %{bundlelibdrm}
 	libdrm \
 %endif
-%if %{bundlelibjpeg}
-%else
+%if ! %{bundlelibjpeg}
 	libjpeg \
 %endif
-%if %{bundlelibpng}
-%else
+%if !%{bundlelibpng}
 	libpng \
 %endif
-%if %{bundlelibusbx}
-%else
+%if !%{bundlelibusbx}
 	libusb \
 %endif
-%if %{bundlelibwebp}
-%else
+%if ! %{bundlelibwebp}
 	libwebp \
 %endif
-%if %{bundlelibxml}
-%else
+%if ! %{bundlelibxml}
 	libxml \
 %endif
 	libxslt \
-%if %{bundleopus}
-%else
+%if ! %{bundleopus}
 	opus \
 %endif
-%if 0%{?bundlere2}
-%else
+%if ! 0%{?bundlere2}
 	re2 \
 %endif
-%if 0%{?bundleminizip}
-%else
+%if ! 0%{?bundleminizip}
 	zlib \
-%endif
-%if 0%{?bundleffmpeg}
-%else
-	ffmpeg \
 %endif
 	flac
 
@@ -1367,7 +1372,7 @@ sed -i "s|@@CHROMIUM_BROWSER_CHANNEL@@|$CHROMIUM_BROWSER_CHANNEL|g" %{buildroot}
 	sed -i "s|@@EXTRA_FLAGS@@|$EXTRA_FLAGS|g" %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 %endif
 
-ln -s ..%{chromium_path}/%{chromium_browser_channel}.sh %{buildroot}%{_bindir}/%{chromium_browser_channel}
+ln -s ../..%{chromium_path}/%{chromium_browser_channel}.sh %{buildroot}%{_bindir}/%{chromium_browser_channel}
 mkdir -p %{buildroot}%{_mandir}/man1/
 
 pushd %{builddir}
@@ -1422,7 +1427,7 @@ pushd %{builddir}
 
 	# chromedriver
 	cp -a chromedriver %{buildroot}%{chromium_path}/chromedriver
-	ln -s ..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
+	ln -s ../..%{chromium_path}/chromedriver %{buildroot}%{_bindir}/chromedriver
 
 	%if %{build_remoting}
 		# Remote desktop bits
@@ -1591,11 +1596,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %if %{build_clear_key_cdm}
 %{chromium_path}/libclearkeycdm.so
 %endif
-
-%if 0
-%{chromium_path}/pyproto/
-%endif
-%{chromium_path}/resources/
 %ifarch x86_64 i686 aarch64
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*

@@ -1,6 +1,6 @@
 Name:           iwd
-Version:        2.0
-Release:        2%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Wireless daemon for Linux
 License:        LGPLv2+
 URL:            https://iwd.wiki.kernel.org/
@@ -76,6 +76,9 @@ rm %{buildroot}/usr/lib/systemd/network/80-iwd.link
 
 
 %changelog
+* Sat Dec 31 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1-1
+- Update to 2.1
+
 * Sun Nov 20 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.0-2
 - Properly remove files intended to be excluded from the package
 

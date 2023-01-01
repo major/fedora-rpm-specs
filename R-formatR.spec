@@ -1,11 +1,11 @@
 %bcond_with bootstrap
 
 %global packname formatR
-%global packver  1.12
+%global packver  1.13
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          1.12
+Version:          %{packver}
 Release:          %autorelease
 Summary:          Format R Code Automatically
 

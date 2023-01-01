@@ -3,7 +3,8 @@
 %global pkgname cfitsio
 
 Name:          mingw-%{pkgname}
-Version:       4.1.0
+# NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
+Version:       4.2.0
 Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
@@ -78,9 +79,10 @@ MinGW Windows CFITSIO library.
 
 %files -n mingw32-%{pkgname}
 %license License.txt
-%{mingw32_bindir}/libcfitsio-4.dll
+%{mingw32_bindir}/libcfitsio-10.dll
 %{mingw32_libdir}/libcfitsio.dll.a
 %{mingw32_libdir}/pkgconfig/cfitsio.pc
+%{mingw32_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw32_includedir}/cfitsio/
 
 %files -n mingw32-%{pkgname}-tools
@@ -90,9 +92,10 @@ MinGW Windows CFITSIO library.
 
 %files -n mingw64-%{pkgname}
 %license License.txt
-%{mingw64_bindir}/libcfitsio-4.dll
+%{mingw64_bindir}/libcfitsio-10.dll
 %{mingw64_libdir}/libcfitsio.dll.a
 %{mingw64_libdir}/pkgconfig/cfitsio.pc
+%{mingw64_libdir}/cmake/%{pkgname}-%{version}/
 %{mingw64_includedir}/cfitsio/
 
 %files -n mingw64-%{pkgname}-tools
@@ -101,6 +104,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/Funpack.exe
 
 %changelog
+* Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 4.2.0-1
+- Update to 4.2.0
+
 * Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
 - Update to 4.1.0
 

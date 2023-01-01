@@ -1,5 +1,5 @@
 Name:           license-validate
-Version:        14
+Version:        17
 Release:        1%{?dist}
 Summary:        Validate SPEC license string
 
@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 Requires:       fedora-license-data
 BuildRequires:  fedora-license-data
+BuildRequires:  python3-devel
 
 # man pages
 BuildRequires:  asciidoc
@@ -69,6 +70,15 @@ install -m644 license-fedora2spdx.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Fri Dec 30 2022 Miroslav Suchý <msuchy@redhat.com> 17-1
+- add python as BR
+
+* Fri Dec 30 2022 Miroslav Suchý <msuchy@redhat.com> 16-1
+- use correct legacy shortnames
+
+* Fri Dec 30 2022 Miroslav Suchý <msuchy@redhat.com> 15-1
+- use new format of fedora-licenses.json
+
 * Wed Nov 16 2022 Miroslav Suchý <msuchy@redhat.com> 14-1
 - stress the need to choose licesense when there is more options
 

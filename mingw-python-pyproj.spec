@@ -4,8 +4,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        3.4.0
-Release:        2%{?dist}
+Version:        3.4.1
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -13,14 +13,16 @@ Url:            https://github.com/jswhit/%{pypi_name}
 Source0:        %{pypi_source %pypi_name}
 
 
-BuildRequires:  mingw32-filesystem >= 102
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-dlfcn
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-proj
 BuildRequires:  mingw32-python3
 BuildRequires:  mingw32-python3-build
 BuildRequires:  mingw32-python3-Cython
 
-BuildRequires:  mingw64-filesystem >= 102
+BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-dlfcn
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-proj
 BuildRequires:  mingw64-python3
@@ -89,6 +91,9 @@ export PROJ_VERSION=`mingw64-pkg-config --modversion proj`
 
 
 %changelog
+* Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 3.4.1-1
+- Update to 3.4.1
+
 * Wed Oct 12 2022 Sandro Mani <manisandro@gmail.com> - 3.4.0-2
 - Switch to python3-build
 

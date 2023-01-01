@@ -6,7 +6,7 @@
 
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
-Version:   1.20.6
+Version:   1.20.8
 Release:   1%{?dist}
 License:   GPLv2+
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
@@ -34,6 +34,8 @@ Requires: NetworkManager >= 1:1.20.0
 Requires: ppp = %{ppp_version}
 Requires: xl2tpd
 Recommends: (libreswan or strongswan)
+Recommends: (%{name}-gnome  if gnome-shell)
+Recommends: (plasma-nm-l2tp if plasma-desktop)
 
 %global __provides_exclude ^libnm-.*\\.so
 
@@ -58,6 +60,7 @@ if [ ! -f configure ]; then
 fi
 %configure \
     --disable-static \
+    --runstatedir=/run \
 %if %with gtk4
     --with-gtk4 \
 %endif
@@ -113,6 +116,11 @@ exit 0
 %endif
 
 %changelog
+* Fri Dec 30 2022 Douglas Kosovic <doug@uq.edu.au> - 1.20.8-1
+- Updated to 1.20.8 release
+- Added conditional recommends for NetworManager-l2tp-gnome and plasma-nm-l2tp
+- Added runstatedir=/run
+
 * Sat Oct 29 2022 Douglas Kosovic <doug@uq.edu.au> - 1.20.6-1
 - Updated to 1.20.6 release
 

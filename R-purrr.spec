@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 %global packname purrr
-%global packver  0.3.4
+%global packver  1.0.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -16,19 +16,23 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-magrittr >= 1.5, R-rlang >= 0.3.1
-# Suggests:  R-covr, R-crayon, R-dplyr >= 0.7.8, R-knitr, R-rmarkdown, R-testthat, R-tibble, R-tidyselect
-# LinkingTo:
+# Imports:   R-cli >= 3.4.0, R-lifecycle >= 1.0.3, R-magrittr >= 1.5.0, R-rlang >= 0.4.10, R-vctrs >= 0.5.0
+# Suggests:  R-covr, R-dplyr >= 0.7.8, R-httr, R-knitr, R-lubridate, R-rmarkdown, R-testthat >= 3.0.0, R-tibble, R-tidyselect
+# LinkingTo: R-cli
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-magrittr >= 1.5
-BuildRequires:    R-rlang >= 0.3.1
-BuildRequires:    R-crayon
+BuildRequires:    R-cli >= 3.4.0
+BuildRequires:    R-lifecycle >= 1.0.3
+BuildRequires:    R-magrittr >= 1.5.0
+BuildRequires:    R-rlang >= 0.4.10
+BuildRequires:    R-vctrs >= 0.5.0
+BuildRequires:    R-httr
 BuildRequires:    R-knitr
+BuildRequires:    R-lubridate
 BuildRequires:    R-rmarkdown
-BuildRequires:    R-testthat
+BuildRequires:    R-testthat >= 3.0.0
 %if %{without bootstrap}
 BuildRequires:    R-tibble
 BuildRequires:    R-dplyr >= 0.7.8
@@ -81,6 +85,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.0-1
+- update to 1.0.0
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 0.3.4-11
 - rebuild for R 4.2.1
 - bootstrap on

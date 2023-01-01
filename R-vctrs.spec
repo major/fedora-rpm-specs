@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname vctrs
-%global packver  0.4.1
+%global packver  0.5.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -17,16 +17,17 @@ Patch0001:        0001-Skip-some-tests-on-big-endian-machines.patch
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-ellipsis >= 0.2.0, R-glue, R-rlang >= 0.4.10
-# Suggests:  R-bit64, R-covr, R-crayon, R-dplyr >= 0.8.5, R-generics, R-knitr, R-pillar >= 1.4.4, R-pkgdown, R-rmarkdown, R-testthat >= 2.3.0, R-tibble, R-withr, R-xml2, R-waldo >= 0.2.0, R-zeallot
+# Imports:   R-cli >= 3.4.0, R-glue, R-lifecycle >= 1.0.3, R-rlang >= 1.0.6
+# Suggests:  R-bit64, R-covr, R-crayon, R-dplyr >= 0.8.5, R-generics, R-knitr, R-pillar >= 1.4.4, R-pkgdown >= 2.0.1, R-rmarkdown, R-testthat >= 3.0.0, R-tibble >= 3.1.3, R-withr, R-xml2, R-waldo >= 0.2.0, R-zeallot
 # LinkingTo:
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-cli >= 3.2.0
+BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-glue
-BuildRequires:    R-rlang >= 1.0.2
+BuildRequires:    R-lifecycle >= 1.0.3
+BuildRequires:    R-rlang >= 1.0.6
 %if %{with check}
 BuildRequires:    R-bit64
 BuildRequires:    R-crayon
@@ -110,6 +111,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 0.5.1-1
+- update to 0.5.1
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 0.4.1-1
 - update to 0.4.1
 - rebuild for R 4.2.1

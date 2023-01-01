@@ -1,9 +1,9 @@
-%global commit 8378f3918d72953794ab4d42feb6617af308f5c9
+%global commit d73a25c61fa6b7f41000b38b4b4c8b32ed4e2fd1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		libdxfrw
 Version:	1.1.0
-Release:	0.1.rc1%{?dist}
+Release:	0.2.rc1%{?dist}
 Summary:	Library to read/write DXF files
 License:	GPLv2+
 URL:		https://github.com/LibreCAD/libdxfrw
@@ -33,7 +33,8 @@ Development files for libdxfrw.
 
 %prep
 %setup -q -n %{name}-%{commit}
-%patch0 -p1 -b .fix-angle-and-alignment-handling-of-mtexts
+# Upstream thinks this might not be valid...
+# %%patch0 -p1 -b .fix-angle-and-alignment-handling-of-mtexts
 
 
 %build
@@ -70,6 +71,10 @@ Development files for libdxfrw.
 %{_libdir}/pkgconfig/libdxfrw.pc
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 1.1.0-0.2.rc1
+- update to latest code in git
+- drop patch0 for now
+
 * Wed Sep 14 2022 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-0.1.rc4
 - Update to 1.1.0 RC1 per upstream recommendatation.
 

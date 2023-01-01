@@ -1,5 +1,5 @@
 %global packname lifecycle
-%global packver  1.0.2
+%global packver  1.0.3
 %global rlibdir  %{_datadir}/R/library
 
 %bcond_with check
@@ -15,16 +15,17 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-glue, R-rlang >= 1.0.5
-# Suggests:  R-covr, R-crayon, R-knitr, R-lintr, R-rmarkdown, R-testthat >= 3.0.1, R-tibble, R-tidyverse, R-tools, R-vctrs
+# Imports:   R-cli >= 3.4.0, R-glue, R-rlang >= 1.0.6
+# Suggests:  R-covr, R-crayon, R-knitr, R-lintr, R-rmarkdown, R-testthat >= 3.0.1, R-tibble, R-tidyverse, R-tools, R-vctrs, R-withr
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-glue
-BuildRequires:    R-rlang >= 1.0.5
+BuildRequires:    R-rlang >= 1.0.6
 %if %{with check}
 BuildRequires:    R-crayon
 BuildRequires:    R-lintr
@@ -34,6 +35,7 @@ BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.0.1
 BuildRequires:    R-tibble
 BuildRequires:    R-vctrs
+BuildRequires:    R-withr
 %endif
 
 %description
@@ -79,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.3-1
+- update to 1.0.3
+
 * Sat Sep 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.2-1
 - update to 1.0.2
 

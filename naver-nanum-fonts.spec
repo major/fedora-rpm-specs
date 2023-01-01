@@ -9,10 +9,10 @@ publisher is Naver Corporation.
 
 Name:       %{fontname}-fonts
 Version:    3.020
-Release:    32.20140930%{?dist}
+Release:    33.20140930%{?dist}
 Summary:    Nanum family of Korean TrueType fonts
 
-License:    OFL
+License:    OFL-1.1
 URL:        http://hangeul.naver.com
 # Need to convert from Windows executable to tar ball to avoid to use p7zip
 #Source:    http://appdown.naver.com/naver/font/NanumFont/setup/NanumFontSetup_TTF_ALL_hangeulcamp.exe
@@ -208,6 +208,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/%{fontname}.metainfo.xml
 
 %changelog
+* Tue Dec 27 2022 msuchy <msuchy@redhat.com> - 3.020-33.20140930
+- Migrate to SPDX license
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.020-32.20140930
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

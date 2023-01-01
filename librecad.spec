@@ -4,14 +4,14 @@
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 
-%global commit 07128e130d1b76797835accadb0f116bf2db3eab
+%global commit 4b91d9b0f919be41f7e7568c87c5c67dfac189aa
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global dxfrw_includedir %(pkg-config --cflags-only-I libdxfrw | sed 's|-I||g')
 
 Name:			librecad
 Version:		2.2.0
-Release:		0.15.rc4%{?dist}
+Release:		1%{?dist}
 Summary:		Computer Assisted Design (CAD) Application
 License:		GPLv2 and GPLv2+
 URL:			http://librecad.org/
@@ -27,10 +27,9 @@ Patch4:			librecad-use-system-shapelib.patch
 Patch6:			librecad-gcc6.patch
 # need to use unique symbol names
 Patch8:			librecad-unique-symbol-names.patch
-Patch9:         https://github.com/LibreCAD/LibreCAD/commit/6f74b427bec82b477a912385370901d085121dba.patch
 
 BuildRequires:	gcc-c++ make
-BuildRequires:	qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.0.1-1
+BuildRequires:	qt5-qtbase-devel, wqy-microhei-fonts, muParser-devel, freetype-devel, libdxfrw-devel >= 1.1.0-0.2.rc1
 BuildRequires:	qt5-qtsvg-devel, qt5-linguist
 BuildRequires:	desktop-file-utils, boost-devel, shapelib-devel
 Requires:		%{name}-fonts = %{version}-%{release}
@@ -38,7 +37,7 @@ Requires:		%{name}-langs = %{version}-%{release}
 Requires:		%{name}-parts = %{version}-%{release}
 Requires:		%{name}-patterns = %{version}-%{release}
 # needed for LibreCad specific changes
-Requires:		libdxfrw >= 1.0.1-1
+Requires:		libdxfrw >= 1.1.0-0.2.rc1
 
 # Do not check any files in the librecad plugin dir for requires
 %global __provides_exclude_from ^(%{_libdir}/%{name}/plugins/.*\\.so)$
@@ -91,7 +90,6 @@ Pattern files for LibreCAD.
 %patch4 -p1 -b .system-shapelib
 %patch6 -p1 -b .gcc6
 # %%patch8 -p1 -b .unique
-%patch9 -p1
 sed -i 's|##LIBDIR##|%{_libdir}|g' librecad/src/lib/engine/rs_system.cpp
 sed -i 's|$${DXFRW_INCLUDEDIR}|%{dxfrw_includedir}|g' librecad/src/src.pro
 
@@ -235,6 +233,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/patterns/
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 2.2.0-1
+- update to 2.2.0 final
+
 * Sat Sep 24 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.0-0.15.rc4
 - Update to 2.2.0 RC4.
 - Apply patch from upstream to make sure plugins are found.

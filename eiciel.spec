@@ -1,12 +1,12 @@
 Name: eiciel
 Version: 0.10.0
-%global tar_version %{version}-rc2
+%global tar_version %{version}
 
-Release: 0.2.rc2%{?dist}
+Release: 1%{?dist}
 Summary: Graphical editor for ACLs and xattr
 License: GPLv2+
 URL: http://rofi.roger-ferrer.org/eiciel
-Source0: http://rofi.roger-ferrer.org/eiciel/files/eiciel-%{tar_version}.tar.gz
+Source0: http://rofi.roger-ferrer.org/eiciel/files/eiciel-%{tar_version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc-c++
@@ -55,9 +55,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{ext_dir}/lib%{name}*.so
 %{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/*%{name}.*
+%{_mandir}/man1/%{name}.*
 
 
 %changelog
+* Fri Dec 30 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 0.10.0-1
+- Update to 0.10.0 final (no code changes but added manual page).
+
 * Sat Sep 17 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 0.10.0-0.2.rc2
 - Update to 0.10.0-rc2.
 

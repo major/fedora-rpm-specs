@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname xfun
-%global packver  0.33
+%global packver  0.36
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -16,7 +16,7 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-stats, R-tools
-# Suggests:  R-testit, R-parallel, R-codetools, R-rstudioapi, R-tinytex >= 0.30, R-mime, R-markdown, R-knitr, R-htmltools, R-remotes, R-pak, R-renv, R-curl, R-jsonlite, R-rmarkdown
+# Suggests:  R-testit, R-parallel, R-codetools, R-rstudioapi, R-tinytex >= 0.30, R-mime, R-markdown, R-knitr, R-htmltools, R-remotes, R-pak, R-rhub, R-renv, R-curl, R-jsonlite, R-magick, R-rmarkdown
 # LinkingTo:
 # Enhances:
 
@@ -87,6 +87,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 0.36-1
+- update to 0.36
+
 * Sat Sep 17 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.33-1
 - Update to 0.33 (RHBZ #2126255)
 

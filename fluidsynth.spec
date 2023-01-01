@@ -1,7 +1,7 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.3.0
+Version:      2.3.1
 Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
@@ -131,6 +131,9 @@ install -m 644 fluidsynth.service.in $RPM_BUILD_ROOT/usr/lib/systemd/user/fluids
 
 
 %changelog
+* Fri Dec 30 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.1-1
+- Update to 2.3.1
+
 * Fri Sep 30 2022 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.3.0-1
 - Update to 2.3.0
 

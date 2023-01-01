@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.6.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Use Cairo for high-quality bitmap, vector, and display output
 
 License:          GPLv2
@@ -72,6 +72,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.6.0-2
+- Rebuild for ICU 72
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.6.0-1
 - update to 1.6-0
 - rebuild for R 4.2.1

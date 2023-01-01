@@ -1,7 +1,7 @@
 %global forgeurl    https://github.com/lite-xl/lite-xl
 
 Name:    lite-xl
-Version: 2.1.0
+Version: 2.1.1
 
 Release: %autorelease
 

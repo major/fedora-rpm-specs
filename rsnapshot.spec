@@ -1,10 +1,10 @@
 Name:           rsnapshot
-Version:        1.4.4
+Version:        1.4.5
 Release:        1%{?dist}
 Summary:        Local and remote filesystem snapshot utility
 License:        GPL-2.0-or-later
 URL:            https://rsnapshot.org/
-Source:         https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  lvm2
@@ -38,17 +38,17 @@ This is a remote backup program that uses rsync to take backup snapshots of
 filesystems.  It uses hard links to save space on disk.
 
 %prep
-%autosetup -p1
+%setup -q
 
 %build
-%configure                              \
-    --with-perl="%{__perl}"             \
-    --with-rsync="%{_bindir}/rsync"     \
-    --with-cp="%{__cp}"                 \
-    --with-rm="%{__rm}"                 \
-    --with-ssh="%{_bindir}/ssh"         \
-    --with-logger="%{_bindir}/logger"   \
-    --with-du="%{_bindir}/du"
+%configure \
+  --with-perl="%{__perl}" \
+  --with-rsync="%{_bindir}/rsync" \
+  --with-cp="%{__cp}" \
+  --with-rm="%{__rm}" \
+  --with-ssh="%{_bindir}/ssh" \
+  --with-logger="%{_bindir}/logger" \
+  --with-du="%{_bindir}/du"
 
 %install
 %make_install
@@ -76,6 +76,9 @@ find utils/ -type f -print0 | xargs -r0 chmod 644
 %{_mandir}/man1/%{name}-diff.1*
 
 %changelog
+* Fri Dec 30 2022 Robert Scheck <robert@fedoraproject.org> - 1.4.5-1
+- Upgrade to 1.4.5 (#2156839)
+
 * Wed Nov 16 2022 Robert Scheck <robert@fedoraproject.org> - 1.4.4-1
 - Upgrade to 1.4.4 (#1974006, thanks to Todd Zullinger)
 

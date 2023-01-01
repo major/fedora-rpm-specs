@@ -63,8 +63,8 @@
 %define default_generate_notes 0
 
 Name: %{cross}-binutils
-Version: 2.38
-Release: 4%{?dist}
+Version: 2.39
+Release: 1%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPLv3+
 URL: https://sourceware.org/binutils
@@ -157,58 +157,53 @@ Patch11: binutils-fix-testsuite-failures.patch
 # Lifetime: Fixed in 2.39 (maybe)
 Patch12: binutils-gold-mismatched-section-flags.patch
 
-# Purpose:  Add a check to the GOLD linker for a corrupt input file
-#            with a fuzzed section offset.
-# Lifetime: Fixed in 2.39 (maybe)
-Patch13: binutils-CVE-2019-1010204.patch
-
 # Purpose:  Change the gold configuration script to only warn about
 #            unsupported targets.  This allows the binutils to be built with
 #            BPF support enabled.
 # Lifetime: Permanent.
-Patch14: binutils-gold-warn-unsupported.patch
-
-# Purpose:  Use the "unsigned long long" type for pointers on hosts where
-#           long is a 32-bit type but pointers are a 64-bit type.  Necessary
-#           because users expect to be able to install both the i686- and
-#           x86_64 versions of binutils-devel on the same machine, so they
-#           need to identical versions of the bfd.h header file.
-# Lifetime: Permanent.
-Patch15: binutils-use-long-long.patch
+Patch13: binutils-gold-warn-unsupported.patch
 
 # Purpose:  Fix testsuite failures due to the patches applied here.
 # Lifetime: Permanent, but varying with each new rebase.
-Patch16: binutils-testsuite-fixes.patch
+Patch14: binutils-testsuite-fixes.patch
 
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
 # Lifetime: Fixed in 2.38 maybe
-Patch17: binutils-gold-i386-gnu-property-notes.patch
+Patch15: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
 # Lifetime: Fixed in 2.39 (maybe ?)
-Patch18: binutils-autoconf-version.patch
+Patch16: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch19: gcc12-libtool-no-rpath.patch
+Patch17: binutils-libtool-no-rpath.patch
 
-# Purpose:  Add support for specifying section types in linker scripts.
-# Lifetime: Fixed in 2.39
-Patch20: binutils-section-type.patch
+# Purpose:  Add a --package-metadata option to the linkers.
+# Lifetime: Fixed in 2.40
+Patch19: binutils-package-metadata.patch
 
-# Purpose:  Simplify the evaluation of assembler loc view expression chains.
-# Lifetime: Fixed in 2.39
-Patch21: binutils-gas-loc-view.patch
+# Purpose:  Stop the assembler from generating DIE information for zero-sized functions.
+# Lifetime: Fixed in 2.40
+Patch20: binutils-gas-dwarf-skip-empty-functions.patch
 
-# Purpose:  Add an option to disable access to debuginfod servers.
-# Lifetime: Fixed in 2.39
-Patch22: binutils-do-not-use-debuginfod.patch
+# Purpose:  Stop an infinite loop in the binutils DWARF decoder.  (CVE 2022-38128)
+# Lifetime: Fixed in 2.40
+Patch21: binutils-CVE-38128-dwarf-abbrev-parsing.patch
 
-# Purpose:  Keep indirect symbol from IR if referenced from shared object.
-# Lifetime: Fixed in 2.39
-Patch23: binutils-indirect-symbols.patch
+# Purpose:  Stop readelf from incorrectly decoding ELF files with no sections.
+# Lifetime: Fixed in 2.40
+Patch22: binutils-readelf-no-sections.patch
+
+# Purpose:  Stop compile time warnings from configure test files in the libiberty directory.
+# Lifetime: Fixed in 2.40
+Patch23: binutils-libiberty-configure-compile-warnings.patch
+
+# Purpose:  Fix a potential reference of a NULL pointer.
+# Lifetime: Fixed in 2.40
+Patch24: binutils-CVE-2022-4285.patch
 
 #----------------------------------------------------------------------------
 
@@ -216,7 +211,7 @@ BuildRequires: texinfo >= 4.0, gettext, flex, bison, zlib-devel
 # BZ 920545: We need pod2man in order to build the manual pages.
 BuildRequires: /usr/bin/pod2man
 # Perl, sed and touch are all used in the %prep section of this spec file.
-BuildRequires: gcc, perl-interpreter, sed, coreutils
+BuildRequires: gcc, gcc-c++, perl-interpreter, sed, coreutils
 BuildRequires: findutils
 BuildRequires: autoconf automake
 BuildRequires: make
@@ -333,12 +328,13 @@ cd %{srcdir}
 %patch15 -p1
 %patch16 -p1
 %patch17 -p1
-%patch18 -p1
+#patch18 -p1
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch24 -p1
 
 # We cannot run autotools as there is an exact requirement of autoconf-2.59.
 
@@ -669,6 +665,10 @@ find %{buildroot} -type f -name "*.a" -delete
 rm -rf %{buildroot}%{auxbin_prefix}/*/lib/ldscripts
 rmdir %{buildroot}%{auxbin_prefix}/*/lib || :
 
+echo "=== REMOVE include and dev files ==="
+find %{buildroot}/usr/include -type f -name "*.h" -delete
+rm -rf %{buildroot}/etc/gprofng.rc
+
 echo "=== BUILD file lists ==="
 function build_file_list () {
     arch=$1
@@ -809,6 +809,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Fri Dec 30 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.39-1
+- sync to binutils-2.39-7.fc38
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

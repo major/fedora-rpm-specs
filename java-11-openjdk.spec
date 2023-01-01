@@ -377,7 +377,7 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        1
+%global buildver        9
 %global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
@@ -1182,8 +1182,8 @@ Provides: jre%{?1} = %{epoch}:%{version}-%{release}
 Requires: ca-certificates
 # Require javapackages-filesystem for ownership of /usr/lib/jvm/ and macros
 Requires: javapackages-filesystem
-# 2022e required as of JDK-8295173
-Requires: tzdata-java >= 2022e
+# 2022g required as of JDK-8297804
+Requires: tzdata-java >= 2022g
 # for support of kernel stream control
 # libsctp.so.1 is being `dlopen`ed on demand
 Requires: lksctp-tools%{?_isa}
@@ -1458,8 +1458,6 @@ Patch3:    rh649512-remove_uses_of_far_in_jpeg_libjpeg_turbo_1_4_compat_for_jdk1
 # able to be removed once that release is out
 # and used by this RPM.
 #############################################
-# JDK-8293834: Update CLDR data following tzdata 2022c update
-Patch2001: jdk8293834-kyiv_cldr_update.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -1494,8 +1492,8 @@ BuildRequires: java-%{buildjdkver}-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022e required as of JDK-8295173
-BuildRequires: tzdata-java >= 2022e
+# 2022g required as of JDK-8297804
+BuildRequires: tzdata-java >= 2022g
 # Earlier versions have a bug in tree vectorization on PPC
 BuildRequires: gcc >= 4.8.3-8
 
@@ -1878,8 +1876,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# tzdata updates targetted for 11.0.18
-%patch2001 -p1
 popd # openjdk
 
 %patch600
@@ -2719,6 +2715,13 @@ end
 %endif
 
 %changelog
+* Thu Dec 29 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:11.0.18.0.9-0.1.ea
+- Update to jdk-11.0.18+9
+- Update release notes to 11.0.18+9
+- Drop local copy of JDK-8293834 now this is upstream
+- Require tzdata 2022g due to inclusion of JDK-8296108, JDK-8296715 & JDK-8297804
+- Update TestTranslations.java to test the new America/Ciudad_Juarez zone
+
 * Thu Dec 15 2022 Andrew Hughes <gnu.andrew@redhat.com> - 1:11.0.18.0.1-0.1.ea
 - Update to jdk-11.0.18+1
 - Update release notes to 11.0.18+1

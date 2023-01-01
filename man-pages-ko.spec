@@ -1,7 +1,7 @@
 Summary: Korean(Hangul) Man(manual) Pages from the Korean Manpage Project
 Name: man-pages-ko
 Version: 20050219
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: Copyright only
 Epoch: 2
 #Vendor: Korean Manpage Project Team.
@@ -45,6 +45,8 @@ rm -f ./man1/cpio.1
 # Non-free man-pages (bz1334290)
 rm man2/sysinfo.2
 rm man2/getitimer.2
+#conflict with psmisc
+rm man1/killall.1
 
 %build 
 for i in man?; do
@@ -71,6 +73,10 @@ cp -a man? $RPM_BUILD_ROOT%{_mandir}/ko/
 %{_mandir}/ko/man*/*
 
 %changelog
+* Fri Dec 30 2022 Peng Wu <pwu@redhat.com> - 2:20050219-43
+- Resolves: RHBZ#2155877
+- Removed killall.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:20050219-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

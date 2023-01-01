@@ -4,7 +4,7 @@
 
 # https://git.sr.ht/~rockorager/tcell-term
 %global goipath         git.sr.ht/~rockorager/tcell-term
-Version:                0.3.0
+Version:                0.4.0
 %global topdir          tcell-term-v%{version}
 
 %gometa
@@ -44,5 +44,8 @@ Source:         %{gourl}/archive/v%{version}.tar.gz#/tcell-term-%{version}.tar.g
 %gopkgfiles
 
 %changelog
+* Fri Dec 30 2022 Maxwell G <gotmax@e.email> - 0.4.0-1
+- Update to 0.4.0. Fixes rhbz#2156426.
+
 * Fri Nov 04 2022 Maxwell G <gotmax@e.email> - 0.3.0-1
 - Initial package (rhbz#2139489).

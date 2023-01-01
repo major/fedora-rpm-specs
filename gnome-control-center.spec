@@ -12,7 +12,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-control-center
-Version:        43.1
+Version:        43.2
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
