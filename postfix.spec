@@ -49,7 +49,7 @@
 Name: postfix
 Summary: Postfix Mail Transport Agent
 Version: 3.7.3
-Release: 1%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -253,6 +253,10 @@ popd
 %patch11 -p1 -b .chroot-example-fix
 %patch12 -p1 -b .whitespace-name-fix
 %patch13 -p1 -b .pflogsumm-1.1.5-syslog-name-underscore-fix
+
+# Backport 3.8-20221006 fix for uname -r detection
+sed -i makedefs -e '\@Linux\.@s|345|3456|'
+sed -i src/util/sys_defs.h -e 's@defined(LINUX5)@defined(LINUX5) || defined(LINUX6)@'
 
 for f in README_FILES/TLS_{LEGACY_,}README TLS_ACKNOWLEDGEMENTS; do
 	iconv -f iso8859-1 -t utf8 -o ${f}{_,} &&
@@ -802,6 +806,12 @@ fi
 %endif
 
 %changelog
+* Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2:3.7.3-3
+- Backport upstream fix for uname -r detection with kernel 6.x
+
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2:3.7.3-2
+- Rebuild for ICU 72
+
 * Mon Oct 10 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.7.3-1
 - New version
   Resolves: rhbz#2133120

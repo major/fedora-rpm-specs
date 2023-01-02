@@ -10,7 +10,7 @@
 
 Name: gnustep-base
 Version: 1.28.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv3+ and LGPLv2+
 Summary: GNUstep Base library package
 URL: http://www.gnustep.org/
@@ -169,6 +169,9 @@ export GNUSTEP_CONFIG_FILE=$(pwd)/GNUstep.conf
 %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.28.0-9
+- Rebuild for ICU 72
+
 * Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.28.0-8
 - Avoid C89-only constructs during the config stage
 

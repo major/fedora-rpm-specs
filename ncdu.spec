@@ -1,14 +1,17 @@
 Name:           ncdu
 Version:        1.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Text-based disk usage viewer
 
 License:        MIT
-URL:            http://dev.yorhel.nl/ncdu/
+URL:            https://dev.yorhel.nl/ncdu/
 Source0:        https://dev.yorhel.nl/download/ncdu-%{version}.tar.gz
+Source1:        https://dev.yorhel.nl/download/ncdu-%{version}.tar.gz.asc
+Source2:        https://yorhel.nl/key.asc
 
 BuildRequires:  make
 BuildRequires:  gcc
+BuildRequires:  gnupg2
 BuildRequires:  ncurses-devel
 
 %description
@@ -16,14 +19,15 @@ ncdu (NCurses Disk Usage) is a curses-based version of the well-known 'du',
 and provides a fast way to see what directories are using your disk space.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 %files
 %{_mandir}/man1/ncdu.1*
@@ -32,6 +36,10 @@ make install DESTDIR=%{buildroot}
 %{_bindir}/ncdu
 
 %changelog
+* Fri Dec 30 2022 Todd Zullinger <tmz@pobox.com> - 1.18-3
+- verify upstream signatures in %%prep
+- use %%make_build and %%make_install macros
+
 * Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 1.18-2
 - Use SPDX license identifier
 

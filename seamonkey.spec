@@ -39,7 +39,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -533,6 +533,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2.53.14-4
+- Rebuild for ICU 72
+
 * Mon Oct  3 2022 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.14-3
 - add fix for mozbz 1443429 and mozbz 1443746,
   return no more broken patches

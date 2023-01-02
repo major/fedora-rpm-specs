@@ -161,7 +161,7 @@ BuildRequires: libicu-devel >= 5.4
 %else
 # Chromium really wants to use its bundled harfbuzz. Sigh.
 %global bundleharfbuzz 1
-%global bundleopus 1
+%global bundleopus 0
 %global bundlelibusbx 0
 %global bundlelibwebp 0
 %global bundlelibpng 0
@@ -310,6 +310,9 @@ Patch89: chromium-108-system-brotli.patch
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
 Patch90: chromium-108-disable-GlobalMediaControlsCastStartStop.patch
+
+# patch for using system opus
+Patch91: chromium-108-system-opus.patch
 
 # Fix extra qualification error
 Patch97:	chromium-107.0.5304.110-remoting-extra-qualification.patch
@@ -519,9 +522,7 @@ BuildRequires:	elfutils
 BuildRequires:	elfutils-libelf-devel
 BuildRequires:	flac-devel
 
-%if 0%{?bundlefreetype}
-# nothing
-%else
+%if ! 0%{?bundlefreetype}
 BuildRequires:	freetype-devel
 %endif
 
@@ -532,25 +533,22 @@ BuildRequires:	kernel-headers
 BuildRequires:	libevent-devel
 BuildRequires:	libffi-devel
 
-%if 0%{?bundleicu}
+%if ! 0%{?bundleicu}
 # If this is true, we're using the bundled icu.
 # We'd like to use the system icu every time, but we cannot always do that.
-%else
 # Not newer than 54 (at least not right now)
 BuildRequires:	libicu-devel = 54.1
 %endif
 
-%if 0%{?bundlelibjpeg}
+%if ! 0%{?bundlelibjpeg}
 # If this is true, we're using the bundled libjpeg
 # which we need to do because the RHEL 7 libjpeg doesn't work for chromium anymore
-%else
 BuildRequires:	libjpeg-devel
 %endif
 
-%if 0%{?bundlelibpng}
+%if ! 0%{?bundlelibpng}
 # If this is true, we're using the bundled libpng
 # which we need to do because the RHEL 7 libpng doesn't work right anymore
-%else
 BuildRequires:	libpng-devel
 %endif
 
@@ -560,11 +558,9 @@ BuildRequires:	libsrtp-devel >= 1.4.4
 %endif
 BuildRequires:	libudev-devel
 
-%if %{bundlelibusbx}
-# Do nothing
-%else
-Requires:	libusbx >= 1.0.21-0.1.git448584a
-BuildRequires:	libusbx-devel >= 1.0.21-0.1.git448584a
+%if ! %{bundlelibusbx}
+Requires: libusbx >= 1.0.21-0.1.git448584a
+BuildRequires: libusbx-devel >= 1.0.21-0.1.git448584a
 %endif
 
 %if 0%{use_vaapi}
@@ -574,9 +570,7 @@ BuildRequires:	libva-devel
 # We don't use libvpx anymore because Chromium loves to
 # use bleeding edge revisions here that break other things
 # ... so we just use the bundled libvpx.
-%if %{bundlelibwebp}
-# Do nothing
-%else
+%if ! %{bundlelibwebp}
 BuildRequires:	libwebp-devel
 %endif
 
@@ -587,9 +581,7 @@ BuildRequires:	libxshmfence-devel
 # BuildRequires: libyuv-devel
 BuildRequires:	mesa-libGL-devel
 
-%if %{bundleopus}
-# Do nothing
-%else
+%if ! %{bundleopus}
 BuildRequires:	opus-devel
 %endif
 
@@ -606,9 +598,7 @@ BuildRequires:	python3-devel
 BuildRequires: python3-zipp
 BuildRequires: python3-simplejson
 
-%if 0%{?bundlepylibs}
-# Using bundled bits, do nothing.
-%else
+%if ! 0%{?bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3-beautifulsoup4
 BuildRequires: python3-html5lib
@@ -622,11 +612,17 @@ BuildRequires:	python-ply
 %endif
 %endif
 
-%if 0%{?bundlere2}
-# Using bundled bits, do nothing.
-%else
+%if ! 0%{?bundlere2}
 Requires: re2 >= 20160401
 BuildRequires:	re2-devel >= 20160401
+%endif
+
+%if ! 0%{?bundlebrotli}
+BuildRequires: brotli-devel
+%endif
+
+%if ! %{bundleopus}
+BuildRequires: opus-devel
 %endif
 
 BuildRequires:	speech-dispatcher-devel
@@ -731,9 +727,11 @@ Provides: bundled(angle) = 2422
 Provides: bundled(bintrees) = 1.0.1
 # This is a fork of openssl.
 Provides: bundled(boringssl)
+
 %if 0%{?bundlebrotli}
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
+
 Provides: bundled(bspatch)
 Provides: bundled(cacheinvalidation) = 20150720
 Provides: bundled(colorama) = 799604a104
@@ -741,8 +739,12 @@ Provides: bundled(crashpad)
 Provides: bundled(dmg_fp)
 Provides: bundled(expat) = 2.2.0
 Provides: bundled(fdmlibm) = 5.3
+
 # Don't get too excited. MPEG and other legally problematic stuff is stripped out.
+%if %{?bundleffmpeg}
 Provides: bundled(ffmpeg) = 5.1.2
+%endif
+
 Provides: bundled(fips181) = 2.2.3
 
 %if 0%{?bundlefontconfig}
@@ -754,6 +756,7 @@ Provides: bundled(freetype) = 2.11.0git
 %endif
 
 Provides: bundled(gperftools) = svn144
+
 %if 0%{?bundleharfbuzz}
 Provides: bundled(harfbuzz) = 2.4.0
 %endif
@@ -960,6 +963,11 @@ udev.
 %endif
 
 %patch90 -p1 -b .disable-GlobalMediaControlsCastStartStop
+
+%if ! 0%{?bundleopus}
+%patch91 -p1 -b .system-opus
+%endif
+
 %patch97 -p1 -b .remoting-extra-qualification
 %patch98 -p1 -b .InkDropHost-crash
 %patch99 -p1 -b .enable-WebRTCPipeWireCapturer-byDefault

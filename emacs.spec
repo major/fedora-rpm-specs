@@ -4,15 +4,14 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       28.1
-Release:       4%{?dist}
+Version:       28.2
+Release:       1%{?dist}
 License:       GPLv3+ and CC0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
 Source1:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz.sig
-# get Eli Zaretskii's key
-# wget https://keys.openpgp.org/vks/v1/by-fingerprint/17E90D521672C04631B1183EE78DAE0F3115E06B -O gpgkey-17E90D521672C04631B1183EE78DAE0F3115E06B.gpg
-Source2:       gpgkey-17E90D521672C04631B1183EE78DAE0F3115E06B.gpg
+# Stefan Kangas' key
+Source2:       https://keys.openpgp.org/vks/v1/by-fingerprint/CEA1DE21AB108493CC9C65742E82323B8F4353EE
 Source3:       https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=lib/cdefs.h;hb=refs/heads/master#./cdefs.h
 Source4:       dotemacs.el
 Source5:       site-start.el
@@ -23,10 +22,17 @@ Source8:       emacs-terminal.sh
 # rhbz#713600
 Patch1:        emacs-spellchecker.patch
 Patch2:        emacs-system-crypto-policies.patch
+# causes a dependency on pkgconfig(systemd)
+# => remove it if we stop using this patch
 Patch3:        emacs-libdir-vs-systemd.patch
 Patch4:        emacs-pdmp-fingerprint.patch
 Patch5:        emacs-configure-c99-1.patch
 Patch6:        emacs-configure-c99-2.patch
+# CVE-2022-45939
+Patch7:        https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=d48bb4874bc6cd3e69c7a15fc3c91cc141025c51#./fixed-ctags-local-command-execute-vulnerability.patch
+# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=60208
+# backport of https://git.savannah.gnu.org/cgit/emacs.git/patch/?id=e59216d3be86918b995bd63273c851ebc6176a83
+Patch8:        native-compile-with_-Q.patch
 
 BuildRequires: gcc
 BuildRequires: atk-devel
@@ -78,6 +84,9 @@ BuildRequires: gnupg2
 
 # For lucid
 BuildRequires: Xaw3d-devel
+
+# for Patch3
+BuildRequires: pkgconfig(systemd)
 
 %ifarch %{ix86}
 BuildRequires: util-linux
@@ -209,6 +218,8 @@ cp -p %{SOURCE3} lib/
 %patch4 -p1 -b .pdmp-fingerprint
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1 -b .ctags-local-execution-cve
+%patch8 -p1 -b .native-compile-Q
 autoconf
 
 grep -v "tetris.elc" lisp/Makefile.in > lisp/Makefile.in.new \
@@ -429,6 +440,10 @@ echo %{native_lisp}/${gtk_comp_native_ver} >> gtk-filelist
 echo %{native_lisp}/${lucid_comp_native_ver} >> lucid-filelist
 echo %{native_lisp}/${nox_comp_native_ver} >> nox-filelist
 
+# remove exec permissions from eln files to prevent the debuginfo extractor from
+# trying to extract debuginfo from them
+find %{buildroot}%{_libdir}/ -name '*eln' -type f | xargs chmod -x
+
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
@@ -516,6 +531,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Tue Nov  1 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:28.2-1
+- New upstream release 28.2, fixes rhbz#2126048
+- Add patch to fix CVE-2022-45939, fixes rhbz#2149381
+- spawn native-compilation processes with -Q rhbz#2155824 (petersen)
+
 * Fri Dec 23 2022 Florian Weimer <fweimer@redhat.com> - 1:28.1-4
 - C99 compatibility fixes for the configure script
 

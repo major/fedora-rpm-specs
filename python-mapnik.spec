@@ -10,7 +10,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.23
-Release:        20.20200224git%{shortcommit}%{?dist}
+Release:        21.20200224git%{shortcommit}%{?dist}
 Summary:        Python bindings for Mapnik
 
 License:        LGPL-2.1-only
@@ -101,6 +101,9 @@ PGHOST="$PWD" LANG="C.UTF-8" BOOST_PYTHON_LIB=boost_python%{python3_version_nodo
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.0.23-21.20200224git7da019c
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.0.23-20.20200224git7da019c
 - Rebuilt for ICU 71.1
 

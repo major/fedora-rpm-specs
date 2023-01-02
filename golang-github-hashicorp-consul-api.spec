@@ -4,7 +4,8 @@
 
 # https://github.com/hashicorp/consul/api
 %global goipath         github.com/hashicorp/consul
-Version:                1.9.1
+Version:                1.18.0
+%global tag             api/v%{version}
 %global distprefix      %{nil}
 
 %gometa
@@ -37,7 +38,7 @@ Consul provides several key features:
 %global godocs          INTERNALS.md README.md CHANGELOG.md README-api.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Solution to connect and configure applications across dynamic, distributed infrastructure
 
 # Upstream license specification: MPL-2.0
@@ -84,6 +85,13 @@ mv api/README.md README-api.md
 %gopkgfiles
 
 %changelog
+* Sat Dec 31 2022 Sérgio Basto <sergio@serjux.com> - 1.18.0-1
+- Update golang-github-hashicorp-consul-api to 1.18.0 (#1918591)
+- Added tag api/v%%{version}
+
+* Sat Dec 31 2022 Sérgio Basto <sergio@serjux.com> - 1.14.3-1
+- Update golang-github-hashicorp-consul-api to 1.14.3 (#1918591)
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.9.1-7
 - Rebuild to fix FTBFS
 

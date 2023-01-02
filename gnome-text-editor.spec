@@ -7,7 +7,7 @@
 
 Name:		gnome-text-editor
 Version:	43.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
 License:	GPLv3+
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 43.1-3
+- Rebuild for ICU 72
+
 * Thu Oct 06 2022 Kalev Lember <klember@redhat.com> - 43.1-2
 - Backport upstream patch to fix the release number in appdata
 

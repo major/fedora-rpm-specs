@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.12.57
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -73,6 +73,9 @@ popd
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 8.12.57-4
+- Rebuild for ICU 72
+
 * Tue Dec 06 2022 Sérgio Basto <sergio@serjux.com> - 8.12.57-3
 - (#1893839#c53) use ifarch %%{java_arches} to build on i686
 

@@ -58,7 +58,7 @@
 
 Name: evolution-data-server
 Version: 3.46.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -489,6 +489,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.46.2-3
+- Rebuild for ICU 72
+
 * Mon Dec 05 2022 Michael Catanzaro <mcatanzaro@redhat.com> - 3.46.2-2
 - Build against webkitgtk-6.0
 

@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.0.26
-Release:	6%{?dist}
+Release:	7%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -270,6 +270,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0.0.26-7
+- Rebuild for ICU 71
+
 * Tue Dec 06 2022 Kalev Lember <klember@redhat.com> - 0.0.26-6
 - Drop unused openjpeg-devel build dep
 

@@ -3,7 +3,7 @@
 
 Name:           openttd
 Version:        12.2
-Release:        4%{?prever:.%{prever}}%{?dist}
+Release:        5%{?prever:.%{prever}}%{?dist}
 Summary:        Transport system simulation game
 
 License:        GPLv2+
@@ -136,6 +136,9 @@ EOF
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 12.2-5
+- Rebuild for ICU 72
+
 * Sun Sep 25 2022 Felix Kaechele <felix@kaechele.ca> - 12.2-4
 - add weak dependency on fluid-soundfont-gm (rhbz#1588367)
 

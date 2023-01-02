@@ -13,7 +13,7 @@
 Name:    kdb
 Summary: Database Connectivity and Creation Framework
 Version: 3.2.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: LGPLv2+
 
@@ -175,6 +175,9 @@ cat kdb_sqlitedriver_qt.lang >> kdb_qt.lang
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.2.0-13
+- Rebuild for ICU 72
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.2.0-12
 - Rebuild for new PostgreSQL 15
 

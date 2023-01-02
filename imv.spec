@@ -3,7 +3,7 @@
 
 Name:           imv
 Version:        4.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -89,6 +89,9 @@ desktop-file-validate \
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.3.1-5
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 4.3.1-4
 - Rebuilt for ICU 71.1
 

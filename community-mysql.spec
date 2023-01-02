@@ -76,7 +76,7 @@
 
 Name:             community-mysql
 Version:          8.0.31
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -982,6 +982,9 @@ fi
 %endif
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 8.0.31-2
+- Rebuild for ICU 72
+
 * Fri Sep 30 2022 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.31-1
 - Update to MySQL 8.0.31
 

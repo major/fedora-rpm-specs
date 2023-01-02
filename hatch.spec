@@ -54,6 +54,15 @@ Source1100:     hatch-shell.1
 Source1200:     hatch-status.1
 Source1300:     hatch-version.1
 
+# Partial backport of upstream commit 0201239cea9e5ada8133f076a243f95c467426e3
+# so that test TestTemplate.test_create_necessary_directories continues to pass
+# with hatchling 1.12, but without the changelog entry. For hatch (vs.
+# hatchling) the only change is in the test.
+#
+# Remove unnecessary encoding declaration
+# https://github.com/pypa/hatch/pull/659
+Patch:          pr-659.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -77,7 +86,7 @@ Features:
 
 
 %prep
-%autosetup -n %{archivename}
+%autosetup -n %{archivename} -p1
 
 
 %generate_buildrequires

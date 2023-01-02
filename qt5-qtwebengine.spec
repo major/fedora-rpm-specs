@@ -62,7 +62,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -673,6 +673,9 @@ done
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 5.15.10-5
+- Rebuild for ICU 72
+
 * Sun Nov 20 2022 Neal Gompa <ngompa@fedoraproject.org> - 5.15.10-4
 - Add patch to backport support for 16k pages on AArch64 (#2144200)
 

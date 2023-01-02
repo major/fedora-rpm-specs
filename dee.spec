@@ -1,7 +1,7 @@
 Summary:	Model to synchronize multiple instances over DBus
 Name:		dee
 Version:	1.2.7
-Release:	43%{?dist}
+Release:	44%{?dist}
 # GPLv3-licensed tests and examples are in the tarball, but not installed
 License:	LGPLv3
 URL:		https://launchpad.net/dee
@@ -78,6 +78,9 @@ find %{buildroot} -regex ".*\.la$" | xargs rm -f --
 %{_datadir}/vala/vapi/*.deps
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.2.7-44
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.2.7-43
 - Rebuilt for ICU 71.1
 

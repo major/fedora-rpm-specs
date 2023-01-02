@@ -2,8 +2,8 @@
 %global	hash_thread2	5d70
 
 Name:		xfe
-Version:	1.44
-Release:	4%{?dist}
+Version:	1.45
+Release:	1%{?dist}
 Summary:	X File Explorer File Manager
 
 License:	GPLv2+
@@ -24,6 +24,7 @@ BuildRequires:	libX11-devel
 BuildRequires:	libXft-devel
 BuildRequires:	libXrandr-devel
 BuildRequires:	startup-notification-devel
+BuildRequires:	%{_bindir}/pkexec
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(xcb)
 BuildRequires:	pkgconfig(xcb-aux)
@@ -125,17 +126,21 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %doc	TODO
 
 %config(noreplace)	%{_sysconfdir}/xferc
+%{_datadir}/applications/xfe-xf*.desktop
 
 %{_bindir}/xfe-xf*
 %dir	%{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/xf*
-%{_datadir}/applications/xfe-xf*.desktop
+
 %dir	%{_datadir}/%{name}
 %{_datadir}/%{name}/xferc
+
 %dir	%{_datadir}/%{name}/icons/
 %{_datadir}/%{name}/icons/default-theme/
 %{_datadir}/%{name}/icons/gnome*-theme/
 %{_datadir}/%{name}/pixmaps/
+
+%{_datadir}/polkit-1/actions/org.xfe.root.policy
 
 %{_mandir}/man1/xfe-xf*.1*
 
@@ -145,6 +150,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-1
+- 1.45
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.44-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

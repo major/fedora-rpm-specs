@@ -3,7 +3,7 @@
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 Name: rubygem-%{gem_name}
 Version: 4.1.0
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: ASL 2.0
 URL: https://selenium.dev
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -12,6 +12,10 @@ Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git -C selenium archive -v -o selenium-webdriver-4.1.0-spec.txz selenium-4.1.0 rb/spec
 
 Source1: %{gem_name}-%{version}-spec.txz
+# https://github.com/SeleniumHQ/selenium/issues/11498
+# https://github.com/SeleniumHQ/selenium/pull/11499
+# A bit modified to apply v4.1.0
+Patch0:  0001-pr11449-rb-ruby3.2-redirect-stdout-directly-instead-of-using.patch
 
 BuildRequires: ruby(release)
 BuildRequires: ruby
@@ -22,11 +26,6 @@ BuildRequires: rubygem(childprocess)
 BuildRequires: rubygem(rubyzip)
 BuildRequires: rubygem(rack)
 BuildRequires: ruby
-# Is needed even by unit tests
-BuildRequires: %{_bindir}/firefox
-# Firefox is no available on armv7hl
-# https://bugzilla.redhat.com/show_bug.cgi?id=1839833
-ExcludeArch: armv7hl
 BuildArch: noarch
 
 %description
@@ -46,6 +45,10 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}
+%patch0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -63,15 +66,24 @@ rm -f %{buildroot}%{gem_libdir}/selenium/webdriver/ie/native/win32/IEDriver.dll
 pushd .%{gem_instdir}
 ln -s %{_builddir}/rb/spec .
 
-# I was unable to run integration tests (requires FF or chrome)
-rm -rf spec/integration
-rm -rf spec/unit/selenium/webdriver/firefox/profile_spec.rb
+# Fake java runtime (needed for spec/unit/selenium/server_spec.rb testsuite)
+rm -rf TMPBINDIR
+mkdir TMPBINDIR
+cd TMPBINDIR
+ln -sf /bin/true java
+cd ..
+export PATH=$(pwd)/TMPBINDIR:$PATH
 
-# Requires java
-sed -i "/^\s*it 'raises Selenium::Server::Error if the server is not launched within the timeout'.*do$/ a \
-  skip" ./spec/unit/selenium/server_spec.rb
+# Require firefox extension jar
+# (included in thirdparty directory, available on github, not included in gem)
+sed -i spec/unit/selenium/webdriver/firefox/profile_spec.rb \
+    -e '\@can install extension@s|^\(.*\)$|\1 ; skip|' \
+    -e '\@can install web extension@s|^\(.*\)$|\1 ; skip|' \
+    %{nil}
 
-rspec -Ilib:%{_builddir}/rb/lib spec
+# Unable to run integration tests (requires FF or chrome)
+# Skipping execution spec/integration
+rspec -Ilib:%{_builddir}/rb/lib spec/unit
 popd
 
 %files
@@ -91,6 +103,17 @@ popd
 
 
 %changelog
+* Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-4
+- Apply upstream PR under review for ruby3.2 test failure wrt new IO#path method
+  and selenium rspec internal mocking File.exist? issue
+
+* Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-3
+- Clean up spec file for test suite
+  - BR: firefox is actually not needed, just skip test suite
+    requiring real extension jar file
+  - Fake java runtime
+  - Explicity execute spec/unit testsuite only
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,19 +1,16 @@
 %global gem_name ox
 
 Name:           rubygem-%{gem_name}
-Version:        2.14.11
-Release:        4%{?dist}
+Version:        2.14.12
+Release:        1%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
 URL:            http://www.ohler.com/ox
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ohler55/ox && cd ox
-# git archive -v -o rubygem-ox-2.14.8-repo.tgz v2.14.8 test/ examples/
+# git archive -v -o rubygem-ox-2.14.12-repo.tgz v2.14.12 test/ examples/
 Source1:        %{name}-%{version}-repo.tgz
-# https://github.com/ohler55/ox/pull/299
-# Ox.dump result differs on ruby3.2
-Patch0:         %{name}-2.14.11-ox-dump-order.patch
 
 BuildRequires:  gcc
 BuildRequires:  rubygems-devel
@@ -44,7 +41,6 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -a1
-%patch0 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -99,6 +95,9 @@ popd
 
 
 %changelog
+* Sat Dec 31 2022 František Dvořák <valtri@civ.zcu.cz> - 2.14.12-1
+- Update to 2.14.12 (#2156597)
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.11-4
 - Add %%gem_extdir_mri for RUBYLIB for %%check due to ruby3.2 change
   for ext cleanup during build

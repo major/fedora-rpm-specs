@@ -4,7 +4,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Free Bible Software Project
 License:        GPLv2
 URL:            http://www.crosswire.org/sword/
@@ -151,6 +151,9 @@ make tests
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1:1.9.0-15
+- Rebuild for ICU 72
+
 * Mon Dec 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.9.0-14
 - Add BR perl-generators to automatically generates run-time dependencies
   for installed Perl files

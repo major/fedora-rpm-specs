@@ -1,6 +1,6 @@
 Name:			maim
 Version:		5.7.4
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Command-line screen capture tool
 
 License:		GPLv3
@@ -47,6 +47,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 5.7.4-2
+- Rebuild for ICU 72
+
 * Mon Nov 28 2022 Alois Mahdal <netvor@vornet.cz> - 5.7.4-1
 - Update to upstream release 5.7.4 (RHBZ#1823039)
 

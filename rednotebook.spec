@@ -1,5 +1,5 @@
 Name:           rednotebook
-Version:        2.28.1
+Version:        2.29
 Release:        1%{?dist}
 Summary:        Daily journal with calendar, templates and keyword searching
 
@@ -65,6 +65,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Sat Dec 31 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.29-1
+- New upstream version 2.29
+
 * Thu Dec 29 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.28.1-1
 - New upstream version 2.28.1
 

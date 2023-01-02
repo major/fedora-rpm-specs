@@ -4,7 +4,7 @@
 
 Name:           tracker
 Version:        3.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPLv2+
@@ -168,6 +168,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.4.2-2
+- Rebuild for ICU 72
+
 * Tue Dec 06 2022 David King <amigadave@amigadave.com> - 3.4.2-1
 - Update to 3.4.2 (#2150897)
 

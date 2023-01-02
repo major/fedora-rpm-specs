@@ -6,7 +6,7 @@
 
 Name: cyrus-imapd
 Version: 3.4.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -669,6 +669,9 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.4.4-4
+- Rebuild for ICU 72
+
 * Fri Sep 09 2022 Martin Osvald <mosvald@redhat.com> - 3.4.4-3
 - Require mariadb-connector-c-devel instead of mariadb-devel (rhbz#2116360)
 - Drop tzdist module. Clients must use OS provided timezone info

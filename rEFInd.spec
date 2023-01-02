@@ -31,7 +31,7 @@ Linux kernels that provide EFI stub support.
 
 Name:		rEFInd
 Version:	0.13.3.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	User friendly EFI boot manager
 License:	GPL-3.0-or-later
 
@@ -55,7 +55,7 @@ BuildRequires:	gnu-efi-devel
 Requires:	efi-filesystem
 Requires:	efibootmgr
 Requires:	%{name}-tools = %{version}-%{release}
-Requires:	%{name}-bootloader = %{version}
+Requires:	%{name}-bootloader-%{efi_arch} = %{version}
 Suggests:	%{name}-signed-%{efi_arch}
 
 # These were vendored and adapted into rEFInd long ago...
@@ -107,6 +107,7 @@ of %{name} on your system.
 Summary:	User friendly EFI boot manager (unsigned binaries)
 Requires:	%{name}-tools = %{version}-%{release}
 Provides:	%{name}-bootloader = %{version}
+Provides:	%{name}-bootloader-%{efi_arch} = %{version}
 BuildArch:	noarch
 
 %description unsigned-%{efi_arch} %{_description}
@@ -173,6 +174,10 @@ echo "no need to install this update in the ESP."                       >> READM
 
 
 %changelog
+* Sat Dec 31 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.13.3.1-5
+- Make sure rEFInd metapackage pulls in correct bootloader package (rhbz#2157177)
+- Fix syntax error in refind-install caused by efi-size detection patch (rhbz#2157178)
+
 * Mon Oct 24 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.13.3.1-4
 - Exclude 32-bit ARM architectures
 

@@ -24,7 +24,7 @@
 
 Name:           freerdp
 Version:        2.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 License:        ASL 2.0
@@ -297,6 +297,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools2.pc
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2:2.9.0-2
+- Rebuild for ICU 72
+
 * Wed Nov 30 2022 Ondrej Holy <oholy@redhat.com> - 2:2.9.0-1
 - Update to 2.9.0 (CVE-2022-39316, CVE-2022-39317, CVE-2022-39318,
 CVE-2022-39319, CVE-2022-39320, CVE-2022-41877, CVE-2022-39347).

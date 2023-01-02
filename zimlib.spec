@@ -2,7 +2,7 @@
 
 Name: zimlib
 Version: 8.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
 Summary: Reference implementation of the ZIM specification
@@ -54,6 +54,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{appname}.pc
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 8.1.0-2
+- Rebuild for ICU 72
+
 * Thu Dec 01 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 8.1.0-1
 - Updated to version 8.1.0.
 

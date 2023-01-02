@@ -65,7 +65,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 15
 Version: %{majorversion}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1267,6 +1267,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 15.0-2
+- Rebuild for ICU 72
+
 * Tue Sep 27 2022 Ondrej Sloup <osloup@redhat.com> - 15.1-1
 - Update to v15
 - Add llvm pointer patch

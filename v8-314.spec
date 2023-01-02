@@ -25,7 +25,7 @@
 
 Name:		%{truename}-314
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	JavaScript Engine
 License:	BSD
 URL:		https://developers.google.com/v8/
@@ -406,6 +406,9 @@ chmod -R -x %{buildroot}%{python_sitelib}/*.py*
 %endif
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.14.5.10-31
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.14.5.10-30
 - Rebuilt for ICU 71.1
 

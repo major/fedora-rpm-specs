@@ -2,7 +2,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 4.13
 URL: https://gnucash.org/
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.13-3
+- Rebuild for ICU 72
+
 * Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> = 4.13-2
 - BR setuptools.
 

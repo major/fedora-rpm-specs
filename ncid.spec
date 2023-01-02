@@ -1,6 +1,6 @@
 Name:       ncid
 Version:    1.13
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Network Caller ID server, client and gateways
 Requires:   perl-interpreter, perl-Config-Simple, perl-Data-HexDump, logrotate
 Provides:   /usr/lib64/ncid/libcarrier.so.8(), /usr/lib/ncid/libcarrier.so.8()
@@ -455,6 +455,9 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.13-6
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.13-5
 - Rebuilt for ICU 71.1
 

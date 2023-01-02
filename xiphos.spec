@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Bible study and research tool
 License:        GPLv2+
 URL:            http://xiphos.org/
@@ -99,6 +99,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.2.1-17
+- Rebuild for ICU 72
+
 * Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 4.2.1-16
 - Rebuild (minizip-ng)
 

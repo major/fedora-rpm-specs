@@ -20,7 +20,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 52%{?dist}
+Release: 53%{?dist}
 Epoch: 9
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -9413,6 +9413,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 9:20210325-53
+- Rebuild for ICU 72
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 9:202110325-52
 - fixup texlive-base-20210325-poppler-22.08.0.patch (bz2121167)
 

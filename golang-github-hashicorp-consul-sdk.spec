@@ -3,8 +3,8 @@
 
 # https://github.com/hashicorp/consul/sdk
 %global goipath         github.com/hashicorp/consul
-Version:                0.7.0
-%global tag             sdk/v0.7.0
+Version:                0.13.0
+%global tag             sdk/v%{version}
 %global distprefix      %{nil}
 
 %gometa
@@ -39,7 +39,7 @@ Consul provides several key features:
 %global gosupfiles testutil
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Solution to connect and configure applications across dynamic, distributed infrastructure
 
 # Upstream license specification: MPL-2.0
@@ -50,7 +50,9 @@ Source0:        %{gosource}
 BuildRequires:  golang(github.com/hashicorp/go-cleanhttp)
 BuildRequires:  golang(github.com/hashicorp/go-hclog)
 BuildRequires:  golang(github.com/hashicorp/go-uuid)
+BuildRequires:  golang(github.com/hashicorp/go-version)
 BuildRequires:  golang(github.com/mitchellh/go-testing-interface)
+BuildRequires:  golang(github.com/stretchr/testify)
 BuildRequires:  golang(github.com/pkg/errors)
 BuildRequires:  golang(golang.org/x/sys/unix)
 
@@ -76,6 +78,9 @@ mv sdk/README.md README-sdk.md
 %gopkgfiles
 
 %changelog
+* Sat Dec 31 2022 Sérgio Basto <sergio@serjux.com> - 1.13.0-1
+- Update golang-github-hashicorp-consul-sdk to 1.13.0 (#1918592)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

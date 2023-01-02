@@ -12,7 +12,7 @@ License:        GPL-2.0-or-later AND BSD-3-Clause AND ISC
 URL:            https://www.eggheads.org/
 Source0:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz
 Source1:        https://ftp.eggheads.org/pub/eggdrop/source/1.9/%{name}-%{version}.tar.gz.asc
-Source2:        gpgkey-E01C240484DE7DBE190FE141E7667DE1D1A39AFF.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/E01C240484DE7DBE190FE141E7667DE1D1A39AFF
 Patch0:         eggdrop-1.6.17-langdir.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc

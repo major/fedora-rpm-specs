@@ -4,7 +4,7 @@
 #
 Name:           opentrep
 Version:        0.07.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -197,6 +197,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0.07.11-4
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.07.11-3
 - Rebuilt for ICU 71.1
 

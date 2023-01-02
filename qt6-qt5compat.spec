@@ -9,7 +9,7 @@
 Summary: Qt6 - Qt 5 Compatibility Libraries
 Name:    qt6-%{qt_module}
 Version: 6.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv3
 Url:     http://www.qt.io
@@ -98,6 +98,9 @@ popd
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 6.4.1-2
+- Rebuild for ICU 72
+
 * Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
 - 6.4.1
 

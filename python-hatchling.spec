@@ -1,5 +1,5 @@
 Name:           python-hatchling
-Version:        1.11.1
+Version:        1.12.1
 Release:        %autorelease
 Summary:        The build backend used by Hatch
 
@@ -64,7 +64,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %files -n python3-hatchling -f %{pyproject_files}
-%license LICENSE.txt
 %doc README.md
 
 %{_bindir}/hatchling

@@ -19,7 +19,7 @@
 
 Name:           mozjs%{major}
 Version:        102.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND GPL-3.0-or-later
@@ -226,6 +226,9 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 102.6.0-2
+- Rebuild for ICU 72
+
 * Mon Dec 12 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.6.0-1
 - mozjs102-102.6.0 (fixes RHBZ#2152654)
 

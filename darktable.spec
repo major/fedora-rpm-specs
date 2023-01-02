@@ -7,7 +7,7 @@
 
 Name: darktable
 Version: 4.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
@@ -246,6 +246,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.2.0-2
+- Rebuild for ICU 72
+
 * Thu Dec 22 2022 Germano Massullo <germano.massullo@gmail.com> - 4.2.0-1
 - 4.2.0 release
 - adjusted dependencies

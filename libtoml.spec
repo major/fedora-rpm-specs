@@ -5,7 +5,7 @@
 
 Name:           lib%{libname}
 Version:        0
-Release:        24.20161213git%{shortcommit}%{?dist}
+Release:        25.20161213git%{shortcommit}%{?dist}
 Summary:        Fast C parser using Ragel to generate the state machine.
 
 License:        BSD
@@ -59,6 +59,9 @@ CFLAGS="$CFLAGS -D__STDC_WANT_LIB_EXT2__"
 %{_libdir}/%{name}.so
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0-25.20161213git03e8a3a
+- Rebuild for ICU 72
+
 * Wed Dec 07 2022 Florian Weimer <fweimer@redhat.com> - 0-24.20161213git03e8a3a
 - Arrange for asprintf declaration in <stdio.h> for C99 compatibility
 

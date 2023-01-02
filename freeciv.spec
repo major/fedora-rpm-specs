@@ -2,7 +2,7 @@
 
 Name:           freeciv
 Version:        3.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-player strategy game
 
 License:        GPLv2+
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.0.5-2
+- Rebuild for ICU 72
+
 * Fri Dec 16 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.0.5-1
 - 3.0.5
 

@@ -7,16 +7,16 @@
 %endif
 
 Name:           rubygem-%{gem_name}
-Version:        1.6.1
-Release:        2%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        JMESPath - Ruby Edition
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://github.com/trevorrowe/jmespath.rb
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/trevorrowe/jmespath.rb && cd jmespath.rb
-# git checkout v1.6.1
-# tar -czf rubygem-jmespath-1.6.1-repo.tgz spec/ CHANGELOG.md README.md
+# git checkout v1.6.2
+# tar -czf rubygem-jmespath-1.6.2-repo.tgz spec/ CHANGELOG.md README.md
 Source1:        %{name}-%{version}-repo.tgz
 
 BuildArch:      noarch
@@ -65,6 +65,10 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
+mkdir -p %{buildroot}%{_bindir}
+cp -a .%{_bindir}/* \
+        %{buildroot}%{_bindir}/
+
 cp -a CHANGELOG.md README.md %{buildroot}%{gem_instdir}/
 
 
@@ -83,8 +87,10 @@ popd
 %files
 %dir %{gem_instdir}/
 %license %{gem_instdir}/LICENSE.txt
+%{_bindir}/jmespath.rb
 # required at runtime
 %{gem_instdir}/VERSION
+%{gem_instdir}/bin/
 %{gem_libdir}/
 %{gem_spec}
 %exclude %{gem_cache}
@@ -96,6 +102,13 @@ popd
 
 
 %changelog
+* Sat Dec 31 2022 František Dvořák <valtri@civ.zcu.cz> - 1.6.2-1
+- Update to 1.6.2 (#2148507)
+- Install binary executable
+
+* Mon Nov 21 2022 František Dvořák <valtri@civ.zcu.cz> - 1.6.1-3
+- Update license field to SPDX identifier
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

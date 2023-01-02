@@ -45,7 +45,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: LGPLv2+
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -681,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 6.5-8
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 6.5-7
 - Build Java only on supported platforms.
 

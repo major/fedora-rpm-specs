@@ -1,6 +1,6 @@
 Name: tin
 Version: 2.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Basic Internet news reader
 License: BSD
 URL: http://www.tin.org/
@@ -81,6 +81,9 @@ rm -r ${workdir}
 %{_mandir}/man5/*
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2.6.2-2
+- Rebuild for ICU 72
+
 * Wed Dec 28 2022 Dominik Mierzejewski <dominik@greysector.net> 2.6.2-1
 - update to 2.6.2 (#2156181)
 - enable NNTPS support using OpenSSL

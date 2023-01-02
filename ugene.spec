@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20221114
-%global	gitcommit		cd5510d9a89ba264bf258532046ec3154088f928
+%global	gitdate		20221231
+%global	gitcommit		43b637f4443fd5dcadb96165d5c95f8aa8303d27
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		f4cfeaae3ba653c5000e8b25e803371375f81f35
+%global	gitcommit_free		f190f98f666220017087930c79d39f081fba6783
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	D%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20221114
-%global	tarballtime	2249
+%global	tarballdate	20221231
+%global	tarballtime	1427
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainrel		2
+%global	mainrel		1
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -49,7 +49,7 @@
 Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
-Version:	45.0
+Version:	45.1
 Release:	%{fedorarel}%{?dist}
 
 #The entire source code is GPLv2+ except:
@@ -78,7 +78,6 @@ Patch105:	ugene-40.1-libs_3rdparty-breakpad-arch-port.patch
 Patch106:	ugene-43.0-git-plgins-smith_waterman-nonsse2-arch.patch
 Patch107:	ugene-40.1-qbswap-bigendian-workaround.patch
 Patch108:	ugene-43.x-wrong-elif-SendReportDialog.patch
-Patch109:	ugene-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -146,8 +145,6 @@ git config user.email "%{name}-maintainers@fedoraproject.org"
 %patch107 -p1 -b .char_bigen -Z
 	%GIT	commit -m "src/corelibs/U2Core et al.: Workaround for Qt qbswap issue on Q_BIG_ENDIAN" -a
 %patch108 -p1 -b .elif -Z
-	%GIT commit -m "ugenem/src/SendReportDialog.cpp: fix wrong elif usage" -a
-%patch109 -p1 -b .c99 -Z
 	%GIT commit -m "ugenem/src/SendReportDialog.cpp: fix wrong elif usage" -a
 
 sed -i.nonfree CMakeLists.txt -e '\@add_subdirectory.*plugins_3rdparty/psipred@d'
@@ -253,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Jan  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.1-1
+- A Happy New Year 45.1 release
+
 * Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 45.0-2
 - Apply upstream patch to fix C99 compatibility issue
 

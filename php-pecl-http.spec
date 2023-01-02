@@ -28,7 +28,7 @@
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD
@@ -252,6 +252,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.2.3-6
+- Rebuild for ICU 72
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 4.2.3-5
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

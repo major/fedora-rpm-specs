@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -139,6 +139,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.5.8-7
+- Rebuild for ICU 72
+
 * Mon Aug 08 2022 Marek Kasik <mkasik@redhat.com> - 1.5.8-6
 - Rebuild for poppler-22.08.0
 - Backport necessary changes from upstream

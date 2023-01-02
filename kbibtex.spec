@@ -2,7 +2,7 @@
 
 Name:       kbibtex
 Version:    0.9.2
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    A BibTeX editor for KDE
 
 License:    GPLv2+
@@ -102,6 +102,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0.9.2-10
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.9.2-9
 - Rebuilt for ICU 71.1
 

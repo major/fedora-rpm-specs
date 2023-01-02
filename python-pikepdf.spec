@@ -1,7 +1,7 @@
 %global srcname pikepdf
 
 Name:           python-%{srcname}
-Version:        6.2.6
+Version:        6.2.7
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 

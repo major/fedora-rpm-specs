@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.3.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -708,6 +708,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2.3.1-2
+- Rebuild for ICU 72
+
 * Fri Nov 18 2022 Mark Reynolds <mreynolds@redhat.com> - 2.3.1-1
 - Bump version to 2.3.1
 - Issue 5532 - Make db compaction TOD day more robust.

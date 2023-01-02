@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	6.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL+ and LGPLv2+
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -126,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 6.0.0-2
+- Rebuild for ICU 72
+
 * Thu Nov 17 2022 Eric Sandeen <sandeen@redhat.com> - 6.0.0-1
 - New upstream release
 - New GPG public key for tarball signing due to new upstream maintainer

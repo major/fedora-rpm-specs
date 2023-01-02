@@ -70,6 +70,18 @@ Source0:        %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # local system fonts.
 Patch:          gi-docgen-2022.2-no-web-fonts.patch
 
+# python3-toml is deprecated
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+# Backport upstream changes to migrate to tomllib and fallback to tomli and toml
+# We technically only need the following two:
+#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/168
+#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/174 (fixup of 168)
+# But the following two were deemed necessary upstream as well:
+#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/172
+#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/173
+# Patches trivially joined to one file with cat.
+Patch:          gi-docgen-2022.2-tomllib.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.17.4
-%global baserelease 3
+%global baserelease 4
 # This should be rc1 or %%nil
 %global pre_release %nil
 
@@ -4344,6 +4344,9 @@ fi
 %endif
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2:4.17.4-4
+- Rebuild for ICU 72
+
 * Thu Dec 22 2022 Pavel Filipenský <pfilipen@redhat.com> - 4.17.4-3
 - Create package dc-libs also for 'non-dc build'
 

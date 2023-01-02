@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open source realtime-strategy game
 
 License:        GPLv2+
@@ -188,6 +188,9 @@ popd
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.0-5
+- Rebuild for ICU 72
+
 * Sun Aug 14 2022 Hans de Goede <hdegoede@redhat.com> - 1.0-4
 - Fix FTBFS (rhbz#2114565)
 

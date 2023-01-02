@@ -20,7 +20,7 @@ BuildRequires: systemd
 
 Name: tarantool
 Version: 2.4.2.68
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: In-Memory Database
 License: BSD
 URL: https://tarantool.org/
@@ -145,6 +145,9 @@ rm -rf %{buildroot}%{_datarootdir}/doc/tarantool/
 %{_includedir}/tarantool/module.h
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2.4.2.68-12
+- Rebuild for ICU 72
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.4.2.68-11
 - Rebuilt for ICU 71.1
 

@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -835,6 +835,9 @@ make check -k ||:
 
 
 %changelog
+* Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 6.4.1-3
+- Rebuild for ICU 72
+
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> - 6.4.1-2
 - rebuild for the new PostgreSQL 15
 
