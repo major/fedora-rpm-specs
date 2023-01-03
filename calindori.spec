@@ -8,32 +8,30 @@ License:        GPLv3+ and LGPLv3+ and BSD and CC0
 URL:            https://apps.kde.org/%{name}/
 Source:         https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
 
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
+BuildRequires:  gcc-c++
+BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
 BuildRequires:  libappstream-glib
 
-BuildRequires:  cmake 
-BuildRequires:  gcc-c++
-BuildRequires:  extra-cmake-modules
-BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
-BuildRequires:  qconf
-
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt53DRender)
+BuildRequires: cmake(Qt5Core)
+BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5Svg)
 
 BuildRequires: cmake(KF5CalendarCore) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2) >= %{kf5_min_version}
 BuildRequires: cmake(KF5Config) >= %{kf5_min_version}
-BuildRequires: cmake(KF5I18n) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Notifications) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Service) >= %{kf5_min_version}
 BuildRequires: cmake(KF5DBusAddons) >= %{kf5_min_version}
+BuildRequires: cmake(KF5I18n) >= %{kf5_min_version}
+BuildRequires: cmake(KF5Kirigami2) >= %{kf5_min_version}
+BuildRequires: cmake(KF5Notifications) >= %{kf5_min_version}
 BuildRequires: cmake(KF5People) >= %{kf5_min_version}
+BuildRequires: cmake(KF5Service) >= %{kf5_min_version}
 
-Requires:       qt5-qtwayland
-Requires:       kf5-kirigami2
 Requires:       hicolor-icon-theme
+Requires:       kf5-kirigami2
+Requires:       qt5-qtwayland
 
 %description
 %{summary}.

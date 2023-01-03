@@ -125,8 +125,6 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %files -f %{pyproject_files}
-%license LICENSE
-
 %doc README.md
 
 %{_bindir}/pipx

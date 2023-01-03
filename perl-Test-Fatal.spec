@@ -10,9 +10,9 @@
 
 Summary:	Incredibly simple helpers for testing code with exceptions 
 Name:		perl-Test-Fatal
-Version:	0.016
-Release:	7%{?dist}
-License:	GPL+ or Artistic
+Version:	0.017
+Release:	1%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Fatal
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Fatal-%{version}.tar.gz
 BuildArch:	noarch
@@ -22,7 +22,7 @@ BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.78
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter) >= 5.57
@@ -81,6 +81,11 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::Fatal.3*
 
 %changelog
+* Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.017-1
+- Update to 0.017
+  - Update packaging and metadata
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.016-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

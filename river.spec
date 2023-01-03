@@ -2,14 +2,13 @@
 # ziglang/zig#3047
 %undefine  _missing_build_ids_terminate_build
 
-# FIXME: zig-rpm-macros is not in koji srpm buildroot, and zig_arches has to be
-# defined at this stage for valid ExclusiveArch
+# rhbz#2142334: zig_arches is not defined in the srpm buildroot
 %if 0%{!?zig_arches:1}
 %global zig_arches x86_64 aarch64 riscv64 %{mips64}
 %endif
 
 Name:           river
-Version:        0.1.3
+Version:        0.2.0
 Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
@@ -32,7 +31,7 @@ ExclusiveArch:  %{zig_arches}
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  scdoc
-BuildRequires:  zig >= 0.9
+BuildRequires:  (zig >= 0.9 with zig < 0.10)
 BuildRequires:  zig-rpm-macros
 
 BuildRequires:  pkgconfig(libevdev)
@@ -40,7 +39,7 @@ BuildRequires:  pkgconfig(libinput)
 BuildRequires:  pkgconfig(pixman-1)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  (pkgconfig(wlroots) >= 0.15.0 with pkgconfig(wlroots) < 0.16)
+BuildRequires:  (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
 BuildRequires:  pkgconfig(xkbcommon)
 
 # As of now, zig does not provide a package manager or any other official way
@@ -133,5 +132,8 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
+- Update to 0.2.0
+
 * Sun Sep 25 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.3-1
 - Initial import (#2051062)

@@ -2,12 +2,15 @@
 
 Name:          twincam
 Version:       0.5.4
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A lightweight camera application
 
 License:       GPLv2
 URL:           https://github.com/ericcurtin/twincam
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Due to libcamera 0.0.3 API change:
+# https://git.libcamera.org/libcamera/libcamera.git/commit/?id=81e7689bb168a74c0822846729d992128da97322
+Patch0:        twincam-0.5.4-libcamera-003.patch
 
 BuildRequires: meson
 BuildRequires: gcc-c++
@@ -27,7 +30,7 @@ ExcludeArch: %ix86
 %{summary}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %meson
@@ -62,6 +65,10 @@ dracut -f
 %{_unitdir}/multi-user.target.wants/twincam-quit.service
 
 %changelog
+* Sun Jan 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.4-6
+- Rebuild for new libcamera again
+- Patch for libcamera 0.0.3 API change
+
 * Wed Dec 07 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.4-5
 - Rebuild for new libcamera
 

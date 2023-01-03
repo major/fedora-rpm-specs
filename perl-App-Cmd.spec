@@ -1,7 +1,7 @@
 Name:           perl-App-Cmd
 Summary:        Write command line apps with less suffering
-Version:        0.334
-Release:        5%{?dist}
+Version:        0.335
+Release:        1%{?dist}
 License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/App-Cmd-%{version}.tar.gz 
@@ -71,6 +71,9 @@ For information on how to start using App::Cmd, see App::Cmd::Tutorial.
 %{_mandir}/man3/App*.3*
 
 %changelog
+* Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.335-1
+- Update to 0.335
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.334-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,15 +1,13 @@
 Name:		gputils
-Version:	1.5.0
-Release:	10%{?dist}
+Version:	1.5.2
+Release:	0%{?dist}
 Summary:	Development utilities for Microchip (TM) PIC (TM) microcontrollers
 Summary(fr):	Outils de développement pour les microcontrôleurs PIC (TM) de Microchip (TM)
 
 License:	GPLv2+
 URL:		http://gputils.sourceforge.net
-Source:		http://downloads.sourceforge.net/%{name}/%{name}-%{version}-1.tar.bz2
-Patch1:		gplink_%{version}.patch
-Patch2:		gpasm_%{version}.patch
-Patch3:		link_%{version}.patch
+Source:		http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Patch1:		gpasm_%{version}.patch
 Provides:	bundled(libiberty)
 
 BuildRequires:  gcc
@@ -37,8 +35,6 @@ This package containes gputils documentation and HTML documentation for supporte
 %prep
 %setup -q
 %patch1 -p0
-%patch2 -p0
-%patch3 -p1
 
 %build
 autoconf -f -i
@@ -66,6 +62,9 @@ cp -f doc/%{name}.p* %{buildroot}/usr/share/doc/%{name}-doc/
 
 
 %changelog
+* Sun Jan 01 2023 Roy Rankin <rrankin[AT]ihug[DOT]com[DOT]au> 1.5.2-0
+- Upstream release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

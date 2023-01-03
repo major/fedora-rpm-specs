@@ -1,11 +1,11 @@
 Name:           tokodon 
-Version:        22.11
+Version:        22.11.2
 Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Summary:        Kirigami-based mastodon client
 Url:            https://invent.kde.org/network/tokodon
-Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -20,6 +20,7 @@ BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5DBusAddons)
 BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5KIO)
 BuildRequires:  cmake(KF5Kirigami2)
 BuildRequires:  cmake(KF5KirigamiAddons)
 BuildRequires:  cmake(KF5Notifications)
@@ -71,6 +72,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Thu Dec 22 2022 Marcus Müller <marcus@hostalia.de> - 22.11.2-1
+- Update to 22.11.2
+- Fixes RHBZ #2154524
+
 * Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
 - Update to 22.11
 

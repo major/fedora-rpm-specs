@@ -34,6 +34,13 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
 
+# Fix tests with pre-2.0 backoff (fix #3087)
+# https://github.com/open-telemetry/opentelemetry-python/pull/3106
+#   Fixes:
+# Tests named test_handles_backoff_v2_api fail when backoff is <2.0
+# https://github.com/open-telemetry/opentelemetry-python/issues/3087
+Patch:          https://github.com/open-telemetry/opentelemetry-python/pull/3106.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -646,11 +653,6 @@ do
     k="${k-}${k+ and }not (TestImportExporters and test_console_exporters)"
     k="${k-}${k+ and }not (TestGlobals and test_sdk_log_emitter_provider)"
     k="${k-}${k+ and }not (TestGlobals and test_sdk_logger_provider)"
-    ;;
-  exporter/opentelemetry-exporter-otlp-proto-*)
-    # Tests named test_handles_backoff_v2_api fail when backoff is <2.0
-    # https://github.com/open-telemetry/opentelemetry-python/issues/3087
-    k="${k-}${k+ and }not test_handles_backoff_v2_api"
     ;;
   esac
 

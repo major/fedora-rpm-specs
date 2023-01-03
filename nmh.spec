@@ -1,12 +1,11 @@
 Name:          nmh
-Version:       1.7.1
-Release:       19%{?dist}
+Version:       1.8RC1
+Release:       1%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
 URL:           http://savannah.nongnu.org/projects/nmh
-Source0:       http://download.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
+Source0:       http://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-1.8-RC1.tar.gz
 Patch0:        nmh-use-smtp-port.patch
-Patch1:        nmh-c99.patch
 BuildRequires: cyrus-sasl-devel
 BuildRequires: gcc
 BuildRequires: gdbm-devel
@@ -30,9 +29,8 @@ Optional GUI interfaces are provided by the external xmh and exmh
 projects.  nmh is a descendant of the RAND MH, Mail Handler, project.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-1.8-RC1
 %patch0 -p1
-%patch1 -p1
 
 # Avoid regenerating autotools machinery.
 touch aclocal.m4 Makefile.in config.h.in configure
@@ -55,6 +53,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Sun Jan  1 2023 David Levine  <par.packager@gmail.com> - 1.8RC1-1
+- With upstream 1.8-RC1.
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.7.1-19
 - Backport patch from upstream to fix detection of _GNU_SOURCE
 
@@ -76,10 +77,10 @@ CFLAGS="$RPM_OPT_FLAGS"
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Wed 04 Nov 2020 David Levine  <par.packager@gmail.com> - 1.7.1-12
+* Wed Nov  4 2020 David Levine  <par.packager@gmail.com> - 1.7.1-12
 - Added BuildRequires: make.
 
-* Sun 09 Aug 2020 David Levine  <par.packager@gmail.com> - 1.7.1-11
+* Sun Aug  9 2020 David Levine  <par.packager@gmail.com> - 1.7.1-11
 - Replaced ='s in changelog with -'s.
 
 * Tue Jul 28 2020 David Levine  <par.packager@gmail.com> - 1.7.1-10

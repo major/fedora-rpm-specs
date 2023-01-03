@@ -20,8 +20,8 @@
 
 %global _hardened_build 1
 %global majorversion    12.1
-%global minorversion    0
-%global toolsbuild      20219665
+%global minorversion    5
+%global toolsbuild      20735119
 %global toolsversion    %{majorversion}.%{minorversion}
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
@@ -420,6 +420,13 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Sun Jan 1 2023 John Wolfe <jwolfe@vmware.com> - 12.1.5-1
+- Package new upstream version of open-vm-tools-12.1.5-20735119.
+  - The deployPkg plugin may prematurely reboot the guest VM before cloud-init
+    has completed user data setup
+  - A SIGSEGV may be encountered when a non-quiescing snapshot times out.
+  - A number of Coverity reported issues have been addressed.
+
 * Thu Sep 8 2022 John Wolfe <jwolfe@VMWARE.COM> - 12.1.0-1
 - Package new upstream version open-vm-tools-12.1.0-20219665.
   . fix for CVE-2022-31676 - a local privilege escalation vulnerability.

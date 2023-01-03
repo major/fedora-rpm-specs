@@ -153,7 +153,6 @@ k="${k-}${k+ and }not test_default"
 
 
 %files -f %{pyproject_files}
-%license LICENSE.txt
 %{_bindir}/hatch
 %{_mandir}/man1/hatch.1*
 %{_mandir}/man1/hatch-*.1*

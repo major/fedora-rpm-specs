@@ -24,7 +24,7 @@ Patch0:         setup-firewalld.patch
 Patch1:         mount-secontext.patch
 
 BuildArch:      noarch
-# TODO: Track bugzilla ticket
+# bugzilla 2157300
 ExcludeArch:    s390x
 
 BuildRequires:  make

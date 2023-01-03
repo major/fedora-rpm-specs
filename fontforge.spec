@@ -1,8 +1,8 @@
 %global gettext_package FontForge
 
 Name:           fontforge
-Version:        20220308
-Release:        3%{?dist}
+Version:        20230101
+Release:        1%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPLv3+
@@ -123,6 +123,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Mon Jan 02 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230101-1
+- Update to 20230101 version (#2157290)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220308-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

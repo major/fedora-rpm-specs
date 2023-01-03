@@ -1,8 +1,8 @@
 Name:           perl-Sub-Exporter-ForMethods
-Version:        0.100054
-Release:        6%{?dist}
+Version:        0.100055
+Release:        1%{?dist}
 Summary:        Helper routines for using Sub::Exporter to build methods
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Exporter-ForMethods
 Source0:        https://cpan.metacpan.org/modules/by-module/Sub/Sub-Exporter-ForMethods-%{version}.tar.gz
 BuildArch:      noarch
@@ -12,6 +12,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -55,6 +56,12 @@ make test
 %{_mandir}/man3/Sub::Exporter::ForMethods.3*
 
 %changelog
+* Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.100055-1
+- Update to 0.100055
+  - Update packaging and metadata
+  - Minimum required Perl is now v5.12
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.100054-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

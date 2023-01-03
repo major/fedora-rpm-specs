@@ -4,8 +4,8 @@
 
 %global crate clap_lex
 
-Name:           rust-clap_lex
-Version:        0.3.0
+Name:           rust-clap_lex0.2
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Minimal, flexible command line parser
 

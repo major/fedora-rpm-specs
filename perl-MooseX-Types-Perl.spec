@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-Perl
-Version:        0.101343
-Release:        23%{?dist}
+Version:        0.101344
+Release:        1%{?dist}
 Summary:        Moose types that check against Perl syntax
 License:        GPL+ or Artistic
 
@@ -15,7 +15,7 @@ BuildRequires:  perl(MooseX::Types::Moose)
 BuildRequires:  perl(Params::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version) >= 0.82
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 
@@ -27,19 +27,15 @@ against syntax that is, or is a reasonable subset of, Perl syntax.
 %setup -q -n MooseX-Types-Perl-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -48,6 +44,12 @@ make test
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.101344-1
+- Update to 0.101344
+- Replace %%{__perl} with /usr/bin/perl
+- Pass NO_PACKLIST and NO_PERLLOCAL to Makefile.PL
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.101343-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

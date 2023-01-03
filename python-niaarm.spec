@@ -21,7 +21,7 @@ solved using the nature-inspired algorithms that come from the related
 framework called NiaPy.}
 
 Name:           python-%{pypi_name}
-Version:        0.2.1
+Version:        0.2.4
 Release:        2%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
@@ -82,7 +82,7 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 %check
 %if %{with tests}
-%pytest -k 'not test_visualization'
+%pytest -k 'not test_visualization and not test_text_mining'
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -100,6 +100,12 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+* Sun Jan 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.4-2
+- Do not test text mining suite (nltk data is missing)
+
+* Sun Jan 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.4-1
+- Upgrade to 0.2.4
+
 * Thu Sep 29 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.1-2
 - Fix tests
 

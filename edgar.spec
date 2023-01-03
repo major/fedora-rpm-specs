@@ -1,6 +1,6 @@
 Name:           edgar
-Version:        1.35
-Release:        3%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        A platform game
 
 # edgar now contains sounds licensed under a "good" Fedora license:
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sun Jan 01 2023 Andrea Musuruane <musuruan@gmail.com> - 1.36-1
+- Updated to new upstream release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

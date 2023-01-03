@@ -7,16 +7,13 @@
 %bcond_with bootstrap
 
 Name:           babel
-Version:        2.10.3
-Release:        3%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD
 URL:            https://babel.pocoo.org/
 Source0:        %{pypi_source}
-# patch present in upstream master (commit 965523b6) but not in
-# 2.10.x branch
-Patch0:         babel-remove-cgi-deprecation-warning.patch
 
 BuildArch:      noarch
 
@@ -127,6 +124,9 @@ export TZ=UTC
 %endif
 
 %changelog
+* Sun Jan 01 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 2.11.0-1
+- update to 2.11.0
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           perl-Pod-Eventual
-Version:        0.094002
-Release:        5%{?dist}
+Version:        0.094003
+Release:        1%{?dist}
 Summary:        Read a POD document as a series of trivial events
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Eventual
 Source0:        https://cpan.metacpan.org/modules/by-module/Pod/Pod-Eventual-%{version}.tar.gz
 BuildArch:      noarch
@@ -12,6 +12,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -65,6 +66,11 @@ make test
 %{_mandir}/man3/Pod::Eventual::Simple.3*
 
 %changelog
+* Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.094003-1
+- Update to 0.094003
+  - Update author contact info
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.094002-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

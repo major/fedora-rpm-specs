@@ -3,7 +3,7 @@
 
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
-Version:    	3.26.0
+Version:    	4.0.1
 Release:    	1%{?dist}
 License:    	MIT
 URL:        	http://rubyforge.org/projects/seattlerb/
@@ -130,6 +130,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Sun Jan  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-1
+- 4.0.1
+
 * Fri Oct 21 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.26.0-1
 - 3.26.0
 

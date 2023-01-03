@@ -47,6 +47,8 @@ Source0:        %{gosource}
 Patch0:         0001-Revert-backend-add-StopOptions-to-ContainerRestart-a.patch
 Patch1:         0002-Revert-client-ContainerStop-ContainerRestart-support.patch
 Patch2:         0003-Revert-api-types-time-remove-DurationToSecondsString.patch
+# Fix build for btrfs-progs-6.1
+Patch3:         44707.patch
 
 BuildRequires:  git-core
 BuildRequires:  pkgconfig(libseccomp)
@@ -72,6 +74,7 @@ BuildRequires:  golang(github.com/tonistiigi/units)
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 find . -iname "*_windows.go" -type f -exec rm -rfv '{}' \+;
 rm -rfv pkg/archive/changes_test.go libnetwork/drivers/windows/ daemon/graphdriver/windows/
 sed -i "s|github.com/docker/distribution|github.com/distribution/distribution/v3|" $(find . -iname "*.go" -type f)

@@ -1,6 +1,6 @@
 Name:           perl-Role-HasMessage
-Version:        0.006
-Release:        25%{?dist}
+Version:        0.007
+Release:        1%{?dist}
 Summary:        Thing with a message method
 License:        GPL+ or Artistic
 
@@ -25,7 +25,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 
@@ -39,15 +39,15 @@ not provide any actual behavior.
 %setup -q -n Role-HasMessage-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-RELEASE_TESTING=1 make test
+RELEASE_TESTING=1 %{make_build} test
 
 %files
 %doc Changes README
@@ -56,6 +56,12 @@ RELEASE_TESTING=1 make test
 %{_mandir}/man3/Role*
 
 %changelog
+* Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.007-1
+- Update to 0.007
+- Replace %%{__perl} with /usr/bin/perl
+- Pass NO_PERLLOCAL to Makefile.PL
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

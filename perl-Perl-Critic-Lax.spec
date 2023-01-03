@@ -1,25 +1,28 @@
 Name:           perl-Perl-Critic-Lax
-Version:        0.013
-Release:        18%{?dist}
+Version:        0.014
+Release:        1%{?dist}
 Summary:        Policies that let you slide on common exceptions
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Lax
-Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Perl-Critic-Lax-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/modules/by-module/Perl/Perl-Critic-Lax-%{version}.tar.gz
 BuildArch:      noarch
+# Build:
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(parent)
 # This is plug-in into Perl::Critic
 BuildRequires:  perl(Perl::Critic) >= 1.088
-BuildRequires:  perl(Perl::Critic::Utils)
 BuildRequires:  perl(Perl::Critic::Policy)
 BuildRequires:  perl(Perl::Critic::Policy::ValuesAndExpressions::ProhibitLeadingZeros)
+BuildRequires:  perl(Perl::Critic::Utils)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(utf8)
 # Tests:
@@ -45,9 +48,9 @@ perl Makefile.PL INSTALLDIRS=perl
 make %{?_smp_mflags}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=%{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -55,10 +58,26 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_privlib}/*
-%{_mandir}/man3/*
+%{perl_privlib}/Perl/
+%{_mandir}/man3/Perl::Critic::Lax.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::ProhibitComplexMappings::LinesNotStatements.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::ProhibitEmptyQuotes::ExceptAsFallback.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::ProhibitLeadingZeros::ExceptChmod.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::ProhibitStringyEval::ExceptForRequire.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::RequireConstantOnLeftSideOfEquality::ExceptEq.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::RequireEndWithTrueConst.3*
+%{_mandir}/man3/Perl::Critic::Policy::Lax::RequireExplicitPackage::ExceptForPragmata.3*
 
 %changelog
+* Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.014-1
+- Update to 0.014 (rhbz#2157212)
+  - Update packaging and metadata
+  - Minimum required Perl is now v5.12
+- Use SPDX-format license tag
+- Use author-independent source URL
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

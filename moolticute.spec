@@ -2,7 +2,7 @@
 
 Name:           moolticute
 Version:        1.00.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
 # The entire source code is GPL-3.0-or-later except:
@@ -21,6 +21,10 @@ License:        GPL-3.0-or-later AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AN
 URL:            https://github.com/mooltipass/moolticute
 Source0:        https://github.com/mooltipass/%{name}/archive/refs/tags/v%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/master/udev/69-mooltipass.rules
+# Add missing license: https://github.com/mooltipass/moolticute/pull/1098
+Source2:        LICENSE.CyoEncode
+Source3:        LICENSE.SimpleCrypt
+Source4:        LICENSE.zxcvbn-c
 
 # QSimpleUpdater is licensed under DBAD, which isn't approved. The updater isn't used anyway, so this patch removes it
 # until it is fixed upstream: https://github.com/alex-spataru/QSimpleUpdater/issues/28
@@ -88,6 +92,10 @@ install -pm 0644 src/QtAwesome/LICENSE.md LICENSES/LICENSE.QtAwesome
 install -pm 0644 src/http-parser/LICENSE-MIT LICENSES/LICENSE.http-parser
 install -pm 0644 src/qtcsv/LICENSE LICENSES/LICENSE.qtcsv
 install -pm 0644 src/qtcsv6/LICENSE LICENSES/LICENSE.qtcsv6
+# Install missing licenses
+install -pm 0644 %{SOURCE2} LICENSES/LICENSE.CyoEncode
+install -pm 0644 %{SOURCE3} LICENSES/LICENSE.SimpleCrypt
+install -pm 0644 %{SOURCE4} LICENSES/LICENSE.zxcvbn-c
 
 
 %check
@@ -123,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Sun Jan 01 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-2
+- Add missing license files
+
 * Thu Dec 01 2022 Arthur Bols <arthur@bols.dev> - 1.00.1-1
 - Upstream release 1.00.1
 - Update license field for SPDX change

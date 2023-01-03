@@ -82,7 +82,7 @@
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
 %global gcc_release 1
-%global cross_gcc_release 1
+%global cross_gcc_release 2
 %global cross_binutils_version 2.37
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -425,7 +425,7 @@ function config_target () {
 	h8300-*)	target=h8300-elf;;
 	mn10300-*)	target=am33_2.0-linux;;
 	m68knommu-*)	target=m68k-linux;;
-	openrisc-*)	target=or1k-linux;;
+	openrisc-*)	target=or1k-linux-gnu;;
 	parisc-*)	target=hppa-linux;;
 	score-*)	target=score-elf;;
 	sh64-*)		target=sh64-linux-elf;;
@@ -865,6 +865,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sun Jan 01 2023 Dan Horák <dan[at]danny.cz> - 12.2.1-2
+- fix the openrisc toolchain triplet to match binutils (rhbz#2096361)
+
 * Tue Aug 30 2022 Dan Horák <dan[at]danny.cz> - 12.2.1-1
 - Update to 12.2.1 GA release
 - Add Requires for plugin development (rhbz#2121894)

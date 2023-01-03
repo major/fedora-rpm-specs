@@ -3,7 +3,7 @@
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 Name: rubygem-%{gem_name}
 Version: 4.1.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: ASL 2.0
 URL: https://selenium.dev
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -12,10 +12,10 @@ Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git -C selenium archive -v -o selenium-webdriver-4.1.0-spec.txz selenium-4.1.0 rb/spec
 
 Source1: %{gem_name}-%{version}-spec.txz
-# https://github.com/SeleniumHQ/selenium/issues/11498
-# https://github.com/SeleniumHQ/selenium/pull/11499
+# https://github.com/SeleniumHQ/selenium/commit/590cfbb9c894a692283d25e138627a0828799c5a
+# Extracted minimum part from the above change to make test pass with ruby32
 # A bit modified to apply v4.1.0
-Patch0:  0001-pr11449-rb-ruby3.2-redirect-stdout-directly-instead-of-using.patch
+Patch0:  rubygem-selenium-webdriver-gets-tests-passing-with-ruby32.patch
 
 BuildRequires: ruby(release)
 BuildRequires: ruby
@@ -103,6 +103,9 @@ popd
 
 
 %changelog
+* Mon Jan  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-5
+- Apply the upstream patch for ruy3.2 instead of previous patch
+
 * Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-4
 - Apply upstream PR under review for ruby3.2 test failure wrt new IO#path method
   and selenium rspec internal mocking File.exist? issue

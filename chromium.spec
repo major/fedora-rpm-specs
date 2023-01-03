@@ -24,7 +24,7 @@
 	ninja -j %{numjobs} -C '%1' '%2'
 
 # enable|disable headless client build
-%global build_headless 0
+%global build_headless 1
 
 # enable|disable chrome-remote-desktop build
 %global build_remoting 0
@@ -207,7 +207,7 @@ BuildRequires: libicu-devel >= 5.4
 
 Name:	chromium%{chromium_channel}
 Version: 108.0.5359.124
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -1705,6 +1705,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Jan  1 2023 Tom Callaway <spot@fedoraproject.org> - 108.0.5359.124-2
+- turn headless back on (chrome-remote-desktop will stay off, probably forever)
+
 * Wed Dec 28 2022 Than Ngo <than@redhat.com> - 108.0.5359.124-1
 - update to 108.0.5359.124
 - switch to clang

@@ -10,7 +10,7 @@ The snaptime package is about transforming timestamps simply.}
 
 Name:           python-%{pretty_name}
 Version:        0.2.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Transforming timestamps simply
 
 License:        MIT
@@ -47,7 +47,10 @@ BuildRequires:  python3-pytest-cov
 %check
 #skipping three tests
 %if %{with tests}
-%pytest -k 'not test_bad_weekday and not test_parse_error and not test_unit_error'
+k="${k-}${k+ and }not test_bad_weekday"
+k="${k-}${k+ and }not test_parse_error"
+k="${k-}${k+ and }not test_unit_error"
+%pytest -k "${k-}"
 %endif
 
 %files -n python3-%{pretty_name}
@@ -58,6 +61,9 @@ BuildRequires:  python3-pytest-cov
 %pycached %{python3_sitelib}/%{pretty_name}/__init__.py
 
 %changelog
+* Sun Jan 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.4-11
+- Break long line
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

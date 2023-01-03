@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -659,6 +659,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Sun Jan 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.63-2
+- Rebuild for new libcamera again
+
 * Thu Dec 15 2022 Wim Taymans <wtaymans@redhat.com> - 0.3.63-1
 - Update version to 0.3.63
 

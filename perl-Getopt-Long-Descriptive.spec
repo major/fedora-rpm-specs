@@ -1,8 +1,8 @@
 Name:           perl-Getopt-Long-Descriptive
 Summary:        Getopt::Long with usage text
-Version:        0.110
-Release:        4%{?dist}
-License:        GPL+ or Artistic
+Version:        0.111
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long-Descriptive
 Source0:        https://cpan.metacpan.org/modules/by-module/Getopt/Getopt-Long-Descriptive-%{version}.tar.gz
 BuildArch:      noarch
@@ -11,6 +11,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -63,6 +64,12 @@ make test
 %{_mandir}/man3/Getopt::Long::Descriptive::Usage.3*
 
 %changelog
+* Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.111-1
+- Update to 0.111
+  - Clean up the required perl version in the code
+  - Update author contact info
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.110-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -75,6 +82,7 @@ make test
 * Sun Oct 31 2021 Paul Howarth <paul@city-fan.org> - 0.110-1
 - Update to 0.110
   - Just small packaging updates
+  - ...and bumped the minimum perl to v5.12 (inadvertently)
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.109-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild

@@ -1,5 +1,5 @@
 Name:       swaybg
-Version:    1.1.1
+Version:    1.2.0
 Release:    %{autorelease}
 Summary:    Wallpaper tool for Wayland compositors
 
@@ -14,11 +14,12 @@ Conflicts:  sway < 1.1
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc
-BuildRequires:  meson >= 0.48.0
+BuildRequires:  meson >= 0.59.0
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.14
+BuildRequires:  pkgconfig(wayland-scanner)
 # Man page compilation
 BuildRequires:  scdoc
 

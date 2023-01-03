@@ -22,7 +22,7 @@
 %global shortcommit_tini %(c=%{commit_tini}; echo ${c:0:7})
 
 Name:           moby-engine
-Version:        20.10.21
+Version:        20.10.22
 Release:        1%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
@@ -37,6 +37,9 @@ Source5:        moby-engine-systemd-sysusers.conf
 Source100:      provides.spec.inc
 # Specfile license
 Source200:      moby-engine.spec.license
+
+# Fix build for btrfs-progs-6.1
+Patch1:         44707.patch
 URL:            https://www.docker.com
 
 ExclusiveArch:  %{golang_arches}
@@ -128,6 +131,7 @@ This package installs %{summary}.
 
 %prep
 %setup -q -a 1 -a 2 -n moby-%{version}
+%patch1 -p1 
 
 # correct rpmlint errors for bash completion
 sed -i '/env bash/d' cli-%{version}/contrib/completion/bash/docker
@@ -279,6 +283,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Sun Jan 01 2023 Sérgio Basto <sergio@serjux.com>
+- Update moby-engine to 20.10.22
+
 * Wed Dec 14 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20.10.21-1
 - Update to 20.10.21
 - Fix build, use libnetwork from golang-github-docker-0:22.06.0~beta

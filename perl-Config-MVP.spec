@@ -1,6 +1,6 @@
 Name:           perl-Config-MVP
-Version:        2.200012
-Release:        7%{?dist}
+Version:        2.200013
+Release:        1%{?dist}
 Summary:        Multivalue-property package-oriented configuration
 License:        GPL+ or Artistic
 
@@ -67,6 +67,9 @@ things that do.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.200013-1
+- Update to 2.200013
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.200012-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

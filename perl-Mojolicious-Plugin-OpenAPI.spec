@@ -1,5 +1,5 @@
 Name:           perl-Mojolicious-Plugin-OpenAPI
-Version:        5.07
+Version:        5.08
 Release:        1%{?dist}
 Summary:        OpenAPI / Swagger plugin for Mojolicious
 # MIT-licensed files: t/spec/v2-petstore.json, t/v3-basic.t, t/v3-nullable.t, t/v3-style-array.t
@@ -18,7 +18,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(utf8)
 # runtime requirements
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(JSON::Validator) >= 5.10
+BuildRequires:  perl(JSON::Validator) >= 5.13
 BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojo::JSON)
 BuildRequires:  perl(Mojo::Util)
@@ -74,6 +74,9 @@ DUMMY_DB_ERROR= JSON_VALIDATOR_DEBUG= MOJO_OPENAPI_DEBUG= %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 5.08-1
+- Update to 5.08
+
 * Sun Aug 21 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 5.07-1
 - Update to 5.07
 
