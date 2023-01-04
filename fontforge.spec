@@ -2,10 +2,10 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Outline and bitmap font editor
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://fontforge.github.io/
 Source0:        https://github.com/fontforge/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -70,7 +70,7 @@ This package contains documentation files for %{name}.
 %setup -q
 
 # Remove tests that requires Internet access
-sed -i '45d;82d;101d;126d' tests/CMakeLists.txt
+sed -i '45d;82d;101d;127d' tests/CMakeLists.txt
 
 
 %build
@@ -123,6 +123,10 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Mon Jan 02 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230101-2
+- Update license tag to SPDX format
+- Fix test failure
+
 * Mon Jan 02 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230101-1
 - Update to 20230101 version (#2157290)
 

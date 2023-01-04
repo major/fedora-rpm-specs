@@ -32,7 +32,6 @@ BuildRequires:  python%{python3_pkgversion}-Cython >= 0.13
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-numexpr >= 2.4
 BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-mock
 
 %global _description %{expand:
 PyTables is a package for managing hierarchical datasets and designed

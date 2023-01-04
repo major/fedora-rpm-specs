@@ -1,8 +1,8 @@
 %global srcname pwntools
 
 Name:           python-%{srcname}
-Version:        4.8.0
-Release:        4%{?dist}
+Version:        4.9.0
+Release:        1%{?dist}
 Summary:        A CTF framework and exploit development library
 
 # Source contains four LICENSE*.txt files which explain the licenses which cover
@@ -10,8 +10,6 @@ Summary:        A CTF framework and exploit development library
 License:        MIT and BSD and GPLv2
 URL:            https://github.com/Gallopsled/%{srcname}/
 Source0:        https://github.com/Gallopsled/%{srcname}/archive/%{srcname}-%{version}.tar.gz
-# Backport commit that fixes compatibility with Python 3.11 (see also BZ #2149766).
-Patch0:         python-pwntools-4.8.0-python-3.11.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -75,7 +73,11 @@ rm -rf %{buildroot}%{_prefix}/pwntools-doc
 # %%license LICENSE-pwntools.txt
 
 %changelog
-* Fri Dec 02 2022 W. Michael Petullo <mike@flyn.org - 4.8.0-4
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 4.9.0-1
+- Update to 4.9.0 rhbz#1902526
+- Fix changelog from 4.8.0-4 missing > after email
+
+* Fri Dec 02 2022 W. Michael Petullo <mike@flyn.org> - 4.8.0-4
 - Fix BZ #2149766; backport patch that fixes compatibility with Python 3.11
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-3

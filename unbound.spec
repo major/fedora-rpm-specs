@@ -30,7 +30,7 @@
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
 Version: 1.17.0
-Release: 1%{?extra_version:.%{extra_version}}%{?dist}
+Release: 2%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -53,6 +53,7 @@ Source17: unbound-anchor.service
 Source18: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz.asc
 # source: https://nlnetlabs.nl/people/
 Source19: https://keys.openpgp.org/pks/lookup?op=get&search=0x9F6F1C2D7E045F8D#/wouter.nlnetlabs.nl.key
+Source20: unbound.sysusers
 
 
 BuildRequires: gcc, make
@@ -92,6 +93,7 @@ Requires: %{name}-anchor%{?_isa} = %{version}-%{release}
 Recommends: %{name}-utils%{?_isa} = %{version}-%{release}
 # unbound-keygen.service requires it, bug #2116790
 Requires: openssl
+Requires(pre): systemd-sysusers
 
 %description
 Unbound is a validating, recursive, and caching DNS(SEC) resolver.
@@ -290,6 +292,7 @@ install -p -m 0644 %{SOURCE17} %{buildroot}%{_unitdir}/unbound-anchor.service
 install -p -m 0755 %{SOURCE2} %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE12} %{buildroot}%{_sysconfdir}/unbound
 install -p -m 0644 %{SOURCE14} %{buildroot}%{_sysconfdir}/sysconfig/unbound
+install -p -D -m 0644 %{SOURCE20} %{buildroot}%{_sysusersdir}/%{name}.sysusers
 %if %{with_munin}
 # Install munin plugin and its softlinks
 install -d -m 0755 %{buildroot}%{_sysconfdir}/munin/plugin-conf.d
@@ -314,7 +317,12 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/unbound.conf
 # install root - we keep a copy of the root key in old location,
 # in case user has changed the configuration and we wouldn't update it there
 install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/unbound/
-install -m 0644 %{SOURCE13} %{buildroot}%{_sharedstatedir}/unbound/root.key
+install -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/unbound/dnssec-root.key
+# make initial key static
+pushd %{buildroot}%{_sharedstatedir}/unbound
+  KEYPATH=$(realpath --relative-to="%{buildroot}%{_sharedstatedir}/unbound" "%{buildroot}%{_sysconfdir}/unbound/dnssec-root.key")
+  ln -s "$KEYPATH" root.key
+popd
 
 # remove static library from install (fedora packaging guidelines)
 rm %{buildroot}%{_libdir}/*.la
@@ -341,11 +349,8 @@ install -p %{SOURCE11} %{buildroot}%{_sysconfdir}/unbound/local.d/
 echo ".so man8/unbound-control.8" > %{buildroot}/%{_mandir}/man8/unbound-control-setup.8
 
 
-%pre anchor
-getent group unbound >/dev/null || groupadd -r unbound
-getent passwd unbound >/dev/null || \
-useradd -r -g unbound -d %{_sysconfdir}/unbound -s /sbin/nologin \
--c "Unbound DNS resolver" unbound
+%pre libs
+%sysusers_create_compat %{SOURCE20}
 
 %post
 %systemd_post unbound.service
@@ -452,11 +457,13 @@ popd
 %doc doc/README
 %license doc/LICENSE
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}
-%{_libdir}/libunbound.so.*
+%{_sysusersdir}/%{name}.sysusers
+%{_libdir}/libunbound.so.8*
 %dir %attr(0755,unbound,unbound) %{_sharedstatedir}/%{name}
-%attr(0644,unbound,unbound) %config %{_sharedstatedir}/%{name}/root.key
+%verify(not size mtime filedigest link mode user group) %{_sharedstatedir}/%{name}/root.key
 # just left for backwards compat with user changed unbound.conf files - format is different!
 %attr(0644,root,root) %config %{_sysconfdir}/%{name}/root.key
+%attr(0644,root,root) %config %{_sysconfdir}/%{name}/dnssec-root.key
 
 %files anchor
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
@@ -474,6 +481,11 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Thu Dec 01 2022 Petr Menšík <pemensik@redhat.com> - 1.17.0-2
+- Move unbound user creation to libs (#2149036)
+- Use systemd-sysusers for user creation (#2105416)
+- Keep original DNSSEC root key as config (#2132103)
+
 * Tue Nov 01 2022 Petr Menšík <pemensik@redhat.com> - 1.17.0-1
 - Update to 1.17.0 (#2134348)
 

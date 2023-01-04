@@ -49,9 +49,6 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: qt6-qtshadertools-devel >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
-BuildRequires: qt6-qtbase-mysql >= %{version}
-BuildRequires: qt6-qtbase-odbc >= %{version}
-BuildRequires: qt6-qtbase-postgresql >= %{version}
 BuildRequires: python%{python3_pkgversion}
 BuildRequires: pkgconfig(xkbcommon) >= 0.4.1
 

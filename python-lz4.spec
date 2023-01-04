@@ -1,8 +1,8 @@
 %global srcname lz4
 
 Name:           python-%{srcname}
-Version:        4.0.2
-Release:        2%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 URL:            https://github.com/%{name}/%{name}
 Summary:        LZ4 Bindings for Python
 License:        BSD
@@ -69,6 +69,9 @@ mv docs/_build/html ./html
 
 
 %changelog
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 4.3.2-1
+- update to 4.3.2 rhbz#2156909
+
 * Wed Dec 07 2022 Jonathan Wright <jonathan@almalinux.org> - 4.0.2-2
 - build against system lz4
 

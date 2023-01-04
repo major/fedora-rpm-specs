@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    cccc74ee5e328031b15640b51056ee8d3bb66c0a
+%global gh_commit    a4b48764bfbb8f3a6a4d1aeb1a35bb5e9ecac4a5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   collection
@@ -22,8 +22,8 @@
 %global ns_project   Collection
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        1.2.2
-Release:        3%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Library for representing and manipulating collections
 
 License:        MIT
@@ -34,44 +34,44 @@ Source1:        makesrc.sh
 
 BuildArch:      noarch
 
-BuildRequires:  php(language) >= 7.3
+BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-date
 BuildRequires:  php-spl
 # From composer.json, "require-dev": {
-#        "captainhook/captainhook": "^5.3",
-#        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-#        "ergebnis/composer-normalize": "^2.6",
-#        "fakerphp/faker": "^1.5",
-#        "hamcrest/hamcrest-php": "^2",
-#        "jangregor/phpstan-prophecy": "^0.8",,
-#        "mockery/mockery": "^1.3",
+#        "captainhook/plugin-composer": "^5.3",
+#        "ergebnis/composer-normalize": "^2.28.3",
+#        "fakerphp/faker": "^1.21",
+#        "hamcrest/hamcrest-php": "^2.0",
+#        "jangregor/phpstan-prophecy": "^1.0",
+#        "mockery/mockery": "^1.5",
+#        "php-parallel-lint/php-console-highlighter": "^1.0",
+#        "php-parallel-lint/php-parallel-lint": "^1.3",
+#        "phpcsstandards/phpcsutils": "^1.0.0-rc1",
 #        "phpspec/prophecy-phpunit": "^2.0",
-#        "phpstan/extension-installer": "^1",
-#        "phpstan/phpstan": "^0.12.32",
-#        "phpstan/phpstan-mockery": "^0.12.5",
-#        "phpstan/phpstan-phpunit": "^0.12.11",
-#        "phpunit/phpunit": "^8.5 || ^9",
-#        "psy/psysh": "^0.10.4",
-#        "slevomat/coding-standard": "^6.3",
-#        "squizlabs/php_codesniffer": "^3.5",
-#        "vimeo/psalm": "^4.4"
+#        "phpstan/extension-installer": "^1.2",
+#        "phpstan/phpstan": "^1.9",
+#        "phpstan/phpstan-mockery": "^1.1",
+#        "phpstan/phpstan-phpunit": "^1.3",
+#        "phpunit/phpunit": "^9.5",
+#        "psalm/plugin-mockery": "^1.1",
+#        "psalm/plugin-phpunit": "^0.18.4",
+#        "ramsey/coding-standard": "^2.0.3",
+#        "ramsey/conventional-commits": "^1.3",
+#        "vimeo/psalm": "^5.4"
 %if %{with tests}
-BuildRequires:  phpunit9
+BuildRequires:  phpunit9 >= 9.5
 %global phpunit %{_bindir}/phpunit9
-BuildRequires: (php-composer(symfony/polyfill-php81)   >= 1.23  with php-composer(symfony/polyfill-php81)   < 2)
 BuildRequires: (php-composer(fzaninotto/faker)         >= 1.5   with php-composer(fzaninotto/faker)         < 2)
 BuildRequires: (php-composer(hamcrest/hamcrest-php)    >= 2     with php-composer(hamcrest/hamcrest-php)    < 3)
-BuildRequires: (php-composer(mockery/mockery)          >= 1.3   with php-composer(mockery/mockery)          < 2)
+BuildRequires: (php-composer(mockery/mockery)          >= 1.5   with php-composer(mockery/mockery)          < 2)
 BuildRequires: (php-composer(phpspec/prophecy-phpunit) >= 2.0   with php-composer(phpspec/prophecy-phpunit) < 3)
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require": {
-#        "php": "^7.3 || ^8",
-#        "symfony/polyfill-php81": "^1.23"
-Requires:       php(language) >= 7.3
-Requires:      (php-composer(symfony/polyfill-php81)   >= 1.23  with php-composer(symfony/polyfill-php81)   < 2)
+#        "php": "^8.1",
+Requires:       php(language) >= 8.1
 # From phpcompatifo report for 1.1.1
 Requires:       php-spl
 
@@ -99,12 +99,6 @@ phpab \
   --template fedora \
   --output src/autoload.php \
   src
-cat << 'EOF' | tee -a src/autoload.php
-
-\Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/Symfony/Polyfill/autoload.php',
-]);
-EOF
 
 
 %install
@@ -131,9 +125,12 @@ require '%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php';
 ]);
 EOF
 
+: ignore PHPStan tests
+find tests -type f -exec grep PHPStan {} \; -delete -print
+
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php73 php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php81 php82; do
   if which $cmdarg; then
    set $cmdarg
    $1 ${2:- %{_bindir}/phpunit9} \
@@ -154,6 +151,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan  2 2023 Remi Collet <remi@remirepo.net> - 2.0.0-1
+- update to 2.0.0
+- raise dependency on PHP 8.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

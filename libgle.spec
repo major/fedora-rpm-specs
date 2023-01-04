@@ -1,12 +1,13 @@
 Summary: A Tubing and Extrusion Library for OpenGL
 Name: libgle
 Version: 3.1.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: GPLv2 or (Artistic clarified and MIT)
 URL: http://www.linas.org/gle/
 Source: http://www.linas.org/gle/pub/gle-%{version}.tar.gz
 # Make the examples makefile multilib-compliant
 Patch0: libgle-examples-makefile.patch
+Patch1: libgle-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires: mesa-libGL-devel 
@@ -43,6 +44,9 @@ Extrusion Library.
 %prep
 %setup -q -n gle-%{version}
 %patch0 -p5
+%patch1 -p1
+# Prevent re-running autotools.
+touch -r Makefile.am aclocal.m4 configure*
 
 %build
 %configure --disable-static
@@ -70,6 +74,9 @@ mv $RPM_BUILD_ROOT%{_docdir}/gle docs
 
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-27
+- C99 compatibility fixes for the configure script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

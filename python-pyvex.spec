@@ -5,8 +5,8 @@ ExcludeArch: ppc64le s390x
 %global debug_package %{nil}
 
 Name:           python-%{pypi_name}
-Version:        9.0.9572
-Release:        4%{?dist}
+Version:        9.2.31
+Release:        1%{?dist}
 Summary:        Python interface to libVEX and the VEX intermediate representation
 
 # Core is BSD, but code in pyvex_c is GPL because it links statically
@@ -57,6 +57,9 @@ cp %{SOURCE2} .
 %{python3_sitelib}/pyvex/
 
 %changelog
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.31-1
+- Update to 9.2.31 rhbz#1999818
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.9572-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

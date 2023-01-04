@@ -5,7 +5,7 @@
 
 Name:           BlockOutII
 Version:        2.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A free adaptation of the original BlockOut DOS game
 License:        GPLv2+
 URL:            http://www.blockout.net/blockout2/
@@ -18,6 +18,7 @@ Patch2:         BlockOutII-2.3-restore-resolution.patch
 Patch3:         BlockOutII-2.3-libpng15.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1037001
 Patch4:         BlockOutII-2.3-format-security.patch
+Patch5:		BlockOutII-c99.patch
 BuildRequires:  SDL_mixer-devel alsa-lib-devel libpng-devel
 BuildRequires:  make gcc-c++ desktop-file-utils ImageMagick
 Requires:       hicolor-icon-theme opengl-games-utils
@@ -42,6 +43,7 @@ Pons.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 # Convert the README and put it somewhere we can use it from %%doc
 iconv -f ISO8859-1 -t UTF8 BlockOut/README.txt > t;
@@ -139,6 +141,9 @@ EOF
 
 
 %changelog
+* Mon Jan  2 2023 Florian Weimer <fweimer@redhat.com> - 2.5-22
+- C99 compatibility fix (#2157594)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

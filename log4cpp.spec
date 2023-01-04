@@ -1,6 +1,6 @@
 Name:           log4cpp
 Version:        1.1.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        C++ logging library
 
 License:        LGPLv2+
@@ -17,6 +17,7 @@ Patch3:         log4cpp-1.0-no-snprintf.patch
 # Version is actually 1.1.3
 Patch4:         log4cpp-version-1.1.3.patch
 Patch5:         03_aclocal_automake.diff
+Patch6:         log4cpp-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -57,6 +58,7 @@ you will need to install %{name}-devel.
 %patch3 -p1 -b .no-snprintf
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 # Delete non-free (but freely distributable) file under Artistic 1.0
 # just to be sure we're not using it.
 rm -rf src/snprintf.c
@@ -92,6 +94,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %doc rpmdocs/*
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 1.1.3-9
+- C99 compatibility fixes for the configure script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

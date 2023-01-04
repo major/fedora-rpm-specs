@@ -1,5 +1,5 @@
 Name:           arch-install-scripts
-Version:        27
+Version:        28
 Release:        %autorelease
 Summary:        Scripts to bootstrap Arch Linux distribution
 License:        GPLv2

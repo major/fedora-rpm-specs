@@ -1,10 +1,10 @@
 Name:		vile
-Version:	9.8w
+Version:	9.8x
 Release:	1%{?dist}
 Summary:	VI Like Emacs
 License:	GPLv2
 URL:		https://invisible-island.net/vile/
-Source0:	https://invisible-mirror.net/archives/vile/current/%{name}-%{version}.tgz
+Source0:	https://invisible-island.net/archives/vile/current/%{name}-%{version}.tgz
 BuildRequires:	make
 BuildRequires:	ncurses-devel
 BuildRequires:	flex

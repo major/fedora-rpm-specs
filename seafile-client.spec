@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           seafile-client
-Version:        8.0.9
+Version:        8.0.10
 Release:        1%{?dist}
 Summary:        Seafile cloud storage desktop client
 
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 8.0.10-1
+- Update to 8.0.10
+
 * Fri Dec 02 2022 Philipp Trulson <philipp@trulson.de> - 8.0.9-1
 - Update to 8.0.9
 

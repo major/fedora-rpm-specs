@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-385-gc1c0dea388
+%global glibcsrcdir glibc-2.36.9000-415-g5f55b22f4b
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 19
+%global baserelease 20
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,7 +230,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-rh2155825.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2194,6 +2193,41 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Jan 02 2023 Arjun Shankar <arjun@redhat.com> - 2.36.9000-20
+- Drop glibc-rh2155825.patch; fix applied upstream, and
+- Auto-sync with upstream branch master,
+  commit 5f55b22f4b3ea14c777a60f239d25dc4555eb804:
+- hurd getcwd: Fix memory leak on error
+- hurd fcntl: Make LOCKED macro more robust
+- hurd: Make dl-sysdep __sbrk check __vm_allocate call
+- htl: Drop duplicate check in __pthread_stack_alloc
+- hurd hurdstartup: Initialize remaining fields of hurd_startup_data
+- hurd _S_msg_add_auth: Initialize new arrays to 0
+- htl: Check error returned by __getrlimit
+- getdelim: ensure error indicator is set on error (bug 29917)
+- htl: Fix sem_wait race between read and gsync_wait
+- Avoid use of atoi in malloc
+- Linux: Pass size argument of epoll_create to the kernel
+- Simplify scripts/cross-test-ssh.sh configuration.
+- Define MADV_COLLAPSE from Linux 6.1
+- powerpc64: Increase SIGSTKSZ and MINSIGSTKSZ
+- Update all PO files in preparation for release.
+- Update kernel version to 6.1 in header constant tests
+- Update syscall lists for Linux 6.1
+- libio: Convert __vswprintf_internal to buffers (bug 27857)
+- libio: Convert __obstack_vprintf_internal to buffers (bug 27124)
+- libio: Convert __vdprintf_internal to buffers
+- libio: Convert __vasprintf_internal to buffers
+- libio: Convert __vsprintf_internal to buffers
+- stdio-common: Add lock optimization to vfprintf and vfwprintf
+- stdio-common: Convert vfprintf and related functions to buffers
+- stdio-common: Add __translated_number_width
+- stdio-common: Add __printf_function_invoke
+- stdio-common: Introduce buffers for implementing printf
+- locale: Implement struct grouping_iterator
+- Use Linux 6.1 in build-many-glibcs.py
+- Avoid use of atoi in some places in libc
+
 * Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 2.36.9000-19
 - Fix epoll_create regression (#2155825)
 

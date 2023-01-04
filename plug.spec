@@ -1,33 +1,31 @@
-Name:           plug
-Version:        1.4.2
-Release:        4%{?dist}
-Summary:        Linux software for Fender Mustang amplifiers
+Name: plug
+Version: 1.4.3
+Release: 1%{?dist}
+Summary: Linux software for Fender Mustang amplifiers
+License: GPLv3+
+Url: https://github.com/offa/plug
 
-License:        GPLv3+
-Url:            https://github.com/offa/plug
-Source0:        https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  cmake make
-BuildRequires:  systemd-rpm-macros
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(libusb-1.0)
-BuildRequires:  desktop-file-utils
-# for unittests
-BuildRequires:  gmock-devel
-
+#BuildRequires: make
+BuildRequires: cmake make
+BuildRequires: systemd-rpm-macros
+BuildRequires: pkgconfig(Qt5Gui)
+BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: pkgconfig(Qt5Network)
+BuildRequires: pkgconfig(libusb-1.0)
+BuildRequires: desktop-file-utils
+# For unittests.
+BuildRequires: gmock-devel
 
 %description
 Linux replacement for Fender FUSE software for Mustang amps.
 
-
 %prep
 %autosetup
 
-# fix udev rules
+# Fix udev rules.
 sed -e 's/GROUP="plugdev"/TAG+="uaccess"/g' -i cmake/50-mustang.rules
-
 
 %build
 %cmake \
@@ -37,19 +35,16 @@ sed -e 's/GROUP="plugdev"/TAG+="uaccess"/g' -i cmake/50-mustang.rules
 
 %cmake_build
 
-
 %install
 %cmake_install
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-# remove unwanted files
+# Remove unwanted files.
 rm -rf %{buildroot}%{_datadir}/plug
-
 
 %check
 make unittest -C %__cmake_builddir
-
 
 %files
 %doc README.md
@@ -58,8 +53,10 @@ make unittest -C %__cmake_builddir
 %{_datadir}/applications/%{name}.desktop
 %{_udevrulesdir}/50-mustang.rules
 
-
 %changelog
+* Mon Jan 02 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.3-1
+- New upstream version 1.4.3.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

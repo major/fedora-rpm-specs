@@ -9,14 +9,13 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.4.2
-Release:        2%{?dist}
+Version:        4.4.3
+Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
 License:        GPLv3
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
-Patch0: tcpreplay-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -66,6 +65,10 @@ capture files.
 %{_bindir}/*
 
 %changelog
+* Mon Jan  2 2023 Bojan Smojver <bojan@rexursive com> - 4.4.3-1
+- bump up to 4.4.3
+- remove merged patch from https://github.com/appneta/tcpreplay/pull/757
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 4.4.2-2
 - Avoid implicit int, implicit function declarations in configure
 

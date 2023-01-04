@@ -82,7 +82,7 @@ rm hugolib/hugo_modules_test.go
 %go_generate_buildrequires
 
 %build
-BUILDTAGS=extended %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
+BUILDTAGS=extended LDFLAGS="${LDFLAGS} -X %{goipath}/common/hugo.buildDate=$(date --iso=seconds --date=@$SOURCE_DATE_EPOCH) -X %{goipath}/common/hugo.vendorInfo=Fedora:%{version}-%{release}" %gobuild -o %{gobuilddir}/bin/hugo %{goipath}
 %{gobuilddir}/bin/hugo gen autocomplete >hugo-completion
 %{gobuilddir}/bin/hugo gen man
 

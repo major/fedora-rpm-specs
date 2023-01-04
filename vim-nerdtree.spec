@@ -1,22 +1,26 @@
-%global appdata_dir %{_datadir}/appdata
-
 Name:           vim-nerdtree
-Version:        5.0.0
-Release:        11%{?dist}
+Version:        6.10.16
+Release:        1%{?dist}
 Summary:        A tree explorer plugin for the editor Vim
 
 License:        WTFPL
-URL:            http://www.vim.org/scripts/script.php?script_id=1658
-Source0:        https://github.com/scrooloose/nerdtree/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://github.com/preservim/nerdtree
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Added metainfo per 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/AppData/#_metainfo_xml_file_creation
 Source1:        vim-nerdtree.metainfo.xml
 
 Requires:       vim-common
+
 # TODO: These are needed by %%transfiletrigger provided by vim-commons,
 # not sure how to get rid of these ATM :/
 Requires(post): vim
 Requires(postun): vim
+
 # Needed for AppData check.
 BuildRequires:  libappstream-glib
+
 # Defines %%vimfiles_root
 BuildRequires:  vim-filesystem
 BuildArch:      noarch
@@ -27,10 +31,13 @@ directories. It presents the filesystem to you in the form of a tree which
 you manipulate with the keyboard and/or mouse. It also allows you
 to perform simple filesystem operations.
 
+
 %prep
 %setup -q -n nerdtree-%{version}
 
+
 %build
+# Nothing to build. We are just copying files to the filesystem
 
 
 %install
@@ -38,30 +45,35 @@ mkdir -p %{buildroot}%{vimfiles_root}
 cp -ar {autoload,doc,lib,nerdtree_plugin,plugin,syntax} %{buildroot}%{vimfiles_root}
 
 # Install AppData.
-mkdir -p %{buildroot}%{appdata_dir}
-install -m 644 %{SOURCE1} %{buildroot}%{appdata_dir}
+mkdir -p %{buildroot}%{_metainfodir}
+install -m 644 %{SOURCE1} %{buildroot}%{_metainfodir}
+
 
 %check
 # Check the AppData add-on to comply with guidelines.
-appstream-util validate-relax --nonet %{buildroot}/%{appdata_dir}/*.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %files
-%doc CHANGELOG
+%doc CHANGELOG.md
 %license LICENCE
 %doc README.markdown
-%{vimfiles_root}/autoload/*
-%doc %{vimfiles_root}/doc/*
-# This seems to be new convention introduced by NERDTree.
+%doc %{vimfiles_root}/doc/NERDTree.txt
+%{vimfiles_root}/autoload/nerdtree
+%{vimfiles_root}/autoload/nerdtree.vim
 %dir %{vimfiles_root}/lib
 %{vimfiles_root}/lib/nerdtree
 %{vimfiles_root}/nerdtree_plugin/
-%{vimfiles_root}/plugin/*
-%{vimfiles_root}/syntax/*
-%{appdata_dir}/vim-nerdtree.metainfo.xml
+%{vimfiles_root}/plugin/NERD_tree.vim
+%{vimfiles_root}/syntax/nerdtree.vim
+%{_metainfodir}/vim-nerdtree.metainfo.xml
 
 
 %changelog
+* Mon Jan 02 2023 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.10.16-1
+- Rebased to new version
+- Resolves bz #2105772
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

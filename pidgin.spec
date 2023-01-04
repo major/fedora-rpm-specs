@@ -124,8 +124,8 @@
 %endif
 
 Name:           pidgin
-Version:        2.14.10
-Release:        3%{?dist}
+Version:        2.14.12
+Release:        1%{?dist}
 License:        BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
 # GPLv2 - novell prpls
@@ -166,10 +166,6 @@ Patch1:         pidgin-2.14.4-valgrind.patch
 ## Patches 100+: To be Included in Future Upstream
 # upstream ticket https://developer.pidgin.im/ticket/16593
 Patch100:       pidgin-2.14.7-do-not-disable-wall.patch
-# Upstream ticket: https://issues.imfreedom.org/issue/PIDGIN-17702/
-# Upstream review: https://reviews.imfreedom.org/r/1951/diff/2/
-# Upstream commit: https://keep.imfreedom.org/pidgin/pidgin/rev/bf6049713e98
-Patch101:       pidgin-2.14.11-fix-crash-when-closing-a-group-chat-with-spellchk.patch
 
 Summary:        A Gtk+ based multiprotocol instant messaging client
 
@@ -472,9 +468,6 @@ echo "FEDORA=%{fedora} RHEL=%{rhel}"
 # https://developer.pidgin.im/ticket/16593
 %patch100 -p1 -b .do-not-disable-wall
 
-# Upstream review: https://reviews.imfreedom.org/r/1951/diff/2/
-%patch101 -p1 -b .spellchk
-
 # Our preferences
 cp %{SOURCE1} prefs.xml
 
@@ -708,6 +701,10 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Mon Jan  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-1
+- New version
+  Resolves: rhbz#2157241
+
 * Sat Dec 10 2022 Jarek Prokop <jprokop@redhat.com> - 2.14.10-3
 - Fix pidgin crashes when trying to remove a channel.
   Resolves: rhbz#2112810

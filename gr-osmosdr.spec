@@ -1,8 +1,8 @@
-%global git_commit a100eb024c0210b95e4738b6efd836d48225bd03
-%global git_date 20210217
+#%%global git_commit a100eb024c0210b95e4738b6efd836d48225bd03
+#%%global git_date 20210217
 
-%global git_short_commit %(echo %{git_commit} | cut -c -8)
-%global git_suffix %{git_date}git%{git_short_commit}
+#%%global git_short_commit %%(echo %%{git_commit} | cut -c -8)
+#%%global git_suffix %%{git_date}git%%{git_short_commit}
 
 %{?filter_setup:
 %filter_provides_in %{python3_sitearch}/osmosdr/.*\.so$
@@ -11,8 +11,8 @@
 
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
-Version:       0.2.3
-Release:       32.%{git_suffix}%{?dist}
+Version:       0.2.4
+Release:       1%{?dist}
 License:       GPLv3+
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -39,18 +39,12 @@ BuildRequires: libosmo-dsp-devel
 BuildRequires: libsndfile-devel
 BuildRequires: python3-six
 Summary:       Common software API for various radio hardware
-Source0:       https://github.com/osmocom/gr-osmosdr/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
-# https://osmocom.org/issues/5445
-# https://osmocom.org/issues/5031
-# Patch based on:
-# https://github.com/dl1ksv/gr-osmosdr/commit/7d450ca7f20bcbf018a90662febcd9c5618372c2.patch
-Patch0:        gr-osmosdr-0.2.3-gr-funcube.patch
+#Source0:       https://github.com/osmocom/gr-osmosdr/archive/%%{git_commit}/%%{name}-%%{git_commit}.tar.gz
+Source0:       https://github.com/osmocom/gr-osmosdr/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://osmocom.org/issues/5144
-Patch1:        gr-osmosdr-0.2.3-airspy-multi-dev.patch
-# https://osmocom.org/issues/5460
-Patch2:        gr-osmosdr-0.2.3-fcd-ppm-double.patch
+Patch0:        gr-osmosdr-0.2.3-airspy-multi-dev.patch
 # https://osmocom.org/issues/5562
-Patch3:        gr-osmosdr-0.2.3-gain-fix.patch
+Patch1:        gr-osmosdr-0.2.4-gain-fix.patch
 
 %description
 Primarily gr-osmosdr supports the OsmoSDR hardware, but it also
@@ -75,7 +69,8 @@ Requires:      %{name} = %{version}-%{release}
 Documentation files for gr-osmosdr.
 
 %prep
-%autosetup -p1 -n %{name}-%{git_commit}
+#%%autosetup -p1 -n %%{name}-%%{git_commit}
+%autosetup -p1
 
 # TODO fix the lib location nicer way
 sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
@@ -108,6 +103,10 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Mon Jan  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.4-1
+- New version
+  Resolves: rhbz#2157047
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.2.3-32.20210217gita100eb02
 - Rebuilt due to spdlog update.
 

@@ -2,13 +2,15 @@
 
 Summary: Zope 3 schemas
 Name: python-zope-schema
-Version: 6.2.1
+Version: 7.0.0
 Release: 1%{?dist}
-Source0: https://pypi.python.org/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
 License: ZPLv2.1
 BuildArch: noarch
 URL: http://pypi.python.org/pypi/zope.schema
+Source0: %{pypi_source %{modname}}
 
+BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 
 %description
 This package is a zope.interface extension for defining data schemas.
@@ -17,40 +19,25 @@ This package is a zope.interface extension for defining data schemas.
 Summary:        Zope 3 schemas
 %{?python_provide:%python_provide python3-zope-schema}
 
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-# For docs
-BuildRequires: python3-sphinx
-BuildRequires: python3-repoze-sphinx-autointerface
-# For tests
-BuildRequires: python3-zope-testing
-BuildRequires: python3-zope-testrunner
-BuildRequires: python3-zope-interface >= 5.0.0
-BuildRequires: python3-zope-i18nmessageid
-BuildRequires: python3-zope-event
-
-Requires: python3-zope-interface
-Requires: python3-zope-event
-
 %description -n python3-zope-schema
 This package is a zope.interface extension for defining data schemas.
 
 %prep
 %setup -q -n %{modname}-%{version}
 
-rm -rf %{modname}.egg-info
-
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 # build Sphinx documents
-sphinx-build-%{python3_version} -b html docs/ build/sphinx/html
+PYTHONPATH="src" sphinx-build-%{python3_version} -b html docs/ build/sphinx/html
 cp -pr build/sphinx/html .
 rm -fr html/{.buildinfo,.doctrees}
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
@@ -61,11 +48,14 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
 %license LICENSE.txt
 %{python3_sitelib}/zope/schema/
 %exclude %{python3_sitelib}/zope/schema/tests/
-%{python3_sitelib}/%{modname}-*.egg-info
+%{python3_sitelib}/%{modname}-*.dist-info
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 
 %changelog
+* Mon Jan 02 2023 Lumír Balhar <lbalhar@redhat.com> - 7.0.0-1
+- Update to 7.0.0 (rhbz#2157265)
+
 * Thu Sep 15 2022 Lumír Balhar <lbalhar@redhat.com> - 6.2.1-1
 - Update to 6.2.1
 Resolves: rhbz#2127023

@@ -2,8 +2,8 @@
 %bcond_with perl_PPIx_Regexp_enables_optional_test
 
 Name:           perl-PPIx-Regexp
-Version:        0.085
-Release:        4%{?dist}
+Version:        0.086
+Release:        1%{?dist}
 Summary:        Represent a regular expression of some sort
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-Regexp
@@ -122,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 02 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.086-1
+- 0.086 bump
+
 * Sat Dec 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.085-4
 - Update license to SPDX format
 

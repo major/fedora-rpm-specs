@@ -2,7 +2,7 @@
 
 Name:		tayga
 Version:	0.9.2
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 License:	GPLv2+
@@ -13,6 +13,7 @@ Source0:	http://www.litech.org/%{name}/%{name}-%{version}.tar.bz2
 #		No issue tracker nor mailing list available
 Patch0:		tayga-0.9.2_redhat_initscripts_and_systemd.patch
 Patch1:		tayga-0.9.2_cflags_override.patch
+Patch2:		tayga-c99.patch
 
 Requires:	iproute
 
@@ -42,6 +43,7 @@ dedicated NAT64 hardware would be overkill.
 %setup -q
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
 
 
 %build
@@ -114,6 +116,9 @@ install -d -m 0755 %{buildroot}%{_localstatedir}/run/%{name}
 
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 0.9.2-19
+- C99 compatibility fix (#2157585)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

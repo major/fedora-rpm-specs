@@ -1,6 +1,6 @@
 Name:      elinks
 Summary:   A text-mode Web browser
-Version:   0.15.1
+Version:   0.16.0
 Release:   1%{?dist}
 License:   GPLv2
 URL:       https://github.com/rkd77/elinks
@@ -43,6 +43,9 @@ Patch4: 0004-elinks-0.15.0-sysname.patch
 
 # Fix xterm terminal: "Linux" driver seems better than "VT100" (#128105)
 Patch5: 0005-elinks-0.15.0-xterm.patch
+
+# add support for GNU Libidn2, patch by Robert Scheck (#1098789)
+Patch6: 0006-elinks-0.16.0-libidn2.patch
 
 # let list_is_singleton() return false for an empty list (#1075415)
 Patch15: elinks-0.12pre6-list_is_singleton.patch
@@ -126,6 +129,10 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Mon Jan 02 2023 Kamil Dudka <kdudka@redhat.com> - 0.16.0-1
+- make the IDN2 support work again (#1098789)
+- new upstream release
+
 * Mon Aug 01 2022 Kamil Dudka <kdudka@redhat.com> - 0.15.1-1
 - new upstream release
 

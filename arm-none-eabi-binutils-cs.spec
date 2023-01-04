@@ -4,7 +4,7 @@
 Name:           %{target}-binutils-cs
 Epoch:          1
 Version:        2.39
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Binutils for cross-compilation for %{target} target
 # Most of the sources are licensed under GPLv3+ with these exceptions:
 # LGPLv2+ bfd/hosts/x86-64linux.h, include/demangle.h, include/xregex2.h,
@@ -17,8 +17,7 @@ URL:            http://www.codesourcery.com/sgpp/lite/%{processor_arch}
 Source0:        https://ftp.gnu.org/pub/gnu/binutils/binutils-%{version}.tar.xz
 
 Source1:        README.fedora
-Patch7: binutils-2.24-dirtravel.patch
-Patch8: binutils-config.patch
+Patch1: binutils-libiberty-configure-compile-warnings.patch
 BuildRequires:  gcc flex bison ppl-devel cloog
 BuildRequires:  autoconf
 BuildRequires:  texinfo texinfo-tex perl-podlators
@@ -42,8 +41,7 @@ from files), strip (for discarding symbols), and addr2line (for
 converting addresses to file and line).
 
 %prep
-%setup -q -n binutils-%{version}
-%patch8 -p1 -b .bucfg
+%autosetup -p1 -n binutils-%{version}
 cp -p %{SOURCE1} .
 rm -rf gdb sim
 
@@ -105,6 +103,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 1:2.39-2
+- C99 compatibility fixes for the configure script
+
 * Wed Aug 31 2022 Michal Hlavinka <mhlavink@redhat.com> - 1:2.39-1
 - updated to 2.39
 

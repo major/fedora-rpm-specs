@@ -4,9 +4,9 @@
 %bcond_with static
 %bcond_without check
 
-%define realver 3400000
-%define docver 3400000
-%define rpmver 3.40.0
+%define realver 3400100
+%define docver 3400100
+%define rpmver 3.40.1
 %define year 2022
 
 Summary: Library that implements an embeddable SQL database engine
@@ -44,6 +44,7 @@ BuildRequires: tcl-devel
 %endif
 
 Requires: %{name}-libs = %{version}-%{release}
+Provides: %{name}3 = %{version}-%{release}
 
 # Ensure updates from pre-split work on multi-lib systems
 Obsoletes: %{name} < 3.11.0-1
@@ -274,6 +275,9 @@ make test
 %endif
 
 %changelog
+* Mon Jan 02 2023 Zuzana Miklankova <zmiklank@redhat.com> - 3.40.1-1
+- Updated to version 3.40.1 (https://sqlite.org/releaselog/3_40_1.html)
+
 * Fri Nov 18 2022 Zuzana Miklankova <zmiklank@redhat.com> - 3.40.0-1
 - Updated to version 3.40.0 (https://sqlite.org/releaselog/3_40_0.html)
 

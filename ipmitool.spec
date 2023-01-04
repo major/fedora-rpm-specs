@@ -1,10 +1,10 @@
 %global       gitname     IPMITOOL
-%global       gitversion  1_8_18
+%global       gitversion  1_8_19
 
 Name:         ipmitool
 Summary:      Utility for IPMI control
-Version:      1.8.18
-Release:      26%{?dist}
+Version:      1.8.19
+Release:      1%{?dist}
 License:      BSD
 URL:          http://ipmitool.sourceforge.net/
 Source0:      https://github.com/%{name}/%{name}/archive/%{gitname}_%{gitversion}/%{name}-%{version}.tar.gz
@@ -14,20 +14,14 @@ Source3:      exchange-bmc-os-info.service
 Source4:      exchange-bmc-os-info.sysconf
 Source5:      set-bmc-url.sh
 Source6:      exchange-bmc-os-info
+# https://www.iana.org/assignments/enterprise-numbers.txt
+Source7:      enterprise-numbers
 
-Patch1:       0001-CVE-2011-4339-OpenIPMI.patch
-# WARNING:  THIS PATCH MUST BE USED FOR RAWHIDE (f26+) BRANCH
-Patch2:       0002-openssl.patch
-Patch3:       0003-ipmitool-1.8.11-set-kg-key.patch
+# https://github.com/ipmitool/ipmitool/issues/170
+Patch3:       ipmitool-1.8.19-set-kg-key.patch
 Patch4:       0004-slowswid.patch
 Patch5:       0005-sensor-id-length.patch
-Patch6:       0006-enable-usb.patch
 Patch7:       0007-check-input.patch
-Patch8:       0008-add-extern.patch
-Patch9:       0009-best-cipher.patch
-Patch10:      0010-pef-missing-newline.patch
-Patch11:      0011-expand-sensor-name-column.patch
-Patch12:      0012-CVE-2020-5208.patch
 
 BuildRequires: openssl-devel readline-devel ncurses-devel
 %{?systemd_requires}
@@ -115,7 +109,8 @@ autoconf
 automake --foreign
 # end: release auto-tools
 
-%configure --disable-dependency-tracking --enable-file-security --disable-intf-free
+install -Dm 644 %{SOURCE7} .
+%configure --disable-dependency-tracking --enable-file-security --disable-intf-free --enable-intf-usb
 make %{?_smp_mflags}
 
 %install
@@ -167,6 +162,7 @@ install -Dm 755 contrib/bmc-snmp-proxy         %{buildroot}%{_libexecdir}/bmc-sn
 %{_mandir}/man1/ipmitool.1*
 %doc %{_datadir}/doc/ipmitool
 %{_datadir}/ipmitool
+%{_datadir}/misc/enterprise-numbers
 
 %files -n ipmievd
 %config(noreplace) %{_sysconfdir}/sysconfig/ipmievd
@@ -186,6 +182,9 @@ install -Dm 755 contrib/bmc-snmp-proxy         %{buildroot}%{_libexecdir}/bmc-sn
 %{_libexecdir}/bmc-snmp-proxy
 
 %changelog
+* Sun Sep 04 2022 Kevin Fenzi <kevin@scrye.com> - 1.8.19-1
+- Update to 1.8.19. Fixes rhbz#2123819
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.18-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

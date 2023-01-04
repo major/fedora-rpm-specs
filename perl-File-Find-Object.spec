@@ -1,8 +1,8 @@
 Name:           perl-File-Find-Object
-Version:        0.3.6
-Release:        4%{?dist}
+Version:        0.3.7
+Release:        1%{?dist}
 Summary:        Object oriented File::Find replacement
-License:        GPLv2+ or Artistic 2.0
+License:        GPL-2.0-or-later OR Artistic-2.0
 URL:            https://metacpan.org/release/File-Find-Object
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-Find-Object-%{version}.tar.gz
 BuildArch:      noarch
@@ -29,6 +29,7 @@ BuildRequires:  perl(File::TreeCreate)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::File) >= 1.993
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
@@ -65,6 +66,11 @@ make test
 %{_mandir}/man3/File::Find::Object::Result.3*
 
 %changelog
+* Mon Jan  2 2023 Paul Howarth <paul@city-fan.org> - 0.3.7-1
+- Update to 0.3.7 (rhbz#2157274)
+  - Fix test failures on Windows (GH#2)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

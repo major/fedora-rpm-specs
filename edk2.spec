@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -306,6 +306,9 @@ build_iso() {
     -o "$ISO_IMAGE" "$UEFI_SHELL_IMAGE"
 }
 
+export EXTRA_OPTFLAGS="%{optflags}"
+export EXTRA_LDFLAGS="%{__global_ldflags}"
+
 touch OvmfPkg/AmdSev/Grub/grub.efi   # dummy
 
 %if %{build_ovmf}
@@ -469,21 +472,6 @@ for file in %{buildroot}%{_datadir}/%{name}/*/*VARS.secboot*; do
     virt-fw-vars --input $file --print | grep "SecureBootEnable.*ON" || exit 1
 done
 
-%if %{build_aarch64}
-%post aarch64
-# make files sparse again
-for file in %{_datadir}/%{name}/aarch64/*.raw; do
-    fallocate --dig-holes "$file"
-done
-%if %{defined fedora}
-%post arm
-# make files sparse again
-for file in %{_datadir}/%{name}/arm/*.raw; do
-    fallocate --dig-holes "$file"
-done
-%endif
-%endif
-
 %global common_files \
   %%license License.txt License.OvmfPkg.txt License-History.txt LICENSE.openssl \
   %%dir %%{_datadir}/%%{name}/ \
@@ -625,6 +613,10 @@ done
 
 
 %changelog
+* Mon Jan 02 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-9
+- revert 'make files sparse again' (resolves: rhbz#2155673).
+- pick up compiler + linker flags from rpm
+
 * Tue Dec 20 2022 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-8
 - make files sparse again
 

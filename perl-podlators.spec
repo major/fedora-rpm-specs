@@ -1,6 +1,6 @@
 Name:           perl-podlators
 Epoch:          1
-Version:        5.00
+Version:        5.01
 Release:        1%{?dist}
 Summary:        Format POD source into various output formats
 # pod/perlpodstyle.pod:     FSFAP
@@ -50,7 +50,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 # Getopt::Long not used at tests
-BuildRequires:  perl(Pod::Simple) >= 3.06
+BuildRequires:  perl(Pod::Simple) >= 3.26
 # Pod::Usage not used at tests
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Term::ANSIColor)
@@ -78,7 +78,7 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Basename)
 # File::Spec version declared in lib/Pod/Man.pm comment
 Requires:       perl(File::Spec) >= 0.8
-Requires:       perl(Pod::Simple) >= 3.06
+Requires:       perl(Pod::Simple) >= 3.26
 Conflicts:      perl < 4:5.16.1-234
 
 # Filter under-specified dependencies
@@ -145,6 +145,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.01-1
+- 5.01 bump
+
 * Mon Nov 28 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:5.00-1
 - 5.00 bump
 - Package tests

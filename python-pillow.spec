@@ -1,18 +1,19 @@
 %global py3_incdir %(RPM_BUILD_ROOT= %{python3} -Ic 'import sysconfig; print(sysconfig.get_path("include"))')
 
 %global srcname pillow
-# EPEL9 is missing some dependencies to build the documentation
-%if 0%{?el9}
+
+# Dependencies are missing to build the documentation
 %bcond_with doc
+
+%if 0%{?el9}
 %bcond_with mingw
 %else
-%bcond_without doc
 %bcond_without mingw
 %endif
 
 Name:           python-%{srcname}
-Version:        9.3.0
-Release:        2%{?dist}
+Version:        9.4.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -20,14 +21,8 @@ License:        MIT
 URL:            http://python-pillow.github.io/
 Source0:        https://github.com/python-pillow/Pillow/archive/%{version}/Pillow-%{version}.tar.gz
 
-# Don't error out if sphinx warnings occur
-Patch0:         python-pillow_spinxwarn.patch
-# Drop sphinx plugin requirements which are not packaged for Fedora
-Patch1:         python-pillow_sphinx.patch
 # MinGW build fixes
-Patch2:         pillow_mingw.patch
-# Revert back to using sphinx_rtd_theme
-Patch3:         python-pillow-revert-furo-theme.patch
+Patch0:         pillow_mingw.patch
 
 BuildRequires:  freetype-devel
 BuildRequires:  gcc
@@ -300,6 +295,9 @@ popd
 
 
 %changelog
+* Mon Jan 02 2023 Sandro Mani <manisandro@gmail.com> - 9.4.0-1
+- Update to 9.4.0
+
 * Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 9.3.0-2
 - Rebuild (mingw-python-3.11)
 

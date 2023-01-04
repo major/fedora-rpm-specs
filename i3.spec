@@ -1,5 +1,5 @@
 Name:           i3
-Version:        4.21.1
+Version:        4.22
 Release:        %autorelease
 Summary:        Improved tiling window manager
 License:        BSD-3-Clause
@@ -12,6 +12,10 @@ Source3:        %{name}-logo.svg
 Source4:        fedora-i3-config
 Source5:        fedora-i3-keycodes
 Patch0:         0001-Correct-dex-binary-name-dex-dex-autostart.patch
+
+# i3-gaps was merged into i3 with 4.22
+Provides:       i3-gaps = %{version}-%{release}
+Obsoletes:      i3-gaps < 4.22-1
 
 BuildRequires:  gcc
 # need at least 0.53 to build the documentation
@@ -107,7 +111,7 @@ Please be aware that i3 is primarily targeted at advanced users and developers.
 %package        config
 Summary:        Upstream configuration for %{name}
 BuildArch:      noarch
-Requires:       (%{name} = %{version}-%{release} or %{name}-gaps)
+Requires:       %{name} = %{version}-%{release}
 Recommends:     rxvt-unicode
 Conflicts:      %{name}-config-fedora
 
@@ -118,7 +122,7 @@ This is the upstream/vanilla configuration file of i3.
 RemovePathPostfixes: .fedora
 Summary:        Configuration of %{name} for the Fedora i3 Spin
 BuildArch:      noarch
-Requires:       (%{name} = %{version}-%{release} or %{name}-gaps)
+Requires:       %{name} = %{version}-%{release}
 Recommends:     xfce4-terminal
 # the Fedora branded config file uses xdg-user-dirs-update indirectly via `dex-autostart --autostart`
 Recommends:     xdg-user-dirs

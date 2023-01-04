@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    5ed9ad582647bbc3864ef78db34bdc1afdcf9b49
+%global gh_commit    a1acf96007170234a8399586a6e2ab8feba109d1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   uuid
@@ -22,7 +22,7 @@
 %global ns_project   Uuid
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        4.7.0
+Version:        4.7.1
 Release:        1%{?dist}
 Summary:        Library for generating and working with UUIDs
 
@@ -62,7 +62,7 @@ BuildRequires:  php-spl
 #        "vimeo/psalm": "^4.9"
 %if %{with tests}
 BuildRequires: (php-composer(brick/math)             >= 0.8.8 with php-composer(brick/math)             < 1)
-BuildRequires: (php-composer(ramsey/collection)      >= 1.2   with php-composer(ramsey/collection)      < 2)
+BuildRequires: (php-composer(ramsey/collection)      >= 1.2   with php-composer(ramsey/collection)      < 3)
 BuildRequires: (php-composer(mockery/mockery)        >= 1.3   with php-composer(mockery/mockery)        < 2)
 BuildRequires: (php-composer(php-mock/php-mock)      >= 2.2   with php-composer(php-mock/php-mock)      < 3)
 BuildRequires:  phpunit9
@@ -75,11 +75,11 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php": "^8.0",
 #        "ext-json": "*",
 #        "brick/math": "^0.8.8 || ^0.9 || ^0.10",
-#        "ramsey/collection": "^1.2",
+#        "ramsey/collection": "^1.2 || ^2.0",
 Requires:       php(language) >= 8.0
 Requires:       php-json
 Requires:      (php-composer(brick/math)        >= 0.8.8     with php-composer(brick/math)             < 1)
-Requires:      (php-composer(ramsey/collection) >= 1.2       with php-composer(ramsey/collection)      < 2)
+Requires:      (php-composer(ramsey/collection) >= 1.2       with php-composer(ramsey/collection)      < 3)
 # From phpcompatifo report for 4.6.0
 Requires:       php-date
 Requires:       php-hash
@@ -170,6 +170,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan  2 2023 Remi Collet <remi@remirepo.net> - 4.7.1-1
+- update to 4.7.1
+- allow ramsey/collection 2
+
 * Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 4.7.0-1
 - update to 4.7.0
 - raise dependency on ramsey/collection 1.2

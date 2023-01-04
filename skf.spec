@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	fedoraver	1
+%global	fedoraver	2
 
 %if 0%{?fedora} >= 13
 # Disable python3 support for now, how to handle NON-utf8 string
@@ -35,6 +35,9 @@ Source1:	skf-basic-test.sh
 Source2:	create-skf-tarball-from-scm.sh
 # https://osdn.net/projects/skf/ticket/39882
 Source11:	https://ymu.dl.osdn.jp/ticket/g/s/sk/skf/39882/5733/pythontest
+# https://osdn.net/projects/skf/ticket/46419
+# Support PEP623 (python 3.12)
+Patch0:	skf-2.10.15-python-pep623.patch
 
 # common BR
 BuildRequires:	gcc
@@ -55,6 +58,8 @@ BuildRequires:	python3-devel
 %if 0%{?usescm} >= 1
 BuildRequires:	autoconf
 %endif
+# Patch0 needs autoconf anyway
+BuildRequires:	autoconf
 
 Requires:	%{name}-common = %{version}-%{release}
 Obsoletes:	python2-skf < %{prever}.99
@@ -123,6 +128,8 @@ ln -sf %{name}-* main
 cp -p %SOURCE1 .
 
 pushd main
+%patch0 -p1 -b .pep639
+autoconf # patch0 needs this
 
 %if 0%{?usescm} >= 1
 autoconf
@@ -375,6 +382,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Mon Jan  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-2
+- Proposal patch for supporting PEP623 in python3.12
+
 * Thu Nov 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-1
 - 2.10.15
 

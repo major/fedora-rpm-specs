@@ -1,14 +1,13 @@
 Summary: test VT100-type terminal
 
-%define AppPatched 20220827
+%define AppPatched 20221229
 
 Name: vttest
 Version: 2.7.%{AppPatched}
 Release: 2%{?dist}
 License: MIT
 URL: https://invisible-island.net/%{name}/
-Source0: https://invisible-mirror.net/archives/%{name}/%{name}-%{AppPatched}.tgz
-Patch0: vttest-configure-c99.patch
+Source0: https://invisible-island.net/archives/%{name}/%{name}-%{AppPatched}.tgz
 BuildRequires: gcc
 BuildRequires: make
 
@@ -42,6 +41,9 @@ can run all menu-items (for a given level) by entering an asterisk, i.e,
 %license COPYING
 
 %changelog
+* Mon Jan 02 2023 Thomas E. Dickey <dickey@his.com> - 2.7.20221229-1
+- update to 2.7.20221229 (RHBZ #2143489)
+
 * Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 2.7.20220827-2
 - Fix glitch in configure script in FIONREAD detection (#2151353)
 

@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -225,6 +225,15 @@ Requires: pkgconfig(vulkan)
 Requires: qt6-rpm-macros
 %if 0%{?use_clang}
 Requires: clang >= 3.7.0
+%endif
+%if 0%{?no_ibase} == 0
+Requires: %{name}-ibase%{?_isa} = %{version}-%{release}
+%endif
+Requires: %{name}-mysql%{?_isa} = %{version}-%{release}
+Requires: %{name}-odbc%{?_isa} = %{version}-%{release}
+Requires: %{name}-postgresql%{?_isa} = %{version}-%{release}
+%if 0%{?no_tds} == 0
+Requires: %{name}-tds%{?_isa} = %{version}-%{release}
 %endif
 %description devel
 %{summary}.
@@ -835,6 +844,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Jan 02 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.1-4
+- Make -devel package to require database plugins
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 6.4.1-3
 - Rebuild for ICU 72
 

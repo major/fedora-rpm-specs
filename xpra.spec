@@ -1,4 +1,5 @@
 %bcond_with enc_x264
+%bcond_with enc_x265
 %bcond_with dec_avcodec2
 %bcond_with csc_swscale
 
@@ -16,6 +17,10 @@
 # specified option in that case.
 %if %{without enc_x264}
 %global _with_enc_x264 --without-enc_x264
+%endif
+
+%if %{with enc_x265}
+%global _with_enc_x265 --with-enc_x265
 %endif
 
 %if %{without dec_avcodec2}
@@ -51,7 +56,7 @@ Source1:        %{name}.appdata.xml
 # Horrible fix to find py3cairo.h in python3-cairo-1.16.3
 Patch0:         %{name}-find_py3cairo.patch
 
-# Install into /usr/libexec always	
+# Install into /usr/libexec always
 Patch1:         %{name}-force_always_libexec.patch
 
 Patch2:         %{name}-bug3693.patch
@@ -168,7 +173,7 @@ Udev rules of xpra.
 %patch1 -p1 -b .backup
 sed -i 's|@@python3_sitearch@@|%{python3_sitearch}|' setup.py
 %endif
-%patch2 -p1 -b .backup
+%patch2 -p1 -R -b .backup
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}
@@ -184,6 +189,7 @@ export CFLAGS="%{build_cflags} -I%{_includedir}/cairo"
     --with-verbose \
     --with-vpx \
     %{?_with_enc_x264} \
+    %{?_with_enc_x265} \
     %{?_with_dec_avcodec2} \
     %{?_with_csc_swscale} \
     %{?_with_debug} \

@@ -1,5 +1,5 @@
 Name:           RBTools
-Version:        3.1.1
+Version:        4.0
 Release:        1%{?dist}
 Summary:        Tools for use with ReviewBoard
 
@@ -32,7 +32,7 @@ Requires:       python3-tqdm
 Requires:       python3-texttable
 # Test dependencies:
 BuildRequires:  cvs
-BuildRequires:  git
+BuildRequires:  git-core
 BuildRequires:  mercurial
 BuildRequires:  python3-pytest-env
 BuildRequires:  python3-kgb
@@ -67,7 +67,10 @@ rm -Rf %{name}*.egg-info
 rm -rf rbtools/clients/tests/test_svn.py \
   rbtools/clients/tests/test_scanning.py \
   rbtools/commands/tests/test_alias.py
-%pytest
+# we need git to function
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+%pytest -k 'not GitPerforceClientTests and not GitSubversionClientTests'
 
 
 %install
@@ -93,6 +96,13 @@ cp rbtools/commands/conf/_rbt-zsh-completion \
 %{python3_sitelib}/%{name}-%{version}.dist-info/
 
 %changelog
+* Mon Jan 02 2023 Jonathan Wright - 4.0-1
+- Update to 4.0
+
+* Mon Jan 02 2023 Jonathan Wright - 3.1.2-1
+- Update to 3.1.2
+- Fix for python 3.11
+
 * Tue Aug 02 2022 Jonathan Wright - 3.1.1-1
 - Update to 3.1.1 rhbz#2103563
 - modernize spec

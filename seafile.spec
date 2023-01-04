@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           seafile
-Version:        8.0.9
+Version:        8.0.10
 Release:        1%{?dist}
 Summary:        Cloud storage cli client
 
@@ -23,6 +23,7 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(libevent_pthreads)
 BuildRequires:  pkgconfig(libsearpc)
+BuildRequires:  pkgconfig(libwebsockets)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(zlib)
@@ -87,6 +88,9 @@ find %{buildroot} -name 'seafile.desktop' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 8.0.10-1
+- Update to 8.0.10
+
 * Fri Dec 02 2022 Philipp Trulson <philipp@trulson.de> - 8.0.9-1
 - Update to 8.0.9
 

@@ -4,7 +4,7 @@
 # https://github.com/golang/term
 %global goipath         golang.org/x/term
 %global forgeurl        https://github.com/golang/term
-%global commit          03fcf44c2211dcd5eb77510b5f7c1fb02d6ded50
+Version:                0.3.0
 
 %gometa
 
@@ -15,8 +15,7 @@ Go terminal and console support.}
 %global godocs          AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Go terminal and console support
 
 # Upstream license specification: BSD-3-Clause

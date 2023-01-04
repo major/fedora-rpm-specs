@@ -28,8 +28,14 @@
 
 %define withvimspell 0
 %define withhunspell 0
-%define withruby 1
 %define withlua 1
+%if 0%{?flatpak}
+%define withperl 0
+%define withruby 0
+%else
+%define withperl 1
+%define withruby 1
+%endif
 
 %define baseversion 9.0
 %define vimdir vim90
@@ -129,10 +135,12 @@ BuildRequires: make
 # screen handling library
 BuildRequires: ncurses-devel
 # for perl plugin
+%if "%{withperl}" == "1"
 BuildRequires: perl-devel
 BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: perl(ExtUtils::ParseXS)
+%endif
 # for python plugin
 BuildRequires: python3-devel
 
@@ -224,8 +232,11 @@ Requires: which
 Suggests: lua-libs
 %endif
 
+%if "%{withperl}" == "1"
 Suggests: perl-devel
 Suggests: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+%endif
+
 Suggests: python3
 Suggests: python3-libs
 
@@ -295,8 +306,11 @@ Requires: vim-common = %{epoch}:%{version}-%{release}
 Suggests: lua-libs
   %endif
 
+  %if "%{withperl}" == "1"
 Suggests: perl-devel
 Suggests: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+  %endif
+
 Suggests: python3
 Suggests: python3-libs
 
@@ -430,7 +444,6 @@ mv -f os_unix.h.save os_unix.h
 %configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
   --with-features=huge \
   --enable-python3interp=dynamic \
-  --enable-perlinterp=dynamic \
   --disable-tclinterp --with-x=yes \
   --enable-xim --enable-multibyte \
   --with-tlib=ncurses \
@@ -447,6 +460,11 @@ mv -f os_unix.h.save os_unix.h
   --enable-selinux \
   %else
   --disable-selinux \
+  %endif
+  %if "%{withperl}" == "1"
+  --enable-perlinterp=dynamic \
+  %else
+  --disable-perlinterp \
   %endif
   %if "%{withruby}" == "1"
   --enable-rubyinterp=dynamic \
@@ -474,7 +492,6 @@ make clean
 %configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
  --prefix=%{_prefix} --with-features=huge \
  --enable-python3interp=dynamic \
- --enable-perlinterp=dynamic \
  --disable-tclinterp \
  --with-x=no \
  --enable-gui=no --exec-prefix=%{_prefix} --enable-multibyte \
@@ -491,6 +508,11 @@ make clean
   --enable-selinux \
 %else
   --disable-selinux \
+%endif
+%if "%{withperl}" == "1"
+  --enable-perlinterp=dynamic \
+%else
+  --disable-perlinterp \
 %endif
 %if "%{withruby}" == "1"
   --enable-rubyinterp=dynamic \

@@ -1,7 +1,7 @@
 Summary:         A library for handling different graphics file formats
 Name:            netpbm
-Version:         11.00.00
-Release:         2%{?dist}
+Version:         11.01.00
+Release:         1%{?dist}
 # See copyright_summary for details
 License:         BSD and GPLv2 and IJG and MIT and Public Domain
 URL: http://netpbm.sourceforge.net/
@@ -230,7 +230,10 @@ popd
 %doc userguide/*
 
 %changelog
-* Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 11.00.00-2
+* Mon Jan 02 2023 Josef Ridky <jridky@redhat.com> - 11.01.00-1
+- New upstream release 11.01.00 (#2157125)
+
+* Fri Dec 02 2022 Florian Weimer <fweimer@redhat.com> - 11.00.00-2
 - Port downstream-specific patches to C99
 
 * Tue Oct 04 2022 Josef Ridky <jridky@redhat.com> - 11.00.00-1

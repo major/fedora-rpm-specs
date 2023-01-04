@@ -7,7 +7,7 @@
 
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
-Version: 2.3.8
+Version: 2.4.0
 Release: 1%{?dist}
 
 License: GPLv3+
@@ -25,10 +25,13 @@ Patch9:  gnupg-2.2.23-large-rsa.patch
 # fix missing uid on refresh from keys.openpgp.org
 # https://salsa.debian.org/debian/gnupg2/commit/f292beac1171c6c77faf41d1f88c2e0942ed4437
 Patch20: gnupg-2.2.18-tests-add-test-cases-for-import-without-uid.patch
-Patch21: gnupg-2.2.18-gpg-allow-import-of-previously-known-keys-even-without-UI.patch
+Patch21: gnupg-2.4.0-gpg-allow-import-of-previously-known-keys-even-without-UI.patch
 Patch22: gnupg-2.2.18-gpg-accept-subkeys-with-a-good-revocation-but-no-self-sig.patch
 # Fixes for issues found in Coverity scan - reported upstream
 Patch30: gnupg-2.2.21-coverity.patch
+# fix gpgme tests fail for in-source-tree builds (https://dev.gnupg.org/T6313)
+# (edited to patch Makefile.in instead of Makefile.am to avoid autoreconf)
+Patch31: gnupg-2.4.0-tests-Fix-tests-gpgme-for-in-source-tree-builds.patch
 
 
 URL:     https://www.gnupg.org/
@@ -45,8 +48,8 @@ BuildRequires: gnupg2
 %endif
 BuildRequires: libassuan-devel >= 2.5.0
 BuildRequires: libgcrypt-devel >= 1.9.1
-BuildRequires: libgpg-error-devel >= 1.41
-BuildRequires: libksba-devel >= 1.3.4
+BuildRequires: libgpg-error-devel >= 1.46
+BuildRequires: libksba-devel >= 1.6.3
 BuildRequires: openldap-devel
 BuildRequires: pcsc-lite-libs
 BuildRequires: ncurses-devel
@@ -62,7 +65,7 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: openssh-clients
 
 Requires: libgcrypt >= 1.9.1
-Requires: libgpg-error >= 1.41
+Requires: libgpg-error >= 1.46
 
 Recommends: pinentry
 
@@ -120,6 +123,7 @@ to the base GnuPG package
 %patch22 -p1 -b .good_revoc
 
 %patch30 -p1 -b .coverity
+%patch31 -p1 -b .tests_gpgme
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -221,6 +225,9 @@ make -k check
 
 
 %changelog
+* Tue Dec 20 2022 Todd Zullinger <tmz@pobox.com> - 2.4.0-1
+- update to 2.4.0 (#2155170)
+
 * Mon Oct 17 2022 Todd Zullinger <tmz@pobox.com> - 2.3.8-1
 - update to 2.3.8
 - BR systemd-rpm-macros for %%{_userunitdir}

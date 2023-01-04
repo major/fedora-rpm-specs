@@ -1,171 +1,69 @@
 %global pypi_name semantic_version
+%global srcname python-semanticversion
 
 Name:           python-%{pypi_name}
-Version:        2.8.4
-Release:        11%{?dist}
+Version:        2.10.0
+Release:        %autorelease
 Summary:        Library implementing the 'SemVer' scheme
 
 License:        BSD
 URL:            https://github.com/rbarrois/python-semanticversion
-Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-BuildArch:      noarch
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-%global _description \
-This small python library provides a few tools to handle semantic versioning\
-in Python.
+BuildArch:      noarch
+BuildRequires:  make
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  sed
+
+%global _description %{expand:
+This small python library provides a few tools to handle semantic versioning in
+Python.}
 
 %description %{_description}
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-#BuildRequires:  python3-django
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %{_description}
 
-Python 3 version
-
 %package doc
 Summary:        Documentation for python-%{pypi_name}
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
 
 %description doc
 %{summary}.
 
 %prep
-%autosetup -n semantic_version-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-# documentation builds due to broken symlink
-# https://github.com/rbarrois/python-semanticversion/issues/20
-rm docs/credits.rst
+%autosetup -p1 -n %{srcname}-%{version}
+
+# Drop unnecessary dependency
+sed -i '/zest\.releaser\[recommended\]/d' setup.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires -x doc
 
 %build
-%py3_build
+%pyproject_wheel
+
 # generate html docs
-sphinx-build-%{python3_version} docs html
+make -C docs html
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-# Seems like it's just stuck in koji
-#{__python3} setup.py test
+%pytest
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst ChangeLog
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%doc README.rst ChangeLog CREDITS
 
 %files doc
 %license LICENSE
-%doc html
+%doc docs/_build/html
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.8.4-10
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 02 2021 Python Maint <python-maint@redhat.com> - 2.8.4-7
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun May 24 2020 Miro Hrončok <mhroncok@redhat.com> - 2.8.4-4
-- Rebuilt for Python 3.9
-
-* Thu Feb 20 2020 Javier Peña <jpena@redhat.com> - 2.8.4-3
-- Add sphinx_rtd_theme as a buld dependency
-
-* Thu Feb 20 2020 Javier Peña <jpena@redhat.com> - 2.8.4-2
-- Fix name in autosetup
-
-* Thu Feb 20 2020 Javier Peña <jpena@redhat.com> - 2.8.4-1
-- Update to latest upstream version
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 2.6.0-13
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Sat Aug 17 2019 Miro Hrončok <mhroncok@redhat.com> - 2.6.0-12
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jan 17 2019 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.6.0-9
-- Drop python2 subpackage
-
-* Tue Jan 08 2019 Petr Viktorin <pviktori@redat.com> - 2.6.0-8
-- Remove Fedora build dependency on a compatibility build of Django
-- Use python3-sphinx on Fedora
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Jun 18 2018 Miro Hrončok <mhroncok@redhat.com> - 2.6.0-6
-- Rebuilt for Python 3.7
-
-* Tue May 29 2018 Javier Peña <jpena@redhat.com> - 2.6.0-5
-- Fix build due to Django dependency (bz#1556267)
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sat Jan 28 2017 Igor Gnatenko <ignatenko@redhat.com> - 2.6.0-1
-- Update to 2.6.0
-- Make package to comply guidelines
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.5.0-3
-- Rebuild for Python 3.6
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.0-2
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Wed Feb 24 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.5.0-1
-- Upstream 2.5.0
-- Add python3 subpackage
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Fri Jul 03 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 2.4.2-1
-- Upstream 2.4.2
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Wed Apr 01 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 2.4.1-1
-- Upstream 2.4.1
-
-* Mon Mar 30 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 2.3.1-1
-- Initial package.
+%autochangelog

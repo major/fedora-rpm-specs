@@ -14,7 +14,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.17.3
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -65,6 +65,7 @@ Patch1:		%{name}-3.12.2-nolintl.patch
 Patch2:		%{name}-3.12.2-noliconv.patch
 Patch5:		%{name}-3.14.1-gst1.patch
 Patch6:		gambas-3.17.3-force-pcre2.patch
+Patch7:		gambas3-configure-c99.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -1019,6 +1020,7 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch2 -p1 -b .noliconv
 %patch5 -p1 -b .gst1
 %patch6 -p1 -b .force-pcre2
+%patch7 -p1
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1764,6 +1766,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 3.17.3-6
+- C99 compatibility fixes for the configure scripts
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.17.3-5
 - Rebuild for new PostgreSQL 15
 

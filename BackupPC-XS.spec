@@ -1,11 +1,12 @@
 Name:           BackupPC-XS
 Version:        0.62
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Implementation of various BackupPC functions in a perl-callable module
 
 License:        GPLv3+ and (GPL+ or Artistic) and zlib
 URL:            https://github.com/backuppc/backuppc-xs
 Source0:        https://github.com/backuppc/backuppc-xs/releases/download/%{version}/%{name}-%{version}.tar.gz
+Patch0: BackupPC-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  perl-interpreter perl-devel
@@ -30,7 +31,7 @@ module.  This module is required for BackupPC V4+.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -55,6 +56,9 @@ make test
 
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 0.62-10
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

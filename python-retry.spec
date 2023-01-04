@@ -1,17 +1,18 @@
 Name:           python-retry
-Version:        0.9.2
-Release:        2%{?dist}
+Version:        0.9.4
+Release:        1%{?dist}
 Summary:        Easy to use retry decorator
 
 License:        Apache-2.0
-URL:            https://github.com/invl/retry
+URL:            https://github.com/eSAMTrade/retry
 Source:         %{url}/archive/%{version}/retry-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-# https://github.com/invl/retry/pull/56
-Patch:          fix_test_deps.patch
+# https://github.com/eSAMTrade/retry/pull/7
+# https://github.com/eSAMTrade/retry/pull/8
+Patch:          fix_requirements.patch
 
 %global _description %{expand:
 Easy to use retry decorator}
@@ -52,6 +53,10 @@ export PBR_VERSION="%{version}"
 
 
 %changelog
+* Tue Aug 23 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.4-1
+- Change upstream to https://github.com/eSAMTrade/retry
+- Update to 0.9.4
+
 * Tue Aug 23 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.2-2
 - Add patch to build properly on EPEL9
 

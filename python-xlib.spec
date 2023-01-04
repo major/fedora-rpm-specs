@@ -5,7 +5,7 @@
 %endif
 
 Name:           python-xlib
-Version:        0.32
+Version:        0.33
 Release:        1%{?dist}
 Summary:        X client library for Python
 
@@ -136,6 +136,9 @@ cat xorg.log
 
 
 %changelog
+* Mon Jan 02 2023 Sérgio Basto <sergio@serjux.com> - 0.33-1
+- Update python-xlib to 0.33 (#2156387)
+
 * Mon Nov 07 2022 Orion Poplawski <orion@nwra.com> - 0.32-1
 - Update to 0.32
 

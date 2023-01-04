@@ -1,7 +1,7 @@
 Name:           vokoscreenNG
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
-Summary:        Powerful screencast creator in 41 languages to record the screen
+Summary:        Powerful screencast creator to record the screen
 
 License:        GPLv2
 URL:            https://github.com/vkohaupt/vokoscreenNG

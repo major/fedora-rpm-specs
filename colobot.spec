@@ -2,10 +2,10 @@ Name: colobot
 %global orgname info.colobot.Colobot
 
 Version: 0.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A video game that teaches programming in a fun way
 
-License: GPLv3
+License: GPL-3.0-only
 URL: https://colobot.info
 
 %global giturl https://github.com/colobot
@@ -220,6 +220,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{orgname}.app
 
 
 %changelog
+* Tue Dec 27 2022 msuchy <msuchy@redhat.com> - 0.2.0-7
+- migrate to SPDX license
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

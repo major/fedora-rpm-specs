@@ -1,15 +1,18 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global		upstream_version 3_4_4
+%global		upstream_version 3_5_0
 #%%global       prerelease RC1
+# Disable documentation due to odd build error
+# https://koji.fedoraproject.org/koji/taskinfo?taskID=95728588
+#%%global		documentation 1
 
 Name:           opensubdiv
-Version:        3.4.4
-Release:        4%{?prerelease}%{?dist}
+Version:        3.5.0
+Release:        %autorelease
 Summary:        High performance subdivision surface libraries
 
-License:        ASL 2.0
+License:        Apache-2.0
 #URL:            http://graphics.pixar.com/%%{name}
 Url:		https://github.com/PixarAnimationStudios/OpenSubdiv
 Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{upstream_version}%{?prerelease}/%{name}-%{version}%{?prerelease}.tar.gz
@@ -18,7 +21,10 @@ Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{u
 Patch:         	%{name}-rpath.patch
 
 BuildRequires:  cmake
+%if 0%{?documentation}
 BuildRequires:  doxygen
+BuildRequires:	python3dist(docutils)
+%endif
 BuildRequires:  gcc-c++
 BuildRequires:  graphviz-devel
 BuildRequires:  pkgconfig(glew)
@@ -28,7 +34,6 @@ BuildRequires:	pkgconfig(Ptex)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:	python3dist(docutils)
 BuildRequires:	python3dist(pygments)
 
 %description
@@ -52,9 +57,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
+%if 0%{?documentation}
 %package doc
 Summary:	High performance subdivision surface libraries
 BuildArch:	noarch
+
 
 %description doc
 OpenSubdiv is a set of open source libraries that implement high
@@ -65,6 +72,7 @@ drawing deforming surfaces with static topology at interactive
 frame rates.
 
 This package includes the documentation of OpenSubdiv.
+%endif
 
 %prep
 %autosetup -p1 -n OpenSubdiv-%{upstream_version}%{?prerelease}
@@ -81,6 +89,11 @@ sed -i 's|${PLATFORM_GPU_LIBRARIES}|${PLATFORM_GPU_LIBRARIES} ${CMAKE_DL_LIBS}|'
        -DGLFW_LOCATION=%{_libdir} \
        -DNO_CLEW=1 \
        -DNO_CUDA=1 \
+%if 0%{?documentation}
+       -DNO_DOC=0 \
+%else
+       -DNO_DOC=1\
+%endif
        -DNO_EXAMPLES=1 \
        -DNO_GLFW_X11=1 \
        -DNO_OPENCL=1 \
@@ -103,9 +116,9 @@ make test V=1
 find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
 
-%files
-%%license LICENSE.txt
-%{_bindir}/stringify
+#%%files
+#%%license LICENSE.txt
+#%%{_bindir}/stringify
 
 %files libs
 %license LICENSE.txt
@@ -116,52 +129,12 @@ find %{buildroot} -name '*.a' -delete
 %doc NOTICE.txt README.md
 %{_includedir}/*
 %{_libdir}/*.so
+%{_libdir}/cmake/OpenSubdiv/
 
+%if 0%{?documentation}
 %files doc
-%dir %{_docdir}/%{name}
-%{_docdir}/%{name}/*
+%{_docdir}/%{name}/
+%endif
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed May 19 2021 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.4-1
-- Update to 3.4.4
-- Rebuild for ptex 2.4.0
-
-* Fri Feb 05 2021 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.4-0.1.RC1
-- Update to 3.4.4 RC1
-- Enable ptex support
-
-* Mon Sep 21 2020 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.3-1
-- Update to 3.4.3
-- Port Mageia patch for building with Python 3 dependency
-- Add doc subpackage
-- Disable OpenCL due to upstream bug
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-6
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Oct 14 2019 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.0-3
-- Remove rpath
-- Remove unneeded ldconfig_scriptlets macro
-- Improve spec file upon review (rhbz #1762155)
-
-* Mon Oct 14 2019 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.0-2
-- Adjust maximum line limit on description
-
-* Mon Oct 14 2019 Luya Tshimbalanga <luya@fedoraproject.org> - 3.4.0-1
-- Initial package
+%autochangelog

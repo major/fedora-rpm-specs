@@ -3,9 +3,9 @@
 
 Name:           perl-Image-Sane
 Version:        5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl extension for the SANE (Scanner Access Now Easy) Project
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-Sane
 Source0:        https://cpan.metacpan.org/authors/id/R/RA/RATCLIFFE/Image-Sane-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -34,7 +34,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(if)
 BuildRequires:  perl(IO::Handle)
@@ -47,7 +46,6 @@ BuildRequires:  perl(Try::Tiny)
 # Optional tests:
 # ImageMagick for identify tool
 BuildRequires:  ImageMagick
-# Test::Perl::Critic not used
 BuildRequires:  perl(Test::Pod) >= 1.00
 # sane-backensds for scanimage tool
 BuildRequires:  sane-backends
@@ -62,9 +60,37 @@ you to access SANE-compatible scanners in a Perlish and object-oriented
 way, freeing you from the casting and memory management in C, yet remaining
 very close in spirit to original API.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
+Requires:       perl-Test-Harness
+%if %{with perl_Image_Sane_enables_optional_test}
+# ImageMagick for identify tool
+Requires:       ImageMagick
+# sane-backensds for scanimage tool
+Requires:       sane-backends
+# sane-backends-drivers-scanners for "test" Sane driver
+Requires:       sane-backends-drivers-scanners
+%endif
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Image-Sane-%{version}
+# Remove author tests
+rm t/91_critic.t
+perl -i -ne 'print $_ unless m{\At/91_critic\.t}' MANIFEST
+# Correct file permissions
 chmod -x examples/*
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -72,11 +98,33 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a examples t %{buildroot}%{_libexecdir}/%{name}
+# Minimize examples
+chmod +x %{buildroot}%{_libexecdir}/%{name}/examples/*
+rm %{buildroot}%{_libexecdir}/%{name}/examples/scanadf-perl
+# t/pod.t is usless on an empty ./blib
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
+# t/90_MANIFEST.t fails with empty ./lib
+rm %{buildroot}%{_libexecdir}/%{name}/t/90_MANIFEST.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Many tests write into CWD
+DIR=$(mktemp -d)
+cp -a %{_libexecdir}/%{name}/* "$DIR"
+pushd "$DIR"
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -r "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset TEST_AUTHOR
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -85,7 +133,14 @@ make test
 %{perl_vendorarch}/Image*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Jan 02 2023 Petr Pisar <ppisar@redhat.com> - 5-12
+- Remove skipped author tests
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

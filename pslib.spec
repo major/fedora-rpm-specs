@@ -1,11 +1,12 @@
 Name:           pslib
 Version:        0.4.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C-library to create PostScript files
 
 License:        LGPLv2+ and MPLv1.0 and MIT
 URL:            http://pslib.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         pslib-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -35,7 +36,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 chmod a-x ChangeLog
 for file in AUTHORS; do
     iconv -f ISO-8859-1 -t UTF-8 -o $file.new $file && \
@@ -72,6 +73,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 0.4.6-4
+- C99 compatibility fix
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,29 +1,22 @@
-%undefine __cmake_in_source_build
-
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
-Version: 18.08.3
-Release: 9%{?dist}
+Version: 22.12.0
+Release: 2%{?dist}
 
 License: GPLv2+ and GFDL
-URL:     https://cgit.kde.org/kbreakout.git
+URL:     https://invent.kde.org/games/kbreakout
 
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-# upstream source
-#Source0: http://download.kde.org/%{stable}/applications/%{version}/src/kbreakout-%{version}.tar.xz
-# patched source, rename the game
-Source0: kbrickbuster-%{version}.tar.xz
-# the script patched source, rename the game
+%global stable     %stable_kf5
+%global majmin_ver %majmin_ver_kf5
+
+# Upstream source. Cannot be used because we need to *PATCH* the sources
+#Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/kbreakout-%{version}.tar.xz
+Source0: kbrickbuster-22.12.0.tar.xz
+# This patch is needed to modify upstream sources. They must be uploaded to the
+# side-cache
 Source1: patch.sh
 
 BuildRequires: desktop-file-utils
-#BuildRequires: libappstream-glib
-
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
 BuildRequires: kf5-rpm-macros
@@ -48,10 +41,7 @@ BuildRequires: kf5-kwidgetsaddons-devel
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: cmake(KF5Crash)
 BuildRequires: cmake(KF5DocTools)
-
 BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5Qml) pkgconfig(Qt5Quick) pkgconfig(Qt5QuickWidgets)  pkgconfig(Qt5Svg)
-
-%global majmin_ver %(echo %{version} | cut -d. -f1,2)
 BuildRequires: libkdegames-devel >= %{majmin_ver}
 
 Obsoletes: kbreakout < 1:4.14.3-1
@@ -78,19 +68,26 @@ without losing the ball.
 
 
 %check
-#appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml ||:
 desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop ||:
 
 
 %files -f %{name}.lang
-%license COPYING*
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/%{name}/
+%{_kf5_datadir}/metainfo/org.kde.%{name}.appdata.xml
+%{_kf5_datadir}/qlogging-categories5/%{name}.categories
 
 
 %changelog
+* Mon Jan 02 2023 Marc Deop marcdeop@fedoraproject.org - 22.12.0-2
+- Bring back patch.sh (and modify it)
+- Use proper sources ( modified upstream with patch.sh)
+
+* Mon Jan 02 2023 Marc Deop marcdeop@fedoraproject.org - 22.12.0-1
+- 22.12.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 18.08.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

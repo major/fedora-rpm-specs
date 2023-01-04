@@ -3,8 +3,8 @@
 %global modname parsel
 
 Name:           python-%{modname}
-Version:        1.5.0
-Release:        16%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        Library to extract data from HTML and XML using XPath and CSS selectors
 
 License:        BSD
@@ -27,6 +27,8 @@ BuildRequires:  python3-w3lib >= 1.8.0
 BuildRequires:  python3-lxml >= 2.3
 BuildRequires:  python3-six >= 1.5.2
 BuildRequires:  python3-cssselect >= 0.9
+BuildRequires:  python3-sybil
+BuildRequires:  python3-psutil
 
 %description -n python3-%{modname}
 %{summary}.
@@ -52,6 +54,13 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.7.0-1
+- Update to 1.7.0 rhbz#1742642
+- Fix changelog for 1.6.0
+
+* Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 1.6.0-1
+- Update to 1.6.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

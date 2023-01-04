@@ -4,9 +4,9 @@
 Summary: Secure imap and pop3 server
 Name: dovecot
 Epoch: 1
-Version: 2.3.19.1
+Version: 2.3.20
 %global prever %{nil}
-Release: 7%{?dist}
+Release: 1%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT and LGPLv2
 
@@ -14,7 +14,7 @@ URL: https://www.dovecot.org/
 Source: https://www.dovecot.org/releases/2.3/%{name}-%{version}%{?prever}.tar.gz
 Source1: dovecot.init
 Source2: dovecot.pam
-%global pigeonholever 0.5.19
+%global pigeonholever 0.5.20
 Source8: https://pigeonhole.dovecot.org/releases/2.3/dovecot-2.3-pigeonhole-%{pigeonholever}.tar.gz
 Source9: dovecot.sysconfig
 Source10: dovecot.tmpfilesd
@@ -45,6 +45,7 @@ Patch17: dovecot-2.3.15-fixvalcond.patch
 Patch18: dovecot-2.3.15-valbasherr.patch
 Patch20: dovecot-2.3.14-opensslv3.patch
 Patch21:	dovecot-2.3.19.1-7bad6a24.patch
+Patch22: dovecot-configure-c99.patch
 
 Source15: prestartscript
 
@@ -145,6 +146,7 @@ This package provides the development files for dovecot.
 %patch18 -p1 -b .valbasherr
 %patch20 -p1 -b .opensslv3
 %patch21 -p1 -b .7bad6a24
+%patch22 -p1 -b .c99
 cp run-test-valgrind.supp dovecot-2.3-pigeonhole-%{pigeonholever}/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-2.3-pigeonhole-%{pigeonholever}/run-test-valgrind.exclude
@@ -480,6 +482,12 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Mon Jan 02 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.20-1
+- updated to 2.3.20, pigeonhole to 0.5.20
+
+* Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 1:2.3.19.1-8
+- Port configure script to C99
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1:2.3.19.1-7
 - Rebuild for ICU 72
 

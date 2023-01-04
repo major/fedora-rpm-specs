@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -14,6 +14,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/brianmario/mysql2.git
 # cd mysql2 && git archive -v -o mysql2-0.5.3-tests.txz 0.5.3 spec/
 Source1: %{gem_name}-%{version}-tests.txz
+# Use the SSL pem files in the upstream repositry for the SSL tests.
+# https://github.com/brianmario/mysql2/pull/1293
+Patch0: rubygem-mysql2-0.5.4-use-ssl-pem-files-in-repo.patch
 
 # Required in lib/mysql2.rb
 Requires: rubygem(bigdecimal)
@@ -30,6 +33,8 @@ BuildRequires: %{_bindir}/hostname
 BuildRequires: rubygem(bigdecimal)
 # Used in spec/em/em_spec.rb
 BuildRequires: rubygem(eventmachine)
+# Used in spec/ssl/gen_certs.sh
+BuildRequires: %{_bindir}/openssl
 %endif
 
 %description
@@ -49,6 +54,10 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+pushd %{_builddir}/spec
+%patch0 -p2
+popd
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -75,6 +84,24 @@ pushd .%{gem_instdir}
 ln -s %{_builddir}/spec spec
 
 TOP_DIR=$(pwd)
+
+# Regenerate the SSL certification files from the localhost, as we cannot set
+# the host mysql2gem.example.com required for the SSL tests.
+# https://github.com/brianmario/mysql2/pull/1296
+sed -i '/host/ s/mysql2gem\.example\.com/localhost/' spec/mysql2/client_spec.rb
+sed -i '/commonName_default/ s/mysql2gem\.example\.com/localhost/' spec/ssl/gen_certs.sh
+pushd spec/ssl
+bash gen_certs.sh
+popd
+
+# See https://github.com/brianmario/mysql2/blob/master/ci/ssl.sh
+echo "
+[mysqld]
+ssl-ca=${TOP_DIR}/spec/ssl/ca-cert.pem
+ssl-cert=${TOP_DIR}/spec/ssl/server-cert.pem
+ssl-key=${TOP_DIR}/spec/ssl/server-key.pem
+" > ~/.my.cnf
+
 # Use testing port because the standard mysqld port 3306 is occupied.
 # Assign a random port to consider a case of multi builds in parallel in a host.
 # https://src.fedoraproject.org/rpms/rubygem-pg/pull-request/3
@@ -168,6 +195,10 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Fri Dec 16 2022 Jun Aruga <jaruga@redhat.com> - 0.5.4-3
+- Fix the broken SSL tests with MariaDB 10.5.18.
+  Resolves: rhbz#2144488
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

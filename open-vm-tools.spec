@@ -1,5 +1,5 @@
 ################################################################################
-### Copyright 2013-2022 VMware, Inc.  All rights reserved.
+### Copyright 2013-2023 VMware, Inc.  All rights reserved.
 ###
 ### RPM SPEC file for building open-vm-tools packages.
 ###
@@ -32,7 +32,7 @@
 
 Name:             open-vm-tools
 Version:          %{toolsversion}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPLv2
 URL:              https://github.com/vmware/%{name}
@@ -420,6 +420,9 @@ fi
 %{_bindir}/vmware-vgauth-smoketest
 
 %changelog
+* Sun Jan 1 2023 John Wolfe <jwolfe@vmware.com> - 12.1.5-2
+- Update the copyright date in the open-vm-tools.spec file.
+
 * Sun Jan 1 2023 John Wolfe <jwolfe@vmware.com> - 12.1.5-1
 - Package new upstream version of open-vm-tools-12.1.5-20735119.
   - The deployPkg plugin may prematurely reboot the guest VM before cloud-init

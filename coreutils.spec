@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.1
-Release: 8%{?dist}
+Release: 10%{?dist}
 License: GPLv3+
 Url:     https://www.gnu.org/software/coreutils/
 Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
@@ -20,11 +20,14 @@ Source106:  coreutils-colorls.csh
 # Make simple backups in correct dir; broken in 9.1
 Patch1: gnulib-simple-backup-fix.patch
 
+# basic support for checking NFSv4 ACLs (#2137866)
+Patch2: coreutils-nfsv4-acls.patch
+
 # disable the test-lock gnulib test prone to deadlock
 Patch100: coreutils-8.26-test-lock.patch
 
 # require_selinux_(): use selinuxenabled(8) if available
-Patch105: coreutils-8.26-selinuxenable.patch
+Patch101: coreutils-8.26-selinuxenable.patch
 
 # downstream changes to default DIR_COLORS
 Patch102: coreutils-8.32-DIR_COLORS.patch
@@ -32,17 +35,13 @@ Patch102: coreutils-8.32-DIR_COLORS.patch
 # df --direct
 Patch104: coreutils-df-direct.patch
 
-# add info about TZ envvar to date manpage
-Patch703: sh-utils-2.0.11-dateman.patch
-
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
 
 # getgrouplist() patch from Ulrich Drepper.
 Patch908: coreutils-getgrouplist.patch
 
-# SELINUX Patch - implements Redhat changes
-# (upstream did some SELinux implementation unlike with RedHat patch)
+# downstream SELinux options deprecated since 2009
 Patch950: coreutils-selinux.patch
 
 Conflicts: filesystem < 3
@@ -262,6 +261,13 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Jan 02 2023 Kamil Dudka <kdudka@redhat.com> - 9.1-10
+- drop obsolete downstream-only extension of date(1) man page
+- undocument downstream SELinux options deprecated since 2009
+
+* Mon Jan 02 2023 Kamil Dudka <kdudka@redhat.com> - 9.1-9
+- basic support for checking NFSv4 ACLs (#2137866)
+
 * Mon Sep 19 2022 Kamil Dudka <kdudka@redhat.com> - 9.1-8
 - remove obsolete extension of mkdir(1) info documentation
 

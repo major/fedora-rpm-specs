@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        22.11.2
+Version:        23.01.0
 Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -65,13 +65,16 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_bindir}/%{name}
 
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_datadir}/icons/hicolor/scalable/actions/%{name}-chat-reply.svg
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_datadir}/knotifications5/tokodon.notifyrc
 %{_kf5_datadir}/qlogging-categories5/tokodon.categories
-
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Mon Jan 02 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Thu Dec 22 2022 Marcus Müller <marcus@hostalia.de> - 22.11.2-1
 - Update to 22.11.2
 - Fixes RHBZ #2154524

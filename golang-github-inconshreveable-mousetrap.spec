@@ -3,7 +3,7 @@
 
 # https://github.com/inconshreveable/mousetrap
 %global goipath         github.com/inconshreveable/mousetrap
-Version:                1.0.0
+Version:                1.1.0
 
 %gometa
 
@@ -13,18 +13,13 @@ Detect starting from Windows explorer.}
 %global golicenses      LICENSE
 %global godocs          README.md
 
-%global gosupfiles      glide.lock glide.yaml
-
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        1%{?dist}
 Summary:        Detect starting from Windows explorer
 
-# Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
-Source1:        glide.yaml
-Source2:        glide.lock
 
 %description
 %{common_description}
@@ -33,7 +28,6 @@ Source2:        glide.lock
 
 %prep
 %goprep
-cp %{S:1} %{S:2} .
 
 %install
 %gopkginstall
@@ -46,6 +40,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Mon Jan 02 2023 Maxwell G <gotmax@e.email> - 1.1.0-1
+- Update to 1.1.0. Fixes rhbz#2116345.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

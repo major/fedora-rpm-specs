@@ -1,5 +1,5 @@
 Name:           python-jupyterlab-server
-Version:        2.16.3
+Version:        2.17.0
 Release:        1%{?dist}
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause
@@ -35,6 +35,7 @@ Summary:        %{summary}
 #       - pathable
 sed -i '/"openapi-spec-validator/d' pyproject.toml
 sed -i '/"openapi_core/d' pyproject.toml
+sed -i '/"jupyterlab_server\[openapi\]/d' pyproject.toml
 # Remove also coverage deps from tests
 sed -i '/"pytest-cov/d' pyproject.toml
 sed -i '/"codecov/d' pyproject.toml
@@ -65,5 +66,8 @@ sed -i '/"codecov/d' pyproject.toml
 
 
 %changelog
+* Mon Jan 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.17.0-1
+- Update to 2.17.0 (rhbz#2156011)
+
 * Sun Dec 04 2022 Lumír Balhar <lbalhar@redhat.com> - 2.16.3-1
 - Initial package

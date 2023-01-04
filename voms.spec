@@ -8,36 +8,25 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.26.rc2%{?dist}
+Release:	0.27.rc3%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	ASL 2.0
 URL:		https://italiangrid.github.io/voms/
-Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}-rc2/%{name}-%{version}-rc2.tar.gz
+Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}-rc3/%{name}-%{version}-rc3.tar.gz
 #		Post-install setup instructions:
 Source1:	%{name}.INSTALL
-#		Fix for GCC 7
-#		https://github.com/italiangrid/voms/pull/56
-Patch0:		%{name}-gcc7.patch
-#		Create RFC proxies as default
-#		https://github.com/italiangrid/voms/pull/97
-Patch1:		%{name}-default-proxyver.patch
-#		Don't use macros in AC_CHECK_LIB
-#		https://github.com/italiangrid/voms/pull/58
-Patch2:		%{name}-lib-check-no-macro.patch
-#		Change default proxy cert key length to 2048 bits
-#		https://github.com/italiangrid/voms/pull/75
-Patch3:		%{name}-change-default-proxy-cert-key-length-to-2048-bits.patch
-#		Fix compilation with OpenSSL 3.0
-#		https://github.com/italiangrid/voms/pull/98
-Patch4:		%{name}-openssl3.patch
-#		Assign default RUN value before reading sysconfig
-#		https://github.com/italiangrid/voms/pull/73
-Patch5:		%{name}-run-default.patch
-#		Better OpenSSL initialization
-#		https://github.com/italiangrid/voms/pull/94
-#		https://github.com/italiangrid/voms/pull/95
-Patch6:		%{name}-init-ssl.patch
+#		https://github.com/italiangrid/voms/pull/105
+Patch0:		0001-Catch-exception-by-reference.patch
+#		https://github.com/italiangrid/voms/pull/106
+Patch1:		0002-Fix-warning-about-possible-use-after-free.patch
+#		https://github.com/italiangrid/voms/pull/107
+Patch2:		0003-Fix-doxygen-warning.patch
+#		https://github.com/italiangrid/voms/pull/108
+Patch3:		0004-Fix-warning-about-possible-string-truncation.patch
+#		https://github.com/italiangrid/voms/pull/104
+Patch4:		0005-config.h-must-not-be-included-in-public-header-file.patch
+Patch5:		0006-Include-config.h-before-other-header-files.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -131,14 +120,13 @@ authorization purposes.
 This package provides the VOMS service.
 
 %prep
-%setup -q -n %{name}-%{version}-rc2
+%setup -q -n %{name}-%{version}-rc3
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 ./autogen.sh
 
@@ -169,7 +157,6 @@ sed -e 's/\(chkconfig: \)\w*/\1-/' \
 
 mkdir -p %{buildroot}%{_pkgdocdir}
 install -m 644 -p AUTHORS README.md %{buildroot}%{_pkgdocdir}
-%{!?_licensedir: install -m 644 -p LICENSE %{buildroot}%{_pkgdocdir}}
 
 mkdir -p %{buildroot}%{_pkgdocdir}/VOMS_C_API
 cp -pr doc/apidoc/api/VOMS_C_API/html %{buildroot}%{_pkgdocdir}/VOMS_C_API
@@ -312,8 +299,7 @@ fi
 %doc %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/AUTHORS
 %doc %{_pkgdocdir}/README.md
-%{!?_licensedir: %doc %{_pkgdocdir}/LICENSE}
-%{?_licensedir: %license LICENSE}
+%license LICENSE
 
 %files devel
 %{_libdir}/libvomsapi.so
@@ -323,11 +309,11 @@ fi
 %{_mandir}/man3/*
 
 %files doc
+%doc %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/AUTHORS
 %doc %{_pkgdocdir}/VOMS_C_API
 %doc %{_pkgdocdir}/VOMS_CC_API
-%{!?_licensedir: %doc %{_pkgdocdir}/LICENSE}
-%{?_licensedir: %license LICENSE}
+%license LICENSE
 
 %files clients-cpp
 %{_bindir}/voms-proxy-destroy2
@@ -370,6 +356,11 @@ fi
 %doc README.Fedora
 
 %changelog
+* Mon Jan 02 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-0.27.rc3
+- Update to version 2.1.0-rc3
+- Drop patches accepted upstream
+- Add new patches (the PRs have been accepted upstream)
+
 * Wed Dec 21 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-0.26.rc2
 - Rebuild for gsoap 2.8.124 (Fedora 38)
 

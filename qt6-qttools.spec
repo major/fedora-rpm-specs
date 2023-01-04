@@ -49,9 +49,6 @@ BuildRequires: qt6-qtbase-static >= %{version}
 BuildRequires: qt6-qtdeclarative-static >= %{version}
 BuildRequires: qt6-qtdeclarative >= %{version}
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
-BuildRequires: qt6-qtbase-mysql >= %{version}
-BuildRequires: qt6-qtbase-odbc >= %{version}
-BuildRequires: qt6-qtbase-postgresql >= %{version}
 BuildRequires: clang-devel llvm-devel
 
 

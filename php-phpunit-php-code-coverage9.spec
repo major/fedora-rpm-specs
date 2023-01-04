@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage9
 #
-# Copyright (c) 2013-2022 Remi Collet
+# Copyright (c) 2013-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    e4bf60d2220b4baaa0572986b5d69870226b06df
+%global gh_commit    9f1f0f9a2fbb680b26d1cf9b61b6eac43a6e4e9c
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,15 +25,15 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.22
+Version:        9.2.23
 Release:        1%{?dist}
 Summary:        PHP code coverage information
 
-# Main license is BSD
-# BSD: D3
+# SPDX: Main license is BSD-3-Clause
+# BSD-3-Clause: D3
 # MIT: boostrap, d3, holder, html5shiv, jquery, respond
-# ASL 2.0: nvd3
-License:        BSD and MIT and ASL 2.0
+# Apache-2.0: nvd3
+License:        BSD-3-Clause AND MIT AND Apache-2.0
 URL:            https://github.com/%{gh_vendor}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -183,6 +183,9 @@ exit $ret
 
 
 %changelog
+* Mon Jan  2 2023 Remi Collet <remi@remirepo.net> - 9.2.23-1
+- update to 9.2.23
+
 * Mon Dec 19 2022 Remi Collet <remi@remirepo.net> - 9.2.22-1
 - update to 9.2.22
 
