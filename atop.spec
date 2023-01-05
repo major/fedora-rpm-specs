@@ -1,8 +1,8 @@
 %define _hardened_build 1
 
 Name:           atop
-Version:        2.7.1
-Release:        4%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        An advanced interactive monitor to view the load on system and process level
 
 License:        GPLv2+
@@ -10,9 +10,8 @@ URL:            https://www.atoptool.nl
 Source0:        https://www.atoptool.nl/download/%{name}-%{version}.tar.gz
 Source1:        atop.d
 
-Patch0:         nvme_support.patch
-Patch1:         atop-sysconfig.patch
-Patch2:         atop-2.3.0-newer-gcc.patch
+Patch0:         atop-sysconfig.patch
+Patch1:         atop-2.3.0-newer-gcc.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel
@@ -44,9 +43,8 @@ performance-monitors:
  
 %prep
 %setup -q
-%patch0 -p0 -b .nvme
-%patch1 -p0 -b .sysconfig
-%patch2 -p1 -b .newer-gcc
+%patch0 -p0 -b .sysconfig
+%patch1 -p1 -b .newer-gcc
 
 # Correct unit file path
 sed -i "s|/etc/default/atop|/etc/sysconfig/atop|g" atop.service
@@ -99,7 +97,7 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 %else
 %license COPYING
 %endif
-%doc AUTHOR README*
+%doc AUTHORS README*
 %config(noreplace) %{_sysconfdir}/sysconfig/atop
 %{_bindir}/atopsar
 %{_bindir}/atop
@@ -118,6 +116,9 @@ install -Dp -m 0644 atop-rotate.* $RPM_BUILD_ROOT%{_unitdir}/
 #%%endif
 
 %changelog
+* Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.0-1
+- 2.8.0
+
 * Wed Dec 07 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.7.1-4
 - Include atopacctd man page
 

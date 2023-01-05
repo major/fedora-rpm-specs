@@ -9,35 +9,53 @@ Epoch:          1
 %else
 Epoch:          0
 %endif
-Version:        6.9.12.70
+Version:        7.1.0.57
 Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
-%global VER %(foo=%{version}; echo ${foo:0:6})
-%global Patchlevel %(foo=%{version}; echo ${foo:7})
+%global VER %(foo=%{version}; echo ${foo:0:5})
+%global Patchlevel %(foo=%{version}; echo ${foo:6})
+%global libsover 10
+%global libcxxsover 5
 License:        ImageMagick
-Url:            https://legacy.imagemagick.org/
-Source0:        https://www.imagemagick.org/archive/%{name}-%{VER}-%{Patchlevel}.tar.xz
+URL:            https://imagemagick.org/
+Source0:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz
+Source1:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz.asc
+Source2:        ImageMagick.keyring
 
-BuildRequires:  pkgconfig(bzip2), pkgconfig(freetype2), pkgconfig(libjpeg), pkgconfig(libpng)
-BuildRequires:  pkgconfig(libtiff-4), giflib-devel, pkgconfig(zlib), perl-devel >= 5.8.1
+BuildRequires:  pkgconfig(bzip2)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libpng)
+BuildRequires:  pkgconfig(libtiff-4)
+BuildRequires:  giflib-devel
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  perl-devel >= 5.8.1
 BuildRequires:  perl-generators
-%if 0%{?fedora} > 27 || 0%{?rhel} > 7
-BuildRequires:  libgs-devel, ghostscript-x11
-%else
+%if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  ghostscript-devel
+%else
+BuildRequires:  libgs-devel, ghostscript-x11
 %endif
 BuildRequires:  pkgconfig(ddjvuapi)
-BuildRequires:  pkgconfig(libwmf), pkgconfig(jasper), libtool-ltdl-devel
-BuildRequires:  pkgconfig(x11), pkgconfig(xext), pkgconfig(xt)
-BuildRequires:  pkgconfig(lcms2), pkgconfig(libxml-2.0), pkgconfig(librsvg-2.0)
-%if 0%{?fedora} > 34 || 0%{?rhel} > 8
-BuildRequires:  pkgconfig(OpenEXR)
-%else
+BuildRequires:  pkgconfig(libwmf)
+BuildRequires:  pkgconfig(jasper)
+BuildRequires:  libtool-ltdl-devel
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xt)
+BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(librsvg-2.0)
+%if 0%{?rhel} && 0%{?rhel} < 9
 BuildRequires:  pkgconfig(IlmBase), pkgconfig(OpenEXR) < 2.5.6
+%else
+BuildRequires:  pkgconfig(OpenEXR)
 %endif
-BuildRequires:  pkgconfig(fftw3), pkgconfig(libwebp)
+BuildRequires:  pkgconfig(fftw3)
+BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  jbigkit-devel
+BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libopenjp2) >= 2.1.0
 BuildRequires:  pkgconfig(libcgraph) >= 2.9.0
 BuildRequires:  pkgconfig(raqm)
@@ -46,13 +64,19 @@ BuildRequires:  pkgconfig(lqr-1)
 %endif
 BuildRequires:  pkgconfig(libraw) >= 0.14.8
 BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(libzip) >= 1.0.0
+BuildRequires:  pkgconfig(pango) >= 1.28.1
+BuildRequires:  pkgconfig(pangocairo) >= 1.28.1
+BuildRequires:  urw-base35-fonts-devel
 BuildRequires:  autoconf automake gcc gcc-c++
 BuildRequires:  make
+BuildRequires:  gnupg2
 
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-# allow smoth upgrade for 3rd party repository
-# providing latest version/soname as ImageMagick6
-Obsoletes:      %{name}6            <= %{epoch}:%{version}-%{release}
+# allow smooth upgrade for 3rd party repository
+# providing latest version/soname as ImageMagick7
+Obsoletes:      %{name}7            < %{epoch}:%{version}-%{release}
+Provides:       %{name}7            = %{epoch}:%{version}-%{release}
 
 %description
 ImageMagick is an image display and manipulation tool for the X
@@ -74,7 +98,8 @@ ImageMagick-devel as well.
 Summary:        Library links and header files for ImageMagick app development
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}6-devel      <= %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}7-devel       < %{epoch}:%{version}-%{release}
+Provides:       %{name}7-devel       = %{epoch}:%{version}-%{release}
 
 %description devel
 ImageMagick-devel contains the library links and header files you'll
@@ -89,7 +114,10 @@ however.
 
 %package libs
 Summary: ImageMagick libraries to link with
-Obsoletes: %{name}6-libs <= %{epoch}:%{version}-%{release}
+Obsoletes: %{name}7-libs < %{epoch}:%{version}-%{release}
+Provides:  %{name}7-libs = %{epoch}:%{version}-%{release}
+# These may be used for some functions
+Recommends: urw-base35-fonts
 
 %description libs
 This packages contains a shared libraries to use within other applications.
@@ -98,7 +126,8 @@ This packages contains a shared libraries to use within other applications.
 %package djvu
 Summary: DjVu plugin for ImageMagick
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes: %{name}6-djvu      <= %{epoch}:%{version}-%{release}
+Obsoletes: %{name}7-djvu       < %{epoch}:%{version}-%{release}
+Provides:  %{name}7-djvu       = %{epoch}:%{version}-%{release}
 
 %description djvu
 This packages contains a plugin for ImageMagick which makes it possible to
@@ -107,7 +136,8 @@ save and load DjvU files from ImageMagick and libMagickCore using applications.
 
 %package doc
 Summary: ImageMagick html documentation
-Obsoletes: %{name}6-doc <= %{epoch}:%{version}-%{release}
+Obsoletes: %{name}7-doc < %{epoch}:%{version}-%{release}
+Provides:  %{name}7-doc = %{epoch}:%{version}-%{release}
 
 %description doc
 ImageMagick documentation, this package contains usage (for the
@@ -120,7 +150,8 @@ http://www.imagemagick.org/
 Summary:        ImageMagick perl bindings
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Obsoletes:      %{name}6-perl       <= %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}7-perl        < %{epoch}:%{version}-%{release}
+Provides:       %{name}7-perl        = %{epoch}:%{version}-%{release}
 
 %description perl
 Perl bindings to ImageMagick.
@@ -132,7 +163,8 @@ ImageMagick.
 %package c++
 Summary:        ImageMagick Magick++ library (C++ bindings)
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}6-c++        <= %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}7-c++         < %{epoch}:%{version}-%{release}
+Provides:       %{name}7-c++         = %{epoch}:%{version}-%{release}
 
 %description c++
 This package contains the Magick++ library, a C++ binding to the ImageMagick
@@ -145,7 +177,8 @@ Install ImageMagick-c++ if you want to use any applications that use Magick++.
 Summary:        C++ bindings for the ImageMagick library
 Requires:       %{name}-c++%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
-Obsoletes:      %{name}6-c++-devel   <= %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}7-c++-devel    < %{epoch}:%{version}-%{release}
+Provides:       %{name}7-c++-devel    = %{epoch}:%{version}-%{release}
 
 %description c++-devel
 ImageMagick-devel contains the static libraries and header files you'll
@@ -161,6 +194,7 @@ however.
 
 
 %prep
+%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -p1 -n %{name}-%{VER}-%{Patchlevel}
 
 # for %%doc
@@ -169,7 +203,7 @@ cp -p Magick++/demo/*.cpp Magick++/demo/*.miff Magick++/examples
 
 
 %build
-autoconf -f -i
+autoconf -f -i -v
 # Reduce thread contention, upstream sets this flag for Linux hosts
 export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
 %configure \
@@ -181,15 +215,19 @@ export CFLAGS="%{optflags} -DIMPNG_SETJMP_IS_THREAD_SAFE"
         --with-threads \
         --with-magick_plus_plus \
         --with-gslib \
+        --with-pango \
+        --with-fftw \
         --with-wmf \
         --with-webp \
         --with-openexr \
         --with-rsvg \
         --with-xml \
         --with-perl-options="INSTALLDIRS=vendor %{?perl_prefix} CC='%__cc -L$PWD/magick/.libs' LDDLFLAGS='-shared -L$PWD/magick/.libs'" \
+        --with-urw-base35-font-dir="%{urw_base35_fontpath}" \
         --without-dps \
         --without-gcc-arch \
         --with-jbig \
+        --with-jxl \
         --with-openjp2 \
         --with-raw \
 %if 0%{?fedora} || 0%{?rhel} > 8
@@ -204,6 +242,11 @@ make
 
 %install
 %make_install
+
+# Compatibility symlinks for headers for IM6->IM7 transition
+ln -sr %{buildroot}%{_includedir}/%{name}-7/MagickCore %{buildroot}%{_includedir}/%{name}-7/magick
+ln -sr %{buildroot}%{_includedir}/%{name}-7/MagickWand %{buildroot}%{_includedir}/%{name}-7/wand
+
 cp -a www/source %{buildroot}%{_datadir}/doc/%{name}-%{VER}
 # Delete *ONLY* _libdir/*.la files! .la files used internally to handle plugins - BUG#185237!!!
 rm %{buildroot}%{_libdir}/*.la
@@ -217,7 +260,7 @@ find %{buildroot} -name ".packlist" |xargs rm -f
 find %{buildroot} -name "perllocal.pod" |xargs rm -f
 
 # Do NOT remove .la files for codecs
-# https://bugzilla.novell.com/show_bug.cgi?id=579798
+# https://bugzilla.opensuse.org/show_bug.cgi?id=579798
 
 # perlmagick: build files list
 echo "%defattr(-,root,root,-)" > perl-pkg-files
@@ -253,9 +296,9 @@ cat >$1 <<EOF
 EOF
 }
 
-multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/magick-config.h
-multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/magick-baseconfig.h
-multilibFileVersions %{buildroot}%{_includedir}/%{name}-6/magick/version.h
+multilibFileVersions %{buildroot}%{_includedir}/%{name}-7/MagickCore/magick-config.h
+multilibFileVersions %{buildroot}%{_includedir}/%{name}-7/MagickCore/magick-baseconfig.h
+multilibFileVersions %{buildroot}%{_includedir}/%{name}-7/MagickCore/version.h
 
 
 %check
@@ -274,60 +317,54 @@ rm PerlMagick/demo/Generic.ttf
 
 %files libs
 %doc LICENSE NOTICE AUTHORS.txt QuickStart.txt
-%{_libdir}/libMagickCore-6.Q16.so.7*
-%{_libdir}/libMagickWand-6.Q16.so.7*
+%{_libdir}/libMagickCore-7.Q16HDRI.so.%{libsover}{,.*}
+%{_libdir}/libMagickWand-7.Q16HDRI.so.%{libsover}{,.*}
 %{_libdir}/%{name}-%{VER}
-%{_datadir}/%{name}-6
-%exclude %{_libdir}/%{name}-%{VER}/modules-Q16/coders/djvu.*
-%dir %{_sysconfdir}/%{name}-6
-%config(noreplace) %{_sysconfdir}/%{name}-6/*.xml
+%{_datadir}/%{name}-7
+%exclude %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
+%dir %{_sysconfdir}/%{name}-7
+%config(noreplace) %{_sysconfdir}/%{name}-7/*.xml
 
 %files devel
 %{_bindir}/MagickCore-config
-%{_bindir}/Magick-config
 %{_bindir}/MagickWand-config
-%{_bindir}/Wand-config
-%{_libdir}/libMagickCore-6.Q16.so
-%{_libdir}/libMagickWand-6.Q16.so
+%{_libdir}/libMagickCore-7.Q16HDRI.so
+%{_libdir}/libMagickWand-7.Q16HDRI.so
 %{_libdir}/pkgconfig/MagickCore.pc
-%{_libdir}/pkgconfig/MagickCore-6.Q16.pc
+%{_libdir}/pkgconfig/MagickCore-7.Q16HDRI.pc
 %{_libdir}/pkgconfig/ImageMagick.pc
-%{_libdir}/pkgconfig/ImageMagick-6.Q16.pc
+%{_libdir}/pkgconfig/ImageMagick-7.Q16HDRI.pc
 %{_libdir}/pkgconfig/MagickWand.pc
-%{_libdir}/pkgconfig/MagickWand-6.Q16.pc
-%{_libdir}/pkgconfig/Wand.pc
-%{_libdir}/pkgconfig/Wand-6.Q16.pc
-%dir %{_includedir}/%{name}-6
-%{_includedir}/%{name}-6/magick
-%{_includedir}/%{name}-6/wand
-%{_mandir}/man1/Magick-config.*
+%{_libdir}/pkgconfig/MagickWand-7.Q16HDRI.pc
+%dir %{_includedir}/%{name}-7
+%{_includedir}/%{name}-7/MagickCore/
+%{_includedir}/%{name}-7/MagickWand/
+%{_includedir}/%{name}-7/magick
+%{_includedir}/%{name}-7/wand
 %{_mandir}/man1/MagickCore-config.*
-%{_mandir}/man1/Wand-config.*
 %{_mandir}/man1/MagickWand-config.*
 
 %files djvu
-%{_libdir}/%{name}-%{VER}/modules-Q16/coders/djvu.*
+%{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
 
 %files doc
-%doc %{_datadir}/doc/%{name}-6
+%doc %{_datadir}/doc/%{name}-7
 %doc %{_datadir}/doc/%{name}-%{VER}
 %doc LICENSE
 
 %files c++
 %doc Magick++/AUTHORS Magick++/ChangeLog Magick++/NEWS Magick++/README
 %doc www/Magick++/COPYING
-%{_libdir}/libMagick++-6.Q16.so.9*
+%{_libdir}/libMagick++-7.Q16HDRI.so.%{libcxxsover}{,.*}
 
 %files c++-devel
 %doc Magick++/examples
 %{_bindir}/Magick++-config
-%{_includedir}/%{name}-6/Magick++
-%{_includedir}/%{name}-6/Magick++.h
-%{_libdir}/libMagick++-6.Q16.so
+%{_includedir}/%{name}-7/Magick++/
+%{_includedir}/%{name}-7/Magick++.h
+%{_libdir}/libMagick++-7.Q16HDRI.so
 %{_libdir}/pkgconfig/Magick++.pc
-%{_libdir}/pkgconfig/Magick++-6.Q16.pc
-%{_libdir}/pkgconfig/ImageMagick++.pc
-%{_libdir}/pkgconfig/ImageMagick++-6.Q16.pc
+%{_libdir}/pkgconfig/Magick++-7.Q16HDRI.pc
 %{_mandir}/man1/Magick++-config.*
 
 %files perl -f perl-pkg-files
@@ -335,6 +372,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Tue Jan 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 1:7.1.0.57-1
+- Rebase to ImageMagick v7
+
 * Thu Dec 22 2022 Sérgio Basto <sergio@serjux.com> - 1:6.9.12.70-1
 - Update ImageMagick to 6.9.12.70 (#2150658)
 

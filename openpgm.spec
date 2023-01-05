@@ -4,7 +4,7 @@ Version:       5.2.122
 %global version_main      5.2
 %global version_dash_main 5-2
 %global version_dash      %{version_dash_main}-122
-Release:       29%{?dist}
+Release:       30%{?dist}
 Summary:       An implementation of the PGM reliable multicast protocol
 
 # The license is LGPLv2.1
@@ -20,6 +20,8 @@ Patch2:        openpgm-02-c-func.patch
 Patch3:        openpgm-03-pkgconfig.patch
 Patch4:        openpgm-04-py-version-gen.patch
 Patch5:        openpgm-05-fix-setgid.patch
+Patch6:        openpgm-configure-c99.patch
+Patch7:        openpgm-c99.patch
 
 BuildRequires: make
 BuildRequires: libtool automake autoconf
@@ -48,6 +50,8 @@ This package contains OpenPGM related development libraries and header files.
 %patch3 -p3
 %patch4 -p3
 %patch5 -p3
+%patch6 -p3
+%patch7 -p3
 dos2unix examples/getopt.c examples/getopt.h
 
 %build
@@ -91,6 +95,9 @@ mv -f %{buildroot}%{_includedir}/%{name_alias}-%{version_main}/%{name_alias} %{b
 
 
 %changelog
+* Tue Jan  3 2023 Florian Weimer <fweimer@redhat.com> - 5.2.122-30
+- C99 compatibility fixes
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.122-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

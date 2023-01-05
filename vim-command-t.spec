@@ -4,7 +4,7 @@
 
 Name: vim-command-t
 Version: 5.0.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: An extremely fast, intuitive mechanism for opening files in VIM
 License: BSD
 URL: https://github.com/wincent/command-t
@@ -107,6 +107,9 @@ rspec -Iruby spec
 
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 5.0.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.0.3-6
 - Patch from upstream for ruby3.2 Fixnum removal
 

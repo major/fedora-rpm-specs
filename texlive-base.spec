@@ -6743,12 +6743,12 @@ xz -dc %{SOURCE0} | tar x
 %patch32 -p1 -b .archfix
 %patch33 -p1 -b .no-setpdfwrite
 
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %patch34 -p1 -b .poppler22
 %patch35 -p1 -b .poppler-crash-fix
 %endif
 
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 || 0%{?rhel} > 9
 %patch36 -p1 -b .poppler-22.08.0
 %endif
 
@@ -6804,7 +6804,7 @@ rm -f dummy.*
 %endif
 
 export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Werror=format-security"
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -Werror=format-security"
 %else
 export CXXFLAGS="$RPM_OPT_FLAGS -std=c++11 -fno-strict-aliasing -Werror=format-security"

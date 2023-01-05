@@ -1,6 +1,6 @@
 Name:           rxvt-unicode
-Version:        9.30
-Release:        4%{?dist}
+Version:        9.31
+Release:        1%{?dist}
 Summary:        Unicode version of rxvt
 
 License:        GPLv3
@@ -30,6 +30,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  gnupg2
 BuildRequires:  libptytty-devel
 BuildRequires:  libX11-devel
+BuildRequires:  libXext-devel
 BuildRequires:  libXft-devel
 BuildRequires:  libXrender-devel
 BuildRequires:  libXt-devel
@@ -157,6 +158,7 @@ popd
 %{_mandir}/man1/urxvt-bell-command.1*
 %{_mandir}/man1/urxvt-block-graphics-to-ascii.1*
 %{_mandir}/man1/urxvt-clipboard-osc.1*
+%{_mandir}/man1/urxvt-clickthrough.1*
 %{_mandir}/man1/urxvt-confirm-paste.1*
 %{_mandir}/man1/urxvt-digital-clock.1*
 %{_mandir}/man1/urxvt-eval.1*
@@ -183,6 +185,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Tue Jan 03 2023 Robbie Harwood <rharwood@redhat.com> - 9.31-1
+- New upstream version (9.31)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.30-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -35,6 +35,7 @@ BuildRequires: python3
 BuildRequires: libcap-devel
 BuildRequires: systemd-devel
 BuildRequires: yajl-devel
+BuildRequires: libgcrypt-devel
 %if "%{krun_support}" == "enabled"
 BuildRequires: libkrun-devel
 %endif

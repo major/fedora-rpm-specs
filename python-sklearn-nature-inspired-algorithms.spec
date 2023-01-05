@@ -5,7 +5,7 @@
 # Pulls in fonts, currently disabled
 # We refer to upstream's documentation.
 %bcond_with generated_docs
-%bcond_with tests
+%bcond_without tests
 
 %global _description %{expand:
 Nature inspired algorithms for hyper-parameter tuning of scikit-learn models.
@@ -15,13 +15,13 @@ Documentation is available at:
 https://sklearn-nature-inspired-algorithms.readthedocs.io/en/stable/ }
 
 Name:           python-%{pypi_name}
-Version:        0.9.0
+Version:        0.11.0
 Release:        3%{?dist}
 Summary:        Nature-inspired algorithms for scikit-learn
 
 License:        MIT
 URL:            https://github.com/timzatko/%{github_name}
-Source0:        %{url}/archive/v%{version}/%{pretty_name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{github_name}-%{version}.tar.gz
 # Update pyproject.toml to match Fedora package versions
 
 BuildArch:      noarch
@@ -38,8 +38,6 @@ BuildRequires: %{py3_dist pep517}
 BuildRequires: %{py3_dist poetry}
 BuildRequires: %{py3_dist wheel}
 BuildRequires:  %{py3_dist toml-adapt}
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %_description
 
@@ -59,7 +57,7 @@ Generated documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n %{pretty_name}-%{version}
+%autosetup -n %{github_name}-%{version}
 rm -rf %{pretty_name}.egg-info
 rm -fv poetry.lock
 
@@ -98,6 +96,15 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest tests
 %endif
 
 %changelog
+* Tue Jan 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.11.0-3
+- Enable tests
+
+* Tue Jan 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.11.0-2
+- Remove obsolete macro
+
+* Tue Jan 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.11.0-1
+- Update to the latest upstream's release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

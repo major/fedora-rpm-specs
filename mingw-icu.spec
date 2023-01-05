@@ -2,10 +2,10 @@
 
 %global underscore_version %(echo %{version} | sed 's/\\./_/g')
 %global dash_version %(echo %{version} | sed 's/\\./-/g')
-%global lib_version 71
+%global lib_version 72
 
 Name:           mingw-icu
-Version:        71.1
+Version:        72.1
 Release:        1%{?dist}
 Summary:        MinGW compilation of International Components for Unicode Tools
 
@@ -19,15 +19,15 @@ Patch0:         icu4c_mingwbuild.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  gcc-c++
+BuildRequires:  make
 
-BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
@@ -198,6 +198,9 @@ rm %{buildroot}%{mingw64_libdir}/icu/pkgdata.inc
 
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 72.1-1
+- Update to 72.1
+
 * Thu Aug 04 2022 Sandro Mani <manisandro@gmail.com> - 71.1-1
 - Update to 71.1
 

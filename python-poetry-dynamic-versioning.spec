@@ -15,13 +15,17 @@ integrates with the Poetry CLI to trigger the versioning in commands like
 poetry build.}
 
 Name:           python-poetry-dynamic-versioning
-Version:        0.20.0
+Version:        0.21.3
 Release:        %{autorelease}
 Summary:        Plugin for Poetry to enable dynamic versioning based on VCS tags
 
+# SPDX
 License:        MIT
 URL:            https://github.com/mtkennerly/poetry-dynamic-versioning
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Man pages hand-written for Fedora in groff_man(7) format based on --help
+Source1:        poetry-dynamic-versioning.1
 
 BuildArch:      noarch
 
@@ -57,6 +61,7 @@ BuildRequires:  /usr/bin/poetry
 %install
 %pyproject_install
 %pyproject_save_files poetry_dynamic_versioning
+install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 %check
 %if %{with tests}
@@ -72,9 +77,10 @@ export DARCS_EMAIL="Yep something <name@example.com>"
 %endif
 
 %files -n python3-poetry-dynamic-versioning -f %{pyproject_files}
+%license LICENSE
 %doc README.md CHANGELOG.md README.plugin.md
 %{_bindir}/poetry-dynamic-versioning
-%license LICENSE
+%{_mandir}/man1/poetry-dynamic-versioning.1*
 
 %changelog
 %autochangelog

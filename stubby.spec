@@ -1,6 +1,6 @@
 Name:           stubby
-Version:        0.4.2
-Release:        2%{?dist}
+Version:        0.4.3
+Release:        1%{?dist}
 Summary:        Application that act as a local DNS Privacy stub resolver
 
 License:        BSD-3-Clause
@@ -12,8 +12,6 @@ Obsoletes:      getdns-stubby < 1.7.0-1
 %{?systemd_requires}
 
 Patch1:         stubby-0.3.1-dnssec-ta.patch
-# https://github.com/getdnsapi/stubby/pull/324
-Patch2:         stubby-0.4-systemd.service.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -68,6 +66,9 @@ fi
 
 
 %changelog
+* Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 0.4.3-1
+- Update to 0.4.3 (#2156047)
+
 * Sat Oct 15 2022 Petr Menšík <pemensik@redhat.com> - 0.4.2-2
 - Private users do not work with dynamic users
 - Provide path to unbound-anchor key, but keep it commented out

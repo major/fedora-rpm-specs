@@ -6,7 +6,7 @@
 %{bcond_with    whois_enables_idn}
 
 Name:       whois       
-Version:    5.5.14
+Version:    5.5.15
 Release:    1%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
@@ -134,6 +134,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 5.5.15-1
+- Update to 5.5.15 (#2156870)
+
 * Tue Oct 18 2022 Petr Menšík <pemensik@redhat.com> - 5.5.14-1
 - Update to 5.5.14 (#2135226)
 

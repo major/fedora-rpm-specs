@@ -20,9 +20,9 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.9.5
+Version: 1.9.6
 %if 0%{?stable}
-Release: 2%{?dist}
+Release: 1%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -319,6 +319,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Tue Jan 03 2023 Than Ngo <than@redhat.com> - 2:1.9.6-1
+- fixed bz#2156564, update to 1.9.6
+
 * Sun Sep 18 2022 Pete Walter <pwalter@fedoraproject.org> - 2:1.9.5-2
 - Rebuild for llvm 15
 

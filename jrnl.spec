@@ -8,6 +8,12 @@ URL:            https://jrnl.sh
 %global forgeurl https://github.com/jrnl-org/jrnl/
 Source0:        %{forgeurl}/archive/v%{version}/jrnl-%{version}.tar.gz
 
+#   Update dependency rich to v13
+#   https://github.com/jrnl-org/jrnl/pull/1654
+# Changes to poetry.lock are dropped because they are irrelevant here and would
+# not apply cleanly.
+Patch:          rich-13.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

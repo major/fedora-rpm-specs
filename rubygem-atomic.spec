@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.101
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: An atomic reference implementation for JRuby, Rubinius, and MRI
 License: ASL 2.0
 URL: http://github.com/ruby-concurrency/atomic
@@ -71,6 +71,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 1.1.101-14
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.101-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

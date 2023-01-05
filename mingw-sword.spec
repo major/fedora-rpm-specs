@@ -5,7 +5,7 @@
 Summary:	MinGW build of a cross-platform scripture text library
 Name:		mingw-%{_pkg_name}
 Version:	1.9.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPLv2
 URL:		http://www.crosswire.org/sword
 Source0:	http://crosswire.org/ftpmirror/pub/sword/source/v1.9/sword-%{version}.tar.gz
@@ -128,6 +128,9 @@ MINGW64_CMAKE_ARGS=-DICU_CONFIG_BIN_PATH=%{mingw64_bindir}
 %{mingw64_sysconfdir}/sword.conf
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 1.9.0-8
+- Rebuild (mingw-icu)
+
 * Fri Aug 05 2022 Sandro Mani <manisandro@gmail.com> - 1.9.0-7
 - Rebuild (icu)
 

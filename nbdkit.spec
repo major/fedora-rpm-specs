@@ -52,7 +52,7 @@ ExclusiveArch:  x86_64
 %global source_directory 1.33-development
 
 Name:           nbdkit
-Version:        1.33.4
+Version:        1.33.5
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -1219,6 +1219,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.5-1
+- New upstream development version 1.33.5
+
 * Sat Dec 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.33.4-1
 - New upstream development version 1.33.4
 

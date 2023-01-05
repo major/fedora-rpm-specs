@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-captcha
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    de816814f52c67b33db614deb6227d46df531bc6
+%global gh_commit    8623619b1b634ba3672f91a9fb610deffec9c932
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-captcha
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.15.0
+Version:        2.16.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -49,8 +49,8 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1 
 #        "ext-gd": "*",
 #        "laminas/laminas-coding-standard": "~2.4.0",
 #        "phpunit/phpunit": "^9.5.26",
-#        "psalm/plugin-phpunit": "^0.18.0",
-#        "vimeo/psalm": "^4.29.0"
+#        "psalm/plugin-phpunit": "^0.18.4",
+#        "vimeo/psalm": "^5.1"
 BuildRequires:  php-gd
 %global phpunit %{_bindir}/phpunit9
 BuildRequires:  phpunit9 >= 9.5.26
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 2.16.0-1
+- update to 2.16.0
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 2.15.0-1
 - update to 2.15.0
 - raise dependency on PHP 8.0

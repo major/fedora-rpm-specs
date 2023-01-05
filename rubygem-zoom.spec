@@ -7,7 +7,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Ruby binding to ZOOM
 
 License:	LGPLv2+
@@ -117,6 +117,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-27
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-26
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

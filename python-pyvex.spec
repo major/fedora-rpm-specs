@@ -5,7 +5,7 @@ ExcludeArch: ppc64le s390x
 %global debug_package %{nil}
 
 Name:           python-%{pypi_name}
-Version:        9.2.31
+Version:        9.2.32
 Release:        1%{?dist}
 Summary:        Python interface to libVEX and the VEX intermediate representation
 
@@ -57,6 +57,9 @@ cp %{SOURCE2} .
 %{python3_sitelib}/pyvex/
 
 %changelog
+* Tue Jan 03 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.32-1
+- Update to 9.2.32 rhbz#2157987
+
 * Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.31-1
 - Update to 9.2.31 rhbz#1999818
 

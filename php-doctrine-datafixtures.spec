@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-doctrine-datafixtures
 #
-# Copyright (c) 2013-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2013-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      data-fixtures
-%global github_version   1.5.3
-%global github_commit    ba37bfb776de763c5bf04a36d074cd5f5a083c42
+%global github_version   1.6.1
+%global github_commit    1a4232c15143ca3c127812d19b23a7961c41eeed
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  doctrine
@@ -20,11 +20,8 @@
 
 # "php": "^7.2 || ^8.0"
 %global php_min_ver 7.2
-# "doctrine/common": "~2.13|^3.0"
-%global doctrine_common_min_ver 2.13
-%global doctrine_common_max_ver 4
-# "doctrine/orm": "^2.7.0"
-%global doctrine_orm_min_ver 2.7.0
+# "doctrine/orm": "^2.12"
+%global doctrine_orm_min_ver 2.12
 %global doctrine_orm_max_ver 3.0
 # "doctrine/dbal": "^2.13 || ^3.0"
 %global doctrine_dbal_min_ver 2.13
@@ -32,6 +29,9 @@
 # "doctrine/persistence": "^1.3.3|^2.0|^3.0"
 %global doctrine_pers_min_ver 1.3.3
 %global doctrine_pers_max_ver 4
+# "doctrine/deprecations": "^1.0",
+%global doctrine_dep_min_ver 1.0
+%global doctrine_dep_max_ver 2
 
 # Build using "--without tests" to disable tests
 %bcond_without tests
@@ -40,7 +40,7 @@
 
 Name:          php-%{composer_vendor}-datafixtures
 Version:       %{github_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Data Fixtures for all Doctrine Object Managers
 
 License:       MIT
@@ -55,11 +55,12 @@ BuildArch:     noarch
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires: php-sqlite3
-BuildRequires:(php-composer(doctrine/common) >= %{doctrine_common_min_ver} with php-composer(doctrine/common) < %{doctrine_common_max_ver})
 BuildRequires:(php-composer(doctrine/orm)    >= %{doctrine_orm_min_ver}    with php-composer(doctrine/orm)    < %{doctrine_orm_max_ver})
 BuildRequires:(php-composer(doctrine/dbal)   >= %{doctrine_dbal_min_ver}   with php-composer(doctrine/dbal)   < %{doctrine_dbal_max_ver})
+BuildRequires:(php-composer(doctrine/deprecations) >= %{doctrine_dep_min_ver}   with php-composer(doctrine/deprecations) < %{doctrine_dep_max_ver})
 BuildRequires:(php-composer(doctrine/persistence) >= %{doctrine_pers_min_ver}   with php-composer(doctrine/persistence) < %{doctrine_pers_max_ver})
 # missing doctrine/mongodb-odm ^1.3.0 || ^2.0.0
+BuildRequires: php-symfony4-cache
 BuildRequires: phpunit9
 ## phpcompatinfo (computed from version 1.0.2)
 BuildRequires: php-json
@@ -71,7 +72,6 @@ BuildRequires: php-composer(fedora/autoloader)
 
 # composer.json
 Requires:      php(language) >= %{php_min_ver}
-Requires:     (php-composer(doctrine/common) >= %{doctrine_common_min_ver} with php-composer(doctrine/common) < %{doctrine_common_max_ver})
 Requires:     (php-composer(doctrine/persistence) >= %{doctrine_pers_min_ver}   with php-composer(doctrine/persistence) < %{doctrine_pers_max_ver})
 # composer.json: optional and deprecated
 Suggests:      php-composer(alcaeus/mongo-php-adapter)
@@ -113,9 +113,6 @@ require_once '%{phpdir}/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Dependencies::required([
     [
-        '%{phpdir}/Doctrine/Common3/autoload.php',
-        '%{phpdir}/Doctrine/Common/autoload.php',
-    ], [
         '%{phpdir}/Doctrine/Persistence3/autoload.php',
         '%{phpdir}/Doctrine/Persistence2/autoload.php',
         '%{phpdir}/Doctrine/Persistence/autoload.php',
@@ -142,10 +139,12 @@ cat << 'BOOTSTRAP' | tee bootstrap.php
 require_once '%{buildroot}%{phpdir}/Doctrine/Common/DataFixtures/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr0('Doctrine\\Tests\\', __DIR__.'/tests');
 \Fedora\Autoloader\Dependencies::required([
+    '%{phpdir}/Doctrine/Deprecations/autoload.php',
     [
         '%{phpdir}/Doctrine/DBAL3/autoload.php',
         '%{phpdir}/Doctrine/DBAL/autoload.php',
     ],
+    '%{phpdir}/Symfony4/Component/Cache/autoload.php',
 ]);
 BOOTSTRAP
 
@@ -154,7 +153,7 @@ rm tests/Doctrine/Tests/Common/DataFixtures/Executor/PHPCRExecutorTest.php
 
 : Upstream tests
 RETURN_CODE=0
-for PHP_EXEC in "" php74 php80 php81; do
+for PHP_EXEC in "" php80 php81 php82; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC %{_bindir}/phpunit9 --verbose --bootstrap bootstrap.php \
             || RETURN_CODE=1
@@ -169,12 +168,15 @@ exit $RETURN_CODE
 %files
 %license LICENSE
 %doc *.md
-%doc UPGRADE
 %doc composer.json
 %{phpdir}/Doctrine/Common/DataFixtures
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+- drop dependency on doctrine/common
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

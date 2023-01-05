@@ -1,8 +1,8 @@
 Name:           perl-String-Formatter
-Version:        1.234
-Release:        4%{?dist}
+Version:        1.235
+Release:        1%{?dist}
 Summary:        Build sprintf-like functions of your own
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://metacpan.org/release/String-Formatter
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/String-Formatter-%{version}.tar.gz
 BuildArch:      noarch
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.235-1
+- 1.235 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.234-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

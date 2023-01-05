@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.22%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.23%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        GPLv3 with exceptions or LGPLv2 with exceptions
@@ -251,6 +251,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.23.alpha4
+- Rebuild (mingw-icu)
+
 * Tue Oct 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.212.0-0.22.alpha4
 - Patch for offlineasm to support ruby 3.2 wrt Object#=~ removal
 

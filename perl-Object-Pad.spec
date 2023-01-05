@@ -4,7 +4,7 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.74
+Version:        0.77
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,9 +61,11 @@ BuildRequires:  perl(utf8)
 # A cycle: perl-Future-AsyncAwait → perl-Object-Pad
 # A cycle: perl-Syntax-Keyword-Dynamically → perl-Object-Pad
 # Optional tests:
-BuildRequires:  perl(Future)
+%define future_min_ver 0.49
+BuildRequires:  perl(Future) >= %{future_min_ver}
 %define future_asyncawait_min_ver 0.45
 BuildRequires:  perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
+# Some tests are skipped with Future::XS < 0.08
 BuildRequires:  perl(Moo)
 %define syntax_keyword_dynamically_min_ver 0.04
 BuildRequires:  perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
@@ -89,6 +91,7 @@ Requires:       perl(XS::Parse::Sublike) >= %{xs_parse_sublike_min_ver}
 # The ABI range is checked at run time against ClassHookFuncs.ver
 # field by ObjectPad_register_field_attribute().
 Provides:       perl(:Object_Pad_ABI) = 0.57
+Provides:       perl(:Object_Pad_ABI) = 0.76
 
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((91rt141483Role|ARole|BaseClass)\\)
@@ -110,7 +113,7 @@ Requires:       perl(Object::Pad::ExtensionBuilder)
 Requires:       perl(strict)
 Requires:       perl(Test::More) >= %{test_more_min_ver}
 %if %{with perl_Object_Pad_enables_optional_test} && !%{defined perl_bootstrap}
-Requires:       perl(Future)
+Requires:       perl(Future) >= %{future_min_ver}
 Requires:       perl(Future::AsyncAwait) >= %{future_asyncawait_min_ver}
 Requires:       perl(Syntax::Keyword::Dynamically) >= %{syntax_keyword_dynamically_min_ver}
 Requires:       perl(Test::MemoryGrowth)
@@ -202,6 +205,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 0.77-1
+- 0.77 bump
+
 * Mon Dec 05 2022 Petr Pisar <ppisar@redhat.com> - 0.74-1
 - 0.74 bump
 

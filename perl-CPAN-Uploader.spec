@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Uploader
-Version:        0.103016
-Release:        4%{?dist}
+Version:        0.103017
+Release:        1%{?dist}
 Summary:        Upload things to the CPAN
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Uploader
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.103017-1
+- 0.103017 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.103016-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

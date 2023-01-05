@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           perl-Alien-autoconf
-Version:        0.18
+Version:        0.19
 Release:        1%{?dist}
 Summary:        Find autoconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,5 +107,8 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 0.19-1
+- 0.19 bump
+
 * Fri Oct 14 2022 Petr Pisar <ppisar@redhat.com> 0.18-1
 - 0.18 version packaged

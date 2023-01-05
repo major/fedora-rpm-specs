@@ -14,8 +14,8 @@
 %bcond_with check
 
 Name: cp2k
-Version: 9.1
-Release: 4%{?dist}
+Version: 2023.1
+Release: 1%{?dist}
 Summary: Ab Initio Molecular Dynamics
 License: GPLv2+
 URL: http://cp2k.org/
@@ -23,7 +23,7 @@ URL: http://cp2k.org/
 Source0: https://github.com/cp2k/cp2k/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: https://github.com/cp2k/dbcsr/archive/%{dbcsr_commit}/dbcsr-%{dbcsr_shortcommit}.tar.gz
 %else
-Source0: https://github.com/cp2k/cp2k/releases/download/v%{version}.0/cp2k-%{version}.tar.bz2
+Source0: https://github.com/cp2k/cp2k/releases/download/v%{version}/cp2k-%{version}.tar.bz2
 %endif
 Source4: cp2k-snapshot.sh
 # Fedora patches
@@ -255,6 +255,9 @@ done
 %{_libdir}/mpich/lib/cp2k/lib*.so
 
 %changelog
+* Tue Jan 03 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.1-1
+- update to 2023.1 (#2105463)
+
 * Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 9.1-4
 - Rebuild for new libxc
 

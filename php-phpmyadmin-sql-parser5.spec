@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpmyadmin-sql-parser5
 #
-# Copyright (c) 2015-2021 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    8ab99cd0007d880f49f5aa1807033dbfa21b1cb5
+%global gh_commit    63f2f77847586864a661ef009ae687dbdda0a9f1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 #global gh_date      20150820
@@ -19,8 +19,8 @@
 %global major        5
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.5.0
-Release:        3%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        5.6.0
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A validating SQL lexer and parser with a focus on MySQL dialect
 
 License:        GPLv2+
@@ -152,7 +152,7 @@ EOF
 sed -e 's:%{_datadir}/php:%{buildroot}%{_datadir}/php:' -i bin/*query
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit9} --no-coverage --verbose || ret=1
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 5.6.0-1
+- update to 5.6.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

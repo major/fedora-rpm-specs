@@ -3,7 +3,7 @@
 Summary: Converts documents in Markdown syntax to HTML
 Name: rubygem-%{gem_name}
 Version: 2.2.0.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: ASL 1.1
 URL: http://github.com/rtomayko/rdiscount
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -114,6 +114,9 @@ popd
 
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 2.2.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0.2-8
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

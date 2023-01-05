@@ -1,13 +1,13 @@
 %global basever 7.3
 %global pyversion 3.8
 Name:           pypy%{pyversion}
-Version:        %{basever}.9
+Version:        %{basever}.11
 # The Python version is included in Release to workaround debuginfo conflicts
 # and make pypy versions with otherwise the same version-release always sorted
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 5
+%global baserelease 1
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -178,22 +178,6 @@ Patch9: 009-add-libxcrypt-support.patch
 # /usr/share/python-wheels
 # We conditionally apply this, but we use autosetup, so we use Source here
 Source189: 189-use-rpm-wheels.patch
-
-# 00382 #
-# CVE-2015-20107
-#
-# Make mailcap refuse to match unsafe filenames/types/params (GH-91993)
-#
-# Upstream: https://github.com/python/cpython/issues/68966
-#
-# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2075390
-Patch382: 382-cve-2015-20107.patch
-
-# 00386 #
-# CVE-2021-28861: open redirection in http.server
-# Upstream: https://foss.heptapod.net/pypy/pypy/-/commit/e42be9b593f1d5e83a947f73058b919395398424.patch
-# Tracker bug: https://bugzilla.redhat.com/show_bug.cgi?id=2120642
-Patch386: 386-cve-2021-28861.patch
 
 # Build-time requirements:
 
@@ -902,6 +886,9 @@ CheckPyPy pypy3-c
 
 
 %changelog
+* Fri Dec 30 2022 Miro Hrončok <mhroncok@redhat.com> - 7.3.11-1.3.8
+- Update to 7.3.11
+
 * Mon Oct 10 2022 Lumír Balhar <lbalhar@redhat.com> - 7.3.9-5.3.8
 - Backport fix for CVE-2021-28861
 Resolves: rhbz#2120788

@@ -3,7 +3,7 @@
 
 Name:           mingw-binutils
 Version:        2.39
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -131,6 +131,9 @@ Patch20: binutils-gas-dwarf-skip-empty-functions.patch
 
 # Backport patch for CVE-2022-38533
 Patch21: CVE-2022-38533.patch
+
+# Backport patch for CVE-2022-4285
+Patch22: CVE-2022-4285.patch
 
 
 BuildRequires:  make
@@ -464,6 +467,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 2.39-3
+- Backport patch for CVE-2022-4285
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 2.39-2
 - Backport patch for CVE-2022-38533
 

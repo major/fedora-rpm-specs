@@ -3,13 +3,13 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.23.82
+Version:	2.25.0
 Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPLv3
 URL:		https://lilypond.org
-Source0:	https://lilypond.org/download/sources/v2.23/lilypond-%{version}.tar.gz
+Source0:	https://lilypond.org/download/sources/v2.25/lilypond-%{version}.tar.gz
 Source1:        century-schoolbook-l.metainfo.xml
 Patch0:		lilypond-2.21.2-gcc44-relocate.patch
 
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.0-1
+- 2.25.0
+
 * Mon Nov 28 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.23.82-1
 - 2.23.82
 

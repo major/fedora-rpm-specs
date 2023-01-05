@@ -1,8 +1,8 @@
 %global pypi_name cle
 
 Name:           python-%{pypi_name}
-Version:        9.0.9572
-Release:        4%{?dist}
+Version:        9.2.32
+Release:        1%{?dist}
 Summary:        Python interface for analyzing binary formats
 
 License:        BSD
@@ -15,6 +15,7 @@ CLE loads binaries and their associated libraries, resolves imports
 and provides an abstraction of process memory the same way as if it was
 loader by the OS's loader.
 
+
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 
@@ -22,28 +23,42 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
+
 %description -n python3-%{pypi_name}
 CLE loads binaries and their associated libraries, resolves imports
 and provides an abstraction of process memory the same way as if it was
 loader by the OS's loader.
 
+
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-rm -rf %{pypi_name}.egg-info/
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{pypi_name}
+%pyproject_save_files cle
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/cle/
+
 
 %changelog
+* Tue Jan 03 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.32-1
+- Update to 9.2.32 rhbz#1999782
+
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.31-1
+- Update to 9.2.31
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.9572-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

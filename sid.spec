@@ -14,10 +14,10 @@ Name: sid
 Epoch: %{rhel}
 %endif
 Version: 0.0.5
-Release: 5%{?scmsnap:.%{scmsnap}}%{?dist}
+Release: 6%{?scmsnap:.%{scmsnap}}%{?dist}
 Summary: Storage Instantiation Daemon (SID)
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://sid-project.github.io
 %if %{defined commit}
 Source0: https://github.com/sid-project/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -102,7 +102,7 @@ rm -f %{buildroot}/%{_libdir}/sid/modules/ucmd/type/*.{a,la}
 
 %package base-libs
 Summary: Libraries for Storage Instantiation Daemon (SID) base
-License: GPLv2+
+License: GPL-2.0-or-later
 %description base-libs
 This package contains shared libraries with low-level functionality needed for
 Storage Instantiation Daemon (SID), its modules and related tools. Currently,
@@ -121,7 +121,7 @@ handling and other helper functions.
 
 %package base-libs-devel
 Summary: Development files for Storage Instantiation Daemon (SID) base
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-base-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description base-libs-devel
 This package contains development files for Storage Instantiation Daemon (SID)
@@ -150,7 +150,7 @@ base libraries.
 
 %package log-libs
 Summary: Libraries for Storage Instantiation Daemon (SID) logging
-License: GPLv2+
+License: GPL-2.0-or-later
 %description log-libs
 This package contains shared libraries with logging support needed for Storage
 Instantiation daemon (SID), its modules and related tools.
@@ -167,7 +167,7 @@ Instantiation daemon (SID), its modules and related tools.
 
 %package log-libs-devel
 Summary: Development files for Storage Instantiation Daemon (SID) logging
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-log-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description log-libs-devel
 This package contains development files for Storage Instantiation Daemon (SID)
@@ -188,7 +188,7 @@ logging libraries.
 
 %package iface-libs
 Summary: Libraries for Storage Instantiation Daemon (SID) interfaces
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-base-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description iface-libs
 This package contains shared libraries to support interfaces used in Storage
@@ -207,7 +207,7 @@ Instantiation Daemon (SID), its modules and related tools.
 
 %package iface-libs-devel
 Summary: Development files for Storage Instantiation Daemon (SID) interfaces
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-iface-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description iface-libs-devel
 This package contains development files for Storage Instantiation Daemon (SID)
@@ -230,7 +230,7 @@ interface libraries.
 
 %package resource-libs
 Summary: Libraries for Storage Instantiation Daemon (SID) resources
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-base-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires: %{name}-log-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires: %{name}-iface-libs%{?_isa} = %{?epoch}:%{version}-%{release}
@@ -255,7 +255,7 @@ control, bridging SID core and udev and creating an instance of SID as a whole.
 
 %package resource-libs-devel
 Summary: Development files for Storage Instantiation Daemon (SID) resources
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: %{name}-resource-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 %description resource-libs-devel
 This package contains development files for Storage Instantiation Daemon (SID)
@@ -388,6 +388,9 @@ Daemon (SID).
 
 
 %changelog
+* Tue Jan 03 2023 Peter Rajnoha <prajnoha@redhat.com> - 0.0.5-6
+- Use SPDX values for License fields in RPM spec file.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

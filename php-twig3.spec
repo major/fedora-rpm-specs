@@ -2,7 +2,7 @@
 #
 # Fedora spec file for php-twig3
 #
-# Copyright (c) 2014-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2014-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    c38fd6b0b7f370c198db91ffd02e23b517426b58
+%global github_commit    3ffcf4b7d890770466da3b2666f82ac054e7ec72
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -27,11 +27,11 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}%{major}
-Version:       3.4.3
+Version:       3.5.0
 Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://twig.symfony.com
 Source0:       %{name}-%{version}-%{github_short}.tgz
 Source1:       makesrc.sh
@@ -135,7 +135,7 @@ sed -e '/listener/d' phpunit.xml.dist > phpunit.xml
 
 RETURN_CODE=0
 : Upstream tests with SCLs if available
-for SCL in "php %{phpunit}" php74 php80 php81 php82; do
+for SCL in "php %{phpunit}" php80 php81 php82; do
     if which $SCL; then
         set $SCL
         $1 ${2:-%{_bindir}/phpunit9} \
@@ -155,6 +155,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+
 * Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 3.4.3-1
 - update to 3.4.3
 

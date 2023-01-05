@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:       gbrainy
-Version:    2.4.5
+Version:    2.4.6
 Epoch:      1
 Release:    1%{?dist}
 Summary:    A brain teaser game and trainer to keep your brain trained
@@ -47,8 +47,6 @@ for writing gbrainy applications.
 
 %prep
 %autosetup -p0
-sed -i -e 's!{exec_prefix}/lib!%{_libdir}!' data/gbrainy.pc.in
-echo "sed done $PWD"
 
 # use mcs instead of gmcs to compile, as recommended in below link
 # http://www.mono-project.com/docs/about-mono/languages/csharp/
@@ -88,9 +86,11 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/%{name}/%{name}.exe.config
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %files devel
-%{_libdir}/pkgconfig/gbrainy.pc
 
 %changelog
+* Tue Jan 03 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1:2.4.6-1
+- Update to 2.4.6 fixes rhbz#2157249
+
 * Wed Sep 07 2022 Filipe Rosset <rosset.filipe@gmail.com> - 1:2.4.5-1
 - Update to 2.4.5 remove upstreamed patch
 

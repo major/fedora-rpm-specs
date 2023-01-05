@@ -14,7 +14,7 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	%{gemver}
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPLv2 or Ruby
 URL:		http://cairographics.org/rcairo/
 %if 1
@@ -181,6 +181,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.8-2
 - Once kill test suite dependency for now
 

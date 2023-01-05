@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.34
-Release:       3%{?dist}
+Version:       1.36
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 # Other files:          MIT
 # demo/mresolv:         GPL+ or Artistic
@@ -8,13 +8,18 @@ Summary:       DNS resolver modules for Perl
 # contrib/find_zonecut: GPL+ or Artistic
 # contrib/check_soa:    GPL+ or Artistic
 License:       (GPL+ or Artistic) and MIT
-URL:           https://metacpan.org/release/Net-DNS
-Source0:       https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-%{version}.tar.gz
+URL:           https://www.net-dns.org
+Source0:       https://www.net-dns.org/download/Net-DNS-%{version}.tar.gz
+Source1:       https://www.net-dns.org/download/Net-DNS-%{version}.tar.gz.asc
+Source2:       http://keys.openpgp.org/pks/lookup?op=get&search=0xE5F8F8212F77A498#/willem.nlnetlabs.nl
+
 BuildArch:     noarch
-# Build
+
+BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
+
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
 BuildRequires: perl(Config)
@@ -127,6 +132,8 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+
 %setup -q -n Net-DNS-%{version} 
 chmod -x demo/*
 perl -MConfig -i -pe 's{^#!/usr/local/bin/perl}{$Config{startperl}}' demo/*
@@ -184,6 +191,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Paul Wouters <paul.wouters@aiven.io - 1.36-1
+- Resolves: rhbz#2132181 perl-Net-DNS-1.36 is available
+- Add source download gpg verification
+- Update homepage / download URLS from CPAN to net-dns.org
+
 * Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.34-3
 - Fix provided packages in *tests package
 

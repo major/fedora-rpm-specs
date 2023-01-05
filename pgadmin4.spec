@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.17
+Version:        6.18
 Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -44,6 +44,14 @@ Patch3:         pgadmin4_flask22.patch
 Patch4:         pgadmin4_azure-mgmt-rdbms.patch
 # ??? FIXME Fix crash on None username, retest with 6.16
 Patch10:        pgadmin4_username.patch
+
+# Patch for building bundled mozjpeg
+%global mozjpeg_ver 4.1.1
+Source7:        https://github.com/mozilla/mozjpeg/archive/v%{mozjpeg_ver}/mozjpeg-%{mozjpeg_ver}.tar.gz
+Patch100:       mozjpeg.patch
+# Backport fix for CVE-2021-35065 for bundled glob-parent
+Patch101:       glob-parent-CVE-2021-35065.patch
+
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
@@ -102,7 +110,7 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
-
+Requires: python3dist(ua-parser) >= 0.15
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -166,7 +174,8 @@ Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
 
 
 %prep
-%autosetup -p1 -a1
+%setup -q -a1
+%autopatch -M99 -p1
 
 sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
 cp -a %{SOURCE2} .
@@ -174,6 +183,15 @@ cp -a %{SOURCE2} .
 # Use system optipng, remove bundled source code
 find .package-cache -name optipng.tar.gz -delete
 ln -s %{_bindir}/optipng $(readlink -f .package-cache/v6/npm-optipng-bin-*/node_modules/optipng-bin/vendor)/optipng
+
+# Update bundled mozjpeg
+mozjpeg_dir=$(readlink -f .package-cache/v6/npm-mozjpeg-*/node_modules/mozjpeg/)
+cp -a %SOURCE7 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
+%patch100 -p0 -d ${mozjpeg_dir}/lib
+
+# Patch glob-parent
+globparent_dir=$(readlink -f .package-cache/v6/npm-glob-parent-*/node_modules/glob-parent/)
+%patch101 -p0 -d ${globparent_dir}
 
 
 %build
@@ -247,6 +265,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.18-2
+- Backport fix for CVE-2021-35065 for bundled glob-parent
+
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.18-1
+- Update to 6.18
+- Update bundled mozjpeg (#2155769)
+
 * Thu Dec 08 2022 Sandro Mani <manisandro@gmail.com> - 6.17-2
 - Fix python-azure-mgmt-rdbms-10.2.0~b5+ compatibility
 

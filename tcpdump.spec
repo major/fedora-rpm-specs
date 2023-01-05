@@ -1,8 +1,10 @@
+%define tcpslice_dir tcpslice-1.6
+
 Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
-Version: 4.99.1
-Release: 8%{?dist}
+Version: 4.99.2
+Release: 1%{?dist}
 License: BSD with advertising
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -11,7 +13,7 @@ BuildRequires: automake openssl-devel libpcap-devel git-core gcc
 BuildRequires: systemd-rpm-macros
 
 Source0: http://www.tcpdump.org/release/tcpdump-%{version}.tar.gz
-Source1: ftp://ftp.ee.lbl.gov/tcpslice-1.5.tar.gz
+Source1: ftp://ftp.ee.lbl.gov/%{tcpslice_dir}.tar.gz
 Source2: http://www.tcpdump.org/release/tcpdump-%{version}.tar.gz.sig
 Source3: tcpdump-sysusers.conf
 
@@ -19,8 +21,6 @@ Patch0002:      0002-Use-getnameinfo-instead-of-gethostbyaddr.patch
 Patch0003:      0003-Drop-root-priviledges-before-opening-first-savefile-.patch
 Patch0007:      0007-Introduce-nn-option.patch
 Patch0009:      0009-Change-n-flag-to-nn-in-TESTonce.patch
-
-%define tcpslice_dir tcpslice-1.5
 
 %description
 Tcpdump is a command-line tool for monitoring network traffic.
@@ -82,6 +82,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Tue Jan 03 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.2-1
+- New version 4.99.2
+
 * Wed Aug 03 2022 Luca BRUNO <lucab@lucabruno.net> - 14:4.99.1-8
 - Simplify sysusers.d configuration fragment
 

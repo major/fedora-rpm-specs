@@ -18,6 +18,9 @@ Source1:        https://github.com/catalystneuro/lazy_ops/raw/407504d1c4b1447e95
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 %description %_description
 
 %package -n python3-lazy-ops

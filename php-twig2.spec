@@ -2,7 +2,7 @@
 #
 # Fedora spec file for php-twig2
 #
-# Copyright (c) 2014-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2014-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -14,7 +14,7 @@
 
 %global github_owner     twigphp
 %global github_name      Twig
-%global github_commit    ab402673db8746cb3a4c46f3869d6253699f614a
+%global github_commit    3e059001d6d597dd50ea7c74dd2464b4adea48d3
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  twig
@@ -25,11 +25,11 @@
 %global phpdir      %{_datadir}/php
 
 Name:          php-%{composer_project}2
-Version:       2.15.3
+Version:       2.15.4
 Release:       1%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://twig.symfony.com
 Source0:       %{name}-%{version}-%{github_short}.tgz
 Source1:       makesrc.sh
@@ -164,6 +164,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 2.15.4-1
+- update to 2.15.4
+
 * Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 2.15.3-1
 - update to 2.15.3
 

@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
 
@@ -12,6 +12,7 @@ Source3: GREP_COLORS
 Source4: grepconf.sh
 # upstream ticket 39445
 Patch0: grep-3.5-help-align.patch
+Patch1: grep-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: pcre2-devel
@@ -83,6 +84,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Tue Jan  3 2023 Florian Weimer <fweimer@redhat.com> - 3.8-2
+- Fix C99 compatibility issue in the configure script
+
 * Mon Sep  5 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 3.8-1
 - New version
   Resolves: rhbz#2123935

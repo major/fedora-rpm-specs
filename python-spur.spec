@@ -4,8 +4,8 @@
 %global desc Run commands and manipulate files locally or over SSH using the same interface.
 
 Name:           python-%{srcname}
-Version:        0.3.21
-Release:        14%{?dist}
+Version:        0.3.22
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
 
 
 %changelog
+* Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-1
+- Update to 0.3.22
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.21-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

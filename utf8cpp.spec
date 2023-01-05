@@ -1,11 +1,11 @@
 %undefine __cmake_in_source_build
 # This package only contains header files.
 %global debug_package %{nil}
-%global ftest_commit bf75576064fce2e07f52cd63a3e410f12358728b
+%global ftest_commit c4ad4af0946b73ce1a40cbc72205d15d196c7e06
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    3.2.2
+Version:    3.2.3
 Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    Boost
@@ -83,6 +83,9 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Tue Jan 03 2023 Dominik 'Rathann' Mierzejewski <dominik@greysector.net> - 3.2.3-1
+- update to 3.2.3 (#2157206)
+
 * Wed Dec 07 2022 Dominik 'Rathann' Mierzejewski <dominik@greysector.net> - 3.2.2-1
 - update to 3.2.2 (#2140879)
 

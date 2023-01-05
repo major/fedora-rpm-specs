@@ -1,6 +1,6 @@
 Name:           perl-Alien-ProtoBuf
 Version:        0.09
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Find Protocol Buffers library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-ProtoBuf
@@ -85,6 +85,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 0.09-19
+- Rebuild aginst protobuf-3.19.6 (bug #2152754)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

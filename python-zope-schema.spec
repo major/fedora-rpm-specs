@@ -2,7 +2,7 @@
 
 Summary: Zope 3 schemas
 Name: python-zope-schema
-Version: 7.0.0
+Version: 7.0.1
 Release: 1%{?dist}
 License: ZPLv2.1
 BuildArch: noarch
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
 
 
 %changelog
+* Tue Jan 03 2023 Lumír Balhar <lbalhar@redhat.com> - 7.0.1-1
+- Update to 7.0.1 (rhbz#2157742)
+
 * Mon Jan 02 2023 Lumír Balhar <lbalhar@redhat.com> - 7.0.0-1
 - Update to 7.0.0 (rhbz#2157265)
 

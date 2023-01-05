@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-cs-fixer
 #
-# Copyright (c) 2016-2022 Remi Collet
+# Copyright (c) 2016-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,14 +10,14 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    78d2251dd86b49c609a0fd37c20dcf0a00aea5a7
+%global gh_commit    3952f08a81bd3b1b15e11c3de0b6bf037faa8496
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date      20150717
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.13.1
+Version:        3.13.2
 Release:        1%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -56,19 +56,19 @@ Provides:       bundled(php-sebastian-diff) = 4.0.4
 Provides:       bundled(php-composer-pcre) = 3.1.0
 Provides:       bundled(php-composer-semver) = 3.3.2
 Provides:       bundled(php-composer-xdebug-handler) = 3.0.3
-Provides:       bundled(php-doctrine-annotations) = 1.14.1
+Provides:       bundled(php-doctrine-annotations) = 1.14.2
 Provides:       bundled(php-doctrine-deprecations) = v1.0.0
 Provides:       bundled(php-doctrine-lexer) = 2.1.0
 Provides:       bundled(php-psr-cache) = 1.0.1
 Provides:       bundled(php-psr-container) = 1.1.2
 Provides:       bundled(php-psr-event-dispatcher) = 1.0.0
 Provides:       bundled(php-psr-log) = 1.1.4
-Provides:       bundled(php-symfony-console) = v5.4.16
+Provides:       bundled(php-symfony-console) = v5.4.17
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-event-dispatcher) = v5.4.9
+Provides:       bundled(php-symfony-event-dispatcher) = v5.4.17
 Provides:       bundled(php-symfony-event-dispatcher-contracts) = v2.5.2
 Provides:       bundled(php-symfony-filesystem) = v5.4.13
-Provides:       bundled(php-symfony-finder) = v5.4.11
+Provides:       bundled(php-symfony-finder) = v5.4.17
 Provides:       bundled(php-symfony-options-resolver) = v5.4.11
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
@@ -80,7 +80,7 @@ Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
 Provides:       bundled(php-symfony-process) = v5.4.11
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
 Provides:       bundled(php-symfony-stopwatch) = v5.4.13
-Provides:       bundled(php-symfony-string) = v5.4.15
+Provides:       bundled(php-symfony-string) = v5.4.17
 
 Provides:       php-composer(friendsofphp/php-cs-fixer) = %{version}
 
@@ -153,6 +153,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 3.13.2-1
+- update to 3.13.2
+
 * Mon Dec 19 2022 Remi Collet <remi@remirepo.net> - 3.13.1-1
 - update to 3.13.1
 

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-php-laminas-server
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    11fe2af8dd3c2a350f903b2f2d0536ec3842a7f4
+%global gh_commit    7f4862913ab95ea5decd08e6c3717edbb398fde8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-server
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.14.0
+Version:        2.15.0
 Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -166,6 +166,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 2.15.0-1
+- update to 2.15.0
+
 * Tue Dec 13 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
 - update to 2.14.0
 - raise dependency on laminas/code 4.7.1

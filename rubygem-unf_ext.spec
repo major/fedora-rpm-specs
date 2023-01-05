@@ -3,7 +3,7 @@
 Summary:	Unicode Normalization Form support library for CRuby
 Name:		rubygem-%{gem_name}
 Version:	0.0.8.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 # LICENSE.txt
 License:	MIT
 URL:		http://github.com/knu/ruby-unf_ext
@@ -95,6 +95,9 @@ ruby \
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.8.2-4
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.8.2-3
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

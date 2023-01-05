@@ -9,7 +9,7 @@
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.31
+Version: 1.0.32
 Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
@@ -51,6 +51,10 @@ mv third_party/testsuite{-%{ts_commit},}
 %patch0 -p1 -b .orig
 %patch1 -p1 -b .32bit
 pushd test
+# https://github.com/WebAssembly/wabt/issues/2118
+%ifarch aarch64
+rm spec/relaxed-simd/relaxed_madd_nmadd.txt
+%endif
 # https://github.com/WebAssembly/wabt/issues/1044
 %ifarch i686
 rm spec/float_exprs.txt
@@ -68,13 +72,17 @@ rm wasm2c/spec/local_tee.txt
 rm wasm2c/spec/select.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/1045
+# https://github.com/WebAssembly/wabt/issues/2118
 %ifarch ppc64le
 rm spec/conversions.txt
+rm spec/relaxed-simd/relaxed_madd_nmadd.txt
 rm spec/simd_conversions.txt
 rm wasm2c/spec/conversions.txt
 %endif
 # https://github.com/WebAssembly/wabt/issues/2070
+# https://github.com/WebAssembly/wabt/issues/2118
 %ifarch s390x
+rm spec/relaxed-simd/relaxed_madd_nmadd.txt
 rm wasm2c/spec/bulk.txt
 rm wasm2c/spec/memory_copy.txt
 rm wasm2c/spec/memory_fill.txt
@@ -130,6 +138,10 @@ test/run-tests.py -v --bindir %{_vpath_builddir} --timeout=240 %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Tue Jan 03 2023 Dominik Mierzejewski <dominik@greysector.net> 1.0.32-1
+- update to 1.0.32 (#2156897)
+- skip one new failing test on aarch64, ppc64le and s390x for now
+
 * Fri Dec 09 2022 Dominik Mierzejewski <dominik@greysector.net> 1.0.31-1
 - update to 1.0.31 (#2143772)
 - fix build on 32-bit

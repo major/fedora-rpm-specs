@@ -5,7 +5,7 @@
 
 Name:           kpmcore
 Version:        22.12.0
-Release:        %autorelease
+Release:        1%{?dist}
 Summary:        Library for managing partitions by KDE programs
 License:        GPLv3+
 URL:            https://github.com/KDE/kpmcore
@@ -89,4 +89,7 @@ developing applications that use %{name}
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 %autochangelog

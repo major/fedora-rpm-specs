@@ -9,7 +9,7 @@
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -227,6 +227,9 @@ popd
 
 
 %changelog
+* Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

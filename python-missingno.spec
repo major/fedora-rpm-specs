@@ -9,12 +9,15 @@ that allows you to get a quick visual summary of the completeness
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Missing data visualization module for Python
 License:        MIT
 URL:            https://github.com/ResidentMario/missingno
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %?python_enable_dependency_generator
 
@@ -73,6 +76,9 @@ export PYTHONPATH=".:$RPM_BUILD_ROOT/%{python3_sitelib}"
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.0-4
+- Drop support for i686
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

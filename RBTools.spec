@@ -1,6 +1,6 @@
 Name:           RBTools
 Version:        4.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for use with ReviewBoard
 
 License:        MIT
@@ -11,43 +11,23 @@ Patch:          build_release.patch
 
 BuildArch:      noarch
 
-%if 0%{?rhel} == 7
-BuildRequires:  python36-devel
-BuildRequires:  python36-setuptools
-BuildRequires:  python36-pytest-env
-Requires:       python36-colorama
-Requires:       python36-setuptools
-Requires:       python36-simplejson
-Requires:       python36-six >= 1.8.0
-Requires:       python36-tqdm
-Requires:       python36-texttable
-%else
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-colorama
-Requires:       python3-setuptools
-Requires:       python3-simplejson
-Requires:       python3-six >= 1.8.0
-Requires:       python3-tqdm
-Requires:       python3-texttable
 # Test dependencies:
 BuildRequires:  cvs
 BuildRequires:  git-core
 BuildRequires:  mercurial
-BuildRequires:  python3-pytest-env
-BuildRequires:  python3-kgb
-BuildRequires:  python3-hglib
 BuildRequires:  subversion
-%endif
 
-### Patches ###
+BuildRequires:  python3-pytest-env
+BuildRequires:  python3-kgb >= 7.1.1
+BuildRequires:  pytest
+BuildRequires:  python3-pytest-env
 
-
-# Upstream
 
 %description
 RBTools provides client tools for interacting with a ReviewBoard
 code-review server.
+
 
 %prep
 %autosetup -n rbtools-release-%{version}
@@ -76,6 +56,7 @@ git config --global user.name "Your Name"
 %install
 %pyproject_install
 
+%pyproject_save_files rbtools
 
 # Install bash and zsh completion scripts
 install -d -m 755 %{buildroot}%{_sysconfdir}/bash_completion.d/
@@ -87,23 +68,29 @@ cp rbtools/commands/conf/_rbt-zsh-completion \
    %{buildroot}%{_datarootdir}/zsh/site-functions/_rbt
 
 
-%files
+%files -f %{pyproject_files}
 %doc AUTHORS NEWS README.md
 %{_bindir}/rbt
 %{_sysconfdir}/bash_completion.d/
 %{_datarootdir}/zsh/site-functions/_rbt
-%{python3_sitelib}/rbtools/
-%{python3_sitelib}/%{name}-%{version}.dist-info/
+
 
 %changelog
-* Mon Jan 02 2023 Jonathan Wright - 4.0-1
+* Tue Jan 03 2023 Jonathan Wright <jonathan@almalinux.org> - 4.0-3
+- Modernize spec file
+
+* Tue Jan 03 2023 Jonathan Wright <jonathan@almalinux.org> - 4.0-2
+- Remove unnecessary BR on python3-hglib
+- Fix emails in changelog for 3.1.1-1 through 4.0-1
+
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 4.0-1
 - Update to 4.0
 
-* Mon Jan 02 2023 Jonathan Wright - 3.1.2-1
+* Mon Jan 02 2023 Jonathan Wright <jonathan@almalinux.org> - 3.1.2-1
 - Update to 3.1.2
 - Fix for python 3.11
 
-* Tue Aug 02 2022 Jonathan Wright - 3.1.1-1
+* Tue Aug 02 2022 Jonathan Wright <jonathan@almalinux.org> - 3.1.1-1
 - Update to 3.1.1 rhbz#2103563
 - modernize spec
 

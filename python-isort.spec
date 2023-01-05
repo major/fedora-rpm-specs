@@ -2,7 +2,7 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            5.11.3
+Version:            5.11.4
 Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
@@ -57,6 +57,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.11.4-1
+- 5.11.4
+
 * Mon Dec 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.11.3-1
 - 5.11.3
 

@@ -7,6 +7,12 @@ Summary:        Build great CLIs; easy to code; based on Python type hints
 License:        MIT
 URL:            https://typer.tiangolo.com/
 Source0:        https://github.com/tiangolo/typer/archive/%{version}/typer-%{version}.tar.gz
+
+# Allow rich 13.x
+# https://github.com/tiangolo/typer/pull/524
+# https://bugzilla.redhat.com/show_bug.cgi?id=2157866
+Patch:          https://github.com/tiangolo/typer/pull/524.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

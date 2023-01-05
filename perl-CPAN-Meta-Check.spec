@@ -7,9 +7,9 @@
 
 Name:		perl-CPAN-Meta-Check
 Summary:	Verify requirements in a CPAN::Meta object
-Version:	0.014
-Release:	22%{?dist}
-License:	GPL+ or Artistic
+Version:	0.017
+Release:	1%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-Check
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Meta-Check-%{version}.tar.gz
 BuildArch:	noarch
@@ -32,7 +32,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(CPAN::Meta) >= 2.120920
 BuildRequires:	perl(Env)
 BuildRequires:	perl(lib)
-BuildRequires:	perl(Test::Deep)
+BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Test::More) >= 0.88
 %if %{with perl_CPAN_Meta_Check_enables_extra_test} && !%{defined perl_bootstrap}
 # Break a build cycle: perl-Pod-Coverage-TrustPod → perl-Pod-Eventual
@@ -79,6 +79,15 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/CPAN::Meta::Check.3*
 
 %changelog
+* Tue Jan  3 2023 Paul Howarth <paul@city-fan.org> - 0.017-1
+- Update to 0.017
+  - Use Module::Metadata for more accurate testing
+
+* Tue Jan  3 2023 Paul Howarth <paul@city-fan.org> - 0.015-1
+- Update to 0.015
+  - Drop Test::Deep prereq
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           kde-partitionmanager
 Version:        22.12.0
-Release:        %autorelease
+Release:        1%{?dist}
 Summary:        KDE Partition Manager
 
 License:        GPLv3+
@@ -92,4 +92,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 %autochangelog

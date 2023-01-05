@@ -1,46 +1,17 @@
 %bcond_without tests
 
-%global _description %{expand:
-Pingouin is an open-source statistical package written in Python 3 and based on
-Pandas and NumPy.
-
-It provides easy-to-grasp functions for computing several statistical
-functions:
-
-- ANOVAs: one- and two-ways, repeated measures, mixed, ancova
-- Post-hocs tests and pairwise comparisons
-- Robust correlations
-- Partial correlation, repeated measures correlation and intraclass correlation
-- Bayes Factor
-- Tests for sphericity, normality and homoscedasticity
-- Effect sizes (Cohen's d, Hedges'g, AUC, Glass delta, eta-square...)
-- Parametric/bootstrapped confidence intervals around an effect size or a
-  correlation coefficient
-- Circular statistics
-- Linear/logistic regression and mediation analysis
-
-Pingouin is designed for users who want simple yet exhaustive statistical
-functions.}
-
 Name:           python-pingouin
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Statistical package in Python based on Pandas
 
-# Documentation pulls in bootstrap, bootswatch, jquery which are MIT
-License:        GPLv3 and MIT
+License:        GPL-3.0-only
 URL:            https://pingouin-stats.org/
 # PyPI tar does not contain docs and tests
 Source0:        https://github.com/raphaelvallat/pingouin/archive/v%{version}/pingouin-%{version}.tar.gz
 
-# Use scikit-learn>=1.1.2
-# https://github.com/raphaelvallat/pingouin/pull/300
-#
-# Rebased on 0.5.2.
-Patch:          pingouin-0.5.2-scikit-learn-1.1.2.patch
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
@@ -53,6 +24,35 @@ BuildRequires:  python3-devel
 # Since the package still contains no compiled machine code, we still have no
 # debuginfo.
 %global debug_package %{nil}
+
+%global _description %{expand:
+Pingouin is an open-source statistical package written in Python 3 and based
+mostly on Pandas and NumPy. Some of its main features are listed below. For a
+full list of available functions, please refer to the API documentation.
+
+  1. ANOVAs: N-ways, repeated measures, mixed, ancova
+  2. Pairwise post-hocs tests (parametric and non-parametric) and pairwise
+     correlations
+  3. Robust, partial, distance and repeated measures correlations
+  4. Linear/logistic regression and mediation analysis
+  5. Bayes Factors
+  6. Multivariate tests
+  7. Reliability and consistency
+  8. Effect sizes and power analysis
+  9. Parametric/bootstrapped confidence intervals around an effect size or a
+     correlation coefficient
+ 10. Circular statistics
+ 11. Chi-squared tests
+ 12. Plotting: Bland-Altman plot, Q-Q plot, paired plot, robust correlation…
+
+Pingouin is designed for users who want simple yet exhaustive statistical
+functions.
+
+For example, the ttest_ind function of SciPy returns only the T-value and the
+p-value. By contrast, the ttest function of Pingouin returns the T-value, the
+p-value, the degrees of freedom, the effect size (Cohen’s d), the 95%
+confidence intervals of the difference in means, the statistical power and the
+Bayes Factor (BF10) of the test.}
 
 %description %_description
 
@@ -70,11 +70,11 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n pingouin-%{version} -p1
-%if %{with tests}
-# Only required and works in TRAVIS, so not needed here
-sed -r -i 's/^(pytest-travis-fold)$/# \1/' requirements-test.txt
-%endif
+%autosetup -n pingouin-%{version}
+# Version was upper-bounded in 2223ca5a89c28511dc54101ed0b9501425fcca47; this
+# is possibly a “Temp fix for bug in plot_paired.” Anyway, we cannot respect
+# the version bound.
+sed -r -i 's/(numpy)<.*/\1/' requirements-test.txt
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:requirements-test.txt}

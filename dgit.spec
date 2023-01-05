@@ -1,5 +1,5 @@
 Name:           dgit
-Version:        10.1
+Version:        10.4
 Release:        1%{?dist}
 Summary:        Integration between git and Debian-style archives
 License:        GPLv3+
@@ -61,6 +61,9 @@ make install DESTDIR="%{buildroot}" \
 %license debian/copyright
 
 %changelog
+* Tue Jan 03 2023 Filipe Rosset <rosset.filipe@gmail.com> - 10.4-1
+- Update to 10.4 fixes rhbz#2152459
+
 * Tue Nov 15 2022 Filipe Rosset <rosset.filipe@gmail.com> - 10.1-1
 - Update to 10.1 fixes rhbz#2142228
 

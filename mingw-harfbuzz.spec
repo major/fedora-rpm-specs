@@ -2,7 +2,7 @@
 
 Name:           mingw-harfbuzz
 Version:        6.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
 License:        MIT
@@ -145,6 +145,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.0.0-2
+- Rebuild (mingw-icu)
+
 * Sat Dec 17 2022 Sandro Mani <manisandro@gmail.com> - 6.0.0-1
 - Update to 6.0.0
 

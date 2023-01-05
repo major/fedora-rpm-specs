@@ -197,7 +197,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files -f %{name}.lang
 %doc AUTHORS.txt
 %attr(0755, root, root) %{_bindir}/*
-%{_libdir}/*
+%{_libdir}/kicad/
+%{_libdir}/libkicad_3dsg.so
+%{_libdir}/libkicad_3dsg.so.2.0.0
+%{python3_sitearch}/_pcbnew.so
+%pycached %{python3_sitearch}/pcbnew.py
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*.*

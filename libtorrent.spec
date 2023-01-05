@@ -1,10 +1,11 @@
 Name:          libtorrent
 License:       GPLv2+
 Version:       0.13.8
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       BitTorrent library with a focus on high performance & good code
 URL:           https://github.com/rakshasa/libtorrent/
 Source0:       http://rtorrent.net/downloads/libtorrent-%{version}.tar.gz
+Patch0:        libtorrent-configure-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -33,7 +34,7 @@ Header and library definition files for developing applications
 with the libtorrent libraries.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 # Shipped generated versions of autocrap scripts have a hard dependency on an
@@ -59,6 +60,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Tue Jan 03 2023 Florian Weimer <fweimer@redhat.com> - 0.13.8-10
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

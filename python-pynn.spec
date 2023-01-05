@@ -54,9 +54,14 @@ Source0:        %pypi_source PyNN
 # Random123 does not build on these, so neither can NEURON, so nothing that
 # depends on NEURON supports them either
 # https://github.com/neuronsimulator/nrn/issues/114
+#
 # python-pyedflib does not support s390x, so the complete dep tree needs to also exclude it
 # https://src.fedoraproject.org/rpms/python-pyedflib/blob/rawhide/f/python-pyedflib.spec
-ExcludeArch:    mips64r2 mips32r2 s390x
+#
+# python-pynn: Build hangs on i686
+# https://bugzilla.redhat.com/show_bug.cgi?id=2155635
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
 
 # Disable pynn's way of building extensions
 # We do it ourselves

@@ -7,6 +7,8 @@ URL:            https://github.com/%{name}/%{name}
 Summary:        LZ4 Bindings for Python
 License:        BSD
 Source:         https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
+# Reduce setuptools_scm dep to >= 6
+Patch:          python-lz4-deps.patch
 
 BuildRequires:  lz4-devel
 BuildRequires:  python3-devel

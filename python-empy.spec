@@ -3,13 +3,14 @@
 
 Name:           python-empy
 Version:        3.3.4a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 License:        LGPLv2+
 URL:            http://www.alcyone.com/software/empy/
 Source:         http://www.alcyone.com/software/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
 
 %description
 EmPy is a system for embedding Python expressions and statements in template
@@ -41,6 +42,9 @@ text; it takes an EmPy source file, processes it, and produces output.
 
 
 %changelog
+* Tue Jan 03 2023 Filipe Rosset <rosset.filipe@gmail.com> - 3.3.4a-2
+- added BR for python3-setuptools for Python 3.12 fixes rhbz#2155021
+
 * Fri Aug 19 2022 Filipe Rosset <rosset.filipe@gmail.com> - 3.3.4a-1
 - Update to 3.3.4a
 

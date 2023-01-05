@@ -2,10 +2,10 @@
 
 Name:           udis86
 Version:        1.7.2
-Release:        20.%{gitrev}%{?dist}
+Release:        21.%{gitrev}%{?dist}
 Summary:        A disassembler library for x86 and x86-64
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/vmt/udis86
 Source0:        %{name}-%{gitrev}.tar.xz
 Patch0:         udis86-ud_opcode.patch
@@ -13,7 +13,7 @@ Patch1:         udis86-symresolve.patch
 Patch2:         udis86-ax_prog_sphinx_version.patch
 Patch3:         udis86-docs_manual_Makefile.am.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  libtool
 BuildRequires:  python
 BuildRequires:  yasm
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Tue Jan 03 2023 David Cantrell <dcantrell@redhat.com> - 1.7.2-21.56ff6c8
+- Change License to BSD-2-Clause (SPDX expression)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-20.56ff6c8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

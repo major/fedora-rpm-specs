@@ -1,11 +1,11 @@
 Name:           imagej
-Version:        1.53r
-Release:        5%{?dist}
+Version:        1.53v
+Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 
 License:        Public Domain
-URL:            https://rsbweb.nih.gov/ij/index.html
-Source0:        https://rsbweb.nih.gov/ij/download/src/ij%(echo '%{version}' | tr -d .)-src.zip
+URL:            https://imagej.net/ij/index.html
+Source0:        https://imagej.net/ij/download/src/ij%(echo '%{version}' | tr -d .)-src.zip
 Source1:        imagej.desktop
 Source2:        https://rsbweb.nih.gov/ij/macros/macros.zip
 Source3:        https://rsb.info.nih.gov/ij/download/linux/unix-script.txt
@@ -119,6 +119,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Thu Dec 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.53v-1
+- Update to 1.53v (close RHBZ#2121261)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.53r-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

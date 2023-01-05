@@ -10,14 +10,13 @@ The maps can be used by interactive applications or to create data analysis
 graphs.}
 
 Name:           python-%{pypi_name}
-Version:        0.14.5
-Release:        5%{?dist}
+Version:        0.14.7
+Release:        1%{?dist}
 Summary:        GeoTiler is a library to create map using tiles from a map provider
 
 License:        GPLv3+
 URL:            https://github.com/wrobell/%{pypi_name}
 Source0:        %{pypi_source %{pypi_name}}
-Patch0:         0001-Change-dependencies.patch
 
 # Upstream for modestmaps-py was asked to clarify the exact BSD license
 # text via https://github.com/stamen/modestmaps-py/issues/19 and by direct
@@ -72,7 +71,7 @@ Summary:        %{summary}
 Documentation for %{name}.
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 rm -fv poetry.lock
@@ -125,6 +124,10 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %doc _latex/geotiler.pdf
 
 %changelog
+* Tue Jan 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.14.7-1
+- Update to the latest upstream's release
+- Remove patch
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

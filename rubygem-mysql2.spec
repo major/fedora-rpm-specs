@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -195,6 +195,9 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 0.5.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Dec 16 2022 Jun Aruga <jaruga@redhat.com> - 0.5.4-3
 - Fix the broken SSL tests with MariaDB 10.5.18.
   Resolves: rhbz#2144488

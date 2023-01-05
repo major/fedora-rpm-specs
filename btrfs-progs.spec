@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.1
-Release:        2%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPLv2
@@ -11,10 +11,6 @@ URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
 Source2:        gpgkey-F2B41200C54EFB30380C1756C565D5F9D76D583B.gpg
-
-# Fixes pending upstream
-## From: https://patchwork.kernel.org/project/linux-btrfs/list/?series=707080
-Patch0101:      btrfs-progs-fix-the-uuid-report-in-btrfs-subvolume-list--u.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  gcc, autoconf, automake, make
@@ -151,6 +147,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Tue Jan 03 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.1.1-1
+- Update to 6.1.1
+
 * Fri Dec 30 2022 Neal Gompa <ngompa@fedoraproject.org> - 6.1-2
 - Add fix to show UUID with "btrfs subvolume list -u"
 

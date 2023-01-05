@@ -22,6 +22,9 @@ Source0:        %forgesource
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 %{desc}
 

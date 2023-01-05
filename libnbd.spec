@@ -5,14 +5,14 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.15-development
 
 Name:           libnbd
 Version:        1.15.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPLv2+
@@ -30,6 +30,9 @@ Source3:        copy-patches.sh
 
 # Upstream fix for changed ubdsrv API.
 Patch:          0001-ublk-Update-for-ubdsrv-changing-API.patch
+
+# Upstream Python change (RHBZ#2152674).
+Patch:          0002-build-Replace-Python-distutils-by-sysconfig.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -349,6 +352,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.8-3
+- Fix for Python 3.12 distutils change (RHBZ#2152674).
+
 * Fri Dec 09 2022 Richard W.M. Jones <rjones@redhat.com> - 1.15.8-2
 - Rebuild against new ubdsrv API
 

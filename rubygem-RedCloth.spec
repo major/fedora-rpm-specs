@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.3.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Textile parser for Ruby
 License: MIT
 URL: http://redcloth.org
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/tasks
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 4.3.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

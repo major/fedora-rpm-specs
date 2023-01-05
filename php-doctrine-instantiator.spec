@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-doctrine-instantiator
 #
-# Copyright (c) 2014-2022 Remi Collet
+# Copyright (c) 2014-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,7 +9,7 @@
 
 # bootstrap needed when rebuilding PHPUnit for new major version
 %global bootstrap    0
-%global gh_commit    10dcfce151b967d20fde1b34ae6640712c3891bc
+%global gh_commit    0a0fa9780f5d4e507415a065172d26a98d02047b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   instantiator
@@ -21,8 +21,8 @@
 %endif
 
 Name:           php-doctrine-instantiator
-Version:        1.4.1
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Instantiate objects in PHP without invoking their constructors
 
 License:        MIT
@@ -95,7 +95,7 @@ EOF
 
 : Run test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

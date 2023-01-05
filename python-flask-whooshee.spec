@@ -2,10 +2,10 @@
 
 Name:           python-flask-whooshee
 Version:        0.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Whoosh integration
 
-License:        GPLv2+
+License:        BSD-3-Clause
 URL:            https://github.com/fedora-copr/flask-whooshee
 Source0:        https://pypi.python.org/packages/source/f/%{mod_name}/%{mod_name}-%{version}.tar.gz
 # https://github.com/bkabrda/flask-whooshee/pull/19
@@ -58,6 +58,10 @@ Python 3 version.
 
 
 %changelog
+* Tue Jan 03 2023 msuchy <msuchy@redhat.com> - 0.8.2-4
+- use spdx id
+- change license to BSD-3-Clause
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

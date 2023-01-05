@@ -8,7 +8,7 @@
 #
 
 %global bootstrap    0
-%global gh_commit    38670dd6ac8f2d997a0b5b6c98cb380ef0ba9bd3
+%global gh_commit    7729fc2a7e5efc8bbfa408a3b8adeb8f5b84f5d1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.5.5
+Version:        2.5.6
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -45,14 +45,14 @@ BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # From composer.json
 #        "composer/package-versions-deprecated": "^1.11",
-#        "phpstan/phpstan": "~1.4.10 || 1.8.8",
-#        "doctrine/annotations": "^1.0",
-#        "doctrine/coding-standard": "^9 || ^10",
+#        "phpstan/phpstan": "~1.4.10 || 1.9.4",
+#        "doctrine/annotations": "^1 || ^2",
+#        "doctrine/coding-standard": "^9 || ^11",
 #        "doctrine/common": "^3.0",
 #        "phpunit/phpunit": "^7.5.20 || ^8.5 || ^9.5",
 #        "symfony/cache": "^4.4 || ^5.4 || ^6.0",
-#        "vimeo/psalm": "4.29.0"
-BuildRequires: (php-composer(doctrine/annotations)   >= 1.0   with php-composer(doctrine/annotations)   < 2)
+#        "vimeo/psalm": "4.30.0 || 5.3.0"
+BuildRequires: (php-composer(doctrine/annotations)   >= 1.0   with php-composer(doctrine/annotations)   < 3)
 BuildRequires: (php-composer(doctrine/cache)         >= 1.11  with php-composer(doctrine/cache)         < 3)
 BuildRequires: (php-composer(doctrine/collections)   >= 1.0   with php-composer(doctrine/collections)   < 2)
 BuildRequires: (php-composer(doctrine/event-manager) >= 1     with php-composer(doctrine/event-manager) < 3)
@@ -150,8 +150,10 @@ cat << 'EOF' | tee -a vendor/autoload.php
 require "%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_subproj}%{major}/autoload.php";
 \Fedora\Autoloader\Dependencies::required([
     '%{_datadir}/php/%{ns_vendor}/Common3/autoload.php',
-    '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations/autoload.php',
     [
+        '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations2/autoload.php',
+        '%{_datadir}/php/%{ns_vendor}/%{ns_project}/Annotations/autoload.php',
+    ], [
         '%{_datadir}/php/Symfony6/Component/Cache/autoload.php',
         '%{_datadir}/php/Symfony5/Component/Cache/autoload.php',
         '%{_datadir}/php/Symfony4/Component/Cache/autoload.php',
@@ -187,6 +189,10 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 2.5.6-1
+- update to 2.5.6
+- allow doctrine/annotations v2
+
 * Thu Oct 13 2022 Remi Collet <remi@remirepo.net> - 2.5.5-1
 - update to 2.5.5
 - allow doctrine/event-manager v2

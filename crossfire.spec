@@ -9,7 +9,7 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
 License: GPLv2+ and MIT
@@ -29,6 +29,7 @@ Source10: logwatch.serviceconf.crossfire
 #Patch0:  crossfire-1.10.0-log-login.patch
 #Patch1:  crossfire-1.11.0-curl.patch
 Patch2:  crossfire-1.71.0-snprintf-formatting.patch
+Patch3: crossfire-c99.patch
 Requires:       crossfire-maps
 BuildRequires:  gcc
 BuildRequires:  checkpolicy perl-generators selinux-policy-devel hardlink
@@ -107,6 +108,7 @@ logwatch scripts for the Crossfire game server
 #%%patch0 -p0
 #%patch1 -p0
 %patch2 -p0
+%patch3 -p1
 mkdir SELinux
 cp  %{SOURCE5} %{SOURCE6} %{SOURCE7} SELinux
 
@@ -336,6 +338,9 @@ fi
 
 
 %changelog
+* Tue Jan 03 2023 Florian Weimer <fweimer@redhat.com> - 1.71.0-23
+- C99 compatibility fix
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

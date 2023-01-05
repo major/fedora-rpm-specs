@@ -1,17 +1,22 @@
 Summary:       Simple portable interface to lowlevel networking routines
 Name:          libdnet
-Version:       1.14
-Release:       7%{?dist}
+Version:       1.16.2
+Release:       1%{?dist}
 License:       BSD
 URL:           https://github.com/ofalk/%{name}
-Source:        https://github.com/ofalk/%{master}/archive/%{name}-%{version}.tar.gz
+# For 1.16.2 I constructed the archive myself using:
+# git archive --format=tar --prefix=libdnet-1.16.2/ HEAD | gzip > libdnet-1.16.2.tar.gz
+Source:        libdnet-1.16.2.tar.gz
+#Source:       https://github.com/ofalk/%%{master}/archive/%%{name}-%%{version}.tar.gz
 
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
+BuildRequires: check-devel
 BuildRequires: python3-Cython
+BuildRequires: python3-setuptools
 
 %description
 libdnet provides a simplified, portable interface to several
@@ -49,7 +54,7 @@ BuildRequires: python%{python3_pkgversion}-devel
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q -n %{name}-%{version}
 
 %build
 autoreconf -i
@@ -76,7 +81,6 @@ popd
 %files devel
 %{_bindir}/*
 %{_libdir}/*.so
-%exclude %{_libdir}/*.la
 %{_includedir}/*
 %{_mandir}/man3/*.3*
 
@@ -88,6 +92,10 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.2-1
+- Rebase to 1.16.2
+- Use setuptools instead of distutils (RHBZ#2154944)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

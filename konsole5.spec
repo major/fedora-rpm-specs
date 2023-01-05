@@ -9,8 +9,8 @@
 
 Name:    konsole5
 Summary: KDE Terminal emulator
-Version: 22.12.0
-Release: 2%{?dist}
+Version: 22.12.1
+Release: 1%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
 License: GPLv2 and GFDL
@@ -165,6 +165,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 22.12.0-2
 - Rebuild for ICU 72
 

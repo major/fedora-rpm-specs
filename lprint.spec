@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name: lprint
-Version: 1.1.0
-Release: 4%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: A Label Printer Application
 
 License: ASL 2.0
@@ -12,13 +12,6 @@ Source0: https://github.com/michaelrsweet/%{name}/releases/download/v%{version}/
 
 
 # UPSTREAM PATCHES
-# lprint puts service file into /etc/systemd/system instead of /usr/lib/systemd/system
-# - /etc is for admin overrides, distro defaults must be in /usr/lib
-# https://github.com/michaelrsweet/lprint/pull/50
-Patch01: 0001-configure-Add-with-systemd-option.patch
-# the path to the command was hardcoded
-# https://github.com/michaelrsweet/lprint/pull/63
-Patch02: 0001-configure.ac-Don-t-hardcode-a-path-into-.service-fil.patch
 
 
 # dns-sd support for register/sharing devices
@@ -104,6 +97,9 @@ export CC=%{__cc}
 
 
 %changelog
+* Tue Jan 03 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.0-1
+- 2157610 - lprint-1.2.0 is available
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

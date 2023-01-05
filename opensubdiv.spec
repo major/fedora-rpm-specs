@@ -3,9 +3,7 @@
 
 %global		upstream_version 3_5_0
 #%%global       prerelease RC1
-# Disable documentation due to odd build error
-# https://koji.fedoraproject.org/koji/taskinfo?taskID=95728588
-#%%global		documentation 1
+%global		documentation 1
 
 Name:           opensubdiv
 Version:        3.5.0
@@ -19,6 +17,9 @@ Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{u
 
 # fix linking against libdl (see https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1196)
 Patch:         	%{name}-rpath.patch
+
+# make doxygen generated files consistent across builds & architectures
+Patch:          opensubdiv-3.5.0-reproducible-docs.patch
 
 BuildRequires:  cmake
 %if 0%{?documentation}
@@ -35,6 +36,8 @@ BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:	python3dist(pygments)
+# Drop libs subpackage
+Obsoletes:	%{name}-libs < %{version}-%{release}
 
 %description
 OpenSubdiv is a set of open source libraries that implement high performance
@@ -42,12 +45,6 @@ subdivision surface (subdiv) evaluation on massively parallel CPU and
 GPU architectures. 
 This codepath is optimized for drawing deforming subdivs with static topology
 at interactive framerates.
-
-%package        libs
-Summary:        Core OpenSubdiv libraries
-Requires:       %{name}%{?_isa} = %{version}-%{release} 
-%description    libs
-%{summary}
 
 %package        devel
 Summary:        Development files for %{name}
@@ -116,11 +113,7 @@ make test V=1
 find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
 
-#%%files
-#%%license LICENSE.txt
-#%%{_bindir}/stringify
-
-%files libs
+%files
 %license LICENSE.txt
 %doc README.md
 %{_libdir}/*.so.%{version}

@@ -1,6 +1,6 @@
 Name:           perl-Perl-PrereqScanner
-Version:        1.024
-Release:        5%{?dist}
+Version:        1.025
+Release:        1%{?dist}
 Summary:        Tool to scan your Perl code for its prerequisites
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-PrereqScanner
@@ -102,6 +102,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.025-1
+- 1.025 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.024-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

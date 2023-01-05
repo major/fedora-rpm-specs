@@ -3,7 +3,7 @@
 %bcond_without gscan2pdf_enables_test
 
 Name:           gscan2pdf
-Version:        2.13.0
+Version:        2.13.1
 Release:        1%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
@@ -324,6 +324,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 2.13.1-1
+- 2.13.1 bump
+
 * Tue Oct 18 2022 Petr Pisar <ppisar@redhat.com> - 2.13.0-1
 - 2.13.0 bump
 - Stop requiring gnome-icon-theme; fixed in gtk3-3.24.34 (bug #2071851)

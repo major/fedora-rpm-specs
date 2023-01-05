@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:           stellarium
-Version:        1.1
-Release:        3%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
@@ -87,6 +87,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-1
+- 1.2
+
 * Wed Nov 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.1-3
 - QT6 rebuild.
 

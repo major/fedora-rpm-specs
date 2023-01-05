@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-router
 #
-# Copyright (c) 2016-2022 Remi Collet
+# Copyright (c) 2016-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    48b6fccd63b9e04e67781c212bf3bedd75c9ca17
+%global gh_commit    3512c28cb4ffd64a62bc9e8b685a50a6547b0a11
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-router
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.11.0
+Version:        3.11.1
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -185,6 +185,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 3.11.1-1
+- update to 3.11.1
+
 * Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 3.11.0-1
 - update to 3.11.0
 

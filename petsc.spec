@@ -19,9 +19,12 @@
 %bcond_with debug
 #
 
-# Define _pkgdocdir macro on epel
-%{?el7:%global _pkgdocdir %{_docdir}/%{name}}
-#
+## Fix Epoch in EPEL9
+%if 0%{?el9}
+%global epoch 1
+%else
+%global epoch 0
+%endif
 
 %bcond_without mpich
 %bcond_without openmpi
@@ -282,7 +285,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -330,11 +333,6 @@ BuildRequires: libX11-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: pcre2-devel
-%if 0%{?el7}
-BuildRequires: pkgconfig
-%else
-BuildRequires: pkgconf-pkg-config
-%endif
 %if %{with hdf5}
 BuildRequires: hdf5-devel
 %endif
@@ -357,11 +355,6 @@ modeled by partial differential equations.
 %package devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (developer files)
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-%if 0%{?el7}
-Requires: pkgconfig%{?_isa}
-%else
-Requires: pkgconf-pkg-config%{?_isa}
-%endif
 Requires: gcc-gfortran%{?_isa}
 %description devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
@@ -389,12 +382,7 @@ modeled by partial differential equations (64bit INTEGER).
 %package -n petsc64-devel
 Requires:   %{name}64%{?_isa} = %{version}-%{release}
 Requires:   gcc-gfortran%{?_isa}
-%if 0%{?el7}
-Requires: pkgconfig%{?_isa}
-%else
-Requires: pkgconf-pkg-config%{?_isa}
-%endif
-Summary: Portable Extensible Toolkit for Scientific Computation (64bit INTEGER)
+Summary:    Portable Extensible Toolkit for Scientific Computation (64bit INTEGER)
 
 %description -n petsc64-devel
 Portable Extensible Toolkit for Scientific Computation (developer files)
@@ -448,7 +436,7 @@ modeled by partial differential equations.
 %package openmpi-devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (OpenMPI)
 Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
-Requires:   openmpi-devel%{?_isa} = 0:%{openmpiversion}
+Requires:   openmpi-devel%{?_isa} = %{epoch}:%{openmpiversion}
 %description openmpi-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
@@ -468,7 +456,7 @@ Requires:       petsc-openmpi%{?_isa}
 Requires:       hdf5-openmpi%{?_isa}
 Requires:       scalapack-openmpi%{?_isa}
 Requires:       ptscotch-openmpi%{?_isa}
-Requires:       openmpi%{?_isa} = 0:%{openmpiversion}
+Requires:       openmpi%{?_isa} = %{epoch}:%{openmpiversion}
 Requires:       MUMPS-openmpi%{?_isa}
 
 Obsoletes:      %{pymodule_name}-openmpi < 0:3.14.0-3
@@ -557,12 +545,7 @@ modeled by partial differential equations.
 %package mpich-devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (MPICH)
 Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
-%if 0%{?el7}
-# https://bugzilla.redhat.com/show_bug.cgi?id=1397192
-Requires:       mpich-devel
-%else
 Requires:       mpich-devel%{?_isa} = 0:%{mpichversion}
-%endif
 %description mpich-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
@@ -583,13 +566,11 @@ pushd %{name}-%{version}
 
 %patch7 -p1 -b .backup
 
+%if 0%{?fedora}
 find . -name 'setup.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 find . -name 'configure' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 find config -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
 find src/benchmarks/streams -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
-
-%if 0%{?el7}
-%patch2 -p1 -b .backup
 %endif
 popd
 
@@ -1139,11 +1120,7 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %{_libdir}/openmpi/lib/pkgconfig/PETSc.pc
 %{_libdir}/openmpi/lib/pkgconfig/petsc.pc
 %{_includedir}/openmpi-%{_arch}/%{name}/
-%if 0%{?el7}
-%{_fmoddir}/openmpi-%{_arch}/%{name}/
-%else
 %{_fmoddir}/openmpi/%{name}/
-%endif
 
 %if %{with python}
 %files -n python%{python3_pkgversion}-%{name}-openmpi
@@ -1165,11 +1142,7 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %{_libdir}/mpich/lib/pkgconfig/PETSc.pc
 %{_libdir}/mpich/lib/pkgconfig/petsc.pc
 %{_includedir}/mpich-%{_arch}/%{name}/
-%if 0%{?el7}
-%{_fmoddir}/mpich-%{_arch}/%{name}/
-%else
 %{_fmoddir}/mpich/%{name}/
-%endif
 
 %if %{with python}
 %files -n python%{python3_pkgversion}-%{name}-mpich
@@ -1179,6 +1152,10 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Sun Jan 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-4
+- Build in EPEL9
+- Fix Epoch in EPEL9
+
 * Tue Sep 20 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-3
 - Use pcre2 (rhbz#2128348)
 

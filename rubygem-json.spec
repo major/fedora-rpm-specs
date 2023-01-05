@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.6.3
-Release:        200%{?dist}
+Release:        201%{?dist}
 
 Summary:        A JSON implementation in Ruby
 
@@ -123,6 +123,9 @@ popd
 
 
 %changelog
+* Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 2.6.3-201
+- Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Mon Dec  5 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.3-200
 - 2.6.3
 

@@ -1,7 +1,7 @@
 %global framework messagelib
 
 Name:    kf5-%{framework}
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 Summary: KDE Message libraries
 
@@ -173,6 +173,9 @@ Requires:       cmake(Qt5WebEngine)
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

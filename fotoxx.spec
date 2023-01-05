@@ -1,5 +1,5 @@
 Name:    fotoxx
-Version: 22.41
+Version: 23.0
 Release: 1%{?dist}
 Summary: Photo editor
 
@@ -26,6 +26,7 @@ Requires: perl-Image-ExifTool
 Requires: xdg-utils
 Requires: dcraw
 Requires: openjpeg2-tools
+Requires: xmessage
 
 Suggests: rawtherapee
 Suggests: growisofs
@@ -71,9 +72,12 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-#%%{_datadir}/metainfo/
+%{_datadir}/metainfo/
 
 %changelog
+* Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.0-1
+- 23.0
+
 * Thu Nov 03 2022 Gwyn Ciesla <gwync@protonmail.com> - 22.41-1
 - 22.41
 

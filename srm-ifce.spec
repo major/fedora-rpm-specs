@@ -3,7 +3,7 @@
 
 Name:		srm-ifce
 Version:	1.24.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	SRM client side library
 License:	ASL 2.0
 URL:		https://dmc-docs.web.cern.ch/dmc-docs/srm-ifce.html
@@ -72,6 +72,9 @@ the srm-ifce.
 %{_pkgdocdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jan 03 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.24.5-2
+- Rebuild against gsoap-2.8.124 (bugzilla #2155574)
+
 * Fri Aug 12 2022 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.24.5-1
 - Upstream release 1.24.5
 

@@ -1,13 +1,11 @@
 Name:		nanovna-saver
-Version:	0.5.3
+Version:	0.5.4
 Release:	1%{?dist}
 Summary:	Tool for reading, displaying and saving data from the NanoVNA
 License:	GPLv3
 URL:		https://github.com/mihtjel/%{name}
 
 Source0:	%{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Reported upstream: https://github.com/mihtjel/nanovna-saver/issues/163
-Source1:	nanovna-saver.desktop
 BuildArch:	noarch
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
@@ -21,7 +19,13 @@ BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 # OS/distro specific
 Patch0:		nanovna-saver-0.5.3-fedora-icon.patch
-Patch1:		nanovna-saver-0.5.3-relax-deps.patch
+Patch1:		nanovna-saver-0.5.4-relax-deps.patch
+
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/579
+Patch2:		nanovna-saver-0.5.4-no-changelog.patch
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/580
+# https://github.com/NanoVNA-Saver/nanovna-saver/issues/581
+Patch3:		nanovna-saver-0.5.4-desktop-file-fix.patch
 
 %description
 A multiplatform tool to save Touchstone files from the NanoVNA, sweep
@@ -34,6 +38,9 @@ generally display and analyze the resulting data.
 # Drop shebang of non-executable
 sed -i '1 d' NanoVNASaver/__main__.py
 
+# Drop executable bit from the desktop file
+#chmod 0644 ./NanoVNASaver.desktop
+
 %build
 %py3_build
 
@@ -43,14 +50,13 @@ sed -i '1 d' NanoVNASaver/__main__.py
 # Drop tests
 rm -rf %{buildroot}%{python3_sitelib}/test
 
-# Icon
-install -Dpm 0644 icon_48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+desktop-file-validate %{buildroot}%{_datadir}/applications/NanoVNASaver.desktop
 
-# Desktop file
-mkdir -p  %{buildroot}%{_datadir}/applications
-desktop-file-install --add-category="Utility" \
-  --dir=%{buildroot}%{_datadir}/applications \
-  %{SOURCE1}
+# Correctly rename the doc dir
+mv %{buildroot}%{_docdir}/nanovnasaver %{buildroot}%{_docdir}/%{name}
+
+# Drop the license from doc dir, it will be installed by the %license macro
+rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 # https://github.com/NanoVNA-Saver/nanovna-saver/issues/443
 #%%check
@@ -58,14 +64,18 @@ desktop-file-install --add-category="Utility" \
 
 %files
 %license LICENSE
-%doc README.md
+%doc README.md docs/CODE_OF_CONDUCT.md docs/CONTRIBUTING.md
 %{_bindir}/NanoVNASaver
 %{python3_sitelib}/NanoVNASaver
 %{python3_sitelib}/NanoVNASaver-%{version}-py*.egg-info
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/48x48/apps/NanoVNASaver_48x48.png
+%{_datadir}/applications/NanoVNASaver.desktop
 
 %changelog
+* Tue Jan  3 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.4-1
+- New version
+  Resolves: rhbz#2157654
+
 * Thu Sep 22 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.3-1
 - New version
   Resolves: rhbz#2125428

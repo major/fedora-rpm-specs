@@ -11,7 +11,7 @@
 
 Name:           hivex
 Version:        1.3.21
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPLv2
@@ -27,6 +27,11 @@ Source1:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz.s
 Source2:       libguestfs.keyring
 %endif
 
+# Upstream Python removal of distutils (RHBZ#2155013)
+Patch:          0001-build-Replace-Python-distutils-by-sysconfig.patch
+
+BuildRequires:  make
+BuildRequires:  autoconf, automake, libtool, gettext-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -61,9 +66,8 @@ BuildRequires:  rubygem(rdoc)
 BuildRequires:  readline-devel
 BuildRequires:  libxml2-devel
 %if 0%{verify_tarball_signature}
-BuildRequires: gnupg2
+BuildRequires:  gnupg2
 %endif
-BuildRequires: make
 
 Requires:       %{name}-libs = %{version}-%{release}
 
@@ -199,6 +203,8 @@ ruby-%{name} contains Ruby bindings for %{name}.
 %setup -q
 %autopatch -p1
 
+autoreconf -fi
+
 
 %build
 %configure \
@@ -324,6 +330,10 @@ fi
 
 
 %changelog
+* Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.21-12
+- Upstream fix for Python 3.12 removal of distutils (RHBZ#2155013)
+- Unconditionally run autoreconf.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.21-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

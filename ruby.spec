@@ -1,6 +1,6 @@
 %global major_version 3
-%global minor_version 1
-%global teeny_version 3
+%global minor_version 2
+%global teeny_version 0
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -10,7 +10,7 @@
 #%%global milestone rc1
 
 # Keep the revision enabled for pre-releases from GIT.
-#%%global revision fb4df44d16
+#%%global revision c5eefb7f37
 
 %global ruby_archive %{name}-%{ruby_version}
 
@@ -18,63 +18,58 @@
 %if 0%{?milestone:1}%{?revision:1} != 0
 %global ruby_archive %{ruby_archive}-%{?milestone}%{?!milestone:%{?revision}}
 %define ruby_archive_timestamp %(stat --printf='@%Y' %{_sourcedir}/%{ruby_archive}.tar.xz | date -f - +"%Y%m%d")
-%define development_release %{?milestone}%{?!milestone:%{?revision:%{ruby_archive_timestamp}git%{revision}}}
+%define development_release ~%{ruby_archive_timestamp}%{?milestone}%{?!milestone:%{?revision:git%{revision}}}
 %endif
 
-
-%global release 175
-%{!?release_string:%define release_string %{?development_release:0.}%{release}%{?development_release:.%{development_release}}%{?dist}}
 
 # The RubyGems library has to stay out of Ruby directory tree, since the
 # RubyGems should be share by all Ruby implementations.
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 3.3.26
-%global rubygems_molinillo_version 0.7.0
-%global rubygems_optparse_version 0.2.0
+%global rubygems_version 3.4.1
+%global rubygems_molinillo_version 0.8.0
+%global rubygems_optparse_version 0.3.0
 %global rubygems_tsort_version 0.1.0
 
 # Default gems.
-%global bundler_version 2.3.26
+%global bundler_version 2.4.1
 %global bundler_connection_pool_version 2.3.0
-%global bundler_fileutils_version 1.4.1
-%global bundler_molinillo_version 0.8.0
-%global bundler_net_http_persistent_version 4.0.0
+%global bundler_fileutils_version 1.7.0
+%global bundler_pub_grub_version 0.5.0
+%global bundler_net_http_persistent_version 4.0.1
 %global bundler_thor_version 1.2.1
-%global bundler_tmpdir_version 0.1.0
-# TODO: Check the version if/when available in library.
 %global bundler_tsort_version 0.1.1
-%global bundler_uri_version 0.10.1
+%global bundler_uri_version 0.12.0
 
-%global bigdecimal_version 3.1.1
-%global did_you_mean_version 1.6.1
-%global erb_version 2.2.3
-%global io_console_version 0.5.11
-%global irb_version 1.4.1
-%global json_version 2.6.1
-%global openssl_version 3.0.1
-%global psych_version 4.0.4
-%global racc_version 1.6.0
-%global rdoc_version 6.4.0
-%global stringio_version 3.0.1
+%global bigdecimal_version 3.1.3
+%global did_you_mean_version 1.6.3
+%global erb_version 4.0.2
+%global io_console_version 0.6.0
+%global irb_version 1.6.2
+%global json_version 2.6.3
+%global openssl_version 3.1.0
+%global psych_version 5.0.1
+%global racc_version 1.6.2
+%global rdoc_version 6.5.0
+%global stringio_version 3.0.4
 
 # Bundled gems.
-%global minitest_version 5.15.0
-%global power_assert_version 2.0.1
+%global minitest_version 5.16.3
+%global power_assert_version 2.0.3
 %global rake_version 13.0.6
-%global test_unit_version 3.5.3
+%global test_unit_version 3.5.7
 %global rexml_version 3.2.5
 %global rss_version 0.2.9
-%global net_ftp_version 0.1.3
-%global net_imap_version 0.2.3
-%global net_pop_version 0.1.1
-%global net_smtp_version 0.3.1
+%global net_ftp_version 0.2.0
+%global net_imap_version 0.3.4
+%global net_pop_version 0.1.2
+%global net_smtp_version 0.3.3
 %global matrix_version 0.4.2
 %global prime_version 0.1.2
-%global rbs_version 2.7.0
+%global rbs_version 2.8.2
 %global typeprof_version 0.21.3
-%global debug_version 1.6.3
+%global debug_version 1.7.1
 
 %global tapset_libdir %(echo %{_libdir} | sed 's/64//')*
 
@@ -87,6 +82,11 @@
 %bcond_without gmp
 %bcond_without hostname
 %bcond_without systemtap
+# YJIT is supported on x86_64 and aarch64.
+# https://github.com/ruby/ruby/blob/master/doc/yjit/yjit.md
+%ifarch x86_64 aarch64
+%bcond_without yjit
+%endif
 # Enable test when building on local.
 %bcond_with bundler_tests
 
@@ -100,13 +100,15 @@
 
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
-Version: %{ruby_version}
-Release: %{release_string}
+Version: %{ruby_version}%{?development_release}
+Release: 176%{?dist}
+# BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
+# ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
 # MIT and CCO: ccan/*
 # zlib: ext/digest/md5/md5.*, ext/nkf/nkf-utf8/nkf.c
-# UCD: some of enc/trans/**/*.src
-License: (Ruby or BSD) and Public Domain and MIT and CC0 and zlib and UCD
+# Unicode-DFS-2015: some of enc/trans/**/*.src
+License: (Ruby OR BSD-2-Clause) AND BSD-3-Clause AND ISC AND Public Domain AND MIT and CC0 AND zlib AND Unicode-DFS-2015
 URL: https://www.ruby-lang.org/
 Source0: https://cache.ruby-lang.org/pub/%{name}/%{major_minor_version}/%{ruby_archive}.tar.xz
 Source1: operating_system.rb
@@ -162,52 +164,11 @@ Patch6: ruby-2.7.0-Initialize-ABRT-hook.patch
 Patch7: ruby-3.1.0-Don-t-query-RubyVM-FrozenCore-for-class-path.patch
 # Avoid possible timeout errors in TestBugReporter#test_bug_reporter_add.
 # https://bugs.ruby-lang.org/issues/16492
-Patch19: ruby-2.7.1-Timeout-the-test_bug_reporter_add-witout-raising-err.patch
-# If GC compaction is not supported on platform, define the
-# corresponding GC methods as not implemented.
-# https://bugs.ruby-lang.org/issues/18779
-# https://github.com/ruby/ruby/pull/5934
-Patch22: ruby-3.2.0-define-unsupported-gc-compaction-methods-as-rb_f_notimplement.patch
-# To regenerate the patch you need to have ruby, autoconf, xz, tar and make installed:
-# tar -Jxvf ./ruby-3.1.3.tar.xz
-# git clone https://github.com/ruby/ruby.git
-# cd ruby && git checkout v3_1_3
-# patch -p1 < ../ruby-3.2.0-define-unsupported-gc-compaction-methods-as-rb_f_notimplement.patch
-# ./autogen.sh && ./configure
-# make gc.rbinc miniprelude.c
-# cd ..
-# diff -u {ruby-3.1.3,ruby}/gc.rbinc > ruby-3.2.0-define-unsupported-gc-compaction-methods_generated-files.patch
-# diff -u {ruby-3.1.3,ruby}/miniprelude.c >> ruby-3.2.0-define-unsupported-gc-compaction-methods_generated-files.patch
-Patch23: ruby-3.2.0-define-unsupported-gc-compaction-methods_generated-files.patch
-# Define the GC compaction support macro at run time.
-# https://bugs.ruby-lang.org/issues/18829
-# https://github.com/ruby/ruby/pull/6019
-# https://github.com/ruby/ruby/commit/2c190863239bee3f54cfb74b16bb6ea4cae6ed20
-Patch24: ruby-3.2.0-Detect-compaction-support-during-runtime.patch
-# Drop hard dependency on RDoc in IRB.
-# https://github.com/ruby/irb/pull/393
-Patch27: ruby-irb-1.4.1-drop-rdoc-hard-dep.patch
-# Set soft dependency on RDoc in input-method.rb in IRB.
-# https://github.com/ruby/irb/pull/395
-Patch28: ruby-irb-1.4.1-set-rdoc-soft-dep.patch
-# CGI is now too restrictive about leading '.' in domain, leading to failures
-# in Rack, rack-test or ActionPack.
-# https://github.com/ruby/ruby/commit/656f25987cf2885104d5b13c8d3f5b7d32f1b333
-Patch29: ruby-3.2.0-ruby-cgi-Fix-test_cgi_cookie_new_with_domain-to-pass.patch
-# https://github.com/ruby/cgi/pull/29
-# https://github.com/ruby/ruby/commit/745dcf5326ea2c8e2047a3bddeb0fbb7e7d07649
-Patch30: ruby-3.2.0-ruby-cgi-Loosen-the-domain-regex-to-accept.patch
-# Fix Time Zone Database 2022g.
-# https://bugs.ruby-lang.org/issues/19187
-# https://github.com/ruby/ruby/commit/a1124dc162810f86cb0bff58cde24064cfc561bc
-Patch31: ruby-3.1.3-Fix-for-tzdata-2022g.patch
-# If digest argument to method `sign` is nil, # NULL will be provided to
-# OpenSSL function to let it choose digest itself.
-# https://github.com/ruby/openssl/pull/507
-Patch32: ruby-3.2.0-ossl_ocsp-use-null.patch
-# Replace SHA1 usage in tests.
-# https://github.com/ruby/openssl/pull/554
-Patch33: ruby-3.2.0-ossl-tests-replace-sha1.patch
+Patch8: ruby-2.7.1-Timeout-the-test_bug_reporter_add-witout-raising-err.patch
+# Disable syntax_suggest test suite, which tries to download its dependencies.
+# https://bugs.ruby-lang.org/issues/19297
+Patch9: ruby-3.2.0-Revert-Fix-test-syntax-suggest-order.patch
+Patch10: ruby-3.2.0-Revert-Test-syntax_suggest-by-make-check.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Suggests: rubypick
@@ -233,6 +194,7 @@ BuildRequires: multilib-rpm-config
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: zlib-devel
+%{?with_yjit:BuildRequires: %{_bindir}/rustc}
 # The bundler/spec/runtime/setup_spec.rb requires the command `man`.
 %{?with_bundler_tests:BuildRequires: %{_bindir}/man}
 
@@ -263,7 +225,6 @@ Ruby or an application embedding Ruby.
 
 %package libs
 Summary:    Libraries necessary to run Ruby
-License:    Ruby or BSD
 Provides:   ruby(release) = %{ruby_release}
 
 # Virtual provides for CCAN copylibs.
@@ -296,7 +257,10 @@ This package includes the libruby, necessary to run Ruby.
 %package -n rubygems
 Summary:    The Ruby standard for packaging ruby libraries
 Version:    %{rubygems_version}
-License:    Ruby or MIT
+# BSD-2-Clause: lib/rubygems/tsort/
+# BSD-2-Clause OR Ruby: lib/rubygems/optparse/
+# MIT: lib/rubygems/resolver/molinillo
+License:    (Ruby OR MIT) AND BSD-2-Clause AND (BSD-2-Clause OR Ruby) AND MIT
 Requires:   ruby(release)
 Recommends: rubygem(bundler) >= %{bundler_version}
 Recommends: rubygem(rdoc) >= %{rdoc_version}
@@ -316,7 +280,7 @@ libraries.
 %package -n rubygems-devel
 Summary:    Macros and development tools for packaging RubyGems
 Version:    %{rubygems_version}
-License:    Ruby or MIT
+License:    MIT
 Requires:   ruby(rubygems) >= %{version}-%{release}
 # Needed for RDoc documentation format generation.
 Requires:   rubygem(json) >= %{json_version}
@@ -355,18 +319,19 @@ StdLib.
 %package -n rubygem-irb
 Summary:    The Interactive Ruby
 Version:    %{irb_version}
+License:    Ruby OR BSD-2-Clause
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 # ruby-default-gems is required to run irb.
 # https://bugs.ruby-lang.org/issues/16951
-Requires:   ruby-default-gems >= %{ruby_version}
+Requires:   ruby-default-gems >= %{ruby_version}%{?development_release}
 Recommends: rubygem(rdoc) >= %{rdoc_version}
 Provides:   irb = %{version}-%{release}
 Provides:   rubygem(irb) = %{version}-%{release}
 # Obsoleted by Ruby 2.6 in F30 timeframe.
-Provides:   ruby(irb) = %{ruby_version}-%{release}
-Provides:   ruby-irb = %{ruby_version}-%{release}
-Obsoletes:  ruby-irb < %{ruby_version}-%{release}
+Provides:   ruby(irb) = %{ruby_version}%{?development_release}-%{release}
+Provides:   ruby-irb = %{ruby_version}%{?development_release}-%{release}
+Obsoletes:  ruby-irb < %{ruby_version}%{?development_release}-%{release}
 BuildArch:  noarch
 
 %description -n rubygem-irb
@@ -377,8 +342,10 @@ from the terminal.
 %package -n rubygem-rdoc
 Summary:    A tool to generate HTML and command-line documentation for Ruby projects
 Version:    %{rdoc_version}
-# SIL: lib/rdoc/generator/template/darkfish/css/fonts.css
-License:    GPLv2 and Ruby and MIT and OFL
+# BSD-3-Clause: lib/rdoc/generator/darkfish.rb
+# CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
+# OFL-1.1-RFN: lib/rdoc/generator/template/darkfish/css/fonts.css
+License:    GPL-2.0-only AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Requires:   rubygem(io-console) >= %{io_console_version}
@@ -407,7 +374,7 @@ This package contains documentation for %{name}.
 %package -n rubygem-bigdecimal
 Summary:    BigDecimal provides arbitrary-precision floating point decimal arithmetic
 Version:    %{bigdecimal_version}
-License:    Ruby or BSD
+License:    Ruby OR BSD-2-Clause
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Provides:   rubygem(bigdecimal) = %{version}-%{release}
@@ -428,6 +395,7 @@ conversion between base 10 and base 2.
 %package -n rubygem-io-console
 Summary:    IO/Console is a simple console utilizing library
 Version:    %{io_console_version}
+License:    Ruby OR BSD-2-Clause
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Provides:   rubygem(io-console) = %{version}-%{release}
@@ -440,8 +408,8 @@ provide higher layer features, such like curses and readline.
 %package -n rubygem-json
 Summary:    This is a JSON implementation as a Ruby extension in C
 Version:    %{json_version}
-# UCD: ext/json/generator/generator.c
-License:    (Ruby or GPLv2) and UCD
+# Unicode-DFS-2015: ext/json/ext/generator/generator.c
+License:    (Ruby OR BSD-2-Clause) AND Unicode-DFS-2015
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Provides:   rubygem(json) = %{version}-%{release}
@@ -480,10 +448,9 @@ Provides:   rubygem(bundler) = %{version}-%{release}
 # https://github.com/bundler/bundler/issues/3647
 Provides:   bundled(rubygem-connection_pool) = %{bundler_connection_pool_version}
 Provides:   bundled(rubygem-fileutils) = %{bundler_fileutils_version}
-Provides:   bundled(rubygem-molinillo) = %{bundler_molinillo_version}
+Provides:   bundled(rubygem-pub_grub) = %{bundler_pub_grub_version}
 Provides:   bundled(rubygem-net-http-persisntent) = %{bundler_net_http_persistent_version}
 Provides:   bundled(rubygem-thor) = %{bundler_thor_version}
-Provides:   bundled(rubygem-tmpdir) = %{bundler_tmpdir_version}
 Provides:   bundled(rubygem-uri) = %{bundler_uri_version}
 BuildArch:  noarch
 
@@ -542,7 +509,7 @@ output.
 %package -n rubygem-power_assert
 Summary:    Power Assert for Ruby
 Version:    %{power_assert_version}
-License:    Ruby or BSD
+License:    Ruby OR BSD-2-Clause
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Provides:   rubygem(power_assert) = %{version}-%{release}
@@ -572,7 +539,7 @@ specified in standard Ruby syntax.
 %package -n rubygem-rbs
 Summary:    Type signature for Ruby
 Version:    %{rbs_version}
-License:    Ruby or BSD
+License:    Ruby OR BSD-2-Clause
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Provides:   rubygem(rbs) = %{version}-%{release}
@@ -586,8 +553,7 @@ definitions.
 Summary:    An xUnit family unit testing framework for Ruby
 Version:    %{test_unit_version}
 # lib/test/unit/diff.rb is a double license of the Ruby license and PSF license.
-# lib/test-unit.rb is a dual license of the Ruby license and LGPLv2.1 or later.
-License:    (Ruby or BSD) and (Ruby or BSD or Python) and (Ruby or BSD or LGPLv2+)
+License:    (Ruby OR BSD-2-Clause) AND (Ruby OR BSD-2-Clause OR Python-2.0.1)
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
 Requires:   rubygem(power_assert)
@@ -604,7 +570,7 @@ writing tests, checking results and automated testing in Ruby.
 %package -n rubygem-rexml
 Summary:    An XML toolkit for Ruby
 Version:    %{rexml_version}
-License:    BSD
+License:    BSD-2-Clause
 URL:        https://github.com/ruby/rexml
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
@@ -626,7 +592,7 @@ features such as XPath.
 %package -n rubygem-rss
 Summary:    Family of libraries that support various formats of XML "feeds"
 Version:    %{rss_version}
-License:    BSD
+License:    BSD-2-Clause
 URL:        https://github.com/ruby/rss
 Requires:   ruby(release)
 Requires:   ruby(rubygems) >= %{rubygems_version}
@@ -673,23 +639,20 @@ rm -rf ext/fiddle/libffi*
 %patch4 -p1
 %patch6 -p1
 %patch7 -p1
-%patch19 -p1
-%patch22 -p1
-%patch23 -p1
-%patch24 -p1
-%patch27 -p1
-%patch28 -p1
-%patch29 -p1
-%patch30 -p1
-%patch31 -p1
-%patch32 -p1
-%patch33 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
 
 %build
 autoconf
+
+%global _configure %{_builddir}/%{buildsubdir}/configure
+
+mkdir -p %{_vpath_builddir}
+pushd %{_vpath_builddir}
 
 %configure \
         --with-rubylibprefix='%{ruby_libdir}' \
@@ -711,15 +674,18 @@ autoconf
         --enable-shared \
         --with-ruby-version='' \
         --enable-multiarch \
+        %{?with_yjit: --enable-yjit} \
+
+popd
 
 # V=1 in %%make_build outputs the compiler options more verbosely.
 # https://bugs.ruby-lang.org/issues/18756
-%make_build COPY="cp -p"
+%make_build COPY="cp -p" -C %{_vpath_builddir}
 
 %install
 rm -rf %{buildroot}
 
-%make_install
+%make_install -C %{_vpath_builddir}
 
 # TODO: Regenerate RBS parser in lib/rbs/parser.rb
 
@@ -885,24 +851,26 @@ rm -rf %{buildroot}%{gem_dir}/gems/rake-%{rake_version}/.github
 %check
 %if 0%{?with_hardening_test}
 # Check Ruby hardening.
-checksec --file=libruby.so.%{ruby_version} | \
+checksec --file=%{_vpath_builddir}/libruby.so.%{ruby_version} | \
   grep "Full RELRO.*Canary found.*NX enabled.*DSO.*No RPATH.*No RUNPATH.*Yes.*\d*.*\d*.*libruby.so.%{ruby_version}"
 %endif
 
 # Check RubyGems version.
-[ "`make runruby TESTRUN_SCRIPT='bin/gem -v' | tail -1`" == '%{rubygems_version}' ]
+[ "`make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT='%{_builddir}/%{buildsubdir}/bin/gem -v' | tail -1`" == '%{rubygems_version}' ]
 
 # Check Rubygems bundled dependencies versions.
 
 # Molinillo.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; module Resolver; end; end; \
   require 'rubygems/resolver/molinillo/lib/molinillo/gem_metadata'; \
-  puts Gem::Resolver::Molinillo::VERSION\\\"\" | tail -1`" \
-  == '%{rubygems_molinillo_version}' ]
+  puts '%%{rubygems_molinillo_version}: %{rubygems_molinillo_version}'; \
+  puts %Q[Gem::Resolver::Molinillo::VERSION: #{Gem::Resolver::Molinillo::VERSION}]; \
+  exit 1 if Gem::Resolver::Molinillo::VERSION != '%{rubygems_molinillo_version}'; \
+\""
 
 # OptParse.
-make runruby TESTRUN_SCRIPT="-e \" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; end; \
   require 'rubygems/optparse/lib/optparse'; \
   puts '%%{rubygems_optparse_version}: %{rubygems_optparse_version}'; \
@@ -912,74 +880,92 @@ make runruby TESTRUN_SCRIPT="-e \" \
 
 # tsort
 # TODO: Provide some real version test if version is available.
-make runruby TESTRUN_SCRIPT="-e \" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Gem; end;\
   require 'rubygems/tsort/lib/tsort'\""
 
 # Check Bundler bundled dependencies versions.
 
 # connection_pool.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; end; \
   require 'bundler/vendor/connection_pool/lib/connection_pool/version'; \
-  puts Bundler::ConnectionPool::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_connection_pool_version}' ]
+  puts '%%{bundler_connection_pool_version}; %{bundler_connection_pool_version}'; \
+  puts %Q[Bundler::ConnectionPool::VERSION: #{Bundler::ConnectionPool::VERSION}]; \
+  exit 1 if Bundler::ConnectionPool::VERSION != '%{bundler_connection_pool_version}'; \
+\""
 
 # FileUtils.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; end; \
   require 'bundler/vendor/fileutils/lib/fileutils'; \
-  puts Bundler::FileUtils::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_fileutils_version}' ]
+  puts '%%{bundler_fileutils_version}: %{bundler_fileutils_version}'; \
+  puts %Q[Bundler::FileUtils::VERSION: #{Bundler::FileUtils::VERSION}]; \
+  exit 1 if Bundler::FileUtils::VERSION != '%{bundler_fileutils_version}'; \
+\""
 
-# Molinillo.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+# PubGrub
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; end; \
-  require 'bundler/vendor/molinillo/lib/molinillo/gem_metadata'; \
-  puts Bundler::Molinillo::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_molinillo_version}' ]
+  require 'bundler/vendor/pub_grub/lib/pub_grub/version'; \
+  puts '%%{bundler_pub_grub_version}: %{bundler_pub_grub_version}'; \
+  puts %Q[Bundler::PubGrub::VERSION: #{Bundler::PubGrub::VERSION}]; \
+  exit 1 if Bundler::PubGrub::VERSION != '%{bundler_pub_grub_version}'; \
+\""
 
 # Net::HTTP::Persistent.
 # Require `rubygems` to workaround the `<class:Wrapper>': uninitialized
 # constant Gem (NameError) issue.
 # https://github.com/rubygems/rubygems/issues/5119
-[ "`make runruby TESTRUN_SCRIPT=\"-rrubygems -e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; module Persistent; module Net; module HTTP; \
   end; end; end; end; \
   require 'bundler/vendor/net-http-persistent/lib/net/http/persistent'; \
-  puts Bundler::Persistent::Net::HTTP::Persistent::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_net_http_persistent_version}' ]
+  puts '%%{bundler_net_http_persistent_version}: %{bundler_net_http_persistent_version}'; \
+  puts %Q[Bundler::Persistent::Net::HTTP::Persistent::VERSION: #{Bundler::Persistent::Net::HTTP::Persistent::VERSION}]; \
+  exit 1 if Bundler::Persistent::Net::HTTP::Persistent::VERSION != '%{bundler_net_http_persistent_version}'; \
+\""
 
 # Thor.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; end; \
   require 'bundler/vendor/thor/lib/thor/version'; \
-  puts Bundler::Thor::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_thor_version}' ]
+  puts '%%{bundler_thor_version}: %{bundler_thor_version}'; \
+  puts %Q[Bundler::Thor::VERSION: #{Bundler::Thor::VERSION}]; \
+  exit 1 if Bundler::Thor::VERSION != '%{bundler_thor_version}'; \
+\""
 
-# tmpdir.
-# TODO: There is no version in bundled tmpdir yet.
-#%%{global bundler_tmpdir_version}
+# tsort
+# TODO: Provide some real version test if version is available.
+#%%{global bundler_tsort_version}
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
+  module Bundler; end; \
+  require 'bundler/vendor/tsort/lib/tsort' \""
 
 # URI.
-[ "`make runruby TESTRUN_SCRIPT=\"-e \\\" \
+make -C %{_vpath_builddir} -s runruby TESTRUN_SCRIPT="-e \" \
   module Bundler; end; \
   require 'bundler/vendor/uri/lib/uri/version'; \
-  puts Bundler::URI::VERSION\\\"\" | tail -1`" \
-  == '%{bundler_uri_version}' ]
+  puts '%%{bundler_uri_version}: %{bundler_uri_version}'; \
+  puts %Q[Bundler::URI::VERSION: #{Bundler::URI::VERSION}]; \
+  exit 1 if Bundler::URI::VERSION != '%{bundler_uri_version}'; \
+\""
 
 
 # test_debug(TestRubyOptions) fails due to LoadError reported in debug mode,
 # when abrt.rb cannot be required (seems to be easier way then customizing
 # the test suite).
-touch abrt.rb
+touch %{_vpath_builddir}/abrt.rb
 
 # Check if abrt hook is required (RubyGems are disabled by default when using
 # runruby, so re-enable them).
-make runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE13}"
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT="--enable-gems %{SOURCE13}"
 
 # Check if systemtap is supported.
-%{?with_systemtap:make runruby TESTRUN_SCRIPT=%{SOURCE14}}
+%if %{with systemtap}
+ln -sfr probes.d %{_vpath_builddir}/
+make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=%{SOURCE14}
+%endif
 
 DISABLE_TESTS=""
 MSPECOPTS=""
@@ -992,6 +978,14 @@ MSPECOPTS=""
 # to upstream, but the test is disabled just on Travis, not in test suite.
 # https://bugs.ruby-lang.org/issues/18393
 DISABLE_TESTS="$DISABLE_TESTS -n !/TestReadline#test_interrupt_in_other_thread/"
+%endif
+
+%ifarch i686
+# i686 specific failures.
+# https://bugs.ruby-lang.org/issues/19147
+DISABLE_TESTS="$DISABLE_TESTS -n !/TestFileExhaustive#test_expand_path_for_existent_username/"
+DISABLE_TESTS="$DISABLE_TESTS -n !/TestDir#test_home/"
+MSPECOPTS="$MSPECOPTS -P 'File.expand_path expands ~ENV..USER..* to.* the user.s home directory'"
 %endif
 
 # Several test broken by libffi-3.4.2. There should be fix in libffi, once
@@ -1009,12 +1003,17 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
 mv test/ruby/test_jit.rb{,.disable} || :
 %endif
 
+# Disable `TestGCCompact#test_moving_objects_between_size_pools` due to:
+# `NoMethodError: undefined method `>=' for nil:NilClass` error.
+# https://bugs.ruby-lang.org/issues/19248
+DISABLE_TESTS="$DISABLE_TESTS -n !/TestGCCompact#test_moving_objects_between_size_pools/"
+
 # Give an option to increase the timeout in tests.
 # https://bugs.ruby-lang.org/issues/16921
 %{?test_timeout_scale:RUBY_TEST_TIMEOUT_SCALE="%{test_timeout_scale}"} \
-  make check TESTS="-v $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
+  make -C %{_vpath_builddir} check TESTS="-v $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
 
-%{?with_bundler_tests:make test-bundler-parallel}
+%{?with_bundler_tests:make -C %{_vpath_builddir} test-bundler-parallel}
 
 %files
 %license BSDL
@@ -1083,6 +1082,8 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %{ruby_libdir}/ipaddr.rb
 %{ruby_libdir}/kconv.rb
 %{ruby_libdir}/logger*
+# https://bugs.ruby-lang.org/issues/19298
+%exclude %{ruby_libdir}/mjit
 %{ruby_libdir}/mkmf.rb
 %{ruby_libdir}/monitor.rb
 %{ruby_libdir}/mutex_m.rb
@@ -1105,11 +1106,14 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %{ruby_libdir}/resolv-replace.rb
 %{ruby_libdir}/rinda
 %{ruby_libdir}/ripper*
+%dir %{ruby_libdir}/ruby_vm
+%{ruby_libdir}/ruby_vm/mjit
 %{ruby_libdir}/securerandom.rb
 %{ruby_libdir}/set*
 %{ruby_libdir}/shellwords.rb
 %{ruby_libdir}/singleton*
 %{ruby_libdir}/socket.rb
+%{ruby_libdir}/syntax_suggest*
 %{ruby_libdir}/syslog
 %{ruby_libdir}/tempfile.rb
 %{ruby_libdir}/timeout*
@@ -1200,6 +1204,7 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %{ruby_libarchdir}/enc/windows_1254.so
 %{ruby_libarchdir}/enc/windows_1257.so
 %{ruby_libarchdir}/enc/windows_31j.so
+%{ruby_libarchdir}/erb/escape.so
 %{ruby_libarchdir}/etc.so
 %{ruby_libarchdir}/fcntl.so
 %{ruby_libarchdir}/fiddle.so
@@ -1262,70 +1267,71 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %{_rpmconfigdir}/rubygems.con
 
 %files default-gems
-%{gem_dir}/specifications/default/abbrev-0.1.0.gemspec
+%{gem_dir}/specifications/default/abbrev-0.1.1.gemspec
 %{gem_dir}/specifications/default/base64-0.1.1.gemspec
-%{gem_dir}/specifications/default/benchmark-0.2.0.gemspec
-%{gem_dir}/specifications/default/cgi-0.3.5.gemspec
-%{gem_dir}/specifications/default/csv-3.2.5.gemspec
-%{gem_dir}/specifications/default/date-3.2.2.gemspec
-%{gem_dir}/specifications/default/delegate-0.2.0.gemspec
+%{gem_dir}/specifications/default/benchmark-0.2.1.gemspec
+%{gem_dir}/specifications/default/cgi-0.3.6.gemspec
+%{gem_dir}/specifications/default/csv-3.2.6.gemspec
+%{gem_dir}/specifications/default/date-3.3.3.gemspec
+%{gem_dir}/specifications/default/delegate-0.3.0.gemspec
 %{gem_dir}/specifications/default/did_you_mean-%{did_you_mean_version}.gemspec
-%{gem_dir}/specifications/default/digest-3.1.0.gemspec
-%{gem_dir}/specifications/default/drb-2.1.0.gemspec
-%{gem_dir}/specifications/default/english-0.7.1.gemspec
+%{gem_dir}/specifications/default/digest-3.1.1.gemspec
+%{gem_dir}/specifications/default/drb-2.1.1.gemspec
+%{gem_dir}/specifications/default/english-0.7.2.gemspec
 %{gem_dir}/specifications/default/erb-%{erb_version}.gemspec
-%{gem_dir}/specifications/default/error_highlight-0.3.0.gemspec
-%{gem_dir}/specifications/default/etc-1.3.0.gemspec
-%{gem_dir}/specifications/default/fcntl-1.0.1.gemspec
-%{gem_dir}/specifications/default/fiddle-1.1.0.gemspec
-%{gem_dir}/specifications/default/fileutils-1.6.0.gemspec
+%{gem_dir}/specifications/default/error_highlight-0.5.1.gemspec
+%{gem_dir}/specifications/default/etc-1.4.2.gemspec
+%{gem_dir}/specifications/default/fcntl-1.0.2.gemspec
+%{gem_dir}/specifications/default/fiddle-1.1.1.gemspec
+%{gem_dir}/specifications/default/fileutils-1.7.0.gemspec
 %{gem_dir}/specifications/default/find-0.1.1.gemspec
-%{gem_dir}/specifications/default/forwardable-1.3.2.gemspec
-%{gem_dir}/specifications/default/getoptlong-0.1.1.gemspec
-%{gem_dir}/specifications/default/io-nonblock-0.1.0.gemspec
-%{gem_dir}/specifications/default/io-wait-0.2.1.gemspec
-%{gem_dir}/specifications/default/ipaddr-1.2.4.gemspec
-%{gem_dir}/specifications/default/logger-1.5.0.gemspec
-%{gem_dir}/specifications/default/mutex_m-0.1.1.gemspec
-%{gem_dir}/specifications/default/net-http-0.3.0.gemspec
-%{gem_dir}/specifications/default/net-protocol-0.1.2.gemspec
-%{gem_dir}/specifications/default/nkf-0.1.1.gemspec
+%{gem_dir}/specifications/default/forwardable-1.3.3.gemspec
+%{gem_dir}/specifications/default/getoptlong-0.2.0.gemspec
+%{gem_dir}/specifications/default/io-nonblock-0.2.0.gemspec
+%{gem_dir}/specifications/default/io-wait-0.3.0.gemspec
+%{gem_dir}/specifications/default/ipaddr-1.2.5.gemspec
+%{gem_dir}/specifications/default/logger-1.5.3.gemspec
+%{gem_dir}/specifications/default/mutex_m-0.1.2.gemspec
+%{gem_dir}/specifications/default/net-http-0.3.2.gemspec
+%{gem_dir}/specifications/default/net-protocol-0.2.1.gemspec
+%{gem_dir}/specifications/default/nkf-0.1.2.gemspec
 %{gem_dir}/specifications/default/observer-0.1.1.gemspec
-%{gem_dir}/specifications/default/open3-0.1.1.gemspec
-%{gem_dir}/specifications/default/open-uri-0.2.0.gemspec
-%{gem_dir}/specifications/default/optparse-0.2.0.gemspec
+%{gem_dir}/specifications/default/open3-0.1.2.gemspec
+%{gem_dir}/specifications/default/open-uri-0.3.0.gemspec
+%{gem_dir}/specifications/default/optparse-0.3.1.gemspec
 %{gem_dir}/specifications/default/openssl-%{openssl_version}.gemspec
-%{gem_dir}/specifications/default/ostruct-0.5.2.gemspec
-%{gem_dir}/specifications/default/pathname-0.2.0.gemspec
-%{gem_dir}/specifications/default/pp-0.3.0.gemspec
+%{gem_dir}/specifications/default/ostruct-0.5.5.gemspec
+%{gem_dir}/specifications/default/pathname-0.2.1.gemspec
+%{gem_dir}/specifications/default/pp-0.4.0.gemspec
 %{gem_dir}/specifications/default/prettyprint-0.1.1.gemspec
-%{gem_dir}/specifications/default/pstore-0.1.1.gemspec
+%{gem_dir}/specifications/default/pstore-0.1.2.gemspec
 %{gem_dir}/specifications/default/racc-%{racc_version}.gemspec
 %{gem_dir}/specifications/default/readline-0.0.3.gemspec
-%{gem_dir}/specifications/default/readline-ext-0.1.4.gemspec
-%{gem_dir}/specifications/default/reline-0.3.1.gemspec
-%{gem_dir}/specifications/default/resolv-0.2.1.gemspec
-%{gem_dir}/specifications/default/resolv-replace-0.1.0.gemspec
+%{gem_dir}/specifications/default/readline-ext-0.1.5.gemspec
+%{gem_dir}/specifications/default/reline-0.3.2.gemspec
+%{gem_dir}/specifications/default/resolv-0.2.2.gemspec
+%{gem_dir}/specifications/default/resolv-replace-0.1.1.gemspec
 %{gem_dir}/specifications/default/rinda-0.1.1.gemspec
 %{gem_dir}/specifications/default/ruby2_keywords-0.0.5.gemspec
-%{gem_dir}/specifications/default/securerandom-0.2.0.gemspec
-%{gem_dir}/specifications/default/set-1.0.2.gemspec
+%{gem_dir}/specifications/default/securerandom-0.2.2.gemspec
+%{gem_dir}/specifications/default/set-1.0.3.gemspec
 %{gem_dir}/specifications/default/shellwords-0.1.0.gemspec
 %{gem_dir}/specifications/default/singleton-0.1.1.gemspec
 %{gem_dir}/specifications/default/stringio-%{stringio_version}.gemspec
-%{gem_dir}/specifications/default/strscan-3.0.1.gemspec
-%{gem_dir}/specifications/default/syslog-0.1.0.gemspec
-%{gem_dir}/specifications/default/tempfile-0.1.2.gemspec
-%{gem_dir}/specifications/default/time-0.2.0.gemspec
-%{gem_dir}/specifications/default/timeout-0.2.0.gemspec
-%{gem_dir}/specifications/default/tmpdir-0.1.2.gemspec
-%{gem_dir}/specifications/default/tsort-0.1.0.gemspec
-%{gem_dir}/specifications/default/un-0.2.0.gemspec
-%{gem_dir}/specifications/default/uri-0.11.0.gemspec
-%{gem_dir}/specifications/default/weakref-0.1.1.gemspec
-#%%{gem_dir}/specifications/default/win32ole-1.8.8.gemspec
-%{gem_dir}/specifications/default/yaml-0.2.0.gemspec
-%{gem_dir}/specifications/default/zlib-2.1.1.gemspec
+%{gem_dir}/specifications/default/strscan-3.0.5.gemspec
+%{gem_dir}/specifications/default/syntax_suggest-1.0.2.gemspec
+%{gem_dir}/specifications/default/syslog-0.1.1.gemspec
+%{gem_dir}/specifications/default/tempfile-0.1.3.gemspec
+%{gem_dir}/specifications/default/time-0.2.1.gemspec
+%{gem_dir}/specifications/default/timeout-0.3.1.gemspec
+%{gem_dir}/specifications/default/tmpdir-0.1.3.gemspec
+%{gem_dir}/specifications/default/tsort-0.1.1.gemspec
+%{gem_dir}/specifications/default/un-0.2.1.gemspec
+%{gem_dir}/specifications/default/uri-0.12.0.gemspec
+%{gem_dir}/specifications/default/weakref-0.1.2.gemspec
+#%%{gem_dir}/specifications/default/win32ole-1.8.9.gemspec
+%{gem_dir}/specifications/default/yaml-0.2.1.gemspec
+%{gem_dir}/specifications/default/zlib-3.0.0.gemspec
 
 %{gem_dir}/gems/erb-%{erb_version}
 # Use standalone rubygem-racc if Racc binary is required. Shipping this
@@ -1417,7 +1423,6 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %license %{gem_dir}/gems/net-ftp-%{net_ftp_version}/LICENSE.txt
 %doc %{gem_dir}/gems/net-ftp-%{net_ftp_version}/README.md
 %{gem_dir}/gems/net-ftp-%{net_ftp_version}/Rakefile
-%{gem_dir}/gems/net-ftp-%{net_ftp_version}/bin
 %{gem_dir}/gems/net-ftp-%{net_ftp_version}/lib
 %{gem_dir}/specifications/net-ftp-%{net_ftp_version}.gemspec
 
@@ -1426,7 +1431,10 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %license %{gem_dir}/gems/net-imap-%{net_imap_version}/LICENSE.txt
 %doc %{gem_dir}/gems/net-imap-%{net_imap_version}/README.md
 %{gem_dir}/gems/net-imap-%{net_imap_version}/Rakefile
+%{gem_dir}/gems/net-imap-%{net_imap_version}/benchmarks
+%{gem_dir}/gems/net-imap-%{net_imap_version}/docs
 %{gem_dir}/gems/net-imap-%{net_imap_version}/lib
+%{gem_dir}/gems/net-imap-%{net_imap_version}/rakelib
 %{gem_dir}/specifications/net-imap-%{net_imap_version}.gemspec
 
 %dir %{gem_dir}/gems/net-pop-%{net_pop_version}
@@ -1434,7 +1442,6 @@ mv test/ruby/test_jit.rb{,.disable} || :
 %license %{gem_dir}/gems/net-pop-%{net_pop_version}/LICENSE.txt
 %doc %{gem_dir}/gems/net-pop-%{net_pop_version}/README.md
 %{gem_dir}/gems/net-pop-%{net_pop_version}/Rakefile
-%{gem_dir}/gems/net-pop-%{net_pop_version}/bin
 %{gem_dir}/gems/net-pop-%{net_pop_version}/lib
 %{gem_dir}/specifications/net-pop-%{net_pop_version}.gemspec
 
@@ -1561,6 +1568,9 @@ mv test/ruby/test_jit.rb{,.disable} || :
 
 
 %changelog
+* Mon Jan 02 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.0-176
+- Upgrade to Ruby 3.2.0.
+
 * Thu Dec 22 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.3-175
 - Use SHA256 instead of SHA1 where needed in Openssl tests
 - Let OpenSSL choose the digest if digest for Openssl::OCSP::BasicResponse#sign is nil

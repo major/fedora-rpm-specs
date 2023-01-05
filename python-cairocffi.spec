@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -38,6 +38,9 @@ Requires:       python3-cffi
 Requires:       cairo
 # required by cairocffi.pixbuf
 Requires:       python3-xcffib >= 0.3.2
+Requires:       gdk-pixbuf2
+Requires:       glib2
+Requires:       gtk3
 # Provide the cairocffi[xcb] extras, because there is no reasonable split
 # Be aware that %%version is not converted to the Pythonistic version here!
 Provides:       python%{python3_pkgversion}dist(cairocffi[xcb]) = %{version}
@@ -69,6 +72,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jan 03 2023 Carl George <carl@george.computer> - 1.3.0-6
+- Add dependencies on libraries that are loaded with dlopen rhbz#2157817
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

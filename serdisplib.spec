@@ -1,10 +1,11 @@
 Name:           serdisplib
 Version:        1.97.9
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Library to drive serial displays with built-in controllers
 License:        GPLv2+
 URL:            http://serdisplib.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0: serdisplib-configure-c99.patch
 BuildRequires:  make gcc gd-devel SDL-devel
 # serdisplib only supports the old libusb-0.1 API
 BuildRequires:  libusb-compat-0.1-devel
@@ -38,7 +39,7 @@ This package contains the tools for serdisplib
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -71,6 +72,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libserdisp.a
 
 
 %changelog
+* Tue Jan 03 2023 Florian Weimer <fweimer@redhat.com> - 1.97.9-25
+- Port configure script to C99
+
 * Sun Aug 14 2022 Hans de Goede <hdegoede@redhat.com> - 1.97.9-24
 - Fix FTBFS (rhbz#2113727)
 

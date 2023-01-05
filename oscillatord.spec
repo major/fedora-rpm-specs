@@ -1,12 +1,11 @@
 Name:           oscillatord
-Version:        3.4.1
+Version:        3.4.2
 Release:        %autorelease
 Summary:        Daemon for disciplining an oscillator
 
 License:        GPLv2+
 URL:            https://github.com/Orolia2s/oscillatord
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0: oscillatord-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -36,7 +35,7 @@ sets PHC'stime at start up, using Output from a GNSS receiver.
 To communicate with GNSS receiver's serial it uses ubloxcfg
 
 %prep
-%autosetup -p1
+%autosetup
 # Fix paths in systemd unit
 sed -e 's/^Environment=LD_LIBRARY_PATH.*$//' \
     -e "s@/usr/local/bin@%{_bindir}@" \

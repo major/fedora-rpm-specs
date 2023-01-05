@@ -11,7 +11,7 @@
 Summary:	An HTML, XML, SAX, and Reader parser
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
+Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
 
 # MIT: see LICENSE.md
 # ASL 2.0
@@ -274,6 +274,9 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-2.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-2
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

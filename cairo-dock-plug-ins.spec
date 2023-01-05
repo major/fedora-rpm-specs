@@ -9,7 +9,7 @@
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%global	mainrel	41
+%global	mainrel	42
 
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -28,7 +28,7 @@
 
 Name:			cairo-dock-plug-ins
 Version:		%{mainver}
-Release:		%{mainrel}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}.4
+Release:		%{mainrel}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}
 Summary:		Plug-ins files for Cairo-Dock
 
 License:		GPLv3+
@@ -40,6 +40,8 @@ Source0:		cairo-dock-plugins-fedora-%{tarballver}.tar.gz
 Source1:		cairo-dock-plug-ins-create-fedora-tarball.sh
 # Port to WebKit2
 Patch11:		cairo-dock-plugins-3.4.1-port-WebKit2.patch
+# PEP632: switch from distutils to setuptools
+Patch12:		cairo-dock-plugins-3.4.1-python-pep632-distutils-port.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -75,6 +77,7 @@ BuildRequires:	lm_sensors-devel
 
 # Bindings
 BuildRequires:	python3-devel
+BuildRequires:	python3-setuptools
 BuildRequires:	ruby-devel
 BuildRequires:	vala
 BuildRequires:	make
@@ -84,12 +87,7 @@ Requires:	%{name}-base%{?_isa} = %{version}-%{release}
 Requires:	%{name}-dbus%{?_isa} = %{version}-%{release}
 # cairo-dock-launcher-API-daemon is written in python,
 # so for now make this depending on python
-%if 0%{?fedora} < 31
-Requires:	cairo-dock-python2 = %{version}-%{release}
-%else
 Requires:	cairo-dock-python3 = %{version}-%{release}
-Obsoletes:	cairo-dock-python2 < 3.4.1-28
-%endif
 # Require xdg-utils for logout by default
 Requires:	xdg-utils
 
@@ -203,6 +201,7 @@ binding for Cairo-Dock.
 %if 0%{?use_webkit2}
 %patch11 -p1 -b .wk2
 %endif
+%patch12 -p1 -b .pep632
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -415,6 +414,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Jan  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-42.20210730gitf24f769
+- Handle PEP632, switch from distutils to setuptools
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-41.20210730gitf24f769.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

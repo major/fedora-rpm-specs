@@ -1,8 +1,8 @@
 Name:           perl-Text-CSV_XS
-Version:        1.48
-Release:        3%{?dist}
+Version:        1.49
+Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
 Source0:        https://cpan.metacpan.org/modules/by-module/Text/Text-CSV_XS-%{version}.tgz
 # Build:
@@ -81,6 +81,14 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Tue Jan  3 2023 Paul Howarth <paul@city-fan.org> - 1.49-1
+- Update to 1.49
+  - csv2xlsx --split=CxP [--split-label=C]
+  - Full documentation/manual for csv2xlsx
+  - Fix non-integer arguments to getline_all (GH#39)
+  - It's 2023
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

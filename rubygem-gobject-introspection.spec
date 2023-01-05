@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
 Version:	4.0.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # lib/gobject-introspection.rb and so on
 License:	LGPLv2+
@@ -141,6 +141,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build
