@@ -1,7 +1,7 @@
-%global framework libkcompactdisc
+%global base_name libkcompactdisc
 
-Name:    kf5-%{framework}
-Version: 22.12.0
+Name:    kf5-%{base_name}
+Version: 22.12.1
 Release: 1%{?dist}
 Summary: A KDE compact disc library
 
@@ -18,7 +18,7 @@ URL:     https://www.kde.org/applications/multimedia/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstreamable patches
 
@@ -47,7 +47,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{framework}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -77,6 +77,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

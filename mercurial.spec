@@ -9,7 +9,7 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.3.1
+Version: 6.3.2
 Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
@@ -273,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Wed Jan 04 2023 Mads Kiilerich <mads@kiilerich.com> - 6.3.2-1
+- mercurial 6.3.2
+
 * Sat Nov 19 2022 Mads Kiilerich <mads@kiilerich.com> - 6.3.1-1
 - mercurial 6.3.1
 

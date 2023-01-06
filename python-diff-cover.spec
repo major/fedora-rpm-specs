@@ -9,18 +9,14 @@ diff.
 
 
 Name:           python-diff-cover
-Version:        6.5.0
-Release:        2%{?dist}
+Version:        7.3.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        ASL 2.0
 Summary:        Automatically find diff lines that need test coverage
 URL:            https://github.com/Bachmann1234/diff-cover/
 Source0:        %{url}/archive/v%{version}/diff-cover-%{version}.tar.gz
-
-# Update test HTML fixtures for pygments 2.12.0
-# https://github.com/Bachmann1234/diff_cover/pull/280
-Patch0:         0001-Update-HTML-fixtures-for-pygment-2.12.0.patch
 
 BuildRequires: git
 BuildRequires: help2man
@@ -102,6 +98,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Tue Jan 03 2023 Kevin Fenzi <kevin@scrye.com> - 7.3.0-1
+- Update to 7.3.0. Fixes rhbz#2068325
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

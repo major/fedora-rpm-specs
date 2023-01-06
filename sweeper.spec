@@ -1,10 +1,9 @@
-Name:    sweeper 
-Summary: Clean unwanted traces the user leaves on the system 
+Name:    sweeper
+Summary: Clean unwanted traces the user leaves on the system
 Version: 22.12.1
 Release: 1%{?dist}
 
 License: LGPLv2+
-#URL:     http://utils.kde.org/projects/%{name}
 URL:     https://invent.kde.org/utils/%{name}
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -46,7 +45,7 @@ Sweeper helps to clean unwanted traces the user leaves on the system.
 
 
 %prep
-%autosetup -p1 
+%autosetup -p1
 
 
 %build

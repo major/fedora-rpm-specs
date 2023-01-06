@@ -11,13 +11,13 @@ language is provided by default.
 
 
 Name:           python-zope-configuration
-Version:        4.4.0
-Release:        6%{?dist}
+Version:        4.4.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        ZPLv2.1
 URL:            https://github.com/zopefoundation/zope.configuration
-Source0:        %{url}/archive/4.4.0/%{modname}-%{version}.tar.gz
+Source0:        %{url}/archive/4.4.1/%{modname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -71,6 +71,9 @@ rm -r %{buildroot}%{python3_sitelib}/zope/configuration/tests
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Wed Jan 04 2023 Kevin Fenzi <kevin@scrye.com> - 4.4.1-1
+- Update to 4.4.1. Fixes rhbz#2072854
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

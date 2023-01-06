@@ -3,38 +3,39 @@
 
 Name:           paper
 Version:        2.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Query paper size database and retrieve the preferred size
-# COPYING:              GPLv3 text
-# lib/progname.c:       GPLv3+ (bundled from gnulib)
-# lib/progname.h:       GPLv3+ (bundled from gnulib)
+# COPYING:              GPL-3.0 text
+# lib/progname.c:       GPL-3.0-or-later (bundled from gnulib)
+# lib/progname.h:       GPL-3.0-or-later (bundled from gnulib)
 # src/localepaper.c:    FSFAP
-# src/paper.in.in:      GPLv3+
+# src/paper.in.in:      GPL-3.0-or-later
 ## Not in any binary package
 # aclocal.m4:   FSFULLR
-# build-aux/compile:        GPLv2+ with Autoconf exception
-# build-aux/config.guess:   GPLv3+ with Autoconf exception
-# build-aux/config.sub:     GPLv3+ with Autoconf exception
-# build-aux/depcomp:        GPLv2+ with Autoconf exception
+# build-aux/compile:        GPL-2.0-or-later WITH Libtool-exception
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>
+# build-aux/config.guess:   GPL-3.0-or-later WITH Libtool-exception
+# build-aux/config.sub:     GPL-3.0-or-later WITH Libtool-exception
+# build-aux/depcomp:        GPL-2.0-or-later WITH Libtool-exception
 # build-aux/install-sh:     MIT
-# build-aux/missing:        GPLv2+ with Autoconf exception
-# build-aux/relocatable.pl.in:  GPLv3+
+# build-aux/missing:        GPL-2.0-or-later WITH Libtool-exception
+# build-aux/relocatable.pl.in:  GPL-3.0-or-later
 # configure:    FSFUL
 # INSTALL:      FSFAP
-# lib/arg-nonnull.h:    GPLv3+
-# lib/c++defs.h:        GPLv3+
-# lib/langinfo.in.h:    GPLv3+
-# lib/locale.in.h:      GPLv3+
-# lib/Makefile.am:      GPLv3+ with Autoconf exception
-# lib/Makefile.in:      GPLv3+ with Autoconf exception and FSFULLR
-# lib/stddef.in.h:      GPLv3+
-# lib/warn-on-use.h:    GPLv3+
+# lib/arg-nonnull.h:    GPL-3.0-or-later
+# lib/c++defs.h:        GPL-3.0-or-later
+# lib/langinfo.in.h:    GPL-3.0-or-later
+# lib/locale.in.h:      GPL-3.0-or-later
+# lib/Makefile.am:      GPL-3.0-or-later WITH Libtool-exception
+# lib/Makefile.in:      GPL-3.0-or-later WITH Libtool-exception AND FSFULLR
+# lib/stddef.in.h:      GPL-3.0-or-later
+# lib/warn-on-use.h:    GPL-3.0-or-later
 # m4/00gnulib.m4:           FSFULLR
 # m4/absolute-header.m4:    FSFULLR
 # m4/extensions.m4:         FSFULLR
-# m4/gnulib-cache.m4:       GPLv3+ with Autoconf exception
+# m4/gnulib-cache.m4:       GPL-3.0-or-later WITH Libtool-exception
 # m4/gnulib-common.m4:      FSFULLR
-# m4/gnulib-comp.m4:        GPLv3+ with Autoconf exception
+# m4/gnulib-comp.m4:        GPL-3.0-or-later WITH Libtool-exception
 # m4/include_next.m4:       FSFULLR
 # m4/langinfo_h.m4:         FSFULLR
 # m4/locale_h.m4:           FSFULLR
@@ -45,7 +46,7 @@ Summary:        Query paper size database and retrieve the preferred size
 # Makefile.in:      FSFULLR
 # man/Makefile.in:  FSFULLR
 # src/Makefile.in:  FSFULLR
-License:        GPLv3+ and FSFAP
+License:        GPL-3.0-or-later AND FSFAP
 URL:            https://github.com/rrthomas/%{name}
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  autoconf
@@ -83,7 +84,7 @@ Provides:       bundled(gnulib)%(perl -ne 'if($. == 1 and /\A(\d+)-(\d+)-(\d+)/)
 This package enables users to indicate their preferred paper size, provides
 the paper(1) utility to find the user's preferred default paper size and give
 information about known sizes, and specifies system-wide and per-user paper
-size catalogs, which can be can also be used directly (see paperspecs(5)).
+size catalogs, which can also be used directly (see paperspecs(5)).
 
 %prep
 %setup -q
@@ -120,6 +121,10 @@ perl -c ./src/paper
 %{_mandir}/man5/paperspecs.5*
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 2.3-6
+- Correct a typo in a description
+- Convert a License tag to the SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

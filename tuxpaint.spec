@@ -1,6 +1,6 @@
 Name:           tuxpaint
 Version:        0.9.28
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Epoch:          1
 Summary:        Drawing program designed for young children
@@ -11,7 +11,7 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-sdl2
 Patch1:         tuxpaint-0.9.21-fix-desktop-file.patch
 Patch2:         tuxpaint-0.9.21-makej.patch
 Patch3:         desktop.patch
-Patch4:         sdl2.patch
+Patch4:         fill-crash.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -56,7 +56,7 @@ Development files for tuxpaint extensions/plugins
 %patch1 -p0 -b .fixdesktopfile
 %patch2 -p1 -b .makej
 %patch3 -p0 -b .desktop
-%patch4 -p0 -b .sdl2
+%patch4 -p1 -b .fill-tool
 
 sed -i -e '/\/gnome\/apps\/Graphics/d' Makefile
 find docs -type f -exec perl -pi -e 's/\r\n/\n/' {} \;
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_includedir}/tuxpaint/
 
 %changelog
+* Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.28-4
+- Patch for fill tool crash.
+
 * Tue Sep 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.28-3
 - Build with SDL2_Pango
 

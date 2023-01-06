@@ -3,9 +3,9 @@
 
 Name:           perl-Graphics-TIFF
 Version:        19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl extension for the LibTIFF library
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-TIFF
 Source0:        https://cpan.metacpan.org/authors/id/R/RA/RATCLIFFE/Graphics-TIFF-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -133,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 19-3
+- Convert a License tag to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

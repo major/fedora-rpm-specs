@@ -1,7 +1,7 @@
-%global framework libkcddb
+%global base_name libkcddb
 
-Name:    kf5-%{framework}
-Version: 22.12.0
+Name:    kf5-%{base_name}
+Version: 22.12.1
 Release: 1%{?dist}
 Summary: CDDB retrieval library
 
@@ -14,7 +14,7 @@ URL:     https://www.kde.org/applications/multimedia/
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf5-rpm-macros
@@ -59,7 +59,7 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -92,7 +92,7 @@ echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
 %{_qt5_plugindir}/kcm_cddb.so
 %{_kf5_datadir}/config.kcfg/libkcddb5.kcfg
 %{_kf5_datadir}/kservices5/libkcddb.desktop
-%{_kf5_datadir}/qlogging-categories5/%{framework}*
+%{_kf5_datadir}/qlogging-categories5/%{base_name}*
 
 %files devel
 %{_kf5_libdir}/libKF5Cddb.so
@@ -106,6 +106,9 @@ echo '%{_kf5_docdir}/HTML/*/kcontrol' > %{name}-doc.lang
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

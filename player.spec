@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPLv2+ and LGPLv2+
@@ -239,6 +239,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-45
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Oct 29 2022 Rich Mattes <richmattes@gmail.com> - 3.1.0-44
 - Remove libunicap buildrequires (Fixes: #2130273)
 

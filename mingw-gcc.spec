@@ -18,14 +18,14 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20220819
-%global gitrev 12a206c28987ada47b447ebd200d1fd9639c8edd
+%global DATE 20221121
+%global gitrev b3f5a0d53b84ed27cf00cfa2b9c3e2c78935c07d
 %global gcc_version 12.2.1
 %global gcc_major 12
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -40,9 +40,11 @@ URL:            http://gcc.gnu.org
 %global srcdir gcc-%{version}-%{DATE}
 Source0:        %{srcdir}.tar.xz
 
-Patch0:         mingw-gcc-config.patch
 # See https://sourceforge.net/p/mingw-w64/mailman/mingw-w64-public/thread/8fd2fb03-9b8a-07e1-e162-0bb48bcc3984%40gmail.com/#msg37200751
-Patch1:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
+Patch0:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
+# Upstream patches for better C99 compatibility of configure scripts
+Patch1:         mingw-gcc-configure-c99-1.patch
+Patch2:         mingw-gcc-configure-c99-2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -902,6 +904,12 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Wed Jan 04 2023 Florian Weimer <fweimer@redhat.com> - 12.2.1-6
+- Apply upstream patches to improve C99 compatibility of configure scripts
+
+* Wed Jan 04 2023 Sandro Mani <manisandro@gmail.com> - 12.2.1-5
+- Update to 20221121 snapshot
+
 * Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 12.2.1-4
 - Fix incorrect requires
 

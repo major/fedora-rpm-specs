@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
-%global module ktp-kded-module
+%global base_name ktp-kded-module
 
 Name:    ktp-kded-integration-module
 Summary: KDE integration for telepathy
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -15,7 +15,7 @@ URL:     https://invent.kde.org/network/%{name}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{module}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 # due to kaccounts-providers
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
@@ -57,7 +57,7 @@ integration like setting user to auto-away or handling connection errors.
 
 
 %prep
-%autosetup -n %{module}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -80,6 +80,9 @@ integration like setting user to auto-away or handling connection errors.
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Wed Dec 21 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

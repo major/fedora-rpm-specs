@@ -8,13 +8,12 @@
 
 Summary: A portable x86 assembler which uses Intel-like syntax
 Name: nasm
-Version: 2.15.05
-Release: 3%{?dist}
+Version: 2.16.01
+Release: 2%{?dist}
 License: BSD
 URL: http://www.nasm.us
 Source0: https://www.nasm.us/pub/nasm/releasebuilds/%{version}/%{name}-%{version}.tar.xz
 Source1: https://www.nasm.us/pub/nasm/releasebuilds/%{version}/%{name}-%{version}-xdoc.tar.xz
-Patch0: nasm-SourceSans-font-name.patch
 
 BuildRequires: perl(Env)
 BuildRequires: autoconf
@@ -23,6 +22,7 @@ BuildRequires: asciidoc
 BuildRequires: xmlto
 BuildRequires: gcc
 BuildRequires: make
+Obsoletes: nasm-rdoff < 2.16.01-1
 
 %if %{with documentation}
 %package doc
@@ -39,9 +39,6 @@ BuildArch: noarch
 Obsoletes: %{name}-doc < %{version}-%{release}
 %endif
 
-%package rdoff
-Summary: Tools for the RDOFF binary format, sometimes used with NASM
-
 %description
 NASM is the Netwide Assembler, a free portable assembler for the Intel
 80x86 microprocessor series, using primarily the traditional Intel
@@ -52,11 +49,6 @@ instruction mnemonics and syntax.
 This package contains documentation for the Netwide Assembler (NASM),
 in HTML, PDF, PostScript, and text formats.
 %endif
-
-%description rdoff
-Tools for the operating-system independent RDOFF binary format, which
-is sometimes used with the Netwide Assembler (NASM). These tools
-include linker, library manager, loader, and information dump.
 
 %prep
 %autosetup -p1
@@ -73,7 +65,7 @@ make all %{?_smp_mflags}
 %endif
 
 %install
-%make_install install_rdf
+%make_install
 
 %check
 make -C test golden test diff
@@ -91,20 +83,15 @@ make -C test golden test diff
 %doc doc/html doc/nasmdoc.txt.gz doc/nasmdoc.ps.gz doc/nasmdoc.pdf
 %endif
 
-%files rdoff
-%{_bindir}/ldrdf
-%{_bindir}/rdf2bin
-%{_bindir}/rdf2ihx
-%{_bindir}/rdf2com
-%{_bindir}/rdfdump
-%{_bindir}/rdflib
-%{_bindir}/rdx
-%{_bindir}/rdf2ith
-%{_bindir}/rdf2srec
-%{_mandir}/man1/rd*
-%{_mandir}/man1/ld*
-
 %changelog
+* Wed Jan 04 2023 Dominik Mierzejewski <rpm@greysector.net> - 2.16.01-2
+- add Obsoletes for the dropped subpackage
+
+* Wed Jan 04 2023 Dominik Mierzejewski <rpm@greysector.net> - 2.16.01-1
+- update to 2.16.01 (#2155636)
+- drop obsolete patch
+- drop rdoff subpackage (discontinued upstream)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.05-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

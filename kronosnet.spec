@@ -36,8 +36,8 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.24
-Release: 2%{?dist}
+Version: 1.25
+Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -420,6 +420,9 @@ Requires: libknet1-crypto-plugins-all%{_isa} = %{version}-%{release}
 Summary: Provides kronosnet test suite
 License: GPLv2+
 Requires: libknet1%{_isa} = %{version}-%{release}
+%if %{with libnozzle}
+Requires: libnozzle1%{_isa} = %{version}-%{release}
+%endif
 
 %description -n kronosnet-tests
  This package contains all the libknet and libnozzle test suite.
@@ -433,6 +436,13 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Wed Jan 04 2023 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.25-1
+- New upstream release
+- Fix PMTUd issues
+- Update docs and upstream URLs
+- Fix spec file for test suite build conditional
+- Build system update
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

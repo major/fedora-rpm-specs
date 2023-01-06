@@ -1,6 +1,6 @@
 Name:           perl-Glib-Object-Introspection
 Version:        0.049
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Glib-Object-Introspection
@@ -38,7 +38,6 @@ BuildRequires:  perl(utf8)
 # Optional tests
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  perl(Cairo::GObject)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Glib) >= 1.320
 
@@ -95,6 +94,9 @@ LANG=C.UTF-8 make test
 %{_bindir}/perli11ndoc
 
 %changelog
+* Wed Jan 04 2023 Sérgio Basto <sergio@serjux.com> - 0.049-10
+- Drop dependency perl-Cairo-GObject only need for an optional test
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.049-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

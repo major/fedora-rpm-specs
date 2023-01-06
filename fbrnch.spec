@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.2.1
 # can only be reset when all subpkgs bumped
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # bodhi-hs, pdc-hs: MIT
@@ -77,7 +77,9 @@ BuildRequires:  ghc-xdg-basedir-prof
 BuildRequires:  help2man
 Requires:       bodhi-client
 Requires:       curl
+%if %{defined fedora}
 Requires:       fedora-packager-kerberos
+%endif
 Requires:       fedpkg
 Requires:       git-core
 Requires:       koji
@@ -152,6 +154,9 @@ install -pm 644 -D %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Wed Jan  4 2023 Jens Petersen <petersen@redhat.com> - 1.2.1-9
+- fedora-packager-kerberos not in epel9
+
 * Wed Nov 23 2022 Jens Petersen <petersen@redhat.com> - 1.2.1-8
 - 'install': if dnf install fails, include command in error message
 - 'override': check for kerberos ticket

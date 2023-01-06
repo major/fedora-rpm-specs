@@ -1,6 +1,6 @@
 Name:		qdbm
 Version:	1.8.78
-Release:	54%{?dist}
+Release:	55%{?dist}
 License:	LGPLv2+
 
 URL:		http://fallabs.com/qdbm/
@@ -375,6 +375,9 @@ popd
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-55
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Nov 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-54
 - Patch for ruby module for c99 conformant: -Werror=implicit-int
 

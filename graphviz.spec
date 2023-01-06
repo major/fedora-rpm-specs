@@ -82,7 +82,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		7.0.5
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -730,6 +730,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.5-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Thu Dec 29 2022 Tom Callaway <spot@fedoraproject.org> - 7.0.5-1
 - update to 7.0.5
 - patch out distutils usage to build with Python 3.12

@@ -1,15 +1,16 @@
 Name:           perl-App-Nopaste
 Version:        1.013
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Easy access to any pastebin
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-Nopaste
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/App-Nopaste-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.120620
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
@@ -58,7 +59,6 @@ name nopaste).
 %package -n nopaste
 # needs to beat old nopaste-2835-3
 Epoch:          1
-License:        GPL+ or Artistic
 Summary:        Access pastebins from the command line
 Requires:       %{name} = 0:%{version}-%{release}
 
@@ -74,11 +74,11 @@ normally be too long to give directly in the channel (hence the name nopaste).
 %setup -q -n App-Nopaste-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -87,14 +87,18 @@ make test
 %files
 %doc Changes CONTRIBUTING README
 %license LICENSE
-%{perl_vendorlib}/App*
-%{_mandir}/man3/App*
+%dir %{perl_vendorlib}/App
+%{perl_vendorlib}/App/Nopaste*
+%{_mandir}/man3/App::Nopaste*
 
 %files -n nopaste
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/nopaste
+%{_mandir}/man1/nopaste.*
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 1.013-11
+- Convert a License tag to an SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.013-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

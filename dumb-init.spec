@@ -1,6 +1,6 @@
 Name:           dumb-init
 Version:        1.2.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Entry-point for containers that proxies signals
 
 License:        MIT
@@ -12,20 +12,12 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Backported from upstream commit: https://github.com/Yelp/dumb-init/commit/b1a2551ad3c909384d97bca914f7c42cfdcdbf05
 Patch0:         0000-update-for-pytest-7.2.0.patch
 
-BuildRequires:  gcc
-BuildRequires:  help2man
-BuildRequires:  make
+BuildRequires: gcc
+BuildRequires: help2man
+BuildRequires: make
 
-# for some reason %%python3_pkgversion returns 3 instead of 36 in EL7
-%if 0%{?el7}
-%define pysuffix 36
-%else
-%define pysuffix 3
-%endif
-
-BuildRequires: python%{pysuffix}
-BuildRequires: python%{pysuffix}-pytest
-BuildRequires: python%{pysuffix}-mock
+BuildRequires: python3
+BuildRequires: python3-pytest
 
 
 %description
@@ -56,6 +48,10 @@ install -Dpm0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md
 
 %changelog
+* Wed Jan 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.5-7
+- Remove build-time dependency on python3-mock (https://fedoraproject.org/wiki/Changes/DeprecatePythonMock)
+- Remove EPEL7-specific parts of the spec
+
 * Sat Nov 12 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.5-6
 - Add a patch to make test suite work properly with pytest 7.2.0+
 

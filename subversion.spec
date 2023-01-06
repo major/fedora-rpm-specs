@@ -59,7 +59,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: ASL 2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -585,6 +585,9 @@ make check-javahl
 %endif
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.2-11
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Oct 09 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.2-10
 - Backport upstream fix for ruby3.2 support
 

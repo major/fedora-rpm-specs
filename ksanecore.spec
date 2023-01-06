@@ -1,6 +1,6 @@
 Name:    ksanecore
 Summary: Library providing logic to interface scanners
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: BSD and LGPLv2.1-only and LGPLv3.0-only
@@ -56,5 +56,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Wed Dec 21 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
 - Initial inclusion

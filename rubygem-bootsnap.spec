@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.7
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -109,6 +109,9 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.7-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.7-8
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

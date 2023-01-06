@@ -1,5 +1,5 @@
 Name:		perl-MCE-Shared
-Version:	1.879
+Version:	1.880
 Release:	1%{?dist}
 Summary:	MCE extension for sharing data, supporting threads and processes
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -21,7 +21,7 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(Errno)
 BuildRequires:	perl(if)
 BuildRequires:	perl(IO::Handle)
-BuildRequires:	perl(MCE) >= 1.876
+BuildRequires:	perl(MCE) >= 1.883
 BuildRequires:	perl(MCE::Mutex)
 BuildRequires:	perl(MCE::Signal)
 BuildRequires:	perl(MCE::Util)
@@ -45,7 +45,7 @@ BuildRequires:	perl(utf8)
 # Runtime
 Requires:	perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:	perl(IO::FDPass) >= 1.2
-Requires:	perl(MCE) >= 1.876
+Requires:	perl(MCE) >= 1.883
 Requires:	perl(overloading)
 Requires:	perl(POSIX)
 Requires:	perl(Storable) >= 2.04
@@ -93,6 +93,11 @@ make test
 %{_mandir}/man3/MCE::Shared::Server.3*
 
 %changelog
+* Wed Jan  4 2023 Paul Howarth <paul@city-fan.org> - 1.880-1
+- Update to 1.880
+  - Bump MCE dependency to 1.883
+  - Improve 05_mce_hobo.t test
+
 * Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 1.879-1
 - Update to 1.879
   - Update the error status if MCE::Hobo died due to receiving a signal

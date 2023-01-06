@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 License:	MIT
@@ -103,6 +103,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-22
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-22
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

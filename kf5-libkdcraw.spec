@@ -1,24 +1,25 @@
-%global framework libkdcraw
+%global base_name libkdcraw
 
 Name:    kf5-libkdcraw
 Summary: A C++ interface around LibRaw library
-Version: 22.12.0
-Release: 2%{?dist}
+Version: 22.12.1
+Release: 1%{?dist}
 
 # libkdcraw is GPLv2+,
 # LibRaw(bundled) is LGPLv2
 # demosaic-pack GPLv2+ GPLv3+ (addons to libraw)
 License: GPLv2+ and LGPLv2 and GPLv3+
-URL:     https://invent.kde.org/frameworks/%{framework}
+URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
-Patch0: libraw.patch
+#Patch0: libraw.patch
+#Fixed upstream @ https://invent.kde.org/graphics/libkdcraw/-/commit/0843c601cbb9a9bb5774ed01b7d90e68fd17950a
 
 %if 0%{?rhel} == 8
 ExclusiveArch: x86_64 ppc64le %{arm}
@@ -48,7 +49,7 @@ Requires: cmake(Qt5Gui)
 
 
 %prep
-%autosetup -n %{framework}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -67,7 +68,7 @@ Requires: cmake(Qt5Gui)
 %doc AUTHORS
 %license LICENSES/*
 %{_kf5_libdir}/libKF5KDcraw.so.5*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
+%{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 
 %files devel
 %{_kf5_libdir}/libKF5KDcraw.so
@@ -77,6 +78,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 22.12.0-2
 - LibRaw rebuild
 

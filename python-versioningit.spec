@@ -32,10 +32,11 @@ Features:
   would just be rude.}
 
 Name:           python-versioningit
-Version:        2.0.1
+Version:        2.1.0
 Release:        %{autorelease}
 Summary:        Versioning It with your Version In Git
 
+# SPDX
 License:        MIT
 URL:            https://pypi.org/pypi/versioningit
 Source0:        %{pypi_source versioningit}
@@ -65,9 +66,12 @@ BuildRequires:  mercurial
 
 %prep
 %autosetup -n versioningit-%{version}
+
 # Tweak build requirements to use what we have in Fedora. For test
 # dependencies, we change all semver pins to minimum versions.
 sed -r -i 's/~=/>=/g' tox.ini
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]]*)(pytest-cov|.*--(.*-)?cov)/\1# \2/g' tox.ini
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also

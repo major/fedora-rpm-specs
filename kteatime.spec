@@ -7,7 +7,6 @@ Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://www.kde.org/applications/games/kteatime
-#URL:     https://cgit.kde.org/%{name}.git
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -78,16 +77,10 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %license LICENSES/*
 #doc README
 %{_kf5_bindir}/%{name}
-#{_sysconfdir}/xdg/%{name}.knsrc
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
-#{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kconf_update/%{name}*
 %{_kf5_datadir}/knotifications5/%{name}.notifyrc
-#{_kf5_datadir}/kxmlgui5/%{name}/
-#{_kf5_datadir}/sounds/%{name}/
-#{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 %changelog

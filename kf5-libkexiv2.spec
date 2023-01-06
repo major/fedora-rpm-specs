@@ -1,19 +1,19 @@
-%global framework libkexiv2
+%global base_name libkexiv2
 
 Name:    kf5-libkexiv2
 Summary: A wrapper around Exiv2 library
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/graphics/%{framework}
+URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstream patches (master branch)
 
@@ -37,7 +37,7 @@ Requires: cmake(Qt5Gui)
 
 
 %prep
-%autosetup  -n %{framework}-%{version} -p1
+%autosetup  -n %{base_name}-%{version} -p1
 
 
 %build
@@ -55,7 +55,7 @@ Requires: cmake(Qt5Gui)
 %files
 %doc AUTHORS README
 %license LICENSES/*
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
+%{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 %{_kf5_libdir}/libKF5KExiv2.so.*
 
 %files devel
@@ -66,6 +66,9 @@ Requires: cmake(Qt5Gui)
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

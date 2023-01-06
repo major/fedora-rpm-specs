@@ -1,20 +1,20 @@
 %undefine __cmake_in_source_build
-%global framework libkipi
+%global base_name libkipi
 
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/frameworks/%{framework}
+URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
@@ -50,7 +50,7 @@ Requires: cmake(KF5XmlGui)
 
 
 %prep
-%autosetup  -n %{framework}-%{version} -p1
+%autosetup  -n %{base_name}-%{version} -p1
 
 
 %build
@@ -79,6 +79,9 @@ Requires: cmake(KF5XmlGui)
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

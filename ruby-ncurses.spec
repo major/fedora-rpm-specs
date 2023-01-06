@@ -3,7 +3,7 @@
 
 Name: %distname
 Version: 1.3.1
-Release: 40%{?dist}
+Release: 42%{?dist}
 Summary: A module for ruby applications for using ncurses interfaces
 License: LGPLv2+
 URL: http://ncurses-ruby.berlios.de/
@@ -23,7 +23,7 @@ BuildRequires: ruby(release)
 BuildRequires: ruby
 BuildRequires: ruby-devel
 BuildRequires: ncurses-devel
-Requires: ruby(release) >= %{rubyabi}
+Requires: ruby(release)
 Requires: ruby
 Provides: ruby(ncurses) = %{version}-%{release}
 
@@ -58,6 +58,12 @@ ruby extconf.rb --vendor
 %{ruby_vendorlibdir}/ncurses_sugar.rb
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-42
+- Remove undefined rubyabi requirement
+
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.1-41
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

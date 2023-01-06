@@ -3,12 +3,12 @@
 %global installdir /var/lib/dist-git
 
 Name:           dist-git
-Version:        1.16
-Release:        7%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
-License:        MIT and GPLv1
+License:        MIT AND GPL-1.0-only
 URL:            https://github.com/release-engineering/dist-git
 # Source is created by
 # git clone https://github.com/release-engineering/dist-git.git
@@ -50,7 +50,11 @@ Requires:       python3-requests
 Recommends:     python3-grokmirror
 Suggests:       python3-fedmsg
 Suggests:       fedora-messaging
+%if 0%{?rhel} == 8
 BuildRequires:  python3-nose
+%else
+BuildRequires:  python3-pytest
+%endif
 BuildRequires:  python3-parameterized
 BuildRequires:  python3-requests
 
@@ -115,10 +119,14 @@ exit 0
 
 
 %check
-%if 0%{?rhel} && 0%{?rhel} < 8
-nosetests .
+%if 0%{?rhel} && 0%{?rhel} <= 8
+%if 0%{?rhel} < 8
+nosetests -v .
 %else
-nosetests-3 .
+nosetests-3 -v .
+%endif
+%else
+pytest -vv .
 %endif
 
 
@@ -258,23 +266,9 @@ fi
 %{_bindir}/*
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Oct 5 2020 clime <clime@fedoraproject.com> - 1.16-3
-- return back 1.16-1 state
-
-* Mon Oct 5 2020 clime <clime@fedoraproject.com> - 1.16-2
-- use simpler dist-git-selinux require due to build-system problem
+* Wed Jan 04 2023 Miroslav Suchý <msuchy@redhat.com> 1.17-1
+- use spdx license
+- use pytest instead of nose test
 
 * Mon Oct 5 2020 clime <clime@fedoraproject.com> - 1.16-1
 - fixed exceptions for fedora-messaging

@@ -1,7 +1,9 @@
 %global modname boxsdk
 
+%bcond_with tests
+
 Name:               python-boxsdk
-Version:            3.5.1
+Version:            3.6.0
 Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
@@ -26,15 +28,17 @@ BuildRequires:      python%{python3_pkgversion}-requests-toolbelt
 BuildRequires:      python%{python3_pkgversion}-attrs
 # Tests don't pass at the moment.
 # https://github.com/box/box-python-sdk/issues/494
-#BuildRequires:      python%%{python3_pkgversion}-pytest
-#BuildRequires:      python%%{python3_pkgversion}-bottle
-#BuildRequires:      python%%{python3_pkgversion}-redis
-#BuildRequires:      python%%{python3_pkgversion}-mock
-#BuildRequires:      python%%{python3_pkgversion}-sqlalchemy
-#BuildRequires:      python%%{python3_pkgversion}-jsonpatch
-#BuildRequires:      python%%{python3_pkgversion}-cryptography
-#BuildRequires:      python%%{python3_pkgversion}-pytz
-#BuildRequires:      python%%{python3_pkgversion}-jwt
+%if %{with tests}
+BuildRequires:      python%{python3_pkgversion}-pytest
+BuildRequires:      python%{python3_pkgversion}-bottle
+BuildRequires:      python%{python3_pkgversion}-redis
+BuildRequires:      python%{python3_pkgversion}-mock
+BuildRequires:      python%{python3_pkgversion}-sqlalchemy
+BuildRequires:      python%{python3_pkgversion}-jsonpatch
+BuildRequires:      python%{python3_pkgversion}-cryptography
+BuildRequires:      python%{python3_pkgversion}-pytz
+BuildRequires:      python%{python3_pkgversion}-jwt
+%endif
 
 %description -n python%{python3_pkgversion}-%{modname}
 %{summary}.
@@ -50,8 +54,10 @@ Python %{python3_version} version.
 %install
 %py3_install
 
-#%%check
-#pytest-3
+%if %{with tests}
+%check
+pytest-3
+%endif
 
 %files -n python%{python3_pkgversion}-%{modname}
 %doc *.md
@@ -60,6 +66,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.6.0-1
+- 3.6.0
+
 * Wed Nov 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.5.1-1
 - 3.5.1
 

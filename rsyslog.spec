@@ -4,11 +4,38 @@
 # The following packages are not enabled on rhel:
 #   hiredis, libdbi, mongodb, rabbitmq
 # The omamqp1 plugin is built differently as qpid-proton is not available on rhel
+%if 0%{?rhel}
+%bcond_with hiredis
+%bcond_with libdbi
+%bcond_with mongodb
+%bcond_with rabbitmq
+%else
+%bcond_without hiredis
+%bcond_without libdbi
+%bcond_without mongodb
+%bcond_without rabbitmq
+%endif
+
+# Add options to not build with features listed below,
+# the default is to build with them.
+%bcond_without clickhouse
+%bcond_without imdocker
+%bcond_without improg
+%bcond_without gnutls
+%bcond_without openssl
+%bcond_without gssapi
+%bcond_without omamqp1
+%bcond_without rdkafka
+%bcond_without relp
+%bcond_without mysql
+%bcond_without pgsql
+%bcond_without snmp
+%bcond_without udpspoof
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2210.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: (GPLv3+ and ASL 2.0)
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -40,11 +67,10 @@ BuildRequires: pkgconfig
 BuildRequires: python3-docutils
 # make sure systemd is in a version that isn't affected by rhbz#974132
 BuildRequires: systemd-devel >= 204-8
+BuildRequires: systemd-rpm-macros
 BuildRequires: zlib-devel
-BuildRequires: openssl-devel
 BuildRequires: libcap-ng-devel
 
-Requires: openssl-libs
 Recommends: %{name}-logrotate = %version-%release
 Requires: bash >= 2.0
 %{?systemd_ordering}
@@ -87,51 +113,71 @@ Requires: %name = %version-%release
 Summary: Fields extraction module
 Requires: %name = %version-%release
 
+%if %{with snmp}
 %package mmsnmptrapd
 Summary: Message modification module for snmptrapd generated messages
 Requires: %name = %version-%release
+%endif
 
+%if %{with mysql}
 %package mysql
 Summary: MySQL support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: mariadb-connector-c-devel
+%endif
 
+%if %{with pgsql}
 %package pgsql
 Summary: PostgresSQL support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: libpq-devel
+%endif
 
+%if %{with gssapi}
 %package gssapi
 Summary: GSSAPI authentication and encryption support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: krb5-devel
+%endif
 
+%if %{with relp}
 %package relp
 Summary: RELP protocol support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: librelp-devel >= 1.2.16
+%endif
 
+%if %{with gnutls}
 %package gnutls
 Summary: TLS protocol support for rsyslog via GnuTLS library
 Requires: %name = %version-%release
 BuildRequires: gnutls-devel
+%endif
 
+%if %{with openssl}
 %package openssl
 Summary: TLS protocol support for rsyslog via OpenSSL library
 Group: System Environment/Daemons
 Requires: %name = %version-%release
+Requires: openssl-libs
 BuildRequires: openssl-devel
+%endif
 
+%if %{with snmp}
 %package snmp
 Summary: SNMP protocol support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: net-snmp-devel
+%endif
 
+%if %{with udpspoof}
 %package udpspoof
 Summary: Provides the omudpspoof module
 Requires: %name = %version-%release
 BuildRequires: libnet-devel
+%endif
 
+%if %{with omamqp1}
 %package omamqp1
 Summary: Provides the omamqp1 module
 Requires: %name = %version-%release
@@ -144,33 +190,42 @@ BuildRequires: gcc-c++
 BuildRequires: cyrus-sasl-devel
 BuildRequires: openssl-devel
 BuildRequires: python3
+%endif
 
+%if %{with rdkafka}
 %package kafka
 Summary: Provides the omkafka module
 Requires: %name = %version-%release
 BuildRequires: librdkafka-devel
+%endif
 
 %package mmkubernetes
 Summary: Provides the mmkubernetes module
 Requires: %name = %version-%release
 BuildRequires: libcurl-devel
 
-%if 0%{?rhel} == 0
+%if %{with hiredis}
 %package hiredis
 Summary: Redis support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: hiredis-devel
+%endif
 
+%if %{with libdbi}
 %package libdbi
 Summary: Libdbi database support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: libdbi-devel
+%endif
 
+%if %{with mongodb}
 %package mongodb
 Summary: MongoDB support for rsyslog
 Requires: %name = %version-%release
 BuildRequires: mongo-c-driver-devel snappy-devel cyrus-sasl-devel
+%endif
 
+%if %{with rabbitmq}
 %package rabbitmq
 Summary: RabbitMQ support for rsyslog
 Requires: %name = %version-%release
@@ -217,73 +272,101 @@ advantage if a field-based log format is to be processed, like for example CEF
 and either a large number of fields is needed or a specific field is used multiple
 times inside filters.
 
+%if %{with snmp}
 %description mmsnmptrapd
 This message modification module takes messages generated from snmptrapd and
 modifies them so that they look like they originated from the read originator.
+%endif
 
+%if %{with mysql}
 %description mysql
 The rsyslog-mysql package contains a dynamic shared object that will add
 MySQL database support to rsyslog.
+%endif
 
+%if %{with pgsql}
 %description pgsql
 The rsyslog-pgsql package contains a dynamic shared object that will add
 PostgreSQL database support to rsyslog.
+%endif
 
+%if %{with gssapi}
 %description gssapi
 The rsyslog-gssapi package contains the rsyslog plugins which support GSSAPI
 authentication and secure connections. GSSAPI is commonly used for Kerberos
 authentication.
+%endif
 
+%if %{with relp}
 %description relp
 The rsyslog-relp package contains the rsyslog plugins that provide
 the ability to receive syslog messages via the reliable RELP
 protocol.
+%endif
 
+%if %{with gnutls}
 %description gnutls
 The rsyslog-gnutls package contains the rsyslog plugins that provide the
 ability to send and receive syslog messages via TCP or RELP using TLS
 encryption via GnuTLS library. For details refer to rsyslog doc on imtcp
 and omfwd modules.
+%endif
 
+%if %{with openssl}
 %description openssl
 The rsyslog-openssl package contains the rsyslog plugins that provide the
 ability to send and receive syslog messages via TCP or RELP using TLS
 encryption via OpenSSL library. For details refer to rsyslog doc on imtcp
 and omfwd modules.
+%endif
 
+%if %{with snmp}
 %description snmp
 The rsyslog-snmp package contains the rsyslog plugin that provides the
 ability to send syslog messages as SNMPv1 and SNMPv2c traps.
+%endif
 
+%if %{with udpspoof}
 %description udpspoof
 This module is similar to the regular UDP forwarder, but permits to
 spoof the sender address. Also, it enables to circle through a number
 of source ports.
+%endif
 
+%if %{with omamqp1}
 %description omamqp1
 The omamqp1 output module can be used to send log messages via an AMQP
 1.0-compatible messaging bus.
+%endif
 
+%if %{with rdkafka}
 %description kafka
 The rsyslog-kafka package provides module for Apache Kafka output.
+%endif
 
 %description mmkubernetes
 The rsyslog-mmkubernetes package provides module for adding kubernetes
 container metadata.
 
-%if 0%{?rhel} == 0
+%if %{with hiredis}
 %description hiredis
 This module provides output to Redis.
+%endif
 
+%if %{with libdbi}
 %description libdbi
 This module supports a large number of database systems via
 libdbi. Libdbi abstracts the database layer and provides drivers for
 many systems. Drivers are available via the libdbi-drivers project.
+%endif
 
+%if %{with mongodb}
 %description mongodb
 The rsyslog-mongodb package contains a dynamic shared object that will add
 MongoDB database support to rsyslog.
+%endif
 
+%if %{with rabbitmq}
 %description rabbitmq
 This module allows rsyslog to send messages to a RabbitMQ server.
 %endif
@@ -295,11 +378,14 @@ rm -r LICENSE README.md source build/objects.inv
 mv build doc
 # set up rsyslog sources
 %setup -q -D
+
+%if %{with omamqp1}
 # Unpack qpid-proton
 %setup -q -D -T -b 6
 pushd ..
 %patch0 -p1 -b .openssl-compatibility
 popd
+%endif
 
 %patch1 -p1 -b .libcap-ng
 
@@ -310,6 +396,8 @@ export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 %else
 export CFLAGS="$RPM_OPT_FLAGS -fpic"
 %endif
+
+%if %{with omamqp1}
 # build the proton first
 (
 	cd %{_builddir}/qpid-proton-0.34.0
@@ -328,6 +416,7 @@ export CFLAGS="$RPM_OPT_FLAGS -fpic"
 		-DCMAKE_AR="/usr/bin/gcc-ar" -DCMAKE_NM="/usr/bin/gcc-nm" -DCMAKE_RANLIB="/usr/bin/gcc-ranlib"
 	make -j8
 )
+%endif
 
 %ifarch sparc64
 #sparc64 need big PIE
@@ -337,35 +426,61 @@ export CFLAGS="$RPM_OPT_FLAGS -fpie"
 %endif
 export LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
 
+%if %{with hiredis}
 # the hiredis-devel package doesn't provide a pkg-config file
-%if 0%{?rhel} == 0
 export HIREDIS_CFLAGS=-I/usr/include/hiredis
 export HIREDIS_LIBS="-L%{_libdir} -lhiredis"
 %endif
+
 sed -i 's/%{version}/%{version}-%{release}/g' configure.ac
+
 autoreconf -if
 %configure \
 	--prefix=/usr \
 	--disable-static \
 	--disable-testbench \
+%if %{with clickhouse}
 	--enable-clickhouse \
+%endif
+%if %{with imdocker}
 	--enable-imdocker \
+%endif
+%if %{with improg}
 	--enable-improg \
-	--enable-libcap-ng \
+%endif
+  --enable-libcap-ng \
+%if %{with libdbi}
 	--enable-libdbi \
-	--enable-omamqp1 \
+%endif
+%if %{with hiredis}
 	--enable-omhiredis \
+%endif
+%if %{with mongodb}
 	--enable-ommongodb \
+%endif
+%if %{with rabbitmq}
 	--enable-omrabbitmq \
+%endif
+%if %{with omamqp1}
 	--enable-omamqp1 PROTON_LIBS="%{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-core-static.a %{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-proactor-static.a %{_builddir}/qpid-proton-0.34.0/bld/c/libqpid-proton-static.a -lssl -lsasl2 -lcrypto" PROTON_CFLAGS="-I%{_builddir}/qpid-proton-0.34.0/bld/c/include" \
+%endif
 	--enable-elasticsearch \
 	--enable-generate-man-pages \
+%if %{with gnutls}
 	--enable-gnutls \
+%endif
+%if %{with openssl}
 	--enable-openssl \
+%endif
+%if %{with gssapi}
 	--enable-gssapi-krb5 \
+%endif
 	--enable-imfile \
 	--enable-imjournal \
+%if %{with rdkafka}
 	--enable-imkafka \
+	--enable-omkafka \
+%endif
 	--enable-impstats \
 	--enable-imptcp \
 	--enable-mail \
@@ -376,25 +491,36 @@ autoreconf -if
 	--enable-mmkubernetes \
 	--enable-mmjsonparse \
 	--enable-mmnormalize \
+%if %{with snmp}
 	--enable-mmsnmptrapd \
+%endif
 	--enable-mmutf8fix \
+%if %{with mysql}
 	--enable-mysql \
+%endif
 	--enable-omhttp \
 	--enable-omjournal \
 	--enable-omprog \
 	--enable-omstdout \
+%if %{with udpspoof}
 	--enable-omudpspoof \
+%endif
 	--enable-omuxsock \
+%if %{with pgsql}
 	--enable-pgsql \
+%endif
 	--enable-pmaixforwardedfrom \
 	--enable-pmcisconames \
 	--enable-pmlastmsg \
 	--enable-pmsnare \
+%if %{with relp}
 	--enable-relp \
+%endif
+%if %{with snmp}
 	--enable-snmp \
+%endif
 	--enable-unlimited-select \
-	--enable-usertools \
-	--enable-omkafka
+	--enable-usertools
 
 make V=1
 
@@ -416,8 +542,15 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/rsyslog.conf
 install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/rsyslog
 install -p -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/logrotate.d/rsyslog
 install -p -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/rsyslog.service
+
+%if %{with mysql}
 install -p -m 644 plugins/ommysql/createDB.sql %{buildroot}%{rsyslog_docdir}/mysql-createDB.sql
+%endif
+
+%if %{with pgsql}
 install -p -m 644 plugins/ompgsql/createDB.sql %{buildroot}%{rsyslog_docdir}/pgsql-createDB.sql
+%endif
+
 dos2unix tools/recover_qi.pl
 install -p -m 644 tools/recover_qi.pl %{buildroot}%{rsyslog_docdir}/recover_qi.pl
 install -p -m 644 contrib/mmkubernetes/*.rulebase %{buildroot}%{rsyslog_docdir}
@@ -449,8 +582,12 @@ done
 %doc AUTHORS ChangeLog README.md
 %{rsyslog_docdir}
 %exclude %{rsyslog_docdir}/html
+%if %{with mysql}
 %exclude %{rsyslog_docdir}/mysql-createDB.sql
+%endif
+%if %{with pgsql}
 %exclude %{rsyslog_docdir}/pgsql-createDB.sql
+%endif
 %dir %{_libdir}/rsyslog
 %dir %{_sysconfdir}/rsyslog.d
 %dir %{rsyslog_statedir}
@@ -495,9 +632,13 @@ done
 %{_libdir}/rsyslog/pmcisconames.so
 %{_libdir}/rsyslog/pmlastmsg.so
 %{_libdir}/rsyslog/pmsnare.so
-%if 0%{?rhel} == 0
+%if %{with imdocker}
 %{_libdir}/rsyslog/imdocker.so
+%endif
+%if %{with improg}
 %{_libdir}/rsyslog/improg.so
+%endif
+%if %{with clickhouse}
 %{_libdir}/rsyslog/omclickhouse.so
 %endif
 
@@ -527,67 +668,100 @@ done
 %files mmnormalize
 %{_libdir}/rsyslog/mmnormalize.so
 
+%if %{with snmp}
 %files mmsnmptrapd
 %{_libdir}/rsyslog/mmsnmptrapd.so
+%endif
 
+%if %{with mysql}
 %files mysql
 %doc %{rsyslog_docdir}/mysql-createDB.sql
 %{_libdir}/rsyslog/ommysql.so
+%endif
 
+%if %{with pgsql}
 %files pgsql
 %doc %{rsyslog_docdir}/pgsql-createDB.sql
 %{_libdir}/rsyslog/ompgsql.so
+%endif
 
+%if %{with gssapi}
 %files gssapi
 %{_libdir}/rsyslog/lmgssutil.so
 %{_libdir}/rsyslog/imgssapi.so
 %{_libdir}/rsyslog/omgssapi.so
+%endif
 
+%if %{with relp}
 %files relp
 %{_libdir}/rsyslog/imrelp.so
 %{_libdir}/rsyslog/omrelp.so
+%endif
 
+%if %{with gnutls}
 %files gnutls
 %{_libdir}/rsyslog/lmnsd_gtls.so
+%endif
 
+%if %{with openssl}
 %files openssl
 %{_libdir}/rsyslog/lmnsd_ossl.so
+%endif
 
+%if %{with snmp}
 %files snmp
 %{_libdir}/rsyslog/omsnmp.so
+%endif
 
+%if %{with udpspoof}
 %files udpspoof
 %{_libdir}/rsyslog/omudpspoof.so
+%endif
 
+%if %{with omamqp1}
 %files omamqp1
 %{_libdir}/rsyslog/omamqp1.so
+%endif
 
+%if %{with rdkafka}
 %files kafka
 %{_libdir}/rsyslog/imkafka.so
 %{_libdir}/rsyslog/omkafka.so
+%endif
 
 %files mmkubernetes
 %{_libdir}/rsyslog/mmkubernetes.so
 %doc %{rsyslog_docdir}/k8s_filename.rulebase
 %doc %{rsyslog_docdir}/k8s_container_name.rulebase
 
-%if 0%{?rhel} == 0
+%if %{with hiredis}
 %files hiredis
 %{_libdir}/rsyslog/omhiredis.so
+%endif
 
+%if %{with libdbi}
 %files libdbi
 %{_libdir}/rsyslog/omlibdbi.so
+%endif
 
+%if %{with mongodb}
 %files mongodb
 %{_bindir}/logctl
 %{_libdir}/rsyslog/ommongodb.so
+%endif
 
+%if %{with rabbitmq}
 %files rabbitmq
 %{_libdir}/rsyslog/omrabbitmq.so
 %endif
 
 
 %changelog
+* Fri Dec 16 2022 Attila Lakatos <alakatos@redhat.com> - 8.2210.0-2
+- Move all if rhel feature conditions to bcond
+- Move to bcond: rdkafka, relp, mysql, pgsql, gssapi, gnutls, udpspoof, omamqp1
+- Move to bcond: clickhouse, imdocker, improg
+
 * Wed Nov 09 2022 Attila Lakatos <alakatos@redhat.com> - 8.2210.0-1
 - rebase to 8.2210.0
   resolves: rhbz#2097173

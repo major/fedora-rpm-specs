@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 70%{?dist}
+Release: 71%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -130,6 +130,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Thu Dec 29 2022 Tommy Surbakti <tommy@surbakti.net> - 4.0-71
+- Update jwhois.conf for .id ccTLD
+
 * Fri Nov 25 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 4.0-70
 - Fix incorrectly provided whois server for gov.uk in Jisc UK jwhois.conf update
 

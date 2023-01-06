@@ -1,8 +1,8 @@
 Name: libptytty
 Version: 2.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: OS independent and secure pty/tty and utmp/wtmp/lastlog handling
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://software.schmorp.de/
 Source0: http://dist.schmorp.de/%{name}/%{name}-%{version}.tar.gz
 Source1: http://dist.schmorp.de/%{name}/%{name}-%{version}.tar.gz.sig
@@ -63,6 +63,9 @@ signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %doc README
 
 %changelog
+* Wed Jan 04 2023 David Cantrell <dcantrell@redhat.com> - 2.0-4
+- Convert license to SPDX format: GPL-2.0-or-later
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,12 @@
-%global framework libktorrent
+%global base_name libktorrent
 
 Name:    kf5-libktorrent
 Summary: Library providing torrent downloading code
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+
-URL:     https://invent.kde.org/network/%{framework}
+URL:     https://invent.kde.org/network/%{base_name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -14,7 +14,7 @@ URL:     https://invent.kde.org/network/%{framework}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstream patches
 
@@ -53,7 +53,7 @@ Requires: cmake(Qt5Network)
 
 
 %prep
-%autosetup -n %{framework}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -82,6 +82,9 @@ Requires: cmake(Qt5Network)
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

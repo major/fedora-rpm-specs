@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -108,6 +108,9 @@ BuildRequires: diffstat
 BuildRequires: systemd
 
 # for building web ui
+# Explicitly require binary path to workaround dnf dependency resolution
+# confusion between nodejs16 <-> nodejs
+BuildRequires: %{_bindir}/npx
 BuildRequires: npm
 
 # cluster stack packages for pkg-config
@@ -306,7 +309,11 @@ cp %{pcs_bundled_dir}/src/dacite-*/README.md dacite_README.md
 # rpmdiff's binary stripping checker.
 # Therefore we call find-debuginfo.sh script manually in order to strip
 # binaries and add MiniDebugInfo with .gnu_debugdata section
-/usr/lib/rpm/find-debuginfo.sh -j2 -m -i -S debugsourcefiles.list
+
+# With ruby3.2 (F38), gem install cleans up ext directory after installation.
+# With this change, now only one thin_parser.so is installed and it seems
+# the below find-debuginfo.sh exists with 127, ignore the failure
+bash -x /usr/lib/rpm/find-debuginfo.sh -j2 -m -i -S debugsourcefiles.list || :
 # find-debuginfo.sh generated some files into /usr/lib/debug  and
 # /usr/src/debug/ that we don't want in the package
 rm -rf $RPM_BUILD_ROOT%{_libdir}/debug
@@ -428,6 +435,11 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.4-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+- Workaround for dnf dependency resolution confusion between nodejs16 vs nodejs
+- Workaround for find-debuginfo.sh failure wrt ruby3.2 gem install change
+
 * Mon Dec 12 2022 Michal Pospisil <mpospisi@redhat.com> - 0.11.4-1
 - Rebased to latest upstream sources (see CHANGELOG.md)
 - Updated pcs-web-ui

@@ -1,5 +1,5 @@
 Name:           minuet
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        A KDE Software for Music Education
 #OFL license for bundled Bravura.otf font

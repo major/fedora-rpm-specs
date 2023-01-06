@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:    ktp-auth-handler
 Summary: Provide UI/KWallet Integration
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: LGPLv2+
@@ -71,6 +71,9 @@ Provide UI/KWallet Integration For Passwords and SSL Errors on Account Connect.
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Wed Dec 21 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

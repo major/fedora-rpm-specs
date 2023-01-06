@@ -11,7 +11,7 @@
 Summary:	Ruby binding of gtksourceview-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -155,6 +155,9 @@ xvfb-run \
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-8
 - Use %%gem_extdir_mri instead of ext for %%check due to ruby3.2 change
   for ext cleanup during build

@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  7%{?dist}
+Release:  8%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -346,6 +346,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.16-8
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Mon Dec 12 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.2.16-7
 - Add BR perl-generators to automatically generates run-time dependencies
   for installed Perl files

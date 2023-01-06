@@ -5,8 +5,8 @@
 %global python_pkgversion %{python3_pkgversion}
 
 Name:               pagure-dist-git
-Version:            1.12
-Release:            5%{?dist}
+Version:            1.13
+Release:            1%{?dist}
 Summary:            Pagure Git auth backend for Dist-Git setups
 
 License:            GPLv2+
@@ -66,6 +66,21 @@ install -p -m 644 scripts/*.py $RPM_BUILD_ROOT/%{_libexecdir}/pagure-dist-git/
 %{_libexecdir}/pagure-dist-git/
 
 %changelog
+* Wed Nov 30 2022 Lenka Segura <lsegura@redhat.com> - 1.13-1
+- Update to 1.13
+- Include the sync_fas_group and load_from_disk utility scripts (Pierre-Yves Chibon)
+- Script to sync all the ACLs from pkgdb to pagure
+- Add utility script to migrate a single project from pkgdb to pagure_poc
+- Include pkgdb2pagure_acls.py in the releases
+- Multiple fixes in the pkgdb2pagure_acls.py scripts
+- Updated the load_from_disk and other scripts to python3 (Adam Saleh)
+- search exact build NVRs in Koji (Ken Dreyer)
+- Add new monitoring options for release-monitoring (Michal Konecny)
+- Consistent order of users in pagure_owner_alias.json (Anatoli Babenia)
+- Explain relation to src.fedoraproject.org (Anatoli Babenia)
+- Add a hint for rejecting a push to disabled branch (Lenka Segura)
+- Add give_orphan endpoint (Mattia Verga)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

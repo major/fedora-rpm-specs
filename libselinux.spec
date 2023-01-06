@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 0.rc1.1%{?dist}
+Release: 0.rc1.1%{?dist}.1
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/libselinux-3.5-rc1.tar.gz
@@ -213,6 +213,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5-0.rc1.1.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Dec 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
 - SELinux userspace 3.5-rc1 release
 

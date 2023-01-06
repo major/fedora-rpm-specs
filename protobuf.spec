@@ -14,6 +14,9 @@
 
 Summary:        Protocol Buffers - Google's data interchange format
 Name:           protobuf
+# NOTE: perl-Alien-ProtoBuf has an exact-version dependency on the version of
+# protobuf with which it was built; it therefore needs to be rebuilt even for
+# “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
 Release:        1%{?dist}

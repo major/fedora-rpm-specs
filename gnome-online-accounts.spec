@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.46.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPLv2+
@@ -82,6 +82,7 @@ developing applications that use %{name}.
   -Downcloud=true \
   -Dwindows_live=true \
   -Dman=true \
+  -Dgtk_doc=true \
   %{nil}
 
 %meson_build
@@ -119,10 +120,16 @@ developing applications that use %{name}.
 %{_datadir}/gir-1.0/Goa-1.0.gir
 %{_libdir}/pkgconfig/goa-1.0.pc
 %{_libdir}/pkgconfig/goa-backend-1.0.pc
+%dir %{_datadir}/gtk-doc
+%dir %{_datadir}/gtk-doc/html
+%{_datadir}/gtk-doc/html/goa/
 %{_libdir}/goa-1.0/include
 %{_datadir}/vala/
 
 %changelog
+* Mon Dec 26 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.46.0-4
+- Restore gtk-doc API documentation to -devel.
+
 * Thu Dec 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.46.0-3
 - Patches for KRB cache issues.
 
@@ -687,4 +694,3 @@ developing applications that use %{name}.
 
 * Mon Jun 13 2011 Bastien Nocera <bnocera@redhat.com> 3.1.0-1
 - First version
-

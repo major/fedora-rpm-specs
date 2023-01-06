@@ -6,18 +6,20 @@
 %endif
 
 Name:           perl-Sub-Install
-Version:        0.928
-Release:        33%{?dist}
+Version:        0.929
+Release:        1%{?dist}
 Summary:        Install subroutines into packages easily
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Install
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Sub-Install-%{version}.tar.gz
 BuildArch:      noarch
 # ================= Module Build ============================
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # ================= Run-time ================================
@@ -48,20 +50,29 @@ perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%doc Changes LICENSE README
+%license LICENSE
+%doc Changes README
 %{perl_vendorlib}/Sub/
-%{_mandir}/man3/Sub::Install.3pm*
+%{_mandir}/man3/Sub::Install.3*
 
 %changelog
+* Wed Jan  4 2023 Paul Howarth <paul@city-fan.org> - 0.929-1
+- Update to 0.929 (rhbz#2157199)
+  - Update packaging and metadata
+- Use SPDX-format license tag
+- Use %%license
+- Fix permissions verbosely
+- Simplify find command using -delete
+- Drop redundant buildroot cleaning in %%install section
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.928-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

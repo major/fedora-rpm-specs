@@ -25,7 +25,7 @@
 
 Name:		skf
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.1
 Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
@@ -382,6 +382,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-2.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Mon Jan  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-2
 - Proposal patch for supporting PEP623 in python3.12
 

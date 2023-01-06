@@ -1,6 +1,6 @@
 Name:          enchant2
 Version:       2.3.3
-Release:       4%{?snap}%{?dist}
+Release:       5%{?snap}%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPLv2+
@@ -218,6 +218,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jan 04 2023 Sandro Mani <manisandro@gmail.com> - 2.3.3-5
+- Rebuild (mingw-icu)
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 2.3.3-4
 - Rebuild (mingw-icu)
 

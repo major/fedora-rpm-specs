@@ -3,12 +3,12 @@
 %endif
 
 Name: mbedtls
-Version: 2.28.1
+Version: 2.28.2
 Release: 1%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
-License: ASL 2.0
-URL: https://tls.mbed.org/
-Source0: https://tls.mbed.org/download/%{name}-%{version}.tar.gz
+License: Apache-2.0
+URL: https://www.trustedfirmware.org/projects/mbed-tls
+Source0: https://github.com/Mbed-TLS/%{name}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -26,7 +26,6 @@ Mbed TLS is a light-weight open source cryptographic and SSL/TLS
 library written in C. Mbed TLS makes it easy for developers to include
 cryptographic and SSL/TLS capabilities in their (embedded)
 applications with as little hassle as possible.
-FOSS License Exception: https://tls.mbed.org/foss-license-exception
 
 %package        devel
 Summary:        Development files for %{name}
@@ -95,6 +94,10 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Fri Dec 16 2022 Benson Muite <benson_muite@emailplus.org> - 2.28.2-1
+- Update to 2.28.2
+- Update URLs
+
 * Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 2.28.1-1
 - Update to 2.28.1
 

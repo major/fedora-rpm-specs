@@ -1,8 +1,8 @@
-%global gitdate 20220912
-%global gitversion 19dc97a2
+%global gitdate 20230104
+%global gitversion 88b9fe3b
 
 Name:		virglrenderer
-Version:	0.10.1
+Version:	0.10.4
 Release:	1.%{gitdate}git%{gitversion}%{?dist}
 
 Summary:	Virgl Rendering library.
@@ -70,6 +70,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Wed Jan 04 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.10.4-1.20230104git88b9fe3b
+- new version
+
 * Mon Sep 12 2022 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.10.1-1.20220912git19dc97a2
 - new version, fixes upstream #286 "Virglrenderer 0.10.1 broke Firefox WebGL rendering in VM"
   Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2125160

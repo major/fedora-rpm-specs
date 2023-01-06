@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:    ktimer
-Summary: Task Scheduler 
+Summary: Task Scheduler
 Version: 22.12.1
 Release: 1%{?dist}
 

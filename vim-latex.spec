@@ -1,16 +1,10 @@
-%global date 20141116
-%global commitcount 812
-%global githash gitd0f31c9
-
 Name:		vim-latex
 Version:	1.10.0
-#Release:	16.%%{date}.%%{commitcount}.%%{githash}%%{?dist}
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Tools to view, edit and compile LaTeX documents in Vim
 # According to doc/latex-suite license is Vim charityware license
 License:	Vim
 URL:		http://vim-latex.sourceforge.net/
-#Source0:	http://downloads.sourceforge.net/vim-latex/vim-latex-%%{version}-%%{date}.%%{commitcount}-%%{githash}.tar.gz
 Source0:	http://downloads.sourceforge.net/vim-latex/vim-latex-%{version}.tar.gz
 Source1:	http://downloads.sourceforge.net/vim-latex/vim-latex-%{version}.tar.gz.asc
 Source2:	vim-latex-gpgkeys.gpg
@@ -18,15 +12,18 @@ Source2:	vim-latex-gpgkeys.gpg
 Patch0:		vim-latex-1.10.0-Interpret-outline.py-by-Python-3.patch
 BuildArch:	noarch
 
-# We need vim-common for dir ownership
-Requires:	vim-common
-# Needed for compilation (duh)
+# We need vim-filesystem for dir ownership
+Requires:	vim-filesystem
+# Needed for compilation
 Requires:	tex(latex)
 # Needed for display
 Requires:	xdvi
 
-# needed to build documentation
-BuildRequires: make
+# Needed for vim macros
+BuildRequires: vim-filesystem
+
+# Needed to build documentation
+BuildRequires:	make
 BuildRequires:	libxslt
 BuildRequires:	docbook-style-xsl
 BuildRequires:	docbook-dtds
@@ -47,36 +44,28 @@ Summary:	Documentation for vim-latex
 Documentation for vim-latex.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-#setup -q -n %%{name}-%%{version}-%%{date}.%%{commitcount}-%%{githash}
-%setup -q -n %{name}-%{version}
-%patch0 -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
 
 %build
 # build documentation
-make -C doc
+%make_build -C doc
 
 %install
-rm -rf %{buildroot}
 # Install files
-make install DESTDIR=%{buildroot} VIMDIR=%{_datadir}/vim/vimfiles BINDIR=%{_bindir} PREFIX=%{_prefix}
+%make_install VIMDIR=%{vimfiles_root} BINDIR=%{_bindir} PREFIX=%{_prefix}
 
 
 %files
+%doc %{vimfiles_root}/doc/imaps.txt
+%doc %{vimfiles_root}/doc/latex*.txt
 %{_bindir}/latextags
 %{_bindir}/ltags
 %{_datadir}/appdata/vim-latex.metainfo.xml
-%{_datadir}/vim/vimfiles/compiler/tex.vim
-%doc %{_datadir}/vim/vimfiles/doc/imaps.txt
-%doc %{_datadir}/vim/vimfiles/doc/latex*.txt
-%{_datadir}/vim/vimfiles/ftplugin/bib_latexSuite.vim
-%{_datadir}/vim/vimfiles/ftplugin/tex_latexSuite.vim
-%{_datadir}/vim/vimfiles/ftplugin/latex-suite/
-%{_datadir}/vim/vimfiles/indent/tex.vim
-%{_datadir}/vim/vimfiles/plugin/SyntaxFolds.vim
-%{_datadir}/vim/vimfiles/plugin/filebrowser.vim
-%{_datadir}/vim/vimfiles/plugin/imaps.vim
-%{_datadir}/vim/vimfiles/plugin/remoteOpen.vim
+%{vimfiles_root}/compiler/*
+%{vimfiles_root}/ftplugin/*
+%{vimfiles_root}/indent/*
+%{vimfiles_root}/plugin/*
 
 
 %files doc
@@ -84,6 +73,9 @@ make install DESTDIR=%{buildroot} VIMDIR=%{_datadir}/vim/vimfiles BINDIR=%{_bind
 
 
 %changelog
+* Wed Jan 04 2023 Arthur Bols <arthur@bols.dev> - 1.10.0-11
+- Spec file cleanup
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -43,6 +43,8 @@ Patch1:         0002-Remove-badges-in-README.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+# Fox %%tox macro
+BuildRequires:  python3-tox-current-env
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -113,7 +115,7 @@ sed -i -e 's/python-igraph/igraph/' requirements.txt tox.ini
 
 %check
 %if %{with tests}
-tox -e units
+%tox -e units
 %endif
 
 %files -n python3-%{pypi_name}

@@ -4,7 +4,7 @@
 %global sover 12
 
 Name:           kpmcore
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        Library for managing partitions by KDE programs
 License:        GPLv3+
@@ -89,7 +89,4 @@ developing applications that use %{name}
 
 
 %changelog
-* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
-- Update to 22.12.1
-
 %autochangelog

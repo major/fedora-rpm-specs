@@ -53,7 +53,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.33.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD
@@ -1219,6 +1219,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.33.5-2
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.5-1
 - New upstream development version 1.33.5
 

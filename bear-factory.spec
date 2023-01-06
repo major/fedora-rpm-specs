@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.38.20200220git%{shortcommit0}%{?dist}
+Release:        0.39.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA
 URL:            https://github.com/j-jorge/bear
@@ -33,7 +33,7 @@ BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(SDL2_mixer)
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 Requires:       hicolor-icon-theme
 
 %description
@@ -136,6 +136,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Mon Sep 12 2022 Scott Talbert <swt@techie.net> - 0.7.0-0.39.20200220git2a78522
+- Rebuild with wxWidgets 3.2
+
 * Thu Aug 11 2022 Hans de Goede <hdegoede@redhat.com> - 0.7.0-0.38.20200220git2a78522
 - Fix various crashes in plee-the-bear
 

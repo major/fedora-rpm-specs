@@ -5,7 +5,7 @@
 %global crate primal
 
 Name:           rust-primal
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        `primal` puts raw power into prime numbers
 
@@ -79,12 +79,7 @@ use the "unstable" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# Test fails on 32-bit https://github.com/huonw/primal/issues/53
-%ifarch %{ix86} %{arm}
-%cargo_test -- -- --skip "src/lib.rs"
-%else
 %cargo_test
-%endif
 %endif
 
 %changelog

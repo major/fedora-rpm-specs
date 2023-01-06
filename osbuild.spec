@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        74
+Version:        75
 
 %forgemeta
 
@@ -251,6 +251,19 @@ fi
 
 
 %changelog
+* Wed Jan 04 2023 Packit <hello@packit.dev> - 75-1
+Changes with 75
+----------------
+  * runners: add Fedora Asahi runner (#1216)
+  * stages/rhsm.facts: create facts file in /etc (#1220)
+  * test/objectstore: use os.stat instead Path.stat (#1217)
+
+Contributions from: Achilleas Koutsou, Christian Kellner, Eric Curtin
+
+— Somewhere on the Internet, 2023-01-04
+
+
+
 * Wed Dec 21 2022 Packit <hello@packit.dev> - 74-1
 Changes with 74
 ----------------

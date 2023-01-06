@@ -11,7 +11,7 @@
 
 Name:           hivex
 Version:        1.3.21
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPLv2
@@ -330,6 +330,9 @@ fi
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.21-13
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.21-12
 - Upstream fix for Python 3.12 removal of distutils (RHBZ#2155013)
 - Unconditionally run autoreconf.

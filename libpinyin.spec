@@ -1,7 +1,7 @@
 %global snapshot 0
 
 Name:           libpinyin
-Version:        2.7.92
+Version:        2.8.0
 Release:        1%{?dist}
 Summary:        Library to deal with pinyin
 
@@ -108,6 +108,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Wed Jan  4 2023 Peng Wu <pwu@redhat.com> - 2.8.0-1
+- Update to 2.8.0
+- bug fixes for ARMv7
+
 * Wed Oct 19 2022 Peng Wu <pwu@redhat.com> - 2.7.92-1
 - Update to 2.7.92
 - bug fixes

@@ -1,6 +1,6 @@
 Name:    lokalize
 Summary: Computer-aided translation system
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+ and GFDL
@@ -17,7 +17,7 @@ Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
+
 BuildRequires: kf5-kcompletion-devel
 BuildRequires: kf5-kconfig-devel
 BuildRequires: kf5-kconfigwidgets-devel
@@ -29,21 +29,26 @@ BuildRequires: kf5-kdoctools-devel
 BuildRequires: kf5-kguiaddons-devel
 BuildRequires: kf5-ki18n-devel
 BuildRequires: kf5-kiconthemes-devel
-BuildRequires: kf5-kitemviews-devel
 BuildRequires: kf5-kio-devel
+BuildRequires: kf5-kitemviews-devel
 BuildRequires: kf5-kjobwidgets-devel
+BuildRequires: kf5-knewstuff-devel
 BuildRequires: kf5-knewstuff-devel
 BuildRequires: kf5-knotifications-devel
 BuildRequires: kf5-knotifyconfig-devel
-BuildRequires: kf5-knewstuff-devel
 BuildRequires: kf5-kross-devel
 BuildRequires: kf5-kservice-devel
-BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: kf5-kwidgetsaddons-devel
+BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: kf5-kxmlgui-devel
+BuildRequires: kf5-rpm-macros
 BuildRequires: kf5-sonnet-devel
+
+BuildRequires: pkgconfig(Qt5DBus)
+BuildRequires: pkgconfig(Qt5Script)
+BuildRequires: pkgconfig(Qt5Sql)
+BuildRequires: pkgconfig(Qt5Widgets)
 BuildRequires: pkgconfig(hunspell)
-BuildRequires: pkgconfig(Qt5Widgets) pkgconfig(Qt5DBus) pkgconfig(Qt5Script) pkgconfig(Qt5Sql)
 
 ## check
 BuildRequires: libappstream-glib
@@ -111,14 +116,15 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_kf5_datadir}/%{name}/
-#{_kf5_datadir}/kconf_update/%{name}*
 %{_kf5_datadir}/knotifications5/%{name}.notifyrc
 %{_kf5_datadir}/kxmlgui5/%{name}/
-#{_kf5_datadir}/sounds/%{name}/
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

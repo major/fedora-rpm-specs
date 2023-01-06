@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.4.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Ruby wrapper for the ncurses library, with wide character support
 License:        LGPLv2+
 URL:            http://github.com/sup-heliotrope/ncursesw-ruby
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{gem_instdir}/extconf.rb/
 %{gem_instdir}/examples
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.10-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

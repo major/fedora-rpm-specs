@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2+ and GPLv3+
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -314,6 +314,7 @@ fi
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/ups.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsd.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsd.users
+%{_tmpfilesdir}/nut-common.conf
 %attr(644,root,root) %{_usr}/lib/udev/rules.d/62-nut-usbups.rules
 %attr(644,root,root) %{_usr}/lib/udev/rules.d/62-nut-ipmipsu.rules
 %{modeldir}/*
@@ -326,7 +327,6 @@ fi
 %{_unitdir}/nut.target
 %{_sbindir}/upsd
 %{_bindir}/nut-scanner
-%{_bindir}/upslog
 %{_libdir}/libnutscan.so.*
 %{_libexecdir}/nut-driver-enumerator.sh
 %{_datadir}/augeas/lenses/dist/nut*
@@ -406,12 +406,12 @@ fi
 %{_mandir}/man8/upsd.8.gz
 %{_mandir}/man8/upsdrvctl.8.gz
 %{_mandir}/man8/upsdrvsvcctl.8.gz
-%{_mandir}/man8/upslog.8.gz
 %{_mandir}/man8/usbhid-ups.8.gz
 
 %files client
 %license COPYING LICENSE-GPL2 LICENSE-GPL3
 %dir %{_sysconfdir}/ups
+%config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/nut.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsmon.conf
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upssched.conf
 %{_tmpfilesdir}/nut-common.conf
@@ -420,19 +420,23 @@ fi
 %ghost %attr(770,root,nut) %{piddir}
 %{_bindir}/upsc
 %{_bindir}/upscmd
+%{_bindir}/upslog
 %{_bindir}/upsrw
 %{_sbindir}/upsmon
 %{_sbindir}/upssched
 %{_bindir}/upssched-cmd
 %{_unitdir}/nut-monitor.service
+%{_unitdir}/nut.target
 /lib/systemd/system-shutdown/nutshutdown
 %{_libdir}/libupsclient.so.*
 %{_libdir}/libnutclient.so.*
 %{_libdir}/libnutclientstub.so.*
+%{_mandir}/man5/nut.conf.5.gz
 %{_mandir}/man5/upsmon.conf.5.gz
 %{_mandir}/man5/upssched.conf.5.gz
 %{_mandir}/man8/upsc.8.gz
 %{_mandir}/man8/upscmd.8.gz
+%{_mandir}/man8/upslog.8.gz
 %{_mandir}/man8/upsrw.8.gz
 %{_mandir}/man8/upsmon.8.gz
 %{_mandir}/man8/upssched.8.gz
@@ -477,6 +481,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Jan 04 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-8
+- move upslog to nut-client, some small spec file changes (#2156504)
+
 * Wed Nov 30 2022 Charles R. Anderson <cra@alum.wpi.edu> - 2.8.0-7
 - use piddir for specifying restart_flag location
 - use piddir for specifying configure --with-statepath/pidpath/altpidpath

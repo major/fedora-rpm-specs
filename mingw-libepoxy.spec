@@ -1,13 +1,13 @@
 %{?mingw_package_header}
 
 Name:           mingw-libepoxy
-Version:        1.5.9
-Release:        4%{?dist}
+Version:        1.5.10
+Release:        1%{?dist}
 Summary:        MinGW Windows libepoxy library
 
 License:        MIT
 URL:            https://github.com/anholt/libepoxy
-Source0:        https://github.com/anholt/libepoxy/releases/download/%{version}/libepoxy-%{version}.tar.xz
+Source0:        https://github.com/anholt/libepoxy/releases/download/%{version}/libepoxy-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -15,6 +15,8 @@ BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw32-angleproject
+BuildRequires:  mingw64-angleproject
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -52,7 +54,7 @@ This package contains the MinGW Windows cross compiled libepoxy library.
 
 
 %build
-%mingw_meson
+%mingw_meson -Degl=yes
 %mingw_ninja
 
 
@@ -75,6 +77,10 @@ This package contains the MinGW Windows cross compiled libepoxy library.
 %{mingw64_includedir}/epoxy/
 
 %changelog
+* Wed Jan 04 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.5.10-1
+- Update to 1.5.10
+- Enable egl thanks to ANGLE
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

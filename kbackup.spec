@@ -1,5 +1,5 @@
 Name:           kbackup
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale

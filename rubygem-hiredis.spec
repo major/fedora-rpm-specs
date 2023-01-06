@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.6.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Ruby wrapper for hiredis
 License: BSD
 URL: http://github.com/redis/hiredis-rb
@@ -98,6 +98,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.3-14
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

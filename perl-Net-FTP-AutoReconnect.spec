@@ -2,9 +2,9 @@
 
 Name:           perl-%{cpan_name}
 Version:        0.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        FTP client class with automatic reconnect on failure
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
 Source0:        https://cpan.metacpan.org/authors/id/G/GI/GIFF/%{cpan_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -24,7 +24,16 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %{?perl_default_filter}
 
 %description
-This is a FTP client class with automatic reconnect on failure.
+This is an FTP client class with automatic reconnect on a failure.
+
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n %{cpan_name}-%{version}
@@ -36,16 +45,34 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/Net
+%dir %{perl_vendorlib}/Net/FTP
+%{perl_vendorlib}/Net/FTP/AutoReconnect.pm
+%{_mandir}/man3/Net::FTP::AutoReconnect.3*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 0.3-38
+- Convert a License tag to an SPDX format
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           libprelude
 Version:        5.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Secure Connections between all Sensors and the Prelude Manager
 License:        LGPL-2.1+
 URL:            https://www.prelude-siem.org/
@@ -242,6 +242,9 @@ patch -d %{buildroot}%{_includedir}/libprelude/ -p0 < %SOURCE1
 %doc AUTHORS ChangeLog README NEWS
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.0-16
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 5.2.0-15
 - Port configure script to C99 (#2148366)
 

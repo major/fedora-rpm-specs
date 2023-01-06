@@ -1,7 +1,7 @@
 
 Name:    svgpart 
 Summary: SVG KPart
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -52,6 +52,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

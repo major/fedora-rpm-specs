@@ -1,8 +1,16 @@
 %define debug_package %{nil}
 
+%if %{undefined flatpak} && %{undefined rhel}
+%if 0%{?fedora} >= 38
+%bcond_without graphicsmagick
+%else
+%bcond_without imagemagick
+%endif
+%endif
+
 Name:           inkscape
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -36,8 +44,11 @@ BuildRequires:  libgdl-devel
 BuildRequires:  gettext
 BuildRequires:  gsl-devel
 BuildRequires:  gtkmm30-devel
-%if ! 0%{?flatpak} && ! (0%{?rhel} >= 8)
-BuildRequires:  ImageMagick-c++-devel
+%if %{with imagemagick}
+BuildRequires:  pkgconfig(ImageMagick++) < 7
+%endif
+%if %{with graphicsmagick}
+BuildRequires:  pkgconfig(GraphicsMagick++)
 %endif
 BuildRequires:  intltool
 BuildRequires:  lcms2-devel
@@ -131,6 +142,8 @@ dos2unix -k -q share/extensions/*.py
 
 %build
 %cmake3 \
+        -DWITH_GRAPHICS_MAGICK=%{?with_graphicsmagick:ON}%{!?with_graphicsmagick:OFF} \
+        -DWITH_IMAGE_MAGICK=%{?with_imagemagick:ON}%{!?with_imagemagick:OFF} \
         -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
         -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
@@ -212,6 +225,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Tue Jan 03 2023 Carl George <carl@george.computer> - 1.2.2-2
+- Build against GraphicsMagick instead of ImageMagick on F38+, resolves rhbz#2158052
+
 * Tue Dec 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-1
 - 1.2.2
 

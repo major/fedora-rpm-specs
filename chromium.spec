@@ -112,9 +112,6 @@
 # enable system brotli
 %global bundlebrotli 0
 
-# set bundleffmpeg 0 to enable system ffmpeg-free
-%global bundleffmpeg 1
-
 %if 0
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
@@ -158,6 +155,8 @@ BuildRequires: libicu-devel >= 5.4
 %global bundlefreetype 1
 %global bundlelibdrm 1
 %global bundlefontconfig 1
+%global bundleffmpegfree 1
+%global bundlelibaom 1
 %else
 # Chromium really wants to use its bundled harfbuzz. Sigh.
 %global bundleharfbuzz 1
@@ -170,6 +169,8 @@ BuildRequires: libicu-devel >= 5.4
 %global bundlefreetype 1
 %global bundlelibdrm 0
 %global bundlefontconfig 0
+%global bundleffmpegfree 0
+%global bundlelibaom 0
 %endif
 
 ### From 2013 until early 2021, Google permitted distribution builds of
@@ -207,7 +208,7 @@ BuildRequires: libicu-devel >= 5.4
 
 Name:	chromium%{chromium_channel}
 Version: 108.0.5359.124
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -235,13 +236,16 @@ Patch6: chromium-108-norar.patch
 Patch7: chromium-71.0.3578.98-widevine-r3.patch
 
 # Try to load widevine from other places
-Patch8: chromium-100.0.4896.60-widevine-other-locations.patch
+Patch8: chromium-108-widevine-other-locations.patch
+
+# Do not download proprietary widevine module in the background (thanks Debian)
+Patch9: chromium-99.0.4844.51-widevine-no-download.patch
 
 # Tell bootstrap.py to always use the version of Python we specify
 Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 
 # Add "Fedora" to the user agent string
-Patch12:	chromium-101.0.4951.41-fedora-user-agent.patch
+Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
 
 # Needs to be submitted..
 Patch51:	chromium-96.0.4664.45-gcc-remoting-constexpr.patch
@@ -279,9 +283,6 @@ Patch69:	chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
 
 # Update six to 1.16.0
 Patch70:	chromium-105.0.5195.52-python-six-1.16.0.patch
-
-# Do not download proprietary widevine module in the background (thanks Debian)
-Patch79:	chromium-99.0.4844.51-widevine-no-download.patch
 
 # Fix crashes with components/cast_*
 # Thanks to Gentoo
@@ -358,6 +359,11 @@ Patch113: chromium-107.0.5304.110-cstring-memset.patch
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
+Patch116: chromium-108-ffmpeg-first_dts.patch
+
+# clang =< 14 and C++20, linker errors std::u16string
+# build failure on rhel
+Patch120: chromium-108-clang14-c++20-link-error.patch
 
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
@@ -373,18 +379,19 @@ Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
 # For Chromium Fedora use chromium-latest.py --stable --ffmpegclean --ffmpegarm
 # If you want to include the ffmpeg arm sources append the --ffmpegarm switch
 # https://commondatastorage.googleapis.com/chromium-browser-official/chromium-%%{version}.tar.xz
-Source0:	chromium-%{version}-clean.tar.xz
-Source3:	chromium-browser.sh
-Source4:	%{chromium_browser_channel}.desktop
+Source0: chromium-%{version}-clean.tar.xz
+Source1: README.fedora
+Source3: chromium-browser.sh
+Source4: %{chromium_browser_channel}.desktop
 # Also, only used if you want to reproduce the clean tarball.
-Source5:	clean_ffmpeg.sh
-Source6:	chromium-latest.py
-Source7:	get_free_ffmpeg_source_files.py
+Source5: clean_ffmpeg.sh
+Source6: chromium-latest.py
+Source7: get_free_ffmpeg_source_files.py
 # Get the names of all tests (gtests) for Linux
 # Usage: get_linux_tests_name.py chromium-%%{version} --spec
-Source8:	get_linux_tests_names.py
+Source8: get_linux_tests_names.py
 # GNOME stuff
-Source9:	chromium-browser.xml
+Source9: chromium-browser.xml
 Source11: chrome-remote-desktop@.service
 Source13: master_preferences
 
@@ -426,13 +433,16 @@ BuildRequires: binutils
 %endif
 
 # build with system ffmpeg-free
-%if 0%{?bundleffmpeg}
-# nothing
-%else
+%if ! 0%{?bundleffmpegfree}
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
+%endif
+
+# build with system libaom
+%if ! 0%{?bundlelibaom}
+BuildRequires: libaom-devel
 %endif
 
 BuildRequires:	alsa-lib-devel
@@ -448,9 +458,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	glibc-devel
 BuildRequires:	gperf
 
-%if 0%{?bundleharfbuzz}
-#nothing
-%else
+%if ! 0%{?bundleharfbuzz}
 BuildRequires:	harfbuzz-devel >= 2.4.0
 %endif
 
@@ -458,9 +466,7 @@ BuildRequires: libatomic
 BuildRequires:	libcap-devel
 BuildRequires:	libcurl-devel
 
-%if 0%{?bundlelibdrm}
-#nothing
-%else
+%if ! 0%{?bundlelibdrm}
 BuildRequires:	libdrm-devel
 %endif
 
@@ -741,8 +747,12 @@ Provides: bundled(expat) = 2.2.0
 Provides: bundled(fdmlibm) = 5.3
 
 # Don't get too excited. MPEG and other legally problematic stuff is stripped out.
-%if %{?bundleffmpeg}
+%if %{?bundleffmpegfree}
 Provides: bundled(ffmpeg) = 5.1.2
+%endif
+
+%if 0%{?bundlelibaom}
+Provides: bundled(libaom)
 %endif
 
 Provides: bundled(fips181) = 2.2.3
@@ -924,6 +934,7 @@ udev.
 %patch6 -p1 -b .nounrar
 %patch7 -p1 -b .widevine-hack
 %patch8 -p1 -b .widevine-other-locations
+%patch9 -p1 -b .widevine-no-download
 %patch11 -p1 -b .py3
 
 # Short term fixes (usually gcc and backports)
@@ -946,7 +957,6 @@ udev.
 %patch68 -p1 -b .i686-textrels
 %patch69 -p1 -b .update-rjsmin-to-1.2.0
 %patch70 -p1 -b .update-six-to-1.16.0
-%patch79 -p1 -b .widevine-no-download
 %patch80 -p1 -b .EnumTable-crash
 %patch82 -p1 -b .remoting-no-tests
 %patch84 -p1 -b .remoting-missing-cmath-header
@@ -979,9 +989,10 @@ udev.
 
 %patch113 -p1 -b .memset
 
-%if ! 0%{?bundleffmpeg}
+%if ! 0%{?bundleffmpegfree}
 %patch114 -p1 -b .system-ffmppeg
 %patch115 -p1 -b .prop-codecs
+%patch116 -p1 -b .first_dts
 %endif
 
 # EPEL specific patches
@@ -997,6 +1008,10 @@ udev.
 
 %if 0%{?rhel} == 8
 %patch110 -p1 -b .el8-aarch64-libpng16-symbol-prefixes
+%endif
+
+%if 0%{?rhel}
+%patch120 -p1 -b .link-error-clang14
 %endif
 
 # Feature specific patches
@@ -1177,18 +1192,22 @@ CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:def
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_goma=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
+
 %if %{official_build}
 CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true use_thin_lto=false is_cfi=false chrome_pgo_phase=0 use_debug_fission=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
 # Too much debuginfo
 sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 %endif
+
 %if %{useapikey}
 CHROMIUM_CORE_GN_DEFINES+=' google_api_key="%{api_key}"'
 %endif
+
 %if %{userestrictedapikeys}
 CHROMIUM_CORE_GN_DEFINES+=' google_default_client_id="%{default_client_id}" google_default_client_secret="%{default_client_secret}"'
 %endif
+
 %if %{?clang}
   CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
   CHROMIUM_CORE_GN_DEFINES+=' clang_base_path="%{_prefix}"'
@@ -1198,13 +1217,23 @@ CHROMIUM_CORE_GN_DEFINES+=' google_default_client_id="%{default_client_id}" goog
   CHROMIUM_CORE_GN_DEFINES+=' is_clang=false'
   CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 %endif
+
 CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true rtc_enable_symbol_export=true'
+
 %if %{use_gold}
 CHROMIUM_CORE_GN_DEFINES+=' use_gold=true'
 %else
 CHROMIUM_CORE_GN_DEFINES+=' use_gold=false'
 %endif
-CHROMIUM_CORE_GN_DEFINES+=' ffmpeg_branding="Chromium" proprietary_codecs=false'
+
+# if systemwide ffmpeg free is used, the proprietary codecs can be set to true to load the codecs from ffmpeg-free
+# the codecs computation is passed to ffmpeg-free in this case
+%if ! %{?bundleffmpegfree}
+CHROMIUM_CORE_GN_DEFINES+=' ffmpeg_branding="Chrome" proprietary_codecs=true is_component_ffmpeg=true'
+%else
+CHROMIUM_CORE_GN_DEFINES+=' ffmpeg_branding="Chromium" proprietary_codecs=false is_component_ffmpeg=false'
+%endif
+
 CHROMIUM_CORE_GN_DEFINES+=' media_use_openh264=false'
 CHROMIUM_CORE_GN_DEFINES+=' rtc_use_h264=false'
 CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
@@ -1236,8 +1265,6 @@ export CHROMIUM_CORE_GN_DEFINES
 CHROMIUM_BROWSER_GN_DEFINES=""
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true icu_use_data_file=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_nacl=false'
-CHROMIUM_BROWSER_GN_DEFINES+=' is_component_ffmpeg=false'
-CHROMIUM_BROWSER_GN_DEFINES+=' is_component_build=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' blink_symbol_level=0 enable_hangout_services_extension=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_aura=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_widevine=true'
@@ -1267,13 +1294,16 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' use_pulseaudio=false use_udev=false use_gtk=fals
 export CHROMIUM_HEADLESS_GN_DEFINES
 
 build/linux/unbundle/replace_gn_files.py --system-libraries \
+%if ! 0%{?bundlelibaom}
+	libaom \
+%endif
 %if ! 0%{?bundlebrotli}
 	brotli \
 %endif
 %if ! 0%{?bundlefontconfig}
 	fontconfig \
 %endif
-%if ! 0%{?bundleffmpeg}
+%if ! 0%{?bundleffmpegfree}
 	ffmpeg \
 %endif
 %if ! 0%{?bundlefreetype}
@@ -1534,6 +1564,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{ch
 mkdir -p %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 cp -a %{SOURCE9} %{buildroot}%{_datadir}/gnome-control-center/default-apps/
 
+# README.fedora
+cp %{SOURCE1} .
+
 %post
 # Set SELinux labels - semanage itself will adjust the lib directory naming
 # But only do it when selinux is enabled, otherwise, it gets noisy.
@@ -1568,7 +1601,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %endif
 
 %files
-%doc AUTHORS
+%doc AUTHORS README.fedora
 %doc chrome_policy_list.html *.json
 %license LICENSE
 %config %{_sysconfdir}/%{name}/
@@ -1576,7 +1609,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %exclude %{_sysconfdir}/%{name}/native-messaging-hosts/*
 %endif
 %{_bindir}/%{chromium_browser_channel}
-%dir %{chromium_path}
 %{chromium_path}/*.bin
 %{chromium_path}/chrome_*.pak
 %{chromium_path}/chrome_crashpad_handler
@@ -1609,6 +1641,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/libvulkan.so*
 %{chromium_path}/vk_swiftshader_icd.json
 %endif
+%dir %{chromium_path}/
 %dir %{chromium_path}/locales/
 %lang(af) %{chromium_path}/locales/af.pak
 %lang(am) %{chromium_path}/locales/am.pak
@@ -1705,6 +1738,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 04 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-3
+- build with system ffmpeg-free and system libaom
+- fix widewine extension issue
+- vaapi, disable UseChromeOSDirectVideoDecoder
+- workaround for linking issue in clang <= 14
+
 * Sun Jan  1 2023 Tom Callaway <spot@fedoraproject.org> - 108.0.5359.124-2
 - turn headless back on (chrome-remote-desktop will stay off, probably forever)
 

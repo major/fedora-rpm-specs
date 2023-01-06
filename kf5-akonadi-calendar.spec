@@ -1,4 +1,4 @@
-%global framework akonadi-calendar
+%global base_name akonadi-calendar
 
 # uncomment to enable bootstrap mode
 #global bootstrap 1
@@ -7,13 +7,13 @@
 %global tests 1
 %endif
 
-Name:    kf5-%{framework}
-Version: 22.12.0
+Name:    kf5-%{base_name}
+Version: 22.12.1
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: LGPLv2+
-URL:     https://invent.kde.org/frameworks/%{framework}
+URL:     https://invent.kde.org/frameworks/%{base_name}
 
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -21,7 +21,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %else
 %global stable stable
 %endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -69,7 +69,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{framework}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -102,7 +102,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_datadir}/akonadi/plugins/serializer/
 %{_kf5_datadir}/dbus-1/services/org.kde.kalendarac.service
 %{_kf5_datadir}/knotifications5/kalendarac.notifyrc
-%{_kf5_datadir}/qlogging-categories5/*%{framework}.*
+%{_kf5_datadir}/qlogging-categories5/*%{base_name}.*
 %{_kf5_datadir}/qlogging-categories5/org_kde_kalendarac.categories
 %{_kf5_libdir}/libKF5AkonadiCalendar.so.*
 %{_kf5_qtplugindir}/akonadi_serializer_kcalcore.so
@@ -120,6 +120,12 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

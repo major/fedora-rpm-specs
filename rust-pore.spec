@@ -37,7 +37,9 @@ License:        Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) A
 
 %files       -n %{crate}
 %license LICENSE
+%if 0%{?fedora}
 %license LICENSE.dependencies
+%endif
 %doc README.md
 %{_bindir}/pore
 
@@ -76,7 +78,9 @@ use the "default" feature of the "%{crate}" crate.
 
 %build
 %cargo_build
+%if 0%{?fedora}
 %{cargo_license} > LICENSE.dependencies
+%endif
 
 %install
 %cargo_install

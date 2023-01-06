@@ -26,7 +26,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        %{mainrel}%{?dist}
+Release:        %{mainrel}%{?dist}.1
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -858,6 +858,9 @@ done
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-11.1
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Dec  2 2022 Florian Weimer <fweimer@redhat.com> - 0.90.4-11
 - Port to C99
 

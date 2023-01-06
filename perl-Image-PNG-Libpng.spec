@@ -1,19 +1,19 @@
 Name:           perl-Image-PNG-Libpng
 Version:        0.57
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl interface to the libpng library
-# lib/Image/PNG/Const.pm:   GPL+ or Artistic
-# lib/Image/PNG/Libpng.pod: GPL+ or Artistic
+# lib/Image/PNG/Const.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Image/PNG/Libpng.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in any binary package
-# Makefile.PL:              GPL+ or Artistic
-# repackage.sh:             GPLv2+
+# Makefile.PL:              GPL-1.0-or-later OR Artistic-1.0-Perl
+# repackage.sh:             GPL-2.0-or-later
 # t/libpng/PngSuite.LICENSE:    FSFUL-like (contrib/pngsuite bundled from libpng)
 ## Stripped from the source archive
 # examples/life.png:        CC-BY-NC-2.5
 # examples/life-gray.png:   CC-BY-NC-2.5
 # t/emoticon.png:           CC-BY-NC-2.5
 # t/tantei-san.png:         "I don't have permission to disseminate it."
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Image-PNG-Libpng
 # Original archive from
 # <https://cpan.metacpan.org/authors/id/B/BK/BKB/Image-PNG-Libpng-%%{version}.tar.gz>
@@ -140,9 +140,11 @@ make test
 
 %files
 %doc Changes
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Image*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Image
+%{perl_vendorarch}/auto/Image/PNG
+%dir %{perl_vendorarch}/Image
+%{perl_vendorarch}/Image/PNG
+%{_mandir}/man3/Image::PNG::*
 
 %files tools
 %{_bindir}/pnginspect
@@ -152,6 +154,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 0.57-7
+- Convert a License tag to the SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

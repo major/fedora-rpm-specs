@@ -1,11 +1,11 @@
-%bcond_without rc
+%bcond_with rc
 %if %{with rc}
 %global candidate rc2
 %endif
 
 Name:          tpm2-tss
 Version:       4.0.0
-Release:       0.1%{?candidate:.%{candidate}}%{?dist}
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
@@ -134,6 +134,9 @@ use tpm2-tss.
 
 
 %changelog
+* Wed Jan 04 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.0-1
+- Update to 4.0.0
+
 * Mon Dec 19 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 4.0.0-0.1.rc2
 - Update to 4.0.0 RC2
 

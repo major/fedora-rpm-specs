@@ -1,5 +1,5 @@
 Name:           skanlite
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        Lightweight scanning program
 # Actually: GPLv2 or GPLv3 or any later Version approved by KDE e.V.
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.kde.
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Sun Dec 25 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
 - Update to 22.12.0
 

@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -16,7 +16,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(javax.activation:activation)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.tomcat:tomcat-servlet-api)
@@ -141,10 +141,6 @@ find -name '*.jar' -print -delete
 %pom_remove_plugin :maven-clover2-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 
-# depend on jakarta-activation
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api resteasy-jaxrs
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api resteasy-spring
-
 # depend on jakarta-annotations
 %pom_change_dep org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec javax.annotation:javax.annotation-api jboss-modules
 %pom_change_dep org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec javax.annotation:javax.annotation-api providers/jaxb
@@ -218,6 +214,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Tue Dec 20 2022 Marian Koncek <mkoncek@redhat.com> - 3.0.26-18
+- Rebuild with compat jakarta.activation version 1
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

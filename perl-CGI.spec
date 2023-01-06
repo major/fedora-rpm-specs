@@ -3,8 +3,8 @@
 
 Name:           perl-CGI
 Summary:        Handle Common Gateway Interface requests and responses
-Version:        4.54
-Release:        4%{?dist}
+Version:        4.55
+Release:        1%{?dist}
 License:        Artistic-2.0
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-%{version}.tar.gz
 URL:            https://metacpan.org/release/CGI
@@ -40,7 +40,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(POSIX)
-BuildRequires:  perl(Test::Deep) >= 0.11
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::Warn) >= 0.3
 BuildRequires:  perl(utf8)
@@ -131,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 04 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.55-1
+- 4.55 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.54-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

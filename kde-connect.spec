@@ -1,10 +1,10 @@
 # enable experimental (default off) bluetooth support
 #global bluetooth 1
 
-%global module kdeconnect-kde
+%global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
@@ -16,7 +16,7 @@ Url:     https://community.kde.org/KDEConnect
 %else
 %global stable stable
 %endif
-Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{module}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 ## upstream patches (lookaside cache)
 
@@ -122,7 +122,7 @@ Supplements: (kdeconnectd and nautilus)
 
 
 %prep
-%autosetup -n %{module}-%{version} -p1
+%autosetup -n %{base_name}-%{version} -p1
 
 
 %build
@@ -191,6 +191,9 @@ done
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

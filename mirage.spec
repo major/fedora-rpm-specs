@@ -2,7 +2,7 @@
 
 Name:		mirage
 Version:	0.9.5.2
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	A fast and simple image viewer
 
 License:	GPLv3+
@@ -16,12 +16,15 @@ Patch0:		mirage-0.9.3-prevmouse-not-defined-with-click.patch
 Patch1:		mirage-0.9.5.2-glib241-init-workaround.patch
 # Port to python3 + pygi + gtk3
 Patch10:		mirage-0.9.5.2-py3-gtk3.patch
+# Port to setuptools: PEP632
+Patch11:		mirage-0.9.5.2-pep632-distutils-port.patch
 
 BuildRequires:	gcc
 BuildRequires:	gettext
 BuildRequires:	libX11-devel
 BuildRequires:	python3-devel
 BuildRequires:	desktop-file-utils
+BuildRequires:	python3-setuptools
 Requires:	gtk3
 Requires:	python3-gobject
 Requires:	python3-cairo
@@ -43,16 +46,19 @@ keep their computers lean while still having a clean image viewer.
 %{__sed} -i.build -e '/Cleanup/,$d' setup.py
 
 %patch10 -p1 -b .py3 -Z
+%patch11 -p1 -b .pep632 -Z
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
 %{__python3} setup.py build
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 
 %{__mkdir_p} $RPM_BUILD_ROOT
-%{__python3} setup.py install --skip-build --prefix $RPM_BUILD_ROOT%{_prefix}
+%{__python3} setup.py install --skip-build \
+	--prefix %{_prefix} \
+	--root $RPM_BUILD_ROOT \
+	%{nil}
 
 # remove document files
 %{__rm} -f $RPM_BUILD_ROOT%{_datadir}/%{name}/[A-Z]*
@@ -64,9 +70,6 @@ desktop-file-install \
 	--delete-original \
 	--remove-category 'Application' \
 	--dir $RPM_BUILD_ROOT%{_datadir}/applications \
-%if 0%{?fedora} < 19
-	--vendor fedora \
-%endif
 	$RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
 # gettext files
@@ -88,6 +91,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Tue Jan  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.5.2-38
+- Handle PEP632, switch from distutils to setuptools
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

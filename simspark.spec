@@ -1,6 +1,6 @@
 Name:           simspark
 Version:        0.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Spark physical simulation system
 
 License:        GPLv2
@@ -77,6 +77,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-5
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Thu Aug 18 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 0.3.3-4
 - Fix Ruby 3 compatibility, closes rhbz#1997693
 

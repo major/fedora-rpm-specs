@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -21,7 +21,9 @@ BuildArch:      noarch
 Summary:        %{sum}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+%if 0%{?rhel} < 9
 BuildRequires:  python3-nose
+%endif
 BuildRequires:  (python3dist(paramiko) >= 1.13.1 with python3dist(paramiko) < 3)
 %{?python_provide:%python_provide python3-%{srcname}}
 
@@ -43,11 +45,14 @@ sed -i -e "s/’/'/g" README.rst
 %py3_install
 
 
+# skip tests on EL9 due to deprecated python-nose
+%if 0%{?rhel} < 9
 %check
 # Tests which require SSH server
 # Some tests are failing with python 3.8
 # https://github.com/mwilliamson/spur.py/issues/85
 nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
+%endif
 
 
 %files -n python3-%{srcname}
@@ -57,6 +62,9 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
 
 
 %changelog
+* Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-2
+- Skip tests on EL9 due to deprecated python-nose
+
 * Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-1
 - Update to 0.3.22
 

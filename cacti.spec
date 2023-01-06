@@ -1,7 +1,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name: cacti
-Version: 1.2.22
+Version: 1.2.23
 Release: 1%{?dist}
 Summary: An rrd based graphing tool
 License: GPLv2+
@@ -208,6 +208,7 @@ fi
 %{_localstatedir}/lib/%{name}/scripts/*[^p]
 %{_pkgdocdir}/cacti.README.fedora
 %attr(-,apache,apache) %{_localstatedir}/lib/%{name}/scripts/*.php
+%attr(-,apache,apache) %{_localstatedir}/lib/%{name}/scripts/.htaccess
 %attr(-,apache,apache) %{_localstatedir}/lib/%{name}/resource/
 %attr(-,apache,apache) %{_localstatedir}/lib/%{name}/rra/
 %attr(-,apache,apache) %{_localstatedir}/lib/%{name}/cache/
@@ -219,6 +220,9 @@ fi
 %ghost %{_datadir}/%{name}/resource.rpmmoved
 
 %changelog
+* Wed Jan 04 2023 Morten Stevens <mstevens@fedoraproject.org> - 1.2.23-1
+- Update to 1.2.23
+
 * Sat Oct 22 2022 Morten Stevens <mstevens@fedoraproject.org> - 1.2.22-1
 - Update to 1.2.22
 

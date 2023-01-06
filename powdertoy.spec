@@ -9,7 +9,7 @@ URL: https://powdertoy.co.uk
 # src/json/ and src/lua/ are MIT
 License: GPLv3 and MIT and ASL 2.0
 
-Version: 97.0.351b
+Version: 97.0.352
 Release: 1%{?dist}
 
 %global repo_owner The-Powder-Toy
@@ -147,8 +147,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Wed Jan 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 97.0.352-1
+- Update to v97.0.352 (stable release)
+
 * Wed Dec 28 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 97.0.351b-1
-- Update to v97.0.351b
+- Update to v97.0.351b (beta release)
 - Drop Patch0 (no longer needed, changes now done via config values)
 - Install icons for the savefile mimetype as well
 - Use a patch for renaming files instead of relying on sed

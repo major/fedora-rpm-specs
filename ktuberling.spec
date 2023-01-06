@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    ktuberling
 Summary: Picture game for children
-Version: 22.12.0
-Release: 2%{?dist}
+Version: 22.12.1
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
 URL:     https://invent.kde.org/games/%{name}/
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Tue Dec 27 2022 msuchy <msuchy@redhat.com> - 22.12.0-2
 - migrate to SPDX license
 - update URL

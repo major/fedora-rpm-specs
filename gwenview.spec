@@ -1,8 +1,8 @@
-Name:    gwenview 
+Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 22.12.0
-Release: 2%{?dist}
+Version: 22.12.1
+Release: 1%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
@@ -13,7 +13,7 @@ URL:     https://www.kde.org/applications/graphics/gwenview/
 %global stable unstable
 %else
 %global stable stable
-%endif 
+%endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 %global majmin_ver %(echo %{version} | cut -d. -f1,2)
@@ -28,7 +28,7 @@ BuildRequires: gettext
 BuildRequires: kf5-rpm-macros
 BuildRequires: kf5-baloo-devel
 BuildRequires: kf5-kactivities-devel
-buildRequires: kf5-kdelibs4support-devel
+BuildRequires: kf5-kdelibs4support-devel
 BuildRequires: kf5-kio-devel
 #if "%{?copr_projectname}" == "digikam"
 # LibRaw not in all arches of RHEL8
@@ -66,12 +66,12 @@ Conflicts: kde-l10n < 17.03
 %description
 %{summary}.
 
-%package  libs 
-Summary:  Runtime files for %{name} 
-# wrt (LGPLv2 or LGPLv3), KDE e.V. may determine that future GPL versions are accepted 
+%package  libs
+Summary:  Runtime files for %{name}
+# wrt (LGPLv2 or LGPLv3), KDE e.V. may determine that future GPL versions are accepted
 License:  IJG and LGPLv2+ and GPLv2+ and LGPLv2 or LGPLv3
 Requires: %{name} = %{epoch}:%{version}-%{release}
-%description libs 
+%description libs
 %{summary}.
 
 
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 1:22.12.1-1
+- Update to 22.12.1
+
 * Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 1:22.12.0-2
 - Rebuild for cfitsio 4.2
 
@@ -452,7 +455,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.gwenview.
 - 4.14.3
 
 * Fri Nov 07 2014 Rex Dieter <rdieter@fedoraproject.org> 4.14.2-2
-- pull in appdata from upstream master/ branch 
+- pull in appdata from upstream master/ branch
 
 * Sun Oct 12 2014 Rex Dieter <rdieter@fedoraproject.org> - 4.14.2-1
 - 4.14.2
@@ -663,7 +666,7 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.gwenview.
 
 * Mon Jul 11 2011 Rex Dieter <rdieter@fedoraproject.org> 4.6.95-1
 - 4.6.95
-- update URL 
+- update URL
 
 * Wed Jul 06 2011 Rex Dieter <rdieter@fedoraproject.org> 4.6.90-2
 - fix Source0 URL

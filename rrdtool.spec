@@ -18,7 +18,7 @@
 Summary: Round Robin Database Tool to store and display time-series data
 Name: rrdtool
 Version: 1.8.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+ with exceptions
 URL: https://oss.oetiker.ch/rrdtool/
 Source0: https://github.com/oetiker/rrdtool-1.x/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -409,6 +409,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} php -n \
 %endif
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.0-7
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Dec 02 2022 Wolfgang Stöggl <c72578@yahoo.de> - 1.8.0-6
 - Fix BUILD_DATE
   Add patch: rrdtool-1.8.0-BUILD_DATE-fix.patch

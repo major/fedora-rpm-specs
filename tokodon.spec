@@ -1,6 +1,6 @@
 Name:           tokodon 
 Version:        23.01.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Summary:        Kirigami-based mastodon client
@@ -37,6 +37,7 @@ BuildRequires:  cmake(Qt5WebSockets)
 BuildRequires:  cmake(Qt5Widgets)
 
 Requires:       kf5-kirigami2
+Requires:       kf5-kirigami2-addons
 Requires:       hicolor-icon-theme
 
 %description

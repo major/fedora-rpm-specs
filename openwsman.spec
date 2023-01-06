@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD
@@ -416,6 +416,9 @@ fi
 %endif
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.1-9
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Oct 21 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-8
 - Fix Ruby bindings for swig 4.1 (backported from upstream)
   Resolves: #2136510

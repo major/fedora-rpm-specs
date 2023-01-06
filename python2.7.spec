@@ -74,7 +74,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 27%{?dist}
+Release: 28%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -872,6 +872,15 @@ Patch378: 00378-support-expat-2-4-5.patch
 # Backported from python3.
 Patch382: 00382-cve-2015-20107.patch
 
+# 00394 # 32a7810526fb88b82f6e2dee6d8367d1264e8fad
+# gh-98433: Fix quadratic time idna decoding.
+#
+# There was an unnecessary quadratic loop in idna decoding. This restores
+# the behavior to linear.
+#
+# Backported from python3.
+Patch394: 00394-cve-2022-45061-cpu-denial-of-service-via-inefficient-idna-decoder.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python2" and "python3" in Fedora, EL, etc.,
@@ -1040,6 +1049,7 @@ git apply %{PATCH351}
 %patch377 -p1
 %patch378 -p1
 %patch382 -p1
+%patch394 -p1
 
 %if %{without tkinter}
 %patch4000 -p1
@@ -1727,6 +1737,10 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Mon Dec 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.7.18-28
+- Security fix for CVE-2022-45061: CPU denial of service via inefficient IDNA decoder
+  Related: rhbz#2144072
+
 * Thu Nov 03 2022 Orion Poplawski <orion@nwra.com> - 2.7.18-27
 - Avoid triggering of %%__python macro by %%py2_shebang_fix
 

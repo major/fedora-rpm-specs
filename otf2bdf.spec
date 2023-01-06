@@ -1,11 +1,12 @@
 Name:		otf2bdf
 Version:	3.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Generate BDF bitmap fonts from OpenType outline fonts
 
 License:	MIT
 URL:		http://www.math.nmsu.edu/~mleisher/Software/otf2bdf/
 Source0:	http://sofia.nmsu.edu/~mleisher/Software/%{name}/%{name}-%{version}.tgz
+Patch0:		otf2bdf-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -20,7 +21,7 @@ FreeType 1.*, has some bug fixes, and includes a new command line
 parameter to print out the available encoding tables in the font.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -41,6 +42,9 @@ install -p -m 644 %{name}.man %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jan 04 2023 Florian Weimer <fweimer@redhat.com> - 3.1-24
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

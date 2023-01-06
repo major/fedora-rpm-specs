@@ -1,19 +1,19 @@
-%global framework libksane
+%global base_name libksane
 
 Name:    kf5-libksane
 Summary: SANE Library interface for KDE
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: LGPLv2+
-URL:     https://invent.kde.org/graphics0/%{framework}
+URL:     https://invent.kde.org/graphics/%{base_name}
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
 
 BuildRequires: cmake(Qt5Widgets)
 BuildRequires: extra-cmake-modules
@@ -46,7 +46,7 @@ Requires: cmake(Qt5Widgets)
 
 
 %prep
-%autosetup -n %{framework}-%{version}
+%autosetup -n %{base_name}-%{version}
 
 
 %build
@@ -79,6 +79,9 @@ Requires: cmake(Qt5Widgets)
 
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Wed Dec 21 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
 - Update to 22.12.0
 

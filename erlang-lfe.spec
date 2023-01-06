@@ -14,8 +14,8 @@
 
 
 Name:		erlang-%{realname}
-Version:	2.0.1
-Release:	3%{?dist}
+Version:	2.1.1
+Release:	1%{?dist}
 Summary:	Lisp Flavoured Erlang
 License:	BSD
 URL:		https://github.com/%{upstream}/%{realname}
@@ -107,6 +107,9 @@ echo "No tests during bootstrapping"
 
 
 %changelog
+* Wed Jan  4 2023 Peter Lemenkov <lemenkov@gmail.com> - 2.1.1-1
+- LFE ver. 2.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

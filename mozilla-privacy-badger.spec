@@ -7,16 +7,16 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
-%global file_id 3872283
+%global file_id 4008174
 
 Name:           mozilla-privacy-badger
-Version:        2021.11.23.1
-Release:        3%{?dist}
+Version:        2022.9.27
+Release:        1%{?dist}
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 
 License:        ASL 2.0 and GPLv3+ and MPLv2.0 and MIT and OFL and Public Domain
 URL:            https://www.eff.org/privacybadger
-Source0:        https://addons.mozilla.org/firefox/downloads/file/%{file_id}/privacy_badger-%{version}-an+fx.xpi
+Source0:        https://addons.mozilla.org/firefox/downloads/file/%{file_id}/privacy_badger17-%{version}.xpi
 Requires:       mozilla-filesystem
 BuildArch:      noarch
 # lib/vendor/jquery-3.5.1.min.js
@@ -94,6 +94,9 @@ install -Dpm644 %{SOURCE0} %{buildroot}%{firefox_inst_dir}/%{ext_id}.xpi
 %{firefox_inst_dir}/%{ext_id}.xpi
 
 %changelog
+* Wed Jan 04 2023 Dominik Mierzejewski <dominik@greysector.net> - 2022.9.27-1
+- update to 2022.9.27 (#2130321)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.11.23.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

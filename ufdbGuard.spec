@@ -1,6 +1,6 @@
 Name:		ufdbGuard
-Version:	1.35.3
-Release:	7%{?dist}
+Version:	1.35.4
+Release:	1%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPLv2
@@ -27,6 +27,8 @@ BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 %endif
 BuildRequires: openssl-devel
+BuildRequires: bind-utils
+BuildRequires: wget
 Requires(pre): shadow-utils
 Requires: logrotate
 
@@ -131,6 +133,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.35.4-1
+- 1.35.4
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

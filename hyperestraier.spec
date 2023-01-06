@@ -6,7 +6,7 @@
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	51%{?dist}
+Release:	52%{?dist}
 Summary:	A full-text search system
 
 License:	LGPLv2+
@@ -267,6 +267,9 @@ popd
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-52
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Sat Nov 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-51
 - Patch for javanative module for c99 conformant: -Werror=implicit-int
 

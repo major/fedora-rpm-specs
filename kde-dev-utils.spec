@@ -1,6 +1,6 @@
 Name:    kde-dev-utils
 Summary: Utilities for developers using KDE
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+ and LGPLv2+
@@ -60,7 +60,6 @@ BuildArch: noarch
 %package -n kpartloader
 Summary: KPart loader
 Obsoletes: kdesdk-kpartloader < 4.10.80
-#Provides:  kdesdk-kpartloader = %{version}-%{release}
 Obsoletes: kde-dev-utils-kpartloader < 17.03
 Provides:  kde-dev-utils-kpartloader = %{version}-%{release}
 Requires:  %{name}-common = %{version}-%{release}
@@ -70,7 +69,6 @@ Requires:  %{name}-common = %{version}-%{release}
 %package -n kuiviewer
 Summary: Displays designer UI files 
 Obsoletes: kdesdk-kuiviewer < 4.10.80
-#Provides:  kdesdk-kuiviewer = %{version}-%{release}
 Obsoletes: kde-dev-utils-kuiviewer < 17.03
 Provides:  kde-dev-utils-kuiviewer = %{version}-%{release}
 Requires:  %{name}-common = %{version}-%{release}
@@ -121,6 +119,9 @@ desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kuiviewe
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Mon Dec 19 2022 Marc Deop <marcdeop@fedoraproject.org> - 22.12.0-1
 - 22.12.0
 

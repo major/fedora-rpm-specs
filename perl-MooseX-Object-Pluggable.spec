@@ -1,8 +1,8 @@
 Name:           perl-MooseX-Object-Pluggable
 Version:        0.0014
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Make your Moose classes pluggable
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/MooseX-Object-Pluggable
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Object-Pluggable-%{version}.tar.gz
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 0.0014-25
+- Convert a License tag to an SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0014-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

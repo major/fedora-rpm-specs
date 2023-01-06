@@ -1,6 +1,6 @@
 Name:           kweather 
 Version:        22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
 Url:            https://invent.kde.org/plasma-mobile/kweather
@@ -34,6 +34,7 @@ BuildRequires:  cmake(KF5Plasma)
 BuildRequires:  cmake(KF5QuickCharts)
 
 Requires:       kf5-kirigami2
+Requires:       kf5-kirigami2-addons
 Requires:       hicolor-icon-theme
 
 %description

@@ -1,5 +1,5 @@
 %global shortname texlive
-%global source_date 20210325
+%global source_date 20220321
 %global source_name texlive-%{source_date}-source
 %{!?_texdir: %global _texdir %{_datadir}/%{shortname}}
 %{!?_texmf_var: %global _texmf_var %{_var}/lib/texmf}
@@ -20,12 +20,12 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 53%{?dist}
-Epoch: 9
+Release: 55%{?dist}
+Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
 # So we'll just list the license texts. This is also a bit of a lie, since most of these license texts do not apply to themselves.
-License: ASL 2.0 and Artistic 2.0 and BSD and GFDL and GPL+ and GPLv2 and GPLv3 and Knuth and LGPLv2+ and LGPLv3+ and LPPL and OFL and Public Domain
+License: Apache-2.0 AND Artistic-2.0 AND BSD AND GFDL-1.1-or-later AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND Knuth-CTAN AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LPPL-1.2 AND LPPL-1.3 AND LPPL-1.3c AND MIT AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain
 URL: http://tug.org/texlive/
 Source0: https://ctan.math.illinois.edu/systems/texlive/Source/%{source_name}.tar.xz
 Source1: macros.texlive
@@ -436,6 +436,19 @@ Source400: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosv
 Source401: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosvg.doc.tar.xz
 Source402: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.tar.xz
 Source403: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.doc.tar.xz
+Source404: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luajittex.doc.tar.xz
+Source405: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdftosrc.doc.tar.xz
+# 2022
+Source406: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.tar.xz
+Source407: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.doc.tar.xz
+Source408: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.tar.xz
+Source409: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.doc.tar.xz
+Source410: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luafindfont.doc.tar.xz
+Source411: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.tar.xz
+Source412: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.doc.tar.xz
+Source413: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogfilter.doc.tar.xz
+Source414: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.doc.tar.xz
+Source415: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.tar.xz
 
 Patch1: tl-kpfix.patch
 Patch2: tl-format.patch
@@ -443,9 +456,9 @@ Patch5: texlive-2016-kpathsea-texlive-path.patch
 # fixes from arch and upstream texlive
 Patch7: texlive-20210325-new-poppler.patch
 # fix texmf.cnf so that it finds texinfo bits in Fedora
-Patch8: texlive-20210325-texinfo-path-fix.patch
+Patch8: texlive-20220321-texinfo-path-fix.patch
 # These tests only fail on 32 bit arches with gcc8
-Patch11: texlive-20200327-disable-more-failing-tests.patch
+Patch11: texlive-20220321-disable-more-failing-tests.patch
 # Another test which fails on 32 bit arches (in F30+)
 # probably because of stricter malloc checks in glibc.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1631847
@@ -455,7 +468,7 @@ Patch15: texlive-base-20180414-disable-omegafonts-check-test.patch
 Patch17: texlive-20180414-annocheck.patch
 Patch18: texlive-20210325-poppler-0.73.patch
 # Fix libgs detection in configure/configure.ac in dvisvgm
-Patch20: texlive-20190410-dvisvgm-fix-libgs-detection.patch
+# Patch20: texlive-20190410-dvisvgm-fix-libgs-detection.patch
 # Since we need to include tlmgr.pl for texconfig
 # lets try to keep people from shooting themselves with it
 Patch21: texlive-20190410-tlmgr-ignore-warning.patch
@@ -463,24 +476,24 @@ Patch23: texlive-20210325-poppler-0.84.patch
 # Fixes for poppler 0.90 (f33+)
 Patch29: texlive-20200327-poppler-0.90.patch
 # Fix pdflatex run out of memory
-Patch30: texlive-base-20200327-out-of-memory.patch
+Patch30: texlive-base-20220321-out-of-memory.patch
 # Fix configure to properly detect poppler
 Patch31: texlive-base-20210325-configure-poppler-xpdf-fix.patch
 
 # Apply upstream fixes that fix the bug that makes mendekx and upmendex fail on aarch64, ppc64, s390x
 # http://tug.org/svn/texlive?view=revision&revision=59151
 # http://tug.org/svn/texlive?view=revision&revision=59169
-Patch32: texlive-base-20210325-mendex-weird-arch-fixes.patch
+# Patch32: texlive-base-20210325-mendex-weird-arch-fixes.patch
 
 # Remove deprecated setpdfwrite ghostscript call
-Patch33: texlive-base-20210325-no-setpdfwrite.patch
+# Patch33: texlive-base-20210325-no-setpdfwrite.patch
 
 # Poppler 22
 Patch34: texlive-base-20210325-poppler-22.01.0.patch
 # Fix crash in handling Group
 Patch35: texlive-base-20210325-pdftoepdf-fix-crash.patch
 # Poppler 22.08.0
-Patch36: texlive-base-20210325-poppler-22.08.0.patch
+Patch36: texlive-base-20220321-poppler-22.08.0.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -542,11 +555,13 @@ The distribution includes extensive general documentation about TeX,
 as well as the documentation for the included software packages.
 
 %package -n %{shortname}-a2ping
+Version: svn52964
+Provides: texlive-a2ping = %{epoch}:%{source_date}-%{release}
 Provides: tex-a2ping = %{epoch}:%{source_date}-%{release}
 Provides: texlive-a2ping-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-a2ping-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-a2ping-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Advanced PS, PDF, EPS converter
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -566,6 +581,8 @@ many glitches during the EPS to EPS conversion, so its output
 is often more compatible and better embeddable than its input.
 
 %package -n %{shortname}-accfonts
+Version: svn18835
+Provides: texlive-accfonts = %{epoch}:%{source_date}-%{release}
 Provides: tex-accfonts = %{epoch}:%{source_date}-%{release}
 Provides: texlive-accfonts-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-accfonts-bin = %{epoch}:%{source_date}-%{release}
@@ -573,7 +590,7 @@ Obsoletes: texlive-accfonts-bin < 7:20170520
 Provides: tex-accfonts-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-accfonts-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-accfonts-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Utilities to derive new fonts from existing ones
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -600,6 +617,8 @@ generates suitable "hints" to enhance quality at small sizes or
 poor resolutions. The programs are written in Perl.
 
 %package -n %{shortname}-adhocfilelist
+Version: svn29349
+Provides: texlive-adhocfilelist = %{epoch}:%{source_date}-%{release}
 Provides: tex-adhocfilelist = %{epoch}:%{source_date}-%{release}
 Provides: texlive-adhocfilelist-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-adhocfilelist-bin = %{epoch}:%{source_date}-%{release}
@@ -607,7 +626,7 @@ Obsoletes: texlive-adhocfilelist-bin < 7:20170520
 Provides: tex-adhocfilelist-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-adhocfilelist-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-adhocfilelist-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: '\listfiles' entries from the command line
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -622,11 +641,13 @@ package was developed on a Unix-like system, using (among other
 things) the gnu variant of the find command.
 
 %package -n %{shortname}-afm2pl
+Version: svn54074
+Provides: texlive-afm2pl = %{epoch}:%{source_date}-%{release}
 Provides: tex-afm2pl = %{epoch}:%{source_date}-%{release}
 Provides: texlive-afm2pl-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-afm2pl-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-afm2pl-bin < 7:20170520
-License: LPPL
+License: GPL-2.0-only
 Summary: afm2pl package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -641,6 +662,8 @@ Provides: tex(makesc8y.tex) = %{epoch}:%{source_date}-%{release}
 afm2pl package.
 
 %package -n %{shortname}-albatross
+Version: svn61175
+Provides: texlive-albatross = %{epoch}:%{source_date}-%{release}
 Summary: Find fonts that contain a given glyph
 License: BSD
 Requires: texlive-base texlive-kpathsea
@@ -650,6 +673,8 @@ This is a command line tool for finding fonts that contain a
 given (Unicode) glyph. It relies on Fontconfig.
 
 %package -n %{shortname}-aleph
+Version: svn62387
+Provides: texlive-aleph = %{epoch}:%{source_date}-%{release}
 Provides: tex-aleph = %{epoch}:%{source_date}-%{release}
 Provides: texlive-aleph-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-aleph-bin = %{epoch}:%{source_date}-%{release}
@@ -658,6 +683,7 @@ Provides: tex-aleph-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-aleph-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-aleph-doc < 7:20170520
 Summary: Extended TeX
+License: LGPL-2.1-or-later
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires(post,postun): coreutils
@@ -677,6 +703,8 @@ An development of omega, using most of the extensions of TeX
 itself developed for e-TeX.
 
 %package -n %{shortname}-amstex
+Version: svn63708
+Provides: texlive-amstex = %{epoch}:%{source_date}-%{release}
 Provides: tex-amstex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-amstex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-amstex-bin = %{epoch}:%{source_date}-%{release}
@@ -684,7 +712,7 @@ Obsoletes: texlive-amstex-bin < 7:20170520
 Provides: tex-amstex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-amstex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-amstex-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: American Mathematical Society plain TeX macros
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -713,6 +741,8 @@ authors. More recently, the focus of attention has switched to
 amslatex, but AMSTeX remains as a working system.
 
 %package -n %{shortname}-arara
+Version: svn63760
+Provides: texlive-arara = %{epoch}:%{source_date}-%{release}
 Provides: tex-arara = %{epoch}:%{source_date}-%{release}
 Provides: texlive-arara-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-arara-bin = %{epoch}:%{source_date}-%{release}
@@ -724,13 +754,15 @@ License: BSD
 Summary: Automation of LaTeX compilation
 Requires: texlive-base
 Requires: texlive-kpathsea
-Provides: bundled(slf4j) = 1.6.4
+Provides: bundled(slf4j) = 1.7.36
+Provides: bundled(annotations) = 13.0
 Provides: bundled(apache-commons-collections) = 3.2.1
 Provides: bundled(apache-commons-exec) = 1.1
 Provides: bundled(apache-commons-lang3) = 3.1
 Provides: bundled(apache-commons-cli) = 1.2
-Provides: bundled(mvel2) = 2.0.19
-Provides: bundled(snakeyaml) = 1.11
+Provides: bundled(log4j) = 2.17.2
+Provides: bundled(mvel2) = 2.4.14
+Provides: bundled(snakeyaml-engine) = 2.3
 Provides: bundled(logback) = 1.0.1
 # shell
 BuildArch: noarch
@@ -742,13 +774,25 @@ determines its actions from metadata in the source code, rather
 than relying on indirect resources, such as log file analysis.
 
 %package -n %{shortname}-attachfile2
+Version: svn57959
+Provides: texlive-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-attachfile2-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-attachfile2-bin = %{epoch}:%{source_date}-%{release}
-License: LPPL
+License: LPPL-1.3c
 Summary: Attach files into PDF
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: tex(color.sty)
+Requires: tex(hycolor.sty)
+Requires: tex(hyperref.sty)
+Requires: tex(iftex.sty)
+Requires: tex(infwarerr.sty)
+Requires: tex(keyval.sty)
+Requires: tex(kvoptions.sty)
+Requires: tex(ltxcmds.sty)
+Requires: tex(pdfescape.sty)
+Requires: tex(pdftexcmds.sty)
 Provides: tex(attachfile2.sty) = %{epoch}:%{source_date}-%{release}
 # perl
 BuildArch: noarch
@@ -761,6 +805,8 @@ dvips, some new options, and gets and writes meta information
 data about the attached files.
 
 %package -n %{shortname}-authorindex
+Version: svn51757
+Provides: texlive-authorindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-authorindex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-authorindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-authorindex-bin = %{epoch}:%{source_date}-%{release}
@@ -768,7 +814,7 @@ Obsoletes: texlive-authorindex-bin < 7:20170520
 Provides: tex-authorindex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-authorindex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-authorindex-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Index citations by author names
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -786,6 +832,8 @@ on BibTeX being used to handle citations. Additionally, it
 requires Perl (version 5 or higher).
 
 %package -n %{shortname}-autosp
+Version: svn58211
+Provides: texlive-autosp = %{epoch}:%{source_date}-%{release}
 Provides: tex-autosp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-autosp-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-autosp-bin = %{epoch}:%{source_date}-%{release}
@@ -793,7 +841,7 @@ Obsoletes: texlive-autosp-bin < 7:20170520
 Provides: tex-autosp-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-autosp-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-autosp-doc < 7:20170520
-License: GPLv2
+License: GPL-2.0-or-later
 Summary: A Preprocessor that generates note-spacing commands for MusiXTeX scores
 Requires: texlive-base
 
@@ -809,12 +857,19 @@ other parts. For example, \anotes\qa J\qa K&\ca l\qa m\ca n\en
 generates \Notes\qa J\sk\qa K\sk&\ca l\qa m\sk\ca n\en .
 
 %package -n %{shortname}-axodraw2
+Version: svn58155
+Provides: texlive-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-axodraw2 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-axodraw2-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3
+License: GPL-3.0-or-later
 Summary: Feynman diagrams in a LaTeX document
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: tex(color.sty)
+Requires: tex(graphicx.sty)
+Requires: tex(ifthen.sty)
+Requires: tex(ifxetex.sty)
+Requires: tex(keyval.sty)
 Provides: tex(axodraw2.sty) = %{epoch}:%{source_date}-%{release}
 
 %description -n %{shortname}-axodraw2
@@ -832,9 +887,11 @@ file. The processing involves a run of pdfLaTeX, a run of
 axohelp, and then another run of pdfLaTeX.
 
 %package -n %{shortname}-bib2gls
+Version: svn64710
+Provides: texlive-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: tex-bib2gls = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bib2gls-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Convert .bib files to glossaries-extra.sty resource files
 Requires: texlive-base
 # Java and shell
@@ -857,6 +914,8 @@ containing definitions (\newglossaryentry etc.) to the .bib
 format required by bib2gls.
 
 %package -n %{shortname}-bibexport
+Version: svn50677
+Provides: texlive-bibexport = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibexport = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibexport-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibexport-bin = %{epoch}:%{source_date}-%{release}
@@ -864,7 +923,7 @@ Obsoletes: texlive-bibexport-bin < 7:20170520
 Provides: tex-bibexport-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibexport-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibexport-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Extract a BibTeX file based on a .aux file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -877,6 +936,8 @@ BibTeX file, expanding the abbreviations (other than the built-
 in ones like month names) and followig the cross-references.
 
 %package -n %{shortname}-bibtex
+Version: svn64491
+Provides: texlive-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex-bin = %{epoch}:%{source_date}-%{release}
@@ -884,7 +945,7 @@ Obsoletes: texlive-bibtex-bin < 7:20170520
 Provides: tex-bibtex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibtex-doc < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: Process bibliographies for LaTeX, etc
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -907,6 +968,8 @@ output. In fact, it is best to avoid BibTeX in favour of biber
 and biblatex, if at all possible.
 
 %package -n %{shortname}-bibtexu
+Version: svn64491
+Provides: texlive-bibtexu = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtexu = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtexu-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtexu-bin = %{epoch}:%{source_date}-%{release}
@@ -914,7 +977,7 @@ Obsoletes: texlive-bibtexu-bin < 7:20170520
 Provides: tex-bibtexu-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtexu-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibtexu-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: bibtexu package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -923,6 +986,8 @@ Requires: texlive-kpathsea
 bibtexu package.
 
 %package -n %{shortname}-bibtex8
+Version: svn64491
+Provides: texlive-bibtex8 = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex8 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex8-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-bibtex8-bin = %{epoch}:%{source_date}-%{release}
@@ -930,7 +995,7 @@ Obsoletes: texlive-bibtex8-bin < 7:20170520
 Provides: tex-bibtex8-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bibtex8-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bibtex8-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A fully 8-bit adaptation of BibTeX 0.99
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -943,6 +1008,8 @@ character set and sorting order are controlled by an external
 configuration file. Various examples are included.
 
 %package -n %{shortname}-bundledoc
+Version: svn64620
+Provides: texlive-bundledoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-bundledoc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bundledoc-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-bundledoc-bin = %{epoch}:%{source_date}-%{release}
@@ -950,7 +1017,7 @@ Obsoletes: texlive-bundledoc-bin < 7:20170520
 Provides: tex-bundledoc-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-bundledoc-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-bundledoc-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Bundle together all the files needed to build a LaTeX document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -974,6 +1041,8 @@ document, together with the document itself, using the
 filecontents* environment.
 
 %package -n %{shortname}-cachepic
+Version: svn26313
+Provides: texlive-cachepic = %{epoch}:%{source_date}-%{release}
 Provides: tex-cachepic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cachepic-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cachepic-bin = %{epoch}:%{source_date}-%{release}
@@ -981,7 +1050,7 @@ Obsoletes: texlive-cachepic-bin < 7:20170520
 Provides: tex-cachepic-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cachepic-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cachepic-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Convert document fragments into graphics
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1000,6 +1069,8 @@ interface, and a command line tool (written in lua) that
 generates the external graphics.
 
 %package -n %{shortname}-checkcites
+Version: svn64155
+Provides: texlive-checkcites = %{epoch}:%{source_date}-%{release}
 Provides: tex-checkcites = %{epoch}:%{source_date}-%{release}
 Provides: texlive-checkcites-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-checkcites-bin = %{epoch}:%{source_date}-%{release}
@@ -1007,7 +1078,7 @@ Obsoletes: texlive-checkcites-bin < 7:20170520
 Provides: tex-checkcites-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-checkcites-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-checkcites-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Check citation commands in a document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1020,6 +1091,8 @@ of detecting undefined and unused references from LaTeX
 auxiliary or bibliography files.
 
 %package -n %{shortname}-checklistings
+Version: svn38300
+Provides: texlive-checklistings = %{epoch}:%{source_date}-%{release}
 Provides: tex-checklistings = %{epoch}:%{source_date}-%{release}
 Provides: texlive-checklistings-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-checklistings-bin = %{epoch}:%{source_date}-%{release}
@@ -1027,7 +1100,7 @@ Obsoletes: texlive-checklistings-bin < 7:20170520
 Provides: tex-checklistings-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-checklistings-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-checklistings-doc < 7:20170520
-License: LPPL 1.2
+License: LPPL-1.2
 Summary: Pass verbatim contents through a compiler and reincorporate the resulting output
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1050,11 +1123,16 @@ it is designed to work well with languages and compilers in the
 ML family.
 
 %package -n %{shortname}-chklref
+Version: svn52649
+Provides: texlive-chklref = %{epoch}:%{source_date}-%{release}
 Provides: tex-chklref = %{epoch}:%{source_date}-%{release}
-License: GPLv3
+License: GPL-3.0-or-later
 Summary: Check for problems with labels in LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: tex(afterpackage.sty)
+Requires: tex(auxhook.sty)
+Requires: tex(currfile.sty)
 Provides: tex(chklref.sty) = %{epoch}:%{source_date}-%{release}
 # perl
 BuildArch: noarch
@@ -1067,6 +1145,8 @@ mathematical environments with no labels and advises the user
 to use a starred version instead.
 
 %package -n %{shortname}-chktex
+Version: svn64797
+Provides: texlive-chktex = %{epoch}:%{source_date}-%{release}
 Provides: tex-chktex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-chktex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-chktex-bin = %{epoch}:%{source_date}-%{release}
@@ -1074,7 +1154,7 @@ Obsoletes: texlive-chktex-bin < 7:20170520
 Provides: tex-chktex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-chktex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-chktex-doc < 7:20170520
-License: GPL+
+License: GPL-2.0-or-later
 Summary: Check for errors in LaTeX documents
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1084,8 +1164,43 @@ The program reports typographic and other errors in LaTeX
 documents. Filters are also provided for checking the LaTeX
 parts of CWEB documents.
 
+%package -n %{shortname}-citation-style-language
+Version: svn65357
+Provides: texlive-citation-style-language = %{epoch}:%{source_date}-%{release}
+Provides: texlive-citation-style-language-bin = %{epoch}:%{source_date}-%{release}
+Provides: texlive-citation-style-language-doc = %{epoch}:%{source_date}-%{release}
+License: MIT AND CC-BY-SA-3.0
+Summary: Bibliography formatting with Citation Style Language
+Requires: texlive-base, texlive-kpathsea
+Requires: tex(filehook.sty)
+Requires: texlive-l3kernel
+Requires: texlive-l3packages
+Requires: texlive-lua-uca
+Requires: texlive-lualibs
+Requires: texlive-luatex
+Requires: texlive-luaxml
+Requires: tex(url.sty)
+Provides: tex(citation-style-language.sty) = %{epoch}:%{source_date}-%{release}
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-citation-style-language
+The Citation Style Language (CSL) is an XML-based language that
+defines the formats of citations and bibliography. There are
+currently thousands of styles in CSL including the most widely
+used APA, Chicago, Vancouver, etc. The citation-style-language
+package is aimed to provide another reference formatting method
+for LaTeX that utilizes the CSL styles. It contains a citation
+processor implemented in pure Lua (citeproc-lua) which reads
+bibliographic metadata and performs sorting and formatting on
+both citations and bibliography according to the selected CSL
+style. A LaTeX package (citation-style-language.sty) is
+provided to communicate with the processor.
+
 %if 0
 %package -n %{shortname}-cjk-gs-integrate
+Version: svn59705
+Provides: texlive-cjk-gs-integrate = %{epoch}:%{source_date}-%{release}
 Provides: tex-cjk-gs-integrate = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cjk-gs-integrate-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cjk-gs-integrate-bin = %{epoch}:%{source_date}-%{release}
@@ -1093,7 +1208,7 @@ Obsoletes: texlive-cjk-gs-integrate-bin < 7:20170520
 Provides: tex-cjk-gs-integrate-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cjk-gs-integrate-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cjk-gs-integrate-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Tools to integrate CJK fonts into Ghostscript
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1108,11 +1223,13 @@ arguments should effect in a complete setup of GhostScript.
 %endif
 
 %package -n %{shortname}-cjkutils
+Version: svn60833
+Provides: texlive-cjkutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-cjkutils = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cjkutils-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cjkutils-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cjkutils-bin < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: cjkutils package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1136,13 +1253,17 @@ Provides: tex(ksso17.cfg) = %{epoch}:%{source_date}-%{release}
 cjkutils package.
 
 %package -n %{shortname}-clojure-pamphlet
+Version: svn60981
+Provides: texlive-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: tex-clojure-pamphlet = %{epoch}:%{source_date}-%{release}
 Provides: texlive-clojure-pamphlet-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-clojure-pamphlet-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: A simple literate programming tool based on clojure's pamphlet system
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: tex(hyperref.sty)
+Requires: tex(listings.sty)
 Provides: tex(clojure-pamphlet.sty) = %{epoch}:%{source_date}-%{release}
 # perl
 BuildArch: noarch
@@ -1160,10 +1281,12 @@ accordingly). Finally, the LaTeX file will be run through the
 tangler to get the desired chunk of code.
 
 %package -n %{shortname}-cluttex
+Version: svn60964
+Provides: texlive-cluttex = %{epoch}:%{source_date}-%{release}
 Provides: tex-cluttex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cluttex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cluttex-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3
+License: GPL-3.0-or-later
 Summary: An automation tool for running LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1182,6 +1305,8 @@ set. Furthermore, cluttex can watch input files for changes
 (using an external program).
 
 %package -n %{shortname}-context
+Version: svn58167
+Provides: texlive-context = %{epoch}:%{source_date}-%{release}
 Provides: tex-context = %{epoch}:%{source_date}-%{release}
 Provides: texlive-context-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-context-bin = %{epoch}:%{source_date}-%{release}
@@ -1189,7 +1314,7 @@ Obsoletes: texlive-context-bin < 7:20170520
 Provides: tex-context-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-context-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-context-doc < 7:20170520
-License: GPL+ or LPPL
+License: GPL-1.0-or-later OR LPPL-1.3c
 Summary: The ConTeXt macro package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1404,16 +1529,22 @@ A full featured, parameter driven macro package, which fully
 supports advanced interactive documents. See the ConTeXt garden
 for a wealth of support information.
 
+# This package exists because it is 90M and most people do not need it
+
 %package -n %{shortname}-context-doc
+Version: svn58167
+Provides: texlive-context-doc = %{epoch}:%{source_date}-%{release}
 Requires: texlive-context
 Provides: tex-context-doc = %{epoch}:%{source_date}-%{release}
 Summary: Documentation for context
-License: GPL+ or LPPL
+License: GPL-1.0-or-later OR LPPL-1.3c
 
 %description -n %{shortname}-context-doc
 Documentation for context.
 
 %package -n %{shortname}-convbkmk
+Version: svn49252
+Provides: texlive-convbkmk = %{epoch}:%{source_date}-%{release}
 Provides: tex-convbkmk = %{epoch}:%{source_date}-%{release}
 Provides: texlive-convbkmk-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-convbkmk-bin = %{epoch}:%{source_date}-%{release}
@@ -1435,6 +1566,8 @@ bookmarks in PDF files created by platex/uplatex, using
 hyperref.
 
 %package -n %{shortname}-crossrefware
+Version: svn64754
+Provides: texlive-crossrefware = %{epoch}:%{source_date}-%{release}
 Provides: tex-crossrefware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-crossrefware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-crossrefware-bin = %{epoch}:%{source_date}-%{release}
@@ -1442,7 +1575,7 @@ Obsoletes: texlive-crossrefware-bin < 7:20170520
 Provides: tex-crossrefware-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-crossrefware-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-crossrefware-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Scripts for working with crossref.org
 # Just perl.
 BuildArch: noarch
@@ -1455,11 +1588,13 @@ a tool for the creation of XML files for submitting to the
 parent site
 
 %package -n %{shortname}-cslatex
+Version: svn62387
+Provides: texlive-cslatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-cslatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cslatex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cslatex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cslatex-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: LaTeX support for Czech/Slovak typesetting
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1514,11 +1649,13 @@ BuildArch: noarch
 LaTeX support for Czech/Slovak typesetting
 
 %package -n %{shortname}-csplain
+Version: svn62771
+Provides: texlive-csplain = %{epoch}:%{source_date}-%{release}
 Provides: tex-csplain = %{epoch}:%{source_date}-%{release}
 Provides: texlive-csplain-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-csplain-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-csplain-bin < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Plain TeX multilanguage support
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1605,6 +1742,8 @@ OPmac macros can generate and bibliography without any external
 program.
 
 %package -n %{shortname}-ctan-o-mat
+Version: svn51578
+Provides: texlive-ctan-o-mat = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctan-o-mat = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctan-o-mat-bin = %{epoch}:%{source_date}-%{release}
 License: BSD
@@ -1631,10 +1770,12 @@ validation retrieves the known attributes and the basic
 constraints from the server.
 
 %package -n %{shortname}-ctanbib
+Version: svn59782
+Provides: texlive-ctanbib = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanbib = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanbib-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanbib-bin = %{epoch}:%{source_date}-%{release}
-License: LPPL
+License: LPPL-1.3c
 Summary: Export ctan entries to bib format
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1645,6 +1786,8 @@ BuildArch: noarch
 This script can generate BibTeX records for LaTeX packages hosted on CTAN.
 
 %package -n %{shortname}-ctanify
+Version: svn44129
+Provides: texlive-ctanify = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanify = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanify-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanify-bin = %{epoch}:%{source_date}-%{release}
@@ -1652,7 +1795,7 @@ Obsoletes: texlive-ctanify-bin < 7:20170520
 Provides: tex-ctanify-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanify-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ctanify-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Prepare a package for upload to CTAN
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1670,6 +1813,8 @@ distribution. (The TDS ZIP file will be installed in the CTAN
 install/ tree.)
 
 %package -n %{shortname}-ctanupload
+Version: svn26313
+Provides: texlive-ctanupload = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanupload = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanupload-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctanupload-bin = %{epoch}:%{source_date}-%{release}
@@ -1677,7 +1822,7 @@ Obsoletes: texlive-ctanupload-bin < 7:20170520
 Provides: tex-ctanupload-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctanupload-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ctanupload-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Support for users uploading to CTAN
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1690,11 +1835,13 @@ contribution to CTAN from the command line. The aim is to
 simplify the release process for LaTeX package authors.
 
 %package -n %{shortname}-ctie
+Version: svn62387
+Provides: texlive-ctie = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctie = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ctie-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ctie-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ctie-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: C version of tie (merging Web change files)
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1703,6 +1850,8 @@ Requires: texlive-kpathsea
 This is a version of tie converted for use with cweb.
 
 %package -n %{shortname}-cweb
+Version: svn63787
+Provides: texlive-cweb = %{epoch}:%{source_date}-%{release}
 Provides: tex-cweb = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cweb-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cweb-bin = %{epoch}:%{source_date}-%{release}
@@ -1710,7 +1859,7 @@ Obsoletes: texlive-cweb-bin < 7:20170520
 Provides: tex-cweb-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cweb-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cweb-doc < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: A Web system in C
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1728,6 +1877,8 @@ Documentation (also known as Literate Programming) in the
 programming language C.
 
 %package -n %{shortname}-cyrillic
+Version: svn63613
+Provides: texlive-cyrillic = %{epoch}:%{source_date}-%{release}
 Provides: tex-cyrillic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-cyrillic-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cyrillic-bin = %{epoch}:%{source_date}-%{release}
@@ -1738,7 +1889,7 @@ Obsoletes: texlive-cyrillic-doc < 7:20170520
 Provides: texlive-cyrillic-bin-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-cyrillic-bin-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-cyrillic-bin-bin < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Support for Cyrillic fonts in LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1861,6 +2012,8 @@ cover (between them) pretty much every language that is written
 in a Cyrillic alphabet.
 
 %package -n %{shortname}-de-macro
+Version: svn61719
+Provides: texlive-de-macro = %{epoch}:%{source_date}-%{release}
 Provides: tex-de-macro = %{epoch}:%{source_date}-%{release}
 Provides: texlive-de-macro-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-de-macro-bin = %{epoch}:%{source_date}-%{release}
@@ -1868,7 +2021,7 @@ Obsoletes: texlive-de-macro-bin < 7:20170520
 Provides: tex-de-macro-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-de-macro-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-de-macro-doc < 7:20170520
-License: AFL
+License: AFL-2.1
 Summary: Expand private macros in a document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1885,6 +2038,8 @@ running de-macro on it. De-macro will expand macros defined in
 document, or in the document's "private" package file.
 
 %package -n %{shortname}-detex
+Version: svn62387
+Provides: texlive-detex = %{epoch}:%{source_date}-%{release}
 Provides: tex-detex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-detex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-detex-bin = %{epoch}:%{source_date}-%{release}
@@ -1902,6 +2057,8 @@ in the text. In this case, it also recognizes the \include and
 \includeonly commands.
 
 %package -n %{shortname}-diadia
+Version: svn37656
+Provides: texlive-diadia = %{epoch}:%{source_date}-%{release}
 Provides: tex-diadia = %{epoch}:%{source_date}-%{release}
 Provides: texlive-diadia-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-diadia-bin = %{epoch}:%{source_date}-%{release}
@@ -1909,7 +2066,7 @@ Obsoletes: texlive-diadia-bin < 7:20170520
 Provides: tex-diadia-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-diadia-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-diadia-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Package to keep a diabetes diary
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1946,6 +2103,8 @@ supports medication charts and info boxes. Supported languages:
 English, German. Feel free to provide other translation files!
 
 %package -n %{shortname}-dosepsbin
+Version: svn29752
+Provides: texlive-dosepsbin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dosepsbin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dosepsbin-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dosepsbin-bin = %{epoch}:%{source_date}-%{release}
@@ -1953,7 +2112,7 @@ Obsoletes: texlive-dosepsbin-bin < 7:20170520
 Provides: tex-dosepsbin-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dosepsbin-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dosepsbin-doc < 7:20170520
-License: GPLv2 or Artistic
+License: GPL-2.0-only OR Artistic-1.0-Perl
 Summary: Deal with DOS binary EPS files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1973,11 +2132,13 @@ sections of such a file, in particular providing a 'text'-form
 EPS file for use with (La)TeX.
 
 %package -n %{shortname}-dtl
+Version: svn62387
+Provides: texlive-dtl = %{epoch}:%{source_date}-%{release}
 Provides: tex-dtl = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dtl-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dtl-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dtl-bin < 7:20170520
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: Tools to dis-assemble and re-assemble DVI files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -1991,6 +2152,8 @@ DVI files). The DTL bundle was developed so as to avoid some
 infelicities of dvitype (among other pressing reasons).
 
 %package -n %{shortname}-dtxgen
+Version: svn51663
+Provides: texlive-dtxgen = %{epoch}:%{source_date}-%{release}
 Provides: tex-dtxgen = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dtxgen-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dtxgen-bin = %{epoch}:%{source_date}-%{release}
@@ -1998,7 +2161,7 @@ Obsoletes: texlive-dtxgen-bin < 7:20170520
 Provides: tex-dtxgen-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dtxgen-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dtxgen-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Creates a template for a self-extracting .dtx file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2011,11 +2174,13 @@ The bash script dtxgen creates a template for a self-extracting
 Documented LaTeX Source (.dtx) file.
 
 %package -n %{shortname}-dvi2tty
+Version: svn62387
+Provides: texlive-dvi2tty = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvi2tty = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvi2tty-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvi2tty-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvi2tty-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Produce ASCII from DVI
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2026,6 +2191,8 @@ document. The original version was written in Pascal, and the
 present author translated the program to C.
 
 %package -n %{shortname}-dviasm
+Version: svn64430
+Provides: texlive-dviasm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviasm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviasm-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviasm-bin = %{epoch}:%{source_date}-%{release}
@@ -2033,7 +2200,7 @@ Obsoletes: texlive-dviasm-bin < 7:20170520
 Provides: tex-dviasm-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviasm-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dviasm-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: A utility for editing DVI files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2047,11 +2214,13 @@ binary format. It supports advanced features such as adding a
 preprint number or watermarks.
 
 %package -n %{shortname}-dvicopy
+Version: svn62387
+Provides: texlive-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvicopy = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvicopy-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvicopy-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvicopy-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Copy DVI files, flattening VFs
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2063,11 +2232,13 @@ file that does not contain such references. It also serves as a
 basis for writing DVI drivers (much like DVItype).
 
 %package -n %{shortname}-dvidvi
+Version: svn52851
+Provides: texlive-dvidvi = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvidvi = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvidvi-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvidvi-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvidvi-bin < 7:20170520
-License: Copyright only
+License: LicenseRef-Fedora-UltraPermissive
 Summary: Convert one DVI file into another
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2078,6 +2249,8 @@ commands; series of pages and page number ranges may be
 specified, as well as inclusions and exclusions.
 
 %package -n %{shortname}-dviinfox
+Version: svn59216
+Provides: texlive-dviinfox = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviinfox = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviinfox-bin = %{epoch}:%{source_date}-%{release}
 License: MIT
@@ -2093,11 +2266,13 @@ The package provides a perl script which prints information
 about a DVI file. It also supports XeTeX XDV format.
 
 %package -n %{shortname}-dviljk
+Version: svn52851
+Provides: texlive-dviljk = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviljk = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviljk-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviljk-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dviljk-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: DVI to Laserjet output
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2107,6 +2282,8 @@ A dvi driver for the LaserJet printers, using kpathsea
 recursive file searching.
 
 %package -n %{shortname}-dviout-util
+Version: svn52851
+Provides: texlive-dviout-util = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviout-util = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dviout-util-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dviout-util-bin = %{epoch}:%{source_date}-%{release}
@@ -2122,6 +2299,8 @@ Here we don't include the main DVI previewer, but just want small utility
 programs.
 
 %package -n %{shortname}-dvipdfmx
+Version: svn61101
+Provides: texlive-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipdfmx-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipdfmx-bin = %{epoch}:%{source_date}-%{release}
@@ -2131,7 +2310,7 @@ Provides: texlive-dvipdfmx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvipdfmx-doc < 7:20170520
 Provides: dvipdfmx = %{epoch}:%{source_date}-%{release}
 Provides: dvipdfm = %{epoch}:%{source_date}-%{release}
-License: GPL+
+License: GPL-1.0-or-later
 Summary: An extended version of dvipdfm
 Requires: texlive-base
 Requires: texlive-glyphlist
@@ -2153,6 +2332,8 @@ users are advised to consult the documentation of dvipdfm (as
 well, of course, as the package Readme.
 
 %package -n %{shortname}-dvipng
+Version: svn62517
+Provides: texlive-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipng = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipng-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipng-bin = %{epoch}:%{source_date}-%{release}
@@ -2161,7 +2342,7 @@ Provides: tex-dvipng-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipng-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvipng-doc < 7:20170520
 Provides: dvipng = %{epoch}:%{source_date}-%{release}
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Summary: A fast DVI to PNG/GIF converter
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2183,11 +2364,13 @@ PostScript Type1, and TrueType fonts, colour specials, and
 inclusion of PostScript, PNG, JPEG or GIF images.
 
 %package -n %{shortname}-dvipos
+Version: svn52851
+Provides: texlive-dvipos = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipos = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvipos-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvipos-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvipos-bin < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: dvipos package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2196,6 +2379,8 @@ Requires: texlive-kpathsea
 dvipos package.
 
 %package -n %{shortname}-dvips
+Version: svn62387
+Provides: texlive-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tetex-dvips = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvips = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvips-bin = %{epoch}:%{source_date}-%{release}
@@ -2204,7 +2389,7 @@ Obsoletes: texlive-dvips-bin < 7:20170520
 Provides: tex-dvips-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvips-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvips-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A DVI to PostScript driver
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2266,11 +2451,13 @@ be found in the distribution of dvipsk which forms part of the
 TeX Live sources.
 
 %package -n %{shortname}-dvisvgm
+Version: svn64182
+Provides: texlive-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-dvisvgm-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Convert DVI files to Scalable Vector Graphics format (SVG)
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2288,6 +2475,8 @@ other features, dvisvgm also supports color, emTeX, tpic, PDF
 mapfile and PostScript specials.
 
 %package -n %{shortname}-ebong
+Version: svn55475
+Provides: texlive-ebong = %{epoch}:%{source_date}-%{release}
 Provides: tex-ebong = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ebong-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ebong-bin = %{epoch}:%{source_date}-%{release}
@@ -2295,7 +2484,7 @@ Obsoletes: texlive-ebong-bin < 7:20170520
 Provides: tex-ebong-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ebong-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ebong-doc < 7:20170520
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: Utility for writing Bengali in Rapid Roman Format
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2309,6 +2498,8 @@ Roman Bangla and convert it to the bangtex format by a python
 program. All LaTeX markups are preserved in the target file.
 
 %package -n %{shortname}-eplain
+Version: svn64721
+Provides: texlive-eplain = %{epoch}:%{source_date}-%{release}
 Provides: tex-eplain = %{epoch}:%{source_date}-%{release}
 Provides: texlive-eplain-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-eplain-bin = %{epoch}:%{source_date}-%{release}
@@ -2316,7 +2507,7 @@ Obsoletes: texlive-eplain-bin < 7:20170520
 Provides: tex-eplain-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-eplain-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-eplain-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Extended plain TeX macros
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2351,6 +2542,8 @@ graphics), color, autopict (a package instance of the LaTeX
 picture code), psfrag, and url.
 
 %package -n %{shortname}-epspdf
+Version: svn53472
+Provides: texlive-epspdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-epspdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-epspdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-epspdf-bin = %{epoch}:%{source_date}-%{release}
@@ -2358,7 +2551,7 @@ Obsoletes: texlive-epspdf-bin < 7:20170520
 Provides: tex-epspdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-epspdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-epspdf-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Converter for PostScript, EPS and PDF
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2373,6 +2566,8 @@ conversion options are made possible by converting in multiple
 steps.
 
 %package -n %{shortname}-epstopdf
+Version: svn64439
+Provides: texlive-epstopdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-epstopdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-epstopdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-epstopdf-bin = %{epoch}:%{source_date}-%{release}
@@ -2402,6 +2597,8 @@ fly", thus giving the illusion that PDFLaTeX is accepting EPS
 graphic files.
 
 %package -n %{shortname}-exceltex
+Version: svn26313
+Provides: texlive-exceltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-exceltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-exceltex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-exceltex-bin = %{epoch}:%{source_date}-%{release}
@@ -2409,7 +2606,7 @@ Obsoletes: texlive-exceltex-bin < 7:20170520
 Provides: tex-exceltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-exceltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-exceltex-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Get data from Excel files into LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2433,6 +2630,8 @@ spreadsheet applications are able to read and write Excel
 files.
 
 %package -n %{shortname}-fig4latex
+Version: svn26313
+Provides: texlive-fig4latex = %{epoch}:%{source_date}-%{release}
 Provides: tex-fig4latex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fig4latex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fig4latex-bin = %{epoch}:%{source_date}-%{release}
@@ -2440,7 +2639,7 @@ Obsoletes: texlive-fig4latex-bin < 7:20170520
 Provides: tex-fig4latex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fig4latex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fig4latex-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Management of figures for large LaTeX documents
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2455,6 +2654,8 @@ graphics which use the combined PS/LaTeX (or PDF/LaTeX) export
 method. An example document (with its output) is provided.
 
 %package -n %{shortname}-findhyph
+Version: svn47444
+Provides: texlive-findhyph = %{epoch}:%{source_date}-%{release}
 Provides: tex-findhyph = %{epoch}:%{source_date}-%{release}
 Provides: texlive-findhyph-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-findhyph-bin = %{epoch}:%{source_date}-%{release}
@@ -2462,7 +2663,7 @@ Obsoletes: texlive-findhyph-bin < 7:20170520
 Provides: tex-findhyph-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-findhyph-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-findhyph-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Find hyphenated words in a document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2476,6 +2677,8 @@ contains enough context to enable you to find the hyphenated
 word that's being referenced.
 
 %package -n %{shortname}-fontinst
+Version: svn62517
+Provides: texlive-fontinst = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontinst = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontinst-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontinst-bin = %{epoch}:%{source_date}-%{release}
@@ -2483,7 +2686,7 @@ Obsoletes: texlive-fontinst-bin < 7:20170520
 Provides: tex-fontinst-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontinst-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fontinst-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Help with installing fonts for TeX and LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2519,6 +2722,8 @@ normally be done manually or with the help of some other tool,
 such as the pltotf and vptovf programs.
 
 %package -n %{shortname}-fontools
+Version: svn61726
+Provides: texlive-fontools = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontools = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontools-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontools-bin = %{epoch}:%{source_date}-%{release}
@@ -2526,7 +2731,7 @@ Obsoletes: texlive-fontools-bin < 7:20170520
 Provides: tex-fontools-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontools-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fontools-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Tools to simplify using fonts (especially TT/OTF ones)
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2547,11 +2752,13 @@ plus .fd and .sty files; and ot2kpx - extract all kerning pairs
 from an OpenType font.
 
 %package -n %{shortname}-fontware
+Version: svn62387
+Provides: texlive-fontware = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fontware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fontware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fontware-bin < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: fontware package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2560,6 +2767,8 @@ Requires: texlive-kpathsea
 fontware package.
 
 %package -n %{shortname}-fragmaster
+Version: svn26313
+Provides: texlive-fragmaster = %{epoch}:%{source_date}-%{release}
 Provides: tex-fragmaster = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fragmaster-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-fragmaster-bin = %{epoch}:%{source_date}-%{release}
@@ -2567,7 +2776,7 @@ Obsoletes: texlive-fragmaster-bin < 7:20170520
 Provides: tex-fragmaster-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-fragmaster-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-fragmaster-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Using psfrag with PDFLaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2580,6 +2789,8 @@ EPS files and psfrag substitution definition files, and
 produces PDF and EPS files with the substitutions included.
 
 %package -n %{shortname}-getmap
+Version: svn50589
+Provides: texlive-getmap = %{epoch}:%{source_date}-%{release}
 Provides: tex-getmap = %{epoch}:%{source_date}-%{release}
 Provides: texlive-getmap-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-getmap-bin = %{epoch}:%{source_date}-%{release}
@@ -2587,7 +2798,7 @@ Obsoletes: texlive-getmap-bin < 7:20170520
 Provides: tex-getmap-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-getmap-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-getmap-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Download OpenStreetMap maps for use in documents
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2610,6 +2821,8 @@ lua script may be used from the command line; a bash version is
 provided.
 
 %package -n %{shortname}-git-latexdiff
+Version: svn54732
+Provides: texlive-git-latexdiff = %{epoch}:%{source_date}-%{release}
 Summary: Call latexdiff on two Git revisions of a file
 License: BSD
 Requires: texlive-base texlive-kpathsea
@@ -2621,6 +2834,8 @@ between different versions of a LaTeX file. Technically, it is
 a wrapper around git and latexdiff.
 
 %package -n %{shortname}-glossaries
+Version: svn64919
+Provides: texlive-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: tex-glossaries = %{epoch}:%{source_date}-%{release}
 Provides: texlive-glossaries-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-glossaries-bin = %{epoch}:%{source_date}-%{release}
@@ -2628,55 +2843,95 @@ Obsoletes: texlive-glossaries-bin < 7:20170520
 Provides: tex-glossaries-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-glossaries-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-glossaries-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Create glossaries and lists of acronyms
 Requires: texlive-base
 Requires: texlive-kpathsea
-Requires: tex(tracklang.sty)
-Requires: tex(ifthen.sty)
-Requires: tex(xkeyval.sty)
-Requires: tex(mfirstuc.sty)
-Requires: tex(textcase.sty)
-Requires: tex(xfor.sty)
-Requires: tex(datatool-base.sty)
-Requires: tex(amsgen.sty)
-Requires: tex(etoolbox.sty)
-Requires: tex(glossary-super.sty)
-Requires: tex(glossary-tree.sty)
-Requires: tex(translator.sty)
+Requires: texlive-amsmath
+Requires: texlive-datatool
+Requires: texlive-etoolbox
+Requires: texlive-mfirstuc
+Requires: texlive-tracklang
+Requires: texlive-xfor
+Requires: texlive-xkeyval
 Requires: tex(accsupp.sty)
-Requires: tex(longtable.sty)
+Requires: tex(amsgen.sty)
 Requires: tex(array.sty)
+Requires: tex(booktabs.sty)
+Requires: tex(ifthen.sty)
+Requires: tex(longtable.sty)
 Requires: tex(multicol.sty)
+Requires: tex(shellesc.sty)
 Requires: tex(supertabular.sty)
-Provides: tex(glossaries-babel.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries-compatible-207.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries-compatible-307.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries-polyglossia.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries-prefix.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossaries-accsupp.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-hypernav.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-inline.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-list.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-long.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-longragged.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-mcols.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-super.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-superragged.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(glossary-tree.sty) = %{epoch}:%{source_date}-%{release}
+Requires: tex(textcase.sty)
+Requires: tex(translator.sty)
 Provides: tex(example-glossaries-acronym-desc.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-acronym.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-acronyms-lang.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-brief.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-childmultipar.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-childnoname.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-cite.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-images.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-long.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-longchild.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-multipar.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-parent.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-symbolnames.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-symbols.tex) = %{epoch}:%{source_date}-%{release}
 Provides: tex(example-glossaries-url.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(example-glossaries-user.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-accsupp-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-accsupp-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-accsupp.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-babel-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-babel-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-babel.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-207-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-207-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-207.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-307-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-307-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-compatible-307.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-polyglossia-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-polyglossia-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-polyglossia.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-prefix-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-prefix-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries-prefix.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossaries.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-hypernav-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-hypernav-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-hypernav.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-inline-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-inline-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-inline.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-list-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-list-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-list.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-long-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-long-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-long.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longbooktabs-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longbooktabs-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longbooktabs.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longragged-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longragged-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-longragged.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-mcols-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-mcols-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-mcols.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-super-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-super-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-super.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-superragged-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-superragged-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-superragged.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-tree-2020-03-19.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-tree-2021-11-01.sty) = %{epoch}:%{source_date}-%{release}
+Provides: tex(glossary-tree.sty) = %{epoch}:%{source_date}-%{release}
 # perl and lua
 BuildArch: noarch
 
@@ -2695,15 +2950,15 @@ There is provision for loading a database of terms, but only
 terms used in the text will be added to the relevant glossary.
 The package uses an indexing program to provide the actual
 glossary; either makeindex or xindy may serve this purpose, and
-a Perl script is provided to serve as interface. The package
-distribution also provides the mfirstuc package, for changing
-the first letter of a word to upper case. The package
-supersedes the author's glossary package (which is now
-obsolete), and a conversion tool is provided.
+a Perl script is provided to serve as interface. This package
+requires the mfirstuc package. The package supersedes the
+author's glossary package (which is now obsolete).
 
 %package -n %{shortname}-glyphlist
+Version: svn54074
+Provides: texlive-glyphlist = %{epoch}:%{source_date}-%{release}
 Provides: tex-glyphlist = %{epoch}:%{source_date}-%{release}
-License: LPPL
+License: LPPL-1.3c
 Summary: glyphlist package
 BuildArch: noarch
 Requires: texlive-base
@@ -2713,6 +2968,8 @@ Requires: texlive-kpathsea
 glyphlist package.
 
 %package -n %{shortname}-gregoriotex
+Version: svn58331
+Provides: texlive-gregoriotex = %{epoch}:%{source_date}-%{release}
 Provides: tex-gregoriotex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-gregoriotex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-gregoriotex-bin = %{epoch}:%{source_date}-%{release}
@@ -2720,10 +2977,19 @@ Obsoletes: texlive-gregoriotex-bin < 7:20170520
 Provides: tex-gregoriotex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-gregoriotex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-gregoriotex-doc < 7:20170520
-License: GPLv3
+License: GPL-3.0-only
 Summary: Engraving Gregorian Chant scores
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: tex(graphicx.sty)
+Requires: tex(iftex.sty)
+Requires: tex(kvoptions.sty)
+Requires: tex(luacolor.sty)
+Requires: tex(luamplib.sty)
+Requires: tex(luaotfload.sty)
+Requires: tex(luatexbase.sty)
+Requires: tex(xcolor.sty)
+Requires: tex(xstring.sty)
 Provides: tex(gregoriosyms.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(gregoriotex.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(gregoriotex-signs.tex) = %{epoch}:%{source_date}-%{release}
@@ -2744,11 +3010,13 @@ GregorioTeX file, which makes TeX able to create a PDF of your
 score.
 
 %package -n %{shortname}-gsftopk
+Version: svn52851
+Provides: texlive-gsftopk = %{epoch}:%{source_date}-%{release}
 Provides: tex-gsftopk = %{epoch}:%{source_date}-%{release}
 Provides: texlive-gsftopk-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-gsftopk-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-gsftopk-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Convert "ghostscript fonts" to PK files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2762,16 +3030,63 @@ ordinarily be much used nowadays, since both its target
 applications are now capable of dealing with Type 1 fonts,
 direct.
 
+%package -n %{shortname}-hitex
+Version: svn63708
+Provides: texlive-hitex = %{epoch}:%{source_date}-%{release}
+Provides: texlive-hitex-bin = %{epoch}:%{source_date}-%{release}
+License: MIT
+Summary: A TeX extension writing HINT output for on-screen reading
+Requires: texlive-base, texlive-kpathsea
+Requires: texlive-atbegshi
+Requires: texlive-atveryend
+Requires: texlive-babel
+Requires: texlive-cm
+Requires: texlive-etex
+Requires: texlive-everyshi
+Requires: texlive-firstaid
+Requires: texlive-hyphen-base
+Requires: texlive-knuth-lib
+Requires: texlive-l3backend
+Requires: texlive-l3kernel
+Requires: texlive-l3packages
+Requires: texlive-latex
+Requires: texlive-latex-fonts
+Requires: texlive-plain
+Requires: texlive-tex-ini-files
+Requires: texlive-unicode-data
+
+%description -n %{shortname}-hitex
+An extension of TeX which generates HINT output. The HINT file format is an
+alternative to the DVI and PDF formats which was designed specifically for
+on-screen reading of documents. Especially on mobile devices, reading DVI or
+PDF documents can be cumbersome. Mobile devices are available in a large
+variety of sizes but typically are not large enough to display documents
+formated for a4/letter-size paper. To compensate for the limitations of a
+small screen, users are used to alternating between landscape (few long lines)
+and portrait (more short lines) mode. The HINT format supports variable and
+varying screen sizes, leveraging the ability of TeX to format a document for
+nearly-arbitrary values of \hsize and \vsize.
+
 %package -n %{shortname}-hyperxmp
+Version: svn57004
+Provides: texlive-hyperxmp = %{epoch}:%{source_date}-%{release}
 Summary: Embed XMP metadata within a LaTeX document
-License: LPPL 1.3
+License: LPPL-1.3c
 Requires: texlive-base texlive-kpathsea
 Requires: tex(atenddvi.sty)
+Requires: tex(etoolbox.sty)
+Requires: tex(hyperref.sty)
+Requires: tex(ifdraft.sty)
+Requires: tex(ifluatex.sty)
+Requires: tex(ifmtarg.sty)
+Requires: tex(iftex.sty)
+Requires: tex(ifthen.sty)
+Requires: tex(intcalc.sty)
 Requires: tex(kvoptions.sty)
+Requires: tex(luacode.sty)
 Requires: tex(pdfescape.sty)
 Requires: tex(stringenc.sty)
-Requires: tex(intcalc.sty)
-Requires: tex(ifxetex.sty)
+Requires: tex(totpages.sty)
 Provides: tex(hyperxmp.sty) = %{epoch}:%{source_date}-%{release}
 Provides: texlive-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
 Provides: tex-hyperxmp-doc = %{epoch}:%{source_date}-%{release}
@@ -2798,6 +3113,8 @@ documents; it is compatible with pdfLaTeX, XeLaTeX,
 LaTeX+dvipdfm, and LaTeX+dvips+ps2pdf.
 
 %package -n %{shortname}-installfont
+Version: svn31205
+Provides: texlive-installfont = %{epoch}:%{source_date}-%{release}
 Provides: tex-installfont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-installfont-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-installfont-bin = %{epoch}:%{source_date}-%{release}
@@ -2805,7 +3122,7 @@ Obsoletes: texlive-installfont-bin < 7:20170520
 Provides: tex-installfont-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-installfont-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-installfont-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: A bash script for installing a LaTeX font family
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2824,6 +3141,8 @@ scheme (e.g. 5bbr8a.pfb). After running the script, you should
 have a working font installation in your local TeX tree.
 
 %package -n %{shortname}-jadetex
+Version: svn63654
+Provides: texlive-jadetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-jadetex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-jadetex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-jadetex-bin = %{epoch}:%{source_date}-%{release}
@@ -2899,6 +3218,8 @@ Macro package on top of LaTeX to typeset TeX output of the Jade
 DSSSL implementation.
 
 %package -n %{shortname}-jfmutil
+Version: svn60987
+Provides: texlive-jfmutil = %{epoch}:%{source_date}-%{release}
 Provides: tex-jfmutil = %{epoch}:%{source_date}-%{release}
 Provides: texlive-jfmutil-bin = %{epoch}:%{source_date}-%{release}
 License: MIT
@@ -2920,9 +3241,11 @@ conversion between VF files alone and files in the "ZVP0
 format", which is a subset of the ZVP format.
 
 %package -n %{shortname}-ketcindy
+Version: svn58661
+Provides: texlive-ketcindy = %{epoch}:%{source_date}-%{release}
 Provides: tex-ketcindy = %{epoch}:%{source_date}-%{release}
 Provides: tex-ketcindy-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Macros for graphic generation and Cinderella plugin
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -2944,6 +3267,8 @@ allows to generate graphics using KETpic. The generated code
 can be included in any LaTeX document.
 
 %package -n %{shortname}-kotex-utils
+Version: svn38727
+Provides: texlive-kotex-utils = %{epoch}:%{source_date}-%{release}
 Provides: tex-kotex-utils = %{epoch}:%{source_date}-%{release}
 Provides: texlive-kotex-utils-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-kotex-utils-bin = %{epoch}:%{source_date}-%{release}
@@ -2951,7 +3276,7 @@ Obsoletes: texlive-kotex-utils-bin < 7:20170520
 Provides: tex-kotex-utils-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-kotex-utils-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-kotex-utils-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Utility scripts and support files for typesetting Korean
 Requires: texlive-base
 Requires: texlive-kotex-utf
@@ -2965,7 +3290,9 @@ generation in Korean language typesetting. The files belong to
 the ko.TeX bundle.
 
 %package -n %{shortname}-kpathsea
-License: LGPLv2+
+Version: svn64475
+Provides: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
+License: LGPL-2.1-or-later
 Summary: Path searching library for TeX-related files
 Provides: kpathsea = %{epoch}:%{source_date}-%{release}
 Obsoletes: kpathsea < %{source_date}
@@ -2991,12 +3318,14 @@ locating feature required for movable installations, layered on
 top of a general search mechanism.
 
 %package -n %{shortname}-l3build
+Version: svn64402
+Provides: texlive-l3build = %{epoch}:%{source_date}-%{release}
 Provides: tex-l3build = %{epoch}:%{source_date}-%{release}
 Provides: texlive-l3build-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-l3build-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-l3build-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-l3build-doc < 7:20180414
-License: LPPL
+License: LPPL-1.3c
 Summary: A testing and building system for (La)TeX
 Provides: tex(regression-test.tex) = %{epoch}:%{source_date}-%{release}
 Requires: texlive-base
@@ -3013,11 +3342,13 @@ documentation; and An automated process for creating CTAN
 releases.
 
 %package -n %{shortname}-lacheck
+Version: svn54070
+Provides: texlive-lacheck = %{epoch}:%{source_date}-%{release}
 Provides: tex-lacheck = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lacheck-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lacheck-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lacheck-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: LaTeX checker
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3028,6 +3359,8 @@ documents. The distribution includes sources, and executables
 for OS/2 and Win32 environments.
 
 %package -n %{shortname}-latex
+Version: svn63825
+Provides: texlive-latex = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex = %{epoch}:%{source_date}-%{release}
 Provides: tetex-latex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-bin = %{epoch}:%{source_date}-%{release}
@@ -3039,7 +3372,7 @@ Obsoletes: texlive-latex-bin-bin < 7:20170520
 Provides: tex-latex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: A TeX macro package that defines LaTeX
 Requires: texlive-base
 Requires: tex(expl3.sty)
@@ -3059,6 +3392,7 @@ Requires(post,postun): coreutils
 Requires: tex(multicol.sty)
 Requires: tex(url.sty)
 Requires: tex(hyperref.sty)
+Requires: tex(hypdoc.sty)
 Provides: tex(alltt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ansinew.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(applemac.def) = %{epoch}:%{source_date}-%{release}
@@ -3223,6 +3557,8 @@ writing, font encodings, configuration options and modification
 of LaTeX.
 
 %package -n %{shortname}-latex-git-log
+Version: svn54010
+Provides: texlive-latex-git-log = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex-git-log = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-git-log-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex-git-log-bin = %{epoch}:%{source_date}-%{release}
@@ -3230,7 +3566,7 @@ Obsoletes: texlive-latex-git-log-bin < 7:20170520
 Provides: tex-latex-git-log-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-git-log-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex-git-log-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Typeset git log information
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3244,6 +3580,8 @@ typically be redirected to a file; the author recommends
 typesetting in landscape orientation.
 
 %package -n %{shortname}-latex-papersize
+Version: svn53131
+Provides: texlive-latex-papersize = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex-papersize = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-papersize-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex-papersize-bin = %{epoch}:%{source_date}-%{release}
@@ -3251,7 +3589,7 @@ Obsoletes: texlive-latex-papersize-bin < 7:20170520
 Provides: tex-latex-papersize-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex-papersize-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex-papersize-doc < 7:20170520
-License: ASL 2.0
+License: Apache-2.0
 Summary: Calculate LaTeX settings for any font and paper size
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3267,6 +3605,8 @@ the settings for various font and paper sizes. More details are
 to be read in the script itself.
 
 %package -n %{shortname}-latex2man
+Version: svn64477
+Provides: texlive-latex2man = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2man = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2man-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2man-bin = %{epoch}:%{source_date}-%{release}
@@ -3274,7 +3614,7 @@ Obsoletes: texlive-latex2man-bin < 7:20170520
 Provides: tex-latex2man-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2man-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex2man-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Translate LaTeX-based manual pages into Unix man format
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3293,6 +3633,8 @@ parts of the text may be supressed using the conditional text
 feature.
 
 %package -n %{shortname}-latex2nemeth
+Version: svn64291
+Provides: texlive-latex2nemeth = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2nemeth = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2nemeth-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latex2nemeth-bin = %{epoch}:%{source_date}-%{release}
@@ -3300,7 +3642,7 @@ Obsoletes: texlive-latex2nemeth-bin < 7:20170520
 Provides: tex-latex2nemeth-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latex2nemeth-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latex2nemeth-doc < 7:20170520
-License: GPLv3
+License: GPL-3.0-only
 Summary: Convert LaTeX source to Braille with math in Nemeth
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3324,6 +3666,8 @@ LibreOffice and odt2braille as this project does not deal with
 embossers' drivers.
 
 %package -n %{shortname}-latexdiff
+Version: svn61434
+Provides: texlive-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexdiff = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexdiff-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexdiff-bin = %{epoch}:%{source_date}-%{release}
@@ -3331,7 +3675,7 @@ Obsoletes: texlive-latexdiff-bin < 7:20170520
 Provides: tex-latexdiff-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexdiff-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latexdiff-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Determine and mark up significant differences between LaTeX files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3351,6 +3695,8 @@ to override this default behaviour and accept or reject
 selected changes only.
 
 %package -n %{shortname}-latexfileversion
+Version: svn29349
+Provides: texlive-latexfileversion = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexfileversion = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexfileversion-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexfileversion-bin = %{epoch}:%{source_date}-%{release}
@@ -3358,7 +3704,7 @@ Obsoletes: texlive-latexfileversion-bin < 7:20170520
 Provides: tex-latexfileversion-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexfileversion-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latexfileversion-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Prints the version and date of a LaTeX class or style file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3373,6 +3719,8 @@ programme handles style files (extension .sty), class files
 must be given.
 
 %package -n %{shortname}-latexindent
+Version: svn63581
+Provides: texlive-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexindent = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexindent-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexindent-bin = %{epoch}:%{source_date}-%{release}
@@ -3380,7 +3728,7 @@ Obsoletes: texlive-latexindent-bin < 7:20170520
 Provides: tex-latexindent-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexindent-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-latexindent-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Indent a LaTeX document, highlighting the programming structure
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3392,6 +3740,8 @@ The Perl script processes a LaTeX file, indenting parts so as to
 highlight the structure for the reader.
 
 %package -n %{shortname}-latexpand
+Version: svn53109
+Provides: texlive-latexpand = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexpand = %{epoch}:%{source_date}-%{release}
 Provides: texlive-latexpand-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-latexpand-bin = %{epoch}:%{source_date}-%{release}
@@ -3412,13 +3762,15 @@ Latexpand is a Perl script that simply replaces \input and
 The script does not deal with \includeonly commands.
 
 %package -n %{shortname}-lcdftypetools
+Version: svn52851
+Provides: texlive-lcdtypetools = %{epoch}:%{source_date}-%{release}
 Provides: tex-lcdftypetools = %{epoch}:%{source_date}-%{release}
 # This is a mistake in the texlive package. Will be fixed in next major TL update.
 Provides: lcdf-typetools = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lcdftypetools-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lcdftypetools-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lcdftypetools-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A bundle of outline font manipulation tools
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3465,6 +3817,8 @@ Obsoletes: texlive-kpathsea-lib-devel < 2015
 Development files for TeX specific shared libraries.
 
 %package -n %{shortname}-lilyglyphs
+Version: svn56473
+Provides: texlive-lilyglyphs = %{epoch}:%{source_date}-%{release}
 Provides: tex-lilyglyphs = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lilyglyphs-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lilyglyphs-bin = %{epoch}:%{source_date}-%{release}
@@ -3472,13 +3826,22 @@ Obsoletes: texlive-lilyglyphs-bin < 7:20170520
 Provides: tex-lilyglyphs-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lilyglyphs-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lilyglyphs-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Access lilypond fragments and glyphs, in LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
-Requires: tex(keyval.sty)
-Requires: tex(pgf.sty)
 Requires: tex(adjustbox.sty)
+Requires: tex(booktabs.sty)
+Requires: tex(fancyref.sty)
+Requires: tex(fontspec.sty)
+Requires: tex(hologo.sty)
+Requires: tex(keyval.sty)
+Requires: tex(listings.sty)
+Requires: tex(longtable.sty)
+Requires: tex(mdwlist.sty)
+Requires: tex(microtype.sty)
+Requires: tex(pgf.sty)
+Requires: tex(selnolig.sty)
 Provides: tex(emmentaler-11.otf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(emmentaler-13.otf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(emmentaler-14.otf) = %{epoch}:%{source_date}-%{release}
@@ -3499,6 +3862,8 @@ font, in a LaTeX document. The package uses OpenType fonts, and
 as a result must be compiled with LuaLaTeX or XeLaTeX.
 
 %package -n %{shortname}-listbib
+Version: svn29349
+Provides: texlive-listbib = %{epoch}:%{source_date}-%{release}
 Provides: tex-listbib = %{epoch}:%{source_date}-%{release}
 Provides: texlive-listbib-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-listbib-bin = %{epoch}:%{source_date}-%{release}
@@ -3506,7 +3871,7 @@ Obsoletes: texlive-listbib-bin < 7:20170520
 Provides: tex-listbib-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-listbib-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-listbib-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Lists contents of BibTeX files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3523,6 +3888,8 @@ which is better suited for this purpose than the standard
 styles.
 
 %package -n %{shortname}-listings-ext
+Version: svn29349
+Provides: texlive-listings-ext = %{epoch}:%{source_date}-%{release}
 Provides: tex-listings-ext = %{epoch}:%{source_date}-%{release}
 Provides: texlive-listings-ext-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-listings-ext-bin = %{epoch}:%{source_date}-%{release}
@@ -3530,7 +3897,7 @@ Obsoletes: texlive-listings-ext-bin < 7:20170520
 Provides: tex-listings-ext-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-listings-ext-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-listings-ext-doc < 7:20170520
-License: LPPL 1.2
+License: LPPL-1.2
 Summary: Automated input of source
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3550,6 +3917,8 @@ make a steering file that is used by the package when LaTeX is
 being run.
 
 %package -n %{shortname}-light-latex-make
+Version: svn60558
+Provides: texlive-light-latex-make = %{epoch}:%{source_date}-%{release}
 Summary: llmk: A build tool for LaTeX documents
 License: MIT
 Requires: texlive-base texlive-kpathsea
@@ -3574,6 +3943,8 @@ typesetting the document will be reproduced in any TeX
 environment with the program.
 
 %package -n %{shortname}-lollipop
+Version: svn45678
+Provides: texlive-lollipop = %{epoch}:%{source_date}-%{release}
 Provides: tex-lollipop = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lollipop-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lollipop-bin = %{epoch}:%{source_date}-%{release}
@@ -3581,7 +3952,7 @@ Obsoletes: texlive-lollipop-bin < 7:20170520
 Provides: tex-lollipop-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lollipop-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lollipop-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: TeX made easy
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3619,6 +3990,8 @@ Lollipop documents written in RTL languages (such as Persian)
 is underway.
 
 %package -n %{shortname}-ltxfileinfo
+Version: svn38663
+Provides: texlive-ltxfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: tex-ltxfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ltxfileinfo-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ltxfileinfo-bin = %{epoch}:%{source_date}-%{release}
@@ -3626,7 +3999,7 @@ Obsoletes: texlive-ltxfileinfo-bin < 7:20170520
 Provides: tex-ltxfileinfo-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ltxfileinfo-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ltxfileinfo-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Print version information for a LaTeX file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3642,6 +4015,8 @@ the --star or --color options) check the valididity of the
 Uwe Luck's readprov.sty.
 
 %package -n %{shortname}-ltximg
+Version: svn59335
+Provides: texlive-ltximg = %{epoch}:%{source_date}-%{release}
 Provides: tex-ltximg = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ltximg-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-ltximg-bin = %{epoch}:%{source_date}-%{release}
@@ -3649,7 +4024,7 @@ Obsoletes: texlive-ltximg-bin < 7:20170520
 Provides: tex-ltximg-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ltximg-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ltximg-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Split LaTeX files to sanitise a conversion process
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3662,7 +4037,22 @@ PStricks environments for separate processing to produce images
 (in eps, pdf, png or jpg format) for use by a converter or the
 preview bundle.
 
+%package -n %{shortname}-luafindfont
+Version: svn64270
+Provides: texlive-luafindfont = %{epoch}:%{source_date}-%{release}
+Provides: texlive-luafindfont-bin = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Search fonts in the LuaTeX font database
+Requires: texlive-base, texlive-kpathsea, lua >= 5.3
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-luafindfont
+This Lua script searches for fonts in the font database. It requires Lua 5.3.
+
 %package -n %{shortname}-luaotfload
+Version: svn64616
+Provides: texlive-luaotfload = %{epoch}:%{source_date}-%{release}
 Provides: tex-luaotfload = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luaotfload-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-luaotfload-bin = %{epoch}:%{source_date}-%{release}
@@ -3670,7 +4060,7 @@ Obsoletes: texlive-luaotfload-bin < 7:20170520
 Provides: tex-luaotfload-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luaotfload-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-luaotfload-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: OpenType 'loader' for Plain TeX and LaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3688,10 +4078,12 @@ provided in ConTeXt, and adapts it to use in Plain TeX and
 LaTeX. It works under LuaLaTeX only.
 
 %package -n %{shortname}-luahbtex
+Version: svn62387
+Provides: texlive-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luahbtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luahbtex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-luahbtex-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: LuaTeX with HarfBuzz library for glyph shaping
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3709,10 +4101,12 @@ Requires: texlive-hyph-utf8
 LuaTeX with HarfBuzz library for glyph shaping.
 
 %package -n %{shortname}-luajittex
+Version: svn62774
+Provides: texlive-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luajittex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luajittex-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3730,6 +4124,8 @@ Requires: texlive-hyph-utf8
 LuaTeX with just-in-time (jit) compiler, with and without HarfBuzz.
 
 %package -n %{shortname}-luatex
+Version: svn64839
+Provides: texlive-luatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-luatex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-luatex-bin = %{epoch}:%{source_date}-%{release}
@@ -3737,7 +4133,7 @@ Obsoletes: texlive-luatex-bin < 7:20170520
 Provides: tex-luatex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-luatex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-luatex-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: The LuaTeX engine
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3766,6 +4162,8 @@ development; its specification has been declared stable, but
 absolute stability may not in practice be assumed. 
 
 %package -n %{shortname}-lwarp
+Version: svn63905
+Provides: texlive-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: tex-lwarp = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lwarp-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-lwarp-bin = %{epoch}:%{source_date}-%{release}
@@ -3773,7 +4171,7 @@ Obsoletes: texlive-lwarp-bin < 7:20170520
 Provides: tex-lwarp-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-lwarp-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-lwarp-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Converts LaTeX to HTML
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3794,6 +4192,8 @@ request. Assistance is provided for HTML import into EPUB
 conversion software and word processors.
 
 %package -n %{shortname}-lyluatex
+Version: svn51252
+Provides: texlive-lyluatex = %{epoch}:%{source_date}-%{release}
 Summary: Commands to include lilypond scores within a (Lua)LaTeX document
 License: MIT
 Requires: texlive-base texlive-kpathsea
@@ -3817,6 +4217,8 @@ scores within LuaLaTeX. It calls LilyPond to compile scores,
 then includes the produced files.
 
 %package -n %{shortname}-make4ht
+Version: svn62953
+Provides: texlive-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-make4ht = %{epoch}:%{source_date}-%{release}
 Provides: texlive-make4ht-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-make4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -3824,7 +4226,7 @@ Obsoletes: texlive-make4ht-bin < 7:20170520
 Provides: tex-make4ht-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-make4ht-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-make4ht-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: A build system for tex4ht
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3837,6 +4239,8 @@ executable, which simplifies tex4ht execution, and a library
 which can be used to create customized conversion programs.
 
 %package -n %{shortname}-makedtx
+Version: svn46702
+Provides: texlive-makedtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-makedtx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makedtx-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-makedtx-bin = %{epoch}:%{source_date}-%{release}
@@ -3844,7 +4248,7 @@ Obsoletes: texlive-makedtx-bin < 7:20170520
 Provides: tex-makedtx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makedtx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-makedtx-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Perl script to help generate dtx and ins files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3860,6 +4264,8 @@ automatically generates the character table, and also writes
 the associated installation (.ins) script.
 
 %package -n %{shortname}-makeindex
+Version: svn62517
+Provides: texlive-makeindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-makeindex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-makeindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-makeindex-bin = %{epoch}:%{source_date}-%{release}
@@ -3881,6 +4287,8 @@ by various programs, however, it is generally used with LaTeX
 and troff.
 
 %package -n %{shortname}-match_parens
+Version: svn36270
+Provides: texlive-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: tex-match_parens = %{epoch}:%{source_date}-%{release}
 Provides: texlive-match_parens-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-match_parens-bin = %{epoch}:%{source_date}-%{release}
@@ -3888,7 +4296,7 @@ Obsoletes: texlive-match_parens-bin < 7:20170520
 Provides: tex-match_parens-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-match_parens-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-match_parens-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Find mismatches of parentheses, braces, (angle) brackets, in texts
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3905,6 +4313,8 @@ will normally be almost empty, but will clearly show any
 mismatches.
 
 %package -n %{shortname}-mathspic
+Version: svn31957
+Provides: texlive-mathspic = %{epoch}:%{source_date}-%{release}
 Provides: tex-mathspic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mathspic-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mathspic-bin = %{epoch}:%{source_date}-%{release}
@@ -3912,7 +4322,7 @@ Obsoletes: texlive-mathspic-bin < 7:20170520
 Provides: tex-mathspic-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mathspic-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mathspic-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: A Perl filter program for use with PiCTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3938,11 +4348,13 @@ and maths (advance, multiply, and divide)--in short--it takes
 the pain out of PiCTeX.
 
 %package -n %{shortname}-metafont
+Version: svn62387
+Provides: texlive-metafont = %{epoch}:%{source_date}-%{release}
 Provides: tex-metafont = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metafont-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-metafont-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-metafont-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: A system for specifying fonts
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -3967,6 +4379,8 @@ directly usable by a device driver, etc., by the tools provided
 in the parallel mfware distribution.
 
 %package -n %{shortname}-metapost
+Version: svn62387
+Provides: texlive-metapost = %{epoch}:%{source_date}-%{release}
 Provides: tex-metapost = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metapost-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-metapost-bin = %{epoch}:%{source_date}-%{release}
@@ -3974,7 +4388,7 @@ Obsoletes: texlive-metapost-bin < 7:20170520
 Provides: tex-metapost-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-metapost-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-metapost-doc < 7:20170520
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Summary: A development of Metafont for creating graphics
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4032,6 +4446,8 @@ precise technical illustrations. Its output is scalable
 PostScript or SVG, rather than the bitmaps Metafont creates.
 
 %package -n %{shortname}-mex
+Version: svn58661
+Provides: texlive-mex = %{epoch}:%{source_date}-%{release}
 Provides: tex-mex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mex-bin = %{epoch}:%{source_date}-%{release}
@@ -4039,7 +4455,7 @@ Obsoletes: texlive-mex-bin < 7:20170520
 Provides: tex-mex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mex-doc < 7:20170520
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: Polish formats for TeX
 Requires: texlive-base
 Requires: texlive-enctex
@@ -4071,11 +4487,13 @@ hyphenation rules for the Polish language and sources of
 formats.
 
 %package -n %{shortname}-mflua
+Version: svn62774
+Provides: texlive-mflua = %{epoch}:%{source_date}-%{release}
 Provides: tex-mflua = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mflua-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mflua-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mflua-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A METAFONT compliant program with a Lua interpreter embedded
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4084,11 +4502,13 @@ Requires: texlive-kpathsea
 A METAFONT compliant program with a Lua interpreter embedded.
 
 %package -n %{shortname}-mfware
+Version: svn62387
+Provides: texlive-mfware = %{epoch}:%{source_date}-%{release}
 Provides: tex-mfware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mfware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mfware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mfware-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: Supporting tools for use with Metafont
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4098,6 +4518,8 @@ A collection of programs (as web source) for processing the
 output of Metafont.
 
 %package -n %{shortname}-mf2pt1
+Version: svn61217
+Provides: texlive-mf2pt1 = %{epoch}:%{source_date}-%{release}
 Provides: tex-mf2pt1 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mf2pt1-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mf2pt1-bin = %{epoch}:%{source_date}-%{release}
@@ -4105,7 +4527,7 @@ Obsoletes: texlive-mf2pt1-bin < 7:20170520
 Provides: tex-mf2pt1-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mf2pt1-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mf2pt1-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Produce PostScript Type 1 fonts from Metafont source
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4123,6 +4545,8 @@ reverse-engineered by TeXtrace, mftrace, and other programs
 which convert bitmaps to outline fonts.
 
 %package -n %{shortname}-mkgrkindex
+Version: svn26313
+Provides: texlive-mkgrkindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkgrkindex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkgrkindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkgrkindex-bin = %{epoch}:%{source_date}-%{release}
@@ -4130,7 +4554,7 @@ Obsoletes: texlive-mkgrkindex-bin < 7:20170520
 Provides: tex-mkgrkindex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkgrkindex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mkgrkindex-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Makeindex working with Greek
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4145,6 +4569,8 @@ document in such a way that makeindex will sort the entries
 according to the rules of the Greek alphabet.
 
 %package -n %{shortname}-mkjobtexmf
+Version: svn29725
+Provides: texlive-mkjobtexmf = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkjobtexmf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkjobtexmf-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkjobtexmf-bin = %{epoch}:%{source_date}-%{release}
@@ -4152,7 +4578,7 @@ Obsoletes: texlive-mkjobtexmf-bin < 7:20170520
 Provides: tex-mkjobtexmf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkjobtexmf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mkjobtexmf-doc < 7:20170520
-License: GPLv2 or Artistic
+License: GPL-2.0-only OR Artistic-1.0-Perl
 Summary: Generate a texmf tree for a particular job
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4169,6 +4595,8 @@ The script may be used for archiving purposes or to speed up
 later TeX runs.
 
 %package -n %{shortname}-mkpic
+Version: svn33700
+Provides: texlive-mkpic = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkpic = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkpic-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mkpic-bin = %{epoch}:%{source_date}-%{release}
@@ -4176,7 +4604,7 @@ Obsoletes: texlive-mkpic-bin < 7:20170520
 Provides: tex-mkpic-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mkpic-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mkpic-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Perl interface to mfpic
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4192,6 +4620,8 @@ you run it without an input file). For an extensive description
 see the file mkpicdoc.pdf, which is part of the distribution.
 
 %package -n %{shortname}-mltex
+Version: svn62145
+Provides: texlive-mltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-mltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mltex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mltex-bin = %{epoch}:%{source_date}-%{release}
@@ -4199,7 +4629,7 @@ Obsoletes: texlive-mltex-bin < 7:20170520
 Provides: tex-mltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mltex-doc < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: The MLTeX system
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4230,6 +4660,8 @@ Computer Modern (CM) fonts. The system is distributed as a TeX
 change file.
 
 %package -n %{shortname}-mptopdf
+Version: svn61520
+Provides: texlive-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-mptopdf = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mptopdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-mptopdf-bin = %{epoch}:%{source_date}-%{release}
@@ -4237,7 +4669,7 @@ Obsoletes: texlive-mptopdf-bin < 7:20170520
 Provides: tex-mptopdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-mptopdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-mptopdf-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: mpost to PDF, native MetaPost graphics inclusion
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4258,6 +4690,8 @@ users who do not install the rest of ConTeXt.  This can be
 found on CTAN in macros/pdftex/graphics.
 
 %package -n %{shortname}-multibibliography
+Version: svn30939
+Provides: texlive-multibibliography = %{epoch}:%{source_date}-%{release}
 Provides: tex-multibibliography = %{epoch}:%{source_date}-%{release}
 Provides: texlive-multibibliography-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-multibibliography-bin = %{epoch}:%{source_date}-%{release}
@@ -4265,7 +4699,7 @@ Obsoletes: texlive-multibibliography-bin < 7:20170520
 Provides: tex-multibibliography-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-multibibliography-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-multibibliography-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Multiple versions of a bibliography, with different sort orders
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4283,6 +4717,8 @@ heterogeneous styles, are also supported (and work with other
 bibliography packages).
 
 %package -n %{shortname}-musixtex
+Version: svn60382
+Provides: texlive-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtex-bin = %{epoch}:%{source_date}-%{release}
@@ -4290,7 +4726,7 @@ Obsoletes: texlive-musixtex-bin < 7:20170520
 Provides: tex-musixtex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-musixtex-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Sophisticated music typesetting
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4360,6 +4796,8 @@ the pmx preprocessor compiles a simpler input language to
 MusixTeX macros.
 
 %package -n %{shortname}-musixtnt
+Version: svn40307
+Provides: texlive-musixtnt = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtnt = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtnt-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-musixtnt-bin = %{epoch}:%{source_date}-%{release}
@@ -4367,7 +4805,7 @@ Obsoletes: texlive-musixtnt-bin < 7:20170520
 Provides: tex-musixtnt-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-musixtnt-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-musixtnt-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: A MusiXTeX extension library that enables transformations of the effect of notes commands
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4389,6 +4827,8 @@ lines in a MusiXTeX source file. This should be used before
 using \TransformNotes.
 
 %package -n %{shortname}-m-tx
+Version: svn64182
+Provides: texlive-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: tex-m-tx = %{epoch}:%{source_date}-%{release}
 Provides: texlive-m-tx-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-m-tx-bin = %{epoch}:%{source_date}-%{release}
@@ -4396,7 +4836,7 @@ Obsoletes: texlive-m-tx-bin < 7:20170520
 Provides: tex-m-tx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-m-tx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-m-tx-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A preprocessor for pmx
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4411,11 +4851,13 @@ be typeset. In fact, pmx now provides a lyrics interface, but M-
 Tx continues in use by those who prefer its language.
 
 %package -n %{shortname}-oberdiek
+Version: svn64463
+Provides: texlive-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek = %{epoch}:%{source_date}-%{release}
 Provides: tex-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-oberdiek-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-oberdiek-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: A bundle of packages submitted by Heiko Oberdiek
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4427,48 +4869,40 @@ Requires: texlive-kvoptions
 Requires: texlive-infwarerr
 Requires: texlive-pdftexcmds
 # To complete the bundle
-Requires: tex(ifluatex.sty)
-Requires: tex(intcalc.sty)
-Requires: tex(ifpdf.sty)
-Requires: tex(etexcmds.sty)
-Requires: tex(kvoptions.sty)
-Requires: tex(ifxetex.sty)
-Requires: tex(etex.sty)
+Requires: tex(amsmath.sty)
+Requires: tex(array.sty)
+Requires: tex(atveryend.sty)
+Requires: tex(bigintcalc.sty)
 Requires: tex(color.sty)
-Requires: tex(keyval.sty)
-Requires: tex(soul.sty)
-Requires: tex(remreset.sty)
-Requires: tex(makematch.sty)
-Requires: tex(zref-lastpage.sty)
-Requires: tex(hyperref.sty)
+Requires: tex(etexcmds.sty)
+Requires: tex(fontspec.sty)
 Requires: tex(fp-basic.sty)
 Requires: tex(fp-snap.sty)
 Requires: tex(graphics.sty)
-Requires: tex(amsmath.sty)
-Requires: tex(grfext.sty)
+Requires: tex(hologo.sty)
 Requires: tex(hypdoc.sty)
-Requires: tex(array.sty)
-Requires: tex(fontspec.sty)
-Requires: tex(unicode-math.sty)
-Requires: tex(doc.sty)
-Requires: tex(calc.sty)
-Requires: tex(thumbpdf.sty)
-Requires: tex(inputenc.sty)
-Requires: tex(listings.sty)
-Requires: tex(tikz.sty)
-Requires: tex(everyshi.sty)
+Requires: tex(hyperref.sty)
+Requires: tex(index.sty)
+Requires: tex(intcalc.sty)
+Requires: tex(keyval.sty)
+Requires: tex(kvsetkeys.sty)
+Requires: tex(letltxmacro.sty)
+Requires: tex(ltxcmds.sty)
 Requires: tex(parallel.sty)
 Requires: tex(parcolumns.sty)
-Requires: tex(lscape.sty)
-Requires: tex(index.sty)
-Requires: tex(zref-pagelayout.sty)
+Requires: tex(pdfcol.sty)
+Requires: tex(pdfescape.sty)
+Requires: tex(remreset.sty)
+Requires: tex(unicode-math.sty)
+Requires: tex(uniquecounter.sty)
+Requires: tex(zref-base.sty)
 Provides: tex(aliascnt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-base.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvipdfm.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvipdfmx.def) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-dvips.def) = %{epoch}:%{source_date}-%{release}
-Provides: tex(bmpsize.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(bmpsize-test.tex) = %{epoch}:%{source_date}-%{release}
+Provides: tex(bmpsize.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(centernot.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(chemarr.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(classlist.sty) = %{epoch}:%{source_date}-%{release}
@@ -4480,21 +4914,16 @@ Provides: tex(eolgrab.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(fibnum.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(flags.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(holtxdoc.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(hopatch.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypbmsec.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypcap.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypdestopt.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(hypdoc.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hypgotoe.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(hyphsubst.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(ifdraft.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(iflang.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(pagegrid.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(pagesel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolfoot.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolparallel.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcolparcolumns.sty) = %{epoch}:%{source_date}-%{release}
-Provides: tex(pdfcol.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfcrypt.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(pdfrender.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(protecteddef.sty) = %{epoch}:%{source_date}-%{release}
@@ -4523,18 +4952,13 @@ stack management; engord: define counter-printing operations
 producing English ordinals; eolgrab: collect arguments
 delimited by end of line; flags: setting and clearing flags in
 bit fields and converting the bit field into a decimal number;
-holtxdoc: extra documentation macros; hopatch: safely apply
-package patches; hypbmsec: bookmarks in sectioning commands;
-hypcap: anjusting anchors of captions; hypdestopt: optimising
-hyperref's pdfTeX driver destinations; hypdoc: hyper-references
-in the LaTeX standard doc package; hypgotoe: experimental
-package for links to embedded files; hyphsubst: substitute
-hyphenation patterns; ifdraft: switch for option draft; iflang:
-provides expandable checks for the current language; pagegrid:
-prints a page grid in the background; pagesel: select pages of
-a document for output; pdfcolfoot: using pdfTeX's color stack
-for footnotes; pdfcol: macros for setting and maintaining new
-color stacks; pdfcolparallel: fixes colour problems in package
+holtxdoc: extra documentation macros; hypbmsec: bookmarks in
+sectioning commands; hypcap: anjusting anchors of captions;
+hypgotoe: experimental package for links to embedded files;
+hyphsubst: substitute hyphenation patterns; ifdraft: switch for
+option draft; iflang: provides expandable checks for the
+current language; pdfcolfoot: using pdfTeX's color stack for
+footnotes; pdfcolparallel: fixes colour problems in package
 parallel; pdfcolparcolumns: fixes colour problems in package
 parcolumns; pdfcrypt: setting PDF encryption; pdfrender:
 control PDF rendering modes; protecteddef: define a command
@@ -4543,20 +4967,21 @@ resize overly large equations; rotchiffre: performs simple
 rotation cyphers; scrindex: redefines environment 'theindex' of
 package 'index', if a class from KOMA-Script is loaded;
 setouterhbox: set \hbox in outer horizontal mode; settobox:
-getting box sizes; soul and adds some support for UTF-8;
-stackrel: extensions of the \stackrel command; stampinclude:
-selects the files for \include by inspecting the timestamp of
-the .aux file(s); tabularht: tabulars with height
-specification; tabularkv: key value interface for tabular
-parameters; telprint: print German telephone numbers;
-thepdfnumber: canonical numbers for use in PDF files and
-elsewhere; twoopt: commands with two optional arguments; Each
-of the packages is represented by two files, a .dtx (documented
-source) and a PDF file; the .ins file necessary for
-installation is extracted by running the .dtx file with Plain
-TeX.
+getting box sizes; stackrel: extensions of the \stackrel
+command; stampinclude: selects the files for \include by
+inspecting the timestamp of the .aux file(s); tabularht:
+tabulars with height specification; tabularkv: key value
+interface for tabular parameters; telprint: print German
+telephone numbers; thepdfnumber: canonical numbers for use in
+PDF files and elsewhere; twoopt: commands with two optional
+arguments; Each of the packages is represented by two files, a
+.dtx (documented source) and a PDF file; the .ins file
+necessary for installation is extracted by running the .dtx
+file with Plain TeX.
 
 %package -n %{shortname}-omegaware
+Version: svn62517
+Provides: texlive-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: tex-omegaware = %{epoch}:%{source_date}-%{release}
 Provides: texlive-omegaware-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-omegaware-bin = %{epoch}:%{source_date}-%{release}
@@ -4564,7 +4989,7 @@ Obsoletes: texlive-omegaware-bin < 7:20170520
 Provides: tex-omegaware-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-omegaware-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-omegaware-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Omegaware package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4573,7 +4998,9 @@ Requires: texlive-kpathsea
 Omegaware package.
 
 %package -n %{shortname}-optex
-License: Public Domain
+Version: svn64050
+Provides: texlive-optex = %{epoch}:%{source_date}-%{release}
+License: LicenseRef-Fedora-Public-Domain
 Summary: LuaTeX format based on Plain TeX and OPmac
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4590,12 +5017,32 @@ OpTeX is a LuaTeX format based on Plain TeX macros with power
 from OPmac (fonts selection system, colors, external graphics,
 references, hyperlinks, ...) with unicode fonts.
 
+%package -n %{shortname}-optexcount
+Version: svn59817
+Provides: texlive-optexcount = %{epoch}:%{source_date}-%{release}
+Provides: texlive-optexcount-bin = %{epoch}:%{source_date}-%{release}
+License: MIT
+Summary: Python script for counting words in OpTeX documents
+Requires: texlive-base, texlive-kpathsea
+#python
+BuildArch: noarch
+
+%description -n %{shortname}-optexcount
+OpTeXcount is a basic python utility that analyzes OpTeX source code. It is
+inspired by already existing TeXcount for LaTeX. The functionality is really
+lightweight and basic. It counts words and other elements of OpTeX document
+and sorts them out into individual categories. Users can print the source code
+with highlighted words using several colors,so they see what is considered as
+word, header etc.
+
 %package -n %{shortname}-patgen
+Version: svn62387
+Provides: texlive-patgen = %{epoch}:%{source_date}-%{release}
 Provides: tex-patgen = %{epoch}:%{source_date}-%{release}
 Provides: texlive-patgen-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-patgen-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-patgen-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: Generate hyphenation patterns
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4607,6 +5054,8 @@ used in TeX", but, of course, the patterns used in modern
 distributions are Unicode-based.
 
 %package -n %{shortname}-pax
+Version: svn63509
+Provides: texlive-pax = %{epoch}:%{source_date}-%{release}
 Provides: tex-pax = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pax-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pax-bin = %{epoch}:%{source_date}-%{release}
@@ -4614,7 +5063,7 @@ Obsoletes: texlive-pax-bin < 7:20170520
 Provides: tex-pax-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pax-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pax-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Extract and reinsert PDF annotations with pdfTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4641,6 +5090,8 @@ the annotation data, reads them and puts the annotations in the
 right place.
 
 %package -n %{shortname}-pdfbook2
+Version: svn53521
+Provides: texlive-pdfbook2 = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfbook2 = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfbook2-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfbook2-bin = %{epoch}:%{source_date}-%{release}
@@ -4648,7 +5099,7 @@ Obsoletes: texlive-pdfbook2-bin < 7:20170520
 Provides: tex-pdfbook2-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfbook2-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdfbook2-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Create booklets from PDF files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4672,6 +5123,8 @@ Existing files will be overwritten. All input files are
 processed seperately.
 
 %package -n %{shortname}-pdfcrop
+Version: svn55435
+Provides: texlive-pdfcrop = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfcrop = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfcrop-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfcrop-bin = %{epoch}:%{source_date}-%{release}
@@ -4679,7 +5132,7 @@ Obsoletes: texlive-pdfcrop-bin < 7:20170520
 Provides: tex-pdfcrop-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfcrop-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdfcrop-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Crop PDF graphics
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4690,7 +5143,9 @@ BuildArch: noarch
 A Perl script that can either trim pages of any whitespace
 border, or trim them of a fixed border.
 
-%package -n %{shortname}-pdfjam 
+%package -n %{shortname}-pdfjam
+Version: svn56991
+Provides: texlive-pdfjam = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfjam = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfjam-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfjam-bin = %{epoch}:%{source_date}-%{release}
@@ -4698,7 +5153,7 @@ Obsoletes: texlive-pdfjam-bin < 7:20170520
 Provides: tex-pdfjam-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfjam-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdfjam-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Shell scripts interfacing to pdfpages
 Requires: texlive-base
 Requires: texlive-collection-latex
@@ -4715,6 +5170,8 @@ selecting pages, concatenating files, doing n-up formatting,
 and so on.
 
 %package -n %{shortname}-pdflatexpicscale
+Version: svn46617
+Provides: texlive-pdflatexpicscale = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdflatexpicscale = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdflatexpicscale-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdflatexpicscale-bin = %{epoch}:%{source_date}-%{release}
@@ -4722,7 +5179,7 @@ Obsoletes: texlive-pdflatexpicscale-bin < 7:20170520
 Provides: tex-pdflatexpicscale-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdflatexpicscale-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdflatexpicscale-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Support software for downscaling graphics to be included by pdfLaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4734,6 +5191,8 @@ The package provides a script to scale pictures down to a
 target resolution before creating a PDF document with pdfLaTeX.
 
 %package -n %{shortname}-pdftex
+Version: svn64690
+Provides: texlive-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -4741,7 +5200,7 @@ Obsoletes: texlive-pdftex-bin < 7:20170520
 Provides: tex-pdftex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdftex-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A TeX extension for direct creation of PDF
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4771,10 +5230,12 @@ around use of pdfTeX (though it is now migrating towards
 LuaTeX).
 
 %package -n %{shortname}-pdftex-quiet
+Version: svn49169
+Provides: texlive-pdftex-quiet = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex-quiet = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftex-quiet-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftex-quiet-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3
+License: GPL-3.0-only
 Summary: Bash utility to reduce the output of the pdftex command
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4787,10 +5248,12 @@ This is a tool in BASH serving to reduce the output of `pdftex` command and see
 only relevant errors in red bold font to fight them ASAP.
 
 %package -n %{shortname}-pdftosrc
+Version: svn62387
+Provides: texlive-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdftosrc-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdftosrc-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Extract source file or stream from PDF file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4801,6 +5264,8 @@ a PDF stream given by object number. Developed as part of the
 pdfTeX source tree.
 
 %package -n %{shortname}-pdfxup
+Version: svn59001
+Provides: texlive-pdfxup = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfxup = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfxup-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pdfxup-bin = %{epoch}:%{source_date}-%{release}
@@ -4808,7 +5273,7 @@ Obsoletes: texlive-pdfxup-bin < 7:20170520
 Provides: tex-pdfxup-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pdfxup-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pdfxup-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Create n-up PDF pages with minimal margins
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4821,6 +5286,8 @@ where each page is obtained by combining several pages of a PDF
 file given as output.
 
 %package -n %{shortname}-pedigree-perl
+Version: svn64227
+Provides: texlive-pedigree-perl = %{epoch}:%{source_date}-%{release}
 Provides: tex-pedigree-perl = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pedigree-perl-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pedigree-perl-bin = %{epoch}:%{source_date}-%{release}
@@ -4828,7 +5295,7 @@ Obsoletes: texlive-pedigree-perl-bin < 7:20170520
 Provides: tex-pedigree-perl-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pedigree-perl-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pedigree-perl-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Generate TeX pedigree files from CSV files
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4843,6 +5310,8 @@ multilanguage pedigrees (at the present moment the English and
 Russian languages are supported).
 
 %package -n %{shortname}-perltex
+Version: svn52162
+Provides: texlive-perltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-perltex = %{epoch}:%{source_date}-%{release}
 Provides: texlive-perltex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-perltex-bin = %{epoch}:%{source_date}-%{release}
@@ -4850,7 +5319,7 @@ Obsoletes: texlive-perltex-bin < 7:20170520
 Provides: tex-perltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-perltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-perltex-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Define LaTeX macros in terms of Perl code
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4872,6 +5341,8 @@ specific, noperltex.sty that is useful when distributing a
 document to places where PerlTeX is not available.
 
 %package -n %{shortname}-petri-nets
+Version: svn39165
+Provides: texlive-petri-nets = %{epoch}:%{source_date}-%{release}
 Provides: tex-petri-nets = %{epoch}:%{source_date}-%{release}
 Provides: texlive-petri-nets-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-petri-nets-bin = %{epoch}:%{source_date}-%{release}
@@ -4879,7 +5350,7 @@ Obsoletes: texlive-petri-nets-bin < 7:20170520
 Provides: tex-petri-nets-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-petri-nets-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-petri-nets-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: A set of TeX/LaTeX packages for drawing Petri nets
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4901,6 +5372,8 @@ second defines macros related to PBC, M-nets and B(PN) models;
 and a third that combines the other two.
 
 %package -n %{shortname}-pfarrei
+Version: svn31934
+Provides: texlive-pfarrei = %{epoch}:%{source_date}-%{release}
 Provides: tex-pfarrei = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pfarrei-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-pfarrei-bin = %{epoch}:%{source_date}-%{release}
@@ -4908,7 +5381,7 @@ Obsoletes: texlive-pfarrei-bin < 7:20170520
 Provides: tex-pfarrei-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pfarrei-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pfarrei-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: LaTeX support of pastors' and priests' work
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4930,6 +5403,8 @@ Justen made two bash scripts for this job; the package provides
 one texlua script for both requirements.
 
 %package -n %{shortname}-pkfix
+Version: svn26032
+Provides: texlive-pkfix = %{epoch}:%{source_date}-%{release}
 Provides: tex-pkfix = %{epoch}:%{source_date}-%{release}
 Provides: tex-pkfix-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pkfix-bin = %{epoch}:%{source_date}-%{release}
@@ -4937,7 +5412,7 @@ Obsoletes: texlive-pkfix-bin < 7:20170520
 Provides: tex-pkfix-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pkfix-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pkfix-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Replace pk fonts in PostScript with Type 1 fonts
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4950,6 +5425,8 @@ PostScript files, generated by 'not too old' dvips, and
 replaces them by type 1 versions of the fonts, if possible.
 
 %package -n %{shortname}-pkfix-helper
+Version: svn56061
+Provides: texlive-pkfix-helper = %{epoch}:%{source_date}-%{release}
 Provides: tex-pkfix-helper = %{epoch}:%{source_date}-%{release}
 Provides: tex-pkfix-helper-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pkfix-helper-bin = %{epoch}:%{source_date}-%{release}
@@ -4957,7 +5434,7 @@ Obsoletes: texlive-pkfix-helper-bin < 7:20170520
 Provides: tex-pkfix-helper-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pkfix-helper-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pkfix-helper-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Make PostScript files accessible to pkfix
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -4979,6 +5456,8 @@ documents fully autonomously but does require the user to
 verify and, if needed, correct its decisions.
 
 %package -n %{shortname}-pmx
+Version: svn62533
+Provides: texlive-pmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmx = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmx-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pmx-bin = %{epoch}:%{source_date}-%{release}
@@ -4986,7 +5465,7 @@ Obsoletes: texlive-pmx-bin < 7:20170520
 Provides: tex-pmx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pmx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pmx-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Preprocessor for MusiXTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5002,6 +5481,8 @@ requires at least version 1.15 of MusiXTeX, running on an e-tex-
 enhanced TeX system.
 
 %package -n %{shortname}-pmxchords
+Version: svn39249
+Provides: texlive-pmxchords = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmxchords = %{epoch}:%{source_date}-%{release}
 Provides: tex-pmxchords-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pmxchords-bin = %{epoch}:%{source_date}-%{release}
@@ -5009,7 +5490,7 @@ Obsoletes: texlive-pmxchords-bin < 7:20170520
 Provides: tex-pmxchords-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pmxchords-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pmxchords-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Produce chord information to go with pmx output
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5026,6 +5507,8 @@ to the required key signature; and support scripts for common
 requirements.
 
 %package -n %{shortname}-psutils
+Version: svn61719
+Provides: texlive-psutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-psutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-psutils-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-psutils-bin = %{epoch}:%{source_date}-%{release}
@@ -5043,6 +5526,8 @@ This package contains a fork of the psutils binaries adjusted for TexLive.
 All of the standard binaries have been namespaced with a "tl-" prefix.
 
 %package -n %{shortname}-pst2pdf
+Version: svn56172
+Provides: texlive-pst2pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst2pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst2pdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pst2pdf-bin = %{epoch}:%{source_date}-%{release}
@@ -5050,7 +5535,7 @@ Obsoletes: texlive-pst2pdf-bin < 7:20170520
 Provides: tex-pst2pdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pst2pdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pst2pdf-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: A script to compile pstricks documents via pdftex
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5068,6 +5553,8 @@ the script replaces the environments with \includegraphics to
 include the processed snippets.
 
 %package -n %{shortname}-pst-pdf
+Version: svn56622
+Provides: texlive-pst-pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst-pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-pst-pdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pst-pdf-bin = %{epoch}:%{source_date}-%{release}
@@ -5075,13 +5562,16 @@ Obsoletes: texlive-pst-pdf-bin < 7:20170520
 Provides: tex-pst-pdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pst-pdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pst-pdf-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Make PDF versions of graphics by processing between runs
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: tex(graphicx.sty)
 Requires: tex(pstricks.sty)
 Requires: tex(environ.sty)
+Requires: tex(preview.sty)
+Requires: texlive-iftex
+Requires: tex(luatex85.sty)
 Provides: tex(pst-pdf.sty) = %{epoch}:%{source_date}-%{release}
 # shell
 BuildArch: noarch
@@ -5097,8 +5587,10 @@ instead of the original PostScript code. The package works with
 pstricks and requires a recent version of the preview package.
 
 %package -n %{shortname}-ps2eps
+Version: svn62856
+Provides: texlive-ps2eps = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2eps = %{epoch}:%{source_date}-%{release}
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Produce Encapsulated PostScript from PostScript
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5121,6 +5613,8 @@ is the bbox program, an application to produce Bounding Box values
 for rawppm or rawpbm format files.
 
 %package -n %{shortname}-ps2pk
+Version: svn52851
+Provides: texlive-ps2pk = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2pk = %{epoch}:%{source_date}-%{release}
 Provides: tex-ps2pk-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ps2pk-bin = %{epoch}:%{source_date}-%{release}
@@ -5141,6 +5635,8 @@ generated that use Type 1 fonts. The program makes use of code
 donated to the X consortium by IBM.
 
 %package -n %{shortname}-ptex
+Version: svn62464
+Provides: texlive-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ptex-bin = %{epoch}:%{source_date}-%{release}
@@ -5179,6 +5675,8 @@ TEXMF tree, for use with PTeX, may be found in package PTeX-
 texmf. PTeX is distributed as WEB change files.
 
 %package -n %{shortname}-ptex-fontmaps
+Version: svn59711
+Provides: texlive-ptex-fontmaps = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex-fontmaps = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex-fontmaps = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ptex-fontmaps-bin = %{epoch}:%{source_date}-%{release}
@@ -5195,7 +5693,7 @@ Obsoletes: texlive-jfontmaps-bin <= 6:svn29848.0
 Provides: tex-jfontmaps-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-jfontmaps-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-jfontmaps-doc <= 6:svn40613
-License: GPLv3
+License: GPL-3.0-only
 Summary: Font maps and configuration tools for Japanese/Chinese/Korean fonts with (u)ptex
 Requires: texlive-arphic-ttf
 Requires: texlive-baekmuk
@@ -5214,6 +5712,8 @@ Japanese/Chinese/Korean fonts available for (u)ptex and related
 programs and formats.
 
 %package -n %{shortname}-ptex2pdf
+Version: svn64072
+Provides: texlive-ptex2pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex2pdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-ptex2pdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ptex2pdf-bin = %{epoch}:%{source_date}-%{release}
@@ -5221,7 +5721,7 @@ Obsoletes: texlive-ptex2pdf-bin < 7:20170520
 Provides: tex-ptex2pdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ptex2pdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ptex2pdf-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: Convert Japanese TeX documents to PDF
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5236,6 +5736,8 @@ of the ptex-based programs (ptex, uptex, eptex, platex,
 uplatex) followed by dvipdfmx.
 
 %package -n %{shortname}-purifyeps
+Version: svn29725
+Provides: texlive-purifyeps = %{epoch}:%{source_date}-%{release}
 Provides: tex-purifyeps = %{epoch}:%{source_date}-%{release}
 Provides: tex-purifyeps-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-purifyeps-bin = %{epoch}:%{source_date}-%{release}
@@ -5243,7 +5745,7 @@ Obsoletes: texlive-purifyeps-bin < 7:20170520
 Provides: tex-purifyeps-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-purifyeps-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-purifyeps-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Make EPS work with both LaTeX/dvips and pdfLaTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5262,6 +5764,8 @@ directly. Hence, purifyeps need only convert an arbitrary EPS
 file into the same stylized format that MetaPost outputs.
 
 %package -n %{shortname}-pygmentex
+Version: svn64131
+Provides: texlive-pygmentex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pygmentex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pygmentex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pygmentex-bin = %{epoch}:%{source_date}-%{release}
@@ -5269,7 +5773,7 @@ Obsoletes: texlive-pygmentex-bin < 7:20170520
 Provides: tex-pygmentex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pygmentex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pythontex-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Use Pygments to format code listings in documents
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5281,6 +5785,7 @@ Requires: tex(pgfkeys.sty)
 Requires: tex(efbox.sty)
 Requires: tex(mdframed.sty)
 Requires: tex(fvextra.sty)
+Requires: tex(shellesc.sty)
 Provides: tex(pygmentex.sty) = %{epoch}:%{source_date}-%{release}
 # python
 BuildArch: noarch
@@ -5293,6 +5798,8 @@ kinds of software such as forum systems, wikis or other
 applications that need to prettify source code.
 
 %package -n %{shortname}-pythontex
+Version: svn59514
+Provides: texlive-pythontex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pythontex = %{epoch}:%{source_date}-%{release}
 Provides: tex-pythontex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pythontex-bin = %{epoch}:%{source_date}-%{release}
@@ -5300,7 +5807,7 @@ Obsoletes: texlive-pythontex-bin < 7:20170520
 Provides: tex-pythontex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-pythontex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-pythontex-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Run Python from within a document, typesetting the results
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5313,6 +5820,7 @@ Requires: tex(newfloat.sty)
 Requires: tex(currfile.sty)
 Requires: tex(xcolor.sty)
 Requires: tex(upquote.sty)
+Requires: tex(fvextra.sty)
 Provides: tex(pythontex.sty) = %{epoch}:%{source_date}-%{release}
 # python
 BuildArch: noarch
@@ -5335,6 +5843,8 @@ useful for journal submissions, sharing documents, and
 conversion to other formats.
 
 %package -n %{shortname}-rubik
+Version: svn46791
+Provides: texlive-rubik = %{epoch}:%{source_date}-%{release}
 Provides: tex-rubik = %{epoch}:%{source_date}-%{release}
 Provides: tex-rubik-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-rubik-bin = %{epoch}:%{source_date}-%{release}
@@ -5342,12 +5852,16 @@ Obsoletes: texlive-rubik-bin < 7:20170520
 Provides: tex-rubik-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-rubik-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-rubik-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Document Rubik cube configurations and rotation sequences
 Requires: texlive-base
 Requires: texlive-kpathsea
-Requires: tex(tikz.sty)
 Requires: tex(fancyvrb.sty)
+Requires: tex(forarray.sty)
+Requires: tex(ifluatex.sty)
+Requires: tex(ifthen.sty)
+Requires: tex(shellesc.sty)
+Requires: tex(tikz.sty)
 Provides: tex(rubikcube.sty) = %{epoch}:%{source_date}-%{release}
 Provides: tex(rubikrotation.sty) = %{epoch}:%{source_date}-%{release}
 # perl
@@ -5361,6 +5875,8 @@ moves, with the help of a Perl package executed via \write18
 (shell escape) commands.
 
 %package -n %{shortname}-seetexk
+Version: svn57972
+Provides: texlive-seetexk = %{epoch}:%{source_date}-%{release}
 Provides: tex-seetexk = %{epoch}:%{source_date}-%{release}
 Provides: tex-seetexk-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-seetexk-bin = %{epoch}:%{source_date}-%{release}
@@ -5382,8 +5898,10 @@ utilities are provided as C source with Imakefiles, and an MS-
 DOS version of dvibook is also provided.
 
 %package -n %{shortname}-spix
+Version: svn55933
+Provides: texlive-spix = %{epoch}:%{source_date}-%{release}
 Summary: Yet another TeX compilation tool: simple, human readable, no option, no magic
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: texlive-base texlive-kpathsea
 
 %description -n %{shortname}-spix
@@ -5396,6 +5914,8 @@ that is located somewhere else), in a human-readable format (no
 need to know SpiX to understand it).
 
 %package -n %{shortname}-splitindex
+Version: svn39766
+Provides: texlive-splitindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-splitindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-splitindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-splitindex-bin = %{epoch}:%{source_date}-%{release}
@@ -5403,7 +5923,7 @@ Obsoletes: texlive-splitindex-bin < 7:20170520
 Provides: tex-splitindex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-splitindex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-splitindex-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Unlimited number of indexes
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5424,6 +5944,8 @@ several raw index files and calls your favorite index processor
 for each of the files.
 
 %package -n %{shortname}-srcredact
+Version: svn38710
+Provides: texlive-srcredact = %{epoch}:%{source_date}-%{release}
 Provides: tex-srcredact = %{epoch}:%{source_date}-%{release}
 Provides: tex-srcredact-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-srcredact-bin = %{epoch}:%{source_date}-%{release}
@@ -5431,7 +5953,7 @@ Obsoletes: texlive-srcredact-bin < 7:20170520
 Provides: tex-srcredact-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-srcredact-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-srcredact-doc < 7:20170520
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: A tool for redacting sources
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5448,6 +5970,8 @@ commissioned by the Consumer Financial Protection Bureau,
 United States Treasury.
 
 %package -n %{shortname}-sty2dtx
+Version: svn64797
+Provides: texlive-sty2dtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-sty2dtx = %{epoch}:%{source_date}-%{release}
 Provides: tex-sty2dtx-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-sty2dtx-bin = %{epoch}:%{source_date}-%{release}
@@ -5455,7 +5979,7 @@ Obsoletes: texlive-sty2dtx-bin < 7:20170520
 Provides: tex-sty2dtx-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-sty2dtx-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-sty2dtx-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Create a .dtx file from a .sty file
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5478,6 +6002,8 @@ automatically to the 'Usage' section of the .dtx file. A
 corresponding .ins file can be generated as well.
 
 %package -n %{shortname}-svn-multi
+Version: svn56291
+Provides: texlive-svn-multi = %{epoch}:%{source_date}-%{release}
 Provides: tex-svn-multi = %{epoch}:%{source_date}-%{release}
 Provides: tex-svn-multi-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-svn-multi-bin = %{epoch}:%{source_date}-%{release}
@@ -5485,7 +6011,7 @@ Obsoletes: texlive-svn-multi-bin < 7:20170520
 Provides: tex-svn-multi-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-svn-multi-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-svn-multi-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Subversion keywords in multi-file LaTeX documents
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5509,11 +6035,13 @@ interacts with an external Perl script, to retrieve information
 necessary for the required output.
 
 %package -n %{shortname}-synctex
+Version: svn54074
+Provides: texlive-synctex = %{epoch}:%{source_date}-%{release}
 Provides: tex-synctex = %{epoch}:%{source_date}-%{release}
 Provides: tex-synctex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-synctex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-synctex-bin < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: synctex package
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5522,11 +6050,13 @@ Requires: texlive-kpathsea
 synctex package.
 
 %package -n %{shortname}-tex
+Version: svn62387
+Provides: texlive-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: A sophisticated typesetting engine
 Requires: texlive-base
 Requires: texlive-cm
@@ -5548,6 +6078,8 @@ inspiration for several other programs, including e-TeX and
 PDFTeX.
 
 %package -n %{shortname}-tex4ebook
+Version: svn62076
+Provides: texlive-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ebook-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ebook-bin = %{epoch}:%{source_date}-%{release}
@@ -5555,7 +6087,7 @@ Obsoletes: texlive-tex4ebook-bin < 7:20170520
 Provides: tex-tex4ebook-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ebook-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex4ebook-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Convertor from LaTeX to ebook formats
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5572,6 +6104,8 @@ conversion of LaTeX files to ebook formats such as epub, mobi
 and epub3. tex4ht is used as conversion engine.
 
 %package -n %{shortname}-tex4ht
+Version: svn64837
+Provides: texlive-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht = %{epoch}:%{source_date}-%{release}
 Provides: tex-tex4ht-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ht-bin = %{epoch}:%{source_date}-%{release}
@@ -5579,7 +6113,7 @@ Obsoletes: texlive-tex4ht-bin < 7:20170520
 Provides: tex-tex4ht-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tex4ht-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tex4ht-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Convert (La)TeX to HTML/XML
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5599,6 +6133,8 @@ allows TeX4ht to approach the robustness characteristic of
 restricted-syntax systems such as hyperlatex and gellmu.
 
 %package -n %{shortname}-texcount
+Version: svn49013
+Provides: texlive-texcount = %{epoch}:%{source_date}-%{release}
 Provides: tex-texcount = %{epoch}:%{source_date}-%{release}
 Provides: tex-texcount-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texcount-bin = %{epoch}:%{source_date}-%{release}
@@ -5606,7 +6142,7 @@ Obsoletes: texlive-texcount-bin < 7:20170520
 Provides: tex-texcount-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texcount-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texcount-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Count words in a LaTeX document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5621,6 +6157,8 @@ of the text have been counted. The package script is available
 as a Web service via its home page.
 
 %package -n %{shortname}-texdef
+Version: svn56466
+Provides: texlive-texdef = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdef = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdef-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdef-bin = %{epoch}:%{source_date}-%{release}
@@ -5628,7 +6166,7 @@ Obsoletes: texlive-texdef-bin < 7:20170520
 Provides: tex-texdef-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdef-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texdef-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: Display the definitions of TeX commands
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5654,6 +6192,8 @@ The flavour can be selected using an command line option or
 over the script name: latexdef will use LaTeX as default, etc.
 
 %package -n %{shortname}-texdiff
+Version: svn29752
+Provides: texlive-texdiff = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdiff = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdiff-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdiff-bin = %{epoch}:%{source_date}-%{release}
@@ -5661,7 +6201,7 @@ Obsoletes: texlive-texdiff-bin < 7:20170520
 Provides: tex-texdiff-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdiff-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texdiff-doc < 7:20170520
-License: GPL+ or Artistic
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary: Compares two (La)TeX documents to create a merged version showing changes
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5673,11 +6213,13 @@ Texdiff compares two (La)TeX documents to create a merged version showing
 changes, similar to that of 'Change Tracking' in some word processors.
 
 %package -n %{shortname}-texdirflatten
+Version: svn55064
+Provides: texlive-texdirflatten = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdirflatten = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdirflatten-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdirflatten-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texdirflatten-bin < 7:20170520
-License: GPL+ or Artistic
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary: Collect files related to a LaTeX job in a single directory
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5692,6 +6234,8 @@ single directory (thus "flattening" the document's directory
 tree).
 
 %package -n %{shortname}-texdoc
+Version: svn62815
+Provides: texlive-texdoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoc = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoc-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdoc-bin = %{epoch}:%{source_date}-%{release}
@@ -5699,7 +6243,7 @@ Obsoletes: texlive-texdoc-bin < 7:20170520
 Provides: tex-texdoc-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdoc-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texdoc-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Documentation access for TeX distributions
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5714,12 +6258,14 @@ files on the $TEXDOCS tree). It is distributed with TeX-Live
 and a derivative is distributed with miktex.
 
 %package -n %{shortname}-texdoctk
+Version: svn62186
+Provides: texlive-texdoctk = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoctk = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoctk-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-texdoctk-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdoctk-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texdoctk-doc = %{epoch}:%{source_date}-%{release}
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Easy access to package documentation
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5741,6 +6287,8 @@ only distributed as part of TeX Live, which includes a Windows
 executable.
 
 %package -n %{shortname}-texfot
+Version: svn64507
+Provides: texlive-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot = %{epoch}:%{source_date}-%{release}
 Provides: tex-texfot-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texfot-bin = %{epoch}:%{source_date}-%{release}
@@ -5748,7 +6296,7 @@ Obsoletes: texlive-texfot-bin < 7:20170520
 Provides: tex-texfot-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texfot-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texfot-doc < 7:20170520
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: Filter clutter from the output of a TeX run
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5762,6 +6310,8 @@ which probably deserve some change in the source. The TeX
 invocation itself need not change.
 
 %package -n %{shortname}-texliveonfly
+Version: svn55777
+Provides: texlive-texliveonfly = %{epoch}:%{source_date}-%{release}
 Provides: tex-texliveonfly = %{epoch}:%{source_date}-%{release}
 Provides: tex-texliveonfly-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texliveonfly-bin = %{epoch}:%{source_date}-%{release}
@@ -5769,7 +6319,7 @@ Obsoletes: texlive-texliveonfly-bin < 7:20170520
 Provides: tex-texliveonfly-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texliveonfly-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texliveonfly-doc < 7:20170520
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: On-the-fly download of missing TeX live packages
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5787,11 +6337,13 @@ synctex=1 -interaction=nonstopmode", which may all be changed).
 The script is designed to work on Linux distributions.
 
 %package -n %{shortname}-texlive-en
+Version: svn64221
+Provides: texlive-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-en-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-en-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive-en-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: TeX Live manual (English)
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5801,10 +6353,12 @@ BuildArch: noarch
 TeX Live manual (English).
 
 %package -n %{shortname}-texlive-scripts
+Version: svn64830
+Provides: texlive-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive-scripts-bin < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: TeX Live infrastructure programs
 Requires: texlive-base
 Requires: texlive-kpathsea = %{epoch}:%{source_date}-%{release}
@@ -5820,9 +6374,11 @@ Includes install-tl, tl-portable, rungs, etc.; not needed for
 tlmgr to run but still ours.  Not included in tlcritical.
 
 %package -n %{shortname}-texlive-scripts-extra
+Version: svn62517
+Provides: texlive-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive-scripts-extra = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive-scripts-extra-bin = %{epoch}:%{source_date}-%{release}
-License: GPL+ and LPPL and Public Domain
+License: GPL-1.0-or-later AND LPPL-1.3c AND LicenseRef-Fedora-Public-Domain
 Summary: TeX Live scripts
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5839,6 +6395,8 @@ the infrastructure. Thus, this is not part of scheme-infraonly or tlcritical,
 just a normal package.
 
 %package -n %{shortname}-texlive.infra
+Version: svn63645
+Provides: texlive-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra = %{epoch}:%{source_date}-%{release}
 Provides: tex-texlive.infra-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive.infra-bin = %{epoch}:%{source_date}-%{release}
@@ -5846,7 +6404,7 @@ Obsoletes: texlive-texlive.infra-bin < 7:20170520
 Provides: tex-texlive.infra-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texlive.infra-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texlive.infra-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Basic TeX Live infrastructure
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5862,6 +6420,8 @@ tools (notably tlmgr) running: perl modules, xz binaries, plus
 install packages, and in the tlcritical repository.
 
 %package -n %{shortname}-texloganalyser
+Version: svn54526
+Provides: texlive-texloganalyser = %{epoch}:%{source_date}-%{release}
 Provides: tex-texloganalyser = %{epoch}:%{source_date}-%{release}
 Provides: tex-texloganalyser-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texloganalyser-bin = %{epoch}:%{source_date}-%{release}
@@ -5880,7 +6440,49 @@ BuildArch: noarch
 The perl script allows the user to extract (and display)
 elements of the log file.
 
+%package -n %{shortname}-texlogfilter
+Version: svn62792
+Provides: texlive-texlogfilter = %{epoch}:%{source_date}-%{release}
+Provides: texlive-texlogfilter-bin = %{epoch}:%{source_date}-%{release}
+License: LPPL-1.3c
+Summary: Filter LaTeX engines output or log file
+Requires: texlive-base, texlive-kpathsea
+# perl
+BuildArch: noarch
+
+%description -n %{shortname}-texlogfilter
+texlogfilter is a Perl script designed to filter LaTeX engines output or log
+file (LaTeX, pdfLaTeX, LuaLaTeX or XeLaTeX). It reduces the LaTeX output or log
+to keep only warnings and errors. The result is colorised. Options allow to
+mask specific warnings, such as box or references/citations warnings. It's also
+possible to add custom filter patterns.
+
+%package -n %{shortname}-texlogsieve
+Version: svn64301
+Provides: texlive-texlogsieve = %{epoch}:%{source_date}-%{release}
+Provides: texlive-texlogsieve-bin = %{epoch}:%{source_date}-%{release}
+License: GPL-3.0-or-later
+Summary: Filter and summarize LaTeX log files
+Requires: texlive-base, texlive-kpathsea
+# lua
+BuildArch: noarch
+
+%description -n %{shortname}-texlogsieve
+texlogsieve reads a LaTeX log file (or the standard input if no file is
+specified), filters out less relevant messages, and displays a summary report.
+It is a texlua script, similar in spirit to tools such as texfot,
+texloganalyser, rubber-info, textlog_extract, texlogparser, and others.
+Highlights: Two reports: the most important messages from the log file followed
+by a summary of repeated messages, undefined references etc.; The program goes
+to great lengths to correctly handle TeX line wrapping and does a much better
+job at that than existing tools; Multiline messages are treated as a single
+entity; Several options to control which messages should be filtered out; No
+messages are accidentally removed; The summary report is currently simple, but
+useful.
+
 %package -n %{shortname}-texosquery
+Version: svn53676
+Provides: texlive-texosquery = %{epoch}:%{source_date}-%{release}
 Provides: tex-texosquery = %{epoch}:%{source_date}-%{release}
 Provides: tex-texosquery-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texosquery-bin = %{epoch}:%{source_date}-%{release}
@@ -5888,7 +6490,7 @@ Obsoletes: texlive-texosquery-bin < 7:20170520
 Provides: tex-texosquery-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texosquery-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texosquery-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Cross-platform Java application to query OS information
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -5920,6 +6522,8 @@ problematic characters) is temporarily changed to 12 while
 reading the result.
 
 %package -n %{shortname}-texplate
+Version: svn61719
+Provides: texlive-texplate = %{epoch}:%{source_date}-%{release}
 Provides: tex-texplate = %{epoch}:%{source_date}-%{release}
 Provides: tex-texplate-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texplate-bin = %{epoch}:%{source_date}-%{release}
@@ -5942,6 +6546,8 @@ text-based structure, given that a corresponding template
 exists.
 
 %package -n %{shortname}-texsis
+Version: svn45678
+Provides: texlive-texsis = %{epoch}:%{source_date}-%{release}
 Provides: tex-texsis = %{epoch}:%{source_date}-%{release}
 Provides: tex-texsis-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texsis-bin = %{epoch}:%{source_date}-%{release}
@@ -5949,7 +6555,7 @@ Obsoletes: texlive-texsis-bin < 7:20170520
 Provides: tex-texsis-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texsis-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texsis-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Plain TeX macros for Physicists
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6003,11 +6609,13 @@ physicists, but others may also find it useful. It is
 completely compatible with Plain TeX.
 
 %package -n %{shortname}-texware
+Version: svn62387
+Provides: texlive-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware = %{epoch}:%{source_date}-%{release}
 Provides: tex-texware-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-texware-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-texware-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: Utility programs for use with TeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6021,6 +6629,8 @@ tftopl and pltotf, which convert TeX Font Metric (TFM) file to
 human readable Property List (PL) files and vice versa.
 
 %package -n %{shortname}-thumbpdf
+Version: svn62518
+Provides: texlive-thumbpdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-thumbpdf = %{epoch}:%{source_date}-%{release}
 Provides: tex-thumbpdf-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-thumbpdf-bin = %{epoch}:%{source_date}-%{release}
@@ -6028,7 +6638,7 @@ Obsoletes: texlive-thumbpdf-bin < 7:20170520
 Provides: tex-thumbpdf-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-thumbpdf-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-thumbpdf-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Thumbnails for pdfTeX and dvips/ps2pdf
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6048,6 +6658,8 @@ thumbnails. This arrangement works with both plain TeX and
 LaTeX.
 
 %package -n %{shortname}-tie
+Version: svn62387
+Provides: texlive-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie = %{epoch}:%{source_date}-%{release}
 Provides: tex-tie-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tie-bin = %{epoch}:%{source_date}-%{release}
@@ -6064,8 +6676,10 @@ be used to create a new version of a .web file that
 incorporates existing changes.
 
 %package -n %{shortname}-tikztosvg
+Version: svn60289
+Provides: texlive-tikztosvg = %{epoch}:%{source_date}-%{release}
 Summary: A utility for rendering TikZ diagrams to SVG
-License: GPLv3
+License: GPL-3.0-only
 Requires: texlive-base texlive-kpathsea
 
 %description -n %{shortname}-tikztosvg
@@ -6073,6 +6687,8 @@ This package provides a shell script that calls XeTeX and
 pdf2svg to convert TikZ environments to SVG files.
 
 %package -n %{shortname}-tpic2pdftex
+Version: svn52851
+Provides: texlive-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex = %{epoch}:%{source_date}-%{release}
 Provides: tex-tpic2pdftex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tpic2pdftex-bin = %{epoch}:%{source_date}-%{release}
@@ -6080,7 +6696,7 @@ Obsoletes: texlive-tpic2pdftex-bin < 7:20170520
 Provides: tex-tpic2pdftex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-tpic2pdftex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-tpic2pdftex-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Use tpic commands in PDFTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6092,6 +6708,8 @@ The AWK script converts pic language, embedded inline
 (delimited by .PS and .PE markers), to \pdfliteral commands.
 
 %package -n %{shortname}-ttfutils
+Version: svn62517
+Provides: texlive-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils = %{epoch}:%{source_date}-%{release}
 Provides: tex-ttfutils-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ttfutils-bin = %{epoch}:%{source_date}-%{release}
@@ -6099,7 +6717,7 @@ Obsoletes: texlive-ttfutils-bin < 7:20170520
 Provides: tex-ttfutils-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ttfutils-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ttfutils-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Linux TrueType utilities
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6110,6 +6728,8 @@ Provides: tex(ttf2pk.cfg) = %{epoch}:%{source_date}-%{release}
 Linux TrueType utilities.
 
 %package -n %{shortname}-typeoutfileinfo
+Version: svn29349
+Provides: texlive-typeoutfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: tex-typeoutfileinfo = %{epoch}:%{source_date}-%{release}
 Provides: tex-typeoutfileinfo-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-typeoutfileinfo-bin = %{epoch}:%{source_date}-%{release}
@@ -6117,7 +6737,7 @@ Obsoletes: texlive-typeoutfileinfo-bin < 7:20170520
 Provides: tex-typeoutfileinfo-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-typeoutfileinfo-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-typeoutfileinfo-doc < 7:20170520
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Display class/package/file information
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6133,6 +6753,8 @@ LaTeX source file. The package requires that the readprov
 package is available.
 
 %package -n %{shortname}-ulqda
+Version: svn26313
+Provides: texlive-ulqda = %{epoch}:%{source_date}-%{release}
 Provides: tex-ulqda = %{epoch}:%{source_date}-%{release}
 Provides: tex-ulqda-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ulqda-bin = %{epoch}:%{source_date}-%{release}
@@ -6140,7 +6762,7 @@ Obsoletes: texlive-ulqda-bin < 7:20170520
 Provides: tex-ulqda-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-ulqda-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-ulqda-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Support of Qualitative Data Analysis
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6162,6 +6784,8 @@ LaTeX user with macros which are used to markup textual
 information -- for example, in-depth interviews.
 
 %package -n %{shortname}-uptex
+Version: svn62464
+Provides: texlive-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-doc = %{epoch}:%{source_date}-%{release}
@@ -6202,6 +6826,8 @@ and Babel (Latin/Cyrillic/Greek etc.) by switching its \kcatcode
 tables.
 
 %package -n %{shortname}-urlbst
+Version: svn55777
+Provides: texlive-urlbst = %{epoch}:%{source_date}-%{release}
 Provides: tex-urlbst = %{epoch}:%{source_date}-%{release}
 Provides: tex-urlbst-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-urlbst-bin = %{epoch}:%{source_date}-%{release}
@@ -6209,7 +6835,7 @@ Obsoletes: texlive-urlbst-bin < 7:20170520
 Provides: tex-urlbst-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-urlbst-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-urlbst-doc < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Web support for BibTeX
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6224,6 +6850,8 @@ file which has a reasonably conventional structure. The result
 is meant to be robust rather than pretty.
 
 %package -n %{shortname}-velthuis
+Version: svn55475
+Provides: texlive-velthuis = %{epoch}:%{source_date}-%{release}
 Provides: tex-velthuis = %{epoch}:%{source_date}-%{release}
 Provides: tex-velthuis-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-velthuis-bin = %{epoch}:%{source_date}-%{release}
@@ -6235,7 +6863,7 @@ Provides: texlive-devnag = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-devnag < 7:20170520
 Provides: texlive-devnag-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-devnag-bin < 7:20170520
-License: GPL+
+License: GPL-1.0-or-later
 Summary: Typeset Devanagari
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6392,6 +7020,8 @@ XeTeX based package, which is far preferable for users who can
 type Unicode text.
 
 %package -n %{shortname}-vlna
+Version: svn54074
+Provides: texlive-vlna = %{epoch}:%{source_date}-%{release}
 Provides: tex-vlna = %{epoch}:%{source_date}-%{release}
 Provides: tex-vlna-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-vlna-bin = %{epoch}:%{source_date}-%{release}
@@ -6399,7 +7029,7 @@ Obsoletes: texlive-vlna-bin < 7:20170520
 Provides: tex-vlna-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-vlna-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-vlna-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Adds tilde after each non-syllabic preposition
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6417,6 +7047,8 @@ TeXing. Moreower, you can set another sequence to store instead
 asciitilte (see the -x option).
 
 %package -n %{shortname}-vpe
+Version: svn26039
+Provides: texlive-vpe = %{epoch}:%{source_date}-%{release}
 Provides: tex-vpe = %{epoch}:%{source_date}-%{release}
 Provides: tex-vpe-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-vpe-bin = %{epoch}:%{source_date}-%{release}
@@ -6424,7 +7056,7 @@ Obsoletes: texlive-vpe-bin < 7:20170520
 Provides: tex-vpe-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-vpe-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-vpe-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Source specials for PDF output
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6446,11 +7078,13 @@ LaTeX/VTeX. Using the LaTeX/dvips or pdfLaTeX routes, the
 (pdf)TeX processor should be run with shell escapes enabled.
 
 %package -n %{shortname}-web
+Version: svn62517
+Provides: texlive-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web = %{epoch}:%{source_date}-%{release}
 Provides: tex-web-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-web-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-web-bin < 7:20170520
-License: Knuth
+License: Knuth-CTAN
 Summary: Original web programs tangle and weave
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6462,10 +7096,12 @@ tangle), and secondly to produce a TeX source (using the
 program weave) that may be typeset for comfortable reading.
 
 %package -n %{shortname}-webquiz
+Version: svn58808
+Provides: texlive-webquiz = %{epoch}:%{source_date}-%{release}
 Provides: tex-webquiz = %{epoch}:%{source_date}-%{release}
 Provides: tex-webquiz-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-webquiz-bin = %{epoch}:%{source_date}-%{release}
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: A LaTeX package for writing online quizzes
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6487,13 +7123,15 @@ done behind the scenes using TeX4ht. The idea is that you should be able to
 produce nice online quizzes using WebQuiz and basic knowledge of LaTeX.
 
 %package -n %{shortname}-wordcount
+Version: svn46165
+Provides: texlive-wordcount = %{epoch}:%{source_date}-%{release}
 Provides: tex-wordcount = %{epoch}:%{source_date}-%{release}
 Provides: texlive-wordcount-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-wordcount-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-wordcount-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-wordcount-doc < 7:20180414
 Provides: tex(wordcount.tex) = %{epoch}:%{source_date}-%{release}
-License: LPPL
+License: LPPL-1.3c
 Summary: Estimate the number of words in a LaTeX document
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6510,6 +7148,8 @@ accompanying shell script wordcount.sh contains more
 information in its comments.
 
 %package -n %{shortname}-xdvi
+Version: svn62387
+Provides: texlive-xdvi = %{epoch}:%{source_date}-%{release}
 License: MIT
 Summary: A DVI previewer for the X Window System
 Provides: tex-xdvi = %{epoch}:%{source_date}-%{release}
@@ -6526,6 +7166,8 @@ The canonical previewer for use on Unix and other X-windows
 based systems.
 
 %package -n %{shortname}-xetex
+Version: svn62387
+Provides: texlive-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xetex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xetex-bin = %{epoch}:%{source_date}-%{release}
@@ -6570,15 +7212,20 @@ XeTeX is now part of the standard TeX distribution TeXLive and works well with
 TeX macro packages like LaTeX and ConTeXt.
 
 %package -n %{shortname}-xindex
+Version: svn64453
+Provides: texlive-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xindex-bin = %{epoch}:%{source_date}-%{release}
-License: LPPL 1.3
+License: LPPL-1.3c
 Summary: Unicode compatible index program for LaTeX
 Requires: lua >= 5.3
 Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-luatex
+Requires: tex(imakeidx.sty)
+Requires: tex(makeidx.sty)
+Requires: tex(xkeyval.sty)
 Provides: tex(xindex.lua) = %{epoch}:%{source_date}-%{release}
 Provides: tex(xindex.sty) = %{epoch}:%{source_date}-%{release}
 # lua
@@ -6589,6 +7236,8 @@ Unicode compatible index program for LaTeX.
 
 %if ! 0%{?eln}
 %package -n %{shortname}-xindy
+Version: svn59894
+Provides: texlive-xindy = %{epoch}:%{source_date}-%{release}
 Provides: tex-xindy = %{epoch}:%{source_date}-%{release}
 %if %{without bootstrap}
 Provides: tex-xindy-bin = %{epoch}:%{source_date}-%{release}
@@ -6599,7 +7248,7 @@ Obsoletes: texlive-xindy-bin <= 6:svn41316
 Provides: tex-xindy-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xindy-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-xindy-doc <= 6:svn41316
-License: GPLv2+
+License: GPL-2.0-or-later
 Summary: A general-purpose index processor
 # There are some arch specific binaries in here.
 # BuildArch: noarch
@@ -6617,8 +7266,10 @@ collating order of the text being processed.
 %endif
 
 %package -n %{shortname}-xml2pmx
+Version: svn57972
+Provides: texlive-xml2pmx = %{epoch}:%{source_date}-%{release}
 Summary: Convert MusicXML to PMX and MusiXTeX
-License: GPLv3+
+License: GPL-3.0-or-later
 Requires: texlive-base texlive-kpathsea
 
 %description -n %{shortname}-xml2pmx
@@ -6627,6 +7278,8 @@ PMX and MusiXTeX processing. This package supports Windows,
 MacOS and Linux systems.
 
 %package -n %{shortname}-xmltex
+Version: svn62145
+Provides: texlive-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex = %{epoch}:%{source_date}-%{release}
 Provides: tex-xmltex-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xmltex-bin = %{epoch}:%{source_date}-%{release}
@@ -6635,7 +7288,7 @@ Provides: tex-xmltex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xmltex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-xmltex-doc < 7:20170520
 Provides: xmltex = %{epoch}:%{source_date}-%{release}
-License: LPPL
+License: LPPL-1.3c
 Summary: Support for parsing XML documents
 Requires: texlive-base
 Requires: texlive-kpathsea-bin, tex-kpathsea
@@ -6671,10 +7324,12 @@ names, as well as character data, may use any characters
 allowed in XML, using UTF-8 or a suitable 8-bit encoding.
 
 %package -n %{shortname}-xpdfopen
+Version: svn53998
+Provides: texlive-xpdfopen = %{epoch}:%{source_date}-%{release}
 Provides: tex-xpdfopen = %{epoch}:%{source_date}-%{release}
 Provides: tex-xpdfopen-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-xpdfopen-bin = %{epoch}:%{source_date}-%{release}
-License: Public Domain
+License: LicenseRef-Fedora-Public-Domain
 Summary: Commands to control PDF readers, under X11
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6688,6 +7343,8 @@ and evince. This version derives from one written by Fabrice
 Popineau for Microsoft operating systems.
 
 %package -n %{shortname}-yplan
+Version: svn34398
+Provides: texlive-yplan = %{epoch}:%{source_date}-%{release}
 Provides: tex-yplan = %{epoch}:%{source_date}-%{release}
 Provides: tex-yplan-bin = %{epoch}:%{source_date}-%{release}
 Provides: texlive-yplan-bin = %{epoch}:%{source_date}-%{release}
@@ -6695,7 +7352,7 @@ Obsoletes: texlive-yplan-bin < 7:20170520
 Provides: tex-yplan-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-yplan-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-yplan-doc < 7:20170520
-License: LPPL
+License: LPPL-1.3c
 Summary: Daily planner type calendar
 Requires: texlive-base
 Requires: texlive-kpathsea
@@ -6731,7 +7388,7 @@ xz -dc %{SOURCE0} | tar x
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch18 -p1 -b .poppler-0.73
 %endif
-%patch20 -p1 -b .fix-libgs-detection
+# %%patch20 -p1 -b .fix-libgs-detection
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch23 -p1 -b .poppler-0.84
 %endif
@@ -6740,8 +7397,8 @@ xz -dc %{SOURCE0} | tar x
 %endif
 %patch30 -p1 -b .out_of_memory
 %patch31 -p1 -b .poppler-xpdf-fix
-%patch32 -p1 -b .archfix
-%patch33 -p1 -b .no-setpdfwrite
+# %%patch32 -p1 -b .archfix
+# %%patch33 -p1 -b .no-setpdfwrite
 
 %if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %patch34 -p1 -b .poppler22
@@ -7027,6 +7684,7 @@ rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/tlcockpit/tlcockpit.sh
 rm -f %{buildroot}%{_texdir}/texmf-dist/scripts/tlshell/tlshell.tcl
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/COPYING.MinGW-runtime.txt
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/ctan-mirrors.pl
+rm -rf %{buildroot}%{_texdir}/tlpkg/installer/curl
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/install-menu-extl.pl
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/install-menu-perltk.pl
 rm -f %{buildroot}%{_texdir}/tlpkg/installer/install-menu-text.pl
@@ -7154,9 +7812,9 @@ ln -s %{_sysconfdir}/texlive/psutils/paper.cfg %{buildroot}%{_texdir}/texmf-dist
 
 # Some (most) of the binaries are ending up with RPATH despite our best efforts.
 for i in afm2pl afm2tfm aleph bibtex bibtex8 bibtexu chkdvifont chktex ctie ctangle ctwill ctwill-refsort ctwill-twinx cweave detex disdvi dt2dv dv2dt dvi2tty dvibook dviconcat dvicopy dvilj dvilj2p dvilj4 dvilj4l dvipng \
-         dvipos dvips dviselect dvispc dvisvgm dvitodvi dvitype eptex euptex gftodvi gftopk gftype gregorio gsftopk hbf2gf kpsewhich luahbtex luatex mag makeindex makejvf mendex mf mflua mft mf-nowin mpost otftotfm msxlint \
+         dvipos dvips dviselect dvispc dvisvgm dvitodvi dvitype eptex euptex gftodvi gftopk gftype gregorio gsftopk hbf2gf hitex kpsewhich luahbtex luatex mag makeindex makejvf mendex mf mflua mft mf-nowin mpost otftotfm msxlint \
          odvicopy odvitype omfonts otangle otp2ocp outocp patgen pbibtex pdftex pdftosrc pktogf pdvitype pfb2pfa pk2bm pktype pltotf pmpost pooltype ppltotf ps2pk ptex ptftopl synctex t4ht tangle tex tex4ht tftopl tie tl-epsffit tl-psbook tl-psnup tl-psresize tl-psselect tl-pstops \
-         ttf2afm ttf2pk ttf2tfm ttfdump upbibtex updvitype upmendex upmpost uppltotf uptex uptftopl vftovp vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw xdvipdfmx xetex; do
+         ttf2afm ttf2pk ttf2tfm ttfdump twill upbibtex updvitype upmendex upmpost uppltotf uptex uptftopl vftovp vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf xdvi-xaw xdvipdfmx xetex; do
 chrpath --delete %{buildroot}%{_bindir}/$i
 done
 
@@ -7316,6 +7974,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %dir %{_texdir}/texmf-dist/tex/xelatex
 %dir %{_texdir}/texmf-dist/web2c
 %dir %{_texmf_var}
+%doc %{_texdir}/doc.html
 %{_texdir}/texmf-var
 %{_texdir}/texmf-local/
 %{_datadir}/texmf
@@ -7365,7 +8024,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 # symlink to aleph, not created in 2021
 # %%{_bindir}/lamed
 %{_mandir}/man1/aleph.1*
-%{_mandir}/man1/lamed.1*
+# %%{_mandir}/man1/lamed.1*
 %{fmtutil_cnf_d}/aleph
 %doc %{_texdir}/texmf-dist/doc/aleph/
 
@@ -7419,6 +8078,8 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %license gpl3.txt
 %{_bindir}/bib2gls
 %{_bindir}/convertgls2bib
+%{_mandir}/man1/bib2gls.1*
+%{_mandir}/man1/convertgls2bib.1*
 %{_texdir}/texmf-dist/scripts/bib2gls/
 %doc %{_texdir}/texmf-dist/doc/support/bib2gls/
 
@@ -7528,6 +8189,14 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/scripts/chktex/
 %doc %{_texdir}/texmf-dist/doc/chktex/
 
+%files -n %{shortname}-citation-style-language
+%license mit.txt cc-by-sa-3.txt
+%{_bindir}/citeproc
+%{_mandir}/man1/citeproc-lua.1*
+%{_texdir}/texmf-dist/scripts/citation-style-language/
+%{_texdir}/texmf-dist/tex/latex/citation-style-language/
+%doc %{_texdir}/texmf-dist/doc/latex/citation-style-language/
+
 %if 0
 %files -n %{shortname}-cjk-gs-integrate
 %license gpl3.txt
@@ -7572,6 +8241,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-clojure-pamphlet
 %license gpl3.txt
 %{_bindir}/pamphletangler
+%{_mandir}/man1/pamphletangler.1*
 %{_texdir}/texmf-dist/scripts/clojure-pamphlet/
 %{_texdir}/texmf-dist/tex/latex/clojure-pamphlet/
 %doc %{_texdir}/texmf-dist/doc/support/clojure-pamphlet/
@@ -7738,14 +8408,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/ctwill-refsort
 %{_bindir}/ctwill-twinx
 %{_bindir}/cweave
+%{_bindir}/twill
 %{_mandir}/man1/ctangle.1*
 %{_mandir}/man1/ctwill.1*
 %{_mandir}/man1/ctwill-refsort.1*
 %{_mandir}/man1/ctwill-twinx.1*
 %{_mandir}/man1/cweave.1*
 %{_mandir}/man1/cweb.1*
+%{_mandir}/man1/twill.1*
 %{_texdir}/texmf-dist/tex/plain/cweb/
-%doc %{_texdir}/texmf-dist/doc/plain/cweb/
 
 %files -n %{shortname}-cyrillic
 %license lppl1.3.txt
@@ -8056,6 +8727,19 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/gsftopk.1*
 %{_texdir}/texmf-dist/dvips/gsftopk/
 
+%files -n %{shortname}-hitex
+%{_bindir}/hilatex
+%{_bindir}/hishrink
+%{_bindir}/histretch
+%{_bindir}/hitex
+%{_mandir}/man1/hishrink.1*
+%{_mandir}/man1/histretch.1*
+%{_mandir}/man1/hitex.1*
+%{_texdir}/fmtutil.cnf.d/hitex
+%{_texdir}/texmf-dist/makeindex/hitex/
+%{_texdir}/texmf-dist/tex/hitex/
+%doc %{_texdir}/texmf-dist/doc/hitex/
+
 %files -n %{shortname}-hyperxmp
 %license lppl1.3c.txt
 %{_bindir}/hyperxmp-add-bytecount
@@ -8121,7 +8805,6 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/texhash.1*
 %{_mandir}/man5/fmtutil.cnf.5*
 %{_infodir}/kpathsea.info*
-%{_infodir}/tds.info*
 %{_infodir}/web2c.info*
 %{_texdir}/texmf-dist/web2c/amiga-pl.tcx
 %{_texdir}/texmf-dist/web2c/cp1250cs.tcx
@@ -8335,8 +9018,16 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %files -n %{shortname}-ltximg
 %license gpl2.txt
 %{_bindir}/ltximg
+%{_mandir}/man1/ltximg.1*
 %{_texdir}/texmf-dist/scripts/ltximg/
 %doc %{_texdir}/texmf-dist/doc/support/ltximg/
+
+%files -n %{shortname}-luafindfont
+%license lppl1.3c.txt
+%{_bindir}/luafindfont
+%{_mandir}/man1/luafindfont.1*
+%{_texdir}/texmf-dist/scripts/luafindfont/
+%doc %{_texdir}/texmf-dist/doc/support/luafindfont/
 
 %files -n %{shortname}-luaotfload
 %license gpl2.txt
@@ -8363,6 +9054,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/texluajit
 %{_bindir}/texluajitc
 %endif
+%{_mandir}/man1/luajithbtex.1*
 %{_mandir}/man1/luajittex.1*
 %{fmtutil_cnf_d}/luajittex
 
@@ -8623,6 +9315,11 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/tex/optex/
 %doc %{_texdir}/texmf-dist/doc/optex/
 
+%files -n %{shortname}-optexcount
+%{_bindir}/optexcount
+%{_texdir}/texmf-dist/scripts/optexcount/
+%doc %{_texdir}/texmf-dist/doc/support/optexcount/
+
 %files -n %{shortname}-patgen
 %license knuth.txt
 %{_bindir}/patgen
@@ -8837,6 +9534,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_mandir}/man1/eptex.1*
 %{_mandir}/man1/makejvf.1*
 %{_mandir}/man1/mendex.1*
+%{_mandir}/man1/pbibtex.1*
 %{_mandir}/man1/platex-dev.1*
 %{_mandir}/man1/ppltotf.1*
 %{_mandir}/man1/ptex.1*
@@ -9080,6 +9778,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texdir}/texmf-dist/scripts/texlive/mktexmf
 %{_texdir}/texmf-dist/scripts/texlive/mktexpk
 %{_texdir}/texmf-dist/scripts/texlive/mktextfm
+%{_texdir}/texmf-dist/scripts/texlive/rungs.lua
 %{_texdir}/texmf-dist/scripts/texlive/rungs.tlu
 %{_texdir}/texmf-dist/scripts/texlive/updmap-sys.sh
 %{_texdir}/texmf-dist/scripts/texlive/updmap-user.sh
@@ -9173,6 +9872,19 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/texloganalyser
 %{_texdir}/texmf-dist/scripts/texloganalyser/
 %doc %{_texdir}/texmf-dist/doc/support/texloganalyser/
+
+%files -n %{shortname}-texlogfilter
+%{_bindir}/texlogfilter
+%{_mandir}/man1/texlogfilter.1*
+%{_texdir}/texmf-dist/scripts/texlogfilter/
+%doc %{_texdir}/texmf-dist/doc/support/texlogfilter/
+
+%files -n %{shortname}-texlogsieve
+%license gpl3.txt
+%{_bindir}/texlogsieve
+%{_mandir}/man1/texlogsieve.1*
+%{_texdir}/texmf-dist/scripts/texlogsieve/
+%doc %{_texdir}/texmf-dist/doc/support/texlogsieve/
 
 %files -n %{shortname}-texosquery
 %license lppl1.3.txt
@@ -9271,6 +9983,7 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/uptftopl
 %{_bindir}/wovp2ovf
 %{_mandir}/man1/euptex.1*
+%{_mandir}/man1/upbibtex.1*
 %{_mandir}/man1/uplatex.1*
 %{_mandir}/man1/uplatex-dev.1*
 %{_mandir}/man1/upmendex.1*
@@ -9351,10 +10064,14 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/xdvipdfmx
 %{_bindir}/xelatex
 %{_bindir}/xelatex-dev
+%{_bindir}/xelatex-unsafe
 %{_bindir}/xetex
+%{_bindir}/xetex-unsafe
 %{_mandir}/man1/xelatex.1*
 %{_mandir}/man1/xelatex-dev.1*
+%{_mandir}/man1/xelatex-unsafe.1*
 %{_mandir}/man1/xetex.1*
+%{_mandir}/man1/xetex-unsafe.1*
 %{_texdir}/tlpkg/tlpostcode/xetex.pl
 %{_texdir}/texmf-dist/fonts/misc/xetex/
 %{fmtutil_cnf_d}/xelatex-dev
@@ -9413,6 +10130,17 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Mon Jan  2 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-55
+- minor dep cleanups
+
+* Sun Jan  1 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-54
+- 10:20220321
+- epoch bump so we can use accurate versions for the component packages here
+- reminder: release does not reset here due to koji limitations
+- fix context-doc package to be noarch
+  in theory, this might break some upgrades, but... i bet the number of people
+  who have texlive-context-doc (all 90M of it) installed is very very low
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 9:20210325-53
 - Rebuild for ICU 72
 

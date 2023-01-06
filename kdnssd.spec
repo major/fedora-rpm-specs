@@ -1,7 +1,9 @@
+%global base_name kio-zeroconf
+
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
-Version: 22.12.0
-Release: 2%{?dist}
+Version: 22.12.1
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -65,6 +67,9 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Thu Dec 22 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
 - Update to 22.12.0 & package rename/obsolete https://community.kde.org/KDE_Gear/22.08_Release_notes
 

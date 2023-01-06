@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.3.2
-Release:          2%{?dist}
+Version:          1.3.3
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 License:          GPLv2+
 URL:              https://github.com/bit-team/backintime
@@ -17,6 +17,7 @@ Requires:         %{name}-common = %{version}-%{release}
 Requires:         hicolor-icon-theme
 
 # execution of tests
+BuildRequires:    python%{python3_pkgversion}-pyfakefs
 BuildRequires:    python%{python3_pkgversion}-pytest
 BuildRequires:    python%{python3_pkgversion}-dbus
 BuildRequires:    python%{python3_pkgversion}-qt5-base
@@ -184,6 +185,9 @@ make -C common test-v
 
 
 %changelog
+* Wed Jan 04 2023 Johannes Lips <hannes@fedoraproject.org> - 1.3.3-1
+- update to latest upstream release
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

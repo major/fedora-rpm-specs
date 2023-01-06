@@ -1,5 +1,5 @@
 Name:    ffmpegthumbs
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 Summary: KDE ffmpegthumbnailer service
 
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Thu Dec 29 2022 Neal Gompa <ngompa@fedoraproject.org> - 22.12.0-1
 - Update to 22.12.0 and move to Fedora
 

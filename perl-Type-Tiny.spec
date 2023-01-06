@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
-Version:        2.000001
-Release:        3%{?dist}
+Version:        2.002000
+Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -197,6 +197,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Wed Jan 04 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.002000-1
+- Update to 2.002000.
+
 * Sat Nov 19 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.000001-3
 - Don't BR: perl(Type::Tiny::XS) if bootstrapping.
 

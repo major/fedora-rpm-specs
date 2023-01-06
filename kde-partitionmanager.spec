@@ -1,10 +1,12 @@
+%global base_name partitionmanager
+
 %global unstable 0
 %global kf5min 5.90
 %global qtmin 5.15.0
 %global kpmcoremin 22.03
 
 Name:           kde-partitionmanager
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        KDE Partition Manager
 
@@ -46,10 +48,10 @@ Requires:       kf5-filesystem
 KDE Partition Manager is a utility program to help you manage the disk devices,
 partitions and file systems on your computer. It allows you to easily create, 
 copy, move, delete, resize without losing data, backup and restore partitions.
- 
+
 KDE Partition Manager supports a large number of file systems, 
 including ext2/3/4, reiserfs, NTFS, FAT16/32, jfs, xfs and more.
- 
+
 Starting from version 1.9.50 KDE Partition Manager has become the GUI part of 
 KPMcore (KDE PartitionManager core) which contain the libraries used to 
 manipulate filesystems.

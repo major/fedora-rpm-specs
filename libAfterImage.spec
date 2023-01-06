@@ -1,6 +1,6 @@
 Name:           libAfterImage
 Version:        1.20
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A generic image manipulation library
 
 License:        LGPLv2+
@@ -15,6 +15,8 @@ Patch1:         %{name}-libpng15.patch
 Patch2:         %{name}-unbundle-libgif.patch
 #               Link the shared library with its dependencies
 Patch3:         %{name}-link.patch
+#               Patch configure script for C99 compatibility.
+Patch4:         %{name}-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -69,6 +71,7 @@ The %{name}-apps package contains sample programs using %{name}.
 %patch1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 # Delete bundled sources
 rm libjpeg/*
@@ -106,6 +109,9 @@ cp %{SOURCE1} COPYING
 %{_bindir}/as*
 
 %changelog
+* Wed Jan 04 2023 Peter Fordham <peter.fordham@gmail.com> - 1.20-30
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -26,10 +26,12 @@ BuildArch:      noarch
 
 %if %{with python2}
 BuildRequires:  python2-devel
-%endif # with_python2
+%endif
+# ^^^ with_python2
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
+BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
 %endif
 
 Requires:       %{_bindir}/keycloak-httpd-client-install
@@ -58,7 +60,8 @@ Requires:       %{_bindir}/keycloak-httpd-client-install
 Keycloak is an authentication server. This package contains libraries and
 programs which can invoke the Keycloak REST API and configure clients
 of a Keycloak server.
-%endif # with_python2
+%endif
+# ^^^ with_python2
 
 %if 0%{?with_python3}
 %package -n python3-%{srcname}
@@ -84,7 +87,8 @@ of a Keycloak server.
 %build
 %if %{with python2}
 %py2_build
-%endif # with_python2
+%endif
+# ^^^ with_python2
 
 %if 0%{?with_python3}
 %py3_build
@@ -96,7 +100,8 @@ of a Keycloak server.
 # overwritten with every setup.py install, and in general we want the
 # python3 version to be the default.
 %py2_install
-%endif # with_python2
+%endif
+# ^^^ with_python2
 
 %if 0%{?with_python3}
 # py3_install won't overwrite files if they have a timestamp greater-than
@@ -105,7 +110,8 @@ of a Keycloak server.
 # version in the py3 install. Therefore remove any files susceptible to this.
 %if %{with python2}
 rm %{buildroot}%{_bindir}/keycloak-httpd-client-install
-%endif # with_python2
+%endif
+# ^^^ with_python2
 %py3_install
 %endif
 
@@ -127,7 +133,8 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %{_bindir}/keycloak-rest
 %{_mandir}/man8/*
 %endif
-%endif # with_python2
+%endif
+# ^^^ with_python2
 
 %if 0%{?with_python3}
 %files -n python3-%{srcname}
@@ -138,6 +145,10 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Wed Jan 4 2023 keycloak-httpd-client-install fails to build with Python 3.12 - 1.1.14
+- Resolves: rhbz#2155009 - keycloak-httpd-client-install fails to build with
+  Python 3.12: ModuleNotFoundError: No module named 'distutils'
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

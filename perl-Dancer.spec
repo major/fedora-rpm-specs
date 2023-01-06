@@ -1,6 +1,6 @@
 Name:           perl-Dancer
-Version:        1.3513
-Release:        15%{?dist}
+Version:        1.3520
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dancer
@@ -48,6 +48,7 @@ BuildRequires:  perl(Pod::Coverage)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Template)
+BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Output)
@@ -106,19 +107,50 @@ Requires:       perl(YAML)
 %global __requires_exclude %{?__requires_exclude}|perl\\(Try::Tiny\\)\\s*$
 %global __requires_exclude %{?__requires_exclude}|perl\\(URI\\)\\s*$
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(t::lib.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(EasyMocker\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(FromDataApp\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(LinkBlocker\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(TestApp.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(TestPlugin.*\\)
+%global __requires_exclude %{__requires_exclude}|^perl\\(TestUtils\\)
+
 %description
 Dancer is a web application framework designed to be as effortless as
 possible for the developer, taking care of the boring bits as easily as
 possible, yet staying out of your way and letting you get on with writing
 your code.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Dancer::Session::Cookie)
+Requires:       perl(HTTP::Parser::XS)
+Requires:       perl(JSON)
+Requires:       perl(Template)
+Requires:       perl(Test::Output)
+Requires:       perl(Test::TCP)
+Requires:       perl(XML::Simple)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Dancer-%{version}
-# 10_error_dumper_without_clone.t fails with HTTP-Message-6.44, because
-# there were added dependency on Clone, so the test could not be executed.
-# BZ#2139414
-rm t/12_response/10_error_dumper_without_clone.t
-perl -i -ne 'print $_ unless m{^t/12_response/10_error_dumper_without_clone.t}' MANIFEST
+# Temporary remove the test based on GH issue
+# https://github.com/PerlDancer/Dancer/issues/1239
+rm t/14_serializer/04_request_xml.t
+perl -i -ne 'print $_ unless m{^t/14_serializer/04_request_xml.t}' MANIFEST
+
+# Help generators to recognize Perl scripts
+for F in `find t -name *.t`; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -127,8 +159,30 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/bin
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/author*
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/00_base/08_pod_coverage_dancer.t
+ln -s %{_bindir}/dancer %{buildroot}%{_libexecdir}/%{name}/bin
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The solution is to
+# copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -139,7 +193,14 @@ make test
 %{_mandir}/man1/dancer.1*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Jan 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3520-1
+- 1.3520 bump
+- Package tests
+
 * Tue Nov 15 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.3513-15
 - Stop executing the test 10_error_dumper_without_clone.t (BZ#2139414)
 

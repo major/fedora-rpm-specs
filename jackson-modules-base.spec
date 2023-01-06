@@ -2,7 +2,7 @@
 
 Name:           jackson-modules-base
 Version:        2.14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -17,7 +17,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 BuildRequires:  mvn(javax.xml.bind:jaxb-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -103,6 +103,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Tue Dec 20 2022 Marian Koncek <mkoncek@redhat.com> - 2.14.1-2
+- Rebuild with compat jakarta.activation version 1
+
 * Wed Nov 23 2022 Chris Kelley <ckelley@redhat.com> - 2.14.1-1
 - Update to version 2.14.1
 

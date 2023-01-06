@@ -5,14 +5,14 @@
 %global snapdate 20210907
 %global snapshotrel .%{snapdate}git%{shortcommit}
 # To make rpmdev-bumpspec work properly
-%global baserelease 1
+%global baserelease 4
 
 Name:             obs-signd
 Summary:          The OBS sign daemon
 License:          GPL-2.0-only
 URL:              https://github.com/openSUSE/obs-sign
 Version:          2.6.1
-Release:          2
+Release:          4%{?dist}
 #Release:          %%{baserelease}%%{?snapshotrel}%%{?dist}
 Source0:          https://github.com/openSUSE/obs-sign/archive/refs/tags/obs-sign-%{version}.tar.gz
 # We renamed the option in gnupg2 to 'file-is-digest'
@@ -86,6 +86,12 @@ exit 0
 %doc %{_mandir}/man*/*
 
 %changelog
+* Wed Jan 04 2023 msuchy <msuchy@redhat.com> - 2.6.1-4
+- use patches from dist-git and not from lookaside cache
+
+* Wed Jan 04 2023 Jakub Kadlcik <frostyx@email.cz> - 2.6.1-3
+- Fix typo in patch, it should be "--file-is-digest" not "--file-is-digests"
+
 * Wed Nov 30 2022 Miroslav Suchý <msuchy@redhat.com> 2.6.1-2
 - use SPDX format for license
 

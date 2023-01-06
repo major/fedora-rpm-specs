@@ -186,7 +186,7 @@
 
 Name:           uwsgi
 Version:        2.0.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1835,6 +1835,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.21-3
+- Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
+
 * Fri Oct 28 2022 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-2
 - Drop the perl-PSGI Requirement from the Perl plugin, it's not
   strictly needed

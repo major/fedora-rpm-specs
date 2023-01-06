@@ -2,12 +2,18 @@
 
 Name:           python-%{pypi_name}
 Version:        0.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to mock out calls with Python requests
 License:        ASL 2.0
 URL:            https://github.com/getsentry/responses
 Source0:        %{pypi_source}
-Patch0:         %{name}-remove-types-toml.patch
+# Use tomllib/tomli and tomli-w instead of deprecated toml and not packaged types-toml
+#  https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+# Merged upstream:
+#  https://github.com/getsentry/responses/commit/972b4618fe1
+#  https://github.com/getsentry/responses/commit/b30c13fe1c9
+# GitHub patches don't apply cleanly due to changes in the CHANGES file
+Patch0:         %{name}-use-tomllib.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -52,6 +58,10 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Thu Dec 29 2022 Miro Hrončok <mhroncok@redhat.com> - 0.22.0-2
+- Drop a dependency on deprecated python3-toml
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Wed Oct 12 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 0.22.0-1
 - update to 0.22.0
 

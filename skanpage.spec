@@ -1,8 +1,8 @@
 %global kf5_min_version 5.87.0
 
 Name:     skanpage
-Version:  22.12.0
-Release:  3%{?dist}
+Version:  22.12.1
+Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:  GPLv3 and GPLv2 and CC0-1.0 and BSD
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
+- Update to 22.12.1
+
 * Sun Dec 25 2022 Justin Zobel <justin@1707.io> - 22.12.0-1
 - Update to 22.12.0
 

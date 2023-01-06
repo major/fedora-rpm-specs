@@ -1,7 +1,5 @@
 %define webroot /var/www/lighttpd
 
-%global _hardened_build 1
-
 # We have an bunch of --with/--without options to pass, make it easy with bcond
 %define confswitch() %{expand:%%{?with_%{1}:--with-%{1}}%%{!?with_%{1}:--without-%{1}}}
 
@@ -49,24 +47,16 @@
 %bcond_with    tmpfiles
 %endif
 
-# Replace sysvinit script with systemd service file for RHEL7+
-%if 0%{?fedora} || 0%{?rhel} >= 7
-%bcond_without systemd
-%else
-%bcond_with    systemd
-%endif
-
 Summary: Lightning fast webserver with light system requirements
 Name: lighttpd
-Version: 1.4.67
-Release: 1%{?dist}
+Version: 1.4.68
+Release: 2%{?dist}
 License: BSD
 URL: http://www.lighttpd.net/
 Source0: http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-%{version}.tar.xz
 Source1: lighttpd.logrotate
 Source2: php.d-lighttpd.ini
-Source3: lighttpd.init
-Source4: lighttpd.service
+Source3: lighttpd.service
 Source10: index.html
 Source11: http://www.lighttpd.net/favicon.ico
 Source12: http://www.lighttpd.net/light_button.png
@@ -75,16 +65,10 @@ Source14: lighttpd-empty.png
 Patch0: lighttpd-1.4.65-defaultconf.patch
 Requires: system-logos
 Requires: %{name}-filesystem
-%if %{with systemd}
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 BuildRequires: systemd
-%else
-Requires(post): /sbin/chkconfig
-Requires(preun): /sbin/service, /sbin/chkconfig
-Requires(postun): /sbin/service
-%endif
 # preserve installation of modules historically bundled with lighttpd package
 Requires(post): %{name}-mod_deflate
 Requires(post): %{name}-mod_webdav
@@ -372,11 +356,11 @@ autoreconf -if
     %{confswitch brotli} \
     %{confswitch maxminddb} \
     %{confswitch unwind}
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # Install our own logrotate entry
 install -D -p -m 0644 %{SOURCE1} \
@@ -386,14 +370,9 @@ install -D -p -m 0644 %{SOURCE1} \
 install -D -p -m 0644 %{SOURCE2} \
     %{buildroot}%{_sysconfdir}/php.d/lighttpd.ini
 
-# Install our own init script (included one is old style) or systemd service
-%if %{with systemd}
-install -D -p -m 0644 %{SOURCE4} \
+# Install our own systemd service
+install -D -p -m 0644 %{SOURCE3} \
     %{buildroot}%{_unitdir}/lighttpd.service
-%else
-install -D -p -m 0755 %{SOURCE3} \
-    %{buildroot}%{_sysconfdir}/rc.d/init.d/lighttpd
-%endif
 
 # Install our own default web page and images
 mkdir -p %{buildroot}%{webroot}
@@ -438,31 +417,13 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
     -c 'lighttpd web server' lighttpd &>/dev/null || :
 
 %post
-%if %{with systemd}
 %systemd_post lighttpd.service
-%else
-/sbin/chkconfig --add lighttpd
-%endif
 
 %preun
-%if %{with systemd}
 %systemd_preun lighttpd.service
-%else
-if [ $1 -eq 0 ]; then
-    /sbin/service lighttpd stop &>/dev/null || :
-    /sbin/chkconfig --del lighttpd
-fi
-%endif
 
 %postun
-%if %{with systemd}
 %systemd_postun_with_restart lighttpd.service
-%else
-if [ $1 -ge 1 ]; then
-    /sbin/service lighttpd condrestart &>/dev/null || :
-fi
-%endif
-
 
 %files
 %license COPYING
@@ -477,11 +438,7 @@ fi
 %config %{_sysconfdir}/lighttpd/conf.d/mod.template
 %config %{_sysconfdir}/lighttpd/vhosts.d/vhosts.template
 %config(noreplace) %{_sysconfdir}/logrotate.d/lighttpd
-%if %{with systemd}
 %{_unitdir}/lighttpd.service
-%else
-%{_sysconfdir}/rc.d/init.d/lighttpd
-%endif
 %if %{with tmpfiles}
 %config(noreplace) /usr/lib/tmpfiles.d/lighttpd.conf
 %endif
@@ -639,6 +596,13 @@ fi
 %attr(0700, lighttpd, lighttpd) %dir %{webroot}/
 
 %changelog
+* Wed Jan 04 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 1.4.68-2
+- Remove sysvinit references
+- Use make macros
+
+* Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.68-1
+- 1.4.68
+
 * Mon Sep 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4.67-1
 - 1.4.67
 

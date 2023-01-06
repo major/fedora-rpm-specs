@@ -1,6 +1,6 @@
 Name:		jack_capture
 Version:	0.9.73
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Record sound files with JACK
 # As explained in the COPYING file,
 # jack_capture.c and atomicity/* are GPLv2+,
@@ -9,6 +9,7 @@ Summary:	Record sound files with JACK
 License:	GPLv2+ and BSD and LGPLv2+
 URL:		https://github.com/kmatheussen/jack_capture
 Source0:	http://archive.notam02.no/arkiv/src/%{name}-%{version}.tar.gz
+Patch0: jack_capture-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	jack-audio-connection-kit-devel
@@ -27,7 +28,7 @@ operation is to capture whatever sound is going out to your speakers into a
 file, but it can do a number of other operations as well.
 
 %prep
-%setup -q
+%autosetup -p1
 
 # No need to look for the c++ compiler
 sed -i '/CPP/d' Makefile
@@ -44,6 +45,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 04 2023 Florian Weimer <fweimer@redhat.com> - 0.9.73-13
+- C99 compatibility fixes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.73-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

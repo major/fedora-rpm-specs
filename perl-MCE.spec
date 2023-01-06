@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.882
+Version:        1.883
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -170,6 +170,11 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Wed Jan  4 2023 Paul Howarth <paul@city-fan.org> - 1.883-1
+- Update to 1.883 (rhbz#2158062)
+  - Fix typo in MCE::Channel::SimpleFast documentation
+  - Improve 05_mce_child.t test
+
 * Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 1.882-1
 - Update to 1.882 (rhbz#2150467)
   - Added ABRT to the list of signals to trap in MCE::Signal
