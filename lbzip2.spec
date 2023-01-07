@@ -4,13 +4,14 @@
 
 Name:           lbzip2
 Version:        2.5
-Release:        24.%{date}git%{shortcommit}%{?dist}
+Release:        25.%{date}git%{shortcommit}%{?dist}
 Summary:        Fast, multi-threaded bzip2 utility
 License:        GPLv3+
 URL:            https://github.com/kjn/lbzip2/
 Source0:        https://github.com/kjn/lbzip2/archive/%{commit}/%{name}-%{commit}.tar.gz
 # fix build with gnulib newer than 47bae8a, which requires autoconf >= 2.64
 Patch0:         lbzip2-gnulib.patch
+Patch1: lbzip2-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnulib-devel
@@ -27,6 +28,7 @@ decompressor.
 %prep
 %setup -q -n %{name}-%{commit}
 %patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -55,6 +57,9 @@ build-aux/autogen.sh
 
 
 %changelog
+* Thu Jan 05 2023 Florian Weimer <fweimer@redhat.com> - 2.5-25.20171011gitb6dc48a
+- Fix C99 compatibility issue
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-24.20171011gitb6dc48a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

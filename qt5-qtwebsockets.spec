@@ -2,7 +2,7 @@
 
 Summary: Qt5 - WebSockets component
 Name:    qt5-%{qt_module}
-Version: 5.15.7
+Version: 5.15.8
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -90,6 +90,9 @@ popd
 
 
 %changelog
+* Thu Jan 05 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-1
+- 5.15.8
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
 - 5.15.7
 

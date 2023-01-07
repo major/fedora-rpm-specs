@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 7.9.0
-Release: 1%{?beta}%{?dist}
+Release: 2%{?beta}%{?dist}
 
 License: GPLv2+
 URL:     http://www.digikam.org/
@@ -253,6 +253,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 7.9.0-2
+- Rebuild for ImageMagick 7
+
 * Tue Dec 06 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 7.9.0-1
 - Update to digiKam-7.9.0 - (resolves rhbz#2150497)
 

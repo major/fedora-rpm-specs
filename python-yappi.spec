@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Yet Another Python Profiler, supports Multithread/CPU time profiling
 
 License:        MIT
@@ -18,6 +18,7 @@ Patch06:        0006-Use-PyCode_GetVarnames-added-in-3.11.0rc1.patch
 Patch07:        0007-Fix-IS_SUSPENDED-call-to-use-PyFrame_GetGenerator-gi.patch
 Patch09:        0009-Use-codeobject-co_varnames-for-Py-versions-11.patch
 Patch11:        0011-Cosmetic.patch
+Patch12:        0010-Unconditionally-set-LIB_RT_AVAILABLE-and-link-with-l.patch
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -66,6 +67,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{_bindir}/%{srcname}-3*
 
 %changelog
+* Thu Jan 05 2023 Florian Weimer <fweimer@redhat.com> - 1.3.6-2
+- Work around broken has_function setup check (#2153038)
+
 * Wed Sep 14 2022 Alfredo Moralejo <amoralej@redhat.com> - 1.3.6-1
 - Update to 1.3.6
 - Backport upstream patches required to support python 3.11

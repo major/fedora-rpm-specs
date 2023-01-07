@@ -1,5 +1,5 @@
 Name:           legendary
-Version:        0.20.31
+Version:        0.20.32
 Release:        %autorelease
 Summary:        Free and open-source replacement for the Epic Games Launcher
 BuildArch:      noarch

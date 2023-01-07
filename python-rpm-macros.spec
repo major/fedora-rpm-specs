@@ -18,6 +18,7 @@ Source301:      https://github.com/fedora-python/compileall2/raw/v%{compileall2_
 Source302:      import_all_modules.py
 %global pathfix_version 1.0.0
 Source303:      https://github.com/fedora-python/pathfix/raw/v%{pathfix_version}/pathfix.py
+Source304:      clamp_source_mtime.py
 
 # BRP scripts
 # This one is from redhat-rpm-config < 190
@@ -35,7 +36,7 @@ Source403:      brp-fix-pyc-reproducibility
 
 # macros and lua: MIT
 # import_all_modules.py: MIT
-# compileall2.py: PSFv2
+# compileall2.py, clamp_source_mtime.py: PSFv2
 # pathfix.py: PSFv2
 # brp scripts: GPLv2+
 License:        MIT and Python and GPLv2+
@@ -52,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 BuildArch:      noarch
 
@@ -120,6 +121,7 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm python.lua
 
 mkdir -p %{buildroot}%{_rpmconfigdir}/redhat
 install -m 644 compileall2.py %{buildroot}%{_rpmconfigdir}/redhat/
+install -m 644 clamp_source_mtime.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -m 644 import_all_modules.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -m 644 pathfix.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -m 755 brp-* %{buildroot}%{_rpmconfigdir}/redhat/
@@ -130,9 +132,10 @@ install -m 755 brp-* %{buildroot}%{_rpmconfigdir}/redhat/
 # It also ensures that:
 #  - our BRPs can execute
 #  - if our BRPs affect this package, we don't need to build it twice
-%global __brp_python_bytecompile %{buildroot}%{__brp_python_bytecompile}
-%global __brp_python_hardlink %{buildroot}%{__brp_python_hardlink}
-%global __brp_fix_pyc_reproducibility %{buildroot}%{__brp_fix_pyc_reproducibility}
+%define add_buildroot() %{lua:print((macros[macros[1]]:gsub(macros._rpmconfigdir, macros.buildroot .. macros._rpmconfigdir)))}
+%global __brp_python_bytecompile %{add_buildroot __brp_python_bytecompile}
+%global __brp_python_hardlink %{add_buildroot __brp_python_hardlink}
+%global __brp_fix_pyc_reproducibility %{add_buildroot __brp_fix_pyc_reproducibility}
 
 
 %check
@@ -149,6 +152,7 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 %files -n python-srpm-macros
 %{rpmmacrodir}/macros.python-srpm
 %{_rpmconfigdir}/redhat/compileall2.py
+%{_rpmconfigdir}/redhat/clamp_source_mtime.py
 %{_rpmconfigdir}/redhat/brp-python-bytecompile
 %{_rpmconfigdir}/redhat/brp-python-hardlink
 %{_rpmconfigdir}/redhat/brp-fix-pyc-reproducibility
@@ -159,6 +163,12 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Mon Dec 19 2022 Miro Hrončok <mhroncok@redhat.com> - 3.11-7
+- Bytecompilation: Unset $SOURCE_DATE_EPOCH when %%clamp_mtime_to_source_date_epoch is not set
+- Bytecompilation: Pass --invalidation-mode=timestamp to compileall (on Python 3.7+)
+- Bytecompilation: Clamp source mtime: https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+- Bytecompilation: Compile Python files in parallel, according to %%_smp_mflags
+
 * Sun Nov 13 2022 Miro Hrončok <mhroncok@redhat.com> - 3.11-6
 - Set PYTEST_XDIST_AUTO_NUM_WORKERS=%%{_smp_build_ncpus} from %%pytest
 - pytest-xdist 3+ respects this value when -n auto is used

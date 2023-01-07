@@ -74,7 +74,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 28%{?dist}
+Release: 29%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -1241,6 +1241,13 @@ cp $topdir/Tools/gdb/libpython.py %{buildroot}$PathOfGdbPy
 # Manually byte-compile the file, in case find-debuginfo.sh is run before
 # brp-python-bytecompile, so that the .pyc/.pyo files are properly listed in
 # the debuginfo manifest:
+# Clamp the source mtime first, see https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+# The clamp_source_mtime module is only guaranteed to exist on Fedoras that enabled this option:
+%if 0%{?clamp_mtime_to_source_date_epoch}
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" \
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}$DirHoldingGdbPy
+%endif
 LD_LIBRARY_PATH="$topdir/$ConfDir" $topdir/$ConfDir/$BinaryName \
   -c "import compileall; import sys; compileall.compile_dir('%{buildroot}$DirHoldingGdbPy', ddir='$DirHoldingGdbPy')"
 
@@ -1433,6 +1440,13 @@ sed \
 %endif # with_systemtap
 
 # Do bytecompilation with the newly installed interpreter.
+# Clamp the source mtime first, see https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+# The clamp_source_mtime module is only guaranteed to exist on Fedoras that enabled this option:
+%if 0%{?clamp_mtime_to_source_date_epoch}
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" \
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir}
+%endif
 # compile *.pyo
 find %{buildroot} -type f -a -name "*.py" -print0 | \
     LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
@@ -1737,6 +1751,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 2.7.18-29
+- Ensure the source mtime is clamped to $SOURCE_DATE_EPOCH before bytecompilation
+
 * Mon Dec 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.7.18-28
 - Security fix for CVE-2022-45061: CPU denial of service via inefficient IDNA decoder
   Related: rhbz#2144072

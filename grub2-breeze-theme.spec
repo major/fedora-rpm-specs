@@ -2,8 +2,8 @@
 %global         base_name breeze-grub
 
 Name:           grub2-breeze-theme
-Version: 5.26.4
-Release: 2%{?dist}
+Version: 5.26.5
+Release: 1%{?dist}
 Summary:        Breeze theme for GRUB
 
 License:        GPLv3
@@ -64,6 +64,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
+- Update to 5.26.5
+
 * Fri Dec 02 2022 FeRD (Frank Dana) - 5.26.4-2
 - Don't package .license files
 

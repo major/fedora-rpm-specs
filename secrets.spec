@@ -4,7 +4,7 @@
 %global oldname gnome-passwordsafe
 
 Name:           secrets
-Version:        7.0
+Version:        7.1
 Release:        %autorelease
 Summary:        Manage your passwords
 

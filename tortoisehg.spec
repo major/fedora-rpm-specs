@@ -2,7 +2,7 @@
 %define py3_shbang_opts %nil
 
 Name:           tortoisehg
-Version:        6.3.1
+Version:        6.3.2
 Release:        1%{?dist}
 Summary:        Mercurial GUI command line tool thg
 License:        GPLv2+
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/appdata/thg.ap
 %{_datadir}/nautilus-python/extensions/nautilus-thg.py*
 
 %changelog
+* Thu Jan 05 2023 Mads Kiilerich <mads@kiilerich.com> - 6.3.2-1
+- tortoisehg 6.3.2
+
 * Sun Nov 20 2022 Mads Kiilerich <mads@kiilerich.com> - 6.3.1-1
 - tortoisehg 6.3.1
 

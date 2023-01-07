@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -1267,6 +1267,13 @@ find . -name "*~" -exec rm -f {} \;
 
 # Do bytecompilation with the newly installed interpreter.
 # This is similar to the script in macros.pybytecompile
+# Clamp the source mtime first, see https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+# The clamp_source_mtime module is only guaranteed to exist on Fedoras that enabled this option:
+%if 0%{?clamp_mtime_to_source_date_epoch}
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" \
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir}
+%endif
 # compile *.pyc
 find %{buildroot} -type f -a -name "*.py" -print0 | \
     LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
@@ -1858,6 +1865,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-16
+- Ensure the source mtime is clamped to $SOURCE_DATE_EPOCH before bytecompilation
+
 * Mon Dec 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 3.6.15-15
 - Security fix for CVE-2022-45061: CPU denial of service via inefficient IDNA decoder
   Related: rhbz#2144072

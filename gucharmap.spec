@@ -4,7 +4,7 @@
 
 Name:           gucharmap
 Version:        15.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode character picker and font browser
 
 # semver X, Y and Y+1
@@ -22,6 +22,7 @@ BuildRequires:  glib2-devel >= %{glib2_version}
 BuildRequires:  gtk3-devel >= %{gtk3_version}
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gettext
+BuildRequires:  gtk-doc
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
@@ -56,7 +57,7 @@ needed to use the libgucharmap library.
 %autosetup
 
 %build
-%meson -Ducd_path=%{_datadir}/unicode/ucd -Ddocs=false
+%meson -Ducd_path=%{_datadir}/unicode/ucd -Ddocs=true
 
 %meson_build
 
@@ -87,10 +88,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_libdir}/libgucharmap_2_90.so
 %{_libdir}/pkgconfig/gucharmap-2.90.pc
 %{_datadir}/gir-1.0
+%{_datadir}/gtk-doc/html/gucharmap-2.90/
 %{_datadir}/vala/vapi/gucharmap-2.90.deps
 %{_datadir}/vala/vapi/gucharmap-2.90.vapi
 
 %changelog
+* Thu Jan 05 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 15.0.2-2
+- Enable docs
+
 * Sat Dec 03 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 15.0.2-1
 - Update to 15.0.2 (#2150421)
 - Use upstream screenshots in AppStream metadata (commit 694e4420)

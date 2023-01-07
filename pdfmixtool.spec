@@ -2,7 +2,7 @@
 
 Name:           pdfmixtool
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An application to split, merge, rotate and mix PDF files
 
 License:        GPLv3+
@@ -13,7 +13,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  cmake(qt5)
 BuildRequires:  cmake(qt5svg)
-BuildRequires:  pkgconfig(ImageMagick++)
+BuildRequires:  pkgconfig(Magick++)
 BuildRequires:  pkgconfig(libqpdf)
 BuildRequires:  qt5-qttools-devel
 BuildRequires:  desktop-file-utils
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.1.1-3
+- Rebuild for ImageMagick 7
+
 * Thu Oct 13 2022 Gustavo Costa <xfgusta@gmail.com> - 1.1.1-2
 - qpdf 11.1.1 rebuild
 

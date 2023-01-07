@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel rc1
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -158,12 +158,6 @@ License: Python
 # available in /usr/bin when Python is built. Also, the bytecompilation fails
 # on files that test invalid syntax.
 %undefine py_auto_byte_compile
-
-# Don't let RPM set SOURCE_DATE_EPOCH based on the latest %%changelog date
-# It breaks tests with: can't find '__main__' module in .../test_zip.zip
-# Reported at https://bugs.python.org/issue34022
-# Tracked at https://bugzilla.redhat.com/show_bug.cgi?id=1724753
-%global source_date_epoch_from_changelog 0
 
 
 # =======================
@@ -330,16 +324,6 @@ Patch251: 00251-change-user-install-location.patch
 # We remove the exe files from distutil's bdist_wininst
 # So we mark the command as unsupported - and the tests are skipped
 Patch316: 00316-mark-bdist_wininst-unsupported.patch
-
-# 00328 # 367fdcb5a075f083aea83ac174999272a8faf75c
-# Restore pyc to TIMESTAMP invalidation mode as default in rpmbuild
-#
-# Since Fedora 31, the $SOURCE_DATE_EPOCH is set in rpmbuild to the latest
-# %%changelog date. This makes Python default to the CHECKED_HASH pyc
-# invalidation mode, bringing more reproducible builds traded for an import
-# performance decrease. To avoid that, we don't default to CHECKED_HASH
-# when $RPM_BUILD_ROOT is set (i.e. when we are building RPM packages).
-Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 
 # 00335 # 781e29b0cd6f3527afe7c6aee19672f1f1292121
 # Backport pathfix change
@@ -1028,10 +1012,31 @@ find . -name "*~" -exec rm -f {} \;
 # Do bytecompilation with the newly installed interpreter.
 # This is similar to the script in macros.pybytecompile
 # compile *.pyc
-find %{buildroot} -type f -a -name "*.py" -print0 | \
-    LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
-    PYTHONPATH="%{buildroot}%{_libdir}/python%{pybasever} %{buildroot}%{_libdir}/python%{pybasever}/site-packages" \
-    xargs -0 %{buildroot}%{_bindir}/python%{pybasever} -O -c 'import py_compile, sys; [py_compile.compile(f, dfile=f.partition("%{buildroot}")[2], optimize=opt) for opt in range(3) for f in sys.argv[1:]]' || :
+# Python CMD line options:
+# -s - don't add user site directory to sys.path
+# -B - don't write .pyc files on import
+# Clamp the source mtime first, see https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+# The clamp_source_mtime module is only guaranteed to exist on Fedoras that enabled this option:
+%if 0%{?clamp_mtime_to_source_date_epoch}
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" \
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir}
+%endif
+# Compileall2 CMD line options:
+# -f - force rebuild even if timestamps are up to date
+# -o - optimization levels to run compilation with
+# -s - part of path to left-strip from path to source file (buildroot)
+# -p - path to add as prefix to path to source file (/ to make it absolute)
+# --hardlink-dupes - hardlink different optimization level pycs together if identical (saves space)
+# --invalidation-mode - we prefer the timestamp invalidation mode for performance reasons
+# -x - skip test modules with SyntaxErrors (taken from the Makefile)
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" %{buildroot}%{_bindir}/python%{pybasever} -s -B -m \
+compileall2 -f %{_smp_mflags} -o 0 -o 1 -o 2 -s %{buildroot} -p / %{buildroot} --hardlink-dupes --invalidation-mode=timestamp \
+-x 'bad_coding|badsyntax|site-packages|lib2to3/tests/data'
+
+# Turn this BRP off, it is done by compileall2 --hardlink-dupes above
+%global __brp_python_hardlink %{nil}
 
 # Since we have pathfix.py in bindir, this is created, but we don't want it
 rm -rf %{buildroot}%{_bindir}/__pycache__
@@ -1149,6 +1154,14 @@ CheckPython() {
 
   # Show some info, helpful for debugging test failures
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.pythoninfo
+
+  # RPM sets SOURCE_DATE_EPOCH based on the latest %%changelog date
+  # It breaks tests with: can't find '__main__' module in .../test_zip.zip
+  # Reported at https://bugs.python.org/issue34022
+  # Originally tracked at https://bugzilla.redhat.com/show_bug.cgi?id=1724753
+  # The fix from Python 3.8 is non-trivial to backport,
+  # so we unset it for %%check instead
+  unset SOURCE_DATE_EPOCH
 
   # Run the upstream test suite
   # test_gdb skipped on armv7hl:
@@ -1653,6 +1666,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 3.7.16-2
+- No longer patch the default bytecode cache invalidation policy
+
 * Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.7.16-1
 - Update to 3.7.16
 

@@ -2,8 +2,8 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.6.1
-Release:        2%{?dist}
+Version:        2.4.7.1
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -13,8 +13,6 @@ URL:            https://sites.google.com/site/openimageio/home
 Source0:        https://github.com/%{name}/oiio/archive/v%{version}/%{name}-%{version}.tar.gz
 # Images for test suite
 #Source1:        https://github.com/OpenImageIO/oiio-images/archive/master/oiio-images.tar.gz
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/OpenImageIO/oiio/pull/3722.patch
 
 # Needed until LibRaw is available on s390x and aarch64
 %if 0%{?rhel} >= 8
@@ -208,6 +206,12 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jan 04 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.7.1-1
+- Update to 2.4.7.1.
+
+* Mon Jan 02 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.7.0-1
+- Update to 2.4.7.0.
+
 * Mon Jan 02 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.6.1-2
 - Rebuilt for OpenVDB.
 

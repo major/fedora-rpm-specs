@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 237
+%global baserelease 238
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -100,7 +100,7 @@ Requires: ocaml-srpm-macros
 Requires: openblas-srpm-macros
 Requires: perl-srpm-macros
 # ↓ Has Python BRPs originaly present in redhat-rpm-config
-Requires: python-srpm-macros >= 3.10-6
+Requires: python-srpm-macros >= 3.11-7
 Requires: qt5-srpm-macros
 Requires: rust-srpm-macros
 Requires: rpmautospec-rpm-macros
@@ -221,6 +221,10 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Tue Jan  3 2023 Miro Hrončok <mhroncok@redhat.com> - 238-1
+- Set %%source_date_epoch_from_changelog to 1
+- https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+
 * Tue Jan  3 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 237-1
 - Make _FORTIFY_SOURCE configurable and bump default to 3.
 

@@ -1,5 +1,5 @@
 Name:    kde-cli-tools
-Version: 5.26.4
+Version: 5.26.5
 Release: 1%{?dist}
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -60,7 +60,7 @@ Conflicts: kde-runtime-docs < 14.12.3-2
 ## added deps below avoidable to due main pkg Requires: kdesu -- rex
 # upgrade path, when kdesu was introduced
 #Obsoletes: kde-cli-tools < 5.2.1-3
-#Requires: %{name} = %{version}-%{release}
+#Requires: %%{name} = %%{version}-%%{release}
 %description -n kdesu
 %{summary}.
 
@@ -121,6 +121,9 @@ ln -s %{_kf5_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
+- Update to 5.26.5
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
 - 5.26.4
 

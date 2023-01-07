@@ -1,6 +1,6 @@
 
 Name:		jpegoptim
-Version:	1.5.0
+Version:	1.5.1
 Release:	1%{?dist}
 Summary:	Utility to optimize JPEG files
 
@@ -42,6 +42,9 @@ install -Dpm 0644 jpegoptim.1 %{buildroot}/%{_mandir}/man1/jpegoptim.1
 
 
 %changelog
+* Thu Jan 05 2023 Denis Fateyev <denis@fateyev.com> - 1.5.1-1
+- Update to version 1.5.1
+
 * Fri Oct 07 2022 Denis Fateyev <denis@fateyev.com> - 1.5.0-1
 - Update to version 1.5.0
 

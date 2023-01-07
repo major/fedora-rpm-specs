@@ -3,7 +3,7 @@
 Name: kxstitch
 Summary: Program to create cross stitch patterns
 Version: 2.1.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPLv2+
 URL: https://userbase.kde.org/KXStitch
 Source0: http://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
@@ -26,7 +26,7 @@ BuildRequires:  kf5-kio-devel
 BuildRequires:  kf5-ktextwidgets-devel
 BuildRequires:  kf5-kxmlgui-devel
 BuildRequires:  qt5-qtbase-devel
-Buildrequires:  qt5-qtx11extras-devel
+BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  extra-cmake-modules
 
 %description
@@ -72,6 +72,9 @@ desktop-file-validate "%{buildroot}%{_datadir}/applications/org.kde.%{name}.desk
 %{_mandir}/*
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-9
+- Rebuild for ImageMagick 7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

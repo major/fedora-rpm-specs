@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           synfigstudio
 Version:        1.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Vector-based 2D animation studio
 
 License:        GPLv2+
@@ -99,6 +99,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.5.1-3
+- Rebuild for ImageMagick 7
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

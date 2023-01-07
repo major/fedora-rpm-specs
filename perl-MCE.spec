@@ -1,5 +1,5 @@
 Name:           perl-MCE
-Version:        1.883
+Version:        1.884
 Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -170,6 +170,12 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Thu Jan  5 2023 Paul Howarth <paul@city-fan.org> - 1.884-1
+- Update to 1.884
+  - Disabled non-blocking dequeue_nb and recv_nb tests on the Windows platform,
+    since the author cannot reproduce failing tests reported by CPAN Tester
+    aero
+
 * Wed Jan  4 2023 Paul Howarth <paul@city-fan.org> - 1.883-1
 - Update to 1.883 (rhbz#2158062)
   - Fix typo in MCE::Channel::SimpleFast documentation

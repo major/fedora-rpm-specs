@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.19.12
+Version:    2.19.13
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -248,6 +248,11 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Fri Dec 30 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.13-1
+- Update to 2.19.13
+- Catch exception when user database is locked during shutdown
+  (Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=215144)
+
 * Wed Dec 28 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.12-1
 - Update to 2.19.12
 - Try not to fail if the database contains invalid UTF-8 or is otherwise malformed

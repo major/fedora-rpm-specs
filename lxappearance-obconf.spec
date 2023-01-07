@@ -16,7 +16,7 @@
 
 Name:           lxappearance-obconf
 Version:        0.2.3
-Release:        14%{?git_version:.%{?git_version}}%{?dist}
+Release:        15%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Plugin to configure Openbox inside LXAppearance
 
 License:        GPLv2+
@@ -27,11 +27,18 @@ Source0:        %{name}-%{?git_version}.tar.bz2
 %else
 Source0:        http://downloads.sourceforge.net/sourceforge/lxde/%{name}-%{version}.tar.xz
 %endif
+# https://sourceforge.net/p/lxde/bugs/960/
+# https://github.com/lxde/lxappearance-obconf/pull/4
+# Fix segfault when loading themerc with menu.title.bg: ParentRelative
+Patch0:         lxappearance-obconf-pr4-set-parent-for-menu-title-when-parentrelative.patch
 
-BuildRequires: make
-BuildRequires:  gtk2-devel
-BuildRequires:  pkgconfig(obrender-3.5)
+BuildRequires:  make
+BuildRequires:  gcc
+BuildRequires:  pkgconfig(obrender-3.5) >= 3.5
+BuildRequires:  pkgconfig(obt-3.5) >= 3.5
 BuildRequires:  openbox-devel >= 3.5.2
+BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(lxappearance)
 BuildRequires:  libSM-devel
@@ -47,30 +54,37 @@ It is only visible when the plugin is installed and Openbox is in use.
 
 %prep
 %setup -q %{?git_version:-n %{name}}
-
+%patch0 -p1 -b .parentrel
 
 %build
 %{?git_version:sh autogen.sh}
-%configure --disable-static
-make %{?_smp_mflags} V=1
-
+%configure \
+	--disable-static \
+	--disable-silent-rules \
+	%{nil}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %find_lang %{name}
 
-
-
 %files -f %{name}.lang
 # FIXME add NEWS and TODO if not empty
-%doc AUTHORS CHANGELOG COPYING README
+%license	COPYING
+%doc	AUTHORS
+%doc	CHANGELOG
+%doc	README
+
 %{_libdir}/lxappearance/plugins/obconf.so
 %{_datadir}/lxappearance/obconf/
 
 
 %changelog
+* Thu Jan  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3-15
+- preview_menu: set parent for menu.title.bg when parentrelative
+  (sfbug: 960)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

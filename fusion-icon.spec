@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 License:        GPLv2+
@@ -13,6 +13,7 @@ BuildArch:      noarch
 Patch1:         fusion-icon_0001-Fix-typeerror-in-python3.6.patch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  desktop-file-utils
 
@@ -67,6 +68,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Thu Jan  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.2.4-22
+- Added setuptools build requirement
+  Resolves: rhbz#2154823
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

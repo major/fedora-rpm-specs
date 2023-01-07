@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -334,20 +334,6 @@ Patch189: 00189-use-rpm-wheels.patch
 # to respect this patched distutils install command.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2014513
 Patch251: 00251-change-user-install-location.patch
-
-# 00328 # 367fdcb5a075f083aea83ac174999272a8faf75c
-# Restore pyc to TIMESTAMP invalidation mode as default in rpmbuild
-#
-# Since Fedora 31, the $SOURCE_DATE_EPOCH is set in rpmbuild to the latest
-# %%changelog date. This makes Python default to the CHECKED_HASH pyc
-# invalidation mode, bringing more reproducible builds traded for an import
-# performance decrease. To avoid that, we don't default to CHECKED_HASH
-# when $RPM_BUILD_ROOT is set (i.e. when we are building RPM packages).
-#
-# See https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/57#comment-27426
-# Downstream only: only used when building RPM packages
-# Ideally, we should talk to upstream and explain why we don't want this
-Patch328: 00328-pyc-timestamp-invalidation-mode.patch
 
 # 00353 # ab4cc97b643cfe99f567e3a03e5617b507183771
 # Original names for architectures with different names downstream
@@ -1053,15 +1039,25 @@ find . -name "*~" -exec rm -f {} \;
 # Python CMD line options:
 # -s - don't add user site directory to sys.path
 # -B - don't write .pyc files on import
+# Clamp the source mtime first, see https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes
+# The clamp_source_mtime module is only guaranteed to exist on Fedoras that enabled this option:
+%if 0%{?clamp_mtime_to_source_date_epoch}
+LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
+PYTHONPATH="%{_rpmconfigdir}/redhat" \
+%{buildroot}%{_bindir}/python%{pybasever} -s -B -m clamp_source_mtime %{buildroot}%{pylibdir}
+%endif
 # Compileall2 CMD line options:
 # -f - force rebuild even if timestamps are up to date
 # -o - optimization levels to run compilation with
 # -s - part of path to left-strip from path to source file (buildroot)
 # -p - path to add as prefix to path to source file (/ to make it absolute)
 # --hardlink-dupes - hardlink different optimization level pycs together if identical (saves space)
+# --invalidation-mode - we prefer the timestamp invalidation mode for performance reasons
+# -x - skip test modules with SyntaxErrors (taken from the Makefile)
 LD_LIBRARY_PATH="%{buildroot}%{dynload_dir}/:%{buildroot}%{_libdir}" \
 PYTHONPATH="%{_rpmconfigdir}/redhat" %{buildroot}%{_bindir}/python%{pybasever} -s -B -m \
-compileall2 -f %{_smp_mflags} -o 0 -o 1 -o 2 -s %{buildroot} -p / %{buildroot} --hardlink-dupes || :
+compileall2 -f %{_smp_mflags} -o 0 -o 1 -o 2 -s %{buildroot} -p / %{buildroot} --hardlink-dupes --invalidation-mode=timestamp \
+-x 'bad_coding|badsyntax|site-packages|lib2to3/tests/data'
 
 # Turn this BRP off, it is done by compileall2 --hardlink-dupes above
 %global __brp_python_hardlink %{nil}
@@ -1703,6 +1699,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 3.8.16-2
+- No longer patch the default bytecode cache invalidation policy
+
 * Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.8.16-1
 - Update to 3.8.16
 

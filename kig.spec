@@ -27,6 +27,8 @@ BuildRequires: boost-devel
 BuildRequires: python3
 BuildRequires: python3-rpm-macros
 BuildRequires: python3-devel
+# Added below for https://bugzilla.redhat.com/show_bug.cgi?id=2154864
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext

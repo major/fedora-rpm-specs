@@ -1,6 +1,6 @@
 Name:           gerbera
-Version:        1.12.0
-Release:        2%{?dist}
+Version:        1.12.1
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPLv2 and MIT and OFL
 Url:            https://gerbera.io
@@ -122,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Thu Jan 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.1-1
+- 1.12.1
+
 * Fri Dec 16 2022 František Zatloukal <fzatlouk@redhat.com> - 1.12.0-2
 - Rebuilt for duktape 2.7.0
 

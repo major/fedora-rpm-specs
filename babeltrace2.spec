@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.0.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A trace manipulation toolkit
 # # For a breakdown of the licensing, see LICENSE
 License:        MIT and GPLv2
@@ -19,6 +19,7 @@ BuildRequires:  glib2-devel >= 2.28.0
 BuildRequires:  gnupg2
 BuildRequires:  libtool >= 2.2
 BuildRequires:  python3-devel >= 3.4
+BuildRequires:  python3-setuptools
 BuildRequires:  swig >= 3.0
 BuildRequires:  make
 
@@ -122,6 +123,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Thu Jan 05 2023 Michael Jeanson <mjeanson@efficios.com> - 2.0.4-7
+- Add builddep on python3-setuptools for python 3.12 (RHBZ:#2155040)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1190,6 +1190,10 @@ fi
 %endif
 
 %changelog
+* Mon Dec 19 2022 Andrew Burgess <aburgess@redhat.com>
+- Backport upstream commits 38665d717a3 and c3efaf0afd9 to fix RHBZ
+  2152431.
+
 * Fri Dec 16 2022 Keith Seitz <keiths@redhat.com>
 - Remove gdb-6.6-buildid-locate-rpm-scl.patch and
   gdb-bz601887-dwarf4-rh-test.patch.

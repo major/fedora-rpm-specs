@@ -1,12 +1,12 @@
 Name:           libcmml
 Version:        0.9.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Library for handling Continuous Media Markup Language
 
 License:        BSD
 URL:		http://www.annodex.net/
 Source:		http://www.annodex.net/software/libcmml/download/%{name}-%{version}.tar.gz
-
+Patch0:         libcmml-c99.patch
 BuildRequires:	doxygen
 BuildRequires:	expat-devel
 
@@ -45,6 +45,7 @@ development using libcmml.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p1
 
 %build
 %configure --disable-static
@@ -79,6 +80,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/doc/libcmml/doxygen-build.stamp
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 05 2023 Peter Fordham <peter.fordham@gmail.com> - 0.9.1-31
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

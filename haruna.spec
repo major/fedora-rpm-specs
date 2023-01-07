@@ -9,6 +9,11 @@ Source0: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 Source1: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: gpgkey-4E421C6554B89766DF9B7A37E12AB207C8755905.gpg
 
+## upstream patches
+# MpvVideo: fix not playing next file when current one ends
+# https://bugs.kde.org/show_bug.cgi?id=463868
+Patch0:  MpvVideo-fix-not-playing-next-file-when-current-one-ends.patch
+
 BuildRequires: cmake
 BuildRequires: gnupg2
 BuildRequires: gcc-c++
@@ -67,7 +72,7 @@ Features:
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 
 %build

@@ -2,10 +2,10 @@
 %bcond_without perl_Syntax_Keyword_Match_enables_optional_test
 
 Name:           perl-Syntax-Keyword-Match
-Version:        0.09
-Release:        3%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Match/case syntax for Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Match
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Match-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -22,7 +22,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 %define xs_parse_infix_minver 0
 BuildRequires:  perl(XS::Parse::Infix::Builder) >= %{xs_parse_infix_minver}
-%define xs_parse_keyword_minver 0.14
+%define xs_parse_keyword_minver 0.23
 BuildRequires:  perl(XS::Parse::Keyword::Builder) >= %{xs_parse_keyword_minver}
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -126,14 +126,21 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Syntax
+%dir %{perl_vendorarch}/auto/Syntax/Keyword
+%{perl_vendorarch}/auto/Syntax/Keyword/Match
+%dir %{perl_vendorarch}/Syntax
+%dir %{perl_vendorarch}/Syntax/Keyword
+%{perl_vendorarch}/Syntax/Keyword/Match.pm
+%{_mandir}/man3/Syntax::Keyword::Match.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 0.10-1
+- 0.10 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 %global __js_jquery_latest %{_datadir}/javascript/jquery/latest/
 
-# These are nececessary as the _with_foo is *not* defined if the
+# These are necessary as the _with_foo is *not* defined if the
 # --with flag isn't specifed, and we need to have the --without
 # specified option in that case.
 %if %{without enc_x264}
@@ -65,13 +65,13 @@ BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libxkbfile-devel
+BuildRequires:  lz4-devel
 BuildRequires:  python3-Cython
 BuildRequires:  ack
 BuildRequires:  desktop-file-utils
 BuildRequires:  libvpx-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
-BuildRequires:  lz4-devel
 BuildRequires:  cups-devel, cups
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc
@@ -241,10 +241,8 @@ for i in `ack -rl '^#!/.*python' %{buildroot}%{python3_sitearch}/xpra`; do
 done
 
 #fix permissions on shared objects
-pushd %{buildroot}%{python3_sitearch}/xpra
-find . -name '*.so' \
+find %{buildroot}%{python3_sitearch}/xpra -name '*.so' \
     -exec chmod 0755 {} \;
-popd
 
 # delete any bundled SWFs - binary content forbidden by packaging
 # guidelines

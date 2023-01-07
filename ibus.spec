@@ -39,7 +39,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -301,6 +301,7 @@ fi
 #autoreconf -f -i -v
 #make -C ui/gtk3 maintainer-clean-generic
 #make -C tools maintainer-clean-generic
+#make -C src/compose maintainer-clean-generic
 autoreconf -f -i -v
 %configure \
     --disable-static \
@@ -324,6 +325,7 @@ autoreconf -f -i -v
     %{nil}
 
 make -C ui/gtk3 maintainer-clean-generic
+make -C src/compose maintainer-clean-generic
 %make_build
 
 %install
@@ -356,6 +358,9 @@ echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup.desk
 echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/org.freedesktop.IBus.Setup.desktop
 %endif
 #echo "X-GNOME-Autostart-enabled=false" >> $RPM_BUILD_ROOT%%{_sysconfdir}/xdg/autostart/ibus.desktop
+
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/ibus
+cp src/compose/sequences-* $RPM_BUILD_ROOT%{_libdir}/ibus
 
 HAS_PREFIX=$(grep prefix $RPM_BUILD_ROOT%{_bindir}/ibus-setup | wc -l)
 [ x"$HAS_PREFIX" == x1 ] && \
@@ -494,6 +499,7 @@ dconf update || :
 %{_libexecdir}/ibus-wayland
 
 %files devel
+%{_libdir}/ibus
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*
 %{_includedir}/*
@@ -523,6 +529,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jan 05 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-9
+- Convert gtk_compose_seqs_compact to GResource
+
 * Wed Dec 07 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-8
 - Resolved: #2151344 SEGV with portal_context->owner in name_owner_changed()
 

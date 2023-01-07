@@ -2,7 +2,7 @@
 %global  wayland_min_version 1.3
 
 Name:    kwayland-integration
-Version: 5.26.4
+Version: 5.26.5
 Release: 1%{?dist}
 Summary: Provides integration plugins for various KDE Frameworks for Wayland
 
@@ -56,13 +56,15 @@ Requires:       kf5-filesystem
 
 %files
 %license LICENSES/*
-%{_kf5_plugindir}/org.kde.kidletime.platforms/KF5IdleTimeKWaylandPlugin.so
-%{_kf5_plugindir}/kwindowsystem/KF5WindowSystemKWaylandPlugin.so
 %{_kf5_datadir}/qlogging-categories5/kwindowsystem.kwayland.categories
-###%{_qt5_plugindir}/kf5/kguiaddons/kmodifierkey/kmodifierkey_wayland.so
+%{_kf5_plugindir}/kwindowsystem/KF5WindowSystemKWaylandPlugin.so
+%{_kf5_plugindir}/org.kde.kidletime.platforms/KF5IdleTimeKWaylandPlugin.so
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
+- Update to 5.26.5
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
 - 5.26.4
 

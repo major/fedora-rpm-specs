@@ -1,6 +1,6 @@
 Name:		psiconv
 Version:	0.9.8
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	A conversion utility for Psion files
 License:	GPLv2+
 URL:		http://software.frodo.looijaard.name/psiconv/
@@ -68,6 +68,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/%{name} _doc
 
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.9.8-40
+- Rebuild for ImageMagick 7
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 0.9.8-39
 - Port to C99 (#2151481)
 

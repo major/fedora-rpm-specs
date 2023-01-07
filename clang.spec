@@ -35,10 +35,6 @@
 %global clang_srcdir clang-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 %global clang_tools_srcdir clang-tools-extra-%{clang_version}%{?rc_ver:rc%{rc_ver}}.src
 
-%if !%{maj_ver} && 0%{?rc_ver}
-%global abi_revision 2
-%endif
-
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
 Release:	3%{?dist}
@@ -62,7 +58,6 @@ Patch0:     0001-PATCH-clang-Reorganize-gtest-integration.patch
 Patch1:     0003-PATCH-Make-funwind-tables-the-default-on-all-archs.patch
 Patch2:     0003-PATCH-clang-Don-t-install-static-libraries.patch
 Patch3:     0001-Driver-Add-a-gcc-equivalent-triple-to-the-list-of-tr.patch
-Patch4:     0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
 Patch5:     0010-PATCH-clang-Produce-DWARF4-by-default.patch
 Patch6:     0001-Take-into-account-Fedora-Specific-install-dir-for-li.patch
 
@@ -367,7 +362,6 @@ sed -i 's/\@FEDORA_LLVM_LIB_SUFFIX\@//g' test/lit.cfg.py
 	-DLLVM_BUILD_DOCS=ON \
 	-DLLVM_ENABLE_SPHINX=ON \
 	-DCLANG_LINK_CLANG_DYLIB=ON \
-	%{?abi_revision:-DLLVM_ABI_REVISION=%{abi_revision}} \
 	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
 	\
 	-DCLANG_BUILD_EXAMPLES:BOOL=OFF \

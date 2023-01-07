@@ -12,7 +12,7 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.9.3
+Version:        0.11.3
 %forgemeta
 Release:        %autorelease
 
@@ -76,10 +76,10 @@ Development files only.
 %check
 %if %{with tests}
 pushd test
-%make_build test
-# Mock does not provide internet connectivity.
-# Skip online tests to avoid failures
-./test --gtest_filter='-*.*_Online'
+  %make_build test CXX=g++ CXXFLAGS="-std=c++11 -I. -Wall -Wextra $CXXFLAGS"
+  # Mock does not provide internet connectivity.
+  # Skip online tests to avoid failures
+  ./test --gtest_filter='-*.*_Online'
 popd
 %endif
 
@@ -90,13 +90,15 @@ popd
 %doc README.md
 # TODO: should use so-versioned library here, but upstream
 # prefers header-only mode.
-%{_libdir}/libhttplib.so
+%{_libdir}/libhttplib.so.*
 %endif
 
 %files devel
 %if %{without compile}
 %license LICENSE
 %doc README.md
+%else
+%{_libdir}/libhttplib.so
 %endif
 %{_includedir}/httplib.h
 %{_libdir}/cmake/httplib

@@ -1,6 +1,6 @@
 Name:           python-pyproject-api
-Version:        1.3.0
-Release:        1%{?dist}
+Version:        1.4.0
+Release:        %autorelease
 Summary:        API to interact with the python pyproject.toml based projects
 
 License:        MIT
@@ -44,29 +44,4 @@ sed -i "/covdefaults/d;/pytest-cov/d" pyproject.toml
 %doc README.md
 
 %changelog
-* Tue Jan 03 2023 Lumír Balhar <lbalhar@redhat.com> - 1.3.0-1
-- Update to 1.3.0 (rhbz#2157941)
-
-* Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 1.2.1-1
-- Update to 1.2.1 (rhbz#2150693)
-
-* Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.2-1
-- Update to 1.1.2
-Resolves: rhbz#2138752
-
-* Tue Sep 13 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-1
-- Update to 1.1.1
-Resolves: rhbz#2126242
-
-* Sun Sep 11 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.0-1
-- Update to 1.1.0
-Resolves: rhbz#2125780
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.1.1-2
-- Rebuilt for Python 3.11
-
-* Mon Feb 07 2022 Lumír Balhar <lbalhar@redhat.com> - 0.1.1-1
-- Initial package
+%autochangelog

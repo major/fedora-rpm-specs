@@ -1,13 +1,14 @@
 Summary: Database-specific drivers for libdbi
 Name: libdbi-drivers
 Version: 0.9.0
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: LGPLv2+
 URL: http://libdbi-drivers.sourceforge.net/
 
 Source: http://prdownloads.sourceforge.net/libdbi-drivers/%{name}-%{version}.tar.gz
 # old automake does not offer aarch64
 Patch1: libdbi-drivers-aarch64.patch
+Patch2: libdbi-drivers-sys-wait.patch
 
 Requires: libdbi%{?_isa} >= 0.9
 BuildRequires: libdbi-devel >= 0.9
@@ -57,6 +58,7 @@ does not require recompilation or rewriting source code.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1
+%patch2 -p1
 autoconf
 # mariadb provides headers in a subfolder <mysql/mysql.h>
 sed -i -r 's|<(mysql\.h)>|<mysql/\1>|' drivers/mysql/dbd_mysql.c
@@ -110,6 +112,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 %{_libdir}/dbd/libdbdsqlite3.*
 
 %changelog
+* Thu Jan 05 2023 Peter Fordham <peter.fordham@gmail.com> - 0.9.0-22
+- Add missing sys/wait include in tests for C99 compatibility.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

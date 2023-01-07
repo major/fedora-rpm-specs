@@ -445,8 +445,18 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %{_sbindir}/lighttpd
 %{_sbindir}/lighttpd-angel
 %{_libdir}/lighttpd/
-%exclude %{_libdir}/lighttpd/*.la
+%exclude %{_libdir}/lighttpd/mod_access.so
+%exclude %{_libdir}/lighttpd/mod_alias.so
+%exclude %{_libdir}/lighttpd/mod_evhost.so
+%exclude %{_libdir}/lighttpd/mod_expire.so
 %exclude %{_libdir}/lighttpd/mod_fastcgi.so
+%exclude %{_libdir}/lighttpd/mod_indexfile.so
+%exclude %{_libdir}/lighttpd/mod_redirect.so
+%exclude %{_libdir}/lighttpd/mod_rewrite.so
+%exclude %{_libdir}/lighttpd/mod_scgi.so
+%exclude %{_libdir}/lighttpd/mod_setenv.so
+%exclude %{_libdir}/lighttpd/mod_simple_vhost.so
+%exclude %{_libdir}/lighttpd/mod_staticfile.so
 %exclude %{_libdir}/lighttpd/mod_authn_dbi.so
 %exclude %{_libdir}/lighttpd/mod_authn_gssapi.so
 %exclude %{_libdir}/lighttpd/mod_authn_ldap.so
@@ -473,8 +483,6 @@ mkdir -p %{buildroot}%{_var}/lib/lighttpd/
 %doc doc/outdated/fastcgi*.txt doc/scripts/spawn-php.sh
 %config(noreplace) %{_sysconfdir}/php.d/lighttpd.ini
 %config(noreplace) %{_sysconfdir}/lighttpd/conf.d/fastcgi.conf
-%dir %{_libdir}/lighttpd/
-%{_libdir}/lighttpd/mod_fastcgi.so
 
 %if %{with dbi}
 %files mod_authn_dbi

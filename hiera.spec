@@ -1,14 +1,17 @@
 Name:           hiera
-Version:        3.10.0
+Version:        3.11.0
 Release:        1%{?dist}
 Summary:        A simple hierarchical database supporting plugin data sources
 
 License:        ASL 2.0
 URL:            https://github.com/puppetlabs/hiera
 Source0:        https://downloads.puppetlabs.com/hiera/%{name}-%{version}.tar.gz
+Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.tar.gz.asc
+Source2:        https://downloads.puppetlabs.com/puppet-gpg-signing-key-20250406.pub
 # Use /etc/puppet rather than /etc/puppetlabs/puppet
 Patch0:         fix-puppetlab-paths.patch
 BuildArch:      noarch
+BuildRequires:  gnupg2
 BuildRequires:  rubygem(rspec)
 BuildRequires:  rubygem(mocha)
 BuildRequires:  rubygem(json)
@@ -18,6 +21,7 @@ BuildRequires:  ruby-devel
 A simple hierarchical database supporting plugin data sources.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch0 -p1
 
@@ -49,6 +53,10 @@ rspec -Ilib spec
 %license LICENSE
 
 %changelog
+* Thu Jan 05 2023 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 3.11.0-1
+- Update to 3.11.0 (rhbz#2151978)
+- Verify GPG signatures during RPM building
+
 * Thu Aug 11 2022 Steve Traylen <releng@fedoraproject.org> - 3.10.0-1
 - Update to 3.10.0.
 

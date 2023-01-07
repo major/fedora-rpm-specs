@@ -1,5 +1,5 @@
 Name:           perl-Dist-Zilla
-Version:        6.025
+Version:        6.029
 Release:        1%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -49,7 +49,6 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(experimental)
 BuildRequires:  perl(ExtUtils::Manifest) >= 1.66
-BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Copy::Recursive) >= 0.41
 BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(File::Path)
@@ -182,6 +181,9 @@ make test
 %{_sysconfdir}/bash_completion.d
 
 %changelog
+* Thu Jan 05 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.029-1
+- 6.029 bump
+
 * Thu Sep 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 6.025-1
 - 6.025 bump
 

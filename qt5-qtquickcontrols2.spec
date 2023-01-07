@@ -2,7 +2,7 @@
 
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls for embedded
-Version: 5.15.7
+Version: 5.15.8
 Release: 1%{?dist}
 
 License: GPLv2+ or LGPLv3 and GFDL
@@ -15,6 +15,9 @@ Patch2:  0002-Ensure-we-don-t-crash-when-changing-sizes-after-clea.patch
 Patch3:  0003-QQuickAction-don-t-grab-the-same-shortcut-multiple-t.patch
 Patch4:  0004-QQuickAbstractButton-fix-crash-on-destruction.patch
 Patch5:  0005-Fix-scroll-bars-not-showing-up-when-binding-to-stand.patch
+Patch6:  0006-implement-a11y-pressing-of-qquickabstractbutton.patch
+Patch7:  0007-Fix-the-popup-position-of-a-Menu.patch
+
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -109,6 +112,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{_libdir}/cmake/Qt5QuickTemplates2/
 
 %changelog
+* Thu Jan 05 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-1
+- 5.15.8
+
 * Mon Oct 31 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.7-1
 - 5.15.7
 

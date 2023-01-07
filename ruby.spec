@@ -101,7 +101,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 176%{?dist}
+Release: 177%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -169,6 +169,13 @@ Patch8: ruby-2.7.1-Timeout-the-test_bug_reporter_add-witout-raising-err.patch
 # https://bugs.ruby-lang.org/issues/19297
 Patch9: ruby-3.2.0-Revert-Fix-test-syntax-suggest-order.patch
 Patch10: ruby-3.2.0-Revert-Test-syntax_suggest-by-make-check.patch
+# Fix `OpenSSL::X509::CertificateError: invalid digest` errors on ELN. This
+# also might help Fedor, if/when
+# https://fedoraproject.org/wiki/Changes/StrongCryptoSettings3Forewarning2
+# is accepted.
+# https://github.com/ruby/spec/pull/990
+# https://bugs.ruby-lang.org/issues/19307
+Patch11: ruby-3.2.0-Use-SHA256-instead-of-SHA1.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Suggests: rubypick
@@ -642,6 +649,7 @@ rm -rf ext/fiddle/libffi*
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
@@ -1568,6 +1576,9 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/TestGCCompact#test_moving_objects_between_siz
 
 
 %changelog
+* Thu Jan 05 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.0-177
+- Fix ELN FTBFS due to stronger crypto settings.
+
 * Mon Jan 02 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.0-176
 - Upgrade to Ruby 3.2.0.
 

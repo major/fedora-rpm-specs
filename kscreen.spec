@@ -1,6 +1,6 @@
 Name:    kscreen
 Epoch:   1
-Version: 5.26.4
+Version: 5.26.5
 Release: 1%{?dist}
 Summary: KDE Display Management software
 
@@ -72,9 +72,6 @@ KCM and KDED modules for managing displays in KDE.
 %files -f %{name}.lang
 %license LICENSES
 %{_bindir}/kscreen-console
-%{_kf5_qtplugindir}/plasma/applets/plasma_applet_kscreen.so
-%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kscreen.so
-%{_kf5_plugindir}/kded/kscreen.so
 %{_datadir}/kservices5/plasma-applet-org.kde.kscreen.desktop
 %{_datadir}/metainfo/org.kde.kscreen.appdata.xml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/InhibitionHint.qml
@@ -83,10 +80,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/contents/ui/main.qml
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.desktop
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.json
-%{_kf5_datadir}/kded_kscreen/qml/OsdSelector.qml
 %{_kf5_datadir}/applications/kcm_kscreen.desktop
-#%{_datadir}/icons/hicolor/*/actions/*
-%{_kf5_datadir}/qlogging-categories5/kscreen.categories
+%{_kf5_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
+%{_kf5_datadir}/kded_kscreen/qml/OsdSelector.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Orientation.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Output.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/OutputPanel.qml
@@ -94,12 +90,18 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/RotationButton.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Screen.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/main.qml
-%{_kf5_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
-%{_userunitdir}/plasma-kscreen-osd.service
+%{_kf5_datadir}/qlogging-categories5/kscreen.categories
+%{_kf5_plugindir}/kded/kscreen.so
+%{_kf5_qtplugindir}/plasma/applets/plasma_applet_kscreen.so
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_kscreen.so
 %{_libexecdir}/kscreen_osd_service
+%{_userunitdir}/plasma-kscreen-osd.service
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 1:5.26.5-1
+- Update to 5.26.5
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 1:5.26.4-1
 - 5.26.4
 

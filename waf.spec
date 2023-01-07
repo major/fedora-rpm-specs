@@ -1,12 +1,12 @@
 Name:           waf
-Version:        2.0.24
-Release:        3%{?dist}
+Version:        2.0.25
+Release:        1%{?dist}
 Summary:        A Python-based build system
 # The entire source code is BSD apart from pproc.py (taken from Python 2.5)
 License:        BSD and Python
 URL:            https://waf.io/
 # Original tarfile can be found at
-# https://waf.io/waf-%%{version}.tar.bz2 or
+# https://waf.io/waf-%%{version}.tar.bz2
 # We remove waf logos, licensed CC BY-NC
 Source:         waf-%{version}.stripped.tar.bz2
 Source1:        unpack_wafdir.py
@@ -137,6 +137,9 @@ rm -f docs/sphinx/build/html/.buildinfo
 
 
 %changelog
+* Thu Jan  5 2023 Thomas Moschny <thomas.moschny@gmx.de> - 2.0.25-1
+- Update to 2.0.25.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

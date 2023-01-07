@@ -1,5 +1,5 @@
 Name:           python-hatchling
-Version:        1.12.1
+Version:        1.12.2
 Release:        %autorelease
 Summary:        The build backend used by Hatch
 

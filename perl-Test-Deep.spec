@@ -1,6 +1,6 @@
 Name:           perl-Test-Deep
-Version:        1.130
-Release:        9%{?dist}
+Version:        1.202
+Release:        1%{?dist}
 Summary:        Extremely flexible deep comparison
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Deep
@@ -12,7 +12,8 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Module Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -25,8 +26,8 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(if)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Tester) >= 0.04
+BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(Test::Tester) >= 0.107
 # Runtime
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Builder)
@@ -55,12 +56,22 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
+%license LICENSE
 %doc Changes README TODO
 %{perl_vendorlib}/Test/
 %{_mandir}/man3/Test::Deep.3*
-%{_mandir}/man3/Test::Deep::NoTest.3*
+%{_mandir}/man3/Test::Deep::*.3*
 
 %changelog
+* Thu Jan  5 2023 Paul Howarth <paul@city-fan.org> - 1.202-1
+- Update to 1.202 (rhbz#2158345)
+  - Converted to Dist::Zilla
+  - Test::Deep will now require v5.12, and this may go up; this change allows
+    simplification of the Makefile.PL, which was coping with a mistake made
+    twelve years ago
+- Use SPDX-format license tag
+- Package LICENSE file
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.130-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

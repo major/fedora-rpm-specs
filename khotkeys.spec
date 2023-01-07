@@ -1,5 +1,5 @@
 Name:    khotkeys
-Version: 5.26.4
+Version: 5.26.5
 Release: 1%{?dist}
 Summary: Application to configure hotkeys in KDE
 
@@ -50,7 +50,7 @@ Conflicts:      kde-workspace < 4.11.15-3
 
 # upgrade path from khotkeys-libs-4.11.x (skip Provides for now, it was only ever a private library)
 Obsoletes:      khotkeys-libs < 5.0.0
-#Provides:       khotkeys-libs = %{version}-%{release}
+#Provides:       khotkeys-libs = %%{version}-%%{release}
 
 %description
 An advanced editor component which is used in numerous KDE applications
@@ -97,6 +97,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
+- Update to 5.26.5
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
 - 5.26.4
 

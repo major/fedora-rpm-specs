@@ -1,10 +1,10 @@
 %global _hardened_build 1
-%global gittag0 v2.3.0
-%global commit0 f02bf700c1054a83ebc4e88bd2f6786a8a93fb5c
+%global gittag0 v2.3.1
+%global commit0 6d59f16140468242fe157b4a5adf36d6a93cf6a4
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:		lsyncd
-Version:	2.3.0
+Version:	2.3.1
 Release:	1%{?dist}
 Summary:	File change monitoring and synchronization daemon
 License:	GPLv2+
@@ -12,7 +12,6 @@ URL:		https://axkibe.github.io/lsyncd/
 Source0:	https://github.com/axkibe/%{name}/archive/%{gittag0}/%{name}-%{version}.tar.gz
 
 Patch0:		cmake-DOCDIR.patch
-Patch1:		cmake-define-LUA_COMPAT_5_3.patch
 
 Source1:	lsyncd.sysconfig
 Source2:	lsyncd.logrotate
@@ -82,6 +81,10 @@ install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_sysctldir}/50-lsyncd.conf
 %{_unitdir}/lsyncd.service
 
 %changelog
+* Thu Dec 29 2022 Charles R. Anderson <cra@alum.wpi.edu> - 2.3.1-1
+- Update to 2.3.1 (#2143525)
+- Remove no longer needed cmake-define-LUA_COMPAT_5_3.patch
+
 * Mon Jul 25 2022 Charles R. Anderson <cra@alum.wpi.edu> - 2.3.0-1
 - Update to 2.3.0 (#2077391)
 - Remove obsolete patches

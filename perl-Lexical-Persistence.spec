@@ -7,6 +7,7 @@ URL:            https://metacpan.org/release/Lexical-Persistence
 Source0:        https://cpan.metacpan.org/authors/id/R/RC/RCAPUTO/Lexical-Persistence-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter

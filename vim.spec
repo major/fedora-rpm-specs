@@ -37,6 +37,12 @@
 %define withruby 1
 %endif
 
+# VIm upstream wants to build with FORTIFY_SOURCE=1,
+# because higher levels causes crashes of valid code constructs
+# and their reimplementation would cost unnecessary maintenance
+# https://github.com/vim/vim/pull/3507
+%define _fortify_level 1
+
 %define baseversion 9.0
 %define vimdir vim90
 
@@ -104,11 +110,7 @@ BuildRequires: gettext
 # glibc in F35 bootstraped several conversion formats from
 # iconv into a separate package. Vim needs those additional
 # formats during compilation.
-# remove the conditional once F34 is EOL and leave
-# only BuildRequires here
-%if 0%{?fedora} >= 35
 BuildRequires: glibc-gconv-extra
-%endif
 
 # for mouse support in console
 BuildRequires: gpm-devel
@@ -428,6 +430,8 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --enable-fail-if-missing \
   --disable-canberra \
   --disable-libsodium
+
+echo $CFLAGS
 
 %make_build
 cp vim minimal-vim

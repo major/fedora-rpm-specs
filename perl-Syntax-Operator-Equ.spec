@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-Syntax-Operator-Equ
-Version:        0.04
+Version:        0.05
 Release:        1%{?dist}
 Summary:        Equality operators that distinguish undef
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -36,6 +36,11 @@ BuildRequires:  perl(Test::More) >= 0.88
 %if %{optional_tests}
 # Optional tests:
 BuildRequires:  perl(Syntax::Keyword::Match) >= 0.08
+%if 0%{?fedora} >= 39
+# Requires PL_infix_plugin support in Perl (since 5.37.7)
+BuildRequires:  perl(Syntax::Operator::Equ)
+BuildRequires:  perl(Syntax::Operator::In) >= 0.03
+%endif
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
@@ -62,6 +67,11 @@ Requires:       perl-Test-Harness
 Requires:       perl(Test::More) >= 0.88
 %if %{optional_tests}
 Requires:       perl(Syntax::Keyword::Match) >= 0.08
+%if 0%{?fedora} >= 39
+# Requires PL_infix_plugin support in Perl (since 5.37.7)
+Requires:       perl(Syntax::Operator::Equ)
+Requires:       perl(Syntax::Operator::In) >= 0.03
+%endif
 %endif
 
 %description tests
@@ -71,7 +81,7 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n Syntax-Operator-Equ-%{version}
 %if !%{optional_tests}
-for T in t/80match-equ.t t/99pod.t; do
+for T in t/80in+equ.t t/80match-equ.t t/99pod.t; do
     rm "$T"
     perl -i -ne 'print $_ unless m{^\Q'"$T"'\E}' MANIFEST
 done
@@ -105,14 +115,21 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Syntax
+%dir %{perl_vendorarch}/auto/Syntax/Operator
+%{perl_vendorarch}/auto/Syntax/Operator/Equ
+%dir %{perl_vendorarch}/Syntax
+%dir %{perl_vendorarch}/Syntax/Operator
+%{perl_vendorarch}/Syntax/Operator/Equ.pm
+%{_mandir}/man3/Syntax::Operator::Equ.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 0.05-1
+- 0.05 bump
+
 * Tue Oct 25 2022 Petr Pisar <ppisar@redhat.com> - 0.04-1
 - 0.04 bump
 

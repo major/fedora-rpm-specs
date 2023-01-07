@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-Syntax-Operator-Divides
-Version:        0.02
+Version:        0.03
 Release:        1%{?dist}
 Summary:        Infix operator for division test
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,7 +26,7 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(XS::Parse::Infix::Builder) >= 0.26
+BuildRequires:  perl(XS::Parse::Infix::Builder) >= 0.27
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(XSLoader)
@@ -103,14 +103,21 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Syntax*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Syntax
+%dir %{perl_vendorarch}/auto/Syntax/Operator
+%{perl_vendorarch}/auto/Syntax/Operator/Divides
+%dir %{perl_vendorarch}/Syntax
+%dir %{perl_vendorarch}/Syntax/Operator
+%{perl_vendorarch}/Syntax/Operator/Divides.pm
+%{_mandir}/man3/Syntax::Operator::Divides.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 0.03-1
+- 0.03 bump
+
 * Tue Oct 25 2022 Petr Pisar <ppisar@redhat.com> - 0.02-1
 - 0.02 bump
 

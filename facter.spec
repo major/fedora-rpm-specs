@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        4.2.11
+Version:        4.2.14
 Release:        %autorelease
 Summary:        Command and ruby library for gathering system information
 

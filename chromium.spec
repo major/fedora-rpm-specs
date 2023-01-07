@@ -1,5 +1,11 @@
 %define _lto_cflags %{nil}
 
+# disable the package notes info on f36
+# workaround for linking issue
+%if 0%{?fedora} == 36
+%undefine _package_note_file
+%endif
+
 %global numjobs 10
 %ifarch aarch64 i686
 %global numjobs 8
@@ -170,7 +176,12 @@ BuildRequires: libicu-devel >= 5.4
 %global bundlelibdrm 0
 %global bundlefontconfig 0
 %global bundleffmpegfree 0
+# f36 has old libaom
+%if 0%{?fedora} == 36
+%global bundlelibaom 1
+%else
 %global bundlelibaom 0
+%endif
 %endif
 
 ### From 2013 until early 2021, Google permitted distribution builds of
@@ -359,10 +370,13 @@ Patch113: chromium-107.0.5304.110-cstring-memset.patch
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
+# drop av_stream_get_first_dts from internal ffmpeg
 Patch116: chromium-108-ffmpeg-first_dts.patch
+# revert new-channel-layout-api on f36, old ffmpeg-free
+Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
 # clang =< 14 and C++20, linker errors std::u16string
-# build failure on rhel
+# build failure on rhel and fedora 36
 Patch120: chromium-108-clang14-c++20-link-error.patch
 
 # VAAPI
@@ -993,6 +1007,9 @@ udev.
 %patch114 -p1 -b .system-ffmppeg
 %patch115 -p1 -b .prop-codecs
 %patch116 -p1 -b .first_dts
+%if 0%{fedora} == 36
+%patch117 -p1 -b .revert-new-channel-layout-api
+%endif
 %endif
 
 # EPEL specific patches
@@ -1010,7 +1027,7 @@ udev.
 %patch110 -p1 -b .el8-aarch64-libpng16-symbol-prefixes
 %endif
 
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?fedora} == 36
 %patch120 -p1 -b .link-error-clang14
 %endif
 

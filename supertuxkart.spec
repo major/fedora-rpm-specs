@@ -1,3 +1,4 @@
+
 %global __cmake_in_source_build 1
 #global rctag rc1
 
@@ -5,7 +6,7 @@
 
 Name:           supertuxkart
 Version:        1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -19,9 +20,10 @@ Source0:        https://github.com/%{name}/stk-code/releases/download/%{version}
 Source1:        %{name}.6
 Source2:        supertuxkart-0.7.3-license-clarification.txt
 Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
+Patch1:         8544f19b59208ae93fc3db0cf41bd386c6aefbcb.patch
 
 BuildRequires: make
-BuildRequires:  gcc-c++
+BuildRequires: gcc-c++
 BuildRequires:  git-core
 BuildRequires:  cmake
 # For fonts rpm macro
@@ -119,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4.5
+- Patch for https://github.com/supertuxkart/stk-code/issues/4834
+
 * Fri Dec 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.4-4
 - Fix cantarell fonts symlinks.
 

@@ -2,7 +2,7 @@
 
 Name:           simple-ccsm
 Version:        0.8.18
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple settings manager for Compiz
 License:        GPLv2+
 URL:            https://gitlab.com/compiz/%{name}
@@ -13,6 +13,7 @@ BuildRequires:  fdupes
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  intltool
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(compiz) >= %{basever}
 BuildRequires:  pkgconfig(libcompizconfig) >= %{basever}
@@ -65,6 +66,10 @@ desktop-file-install                              \
 
 
 %changelog
+* Thu Jan  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.8.18-8
+- Added setuptools build requirement
+  Resolves: rhbz#2154826
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.18-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

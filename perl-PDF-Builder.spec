@@ -7,7 +7,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.024
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # lib/PDF/Builder/Basic/PDF/Pages.pm:   MIT OR Artistic-1.0-Perl
@@ -24,6 +24,10 @@ Patch0:         PDF-Builder-3.024-tests-Add-font-paths-on-Fedora.patch
 # Renable tests, we have downstream-fixed ghostcript-9.56.1, bug #2123391,
 # not suitable for the upstream
 Patch1:         PDF-Builder-3.024-Don-t-skip-ghostscript-9.56.-0-1.patch
+# Adapt tests to EPEL9 fonts,
+# <https://bugzilla.redhat.com/show_bug.cgi?id=2158422>, not suitable for the
+# upstream until EPEL9 moved the fonts a better path.
+Patch2:         PDF-Builder-3.024-Search-URW-fonts-in-usr-share-GraphicsMagick.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -80,7 +84,11 @@ BuildRequires:  ImageMagick >= 6.9.7
 BuildRequires:  libtiff-tools
 BuildRequires:  perl(GD)
 # URW PFB font a010013l
+%if 0%{?rhel}
+BuildRequires:  GraphicsMagick
+%else
 BuildRequires:  urw-base35-fonts-legacy
+%endif
 %endif
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Compress::Zlib) >= 1
@@ -125,7 +133,11 @@ Requires:       ImageMagick >= 6.9.7
 Requires:       libtiff-tools
 Requires:       perl(GD)
 # URW PFB font a010013l
+%if 0%{?rhel}
+Requires:       GraphicsMagick
+%else
 Requires:       urw-base35-fonts-legacy
+%endif
 %endif
 
 %description tests
@@ -175,13 +187,17 @@ make test
 %doc Changes contrib CONTRIBUTING examples README.md tools
 %doc INFO/CONVERSION INFO/DEPRECATED INFO/Changes* INFO/KNOWN_INCOMP
 %doc INFO/PATENTS INFO/RoadMap INFO/SUPPORT
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/PDF
+%{perl_vendorlib}/PDF/Builder*
+%{_mandir}/man3/PDF::Builder*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 3.024-2
+- Adapt tests to EPEL9 (bug #2158422)
+
 * Tue Sep 13 2022 Petr Pisar <ppisar@redhat.com> - 3.024-1
 - 3.024 bump
 

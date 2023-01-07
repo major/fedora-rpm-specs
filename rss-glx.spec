@@ -16,7 +16,7 @@
 Summary: Really Slick Screensavers
 Name: rss-glx
 Version: 0.9.1%{patchext}
-Release: 55%{?dist}
+Release: 56%{?dist}
 License: GPLv2
 URL: http://rss-glx.sourceforge.net/
 # We ship a tarball with one questionable hack patched out.
@@ -169,6 +169,9 @@ fi
 %{xssbindir}/*
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.9.1.p-56
+- Rebuild for ImageMagick 7
+
 * Mon Dec 05 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.9.1.p-55
 - Patch pregenerated configure script since regeneration fails
 

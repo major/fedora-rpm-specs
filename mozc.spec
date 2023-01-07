@@ -5,8 +5,8 @@
 %bcond_without	qt
 
 Name:		mozc
-Version:	2.28.4730.102
-Release:	3%{?dist}
+Version:	2.28.4950.102
+Release:	1%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD and ASL 2.0 and UCD and Public Domain and mecab-ipadic
@@ -132,7 +132,7 @@ sed -ne "/'linux_cflags':/{p;n;p;:a;/[[:space:]]*\],/{\
 $opts
 p;b b};n;b a;};{p};:b" gyp/common.gypi > $t && mv $t gyp/common.gypi || exit 1
 GYP_DEFINES="use_libprotobuf=1 use_system_abseil_cpp=1 %{?with_zinnia:use_libzinnia=1 zinnia_model_file=/usr/share/zinnia/model/tomoe/handwriting-ja.model} %{!?with_zinnia:use_libzinnia=0} ibus_mozc_path=%{_libexecdir}/ibus-engine-mozc ibus_mozc_icon_path=%{_datadir}/ibus-mozc/product_icon.png" python build_mozc.py gyp --gypdir=%{_bindir} --server_dir=%{_libexecdir}/mozc --target_platform=Linux %{!?with_qt:--noqt}
-python build_mozc.py build -c Release unix/ibus/ibus.gyp:ibus_mozc unix/emacs/emacs.gyp:mozc_emacs_helper server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
+python build_mozc.py build --use_gyp_for_ibus_build -c Release unix/ibus/ibus.gyp:ibus_mozc unix/emacs/emacs.gyp:mozc_emacs_helper server/server.gyp:mozc_server gui/gui.gyp:mozc_tool renderer/renderer.gyp:mozc_renderer
 
 
 %install
@@ -249,6 +249,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan  5 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-1
+- Update to 2.28.4950.102.
+- Update dictionaries.
+- Fix obsolete function warnings in mozc.el
+  Resolves: rhbz#2155094
+
 * Mon Aug 22 2022 Akira TAGOH <tagoh@redhat.com> - 2.28.4730.102-3
 - Rebuilt for abseil-cpp 20220623.0
 

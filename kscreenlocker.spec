@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 5.26.4
+Version: 5.26.5
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -101,6 +101,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
+- Update to 5.26.5
+
 * Tue Nov 29 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.26.4-1
 - 5.26.4
 

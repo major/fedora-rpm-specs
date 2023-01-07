@@ -1,6 +1,6 @@
 Name:           ini2toml
 Version:        0.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Automatic conversion of .ini/.cfg files to TOML equivalents
 
 License:        MPLv2.0
@@ -9,11 +9,6 @@ Source0:        %{pypi_source ini2toml}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-ConfigUpdater
-BuildRequires:  python3-tomlkit
-# For the tests
-BuildRequires:  python3-pytest
-BuildRequires:  python3-tomli-w
 
 # Provide the python3-* namespace as the package
 # can also be used as a library.
@@ -32,10 +27,15 @@ Please notice, the provided .ini/.cfg files should follow the same syntax suppor
 %autosetup -p1 -n ini2toml-%{version}
 
 # Remove the coverage cmd arguments from pytest
-sed -Ei '/--(cov|cov-report)/d' setup.cfg
+sed -Ei '/(-|pytest)-cov(-report)?/d' setup.cfg
+
+# Remove test dependency on validate-pyproject, not yet packaged
+# Tests requiring it are excluded in %%check
+sed -i '/validate-pyproject/d' setup.cfg
+
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x full,lite,testing
 
 
 %build
@@ -61,6 +61,9 @@ sed -Ei '/--(cov|cov-report)/d' setup.cfg
 
 
 %changelog
+* Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 0.10-4
+- Handle test dependencies automatically and hence BuildRequire python3-tomli
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

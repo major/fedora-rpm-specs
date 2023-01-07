@@ -9,7 +9,7 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 
 Name:		rubygem-%{gem_name}
 Version:	5.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 Summary:	Ruby binding to ImageMagick
 License:	MIT
@@ -29,8 +29,8 @@ BuildRequires:	rubygem(pry)
 # Due to test/RMagick/rmmain.c test_Magick_version(), for now
 # we specify the exact version for ImageMagick
 %if 0%{?fedora}
-%setIMver 39 1:6.9.12 1:6.9.13
-%setIMver 38 1:6.9.12 1:6.9.13
+%setIMver 39 1:7.1.0 1:7.1.1
+%setIMver 38 1:7.1.0 1:7.1.1
 %setIMver 37 1:6.9.12 1:6.9.13
 %setIMver 36 1:6.9.12 1:6.9.13
 %endif
@@ -146,6 +146,9 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.0-3
+- Rebuild for ImageMagick 7
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

@@ -5,8 +5,8 @@
 %bcond_with cassandane
 
 Name: cyrus-imapd
-Version: 3.4.4
-Release: 4%{?dist}
+Version: 3.6.0
+Release: 1%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -25,6 +25,8 @@ License: BSD
 URL: http://www.cyrusimap.org/
 
 Source0: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz
+Source1: https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-%version/cyrus-imapd-%version.tar.gz.sig
+Source2: ellie-pub.key
 
 
 # Adapt a timeout to handle our slower builders
@@ -230,6 +232,9 @@ This package contains Perl libraries used to interface with Cyrus IMAPd.
 
 
 %prep
+%if 0%{?fedora}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -p1
 echo %version > VERSION
 
@@ -669,6 +674,10 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Wed Jan 04 2023 Martin Osvald <mosvald@redhat.com> - 3.6.0-1
+- New version 3.6.0 (rhbz#2134350)
+- Add source code signature verification
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 3.4.4-4
 - Rebuild for ICU 72
 

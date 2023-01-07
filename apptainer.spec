@@ -36,10 +36,13 @@
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
 
+# 3.8.7-3 was the last release of the old singularity in EPEL/Fedora.
+%global obsoletes_singularity_version 3.8.7-4
+
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.1.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -54,6 +57,10 @@ Patch10: https://github.com/vasi/squashfuse/pull/70.patch
 Patch11: https://github.com/vasi/squashfuse/pull/77.patch
 Patch12: https://github.com/vasi/squashfuse/pull/81.patch
 %endif
+
+# The singularity package was renamed to apptainer.  Note that is also
+# on the apptainer-suid subpackage below.
+Obsoletes: singularity < %{obsoletes_singularity_version}
 
 # In the singularity 2.x series there was a singularity-runtime package
 #  that could have been installed independently, but starting in 3.x
@@ -105,15 +112,10 @@ containers that can be used across host environments.
 %package suid
 Summary: Setuid component of Apptainer
 Requires: %{name} = %{version}-%{release}
-# The singularity package was renamed to apptainer.  However, this also brought
-# several incompatibilities, including defaulting to unprivileged user
-# namespaces.  Installing this subpackage allows apptainer to run without
-# unprivileged user namespaces, mitigating one of the incompatibilities.
-# Because of this, we'll put the renaming obsoletes in this subpackage instead
-# of at the top level.  The last shipped singularity EVR was 0:3.8.7-3.fc37,
-# therefore the obsoletes must be one release higher to not gratuitously
-# polluting the version space upwards.
-Obsoletes: singularity < 3.8.7-4
+# The singularity package was renamed to apptainer.  The Obsoletes is
+# on this subpackage for greater compatibility after an update from the
+# old singularity.
+Obsoletes: singularity < %{obsoletes_singularity_version}
 
 %description suid
 Provides the optional setuid-root portion of Apptainer.
@@ -232,6 +234,10 @@ rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || tru
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Wed Jan  4 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.4-3
+- Restore the singularity obsoletes on the apptainer main package, so
+  that now it is on both the main package and suid subpackage.
+
 * Wed Dec 14 2022 Carl George <carl@george.computer> - 1.1.4-2
 - Add pivot provides/conflict of sif-runtime
 - Reduce singularity obsoletes upper bound
