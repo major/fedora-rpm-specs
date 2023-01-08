@@ -1,6 +1,6 @@
 Name:		perl-Test-MinimumVersion
-Version:	0.101082
-Release:	23%{?dist}
+Version:	0.101083
+Release:	1%{?dist}
 Summary:	Check whether your code requires a newer perl
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-MinimumVersion
@@ -15,7 +15,7 @@ BuildRequires:	perl(base)
 BuildRequires:  perl(CPAN::Meta) > 2.120900
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Exporter)
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:	perl(File::Find::Rule)
 BuildRequires:	perl(File::Find::Rule::Perl)
 BuildRequires:	perl(Perl::MinimumVersion) >= 1.32
@@ -51,6 +51,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 06 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.101083-1
+- Update to 0.101083.
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.101082-23
 - Modernize spec.
 - Convert license to SPDX.

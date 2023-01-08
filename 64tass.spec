@@ -1,14 +1,14 @@
-%global revision 2625
+%global revision 2900
 
 Name:		64tass
-Version:	1.56.%{revision}
-Release:	4%{?dist}
+Version:	1.57.%{revision}
+Release:	1%{?dist}
 Summary:	6502 assembler
 License:	GPLv2+
 URL:		http://tass64.sourceforge.net/
-BuildRequires:  gcc
+BuildRequires:	gcc
 BuildRequires:	w3m
-BuildRequires: make
+BuildRequires:	make
 Source0:	http://sourceforge.net/projects/tass64/files/source/%{name}-%{version}-src.zip
 
 %description
@@ -43,6 +43,9 @@ install -m 644 64tass.1 %{buildroot}%{_mandir}/man1/
 %doc LICENSE-my_getopt
 
 %changelog
+* Fri Jan 06 2023 Dan Horák <dan[at]danny.cz> - 1.57.2900-1
+- Update to 1.57.2900 (rhbz#2140305)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.56.2625-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

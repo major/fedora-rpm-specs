@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-zopeext
 Version:        0.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -35,8 +35,8 @@ interfaces.
 %prep
 %autosetup -n sphinxcontrib-zopeext-%{version}
 
-# Allow use of importlib_metadata 5.x
-sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<6/' pyproject.toml
+# Allow use of importlib_metadata > 4
+sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 
 %build
 %pyproject_wheel
@@ -50,6 +50,10 @@ sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<6/' pyproject.toml
 %license LICENSE
 
 %changelog
+* Tue Jan 03 2023 Lumír Balhar <lbalhar@redhat.com> - 0.3.3-4
+- Allow newer importlib-metadata and fix FTI
+Resolves: rhbz#2157864
+
 * Wed Nov 30 2022 Jerry James <loganjerry@gmail.com> - 0.3.3-3
 - Drop unnecessary python-packaging workaround
 

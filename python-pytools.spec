@@ -1,7 +1,7 @@
 %global srcname pytools
 
 Name:           python-%{srcname}
-Version:        2022.1.13
+Version:        2022.1.14
 Release:        1%{?dist}
 Summary:        Collection of tools for Python
 
@@ -63,6 +63,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2022.1.14-1
+- Update to 2022.1.14 (fixes rhbz#2156422)
+
 * Tue Nov 22 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2022.1.13-1
 - Update to 2022.1.13 (fixes rhbz#2144223)
 

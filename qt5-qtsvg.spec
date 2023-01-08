@@ -11,9 +11,6 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 
-# upstream fix
-Patch1: qtsvg-5.15.2-do-strict-error-checking-when-parsing-path-nodes.patch
-
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(zlib)

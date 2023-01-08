@@ -1,7 +1,7 @@
 %global srcname pyopencl
 
 Name:           python-%{srcname}
-Version:        2022.3
+Version:        2022.3.1
 Release:        1%{?dist}
 Summary:        Python wrapper for OpenCL
 
@@ -95,6 +95,9 @@ find %{buildroot}%{python3_sitearch}/%{srcname} -name '*.so' -exec chmod 755 {} 
 %{python3_sitearch}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2022.3.1-1
+- Update to v2022.3.1 (fixes rhbz#2156422)
+
 * Tue Nov 22 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2022.3-1
 - Update to v2022.3 (fixes rhbz#2144595)
 

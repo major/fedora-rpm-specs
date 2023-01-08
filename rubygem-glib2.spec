@@ -8,8 +8,8 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.3
-Release:	3%{?dist}
+Version:	4.0.5
+Release:	1%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -172,7 +172,6 @@ ln -sf /bin/true make
 export PATH=$(pwd):$PATH
 popd
 
-# Currently Fedora 30 sees test failure, need reporting
 ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb
 
 popd
@@ -203,9 +202,9 @@ popd
 %{gem_instdir}/lib/glib-test-init.rb
 %{gem_instdir}/lib/gnome2-raketask.rb
 %{gem_instdir}/lib/mkmf-gnome*.rb
-%dir	%{gem_instdir}/lib/gnome2/
-%dir	%{gem_instdir}/lib/gnome2/rake/
-%{gem_instdir}/lib/gnome2/rake/*.rb
+%dir	%{gem_instdir}/lib/gnome*/
+%dir	%{gem_instdir}/lib/gnome*/rake/
+%{gem_instdir}/lib/gnome*/rake/*.rb
 
 # Needs these for test suite for other package
 %{gem_instdir}/lib/glib2/test/
@@ -227,6 +226,9 @@ popd
 
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
+- 4.0.5
+
 * Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

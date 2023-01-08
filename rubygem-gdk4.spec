@@ -1,11 +1,11 @@
 %global	gem_name	gdk4
 
-%global	gem_ver	4.0.3
+%global	gem_ver	4.0.5
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
-Version:	4.0.3
-Release:	2%{?dist}
+Version:	4.0.5
+Release:	1%{?dist}
 
 Summary:	Ruby/GDK4 is a Ruby binding of GDK-4.x
 License:	LGPL-2.1-or-later
@@ -101,6 +101,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
+- 4.0.5
+
 * Thu Nov 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-2
 - List license for embedded fonts explicitly
 

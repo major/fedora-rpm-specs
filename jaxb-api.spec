@@ -1,67 +1,55 @@
 Name:           jaxb-api
-Version:        2.3.3
-Release:        8%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
-
 URL:            https://github.com/eclipse-ee4j/jaxb-api
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
-# package renamed from glassfish-jaxb-api in fedora 33
-Provides:       glassfish-jaxb-api = %{version}-%{release}
-Obsoletes:      glassfish-jaxb-api < 2.3.3-2
-
-# javadoc subpackage is currently not built
-Obsoletes:      glassfish-jaxb-api-javadoc < 2.3.3-2
-
 %description
 The Jakarta XML Binding provides an API and tools that automate the mapping
 between XML documents and Java objects.
 
+%package javadoc
+Summary:        Javadoc for %{name}
+
+%description javadoc
+This package contains javadoc for %{name}.
+
 %prep
 %setup -q
 
-# remove unnecessary dependency on parent POM
+# Remove unnecessary dependency on parent POM
 %pom_remove_parent
 
-# disable unwanted test module
-%pom_disable_module jaxb-api-test
-
-# remove unnecessary maven plugins
-%pom_remove_plugin -r :glassfish-copyright-maven-plugin
 %pom_remove_plugin -r :buildnumber-maven-plugin
+%pom_remove_plugin -r :glassfish-copyright-maven-plugin
 %pom_remove_plugin -r :maven-enforcer-plugin
 
-# mark dependency on jakarta.activation as optional
-%pom_xpath_inject "pom:dependency[pom:groupId='jakarta.activation']" "<optional>true</optional>" jaxb-api
-
-# add compatibility aliases for old artifact coordinates
-%mvn_alias jakarta.xml.bind:jakarta.xml.bind-api javax.xml.bind:jaxb-api
-%mvn_file :jakarta.xml.bind-api glassfish-jaxb-api/jakarta.xml.bind-api jaxb-api
-
-
 %build
-# skip javadoc build due to https://github.com/fedora-java/xmvn/issues/58
-%mvn_build -j -- -DbuildNumber=unknown -DscmBranch=%{version}
-
+%mvn_build
 
 %install
 %mvn_install
 
-
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 
+%files javadoc -f .mfiles-javadoc
+%license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Jan 06 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.0-1
+- Update to upstream version 4.0.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -82,4 +70,3 @@ between XML documents and Java objects.
 
 * Tue Aug 11 2020 Fabio Valentini <decathorpe@gmail.com> - 2.3.3-2
 - Initial package renamed from glassfish-jaxb-api.
-

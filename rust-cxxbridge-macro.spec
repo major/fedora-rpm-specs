@@ -6,9 +6,9 @@
 %global crate cxxbridge-macro
 
 Name:           rust-cxxbridge-macro
-Version:        1.0.83
+Version:        1.0.85
 Release:        %autorelease
-Summary:        Implementation detail of the cxx crate
+Summary:        Implementation detail of the `cxx` crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxxbridge-macro

@@ -1,16 +1,17 @@
 Summary:        A MOD music file player library
 Name:           libmikmod
 Version:        3.3.11.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        GPLv2 and LGPLv2+
 URL:            http://mikmod.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/mikmod/libmikmod-%{version}.tar.gz
 Patch0:         libmikmod-64bit.patch
 Patch1:         libmikmod-multilib.patch
 Patch2:         libmikmod-cflags.patch
+Patch3:         libmikmod-autoconf.patch
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel pulseaudio-libs-devel
-BuildRequires: make
+BuildRequires:  autoconf automake make
 
 %description
 libmikmod is a library used by the mikmod MOD music file player for
@@ -31,6 +32,7 @@ applications for mikmod.
 %autosetup -p1
 
 %build
+autoreconf -vi
 %configure --enable-dl --enable-alsa --disable-simd
 %make_build
 
@@ -56,6 +58,10 @@ find %{buildroot} -name '*.la' -print -delete
 %{_mandir}/man1/%{name}-config*
 
 %changelog
+* Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 3.3.11.1-14
+- Fix autoconf check for C99 and update build to run autoreconf.
+  https://sourceforge.net/p/mikmod/bugs/29/
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.11.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

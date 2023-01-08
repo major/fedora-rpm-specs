@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      data-fixtures
-%global github_version   1.6.1
-%global github_commit    1a4232c15143ca3c127812d19b23a7961c41eeed
+%global github_version   1.6.2
+%global github_commit    d52cc6d392717734fac908768a7319f8a417401a
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  doctrine
@@ -173,6 +173,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan  6 2023 Remi Collet <remi@remirepo.net> - 1.6.2-1
+- update to 1.6.2
+
 * Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 - drop dependency on doctrine/common

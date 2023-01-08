@@ -5,9 +5,9 @@
 %global crate cxx-build
 
 Name:           rust-cxx-build
-Version:        1.0.83
+Version:        1.0.85
 Release:        %autorelease
-Summary:        C++ code generator for integrating the cxx crate into a Cargo build
+Summary:        C++ code generator for integrating `cxx` crate into a Cargo build
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxx-build

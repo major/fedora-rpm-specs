@@ -1,11 +1,11 @@
 Name:           python-pydata-sphinx-theme
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
-# This project is BSD.
-# The bundled bootstrap and kickass JavaScript libraries are MIT.
-License:        BSD and MIT
+# This project is BSD-3-Clause.
+# The bundled bootstrap JavaScript library is MIT.
+License:        BSD-3-Clause and MIT
 BuildArch:      noarch
 URL:            https://github.com/pydata/pydata-sphinx-theme
 Source0:        %{url}/archive/v%{version}/pydata-sphinx-theme-%{version}.tar.gz
@@ -71,10 +71,10 @@ Requires:       fontawesome5-fonts-all
 %description -n python3-pydata-sphinx-theme %_description
 
 %package        doc
-Summary:        Documentation for %{srcname}
+Summary:        Documentation for pydata-sphinx-theme
 
 %description    doc
-Documentation for %{srcname}.
+Documentation for pydata-sphinx-theme.
 
 %prep
 %autosetup -n pydata-sphinx-theme-%{version} -p1 -a1
@@ -148,6 +148,10 @@ cd -
 %license LICENSE
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 0.9.0-2
+- Fix unexpanded macros in the doc subpackage
+- Convert License tag to SPDX
+
 * Tue Aug  2 2022 Jerry James <loganjerry@gmail.com> - 0.9.0-1
 - Version 0.9.0 (fixes rhbz#2105307)
 

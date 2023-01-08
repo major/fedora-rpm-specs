@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of gio-2.0.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.3
-Release:	3%{?dist}
+Version:	4.0.5
+Release:	1%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -71,7 +71,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.0\.3|>= 4.0.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.0\.5|>= 4.0.5|' %{gem_name}-%{version}.gemspec
 # fiddle is in default gem
 sed -i -e '\@dependency.*fiddle@d' %{gem_name}-%{version}.gemspec
 
@@ -176,6 +176,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
+- 4.0.5
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

@@ -1,4 +1,3 @@
-
 %global framework akonadi-server
 
 # trim changelog included in binary rpms
@@ -23,7 +22,7 @@
 Name:    kf5-%{framework}
 Summary: PIM Storage Service
 Version: 22.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -34,7 +33,7 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/akonadi-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/release-service/%{version}/src/akonadi-%{version}.tar.xz
 
 ## mysql config
 Source10:       akonadiserverrc.mysql
@@ -305,6 +304,9 @@ fi
 
 
 %changelog
+* Fri Jan 06 2023 Jan Grulich <jgrulich@redhat.com> - 22.12.1-2
+- Rebuild (qt5)
+
 * Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

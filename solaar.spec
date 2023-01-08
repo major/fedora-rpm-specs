@@ -1,6 +1,6 @@
 Name:           solaar
-Version:        1.1.7
-Release:        2%{?dist}
+Version:        1.1.8
+Release:        1%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -9,8 +9,6 @@ Patch0:         solaar-paths.patch
 # Fedora-specific patch; remove udev-acl tag from upsteam udev rules as it only
 # applies to some old version of ubuntu.
 Patch1:         patch-udev-rules
-# upstream patch to remove unnecessary dependency
-Patch2:         https://github.com/pwr-Solaar/Solaar/pull/1826.patch
 
 BuildArch:      noarch
 License:        GPLv2
@@ -26,6 +24,7 @@ Requires:       solaar-udev
 Recommends:     (gnome-shell-extension-appindicator if gnome-shell)
 Recommends:     gtk3
 Recommends:     python3-gobject-base
+Recommends:     python3-hid-parser
 
 %description
 Solaar is a device manager for Logitech's Unifying Receiver peripherals. It is
@@ -123,6 +122,10 @@ fi
 
 
 %changelog
+* Fri Jan 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.8-1
+- update to 1.1.8 (#2152380)
+- add weak dependency on hid-parser, required to recognize some devices
+
 * Sun Nov 06 2022 Dominik Mierzejewski <dominik@greysector.net> - 1.1.7-2
 - drop unnecessary dependency
 

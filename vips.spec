@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -207,6 +207,9 @@ make check
 
 
 %changelog
+* Fri Jan 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 8.13.3-3
+- Rebuild for ImageMagick 7
+
 * Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 8.13.3-2
 - Rebuild for cfitsio 4.2
 

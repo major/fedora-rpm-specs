@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.55.0
+Version:        1.56.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -12,14 +12,6 @@ Source0:        %{url}/archive/v%{version}/serverless-application-model-%{versio
 # The base package is arched because we conditionalize tests; the binary
 # packages are all noarch, and there is no compiled code.
 %global debug_package %{nil}
-
-#   flexible jsonschema version
-#   https://github.com/aws/serverless-application-model/pull/2511
-# Fixes:
-#   Feature request: Support jsonschema 4.x
-#   https://github.com/aws/serverless-application-model/issues/2426
-# Rebased on 1.54.0.
-Patch:          pr-2511-v1.54.0.patch
 
 BuildRequires:  python3-devel
 
@@ -43,7 +35,7 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
 
 %prep
-%autosetup -n serverless-application-model-%{version} -p1
+%autosetup -n serverless-application-model-%{version}
 
 # Unbundle bundled “third-party” dependencies
 rm -rvf THIRD_PARTY_LICENSES samtranslator/third_party

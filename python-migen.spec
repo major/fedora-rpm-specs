@@ -1,13 +1,13 @@
-%global commit0 639e66f4f453438e83d86dc13491b9403bbd8ec6
+%global commit0 12eb563e89ffc4a5e046239171207c9476f8f665
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20221006
+%global snapdate 20230104
 
 %global srcname migen
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        16.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        17.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 License:        BSD
@@ -65,6 +65,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Wed Jan 04 2023 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-17.20230104git12eb563
+- update to newer snapshot
+
 * Thu Oct 06 2022 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-16.20221006git639e66f
 - update to newer snapshot
 

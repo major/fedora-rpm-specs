@@ -1,13 +1,11 @@
 Name:           perl-Curses
-Version:        1.41
-Release:        2%{?dist}
+Version:        1.43
+Release:        1%{?dist}
 Summary:        Perl bindings for ncurses
 
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Curses
 Source0:        https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/Curses-%{version}.tar.gz
-Patch0: perl-Curses-implicit-int.patch
-Patch1: perl-Curses-test-syms-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  coreutils
@@ -80,6 +78,9 @@ make test
 
 
 %changelog
+* Fri Jan 6 2023 Steve Traylen <steve.traylen@cern.ch> - 1.43-1
+- 1.43 bump
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.41-2
 - Port feature probing to C99 (#2148210)
 

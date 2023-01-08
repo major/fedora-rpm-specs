@@ -4,8 +4,8 @@
 
 Summary: Core X11 protocol client library
 Name: libX11
-Version: 1.8.1
-Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version: 1.8.3
+Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -94,7 +94,7 @@ make %{?_smp_mflags} check
 %{_libdir}/libX11-xcb.so.1.0.0
 
 %files common
-%doc AUTHORS COPYING README.md NEWS
+%doc AUTHORS COPYING README.md
 %{_datadir}/X11/locale/
 %{_datadir}/X11/XErrorDB
 %dir /var/cache/libX11
@@ -122,6 +122,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Fri Jan 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.3-1
+- libX11 1.8.3
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -129,6 +129,11 @@ Virtual Machines. LXC support is currently in development.
 # Fedora doesn't ship kvm-spice but qemu-kvm
 find . -type f -name "*.xml" -exec sed -i 's|kvm-spice|qemu-kvm|g' {} ';'
 
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+# For https://fedoraproject.org/wiki/Changes/ImageMagick7
+sed -e 's/Image::Magick::Q16/Image::Magick::Q16HDRI/g' -i lib/Ravada.pm
+%endif
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %make_build

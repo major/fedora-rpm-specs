@@ -1,15 +1,14 @@
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
-Version: 0.18.0
-Release: 5%{?dist}
-Source0: https://github.com/latchset/mod_auth_mellon/archive/refs/tags/v0.18.0.tar.gz
+Version: 0.18.1
+Release: 1%{?dist}
+Source0: https://github.com/latchset/mod_auth_mellon/archive/refs/tags/v0.18.1.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
 Source3: mod_auth_mellon.conf
 Source4: mellon_create_metadata.sh
 Source5: README.redhat.rst
 Patch0: 0000-configure.patch
-Patch1: 0001-logout-endpoint-post.patch
 License: GPLv2+
 BuildRequires: make
 BuildRequires: gcc
@@ -108,6 +107,9 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Fri Jan 6 2023 Tomas Halman <thalman@redhat.com> - 0.18.1-1
+- Resolves: rhbz#2158456 - new version is available
+
 * Wed Oct 5 2022 Tomas Halman <thalman@redhat.com> - 0.18.0-5
 - Resolves: rhbz#1306445 Support HTTP-POST binding for SingleLogoutService
 

@@ -2,10 +2,10 @@
 %bcond_without perl_Test2_Tools_Process_enables_extended_test
 
 Name:           perl-Test2-Tools-Process
-Version:        0.06
-Release:        4%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Unit tests for code that calls exit, exec, system or qx()
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Tools-Process
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Test2-Tools-Process-%{version}.tar.gz
 BuildArch:      noarch
@@ -126,13 +126,21 @@ make test
 %files
 %license LICENSE
 %doc Changes Changes.Test-Exec README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Test
+%{perl_vendorlib}/Test/Exec.pm
+%dir %{perl_vendorlib}/Test2
+%dir %{perl_vendorlib}/Test2/Tools
+%{perl_vendorlib}/Test2/Tools/Process.pm
+%{_mandir}/man3/Test::Exec.*
+%{_mandir}/man3/Test2::Tools::Process.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 0.07-1
+- 0.07 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

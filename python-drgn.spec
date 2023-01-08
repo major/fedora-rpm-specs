@@ -14,11 +14,11 @@ drgn exposes the types and variables in a program for easy, expressive
 scripting in Python.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.21
+Version:        0.0.22
 Release:        %autorelease
 Summary:        Programmable debugger
 
-License:        GPLv3+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/osandov/drgn
 Source0:        %{pypi_source}
 
@@ -91,7 +91,7 @@ rm -rf html/.{doctrees,buildinfo}
 %install
 %py3_install
 mkdir -p %{buildroot}%{_datadir}/drgn
-cp -PR examples tools %{buildroot}%{_datadir}/drgn
+cp -PR contrib tools %{buildroot}%{_datadir}/drgn
 
 %if %{with tests}
 %check
@@ -100,6 +100,7 @@ cp -PR examples tools %{buildroot}%{_datadir}/drgn
 
 %files -n %{pypi_name}
 %license COPYING
+%license LICENSES
 %doc README.rst
 %{_bindir}/drgn
 %{_datadir}/drgn
@@ -111,6 +112,7 @@ cp -PR examples tools %{buildroot}%{_datadir}/drgn
 %if %{with docs}
 %files -n %{pypi_name}-doc
 %license COPYING
+%license LICENSES
 %doc html
 %endif
 

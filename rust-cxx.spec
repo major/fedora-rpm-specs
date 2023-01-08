@@ -6,7 +6,7 @@
 %global crate cxx
 
 Name:           rust-cxx
-Version:        1.0.83
+Version:        1.0.85
 Release:        %autorelease
 Summary:        Safe interop between Rust and C++
 
@@ -111,6 +111,8 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+# Remove executable bit from CI tools
+find book/ tools/ -type f -executable -exec chmod a-x '{}' +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

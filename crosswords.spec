@@ -61,17 +61,19 @@ BuildArch:      noarch
 %description    puzzle-sets-cats-and-dogs
 This package contains a puzzle set about cats and dogs for GNOME Crosswords.
 
-%package        puzzle-sets-uri
-Summary:        Load a puzzle for GNOME Crosswords from disk
+%package        puzzle-sets-internal
+Summary:        Load additional puzzles for GNOME Crosswords
 Requires:       %{name} = %{version}-%{release}
+Provides:       crosswords-puzzle-sets-uri = %{version}-%{release}
+Obsoletes:      crosswords-puzzle-sets-uri < 0.3.6-3
 BuildArch:      noarch
 
 # Used to load .puz files from disk
 Recommends:     ipuz-convertor = %{version}-%{release}
 
-%description    puzzle-sets-uri
-This package contains a puzzle set for GNOME Crosswords that allows it to load
-puzzles from disk.
+%description    puzzle-sets-internal
+This package contains puzzle sets used internally by GNOME Crosswords to load
+additional puzzles from disk.
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -115,6 +117,12 @@ mkdir images
 cp -p data/images/{a-dogs-day,hero}.png images/
 sed -i 's:data/images/:images/:g' README.md
 
+# Per the commit message on 60cd07582aab9b6099a7e3434288958c0662b83a this
+# isn't _really_ required, so relax it on f36 to unbreak the build
+%if 0%{?fc36}
+sed -i "s:gtk4_req_version = '4.8':gtk4_req_version = '4.5':" meson.build
+%endif
+
 %build
 %meson -Ddevelopment=false
 %meson_build
@@ -157,9 +165,10 @@ desktop-file-validate \
 %license COPYING
 %{_datadir}/%{name}/puzzle-sets/cats-and-dogs
 
-%files puzzle-sets-uri
+%files puzzle-sets-internal
 %license COPYING
-%{_datadir}/%{name}/puzzle-sets/uri
+%{_datadir}/%{name}/puzzle-sets/*
+%exclude %{_datadir}/%{name}/puzzle-sets/cats-and-dogs
 
 %files -n crossword-editor
 %{_bindir}/crossword-editor

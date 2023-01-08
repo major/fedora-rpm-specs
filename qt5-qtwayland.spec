@@ -74,11 +74,6 @@ Patch57:  0057-client-Avoid-protocol-error-with-invalid-min-max-siz.patch
 
 Patch80:  0080-Client-set-constraint-adjustments-for-popups-in-xdg.patch
 
-# Menu location is offset depending on xdg_output.logical_layout in sway
-# https://bugreports.qt.io/browse/QTBUG-85297
-# https://invent.kde.org/qt/qt/qtwayland/-/merge_requests/47
-Patch100: 0100-Keep-toplevel-windows-in-the-top-left-corner-of-the-screen.patch
-
 Patch102: qtwayland-decoration-support-backports-from-qt6.patch
 
 # Upstreamable patches

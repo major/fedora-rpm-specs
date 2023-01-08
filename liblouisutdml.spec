@@ -1,11 +1,11 @@
 Name:           liblouisutdml
 Version:        2.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Braille transcription library for UTDML documents
 License:        LGPLv3+
 URL:            http://liblouis.org
 Source0:        https://github.com/liblouis/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-
+Patch0:         liblouisutdml-missing-decls.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
@@ -65,7 +65,7 @@ provided by %{name}-utils.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -112,6 +112,10 @@ rm -rf %{buildroot}/%{_defaultdocdir}/liblouisutdml
 
 
 %changelog
+* Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 2.11.0-3
+- Add missing declarations of do_pagenum and utd2dsBible to liblouisutdml.h
+  https://github.com/liblouis/liblouisutdml/issues/85
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 # fedora/remirepo spec file for qelectrotech
 #
-# Copyright (c) 2009-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2009-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global upver  0.8.0
+%global upver  0.9
 %undefine _package_note_file
 
 Name:        qelectrotech
@@ -32,12 +32,12 @@ Epoch: 0
 # Upstream version is a float so 0.11 < 0.2 < 0.21 < 0.3
 # So use %.2f with upstream acknowledgment
 # Remember to check upver macro on each update
-Version:     0.80
-Release:     4%{?dist}
+Version:     0.90
+Release:     1%{?dist}
 
 
 # Prog is GPLv2 - Symbols/Elements are Creative Commons Attribution
-License:    GPLv2+
+License:    GPL-2.0-or-later
 
 Url:        http://qelectrotech.org/
 Source0:    https://git.tuxfamily.org/qet/qet.git/snapshot/qet-%{upver}.tar.gz
@@ -140,7 +140,7 @@ Summary(nl): Elementen collectie voor QElectroTech
 Summary(pl): Kolekcja elementów QElectroTech
 Summary(pt): Colecção de elementos para QElectroTech
 Summary(ru): Коллекция элементов для QElectroTech
-License:     CC-BY
+License:     CC-BY-3.0
 BuildArch:   noarch
 Requires:    qelectrotech = %{epoch}:%{version}-%{release}
 
@@ -232,9 +232,7 @@ cat qet.lang >>qelectrotech.lang
 %{_bindir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/mime/application/x-qet-*.xml
 %{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/mimelnk/application/x-qet-*.desktop
 %{_datadir}/icons/hicolor/*/*/*.png
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/lang
@@ -248,6 +246,10 @@ cat qet.lang >>qelectrotech.lang
 
 
 %changelog
+* Fri Jan  6 2023 Remi Collet <remi@remirepo.net> - 0.90-1
+- update to 0.90
+- use SPDX license id
+
 * Wed Aug  3 2022 Remi Collet <remi@remirepo.net> - 0.80-4
 - undefine _package_note_file to fix FTBFS #2113668
 

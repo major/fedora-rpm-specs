@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 238
+%global baserelease 239
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -221,6 +221,10 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Wed Jan  4 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 239-1
+- Enable frame pointers by default
+- Set arch specific flags for frame pointers support
+
 * Tue Jan  3 2023 Miro Hrončok <mhroncok@redhat.com> - 238-1
 - Set %%source_date_epoch_from_changelog to 1
 - https://fedoraproject.org/wiki/Changes/ReproducibleBuildsClampMtimes

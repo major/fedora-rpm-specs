@@ -13,8 +13,8 @@
 %endif
 
 Name:           ipython
-Version:        8.7.0
-Release:        2%{?dist}
+Version:        8.8.0
+Release:        1%{?dist}
 Summary:        An enhanced interactive Python shell
 
 # See bug #603178 for a quick overview for the choice of licenses
@@ -23,7 +23,6 @@ Summary:        An enhanced interactive Python shell
 License:        (BSD and MIT and Python) and GPLv2+
 URL:            http://ipython.org/
 Source0:        %pypi_source
-Patch0:         fix_entry_points.patch
 Patch1:         relax-pytest-version-requirement.patch
 
 BuildArch:      noarch
@@ -165,9 +164,6 @@ This package contains the documentation of %{name}.
 %prep
 %autosetup -p1
 
-# use setuptools to have RPM generated requires
-sed -i 's/from distutils.core import setup/from setuptools import setup/' setup.py
-
 # delete bundling libs
 pushd IPython/external
 ls -l
@@ -227,6 +223,7 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 %{python3_sitelib}/IPython/external
 %{python3_sitelib}/IPython/__pycache__/
 %{python3_sitelib}/IPython/*.py*
+%{python3_sitelib}/IPython/py.typed
 %dir %{python3_sitelib}/IPython/testing
 %{python3_sitelib}/IPython/testing/__pycache__/
 %{python3_sitelib}/IPython/testing/*.py*
@@ -259,6 +256,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Thu Jan 05 2023 Lumír Balhar <lbalhar@redhat.com> - 8.8.0-1
+- Update to 8.8.0 (rhbz#2158352)
+
 * Wed Dec  7 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.7.0-2
 - Rename tests subpackage to fix auto provides
 

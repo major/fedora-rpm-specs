@@ -3,7 +3,7 @@
 Name:      hunspell
 Summary:   A spell checker and morphological analyzer library
 Version:   1.7.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Source:    https://github.com/hunspell/hunspell/releases/download/v%{version}/hunspell-%{version}.tar.gz
 URL:       https://github.com/hunspell/hunspell
 License:   LGPLv2+ or GPLv2+ or MPLv1.1
@@ -19,6 +19,8 @@ BuildRequires: words
 BuildRequires: make
 Requires:  hunspell-en-US
 Requires:  hunspell-filesystem = %{version}-%{release}
+
+Patch0: 0001-Resolves-rhbz-2158548-allow-longer-words-for-hunspel.patch
 
 %description
 Hunspell is a spell checker and morphological analyzer library and program
@@ -42,6 +44,7 @@ packages.
 
 %prep
 %setup -q
+%patch0 -p1 -b .rhbz2158548
 
 %build
 autoreconf -vfi
@@ -126,6 +129,9 @@ mkdir $RPM_BUILD_ROOT/%{_datadir}/myspell
 %{_datadir}/myspell
 
 %changelog
+* Fri Jan 06 2023 Caolán McNamara <caolanm@redhat.com> - 1.7.2-2
+- Resolves: rhbz#2158548 get hunspell-ko working again
+
 * Fri Dec 30 2022 Caolán McNamara <caolanm@redhat.com> - 1.7.2-1
 - Resolves: rhbz#2157049 latest release
 

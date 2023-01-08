@@ -1,19 +1,9 @@
-%global enginesdir %(pkg-config --variable=enginesdir libcrypto)
-%global modulesdir %(openssl version -m | grep -o '".*"' | tr -d '"')
-# Above can be replaced by the following once OpenSSL commit
-# https://github.com/openssl/openssl/commit/7fde39de848f062d6db45bf9e69439db2100b9bb
-# has been included into the distribution:
-# %%global modulesdir %%(pkg-config --variable=modulesdir libcrypto)
+%global modulesdir %%(pkg-config --variable=modulesdir libcrypto)
 
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-%global with_openssl3 1
-%endif
-
-
-Summary: A dynamic OpenSSL engine for IBMCA
+Summary: A dynamic OpenSSL provider for IBMCA
 Name: openssl-ibmca
 Version: 2.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: ASL 2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -22,13 +12,13 @@ BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libica-devel >= 4.0.0
 BuildRequires: automake libtool
-BuildRequires: openssl
+BuildRequires: openssl >= 3.0.5
 BuildRequires: perl(FindBin)
 ExclusiveArch: s390 s390x
 
 
 %description
-A dynamic OpenSSL engine for IBMCA crypto hardware on IBM z Systems machines.
+A dynamic OpenSSL provider for IBMCA crypto hardware on IBM Z machines.
 
 
 %prep
@@ -38,23 +28,13 @@ A dynamic OpenSSL engine for IBMCA crypto hardware on IBM z Systems machines.
 
 
 %build
-%configure --libdir=%{enginesdir} --with-libica-cex --with-libica-version=4
+%configure --disable-engine --enable-provider --libdir=%{modulesdir} --with-libica-cex --with-libica-version=4
 %make_build
 
 
 %install
 %make_install
-rm -f %{buildroot}%{enginesdir}/*.la
-
-%if 0%{?with_openssl3}
-# provider is built when openssl3 is available, fix its location
-mkdir -p %{buildroot}%{modulesdir}
-mv %{buildroot}%{enginesdir}/ibmca-provider.so %{buildroot}%{modulesdir}/ibmca-provider.so
-%endif
-
-pushd src/engine
-sed -i -e 's|/usr/local/lib|%{enginesdir}|' openssl.cnf.sample
-popd
+rm -f %{buildroot}%{modulesdir}/*.la
 
 # remove generated sample configs
 rm -rf %{buildroot}%{_datadir}/%{name}
@@ -66,18 +46,16 @@ make check
 
 %files
 %license LICENSE
-%doc ChangeLog README.md src/engine/openssl.cnf.sample
-%doc src/engine/ibmca-engine-opensslconfig
+%doc ChangeLog README.md
 %doc src/provider/ibmca-provider-opensslconfig
-%{enginesdir}/ibmca.so
-%{_mandir}/man5/ibmca.5*
-%if 0%{?with_openssl3}
 %{modulesdir}/ibmca-provider.so
 %{_mandir}/man5/ibmca-provider.5*
-%endif
 
 
 %changelog
+* Fri Jan 06 2023 Dan Horák <dan@danny.cz> - 2.3.1-3
+- switch to building only the provider
+
 * Fri Sep 30 2022 Dan Horák <dan@danny.cz> - 2.3.1-1
 - updated to 2.3.1
 

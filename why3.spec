@@ -11,7 +11,7 @@
 
 Name:           why3
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -58,6 +58,7 @@ BuildRequires:  tex(framed.sty)
 BuildRequires:  tex(latex)
 BuildRequires:  tex(needspace.sty)
 BuildRequires:  tex(tabulary.sty)
+BuildRequires:  tex(tgtermes.sty)
 BuildRequires:  tex(upquote.sty)
 BuildRequires:  tex(wrapfig.sty)
 BuildRequires:  tex-urlbst
@@ -309,6 +310,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-4
+- BR tex(tgtermes.sty) to fix FTBFS with TeXLive 2022
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-3
 - Rebuild for coq 8.16.1
 

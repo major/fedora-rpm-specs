@@ -4,10 +4,10 @@
 %bcond_without  qt5
 
 Name:           openshadinglanguage
-Version:        1.12.7.1
+Version:        1.12.8.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/AcademySoftwareFoundation/OpenShadingLanguage
 Source:        %{url}/archive/v%{version}/OpenShadingLanguage-%{version}%{?prerelease}.tar.gz
 

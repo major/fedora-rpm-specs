@@ -6,9 +6,9 @@
 %global crate clang-ast
 
 Name:           rust-clang-ast
-Version:        0.1.11
+Version:        0.1.13
 Release:        %autorelease
-Summary:        Data structures for processing Clang's -ast-dump=json format
+Summary:        Data structures for processing Clang's `-ast-dump=json` format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/clang-ast

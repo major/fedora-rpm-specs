@@ -1,6 +1,6 @@
 Name:           libeatmydata
 Version:        130
-Release:        5%{?dist}
+Release:        6%{?dist}
 Group:          Development/Tools
 License:        GPLv3
 Summary:        Library and utilities designed to disable fsync and friends
@@ -10,6 +10,8 @@ Source1:        https://www.flamingspork.com/projects/libeatmydata/%{name}-%{ver
 Source2:        https://flamingspork.com/stewart.gpg
 # Man page to be included upstream soon...
 Source3:        https://salsa.debian.org/debian/libeatmydata/-/raw/048c4ea3/debian/eatmydata.1
+Patch0:         libeatmydata-sync-file-range.patch
+
 URL:            https://www.flamingspork.com/projects/libeatmydata/
 %if !(0%{?rhel} && 0%{?rhel} < 8)
 Recommends: eatmydata
@@ -36,7 +38,7 @@ the libeatmydata LD_PRELOAD
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
 %configure --enable-static=no
@@ -66,6 +68,9 @@ find %{buildroot} -name "*.la" -type f -delete
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 05 2023 Peter Fordham <peter.fordham@gmail.com> - 130-6
+- Include sync_file_range header for C99 compatibility.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 130-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

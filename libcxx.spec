@@ -18,6 +18,9 @@ Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libcxx
 Source4:	release-keys.asc
 Source5:	CMakeLists.txt
 
+# TODO: Remove in LLVM 16.
+Patch0: 0001-libcxx-Support-LIBCXX_STATICALLY_LINK_ABI_IN_STATIC_.patch
+
 BuildRequires:	clang llvm-devel cmake ninja-build
 # We need python3-devel for %%py3_shebang_fix
 BuildRequires:  python3-devel
@@ -81,6 +84,7 @@ Summary:	Static libraries for libcxxabi
 cp %{SOURCE5} .
 mv ../%{libcxx_srcdir} libcxx
 mv ../%{libcxxabi_srcdir} libcxxabi
+%autopatch -p1
 
 %py3_shebang_fix libcxx/utils/
 
@@ -102,18 +106,6 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %install
 
 %cmake_install
-
-# Manually link libc++.a against libc++abi.a, because the libcxx build system is currently
-# broken when system-libcxxabi is used.
-ar cqT tmp.a %{buildroot}%{_libdir}/libc++.a %{buildroot}%{_libdir}/libc++abi.a
-# Convert thin archive into normal archive.
-ar -M <<EOM
-CREATE tmp.a
-ADDLIB tmp.a
-SAVE
-END
-EOM
-mv tmp.a %{buildroot}%{_libdir}/libc++.a
 
 %ldconfig_scriptlets
 

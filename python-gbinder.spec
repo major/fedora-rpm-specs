@@ -2,15 +2,12 @@
 
 Name:           python-gbinder
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for libgbinder
 
 License:        GPL-3.0-only
 URL:            https://github.com/erfanoabdi/%{proj_name}
 Source:         %{url}/archive/%{version}/%{proj_name}-%{version}.tar.gz
-
-# bugzilla 2153760
-ExcludeArch: s390x
 
 %global libgbinder_version 1.1.20
 BuildRequires:  python3-devel
@@ -47,5 +44,8 @@ sed -i "/^USE_CYTHON =/s/False/True/" setup.py
 %files -n python3-gbinder -f %{pyproject_files}
 
 %changelog
+* Fri Jan 06 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-2
+- Re-enable s390x builds
+
 * Sun Oct 30 2022 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-1
 - Initial changelog

@@ -6,7 +6,7 @@ Version:        1.3.4
 
 %forgemeta
 Name:           waydroid
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -24,8 +24,6 @@ Patch0:         setup-firewalld.patch
 Patch1:         mount-secontext.patch
 
 BuildArch:      noarch
-# bugzilla 2157300
-ExcludeArch:    s390x
 
 BuildRequires:  make
 BuildRequires:  selinux-policy-devel
@@ -138,6 +136,10 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Fri Jan 06 2023 Alessandro Astone <ales.astone@gmail.com> - 1.3.4-4
+- Re-enable s390x build
+- Sepolicy fixes
+
 * Tue Dec 27 2022 Alessandro Astone <ales.astone@gmail.com> - 1.3.4-3
 - Fix description typos etc.
 - Validate desktop and metainfo files

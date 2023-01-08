@@ -1,5 +1,5 @@
 Name:           perl-generators
-Version:        1.15
+Version:        1.16
 Release:        1%{?dist}
 Summary:        RPM Perl dependencies generators
 License:        GPL-1.0-or-later
@@ -113,6 +113,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-1
+- 1.16 bump
+
 * Tue Dec 06 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.15-1
 - 1.15 bump
 - Package tests

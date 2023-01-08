@@ -2,17 +2,13 @@
 %global srcname frozendict
 
 Name:           python-%{srcname}
-Version:        1.2
-Release:        23%{?dist}
+Version:        2.3.4
+Release:        1%{?dist}
 Summary:        An immutable dictionary
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/frozendict
 Source0:        %{pypi_source}
-
-Patch0: https://github.com/slezica/python-frozendict/pull/30/commits/6ad44b54139e9b298a9281d85abf4f940f5d852a.patch
-Patch1: https://github.com/slezica/python-frozendict/pull/30/commits/24e65b1f197a8c0dcca82a6ada53a8a29445c21c.patch
-
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -27,6 +23,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-wheel
 
 %description -n python3-%{srcname} %{_description}
 
@@ -34,18 +31,23 @@ BuildRequires:  python3-setuptools
 %autosetup -n %{srcname}-%{version} -p1
 
 %build
-%py3_build
+# Build the python only version (no python 3.11 support)
+%global py_setup_args py
+%py3_build_wheel
 
 %install
 %py3_install
 
 %files -n python3-%{srcname}
 %license LICENSE.txt
-%doc README.rst
+%doc README.md
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 06 2023 Orion Poplawski <orion@nwra.com> - 2.3.4-1
+- Update to 2.3.4
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

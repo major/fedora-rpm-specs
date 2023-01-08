@@ -1,4 +1,4 @@
-%global         doc_commit  a00d582a
+%global         doc_commit  18faaa75
 %global         username    greetd
 %global         selinuxtype targeted
 %global         forgeurl    https://git.sr.ht/~kennylevinsen/greetd
@@ -6,21 +6,19 @@
 %bcond_without  selinux
 
 Name:           greetd
-Version:        0.8.0
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A generic greeter daemon
 
-# Upstream license specification: GPL-3.0
-# ASL 2.0
-# ASL 2.0 or Boost
-# ASL 2.0 or MIT
-# GPLv3
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# GPL-3.0
 # MIT
-# MIT or ASL 2.0
+# MIT OR Apache-2.0
 # Unlicense
-# Unlicense or MIT
-# See LICENSE.dependencies for a full list of buildroot crates and licenses
-License:        GPLv3 and ASL 2.0 and MIT and Unlicense
+# Unlicense OR MIT
+License:        GPL-3.0-only AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND MIT AND Unlicense AND (Unlicense OR MIT)
 URL:            https://kl.wtf/projects/greetd
 Source0:        %{forgeurl}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Better offline documentation file
@@ -33,23 +31,20 @@ Source101:      %{name}.pam
 Source102:      %{name}-greeter.pam
 # User definition
 Source103:      %{name}.sysusers
-# Full list of buildroot crates and dependencies
-Source104:      LICENSE.dependencies
+# /var/lib/greetd contents and ownership
+Source104:      %{name}.tmpfiles
 
 # Update dependencies and unbundle greetd_ipc crate.
-Patch0:         greetd-fix-metadata.diff
-# Fix unexpected sourcing of bashrc from /etc/profile
-Patch1:         greetd-rhbz1891682.patch
+Patch:          greetd-fix-metadata.diff
 
 Provides:       service(graphical-login) = greetd
 
-ExclusiveArch:  %{rust_arches}
-
 BuildRequires:  make
-BuildRequires:  rust-packaging
+BuildRequires:  rust-packaging >= 23
 BuildRequires:  scdoc >= 1.10
 BuildRequires:  sed
 BuildRequires:  systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 %if %{with selinux}
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
@@ -73,7 +68,7 @@ without greetd daemon.
 %if %{with selinux}
 # SELinux subpackage
 %package        selinux
-Summary:        %{name} SELinux policy
+Summary:        SELinux policy for %{name}
 BuildArch:      noarch
 Requires:       selinux-policy-%{selinuxtype}
 Requires(post): selinux-policy-%{selinuxtype}
@@ -87,7 +82,6 @@ Custom SELinux policy module for %{name}
 %prep
 %autosetup -p1
 %cargo_prep
-cp %{SOURCE104} .
 # patch greetd daemon user
 sed -i 's/"greeter"/"%{username}"/' config.toml
 # replace README with a better documentation file
@@ -107,6 +101,7 @@ done
 
 %build
 %cargo_build
+%{?cargo_license} >LICENSE.dependencies
 %make_build -C man
 
 %if %{with selinux}
@@ -132,6 +127,7 @@ install -D -m644 -vp config.toml        %{buildroot}%{_sysconfdir}/%{name}/confi
 install -D -m644 -vp %{SOURCE101}       %{buildroot}%{_sysconfdir}/pam.d/%{name}
 install -D -m644 -vp %{SOURCE102}       %{buildroot}%{_sysconfdir}/pam.d/%{name}-greeter
 install -D -m644 -vp %{SOURCE103}       %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -m644 -vp %{SOURCE104}       %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d -m750 -vp                    %{buildroot}%{_sharedstatedir}/%{name}
 
 
@@ -151,7 +147,7 @@ XDG_CONFIG_DIR=%{_sharedstatedir}/%{name}/.config
 if [ ! -d $XDG_CONFIG_DIR/systemd ]; then
     mkdir -p $XDG_CONFIG_DIR/systemd/user
     ln -sf /dev/null $XDG_CONFIG_DIR/systemd/user/xdg-desktop-portal.service
-    chown -R %{username}:%{username} $XDG_CONFIG_DIR 
+    chown -R %{username}:%{username} $XDG_CONFIG_DIR
 fi
 exit 0
 
@@ -195,6 +191,7 @@ fi
 %{_mandir}/man5/greetd.5*
 %{_mandir}/man7/greetd-ipc.7*
 %{_sysusersdir}/%{name}.conf
+%{_tmpfilesdir}/%{name}.conf
 %{_unitdir}/%{name}.service
 
 %files fakegreet
@@ -209,6 +206,12 @@ fi
 %endif
 
 %changelog
+* Thu Jan 05 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.0-1
+- Update to 0.9.0 (#2158656)
+- Fix /var/lib/greetd ownership on ostree systems
+- Convert to SPDX license format
+- Drop patch for 1891682 - fixed in all supported releases.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

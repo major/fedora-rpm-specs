@@ -1,5 +1,5 @@
 Name:           python-sphinx-sitemap
-Version:        2.3.0
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        Sitemap generator for Sphinx
 
@@ -43,10 +43,14 @@ rst2html --no-datestamp README.rst README.html
 %pytest
 
 %files -n python3-sphinx-sitemap -f %{pyproject_files}
-%doc CHANGELOG.md README.html
+%doc README.html
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.4.0-1
+- Version 2.4.0
+- Verify that MIT is the correct SPDX identifier
+
 * Wed Dec 21 2022 Jerry James <loganjerry@gmail.com> - 2.3.0-1
 - Version 2.3.0
 - Test with pytest

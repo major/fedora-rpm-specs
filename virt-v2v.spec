@@ -15,8 +15,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.1.11
-Release:       2%{?dist}
+Version:       2.1.12
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPLv2+
@@ -296,6 +296,7 @@ make -C test-data/phony-guests fedora.img
 %{_mandir}/man1/virt-v2v-output-rhv.1*
 %{_mandir}/man1/virt-v2v-release-notes-1.42.1*
 %{_mandir}/man1/virt-v2v-release-notes-2.0.1*
+%{_mandir}/man1/virt-v2v-release-notes-2.2.1*
 %{_mandir}/man1/virt-v2v-support.1*
 %{_datadir}/virt-tools
 
@@ -316,6 +317,10 @@ make -C test-data/phony-guests fedora.img
 
 
 %changelog
+* Fri Jan 06 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.12-1
+- New upstream development version 2.1.12
+- Add release notes for future virt-v2v 2.2
+
 * Sat Dec 10 2022 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.11-2
 - New upstream development version 2.1.11
 

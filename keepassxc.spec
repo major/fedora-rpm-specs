@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-platform password manager
 License:        Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain
 URL:            http://www.keepassxc.org/
@@ -197,6 +197,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 06 2023 Jan Grulich <jgrulich@redhat.com> - 2.7.4-5
+- Rebuild (qt5)
+
 * Tue Nov 22 2022 Germano Massullo <germano.massullo@gmail.com> - 2.7.4-4
 - Updates gcc-toolset version from 11 to 12
 - Removes s390x from EPEL 8

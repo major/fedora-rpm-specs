@@ -1,11 +1,12 @@
 Name:				libraqm
 Version:			0.8.0
-Release:			2%{?dist}
+Release:			3%{?dist}
 License:			MIT
 Summary:			Complex Textlayout Library
 Summary(ar):		مكتبة رقم للنّصوص المركّبة
 URL:				https://github.com/HOST-Oman/libraqm
 Source:				%{url}/releases/download/v%{version}/raqm-%{version}.tar.xz
+Patch0:                         libraqm-3f50e35.patch
 
 BuildRequires:		meson
 BuildRequires:		gcc
@@ -85,6 +86,10 @@ rm -f %{buildroot}%{_libdir}/*.{la,a}
 %{_datadir}/gtk-doc/html/raqm
 
 %changelog
+* Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 0.8.0-3
+- Patch in fix from upstream for C99 compatibilty issue with strdup in test.
+  https://github.com/HOST-Oman/libraqm/commit/3f50e35d239059823162cbfba3c7adfe8e5f1907
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

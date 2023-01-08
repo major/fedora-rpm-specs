@@ -1,6 +1,6 @@
 Name:           libsigc++
 Version:        1.2.7
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Typesafe signal framework for C++
 License:        LGPLv2+
 URL:            http://libsigc.sourceforge.net/
@@ -13,7 +13,7 @@ BuildRequires:  libxslt docbook-style-xsl
 BuildRequires: make
 
 Patch1:         libsigc++-1.2.5-stylesheet.patch
-
+Patch2:         libsigc++-1.2.5-configure.patch
 %description
 This library implements a full callback system for use in widget libraries,
 abstract interfaces, and general programming. Originally part of the Gtk--
@@ -47,6 +47,7 @@ This package contains the full API documentation for %{name}.
 %prep
 %setup -q
 %patch1 -p1 -b .stylesheet
+%patch2 -p1 -b .configure
 
 
 
@@ -94,6 +95,9 @@ find _doc -type d -empty -print0 | xargs -0r rmdir
 
 
 %changelog
+* Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 1.2.7-36
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

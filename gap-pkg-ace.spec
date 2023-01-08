@@ -1,7 +1,7 @@
 %global pkgname ace
 
 Name:           gap-pkg-%{pkgname}
-Version:        5.6.1
+Version:        5.6.2
 Release:        1%{?dist}
 Summary:        Advanced Coset Enumerator
 
@@ -31,10 +31,10 @@ available to assist the user in avoiding incomplete coset enumerations.
 # The content is MIT.  The remaining licenses cover the various fonts embedded
 # in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        MIT AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
+License:        MIT AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        Advanced Coset Enumerator documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -45,9 +45,6 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
 %autosetup -p1 -n %{pkgname}-%{version}
-
-# Do not force C90 mode
-sed -i 's/-pedantic -ansi/-pedantic/' src/Makefile
 
 %build
 export LC_ALL=C.UTF-8
@@ -99,6 +96,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/res-examples/
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 5.6.2-1
+- Version 5.6.2
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 5.6.1-1
 - Clarify license of the doc subpackage
 

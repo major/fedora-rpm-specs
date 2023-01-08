@@ -1,19 +1,19 @@
 %global pypi_name managesieve
 
 Name:           python-%{pypi_name}
-Version:        0.6
-Release:        10%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        Accessing a Sieve-Server for managing Sieve scripts
 License:        Python and GPLv3
 URL:            https://managesieve.readthedocs.io/
 Source0:        %pypi_source
-# Source1 may be removed in future, read https://gitlab.com/htgoebel/managesieve/-/issues/4
-Source1:        LICENSE
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest-runner
+
+# Test Requirements
+#BuildRequires:  python3-pytest-runner
+BuildRequires:  python3-pytest
 
 %description
 This module allows accessing a Sieve-Server for managing Sieve scripts there.
@@ -28,26 +28,35 @@ It is accompanied by a simple yet functional user application ‘sieveshell’.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-cp %{SOURCE1} .
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files managesieve
+
 
 %check
-%{python3} setup.py test
+#%%{python3} setup.py test
+%pytest
 
-%files -n python3-%{pypi_name}
-%doc README.txt
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/sieveshell
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py*
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 6 2023 Steve Traylen <steve.traylen@cern.ch> - 0.7.1-1
+- Update to 0.7.1
+- LICENSE file now included in release
+- Migrate to pyproject macros
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

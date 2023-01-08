@@ -6,7 +6,7 @@
 
 Name:           flatpak
 Version:        1.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Application deployment framework for desktop apps
 
 License:        LGPLv2+
@@ -68,6 +68,7 @@ Requires:       glib2%{?_isa} >= %{glib_version}
 Requires:       libcurl%{?_isa} >= %{libcurl_version}
 Requires:       librsvg2%{?_isa}
 Requires:       ostree-libs%{?_isa} >= %{ostree_version}
+Requires:       /usr/bin/fusermount
 Requires:       /usr/bin/xdg-dbus-proxy
 # https://fedoraproject.org/wiki/SELinux/IndependentPolicy
 Requires:       (flatpak-selinux = %{?epoch:%{epoch}:}%{version}-%{release} if selinux-policy-targeted)
@@ -272,6 +273,9 @@ fi
 
 
 %changelog
+* Fri Jan 06 2023 David King <amigadave@amigadave.com> - 1.15.1-2
+- Require fusermount (#2158474)
+
 * Tue Dec 13 2022 David King <amigadave@amigadave.com> - 1.15.1-1
 - Update to 1.15.1
 

@@ -3,7 +3,7 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.21.0
+Version:       0.21.1
 Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
@@ -148,6 +148,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Jan 06 2023 Sandro Mani <manisandro@gmail.com> - 0.21.1-1
+- Update to 0.21.1
+
 * Fri Dec 30 2022 Sandro Mani <manisandro@gmail.com> - 0.21.0-1
 - Update to 0.21.0
 

@@ -1,8 +1,5 @@
-# Force out-of-source build (needed on el8)
-%undefine __cmake_in_source_build
-
 Name:		mold
-Version:	1.8.0
+Version:	1.9.0
 Release:	1%{?dist}
 Summary:	A Modern Linker
 
@@ -106,6 +103,10 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Fri Jan 06 2023 Christoph Erhardt <fedora@sicherha.de> - 1.9.0-1
+- Bump version to 1.9.0
+- Don't enforce out-of-source build since the `inttypes.h` collision is resolved
+
 * Mon Dec 26 2022 Christoph Erhardt <fedora@sicherha.de> - 1.8.0-1
 - Bump version to 1.8.0
 - Drop upstreamed patch

@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.11.1
+Version:        0.12.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -69,6 +69,11 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Fri Jan 06 2023 Packit <hello@packit.dev> - 0.12.0-1
+- All classes including `Specfile` itself can now be copied using the standard `copy()` and `deepcopy()` functions from `copy` module. (#176)
+- `Section.name` attribute has been renamed to a more fitting `Section.id`. (#167)
+- `setup.cfg` now uses `license_files` instead of deprecated `license_file`. (#162)
+
 * Wed Dec 14 2022 Packit <hello@packit.dev> - 0.11.1-1
 - Tags enclosed in conditional macro expansions are not ignored anymore. (#156)
 - Fixed context managers being shared between Specfile instances. (#157)

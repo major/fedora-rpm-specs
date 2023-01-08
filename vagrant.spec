@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.2.19
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -32,8 +32,8 @@ Patch1: vagrant-2.2.9-do-not-load-dependencies.patch
 # https://github.com/hashicorp/vagrant/pull/12699
 Patch2: vagrant-2.2.19-fix-3.1-compatibility.patch
 # ruby3.2 removes Object#=~
-# https://github.com/hashicorp/vagrant/pull/13034 (currently under review)
-Patch3: vagrant-pr13034-ruby32-object-regex-match-removal.patch
+# https://github.com/hashicorp/vagrant/pull/13043 , extracted minimum required change
+Patch3: vagrant-pr13043-ruby32-object-regex-match-removal.patch
 # ruby3.2 removes File.exists
 # https://github.com/hashicorp/vagrant/pull/12913
 Patch4: vagrant-pr12913-ruby32-File_exists-removal.patch
@@ -512,6 +512,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.19-7
+- Replace regex match patch with the one by the upstream
+
 * Mon Dec 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.19-6
 - Backport upstream fix for ruby3.2 File.exists? removal
 - Apply proposal fix for ruby3.2 Object#=~ removal

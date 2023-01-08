@@ -6,17 +6,7 @@
 %bcond_with abicheck
 
 # bcond_without for production builds: use Hadrian buildsystem
-%if %{defined fedora}
 %bcond_without hadrian
-%else
-# https://bugzilla.redhat.com/show_bug.cgi?id=2141054
-# https://gitlab.haskell.org/ghc/ghc/-/issues/22427
-%ifarch s390x
-%bcond_with hadrian
-%else
-%bcond_without hadrian
-%endif
-%endif
 
 # bcond_without for production builds: build hadrian
 %bcond_without build_hadrian
@@ -85,7 +75,10 @@
 %bcond_with testsuite
 
 # 9.4 needs llvm 10-13
-%global llvm_major 13
+# rhel9 toolchain too old for llvm13:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2141054
+# https://gitlab.haskell.org/ghc/ghc/-/issues/22427
+%global llvm_major 12
 %if %{with hadrian}
 %global ghc_llvm_archs armv7hl s390x
 %global ghc_unregisterized_arches s390 %{mips} riscv64
@@ -100,7 +93,7 @@ Version: 9.4.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -965,6 +958,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Fri Jan  6 2023 Jens Petersen <petersen@redhat.com> - 9.4.4-16
+- epel9 s390x: re-enable hadrian using llvm12 (#2141054)
+
 * Mon Dec 26 2022 Jens Petersen <petersen@redhat.com> - 9.4.4-15
 - https://www.haskell.org/ghc/blog/20221224-ghc-9.4.4-released.html
 - https://downloads.haskell.org/~ghc/9.4.4/docs/users_guide/9.4.4-notes.html

@@ -4,8 +4,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.0.3
-Release:	3%{?dist}
+Version:	4.0.5
+Release:	1%{?dist}
 Summary:	Ruby binding of cairo-gobject
 
 License:	LGPLv2+
@@ -45,7 +45,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.0\.3|>= 4.0.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.0\.5|>= 4.0.5|' %{gem_name}-%{version}.gemspec
 # ???
 sed -i -e \
 	'\@gobject-introspection-test-utils@d' \
@@ -111,6 +111,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
+- 4.0.5
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-3
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

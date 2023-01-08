@@ -3,7 +3,7 @@
 
 Name: tre
 Version: 0.8.0
-Release: 37.20140228git%{shortcommit}%{?dist}
+Release: 38.20140228git%{shortcommit}%{?dist}
 License: BSD
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
 # based on https://github.com/laurikari/tre/pull/19
@@ -21,6 +21,8 @@ Patch4: %{name}-issue37.patch
 Patch5: %{name}-issue50.patch
 # based on https://github.com/laurikari/tre/pull/49
 Patch10: %{name}-python3.patch
+# Remove broken agrep test entry (fails with bash >= 5.2)
+Patch11: https://github.com/laurikari/tre/pull/87.patch
 Summary: POSIX compatible regexp library with approximate matching
 URL: http://laurikari.net/tre/
 # rebuild autotools for bug #926655
@@ -30,6 +32,7 @@ BuildRequires: gettext-devel
 BuildRequires: glibc-langpack-en
 BuildRequires: libtool
 BuildRequires: python3-devel
+BuildRequires: python3-setuptools
 Requires: %{name}-common = %{version}-%{release}
 
 %description
@@ -85,6 +88,7 @@ regexps of any length, any number of errors, and non-uniform costs.
 %patch4 -p1 -b .issue37
 %patch5 -p1 -b .issue50
 %patch10 -p1
+%patch11 -p1
 # rebuild autotools for bug #926655
 touch ChangeLog
 autoreconf -vif
@@ -131,6 +135,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Wed Jan 04 2023 Dominik Mierzejewski <dominik@greysector.net> 0.8.0-38.20140228gitc2f5d13
+- remove broken agrep test entry (fails with bash >= 5.2) (https://github.com/laurikari/tre/pull/87)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-37.20140228gitc2f5d13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

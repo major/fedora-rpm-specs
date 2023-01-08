@@ -1,16 +1,18 @@
 # This file is lincesed under the terms of GNU GPLv2+.
 Name:           perl-Perl-Critic-Tics
-Version:        0.009
-Release:        24%{?dist}
+Version:        0.010
+Release:        1%{?dist}
 Summary:        Policies for things that make me wince
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Tics
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Perl-Critic-Tics-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -19,36 +21,73 @@ BuildRequires:  perl(Perl::Critic::Policy)
 BuildRequires:  perl(Perl::Critic::Utils)
 BuildRequires:  perl(Perl::Critic::Violation)
 # Tests:
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Test::More) >= 0.96
+# Optional tests
+# CPAN::Meta not helpful
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic::Violation)
+
+# Filter underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
 
 %description
 The Perl-Critic-Tics distribution includes extra policies for Perl::Critic
 to address a fairly random assortment of things that make me (rjbs) wince.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.96
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Perl-Critic-Tics-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
-%doc Changes LICENSE README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc Changes README
+%dir %{perl_vendorlib}/Perl
+%dir %{perl_vendorlib}/Perl/Critic
+%dir %{perl_vendorlib}/Perl/Critic/Policy
+%{perl_vendorlib}/Perl/Critic/Policy/Tics
+%{perl_vendorlib}/Perl/Critic/Tics.pm
+%{_mandir}/man3/Perl::Critic::Policy::Tics::*
+%{_mandir}/man3/Perl::Critic::Tics.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 0.010-1
+- 0.010 bump
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

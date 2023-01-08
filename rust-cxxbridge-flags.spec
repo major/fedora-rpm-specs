@@ -5,9 +5,9 @@
 %global crate cxxbridge-flags
 
 Name:           rust-cxxbridge-flags
-Version:        1.0.83
+Version:        1.0.85
 Release:        %autorelease
-Summary:        Compiler configuration of the cxx crate
+Summary:        Compiler configuration of the `cxx` crate (implementation detail)
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxxbridge-flags

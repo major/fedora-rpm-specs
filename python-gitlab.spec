@@ -2,7 +2,7 @@
 %global pypi_name gitlab
 
 Name:           python-%{pypi_name}
-Version:        3.9.0
+Version:        3.12.0
 Release:        1%{?dist}
 Summary:        Interact with GitLab API
 
@@ -35,8 +35,11 @@ Documentation for gitlab
 %autosetup -p1 -n python-%{pypi_name}-%{version}
 
 # Relax some dependencies
-sed -i 's/requests==.*/requests/' requirements.txt
-sed -i 's/pytest==.*/pytest/'     requirements-lint.txt requirements-test.txt
+sed -i 's/requests==.*/requests/'   requirements.txt
+sed -i 's/pytest==.*/pytest/'       requirements-lint.txt requirements-test.txt
+sed -i 's/PyYaml==.*/PyYaml/'       requirements-lint.txt requirements-test.txt
+sed -i 's/responses==.*/responses/' requirements-lint.txt requirements-test.txt
+sed -i 's/coverage==.*/coverage/'   requirements-test.txt
 
 # not available in rawhide 11 Aug 2022
 sed -i 's/pytest-console-scripts.*//' requirements-test.txt
@@ -61,6 +64,9 @@ sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 %doc README.rst
 
 %changelog
+* Fri Jan 6 2023 Steve Traylen <steve.traylen@cern.ch> - 3.12.0-1
+- New 3.12.0 version
+
 * Sun Aug 28 2022 Steve Traylen <steve.traylen@cern.ch> - 3.9.0-1
 - New 3.9.0 version
 

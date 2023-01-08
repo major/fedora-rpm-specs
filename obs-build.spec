@@ -5,13 +5,13 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_37/src/
 # update the obsrel to match the upstream release number
-%global obsrel 405.2
+%global obsrel 407.1
 
 # Actual release
 %global baserelease 1
 
 Name:           obs-build
-Version:        20221118
+Version:        20230105
 Release:        %{obsrel}.%{baserelease}%{?dist}
 Summary:        A generic package build script
 
@@ -142,6 +142,9 @@ sed -e "s|#!/usr/bin/python|#!%{__python3}|" \
 
 
 %changelog
+* Fri Jan  6 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 20230105-407.1.1
+- New upstream release 20230105, fixes rhbz#2158110
+
 * Thu Nov 24 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20221118-405.2.1
 - New upstream release 20221118, fixes rhbz#2144039
 - Switch to SPDX license identifiers

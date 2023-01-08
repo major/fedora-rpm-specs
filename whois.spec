@@ -5,15 +5,20 @@
 # Add libidn support
 %{bcond_with    whois_enables_idn}
 
+%global forgeurl https://github.com/rfc1036/whois
+
 Name:       whois       
 Version:    5.5.15
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
 URL:        https://www.linux.it/~md/software/
-VCS:        https://github.com/rfc1036/whois
-# Source0:    http://ftp.debian.org/debian/pool/main/w/%%{name}/%%{name}_%%{version}.tar.xz
-Source0:    %{VCS}/archive/v%{version}/%{name}-%{version}.tar.gz
+VCS:        git:%{forgeurl}
+Source0:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.tar.xz
+Source1:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.dsc
+# This keyring needs to be processed at prep time, dscverify is not able to use it as it is
+Source2:    https://www.linux.it/~md/md-pgp.asc
+%dnl Source0:    %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -34,6 +39,11 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
+%if 0%{?fedora}
+# Extra source verification. devscripts are not in rhel
+BuildRequires:  devscripts
+BuildRequires:  gnupg2
+%endif
 Requires(post): %{_sbindir}/update-alternatives
 Requires(postun): %{_sbindir}/update-alternatives
 Requires:   whois-nls = %{version}-%{release}
@@ -78,7 +88,13 @@ BuildArch:  noarch
 whois tools messages translated into different natural languages.
 
 %prep
-%autosetup -p1
+%if 0%{?fedora}
+  TMPKEY=$(mktemp --tmpdir %{name}-XXXXXXX.gpg)
+  gpg --no-default-keyring --keyring "${TMPKEY}" --import %{SOURCE2}
+  dscverify --keyring "${TMPKEY}" %{SOURCE1}
+  rm -f "${TMPKEY}"
+%endif
+%autosetup -p1 -n %{name}
 
 %build
 %{make_build} CONFIG_FILE="%{_sysconfdir}/%{cfgfile}" \
@@ -134,6 +150,10 @@ fi
 %endif
 
 %changelog
+* Fri Jan 06 2023 Petr Menšík <pemensik@redhat.com> - 5.5.15-2
+- Switch back to debian archives with signature checking
+- Correct VCS tag format
+
 * Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 5.5.15-1
 - Update to 5.5.15 (#2156870)
 

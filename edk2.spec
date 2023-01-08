@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -580,6 +580,7 @@ done
 %common_files
 %dir %{_datadir}/%{name}/experimental
 %{_datadir}/%{name}/experimental/*.fd
+%{_datadir}/%{name}/experimental/*.raw
 %endif
 
 %files arm
@@ -613,6 +614,9 @@ done
 
 
 %changelog
+* Fri Jan 06 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-10
+- add experimental builds with strict nx checking.
+
 * Mon Jan 02 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-9
 - revert 'make files sparse again' (resolves: rhbz#2155673).
 - pick up compiler + linker flags from rpm

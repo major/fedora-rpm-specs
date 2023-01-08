@@ -2,7 +2,7 @@
 %global sum A fast and thorough lazy object proxy
 
 Name:           python-%{srcname}
-Version:        1.8.0
+Version:        1.9.0
 Release:        1%{?dist}
 Summary:        %{sum}
 
@@ -47,6 +47,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Fri Jan 06 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-1
+- 1.9.0
+
 * Wed Oct 26 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-1
 - 1.8.0
 

@@ -1,8 +1,8 @@
 Name:           perl-Number-Tolerant
-Version:        1.709
-Release:        3%{?dist}
+Version:        1.710
+Release:        1%{?dist}
 Summary:        Tolerance ranges for inexact numbers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Tolerant
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Number-Tolerant-%{version}.tar.gz
 BuildArch:      noarch
@@ -102,18 +102,25 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/Number/
-%{_mandir}/man3/Number::*
+%dir %{perl_vendorlib}/Number
+%{perl_vendorlib}/Number/Tolerant
+%{perl_vendorlib}/Number/Tolerant.pm
+%{_mandir}/man3/Number::Tolerant.*
+%{_mandir}/man3/Number::Tolerant::*
 
 %files -n perl-Test-Tolerant
 %doc Changes LICENSE README
-%{perl_vendorlib}/Test/
-%{_mandir}/man3/Test::*
+%dir %{perl_vendorlib}/Test/
+%{perl_vendorlib}/Test/Tolerant.pm
+%{_mandir}/man3/Test::Tolerant.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 1.710-1
+- 1.710 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.709-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           imhex
-Version:        1.26.0
+Version:        1.26.2
 Release:        1%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
@@ -127,6 +127,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Thu Jan 05 2023 Jonathan Wright <jonathan@almalinux.org> - 1.26.2-1
+- update to 1.26.2 rhbz#2158673
+
 * Wed Jan 04 2023 Jonathan Wright <jonathan@almalinux.org> - 1.26.0-1
 - update to 1.26.0 rhbz#2158207
 

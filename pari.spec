@@ -1,5 +1,5 @@
 Name:           pari
-Version:        2.15.1
+Version:        2.15.2
 Release:        1%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
@@ -138,11 +138,7 @@ sed -i 's| -Wl,-dT,[^[:blank:]]*\.ld||g' %{buildroot}%{_libdir}/pari/pari.cfg
 make test-all
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc AUTHORS CHANGES* COMPAT NEW README
 %doc pari.abignore
 %{_libdir}/libpari-gmp-tls.so.%{version}
@@ -174,6 +170,9 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.15.2-1
+- Version 2.15.2
+
 * Sat Nov  5 2022 Jerry James <loganjerry@gmail.com> - 2.15.1-1
 - Version 2.15.1
 - Drop upstreamed ploth-doc patch

@@ -1,13 +1,16 @@
 # perl-Crypt-HSXKPasswd
 Name:           hsxkpasswd
 Version:        3.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Secure memorable password generator
 
 # Main program is BSD, dictionaries are GPL except EN and ES which are BSD
 License:        BSD and GPLv2+
 URL:            https://www.bartbusschots.ie/s/publications/software/xkpasswd/
 Source0:        http://www.cpan.org/authors/id/B/BA/BARTB/Crypt-HSXKPasswd-v%{version}.tar.gz
+# Restore compatibility with Type-Tiny-2.000001, proposed to an upstream,
+# bug #2133001, CPAN RT#144672
+Patch0:         Crypt-HSXKPasswd-v3.6-multisig.patch
 
 BuildArch:      noarch
 
@@ -65,7 +68,7 @@ https://www.xkpasswd.net.
 
 
 %prep
-%autosetup -n Crypt-HSXKPasswd-v%{version}
+%autosetup -p1 -n Crypt-HSXKPasswd-v%{version}
 
 
 %build
@@ -95,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT%{perl_vendorlib}/auto
 
 
 %changelog
+* Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 3.6-14
+- Restore compatibility with Type-Tiny-2.000001 (bug #2133001)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

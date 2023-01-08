@@ -1,13 +1,10 @@
 Name: libgbinder
-Version: 1.1.30
+Version: 1.1.31
 Release: 1%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
 Source0: %{url}/archive/refs/tags/%{version}.tar.gz
-
-# bugzilla 2149716
-ExcludeArch: s390x
 
 %global libglibutil_version 1.0.52
 
@@ -85,6 +82,10 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Fri Jan 06 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.31-1
+- Update to 1.1.31
+- Re-enable s390x builds
+
 * Mon Dec 05 2022 Alessandro Astone <ales.astone@gmail.com> - 1.1.30-1
 - Update to 1.1.30
 

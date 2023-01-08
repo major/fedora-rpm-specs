@@ -2,7 +2,7 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.04c
+Version:       4.05c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
 %forgemeta
 
@@ -257,6 +257,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Fri Jan 06 2023 Richard W.M. Jones <rjones@redhat.com> - 4.05c-1
+- New upstream release 4.05c (RHBZ#2158888)
+
 * Tue Oct 11 2022 Richard W.M. Jones <rjones@redhat.com> - 4.04c-1
 - New upstream version 4.04c (RHBZ#2133825)
 

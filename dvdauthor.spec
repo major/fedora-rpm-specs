@@ -1,21 +1,23 @@
 Name:           dvdauthor
 Version:        0.7.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Command line DVD authoring tool
 
 License:        GPLv2+
 URL:            http://dvdauthor.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/dvdauthor/%{name}-%{version}.tar.gz
+# From openSUSE
+Patch0:         dvdauthor-0.7.2-imagemagick7.patch
 
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  libdvdread-devel >= 0.9.4-4
 BuildRequires:  libpng-devel
 BuildRequires:  libxml2-devel >= 2.6.0
 BuildRequires:  fontconfig-devel
 BuildRequires:  fribidi-devel
 BuildRequires:  freetype-devel
-BuildRequires:  ImageMagick-devel
-BuildRequires: make
+BuildRequires:  ImageMagick-devel >= 1:7.0
 
 
 %description
@@ -27,7 +29,7 @@ GUI-based front ends if you prefer.
 
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 
 %build
@@ -60,6 +62,9 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
 
 
 %changelog
+* Fri Jan 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.7.2-19
+- Rebuild for ImageMagick 7
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

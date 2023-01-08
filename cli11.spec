@@ -2,7 +2,7 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.3.1
+Version:        2.3.2
 Release:        1%{?dist}
 Summary:        Command line parser for C++11
 
@@ -81,6 +81,9 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %doc docs/CLI11.svg docs/CLI11_100.png
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.3.2-1
+- Version 2.3.2
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 2.3.1-1
 - Version 2.3.1
 

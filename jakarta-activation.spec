@@ -1,9 +1,10 @@
 Name:           jakarta-activation
-Version:        1.2.2
-Release:        7%{?dist}
-Summary:        Jakarta Activation Specification and Implementation
+Version:        2.1.1
+Release:        1%{?dist}
+Summary:        Jakarta Activation API
+# spec is licensed under (EPL-2.0 and GPLv2 with exceptions) but is not shipped
 License:        BSD
-URL:            https://eclipse-ee4j.github.io/jaf/
+URL:            https://jakartaee.github.io/jaf-api/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -29,39 +30,38 @@ Summary:        Javadoc for %{name}
 This package contains javadoc for %{name}.
 
 %prep
-%setup -q -n jaf-%{version}
+%setup -q -n jaf-api-%{version}
 
+pushd api
 %pom_remove_parent
-%pom_disable_module demo
-
-%pom_remove_plugin :directory-maven-plugin
-sed -i 's/${main.basedir}/${basedir}/' pom.xml
 
 # remove custom doclet configuration
-%pom_remove_plugin :maven-javadoc-plugin activation
+%pom_remove_plugin :maven-javadoc-plugin
 
-# set bundle version manually instead of with osgiversion-maven-plugin
-# (the plugin is only used to strip off -SNAPSHOT or -Mx qualifiers)
-%pom_remove_plugin :osgiversion-maven-plugin
-sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
+%pom_remove_plugin :buildnumber-maven-plugin
+popd
 
 %build
-# javadoc temporairly disabled due to https://github.com/fedora-java/xmvn/issues/58
-%mvn_build -j
+pushd api
+%mvn_build
+popd
 
 %install
+pushd api
 %mvn_install
+popd
 
-%files -f .mfiles
+%files -f api/.mfiles
 %doc README.md
 %license LICENSE.md NOTICE.md
 
-# javadoc temporairly disabled due to https://github.com/fedora-java/xmvn/issues/58
-#%files javadoc -f .mfiles-javadoc
-%files javadoc
+%files javadoc -f api/.mfiles-javadoc
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Dec 22 2022 Marian Koncek <mkoncek@redhat.com> - 2.1.1-1
+- Update to upstream version 2.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -92,4 +92,3 @@ sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
 * Wed May 20 2020 Fabio Valentini <decathorpe@gmail.com> - 1.2.1-5
 - Package unretired and renamed from jaf.
-

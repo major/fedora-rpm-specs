@@ -9,15 +9,12 @@
 
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
-Version:	4.0.3
+Version:	4.0.5
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# pdf needed for test file
-# From 3.3.0, this is no longer needed
-#Source1:	https://www.irs.gov/pub/irs-pdf/fw9.pdf
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -76,7 +73,7 @@ grep -rl '#!.*/usr/bin' sample | \
 find sample/ -name \*.rb | xargs chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.0\.3|>= 4.0.3|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.0\.5|>= 4.0.5|' %{gem_name}-%{version}.gemspec
 
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
@@ -144,6 +141,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.5-1
+- 4.0.5
+
 * Fri Sep 16 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.3-1
 - 4.0.3
 

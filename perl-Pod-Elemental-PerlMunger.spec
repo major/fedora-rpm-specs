@@ -1,15 +1,17 @@
 Name:           perl-Pod-Elemental-PerlMunger
-Version:        0.200006
-Release:        18%{?dist}
+Version:        0.200007
+Release:        1%{?dist}
 Summary:        Take a string of Perl and rewrite its documentation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Elemental-PerlMunger
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Pod-Elemental-PerlMunger-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -26,34 +28,69 @@ BuildRequires:  perl(Pod::Elemental) >= 0.103000
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests:
 # Test::Differences not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
+
+# Filter underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Pod::Elemental|Test::More)\\)$
 
 %description
 This Moose role is to be included in classes that rewrite the documentation of
 a Perl document, stripping out all the POD, munging it, and replacing it into
 the Perl.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Pod::Elemental) >= 0.103000
+Requires:       perl(Pod::Elemental::PerlMunger)
+Requires:       perl(Test::More) >= 0.96
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Pod-Elemental-PerlMunger-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+unset AUTHOR_TESTING
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset AUTHOR_TESTING
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Pod
+%dir %{perl_vendorlib}/Pod/Elemental
+%{perl_vendorlib}/Pod/Elemental/PerlMunger.pm
+%{_mandir}/man3/Pod::Elemental::PerlMunger.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 0.200007-1
+- 0.200007 bump
+- Package the tests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.200006-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
