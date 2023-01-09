@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-postgresql
-Version:        14.3
+Version:        15.1
 Release:        1%{?dist}
 Summary:        MinGW Windows PostgreSQL library
 
@@ -211,6 +211,12 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Sat Jan 07 2023 Sandro Mani <manisandro@gmail.com> - 15.1-1
+- Update to 15.1
+
+* Tue Dec 06 2022 Sandro Mani <manisandro@gmail.com> - 15.0-1
+- Update to 15.0
+
 * Fri Nov 18 2022 Sandro Mani <manisandro@gmail.com> - 14.3-1
 - Update to 14.3
 

@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           gi-docgen
-Version:        2022.2
+Version:        2023.1
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -69,18 +69,6 @@ Source0:        %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
 # must remove in %%prep) and ensures the CSS correctly references corresponding
 # local system fonts.
 Patch:          gi-docgen-2022.2-no-web-fonts.patch
-
-# python3-toml is deprecated
-# https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
-# Backport upstream changes to migrate to tomllib and fallback to tomli and toml
-# We technically only need the following two:
-#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/168
-#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/174 (fixup of 168)
-# But the following two were deemed necessary upstream as well:
-#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/172
-#   https://gitlab.gnome.org/GNOME/gi-docgen/-/merge_requests/173
-# Patches trivially joined to one file with cat.
-Patch:          gi-docgen-2022.2-tomllib.patch
 
 BuildArch:      noarch
 
@@ -192,6 +180,7 @@ sphinx-build -b latex %{?_smp_mflags} docs %{_vpath_builddir}/_latex
 %pyproject_save_files gidocgen
 
 install -t '%{buildroot}%{_pkgdocdir}' -D -m 0644 -p \
+    CHANGES.md \
     CONTRIBUTING.md \
     docs/CODEOWNERS \
     README.md

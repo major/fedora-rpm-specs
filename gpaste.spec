@@ -1,11 +1,11 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        43.0
+Version:        43.1
 Release:        1%{?dist}
 Summary:        Clipboard management system
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/Keruspe/%{alt_name}/
 Source0:        https://www.imagination-land.org/files/%{name}/%{alt_name}-%{version}.tar.xz
 
@@ -199,6 +199,10 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sat Jan 07 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 43.1-1
+- Update to 43.1
+- Switch to SPDX in license tag
+
 * Wed Sep 28 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 43.0-1
 - Update to 43.0
 - Split shell completion files into separate subpackages

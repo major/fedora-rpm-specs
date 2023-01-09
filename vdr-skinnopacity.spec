@@ -8,7 +8,7 @@
 
 Name:           vdr-skinnopacity
 Version:        1.1.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A highly customizable native true color skin for the Video Disc Recorder
 
 License:        GPLv2+
@@ -22,7 +22,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  freetype-devel
-BuildRequires:  ImageMagick-c++-devel
+BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 Requires:       %{name}-data = %{version}-%{release}
@@ -44,7 +44,7 @@ This package contains icons files.
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 %build
-%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=imagemagick
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=graphicsmagick
 
 %install
 # make install would install the themes under /etc, let's not use that
@@ -73,6 +73,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/skinnopacity/icons/
 
 %changelog
+* Sat Jan 07 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.14-2
+- Rebuilt against graphicsmagick due new ImageMagick 7
+
 * Sun Dec 18 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.14-1
 - Update to 1.1.14
 

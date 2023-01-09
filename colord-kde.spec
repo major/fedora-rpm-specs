@@ -1,18 +1,14 @@
 
 Name:           colord-kde
-Version:        0.5.0
-Release:        17%{?dist}
+Version:        22.12.1
+Release:        1%{?dist}
 Summary:        Colord support for KDE
 
 License:        GPLv2+
-URL:            https://cgit.kde.org/%{name}.git
-Source0:        http://download.kde.org/stable/colord-kde/%{version}/src/%{name}-%{version}.tar.xz
+URL:            https://invent.kde.org/graphics/%{name}
 
-## upstream patches (lookaside cache)
-Patch1: 0001-Remove-unused-dependencies.patch
-Patch3: 0003-Add-categorized-logging.patch
-Patch4: 0004-Avoid-crash-on-exit-on-wayland.patch
-Patch5: 0005-Fix-colord-helper-DBus-annotations.patch
+%global stable %stable_kf5
+Source0:        https://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
@@ -63,13 +59,15 @@ KDE support for colord including KDE Daemon module and System Settings module.
 %doc MAINTAINERS TODO
 %{_kf5_bindir}/colord-kde-icc-importer
 %{_kf5_qtplugindir}/kcm_colord.so
-%{_kf5_qtplugindir}/kded_colord.so
+%{_kf5_plugindir}/kded/colord.so
 %{_kf5_datadir}/applications/colordkdeiccimporter.desktop
 %{_kf5_datadir}/kservices5/kcm_colord.desktop
-%{_kf5_datadir}/kservices5/kded/colord.desktop
 
 
 %changelog
+* Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
+- 22.12.1
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

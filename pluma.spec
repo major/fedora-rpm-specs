@@ -16,7 +16,7 @@ Summary:  Text editor for the MATE desktop
 Name:     pluma
 Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  4%{?dist}
+Release:  5%{?dist}
 %else
 Release:  0.14%{?git_rel}%{?dist}
 %endif
@@ -44,6 +44,7 @@ BuildRequires: make
 BuildRequires: mate-common
 BuildRequires: pygobject3-devel
 BuildRequires: python3-devel
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 
 Requires: %{name}-data = %{version}-%{release}
 # needed to get a gsettings schema, #959607
@@ -152,6 +153,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Jan 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-5
+- update spec file to build with python-3.12 in f39
+
 * Sun Jul 31 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-4
 - add a few upstream commits from 1.26 branch
 

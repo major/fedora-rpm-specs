@@ -1,14 +1,12 @@
-%{?python_enable_dependency_generator}
-
 %global srcname Python-fontconfig
 
 Name:           python-fontconfig
 Version:        0.5.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python bindings for Fontconfig library
 
-License:        GPLv3
-URL:            https://pypi.org/project/Python-fontconfig/
+License:        GPL-3.0-or-later
+URL:            https://pypi.org/project/%{srcname}/
 Source0:        %{pypi_source}
 
 BuildRequires:  gcc
@@ -34,28 +32,35 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires -r
+
+
 %build
-%{__python3} setup.py build_ext -i
-%py3_build
+%{python3} %{py_setup} build_ext -i
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files fontconfig
 
 
 %check
-export PYTHONPATH=$PWD/build/lib.%{python3_platform}-%{python3_version}/
-yes | %{__python3} test/test.py
+export PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}
+yes | %{python3} test/test.py
 
 
-%files -n python3-fontconfig
+%files -n python3-fontconfig -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitearch}/*.so
-%{python3_sitearch}/*.egg-info
 
 
 %changelog
+* Sat Jan 07 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.5.1-11
+- Switch to latest Python packaging guidelines
+- Switch to SPDX in license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

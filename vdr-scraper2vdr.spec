@@ -14,7 +14,7 @@
 Name:           vdr-scraper2vdr
 Version:        1.0.12
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL+
 URL:            https://github.com/horchi/scraper2vdr
@@ -27,7 +27,7 @@ Patch0:         scraper2vdr_serienposter_statt_banner.diff
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  libuuid-devel
-BuildRequires:  ImageMagick-c++-devel
+BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  openssl-devel
 BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  libcurl-devel
@@ -55,7 +55,7 @@ sed -i -e 's|#include <errmsg.h>|#include <mysql/errmsg.h>|' lib/db.c
 sed -i -e 's|#include <mysql.h>|#include <mysql/mysql.h>|' lib/db.h
 
 %build
-%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC"
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=graphicsmagick
 
 %install
 %make_install
@@ -73,6 +73,9 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Sat Jan 07 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.0.12-7
+- Rebuilt against graphicsmagick due new ImageMagick 7
+
 * Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.12-6
 - Rebuilt for new VDR API version
 

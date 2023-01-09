@@ -9,7 +9,7 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 22.12.0
+Version: 22.12.1
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 1:22.12.1-1
+- 22.12.1
+
 * Fri Dec 09 2022 Than Ngo <than@redhat.com> - 22.12.0-1
 - 22.12.0
 

@@ -2,7 +2,7 @@
 Name:           kdevelop
 Summary:        Integrated Development Environment for C++/C
 Epoch:          9
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 License:        GPLv2
 URL:            http://www.kdevelop.org/
@@ -222,6 +222,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kdevelop.desk
 %{rpm_macros_dir}/macros.kdevelop
 
 %changelog
+* Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 9:22.12.1-1
+- 22.12.1
+
 * Fri Dec 09 2022 Than Ngo <than@redhat.com> - 22.12.0-1
 - 22.12.0
 

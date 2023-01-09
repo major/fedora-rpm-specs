@@ -2,7 +2,7 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.2.7
+Version:        3.2.8
 Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Sat Jan 07 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.8-1
+- Update to 3.2.8
+
 * Thu Dec 01 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.2.7-1
 - Update to 3.2.7
 

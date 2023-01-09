@@ -5,17 +5,15 @@
 
 Name:           python-%{srcname}
 Summary:        CSS Cascading Style Sheets library for Python
-Version:        2.4.2
-Release:        2%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 
 License:        LGPLv3+
 URL:            https://github.com/jaraco/cssutils
 Source0:        %pypi_source
 
-# no network access in the buildsystem, so disable tests that try and use net
-Patch0:         cssutils-2.2.0-disable-external-tests.patch
 # Disable some test deps
-Patch1:         cssutils-2.4.2-test-deps.patch
+Patch1:         cssutils-2.6.0-test-deps.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -68,7 +66,7 @@ rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 
 %if %{with tests}
 %check
-%tox
+%pytest -k "not test_parseUrl and not encutils and not website.logging"
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -82,6 +80,9 @@ rm -f cssutils/tests/test_property.py cssutils/tests/test_selector.py
 %doc examples/
 
 %changelog
+* Sat Nov 12 2022 Kevin Fenzi <kevin@scrye.com> - 2.6.0-1
+- Update to 2.6.1. Fixes rhbz#2106407
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

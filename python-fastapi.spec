@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.88.0
+Version:        0.89.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -33,8 +33,7 @@ ExcludeArch:    %{ix86}
 Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
-# Rebased on 0.88.0
-Patch:          0001-Upgrade-databases-and-SQLAlchemy.patch
+Patch:          %{url}/pull/5799.patch
 
 BuildRequires:  python3-devel
 

@@ -1,5 +1,5 @@
 Name:           python-nbxmpp
-Version:        3.2.5
+Version:        4.0.0
 Release:        1%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
 License:        GPLv3
@@ -20,7 +20,7 @@ to use Jabber/XMPP networks in a non-blocking way.}
 Summary:        %{summary}
 Requires:       python3-gobject
 Requires:       glib2 >= 2.60
-Requires:       libsoup
+Requires:       libsoup3
 Recommends:     python3-gssapi
 Obsoletes:      python-nbxmpp-doc < 1.0.0
 
@@ -41,9 +41,12 @@ Obsoletes:      python-nbxmpp-doc < 1.0.0
 %pyproject_save_files nbxmpp
 
 %files -n python3-nbxmpp -f %{pyproject_files}
-%doc README.md ChangeLog nbxmpp/examples
+%doc README.md ChangeLog
 
 %changelog
+* Sat Jan 07 2023 Michael Kuhn <suraia@fedoraproject.org> - 4.0.0-1
+- Update to 4.0.0
+
 * Mon Oct 31 2022 Michael Kuhn <suraia@fedoraproject.org> - 3.2.5-1
 - Update to 3.2.5
 

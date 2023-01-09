@@ -28,13 +28,13 @@ Note: all modules are installed under the Cryptodome package to avoid conflicts
 with the PyCrypto library.}
 
 Name:           python-%{srcname}
-Version:        3.15.0
-Release:        2%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
 # BSD
-License:        BSD and Public Domain
+License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            http://www.pycryptodome.org/
 Source0:        https://github.com/Legrandin/pycryptodome/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Use external libtomcrypt library
@@ -105,7 +105,7 @@ install -Dpm 0644 Doc/_build/man/pycryptodome.1 $RPM_BUILD_ROOT%{_mandir}/man1/p
 
 
 %check
-PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} setup.py test
+PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -120,6 +120,10 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} setup.py test
 
 
 %changelog
+* Sat Jan 07 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.16.0-1
+- Update to 3.16.0
+- Switch to SPDX in license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

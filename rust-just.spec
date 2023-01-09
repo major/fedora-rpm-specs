@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.9.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Initial patched metadata
 # - Exclude unwanted files
 # - Drop cradle dependency, the crate cannot be packaged due to CC0 license
+# - Downgrade env_logger dependency to 0.9 (0.10 is blocked by fedora-rust/rust2rpm#186)
 Patch0:         just-fix-metadata.diff
 # Remove all uses of cradle
 Patch1:         just-1.5.0-no-cradle.patch
@@ -29,11 +30,21 @@ just is a handy way to save and run project-specific commands.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# CC0-1.0
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        CC0-1.0 AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND MIT AND Unicode-DFS-2016 AND (Unlicense OR MIT)
 
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
 %license LICENSE
+%license LICENSE.dependencies
 %doc CHANGELOG.md
 %doc CONTRIBUTING.md
 %doc GRAMMAR.md
@@ -99,6 +110,7 @@ use the "help4help2man" feature of the "%{crate}" crate.
 
 %build
 %cargo_build
+%{?cargo_license} >LICENSE.dependencies
 
 %install
 %cargo_install

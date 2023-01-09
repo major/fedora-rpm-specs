@@ -1,17 +1,17 @@
-%global with_snapshot 0
-%global commit 34da2d23bbf32abf44da11d2cdca595dc7318cec
+%global with_snapshot 1
+%global commit ec62d6cbef2fab4c49003c0206716d3d6248b59e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ispc
-Version:	1.18.0
+Version:	1.19.0
 %if %{with_snapshot}
-Release:	%autorelease -p -s %{shortcommit}
+Release:	%autorelease -p -s 20230102git%{shortcommit}
 %else
 Release:	%autorelease
 %endif
 Summary:	C-based SPMD programming language compiler
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://ispc.github.io/
 %if %{with_snapshot}
 Source0:	https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -38,6 +38,7 @@ BuildRequires:	pkgconfig(zlib)
 ExclusiveArch:	x86_64 aarch64
 
 # https://fedoraproject.org/wiki/Changes/Stop-Shipping-Individual-Component-Libraries-In-clang-lib-Package
+# 
 Patch0:	0001-Link-against-libclang-cpp.so.patch
 
 %description
@@ -96,7 +97,7 @@ rm %{buildroot}%{_libdir}/lib%{name}rt_static.a
 %{_bindir}/%{name}
 %{_bindir}/check_isa
 %{_libdir}/lib%{name}rt.so.1
-%{_libdir}/lib%{name}rt.so.1.18.0
+%{_libdir}/lib%{name}rt.so.%{version}
 
 %files devel
 %{_includedir}/%{name}rt/

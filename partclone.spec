@@ -3,21 +3,22 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.20
-Release:        2%{?dist}
-# Partclone itself is GPLv2+ but uses other source codes, breakdown:
-# GPLv3+: fail-mbr/fail-mbr.S
-# GPLv2 and GPLv2+: src/btrfs*
-# GPL+ and GPLv2 and GPLv2+ and LGPLv2 and LGPLv2+: src/xfs*
-# GPLv2 and GPLv2+: src/f2fs*
-# GPLv2+: src/{dd,extfs,fat,hfsplus,minix,nilfs,ntfsclone-ng,part}clone*
-# GPLv2+: src/{{fuseimg,info,main,ntfsfixboot,readblock}.c,progress*}
-# LGPLv2+: src/gettext.h
-# Unused source code (= not built): src/{exfat,jfs,reiser,ufs,vmfs}*
-License:        GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2 and LGPLv2+
+Version:        0.3.21
+Release:        1%{?dist}
+# Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
+# GPL-3.0-or-later: fail-mbr/fail-mbr.S
+# BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
+# GPL-2.0-or-later: src/exfat*
+# GPL-2.0-only: src/f2fs/
+# GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-only: src/xfs*
+# GPL-2.0-or-later: src/{apfs,dd,extfs,fat,f2fs,hfsplus,minix,nilfs,ntfsclone-ng,part}clone*
+# GPL-2.0-or-later: src/{{fuseimg,info,main,ntfsfixboot,readblock}.c,progress*}
+# LGPL-2.0-or-later: src/gettext.h
+# Unused source code (= not built): src/{jfs,reiser,ufs,vmfs}*
+License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/Thomas-Tsai/partclone/commit/63719febd8db264aeae2770a5dd9056763dde261.patch#/partclone-0.3.20-c99-for-loop.patch
+Patch0:         partclone-0.3.21-tests-size.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
@@ -27,6 +28,8 @@ BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel >= 1.1.0
 %else
 BuildRequires:  openssl11-devel
+# APFS support requires modern GCC
+BuildRequires:  devtoolset-8-toolchain
 %endif
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  ntfs-3g-devel
@@ -40,8 +43,9 @@ BuildRequires:  e2fsprogs
 BuildRequires:  ntfsprogs
 BuildRequires:  dosfstools
 BuildRequires:  xfsprogs
-%if 0%{?fedora} || 0%{?rhel} == 7
-# RHEL 8 (including EPEL 8) doesn't provide any btrfs-progs RPM at all
+BuildRequires:  exfatprogs
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} < 8)
+# RHEL 8+ (including EPEL 8+) doesn't provide any btrfs-progs RPM at all
 BuildRequires:  btrfs-progs
 %endif
 %if 0%{?fedora}
@@ -60,7 +64,7 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 
 %prep
 %setup -q
-%patch0 -p1 -b .c99-for-loop
+%patch0 -p1 -b .tests-size
 autoreconf -i -f
 
 # Some recent gcc or annobin changes seem to confuse the comparison (#1943056)
@@ -69,19 +73,22 @@ sed -e 's/exit 1/exit 0/' -i fail-mbr/compile-mbr.sh
 %build
 # src/progress.c:50: undefined reference to `__fpclassifyf',
 # reported: https://github.com/Thomas-Tsai/partclone/issues/153
-%if 0%{?rhel} == 7
+%if 0%{?rhel} && 0%{?rhel} < 8
+. /opt/rh/devtoolset-8/enable
 export CFLAGS="$RPM_OPT_FLAGS $(pkg-config --cflags-only-I openssl11)"
 export LDFLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)-lm"
 %endif
 
 %configure \
+  --enable-fuse \
   --enable-extfs \
   --enable-xfs \
   --disable-reiserfs \
   --disable-reiser4 \
   --enable-hfsp \
+  --enable-apfs \
   --enable-fat \
-  --disable-exfat \
+  --enable-exfat \
   --enable-f2fs \
 %if 0%{?fedora}
   --enable-nilfs2 \
@@ -110,31 +117,24 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/
 
 %if 0%{?testsuite}
 %check
-# Patch proposal submitted: https://github.com/Thomas-Tsai/partclone/issues/103
-sed -e 's/256/1440/' -i tests/_common
-
-# Tests for Btrfs, XFS and F2FS filesystems are broken on all architectures
-sed -e 's/^\(am__append_2 = btrfs.test\)/#\1/' \
-    -e 's/^\(am__append_6 = xfs.test\)/#\1/' \
-    -e 's/^\(am__append_8 = f2fs.test\)/#\1/' \
-    -e 's/^\(am__append_11 = btrfs.test\)/#\1/' \
-    -i tests/Makefile
-
 # NILFS2 tests must be run as root (mockbuild is unprivileged)
-sed -e 's/^\(am__append_13 = nilfs2.test\)/#\1/' \
+sed -e 's/^\(am__append_[[:digit:]]* = nilfs2.test\)/#\1/' \
     -i tests/Makefile
 
-# Tests for FAT and HFS+ filesystems are broken on ppc64 and s390x
-%ifarch ppc64 s390x
-sed -e 's/^\(am__append_3 = fat.test\)/#\1/' \
-    -e 's/^\(am__append_5 = hfsplus.test\)/#\1/' \
+# Tests for FAT and F2FS filesystems support only little-endian
+# See also: https://github.com/Thomas-Tsai/partclone/pull/205
+#           https://github.com/Thomas-Tsai/partclone/pull/210
+%ifarch s390x
+sed -e 's/^\(am__append_[[:digit:]]* = fat.test\)/#\1/' \
+    -e 's/^\(am__append_[[:digit:]]* = f2fs.test\)/#\1/' \
     -i tests/Makefile
 %endif
 
-# No f2fs-tools and hfsplus-tools in RHEL or EPEL
+# No btrfs-progs, f2fs-tools and hfsplus-tools in RHEL or EPEL
 %if 0%{?rhel}
-sed -e 's/^\(am__append_5 = hfsplus.test\)/#\1/' \
-    -e 's/^\(am__append_8 = f2fs.test\)/#\1/' \
+sed -e 's/^\(am__append_[[:digit:]]* = btrfs.test\)/#\1/' \
+    -e 's/^\(am__append_[[:digit:]]* = f2fs.test\)/#\1/' \
+    -e 's/^\(am__append_[[:digit:]]* = hfsplus.test\)/#\1/' \
     -i tests/Makefile
 %endif
 
@@ -151,6 +151,9 @@ make check || (cat tests/test-suite.log; exit 1)
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Sun Jan 08 2023 Robert Scheck <robert@fedoraproject.org> 0.3.21-1
+- Upgrade to 0.3.21 (#2159036)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

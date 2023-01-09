@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:		knights
-Version:	22.12.0
+Version:	22.12.1
 Release:	1%{?dist}
 Summary:	A chess board for KDE
 
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
+- 22.12.1
+
 * Fri Dec 09 2022 Gwyn Ciesla <gwync@protonmail.com> - 22.12.0-1
 - 22.12.0
 

@@ -3,7 +3,7 @@
 Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
-Version:        22.12.0
+Version:        22.12.1
 Release:        1%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
@@ -98,17 +98,22 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 %doc README.md
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/%{uuid}.desktop
-%{_kf5_datadir}/metainfo/%{uuid}.appdata.xml
+%{_kf5_metainfodir}/%{uuid}.appdata.xml
+%{_kf5_metainfodir}/%{uuid}.contact.appdata.xml
 %{_kf5_datadir}/icons/hicolor/scalable/apps/%{uuid}.svg
 %{_kf5_datadir}/qlogging-categories5/%{name}.categories
 %{_kf5_datadir}/qlogging-categories5/%{name}.contact.categories
 %{_kf5_datadir}/qlogging-categories5/akonadi.quick.categories
 %{_qt5_qmldir}/org/kde/akonadi
 %{_qt5_qmldir}/org/kde/kalendar
-
+%dir %{_kf5_datadir}/plasma/plasmoids/org.kde.kalendar.contact/
+%{_kf5_datadir}/plasma/plasmoids/org.kde.kalendar.contact/*
 
 
 %changelog
+* Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
+- 22.12.1
+
 * Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

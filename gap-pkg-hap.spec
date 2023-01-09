@@ -11,8 +11,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.47
-Release:        2%{?dist}
+Version:        1.48
+Release:        1%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
@@ -81,11 +81,11 @@ CW-complexes in the context of topological data analysis.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        HAP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -129,10 +129,6 @@ chmod a-x lib/Kelvin/{*.xml,kelvin.gd,*.gi,init.g,tutex/*.txt} \
           lib/Perturbations/Gcomplexes/*.gz \
           www/SideLinks/About/*.g
 
-# Fix a bad entity name
-sed -i.orig 's/gr;/gt;/' tutorial/tutex/14.20.txt
-fixtimestamp tutorial/tutex/14.20.txt
-
 %build
 # Build the documentation
 export LC_ALL=C.UTF-8
@@ -174,6 +170,9 @@ gap -l "%{buildroot}%{gap_dir};" -o 3G tst/testquick.g
 %{gap_dir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Sat Jan  7 2023 Jerry James <loganjerry@gmail.com> - 1.48-1
+- Version 1.48
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.47-2
 - Clarify license of the doc subpackage
 

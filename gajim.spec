@@ -1,12 +1,12 @@
 %global appid org.gajim.Gajim
 
 Name:     gajim
-Version:  1.5.4
+Version:  1.6.0
 Release:  1%{?dist}
 Summary:  Jabber client written in PyGTK
 License:  GPLv3
 URL:      https://gajim.org/
-Source0:  https://gajim.org/downloads/1.5/gajim-%{version}.tar.gz
+Source0:  https://gajim.org/downloads/1.6/gajim-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -22,7 +22,6 @@ Requires:    gtk3 >= 3.24.30
 Requires:    glib2 >= 2.60
 Requires:    gtksourceview4
 Requires:    pango >= 1.50
-Requires:    libsoup
 Requires:    sqlite-libs >= 3.33
 Requires:    hicolor-icon-theme
 ## Optional, but not too big and not worth exploding the test matrix for
@@ -92,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Sat Jan 07 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0
+
 * Sat Dec 03 2022 Michael Kuhn <suraia@fedoraproject.org> - 1.5.4-1
 - Update to 1.5.4
 

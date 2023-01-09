@@ -1,6 +1,6 @@
 Name:		tuptime
-Version:	5.2.1
-Release:	3%{?dist}
+Version:	5.2.2
+Release:	2%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -69,7 +69,7 @@ chmod +x %{buildroot}%{_datadir}/tuptime/*.py
 
 %post
 # Create and initialise the tuptime DB with consistent permissions, etc.
-su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -x)"
+su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -q)"
 %systemd_post tuptime.service
 %systemd_post tuptime-sync.service
 %systemd_post tuptime-sync.timer
@@ -102,6 +102,12 @@ su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -x)"
 
 
 %changelog
+* Sat Jan 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 5.2.2-2
+- Update from -x to -q in setup
+
+* Sat Jan 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 5.2.2-1
+- New upstream release
+
 * Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 5.2.1-3
 - SPDX license update
 

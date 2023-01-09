@@ -1,6 +1,5 @@
 %global pname   tvguide
 # version we want build against
-# version we want build against
 %global vdr_version 2.6.1
 %if 0%{?fedora} >= 38
 %global vdr_version 2.6.3
@@ -9,7 +8,7 @@
 
 Name:           vdr-tvguide
 Version:        1.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        TvGuide is a highly customizable 2D EPG viewer plugin
 License:        GPLv2+
 URL:            https://gitlab.com/kamel5/tvguide
@@ -20,7 +19,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  ImageMagick-c++-devel
+BuildRequires:  pkgconfig(GraphicsMagick++)
 BuildRequires:  vdr-devel >= %{vdr_version}
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -32,7 +31,7 @@ VDR plugin: tvguide - %{summary}
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 %build
-%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=imagemagick
+%make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" IMAGELIB=graphicsmagick
 
 %install
 # make install would install the themes under /etc, let's not use that
@@ -55,6 +54,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/tvguide/
 
 %changelog
+* Sat Jan 07 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.6-5
+- Rebuilt against graphicsmagick due new ImageMagick 7
+
 * Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.3.6-4
 - Rebuilt for new VDR API version
 

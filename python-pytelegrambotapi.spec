@@ -8,7 +8,7 @@ Bot API.
 It can be used to create powerful bots for the Telegram messenger.}
 
 Name: python-%{appname}
-Version: 4.8.0
+Version: 4.9.0
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -48,6 +48,9 @@ Summary: %{summary}
 %doc README.md
 
 %changelog
+* Sat Jan 07 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.9.0-1
+- Updated to version 4.9.0.
+
 * Wed Nov 30 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 4.8.0-1
 - Updated to version 4.8.0.
 

@@ -1,10 +1,11 @@
 Summary:       Converting bibTeX file to HTML
 Name:          bib2html
 Version:       1.2.1
-Release:       32%{?dist}
+Release:       33%{?dist}
 License:       GPL+
 URL:           http://www.litech.org/~wkiri/bib2html/
 Source0:       http://www.litech.org/~wkiri/bib2html/bib2html-%{version}.tar.gz
+Patch0:        bib2html-configure-c99.patch
 BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: make
@@ -14,7 +15,7 @@ format. It will recognize the 'url' field in the bibTeX entries and
 make appropriate links in the HTML output to the URL location.
 
 %prep
-%setup -q
+%autosetup -p1
 chmod 0644 ChangeLog NEWS README Docs/bib2html.html
 
 %build
@@ -31,6 +32,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/bib2html
 
 %changelog
+* Sat Jan 07 2023 Peter Fordham <peter.fordham@gmail.com> - 1.2.1-33
+- Port configure script to C99.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

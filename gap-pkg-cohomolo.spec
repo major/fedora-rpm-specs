@@ -1,8 +1,8 @@
 %global pkgname cohomolo
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.10
-Release:        4%{?dist}
+Version:        1.6.11
+Release:        1%{?dist}
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
@@ -12,7 +12,7 @@ Source0:        https://github.com/gap-packages/cohomolo/releases/download/v%{ve
 # Add missing shebangs
 Patch0:         %{name}-shebang.patch
 # Fix all -Wlto-type-mismatch warnings
-Patch6:         0006-Eliminate-all-Wlto-type-mismatch-warnings.patch
+Patch1:         %{name}-lto.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -40,9 +40,9 @@ computed:
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Cohomolo documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -97,6 +97,9 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{gap_dir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.11-1
+- Version 1.6.11
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.10-4
 - Clarify license of the doc subpackage
 
