@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tali
-Version:        40.8
+Version:        40.9
 Release:        1%{?dist}
 Summary:        GNOME Tali game
 
@@ -52,6 +52,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 08 2023 David King <amigadave@amigadave.com> - 40.9-1
+- Update to 40.9
+
 * Mon Aug 08 2022 Kalev Lember <klember@redhat.com> - 40.8-1
 - Update to 40.8
 

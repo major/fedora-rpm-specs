@@ -1,22 +1,17 @@
-#%%global nmu +nmu4
-
 Name:		libpaper
-Version:	1.1.28
-Release:	5%{?dist}
+Version:	2.0.4
+Release:	1%{?dist}
+# Needed to replace separate paper package
+Epoch:		1
 Summary:	Library and tools for handling papersize
-License:	GPLv2
-URL:		http://packages.qa.debian.org/libp/libpaper.html
-Source0:	http://ftp.debian.org/debian/pool/main/libp/libpaper/%{name}_%{version}.tar.gz
+License:	LGPL-2.1-or-later
+URL:		https://github.com/rrthomas/libpaper/
+Source0:	https://github.com/rrthomas/libpaper/archive/v%{version}/%{name}-%{version}.tar.gz
+# Pulled from paper
+Source1:	localepaper.c
 
-
-# Filed upstream as:
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=481213
-Patch2:		libpaper-useglibcfallback.patch
-# Memory leak
-Patch3:   libpaper-file-leak.patch
-# memory leak found by covscan, reported to debian upstream
-#Patch4: libpaper-covscan.patch
-
+# https://github.com/rrthomas/libpaper/commit/3e591f80af62f335a67f6bb446fdaf9fa07650bc
+Patch0:		libpaper-2.0.4-configure-duplicate-fix.patch
 
 # gcc is no longer in buildroot by default
 BuildRequires:  gcc
@@ -24,73 +19,98 @@ BuildRequires:  gcc
 BuildRequires:  git-core
 # uses make
 BuildRequires:  make
-BuildRequires:	libtool, gettext, gawk
+BuildRequires:	libtool, gettext, gawk, autoconf, automake
+BuildRequires:	help2man, tar, gnupg2, perl-interpreter, gnulib-devel
 
 %description
-The paper library and accompanying files are intended to provide a 
-simple way for applications to take actions based on a system- or 
-user-specified paper size. This release is quite minimal, its purpose 
-being to provide really basic functions (obtaining the system paper name 
-and getting the height and width of a given kind of paper) that 
-applications can immediately integrate.
+The libpaper package enables users to indicate their preferred paper
+size and specifies system-wide and per-user paper size catalogues, which can
+also be used directly (see paperspecs(5)).
 
 %package devel
 Summary:	Headers/Libraries for developing programs that use libpaper
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
-This package contains headers and libraries that programmers will need 
+This package contains headers and libraries that programmers will need
 to develop applications which use libpaper.
+
+%package -n paper
+Summary:	Print paper size information
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+# This is licensed differently from libpaper.
+# paper.c is GPL-3.0-or-later
+# localepaper.c is FSFAP (except it is missing the warranty disclaimer... but the intent is clear)
+License:	GPL-3.0-or-later AND FSFAP
+
+%description -n paper
+The paper(1) utility can be used to find the user's preferred
+default paper size and give information about known sizes.
 
 %prep
 %autosetup -S git
-libtoolize
+cp %{SOURCE1} src/
+
+sed -i 's|gnulib_tool=$gnulib_path/gnulib-tool|gnulib_tool=%{_bindir}/gnulib-tool|g' bootstrap
+sed -i 's|./gnulib/gnulib-tool|%{_bindir}/gnulib-tool|g' bootstrap.conf
+sed -i '/doc\/INSTALL/d' bootstrap
+./bootstrap --gnulib-srcdir=%{_datadir}/gnulib/ --skip-git
 
 %build
-touch AUTHORS NEWS
-aclocal
-autoheader
-autoconf
-automake -a
 %configure --disable-static
-# Disable rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
+
+# localepaper
+pushd src
+%{__cc} %{optflags} -I.. -Ilibgnu -o localepaper localepaper.c libgnu/.libs/libgnupaper.a
+popd
+
+%check
+# No upstream tests
+echo "Testing localepaper tool"
+locale width height > expected
+./src/localepaper | tr ' ' "\n" > got
+diff -u expected got
+# No real way to test the paper tool
 
 %install
 %make_install
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-echo '# Simply write the paper name. See papersize(5) for possible values' > $RPM_BUILD_ROOT%{_sysconfdir}/papersize
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/libpaper.d
+# maybe someday the translations will return
+%if 0
 for i in cs da de es fr gl hu it ja nl pt_BR sv tr uk vi; do
 	mkdir -p $RPM_BUILD_ROOT%{_datadir}/locale/$i/LC_MESSAGES/;
 	msgfmt debian/po/$i.po -o $RPM_BUILD_ROOT%{_datadir}/locale/$i/LC_MESSAGES/%{name}.mo;
 done
 %find_lang %{name}
+%endif
+
+mkdir %{buildroot}%{_libexecdir}
+install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 
 %ldconfig_scriptlets
 
-%files -f %{name}.lang
+%files
 %doc ChangeLog README
 %license COPYING
-%config(noreplace) %{_sysconfdir}/papersize
-%dir %{_sysconfdir}/libpaper.d
-%{_bindir}/paperconf
-%{_libdir}/libpaper.so.1.1.2
-%{_libdir}/libpaper.so.1
-%{_sbindir}/paperconfig
-%{_mandir}/man1/*
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_libdir}/libpaper.so.*
 
 %files devel
 %{_includedir}/paper.h
 %{_libdir}/libpaper.so
-%{_mandir}/man3/*
+
+%files -n paper
+%config(noreplace) %{_sysconfdir}/paperspecs
+%{_bindir}/paper
+%{_libexecdir}/localepaper
+%{_mandir}/man1/*
+%{_mandir}/man5/*
 
 %changelog
+* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.4-1
+- update to 2.0.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.28-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

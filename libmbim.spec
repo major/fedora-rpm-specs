@@ -1,10 +1,16 @@
 Name: libmbim
 Version: 1.28.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libmbim
 Source: https://gitlab.freedesktop.org/mobile-broadband/libmbim/-/archive/%{version}/%{name}-%{version}.tar.bz2
+
+# rh #2110589 -- FCC unLock support for Dell DW5931e & DW5823e WWAN 5G
+Patch0: 0001-intel-mutual-authentication-new-service-fcc-lock.patch
+
+# rh #2142252 - Dell DW5931e enablement
+Patch1: 0002-intel-tools-new-service-trace-config.patch
 
 BuildRequires: meson >= 0.53
 BuildRequires: gcc
@@ -56,9 +62,8 @@ functionality from the command line.
 %install
 %meson_install
 find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
-find %{buildroot} -type f -name "*.la" -delete
-mkdir -p %{buildroot}%{_datadir}/bash-completion
-cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %check
@@ -93,6 +98,10 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion
 
 
 %changelog
+* Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.28.2-2
+- Fix location of completions file
+- Enable support for Dell DW5931e & DW5823e WWAN 5G
+
 * Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.28.2-1
 - Update to 1.28.2
 

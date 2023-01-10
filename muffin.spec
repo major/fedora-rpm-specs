@@ -1,5 +1,5 @@
 Name:          muffin
-Version:       5.6.2
+Version:       5.6.3
 Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
@@ -91,6 +91,9 @@ rm -rf %{buildroot}%{_datadir}/applications/
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Jan 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.3-1
+- Update to 5.6.3 release
+
 * Tue Dec 13 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.2-1
 - Update to 5.6.2 release
 

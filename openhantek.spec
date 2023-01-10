@@ -1,11 +1,12 @@
 Name:           openhantek
-Version:        3.3.1
+Version:        3.3.2
 Release:        1%{?dist}
 Summary:        Hantek and compatible USB digital signal oscilloscope
 
-License:        GPLv3+ and GPLv2+ and ASL 2.0
+License:        GPL-3.0-or-later and GPL-2.0-or-later and Apache-2.0
 URL:            https://github.com/OpenHantek/OpenHantek6022
 Source0:        %{url}/archive/%{version}/OpenHantek6022-%{version}.tar.gz
+Patch0:         version.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -31,9 +32,10 @@ OpenHantek is a free software for Hantek and compatible
 Supported devices: 6022BE/BL.
 
 %prep
-%autosetup -n OpenHantek6022-%{version}
+%autosetup -p1 -n OpenHantek6022-%{version}
 
 %build
+export VERSION=%{version}
 %cmake3
 %cmake3_build
 
@@ -56,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/OpenHantek.desktop
 
 
 %changelog
+* Sun Jan 08 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.2-1
+- Update to 3.3.2
+
 * Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 3.3.1-1
 - Update to 3.3.1
 

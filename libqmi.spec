@@ -1,6 +1,6 @@
 Name: libqmi
 Version: 1.32.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Support library to use the Qualcomm MSM Interface (QMI) protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libqmi
@@ -58,9 +58,8 @@ from the command line.
 %install
 %meson_install
 find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
-find %{buildroot} -type f -name "*.la" -delete
-mkdir -p %{buildroot}%{_datadir}/bash-completion
-cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
+cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %check
@@ -96,6 +95,9 @@ cp -a src/qmicli/qmicli %{buildroot}%{_datadir}/bash-completion
 
 
 %changelog
+* Sun Jan 02 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-2
+- Fix bash completion files path
+
 * Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.32.2-1
 - Update to 1.32.2
 

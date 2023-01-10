@@ -19,6 +19,8 @@ Source0:        %{url}/archive/%{commit}/pandas_flavor-%{commit}.tar.gz
 Patch:          %{url}/pull/25.patch
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 

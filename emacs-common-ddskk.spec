@@ -4,7 +4,7 @@
 Summary: Daredevil SKK - Simple Kana to Kanji conversion program for Emacs
 Name: emacs-common-ddskk
 Version: 16.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: GPLv2+
 URL: http://openlab.ring.gr.jp/skk/main.html
 Source0: http://openlab.ring.gr.jp/skk/maintrunk/ddskk-%{version}.tar.gz
@@ -91,9 +91,6 @@ EOF
 
 make EMACS=emacs install
 
-%{_emacs_bytecompile} skk-setup.el
-install -p -m 644 skk-setup.elc %{buildroot}%{_emacs_sitelispdir}/%{pkg}
-
 mkdir -p %{buildroot}%{_emacs_sitestartdir}
 install -p -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 
@@ -105,9 +102,6 @@ cat >> SKK-CFG <<EOF
 EOF
 make package
 make install-package
-
-%{_xemacs_bytecompile} skk-setup.el
-install -p -m 644 skk-setup.elc %{buildroot}%{_xemacs_sitelispdir}/%{pkg}
 
 mkdir -p %{buildroot}%{_xemacs_sitestartdir}
 install -p -m 644 %SOURCE1 %{buildroot}%{_xemacs_sitestartdir}
@@ -141,6 +135,9 @@ rm -f %{buildroot}%{_infodir}/dir
 
 
 %changelog
+* Sat Jan  7 2023 Jens Petersen <petersen@redhat.com> - 16.2-14
+- do not compile ddskk-setup.el (#2109358)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 16.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -380,7 +377,7 @@ rm -f %{buildroot}%{_infodir}/dir
 - Add semi as a BuildPrereq (#45159)
 - s/Copyright/License/
 - Don't define a name on top and then use it in the header
- 
+
 * Mon Jun 25 2001 SATO Satoru <ssato@redhat.com> 21.3.20010617-1
 - 2001.6.17
 - fix the dependency (now we have the apel alone).

@@ -1,5 +1,5 @@
 Name: ustreamer
-Version: 5.34
+Version: 5.36
 Release: 1%{?dist}
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
@@ -13,6 +13,8 @@ BuildRequires: pkgconfig(libevent_pthreads)
 BuildRequires: pkgconfig(libbsd)
 BuildRequires: pkgconfig(libgpiod)
 BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(python)
+BuildRequires: python3dist(setuptools)
 
 %description
 ustreamer(µStreamer) is a lightweight and very quick server to stream MJPG video
@@ -32,10 +34,12 @@ screencast hardware data with the highest resolution and FPS possible.
 %set_build_flags
 %make_build \
     WITH_GPIO=1 \
-    WITH_SYSTEMD=1
+    WITH_SYSTEMD=1 \
+    WITH_PYTHON=1
 
 %install
-%make_install 'PREFIX=%{_prefix}'
+%make_install 'PREFIX=%{_prefix}'\
+    WITH_PYTHON=1
 
 %files
 %license LICENSE
@@ -45,9 +49,24 @@ screencast hardware data with the highest resolution and FPS possible.
 %{_mandir}/man1/ustreamer.1*
 %{_mandir}/man1/ustreamer-dump.1*
 
+%package -n python3-%{name}
+Summary: Python 3 bindings for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%{?python_provide:%python_provide python3-%{name}}
+
+%description -n python3-%{name}
+Python 3 bindings for %{name}.
+
+%files -n python3-%{name}
+%{python3_sitearch}/%{name}*
+
 %changelog
+* Sat Jan 07 2023 Tao Jin <tao-j@outlook.com> - 5.36-1
+- Update to 5.36
+- Add python package build
+
 * Wed Dec 14 2022 Tao Jin <tao-j@outlook.com> - 5.34-1
-- update to 5.34 and address review comments
+- Update to 5.34 and address review comments
 
 * Sun Oct 23 2022 Tao Jin <tao-j@outlook.com> - 5.24-1
 - Update to 5.24

@@ -1,17 +1,14 @@
-%global commit 35407e96537e1e42bc01961eb428fa389c24c15f
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 # SNMP enabled by default
 %bcond_without snmp
 
 Summary:        Email filter with virus scanner and spamassassin support
 Name:           amavis
-Version:        2.12.2
-Release:        10.git%{shortcommit}%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 # LDAP schema is GFDL, some helpers are BSD, core is GPLv2+
 License:        GPLv2+ and BSD and GFDL
 URL:            https://gitlab.com/amavis/amavis
-Source0:        https://gitlab.com/amavis/amavis/-/archive/%{commit}/amavis-%{commit}.tar.bz2
+Source0:        https://gitlab.com/amavis/amavis/-/archive/v%{version}/amavis-v%{version}.tar.bz2
 Source2:        amavis-clamd.conf
 Source4:        README.fedora
 Source5:        README.quarantine
@@ -140,7 +137,7 @@ alerting purposes.
 Documentation files for amavis
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -n %{name}-v%{version}
 install -p -m 644 %{SOURCE4} %{SOURCE5} README_FILES/
 
 %build
@@ -239,6 +236,9 @@ install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 %doc README_FILES conf/amavisd.conf-* conf/amavisd-custom.conf
 
 %changelog
+* Sun Jan 08 2023 Juan Orti Alcaine <jortialc@redhat.com> - 2.13.0-1
+- Version 2.13.0 (RHBZ#2158819)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.2-10.git35407e9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

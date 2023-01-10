@@ -13,7 +13,7 @@
 
 Name:           libnma
 Summary:        NetworkManager GUI library
-Version:        1.10.4
+Version:        1.10.6
 Release:        1%{?dist}
 # The entire source code is GPLv2+ except some files in shared/ which are LGPLv2+
 License:        GPLv2+ and LGPLv2+
@@ -145,6 +145,9 @@ files to be used for integrating GUI tools with NetworkManager.
 
 
 %changelog
+* Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.10.6-1
+- Update to 1.10.6 release
+
 * Mon Nov 07 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.10.4-1
 - Update to 1.10.4 release
 

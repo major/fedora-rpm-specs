@@ -11,8 +11,8 @@
 %endif
 
 Name:           zanshin
-Version:        22.12.0
-Release: 1%{?dist}
+Version:        22.12.1
+Release:        1%{?dist}
 Summary:        Todo/action management software
 
 License:        GPLv2

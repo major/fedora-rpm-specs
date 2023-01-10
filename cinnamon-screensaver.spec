@@ -1,6 +1,6 @@
 Summary: Cinnamon Screensaver
 Name:    cinnamon-screensaver
-Version: 5.6.2
+Version: 5.6.3
 Release: 1%{?dist}
 License: GPLv2+ and LGPLv2+
 URL:     https://github.com/linuxmint/%{name}
@@ -93,6 +93,9 @@ rm %{buildroot}%{_datadir}/gir-1.0/CScreensaver-1.0.gir
 %{_libdir}/girepository-1.0/CScreensaver-1.0.typelib
 
 %changelog
+* Sun Jan 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.3-1
+- Update to 5.6.3 release
+
 * Tue Dec 13 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.2-1
 - Update to 5.6.2 release
 

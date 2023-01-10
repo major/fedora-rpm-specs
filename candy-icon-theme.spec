@@ -1,16 +1,16 @@
 Name:           candy-icon-theme
 Summary:        Sweet gradient icon theme
-License:        GPLv3
+License:        GPL-3.0-only
 
 %global git_repo    candy-icons
 %global git_url     https://github.com/EliverLara/%{git_repo}
-%global git_commit  a14330c77eb388aa5fa422e15218a500ac21add9
-%global git_date    20220919
+%global git_commit  c27f6da201ebf5c71aadd57af57c382d6807350c
+%global git_date    20230107
 
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version:        0
-Release:        32.%{git_date}git%{git_commit_short}%{?dist}
+Release:        33.%{git_date}git%{git_commit_short}%{?dist}
 
 URL:            https://www.opendesktop.org/p/1305251/
 Source0:        %{git_url}/archive/%{git_commit}/%{git_repo}-%{git_commit}.tar.gz
@@ -32,6 +32,11 @@ Candy Icons is a simplistic, vector, gradient icon theme.
 sed \
   -e 's|^Name=candy-icons$|Name=Candy Icons|' \
   -i index.theme
+
+# Fix absolute symlink committed upstream,
+# pointing to somewhere in the author's home directory
+unlink apps/scalable/onlyoffice-desktopeditors.svg
+ln -sr apps/scalable/onlyoffice.svg apps/scalable/onlyoffice-desktopeditors.svg
 
 
 %build
@@ -62,6 +67,10 @@ gtk-update-icon-cache --force %{_datadir}/icons/Candy &>/dev/null || :
 
 
 %changelog
+* Mon Jan 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-33.20230107gitc27f6da2
+- Update to latest upstream snapshot
+- Migrate License tag to SPDX
+
 * Wed Sep 21 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-32.20220919gita14330c7
 - Update to latest upstream snapshot
 

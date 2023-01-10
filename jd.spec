@@ -16,20 +16,20 @@
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20221218
-%global         gitcommit     3f6cf6508e8dba4eee63bfda5533008bb6b69f96
+%global         gitdate       20230107
+%global         gitcommit     eadc5fa9e7ea7bf84115402714b234dc2f0c9356
 #%%global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20221218
-%global         tarballtime   1108
+%global         tarballdate   20230108
+%global         tarballtime   2224
 
 ##########################################
 # Defined by vendor
 #
-%define         vendor_rel    0.1.beta
+%define         vendor_rel    1
 %define         extra_rel     %{nil}
-%define         use_gitcommit_as_rel  1
+%define         use_gitcommit_as_rel  0
 # Tag name changed from vendor to vendorname so as not to
 # overwrite Vendor entry in Summary
 %define         vendorname    fedora
@@ -209,6 +209,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sun Jan  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-1
+- JDim 0.9.0
+
 * Sun Dec 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-0.1.beta.D20221218git3f6cf65
 - 0.9.0 beta
 

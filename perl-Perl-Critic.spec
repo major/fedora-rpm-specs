@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.146
+Version:	1.148
 Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -72,7 +72,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	glibc-langpack-en
 %endif
 BuildRequires:	perl(File::Spec::Functions)
-BuildRequires:	perl(Test::Deep)
 BuildRequires:	perl(Test::Memory::Cycle)
 BuildRequires:	perl(Test::More)
 
@@ -161,6 +160,19 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Sun Jan  8 2023 Paul Howarth <paul@city-fan.org> - 1.148-1
+- Update to 1.148 (rhbz#2159041)
+  Possible breakage
+  - Removed Perl::Critic::Utils::DataConversion; any add-on policies that used
+    it will need to copy the functions from there into their own code
+  Documentation
+  - ProhibitCascadingIfElse no longer suggests using given/when
+  Internals
+  - We no longer require Test::Deep for testing
+  - Test::Kwalitee is now only recommended, not required
+  - Random microoptimizations, like using hashes for array contents checking,
+    and using any() instead of calling grep as a boolean
+
 * Thu Dec 22 2022 Paul Howarth <paul@city-fan.org> - 1.146-1
 - Update to 1.146 (rhbz#2155727)
   New features

@@ -1,10 +1,10 @@
 %global packname IRkernel
-%global packver  1.3
+%global packver  1.3.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          %autorelease
 Summary:          Native R Kernel for the 'Jupyter Notebook'
 
 License:          MIT
@@ -20,6 +20,9 @@ Patch0001:        0001-Use-noarch-R-path-in-kernelspec.patch
 # Enhances:
 
 BuildArch:        noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Requires:         python-jupyter-filesystem
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
@@ -71,11 +74,8 @@ R_LIBS_USER=%{buildroot}%{rlibdir} \
 
 
 %check
-# lots of test failures (FAIL 16)
-%if 0
 NOT_CRAN=true \
     %{_bindir}/R CMD check %{packname}
-%endif
 
 %files
 %dir %{rlibdir}/%{packname}
@@ -93,60 +93,4 @@ NOT_CRAN=true \
 
 
 %changelog
-* Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 1.3-1
-- R 4.2.1, update to 1.3
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 16 2021 Tom Callaway <spot@fedoraproject.org> - 1.2-1
-- update to 1.2
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 21 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1.1-1
-- Update to latest version
-
-* Sun Jun  7 2020 Tom Callaway <spot@fedoraproject.org> - 1.1-2
-- rebuild for R 4
-
-* Mon Feb 24 2020 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.1-1
-- Update to latest version
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sat Aug 17 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.2-1
-- Update to latest version
-
-* Sun Aug 11 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-4
-- Remove explicit dependencies provided by automatic dependency generator
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu May 16 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-2
-- Make path to R in kernelspec truly noarch
-
-* Thu May 02 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-1
-- Update to latest version
-
-* Tue Apr 30 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.0-1
-- Update to latest version
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.15-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan 16 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.8.15-1
-- initial package for Fedora
+%autochangelog

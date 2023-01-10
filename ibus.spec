@@ -13,6 +13,13 @@
 # for bytecompile in %%{_datadir}/ibus/setup
 %global __python %{__python3}
 
+# No gtk2 in RHEL 10
+%if 0%{?rhel} > 9
+%bcond_with    gtk2
+%else
+%bcond_without gtk2
+%endif
+
 %if (0%{?fedora} > 33 || 0%{?rhel} > 8)
 %bcond_without gtk4
 %else
@@ -20,7 +27,11 @@
 %endif
 
 %if %with_pkg_config
+%if %{with gtk2}
 %{!?gtk2_binary_version: %global gtk2_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-2.0)}
+%else
+%{!?gtk2_binary_version: %global gtk2_binary_version ?.?.?}
+%endif
 %{!?gtk3_binary_version: %global gtk3_binary_version %(pkg-config  --variable=gtk_binary_version gtk+-3.0)}
 %if %{with gtk4}
 %{!?gtk4_binary_version: %global gtk4_binary_version %(pkg-config  --variable=gtk_binary_version gtk4)}
@@ -39,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -60,7 +71,9 @@ BuildRequires:  gettext-devel
 BuildRequires:  libtool
 # for gtkdoc-fixxref
 BuildRequires:  glib2-doc
+%if %{with gtk2}
 BuildRequires:  gtk2-devel
+%endif
 BuildRequires:  gtk3-devel
 %if %{with gtk4}
 BuildRequires:  gtk4-devel
@@ -94,7 +107,9 @@ BuildRequires:  systemd
 BuildRequires:  libXtst-devel
 
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
+%if %{with gtk2}
 Requires:      (%{name}-gtk2%{?_isa}   = %{version}-%{release} if gtk2)
+%endif
 Requires:       %{name}-gtk3%{?_isa}   = %{version}-%{release}
 Requires:       %{name}-setup          = %{version}-%{release}
 
@@ -145,6 +160,7 @@ Conflicts:      %{name}%{?_isa} < %{version}
 %description libs
 This package contains the libraries for IBus
 
+%if %{with gtk2}
 %package gtk2
 Summary:        IBus IM module for GTK2
 Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
@@ -156,6 +172,7 @@ Obsoletes:      ibus-gtk < %{version}-%{release}
 
 %description gtk2
 This package contains IBus IM module for GTK2
+%endif
 
 %package gtk3
 Summary:        IBus IM module for GTK3
@@ -305,7 +322,11 @@ fi
 autoreconf -f -i -v
 %configure \
     --disable-static \
+%if %{with gtk2}
     --enable-gtk2 \
+%else
+    --disable-gtk2 \
+%endif
     --enable-gtk3 \
 %if %{with gtk4}
     --enable-gtk4 \
@@ -331,7 +352,9 @@ make -C src/compose maintainer-clean-generic
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 rm -f $RPM_BUILD_ROOT%{_libdir}/libibus-*%{ibus_api_version}.la
+%if %{with gtk2}
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/%{gtk2_binary_version}/immodules/im-ibus.la
+%endif
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-ibus.la
 %if %{with gtk4}
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-4.0/%{gtk4_binary_version}/immodules/libim-ibus.la
@@ -461,8 +484,10 @@ dconf update || :
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/IBus*-1.0.typelib
 
+%if %{with gtk2}
 %files gtk2
 %{_libdir}/gtk-2.0/%{gtk2_binary_version}/immodules/im-ibus.so
+%endif
 
 %files gtk3
 %{_libdir}/gtk-3.0/%{gtk3_binary_version}/immodules/im-ibus.so
@@ -529,6 +554,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 1.5.27-10
+- Don't build GTK 2 content for RHEL 10 as GTK 2 won't be there
+
 * Thu Jan 05 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-9
 - Convert gtk_compose_seqs_compact to GResource
 

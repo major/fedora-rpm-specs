@@ -1,5 +1,5 @@
 Name:           perl-Test-Deep
-Version:        1.202
+Version:        1.204
 Release:        1%{?dist}
 Summary:        Extremely flexible deep comparison
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,11 @@ make test
 %{_mandir}/man3/Test::Deep::*.3*
 
 %changelog
+* Sun Jan  8 2023 Paul Howarth <paul@city-fan.org> - 1.204-1
+- Update to 1.204 (rhbz#2159015)
+  - Try to avoid clobbering global error variables when loading test libraries
+  - hash_each now enumates keys in sort() order, to make errors more consistent
+
 * Thu Jan  5 2023 Paul Howarth <paul@city-fan.org> - 1.202-1
 - Update to 1.202 (rhbz#2158345)
   - Converted to Dist::Zilla

@@ -1,22 +1,22 @@
 Name: sweet-gtk-theme
 Summary: Light and dark, colorful GTK+ theme
-License: GPLv3
+License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
-%global git_date_master 20220915
-%global git_commit_master 88cc45b21bb74d15e977642dc119043b3b811136
+%global git_date_master 20230107
+%global git_commit_master 6830ec97b84b967c72df9a48c8901e068f33c259
 
-%global git_date_ambar 20220915
-%global git_commit_ambar bdb045f97eefa6623921621a844581a744441826
+%global git_date_ambar 20230107
+%global git_commit_ambar e5a075af9c57098bbda2eae599fa79271579ccac
 
-%global git_date_ambar_blue 20220915
-%global git_commit_ambar_blue 33aacbd4ada676e543e9fbeed23040b126c6f00b
+%global git_date_ambar_blue 20230107
+%global git_commit_ambar_blue 591bb456579b6273631e579312a7fb2256603746
 
-%global git_date_mars 20220915
-%global git_commit_mars 5797ec7bca6638ae2ac0d6310215f65ef0e3b3de
+%global git_date_mars 20230107
+%global git_commit_mars faa8deb74208a991d89fa658ec9b20fe4d46dfb8
 
-%global git_date_nova 20220915
-%global git_commit_nova 74fabbd39f9cebae922565bdc14473723d8190c0
+%global git_date_nova 20230107
+%global git_commit_nova 110373a9dcfa9c6514403d6a2856688ac12acff1
 
 %global git_date %( \
 	( \
@@ -28,7 +28,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 3.0
-Release: 7.%{git_date}%{?dist}
+Release: 8.%{git_date}%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -131,6 +131,10 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Mon Jan 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-8.20230107
+- Update to latest git snapshots
+- Migrate License tag to SPDX
+
 * Wed Sep 21 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-7.20220915
 - Update to latest git snapshots
 

@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          9.56.1
-Release:          5%{?dist}
+Release:          6%{?dist}
 
 License:          AGPLv3+
 
@@ -437,6 +437,9 @@ done
 # =============================================================================
 
 %changelog
+* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 9.56.1-6
+- rebuild for libpaper v2
+
 * Thu Oct 27 2022 Richard Lescak <rlescak@redhat.com> - 9.56.1-5
 - fix loading of CIDFonts (#2137856)
 

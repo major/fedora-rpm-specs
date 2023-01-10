@@ -1,13 +1,11 @@
 Name:           heimdall
-Version:        1.4.2
-Release:        18%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Flash firmware on to Samsung Galaxy S devices
 License:        MIT
 URL:            http://glassechidna.com.au/heimdall/
-Source0:        https://github.com/Benjamin-Dobell/Heimdall/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://git.sr.ht/~grimler/Heimdall/archive/v%{version}.tar.gz
 Source2:        %{name}.desktop
-Patch0:         heimdall-1.4.2-support_files_bigger_than_3.5gb.patch
-Patch1:         heimdall-1.4.2-InitialiseProtocol-reset-device-before-handshake.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -33,7 +31,7 @@ on to Samsung Galaxy S devices
 This package provides Qt5 based frontend for %{name}
 
 %prep
-%autosetup -p1 -n Heimdall-%{version}
+%autosetup -n Heimdall-v%{version}
 
 #remove unneeded files
 rm -rf Win32
@@ -88,7 +86,7 @@ SentUpstream: 2014-09-18
 EOF
 
 %files
-%doc Linux/README
+%doc Linux/README README.md
 %license LICENSE
 %{_bindir}/%{name}
 %{_udevrulesdir}/60-heimdall.rules
@@ -99,6 +97,9 @@ EOF
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Mon Dec 19 2022 Łukasz Patron <priv.luk@gmail.com> - 2.0.2-1
+- Switch to grimler's Heimdall fork since upstream repo is abandoned
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

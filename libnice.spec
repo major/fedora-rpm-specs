@@ -1,6 +1,6 @@
 Name:           libnice
-Version:        0.1.19
-Release:        3%{?dist}
+Version:        0.1.21
+Release:        1%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPLv2 and MPLv1.1
@@ -99,6 +99,9 @@ sed \
 
 
 %changelog
+* Sun Jan 08 2023 Stefan Becker <chemobejk@gmail.com> - 0.1.21-1
+- Update to 0.1.21 (#2158912)
+
 * Fri Dec 09 2022 David King <amigadave@amigadave.com> - 0.1.19-3
 - Rebuild against gupnp-igd
 

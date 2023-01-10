@@ -10,7 +10,7 @@
 Summary: A Domain-based Message Authentication, Reporting & Conformance (DMARC) milter and library
 Name: opendmarc
 Version: 1.4.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD and Sendmail
 URL: http://www.trusteddomain.org/%{name}.html
 Source0: https://github.com/trusteddomainproject/OpenDMARC/archive/refs/tags/rel-opendmarc-1-4-2.tar.gz
@@ -110,10 +110,6 @@ ExecReload=/bin/kill -USR1 $MAINPID
 Restart=on-failure
 User=%{name}
 Group=%{name}
-UMask=0007
-ReadWritePaths=%{_localstatedir}/spool/%{name}
-ProtectSystem=strict
-ProtectHome=true
 
 [Install]
 WantedBy=multi-user.target
@@ -201,6 +197,9 @@ exit 0
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 08 2023 Matt Domsch <mdomsch@fedoraproject.org> - 1.4.2-8
+- remove failing systemd protections again
+
 * Sat Jan 07 2023 Matt Domsch <mdomsch@fedoraproject.org> - 1.4.2-7
 - fix config file Umask->UMask
 

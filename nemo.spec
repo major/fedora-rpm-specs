@@ -1,6 +1,6 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        5.6.1
+Version:        5.6.2
 Release:        1%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -149,6 +149,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sun Jan 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.2-1
+- Update to 5.6.2 release
+
 * Tue Dec 13 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
 - Update to 5.6.1 release
 

@@ -29,7 +29,7 @@ with the PyCrypto library.}
 
 Name:           python-%{srcname}
 Version:        3.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -39,6 +39,8 @@ URL:            http://www.pycryptodome.org/
 Source0:        https://github.com/Legrandin/pycryptodome/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # Use external libtomcrypt library
 Patch0:         %{name}-3.15.0-use_external_libtomcrypt.patch
+# Fix deprecated unittest methods
+Patch1:         %{name}-3.16.0-unittest.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtomcrypt-devel
@@ -120,6 +122,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Sun Jan 08 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.16.0-2
+- Fix build with Python 3.12 (fix deprecated unittest methods)
+
 * Sat Jan 07 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.16.0-1
 - Update to 3.16.0
 - Switch to SPDX in license tag

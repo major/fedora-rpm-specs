@@ -20,7 +20,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 55%{?dist}
+Release: 56%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -4066,6 +4066,7 @@ Requires: texlive-base
 Requires: texlive-kpathsea
 Requires: texlive-lualibs
 Requires: texlive-lua-alt-getopt
+Requires: texlive-lua-uni-algos
 Requires: tex(luatexbase.sty)
 Provides: tex(luaotfload-blacklist.cnf) = %{epoch}:%{source_date}-%{release}
 Provides: tex(luaotfload.sty) = %{epoch}:%{source_date}-%{release}
@@ -10130,6 +10131,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Sat Jan  7 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-56
+- add dependency on texlive-lua-uni-algos on texlive-luaotfload (bz2158837)
+
 * Mon Jan  2 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-55
 - minor dep cleanups
 

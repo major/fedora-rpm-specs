@@ -9,6 +9,12 @@
 %endif
 %bcond_with python2
 
+%if 0%{?rhel} >= 10
+%bcond_with gtk2
+%else
+%bcond_without gtk2
+%endif
+
 # Necessary conditionals
 %ifarch %{mono_arches}
 %global SHARP  1
@@ -82,7 +88,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		7.0.5
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -123,7 +129,9 @@ BuildRequires:		cairo-devel >= 1.1.10
 BuildRequires:		pango-devel
 BuildRequires:		gmp-devel
 BuildRequires:		lua-devel
+%if %{with gtk2}
 BuildRequires:		gtk2-devel
+%endif
 BuildRequires:		gd-devel
 BuildRequires:		perl-devel
 BuildRequires:		swig >= 1.3.33
@@ -237,6 +245,7 @@ Graphviz plugin for renderers based on gd.  (Unless you absolutely have to use
 GIF, you are recommended to use the PNG format instead because of the better
 quality anti-aliased lines provided by the cairo+pango based renderer.)
 
+%if %{with gtk2}
 %package gtk2
 Summary:		Graphviz plugin for renderers based on gtk2
 Requires:		%{name} = %{version}-%{release}
@@ -245,6 +254,7 @@ Requires(postun):	%{_bindir}/dot /sbin/ldconfig
 
 %description gtk2
 Graphviz plugin for renderers based on gtk2.
+%endif
 
 %package graphs
 Summary:		Demo graphs for graphviz
@@ -556,6 +566,7 @@ php --no-php-ini \
 %{_bindir}/dot -c 2>/dev/null || :
 %{?ldconfig}
 
+%if %{with gtk2}
 %post gtk2
 %{_bindir}/dot -c 2>/dev/null || :
 %{?ldconfig}
@@ -563,6 +574,7 @@ php --no-php-ini \
 %postun gtk2
 %{_bindir}/dot -c 2>/dev/null || :
 %{?ldconfig}
+%endif
 
 %if %{MING}
 # run "dot -c" to generate plugin config in %%{_libdir}/graphviz/config*
@@ -638,9 +650,11 @@ php --no-php-ini \
 %files gd
 %{_libdir}/graphviz/libgvplugin_gd.so.*
 
+%if %{with gtk2}
 %files gtk2
 %{_libdir}/graphviz/libgvplugin_gtk.so.*
 %{_libdir}/graphviz/libgvplugin_gdk.so.*
+%endif
 
 %files graphs
 %dir %{_datadir}/graphviz
@@ -730,6 +744,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 7.0.5-3
+- Don't build GTK 2 bits on ELN/RHEL 10 as GTK 2 won't be available there
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 7.0.5-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

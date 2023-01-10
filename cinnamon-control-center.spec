@@ -7,7 +7,7 @@
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 5.6.0
+Version: 5.6.1
 Release: 1%{?dist}
 # The following files contain code from
 # ISC for panels/network/rfkill.h
@@ -140,6 +140,9 @@ install -pm 0644 mint-artwork-cinnamon-%{_artwork_version}/%{_datadir}/mint-artw
 
 
 %changelog
+* Sun Jan 08 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
+- Update to 5.6.1 release
+
 * Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.0-1
 - Update to 5.6.0 release
 

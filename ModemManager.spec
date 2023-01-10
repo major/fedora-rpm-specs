@@ -4,7 +4,7 @@
 
 Name: ModemManager
 Version: 1.20.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -27,8 +27,8 @@ Requires(preun): systemd
 
 Requires: polkit
 
-BuildRequires: automake autoconf libtool autoconf-archive
-BuildRequires: dbus
+BuildRequires: meson >= 0.53
+BuildRequires: dbus-devel
 BuildRequires: dbus-daemon
 BuildRequires: gettext-devel >= 0.19.8
 BuildRequires: glib2-devel >= 2.56
@@ -38,7 +38,6 @@ BuildRequires: libgudev1-devel >= 232
 BuildRequires: libmbim-devel >= 1.28.0
 BuildRequires: libqmi-devel >= 1.32.0
 BuildRequires: libqrtr-glib-devel >= 1.0.0
-BuildRequires: make
 BuildRequires: systemd
 BuildRequires: systemd-devel >= 209
 BuildRequires: vala
@@ -50,6 +49,7 @@ BuildRequires: polkit-devel
 The ModemManager service manages WWAN modems and provides a consistent API for
 interacting with these devices to client applications.
 
+
 %package devel
 Summary: Libraries and headers for adding ModemManager support to applications
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -59,6 +59,7 @@ Requires: pkgconfig
 This package contains various headers for accessing some ModemManager functionality
 from applications.
 
+
 %package glib
 Summary: Libraries for adding ModemManager support to applications that use glib.
 Requires: glib2 >= %{glib2_version}
@@ -66,6 +67,7 @@ Requires: glib2 >= %{glib2_version}
 %description glib
 This package contains the libraries that make it easier to use some ModemManager
 functionality from applications that use glib.
+
 
 %package glib-devel
 Summary: Libraries and headers for adding ModemManager support to applications that use glib.
@@ -79,6 +81,7 @@ Requires: pkgconfig
 This package contains various headers for accessing some ModemManager functionality
 from glib applications.
 
+
 %package vala
 Summary: Vala bindings for ModemManager
 Requires: vala
@@ -87,52 +90,50 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 %description vala
 Vala bindings for ModemManager
 
+
 %prep
 %autosetup -p1
 
+
 %build
-# Regenerate configure, because the one that is shipped
-# doesn't seem to obey --disable-rpath for reasons unknown.
-autoreconf -vif
-%configure \
-	--disable-rpath \
-	--disable-silent-rules \
-	--with-systemd-suspend-resume \
-	--with-systemd-journal \
-	--enable-more-warnings=no \
-	--with-udev-base-dir=%{_prefix}/lib/udev \
-	--enable-gtk-doc \
-	--with-qmi=yes \
-	--with-mbim=yes \
-%ifarch aarch64
-	--enable-plugin-qcom-soc \
-%endif
-	--disable-static \
-	--with-polkit=permissive \
-	--with-dist-version=%{version}-%{release}
+# Let's avoid BuildRequiring bash-completion because it changes behavior
+# of shell, at least until the .pc file gets into the -devel subpackage.
+# We'll just install the bash-completion file ourselves.
+%meson \
+	-Ddist_version='"%{version}-%{release}"' \
+	-Dvapi=true \
+	-Dgtk_doc=true \
+	-Dpolkit=permissive \
+	-Dbash_completion=false
+%meson_build
 
-%make_build
-
-%check
-# make check
 
 %install
-%make_install
-
-find %{buildroot} -type f -name "*.la" -delete
-
+%meson_install
+find %{buildroot}%{_datadir}/gtk-doc |xargs touch --reference meson.build
 %find_lang %{name}
+mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
+cp -a cli/mmcli-completion %{buildroot}%{_datadir}/bash-completion/completions/mmcli
+
+
+%check
+# meson_test
+
 
 %ldconfig_scriptlets glib
+
 
 %post
 %systemd_post ModemManager.service
 
+
 %preun
 %systemd_preun ModemManager.service
 
+
 %postun
 %systemd_postun ModemManager.service
+
 
 %files -f %{name}.lang
 %license COPYING
@@ -152,6 +153,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man1/*
 %{_mandir}/man8/*
 
+
 %files devel
 %{_includedir}/ModemManager/
 %dir %{_datadir}/gtk-doc/html/%{name}
@@ -159,10 +161,12 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/%{name}.pc
 %{_datadir}/dbus-1/interfaces/*.xml
 
+
 %files glib
 %license COPYING
 %{_libdir}/libmm-glib.so.*
 %{_libdir}/girepository-1.0/*.typelib
+
 
 %files glib-devel
 %{_libdir}/libmm-glib.so
@@ -173,10 +177,15 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gtk-doc/html/libmm-glib/*
 %{_datadir}/gir-1.0/*.gir
 
+
 %files vala
 %{_datadir}/vala/vapi/libmm-glib.*
 
+
 %changelog
+* Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.20.2-2
+- Switch to build using meson
+
 * Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 1.20.2-1
 - Update to 1.20.2
 

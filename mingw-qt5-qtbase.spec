@@ -24,8 +24,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-qtbase
-Version:        5.15.7
-Release:        3%{?dist}
+Version:        5.15.8
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -97,10 +97,13 @@ Patch17:        %{name}-gcc11.patch
 # Fix build with openssl-linked
 Patch18:        qt5-qtbase-link-openssl.patch
 
+# Fix missing qtsan_impl include
+Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
+
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.7..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
-Source100:      kde-5.15-rollup-20221031.patch.gz
+# git diff v5.15.8..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+Source100:      kde-5.15-rollup-20230105.patch.gz
 
 
 BuildRequires:  gcc-c++
@@ -808,6 +811,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Sun Jan 08 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-1
+- Update to 5.15.8
+
 * Mon Dec 05 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-3
 - Drop mingw-pcre BR (only keep mingw-pcre2)
 

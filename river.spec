@@ -8,7 +8,7 @@
 %endif
 
 Name:           river
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
@@ -119,11 +119,7 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/wayland-sessions/%{name}.desktop
 # shell completions
 %{_datadir}/bash-completion/completions/riverctl
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
 %{_datadir}/fish/vendor_completions.d/riverctl.fish
-%dir %{_datadir}/zsh
-%dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_riverctl
 
 %files protocols-devel
@@ -132,6 +128,10 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Sun Jan 08 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.1-1
+- Update to 0.2.1
+- Drop ownership of shell completion dirs. filesystem >= 3.18 provides these.
+
 * Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
 - Update to 0.2.0
 

@@ -1,13 +1,13 @@
 %global srcname openpaperwork-core
 
 Name:           python-%{srcname}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        OpenPaperwork's core
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork/tree/master/openpaperwork-core
-Source0:        %{pypi_source}
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
@@ -36,7 +36,7 @@ This is the core part of Paperwork. It manages plugins.
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

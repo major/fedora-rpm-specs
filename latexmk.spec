@@ -1,5 +1,5 @@
 Name:           latexmk
-Version:        4.78
+Version:        4.79
 Release:        1%{?dist}
 Summary:        A make-like utility for LaTeX files
 
@@ -7,7 +7,7 @@ Summary:        A make-like utility for LaTeX files
 
 License:        GPL-2.0-or-later
 URL:            https://personal.psu.edu/jcc8/software/latexmk-jcc/
-Source0:        https://personal.psu.edu/jcc8/software/latexmk-jcc/%{name}-%{upstreamver}.zip
+Source0:        %{url}/%{name}-%{upstreamver}.zip
 Source1:        latexmkrc
 Source2:        latexmk-README.fedora
 
@@ -44,12 +44,12 @@ fixtimestamp latexmk.pl
 cp -p %{SOURCE2} README.fedora
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-install -m 0755 -p latexmk.pl $RPM_BUILD_ROOT%{_bindir}/latexmk
-install -m 0644 -p latexmk.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install -m 0644 -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}%{_sysconfdir}
+install -m 0755 -p latexmk.pl %{buildroot}%{_bindir}/latexmk
+install -m 0644 -p latexmk.1 %{buildroot}%{_mandir}/man1
+install -m 0644 -p %{SOURCE1} %{buildroot}%{_sysconfdir}
 
 # Remove files we don't want in the docs
 rm -f extra-scripts/*.bat
@@ -63,6 +63,9 @@ rm -f extra-scripts/*.bat
 %license COPYING
 
 %changelog
+* Sat Jan  7 2023 Jerry James <loganjerry@gmail.com> - 4.79-1
+- Version 4.79
+
 * Mon Nov 21 2022 Jerry James <loganjerry@gmail.com> - 4.78-1
 - Version 4.78
 - Convert License tag to SPDX

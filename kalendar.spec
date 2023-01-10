@@ -52,6 +52,7 @@ BuildRequires:  cmake(KF5AkonadiContact)
 BuildRequires:  cmake(KF5CalendarSupport)
 BuildRequires:  cmake(KF5EventViews)
 BuildRequires:  cmake(KF5GrantleeTheme)
+BuildRequires:  cmake(KF5Plasma)
 BuildRequires:  cmake(Grantlee5)
 BuildRequires:  qqc2-desktop-style
 

@@ -1,6 +1,8 @@
-%bcond_without tests
+%bcond_without cpp_tests
 # Disabled for now because protobuf-devel does not provide CMake files
-%bcond_with grpctest
+%bcond_with cpp_grpc_test
+%bcond_without py_tests
+
 # Doxygen HTML help is not suitable for packaging due to a minified JavaScript
 # bundle inserted by Doxygen itself. See discussion at
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555.
@@ -18,7 +20,7 @@ Version:        22.12.06
 # version bumps.
 %global so_version 22
 Release:        %autorelease
-Summary:        Memory efficient serialization library
+Summary:        FlatBuffers: Memory Efficient Serialization Library
 
 # The entire source code is Apache-2.0. Even code from grpc, which is
 # BSD-3-Clause in its upstream, is intended to be Apache-2.0 in this project.
@@ -30,6 +32,22 @@ Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
 
+# Fix some identity/equality confusion in Python tests
+# https://github.com/google/flatbuffers/pull/7768
+Patch:          https://github.com/google/flatbuffers/pull/7768.patch
+# Stop using deprecated imp package in Python tests
+# https://github.com/google/flatbuffers/pull/7769
+Patch:          https://github.com/google/flatbuffers/pull/7769.patch
+# Fix Python host-endianness dependencies
+# https://github.com/google/flatbuffers/pull/7769
+#   Fixes:
+# Python test failures on s390x (big-endian)
+# https://github.com/google/flatbuffers/issues/7772
+Patch:          https://github.com/google/flatbuffers/pull/7773.patch
+# Fix a typo in a Python test name
+# https://github.com/google/flatbuffers/pull/7774
+Patch:          https://github.com/google/flatbuffers/pull/7774.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -37,13 +55,15 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 # The ninja backend should be slightly faster than make, with no disadvantages.
 BuildRequires:  ninja-build
-%if %{with tests} && %{with grpctest}
+%if %{with cpp_tests} && %{with cpp_grpc_test}
 BuildRequires:  cmake(absl)
 BuildRequires:  cmake(protobuf)
 BuildRequires:  grpc-devel
 %endif
 
 BuildRequires:  python3-devel
+# Enables numpy integration tests
+BuildRequires:  python3dist(numpy)
 
 # From grpc/README.md:
 #
@@ -143,6 +163,21 @@ PDF_HYPERLINKS)[[:blank:]]*=[[:blank:]]*)NO[[:blank:]]*/\1YES/" \
 %endif
 
 %py3_shebang_fix samples
+# Fix paths in the Python test script to match how our build is organized:
+#   - Use flatc from the buildroot, not the root of the extracted sources
+#   - Use the proper python3 interpreter path from the RPM macro
+#   - Don’t attempt to run tests with interpreters other than python3
+#   - Add the buildroot python3_sitelib to PYTHONPATH so the flatbuffers
+#     package can be found
+#   - Make sure we don’t do coverage analysis even if python3-coverage is
+#     somehow installed as an indirect dependency
+sed -r -i.upstream \
+    -e 's|[^[:blank:]]*(/flatc)|%{buildroot}%{_bindir}\1|' \
+    -e 's| python3 | %{python3} |' \
+    -e 's|run_tests [^/]|# &|' \
+    -e 's|PYTHONPATH=|&%{buildroot}%{python3_sitelib}:|' \
+    -e 's|which coverage|/bin/false|' \
+    tests/PythonTest.sh
 
 
 %generate_buildrequires
@@ -157,9 +192,9 @@ export VERSION='%{version}'
 %set_build_flags
 %cmake -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
-%if %{with tests}
+%if %{with cpp_tests}
     -DFLATBUFFERS_BUILD_TESTS:BOOL=ON \
-%if %{with grpctest}
+%if %{with cpp_grpc_test}
     -DFLATBUFFERS_BUILD_GRPCTEST:BOOL=ON \
     -DGRPC_INSTALL_PATH:PATH=%{_prefix} \
 %endif
@@ -195,10 +230,14 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 
 %check
-%if %{with tests}
+%if %{with cpp_tests}
 %ctest
 %endif
-# Upstream does not appear to provide any dedicated Python tests.
+%if %{with py_tests}
+./tests/PythonTest.sh
+%endif
+# Do an import-only “smoke test” even if we ran the Python tests; we are not
+# convinced that they cover all modules in the package.
 %pyproject_check_import
 
 
@@ -225,6 +264,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 %files doc
 %license LICENSE.txt
+%doc CHANGELOG.md
 %doc SECURITY.md
 %doc readme.md
 
@@ -232,6 +272,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 %doc docs/latex/refman.pdf
 %endif
 
+%doc examples/
 %doc samples/
 
 

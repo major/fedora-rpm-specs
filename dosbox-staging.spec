@@ -1,5 +1,5 @@
 Name:    dosbox-staging
-Version: 0.80.0
+Version: 0.80.1
 Release: %autorelease
 Summary: DOS/x86 emulator focusing on ease of use
 URL:     https://dosbox-staging.github.io/

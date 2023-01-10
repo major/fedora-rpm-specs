@@ -333,6 +333,18 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
   -DUSE_64KB_PAGE_BLOCK=ON \
 %endif
 %endif
+%if "%{vendor}" == "Fedora Copr - group @asahi"
+%dnl JIT is broken with BTI on Apple ARM systems at the moment
+%dnl Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2130009
+%dnl Cf. https://bugs.webkit.org/show_bug.cgi?id=245697
+%dnl Disable until this is fixed upstream.
+%dnl Yes, this means performance is going to suck... :'(
+%ifarch aarch64
+  -DENABLE_JIT=OFF \
+  -DENABLE_C_LOOP=ON \
+  -DENABLE_SAMPLING_PROFILER=OFF \
+%endif
+%endif
   %{nil}
 
 %define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
@@ -350,6 +362,18 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 %if 0%{?rhel}
 %ifarch aarch64
   -DUSE_64KB_PAGE_BLOCK=ON \
+%endif
+%endif
+%if "%{vendor}" == "Fedora Copr - group @asahi"
+%dnl JIT is broken with BTI on Apple ARM systems at the moment
+%dnl Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2130009
+%dnl Cf. https://bugs.webkit.org/show_bug.cgi?id=245697
+%dnl Disable until this is fixed upstream.
+%dnl Yes, this means performance is going to suck... :'(
+%ifarch aarch64
+  -DENABLE_JIT=OFF \
+  -DENABLE_C_LOOP=ON \
+  -DENABLE_SAMPLING_PROFILER=OFF \
 %endif
 %endif
   %{nil}
@@ -370,6 +394,18 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 %if 0%{?rhel}
 %ifarch aarch64
   -DUSE_64KB_PAGE_BLOCK=ON \
+%endif
+%endif
+%if "%{vendor}" == "Fedora Copr - group @asahi"
+%dnl JIT is broken with BTI on Apple ARM systems at the moment
+%dnl Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2130009
+%dnl Cf. https://bugs.webkit.org/show_bug.cgi?id=245697
+%dnl Disable until this is fixed upstream.
+%dnl Yes, this means performance is going to suck... :'(
+%ifarch aarch64
+  -DENABLE_JIT=OFF \
+  -DENABLE_C_LOOP=ON \
+  -DENABLE_SAMPLING_PROFILER=OFF \
 %endif
 %endif
   %{nil}

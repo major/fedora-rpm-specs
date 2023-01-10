@@ -1,142 +1,197 @@
-%global qtinc   %(qmake -query QT_INSTALL_PREFIX)/include
-%global qtlib   %(qmake -query QT_INSTALL_PREFIX)/lib
+%global commit b2655743d30ed3185f3c0e2626b33a1d29655216
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commitdate 20210828
 
 Name:           qwtplot3d
-Version:        0.2.7
-Release:        38%{?dist}
-Summary:        Qt/OpenGL-based C++ library providing a bunch of 3D-widgets
+Epoch:          1
+Version:        0.3.0
+Release:        2.%{commitdate}git%{shortcommit}%{?dist}
+Summary:        Extended version of the original QwtPlot3D library
+License:        Zlib
+URL:            https://github.com/SciDAVis/%{name}
+Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
-# zlib/libpng License
-License:        zlib
-URL:            http://qwtplot3d.sourceforge.net/
-Source0:        http://download.sourceforge.net/%{name}/%{name}-%{version}.tgz
+Patch0:         %{name}-qt6-build.patch
+Patch1:         %{name}-qt5-build.patch
 
-## upstreamable patches
-Patch50:  qwtplot3d-glu.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1077865
-Patch51:  qwtplot3d-%{version}-syslibs.patch
-
-BuildRequires: make
-BuildRequires:  qt3-devel
-BuildRequires:  qt-devel
-BuildRequires:  libXmu-devel
+# Qt6
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  qt6-rpm-macros
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qt5compat-devel
+# Qt5
+BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5OpenGL)
+BuildRequires:  qt5-rpm-macros
+BuildRequires:  qt5-qtbase-devel
+#
+BuildRequires:  pkgconfig(glu)
+BuildRequires:  pkgconfig(xmu)
+BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  gl2ps-devel
-BuildRequires:  dos2unix
 BuildRequires:  gcc-c++
+BuildRequires:  chrpath
 
 %description
 QwtPlot3D is not a program, but a feature-rich Qt/OpenGL-based C++
 programming library, providing essentially a bunch of 3D-widgets for
 programmers.
 
-%package        devel
-Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       qt3-devel
+# Qt6
+%package        -n %{name}-qt6
+Summary:        Extended version of the original QwtPlot3D Qt6 library
 
-%description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
-
-%package        qt4
-Summary:        Qt4/OpenGL-based C++ library providing a bunch of 3D-widgets
-BuildRequires:  qt4-devel
-
-%description    qt4
-QwtPlot3D is not a program, but a feature-rich Qt4/OpenGL-based C++
+%description    -n %{name}-qt6
+QwtPlot3D is not a program, but a feature-rich Qt/OpenGL-based C++
 programming library, providing essentially a bunch of 3D-widgets for
 programmers.
 
-%package        qt4-devel
+%package        -n %{name}-qt6-devel
 Summary:        Development files for %{name}
-Requires:       %{name}-qt4%{?_isa} = %{version}-%{release}
-Requires:       qt4-devel
+Requires:       %{name}-qt6%{?_isa} = %{epoch}:%{version}-%{release}
 
-%description    qt4-devel
-The %{name}-devel package contains qt4 libraries and header files for
-developing applications that use %{name}.
+%description    -n %{name}-qt6-devel
+The %{name}6-devel package contains Qt6 libraries and header files for
+developing applications that use %{name}-qt6.
+#
+
+# Qt5
+%package        -n %{name}-qt5
+Summary:        Extended version of the original QwtPlot3D Qt5 library
+Provides:       %{name}-qt5%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}-qt5 < 0:0.3.1a-18
+Obsoletes:      %{name}-qt4 < 0:0.3.1a-18
+
+%description    -n %{name}-qt5
+QwtPlot3D is not a program, but a feature-rich Qt/OpenGL-based C++
+programming library, providing essentially a bunch of 3D-widgets for
+programmers.
+
+%package        -n %{name}-qt5-devel
+Summary:        Development files for %{name}
+Requires:       %{name}-qt5%{?_isa} = %{epoch}:%{version}-%{release}
+Provides:       %{name}-qt5-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Obsoletes:      %{name}-qt5-devel < 0:0.3.1a-18
+Obsoletes:      %{name}-qt4-devel < 0:0.3.1a-18
+
+%description    -n %{name}-qt5-devel
+The %{name}6-devel package contains Qt5 libraries and header files for
+developing applications that use %{name}-qt5.
+#
 
 %prep
-%setup -q -n %{name}
+%setup -qc -n %{name}-%{commit}
 
-#fix line endings
-sed -i 's/\r//' COPYING
-find examples -type f | xargs %{__sed} -i 's/\r//'
+# Unbundle gl2ps
+rm -rf %{name}-%{commit}/3rdparty/gl2ps
 
-sed  -i "s|0.2.6|%{version}|" qwtplot3d.pro
+cp -a %{name}-%{commit} %{name}-qt5
+mv %{name}-%{commit} %{name}-qt6
 
-# treating soname
-sed -i "s|TARGET *= qwtplot3d|TARGET = qwtplot3d-qt4|" qwtplot3d.pro
+pushd %{name}-qt6
+%patch0 -p1 -b .backup
+popd
 
-# fixing gcc4.4 build
-sed  -i "4i\#include <cstdio>" src/qwt3d_function.cpp
-
-%patch50 -p1 -b .glu
-
-dos2unix qwtplot3d.pro src/qwt3d_io_gl2ps.cpp
-%patch51 -p1 -b .syslibs
-rm -r 3rdparty
+pushd %{name}-qt5
+%patch1 -p1 -b .backup
+popd
 
 %build
-SETOPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-fexceptions/-fno-exceptions/g')
-
-############### QT4 ######################
-mkdir -p qt4 && pushd qt4
-%{qmake_qt4} ../qwtplot3d.pro QMAKE_CXXFLAGS+="$SETOPT_FLAGS" QMAKE_LFLAGS+="%{__global_ldflags} -Wl,--as-needed"
-make %{?_smp_mflags}
-
-make clean
+pushd %{name}-qt6
+export CXXFLAGS="%{build_cxxflags}"
+%cmake -Wno-dev \
+ -DPKG_CONFIG_ARGN:STRING="%(pkg-config --cflags Qt6Gui) %(pkg-config --cflags Qt6Core) %(pkg-config --cflags Qt6OpenGL)" \
+ -DCMAKE_BUILD_TYPE:STRING=Release \
+ -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
+ -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
+ -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt6_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt6_headerdir}/%{name}-qt6
+%cmake_build
 popd
-# treating soname
-sed -i "s|TARGET *= qwtplot3d-qt4|TARGET = qwtplot3d|" qwtplot3d.pro
 
-############### QT3 ######################
-%{_libdir}/qt-3.3/bin/qmake qwtplot3d.pro QMAKE_CXXFLAGS+="$SETOPT_FLAGS" QMAKE_LFLAGS+="%{__global_ldflags} -Wl,--as-needed"
-make %{?_smp_mflags}
+pushd %{name}-qt5
+export CXXFLAGS="%{build_cxxflags}"
+%cmake -Wno-dev \
+ -DPKG_CONFIG_ARGN:STRING="%(pkg-config --cflags Qt5Gui) %(pkg-config --cflags Qt5Core) %(pkg-config --cflags Qt5OpenGL)" \
+ -DCMAKE_BUILD_TYPE:STRING=Release \
+ -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
+ -DCMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING="%{__global_ldflags} -lGLU" \
+ -DCMAKE_INSTALL_LIBDIR:PATH=%{_qt5_libdir} -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_qt5_headerdir}/%{name}-qt5
+%cmake_build
+popd
 
 %install
-############### QT3 ######################
-mkdir -p %{buildroot}%{qtlib}
-install -p -m 0755 lib/libqwtplot3d.so.%{version} %{buildroot}%{qtlib}
-ln -sf libqwtplot3d.so.%{version} %{buildroot}%{qtlib}/libqwtplot3d.so
-ln -sf libqwtplot3d.so.%{version} %{buildroot}%{qtlib}/libqwtplot3d.so.0
+pushd %{name}-qt6
+%cmake_install
+# Install executable examples files
+mkdir -p %{buildroot}%{_libexecdir}/%{name}-qt6
+install -pm 755 %{__cmake_builddir}/examples/simpleplot/simpleplot %{buildroot}%{_libexecdir}/%{name}-qt6/
+install -pm 755 %{__cmake_builddir}/examples/axes/axes %{buildroot}%{_libexecdir}/%{name}-qt6/
+install -pm 755 %{__cmake_builddir}/examples/enrichments/enrichments %{buildroot}%{_libexecdir}/%{name}-qt6/
+install -pm 755 %{__cmake_builddir}/examples/autoswitch/autoswitch %{buildroot}%{_libexecdir}/%{name}-qt6/
+install -pm 755 %{__cmake_builddir}/examples/mesh2/mesh2 %{buildroot}%{_libexecdir}/%{name}-qt6/
 
-mkdir -p %{buildroot}%{qtinc}/qwtplot3d
-install -p -m 0644 include/* %{buildroot}%{qtinc}/qwtplot3d
+mkdir -p %{buildroot}%{_qt6_headerdir}/%{name}-qt6
+install -pm 644 include/*  %{buildroot}%{_qt6_headerdir}/%{name}-qt6/
 
-############### QT4 ######################
-mkdir -p %{buildroot}%{_qt4_headerdir}/qwtplot3d
-install -p -m 0644 include/* %{buildroot}%{_qt4_headerdir}/qwtplot3d
+# Remove rpaths
+chrpath -d %{buildroot}%{_libexecdir}/%{name}-qt6/*
+popd
 
-cd qt4
-mkdir -p %{buildroot}%{_qt4_libdir}
-install -p -m 0755 lib/libqwtplot3d-qt4.so.%{version} %{buildroot}%{_qt4_libdir}
-ln -sf libqwtplot3d-qt4.so.%{version} %{buildroot}%{_qt4_libdir}/libqwtplot3d-qt4.so
-ln -sf libqwtplot3d-qt4.so.%{version} %{buildroot}%{_qt4_libdir}/libqwtplot3d-qt4.so.0
+pushd %{name}-qt5
+%cmake_install
+# Install executable examples files
+mkdir -p %{buildroot}%{_libexecdir}/%{name}-qt5
+install -pm 755 %{__cmake_builddir}/examples/simpleplot/simpleplot %{buildroot}%{_libexecdir}/%{name}-qt5/
+install -pm 755 %{__cmake_builddir}/examples/axes/axes %{buildroot}%{_libexecdir}/%{name}-qt5/
+install -pm 755 %{__cmake_builddir}/examples/enrichments/enrichments %{buildroot}%{_libexecdir}/%{name}-qt5/
+install -pm 755 %{__cmake_builddir}/examples/autoswitch/autoswitch %{buildroot}%{_libexecdir}/%{name}-qt5/
+install -pm 755 %{__cmake_builddir}/examples/mesh2/mesh2 %{buildroot}%{_libexecdir}/%{name}-qt5/
 
-%ldconfig_scriptlets
-%ldconfig_scriptlets qt4
+mkdir -p %{buildroot}%{_qt5_headerdir}/%{name}-qt5
+install -pm 644 include/*  %{buildroot}%{_qt5_headerdir}/%{name}-qt5/
 
-%files
-%license COPYING
-%{qtlib}/libqwtplot3d.so.*
+# Remove rpaths
+chrpath -d %{buildroot}%{_libexecdir}/%{name}-qt5/*
+popd
 
-%files devel
-%doc examples
-%{qtinc}/%{name}/
-%{qtlib}/libqwtplot3d.so
+# Qt6
+%files -n %{name}-qt6
+%license %{name}-qt6/COPYING %{name}-qt6/LICENSE
+%doc %{name}-qt6/README.md
+%{_qt6_libdir}/lib%{name}-qt6.so.0.3.0
+%{_qt6_libdir}/lib%{name}-qt6.so.0.3
 
-%files qt4
-%license COPYING
-%{_qt4_libdir}/libqwtplot3d-qt4.so.*
+%files -n %{name}-qt6-devel
+%{_qt6_headerdir}/%{name}-qt6/
+%{_qt6_libdir}/lib%{name}-qt6.so
+%{_libexecdir}/%{name}-qt6/
+#
 
-%files qt4-devel
-%doc examples
-%{_qt4_headerdir}/%{name}/
-%{_qt4_libdir}/libqwtplot3d-qt4.so
+# Qt5
+%files -n %{name}-qt5
+%license %{name}-qt5/COPYING %{name}-qt5/LICENSE
+%doc %{name}-qt5/README.md
+%{_qt5_libdir}/lib%{name}-qt5.so.0.3.0
+%{_qt5_libdir}/lib%{name}-qt5.so.0.3
+
+%files -n %{name}-qt5-devel
+%{_qt5_headerdir}/%{name}-qt5/
+%{_qt5_libdir}/lib%{name}-qt5.so
+%{_libexecdir}/%{name}-qt5/
+#
 
 %changelog
+* Sun Jan 08 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-2.20210828gitb265574
+- Fix Obsolete tags
+
+* Sun Jan 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-1.20210828gitb265574
+- New upstream
+- Remove old/unused CMake options
+- Obsolete old qwtplot3d-qt4/qwtplot3d-qt5
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

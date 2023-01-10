@@ -1,18 +1,19 @@
 Name:           at-spi2-core
-Version:        2.46.0
-Release:        2%{?dist}
+Version:        2.47.1
+Release:        1%{?dist}
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
 License:        LGPLv2+
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
-Source0:        http://download.gnome.org/sources/%{name}/2.46/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/2.47/%{name}-%{version}.tar.xz
 # scriptlet to set AT_SPI_BUS for XWayland apps that run as root (i.e. anaconda)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1821345
 Source1:        xwayland-session-scriptlet
 
+BuildRequires:  /usr/bin/sphinx-build
 BuildRequires:  gettext
+BuildRequires:  gi-docgen
 BuildRequires:  gobject-introspection-devel
-BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gio-2.0)
@@ -127,9 +128,7 @@ install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/00-
 
 %files devel
 %{_libdir}/libatspi.so
-%dir %{_datadir}/gtk-doc/
-%dir %{_datadir}/gtk-doc/html/
-%{_datadir}/gtk-doc/html/libatspi
+%{_docdir}/libatspi
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Atspi-2.0.gir
 %{_includedir}/at-spi-2.0
@@ -145,9 +144,7 @@ install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/00-
 %{_libdir}/libatk-1.0.so
 %{_includedir}/atk-1.0
 %{_libdir}/pkgconfig/atk.pc
-%dir %{_datadir}/gtk-doc/
-%dir %{_datadir}/gtk-doc/html/
-%{_datadir}/gtk-doc/html/atk
+%{_docdir}/atk
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Atk-1.0.gir
 
@@ -160,14 +157,14 @@ install -m 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/00-
 %{_libdir}/libatk-bridge-2.0.so.*
 
 %files -n at-spi2-atk-devel
-%dir %{_datadir}/gtk-doc/
-%dir %{_datadir}/gtk-doc/html/
-%{_datadir}/gtk-doc/html/atk
 %{_includedir}/at-spi2-atk/2.0/atk-bridge.h
 %{_libdir}/libatk-bridge-2.0.so
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
+* Sun Jan 08 2023 David King <amigadave@amigadave.com> - 2.47.1-1
+- Update to 2.47.1
+
 * Wed Nov 02 2022 David King <amigadave@amigadave.com> - 2.46.0-2
 - Require xprop for xwayland scriptlet (#2137281)
 

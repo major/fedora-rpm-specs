@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 License:	MIT
@@ -79,6 +79,18 @@ LANG=C.UTF-8
 
 pushd .%{gem_instdir}
 
+%if 0
+# This is a comment
+F-38:
+The following test fails with texlive 2022 due to some font issue??
+https://copr.fedorainfracloud.org/coprs/mtasaka/rubygem-newruby-test/build/5207004/
+TestFiles#test_/builddir/build/BUILD/kramdown-2_4_0/usr/share/gems/gems/kramdown-2_4_0/test/testcases/block/04_header/with_auto_ids_text_to_latex_compilation [/builddir/build/BUILD/kramdown-2.4.0/usr/share/gems/gems/kramdown-2.4.0/test/test_files.rb:153]:
+ LaTeX Error: Unicode character á»¥ (U+1EE5)
+               not set up for use with LaTeX.
+%endif
+sed -i.skip test/test_files.rb \
+	-e "\@EXCLUDE_LATEX_FILES =@s|^\(.*\)$|\1 'test/testcases/block/04_header/with_auto_ids.text', #texlive 2022|"
+
 export RUBYLIB=$(pwd)/lib
 ruby -e 'Dir.glob "./test/test_*.rb", &method(:require)'
 
@@ -106,6 +118,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Jan  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.0-5
+- Skip one test failing with texlive 2022, due to perhaps font issue
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

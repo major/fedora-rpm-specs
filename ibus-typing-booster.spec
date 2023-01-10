@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
 Version:    2.19.13
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -248,6 +248,9 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Sun Jan 08 2023 Mike FABIAN <mfabian@redhat.com> - 2.19.13-2
+- Update tarball to version with corrected changelog upstream
+
 * Fri Dec 30 2022 Mike FABIAN <mfabian@redhat.com> - 2.19.13-1
 - Update to 2.19.13
 - Catch exception when user database is locked during shutdown

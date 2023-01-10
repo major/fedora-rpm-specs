@@ -515,10 +515,12 @@ mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d/
 install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # init scripts
-rm %{buildroot}%{_sysconfdir}/rc.d/init.d/xen-watchdog
-rm %{buildroot}%{_sysconfdir}/rc.d/init.d/xencommons
-rm %{buildroot}%{_sysconfdir}/rc.d/init.d/xendomains
-rm %{buildroot}%{_sysconfdir}/rc.d/init.d/xendriverdomain
+%define initdloc %(test -d /etc/rc.d/init.d/ && echo rc.d/init.d || echo init.d )
+
+rm %{buildroot}%{_sysconfdir}/%{initdloc}/xen-watchdog
+rm %{buildroot}%{_sysconfdir}/%{initdloc}/xencommons
+rm %{buildroot}%{_sysconfdir}/%{initdloc}/xendomains
+rm %{buildroot}%{_sysconfdir}/%{initdloc}/xendriverdomain
 
 ############ create dirs in /var ############
 
@@ -931,7 +933,10 @@ fi
 %endif
 
 %changelog
-* Tue Dec 20 2022 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-2
+* Sun Jan 08 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-2
+- fix clean up of init scripts if /etc/rc.d/init.d doesn't exist
+
+* Tue Dec 20 2022 Michael Young <m.a.young@durham.ac.uk>
 -  python3-setuptools BuildRequires is needed for python 3.12
 
 * Tue Dec 13 2022 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-1

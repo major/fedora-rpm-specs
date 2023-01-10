@@ -4,12 +4,14 @@
 
 %bcond_without flexiblas
 
+%global _lto_cflags %{nil}
+
 %global subversion .29
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       2%{?dist}
+Release:       3%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -226,14 +228,11 @@ export CFLAGS="%build_cflags"
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-# Fix unused-direct-shlib-dependency with libgslcblas.so.0 and libgfortran.so.3
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
-OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
+OPT_FLAGS=$(echo "%build_cflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
 export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
-export CFLAGS_FEDORA="%build_cflags"
-export LDFLAGS_FEDORA="%build_ldflags"
+export CFLAGS_FEDORA="$OPT_FLAGS"
+export LDFLAGS_FEDORA="$OPT_FLAGS"
 %make_build V=1
 
 # Rebuild giac_*.info and Convert info file to utf-8
@@ -459,6 +458,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Sun Jan 08 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.29-3
+- Disable LTO flags
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.9.0.29-2
 - C99 compatibility fixes (#2151473)
 - Do not override the system <fenv.h> file.

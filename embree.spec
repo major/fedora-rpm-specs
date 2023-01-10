@@ -12,7 +12,7 @@ Version:	3.13.5
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://embree.github.io
 %if %{with_snapshot}
 Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz

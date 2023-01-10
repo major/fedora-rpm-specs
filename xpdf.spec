@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPLv2 or GPLv3) and BSD
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -52,6 +52,7 @@ Patch12: xpdf-4.01-64bit.patch
 Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
 Patch26: xpdf-4.02-urw-base35-fonts.patch
+Patch27: xpdf-4.04-libpaper2.patch
 
 # Security patches
 # Based on
@@ -109,6 +110,7 @@ Development files for xpdf libraries.
 %patch12 -p1 -b .alloc
 %patch25 -p1 -b .versionedlib
 %patch26 -p1 -b .urw-font-fix
+%patch27 -p1 -b .libpaper2
 
 # security patches
 %patch101 -p1 -b .CVE-2019-12360
@@ -286,6 +288,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so
 
 %changelog
+* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 1:4.04-3
+- fix build with libpaper2, rebuild for it
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

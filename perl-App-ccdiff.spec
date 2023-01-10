@@ -1,6 +1,6 @@
 Name:           perl-App-ccdiff
-Version:        0.31
-Release:        5%{?dist}
+Version:        0.32
+Release:        1%{?dist}
 Summary:        Colored Character diff
 
 License:        Artistic-2.0
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Sun Jan 08 2023 Richard Fearn <richardfearn@gmail.com> - 0.32-1
+- Update to 0.32 (#2158460)
+
 * Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 0.31-5
 - Use SPDX license identifier
 

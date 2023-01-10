@@ -1,6 +1,6 @@
 Name:           ilua
 Version:        0.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Portable Lua kernel for Jupyter
 
 # The package contains the Lua logo, which has some modification restrictions.
@@ -14,6 +14,12 @@ URL:            https://github.com/guysv/ilua
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+ExcludeArch:    %{ix86}
+%endif
+
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
@@ -68,6 +74,9 @@ grep Traceback check.log && exit 1 || true
 %license %{_datadir}/jupyter/kernels/lua/logo-license.txt
 
 %changelog
+* Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.1-12
+- Drop support for i686
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -65,13 +65,6 @@
 %global use_vaapi 0
 %endif
 
-# ... and EL9 doesn't ship libva-devel on aarch64?
-%if 0%{?rhel} == 9
- %ifarch aarch64
-  %global use_vaapi 0
- %endif
-%endif
-
 # Seems like we might need this sometimes
 # Practically, no. But it's here in case we do.
 %global use_gold 0
@@ -219,7 +212,7 @@ BuildRequires: libicu-devel >= 5.4
 
 Name:	chromium%{chromium_channel}
 Version: 108.0.5359.124
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -382,8 +375,8 @@ Patch120: chromium-108-clang14-c++20-link-error.patch
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
-Patch203: chromium-108-vaapi-i686-fpermissive.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
+Patch206: chromium-108-ozone-wayland-vaapi-support.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -583,7 +576,7 @@ Requires: libusbx >= 1.0.21-0.1.git448584a
 BuildRequires: libusbx-devel >= 1.0.21-0.1.git448584a
 %endif
 
-%if 0%{use_vaapi}
+%if 0%{?use_vaapi}
 BuildRequires:	libva-devel
 %endif
 
@@ -1032,12 +1025,10 @@ udev.
 %endif
 
 # Feature specific patches
-%if %{use_vaapi}
+%if 0%{?use_vaapi}
 %patch202 -p1 -b .accel-mjpeg
-%ifarch i686
-%patch203 -p1 -b .i686permissive
-%endif
 %patch205 -p1 -b .vaapi-intel-fix
+%patch206 -p1 -b .wayland-vaapi
 %endif
 
 %if 0%{?rhel} >= 8
@@ -1286,10 +1277,8 @@ CHROMIUM_BROWSER_GN_DEFINES+=' blink_symbol_level=0 enable_hangout_services_exte
 CHROMIUM_BROWSER_GN_DEFINES+=' use_aura=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_widevine=true'
 
-%if %{use_vaapi}
-%if 0%{?fedora} >= 28
+%if 0%{?use_vaapi}
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=true'
-%endif
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=false'
 %endif
@@ -1409,7 +1398,12 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{chromium_path}/locales
+
+%if 0%{?use_vaapi}
 cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+%%else
+grep -v features /usr/bin/chromium-browser > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+%endif
 
 export BUILD_TARGET=`cat /etc/redhat-release`
 export CHROMIUM_PATH=%{chromium_path}
@@ -1755,6 +1749,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Jan 08 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-4
+- vaapi support for wayland
+
 * Wed Jan 04 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-3
 - build with system ffmpeg-free and system libaom
 - fix widewine extension issue

@@ -1,5 +1,5 @@
 Name:           fedora-gnat-project-common
-Version:        3.16
+Version:        3.17
 Release:        1%{?dist}
 Summary:        Files shared by Ada libraries
 Summary(sv):    Gemensamma filer för adabibliotek
@@ -16,11 +16,6 @@ BuildArch:      noarch
 
 BuildRequires:  sed
 Requires:       setup
-# macros.gnat requires build_*flags:
-Requires:       redhat-rpm-config >= 94
-# macros.gnat uses _smp_build_ncpus (RPM 4.15),
-# and an RPM that knows about /usr/lib/rpm/macros.d (4.11) is required:
-Requires:       rpm >= 4.15
 
 %description
 The fedora-gnat-project-common package contains files that are used by the GNAT
@@ -59,7 +54,11 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 
 
 %changelog
-* Mon Jun 22 2020 Björn Persson <Bjorn@Rombobjörn.se> - 3.16-1
+* Sat Jan 07 2023 Björn Persson <Bjorn@Rombobjörn.se> - 3.17-1
+- Added --no-manifest and -m to GPRinstall_flags.
+- Deprecated the "opt" part of macro names.
+
+* Thu Sep 22 2022 Björn Persson <Bjorn@Rombobjörn.se> - 3.16-1
 - Adapted to backward compatibility breakage in uname.
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-5
