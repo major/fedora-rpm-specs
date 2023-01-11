@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 8
+%global openssh_rel 9
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -724,6 +724,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Mon Jan 09 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-9
+- Fix build against updated OpenSSL (rhbz#2158966)
+
 * Mon Oct 24 2022 Norbert Pocs <npocs@redhat.com> - 9.0p1-8
 - Add additional audit logging about ssh key used to login (rhbz#2049947)
 

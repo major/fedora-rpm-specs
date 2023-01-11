@@ -5,12 +5,12 @@
 %endif
 
 Name:           ocaml-odoc
-Version:        2.1.1
-Release:        2%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
-# BSD-3-Clause: src/vendor/highlight.pack.js
+# BSD-3-Clause: src/html_support_files/highlight.pack.js
 License:        ISC AND BSD-3-Clause
 URL:            https://github.com/ocaml/odoc
 Source0:        %{url}/archive/%{version}/odoc-%{version}.tar.gz
@@ -79,12 +79,13 @@ Documentation for %{name}.
 mkdir -p %{buildroot}%{_mandir}/man1
 _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.1
 
-%check
-%dune_check
+# It is no longer possible to run the tests because Fedora lacks ocaml-crunch.
+#check
+#dune_check
 
 %files -f .ofiles
 %doc CHANGES.md README.md
-%license LICENSE.md src/vendor/LICENSE
+%license LICENSE.md src/html_support_files/LICENSE
 %{_mandir}/man1/odoc.1*
 
 %files devel -f .ofiles-devel
@@ -94,6 +95,10 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE.md
 
 %changelog
+* Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-1
+- Version 2.2.0
+- Disable tests due to missing dependency
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-2
 - Convert License tags to SPDX
 

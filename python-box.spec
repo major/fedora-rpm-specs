@@ -1,7 +1,7 @@
 %global pypi_name box
 
 Name:           python-%{pypi_name}
-Version:        6.0.2
+Version:        6.1.0
 Release:        1%{?dist}
 Summary:        Python dictionaries with advanced dot notation access
 
@@ -58,6 +58,9 @@ added to a Box or BoxList object are converted automatically.
 %{python3_sitelib}/python_box-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Jan 09 2023 Fabian Affolter <mail@fabian-affolter.ch> - 6.1.0-1
+- Update to latest upstream release 6.1.0 (closes rhbz#2138674)
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 6.0.2-1
 - Update to latest upstream release 6.0.2 (closes rhbz#2043812)
 

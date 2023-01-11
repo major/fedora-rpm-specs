@@ -173,7 +173,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        108.0.1
-Release:        3%{?pre_tag}%{?dist}
+Release:        4%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -754,33 +754,9 @@ echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 export CCACHE_DISABLE=1
 %endif
 
-%if 0%{?fedora} > 35
 # Require 2 GB of RAM per CPU core
 %constrain_build -m 2048
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
-%else
-# F35 doesn't have %%constrain_build
-MOZ_SMP_FLAGS=-j1
-# On x86_64 architectures, Mozilla can build up to 4 jobs at once in parallel,
-# however builds tend to fail on other arches when building in parallel.
-%ifarch %{ix86} s390x %{arm} aarch64
-[ -z "$RPM_BUILD_NCPUS" ] && \
-     RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
-[ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
-%endif
-%ifarch x86_64 ppc ppc64 ppc64le
-[ -z "$RPM_BUILD_NCPUS" ] && \
-     RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
-[ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
-[ "$RPM_BUILD_NCPUS" -ge 4 ] && MOZ_SMP_FLAGS=-j4
-[ "$RPM_BUILD_NCPUS" -ge 8 ] && MOZ_SMP_FLAGS=-j8
-[ "$RPM_BUILD_NCPUS" -ge 16 ] && MOZ_SMP_FLAGS=-j16
-[ "$RPM_BUILD_NCPUS" -ge 24 ] && MOZ_SMP_FLAGS=-j24
-[ "$RPM_BUILD_NCPUS" -ge 32 ] && MOZ_SMP_FLAGS=-j32
-[ "$RPM_BUILD_NCPUS" -ge 64 ] && MOZ_SMP_FLAGS=-j64
-%endif
-echo "mk_add_options MOZ_MAKE_FLAGS=\"$MOZ_SMP_FLAGS\"" >> .mozconfig
-%endif
 
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
@@ -947,11 +923,7 @@ create_default_langpack "zh-TW" "zh"
 
 # Use the system hunspell dictionaries
 %{__rm} -rf %{buildroot}%{mozappdir}/dictionaries
-%if 0%{?fedora} > 35
 ln -s %{_datadir}/hunspell %{buildroot}%{mozappdir}/dictionaries
-%else
-ln -s %{_datadir}/myspell %{buildroot}%{mozappdir}/dictionaries
-%endif
 
 # Enable crash reporter for Firefox application
 %if %{enable_mozilla_crashreporter}
@@ -973,13 +945,6 @@ sed -i -e "s/\[Crash Reporter\]/[Crash Reporter]\nEnabled=1/" %{buildroot}/%{moz
 %{__cp} %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 %if %{?use_xdg_file_portal}
 echo 'pref("widget.use-xdg-desktop-portal.file-picker", 1);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-%endif
-
-# Since Fedora 36 the location of dictionaries has changed to /usr/share/hunspell.
-# For backward spec compatibility we set the old path in previous versions.
-# TODO remove when Fedora 35 becomes obsolete
-%if 0%{?fedora} <= 35
-sed -i -e 's|/usr/share/hunspell|/usr/share/myspell|g' %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %endif
 
 # Copy over run-mozilla.sh
@@ -1135,6 +1100,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Jan 09 2023 Kalev Lember <klember@redhat.com> - 108.0.1-4
+- Drop conditionals for F35
+
 * Wed Dec 21 2022 Martin Stransky <stransky@redhat.com>- 108.0.1-3
 - Added second arch build fix
 

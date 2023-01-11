@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -88,6 +88,7 @@ Requires:       python3-numpy
 Requires:       python3-scour
 Requires:       python3-appdirs
 Requires:       python3-cssselect
+Requires:       python3-pillow
 # Weak dependencies for the LaTeX plugin
 Suggests:       pstoedit
 Suggests:       tex(latex)
@@ -225,6 +226,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Mon Jan 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-3
+- Require python3-pillow
+
 * Tue Jan 03 2023 Carl George <carl@george.computer> - 1.2.2-2
 - Build against GraphicsMagick instead of ImageMagick on F38+, resolves rhbz#2158052
 

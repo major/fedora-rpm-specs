@@ -2,8 +2,8 @@
 %global src_name XlsxWriter
 
 Name:		python-%{pypi_name}
-Version:	3.0.3
-Release:	3%{?dist}
+Version:	3.0.6
+Release:	1%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
 License:	BSD
 URL:		https://pypi.python.org/pypi/XlsxWriter
@@ -67,6 +67,9 @@ rm -rf %{src_name}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Mon Jan 09 2023 Rajeesh K V <rajeeshknambiar@gmail.com> - 3.0.6-1
+- New minor update with serval minor fixes, version 3.0.6
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

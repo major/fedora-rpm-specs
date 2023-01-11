@@ -1,6 +1,6 @@
 Name:		libpaper
 Version:	2.0.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
 Summary:	Library and tools for handling papersize
@@ -37,7 +37,7 @@ to develop applications which use libpaper.
 
 %package -n paper
 Summary:	Print paper size information
-Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{epoch}:%{version}-%{release}
 # This is licensed differently from libpaper.
 # paper.c is GPL-3.0-or-later
 # localepaper.c is FSFAP (except it is missing the warranty disclaimer... but the intent is clear)
@@ -94,6 +94,7 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %files
 %doc ChangeLog README
 %license COPYING
+%config(noreplace) %{_sysconfdir}/paperspecs
 %{_libdir}/libpaper.so.*
 
 %files devel
@@ -101,13 +102,17 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %{_libdir}/libpaper.so
 
 %files -n paper
-%config(noreplace) %{_sysconfdir}/paperspecs
 %{_bindir}/paper
 %{_libexecdir}/localepaper
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
 %changelog
+* Mon Jan 9 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.4-2
+- move /etc/paperspecs to libpaper to ensure proper functionality in cases where paper subpackage
+  is not installed
+- fix Requires to include epoch
+
 * Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.4-1
 - update to 2.0.4
 

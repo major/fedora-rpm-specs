@@ -1,13 +1,14 @@
 Name:           scanssh
 Summary:        Fast SSH server and open proxy scanner
 Version:        2.1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        BSD with advertising
 URL:            http://github.com/ofalk/scanssh/wiki
 Source0:        http://github.com/ofalk/%{name}/archive/%{version}.tar.gz
 Patch0:         scanssh-2.1-hide.patch
 # HACK: Do not drop user provided CFLAGS
 Patch1:         scanssh-2.1.1-autotools.patch
+Patch2:         scanssh-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel
@@ -26,6 +27,7 @@ or the Internet as whole.
 %setup -q %{name}-%{version}
 %{?_with_hidescan:%patch0 -p1}
 %patch1 -p1
+%patch2 -p1
 
 # Remove CFLAGS - They must not be overriden in Makefiles
 sed -i -e '/^CFLAGS =.*$/d' Makefile*
@@ -47,6 +49,9 @@ make %{?_smp_mflags}
 %{_mandir}/man1/scanssh*
 
 %changelog
+* Mon Jan 09 2023 Florian Weimer <fweimer@redhat.com> - 2.1.2-13
+- C99 compatibility fixes
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

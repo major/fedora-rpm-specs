@@ -1,6 +1,6 @@
 Name:           python-trezor
-Version:        0.13.4
-Release:        2%{?dist}
+Version:        0.13.5
+Release:        1%{?dist}
 Summary:        Python library for communicating with TREZOR Hardware Wallet
 
 License:        LGPLv3
@@ -69,6 +69,9 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_d
 
 
 %changelog
+* Mon Jan 09 2023 Jonny Heggheim <hegjon@gmail.com> - 0.13.5-1
+- Updated to version 0.13.5
+
 * Mon Dec 05 2022 Jonny Heggheim <hegjon@gmail.com> - 0.13.4-2
 - Enabled dependency on simple-rlp, it is now included in Fedora
 

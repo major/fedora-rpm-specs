@@ -16,7 +16,7 @@
 
 Name:           z3
 Version:        4.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -24,6 +24,10 @@ URL:            https://github.com/Z3Prover/z3
 Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
 # Change the way python finds the shared object; see bz 1910923
 Patch0:         %{name}-python.patch
+# Fix use of an uninitialized variable
+Patch1:         %{name}-uninit.patch
+# Fix a data race that can cause a segfault; see bz 2157972
+Patch2:         %{name}-data-race.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -168,8 +172,8 @@ sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so")
     -i scripts/update_api.py
 
 %build
-export LANG="C.UTF-8"
-export PYTHON="%{python3}"
+export LANG=C.UTF-8
+export PYTHON=%{python3}
 
 %cmake -G Ninja \
   -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir}/z3 \
@@ -284,6 +288,10 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Sun Jan  8 2023 Jerry James <loganjerry@gmail.com> - 4.11.2-2
+- Add -data-race patch to fix segfault (bz 2157972)
+- Add -uninit patch to fix use of an uninitialized value
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 4.11.2-1
 - Further clarify license of the doc subpackage (SPDX)
 

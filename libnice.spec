@@ -1,15 +1,22 @@
 Name:           libnice
 Version:        0.1.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GLib ICE implementation
 
 License:        LGPLv2 and MPLv1.1
-URL:            https://nice.freedesktop.org/wiki/
+URL:            https://nice.freedesktop.org/
 Source0:        https://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz
+Source1:        https://nice.freedesktop.org/releases/%{name}-%{version}.tar.gz.asc
+
+# gpg --recv-keys 1D388E5A4ED9A2BB
+# gpg --output olivier.pgp --armor --export olivier.crete@ocrete.ca
+Source2: olivier.pgp
+
 # Build against the new gupnp-igd
 Patch0:         libnice-gupnp-1.6.patch
 
 BuildRequires:  glib2-devel
+BuildRequires:  gnupg2
 BuildRequires:  gnutls-devel >= 2.12.0
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gstreamer1-devel >= 0.11.91
@@ -50,6 +57,7 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 # disable tests that don't work in koji environment
 sed \
@@ -99,6 +107,9 @@ sed \
 
 
 %changelog
+* Mon Jan 09 2023 Kamil Dudka <kdudka@redhat.com> - 0.1.21-2
+- verify GPG signature of upstream tarball when building the package
+
 * Sun Jan 08 2023 Stefan Becker <chemobejk@gmail.com> - 0.1.21-1
 - Update to 0.1.21 (#2158912)
 

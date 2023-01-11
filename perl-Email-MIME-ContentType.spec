@@ -1,8 +1,8 @@
 Name:           perl-Email-MIME-ContentType
-Version:        1.026
-Release:        7%{?dist}
+Version:        1.028
+Release:        1%{?dist}
 Summary:        Parse a MIME Content-Type Header
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME-ContentType
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-MIME-ContentType-%{version}.tar.gz
 BuildArch:      noarch
@@ -12,12 +12,13 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
+BuildRequires:  perl(strict)
 # Module
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode) >= 2.87
 BuildRequires:  perl(Exporter) >= 5.57
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Unidecode)
 BuildRequires:  perl(warnings)
 # Test Suite
@@ -44,13 +45,12 @@ respectively.
 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 
@@ -67,6 +67,15 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 
 %changelog
+* Mon Jan  9 2023 Paul Howarth <paul@city-fan.org> - 1.028-1
+- Update to 1.028
+  - Add a (for now undocumented) $PRE_2231_FORM package variable; if set to
+    false, when RFC2231-style parameters are used, a pre-RFC2231-style version
+    will *not* also be provided; this variable is true by default
+  - Update author info
+- Use SPDX-format license tag
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.026-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

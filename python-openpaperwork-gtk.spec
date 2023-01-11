@@ -1,13 +1,13 @@
 %global srcname openpaperwork-gtk
 
 Name:           python-%{srcname}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        OpenPaperwork GTK plugins
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork/tree/master/openpaperwork-gtk
-Source0:        %{pypi_source}
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
@@ -15,7 +15,6 @@ BuildArch:      noarch
 ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(openpaperwork-core)
 BuildRequires:  python3dist(pygobject)
 
 %description
@@ -44,7 +43,7 @@ A bunch of plugins for Paperwork related to GLib and GTK.
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

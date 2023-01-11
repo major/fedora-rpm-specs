@@ -11,7 +11,7 @@ Patch2:         libmikmod-cflags.patch
 Patch3:         libmikmod-autoconf.patch
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel pulseaudio-libs-devel
-BuildRequires:  autoconf automake make
+BuildRequires:  autoconf automake libtool make
 
 %description
 libmikmod is a library used by the mikmod MOD music file player for

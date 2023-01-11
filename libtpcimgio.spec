@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcimgio
 Version:        1.5.10
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Turku PET Centre for image file input and output procedures
 
 License:        LGPLv2+
@@ -9,6 +9,7 @@ URL:            http://www.turkupetcentre.net/software/libdoc/%{name}/index.html
 Source0:        http://www.turkupetcentre.net/software/libsrc/%{name}_1_5_10_src.zip
 Patch0:         %{name}-add-header.patch
 Patch1:         %{name}-shared.patch
+Patch2:         %{name}-strings-header.patch
 BuildRequires:  gcc
 BuildRequires:  libtpcmisc-devel
 BuildRequires:  doxygen dos2unix
@@ -42,6 +43,7 @@ This package contains static libraries for %{name}.
 %setup -q -n %{name}
 %patch0 -p1
 %patch1 -p1 -b .shared
+%patch2 -p1 -b .strings-header
 sed -i "/^CFLAGS/d" Makefile
 
 # Fix encodings and line endings.
@@ -97,6 +99,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 1.5.10-29
+- Add string.h include for strcasecmp for C99 compatibility.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -31,11 +31,12 @@ BuildRequires:  glibc-langpack-en
 
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
-BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(librsvg-2.0)
+BuildRequires:  pkgconfig(iso-codes)
+BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libipuz-0.1)
+BuildRequires:  pkgconfig(librsvg-2.0)
 
 Requires:       dbus-common
 Requires:       %{name}-puzzle-sets-cats-and-dogs = %{version}-%{release}

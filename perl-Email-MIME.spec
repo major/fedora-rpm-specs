@@ -1,8 +1,8 @@
 Name:           perl-Email-MIME
-Version:        1.952
-Release:        4%{?dist}
+Version:        1.953
+Release:        1%{?dist}
 Summary:        Easy MIME message parsing
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-MIME-%{version}.tar.gz
 BuildArch:      noarch
@@ -12,6 +12,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Module Runtime
 BuildRequires:  perl(Carp)
@@ -32,7 +33,6 @@ BuildRequires:  perl(Scalar::Util)
 # Test Suite
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Capture::Tiny)
-BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version) > 0.99
@@ -60,13 +60,12 @@ parts of the message. Headers are decoded from MIME encoding.
 
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 
@@ -88,6 +87,16 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 
 %changelog
+* Mon Jan  9 2023 Paul Howarth <paul@city-fan.org> - 1.953-1
+- Update to 1.953
+  - As promised, this release no longer works on v5.8; in fact, due to some
+    upstream libraries, it hasn't in some time
+  - Documentation has been cleaned up to stop referencing long-dead other
+    libraries or methods
+  - Some small code changes to benefit from v5.10 and v5.12 improvements
+- Use SPDX-format license tag
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.952-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

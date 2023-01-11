@@ -1,6 +1,6 @@
 Name:           perl-System-Info
-Version:        0.062
-Release:        4%{?dist}
+Version:        0.063
+Release:        1%{?dist}
 Summary:        Factory for system specific information objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/System-Info
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.063-1
+- 0.063 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.062-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -20,13 +20,13 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   43.2
+Version:   44~alpha
 Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://wiki.gnome.org/Apps/Software
-Source0:   https://download.gnome.org/sources/gnome-software/43/%{name}-%{tarball_version}.tar.xz
+Source0:   https://download.gnome.org/sources/gnome-software/44/%{name}-%{tarball_version}.tar.xz
 
 Patch01:   0001-crash-with-broken-theme.patch
 
@@ -228,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Mon Jan 09 2023 Milan Crha <mcrha@redhat.com> - 44.alpha-1
+- Update to 44.alpha
+
 * Fri Dec 02 2022 Milan Crha <mcrha@redhat.com> - 43.2-1
 - Update to 43.2
 

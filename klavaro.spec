@@ -1,6 +1,6 @@
 Name:           klavaro
 Version:        3.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Typing tutor
 
 License:        GPL-3.0-or-later
@@ -19,6 +19,7 @@ BuildRequires:  make
 BuildRequires:  gtkdatabox-devel
 
 Requires:       hicolor-icon-theme
+Recommends:     espeak
 
 %description
 Klavaro  is a touch typing tutor that is very flexible and supports
@@ -61,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Mon Jan 09 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.14-2
+- Add recommends espeak
+
 * Thu Dec 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 3.14-1
 - Update to 3.14
 

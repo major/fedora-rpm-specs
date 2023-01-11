@@ -170,27 +170,3 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 * Fri Jan 15 2021 Petr Pisar <ppisar@redhat.com> - 7.0.0-1
 - 7.0.0 bump
-
-* Tue Dec 01 2020 Jitka Plesnikova <jplesnik@redhat.com> - 6.10.0-1
-- 6.10.0 bump
-
-* Mon Oct  5 2020 Daniel P. Berrangé <berrange@redhat.com> - 6.8.0-1
-- Update to 6.8.0 release
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 23 2020 Jitka Plesnikova <jplesnik@redhat.com> - 6.3.0-2
-- Perl 5.32 rebuild
-
-* Tue May 05 2020 Cole Robinson <crobinso@redhat.com> - 6.3.0-1
-- Update to version 6.3.0
-
-* Tue Mar 10 2020 Jitka Plesnikova <jplesnik@redhat.com> - 6.1.0-1
-- Update to version 6.1.0
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jan 16 2020 Jitka Plesnikova <jplesnik@redhat.com> - 6.0.0-1
-- Update to version 6.0.0

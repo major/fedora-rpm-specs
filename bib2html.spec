@@ -1,11 +1,12 @@
 Summary:       Converting bibTeX file to HTML
 Name:          bib2html
 Version:       1.2.1
-Release:       33%{?dist}
+Release:       34%{?dist}
 License:       GPL+
 URL:           http://www.litech.org/~wkiri/bib2html/
 Source0:       http://www.litech.org/~wkiri/bib2html/bib2html-%{version}.tar.gz
 Patch0:        bib2html-configure-c99.patch
+Patch1:        bib2html-c99.patch
 BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: make
@@ -16,6 +17,11 @@ make appropriate links in the HTML output to the URL location.
 
 %prep
 %autosetup -p1
+# Avoid re-running flex and bison after patching the sources and
+# generated files.
+touch -r bib2html.l bib2html.c
+touch -r bib2html.tab.y bib2html.tab.c
+
 chmod 0644 ChangeLog NEWS README Docs/bib2html.html
 
 %build
@@ -32,6 +38,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/bib2html
 
 %changelog
+* Mon Jan  9 2023 Florian Weimer <fweimer@redhat.com> - 1.2.1-34
+- C99 compatibility fixes for lexer/parser integration (#2159269)
+
 * Sat Jan 07 2023 Peter Fordham <peter.fordham@gmail.com> - 1.2.1-33
 - Port configure script to C99.
 

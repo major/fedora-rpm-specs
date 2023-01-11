@@ -1,0 +1,49 @@
+%global srcname Mathics_Scanner
+
+Name:           python-mathics-scanner
+Version:        1.2.4
+Release:        %autorelease
+Summary:        Character Tables and Tokenizer for Mathics and the Wolfram Language.
+
+License:        GPL-3.0-only
+URL:            https://mathics.org
+Source:         %{pypi_source}
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+
+%global _description %{expand:
+Package provides character tables and a tokenizer for Mathics and the Wolfram
+Language.}
+
+%description %_description
+
+%package -n     python3-mathics-scanner
+Summary:        %{summary}
+
+%description -n python3-mathics-scanner %_description
+
+%prep
+%autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files mathics_scanner
+
+%check
+%pytest
+
+%files -n python3-mathics-scanner -f %{pyproject_files}
+%license COPYING.txt
+%doc README.rst CHANGES.rst AUTHORS.txt ChangeLog
+%{_bindir}/mathics-generate-json-table
+
+%changelog
+%autochangelog

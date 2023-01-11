@@ -1,5 +1,5 @@
 Name:           perl-Config-Perl-V
-Version:        0.34
+Version:        0.35
 Release:        1%{?dist}
 Summary:        Structured data retrieval of perl -V output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,7 +66,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
 
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -91,6 +91,9 @@ make test PERL_CORE=%{defined perl_bootstrap}
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-1
+- 0.35 bump
+
 * Wed Aug 24 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-1
 - 0.34 bump
 - Package tests

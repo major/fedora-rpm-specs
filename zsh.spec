@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -12,6 +12,9 @@ Source4: zshrc.rhs
 Source5: zshenv.rhs
 Source6: dotzshrc
 Source7: dotzprofile
+
+# do not use egrep in tests to make them pass again
+Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -160,6 +163,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Mon Jan 09 2023 Kamil Dudka <kdudka@redhat.com> - 5.9-3
+- do not use egrep in tests to make them pass again
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,13 +1,12 @@
 
 Name:		jpeginfo
-Version:	1.6.1
-Release:	20%{?dist}
+Version:	1.6.2
+Release:	1%{?dist}
 Summary:	Error-check and generate informative listings from JPEG files
 
 License:	GPLv2+
 URL:		http://www.kokkonen.net/tjko/projects.html
 Source0:	http://www.kokkonen.net/tjko/src/%{name}-%{version}.tar.gz
-Patch0:	jpeginfo-configure-c99.patch
 
 Provides:	bundled(md5-plumb)
 
@@ -24,13 +23,13 @@ them for errors (and optionally delete broken files).
 
 
 %prep
-%autosetup -p1
+%setup -q
 rm getopt*.*
 
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -46,6 +45,9 @@ install -Dpm 0644 jpeginfo.1 %{buildroot}/%{_mandir}/man1/jpeginfo.1
 
 
 %changelog
+* Mon Jan 09 2023 Denis Fateyev <denis@fateyev.com> - 1.6.2-1
+- Update to version 1.6.2
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.6.1-20
 - Port configure script to C99
 

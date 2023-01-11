@@ -20,7 +20,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 56%{?dist}
+Release: 57%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -494,6 +494,10 @@ Patch34: texlive-base-20210325-poppler-22.01.0.patch
 Patch35: texlive-base-20210325-pdftoepdf-fix-crash.patch
 # Poppler 22.08.0
 Patch36: texlive-base-20220321-poppler-22.08.0.patch
+
+# libpaper v2 changes
+# 1. one psutils test needs adjustment, see https://github.com/rrthomas/libpaper/issues/23
+Patch37: texlive-base-libpaperv2.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -7410,6 +7414,10 @@ xz -dc %{SOURCE0} | tar x
 %patch36 -p1 -b .poppler-22.08.0
 %endif
 
+%if 0%{?fedora} >= 38 || 0%{?rhel} > 10
+%patch37 -p1 -b .libpaper2
+%endif
+
 # Setup copies of the licenses
 for l in `unxz -c %{SOURCE3} | tar t`; do
 ln -s %{_texdir}/licenses/$l $l
@@ -10131,6 +10139,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-57
+- rebuild against libpaper v2
+
 * Sat Jan  7 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-56
 - add dependency on texlive-lua-uni-algos on texlive-luaotfload (bz2158837)
 

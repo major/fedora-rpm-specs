@@ -12,8 +12,8 @@
 
 Name: fence-agents
 Summary: Set of unified programs capable of host isolation ("fencing")
-Version: 4.11.0
-Release: 4%{?alphatag:.%{alphatag}}%{?dist}
+Version: 4.12.0
+Release: 1%{?alphatag:.%{alphatag}}%{?dist}
 License: GPLv2+ and LGPLv2+
 URL: https://github.com/ClusterLabs/fence-agents
 Source0: https://fedorahosted.org/releases/f/e/fence-agents/%{name}-%{version}.tar.gz
@@ -21,6 +21,12 @@ Source0: https://fedorahosted.org/releases/f/e/fence-agents/%{name}-%{version}.t
 %if 0%{?rhel} == 7
 %ifarch s390x
 %define rhel7_s390x 1
+%endif
+%endif
+
+%if 0%{?rhel} == 9
+%ifarch ppc64le s390x
+%define rhel9_ppc64le_s390x 1
 %endif
 %endif
 
@@ -43,6 +49,7 @@ fence-agents-docker \\
 fence-agents-drac \\
 fence-agents-drac5 \\
 fence-agents-eaton-snmp \\
+fence-agents-ecloud \\
 fence-agents-emerson \\
 fence-agents-eps \\
 fence-agents-gce \\
@@ -115,24 +122,27 @@ BuildRequires: libxslt
 ## Python dependencies
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
 BuildRequires: python3-devel
-BuildRequires: python3-pexpect python3-pycurl python3-requests
+BuildRequires: python3-httplib2 python3-pexpect python3-pycurl python3-requests
+%if 0%{?suse_version} > 1500
+BuildRequires: python3-suds-community
+%else
 BuildRequires: python3-suds
-%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
-BuildRequires: python3-google-api-client python3-boto3 openwsman-python3
 %endif
-# (-openstack)
-%ifarch x86_64 ppc64le
-BuildRequires: python3-novaclient python3-keystoneclient
+%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
+BuildRequires: openwsman-python3
+%if ! %{defined rhel9_ppc64le_s390x}
+BuildRequires: python3-boto3
+%endif
 %endif
 %if 0%{?suse_version}
-BuildRequires: python3-google-api-python-client python3-openwsman python3-boto3
+BuildRequires: python3-openwsman python3-boto3
 %endif
 %else
 BuildRequires: python-devel
 BuildRequires: pexpect python-pycurl python-requests
 BuildRequires: python-suds openwsman-python
 %if ! %{defined rhel7_s390x}
-BuildRequires: python-google-api-client python-boto3
+BuildRequires: python-boto3 python-httplib2
 %endif
 # (-openstack)
 %ifarch x86_64 ppc64le
@@ -174,7 +184,12 @@ sed -i.orig 's|FENCE_ZVM=1|FENCE_ZVM=0|' configure.ac
 %endif
 
 ./autogen.sh
-%{configure} --disable-libvirt-qmf-plugin
+%{configure} \
+%if %{defined _tmpfilesdir}
+	SYSTEMD_TMPFILES_DIR=%{_tmpfilesdir} \
+	--with-fencetmpdir=/run/fence-agents
+%endif
+
 CFLAGS="$(echo '%{optflags}')" make %{_smp_mflags}
 
 %install
@@ -262,6 +277,14 @@ This package contains support files including the Python fencing library.
 %{_datadir}/pkgconfig/%{name}.pc
 %exclude %{_sbindir}/*
 %exclude %{_mandir}/man8/*
+%if %{defined _tmpfilesdir}
+%{_tmpfilesdir}/%{name}.conf
+%endif
+%if %{defined _tmpfilesdir}
+%dir %attr (1755, root, root)	/run/%{name}
+%else
+%dir %attr (1755, root, root)	%{_var}/run/%{name}
+%endif
 
 %package all
 License: GPLv2+ and LGPLv2+ and ASL 2.0
@@ -602,6 +625,23 @@ via the SNMP protocol.
 %{_sbindir}/fence_eaton_snmp
 %{_mandir}/man8/fence_eaton_snmp.8*
 
+%package ecloud
+License: GPLv2+ and LGPLv2+
+Summary: Fence agent for eCloud and eCloud VPC
+Requires: python3-requests
+%if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
+Requires: python3-requests
+%else
+Requires: python-requests
+%endif
+Requires: fence-agents-common = %{version}-%{release}
+BuildArch: noarch
+%description ecloud
+Fence agent for eCloud and eCloud VPC from ANS Group Limited
+%files ecloud
+%{_sbindir}/fence_ecloud
+%{_mandir}/man8/fence_ecloud.8*
+
 %package emerson
 License: GPLv2+ and LGPLv2+
 Summary: Fence agent for Emerson devices (SNMP)
@@ -911,7 +951,7 @@ Fence agent for use with kdump crash recovery service.
 %package kubevirt
 License: GPLv2+ and LGPLv2+
 Summary: Fence agent for KubeVirt platform
-Requires: python3-openshift
+Requires: python3-openshift >= 0.12.1
 Requires: fence-agents-common = %{version}-%{release}
 BuildArch: noarch
 %description kubevirt
@@ -1014,7 +1054,11 @@ Fence agent for OpenStack's Nova service.
 License: GPLv2+ and LGPLv2+
 Summary: Fence agent for OVH provider
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
+%if 0%{?suse_version} > 1500
+Requires: python3-suds-community
+%else
 Requires: python3-suds
+%endif
 %else
 Requires: python-suds
 %endif
@@ -1231,7 +1275,11 @@ Fence agent for VMWare with REST API.
 License: GPLv2+ and LGPLv2+
 Summary: Fence agent for VMWare with SOAP API v4.1+
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7 || 0%{?suse_version}
+%if 0%{?suse_version} > 1500
+Requires: python3-suds-community
+%else
 Requires: python3-suds
+%endif
 %else
 Requires: python-suds
 %endif
@@ -1387,6 +1435,9 @@ are located on corosync cluster nodes.
 %{_libdir}/fence-virt/cpg.so
 
 %changelog
+* Mon Jan  9 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.12.0-1
+- new upstream release
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

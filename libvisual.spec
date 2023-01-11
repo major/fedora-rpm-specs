@@ -2,7 +2,7 @@
 
 Name:           libvisual
 Version:        0.4.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Epoch:		1
 Summary:        Abstraction library for audio visualisation plugins
 License:        LGPLv2+
@@ -16,6 +16,8 @@ Patch0:         libvisual-0.4.0-better-altivec-detection.patch
 Patch1:         libvisual-0.4.0-inlinedefineconflict.patch
 Patch2:		libvisual-0.4.0-format-security.patch
 Patch3:		libvisual-0.4.0-respect-environment-ldflags.patch
+Patch4:		libvisual-configure-c99.patch
+Patch5:		libvisual-c99.patch
 
 %description
 Libvisual is an abstraction library that comes between applications and
@@ -46,6 +48,10 @@ This package contains the files needed to build an application with libvisual.
 %patch1 -p1 -b .inlinedefineconflict
 %patch2 -p1 -b .format-security
 %patch3 -p1 -b .ldflags
+%patch4 -p1
+%patch5 -p1
+# Prevent re-building the autotools scripts.
+touch -r aclocal.m4 configure*
 
 %build
 %global optflags %{optflags} -fno-strict-aliasing
@@ -109,6 +115,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Mon Jan 09 2023 Florian Weimer <fweimer@redhat.com> - 1:0.4.0-37
+- C99 compatibility fixes
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

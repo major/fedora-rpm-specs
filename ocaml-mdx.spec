@@ -5,18 +5,13 @@
 %endif
 
 Name:           ocaml-mdx
-Version:        2.1.0
-Release:        7%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
 URL:            https://realworldocaml.github.io/mdx/
 Source0:        https://github.com/realworldocaml/mdx/releases/download/%{version}/mdx-%{version}.tbz
-# Update to cmdliner 1.1.0.  See:
-# https://github.com/realworldocaml/mdx/commit/18481d8a48204b95ce66c0ce88cec416530fc6f5
-# https://github.com/realworldocaml/mdx/commit/85654df98e3a1f5821a22f12836555b47ea2ed93
-# https://github.com/realworldocaml/mdx/commit/b714cb6a9357d119185753bc59108e169d8bf246
-Patch0:         %{name}-cmdliner.patch
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-alcotest-devel
@@ -24,14 +19,13 @@ BuildRequires:  ocaml-astring-devel
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-cppo >= 1.1.0
 BuildRequires:  ocaml-csexp-devel >= 1.3.2
-BuildRequires:  ocaml-dune >= 2.7
+BuildRequires:  ocaml-dune >= 3.5
 BuildRequires:  ocaml-fmt-devel >= 0.8.7
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-logs-devel >= 0.7.0
 BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-odoc-parser-devel >= 1.0.0
 BuildRequires:  ocaml-re-devel >= 1.7.2
-BuildRequires:  ocaml-result-devel
 BuildRequires:  ocaml-version-devel >= 2.3.0
 
 %description
@@ -60,7 +54,6 @@ Requires:       ocaml-fmt-devel%{?_isa}
 Requires:       ocaml-logs-devel%{?_isa}
 Requires:       ocaml-odoc-parser-devel%{?_isa}
 Requires:       ocaml-re-devel%{?_isa}
-Requires:       ocaml-result-devel%{?_isa}
 Requires:       ocaml-version-devel%{?_isa}
 
 %description    devel
@@ -69,9 +62,6 @@ files for developing applications that use %{name}.
 
 %prep
 %autosetup -n mdx-%{version} -p1
-
-# Adapt to grep 3.8
-sed -i 's/egrep/grep -E/' test/bin/mdx-test/expect/padding/test-case.md
 
 %build
 %dune_build
@@ -89,6 +79,10 @@ sed -i 's/egrep/grep -E/' test/bin/mdx-test/expect/padding/test-case.md
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-1
+- Version 2.2.0
+- Drop cmdliner patch
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 2.1.0-7
 - Add patch to adapt tests to cmdliner 1.1.0
 

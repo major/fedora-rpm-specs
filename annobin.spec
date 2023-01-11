@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.04
+Version: 11.05
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -514,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Mon Jan 09 2023 Nick Clifton  <nickc@redhat.com> - 11.05-1
+- Annocheck: Fix handling of empty files.  (#2159292)
+
 * Fri Jan 06 2023 Nick Clifton  <nickc@redhat.com> - 11.04-1
 - Annocheck: Add crti.o and crtn.o to the list of known glibc special files.  (#2158740)
 

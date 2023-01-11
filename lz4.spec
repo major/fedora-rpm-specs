@@ -1,8 +1,8 @@
 %global _vpath_srcdir contrib/meson
 
 Name:           lz4
-Version:        1.9.3
-Release:        5%{?dist}
+Version:        1.9.4
+Release:        1%{?dist}
 Summary:        Extremely fast compression algorithm
 
 License:        GPLv2+ and BSD
@@ -48,7 +48,7 @@ contains static libraries for static linking of applications.
 
 %build
 %meson \
-  -Dbin_programs=true \
+  -Dprograms=true \
   -Ddefault_library=both \
   %{nil}
 %meson_build
@@ -82,6 +82,9 @@ contains static libraries for static linking of applications.
 %{_libdir}/liblz4.a
 
 %changelog
+* Wed Aug 17 2022 Timothée Ravier <tim@siosm.fr> - 1.9.4-1
+- Update to 1.9.4 (fedora#2118499)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

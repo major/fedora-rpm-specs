@@ -1,6 +1,11 @@
 # See eachdist.ini:
 %global stable_version 1.15.0
 %global prerel_version 0.36~b0
+# WARNING: Because python-opentelemetry-contrib has some exact-version
+# dependencies on subpackages of this package, it must be updated
+# simultaneously with this package, preferably using a side tag, such that its
+# version number always matches the prerel_version above.
+
 # Contents of python3-opentelemetry-proto are generated from proto files in a
 # separate repository with a separate version number. We treat these as
 # generated sources: we aren’t required by the guidelines to re-generate them

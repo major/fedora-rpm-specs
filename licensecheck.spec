@@ -1,5 +1,5 @@
 Name:           licensecheck
-Version:        3.3.1
+Version:        3.3.2
 Release:        1%{?dist}
 Summary:        Simple license checker for source files
 
@@ -18,6 +18,8 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Encode::Locale)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Feature::Compat::Class)
+BuildRequires:  perl(Feature::Compat::Try)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::BaseDir)
 BuildRequires:  perl(IO::Interactive)
@@ -100,6 +102,9 @@ make test
 
 
 %changelog
+* Sun Jan 08 2023 Sandro Mani <manisandro@gmail.com> - 3.3.2-1
+- Update to 3.3.2
+
 * Thu Jan 05 2023 Sandro Mani <manisandro@gmail.com> - 3.3.1-1
 - Update to 3.3.1
 

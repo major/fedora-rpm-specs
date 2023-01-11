@@ -1,7 +1,7 @@
 %global pypi_name xbout
 
 Name:           python-%{pypi_name}
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Collects BOUT++ data from parallelized simulations into xarray
 
@@ -64,7 +64,7 @@ rm -rf html/.{doctrees,buildinfo}
 %py3_install
 
 %check
-%pytest xbout -k "not animat" --long
+%pytest xbout --long
 
 
 %files -n python3-%{pypi_name}

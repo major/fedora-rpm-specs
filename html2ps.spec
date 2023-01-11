@@ -1,43 +1,50 @@
-# Enable ImageMagick for converting images other than EPS and XBM
+# Use ImageMagick for converting images other than EPS and XBM
 %if 0%{?rhel}
 %bcond_with html2ps_enables_ImageMagick
 %else
 %bcond_without html2ps_enables_ImageMagick
 %endif
-# Otherwise handle JPEG images with djpeg
+# Otherwise, handle JPEG images with djpeg
 %bcond_without html2ps_enables_djpeg
-# Otherwise handle images with netpbm
+# and with netpbm
 %bcond_without html2ps_enables_netpbm
 
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.44.%{my_subversion}%{?dist}
+Release:        0.46.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
-License:        GPLv2+
+# contrib/xhtml2ps/LICENSE:     GPL-2.0 text
+# contrib/xhtml2ps/README:      "X-html2ps is GPL"
+# contrib/xhtml2ps/xhtml2ps:    GPL-2.0-or-later
+# COPYING:      GPL-2.0 text
+# html2ps:      GPL-2.0-or-later
+# html2ps.html: "html2ps and xhtml2ps is GPL, see COPYING"
+License:        GPL-2.0-or-later
 URL:            http://user.it.uu.se/~jan/%{name}.html
 Source0:        http://user.it.uu.se/~jan/%{name}-1.0%{my_subversion}.tar.gz
 Source1:        xhtml2ps.desktop
 Patch0:         http://ftp.de.debian.org/debian/pool/main/h/%{name}/%{name}_1.0b5-5.diff.gz
-# use xdg-open in xhtml2ps
+# Use xdg-open in xhtml2ps
 Patch1:         %{name}-1.0b5-xdg-open.patch
-# patch config file from debian to use dvips, avoid using weblint 
-# don't set letter as default page type, paperconf will set the default
+# Patch a config file from Debian to use dvips, avoid using weblint;
+# Don't set letter as default page size, paper tool will set the default.
 Patch2:         %{name}-1.0b5-config.patch
-# Remove deprecated variable, bug #822117
+# Remove a deprecated variable, bug #822117
 Patch3:         %{name}-1.0b7-Remove-deprecated-variable.patch
 # Fix Perl 5.22 warnings, bug #1404275
 Patch4:         html2ps-1.0b7-Fix-perl-5.22-warnings.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
+# glibc-common for iconv
 BuildRequires:  glibc-common
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  sed
 Requires:       ghostscript
-# Depend on paperconf directly (instead of libpaper package) for rpmlint sake
-Requires:       %{_bindir}/paperconf
+# paperconf is obsolete, "paper" is the new utility.
+Requires:       paper
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Cookies)
 Requires:       perl(HTTP::Request)
@@ -83,12 +90,16 @@ converter.
 %patch2 -p1 -b .config
 %patch3 -p1 -b .deprecated
 
-# convert README to utf8
+# Convert README to UTF-8
 iconv -f latin1 -t utf8 < README > README.utf8
 touch -c -r README README.utf8
 mv README.utf8 README
 
 patch -p1 < debian/patches/01_manpages.dpatch
+
+# Change paperconf to paper in 03_html2ps.dpatch
+sed -i 's|paperconf|paper|g' debian/patches/03_html2ps.dpatch
+
 # 03_html2ps.dpatch is against 1.0b5, adjust it to 1.0b6
 < debian/patches/03_html2ps.dpatch sed -e 's|/opt/misc/|/it/sw/share/www/|' | \
     patch -p1
@@ -110,24 +121,22 @@ sed -i \
 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man{1,5}
+mkdir -p %{buildroot}%{_sysconfdir}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man{1,5}
 
 sed -e 's;/etc/html2psrc;%{_sysconfdir}/html2psrc;' \
     -e 's;/usr/share/doc/html2ps;%{_pkgdocdir};' \
-        html2ps > $RPM_BUILD_ROOT%{_bindir}/html2ps
-chmod 0755 $RPM_BUILD_ROOT%{_bindir}/html2ps
-install -p -m0644 html2ps.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install -p -m0644 html2psrc.5 $RPM_BUILD_ROOT%{_mandir}/man5
+        html2ps > %{buildroot}%{_bindir}/html2ps
+chmod 0755 %{buildroot}%{_bindir}/html2ps
+install -p -m0644 html2ps.1 %{buildroot}%{_mandir}/man1
+install -p -m0644 html2psrc.5 %{buildroot}%{_mandir}/man5
 sed -e 's;/usr/bin;%{_bindir};' \
     -e 's;/usr/share/texmf-texlive;%{_datadir}/texmf;' \
-    debian/config/html2psrc > $RPM_BUILD_ROOT%{_sysconfdir}/html2psrc
+    debian/config/html2psrc > %{buildroot}%{_sysconfdir}/html2psrc
 
-install -m0755 -p contrib/xhtml2ps/xhtml2ps $RPM_BUILD_ROOT%{_bindir}
-desktop-file-install \
-  --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
-  %{SOURCE1}
+install -m0755 -p contrib/xhtml2ps/xhtml2ps %{buildroot}%{_bindir}
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 
 %files
@@ -145,6 +154,12 @@ desktop-file-install \
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Mon Jan 09 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.46.b7
+- Convert a License tag to an SPDX format
+
+* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 1.0-0.45.b7
+- update to use "paper" instead of "paperconf"
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.44.b7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

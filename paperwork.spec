@@ -1,13 +1,13 @@
 %global srcname paperwork
 
 Name:           %{srcname}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Using scanner and OCR to grep dead trees the easy way
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork
-Source0:        %{pypi_source}
+Source0:        %pypi_source %{srcname}
 Patch0001:      0001-Drop-extra-icon-dirs.patch
 
 BuildArch:      noarch

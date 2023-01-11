@@ -1,5 +1,5 @@
 Name:           python-persistent
-Version:        4.9.3
+Version:        5.0
 Release:        1%{?dist}
 Summary:        Translucent persistent python objects
 
@@ -77,7 +77,7 @@ Documentation for python3-persistent.
 sed -i "s/'default'/'classic'/" docs/conf.py
 
 # Use local objects.inv for intersphinx
-sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
+sed -i "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
 
 %build
 %pyproject_wheel
@@ -101,7 +101,12 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 cp -p src/persistent/_compat.h %{buildroot}%{_includedir}/python3.*/persistent
 
 %check
-%{python3} setup.py test
+# The tests depend on uninstalled files, so we cannot use %%tox to test.  We
+# also can't point PYTHONPATH to build, because what it wants isn't there
+# either.  So we do this song and dance to get the tests to run.
+export PYTHONPATH=$PWD/src
+cp -p build/lib.*/persistent/*.so src/persistent
+zope-testrunner --test-path=src -vc
 
 %files -n python3-persistent -f %{pyproject_files}
 %doc CHANGES.html README.html
@@ -113,6 +118,10 @@ cp -p src/persistent/_compat.h %{buildroot}%{_includedir}/python3.*/persistent
 %doc docs/_build/html/*
 
 %changelog
+* Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
+- Version 5.0
+- Run tests with zope-testrunner
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.9.3-1
 - Version 4.9.3
 

@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -99,6 +99,9 @@ Patch18:        qt5-qtbase-link-openssl.patch
 
 # Fix missing qtsan_impl include
 Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
+
+# Backport fix for https://bugreports.qt.io/browse/QTBUG-44096
+Patch20:        qt5-qtbase-ntlm.patch
 
 ## KDE 5.15 branch patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
@@ -811,6 +814,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Mon Jan 09 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-2
+- Backport fix for QTBUG-44096
+
 * Sun Jan 08 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-1
 - Update to 5.15.8
 

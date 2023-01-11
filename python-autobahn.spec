@@ -1,8 +1,8 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        21.2.2
-Release:        7%{?dist}
+Version:        22.12.1
+Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -22,11 +22,13 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  %py3_dist setuptools
+BuildRequires:  %py3_dist argon2_cffi
 BuildRequires:  %py3_dist cffi
-BuildRequires:  %py3_dist mock
+BuildRequires:  %py3_dist passlib
 BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist pytest-asyncio
 BuildRequires:  %py3_dist six
+BuildRequires:  %py3_dist twisted
 BuildRequires:  %py3_dist txaio
 BuildRequires:  %py3_dist pynacl
 BuildRequires:  %py3_dist cbor2
@@ -62,12 +64,13 @@ rm pytest.ini
 sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
 
 %build
-%py3_build
+# Disable in case local builder support NVX
+AUTOBAHN_USE_NVX=false %py3_build
 #PYTHONPATH=${PWD} sphinx-build-3 docs html
 #rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+AUTOBAHN_USE_NVX=false %py3_install
 
 %check
 # Ignore tests that rely on optional and not packaged deps.
@@ -78,6 +81,7 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 %doc README.rst DEVELOPERS.md
 %{_bindir}/wamp
 %{_bindir}/xbrnetwork
+%{_bindir}/xbrnetwork-ui
 %{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info/
 %{python3_sitelib}/%{pypi_name}/
 %dir %{python3_sitelib}/twisted
@@ -91,6 +95,9 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 %license LICENSE
 
 %changelog
+* Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 22.12.1-1
+- Update to 22.12.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

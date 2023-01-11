@@ -1,7 +1,7 @@
 %global pypi_name json5
 
 Name:           python-%{pypi_name}
-Version:        0.9.9
+Version:        0.9.11
 Release:        1%{?dist}
 Summary:        Python implementation of the JSON5 data format
 
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/README.md
 %{_bindir}/pyjson5
 
 %changelog
+* Mon Jan 09 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.11-1
+- Update to latest upstream release 0.9.11 (closes rhbz#2157808)
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.9-1
 - Update to latest upstream release 0.9.9 (closes rhbz#2082728)
 

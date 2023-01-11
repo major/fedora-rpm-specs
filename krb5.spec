@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 3
+%global baserelease 4
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -71,6 +71,8 @@ Patch9:  0009-Simplify-plugin-loading-code.patch
 Patch10: 0010-Update-error-checking-for-OpenSSL-CMS_verify.patch
 Patch11: 0011-downstream-Catch-SHA-1-digest-disallowed-error-for-P.patch
 Patch12: 0012-Add-and-use-ts_interval-helper.patch
+Patch13: 0013-downstream-Make-tests-compatible-with-sssd_krb5_loca.patch
+Patch14: 0014-downstream-Include-missing-OpenSSL-FIPS-header.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -253,9 +255,6 @@ Requires: resolv_wrapper
 Requires: /etc/crypto-policies/back-ends/krb5.config
 Requires: /usr/share/dict/words
 #Requires: openldap-servers, openldap-clients
-
-# sssd_krb5_locator_plugin.so conflicts with t_discover_uri.py
-Conflicts: sssd-client
 
 %description tests
 FOR TESTING PURPOSE ONLY
@@ -710,6 +709,10 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Thu Jan 05 2023 Julien Rische <jrische@redhat.com> - 1.20.1-4
+- Include missing OpenSSL FIPS header
+- Make tests compatible with sssd_krb5_locator_plugin.so
+
 * Tue Dec 06 2022 Julien Rische <jrische@redhat.com> - 1.20.1-3
 - Enable TMT integration with Fedora CI
 

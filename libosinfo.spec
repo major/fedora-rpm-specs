@@ -239,19 +239,3 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 30 2020 Fabiano Fidêncio <fidencio@redhat.com> - 1.8.0-1
-- Update to 1.8.0 release
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 13 2020 Fabiano Fidêncio <fidencio@redhat.com> - 1.7.1-2
-- Fix OsinfoList ABI breakage

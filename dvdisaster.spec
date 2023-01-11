@@ -3,7 +3,7 @@
 Summary: Additional error protection for CD/DVD media
 Name: dvdisaster
 Version: 0.79.5
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPLv2+
 URL: http://dvdisaster.net
 Source0: http://dvdisaster.net/downloads/dvdisaster-%{version}.tar.bz2
@@ -13,6 +13,8 @@ Source0: http://dvdisaster.net/downloads/dvdisaster-%{version}.tar.bz2
 # but see http://bugzilla.redhat.com/231574 why it is
 # not enabled by default...
 Patch1: dvdisaster-0.79.5-dvdrom.patch
+
+Patch0: dvdisaster-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: glib2-devel >= 2.32.0
@@ -54,7 +56,7 @@ poškodí.
 %prep
 %setup -q
 %{?_with_dvdrom:%patch1 -p1 -b .dvdrom}
-
+%patch0 -p1
 
 %build
 
@@ -107,6 +109,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Jan 09 2023 Florian Weimer <fweimer@redhat.com> - 0.79.5-15
+- Port configure script to C99 (#2159453)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

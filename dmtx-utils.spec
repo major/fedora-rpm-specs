@@ -13,7 +13,7 @@ BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(libdmtx)
-BuildRequires:  pkgconfig(Wand)
+BuildRequires:  pkgconfig(MagickWand)
 
 Provides:       libdmtx-utils = %{version}-%{release}
 Obsoletes:      libdmtx-utils < 0.7.4

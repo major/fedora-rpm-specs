@@ -5,16 +5,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        10.3
-Release:        3%{?dist}
+Version:        10.4
+Release:        1%{?dist}
 Summary:        Implementation of the WebSocket Protocol for Python
 
 License:        BSD
 URL:            https://github.com/aaugustin/websockets
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Fix Python 3.11 test failures
-Patch:          https://github.com/aaugustin/websockets/pull/1176.patch
 
 BuildRequires:  gcc
 
@@ -58,6 +55,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Wed Dec 07 2022 Rommel Layco <rj.layco@gmail.com> - 10.4-1
+- Update to 10.4
+
 * Fri Aug 12 2022 Julien Enselme <jujens@jujens.eu> - 10.3-3
 - Rebuild to update Python bytecode files.
 

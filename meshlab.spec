@@ -1,12 +1,12 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
-Version:	2021.07
-Release:	5%{?dist}
+Version:	2022.02
+Release:	1%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
 License:	GPLv2+ and BSD and Public Domain and ASL 2.0
-Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/Meshlab-%{version}/%{name}-%{version}.tar.gz
-# Matches 2021.07:
-%global vcglibver bda3161
+Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
+# Matches 2022.02:
+%global vcglibver e4950d1
 # Probably belongs in its own package, but nothing else seems to depend on it.
 Source2:	https://github.com/cnr-isti-vclab/vcglib/archive/%{vcglibver}/vcglib-%{vcglibver}.tar.gz
 # Notes for Fedora users (around issues with Wayland)
@@ -56,7 +56,7 @@ for editing, cleaning, healing, inspecting, rendering and converting
 these kinds of meshes.
 
 %prep
-%setup -q -n meshlab-Meshlab-%{version} -a 2
+%setup -q -n meshlab-MeshLab-%{version} -a 2
 # %%patch0 -p1 -b .installfix
 %patch1 -p1 -b .libdirfix
 %patch2 -p1 -b .system-levmar
@@ -155,6 +155,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Mon Jan  9 2023 Tom Callaway <spot@fedoraproject.org> - 2022.02-1
+- update to 2022.02
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.07-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

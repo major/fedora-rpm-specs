@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.72.6
+Version:        0.72.7
 Release:        %autorelease
 
 # SPDX

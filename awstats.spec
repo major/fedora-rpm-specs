@@ -1,6 +1,6 @@
 Name:       awstats
 Version:    7.8
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Advanced Web Statistics
 License:    GPLv3+
 URL:        http://awstats.sourceforge.net
@@ -8,16 +8,15 @@ Source0:    http://downloads.sourceforge.net/project/awstats/AWStats/%{version}/
 Source1:    %{name}.cron
 Patch0:     awstats-awredir.pl-sanitize-parameters.patch
 
-%if 0%{?rhel} >= 7 || 0%{?fedora}
 # fix configuration for httpd 2.4 (#871366)
 Patch1:     awstats-7.0-httpd-2.4.patch
-%endif
 
 # https://github.com/eldy/awstats/pull/196/commits/0d4d4c05f8e73be8f71dd361dc55cbd52858b823.diff
 Patch2:     awstats-CVE-2020-35176.patch
 
-# distribution specific definitions
-%define use_systemd (0%{?fedora} || 0%{?rhel} >= 7)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2150632
+# https://github.com/eldy/AWStats/commit/38682330e1ec3f3af95f9436640358b2d9e4a965.diff
+Patch3:     awstats-CVE-2022-46391.patch
 
 BuildArch:  noarch
 BuildRequires:  coreutils
@@ -30,13 +29,9 @@ Requires:   perl-Net-IP, perl-Net-DNS, perl-Geo-IP
 Requires:   crontabs  
 Requires(post): perl-interpreter
 
-%if %use_systemd
 # For systemd.macros
 BuildRequires:  systemd
 Requires(postun): systemd
-%else
-Requires(postun): /sbin/service
-%endif
 
 ## SELinux policy is now included upstream
 Obsoletes:  awstats-selinux < 6.8-1
@@ -56,17 +51,16 @@ engines/keywords used, visit duration, HTTP errors and more...
 Statistics can be updated from a browser or your scheduler.
 The program also supports virtual servers, plugins and a lot of features.
 
-With the default configuration, the statistics are available:
+With the default configuration, the statistics are available at:
 http://localhost/awstats/awstats.pl
 
 
 %prep
 %setup -q
 %patch0 -p 1
-%if 0%{?rhel} >= 7 || 0%{?fedora}
 %patch1 -p 1
 %patch2 -p 1
-%endif
+%patch3 -p 1
 
 # Fix style sheets.
 perl -pi -e 's,/icon,/awstatsicons,g' wwwroot/css/*
@@ -148,13 +142,7 @@ if [ $1 -eq 1 ]; then
 fi
 
 %postun
-%if %use_systemd
 %systemd_postun_with_restart httpd.service
-%else
-if [ $1 -ne 0 ]; then
-  /sbin/service httpd condrestart >/dev/null 2>&1
-fi
-%endif
 
 
 %files
@@ -180,6 +168,10 @@ fi
 
 
 %changelog
+* Mon Jan 09 2023 Tim Jackson <rpm@timj.co.uk> - 7.8-9
+- Fix CVE-2022-46391 (rhbz #2150632)
+- Clean up spec file, removing conditionals for now-obsolete releases
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

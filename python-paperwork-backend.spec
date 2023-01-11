@@ -2,13 +2,13 @@
 %global srcname_ paperwork_backend
 
 Name:           python-%{srcname}
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Paperwork's backend
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/OpenPaperwork/paperwork/tree/master/paperwork-backend
-Source0:        %{pypi_source}
+Source0:        %pypi_source %{srcname}
 # https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/issues/1035
 Patch0001:      0001-Skip-docx-duplicated-import-test-entirely.patch
 
@@ -67,13 +67,10 @@ Requires:       tesseract-osd
 %prep
 %autosetup -n %{srcname}-%{version} -p2
 
-# Remove spurious shebangs.
-sed -i -e '/^#!\//, 1d' src/%{srcname_}/model/{extra_text,thumbnail}.py
-
 find tests -name '*.pyc' -delete
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -1,8 +1,8 @@
-%global revision 20221126
+%global revision 20230107
 Summary: Ncurses support utilities
 Name: ncurses
-Version: 6.3
-Release: 5.%{revision}%{?dist}
+Version: 6.4
+Release: 1.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -30,7 +30,6 @@ tool captoinfo.
 %package libs
 Summary: Ncurses libraries
 Requires: %{name}-base = %{version}-%{release}
-Obsoletes: %{name}-compat-libs < 6.3-1
 
 %description libs
 The curses library routines are a terminal-independent method of
@@ -39,6 +38,19 @@ updating character screens with reasonable optimization.  The ncurses
 discontinued 4.4 BSD classic curses library.
 
 This package contains the ncurses libraries.
+
+%package compat-libs
+Summary: Ncurses compatibility libraries
+Requires: %{name}-base = %{version}-%{release}
+
+%description compat-libs
+The curses library routines are a terminal-independent method of
+updating character screens with reasonable optimization.  The ncurses
+(new curses) library is a freely distributable replacement for the
+discontinued 4.4 BSD classic curses library.
+
+This package contains the ABI version 5 of the ncurses libraries for
+compatibility.
 
 %package c++-libs
 Summary: Ncurses C++ bindings
@@ -126,19 +138,19 @@ common_options="\
     --with-ticlib=tic \
     --with-xterm-kbs=DEL \
     --without-ada"
+abi5_options="--with-chtype=long"
 
-abi=6
-
-if true; then
+for abi in 5 6; do
     for char in narrowc widec; do
         mkdir $char$abi
         pushd $char$abi
         ln -s ../configure .
 
-        [ $char = widec ] && progs=yes || progs=no
+        [ $abi = 6 -a $char = widec ] && progs=yes || progs=no
 
         %configure $(
             echo $common_options --with-abi-version=$abi
+            [ $abi = 5 ] && echo $abi5_options
             [ $char = widec ] && echo --enable-widec
             [ $progs = yes ] || echo --without-progs
         )
@@ -148,9 +160,12 @@ if true; then
 
         popd
     done
-fi
+done
 
 %install
+make -C narrowc5 DESTDIR=$RPM_BUILD_ROOT install.libs
+rm ${RPM_BUILD_ROOT}%{_libdir}/lib{tic,tinfo}.so.5*
+make -C widec5 DESTDIR=$RPM_BUILD_ROOT install.libs
 make -C narrowc6 DESTDIR=$RPM_BUILD_ROOT install.libs
 rm ${RPM_BUILD_ROOT}%{_libdir}/lib{tic,tinfo}.so.6*
 make -C widec6 DESTDIR=$RPM_BUILD_ROOT install.{libs,progs,data,includes,man}
@@ -208,6 +223,7 @@ echo "INPUT(-lncursesw)" > $RPM_BUILD_ROOT%{_libdir}/libcursesw.so
 
 echo "INPUT(-ltinfo)" > $RPM_BUILD_ROOT%{_libdir}/libtermcap.so
 
+rm -f $RPM_BUILD_ROOT%{_bindir}/ncurses*5-config
 rm -f $RPM_BUILD_ROOT%{_libdir}/terminfo
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/*_g.pc
 
@@ -216,6 +232,8 @@ xz NEWS
 %ldconfig_scriptlets libs
 
 %ldconfig_scriptlets c++-libs
+
+%ldconfig_scriptlets compat-libs
 
 %files
 %doc ANNOUNCE AUTHORS NEWS.xz README TO-DO
@@ -227,6 +245,9 @@ xz NEWS
 %files libs
 %exclude %{_libdir}/libncurses++*.so.6*
 %{_libdir}/lib*.so.6*
+
+%files compat-libs
+%{_libdir}/lib*.so.5*
 
 %files c++-libs
 %{_libdir}/libncurses++*.so.6*
@@ -260,6 +281,10 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Mon Jan 09 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-1.20230107
+- update to 6.4-20230107
+- restore compat-libs (ABI 5) subpackage (#2129865)
+
 * Fri Dec 16 2022 Miroslav Lichvar <mlichvar@redhat.com> 6.3-5.20221126
 - revert "enable symbol versioning for dynamic linker (#1875587)"
 

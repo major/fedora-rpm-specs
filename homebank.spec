@@ -1,5 +1,5 @@
 Name:           homebank
-Version:        5.6
+Version:        5.6.1
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all  
 
@@ -10,7 +10,7 @@ BuildRequires:  gcc
 BuildRequires:  atk-devel cairo-devel desktop-file-utils gettext gtk3-devel
 BuildRequires:  intltool libappstream-glib libofx-devel perl(XML::Parser)
 BuildRequires:  libsoup-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 HomeBank is the free software you have always wanted to manage your personal

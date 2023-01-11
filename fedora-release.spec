@@ -38,6 +38,8 @@
 %bcond_with i3
 %bcond_with lxqt
 %bcond_with budgie
+%bcond_with sway
+%bcond_with sericea
 %else
 %bcond_without basic
 %bcond_without cinnamon
@@ -60,6 +62,12 @@
 %bcond_without i3
 %bcond_without lxqt
 %bcond_without budgie
+%bcond_without sway
+%bcond_without sericea
+%endif
+
+%if %{with silverblue} || %{with kinoite} || %{with sericea}
+%global with_ostree_desktop 1
 %endif
 
 %global dist %{?eln:.eln%{eln}}
@@ -666,7 +674,7 @@ itself as Fedora Kinoite.
 %endif
 
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 %package ostree-desktop
 Summary:        Configuration package for rpm-ostree variants to add rpm-ostree polkit rules
 
@@ -937,6 +945,81 @@ Conflicts:      fedora-release-identity
 %description identity-budgie
 Provides the necessary files for a Fedora installation that is identifying
 itself as Fedora Budgie.
+%endif
+
+
+%if %{with sway}
+%package sway
+Summary:        Base package for Fedora Sway specific default configurations
+
+RemovePathPostfixes: .sway
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-sway if nothing else is already doing so.
+Recommends:     fedora-release-identity-sway
+
+
+%description sway
+Provides a base package for Fedora Sway specific configuration files to
+depend on.
+
+
+%package identity-sway
+Summary:        Package providing the identity for Fedora Sway Spin
+
+RemovePathPostfixes: .sway
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+
+
+%description identity-sway
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Sway.
+%endif
+
+
+%if %{with sericea}
+%package sericea
+Summary:        Base package for Fedora Sericea specific default configurations
+
+RemovePathPostfixes: .sericea
+Provides:       fedora-release = %{version}-%{release}
+Provides:       fedora-release-variant = %{version}-%{release}
+Provides:       system-release
+Provides:       system-release(%{version})
+Provides:       base-module(platform:f%{version})
+Requires:       fedora-release-common = %{version}-%{release}
+Requires:       fedora-release-ostree-desktop = %{version}-%{release}
+
+# fedora-release-common Requires: fedora-release-identity, so at least one
+# package must provide it. This Recommends: pulls in
+# fedora-release-identity-sericea if nothing else is already doing so.
+Recommends:     fedora-release-identity-sericea
+
+
+%description sericea
+Provides a base package for Fedora Sericea specific configuration
+files to depend on.
+
+
+%package identity-sericea
+Summary:        Package providing the identity for Fedora Sericea
+
+RemovePathPostfixes: .sericea
+Provides:       fedora-release-identity = %{version}-%{release}
+Conflicts:      fedora-release-identity
+
+
+%description identity-sericea
+Provides the necessary files for a Fedora installation that is identifying
+itself as Fedora Sericea.
 %endif
 
 
@@ -1244,12 +1327,12 @@ install -Dm0644 %{SOURCE26} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -Dm0644 %{SOURCE27} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
 %endif
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 # Install rpm-ostree polkit rules
 install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %endif
 
-%if %{with iot} || %{with silverblue} || %{with kinoite}
+%if %{with iot} || %{with ostree_desktop}
 # Statically enable rpm-ostree-countme timer
 install -dm0755 %{buildroot}%{_unitdir}/timers.target.wants/
 ln -snf %{_unitdir}/rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
@@ -1291,6 +1374,24 @@ echo "VARIANT=\"Budgie\"" >> %{buildroot}%{_prefix}/lib/os-release.budgie
 echo "VARIANT_ID=budgie" >> %{buildroot}%{_prefix}/lib/os-release.budgie
 sed -i -e "s|(%{release_name}%{?prerelease})|(Budgie%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.budgie
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Budgie/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie
+%endif
+
+%if %{with sway}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sway
+echo "VARIANT=\"Sway\"" >> %{buildroot}%{_prefix}/lib/os-release.sway
+echo "VARIANT_ID=sway" >> %{buildroot}%{_prefix}/lib/os-release.sway
+sed -i -e "s|(%{release_name}%{?prerelease})|(Sway%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sway
+sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sway
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sway/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
+%endif
+
+%if %{with sericea}
+cp -p os-release %{buildroot}%{_prefix}/lib/os-release.sericea
+echo "VARIANT=\"Sericea\"" >> %{buildroot}%{_prefix}/lib/os-release.sericea
+echo "VARIANT_ID=sericea" >> %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e "s|(%{release_name}%{?prerelease})|(Sericea%{?prerelease})|g" %{buildroot}%{_prefix}/lib/os-release.sericea
+sed -i -e 's|BUG_REPORT_URL=.*|BUG_REPORT_URL="https://gitlab.com/fedora/sigs/sway/SIG/-/issues"|' %{buildroot}/%{_prefix}/lib/os-release.sericea
+sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/Sericea/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
 %endif
 
 # Create the symlink for /etc/os-release
@@ -1497,7 +1598,7 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %endif
 
 
-%if %{with silverblue} || %{with kinoite}
+%if %{with ostree_desktop}
 %files ostree-desktop
 %attr(0644,root,root) %{_prefix}/share/polkit-1/rules.d/org.projectatomic.rpmostree1.rules
 %endif
@@ -1560,6 +1661,25 @@ ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.or
 %files identity-budgie
 %{_prefix}/lib/os-release.budgie
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.budgie
+%endif
+
+
+%if %{with sway}
+%files sway
+%files identity-sway
+%{_prefix}/lib/os-release.sway
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sway
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%endif
+
+
+%if %{with sericea}
+%files sericea
+%files identity-sericea
+%{_prefix}/lib/os-release.sericea
+%attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.sericea
+%{_prefix}/lib/systemd/system-preset/81-desktop.preset
+%{_unitdir}/timers.target.wants/rpm-ostree-countme.timer
 %endif
 
 

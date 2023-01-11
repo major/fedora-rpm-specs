@@ -1,8 +1,8 @@
 %global srcname cachetools
 
 Name:           python-%{srcname}
-Version:        5.2.0
-Release:        3%{?dist}
+Version:        5.2.1
+Release:        1%{?dist}
 Summary:        Extensible memoizing collections and decorators
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Mon Jan  9 2023 John Eckersberg <jeckersb@redhat.com> - 5.2.1-1
+- New upstream release 5.2.1 (rhbz#2159140)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           isync
 Version:        1.4.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool to synchronize IMAP4 and Maildir mailboxes
 
 License:        GPLv2+
@@ -9,6 +9,8 @@ Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar
 Source1:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz.asc
 # needs manual removal of leftover html elements
 Source2:        https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x63bfd037cad71e8dff3aea3ac17714f08d1bdbba#./%{name}.keyring
+# https://sourceforge.net/p/isync/isync/ci/b6c36624f04cd388873785c0631df3f2f9ac4bf0/
+Patch0:         0001-work-around-unexpected-EOF-error-messages.patch
 
 BuildRequires:  perl
 BuildRequires:  libdb-devel
@@ -27,7 +29,7 @@ IMAP-disconnected mode.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 # Convert to utf-8
 for file in ChangeLog; do
     mv $file timestamp
@@ -55,6 +57,9 @@ rm -r %{buildroot}%{_defaultdocdir}
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 09 2023 Jakub Kadlcik <frostyx@email.cz> - 1.4.4-4
+- Apply OpenSSL EOF patch
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

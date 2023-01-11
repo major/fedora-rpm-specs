@@ -1,5 +1,5 @@
 %global pypi_name artifacts
-%global date 20220615
+%global date 20221219
 
 Name:           %{pypi_name}
 Version:        0.0.%{date}

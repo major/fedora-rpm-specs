@@ -10,7 +10,7 @@
 Summary:        Real-time Midi I/O Library
 Name:           portmidi
 Version:        217
-Release:        49%{?dist}
+Release:        50%{?dist}
 License:        MIT
 URL:            http://portmedia.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/portmedia/%{name}-src-%{version}.zip
@@ -23,6 +23,7 @@ Patch2:         portmidi-217-format-security.patch
 Patch3:         portmidi-no.c++.patch
 Patch4:         portmidi-cyrex-0.21.patch
 Patch5:         portmidi-no.java.patch
+Patch6:         portmidi-c99.patch
 BuildRequires: make
 BuildRequires:  alsa-lib-devel
 BuildRequires:  cmake
@@ -87,6 +88,7 @@ real-time MIDI input/output library. This package contains
 %if ! 0%{?JAVA}
 %patch5 -p1 -b .no.java
 %endif
+%patch6 -p1
 
 
 # generate Cython C files during build
@@ -216,6 +218,9 @@ rm -f %{buildroot}%{_libdir}/libportmidi_s.so
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Jan 09 2023 Florian Weimer <fweimer@redhat.com> - 217-50
+- C99 compatibility fixes
+
 * Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 217-49
 - SPDX migration
 

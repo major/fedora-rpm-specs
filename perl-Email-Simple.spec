@@ -1,18 +1,18 @@
 Name:           perl-Email-Simple
-Version:        2.216
-Release:        15%{?dist}
+Version:        2.218
+Release:        1%{?dist}
 Summary:        Simple parsing of RFC2822 message format and headers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Simple
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Simple-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Email::Date::Format)
@@ -36,12 +36,11 @@ external dependencies, and correct.
 %setup -q -n Email-Simple-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -56,6 +55,16 @@ make test
 %{_mandir}/man3/Email::Simple::Header.3*
 
 %changelog
+* Mon Jan  9 2023 Paul Howarth <paul@city-fan.org> - 2.218-1
+- Update to 2.218
+  - Add ->header_rename to header object
+  - Issue a warning on non-ASCII codepoints added to message
+  - Update author contact info
+  - Bump version required to v5.12.0 (it was already effectively that after
+    some upstream changes)
+- Use SPDX-format license tag
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.216-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

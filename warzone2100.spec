@@ -2,7 +2,7 @@
 %global _cmake_shared_libs %{nil}
 
 Name:           warzone2100
-Version:        4.3.2
+Version:        4.3.3
 Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
@@ -89,6 +89,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Mon Jan 09 2023 Pete Walter <pwalter@fedoraproject.org> - 4.3.3-1
+- Update to 4.3.3 (#2158024)
+
 * Mon Nov 21 2022 Pete Walter <pwalter@fedoraproject.org> - 4.3.2-1
 - Update to 4.3.2 (#2134915)
 

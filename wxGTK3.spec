@@ -18,7 +18,7 @@
 
 Name:           %{wxgtkname}
 Version:        3.0.5.1
-Release:        8%{?snapshottag}%{?dist}
+Release:        9%{?snapshottag}%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -39,6 +39,7 @@ Patch0:         %{name}-3.0.3-abicheck.patch
 Patch1:         fix-filename-test.patch
 Patch2:         fix-vararg-test.patch
 Patch3:         force-x11-for-wxgl.patch
+Patch4: wxGTK-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -456,6 +457,9 @@ fi
 %doc html
 
 %changelog
+* Mon Jan 09 2023 Florian Weimer <fweimer@redhat.com> - 3.0.5.1-9
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

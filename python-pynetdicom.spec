@@ -10,7 +10,7 @@ Version:        2.0.2
 
 %forgemeta
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT and (BSD or ASL 2.0)
@@ -50,6 +50,8 @@ Patch1:         %{forgeurl}/pull/756.patch
 Patch2:		774.patch
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %{?python_enable_dependency_generator}
 
@@ -116,6 +118,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pyn
 %doc docs/_build/html
 
 %changelog
+* Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.2-2
+- Drop support for i686
+
 * Fri Aug 05 2022 Alessio <alciregi AT fedoraproject DOT org> - 2.0.2-1
 - Update to 2.0.2
 

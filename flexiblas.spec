@@ -14,13 +14,13 @@
 %global default_backend64 %{default_backend}64
 
 %global major_version 3
-%global minor_version 2
-%global patch_version 1
-%global laapi_version 3.10.1
+%global minor_version 3
+%global patch_version 0
+%global laapi_version 3.11.0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # GPLv3 with an exception for the BLAS/LAPACK interface
@@ -420,6 +420,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Mon Jan 09 2023 Iñaki Úcar <iucar@fedoraproject.org> - 3.3.0-1
+- Update to 3.3.0
+
 * Fri Dec 23 2022 Iñaki Úcar <iucar@fedoraproject.org> - 3.2.1-3
 - Specify LAPACK API compatibility level
 

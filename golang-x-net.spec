@@ -5,7 +5,7 @@
 # https://github.com/golang/net
 %global goipath         golang.org/x/net
 %global forgeurl        https://github.com/golang/net
-%global commit          bea034e7d591acfddd606603cf48fae48bbdd340
+Version:                0.4.0
 
 %gometa
 
@@ -16,9 +16,8 @@ This package holds supplementary Go networking libraries.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
-Summary:        [mirror] Go supplementary network libraries
+Release:        %autorelease
+Summary:        Go supplementary network libraries
 
 License:        BSD-3-Clause
 URL:            %{gourl}
@@ -36,6 +35,9 @@ Source:         %{gosource}
 
 %install
 %gopkginstall
+
+cp -rp publicsuffix/data %{buildroot}%{gopath}/src/%{goipath}/publicsuffix
+echo '%{gopath}/src/%{goipath}/publicsuffix/data/' >> %{godevelfilelist0}
 
 %if %{with check}
 %check

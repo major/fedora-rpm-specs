@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1054
+%define patchlevel 1160
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -81,16 +81,16 @@ Patch2002: vim-7.0-hunspell.patch
 BuildRequires: hunspell-devel
 %endif
 
-Patch3000: vim-7.4-fstabsyntax.patch
-Patch3001: vim-7.3-manpage-typo-668894-675480.patch
-Patch3002: vim-manpagefixes-948566.patch
-Patch3003: vim-7.4-globalsyntax.patch
+Patch3000: vim-7.3-manpage-typo-668894-675480.patch
+Patch3001: vim-manpagefixes-948566.patch
+Patch3002: vim-7.4-globalsyntax.patch
 # migrate shebangs in script to /usr/bin/python3 and use python2 when necessary
-Patch3004: vim-python3-tests.patch
+Patch3003: vim-python3-tests.patch
 # fips warning (Fedora downstream patch)
-Patch3005: vim-crypto-warning.patch
+Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
-Patch3006: vim-8.0-copy-paste.patch
+Patch3005: vim-8.0-copy-paste.patch
+Patch3006: vim-fortify-source.patch
 
 
 # uses autoconf in spec file
@@ -383,13 +383,13 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %{__tar} xjf %{SOURCE100}
 %endif
 
-%patch3000 -p1 -b .fstabsyntax
+%patch3000 -p1
 %patch3001 -p1
 %patch3002 -p1
-%patch3003 -p1
-%patch3004 -p1 -b .python-tests
-%patch3005 -p1 -b .fips-warning
-%patch3006 -p1 -b .copypaste
+%patch3003 -p1 -b .python-tests
+%patch3004 -p1 -b .fips-warning
+%patch3005 -p1 -b .copypaste
+%patch3006 -p1 -b .fortify
 
 %build
 cd src
@@ -430,8 +430,6 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --enable-fail-if-missing \
   --disable-canberra \
   --disable-libsodium
-
-echo $CFLAGS
 
 %make_build
 cp vim minimal-vim
@@ -998,6 +996,12 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Mon Jan 09 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1160-1
+- patchlevel 1160
+
+* Mon Jan 09 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1054-2
+- FTBFS with new FORTIFY_SOURCE=3 - remove it since Vim wants level 1
+
 * Wed Dec 14 2022 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1054-1
 - patchlevel 1054
 

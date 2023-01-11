@@ -14,6 +14,12 @@ License:        ASL 2.0
 URL:            https://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version_no_tilde .}/meson-%{version_no_tilde %{quote:}}.tar.gz
 
+# Fix for meson test crashes with Python 3.12:
+#   RuntimeError: There is no current event loop in thread 'MainThread'
+# Merged upstream.
+# https://bugzilla.redhat.com/2155463
+Patch:          https://github.com/mesonbuild/meson/pull/11215.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

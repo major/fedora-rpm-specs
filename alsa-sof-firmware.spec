@@ -4,7 +4,7 @@
 %global _firmwarepath  /usr/lib/firmware
 %global _xz_opts -9 --check=crc32
 
-%global sof_ver 2.2.3
+%global sof_ver 2.2.4
 #global sof_ver_pre rc1
 %global sof_ver_rel %{?sof_ver_pre:.%{sof_ver_pre}}
 %global sof_ver_pkg v%{sof_ver}%{?sof_ver_pre:-%{sof_ver_pre}}
@@ -17,7 +17,7 @@
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        1%{?sof_ver_rel}%{?dist}
+Release:        2%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
 License:        BSD
 URL:            https://github.com/thesofproject/sof-bin
@@ -130,6 +130,9 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Mon Jan  9 2023 Jaroslav Kysela <perex@perex.cz> - 2.2.4-2
+- Update to v2.2.4
+
 * Wed Dec  7 2022 Jaroslav Kysela <perex@perex.cz> - 2.2.3-1
 - Update to v2.2.3
 

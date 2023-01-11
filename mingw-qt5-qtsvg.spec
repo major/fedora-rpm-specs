@@ -16,7 +16,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.7
+Version:        5.15.8
 Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtSvg component
 
@@ -28,9 +28,6 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
-
-# Backport fix for CVE-2021-45930
-Patch0:         CVE-2021-45930.patch
 
 BuildArch:      noarch
 
@@ -133,6 +130,9 @@ mkdir .git
 
 
 %changelog
+* Mon Jan 09 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-1
+- Update to 5.15.8
+
 * Fri Nov 04 2022 Sandro Mani <manisandro@gmail.com> - 5.15.7-1
 - Update to 5.15.7
 

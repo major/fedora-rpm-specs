@@ -1,14 +1,14 @@
 %global gem_name excon
 
 Name: rubygem-%{gem_name}
-Version: 0.91.0
-Release: 2%{?dist}
+Version: 0.97.0
+Release: 1%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/excon/excon.git --no-checkout
-# cd excon && git archive -v -o excon-0.91.0-tests.txz v0.91.0 tests/ spec/
+# cd excon && git archive -v -o excon-0.97.0-tests.txz v0.97.0 tests/ spec/
 Source1: %{gem_name}-%{version}-tests.txz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -81,14 +81,10 @@ sed -i "/'bundler\/setup'/ s/^/#/" tests/test_helper.rb
 # This would require sinatra-contrib.
 sed -i '/redirecting_with_cookie.ru/,/^  end/ s/^/#/' tests/middlewares/capture_cookies_tests.rb
 
-# Disable test failing on Fedora infrastructure:
-# https://pagure.io/releng/issue/10285
-sed -i '/good_ipv6/ s/^/#/' tests/request_tests.rb
-
 # Keep the test certificates fresh.
-# https://github.com/excon/excon/blob/9e934d0dc169ddfd1fe08e07873a5ba2d8be7aa1/Rakefile#L27-L28
-openssl req -subj '/CN=excon/O=excon' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout tests/data/excon.cert.key -out tests/data/excon.cert.crt
-openssl req -subj '/CN=127.0.0.1/O=excon' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout tests/data/127.0.0.1.cert.key -out tests/data/127.0.0.1.cert.crt
+# https://github.com/excon/excon/blob/fe8ec7b53905c4eb1ffd88c1b507b9ecb5e21226/Rakefile#L53-L54
+openssl req -subj '/CN=excon/O=excon' -new -newkey rsa:2048 -sha256 -days 3650 -nodes -x509 -keyout tests/data/excon.cert.key -out tests/data/excon.cert.crt
+openssl req -subj '/CN=127.0.0.1/O=excon' -new -newkey rsa:2048 -sha256 -days 3650 -nodes -x509 -keyout tests/data/127.0.0.1.cert.key -out tests/data/127.0.0.1.cert.crt
 
 shindont
 popd
@@ -107,6 +103,10 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Mon Jan 09 2023 Vít Ondruch <vondruch@redhat.com> - 0.97.0-1
+- Update to Excon 0.97.0.
+  Resolves: rhbz#2063536
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.91.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

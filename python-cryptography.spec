@@ -3,14 +3,16 @@
 %{!?python3_pkgversion:%global python3_pkgversion 3}
 
 %global srcname cryptography
-%global pyo3_version 0.13.1
 
 Name:           python-%{srcname}
 Version:        37.0.2
 Release:        6%{?dist}
 Summary:        PyCA's cryptography library
 
-License:        ASL 2.0 or BSD
+# cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
+# as well as the Python Software Foundation license for the OS random
+# engine derived by CPython.
+License:        (Apache-2.0 OR BSD-3-Clause) AND PSF-2.0
 URL:            https://cryptography.io/en/latest/
 Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcname}-%{version}.tar.gz
                 # created by ./vendor_rust.py helper script

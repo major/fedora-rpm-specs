@@ -1,20 +1,21 @@
 Name:           libwbxml
 Version:        0.11.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library and tools to parse, encode and handle WBXML documents
 ## Used and installed:
-# COPYING:                          LGPLv2+
-# GNU-LGPL:                         LGPLv2.1 text
-# Other files:                      LGPLv2+
+# COPYING:                          LGPL-2.1-or-later
+# GNU-LGPL:                         LGPL-2.1 text
+# Other files:                      LGPL-2.1-or-later
 ## Not installed:
-# cmake/modules/FindECal1.2.cmake:  BSD
-# cmake/modules/FindIconv.cmake:    GPLv3+
+# cmake/modules/COPYING-CMAKE-SCRIPTS: BSD-3-Clause text
+# cmake/modules/FindECal1.2.cmake:  "New BSD, see COPYING-CMAKE-SCRIPTS"
+# cmake/modules/FindIconv.cmake:    GPL-3.0-or-later
 ## Not used:
-# win32/leaktrack/COPYING.txt:      BSD with advertising
-# win32/leaktrack/leaktrack.h:      GPLv2+
-# win32/expat/COPYING.txt:          MIT text
-# win32/expat/README.txt:           MIT
-License:        LGPLv2+
+# win32/leaktrack/COPYING.txt:      BSD-4-Clause
+# win32/leaktrack/leaktrack.h:      GPL-2.0-or-later
+# win32/expat/COPYING.txt:          MIT
+# win32/expat/README.txt:           "see COPYING, same as MIT/X Consortium license"
+License:        LGPL-2.1-or-later
 URL:            https://github.com/%{name}/%{name}
 Source:         %{url}/archive/%{name}-%{version}.tar.gz
 BuildRequires:  cmake >= 2.4
@@ -82,17 +83,21 @@ developing applications that use %{name}.
 %files
 %license COPYING GNU-LGPL
 %doc BUGS ChangeLog README References THANKS TODO
-%{_bindir}/*
+%{_bindir}/wbxml2xml
+%{_bindir}/xml2wbxml
 %{_libdir}/libwbxml2.so.*
 
 %files devel
 # In order not to run-require cmake, own the directory
 %{_datadir}/cmake
-%{_includedir}/*
+%{_includedir}/libwbxml-1.0
 %{_libdir}/libwbxml2.so
 %{_libdir}/pkgconfig/libwbxml2.pc
 
 %changelog
+* Mon Jan 09 2023 Petr Pisar <ppisar@redhat.com> - 0.11.8-3
+- Convert a License tag to an SPDX format
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

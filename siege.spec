@@ -1,5 +1,5 @@
 Name:           siege
-Version:        4.1.5
+Version:        4.1.6
 Release:        1%{?dist}
 Summary:        HTTP regression testing and benchmarking utility
 
@@ -52,6 +52,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/siege
 %config(noreplace) %{_sysconfdir}/siege/siegerc
 
 %changelog
+* Mon Jan 09 2023 Fabian Affolter <mail@fabian-affolter.ch> - 4.1.6-1
+- Update to latest upstream release 4.1.6 (closes rhbz#2158611)
+
 * Sat Aug 13 2022 Fabian Affolter <mail@fabian-affolter.ch> - 4.1.5-1
 - Update to latest upstream release 4.1.5 (closes rhbz#2114487)
 

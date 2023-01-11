@@ -11,8 +11,8 @@
 
 %global github_owner     doctrine
 %global github_name      data-fixtures
-%global github_version   1.6.2
-%global github_commit    d52cc6d392717734fac908768a7319f8a417401a
+%global github_version   1.6.3
+%global github_commit    c27821d038e64f1bfc852a94064d65d2a75ad01f
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  doctrine
@@ -173,6 +173,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Mon Jan  9 2023 Remi Collet <remi@remirepo.net> - 1.6.3-1
+- update to 1.6.3
+
 * Fri Jan  6 2023 Remi Collet <remi@remirepo.net> - 1.6.2-1
 - update to 1.6.2
 

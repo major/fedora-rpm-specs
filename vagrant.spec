@@ -3,11 +3,11 @@
 %global vagrant_spec_commit 03d88fe2467716b072951c2b55d78223130851a6
 
 %bcond_without help2man
-%bcond_with ed25519
+%bcond_without ed25519
 
 Name: vagrant
 Version: 2.2.19
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -67,14 +67,16 @@ Requires: curl
 Requires: %{_bindir}/ps
 
 Recommends: vagrant(vagrant-libvirt)
-Recommends: rubygem(bcrypt_pbkdf)
 Recommends: (podman-docker if podman)
 
 %if %{with ed25519}
 Requires: rubygem(ed25519)
+Requires: rubygem(bcrypt_pbkdf)
 BuildRequires: rubygem(ed25519)
+BuildRequires: rubygem(bcrypt_pbkdf)
 %else
 Recommends: rubygem(ed25519)
+Recommends: rubygem(bcrypt_pbkdf)
 %endif
 
 BuildRequires: bsdtar
@@ -179,9 +181,6 @@ sed -i -e '/required_ruby_version/ s/, "< 3.1"//' %{name}.gemspec
 %gemspec_remove_dep -s %{name}.gemspec -g net-ssh
 %gemspec_add_dep -s %{name}.gemspec -g net-ssh ['>= 5.2.0', '< 7']
 
-# Remove optional dependencies
-%gemspec_remove_dep -s %{name}.gemspec -g bcrypt_pbkdf
-
 # Load missing dependency Vagrant::Util::MapCommandOptions
 # https://github.com/hashicorp/vagrant/pull/11609
 sed -i '/^\s*require..vagrant.util.experimental.\s*$/ a\require "vagrant/util/map_command_options"' \
@@ -192,10 +191,16 @@ sed -i 's/^if Net::SSH::Version::STRING.*$/if true/' \
   lib/vagrant/patches/net-ssh.rb
 
 %if %{without ed25519}
+# Remove optional dependencies
+%gemspec_remove_dep -s %{name}.gemspec -g bcrypt_pbkdf
+
 %gemspec_remove_dep -s %{name}.gemspec -g ed25519
 # Disable patch for ed25519
 sed -i '/^  require .net\/ssh\/authentication\/ed25519.$/,/^  end$/ s/^/#/' \
   lib/vagrant/patches/net-ssh.rb
+%else
+%gemspec_remove_dep -s %{name}.gemspec -g ed25519
+%gemspec_add_dep -s %{name}.gemspec -g ed25519 ['>= 1.2.4', '< 1.4']
 %endif
 
 %build
@@ -512,6 +517,10 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Mon Jan 09 2023 Jarek Prokop <jprokop@redhat.com> - 2.2.19-8
+- Enable rubygem-ed25519 requires.
+  Resolves: rhbz#1962869
+
 * Fri Jan  6 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.19-7
 - Replace regex match patch with the one by the upstream
 
