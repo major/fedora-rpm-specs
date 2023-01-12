@@ -133,7 +133,7 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
-%{_libdir}/libcamera*.so.*
+%{_libdir}/libcamera*.so.0.0.3
 
 %files devel
 %{_includedir}/%{name}/

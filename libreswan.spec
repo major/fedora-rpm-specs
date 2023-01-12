@@ -31,12 +31,12 @@ Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
 Version: 4.9
-Release: %{?prever:0.}1%{?prever:.%{prever}}%{?dist}
+Release: %{?prever:0.}2%{?prever:.%{prever}}%{?dist}
 License: GPLv2
 Url: https://libreswan.org/
 Source0: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz
 Source1: https://download.libreswan.org/%{?prever:development/}%{name}-%{version}%{?prever}.tar.gz.asc
-Source2: https://download.libreswan.org/LIBRESWAN-GPG-KEY.txt
+Source2: https://download.libreswan.org/LIBRESWAN-OpenPGP-KEY.txt
 %if 0%{with_cavstests}
 Source3: https://download.libreswan.org/cavs/ikev1_dsa.fax.bz2
 Source4: https://download.libreswan.org/cavs/ikev1_psk.fax.bz2
@@ -207,6 +207,9 @@ certutil -N -d sql:$tmpdir --empty-password
 %doc %{_mandir}/*/*
 
 %changelog
+* Tue Jan 10 2023 Paul Wouters <paul.wouters@aiven.io - 4.9-2
+- Use new GPG key location.
+
 * Thu Oct 13 2022 Paul Wouters <paul.wouters@aiven.io - 4.9-1
 - Update to 4.9 (maxbytes/maxpackets support, raw ECDSA support, misc fixes)
 

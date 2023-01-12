@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # LTO triggers a compilation error for a source level issue.  Given that LTO should not
 # change the validity of any given source and the nature of the error (undefined enum), I
@@ -8,22 +8,21 @@
 
 %global dotnetver 7.0
 
-%global host_version 7.0.0-rc.2.22472.3
-%global runtime_version 7.0.0-rc.2.22472.3
-%global aspnetcore_runtime_version 7.0.0-rc.2.22476.2
-%global sdk_version 7.0.100-rc.2.22511.1
+%global host_version 7.0.0
+%global runtime_version 7.0.0
+%global aspnetcore_runtime_version %{runtime_version}
+%global sdk_version 7.0.100
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
-%global templates_version 7.0.0-rc.2.22476.2
+%global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
 
-%global host_rpm_version 7.0.0
-%global runtime_rpm_version 7.0.0
-%global aspnetcore_runtime_rpm_version 7.0.0
-%global sdk_rpm_version 7.0.100
+%global host_rpm_version %{host_version}
+%global runtime_rpm_version %{runtime_version}
+%global aspnetcore_runtime_rpm_version %{aspnetcore_runtime_version}
+%global sdk_rpm_version %{sdk_version}
 
 # upstream can update releases without revving the SDK version so these don't always match
-#%%global upstream_tag v%%{sdk_version}
-%global upstream_tag v7.0.100-rc.2.22477.23
+%global upstream_tag v%{sdk_version}
 
 %if 0%{?fedora} || 0%{?rhel} < 8
 %global use_bundled_libunwind 0
@@ -54,7 +53,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        0%{?dist}.1
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-Exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -79,29 +78,21 @@ Source0:        dotnet-%{upstream_tag}.tar.gz
 Source10:       check-debug-symbols.py
 Source11:       dotnet.sh.in
 
-# https://github.com/dotnet/runtime/pull/76916
-Patch1:         runtime-76916-mono-s390x-opcheckthis.patch
-# https://github.com/microsoft/vstest/pull/4028
-Patch2:         vstest-4028-ppc64le.patch
-# https://github.com/microsoft/vstest/pull/4066
-Patch3:         vstest-4066-s390x-ppc64le.patch
-# https://github.com/dotnet/installer/pull/14631
-Patch4:         installer-14631-ppc64le.patch
 # https://github.com/dotnet/installer/pull/14792
-Patch5:         installer-14792-mono.patch
+Patch1:         installer-14792-mono.patch
 # https://github.com/dotnet/aspnetcore/pull/44583
-Patch6:         aspnetcore-44583-ppc64le-crossgen.patch
+Patch2:         aspnetcore-44583-ppc64le-crossgen.patch
 # https://github.com/dotnet/runtime/pull/77269
-Patch7:         runtime-77269-mono-ppc64le-opcheckthis.patch
+Patch3:         runtime-77269-mono-ppc64le-opcheckthis.patch
 # https://github.com/dotnet/runtime/pull/77270
-Patch8:         runtime-77270-ppc64le-fsharp-crash.patch
+Patch4:         runtime-77270-ppc64le-fsharp-crash.patch
 # https://github.com/dotnet/runtime/pull/77308
-Patch9:         runtime-77308-ppc64le-delegate.patch
+Patch5:         runtime-77308-ppc64le-delegate.patch
 # Disable apphost; there's no net6.0 apphost for ppc64le
-Patch10:        roslyn-analyzers-ppc64le-apphost.patch
+Patch6:        roslyn-analyzers-ppc64le-apphost.patch
 # Fix ppc64le build with clang 15
 # TODO upstream this
-Patch11:        runtime-mono-ppc64le-clang15.patch
+Patch7:        runtime-mono-ppc64le-clang15.patch
 
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -648,6 +639,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Jan 10 2022 Omair Majid <omajid@redhat.com> - 7.0.100-1
+- Update to .NET SDK 7.0.100 and Runtime 7.0.0
+
 * Thu Nov 10 2022 Omair Majid <omajid@redhat.com> - 7.0.100-0.1
 - Update to .NET 7 RC 2
 

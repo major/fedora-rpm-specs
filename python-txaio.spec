@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        22.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
@@ -29,7 +29,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-mock
 BuildRequires:  python3-six
 BuildRequires:  python3-test
 BuildRequires:  python3-enchant >= 1.6.6
@@ -90,6 +89,10 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Tue Jan 10 2023 Julien Enselme <jujens@jujens.eu> - 22.2.1-4
+- Remove build dep on python3-mock:
+  not needed causes issues when building for EPEL9.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	72%{?dist}
+Release:	73%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Tue Jan 10 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-73
+- Allow internal grub allocations over 4GB
+
 * Wed Dec 21 2022 Robbie Harwood <rharwood@redhat.com> - 2.06-72
 - Fix prefix setting with memdisk creation for network boot
 

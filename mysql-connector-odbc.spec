@@ -2,13 +2,14 @@
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
 Version:        8.0.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ODBC driver for MySQL
 License:        GPLv2 with exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
 
 Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/%{name}-%{version}-src.tar.gz
 Patch0:         myodbc-64bit.patch
+Patch1:         mysql-connector-odbc-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -29,6 +30,7 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
 %prep
 %setup -q -n %{name}-%{version}-src
 %patch0 -p1
+%patch1 -p1
 
 %build
 %cmake \
@@ -77,6 +79,9 @@ rm -rf %{buildroot}/usr/test
 %endif
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 8.0.31-2
+- C99 compatibility fixes
+
 * Tue Oct 25 2022 Michal Schorm <mschorm@redhat.com> - 8.0.31-1
 - Rebase to version 8.0.31
 

@@ -1,11 +1,11 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.38.4
+Version: 1.39.1
 Release: 1%{?dist}
 License: GPLv2+
 URL: https://www.mediawiki.org/
-Source0: https://download.wikimedia.org/mediawiki/1.38/%{name}-%{version}.tar.gz
-Source1: https://download.wikimedia.org/mediawiki/1.38/%{name}-%{version}.tar.gz.sig
+Source0: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz
+Source1: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz.sig
 Source2: mediawiki.conf
 Source3: README.RPM
 Source4: mw-createinstance.in
@@ -22,43 +22,39 @@ BuildRequires: php-pdo
 #BuildRequires: php-phpunit-PHPUnit
 BuildRequires: php-theseer-autoload
 BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.0
-#BuildRequires: php-composer(leafo/lessphp) >= 0.5.0
 BuildRequires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-BuildRequires: php-composer(oojs/oojs-ui) >= 0.43.2
+BuildRequires: php-composer(oojs/oojs-ui) >= 0.44.3
 BuildRequires: php-composer(psr/log) >= 1.1.4
 BuildRequires: php-composer(wikimedia/assert) >= 0.5.1
 BuildRequires: php-composer(wikimedia/avro) >= 1.9.0
 BuildRequires: php-composer(wikimedia/cdb) >= 2.0.0
-BuildRequires: php-composer(wikimedia/ip-set) >= 3.0.0
+BuildRequires: php-composer(wikimedia/ip-set) >= 3.1.0
 BuildRequires: php-composer(wikimedia/utfnormal) >= 3.0.2
 BuildRequires: php-composer(zordius/lightncandy) >= 1.2.6
-BuildRequires: php-pear(Mail) >= 1.4.1
+BuildRequires: php-pear(Mail) >= 1.5.0
 BuildRequires: php-pear(Mail_Mime) >= 1.10.11
-BuildRequires: php-pear(Mail_mimeDecode) >= 1.5.5
-BuildRequires: php-pear(Net_SMTP) >= 1.9.2
+BuildRequires: php-pear(Net_SMTP) >= 1.10.0
 BuildRequires: php-pear(Net_Socket) >= 1.2.2
 BuildRequires: python3-devel
 
 Requires: httpd-filesystem
 Requires: php(httpd)
-Requires: php(language) >= 7.3.19
+Requires: php(language) >= 7.4.3
 Requires: php-gd
 Requires: php-xml
 Requires: diffutils, ImageMagick
 Requires: php-composer(cssjanus/cssjanus) >= 2.1.0
-#Requires: php-composer(leafo/lessphp) >= 0.5.0
 Requires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-Requires: php-composer(oojs/oojs-ui) >= 0.43.2
+Requires: php-composer(oojs/oojs-ui) >= 0.44.3
 Requires: php-composer(psr/log) >= 1.1.4
 Requires: php-composer(wikimedia/assert) >= 0.5.1
 Requires: php-composer(wikimedia/avro) >= 1.9.0
 Requires: php-composer(wikimedia/cdb) >= 2.0.0
-Requires: php-composer(wikimedia/ip-set) >= 3.0.0
+Requires: php-composer(wikimedia/ip-set) >= 3.1.0
 Requires: php-composer(wikimedia/utfnormal) >= 3.0.2
 Requires: php-composer(zordius/lightncandy) >= 1.2.6
-Requires: php-pear(Mail) >= 1.4.1
+Requires: php-pear(Mail) >= 1.5.0
 Requires: php-pear(Mail_Mime) >= 1.10.11
-Requires: php-pear(Mail_mimeDecode) >= 1.5.5
 Requires: php-pear(Net_SMTP) >= 1.10.0
 Requires: php-pear(Net_Socket) >= 1.2.2
 
@@ -68,12 +64,12 @@ Requires(post): php-cli
 Obsoletes: php-mediawiki-at-ease <= 1.1.0
 
 Provides: bundled(php-christian-riesen-base32) = 1.6.0
-Provides: bundled(php-composer-semver) = 3.2.6
+Provides: bundled(php-composer-semver) = 3.3.2
 Provides: bundled(php-guzzlehttp-guzzle) = 7.4.5
 Provides: bundled(php-guzzlehttp-promises) = 1.5.1
 Provides: bundled(php-guzzlehttp-psr7) = 2.4.0
 Provides: bundled(php-jakobo-hotp-php) = 2.0.0
-Provides: bundled(php-opis-json-schema) = 1.1.0
+Provides: bundled(php-justinrainbow-json-schema) = 5.2.11
 Provides: bundled(php-monolog-monolog) = 2.2.0
 Provides: bundled(php-pear-console_getopt) = 1.4.3
 Provides: bundled(php-pear-Net_URL2) = 2.2.2
@@ -86,9 +82,9 @@ Provides: bundled(php-psr-http-message) = 1.0.1
 Provides: bundled(php-psr-simple-cache) = 1.0.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
 Provides: bundled(php-symfony-deprecation-contracts) = 2.5.1
-Provides: bundled(php-symfony-polyfill-php80) = 1.25.0
-Provides: bundled(php-symfony-polyfill-php81) = 1.25.0
-Provides: bundled(php-symfony-yaml) = 5.4.3
+Provides: bundled(php-symfony-polyfill-php80) = 1.26.0
+Provides: bundled(php-symfony-polyfill-php81) = 1.26.0
+Provides: bundled(php-symfony-yaml) = 5.4.10
 Provides: bundled(php-wikimedia-at-ease) = 2.1.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.4.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
@@ -96,29 +92,29 @@ Provides: bundled(php-wikimedia-css-sanitizer) = 3.0.2
 Provides: bundled(php-wikimedia-equivset) = 1.4.3
 Provides: bundled(php-wikimedia-remex-html) = 3.0.2
 Provides: bundled(php-wikimedia-timestamp) = 3.0.0
-Provides: bundled(php-wikimedia-base-convert) = 2.0.1
+Provides: bundled(php-wikimedia-base-convert) = 2.0.2
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 2.0.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
 Provides: bundled(php-wikimedia-html-formatter) = 3.0.1
 Provides: bundled(php-wikimedia-ip-utils) = 4.0.0
 Provides: bundled(php-wikimedia-less.php) = 3.1.0
-Provides: bundled(php-wikimedia-minify) = 2.2.6
+Provides: bundled(php-wikimedia-minify) = 2.3.0
 Provides: bundled(php-wikimedia-normalized-exception) = 1.0.1
 Provides: bundled(php-wikimedia-object-factory) = 4.0.0
-Provides: bundled(php-wikimedia-parsoid) = 0.15.1
-Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.0
+Provides: bundled(php-wikimedia-parsoid) = 0.16.1
+Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.1
 Provides: bundled(php-wikimedia-purtle) = 1.0.8
 Provides: bundled(php-wikimedia-relpath) = 3.0.0
 Provides: bundled(php-wikimedia-remex-html) = 3.0.2
 Provides: bundled(php-wikimedia-request-timeout) = 1.2.0
-Provides: bundled(php-wikimedia-running-stat) = 1.2.1
-Provides: bundled(php-wikimedia-scoped-callback) = 3.0.0
-Provides: bundled(php-wikimedia-services) = 2.0.1
+Provides: bundled(php-wikimedia-running-stat) = 2.1.0
+Provides: bundled(php-wikimedia-scoped-callback) = 4.0.0
+Provides: bundled(php-wikimedia-services) = 3.0.0
 Provides: bundled(php-wikimedia-shellbox) = 3.0.0
-Provides: bundled(php-wikimedia-timestamp) = 3.0.0
+Provides: bundled(php-wikimedia-timestamp) = 4.0.0
 Provides: bundled(php-wikimedia-wait-condition-loop) = 2.0.2
 Provides: bundled(php-wikimedia-wrappedstring) = 4.0.1
-Provides: bundled(php-wikimedia-xmp-reader) = 0.8.1
+Provides: bundled(php-wikimedia-xmp-reader) = 0.8.6
 Provides: bundled(php-wikimedia-zest-css) = 2.0.2
 
 
@@ -251,7 +247,7 @@ cd tests/phpunit
 
 
 %files
-%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.38 UPGRADE CREDITS docs
+%doc FAQ HISTORY README.md README.RPM RELEASE-NOTES-1.39 UPGRADE CREDITS docs
 %license COPYING
 %{_datadir}/mediawiki
 /var/www/wiki
@@ -263,6 +259,10 @@ cd tests/phpunit
 
 
 %changelog
+* Tue Jan 10 2023 Michael Cronenworth <mike@cchtml.com> - 1.39.1-1
+- Update to 1.39.1
+- https://www.mediawiki.org/wiki/Release_notes/1.39#MediaWiki_1.39.1
+
 * Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 1.38.4-1
 - Update to 1.38.4
 

@@ -5,8 +5,8 @@
 
 Summary:       Python bindings for libsmbclient API from Samba
 Name:          python-smbc
-Version:       1.0.23
-Release:       7%{?dist}
+Version:       1.0.25.1
+Release:       1%{?dist}
 URL:           https://github.com/hamano/pysmbc
 Source:        %{URL}/archive/%{version}/pysmbc-%{version}.tar.gz
 License:       GPLv2+
@@ -61,6 +61,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Tue Jan 10 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.25.1-1
+- 1.0.25.1, fixes #2155419
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

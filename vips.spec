@@ -4,12 +4,15 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
 URL:		https://libvips.github.io/libvips/
 Source0:	https://github.com/libvips/libvips/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/libvips/libvips/commit/caed71af04cce001917ad68ee556a687af35baf8
+# https://github.com/libvips/ruby-vips/issues/351
+Patch0:	vips-8.13.xx-emit-finish-signal-targetcustom-write.patch
 
 BuildRequires:	make
 BuildRequires:	pkgconfig(glib-2.0)
@@ -130,6 +133,7 @@ ImageMagick6.
 
 %prep
 %setup -q
+%patch0 -p1 -b .emit
 
 # Avoid setting RPATH to /usr/lib64 on 64-bit builds
 # The DIE_RPATH_DIE trick breaks the build wrt gobject-introspection
@@ -207,6 +211,10 @@ make check
 
 
 %changelog
+* Tue Jan 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.13.3-4
+- Backport upstream fix for emitting finish signal for target_end
+  (needed for ruby-vips)
+
 * Fri Jan 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 8.13.3-3
 - Rebuild for ImageMagick 7
 

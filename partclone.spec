@@ -3,7 +3,7 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.21
+Version:        0.3.22
 Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
@@ -18,7 +18,6 @@ Release:        1%{?dist}
 License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         partclone-0.3.21-tests-size.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
@@ -64,11 +63,7 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 
 %prep
 %setup -q
-%patch0 -p1 -b .tests-size
 autoreconf -i -f
-
-# Some recent gcc or annobin changes seem to confuse the comparison (#1943056)
-sed -e 's/exit 1/exit 0/' -i fail-mbr/compile-mbr.sh
 
 %build
 # src/progress.c:50: undefined reference to `__fpclassifyf',
@@ -121,15 +116,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/
 sed -e 's/^\(am__append_[[:digit:]]* = nilfs2.test\)/#\1/' \
     -i tests/Makefile
 
-# Tests for FAT and F2FS filesystems support only little-endian
-# See also: https://github.com/Thomas-Tsai/partclone/pull/205
-#           https://github.com/Thomas-Tsai/partclone/pull/210
-%ifarch s390x
-sed -e 's/^\(am__append_[[:digit:]]* = fat.test\)/#\1/' \
-    -e 's/^\(am__append_[[:digit:]]* = f2fs.test\)/#\1/' \
-    -i tests/Makefile
-%endif
-
 # No btrfs-progs, f2fs-tools and hfsplus-tools in RHEL or EPEL
 %if 0%{?rhel}
 sed -e 's/^\(am__append_[[:digit:]]* = btrfs.test\)/#\1/' \
@@ -151,6 +137,9 @@ make check || (cat tests/test-suite.log; exit 1)
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Wed Jan 11 2023 Robert Scheck <robert@fedoraproject.org> 0.3.22-1
+- Upgrade to 0.3.22 (#2159671)
+
 * Sun Jan 08 2023 Robert Scheck <robert@fedoraproject.org> 0.3.21-1
 - Upgrade to 0.3.21 (#2159036)
 

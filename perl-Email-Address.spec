@@ -1,8 +1,8 @@
 Name:           perl-Email-Address
-Version:        1.912
-Release:        14%{?dist}
+Version:        1.913
+Release:        1%{?dist}
 Summary:        RFC 2822 Address Parsing and Creation (DEPRECATED)
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Address
 Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Address-%{version}.tar.gz
 BuildArch:      noarch
@@ -11,7 +11,8 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.78
 # Module
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
@@ -58,6 +59,13 @@ make test
 
 
 %changelog
+* Tue Jan 10 2023 Paul Howarth <paul@city-fan.org> - 1.913-1
+- Update to 1.913 (rhbz#2159569)
+  - This version now requires Perl v5.12
+  - Some small tweaks made to the code to take advantage of v5.12
+  - Update distribution metadata
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.912-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

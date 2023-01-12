@@ -17,7 +17,7 @@
 
 Name:       pl
 Version:    9.0.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
 #library/dialect/iso/iso_predicates.pl  BSD-2-Clause AND (GPL-2.0-or-later WITH
@@ -159,6 +159,8 @@ Patch0:     swipl-8.2.1-Fix-JNI.patch
 Patch1:     swipl-8.2.0-Remove-files-locations-from-swipl-1-manual.patch
 # Unbundle libstemmer
 Patch2:     swipl-8.2.0-unbundle-libstemmer.patch
+
+Patch3:     pl-cmake-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  findutils
@@ -602,6 +604,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 9.0.3-2
+- Fix C99 compatibility issues in CMake checks
+
 * Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 9.0.3-1
 - Version 9.0.3
 

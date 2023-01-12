@@ -80,6 +80,10 @@ BuildArch:      noarch
 
 %prep
 %autosetup -n %{name}-%{commit}
+# Compiling with -Werror makes sense for upstream CI, but is probably too
+# brittle for downstream builds.
+sed -r -i "s/^([[:blank:]]*)(['\"]-Werror)/\1# \2/" tests/setup.py
+
 
 %generate_buildrequires
 pushd tests >/dev/null
@@ -102,6 +106,7 @@ popd >/dev/null
 install -t '%{buildroot}%{_includedir}' -D -p -m 0644 pythoncapi_compat.h
 install -D -p -t '%{buildroot}%{_bindir}' upgrade_pythoncapi.py
 install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
+%py3_shebang_fix %{buildroot}%{_bindir}/upgrade_pythoncapi.py
 
 
 %check

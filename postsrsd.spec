@@ -3,19 +3,21 @@
 %undefine __cmake_in_source_build
 
 Name:           postsrsd
-Version:        1.12
-Release:        3%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 Summary:        Sender Rewriting Scheme (SRS) provider
 
 License:        GPLv2+
 URL:            https://github.com/roehling/postsrsd
 Source0:        https://github.com/roehling/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        postsrsd.conf
 
 BuildRequires: make
 BuildRequires:     cmake
 BuildRequires:     gcc
 BuildRequires:     help2man
 BuildRequires:     selinux-policy-devel
+BuildRequires:     libconfuse-devel
 %{?systemd_requires}
 BuildRequires:     systemd
 Requires(post):    policycoreutils
@@ -61,17 +63,15 @@ mkdir -p %{buildroot}/%{_unitdir}
 mv %{buildroot}/%{_sysconfdir}/systemd/system/postsrsd.service %{buildroot}/%{_unitdir}/postsrsd.service
 rm -rf %{buildroot}/%{_sysconfdir}/systemd
 
-# chroot directory
-# (also move default config which is in the way)
-sed -i 's/^CHROOT=.*/CHROOT=\/run\/postsrsd/' %{buildroot}/%{_sysconfdir}/default/%{name}
-sed -ri -e 's/postsrsd\/default/postsrsd.default/' \
-        -e "s/(\[Install\])/RuntimeDirectory=postsrsd\nRuntimeDirectoryMode=0750\n\n\1/" %{buildroot}/%{_unitdir}/postsrsd.service
+# default configuration and chroot directory
+cp %{SOURCE1} %{buildroot}/%{_sysconfdir}/
+sed -ri -e "s/(\[Install\])/RuntimeDirectory=postsrsd\nRuntimeDirectoryMode=0750\n\n\1/" %{buildroot}/%{_unitdir}/postsrsd.service
 
 
 %files
 %license LICENSE
 %ghost %{_sysconfdir}/postsrsd.secret
-%config(noreplace) %{_sysconfdir}/default/%{name}
+%config(noreplace) %{_sysconfdir}/postsrsd.conf
 %{_unitdir}/postsrsd.service
 %{_sbindir}/postsrsd
 %{_docdir}/%{name}

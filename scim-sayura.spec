@@ -1,12 +1,13 @@
 Name:		scim-sayura
 Version:	0.3.0
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Sri Lankan input method for SCIM
 License:	GPLv2
 URL:		http://sinhala.sourceforge.net/
 Source:		http://sinhala.sourceforge.net/files/%{name}-%{version}.tar.gz
 Patch0:         scim-sayura-0.3.0-fix-constructor.patch
 Patch1:         scim-sayura-aarch64.patch
+Patch2: scim-sayura-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:	scim-devel
@@ -20,6 +21,7 @@ This package provides a Sinhala Trans input method for SCIM.
 %setup -q 
 %patch0 -p1 -b .fix-constructor
 %patch1 -p1 -b .aarch64-support
+%patch2 -p1
 
 %build
 %configure --disable-static
@@ -38,6 +40,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/*/*.la
 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.3.0-32
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

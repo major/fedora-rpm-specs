@@ -1,16 +1,16 @@
 %global _build_id_links none
 %global __requires_exclude ^libjabber\\.so.*$
 %global libgd_commit c7c7ff4e05d3fe82854219091cf116cce6b19de0
-%global libcmatrix_commit e9854d058068df258e7c0a60979e611ad2dc7a25
+%global libcmatrix_commit d532b70591b67ac3ad4861390fbb906b323c906f
 
 Name: chatty
-Version: 0.7.0~rc4
+Version: 0.7.0~rc5
 Release: 0%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+
 URL: https://source.puri.sm/Librem5/chatty
-Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.7.0_rc4/%{name}-v0.7.0_rc4.tar.gz
+Source0: https://source.puri.sm/Librem5/%{name}/-/archive/v0.7.0_rc5/%{name}-v0.7.0_rc5.tar.gz
 Source1: https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.gz
 Source2: https://source.puri.sm/Librem5/libcmatrix/-/archive/%{libcmatrix_commit}/libcmatrix-%{libcmatrix_commit}.tar.gz
 
@@ -23,6 +23,7 @@ Patch0:  0001-hacky-hack.patch
 
 # Temporary. Test failure on ppc64le
 ExcludeArch:	ppc64le
+ExcludeArch:	i686
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -72,7 +73,7 @@ works best with the phosh mobile DE.
 # Copy private libjabber library in so we can build against it
 cp `pkg-config --variable=plugindir purple`/libjabber.so.0 /tmp/libjabber.so
 
-%setup -a1 -a2 -n %{name}-v0.7.0_rc4
+%setup -a1 -a2 -n %{name}-v0.7.0_rc5
 %patch0 -p1
 
 rm -rf subprojects/libcmatrix
@@ -130,144 +131,4 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
-* Fri Nov 18 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc4-1
-- Update to 0.7.0~rc4
-
-* Fri Nov 11 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc3-1
-- Update to 0.7.0~rc3
-
-* Mon Nov 07 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc2-1
-- Update to 0.7.0~rc2
-
-* Fri Oct 21 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc1-1
-- Bugfix release 0.7.0~rc1
-
-* Tue Oct 18 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.7.0~rc0-1
-- Update to 0.7.0~rc0
-
-* Sat Aug 13 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.7-3
-- Thanks to Marcin <marcin@ipv8.pl> for providing patches and fixes
-- Adding patches for libsoup3 support to fix breaking builds
-- Fixing icons for GNOME 43 changes
-- Conflicts for purple plugins sipe and chime
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sun Jun 26 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.7-1
-- Update to 0.6.7
-
-* Sun Apr 24 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.3-1
-- Update to 0.6.3
-
-* Fri Feb 25 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.2-1
-- Update to 0.6.2
-
-* Tue Feb 08 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.1-1
-- Update to 0.6.1
-
-* Tue Jan 25 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.0-1
-- Update to 0.6.0
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0~beta-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Jan 16 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.6.0~beta-1
-- Update to 0.6.0_beta
-
-* Wed Dec 15 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.5.0~beta4-1
-- Update to 0.5.0_beta4
-
-* Fri Dec 10 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.5.0~beta3-1
-- Update to 0.5.0_beta3
-
-* Tue Nov 16 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.5.0~beta-1
-- Update to 0.5.0_beta
-
-* Sat Oct 30 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.4.0-2
-- Rebuild for deps
-
-* Sat Sep 11 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.4.0-1
-- Update to 0.4.0
-
-* Tue Sep 07 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.4.0~beta3-1
-- Update to 0.4.0_beta3
-
-* Mon Aug 30 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.4.0~beta2-1
-- Update to 0.4.0_beta2
-
-* Mon Aug 23 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.4.0~beta-1
-- Update 0.4.0_beta
-
-* Thu Jul 29 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.4-1
-- Update to chatty 0.3.4
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jul 16 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.3-1
-- Update to chatty 0.3.3
-
-* Tue Jun 29 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.2-1
-- Update to chatty 0.3.2
-
-* Fri May 28 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.1-1
-- Update to chatty 0.3.1
-
-* Thu May 06 2021 Torrey Sorensen <torbuntu@fedpraproject.org> - 0.3.0-1
-- Update to chatty 0.3.0
-
-* Wed Apr 14 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.0_beta2-1
-- Update to chatty 0.3.0 beta 2
-
-* Sun Mar 28 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.0_beta-2
-* Add patch for matrix crash in encrypted rooms
-
-* Fri Mar 26 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.3.0_beta-1
-- Update to 0.3.0_beta
-
-* Sat Mar 13 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.2.0-5
-- Update for package review
-
-* Mon Feb 15 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.2.0-4
-- Build for new evolution dep
-
-* Sat Feb 06 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.2.0-3
-- Re-add tests
-
-* Mon Jan 11 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.2.0-2
-- Updating for f34
-
-* Mon Nov 16 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.2.0-1
-- Update version to 0.2.0
-
-* Tue Nov 03 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.17-1
-- Update versoin to 0.1.17
-
-* Thu Oct 15 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.16-2
-- Updating meson tests for timeout
-
-* Sun Sep 27 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.16-1
-- Update version to 0.1.16
-
-* Thu Aug 20 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.15-1
-- Update version to 0.1.15
-
-* Mon Jul 20 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.14-1
-- Update version to 0.1.14 
-
-* Thu Jun 25 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.12-1
-- Update version to 0.1.12
-
-* Fri May 29 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.11-1
-- Update version to 0.1.11
-- Remove 2 patches 
-
-* Wed Mar 04 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.8-3
-- Remove the buildid
-
-* Wed Mar 04 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.8-2
-- Bundle libjabber with it
-
-* Mon Mar 02 2020 Nikhil Jha <hi@nikhiljha.com> - 0.1.8-1
-- Initial packaging
+%autochangelog

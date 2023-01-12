@@ -1,6 +1,6 @@
 Name:           wsmancli
 Version:        2.6.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        BSD
 Url:            http://www.openwsman.org/
 # You can get this tarball here:
@@ -15,6 +15,7 @@ BuildRequires:  autoconf automake libtool
 Requires:       openwsman curl
 Patch0:         missing-pthread-symbols.patch
 Patch1:         http-unauthorized-improve.patch
+Patch2:         replace-getpass.patch
 Summary:        WS-Management-Command line Interface
 
 %description
@@ -25,6 +26,7 @@ systems using Web Services Management protocol.
 %setup -q 
 %patch0 -p1
 %patch1 -p1 -b .http-unauthorized-improve
+%patch2 -p1 -b .replace-getpass
 cp -fp %SOURCE1 %SOURCE2 %SOURCE3 .;
 
 %build
@@ -43,6 +45,9 @@ make DESTDIR=%{buildroot} install
 %doc COPYING README AUTHORS
 
 %changelog
+* Tue Jan 10 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.0-19
+- Replace obsolete getpass function
+
 * Thu Sep 08 2022 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.0-18
 - Improve handling of HTTP 401 Unauthorized
 

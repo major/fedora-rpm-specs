@@ -2,7 +2,7 @@
 
 %global forgeurl  https://github.com/BlueBrain/eFEL
 # Use github commit tar instead of pypi which does not include tests
-%global commit 30f2517b2f32e79bc96dbc20bda57f3261449569
+%global commit e60bdb6e404eba0a495ce5d11d6265e24bd0efe5
 
 %global desc %{expand: \
 The Electrophys Feature Extraction Library (eFEL) allows neuroscientists to
@@ -18,7 +18,7 @@ the moment we provide a way to automatically compile and install the library as
 a Python module.}
 
 Name:           python-efel
-Version:        4.1.31
+Version:        4.1.54
 Release:        %autorelease
 Summary:        Electrophys Feature Extraction Library
 %forgemeta

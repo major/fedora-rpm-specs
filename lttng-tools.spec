@@ -8,7 +8,7 @@
 
 
 Name:           lttng-tools
-Version:        2.13.8
+Version:        2.13.9
 Release:        1%{?dist}
 License:        GPLv2 and LGPLv2
 URL:            http://lttng.org
@@ -181,6 +181,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Jan 10 2023 Michael Jeanson <mjeanson@efficios.com> - 2.13.9-1
+- New upstream release
+
 * Wed Oct 19 2022 Michael Jeanson <mjeanson@efficios.com> - 2.13.8-1
 - New upstream release
 

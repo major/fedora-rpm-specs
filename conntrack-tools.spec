@@ -1,6 +1,6 @@
 Name:           conntrack-tools
 Version:        1.4.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Manipulate netfilter connection tracking table and run High Availability
 License:        GPLv2
 URL:            http://conntrack-tools.netfilter.org/
@@ -10,6 +10,7 @@ Source2:        conntrackd.conf
 
 Patch01:        0001-build-remove-commented-out-macros-from-configure.ac.patch
 Patch02:        0002-nfct-remove-lazy-binding.patch
+Patch3:         conntrack-tools-c99.patch
 
 BuildRequires:  autogen
 BuildRequires:  autoconf
@@ -90,6 +91,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/conntrackd/
 %systemd_postun conntrackd.service 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 1.4.6-5
+- Apply upstream patch for C99 compatibility issues
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

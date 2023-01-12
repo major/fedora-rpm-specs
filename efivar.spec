@@ -1,6 +1,6 @@
 Name:           efivar
 Version:        38
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tools to manage UEFI variables
 License:        LGPL-2.1-only
 URL:            https://github.com/rhboot/efivar
@@ -55,12 +55,12 @@ git config --unset user.name
 make LIBDIR=%{_libdir} BINDIR=%{_bindir} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 %install
-%makeinstall
+%makeinstall CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 install -m 0644 src/abignore %{buildroot}%{_includedir}/efivar/.abignore
 
 %check
 %ifarch x86_64
-make abicheck
+make abicheck CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 %endif
 
 %ldconfig_scriptlets libs
@@ -71,7 +71,6 @@ make abicheck
 %doc README.md
 %{_bindir}/efivar
 %{_bindir}/efisecdb
-%exclude %{_bindir}/efivar-static
 %{_mandir}/man1/*
 
 %files devel
@@ -84,6 +83,9 @@ make abicheck
 %{_libdir}/*.so.*
 
 %changelog
+* Tue Jan 10 2023 Robbie Harwood <rharwood@redhat.com> - 38-6
+- Fix inheritance of buildflags
+
 * Thu Jul 28 2022 Robbie Harwood <rharwood@redhat.com> - 38-5
 - Fix build with glibc-2.36
 

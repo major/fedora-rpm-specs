@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.11.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 License: MIT
 URL: https://github.com/minimagick/minimagick
@@ -79,6 +79,8 @@ sed -i '/^    it "identifies when gm exists" do$/,/    end/ s/^/#/g' \
   spec/lib/mini_magick/utilities_spec.rb
 sed -i "/^    it \"returns GraphicsMagick's version\" do$/,/    end/ s/^/#/g" \
   spec/lib/mini_magick_spec.rb
+sed -i -e 's|, "GraphicsMagick"||' \
+	spec/lib/mini_magick/image_spec.rb
 
 # ImageMagick version incompatibility
 sed -i "/ have_key(\"date:create\")/ s/^/#/" \
@@ -101,6 +103,10 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Tue Jan 10 2023 Mamoru TASAKA <mtasaka@fedoraprpject.org> - 4.11.0-7
+- Prevent GraphicsMagick test being executed by ImageMagick on
+  image_spec test
+
 * Mon Nov 14 2022 Mamoru TASAKA <mtasaka@fedoraprpject.org> - 4.11.0-6
 - Backport upstream fix for ruby32 File.exists? removal
 

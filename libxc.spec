@@ -15,7 +15,7 @@
 
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
-Version:        6.0.0
+Version:        6.1.0
 Release:        1%{?dist}
 License:        MPLv2.0
 Source0:        http://www.tddft.org/programs/libxc/down.php?file=%{version}/libxc-%{version}.tar.gz
@@ -128,6 +128,9 @@ rm -f %{buildroot}%{_includedir}/libxc.bib
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Tue Jan 10 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.1.0-1
+- Update to 6.1.0.
+
 * Fri Oct 14 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.0.0-1
 - Switch to CMake build.
 - Update to 6.0.0.

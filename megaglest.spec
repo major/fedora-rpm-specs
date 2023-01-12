@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.13.0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+ and GPL+
 Url:		http://megaglest.org/
@@ -103,6 +103,9 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Jan 10 2023 Hans de Goede <hdegoede@redhat.com> - 3.13.0-16
+- Rebuilt for liblua soname bump
+
 * Wed Dec 21 2022 Sérgio Basto <sergio@serjux.com> - 3.13.0-15
 - Drop unneeded BuildRequires openjpeg because already use libjpeg-turbo and
   openjpeg2

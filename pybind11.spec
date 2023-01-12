@@ -16,7 +16,7 @@
 %global python3_enabled 1
 
 Name:    pybind11
-Version: 2.10.1
+Version: 2.10.3
 Release: 1%{?dist}
 Summary: Seamless operability between C++11 and Python
 License: BSD
@@ -181,6 +181,9 @@ PYBIND11_USE_CMAKE=true %py3_install "--install-purelib" "%{python3_sitearch}"
 %endif
 
 %changelog
+* Mon Jan 09 2023 Jonathan Wright <jonathan@almalinux.org> - 2.10.3-1
+- Update to 2.10.3 rhbz#2155679
+
 * Mon Nov 07 2022 Jonathan Wright <jonathan@almalinux.org> - 2.10.1-1
 - Update to 2.10.1 rhbz#2139245
 

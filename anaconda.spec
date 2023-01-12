@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.14
+Version: 38.15
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 10 2023 Packit <hello@packit.dev> - 38.15-1
+- webui: update obsolete comment (rvykydal)
+- webui: pin down tag for fetching cockpit's test library (kkoukiou)
+- bootloader/zipl.py: update for zipl >= 2.25.0 (dan)
+- docs: Track also automated releases (vslavik)
+- shellcheck: Double quote to prevent globbing and word splitting (vponcova)
+- Remove the StorageChecker.remove_check method (vponcova)
+- Remove the CONNECTION_ACTIVATION_TIMEOUT constant (vponcova)
+- Remove the DEFAULT_DBUS_TIMEOUT constant (vponcova)
+- GUI: Update the glade file for the Installation Source screen (vponcova)
+- Update translations from Weblate
+
 * Thu Dec 22 2022 Packit <hello@packit.dev> - 38.14-1
 - Fix typo in the docs (jkonecny)
 - docs: corrections and additions to the history (msw)

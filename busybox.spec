@@ -53,8 +53,8 @@
 %endif
 
 Name:		busybox
-Version:	1.35.0
-Release:	5%{?dist}
+Version:	1.36.0
+Release:	1%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPLv2
@@ -141,7 +141,7 @@ yes "" | make oldconfig && \
 cat .config && \
 %endif
 make V=1 \
-CC="musl-gcc" \
+CC="musl-gcc -static" \
 EXTRA_CFLAGS="-g -Ikernel-headers-4.19.88-1/$arch/include %{?hcflags}" \
 CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
 
@@ -215,7 +215,7 @@ cat .config && \
 %endif
 sed -i -e "s/CONFIG_FEATURE_VI_REGEX_SEARCH=y/CONFIG_FEATURE_VI_REGEX_SEARCH=n/" -e "s/CONFIG_EXTRA_COMPAT=y/CONFIG_EXTRA_COMPAT=n/" -e "s/CONFIG_FEATURE_INETD_RPC=y/CONFIG_FEATURE_INETD_RPC=n/" -e "s/CONFIG_FEATURE_UTMP=y/CONFIG_FEATURE_UTMP=n/" .config && \
 make V=1 \
-CC="musl-gcc" \
+CC="musl-gcc -static" \
 EXTRA_CFLAGS="-g -Ikernel-headers-4.19.88-1/$arch/include %{?hcflags}" \
 CFLAGS_busybox="-L%{_prefix}/$arch-linux-musl %{?hldflags}"
 
@@ -321,6 +321,10 @@ install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Tue Jan 10 2023 Tom Callaway <spot@fedoraproject.org> - 1:1.36.0-1
+- update to 1.36.0
+- fix musl builds to be properly static (bz2079295)
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.35.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

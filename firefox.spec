@@ -550,15 +550,15 @@ This package contains results of tests executed during build.
 
 %patch1100 -p1 -b .ppc-mobzuild
 
-%{__rm} -f .mozconfig
-%{__cp} %{SOURCE10} .mozconfig
+rm -f .mozconfig
+cp %{SOURCE10} .mozconfig
 echo "ac_add_options --enable-default-toolkit=cairo-gtk3-wayland" >> .mozconfig
 %if %{official_branding}
 echo "ac_add_options --enable-official-branding" >> .mozconfig
 %endif
-%{__cp} %{SOURCE24} mozilla-api-key
-%{__cp} %{SOURCE27} google-api-key
-%{__cp} %{SOURCE35} google-loc-api-key
+cp %{SOURCE24} mozilla-api-key
+cp %{SOURCE27} google-api-key
+cp %{SOURCE35} google-loc-api-key
 
 echo "ac_add_options --prefix=\"%{_prefix}\"" >> .mozconfig
 echo "ac_add_options --libdir=\"%{_libdir}\"" >> .mozconfig
@@ -658,7 +658,7 @@ chmod a-x third_party/rust/ash/src/extensions/nv/*.rs
 %if 0%{?use_bundled_cbindgen}
 mkdir -p my_rust_vendor
 cd my_rust_vendor
-%{__tar} xf %{SOURCE2}
+tar xf %{SOURCE2}
 mkdir -p .cargo
 cat > .cargo/config <<EOL
 [source.crates-io]
@@ -680,24 +680,24 @@ cp %{SOURCE32} %{_buildrootdir}/bin || :
 # Do not update config.guess in the ./third_party/rust because that would break checksums
 find ./ -path ./third_party/rust -prune -o -name config.guess -exec cp /usr/lib/rpm/config.guess {} ';'
 
-MOZ_OPT_FLAGS=$(echo "%{optflags}" | %{__sed} -e 's/-Wall//')
+MOZ_OPT_FLAGS=$(echo "%{optflags}" | sed -e 's/-Wall//')
 #rhbz#1037063
 # -Werror=format-security causes build failures when -Wno-format is explicitly given
 # for some sources
 # Explicitly force the hardening flags for Firefox so it passes the checksec test;
 # See also https://fedoraproject.org/wiki/Changes/Harden_All_Packages
 # Workaround for mozbz#1531309
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-Werror=format-security//')
 # More Fedora specific build flags
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -fpermissive"
 %if %{?debug_build}
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2//')
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-O2//')
 %endif
 # If MOZ_DEBUG_FLAGS is empty, firefox's build will default it to "-g" which
 # overrides the -g1 from line above and breaks building on s390/arm
 # (OOM when linking, rhbz#1238225)
 %ifarch %{arm} %{ix86}
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g0/')
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-g/-g0/')
 export MOZ_DEBUG_FLAGS=" "
 %endif
 MOZ_LINK_FLAGS="%{build_ldflags}"
@@ -720,9 +720,9 @@ MOZ_LINK_FLAGS="$MOZ_LINK_FLAGS -fsanitize=address -ldl"
 
 %ifarch %{arm}
 # disable hard-coded LTO due to RAM constraints
-%{__sed} -i '/cargo_rustc_flags += -Clto/d' config/makefiles/rust.mk
-%{__sed} -i '/RUSTFLAGS += -Cembed-bitcode=yes/d' config/makefiles/rust.mk
-%{__sed} -i 's/codegen-units=1/codegen-units=16/' config/makefiles/rust.mk
+sed -i '/cargo_rustc_flags += -Clto/d' config/makefiles/rust.mk
+sed -i '/RUSTFLAGS += -Cembed-bitcode=yes/d' config/makefiles/rust.mk
+sed -i 's/codegen-units=1/codegen-units=16/' config/makefiles/rust.mk
 
 # make sure "-g0" is the last flag so there's no debug info
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -g0"
@@ -789,7 +789,7 @@ cp %{SOURCE45} .
 
 %if 0%{?run_firefox_tests}
 mkdir -p objdir/_virtualenvs/init_py3
-%{__cat} > objdir/_virtualenvs/init_py3/pip.conf << EOF
+cat > objdir/_virtualenvs/init_py3/pip.conf << EOF
 [global]
 find-links=`pwd`/mochitest-python
 no-index=true
@@ -808,26 +808,26 @@ mkdir -p test_results
 
 # set up our default bookmarks
 %if !0%{?flatpak}
-%{__cp} -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/browser/content/browser/default-bookmarks.html
+cp -p %{default_bookmarks_file} objdir/dist/bin/browser/chrome/browser/content/browser/default-bookmarks.html
 %endif
 
 # Make sure locale works for langpacks
-%{__cat} > objdir/dist/bin/browser/defaults/preferences/firefox-l10n.js << EOF
+cat > objdir/dist/bin/browser/defaults/preferences/firefox-l10n.js << EOF
 pref("general.useragent.locale", "chrome://global/locale/intl.properties");
 EOF
 
 DESTDIR=%{buildroot} make -C objdir install
 
-%{__mkdir_p} %{buildroot}{%{_libdir},%{_bindir},%{_datadir}/applications}
+mkdir -p %{buildroot}{%{_libdir},%{_bindir},%{_datadir}/applications}
 
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE20}
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE31}
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE29}
 
 # set up the firefox start script
-%{__rm} -rf %{buildroot}%{_bindir}/firefox
-%{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
-%{__chmod} 755 %{buildroot}%{_bindir}/firefox
+rm -rf %{buildroot}%{_bindir}/firefox
+sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE21} > %{buildroot}%{_bindir}/firefox
+chmod 755 %{buildroot}%{_bindir}/firefox
 
 %if 0%{?flatpak}
 sed -i -e 's|%FLATPAK_ENV_VARS%|export TMPDIR="$XDG_CACHE_HOME/tmp"|' %{buildroot}%{_bindir}/firefox
@@ -835,36 +835,36 @@ sed -i -e 's|%FLATPAK_ENV_VARS%|export TMPDIR="$XDG_CACHE_HOME/tmp"|' %{buildroo
 sed -i -e 's|%FLATPAK_ENV_VARS%||' %{buildroot}%{_bindir}/firefox
 %endif
 
-%{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE30} > %{buildroot}%{_bindir}/firefox-x11
-%{__chmod} 755 %{buildroot}%{_bindir}/firefox-x11
-%{__sed} -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE28} > %{buildroot}%{_bindir}/firefox-wayland
-%{__chmod} 755 %{buildroot}%{_bindir}/firefox-wayland
+sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE30} > %{buildroot}%{_bindir}/firefox-x11
+chmod 755 %{buildroot}%{_bindir}/firefox-x11
+sed -e 's,/__PREFIX__,%{_prefix},g' %{SOURCE28} > %{buildroot}%{_bindir}/firefox-wayland
+chmod 755 %{buildroot}%{_bindir}/firefox-wayland
 
-%{__install} -p -D -m 644 %{SOURCE23} %{buildroot}%{_mandir}/man1/firefox.1
+install -p -D -m 644 %{SOURCE23} %{buildroot}%{_mandir}/man1/firefox.1
 
-%{__rm} -f %{buildroot}/%{mozappdir}/firefox-config
-%{__rm} -f %{buildroot}/%{mozappdir}/update-settings.ini
+rm -f %{buildroot}/%{mozappdir}/firefox-config
+rm -f %{buildroot}/%{mozappdir}/update-settings.ini
 
 for s in 16 22 24 32 48 256; do
-    %{__mkdir_p} %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps
-    %{__cp} -p browser/branding/official/default${s}.png \
-               %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps/firefox.png
+    mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps
+    cp -p browser/branding/official/default${s}.png \
+          %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps/firefox.png
 done
 
 # Install hight contrast icon
-%{__mkdir_p} %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
-%{__cp} -p %{SOURCE25} \
-           %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
+cp -p %{SOURCE25} \
+      %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
 
 echo > %{name}.lang
 %if %{with langpacks}
 # Extract langpacks, make any mods needed, repack the langpack, and install it.
-%{__mkdir_p} %{buildroot}%{langpackdir}
-%{__tar} xf %{SOURCE1}
+mkdir -p %{buildroot}%{langpackdir}
+tar xf %{SOURCE1}
 for langpack in `ls firefox-langpacks/*.xpi`; do
   language=`basename $langpack .xpi`
   extensionID=langpack-$language@firefox.mozilla.org
-  %{__mkdir_p} $extensionID
+  mkdir -p $extensionID
   unzip -qq $langpack -d $extensionID
   find $extensionID -type f | xargs chmod 644
 
@@ -872,7 +872,7 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   zip -qq -r9mX ../${extensionID}.xpi *
   cd -
 
-  %{__install} -m 644 ${extensionID}.xpi %{buildroot}%{langpackdir}
+  install -m 644 ${extensionID}.xpi %{buildroot}%{langpackdir}
   language=`echo $language | sed -e 's/-/_/g'`
 %if 0%{?flatpak}
   echo "%{langpackdir}/${extensionID}.xpi" >> %{name}.lang
@@ -880,7 +880,7 @@ for langpack in `ls firefox-langpacks/*.xpi`; do
   echo "%%lang($language) %{langpackdir}/${extensionID}.xpi" >> %{name}.lang
 %endif
 done
-%{__rm} -rf firefox-langpacks
+rm -rf firefox-langpacks
 
 # Install langpack workaround (see #707100, #821169)
 function create_default_langpack() {
@@ -909,20 +909,20 @@ create_default_langpack "sv-SE" "sv"
 create_default_langpack "zh-TW" "zh"
 %endif
 
-%{__mkdir_p} %{buildroot}/%{mozappdir}/browser/defaults/preferences
+mkdir -p %{buildroot}/%{mozappdir}/browser/defaults/preferences
 
 # System config dir
-%{__mkdir_p} %{buildroot}/%{_sysconfdir}/%{name}/pref
+mkdir -p %{buildroot}/%{_sysconfdir}/%{name}/pref
 
 # System extensions
-%{__mkdir_p} %{buildroot}%{_datadir}/mozilla/extensions/%{firefox_app_id}
-%{__mkdir_p} %{buildroot}%{_libdir}/mozilla/extensions/%{firefox_app_id}
+mkdir -p %{buildroot}%{_datadir}/mozilla/extensions/%{firefox_app_id}
+mkdir -p %{buildroot}%{_libdir}/mozilla/extensions/%{firefox_app_id}
 
 # Copy over the LICENSE
-%{__install} -p -c -m 644 LICENSE %{buildroot}/%{mozappdir}
+install -p -c -m 644 LICENSE %{buildroot}/%{mozappdir}
 
 # Use the system hunspell dictionaries
-%{__rm} -rf %{buildroot}%{mozappdir}/dictionaries
+rm -rf %{buildroot}%{mozappdir}/dictionaries
 ln -s %{_datadir}/hunspell %{buildroot}%{mozappdir}/dictionaries
 
 # Enable crash reporter for Firefox application
@@ -930,39 +930,39 @@ ln -s %{_datadir}/hunspell %{buildroot}%{mozappdir}/dictionaries
 ./mach buildsymbols
 sed -i -e "s/\[Crash Reporter\]/[Crash Reporter]\nEnabled=1/" %{buildroot}/%{mozappdir}/application.ini
 # Add debuginfo for crash-stats.mozilla.com
-%{__mkdir_p} %{buildroot}/%{moz_debug_dir}
-%{__cp} objdir/dist/%{symbols_file_name} %{buildroot}/%{moz_debug_dir}
+mkdir -p %{buildroot}/%{moz_debug_dir}
+cp objdir/dist/%{symbols_file_name} %{buildroot}/%{moz_debug_dir}
 %endif
 
 %if 0%{?run_firefox_tests}
-%{__mkdir_p} %{buildroot}/%{version}-%{release}/test_results
-%{__cp} test_results/* %{buildroot}/%{version}-%{release}/test_results
-%{__cp} test_summary.txt %{buildroot}/%{version}-%{release}/
-%{__cp} failures-* %{buildroot}/%{version}-%{release}/ || true
+mkdir -p %{buildroot}/%{version}-%{release}/test_results
+cp test_results/* %{buildroot}/%{version}-%{release}/test_results
+cp test_summary.txt %{buildroot}/%{version}-%{release}/
+cp failures-* %{buildroot}/%{version}-%{release}/ || true
 %endif
 
 # Default
-%{__cp} %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
+cp %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 %if %{?use_xdg_file_portal}
 echo 'pref("widget.use-xdg-desktop-portal.file-picker", 1);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %endif
 
 # Copy over run-mozilla.sh
-%{__cp} build/unix/run-mozilla.sh %{buildroot}%{mozappdir}
+cp build/unix/run-mozilla.sh %{buildroot}%{mozappdir}
 
 # Add distribution.ini
-%{__mkdir_p} %{buildroot}%{mozappdir}/distribution
-%{__cp} %{SOURCE26} %{buildroot}%{mozappdir}/distribution
+mkdir -p %{buildroot}%{mozappdir}/distribution
+cp %{SOURCE26} %{buildroot}%{mozappdir}/distribution
 
 # Install appdata file
 mkdir -p %{buildroot}%{_datadir}/metainfo
-%{__sed} -e "s/__VERSION__/%{version}/" \
-         -e "s/__DATE__/$(date '+%F')/" \
-         %{SOURCE33} > %{buildroot}%{_datadir}/metainfo/firefox.appdata.xml
+sed -e "s/__VERSION__/%{version}/" \
+    -e "s/__DATE__/$(date '+%F')/" \
+    %{SOURCE33} > %{buildroot}%{_datadir}/metainfo/firefox.appdata.xml
 
 # Install Gnome search provider files
 mkdir -p %{buildroot}%{_datadir}/gnome-shell/search-providers
-%{__cp} %{SOURCE34} %{buildroot}%{_datadir}/gnome-shell/search-providers
+cp %{SOURCE34} %{buildroot}%{_datadir}/gnome-shell/search-providers
 
 # Remove gtk2 support as flash plugin is no longer supported
 rm -rf %{buildroot}%{mozappdir}/gtk2/
@@ -1009,25 +1009,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %preun
 # is it a final removal?
 if [ $1 -eq 0 ]; then
-  %{__rm} -rf %{mozappdir}/components
-  %{__rm} -rf %{mozappdir}/extensions
-  %{__rm} -rf %{mozappdir}/plugins
-  %{__rm} -rf %{langpackdir}
+  rm -rf %{mozappdir}/components
+  rm -rf %{mozappdir}/extensions
+  rm -rf %{mozappdir}/plugins
+  rm -rf %{langpackdir}
 fi
-
-%post
-update-desktop-database &> /dev/null || :
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-update-desktop-database &> /dev/null || :
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %if %{with langpacks_subpkg}
 %files

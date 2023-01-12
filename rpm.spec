@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 8
+%global baserelease 9
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -136,6 +136,7 @@ rpm-4.9.90-no-man-dirs.patch
 # Patches already upstream:
 # ...
 0001-Fix-potential-uninitialized-variable-use-in-rpmtsImp.patch
+0001-Generate-Python-egg-info-from-automake-builds.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -384,18 +385,8 @@ done;
 
 %make_build
 
-pushd python
-%py3_build
-popd
-
 %install
 %make_install
-
-# We need to build with --enable-python for the self-test suite, but we
-# actually package the bindings built with setup.py (#531543#c26)
-pushd python
-%py3_install
-popd
 
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 install -m 644 %{SOURCE10} $RPM_BUILD_ROOT/%{_unitdir}
@@ -604,8 +595,11 @@ fi
 %{_mandir}/man8/rpmsign.8*
 
 %files -n python3-%{name}
-%{python3_sitearch}/rpm/
 %{python3_sitearch}/rpm-%{rpmver}*.egg-info
+%{python3_sitearch}/rpm/__init__.py
+%{python3_sitearch}/rpm/transaction.py
+%{python3_sitearch}/rpm/_rpm.so
+%artifact %{python3_sitearch}/rpm/__pycache__/
 
 %files devel
 %{_mandir}/man8/rpmgraph.8*
@@ -623,6 +617,10 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Mon Jan 09 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-9
+- Generate Python egg-info from automake (#2135561)
+- Drop setup.py-based Python build (#2135719)
+
 * Wed Dec 07 2022 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-8
 - Fix hang-up on failed key import (related to #2149762)
 

@@ -2,11 +2,12 @@
 Summary: A utility for uploading files or whole directories to remote ftp-servers
 Name: wput
 Version: 0.6.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPLv2+
 URL: http://wput.sourceforge.net/
 Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 Patch0: wput-destdir.patch
+Patch1: wput-c99.patch
 BuildRequires: make
 BuildRequires: gettext
 BuildRequires: gnutls-devel
@@ -17,7 +18,7 @@ Wput is a command-line ftp-client that looks like wget but instead of
 downloading, uploads files or whole directories to remote ftp-servers.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure --disable-g-switch
@@ -33,6 +34,9 @@ downloading, uploads files or whole directories to remote ftp-servers.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.6.1-33
+- C99 compatibility fix
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

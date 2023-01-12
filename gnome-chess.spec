@@ -3,7 +3,7 @@
 %global libadwaita_version 1.0.0.alpha.3
 
 Name:           gnome-chess
-Version:        43.0
+Version:        43.1
 Release:        1%{?dist}
 Summary:        GNOME Chess game
 
@@ -60,6 +60,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 08 2023 David King <amigadave@amigadave.com> - 43.1-1
+- Update to 43.1
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

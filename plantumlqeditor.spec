@@ -4,7 +4,7 @@
 
 Name:           plantumlqeditor
 Version:        1.2
-Release:        24.%{date}git%{shortcommit0}%{?dist}
+Release:        25.%{date}git%{shortcommit0}%{?dist}
 Summary:        Simple editor for PlantUML
 License:        GPLv3+
 URL:            https://sourceforge.net/projects/plantumlqeditor/
@@ -20,6 +20,8 @@ BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  qt5-linguist
 BuildRequires:  qtsingleapplication-qt5-devel
 BuildRequires:  libappstream-glib
+# For substituting %%{_javadir} in settings.
+BuildRequires:  javapackages-filesystem
 
 Requires:       shared-mime-info
 Requires:       hicolor-icon-theme
@@ -108,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Tue Jan 10 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.2-25.20170403git964d4ef
+- Add BR javapackages-filesystem for substituting correctly %%{_javadir}
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-24.20170403git964d4ef
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

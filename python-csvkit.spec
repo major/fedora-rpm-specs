@@ -7,8 +7,8 @@ of tabular file formats.
 
 
 Name:           python-%{pypi_name}
-Version:        1.0.7
-Release:        3%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Suite of utilities for converting to and working with CSV
 
 License:        MIT
@@ -26,7 +26,7 @@ Summary:        %{summary}
 BuildRequires: make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  %{py3_dist nose}
+BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist agate} >= 1.6.1
 BuildRequires:  %{py3_dist agate-excel} >= 0.2.2
 BuildRequires:  %{py3_dist agate-dbf} >= 0.2
@@ -71,7 +71,7 @@ for file in docs/_build/man/*.1; do
     install -p -m0644 ${file} %{buildroot}%{_mandir}/man1/
 done
 
-# Remove useful files in doc
+# Remove unuseful files in doc
 rm docs/_build/html/.buildinfo
 
 # Correct permissions in doc
@@ -80,7 +80,7 @@ chmod -x examples/realdata/census_2000/VROUTFSJ.TXt
 
 %check
 # This tests fails because of local error.
-nosetests-%{python3_version} tests -v --exclude=test_convert_dbf
+pytest-%{python3_version} tests -v -k "not test_convert_dbf and not test_decimal_format"
 
 %files -n python3-%{pypi_name}
 %license COPYING
@@ -97,6 +97,9 @@ nosetests-%{python3_version} tests -v --exclude=test_convert_dbf
 
 
 %changelog
+* Tue Jan 10 2023 Julien Enselme <jujens@jujens.eu> - 1.1.0-1
+- Update to 1.1.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

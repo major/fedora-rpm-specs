@@ -20,7 +20,7 @@
 
 Name:		sphinx
 Version:	2.2.11
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Free open-source SQL full-text search engine
 License:	GPLv2+
 URL:		http://sphinxsearch.com
@@ -29,6 +29,8 @@ Source0:	http://sphinxsearch.com/files/%{name}-%{version}-release.tar.gz
 Source1:	searchd.service
 Patch0:		%{name}-2.0.3-fix_static.patch
 Patch1:		listen_local.patch
+Patch2:		sphinx-configure-c99.patch
+Patch3:		sphinx-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc gcc-c++
@@ -116,6 +118,8 @@ designed with indexing database content in mind.
 %setup -qn %{name}-%{version}-release
 %patch0 -p1 -b .fix_static
 %patch1 -p1 -b .default_listen
+%patch2 -p1
+%patch3 -p1
 
 # Fix wrong-file-end-of-line-encoding
 for f in \
@@ -297,6 +301,9 @@ chown -R %{sphinx_user}:root %{_localstatedir}/lib/%{name}/
 %{_datadir}/php/*
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 2.2.11-25
+- C99 compatibility fixes
+
 * Tue Aug 16 2022 Michal Schorm <mschorm@redhat.com> - 2.2.11-24
 - Remove the Java binding
   Resolves: #2104104, #2113735

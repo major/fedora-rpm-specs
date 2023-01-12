@@ -3,7 +3,7 @@
 %global pypi_name yamllint
 
 Name:           %{pypi_name}
-Version:        1.28.0
+Version:        1.29.0
 Release:        1%{?dist}
 Summary:        A linter for YAML files
 
@@ -58,6 +58,9 @@ install -m0644 docs/_build/man/%{pypi_name}.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Tue Jan 10 2023 Adrien Vergé <adrienverge@gmail.com> - 1.29.0-1
+- Update to latest upstream version
+
 * Mon Sep 12 2022 Adrien Vergé <adrienverge@gmail.com> - 1.28.0-1
 - Update to latest upstream version
 

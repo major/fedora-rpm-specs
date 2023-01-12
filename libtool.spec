@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.4.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+ and LGPLv2+ and GFDL
 URL:     http://www.gnu.org/software/libtool/
 
@@ -46,6 +46,8 @@ Patch5: 0001-tests-Fix-grep-warning-about-stray-before.patch
 %if ! 0%{?_module_build}
 Patch100: libtool-nodocs.patch
 %endif
+
+Patch101: libtool-c99.patch
 
 # /usr/bin/libtool includes paths within gcc's versioned directories
 # Libtool must be rebuilt whenever a new upstream gcc is built
@@ -169,6 +171,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 2.4.7-4
+- C99 compatibility fix in the testsuite
+
 * Wed Dec 21 2022 Frederic Berat <fberat@redhat.com> - 2.4.7-3
 - Fix test failure due to grep update
 

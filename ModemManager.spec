@@ -1,10 +1,11 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 %global qmi_version %(pkg-config --modversion qmi-glib 2>/dev/null || echo bad)
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
+%global qrtr_version %(pkg-config --modversion qrtr-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
 Version: 1.20.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -20,6 +21,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Conflicts: glib2%{?_isa} < %{glib2_version}
 Conflicts: libqmi%{?_isa} < %{qmi_version}
 Conflicts: libmbim%{?_isa} < %{mbim_version}
+Conflicts: libqrtr-glib%{?_isa} < %{qrtr_version}
 
 Requires(post): systemd
 Requires(postun): systemd
@@ -183,6 +185,9 @@ cp -a cli/mmcli-completion %{buildroot}%{_datadir}/bash-completion/completions/m
 
 
 %changelog
+* Tue Jan 10 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.20.2-3
+- Version the qrtr-glib dependency
+
 * Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.20.2-2
 - Switch to build using meson
 

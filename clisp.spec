@@ -1,7 +1,7 @@
 # Upstream has not made a new release since 2010
 %global srcname clisp
-%global commit  de01f0f47bb44d3a0f9e842464cf2520b238f356
-%global date    20210628
+%global commit  957c79a252bda35e56ca5c64d4af8d7ef9de9037
+%global date    20221228
 %global forgeurl https://gitlab.com/gnu-clisp/clisp
 
 # There is a plus on the end for unreleased versions, not for released versions
@@ -22,7 +22,7 @@ Version:	2.49.93
 # - src/socket.d and modules/clx/mit-clx/doc.lisp are HPND
 # - src/xthread.d and modules/asdf/asdf.lisp are X11
 License:	GPL-2.0-or-later AND (GPL-2.0-or-later OR GFDL-1.2-or-later) AND LGPL-2.1-or-later AND HPND AND X11
-Release:	28%{?dist}
+Release:	29%{?dist}
 URL:		http://www.clisp.org/
 Source0:	%{forgesource}
 # Upstream dropped this file from the distribution
@@ -34,8 +34,10 @@ Source3:	http://translationproject.org/latest/clisp/de.po
 Patch0:		%{name}-db.patch
 # https://sourceforge.net/p/clisp/patches/32/
 Patch1:		%{name}-format.patch
-# Adapt to changes in pari 2.15.0
-Patch2:		%{name}-pari.patch
+# The ENSURE_6X macro adds 6 'X' characters to a string.  However, it allocates
+# only 6 bytes more than the length of the string, which is not enough for the
+# null terminator.  See https://bugzilla.redhat.com/show_bug.cgi?id=2115476.
+Patch2:         %{name}-ensure-6x.patch
 # The combination of register and volatile is nonsensical
 Patch3:		%{name}-register-volatile.patch
 # A test that writes to /dev/pts/0 succeeds or fails apparently at random.
@@ -46,10 +48,6 @@ Patch4:         %{name}-pts-access.patch
 # Work around a problem inlining a function on ppc64le
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2049371
 Patch5:         %{name}-no-inline.patch
-# The ENSURE_6X macro adds 6 'X' characters to a string.  However, it allocates
-# only 6 bytes more than the length of the string, which is not enough for the
-# null terminator.  See https://bugzilla.redhat.com/show_bug.cgi?id=2115476.
-Patch6:         %{name}-ensure-6x.patch
 
 BuildRequires:	dbus-devel
 BuildRequires:	diffutils
@@ -127,7 +125,6 @@ Files necessary for linking CLISP programs.
 %ifarch %{power64}
 %patch5 -p0
 %endif
-%autopatch -m6 -p0
 cp -p %{SOURCE1} emacs
 cp -p %{SOURCE2} %{SOURCE3} src/po
 
@@ -447,6 +444,10 @@ make -C build base-mod-check
 
 
 %changelog
+* Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 2.49.93-29
+- Update to latest git snapshot for buffer overflow fix
+- Drop upstreamed pari patch
+
 * Mon Sep 19 2022 Jerry James <loganjerry@gmail.com> - 2.49.93-28
 - Rebuild for pari 2.15.0
 

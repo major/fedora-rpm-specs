@@ -1,6 +1,6 @@
 Name:		pipebench
 Version:	0.40
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Measures the speed of STDIN/STDOUT communication
 
 License:	GPLv2+
@@ -10,6 +10,7 @@ Source0:	http://www.habets.pp.se/synscan/files/%{name}-%{version}.tar.gz
 
 ## From: http://www.gnu.org/licenses/gpl-2.0.txt
 Source1:	%{name}-GPLv2.txt
+Patch0: pipebench-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -19,7 +20,7 @@ to the next process. See the included README for example usage.
 
 
 %prep
-%setup -q
+%autosetup -p1
 ## Update the included LICENSE file to match the current FSF GPLv2 text.
 ## (Fixes the FSF address and updates the "GNU Library GPL" references to "GNU
 ## Lesser GPL.") Submitted to upstream via email (2011-08-24).
@@ -51,6 +52,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.40-27
+- C99 compatibility fixes (#2159705)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

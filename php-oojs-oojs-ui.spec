@@ -1,6 +1,6 @@
 
 Name:		php-oojs-oojs-ui
-Version:	0.43.2
+Version:	0.44.3
 Release:	1%{?dist}
 Summary:	Object-Oriented JavaScript – User Interface
 
@@ -15,7 +15,7 @@ BuildArch:	noarch
 BuildRequires:	php-phpunit-PHPUnit
 BuildRequires:	php-theseer-autoload
 
-Requires:	php(language) >= 5.4.0
+Requires:	php(language) >= 7.2.9
 Requires:	php-json
 Requires:	php-pcre
 Requires:	php-spl
@@ -48,6 +48,9 @@ cp -rp php/* %{buildroot}%{_datadir}/php/OOUI
 
 
 %changelog
+* Tue Jan 10 2023 Michael Cronenworth <mike@cchtml.com> - 0.44.3-1
+- version update
+
 * Tue Nov 01 2022 Michael Cronenworth <mike@cchtml.com> - 0.43.2-1
 - version update
 

@@ -31,18 +31,18 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.1.4
+%global package_version 1.1.5
 
 # Uncomment this to include a multithreaded version of squashfuse_ll
 %global squashfuse_version 0.1.105
 
-# 3.8.7-3 was the last release of the old singularity in EPEL/Fedora.
-%global obsoletes_singularity_version 3.8.7-4
+# The last singularity version number in EPEL/Fedora
+%global last_singularity_version 3.8.7-3
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.1.4
-Release: 3%{?dist}
+Version: 1.1.5
+Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -58,9 +58,15 @@ Patch11: https://github.com/vasi/squashfuse/pull/77.patch
 Patch12: https://github.com/vasi/squashfuse/pull/81.patch
 %endif
 
-# The singularity package was renamed to apptainer.  Note that is also
-# on the apptainer-suid subpackage below.
-Obsoletes: singularity < %{obsoletes_singularity_version}
+# This Conflicts is in case someone tries to install the main apptainer
+# package when an old singularity package is installed.  An Obsoletes is on
+# the apptainer-suid subpackage below.  If an Obsoletes were here too, it
+# would get different behavior with yum and dnf: a "yum install apptainer"
+# on EL7 would install only apptainer but a "dnf install apptainer" on EL8
+# or greater would install both apptainer and apptainer-suid.  With this
+# Conflicts, both yum and dnf consistently install both apptainer and
+# apptainer-suid when apptainer is requested while singularity is installed.
+Conflicts: singularity <= %{last_singularity_version}
 
 # In the singularity 2.x series there was a singularity-runtime package
 #  that could have been installed independently, but starting in 3.x
@@ -115,7 +121,7 @@ Requires: %{name} = %{version}-%{release}
 # The singularity package was renamed to apptainer.  The Obsoletes is
 # on this subpackage for greater compatibility after an update from the
 # old singularity.
-Obsoletes: singularity < %{obsoletes_singularity_version}
+Obsoletes: singularity <= %{last_singularity_version}
 
 %description suid
 Provides the optional setuid-root portion of Apptainer.
@@ -196,9 +202,49 @@ if [ ! -f /usr/bin/fuse2fs ] && [ ! -f /usr/sbin/fuse2fs ]; then
 fi
 %endif
 
+%post
+# $1 in %%posttrans cannot distinguish between fresh installs and upgrades,
+# so check it here and create a file to pass the knowledge to that step
+if [ "$1" -eq 1 ] && [ -d %{_sysconfdir}/singularity ]; then
+	touch %{_sysconfdir}/%{name}/.singularityupgrade
+fi
+
 %posttrans
 # clean out empty directories under /etc/singularity
 rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || true
+if [ -f %{_sysconfdir}/%{name}/.singularityupgrade ]; then
+	pushd %{_sysconfdir}/%{name} >/dev/null
+	rm .singularityupgrade
+	# This is the first install of apptainer after removal of singularity.
+	# Import any singularity configurations that remain, which were left
+	# because they were non-default.
+	find %{_sysconfdir}/singularity ! -type d 2>/dev/null|while read F; do
+		B="$(echo $F|sed 's,%{_sysconfdir}/singularity/,,;s/\.rpmsave//')"
+		if [ "$B" == singularity.conf ]; then
+			echo "info: renaming $PWD/%{name}.conf to $PWD/%{name}.conf.rpmorig" >&2
+			mv %{name}.conf %{name}.conf.rpmorig
+			echo "info: converting configuration from $F into $PWD/%{name}.conf" >&2
+			%{_bindir}/%{name} confgen $F %{name}.conf
+		elif [ "$B" == remote.yaml ]; then
+			echo "info: renaming $PWD/$B to $PWD/$B.rpmorig" >&2
+			mv $B $B.rpmorig
+			echo "info: merging $F into $PWD/$B" >&2
+			(
+			sed -n '1p' $F
+			sed -n '2,$p' $B.rpmorig
+			sed -n '3,$p' $F
+			) >$B
+		else
+			if [ -f "$B" ]; then
+				echo "info: renaming $PWD/$B to $PWD/$B.rpmorig" >&2
+				mv $B $B.rpmorig
+			fi
+			echo "info: copying $F into $PWD/$B" >&2
+			cp $F $B
+		fi
+	done
+	popd >/dev/null
+fi
 
 # Define `%%license` tag if not already defined.
 # This is needed for EL 7 compatibility.
@@ -234,6 +280,10 @@ rmdir %{_sysconfdir}/singularity/* %{_sysconfdir}/singularity 2>/dev/null || tru
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Tue Jan 10 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.5-1
+- Update to upstream 1.1.5, including changing the obsoletes on the main
+  apptainer package to conflicts.
+
 * Wed Jan  4 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.4-3
 - Restore the singularity obsoletes on the apptainer main package, so
   that now it is on both the main package and suid subpackage.

@@ -6,7 +6,7 @@
 Summary:        Dynamic Kernel Module Support Framework
 Name:           dkms
 Version:        3.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            http://linux.dell.com/dkms
 
@@ -43,6 +43,8 @@ Requires:       (kernel-lpae-devel-matched if kernel-lpae-core)
 Requires(post):     systemd
 Requires(preun):    systemd
 Requires(postun):   systemd
+
+Recommends:     openssl
 
 %description
 This package contains the framework for the Dynamic Kernel Module Support (DKMS)
@@ -93,6 +95,9 @@ sed -i -e 's/# modprobe_on_install="true"/modprobe_on_install="true"/g' %{buildr
 %{_unitdir}/%{name}.service
 
 %changelog
+* Tue Jan 10 2023 Simone Caronni <negativo17@gmail.com> - 3.0.10-2
+- Recommend OpenSSL for MOK key management.
+
 * Tue Jan 03 2023 Simone Caronni <negativo17@gmail.com> - 3.0.10-1
 - Update to 3.0.10.
 

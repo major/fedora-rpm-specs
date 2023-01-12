@@ -1,10 +1,11 @@
 Summary: DNS resolver library for both synchronous and asynchronous DNS queries
 Name: udns
 Version: 0.4
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: LGPLv2+
 URL: http://www.corpit.ru/mjt/udns.html
 Source: http://www.corpit.ru/mjt/udns/udns-%{version}.tar.gz
+Patch0: udns-configure-c99.patch
 BuildRequires: make
 BuildRequires: gcc
 
@@ -22,7 +23,7 @@ documentation for %{name}. If you like to develop programs using %{name},
 you will need to install %{name}-devel.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 CFLAGS="%{optflags}" ./configure --enable-ipv6
@@ -49,6 +50,9 @@ CFLAGS="%{optflags}" ./configure --enable-ipv6
 %{_libdir}/libudns.so
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.4-20
+- C99 compatibility fixes for the autoconf-style configure script (#2159628)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

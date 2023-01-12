@@ -1,5 +1,5 @@
 Name:       callaudiod
-Version:    0.1.6
+Version:    0.1.7
 Release:    1%{?dist}
 Summary:    Daemon for dealing with audio routing during phone calls
 
@@ -64,44 +64,4 @@ developing applications that use %{name}.
 %license COPYING
 
 %changelog
-* Mon Dec 12 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.6-1
-- Update to 0.1.6
-
-* Thu Dec 08 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.5-1
-- Update to 0.1.5
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Mar 25 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.4-1
-- Update to 0.1.4
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jan 06 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.3-1
-- Update to 0.1.3
-
-* Wed Jan 05 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.2-1
-- Update to 0.1.2
-
-* Thu Sep 16 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.1-1
-- Update to 0.1.1
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jan 28 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.1.0-1
-- Upgrade to 0.1.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jan 12 2021 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.5-1
-- Update to 0.0.5
-
-* Thu Dec 17 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.4-2
-- Enabling debug
-
-* Wed Nov 04 2020 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.4-1
-- Initial packaging
+%autochangelog

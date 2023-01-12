@@ -6,12 +6,12 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .29
+%global subversion .35
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       3%{?dist}
+Release:       1%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -41,8 +41,7 @@ Patch4:        %{name}-fix_graphe_file.patch
 # Adapt to pari 2.15.0
 Patch5:        %{name}-pari2.15.patch
 
-Patch6:        %{name}-alloca-c99.patch
-Patch7:        %{name}-delete-fenv.patch
+Patch6:        %{name}-delete-fenv.patch
 
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
@@ -170,7 +169,6 @@ with Giac computations.
 %patch4 -p1 -b .backup
 %patch5 -p1 -b .backup
 %patch6 -p1 -b .backup
-%patch7 -p1 -b .backup
 
 # Remove local intl (already bundled in fedora)
 rm -rf intl/*.h
@@ -217,7 +215,7 @@ autoreconf -ivf
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2817
 OPT_FLAGS=$(echo "%build_cxxflags" | %{__sed} -e 's/-Werror=format-security/-Wno-error=format-security/')
 export CXXFLAGS="$OPT_FLAGS -std=gnu++14"
-export CFLAGS="%build_cflags"
+export CFLAGS="$OPT_FLAGS"
 %configure --enable-static=yes --with-included-gettext=no --enable-nls=yes \
  --enable-tommath=no --enable-debug=no --enable-gc=no --enable-sscl=no \
  --enable-dl=yes --enable-gsl=yes --enable-lapack=yes --enable-pari=yes \
@@ -362,7 +360,8 @@ make -C check check
 %{_bindir}/giac
 %{_bindir}/hevea2mml
 %{_bindir}/*_help
-%{_libdir}/libgiac.so.*
+%{_libdir}/libgiac.so.0.0.0
+%{_libdir}/libgiac.so.0
 %{_libdir}/libgiac.a
 %{_libdir}/libmicropython.a
 %{_libdir}/libxcas.a
@@ -458,6 +457,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Tue Jan 10 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.35-1
+- Update to 1.9.0 sub-35
+
 * Sun Jan 08 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.29-3
 - Disable LTO flags
 

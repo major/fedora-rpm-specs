@@ -1,5 +1,5 @@
 Name:           jmol
-Version:        14.32.81
+Version:        14.32.83
 Release:        1%{?dist}
 Summary:        Java viewer for chemical structures in 3D
 
@@ -212,6 +212,9 @@ cd ../..
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 14.32.83-1
+- Version 14.32.83
+
 * Fri Nov 25 2022 Jerry James <loganjerry@gmail.com> - 14.32.81-1
 - Version 14.32.81
 - Drop -lock patch

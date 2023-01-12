@@ -2,7 +2,7 @@
 
 Name:           ike-scan
 Version:        1.9.4
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        IKE protocol tool to discover, fingerprint and test IPsec VPN servers
 
 License:        GPLv3+
@@ -18,6 +18,8 @@ BuildRequires: make
 
 Patch1: ike-scan-memleak.patch
 Patch2: ike-scan-vid.patch
+Patch3: ike-scan-configure-c99-1.patch
+Patch4: ike-scan-configure-c99-2.patch
 
 %description
 ike-scan is a command-line tool that uses the IKE protocol to discover,
@@ -47,6 +49,9 @@ autoreconf -s -i
 
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 1.9.4-35
+- Apply upstream patches for C99 compatibility issues
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

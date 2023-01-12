@@ -11,11 +11,11 @@
 %endif
 
 # The source directory.
-%global source_directory 2.1-development
+%global source_directory 2.2-stable
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.1.12
+Version:       2.2.0
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -268,10 +268,12 @@ export LIBGUESTFS_TRACE=1
 # The built in tests take a very long time to run under TCG (in Koji),
 # so just perform a very simple conversion to check things are
 # working.
-make -C test-data/phony-guests windows.img
-./run virt-v2v -v -x -i disk test-data/phony-guests/windows.img -o null
-make -C test-data/phony-guests fedora.img
-./run virt-v2v -v -x -i disk test-data/phony-guests/fedora.img -o null
+for f in windows.img fedora.img; do
+    make -C test-data/phony-guests $f
+    if -s test-data/phony-guests/$f; then
+        ./run virt-v2v -v -x -i disk test-data/phony-guests/$f -o null
+    fi
+done
 %endif
 
 
@@ -317,6 +319,9 @@ make -C test-data/phony-guests fedora.img
 
 
 %changelog
+* Tue Jan 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.2.0-1
+- New stable branch version 2.2.0
+
 * Fri Jan 06 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.1.12-1
 - New upstream development version 2.1.12
 - Add release notes for future virt-v2v 2.2

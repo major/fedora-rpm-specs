@@ -15,7 +15,7 @@
 Name:          eom
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       8%{?dist}
+Release:       9%{?dist}
 %else
 Release:       0.16%{?git_rel}%{?dist}
 %endif
@@ -36,6 +36,8 @@ Patch1:        eom_0001-Add-support-for-libexif-0.6.14.patch
 Patch2:        eom_0002-Accessibility-add-proper-mnemonic-relations-and-labe.patch
 # https://github.com/mate-desktop/eom/commit/8b7333e
 Patch3:        eom_0003-eom-window-fix-warning-incompatible-pointer-types.patch
+# https://github.com/mate-desktop/eom/pull/340
+Patch4:        eom_0004-Fix-building-with-ImageMagick-7.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
@@ -139,6 +141,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Tue Jan 10 2023 Robert Scheck <robert@fedoraproject.org> - 1.26.0-9
+- Fix building with ImageMagick 7 (#2159313)
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.26.0-8
 - Rebuild for ImageMagick 7
 

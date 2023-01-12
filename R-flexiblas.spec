@@ -2,8 +2,8 @@
 %global rlibdir %{_libdir}/R/library
 
 Name:           R-%{packname}
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.3.0
+Release:        %autorelease
 Summary:        FlexiBLAS API Interface for R
 
 License:        GPLv3+
@@ -53,30 +53,4 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/libs
 %{rlibdir}/%{packname}/tinytest
 
-%changelog
-* Thu Aug  4 2022 Tom Callaway <spot@fedoraproject.org> - 3.1.0-3
-- rebuild for R 4.2.1
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Feb 26 2022 Iñaki Úcar <iucar@fedoraproject.org> - 3.1.0-1
-- Update to 3.1.0
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 03 2022 Iñaki Úcar <iucar@fedoraproject.org> - 3.0.0-5
-- Fix test
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jun  7 2021 Tom Callaway <spot@fedoraproject.org> - 3.0.0-3
-- Rebuilt for R 4.1.0
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Sep 29 2020 Iñaki Úcar <iucar@fedoraproject.org> - 3.0.0-1
-- Initial Fedora package
+%autochangelog

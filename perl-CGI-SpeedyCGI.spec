@@ -9,7 +9,7 @@
 Summary:        Speed up perl scripts by running them persistently
 Name:           perl-CGI-SpeedyCGI
 Version:        2.22
-Release:        48%{?dist}
+Release:        49%{?dist}
 License:        GPLv3+
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/modules/by-authors/id/H/HO/HORROCKS/%{pkgname}-%{version}.tar.gz
@@ -24,6 +24,7 @@ Patch6:         perl-CGI-SpeedyCGI-2.22-c99_inline.patch
 Patch7:         CGI-SpeedyCGI-2.22-Fix-building-on-Perl-without-dot-in-INC.patch
 # Fix building with GCC 10, bug #1793916, CPAN RT#131596
 Patch8:         CGI-SpeedyCGI-2.22-Fix-building-with-GCC-10.patch
+Patch9:         perl-CGI-SpeedyCGI-c99.patch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -67,6 +68,7 @@ perl scripts for web application persistently to make them more quickly.
 %patch6 -p1 -b .c99_inline
 %patch7 -p1 -b .inc
 %patch8 -p1 -b .gcc10
+%patch9 -p1 -b .c99
 
 %build
 sed -i 's@apxs -@%{_httpd_apxs} -@g' Makefile.PL src/SpeedyMake.pl \
@@ -104,6 +106,9 @@ install -D -p -m 644 10-speedycgi.conf $RPM_BUILD_ROOT%{_httpd_modconfdir}/10-sp
 %config(noreplace) %{_httpd_modconfdir}/*.conf
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 2.22-49
+- C99 compatibility fix
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

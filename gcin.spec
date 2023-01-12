@@ -1,6 +1,6 @@
 Name:              gcin
 Version:           2.9.0
-Release:           8%{?dist}
+Release:           9%{?dist}
 Summary:           An input method focused on Chinese users
 #Main program is LGPLv2;
 #eggtrayicon.cpp eggtrayicon.h are LGPLv2+;
@@ -11,6 +11,7 @@ URL:               http://hyperrate.com/dir.php?eid=67
 Source0:           http://hyperrate.com/gcin-source/%{name}-%{version}.tar.xz
 Source1:           %{name}.conf
 Patch0:            0002-Fix-FTBFS-on-big-endian.patch
+Patch1:            0003-C99-Fixes.patch
 BuildRequires:     gcc-c++
 BuildRequires:     anthy-devel
 BuildRequires:     desktop-file-utils
@@ -120,9 +121,8 @@ BuildArch:         noarch
 This package contains table engines for %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 sed -i.strip -e 's|install[ \t][ \t]*-s|install|' Makefile
-%patch0 -p1
 find . -type f -executable -regex ".*\.\(cpp\|h\)" -exec chmod 0644 "{}" \;
 
 %build
@@ -212,6 +212,9 @@ fi
 %{_datadir}/%{name}/table/
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 2.9.0-9
+- Fix various C99 compliance issues.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

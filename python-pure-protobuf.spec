@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python implementation of Protocol Buffers data types with dataclasses support
 
 License:        MIT
@@ -16,7 +16,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(setuptools)
-%if 0%{?rhel}
+%if 0%{?el8}
 BuildRequires:  python3dist(dataclasses)
 %endif
 
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Tue Jan 10 2023 Diego Herrera <dherrera@redhat.com> - 2.0.1-7
+- Filter unneeded dependency for EPEL9
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

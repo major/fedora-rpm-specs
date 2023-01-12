@@ -1,8 +1,8 @@
 %global github_name FeatherPad
 
 Name:           featherpad
-Version:        1.3.4
-Release:        1%{?dist}
+Version:        1.3.5
+Release:        2%{?dist}
 Summary:        Lightweight Qt5 Plain-Text Editor
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Mon Jan 09 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.5-2
+- Update to 1.3.5 rhbz#2159098
+
 * Mon Dec 12 2022 Jonathan Wright <jonathan@almalinux.org> - 1.3.4-1
 - Update to 1.3.4 rhbz#2149791
 

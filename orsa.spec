@@ -1,6 +1,6 @@
 Name:			orsa
 Version:		0.7.0
-Release:		58%{?dist}
+Release:		59%{?dist}
 Summary:		Orbit Reconstruction, Simulation and Analysis
 
 License:		GPLv2+ 
@@ -27,6 +27,7 @@ Patch2:			orsa-file.patch
 Patch3:                 orsa-gsl-2.patch
 
 Patch4:                 orsa-linking.patch
+Patch5: orsa-configure-c99.patch
 
 # Files copied in from rpm-build-4.15.1 since they are gone in later versions.
 Source2:                config.guess
@@ -232,6 +233,9 @@ rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 %doc DEVELOPERS ORSA_MPI
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.7.0-59
+- Port configure script to C99
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.0-58
 - Rebuild for gsl-2.7.1
 

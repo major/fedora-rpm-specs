@@ -2,8 +2,8 @@
 %global owner aio-libs
 
 Name:       python-%{sname}
-Version:    0.7.2
-Release:    3%{?dist}
+Version:    0.8.0
+Release:    1%{?dist}
 Summary:    Asyncio client for Kafka
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -46,5 +46,8 @@ AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings -k 'not test_read_write_serde
 %doc README.rst
 
 %changelog
+* Tue Jan 10 2023 Italo Garcia <italo.garcia@aiven.io> - 0.8.0-1
+- Update to version 0.8.0
+
 * Tue Jul 12 2022 Italo Garcia <italo.garcia@aiven.io> - 0.7.2-1
 - Initial package

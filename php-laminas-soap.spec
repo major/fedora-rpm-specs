@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-soap
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1d3a45071b098062b97ff05b68523fb2fe322f9b
+%global gh_commit    127de3d876b992a6327c274b15df6de26d7aa712
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-soap
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.11.1
+Version:        2.12.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -41,23 +41,23 @@ BuildRequires:  php-libxml
 BuildRequires:  php-pcre
 BuildRequires:  php-soap
 BuildRequires:  php-spl
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-server)               >= 2.11    with php-autoloader(%{gh_owner}/laminas-server)               < 3)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1   with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-server)               >= 2.15    with php-autoloader(%{gh_owner}/laminas-server)               < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.16    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10    with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.4",
-#        "laminas/laminas-config": "^3.7",
-#        "laminas/laminas-http": "^2.15",
+#        "laminas/laminas-coding-standard": "~2.5",
+#        "laminas/laminas-config": "^3.8",
+#        "laminas/laminas-http": "^2.18",
 #        "phpspec/prophecy-phpunit": "^2.0.1",
-#        "phpunit/phpunit": "^9.5.5",
-#        "psalm/plugin-phpunit": "^0.18.3",
+#        "phpunit/phpunit": "^9.5.27",
+#        "psalm/plugin-phpunit": "^0.18.4",
 #        "vimeo/psalm": "^4.30"
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.7     with php-autoloader(%{gh_owner}/laminas-config)               < 4)
-BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.15    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-config)               >= 3.8     with php-autoloader(%{gh_owner}/laminas-config)               < 4)
+BuildRequires: (php-autoloader(%{gh_owner}/laminas-http)                 >= 2.18    with php-autoloader(%{gh_owner}/laminas-http)                 < 3)
 BuildRequires: (php-composer(phpspec/prophecy-phpunit)                   >= 2.0.1   with php-composer(phpspec/prophecy-phpunit)                   < 3)
 %global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.5.5
+BuildRequires:  phpunit9 >= 9.5.27
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -66,16 +66,16 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
 #        "ext-dom": "*",
 #        "ext-soap": "*",
-#        "laminas/laminas-server": "^2.11",
-#        "laminas/laminas-stdlib": "^3.6",
-#        "laminas/laminas-uri": "^2.9.1",
+#        "laminas/laminas-server": "^2.15",
+#        "laminas/laminas-stdlib": "^3.16",
+#        "laminas/laminas-uri": "^2.10",
 Requires:       php(language) >= 8.0
 Requires:       php-dom
 Requires:       php-soap
 %if ! %{bootstrap}
-Requires:      (php-autoloader(%{gh_owner}/laminas-server)               >= 2.11    with php-autoloader(%{gh_owner}/laminas-server)               < 3)
-Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.6     with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
-Requires:      (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.9.1   with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
+Requires:      (php-autoloader(%{gh_owner}/laminas-server)               >= 2.15    with php-autoloader(%{gh_owner}/laminas-server)               < 3)
+Requires:      (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.16    with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
+Requires:      (php-autoloader(%{gh_owner}/laminas-uri)                  >= 2.10    with php-autoloader(%{gh_owner}/laminas-uri)                  < 3)
 Requires:      (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.1     with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "suggest": {
 #        "ext-curl": "Curl is required when .NET compatibility is required",
@@ -190,6 +190,12 @@ exit $ret
 
 
 %changelog
+* Tue Jan 10 2023 Remi Collet <remi@remirepo.net> - 2.12.0-1
+- update to 2.12.0
+- raise dependency on laminas-server 2.15
+- raise dependency on laminas-stdlib 3.16
+- raise dependency on laminas-uri 2.10
+
 * Mon Nov 21 2022 Remi Collet <remi@remirepo.net> - 2.11.1-1
 - update to 2.11.1 (no change)
 - raise dependency on PHP 8.0

@@ -1,7 +1,7 @@
 Name:           mopac7
 Summary:        Semi-empirical quantum mechanics suite
 Version:        1.15
-Release:        39%{?dist}
+Release:        40%{?dist}
 License:        Public Domain
 URL:            http://sourceforge.net/projects/mopac7/
 Source0:        http://bioinformatics.org/ghemical/download/current/mopac7-%{version}.tar.gz
@@ -38,6 +38,9 @@ perl -pi -e "s#-lg2c##g" libmopac7.pc.in
 
 %build
 autoreconf -fiv
+# The f2c-generated sources are not compatible with C99.
+%set_build_flags
+CFLAGS="$CFLAGS -std=gnu89"
 %configure --disable-static
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -74,6 +77,9 @@ find tests -name 'Makefile*' -delete -print
 %{_libdir}/pkgconfig/libmopac7.pc
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 1.15-40
+- Build in C89 mode (#2159702)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

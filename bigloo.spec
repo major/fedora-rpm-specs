@@ -1,26 +1,12 @@
 # The hardened build breaks bigloo's plugin architecture.
 %undefine _hardened_build
 
-# With LTO enabled, we get errors of this form while building BDE:
-# lib/alloc.c:1138:1: error: variable '____make_va_procedure' redeclared as function
-#  1138 | WRAPPER( make_va_procedure, PROCEDURE_TYPE_NUM, (obj_t (*e)(), int a, int s), ((void *(*)())e, a, s) )
-#       | ^
-# lib/init.c:103:9: note: previously declared here
-#   103 | void *(*____make_va_procedure)( void *(*)(), int, int );
-#       |         ^
-#
-# The WRAPPER macro uses its first argument to create the name of a function.
-# Hence, in this case, the function has name "make_va_procedure" and the
-# variable has name "____make_va_procedure", yet LTO thinks they are the same
-# symbol.  Until this can be resolved, disable LTO.
-%global _lto_cflags %{nil}
-
 # Bigloo uses the terminology "release" for what Fedora calls version,
 # and "version" for a sub-version revision.
 # patch_suffix is defined to be empty when patch_ver is not defined,
 # so that when updating, the Source and %%setup lines do not have to be
 # changed, only the Version and patch_ver
-%global patch_ver 4
+%global patch_ver 1
 %global patch_suffix %{?patch_ver:-%{patch_ver}}
 
 # prerelease
@@ -33,17 +19,21 @@
 
 # Bigloo has a customized copy of gc
 %bcond_without  customgc
-%global         bundledgc 8.0.4
+%global         bundledgc 8.2.2
+
+# Bigloo bundles libbacktrace, which is intended to be a copylib
+%bcond_without  customlbt
+%global         bundlelbt 1.0.20210529
 
 Name:           bigloo
-Version:        4.4c
-Release:        9%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
+Version:        4.5a
+Release:        1%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
 # The runtime system and libraries are LGPL-2.0-or-later.
 # Exceptions:
-# - examples/Socket/socket.scm is some unknown form of BSD (FIXME)
+# - examples/Socket/socket.scm is some unknown form of BSD (not packaged)
 # - runtime/Unsafe/sha2.scm is BSD-3-Clause
 # - api/packrat/src/Llib/json.scm is MIT
 # - api/packrat/src/Llib/packrat.scm is MIT
@@ -72,11 +62,8 @@ Patch7:         %{name}-javac.patch
 Patch8:         %{name}-return.patch
 # Fix signal numbers in the Java code
 Patch9:         %{name}-java-signum.patch
-# Allow building with Emacs 28
-Patch10:        %{name}-emacs28.patch
-
-Patch11:        %{name}-configure-c99.patch
-Patch12:        %{name}-bde-bmem-c99.patch
+# Migrate K&R C in the config scripts to ANSI C
+Patch10:        %{name}-configure-c99.patch
 
 BuildRequires:  emacs
 BuildRequires:  gcc
@@ -88,6 +75,9 @@ BuildRequires:  java-devel
 BuildRequires:  javapackages-tools
 %endif
 BuildRequires:  libtool
+%if %{without customlbt}
+BuildRequires:  libbacktrace-devel
+%endif
 BuildRequires:  libunistring-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig
@@ -103,7 +93,7 @@ BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
 BuildRequires:  pkgconfig(libmpg123)
-BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libpcre2-8)
 #BuildRequires:  pkgconfig(libphidget22)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libuv)
@@ -136,6 +126,12 @@ Requires:       libuv-devel%{?_isa}
 Provides:       bundled(gc) = %{bundledgc}
 %endif
 
+%if %{with customlbt}
+Provides:       bundled(libbacktrace) = %{bundlelbt}
+%global __provides_exclude libbacktrace.*
+%global __requires_exclude libbacktrace.*
+%endif
+
 %description
 Bigloo is a Scheme implementation devoted to one goal: enabling a Scheme
 based programming style where C(++) is usually required.  Bigloo
@@ -166,8 +162,11 @@ environment.
 %prep
 %autosetup -p0 -n %{name}-%{version}%{?patch_suffix}
 
+# Remove an example with a dubious license
+rm -fr examples/Socket
+
 # encoding fixes
-for f in README.md examples/Socket/socket.scm; do
+for f in README.md; do
   iconv -f ISO8859-1 -t UTF8 $f | sed 's/=ISO-8859-1/=UTF-8/' > $f.utf8
   touch -r $f $f.utf8
   mv -f $f.utf8 $f
@@ -221,6 +220,11 @@ export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
 %else
         --customgc=no \
 %endif
+%if %{with customlbt}
+        --customlibbacktrace=yes \
+%else
+        --customlibbacktrace=no \
+%endif
         --coflags="$CFLAGS" \
         --cpicflags="-fPIC" \
         --sharedbde=yes \
@@ -234,12 +238,17 @@ export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
 # Remove extraneous rpath
 sed -i '/^RPATH=/s,\$(DESTDIR).*:,,' Makefile.config
 
+%if %{with customlbt}
+# Fix broken link line for the bundled libbacktrace
+sed -i 's/-llibbacktrace/$(LDBUILDOPTS) -lbacktrace/' Makefile.config
+%endif
+
 # _smp_mflags breaks the build
-env LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} make
-env LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
+LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} make
+LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
     BIGLOOLIB=%{inplace}%{_libdir}/bigloo/%{version} \
     make DESTDIR=%{inplace} install
-env LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
+LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
     PATH=$PWD/bin:$PATH \
     BIGLOOLIB=%{inplace}%{_libdir}/bigloo/%{version} \
     make compile-bee
@@ -307,12 +316,17 @@ make test
 
 
 %files
-%{_bindir}/*
+%{_bindir}/bdb
+%{_bindir}/bgl*
+%{_bindir}/bigloo*
+%{_bindir}/cigloo
 %ifarch %{java_arches}
 %{_javadir}/jigloo.class
 %endif
-%{_infodir}/*
-%{_mandir}/man*/*
+%{_infodir}/bdb.info*
+%{_infodir}/bigloo.info*
+%{_mandir}/man1/bgl*
+%{_mandir}/man1/bigloo.1*
 %{_emacs_sitelispdir}/bigloo/
 %{_emacs_sitestartdir}/bigloo.el
 %doc ChangeLog Makefile.config examples
@@ -330,6 +344,11 @@ make test
 
 
 %changelog
+* Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 4.5a-1.1
+- Version 4.5a-1
+- Drop upstreamed patches: emacs28, bde-bmem-c99
+- Minor spec file cleanups
+
 * Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 4.4c-9.4
 - Minor fixes for C99 compatibility
 

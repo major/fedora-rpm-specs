@@ -310,7 +310,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 2
+%global baserelease 3
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -336,7 +336,9 @@ Source36: README.tests
 # Fix SGX assert
 Patch: 0001-target-i386-the-sgx_epc_get_section-stub-is-reachabl.patch
 Patch: 0001-tests-Disable-pci_virtio_vga-for-ppc64.patch
-Patch: 0010-Skip-iotests-entirely.patch
+# Fix compat with kernel-headers >= 6.1
+Patch: 0003-Revert-linux-user-add-more-compat-ioctl-definitions.patch
+Patch: 0004-Revert-linux-user-fix-compat-with-glibc-2.36-sys-mou.patch
 
 BuildRequires: meson >= %{meson_version}
 BuildRequires: zlib-devel
@@ -2744,6 +2746,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Tue Jan 10 2023 Daniel P. Berrangé <berrange@redhat.com> - 7.2.0-3
+- Fix compat with linux > 6.1 headers
+- Re-enable iotests
+
 * Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 2:7.2.0-2
 - Rebuild for xen-4.17.0
 

@@ -2,7 +2,7 @@
 
 Name:           rpc2
 Version:        2.10
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        C library for remote procedure calls over UDP
 License:        LGPLv2
 URL:            http://www.coda.cs.cmu.edu/
@@ -12,6 +12,7 @@ Patch0:		rpc2-2.10-lua-5.2-fix.patch
 Patch1:		rpc2-2.10-format-security-fix.patch
 Patch2:		rpc2-2.10-lua-5.4.patch
 Patch3:		rpc2-2.10-rp2gen-cflags.patch
+Patch4:		rpc2-c99.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  lwp-devel lua-devel flex bison
@@ -35,6 +36,7 @@ developing applications that use %{name}.
 %patch1 -p1 -b .format-security
 %patch2 -p1 -b .lua54
 %patch3 -p1 -b .cflags
+%patch4 -p1 -b .c99
 
 %build
 %configure --disable-static --with-lua
@@ -61,6 +63,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 2.10-30
+- C99 compatibility fixes
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

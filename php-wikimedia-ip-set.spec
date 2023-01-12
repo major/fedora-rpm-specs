@@ -1,7 +1,7 @@
 
 Name:		php-wikimedia-ip-set
-Version:	3.0.0
-Release:	4%{?dist}
+Version:	3.1.0
+Release:	1%{?dist}
 Summary:	Library to match IP addresses against CIDR specifications
 
 License:	GPLv2+
@@ -12,7 +12,7 @@ BuildArch:	noarch
 
 BuildRequires:	php-theseer-autoload
 
-Requires:	php(language) >= 5.3.0
+Requires:	php(language) >= 7.2.9
 Requires:	php-ctype
 Requires:	php-spl
 
@@ -43,6 +43,9 @@ cp -rp src/* %{buildroot}%{_datadir}/php/IPSet
 
 
 %changelog
+* Tue Jan 10 2023 Michael Cronenworth <mike@cchtml.com> - 3.1.0-1
+- version update
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

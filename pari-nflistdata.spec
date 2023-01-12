@@ -1,15 +1,17 @@
-# md5sum is given on the download page
-%global md5sum  227029dc39aea52bbf7909fb47583798
-
 Name:           pari-nflistdata
-Version:        20220326
-Release:        2%{?dist}
+Version:        20220729
+Release:        1%{?dist}
 Summary:        PARI/GP Computer Algebra System nflist extensions
 License:        GPL-2.0-or-later
 URL:            https://pari.math.u-bordeaux.fr/packages.html
 Source0:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nflistdata.tgz
+Source1:        https://pari.math.u-bordeaux.fr/pub/pari/packages/nflistdata.tgz.asc
+# Public key 0x4522e387, Bill Allombert <Bill.Allombert@math.u-bordeaux.fr>
+Source2:        gpgkey-42028EA404A2E9D80AC453148F0E7C2B4522E387.gpg
 
 BuildArch:      noarch
+
+BuildRequires:	gnupg2
 
 %description
 This package is needed by nflist to list fields of small discriminant
@@ -18,7 +20,7 @@ extensions of Q(T) in degree larger than 7.
 
 %prep
 # Verify the source file
-test $(md5sum %{SOURCE0} | cut -d' ' -f1) = %{md5sum}
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 
 %autosetup -n data
 
@@ -37,6 +39,10 @@ cp -a nflistdata %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 20220729-1
+- Version 20220729
+- Check PGP signature on the source tarball
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20220326-2
 - Convert License tag to SPDX
 

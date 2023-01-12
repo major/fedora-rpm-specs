@@ -138,8 +138,12 @@ BuildRequires: libicu-devel >= 5.4
 %global bundleminizip 1
 %endif
 
-# disable qt by default
+# enable qt backend for el >= 9 and fedora >= 35
+%if 0%{?rhel} >= 9 || 0%{?fedora} >=35
+%global use_qt 1
+%else
 %global use_qt 0
+%endif
 
 # enable gtk3 by default
 %global gtk3 1
@@ -212,7 +216,7 @@ BuildRequires: libicu-devel >= 5.4
 
 Name:	chromium%{chromium_channel}
 Version: 108.0.5359.124
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -372,11 +376,15 @@ Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 # build failure on rhel and fedora 36
 Patch120: chromium-108-clang14-c++20-link-error.patch
 
+# enable Qt
+Patch121: chromium-108-enable-allowqt.patch
+
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
 Patch206: chromium-108-ozone-wayland-vaapi-support.patch
+Patch207: chromium-108-vaapi-guard-vaapivideodecoder.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -464,6 +472,11 @@ BuildRequires:	fontconfig-devel
 BuildRequires:	glib2-devel
 BuildRequires:	glibc-devel
 BuildRequires:	gperf
+
+%if 0%{?use_qt}
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Widgets)
+%endif
 
 %if ! 0%{?bundleharfbuzz}
 BuildRequires:	harfbuzz-devel >= 2.4.0
@@ -701,7 +714,9 @@ Source115: https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSans
 BuildRequires:	ninja-build
 
 # Yes, java is needed as well..
+%if 0%{?build_headless}
 BuildRequires:	java-1.8.0-openjdk-headless
+%endif
 
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
@@ -1029,6 +1044,11 @@ udev.
 %patch202 -p1 -b .accel-mjpeg
 %patch205 -p1 -b .vaapi-intel-fix
 %patch206 -p1 -b .wayland-vaapi
+%patch207 -p1 -b .guard-vaapiVideoDecoder
+%endif
+
+%if 0%{?use_qt}
+%patch121 -p1 -b .enable-allowqt
 %endif
 
 %if 0%{?rhel} >= 8
@@ -1152,6 +1172,9 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 
 # reduce debuginfos
 sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
+
+# change moc to moc-qt5 for fedora
+sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 
 %build
 # Turning the buildsystem up to 11.
@@ -1427,7 +1450,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 pushd %{builddir}
 	cp -a chrom*.pak resources.pak icudtl.dat %{buildroot}%{chromium_path}
 	cp -a locales/*.pak %{buildroot}%{chromium_path}/locales/
-	%ifarch x86_64 i686 aarch64
+	%ifarch x86_64 aarch64
 		cp -a libvk_swiftshader.so %{buildroot}%{chromium_path}
 		strip %{buildroot}%{chromium_path}/libvk_swiftshader.so
 		cp -a libvulkan.so.1 %{buildroot}%{chromium_path}
@@ -1457,18 +1480,19 @@ pushd %{builddir}
 	strip %{buildroot}%{chromium_path}/libEGL.so
 	strip %{buildroot}%{chromium_path}/libGLESv2.so
 
+	%if 0%{?use_qt}
+		cp -a libqt5_shim.so %{buildroot}%{chromium_path}
+		strip %{buildroot}%{chromium_path}/libqt5_shim.so
+	%endif
+
 	%if %{build_clear_key_cdm}
-		%ifarch i686
-			cp -a ClearKeyCdm/_platform_specific/linux_x86/libclearkeycdm.so %{buildroot}%{chromium_path}
+		%ifarch x86_64
+			cp -a ClearKeyCdm/_platform_specific/linux_x64/libclearkeycdm.so %{buildroot}%{chromium_path}
 		%else
-			%ifarch x86_64
-				cp -a ClearKeyCdm/_platform_specific/linux_x64/libclearkeycdm.so %{buildroot}%{chromium_path}
+			%ifarch aarch64
+				cp -a ClearKeyCdm/_platform_specific/linux_arm64/libclearkeycdm.so %{buildroot}%{chromium_path}
 			%else
-				%ifarch aarch64
-					cp -a ClearKeyCdm/_platform_specific/linux_arm64/libclearkeycdm.so %{buildroot}%{chromium_path}
-				%else
-					cp -a libclearkeycdm.so %{buildroot}%{chromium_path}
-				%endif
+				cp -a libclearkeycdm.so %{buildroot}%{chromium_path}
 			%endif
 		%endif
 		strip %{buildroot}%{chromium_path}/libclearkeycdm.so
@@ -1633,6 +1657,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
 %{chromium_path}/xdg-mime
 %{chromium_path}/xdg-settings
+%if 0%{?use_qt}
+%{chromium_path}/libqt5_shim.so
+%endif
 %{_mandir}/man1/%{chromium_browser_channel}.*
 %{_datadir}/icons/hicolor/*/apps/%{chromium_browser_channel}.png
 %{_datadir}/applications/*.desktop
@@ -1749,6 +1776,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Jan 10 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-5
+- enable qt backend for el >= 9 and fedora >= 35
+- drop i686
+- conditional BR on java-1.8.0-openjdk-headless
+
 * Sun Jan 08 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-4
 - vaapi support for wayland
 

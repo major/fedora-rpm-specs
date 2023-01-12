@@ -1,7 +1,7 @@
 Summary: RADIUS protocol client library
 Name: freeradius-client
 Version: 1.1.7
-Release: 26%{?dist}
+Release: 27%{?dist}
 # For a breakdown of the licensing, see PACKAGE-LICENSING 
 License: BSD and MIT
 URL: http://freeradius.org/freeradius-client/
@@ -11,9 +11,10 @@ Source2: PACKAGE-LICENSING
 Source3: dictionary
 Patch1: freeradius-client-1.1.7-size_t.patch
 Patch2: freeradius-client-1.1.7-ipv6-attr-fix.patch
+Patch3: freeradius-client-1.1.7-autoconf-c99.patch
 
 BuildRequires: gcc
-BuildRequires: make
+BuildRequires: make automake autoconf libtool
 BuildRequires: nettle-devel >= 2.7.1
 
 %description
@@ -46,9 +47,11 @@ sed -i -e 's|sys_lib_dlsearch_path_spec="[^"]\+|& %{_libdir}|g' configure
 
 %patch1 -p1 -b .size_t
 %patch2 -p1 -b .attr
+%patch3 -p1 -b .autoconf-c99
 
 %build
 
+autoreconf -vi
 %configure --disable-static --disable-rpath --with-nettle
 make %{?_smp_mflags}
 
@@ -101,6 +104,9 @@ cp %{SOURCE3} %{buildroot}%{_datadir}/radiusclient/dictionary
 %{_sbindir}/radembedded
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 1.1.7-27
+- Add return type to main for autoconf check for C99 compliance and add autoreconf step to build.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

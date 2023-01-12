@@ -3,7 +3,7 @@
 Summary:    X.Org X11 X Window System xinit startup scripts
 Name:       xorg-x11-%{pkgname}
 Version:    1.4.0
-Release:    15%{?dist}
+Release:    16%{?dist}
 License:    MIT
 URL:        https://www.x.org
 
@@ -119,6 +119,9 @@ install -p -m644 -D %{SOURCE18} $RPM_BUILD_ROOT%{_datadir}/xsessions/xinit-compa
 %{_datadir}/xsessions/xinit-compat.desktop
 
 %changelog
+* Tue Jan 10 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.4.0-16
+- include MATE in Xclients fallback logic (#1517597)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

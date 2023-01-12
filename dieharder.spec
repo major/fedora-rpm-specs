@@ -1,13 +1,14 @@
 Summary:        Random number generator tester and timer
 Name:           dieharder
 Version:        3.31.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 License:        GPLv2+
 Source0:        http://www.phy.duke.edu/~rgb/General/%{name}/%{name}-%{version}.tgz
 URL:            http://www.phy.duke.edu/~rgb/General/dieharder.php
 Patch0:         dieharder-3.31.1_urandom_64bit.patch 
 Patch1:         dieharder-3.31.1_aarch64.patch
 Patch2:         dieharder-3.31.1_BZ1100855.patch
+Patch3:         dieharder-3.31.1_autoconf_c99.patch
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -17,7 +18,7 @@ BuildRequires:  texlive-latex
 BuildRequires:  latex2html
 
 BuildRequires:  gsl-devel
-BuildRequires: make
+BuildRequires: make automake autoconf libtool
 
 %define _legacy_common_support 1
 
@@ -78,12 +79,10 @@ Development files for %{name}
 # The main section common to all builds.
 ########################################################################
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -p1
 
 %build
+autoreconf -vi
 %configure
 ###SMP build is not working
 ###make %{?_smp_mflags} V=1
@@ -130,6 +129,9 @@ cp -p ChangeLog Copyright README COPYING NOTES %{name}.html manual/%{name}.pdf %
 %{_libdir}/*.so
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 3.31.1-34
+- Port autoconf check to C99 and add autoreconf to build.
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.31.1-33
 - Rebuild for gsl-2.7.1
 

@@ -1,6 +1,6 @@
 Name:           dd2
 Version:        0.2.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Dodgin' Diamond 2 - Shoot'em up arcade game
 License:        GPLv2+
 URL:            http://www.usebox.net/jjm/dd2/
@@ -9,6 +9,7 @@ Source1:        %{name}.desktop
 Source2:        %{name}.png
 Patch0:         dd2-0.2.1-glob-highscore.patch
 Patch1:         dd2-0.2.1-640x480-fullscreen.patch
+Patch2:         dd2-0.2.2-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  SDL_mixer-devel desktop-file-utils
 BuildRequires: make
@@ -25,6 +26,7 @@ power.
 %setup -q
 %patch0 -p1 -z .highscore
 %patch1 -p1 -z .fs
+%patch2 -p1 -z .configure-c99
 #stop autoxxx from rerunning
 touch src/data/Makefile.in
 
@@ -63,6 +65,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 0.2.2-31
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,13 @@
 Name:           dhcping
 Version:        1.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        DHCP daemon ping program
 
 License:        MIT
 URL:            http://www.mavetju.org/unix/general.php
 Source0:        http://www.mavetju.org/download/%{name}-%{version}.tar.gz
 Patch0:         dhcping-aarch64.patch
+Patch1:         dhcping-configure-c99.patch
 
 Buildrequires:  gcc
 BuildRequires: make
@@ -18,6 +19,7 @@ server is still functioning.
 %prep
 %setup -q
 %patch0 -p1 -b .aarch64
+%patch1 -p1 -b .configure-c99
 
 %build
 %configure
@@ -33,6 +35,9 @@ server is still functioning.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 1.2-30
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

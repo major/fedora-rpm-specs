@@ -2,7 +2,7 @@
 %global libname lib%{appname}
 
 Name: libquotient
-Version: 0.7.0
+Version: 0.7.1
 Release: 1%{?dist}
 
 License: LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/%{libname}.so
 
 %changelog
+* Tue Jan 10 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.1-1
+- Updated to version 0.7.1.
+
 * Tue Dec 20 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.0-1
 - Updated to version 0.7.0.
 - Enabled E2EE support.

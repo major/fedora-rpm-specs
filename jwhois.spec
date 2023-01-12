@@ -2,7 +2,7 @@
 
 Name: jwhois
 Version: 4.0
-Release: 71%{?dist}
+Release: 72%{?dist}
 URL: http://www.gnu.org/software/jwhois/
 Source0: ftp://ftp.gnu.org/gnu/jwhois/jwhois-%{version}.tar.gz
 Source1: https://raw.githubusercontent.com/robert-scheck/jwhois/2bd561e06ca37cf6c2ef9f0a2e957e09f58e6972/example/jwhois.conf
@@ -16,6 +16,8 @@ Patch7: jwhois-4.0-idna.patch
 Patch8: jwhois-4.0-idnfail.patch
 # Patch9: adds options to force querying on ipv4 or ipv6, see rhbz#1551215
 Patch9: jwhois-4.0-ipv4_ipv6.patch
+Patch10: jwhois-configure-c99.patch
+Patch11: jwhois-c99.patch
 License: GPLv3
 Summary: Internet whois/nicname client
 BuildRequires: gcc, libidn2-devel, autoconf, automake
@@ -47,6 +49,8 @@ A whois client that accepts both traditional and finger-style queries.
 %patch7 -p1 -b .idna
 %patch8 -p1 -b .idnfail
 %patch9 -p1 -b .ipv4_ipv6
+%patch10 -p1
+%patch11 -p1
 
 iconv -f iso-8859-1 -t utf-8 < doc/sv/jwhois.1 > doc/sv/jwhois.1_
 mv doc/sv/jwhois.1_ doc/sv/jwhois.1
@@ -130,6 +134,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 4.0-72
+- C99 compatibility fixes
+
 * Thu Dec 29 2022 Tommy Surbakti <tommy@surbakti.net> - 4.0-71
 - Update jwhois.conf for .id ccTLD
 

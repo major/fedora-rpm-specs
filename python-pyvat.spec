@@ -2,8 +2,8 @@
 %global owner iconfinder
 
 Name:       python-%{sname}
-Version:    1.3.16
-Release:    2%{?dist}
+Version:    1.3.17
+Release:    1%{?dist}
 Summary:    VAT validation and calculation for Python
 License:    ASL 2.0
 Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{version}.tar.gz
@@ -51,6 +51,9 @@ Iconfinder's marketplace to handle just this problem.
 %doc README.rst
 
 %changelog
+* Tue Jan 10 2023 Italo Garcia <italo.garcia@aiven.io> - 1.3.17-1
+- Update to 1.3.17
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.16-2
 - Drop support for i686
 

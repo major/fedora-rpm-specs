@@ -3,13 +3,14 @@
 
 Name: xpa
 Version: 2.1.19
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: The X Public Access messaging system
 
 License: MIT
 URL: http://hea-www.harvard.edu/RD/xpa/
 Source0: https://github.com/ericmandel/xpa/archive/v%{version}.tar.gz
 Patch0: xpa-makefile.patch
+Patch1: xpa-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -59,8 +60,7 @@ BuildArch: noarch
 This package contains the documentation for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}
-%patch0 -p1
+%autosetup -p1 -n %{name}-%{version}
 # Remove ps files in html docs
 rm -rf %{_builddir}/%{name}-%{version}/doc/*.ps
 
@@ -110,6 +110,9 @@ mv %{buildroot}%{_libdir}/libtcl* %{buildroot}%{tcl_sitearch}/tclxpa
 #%doc doc/*.pdf
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 2.1.19-9
+- Port configure script to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-inputfilter
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    ec8b923d2c6923c24e4822a9ac77b4cd0f047ad3
+%global gh_commit    e97663a756370ba8105d07dc5f4fff53b650d151
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-inputfilter
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.22.1
+Version:        2.23.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -44,15 +44,15 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-validator)            >= 2.15
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0    with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
 #        "ext-json": "*",
-#        "laminas/laminas-coding-standard": "~2.4.0",
-#        "phpunit/phpunit": "^9.5.25",
-#        "psalm/plugin-phpunit": "^0.17.0",
+#        "laminas/laminas-coding-standard": "~2.5.0",
+#        "phpunit/phpunit": "^9.5.27",
+#        "psalm/plugin-phpunit": "^0.18.4",
 #        "psr/http-message": "^1.0.1",
-#        "vimeo/psalm": "^4.28",
+#        "vimeo/psalm": "^5.4",
 #        "webmozart/assert": "^1.11"
 BuildRequires: (php-composer(psr/http-message)                           >= 1.0.1 with php-composer(psr/http-message)                           <  2)
 BuildRequires: (php-composer(webmozart/assert)                           >= 1.11  with php-composer(webmozart/assert)                           <  2)
-BuildRequires:  phpunit9 >= 9.5.24
+BuildRequires:  phpunit9 >= 9.5.27
 %endif
 # Autoloader
 BuildRequires:  php-fedora-autoloader-devel
@@ -174,6 +174,9 @@ exit $ret
 %{php_home}/%{namespace}/%{library}
 
 %changelog
+* Tue Jan 10 2023 Remi Collet <remi@remirepo.net> - 2.23.0-1
+- update to 2.23.0
+
 * Mon Nov  7 2022 Remi Collet <remi@remirepo.net> - 2.22.1-1
 - update to 2.22.1
 

@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{_libdir}/eog/plugins/.*\\.so$
 
 Name:           eog-plugins
-Version:        42.2
+Version:        42.3
 Release:        1%{?dist}
 Summary:        A collection of plugins for the eog image viewer
 
@@ -234,6 +234,9 @@ The eog slideshowshuffle plugin.
 %{_metainfodir}/eog-slideshowshuffle.appdata.xml
 
 %changelog
+* Sun Jan 08 2023 David King <amigadave@amigadave.com> - 42.3-1
+- Update to 42.3
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 42.2-1
 - Update to 42.2
 

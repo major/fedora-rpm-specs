@@ -24,7 +24,7 @@
 %global libedit 1
 
 %global openssh_ver 9.0p1
-%global openssh_rel 3
+%global openssh_rel 4
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
@@ -541,6 +541,9 @@ perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
 %attr(0644,root,root) %{_sysusersdir}/%{name}-server.conf
 
 %changelog
+* Tue Jan 10 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-4
+- Based on openssh-9.0p1-9.fc38
+
 * Wed Nov 09 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-3
 - Based on openssh-9.0p1-7.fc38
 

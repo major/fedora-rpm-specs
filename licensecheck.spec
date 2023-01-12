@@ -1,5 +1,5 @@
 Name:           licensecheck
-Version:        3.3.2
+Version:        3.3.3
 Release:        1%{?dist}
 Summary:        Simple license checker for source files
 
@@ -102,6 +102,9 @@ make test
 
 
 %changelog
+* Tue Jan 10 2023 Sandro Mani <manisandro@gmail.com> - 3.3.3-1
+- Update to 3.3.3
+
 * Sun Jan 08 2023 Sandro Mani <manisandro@gmail.com> - 3.3.2-1
 - Update to 3.3.2
 
